@@ -1,0 +1,109 @@
+{
+  "name": "lightning-ui",
+  "version": "0.0.0",
+  "dependencies": {
+    "wpe-lightning": "git+https://github.com/WebPlatformForEmbedded/Lightning.git#1.7.0",
+    "wpe-lightning-sdk": "github:WebPlatformForEmbedded/Lightning-SDK#2.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@commitlint/config-lerna-scopes": "^8.1.0",
+    "chalk": "^2.4.2",
+    "child_process": "^1.0.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "env-cmd": "^10.0.1",
+    "eslint": "^6.2.1",
+    "eslint-config-google": "^0.12.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-config-react-app": "^5.0.1",
+    "eslint-plugin-flowtype": "^4.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-system": "^2.2.2",
+    "fs-extra": "^8.1.0",
+    "husky": "^3.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "inquirer": "^6.5.1",
+    "jest": "^24.9.0",
+    "lerna": "^3.16.4",
+    "lint-staged": "^9.2.3",
+    "path": "^0.12.7",
+    "prettier": "^1.18.2",
+    "react-styleguidist": "^9.1.16",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.39.2",
+    "webpack-bundle-analyzer": "^3.4.1",
+    "webpack-cli": "^3.3.7",
+    "webpack-config-utils": "^2.3.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "post-merge": "npm i"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "jest --findRelatedTests"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "git add"
+    ]
+  },
+  "browserslist": [
+    "last 2 versions",
+    ">0.2%",
+    "not dead",
+    "not ie <= 10",
+    "not op_mini all"
+  ],
+  "jest": {
+    "resetModules": true,
+    "testPathIgnorePatterns": [
+      "utils"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.svg$": "<rootDir>/utils/mocks/svgTransform.js"
+    },
+    "moduleNameMapper": {
+      "^.+\\.css$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  },
+  "private": true,
+  "repository": {
+    "url": "https://github.com/chiefcll/lightning-ui"
+  },
+  "scripts": {
+    "postinstall": "npm run bootstrap",
+    "prebuild": "npm run bootstrap",
+    "build": "styleguidist build",
+    "bootstrap": "lerna bootstrap",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:css": "stylelint './components/**/*.css'",
+    "lint:js": "eslint './components/**/*.js'",
+    "lerna": "lerna",
+    "build:dist": "lerna exec rm -- -rf dist && lerna run build --stream",
+    "release": "env-cmd lerna version --no-commit-hooks",
+    "prepare": "npm run build:dist",
+    "publish": "lerna publish from-package --no-commit-hooks",
+    "new": "node utils/scripts/add-component.js",
+    "start": "styleguidist server --open",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
