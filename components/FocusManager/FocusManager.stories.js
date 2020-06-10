@@ -3,20 +3,11 @@ import FocusManager from './FocusManager';
 
 export default {
   title: 'FocusManager',
-  component: FocusManager,
-  decorators: [
-    storyFn => {
-      const options = { stage: { w: 1000, h: 500, clearColor: 0xff000000 } };
-      const App = storyFn();
-      const app = new App(options);
-
-      return app.stage.getCanvas();
-    }
-  ]
+  component: FocusManager
 };
 
 export const Rows = () =>
-  class RowExample extends lng.Application {
+  class RowExample extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -38,7 +29,7 @@ export const Rows = () =>
   };
 
 export const Columns = () =>
-  class ColumnExample extends lng.Application {
+  class ColumnExample extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -61,7 +52,7 @@ export const Columns = () =>
   };
 
 export const ColumnWithRows = () =>
-  class ColumnWithRowsExample extends lng.Application {
+  class ColumnWithRowsExample extends lng.Component {
     static _template() {
       return {
         x: 20,
