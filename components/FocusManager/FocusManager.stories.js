@@ -15,67 +15,66 @@ export default {
   ]
 };
 
-export const Rows = () => RowExample;
-export const Columns = () => ColumnExample;
-export const ColumnWithRows = () => ColumnWithRowsExample;
+export const Rows = () =>
+  class RowExample extends lng.Application {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Row: {
+          type: FocusManager,
+          direction: 'row',
+          children: [
+            { type: Button, buttonText: 'Left' },
+            { type: Button, buttonText: 'Center', x: 200 },
+            { type: Button, buttonText: 'Right', x: 400 }
+          ]
+        }
+      };
+    }
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
 
-class RowExample extends lng.Application {
-  static _template() {
-    return {
-      x: 20,
-      y: 20,
-      Row: {
-        type: FocusManager,
-        direction: 'row',
-        children: [
-          { type: Button, buttonText: 'Left' },
-          { type: Button, buttonText: 'Center', x: 200 },
-          { type: Button, buttonText: 'Right', x: 400 }
-        ]
-      }
-    };
-  }
-  _getFocused() {
-    return this.tag('Row');
-  }
-}
+export const Columns = () =>
+  class ColumnExample extends lng.Application {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: FocusManager,
+          direction: 'column',
+          children: [
+            { type: Button, buttonText: 'Top' },
+            { type: Button, buttonText: 'Middle', y: 100 },
+            { type: Button, buttonText: 'Bottom', y: 200 }
+          ]
+        }
+      };
+    }
 
-class ColumnExample extends lng.Application {
-  static _template() {
-    return {
-      x: 20,
-      y: 20,
-      Column: {
-        type: FocusManager,
-        direction: 'column',
-        children: [
-          { type: Button, buttonText: 'Top' },
-          { type: Button, buttonText: 'Middle', y: 100 },
-          { type: Button, buttonText: 'Bottom', y: 200 }
-        ]
-      }
-    };
-  }
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
 
-  _getFocused() {
-    return this.tag('Column');
-  }
-}
-
-class ColumnWithRowsExample extends lng.Application {
-  static _template() {
-    return {
-      x: 20,
-      y: 20,
-      Column: Column({
-        children: [Row(), Row({ y: 100 }), Row({ y: 200 })]
-      })
-    };
-  }
-  _getFocused() {
-    return this.tag('Column');
-  }
-}
+export const ColumnWithRows = () =>
+  class ColumnWithRowsExample extends lng.Application {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: Column({
+          children: [Row(), Row({ y: 100 }), Row({ y: 200 })]
+        })
+      };
+    }
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
 
 function Row({ y = 0 } = {}) {
   return {
