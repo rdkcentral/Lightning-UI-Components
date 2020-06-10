@@ -8,8 +8,18 @@ class StoryApp extends lng.Application {
   }
 }
 
-addDecorator(StoryComponent => {
-  const app = new StoryApp({ stage });
+/**
+ * To customize the stage use the following code:
+ * import { addParameters } from '@storybook/html';
+ * addParameters({ stage: { w: 250 } });
+ */
+addDecorator((StoryComponent, { parameters }) => {
+  const app = new StoryApp({
+    stage: {
+      ...stage,
+      ...(parameters.stage || {})
+    }
+  });
   app.children = {
     StoryComponent: {
       type: StoryComponent()
