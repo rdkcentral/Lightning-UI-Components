@@ -41,7 +41,12 @@ export default class FocusManager extends lng.Component {
     this._refocus();
     if (this.selected) {
       let direction = previousIndex < this._selectedIndex ? 'next' : 'previous';
-      this.signal('selectedChange', this.selected, this.children[previousIndex], direction);
+      this.signal(
+        'selectedChange',
+        this.selected,
+        this.children[previousIndex],
+        direction
+      );
     }
   }
 
@@ -53,8 +58,7 @@ export default class FocusManager extends lng.Component {
     if (this.selectedIndex > 0) {
       this.selectedIndex--;
       return true;
-    }
-    else if (this.wrapSelected)  {
+    } else if (this.wrapSelected) {
       this.selectedIndex = this.children.length - 1;
       return true;
     }
@@ -65,8 +69,7 @@ export default class FocusManager extends lng.Component {
     if (this.selectedIndex < this.children.length - 1) {
       this.selectedIndex++;
       return true;
-    }
-    else if (this.wrapSelected)  {
+    } else if (this.wrapSelected) {
       this.selectedIndex = 0;
       return true;
     }
@@ -74,8 +77,10 @@ export default class FocusManager extends lng.Component {
   }
 
   _getFocused() {
-    let selected = this.selected;
-    return selected && selected.focusRef ? selected.tag(selected.focusRef) : selected;
+    let { selected } = this;
+    return selected && selected.focusRef
+      ? selected.tag(selected.focusRef)
+      : selected;
   }
 
   get _size() {
@@ -91,15 +96,20 @@ export default class FocusManager extends lng.Component {
   }
 
   get _nextTitle() {
-    return this._hasNext && this.getElmText(this.children[this.selectedIndex + 1]);
+    return (
+      this._hasNext && this.getElmText(this.children[this.selectedIndex + 1])
+    );
   }
 
   get _previousTitle() {
-    return this._hasPrevious && this.getElmText(this.children[this.selectedIndex - 1]);
+    return (
+      this._hasPrevious &&
+      this.getElmText(this.children[this.selectedIndex - 1])
+    );
   }
 
   getElmText(elm) {
-    return elm && elm.accessibilityText || elm.title;
+    return (elm && elm.accessibilityText) || elm.title;
   }
 
   static _states() {

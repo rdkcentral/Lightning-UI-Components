@@ -1,11 +1,8 @@
 import lng from 'wpe-lightning';
 import FocusManager from '../FocusManager/FocusManager';
-import { COLORS_NEUTRAL,
-  getHexColor,
-  TYPESCALE,
-  GRID } from '../Styles/Styles';
+import { COLORS_NEUTRAL, getHexColor, TYPESCALE, GRID } from '../Styles/Styles';
 
-const TITLE_HEIGHT = TYPESCALE.title.lineHeight + (GRID.spacingIncrement * 5);
+const TITLE_HEIGHT = TYPESCALE.title.lineHeight + GRID.spacingIncrement * 5;
 
 export default class Row extends lng.Component {
   static _template() {
@@ -13,8 +10,8 @@ export default class Row extends lng.Component {
       Title: {
         text: {
           ...TYPESCALE.title,
-          textColor: getHexColor(COLORS_NEUTRAL.light1),
-        },
+          textColor: getHexColor(COLORS_NEUTRAL.light1)
+        }
       },
       Items: {
         type: FocusManager,
@@ -30,10 +27,13 @@ export default class Row extends lng.Component {
   constructor(...args) {
     super(...args);
     // Ensure we have width + height
-    this._whenEnabled = new Promise((resolve) => this._firstEnable = () => {
-      this._rowEnabled = true;
-      resolve();
-    });
+    this._whenEnabled = new Promise(
+      resolve =>
+        (this._firstEnable = () => {
+          this._rowEnabled = true;
+          resolve();
+        })
+    );
   }
 
   _init() {
@@ -71,7 +71,9 @@ export default class Row extends lng.Component {
         this._Items.childList.add(this.application.stage.c(item));
       });
 
-      if (items.length > this.upCount) { this.wrapSelected = false; }
+      if (items.length > this.upCount) {
+        this.wrapSelected = false;
+      }
       if (!this._hasProvider) {
         this.loading = false;
       }
@@ -81,7 +83,7 @@ export default class Row extends lng.Component {
         this._refocus();
       }
     } else {
-      this._whenEnabled.then(() => this.items = items);
+      this._whenEnabled.then(() => (this.items = items));
     }
   }
 
@@ -174,14 +176,14 @@ export default class Row extends lng.Component {
     if (this.focusHeightChange) {
       this._updateHeight(this.focusHeightChange);
     }
-    this.items.forEach(item => item.parentRowFocused = true);
+    this.items.forEach(item => (item.parentRowFocused = true));
   }
 
   _unfocus() {
     if (this.focusHeightChange) {
       this._updateHeight(-this.focusHeightChange);
     }
-    this.items.forEach(item => item.parentRowFocused = false);
+    this.items.forEach(item => (item.parentRowFocused = false));
   }
 
   get scrollTransition() {
@@ -193,28 +195,36 @@ export default class Row extends lng.Component {
   }
 
   _scroll(selected, prev, direction) {
-    if (this.alwaysScroll || (this._requiresScrolling && this._isOffScreen(selected))) {
+    if (
+      this.alwaysScroll ||
+      (this._requiresScrolling && this._isOffScreen(selected))
+    ) {
       let shiftAmount = prev.w + this.itemSpacing;
       let shiftDirection = direction === 'next' ? -1 : 1;
-      this._Items.smooth = { x: [ this.offset + (shiftAmount * shiftDirection), this.scrollTransition ] };
+      this._Items.smooth = {
+        x: [this.offset + shiftAmount * shiftDirection, this.scrollTransition]
+      };
     }
     this.signal('selectedChange', this._selectedIndex);
   }
 
   _isOffScreen(item) {
-    let [ itemX ] = item.core.getAbsoluteCoords(0, 0);
-    return itemX < this.itemSpacing || itemX > this._originalW - this.itemSpacing;
+    let [itemX] = item.core.getAbsoluteCoords(0, 0);
+    return (
+      itemX < this.itemSpacing || itemX > this._originalW - this.itemSpacing
+    );
   }
 
   render(animate) {
     let itemX = 0;
     this.items.forEach((item, index) => {
       if (animate) {
-        item.smooth = { x: [ itemX, this.scrollTransition ] };
+        item.smooth = { x: [itemX, this.scrollTransition] };
       } else {
         item.x = itemX;
       }
-      itemX += index < this.items.length - 1 ? item.w + this.itemSpacing : item.w;
+      itemX +=
+        index < this.items.length - 1 ? item.w + this.itemSpacing : item.w;
     });
     this.w = itemX;
   }
@@ -225,7 +235,7 @@ export default class Row extends lng.Component {
   }
 
   $shiftRow({ position }) {
-    this._Items.smooth = { x: [ position, this.scrollTransition ] };
+    this._Items.smooth = { x: [position, this.scrollTransition] };
   }
 
   $itemChanged() {
