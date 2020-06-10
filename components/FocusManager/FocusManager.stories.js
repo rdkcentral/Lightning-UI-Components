@@ -1,9 +1,15 @@
 import lng from 'wpe-lightning';
 import FocusManager from './FocusManager';
+import readme from './README.mdx';
 
 export default {
   title: 'FocusManager',
-  component: FocusManager
+  component: FocusManager,
+  parameters: {
+    docs: {
+      page: readme
+    }
+  }
 };
 
 export const Rows = () =>

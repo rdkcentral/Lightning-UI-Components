@@ -10,6 +10,7 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/config-lerna-scopes": "^8.1.0",
+    "@storybook/addon-docs": "^5.3.19",
     "@storybook/addon-storysource": "^5.3.19",
     "@storybook/html": "^5.3.19",
     "babel-eslint": "^10.1.0",
