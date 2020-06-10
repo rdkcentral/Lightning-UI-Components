@@ -6,9 +6,13 @@
     "wpe-lightning-sdk": "github:WebPlatformForEmbedded/Lightning-SDK#2.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/config-lerna-scopes": "^8.1.0",
+    "@storybook/html": "^5.3.19",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "chalk": "^2.4.2",
     "child_process": "^1.0.2",
     "clean-webpack-plugin": "^3.0.0",
@@ -71,8 +75,7 @@
       "utils"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.svg$": "<rootDir>/utils/mocks/svgTransform.js"
+      "^.+\\.js$": "babel-jest"
     },
     "moduleNameMapper": {
       "^.+\\.css$": "identity-obj-proxy"
@@ -103,6 +106,7 @@
     "publish": "lerna publish from-package --no-commit-hooks",
     "new": "node utils/scripts/add-component.js",
     "start": "styleguidist server --open",
+    "storybook": "start-storybook",
     "test": "jest",
     "test:watch": "jest --watch"
   }
