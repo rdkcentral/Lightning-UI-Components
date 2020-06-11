@@ -1,5 +1,5 @@
 import lng from 'wpe-lightning';
-import FocusManager from './FocusManager';
+import FocusManager from '.';
 import readme from './README.mdx';
 
 export default {
