@@ -5,6 +5,8 @@
  */
 import lng from 'wpe-lightning';
 
+const ceiling = 5;
+
 export default class FocusManager extends lng.Component {
   _init() {
     this._direction = this.direction || 'row';
@@ -31,6 +33,18 @@ export default class FocusManager extends lng.Component {
   set selectedIndex(index) {
     let previousIndex = this.selectedIndex;
 
+    if (index > ceiling || index < previousIndex) {
+      this.patch({
+        smooth: {
+          y: index < ceiling ? 0 : this.y - (index - previousIndex) * 50
+        }
+      });
+    }
+
+    if (this.children[index] && this.children[index].skipFocus) {
+      this.selectedIndex = index > previousIndex ? index + 1 : index - 1;
+      return;
+    }
     if (index > 0) {
       if (index < this.children.length) {
         this._selectedIndex = index;
