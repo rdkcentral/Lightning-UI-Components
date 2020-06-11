@@ -7,14 +7,17 @@ import lng from 'wpe-lightning';
 
 export default class FocusManager extends lng.Component {
   _init() {
-    this.direction = this.direction || 'row';
+    this._direction = this.direction || 'row';
+    this.selectedIndex = this.selectedIndex || 0;
+  }
 
-    if (this.direction === 'column') {
+  set direction(direction) {
+    this._direction = direction;
+    if (this._direction === 'column') {
       this._setState('Column');
     } else {
       this._setState('Row');
     }
-    this.selectedIndex = this.selectedIndex || 0;
   }
 
   get loading() {

@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
 import FocusManager from '../FocusManager/FocusManager';
-import { COLORS_NEUTRAL, getHexColor, TYPESCALE, GRID } from '../Styles/Styles';
+import { TYPESCALE, GRID } from '../Styles/Styles';
 
 const TITLE_HEIGHT = TYPESCALE.title.lineHeight + GRID.spacingIncrement * 5;
 
@@ -9,8 +9,7 @@ export default class Row extends lng.Component {
     return {
       Title: {
         text: {
-          ...TYPESCALE.title,
-          textColor: getHexColor(COLORS_NEUTRAL.light1)
+          ...TYPESCALE.title
         }
       },
       Items: {
@@ -39,10 +38,16 @@ export default class Row extends lng.Component {
   _init() {
     this.showTitle = this._showTitle === undefined ? true : this.showTitle;
     this._originalW = this.w;
+    this._originalH = this.h;
+    this._Items._originalY = 0;
   }
 
   _getFocused() {
     return this._Items;
+  }
+
+  resetIndex() {
+    this.selectedIndex = 0;
   }
 
   get _Items() {
@@ -241,4 +246,20 @@ export default class Row extends lng.Component {
   $itemChanged() {
     this.render(true);
   }
+
+  $itemHeightChanged(height) {
+    if (this.parentGridFocus && !this.title) {
+      if (this.hasFocus()) {
+        this._Items.smooth = { y: height };
+        this._updateHeight(height);
+      } else {
+        this._Items.smooth = { y: this._Items._originalY };
+        this.h = this._originalH;
+      }
+    }
+  }
+
+  parentGridFocused() {}
+
+  parentGridUnfocused() {}
 }
