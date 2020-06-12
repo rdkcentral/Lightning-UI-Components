@@ -1,6 +1,6 @@
-import Grid from 'src/components/Grid';
-import Row from 'src/components/Row';
-import TestRenderer from 'test/lightning-test-renderer';
+import Column from '.';
+import Row from '../Row';
+import TestRenderer from '../lightning-test-renderer';
 import lng from 'wpe-lightning';
 
 const baseItem = {
@@ -8,6 +8,7 @@ const baseItem = {
   w: 80,
   h: 80
 };
+
 const items = [
   { ...baseItem },
   { ...baseItem },
@@ -32,22 +33,22 @@ const rows = [
 
 const Component = {
   Component: {
-    type: Grid,
-    title: 'My Grid',
+    type: Column,
+    title: 'My Column',
     h: 800,
-    rowTransition: { duration: 0 },
-    rowSpacing: 80,
-    rows
+    itemTransition: { duration: 0 },
+    itemSpacing: 80,
+    items: rows
   }
 };
 
-describe('Grid', () => {
-  let testRenderer, grid;
+describe('Column', () => {
+  let testRenderer, column;
 
   beforeEach(() => {
     testRenderer = TestRenderer.create(Component);
-    grid = testRenderer.getInstance();
-    return grid._whenEnabled;
+    column = testRenderer.getInstance();
+    return column._whenEnabled;
   });
 
   it('should render', () => {
@@ -56,19 +57,19 @@ describe('Grid', () => {
   });
 
   it('should set focus on first row', () => {
-    expect(grid.rows[0].hasFocus()).toBe(true);
+    expect(column.rows[0].hasFocus()).toBe(true);
   });
 
   it('should set focus on next row on keyDown', () => {
     testRenderer.keyPress('Down');
-    expect(grid.rows[1].hasFocus()).toBe(true);
+    expect(column.rows[1].hasFocus()).toBe(true);
   });
 
   describe('rowSpacing', () => {
     it('should set spacing', () => {
       let spacing = 100;
-      let row = grid.rows[1];
-      grid.rowSpacing = spacing;
+      let row = column.rows[1];
+      column.rowSpacing = spacing;
       testRenderer.update();
       expect(row.y).toBe(spacing + row.h);
     });
@@ -76,24 +77,24 @@ describe('Grid', () => {
 
   describe('provider', () => {
     it('should take a promise to append items', done => {
-      grid.provider = Promise.resolve({
+      column.provider = Promise.resolve({
         appendRows: true,
         rows: [{ ...baseRow }, { ...baseRow }]
       });
 
       setTimeout(() => {
-        expect(grid.rows.length).toBe(7);
+        expect(column.rows.length).toBe(7);
         done();
       }, 1);
     });
 
     it('should take a promise to replace items', done => {
-      grid.provider = Promise.resolve({
+      column.provider = Promise.resolve({
         rows: [{ ...baseRow }, { ...baseRow }]
       });
 
       setTimeout(() => {
-        expect(grid.rows.length).toBe(2);
+        expect(column.rows.length).toBe(2);
         done();
       }, 1);
     });
@@ -101,16 +102,16 @@ describe('Grid', () => {
 
   describe('listeners', () => {
     it('should listen for $removeRow', () => {
-      let row = grid.rows[1];
-      grid.$removeRow(row);
+      let row = column.rows[1];
+      column.$removeRow(row);
       testRenderer.update();
-      expect(grid.rows.length).toBe(4);
+      expect(column.rows.length).toBe(4);
     });
   });
 
   describe('scrolling', () => {
     it('should scroll down', () => {
-      let row = grid.rows[0];
+      let row = column.rows[0];
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
@@ -120,7 +121,7 @@ describe('Grid', () => {
     });
 
     it('should scroll up', () => {
-      let row = grid.rows[0];
+      let row = column.rows[0];
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Up');
       testRenderer.update();
@@ -129,31 +130,31 @@ describe('Grid', () => {
 
     it('should scroll to index before', () => {
       jest.useFakeTimers();
-      grid.selectedIndex = 3;
-      grid.scrollTo(0);
+      column.selectedIndex = 3;
+      column.scrollTo(0);
       jest.runAllTimers();
-      expect(grid.selectedIndex).toBe(0);
+      expect(column.selectedIndex).toBe(0);
     });
 
     it('should scroll to index after', () => {
       jest.useFakeTimers();
-      grid.selectedIndex = 0;
-      grid.scrollTo(3);
+      column.selectedIndex = 0;
+      column.scrollTo(3);
       jest.runAllTimers();
-      expect(grid.selectedIndex).toBe(3);
+      expect(column.selectedIndex).toBe(3);
     });
 
     it('should set selected item for row based on previous row', () => {
-      let row = grid.rows[0];
+      let row = column.rows[0];
       row._selectedIndex = 3;
       testRenderer.update();
       testRenderer.keyPress('Down');
       testRenderer.update();
-      expect(grid.rows[1]._selectedIndex).toBe(3);
+      expect(column.rows[1]._selectedIndex).toBe(3);
     });
 
     it('should keep a full screen of rows', () => {
-      let row = grid.rows[1];
+      let row = column.rows[1];
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
@@ -165,7 +166,7 @@ describe('Grid', () => {
     it('should load more items near bottom with getMoreRows', () => {
       let mock = jest.fn();
       mock.mockReturnValue(Promise.resolve([]));
-      grid._getMoreRows = mock;
+      column._getMoreRows = mock;
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
       expect(mock).toHaveBeenCalled();

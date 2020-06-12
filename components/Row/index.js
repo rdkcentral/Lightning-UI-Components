@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
-import FocusManager from '../FocusManager/FocusManager';
-import { TYPESCALE, GRID } from '../Styles/Styles';
+import FocusManager from '../FocusManager';
+import { TYPESCALE, GRID } from '../Styles';
 
 const TITLE_HEIGHT = TYPESCALE.title.lineHeight + GRID.spacingIncrement * 5;
 

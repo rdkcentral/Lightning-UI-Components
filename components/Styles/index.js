@@ -1,4 +1,4 @@
-export const COLUMN = {
+export const GRID = {
   gutters: {
     horizontal: 80,
     vertical: 40
@@ -9,6 +9,12 @@ export const COLUMN = {
   },
   spacingIncrement: 8,
   columnWidth: 110
+};
+
+export const TYPESCALE = {
+  title: {
+    lineHeight: 80
+  }
 };
 
 export const SCREEN = {
