@@ -64,14 +64,14 @@ export default class FocusManager extends lng.Component {
     this._refocus();
     if (this.selected) {
       let direction = previousIndex < this._selectedIndex ? 'next' : 'previous';
-      this.signal(
-        'selectedChange',
-        this.selected,
-        this.children[previousIndex],
-        direction
-      );
+      let args = [this.selected, this.children[previousIndex], direction];
+      this._scroll(...args);
+      this.signal('selectedChange', ...args);
     }
   }
+
+  // Override
+  _scroll() {}
 
   get selectedIndex() {
     return this._selectedIndex || 0;
