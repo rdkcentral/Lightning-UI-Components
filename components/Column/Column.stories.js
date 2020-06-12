@@ -1,10 +1,16 @@
 import lng from 'wpe-lightning';
 import Column from '.';
 import FocusManager from '../FocusManager';
+import mdx from './Column.mdx';
 
 export default {
   title: 'Column',
-  component: Column
+  component: Column,
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
 };
 
 export const Basic = () =>

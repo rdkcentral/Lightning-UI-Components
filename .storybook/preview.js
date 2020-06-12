@@ -14,7 +14,6 @@ class StoryApp extends lng.Application {
  * addParameters({ stage: { w: 250 } });
  */
 addDecorator((StoryComponent, { parameters }) => {
-  console.log(parameters);
   const app = new StoryApp({
     stage: {
       ...stage,

@@ -2,6 +2,7 @@ module.exports = {
   addons: [
     '@storybook/addon-storysource',
     '@storybook/addon-docs',
+    '@storybook/addon-knobs/register'
   ],
   stories: ['../components/**/*.stories.js'],
   webpackFinal: config => {
