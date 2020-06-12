@@ -1,9 +1,41 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Story } from '@storybook/addon-docs/blocks'
+import * as stories from './Column.stories';
 
 # Column
 
-Stuff stuff stuff
+Focus management and smooth scrolling for a vertically-oriented list of items.
+
+## Usage
+
+```js
+import Column from './Column';
+
+class BasicExample extends lng.Component {
+  static _template() {
+    return {
+      Column: {
+        type: Column,
+        children: [
+          // list of items
+        ]
+      }
+    };
+  }
+
+  _getFocused() {
+    return this.tag('Column');
+  }
+};
+```
 
 <Preview>
   <Story id="column--basic" />
 </Preview>
+
+The `Column` component extends `FocusManager`, so you need to make sure you define `_getFocused()` and `Column` so it can manage focus of selected items.
+
+## Properties
+
+name|type|readonly|description
+--|--|--|--
+|foo|string|true|bar
