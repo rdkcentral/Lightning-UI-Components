@@ -1,22 +1,12 @@
-import lng from 'wpe-lightning';
 import FocusManager from '../FocusManager';
-import { COLUMN } from '../Styles/Styles';
+import { COLUMN } from '../Styles';
 
 const BOUNDS = 1000;
-export default class Column extends lng.Component {
+export default class Column extends FocusManager {
   static _template() {
     return {
       boundsMargin: [BOUNDS, BOUNDS, 0, 0],
-      Items: {
-        type: FocusManager,
-        direction: 'column',
-        signals: {
-          selectedChange: '_scroll'
-        },
-        x: COLUMN.margin.x,
-        w: w => w - 2 * COLUMN.margin.x,
-        y: COLUMN.gutters.vertical
-      },
+      direction: 'column',
       loading: true
     };
   }
@@ -33,23 +23,16 @@ export default class Column extends lng.Component {
     );
   }
 
-  _init() {
-    super._init();
-    this._originalH = this.h;
-  }
-
   _scroll(selected, prev, direction) {
-    if (!this.static) {
-      if (prev && prev.currentItem) {
-        let index = this._getIndexOfItemNear(selected, prev);
-        selected._selectedIndex = index;
-      }
+    if (prev && prev.currentItem) {
+      let index = this._getIndexOfItemNear(selected, prev);
+      selected._selectedIndex = index;
+    }
 
-      if (direction === 'next') {
-        this._scrollDown(prev);
-      } else {
-        this._scrollUp();
-      }
+    if (direction === 'next') {
+      this._scrollDown(prev);
+    } else {
+      this._scrollUp();
     }
   }
 
@@ -95,49 +78,6 @@ export default class Column extends lng.Component {
     return this.items.length && this.selectedIndex > this.items.length - BUFFER;
   }
 
-  _getFocused() {
-    return this._Items;
-  }
-
-  resetIndex() {
-    this.selectedIndex = 0;
-    this.items && this.items.forEach(item => (item.selectedIndex = 0));
-  }
-
-  set itemsPos(pos) {
-    this._Items.x = pos.x !== undefined ? pos.x : this._Items.x;
-    this._Items.y = pos.y !== undefined ? pos.y : this._Items.y;
-  }
-
-  get _Items() {
-    return this.tag('Items');
-  }
-
-  get selectedIndex() {
-    return this._Items.selectedIndex;
-  }
-
-  set selectedIndex(index) {
-    this._Items.selectedIndex = index;
-  }
-
-  get items() {
-    return this._Items.children;
-  }
-
-  set items(items) {
-    if (this._columnEnabled) {
-      this._Items.childList.clear();
-      if (this.fallbacks)
-        Object.keys(this.fallbacks).forEach(
-          key => (this[`is${[key]}`] = false)
-        );
-      this.appendItems(items);
-    } else {
-      this._whenEnabled.then(() => (this.items = items));
-    }
-  }
-
   get currentItem() {
     return this.items[this.selectedIndex];
   }
@@ -145,27 +85,23 @@ export default class Column extends lng.Component {
   set provider(provider) {
     if (provider) {
       provider.then(data => {
-        if (Array.isArray(data)) {
-          this.items = data;
-        } else {
-          data.appendItems
-            ? this.appendItems(data.items)
-            : (this.items = data.items);
-          this._getMoreItems = data.getMoreItems;
-        }
+        data.appendItems
+          ? this.appendItems(data.items)
+          : (this.items = data.items);
+        this._getMoreItems = data.getMoreItems;
       });
     }
   }
 
   appendItems(items = []) {
-    let itemWidth = this._Items.renderWidth;
+    let itemWidth = this.renderWidth;
     // Add items past the bounds margin so they don't load
     let bottomOfScreen = this.y + this.h + 2 * BOUNDS;
     items.forEach(item => {
       item.w = item.w || itemWidth;
       item.y = bottomOfScreen;
       item.parentFocus = this.hasFocus();
-      this._Items.childList.add(this.application.stage.c(item));
+      this.childList.add(this.application.stage.c(item));
     });
 
     // Ensure items are drawn so they have height
@@ -188,13 +124,6 @@ export default class Column extends lng.Component {
     }
 
     return 0;
-  }
-
-  _patchFallback(state) {
-    if (this.fallbacks && this.fallbacks[state]) {
-      this.patch({ Items: { [state]: this.fallbacks[state] } });
-      this[`is${[state]}`] = true;
-    }
   }
 
   render(itemAbove) {
@@ -277,8 +206,8 @@ export default class Column extends lng.Component {
 
   $removeItem(item) {
     if (item) {
-      let wasSelected = item === this._Items.selected;
-      this._Items.childList.remove(item);
+      let wasSelected = item === this.selected;
+      this.childList.remove(item);
       if (wasSelected || this.selectedIndex >= this.items.length) {
         this.selectedIndex = this.selectedIndex;
       }
@@ -289,7 +218,7 @@ export default class Column extends lng.Component {
       }
       this.render(itemBefore);
       if (!this.items.length) {
-        this._patchFallback('EmptyState');
+        this.fireAncestors('$columnEmpty');
       }
     }
   }

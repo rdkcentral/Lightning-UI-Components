@@ -1,4 +1,4 @@
-export const GRID = {
+export const COLUMN = {
   gutters: {
     horizontal: 80,
     vertical: 40

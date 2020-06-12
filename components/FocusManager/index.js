@@ -5,8 +5,6 @@
  */
 import lng from 'wpe-lightning';
 
-const ceiling = 5;
-
 export default class FocusManager extends lng.Component {
   _init() {
     this._direction = this.direction || 'row';
@@ -26,20 +24,28 @@ export default class FocusManager extends lng.Component {
     return !this.selected;
   }
 
+  get items() {
+    return this.children;
+  }
+
+  set items(items) {
+    this.childList.clear();
+    this.appendItems(items);
+  }
+
+  // Can be overriden
+  appendItems(items = []) {
+    this.childrenList.a(items);
+    this.loading = false;
+    this._refocus();
+  }
+
   get selected() {
     return this.children[this.selectedIndex];
   }
 
   set selectedIndex(index) {
     let previousIndex = this.selectedIndex;
-
-    if (index > ceiling || index < previousIndex) {
-      this.patch({
-        smooth: {
-          y: index < ceiling ? 0 : this.y - (index - previousIndex) * 50
-        }
-      });
-    }
 
     if (this.children[index] && this.children[index].skipFocus) {
       this.selectedIndex = index > previousIndex ? index + 1 : index - 1;
@@ -102,31 +108,6 @@ export default class FocusManager extends lng.Component {
 
   get _size() {
     return this.children.length;
-  }
-
-  get _hasNext() {
-    return this.selectedIndex < this._size - 1;
-  }
-
-  get _hasPrevious() {
-    return this.selectedIndex > 0;
-  }
-
-  get _nextTitle() {
-    return (
-      this._hasNext && this.getElmText(this.children[this.selectedIndex + 1])
-    );
-  }
-
-  get _previousTitle() {
-    return (
-      this._hasPrevious &&
-      this.getElmText(this.children[this.selectedIndex - 1])
-    );
-  }
-
-  getElmText(elm) {
-    return (elm && elm.accessibilityText) || elm.title;
   }
 
   static _states() {
