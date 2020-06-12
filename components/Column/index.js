@@ -1,5 +1,5 @@
 import FocusManager from '../FocusManager';
-import { COLUMN } from '../Styles';
+import { GRID } from '../Styles';
 
 const BOUNDS = 1000;
 export default class Column extends FocusManager {
@@ -7,7 +7,7 @@ export default class Column extends FocusManager {
     return {
       boundsMargin: [BOUNDS, BOUNDS, 0, 0],
       direction: 'column',
-      loading: true
+      scrollMount: 0
     };
   }
 
@@ -17,23 +17,9 @@ export default class Column extends FocusManager {
     this._whenEnabled = new Promise(
       resolve =>
         (this._firstEnable = () => {
-          this._enabled = true;
           resolve();
         })
     );
-  }
-
-  _scroll(selected, prev, direction) {
-    if (prev && prev.currentItem) {
-      let index = this._getIndexOfItemNear(selected, prev);
-      selected._selectedIndex = index;
-    }
-
-    if (direction === 'next') {
-      this._scrollDown(prev);
-    } else {
-      this._scrollUp();
-    }
   }
 
   _getIndexOfItemNear(selected, prev) {
@@ -58,19 +44,6 @@ export default class Column extends FocusManager {
           ? this.selectedIndex--
           : this.selectedIndex++;
       }, duration * i);
-    }
-  }
-
-  _scrollUp() {
-    this.render();
-  }
-
-  _scrollDown(itemAbove) {
-    this.render(itemAbove);
-
-    if (this._nearEnd() && this._getMoreItems) {
-      this.provider = this._getMoreItems();
-      this._getMoreItems = false;
     }
   }
 
@@ -105,8 +78,7 @@ export default class Column extends FocusManager {
     });
 
     // Ensure items are drawn so they have height
-    this.stage.update();
-    this.loading = false;
+    //this.stage.update();
     this._refocus();
     this.render();
   }
@@ -126,20 +98,29 @@ export default class Column extends FocusManager {
     return 0;
   }
 
-  render(itemAbove) {
+  render(selected, prev) {
     let itemY = 0;
-    let index = this.static ? 0 : this.selectedIndex;
+    let index = this.selectedIndex;
     let totalItems = this.items.length;
-    let COLUMN_HEIGHT = this._originalH + 1.5 * BOUNDS;
+    let COLUMN_HEIGHT = this.h + 1.5 * BOUNDS;
     let lastIndex = this._computeLastIndex();
+    let scrollStart = this.h * this.scrollMount;
+
+    if (this.plinko && prev && prev.currentItem) {
+      let index = this._getIndexOfItemNear(selected, prev);
+      selected._selectedIndex = index;
+    }
+
+    if (this._nearEnd() && this._getMoreItems) {
+      this.provider = this._getMoreItems();
+      this._getMoreItems = false;
+    }
+
+    // if (this.selected.y > scrollStart) {
+    // }
 
     if (index > lastIndex && this._getMoreItems === undefined) {
       index = lastIndex;
-    } else if (itemAbove) {
-      itemAbove.smooth = {
-        y: [-(itemAbove.h + this.itemSpacing), this.itemTransition],
-        alpha: 0
-      };
     }
 
     while (itemY < COLUMN_HEIGHT && index < totalItems && totalItems) {
@@ -147,11 +128,6 @@ export default class Column extends FocusManager {
       item.smooth = { y: [itemY, this.itemTransition], alpha: 1 };
       itemY += item.h + this.itemSpacing;
       index++;
-    }
-
-    if (!this._originalH && itemY) {
-      this.h = this._totalH;
-      this.fireAncestors('$columnChanged');
     }
   }
 
@@ -169,7 +145,7 @@ export default class Column extends FocusManager {
   }
 
   get itemSpacing() {
-    return this._itemSpacing || COLUMN.gutters.horizontal;
+    return this._itemSpacing || GRID.gutters.horizontal;
   }
 
   set updateItems(callback) {

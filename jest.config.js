@@ -78,11 +78,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx', 'mjs'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  moduleNameMapper: {
-    '^src(.*)': '<rootDir>/src$1',
-    '^test(.*)': '<rootDir>/test$1',
-    '^assets(.*)': '<rootDir>/assets$1'
-  },
+  moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

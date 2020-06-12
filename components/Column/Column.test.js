@@ -56,120 +56,120 @@ describe('Column', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should set focus on first row', () => {
-    expect(column.rows[0].hasFocus()).toBe(true);
-  });
+  // it('should set focus on first item', () => {
+  //   expect(column.items[0].hasFocus()).toBe(true);
+  // });
 
-  it('should set focus on next row on keyDown', () => {
-    testRenderer.keyPress('Down');
-    expect(column.rows[1].hasFocus()).toBe(true);
-  });
+  // it('should set focus on next item on keyDown', () => {
+  //   testRenderer.keyPress('Down');
+  //   expect(column.items[1].hasFocus()).toBe(true);
+  // });
 
-  describe('rowSpacing', () => {
-    it('should set spacing', () => {
-      let spacing = 100;
-      let row = column.rows[1];
-      column.rowSpacing = spacing;
-      testRenderer.update();
-      expect(row.y).toBe(spacing + row.h);
-    });
-  });
+  // describe('itemSpacing', () => {
+  //   it('should set spacing', () => {
+  //     let spacing = 100;
+  //     let item = column.items[1];
+  //     column.itemSpacing = spacing;
+  //     testRenderer.update();
+  //     expect(item.y).toBe(spacing + item.h);
+  //   });
+  // });
 
-  describe('provider', () => {
-    it('should take a promise to append items', done => {
-      column.provider = Promise.resolve({
-        appendRows: true,
-        rows: [{ ...baseRow }, { ...baseRow }]
-      });
+  // describe('provider', () => {
+  //   it('should take a promise to append items', done => {
+  //     column.provider = Promise.resolve({
+  //       appendItems: true,
+  //       items: [{ ...baseItem }, { ...baseItem }]
+  //     });
 
-      setTimeout(() => {
-        expect(column.rows.length).toBe(7);
-        done();
-      }, 1);
-    });
+  //     setTimeout(() => {
+  //       expect(column.items.length).toBe(7);
+  //       done();
+  //     }, 1);
+  //   });
 
-    it('should take a promise to replace items', done => {
-      column.provider = Promise.resolve({
-        rows: [{ ...baseRow }, { ...baseRow }]
-      });
+  //   it('should take a promise to replace items', done => {
+  //     column.provider = Promise.resolve({
+  //       items: [{ ...baseItem }, { ...baseItem }]
+  //     });
 
-      setTimeout(() => {
-        expect(column.rows.length).toBe(2);
-        done();
-      }, 1);
-    });
-  });
+  //     setTimeout(() => {
+  //       expect(column.items.length).toBe(2);
+  //       done();
+  //     }, 1);
+  //   });
+  // });
 
-  describe('listeners', () => {
-    it('should listen for $removeRow', () => {
-      let row = column.rows[1];
-      column.$removeRow(row);
-      testRenderer.update();
-      expect(column.rows.length).toBe(4);
-    });
-  });
+  // describe('listeners', () => {
+  //   it('should listen for $removeItem', () => {
+  //     let item = column.items[1];
+  //     column.$removeItem(item);
+  //     testRenderer.update();
+  //     expect(column.items.length).toBe(4);
+  //   });
+  // });
 
-  describe('scrolling', () => {
-    it('should scroll down', () => {
-      let row = column.rows[0];
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.update();
-      expect(row.y).toBe(-160);
-    });
+  // describe('scrolling', () => {
+  //   it('should scroll down', () => {
+  //     let item = column.items[0];
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.update();
+  //     expect(item.y).toBe(-160);
+  //   });
 
-    it('should scroll up', () => {
-      let row = column.rows[0];
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Up');
-      testRenderer.update();
-      expect(row.y).toBe(0);
-    });
+  //   it('should scroll up', () => {
+  //     let item = column.items[0];
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Up');
+  //     testRenderer.update();
+  //     expect(item.y).toBe(0);
+  //   });
 
-    it('should scroll to index before', () => {
-      jest.useFakeTimers();
-      column.selectedIndex = 3;
-      column.scrollTo(0);
-      jest.runAllTimers();
-      expect(column.selectedIndex).toBe(0);
-    });
+  //   it('should scroll to index before', () => {
+  //     jest.useFakeTimers();
+  //     column.selectedIndex = 3;
+  //     column.scrollTo(0);
+  //     jest.runAllTimers();
+  //     expect(column.selectedIndex).toBe(0);
+  //   });
 
-    it('should scroll to index after', () => {
-      jest.useFakeTimers();
-      column.selectedIndex = 0;
-      column.scrollTo(3);
-      jest.runAllTimers();
-      expect(column.selectedIndex).toBe(3);
-    });
+  //   it('should scroll to index after', () => {
+  //     jest.useFakeTimers();
+  //     column.selectedIndex = 0;
+  //     column.scrollTo(3);
+  //     jest.runAllTimers();
+  //     expect(column.selectedIndex).toBe(3);
+  //   });
 
-    it('should set selected item for row based on previous row', () => {
-      let row = column.rows[0];
-      row._selectedIndex = 3;
-      testRenderer.update();
-      testRenderer.keyPress('Down');
-      testRenderer.update();
-      expect(column.rows[1]._selectedIndex).toBe(3);
-    });
+  //   it('should set selected item for item based on previous item', () => {
+  //     let item = column.items[0];
+  //     item._selectedIndex = 3;
+  //     testRenderer.update();
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.update();
+  //     expect(column.items[1]._selectedIndex).toBe(3);
+  //   });
 
-    it('should keep a full screen of rows', () => {
-      let row = column.rows[1];
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.update();
-      expect(row.y).toBe(0);
-    });
+  //   it('should keep a full screen of items', () => {
+  //     let item = column.items[1];
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.update();
+  //     expect(item.y).toBe(0);
+  //   });
 
-    it('should load more items near bottom with getMoreRows', () => {
-      let mock = jest.fn();
-      mock.mockReturnValue(Promise.resolve([]));
-      column._getMoreRows = mock;
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      expect(mock).toHaveBeenCalled();
-    });
-  });
+  //   it('should load more items near bottom with getMoreItems', () => {
+  //     let mock = jest.fn();
+  //     mock.mockReturnValue(Promise.resolve([]));
+  //     column._getMoreItems = mock;
+  //     testRenderer.keyPress('Down');
+  //     testRenderer.keyPress('Down');
+  //     expect(mock).toHaveBeenCalled();
+  //   });
+  // });
 });
