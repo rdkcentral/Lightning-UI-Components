@@ -1,4 +1,5 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks'
+import { DocsLink } from "../../utils/storybook/index.mdx";
 
 # FocusManager
 
@@ -70,12 +71,38 @@ class FancyFocus extends FocusManager {
   <Story id="focusmanager--extended-component" />
 </Preview>
 
-## Properties
+## API
+
+### Properties
 
 name|type|readonly|description
 --|--|--|--
 direction|'column'\|'row'|false|determines whether focus handling responds to left/right or up/down keys
-selected|`lng.Component`|true|current item in focus
+selected|<DocsLink id="lng.Component" />|true|current item in focus
 selectedIndex|number|false|index of current item in focus
 loading|boolean|true|False if an item is in focus, true otherwise
-items|`lng.Component`[]|false|alias for `children`
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|alias for `children`
+
+### Methods
+
+#### appendItems
+
+Appends items to child list and updates focus
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|items to append
+
+#### render
+
+A no-op function that is called when `selectedIndex` is set. Can be overridden by classes that extend `FocusManager` for custom render behavior.
+
+#### selectPrevious
+
+Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
+
+#### selectNext
+
+Selects next item. If this.wrapSelected=true, will select the first element in the list if focus is currently on the last item.

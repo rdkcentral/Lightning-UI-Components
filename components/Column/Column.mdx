@@ -1,5 +1,6 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks'
 import * as stories from './Column.stories';
+import { DocsLink } from "../../utils/storybook/index.mdx";
 
 # Column
 
@@ -28,14 +29,60 @@ class BasicExample extends lng.Component {
 };
 ```
 
+The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
+
 <Preview>
   <Story id="column--basic" />
 </Preview>
 
-The `Column` component extends `FocusManager`, so you need to make sure you define `_getFocused()` and `Column` so it can manage focus of selected items.
+## API
 
-## Properties
+The `Column` component extends `FocusManager` and inherits it's properties and methods. See the [FocusManager API][fm-api] for more references
+
+### Properties
 
 name|type|readonly|description
 --|--|--|--
-|foo|string|true|bar
+currentItem|<DocsLink id="lng.Component" />|true|component that is currently in focus 
+provider|Promise<{ <br />&nbsp;&nbsp;items: <DocsLink id="lng.Component">lng.Component</DocsLink>, <br />&nbsp;&nbsp;appendItems: boolean <br />}>|false|used for providing additional items when scroll nears the end of the column
+itemSpacing|number|false|padding to put between items
+updateItems|(item:lng.Component)=>void|false|callback is executed on each item in the child list
+itemTransition|<DocsLink id="lng.Transition" />|false|transition to apply to items on render
+
+
+### Methods
+
+#### scrollTo
+
+scrolls to child at `index` at a rate of `duration` in ms * (`this.selectedIndex` - `index`)
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+index|number|true|-|index of child to scroll to
+duration|number|false|40|timeout value in ms
+
+#### appendItems
+
+Adds items to the end of the child list
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|list of items to append
+
+#### render
+
+Called when item focus changes. Render is responsible for the scroll behavior
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|item to select. Required if this.plinko=true
+selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|previously selected item. Required if this.plinko=true
+
+[fm-docs]: ?path=/docs/focusmanager--rows
+[fm-api]: ?path=/docs/focusmanager--rows#api

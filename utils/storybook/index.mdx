@@ -1,0 +1,12 @@
+export const DocsLink = ({ children, id }) => {
+  const docsmap = {
+    lng: {
+      _base: 'https://rdkcentral.github.io/Lightning/docs',
+      Component: '/components/overview',
+      Transition: '/transitions/attributes'
+    }
+  }
+  const [source, path] = id.split('.');
+  const href = docsmap[source]._base + docsmap[source][path];
+  return <a href={href} target="_blank">{ children || id }</a>
+}
