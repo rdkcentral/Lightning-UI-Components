@@ -1,13 +1,13 @@
 import lng from 'wpe-lightning';
 import FocusManager from '.';
-import readme from './README.mdx';
+import mdx from './FocusManager.mdx';
 
 export default {
   title: 'FocusManager',
   component: FocusManager,
   parameters: {
     docs: {
-      page: readme
+      page: mdx
     }
   }
 };
@@ -70,6 +70,44 @@ export const ColumnWithRows = () =>
     }
     _getFocused() {
       return this.tag('Column');
+    }
+  };
+
+class FancyFocus extends FocusManager {
+  render() {
+    console.log(this);
+    this.selected.patch({
+      texture: lng.Tools.getRoundRect(
+        150,
+        40,
+        4,
+        3,
+        0xffff00ff,
+        true,
+        0xff00ffff
+      )
+    });
+  }
+}
+
+export const ExtendedComponent = () =>
+  class ExtendedComponentExample extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: FancyFocus,
+          direction: 'row',
+          children: [
+            { type: Button, buttonText: 'Left' },
+            { type: Button, buttonText: 'Center', x: 200 },
+            { type: Button, buttonText: 'Right', x: 400 }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
     }
   };
 
