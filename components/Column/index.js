@@ -1,7 +1,7 @@
 import FocusManager from '../FocusManager';
 import { GRID } from '../Styles';
 
-const BOUNDS = 1000;
+const BOUNDS = 200;
 export default class Column extends FocusManager {
   static _template() {
     return {
@@ -78,15 +78,14 @@ export default class Column extends FocusManager {
     });
 
     // Ensure items are drawn so they have height
-    //this.stage.update();
+    this.stage.update();
     this._refocus();
     this.render();
   }
 
   _computeLastIndex() {
     let totalItems = this.items.length;
-    let MAX_HEIGHT =
-      (this.parentH ? this.parentH : this._originalH) - this.itemSpacing;
+    let MAX_HEIGHT = this.h - this.itemSpacing;
 
     for (let i = totalItems - 1; i >= 0; i--) {
       MAX_HEIGHT -= this.items[i].h + this.itemSpacing;
@@ -99,12 +98,21 @@ export default class Column extends FocusManager {
   }
 
   render(selected, prev) {
+    if (this.items.length === 0) {
+      return;
+    }
+
     let itemY = 0;
     let index = this.selectedIndex;
     let totalItems = this.items.length;
     let COLUMN_HEIGHT = this.h + 1.5 * BOUNDS;
     let lastIndex = this._computeLastIndex();
     let scrollStart = this.h * this.scrollMount;
+    // let [renderedY] = selected.core.getRenderTextureCoords();
+
+    // if (this.selected.y < scrollStart && renderedY > 0 && renderedY < this.h) {
+    //   return;
+    // }
 
     if (this.plinko && prev && prev.currentItem) {
       let index = this._getIndexOfItemNear(selected, prev);
@@ -116,19 +124,31 @@ export default class Column extends FocusManager {
       this._getMoreItems = false;
     }
 
-    // if (this.selected.y > scrollStart) {
-    // }
-
     if (index > lastIndex && this._getMoreItems === undefined) {
       index = lastIndex;
     }
 
+    if (this.scrollMount === 0) {
+      itemY = 0;
+    } else if (this.scrollMount === 1) {
+      itemY = scrollStart - this.selected.h;
+    } else {
+      itemY = scrollStart - this.selected.h / 2;
+    }
+    this.selected.smooth = { y: [itemY, this.itemTransition], alpha: 1 };
+
+    let debug = [];
+    debug.push(
+      `CH: ${COLUMN_HEIGHT} - Selected: ${this.selectedIndex} - LAST ${lastIndex}`
+    );
     while (itemY < COLUMN_HEIGHT && index < totalItems && totalItems) {
       let item = this.items[index];
+      debug.push(`Item: ${index} Y: ${itemY}`);
       item.smooth = { y: [itemY, this.itemTransition], alpha: 1 };
       itemY += item.h + this.itemSpacing;
       index++;
     }
+    console.log(debug);
   }
 
   get _totalH() {
