@@ -47,8 +47,7 @@ function create(Component) {
         w: 1920,
         h: 1080,
         rect: true,
-        color: 0x00000000,
-        children: Component
+        color: 0x00000000
       };
     }
 
@@ -59,6 +58,7 @@ function create(Component) {
 
   let app = new TestApp({ stage });
   app.stage.transitions.defaultTransitionSettings.duration = 0;
+  app.children = Component;
   return {
     toJSON: () => toJSON(app.childList.first, { children: 1 }),
     update: () => {

@@ -17,6 +17,7 @@
     "@storybook/html": "^5.3.19",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "canvas": "^2.6.1",
     "chalk": "^2.4.2",
     "child_process": "^1.0.2",
     "clean-webpack-plugin": "^3.0.0",
@@ -63,13 +64,6 @@
       "jest --findRelatedTests"
     ]
   },
-  "browserslist": [
-    "last 2 versions",
-    ">0.2%",
-    "not dead",
-    "not ie <= 10",
-    "not op_mini all"
-  ],
   "private": true,
   "repository": {
     "url": "https://github.com/chiefcll/lightning-ui"
@@ -89,6 +83,7 @@
     "new": "node utils/scripts/add-component.js",
     "start": "start-storybook",
     "test": "jest",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch"
   }
 }
