@@ -49,6 +49,20 @@ Set the `direction` property to `row` for left/right or `column` for up/down key
   <Story id="focusmanager--columns" />
 </Preview>
 
+Enable the `wrapSelected` property to allow cycling focus between the first and last items.
+
+```js
+{
+  type: FocusManager,
+  wrapSelected: true,
+  children: [/* ... */]
+}
+```
+
+<Preview>
+  <Story id="focusmanager--wrap-selected" />
+</Preview>
+
 ## Extending FocusManager
 
 You can create a component that extends the capabilities of `FocusManager` and responds to changes in focus. Just create a `render()` instance method.
@@ -82,6 +96,7 @@ selected|<DocsLink id="lng.Component" />|true|current item in focus
 selectedIndex|number|false|index of current item in focus
 loading|boolean|true|False if an item is in focus, true otherwise
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|alias for `children`
+wrapSelected|boolean|false|enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa
 
 ### Methods
 

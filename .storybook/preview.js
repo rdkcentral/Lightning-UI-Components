@@ -1,7 +1,9 @@
 import lng from 'wpe-lightning';
-import { addDecorator } from '@storybook/html';
+import { addDecorator, addParameters } from '@storybook/html';
 
-const stage = { w: 1000, h: 500, clearColor: 0xff000000, debug: false, canvas2d: false, useImageWorker: false };
+import mdx from '../utils/storybook/docs-template.mdx';
+
+const stage = { w: 900, h: 450, clearColor: 0xff000000, debug: false, canvas2d: false, useImageWorker: false };
 class StoryApp extends lng.Application {
   _getFocused() {
     return this.childList.first || this;
@@ -28,4 +30,10 @@ addDecorator((StoryComponent, { parameters }) => {
   //Expose the APP for debugging
   window.APP = app;
   return app.stage.getCanvas();
+});
+
+addParameters({
+  docs: {
+    page: mdx
+  }
 });

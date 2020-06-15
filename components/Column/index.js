@@ -1,7 +1,7 @@
 import FocusManager from '../FocusManager';
 import { GRID } from '../Styles';
 
-const BOUNDS = 200;
+const BOUNDS = 1000;
 export default class Column extends FocusManager {
   static _template() {
     return {
@@ -148,7 +148,6 @@ export default class Column extends FocusManager {
       itemY += item.h + this.itemSpacing;
       index++;
     }
-    console.log(debug);
   }
 
   get _totalH() {

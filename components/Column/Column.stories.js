@@ -1,4 +1,6 @@
 import lng from 'wpe-lightning';
+import { action } from '@storybook/addon-actions';
+
 import Column from '.';
 import FocusManager from '../FocusManager';
 import mdx from './Column.mdx';
@@ -17,6 +19,8 @@ export const Basic = () =>
   class BasicExample extends lng.Component {
     static _template() {
       return {
+        x: 20,
+        y: 20,
         Column: {
           type: Column,
           children: Array.apply(null, { length: 5 }).map((_, i) => ({
@@ -37,6 +41,8 @@ export const Scrolling = () =>
   class ScrollingExample extends lng.Component {
     static _template() {
       return {
+        x: 20,
+        y: 20,
         Column: {
           type: Column,
           children: Array.apply(null, { length: 20 }).map((_, i) => ({
@@ -57,16 +63,57 @@ export const MultiColumn = () =>
   class MultiColumnExample extends lng.Component {
     static _template() {
       return {
+        x: 20,
+        y: 20,
         FocusManager: {
           type: FocusManager,
           direction: 'row',
-          children: [{ type: Basic() }, { type: Basic(), x: 160 }]
+          children: [{ type: Basic() }, { type: Basic(), x: 180 }]
         }
       };
     }
 
     _getFocused() {
       return this.tag('FocusManager');
+    }
+  };
+
+const getMoreItems = () => {
+  action('provider')();
+  return Promise.resolve({
+    appendItems: true,
+    getMoreItems,
+    items: Array.apply(null, { length: 5 }).map((_, i) => ({
+      type: Button,
+      buttonText: `Extra Button ${i + 1}`
+    }))
+  });
+};
+export const Provider = () =>
+  class ProviderExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Text: {
+          text: {
+            fontSize: 20,
+            text: 'Key down till you find the end 😉 '
+          }
+        },
+        Column: {
+          y: 50,
+          type: Column,
+          provider: getMoreItems(),
+          children: Array.apply(null, { length: 20 }).map((_, i) => {
+            return { type: Button, buttonText: `Button ${i + 1}`, y: i * 50 };
+          })
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
     }
   };
 
@@ -77,8 +124,7 @@ export const SkipFocus = () =>
         x: 20,
         y: 20,
         Column: {
-          type: FocusManager,
-          direction: 'column',
+          type: Column,
           children: Array.apply(null, { length: 50 }).map((_, i) => {
             if (i % 4 === 0)
               return {

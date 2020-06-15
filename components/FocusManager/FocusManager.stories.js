@@ -34,6 +34,37 @@ export const Rows = () =>
     }
   };
 
+export const WrapSelected = () =>
+  class WrapSelectedExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Text: {
+          y: 0,
+          text: {
+            fontSize: 20,
+            text: 'Key in one direction a bunch of times'
+          }
+        },
+        Row: {
+          y: 50,
+          type: FocusManager,
+          direction: 'row',
+          wrapSelected: true, // allows cycling through items
+          children: [
+            { type: Button, buttonText: 'Left' },
+            { type: Button, buttonText: 'Center', x: 200 },
+            { type: Button, buttonText: 'Right', x: 400 }
+          ]
+        }
+      };
+    }
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
 export const Columns = () =>
   class ColumnExample extends lng.Component {
     static _template() {
@@ -75,7 +106,6 @@ export const ColumnWithRows = () =>
 
 class FancyFocus extends FocusManager {
   render() {
-    console.log(this);
     this.selected.patch({
       texture: lng.Tools.getRoundRect(
         150,
@@ -94,6 +124,8 @@ export const ExtendedComponent = () =>
   class ExtendedComponentExample extends lng.Component {
     static _template() {
       return {
+        x: 20,
+        y: 20,
         Row: {
           type: FancyFocus,
           direction: 'row',
