@@ -17,7 +17,7 @@ class BasicExample extends lng.Component {
     return {
       Column: {
         type: Column,
-        children: [
+        items: [
           // list of items
         ]
       }
@@ -68,7 +68,7 @@ The promise returned by `getMoreItems` is then passed as the `provider` to a `Co
 {
   type: Column,
   provider: getMoreItems(),
-  children: [
+  items: [
     // ...
   ]
 }

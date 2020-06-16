@@ -25,7 +25,7 @@ export const Basic = () =>
         y: 20,
         Column: {
           type: Column,
-          children: Array.apply(null, { length: 5 }).map((_, i) => ({
+          items: Array.apply(null, { length: 5 }).map((_, i) => ({
             type: Button,
             buttonText: 'Button'
           }))
@@ -60,7 +60,7 @@ export const Scrolling = () =>
         Column: {
           type: Column,
           scrollMount: number('scrollMount', 0, numberOptions),
-          children: Array.apply(null, { length: 20 }).map((_, i) => ({
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
           }))
@@ -82,7 +82,7 @@ export const MultiColumn = () =>
         FocusManager: {
           type: FocusManager,
           direction: 'row',
-          children: [{ type: Basic() }, { type: Basic(), x: 180 }]
+          items: [{ type: Basic() }, { type: Basic(), x: 180 }]
         }
       };
     }
@@ -119,7 +119,7 @@ export const Provider = () =>
           y: 50,
           type: Column,
           provider: getMoreItems(),
-          children: Array.apply(null, { length: 20 }).map((_, i) => {
+          items: Array.apply(null, { length: 20 }).map((_, i) => {
             return {
               type: Button,
               buttonText: `Button ${i + 1}`
@@ -142,7 +142,7 @@ export const SkipFocus = () =>
         y: 20,
         Column: {
           type: Column,
-          children: Array.apply(null, { length: 50 }).map((_, i) => {
+          items: Array.apply(null, { length: 50 }).map((_, i) => {
             if (i % 4 === 0)
               return {
                 type: Title,
