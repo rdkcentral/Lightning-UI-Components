@@ -1,5 +1,6 @@
 import lng from 'wpe-lightning';
 import { action } from '@storybook/addon-actions';
+import { withKnobs, number } from '@storybook/addon-knobs';
 
 import Column from '.';
 import FocusManager from '../FocusManager';
@@ -8,6 +9,7 @@ import mdx from './Column.mdx';
 export default {
   title: 'Column',
   component: Column,
+  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -25,8 +27,7 @@ export const Basic = () =>
           type: Column,
           children: Array.apply(null, { length: 5 }).map((_, i) => ({
             type: Button,
-            buttonText: 'Button',
-            y: i * 50
+            buttonText: 'Button'
           }))
         }
       };
@@ -36,7 +37,20 @@ export const Basic = () =>
       return this.tag('Column');
     }
   };
+Basic.story = {
+  parameters: {
+    options: {
+      isToolShown: false
+    }
+  }
+};
 
+const numberOptions = {
+  range: true,
+  min: 0,
+  max: 1,
+  step: 0.1
+};
 export const Scrolling = () =>
   class ScrollingExample extends lng.Component {
     static _template() {
@@ -45,10 +59,10 @@ export const Scrolling = () =>
         y: 20,
         Column: {
           type: Column,
+          scrollMount: number('scrollMount', 0, numberOptions),
           children: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
-            buttonText: `Button ${i + 1}`,
-            y: i * 50
+            buttonText: `Button ${i + 1}`
           }))
         }
       };
@@ -106,7 +120,10 @@ export const Provider = () =>
           type: Column,
           provider: getMoreItems(),
           children: Array.apply(null, { length: 20 }).map((_, i) => {
-            return { type: Button, buttonText: `Button ${i + 1}`, y: i * 50 };
+            return {
+              type: Button,
+              buttonText: `Button ${i + 1}`
+            };
           })
         }
       };
@@ -130,10 +147,9 @@ export const SkipFocus = () =>
               return {
                 type: Title,
                 titleText: 'Title',
-                y: i * 50,
                 skipFocus: true
               };
-            return { type: Button, buttonText: 'Button', y: i * 50 };
+            return { type: Button, buttonText: 'Button' };
           })
         }
       };
