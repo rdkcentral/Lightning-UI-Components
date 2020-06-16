@@ -66,7 +66,7 @@ export const TestCase = () =>
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             h: 80,
-            buttonText: 'Button'
+            buttonText: `Button ${i}`
           }))
         }
       };

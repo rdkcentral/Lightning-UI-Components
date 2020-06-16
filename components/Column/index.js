@@ -68,7 +68,7 @@ export default class Column extends FocusManager {
   appendItems(items = []) {
     let itemWidth = this.renderWidth;
     // Add items past the bounds margin so they don't load
-    let bottomOfScreen = this.y + this._columnHeight + 2 * BOUNDS;
+    let bottomOfScreen = this.y + this._columnHeight + this.itemSpacing;
     items.forEach(item => {
       item.w = item.w || itemWidth;
       item.y = bottomOfScreen;
@@ -139,18 +139,31 @@ export default class Column extends FocusManager {
       index = lastIndex;
     }
 
-    if (index < startScrollIndex) {
+    if (index === 0) {
       return this._renderDown(0, 0);
-    } else if (this.scrollMount === 0) {
-      itemY = 0;
-    } else if (this.scrollMount === 1) {
-      if (this._isOnScreen(this.selected.y)) {
+    }
+
+    if (this.scrollMount === 1) {
+      itemY = this.selected.y;
+      if (this._isOnScreen(itemY)) {
         return;
       }
-      itemY = scrollStart - this.selected.h - this.itemSpacing;
+
+      if (itemY >= this._columnHeight) {
+        return this._renderUp(this.selectedIndex);
+      }
+      return this._renderDown(this.selectedIndex);
+    }
+
+    if (index < startScrollIndex) {
+      return this._renderDown(0, 0);
+    }
+
+    if (this.scrollMount === 0) {
+      itemY = 0;
     } else {
       if (index === lastIndex) {
-        return this._renderUp(this.items.length - 1, this._columnHeight);
+        return this._renderUp(this.items.length - 1);
       }
       itemY = scrollStart - this.selected.h / 2;
     }
@@ -161,7 +174,7 @@ export default class Column extends FocusManager {
     this._renderDown(index, itemY);
   }
 
-  _renderUp(index, itemY) {
+  _renderUp(index, itemY = this._columnHeight) {
     while (itemY >= -BOUNDS && index >= 0) {
       let item = this.items[index];
       itemY -= item.h + this.itemSpacing;
@@ -171,7 +184,7 @@ export default class Column extends FocusManager {
     }
   }
 
-  _renderDown(index, itemY) {
+  _renderDown(index, itemY = 0) {
     let overFillHeight = this._columnHeight + BOUNDS + this.itemSpacing;
     while (itemY < overFillHeight && index < this.items.length) {
       let item = this.items[index];
