@@ -51,6 +51,32 @@ const numberOptions = {
   max: 1,
   step: 0.1
 };
+
+export const TestCase = () =>
+  class TestCaseExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          h: 400,
+          scrollMount: 0,
+          itemSpacing: 20,
+          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+            type: Button,
+            h: 80,
+            buttonText: 'Button'
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
 export const Scrolling = () =>
   class ScrollingExample extends lng.Component {
     static _template() {

@@ -111,6 +111,30 @@ describe('Column', () => {
   });
 
   describe('scrolling', () => {
+    describe('with plinko false', () => {
+      it('should NOT set selected item for item based on previous item', () => {
+        let item = column.items[0];
+        column.plinko = false;
+        item._selectedIndex = 3;
+        testRenderer.update();
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+        expect(column.items[1]._selectedIndex).toBe(0);
+      });
+    });
+
+    describe('with plinko true', () => {
+      it('should set selected item for item based on previous item', () => {
+        let item = column.items[0];
+        column.plinko = true;
+        item._selectedIndex = 3;
+        testRenderer.update();
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+        expect(column.items[1]._selectedIndex).toBe(3);
+      });
+    });
+
     describe('with column height > items', () => {
       it('should not scroll', () => {
         let [item] = column.items;
@@ -130,17 +154,138 @@ describe('Column', () => {
       });
 
       describe('and scrollMount = 0', () => {
-        xit('should scroll down', () => {
+        it('should scroll down', () => {
           let [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.update();
-          expect(item.y).toBe(-160);
+          expect(item.y).toBe(-100);
         });
 
         it('should scroll up', () => {
           let item = column.items[0];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+
+        it('should keep a full screen of items', () => {
+          let item = column.items[2];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+      });
+
+      describe('and scrollMount = 0.5', () => {
+        beforeEach(() => {
+          column.scrollMount = 0.5;
+          column.render();
+        });
+
+        it('should render correctly', () => {
+          expect(column.items[0].y).toBe(0);
+          expect(column.items[1].y).toBe(100);
+        });
+
+        it('should not scroll until past the mid point', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+
+        it('should scroll down', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(-100);
+        });
+
+        it('should scroll up', () => {
+          let item = column.items[0];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Up');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+
+        it('should keep a full screen of items', () => {
+          let item = column.items[1];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+      });
+
+      describe('and scrollMount = 1', () => {
+        beforeEach(() => {
+          column.scrollMount = 1;
+          column.render();
+        });
+
+        it('should render correctly', () => {
+          expect(column.items[0].y).toBe(0);
+          expect(column.items[1].y).toBe(100);
+        });
+
+        it('should not scroll until the last item', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+
+        xit('should scroll down', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(-100);
+        });
+
+        xit('should not scroll up until back to top item', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Up');
+          testRenderer.update();
+          expect(item.y).toBe(-100);
+        });
+
+        it('should not scroll up until back to top item', () => {
+          let [item] = column.items;
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Up');
+          testRenderer.keyPress('Up');
+          testRenderer.keyPress('Up');
+          testRenderer.keyPress('Up');
+          testRenderer.update();
+          expect(item.y).toBe(0);
+        });
+
+        xit('should keep a full screen of items', () => {
+          let item = column.items[1];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
           testRenderer.update();
           expect(item.y).toBe(0);
         });
@@ -160,25 +305,6 @@ describe('Column', () => {
         column.scrollTo(3);
         jest.runAllTimers();
         expect(column.selectedIndex).toBe(3);
-      });
-
-      xit('should set selected item for item based on previous item', () => {
-        let item = column.items[0];
-        item._selectedIndex = 3;
-        testRenderer.update();
-        testRenderer.keyPress('Down');
-        testRenderer.update();
-        expect(column.items[1]._selectedIndex).toBe(3);
-      });
-
-      it('should keep a full screen of items', () => {
-        let item = column.items[1];
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.update();
-        expect(item.y).toBe(0);
       });
 
       it('should load more items near bottom with getMoreItems', () => {
