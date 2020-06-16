@@ -61,7 +61,7 @@ export const TestCase = () =>
         Column: {
           type: Column,
           h: 400,
-          scrollMount: 0,
+          scrollMount: 1,
           itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,

@@ -245,7 +245,7 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        xit('should scroll down', () => {
+        it('should scroll down', () => {
           let [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -255,7 +255,7 @@ describe('Column', () => {
           expect(item.y).toBe(-100);
         });
 
-        xit('should not scroll up until back to top item', () => {
+        it('should not scroll up until back to top item', () => {
           let [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -280,7 +280,7 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        xit('should keep a full screen of items', () => {
+        it('should keep a full screen of items', () => {
           let item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
