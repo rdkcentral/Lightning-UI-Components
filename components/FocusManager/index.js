@@ -35,8 +35,7 @@ export default class FocusManager extends lng.Component {
 
   // Can be overriden
   appendItems(items = []) {
-    this.childrenList.a(items);
-    this.loading = false;
+    this.childList.a(items);
     this._refocus();
   }
 
