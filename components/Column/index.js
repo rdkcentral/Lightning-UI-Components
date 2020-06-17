@@ -72,6 +72,7 @@ export default class Column extends FocusManager {
     items.forEach(item => {
       item.w = item.w || itemWidth;
       item.y = bottomOfScreen;
+      item.alpha = 0;
       item.parentFocus = this.hasFocus();
       this.childList.add(this.application.stage.c(item));
     });
@@ -177,7 +178,7 @@ export default class Column extends FocusManager {
     while (itemY >= -BOUNDS && index >= 0) {
       let item = this.items[index];
       itemY -= item.h + this.itemSpacing;
-      let alpha = itemY >= 0 ? 1 : 1;
+      let alpha = this._isOnScreen(itemY) ? 1 : 0;
       item.smooth = { y: [itemY, this.itemTransition], alpha };
       index--;
     }
@@ -192,7 +193,8 @@ export default class Column extends FocusManager {
     let overFillHeight = this._columnHeight + BOUNDS + this.itemSpacing;
     while (itemY < overFillHeight && index < this.items.length) {
       let item = this.items[index];
-      item.smooth = { y: [itemY, this.itemTransition], alpha: 1 };
+      let alpha = this._isOnScreen(itemY) ? 1 : 0;
+      item.smooth = { y: [itemY, this.itemTransition], alpha };
       itemY += item.h + this.itemSpacing;
       index++;
     }
