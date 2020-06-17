@@ -7,7 +7,11 @@ export default class Column extends FocusManager {
     return {
       boundsMargin: [BOUNDS, BOUNDS, 0, 0],
       direction: 'column',
-      scrollMount: 0
+      scrollMount: 0,
+      itemTransition: {
+        duration: 0.4,
+        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
+      }
     };
   }
 
@@ -208,14 +212,6 @@ export default class Column extends FocusManager {
     return this.h || this.renderHeight || this.stage.h;
   }
 
-  get _totalH() {
-    return this.items.reduce(
-      (acc, cur, index) =>
-        (acc += cur.h + (index < this.items.length - 1 ? this.itemSpacing : 0)),
-      this._Items && this._Items.y ? this._Items.y : 0
-    );
-  }
-
   set itemSpacing(val) {
     this._itemSpacing = val;
     this.render();
@@ -232,19 +228,6 @@ export default class Column extends FocusManager {
     } else {
       this._whenEnabled.then(() => (this.updateItems = callback));
     }
-  }
-
-  get itemTransition() {
-    return (
-      this._itemTransition || {
-        duration: 0.4,
-        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
-      }
-    );
-  }
-
-  set itemTransition(val) {
-    this._itemTransition = val;
   }
 
   _focus() {
