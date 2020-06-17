@@ -37,13 +37,6 @@ export const Basic = () =>
       return this.tag('Column');
     }
   };
-Basic.story = {
-  parameters: {
-    options: {
-      isToolShown: false
-    }
-  }
-};
 
 const numberOptions = {
   range: true,
@@ -160,8 +153,31 @@ export const Provider = () =>
     }
   };
 
+export const VaryingItemHeight = () =>
+  class VaryingItemHeightExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          itemSpacing: 20,
+          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+            type: Button,
+            buttonText: 'Button',
+            h: 40 + Math.floor(Math.random() * 100)
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
 export const SkipFocus = () =>
-  class ColumnExample extends lng.Component {
+  class SkipFocusExample extends lng.Component {
     static _template() {
       return {
         x: 20,
