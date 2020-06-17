@@ -1,4 +1,5 @@
 import lng from 'wpe-lightning';
+import 'wpe-lightning/devtools/lightning-inspect';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
@@ -176,6 +177,28 @@ export const VaryingItemHeight = () =>
     }
   };
 
+export const ExpandableHeightItems = () =>
+  class ExpandableHeightItemsExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          itemSpacing: 20,
+          items: Array.apply(null, { length: 5 }).map((_, i) => ({
+            type: ExpandingButton,
+            buttonText: 'Button'
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
 export const SkipFocus = () =>
   class SkipFocusExample extends lng.Component {
     static _template() {
@@ -244,5 +267,17 @@ class Button extends lng.Component {
   _unfocus() {
     this.color = 0xff1f1f1f;
     this.tag('Label').color = 0xffffffff;
+  }
+}
+
+class ExpandingButton extends Button {
+  _focus() {
+    super._focus();
+    this.patch({ h: 100 });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.patch({ h: 40 });
   }
 }

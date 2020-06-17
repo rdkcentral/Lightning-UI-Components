@@ -1,4 +1,5 @@
 import lng from 'wpe-lightning';
+import 'wpe-lightning/devtools/lightning-inspect';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
 
