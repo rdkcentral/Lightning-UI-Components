@@ -122,12 +122,9 @@ export default class Column extends FocusManager {
     let itemY = 0;
     let index = this.selectedIndex;
     let lastIndex = this._computeLastIndex();
-    let scrollStart = this._columnHeight * this.scrollMount;
-    let startScrollIndex = this._computeStartScrollIndex(scrollStart);
 
     if (this.plinko && prev && prev.currentItem) {
-      let index = this._getIndexOfItemNear(selected, prev);
-      selected._selectedIndex = index;
+      selected._selectedIndex = this._getIndexOfItemNear(selected, prev);
     }
 
     if (this._nearEnd() && this._getMoreItems) {
@@ -139,8 +136,8 @@ export default class Column extends FocusManager {
       index = lastIndex;
     }
 
-    if (index === 0) {
-      return this._renderDown(0, 0);
+    if (this.scrollMount === 0 || index === 0) {
+      return this._renderDown(index);
     }
 
     if (this.scrollMount === 1) {
@@ -150,31 +147,33 @@ export default class Column extends FocusManager {
       }
 
       if (itemY >= this._columnHeight) {
-        return this._renderUp(this.selectedIndex);
+        return this._renderUp();
       }
-      return this._renderDown(this.selectedIndex);
+      return this._renderDown();
     }
+
+    // Scroll mount is middle
+    let scrollStart = this._columnHeight * this.scrollMount;
+    let startScrollIndex = this._computeStartScrollIndex(scrollStart);
 
     if (index < startScrollIndex) {
-      return this._renderDown(0, 0);
+      return this._renderDown(0);
     }
 
-    if (this.scrollMount === 0) {
-      itemY = 0;
-    } else {
-      if (index === lastIndex) {
-        return this._renderUp(this.items.length - 1);
-      }
-      itemY = scrollStart - this.selected.h / 2;
+    if (index >= lastIndex) {
+      return this._renderUp(this.items.length - 1);
     }
 
-    // Render selected in correct position
-    this.selected.smooth = { y: [itemY, this.itemTransition], alpha: 1 };
+    itemY = scrollStart - this.selected.h / 2;
     this._renderUp(index - 1, itemY);
     this._renderDown(index, itemY);
   }
 
-  _renderUp(index, itemY = this._columnHeight) {
+  _renderUp(index = this.selectedIndex, itemY = this._columnHeight) {
+    if (index + 1 < this.items.length) {
+      index++;
+      itemY += this.items[index].h + this.itemSpacing;
+    }
     while (itemY >= -BOUNDS && index >= 0) {
       let item = this.items[index];
       itemY -= item.h + this.itemSpacing;
@@ -184,7 +183,12 @@ export default class Column extends FocusManager {
     }
   }
 
-  _renderDown(index, itemY = 0) {
+  _renderDown(index = this.selectedIndex, itemY = 0) {
+    if (index - 1 >= 0) {
+      index--;
+      itemY -= this.items[index].h + this.itemSpacing;
+    }
+
     let overFillHeight = this._columnHeight + BOUNDS + this.itemSpacing;
     while (itemY < overFillHeight && index < this.items.length) {
       let item = this.items[index];
