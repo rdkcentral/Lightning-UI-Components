@@ -2,6 +2,7 @@
 // to wait until the inspector is enabled before attaching it
 import 'wpe-lightning/devtools/lightning-inspect';
 import lng from 'wpe-lightning';
+import '@storybook/addon-console';
 import { addDecorator, addParameters } from '@storybook/html';
 
 import mdx from '../utils/storybook/docs-template.mdx';
