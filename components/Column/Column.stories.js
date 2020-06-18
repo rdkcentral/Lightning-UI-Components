@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import 'wpe-lightning/devtools/lightning-inspect';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
@@ -216,6 +215,96 @@ export const SkipFocus = () =>
               };
             return { type: Button, buttonText: 'Button' };
           })
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
+export const OnScreenEffect = () =>
+  class OnScreenEffectExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          items: Array.apply(null, { length: 10 }).map((_, i) => {
+            return {
+              type: Button,
+              buttonText: `Button ${i}`
+            };
+          })
+        }
+      };
+    }
+
+    _init() {
+      this.tag('Column').onScreenEffect = items => {
+        const { currentItem } = this.tag('Column');
+        let focusIndex = items.findIndex(item => item === currentItem);
+        if (focusIndex < 0) focusIndex = 0;
+
+        for (let i = 1; i >= 0 && i < items.length; i++) {
+          const prev = items[focusIndex - i];
+          const next = items[focusIndex + i];
+          if (prev) prev.setSmooth('alpha', 1 / (i * 1.5));
+          if (next) next.setSmooth('alpha', 1 / (i * 1.5));
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
+const rgb = (r, g, b) => {
+  return (r << 16) + (g << 8) + b + 255 * 16777216;
+};
+
+export const RainbowScreenEffect = () =>
+  class RainbowScreenEffectExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          itemSpacing: 55,
+          items: Array.apply(null, { length: 10 }).map((_, i) => {
+            return {
+              type: Button,
+              buttonText: `Button ${i}`
+            };
+          })
+        }
+      };
+    }
+
+    _init() {
+      const colors = [
+        rgb(255, 0, 0), // red
+        rgb(255, 165, 0), // orange
+        rgb(200, 200, 0), // yellow
+        rgb(0, 128, 0), // green
+        rgb(0, 0, 255), // blue
+        rgb(75, 0, 130), // purple
+        rgb(238, 130, 238) // pink
+      ];
+
+      this.tag('Column').onScreenEffect = items => {
+        const { currentItem } = this.tag('Column');
+        let focusIndex = items.findIndex(item => item === currentItem);
+        if (focusIndex < 0) focusIndex = 0;
+        for (let i = 1; i >= 0 && i < items.length; i++) {
+          const prev = items[focusIndex - i];
+          const next = items[focusIndex + i];
+          if (prev) prev.setSmooth('color', colors[i - 1]);
+          if (next) next.setSmooth('color', colors[i - 1]);
         }
       };
     }

@@ -119,6 +119,9 @@ export default class Column extends FocusManager {
     return 0;
   }
 
+  // can be overridden
+  onScreenEffect() {}
+
   render(selected = this.selected, prev) {
     if (this.items.length === 0) {
       return;
@@ -175,20 +178,25 @@ export default class Column extends FocusManager {
   }
 
   _renderUp(index = this.selectedIndex, itemY = this._columnHeight) {
+    let onScreenItems = [];
     if (index + 1 < this.items.length) {
       index++;
       itemY += this.items[index].h + this.itemSpacing;
     }
     while (itemY >= -BOUNDS && index >= 0) {
       let item = this.items[index];
+      if (this._isOnScreen(itemY)) onScreenItems.push(item);
       itemY -= item.h + this.itemSpacing;
       let alpha = this._isOnScreen(itemY) ? 1 : 0;
       item.smooth = { y: [itemY, this.itemTransition], alpha };
       index--;
     }
+
+    this.onScreenEffect(onScreenItems);
   }
 
   _renderDown(index = this.selectedIndex, itemY = 0) {
+    let onScreenItems = [];
     if (index - 1 >= 0) {
       index--;
       itemY -= this.items[index].h + this.itemSpacing;
@@ -198,10 +206,14 @@ export default class Column extends FocusManager {
     while (itemY < overFillHeight && index < this.items.length) {
       let item = this.items[index];
       let alpha = this._isOnScreen(itemY) ? 1 : 0;
+      if (this._isOnScreen(itemY)) onScreenItems.push(item);
+
       item.smooth = { y: [itemY, this.itemTransition], alpha };
       itemY += item.h + this.itemSpacing;
       index++;
     }
+
+    this.onScreenEffect(onScreenItems);
   }
 
   _isOnScreen(y) {
