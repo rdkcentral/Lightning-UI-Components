@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { button, withKnobs, number } from '@storybook/addon-knobs';
 
 import Column from '.';
 import FocusManager from '../FocusManager';
@@ -85,6 +85,41 @@ export const Scrolling = () =>
           }))
         }
       };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
+export const ScrollTo = () =>
+  class ScrollToExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          scrollMount: number('scrollMount', 0, numberOptions),
+          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          }))
+        }
+      };
+    }
+
+    _init() {
+      const column = this.tag('Column');
+      // return false to prevent re-render;
+      const transition =
+        number('itemTransition', column.itemTransition.duration, {
+          min: 0,
+          step: 0.1
+        }) * 100;
+      button('Button 1', () => !!column.scrollTo(0, transition));
+      button('Button 5', () => !!column.scrollTo(4, transition));
+      button('Button 10', () => !!column.scrollTo(9, transition));
     }
 
     _getFocused() {
