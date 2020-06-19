@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { addons, types } from '@storybook/addons';
 import { IconButton, Icons } from '@storybook/components';
 
-const ADDON_ID = 'lng-inspector';
+const ADDON_ID = 'addon-lightning-inspector';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const Inspector = () => {
