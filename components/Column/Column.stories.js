@@ -11,6 +11,9 @@ export default {
   component: Column,
   decorators: [withKnobs],
   parameters: {
+    codesandbox: {
+      helpers: ['Button']
+    },
     docs: {
       page: mdx
     }
@@ -18,7 +21,7 @@ export default {
 };
 
 export const Basic = () =>
-  class BasicExample extends lng.Component {
+  class Basic extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -46,7 +49,7 @@ const numberOptions = {
 };
 
 export const TestCase = () =>
-  class TestCaseExample extends lng.Component {
+  class TestCase extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -71,7 +74,7 @@ export const TestCase = () =>
   };
 
 export const Scrolling = () =>
-  class ScrollingExample extends lng.Component {
+  class Scrolling extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -93,7 +96,7 @@ export const Scrolling = () =>
   };
 
 export const ScrollTo = () =>
-  class ScrollToExample extends lng.Component {
+  class ScrollTo extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -128,7 +131,7 @@ export const ScrollTo = () =>
   };
 
 export const MultiColumn = () =>
-  class MultiColumnExample extends lng.Component {
+  class MultiColumn extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -145,6 +148,14 @@ export const MultiColumn = () =>
       return this.tag('FocusManager');
     }
   };
+MultiColumn.story = {
+  parameters: {
+    codesandbox: {
+      components: ['FocusManager'],
+      helpers: ['Basic', 'Button']
+    }
+  }
+};
 
 const getMoreItems = () => {
   action('provider')();
@@ -158,7 +169,7 @@ const getMoreItems = () => {
   });
 };
 export const Provider = () =>
-  class ProviderExample extends lng.Component {
+  class Provider extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -189,7 +200,7 @@ export const Provider = () =>
   };
 
 export const VaryingItemHeight = () =>
-  class VaryingItemHeightExample extends lng.Component {
+  class VaryingItemHeight extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -212,7 +223,7 @@ export const VaryingItemHeight = () =>
   };
 
 export const ExpandableHeightItems = () =>
-  class ExpandableHeightItemsExample extends lng.Component {
+  class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -234,7 +245,7 @@ export const ExpandableHeightItems = () =>
   };
 
 export const SkipFocus = () =>
-  class SkipFocusExample extends lng.Component {
+  class SkipFocus extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -258,9 +269,16 @@ export const SkipFocus = () =>
       return this.tag('Column');
     }
   };
+SkipFocus.story = {
+  parameters: {
+    codesandbox: {
+      helpers: ['Button', 'Title']
+    }
+  }
+};
 
 export const OnScreenEffect = () =>
-  class OnScreenEffectExample extends lng.Component {
+  class OnScreenEffect extends lng.Component {
     static _template() {
       return {
         x: 20,
@@ -302,7 +320,7 @@ const rgb = (r, g, b) => {
 };
 
 export const RainbowScreenEffect = () =>
-  class RainbowScreenEffectExample extends lng.Component {
+  class RainbowScreenEffect extends lng.Component {
     static _template() {
       return {
         x: 20,
