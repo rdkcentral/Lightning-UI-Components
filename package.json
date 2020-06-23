@@ -88,6 +88,7 @@
     "prepare": "npm run build:dist",
     "publish": "lerna publish from-package --no-commit-hooks",
     "new": "node utils/scripts/add-component.js",
+    "new:story": "sh utils/scripts/make-story.sh",
     "start": "start-storybook",
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
