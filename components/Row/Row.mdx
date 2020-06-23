@@ -1,10 +1,10 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
-// uncomment the line below and edit the path to point to your component
-// import * as stories from './Row.stories';
+import * as stories from './Row.stories';
+import { DocsLink, GenericType, ObjectFormat } from "../../utils/storybook/index.mdx";
 
 # Row
 
-Write a description here
+Focus management and smooth scrolling for a horizontally-oriented list of items.
 
 ## Usage
 
@@ -13,12 +13,12 @@ Explain how the component works. Use an example:
 ```js
 import Row from './Row';
 
-class Example extends lng.Component {
+class Basic extends lng.Component {
   static _template() {
     return {
       Row: {
         type: Row,
-        children: [
+        items: [
           // list of items
         ]
       }
@@ -27,30 +27,99 @@ class Example extends lng.Component {
 };
 ```
 
-Include previews:
-
 <Preview>
-  <Story id="column--basic" />
+  <Story id="row--basic" />
 </Preview>
 
-The `id` for the preview comes from the url path generated for the story.
+### Title
+
+A static title can easily be added to a row
+
+```js
+import Row from './Row';
+
+class Title extends lng.Component {
+  static _template() {
+    return {
+      Row: {
+        type: Row,
+        title: { text: 'Title Text' }
+        items: []
+      }
+    }
+  }
+}
+```
+
+<Preview>
+  <Story id="row--title" />
+</Preview>
+
+The `title` property is an <DocsLink id="lng.Text" /> texture; you can customize it like any other text.
+
+```js
+{
+  title: { fontSize: 20, wordWrap: false, text: 'Hi' }
+}
+```
+
+You can show and hide the title with the `showTitle` property.
+
+```js
+{
+  type: Row,
+  title: { text: 'Hide Me' },
+  showTitle: false,
+  items: []
+}
+```
+
+### Scrolling
+
+By default, `Row` will scroll horizontally to capture items out of view.
+
+<Preview>
+  <Story id="row--side-scrolling" />
+</Preview>
+
+You can force scrolling on every selection with `alwaysScroll`
+
+```js
+{
+  type: Row,
+  alwaysScroll: true,
+  items: []
+}
+```
 
 ## API
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
--|-|-|-
+export const ProviderType = () => (
+  <GenericType type="Promise">
+    <ObjectFormat object={{
+      items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
+      'appendItems?': 'boolean',
+      'getMoreItems?': '()=>Promise'
+    }} />
+  </GenericType>
+);
+
+name|type|readonly|default|description
+--|--|--|--|--
+alwaysScroll|boolean|false|false|moves all items on every selection
+currentItem|<DocsLink id="lng.Component" />|true|-|selected item
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
+itemSpacing|number|false|40|px between items
+provider|<ProviderType />|false|-|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
+selectedIndex|number|false|0|index of selected item
+showTitle|boolean|false|true if title exists|whether to display title component
+title|<DocsLink id="lng.Text" />|false|-|static title to show above row items
+wrapSelected|boolean|false|false|shether to wrap selection from the last item to the first
 
 ### Methods
 
-#### someMethod
+#### resetIndex
 
-Takes an `argument` and does something cool.
-
-##### Arguments
-
-name|type|required|default|description
---|--|--|--|--
--|-|-|-|-
+Sets `selectedIndex` to `0`;

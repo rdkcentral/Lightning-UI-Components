@@ -1,10 +1,18 @@
 import lng from 'wpe-lightning';
+import { boolean, withKnobs } from '@storybook/addon-knobs';
 
 import Row from '.';
+import mdx from './Row.mdx';
 
 export default {
   title: 'Row',
-  component: Row
+  component: Row,
+  decorators: [withKnobs],
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
 };
 
 export const Basic = () =>
@@ -37,13 +45,13 @@ export const Title = () =>
         y: 20,
         Row: {
           type: Row,
-          h: 40,
-          title: { fontSize: 20, text: 'Buncha Buttons' },
-          showTitle: true,
+          h: 100,
+          title: { text: 'Title Text' },
+          showTitle: boolean('showTitle', true),
           items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
+            { type: Button, buttonText: 'Button', h: 40, w: 150 },
+            { type: Button, buttonText: 'Button', h: 40, w: 150 },
+            { type: Button, buttonText: 'Button', h: 40, w: 150 }
           ]
         }
       };
