@@ -367,6 +367,93 @@ export const RainbowScreenEffect = () =>
     }
   };
 
+export const StickyTitle = () => {
+  const items = Array.apply(null, { length: 5 })
+    .map((_, i) => {
+      const headerText = `Sticky Header ${i}`;
+      let items = Array.apply(null, { length: 8 }).map((_, i) => {
+        return {
+          type: Button,
+          buttonText: `Button ${i + 1}`,
+          headerText
+        };
+      });
+
+      return [
+        {
+          type: ColumnHeader,
+          headerText,
+          skipFocus: true
+        },
+        ...items
+      ];
+    })
+    .flat();
+  items.shift();
+
+  return class ColumnExample extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        h: 450,
+        w: 200,
+        ColumnHeader: {
+          type: ColumnHeader,
+          h: 40
+        },
+        Column: {
+          y: 50,
+          w: 200,
+          h: 400,
+          clipping: true,
+          type: Column,
+          items,
+          signals: {
+            selectedChanged: '_updateHeader'
+          }
+        }
+      };
+    }
+
+    _updateHeader(selected) {
+      this.tag('ColumnHeader').headerText = selected.headerText || '';
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+};
+
+class ColumnHeader extends lng.Component {
+  static _template() {
+    return {
+      Label: {
+        x: 5,
+        y: 10,
+        text: {
+          text: 'Sticky Header',
+          fontSize: 24,
+          textColor: 0xffffffff
+        },
+        zIndex: 2
+      },
+      Line: {
+        color: 0xffffff1f,
+        rect: true,
+        w: 300,
+        y: 35,
+        h: 3
+      }
+    };
+  }
+
+  set headerText(val) {
+    this.tag('Label').text = val;
+  }
+}
+
 class Title extends lng.Component {
   static _template() {
     return {

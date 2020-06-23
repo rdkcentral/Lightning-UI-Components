@@ -13,10 +13,14 @@ export default class FocusManager extends lng.Component {
 
   set direction(direction) {
     this._direction = direction;
-    if (this._direction === 'column') {
-      this._setState('Column');
-    } else {
-      this._setState('Row');
+    let state = {
+      none: 'None',
+      column: 'Column',
+      row: 'Row'
+    }[direction];
+
+    if (state) {
+      this._setState(state);
     }
   }
 
@@ -45,27 +49,37 @@ export default class FocusManager extends lng.Component {
 
   set selectedIndex(index) {
     let previousIndex = this.selectedIndex;
+    let prevSelected = this.selected;
+    let direction = index > previousIndex ? 'next' : 'previous';
+    let numItems = this.children.length;
 
-    if (this.children[index] && this.children[index].skipFocus) {
-      this.selectedIndex = index > previousIndex ? index + 1 : index - 1;
-      return;
-    }
     if (index > 0) {
-      if (index < this.children.length) {
+      if (index < numItems) {
         this._selectedIndex = index;
       } else {
-        this._selectedIndex = this.children.length - 1;
+        this._selectedIndex = numItems - 1;
       }
     } else {
       this._selectedIndex = 0;
     }
 
+    // Have items update (change height or width) before we render
     this._refocus();
+
     if (this.selected) {
-      let direction = previousIndex < this._selectedIndex ? 'next' : 'previous';
-      let args = [this.selected, this.children[previousIndex], direction];
+      let args = [this.selected, prevSelected, direction];
       this.render(...args);
-      this.signal('selectedChange', ...args);
+      this.signal('selectedChanged', ...args);
+
+      // We still want to signal so rendering can occur
+      if (this.selected.skipFocus) {
+        index = this.selectedIndex;
+        if (index === 0) {
+          this.selectedIndex++;
+        } else {
+          this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
+        }
+      }
     }
   }
 
@@ -100,9 +114,13 @@ export default class FocusManager extends lng.Component {
 
   _getFocused() {
     let { selected } = this;
-    return selected && selected.focusRef
-      ? selected.tag(selected.focusRef)
-      : selected;
+
+    // Make sure we're focused on a component
+    if (selected && selected.cparent) {
+      return selected.focusRef ? selected.tag(selected.focusRef) : selected;
+    }
+
+    return this;
   }
 
   get _size() {
@@ -111,6 +129,7 @@ export default class FocusManager extends lng.Component {
 
   static _states() {
     return [
+      class None extends this {},
       class Row extends this {
         _handleLeft() {
           return this.selectPrevious();
