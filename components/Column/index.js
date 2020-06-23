@@ -27,7 +27,7 @@ export default class Column extends FocusManager {
   }
 
   _getIndexOfItemNear(selected, prev) {
-    let prevItem = prev.currentItem;
+    let prevItem = prev.selected || prev.currentItem;
     let [itemX] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
     let index = selected.items.findIndex(item => {
       let [x] = item.core.getAbsoluteCoords(0, 0);
@@ -53,10 +53,6 @@ export default class Column extends FocusManager {
 
   _nearEnd(BUFFER = 6) {
     return this.items.length && this.selectedIndex > this.items.length - BUFFER;
-  }
-
-  get currentItem() {
-    return this.items[this.selectedIndex];
   }
 
   set provider(provider) {
@@ -131,7 +127,7 @@ export default class Column extends FocusManager {
     let index = this.selectedIndex;
     let lastIndex = this._computeLastIndex();
 
-    if (this.plinko && prev && prev.currentItem) {
+    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
       selected._selectedIndex = this._getIndexOfItemNear(selected, prev);
     }
 
@@ -145,7 +141,7 @@ export default class Column extends FocusManager {
     }
 
     if (this.scrollMount === 0 || index === 0) {
-      return this._renderDown(index);
+      return this.onScreenEffect(this._renderDown(index));
     }
 
     if (this.scrollMount === 1) {
@@ -155,9 +151,9 @@ export default class Column extends FocusManager {
       }
 
       if (itemY >= this._columnHeight) {
-        return this._renderUp();
+        return this.onScreenEffect(this._renderUp());
       }
-      return this._renderDown();
+      return this.onScreenEffect(this._renderDown());
     }
 
     // Scroll mount is middle
@@ -165,16 +161,20 @@ export default class Column extends FocusManager {
     let startScrollIndex = this._computeStartScrollIndex(scrollStart);
 
     if (index < startScrollIndex) {
-      return this._renderDown(0);
+      return this.onScreenEffect(this._renderDown(0));
     }
 
     if (index >= lastIndex) {
-      return this._renderUp(this.items.length - 1);
+      return this.onScreenEffect(this._renderUp(this.items.length - 1));
     }
 
     itemY = scrollStart - this.selected.h / 2;
-    this._renderUp(index - 1, itemY);
-    this._renderDown(index, itemY);
+    this.onScreenEffect(
+      [].concat(
+        this._renderUp(index - 1, itemY),
+        this._renderDown(index, itemY)
+      )
+    );
   }
 
   _renderUp(index = this.selectedIndex, itemY = this._columnHeight) {
@@ -192,7 +192,7 @@ export default class Column extends FocusManager {
       index--;
     }
 
-    this.onScreenEffect(onScreenItems);
+    return onScreenItems;
   }
 
   _renderDown(index = this.selectedIndex, itemY = 0) {
@@ -213,7 +213,7 @@ export default class Column extends FocusManager {
       index++;
     }
 
-    this.onScreenEffect(onScreenItems);
+    return onScreenItems;
   }
 
   _isOnScreen(y) {

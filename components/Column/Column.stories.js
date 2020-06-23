@@ -1,7 +1,6 @@
 import lng from 'wpe-lightning';
 import { action } from '@storybook/addon-actions';
 import { button, withKnobs, number } from '@storybook/addon-knobs';
-
 import Column from '.';
 import FocusManager from '../FocusManager';
 import mdx from './Column.mdx';
@@ -21,19 +20,37 @@ export default {
 };
 
 export const Basic = () =>
-  class Basic extends lng.Component {
+  class Scrolling extends lng.Component {
     static _template() {
       return {
         x: 20,
         y: 20,
         Column: {
           type: Column,
-          items: Array.apply(null, { length: 5 }).map((_, i) => ({
+          itemSpacing: number('itemSpacing', 20, itemSpacingOptions),
+          scrollMount: number('scrollMount', 0, numberOptions),
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
-            buttonText: 'Button'
+            buttonText: `Button ${i + 1}`
           }))
         }
       };
+    }
+
+    _init() {
+      const column = this.tag('Column');
+      // return false to prevent re-render;
+      const transition =
+        number('itemTransition', column.itemTransition.duration, {
+          min: 0,
+          step: 0.1
+        }) * 100;
+      // Setup Knobs in storybook
+      button('Button 1', () => !!column.scrollTo(0, transition));
+      button('Button 5', () => !!column.scrollTo(4, transition));
+      button('Button 10', () => !!column.scrollTo(9, transition));
+      button('Button 15', () => !!column.scrollTo(14, transition));
+      button('Button 20', () => !!column.scrollTo(19, transition));
     }
 
     _getFocused() {
@@ -46,6 +63,13 @@ const numberOptions = {
   min: 0,
   max: 1,
   step: 0.1
+};
+
+const itemSpacingOptions = {
+  range: true,
+  min: 0,
+  max: 100,
+  step: 5
 };
 
 export const TestCase = () =>
@@ -66,63 +90,6 @@ export const TestCase = () =>
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
-  };
-
-export const Scrolling = () =>
-  class Scrolling extends lng.Component {
-    static _template() {
-      return {
-        x: 20,
-        y: 20,
-        Column: {
-          type: Column,
-          scrollMount: number('scrollMount', 0, numberOptions),
-          items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
-          }))
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
-  };
-
-export const ScrollTo = () =>
-  class ScrollTo extends lng.Component {
-    static _template() {
-      return {
-        x: 20,
-        y: 20,
-        Column: {
-          type: Column,
-          scrollMount: number('scrollMount', 0, numberOptions),
-          items: Array.apply(null, { length: 10 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
-          }))
-        }
-      };
-    }
-
-    _init() {
-      const column = this.tag('Column');
-      // return false to prevent re-render;
-      const transition =
-        number('itemTransition', column.itemTransition.duration, {
-          min: 0,
-          step: 0.1
-        }) * 100;
-      button('Button 1', () => !!column.scrollTo(0, transition));
-      button('Button 5', () => !!column.scrollTo(4, transition));
-      button('Button 10', () => !!column.scrollTo(9, transition));
     }
 
     _getFocused() {
@@ -183,6 +150,7 @@ export const Provider = () =>
         Column: {
           y: 50,
           type: Column,
+          itemSpacing: 30,
           provider: getMoreItems(),
           items: Array.apply(null, { length: 20 }).map((_, i) => {
             return {
@@ -252,11 +220,13 @@ export const SkipFocus = () =>
         y: 20,
         Column: {
           type: Column,
+          itemSpacing: 30,
           items: Array.apply(null, { length: 50 }).map((_, i) => {
             if (i % 4 === 0)
               return {
                 type: Title,
-                titleText: 'Title',
+                titleText: 'Skip Focus Text',
+                h: 30,
                 skipFocus: true
               };
             return { type: Button, buttonText: 'Button' };
@@ -285,7 +255,10 @@ export const OnScreenEffect = () =>
         y: 20,
         Column: {
           type: Column,
-          items: Array.apply(null, { length: 10 }).map((_, i) => {
+          h: 430,
+          itemSpacing: 45,
+          scrollMount: 0.5,
+          items: Array.apply(null, { length: 20 }).map((_, i) => {
             return {
               type: Button,
               buttonText: `Button ${i}`
@@ -297,16 +270,22 @@ export const OnScreenEffect = () =>
 
     _init() {
       this.tag('Column').onScreenEffect = items => {
-        const { currentItem } = this.tag('Column');
-        let focusIndex = items.findIndex(item => item === currentItem);
-        if (focusIndex < 0) focusIndex = 0;
+        const { selectedIndex } = this.tag('Column');
 
-        for (let i = 1; i >= 0 && i < items.length; i++) {
-          const prev = items[focusIndex - i];
-          const next = items[focusIndex + i];
-          if (prev) prev.setSmooth('alpha', 1 / (i * 1.5));
-          if (next) next.setSmooth('alpha', 1 / (i * 1.5));
+        if (selectedIndex < 3 || selectedIndex > 16) {
+          items.forEach(item => (item.alpha = 1));
+          return;
         }
+
+        let mid = parseInt(items.length / 2);
+        items[mid].setSmooth('alpha', 1);
+        items.slice(0, mid).forEach((item, i) => {
+          item.setSmooth('alpha', 1 / (i * 1.5));
+        });
+
+        items.slice(mid + 1).forEach((item, i) => {
+          item.setSmooth('alpha', 1 / (i * 1.5));
+        });
       };
     }
 
@@ -327,7 +306,7 @@ export const RainbowScreenEffect = () =>
         y: 20,
         Column: {
           type: Column,
-          itemSpacing: 55,
+          itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
               type: Button,
@@ -350,15 +329,11 @@ export const RainbowScreenEffect = () =>
       ];
 
       this.tag('Column').onScreenEffect = items => {
-        const { currentItem } = this.tag('Column');
-        let focusIndex = items.findIndex(item => item === currentItem);
-        if (focusIndex < 0) focusIndex = 0;
-        for (let i = 1; i >= 0 && i < items.length; i++) {
-          const prev = items[focusIndex - i];
-          const next = items[focusIndex + i];
-          if (prev) prev.setSmooth('color', colors[i - 1]);
-          if (next) next.setSmooth('color', colors[i - 1]);
-        }
+        items.forEach((item, i) => {
+          if (!item.hasFocus()) {
+            item.patch({ color: colors[i] });
+          }
+        });
       };
     }
 
@@ -406,6 +381,7 @@ export const StickyTitle = () => {
           y: 50,
           w: 200,
           h: 400,
+          itemSpacing: 50,
           clipping: true,
           type: Column,
           items,
@@ -477,6 +453,7 @@ class Button extends lng.Component {
     return {
       color: 0xff1f1f1f,
       texture: lng.Tools.getRoundRect(150, 40, 4),
+      h: 40,
       Label: {
         x: 75,
         y: 22,

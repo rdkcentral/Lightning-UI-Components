@@ -114,12 +114,14 @@ export default class FocusManager extends lng.Component {
 
   _getFocused() {
     let { selected } = this;
-
     // Make sure we're focused on a component
-    if (selected && selected.cparent) {
-      return selected.focusRef ? selected.tag(selected.focusRef) : selected;
+    if (selected) {
+      if (selected.focusRef) {
+        return selected.tag(selected.focusRef);
+      } else if (selected.cparent) {
+        return selected;
+      }
     }
-
     return this;
   }
 
