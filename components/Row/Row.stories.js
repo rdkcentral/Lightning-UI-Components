@@ -1,5 +1,5 @@
 import lng from 'wpe-lightning';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { number, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import Row from '.';
 import mdx from './Row.mdx';
@@ -23,6 +23,7 @@ export const Basic = () =>
         y: 20,
         Row: {
           type: Row,
+          w: 900,
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
@@ -32,35 +33,22 @@ export const Basic = () =>
       };
     }
 
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-export const Title = () =>
-  class Title extends lng.Component {
-    static _template() {
-      return {
-        x: 20,
-        y: 20,
-        Row: {
-          type: Row,
-          h: 100,
-          title: { text: 'Title Text' },
-          showTitle: boolean('showTitle', true),
-          items: [
-            { type: Button, buttonText: 'Button', h: 40, w: 150 },
-            { type: Button, buttonText: 'Button', h: 40, w: 150 },
-            { type: Button, buttonText: 'Button', h: 40, w: 150 }
-          ]
-        }
-      };
+    _init() {
+      super._init();
+      this.itemSpacing = 100;
     }
 
     _getFocused() {
       return this.tag('Row');
     }
   };
+
+const numberOptions = {
+  range: true,
+  min: 0,
+  max: 1,
+  step: 0.1
+};
 
 export const SideScrolling = () =>
   class SideScrolling extends lng.Component {
@@ -71,7 +59,8 @@ export const SideScrolling = () =>
         Row: {
           type: Row,
           w: 900,
-          alwaysScroll: true,
+          alwaysScroll: boolean('alwaysScroll', false),
+          scrollMount: number('scrollMount', 1, numberOptions),
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },

@@ -2,24 +2,18 @@ import lng from 'wpe-lightning';
 import FocusManager from '../FocusManager';
 import { TYPESCALE, GRID } from '../Styles';
 
-const TITLE_HEIGHT = TYPESCALE.title.lineHeight + GRID.spacingIncrement * 5;
+const BOUNDS = 200;
 
-export default class Row extends lng.Component {
+export default class Row extends FocusManager {
   static _template() {
     return {
-      Title: {
-        text: {
-          ...TYPESCALE.title
-        }
-      },
-      Items: {
-        type: FocusManager,
-        direction: 'row',
-        signals: {
-          selectedChange: '_scroll'
-        }
-      },
-      loading: true
+      boundsMargin: [0, 0, BOUNDS, BOUNDS],
+      direction: 'row',
+      scrollMount: 1,
+      itemTransition: {
+        duration: 0.4,
+        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
+      }
     };
   }
 
@@ -36,72 +30,17 @@ export default class Row extends lng.Component {
   }
 
   _init() {
+    this.alwaysScroll = this.alwaysScroll || false;
     this.showTitle = this._showTitle === undefined ? true : this.showTitle;
     this._originalW = this.w;
     this._originalH = this.h;
-    this._Items._originalY = 0;
-  }
-
-  _getFocused() {
-    return this._Items;
+    this._originalY = 0;
+    this.scrollMount = this.scrollMount || 0;
+    this._refocus();
   }
 
   resetIndex() {
     this.selectedIndex = 0;
-  }
-
-  get _Items() {
-    return this.tag('Items');
-  }
-
-  get _selectedIndex() {
-    return this._Items.selectedIndex;
-  }
-
-  set _selectedIndex(val) {
-    this._Items.selectedIndex = val;
-  }
-
-  get items() {
-    return this._Items.children;
-  }
-
-  set items(items = []) {
-    if (this._rowEnabled) {
-      this._Items.childList.clear();
-      items.forEach(item => {
-        item.w = item.w || this._defaultItemWidth(this.upCount || items.length);
-        item.h = item.h || this._Items.h;
-        item.parentRowFocused = this.hasFocus();
-        this._Items.childList.add(this.application.stage.c(item));
-      });
-
-      if (items.length > this.upCount) {
-        this.wrapSelected = false;
-      }
-      if (!this._hasProvider) {
-        this.loading = false;
-      }
-      this.render();
-
-      if (this.hasFocus()) {
-        this._refocus();
-      }
-    } else {
-      this._whenEnabled.then(() => (this.items = items));
-    }
-  }
-
-  set wrapSelected(wrapSelected) {
-    this._Items.wrapSelected = wrapSelected;
-  }
-
-  get wrapSelected() {
-    return this._Items.wrapSelected;
-  }
-
-  get currentItem() {
-    return this.items[this._selectedIndex];
   }
 
   set itemSpacing(val) {
@@ -129,66 +68,50 @@ export default class Row extends lng.Component {
   }
 
   set provider(provider) {
-    if (provider) {
-      this._hasProvider = true;
-      provider.then(data => {
-        let items = Array.isArray(data) ? data : data.items;
-
-        if (!items || items.length === 0) {
-          this.fireAncestors('$removeRow', this);
-        } else {
-          this.loading = false;
-          this.items = items;
-        }
-
-        if (data.title) {
-          this.title = data.title;
-        }
-      });
-    }
+    provider.then(data => {
+      if (!data.appendItems) {
+        this.childList.clear();
+      }
+      this.appendItems(data.items);
+      this._getMoreItems = data.getMoreItems;
+    });
   }
 
-  set showTitle(val) {
-    if (this.title && this.h && val !== this._showTitle) {
-      let alpha = val ? 1 : 0;
-      let heightChange = (val ? 1 : -1) * TITLE_HEIGHT;
-      this.tag('Title').alpha = alpha;
-      this._Items.y = val ? TITLE_HEIGHT : 0;
-      this._updateHeight(heightChange);
-      this._Items.h = val ? this.h - TITLE_HEIGHT : this.h;
-    }
-    this._showTitle = val;
-  }
+  appendItems(items = []) {
+    let itemHeight = this.renderHeight;
+    // Add items past the bounds margin so they don't load
+    let outOfBounds = this.w + this._rowWidth + this.itemSpacing;
+    items.forEach(item => {
+      item.h = item.h || itemHeight;
+      item.x = outOfBounds;
+      item.alpha = 0;
+      item.parentFocus = this.hasFocus();
+      this.childList.add(this.application.stage.c(item));
+    });
 
-  get showTitle() {
-    return this._showTitle;
+    // Ensure items are drawn so they have height
+    this.stage.update();
+    this._refocus();
+    this.render();
   }
 
   _updateHeight(change) {
     this.h += change;
   }
 
-  set title(text) {
-    this._title = text;
-    this.tag('Title').text = text;
-  }
-
-  get title() {
-    return this._title;
-  }
-
   _focus() {
+    setTimeout(() => this.render(), 0);
+    this.items.forEach(item => (item.parentFocus = true));
     if (this.focusHeightChange) {
       this._updateHeight(this.focusHeightChange);
     }
-    this.items.forEach(item => (item.parentRowFocused = true));
   }
 
   _unfocus() {
+    this.items.forEach(item => (item.parentFocus = false));
     if (this.focusHeightChange) {
       this._updateHeight(-this.focusHeightChange);
     }
-    this.items.forEach(item => (item.parentRowFocused = false));
   }
 
   get scrollTransition() {
@@ -199,20 +122,6 @@ export default class Row extends lng.Component {
     this._scrollTransition = val;
   }
 
-  _scroll(selected, prev, direction) {
-    if (
-      this.alwaysScroll ||
-      (this._requiresScrolling && this._isOffScreen(selected))
-    ) {
-      let shiftAmount = prev.w + this.itemSpacing;
-      let shiftDirection = direction === 'next' ? -1 : 1;
-      this._Items.smooth = {
-        x: [this.offset + shiftAmount * shiftDirection, this.scrollTransition]
-      };
-    }
-    this.signal('selectedChange', this._selectedIndex);
-  }
-
   _isOffScreen(item) {
     let [itemX] = item.core.getAbsoluteCoords(0, 0);
     return (
@@ -220,27 +129,167 @@ export default class Row extends lng.Component {
     );
   }
 
-  render(animate) {
-    let itemX = 0;
-    this.items.forEach((item, index) => {
-      if (animate) {
-        item.smooth = { x: [itemX, this.scrollTransition] };
-      } else {
-        item.x = itemX;
-      }
-      itemX +=
-        index < this.items.length - 1 ? item.w + this.itemSpacing : item.w;
+  _getIndexOfItemNear(selected, prev) {
+    let prevItem = prev.selected;
+    let [_, itemY] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
+    let index = selected.items.findIndex(item => {
+      let [_, y] = item.core.getAbsoluteCoords(0, 0);
+      return y >= itemY || itemY <= y + item.h;
     });
-    this.w = itemX;
+
+    if (index === -1) {
+      return selected.items.length - 1;
+    }
+
+    return index;
+  }
+
+  _nearEnd(BUFFER = 6) {
+    return this.items.length && this.selectedIndex > this.items.length - BUFFER;
+  }
+
+  _computeLastIndex() {
+    let totalItems = this.items.length;
+    let MAX_WIDTH = this._rowWidth - this.itemSpacing;
+
+    for (let i = totalItems - 1; i >= 0; i--) {
+      MAX_WIDTH -= this.items[i].w + this.itemSpacing;
+      if (MAX_WIDTH <= 0) {
+        return i + 1;
+      }
+    }
+
+    return 0;
+  }
+
+  _isOnScreen(x, w) {
+    return x + w >= 0 && x < this._rowWidth;
+  }
+
+  _computeStartScrollIndex(scrollStart) {
+    if (scrollStart === 0) {
+      return 0;
+    }
+
+    let totalItems = this.items.length;
+    let MAX_WIDTH = scrollStart;
+
+    for (let i = 0; i < totalItems; i++) {
+      MAX_WIDTH -= this.items[i].w + this.itemSpacing;
+      if (MAX_WIDTH <= 0) {
+        return i + 1;
+      }
+    }
+
+    return 0;
+  }
+
+  get _rowWidth() {
+    return this.w || this.renderWidth || this.stage.w;
+  }
+
+  render(selected = this.selected, prev) {
+    if (this.items.length === 0) {
+      return;
+    }
+
+    if (this.plinko && prev && prev.selected) {
+      selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
+    }
+
+    if (this._nearEnd() && this._getMoreItems) {
+      this.provider = this._getMoreItems();
+      this._getMoreItems = false;
+    }
+
+    let itemX = 0;
+    let index = this.selectedIndex;
+    let lastIndex = this._computeLastIndex();
+
+    if (index > lastIndex && this._getMoreItems === undefined) {
+      index = lastIndex;
+    }
+
+    if (this.scrollMount === 0 || index === 0) {
+      return this._renderRight(index);
+    }
+
+    if (this.scrollMount === 1) {
+      itemX = this.selected.x;
+
+      if (!this.alwaysScroll && this._isOnScreen(itemX, this.selected.w)) {
+        return;
+      }
+
+      if (itemX >= this._rowWidth) {
+        return this._renderLeft();
+      }
+      return this._renderRight();
+    }
+
+    // Scroll mount is middle
+    let scrollStart = this._rowWidth * this.scrollMount;
+    let startScrollIndex = this._computeStartScrollIndex(scrollStart);
+
+    if (index < startScrollIndex) {
+      return this._renderRight(0);
+    }
+
+    if (index >= lastIndex) {
+      return this._renderLeft(this.items.length - 1);
+    }
+
+    // itemX = scrollStart - this.selected.w / 2;
+    // this._renderLeft(index - 1, itemX);
+    // this._renderRight(index, itemX);
+  }
+
+  _renderLeft(index = this.selectedIndex, itemX = this._rowWidth) {
+    let onScreenItems = [];
+    if (index + 1 < this.items.length) {
+      index++;
+      itemX += this.items[index].w + this.itemSpacing;
+    }
+    while (itemX >= -BOUNDS && index >= 0) {
+      let item = this.items[index];
+      if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
+      itemX -= item.w + this.itemSpacing;
+      let alpha = this._isOnScreen(itemX, item.w) ? 1 : 0;
+      item.smooth = { x: [itemX, this.itemTransition], alpha };
+      index--;
+    }
+
+    this.onScreenEffect(onScreenItems);
+  }
+
+  _renderRight(index = this.selectedIndex, itemX = 0) {
+    let onScreenItems = [];
+    if (index - 1 >= 0) {
+      index--;
+      itemX -= this.items[index].w + this.itemSpacing;
+    }
+
+    let overFillWidth = this._rowWidth + BOUNDS + this.itemSpacing;
+    while (itemX < overFillWidth && index < this.items.length) {
+      let item = this.items[index];
+      let alpha = this._isOnScreen(itemX, item.w) ? 1 : 0;
+
+      if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
+      item.smooth = { x: [itemX, this.itemTransition], alpha };
+      itemX += item.w + this.itemSpacing;
+      index++;
+    }
+
+    this.onScreenEffect(onScreenItems);
   }
 
   get offset() {
-    let t = this._Items.transition('x');
+    let t = this.transition('x');
     return t ? t.targetValue : 0;
   }
 
   $shiftRow({ position }) {
-    this._Items.smooth = { x: [position, this.scrollTransition] };
+    this.smooth = { x: [position, this.scrollTransition] };
   }
 
   $itemChanged() {
@@ -250,14 +299,17 @@ export default class Row extends lng.Component {
   $itemHeightChanged(height) {
     if (this.parentGridFocus && !this.title) {
       if (this.hasFocus()) {
-        this._Items.smooth = { y: height };
+        this.smooth = { y: height };
         this._updateHeight(height);
       } else {
-        this._Items.smooth = { y: this._Items._originalY };
+        this.smooth = { y: this._originalY };
         this.h = this._originalH;
       }
     }
   }
+
+  // can be overridden
+  onScreenEffect() {}
 
   parentGridFocused() {}
 

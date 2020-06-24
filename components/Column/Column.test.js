@@ -115,11 +115,11 @@ describe('Column', () => {
       it('should NOT set selected item for item based on previous item', () => {
         let item = column.items[0];
         column.plinko = false;
-        item._selectedIndex = 3;
+        item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
         testRenderer.update();
-        expect(column.items[1]._selectedIndex).toBe(0);
+        expect(column.items[1].selectedIndex).toBe(0);
       });
     });
 
@@ -127,11 +127,11 @@ describe('Column', () => {
       it('should set selected item for item based on previous item', () => {
         let item = column.items[0];
         column.plinko = true;
-        item._selectedIndex = 3;
+        item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
         testRenderer.update();
-        expect(column.items[1]._selectedIndex).toBe(3);
+        expect(column.items[1].selectedIndex).toBe(3);
       });
     });
 

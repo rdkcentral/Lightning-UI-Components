@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { button, withKnobs, number } from '@storybook/addon-knobs';
 import Column from '.';
 import FocusManager from '../FocusManager';
+import Row from '../Row';
 import mdx from './Column.mdx';
 
 export default {
@@ -201,7 +202,37 @@ export const ExpandableHeightItems = () =>
           itemSpacing: 20,
           items: Array.apply(null, { length: 5 }).map((_, i) => ({
             type: ExpandingButton,
+            h: 40,
+            w: 150,
             buttonText: 'Button'
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
+export const ExpandableHeightRows = () =>
+  class ExpandableHeightItems extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          itemSpacing: 20,
+          items: Array.apply(null, { length: 3 }).map((_, i) => ({
+            type: ExpandingRow,
+            y: 50 * i,
+            h: 40,
+            items: [
+              { type: ExpandingButton, buttonText: 'Button', w: 150 },
+              { type: ExpandingButton, buttonText: 'Button', w: 150 },
+              { type: ExpandingButton, buttonText: 'Button', w: 150 }
+            ]
           }))
         }
       };
@@ -477,6 +508,18 @@ class Button extends lng.Component {
 }
 
 class ExpandingButton extends Button {
+  _focus() {
+    super._focus();
+    this.patch({ h: 100 });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.patch({ h: 40 });
+  }
+}
+
+class ExpandingRow extends Row {
   _focus() {
     super._focus();
     this.patch({ h: 100 });
