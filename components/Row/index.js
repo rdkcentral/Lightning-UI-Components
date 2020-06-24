@@ -31,7 +31,6 @@ export default class Row extends FocusManager {
 
   _init() {
     this.alwaysScroll = this.alwaysScroll || false;
-    this.showTitle = this._showTitle === undefined ? true : this.showTitle;
     this._originalW = this.w;
     this._originalH = this.h;
     this._originalY = 0;
@@ -297,7 +296,7 @@ export default class Row extends FocusManager {
   }
 
   $itemHeightChanged(height) {
-    if (this.parentGridFocus && !this.title) {
+    if (this.parentGridFocus) {
       if (this.hasFocus()) {
         this.smooth = { y: height };
         this._updateHeight(height);

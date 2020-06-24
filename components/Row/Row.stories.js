@@ -101,6 +101,59 @@ export const VaryingItemWidth = () =>
     }
   };
 
+  class ExtendedRow extends Row {
+    static _template() {
+      return {
+        Title: {
+          text: {
+            x: 0,
+            y: 0,
+            textColor: 0xffffffff,
+            text: "Hello"
+          }
+        },
+        Rows: {
+          y: 50,
+          // ...super._template()
+        }
+      };
+    }
+  
+    _build() {
+      super._build();
+      // this.tag('Title').text = this.title;
+      console.log("Title in build", this.tag('Title'));
+    }
+    
+    _init() {
+      super._init();
+      console.log("Rows in init", this.tag('Rows'));
+    }
+  }
+
+export const ExtendingRow = () =>
+  class ExtendingRow extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Row: {
+          type: ExtendedRow,
+          title: "Hello",
+          // items: [
+          //   { type: Button, buttonText: 'Button', w: 150 },
+          //   { type: Button, buttonText: 'Button', w: 150 },
+          //   { type: Button, buttonText: 'Button', w: 150 }
+          // ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
 class Button extends lng.Component {
   static _template() {
     return {
