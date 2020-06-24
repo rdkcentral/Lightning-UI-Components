@@ -101,35 +101,46 @@ export const VaryingItemWidth = () =>
     }
   };
 
-  class ExtendedRow extends Row {
-    static _template() {
-      return {
-        Title: {
-          text: {
-            x: 0,
-            y: 0,
-            textColor: 0xffffffff,
-            text: "Hello"
-          }
-        },
-        Rows: {
-          y: 50,
-          // ...super._template()
+class ExtendedRow extends lng.Component {
+  static _template() {
+    return {
+      Title: {
+        text: {
+          x: 0,
+          y: 0
         }
-      };
-    }
-  
-    _build() {
-      super._build();
-      // this.tag('Title').text = this.title;
-      console.log("Title in build", this.tag('Title'));
-    }
-    
-    _init() {
-      super._init();
-      console.log("Rows in init", this.tag('Rows'));
+      },
+      Row: {
+        type: Row,
+        y: 50
+      }
+    };
+  }
+
+  _setup() {
+    const { Row, Title } = this;
+    Row.items = this.items;
+
+    if (typeof this.title === 'function') {
+      Title.text = this.title(Row.selected);
+      Row.onScreenEffect = () => (Title.text = this.title(Row.selected));
+    } else {
+      Title.text = this.title;
     }
   }
+
+  _getFocused() {
+    return this.tag('Row');
+  }
+
+  get Row() {
+    return this.tag('Row');
+  }
+
+  get Title() {
+    return this.tag('Title');
+  }
+}
 
 export const ExtendingRow = () =>
   class ExtendingRow extends lng.Component {
@@ -139,12 +150,12 @@ export const ExtendingRow = () =>
         y: 20,
         Row: {
           type: ExtendedRow,
-          title: "Hello",
-          // items: [
-          //   { type: Button, buttonText: 'Button', w: 150 },
-          //   { type: Button, buttonText: 'Button', w: 150 },
-          //   { type: Button, buttonText: 'Button', w: 150 }
-          // ]
+          title: selected => selected.buttonText,
+          items: [
+            { type: Button, buttonText: 'Button 1', w: 150 },
+            { type: Button, buttonText: 'Button 2', w: 150 },
+            { type: Button, buttonText: 'Button 3', w: 150 }
+          ]
         }
       };
     }
