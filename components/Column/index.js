@@ -1,13 +1,11 @@
 import FocusManager from '../FocusManager';
-import { GRID } from '../Styles';
 
-const BOUNDS = 200;
 export default class Column extends FocusManager {
   static _template() {
     return {
-      boundsMargin: [BOUNDS, BOUNDS, 0, 0],
       direction: 'column',
       scrollMount: 0,
+      boundsMargin: [0, 0, 0, 0],
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
@@ -21,6 +19,7 @@ export default class Column extends FocusManager {
     this._whenEnabled = new Promise(
       resolve =>
         (this._firstEnable = () => {
+          this._columnEnabled = true;
           resolve();
         })
     );
@@ -79,6 +78,9 @@ export default class Column extends FocusManager {
 
     // Ensure items are drawn so they have height
     this.stage.update();
+    let itemHeight = (items[0] || {}).h || this._columnHeight * 0.15;
+    let bounds = itemHeight + this.itemSpacing;
+    this.boundsMargin = [bounds, bounds, 0, 0];
     this._refocus();
     this.render();
   }
@@ -179,10 +181,13 @@ export default class Column extends FocusManager {
 
   _renderUp(index = this.selectedIndex, itemY = this._columnHeight) {
     let onScreenItems = [];
+    const [BOUNDS] = this.boundsMargin;
+
     if (index + 1 < this.items.length) {
       index++;
       itemY += this.items[index].h + this.itemSpacing;
     }
+
     while (itemY >= -BOUNDS && index >= 0) {
       let item = this.items[index];
       if (this._isOnScreen(itemY)) onScreenItems.push(item);
@@ -197,6 +202,8 @@ export default class Column extends FocusManager {
 
   _renderDown(index = this.selectedIndex, itemY = 0) {
     let onScreenItems = [];
+    const [BOUNDS] = this.boundsMargin;
+
     if (index - 1 >= 0) {
       index--;
       itemY -= this.items[index].h + this.itemSpacing;
@@ -230,7 +237,7 @@ export default class Column extends FocusManager {
   }
 
   get itemSpacing() {
-    return this._itemSpacing || GRID.gutters.horizontal;
+    return this._itemSpacing || 0;
   }
 
   set updateItems(callback) {
@@ -249,6 +256,8 @@ export default class Column extends FocusManager {
   }
 
   _unfocus() {
+    // Wait till Items are focused before rendering
+    setTimeout(() => this.render(), 0);
     this.items.forEach(item => (item.parentFocus = false));
   }
 

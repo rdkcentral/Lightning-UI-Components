@@ -170,9 +170,7 @@ module.exports = {
     '^.+\\.[t|j]sx?$': 'babel-jest'
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!wpe-lightning(-sdk)?)(?!localCookie)'
-  ],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!wpe-lightning(-sdk)?)'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
