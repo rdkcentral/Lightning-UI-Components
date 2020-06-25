@@ -34,7 +34,7 @@ export default class Row extends FocusManager {
     this._originalW = this.w;
     this._originalH = this.h;
     this._originalY = 0;
-    this.scrollMount = this.scrollMount || 0;
+    this.scrollMount = this.scrollMount === undefined ? 1 : this.scrollMount;
     this._refocus();
   }
 
@@ -99,6 +99,7 @@ export default class Row extends FocusManager {
   }
 
   _focus() {
+    // Wait till Items are focused before rendering
     setTimeout(() => this.render(), 0);
     this.items.forEach(item => (item.parentFocus = true));
     if (this.focusHeightChange) {
@@ -107,6 +108,8 @@ export default class Row extends FocusManager {
   }
 
   _unfocus() {
+    // Wait till Items are focused before rendering
+    setTimeout(() => this.render(), 0);
     this.items.forEach(item => (item.parentFocus = false));
     if (this.focusHeightChange) {
       this._updateHeight(-this.focusHeightChange);
@@ -149,8 +152,7 @@ export default class Row extends FocusManager {
 
   _computeLastIndex() {
     let totalItems = this.items.length;
-    let MAX_WIDTH = this._rowWidth - this.itemSpacing;
-
+    let MAX_WIDTH = this._rowWidth;
     for (let i = totalItems - 1; i >= 0; i--) {
       MAX_WIDTH -= this.items[i].w + this.itemSpacing;
       if (MAX_WIDTH <= 0) {
@@ -187,13 +189,28 @@ export default class Row extends FocusManager {
     return this.w || this.renderWidth || this.stage.w;
   }
 
+  _needsSpacingAdjustment() {
+    if ([0, this.items.length - 1].includes(this.selectedIndex)) return false;
+    const { selected } = this;
+    const before = this.children[this.selectedIndex - 1];
+    const after = this.children[this.selectedIndex + 1];
+
+    return (
+      selected.x - (before.w + before.x) > this.itemSpacing ||
+      after.x - (selected.x + selected.w) < this.itemSpacing
+    );
+  }
+
   render(selected = this.selected, prev) {
     if (this.items.length === 0) {
       return;
     }
 
     if (this.plinko && prev && prev.selected) {
-      selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
+      return (selected.selectedIndex = this._getIndexOfItemNear(
+        selected,
+        prev
+      ));
     }
 
     if (this._nearEnd() && this._getMoreItems) {
@@ -215,9 +232,9 @@ export default class Row extends FocusManager {
 
     if (this.scrollMount === 1) {
       itemX = this.selected.x;
-
-      if (!this.alwaysScroll && this._isOnScreen(itemX, this.selected.w)) {
-        return;
+      const itemW = this.selected.w;
+      if (!this.alwaysScroll && this._isOnScreen(itemX, itemW)) {
+        return this._needsSpacingAdjustment() && this._renderRight(0);
       }
 
       if (itemX >= this._rowWidth) {
@@ -237,10 +254,6 @@ export default class Row extends FocusManager {
     if (index >= lastIndex) {
       return this._renderLeft(this.items.length - 1);
     }
-
-    // itemX = scrollStart - this.selected.w / 2;
-    // this._renderLeft(index - 1, itemX);
-    // this._renderRight(index, itemX);
   }
 
   _renderLeft(index = this.selectedIndex, itemX = this._rowWidth) {
