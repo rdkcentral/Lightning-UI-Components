@@ -59,17 +59,14 @@ export const SideScrolling = () =>
         Row: {
           type: Row,
           w: 900,
+          itemSpacing: 20,
           alwaysScroll: boolean('alwaysScroll', false),
-          scrollMount: number('scrollMount', 1, numberOptions),
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
+          scrollMount: number('scrollMount', 0.5, numberOptions),
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
         }
       };
     }
@@ -92,6 +89,32 @@ export const VaryingItemWidth = () =>
             buttonText: 'Button',
             w: 120 + Math.floor(Math.random() * 80)
           }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+export const ExpandableWidth = () =>
+  class ExpandableWidth extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Row: {
+          type: Row,
+          itemSpacing: 20,
+          items: [
+            { type: ExpandingButton, buttonText: 'Button', w: 150 },
+            { type: ExpandingButton, buttonText: 'Button', w: 150 },
+            { type: ExpandingButton, buttonText: 'Button', w: 150 },
+            { type: ExpandingButton, buttonText: 'Button', w: 150 },
+            { type: ExpandingButton, buttonText: 'Button', w: 150 },
+            { type: ExpandingButton, buttonText: 'Button', w: 150 }
+          ]
         }
       };
     }
@@ -175,7 +198,7 @@ class Button extends lng.Component {
         y: 22,
         mount: 0.5,
         color: 0xffffffff,
-        text: { fontSize: 20 }
+        text: { textAlign: 'center', fontSize: 20 }
       }
     };
   }
@@ -189,5 +212,17 @@ class Button extends lng.Component {
   _unfocus() {
     this.color = 0xff1f1f1f;
     this.tag('Label').color = 0xffffffff;
+  }
+}
+
+class ExpandingButton extends Button {
+  _focus() {
+    super._focus();
+    this.patch({ w: 200 });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.patch({ w: 150 });
   }
 }
