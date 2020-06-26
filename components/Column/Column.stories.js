@@ -168,6 +168,47 @@ export const Provider = () =>
     }
   };
 
+export const Plinko = () =>
+  class Plinko extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Column: {
+          type: Column,
+          itemSpacing: 20,
+          plinko: true,
+          items: [
+            {
+              type: Row,
+              h: 40,
+              w: 900,
+              items: Array.apply(null, { length: 3 }).map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            },
+            {
+              type: Row,
+              h: 40,
+              w: 900,
+              items: Array.apply(null, { length: 3 }).map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
 export const VaryingItemHeight = () =>
   class VaryingItemHeight extends lng.Component {
     static _template() {

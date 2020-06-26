@@ -76,6 +76,25 @@ export const SideScrolling = () =>
     }
   };
 
+export const FocusHeightChange = () =>
+  class FocusHeightChange extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Row: {
+          type: Row,
+          items: Array.apply(null, { length: 5 }).map((_, i) => ({
+            type: Button,
+            buttonText: 'Button',
+            w: 150
+          })),
+          focusHeightChange: 60
+        }
+      };
+    }
+  };
+
 export const VaryingItemWidth = () =>
   class VaryingItemWidth extends lng.Component {
     static _template() {

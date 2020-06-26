@@ -83,7 +83,7 @@ export default class Row extends FocusManager {
   }
 
   _focus() {
-    // Wait till Items are focused before rendering
+    // Wait till items are focused before rendering
     setTimeout(() => this.render(), 0);
     this.items.forEach(item => (item.parentFocus = true));
     if (this.focusHeightChange) {
@@ -92,7 +92,7 @@ export default class Row extends FocusManager {
   }
 
   _unfocus() {
-    // Wait till Items are focused before rendering
+    // Wait till items are focused before rendering
     setTimeout(() => this.render(), 0);
     this.items.forEach(item => (item.parentFocus = false));
     if (this.focusHeightChange) {
@@ -265,7 +265,7 @@ export default class Row extends FocusManager {
   }
 
   $itemChanged() {
-    this.render(true);
+    this.render();
   }
 
   $itemHeightChanged(height) {
