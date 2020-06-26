@@ -184,7 +184,7 @@ export default class Row extends FocusManager {
     if (this.scrollMount === 1) {
       itemX = this.selected.x;
       const itemW = this.selected.w;
-      if (this._isOnScreen(itemX, itemW)) {
+      if (!this.alwaysScroll && this._isOnScreen(itemX, itemW)) {
         return;
       }
 
