@@ -1,15 +1,10 @@
-import lng from 'wpe-lightning';
 import FocusManager from '../FocusManager';
-import { TYPESCALE, GRID } from '../Styles';
-
-const BOUNDS = 200;
 
 export default class Row extends FocusManager {
   static _template() {
     return {
-      boundsMargin: [0, 0, BOUNDS, BOUNDS],
       direction: 'row',
-      scrollMount: 1,
+      scrollMount: 0,
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
@@ -29,26 +24,13 @@ export default class Row extends FocusManager {
     );
   }
 
-  _init() {
-    this.alwaysScroll = this.alwaysScroll || false;
-    this._originalW = this.w;
-    this._originalH = this.h;
-    this._originalY = 0;
-    this.scrollMount = this.scrollMount === undefined ? 1 : this.scrollMount;
-    this._refocus();
-  }
-
-  resetIndex() {
-    this.selectedIndex = 0;
-  }
-
   set itemSpacing(val) {
     this._itemSpacing = val;
     this.render();
   }
 
   get itemSpacing() {
-    return this._itemSpacing || GRID.gutters.vertical;
+    return this._itemSpacing || 0;
   }
 
   get _requiresScrolling() {
@@ -59,9 +41,8 @@ export default class Row extends FocusManager {
     if (this._calculatedItemWidth) {
       return this._calculatedItemWidth;
     }
-    let width = this._originalW || this.renderWidth || this.finalW;
     let columnGapTotal = (upCount - 1) * this.itemSpacing;
-    let widthForItems = width - columnGapTotal;
+    let widthForItems = this._rowWidth - columnGapTotal;
     this._calculatedItemWidth = widthForItems / upCount;
     return this._calculatedItemWidth;
   }
@@ -90,6 +71,9 @@ export default class Row extends FocusManager {
 
     // Ensure items are drawn so they have height
     this.stage.update();
+    let itemWidth = (items[0] || {}).w || this._rowWidth * 0.15;
+    let bounds = itemWidth + this.itemSpacing;
+    this.boundsMargin = [0, 0, bounds, bounds];
     this._refocus();
     this.render();
   }
@@ -124,13 +108,6 @@ export default class Row extends FocusManager {
     this._scrollTransition = val;
   }
 
-  _isOffScreen(item) {
-    let [itemX] = item.core.getAbsoluteCoords(0, 0);
-    return (
-      itemX < this.itemSpacing || itemX > this._originalW - this.itemSpacing
-    );
-  }
-
   _getIndexOfItemNear(selected, prev) {
     let prevItem = prev.selected;
     let [_, itemY] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
@@ -146,13 +123,11 @@ export default class Row extends FocusManager {
     return index;
   }
 
-  _nearEnd(BUFFER = 6) {
-    return this.items.length && this.selectedIndex > this.items.length - BUFFER;
-  }
-
   _computeLastIndex() {
     let totalItems = this.items.length;
-    let MAX_WIDTH = this._rowWidth;
+    let mount = this.scrollMount || 1;
+    let MAX_WIDTH = this._rowWidth * mount;
+
     for (let i = totalItems - 1; i >= 0; i--) {
       MAX_WIDTH -= this.items[i].w + this.itemSpacing;
       if (MAX_WIDTH <= 0) {
@@ -164,7 +139,7 @@ export default class Row extends FocusManager {
   }
 
   _isOnScreen(x, w) {
-    return x + w >= 0 && x < this._rowWidth;
+    return x >= 0 && x + w < this._rowWidth;
   }
 
   _computeStartScrollIndex(scrollStart) {
@@ -189,33 +164,9 @@ export default class Row extends FocusManager {
     return this.w || this.renderWidth || this.stage.w;
   }
 
-  _needsSpacingAdjustment() {
-    if ([0, this.items.length - 1].includes(this.selectedIndex)) return false;
-    const { selected } = this;
-    const before = this.children[this.selectedIndex - 1];
-    const after = this.children[this.selectedIndex + 1];
-
-    return (
-      selected.x - (before.w + before.x) > this.itemSpacing ||
-      after.x - (selected.x + selected.w) < this.itemSpacing
-    );
-  }
-
   render(selected = this.selected, prev) {
     if (this.items.length === 0) {
       return;
-    }
-
-    if (this.plinko && prev && prev.selected) {
-      return (selected.selectedIndex = this._getIndexOfItemNear(
-        selected,
-        prev
-      ));
-    }
-
-    if (this._nearEnd() && this._getMoreItems) {
-      this.provider = this._getMoreItems();
-      this._getMoreItems = false;
     }
 
     let itemX = 0;
@@ -233,11 +184,11 @@ export default class Row extends FocusManager {
     if (this.scrollMount === 1) {
       itemX = this.selected.x;
       const itemW = this.selected.w;
-      if (!this.alwaysScroll && this._isOnScreen(itemX, itemW)) {
-        return this._needsSpacingAdjustment() && this._renderRight(0);
+      if (this._isOnScreen(itemX, itemW)) {
+        return;
       }
 
-      if (itemX >= this._rowWidth) {
+      if (itemX + this.selected.w >= this._rowWidth) {
         return this._renderLeft();
       }
       return this._renderRight();
@@ -254,10 +205,18 @@ export default class Row extends FocusManager {
     if (index >= lastIndex) {
       return this._renderLeft(this.items.length - 1);
     }
+
+    itemX = scrollStart - this.selected.w / 2;
+    this._renderRight(index, itemX);
+    this._renderLeft(index - 1, itemX);
   }
 
-  _renderLeft(index = this.selectedIndex, itemX = this._rowWidth) {
+  _renderLeft(
+    index = this.selectedIndex,
+    itemX = this._rowWidth - this.itemSpacing
+  ) {
     let onScreenItems = [];
+    let BOUNDS = this.boundsMargin[3];
     if (index + 1 < this.items.length) {
       index++;
       itemX += this.items[index].w + this.itemSpacing;
@@ -276,6 +235,7 @@ export default class Row extends FocusManager {
 
   _renderRight(index = this.selectedIndex, itemX = 0) {
     let onScreenItems = [];
+    let BOUNDS = this.boundsMargin[3];
     if (index - 1 >= 0) {
       index--;
       itemX -= this.items[index].w + this.itemSpacing;
@@ -309,21 +269,10 @@ export default class Row extends FocusManager {
   }
 
   $itemHeightChanged(height) {
-    if (this.parentGridFocus) {
-      if (this.hasFocus()) {
-        this.smooth = { y: height };
-        this._updateHeight(height);
-      } else {
-        this.smooth = { y: this._originalY };
-        this.h = this._originalH;
-      }
-    }
+    this.smooth = { y: height };
+    this._updateHeight(height);
   }
 
   // can be overridden
   onScreenEffect() {}
-
-  parentGridFocused() {}
-
-  parentGridUnfocused() {}
 }

@@ -59,17 +59,14 @@ export const SideScrolling = () =>
         Row: {
           type: Row,
           w: 900,
+          itemSpacing: 20,
           alwaysScroll: boolean('alwaysScroll', false),
-          scrollMount: number('scrollMount', 1, numberOptions),
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
+          scrollMount: number('scrollMount', 0.5, numberOptions),
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
         }
       };
     }
