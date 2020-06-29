@@ -80,20 +80,19 @@ describe('Row', () => {
     });
   });
 
-  xdescribe('focusHeightChange', () => {
+  describe('focusHeightChange', () => {
     it('should change the rows height when it has focus', () => {
       const ROW_HEIGHT = 80;
-      const TITLE_HEIGHT = 92;
       row.focusHeightChange = 100;
       row._focus();
 
-      expect(row.h).toBe(ROW_HEIGHT + TITLE_HEIGHT + 100);
+      expect(row.h).toBe(ROW_HEIGHT + 100);
       row._unfocus();
-      expect(row.h).toBe(ROW_HEIGHT + TITLE_HEIGHT);
+      expect(row.h).toBe(ROW_HEIGHT);
     });
   });
 
-  describe('parentRowFocused', () => {
+  describe('parentFocus', () => {
     it('should tell the items when row focus changes', () => {
       row._focus();
       expect(row.items[0].parentFocus).toBe(true);
@@ -102,36 +101,44 @@ describe('Row', () => {
     });
   });
 
-  xdescribe('provider', () => {
+  describe('provider', () => {
     it('should take a promise to get items', done => {
-      row.provider = Promise.resolve([{ ...baseItem }, { ...baseItem }]);
-
-      setTimeout(() => {
-        expect(row.items.length).toBe(2);
-        done();
-      }, 0);
-    });
-
-    it('should update the title if provided', done => {
       row.provider = Promise.resolve({
-        items: [{ ...baseItem }, { ...baseItem }],
-        title: 'abc'
+        items: [{ ...baseItem }, { ...baseItem }]
       });
 
       setTimeout(() => {
         expect(row.items.length).toBe(2);
-        expect(row.title).toBe('abc');
         done();
       }, 0);
     });
 
-    it('with empty provider it fires $removeRow', done => {
-      row.fireAncestors = jest.fn();
-      row.provider = Promise.resolve([]);
+    it('should append items if appendItems is set', done => {
+      const ITEMS_LENGTH = row.items.length;
+      row.provider = Promise.resolve({
+        appendItems: true,
+        items: [{ ...baseItem }]
+      });
+
       setTimeout(() => {
-        expect(row.fireAncestors).toHaveBeenCalledWith('$removeRow', row);
+        expect(row.items.length).toBe(ITEMS_LENGTH + 1);
         done();
       }, 0);
+    });
+  });
+
+  describe('appendItems', () => {
+    it('adds items to the item list', () => {
+      const ITEMS_LENGTH = row.items.length;
+      row.appendItems([{ ...baseItem }, { ...baseItem }]);
+
+      expect(row.items.length).toBe(ITEMS_LENGTH + 2);
+    });
+
+    it('items are added outside of the viewable bounds', () => {
+      let item = { ...baseItem };
+      row.appendItems([item]);
+      expect(item.x).toBeGreaterThan(row.x + row.w);
     });
   });
 
@@ -153,15 +160,6 @@ describe('Row', () => {
       row._selectedIndex = 4;
       testRenderer.keyPress('Right');
       expect(row._selectedIndex).toBe(0);
-    });
-
-    xit('should remove wrapping on rows that scroll', done => {
-      row.wrapSelected = true;
-      row.items = [...items, ...items];
-      setTimeout(() => {
-        expect(row.wrapSelected).toBe(false);
-        done();
-      }, 1);
     });
   });
 

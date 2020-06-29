@@ -33,20 +33,6 @@ export default class Row extends FocusManager {
     return this._itemSpacing || 0;
   }
 
-  get _requiresScrolling() {
-    return this.upCount < this.items.length;
-  }
-
-  _defaultItemWidth(upCount) {
-    if (this._calculatedItemWidth) {
-      return this._calculatedItemWidth;
-    }
-    let columnGapTotal = (upCount - 1) * this.itemSpacing;
-    let widthForItems = this._rowWidth - columnGapTotal;
-    this._calculatedItemWidth = widthForItems / upCount;
-    return this._calculatedItemWidth;
-  }
-
   set provider(provider) {
     provider.then(data => {
       if (!data.appendItems) {
@@ -106,21 +92,6 @@ export default class Row extends FocusManager {
 
   set scrollTransition(val) {
     this._scrollTransition = val;
-  }
-
-  _getIndexOfItemNear(selected, prev) {
-    let prevItem = prev.selected;
-    let [_, itemY] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
-    let index = selected.items.findIndex(item => {
-      let [_, y] = item.core.getAbsoluteCoords(0, 0);
-      return y >= itemY || itemY <= y + item.h;
-    });
-
-    if (index === -1) {
-      return selected.items.length - 1;
-    }
-
-    return index;
   }
 
   _computeLastIndex() {
