@@ -25,19 +25,37 @@ export default class Column extends FocusManager {
     );
   }
 
+  // finds the index of the item with the closest middle to the previously selected item
   _getIndexOfItemNear(selected, prev) {
+    // edge case
+    if (selected.items.length < 2) return 0;
+
     let prevItem = prev.selected || prev.currentItem;
     let [itemX] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
-    let index = selected.items.findIndex(item => {
-      let [x] = item.core.getAbsoluteCoords(0, 0);
-      return x >= itemX || itemX <= x + item.w;
-    });
+    let prevMiddle = itemX + prevItem.w / 2;
 
-    if (index === -1) {
-      return selected.items.length - 1;
+    // set the first item to be closest
+    let closest = selected.items[0];
+    let closestMiddle = closest.core.getAbsoluteCoords(0, 0)[0] + closest.w / 2;
+
+    // start at the 2nd item
+    for (let i = 1; i < selected.items.length; i++) {
+      const item = selected.items[i];
+      const middle = item.core.getAbsoluteCoords(0, 0)[0] + item.w / 2;
+
+      if (
+        Math.abs(middle - prevMiddle) < Math.abs(closestMiddle - prevMiddle)
+      ) {
+        // current item is the closest
+        closest = item;
+        closestMiddle = middle;
+      } else {
+        // previous index is the closest, return it
+        return i - 1;
+      }
     }
-
-    return index;
+    // last index is the closest
+    return selected.items.length - 1;
   }
 
   scrollTo(index, duration = this.itemTransition.duration * 100) {

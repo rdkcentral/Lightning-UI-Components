@@ -1,6 +1,16 @@
-import Row from 'src/components/Row';
-import TestRenderer from 'test/lightning-test-renderer';
 import lng from 'wpe-lightning';
+import TestRenderer from '../lightning-test-renderer';
+import Row from '.';
+
+const rowFactory = (args = {}) => ({
+  Component: {
+    title: 'My Row',
+    h: 80,
+    items,
+    ...args,
+    type: Row
+  }
+});
 
 const baseItem = {
   type: lng.Component,
@@ -51,86 +61,84 @@ describe('Row', () => {
   });
 
   describe('itemSpacing', () => {
-    it('should set spacing', () => {
-      let spacing = 100;
+    it('should initialize spacing between items', () => {
+      const itemSpacing = 20;
+      testRenderer = TestRenderer.create(rowFactory({ itemSpacing }));
+      row = testRenderer.getInstance();
       let item = row.items[1];
-      row.itemSpacing = spacing;
-      expect(row.items[1].x).toBe(spacing + item.w);
-    });
-  });
 
-  describe('showTitle', () => {
-    it('should show title by default', () => {
-      expect(row.title).toBe('My Row');
-      expect(row.tag('Title').enabled).toBe(true);
+      expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
 
-    it('should hide title when false', () => {
-      row.showTitle = false;
-      expect(row.tag('Title').enabled).toBe(false);
-    });
+    it('should set spacing', () => {
+      const itemSpacing = 100;
+      const item = row.items[1];
+      row.itemSpacing = itemSpacing;
 
-    it('should change the height of the row', () => {
-      const ROW_HEIGHT = 80;
-      const TITLE_HEIGHT = 92;
-      expect(row.h).toBe(ROW_HEIGHT + TITLE_HEIGHT);
-      row.showTitle = false;
-      expect(row.h).toBe(ROW_HEIGHT);
+      const x = item.transition('x').targetValue;
+      expect(x).toBe(row.items[0].w + itemSpacing);
     });
   });
 
   describe('focusHeightChange', () => {
     it('should change the rows height when it has focus', () => {
       const ROW_HEIGHT = 80;
-      const TITLE_HEIGHT = 92;
       row.focusHeightChange = 100;
       row._focus();
 
-      expect(row.h).toBe(ROW_HEIGHT + TITLE_HEIGHT + 100);
+      expect(row.h).toBe(ROW_HEIGHT + 100);
       row._unfocus();
-      expect(row.h).toBe(ROW_HEIGHT + TITLE_HEIGHT);
+      expect(row.h).toBe(ROW_HEIGHT);
     });
   });
 
-  describe('parentRowFocused', () => {
+  describe('parentFocus', () => {
     it('should tell the items when row focus changes', () => {
       row._focus();
-      expect(row.items[0].parentRowFocused).toBe(true);
+      expect(row.items[0].parentFocus).toBe(true);
       row._unfocus();
-      expect(row.items[0].parentRowFocused).toBe(false);
+      expect(row.items[0].parentFocus).toBe(false);
     });
   });
 
   describe('provider', () => {
     it('should take a promise to get items', done => {
-      row.provider = Promise.resolve([{ ...baseItem }, { ...baseItem }]);
-
-      setTimeout(() => {
-        expect(row.items.length).toBe(2);
-        done();
-      }, 0);
-    });
-
-    it('should update the title if provided', done => {
       row.provider = Promise.resolve({
-        items: [{ ...baseItem }, { ...baseItem }],
-        title: 'abc'
+        items: [{ ...baseItem }, { ...baseItem }]
       });
 
       setTimeout(() => {
         expect(row.items.length).toBe(2);
-        expect(row.title).toBe('abc');
         done();
       }, 0);
     });
 
-    it('with empty provider it fires $removeRow', done => {
-      row.fireAncestors = jest.fn();
-      row.provider = Promise.resolve([]);
+    it('should append items if appendItems is set', done => {
+      const ITEMS_LENGTH = row.items.length;
+      row.provider = Promise.resolve({
+        appendItems: true,
+        items: [{ ...baseItem }]
+      });
+
       setTimeout(() => {
-        expect(row.fireAncestors).toHaveBeenCalledWith('$removeRow', row);
+        expect(row.items.length).toBe(ITEMS_LENGTH + 1);
         done();
       }, 0);
+    });
+  });
+
+  describe('appendItems', () => {
+    it('adds items to the item list', () => {
+      const ITEMS_LENGTH = row.items.length;
+      row.appendItems([{ ...baseItem }, { ...baseItem }]);
+
+      expect(row.items.length).toBe(ITEMS_LENGTH + 2);
+    });
+
+    it('items are added outside of the viewable bounds', () => {
+      let item = { ...baseItem };
+      row.appendItems([item]);
+      expect(item.x).toBeGreaterThan(row.x + row.w);
     });
   });
 
@@ -153,26 +161,6 @@ describe('Row', () => {
       testRenderer.keyPress('Right');
       expect(row._selectedIndex).toBe(0);
     });
-
-    it('should remove wrapping on rows that scroll', done => {
-      row.wrapSelected = true;
-      row.items = [...items, ...items];
-      setTimeout(() => {
-        expect(row.wrapSelected).toBe(false);
-        done();
-      }, 1);
-    });
-  });
-
-  describe('signals', () => {
-    it('should signal selectedChange', () => {
-      row.signal = jest.fn();
-      testRenderer.keyPress('Right');
-      expect(row.signal).toHaveBeenCalledWith(
-        'selectedChange',
-        row._selectedIndex
-      );
-    });
   });
 
   describe('listeners', () => {
@@ -180,7 +168,7 @@ describe('Row', () => {
       row.scrollTransition = { duration: 0 };
       row.$shiftRow({ position: 50 });
       testRenderer.update();
-      expect(row._Items.x).toBe(50);
+      expect(row.x).toBe(50);
     });
 
     it('should listen for $itemChanged', () => {
@@ -189,24 +177,23 @@ describe('Row', () => {
       row.items[0].w += 200;
       row.$itemChanged();
       testRenderer.update();
-      expect(row.items[1].x).toBe(item1X + 200);
+      expect(row.items[1].transition('x').targetValue).toBe(item1X + 200);
     });
   });
 
   describe('scrolling', () => {
-    it('should scroll long rows', done => {
+    it('should scroll long rows', () => {
       row.scrollTransition = { duration: 0 };
       row.items = [...items, ...items];
-      setTimeout(() => {
-        row._selectedIndex = 4;
-        testRenderer.keyPress('Right');
-        testRenderer.keyPress('Right');
-        testRenderer.keyPress('Right');
-        testRenderer.keyPress('Right');
-        testRenderer.update();
-        expect(row._Items.x).toBe(-600);
-        done();
-      }, 1);
+      expect(row.items[4].x).toBe(1920);
+      row._selectedIndex = 4;
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.update();
+      expect(row._selectedIndex).toBe(8);
+      expect(row.selected.transition('x').targetValue).toBe(640);
     });
   });
 });
