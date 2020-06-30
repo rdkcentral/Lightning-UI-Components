@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import { action } from '@storybook/addon-actions';
 import { button, withKnobs, number } from '@storybook/addon-knobs';
 import Column from '.';
 import FocusManager from '../FocusManager';
@@ -11,13 +10,24 @@ export default {
   component: Column,
   decorators: [withKnobs],
   parameters: {
-    codesandbox: {
-      helpers: ['Button']
-    },
     docs: {
       page: mdx
     }
   }
+};
+
+const numberOptions = {
+  range: true,
+  min: 0,
+  max: 1,
+  step: 0.1
+};
+
+const itemSpacingOptions = {
+  range: true,
+  min: 0,
+  max: 100,
+  step: 5
 };
 
 export const Basic = () =>
@@ -58,20 +68,6 @@ export const Basic = () =>
       return this.tag('Column');
     }
   };
-
-const numberOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.1
-};
-
-const itemSpacingOptions = {
-  range: true,
-  min: 0,
-  max: 100,
-  step: 5
-};
 
 export const TestCase = () =>
   class TestCase extends lng.Component {
@@ -116,17 +112,8 @@ export const MultiColumn = () =>
       return this.tag('FocusManager');
     }
   };
-MultiColumn.story = {
-  parameters: {
-    codesandbox: {
-      components: ['FocusManager'],
-      helpers: ['Basic', 'Button']
-    }
-  }
-};
 
 const getMoreItems = () => {
-  action('provider')();
   return Promise.resolve({
     appendItems: true,
     getMoreItems,
@@ -311,13 +298,6 @@ export const SkipFocus = () =>
       return this.tag('Column');
     }
   };
-SkipFocus.story = {
-  parameters: {
-    codesandbox: {
-      helpers: ['Button', 'Title']
-    }
-  }
-};
 
 export const OnScreenEffect = () =>
   class OnScreenEffect extends lng.Component {
