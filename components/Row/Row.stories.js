@@ -24,6 +24,7 @@ export const Basic = () =>
         Row: {
           type: Row,
           w: 900,
+          itemSpacing: 100,
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
@@ -31,11 +32,6 @@ export const Basic = () =>
           ]
         }
       };
-    }
-
-    _init() {
-      super._init();
-      this.itemSpacing = 100;
     }
 
     _getFocused() {
@@ -184,6 +180,34 @@ class ExtendedRow extends lng.Component {
   }
 }
 
+class ExtendedRow2 extends Row {
+  static _template() {
+    return {
+      Title: {
+        text: {
+          x: 0,
+          y: 0
+        }
+      },
+      Items: {
+        y: 50
+      }
+    };
+  }
+
+  set title(val) {
+    this.Title.text = val;
+  }
+
+  get title() {
+    return this.Title.text;
+  }
+
+  get Title() {
+    return this.tag('Title');
+  }
+}
+
 export const ExtendingRow = () =>
   class ExtendingRow extends lng.Component {
     static _template() {
@@ -191,8 +215,8 @@ export const ExtendingRow = () =>
         x: 20,
         y: 20,
         Row: {
-          type: ExtendedRow,
-          title: selected => selected.buttonText,
+          type: ExtendedRow2,
+          title: 'My Button Row',
           items: [
             { type: Button, buttonText: 'Button 1', w: 150 },
             { type: Button, buttonText: 'Button 2', w: 150 },

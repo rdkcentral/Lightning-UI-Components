@@ -21,7 +21,7 @@ export const Rows = () =>
         Row: {
           type: FocusManager,
           direction: 'row',
-          children: [
+          items: [
             { type: Button, buttonText: 'Left' },
             { type: Button, buttonText: 'Center', x: 200 },
             { type: Button, buttonText: 'Right', x: 400 }
@@ -52,7 +52,7 @@ export const WrapSelected = () =>
           type: FocusManager,
           direction: 'row',
           wrapSelected: true, // allows cycling through items
-          children: [
+          items: [
             { type: Button, buttonText: 'Left' },
             { type: Button, buttonText: 'Center', x: 200 },
             { type: Button, buttonText: 'Right', x: 400 }
@@ -74,7 +74,7 @@ export const Columns = () =>
         Column: {
           type: FocusManager,
           direction: 'column',
-          children: [
+          items: [
             { type: Button, buttonText: 'Top' },
             { type: Button, buttonText: 'Middle', y: 100 },
             { type: Button, buttonText: 'Bottom', y: 200 }
@@ -95,7 +95,7 @@ export const ColumnWithRows = () =>
         x: 20,
         y: 20,
         Column: Column({
-          children: [Row(), Row({ y: 100 }), Row({ y: 200 })]
+          items: [Row(), Row({ y: 100 }), Row({ y: 200 })]
         })
       };
     }
@@ -105,6 +105,15 @@ export const ColumnWithRows = () =>
   };
 
 class FancyFocus extends FocusManager {
+  _init() {
+    super._init();
+    this.patch({
+      Items: {
+        x: 50
+      }
+    });
+  }
+
   render() {
     this.selected.patch({
       texture: lng.Tools.getRoundRect(
@@ -129,7 +138,7 @@ export const ExtendedComponent = () =>
         Row: {
           type: FancyFocus,
           direction: 'row',
-          children: [
+          items: [
             { type: Button, buttonText: 'Left' },
             { type: Button, buttonText: 'Center', x: 200 },
             { type: Button, buttonText: 'Right', x: 400 }
@@ -148,7 +157,7 @@ function Row({ y = 0 } = {}) {
     type: FocusManager,
     direction: 'row',
     y,
-    children: [
+    items: [
       { type: Button, buttonText: 'Left' },
       { x: 200, type: Button, buttonText: 'Center' },
       { x: 400, type: Button, buttonText: 'Right' }
@@ -156,11 +165,11 @@ function Row({ y = 0 } = {}) {
   };
 }
 
-function Column({ children }) {
+function Column({ items }) {
   return {
     type: FocusManager,
     direction: 'column',
-    children
+    items
   };
 }
 

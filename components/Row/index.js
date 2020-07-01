@@ -24,6 +24,10 @@ export default class Row extends FocusManager {
     );
   }
 
+  get Row() {
+    return this.Items;
+  }
+
   set itemSpacing(val) {
     this._itemSpacing = val;
     this.render();
@@ -36,7 +40,7 @@ export default class Row extends FocusManager {
   set provider(provider) {
     provider.then(data => {
       if (!data.appendItems) {
-        this.childList.clear();
+        this.Items.clear();
       }
       this.appendItems(data.items);
       this._getMoreItems = data.getMoreItems;
@@ -52,7 +56,7 @@ export default class Row extends FocusManager {
       item.x = outOfBounds;
       item.alpha = 0;
       item.parentFocus = this.hasFocus();
-      this.childList.add(this.application.stage.c(item));
+      this.Items.add(this.application.stage.c(item));
     });
 
     // Ensure items are drawn so they have height
