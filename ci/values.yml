@@ -1,0 +1,11 @@
+---
+  language: "node"
+  ghe-org-name: "Lightning"
+  ghe-repo-name: "lightning-ui"
+  ghe-source-repo: "git@github.comcast.com:Lightning/lightning-ui.git" # SSH Path
+  publish-path: "//artifactory.comcast.net/artifactory/api/npm/Lightning-npm-releases"
+  ghe-default-branch: "main"
+  ghe-release-branch: "main"
+  webhook-token: ((github-enterprise.webhook-token))
+  ghe-key: ((github-enterprise.private-key))
+  ghe-token: ((github-enterprise.access-token))
