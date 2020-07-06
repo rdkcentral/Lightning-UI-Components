@@ -1,0 +1,17 @@
+---
+platform: linux
+params:
+  PACKAGE:
+inputs:
+  - name: source-repo
+outputs:
+  - name: build
+  - name: node_modules
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: "lts"
+run:
+  path: ./ci/tasks/install-node.sh
+  dir: ./source-repo

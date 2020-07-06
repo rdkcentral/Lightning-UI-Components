@@ -1,5 +1,5 @@
 {
-  "name": "lightning-ui",
+  "name": "@lightning/lightning-ui",
   "version": "0.0.0",
   "dependencies": {
     "wpe-lightning": "git+https://github.com/rdkcentral/Lightning.git#1.7.0",
@@ -70,9 +70,8 @@
       "jest --findRelatedTests"
     ]
   },
-  "private": true,
   "repository": {
-    "url": "https://github.com/chiefcll/lightning-ui"
+    "url": "https://github.comcast.com/Lightning/lightning-ui"
   },
   "scripts": {
     "postinstall": "npm run bootstrap",
@@ -93,5 +92,8 @@
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch"
+  },
+  "publishConfig": {
+    "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
   }
 }
