@@ -5,6 +5,14 @@
   "peerDependencies": {
     "wpe-lightning": "1.x"
   },
+  "browser": "index.js",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "components/**/*.js",
+    "!components/**/*.stories.js",
+    "!components/lightning-test-renderer.js"
+  ],
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
@@ -12,7 +20,6 @@
     "@babel/preset-react": "^7.10.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@commitlint/config-lerna-scopes": "^8.3.4",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-console": "^1.2.1",
     "@storybook/addon-docs": "^5.3.19",
@@ -46,7 +53,6 @@
     "jest": "^24.9.0",
     "jest-environment-jsdom-fifteen": "^1.0.2",
     "jest-webgl-canvas-mock": "^0.2.3",
-    "lerna": "^3.22.1",
     "lint-staged": "^9.5.0",
     "path": "^0.12.7",
     "prettier": "^1.19.1",
@@ -75,18 +81,10 @@
     "url": "https://github.comcast.com/Lightning/lightning-ui"
   },
   "scripts": {
-    "postinstall": "npm run bootstrap",
-    "prebuild": "npm run bootstrap",
     "build": "build-storybook -c .storybook -o dist",
-    "bootstrap": "lerna bootstrap",
     "lint": "npm run lint:js",
     "lint:js": "eslint './components/**/*.js'",
-    "lerna": "lerna",
-    "build:dist": "lerna exec rm -- -rf dist && lerna run build --stream",
     "gh-pages": "gh-pages -d dist",
-    "release": "env-cmd lerna version --no-commit-hooks",
-    "prepare": "npm run build:dist",
-    "publish": "lerna publish from-package --no-commit-hooks",
     "new": "node utils/scripts/add-component.js",
     "new:story": "sh utils/scripts/make-story.sh",
     "start": "start-storybook",
