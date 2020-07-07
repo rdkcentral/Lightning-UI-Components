@@ -17,8 +17,6 @@ export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         MyComponent: {
           type: MyComponent
         }
