@@ -81,13 +81,19 @@ export const FocusHeightChange = () =>
         Row: {
           type: Row,
           items: Array.apply(null, { length: 5 }).map((_, i) => ({
-            type: Button,
+            type: ExpandingHeightButton,
             buttonText: 'Button',
-            w: 150
+            w: 150,
+            h: 75
           })),
-          focusHeightChange: 60
+          itemSpacing: 20,
+          focusHeightChange: 75
         }
       };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
     }
   };
 
@@ -99,6 +105,7 @@ export const VaryingItemWidth = () =>
         y: 20,
         Row: {
           type: Row,
+          itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             buttonText: 'Button',
@@ -139,50 +146,10 @@ export const ExpandableWidth = () =>
     }
   };
 
-class ExtendedRow extends lng.Component {
+class ExtendedRow extends Row {
   static _template() {
     return {
-      Title: {
-        text: {
-          x: 0,
-          y: 0
-        }
-      },
-      Row: {
-        type: Row,
-        y: 50
-      }
-    };
-  }
-
-  _setup() {
-    const { Row, Title } = this;
-    Row.items = this.items;
-
-    if (typeof this.title === 'function') {
-      Title.text = this.title(Row.selected);
-      Row.onScreenEffect = () => (Title.text = this.title(Row.selected));
-    } else {
-      Title.text = this.title;
-    }
-  }
-
-  _getFocused() {
-    return this.tag('Row');
-  }
-
-  get Row() {
-    return this.tag('Row');
-  }
-
-  get Title() {
-    return this.tag('Title');
-  }
-}
-
-class ExtendedRow2 extends Row {
-  static _template() {
-    return {
+      ...super._template(),
       Title: {
         text: {
           x: 0,
@@ -190,7 +157,7 @@ class ExtendedRow2 extends Row {
         }
       },
       Items: {
-        y: 50
+        y: 60
       }
     };
   }
@@ -215,7 +182,8 @@ export const ExtendingRow = () =>
         x: 20,
         y: 20,
         Row: {
-          type: ExtendedRow2,
+          type: ExtendedRow,
+          itemSpacing: 20,
           title: 'My Button Row',
           items: [
             { type: Button, buttonText: 'Button 1', w: 150 },
@@ -267,5 +235,17 @@ class ExpandingButton extends Button {
   _unfocus() {
     super._unfocus();
     this.patch({ w: 150 });
+  }
+}
+
+class ExpandingHeightButton extends Button {
+  _focus() {
+    super._focus();
+    this.setSmooth('h', 150, { duration: 1 });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.setSmooth('h', 75, { duration: 1 });
   }
 }

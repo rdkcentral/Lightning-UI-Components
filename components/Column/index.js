@@ -5,7 +5,6 @@ export default class Column extends FocusManager {
     return {
       direction: 'column',
       scrollMount: 0,
-      boundsMargin: [0, 0, 0, 0],
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
@@ -75,7 +74,7 @@ export default class Column extends FocusManager {
   set provider(provider) {
     provider.then(data => {
       if (!data.appendItems) {
-        this.childList.clear();
+        this.items = [];
       }
       this.appendItems(data.items);
       this._getMoreItems = data.getMoreItems;
@@ -91,15 +90,17 @@ export default class Column extends FocusManager {
       item.y = bottomOfScreen;
       item.alpha = 0;
       item.parentFocus = this.hasFocus();
-      this.childList.add(this.application.stage.c(item));
     });
+    super.appendItems(items);
 
     // Ensure items are drawn so they have height
     this.stage.update();
+
+    // Create boundsMargin to preload images off screen
     let itemHeight = (items[0] || {}).h || this._columnHeight * 0.15;
     let bounds = itemHeight + this.itemSpacing;
     this.boundsMargin = [bounds, bounds, 0, 0];
-    this._refocus();
+
     this.render();
   }
 

@@ -20,6 +20,20 @@ export default {
   }
 };
 
+const numberOptions = {
+  range: true,
+  min: 0,
+  max: 1,
+  step: 0.1
+};
+
+const itemSpacingOptions = {
+  range: true,
+  min: 0,
+  max: 100,
+  step: 5
+};
+
 export const Basic = () =>
   class Scrolling extends lng.Component {
     static _template() {
@@ -58,20 +72,6 @@ export const Basic = () =>
       return this.tag('Column');
     }
   };
-
-const numberOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.1
-};
-
-const itemSpacingOptions = {
-  range: true,
-  min: 0,
-  max: 100,
-  step: 5
-};
 
 export const TestCase = () =>
   class TestCase extends lng.Component {
@@ -183,6 +183,7 @@ export const Plinko = () =>
               type: Row,
               h: 40,
               w: 900,
+              itemSpacing: 20,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',
@@ -193,6 +194,7 @@ export const Plinko = () =>
               type: Row,
               h: 40,
               w: 900,
+              itemSpacing: 20,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',

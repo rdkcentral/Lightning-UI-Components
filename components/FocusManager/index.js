@@ -9,10 +9,10 @@ export default class FocusManager extends lng.Component {
   constructor(stage) {
     super(stage);
     this.patch({ Items: {} });
+    this._direction = this.direction || 'row';
   }
 
   _init() {
-    this._direction = this.direction || 'row';
     this.selectedIndex = this.selectedIndex || 0;
   }
 
@@ -43,10 +43,12 @@ export default class FocusManager extends lng.Component {
 
   set items(items) {
     this.Items.childList.clear();
-    this.appendItems(items);
+    this._selectedIndex = 0;
+    if (items) {
+      this.appendItems(items);
+    }
   }
 
-  // Can be overriden
   appendItems(items = []) {
     this.Items.childList.a(items);
     this._refocus();
