@@ -9,6 +9,12 @@ import mdx from '../utils/storybook/docs-template.mdx';
 
 const stage = { w: 900, h: 450, clearColor: 0xff000000, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
 class StoryApp extends lng.Application {
+  static _template() {
+    return {
+      x: 20,
+      y: 20
+    }
+  }
   _getFocused() {
     return this.childList.first || this;
   }

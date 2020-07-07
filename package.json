@@ -1,9 +1,9 @@
 {
   "name": "@lightning/lightning-ui",
   "version": "0.0.0",
-  "dependencies": {
-    "wpe-lightning": "git+https://github.com/rdkcentral/Lightning.git#1.7.0",
-    "wpe-lightning-sdk": "git+https://github.com/rdkcentral/Lightning-SDK.git#2.2.2"
+  "dependencies": {},
+  "peerDependencies": {
+    "wpe-lightning": "1.x"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -56,7 +56,8 @@
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11",
     "webpack-config-utils": "^2.3.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "wpe-lightning": "^1.8.1"
   },
   "husky": {
     "hooks": {
