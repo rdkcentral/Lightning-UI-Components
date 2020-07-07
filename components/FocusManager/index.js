@@ -6,8 +6,13 @@
 import lng from 'wpe-lightning';
 
 export default class FocusManager extends lng.Component {
-  _init() {
+  constructor(stage) {
+    super(stage);
+    this.patch({ Items: {} });
     this._direction = this.direction || 'row';
+  }
+
+  _init() {
     this.selectedIndex = this.selectedIndex || 0;
   }
 
@@ -28,30 +33,36 @@ export default class FocusManager extends lng.Component {
     return !this.selected;
   }
 
+  get Items() {
+    return this.tag('Items');
+  }
+
   get items() {
-    return this.children;
+    return this.Items.children;
   }
 
   set items(items) {
-    this.childList.clear();
-    this.appendItems(items);
+    this.Items.childList.clear();
+    this._selectedIndex = 0;
+    if (items) {
+      this.appendItems(items);
+    }
   }
 
-  // Can be overriden
   appendItems(items = []) {
-    this.childList.a(items);
+    this.Items.childList.a(items);
     this._refocus();
   }
 
   get selected() {
-    return this.children[this.selectedIndex];
+    return this.Items.children[this.selectedIndex];
   }
 
   set selectedIndex(index) {
     let previousIndex = this.selectedIndex;
     let prevSelected = this.selected;
     let direction = index > previousIndex ? 'next' : 'previous';
-    let numItems = this.children.length;
+    let numItems = this.Items.children.length;
 
     if (index > 0) {
       if (index < numItems) {
@@ -95,14 +106,14 @@ export default class FocusManager extends lng.Component {
       this.selectedIndex--;
       return true;
     } else if (this.wrapSelected) {
-      this.selectedIndex = this.children.length - 1;
+      this.selectedIndex = this.Items.children.length - 1;
       return true;
     }
     return false;
   }
 
   selectNext() {
-    if (this.selectedIndex < this.children.length - 1) {
+    if (this.selectedIndex < this.Items.children.length - 1) {
       this.selectedIndex++;
       return true;
     } else if (this.wrapSelected) {
@@ -126,7 +137,7 @@ export default class FocusManager extends lng.Component {
   }
 
   get _size() {
-    return this.children.length;
+    return this.Items.children.length;
   }
 
   static _states() {

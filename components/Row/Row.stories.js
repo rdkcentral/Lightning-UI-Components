@@ -24,6 +24,7 @@ export const Basic = () =>
         Row: {
           type: Row,
           w: 900,
+          itemSpacing: 100,
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
@@ -31,11 +32,6 @@ export const Basic = () =>
           ]
         }
       };
-    }
-
-    _init() {
-      super._init();
-      this.itemSpacing = 100;
     }
 
     _getFocused() {
@@ -85,13 +81,19 @@ export const FocusHeightChange = () =>
         Row: {
           type: Row,
           items: Array.apply(null, { length: 5 }).map((_, i) => ({
-            type: Button,
+            type: ExpandingHeightButton,
             buttonText: 'Button',
-            w: 150
+            w: 150,
+            h: 75
           })),
-          focusHeightChange: 60
+          itemSpacing: 20,
+          focusHeightChange: 75
         }
       };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
     }
   };
 
@@ -103,6 +105,7 @@ export const VaryingItemWidth = () =>
         y: 20,
         Row: {
           type: Row,
+          itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             buttonText: 'Button',
@@ -143,40 +146,28 @@ export const ExpandableWidth = () =>
     }
   };
 
-class ExtendedRow extends lng.Component {
+class ExtendedRow extends Row {
   static _template() {
     return {
+      ...super._template(),
       Title: {
         text: {
           x: 0,
           y: 0
         }
       },
-      Row: {
-        type: Row,
-        y: 50
+      Items: {
+        y: 60
       }
     };
   }
 
-  _setup() {
-    const { Row, Title } = this;
-    Row.items = this.items;
-
-    if (typeof this.title === 'function') {
-      Title.text = this.title(Row.selected);
-      Row.onScreenEffect = () => (Title.text = this.title(Row.selected));
-    } else {
-      Title.text = this.title;
-    }
+  set title(val) {
+    this.Title.text = val;
   }
 
-  _getFocused() {
-    return this.tag('Row');
-  }
-
-  get Row() {
-    return this.tag('Row');
+  get title() {
+    return this.Title.text;
   }
 
   get Title() {
@@ -192,7 +183,8 @@ export const ExtendingRow = () =>
         y: 20,
         Row: {
           type: ExtendedRow,
-          title: selected => selected.buttonText,
+          itemSpacing: 20,
+          title: 'My Button Row',
           items: [
             { type: Button, buttonText: 'Button 1', w: 150 },
             { type: Button, buttonText: 'Button 2', w: 150 },
@@ -243,5 +235,17 @@ class ExpandingButton extends Button {
   _unfocus() {
     super._unfocus();
     this.patch({ w: 150 });
+  }
+}
+
+class ExpandingHeightButton extends Button {
+  _focus() {
+    super._focus();
+    this.setSmooth('h', 150, { duration: 1 });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.setSmooth('h', 75, { duration: 1 });
   }
 }
