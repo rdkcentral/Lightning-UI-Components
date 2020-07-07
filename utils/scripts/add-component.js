@@ -7,7 +7,6 @@ const chalk = require('chalk');
 const pelorous = chalk.hex('#30AABC');
 const path = require('path');
 const fs = require('fs-extra');
-const childProcess = require('child_process');
 const handlebars = require('handlebars');
 
 /**
@@ -40,7 +39,9 @@ const welcomeSplashScreen = () => {
   console.log(pelorous('#################################'));
   console.log(
     pelorous(
-      `#### ${chalk.white('Lightning Components - Create A New Component')} ####`
+      `#### ${chalk.white(
+        'Lightning Components - Create A New Component'
+      )} ####`
     )
   );
   console.log(pelorous('#################################'));
@@ -171,7 +172,6 @@ const indexContent = ({ componentName }) => {
 const componentContent = ({
   componentName,
   componentNameUpper,
-  componentDescription,
   componentFile,
   isThemed
 }) => {
@@ -187,41 +187,6 @@ const componentContent = ({
   });
 };
 
-const addDependencies = async ({ componentName }) => {
-  const dependencies = ['@wpe-lightning-ui/utilities', '@wpe-lightning-ui/theme'];
-
-  const execChildProcess = dep => {
-    return new Promise((resolve, reject) => {
-      childProcess.exec(
-        `lerna add ${dep} --no-bootstrap --scope=@wpe-lightning-ui/${componentName}`,
-        (err, stdout, stderr) => {
-          if (err) {
-            reject(stderr);
-          }
-          console.log(chalk.blue(`Added ${dep}`));
-          resolve();
-        }
-      );
-    });
-  };
-  for (const dep of dependencies) {
-    await execChildProcess(dep);
-  }
-};
-
-const performLernaBootstrap = ({ componentName }) => {
-  console.log(chalk.blue('Bootstrapping dependencies for new component...'));
-
-  return new Promise((resolve, reject) => {
-    childProcess.exec('npm run bootstrap', (err, stdout, stderr) => {
-      if (err) {
-        reject(stderr);
-      }
-      console.log(chalk.blue(`Bootstrap Complete!`));
-      resolve({ componentName });
-    });
-  });
-};
 const renameFiles = ({ componentName }) => {
   fs.renameSync(
     path.resolve(__dirname, `../../components/${componentName}/src/demo.js`),
@@ -293,8 +258,7 @@ retrievePrompts()
             `../../components/${componentName}/src/__tests__/demo.test.js`
           ),
           isThemed
-        }),
-        addDependencies({ componentName })
+        })
       ]).then(() => {
         console.log(
           chalk.green(
@@ -306,7 +270,6 @@ retrievePrompts()
     }
   )
   .then(renameFiles)
-  .then(performLernaBootstrap)
   .then(({ componentName }) => {
     console.log(
       pelorous(`Start local development with: "${chalk.white(`npm start`)}"`)
