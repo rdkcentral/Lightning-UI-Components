@@ -9,11 +9,5 @@ module.exports = {
     '@storybook/addon-knobs/register',
     lightningInspector,
   ],
-  stories: ['../components/**/*.stories.js'],
-  webpackFinal: config => {
-    config.module.rules[0].exclude = /node_modules\/(?!(wpe-lightning)\/)/;
-    // uncomment to debug webpack config
-    // console.dir(config, { depth: null });
-    return config;
-  }
+  stories: ['../components/**/*.stories.js']
 };
