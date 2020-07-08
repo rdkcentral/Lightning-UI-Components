@@ -11,6 +11,7 @@
     "index.js",
     "components/**/*.js",
     "!components/**/*.stories.js",
+    "!components/**/*.test.js",
     "!components/lightning-test-renderer.js"
   ],
   "devDependencies": {
