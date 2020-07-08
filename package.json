@@ -1,6 +1,6 @@
 {
-  "name": "@lightning/lightning-ui",
-  "version": "0.0.0",
+  "name": "@lightning/ui",
+  "version": "1.0.0-alpha.0",
   "dependencies": {},
   "peerDependencies": {
     "wpe-lightning": "1.x"
@@ -57,6 +57,7 @@
     "path": "^0.12.7",
     "prettier": "^1.19.1",
     "react-styleguidist": "^9.2.0",
+    "semantic-release": "^17.1.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.8.0",
