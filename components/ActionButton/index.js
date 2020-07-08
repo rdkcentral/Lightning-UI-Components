@@ -19,7 +19,6 @@ import {
 export default class ActionButton extends lng.Component {
   static _template() {
     return {
-      ...super._template(),
       Item: {
         zIndex: 1,
         Content: {
