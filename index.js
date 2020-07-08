@@ -1,1 +1,1 @@
-export { default as ActionItemButton } from './components/ActionItemButton/index.js';
+export { default as ActionButton } from './components/ActionButton/index.js';

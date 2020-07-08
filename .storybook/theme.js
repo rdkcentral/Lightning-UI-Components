@@ -7,6 +7,6 @@ export default create({
   appBg: 'rgb(33,	35,	42)',
   textColor: 'white',
   brandTitle: 'Lightning UI Components',
-  brandUrl: 'https://rdkcentral.github.io/Lightning/',
+  brandUrl: 'https://github.comcast.com/Lightning/lightning-ui',
   brandImage: brand,
 });

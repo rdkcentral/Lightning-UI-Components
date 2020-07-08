@@ -4,7 +4,6 @@
  * Action Button Class that contains styling and functionality for all Button items
  */
 import lng from 'wpe-lightning';
-import Item from '../Item';
 
 // styles
 import {
@@ -17,7 +16,7 @@ import {
   COLORS_TEXT
 } from '../Styles';
 
-export default class ActionButtonItem extends Item {
+export default class ActionButton extends lng.Component {
   static _template() {
     return {
       ...super._template(),

@@ -1,0 +1,60 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# ActionButton
+
+General purpose button component
+
+## Usage
+
+The basic component just requires a height, width, and title:
+
+```js
+import { ActionButton } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      ActionButton: {
+        type: ActionButton,
+        h: 72,
+        w: 410,
+        title: 'My Button'
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="actionbutton--basic" />
+</Preview>
+
+When focused, the background and text colors are inverted.
+
+<Preview>
+  <Story id="actionbutton--focused" />
+</Preview>
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+-|-|-|-
+announce|string|true|announcement text for screen readers
+title|string|false|button text
+unfocusIconUrl|string|false|URI for icon that may live next to the title
+
+
+### Methods
+
+#### someMethod
+
+Takes an `argument` and does something cool.
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+-|-|-|-|-
