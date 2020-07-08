@@ -21,8 +21,6 @@ export const Basic = () =>
       return {
         ActionButton: {
           type: ActionButton,
-          h: 72,
-          w: 410,
           title: 'My Button'
         }
       };
@@ -39,8 +37,6 @@ export const Focused = () =>
       return {
         ActionButton: {
           type: ActionButton,
-          h: 72,
-          w: 410,
           title: 'My Button'
         }
       };
@@ -60,8 +56,6 @@ export const Title = () =>
       return {
         ActionButton: {
           type: ActionButton,
-          h: 72,
-          w: 410,
           title: text('Title', 'Button Text')
         }
       };
@@ -74,8 +68,6 @@ export const UnfocusIconUrl = () =>
       return {
         ActionButton: {
           type: ActionButton,
-          h: 72,
-          w: 410,
           title: 'Button'
         }
       };

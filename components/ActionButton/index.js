@@ -51,6 +51,8 @@ export default class ActionButton extends lng.Component {
   constructor(...args) {
     super(...args);
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+    this.h = this.h || 72;
+    this.w = this.w || 410;
   }
 
   get announce() {
