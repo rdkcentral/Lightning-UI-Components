@@ -6,7 +6,7 @@ General purpose button component
 
 ## Usage
 
-The basic component just requires a height, width, and title:
+The basic component just requires a title:
 
 ```js
 import { ActionButton } from '@lightning/ui';
@@ -16,8 +16,6 @@ class Basic extends lng.Component {
     return {
       ActionButton: {
         type: ActionButton,
-        h: 72,
-        w: 410,
         title: 'My Button'
       }
     };
@@ -43,18 +41,7 @@ name|type|readonly|description
 --|--|--|--
 -|-|-|-
 announce|string|true|announcement text for screen readers
+h|number|false|height of the button
 title|string|false|button text
 unfocusIconUrl|string|false|URI for icon that may live next to the title
-
-
-### Methods
-
-#### someMethod
-
-Takes an `argument` and does something cool.
-
-##### Arguments
-
-name|type|required|default|description
---|--|--|--|--
--|-|-|-|-
+w|number|false|width of the button
