@@ -18,13 +18,14 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     '<rootDir>/**/*.js',
     '!**/coverage/**',
     '!<rootDir>/**/*.{stories,test,xtest}.js',
+    '!<rootDir>/(Item|Styles)/*.js', // exclude temporary components
     '!lightning-test-renderer.js'
   ],
   // The directory where Jest should output its coverage files
@@ -36,10 +37,10 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-      statements: 95,
-      branches: 95,
-      functions: 95,
-      lines: 95
+      statements: 90,
+      branches: 90,
+      functions: 90,
+      lines: 90
     }
   },
 
