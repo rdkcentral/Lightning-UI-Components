@@ -21,7 +21,7 @@ export const Basic = () =>
       return {
         ActionButton: {
           type: ActionButton,
-          title: 'My Button'
+          title: text('Title', 'Type Something')
         }
       };
     }
@@ -31,13 +31,24 @@ export const Basic = () =>
     }
   };
 
+export const Loading = () =>
+  class Loading extends lng.Component {
+    static _template() {
+      return {
+        ActionButton: {
+          type: ActionButton
+        }
+      };
+    }
+  };
+
 export const Focused = () =>
   class Focused extends lng.Component {
     static _template() {
       return {
         ActionButton: {
           type: ActionButton,
-          title: 'My Button'
+          title: text('Title', 'Type Something')
         }
       };
     }
@@ -50,20 +61,8 @@ export const Focused = () =>
     }
   };
 
-export const Title = () =>
-  class Title extends lng.Component {
-    static _template() {
-      return {
-        ActionButton: {
-          type: ActionButton,
-          title: text('Title', 'Button Text')
-        }
-      };
-    }
-  };
-
-export const UnfocusIconUrl = () =>
-  class UnfocusIconUrl extends lng.Component {
+export const Icon = () =>
+  class Icon extends lng.Component {
     static _template() {
       return {
         ActionButton: {
@@ -76,7 +75,7 @@ export const UnfocusIconUrl = () =>
     _init() {
       this.tag(
         'ActionButton'
-      ).unfocusIconUrl = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMAQMAAABsu86kAAAABlBMVEUAAAD+qAB849H0AAAAAXRSTlMAQObYZgAAAAxJREFUCNdjSEsgiACnWAlJEDYe/gAAAABJRU5ErkJggg==`;
+      ).icon = `https://edge.myriad-gn.top.comcast.net/select/logo?entityId=6331252128022549239&width=48&ratio=1x1&trim=false&extent=true&rule=Icon%20Unfocused`;
     }
 
     _getFocused() {

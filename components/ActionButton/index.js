@@ -1,5 +1,5 @@
 /**
- * Action Button Item Component
+ * Action Button Component
  *
  * Action Button Class that contains styling and functionality for all Button items
  */
@@ -19,16 +19,15 @@ import {
 export default class ActionButton extends lng.Component {
   static _template() {
     return {
-      Item: {
+      Button: {
         zIndex: 1,
         Content: {
           zIndex: 2,
           flex: { direction: 'row' },
           Icon: {
-            y: 3
+            y: GRID.spacingIncrement
           },
           Title: {
-            y: 1,
             text: {
               ...TYPESCALE.caption,
               textColor: getHexColor(COLORS_TEXT.light)
@@ -55,15 +54,40 @@ export default class ActionButton extends lng.Component {
     this.w = this.w || 410;
   }
 
+  _init() {
+    this._Background.texture = lng.Tools.getRoundRect(
+      this.w,
+      this.h,
+      CORNER_RADIUS.small,
+      0,
+      0,
+      true,
+      0xffffffff
+    );
+    this._Background.color = getHexColor(COLORS_NEUTRAL.light2, 24);
+    if (!this.title) {
+      this.loading = this._Background.animation({
+        duration: 2,
+        repeat: -1,
+        stopMethod: 'immediate',
+        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+      });
+      this.loading.start();
+    }
+  }
+
   get announce() {
     return this.title + ', Button';
   }
 
   set title(title) {
     super.title = title;
+    if (this.loading) {
+      this.loading.stop();
+    }
     this._whenEnabled.then(() => {
       this.patch({
-        Item: {
+        Button: {
           Content: {
             w: this.w,
             h: this.h,
@@ -102,12 +126,10 @@ export default class ActionButton extends lng.Component {
           )
         }
       });
-      this._Background.color = 0x00;
+      this._Background.color = getHexColor(COLORS_BASE.transparent);
 
       this._Title.on('txLoaded', () => {
-        let iconWidth = this.unfocusIconUrl
-          ? this._iconW + GRID.spacingIncrement * 2
-          : 0;
+        let iconWidth = this.icon ? this._iconW + GRID.spacingIncrement * 2 : 0;
         this._Content.patch({
           x: (this._Content.w - (this._Title.renderWidth + iconWidth)) / 2,
           y: (this._Content.h - this._Title.text.lineHeight) / 2
@@ -116,15 +138,15 @@ export default class ActionButton extends lng.Component {
     });
   }
 
-  set unfocusIconUrl(unfocusIconUrl) {
-    if (unfocusIconUrl) {
-      super.unfocusIconUrl = unfocusIconUrl;
+  set icon(url) {
+    if (url) {
+      super.icon = url;
       this._whenEnabled.then(() => {
         this._Icon.patch({
           w: this._iconW,
           h: this._iconH,
           flexItem: { marginRight: GRID.spacingIncrement * 2 },
-          src: this.unfocusIconUrl
+          src: url
         });
       });
     }
@@ -173,10 +195,10 @@ export default class ActionButton extends lng.Component {
     return this.tag('Content.Icon');
   }
   get _Background() {
-    return this.tag('Item.Background');
+    return this.tag('Button.Background');
   }
   get _Stroke() {
-    return this.tag('Item.Stroke');
+    return this.tag('Button.Stroke');
   }
   get _DropShadow() {
     return this.tag('DropShadow');
