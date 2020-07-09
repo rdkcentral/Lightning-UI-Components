@@ -84,8 +84,7 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "npm run lint:js",
-    "lint:js": "eslint './components/**/*.js'",
+    "lint": "eslint './components/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "new": "node utils/scripts/add-component.js",
     "new:story": "sh utils/scripts/make-story.sh",
