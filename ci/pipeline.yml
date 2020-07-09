@@ -34,7 +34,7 @@
     type: pull-request
     icon: source-pull
     webhook_token: ((webhook-token))
-    check_every: 72h
+    check_every: 168h
     source:
       repository: ((ghe-org-name))/((ghe-repo-name))
       disable_forks: false
@@ -82,25 +82,20 @@
           path: source-repo-pr
           status: pending
       - task: 📦 NPM Install
-        file: source-repo-pr/ci/tasks/install-((language)).yml
+        file: source-repo-pr/ci/tasks/install.yml
         input_mapping:
           source-repo: source-repo-pr
       - in_parallel:
-          - task: 💪 Unit Tests
-            file: source-repo-pr/ci/tasks/unit-tests.yml
-            input_mapping:
-              source-repo: source-repo-pr
           - task: 🛡 Code Quality
             file: source-repo-pr/ci/tasks/quality.yml
             input_mapping:
               source-repo: source-repo-pr
-          - task: 🤖 E2E Testing
-            privileged: true
-            file: source-repo-pr/ci/tasks/automation.yml
+          - task: 💪 Unit Tests
+            file: source-repo-pr/ci/tasks/unit-tests.yml
             input_mapping:
               source-repo: source-repo-pr
-      - task: ⚙ Build Storybook and Components
-        file: source-repo-pr/ci/tasks/build-((language)).yml
+      - task: 🦾 Build Storybook and Components
+        file: source-repo-pr/ci/tasks/build.yml
         params:
           BUILD_PATH: "packages/core/storybook-static/*"
         input_mapping:

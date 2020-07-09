@@ -5,13 +5,12 @@ params:
 inputs:
   - name: source-repo
 outputs:
-  - name: build
-  - name: node_modules
+  - name: dist
 image_resource:
   type: docker-image
   source:
     repository: node
     tag: "lts"
 run:
-  path: ./ci/tasks/install-node.sh
+  path: ./ci/tasks/build.sh
   dir: ./source-repo
