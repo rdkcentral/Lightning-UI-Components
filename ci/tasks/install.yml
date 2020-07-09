@@ -1,7 +1,5 @@
 ---
 platform: linux
-params:
-  PACKAGE:
 inputs:
   - name: source-repo
 outputs:
