@@ -1,9 +1,8 @@
 ---
 platform: linux
-params:
-  PACKAGE:
 inputs:
   - name: source-repo
+  - name: node_modules
 outputs:
   - name: dist
 image_resource:
