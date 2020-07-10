@@ -1,0 +1,17 @@
+---
+platform: linux
+inputs:
+  - name: source-repo
+outputs:
+  - name: source-repo/dist
+caches:
+  - path: source-repo/node_modules
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: "lts"
+run:
+  path: bash
+  args: [ ./ci/tasks/gh-pages.sh ]
+  dir: ./source-repo
