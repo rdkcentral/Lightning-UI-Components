@@ -283,7 +283,7 @@ export default class Column extends FocusManager {
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
-      this.childList.remove(item);
+      this.Items.childList.remove(item);
       if (wasSelected || this.selectedIndex >= this.items.length) {
         this.selectedIndex = this.selectedIndex;
       }
