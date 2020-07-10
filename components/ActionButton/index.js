@@ -50,11 +50,17 @@ export default class ActionButton extends lng.Component {
   constructor(...args) {
     super(...args);
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this.h = this.h || 72;
+    this.h = this.h || 88;
     this.w = this.w || 410;
   }
 
   _init() {
+    this._loading = this._Background.animation({
+      duration: 2,
+      repeat: -1,
+      stopMethod: 'immediate',
+      actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+    });
     this._Background.texture = lng.Tools.getRoundRect(
       this.w,
       this.h,
@@ -66,13 +72,7 @@ export default class ActionButton extends lng.Component {
     );
     this._Background.color = getHexColor(COLORS_NEUTRAL.light2, 24);
     if (!this.title) {
-      this.loading = this._Background.animation({
-        duration: 2,
-        repeat: -1,
-        stopMethod: 'immediate',
-        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-      });
-      this.loading.start();
+      this._loading.start();
     }
   }
 
@@ -82,9 +82,6 @@ export default class ActionButton extends lng.Component {
 
   set title(title) {
     super.title = title;
-    if (this.loading) {
-      this.loading.stop();
-    }
     this._whenEnabled.then(() => {
       this.patch({
         Button: {
@@ -139,22 +136,21 @@ export default class ActionButton extends lng.Component {
   }
 
   set icon(url) {
-    if (url) {
-      super.icon = url;
-      this._whenEnabled.then(() => {
-        this._Icon.patch({
-          w: this._iconW,
-          h: this._iconH,
-          flexItem: { marginRight: GRID.spacingIncrement * 2 },
-          src: url
-        });
+    super.icon = url;
+    this._whenEnabled.then(() => {
+      this._Icon.patch({
+        w: this._iconW,
+        h: this._iconH,
+        flexItem: { marginRight: GRID.spacingIncrement * 2 },
+        src: url
       });
-    }
+    });
   }
 
   _focus() {
     this._whenEnabled.then(() => {
       let focusScale = (this.w + 16) / this.w;
+      console.log(focusScale);
       this._Background.smooth = {
         color: getHexColor(COLORS_NEUTRAL.light2),
         scale: focusScale
