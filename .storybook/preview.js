@@ -1,13 +1,14 @@
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
-import 'wpe-lightning/devtools/lightning-inspect';
 import lng from 'wpe-lightning';
+import 'wpe-lightning/devtools/lightning-inspect';
 import '@storybook/addon-console';
 import { addDecorator, addParameters } from '@storybook/html';
 
 import mdx from '../utils/storybook/docs-template.mdx';
-
-const stage = { w: 900, h: 450, clearColor: 0xff000000, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
+const white = 0xFFFFFFFF;
+const black = 0x00000000;
+const stage = { w: 900, h: 450, clearColor: black, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
 class StoryApp extends lng.Application {
   static _template() {
     return {
@@ -37,6 +38,13 @@ addDecorator((StoryComponent, { parameters }) => {
       type: StoryComponent()
     }
   };
+
+  //Clear any lightning inspector info
+  if(document.querySelectorAll('[type=StoryApp]').length > 1) {
+    let div = document.querySelector('[type=StoryApp]');
+    div.parentNode.parentNode.removeChild(div.parentNode);
+  }
+
   //Expose the APP for debugging
   window.APP = app;
   return app.stage.getCanvas();
