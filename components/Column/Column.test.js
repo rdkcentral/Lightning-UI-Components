@@ -105,7 +105,6 @@ describe('Column', () => {
     it('should listen for $removeItem', () => {
       let item = column.items[1];
       column.$removeItem(item);
-      testRenderer.update();
       expect(column.items.length).toBe(4);
     });
   });

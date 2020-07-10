@@ -40,7 +40,7 @@ export default class Row extends FocusManager {
   set provider(provider) {
     provider.then(data => {
       if (!data.appendItems) {
-        this.Items.clear();
+        this.Items.childList.clear();
       }
       this.appendItems(data.items);
       this._getMoreItems = data.getMoreItems;
