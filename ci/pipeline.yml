@@ -25,22 +25,31 @@
       source:
         repository: teliaoss/github-pr-resource
 
+
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
   # Resource: https://concourse-ci.org/resources.html
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
   resources:
+    - name: source-repo-pr
+      type: pull-request
+      icon: source-pull
+      webhook_token: ((webhook-token))
+      check_every: 168h
+      source:
+        repository: ((ghe-org-name))/((ghe-repo-name))
+        disable_forks: false
+        access_token: ((ghe-token))
+        v3_endpoint: https://github.comcast.com/api/v3/
+        v4_endpoint: https://github.comcast.com/api/graphql
 
-  - name: source-repo-pr
-    type: pull-request
-    icon: source-pull
-    webhook_token: ((webhook-token))
-    check_every: 168h
-    source:
-      repository: ((ghe-org-name))/((ghe-repo-name))
-      disable_forks: false
-      access_token: ((ghe-token))
-      v3_endpoint: https://github.comcast.com/api/v3/
-      v4_endpoint: https://github.comcast.com/api/graphql
+    - name: source-repo
+      type: git
+      webhook_token: ((webhook-token))
+      check_every: 168h
+      source:
+        branch: main
+        private_key: ((github-enterprise.private-key))
+        uri: ((ghe-source-repo))
 
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
   # Groups: https://concourse-ci.org/pipeline-groups.html
@@ -50,6 +59,7 @@
     - name: Overview
       jobs:
         - Pull Requests
+        - Docs
     - name: Pull Requests
       jobs:
         - Pull Requests
@@ -100,3 +110,16 @@
           BUILD_PATH: "packages/core/storybook-static/*"
         input_mapping:
           source-repo: source-repo-pr
+
+  - name: Docs
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo
+        trigger: true
+      - task: Publish Docs
+        file: source-repo/ci/tasks/gh-pages.yml
+        params:
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          EMAIL: ((service-account.email))
