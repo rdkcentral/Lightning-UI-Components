@@ -1,0 +1,38 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# Tile
+
+General purpose Tile component
+
+## Usage
+
+Just set a src property to load an image. From there you can set
+blur, rounded corners and drop shadow
+
+```js
+import { Tile } from '@lightning/ui';
+
+Tile: {
+  type: Tile,
+  src: 'path/to/image',
+  w: 320,
+  h: 180,
+  blur: 2,
+  rounded: 16,
+  shadow: { radius: 16 }
+}
+```
+
+<Preview>
+  <Story id="tile--basic" />
+</Preview>
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+-|-|-|-
+blur|number|false|Blur amount from 0-4
+rounded|number|false|set rounded radius
+shadow|obj|false|create a drop shadow
+src|string|false|url to image
