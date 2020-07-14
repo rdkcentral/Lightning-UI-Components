@@ -76,6 +76,22 @@ describe('Column', () => {
     });
   });
 
+  describe('appendItems', () => {
+    it('has works with no items', () => {
+      const { length } = column.items;
+      column.appendItems();
+      expect(column.items.length).toBe(length);
+    });
+
+    it('defaults item width to column width', () => {
+      const item = { ...baseItem };
+      delete item.w;
+
+      column.appendItems([item]);
+      expect(column.items[column.items.length - 1].w).toBe(column.w);
+    });
+  });
+
   describe('provider', () => {
     it('should take a promise to append items', done => {
       column.provider = Promise.resolve({
@@ -102,10 +118,82 @@ describe('Column', () => {
   });
 
   describe('listeners', () => {
-    it('should listen for $removeItem', () => {
-      let item = column.items[1];
-      column.$removeItem(item);
-      expect(column.items.length).toBe(4);
+    describe('$removeItem', () => {
+      it('removes an item', () => {
+        let item = column.items[1];
+        column.$removeItem(item);
+        expect(column.items.length).toBe(4);
+      });
+
+      it('removes selected item', () => {
+        const { selectedIndex } = column;
+        let item = column.items[selectedIndex];
+        column.$removeItem(item);
+        expect(column.items.length).toBe(4);
+        expect(column.selectedIndex).toBe(selectedIndex);
+      });
+
+      it('shifts selected index if necessary', () => {
+        expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300, 400]);
+        const item = column.items[1];
+        column.selectedIndex = 2;
+        column.$removeItem(item);
+        testRenderer.update();
+        expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
+      });
+
+      it('fires $columnEmpty event', () => {
+        const spy = jest.spyOn(column, 'fireAncestors');
+        column.items = [{ ...baseItem }];
+        column.$removeItem(column.items[0]);
+        expect(spy).toBeCalledWith('$columnEmpty');
+      });
+
+      it('handles empty item', () => {
+        column.$removeItem();
+      });
+    });
+
+    describe('$columnChanged', () => {
+      it('updates column', () => {
+        //TODO come up with something better
+        const spy = jest.spyOn(column, 'render');
+        column.$columnChanged();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('_focus', () => {
+    it('focuses column', () => {
+      column._focus();
+      expect(column.items.every(item => item.parentFocus)).toEqual(true);
+    });
+  });
+
+  describe('_unfocus', () => {
+    it('unfocuses column', () => {
+      column._unfocus();
+      expect(column.items.every(item => item.parentFocus)).toEqual(false);
+    });
+  });
+
+  describe('updateItems', () => {
+    it('passes a callback to every item', () => {
+      const callback = jest.fn();
+      column.updateItems(callback);
+      expect(callback).toBeCalledTimes(column.items.length);
+    });
+
+    it('waits for column to be enabled before updating items', done => {
+      const callback = jest.fn();
+      column._columnEnabled = false;
+      column._whenEnabled = Promise.resolve();
+      column.updateItems(callback);
+      setTimeout(() => {
+        expect(callback).toHaveBeenCalled();
+        done();
+      });
     });
   });
 
@@ -123,14 +211,38 @@ describe('Column', () => {
     });
 
     describe('with plinko true', () => {
+      beforeEach(() => {
+        column.plinko = true;
+      });
+
       it('should set selected item for item based on previous item', () => {
         let item = column.items[0];
-        column.plinko = true;
         item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
         testRenderer.update();
         expect(column.items[1].selectedIndex).toBe(3);
+      });
+
+      it('should selected last item in selected row if it is closest', () => {
+        let row = column.items[0];
+        row.items = [...items, { ...baseItem }];
+        row.selectedIndex = row.items.length - 1;
+        testRenderer.update();
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+
+        expect(column.items[1].selectedIndex).toBe(4);
+      });
+
+      it('should select first item if there is only one', () => {
+        let row = column.items[1];
+        row.items = [{ ...baseItem }];
+        testRenderer.update();
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+
+        expect(row.selectedIndex).toBe(0);
       });
     });
 
@@ -180,9 +292,12 @@ describe('Column', () => {
       });
 
       describe('and scrollMount = 0.5', () => {
+        // TODO go over these tests and make sure the expectations are correct
         beforeEach(() => {
+          column.items = items.concat(items);
           column.scrollMount = 0.5;
           column.render();
+          testRenderer.update();
         });
 
         it('should render correctly', () => {
@@ -202,7 +317,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.update();
-          expect(item.y).toBe(-100);
+          expect(item.y).toBe(-40);
         });
 
         it('should scroll up', () => {
@@ -220,7 +335,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.update();
-          expect(item.y).toBe(0);
+          expect(item.y).toBe(-140);
         });
       });
 

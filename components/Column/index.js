@@ -119,10 +119,6 @@ export default class Column extends FocusManager {
   }
 
   _computeStartScrollIndex(scrollStart) {
-    if (scrollStart === 0) {
-      return 0;
-    }
-
     let totalItems = this.items.length;
     let MAX_HEIGHT = scrollStart;
 
@@ -132,8 +128,6 @@ export default class Column extends FocusManager {
         return i + 1;
       }
     }
-
-    return 0;
   }
 
   // can be overridden
@@ -174,7 +168,6 @@ export default class Column extends FocusManager {
       if (itemY >= this._columnHeight) {
         return this.onScreenEffect(this._renderUp());
       }
-      return this.onScreenEffect(this._renderDown());
     }
 
     // Scroll mount is middle
@@ -183,10 +176,6 @@ export default class Column extends FocusManager {
 
     if (index < startScrollIndex) {
       return this.onScreenEffect(this._renderDown(0));
-    }
-
-    if (index >= lastIndex) {
-      return this.onScreenEffect(this._renderUp(this.items.length - 1));
     }
 
     itemY = scrollStart - this.selected.h / 2;
@@ -219,7 +208,7 @@ export default class Column extends FocusManager {
     return onScreenItems;
   }
 
-  _renderDown(index = this.selectedIndex, itemY = 0) {
+  _renderDown(index, itemY = 0) {
     let onScreenItems = [];
     const [BOUNDS] = this.boundsMargin;
 
@@ -259,12 +248,12 @@ export default class Column extends FocusManager {
     return this._itemSpacing || 0;
   }
 
-  set updateItems(callback) {
+  updateItems(callback) {
     if (this._columnEnabled) {
       this.items.forEach(callback);
       this.render();
     } else {
-      this._whenEnabled.then(() => (this.updateItems = callback));
+      this._whenEnabled.then(() => this.items.forEach(callback));
     }
   }
 
@@ -285,6 +274,7 @@ export default class Column extends FocusManager {
       let wasSelected = item === this.selected;
       this.Items.childList.remove(item);
       if (wasSelected || this.selectedIndex >= this.items.length) {
+        // eslint-disable-next-line no-self-assign
         this.selectedIndex = this.selectedIndex;
       }
 
