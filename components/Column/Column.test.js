@@ -178,25 +178,6 @@ describe('Column', () => {
     });
   });
 
-  describe('updateItems', () => {
-    it('passes a callback to every item', () => {
-      const callback = jest.fn();
-      column.updateItems(callback);
-      expect(callback).toBeCalledTimes(column.items.length);
-    });
-
-    it('waits for column to be enabled before updating items', done => {
-      const callback = jest.fn();
-      column._columnEnabled = false;
-      column._whenEnabled = Promise.resolve();
-      column.updateItems(callback);
-      setTimeout(() => {
-        expect(callback).toHaveBeenCalled();
-        done();
-      });
-    });
-  });
-
   describe('scrolling', () => {
     describe('with plinko false', () => {
       it('should NOT set selected item for item based on previous item', () => {
