@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
 import { withKnobs, color, number } from '@storybook/addon-knobs';
-import { rgba2argb } from '../utils';
+import { rgba2argb } from '../../utils';
 
 import Tile from '.';
 import mdx from './Tile.mdx';

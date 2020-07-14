@@ -9,9 +9,9 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "components/**/*.js",
+    "{components,utils}/**/*.js",
     "!components/**/*.stories.js",
-    "!components/**/*.test.js",
+    "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js"
   ],
   "devDependencies": {
@@ -75,7 +75,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint"
+      "eslint",
+      "jest --findRelatedTests"
     ]
   },
   "repository": {
@@ -83,10 +84,9 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "eslint './components/**/*.js'",
+    "lint": "eslint './{components,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
-    "new": "node utils/scripts/add-component.js",
-    "new:story": "sh utils/scripts/make-story.sh",
+    "create": "sh bin/create.sh",
     "start": "start-storybook",
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",

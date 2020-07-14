@@ -5,7 +5,7 @@ import 'wpe-lightning/devtools/lightning-inspect';
 import '@storybook/addon-console';
 import { addDecorator, addParameters } from '@storybook/html';
 
-import mdx from '../utils/storybook/docs-template.mdx';
+import mdx from './utils/docs-template.mdx';
 const white = 0xFFFFFFFF;
 const black = 0x00000000;
 const stage = { w: 900, h: 450, clearColor: black, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
