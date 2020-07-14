@@ -150,7 +150,6 @@ export default class ActionButton extends lng.Component {
   _focus() {
     this._whenEnabled.then(() => {
       let focusScale = (this.w + 16) / this.w;
-      console.log(focusScale);
       this._Background.smooth = {
         color: getHexColor(COLORS_NEUTRAL.light2),
         scale: focusScale
