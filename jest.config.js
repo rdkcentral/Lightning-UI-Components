@@ -1,6 +1,5 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
-
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -139,7 +138,7 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-fifteen',
 
   // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
+  testEnvironmentOptions: { resources: 'usable' },
 
   // Adds a location field to test results
   // testLocationInResults: false,

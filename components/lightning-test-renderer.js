@@ -60,7 +60,7 @@ function create(Component) {
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
   return {
-    toJSON: () => toJSON(app.childList.first, { children: 1 }),
+    toJSON: (children = 1) => toJSON(app.childList.first, { children }),
     update: () => {
       app.stage.drawFrame();
     },
