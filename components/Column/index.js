@@ -12,18 +12,6 @@ export default class Column extends FocusManager {
     };
   }
 
-  constructor(...args) {
-    super(...args);
-    // Ensure setters are called after all properties are set like width
-    this._whenEnabled = new Promise(
-      resolve =>
-        (this._firstEnable = () => {
-          this._columnEnabled = true;
-          resolve();
-        })
-    );
-  }
-
   // finds the index of the item with the closest middle to the previously selected item
   _getIndexOfItemNear(selected, prev) {
     // edge case
@@ -246,15 +234,6 @@ export default class Column extends FocusManager {
 
   get itemSpacing() {
     return this._itemSpacing || 0;
-  }
-
-  updateItems(callback) {
-    if (this._columnEnabled) {
-      this.items.forEach(callback);
-      this.render();
-    } else {
-      this._whenEnabled.then(() => this.items.forEach(callback));
-    }
   }
 
   _focus() {
