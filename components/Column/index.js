@@ -18,9 +18,7 @@ export default class Column extends FocusManager {
     if (selected.items.length < 2) return 0;
 
     let prevItem = prev.selected || prev.currentItem;
-    let prevOffset = prev.transition('x')
-      ? prev.transition('x').targetValue
-      : 0;
+    let prevOffset = prev.transition('x').targetValue || 0;
     let [itemX] = prevItem.core.getAbsoluteCoords(-prevOffset, 0);
     let prevMiddle = itemX + prevItem.w / 2;
 
