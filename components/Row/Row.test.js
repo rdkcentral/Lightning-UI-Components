@@ -263,8 +263,6 @@ describe('Row', () => {
       expect(onScreenItems).toEqual(actualOnScreenItems);
     });
 
-    xdescribe('with scrollMount=0', () => {});
-
     describe('with scrollMount=1', () => {
       beforeEach(() => {
         row.scrollMount = 1;
