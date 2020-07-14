@@ -24,10 +24,6 @@ export default class Row extends FocusManager {
     );
   }
 
-  get Row() {
-    return this.Items;
-  }
-
   set itemSpacing(val) {
     this._itemSpacing = val;
     this.render();
@@ -90,14 +86,6 @@ export default class Row extends FocusManager {
     }
   }
 
-  get scrollTransition() {
-    return this._scrollTransition || {};
-  }
-
-  set scrollTransition(val) {
-    this._scrollTransition = val;
-  }
-
   _computeLastIndex() {
     let totalItems = this.items.length;
     let mount = this.scrollMount || 1;
@@ -118,10 +106,6 @@ export default class Row extends FocusManager {
   }
 
   _computeStartScrollIndex(scrollStart) {
-    if (scrollStart === 0) {
-      return 0;
-    }
-
     let totalItems = this.items.length;
     let MAX_WIDTH = scrollStart;
 
@@ -131,8 +115,6 @@ export default class Row extends FocusManager {
         return i + 1;
       }
     }
-
-    return 0;
   }
 
   get _rowWidth() {
@@ -140,10 +122,7 @@ export default class Row extends FocusManager {
   }
 
   render(selected = this.selected, prev) {
-    if (this.items.length === 0) {
-      return;
-    }
-
+    if (this.items.length === 0) return;
     let itemX = 0;
     let index = this.selectedIndex;
     let lastIndex = this._computeLastIndex();
@@ -228,11 +207,6 @@ export default class Row extends FocusManager {
     }
 
     this.onScreenEffect(onScreenItems);
-  }
-
-  get offset() {
-    let t = this.transition('x');
-    return t ? t.targetValue : 0;
   }
 
   $shiftRow({ position }) {

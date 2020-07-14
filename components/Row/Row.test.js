@@ -2,6 +2,18 @@ import lng from 'wpe-lightning';
 import TestRenderer from '../lightning-test-renderer';
 import Row from '.';
 
+function fastForward(elements) {
+  const _fastForward = element => {
+    if (element._transitions) {
+      Object.values(element._transitions).forEach(transition =>
+        transition.finish()
+      );
+    }
+  };
+  if (Array.isArray(elements)) elements.forEach(_fastForward);
+  if (elements && elements._transitions) _fastForward(elements);
+}
+
 const rowFactory = (args = {}) => ({
   Component: {
     title: 'My Row',
@@ -29,6 +41,7 @@ const Component = {
     type: Row,
     title: 'My Row',
     h: 80,
+    w: 400,
     upCount: 5,
     signals: {
       selectedChange: 'selectedChangeMock'
@@ -47,6 +60,13 @@ describe('Row', () => {
   });
 
   it('should render', () => {
+    let tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render with no items', () => {
+    row.items = [];
+    testRenderer.update();
     let tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -85,7 +105,6 @@ describe('Row', () => {
       const ROW_HEIGHT = 80;
       row.focusHeightChange = 100;
       row._focus();
-
       expect(row.h).toBe(ROW_HEIGHT + 100);
       row._unfocus();
       expect(row.h).toBe(ROW_HEIGHT);
@@ -140,6 +159,20 @@ describe('Row', () => {
       row.appendItems([item]);
       expect(item.x).toBeGreaterThan(row.x + row.w);
     });
+
+    it('has works with no items', () => {
+      const { length } = row.items;
+      row.appendItems();
+      expect(row.items.length).toBe(length);
+    });
+
+    it('defaults item height to row renderHeight', () => {
+      const item = { ...baseItem };
+      delete item.h;
+
+      row.appendItems([item]);
+      expect(row.items[row.items.length - 1].h).toBe(row.h);
+    });
   });
 
   describe('wrapping', () => {
@@ -179,13 +212,22 @@ describe('Row', () => {
       testRenderer.update();
       expect(row.items[1].transition('x').targetValue).toBe(item1X + 200);
     });
+
+    it('should listen for $itemHeightChanged', () => {
+      const { h } = row;
+      row.$itemHeightChanged(20);
+      expect(row.h).toBe(h + 20);
+    });
   });
 
   describe('scrolling', () => {
-    it('should scroll long rows', () => {
+    beforeEach(() => {
       row.scrollTransition = { duration: 0 };
       row.items = [...items, ...items];
-      expect(row.items[4].x).toBe(1920);
+    });
+
+    it('should scroll long rows', () => {
+      expect(row.items[4].x).toBe(800);
       row._selectedIndex = 4;
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
@@ -193,7 +235,355 @@ describe('Row', () => {
       testRenderer.keyPress('Right');
       testRenderer.update();
       expect(row._selectedIndex).toBe(8);
-      expect(row.selected.transition('x').targetValue).toBe(640);
+      expect(row.selected.transition('x').targetValue).toBe(160);
+    });
+
+    it('should pass on screen items to onScreenEffect', () => {
+      row.w = 200;
+      const onScreenEffect = jest.fn();
+      row.onScreenEffect = onScreenEffect;
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.update();
+
+      expect(onScreenEffect).toBeCalledTimes(2);
+
+      // items within row boundary (x, x+w)
+      const actualOnScreenItems = expect.arrayContaining(
+        row.items
+          .filter(item => {
+            const x = item.transition('x').targetValue;
+            return x >= row.x && x + item.w <= row.x + row.w;
+          })
+          .map(expect.objectContaining)
+      );
+      const onScreenItems = onScreenEffect.mock.calls[1][0];
+
+      expect(onScreenItems.length).not.toEqual(row.items.length);
+      expect(onScreenItems).toEqual(actualOnScreenItems);
+    });
+
+    xdescribe('with scrollMount=0', () => {});
+
+    describe('with scrollMount=1', () => {
+      beforeEach(() => {
+        row.scrollMount = 1;
+        fastForward(row.items);
+        testRenderer.update();
+      });
+
+      describe('navigating right', () => {
+        it('does not scroll if selected item is within bounds', () => {
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+
+        it('shifts items to the left if selected item is past bounds', () => {
+          expect(row.items.map(item => item.x)).toEqual(
+            expect.arrayContaining([
+              0,
+              80,
+              160,
+              240,
+              320,
+              400,
+              800,
+              800,
+              800,
+              800
+            ])
+          );
+
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(item => item.x)).toEqual(
+            expect.arrayContaining([
+              -80,
+              0,
+              80,
+              160,
+              240,
+              320,
+              400,
+              800,
+              800,
+              800
+            ])
+          );
+        });
+
+        it('does not scroll if selected index > last index', () => {
+          Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
+            testRenderer.keyPress('Right')
+          );
+          fastForward(row.items);
+          testRenderer.update();
+
+          const expectedItems = expect.arrayContaining(
+            row.items.map(item => item.x)
+          );
+
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(item => item.x)).toEqual(expectedItems);
+        });
+      });
+
+      describe('navigating left', () => {
+        beforeEach(() => {
+          Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
+            testRenderer.keyPress('Right')
+          );
+          fastForward(row.items);
+          testRenderer.update();
+        });
+        it('does not scroll if selected item is within bounds', () => {
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+        it('shifts items to the right if selected item is past bounds', () => {
+          expect(row.items.map(({ x }) => x)).toEqual(
+            expect.arrayContaining([
+              -160,
+              -160,
+              -160,
+              -160,
+              -80,
+              0,
+              80,
+              160,
+              240,
+              320
+            ])
+          );
+
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual([
+            -160,
+            -160,
+            -160,
+            -80,
+            0,
+            80,
+            160,
+            240,
+            320,
+            400
+          ]);
+        });
+
+        it('does not scroll if selected index < 0', () => {
+          Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
+            testRenderer.keyPress('Left')
+          );
+          fastForward(row.items);
+          testRenderer.update();
+
+          const expectedItems = expect.arrayContaining(
+            row.items.map(item => item.x)
+          );
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(item => item.x)).toEqual(expectedItems);
+        });
+      });
+    });
+
+    describe('with scrollMount=0.5', () => {
+      beforeEach(() => {
+        row.scrollMount = 0.5;
+        fastForward(row.items);
+        testRenderer.update();
+      });
+
+      describe('navigating right', () => {
+        it('does not scroll if selected index < start scroll index', () => {
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+
+        it('shifts items to the left if selected index > start scroll index', () => {
+          expect(row.items.map(({ x }) => x)).toEqual(
+            expect.arrayContaining([
+              0,
+              80,
+              160,
+              240,
+              320,
+              400,
+              800,
+              800,
+              800,
+              800
+            ])
+          );
+
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(
+            expect.arrayContaining([
+              -80,
+              0,
+              80,
+              160,
+              240,
+              320,
+              400,
+              800,
+              800,
+              800
+            ])
+          );
+        });
+
+        it('does not scroll if last item is already in view', () => {
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+          expect(row.selectedIndex).toBe(7);
+
+          testRenderer.keyPress('Right');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.selectedIndex).toBe(8);
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+      });
+
+      describe('navigating left', () => {
+        beforeEach(() => {
+          Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
+            testRenderer.keyPress('Right')
+          );
+          fastForward(row.items);
+          testRenderer.update();
+        });
+
+        it('does not scroll if selected index > start scroll index', () => {
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+
+        it('shifts items to the right if selected index < start scroll index', () => {
+          expect(row.items.map(({ x }) => x)).toEqual(
+            expect.arrayContaining([
+              -160,
+              -160,
+              -160,
+              -160,
+              -80,
+              0,
+              80,
+              160,
+              240,
+              320
+            ])
+          );
+
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.items.map(({ x }) => x)).toEqual(
+            expect.arrayContaining([
+              -160,
+              -160,
+              -160,
+              -80,
+              0,
+              80,
+              160,
+              240,
+              320,
+              400
+            ])
+          );
+        });
+
+        it('does not scroll if first item is already in view', () => {
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          const expectedItems = expect.arrayContaining(
+            row.items.map(({ x }) => x)
+          );
+          expect(row.selectedIndex).toBe(2);
+
+          testRenderer.keyPress('Left');
+          fastForward(row.items);
+          testRenderer.update();
+
+          expect(row.selectedIndex).toBe(1);
+          expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
+        });
+      });
     });
   });
 });
