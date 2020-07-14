@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
     lng: {

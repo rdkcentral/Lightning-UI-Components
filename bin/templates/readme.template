@@ -1,8 +1,8 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
 // uncomment the line below and edit the path to point to your component
-// import * as stories from './Component.stories';
+// import * as stories from './MyComponent.stories';
 
-# Component
+# MyComponent
 
 Write a description here
 
@@ -11,13 +11,13 @@ Write a description here
 Explain how the component works. Use an example:
 
 ```js
-import Component from './Component';
+import MyComponent from './MyComponent';
 
 class Example extends lng.Component {
   static _template() {
     return {
-      Component: {
-        type: Component,
+      MyComponent: {
+        type: MyComponent,
         children: [
           // list of items
         ]
