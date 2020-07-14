@@ -18,7 +18,10 @@ export default class Column extends FocusManager {
     if (selected.items.length < 2) return 0;
 
     let prevItem = prev.selected || prev.currentItem;
-    let [itemX] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
+    let prevOffset = prev.transition('x')
+      ? prev.transition('x').targetValue
+      : 0;
+    let [itemX] = prevItem.core.getAbsoluteCoords(-prevOffset, 0);
     let prevMiddle = itemX + prevItem.w / 2;
 
     // set the first item to be closest
@@ -131,7 +134,7 @@ export default class Column extends FocusManager {
     let lastIndex = this._computeLastIndex();
 
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-      selected._selectedIndex = this._getIndexOfItemNear(selected, prev);
+      selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
     }
 
     if (this._nearEnd() && this._getMoreItems) {
