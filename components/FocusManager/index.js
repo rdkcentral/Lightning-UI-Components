@@ -29,10 +29,6 @@ export default class FocusManager extends lng.Component {
     }
   }
 
-  get loading() {
-    return !this.selected;
-  }
-
   get Items() {
     return this.tag('Items');
   }
@@ -44,9 +40,7 @@ export default class FocusManager extends lng.Component {
   set items(items) {
     this.Items.childList.clear();
     this._selectedIndex = 0;
-    if (items) {
-      this.appendItems(items);
-    }
+    this.appendItems(items);
   }
 
   appendItems(items = []) {
@@ -80,16 +74,12 @@ export default class FocusManager extends lng.Component {
     if (this.selected) {
       let args = [this.selected, prevSelected, direction];
       this.render(...args);
-      this.signal('selectedChanged', ...args);
+      this.signal('selectedChange', ...args);
 
       // We still want to signal so rendering can occur
       if (this.selected.skipFocus) {
         index = this.selectedIndex;
-        if (index === 0) {
-          this.selectedIndex++;
-        } else {
-          this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
-        }
+        this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
       }
     }
   }
@@ -134,10 +124,6 @@ export default class FocusManager extends lng.Component {
       }
     }
     return this;
-  }
-
-  get _size() {
-    return this.Items.children.length;
   }
 
   static _states() {
