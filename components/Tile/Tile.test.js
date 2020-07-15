@@ -23,7 +23,7 @@ describe('Tile', () => {
   }
 
   it('should render', () => {
-    let [tile, testRenderer] = renderTile();
+    let [, testRenderer] = renderTile();
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
@@ -39,13 +39,13 @@ describe('Tile', () => {
   });
 
   it('should render with rounded corners', () => {
-    let [tile, testRenderer] = renderTile({ rounded: 16 });
+    let [, testRenderer] = renderTile({ rounded: 16 });
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
 
   it('should render with shadow', () => {
-    let [tile, testRenderer] = renderTile({ shadow: { color: 0xffffffff } });
+    let [, testRenderer] = renderTile({ shadow: { color: 0xffffffff } });
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
