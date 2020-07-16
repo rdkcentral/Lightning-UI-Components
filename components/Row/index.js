@@ -50,7 +50,6 @@ export default class Row extends FocusManager {
     items.forEach(item => {
       item.h = item.h || itemHeight;
       item.x = outOfBounds;
-      item.alpha = 0;
       item.parentFocus = this.hasFocus();
       this.Items.add(this.application.stage.c(item));
     });
@@ -179,8 +178,7 @@ export default class Row extends FocusManager {
       let item = this.items[index];
       if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
       itemX -= item.w + this.itemSpacing;
-      let alpha = this._isOnScreen(itemX, item.w) ? 1 : 0;
-      item.smooth = { x: [itemX, this.itemTransition], alpha };
+      item.smooth = { x: [itemX, this.itemTransition] };
       index--;
     }
 
@@ -198,10 +196,9 @@ export default class Row extends FocusManager {
     let overFillWidth = this._rowWidth + BOUNDS + this.itemSpacing;
     while (itemX < overFillWidth && index < this.items.length) {
       let item = this.items[index];
-      let alpha = this._isOnScreen(itemX, item.w) ? 1 : 0;
 
       if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
-      item.smooth = { x: [itemX, this.itemTransition], alpha };
+      item.smooth = { x: [itemX, this.itemTransition] };
       itemX += item.w + this.itemSpacing;
       index++;
     }
