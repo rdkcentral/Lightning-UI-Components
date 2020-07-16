@@ -209,10 +209,6 @@ export default class Row extends FocusManager {
     this.onScreenEffect(onScreenItems);
   }
 
-  $shiftRow({ position }) {
-    this.smooth = { x: [position, this.scrollTransition] };
-  }
-
   $itemChanged() {
     this.render();
   }
