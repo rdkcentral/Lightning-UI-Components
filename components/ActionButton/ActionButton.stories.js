@@ -53,13 +53,10 @@ export const IconUnfocused = () =>
       return {
         ActionButton: {
           type: ActionButton,
+          icon,
           title: 'Button'
         }
       };
-    }
-
-    _init() {
-      this.tag('ActionButton').icon = icon;
     }
   };
 
@@ -69,14 +66,10 @@ export const IconFocused = () =>
       return {
         ActionButton: {
           type: ActionButton,
+          icon,
           title: 'Button'
         }
       };
-    }
-
-    _init() {
-      this.tag('ActionButton').icon = icon;
-      this._refocus();
     }
 
     _getFocused() {

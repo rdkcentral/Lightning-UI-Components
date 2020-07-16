@@ -37,10 +37,6 @@ export const Focused = () =>
         }
       };
     }
-
-    _init() {
-      this._refocus();
-    }
     _getFocused() {
       return this.tag('Pivot');
     }
