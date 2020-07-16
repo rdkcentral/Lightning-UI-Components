@@ -1,7 +1,8 @@
 /**
- * Action Button Component
+ * Pivot Button Component
  *
- * Action Button Class that contains styling and functionality for all Action Button items
+ * Pivot Class that contains styling and functionality for all pivot items.
+ * These buttons are dynmaically sized.
  */
 import lng from 'wpe-lightning';
 
@@ -16,10 +17,10 @@ import {
   COLORS_TEXT
 } from '../Styles';
 
-export default class ActionButton extends lng.Component {
+export default class Pivot extends lng.Component {
   static _template() {
     return {
-      Button: {
+      Pivot: {
         zIndex: 1,
         Content: {
           zIndex: 2,
@@ -29,7 +30,7 @@ export default class ActionButton extends lng.Component {
           },
           Title: {
             text: {
-              ...TYPESCALE.caption,
+              ...TYPESCALE.tag,
               textColor: getHexColor(COLORS_TEXT.light)
             }
           }
@@ -50,8 +51,8 @@ export default class ActionButton extends lng.Component {
   constructor(...args) {
     super(...args);
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this.h = 72;
-    this.w = this.w || 410;
+    this.h = 48;
+    this.w = 185;
   }
 
   _init() {
@@ -77,81 +78,70 @@ export default class ActionButton extends lng.Component {
   }
 
   get announce() {
-    return this.title + ', Button';
+    return this.title + ', Pivot Button';
   }
 
   set title(title) {
     super.title = title;
     this._whenEnabled.then(() => {
-      this.patch({
-        Button: {
-          Content: {
-            w: this.w,
-            h: this.h,
-            Title: { text: { text: this.title || '' } }
-          },
-          Stroke: {
-            texture: lng.Tools.getRoundRect(
-              this.w,
-              this.h,
-              CORNER_RADIUS.small,
-              2,
-              getHexColor(COLORS_NEUTRAL.light2),
-              false,
-              false
-            )
-          },
-          Background: {
-            texture: lng.Tools.getRoundRect(
-              this.w,
-              this.h,
-              CORNER_RADIUS.small,
-              0,
-              0,
-              true,
-              0xffffffff
-            )
-          }
-        },
-        DropShadow: {
-          texture: lng.Tools.getShadowRect(
-            this.w,
-            this.h,
-            CORNER_RADIUS.small,
-            16,
-            16
-          )
-        }
-      });
+      this._Title.patch({ text: { text: this.title || '' } });
       this._Background.color = getHexColor(COLORS_BASE.transparent);
 
       this._Title.on('txLoaded', () => {
-        let iconWidth = this.icon ? this._iconW + GRID.spacingIncrement * 2 : 0;
-        this._Content.patch({
-          x: (this._Content.w - (this._Title.renderWidth + iconWidth)) / 2,
-          y: (this._Content.h - this._Title.text.lineHeight) / 2
+        this._Content.patch({ w: this.w, h: this.h });
+        if (this._Title.renderWidth > this.w - 32) {
+          this.w = this._Title.renderWidth + 32;
+          this._Content.w = this._Title.renderWidth + 32;
+        }
+        this.patch({
+          Pivot: {
+            Content: {
+              x: (this._Content.w - this._Title.renderWidth) / 2,
+              y: (this._Content.h - this._Title.text.lineHeight) / 2
+            },
+            Stroke: {
+              texture: lng.Tools.getRoundRect(
+                this.w,
+                this.h,
+                CORNER_RADIUS.small,
+                2,
+                getHexColor(COLORS_NEUTRAL.light2),
+                false,
+                false
+              )
+            },
+            Background: {
+              texture: lng.Tools.getRoundRect(
+                this.w,
+                this.h,
+                CORNER_RADIUS.small,
+                0,
+                0,
+                true,
+                0xffffffff
+              )
+            }
+          },
+          DropShadow: {
+            texture: lng.Tools.getShadowRect(
+              this.w,
+              this.h,
+              CORNER_RADIUS.small,
+              16,
+              16
+            )
+          }
         });
-      });
-    });
-  }
-
-  set icon(url) {
-    super.icon = url;
-    this._whenEnabled.then(() => {
-      this._Icon.patch({
-        w: this._iconW,
-        h: this._iconH,
-        flexItem: { marginRight: GRID.spacingIncrement * 2 },
-        src: url
       });
     });
   }
 
   _focus() {
     this._whenEnabled.then(() => {
-      this._Background.smooth = { color: getHexColor(COLORS_NEUTRAL.light2) };
+      this._Background.smooth = {
+        color: getHexColor(COLORS_NEUTRAL.light2)
+      };
       this._Title.smooth = { color: getHexColor(COLORS_TEXT.dark) };
-      this._Icon.smooth = { color: getHexColor(COLORS_TEXT.dark) };
       this._DropShadow.smooth = { alpha: 1 };
     });
   }
@@ -164,31 +154,21 @@ export default class ActionButton extends lng.Component {
       };
       this._Stroke.smooth = { scale: 1 };
       this._Title.smooth = { color: getHexColor(COLORS_TEXT.light) };
-      this._Icon.smooth = { color: getHexColor(COLORS_TEXT.light) };
       this._DropShadow.smooth = { alpha: 0, scale: 0.9 };
     });
   }
 
-  get _iconW() {
-    return 32;
-  }
-  get _iconH() {
-    return 32;
-  }
   get _Content() {
     return this.tag('Content');
   }
   get _Title() {
     return this.tag('Content.Title');
   }
-  get _Icon() {
-    return this.tag('Content.Icon');
-  }
   get _Background() {
-    return this.tag('Button.Background');
+    return this.tag('Pivot.Background');
   }
   get _Stroke() {
-    return this.tag('Button.Stroke');
+    return this.tag('Pivot.Stroke');
   }
   get _DropShadow() {
     return this.tag('DropShadow');

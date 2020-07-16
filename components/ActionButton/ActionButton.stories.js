@@ -3,6 +3,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 
 import ActionButton from '.';
 import mdx from './ActionButton.mdx';
+import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'ActionButton',
@@ -15,28 +16,13 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Unfocused = () =>
+  class Unfocused extends lng.Component {
     static _template() {
       return {
         ActionButton: {
           type: ActionButton,
           title: text('Title', 'Type Something')
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('ActionButton');
-    }
-  };
-
-export const Loading = () =>
-  class Loading extends lng.Component {
-    static _template() {
-      return {
-        ActionButton: {
-          type: ActionButton
         }
       };
     }
@@ -61,8 +47,8 @@ export const Focused = () =>
     }
   };
 
-export const Icon = () =>
-  class Icon extends lng.Component {
+export const IconUnfocused = () =>
+  class IconUnfocused extends lng.Component {
     static _template() {
       return {
         ActionButton: {
@@ -73,12 +59,38 @@ export const Icon = () =>
     }
 
     _init() {
-      this.tag(
-        'ActionButton'
-      ).icon = `https://edge.myriad-gn.top.comcast.net/select/logo?entityId=6331252128022549239&width=48&ratio=1x1&trim=false&extent=true&rule=Icon%20Unfocused`;
+      this.tag('ActionButton').icon = icon;
+    }
+  };
+
+export const IconFocused = () =>
+  class IconFocused extends lng.Component {
+    static _template() {
+      return {
+        ActionButton: {
+          type: ActionButton,
+          title: 'Button'
+        }
+      };
+    }
+
+    _init() {
+      this.tag('ActionButton').icon = icon;
+      this._refocus();
     }
 
     _getFocused() {
       return this.tag('ActionButton');
+    }
+  };
+
+export const Loading = () =>
+  class Loading extends lng.Component {
+    static _template() {
+      return {
+        ActionButton: {
+          type: ActionButton
+        }
+      };
     }
   };
