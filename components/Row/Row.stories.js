@@ -3,6 +3,7 @@ import { number, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import Row from '.';
 import mdx from './Row.mdx';
+import Pivot from '../Pivot';
 
 export default {
   title: 'Row',
@@ -189,6 +190,30 @@ export const ExtendingRow = () =>
             { type: Button, buttonText: 'Button 1', w: 150 },
             { type: Button, buttonText: 'Button 2', w: 150 },
             { type: Button, buttonText: 'Button 3', w: 150 }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+export const WithPivots = () =>
+  class WithPivots extends lng.Component {
+    static _template() {
+      return {
+        x: 20,
+        y: 20,
+        Row: {
+          type: Row,
+          w: 900,
+          itemSpacing: 100,
+          items: [
+            { type: Pivot, title: 'Pivot 1' },
+            { type: Pivot, title: 'Long Pivot Title' },
+            { type: Pivot, title: 'Pivots adjust width to title' }
           ]
         }
       };
