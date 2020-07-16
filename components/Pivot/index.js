@@ -81,10 +81,14 @@ export default class Pivot extends lng.Component {
     return this.title + ', Button';
   }
 
-  set title(title) {
-    super.title = title;
+  get title() {
+    return this._title;
+  }
+
+  set title(title = '') {
+    this._title = title;
     this._whenEnabled.then(() => {
-      this._Title.patch({ text: { text: this.title || '' } });
+      this._Title.text = title;
       this._Background.color = getHexColor(COLORS_BASE.transparent);
 
       this._Title.on('txLoaded', () => {

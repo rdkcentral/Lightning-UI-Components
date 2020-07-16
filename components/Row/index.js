@@ -48,10 +48,10 @@ export default class Row extends FocusManager {
     // Add items past the bounds margin so they don't load
     let outOfBounds = this.w + this._rowWidth + this.itemSpacing;
     items.forEach(item => {
-      item.h = item.h || itemHeight;
       item.x = outOfBounds;
       item.parentFocus = this.hasFocus();
-      this.Items.add(this.application.stage.c(item));
+      item = this.Items.childList.a(item);
+      item.h = item.h || itemHeight;
     });
 
     // Ensure items are drawn so they have height
