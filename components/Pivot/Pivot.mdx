@@ -1,22 +1,23 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
 
-# ActionButton
+# Pivot Button
 
-General purpose button component
+Button component used specifically for pivoting to new experiences.
+Example uses are View All and inside of Lower Thirds.
 
 ## Usage
 
 The basic component just requires a title:
 
 ```js
-import { ActionButton } from '@lightning/ui';
+import { Pivot } from '@lightning/ui';
 
 class Basic extends lng.Component {
   static _template() {
     return {
-      ActionButton: {
-        type: ActionButton,
-        title: 'My Button'
+      Pivot: {
+        type: Pivot,
+        title: 'Pivot'
       }
     };
   }
@@ -29,20 +30,18 @@ Before the button recieves its title, it should be in a loading state.
 
 
 <Preview>
-  <Story id="actionbutton--unfocused" />
+  <Story id="pivot--unfocused" />
 </Preview>
 
 
 When focused, the background and text colors are inverted.
 <Preview>
-  <Story id="actionbutton--focused" />
+  <Story id="pivot--focused" />
 </Preview>
 
-
-When and icon is present, the text should shift and all of the content should remain centered in the button.
+If a really long title is provided, a pivot will
 <Preview>
-  <Story id="actionbutton--icon-unfocused" />
-  <Story id="actionbutton--icon-focused" />
+  <Story id="pivot--long-title" />
 </Preview>
 
 ## API
@@ -53,7 +52,4 @@ name|type|readonly|description
 --|--|--|--
 -|-|-|-
 announce|string|true|announcement text for screen readers
-h|number|false|height of the button
 title|string|false|button text
-icon|string|false|URI for icon that may live next to the title
-w|number|false|width of the button
