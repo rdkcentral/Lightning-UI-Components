@@ -197,13 +197,6 @@ describe('Row', () => {
   });
 
   describe('listeners', () => {
-    it('should listen for $shiftRow', () => {
-      row.scrollTransition = { duration: 0 };
-      row.$shiftRow({ position: 50 });
-      testRenderer.update();
-      expect(row.x).toBe(50);
-    });
-
     it('should listen for $itemChanged', () => {
       let item1X = row.items[1].x;
       row.scrollTransition = { duration: 0 };
