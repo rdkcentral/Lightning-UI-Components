@@ -15,6 +15,11 @@ class StoryApp extends lng.Application {
       y: 20
     }
   }
+
+  _init() {
+    setTimeout(() => { this._refocus() }, 0);
+  }
+
   _getFocused() {
     return this.childList.first || this;
   }
@@ -47,4 +52,10 @@ addDecorator((StoryComponent, { parameters }) => {
   //Expose the APP for debugging
   window.APP = app;
   return app.stage.getCanvas();
+});
+
+addParameters({
+  docs: {
+    page: mdx
+  }
 });

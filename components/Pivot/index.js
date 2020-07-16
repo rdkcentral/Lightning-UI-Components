@@ -78,7 +78,7 @@ export default class Pivot extends lng.Component {
   }
 
   get announce() {
-    return this.title + ', Pivot Button';
+    return this.title + ', Button';
   }
 
   set title(title) {
@@ -132,6 +132,7 @@ export default class Pivot extends lng.Component {
             )
           }
         });
+        this.fireAncestors('$itemChanged');
       });
     });
   }

@@ -32,9 +32,11 @@ describe('Pivot', () => {
   });
 
   it('should append Pivot Button to end of announce context', () => {
-    expect(pivot.announce).toEqual('Pivot, Pivot Button');
+    expect(pivot.announce).toEqual('Pivot, Button');
   });
 
+  // TODO: Passes but the test renderer is not pulling in fonts
+  // Issue #29
   it('should grow width dynmically if text renders longer than default Pivot size', done => {
     testRenderer = TestRenderer.create({
       Component: {
