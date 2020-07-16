@@ -24,8 +24,8 @@ module.exports = {
     '<rootDir>/**/*.js',
     '!**/coverage/**',
     '!<rootDir>/**/*.{stories,test,xtest}.js',
-    '!<rootDir>/(Item|Styles)/*.js', // exclude temporary components
-    '!lightning-test-renderer.js'
+    '!<rootDir>/**/{Item,Styles}/*.js', // exclude temporary components
+    '!<rootDir>/**/lightning-test-renderer.js'
   ],
   // The directory where Jest should output its coverage files
   coverageDirectory: '../coverage',
@@ -37,7 +37,6 @@ module.exports = {
   coverageThreshold: {
     global: {
       statements: 90,
-      branches: 90,
       functions: 90,
       lines: 90
     }
@@ -62,7 +61,7 @@ module.exports = {
   // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+  maxWorkers: '4',
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [

@@ -3,7 +3,7 @@
 import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
 import '@storybook/addon-console';
-import { addDecorator, addParameters } from '@storybook/html';
+import { addDecorator } from '@storybook/html';
 
 const white = 0xFFFFFFFF;
 const black = 0x00000000;
@@ -52,10 +52,4 @@ addDecorator((StoryComponent, { parameters }) => {
   //Expose the APP for debugging
   window.APP = app;
   return app.stage.getCanvas();
-});
-
-addParameters({
-  docs: {
-    page: mdx
-  }
 });
