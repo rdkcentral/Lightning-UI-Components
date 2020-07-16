@@ -21,7 +21,7 @@ export const Unfocused = () =>
       return {
         Pivot: {
           type: Pivot,
-          title: 'Pivot'
+          title: text('Title', 'Pivot')
         }
       };
     }
@@ -33,7 +33,7 @@ export const Focused = () =>
       return {
         Pivot: {
           type: Pivot,
-          title: 'Pivot'
+          title: text('Title', 'Pivot')
         }
       };
     }
@@ -52,7 +52,7 @@ export const LongTitle = () =>
       return {
         Pivot: {
           type: Pivot,
-          title: 'This is a pivot with a really long title'
+          title: text('Title', 'This is a Pivot with a really long title')
         }
       };
     }
