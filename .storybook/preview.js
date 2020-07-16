@@ -3,7 +3,14 @@
 import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
 import '@storybook/addon-console';
-import { addDecorator } from '@storybook/html';
+import { addDecorator, addParameters } from '@storybook/html';
+import theme from './theme';
+
+addParameters({
+  options: {
+    theme
+  }
+});
 
 const white = 0xFFFFFFFF;
 const black = 0x00000000;
