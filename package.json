@@ -7,9 +7,12 @@
   },
   "browser": "index.js",
   "main": "index.js",
+  "bin": {
+    "bootstrap": "./bin/bootstrap.sh"
+  },
   "files": [
     "index.js",
-    "{components,utils}/**/*.js",
+    "{bin,components,utils}/**/*.js",
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js"
