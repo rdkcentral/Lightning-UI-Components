@@ -27,16 +27,9 @@
     "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-storysource": "^5.3.19",
     "@storybook/html": "^5.3.19",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "canvas": "^2.6.1",
-    "eslint": "^6.8.0",
-    "eslint-config-google": "^0.12.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "eslint-plugin-react-hooks": "^1.7.0",
     "gh-pages": "^3.1.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
@@ -55,7 +48,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint"
+      "npm run lint"
     ]
   },
   "repository": {
@@ -63,7 +56,8 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "eslint './{components,utils}/**/*.js'",
+    "lint": "npx prettier --check './{components,utils}/**/*.js'",
+    "lint:fix": "npx prettier --write './{components,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
     "start": "start-storybook",
