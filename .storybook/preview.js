@@ -14,7 +14,16 @@ addParameters({
 
 const white = 0xFFFFFFFF;
 const black = 0x00000000;
-const stage = { w: 900, h: 450, clearColor: black, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
+const stage = {
+  w: 1920,
+  h: 1080,
+  clearColor: black,
+  debug: false,
+  canvas2d: false,
+  useImageWorker: false,
+  inspector: false,
+  defaultFontFace: 'XfinityStandardMedium'
+};
 class StoryApp extends lng.Application {
   static _template() {
     return {
