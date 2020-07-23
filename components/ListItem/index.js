@@ -73,16 +73,18 @@ export class ListItemBase extends lng.Component {
   }
 
   _focus() {
-    this._Container.patch({
+    this._Container.smooth = {
       color: COLORS.focused
-    });
+    };
   }
 
   _unfocus() {
-    this._Container.patch({
+    this._Container.smooth = {
       color: COLORS[this.background]
-    });
+    };
   }
+
+  _handleEnter() {} // to be overridden
 
   get _Container() {
     return this.tag('Container');
@@ -94,5 +96,71 @@ export class ListItemBase extends lng.Component {
 
   get _Right() {
     return this._Container.tag('Right');
+  }
+}
+
+export default class ListItem extends ListItemBase {
+  _init() {
+    this.leftSlot = {};
+    this.rightSlot = {};
+
+    if (this.title) {
+      this.leftSlot.Title = {
+        alpha: 0.95,
+        text: {
+          h: 40,
+          fontFace: 'XfinityStandardBold',
+          fontSize: 28,
+          text: this.title
+        }
+      };
+    }
+
+    if (this.subtitle) {
+      this.leftSlot.Subtitle = {
+        alpha: 0.8,
+        text: {
+          h: 32,
+          fontFace: 'XfinityStandardMedium',
+          fontSize: 24,
+          text: this.subtitle
+        }
+      };
+    }
+
+    if (this.icon) {
+      this.rightSlot.Icon = {
+        h: 40,
+        w: 40,
+        src: this.icon
+      };
+    }
+    super._init();
+  }
+
+  _focus() {
+    super._focus();
+    const color = 0xff000000;
+    [this._Title, this._Subtitle, this._Icon]
+      .filter(Boolean)
+      .forEach(tag => tag.patch({ color }));
+  }
+
+  get _Title() {
+    return this.tag('Container')
+      .tag('Left')
+      .tag('Title');
+  }
+
+  get _Subtitle() {
+    return this.tag('Container')
+      .tag('Left')
+      .tag('Subtitle');
+  }
+
+  get _Icon() {
+    return this.tag('Container')
+      .tag('Right')
+      .tag('Icon');
   }
 }
