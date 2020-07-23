@@ -15,7 +15,6 @@ export default {
   }
 };
 
-const label = 'Background';
 const makeOptions = (...opts) => {
   return opts.reduce(
     (obj, key) => ({
@@ -33,7 +32,11 @@ export const Basic = () =>
         ListItem: {
           type: ListItemBase,
           size: radios('Size', makeOptions('Large', 'Small'), 'large'),
-          background: radios(label, makeOptions('Fill', 'Float'), 'fill'),
+          background: radios(
+            'Background',
+            makeOptions('Fill', 'Float'),
+            'fill'
+          ),
           leftSlot: { w: 50, h: 50, rect: true },
           rightSlot: { w: 50, h: 50, rect: true }
         }
@@ -101,7 +104,7 @@ export const Text = () =>
             Text: {
               text: {
                 fontSize: 28,
-                lineHeight: 40,
+                h: 40,
                 text: 'Hello world'
               }
             }
