@@ -1,5 +1,5 @@
 import lng from 'wpe-lightning';
-import { boolean, radios, withKnobs, text } from '@storybook/addon-knobs';
+import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
 
 import { ListItemBase } from '.';
 import mdx from './ListItem.mdx';
