@@ -1,0 +1,69 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './Toggle.stories';
+
+# Toggle
+
+A checkbox component with toggle slider behavior
+
+## Usage
+
+The toggle state is determined by the `checked` property, which defaults to `false`
+
+```js
+import Toggle from './Toggle';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Toggle: {
+        type: Toggle
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="toggle--basic" />
+</Preview>
+
+The `checked` state can be programmatically changed with `toggle()`.
+
+```js
+this.tag('Toggle').toggle();
+```
+
+The `toggle()` method is chainable. Let's say your `Toggle` component has `checked=false`
+
+```js
+const checked = this.tag('Toggle').toggle.checked;
+console.log(checked) //=> true
+```
+
+By default, the `_handleEnter()` method executes `toggle()`. To add or change functionality, override this method:
+
+```js
+this.tag('Toggle')._handleEnter = function() {
+  // do stuff
+  this.toggle();
+}
+```
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+checked|boolean|true|toggle state
+
+### Methods
+
+#### toggle
+
+Toggles `checked` state and updates UI accordingly
+
+#### _handleEnter
+
+On `enter` key press, calls `toggle()` by default. Can be overridden to customize behavior.
