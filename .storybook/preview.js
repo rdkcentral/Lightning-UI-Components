@@ -12,7 +12,7 @@ addParameters({
   }
 });
 
-const white = 0xFFFFFFFF;
+const white = 0xffffffff;
 const black = 0x00000000;
 const stage = {
   w: 1920,
@@ -29,11 +29,13 @@ class StoryApp extends lng.Application {
     return {
       x: 20,
       y: 20
-    }
+    };
   }
 
   _init() {
-    setTimeout(() => { this._refocus() }, 0);
+    setTimeout(() => {
+      this._refocus();
+    }, 0);
   }
 
   _getFocused() {
@@ -42,9 +44,22 @@ class StoryApp extends lng.Application {
 }
 
 /**
- * To customize the stage use the following code:
- * import { addParameters } from '@storybook/html';
- * addParameters({ stage: { w: 250 } });
+ * To customize the stage in each storybook file...
+ *
+ * Add the following to the default export:
+ *
+ * export default {
+ *   ...
+ *   parameters: { stage: { h: 800 }
+ * }
+ *
+ * You can also apply it to each individual story:
+ *
+ * export const StoryName = () => ...
+ *
+ * StoryName.story = {
+ *   parameters: { stage: { h: 800 }
+ * }
  */
 addDecorator((StoryComponent, { parameters }) => {
   const app = new StoryApp({
@@ -60,7 +75,7 @@ addDecorator((StoryComponent, { parameters }) => {
   };
 
   //Clear any lightning inspector info
-  if(document.querySelectorAll('[type=StoryApp]').length > 1) {
+  if (document.querySelectorAll('[type=StoryApp]').length > 1) {
     let div = document.querySelector('[type=StoryApp]');
     div.parentNode.parentNode.removeChild(div.parentNode);
   }
