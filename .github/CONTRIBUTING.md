@@ -17,9 +17,10 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
 [Styleguides](#styleguides)
   * [Git Commit Messages](#git-commit-messages)
   * [JavaScript Styleguide](#javascript-styleguide)
-  * [CoffeeScript Styleguide](#coffeescript-styleguide)
-  * [Specs Styleguide](#specs-styleguide)
+  * [Test Styleguide](#test-styleguide)
   * [Documentation Styleguide](#documentation-styleguide)
+    * [Usage Documentation](#usage-documentation)
+    * [API Documentation](#api-documentation)
 
 [Additional Notes](#additional-notes)
   * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
@@ -53,15 +54,6 @@ When you are creating a bug report, please [include as many details as possible]
 #### How Do I Submit A (Good) Bug Report?
 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information by filling in [the template](../main/.github/ISSUE_TEMPLATE/bug_report.md).
-
-Explain the problem and include additional details to help maintainers reproduce the problem:
-
-* **Use a clear and descriptive title** for the issue to identify the problem.
-* **Describe the exact steps which reproduce the problem** in as many details as possible. When listing steps, **don't just say what you did, but explain how you did it**. For example, include the exact keystrokes you used when reproducing (2x left-arrow, 1x down-arrow, enter)
-* **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-* **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
-* **Explain which behavior you expected to see instead and why.**
-* **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
 
 ### Suggesting Enhancements
 
