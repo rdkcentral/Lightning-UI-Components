@@ -143,7 +143,15 @@ export default class ListItem extends ListItemBase {
     const color = 0xff000000;
     [this._Title, this._Subtitle, this._Icon]
       .filter(Boolean)
-      .forEach(tag => tag.patch({ color }));
+      .forEach(tag => tag.setSmooth('color', color));
+  }
+
+  _unfocus() {
+    super._unfocus();
+    const color = 0xffffffff;
+    [this._Title, this._Subtitle, this._Icon]
+      .filter(Boolean)
+      .forEach(tag => tag.setSmooth('color', color));
   }
 
   get _Title() {

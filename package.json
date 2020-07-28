@@ -15,7 +15,8 @@
     "{bin,components,utils}/**/*.js",
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
-    "!components/lightning-test-renderer.js"
+    "!components/lightning-test-renderer.js",
+    "!components/lightning-test-utils.js"
   ],
   "devDependencies": {
     "@babel/core": "^7.10.5",

@@ -25,7 +25,8 @@ module.exports = {
     '!**/coverage/**',
     '!<rootDir>/**/*.{stories,test,xtest}.js',
     '!<rootDir>/**/{Item,Styles}/*.js', // exclude temporary components
-    '!<rootDir>/**/lightning-test-renderer.js'
+    '!<rootDir>/**/lightning-test-renderer.js',
+    '!<rootDir>/**/lightning-test-utils.js'
   ],
   // The directory where Jest should output its coverage files
   coverageDirectory: '../coverage',

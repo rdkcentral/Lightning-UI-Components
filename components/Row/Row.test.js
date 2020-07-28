@@ -1,28 +1,6 @@
 import lng from 'wpe-lightning';
-import TestRenderer from '../lightning-test-renderer';
+import TestUtils from '../lightning-test-utils';
 import Row from '.';
-
-function fastForward(elements) {
-  const _fastForward = element => {
-    if (element._transitions) {
-      Object.values(element._transitions).forEach(transition =>
-        transition.finish()
-      );
-    }
-  };
-  if (Array.isArray(elements)) elements.forEach(_fastForward);
-  if (elements && elements._transitions) _fastForward(elements);
-}
-
-const rowFactory = (args = {}) => ({
-  Component: {
-    title: 'My Row',
-    h: 80,
-    items,
-    ...args,
-    type: Row
-  }
-});
 
 const baseItem = {
   type: lng.Component,
@@ -36,27 +14,29 @@ const items = [
   { ...baseItem },
   { ...baseItem }
 ];
-const Component = {
-  Component: {
-    type: Row,
-    title: 'My Row',
-    h: 80,
-    w: 400,
-    upCount: 5,
-    signals: {
-      selectedChange: 'selectedChangeMock'
-    },
-    items
-  }
-};
+
+const createRow = TestUtils.makeCreateComponent(Row, {
+  title: 'My Row',
+  h: 80,
+  w: 400,
+  upCount: 5,
+  signals: {
+    selectedChange: 'selectedChangeMock'
+  },
+  items
+});
 
 describe('Row', () => {
   let testRenderer, row;
 
   beforeEach(() => {
-    testRenderer = TestRenderer.create(Component);
-    row = testRenderer.getInstance();
+    [row, testRenderer] = createRow();
     return row._whenEnabled;
+  });
+
+  afterEach(() => {
+    row = null;
+    testRenderer = null;
   });
 
   it('should render', () => {
@@ -83,8 +63,7 @@ describe('Row', () => {
   describe('itemSpacing', () => {
     it('should initialize spacing between items', () => {
       const itemSpacing = 20;
-      testRenderer = TestRenderer.create(rowFactory({ itemSpacing }));
-      row = testRenderer.getInstance();
+      [row, testRenderer] = createRow({ itemSpacing });
       let item = row.items[1];
 
       expect(item.x).toBe(row.items[0].w + itemSpacing);
@@ -259,7 +238,7 @@ describe('Row', () => {
     describe('with scrollMount=1', () => {
       beforeEach(() => {
         row.scrollMount = 1;
-        fastForward(row.items);
+        TestUtils.fastForward(row.items);
         testRenderer.update();
       });
 
@@ -270,7 +249,7 @@ describe('Row', () => {
           );
 
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
@@ -297,7 +276,7 @@ describe('Row', () => {
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(item => item.x)).toEqual(
@@ -320,7 +299,7 @@ describe('Row', () => {
           Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
             testRenderer.keyPress('Right')
           );
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           const expectedItems = expect.arrayContaining(
@@ -328,7 +307,7 @@ describe('Row', () => {
           );
 
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(item => item.x)).toEqual(expectedItems);
@@ -340,7 +319,7 @@ describe('Row', () => {
           Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
             testRenderer.keyPress('Right')
           );
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
         });
         it('does not scroll if selected item is within bounds', () => {
@@ -349,7 +328,7 @@ describe('Row', () => {
           );
 
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
@@ -375,7 +354,7 @@ describe('Row', () => {
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual([
@@ -396,14 +375,14 @@ describe('Row', () => {
           Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
             testRenderer.keyPress('Left')
           );
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           const expectedItems = expect.arrayContaining(
             row.items.map(item => item.x)
           );
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(item => item.x)).toEqual(expectedItems);
@@ -414,7 +393,7 @@ describe('Row', () => {
     describe('with scrollMount=0.5', () => {
       beforeEach(() => {
         row.scrollMount = 0.5;
-        fastForward(row.items);
+        TestUtils.fastForward(row.items);
         testRenderer.update();
       });
 
@@ -424,7 +403,7 @@ describe('Row', () => {
             row.items.map(({ x }) => x)
           );
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
@@ -449,7 +428,7 @@ describe('Row', () => {
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(
@@ -476,7 +455,7 @@ describe('Row', () => {
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           const expectedItems = expect.arrayContaining(
@@ -485,7 +464,7 @@ describe('Row', () => {
           expect(row.selectedIndex).toBe(7);
 
           testRenderer.keyPress('Right');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.selectedIndex).toBe(8);
@@ -498,7 +477,7 @@ describe('Row', () => {
           Array.apply(null, { length: row.items.length - 1 }).forEach(() =>
             testRenderer.keyPress('Right')
           );
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
         });
 
@@ -507,7 +486,7 @@ describe('Row', () => {
             row.items.map(({ x }) => x)
           );
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(expectedItems);
@@ -532,7 +511,7 @@ describe('Row', () => {
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.items.map(({ x }) => x)).toEqual(
@@ -559,7 +538,7 @@ describe('Row', () => {
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           const expectedItems = expect.arrayContaining(
@@ -568,7 +547,7 @@ describe('Row', () => {
           expect(row.selectedIndex).toBe(2);
 
           testRenderer.keyPress('Left');
-          fastForward(row.items);
+          TestUtils.fastForward(row.items);
           testRenderer.update();
 
           expect(row.selectedIndex).toBe(1);
