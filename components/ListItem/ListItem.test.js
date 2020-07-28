@@ -1,21 +1,10 @@
-import { ListItemBase } from '.';
+import ListItem, { ListItemBase } from '.';
 import { getHexColor } from '../Styles';
-import TestRenderer from '../lightning-test-renderer';
+import TestUtils from '../lightning-test-utils';
 
-const makeCreateComponent = (type, defaultConfig = {}) => {
-  return (config = {}) => {
-    const testRenderer = TestRenderer.create({
-      Component: {
-        type,
-        ...defaultConfig,
-        ...config
-      }
-    });
-    return [testRenderer.getInstance(), testRenderer];
-  };
-};
-
-const createListItemBase = makeCreateComponent(ListItemBase);
+const createListItemBase = TestUtils.makeCreateComponent(ListItemBase);
+const createListItem = TestUtils.makeCreateComponent(ListItem);
+const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
 describe('ListItemBase', () => {
   let listItemBase, testRenderer;
@@ -82,6 +71,88 @@ describe('ListItemBase', () => {
       listItemBase._unfocus();
       testRenderer.update();
       expect(listItemBase._Container.color).toBe(getHexColor('141417'));
+    });
+  });
+});
+
+describe('ListItem', () => {
+  let listItem, testRenderer;
+
+  beforeEach(() => {
+    [listItem, testRenderer] = createListItem();
+    testRenderer.update();
+  });
+
+  afterEach(() => {
+    listItem = null;
+    testRenderer = null;
+  });
+
+  it('should render', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render a title', () => {
+    [listItem, testRenderer] = createListItem({
+      title: 'My Title'
+    });
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItem._Title.text.text).toEqual(listItem.title);
+  });
+
+  it('should render a subtitle', () => {
+    [listItem, testRenderer] = createListItem({
+      subtitle: 'My Subtitle'
+    });
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItem._Subtitle.text.text).toEqual(listItem.subtitle);
+  });
+
+  it('should render a title and subtitle together', () => {
+    [listItem, testRenderer] = createListItem({
+      title: 'My Title',
+      subtitle: 'My Subtitle'
+    });
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render an icon', () => {
+    [listItem, testRenderer] = createListItem({
+      icon: icon
+    });
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItem._Icon.src).toEqual(listItem.icon);
+  });
+
+  describe('focus', () => {
+    beforeEach(() => {
+      [listItem, testRenderer] = createListItem({
+        title: 'My Title',
+        subtitle: 'My Subtitle',
+        icon: icon
+      });
+      listItem._focus();
+      testRenderer.update();
+    });
+    it('focused items transition color', () => {
+      expect(listItem._Title.color).toEqual(0xff000000);
+      expect(listItem._Subtitle.color).toEqual(0xff000000);
+      expect(listItem._Icon.color).toEqual(0xff000000);
+    });
+    it('unfocused items transition color', () => {
+      listItem._unfocus();
+      testRenderer.update();
+
+      expect(listItem._Title.color).toEqual(0xffffffff);
+      expect(listItem._Subtitle.color).toEqual(0xffffffff);
+      expect(listItem._Icon.color).toEqual(0xffffffff);
     });
   });
 });

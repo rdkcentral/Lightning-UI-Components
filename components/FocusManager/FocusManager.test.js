@@ -1,19 +1,11 @@
 import FocusManager from '.';
-import TestRenderer from '../lightning-test-renderer';
+import TestUtils from '../lightning-test-utils';
 import lng from 'wpe-lightning';
 
 const baseItem = { type: lng.Component };
-function createFocusManager(opts = {}) {
-  const testRenderer = TestRenderer.create({
-    Component: {
-      type: FocusManager,
-      items: [{ ...baseItem }, { ...baseItem }, { ...baseItem }],
-      ...opts
-    }
-  });
-
-  return [testRenderer.getInstance(), testRenderer];
-}
+const createFocusManager = TestUtils.makeCreateComponent(FocusManager, {
+  items: [{ ...baseItem }, { ...baseItem }, { ...baseItem }]
+});
 
 describe('FocusManager', () => {
   let focusManager, testRenderer;

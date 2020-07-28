@@ -1,16 +1,7 @@
-import TestRenderer from '../lightning-test-renderer';
+import TestUtils from '../lightning-test-utils';
 import Toggle from '.';
 
-const createToggle = (args = {}) => {
-  const testRenderer = TestRenderer.create({
-    Component: {
-      type: Toggle,
-      ...args
-    }
-  });
-
-  return [testRenderer.getInstance(), testRenderer];
-};
+const createToggle = TestUtils.makeCreateComponent(Toggle);
 
 describe('Toggle', () => {
   let toggle, testRenderer;
