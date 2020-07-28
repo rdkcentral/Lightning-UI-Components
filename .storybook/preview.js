@@ -65,6 +65,10 @@ const req = [require.context('../components/Styles/docs', true, /\.mdx$/)];
 configure(req, module);
 
 addDecorator((StoryComponent, { parameters }) => {
+  if (window.APP) {
+    window.APP.destroy();
+  }
+
   const app = new StoryApp({
     stage: {
       ...stage,
