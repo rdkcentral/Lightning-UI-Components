@@ -79,7 +79,11 @@ export default class FocusManager extends lng.Component {
       // We still want to signal so rendering can occur
       if (this.selected.skipFocus) {
         index = this.selectedIndex;
-        this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
+        if (index === 0) {
+          this.selectedIndex++;
+        } else {
+          this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
+        }
       }
     }
   }
