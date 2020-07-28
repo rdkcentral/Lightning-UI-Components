@@ -19,23 +19,25 @@ const Inspector = () => {
     }
     window.localStorage.setItem('inspectorEnabled', !active);
     setActive(active => !active);
-  }
+  };
   return (
-    <IconButton onClick={useCallback(toggleInspector)} active={active} title="Toggle Lightning Inspector">
+    <IconButton
+      onClick={useCallback(toggleInspector)}
+      active={active}
+      title="Toggle Lightning Inspector"
+    >
       <Icons icon="lightning" />
     </IconButton>
   );
-}
+};
 
 addons.register(ADDON_ID, api => {
-  const render = () => (
-    <Inspector />
-  );
+  const render = () => <Inspector />;
   const title = 'Lightning Inspector';
 
   addons.add(PANEL_ID, {
     type: types.TOOL,
     title,
-    render,
+    render
   });
 });

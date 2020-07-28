@@ -3,7 +3,7 @@
 import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
 import '@storybook/addon-console';
-import { addDecorator, addParameters } from '@storybook/html';
+import { configure, addDecorator, addParameters } from '@storybook/html';
 import theme from './theme';
 
 addParameters({
@@ -61,6 +61,9 @@ class StoryApp extends lng.Application {
  *   parameters: { stage: { h: 800 }
  * }
  */
+const req = [require.context('../components/Styles/docs', true, /\.mdx$/)];
+configure(req, module);
+
 addDecorator((StoryComponent, { parameters }) => {
   const app = new StoryApp({
     stage: {
