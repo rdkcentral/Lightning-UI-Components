@@ -8,5 +8,5 @@ export default create({
   textColor: 'white',
   brandTitle: 'Lightning UI Components',
   brandUrl: 'https://github.comcast.com/Lightning/lightning-ui',
-  brandImage: brand,
+  brandImage: brand
 });
