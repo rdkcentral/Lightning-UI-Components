@@ -6,6 +6,7 @@
  *
  */
 import lng from 'wpe-lightning';
+import Toggle from '../Toggle';
 import { RoundRect } from '../../utils';
 
 // styles
@@ -100,10 +101,11 @@ export class ListItemBase extends lng.Component {
 }
 
 export default class ListItem extends ListItemBase {
-  _init() {
+  _construct() {
     this.leftSlot = {};
     this.rightSlot = {};
-
+  }
+  _init() {
     if (this.title) {
       this.leftSlot.Title = {
         alpha: 0.95,
@@ -170,5 +172,40 @@ export default class ListItem extends ListItemBase {
     return this.tag('Container')
       .tag('Right')
       .tag('Icon');
+  }
+}
+
+export class ListItemToggle extends ListItem {
+  _init() {
+    this.icon = undefined;
+    this.rightSlot = {
+      w: 64,
+      h: 32,
+      Toggle: {
+        type: Toggle,
+        checked: this.checked
+      }
+    };
+    super._init();
+  }
+
+  isChecked() {
+    return Boolean(this._Toggle.checked);
+  }
+
+  toggle() {
+    return this._Toggle.toggle();
+  }
+
+  _getFocused() {
+    return this._Toggle;
+  }
+
+  _handleEnter() {
+    this.toggle();
+  }
+
+  get _Toggle() {
+    return this.tag('Container').tag('Toggle');
   }
 }

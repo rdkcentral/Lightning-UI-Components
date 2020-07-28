@@ -1,0 +1,78 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './ListItem.stories';
+
+# ListItemToggle
+
+A [`ListItem`](?path=/docs/listitem--basic) with dedicated [`Toggle`](?path=/docs/toggle--basic) functionality
+
+## Usage
+
+`ListItem` can display a `title`, `subtitle`, and `icon`:
+
+```js
+import { ListItemToggle } from './ListItem';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ListItemToggle: {
+        type: ListItemToggle,
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="listitemtoggle--basic" />
+</Preview>
+
+By default, `ListItemToggle` will toggle on <kbd>Enter</kbd>.
+
+You can override `_handleEnter` and use the `toggle()` method to programmatically trigger the toggle and access the checked value. 
+
+```js
+const ListItemToggle = this.tag('ListItemToggle');
+ListItemToggle._handleEnter = function() {
+  Promise.resolve(
+    this.toggle()
+  ).then(checked => /* do something with checked value */)
+}
+```
+
+To get the current checked state, use the `isChecked()` method.
+
+```js
+if (ListItemToggle.isChecked()) {
+  // do something
+}
+```
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+background|'fill'\|'float'|false|color of `ListItem` container.
+checked|boolean|false|sets initial `checked` value of Toggle. Use `toggle()` to change value after init
+icon|string|false|path to icon image
+size|'small'\|'large'\|number|false|width of the `ListItem` container
+subtitle|string|false|item metadata info goes here
+title|string|false|main item info goes here
+
+### Methods
+
+#### _handleEnter():void
+
+Can be overridden to apply handling for the <kbd>Enter</kbd> key. By default,
+calls `this.toggle()`
+
+#### isChecked():boolean
+
+returns the checked value (boolean) for the Toggle
+
+#### toggle():boolean
+
+Toggles the `checked` state and returns the new state.

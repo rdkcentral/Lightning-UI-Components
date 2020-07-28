@@ -1,10 +1,12 @@
-import ListItem, { ListItemBase } from '.';
+import ListItem, { ListItemBase, ListItemToggle } from '.';
 import { getHexColor } from '../Styles';
 import TestUtils from '../lightning-test-utils';
 
-const createListItemBase = TestUtils.makeCreateComponent(ListItemBase);
-const createListItem = TestUtils.makeCreateComponent(ListItem);
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
+
+const createListItem = TestUtils.makeCreateComponent(ListItem);
+const createListItemBase = TestUtils.makeCreateComponent(ListItemBase);
+const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 
 describe('ListItemBase', () => {
   let listItemBase, testRenderer;
@@ -153,6 +155,55 @@ describe('ListItem', () => {
       expect(listItem._Title.color).toEqual(0xffffffff);
       expect(listItem._Subtitle.color).toEqual(0xffffffff);
       expect(listItem._Icon.color).toEqual(0xffffffff);
+    });
+  });
+});
+
+describe('ListItemToggle', () => {
+  let listItemToggle, testRenderer;
+
+  beforeEach(() => {
+    [listItemToggle, testRenderer] = createListItemToggle();
+    testRenderer.update();
+  });
+
+  afterEach(() => {
+    listItemToggle = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders in a checked state', () => {
+    [listItemToggle, testRenderer] = createListItemToggle({
+      checked: true
+    });
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('puts focus on the toggle', () => {
+    expect(listItemToggle._getFocused()).toEqual(
+      listItemToggle._Toggle._getFocused()
+    );
+  });
+
+  it('toggles on enter', () => {
+    listItemToggle._handleEnter();
+    testRenderer.update();
+
+    expect(listItemToggle.isChecked()).toBe(true);
+  });
+
+  describe('#toggle', () => {
+    it('toggles checked state', () => {
+      const spy = spyOn(listItemToggle._Toggle, 'toggle');
+      listItemToggle.toggle();
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
