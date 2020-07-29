@@ -1,5 +1,4 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
-import * as stories from './Row.stories';
 import { DocsLink, GenericType, ObjectFormat } from "../../.storybook/utils";
 
 # Row
@@ -11,7 +10,7 @@ Focus management and smooth scrolling for a horizontally-oriented list of items.
 Explain how the component works. Use an example:
 
 ```js
-import Row from './Row';
+import { Row } from '@lightning/lightning-ui';
 
 class Basic extends lng.Component {
   static _template() {
@@ -36,7 +35,7 @@ class Basic extends lng.Component {
 A static title can easily be added to a row
 
 ```js
-import Row from './Row';
+import { Row } from '@lightning/lightning-ui';
 
 class Title extends lng.Component {
   static _template() {
