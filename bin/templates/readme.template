@@ -1,6 +1,4 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
-// uncomment the line below and edit the path to point to your component
-// import * as stories from './MyComponent.stories';
 
 # MyComponent
 
@@ -11,16 +9,13 @@ Component to be displayed in a list
 `ListItem` can display a `title`, `subtitle`, and `icon`:
 
 ```js
-import MyComponent from './MyComponent';
+import { MyComponent } from '@lightning/lightning-ui';
 
 class Example extends lng.Component {
   static _template() {
     return {
       MyComponent: {
-        type: MyComponent,
-        children: [
-          // list of items
-        ]
+        type: MyComponent
       }
     };
   }
