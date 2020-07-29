@@ -16,6 +16,10 @@ export default class FocusManager extends lng.Component {
     this.selectedIndex = this.selectedIndex || 0;
   }
 
+  get direction() {
+    return this._direction;
+  }
+
   set direction(direction) {
     this._direction = direction;
     let state = {
