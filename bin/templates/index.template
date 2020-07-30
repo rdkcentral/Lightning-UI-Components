@@ -1,0 +1,7 @@
+import lng from 'wpe-lightning';
+
+export default class MyComponent extends lng.Component {
+  static _template() { 
+    return {};
+  }
+}
