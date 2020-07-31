@@ -63,3 +63,18 @@ export const RoundRect = {
     );
   }
 };
+
+export const getTheme = (prev = {}, next = {}) => {
+  return {
+    ...prev,
+    ...next,
+    focus: {
+      ...prev.focus,
+      ...next.focus
+    },
+    unfocus: {
+      ...prev.unfocus,
+      ...next.unfocus
+    }
+  };
+};
