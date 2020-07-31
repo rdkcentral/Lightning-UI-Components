@@ -1,0 +1,114 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './Button.stories';
+
+# Button
+
+Basic component that handles styling and functionality for a button
+
+## Usage
+
+```js
+import Button from './Button';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Button: {
+        type: Button,
+        title: 'Button'
+      }
+    };
+  }
+};
+```
+
+Before the button receives its title, it should be in a loading state.
+<Preview>
+  <Story id="button--loading" />
+</Preview>
+
+<Preview>
+  <Story id="button--basic" />
+</Preview>
+
+
+### Sizing
+
+Buttons can take in a`w`. This is the minimum width that a button will be, the button will dynamically size itself based on the width of the title provided. Buttons can also take in a `h` - if not provided it will default to `40px`.
+
+### Focus
+
+When focused, the background/foreground colors are inverted by default. This can be overridden with theming.
+
+### Icon
+
+All buttons have the ability to be passed an icon. This will position the icon to the left of the title and center it horizontally and vertically.
+
+### Theme
+
+Themes have the ability to override default style properties for button mount and focus and unfocus states.
+Focus and unfocus can take in patch functions that update styles on button _focus and _unfocus. If a theme property is also set directly on the Button component, the property set on the component itself will override the theme.
+
+```js
+  radius: 0,
+  text: { fontSize: 20 },
+  w: 150,
+  h: 40,
+  padding: 50,
+  unfocus: {
+    background: 0xff1f1f1f,
+    text: 0xffffffff,
+    icon: 0xffffffff,
+    patch: function() {
+      this.patch({
+        smooth: { color: this._theme.unfocus.background },
+        Content: {
+          Title: { smooth: { color: this._theme.unfocus.text } },
+          Icon: { smooth: { color: this._theme.unfocus.icon } }
+        }
+      });
+    }
+  },
+  focus: {
+    background: 0xffffffff,
+    radius: 0,
+    text: 0xff1f1f1f,
+    icon: 0xff1f1f1f,
+    patch: function() {
+      this.patch({
+        smooth: { color: this._theme.focus.background },
+        Content: {
+          Title: { smooth: { color: 0xff1f1f1f } },
+          Icon: { smooth: { color: this._theme.focus.icon } }
+        }
+      });
+    }
+  }
+}
+```
+
+
+
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+announce|string|true|announcement text for screen readers
+h|number|false|height of the button
+w|number|false|width of the button
+title|string|false|button text
+radius|rumber|false|corner radius for a button
+stroke|object|false|`color` and `weight` properties for button stroke
+loading|object|false|`tag` and `animation` properties for button loading animation
+icon|object|false|`src`, `size`, and `spacing` properties for an icon
+theme|object|false|properties that apply style to the button
+
+### Methods
+
+#### _handleEnter
+
+Can be overridden to apply handling for the <kbd>Enter</kbd> key
