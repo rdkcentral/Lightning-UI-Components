@@ -22,7 +22,6 @@ import brand from './brand.png';
 
 export default create({
   base: 'dark',
-
   appBg: 'rgb(33,	35,	42)',
   textColor: 'white',
   brandTitle: 'Lightning UI Components',

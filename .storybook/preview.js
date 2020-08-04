@@ -22,8 +22,7 @@
 import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
 import { addDecorator, addParameters } from '@storybook/html';
-
-import mdx from '../utils/storybook/docs-template.mdx';
+import theme from './theme';
 
 const stage = { w: 900, h: 450, clearColor: 0xff000000, debug: false, canvas2d: false, useImageWorker: false, inspector: false };
 class StoryApp extends lng.Application {
@@ -62,7 +61,7 @@ addDecorator((StoryComponent, { parameters }) => {
 });
 
 addParameters({
-  docs: {
-    page: mdx
+  options: {
+    theme
   }
 });

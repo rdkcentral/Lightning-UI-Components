@@ -17,53 +17,86 @@
  * limitations under the License.
  */
 
-import FocusManager from 'src/components/modules/FocusManager';
-import TestRenderer from 'test/lightning-test-renderer';
+import FocusManager from '.';
+import TestUtils from '../lightning-test-utils';
 import lng from 'wpe-lightning';
 
-const Component = {
-  Component: {
-    type: FocusManager,
-    direction: 'column',
-    signals: {
-      selectedChange: 'selectedChangeMock'
-    },
-    Page1: { type: lng.Component },
-    Page2: { type: lng.Component },
-    Page3: { type: lng.Component }
-  }
-};
-
-const ComponentRow = {
-  Component: {
-    ...Component.Component,
-    direction: 'row'
-  }
-};
+const baseItem = { type: lng.Component };
+const createFocusManager = TestUtils.makeCreateComponent(FocusManager, {
+  items: [{ ...baseItem }, { ...baseItem }, { ...baseItem }]
+});
 
 describe('FocusManager', () => {
+  let focusManager, testRenderer;
+  beforeEach(() => {
+    [focusManager, testRenderer] = createFocusManager();
+  });
+  afterEach(() => {
+    focusManager = null;
+    testRenderer = null;
+  });
   it('should render', () => {
-    let testRenderer = TestRenderer.create(Component);
     let tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should set focus on first item', () => {
-    let testRenderer = TestRenderer.create(Component);
-    let focusManager = testRenderer.getInstance();
     expect(focusManager.selectedIndex).toBe(0);
   });
 
+  it('skips items with skipFocus=true', () => {
+    [focusManager, testRenderer] = createFocusManager({
+      direction: 'column',
+      items: [
+        { ...baseItem },
+        { ...baseItem, skipFocus: true },
+        { ...baseItem }
+      ]
+    });
+    testRenderer.keyPress('Down');
+    expect(focusManager.selectedIndex).toBe(2);
+    testRenderer.keyPress('Up');
+    expect(focusManager.selectedIndex).toBe(0);
+  });
+
+  it('looks for focusRef on the selected item', () => {
+    [focusManager, testRenderer] = createFocusManager({
+      items: [
+        {
+          ...baseItem,
+          Item: { type: lng.Component, title: 'Item' },
+          focusRef: 'Item'
+        }
+      ]
+    });
+
+    expect(focusManager._getFocused().title).toEqual('Item');
+  });
+
+  it('appends items', () => {
+    const { length } = focusManager.items;
+
+    focusManager.appendItems();
+    expect(focusManager.items.length).toBe(length);
+
+    focusManager.appendItems([{ ...baseItem }]);
+    expect(focusManager.items.length).toBe(length + 1);
+  });
+
   describe('direction column', () => {
+    beforeEach(() => {
+      [focusManager, testRenderer] = createFocusManager({
+        direction: 'column'
+      });
+    });
     it('should set focus on next item on keyDown', () => {
-      let testRenderer = TestRenderer.create(Component);
       testRenderer.keyPress('Down');
-      let focusManager = testRenderer.getInstance();
+      testRenderer.update();
+
       expect(focusManager.selectedIndex).toBe(1);
     });
 
     it('should track focus correctly', () => {
-      let testRenderer = TestRenderer.create(Component);
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Up');
@@ -73,69 +106,78 @@ describe('FocusManager', () => {
   });
 
   describe('direction row', () => {
+    beforeEach(() => {
+      [focusManager, testRenderer] = createFocusManager({ direction: 'row' });
+    });
     it('should set focus on next item on keyRight', () => {
-      let testRenderer = TestRenderer.create(ComponentRow);
       testRenderer.keyPress('Right');
-      let focusManager = testRenderer.getInstance();
       expect(focusManager.selectedIndex).toBe(1);
     });
 
     it('should not track keyDown', () => {
-      let testRenderer = TestRenderer.create(ComponentRow);
       testRenderer.keyPress('Down');
-      let focusManager = testRenderer.getInstance();
       expect(focusManager.selectedIndex).toBe(0);
     });
 
     it('should track focus correctly', () => {
-      let testRenderer = TestRenderer.create(ComponentRow);
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Left');
-      let focusManager = testRenderer.getInstance();
       expect(focusManager.selectedIndex).toBe(1);
     });
   });
 
   describe('handling bounds', () => {
     it('should keep selected in bounds via keypress', () => {
-      let testRenderer = TestRenderer.create(Component);
-      let focusManager = testRenderer.getInstance();
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
-      testRenderer.keyPress('Down');
+      [focusManager, testRenderer] = createFocusManager({ direction: 'row' });
+
+      testRenderer.keyPress('Left');
+      expect(focusManager.selectedIndex).toBe(0);
+
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
       expect(focusManager.selectedIndex).toBe(2);
     });
 
     it('should keep selected in bounds for setting selected greater', () => {
-      let testRenderer = TestRenderer.create(Component);
-      let focusManager = testRenderer.getInstance();
       focusManager.selectedIndex = 10;
       expect(focusManager.selectedIndex).toBe(2);
     });
 
     it('should keep selected in bounds for setting selected less than', () => {
-      let testRenderer = TestRenderer.create(Component);
-      let focusManager = testRenderer.getInstance();
       focusManager.selectedIndex = -1;
       expect(focusManager.selectedIndex).toBe(0);
     });
   });
 
   describe('signals', () => {
-    it('should signal selectedChange', () => {
-      let testRenderer = TestRenderer.create(Component);
-      let app = testRenderer.getApp();
-      let focusManager = testRenderer.getInstance();
+    let app;
+    beforeEach(() => {
+      [focusManager, testRenderer] = createFocusManager({
+        direction: 'column',
+        signals: {
+          selectedChange: 'selectedChangeMock'
+        }
+      });
+      app = testRenderer.getApp();
       app.constructor.prototype.selectedChangeMock = jest.fn();
+    });
+    it('should signal selectedChange', () => {
       testRenderer.keyPress('Down');
-      let previous = focusManager.children[focusManager.selectedIndex - 1];
+      let previous = focusManager.items[focusManager.selectedIndex - 1];
       expect(app.selectedChangeMock).toHaveBeenCalledWith(
         focusManager.selected,
         previous,
         'next'
       );
+    });
+    it('should not signal if items are empty', () => {
+      focusManager.items = [];
+      testRenderer.keyPress('Down');
+      expect(testRenderer.selected).toBeUndefined();
+      expect(app.selectedChangeMock).not.toBeCalled();
     });
   });
 });

@@ -44,10 +44,12 @@ module.exports = {
     '<rootDir>/**/*.js',
     '!**/coverage/**',
     '!<rootDir>/**/*.{stories,test,xtest}.js',
-    '!lightning-test-renderer.js'
+    '!<rootDir>/**/{Item}/*.js', // exclude temporary components
+    '!<rootDir>/**/lightning-test-renderer.js',
+    '!<rootDir>/**/lightning-test-utils.js'
   ],
   // The directory where Jest should output its coverage files
-  coverageDirectory: '../coverage',
+  coverageDirectory: 'coverage',
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ['text', 'html'],
@@ -55,10 +57,9 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-      statements: 95,
-      branches: 95,
-      functions: 95,
-      lines: 95
+      statements: 90,
+      functions: 90,
+      lines: 90
     }
   },
 
@@ -81,7 +82,7 @@ module.exports = {
   // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+  maxWorkers: '4',
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -134,12 +135,10 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: './components',
+  rootDir: '.',
 
   // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
+  roots: ['<rootDir>/components', '<rootDir>/utils'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -157,7 +156,7 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-fifteen',
 
   // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
+  testEnvironmentOptions: { resources: 'usable' },
 
   // Adds a location field to test results
   // testLocationInResults: false,
