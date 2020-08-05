@@ -61,31 +61,6 @@ export const LongTitle = () =>
     }
   };
 
-export const Loading = () =>
-  class Loading extends lng.Component {
-    static _template() {
-      return {
-        Button: {
-          type: Button,
-          loading: {
-            tag: 'this',
-            animation: {
-              duration: 1,
-              repeat: -1,
-              stopMethod: 'immediate',
-              actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-            }
-          }
-        }
-      };
-    }
-    _getFocused() {
-      if (boolean('Focused', false)) {
-        return this.tag('Button');
-      }
-    }
-  };
-
 let orangeTheme = {
   radius: 4,
   stroke: { weight: 3, color: 0xfffea73d },

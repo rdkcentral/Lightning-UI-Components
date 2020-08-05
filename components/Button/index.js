@@ -29,7 +29,6 @@ export const DEFAULT_THEME = {
   },
   focus: {
     background: 0xffffffff,
-    radius: 0,
     text: 0xff1f1f1f,
     icon: 0xff1f1f1f,
     patch: function() {
@@ -75,8 +74,8 @@ export default class Button extends lng.Component {
   _init() {
     this.icon = this.icon || {};
     this.theme = getTheme(DEFAULT_THEME, this.theme || {});
+    this.background = this.background || this._theme.unfocus.background;
     this.patch({
-      color: this._theme.background || this._theme.unfocus.background,
       texture: lng.Tools.getRoundRect(
         RoundRect.getWidth(this.w),
         RoundRect.getHeight(this.h),
@@ -87,15 +86,6 @@ export default class Button extends lng.Component {
         Icon: { color: this._theme.color || this._theme.unfocus.icon }
       }
     });
-
-    if (this.loading && !this.title) {
-      let tag = this;
-      if (this.loading.tag && this.loading.tag !== 'this') {
-        tag = this.tag(this.loading.tag);
-      }
-      this._loadingAnimation = tag.animation(this.loading.animation);
-      this._loadingAnimation.start();
-    }
   }
 
   set theme(theme) {
@@ -109,9 +99,6 @@ export default class Button extends lng.Component {
 
   set title(title) {
     this._title = title;
-    if (this._loadingAnimation && this._loadingAnimation.isPlaying()) {
-      this._loadingAnimation.stop();
-    }
     this._Title.text = title;
     this._Title.on('txLoaded', () => {
       let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
@@ -121,6 +108,7 @@ export default class Button extends lng.Component {
         !this.fixed
       ) {
         this.w = this._Title.renderWidth + this._theme.padding || 50;
+        if (this._stroke) this.stroke = this._stroke;
       }
     });
   }
@@ -154,6 +142,11 @@ export default class Button extends lng.Component {
         color
       });
     });
+  }
+
+  set background(color) {
+    this._background = color;
+    this.color = color;
   }
 
   _focus() {

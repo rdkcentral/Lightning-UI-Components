@@ -4,6 +4,8 @@
  * Action Button Class that contains styling and functionality for all Action Button items
  */
 import lng from 'wpe-lightning';
+import Button from '../Button';
+import { RoundRect } from '../../utils';
 
 // styles
 import {
@@ -12,183 +14,159 @@ import {
   CORNER_RADIUS,
   COLORS_BASE,
   getHexColor,
-  COLORS_NEUTRAL,
   COLORS_TEXT
 } from '../Styles';
+
+export const COLORS = {
+  fill: getHexColor(`232328`, 48),
+  float: COLORS_BASE.transparent,
+  stroke: COLORS_BASE.transparent,
+  focused: getHexColor('ECECF2')
+};
+
+export const ACTION_BUTTON_THEME = {
+  radius: CORNER_RADIUS.small,
+  text: {
+    ...TYPESCALE.caption,
+    textColor: getHexColor(COLORS_TEXT.light)
+  },
+  w: 410,
+  h: 72,
+  padding: 16,
+  unfocus: {
+    text: getHexColor(COLORS_TEXT.light),
+    icon: getHexColor(COLORS_TEXT.light),
+    patch: function() {
+      let scale = 1;
+      this.patch({
+        smooth: { color: this._background, scale },
+        Content: {
+          smooth: { scale },
+          Title: { smooth: { color: this._theme.unfocus.text } },
+          Icon: { smooth: { color: this._theme.unfocus.icon } }
+        }
+      });
+    }
+  },
+  focus: {
+    background: getHexColor(`ECECF2`),
+    text: getHexColor(COLORS_TEXT.dark),
+    icon: getHexColor(COLORS_TEXT.dark),
+    patch: function() {
+      let scale = 1.12;
+      this.patch({
+        smooth: { color: this._theme.focus.background, scale },
+        Content: {
+          smooth: { scale: 1 / scale },
+          Title: { smooth: { color: this._theme.focus.text } },
+          Icon: { smooth: { color: this._theme.focus.icon } }
+        }
+      });
+    }
+  }
+};
 
 export default class ActionButton extends lng.Component {
   static _template() {
     return {
+      Loader: {
+        color: getHexColor('ffffff', 24),
+        texture: lng.Tools.getRoundRect(
+          RoundRect.getWidth(ACTION_BUTTON_THEME.w),
+          RoundRect.getHeight(ACTION_BUTTON_THEME.h),
+          ACTION_BUTTON_THEME.radius
+        )
+      },
       Button: {
-        zIndex: 1,
-        Content: {
-          zIndex: 2,
-          flex: { direction: 'row' },
-          Icon: {
-            y: GRID.spacingIncrement
-          },
-          Title: {
-            text: {
-              ...TYPESCALE.caption,
-              textColor: getHexColor(COLORS_TEXT.light)
-            }
-          }
-        },
-        Stroke: {},
-        Background: {}
+        type: Button,
+        theme: ACTION_BUTTON_THEME,
+        alpha: 0
       },
       DropShadow: {
         zIndex: -1,
-        color: getHexColor(COLORS_NEUTRAL.dark2, 80),
-        x: -16,
+        mount: 0.5,
+        x: ACTION_BUTTON_THEME.w / 2,
+        y: (ACTION_BUTTON_THEME.h + GRID.spacingIncrement * 2) / 2,
+        color: getHexColor('ffffff', 64),
         alpha: 0,
-        scale: 0.9
+        texture: lng.Tools.getShadowRect(
+          ACTION_BUTTON_THEME.w,
+          ACTION_BUTTON_THEME.h,
+          CORNER_RADIUS.medium,
+          16,
+          24
+        )
       }
     };
   }
-
   constructor(...args) {
     super(...args);
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this.h = 72;
-    this.w = this.w || 410;
   }
 
   _init() {
-    this._loading = this._Background.animation({
-      duration: 2,
-      repeat: -1,
-      stopMethod: 'immediate',
-      actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-    });
-    this._Background.texture = lng.Tools.getRoundRect(
-      this.w,
-      this.h,
-      CORNER_RADIUS.small,
-      0,
-      0,
-      true,
-      0xffffffff
-    );
-    this._Background.color = getHexColor(COLORS_NEUTRAL.light2, 24);
+    this.background = this.background ? this.background.toLowerCase() : 'float';
+    if (this.background === 'stroke') {
+      this._Button.stroke = {
+        weight: 2,
+        color: getHexColor('ECECF2')
+      };
+    }
+    this._Button.background =
+      COLORS[this.background] || COLORS_BASE.transparent;
+
     if (!this.title) {
+      this._loading = this._Loader.animation({
+        duration: 2,
+        repeat: -1,
+        stopMethod: 'immediate',
+        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+      });
       this._loading.start();
     }
   }
 
-  get announce() {
-    return this.title + ', Button';
-  }
-
   set title(title) {
-    super.title = title;
+    this._title = title;
+    if (this._loading && this._loading.isPlaying()) {
+      this._loading.stop();
+    }
     this._whenEnabled.then(() => {
       this.patch({
-        Button: {
-          Content: {
-            w: this.w,
-            h: this.h,
-            Title: { text: { text: this.title || '' } }
-          },
-          Stroke: {
-            texture: lng.Tools.getRoundRect(
-              this.w,
-              this.h,
-              CORNER_RADIUS.small,
-              2,
-              getHexColor(COLORS_NEUTRAL.light2),
-              false,
-              false
-            )
-          },
-          Background: {
-            texture: lng.Tools.getRoundRect(
-              this.w,
-              this.h,
-              CORNER_RADIUS.small,
-              0,
-              0,
-              true,
-              0xffffffff
-            )
-          }
-        },
-        DropShadow: {
-          texture: lng.Tools.getShadowRect(
-            this.w,
-            this.h,
-            CORNER_RADIUS.small,
-            16,
-            16
-          )
-        }
-      });
-      this._Background.color = getHexColor(COLORS_BASE.transparent);
-
-      this._Title.on('txLoaded', () => {
-        let iconWidth = this.icon ? this._iconW + GRID.spacingIncrement * 2 : 0;
-        this._Content.patch({
-          x: (this._Content.w - (this._Title.renderWidth + iconWidth)) / 2,
-          y: (this._Content.h - this._Title.text.lineHeight) / 2
-        });
+        Loader: undefined,
+        Button: { title, alpha: 1 }
       });
     });
   }
 
-  set icon(url) {
-    super.icon = url;
+  set icon(icon) {
+    this._icon = icon;
     this._whenEnabled.then(() => {
-      this._Icon.patch({
-        w: this._iconW,
-        h: this._iconH,
-        flexItem: { marginRight: GRID.spacingIncrement * 2 },
-        src: url
-      });
+      this._Button.icon = {
+        src: icon,
+        size: 32,
+        spacing: GRID.spacingIncrement * 2
+      };
     });
   }
 
   _focus() {
-    this._whenEnabled.then(() => {
-      this._Background.smooth = { color: getHexColor(COLORS_NEUTRAL.light2) };
-      this._Title.smooth = { color: getHexColor(COLORS_TEXT.dark) };
-      this._Icon.smooth = { color: getHexColor(COLORS_TEXT.dark) };
-      this._DropShadow.smooth = { alpha: 1 };
-    });
+    this._DropShadow.smooth = { alpha: 1, scale: 1.04 };
   }
 
   _unfocus() {
-    this._whenEnabled.then(() => {
-      this._Background.smooth = {
-        color: getHexColor(COLORS_BASE.transparent),
-        scale: 1
-      };
-      this._Stroke.smooth = { scale: 1 };
-      this._Title.smooth = { color: getHexColor(COLORS_TEXT.light) };
-      this._Icon.smooth = { color: getHexColor(COLORS_TEXT.light) };
-      this._DropShadow.smooth = { alpha: 0, scale: 0.9 };
-    });
+    this._DropShadow.smooth = { alpha: 0, scale: 1 };
   }
 
-  get _iconW() {
-    return 32;
+  _getFocused() {
+    return this._Button;
   }
-  get _iconH() {
-    return 32;
+
+  get _Button() {
+    return this.tag('Button');
   }
-  get _Content() {
-    return this.tag('Content');
-  }
-  get _Title() {
-    return this.tag('Content.Title');
-  }
-  get _Icon() {
-    return this.tag('Content.Icon');
-  }
-  get _Background() {
-    return this.tag('Button.Background');
-  }
-  get _Stroke() {
-    return this.tag('Button.Stroke');
+  get _Loader() {
+    return this.tag('Loader');
   }
   get _DropShadow() {
     return this.tag('DropShadow');
