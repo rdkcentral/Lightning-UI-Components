@@ -1,83 +1,127 @@
-import ActionButton from '.';
+import ActionButton, { ACTION_BUTTON_THEME } from '.';
 import TestRenderer from '../lightning-test-renderer';
-// styles
-import { getHexColor, COLORS_NEUTRAL, COLORS_TEXT } from '../Styles';
+import TestUtils from '../lightning-test-utils';
+import { getHexColor } from '../Styles';
 
-const Component = {
-  Component: {
-    type: ActionButton,
-    title: 'Button'
-  }
-};
+const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
+
+const createActionButton = TestUtils.makeCreateComponent(ActionButton);
 
 describe('ActionButton', () => {
-  let testRenderer, button;
-
+  let actionbutton, testRenderer;
   beforeEach(() => {
-    testRenderer = TestRenderer.create(Component);
-    button = testRenderer.getInstance();
-    return button._whenEnabled;
+    [actionbutton, testRenderer] = createActionButton({
+      title: 'Action Button'
+    });
+    testRenderer.update();
+  });
+  afterEach(() => {
+    actionbutton = null;
+    testRenderer = null;
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('should load before recieving data', () => {
-    testRenderer = TestRenderer.create({ Component: { type: ActionButton } });
-    button = testRenderer.getInstance();
-    expect(button._loading.isPlaying()).toBe(true);
-  });
-
-  it('should append Button to end of announce context', () => {
-    expect(button.announce).toEqual('Button, Button');
-  });
-
-  it('should patch in an icon if provided', () => {
-    testRenderer = TestRenderer.create({
-      Component: { type: ActionButton, title: 'Button', icon: '/path/to/icon' }
+  describe('style', () => {
+    it('should set background to stroke', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        background: 'stroke'
+      });
+      expect(actionbutton._Button.color).toBe(0);
+      expect(actionbutton._Button._stroke).toEqual(
+        expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
+      );
     });
-    button = testRenderer.getInstance();
-    expect(button.icon).toEqual('/path/to/icon');
-    expect(button._Icon).toBeDefined();
-  });
-
-  it('should update button properties when focused', done => {
-    button._focus();
-    testRenderer.update();
-    let focusColors = {
-      text: getHexColor(COLORS_TEXT.dark),
-      background: getHexColor(COLORS_NEUTRAL.light2)
-    };
-    button._whenEnabled.then(() => {
-      expect(button._Background.transition('color').targetValue).toBe(
-        focusColors.background
-      );
-      expect(button._Title.transition('color').targetValue).toBe(
-        focusColors.text
-      );
-      expect(button._DropShadow.transition('alpha').targetValue).toBe(1);
-      done();
+    it('should set background to fill', () => {
+      [actionbutton, testRenderer] = createActionButton({ background: 'fill' });
+      expect(actionbutton._Button.color).toBe(getHexColor('232328', 48));
+      expect(actionbutton._Button._stroke).toBeUndefined();
+    });
+    it('should set background to float', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        background: 'float'
+      });
+      expect(actionbutton._Button.color).toBe(0);
+      expect(actionbutton._Button._stroke).toBeUndefined();
+    });
+    it('should default background to float', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        background: 'orange'
+      });
+      expect(actionbutton._Button.color).toBe(0);
+      expect(actionbutton._Button._stroke).toBeUndefined();
     });
   });
 
-  it('should update properties when unfocused', done => {
-    button._unfocus();
-    testRenderer.update();
-    let focusColors = {
-      text: getHexColor(COLORS_TEXT.light),
-      background: 0
-    };
-    button._whenEnabled.then(() => {
-      expect(button._Background.transition('color').targetValue).toBe(
-        focusColors.background
-      );
-      expect(button._Title.transition('color').targetValue).toBe(
-        focusColors.text
-      );
-      expect(button._DropShadow.transition('alpha').targetValue).toBe(0);
-      done();
+  describe('icon', () => {
+    it('should patch in an icon', done => {
+      [actionbutton, testRenderer] = createActionButton({
+        title: 'Action Button',
+        icon
+      });
+      actionbutton._whenEnabled.then(() => {
+        expect(actionbutton._icon).toBe(icon);
+        expect(actionbutton._Button._icon).toEqual(
+          expect.objectContaining({ src: icon, size: 32, spacing: 16 })
+        );
+        done();
+      });
+    });
+  });
+
+  describe('loading', () => {
+    it('should load if no title is set', () => {
+      [actionbutton, testRenderer] = createActionButton({});
+      expect(actionbutton._loading.isPlaying()).toBe(true);
+    });
+    it('should stop loading once title is set', () => {
+      [actionbutton, testRenderer] = createActionButton({});
+      expect(actionbutton._loading.isPlaying()).toBe(true);
+      actionbutton.title = 'Action Button';
+      testRenderer.update();
+      expect(actionbutton._loading.isPlaying()).toBe(false);
+    });
+  });
+
+  describe('focus', () => {
+    it('should set focus on the Button tag', () => {
+      expect(actionbutton._getFocused()).toBe(actionbutton._Button);
+    });
+
+    it('should provide patch funtion in theme', () => {
+      expect(ACTION_BUTTON_THEME.unfocus.patch).toBeInstanceOf(Function);
+      expect(ACTION_BUTTON_THEME.focus.patch).toBeInstanceOf(Function);
+    });
+
+    it('should update color and scale on focus', () => {
+      actionbutton._Button._focus();
+      testRenderer.update();
+      expect(actionbutton._Button.color).toBe(getHexColor('ECECF2'));
+      expect(actionbutton._Button.scale).toBe(1.12);
+      expect(actionbutton._Button._Title.color).toBe(getHexColor('070707'));
+    });
+
+    it('should update color and scale on unfocus', () => {
+      actionbutton._Button._unfocus();
+      testRenderer.update();
+      expect(actionbutton._Button.color).toBe(0);
+      expect(actionbutton._Button.scale).toBe(1);
+      expect(actionbutton._Button._Title.color).toBe(getHexColor('FAFAFA'));
+    });
+
+    it('should alpha in drop shadow and scale up on focus', () => {
+      actionbutton._focus();
+      testRenderer.update();
+      expect(actionbutton._DropShadow.alpha).toBe(1);
+      expect(actionbutton.alpha).toBe(1);
+    });
+    it('should alpha out drop shadow on unfocus', () => {
+      actionbutton._unfocus();
+      testRenderer.update();
+      expect(actionbutton._DropShadow.alpha).toBe(0);
     });
   });
 });

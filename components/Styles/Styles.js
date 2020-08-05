@@ -12,10 +12,10 @@ export * from './Colors';
  * Amount of rounding to add to corners based on the item's size
  */
 export const CORNER_RADIUS = {
-  large: 16,
-  medium: 8,
-  small: 4,
-  xsmall: 2
+  large: 24,
+  medium: 16,
+  small: 8,
+  xsmall: 4
 };
 
 export const ALPHA = {

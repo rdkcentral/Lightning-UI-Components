@@ -39,6 +39,20 @@ describe('Button', () => {
     });
   });
 
+  it('should grow a stroke if given dynamically if text renders longer than default size', done => {
+    [button, testRenderer] = createButton({
+      title:
+        'This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title',
+      stroke: { weight: 2 }
+    });
+    button._Title.on('txLoaded', () => {
+      expect(button._Title.renderWidth).toBeGreaterThan(150);
+      console.log(button._Stroke);
+      // expect(button._Stroke.finalW).toBeGreaterThan(150);
+      done();
+    });
+  });
+
   describe('focus', () => {
     it('has a default unfocus background', () => {
       expect(button.color).toBe(getHexColor('1f1f1f'));
@@ -116,35 +130,6 @@ describe('Button', () => {
       expect(button._icon.size).toBe(25);
       expect(button._icon.spacing).toBe(10);
       expect(button._icon.color).toBe(getHexColor('00ff00'));
-    });
-  });
-
-  describe('loading', () => {
-    let loading = {
-      tag: 'this',
-      animation: {
-        duration: 1,
-        repeat: -1,
-        stopMethod: 'immediate',
-        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-      }
-    };
-    describe('should set a loading state', () => {
-      [button, testRenderer] = createButton({ loading });
-      expect(button._loadingAnimation.isPlaying()).toBe(true);
-    });
-    describe('should set stop loading when given a title', () => {
-      [button, testRenderer] = createButton({ loading });
-      expect(button._loadingAnimation.isPlaying()).toBe(true);
-      button.title = 'Hello';
-      testRenderer.update();
-      expect(button._loadingAnimation.isPlaying()).toBe(false);
-    });
-    describe('should set loading on any tag', () => {
-      [button, testRenderer] = createButton({
-        loading: { ...loading, tag: 'Content' }
-      });
-      expect(button._loadingAnimation.element.ref).toBe('Content');
     });
   });
 

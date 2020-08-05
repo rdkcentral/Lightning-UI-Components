@@ -60,7 +60,7 @@ export class ListItemBase extends lng.Component {
     const texture = lng.Tools.getRoundRect(
       RoundRect.getWidth(w, { padding: 16 }),
       RoundRect.getHeight(h),
-      CORNER_RADIUS.medium
+      CORNER_RADIUS.small
     );
 
     this._Container.patch({

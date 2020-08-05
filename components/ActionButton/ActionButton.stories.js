@@ -1,5 +1,5 @@
 import lng from 'wpe-lightning';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
 
 import ActionButton from '.';
 import mdx from './ActionButton.mdx';
@@ -16,64 +16,42 @@ export default {
   }
 };
 
-export const Unfocused = () =>
-  class Unfocused extends lng.Component {
+const makeOptions = (...opts) => {
+  return opts.reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: key.toLowerCase()
+    }),
+    {}
+  );
+};
+
+export const Base = () =>
+  class Base extends lng.Component {
     static _template() {
       return {
         ActionButton: {
+          x: 10,
           type: ActionButton,
+          background: radios(
+            'Background',
+            makeOptions('stroke', 'fill', 'float'),
+            'stroke'
+          ),
           title: text('Title', 'Type Something')
         }
       };
     }
-  };
-
-export const Focused = () =>
-  class Focused extends lng.Component {
-    static _template() {
-      return {
-        ActionButton: {
-          type: ActionButton,
-          title: text('Title', 'Type Something')
-        }
-      };
-    }
-
     _init() {
-      this._refocus();
-    }
-    _getFocused() {
-      return this.tag('ActionButton');
-    }
-  };
-
-export const IconUnfocused = () =>
-  class IconUnfocused extends lng.Component {
-    static _template() {
-      return {
-        ActionButton: {
-          type: ActionButton,
-          icon,
-          title: 'Button'
-        }
-      };
-    }
-  };
-
-export const IconFocused = () =>
-  class IconFocused extends lng.Component {
-    static _template() {
-      return {
-        ActionButton: {
-          type: ActionButton,
-          icon,
-          title: 'Button'
-        }
-      };
+      if (boolean('Icon', false)) {
+        this.tag('ActionButton').icon = icon;
+      }
     }
 
     _getFocused() {
-      return this.tag('ActionButton');
+      if (boolean('Focused', false)) {
+        return this.tag('ActionButton');
+      }
     }
   };
 
