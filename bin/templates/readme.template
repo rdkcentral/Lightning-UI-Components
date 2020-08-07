@@ -9,7 +9,7 @@ Component to be displayed in a list
 `ListItem` can display a `title`, `subtitle`, and `icon`:
 
 ```js
-import { MyComponent } from '@lightning/lightning-ui';
+import { MyComponent } from '@lightning/ui';
 
 class Example extends lng.Component {
   static _template() {
