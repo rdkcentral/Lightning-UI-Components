@@ -22,27 +22,16 @@ class Basic extends lng.Component {
   }
 };
 ```
-Before the button receives its title, it should be in a loading state.
+<Preview>
+  <Story id="pivot--base" />
+</Preview>
+
+
+Before the Pivot receives its title, it should be in a loading state.
 <Preview>
   <Story id="pivot--loading" />
 </Preview>
 
-
-<Preview>
-  <Story id="pivot--unfocused" />
-</Preview>
-
-
-When focused, the background and text colors are inverted.
-<Preview>
-  <Story id="pivot--focused" />
-</Preview>
-
-If a really long title is provided, a Pivot will dynmically size itself to provice 16px of padding
-to the left and right of the text inside the Pivot.
-<Preview>
-  <Story id="pivot--long-title" />
-</Preview>
 
 ## API
 
@@ -50,5 +39,6 @@ to the left and right of the text inside the Pivot.
 
 name|type|readonly|description
 --|--|--|--
-announce|string|true|announcement text for screen readers
 title|string|false|button text
+icon|string|false|URI for icon that may live next to the title
+background|'stroke'\|'fill'\|'float'|false|color of `Button` container.

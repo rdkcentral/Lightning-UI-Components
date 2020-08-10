@@ -47,8 +47,6 @@ describe('Button', () => {
     });
     button._Title.on('txLoaded', () => {
       expect(button._Title.renderWidth).toBeGreaterThan(150);
-      console.log(button._Stroke);
-      // expect(button._Stroke.finalW).toBeGreaterThan(150);
       done();
     });
   });

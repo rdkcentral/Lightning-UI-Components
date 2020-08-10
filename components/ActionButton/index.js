@@ -14,6 +14,7 @@ import {
   CORNER_RADIUS,
   COLORS_BASE,
   getHexColor,
+  getFocusScale,
   COLORS_TEXT
 } from '../Styles';
 
@@ -41,7 +42,6 @@ export const ACTION_BUTTON_THEME = {
       this.patch({
         smooth: { color: this._background, scale },
         Content: {
-          smooth: { scale },
           Title: { smooth: { color: this._theme.unfocus.text } },
           Icon: { smooth: { color: this._theme.unfocus.icon } }
         }
@@ -53,11 +53,10 @@ export const ACTION_BUTTON_THEME = {
     text: getHexColor(COLORS_TEXT.dark),
     icon: getHexColor(COLORS_TEXT.dark),
     patch: function() {
-      let scale = 1.12;
+      let scale = getFocusScale(this.w);
       this.patch({
         smooth: { color: this._theme.focus.background, scale },
         Content: {
-          smooth: { scale: 1 / scale },
           Title: { smooth: { color: this._theme.focus.text } },
           Icon: { smooth: { color: this._theme.focus.icon } }
         }
@@ -80,7 +79,10 @@ export default class ActionButton extends lng.Component {
       Button: {
         type: Button,
         theme: ACTION_BUTTON_THEME,
-        alpha: 0
+        alpha: 0,
+        signals: {
+          buttonWidthChanged: '_widthChanged'
+        }
       },
       DropShadow: {
         zIndex: -1,
@@ -90,7 +92,7 @@ export default class ActionButton extends lng.Component {
         color: getHexColor('ffffff', 64),
         alpha: 0,
         texture: lng.Tools.getShadowRect(
-          ACTION_BUTTON_THEME.w,
+          ACTION_BUTTON_THEME.w - GRID.spacingIncrement * 4,
           ACTION_BUTTON_THEME.h,
           CORNER_RADIUS.medium,
           16,
@@ -150,12 +152,25 @@ export default class ActionButton extends lng.Component {
     });
   }
 
+  _widthChanged({ w }) {
+    this.w = w;
+    this._DropShadow.x = w / 2;
+    this._DropShadow.texture = lng.Tools.getShadowRect(
+      w - GRID.spacingIncrement * 4,
+      ACTION_BUTTON_THEME.h,
+      CORNER_RADIUS.medium,
+      16,
+      24
+    );
+    this.fireAncestors('$itemChanged');
+  }
+
   _focus() {
-    this._DropShadow.smooth = { alpha: 1, scale: 1.04 };
+    this._DropShadow.smooth = { alpha: 1, scaleX: getFocusScale(this.w) };
   }
 
   _unfocus() {
-    this._DropShadow.smooth = { alpha: 0, scale: 1 };
+    this._DropShadow.smooth = { alpha: 0, scaleX: 1 };
   }
 
   _getFocused() {

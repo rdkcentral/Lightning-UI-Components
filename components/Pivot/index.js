@@ -5,6 +5,8 @@
  * These buttons are dynmaically sized.
  */
 import lng from 'wpe-lightning';
+import Button from '../Button';
+import { RoundRect } from '../../utils';
 
 // styles
 import {
@@ -13,167 +15,174 @@ import {
   CORNER_RADIUS,
   COLORS_BASE,
   getHexColor,
-  COLORS_NEUTRAL,
+  getFocusScale,
   COLORS_TEXT
 } from '../Styles';
 
-export default class Pivot extends lng.Component {
+export const COLORS = {
+  fill: getHexColor(`232328`, 48),
+  float: COLORS_BASE.transparent,
+  stroke: COLORS_BASE.transparent,
+  focused: getHexColor('ECECF2')
+};
+
+export const PIVOT_THEME = {
+  radius: CORNER_RADIUS.small,
+  text: {
+    ...TYPESCALE.footnote,
+    textColor: getHexColor(COLORS_TEXT.light)
+  },
+  w: 185,
+  h: 48,
+  padding: 16,
+  unfocus: {
+    text: getHexColor(COLORS_TEXT.light),
+    icon: getHexColor(COLORS_TEXT.light),
+    patch: function() {
+      let scale = 1;
+      this.patch({
+        smooth: { color: this._background, scale },
+        Content: {
+          Title: { smooth: { color: this._theme.unfocus.text } },
+          Icon: { smooth: { color: this._theme.unfocus.icon } }
+        }
+      });
+    }
+  },
+  focus: {
+    background: getHexColor(`ECECF2`),
+    text: getHexColor(COLORS_TEXT.dark),
+    icon: getHexColor(COLORS_TEXT.dark),
+    patch: function() {
+      let scale = getFocusScale(this.w);
+      this.patch({
+        smooth: { color: this._theme.focus.background, scale },
+        Content: {
+          Title: { smooth: { color: this._theme.focus.text } },
+          Icon: { smooth: { color: this._theme.focus.icon } }
+        }
+      });
+    }
+  }
+};
+
+export default class ActionButton extends lng.Component {
   static _template() {
     return {
-      Pivot: {
-        zIndex: 1,
-        Content: {
-          zIndex: 2,
-          flex: { direction: 'row' },
-          Icon: {
-            y: GRID.spacingIncrement
-          },
-          Title: {
-            text: {
-              ...TYPESCALE.tag,
-              textColor: getHexColor(COLORS_TEXT.light)
-            }
-          }
-        },
-        Stroke: {},
-        Background: {}
+      Loader: {
+        color: getHexColor('ffffff', 24),
+        texture: lng.Tools.getRoundRect(
+          RoundRect.getWidth(PIVOT_THEME.w),
+          RoundRect.getHeight(PIVOT_THEME.h),
+          PIVOT_THEME.radius
+        )
+      },
+      Button: {
+        type: Button,
+        theme: PIVOT_THEME,
+        alpha: 0,
+        signals: {
+          buttonWidthChanged: '_widthChanged'
+        }
       },
       DropShadow: {
         zIndex: -1,
-        color: getHexColor(COLORS_NEUTRAL.dark2, 80),
-        x: -16,
+        mount: 0.5,
+        x: PIVOT_THEME.w / 2,
+        y: (PIVOT_THEME.h + GRID.spacingIncrement * 2) / 2,
+        color: getHexColor('ffffff', 64),
         alpha: 0,
-        scale: 0.9
+        texture: lng.Tools.getShadowRect(
+          PIVOT_THEME.w - GRID.spacingIncrement * 2,
+          PIVOT_THEME.h,
+          CORNER_RADIUS.medium,
+          16,
+          24
+        )
       }
     };
   }
-
   constructor(...args) {
     super(...args);
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this.h = 48;
-    this.w = 185;
   }
 
   _init() {
-    this._loading = this._Background.animation({
-      duration: 2,
-      repeat: -1,
-      stopMethod: 'immediate',
-      actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-    });
-    this._Background.texture = lng.Tools.getRoundRect(
-      this.w,
-      this.h,
-      CORNER_RADIUS.small,
-      0,
-      0,
-      true,
-      0xffffffff
-    );
-    this._Background.color = getHexColor(COLORS_NEUTRAL.light2, 24);
+    this.background = this.background ? this.background.toLowerCase() : 'float';
+    if (this.background === 'stroke') {
+      this._Button.stroke = {
+        weight: 2,
+        color: getHexColor('ECECF2')
+      };
+    }
+    this._Button.background =
+      COLORS[this.background] || COLORS_BASE.transparent;
+
     if (!this.title) {
+      this._loading = this._Loader.animation({
+        duration: 2,
+        repeat: -1,
+        stopMethod: 'immediate',
+        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+      });
       this._loading.start();
     }
   }
 
-  get announce() {
-    return this.title + ', Button';
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set title(title = '') {
+  set title(title) {
     this._title = title;
+    if (this._loading && this._loading.isPlaying()) {
+      this._loading.stop();
+    }
     this._whenEnabled.then(() => {
-      this._Title.text = title;
-      this._Background.color = getHexColor(COLORS_BASE.transparent);
-
-      this._Title.on('txLoaded', () => {
-        this._Content.patch({ w: this.w, h: this.h });
-        if (this._Title.renderWidth > this.w - 32) {
-          this.w = this._Title.renderWidth + 32;
-          this._Content.w = this._Title.renderWidth + 32;
-        }
-        this.patch({
-          Pivot: {
-            Content: {
-              x: (this._Content.w - this._Title.renderWidth) / 2,
-              y: (this._Content.h - this._Title.text.lineHeight) / 2
-            },
-            Stroke: {
-              texture: lng.Tools.getRoundRect(
-                this.w,
-                this.h,
-                CORNER_RADIUS.small,
-                2,
-                getHexColor(COLORS_NEUTRAL.light2),
-                false,
-                false
-              )
-            },
-            Background: {
-              texture: lng.Tools.getRoundRect(
-                this.w,
-                this.h,
-                CORNER_RADIUS.small,
-                0,
-                0,
-                true,
-                0xffffffff
-              )
-            }
-          },
-          DropShadow: {
-            texture: lng.Tools.getShadowRect(
-              this.w,
-              this.h,
-              CORNER_RADIUS.small,
-              16,
-              16
-            )
-          }
-        });
-        this.fireAncestors('$itemChanged');
+      this.patch({
+        Loader: undefined,
+        Button: { title, alpha: 1, w: 0 }
       });
     });
   }
 
-  _focus() {
+  set icon(icon) {
+    this._icon = icon;
     this._whenEnabled.then(() => {
-      this._Background.smooth = {
-        color: getHexColor(COLORS_NEUTRAL.light2)
+      this._Button.icon = {
+        src: icon,
+        size: 32,
+        spacing: GRID.spacingIncrement
       };
-      this._Title.smooth = { color: getHexColor(COLORS_TEXT.dark) };
-      this._DropShadow.smooth = { alpha: 1 };
     });
+  }
+
+  _widthChanged({ w }) {
+    this.w = w;
+    this._DropShadow.x = w / 2;
+    this._DropShadow.texture = lng.Tools.getShadowRect(
+      w - GRID.spacingIncrement * 2,
+      PIVOT_THEME.h,
+      CORNER_RADIUS.medium,
+      16,
+      24
+    );
+    this.fireAncestors('$itemChanged');
+  }
+
+  _focus() {
+    this._DropShadow.smooth = { alpha: 1, scaleX: getFocusScale(this.w) };
   }
 
   _unfocus() {
-    this._whenEnabled.then(() => {
-      this._Background.smooth = {
-        color: getHexColor(COLORS_BASE.transparent),
-        scale: 1
-      };
-      this._Stroke.smooth = { scale: 1 };
-      this._Title.smooth = { color: getHexColor(COLORS_TEXT.light) };
-      this._DropShadow.smooth = { alpha: 0, scale: 0.9 };
-    });
+    this._DropShadow.smooth = { alpha: 0, scaleX: 1 };
   }
 
-  get _Content() {
-    return this.tag('Content');
+  _getFocused() {
+    return this._Button;
   }
-  get _Title() {
-    return this.tag('Content.Title');
+
+  get _Button() {
+    return this.tag('Button');
   }
-  get _Background() {
-    return this.tag('Pivot.Background');
-  }
-  get _Stroke() {
-    return this.tag('Pivot.Stroke');
+  get _Loader() {
+    return this.tag('Loader');
   }
   get _DropShadow() {
     return this.tag('DropShadow');

@@ -1,5 +1,6 @@
 import lng from 'wpe-lightning';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
+import icon from '../../assets/images/ic_lightning_white_32.png';
 
 import Pivot from '.';
 import mdx from './Pivot.mdx';
@@ -15,42 +16,42 @@ export default {
   }
 };
 
-export const Unfocused = () =>
+const makeOptions = (...opts) => {
+  return opts.reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: key.toLowerCase()
+    }),
+    {}
+  );
+};
+
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Pivot: {
+          x: 10,
           type: Pivot,
-          title: text('Title', 'Pivot')
+          title: text('Title', 'Dynamic Pivot'),
+          background: radios(
+            'Background',
+            makeOptions('stroke', 'fill', 'float'),
+            'stroke'
+          )
         }
       };
     }
-  };
+    _init() {
+      if (boolean('Icon', false)) {
+        this.tag('Pivot').icon = icon;
+      }
+    }
 
-export const Focused = () =>
-  class Focused extends lng.Component {
-    static _template() {
-      return {
-        Pivot: {
-          type: Pivot,
-          title: text('Title', 'Pivot')
-        }
-      };
-    }
     _getFocused() {
-      return this.tag('Pivot');
-    }
-  };
-
-export const LongTitle = () =>
-  class LongTitle extends lng.Component {
-    static _template() {
-      return {
-        Pivot: {
-          type: Pivot,
-          title: text('Title', 'This is a Pivot with a really long title')
-        }
-      };
+      if (boolean('Focused', false)) {
+        return this.tag('Pivot');
+      }
     }
   };
 
