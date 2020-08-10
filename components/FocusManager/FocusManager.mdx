@@ -1,5 +1,5 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks'
-import { DocsLink } from "../../utils/storybook/index.mdx";
+import { DocsLink } from "../../.storybook/utils";
 
 # FocusManager
 
@@ -10,7 +10,7 @@ In Lightning, focus must be explicitly set on an element and managed manually. `
 Within a parent component `_template()` function, define a child of type `FocusManager` and in `_getFocused()` return that child component 
 
 ```js
-import FocusManager from './FocusManager';
+import { FocusManager } from '@lightning/lightning-ui';
 
 class RowExample extends lng.Component {
   static _template() {
@@ -69,7 +69,7 @@ You can create a component that extends the capabilities of `FocusManager` and r
 
 ```js
 import lng from 'wpe-lightning';
-import FocusManager from './FocusManager';
+import { FocusManager } from '@lightning/lightning-ui';
 
 class FancyFocus extends FocusManager {
   render() {

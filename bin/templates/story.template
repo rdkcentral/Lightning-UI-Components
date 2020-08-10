@@ -17,34 +17,32 @@
  * limitations under the License.
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-/* IMPORT OTHER SHARED COMPONENTS BEFORE STYLES */
-import styles from './{{component}}.module.css';
-import classnames from 'classnames/bind';
-{{#if isThemed}}
-import { withTheme } from '@wpe-lightning-ui/utilities';
-{{/if}}
+import lng from 'wpe-lightning';
 
-const cx = classnames.bind(styles);
-/**
- * @visibleName  {{componentNameUpper}}
- */
+import MyComponent from '.';
+import mdx from './MyComponent.mdx';
 
-const {{componentNameUpper}} = () => {
-    return (  );
-}
+export default {
+  title: 'MyComponent',
+  component: MyComponent,
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
+};
 
-{{componentNameUpper}}.propTypes = {
-  /** Add PropTypes */
-}
+export const Basic = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        MyComponent: {
+          type: MyComponent
+        }
+      };
+    }
 
-{{componentNameUpper}}.defaultProps = {
-  /** Add any defaults */
-}
-
-{{#if isThemed}}
-export default withTheme({{componentNameUpper}});
-{{else}}
-export default {{componentNameUpper}};
-{{/if}}
+    _getFocused() {
+      return this.tag('MyComponent');
+    }
+  };

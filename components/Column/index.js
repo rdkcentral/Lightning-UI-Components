@@ -31,25 +31,14 @@ export default class Column extends FocusManager {
     };
   }
 
-  constructor(...args) {
-    super(...args);
-    // Ensure setters are called after all properties are set like width
-    this._whenEnabled = new Promise(
-      resolve =>
-        (this._firstEnable = () => {
-          this._columnEnabled = true;
-          resolve();
-        })
-    );
-  }
-
   // finds the index of the item with the closest middle to the previously selected item
   _getIndexOfItemNear(selected, prev) {
     // edge case
     if (selected.items.length < 2) return 0;
 
     let prevItem = prev.selected || prev.currentItem;
-    let [itemX] = prevItem.core.getAbsoluteCoords(-prev.offset, 0);
+    let prevOffset = prev.transition('x').targetValue || 0;
+    let [itemX] = prevItem.core.getAbsoluteCoords(-prevOffset, 0);
     let prevMiddle = itemX + prevItem.w / 2;
 
     // set the first item to be closest
@@ -138,10 +127,6 @@ export default class Column extends FocusManager {
   }
 
   _computeStartScrollIndex(scrollStart) {
-    if (scrollStart === 0) {
-      return 0;
-    }
-
     let totalItems = this.items.length;
     let MAX_HEIGHT = scrollStart;
 
@@ -151,8 +136,6 @@ export default class Column extends FocusManager {
         return i + 1;
       }
     }
-
-    return 0;
   }
 
   // can be overridden
@@ -168,7 +151,7 @@ export default class Column extends FocusManager {
     let lastIndex = this._computeLastIndex();
 
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-      selected._selectedIndex = this._getIndexOfItemNear(selected, prev);
+      selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
     }
 
     if (this._nearEnd() && this._getMoreItems) {
@@ -193,7 +176,6 @@ export default class Column extends FocusManager {
       if (itemY >= this._columnHeight) {
         return this.onScreenEffect(this._renderUp());
       }
-      return this.onScreenEffect(this._renderDown());
     }
 
     // Scroll mount is middle
@@ -202,10 +184,6 @@ export default class Column extends FocusManager {
 
     if (index < startScrollIndex) {
       return this.onScreenEffect(this._renderDown(0));
-    }
-
-    if (index >= lastIndex) {
-      return this.onScreenEffect(this._renderUp(this.items.length - 1));
     }
 
     itemY = scrollStart - this.selected.h / 2;
@@ -238,7 +216,7 @@ export default class Column extends FocusManager {
     return onScreenItems;
   }
 
-  _renderDown(index = this.selectedIndex, itemY = 0) {
+  _renderDown(index, itemY = 0) {
     let onScreenItems = [];
     const [BOUNDS] = this.boundsMargin;
 
@@ -278,15 +256,6 @@ export default class Column extends FocusManager {
     return this._itemSpacing || 0;
   }
 
-  set updateItems(callback) {
-    if (this._columnEnabled) {
-      this.items.forEach(callback);
-      this.render();
-    } else {
-      this._whenEnabled.then(() => (this.updateItems = callback));
-    }
-  }
-
   _focus() {
     // Wait till Items are focused before rendering
     setTimeout(() => this.render(), 0);
@@ -302,8 +271,9 @@ export default class Column extends FocusManager {
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
-      this.childList.remove(item);
+      this.Items.childList.remove(item);
       if (wasSelected || this.selectedIndex >= this.items.length) {
+        // eslint-disable-next-line no-self-assign
         this.selectedIndex = this.selectedIndex;
       }
 

@@ -1,7 +1,6 @@
 import { Preview, Story } from '@storybook/addon-docs/blocks';
 
-import * as stories from './Column.stories';
-import { DocsLink, GenericType, ObjectFormat } from "../../utils/storybook/index.mdx";
+import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
 
 # Column
 
@@ -10,7 +9,7 @@ Focus management and smooth scrolling for a vertically-oriented list of items.
 ## Usage
 
 ```js
-import Column from './Column';
+import { Column } from '@lightning/lightning-ui';
 
 class BasicExample extends lng.Component {
   static _template() {
@@ -102,7 +101,6 @@ currentItem|<DocsLink id="lng.Component" />|true|component that is currently in 
 provider|<ProviderType />|false|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
 itemSpacing|number|false|padding to put between items
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
-updateItems|(item:lng.Component)=>void|false|callback is executed on each item in the child list
 itemTransition|<DocsLink id="lng.Transition" />|false|transition to apply to items on render
 
 
