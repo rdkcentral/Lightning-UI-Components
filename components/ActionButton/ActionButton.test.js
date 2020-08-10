@@ -1,5 +1,4 @@
 import ActionButton, { ACTION_BUTTON_THEME } from '.';
-import TestRenderer from '../lightning-test-renderer';
 import TestUtils from '../lightning-test-utils';
 import { getHexColor } from '../Styles';
 
@@ -23,6 +22,12 @@ describe('ActionButton', () => {
   it('should render', () => {
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('should update its width', () => {
+    let w = 200;
+    actionbutton._widthChanged({ w });
+    expect(actionbutton.w).toBe(200);
   });
 
   describe('style', () => {

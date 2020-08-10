@@ -1,95 +1,132 @@
-import Pivot from '.';
-import TestRenderer from '../lightning-test-renderer';
+import Pivot, { PIVOT_THEME } from '.';
+import TestUtils from '../lightning-test-utils';
+import { getHexColor } from '../Styles';
 
-// styles
-import { getHexColor, COLORS_NEUTRAL, COLORS_TEXT } from '../Styles';
+const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
-const Component = {
-  Component: {
-    type: Pivot,
-    title: 'Pivot'
-  }
-};
+const createPivot = TestUtils.makeCreateComponent(Pivot);
 
 describe('Pivot', () => {
-  let testRenderer, pivot;
-
+  let pivot, testRenderer;
   beforeEach(() => {
-    testRenderer = TestRenderer.create(Component);
-    pivot = testRenderer.getInstance();
-    return pivot._whenEnabled;
+    [pivot, testRenderer] = createPivot({
+      title: 'Pivot'
+    });
+    testRenderer.update();
+  });
+  afterEach(() => {
+    pivot = null;
+    testRenderer = null;
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('should load before recieving data', () => {
-    testRenderer = TestRenderer.create({ Component: { type: Pivot } });
-    pivot = testRenderer.getInstance();
-    expect(pivot._loading.isPlaying()).toBe(true);
+  it('should update its width', () => {
+    let w = 200;
+    pivot._widthChanged({ w });
+    expect(pivot.w).toBe(200);
   });
 
-  it('should append Pivot Button to end of announce context', () => {
-    expect(pivot.announce).toEqual('Pivot, Button');
-  });
-
-  // TODO: Passes but the test renderer is not pulling in fonts
-  // Issue #29
-  it('should grow width dynmically if text renders longer than default Pivot size', done => {
-    testRenderer = TestRenderer.create({
-      Component: {
-        type: Pivot
-      }
+  describe('style', () => {
+    it('should set background to stroke', () => {
+      [pivot, testRenderer] = createPivot({
+        background: 'stroke'
+      });
+      expect(pivot._Button.color).toBe(0);
+      expect(pivot._Button._stroke).toEqual(
+        expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
+      );
     });
-    pivot = testRenderer.getInstance();
-    expect(pivot.w).toBe(185);
-    pivot.title =
-      'This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title This is a Pivot with a really long title';
-    pivot._Title.on('txLoaded', () => {
-      setTimeout(() => {
-        expect(pivot.w).toBeGreaterThan(185);
+    it('should set background to fill', () => {
+      [pivot, testRenderer] = createPivot({ background: 'fill' });
+      expect(pivot._Button.color).toBe(getHexColor('232328', 48));
+      expect(pivot._Button._stroke).toBeUndefined();
+    });
+    it('should set background to float', () => {
+      [pivot, testRenderer] = createPivot({
+        background: 'float'
+      });
+      expect(pivot._Button.color).toBe(0);
+      expect(pivot._Button._stroke).toBeUndefined();
+    });
+    it('should default background to float', () => {
+      [pivot, testRenderer] = createPivot({
+        background: 'orange'
+      });
+      expect(pivot._Button.color).toBe(0);
+      expect(pivot._Button._stroke).toBeUndefined();
+    });
+  });
+
+  describe('icon', () => {
+    it('should patch in an icon', done => {
+      [pivot, testRenderer] = createPivot({
+        title: 'Action Button',
+        icon
+      });
+      pivot._whenEnabled.then(() => {
+        expect(pivot._icon).toBe(icon);
+        expect(pivot._Button._icon).toEqual(
+          expect.objectContaining({ src: icon, size: 32, spacing: 8 })
+        );
         done();
-      }, 10);
+      });
     });
   });
 
-  it('should update Pivot properties when focused', done => {
-    pivot._focus();
-    testRenderer.update();
-    let focusColors = {
-      text: getHexColor(COLORS_TEXT.dark),
-      background: getHexColor(COLORS_NEUTRAL.light2)
-    };
-    pivot._whenEnabled.then(() => {
-      expect(pivot._Background.transition('color').targetValue).toBe(
-        focusColors.background
-      );
-      expect(pivot._Title.transition('color').targetValue).toBe(
-        focusColors.text
-      );
-      expect(pivot._DropShadow.transition('alpha').targetValue).toBe(1);
-      done();
+  describe('loading', () => {
+    it('should load if no title is set', () => {
+      [pivot, testRenderer] = createPivot({});
+      expect(pivot._loading.isPlaying()).toBe(true);
+    });
+    it('should stop loading once title is set', () => {
+      [pivot, testRenderer] = createPivot({});
+      expect(pivot._loading.isPlaying()).toBe(true);
+      pivot.title = 'Action Button';
+      testRenderer.update();
+      expect(pivot._loading.isPlaying()).toBe(false);
     });
   });
 
-  it('should update properties when unfocused', done => {
-    pivot._unfocus();
-    testRenderer.update();
-    let focusColors = {
-      text: getHexColor(COLORS_TEXT.light),
-      background: 0
-    };
-    pivot._whenEnabled.then(() => {
-      expect(pivot._Background.transition('color').targetValue).toBe(
-        focusColors.background
-      );
-      expect(pivot._Title.transition('color').targetValue).toBe(
-        focusColors.text
-      );
-      expect(pivot._DropShadow.transition('alpha').targetValue).toBe(0);
-      done();
+  describe('focus', () => {
+    it('should set focus on the Button tag', () => {
+      expect(pivot._getFocused()).toBe(pivot._Button);
+    });
+
+    it('should provide patch funtion in theme', () => {
+      expect(PIVOT_THEME.unfocus.patch).toBeInstanceOf(Function);
+      expect(PIVOT_THEME.focus.patch).toBeInstanceOf(Function);
+    });
+
+    it('should update color and scale on focus', () => {
+      pivot._Button._focus();
+      testRenderer.update();
+      expect(pivot._Button.color).toBe(getHexColor('ECECF2'));
+      expect(pivot._Button.scale).toBe(1.18);
+      expect(pivot._Button._Title.color).toBe(getHexColor('070707'));
+    });
+
+    it('should update color and scale on unfocus', () => {
+      pivot._Button._unfocus();
+      testRenderer.update();
+      expect(pivot._Button.color).toBe(0);
+      expect(pivot._Button.scale).toBe(1);
+      expect(pivot._Button._Title.color).toBe(getHexColor('FAFAFA'));
+    });
+
+    it('should alpha in drop shadow and scale up on focus', () => {
+      pivot._focus();
+      testRenderer.update();
+      expect(pivot._DropShadow.alpha).toBe(1);
+      expect(pivot.alpha).toBe(1);
+    });
+    it('should alpha out drop shadow on unfocus', () => {
+      pivot._unfocus();
+      testRenderer.update();
+      expect(pivot._DropShadow.alpha).toBe(0);
     });
   });
 });

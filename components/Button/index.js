@@ -104,10 +104,17 @@ export default class Button extends lng.Component {
       let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
       if (
         this._Title.renderWidth + iconSize >
-          this.w - (this._theme.padding || 50) &&
+          this.w - (this._theme.padding || 50) * 2 &&
         !this.fixed
       ) {
-        this.w = this._Title.renderWidth + this._theme.padding || 50;
+        this.w =
+          this._Title.renderWidth + (this._theme.padding || 50) * 2 + iconSize;
+        (this.texture = lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.w),
+          RoundRect.getHeight(this.h),
+          this.radius
+        )),
+          this.signal('buttonWidthChanged', { w: this.w });
         if (this._stroke) this.stroke = this._stroke;
       }
     });
