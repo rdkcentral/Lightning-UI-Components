@@ -35,7 +35,7 @@ describe('RoundRect', () => {
       const width = RoundRect.getWidth(expected);
       const [component, testRenderer] = createRoundRect(width, 100);
       testRenderer.update();
-      expect(component.finalW).toBe(expected);
+      expect(component.finalW).toBe(expected + 2);
     });
 
     it('handles strokeWidth', () => {
@@ -49,7 +49,7 @@ describe('RoundRect', () => {
         options.strokeWidth
       );
       testRenderer.update();
-      expect(component.finalW).toBe(expected);
+      expect(component.finalW).toBe(expected + 2);
     });
 
     it('handles padding', () => {
@@ -62,7 +62,7 @@ describe('RoundRect', () => {
         paddingRight: options.padding
       };
       testRenderer.update();
-      expect(component.finalW).toBe(expected);
+      expect(component.finalW).toBe(expected + 2);
 
       // paddingLeft and paddingRight should override padding
       options.paddingLeft = 10;
@@ -74,7 +74,7 @@ describe('RoundRect', () => {
       width = RoundRect.getWidth(expected, options);
       component.texture = lng.Tools.getRoundRect(width, 100);
       testRenderer.update();
-      expect(component.finalW).toBe(expected);
+      expect(component.finalW).toBe(expected + 2);
     });
   });
 
@@ -88,7 +88,7 @@ describe('RoundRect', () => {
       const height = RoundRect.getHeight(expected);
       const [component, testRenderer] = createRoundRect(100, height);
       testRenderer.update();
-      expect(component.finalH).toBe(expected);
+      expect(component.finalH).toBe(expected + 2);
     });
 
     it('handles strokeWidth', () => {
@@ -102,7 +102,7 @@ describe('RoundRect', () => {
         options.strokeWidth
       );
       testRenderer.update();
-      expect(component.finalH).toBe(expected);
+      expect(component.finalH).toBe(expected + 2);
     });
 
     it('handles padding', () => {
@@ -115,7 +115,7 @@ describe('RoundRect', () => {
         paddingTop: options.padding
       };
       testRenderer.update();
-      expect(component.finalH).toBe(expected);
+      expect(component.finalH).toBe(expected + 2);
 
       // paddingLeft and paddingRight should override padding
       options.paddingBottom = 10;
@@ -127,7 +127,7 @@ describe('RoundRect', () => {
       height = RoundRect.getHeight(expected, options);
       component.texture = lng.Tools.getRoundRect(100, height);
       testRenderer.update();
-      expect(component.finalH).toBe(expected);
+      expect(component.finalH).toBe(expected + 2);
     });
   });
 });

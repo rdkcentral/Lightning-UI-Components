@@ -26,7 +26,7 @@ export const RoundRect = {
    * @param {number} options.paddingRight - px value for right padding, overrides options.padding
    * @param {number} options.strokeWidth - px value for stroke width
    */
-  getWidth(w = 2, options = {}) {
+  getWidth(w, options = {}) {
     const { padding, paddingLeft, paddingRight, strokeWidth } = {
       padding: 0,
       paddingLeft: 0,
@@ -35,8 +35,10 @@ export const RoundRect = {
       ...options
     };
 
+    if (!w) return 0;
+
     return (
-      w - (paddingLeft || padding) - (paddingRight || padding) - strokeWidth - 2
+      w - (paddingLeft || padding) - (paddingRight || padding) - strokeWidth
     );
   },
   /**
@@ -49,7 +51,7 @@ export const RoundRect = {
    * @param {number} options.paddingTop - px value for top padding, overrides options.padding
    * @param {number} options.strokeWidth - px value for stroke width
    */
-  getHeight(h = 2, options = {}) {
+  getHeight(h, options = {}) {
     const { padding, paddingBottom, paddingTop, strokeWidth } = {
       padding: 0,
       paddingBottom: 0,
@@ -58,8 +60,10 @@ export const RoundRect = {
       ...options
     };
 
+    if (!h) return 0;
+
     return (
-      h - (paddingBottom || padding) - (paddingTop || padding) - strokeWidth - 2
+      h - (paddingBottom || padding) - (paddingTop || padding) - strokeWidth
     );
   }
 };
