@@ -79,12 +79,6 @@ addDecorator((StoryComponent, { parameters }) => {
     }
   };
 
-  //Clear any lightning inspector info
-  if (document.querySelectorAll('[type=StoryApp]').length > 1) {
-    let div = document.querySelector('[type=StoryApp]');
-    div.parentNode.parentNode.removeChild(div.parentNode);
-  }
-
   //Expose the APP for debugging
   window.APP = app;
   return app.stage.getCanvas();

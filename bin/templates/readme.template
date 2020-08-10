@@ -22,11 +22,13 @@ class Example extends lng.Component {
 };
 ```
 
+Include previews:
+
 <Preview>
   <Story id="component--basic" />
 </Preview>
 
-The `id` value format is `mycomponent--storyname`
+The `id` for the preview comes from the url path generated for the story.
 
 ## API
 

@@ -28,6 +28,9 @@ body.overflow-scroll {
   window.addEventListener('message', e => {
     setTimeout(() => {
       const data = e.data && JSON.parse(e.data);
+      //Clear any lightning inspector info
+      let div = document.querySelector('[type=StoryApp]');
+      div && div.parentNode.remove();
       if (
         data &&
         data.event.type === 'setCurrentStory'
@@ -36,8 +39,8 @@ body.overflow-scroll {
         case 'story':
           document.body.classList.remove('overflow-scroll');
           break;
-        case 'docs':
-          document.body.classList.add('overflow-scroll');
+          case 'docs':
+            document.body.classList.add('overflow-scroll');
           break;
       }
     });
