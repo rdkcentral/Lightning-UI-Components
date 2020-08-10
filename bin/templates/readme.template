@@ -2,11 +2,11 @@ import { Preview, Story } from '@storybook/addon-docs/blocks';
 
 # MyComponent
 
-Component to be displayed in a list
+Short component description
 
 ## Usage
 
-`ListItem` can display a `title`, `subtitle`, and `icon`:
+Explain how `MyComponent` works with examples:
 
 ```js
 import { MyComponent } from '@lightning/ui';
@@ -23,37 +23,21 @@ class Example extends lng.Component {
 ```
 
 <Preview>
-  <Story id="listitem--basic" />
+  <Story id="component--basic" />
 </Preview>
 
-The expected icon size is 40x40.
-
-### Background
-
-For a transparent background, set `background: 'float'`. The default value is `fill`.
-
-### Sizing
-
-There are three sizing options, `small`, `large`, and any positive integer. The default value is `large`. These options only affect width, the height is fixed at 88px.
-
-### Focus
-
-When focused, the background/foreground colors are inverted.
+The `id` value format is `mycomponent--storyname`
 
 ## API
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
-background|'fill'\|'float'|false|color of `ListItem` container.
-icon|string|false|path to icon image
-size|'small'\|'large'\|number|false|width of the `ListItem` container
-subtitle|string|false|item metadata info goes here
-title|string|false|main item info goes here
+name|type|required|default|description
+--|--|--|--|--
+-|-|-|-|-
 
 ### Methods
 
-#### _handleEnter
+#### methodName(args): returnValue
 
-Can be overridden to apply handling for the <kbd>Enter</kbd> key
+Method description
