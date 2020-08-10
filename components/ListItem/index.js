@@ -6,6 +6,7 @@
  *
  */
 import lng from 'wpe-lightning';
+import Tile from '../Tile';
 import Toggle from '../Toggle';
 import { RoundRect } from '../../utils';
 
@@ -34,8 +35,6 @@ export class ListItemBase extends lng.Component {
     return {
       background: 'fill',
       color: COLORS_BASE.transparent,
-      leftSlot: {},
-      rightSlot: {},
       Container: {
         flex: {
           direction: 'row',
@@ -67,10 +66,6 @@ export class ListItemBase extends lng.Component {
       color,
       texture
     });
-
-    // Init Slots
-    this._Left.patch(this.leftSlot);
-    this._Right.patch(this.rightSlot);
   }
 
   _focus() {
@@ -101,13 +96,14 @@ export class ListItemBase extends lng.Component {
 }
 
 export default class ListItem extends ListItemBase {
-  _construct() {
-    this.leftSlot = {};
-    this.rightSlot = {};
-  }
   _init() {
+    super._init();
+
+    const left = {};
+    const right = {};
+
     if (this.title) {
-      this.leftSlot.Title = {
+      left.Title = {
         alpha: 0.95,
         text: {
           h: 40,
@@ -119,7 +115,7 @@ export default class ListItem extends ListItemBase {
     }
 
     if (this.subtitle) {
-      this.leftSlot.Subtitle = {
+      left.Subtitle = {
         alpha: 0.8,
         text: {
           h: 32,
@@ -131,13 +127,15 @@ export default class ListItem extends ListItemBase {
     }
 
     if (this.icon) {
-      this.rightSlot.Icon = {
+      right.Icon = {
         h: 40,
         w: 40,
         src: this.icon
       };
     }
-    super._init();
+
+    this._Left.patch({ ...left });
+    this._Right.patch({ ...right });
   }
 
   _focus() {
@@ -177,16 +175,16 @@ export default class ListItem extends ListItemBase {
 
 export class ListItemToggle extends ListItem {
   _init() {
+    super._init();
     this.icon = undefined;
-    this.rightSlot = {
+    this._Right.patch({
       w: 64,
       h: 32,
       Toggle: {
         type: Toggle,
         checked: this.checked
       }
-    };
-    super._init();
+    });
   }
 
   isChecked() {
@@ -207,5 +205,52 @@ export class ListItemToggle extends ListItem {
 
   get _Toggle() {
     return this.tag('Container').tag('Toggle');
+  }
+}
+
+export class ListItemImage extends ListItem {
+  static _template() {
+    const template = super._template();
+    return {
+      ...template,
+      Container: {
+        Image: {
+          type: Tile,
+          flexItem: {
+            marginRight: 16
+          },
+          rounded: 8,
+          h: 56,
+          w: 56
+        },
+        ...template.Container,
+        flex: {
+          ...template.Container.flex,
+          justifyContent: 'flex-start'
+        }
+      }
+    };
+  }
+
+  _init() {
+    super._init();
+
+    if (this.icon) {
+      this._Right.patch({
+        flexItem: {
+          grow: 1
+        },
+        Icon: {
+          flexItem: {
+            alignSelf: 'flex-end'
+          }
+        }
+      });
+    }
+    this._Image.patch({ src: this.src });
+  }
+
+  get _Image() {
+    return this._Container.tag('Image');
   }
 }

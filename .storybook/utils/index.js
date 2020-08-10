@@ -19,6 +19,7 @@ export const DocsLink = ({ children, id }) => {
 };
 
 export const Item = ({ children }) => children;
+
 /**
  * Creates formatted object for markdown prop tables
  * @param {Object} props
@@ -35,6 +36,7 @@ export const ObjectFormat = ({ object }) => {
     '}'
   ].map((x, i) => <Item key={i}>{x}</Item>);
 };
+
 /**
  * Formats TS-style generic types
  * @param {Object} props
@@ -43,4 +45,21 @@ export const ObjectFormat = ({ object }) => {
  */
 export const GenericType = ({ children, type }) => {
   return [type, '<', children, '>'].map((x, i) => <Item key={i}>{x}</Item>);
+};
+
+/**
+ * Creates an object suitable for option knobs
+ * @param  {...String} opts - any number of labels that you want converted to lower-case values
+ * @example
+ * makeOptions('Large', 'Small') 
+ * //=> { Large: 'large', 'Small', 'small' }
+ */
+export const makeOptions = (...opts) => {
+  return opts.reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: key.toLowerCase()
+    }),
+    {}
+  );
 };
