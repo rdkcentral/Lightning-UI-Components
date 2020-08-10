@@ -3,6 +3,7 @@ import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
 
 import { ListItemBase } from '.';
 import mdx from './ListItem.mdx';
+import { makeOptions } from '../../.storybook/utils';
 
 export default {
   title: 'ListItemBase',
@@ -15,16 +16,6 @@ export default {
   }
 };
 
-const makeOptions = (...opts) => {
-  return opts.reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: key.toLowerCase()
-    }),
-    {}
-  );
-};
-
 export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
@@ -32,15 +23,22 @@ export const Basic = () =>
         ListItem: {
           type: ListItemBase,
           size: radios('Size', makeOptions('Large', 'Small'), 'large'),
-          background: radios(
-            'Background',
-            makeOptions('Fill', 'Float'),
-            'fill'
-          ),
-          leftSlot: { w: 50, h: 50, rect: true },
-          rightSlot: { w: 50, h: 50, rect: true }
+          background: radios('Background', makeOptions('Fill', 'Float'), 'fill')
         }
       };
+    }
+
+    _init() {
+      this.tag('ListItem')._Left.patch({
+        w: 50,
+        h: 50,
+        rect: true
+      });
+      this.tag('ListItem')._Right.patch({
+        w: 50,
+        h: 50,
+        rect: true
+      });
     }
 
     _getFocused() {
@@ -64,11 +62,25 @@ export const FullWidth = () =>
         }
       };
     }
+
+    _init() {
+      this.tag('ListItem')._Left.patch({
+        h: 50,
+        rect: true,
+        flexItem: { grow: 1 }
+      });
+    }
   };
 
 export const Stacked = () =>
   class Stacked extends lng.Component {
     static _template() {
+      return {
+        ListItem: { type: ListItemBase }
+      };
+    }
+
+    _init() {
       const slot = {
         Top: {
           h: 30,
@@ -84,13 +96,8 @@ export const Stacked = () =>
         }
       };
 
-      return {
-        ListItem: {
-          type: ListItemBase,
-          leftSlot: slot,
-          rightSlot: slot
-        }
-      };
+      this.tag('ListItem')._Left.patch({ ...slot });
+      this.tag('ListItem')._Right.patch({ ...slot });
     }
   };
 
@@ -98,19 +105,20 @@ export const Text = () =>
   class Text extends lng.Component {
     static _template() {
       return {
-        ListItem: {
-          type: ListItemBase,
-          leftSlot: {
-            Text: {
-              text: {
-                fontSize: 28,
-                h: 40,
-                text: 'Hello world'
-              }
-            }
+        ListItem: { type: ListItemBase }
+      };
+    }
+
+    _init() {
+      this.tag('ListItem')._Left.patch({
+        Text: {
+          text: {
+            fontSize: 28,
+            h: 40,
+            text: 'Hello world'
           }
         }
-      };
+      });
     }
   };
 
@@ -118,24 +126,25 @@ export const StackedText = () =>
   class StackedText extends lng.Component {
     static _template() {
       return {
-        ListItem: {
-          type: ListItemBase,
-          leftSlot: {
-            Text1: {
-              text: {
-                fontSize: 28,
-                text: `This is a title`
-              }
-            },
-            Text2: {
-              alpha: 0.7,
-              text: {
-                fontSize: 22,
-                text: `this is a subtitle`
-              }
-            }
+        ListItem: { type: ListItemBase }
+      };
+    }
+
+    _init() {
+      this.tag('ListItem')._Left.patch({
+        Text1: {
+          text: {
+            fontSize: 28,
+            text: `This is a title`
+          }
+        },
+        Text2: {
+          alpha: 0.7,
+          text: {
+            fontSize: 22,
+            text: `this is a subtitle`
           }
         }
-      };
+      });
     }
   };

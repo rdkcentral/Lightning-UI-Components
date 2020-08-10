@@ -1,11 +1,13 @@
-import ListItem, { ListItemBase, ListItemToggle } from '.';
+import ListItem, { ListItemBase, ListItemImage, ListItemToggle } from '.';
 import { getHexColor } from '../Styles';
 import TestUtils from '../lightning-test-utils';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
+const src = TestUtils.pathToDataURI('assets/images/56.png');
 
 const createListItem = TestUtils.makeCreateComponent(ListItem);
 const createListItemBase = TestUtils.makeCreateComponent(ListItemBase);
+const createListItemImage = TestUtils.makeCreateComponent(ListItemImage);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 
 describe('ListItemBase', () => {
@@ -205,5 +207,40 @@ describe('ListItemToggle', () => {
       listItemToggle.toggle();
       expect(spy).toHaveBeenCalled();
     });
+  });
+});
+
+describe('ListItemImage', () => {
+  let listItemImage, testRenderer;
+
+  beforeEach(() => {
+    [listItemImage, testRenderer] = createListItemImage({
+      title: 'List Item',
+      subtitle: 'List Item Metadata',
+      src
+    });
+    testRenderer.update();
+  });
+
+  afterEach(() => {
+    listItemImage = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders optional icon', () => {
+    const { title, subtitle } = listItemImage;
+    [listItemImage, testRenderer] = createListItemImage({
+      title,
+      subtitle,
+      src,
+      icon
+    });
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

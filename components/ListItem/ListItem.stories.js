@@ -3,6 +3,7 @@ import { boolean, radios, withKnobs, text } from '@storybook/addon-knobs';
 
 import ListItem from '.';
 import mdx from './ListItem.mdx';
+import { makeOptions } from '../../.storybook/utils';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
@@ -14,16 +15,6 @@ export default {
       page: mdx
     }
   }
-};
-
-const makeOptions = (...opts) => {
-  return opts.reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: key.toLowerCase()
-    }),
-    {}
-  );
 };
 
 export const Basic = () =>

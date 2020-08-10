@@ -3,6 +3,7 @@ import { boolean, radios, withKnobs, text } from '@storybook/addon-knobs';
 
 import { ListItemToggle } from '.';
 import mdx from './ListItemToggle.mdx';
+import { makeOptions } from '../../.storybook/utils';
 
 export default {
   title: 'ListItemToggle',
@@ -13,16 +14,6 @@ export default {
       page: mdx
     }
   }
-};
-
-const makeOptions = (...opts) => {
-  return opts.reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: key.toLowerCase()
-    }),
-    {}
-  );
 };
 
 export const Basic = () =>

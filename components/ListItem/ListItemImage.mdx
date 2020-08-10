@@ -1,0 +1,49 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# ListItemImage
+
+A [`ListItem`](?path=/docs/listitem--basic) with a [`Tile`](?path=/docs/tile--basic) image
+
+## Usage
+
+`ListItemImage` can display a `title`, `subtitle`, and `src` for the image. The expected image size is 56x56.
+
+```js
+import { ListItem } from '@lightning/lightning-ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ListItem: {
+        type: ListItem,
+        title: 'List Item',
+        subtitle: 'List item metadata',
+        src: 'path/to/image.png'
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="listitemimage--basic" />
+</Preview>
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+background|'fill'\|'float'|false|color of `ListItem` container.
+icon|string|false|path to icon image
+size|'small'\|'large'\|number|false|width of the `ListItem` container
+src|string|false|path to image
+subtitle|string|false|item metadata info goes here
+title|string|false|main item info goes here
+
+### Methods
+
+#### _handleEnter():void
+
+Can be overridden to apply handling for the <kbd>Enter</kbd> key
