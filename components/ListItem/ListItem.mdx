@@ -45,6 +45,34 @@ There are three sizing options, `small`, `large`, and any positive integer. The 
 
 When focused, the background/foreground colors are inverted.
 
+### Icons
+
+Adding icons to a `ListItem` is optional, and they can be added one of two ways:
+
+**Pass a url path**
+
+```js
+{
+  type: ListItem,
+  icon: 'path/to/icon.png'
+}
+```
+
+**Pass a list of paths**
+
+```js
+{
+  type: ListItem,
+  icon: ['path/to/icon.png', 'path/to/other/icon.png']
+}
+```
+
+If multiple icons are passed, they will be laid out horizontally in order.
+
+<Preview>
+  <Story id="listitem--multiple-icons" />
+</Preview>
+
 ## API
 
 ### Properties
@@ -52,7 +80,7 @@ When focused, the background/foreground colors are inverted.
 name|type|readonly|description
 --|--|--|--
 background|'fill'\|'float'|false|color of `ListItem` container.
-icon|string|false|path to icon image
+icon|string\|string[]|false|path to icon image (or list of paths)
 size|'small'\|'large'\|number|false|width of the `ListItem` container
 subtitle|string|false|item metadata info goes here
 title|string|false|main item info goes here
