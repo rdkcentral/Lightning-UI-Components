@@ -7,6 +7,7 @@ import { SCREEN } from './Layout';
 export * from './Layout';
 export * from './Fonts';
 export * from './Colors';
+export * from './Transitions';
 
 /**
  * Amount of rounding to add to corners based on the item's size
