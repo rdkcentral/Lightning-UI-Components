@@ -83,4 +83,13 @@ export default (base, speak = Speech) =>
         speak(toAnnounce);
       }
     }
+
+    $announce(toAnnounce) {
+      speak(toAnnounce);
+    }
+
+    $announcerRefresh() {
+      this._lastFocusPath = undefined;
+      this._focusChange();
+    }
   };

@@ -48,3 +48,11 @@ name|type|readonly|description
 --|--|--|--
 announcerEnabled|boolean|false|flag to turn on our off Announcer
 announcerTimeout|number|false|By default the announcer only gets information about what changed between focus paths. The announcerTimeout resets the cache to announce the full focus path when the user has been inactive a certain amount of time. Default value is 5 minutes.
+
+
+### Signals
+
+name|args|description
+--|--|--|--
+$announce|string|Announce a string or array of strings can be passed
+$announcerRefresh|none|Performs a full announce using the focusPath

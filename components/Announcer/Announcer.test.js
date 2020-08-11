@@ -248,4 +248,25 @@ describe('AppAnnouncer', () => {
       ]);
     });
   });
+
+  describe('$announce', () => {
+    it('should call speak', () => {
+      announcer.$announce('hello');
+      expect(speak).toHaveBeenCalledWith('hello');
+    });
+  });
+
+  describe('$announcerRefresh', () => {
+    it('should perform a full announce', () => {
+      announcer.$announcerRefresh();
+      expect(speak).toHaveBeenCalledWith([
+        'Welcome to Flex',
+        'HomePage',
+        'Free to Me',
+        'Ninja Turtles',
+        '1 of 3',
+        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+      ]);
+    });
+  });
 });
