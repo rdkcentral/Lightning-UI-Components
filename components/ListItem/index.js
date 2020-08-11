@@ -127,11 +127,19 @@ export default class ListItem extends ListItemBase {
     }
 
     if (this.icon) {
-      right.Icon = {
-        h: 40,
-        w: 40,
-        src: this.icon
+      right.flex = {
+        direction: 'row'
       };
+
+      [...(Array.isArray(this.icon) ? this.icon : [this.icon])].forEach(
+        (icon, index) => {
+          right[`Icon${index || ''}`] = {
+            h: 40,
+            w: 40,
+            src: icon
+          };
+        }
+      );
     }
 
     this._Left.patch({ ...left });
@@ -141,7 +149,7 @@ export default class ListItem extends ListItemBase {
   _focus() {
     super._focus();
     const color = 0xff000000;
-    [this._Title, this._Subtitle, this._Icon]
+    [this._Title, this._Subtitle, ...this._icons]
       .filter(Boolean)
       .forEach(tag => tag.setSmooth('color', color));
   }
@@ -149,27 +157,25 @@ export default class ListItem extends ListItemBase {
   _unfocus() {
     super._unfocus();
     const color = 0xffffffff;
-    [this._Title, this._Subtitle, this._Icon]
+    [this._Title, this._Subtitle, ...this._icons]
       .filter(Boolean)
       .forEach(tag => tag.setSmooth('color', color));
   }
 
   get _Title() {
-    return this.tag('Container')
-      .tag('Left')
-      .tag('Title');
+    return this._Left.tag('Title');
   }
 
   get _Subtitle() {
-    return this.tag('Container')
-      .tag('Left')
-      .tag('Subtitle');
+    return this._Left.tag('Subtitle');
   }
 
   get _Icon() {
-    return this.tag('Container')
-      .tag('Right')
-      .tag('Icon');
+    return this._Right.tag('Icon');
+  }
+
+  get _icons() {
+    return this._Right.children;
   }
 }
 

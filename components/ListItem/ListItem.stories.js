@@ -72,3 +72,25 @@ export const HandleEnter = () =>
       return this.tag('ListItem');
     }
   };
+
+export const MultipleIcons = () =>
+  class MultipleIcons extends lng.Component {
+    static _template() {
+      return {
+        ListItem: {
+          type: ListItem,
+          title: 'List Item',
+          subtitle: 'List item metadata',
+          icon: [icon, icon],
+          size: 'small',
+          background: 'fill'
+        }
+      };
+    }
+
+    _getFocused() {
+      if (boolean('Focused', false)) {
+        return this.tag('ListItem');
+      }
+    }
+  };

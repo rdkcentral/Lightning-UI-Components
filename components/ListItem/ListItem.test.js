@@ -135,6 +135,17 @@ describe('ListItem', () => {
     expect(listItem._Icon.src).toEqual(listItem.icon);
   });
 
+  it('should render multiple icons', () => {
+    [listItem, testRenderer] = createListItem({
+      icon: [icon, icon]
+    });
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItem._icons.map(icon => icon.src)).toEqual(
+      expect.arrayContaining(listItem.icon)
+    );
+  });
+
   describe('focus', () => {
     beforeEach(() => {
       [listItem, testRenderer] = createListItem({
