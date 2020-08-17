@@ -1,0 +1,58 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# ToolTip
+
+Component to provide hint information to other components like buttons and action items.
+
+## Usage
+
+`ToolTip` can display a `title` and is added as a child to any component that needs hint text.  It is positioned above the parent component using the property 'bottomMargin' and centered horizontally based on the parent's width:
+
+```js
+import { ToolTip } from '@lightning/ui';
+import ActionButton from '../ActionButton';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+        Button: {
+          type: ActionButton,
+          x: 200,
+          y: 100,
+          w: 410,
+          title: '+',
+          background: 'stroke',
+          ToolTip: {
+            type: ToolTip,
+            title: 'Add to My List!',
+            bottomMargin: 24
+          }
+        }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="tooltip--basic" />
+</Preview>
+
+The default 'bottomMargin' is 40px above the parent
+
+### Sizing
+
+The size of the tooltip is based on the length of it's 'title'.  If the 'title' exceeds 400px the text wraps, and the background resizes to accomodate.
+
+### Focus
+
+ToolTip is only visible on focus of the parent.
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+title|string|false|tool tip text goes here
+bottomMargin|int|false|space between parent component and tooltip in pixels (default: 40px)
+
