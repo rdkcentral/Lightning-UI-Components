@@ -1,0 +1,42 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './ProgressBar.stories';
+
+# ProgressBar
+
+Component that shows current progress in a range
+
+## Usage
+
+`ProgressBar` can display `progress` as a perctange of the total `w`:
+
+```js
+import { ProgressBar } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ProgressBar: {
+        type: ProgressBar,
+        w: 410,
+        percentage: 0.5
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="progressbar--basic" />
+</Preview>
+
+The default progress bar width is 410.
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+w|number|false|410|width of the bar
+progress|number|false|0|percentage of the current progress from 0 to 1
