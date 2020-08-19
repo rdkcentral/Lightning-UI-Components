@@ -80,6 +80,7 @@ export class ListItemBase extends lng.Component {
     };
   }
 
+  // TODO: need to rethink this logic
   _handleEnter() {} // to be overridden
 
   get _Container() {

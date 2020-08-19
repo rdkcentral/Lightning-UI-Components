@@ -164,6 +164,9 @@ export default class Button extends lng.Component {
     this._theme.unfocus.patch.apply(this);
   }
 
+  // TODO: need to rethink this logic
+  _handleEnter() {} // to be overridden
+
   get announce() {
     // TODO - Localization?
     // Do we need a locale file with
