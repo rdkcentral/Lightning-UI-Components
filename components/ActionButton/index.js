@@ -177,6 +177,9 @@ export default class ActionButton extends lng.Component {
     return this._Button;
   }
 
+  // TODO: need to rethink this logic
+  _handleEnter() {} // to be overridden
+
   get _Button() {
     return this.tag('Button');
   }
