@@ -105,7 +105,7 @@ describe('Pivot', () => {
       pivot._Button._focus();
       testRenderer.update();
       expect(pivot._Button.color).toBe(getHexColor('ECECF2'));
-      expect(pivot._Button.scale).toBe(1.18);
+      expect(pivot._Button.scale).toBe(1.26);
       expect(pivot._Button._Title.color).toBe(getHexColor('070707'));
     });
 

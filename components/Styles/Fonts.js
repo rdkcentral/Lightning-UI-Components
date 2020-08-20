@@ -15,7 +15,7 @@ export const XfinityFonts = {
       },
       medium: {
         family: 'Medium',
-        url: 'xfinitystandard-medium.wofff'
+        url: 'xfinitystandard-medium.woff'
       },
       bold: {
         family: 'Bold',

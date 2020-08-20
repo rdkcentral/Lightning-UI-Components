@@ -66,7 +66,7 @@ export const PIVOT_THEME = {
   }
 };
 
-export default class ActionButton extends lng.Component {
+export default class Pivot extends lng.Component {
   static _template() {
     return {
       Loader: {
@@ -137,9 +137,13 @@ export default class ActionButton extends lng.Component {
     this._whenEnabled.then(() => {
       this.patch({
         Loader: undefined,
-        Button: { title, alpha: 1, w: 0 }
+        Button: { title, alpha: 1 }
       });
     });
+  }
+
+  get title() {
+    return this._title;
   }
 
   set icon(icon) {
