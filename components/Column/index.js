@@ -100,7 +100,8 @@ export default class Column extends FocusManager {
     for (let i = totalItems - 1; i >= 0; i--) {
       MAX_HEIGHT -= this.items[i].h + this.itemSpacing;
       if (MAX_HEIGHT <= 0) {
-        return i + 1;
+        this._previousLastIndex = Math.max(this._previousLastIndex || 0, i + 1);
+        return this._previousLastIndex;
       }
     }
 
@@ -157,21 +158,33 @@ export default class Column extends FocusManager {
       if (itemY >= this._columnHeight) {
         return this.onScreenEffect(this._renderUp());
       }
+
+      return this.onScreenEffect(this._renderDown(index));
     }
 
     // Scroll mount is middle
     let scrollStart = this._columnHeight * this.scrollMount;
     let startScrollIndex = this._computeStartScrollIndex(scrollStart);
 
+    // Handle first items on screen
     if (index < startScrollIndex) {
       return this.onScreenEffect(this._renderDown(0));
     }
 
     itemY = scrollStart - this.selected.h / 2;
+
+    // Handle last items on screen
+    if (
+      this.selected.y > itemY &&
+      this._isOnScreen(this.items[this.items.length - 1].y)
+    ) {
+      return;
+    }
+
     this.onScreenEffect(
       [].concat(
-        this._renderUp(index - 1, itemY),
-        this._renderDown(index, itemY)
+        this._renderUp(this.selectedIndex - 1, itemY),
+        this._renderDown(this.selectedIndex, itemY)
       )
     );
   }

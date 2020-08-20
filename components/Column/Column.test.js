@@ -273,7 +273,6 @@ describe('Column', () => {
       });
 
       describe('and scrollMount = 0.5', () => {
-        // TODO go over these tests and make sure the expectations are correct
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollMount = 0.5;
@@ -318,12 +317,29 @@ describe('Column', () => {
           testRenderer.update();
           expect(item.y).toBe(-140);
         });
+
+        it('should keep a full screen of items when at bottom', () => {
+          let item = column.items[1];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(-140);
+        });
       });
 
       describe('and scrollMount = 1', () => {
         beforeEach(() => {
+          column.items = items.concat(items);
           column.scrollMount = 1;
           column.render();
+          testRenderer.update();
         });
 
         it('should render correctly', () => {
@@ -367,11 +383,12 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
-          testRenderer.update();
+          testRenderer.keyPress('Up');
           expect(item.y).toBe(0);
         });
 
@@ -403,6 +420,7 @@ describe('Column', () => {
       });
 
       it('should load more items near bottom with getMoreItems', () => {
+        column.items = items;
         let mock = jest.fn();
         mock.mockReturnValue(Promise.resolve([]));
         column._getMoreItems = mock;
