@@ -1,19 +1,27 @@
 <link rel="preload" href="https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff" as="font" crossorigin="anonymous">
 <link rel="preload" href="https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-medium.woff" as="font" crossorigin="anonymous">
+<link rel="preload" href="https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff" as="font" crossorigin="anonymous">
 <style>
   @font-face {
   font-family: 'XfinityStandardBold';
-  font-style: normal;
-  font-weight: 400;
+  font-style: bold;
+  font-weight: 700;
   src: local('XfinityStandardBold'),
        url('https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff') format('woff') /* will be preloaded */
 }
 @font-face {
   font-family: 'XfinityStandardMedium';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   src: local('XfinityStandardMedium'),
        url('https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-medium.woff') format('woff') /* will be preloaded */
+}
+@font-face {
+  font-family: 'XfinityBrownBold';
+  font-style: bold;
+  font-weight: 700;
+  src: local('XfinityBrownBold'),
+       url('https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff') format('woff') /* will be preloaded */
 }
 
 /* we want 1080p previews without the scrolling action */
@@ -39,8 +47,8 @@ body.overflow-scroll {
         case 'story':
           document.body.classList.remove('overflow-scroll');
           break;
-          case 'docs':
-            document.body.classList.add('overflow-scroll');
+        case 'docs':
+          document.body.classList.add('overflow-scroll');
           break;
       }
     });

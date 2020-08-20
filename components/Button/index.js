@@ -72,7 +72,6 @@ export default class Button extends lng.Component {
   }
 
   _init() {
-    this.icon = this.icon || {};
     this.theme = getTheme(DEFAULT_THEME, this.theme || {});
     this.background = this.background || this._theme.unfocus.background;
     this.patch({
@@ -101,13 +100,14 @@ export default class Button extends lng.Component {
     this._title = title;
     this._Title.on('txLoaded', () => {
       let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+      let padding = [this.padding, this._theme.padding, 50].find(
+        Number.isFinite
+      );
       if (
-        this._Title.renderWidth + iconSize >
-          this.w - (this._theme.padding || 50) * 2 &&
+        this._Title.renderWidth + iconSize > this.w - padding * 2 &&
         !this.fixed
       ) {
-        this.w =
-          this._Title.renderWidth + (this._theme.padding || 50) * 2 + iconSize;
+        this.w = this._Title.renderWidth + padding * 2 + iconSize;
         (this.texture = lng.Tools.getRoundRect(
           RoundRect.getWidth(this.w),
           RoundRect.getHeight(this.h),
@@ -133,7 +133,7 @@ export default class Button extends lng.Component {
     }
   }
 
-  set stroke({ weight = 2, color = 0xff00ff00 }) {
+  set stroke({ weight = 2, color = 0x00 }) {
     this._stroke = { weight, color };
     this._whenEnabled.then(() => {
       this._Stroke.patch({

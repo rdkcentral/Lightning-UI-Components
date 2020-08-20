@@ -16,10 +16,12 @@
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js",
-    "!components/lightning-test-utils.js"
+    "!components/lightning-test-utils.js",
+    "!public/"
   ],
   "devDependencies": {
     "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
@@ -64,7 +66,7 @@
     "lint:fix": "npx prettier --write './{components,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
-    "start": "start-storybook",
+    "start": "start-storybook -p 8000",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch",

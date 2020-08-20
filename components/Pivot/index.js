@@ -7,139 +7,117 @@
 import lng from 'wpe-lightning';
 import Button from '../Button';
 import { RoundRect } from '../../utils';
+import withStyles from '../../mixins/withStyles';
+import { getHexColor } from '../Styles/Colors';
 
-// styles
-import {
-  TYPESCALE,
-  GRID,
-  CORNER_RADIUS,
-  COLORS_BASE,
-  getHexColor,
-  getFocusScale,
-  COLORS_TEXT
-} from '../Styles';
-
-export const COLORS = {
-  fill: getHexColor(`232328`, 48),
-  float: COLORS_BASE.transparent,
-  stroke: COLORS_BASE.transparent,
-  focused: getHexColor('ECECF2')
-};
-
-export const PIVOT_THEME = {
-  radius: CORNER_RADIUS.small,
+export const styles = theme => ({
+  shadow: theme.shadow,
+  radius: theme.border.radius.small,
   text: {
-    ...TYPESCALE.footnote,
-    textColor: getHexColor(COLORS_TEXT.light)
+    ...theme.typography.button2,
+    textColor: theme.palette.text.light.primary
   },
   w: 185,
   h: 48,
-  padding: 16,
+  background: theme.palette.background,
+  icon: {
+    size: 32,
+    spacing: theme.spacing(1)
+  },
+  loading: {
+    color: getHexColor('ffffff', 24)
+  },
+  stroke: {
+    color: theme.palette.grey[5]
+  },
+  padding: theme.spacing(2),
   unfocus: {
-    text: getHexColor(COLORS_TEXT.light),
-    icon: getHexColor(COLORS_TEXT.light),
     patch: function() {
       let scale = 1;
       this.patch({
-        smooth: { color: this._background, scale },
+        smooth: {
+          color:
+            this.styles.background[this.background] ||
+            theme.palette.background.float,
+          scale
+        },
         Content: {
-          Title: { smooth: { color: this._theme.unfocus.text } },
-          Icon: { smooth: { color: this._theme.unfocus.icon } }
+          Title: { smooth: { color: theme.palette.text.light.primary } },
+          Icon: { smooth: { color: theme.palette.text.light.primary } }
+        },
+        DropShadow: {
+          smooth: {
+            alpha: 0
+          }
         }
       });
     }
   },
   focus: {
-    background: getHexColor(`ECECF2`),
-    text: getHexColor(COLORS_TEXT.dark),
-    icon: getHexColor(COLORS_TEXT.dark),
     patch: function() {
-      let scale = getFocusScale(this.w);
+      let scale = theme.getFocusScale(this.w);
       this.patch({
-        smooth: { color: this._theme.focus.background, scale },
+        smooth: {
+          color: theme.palette.background.focus,
+          scale
+        },
         Content: {
-          Title: { smooth: { color: this._theme.focus.text } },
-          Icon: { smooth: { color: this._theme.focus.icon } }
+          Title: { smooth: { color: theme.palette.text.focus } },
+          Icon: { smooth: { color: theme.palette.text.focus } }
+        },
+        DropShadow: {
+          smooth: {
+            alpha: 1
+          }
         }
       });
     }
   }
-};
+});
 
-export default class Pivot extends lng.Component {
+class Pivot extends Button {
   static _template() {
     return {
-      Loader: {
-        color: getHexColor('ffffff', 24),
-        texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(PIVOT_THEME.w),
-          RoundRect.getHeight(PIVOT_THEME.h),
-          PIVOT_THEME.radius
-        )
+      ...super._template(),
+      backgroundType: 'float',
+      signals: {
+        buttonWidthChanged: '_widthChanged'
       },
-      Button: {
-        type: Button,
-        theme: PIVOT_THEME,
-        alpha: 0,
-        signals: {
-          buttonWidthChanged: '_widthChanged'
-        }
+      theme: {
+        w: this.styles.w,
+        h: this.styles.h,
+        padding: this.styles.padding,
+        radius: this.styles.radius,
+        text: this.styles.text,
+        focus: this.styles.focus,
+        unfocus: this.styles.unfocus
+      },
+      Loader: {
+        color: this.styles.loading.color,
+        texture: lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.styles.w),
+          RoundRect.getHeight(this.styles.h),
+          this.styles.radius
+        )
       },
       DropShadow: {
-        zIndex: -1,
-        mount: 0.5,
-        x: PIVOT_THEME.w / 2,
-        y: (PIVOT_THEME.h + GRID.spacingIncrement * 2) / 2,
-        color: getHexColor('ffffff', 64),
         alpha: 0,
-        texture: lng.Tools.getShadowRect(
-          PIVOT_THEME.w - GRID.spacingIncrement * 2,
-          PIVOT_THEME.h,
-          CORNER_RADIUS.medium,
-          16,
-          24
-        )
+        ...this.styles.shadow({
+          w: this.styles.w,
+          h: this.styles.h
+        })
       }
     };
   }
-  constructor(...args) {
-    super(...args);
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-  }
 
   _init() {
-    this.background = this.background ? this.background.toLowerCase() : 'float';
-    if (this.background === 'stroke') {
-      this._Button.stroke = {
-        weight: 2,
-        color: getHexColor('ECECF2')
-      };
-    }
-    this._Button.background =
-      COLORS[this.background] || COLORS_BASE.transparent;
-
-    if (!this.title) {
-      this._loading = this._Loader.animation({
-        duration: 2,
-        repeat: -1,
-        stopMethod: 'immediate',
-        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-      });
-      this._loading.start();
-    }
+    super._init();
+    this._update();
   }
 
   set title(title) {
-    this._title = title;
-    if (this._loading && this._loading.isPlaying()) {
-      this._loading.stop();
-    }
-    this._whenEnabled.then(() => {
-      this.patch({
-        Loader: undefined,
-        Button: { title, alpha: 1 }
-      });
-    });
+    super.title = title;
+    this._update();
   }
 
   get title() {
@@ -147,47 +125,54 @@ export default class Pivot extends lng.Component {
   }
 
   set icon(icon) {
-    this._icon = icon;
-    this._whenEnabled.then(() => {
-      this._Button.icon = {
-        src: icon,
-        size: 32,
-        spacing: GRID.spacingIncrement
-      };
-    });
+    super.icon = {
+      src: icon,
+      size: this.styles.icon.size,
+      spacing: this.styles.icon.spacing
+    };
   }
 
   _widthChanged({ w }) {
     this.w = w;
-    this._DropShadow.x = w / 2;
-    this._DropShadow.texture = lng.Tools.getShadowRect(
-      w - GRID.spacingIncrement * 2,
-      PIVOT_THEME.h,
-      CORNER_RADIUS.medium,
-      16,
-      24
-    );
+    const shadow = this.styles.shadow({ w, h: this.styles.h });
+    this._DropShadow.x = shadow.x;
+    this._DropShadow.texture = shadow.texture;
     this.fireAncestors('$itemChanged');
   }
 
-  _focus() {
-    this._DropShadow.smooth = { alpha: 1, scaleX: getFocusScale(this.w) };
-  }
+  _update() {
+    const patch = {};
+    if (!this._title) {
+      patch.Loader = { alpha: 1 };
+      this._loading = this._Loader.animation({
+        duration: 2,
+        repeat: -1,
+        stopMethod: 'immediate',
+        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+      });
+      this._loading.start();
+    } else {
+      const background =
+        this.styles.background[this.backgroundType] ||
+        this.styles.background.float;
+      const loading = this._loading && this._loading.isPlaying();
+      const stroke = this.backgroundType === 'stroke' && {
+        weight: 2,
+        color: this.styles.stroke.color
+      };
 
-  _unfocus() {
-    this._DropShadow.smooth = { alpha: 0, scaleX: 1 };
-  }
+      patch.background = background;
+      patch.Loader = { alpha: 0 };
+      if (stroke) patch.stroke = stroke;
+      if (loading) this._loading.stop();
+    }
 
-  _getFocused() {
-    return this._Button;
+    this.patch(patch);
   }
 
   // TODO: need to rethink this logic
   _handleEnter() {} // to be overridden
 
-  get _Button() {
-    return this.tag('Button');
-  }
   get _Loader() {
     return this.tag('Loader');
   }
@@ -195,3 +180,5 @@ export default class Pivot extends lng.Component {
     return this.tag('DropShadow');
   }
 }
+
+export default withStyles(Pivot, styles);

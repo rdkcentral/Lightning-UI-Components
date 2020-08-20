@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
 import TestRenderer from '../components/lightning-test-renderer';
-import { rgba2argb, RoundRect } from '.';
+import { rgba2argb, RoundRect, clone } from '.';
 
 describe('rgba2argb', () => {
   it('converts rgba() format to a number', () => {
@@ -129,5 +129,62 @@ describe('RoundRect', () => {
       testRenderer.update();
       expect(component.finalH).toBe(expected + 2);
     });
+  });
+});
+
+describe('clone', () => {
+  it('returns a copy of a target object', () => {
+    const obj = { foo: 'bar' };
+    const result = clone(obj);
+    expect(obj === result).not.toBeTrue;
+    expect(result.foo).toEqual(obj.foo);
+  });
+
+  it('merges simple objects', () => {
+    const target = { foo: 'bar', number: 3, bool: false };
+    const object = { number: 5, bool: true, extra: null };
+    const expected = { foo: 'bar', number: 5, bool: true, extra: null };
+    const result = clone(target, object);
+
+    expect(result).toEqual(expected);
+  });
+
+  it('replaces arrays', () => {
+    const target = { arr: [1, 2, 3] };
+    const object = { arr: ['one', 'two', 'three'] };
+    const result = clone(target, object);
+    expect(result).toEqual(object);
+  });
+
+  it('deep merges complex objects', () => {
+    const target = {
+      level: 1,
+      nested: {
+        level: 2,
+        nested: {
+          foo: 'bar',
+          level: 3
+        }
+      }
+    };
+    const object = {
+      nested: {
+        nested: {
+          foo: 'baz'
+        }
+      }
+    };
+    const expected = {
+      level: 1,
+      nested: {
+        level: 2,
+        nested: {
+          foo: 'baz',
+          level: 3
+        }
+      }
+    };
+    const result = clone(target, object);
+    expect(result).toEqual(expected);
   });
 });
