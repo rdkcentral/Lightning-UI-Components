@@ -1,18 +1,18 @@
 'use strict';
 
 import TestUtils from '../lightning-test-utils';
-import ToolTip from '.';
+import Tooltip from '.';
 import Button from '../Button';
 import { JPEGStream } from 'canvas';
 
-const createToolTip = TestUtils.makeCreateComponent(ToolTip);
+const createTooltip = TestUtils.makeCreateComponent(Tooltip);
 const createButton = TestUtils.makeCreateComponent(Button);
 
-describe('ToolTip', () => {
+describe('Tooltip', () => {
   let tooltip, testRenderer;
 
   beforeEach(() => {
-    [tooltip, testRenderer] = createToolTip({ title: 'ToolTip' });
+    [tooltip, testRenderer] = createTooltip({ title: 'Tooltip' });
   });
   afterEach(() => {
     tooltip = null;
@@ -108,8 +108,8 @@ describe('ToolTip', () => {
 
     it('should change when "bottomMargin" is set', done => {
       let closer_tooltip, closer_testRenderer;
-      [closer_tooltip, closer_testRenderer] = createToolTip({
-        title: 'ToolTip',
+      [closer_tooltip, closer_testRenderer] = createTooltip({
+        title: 'Tooltip',
         bottomMargin: 20
       });
       closer_tooltip._focus();
@@ -149,11 +149,11 @@ describe('ToolTip', () => {
 
     it('should change width when hint message text changes', done => {
       let short_tooltip, short_testRenderer;
-      [short_tooltip, short_testRenderer] = createToolTip({ title: 'Short' });
+      [short_tooltip, short_testRenderer] = createTooltip({ title: 'Short' });
       short_tooltip._focus();
 
       let long_tooltip, long_testRenderer;
-      [long_tooltip, long_testRenderer] = createToolTip({
+      [long_tooltip, long_testRenderer] = createTooltip({
         title: 'Long Tooltip'
       });
       long_tooltip._focus();
@@ -180,7 +180,7 @@ describe('ToolTip', () => {
 
     it('should change height and wrap text when hint message is long', done => {
       let twoLine_tooltip, twoLine_testRenderer;
-      [twoLine_tooltip, twoLine_testRenderer] = createToolTip({
+      [twoLine_tooltip, twoLine_testRenderer] = createTooltip({
         title:
           'This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...'
       });
