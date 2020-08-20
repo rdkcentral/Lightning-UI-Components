@@ -1,8 +1,9 @@
 import lng from 'wpe-lightning';
 import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
 import icon from '../../assets/images/ic_lightning_white_32.png';
-
+import withStyles from '../../mixins/withStyles';
 import Pivot from '.';
+
 import mdx from './Pivot.mdx';
 
 export default {
@@ -31,12 +32,11 @@ export const Basic = () =>
     static _template() {
       return {
         Pivot: {
-          x: 10,
           type: Pivot,
           title: text('Title', 'Dynamic Pivot'),
-          background: radios(
+          backgroundType: radios(
             'Background',
-            makeOptions('stroke', 'fill', 'float'),
+            makeOptions('stroke', 'fill', 'float', 'ghost'),
             'stroke'
           )
         }

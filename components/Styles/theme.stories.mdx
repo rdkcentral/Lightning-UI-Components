@@ -1,0 +1,54 @@
+import { Meta, Preview } from '@storybook/addon-docs/blocks';
+import { getXfinityTheme } from './createTheme';
+
+<Meta title="Styles/Themes" />
+
+export const Theme = ({ theme={} }) => {
+  /** Naively parses a theme object to generate value documentation */
+  const getValue = ([key, value], isColor=false) => {
+    if (key === '__isColor') return false;
+    switch (typeof value) {
+      case 'function':
+        return <li key={key}>{`${key}: function()`}</li>;
+      case 'string':
+        return <li key={key}>{key}: "{value}"</li>;
+      case 'object':
+        return (
+          <li key={key}>
+            <details>
+              <summary>{key}: Object</summary>
+              <ul style={{ listStyleType: 'none' }}>
+              {Object.entries(value).map(entries => getValue(entries, '__isColor' in value))}
+              </ul>
+            </details>
+          </li>
+        );
+      default:
+        return (
+          <li key={key}>
+            {key}: {isColor ? `0x${value.toString(16).toUpperCase()}` : value}
+          </li>
+        );
+    }
+  };
+  return (
+    <ul style={{ listStyleType: 'none' }}>
+    {Object.entries(theme).map(getValue)}
+    </ul>
+  )
+}
+
+# Themes
+
+## Xfinity
+
+Default theme for Xfinity-branded components.
+
+```js
+import { getXfinityTheme } from '@lightning/ui/Styles';
+const theme = getXfinityTheme();
+```
+
+### Default theme
+
+<Theme theme={getXfinityTheme()} />

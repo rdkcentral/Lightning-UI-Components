@@ -82,3 +82,46 @@ export const getTheme = (prev = {}, next = {}) => {
     }
   };
 };
+
+/**
+ * Merges two objects together and returns the duplicate.
+ *
+ * @param {Object} target - object to be cloned
+ * @param {Object} [object] - secondary object to merge into clone
+ */
+export function clone(target, object) {
+  const _clone = { ...target };
+  if (!object || target === object) return _clone;
+
+  for (let key in object) {
+    const value = object[key];
+    if (target.hasOwnProperty(key)) {
+      _clone[key] = getMergeValue(key, target, object);
+    } else {
+      _clone[key] = value;
+    }
+  }
+
+  return _clone;
+}
+
+function getMergeValue(key, target, object) {
+  const targetVal = target[key];
+  const objectVal = object[key];
+  const targetValType = typeof targetVal;
+  const objectValType = typeof objectVal;
+
+  if (
+    targetValType !== objectValType ||
+    objectValType === 'function' ||
+    Array.isArray(objectVal)
+  ) {
+    return objectVal;
+  }
+
+  if (objectVal && objectValType === 'object') {
+    return clone(targetVal, objectVal);
+  }
+
+  return objectVal;
+}

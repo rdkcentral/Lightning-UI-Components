@@ -8,6 +8,8 @@ export * from './Layout';
 export * from './Fonts';
 export * from './Colors';
 export * from './Transitions';
+export { default as createStyles } from './createStyles';
+export { default as createTheme, getXfinityTheme } from './createTheme';
 
 /**
  * Amount of rounding to add to corners based on the item's size

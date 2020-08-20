@@ -27,8 +27,8 @@ const stage = {
 class StoryApp extends lng.Application {
   static _template() {
     return {
-      x: 20,
-      y: 20
+       x: 20,
+       y: 20
     };
   }
 

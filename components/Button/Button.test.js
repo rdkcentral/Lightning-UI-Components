@@ -85,9 +85,9 @@ describe('Button', () => {
     it('should default a stroke color if none is passed', done => {
       [button, testRenderer] = createButton({ stroke: { weight: 3 } });
       button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('00ff00'));
+        expect(button._stroke.color).toBe(getHexColor('000000', 0));
         expect(button._stroke.weight).toBe(3);
-        expect(button._Stroke.color).toBe(getHexColor('00ff00'));
+        expect(button._Stroke.color).toBe(getHexColor('000000', 0));
         done();
       });
     });

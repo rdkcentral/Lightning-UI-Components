@@ -37,8 +37,11 @@ Before the Pivot receives its title, it should be in a loading state.
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
-title|string|false|button text
-icon|string|false|URI for icon that may live next to the title
-background|'stroke'\|'fill'\|'float'|false|color of `Button` container.
+name|type|required|default|description
+--|--|--|--|--
+w|number|false|185|width
+h|number|false|48|height
+padding|number|false|16|left and right padding value
+title|string|false|-|button text
+icon|string|false|-|URI for icon that may live next to the title
+backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
