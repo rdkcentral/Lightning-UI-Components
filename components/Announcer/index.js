@@ -85,7 +85,9 @@ export default (base, speak = Speech) =>
     }
 
     $announce(toAnnounce) {
-      speak(toAnnounce);
+      if (this.announcerEnabled) {
+        speak(toAnnounce);
+      }
     }
 
     $announcerRefresh() {

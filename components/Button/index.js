@@ -99,7 +99,6 @@ export default class Button extends lng.Component {
 
   set title(title) {
     this._title = title;
-    this._Title.text = title;
     this._Title.on('txLoaded', () => {
       let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
       if (
@@ -118,6 +117,7 @@ export default class Button extends lng.Component {
         if (this._stroke) this.stroke = this._stroke;
       }
     });
+    this._Title.text = title;
   }
 
   set icon({ src, size = 20, spacing = 5, color = 0xffffffff }) {
