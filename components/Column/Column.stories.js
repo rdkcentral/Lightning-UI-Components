@@ -38,6 +38,7 @@ export const Basic = () =>
         y: 20,
         Column: {
           type: Column,
+          h: 500,
           itemSpacing: number('itemSpacing', 20, itemSpacingOptions),
           scrollMount: number('scrollMount', 0, numberOptions),
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
@@ -206,6 +207,7 @@ export const VaryingItemHeight = () =>
         y: 20,
         Column: {
           type: Column,
+          h: 500,
           itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,

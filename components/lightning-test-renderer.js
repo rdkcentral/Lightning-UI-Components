@@ -66,7 +66,10 @@ function create(Component) {
     },
     getInstance: () => app.childList.first,
     getApp: () => app,
-    keyPress: key => keyPress(app, key),
+    keyPress: key => {
+      keyPress(app, key);
+      app.stage.drawFrame();
+    },
     keyRelease: key => keyRelease(app, key),
     destroy: () => app.destroy(),
     focusPath: () => app.focusPath.map(p => p.ref)
