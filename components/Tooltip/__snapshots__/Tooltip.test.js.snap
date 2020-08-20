@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ToolTip renders 1`] = `
+exports[`Tooltip renders 1`] = `
 Object {
   "Component": Object {
     "DropShadow": Object {
@@ -74,7 +74,7 @@ Object {
         "fontSize": 24,
         "lineHeight": 32,
         "maxLinesSuffix": "...",
-        "text": "ToolTip",
+        "text": "Tooltip",
         "textAlign": "center",
         "textColor": 4278650631,
         "textOverflow": "ellipsis",

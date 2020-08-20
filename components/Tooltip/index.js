@@ -12,7 +12,7 @@ import { RoundRect } from '../../utils';
 
 const horizontalPadding = GRID.spacingIncrement * 2;
 
-export default class ToolTip extends lng.Component {
+export default class Tooltip extends lng.Component {
   static _template() {
     return {
       alpha: 0,
