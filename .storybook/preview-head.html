@@ -37,8 +37,10 @@ body.overflow-scroll {
     setTimeout(() => {
       const data = e.data && JSON.parse(e.data);
       //Clear any lightning inspector info
-      let div = document.querySelector('[type=StoryApp]');
-      div && div.parentNode.remove();
+      if (document.querySelectorAll('[type=StoryApp]').length > 1) {
+        let div = document.querySelector('[type=StoryApp]');
+        div && div.parentNode.remove();
+      }
       if (
         data &&
         data.event.type === 'setCurrentStory'
