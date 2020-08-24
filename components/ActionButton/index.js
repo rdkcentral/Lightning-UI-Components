@@ -152,6 +152,13 @@ export default class ActionButton extends lng.Component {
     });
   }
 
+  get onEnter() {
+    return this._Button.onEnter;
+  }
+  set onEnter(onEnter) {
+    this._Button.onEnter = onEnter;
+  }
+
   _widthChanged({ w }) {
     this.w = w;
     this._DropShadow.x = w / 2;
@@ -177,8 +184,9 @@ export default class ActionButton extends lng.Component {
     return this._Button;
   }
 
-  // TODO: need to rethink this logic
-  _handleEnter() {} // to be overridden
+  _handleEnter() {
+    this._Button._handleEnter();
+  }
 
   get _Button() {
     return this.tag('Button');

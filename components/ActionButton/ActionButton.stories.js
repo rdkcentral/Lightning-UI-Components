@@ -1,5 +1,6 @@
 import lng from 'wpe-lightning';
 import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 
 import ActionButton from '.';
 import mdx from './ActionButton.mdx';
@@ -38,7 +39,8 @@ export const Base = () =>
             makeOptions('stroke', 'fill', 'float'),
             'stroke'
           ),
-          title: text('Title', 'Type Something')
+          title: text('Title', 'Type Something'),
+          onEnter: action('onEnter')
         }
       };
     }

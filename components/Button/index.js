@@ -96,6 +96,10 @@ export default class Button extends lng.Component {
     this.radius = this.radius || this._theme.radius;
   }
 
+  get title() {
+    return this._title;
+  }
+
   set title(title) {
     this._title = title;
     this._Title.on('txLoaded', () => {
@@ -164,8 +168,11 @@ export default class Button extends lng.Component {
     this._theme.unfocus.patch.apply(this);
   }
 
-  // TODO: need to rethink this logic
-  _handleEnter() {} // to be overridden
+  _handleEnter() {
+    if (typeof this.onEnter === 'function') {
+      this.onEnter(this);
+    }
+  }
 
   get announce() {
     // TODO - Localization?

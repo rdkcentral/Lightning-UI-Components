@@ -39,12 +39,12 @@ const checked = this.tag('Toggle').toggle.checked;
 console.log(checked) //=> true
 ```
 
-By default, the `_handleEnter()` method executes `toggle()`. To add or change functionality, override this method:
+By default, the `onEnter()` method executes `toggle()`. To add or change functionality, override this method:
 
 ```js
-this.tag('Toggle')._handleEnter = function() {
+this.tag('Toggle').onEnter = toggle => {
   // do stuff
-  this.toggle();
+  toggle.toggle();
 }
 ```
 
@@ -58,10 +58,10 @@ checked|boolean|true|toggle state
 
 ### Methods
 
-#### toggle
+#### toggle(): void
 
 Toggles `checked` state and updates UI accordingly
 
-#### _handleEnter
+#### onEnter(thisArg): void
 
-On `enter` key press, calls `toggle()` by default. Can be overridden to customize behavior.
+Callback to be executed on <kbd>Enter</kbd> key down event. Calls `toggle()` by default.

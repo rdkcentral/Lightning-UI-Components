@@ -19,12 +19,12 @@ export default class Toggle extends lng.Component {
         ),
         Circle: {
           zIndex: 2,
-          x: 8,
-          y: 8,
+          x: 6,
+          y: 7,
           texture: lng.Tools.getRoundRect(
             RoundRect.getWidth(16),
             RoundRect.getHeight(16),
-            7,
+            8,
             0,
             0,
             true,
@@ -45,13 +45,23 @@ export default class Toggle extends lng.Component {
     this._update();
   }
 
+  get onEnter() {
+    return this._onEnter || this.toggle;
+  }
+
+  set onEnter(onEnter) {
+    this._onEnter = onEnter;
+  }
+
   _handleEnter() {
-    this.toggle();
+    if (typeof this.onEnter === 'function') {
+      this.onEnter(this);
+    }
   }
 
   _update() {
     const { checked } = this;
-    this._Circle.smooth = { x: checked ? 40 : 8 };
+    this._Circle.smooth = { x: checked ? 40 : 6 };
   }
 
   get _Container() {

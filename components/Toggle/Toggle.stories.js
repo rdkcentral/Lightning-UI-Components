@@ -2,6 +2,7 @@ import lng from 'wpe-lightning';
 
 import Toggle from '.';
 import mdx from './Toggle.mdx';
+import { action } from '@storybook/addon-actions';
 import { boolean, withKnobs } from '@storybook/addon-knobs';
 
 export default {
@@ -24,7 +25,11 @@ export const Basic = () =>
         Toggle: {
           y: 40,
           type: Toggle,
-          checked: boolean('Checked', false)
+          checked: boolean('Checked', false),
+          onEnter: toggle => {
+            action('onEnter')(toggle);
+            toggle.toggle();
+          }
         }
       };
     }

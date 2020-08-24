@@ -39,8 +39,8 @@ export const Basic = () =>
     }
   };
 
-export const HandleEnter = () =>
-  class HandleEnter extends lng.Component {
+export const KeyHandling = () =>
+  class KeyHandling extends lng.Component {
     static _template() {
       return {
         flex: {
@@ -63,7 +63,7 @@ export const HandleEnter = () =>
 
     _init() {
       const HiddenText = this.tag('HiddenText');
-      this.tag('ListItem')._handleEnter = () => {
+      this.tag('ListItem').onEnter = () => {
         HiddenText.smooth = { alpha: Number(!HiddenText.alpha) };
       };
     }
