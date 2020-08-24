@@ -170,9 +170,6 @@ class Pivot extends Button {
     this.patch(patch);
   }
 
-  // TODO: need to rethink this logic
-  _handleEnter() {} // to be overridden
-
   get _Loader() {
     return this.tag('Loader');
   }

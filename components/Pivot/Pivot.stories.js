@@ -1,7 +1,7 @@
 import lng from 'wpe-lightning';
+import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
 import icon from '../../assets/images/ic_lightning_white_32.png';
-import withStyles from '../../mixins/withStyles';
 import Pivot from '.';
 
 import mdx from './Pivot.mdx';
@@ -38,7 +38,8 @@ export const Basic = () =>
             'Background',
             makeOptions('stroke', 'fill', 'float', 'ghost'),
             'stroke'
-          )
+          ),
+          onEnter: action('onEnter')
         }
       };
     }

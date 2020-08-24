@@ -80,8 +80,11 @@ export class ListItemBase extends lng.Component {
     };
   }
 
-  // TODO: need to rethink this logic
-  _handleEnter() {} // to be overridden
+  _handleEnter() {
+    if (typeof this.onEnter === 'function') {
+      this.onEnter(this);
+    }
+  }
 
   get _Container() {
     return this.tag('Container');
@@ -207,7 +210,15 @@ export class ListItemToggle extends ListItem {
   }
 
   _handleEnter() {
-    this.toggle();
+    this._Toggle._handleEnter();
+  }
+
+  get onEnter() {
+    return this._Toggle.onEnter;
+  }
+
+  set onEnter(onEnter) {
+    this._Toggle.onEnter = onEnter;
   }
 
   get _Toggle() {

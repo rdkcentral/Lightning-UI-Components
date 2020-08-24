@@ -28,10 +28,16 @@ class Basic extends lng.Component {
 
 
 Before the Pivot receives its title, it should be in a loading state.
+
 <Preview>
   <Story id="pivot--loading" />
 </Preview>
 
+Use the `onEnter` method to respond to <kbd>Enter</kbd> key down events:
+
+```js
+this.tag('Pivot').onEnter = pivot => console.log(pivot.title);
+```
 
 ## API
 
@@ -45,3 +51,9 @@ padding|number|false|16|left and right padding value
 title|string|false|-|button text
 icon|string|false|-|URI for icon that may live next to the title
 backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
+
+### Methods
+
+#### onEnter(thisArg): void
+
+Callback to be executed on <kbd>Enter</kbd> key down event

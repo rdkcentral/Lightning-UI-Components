@@ -2,6 +2,7 @@ import lng from 'wpe-lightning';
 
 import Button from '.';
 import mdx from './Button.mdx';
+import { action } from '@storybook/addon-actions';
 import { boolean, number, withKnobs, text } from '@storybook/addon-knobs';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
@@ -23,7 +24,8 @@ export const Basic = () =>
         Button: {
           type: Button,
           title: text('Title', 'Button'),
-          radius: number('Radius', 0, { min: 0, max: 20 })
+          radius: number('Radius', 0, { min: 0, max: 20 }),
+          onEnter: action('onEnter')
         }
       };
     }
@@ -98,5 +100,22 @@ export const WithTheme = () =>
       if (boolean('Focused', false)) {
         return this.tag('Button');
       }
+    }
+  };
+
+export const KeyHandling = () =>
+  class KeyHandling extends lng.Component {
+    static _template() {
+      return {
+        Button: {
+          type: Button,
+          title: 'Button',
+          onEnter: button => (button.title = button.title + '!')
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Button');
     }
   };

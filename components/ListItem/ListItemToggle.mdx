@@ -28,15 +28,13 @@ class Example extends lng.Component {
 
 By default, `ListItemToggle` will toggle on <kbd>Enter</kbd>.
 
-You can override `_handleEnter` and use the `toggle()` method to programmatically trigger the toggle and access the checked value. 
+You can override this behavior by setting `onEnter` and use the `toggle()` method to programmatically trigger the toggle and access the checked value. 
 
 ```js
 const ListItemToggle = this.tag('ListItemToggle');
-ListItemToggle._handleEnter = function() {
-  Promise.resolve(
-    this.toggle()
-  ).then(checked => /* do something with checked value */)
-}
+ListItemToggle.onEnter = listItem => Promise
+  .resolve(listItem.toggle())
+  .then(checked => /* do something with checked value */)
 ```
 
 To get the current checked state, use the `isChecked()` method.
@@ -62,9 +60,9 @@ title|string|false|main item info goes here
 
 ### Methods
 
-#### _handleEnter():void
+#### onEnter(thisArg):void
 
-Can be overridden to apply handling for the <kbd>Enter</kbd> key. By default,
+Callback to be executed on <kbd>Enter</kbd> key down event. By default,
 calls `this.toggle()`
 
 #### isChecked():boolean
