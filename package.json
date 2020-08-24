@@ -12,7 +12,7 @@
   },
   "files": [
     "index.js",
-    "{bin,components,utils}/**/*.js",
+    "{bin,components,mixins,utils}/**/*.js",
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js",
