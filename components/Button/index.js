@@ -167,6 +167,7 @@ class Button extends lng.Component {
         const w = this._Title.renderWidth + padding * 2 + iconSize;
         if (w !== this.w) {
           this.w = w > this.w ? w : this.w;
+          this.fireAncestors('$itemChanged');
           this.signal('buttonWidthChanged', { w: this.w });
           this._update();
         }
@@ -179,6 +180,7 @@ class Button extends lng.Component {
       this.onEnter(this);
     }
   }
+
   get title() {
     return this._title;
   }

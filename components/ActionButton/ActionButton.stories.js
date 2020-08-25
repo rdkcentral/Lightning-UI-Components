@@ -32,11 +32,10 @@ export const Base = () =>
     static _template() {
       return {
         ActionButton: {
-          x: 10,
           type: ActionButton,
-          background: radios(
+          backgroundType: radios(
             'Background',
-            makeOptions('stroke', 'fill', 'float'),
+            makeOptions('stroke', 'fill', 'float', 'ghost'),
             'stroke'
           ),
           title: text('Title', 'Type Something'),
