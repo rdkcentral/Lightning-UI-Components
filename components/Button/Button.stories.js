@@ -1,6 +1,7 @@
 import lng from 'wpe-lightning';
 
 import Button from '.';
+import withStyles from '../../mixins/withStyles';
 import mdx from './Button.mdx';
 import { action } from '@storybook/addon-actions';
 import { boolean, number, withKnobs, text } from '@storybook/addon-knobs';
@@ -35,7 +36,10 @@ export const Basic = () =>
         this.tag('Button').icon = { src: icon };
       }
       if (boolean('Stroke', false)) {
-        this.tag('Button').stroke = { weight: 3, color: 0xff0000ff };
+        this.tag('Button').stroke = { weight: 3, color: 0xff616161 };
+      }
+      if (boolean('Fixed', false)) {
+        this.tag('Button').fixed = true;
       }
     }
 
@@ -63,17 +67,23 @@ export const LongTitle = () =>
     }
   };
 
-let orangeTheme = {
+let orangeStyles = {
+  background: {
+    color: 0xffffd18c
+  },
+  icon: {
+    color: 0xfffea73d
+  },
+  text: {
+    color: 0xfffea73d,
+    fontSize: 30
+  },
   radius: 4,
   stroke: { weight: 3, color: 0xfffea73d },
-  text: { fontSize: 30 },
   w: 200,
   h: 50,
   padding: 50,
   unfocus: {
-    background: 0xffffd18c,
-    text: 0xfffea73d,
-    icon: 0xfffea73d,
     patch: function() {
       this.smooth = { scale: 1 };
     }
@@ -90,9 +100,8 @@ export const WithTheme = () =>
     static _template() {
       return {
         Button: {
-          type: Button,
-          title: 'Button',
-          theme: orangeTheme
+          type: withStyles(Button, orangeStyles),
+          title: 'Button'
         }
       };
     }

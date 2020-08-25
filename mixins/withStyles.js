@@ -6,7 +6,6 @@ export default function withStyles(Base, styles, theme) {
   const _theme = theme || Base.theme || getXfinityTheme();
   const _styles = Base.styles ? clone(Base.styles, createStyles(styles, _theme)) : createStyles(styles, _theme);
 
-
   return class extends Base {
     static get styles() { return _styles };
     

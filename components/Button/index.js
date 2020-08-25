@@ -5,24 +5,28 @@
  * and focus and unfocus states for the button background.
  */
 import lng from 'wpe-lightning';
-import { RoundRect, getTheme } from '../../utils';
+import { RoundRect } from '../../utils';
+import withStyles from '../../mixins/withStyles';
 
-export const DEFAULT_THEME = {
-  radius: 0,
-  text: { fontSize: 20 },
+export const styles = {
   w: 150,
   h: 40,
+  radius: 0,
+  background: { color: 0xff1f1f1f },
+  icon: { color: 0xffffffff },
+  text: {
+    fontSize: 20,
+    color: 0xffffffff
+  },
   padding: 50,
   unfocus: {
-    background: 0xff1f1f1f,
-    text: 0xffffffff,
-    icon: 0xffffffff,
     patch: function() {
+      const { background, icon, text } = this.styles;
       this.patch({
-        smooth: { color: this._theme.unfocus.background },
+        smooth: { color: background.color },
         Content: {
-          Title: { smooth: { color: this._theme.unfocus.text } },
-          Icon: { smooth: { color: this._theme.unfocus.icon } }
+          Title: { smooth: { color: text.color } },
+          Icon: { smooth: { color: icon.color } }
         }
       });
     }
@@ -32,22 +36,25 @@ export const DEFAULT_THEME = {
     text: 0xff1f1f1f,
     icon: 0xff1f1f1f,
     patch: function() {
+      const { background, icon, text } = this.styles.focus;
       this.patch({
-        smooth: { color: this._theme.focus.background },
+        smooth: { color: background },
         Content: {
-          Title: { smooth: { color: 0xff1f1f1f } },
-          Icon: { smooth: { color: this._theme.focus.icon } }
+          Title: { smooth: { color: text } },
+          Icon: { smooth: { color: icon } }
         }
       });
     }
   }
 };
 
-export default class Button extends lng.Component {
+class Button extends lng.Component {
   static _template() {
     return {
+      w: this.styles.w,
+      h: this.styles.h,
+      radius: this.styles.radius,
       Content: {
-        zIndex: 1,
         mount: 0.5,
         x: w => w / 2,
         y: h => h / 2,
@@ -62,38 +69,115 @@ export default class Button extends lng.Component {
         // inside the button
         Title: { y: 2 }
       },
-      Stroke: { zIndex: 2 }
+      Stroke: {
+        zIndex: -1,
+        mount: 0.5,
+        x: w => w / 2,
+        y: h => h / 2
+      }
     };
   }
 
-  constructor(...args) {
-    super(...args);
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+  _init() {
+    this._update();
   }
 
-  _init() {
-    this.theme = getTheme(DEFAULT_THEME, this.theme || {});
-    this.background = this.background || this._theme.unfocus.background;
-    this.patch({
-      texture: lng.Tools.getRoundRect(
+  _focus() {
+    this.styles.focus.patch.apply(this);
+  }
+
+  _unfocus() {
+    this.styles.unfocus.patch.apply(this);
+  }
+
+  _update() {
+    const template = { Content: {} };
+    const Title = {};
+    const Icon = {};
+    const Stroke = {};
+
+    const radius = this.radius || this.styles.radius;
+
+    template.color = [this.background, this.styles.background.color].find(
+      Number.isFinite
+    );
+
+    if (this.title) {
+      Title.text = {
+        ...this.styles.text,
+        fontColor: this.styles.text.color,
+        fontSize: this.fontSize || this.styles.text.fontSize,
+        text: this.title
+      };
+      Title.color = this.styles.text.color;
+      template.Content.Title = Title;
+    }
+
+    if (this.icon) {
+      const { color, size, spacing, src } = this.icon;
+      Icon.color = color || this.styles.icon.color;
+      Icon.w = size;
+      Icon.h = size;
+      Icon.flexItem = { marginRight: spacing };
+      Icon.src = src;
+      template.Content.Icon = Icon;
+    }
+
+    if (this.stroke) {
+      const { color, weight } = this.stroke;
+      const radius = this.radius || this.styles.radius;
+
+      template.texture = lng.Tools.getRoundRect(
         RoundRect.getWidth(this.w),
         RoundRect.getHeight(this.h),
-        this.radius
-      ),
-      Content: {
-        Title: { color: this._theme.text.color || this._theme.unfocus.text },
-        Icon: { color: this._theme.color || this._theme.unfocus.icon }
+        radius,
+        0x00,
+        true,
+        0xffffffff
+      );
+
+      Stroke.color = color;
+      Stroke.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.w),
+        RoundRect.getHeight(this.h),
+        radius,
+        weight,
+        0xffffffff,
+        true,
+        this.background
+      );
+
+      template.Stroke = Stroke;
+    } else {
+      template.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.w),
+        RoundRect.getHeight(this.h),
+        radius
+      );
+    }
+
+    this.patch(template);
+
+    this._Title.on('txLoaded', () => {
+      let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+      let padding = [this.padding, this.styles.padding, 50].find(
+        Number.isFinite
+      );
+      if (!this.fixed) {
+        const w = this._Title.renderWidth + padding * 2 + iconSize;
+        if (w !== this.w) {
+          this.w = w > this.w ? w : this.w;
+          this.signal('buttonWidthChanged', { w: this.w });
+          this._update();
+        }
       }
     });
   }
 
-  set theme(theme) {
-    this._theme = theme;
-    this._Title.text = this._theme.text || {};
-    if (this._theme.stroke) this.stroke = this._theme.stroke;
-    this.h = this.h || this._theme.h;
-    this.w = this.w || this._theme.w;
-    this.radius = this.radius || this._theme.radius;
+  _handleEnter() {
+    if (typeof this.onEnter === 'function') {
+      this.onEnter(this);
+    }
   }
 
   get title() {
@@ -102,76 +186,27 @@ export default class Button extends lng.Component {
 
   set title(title) {
     this._title = title;
-    this._Title.on('txLoaded', () => {
-      let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
-      let padding = [this.padding, this._theme.padding, 50].find(
-        Number.isFinite
-      );
-      if (
-        this._Title.renderWidth + iconSize > this.w - padding * 2 &&
-        !this.fixed
-      ) {
-        this.w = this._Title.renderWidth + padding * 2 + iconSize;
-        (this.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.w),
-          RoundRect.getHeight(this.h),
-          this.radius
-        )),
-          this.signal('buttonWidthChanged', { w: this.w });
-        if (this._stroke) this.stroke = this._stroke;
-      }
-    });
-    this._Title.text = title;
+    this._update();
+  }
+
+  get icon() {
+    return this._icon;
   }
 
   set icon({ src, size = 20, spacing = 5, color = 0xffffffff }) {
     if (src) {
       this._icon = { src, size, spacing, color };
-      this._Icon.patch({
-        color: color,
-        w: size,
-        h: size,
-        flexItem: { marginRight: spacing },
-        src
-      });
+      this._update();
     }
+  }
+
+  get stroke() {
+    return this._stroke || this.styles.stroke;
   }
 
   set stroke({ weight = 2, color = 0x00 }) {
     this._stroke = { weight, color };
-    this._whenEnabled.then(() => {
-      this._Stroke.patch({
-        texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.w - weight),
-          RoundRect.getHeight(this.h - weight),
-          this.radius,
-          weight,
-          0xffffffff,
-          true,
-          0x00
-        ),
-        color
-      });
-    });
-  }
-
-  set background(color) {
-    this._background = color;
-    this.color = color;
-  }
-
-  _focus() {
-    this._theme.focus.patch.apply(this);
-  }
-
-  _unfocus() {
-    this._theme.unfocus.patch.apply(this);
-  }
-
-  _handleEnter() {
-    if (typeof this.onEnter === 'function') {
-      this.onEnter(this);
-    }
+    this._update();
   }
 
   get announce() {
@@ -181,9 +216,6 @@ export default class Button extends lng.Component {
     return this._title + ', Button';
   }
 
-  get theme() {
-    return this._theme;
-  }
   get _Title() {
     return this.tag('Content.Title');
   }
@@ -194,3 +226,5 @@ export default class Button extends lng.Component {
     return this.tag('Stroke');
   }
 }
+
+export default withStyles(Button, styles);
