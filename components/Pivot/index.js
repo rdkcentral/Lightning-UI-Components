@@ -11,15 +11,18 @@ import withStyles from '../../mixins/withStyles';
 import { getHexColor } from '../Styles/Colors';
 
 export const styles = theme => ({
+  w: 185,
+  h: 48,
+  background: {
+    color: theme.palette.background.float
+  },
+  backgrounds: theme.palette.background,
   shadow: theme.shadow,
   radius: theme.border.radius.small,
   text: {
     ...theme.typography.button2,
-    textColor: theme.palette.text.light.primary
+    color: theme.palette.text.light.primary
   },
-  w: 185,
-  h: 48,
-  background: theme.palette.background,
   icon: {
     size: 32,
     spacing: theme.spacing(1)
@@ -28,6 +31,7 @@ export const styles = theme => ({
     color: getHexColor('ffffff', 24)
   },
   stroke: {
+    weight: 2,
     color: theme.palette.grey[5]
   },
   padding: theme.spacing(2),
@@ -35,9 +39,10 @@ export const styles = theme => ({
     patch: function() {
       let scale = 1;
       this.patch({
+        stroke: this.backgroundType === 'stroke' && this.stroke,
         smooth: {
           color:
-            this.styles.background[this.background] ||
+            this.styles.backgrounds[this.backgroundType] ||
             theme.palette.background.float,
           scale
         },
@@ -56,21 +61,26 @@ export const styles = theme => ({
   focus: {
     patch: function() {
       let scale = theme.getFocusScale(this.w);
-      this.patch({
-        smooth: {
-          color: theme.palette.background.focus,
-          scale
-        },
-        Content: {
-          Title: { smooth: { color: theme.palette.text.focus } },
-          Icon: { smooth: { color: theme.palette.text.focus } }
-        },
-        DropShadow: {
+      if (!this._loading || !this._loading.isPlaying()) {
+        this.patch({
           smooth: {
-            alpha: 1
+            color: theme.palette.background.focus,
+            scale
+          },
+          Content: {
+            Title: { smooth: { color: theme.palette.text.focus } },
+            Icon: { smooth: { color: theme.palette.text.focus } }
+          },
+          DropShadow: {
+            smooth: {
+              alpha: 1
+            }
+          },
+          Stroke: {
+            texture: false
           }
-        }
-      });
+        });
+      }
     }
   }
 });
@@ -79,24 +89,21 @@ class Pivot extends Button {
   static _template() {
     return {
       ...super._template(),
+      w: this.styles.w,
+      h: this.styles.h,
+      padding: this.styles.padding,
+      radius: this.styles.radius,
+      text: this.styles.text,
+      focus: this.styles.focus,
+      unfocus: this.styles.unfocus,
       backgroundType: 'float',
-      signals: {
-        buttonWidthChanged: '_widthChanged'
-      },
-      theme: {
-        w: this.styles.w,
-        h: this.styles.h,
-        padding: this.styles.padding,
-        radius: this.styles.radius,
-        text: this.styles.text,
-        focus: this.styles.focus,
-        unfocus: this.styles.unfocus
-      },
       Loader: {
+        x: 0,
+        y: 0,
         color: this.styles.loading.color,
         texture: lng.Tools.getRoundRect(
           RoundRect.getWidth(this.styles.w),
-          RoundRect.getHeight(this.styles.h),
+          RoundRect.getHeight(this.styles.h - 2),
           this.styles.radius
         )
       },
@@ -124,50 +131,67 @@ class Pivot extends Button {
     return this._title;
   }
 
-  set icon(icon) {
-    super.icon = {
-      src: icon,
-      size: this.styles.icon.size,
-      spacing: this.styles.icon.spacing
-    };
+  get icon() {
+    return this._icon;
   }
 
-  _widthChanged({ w }) {
-    this.w = w;
-    const shadow = this.styles.shadow({ w, h: this.styles.h });
-    this._DropShadow.x = shadow.x;
-    this._DropShadow.texture = shadow.texture;
-    this.fireAncestors('$itemChanged');
+  set icon(src) {
+    if (src) {
+      this._icon = { ...this.styles.icon, src };
+      this._update();
+    }
   }
 
   _update() {
-    const patch = {};
-    if (!this._title) {
-      patch.Loader = { alpha: 1 };
-      this._loading = this._Loader.animation({
-        duration: 2,
-        repeat: -1,
-        stopMethod: 'immediate',
-        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-      });
-      this._loading.start();
-    } else {
-      const background =
-        this.styles.background[this.backgroundType] ||
-        this.styles.background.float;
-      const loading = this._loading && this._loading.isPlaying();
-      const stroke = this.backgroundType === 'stroke' && {
-        weight: 2,
-        color: this.styles.stroke.color
-      };
+    const template = { Content: {}, Loader: {}, DropShadow: {} };
 
-      patch.background = background;
-      patch.Loader = { alpha: 0 };
-      if (stroke) patch.stroke = stroke;
-      if (loading) this._loading.stop();
+    if (this.w !== this.styles.w) {
+      template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
     }
 
-    this.patch(patch);
+    if (!this.title) {
+      template.color = 0x00;
+      template.Content.Title = { texture: false };
+      template.Loader.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.styles.w),
+        RoundRect.getHeight(this.styles.h - 2),
+        this.styles.radius
+      );
+      this.patch(template);
+    } else {
+      template.Loader.texture = false;
+      if (this._loading) this._loading.stop();
+      super._update();
+    }
+    this.patch(template);
+  }
+
+  _enable() {
+    this._loading = this._Loader.animation({
+      duration: 2,
+      repeat: -1,
+      stopMethod: 'immediate',
+      actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+    });
+    this._loading.start();
+  }
+
+  get backgroundType() {
+    return this._backgroundType;
+  }
+
+  set backgroundType(backgroundType) {
+    const isStroke = backgroundType === 'stroke';
+    this._backgroundType = backgroundType;
+    if (this.styles) {
+      const background =
+        this.styles.backgrounds[backgroundType] ||
+        this.styles.backgrounds.float;
+      const stroke = isStroke && this.styles.stroke;
+
+      this.background = background;
+      this.stroke = stroke;
+    }
   }
 
   get _Loader() {
