@@ -1,5 +1,6 @@
 import Button from '.';
 import { getHexColor } from '../Styles';
+import withStyles from '../../mixins/withStyles';
 import TestUtils from '../lightning-test-utils';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
@@ -71,35 +72,26 @@ describe('Button', () => {
   });
 
   describe('stroke', () => {
-    it('should set a stroke', done => {
+    it('should set a stroke', () => {
       [button, testRenderer] = createButton({
         stroke: { weight: 5, color: 0xff74ccfc }
       });
-      button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('74ccfc'));
-        expect(button._stroke.weight).toBe(5);
-        expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
-        done();
-      });
+      expect(button._stroke.color).toBe(getHexColor('74ccfc'));
+      expect(button._stroke.weight).toBe(5);
+      expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
     });
-    it('should default a stroke color if none is passed', done => {
+    it('should default a stroke color if none is passed', () => {
       [button, testRenderer] = createButton({ stroke: { weight: 3 } });
-      button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('000000', 0));
-        expect(button._stroke.weight).toBe(3);
-        expect(button._Stroke.color).toBe(getHexColor('000000', 0));
-        done();
-      });
+      expect(button._stroke.color).toBe(getHexColor('000000', 0));
+      expect(button._stroke.weight).toBe(3);
+      expect(button._Stroke.color).toBe(getHexColor('000000', 0));
     });
 
-    it('should default a stroke weight if none is passed', done => {
+    it('should default a stroke weight if none is passed', () => {
       [button, testRenderer] = createButton({ stroke: { color: 0xff74ccfc } });
-      button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('74ccfc'));
-        expect(button._stroke.weight).toBe(2);
-        expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
-        done();
-      });
+      expect(button._stroke.color).toBe(getHexColor('74ccfc'));
+      expect(button._stroke.weight).toBe(2);
+      expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
     });
   });
 
@@ -131,22 +123,8 @@ describe('Button', () => {
     });
   });
 
-  describe('theme', () => {
-    let theme = {
-      radius: 4,
-      text: { fontSize: 28 },
-      w: 200,
-      h: 50,
-      unfocus: {
-        background: 0xffffc5c5,
-        text: 0xffd22727
-      },
-      focus: {
-        background: 0xffd22727,
-        text: 0xffffc5c5
-      }
-    };
-    it('should get the default theme', () => {
+  describe('styles', () => {
+    it('should get the default styles', () => {
       expect(button.color).toBe(getHexColor('1f1f1f'));
       expect(button._Title.color).toBe(getHexColor('ffffff'));
       expect(button._Title.text.fontSize).toBe(20);
@@ -155,34 +133,55 @@ describe('Button', () => {
       expect(button.radius).toBe(0);
     });
 
-    it('overrrides default theme', () => {
-      [button, testRenderer] = createButton({ theme });
-      expect(button.color).toBe(getHexColor('ffc5c5'));
-      expect(button._Title.color).toBe(getHexColor('d22727'));
+    it('overrides default styles', () => {
+      const styles = {
+        background: { color: 0xffd22727 },
+        radius: 4,
+        text: { fontSize: 28, color: 0xffffc5c5 },
+        w: 200,
+        h: 50
+      };
+      const createButtonWithStyles = TestUtils.makeCreateComponent(
+        withStyles(Button, styles)
+      );
+      [button] = createButtonWithStyles({
+        title: 'Button'
+      });
+
+      expect(button.color).toBe(styles.background.color);
       expect(button._Title.text.fontSize).toBe(28);
+      expect(button._Title.color).toBe(styles.text.color);
       expect(button.h).toBe(50);
       expect(button.w).toBe(200);
       expect(button.radius).toBe(4);
     });
 
-    it('sets a stroke in the theme', done => {
-      [button, testRenderer] = createButton({
-        theme: {
-          ...theme,
-          stroke: { weight: 5, color: 0xff74ccfc }
-        }
-      });
-      button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('74ccfc'));
-        expect(button._stroke.weight).toBe(5);
-        expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
-        done();
-      });
+    it('sets a stroke in the theme', () => {
+      const styles = {
+        stroke: { weight: 5, color: 0xff74ccfc }
+      };
+      const createButtonWithStyles = TestUtils.makeCreateComponent(
+        withStyles(Button, styles)
+      );
+      [button] = createButtonWithStyles(styles);
+
+      expect(button._stroke.color).toBe(styles.stroke.color);
+      expect(button._Stroke.color).toBe(styles.stroke.color);
+      expect(button._stroke.weight).toBe(styles.stroke.weight);
     });
 
     it('uses props over theme', () => {
-      [button, testRenderer] = createButton({
-        theme,
+      const styles = {
+        background: { color: 0xffd22727 },
+        radius: 4,
+        text: { fontSize: 28, color: 0xffffc5c5 },
+        w: 200,
+        h: 50
+      };
+      const createButtonWithStyles = TestUtils.makeCreateComponent(
+        withStyles(Button, styles)
+      );
+      [button] = createButtonWithStyles({
         h: 25,
         w: 120,
         radius: 10
