@@ -61,7 +61,8 @@ export const Loading = () =>
     static _template() {
       return {
         Pivot: {
-          type: Pivot
+          type: Pivot,
+          backgroundType: 'fill'
         }
       };
     }

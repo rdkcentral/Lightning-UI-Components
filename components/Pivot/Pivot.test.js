@@ -47,36 +47,30 @@ describe('Pivot', () => {
         backgroundType: 'fill'
       });
       expect(pivot.color).toBe(getHexColor('232328'));
-      expect(pivot._stroke).toBeUndefined();
     });
     it('should set background to float', () => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'float'
       });
       expect(pivot.color).toBe(0);
-      expect(pivot._stroke).toBeUndefined();
     });
     it('should default background to float', () => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'orange'
       });
       expect(pivot.color).toBe(0);
-      expect(pivot._stroke).toBeUndefined();
     });
   });
 
   describe('icon', () => {
-    it('should patch in an icon', done => {
+    it('should patch in an icon', () => {
       [pivot, testRenderer] = createPivot({
         title: 'Action Button',
         icon
       });
-      pivot._whenEnabled.then(() => {
-        expect(pivot._icon).toEqual(
-          expect.objectContaining({ src: icon, size: 32, spacing: 8 })
-        );
-        done();
-      });
+      expect(pivot._icon).toEqual(
+        expect.objectContaining({ src: icon, size: 32, spacing: 8 })
+      );
     });
   });
 

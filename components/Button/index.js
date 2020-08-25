@@ -179,7 +179,6 @@ class Button extends lng.Component {
       this.onEnter(this);
     }
   }
-
   get title() {
     return this._title;
   }

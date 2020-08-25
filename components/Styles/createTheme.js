@@ -16,9 +16,9 @@ function shadow({
     blur,
     color,
     mount: 0.5,
-    w: w - spacing(2),
+    w: w - blur,
     h: h / 2,
-    x: w / 2 + spacing(0.25),
+    x: w / 2,
     y: h / 1.3,
     zIndex: -1
   };
