@@ -24,10 +24,25 @@ describe('Pivot', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update its width', () => {
-    let w = 200;
-    pivot._widthChanged({ w });
-    expect(pivot.w).toBe(200);
+  it("should update it's shadow width for long titles", () => {
+    [pivot, testRenderer] = createPivot({
+      title:
+        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
+    });
+    const spy = jest.spyOn(pivot, 'patch');
+
+    // default width
+    expect(pivot.w).toBe(185);
+
+    testRenderer.update();
+
+    // update width
+    expect(pivot.w).toBe(189);
+    // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
+    const { lookupId } = spy.mock.calls[
+      spy.mock.calls.length - 1
+    ][0].DropShadow.texture.content;
+    expect(lookupId).toEqual('shadow173,32,16,32,8,8,8,8');
   });
 
   describe('style', () => {

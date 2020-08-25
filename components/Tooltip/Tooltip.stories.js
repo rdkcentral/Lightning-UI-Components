@@ -4,7 +4,7 @@ import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 import Tooltip from '.';
 import mdx from './Tooltip.mdx';
 import Button from '../Button';
-import { default as ActionButton, ACTION_BUTTON_THEME } from '../ActionButton';
+import ActionButton, { styles as ACTION_BUTTON_STYLES } from '../ActionButton';
 
 export default {
   title: 'Tooltip',
@@ -82,7 +82,7 @@ export const WithActionButton = () =>
           type: ActionButton,
           x: 200,
           y: 100,
-          w: ACTION_BUTTON_THEME.w,
+          w: ACTION_BUTTON_STYLES.w,
           title: 'Button',
           background: 'stroke',
           Tooltip: {

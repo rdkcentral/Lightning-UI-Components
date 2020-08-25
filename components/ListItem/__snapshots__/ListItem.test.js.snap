@@ -168,7 +168,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardMedium",
                 "fontSize": 24,
-                "h": 32,
                 "text": "My Subtitle",
                 "type": "TextTexture",
               },
@@ -333,7 +332,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardBold",
                 "fontSize": 28,
-                "h": 40,
                 "text": "My Title",
                 "type": "TextTexture",
               },
@@ -498,7 +496,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardMedium",
                 "fontSize": 24,
-                "h": 32,
                 "text": "My Subtitle",
                 "type": "TextTexture",
               },
@@ -541,7 +538,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardBold",
                 "fontSize": 28,
-                "h": 40,
                 "text": "My Title",
                 "type": "TextTexture",
               },
@@ -1271,7 +1267,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardMedium",
                 "fontSize": 24,
-                "h": 32,
                 "text": "List Item Metadata",
                 "type": "TextTexture",
               },
@@ -1314,7 +1309,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardBold",
                 "fontSize": 28,
-                "h": 40,
                 "text": "List Item",
                 "type": "TextTexture",
               },
@@ -1560,7 +1554,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardMedium",
                 "fontSize": 24,
-                "h": 32,
                 "text": "List Item Metadata",
                 "type": "TextTexture",
               },
@@ -1603,7 +1596,6 @@ Object {
               "texture": Object {
                 "fontFace": "XfinityStandardBold",
                 "fontSize": 28,
-                "h": 40,
                 "text": "List Item",
                 "type": "TextTexture",
               },

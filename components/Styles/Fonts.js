@@ -105,7 +105,7 @@ export const TYPOGRAPHY = {
   button1: {
     fontFace: 'XfinityBrownBold',
     fontSize: 28,
-    lineHeight: 40,
+    lineHeight: 36,
     fontWeight: 'bold',
     letterSpacing: -0.2
   },

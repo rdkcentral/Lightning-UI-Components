@@ -122,13 +122,13 @@ class Pivot extends Button {
     this._update();
   }
 
+  get title() {
+    return this._title;
+  }
+
   set title(title) {
     super.title = title;
     this._update();
-  }
-
-  get title() {
-    return this._title;
   }
 
   get icon() {

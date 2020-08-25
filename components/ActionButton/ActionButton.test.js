@@ -24,56 +24,69 @@ describe('ActionButton', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update its width', () => {
-    let w = 200;
-    actionbutton._widthChanged({ w });
-    expect(actionbutton.w).toBe(200);
+  it("should update it's shadow width for long titles", () => {
+    [actionbutton, testRenderer] = createActionButton({
+      title:
+        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
+    });
+    const spy = jest.spyOn(actionbutton, 'patch');
+
+    // default width
+    expect(actionbutton.w).toBe(410);
+
+    testRenderer.update();
+
+    // update width
+    expect(actionbutton.w).toBe(472);
+    // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
+    const { lookupId } = spy.mock.calls[
+      spy.mock.calls.length - 1
+    ][0].DropShadow.texture.content;
+    expect(lookupId).toEqual('shadow456,56,16,32,8,8,8,8');
   });
 
   describe('style', () => {
     it('should set background to stroke', () => {
       [actionbutton, testRenderer] = createActionButton({
-        background: 'stroke'
+        backgroundType: 'stroke'
       });
-      expect(actionbutton._Button.color).toBe(0);
-      expect(actionbutton._Button._stroke).toEqual(
+      expect(actionbutton.background).toBe(0);
+      expect(actionbutton.stroke).toEqual(
         expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
       );
     });
     it('should set background to fill', () => {
-      [actionbutton, testRenderer] = createActionButton({ background: 'fill' });
-      expect(actionbutton._Button.color).toBe(getHexColor('232328', 48));
-      expect(actionbutton._Button._stroke).toBeUndefined();
+      [actionbutton, testRenderer] = createActionButton({
+        backgroundType: 'fill'
+      });
+      expect(actionbutton.background).toBe(0xff232328);
+      expect(actionbutton.stroke.color).toBe(0);
     });
     it('should set background to float', () => {
       [actionbutton, testRenderer] = createActionButton({
-        background: 'float'
+        backgroundType: 'float'
       });
-      expect(actionbutton._Button.color).toBe(0);
-      expect(actionbutton._Button._stroke).toBeUndefined();
+      expect(actionbutton.background).toBe(0);
+      expect(actionbutton.stroke.color).toBe(0);
     });
     it('should default background to float', () => {
       [actionbutton, testRenderer] = createActionButton({
-        background: 'orange'
+        backgroundType: 'orange'
       });
-      expect(actionbutton._Button.color).toBe(0);
-      expect(actionbutton._Button._stroke).toBeUndefined();
+      expect(actionbutton.background).toBe(0);
+      expect(actionbutton.stroke.color).toBe(0);
     });
   });
 
   describe('icon', () => {
-    it('should patch in an icon', done => {
+    it('should patch in an icon', () => {
       [actionbutton, testRenderer] = createActionButton({
         title: 'Action Button',
         icon
       });
-      actionbutton._whenEnabled.then(() => {
-        expect(actionbutton._icon).toBe(icon);
-        expect(actionbutton._Button._icon).toEqual(
-          expect.objectContaining({ src: icon, size: 32, spacing: 16 })
-        );
-        done();
-      });
+      expect(actionbutton.icon).toEqual(
+        expect.objectContaining({ src: icon, size: 32, spacing: 16 })
+      );
     });
   });
 
@@ -92,29 +105,20 @@ describe('ActionButton', () => {
   });
 
   describe('focus', () => {
-    it('should set focus on the Button tag', () => {
-      expect(actionbutton._getFocused()).toBe(actionbutton._Button);
-    });
-
-    it('should provide patch funtion in theme', () => {
-      expect(ACTION_BUTTON_THEME.unfocus.patch).toBeInstanceOf(Function);
-      expect(ACTION_BUTTON_THEME.focus.patch).toBeInstanceOf(Function);
-    });
-
     it('should update color and scale on focus', () => {
-      actionbutton._Button._focus();
+      actionbutton._focus();
       testRenderer.update();
-      expect(actionbutton._Button.color).toBe(getHexColor('ECECF2'));
-      expect(actionbutton._Button.scale).toBe(1.12);
-      expect(actionbutton._Button._Title.color).toBe(getHexColor('070707'));
+      expect(actionbutton.color).toBe(getHexColor('ECECF2'));
+      expect(actionbutton.scale).toBe(1.12);
+      expect(actionbutton._Title.color).toBe(4060086272);
     });
 
     it('should update color and scale on unfocus', () => {
-      actionbutton._Button._unfocus();
+      actionbutton._unfocus();
       testRenderer.update();
-      expect(actionbutton._Button.color).toBe(0);
-      expect(actionbutton._Button.scale).toBe(1);
-      expect(actionbutton._Button._Title.color).toBe(getHexColor('FAFAFA'));
+      expect(actionbutton.color).toBe(0);
+      expect(actionbutton.scale).toBe(1);
+      expect(actionbutton._Title.color).toBe(0xf2ffffff);
     });
 
     it('should alpha in drop shadow and scale up on focus', () => {

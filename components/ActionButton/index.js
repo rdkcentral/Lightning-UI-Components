@@ -5,192 +5,184 @@
  */
 import lng from 'wpe-lightning';
 import Button from '../Button';
+import withStyles from '../../mixins/withStyles';
 import { RoundRect } from '../../utils';
 
 // styles
-import {
-  TYPESCALE,
-  GRID,
-  CORNER_RADIUS,
-  COLORS_BASE,
-  getHexColor,
-  getFocusScale,
-  COLORS_TEXT
-} from '../Styles';
+import { getHexColor, getFocusScale } from '../Styles';
 
-export const COLORS = {
-  fill: getHexColor(`232328`, 48),
-  float: COLORS_BASE.transparent,
-  stroke: COLORS_BASE.transparent,
-  focused: getHexColor('ECECF2')
-};
-
-export const ACTION_BUTTON_THEME = {
-  radius: CORNER_RADIUS.small,
-  text: {
-    ...TYPESCALE.caption,
-    textColor: getHexColor(COLORS_TEXT.light)
-  },
+export const styles = theme => ({
   w: 410,
   h: 72,
-  padding: 16,
+  background: {
+    color: theme.palette.background.float
+  },
+  backgrounds: theme.palette.background,
+  radius: theme.border.radius.small,
+  text: {
+    ...theme.typography.button1,
+    color: theme.palette.text.light.primary
+  },
+  padding: theme.spacing(2),
+  shadow: theme.shadow,
+  icon: {
+    color: theme.palette.text.light.primary,
+    size: 32,
+    spacing: theme.spacing(2)
+  },
+  loading: {
+    color: getHexColor('ffffff', 24)
+  },
+  stroke: {
+    weight: 2,
+    color: theme.palette.grey[5]
+  },
   unfocus: {
-    text: getHexColor(COLORS_TEXT.light),
-    icon: getHexColor(COLORS_TEXT.light),
     patch: function() {
       let scale = 1;
       this.patch({
-        smooth: { color: this._background, scale },
+        stroke: this.backgroundType === 'stroke' && this.stroke,
+        smooth: {
+          color:
+            this.styles.backgrounds[this.backgroundType] ||
+            this.styles.backgrounds.float,
+          scale
+        },
         Content: {
-          Title: { smooth: { color: this._theme.unfocus.text } },
-          Icon: { smooth: { color: this._theme.unfocus.icon } }
+          Title: { smooth: { color: this.styles.text.color } },
+          Icon: { smooth: { color: this.styles.icon.color } }
         }
       });
     }
   },
   focus: {
-    background: getHexColor(`ECECF2`),
-    text: getHexColor(COLORS_TEXT.dark),
-    icon: getHexColor(COLORS_TEXT.dark),
     patch: function() {
       let scale = getFocusScale(this.w);
       this.patch({
-        smooth: { color: this._theme.focus.background, scale },
+        smooth: { color: theme.palette.background.focus, scale },
         Content: {
-          Title: { smooth: { color: this._theme.focus.text } },
-          Icon: { smooth: { color: this._theme.focus.icon } }
+          Title: { smooth: { color: theme.palette.text.dark.primary } },
+          Icon: { smooth: { color: theme.palette.text.dark.primary } }
+        },
+        DropShadow: {
+          smooth: {
+            alpha: 1
+          }
+        },
+        Stroke: {
+          texture: false
         }
       });
     }
   }
-};
+});
 
-export default class ActionButton extends lng.Component {
+class ActionButton extends Button {
   static _template() {
     return {
+      ...super._template(),
+      w: this.styles.w,
+      h: this.styles.h,
+      padding: this.styles.padding,
+      radius: this.styles.radius,
+      text: this.styles.text,
+      focus: this.styles.focus,
+      unfocus: this.styles.unfocus,
+      backgroundType: 'float',
       Loader: {
-        color: getHexColor('ffffff', 24),
+        color: this.styles.loading.color,
         texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(ACTION_BUTTON_THEME.w),
-          RoundRect.getHeight(ACTION_BUTTON_THEME.h),
-          ACTION_BUTTON_THEME.radius
+          RoundRect.getWidth(this.styles.w),
+          RoundRect.getHeight(this.styles.h),
+          this.styles.radius
         )
-      },
-      Button: {
-        type: Button,
-        theme: ACTION_BUTTON_THEME,
-        alpha: 0,
-        signals: {
-          buttonWidthChanged: '_widthChanged'
-        }
       },
       DropShadow: {
-        zIndex: -1,
-        mount: 0.5,
-        x: ACTION_BUTTON_THEME.w / 2,
-        y: (ACTION_BUTTON_THEME.h + GRID.spacingIncrement * 2) / 2,
-        color: getHexColor('ffffff', 64),
         alpha: 0,
-        texture: lng.Tools.getShadowRect(
-          ACTION_BUTTON_THEME.w - GRID.spacingIncrement * 4,
-          ACTION_BUTTON_THEME.h,
-          CORNER_RADIUS.medium,
-          16,
-          24
-        )
+        ...this.styles.shadow({
+          w: this.styles.w,
+          h: this.styles.h
+        })
       }
     };
   }
-  constructor(...args) {
-    super(...args);
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-  }
 
   _init() {
-    this.background = this.background ? this.background.toLowerCase() : 'float';
-    if (this.background === 'stroke') {
-      this._Button.stroke = {
-        weight: 2,
-        color: getHexColor('ECECF2')
-      };
-    }
-    this._Button.background =
-      COLORS[this.background] || COLORS_BASE.transparent;
+    super._init();
+    this._update();
+  }
 
-    if (!this.title) {
-      this._loading = this._Loader.animation({
-        duration: 2,
-        repeat: -1,
-        stopMethod: 'immediate',
-        actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
-      });
-      this._loading.start();
-    }
+  get title() {
+    return this._title;
   }
 
   set title(title) {
-    this._title = title;
-    if (this._loading && this._loading.isPlaying()) {
-      this._loading.stop();
+    super.title = title;
+    this._update();
+  }
+
+  get icon() {
+    return this._icon;
+  }
+
+  set icon(src) {
+    if (src) {
+      this._icon = { ...this.styles.icon, src };
+      this._update();
     }
-    this._whenEnabled.then(() => {
-      this.patch({
-        Loader: undefined,
-        Button: { title, alpha: 1 }
-      });
-    });
-  }
-
-  set icon(icon) {
-    this._icon = icon;
-    this._whenEnabled.then(() => {
-      this._Button.icon = {
-        src: icon,
-        size: 32,
-        spacing: GRID.spacingIncrement * 2
-      };
-    });
-  }
-
-  get onEnter() {
-    return this._Button.onEnter;
-  }
-  set onEnter(onEnter) {
-    this._Button.onEnter = onEnter;
-  }
-
-  _widthChanged({ w }) {
-    this.w = w;
-    this._DropShadow.x = w / 2;
-    this._DropShadow.texture = lng.Tools.getShadowRect(
-      w - GRID.spacingIncrement * 4,
-      ACTION_BUTTON_THEME.h,
-      CORNER_RADIUS.medium,
-      16,
-      24
-    );
-    this.fireAncestors('$itemChanged');
-  }
-
-  _focus() {
-    this._DropShadow.smooth = { alpha: 1, scaleX: getFocusScale(this.w) };
   }
 
   _unfocus() {
     this._DropShadow.smooth = { alpha: 0, scaleX: 1 };
   }
 
-  _getFocused() {
-    return this._Button;
+  _update() {
+    const template = { Content: {}, Loader: {}, DropShadow: {} };
+
+    if (this.w !== this.styles.w) {
+      template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+    }
+
+    if (!this.title) {
+      template.color = 0x00;
+      template.Content.Title = { texture: false };
+    } else {
+      template.Loader.color = 0x00;
+      template.Loader.texture = false;
+      if (this._loading) this._loading.stop();
+      super._update();
+    }
+    this.patch(template);
   }
 
-  _handleEnter() {
-    this._Button._handleEnter();
+  _enable() {
+    this._loading = this._Loader.animation({
+      duration: 2,
+      repeat: -1,
+      stopMethod: 'immediate',
+      actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
+    });
+    this._loading.start();
   }
 
-  get _Button() {
-    return this.tag('Button');
+  get backgroundType() {
+    return this._backgroundType;
   }
+
+  set backgroundType(backgroundType = 'float') {
+    const isStroke = backgroundType === 'stroke';
+    this._backgroundType = backgroundType = backgroundType;
+    if (this.styles) {
+      const background =
+        this.styles.backgrounds[backgroundType] ||
+        this.styles.backgrounds.float;
+      const stroke = isStroke && this.styles.stroke;
+
+      this.background = background;
+      this.stroke = stroke;
+    }
+  }
+
   get _Loader() {
     return this.tag('Loader');
   }
@@ -198,3 +190,5 @@ export default class ActionButton extends lng.Component {
     return this.tag('DropShadow');
   }
 }
+
+export default withStyles(ActionButton, styles);
