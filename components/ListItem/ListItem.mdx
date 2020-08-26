@@ -73,6 +73,8 @@ If multiple icons are passed, they will be laid out horizontally in order.
   <Story id="listitem--multiple-icons" />
 </Preview>
 
+Any common image extension can be passed as `icon`, or an inline `SVG`. The expected icon dimension is 40x40.
+
 ## API
 
 ### Properties
@@ -80,7 +82,7 @@ If multiple icons are passed, they will be laid out horizontally in order.
 name|type|readonly|description
 --|--|--|--
 background|'fill'\|'float'|false|color of `ListItem` container.
-icon|string\|string[]|false|path to icon image (or list of paths)
+icon|string\|string[]|false|path to icon image (or list of paths). See <a href="?path=/docs/icon--basic">Icon</a>
 size|'small'\|'large'\|number|false|width of the `ListItem` container
 subtitle|string|false|item metadata info goes here
 title|string|false|main item info goes here

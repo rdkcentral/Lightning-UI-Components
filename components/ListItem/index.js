@@ -6,6 +6,7 @@
  *
  */
 import lng from 'wpe-lightning';
+import Icon from '../Icon';
 import Tile from '../Tile';
 import Toggle from '../Toggle';
 import { RoundRect } from '../../utils';
@@ -136,9 +137,10 @@ export default class ListItem extends ListItemBase {
       [...(Array.isArray(this.icon) ? this.icon : [this.icon])].forEach(
         (icon, index) => {
           right[`Icon${index || ''}`] = {
+            type: Icon,
             h: 40,
             w: 40,
-            src: icon
+            icon
           };
         }
       );

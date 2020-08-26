@@ -132,7 +132,7 @@ describe('ListItem', () => {
     });
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(listItem._Icon.src).toEqual(listItem.icon);
+    expect(listItem._Icon.icon).toEqual(listItem.icon);
   });
 
   it('should render multiple icons', () => {
@@ -141,7 +141,7 @@ describe('ListItem', () => {
     });
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(listItem._icons.map(icon => icon.src)).toEqual(
+    expect(listItem._icons.map(icon => icon.icon)).toEqual(
       expect.arrayContaining(listItem.icon)
     );
   });
