@@ -34,11 +34,19 @@ Set `announcerEnabled` to true in your app and optionally `debug` to true to see
 | 10 | Row | No Context |
 | 11 | Rows | No Context |
 | 12 | Grid | No Context |
-| 13 | BrowsePage-1 | Context |  ! ! ! ! Press LEFT or RIGHT to
+| 13 | BrowsePage-1 | Context |  PAUSE-2 Press LEFT or RIGHT to
 
 The `Announcer` will travel through the `_focusPath` looking for `component.announce` then `component.title` properties. After collecting those properties it reverses the `_focusPath` looking for `component.announceContext` properties.
 
 For async data you may return a promise which resolves to a string.
+
+You may also use `PAUSE-#` to pause speech for # seconds before saying the next string.
+
+```js
+  get context() {
+    return ['PAUSE-2.5', 'Hello there!'];
+  }
+```
 
 ## API
 

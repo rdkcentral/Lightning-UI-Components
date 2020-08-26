@@ -1,7 +1,7 @@
 import Speech from './Speech';
 
 global.speechSynthesis = {
-  speak: jest.fn(),
+  speak: jest.fn(utter => utter.onend()),
   cancel: jest.fn()
 };
 global.SpeechSynthesisUtterance = jest.fn();
@@ -32,6 +32,18 @@ describe('Speech', () => {
     Speech(['Hello', unresolvedPromise]);
     return Speech(['Cancelled']).series.then(() => {
       expect(utter).toHaveBeenLastCalledWith('Cancelled');
+    });
+  });
+
+  it('should support PAUSE-', () => {
+    return Speech(['Hello', 'PAUSE-0.1', 'There']).series.then(() => {
+      expect(utter).toHaveBeenLastCalledWith('There');
+    });
+  });
+
+  it('should support PAUSE-X with invalid number', () => {
+    return Speech(['Hello', 'PAUSE-XD', 'There']).series.then(() => {
+      expect(utter).toHaveBeenLastCalledWith('There');
     });
   });
 });
