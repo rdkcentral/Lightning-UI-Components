@@ -80,7 +80,7 @@ export default (base, speak = Speech) =>
       }, []);
 
       if (toAnnounce.length) {
-        speak(toAnnounce);
+        speak(toAnnounce.flat());
       }
     }
 

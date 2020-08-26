@@ -59,6 +59,7 @@ export const Basic = () =>
         debug: true,
         announcerEnabled: true,
         announcerTimeout: 15 * 1000,
+        x: 20,
         Column: {
           type: Column,
           w: 900,
@@ -70,11 +71,12 @@ export const Basic = () =>
     }
 
     get announceContext() {
-      // ! ! ! hack to add 2 sec pause until SSML is supported
-      return ` ! ! ! !
-              Press LEFT or RIGHT to review items,
+      return [
+        'PAUSE-2.2',
+        `Press LEFT or RIGHT to review items,
               press UP or DOWN to review categories,
-              press CENTER to select`;
+              press CENTER to select`
+      ];
     }
 
     _getFocused() {

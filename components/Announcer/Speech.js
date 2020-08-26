@@ -4,14 +4,34 @@ function speakSeries(series) {
   let seriesChain = series
     .reduce((series, phrase) => {
       return series.then(() => {
-        phrase = typeof phrase === 'string' ? Promise.resolve(phrase) : phrase;
+        if (typeof phrase === 'string') {
+          if (phrase.includes('PAUSE-')) {
+            let pause = phrase.split('PAUSE-')[1] * 1000;
+            if (isNaN(pause)) {
+              pause = 0;
+            }
+            phrase = new Promise(resolve => {
+              setTimeout(() => resolve(), pause);
+            });
+          } else {
+            phrase = Promise.resolve(phrase);
+          }
+        }
 
         return phrase.then(toSpeak => {
           if (cancelled) {
             return Promise.reject();
           }
-          let utterance = new SpeechSynthesisUtterance(toSpeak);
-          synth.speak(utterance);
+
+          if (!toSpeak) {
+            return;
+          }
+
+          return new Promise(resolve => {
+            let utterance = new SpeechSynthesisUtterance(toSpeak);
+            utterance.onend = resolve;
+            synth.speak(utterance);
+          });
         });
       });
     }, Promise.resolve())
