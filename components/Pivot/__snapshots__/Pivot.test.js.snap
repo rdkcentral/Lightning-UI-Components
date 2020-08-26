@@ -82,6 +82,7 @@ Object {
             "lineHeight": 32,
             "text": "Pivot",
             "type": "TextTexture",
+            "verticalAlign": "middle",
           },
           "visible": true,
           "w": 0,

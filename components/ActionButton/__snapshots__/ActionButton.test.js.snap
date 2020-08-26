@@ -82,6 +82,7 @@ Object {
             "lineHeight": 36,
             "text": "Action Button",
             "type": "TextTexture",
+            "verticalAlign": "middle",
           },
           "visible": true,
           "w": 0,
