@@ -34,7 +34,8 @@ export default class Tooltip extends lng.Component {
           ...TYPESCALE.footnote,
           textColor: getHexColor(COLORS_TEXT.dark),
           wordWrapWidth: 400,
-          textAlign: 'center'
+          textAlign: 'center',
+          verticalAlign: 'middle'
         }
       }
     };

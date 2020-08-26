@@ -64,28 +64,32 @@ export const TYPOGRAPHY = {
     fontSize: 56,
     lineHeight: 72,
     fontWeight: 'bold',
-    letterSpacing: -0.4
+    letterSpacing: -0.4,
+    verticalAlign: 'middle'
   },
   display2: {
     fontFace: 'XfinityBrownBold',
     fontSize: 48,
     lineHeight: 64,
     fontWeight: 'bold',
-    letterSpacing: -0.4
+    letterSpacing: -0.4,
+    verticalAlign: 'middle'
   },
   headline1: {
     fontFace: 'XfinityBrownBold',
     fontSize: 36,
     lineHeight: 48,
     fontWeight: 'bold',
-    letterSpacing: -0.2
+    letterSpacing: -0.2,
+    verticalAlign: 'middle'
   },
   headline2: {
     fontFace: 'XfinityBrownBold',
     fontSize: 28,
     lineHeight: 40,
     fontWeight: 'bold',
-    letterSpacing: -0.2
+    letterSpacing: -0.2,
+    verticalAlign: 'middle'
   },
   body1: {
     fontFace: 'XfinityStandardMedium',
@@ -93,28 +97,32 @@ export const TYPOGRAPHY = {
     h: 40,
     lineHeight: 40,
     fontWeight: 500,
-    letterSpacing: 0
+    letterSpacing: 0,
+    verticalAlign: 'middle'
   },
   body2: {
     fontFace: 'XfinityStandardMedium',
     fontSize: 24,
     lineHeight: 32,
     fontWeight: 500,
-    letterSpacing: 0
+    letterSpacing: 0,
+    verticalAlign: 'middle'
   },
   button1: {
     fontFace: 'XfinityBrownBold',
     fontSize: 28,
     lineHeight: 36,
     fontWeight: 'bold',
-    letterSpacing: -0.2
+    letterSpacing: -0.2,
+    verticalAlign: 'middle'
   },
   button2: {
     fontFace: 'XfinityBrownBold',
     fontSize: 24,
     lineHeight: 32,
     fontWeight: 'bold',
-    letterSpacing: -0.2
+    letterSpacing: -0.2,
+    verticalAlign: 'middle'
   },
   callout1: {
     fontFace: 'XfinityBrownBold',
@@ -122,14 +130,16 @@ export const TYPOGRAPHY = {
     lineHeight: 32,
     fontWeight: 'bold',
     letterSpacing: 2,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    verticalAlign: 'middle'
   },
   caption1: {
     fontFace: 'XfinityStandardBold',
     fontSize: 20,
     lineHeight: 24,
     fontWeight: 'bold',
-    letterSpacing: 0
+    letterSpacing: 0,
+    verticalAlign: 'middle'
   }
 };
 

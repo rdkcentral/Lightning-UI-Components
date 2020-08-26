@@ -79,6 +79,7 @@ Object {
         "textColor": 4278650631,
         "textOverflow": "ellipsis",
         "type": "TextTexture",
+        "verticalAlign": "middle",
         "wordWrapWidth": 400,
       },
       "visible": true,
