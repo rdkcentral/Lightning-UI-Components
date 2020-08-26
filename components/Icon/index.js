@@ -53,7 +53,7 @@ function getIconTemplate(icon, w, h) {
       template.src = icon;
       break;
     default:
-      throw new TypeError('invalid icon ' + icon);
+      break;
   }
   return template;
 }

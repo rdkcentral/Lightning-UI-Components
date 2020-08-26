@@ -7,6 +7,7 @@
 import lng from 'wpe-lightning';
 import { RoundRect } from '../../utils';
 import withStyles from '../../mixins/withStyles';
+import Icon from '../Icon';
 
 export const styles = {
   w: 150,
@@ -63,7 +64,9 @@ class Button extends lng.Component {
           alignContent: 'center',
           alignItems: 'center'
         },
-        Icon: {},
+        Icon: {
+          type: Icon
+        },
         // TODO: Wonky lineHeight / fontsize from Lightning
         // Move title down 2 pixels to _visually_ center it
         // inside the button
@@ -119,7 +122,7 @@ class Button extends lng.Component {
       Icon.w = size;
       Icon.h = size;
       Icon.flexItem = { marginRight: spacing };
-      Icon.src = src;
+      Icon.icon = src;
       template.Content.Icon = Icon;
     }
 

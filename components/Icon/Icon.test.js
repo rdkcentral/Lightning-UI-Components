@@ -35,8 +35,9 @@ describe('Icon', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('throws for invalid icon sources', () => {
-    const act = () => createIcon({ icon: 'bad/path' });
-    expect(act).toThrow(TypeError);
+  it('handles invalid icon sources', () => {
+    const [_, testRenderer] = createIcon({ icon: 'bad/path' });
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
   });
 });
