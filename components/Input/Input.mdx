@@ -1,0 +1,135 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# Input
+
+Text input field component
+
+## Usage
+
+The `Input` component manages the state of a user's keyboard input. An important distinction between `Input` and the standard web `<input />` is that `Input` **does not do key handling for input**. Instead, you use the `insert()` method to add values based on the current cursor `position`.
+
+```js
+import { Input } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Input: {
+        type: Input,
+        w: 500,
+        placeholder: 'Type something'
+      }
+    };
+  }
+
+  _handleKey(event) {
+    const { key } = event;
+    if (key.length === 1) {
+      this.tag('Input').input(key);
+    }
+    if (key === 'Backspace') {
+      this.tag('Input').backspace();
+    }
+  }
+
+  _getFocused() {
+    return this.tag('Input');
+  }
+};
+```
+
+<Preview>
+  <Story id="input--basic" />
+</Preview>
+
+### Setting/Inserting values
+
+The `Input` component keeps track of it's current `value` and cursor `position`. You can manage the value state in a few ways. Let's work off of the above example. We see "Type something", which is the `placeholder` value. If you set a `placeholder`, it will always show if the `value` is empty. Let's set a value:
+
+```js
+this.tag('Input').value = 'Hello';
+```
+
+Now we will see "Hello" in the input, but the cursor will be at the beginning of the text. We can set the position:
+
+```js
+this.tag('Input').position = 5
+```
+
+If we want to set the value _and_ change the position, we can use the `insert()` method.
+
+```js
+this.tag('Input').insert('Hello');
+
+// is the same as
+this.tag('Input').value = 'Hello';
+this.tag('Input').position = 5;
+```
+
+The main two differences between `insert()` and setting `input.value` are:
+  1. setting `value` _replaces_ the text completely, `insert()` adds to the value at the current cursor `position`
+  2. setting `value` does not move the cursor `position`, while `insert()` moves the cursor to the right by the number of characters inserted
+
+For key handling, use `insert()`. For total control over `value`, use the setter.
+
+### Deletion
+
+To clear the current value, use `clear()`. This also repositions the cursor.
+
+```js
+this.tag('Input').clear();
+```
+
+Use the `backspace()` method to handle insert deletions. This will remove the character at the current cursor `position - 1` and moves the cursor back. To illustrate this behavior, let's look at a simple example:
+
+```js
+this.tag('Input').value = 'foo';
+this.tag('Input').position = 1;
+
+this.tag('Input').backspace();
+this.tag('Input').value //=> 'oo'
+this.tag('Input').position //=> 0
+```
+
+### Cursor position
+
+The `Input` component has left and right key handlers to manage cursor position, so it works out of the box!
+
+```js
+this.tag('Input').value = 'foo';
+
+this.tag('Input')._handleRight();
+this.tag('Input').position //=> 1
+
+this.tag('Input')._handleLeft();
+this.tag('Input').position //=> 0
+```
+
+The cursor position stays within the bounds of the current `value`, so it is always >= 0 and <= `value.length`
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+w|number|false|808|width
+h|number|false|64|height
+radius|number|false|8|border radius
+placeholder|string|false|''|text to display when there is no value
+position|number|false|0|index of current cursor position
+value|string|false|''|text of input value
+
+### Methods
+
+#### clear(): void
+
+Sets `input.value` to `''` and `input.position` to `0`.
+
+#### insert(value: string): void
+
+Appends `value` to `input.value` and moves the cursor by `value.length`.
+
+#### backspace(): void
+
+Removes one character behind `input.position` and moves the cursor back by 1. 
