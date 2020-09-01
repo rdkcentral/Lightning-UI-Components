@@ -61,4 +61,36 @@ describe('Tile', () => {
       done();
     });
   });
+
+  it('should render focusRing on focus', done => {
+    let [tile, testRenderer] = createTile({
+      blur: 2,
+      rounded: 16,
+      shadow: { color: 0xffffffff }
+    });
+
+    tile._Item.on('txLoaded', () => {
+      tile._focus();
+      testRenderer.update();
+      let tree = testRenderer.toJSON(2);
+      expect(tree).toMatchSnapshot();
+      done();
+    });
+  });
+
+  it('should remove focusRing on unfocus', done => {
+    let [tile, testRenderer] = createTile({
+      blur: 2,
+      rounded: 16,
+      shadow: { color: 0xffffffff }
+    });
+    tile._focus();
+    testRenderer.update();
+    tile._unfocus();
+    setTimeout(() => {
+      let tree = testRenderer.toJSON(2);
+      expect(tree).toMatchSnapshot();
+      done();
+    }, 510);
+  });
 });
