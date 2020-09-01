@@ -4,5 +4,6 @@ import theme from './theme';
 
 addons.setConfig({
   theme,
-  selectedPanel: PANEL_ID
+  selectedPanel: PANEL_ID,
+  enableShorcuts: false
 });
