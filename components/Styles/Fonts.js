@@ -85,22 +85,37 @@ export const TYPOGRAPHY = {
   },
   headline2: {
     fontFace: 'XfinityBrownBold',
-    fontSize: 28,
+    fontSize: 32,
     lineHeight: 40,
+    fontWeight: 'bold',
+    letterSpacing: -0.2,
+    verticalAlign: 'middle'
+  },
+  headline3: {
+    fontFace: 'XfinityBrownBold',
+    fontSize: 28,
+    lineHeight: 36,
     fontWeight: 'bold',
     letterSpacing: -0.2,
     verticalAlign: 'middle'
   },
   body1: {
     fontFace: 'XfinityStandardMedium',
-    fontSize: 28,
-    h: 40,
+    fontSize: 32,
     lineHeight: 40,
     fontWeight: 500,
     letterSpacing: 0,
     verticalAlign: 'middle'
   },
   body2: {
+    fontFace: 'XfinityStandardMedium',
+    fontSize: 28,
+    lineHeight: 36,
+    fontWeight: 500,
+    letterSpacing: 0,
+    verticalAlign: 'middle'
+  },
+  body3: {
     fontFace: 'XfinityStandardMedium',
     fontSize: 24,
     lineHeight: 32,
@@ -140,81 +155,5 @@ export const TYPOGRAPHY = {
     fontWeight: 'bold',
     letterSpacing: 0,
     verticalAlign: 'middle'
-  }
-};
-
-/**
- *
- *
- * TODO: DEPRECATED typescale shape
- *
- *
- *
- */
-// FLUP: OTTX-1248
-// need to determine UX for truncating text and if text should scroll
-const TEXT_OVERFLOW_ATTRIBUTES = {
-  textOverflow: 'ellipsis',
-  maxLinesSuffix: '...'
-};
-
-/**
- * Used to pair a font styles with the appropriate size to be used inside specific components.
- */
-export const TYPESCALE = {
-  display: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 56,
-    lineHeight: 72
-  },
-  headline: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 48,
-    lineHeight: 64
-  },
-  title: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 40,
-    lineHeight: 52
-  },
-  subtitle: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 36,
-    lineHeight: 48
-  },
-  body: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardMedium',
-    fontSize: 32,
-    lineHeight: 40
-  },
-  caption: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 28,
-    lineHeight: 36
-  },
-  footnote: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 24,
-    lineHeight: 32
-  },
-  label: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 24,
-    lineHeight: 32,
-    letterSpacing: 4
-  },
-  tag: {
-    ...TEXT_OVERFLOW_ATTRIBUTES,
-    fontFace: 'XfinityStandardBold',
-    fontSize: 20,
-    lineHeight: 24
   }
 };

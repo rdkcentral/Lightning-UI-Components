@@ -1,7 +1,7 @@
 import lng from 'wpe-lightning';
 import {
   GRID,
-  TYPESCALE,
+  TYPOGRAPHY,
   CORNER_RADIUS,
   getHexColor,
   COLORS_NEUTRAL,
@@ -31,7 +31,7 @@ export default class Tooltip extends lng.Component {
       Text: {
         x: horizontalPadding,
         text: {
-          ...TYPESCALE.footnote,
+          ...TYPOGRAPHY.body3,
           textColor: getHexColor(COLORS_TEXT.dark),
           wordWrapWidth: 400,
           textAlign: 'center',
@@ -49,7 +49,7 @@ export default class Tooltip extends lng.Component {
       let backgroundW = this._Text.finalW + horizontalPadding * 2;
       let backgroundH =
         this._Text.finalH -
-        (this._Text.finalH % TYPESCALE.footnote.lineHeight) / 2; // calculates even padding
+        (this._Text.finalH % TYPOGRAPHY.body3.lineHeight) / 2; // calculates even padding
 
       this.texture = lng.Tools.getRoundRect(
         RoundRect.getWidth(backgroundW),
