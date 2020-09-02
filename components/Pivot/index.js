@@ -117,6 +117,10 @@ class Pivot extends Button {
     };
   }
 
+  _construct() {
+    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+  }
+
   _init() {
     super._init();
     this._update();
@@ -143,27 +147,29 @@ class Pivot extends Button {
   }
 
   _update() {
-    const template = { Content: {}, Loader: {}, DropShadow: {} };
+    this._whenEnabled.then(() => {
+      const template = { Content: {}, Loader: {}, DropShadow: {} };
 
-    if (this.w !== this.styles.w) {
-      template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-    }
+      if (this.w !== this.styles.w) {
+        template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+      }
 
-    if (!this.title) {
-      template.color = 0x00;
-      template.Content.Title = { texture: false };
-      template.Loader.texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(this.styles.w),
-        RoundRect.getHeight(this.styles.h - 2),
-        this.styles.radius
-      );
+      if (!this.title) {
+        template.color = 0x00;
+        template.Content.Title = { texture: false };
+        template.Loader.texture = lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.styles.w),
+          RoundRect.getHeight(this.styles.h - 2),
+          this.styles.radius
+        );
+        this.patch(template);
+      } else {
+        template.Loader.texture = false;
+        if (this._loading) this._loading.stop();
+        super._update();
+      }
       this.patch(template);
-    } else {
-      template.Loader.texture = false;
-      if (this._loading) this._loading.stop();
-      super._update();
-    }
-    this.patch(template);
+    });
   }
 
   _enable() {

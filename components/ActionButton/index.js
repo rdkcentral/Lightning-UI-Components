@@ -51,7 +51,8 @@ export const styles = theme => ({
         Content: {
           Title: { smooth: { color: this.styles.text.color } },
           Icon: { smooth: { color: this.styles.icon.color } }
-        }
+        },
+        DropShadow: { smooth: { alpha: 0, scaleX: 1 } }
       });
     }
   },
@@ -107,6 +108,10 @@ class ActionButton extends Button {
     };
   }
 
+  _construct() {
+    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+  }
+
   _init() {
     super._init();
     this._update();
@@ -132,27 +137,25 @@ class ActionButton extends Button {
     }
   }
 
-  _unfocus() {
-    this._DropShadow.smooth = { alpha: 0, scaleX: 1 };
-  }
-
   _update() {
-    const template = { Content: {}, Loader: {}, DropShadow: {} };
+    this._whenEnabled.then(() => {
+      const template = { Content: {}, Loader: {}, DropShadow: {} };
 
-    if (this.w !== this.styles.w) {
-      template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-    }
+      if (this.w !== this.styles.w) {
+        template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+      }
 
-    if (!this.title) {
-      template.color = 0x00;
-      template.Content.Title = { texture: false };
-    } else {
-      template.Loader.color = 0x00;
-      template.Loader.texture = false;
-      if (this._loading) this._loading.stop();
-      super._update();
-    }
-    this.patch(template);
+      if (!this.title) {
+        template.color = 0x00;
+        template.Content.Title = { texture: false };
+      } else {
+        template.Loader.color = 0x00;
+        template.Loader.texture = false;
+        if (this._loading) this._loading.stop();
+        super._update();
+      }
+      this.patch(template);
+    });
   }
 
   _enable() {

@@ -24,56 +24,71 @@ describe('Pivot', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should update it's shadow width for long titles", () => {
+  it("should update it's shadow width for long titles", done => {
     [pivot, testRenderer] = createPivot({
       title:
         'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
     });
-    const spy = jest.spyOn(pivot, 'patch');
 
     // default width
     expect(pivot.w).toBe(185);
 
-    testRenderer.update();
-
-    // update width
-    expect(pivot.w).toBe(189);
-    // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
-    const { lookupId } = spy.mock.calls[
-      spy.mock.calls.length - 1
-    ][0].DropShadow.texture.content;
-    expect(lookupId).toEqual('shadow173,32,16,32,8,8,8,8');
+    pivot._whenEnabled.then(() => {
+      testRenderer.update();
+      // update width
+      expect(pivot.w).toBe(189);
+      // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
+      pivot._DropShadow.loadTexture();
+      expect(pivot._DropShadow.texture._lookupId).toEqual(
+        'shadow169,32,16,32,8,8,8,8'
+      );
+      done();
+    });
   });
 
   describe('style', () => {
-    it('should set background to stroke', () => {
+    it('should set background to stroke', done => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'stroke'
       });
 
-      expect(pivot.color).toBe(0);
-      expect(pivot._stroke).toEqual(
-        expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
-      );
+      pivot._whenEnabled.then(() => {
+        expect(pivot.color).toBe(0);
+        expect(pivot._stroke).toEqual(
+          expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
+        );
+        done();
+      });
     });
 
-    it('should set background to fill', () => {
+    it('should set background to fill', done => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'fill'
       });
-      expect(pivot.color).toBe(getHexColor('232328'));
+      pivot._whenEnabled.then(() => {
+        expect(pivot.color).toBe(getHexColor('232328'));
+        done();
+      });
     });
-    it('should set background to float', () => {
+    it('should set background to float', done => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'float'
       });
-      expect(pivot.color).toBe(0);
+
+      pivot._whenEnabled.then(() => {
+        expect(pivot.color).toBe(0);
+        done();
+      });
     });
-    it('should default background to float', () => {
+    it('should default background to float', done => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'orange'
       });
-      expect(pivot.color).toBe(0);
+
+      pivot._whenEnabled.then(() => {
+        expect(pivot.color).toBe(0);
+        done();
+      });
     });
   });
 
@@ -96,14 +111,18 @@ describe('Pivot', () => {
       });
       expect(pivot._loading.isPlaying()).toBe(true);
     });
-    it('should stop loading once title is set', () => {
+    it('should stop loading once title is set', done => {
       [pivot, testRenderer] = createPivot({
         title: undefined
       });
+
       testRenderer.update();
       expect(pivot._loading.isPlaying()).toBe(true);
       pivot.title = 'Action Button';
-      expect(pivot._loading.isPlaying()).toBe(false);
+      pivot._whenEnabled.then(() => {
+        expect(pivot._loading.isPlaying()).toBe(false);
+        done();
+      });
     });
   });
 

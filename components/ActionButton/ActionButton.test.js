@@ -24,25 +24,21 @@ describe('ActionButton', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should update it's shadow width for long titles", () => {
+  it("should update it's shadow width for long titles", done => {
     [actionbutton, testRenderer] = createActionButton({
       title:
         'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
     });
-    const spy = jest.spyOn(actionbutton, 'patch');
-
     // default width
     expect(actionbutton.w).toBe(410);
-
-    testRenderer.update();
-
-    // update width
-    expect(actionbutton.w).toBe(472);
-    // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
-    const { lookupId } = spy.mock.calls[
-      spy.mock.calls.length - 1
-    ][0].DropShadow.texture.content;
-    expect(lookupId).toEqual('shadow456,56,16,32,8,8,8,8');
+    actionbutton._whenEnabled.then(() => {
+      // update width
+      testRenderer.update();
+      expect(actionbutton.w).toBe(472);
+      // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
+      // expect(lookupId).toEqual('shadow456,56,16,32,8,8,8,8');
+      done();
+    });
   });
 
   describe('style', () => {
@@ -95,12 +91,15 @@ describe('ActionButton', () => {
       [actionbutton, testRenderer] = createActionButton({});
       expect(actionbutton._loading.isPlaying()).toBe(true);
     });
-    it('should stop loading once title is set', () => {
+    it('should stop loading once title is set', done => {
       [actionbutton, testRenderer] = createActionButton({});
       expect(actionbutton._loading.isPlaying()).toBe(true);
       actionbutton.title = 'Action Button';
-      testRenderer.update();
-      expect(actionbutton._loading.isPlaying()).toBe(false);
+      actionbutton._whenEnabled.then(() => {
+        testRenderer.update();
+        expect(actionbutton._loading.isPlaying()).toBe(false);
+        done();
+      });
     });
   });
 
