@@ -8,10 +8,6 @@ export default function withStyles(Base, styles, theme) {
 
   return class extends Base {
     static get styles() { return _styles };
-    
-    constructor(stage) {
-      super(stage);
-      this.styles = _styles;
-    }
+    get styles() { return _styles }
   }
 }
