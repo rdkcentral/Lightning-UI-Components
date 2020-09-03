@@ -5,7 +5,11 @@ import Tooltip from '.';
 import Button from '../Button';
 import { JPEGStream } from 'canvas';
 
-const createTooltip = TestUtils.makeCreateComponent(Tooltip);
+const createTooltip = TestUtils.makeCreateComponent(
+  Tooltip,
+  {},
+  { focused: false }
+);
 const createButton = TestUtils.makeCreateComponent(Button);
 
 describe('Tooltip', () => {

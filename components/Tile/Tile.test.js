@@ -26,14 +26,11 @@ describe('Tile', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should render with blur', done => {
+  it('should render with blur', () => {
     let [tile, testRenderer] = createTile({ blur: 2 });
-
-    tile._Item.on('txLoaded', () => {
-      let tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+    tile._Item.loadTexture();
+    let tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
   });
 
   it('should render with rounded corners', () => {

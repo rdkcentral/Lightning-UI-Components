@@ -23,15 +23,18 @@ function pathToDataURI(path) {
   return `data:image/jpg;base64, ${readFileSync(path).toString('base64')}`;
 }
 
-function makeCreateComponent(type, defaultConfig = {}) {
+function makeCreateComponent(type, defaultConfig = {}, options = {}) {
   return (config = {}) => {
-    const testRenderer = TestRenderer.create({
-      Component: {
-        type,
-        ...defaultConfig,
-        ...config
-      }
-    });
+    const testRenderer = TestRenderer.create(
+      {
+        Component: {
+          type,
+          ...defaultConfig,
+          ...config
+        }
+      },
+      options
+    );
     return [testRenderer.getInstance(), testRenderer];
   };
 }

@@ -6,7 +6,11 @@ const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 const src = TestUtils.pathToDataURI('assets/images/56.png');
 
 const createListItem = TestUtils.makeCreateComponent(ListItem);
-const createListItemBase = TestUtils.makeCreateComponent(ListItemBase);
+const createListItemBase = TestUtils.makeCreateComponent(
+  ListItemBase,
+  {},
+  { focused: false }
+);
 const createListItemImage = TestUtils.makeCreateComponent(ListItemImage);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 
