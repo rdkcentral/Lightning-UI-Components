@@ -5,7 +5,7 @@ const arrowWidth = 10;
 const arrowHeight = 16;
 const spacing = 10;
 const sliderHeight = 4;
-const sliderWidth = 330;
+const sliderWidth = 328;
 const containerHeight = 20;
 const containerWidth = arrowWidth * 2 + spacing * 2 + sliderWidth;
 
@@ -57,15 +57,19 @@ export default class Slider extends lng.Component {
 
   static _template() {
     return {
+      w: containerWidth,
+      h: containerHeight,
       Container: {
         w: containerWidth,
         h: containerHeight,
         LeftArrow: {
-          texture: Slider.getLeftArrowTexture()
+          texture: Slider.getLeftArrowTexture(),
+          mountY: 0.5,
+          y: h => h / 2
         },
         Bar: {
-          y: 5,
-          x: arrowWidth * 2,
+          y: containerHeight / 2 - sliderHeight + 1,
+          x: arrowWidth * 2 - 2,
           LeftBar: {
             texture: Slider.getLeftBarTexture(),
             zIndex: 1
@@ -81,8 +85,10 @@ export default class Slider extends lng.Component {
           }
         },
         RightArrow: {
-          x: sliderWidth + arrowWidth * 3 + 1,
-          texture: Slider.getRightArrowTexture()
+          x: sliderWidth + arrowWidth * 3,
+          texture: Slider.getRightArrowTexture(),
+          mountY: 0.5,
+          y: h => h / 2
         }
       }
     };
@@ -113,7 +119,9 @@ export default class Slider extends lng.Component {
     this.signal('onChange', this.value, this);
 
     const position =
-      ((this.value - this.min) / (this.max - this.min)) * sliderWidth + 0.5;
+      Math.round(
+        ((this.value - this.min) / (this.max - this.min)) * sliderWidth + 0.5
+      ) + 1;
 
     this._LeftBar.patch({
       texture: Slider.getLeftBarTexture(position),

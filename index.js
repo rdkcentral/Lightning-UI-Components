@@ -7,7 +7,7 @@ export { default as Column } from './components/Column/index.js';
 export { default as FocusManager } from './components/FocusManager/index.js';
 export { default as FocusRing } from './components/FocusRing/index.js';
 export { default as Input } from './components/Input/index.js';
-export { default as ListItem, ListItemImage, ListItemToggle } from './components/ListItem/index.js';
+export { default as ListItem, ListItemImage, ListItemSlider, ListItemToggle } from './components/ListItem/index.js';
 export { default as Pivot } from './components/Pivot/index.js';
 export { default as ProgressBar } from './components/ProgressBar/index.js';
 export { default as Row } from './components/Row/index.js';
