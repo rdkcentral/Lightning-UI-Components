@@ -40,7 +40,12 @@ function keyRelease(elm, key) {
   }
 }
 
-function create(Component) {
+function create(Component, options = {}) {
+  const defaultOpts = { focused: true };
+  const opts = {
+    ...defaultOpts,
+    ...options
+  };
   class TestApp extends lng.Application {
     static _template() {
       return {
@@ -52,13 +57,14 @@ function create(Component) {
     }
 
     _getFocused() {
-      return this.childList.first;
+      return opts.focused && this.childList.first;
     }
   }
 
   let app = new TestApp({ stage });
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
+  app.updateFocusPath();
   return {
     toJSON: (children = 1) => toJSON(app.childList.first, { children }),
     update: () => {
@@ -115,7 +121,6 @@ function getProperties(element) {
     'clipping',
     'enabled',
     'h',
-    'id',
     'isComponent',
     'mount',
     'mountY',

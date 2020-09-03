@@ -66,10 +66,10 @@ describe('Input', () => {
     input.position = 2;
     expect(input._Cursor.x).toEqual(2);
 
-    input._handleRight();
+    testRenderer.keyPress('Right');
     expect(input._Cursor.x).toEqual(3);
 
-    input._handleLeft();
+    testRenderer.keyPress('Left');
     expect(input._Cursor.x).toEqual(2);
   });
 
@@ -81,7 +81,7 @@ describe('Input', () => {
     input.position = -1;
     expect(input._Cursor.x).toBe(0);
 
-    input._handleLeft();
+    testRenderer.keyPress('Left');
     expect(input._Cursor.x).toBe(0);
 
     input.position = 4;
@@ -90,7 +90,7 @@ describe('Input', () => {
     input.position = 5;
     expect(input._Cursor.x).toBe(4);
 
-    input._handleRight();
+    testRenderer.keyPress('Right');
     expect(input._Cursor.x).toBe(4);
   });
 
@@ -101,16 +101,16 @@ describe('Input', () => {
     input.insert('x');
     expect(input._Content.text.text).toEqual('xx');
 
-    input._handleLeft();
+    testRenderer.keyPress('Left');
     input.insert('o');
     expect(input._Content.text.text).toEqual('xox');
 
-    input._handleLeft();
-    input._handleLeft();
+    testRenderer.keyPress('Left');
+    testRenderer.keyPress('Left');
     input.insert('o');
     expect(input._Content.text.text).toEqual('oxox');
 
-    input._handleRight();
+    testRenderer.keyPress('Right');
     input.insert('ox');
     expect(input._Content.text.text).toEqual('oxoxox');
   });
@@ -129,12 +129,12 @@ describe('Input', () => {
     input.backspace();
     expect(input._Content.text.text).toEqual('xoxox');
 
-    input._handleLeft();
+    testRenderer.keyPress('Left');
     input.backspace();
     expect(input._Content.text.text).toEqual('xoxx');
 
-    input._handleLeft();
-    input._handleLeft();
+    testRenderer.keyPress('Left');
+    testRenderer.keyPress('Left');
     input.backspace();
     expect(input._Content.text.text).toEqual('oxx');
 

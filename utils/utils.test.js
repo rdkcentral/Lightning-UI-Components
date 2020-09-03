@@ -13,6 +13,7 @@ describe('RoundRect', () => {
   const createComponent = (config = {}) => {
     const testRenderer = TestRenderer.create({
       Component: {
+        type: lng.Component,
         ...config
       }
     });
