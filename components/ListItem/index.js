@@ -7,6 +7,7 @@
  */
 import lng from 'wpe-lightning';
 import Icon from '../Icon';
+import Slider from '../Slider';
 import Tile from '../Tile';
 import Toggle from '../Toggle';
 import { RoundRect } from '../../utils';
@@ -107,7 +108,7 @@ export default class ListItem extends ListItemBase {
     const left = {};
     const right = {};
 
-    if (this.title) {
+    if (this.title !== undefined) {
       left.Title = {
         alpha: 0.95,
         text: {
@@ -118,7 +119,7 @@ export default class ListItem extends ListItemBase {
       };
     }
 
-    if (this.subtitle) {
+    if (this.subtitle !== undefined) {
       left.Subtitle = {
         alpha: 0.8,
         text: {
@@ -129,7 +130,7 @@ export default class ListItem extends ListItemBase {
       };
     }
 
-    if (this.icon) {
+    if (this.icon !== undefined) {
       right.flex = {
         direction: 'row'
       };
@@ -270,5 +271,143 @@ export class ListItemImage extends ListItem {
 
   get _Image() {
     return this._Container.tag('Image');
+  }
+}
+
+export class ListItemSlider extends ListItem {
+  static _template() {
+    return {
+      ...super._template(),
+      Container: {
+        ...super._template().Container,
+        Right: {
+          ...super._template().Right,
+          Slider: {
+            type: Slider,
+            alpha: 0,
+            signals: {
+              onChange: '_onSliderChange'
+            }
+          }
+        }
+      }
+    };
+  }
+
+  _init() {
+    this.icon = undefined;
+    super._init();
+  }
+
+  _focus() {
+    super._focus();
+    this._Slider.smooth = { alpha: 1 };
+    this._Container.patch({
+      flex: {
+        direction: 'column',
+        justifyContent: 'space-around'
+      }
+    });
+    this.stage.update();
+    this._Left.patch({
+      y: -1,
+      w: this._Container.finalW - 32,
+      flex: {
+        direction: 'row',
+        justifyContent: 'space-between'
+      }
+    });
+    this._Right.patch({
+      w: this._Container.finalW - 32,
+      h: 0,
+      y: -10,
+      flex: {
+        direction: 'row',
+        justifyContent: 'center'
+      }
+    });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this._Slider.smooth = { alpha: 0 };
+    this._Container.patch({
+      flex: {
+        direction: 'row',
+        justifyContent: 'flex-start'
+      }
+    });
+    this.stage.update();
+    this._Left.patch({
+      y: 10,
+      w: 0,
+      flex: {
+        direction: 'column',
+        justifyContent: 'flex-end'
+      }
+    });
+    this._Right.patch({
+      w: 0,
+      h: 0,
+      flex: {
+        direction: 'column'
+      }
+    });
+  }
+
+  _getFocused() {
+    return this._Slider;
+  }
+
+  _onSliderChange(value, slider) {
+    if (this._Subtitle) {
+      this._Subtitle.text.text = value;
+      this.signal('onSliderChange', value, slider);
+    }
+  }
+
+  get max() {
+    return this._Slider.max;
+  }
+
+  set max(max) {
+    this._Slider.max = max;
+  }
+
+  get min() {
+    return this._Slider.min;
+  }
+
+  set min(min) {
+    this._Slider.min = min;
+  }
+
+  // only supports 'small' size
+  get size() {
+    return 'small';
+  }
+
+  get step() {
+    return this._Slider.step;
+  }
+
+  set step(step) {
+    this._Slider.step = step;
+  }
+
+  get subtitle() {
+    return this.value;
+  }
+
+  get value() {
+    return this._Slider.value;
+  }
+
+  set value(value) {
+    this._Slider.value = value;
+  }
+
+  get _Slider() {
+    return this.tag('Container.Right.Slider');
   }
 }

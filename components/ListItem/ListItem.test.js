@@ -1,4 +1,9 @@
-import ListItem, { ListItemBase, ListItemImage, ListItemToggle } from '.';
+import ListItem, {
+  ListItemBase,
+  ListItemImage,
+  ListItemSlider,
+  ListItemToggle
+} from '.';
 import { getHexColor } from '../Styles';
 import TestUtils from '../lightning-test-utils';
 
@@ -12,6 +17,7 @@ const createListItemBase = TestUtils.makeCreateComponent(
   { focused: false }
 );
 const createListItemImage = TestUtils.makeCreateComponent(ListItemImage);
+const createListItemSlider = TestUtils.makeCreateComponent(ListItemSlider);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 
 describe('ListItemBase', () => {
@@ -210,7 +216,7 @@ describe('ListItemToggle', () => {
   });
 
   it('toggles on enter', () => {
-    listItemToggle._handleEnter();
+    testRenderer.keyPress('Enter');
     testRenderer.update();
 
     expect(listItemToggle.isChecked()).toBe(true);
@@ -257,5 +263,77 @@ describe('ListItemImage', () => {
     });
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('ListItemSlider', () => {
+  let listItemSlider, testRenderer;
+  beforeEach(() => {
+    [listItemSlider, testRenderer] = createListItemSlider({
+      title: 'List Item'
+    });
+    testRenderer.update();
+  });
+  afterEach(() => {
+    listItemSlider = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders with default values', () => {
+    expect(listItemSlider.max).toEqual(100);
+    expect(listItemSlider.min).toEqual(0);
+    expect(listItemSlider.step).toEqual(1);
+    expect(listItemSlider.value).toEqual(0);
+  });
+
+  it('renders a slider on focus', () => {
+    listItemSlider._focus();
+    testRenderer.update();
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('passes properties to the Slider', () => {
+    [listItemSlider, testRenderer] = createListItemSlider({
+      value: 8,
+      min: 1,
+      max: 10,
+      step: 2
+    });
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(listItemSlider._Slider.value).toEqual(8);
+    expect(listItemSlider._Slider.min).toEqual(1);
+    expect(listItemSlider._Slider.max).toEqual(10);
+    expect(listItemSlider._Slider.step).toEqual(2);
+  });
+
+  it('renders properly on unfocus', () => {
+    listItemSlider._focus();
+    testRenderer.update();
+    listItemSlider._unfocus();
+    testRenderer.update();
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('updates the value', () => {
+    let tree;
+    listItemSlider._focus();
+
+    testRenderer.keyPress('Right');
+    tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(listItemSlider.value).toEqual(1);
+
+    testRenderer.keyPress('Left');
+    tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(listItemSlider.value).toEqual(0);
   });
 });
