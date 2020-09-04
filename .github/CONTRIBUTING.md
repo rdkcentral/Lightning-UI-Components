@@ -264,7 +264,7 @@ Usage documentation lives in `components/<Component>/<Component>.mdx`. [MDX](htt
 If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
 <pre>
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 // title, description, etc.
 
@@ -289,12 +289,12 @@ class Example extends lng.Component {
 
 ```
 // Embed live example from Storybook
-<Preview>
+<Canvas>
   <Story id="mycomponent--basic" />
-</Preview>
+</Canvas>
 ```
 
-The `<Preview>` component will supply the source code for the `<Story>` inside, so only use code blocks when you want to illustrate something explicit without an example. The `id` value for `<Story>` can be derived from the URL path of the story you are trying to embed.
+The `<Canvas>` component will supply the source code for the `<Story>` inside, so only use code blocks when you want to illustrate something explicit without an example. The `id` value for `<Story>` can be derived from the URL path of the story you are trying to embed.
 
 In summary, documenting usage is as follows:
 * description of usage

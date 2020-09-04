@@ -23,36 +23,4 @@
   src: local('XfinityBrownBold'),
        url('https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff') format('woff') /* will be preloaded */
 }
-
-/* we want 1080p previews without the scrolling action */
-body {
-  overflow: hidden;
-}
-body.overflow-scroll {
-  overflow: auto;
-}
 </style>
-<script>
-  window.addEventListener('message', e => {
-    setTimeout(() => {
-      const data = e.data && JSON.parse(e.data);
-      //Clear any lightning inspector info
-      if (document.querySelectorAll('[type=StoryApp]').length > 1) {
-        let div = document.querySelector('[type=StoryApp]');
-        div && div.parentNode.remove();
-      }
-      if (
-        data &&
-        data.event.type === 'setCurrentStory'
-      )
-      switch (data.event.args.pop().viewMode) {
-        case 'story':
-          document.body.classList.remove('overflow-scroll');
-          break;
-        case 'docs':
-          document.body.classList.add('overflow-scroll');
-          break;
-      }
-    });
-  });
-</script>

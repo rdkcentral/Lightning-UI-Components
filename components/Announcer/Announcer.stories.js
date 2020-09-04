@@ -59,7 +59,6 @@ export const Basic = () =>
         debug: true,
         announcerEnabled: true,
         announcerTimeout: 15 * 1000,
-        x: 20,
         Column: {
           type: Column,
           w: 900,

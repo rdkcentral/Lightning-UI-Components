@@ -20,8 +20,6 @@ export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           w: 900,
@@ -51,8 +49,6 @@ export const SideScrolling = () =>
   class SideScrolling extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           w: 900,
@@ -77,8 +73,6 @@ export const FocusHeightChange = () =>
   class FocusHeightChange extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           items: Array.apply(null, { length: 5 }).map((_, i) => ({
@@ -102,8 +96,6 @@ export const VaryingItemWidth = () =>
   class VaryingItemWidth extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           itemSpacing: 20,
@@ -125,8 +117,6 @@ export const ExpandableWidth = () =>
   class ExpandableWidth extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           itemSpacing: 20,
@@ -180,8 +170,6 @@ export const ExtendingRow = () =>
   class ExtendingRow extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: ExtendedRow,
           itemSpacing: 20,
@@ -204,8 +192,6 @@ export const WithPivots = () =>
   class WithPivots extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: Row,
           w: 900,

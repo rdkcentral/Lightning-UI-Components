@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
 
@@ -31,9 +31,9 @@ class BasicExample extends lng.Component {
 
 The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
 
-<Preview>
+<Canvas>
   <Story id="column--basic" />
-</Preview>
+</Canvas>
 
 ## Infinite Scrolling
 
@@ -73,9 +73,9 @@ The promise returned by `getMoreItems` is then passed as the `provider` to a `Co
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="column--provider" />
-</Preview>
+</Canvas>
 
 See the [Properties section](#properties) for details. 
 

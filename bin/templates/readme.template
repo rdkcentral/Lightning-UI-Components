@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 # MyComponent
 
@@ -24,9 +24,9 @@ class Example extends lng.Component {
 
 Include previews:
 
-<Preview>
+<Canvas>
   <Story id="component--basic" />
-</Preview>
+</Canvas>
 
 The `id` for the preview comes from the url path generated for the story.
 

@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 import { DocsLink, ObjectFormat } from '../.storybook/utils';
 
 # withTransitions
@@ -13,9 +13,9 @@ class MyExample extends lng.Component {};
 export default withTransitions(MyExample);
 ```
 
-<Preview>
+<Canvas>
   <Story id="mixins-withtransitions--basic" />
-</Preview>
+</Canvas>
 
 `withTransitions` takes two arguments: a `class` that extends `lng.Component` and an options object (optional).
 

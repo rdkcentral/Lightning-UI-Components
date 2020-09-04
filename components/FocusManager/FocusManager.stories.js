@@ -16,8 +16,6 @@ export const Rows = () =>
   class RowExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: FocusManager,
           direction: 'row',
@@ -38,8 +36,6 @@ export const WrapSelected = () =>
   class WrapSelectedExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Text: {
           y: 0,
           text: {
@@ -69,8 +65,6 @@ export const Columns = () =>
   class ColumnExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: FocusManager,
           direction: 'column',
@@ -92,8 +86,6 @@ export const ColumnWithRows = () =>
   class ColumnWithRowsExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: Column({
           items: [Row(), Row({ y: 100 }), Row({ y: 200 })]
         })
@@ -133,8 +125,6 @@ export const ExtendedComponent = () =>
   class ExtendedComponentExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Row: {
           type: FancyFocus,
           direction: 'row',

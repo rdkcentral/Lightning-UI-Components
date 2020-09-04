@@ -1,9 +1,3 @@
-const path = require('path');
-
-const lightningInspector = path.resolve(
-  '.storybook/addons/addon-lightning-inspector/register.js'
-);
-
 // Some stories may only exists for testing in development.
 // Add file names to the 2nd glob to skip them in production
 const stories =
@@ -23,7 +17,6 @@ module.exports = {
     '@storybook/addon-docs',
     '@storybook/addon-knobs/register',
     '@storybook/addon-actions/register',
-    lightningInspector
   ],
   stories
 };

@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 # ListItemSlider
 
@@ -26,9 +26,9 @@ class Example extends lng.Component {
 
 In an **unfocused** state, `ListItemSlider` only shows the `value` below the `title`.
  
-<Preview>
+<Canvas>
   <Story id="listitemslider--basic" />
-</Preview>
+</Canvas>
 
 When **focused**, the slider is visible and left/right keys will change the `value`. Changes to `value` trigger the `onSliderChange` signal.
 
@@ -55,9 +55,9 @@ class Example extends lng.Component {
 };
 ```
 
-<Preview>
+<Canvas>
   <Story id="listitemslider--on-slider-change" />
-</Preview>
+</Canvas>
 
 
 ## API
