@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 import { DocsLink, GenericType, ObjectFormat } from "../../.storybook/utils";
 
 # Row
@@ -26,9 +26,9 @@ class Basic extends lng.Component {
 };
 ```
 
-<Preview>
+<Canvas>
   <Story id="row--basic" />
-</Preview>
+</Canvas>
 
 ### Title
 
@@ -50,9 +50,9 @@ class Title extends lng.Component {
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="row--title" />
-</Preview>
+</Canvas>
 
 The `title` property is an <DocsLink id="lng.Text" /> texture; you can customize it like any other text.
 
@@ -77,9 +77,9 @@ You can show and hide the title with the `showTitle` property.
 
 By default, `Row` will scroll horizontally to capture items out of view.
 
-<Preview>
+<Canvas>
   <Story id="row--side-scrolling" />
-</Preview>
+</Canvas>
 
 You can force scrolling on every selection with `alwaysScroll`
 

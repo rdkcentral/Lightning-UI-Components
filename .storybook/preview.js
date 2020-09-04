@@ -2,21 +2,22 @@
 // to wait until the inspector is enabled before attaching it
 import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
-import '@storybook/addon-console';
-import { addDecorator, addParameters } from '@storybook/html';
+import { addDecorator } from '@storybook/html';
 import theme from './theme';
 
-addParameters({
-  options: {
-    theme
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  docs: {
+    theme,
+    inlineStories: true,
   }
-});
+}
 
 const white = 0xffffffff;
 const black = 0x00000000;
 const stage = {
-  w: 1920,
-  h: 1080,
+  w: 720,
+  h: 480,
   clearColor: black,
   debug: false,
   canvas2d: false,
@@ -25,13 +26,6 @@ const stage = {
   defaultFontFace: 'XfinityStandardMedium'
 };
 class StoryApp extends lng.Application {
-  static _template() {
-    return {
-       x: 20,
-       y: 20
-    };
-  }
-
   _init() {
     setTimeout(() => {
       this._refocus();
@@ -75,11 +69,25 @@ addDecorator((StoryComponent, { parameters }) => {
   });
   app.children = {
     StoryComponent: {
-      type: StoryComponent()
+      type: StoryComponent(),
+      w: w => w,
+      h: h => h,
+      x: 40,
+      y: 40,
     }
   };
 
-  //Expose the APP for debugging
-  window.APP = app;
+  // Clear any lightning inspector info
+  if (document.querySelectorAll('[type=StoryApp]').length > 1) {
+    let div = document.querySelector('[type=StoryApp]');
+    div && div.parentNode.remove();
+  };
+
+  // Move lightning inspector out of the foreground
+  if (window.top.location.search.indexOf('path=/docs/') > -1) {
+    let div = document.querySelector('[type=StoryApp]');
+    div && (div.parentNode.style.zIndex = -1);
+  }
+
   return app.stage.getCanvas();
 });

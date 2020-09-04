@@ -34,8 +34,6 @@ export const Basic = () =>
   class Scrolling extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           h: 500,
@@ -74,8 +72,6 @@ export const TestCase = () =>
   class TestCase extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           h: 400,
@@ -99,8 +95,6 @@ export const MultiColumn = () =>
   class MultiColumn extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         FocusManager: {
           type: FocusManager,
           direction: 'row',
@@ -128,8 +122,6 @@ export const Provider = () =>
   class Provider extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Text: {
           text: {
             fontSize: 20,
@@ -160,8 +152,6 @@ export const Plinko = () =>
   class Plinko extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           itemSpacing: 20,
@@ -203,8 +193,6 @@ export const VaryingItemHeight = () =>
   class VaryingItemHeight extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           h: 500,
@@ -227,8 +215,6 @@ export const ExpandableHeightItems = () =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           itemSpacing: 20,
@@ -251,8 +237,6 @@ export const ExpandableHeightRows = () =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           itemSpacing: 20,
@@ -279,8 +263,6 @@ export const SkipFocus = () =>
   class SkipFocus extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           itemSpacing: 30,
@@ -307,8 +289,6 @@ export const OnScreenEffect = () =>
   class OnScreenEffect extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           h: 430,
@@ -358,8 +338,6 @@ export const RainbowScreenEffect = () =>
   class RainbowScreenEffect extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         Column: {
           type: Column,
           itemSpacing: 20,
@@ -425,8 +403,6 @@ export const StickyTitle = () => {
   return class ColumnExample extends lng.Component {
     static _template() {
       return {
-        x: 20,
-        y: 20,
         h: 450,
         w: 200,
         ColumnHeader: {
