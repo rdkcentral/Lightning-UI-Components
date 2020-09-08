@@ -15,3 +15,4 @@ export { default as Slider } from './components/Slider/index.js';
 export { default as Tile } from './components/Tile/index.js';
 export { default as Toggle } from './components/Toggle/index.js';
 export { default as Tooltip } from './components/Tooltip/index.js';
+export { default as MarqueeText } from './components/MarqueeText/index.js';
