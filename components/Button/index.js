@@ -163,7 +163,7 @@ class Button extends lng.Component {
 
     this._Title.on('txLoaded', () => {
       let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
-      let padding = [this.padding, this.styles.padding, 50].find(
+      let padding = [this.padding, this.styles.padding, 10].find(
         Number.isFinite
       );
       if (!this.fixed) {
