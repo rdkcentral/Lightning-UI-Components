@@ -16,7 +16,7 @@ export const parameters = {
 const white = 0xffffffff;
 const black = 0x00000000;
 const stage = {
-  w: 720,
+  w: 920,
   h: 480,
   clearColor: black,
   debug: false,

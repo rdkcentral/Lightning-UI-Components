@@ -1,0 +1,94 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# Keyboard
+
+On screen keyboard component.
+
+## Usage
+
+You can import and use the `KEYBOARD_FORMATS` object to get pre-formatted and sized keyboards out of the box, or you can pass a custom `formats` object.
+
+```js
+import { Keyboard, KEYBOARD_FORMATS } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Keyboard: {
+        type: Keyboard,
+        formats: KEYBOARD_FORMATS.qwerty
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="keyboard--basic" />
+</Preview>
+
+To create your own formats, you can pass an object of arrays to represent each format. The array can be flat or two dimensional. If the keyboard is passed other params like `columnCount` or `rowCount`, both will auto layout the keyboard. The variables in the array can be a single string or an object that defines the same properties as a `Button`. All of the following examples will yield the same result.
+
+```js
+      Keyboard: {
+        ...
+        formats: {
+          qwerty: [
+            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+            ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';'],
+            ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+          ]
+        }
+      }
+```
+
+```js
+      Keyboard: {
+        ...
+        columnCount: 10,
+        formats: {
+          qwerty: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';','z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        }
+      }
+```
+
+```js
+      Keyboard: {
+        ...
+        rowCount: 3,
+        formats: {
+          qwerty: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';','z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        }
+      }
+```
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+columnCount|number|false|11|number of columns across the keyboard if passing a flat array
+defaultFormat|string|true|-|default format of the keyboard to be shown. should be a key of `formats`.
+formats|object|true|-|object containing arrays that represent different formats that the keyboard can be presented in. These arrays can contain strings or objects.
+inline|boolean|false|false|if the keyboard is an inline keyboard and can ignore row/column count requirements
+keysConfig|object|false|-|properties for key buttons. See [Button](/?path=/docs/button--basic)
+keysConfig.h|number|-|-|-
+keysConfig.sizes|-|-|-|-
+keysConfig.styles|-|-|-|-
+rowCount|number|false|-|number of rows down the keyboard if passing a flat array
+rowWrap|boolean|false|true|wrap keyboard rows when navigating left and right
+spacing|number|false|10|amount of space in between the keys
+
+### Methods
+
+#### getSelectedKey(): { row:number, column:number }
+Returns an object containing the currently selected row and column of the currently focused keyboard.
+
+#### selectKeyOn(keyboard, { row:number, column:number })
+Takes in a keyboard format and a specified row and column and changes focus on the keyboard to that key.
+
+### Events
+
+#### $onSoftKey: { key:string }
+Fired when a key is Entered, unless its a toggle
