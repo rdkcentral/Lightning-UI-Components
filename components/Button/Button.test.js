@@ -5,7 +5,11 @@ import TestUtils from '../lightning-test-utils';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
-const createButton = TestUtils.makeCreateComponent(Button);
+const createButton = TestUtils.makeCreateComponent(
+  Button,
+  {},
+  { focused: false }
+);
 
 describe('Button', () => {
   let button, testRenderer;

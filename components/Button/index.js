@@ -94,18 +94,14 @@ class Button extends lng.Component {
   }
 
   _update() {
-    const template = { Content: {} };
-    const Title = {};
-    const Icon = {};
-    const Stroke = {};
-
-    const radius = this.radius || this.styles.radius;
-
-    template.color = [this.background, this.styles.background.color].find(
-      Number.isFinite
-    );
+    this.patch({
+      color: [this.background, this.styles.background.color].find(
+        Number.isFinite
+      )
+    });
 
     if (this.title) {
+      const Title = {};
       Title.text = {
         ...this.styles.text,
         fontColor: this.styles.text.color,
@@ -113,31 +109,50 @@ class Button extends lng.Component {
         text: this.title
       };
       Title.color = this.styles.text.color;
-      template.Content.Title = Title;
+      this._Title.patch(Title);
+
+      this._Title.loadTexture();
+
+      if (!this.fixed) {
+        const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+        const padding = [this.padding, this.styles.padding, 10].find(
+          Number.isFinite
+        );
+        const w = this._Title.renderWidth + padding * 2 + iconSize;
+        if (w !== this.w) {
+          this.w = w > this.w ? w : this.w;
+          this.fireAncestors('$itemChanged');
+          this.signal('buttonWidthChanged', { w: this.w });
+        }
+      }
     }
 
     if (this.icon) {
+      const Icon = {};
       const { color, size, spacing, src } = this.icon;
       Icon.color = color || this.styles.icon.color;
       Icon.w = size;
       Icon.h = size;
       Icon.flexItem = { marginRight: spacing };
       Icon.icon = src;
-      template.Content.Icon = Icon;
+      this._Icon.patch(Icon);
     }
 
     if (this.stroke) {
+      const Stroke = {};
       const { color, weight } = this.stroke;
       const radius = this.radius || this.styles.radius;
 
-      template.texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(this.w),
-        RoundRect.getHeight(this.h),
-        radius,
-        0x00,
-        true,
-        0xffffffff
-      );
+      this.patch({
+        texture: lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.w),
+          RoundRect.getHeight(this.h),
+          radius,
+          0x00,
+          true,
+          0xffffffff
+        )
+      });
 
       Stroke.color = color;
       Stroke.texture = lng.Tools.getRoundRect(
@@ -150,32 +165,17 @@ class Button extends lng.Component {
         this.background
       );
 
-      template.Stroke = Stroke;
+      this._Stroke.patch(Stroke);
     } else {
-      template.texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(this.w),
-        RoundRect.getHeight(this.h),
-        radius
-      );
+      const radius = this.radius || this.styles.radius;
+      this.patch({
+        texture: lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.w),
+          RoundRect.getHeight(this.h),
+          radius
+        )
+      });
     }
-
-    this.patch(template);
-
-    this._Title.on('txLoaded', () => {
-      let iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
-      let padding = [this.padding, this.styles.padding, 10].find(
-        Number.isFinite
-      );
-      if (!this.fixed) {
-        const w = this._Title.renderWidth + padding * 2 + iconSize;
-        if (w !== this.w) {
-          this.w = w > this.w ? w : this.w;
-          this.fireAncestors('$itemChanged');
-          this.signal('buttonWidthChanged', { w: this.w });
-          this._update();
-        }
-      }
-    });
   }
 
   _handleEnter() {
@@ -218,6 +218,10 @@ class Button extends lng.Component {
     // Do we need a locale file with
     // component translations?
     return this._title + ', Button';
+  }
+
+  get _Content() {
+    return this.tag('Content');
   }
 
   get _Title() {

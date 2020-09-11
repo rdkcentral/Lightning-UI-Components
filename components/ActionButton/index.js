@@ -112,20 +112,6 @@ class ActionButton extends Button {
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
   }
 
-  _init() {
-    super._init();
-    this._update();
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set title(title) {
-    super.title = title;
-    this._update();
-  }
-
   get icon() {
     return this._icon;
   }
@@ -139,22 +125,25 @@ class ActionButton extends Button {
 
   _update() {
     this._whenEnabled.then(() => {
-      const template = { Content: {}, Loader: {}, DropShadow: {} };
-
       if (this.w !== this.styles.w) {
-        template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+        const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+        this.patch(DropShadow);
       }
 
       if (!this.title) {
-        template.color = 0x00;
-        template.Content.Title = { texture: false };
+        const Title = { texture: false };
+        const color = 0x00;
+        this.patch({ color });
+        this._Title.patch(Title);
       } else {
-        template.Loader.color = 0x00;
-        template.Loader.texture = false;
+        const Loader = {
+          color: 0x00,
+          texture: false
+        };
+        this._Loader.patch(Loader);
         if (this._loading) this._loading.stop();
         super._update();
       }
-      this.patch(template);
     });
   }
 

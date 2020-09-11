@@ -121,20 +121,6 @@ class Pivot extends Button {
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
   }
 
-  _init() {
-    super._init();
-    this._update();
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set title(title) {
-    super.title = title;
-    this._update();
-  }
-
   get icon() {
     return this._icon;
   }
@@ -148,27 +134,26 @@ class Pivot extends Button {
 
   _update() {
     this._whenEnabled.then(() => {
-      const template = { Content: {}, Loader: {}, DropShadow: {} };
-
       if (this.w !== this.styles.w) {
-        template.DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+        const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+        this._DropShadow.patch(DropShadow);
       }
 
       if (!this.title) {
-        template.color = 0x00;
-        template.Content.Title = { texture: false };
-        template.Loader.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.styles.w),
-          RoundRect.getHeight(this.styles.h - 2),
-          this.styles.radius
-        );
-        this.patch(template);
+        this.patch({ color: 0x00 });
+        this._Title.patch({ texture: false });
+        this._Loader.patch({
+          texture: lng.Tools.getRoundRect(
+            RoundRect.getWidth(this.styles.w),
+            RoundRect.getHeight(this.styles.h - 2),
+            this.styles.radius
+          )
+        });
       } else {
-        template.Loader.texture = false;
+        this._Loader.patch({ texture: false });
         if (this._loading) this._loading.stop();
         super._update();
       }
-      this.patch(template);
     });
   }
 

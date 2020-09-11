@@ -40,7 +40,7 @@ describe('Pivot', () => {
       // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
       pivot._DropShadow.loadTexture();
       expect(pivot._DropShadow.texture._lookupId).toEqual(
-        'shadow169,32,16,32,8,8,8,8'
+        'shadow173,32,16,32,8,8,8,8'
       );
       done();
     });
