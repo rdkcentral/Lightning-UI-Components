@@ -2,13 +2,9 @@ import lng from 'wpe-lightning';
 
 import Toggle from '.';
 import mdx from './Toggle.mdx';
-import { action } from '@storybook/addon-actions';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
 
 export default {
   title: 'Toggle',
-  component: Toggle,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -16,7 +12,7 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -25,9 +21,9 @@ export const Basic = () =>
         Toggle: {
           y: 40,
           type: Toggle,
-          checked: boolean('Checked', false),
+          checked: args.checked,
           onEnter: toggle => {
-            action('onEnter')(toggle);
+            args.onEnter(toggle);
             toggle.toggle();
           }
         }
@@ -38,3 +34,10 @@ export const Basic = () =>
       return this.tag('Toggle');
     }
   };
+Basic.args = {
+  checked: false
+};
+Basic.argTypes = {
+  checked: { control: 'boolean' },
+  onEnter: { action: 'onEnter' }
+};

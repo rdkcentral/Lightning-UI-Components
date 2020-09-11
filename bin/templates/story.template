@@ -5,7 +5,6 @@ import mdx from './MyComponent.mdx';
 
 export default {
   title: 'MyComponent',
-  component: MyComponent,
   parameters: {
     docs: {
       page: mdx
@@ -13,7 +12,7 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -27,3 +26,8 @@ export const Basic = () =>
       return this.tag('MyComponent');
     }
   };
+Basic.args = {};
+Basic.argTypes = {};
+Basic.parameters = {
+  argActions: {}
+};

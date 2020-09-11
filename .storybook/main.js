@@ -13,10 +13,8 @@ const stories =
 
 module.exports = {
   addons: [
-    '@storybook/addon-storysource',
-    '@storybook/addon-docs',
-    '@storybook/addon-knobs/register',
-    '@storybook/addon-actions/register',
+    '@storybook/addon-essentials',
+    '@storybook/addon-docs'
   ],
   stories
 };

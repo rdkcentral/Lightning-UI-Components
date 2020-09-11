@@ -4,7 +4,6 @@ import mdx from './FocusManager.mdx';
 
 export default {
   title: 'FocusManager',
-  component: FocusManager,
   parameters: {
     docs: {
       page: mdx

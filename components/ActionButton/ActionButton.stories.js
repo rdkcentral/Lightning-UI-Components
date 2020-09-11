@@ -1,6 +1,4 @@
 import lng from 'wpe-lightning';
-import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
 
 import ActionButton from '.';
 import mdx from './ActionButton.mdx';
@@ -8,8 +6,9 @@ import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'ActionButton',
-  component: ActionButton,
-  decorators: [withKnobs],
+  args: {
+    title: 'whatever'
+  },
   parameters: {
     docs: {
       page: mdx
@@ -17,44 +16,52 @@ export default {
   }
 };
 
-const makeOptions = (...opts) => {
-  return opts.reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: key.toLowerCase()
-    }),
-    {}
-  );
-};
-
-export const Base = () =>
+export const Base = args =>
   class Base extends lng.Component {
     static _template() {
       return {
         ActionButton: {
           type: ActionButton,
-          backgroundType: radios(
-            'Background',
-            makeOptions('stroke', 'fill', 'float', 'ghost'),
-            'stroke'
-          ),
-          title: text('Title', 'Type Something'),
-          onEnter: action('onEnter')
+          backgroundType: args.backgroundType,
+          icon: args.icon ? icon : undefined,
+          title: args.title,
+          onEnter: args.onEnter
         }
       };
     }
-    _init() {
-      if (boolean('Icon', false)) {
-        this.tag('ActionButton').icon = icon;
-      }
-    }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('ActionButton');
       }
     }
   };
+Base.args = { title: 'Action Button' };
+Base.argTypes = {
+  backgroundType: {
+    control: {
+      type: 'radio',
+      options: ['stroke', 'fill', 'float', 'ghost']
+    }
+  },
+  focused: { control: 'boolean' },
+  icon: { control: 'boolean' },
+  onEnter: { action: 'onEnter' },
+  title: { control: 'text' }
+};
+Base.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('ActionButton')
+        : () => {};
+      component._refocus();
+    },
+    icon: (isIcon, component) => {
+      component.tag('ActionButton').icon = isIcon ? icon : null;
+    }
+  }
+};
 
 export const Loading = () =>
   class Loading extends lng.Component {
@@ -66,3 +73,5 @@ export const Loading = () =>
       };
     }
   };
+
+Loading.args = null;

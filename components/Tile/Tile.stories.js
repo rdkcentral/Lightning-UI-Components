@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import { withKnobs, color, number, boolean } from '@storybook/addon-knobs';
 import { rgba2argb } from '../../utils';
 
 import Tile from '.';
@@ -11,8 +10,6 @@ import minions2 from '../../assets/images/minions2.jpg';
 
 export default {
   title: 'Tile',
-  component: Tile,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -20,21 +17,7 @@ export default {
   }
 };
 
-const blurOptions = {
-  range: true,
-  min: 0,
-  max: 4,
-  step: 0.5
-};
-
-const roundedOptions = {
-  range: true,
-  min: 0,
-  max: 100,
-  step: 5
-};
-
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -43,21 +26,56 @@ export const Basic = () =>
           src: kabob,
           w: 320,
           h: 180,
-          blur: number('Blur', 0, blurOptions),
-          rounded: number('Rounded', 16, roundedOptions),
+          blur: args.blur,
+          rounded: args.rounded,
           shadow: {
-            color: rgba2argb(color('Shadow Color', 'rgba(63,92,30,0.7)'))
+            color: rgba2argb(args.color)
           }
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('Tile');
       }
     }
   };
+Basic.args = {
+  blur: 0,
+  rounded: 16,
+  color: 'rgba(63,92,30,0.7)'
+};
+Basic.argTypes = {
+  focused: { control: 'boolean' },
+  blur: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 4,
+      step: 0.5
+    }
+  },
+  rounded: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 100,
+      step: 5
+    }
+  },
+  color: { control: 'color' }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('Tile')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
 
 export const XfinityTheme = () =>
   class Basic extends lng.Component {

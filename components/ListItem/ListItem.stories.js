@@ -1,15 +1,11 @@
 import lng from 'wpe-lightning';
-import { boolean, radios, withKnobs, text } from '@storybook/addon-knobs';
 
 import ListItem from '.';
 import mdx from './ListItem.mdx';
-import { makeOptions } from '../../.storybook/utils';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'ListItem',
-  component: ListItem,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -17,27 +13,58 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         ListItem: {
           type: ListItem,
-          title: text('Title', 'List Item'),
-          subtitle: text('Subtitle', 'List item metadata'),
+          title: args.title,
+          subtitle: args.subtitle,
           icon,
-          size: radios('Size', makeOptions('Small', 'Large'), 'small'),
-          background: radios('Background', makeOptions('Fill', 'Float'), 'fill')
+          size: args.size,
+          background: args.background
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('ListItem');
       }
     }
   };
+Basic.args = {
+  focused: false,
+  title: 'List Item',
+  subtitle: 'List item metadata',
+  size: 'small',
+  background: 'fill'
+};
+Basic.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+      options: ['small', 'large']
+    }
+  },
+  background: {
+    control: {
+      type: 'radio',
+      options: ['fill', 'float']
+    }
+  }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('ListItem')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
 
 export const KeyHandling = () =>
   class KeyHandling extends lng.Component {
@@ -86,11 +113,5 @@ export const MultipleIcons = () =>
           background: 'fill'
         }
       };
-    }
-
-    _getFocused() {
-      if (boolean('Focused', false)) {
-        return this.tag('ListItem');
-      }
     }
   };

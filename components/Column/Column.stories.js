@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import { button, withKnobs, number } from '@storybook/addon-knobs';
 import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
@@ -7,8 +6,14 @@ import mdx from './Column.mdx';
 
 export default {
   title: 'Column',
-  component: Column,
-  decorators: [withKnobs],
+  args: {
+    itemSpacing: 20
+  },
+  argTypes: {
+    itemSpacing: {
+      control: { type: 'range', min: 0, max: 100, step: 5 }
+    }
+  },
   parameters: {
     docs: {
       page: mdx
@@ -16,29 +21,15 @@ export default {
   }
 };
 
-const numberOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.1
-};
-
-const itemSpacingOptions = {
-  range: true,
-  min: 0,
-  max: 100,
-  step: 5
-};
-
-export const Basic = () =>
-  class Scrolling extends lng.Component {
+export const Basic = args =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
           h: 500,
-          itemSpacing: number('itemSpacing', 20, itemSpacingOptions),
-          scrollMount: number('scrollMount', 0, numberOptions),
+          itemSpacing: args.itemSpacing,
+          scrollMount: args.scrollMount,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
@@ -47,40 +38,52 @@ export const Basic = () =>
       };
     }
 
-    _init() {
-      const column = this.tag('Column');
-      // return false to prevent re-render;
-      const transition =
-        number('itemTransition', column.itemTransition.duration, {
-          min: 0,
-          step: 0.1
-        }) * 100;
-      // Setup Knobs in storybook
-      button('Button 1', () => !!column.scrollTo(0, transition));
-      button('Button 5', () => !!column.scrollTo(4, transition));
-      button('Button 10', () => !!column.scrollTo(9, transition));
-      button('Button 15', () => !!column.scrollTo(14, transition));
-      button('Button 20', () => !!column.scrollTo(19, transition));
-    }
-
     _getFocused() {
       return this.tag('Column');
     }
   };
+Basic.args = {
+  scrollMount: 0,
+  itemTransition: 0.4
+};
+Basic.argTypes = {
+  itemTransition: {
+    control: { type: 'number', min: 0, step: 0.1 }
+  },
+  scroll: {
+    control: { type: 'select', options: [1, 5, 15, 20] }
+  },
+  scrollMount: {
+    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  }
+};
+Basic.parameters = {
+  argActions: {
+    scroll: function(index, component) {
+      component.tag('Column').scrollTo(index - 1);
+    },
+    itemTransition: (duration, component) => {
+      component.tag('Column').itemTransition = {
+        duration,
+        timingFunction: component.tag('Column').itemTransition.timingFunction
+      };
+    }
+  }
+};
 
-export const TestCase = () =>
+export const TestCase = args =>
   class TestCase extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          h: 400,
-          scrollMount: 1,
-          itemSpacing: 20,
+          h: h => h,
+          scrollMount: args.scrollMount,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             h: 80,
-            buttonText: `Button ${i}`
+            buttonText: `Button ${i + 1}`
           }))
         }
       };
@@ -90,15 +93,23 @@ export const TestCase = () =>
       return this.tag('Column');
     }
   };
+TestCase.args = {
+  scrollMount: 1
+};
+TestCase.argTypes = {
+  scrollMount: {
+    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  }
+};
 
-export const MultiColumn = () =>
+export const MultiColumn = args =>
   class MultiColumn extends lng.Component {
     static _template() {
       return {
         FocusManager: {
           type: FocusManager,
           direction: 'row',
-          items: [{ type: Basic() }, { type: Basic(), x: 180 }]
+          items: [{ type: Basic(args) }, { type: Basic(args), x: 180 }]
         }
       };
     }
@@ -107,6 +118,15 @@ export const MultiColumn = () =>
       return this.tag('FocusManager');
     }
   };
+MultiColumn.parameters = { tag: 'FocusManager' };
+MultiColumn.args = {
+  scrollMount: 0
+};
+MultiColumn.argTypes = {
+  scrollMount: {
+    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  }
+};
 
 const getMoreItems = () => {
   return Promise.resolve({
@@ -118,7 +138,8 @@ const getMoreItems = () => {
     }))
   });
 };
-export const Provider = () =>
+
+export const Provider = args =>
   class Provider extends lng.Component {
     static _template() {
       return {
@@ -131,7 +152,7 @@ export const Provider = () =>
         Column: {
           y: 50,
           type: Column,
-          itemSpacing: 30,
+          itemSpacing: args.itemSpacing,
           provider: getMoreItems(),
           items: Array.apply(null, { length: 20 }).map((_, i) => {
             return {
@@ -147,21 +168,24 @@ export const Provider = () =>
       return this.tag('Column');
     }
   };
+Provider.args = {
+  itemSpacing: 30
+};
 
-export const Plinko = () =>
+export const Plinko = args =>
   class Plinko extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
           plinko: true,
           items: [
             {
               type: Row,
               h: 40,
               w: 900,
-              itemSpacing: 20,
+              itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',
@@ -172,7 +196,7 @@ export const Plinko = () =>
               type: Row,
               h: 40,
               w: 900,
-              itemSpacing: 20,
+              itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',
@@ -189,14 +213,14 @@ export const Plinko = () =>
     }
   };
 
-export const VaryingItemHeight = () =>
+export const VaryingItemHeight = args =>
   class VaryingItemHeight extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
           h: 500,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             buttonText: 'Button',
@@ -211,13 +235,13 @@ export const VaryingItemHeight = () =>
     }
   };
 
-export const ExpandableHeightItems = () =>
+export const ExpandableHeightItems = args =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 5 }).map((_, i) => ({
             type: ExpandingButton,
             h: 40,
@@ -233,13 +257,13 @@ export const ExpandableHeightItems = () =>
     }
   };
 
-export const ExpandableHeightRows = () =>
+export const ExpandableHeightRows = args =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 3 }).map((_, i) => ({
             type: ExpandingRow,
             y: 50 * i,
@@ -259,13 +283,13 @@ export const ExpandableHeightRows = () =>
     }
   };
 
-export const SkipFocus = () =>
+export const SkipFocus = args =>
   class SkipFocus extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          itemSpacing: 30,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 50 }).map((_, i) => {
             if (i % 4 === 0)
               return {
@@ -284,15 +308,18 @@ export const SkipFocus = () =>
       return this.tag('Column');
     }
   };
+SkipFocus.args = {
+  itemSpacing: 30
+};
 
-export const OnScreenEffect = () =>
+export const OnScreenEffect = args =>
   class OnScreenEffect extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
           h: 430,
-          itemSpacing: 45,
+          itemSpacing: args.itemSpacing,
           scrollMount: 0.5,
           items: Array.apply(null, { length: 20 }).map((_, i) => {
             return {
@@ -329,18 +356,21 @@ export const OnScreenEffect = () =>
       return this.tag('Column');
     }
   };
+OnScreenEffect.args = {
+  itemSpacing: 45
+};
 
 const rgb = (r, g, b) => {
   return (r << 16) + (g << 8) + b + 255 * 16777216;
 };
 
-export const RainbowScreenEffect = () =>
+export const RainbowScreenEffect = args =>
   class RainbowScreenEffect extends lng.Component {
     static _template() {
       return {
         Column: {
           type: Column,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
               type: Button,
@@ -376,7 +406,7 @@ export const RainbowScreenEffect = () =>
     }
   };
 
-export const StickyTitle = () => {
+export const StickyTitle = args => {
   const items = Array.apply(null, { length: 5 })
     .map((_, i) => {
       const headerText = `Sticky Header ${i}`;
@@ -413,7 +443,7 @@ export const StickyTitle = () => {
           y: 50,
           w: 200,
           h: 400,
-          itemSpacing: 50,
+          itemSpacing: args.itemSpacing,
           clipping: true,
           type: Column,
           items,
@@ -432,6 +462,9 @@ export const StickyTitle = () => {
       return this.tag('Column');
     }
   };
+};
+StickyTitle.args = {
+  itemSpacing: 50
 };
 
 class ColumnHeader extends lng.Component {

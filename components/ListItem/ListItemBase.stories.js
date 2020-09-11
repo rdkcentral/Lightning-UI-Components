@@ -1,29 +1,26 @@
 import lng from 'wpe-lightning';
-import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
 
 import { ListItemBase } from '.';
 import mdx from './ListItem.mdx';
-import { makeOptions } from '../../.storybook/utils';
 
 export default {
   title: 'ListItemBase',
-  component: ListItemBase,
-  decorators: [withKnobs],
   parameters: {
+    tag: 'ListItem',
     docs: {
       page: mdx
     }
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         ListItem: {
           type: ListItemBase,
-          size: radios('Size', makeOptions('Large', 'Small'), 'large'),
-          background: radios('Background', makeOptions('Fill', 'Float'), 'fill')
+          size: args.size,
+          background: args.background
         }
       };
     }
@@ -42,11 +39,40 @@ export const Basic = () =>
     }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('ListItem');
       }
     }
   };
+Basic.args = {
+  size: 'large',
+  background: 'fill'
+};
+Basic.argTypes = {
+  focused: { control: 'boolean' },
+  size: {
+    control: {
+      type: 'radio',
+      options: ['large', 'small']
+    }
+  },
+  background: {
+    control: {
+      type: 'radio',
+      options: ['fill', 'float']
+    }
+  }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('ListItem')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
 
 export const FullWidth = () =>
   class Basic extends lng.Component {

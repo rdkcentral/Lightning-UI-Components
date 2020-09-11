@@ -1,12 +1,22 @@
 import lng from 'wpe-lightning';
-import { withKnobs, number } from '@storybook/addon-knobs';
 import ProgressBar from '.';
 import mdx from './ProgressBar.mdx';
 
 export default {
   title: 'ProgressBar',
-  component: ProgressBar,
-  decorators: [withKnobs],
+  args: {
+    progress: 0.5
+  },
+  argTypes: {
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 1,
+        step: 0.01
+      }
+    }
+  },
   parameters: {
     docs: {
       page: mdx
@@ -14,20 +24,13 @@ export default {
   }
 };
 
-const progressOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.01
-};
-
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         ProgressBar: {
           type: ProgressBar,
-          progress: number('progress', 0.5, progressOptions)
+          progress: args.progress
         }
       };
     }

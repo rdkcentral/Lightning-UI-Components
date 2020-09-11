@@ -9,7 +9,6 @@ image_resource:
   type: docker-image
   source:
     repository: node
-    tag: "lts"
 run:
   path: ./ci/tasks/quality.sh
   dir: ./source-repo
