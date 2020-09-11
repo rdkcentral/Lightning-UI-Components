@@ -256,13 +256,11 @@ export class ListItemImage extends ListItem {
 
     if (this.icon) {
       this._Right.patch({
+        flex: {
+          justifyContent: 'flex-end'
+        },
         flexItem: {
           grow: 1
-        },
-        Icon: {
-          flexItem: {
-            alignSelf: 'flex-end'
-          }
         }
       });
     }
