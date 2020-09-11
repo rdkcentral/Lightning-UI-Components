@@ -7,7 +7,6 @@ import mdx from './Icon.mdx';
 
 export default {
   title: 'Icon',
-  component: Icon,
   parameters: {
     docs: {
       page: mdx

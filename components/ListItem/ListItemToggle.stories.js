@@ -1,42 +1,69 @@
 import lng from 'wpe-lightning';
-import { boolean, radios, withKnobs, text } from '@storybook/addon-knobs';
 
 import { ListItemToggle } from '.';
 import mdx from './ListItemToggle.mdx';
-import { makeOptions } from '../../.storybook/utils';
 
 export default {
   title: 'ListItemToggle',
-  component: ListItemToggle,
-  decorators: [withKnobs],
+  args: {
+    title: 'List Item',
+    subtitle: 'List Item Metadata',
+    size: 'small',
+    background: 'fill',
+    checked: false
+  },
+  argTypes: {
+    focused: { control: 'boolean' },
+    title: { control: 'text' },
+    subtitle: { control: 'text' },
+    size: {
+      control: {
+        type: 'radio',
+        options: ['small', 'large']
+      }
+    },
+    background: {
+      control: {
+        type: 'radio',
+        options: ['fill', 'float']
+      }
+    },
+    checked: { control: 'boolean' }
+  },
   parameters: {
+    tag: 'ListItem',
+    argActions: {
+      checked: (_, component) => component.tag('ListItem').toggle(),
+      focused: (isFocused, component) => {
+        component._getFocused = isFocused
+          ? () => component.tag('ListItem')
+          : () => {};
+        component._refocus();
+      }
+    },
     docs: {
       page: mdx
     }
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         ListItem: {
           type: ListItemToggle,
-          title: text('Title', 'List Item'),
-          subtitle: text('Subtitle', 'List item metadata'),
-          size: radios('Size', makeOptions('Small', 'Large'), 'small'),
-          background: radios(
-            'Background',
-            makeOptions('Fill', 'Float'),
-            'fill'
-          ),
-          checked: boolean('Checked', false)
+          title: args.title,
+          subtitle: args.subtitle,
+          size: args.size,
+          background: args.background,
+          checked: args.checked
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('ListItem');
       }
     }

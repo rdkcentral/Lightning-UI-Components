@@ -1,12 +1,10 @@
 import lng from 'wpe-lightning';
-import { withKnobs } from '@storybook/addon-knobs';
 import { createTransitions } from '../components/Styles/Transitions';
 import { withTransitions } from '.';
 import mdx from './withTransitions.mdx';
 
 export default {
   title: 'Mixins/withTransitions',
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -81,16 +79,6 @@ class BasicExample extends lng.Component {
 }
 
 export const Basic = () => withTransitions(BasicExample);
-
-class Box extends lng.Component {
-  static _template() {
-    return {
-      w: 50,
-      h: 50,
-      color: 0xff000000
-    };
-  }
-}
 
 class CustomizationExample extends BasicExample {
   static _template() {

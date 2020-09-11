@@ -10,7 +10,6 @@ image_resource:
   type: docker-image
   source:
     repository: node
-    tag: "lts"
 run:
   path: bash
   args: [ ./ci/tasks/gh-pages.sh ]

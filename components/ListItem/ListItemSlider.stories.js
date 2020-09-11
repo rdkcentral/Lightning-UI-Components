@@ -1,14 +1,10 @@
 import lng from 'wpe-lightning';
-import { action } from '@storybook/addon-actions';
-import { boolean, number, withKnobs, text } from '@storybook/addon-knobs';
 
 import { ListItemSlider } from '.';
 import mdx from './ListItemSlider.mdx';
 
 export default {
   title: 'ListItemSlider',
-  component: ListItemSlider,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -16,29 +12,55 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         ListItemSlider: {
           type: ListItemSlider,
-          max: number('Max', 100),
-          min: number('Min', 0),
-          step: number('Step', 1),
-          title: text('Title', 'List Item Slider'),
-          value: number('Value', 50)
+          max: args.max,
+          min: args.min,
+          step: args.step,
+          title: args.title,
+          value: args.value
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('ListItemSlider');
       }
     }
   };
+Basic.args = {
+  focused: false,
+  max: 100,
+  min: 0,
+  step: 1,
+  title: 'List Item Slider',
+  value: 50
+};
+Basic.argTypes = {
+  focused: { control: 'boolean' },
+  max: { control: 'number' },
+  min: { control: 'number' },
+  step: { control: 'number' },
+  title: { control: 'text' },
+  value: { control: 'number' }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('ListItemSlider')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
 
-export const OnSliderChange = () =>
+export const OnSliderChange = args =>
   class OnSliderChange extends lng.Component {
     static _template() {
       return {
@@ -53,10 +75,13 @@ export const OnSliderChange = () =>
     }
 
     _handleChange(value) {
-      action('onSliderChange')(value);
+      args.onSliderChange(value);
     }
 
     _getFocused() {
       return this.tag('ListItemSlider');
     }
   };
+OnSliderChange.argTypes = {
+  onSliderChange: { action: 'onSliderChange' }
+};

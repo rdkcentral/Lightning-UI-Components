@@ -20,6 +20,7 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
   * [Test Styleguide](#test-styleguide)
   * [Documentation Styleguide](#documentation-styleguide)
     * [Usage Documentation](#usage-documentation)
+    * [Storybook](#storybook)
     * [API Documentation](#api-documentation)
 
 [Additional Notes](#additional-notes)
@@ -256,6 +257,98 @@ npm start
 
 Storybook will generate an ID for each story that follows the pattern `componentname--storyname`. You can use this ID to embed examples when [documenting usage][#usage-documentation]
 
+**Storybook**
+<a id="storybook" />
+
+This section is dedicated to some specifics around our implementation of [Storybook](https://storybook.js.org), which is using Storybook v6.0. If you are new to Storybook (or even 6.0), we highly recommend you check out their [updated documentation](https://storybook.js.org/docs/react/writing-stories/introduction).
+
+You can add interactivity to your documentation with **args**. For the purposes of this project, you will likely only encounter **actions** and **controls**. We're going to walk through a simple example to illustrate the concepts that are necessary to understand for writing stories in the project.
+
+Let's take a simple `Button` component. The `Button` accepts a `title` property and an `onEnter` callback.
+
+Our static story would look something like this:
+
+```js
+import lng from 'wpe-lightning';
+import Button from '.';
+
+export default {
+  title: 'Button'
+};
+
+export const Basic = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        Button: {
+          type: 'Button',
+          title: args.title,
+          onEnter: args.onEnter
+        }
+      }
+    }
+
+    _getFocused() {
+      return this.tag('Button');
+    }
+  }
+```
+
+We can re-work this to support `args` so our users can set their own `title` in the **Controls** tab and the `'onEnter'` log in the **Actions** tab.
+
+```js
+export const Basic = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        Button: {
+          type: 'Button',
+          title: args.title,
+          onEnter: args.onEnter
+        }
+      }
+    }
+
+    _getFocused() {
+      return this.tag('Button');
+    }
+  }
+Basic.args = { title: 'Hello' };
+Basic.argTypes = {
+  onEnter: { action: 'onEnter' },
+  title: { control: 'text' }
+};
+```
+
+There are a few new concepts here: **args**, **argTypes**, **action**, and **control**. Let's break down **argTypes** first. Defining **argTypes** on the story function is how Storybook knows to controls and actions. `onEnter: { action: 'onEnter' }` tells Storybook to set `args.onEnter` as a function with the label `'onEnter'`. `title: { control: 'text' }` tells Storybook to create a text input **control** for `args.title`. Shifting focus to **args**, we can see that we have a definition for `'title'` but not for `'onEnter'`. Setting the **args** object on a story function tells Storybook what the _default values_ will be for controls defined in **argTypes**.
+
+Check out the [args docs](https://storybook.js.org/docs/react/writing-stories/args) and [essential addons docs](https://storybook.js.org/docs/react/essentials/introduction) for additional details.
+
+Now, let's say you want to execute some side effect when an arg value changes. To do this, we're going to introduce a new concept that _is not explicitly a part of Storybook_, `parameters.argActions`.
+
+You can use `argActions` to define functions to execute on changes to an arg. Let's do this for `title`:
+
+```js
+Basic.parameters = {
+  argActions: {
+    title: (title, storyComponent) => {
+      console.log('Setting title...');
+      storyComponent.tag('Button').title = title;
+    }
+  }
+}
+```
+
+In this example, the console will display `'Setting title...'` every time a user changes the value of the `title` control.
+
+The callback accepts three arguments:
+
+  - `argValue: any` - current value of the given arg key 
+  - `storyComponent: lng.Component` - instance of returned class in the story
+  - `args: Object<any>` - complete args object passed into the storyFn
+
+The render logic for story previews lives in `./.storybook/preview.js`
+
 **Usage Documentation**
 <a id="usage-documentation" />
 
@@ -315,13 +408,13 @@ If you generated a new component with `npm run create`, a template layout should
 
 ### Properties
 
-name|type|readonly|description
+name|type|required|default|description
 -|-|-|-
 -|-|-|-
 
 ### Methods
 
-#### methodName
+#### methodName(argument:type): returnValue | void
 
 description
 

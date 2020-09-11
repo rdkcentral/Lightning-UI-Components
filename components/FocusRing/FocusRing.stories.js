@@ -1,18 +1,65 @@
 import lng from 'wpe-lightning';
-import { withKnobs, color, number, boolean } from '@storybook/addon-knobs';
-import { rgba2argb } from '../../utils';
 
 import FocusRing from '.';
-import { COLORS_NEUTRAL, getHexColor } from '../Styles/Styles';
 import mdx from './FocusRing.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
-import minions1 from '../../assets/images/minions1.jpg';
-import minions2 from '../../assets/images/minions2.jpg';
 
 export default {
+  args: {
+    blur: 4,
+    size: 16,
+    shadowAlpha: 0.6,
+    shadowBlur: 3,
+    shadowPadding: 40
+  },
+  argTypes: {
+    blur: {
+      name: 'Blur',
+      control: {
+        type: 'range',
+        min: 0,
+        max: 4,
+        step: 0.5
+      }
+    },
+    size: {
+      name: 'Size',
+      control: {
+        type: 'range',
+        min: 0,
+        max: 60,
+        step: 2
+      }
+    },
+    shadowAlpha: {
+      name: 'Shadow Alpha',
+      control: {
+        type: 'range',
+        min: 0,
+        max: 1,
+        step: 0.1
+      }
+    },
+    shadowBlur: {
+      name: 'Shadow Blur',
+      control: {
+        type: 'range',
+        min: 0,
+        max: 4,
+        step: 0.5
+      }
+    },
+    shadowPadding: {
+      name: 'Shadow Padding',
+      control: {
+        type: 'range',
+        min: 0,
+        max: 60,
+        step: 2
+      }
+    }
+  },
   title: 'FocusRing',
-  component: FocusRing,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -20,28 +67,7 @@ export default {
   }
 };
 
-const blurOptions = {
-  range: true,
-  min: 0,
-  max: 4,
-  step: 0.5
-};
-
-const sizeOptions = {
-  range: true,
-  min: 0,
-  max: 60,
-  step: 2
-};
-
-const shadowAlphaOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.1
-};
-
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -51,19 +77,19 @@ export const Basic = () =>
           type: FocusRing,
           w: 320,
           h: 180,
-          blur: number('Blur', 4, blurOptions),
-          size: number('size', 16, sizeOptions),
+          blur: args.blur,
+          size: args.size,
           shadow: {
-            padding: number('Shadow Padding', 40, sizeOptions),
-            blur: number('Shadow Blur', 3, blurOptions),
-            alpha: number('Shadow Alpha', 0.6, shadowAlphaOptions)
+            padding: args.shadowPadding,
+            blur: args.shadowBlur,
+            alpha: args.shadowAlpha
           }
         }
       };
     }
   };
 
-export const WithImage = () =>
+export const WithImage = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -80,12 +106,12 @@ export const WithImage = () =>
           w: 320,
           h: 180,
           imageSrc: kabob,
-          blur: number('Blur', 4, blurOptions),
-          size: number('size', 16, sizeOptions),
+          blur: args.blur,
+          size: args.size,
           shadow: {
-            padding: number('Shadow Padding', 40, sizeOptions),
-            blur: number('Shadow Blur', 3, blurOptions),
-            alpha: number('Shadow Alpha', 0.6, shadowAlphaOptions)
+            padding: args.shadowPadding,
+            blur: args.shadowBlur,
+            alpha: args.shadowAlpha
           }
         }
       };

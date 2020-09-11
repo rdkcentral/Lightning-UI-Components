@@ -1,13 +1,10 @@
 import lng from 'wpe-lightning';
-import { withKnobs, text } from '@storybook/addon-knobs';
 
 import Input from '.';
 import mdx from './Input.mdx';
 
 export default {
   title: 'Input',
-  component: Input,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -15,14 +12,14 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Input: {
           w: 500,
           type: Input,
-          placeholder: text('Placeholder', 'Type something')
+          placeholder: args.placeholder
         }
       };
     }
@@ -41,3 +38,6 @@ export const Basic = () =>
       return this.tag('Input');
     }
   };
+Basic.args = {
+  placeholder: 'Type something'
+};

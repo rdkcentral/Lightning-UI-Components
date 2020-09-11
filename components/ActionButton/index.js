@@ -119,7 +119,6 @@ class ActionButton extends Button {
   set icon(src) {
     if (src) {
       this._icon = { ...this.styles.icon, src };
-      this._update();
     }
   }
 

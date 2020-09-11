@@ -6,7 +6,6 @@ import { getHexColor, COLORS_TEXT, TYPOGRAPHY } from '../Styles';
 
 export default {
   title: 'MarqueeText',
-  component: MarqueeText,
   parameters: {
     docs: {
       page: mdx
@@ -24,7 +23,6 @@ export const Basic = () =>
           h: 180,
           title: {
             text: 'This is a scrolling Marquee component for long text',
-            lineHeight: 150,
             ...TYPOGRAPHY.headline2,
             textColor: getHexColor(COLORS_TEXT.light),
             maxLines: 1
@@ -46,7 +44,6 @@ export const CenteredText = () =>
           h: 50,
           title: {
             text: 'No scroll center',
-            lineHeight: 50,
             ...TYPOGRAPHY.headline2,
             textColor: getHexColor(COLORS_TEXT.light),
             maxLines: 1,

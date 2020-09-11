@@ -1,13 +1,10 @@
 import lng from 'wpe-lightning';
-import { number, withKnobs } from '@storybook/addon-knobs';
 
 import Slider from '.';
 import mdx from './Slider.mdx';
 
 export default {
   title: 'Slider',
-  component: Slider,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -15,16 +12,16 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
           type: Slider,
-          min: number('Min', 0),
-          max: number('Max', 100),
-          value: number('Value', 50),
-          step: number('Step', 1)
+          min: args.min,
+          max: args.max,
+          value: args.value,
+          step: args.step
         }
       };
     }
@@ -33,6 +30,18 @@ export const Basic = () =>
       return this.tag('Slider');
     }
   };
+Basic.args = {
+  min: 0,
+  max: 100,
+  value: 50,
+  step: 1
+};
+Basic.argTypes = {
+  min: { control: 'number' },
+  max: { control: 'number' },
+  value: { control: 'number' },
+  step: { control: 'number' }
+};
 
 export const SignalHandling = () =>
   class SignalHandling extends lng.Component {

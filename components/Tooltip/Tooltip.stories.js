@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
 import Tooltip from '.';
 import mdx from './Tooltip.mdx';
@@ -8,16 +7,36 @@ import ActionButton, { styles as ACTION_BUTTON_STYLES } from '../ActionButton';
 
 export default {
   title: 'Tooltip',
-  component: Tooltip,
-  decorators: [withKnobs],
+  args: {
+    title: 'Type Something',
+    bottomMargin: 0,
+    delayVisible: 0,
+    timeVisible: 0
+  },
+  argTypes: {
+    focused: { control: 'boolean' },
+    title: { control: 'text' },
+    bottomMargin: { control: 'number' },
+    delayVisible: { control: 'number' },
+    timeVisible: { control: 'number' }
+  },
   parameters: {
+    tag: 'Button.Tooltip',
+    argActions: {
+      focused: (isFocused, component) => {
+        component._getFocused = isFocused
+          ? () => component.tag('Button.Tooltip')
+          : () => {};
+        component._refocus();
+      }
+    },
     docs: {
       page: mdx
     }
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -28,53 +47,28 @@ export const Basic = () =>
           title: 'Button',
           Tooltip: {
             type: Tooltip,
-            title: text('Custom Hint Message', 'Type Something'),
-            bottomMargin: number('Bottom Margin', ''),
-            delayVisible: number('Delay Time (in ms) Before Visible', ''),
-            timeVisible: number('Time (in ms) Visible', '')
+            title: args.title,
+            bottomMargin: args.bottomMargin,
+            delayVisible: args.delayVisible,
+            timeVisible: args.timeVisible
           }
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', true)) {
+      if (args.focused) {
         return this.tag('Button.Tooltip');
       }
     }
   };
 
-export const LongTitle = () =>
-  class LongTitle extends lng.Component {
-    static _template() {
-      return {
-        Button: {
-          type: Button,
-          x: 300,
-          y: 100,
-          title: 'Button',
-          Tooltip: {
-            type: Tooltip,
-            title: text(
-              'Custom Hint Message',
-              'Type something with a long message here...'
-            ),
-            bottomMargin: number('Bottom Margin', ''),
-            delayVisible: number('Delay Time (in ms) Before Visible', ''),
-            timeVisible: number('Time (in ms) Visible', '')
-          }
-        }
-      };
-    }
+export const LongTitle = Basic.bind({});
+LongTitle.args = {
+  title: 'Type something with a long message here...'
+};
 
-    _getFocused() {
-      if (boolean('Focused', true)) {
-        return this.tag('Button.Tooltip');
-      }
-    }
-  };
-
-export const WithActionButton = () =>
+export const WithActionButton = args =>
   class WithActionButton extends lng.Component {
     static _template() {
       return {
@@ -87,18 +81,21 @@ export const WithActionButton = () =>
           background: 'stroke',
           Tooltip: {
             type: Tooltip,
-            title: text('Custom Hint Message', 'Type something'),
-            bottomMargin: number('Bottom Margin', 24),
-            delayVisible: number('Delay Time (in ms) Before Visible', ''),
-            timeVisible: number('Time (in ms) Visible', '')
+            title: args.title,
+            bottomMargin: args.bottomMargin,
+            delayVisible: args.delayVisible,
+            timeVisible: args.timeVisible
           }
         }
       };
     }
 
     _getFocused() {
-      if (boolean('Focused', true)) {
+      if (args.focused) {
         return this.tag('Button.Tooltip');
       }
     }
   };
+WithActionButton.args = {
+  bottomMargin: 24
+};

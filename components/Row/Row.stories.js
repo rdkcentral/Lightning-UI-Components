@@ -1,5 +1,4 @@
 import lng from 'wpe-lightning';
-import { number, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import Row from '.';
 import mdx from './Row.mdx';
@@ -7,8 +6,6 @@ import Pivot from '../Pivot';
 
 export default {
   title: 'Row',
-  component: Row,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -38,14 +35,7 @@ export const Basic = () =>
     }
   };
 
-const numberOptions = {
-  range: true,
-  min: 0,
-  max: 1,
-  step: 0.1
-};
-
-export const SideScrolling = () =>
+export const SideScrolling = args =>
   class SideScrolling extends lng.Component {
     static _template() {
       return {
@@ -53,8 +43,8 @@ export const SideScrolling = () =>
           type: Row,
           w: 900,
           itemSpacing: 20,
-          alwaysScroll: boolean('alwaysScroll', false),
-          scrollMount: number('scrollMount', 0.5, numberOptions),
+          alwaysScroll: args.alwaysScroll,
+          scrollMount: args.scrollMount,
           items: Array.apply(null, { length: 12 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`,
@@ -68,6 +58,21 @@ export const SideScrolling = () =>
       return this.tag('Row');
     }
   };
+SideScrolling.args = {
+  alwaysScroll: false,
+  scrollMount: 0.5
+};
+SideScrolling.argTypes = {
+  alwaysScroll: { control: 'boolean' },
+  scrollMount: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.1
+    }
+  }
+};
 
 export const FocusHeightChange = () =>
   class FocusHeightChange extends lng.Component {

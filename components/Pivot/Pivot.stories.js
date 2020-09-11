@@ -1,6 +1,4 @@
 import lng from 'wpe-lightning';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 import Pivot from '.';
 
@@ -8,8 +6,6 @@ import mdx from './Pivot.mdx';
 
 export default {
   title: 'Pivot',
-  component: Pivot,
-  decorators: [withKnobs],
   parameters: {
     docs: {
       page: mdx
@@ -17,44 +13,54 @@ export default {
   }
 };
 
-const makeOptions = (...opts) => {
-  return opts.reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: key.toLowerCase()
-    }),
-    {}
-  );
-};
-
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Pivot: {
           type: Pivot,
-          title: text('Title', 'Dynamic Pivot'),
-          backgroundType: radios(
-            'Background',
-            makeOptions('stroke', 'fill', 'float', 'ghost'),
-            'stroke'
-          ),
-          onEnter: action('onEnter')
+          title: args.title,
+          backgroundType: args.backgroundType,
+          onEnter: args.onEnter,
+          icon: args.icon ? icon : null
         }
       };
     }
-    _init() {
-      if (boolean('Icon', false)) {
-        this.tag('Pivot').icon = icon;
-      }
-    }
 
     _getFocused() {
-      if (boolean('Focused', false)) {
+      if (args.focused) {
         return this.tag('Pivot');
       }
     }
   };
+Basic.args = {
+  title: 'Dynamic Pivot',
+  backgroundType: 'stroke'
+};
+Basic.argTypes = {
+  onEnter: { action: 'onEnter' },
+  focused: { control: 'boolean' },
+  icon: { control: 'boolean' },
+  title: { control: 'text' },
+  backgroundType: {
+    control: {
+      type: 'radio',
+      options: ['stroke', 'fill', 'float', 'ghost']
+    }
+  }
+};
+Basic.parameters = {
+  argActions: {
+    icon: (isIcon, component) =>
+      (component.tag('Pivot').icon = isIcon ? icon : null),
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('Pivot')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
 
 export const Loading = () =>
   class Loading extends lng.Component {
