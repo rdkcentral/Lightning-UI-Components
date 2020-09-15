@@ -30,11 +30,6 @@ export default class ProgressBar extends lng.Component {
     this._update();
   }
 
-  set progress(progress) {
-    this._progress = progress;
-    this._update();
-  }
-
   _update() {
     let { progress } = this;
 
@@ -59,6 +54,13 @@ export default class ProgressBar extends lng.Component {
 
   get progress() {
     return this._progress;
+  }
+
+  set progress(progress) {
+    if (progress !== this._progress) {
+      this._progress = progress;
+      this._update();
+    }
   }
 
   get _barHeight() {
