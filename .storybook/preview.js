@@ -142,7 +142,8 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
         } else if (argValue !== component[arg]) {
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
-          const descriptor = Object.getOwnPropertyDescriptor(component.type.prototype.__proto__, arg);
+          const descriptor = getDescriptor(component.type.prototype, arg);
+
           if (descriptor && descriptor.set) {
             component[arg] = argValue;
           } else {
@@ -155,3 +156,16 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
   }
   return app.getCanvas();
 });
+
+function getDescriptor(prototype, property) {
+  let proto = prototype.__proto__;
+  let descriptor;
+
+  while (descriptor === undefined && proto !== null) {
+    if (proto.constructor.isPrototypeOf(lng.Component)) break;
+    descriptor = Object.getOwnPropertyDescriptor(proto, property);
+    proto = proto.__proto__;
+  };
+
+  return descriptor;
+}
