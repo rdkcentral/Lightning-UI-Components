@@ -94,25 +94,25 @@ export default class Slider extends lng.Component {
     };
   }
 
-  _init() {
-    this.min = this.min || 0;
-    this.max = this.max || 100;
-    this.step = this.step || 1;
-    this.value = this.value || this.min;
+  _construct() {
+    this._min = 0;
+    this._max = 100;
+    this._step = 1;
+    this._value = 0;
+  }
 
+  _init() {
     if (this.value > this.min) this._update();
   }
 
   _handleLeft() {
     const value = this.value - this.step;
     this.value = value >= this.min ? value : this.min;
-    this._update();
   }
 
   _handleRight() {
     const value = this.value + this.step;
     this.value = value <= this.max ? value : this.max;
-    this._update();
   }
 
   _update() {
@@ -139,6 +139,50 @@ export default class Slider extends lng.Component {
       this._RightArrow.setSmooth('alpha', 0.48);
     } else {
       this._RightArrow.setSmooth('alpha', 1);
+    }
+  }
+
+  get min() {
+    return this._min;
+  }
+
+  set min(min) {
+    if (this._min !== min) {
+      this._min = min;
+      this._update();
+    }
+  }
+
+  get max() {
+    return this._max;
+  }
+
+  set max(max) {
+    if (this._max !== max) {
+      this._max = max;
+      this._update();
+    }
+  }
+
+  get step() {
+    return this._step;
+  }
+
+  set step(step) {
+    if (this._step !== step) {
+      this._step = step;
+      this._update();
+    }
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(value) {
+    if (this._value !== value) {
+      this._value = value;
+      this._update();
     }
   }
 
