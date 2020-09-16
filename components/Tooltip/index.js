@@ -41,32 +41,39 @@ export default class Tooltip extends lng.Component {
     };
   }
 
+  get title() {
+    return this._title;
+  }
+
   set title(title) {
-    this._Text.text = title;
-    this._Text.on('txLoaded', () => {
-      // set background size based on text size
+    if (this._title !== title) {
+      this._title = title;
+      this._Text.text = title;
+      this._Text.on('txLoaded', () => {
+        // set background size based on text size
 
-      let backgroundW = this._Text.finalW + horizontalPadding * 2;
-      let backgroundH =
-        this._Text.finalH -
-        (this._Text.finalH % TYPOGRAPHY.body3.lineHeight) / 2; // calculates even padding
+        let backgroundW = this._Text.finalW + horizontalPadding * 2;
+        let backgroundH =
+          this._Text.finalH -
+          (this._Text.finalH % TYPOGRAPHY.body3.lineHeight) / 2; // calculates even padding
 
-      this.texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(backgroundW),
-        RoundRect.getHeight(backgroundH),
-        CORNER_RADIUS.small
-      );
-      this._DropShadow.texture = lng.Tools.getShadowRect(
-        backgroundW,
-        backgroundH,
-        CORNER_RADIUS.small,
-        24
-      );
+        this.texture = lng.Tools.getRoundRect(
+          RoundRect.getWidth(backgroundW),
+          RoundRect.getHeight(backgroundH),
+          CORNER_RADIUS.small
+        );
+        this._DropShadow.texture = lng.Tools.getShadowRect(
+          backgroundW,
+          backgroundH,
+          CORNER_RADIUS.small,
+          24
+        );
 
-      this.y =
-        -backgroundH -
-        (this.bottomMargin ? this.bottomMargin : GRID.spacingIncrement * 5);
-    });
+        this.y =
+          -backgroundH -
+          (this.bottomMargin ? this.bottomMargin : GRID.spacingIncrement * 5);
+      });
+    }
   }
 
   _focus() {

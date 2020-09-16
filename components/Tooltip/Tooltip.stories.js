@@ -8,6 +8,7 @@ import ActionButton, { styles as ACTION_BUTTON_STYLES } from '../ActionButton';
 export default {
   title: 'Tooltip',
   args: {
+    focused: false,
     title: 'Type Something',
     bottomMargin: 0,
     delayVisible: 0,
@@ -76,9 +77,8 @@ export const WithActionButton = args =>
           type: ActionButton,
           x: 200,
           y: 100,
-          w: ACTION_BUTTON_STYLES.w,
           title: 'Button',
-          background: 'stroke',
+          backgroundType: 'stroke',
           Tooltip: {
             type: Tooltip,
             title: args.title,
