@@ -117,10 +117,6 @@ class Pivot extends Button {
     };
   }
 
-  _construct() {
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-  }
-
   get icon() {
     return this._icon;
   }
@@ -128,8 +124,10 @@ class Pivot extends Button {
   set icon(src) {
     if (src) {
       this._icon = { ...this.styles.icon, src };
-      this._update();
+    } else {
+      this._icon = null;
     }
+    this._update();
   }
 
   _update() {
@@ -157,7 +155,7 @@ class Pivot extends Button {
     });
   }
 
-  _enable() {
+  _firstEnable() {
     this._loading = this._Loader.animation({
       duration: 2,
       repeat: -1,

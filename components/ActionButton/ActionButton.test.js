@@ -27,16 +27,16 @@ describe('ActionButton', () => {
   it("should update it's shadow width for long titles", done => {
     [actionbutton, testRenderer] = createActionButton({
       title:
-        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
+        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
     });
     // default width
     expect(actionbutton.w).toBe(410);
-    actionbutton._whenEnabled.then(() => {
-      // update width
-      testRenderer.update();
-      expect(actionbutton.w).toBe(472);
-      // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
-      // expect(lookupId).toEqual('shadow456,56,16,32,8,8,8,8');
+    setTimeout(() => {
+      expect(actionbutton.w).toBe(473);
+      actionbutton._DropShadow.loadTexture();
+      expect(actionbutton._DropShadow.texture._lookupId).toEqual(
+        'shadow457,56,16,32,8,8,8,8'
+      );
       done();
     });
   });

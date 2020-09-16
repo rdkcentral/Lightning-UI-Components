@@ -4,9 +4,13 @@ import { getHexColor } from '../Styles';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
-const createPivot = TestUtils.makeCreateComponent(Pivot, {
-  title: 'Pivot'
-});
+const createPivot = TestUtils.makeCreateComponent(
+  Pivot,
+  {
+    title: 'Pivot'
+  },
+  { focused: false }
+);
 
 describe('Pivot', () => {
   let pivot, testRenderer;
@@ -27,20 +31,18 @@ describe('Pivot', () => {
   it("should update it's shadow width for long titles", done => {
     [pivot, testRenderer] = createPivot({
       title:
-        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
+        'This is a really long title title title title title title title title title title title title title title title title title title title title title title title'
     });
 
     // default width
     expect(pivot.w).toBe(185);
 
-    pivot._whenEnabled.then(() => {
-      testRenderer.update();
-      // update width
-      expect(pivot.w).toBe(189);
+    setTimeout(() => {
+      expect(pivot.w).toBe(191);
       // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
       pivot._DropShadow.loadTexture();
       expect(pivot._DropShadow.texture._lookupId).toEqual(
-        'shadow173,32,16,32,8,8,8,8'
+        'shadow175,32,16,32,8,8,8,8'
       );
       done();
     });
@@ -53,6 +55,8 @@ describe('Pivot', () => {
       });
 
       pivot._whenEnabled.then(() => {
+        pivot._unfocus();
+        testRenderer.update();
         expect(pivot.color).toBe(0);
         expect(pivot._stroke).toEqual(
           expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
@@ -66,6 +70,8 @@ describe('Pivot', () => {
         backgroundType: 'fill'
       });
       pivot._whenEnabled.then(() => {
+        pivot._unfocus();
+        testRenderer.update();
         expect(pivot.color).toBe(getHexColor('232328'));
         done();
       });
@@ -76,6 +82,8 @@ describe('Pivot', () => {
       });
 
       pivot._whenEnabled.then(() => {
+        pivot._unfocus();
+        testRenderer.update();
         expect(pivot.color).toBe(0);
         done();
       });
@@ -86,6 +94,8 @@ describe('Pivot', () => {
       });
 
       pivot._whenEnabled.then(() => {
+        pivot._unfocus();
+        testRenderer.update();
         expect(pivot.color).toBe(0);
         done();
       });
@@ -109,6 +119,8 @@ describe('Pivot', () => {
       [pivot, testRenderer] = createPivot({
         title: undefined
       });
+
+      testRenderer.update();
       expect(pivot._loading.isPlaying()).toBe(true);
     });
     it('should stop loading once title is set', done => {
