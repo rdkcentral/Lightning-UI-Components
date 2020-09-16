@@ -143,7 +143,6 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
           const descriptor = Object.getOwnPropertyDescriptor(component.type.prototype.__proto__, arg);
-
           if (descriptor && descriptor.set) {
             component[arg] = argValue;
           } else {

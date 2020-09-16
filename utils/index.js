@@ -125,3 +125,46 @@ function getMergeValue(key, target, object) {
 
   return objectVal;
 }
+
+/**
+ * Returns the rendered width of a given text texture
+ * @param {Object} text - text texture properties
+ * @param {string} text.text - text value
+ * @param {string} text.fontStyle - css font-style property
+ * @param {(string|number)} text.fontWeight - css font-weight property
+ * @param {string} [fontSize=0] - css font-size property (in px)
+ * @param {string} [text.fontFamily=sans-serif] - css font-weight property
+ * @param {string} text.fontFace - alias for fontFamily
+ *
+ * @returns {number} text width
+ * */
+export function measureTextWidth(text = {}) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const {
+    fontStyle,
+    fontWeight,
+    fontSize,
+    fontFamily = text.fontFace || 'sans-serif'
+  } = text;
+  const fontCss = [
+    fontStyle,
+    fontWeight,
+    fontSize ? `${fontSize}px` : '0',
+    `'${fontFamily}'`
+  ]
+    .filter(Boolean)
+    .join(' ');
+  ctx.font = fontCss;
+  const textMetrics = ctx.measureText(text.text || '');
+
+  // try using the actual bounding box first because it will be more accurate
+  if (textMetrics.actualBoundingBoxLeft && textMetrics.actualBoundingBoxRight) {
+    return Math.ceil(
+      Math.abs(textMetrics.actualBoundingBoxLeft) +
+        Math.abs(textMetrics.actualBoundingBoxRight)
+    );
+  }
+
+  return Math.ceil(textMetrics.width);
+}

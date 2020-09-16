@@ -108,10 +108,6 @@ class ActionButton extends Button {
     };
   }
 
-  _construct() {
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-  }
-
   get icon() {
     return this._icon;
   }
@@ -119,14 +115,17 @@ class ActionButton extends Button {
   set icon(src) {
     if (src) {
       this._icon = { ...this.styles.icon, src };
+    } else {
+      this._icon = null;
     }
+    this._update();
   }
 
   _update() {
     this._whenEnabled.then(() => {
       if (this.w !== this.styles.w) {
         const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-        this.patch(DropShadow);
+        this._DropShadow.patch(DropShadow);
       }
 
       if (!this.title) {
@@ -146,7 +145,7 @@ class ActionButton extends Button {
     });
   }
 
-  _enable() {
+  _firstEnable() {
     this._loading = this._Loader.animation({
       duration: 2,
       repeat: -1,

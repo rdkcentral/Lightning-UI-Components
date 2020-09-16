@@ -5,7 +5,7 @@
  * and focus and unfocus states for the button background.
  */
 import lng from 'wpe-lightning';
-import { RoundRect } from '../../utils';
+import { RoundRect, measureTextWidth } from '../../utils';
 import withStyles from '../../mixins/withStyles';
 import Icon from '../Icon';
 
@@ -81,6 +81,10 @@ class Button extends lng.Component {
     };
   }
 
+  _construct() {
+    this._whenEnabled = new Promise(resolve => (this._enable = resolve));
+  }
+
   _init() {
     this._update();
   }
@@ -94,88 +98,101 @@ class Button extends lng.Component {
   }
 
   _update() {
-    this.patch({
-      color: [this.background, this.styles.background.color].find(
-        Number.isFinite
-      )
-    });
-
-    if (this.title) {
-      const Title = {};
-      Title.text = {
-        ...this.styles.text,
-        fontColor: this.styles.text.color,
-        fontSize: this.fontSize || this.styles.text.fontSize,
-        text: this.title
-      };
-      Title.color = this.styles.text.color;
-      this._Title.patch(Title);
-
-      this._Title.loadTexture();
-
-      if (!this.fixed) {
-        const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
-        const padding = [this.padding, this.styles.padding, 10].find(
-          Number.isFinite
-        );
-        const w = this._Title.renderWidth + padding * 2 + iconSize;
-        if (w !== this.w) {
-          this.w = w > this.w ? w : this.w;
-          this.fireAncestors('$itemChanged');
-          this.signal('buttonWidthChanged', { w: this.w });
-        }
-      }
-    }
-
-    if (this.icon) {
-      const Icon = {};
-      const { color, size, spacing, src } = this.icon;
-      Icon.color = color || this.styles.icon.color;
-      Icon.w = size;
-      Icon.h = size;
-      Icon.flexItem = { marginRight: spacing };
-      Icon.icon = src;
-      this._Icon.patch(Icon);
-    }
-
-    if (this.stroke) {
+    this._whenEnabled.then(() => {
+      const template = {};
+      let Icon = {};
       const Stroke = {};
-      const { color, weight } = this.stroke;
-      const radius = this.radius || this.styles.radius;
+      const Title = {};
 
-      this.patch({
-        texture: lng.Tools.getRoundRect(
+      template.color = [this.background, this.styles.background.color].find(
+        Number.isFinite
+      );
+
+      if (this.title) {
+        Title.text = {
+          ...this.styles.text,
+          fontColor: this.styles.text.color,
+          fontSize: this.fontSize || this.styles.text.fontSize,
+          fontFamily:
+            this.styles.text.fontFace ||
+            this.styles.text.fontFamily ||
+            this.stage._options.defaultFontFace,
+          text: this.title
+        };
+        Title.color = this.styles.text.color;
+
+        if (!this.fixed) {
+          const iconSize = this._icon
+            ? this._icon.size + this._icon.spacing
+            : 0;
+          const padding = [this.padding, this.styles.padding, 10].find(
+            Number.isFinite
+          );
+
+          const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
+          if (w && w !== this.w) {
+            this.w = w > this.styles.w ? w : this.styles.w;
+            this.fireAncestors('$itemChanged');
+            this.signal('buttonWidthChanged', { w: this.w });
+          }
+        }
+      } else {
+        Title.texture = false;
+      }
+
+      if (this.icon) {
+        const { color, size, spacing, src } = this.icon;
+        Icon.color = color || this.styles.icon.color;
+        Icon.w = size;
+        Icon.h = size;
+        Icon.flexItem = { marginRight: spacing };
+        Icon.icon = src;
+      } else {
+        Icon = {
+          w: 0,
+          h: 0,
+          texture: false,
+          flexItem: false
+        };
+      }
+
+      if (this.stroke) {
+        const { color, weight } = this.stroke;
+        const radius = this.radius || this.styles.radius;
+
+        template.texture = lng.Tools.getRoundRect(
           RoundRect.getWidth(this.w),
           RoundRect.getHeight(this.h),
           radius,
           0x00,
           true,
           0xffffffff
-        )
-      });
+        );
 
-      Stroke.color = color;
-      Stroke.texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(this.w),
-        RoundRect.getHeight(this.h),
-        radius,
-        weight,
-        0xffffffff,
-        true,
-        this.background
-      );
-
-      this._Stroke.patch(Stroke);
-    } else {
-      const radius = this.radius || this.styles.radius;
-      this.patch({
-        texture: lng.Tools.getRoundRect(
+        Stroke.color = color;
+        Stroke.texture = lng.Tools.getRoundRect(
+          RoundRect.getWidth(this.w),
+          RoundRect.getHeight(this.h),
+          radius,
+          weight,
+          0xffffffff,
+          true,
+          this.background
+        );
+      } else {
+        const radius = this.radius || this.styles.radius;
+        template.texture = lng.Tools.getRoundRect(
           RoundRect.getWidth(this.w),
           RoundRect.getHeight(this.h),
           radius
-        )
-      });
-    }
+        );
+      }
+
+      this._Icon.patch(Icon);
+      this._Stroke.patch(Stroke);
+      this._Title.patch(Title);
+      this.patch(template);
+    });
   }
 
   _handleEnter() {
@@ -184,13 +201,26 @@ class Button extends lng.Component {
     }
   }
 
+  get radius() {
+    return this._radius;
+  }
+
+  set radius(radius) {
+    if (this._radius !== radius) {
+      this._radius = radius;
+      this._update();
+    }
+  }
+
   get title() {
     return this._title;
   }
 
   set title(title) {
-    this._title = title;
-    this._update();
+    if (this._title !== title) {
+      this._title = title;
+      this._update();
+    }
   }
 
   get icon() {
@@ -200,8 +230,10 @@ class Button extends lng.Component {
   set icon({ src, size = 20, spacing = 5, color = 0xffffffff }) {
     if (src) {
       this._icon = { src, size, spacing, color };
-      this._update();
+    } else {
+      this._icon = null;
     }
+    this._update();
   }
 
   get stroke() {
@@ -211,6 +243,17 @@ class Button extends lng.Component {
   set stroke({ weight = 2, color = 0x00 }) {
     this._stroke = { weight, color };
     this._update();
+  }
+
+  get w() {
+    return this._w;
+  }
+
+  set w(w) {
+    if (this._w !== w) {
+      this._w = w;
+      this._update();
+    }
   }
 
   get announce() {
