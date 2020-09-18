@@ -120,22 +120,6 @@ class Button extends lng.Component {
           text: this.title
         };
         Title.color = this.styles.text.color;
-
-        if (!this.fixed) {
-          const iconSize = this._icon
-            ? this._icon.size + this._icon.spacing
-            : 0;
-          const padding = [this.padding, this.styles.padding, 10].find(
-            Number.isFinite
-          );
-
-          const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
-          if (w && w !== this.w) {
-            this.w = w > this.styles.w ? w : this.styles.w;
-            this.fireAncestors('$itemChanged');
-            this.signal('buttonWidthChanged', { w: this.w });
-          }
-        }
       } else {
         Title.texture = false;
       }
@@ -145,7 +129,9 @@ class Button extends lng.Component {
         Icon.color = color || this.styles.icon.color;
         Icon.w = size;
         Icon.h = size;
-        Icon.flexItem = { marginRight: spacing };
+        if (this.title) {
+          Icon.flexItem = { marginRight: spacing };
+        }
         Icon.icon = src;
       } else {
         Icon = {
@@ -168,6 +154,22 @@ class Button extends lng.Component {
           true,
           0xffffffff
         );
+
+        if (!this.fixed) {
+          const iconSize = this._icon
+            ? this._icon.size + this._icon.spacing
+            : 0;
+          const padding = [this.padding, this.styles.padding, 10].find(
+            Number.isFinite
+          );
+          const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
+
+          if (w && w !== this.w) {
+            this.w = w > this.styles.w ? w : this.styles.w;
+            this.fireAncestors('$itemChanged');
+            this.signal('buttonWidthChanged', { w: this.w });
+          }
+        }
 
         Stroke.color = color;
         Stroke.texture = lng.Tools.getRoundRect(

@@ -128,7 +128,7 @@ class ActionButton extends Button {
         this._DropShadow.patch(DropShadow);
       }
 
-      if (!this.title) {
+      if (!(this.title || this.icon)) {
         const Title = { texture: false };
         const color = 0x00;
         this.patch({ color });

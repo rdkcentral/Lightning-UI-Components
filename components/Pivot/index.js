@@ -137,7 +137,7 @@ class Pivot extends Button {
         this._DropShadow.patch(DropShadow);
       }
 
-      if (!this.title) {
+      if (!(this.title || this.icon)) {
         this.patch({ color: 0x00 });
         this._Title.patch({ texture: false });
         this._Loader.patch({
