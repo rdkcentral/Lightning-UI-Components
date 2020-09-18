@@ -1280,7 +1280,7 @@ Object {
       "tags": Array [
         "FocusRing",
       ],
-      "type": "_class",
+      "type": "FocusRing",
       "visible": true,
       "w": 320,
       "x": 0,
@@ -2694,7 +2694,7 @@ Object {
       "tags": Array [
         "FocusRing",
       ],
-      "type": "_class",
+      "type": "FocusRing",
       "visible": true,
       "w": 320,
       "x": 0,
@@ -3940,7 +3940,7 @@ Object {
       "tags": Array [
         "FocusRing",
       ],
-      "type": "_class",
+      "type": "FocusRing",
       "visible": true,
       "w": 320,
       "x": 0,
