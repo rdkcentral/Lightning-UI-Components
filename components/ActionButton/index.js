@@ -63,6 +63,7 @@ export const styles = theme => ({
       let scale = getFocusScale(this.w);
       this.patch({
         smooth: { color: theme.palette.background.focus, scale },
+        stroke: false,
         Content: {
           Title: { smooth: { color: theme.palette.text.dark.primary } },
           Icon: { smooth: { color: theme.palette.text.dark.primary } }
@@ -71,9 +72,6 @@ export const styles = theme => ({
           smooth: {
             alpha: 1
           }
-        },
-        Stroke: {
-          texture: false
         }
       });
     }

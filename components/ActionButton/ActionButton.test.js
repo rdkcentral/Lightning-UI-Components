@@ -4,7 +4,11 @@ import { getHexColor } from '../Styles';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
-const createActionButton = TestUtils.makeCreateComponent(ActionButton);
+const createActionButton = TestUtils.makeCreateComponent(
+  ActionButton,
+  {},
+  { focused: false }
+);
 
 describe('ActionButton', () => {
   let actionbutton, testRenderer;
