@@ -1188,7 +1188,7 @@ Object {
           "tags": Array [
             "Image",
           ],
-          "type": "_class",
+          "type": "Tile",
           "visible": true,
           "w": 56,
           "x": 0,
@@ -1468,7 +1468,7 @@ Object {
           "tags": Array [
             "Image",
           ],
-          "type": "_class",
+          "type": "Tile",
           "visible": true,
           "w": 56,
           "x": 0,

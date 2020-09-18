@@ -7,6 +7,7 @@ export default function withTheme(Base, theme) {
     : createTheme(theme);
 
   return class extends Base {
+    static get name() { return Base.name }
     static get theme() { return _theme };
 
     constructor(stage) {

@@ -25,6 +25,7 @@ export const withTransitions = (Base, options = {}) => {
   const transitions = createTransitions(options);
 
   return class extends Base {
+    static get name() { return Base.name }
     static _template() {
       return {
         transitions,

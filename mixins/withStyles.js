@@ -7,6 +7,7 @@ export default function withStyles(Base, styles, theme) {
   const _styles = Base.styles ? clone(Base.styles, createStyles(styles, _theme)) : createStyles(styles, _theme);
 
   return class extends Base {
+    static get name() { return Base.name }
     static get styles() { return _styles };
     get styles() { return _styles }
   }
