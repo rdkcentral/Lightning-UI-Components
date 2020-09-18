@@ -41,7 +41,9 @@ export const styles = theme => ({
     patch: function() {
       let scale = 1;
       this.patch({
-        stroke: this.backgroundType === 'stroke' && this.stroke,
+        stroke: this.backgroundType === 'stroke',
+        strokeColor: this.styles.stroke.color,
+        strokeWeight: this.styles.stroke.weight,
         smooth: {
           color:
             this.styles.backgrounds[this.backgroundType] ||
@@ -129,16 +131,19 @@ class ActionButton extends Button {
       }
 
       if (!(this.title || this.icon)) {
-        const Title = { texture: false };
-        const color = 0x00;
-        this.patch({ color });
-        this._Title.patch(Title);
+        this.patch({ color: 0x00 });
+        this._Title.patch({ texture: false });
+        this._Stroke.patch({ texture: false });
+        this._Loader.patch({
+          texture: lng.Tools.getRoundRect(
+            RoundRect.getWidth(this.styles.w),
+            RoundRect.getHeight(this.styles.h - 2),
+            this.styles.radius
+          )
+        });
+        if (this._loading) this._loading.start();
       } else {
-        const Loader = {
-          color: 0x00,
-          texture: false
-        };
-        this._Loader.patch(Loader);
+        this._Loader.patch({ texture: false });
         if (this._loading) this._loading.stop();
         super._update();
       }
@@ -159,17 +164,22 @@ class ActionButton extends Button {
     return this._backgroundType;
   }
 
-  set backgroundType(backgroundType = 'float') {
-    const isStroke = backgroundType === 'stroke';
-    this._backgroundType = backgroundType = backgroundType;
-    if (this.styles) {
-      const background =
-        this.styles.backgrounds[backgroundType] ||
-        this.styles.backgrounds.float;
-      const stroke = isStroke && this.styles.stroke;
+  set backgroundType(backgroundType) {
+    if (this._backgroundType !== backgroundType) {
+      this._backgroundType = backgroundType;
+      if (this.styles) {
+        const background =
+          this.styles.backgrounds[backgroundType] ||
+          this.styles.backgrounds.float;
+        this.background = background;
+        this.stroke = backgroundType === 'stroke';
 
-      this.background = background;
-      this.stroke = stroke;
+        if (this.stroke) {
+          this.strokeWeight = this.styles.stroke.weight;
+          this.strokeColor = this.styles.stroke.color;
+        }
+      }
+      this._update();
     }
   }
 

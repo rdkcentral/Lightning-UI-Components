@@ -47,30 +47,30 @@ describe('ActionButton', () => {
         backgroundType: 'stroke'
       });
       expect(actionbutton.background).toBe(0);
-      expect(actionbutton.stroke).toEqual(
-        expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
-      );
+      expect(actionbutton.stroke).toBe(true);
+      expect(actionbutton.strokeColor).toBe(0xffececf2);
+      expect(actionbutton.strokeWeight).toBe(2);
     });
     it('should set background to fill', () => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'fill'
       });
       expect(actionbutton.background).toBe(0xff232328);
-      expect(actionbutton.stroke.color).toBe(0);
+      expect(actionbutton.stroke).toBe(false);
     });
     it('should set background to float', () => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'float'
       });
       expect(actionbutton.background).toBe(0);
-      expect(actionbutton.stroke.color).toBe(0);
+      expect(actionbutton.stroke).toBe(false);
     });
     it('should default background to float', () => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'orange'
       });
       expect(actionbutton.background).toBe(0);
-      expect(actionbutton.stroke.color).toBe(0);
+      expect(actionbutton.stroke).toBe(false);
     });
   });
 

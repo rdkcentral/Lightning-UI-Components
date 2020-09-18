@@ -58,9 +58,9 @@ describe('Pivot', () => {
         pivot._unfocus();
         testRenderer.update();
         expect(pivot.color).toBe(0);
-        expect(pivot._stroke).toEqual(
-          expect.objectContaining({ color: getHexColor('ECECF2'), weight: 2 })
-        );
+        expect(pivot.stroke).toBe(true);
+        expect(pivot.strokeWeight).toBe(2);
+        expect(pivot.strokeColor).toBe(0xffececf2);
         done();
       });
     });

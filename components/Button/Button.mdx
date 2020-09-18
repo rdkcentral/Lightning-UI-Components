@@ -46,14 +46,16 @@ All buttons have the ability to be passed an icon. This will position the icon t
 
 ### Properties
 
-name|type|readonly|description
+name|type|readonly|default|description
 --|--|--|--
-announce|string|true|announcement text for screen readers
-h|number|false|height of the button
-w|number|false|width of the button
-title|string|false|button text
-radius|rumber|false|corner radius for a button
-stroke|object|false|`color` and `weight` properties for button stroke
+announce|string|true|-|announcement text for screen readers
+h|number|false|40|height of the button
+w|number|false|150|width of the button
+title|string|false|-|button text
+radius|rumber|false|0|corner radius for a button
+stroke|boolean|false|false|whether to display a border
+strokeColor|number|false|0|border color
+strokeWeight|number|false|2|thickness of border stroke
 loading|object|false|`tag` and `animation` properties for button loading animation
 icon|object|false|`src`, `size`, and `spacing` properties for an icon. See <a href="?path=/docs/icon--basic">Icon</a>
 
