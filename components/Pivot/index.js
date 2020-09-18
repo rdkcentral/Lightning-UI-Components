@@ -65,6 +65,7 @@ export const styles = theme => ({
       let scale = theme.getFocusScale(this.w);
       if (!this._loading || !this._loading.isPlaying()) {
         this.patch({
+          stroke: false,
           smooth: {
             color: theme.palette.background.focus,
             scale
@@ -77,9 +78,6 @@ export const styles = theme => ({
             smooth: {
               alpha: 1
             }
-          },
-          Stroke: {
-            texture: false
           }
         });
       }
