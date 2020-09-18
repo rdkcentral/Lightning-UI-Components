@@ -39,11 +39,13 @@ export const styles = theme => ({
     patch: function() {
       let scale = 1;
       this.patch({
-        stroke: this.backgroundType === 'stroke' && this.stroke,
+        stroke: this.backgroundType === 'stroke',
+        strokeColor: this.styles.stroke.color,
+        strokeWeight: this.styles.stroke.weight,
         smooth: {
           color:
             this.styles.backgrounds[this.backgroundType] ||
-            theme.palette.background.float,
+            this.styles.backgrounds.float,
           scale
         },
         Content: {
@@ -140,6 +142,7 @@ class Pivot extends Button {
       if (!(this.title || this.icon)) {
         this.patch({ color: 0x00 });
         this._Title.patch({ texture: false });
+        this._Stroke.patch({ texture: false });
         this._Loader.patch({
           texture: lng.Tools.getRoundRect(
             RoundRect.getWidth(this.styles.w),
@@ -147,6 +150,7 @@ class Pivot extends Button {
             this.styles.radius
           )
         });
+        if (this._loading) this._loading.start();
       } else {
         this._Loader.patch({ texture: false });
         if (this._loading) this._loading.stop();
@@ -170,16 +174,22 @@ class Pivot extends Button {
   }
 
   set backgroundType(backgroundType) {
-    const isStroke = backgroundType === 'stroke';
-    this._backgroundType = backgroundType;
-    if (this.styles) {
-      const background =
-        this.styles.backgrounds[backgroundType] ||
-        this.styles.backgrounds.float;
-      const stroke = isStroke && this.styles.stroke;
+    if (this._backgroundType !== backgroundType) {
+      this._backgroundType = backgroundType;
+      if (this.styles) {
+        const background =
+          this.styles.backgrounds[backgroundType] ||
+          this.styles.backgrounds.float;
 
-      this.background = background;
-      this.stroke = stroke;
+        this.background = background;
+        this.stroke = backgroundType === 'stroke';
+
+        if (this.stroke) {
+          this.strokeWeight = this.styles.stroke.weight;
+          this.strokeColor = this.styles.stroke.color;
+        }
+        this._update();
+      }
     }
   }
 

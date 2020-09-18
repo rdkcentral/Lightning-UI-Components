@@ -20,6 +20,10 @@ export const styles = {
     color: 0xffffffff
   },
   padding: 50,
+  stroke: {
+    color: 0x00,
+    weight: 2
+  },
   unfocus: {
     patch: function() {
       const { background, icon, text } = this.styles;
@@ -55,6 +59,8 @@ class Button extends lng.Component {
       w: this.styles.w,
       h: this.styles.h,
       radius: this.styles.radius,
+      strokeColor: this.styles.stroke.color,
+      strokeWeight: this.styles.stroke.weight,
       Content: {
         mount: 0.5,
         x: w => w / 2,
@@ -83,6 +89,8 @@ class Button extends lng.Component {
 
   _construct() {
     this._whenEnabled = new Promise(resolve => (this._enable = resolve));
+    this._strokeWeight = 2;
+    this._strokeColor = 0x00;
   }
 
   _init() {
@@ -143,7 +151,6 @@ class Button extends lng.Component {
       }
 
       if (this.stroke) {
-        const { color, weight } = this.stroke;
         const radius = this.radius || this.styles.radius;
 
         template.texture = lng.Tools.getRoundRect(
@@ -155,28 +162,12 @@ class Button extends lng.Component {
           0xffffffff
         );
 
-        if (!this.fixed) {
-          const iconSize = this._icon
-            ? this._icon.size + this._icon.spacing
-            : 0;
-          const padding = [this.padding, this.styles.padding, 10].find(
-            Number.isFinite
-          );
-          const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
-
-          if (w && w !== this.w) {
-            this.w = w > this.styles.w ? w : this.styles.w;
-            this.fireAncestors('$itemChanged');
-            this.signal('buttonWidthChanged', { w: this.w });
-          }
-        }
-
-        Stroke.color = color;
+        Stroke.color = this.strokeColor;
         Stroke.texture = lng.Tools.getRoundRect(
           RoundRect.getWidth(this.w),
           RoundRect.getHeight(this.h),
           radius,
-          weight,
+          this.strokeWeight,
           0xffffffff,
           true,
           this.background
@@ -188,11 +179,26 @@ class Button extends lng.Component {
           RoundRect.getHeight(this.h),
           radius
         );
+        Stroke.texture = false;
       }
 
+      if (!this.fixed) {
+        const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+        const padding = [this.padding, this.styles.padding, 10].find(
+          Number.isFinite
+        );
+        const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
+
+        if (w && w !== this.w) {
+          this.w = w > this.styles.w ? w : this.styles.w;
+          this.fireAncestors('$itemChanged');
+          this.signal('buttonWidthChanged', { w: this.w });
+        }
+      }
+
+      this._Title.patch(Title);
       this._Icon.patch(Icon);
       this._Stroke.patch(Stroke);
-      this._Title.patch(Title);
       this.patch(template);
     });
   }
@@ -238,13 +244,37 @@ class Button extends lng.Component {
     this._update();
   }
 
-  get stroke() {
-    return this._stroke || this.styles.stroke;
+  get strokeWeight() {
+    return this._strokeWeight;
   }
 
-  set stroke({ weight = 2, color = 0x00 }) {
-    this._stroke = { weight, color };
-    this._update();
+  set strokeWeight(strokeWeight) {
+    if (this._strokeWeight !== strokeWeight) {
+      this._strokeWeight = strokeWeight;
+      this._update();
+    }
+  }
+
+  get strokeColor() {
+    return this._strokeColor;
+  }
+
+  set strokeColor(strokeColor) {
+    if (this._strokeColor !== strokeColor) {
+      this._strokeColor = strokeColor;
+      this._update();
+    }
+  }
+
+  get stroke() {
+    return this._stroke;
+  }
+
+  set stroke(stroke) {
+    if (this._stroke !== stroke) {
+      this._stroke = stroke;
+      this._update();
+    }
   }
 
   get w() {

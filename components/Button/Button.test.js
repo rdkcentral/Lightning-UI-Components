@@ -78,33 +78,40 @@ describe('Button', () => {
   describe('stroke', () => {
     it('should set a stroke', done => {
       [button, testRenderer] = createButton({
-        stroke: { weight: 5, color: 0xff74ccfc }
+        stroke: true,
+        strokeColor: 0xff74ccfc,
+        strokeWeight: 5
       });
-
       button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('74ccfc'));
-        expect(button._stroke.weight).toBe(5);
+        expect(button._strokeColor).toBe(getHexColor('74ccfc'));
+        expect(button._strokeWeight).toBe(5);
         expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
         done();
       });
     });
 
     it('should default a stroke color if none is passed', done => {
-      [button, testRenderer] = createButton({ stroke: { weight: 3 } });
+      [button, testRenderer] = createButton({
+        stroke: true,
+        strokeWeight: 3
+      });
 
       button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('000000', 0));
-        expect(button._stroke.weight).toBe(3);
+        expect(button.strokeColor).toBe(getHexColor('000000', 0));
+        expect(button.strokeWeight).toBe(3);
         expect(button._Stroke.color).toBe(getHexColor('000000', 0));
         done();
       });
     });
 
     it('should default a stroke weight if none is passed', done => {
-      [button, testRenderer] = createButton({ stroke: { color: 0xff74ccfc } });
+      [button, testRenderer] = createButton({
+        stroke: true,
+        strokeColor: 0xff74ccfc
+      });
       button._whenEnabled.then(() => {
-        expect(button._stroke.color).toBe(getHexColor('74ccfc'));
-        expect(button._stroke.weight).toBe(2);
+        expect(button.strokeColor).toBe(getHexColor('74ccfc'));
+        expect(button.strokeWeight).toBe(2);
         expect(button._Stroke.color).toBe(getHexColor('74ccfc'));
         done();
       });
