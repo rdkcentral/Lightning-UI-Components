@@ -288,11 +288,19 @@ class Button extends lng.Component {
     }
   }
 
+  set label(label) {
+    this._label = label;
+  }
+
+  get label() {
+    return this._label || this._title;
+  }
+
   get announce() {
     // TODO - Localization?
     // Do we need a locale file with
     // component translations?
-    return this._title + ', Button';
+    return this.label + ', Button';
   }
 
   get _Content() {
