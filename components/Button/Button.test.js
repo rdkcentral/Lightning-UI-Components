@@ -27,10 +27,6 @@ describe('Button', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should append Button to end of announce context', () => {
-    expect(button.announce).toEqual('Button, Button');
-  });
-
   // TODO: Passes but the test renderer is not pulling in fonts
   // Issue #29
   it('should grow width dynamically if text renders longer than default size', done => {
@@ -53,6 +49,25 @@ describe('Button', () => {
     button._Title.on('txLoaded', () => {
       expect(button._Title.renderWidth).toBeGreaterThan(150);
       done();
+    });
+  });
+
+  describe('announcer', () => {
+    it('should use the title as the default label', () => {
+      expect(button.label).toEqual('Button');
+    });
+
+    it('should append Button to end of announce context', () => {
+      expect(button.announce).toEqual('Button, Button');
+    });
+
+    it('should use the label as the announce context', () => {
+      [button, testRenderer] = createButton({
+        title: 'Button',
+        label: 'Longer Button Label'
+      });
+      testRenderer.update();
+      expect(button.announce).toEqual('Longer Button Label, Button');
     });
   });
 
