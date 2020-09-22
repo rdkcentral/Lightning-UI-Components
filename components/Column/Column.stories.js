@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 import lng from 'wpe-lightning';
 import { button, withKnobs, number } from '@storybook/addon-knobs';

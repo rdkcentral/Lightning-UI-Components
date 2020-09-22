@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 import Column from '.';
 import Row from '../Row';
 import TestRenderer from '../lightning-test-renderer';
