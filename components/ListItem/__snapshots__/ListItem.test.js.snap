@@ -162,7 +162,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "My Subtitle",
                 "type": "TextTexture",
@@ -322,7 +322,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "My Title",
                 "type": "TextTexture",
@@ -482,7 +482,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "My Subtitle",
                 "type": "TextTexture",
@@ -523,7 +523,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "My Title",
                 "type": "TextTexture",
@@ -1231,7 +1231,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "List Item Metadata",
                 "type": "TextTexture",
@@ -1272,7 +1272,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -1511,7 +1511,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "List Item Metadata",
                 "type": "TextTexture",
@@ -1552,7 +1552,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -1752,7 +1752,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "8",
                 "type": "TextTexture",
@@ -2222,7 +2222,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "0",
                 "type": "TextTexture",
@@ -2263,7 +2263,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -2733,7 +2733,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "0",
                 "type": "TextTexture",
@@ -2774,7 +2774,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -3244,7 +3244,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "0",
                 "type": "TextTexture",
@@ -3285,7 +3285,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -3755,7 +3755,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "1",
                 "type": "TextTexture",
@@ -3796,7 +3796,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",
@@ -4266,7 +4266,7 @@ Object {
                 "Subtitle",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardMedium",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 24,
                 "text": "0",
                 "type": "TextTexture",
@@ -4307,7 +4307,7 @@ Object {
                 "Title",
               ],
               "texture": Object {
-                "fontFace": "XfinityStandardBold",
+                "fontFace": "XfinityBrownBold",
                 "fontSize": 28,
                 "text": "List Item",
                 "type": "TextTexture",

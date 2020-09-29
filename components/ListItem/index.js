@@ -112,7 +112,7 @@ export default class ListItem extends ListItemBase {
       left.Title = {
         alpha: 0.95,
         text: {
-          fontFace: 'XfinityStandardBold',
+          fontFace: 'XfinityBrownBold',
           fontSize: 28,
           text: this.title
         }
@@ -123,7 +123,7 @@ export default class ListItem extends ListItemBase {
       left.Subtitle = {
         alpha: 0.8,
         text: {
-          fontFace: 'XfinityStandardMedium',
+          fontFace: 'XfinityBrownBold',
           fontSize: 24,
           text: this.subtitle
         }
