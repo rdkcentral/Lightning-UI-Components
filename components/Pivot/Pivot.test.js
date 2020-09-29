@@ -54,9 +54,7 @@ describe('Pivot', () => {
         backgroundType: 'stroke'
       });
 
-      pivot._whenEnabled.then(() => {
-        pivot._unfocus();
-        testRenderer.update();
+      setTimeout(() => {
         expect(pivot.color).toBe(0);
         expect(pivot.stroke).toBe(true);
         expect(pivot.strokeWeight).toBe(2);
@@ -69,9 +67,7 @@ describe('Pivot', () => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'fill'
       });
-      pivot._whenEnabled.then(() => {
-        pivot._unfocus();
-        testRenderer.update();
+      setTimeout(() => {
         expect(pivot.color).toBe(getHexColor('232328'));
         done();
       });
@@ -80,10 +76,7 @@ describe('Pivot', () => {
       [pivot, testRenderer] = createPivot({
         backgroundType: 'float'
       });
-
-      pivot._whenEnabled.then(() => {
-        pivot._unfocus();
-        testRenderer.update();
+      setTimeout(() => {
         expect(pivot.color).toBe(0);
         done();
       });
@@ -93,9 +86,7 @@ describe('Pivot', () => {
         backgroundType: 'orange'
       });
 
-      pivot._whenEnabled.then(() => {
-        pivot._unfocus();
-        testRenderer.update();
+      setTimeout(() => {
         expect(pivot.color).toBe(0);
         done();
       });
@@ -139,17 +130,17 @@ describe('Pivot', () => {
   });
 
   describe('focus', () => {
-    it('should provide patch function in theme', () => {
-      expect(pivot.styles.unfocus.patch).toBeInstanceOf(Function);
-      expect(pivot.styles.focus.patch).toBeInstanceOf(Function);
-    });
-
-    it('should update color and scale on focus', () => {
+    it('should update color and scale on focus', done => {
+      [pivot, testRenderer] = createPivot();
+      pivot._smooth = false;
       pivot._focus();
-      testRenderer.update();
-      expect(pivot.color).toBe(getHexColor('ECECF2'));
-      expect(pivot.scale).toBe(1.26);
-      expect(pivot._Title.color).toBe(getHexColor('000000', 95));
+
+      setTimeout(() => {
+        expect(pivot.color).toBe(getHexColor('ECECF2'));
+        expect(pivot.scale).toBe(1.26);
+        expect(pivot._Title.color).toBe(getHexColor('000000', 95));
+        done();
+      });
     });
 
     it('should update color and scale on unfocus', () => {
@@ -160,11 +151,17 @@ describe('Pivot', () => {
       expect(pivot._Title.color).toBe(getHexColor('FFFFFF', 95));
     });
 
-    it('should alpha in drop shadow and scale up on focus', () => {
+    it('should alpha in drop shadow and scale up on focus', done => {
+      [pivot, testRenderer] = createPivot();
+      pivot._smooth = false;
       pivot._focus();
       testRenderer.update();
-      expect(pivot._DropShadow.alpha).toBe(1);
-      expect(pivot.alpha).toBe(1);
+
+      pivot._whenEnabled.then(() => {
+        expect(pivot._DropShadow.alpha).toBe(1);
+        expect(pivot.alpha).toBe(1);
+        done();
+      });
     });
     it('should alpha out drop shadow on unfocus', () => {
       pivot._unfocus();
