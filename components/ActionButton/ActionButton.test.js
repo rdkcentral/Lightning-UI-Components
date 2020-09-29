@@ -108,12 +108,16 @@ describe('ActionButton', () => {
   });
 
   describe('focus', () => {
-    it('should update color and scale on focus', () => {
+    it('should update color and scale on focus', done => {
+      actionbutton._smooth = false;
       actionbutton._focus();
-      testRenderer.update();
-      expect(actionbutton.color).toBe(getHexColor('ECECF2'));
-      expect(actionbutton.scale).toBe(1.12);
-      expect(actionbutton._Title.color).toBe(4060086272);
+
+      setTimeout(() => {
+        expect(actionbutton.color).toBe(getHexColor('ECECF2'));
+        expect(actionbutton.scale).toBe(1.12);
+        expect(actionbutton._Title.color).toBe(4060086272);
+        done();
+      });
     });
 
     it('should update color and scale on unfocus', () => {
@@ -124,11 +128,15 @@ describe('ActionButton', () => {
       expect(actionbutton._Title.color).toBe(0xf2ffffff);
     });
 
-    it('should alpha in drop shadow and scale up on focus', () => {
+    it('should alpha in drop shadow and scale up on focus', done => {
+      actionbutton._smooth = false;
       actionbutton._focus();
       testRenderer.update();
-      expect(actionbutton._DropShadow.alpha).toBe(1);
-      expect(actionbutton.alpha).toBe(1);
+      actionbutton._whenEnabled.then(() => {
+        expect(actionbutton._DropShadow.alpha).toBe(1);
+        expect(actionbutton.alpha).toBe(1);
+        done();
+      });
     });
     it('should alpha out drop shadow on unfocus', () => {
       actionbutton._unfocus();

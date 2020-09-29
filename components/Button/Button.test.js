@@ -75,10 +75,13 @@ describe('Button', () => {
     it('has a default unfocus background', () => {
       expect(button.color).toBe(getHexColor('1f1f1f'));
     });
-    it('has a focus background', () => {
+    it('has a focus background', done => {
+      button._smooth = false;
       button._focus();
-      testRenderer.update();
-      expect(button.color).toBe(getHexColor('ffffff'));
+      button._whenEnabled.then(() => {
+        expect(button.color).toBe(getHexColor('ffffff'));
+        done();
+      });
     });
     it('resets colors on unfocus', () => {
       button._focus();
@@ -180,7 +183,9 @@ describe('Button', () => {
         h: 50
       };
       const createButtonWithStyles = TestUtils.makeCreateComponent(
-        withStyles(Button, styles)
+        withStyles(Button, styles),
+        {},
+        { focused: false }
       );
       [button] = createButtonWithStyles({
         title: 'Button'
@@ -202,7 +207,9 @@ describe('Button', () => {
         stroke: { weight: 5, color: 0xff74ccfc }
       };
       const createButtonWithStyles = TestUtils.makeCreateComponent(
-        withStyles(Button, styles)
+        withStyles(Button, styles),
+        {},
+        { focused: false }
       );
       [button] = createButtonWithStyles(styles);
 

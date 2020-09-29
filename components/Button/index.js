@@ -9,6 +9,10 @@ import { RoundRect, measureTextWidth } from '../../utils';
 import withStyles from '../../mixins/withStyles';
 import Icon from '../Icon';
 
+function getFirstNumber(...numbers) {
+  return numbers.find(Number.isFinite);
+}
+
 export const styles = {
   w: 150,
   h: 40,
@@ -24,32 +28,10 @@ export const styles = {
     color: 0x00,
     weight: 2
   },
-  unfocus: {
-    patch: function() {
-      const { background, icon, text } = this.styles;
-      this.patch({
-        smooth: { color: background.color },
-        Content: {
-          Title: { smooth: { color: text.color } },
-          Icon: { smooth: { color: icon.color } }
-        }
-      });
-    }
-  },
-  focus: {
-    background: 0xffffffff,
-    text: 0xff1f1f1f,
-    icon: 0xff1f1f1f,
-    patch: function() {
-      const { background, icon, text } = this.styles.focus;
-      this.patch({
-        smooth: { color: background },
-        Content: {
-          Title: { smooth: { color: text } },
-          Icon: { smooth: { color: icon } }
-        }
-      });
-    }
+  focused: {
+    background: { color: 0xffffffff },
+    text: { color: 0xff1f1f1f },
+    icon: { color: 0xff1f1f1f }
   }
 };
 
@@ -88,7 +70,11 @@ class Button extends lng.Component {
   }
 
   _construct() {
-    this._whenEnabled = new Promise(resolve => (this._enable = resolve));
+    this._focused = false;
+    this._whenEnabled = new Promise(
+      resolve => (this._enable = resolve),
+      console.error
+    );
     this._strokeWeight = 2;
     this._strokeColor = 0x00;
   }
@@ -98,108 +84,140 @@ class Button extends lng.Component {
   }
 
   _focus() {
-    this.styles.focus.patch.apply(this);
+    if (this._smooth === undefined) this._smooth = true;
+    this._focused = true;
+    this._update();
   }
 
   _unfocus() {
-    this.styles.unfocus.patch.apply(this);
+    this._focused = false;
+    this._update();
+  }
+
+  _updateColor() {
+    const color = this._focused
+      ? getFirstNumber(
+          this.focusedBackground,
+          this.styles.focused.background.color
+        )
+      : getFirstNumber(this.background, this.styles.background.color);
+    if (this._smooth) {
+      this.smooth = { color };
+    } else {
+      this.color = color;
+    }
+  }
+
+  _updateTitle() {
+    if (this.title) {
+      this._Title.text = {
+        ...this.styles.text,
+        fontColor: this.styles.text.color,
+        fontSize: this.fontSize || this.styles.text.fontSize,
+        fontFamily:
+          this.styles.text.fontFace ||
+          this.styles.text.fontFamily ||
+          this.stage._options.defaultFontFace,
+        text: this.title
+      };
+
+      const color = this._focused
+        ? getFirstNumber(this.focusedTextColor, this.styles.focused.text.color)
+        : getFirstNumber(this.textColor, this.styles.text.color);
+      if (this._smooth) {
+        this._Title.smooth = { color };
+      } else {
+        this._Title.color = color;
+      }
+    } else {
+      this._Title.texture = false;
+    }
+  }
+
+  _updateIcon() {
+    if (this.icon) {
+      const { color, size, spacing, src } = this.icon;
+      this._Icon.patch({
+        w: size,
+        h: size,
+        icon: src,
+        flexItem: { marginRight: this.title ? spacing : 0 }
+      });
+
+      const iconColor = this._focused
+        ? getFirstNumber(this.focusedIconColor, this.styles.focused.icon.color)
+        : getFirstNumber(color, this.styles.icon.color);
+      if (this._smooth) {
+        this._Icon.smooth = { color: iconColor };
+      } else {
+        this._Icon.color = iconColor;
+      }
+    } else {
+      this._Icon.patch({
+        w: 0,
+        h: 0,
+        texture: false,
+        flexItem: false
+      });
+    }
+  }
+
+  _updateStroke() {
+    if (this.stroke && !this._focused) {
+      const radius = this.radius || this.styles.radius;
+
+      this.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.w),
+        RoundRect.getHeight(this.h),
+        radius,
+        0x00,
+        true,
+        0xffffffff
+      );
+
+      this._Stroke.color = this.strokeColor;
+      this._Stroke.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.w),
+        RoundRect.getHeight(this.h),
+        radius,
+        this.strokeWeight,
+        0xffffffff,
+        true,
+        this.background
+      );
+    } else {
+      const radius = this.radius || this.styles.radius;
+      this.texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(this.w),
+        RoundRect.getHeight(this.h),
+        radius
+      );
+      this._Stroke.texture = false;
+    }
+  }
+
+  _updateWidth() {
+    if (!this.fixed) {
+      const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+      const padding = getFirstNumber(this.padding, this.styles.padding, 10);
+      const w =
+        measureTextWidth(this._Title.text || {}) + padding * 2 + iconSize;
+
+      if (w && w !== this.w) {
+        this.w = w > this.styles.w ? w : this.styles.w;
+        this.fireAncestors('$itemChanged');
+        this.signal('buttonWidthChanged', { w: this.w });
+      }
+    }
   }
 
   _update() {
     this._whenEnabled.then(() => {
-      const template = {};
-      let Icon = {};
-      const Stroke = {};
-      const Title = {};
-
-      template.color = [this.background, this.styles.background.color].find(
-        Number.isFinite
-      );
-
-      if (this.title) {
-        Title.text = {
-          ...this.styles.text,
-          fontColor: this.styles.text.color,
-          fontSize: this.fontSize || this.styles.text.fontSize,
-          fontFamily:
-            this.styles.text.fontFace ||
-            this.styles.text.fontFamily ||
-            this.stage._options.defaultFontFace,
-          text: this.title
-        };
-        Title.color = this.styles.text.color;
-      } else {
-        Title.texture = false;
-      }
-
-      if (this.icon) {
-        const { color, size, spacing, src } = this.icon;
-        Icon.color = color || this.styles.icon.color;
-        Icon.w = size;
-        Icon.h = size;
-        if (this.title) {
-          Icon.flexItem = { marginRight: spacing };
-        }
-        Icon.icon = src;
-      } else {
-        Icon = {
-          w: 0,
-          h: 0,
-          texture: false,
-          flexItem: false
-        };
-      }
-
-      if (this.stroke) {
-        const radius = this.radius || this.styles.radius;
-
-        template.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.w),
-          RoundRect.getHeight(this.h),
-          radius,
-          0x00,
-          true,
-          0xffffffff
-        );
-
-        Stroke.color = this.strokeColor;
-        Stroke.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.w),
-          RoundRect.getHeight(this.h),
-          radius,
-          this.strokeWeight,
-          0xffffffff,
-          true,
-          this.background
-        );
-      } else {
-        const radius = this.radius || this.styles.radius;
-        template.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.w),
-          RoundRect.getHeight(this.h),
-          radius
-        );
-        Stroke.texture = false;
-      }
-
-      if (!this.fixed) {
-        const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
-        const padding = [this.padding, this.styles.padding, 10].find(
-          Number.isFinite
-        );
-        const w = measureTextWidth(Title.text) + padding * 2 + iconSize;
-
-        if (w && w !== this.w) {
-          this.w = w > this.styles.w ? w : this.styles.w;
-          this.fireAncestors('$itemChanged');
-          this.signal('buttonWidthChanged', { w: this.w });
-        }
-      }
-
-      this._Title.patch(Title);
-      this._Icon.patch(Icon);
-      this._Stroke.patch(Stroke);
-      this.patch(template);
+      this._updateColor();
+      this._updateTitle();
+      this._updateIcon();
+      this._updateStroke();
+      this._updateWidth();
     });
   }
 
