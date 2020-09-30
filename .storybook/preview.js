@@ -159,7 +159,7 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
 
 function getDescriptor(prototype, property) {
   let proto = prototype.__proto__;
-  let descriptor;
+  let descriptor = Object.getOwnPropertyDescriptor(prototype, property);
 
   while (descriptor === undefined && proto !== null) {
     if (proto.constructor.isPrototypeOf(lng.Component)) break;

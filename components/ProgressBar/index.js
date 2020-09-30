@@ -15,12 +15,17 @@ export default class ProgressBar extends lng.Component {
     };
   }
 
+  _construct() {
+    this._w = 410;
+    this._h = 8;
+    this._progress = 0;
+  }
+
   _init() {
-    this.w = this.w || 410;
-    this.h = this._barHeight;
     this._Bar.texture = lng.Tools.getRoundRect(
-      this.w,
-      this._barHeight,
+      // getRoundRect adds 2 to the width
+      this.w - 2,
+      this.h,
       this._radius,
       0,
       0,
@@ -31,24 +36,23 @@ export default class ProgressBar extends lng.Component {
   }
 
   _update() {
-    let { progress } = this;
-
-    let w = this.w * (progress || 0);
+    let w = this.w * this.progress;
     if (w > this.w) w = this.w;
-    else if (w < 0) w = 0;
+    if (w < 0) w = 0;
 
+    this._Progress.texture = lng.Tools.getRoundRect(
+      // transitioning to/from 0 texture width looks like it's missing a fill
+      w + 1,
+      this.h,
+      this._radius,
+      0,
+      0,
+      true,
+      getHexColor(COLORS_NEUTRAL.light2, 96)
+    );
     this._Progress.smooth = {
       w,
-      alpha: Number(w > 0),
-      texture: lng.Tools.getRoundRect(
-        w,
-        this._barHeight,
-        this._radius,
-        0,
-        0,
-        true,
-        getHexColor(COLORS_NEUTRAL.light2, 96)
-      )
+      alpha: Number(w > 0)
     };
   }
 
@@ -63,9 +67,6 @@ export default class ProgressBar extends lng.Component {
     }
   }
 
-  get _barHeight() {
-    return 8;
-  }
   get _radius() {
     return CORNER_RADIUS.xsmall;
   }
