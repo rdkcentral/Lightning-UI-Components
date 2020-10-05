@@ -119,17 +119,6 @@ export default class ListItem extends ListItemBase {
       };
     }
 
-    if (this.subtitle !== undefined) {
-      left.Subtitle = {
-        alpha: 0.8,
-        text: {
-          fontFace: 'XfinityBrownBold',
-          fontSize: 24,
-          text: this.subtitle
-        }
-      };
-    }
-
     if (this.icon !== undefined) {
       right.flex = {
         direction: 'row'
@@ -165,6 +154,20 @@ export default class ListItem extends ListItemBase {
     [this._Title, this._Subtitle, ...this._icons]
       .filter(Boolean)
       .forEach(tag => tag.setSmooth('color', color));
+  }
+
+  set subtitle(subtitle) {
+    this._Left.patch({
+      Title: {},
+      Subtitle: {
+        alpha: 0.8,
+        text: {
+          fontFace: 'XfinityBrownBold',
+          fontSize: 24,
+          text: subtitle
+        }
+      }
+    });
   }
 
   get _Title() {
