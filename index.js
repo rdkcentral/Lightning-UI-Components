@@ -17,3 +17,4 @@ export { default as Tile } from './components/Tile/index.js';
 export { default as Toggle } from './components/Toggle/index.js';
 export { default as Tooltip } from './components/Tooltip/index.js';
 export { default as MarqueeText } from './components/MarqueeText/index.js';
+export { default as TileIcon } from './components/TileIcon/index.js';

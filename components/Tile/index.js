@@ -2,8 +2,8 @@ import lng from 'wpe-lightning';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 
-export const styles = {
-  rounded: 2,
+export const styles = theme => ({
+  radius: theme.border.radius.small,
   unfocus: {
     patch: function() {
       this.tag('FocusRing').hide();
@@ -21,33 +21,55 @@ export const styles = {
           w: this.w,
           h: this.h,
           blur: 4,
-          size: 12,
+          size: theme.spacing(2),
           shadow: {
-            padding: 40,
+            padding: theme.spacing(5),
             blur: 3,
             alpha: 0.7
           },
           imageTexture: this._Item.getTexture()
         }
       });
-      this.setSmooth('scale', 1.12);
+      this.setSmooth('scale', theme.getFocusScale(this.w));
     }
   }
-};
+});
 
 class Tile extends lng.Component {
-  set src(src) {
+  static _template() {
+    return {
+      Item: {}
+    };
+  }
+
+  _construct() {
+    this._radius = this.styles.radius;
+  }
+
+  _init() {
+    this._update();
+  }
+
+  _update() {
+    this._updateImage();
+    this._updateBlur();
+    this._updateRadius();
+  }
+
+  _updateImage() {
     this.patch({
       Item: {
         rtt: true,
         zIndex: 2,
-        src,
+        src: this._src,
         resizeMode: { type: 'cover' }
       }
     });
   }
 
-  set blur(amount) {
+  _updateBlur() {
+    let amount = this._blur;
+    this._Item.removeAllListeners();
     this._Item.on('txLoaded', () => {
       this.patch({
         Blur: {
@@ -55,7 +77,6 @@ class Tile extends lng.Component {
           w: this.w,
           h: this.h,
           rtt: true,
-          amount,
           zIndex: 3,
           content: {
             Image: {
@@ -64,17 +85,36 @@ class Tile extends lng.Component {
           }
         }
       });
+      if (this._smooth) {
+        this._Blur.smooth = { amount };
+      } else {
+        this._Blur.amount = amount;
+      }
     });
   }
 
-  set rounded(radius) {
-    this._radius = radius;
+  _updateRadius() {
     this.patch({
       shader: {
         type: lng.shaders.RoundedRectangle,
-        radius
+        radius: this._radius
       }
     });
+  }
+
+  set src(src) {
+    this._src = src;
+    this._update();
+  }
+
+  set blur(amount) {
+    this._blur = amount;
+    this._update();
+  }
+
+  set radius(radius) {
+    this._radius = radius;
+    this._update();
   }
 
   set shadow({
@@ -95,6 +135,7 @@ class Tile extends lng.Component {
   }
 
   _focus() {
+    if (this._smooth === undefined) this._smooth = true;
     this.styles.focus.patch.apply(this);
   }
 
@@ -102,8 +143,24 @@ class Tile extends lng.Component {
     this.styles.unfocus.patch.apply(this);
   }
 
+  get src() {
+    return this._src;
+  }
+
+  get blur() {
+    return this._blur;
+  }
+
+  get radius() {
+    return this._radius;
+  }
+
   get _Item() {
     return this.tag('Item');
+  }
+
+  get _Blur() {
+    return this.tag('Blur');
   }
 }
 

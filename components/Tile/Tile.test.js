@@ -24,6 +24,7 @@ describe('Tile', () => {
   it('should render', () => {
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+    expect(tile.src).toEqual(kabob);
   });
 
   it('should render with blur', () => {
@@ -31,12 +32,14 @@ describe('Tile', () => {
     tile._Item.loadTexture();
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+    expect(tile.blur).toEqual(2);
   });
 
   it('should render with rounded corners', () => {
-    let [, testRenderer] = createTile({ rounded: 16 });
+    let [tile, testRenderer] = createTile({ radius: 16 });
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+    expect(tile.radius).toEqual(16);
   });
 
   it('should render with shadow', () => {
@@ -48,7 +51,7 @@ describe('Tile', () => {
   it('should render with all options', done => {
     let [tile, testRenderer] = createTile({
       blur: 2,
-      rounded: 16,
+      radius: 16,
       shadow: { color: 0xffffffff }
     });
 
@@ -62,7 +65,7 @@ describe('Tile', () => {
   it('should render focusRing on focus', done => {
     let [tile, testRenderer] = createTile({
       blur: 2,
-      rounded: 16,
+      radius: 16,
       shadow: { color: 0xffffffff }
     });
 
@@ -78,7 +81,7 @@ describe('Tile', () => {
   it('should remove focusRing on unfocus', done => {
     let [tile, testRenderer] = createTile({
       blur: 2,
-      rounded: 16,
+      radius: 16,
       shadow: { color: 0xffffffff }
     });
     tile._focus();

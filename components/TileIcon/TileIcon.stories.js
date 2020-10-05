@@ -1,15 +1,16 @@
 import lng from 'wpe-lightning';
 import { rgba2argb } from '../../utils';
 
-import Tile from '.';
+import TileIcon from '.';
 import Row from '../Row';
-import mdx from './Tile.mdx';
+import mdx from './TileIcon.mdx';
+import icon from '../../assets/images/ic_lightning_white_32.png';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 import minions1 from '../../assets/images/minions1.jpg';
 import minions2 from '../../assets/images/minions2.jpg';
 
 export default {
-  title: 'Tile',
+  title: 'TileIcon',
   parameters: {
     docs: {
       page: mdx
@@ -21,9 +22,10 @@ export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        Tile: {
-          type: Tile,
+        TileIcon: {
+          type: TileIcon,
           src: kabob,
+          icon,
           w: 320,
           h: 180,
           blur: args.blur,
@@ -37,7 +39,7 @@ export const Basic = args =>
 
     _getFocused() {
       if (args.focused) {
-        return this.tag('Tile');
+        return this.tag('TileIcon');
       }
     }
   };
@@ -70,7 +72,7 @@ Basic.parameters = {
   argActions: {
     focused: (isFocused, component) => {
       component._getFocused = isFocused
-        ? () => component.tag('Tile')
+        ? () => component.tag('TileIcon')
         : () => {};
       component._refocus();
     }
@@ -88,22 +90,28 @@ export const XfinityTheme = () =>
           itemSpacing: 60,
           items: [
             {
-              type: Tile,
+              type: TileIcon,
               src: kabob,
+              icon,
               w: 320,
-              h: 180
+              h: 180,
+              radius: 8
             },
             {
-              type: Tile,
+              type: TileIcon,
               src: minions1,
+              icon,
               w: 320,
-              h: 180
+              h: 180,
+              radius: 8
             },
             {
-              type: Tile,
+              type: TileIcon,
               src: minions2,
+              icon,
               w: 320,
-              h: 180
+              h: 180,
+              radius: 8
             }
           ]
         }

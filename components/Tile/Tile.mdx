@@ -6,8 +6,7 @@ General purpose Tile component
 
 ## Usage
 
-Just set a src property to load an image. From there you can set
-blur, rounded corners and drop shadow
+Just set a src property to load an image. From there you can set blur, rounded corners and drop shadow.
 
 ```js
 import { Tile } from '@lightning/ui';
@@ -18,7 +17,7 @@ Tile: {
   w: 320,
   h: 180,
   blur: 2,
-  rounded: 16,
+  radius: 16,
   shadow: { radius: 16 }
 }
 ```
@@ -29,10 +28,9 @@ Tile: {
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
--|-|-|-
-blur|number|false|Blur amount from 0-4
-rounded|number|false|set rounded radius
-shadow|obj|false|create a drop shadow
-src|string|false|url to image
+name|type|required|default|description
+--|--|--|--|--
+blur|number|false|-|Blur amount from 0-4
+radius|number|false|-|set rounded corner radius
+shadow|obj|false|-|create a drop shadow
+src|string|false|-|url to image
