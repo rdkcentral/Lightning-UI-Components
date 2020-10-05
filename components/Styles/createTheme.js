@@ -42,11 +42,20 @@ function spacing(multiplier) {
   return 8 * multiplier;
 }
 
+const SIZES = {
+  icon: {
+    small: 32,
+    medium: 40,
+    large: 48
+  }
+};
+
 export const getXfinityTheme = () => ({
   getFocusScale,
   spacing,
   shadow,
   palette: PALETTE,
+  sizes: SIZES,
   typography: TYPOGRAPHY,
   border: {
     focused: {

@@ -160,11 +160,11 @@ export function measureTextWidth(text = {}) {
 
   // try using the actual bounding box first because it will be more accurate
   if (textMetrics.actualBoundingBoxLeft && textMetrics.actualBoundingBoxRight) {
-    return Math.ceil(
+    return Math.round(
       Math.abs(textMetrics.actualBoundingBoxLeft) +
         Math.abs(textMetrics.actualBoundingBoxRight)
     );
   }
 
-  return Math.ceil(textMetrics.width);
+  return Math.round(textMetrics.width);
 }

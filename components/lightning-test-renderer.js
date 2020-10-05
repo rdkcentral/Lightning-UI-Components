@@ -70,6 +70,16 @@ function create(Component, options = {}) {
     update: () => {
       app.stage.drawFrame();
     },
+    focus: () => {
+      app._focusPath = [app.childList.first];
+      app.updateFocusPath;
+      app.childList.first._focus();
+    },
+    unfocus: () => {
+      app._focusPath = [];
+      app.updateFocusPath;
+      app.childList.first._unfocus();
+    },
     getInstance: () => app.childList.first,
     getApp: () => app,
     keyPress: key => {

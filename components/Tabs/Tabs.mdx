@@ -1,0 +1,180 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# TabBar
+
+Tab navigation between groups of content.
+
+## Usage
+
+A `TabBar` renders a list of `Tab` components horizontally, highlighting the selected category with an underline bar.
+
+```js
+import { TabBar, Tab } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      TabBar: {
+        type: TabBar,
+        barLength: 100,
+        barSpacing: 0,
+        itemSpacing: 0,
+        tabHeight: 72,
+        tabWidth: 230,
+        wrapSelected: true,
+        tabs: [
+          {
+            type: Tab,
+            title: 'Tab Item 1'
+          },
+          {
+            type: Tab,
+            title: 'Tab Item 2'
+          },
+          {
+            type: Tab,
+            title: 'Tab Item 3'
+          }
+        ]
+      }
+    };
+  }
+
+  $tabChanged(selectedTab) {
+    console.log(selectedTab.title);
+  }
+};
+```
+
+<Canvas>
+  <Story id="tabbar--basic" />
+</Canvas>
+
+The `id` for the preview comes from the url path generated for the story.
+
+### Tab Content
+
+The content of a `Tab` can be a `title`, `icon` URI, or both. Content is always centered vertically and horizontally within the `Tab` container.
+
+The `title` property should just be a `string`. The text styles are defined by the theme embedded into the component (default is Xfinity).
+
+Icon sizes can be defined in one of two ways: `iconHeight`/`iconWidth` or `iconSize`. The `iconSize` property is an enum of `small`, `medium`, and `large`, which align with the icon sizes set in the given theme (default is Xfinity). For non-standard icon sizes, use `iconHeight` and `iconWidth`.
+
+**example**
+
+```js
+{
+  type: Tab,
+  icon: 'path/to/icon.png',
+  iconSize: 'small'
+}
+
+// or
+{
+  type: Tab,
+  icon: 'path/to/icon.png',
+  iconHeight: 50,
+  iconWidth: 40
+}
+```
+
+### Tab Dimensions and Spacing
+
+The `tabHeight` and `tabWidth` properties will set `h` and `w` for all `Tab` components passed into the `tabs` array.
+
+Setting `h` or `w` directly on the `Tab` component will override `tabHeight` and/or `tabWidth`, respectively.
+
+To increase the gutter margins between `Tab` items, set the `itemSpacing` property.
+
+**example**
+
+```js
+{
+  type: TabBar,
+  tabHeight: 72,
+  tabWidth: 100,
+  tabs: [
+    {
+      type: Tab,
+      title: 'Tab Item 1'
+    },
+    {
+      type: Tab,
+      icon: 'path/to/icon.png',
+      w: 50,
+    }
+  ]
+}
+```
+
+In the above example, the `Tab` with the `title` will inherit the `tabHeight` and `tabWidth`, whereas the `Tab` with the `icon` will only inherit the `tabHeight` property, and will have a `w` of `50`.
+
+
+### Focus Bar Dimensions and Spacing
+
+The property `barLength` determines the width of the underline bar that sits under the current selected `Tab`. Setting `tabBar.barLength` to 0 will remove the underline completely.
+
+> **NOTE**: an odd-numbered `barLength` may negatively affect the render of the rounded edges of the bar. To avoid this, set `barLength` to even numbers only.
+
+By default, the focus bar will sit directly below the _tallest_ `Tab` in the `TabBar`, and is centered horizontally.
+
+To add spacing between the `Tab` items and the focus bar, set the `barSpacing` property to a positive integer.
+
+## API
+
+### Tab Properties
+
+name|type|required|default|description
+--|--|--|--|--
+focusedIconColor|number|false|`tab.styles.icon.color`|color of icon when `Tab` is focused
+focusedTextColor|number|false|`tab.styles.icon.text`|color of text when `Tab` is focused
+h|number|true|0|height of `Tab`
+icon|string|false|-|URI of icon, see [Icon](?path=/docs/icon--basic)
+iconColor|number|false|`tab.styles.icon.color`|base color of icon
+iconHeight|number|false|-|height of icon
+iconSize|'small'\|'medium'\|'large'|false|'medium'|width and height dimensions of icon
+iconWidth|number|false|-|width of icon
+isSelected|boolean|false|false|readonly property -- whether the `Tab` is currently selected
+selectedIconColor|number|false|`tab.styles.selected.icon.color`|color of icon when `Tab` is selected
+selectedTextColor|number|false|`tab.styles.selected.text.color`|color of text when `Tab` is selected
+textColor|number|false|`tab.styles.text.color`|base color of `text`
+title|string|false|-|title of `Tab` to display
+w|number|true|0|width of `Tab`
+
+### Tab Methods
+
+#### select():void
+
+Sets `tab.isSelected` to `true`
+
+#### deselect():void
+
+Sets `tab.isSelected` to `false`
+
+### TabBar Properties
+
+name|type|required|default|description
+--|--|--|--|--
+barLength|number|false|0|width of focus bar that underlines the current selected `Tab`
+barSpacing|number|false|0|vertical gutter between focus bar and `Tab`
+h|number|true|0|height of `TabBar`
+itemSpacing|number|false|0|horizontal gutter between `Tab` items
+selected|`Tab`|false|`tabs[0]`|current selected component
+tabHeight|number|false|0|default height of all items in `tabs`
+tabs|`Tab[]`|true|`[]`|components to lay out in the `TabBar`, expects type `Tab`
+tabWidth|number|false|0|default width of all items in `tabs`
+w|-|-|-|-
+wrapSelected|-|-|-|-
+
+### TabBar Events
+
+#### $tabChanged(selectedTab, tabBar): void
+
+Fires whenever a new `Tab` is selected via key handler.
+
+**example**
+```js
+$tabChanged(selectedTab) {
+  console.log(selectedTab.title);
+}
+```
