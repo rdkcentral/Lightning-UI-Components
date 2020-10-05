@@ -124,7 +124,8 @@ describe('ListItem', () => {
     testRenderer.update();
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(listItem._Subtitle.text.text).toEqual(listItem.subtitle);
+    expect(listItem._Subtitle).toBeDefined();
+    expect(listItem._Subtitle.text.text).toEqual('My Subtitle');
   });
 
   it('should render a title and subtitle together', () => {
@@ -134,6 +135,17 @@ describe('ListItem', () => {
     });
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('should update subtitle', () => {
+    [listItem, testRenderer] = createListItem({});
+    testRenderer.update();
+    expect(listItem._Subtitle).toBeUndefined();
+
+    listItem.subtitle = 'Update Subtitle';
+    testRenderer.update();
+    expect(listItem._Subtitle).toBeDefined();
+    expect(listItem._Subtitle.text.text).toEqual('Update Subtitle');
   });
 
   it('should render an icon', () => {
