@@ -27,7 +27,16 @@ export const XfinityFonts = {
     fontName: 'XfinityBrown',
     baseUrl:
       'https://staging-static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized',
-    weights: {}
+    weights: {
+      regular: {
+        family: 'Regular',
+        url: 'xfinitybrown-regular.woff'
+      },
+      bold: {
+        family: 'Bold',
+        url: 'xfinitybrown-bold.woff'
+      }
+    }
   }
 };
 

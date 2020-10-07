@@ -12,6 +12,7 @@
   },
   "files": [
     "index.js",
+    "Styles.js",
     "{bin,components,mixins,utils}/**/*.js",
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
