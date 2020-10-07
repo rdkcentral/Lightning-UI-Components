@@ -1,6 +1,4 @@
-import * as Styles from './components/Styles/index.js';
-export { Styles };
-
+export * from './components/Styles/index.js';
 export { default as ActionButton } from './components/ActionButton/index.js';
 export { default as Announcer } from './components/Announcer/index.js';
 export { default as Column } from './components/Column/index.js';
