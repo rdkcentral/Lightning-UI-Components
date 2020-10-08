@@ -29,7 +29,5 @@ describe('TileIcon', () => {
     let tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(tileicon.icon).toEqual(icon);
-    tileicon._Icon.loadTexture();
-    testRenderer.update();
   });
 });

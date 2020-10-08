@@ -1,5 +1,7 @@
+import lng from 'wpe-lightning';
 import TestUtils from '../lightning-test-utils';
 import Tile from '.';
+import { rgba2argb } from '../../utils';
 
 const kabob = TestUtils.pathToDataURI('./assets/images/kabob_320x180.jpg');
 
@@ -42,55 +44,66 @@ describe('Tile', () => {
     expect(tile.radius).toEqual(16);
   });
 
-  it('should render with shadow', () => {
-    let [, testRenderer] = createTile({ shadow: { color: 0xffffffff } });
-    let tree = testRenderer.toJSON(2);
-    expect(tree).toMatchSnapshot();
-  });
-
   it('should render with all options', done => {
     let [tile, testRenderer] = createTile({
-      blur: 2,
+      w: 320,
+      h: 180,
+      blur: 4,
       radius: 16,
-      shadow: { color: 0xffffffff }
+      shadow: {
+        w: 320,
+        h: 180,
+        x: 10,
+        y: 10,
+        zIndex: -1,
+        texture: lng.Tools.getShadowRect(320, 180, 16, 4),
+        color: rgba2argb('rgba(63,92,30,0.7)')
+      }
     });
-
-    tile._Item.on('txLoaded', () => {
-      let tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      done();
+    tile._smooth = false;
+    testRenderer.update();
+    tile._whenEnabled.then(() => {
+      tile._Item.on('txLoaded', () => {
+        expect(tile._Blur.amount).toBe(4);
+        expect(tile._Item.shader.radius[0]).toBe(16);
+        done();
+      });
     });
   });
 
-  it('should render focusRing on focus', done => {
-    let [tile, testRenderer] = createTile({
-      blur: 2,
-      radius: 16,
-      shadow: { color: 0xffffffff }
+  describe('focus', () => {
+    it('should update item and focus ring scale on focus', () => {
+      tile._smooth = false;
+      tile._unfocus();
+      testRenderer.update();
+      tile._whenEnabled.then(() => {
+        expect(tile._Item.scale).toBe(1);
+        expect(tile._FocusRing.scale).toBe(1);
+        expect(tile._FocusRing.alpha).toBe(0);
+        expect(tile._DropShadow.alpha).toBe(0);
+        done();
+      });
     });
-
-    tile._Item.on('txLoaded', () => {
+    it('should update item and focus ring scale on focus', done => {
+      tile._smooth = false;
       tile._focus();
       testRenderer.update();
-      let tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      done();
+      tile._whenEnabled.then(() => {
+        expect(tile._Item.scale).toBe(1.15);
+        expect(tile._FocusRing.scale).toBe(1.15);
+        done();
+      });
     });
-  });
 
-  it('should remove focusRing on unfocus', done => {
-    let [tile, testRenderer] = createTile({
-      blur: 2,
-      radius: 16,
-      shadow: { color: 0xffffffff }
+    it('should update focus ring and drop shadow alpha on focus', done => {
+      tile._smooth = false;
+      tile._focus();
+      testRenderer.update();
+      tile._whenEnabled.then(() => {
+        expect(tile._FocusRing.alpha).toBe(1);
+        expect(tile._DropShadow.alpha).toBe(1);
+        done();
+      });
     });
-    tile._focus();
-    testRenderer.update();
-    tile._unfocus();
-    setTimeout(() => {
-      let tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      done();
-    }, 510);
   });
 });

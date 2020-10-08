@@ -1,12 +1,15 @@
 import lng from 'wpe-lightning';
 import { rgba2argb } from '../../utils';
+import withStyles from '../../mixins/withStyles';
 
 import Tile from '.';
 import Row from '../Row';
 import mdx from './Tile.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
-import minions1 from '../../assets/images/minions1.jpg';
-import minions2 from '../../assets/images/minions2.jpg';
+import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
+import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 
 export default {
   title: 'Tile',
@@ -22,13 +25,19 @@ export const Basic = args =>
     static _template() {
       return {
         Tile: {
-          type: Tile,
+          type: withStyles(Tile, { unfocused: { shadow: { alpha: 1 } } }),
           src: kabob,
           w: 320,
           h: 180,
           blur: args.blur,
           radius: args.radius,
           shadow: {
+            w: 320,
+            h: 180,
+            x: 10,
+            y: 10,
+            zIndex: -1,
+            texture: lng.Tools.getShadowRect(320, 180, args.radius, args.blur),
             color: rgba2argb(args.color)
           }
         }
@@ -89,19 +98,30 @@ export const XfinityTheme = () =>
           items: [
             {
               type: Tile,
-              src: kabob,
+              src: parks,
               w: 320,
               h: 180
             },
             {
               type: Tile,
-              src: minions1,
+              src: jurassic,
               w: 320,
               h: 180
             },
             {
               type: Tile,
-              src: minions2,
+              src: trolls,
+              w: 320,
+              h: 180
+            },
+            {
+              type: Tile,
+              src: pets,
+              w: 320,
+              h: 180
+            },
+            {
+              type: Tile,
               w: 320,
               h: 180
             }

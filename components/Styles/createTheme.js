@@ -1,46 +1,93 @@
 import lng from 'wpe-lightning';
 import { clone } from '../../utils';
 import { CORNER_RADIUS, getFocusScale } from './Styles';
-import { PALETTE } from '../Styles/Colors';
+import { PALETTE, COLORS_NEUTRAL, getHexColor } from '../Styles/Colors';
 import { TYPOGRAPHY } from '../Styles/Fonts';
+import blackBackground from '../Styles/black_background_tile.png';
 
-function shadow({
+function glow({
   w,
   h,
   color = 0xffffffff,
   borderRadius = CORNER_RADIUS.small,
   blur = spacing(2)
 }) {
-  const shadow = {
-    borderRadius,
-    blur,
-    color,
+  return {
+    color: color,
     mount: 0.5,
-    w: w - spacing(2),
-    h: h - spacing(2),
     x: w / 2,
     y: h / 2 + blur / 2,
-    zIndex: -1
-  };
-
-  return {
-    color: shadow.color,
-    mount: shadow.mount,
-    x: shadow.x,
-    y: shadow.y,
-    zIndex: shadow.zIndex,
+    zIndex: -1,
     texture: lng.Tools.getShadowRect(
-      shadow.w,
-      shadow.h,
-      shadow.borderRadius,
-      shadow.blur
+      w - spacing(2),
+      h - spacing(2),
+      borderRadius,
+      blur
     )
   };
 }
 
+function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
+  return {
+    type: lng.components.FastBlurComponent,
+    x: w / 2,
+    y: h / 2 + spacing(3),
+    mount: 0.5,
+    w,
+    h,
+    amount: blur,
+    padding: padding,
+    content: {
+      Image: {
+        w,
+        h,
+        texture: texture
+      }
+    },
+    zIndex: -1
+  };
+}
+
+const materials = {
+  glow,
+  luminance
+};
+
 function spacing(multiplier) {
   return 8 * multiplier;
 }
+
+const gradientColor = COLORS_NEUTRAL.light2;
+const gradientAnimation = {
+  duration: 0.6,
+  actions: [
+    {
+      p: 'colorUl',
+      v: {
+        0: getHexColor(gradientColor, 72),
+        1: getHexColor(gradientColor, 56)
+      }
+    },
+    {
+      p: 'colorUr',
+      v: {
+        0: getHexColor(gradientColor, 24),
+        1: getHexColor(gradientColor, 16)
+      }
+    },
+    {
+      p: 'colorBr',
+      v: { 0: 0x00, 1: getHexColor(gradientColor, 0) }
+    },
+    {
+      p: 'colorBl',
+      v: {
+        0: getHexColor(gradientColor, 24),
+        1: getHexColor(gradientColor, 16)
+      }
+    }
+  ]
+};
 
 const SIZES = {
   icon: {
@@ -53,7 +100,7 @@ const SIZES = {
 export const getXfinityTheme = () => ({
   getFocusScale,
   spacing,
-  shadow,
+  materials,
   palette: PALETTE,
   sizes: SIZES,
   typography: TYPOGRAPHY,
@@ -62,6 +109,12 @@ export const getXfinityTheme = () => ({
       width: 2
     },
     radius: CORNER_RADIUS
+  },
+  assets: {
+    blackBackground
+  },
+  animations: {
+    gradient: gradientAnimation
   }
 });
 
