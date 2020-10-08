@@ -108,10 +108,10 @@ export const ProviderType = () => (
 name|type|readonly|default|description
 --|--|--|--|--
 alwaysScroll|boolean|false|false|moves all items on every selection
-currentItem|<DocsLink id="lng.Component" />|true|-|selected item
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
 itemSpacing|number|false|40|px between items
 provider|<ProviderType />|false|-|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
+selected|<DocsLink id="lng.Component" />|true|-|selected item
 selectedIndex|number|false|0|index of selected item
 showTitle|boolean|false|true if title exists|whether to display title component
 title|<DocsLink id="lng.Text" />|false|-|static title to show above row items
