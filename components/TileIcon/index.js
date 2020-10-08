@@ -12,8 +12,10 @@ export default class TileIcon extends Tile {
   }
 
   _update() {
-    this._updateIcon();
-    super._update();
+    this._whenEnabled.then(() => {
+      this._updateIcon();
+      super._update();
+    });
   }
 
   _updateIcon() {
@@ -22,16 +24,12 @@ export default class TileIcon extends Tile {
         Icon: {
           type: Icon,
           icon: this._icon,
-          x: w => w / 2,
-          y: h => h / 2,
           mount: 0.5,
+          x: this.w / 2,
+          y: this.h / 2,
           zIndex: 3
         }
       }
     });
-  }
-
-  get _Icon() {
-    return this._Item.tag('Icon');
   }
 }

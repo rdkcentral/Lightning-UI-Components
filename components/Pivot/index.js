@@ -17,7 +17,7 @@ export const styles = theme => ({
     color: theme.palette.background.float
   },
   backgrounds: theme.palette.background,
-  shadow: theme.shadow,
+  shadow: theme.materials.glow,
   radius: theme.border.radius.small,
   text: {
     ...theme.typography.button2,

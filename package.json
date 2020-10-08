@@ -13,11 +13,12 @@
   "files": [
     "index.js",
     "Styles.js",
-    "{bin,components,mixins,utils}/**/*.js",
+    "{bin,components,mixins,utils}/**/*",
     "!components/**/*.stories.js",
     "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js",
     "!components/lightning-test-utils.js",
+    "!components/**/__snapshots__",
     "!public/"
   ],
   "devDependencies": {

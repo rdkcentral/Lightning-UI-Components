@@ -5,9 +5,7 @@ import TileIcon from '.';
 import Row from '../Row';
 import mdx from './TileIcon.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
-import kabob from '../../assets/images/kabob_320x180.jpg';
-import minions1 from '../../assets/images/minions1.jpg';
-import minions2 from '../../assets/images/minions2.jpg';
+import blacktile from '../Styles/black_background_tile.png';
 
 export default {
   title: 'TileIcon',
@@ -24,7 +22,7 @@ export const Basic = args =>
       return {
         TileIcon: {
           type: TileIcon,
-          src: kabob,
+          src: blacktile,
           icon,
           w: 320,
           h: 180,
@@ -91,7 +89,7 @@ export const XfinityTheme = () =>
           items: [
             {
               type: TileIcon,
-              src: kabob,
+              src: blacktile,
               icon,
               w: 320,
               h: 180,
@@ -99,7 +97,7 @@ export const XfinityTheme = () =>
             },
             {
               type: TileIcon,
-              src: minions1,
+              src: blacktile,
               icon,
               w: 320,
               h: 180,
@@ -107,7 +105,7 @@ export const XfinityTheme = () =>
             },
             {
               type: TileIcon,
-              src: minions2,
+              src: blacktile,
               icon,
               w: 320,
               h: 180,

@@ -16,14 +16,7 @@ FocusRing: {
   type: FocusRing,
   w: this.w,
   h: this.h,
-  blur: 4,
-  size: 12,
-  shadow: {
-    padding: 40,
-    blur: 3,
-    alpha: 0.7
-  },
-  imageTexture: this._Item.getTexture()
+  size: 12
 }
 ```
 
@@ -36,7 +29,4 @@ FocusRing: {
 name|type|readonly|description
 --|--|--|--
 -|-|-|-
-blur|number|false|Blur amount from 0-4
-size|number|false|set size of ring (even values only)
-shadow|obj|false|create a drop shadow
-imageTexture|obj|false|Texture image from an image (optional)
+size|number|false|set width of the ring (even values only)
