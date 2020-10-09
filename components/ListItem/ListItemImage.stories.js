@@ -8,12 +8,18 @@ import icon from '../../assets/images/ic_lightning_white_32.png';
 export default {
   title: 'ListItemImage',
   args: {
+    backgroundType: 'fill',
     title: 'List Item',
     subtitle: 'List Item Metadata',
-    size: 'small',
-    background: 'fill'
+    size: 'small'
   },
   argTypes: {
+    backgroundType: {
+      control: {
+        type: 'radio',
+        options: ['fill', 'float', 'ghost']
+      }
+    },
     focused: {
       control: 'boolean'
     },
@@ -27,12 +33,6 @@ export default {
       control: {
         type: 'radio',
         options: ['small', 'large']
-      }
-    },
-    background: {
-      control: {
-        type: 'radio',
-        options: ['fill', 'float']
       }
     }
   },
@@ -61,8 +61,8 @@ export const Basic = args =>
           title: args.title,
           subtitle: args.subtitle,
           size: args.size,
-          background: args.background,
-          src: fiftysix
+          backgroundType: args.backgroundType,
+          image: fiftysix
         }
       };
     }
@@ -83,8 +83,8 @@ export const Icon = args =>
           title: args.title,
           subtitle: args.subtitle,
           size: args.size,
-          background: args.background,
-          src: fiftysix,
+          backgroundType: args.backgroundType,
+          image: fiftysix,
           icon
         }
       };

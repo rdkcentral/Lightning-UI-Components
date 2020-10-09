@@ -10,7 +10,8 @@ import Icon from '../Icon';
 import Slider from '../Slider';
 import Tile from '../Tile';
 import Toggle from '../Toggle';
-import { RoundRect } from '../../utils';
+import { RoundRect, getFirstNumber } from '../../utils';
+import withStyles from '../../mixins/withStyles';
 
 // styles
 import { CORNER_RADIUS, COLORS_BASE, getHexColor } from '../Styles';
@@ -21,87 +22,133 @@ export const COLORS = {
   focused: getHexColor('ECECF2')
 };
 
-export const DIMENSIONS = {
-  large: 860,
-  small: 410
-};
+export const baseStyles = theme => ({
+  backgrounds: theme.palette.background,
+  backgroundType: 'fill',
+  dimensions: {
+    large: 860,
+    small: 410
+  },
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  radius: theme.border.radius.small
+});
 
-export class ListItemBase extends lng.Component {
-  static _template() {
-    const slot = {
-      flex: {
-        direction: 'column'
+export class ListItemBase extends withStyles(
+  class extends lng.Component {
+    static _template() {
+      return {
+        backgroundType: 'fill',
+        color: this.styles.backgrounds.fill,
+        Container: {
+          flex: {
+            direction: 'row',
+            wrap: true,
+            alignContent: 'center',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingLeft: this.styles.paddingLeft,
+            paddingRight: this.styles.paddingRight
+          },
+          Left: { flex: { direction: 'column' } },
+          Right: { flex: { direction: 'column' } }
+        }
+      };
+    }
+
+    _init() {
+      // Init Container
+      const h = 88;
+      const w =
+        this.w ||
+        this.styles.dimensions[this.size] ||
+        this.styles.dimensions.large;
+      const color = getFirstNumber(
+        this.styles.backgrounds[this.backgroundType],
+        this.styles.backgrounds.fill
+      );
+      const texture = lng.Tools.getRoundRect(
+        RoundRect.getWidth(w, { padding: this.styles.paddingLeft }),
+        RoundRect.getHeight(h),
+        this.styles.radius
+      );
+
+      this._Container.patch({
+        color,
+        texture
+      });
+    }
+
+    _focus() {
+      this._Container.smooth = {
+        color: this.styles.backgrounds.focus
+      };
+    }
+
+    _unfocus() {
+      this._Container.smooth = {
+        color: getFirstNumber(
+          this.styles.backgrounds[this.backgroundType],
+          this.styles.backgrounds.fill
+        )
+      };
+    }
+
+    _handleEnter() {
+      if (typeof this.onEnter === 'function') {
+        this.onEnter(this);
       }
-    };
+    }
 
-    return {
-      background: 'fill',
-      color: COLORS_BASE.transparent,
-      Container: {
-        flex: {
-          direction: 'row',
-          wrap: true,
-          alignContent: 'center',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingLeft: 16,
-          paddingRight: 16
-        },
-        Left: { ...slot },
-        Right: { ...slot }
-      }
-    };
-  }
+    get _Container() {
+      return this.tag('Container');
+    }
 
-  _init() {
-    // Init Container
-    const h = 88;
-    const w = this.w || DIMENSIONS[this.size] || DIMENSIONS.large;
-    const color = COLORS[this.background];
-    const texture = lng.Tools.getRoundRect(
-      RoundRect.getWidth(w, { padding: 16 }),
-      RoundRect.getHeight(h),
-      CORNER_RADIUS.small
-    );
+    get _Left() {
+      return this._Container.tag('Left');
+    }
 
-    this._Container.patch({
-      color,
-      texture
-    });
-  }
+    get _Right() {
+      return this._Container.tag('Right');
+    }
+  },
+  baseStyles
+) {}
 
-  _focus() {
-    this._Container.smooth = {
-      color: COLORS.focused
-    };
-  }
-
-  _unfocus() {
-    this._Container.smooth = {
-      color: COLORS[this.background]
-    };
-  }
-
-  _handleEnter() {
-    if (typeof this.onEnter === 'function') {
-      this.onEnter(this);
+export const styles = theme => ({
+  icon: {
+    width: 40,
+    height: 40,
+    color: theme.palette.text.light.primary
+  },
+  title: {
+    color: theme.palette.text.light.primary,
+    text: {
+      ...theme.typography.button1,
+      verticalAlign: 'top'
+    }
+  },
+  subtitle: {
+    color: theme.palette.text.light.secondary,
+    text: {
+      ...theme.typography.body3,
+      verticalAlign: 'top'
+    }
+  },
+  focused: {
+    icon: {
+      color: theme.palette.text.dark.primary
+    },
+    title: {
+      color: theme.palette.text.dark.primary
+    },
+    subtitle: {
+      color: theme.palette.text.dark.secondary
     }
   }
+});
 
-  get _Container() {
-    return this.tag('Container');
-  }
-
-  get _Left() {
-    return this._Container.tag('Left');
-  }
-
-  get _Right() {
-    return this._Container.tag('Right');
-  }
-}
-
-export default class ListItem extends ListItemBase {
+export default class ListItem extends withStyles(ListItemBase, styles) {
   _init() {
     super._init();
 
@@ -110,10 +157,10 @@ export default class ListItem extends ListItemBase {
 
     if (this.title !== undefined) {
       left.Title = {
-        alpha: 0.95,
+        h: this.styles.title.text.lineHeight,
+        color: this.styles.title.color,
         text: {
-          fontFace: 'XfinityBrownBold',
-          fontSize: 28,
+          ...this.styles.title.text,
           text: this.title
         }
       };
@@ -128,8 +175,9 @@ export default class ListItem extends ListItemBase {
         (icon, index) => {
           right[`Icon${index || ''}`] = {
             type: Icon,
-            h: 40,
-            w: 40,
+            h: this.styles.icon.height,
+            w: this.styles.icon.width,
+            color: this.styles.icon.color,
             icon
           };
         }
@@ -142,28 +190,35 @@ export default class ListItem extends ListItemBase {
 
   _focus() {
     super._focus();
-    const color = 0xff000000;
-    [this._Title, this._Subtitle, ...this._icons]
-      .filter(Boolean)
-      .forEach(tag => tag.setSmooth('color', color));
+    this._Title &&
+      this._Title.setSmooth('color', this.styles.focused.title.color);
+    this._Subtitle &&
+      this._Subtitle.setSmooth('color', this.styles.focused.subtitle.color);
+    (this._icons || []).length &&
+      this._icons.forEach(icon =>
+        icon.setSmooth('color', this.styles.focused.icon.color)
+      );
   }
 
   _unfocus() {
     super._unfocus();
-    const color = 0xffffffff;
-    [this._Title, this._Subtitle, ...this._icons]
-      .filter(Boolean)
-      .forEach(tag => tag.setSmooth('color', color));
+    this._Title && this._Title.setSmooth('color', this.styles.title.color);
+    this._Subtitle &&
+      this._Subtitle.setSmooth('color', this.styles.subtitle.color);
+    (this._icons || []).length &&
+      this._icons.forEach(icon =>
+        icon.setSmooth('color', this.styles.icon.color)
+      );
   }
 
   set subtitle(subtitle) {
     this._Left.patch({
       Title: {},
       Subtitle: {
-        alpha: 0.8,
+        h: this.styles.subtitle.text.lineHeight,
+        color: this.styles.subtitle.color,
         text: {
-          fontFace: 'XfinityBrownBold',
-          fontSize: 24,
+          ...this.styles.subtitle.text,
           text: subtitle
         }
       }
@@ -267,7 +322,7 @@ export class ListItemImage extends ListItem {
         }
       });
     }
-    this._Image.patch({ src: this.src });
+    this._Image.patch({ src: this.image });
   }
 
   get _Image() {

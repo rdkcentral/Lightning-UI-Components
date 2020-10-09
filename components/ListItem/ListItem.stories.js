@@ -23,7 +23,7 @@ export const Basic = args =>
           subtitle: args.subtitle,
           icon,
           size: args.size,
-          background: args.background
+          backgroundType: args.backgroundType
         }
       };
     }
@@ -35,11 +35,11 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  backgroundType: 'fill',
   focused: false,
   title: 'List Item',
   subtitle: 'List item metadata',
-  size: 'small',
-  background: 'fill'
+  size: 'small'
 };
 Basic.argTypes = {
   size: {
@@ -48,10 +48,10 @@ Basic.argTypes = {
       options: ['small', 'large']
     }
   },
-  background: {
+  backgroundType: {
     control: {
       type: 'radio',
-      options: ['fill', 'float']
+      options: ['fill', 'float', 'ghost']
     }
   }
 };
@@ -110,7 +110,7 @@ export const MultipleIcons = () =>
           subtitle: 'List item metadata',
           icon: [icon, icon],
           size: 'small',
-          background: 'fill'
+          backgroundType: 'fill'
         }
       };
     }

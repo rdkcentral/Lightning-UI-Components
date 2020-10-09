@@ -5,13 +5,9 @@
  * and focus and unfocus states for the button background.
  */
 import lng from 'wpe-lightning';
-import { RoundRect, measureTextWidth } from '../../utils';
+import { RoundRect, measureTextWidth, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
 import Icon from '../Icon';
-
-function getFirstNumber(...numbers) {
-  return numbers.find(Number.isFinite);
-}
 
 export const styles = {
   w: 150,

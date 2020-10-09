@@ -18,6 +18,7 @@ export const Basic = args =>
       return {
         ListItemSlider: {
           type: ListItemSlider,
+          backgroundType: args.backgroundType,
           max: args.max,
           min: args.min,
           step: args.step,
@@ -34,6 +35,7 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  backgroundType: 'fill',
   focused: false,
   max: 100,
   min: 0,
@@ -42,6 +44,9 @@ Basic.args = {
   value: 50
 };
 Basic.argTypes = {
+  backgroundType: {
+    control: { type: 'radio', options: ['fill', 'float', 'ghost'] }
+  },
   focused: { control: 'boolean' },
   max: { control: 'number' },
   min: { control: 'number' },
