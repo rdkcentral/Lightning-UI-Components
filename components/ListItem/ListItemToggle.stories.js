@@ -9,10 +9,16 @@ export default {
     title: 'List Item',
     subtitle: 'List Item Metadata',
     size: 'small',
-    background: 'fill',
+    backgroundType: 'fill',
     checked: false
   },
   argTypes: {
+    backgroundType: {
+      control: {
+        type: 'radio',
+        options: ['fill', 'float', 'ghost']
+      }
+    },
     focused: { control: 'boolean' },
     title: { control: 'text' },
     subtitle: { control: 'text' },
@@ -20,12 +26,6 @@ export default {
       control: {
         type: 'radio',
         options: ['small', 'large']
-      }
-    },
-    background: {
-      control: {
-        type: 'radio',
-        options: ['fill', 'float']
       }
     },
     checked: { control: 'boolean' }
@@ -53,10 +53,10 @@ export const Basic = args =>
       return {
         ListItem: {
           type: ListItemToggle,
+          backgroundType: args.backgroundType,
           title: args.title,
           subtitle: args.subtitle,
           size: args.size,
-          background: args.background,
           checked: args.checked
         }
       };

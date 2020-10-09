@@ -60,15 +60,17 @@ describe('ListItemBase', () => {
 
   describe('focus', () => {
     it('has a default unfocus background', () => {
-      expect(listItemBase._Container.color).toBe(getHexColor('141417'));
+      expect(listItemBase._Container.color).toBe(0xff232328);
     });
-    it('supports background props', () => {
-      [listItemBase, testRenderer] = createListItemBase({ background: 'fill' });
+    it('supports backgroundType props', () => {
+      [listItemBase, testRenderer] = createListItemBase({
+        backgroundType: 'ghost'
+      });
       testRenderer.update();
-      expect(listItemBase._Container.color).toBe(getHexColor('141417'));
+      expect(listItemBase._Container.color).toBe(0x7a232328);
 
       [listItemBase, testRenderer] = createListItemBase({
-        background: 'float'
+        backgroundType: 'float'
       });
       testRenderer.update();
       expect(listItemBase._Container.color).toBe(0);
@@ -84,7 +86,7 @@ describe('ListItemBase', () => {
 
       listItemBase._unfocus();
       testRenderer.update();
-      expect(listItemBase._Container.color).toBe(getHexColor('141417'));
+      expect(listItemBase._Container.color).toBe(0xff232328);
     });
   });
 });
@@ -179,17 +181,17 @@ describe('ListItem', () => {
       testRenderer.update();
     });
     it('focused items transition color', () => {
-      expect(listItem._Title.color).toEqual(0xff000000);
-      expect(listItem._Subtitle.color).toEqual(0xff000000);
-      expect(listItem._Icon.color).toEqual(0xff000000);
+      expect(listItem._Title.color).toEqual(0xf2000000);
+      expect(listItem._Subtitle.color).toEqual(0xcc000000);
+      expect(listItem._Icon.color).toEqual(0xf2000000);
     });
     it('unfocused items transition color', () => {
       listItem._unfocus();
       testRenderer.update();
 
-      expect(listItem._Title.color).toEqual(0xffffffff);
-      expect(listItem._Subtitle.color).toEqual(0xffffffff);
-      expect(listItem._Icon.color).toEqual(0xffffffff);
+      expect(listItem._Title.color).toEqual(0xf2ffffff);
+      expect(listItem._Subtitle.color).toEqual(0xccffffff);
+      expect(listItem._Icon.color).toEqual(0xf2ffffff);
     });
   });
 });

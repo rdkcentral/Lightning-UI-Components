@@ -20,7 +20,7 @@ export const Basic = args =>
         ListItem: {
           type: ListItemBase,
           size: args.size,
-          background: args.background
+          backgroundType: args.backgroundType
         }
       };
     }
@@ -46,7 +46,7 @@ export const Basic = args =>
   };
 Basic.args = {
   size: 'large',
-  background: 'fill'
+  backgroundType: 'fill'
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
@@ -56,10 +56,10 @@ Basic.argTypes = {
       options: ['large', 'small']
     }
   },
-  background: {
+  backgroundType: {
     control: {
       type: 'radio',
-      options: ['fill', 'float']
+      options: ['float', 'fill', 'ghost']
     }
   }
 };

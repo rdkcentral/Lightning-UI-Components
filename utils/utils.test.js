@@ -1,6 +1,6 @@
 import lng from 'wpe-lightning';
 import TestRenderer from '../components/lightning-test-renderer';
-import { rgba2argb, RoundRect, clone } from '.';
+import { rgba2argb, RoundRect, clone, getFirstNumber } from '.';
 
 describe('rgba2argb', () => {
   it('converts rgba() format to a number', () => {
@@ -187,5 +187,17 @@ describe('clone', () => {
     };
     const result = clone(target, object);
     expect(result).toEqual(expected);
+  });
+});
+
+describe('getFirstNumber', () => {
+  it('returns the first number in a list', () => {
+    expect(getFirstNumber(0, 100)).toBe(0);
+    expect(getFirstNumber(true, undefined, null, '10', 12)).toBe(12);
+    expect(getFirstNumber([], {}, function() {}, 1)).toBe(1);
+  });
+
+  it('returns undefined if a number does not exist', () => {
+    expect(getFirstNumber(true)).toBe(undefined);
   });
 });

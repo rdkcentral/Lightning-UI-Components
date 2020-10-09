@@ -168,3 +168,11 @@ export function measureTextWidth(text = {}) {
 
   return Math.round(textMetrics.width);
 }
+
+/**
+ * Returns first argument that is a number. Useful for finding ARGB numbers. Does not convert strings to numbers
+ * @param {...*} number - maybe a number
+ **/
+export function getFirstNumber(...numbers) {
+  return numbers.find(Number.isFinite);
+}
