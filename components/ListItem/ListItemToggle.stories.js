@@ -33,7 +33,12 @@ export default {
   parameters: {
     tag: 'ListItem',
     argActions: {
-      checked: (_, component) => component.tag('ListItem').toggle(),
+      checked: (isChecked, component) => {
+        const listItem = component.tag('ListItem');
+        if (isChecked !== listItem.isChecked()) {
+          listItem.toggle();
+        }
+      },
       focused: (isFocused, component) => {
         component._getFocused = isFocused
           ? () => component.tag('ListItem')
