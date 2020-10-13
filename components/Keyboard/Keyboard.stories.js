@@ -1,6 +1,7 @@
 import lng from 'wpe-lightning';
-
-import Keyboard, { Key, KEYBOARD_FORMATS } from '.';
+import Keyboard, { KEYBOARD_FORMATS } from '.';
+import Key from './Key';
+import KeyboardInput from './KeyboardInput';
 import Row from '../Row';
 
 import mdx from './Keyboard.mdx';
@@ -25,7 +26,6 @@ export const Basic = () =>
           formats: KEYBOARD_FORMATS.qwerty
         }
       };
-      ß;
     }
     _getFocused() {
       return this.tag('Keyboard');
@@ -82,5 +82,21 @@ export const Keys = () =>
     }
     _getFocused() {
       return this.tag('Keys');
+    }
+  };
+
+export const KeyboardWithInput = () =>
+  class KeyboardWithInput extends lng.Component {
+    static _template() {
+      return {
+        KeyboardInput: {
+          type: KeyboardInput,
+          inputPlaceholder: 'Search'
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('KeyboardInput');
     }
   };

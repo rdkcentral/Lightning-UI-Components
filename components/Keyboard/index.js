@@ -1,9 +1,8 @@
 import lng from 'wpe-lightning';
-import Button from '../Button';
+import Key, { KEY_DIMENSIONS } from './Key';
 import Row from '../Row';
 import Column from '../Column';
 
-const KEY_DIMENSIONS = { h: 50, w: 50, padding: 5, fixed: true };
 export default class Keyboard extends lng.Component {
   _construct() {
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
@@ -128,6 +127,14 @@ export default class Keyboard extends lng.Component {
     return this.tag(this._currentFormat) || this;
   }
 
+  _focus() {
+    this.fireAncestors('$keyboardFocused', true);
+  }
+
+  _unfocus() {
+    this.fireAncestors('$keyboardFocused', false);
+  }
+
   set columnCount(columnCount) {
     this._columnCount = columnCount;
   }
@@ -148,61 +155,12 @@ export default class Keyboard extends lng.Component {
   }
 
   get _spacing() {
-    return this.spacing || 10;
+    return this.spacing || 8;
   }
 
   get _defaultFormat() {
     let defaultFormat = this.defaultFormat || Object.keys(this._formats)[0];
     return defaultFormat.charAt(0).toUpperCase() + defaultFormat.slice(1);
-  }
-}
-
-export class Key extends Button {
-  static _template() {
-    return {
-      ...super._template(),
-      ...KEY_DIMENSIONS
-    };
-  }
-
-  set config(config) {
-    if (config) {
-      this.sizes = config.sizes;
-    }
-  }
-
-  set icon(src) {
-    if (src) {
-      this._Icon.patch({
-        color: 0xffffffff,
-        size: 32,
-        spacing: 16,
-        src
-      });
-    }
-  }
-
-  set size(size) {
-    this.w = this._sizes[size] || this.h;
-  }
-
-  set char(char) {
-    this.title = char;
-  }
-
-  set label(label) {
-    this.title = label;
-  }
-
-  get _sizes() {
-    return { small: 50, medium: 110, large: 170, xlarge: 350, ...this.sizes };
-  }
-
-  _handleEnter() {
-    if (this.toggle) {
-      this.fireAncestors('$toggleKeyboard', this.toggle);
-    }
-    this.fireAncestors('$onSoftKey', { key: this.title });
   }
 }
 

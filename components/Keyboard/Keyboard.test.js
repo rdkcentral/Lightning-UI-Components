@@ -1,10 +1,13 @@
 import TestUtils from '../lightning-test-utils';
-import Keyboard, { Key, KEYBOARD_FORMATS } from '.';
+import Keyboard, { KEYBOARD_FORMATS } from '.';
+import Key from './Key';
+import KeyboardInput from './KeyboardInput';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
 const createKeyboard = TestUtils.makeCreateComponent(Keyboard);
 const createKey = TestUtils.makeCreateComponent(Key);
+const createKeyboardInput = TestUtils.makeCreateComponent(KeyboardInput);
 
 describe('Key', () => {
   let key, testRenderer;
@@ -24,12 +27,12 @@ describe('Key', () => {
   });
 
   it('sets sizes inside the config', () => {
-    key.config = { sizes: { small: 60, medium: 115 } };
+    key.config = { sizes: { small: 70, medium: 115 } };
     expect(key._sizes).toEqual({
-      small: 60,
+      small: 70,
       medium: 115,
-      large: 170,
-      xlarge: 350
+      large: 196,
+      xlarge: 400
     });
   });
 
@@ -40,12 +43,12 @@ describe('Key', () => {
 
   it('should adjust its width if given a size', () => {
     [key, testRenderer] = createKey({ size: 'medium' });
-    expect(key.w).toEqual(110);
+    expect(key.w).toEqual(128);
   });
 
   it('should make its width its height if given a size that doesnt exist', () => {
     [key, testRenderer] = createKey({ size: 'blue' });
-    expect(key.w).toEqual(50);
+    expect(key.w).toEqual(60);
   });
 
   it('should set its char as its title', () => {
@@ -72,6 +75,18 @@ describe('Key', () => {
       '$toggleKeyboard',
       'lowercase'
     );
+  });
+
+  it('should update color and scale on focus', () => {
+    key._smooth = false;
+    key._focus();
+
+    setTimeout(() => {
+      expect(key.color).toBe(getHexColor('ECECF2'));
+      expect(key.scale).toBe(1.12);
+      expect(key._Title.color).toBe(4060086272);
+      done();
+    });
   });
 });
 
@@ -200,5 +215,48 @@ describe('Keyboard', () => {
       expect(keyboard.tag('Abc').alpha).toEqual(0);
       expect(keyboard.tag('Num').alpha).toEqual(1);
     });
+  });
+});
+
+describe('KeyboardInput', () => {
+  let keyboardInput, testRenderer;
+
+  beforeEach(() => {
+    [keyboardInput, testRenderer] = createKeyboardInput({ placeholder: '' });
+  });
+
+  afterEach(() => {
+    keyboardInput = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('handels soft key events', () => {
+    keyboardInput.$onSoftKey({ key: 'a' });
+    expect(keyboardInput._Input.value).toEqual('a');
+
+    keyboardInput.$onSoftKey({ key: 'Space' });
+    expect(keyboardInput._Input.value).toEqual('a ');
+
+    keyboardInput.$onSoftKey({ key: 'b' });
+    expect(keyboardInput._Input.value).toEqual('a b');
+
+    keyboardInput.$onSoftKey({ key: 'Delete' });
+    expect(keyboardInput._Input.value).toEqual('a ');
+
+    keyboardInput.$onSoftKey({ key: 'Clear' });
+    expect(keyboardInput._Input.value).toEqual('');
+
+    keyboardInput.$onSoftKey({ key: 'Done' });
+    expect(keyboardInput._Input.value).toEqual('');
+  });
+
+  it('stops input from listening if the keyboard is unfocused', () => {
+    keyboardInput.$keyboardFocused(false);
+    expect(keyboardInput._Input._listening).toEqual(false);
   });
 });

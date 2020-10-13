@@ -18,7 +18,7 @@ const white = 0xffffffff;
 const black = 0xff000000;
 const stage = {
   w: 920,
-  h: 480,
+  h: 560,
   clearColor: black,
   debug: false,
   canvas2d: false,
@@ -120,9 +120,9 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
 
         // argActions are callbacks keyed to args.
         // An argAction will override the default setter behavior on arg changes via control
-        
+
         // The callback accepts three arguments:
-        // argValue: any - current value of the given arg key 
+        // argValue: any - current value of the given arg key
         // storyComponent: lng.Component - instance of returned class in the story
         // args: Object<any> - complete args object passed into the storyFn
 
@@ -134,7 +134,7 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
         //       component._getFocused = isFocused ? () => component.tag('Button') : () => {};
         //       component._refocus();
         //     }
-        //   } 
+        //   }
         // }
         if (arg in (parameters.argActions || {})) {
           const argAction = parameters.argActions[arg];

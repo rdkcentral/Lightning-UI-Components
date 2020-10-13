@@ -35,9 +35,29 @@ export const Basic = args =>
     }
 
     _getFocused() {
-      return this.tag('Input');
+      if (args.focused) {
+        return this.tag('Input');
+      }
     }
   };
+
 Basic.args = {
   placeholder: 'Type something'
+};
+Basic.argTypes = {
+  focused: { control: 'boolean' },
+  listening: { control: 'boolean' }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('Input')
+        : () => {};
+      component._refocus();
+    },
+    listening: (isListening, component) => {
+      component.tag('Input').listening = isListening;
+    }
+  }
 };
