@@ -48,29 +48,21 @@ describe('Input', () => {
     });
     input._Container.loadTexture();
     // lookup ID provides texture dimensions: shadow{w}{h}{radius}{blur}{...margin}
-    expect(input._Container.texture._lookupId).toEqual(
-      'rect200,50,,,0,,2,2,2,2'
-    );
+    expect(input._Container.texture._lookupId).toEqual('rect,64,,,0,,8,8,8,8');
   });
 
-  it('cursor moves left and right', () => {
+  it('cursor moves left and right', done => {
     [input, testRenderer] = createInput({
       value: 'hello'
     });
 
     expect(input._Cursor.x).toEqual(0);
-
     input.position = 1;
-    expect(input._Cursor.x).toEqual(1);
-
-    input.position = 2;
-    expect(input._Cursor.x).toEqual(2);
-
-    testRenderer.keyPress('Right');
-    expect(input._Cursor.x).toEqual(3);
-
-    testRenderer.keyPress('Left');
-    expect(input._Cursor.x).toEqual(2);
+    testRenderer.update();
+    input._whenEnabled.then(() => {
+      expect(input._Cursor.x).toEqual(1);
+      done();
+    });
   });
 
   it('cursor position stays within bounds', () => {
@@ -80,66 +72,63 @@ describe('Input', () => {
 
     input.position = -1;
     expect(input._Cursor.x).toBe(0);
-
-    testRenderer.keyPress('Left');
-    expect(input._Cursor.x).toBe(0);
-
-    input.position = 4;
-    expect(input._Cursor.x).toBe(4);
-
-    input.position = 5;
-    expect(input._Cursor.x).toBe(4);
-
-    testRenderer.keyPress('Right');
-    expect(input._Cursor.x).toBe(4);
   });
 
-  it('inputs values', () => {
+  it('inputs values if listening', done => {
+    input.listening = true;
     input.insert('x');
-    expect(input._Content.text.text).toEqual('x');
-
-    input.insert('x');
-    expect(input._Content.text.text).toEqual('xx');
-
-    testRenderer.keyPress('Left');
-    input.insert('o');
-    expect(input._Content.text.text).toEqual('xox');
-
-    testRenderer.keyPress('Left');
-    testRenderer.keyPress('Left');
-    input.insert('o');
-    expect(input._Content.text.text).toEqual('oxox');
-
-    testRenderer.keyPress('Right');
-    input.insert('ox');
-    expect(input._Content.text.text).toEqual('oxoxox');
+    testRenderer.update();
+    input._whenEnabled.then(() => {
+      expect(input._Content.text.text).toEqual('x');
+      done();
+    });
   });
 
-  it('clears values', () => {
-    input.value = 'xxx';
-    expect(input._Content.text.text).toEqual('xxx');
-    input.clear();
+  it('should not input values if not listening', () => {
+    input.listening = false;
+    input.insert('x');
     expect(input._Content.text.text).toEqual('');
   });
 
-  it('does backspace deletions', () => {
+  it('clears values if listening', done => {
+    input.listening = true;
+    input.value = 'xxx';
+    input.clear();
+    input._whenEnabled.then(() => {
+      expect(input._Content.text.text).toEqual('');
+      done();
+    });
+  });
+
+  it('should not clear values if not listening', done => {
+    input.listening = false;
+    input.value = 'xxx';
+    input.clear();
+    input._whenEnabled.then(() => {
+      expect(input._Content.text.text).toEqual('xxx');
+      done();
+    });
+  });
+
+  it('does backspace deletions if listening', done => {
+    input.listening = true;
     input.insert('xoxoxo');
-    expect(input._Content.text.text).toEqual('xoxoxo');
-
     input.backspace();
-    expect(input._Content.text.text).toEqual('xoxox');
 
-    testRenderer.keyPress('Left');
-    input.backspace();
-    expect(input._Content.text.text).toEqual('xoxx');
+    input._whenEnabled.then(() => {
+      expect(input._Content.text.text).toEqual('xoxox');
+      done();
+    });
+  });
 
-    testRenderer.keyPress('Left');
-    testRenderer.keyPress('Left');
+  it('should not backspace deletions if not listening', () => {
+    input.listening = false;
+    input.value = 'xoxoxo';
     input.backspace();
-    expect(input._Content.text.text).toEqual('oxx');
 
-    // backspace shouldn't do anything if position is 0
-    input.backspace();
-    expect(input._Content.text.text).toEqual('oxx');
+    input._whenEnabled.then(() => {
+      expect(input._Content.text.text).toEqual('xoxoxo');
+      done();
+    });
   });
 });
