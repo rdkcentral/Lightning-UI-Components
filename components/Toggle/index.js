@@ -17,7 +17,7 @@ export default class Toggle extends lng.Component {
           true,
           0xff141417
         ),
-        Circle: {
+        Knob: {
           zIndex: 2,
           x: 6,
           y: 7,
@@ -61,13 +61,13 @@ export default class Toggle extends lng.Component {
 
   _update() {
     const { checked } = this;
-    this._Circle.smooth = { x: checked ? 40 : 6 };
+    this._Knob.smooth = { x: checked ? 40 : 6 };
   }
 
   get _Container() {
     return this.tag('Container');
   }
-  get _Circle() {
-    return this._Container.tag('Circle');
+  get _Knob() {
+    return this._Container.tag('Knob');
   }
 }

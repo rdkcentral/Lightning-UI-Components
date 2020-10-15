@@ -17,4 +17,5 @@ export { default as Tile } from './components/Tile/index.js';
 export { default as TileIcon } from './components/TileIcon/index.js';
 export { default as Toggle } from './components/Toggle/index.js';
 export { default as Tooltip } from './components/Tooltip/index.js';
+export { default as Radio } from './components/Radio/index.js';
 export { default as DataItem } from './components/DataItem/index.js';

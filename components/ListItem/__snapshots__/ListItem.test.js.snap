@@ -5210,7 +5210,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Circle": Object {
+                    "Knob": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -5228,7 +5228,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Circle",
+                      "ref": "Knob",
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -5237,7 +5237,7 @@ Object {
                       "state": undefined,
                       "tag": [Function],
                       "tags": Array [
-                        "Circle",
+                        "Knob",
                       ],
                       "texture": Object {
                         "type": "StaticCanvasTexture",
@@ -5447,7 +5447,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Circle": Object {
+                    "Knob": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -5465,7 +5465,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Circle",
+                      "ref": "Knob",
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -5474,7 +5474,7 @@ Object {
                       "state": undefined,
                       "tag": [Function],
                       "tags": Array [
-                        "Circle",
+                        "Knob",
                       ],
                       "texture": Object {
                         "type": "StaticCanvasTexture",
