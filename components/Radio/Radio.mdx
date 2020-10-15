@@ -1,0 +1,43 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# Radio
+
+A radio has 2 states: "on" or "off". When used in a group, it should let a user select only one of the choices at a time. This can be managed with the withSelections mixin
+
+## Usage
+
+Simple component that just needs a type.
+
+```js
+import { Radio } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Radio: {
+        type: Radio
+      }
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="radio--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|readonly|description
+--|--|--|--
+checked|boolean|true|toggle state
+
+### Methods
+
+#### toggle(): void
+
+Toggles `checked` state and updates UI accordingly
