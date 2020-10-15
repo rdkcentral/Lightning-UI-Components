@@ -1,6 +1,7 @@
 import lng from 'wpe-lightning';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
+import withSelections from '../../mixins/withSelections';
 
 export default {
   title: 'FocusManager',
@@ -16,7 +17,7 @@ export const Rows = () =>
     static _template() {
       return {
         Row: {
-          type: FocusManager,
+          type: withSelections(FocusManager),
           direction: 'row',
           items: [
             { type: Button, buttonText: 'Left' },
@@ -26,6 +27,7 @@ export const Rows = () =>
         }
       };
     }
+
     _getFocused() {
       return this.tag('Row');
     }
@@ -176,6 +178,7 @@ class Button extends lng.Component {
       }
     };
   }
+
   _init() {
     this.tag('Label').text = this.buttonText;
   }
@@ -184,7 +187,26 @@ class Button extends lng.Component {
     this.tag('Label').color = 0xff1f1f1f;
   }
   _unfocus() {
-    this.color = 0xff1f1f1f;
-    this.tag('Label').color = 0xffffffff;
+    if (this.selected) {
+      this.color = 0xfff1f1f1;
+      this.tag('Label').color = 0xff1f1f1f;
+    } else {
+      this.color = 0xff1f1f1f;
+      this.tag('Label').color = 0xffffffff;
+    }
+  }
+
+  get selected() {
+    return this._selected;
+  }
+
+  set selected(v) {
+    if (v !== this._selected) {
+      this._selected = v;
+      if (!v) {
+        this.color = 0xff1f1f1f;
+        this.tag('Label').color = 0xffffffff;
+      }
+    }
   }
 }

@@ -16,13 +16,13 @@ function keyPress(elm, key) {
   if (
     !elm.stage.application.focusTopDownEvent(
       [`_capture${key}`, '_captureKey'],
-      pressEvent
+      { ...pressEvent, key }
     )
   ) {
-    elm.stage.application.focusBottomUpEvent(
-      [`_handle${key}`, '_handleKey'],
-      pressEvent
-    );
+    elm.stage.application.focusBottomUpEvent([`_handle${key}`, '_handleKey'], {
+      ...pressEvent,
+      key
+    });
   }
 }
 
