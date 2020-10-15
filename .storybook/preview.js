@@ -15,11 +15,11 @@ export const parameters = {
 }
 
 const white = 0xffffffff;
-const black = 0xff000000;
+const grey = 0xff141417;
 const stage = {
-  w: 920,
+  w: 960,
   h: 560,
-  clearColor: black,
+  clearColor: grey,
   debug: false,
   canvas2d: false,
   useImageWorker: false,

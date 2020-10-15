@@ -72,7 +72,7 @@ describe('Tile', () => {
   });
 
   describe('focus', () => {
-    it('should update item and focus ring scale on focus', () => {
+    it('should update item and focus ring scale on unfocus', () => {
       tile._smooth = false;
       tile._unfocus();
       testRenderer.update();
