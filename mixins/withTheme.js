@@ -15,25 +15,17 @@
 *
 * SPDX-License-Identifier: Apache-2.0
 */
+import createTheme from '../components/Styles/createTheme';
 
-import * as Styles from '.';
+export default function withTheme(Base, theme) {
+  let defaultTheme = Base.theme;
+  const _theme = defaultTheme
+    ? createTheme(theme, defaultTheme)
+    : createTheme(theme);
 
-describe('Styles', () => {
-  describe('GRID', () => {
-    it('exists', () => {
-      expect(Styles.GRID).toBeDefined();
-    });
-  });
-
-  describe('TYPESCALE ', () => {
-    it('exists', () => {
-      expect(Styles.TYPESCALE).toBeDefined();
-    });
-  });
-
-  describe('SCREEN', () => {
-    it('exists', () => {
-      expect(Styles.SCREEN).toBeDefined();
-    });
-  });
-});
+  return class extends Base {
+    static get name() { return Base.name }
+    static get theme() { return _theme };
+    get theme() { return _theme }
+  }
+}
