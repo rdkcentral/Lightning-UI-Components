@@ -1,11 +1,12 @@
 import lng from 'wpe-lightning';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
+import blackBackground from '../Styles/black_background_tile.png';
 
 export const styles = theme => ({
   radius: theme.border.radius.small,
   shadow: theme.materials.luminance,
-  src: theme.assets.blackBackground,
+  src: blackBackground,
   focusring: function({ w, h, radius }) {
     return {
       type: FocusRing,
