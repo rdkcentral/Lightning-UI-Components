@@ -1,34 +1,40 @@
-/**
-* Copyright 2020 Comcast Cable Communications Management, LLC
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* SPDX-License-Identifier: Apache-2.0
-*/
-
+// For a detailed explanation regarding each configuration property, visit:
+// https://jestjs.io/docs/en/configuration.html
 module.exports = {
+  // All imported modules in your tests should be mocked automatically
+  // automock: false,
+
+  // Stop running tests after `n` failures
+  // bail: 0,
+
+  // Respect "browser" field in package.json when resolving modules
+  // browser: false,
+
+  // The directory where Jest should store its cached dependency information
+  // cacheDirectory: "/private/var/folders/9d/3n9hs0t17j943m2hyr7547zc0000gp/T/jest_dy",
+
+  // Automatically clear mock calls and instances between every test
   clearMocks: true,
+
+  // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
+
+  // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     '<rootDir>/**/*.js',
     '!**/coverage/**',
     '!<rootDir>/**/*.{stories,test,xtest}.js',
-    '!<rootDir>/**/{Item}/*.js', // exclude temporary components
+    '!<rootDir>/**/{Item,Styles}/*.js', // exclude temporary components
     '!<rootDir>/**/lightning-test-renderer.js',
     '!<rootDir>/**/lightning-test-utils.js'
   ],
+  // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
+
+  // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ['text', 'html'],
+
+  // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
       statements: 90,
@@ -36,19 +42,149 @@ module.exports = {
       lines: 90
     }
   },
+
+  // A path to a custom dependency extractor
+  // dependencyExtractor: null,
+
+  // Make calling deprecated APIs throw helpful error messages
+  // errorOnDeprecated: false,
+
+  // Force coverage collection from ignored files using an array of glob patterns
+  // forceCoverageMatch: [],
+
+  // A path to a module which exports an async function that is triggered once before all test suites
+  // globalSetup: null,
+
+  // A path to a module which exports an async function that is triggered once after all test suites
+  // globalTeardown: null,
+
+  // A set of global variables that need to be available in all test environments
+  // globals: {},
+
+  // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   maxWorkers: '4',
+
+  // An array of directory names to be searched recursively up from the requiring module's location
+  // moduleDirectories: [
+  //   "node_modules"
+  // ],
+
+  // An array of file extensions your modules use
+  // moduleFileExtensions: [
+  //   "js",
+  //   "json",
+  //   "jsx",
+  //   "ts",
+  //   "tsx",
+  //   "node"
+  // ],
+
   moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx', 'mjs'],
-  moduleNameMapper: {},
+
+  // A map from regular expressions to module names that allow to stub out resources with a single module
+  moduleNameMapper: {
+    "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+  },
+
+  // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
+  // modulePathIgnorePatterns: [],
+
+  // Activates notifications for test results
+  // notify: false,
+
+  // An enum that specifies notification mode. Requires { notify: true }
+  // notifyMode: "failure-change",
+
+  // A preset that is used as a base for Jest's configuration
+  // preset: null,
+
+  // Run tests from one or more projects
+  // projects: null,
+
+  // Use this configuration option to add custom reporters to Jest
+  // reporters: undefined,
+
+  // Automatically reset mock state between every test
+  // resetMocks: false,
+
+  // Reset the module registry before running each individual test
+  // resetModules: false,
+
+  // A path to a custom resolver
+  // resolver: null,
+
+  // Automatically restore mock state between every test
+  // restoreMocks: false,
+
+  // The root directory that Jest should scan for tests and modules within
   rootDir: '.',
-  roots: ['<rootDir>/components', '<rootDir>/utils'],
+
+  // A list of paths to directories that Jest should use to search for files in
+  roots: ['<rootDir>/components', '<rootDir>/utils', '<rootDir>/mixins'],
+
+  // Allows you to use a custom runner instead of Jest's default test runner
+  // runner: "jest-runner",
+
+  // The paths to modules that run some code to configure or set up the testing environment before each test
   setupFiles: ['jest-webgl-canvas-mock'],
+
+  // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // setupFilesAfterEnv: [],
+
+  // A list of paths to snapshot serializer modules Jest should use for snapshot testing
+  // snapshotSerializers: [],
+
+  // The test environment that will be used for testing
   testEnvironment: 'jest-environment-jsdom-fifteen',
+
+  // Options that will be passed to the testEnvironment
   testEnvironmentOptions: { resources: 'usable' },
+
+  // Adds a location field to test results
+  // testLocationInResults: false,
+
+  // The glob patterns Jest uses to detect test files
+  // testMatch: [
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[tj]s?(x)"
+  // ],
+
+  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [],
+
+  // The regexp pattern or array of patterns that Jest uses to detect test files
+  // testRegex: [],
+
+  // This option allows the use of a custom results processor
+  // testResultsProcessor: null,
+
+  // This option allows use of a custom test runner
+  // testRunner: "jasmine2",
+
+  // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
+  // testURL: "http://localhost",
+
+  // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
+  // timers: "real",
+
+  // A map from regular expressions to paths to transformers
+  // transform: null,
   transform: {
     '^.+\\.mjs$': 'babel-jest',
     '^.+\\.[t|j]sx?$': 'babel-jest'
   },
+  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!wpe-lightning(-sdk)?)'],
-  verbose: true
+
+  // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
+  // unmockedModulePathPatterns: undefined,
+
+  // Indicates whether each individual test should be reported during the run
+  verbose: true // null,
+
+  // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
+  // watchPathIgnorePatterns: [],
+
+  // Whether to use watchman for file crawling
+  // watchman: true,
 };

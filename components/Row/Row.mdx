@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 import { DocsLink, GenericType, ObjectFormat } from "../../.storybook/utils";
 
 # Row
@@ -10,7 +10,7 @@ Focus management and smooth scrolling for a horizontally-oriented list of items.
 Explain how the component works. Use an example:
 
 ```js
-import { Row } from '@lightning/lightning-ui';
+import { Row } from '@lightningjs/ui-components';
 
 class Basic extends lng.Component {
   static _template() {
@@ -26,16 +26,16 @@ class Basic extends lng.Component {
 };
 ```
 
-<Preview>
+<Canvas>
   <Story id="row--basic" />
-</Preview>
+</Canvas>
 
 ### Title
 
 A static title can easily be added to a row
 
 ```js
-import { Row } from '@lightning/lightning-ui';
+import { Row } from '@lightningjs/ui-components';
 
 class Title extends lng.Component {
   static _template() {
@@ -50,9 +50,9 @@ class Title extends lng.Component {
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="row--title" />
-</Preview>
+</Canvas>
 
 The `title` property is an <DocsLink id="lng.Text" /> texture; you can customize it like any other text.
 
@@ -77,9 +77,9 @@ You can show and hide the title with the `showTitle` property.
 
 By default, `Row` will scroll horizontally to capture items out of view.
 
-<Preview>
+<Canvas>
   <Story id="row--side-scrolling" />
-</Preview>
+</Canvas>
 
 You can force scrolling on every selection with `alwaysScroll`
 
@@ -108,14 +108,14 @@ export const ProviderType = () => (
 name|type|readonly|default|description
 --|--|--|--|--
 alwaysScroll|boolean|false|false|moves all items on every selection
-currentItem|<DocsLink id="lng.Component" />|true|-|selected item
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
 itemSpacing|number|false|40|px between items
 provider|<ProviderType />|false|-|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
+selected|<DocsLink id="lng.Component" />|true|-|selected item
 selectedIndex|number|false|0|index of selected item
 showTitle|boolean|false|true if title exists|whether to display title component
 title|<DocsLink id="lng.Text" />|false|-|static title to show above row items
-wrapSelected|boolean|false|false|shether to wrap selection from the last item to the first
+wrapSelected|boolean|false|false|whether to wrap selection from the last item to the first
 
 ### Methods
 

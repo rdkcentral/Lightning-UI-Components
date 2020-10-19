@@ -37,6 +37,7 @@ export const DocsLink = ({ children, id }) => {
 };
 
 export const Item = ({ children }) => children;
+
 /**
  * Creates formatted object for markdown prop tables
  * @param {Object} props
@@ -53,6 +54,7 @@ export const ObjectFormat = ({ object }) => {
     '}'
   ].map((x, i) => <Item key={i}>{x}</Item>);
 };
+
 /**
  * Formats TS-style generic types
  * @param {Object} props
