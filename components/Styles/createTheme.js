@@ -3,7 +3,6 @@ import { clone } from '../../utils';
 import { CORNER_RADIUS, getFocusScale } from './Styles';
 import { PALETTE, COLORS_NEUTRAL, getHexColor } from '../Styles/Colors';
 import { TYPOGRAPHY } from '../Styles/Fonts';
-import blackBackground from '../Styles/black_background_tile.png';
 
 function glow({
   w,
@@ -109,9 +108,6 @@ export const getXfinityTheme = () => ({
       width: 2
     },
     radius: CORNER_RADIUS
-  },
-  assets: {
-    blackBackground
   },
   animations: {
     gradient: gradientAnimation
