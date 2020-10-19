@@ -17,6 +17,7 @@
 */
 export * from './components/Styles/index.js';
 export { default as Announcer } from './components/Announcer/index.js';
+export { default as Button } from './components/Button/index.js';
 export { default as Column } from './components/Column/index.js';
 export { default as FocusManager } from './components/FocusManager/index.js';
 export { default as Icon } from './components/Icon/index.js';
