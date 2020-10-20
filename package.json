@@ -10,44 +10,38 @@
   "module": "index.js",
   "files": [
     "index.js",
-    "{components,utils}/**/*.js",
+    "Styles.js",
+    "{bin,components,mixins,utils}/**/*",
     "!components/**/*.stories.js",
-    "!{components/utils}/**/*.test.js",
+    "!{components,utils}/**/*.test.js",
     "!components/lightning-test-renderer.js",
-    "!components/lightning-test-utils.js"
+    "!components/lightning-test-utils.js",
+    "!components/**/__snapshots__",
+    "!public/"
   ],
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/preset-react": "^7.10.1",
-    "@commitlint/cli": "^8.3.5",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^8.3.4",
-    "@storybook/addon-docs": "^5.3.19",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-storysource": "^5.3.19",
-    "@storybook/html": "^5.3.19",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-docs": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/html": "^6.0.21",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "canvas": "^2.6.1",
-    "eslint": "^6.8.0",
-    "eslint-config-google": "^0.12.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-plugin-flowtype": "^4.7.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
-    "gh-pages": "^3.0.0",
+    "gh-pages": "^3.1.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "jest-environment-jsdom-fifteen": "^1.0.2",
     "jest-webgl-canvas-mock": "^0.2.3",
-    "lerna": "^3.22.1",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "semantic-release": "^17.1.1",
     "wpe-lightning": "^1.9.0"
   },
   "husky": {
@@ -57,9 +51,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint",
-      "jest --findRelatedTests"
+    "./{components,utils}/**/*.js": [
+      "npm run lint"
     ]
   },
   "repository": {
@@ -67,13 +60,15 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "eslint './components/**/*.js'",
-    "lint:fix": "eslint --fix './components/**/*.js'",
+    "lint": "npx prettier --check './{components,utils}/**/*.js'",
+    "lint:fix": "npx prettier --write './{components,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
-    "start": "start-storybook",
+    "start": "start-storybook -p 8000",
+    "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:updateSnapshot": "jest --updateSnapshot"
   }
 }

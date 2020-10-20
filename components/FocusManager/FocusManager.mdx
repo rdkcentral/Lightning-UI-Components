@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks'
+import { Canvas, Story } from '@storybook/addon-docs/blocks'
 import { DocsLink } from "../../.storybook/utils";
 
 # FocusManager
@@ -7,10 +7,10 @@ In Lightning, focus must be explicitly set on an element and managed manually. `
 
 ## Usage
 
-Within a parent component `_template()` function, define a child of type `FocusManager` and in `_getFocused()` return that child component 
+Within a parent component `_template()` function, define a child of type `FocusManager` and in `_getFocused()` return that child component
 
 ```js
-import { FocusManager } from '@lightning/lightning-ui';
+import { FocusManager } from '@lightningjs/ui-components';
 
 class RowExample extends lng.Component {
   static _template() {
@@ -24,16 +24,16 @@ class RowExample extends lng.Component {
       }
     };
   }
-  
+
   _getFocused() {
       return this.tag('Row');
   }
 };
 ```
 
-<Preview>
+<Canvas>
   <Story id="focusmanager--rows" />
-</Preview>
+</Canvas>
 
 Set the `direction` property to `row` for left/right or `column` for up/down key handling.
 
@@ -45,9 +45,9 @@ Set the `direction` property to `row` for left/right or `column` for up/down key
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="focusmanager--columns" />
-</Preview>
+</Canvas>
 
 Enable the `wrapSelected` property to allow cycling focus between the first and last items.
 
@@ -59,9 +59,9 @@ Enable the `wrapSelected` property to allow cycling focus between the first and 
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="focusmanager--wrap-selected" />
-</Preview>
+</Canvas>
 
 ## Extending FocusManager
 
@@ -69,7 +69,7 @@ You can create a component that extends the capabilities of `FocusManager` and r
 
 ```js
 import lng from 'wpe-lightning';
-import { FocusManager } from '@lightning/lightning-ui';
+import { FocusManager } from '@lightningjs/ui-components';
 
 class FancyFocus extends FocusManager {
   render() {
@@ -81,9 +81,9 @@ class FancyFocus extends FocusManager {
 }
 ```
 
-<Preview>
+<Canvas>
   <Story id="focusmanager--extended-component" />
-</Preview>
+</Canvas>
 
 ## API
 

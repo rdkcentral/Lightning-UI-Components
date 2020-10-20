@@ -1,0 +1,67 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './Button.stories';
+
+# Button
+
+Basic component that handles styling and functionality for a button
+
+## Usage
+
+```js
+import { Button } from '@lightningjs/ui-components';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Button: {
+        type: Button,
+        title: 'Button'
+      }
+    };
+  }
+};
+```
+
+Before the button receives its title, it should be in a loading state.
+
+<Canvas>
+  <Story id="button--basic" />
+</Canvas>
+
+
+### Sizing
+
+Buttons can take in a`w`. This is the minimum width that a button will be, the button will dynamically size itself based on the width of the title provided. Buttons can also take in a `h` - if not provided it will default to `40px`.
+
+### Focus
+
+When focused, the background/foreground colors are inverted by default. This can be overridden with theming.
+
+### Icon
+
+All buttons have the ability to be passed an icon. This will position the icon to the left of the title and center it horizontally and vertically.
+
+## API
+
+### Properties
+
+name|type|readonly|default|description
+--|--|--|--|--
+announce|string|true|label or title|announcement text for screen readers
+label|string|false|-|announcement text to append in front of ", Button" for screen readers
+h|number|false|40|height of the button
+w|number|false|150|width of the button
+title|string|false|-|button text
+radius|rumber|false|0|corner radius for a button
+stroke|boolean|false|false|whether to display a border
+strokeColor|number|false|0|border color
+strokeWeight|number|false|2|thickness of border stroke
+loading|object|false|-|`tag` and `animation` properties for button loading animation
+icon|object|false|-|`src`, `size`, and `spacing` properties for an icon. See <a href="?path=/docs/icon--basic">Icon</a>
+
+### Methods
+
+#### onEnter(thisArg)
+
+Can be overridden to apply handling for the <kbd>Enter</kbd> key

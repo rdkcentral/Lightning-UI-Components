@@ -1,21 +1,20 @@
 /**
-* Copyright 2020 Comcast Cable Communications Management, LLC
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* SPDX-License-Identifier: Apache-2.0
-*/
-
+ * Copyright 2020 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 import Column from '.';
 import Row from '../Row';
 import TestRenderer from '../lightning-test-renderer';
@@ -291,7 +290,6 @@ describe('Column', () => {
       });
 
       describe('and scrollMount = 0.5', () => {
-        // TODO go over these tests and make sure the expectations are correct
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollMount = 0.5;
@@ -336,12 +334,29 @@ describe('Column', () => {
           testRenderer.update();
           expect(item.y).toBe(-140);
         });
+
+        it('should keep a full screen of items when at bottom', () => {
+          let item = column.items[1];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.update();
+          expect(item.y).toBe(-140);
+        });
       });
 
       describe('and scrollMount = 1', () => {
         beforeEach(() => {
+          column.items = items.concat(items);
           column.scrollMount = 1;
           column.render();
+          testRenderer.update();
         });
 
         it('should render correctly', () => {
@@ -385,11 +400,12 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
           testRenderer.keyPress('Up');
-          testRenderer.update();
+          testRenderer.keyPress('Up');
           expect(item.y).toBe(0);
         });
 
@@ -421,6 +437,7 @@ describe('Column', () => {
       });
 
       it('should load more items near bottom with getMoreItems', () => {
+        column.items = items;
         let mock = jest.fn();
         mock.mockReturnValue(Promise.resolve([]));
         column._getMoreItems = mock;
