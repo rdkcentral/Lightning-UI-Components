@@ -19,6 +19,7 @@ export default class MarqueeText extends lng.Component {
   }
 
   set title(text) {
+    this._title = { ...this._title, ...text };
     this.patch({
       TextClipper: {
         w: this.finalW + 14,
@@ -26,7 +27,7 @@ export default class MarqueeText extends lng.Component {
         TextBox: {
           Text: {
             rtt: true,
-            text: { ...text }
+            text: this._title
           },
           TextLoopTexture: {}
         }
