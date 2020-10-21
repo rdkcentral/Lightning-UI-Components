@@ -217,7 +217,9 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       Title: {},
       Subtitle: {
         h: this.styles.subtitle.text.lineHeight,
-        color: this.styles.subtitle.color,
+        color: this.hasFocus()
+          ? this.styles.focused.subtitle.color
+          : this.styles.subtitle.color,
         text: {
           ...this.styles.subtitle.text,
           text: subtitle
