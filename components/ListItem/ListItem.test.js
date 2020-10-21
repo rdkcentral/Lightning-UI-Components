@@ -2,7 +2,8 @@ import ListItem, {
   ListItemBase,
   ListItemImage,
   ListItemSlider,
-  ListItemToggle
+  ListItemToggle,
+  ListItemRadio
 } from '.';
 import { getHexColor } from '../Styles';
 import TestUtils from '../lightning-test-utils';
@@ -19,6 +20,7 @@ const createListItemBase = TestUtils.makeCreateComponent(
 const createListItemImage = TestUtils.makeCreateComponent(ListItemImage);
 const createListItemSlider = TestUtils.makeCreateComponent(ListItemSlider);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
+const createListItemRadio = TestUtils.makeCreateComponent(ListItemRadio);
 
 describe('ListItemBase', () => {
   let listItemBase, testRenderer;
@@ -240,6 +242,55 @@ describe('ListItemToggle', () => {
     it('toggles checked state', () => {
       const spy = spyOn(listItemToggle._Toggle, 'toggle');
       listItemToggle.toggle();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+});
+
+describe('ListItemRadio', () => {
+  let listItemRadio, testRenderer;
+
+  beforeEach(() => {
+    [listItemRadio, testRenderer] = createListItemRadio();
+    testRenderer.update();
+  });
+
+  afterEach(() => {
+    listItemRadio = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders in a checked state', () => {
+    [listItemRadio, testRenderer] = createListItemRadio({
+      checked: true
+    });
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('puts focus on the radio', () => {
+    expect(listItemRadio._getFocused()).toEqual(
+      listItemRadio._Radio._getFocused()
+    );
+  });
+
+  it('toggles on enter', () => {
+    testRenderer.keyPress('Enter');
+    testRenderer.update();
+
+    expect(listItemRadio.isChecked()).toBe(true);
+  });
+
+  describe('#radio', () => {
+    it('radios checked state', () => {
+      const spy = spyOn(listItemRadio._Radio, 'toggle');
+      listItemRadio.toggle();
       expect(spy).toHaveBeenCalled();
     });
   });
