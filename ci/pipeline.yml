@@ -2,7 +2,7 @@
 # ATTENTION
 # =========
 # Any changes to this file require running the following fly CLI command
-# fly -t ci set-pipeline -pipeline lightning-ui --config ci/pipeline.yml --load-vars-from ci/values.yml
+# fly -t ci set-pipeline -p lightning-ui --config ci/pipeline.yml --load-vars-from ci/values.yml
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # ANCHORS: Reusing data
