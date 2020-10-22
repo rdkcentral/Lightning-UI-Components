@@ -153,7 +153,7 @@ While the prerequisites above must be satisfied prior to having your pull reques
 
 ### Git Commit Messages
 
-@lightning/ui enforces [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) through [husky](https://github.com/typicode/husky) pre-commit hooks.
+**IMPORTANT**: @lightning/ui releases are automatically triggered on merge to the `main` branch (and possibly other release branches like `next`). The new version number is determined by  [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
 
 This is the message template:
 
@@ -165,17 +165,26 @@ This is the message template:
 [optional footer(s)]
 ```
 
+**Breaking Changes**
+
+If your feature includes a breaking change (i.e. changes a component API), be sure to add `BREAKING CHANGE` to the body of the commit message
+
+Example: 
+
+```
+feat(Button): change focus behavior
+
+BREAKING CHANGE
+```
+
 **Types**
 
 Example: `feat: <description>`
 
 * `feat:` - new feature or enhancement
 * `fix:` - bug fix
-* `build:` - updates to build process
-* `chore:` - 
-* `ci:` - update CI configuration
+* `chore:` - repo maintenance
 * `docs:` - update documentation
-* `refactor:` - refactor code
 * `test:` - test-related changes
 
 **Scope**
@@ -194,10 +203,6 @@ Example: `feat(ActionButton): add key-down handler`
 * Limit the first line to 72 characters or less
 * Reference issues and pull requests liberally in the body
 * When only changing documentation, include `[ci skip]` in the commit title
-
-**Breaking Changes**
-
-If your feature includes a breaking change (i.e. changes a component API), be sure to add `BREAKING CHANGE` to the body of the commit message
 
 ### JavaScript Styleguide
 

@@ -1,125 +1,148 @@
 ---
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  # ANCHORS: Reusing data
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# ATTENTION
+# =========
+# Any changes to this file require running the following fly CLI command
+# fly -t ci set-pipeline -pipeline lightning-ui --config ci/pipeline.yml --load-vars-from ci/values.yml
 
-  # GHE Status Updates
-  pullRequestNotificationSuccess: &pullRequestNotificationSuccess
-    put: source-repo-pr
-    params:
-      path: source-repo-pr
-      status: success
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# ANCHORS: Reusing data
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 
-  pullRequestNotificationFailure: &pullRequestNotificationFailure
-    put: source-repo-pr
-    params:
-      path: source-repo-pr
-      status: failure
+# GHE Status Updates
+pullRequestNotificationSuccess: &pullRequestNotificationSuccess
+  put: source-repo-pr
+  params:
+    path: source-repo-pr
+    status: success
 
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  # Resource Types: https://concourse-ci.org/resource-types.html
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  resource_types:
-    - name: pull-request
-      type: docker-image
-      source:
-        repository: teliaoss/github-pr-resource
+pullRequestNotificationFailure: &pullRequestNotificationFailure
+  put: source-repo-pr
+  params:
+    path: source-repo-pr
+    status: failure
+
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# Resource Types: https://concourse-ci.org/resource-types.html
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
 
 
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  # Resource: https://concourse-ci.org/resources.html
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  resources:
-    - name: source-repo-pr
-      type: pull-request
-      icon: source-pull
-      webhook_token: ((webhook-token))
-      check_every: 168h
-      source:
-        repository: ((ghe-org-name))/((ghe-repo-name))
-        disable_forks: false
-        access_token: ((ghe-token))
-        v3_endpoint: https://github.comcast.com/api/v3/
-        v4_endpoint: https://github.comcast.com/api/graphql
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# Resource: https://concourse-ci.org/resources.html
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+resources:
+  - name: source-repo-pr
+    type: pull-request
+    icon: source-pull
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      repository: ((ghe-org-name))/((ghe-repo-name))
+      disable_forks: false
+      access_token: ((ghe-token))
+      v3_endpoint: https://github.comcast.com/api/v3/
+      v4_endpoint: https://github.comcast.com/api/graphql
 
-    - name: source-repo
-      type: git
-      webhook_token: ((webhook-token))
-      check_every: 168h
-      source:
-        branch: main
-        private_key: ((github-enterprise.private-key))
-        uri: ((ghe-source-repo))
+  - name: source-repo
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      branch: main
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
 
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  # Groups: https://concourse-ci.org/pipeline-groups.html
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# Groups: https://concourse-ci.org/pipeline-groups.html
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 
-  groups:
-    - name: Overview
-      jobs:
-        - Pull Requests
-        - Docs
-    - name: Pull Requests
-      jobs:
-        - Pull Requests
-
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-  # Jobs: https://concourse-ci.org/jobs.html
-  # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
-
-  jobs:
+groups:
+  - name: Overview
+    jobs:
+      - Pull Requests
+      - Docs
+      - Publish
   - name: Pull Requests
-    build_logs_to_retain: 50
-    serial: true
-    on_success:
-      do:
-        - <<: *pullRequestNotificationSuccess
-    on_abort:
-      do:
-        - <<: *pullRequestNotificationFailure
-    on_failure:
-      do:
-        - <<: *pullRequestNotificationFailure
-    on_error:
-      do:
-        - <<: *pullRequestNotificationFailure
-    plan:
-      - get: source-repo-pr
-        trigger: true
-      - put: source-repo-pr
-        params:
-          path: source-repo-pr
-          status: pending
-      - task: 📦 NPM Install
-        file: source-repo-pr/ci/tasks/install.yml
-        input_mapping:
-          source-repo: source-repo-pr
-      - in_parallel:
-          - task: 🛡 Code Quality
-            file: source-repo-pr/ci/tasks/quality.yml
-            input_mapping:
-              source-repo: source-repo-pr
-          - task: 💪 Unit Tests
-            file: source-repo-pr/ci/tasks/unit-tests.yml
-            input_mapping:
-              source-repo: source-repo-pr
-      - task: 🦾 Build Storybook and Components
-        file: source-repo-pr/ci/tasks/build.yml
-        params:
-          BUILD_PATH: "packages/core/storybook-static/*"
-        input_mapping:
-          source-repo: source-repo-pr
+    jobs:
+      - Pull Requests
 
-  - name: Docs
-    build_logs_to_retain: 50
-    plan:
-      - get: source-repo
-        trigger: true
-      - task: Publish Docs
-        file: source-repo/ci/tasks/gh-pages.yml
-        params:
-          HOST: ((github-enterprise.host))
-          PRIVATE_KEY: ((github-enterprise.private-key))
-          USERNAME: ((service-account.username))
-          EMAIL: ((service-account.email))
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+# Jobs: https://concourse-ci.org/jobs.html
+# ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
+
+jobs:
+- name: Pull Requests
+  build_logs_to_retain: 50
+  serial: true
+  on_success:
+    do:
+      - <<: *pullRequestNotificationSuccess
+  on_abort:
+    do:
+      - <<: *pullRequestNotificationFailure
+  on_failure:
+    do:
+      - <<: *pullRequestNotificationFailure
+  on_error:
+    do:
+      - <<: *pullRequestNotificationFailure
+  plan:
+    - get: source-repo-pr
+      trigger: true
+    - put: source-repo-pr
+      params:
+        path: source-repo-pr
+        status: pending
+    - task: 📦 NPM Install
+      file: source-repo-pr/ci/tasks/install.yml
+      input_mapping:
+        source-repo: source-repo-pr
+    - in_parallel:
+        - task: 🛡 Code Quality
+          file: source-repo-pr/ci/tasks/quality.yml
+          input_mapping:
+            source-repo: source-repo-pr
+        - task: 💪 Unit Tests
+          file: source-repo-pr/ci/tasks/unit-tests.yml
+          input_mapping:
+            source-repo: source-repo-pr
+    - task: 🦾 Build Storybook and Components
+      file: source-repo-pr/ci/tasks/build.yml
+      params:
+        BUILD_PATH: "packages/core/storybook-static/*"
+      input_mapping:
+        source-repo: source-repo-pr
+
+- name: Docs
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo
+      trigger: true
+    - task: Publish Docs
+      file: source-repo/ci/tasks/gh-pages.yml
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        EMAIL: ((service-account.email))
+
+- name: Publish
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo
+      trigger: true
+    - task: Version and Publish
+      file: source-repo/ci/tasks/publish.yml
+      input_mapping:
+        source-repo: source-repo
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        NPM_USERNAME: ((service-account.artifactory-username))
+        NPM_EMAIL: ((service-account.email))
+        NPM_PASSWORD: ((service-account.artifactory-api-key))
