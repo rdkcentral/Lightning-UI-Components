@@ -4,6 +4,19 @@ import lng from 'wpe-lightning';
 import 'wpe-lightning/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
+import Announcer from '../components/Announcer';
+
+export const globalTypes = {
+  announce: {
+    name: 'Announce',
+    description: 'Enable a11y announcing of components',
+    defaultValue: 'off',
+    toolbar: {
+      icon: 'speaker',
+      items: ['off', 'on']
+    }
+  }
+};
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -26,17 +39,6 @@ const stage = {
   inspector: false,
   defaultFontFace: 'XfinityStandardMedium'
 };
-class StoryApp extends lng.Application {
-  _init() {
-    setTimeout(() => {
-      this._refocus();
-    }, 0);
-  }
-
-  _getFocused() {
-    return this.childList.first || this;
-  }
-}
 
 /**
  * To customize the stage in each storybook file...
@@ -60,7 +62,22 @@ class StoryApp extends lng.Application {
 let storyId;
 let app;
 
-addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
+addDecorator((StoryComponent, { id, args, kind, parameters, story, globals }) => {
+  const announce = globals.announce === 'on';
+  class StoryApp extends Announcer(lng.Application) {
+    _init() {
+      setTimeout(() => {
+        this._refocus();
+      }, 0);
+      this.debug = announce;
+      this.announcerEnabled = announce;
+      this.announcerTimeout = 15 * 1000;
+    }
+
+    _getFocused() {
+      return this.childList.first || this;
+    }
+  }
   function createApp() {
     const app = new StoryApp({
       stage: {
@@ -110,7 +127,8 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
     const tag = parameters.tag || kind;
     const storyComponent = app.tag('StoryComponent');
     const component = storyComponent.tag(tag);
-
+    app.debug = announce;
+    app.announcerEnabled = announce;
     for (const arg in args) {
         const argValue = args[arg];
 

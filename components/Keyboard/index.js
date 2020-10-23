@@ -8,6 +8,17 @@ export default class Keyboard extends lng.Component {
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
   }
 
+  get announce() {
+    return 'Keyboard' + (this.title ? `, ${this.title}` : '');
+  }
+
+  get announceContext() {
+    return [
+      'PAUSE-2',
+      'Use arrow keys to choose characters, press center to select'
+    ];
+  }
+
   set formats(formats = {}) {
     this._formats = formats;
     this._currentFormat = this._defaultFormat;
@@ -168,7 +179,12 @@ export const KEYBOARD_FORMATS = {
   fullscreen: {
     letters: [
       [
-        { label: '&123', size: 'large', toggle: 'symbols' },
+        {
+          label: '&123',
+          size: 'large',
+          toggle: 'symbols',
+          announce: 'symbol mode, button'
+        },
         { label: 'Space', size: 'large' },
         { label: 'Delete', size: 'large' }
       ],
@@ -203,7 +219,12 @@ export const KEYBOARD_FORMATS = {
     ],
     symbols: [
       [
-        { label: 'ABC', size: 'large', toggle: 'letters' },
+        {
+          label: 'ABC',
+          size: 'large',
+          toggle: 'letters',
+          announce: 'caps on, button'
+        },
         { label: 'Space', size: 'large' },
         { label: 'Delete', size: 'large' }
       ],
@@ -218,17 +239,17 @@ export const KEYBOARD_FORMATS = {
         '8',
         '9',
         '0',
-        '!',
+        { label: '!', announce: 'exclamation, button' },
         '@',
         '#',
         '$',
         '%',
-        '^',
+        { label: '^', announce: 'caret circumflex, button' },
         '&',
         '*',
-        '(',
-        ')',
-        '`',
+        { label: '(', announce: 'open parenthesis, button' },
+        { label: ')', announce: 'close parenthesis, button' },
+        { label: '`', announce: 'grave accent, button' },
         '~',
         '_',
         '.',
@@ -263,7 +284,12 @@ export const KEYBOARD_FORMATS = {
         'I',
         'O',
         'P',
-        { label: '&123', size: 'medium', toggle: 'symbols' }
+        {
+          label: '&123',
+          size: 'medium',
+          toggle: 'symbols',
+          announce: 'symbol mode, button'
+        }
       ],
       [
         'A',
@@ -276,7 +302,12 @@ export const KEYBOARD_FORMATS = {
         'K',
         'L',
         '@',
-        { label: 'shift', size: 'medium', toggle: 'lowercase' }
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'shift off, button'
+        }
       ],
       [
         'Z',
@@ -286,9 +317,9 @@ export const KEYBOARD_FORMATS = {
         'B',
         'N',
         'M',
-        '_',
-        '.',
-        '-',
+        { label: '_', announce: 'underscore, button' },
+        { label: '.', announce: 'period, button' },
+        { label: '-', announce: 'dash, button' },
         { label: '.com', size: 'medium' }
       ],
       [
@@ -322,7 +353,12 @@ export const KEYBOARD_FORMATS = {
         'i',
         'o',
         'p',
-        { label: '&123', size: 'medium', toggle: 'symbols' }
+        {
+          label: '&123',
+          size: 'medium',
+          toggle: 'symbols',
+          announce: 'symbol mode, button'
+        }
       ],
       [
         'a',
@@ -335,7 +371,12 @@ export const KEYBOARD_FORMATS = {
         'k',
         'l',
         '@',
-        { label: 'shift', size: 'medium', toggle: 'uppercase' }
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'uppercase',
+          announce: 'shift on, button'
+        }
       ],
       [
         'z',
@@ -345,9 +386,9 @@ export const KEYBOARD_FORMATS = {
         'b',
         'n',
         'm',
-        '_',
-        '.',
-        '-',
+        { label: '_', announce: 'underscore, button' },
+        { label: '.', announce: 'period, button' },
+        { label: '-', announce: 'dash, button' },
         { label: '.com', size: 'medium' }
       ],
       [
@@ -371,42 +412,52 @@ export const KEYBOARD_FORMATS = {
         { label: 'Delete', size: 'medium' }
       ],
       [
-        '!',
+        { label: '!', announce: 'exclamation, button' },
         '@',
         '#',
         '$',
         '%',
-        '^',
+        { label: '^', announce: 'caret circumflex, button' },
         '&',
         '*',
-        '(',
-        ')',
-        { label: 'abc', size: 'medium', toggle: 'lowercase' }
+        { label: '(', announce: 'open parenthesis, button' },
+        { label: ')', announce: 'close parenthesis, button' },
+        {
+          label: 'abc',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'alpha mode, button'
+        }
       ],
       [
-        '{',
-        '}',
-        '[',
-        ']',
-        ';',
-        '"',
-        "'",
-        '|',
-        '\\',
-        '/',
-        { label: 'shift', size: 'medium', toggle: 'lowercase' }
+        { label: '{', announce: 'open brace, button' },
+        { label: '}', announce: 'close brace, button' },
+        { label: '[', announce: 'open bracket, button' },
+        { label: ']', announce: 'close bracket, button' },
+        { label: ';', announce: 'semicolon, button' },
+        { label: '"', announce: 'doublequote, button' },
+        { label: "'", announce: 'singlequote, button' },
+        { label: '|', announce: 'vertical bar, button' },
+        { label: '\\', announce: 'backslash, button' },
+        { label: '/', announce: 'forwardslash, button' },
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'shift, button'
+        }
       ],
       [
-        '<',
-        '>',
-        '?',
-        '±',
-        '`',
-        '~',
-        '_',
-        '.',
-        '-',
-        '+',
+        { label: '<', announce: 'less than, button' },
+        { label: '>', announce: 'greater than, button' },
+        { label: '?', announce: 'question mark, button' },
+        { label: '±', announce: 'plus minus sign, button' },
+        { label: '`', announce: 'grave accent, button' },
+        { label: '~', announce: 'tilde, button' },
+        { label: '_', announce: 'underscore, button' },
+        { label: '.', announce: 'period, button' },
+        { label: '-', announce: 'dash, button' },
+        { label: '+', announce: 'plus sign, button' },
         { label: '.com', size: 'medium' }
       ],
       [

@@ -38,7 +38,7 @@ export default (base, speak = Speech) =>
         return;
       }
 
-      let focusPath = this.application.focusPath;
+      let focusPath = this.application.focusPath || [];
       let lastFocusPath = this._lastFocusPath || [];
       let loaded = focusPath.every(elm => !elm.loading);
 
@@ -52,8 +52,10 @@ export default (base, speak = Speech) =>
       let toAnnounce = focusDiff.reduce((acc, elm) => {
         if (elm.announce) {
           acc.push([elmName(elm), 'Announce', elm.announce]);
-        } else {
+        } else if (elm.title) {
           acc.push([elmName(elm), 'Title', elm.title || '']);
+        } else {
+          acc.push([elmName(elm), 'Label', elm.label || '']);
         }
         return acc;
       }, []);
