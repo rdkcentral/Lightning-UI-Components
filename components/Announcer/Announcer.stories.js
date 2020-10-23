@@ -53,7 +53,7 @@ const rows = [
 ];
 
 export const Basic = () =>
-  class Basic extends Announcer(lng.Component) {
+  class Basic extends lng.Component {
     static _template() {
       return {
         debug: true,

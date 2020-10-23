@@ -16,6 +16,7 @@ export default class KeyboardInput extends lng.Component {
           },
           {
             type: Keyboard,
+            title: this.inputPlaceholder || 'Placeholder',
             defaultFormat: this.defaultFormat || 'lowercase',
             formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
             ref: 'Keyboard'

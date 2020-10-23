@@ -304,6 +304,10 @@ class Input extends lng.Component {
     this._Label.text = this._label;
   }
 
+  get announce() {
+    return this.value || this.placeholder;
+  }
+
   get w() {
     return this._w;
   }

@@ -4,6 +4,7 @@ import withStyles from '../../mixins/withStyles';
 import { getFocusScale } from '../Styles';
 
 export const KEY_DIMENSIONS = { h: 60, w: 60, padding: 0, fixed: true };
+const isUpperCase = string => /^[A-Z]$/.test(string);
 
 export const keyStyles = theme => ({
   background: {
@@ -77,6 +78,22 @@ export default class Key extends withStyles(Button, keyStyles) {
 
   set char(char) {
     this.title = char;
+  }
+
+  set announce(value) {
+    this._announce = value;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    if (isUpperCase(this.title)) {
+      return `Capital ${this.title}, button`;
+    }
+
+    return this.title + ', button';
   }
 
   set label(label) {
