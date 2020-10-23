@@ -1,6 +1,6 @@
 {
   "name": "@lightning/ui",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "dependencies": {},
   "peerDependencies": {
     "wpe-lightning": "1.x"
@@ -8,7 +8,7 @@
   "browser": "index.js",
   "main": "index.js",
   "bin": {
-    "bootstrap": "./bin/bootstrap.sh"
+    "bootstrap": "bin/bootstrap.sh"
   },
   "files": [
     "index.js",
