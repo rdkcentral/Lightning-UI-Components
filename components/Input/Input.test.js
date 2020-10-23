@@ -121,7 +121,7 @@ describe('Input', () => {
     });
   });
 
-  it('should not backspace deletions if not listening', () => {
+  it('should not backspace deletions if not listening', done => {
     input.listening = false;
     input.value = 'xoxoxo';
     input.backspace();

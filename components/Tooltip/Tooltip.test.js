@@ -3,7 +3,6 @@
 import TestUtils from '../lightning-test-utils';
 import Tooltip from '.';
 import Button from '../Button';
-import { JPEGStream } from 'canvas';
 
 const createTooltip = TestUtils.makeCreateComponent(
   Tooltip,
