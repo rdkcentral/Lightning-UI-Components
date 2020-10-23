@@ -63,27 +63,28 @@ describe('DataItem', () => {
     expect(dataitem._marginY).toEqual(10);
   });
 
-  it('should patch content', () => {
+  it('should patch content', done => {
     [dataitem, testRenderer] = createDataItem({
       content: {
         Rect: {
           rect: true,
-          color: 0xfffffff,
+          color: 0xffffffff,
           h: 10,
           w: 10
         }
       }
     });
     testRenderer.update();
-    dataitem._whenEnabled.then(done => {
+    dataitem._whenEnabled.then(() => {
       expect(dataitem.tag('Rect')).toBeDefined();
       expect(dataitem.tag('Rect').color).toEqual(getHexColor('ffffff'));
+      done();
     });
   });
 
-  it('should update item and focus ring scale on unfocus', () => {
+  it('should update item and focus ring scale on unfocus', done => {
     dataitem._smooth = false;
-    dataitem._unfocus();
+    testRenderer.unfocus();
     testRenderer.update();
     dataitem._whenEnabled.then(() => {
       expect(dataitem.scale).toEqual(1);
