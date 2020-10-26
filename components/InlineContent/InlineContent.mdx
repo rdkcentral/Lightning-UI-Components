@@ -1,0 +1,49 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# InlineContent
+
+Renders text, icons, and badges in line together
+
+## Usage
+
+Pass in a `content` array containing simple strings or objects with badge or icon strings.
+
+```js
+import { InlineContent } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      InlineContent: {
+        type: InlineContent,
+        content: [
+          'example of simple text',
+          { icon: 'http://myIconUrl.com/goeshere, title: 'to add voice out content (essentially alt text)' },
+          { badge: 'HD' }
+        ]
+      }
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="inlinecontent--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+content|array|false|-|list of data to render inline
+textProperties|object|false|Xfinity theme|font properties to apply to the title
+justify|string|false|center|alignment of flexbox content ('flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly')
+iconW|number|false|36|width of all icons
+iconH|number|false|36|height of all icons
+contentSpacing|number|false|8|padding between all content items
+contentWrap|boolean|false|false|determines whether the containing flexbox should wrap the content onto the next line
+badgeProperties|object|false|Xfinity Badge theme|styling to update the Badge component

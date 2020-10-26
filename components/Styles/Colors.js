@@ -65,6 +65,9 @@ export const PALETTE = {
     },
     focus: getHexColor('000000', 95),
     __isColor: true
+  },
+  badge: {
+    default: getHexColor('ececf2', 32)
   }
 };
 

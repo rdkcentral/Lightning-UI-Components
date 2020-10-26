@@ -1,0 +1,40 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# Badge
+
+General purpose, Xfinity-branded badge
+
+## Usage
+
+The basic component just requires a title:
+
+```js
+import { Badge } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        title: 'HD'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="badge--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+title|string|false|-|text to render
+background|object|false|Xfinity theme|background style properties such as shader and color
+textPosition|object|false|Xfinity theme|styling to apply to the text wrapper
+textProperties|object|false|Xfinity theme|font properties to apply to the title
+padding|number|false|8|padding to add on the left and right between the text and background

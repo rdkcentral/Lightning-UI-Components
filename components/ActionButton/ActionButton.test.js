@@ -1,4 +1,4 @@
-import ActionButton, { ACTION_BUTTON_THEME } from '.';
+import ActionButton from '.';
 import TestUtils from '../lightning-test-utils';
 import { getHexColor } from '../Styles';
 

@@ -33,6 +33,10 @@ Object {
     "tags": Array [
       "Component",
     ],
+    "texture": Object {
+      "src": "bad/path",
+      "type": "ImageTexture",
+    },
     "type": "Icon",
     "visible": true,
     "w": 50,

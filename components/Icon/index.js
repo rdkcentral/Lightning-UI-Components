@@ -53,6 +53,7 @@ function getIconTemplate(icon, w, h) {
       template.src = icon;
       break;
     default:
+      template.src = icon;
       break;
   }
   return template;
