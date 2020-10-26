@@ -34,6 +34,9 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 0,
@@ -122,6 +125,9 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 0,
@@ -211,6 +217,10 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "src": "data:image/jpg;base64, iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABTUlEQVRYR8WX0VEDMQxEdyuADggVhFQAVEALdJBQASmBVEALdABUAB0AHZAKllGGMDc3Z/tGRrZ+7uNi+2mtlS5E52DN+ZJOSX7X7OEGkHQL4JGkew8Ddy22zAF8ADAFXHscVXMtlrQFcH/IoDWApMVv9ockegA8Abj5k7ClApKuADwPq76pApLeASy7ABxtN/Z8EwWGtusF8ABgPdXxwhUY2665ApJeAFxm+r29T8UngB1JK97JyHbCKds5Bo8Nq/PU0CoBWAZnjkPHS1YpFZIAki4AvP3D4V8krX27rsDkO6mEuCaZrJPSFZgKNvftmYpcgb6StPadDNc4Hu4mSZn9rfisjroAmP02peuLUmAPYDHnezEK4I6kte9iRABkbTcmigDI2i4aoGi7aICi7SIBZtkuCmC27SIAbF5s59ouAqDqD2q1DYudpvCDH6f0jiFcMsG+AAAAAElFTkSuQmCC",
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 40,
@@ -300,6 +310,10 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "src": "data:image/jpg;base64, iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABTUlEQVRYR8WX0VEDMQxEdyuADggVhFQAVEALdJBQASmBVEALdABUAB0AHZAKllGGMDc3Z/tGRrZ+7uNi+2mtlS5E52DN+ZJOSX7X7OEGkHQL4JGkew8Ddy22zAF8ADAFXHscVXMtlrQFcH/IoDWApMVv9ockegA8Abj5k7ClApKuADwPq76pApLeASy7ABxtN/Z8EwWGtusF8ABgPdXxwhUY2665ApJeAFxm+r29T8UngB1JK97JyHbCKds5Bo8Nq/PU0CoBWAZnjkPHS1YpFZIAki4AvP3D4V8krX27rsDkO6mEuCaZrJPSFZgKNvftmYpcgb6StPadDNc4Hu4mSZn9rfisjroAmP02peuLUmAPYDHnezEK4I6kte9iRABkbTcmigDI2i4aoGi7aICi7SIBZtkuCmC27SIAbF5s59ouAqDqD2q1DYudpvCDH6f0jiFcMsG+AAAAAElFTkSuQmCC",
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 40,
@@ -388,6 +402,10 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "src": "data:image/jpg;base64, iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABTUlEQVRYR8WX0VEDMQxEdyuADggVhFQAVEALdJBQASmBVEALdABUAB0AHZAKllGGMDc3Z/tGRrZ+7uNi+2mtlS5E52DN+ZJOSX7X7OEGkHQL4JGkew8Ddy22zAF8ADAFXHscVXMtlrQFcH/IoDWApMVv9ockegA8Abj5k7ClApKuADwPq76pApLeASy7ABxtN/Z8EwWGtusF8ABgPdXxwhUY2665ApJeAFxm+r29T8UngB1JK97JyHbCKds5Bo8Nq/PU0CoBWAZnjkPHS1YpFZIAki4AvP3D4V8krX27rsDkO6mEuCaZrJPSFZgKNvftmYpcgb6StPadDNc4Hu4mSZn9rfisjroAmP02peuLUmAPYDHnezEK4I6kte9iRABkbTcmigDI2i4aoGi7aICi7SIBZtkuCmC27SIAbF5s59ouAqDqD2q1DYudpvCDH6f0jiFcMsG+AAAAAElFTkSuQmCC",
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 32,
@@ -476,6 +494,10 @@ Object {
       "tags": Array [
         "Icon",
       ],
+      "texture": Object {
+        "src": "data:image/jpg;base64, iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABTUlEQVRYR8WX0VEDMQxEdyuADggVhFQAVEALdJBQASmBVEALdABUAB0AHZAKllGGMDc3Z/tGRrZ+7uNi+2mtlS5E52DN+ZJOSX7X7OEGkHQL4JGkew8Ddy22zAF8ADAFXHscVXMtlrQFcH/IoDWApMVv9ockegA8Abj5k7ClApKuADwPq76pApLeASy7ABxtN/Z8EwWGtusF8ABgPdXxwhUY2665ApJeAFxm+r29T8UngB1JK97JyHbCKds5Bo8Nq/PU0CoBWAZnjkPHS1YpFZIAki4AvP3D4V8krX27rsDkO6mEuCaZrJPSFZgKNvftmYpcgb6StPadDNc4Hu4mSZn9rfisjroAmP02peuLUmAPYDHnezEK4I6kte9iRABkbTcmigDI2i4aoGi7aICi7SIBZtkuCmC27SIAbF5s59ouAqDqD2q1DYudpvCDH6f0jiFcMsG+AAAAAElFTkSuQmCC",
+        "type": "ImageTexture",
+      },
       "type": "Icon",
       "visible": true,
       "w": 22,
@@ -704,6 +726,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -823,6 +848,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1071,6 +1099,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1190,6 +1221,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1433,6 +1467,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1552,6 +1589,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1795,6 +1835,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,
@@ -1914,6 +1957,9 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
+                  "texture": Object {
+                    "type": "ImageTexture",
+                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 0,

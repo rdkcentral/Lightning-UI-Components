@@ -1,6 +1,12 @@
 import lng from 'wpe-lightning';
 import TestRenderer from '../components/lightning-test-renderer';
-import { rgba2argb, RoundRect, clone, getFirstNumber } from '.';
+import {
+  rgba2argb,
+  RoundRect,
+  clone,
+  getFirstNumber,
+  parseInlineContent
+} from '.';
 
 describe('rgba2argb', () => {
   it('converts rgba() format to a number', () => {
@@ -199,5 +205,24 @@ describe('getFirstNumber', () => {
 
   it('returns undefined if a number does not exist', () => {
     expect(getFirstNumber(true)).toBe(undefined);
+  });
+});
+
+describe('parseInlineContent', () => {
+  it('separates text, icons, and badges into an array from a string', () => {
+    const str =
+      'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.';
+    const response = parseInlineContent(str);
+    expect(response).toEqual([
+      'This is a ',
+      {
+        title: 'setting',
+        icon:
+          'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
+      },
+      ' and ',
+      { badge: 'HD' },
+      ' badge test.'
+    ]);
   });
 });

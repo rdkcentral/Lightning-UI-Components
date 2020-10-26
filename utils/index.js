@@ -176,3 +176,47 @@ export function measureTextWidth(text = {}) {
 export function getFirstNumber(...numbers) {
   return numbers.find(Number.isFinite);
 }
+
+/**
+ * Returns an array of strings and icon or badge objects from a string using the syntax:
+ * 'This is a {ICON:<title>|<url>} and {BADGE:<title>} badge test.'
+ *
+ * i.e. 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:<HD>} badge.'
+ *  would create the object:
+ *  {
+ *    'This is an ',
+ *    { icon: './assets/icons/settings.png', title: 'settings' },
+ *    ' icon and ',
+ *    { badge: 'HD' },
+ *    ' badge.'
+ *  }
+ *
+ * @param {*} str
+ *
+ * @return {array}
+ */
+export function parseInlineContent(str) {
+  const regex = /({ICON.*?}|{BADGE:.*?})/g;
+  const badgeRegEx = /^{BADGE:(.*?)}$/g;
+  const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
+  let splitStr = str.split(regex);
+  let content = [];
+
+  if (splitStr && splitStr.length) {
+    splitStr.forEach(item => {
+      let formattedItem = item;
+      let badge = badgeRegEx.exec(item);
+      let icon = iconRegEx.exec(item);
+
+      if (badge && badge[1]) {
+        formattedItem = { badge: badge[1] };
+      }
+      if (icon && icon[1]) {
+        formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
+      }
+      content.push(formattedItem);
+    });
+  }
+
+  return content;
+}
