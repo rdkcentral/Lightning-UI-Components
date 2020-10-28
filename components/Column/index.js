@@ -5,6 +5,7 @@ export default class Column extends FocusManager {
     return {
       direction: 'column',
       scrollMount: 0,
+      keepFullScreen: true,
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
@@ -141,7 +142,11 @@ export default class Column extends FocusManager {
       this._getMoreItems = false;
     }
 
-    if (index > lastIndex && this._getMoreItems === undefined) {
+    if (
+      index > lastIndex &&
+      this._getMoreItems === undefined &&
+      this.keepFullScreen
+    ) {
       index = lastIndex;
     }
 
@@ -176,6 +181,7 @@ export default class Column extends FocusManager {
     // Handle last items on screen
     if (
       this.selected.y > itemY &&
+      this.keepFullScreen &&
       this._isOnScreen(this.items[this.items.length - 1].y)
     ) {
       return;

@@ -270,6 +270,19 @@ describe('Column', () => {
           testRenderer.update();
           expect(item.y).toBe(0);
         });
+
+        describe('and keepFullScreen false', () => {
+          it.only('should NOT keep a full screen of items', () => {
+            let item = column.items[column.items.length - 1];
+            column.keepFullScreen = false;
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.update();
+            expect(item.y).toBe(0);
+          });
+        });
       });
 
       describe('and scrollMount = 0.5', () => {
@@ -331,6 +344,24 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.update();
           expect(item.y).toBe(-140);
+        });
+
+        describe('and keepFullScreen false', () => {
+          it('should NOT keep a full screen of items when at bottom', () => {
+            let item = column.items[column.items.length - 1];
+            column.keepFullScreen = false;
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.keyPress('Down');
+            testRenderer.update();
+            expect(item.y).toBe(160);
+          });
         });
       });
 
