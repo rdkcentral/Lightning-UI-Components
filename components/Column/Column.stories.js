@@ -30,6 +30,7 @@ export const Basic = args =>
           h: 500,
           itemSpacing: args.itemSpacing,
           scrollMount: args.scrollMount,
+          keepFullScreen: args.keepFullScreen,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
@@ -44,7 +45,8 @@ export const Basic = args =>
   };
 Basic.args = {
   scrollMount: 0,
-  itemTransition: 0.4
+  itemTransition: 0.4,
+  keepFullScreen: true
 };
 Basic.argTypes = {
   itemTransition: {
@@ -55,6 +57,9 @@ Basic.argTypes = {
   },
   scrollMount: {
     control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  },
+  keepFullScreen: {
+    control: { type: 'boolean' }
   }
 };
 Basic.parameters = {

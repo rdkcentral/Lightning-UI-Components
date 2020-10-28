@@ -55,7 +55,7 @@ const getMoreItems = () => Promise.resolve({
   getMoreItems,
   items: Array.apply(null, { length: 5 })
     .map((_,i) => ({
-      type: Button, 
+      type: Button,
       buttonText: `Extra Button ${i + 1}`
     }))
 });
@@ -77,7 +77,7 @@ The promise returned by `getMoreItems` is then passed as the `provider` to a `Co
   <Story id="column--provider" />
 </Canvas>
 
-See the [Properties section](#properties) for details. 
+See the [Properties section](#properties) for details.
 
 ## API
 
@@ -103,6 +103,7 @@ provider|<ProviderType />|false|used for providing additional items when scroll 
 itemSpacing|number|false|padding to put between items
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
 itemTransition|<DocsLink id="lng.Transition" />|false|transition to apply to items on render
+keepFullScreen|boolean|true|With scrollmount < 1 determines if we keep a full screen of items
 scrollMount|number|false|Value between 0 and 1, determines at what point scrolling should start.
 selected|<DocsLink id="lng.Component" />|true|component that is currently in focus
 selectedIndex|number|false|index of currently selected item
