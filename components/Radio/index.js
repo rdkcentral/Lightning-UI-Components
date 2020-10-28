@@ -44,6 +44,10 @@ class Radio extends lng.Component {
     };
   }
 
+  _init() {
+    this._update();
+  }
+
   toggle() {
     this.checked = !this.checked;
     this._update();
