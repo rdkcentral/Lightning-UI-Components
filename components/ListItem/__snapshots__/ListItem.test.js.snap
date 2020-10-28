@@ -2629,13 +2629,13 @@ Object {
               "boundsMargin": null,
               "children": Object {
                 "Knob": Object {
-                  "active": false,
-                  "alpha": 0,
+                  "active": true,
+                  "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
                   "clipping": false,
                   "color": 4294967295,
-                  "enabled": false,
+                  "enabled": true,
                   "flex": false,
                   "flexItem": false,
                   "h": 16,
