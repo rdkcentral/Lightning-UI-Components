@@ -1,0 +1,39 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# withHandleKey
+
+The `withHandleKey` mixin can be wrapped around a parent component to handle key events.
+
+<Canvas>
+  <Story id="mixins-withhandlekey--basic" />
+</Canvas>
+
+Take a look at the preview above. Tile component is using the withHandleKey mixin.
+
+## Usage
+
+Out of the box, `withHandleKey` adds a generic _handleKey function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` event.
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MyTile: {
+        type: Tile,
+        onArrowUp: () => {
+          console.log('Up');
+        },
+        onArrowDown: () => {
+          console.log('Down');
+        }
+      }
+    }
+  }
+
+  $onEnter(keyEvent, item) {
+    console.log('Child component entered: ', item);
+  }
+}
+```
+
+In this example, Tile extends `withHandleKey` and allows dynamically adding on${Key} functions or event listener for $on{key}.

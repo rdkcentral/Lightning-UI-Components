@@ -100,19 +100,28 @@ export const XfinityTheme = () =>
               type: Tile,
               src: parks,
               w: 320,
-              h: 180
+              h: 180,
+              onEnter: (keyEvent, tile) => {
+                console.log('You hit Enter ', keyEvent);
+              }
             },
             {
               type: Tile,
               src: jurassic,
               w: 320,
-              h: 180
+              h: 180,
+              onArrowDown: (keyEvent, tile) => {
+                console.log('You hit Down ', keyEvent);
+              }
             },
             {
               type: Tile,
               src: trolls,
               w: 320,
-              h: 180
+              h: 180,
+              onArrowUp: (keyEvent, tile) => {
+                console.log('You hit Up ', keyEvent);
+              }
             },
             {
               type: Tile,
@@ -128,6 +137,10 @@ export const XfinityTheme = () =>
           ]
         }
       };
+    }
+
+    $onEnter(keyEvent, tile) {
+      console.log('Enter on Tile ', tile);
     }
 
     _getFocused() {

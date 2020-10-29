@@ -16,11 +16,12 @@ function keyPress(elm, key) {
   if (
     !elm.stage.application.focusTopDownEvent(
       [`_capture${key}`, '_captureKey'],
-      { ...pressEvent, key }
+      { ...pressEvent, type: 'keydown', key }
     )
   ) {
     elm.stage.application.focusBottomUpEvent([`_handle${key}`, '_handleKey'], {
       ...pressEvent,
+      type: 'keydown',
       key
     });
   }
@@ -35,7 +36,7 @@ function keyRelease(elm, key) {
   ) {
     elm.stage.application.focusBottomUpEvent(
       [`_handle${key}Release`, '_handleKeyRelease'],
-      pressEvent
+      { ...pressEvent, type: 'keyup' }
     );
   }
 }

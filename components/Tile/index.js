@@ -2,6 +2,7 @@ import lng from 'wpe-lightning';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../Styles/black_background_tile';
+import withHandleKey from '../../mixins/withHandleKey';
 
 export const styles = theme => ({
   radius: theme.border.radius.small,
@@ -30,7 +31,7 @@ export const styles = theme => ({
   }
 });
 
-class Tile extends lng.Component {
+class Tile extends withHandleKey(lng.Component) {
   static _template() {
     return {
       Item: {}
