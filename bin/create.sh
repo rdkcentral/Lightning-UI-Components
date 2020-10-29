@@ -19,4 +19,4 @@ echo "${STORY_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.stories.js
 echo "${MDX_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.mdx
 echo "${TEST_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.test.js
 echo "${INDEX_TEMPLATE//MyComponent/$1}" > ./components/$1/index.js
-echo "export { default as $1 } from './components/$1/index.js';" >> ./index.js
+echo "export { default as $1 } from './components/$1/index.js'; // TODO: alphabetize" >> ./index.js
