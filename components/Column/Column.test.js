@@ -272,7 +272,7 @@ describe('Column', () => {
         });
 
         describe('and keepFullScreen false', () => {
-          it.only('should NOT keep a full screen of items', () => {
+          it('should NOT keep a full screen of items', () => {
             let item = column.items[column.items.length - 1];
             column.keepFullScreen = false;
             testRenderer.keyPress('Down');
