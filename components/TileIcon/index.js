@@ -11,6 +11,24 @@ export default class TileIcon extends Tile {
     return this._icon;
   }
 
+  set iconW(w) {
+    this._iconW = w;
+    this._update();
+  }
+
+  get iconW() {
+    return this._iconW;
+  }
+
+  set iconH(h) {
+    this._iconH = h;
+    this._update();
+  }
+
+  get iconH() {
+    return this._iconH;
+  }
+
   _update() {
     this._whenEnabled.then(() => {
       this._updateIcon();
@@ -31,5 +49,12 @@ export default class TileIcon extends Tile {
         }
       }
     });
+    if (this._iconW && this._iconH) {
+      this._Icon.patch({ w: this._iconW, h: this._iconH });
+    }
+  }
+
+  get _Icon() {
+    return this.tag('Icon');
   }
 }

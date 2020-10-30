@@ -26,6 +26,8 @@ export const Basic = args =>
           icon,
           w: 320,
           h: 180,
+          iconW: args.iconW,
+          iconH: args.iconH,
           blur: args.blur,
           radius: args.radius,
           shadow: {
@@ -42,11 +44,27 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  iconW: 50,
+  iconH: 50,
   blur: 0,
   radius: 16,
   color: 'rgba(63,92,30,0.7)'
 };
 Basic.argTypes = {
+  iconW: {
+    control: {
+      type: 'range',
+      min: 1,
+      step: 5
+    }
+  },
+  iconH: {
+    control: {
+      type: 'range',
+      min: 1,
+      step: 5
+    }
+  },
   focused: { control: 'boolean' },
   blur: {
     control: {
