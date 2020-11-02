@@ -49,6 +49,12 @@ class InlineContent extends lng.Component {
               }
             };
             if (typeof item === 'string') {
+              if (
+                this._content[index + 1] &&
+                typeof this._content[index + 1] === 'string'
+              ) {
+                base.flexItem.marginRight = 0;
+              }
               patch[`Text${index}`] = this._createText(base, item);
             } else if (item.icon) {
               patch[`Icon${index}`] = this._createIcon(base, item.icon);
@@ -109,18 +115,29 @@ class InlineContent extends lng.Component {
         announce += item.title;
       } else if (item.badge) {
         announce += item.badge;
-      } else {
-        return announce;
       }
-      return announce + (index === this._content.length - 1 ? '' : ' ');
+      if (
+        announce[announce.length - 1] !== ' ' &&
+        index !== this._content.length - 1
+      ) {
+        announce += ' ';
+      }
+      return announce;
     }, '');
   }
 
   set content(content) {
-    this._content = content;
-    if (this._content && !Array.isArray(this._content)) {
-      this._content = parseInlineContent(this._content);
+    this._content = [];
+    if (content && !Array.isArray(content)) {
+      content = parseInlineContent(content);
     }
+    content.forEach(item => {
+      if (typeof item === 'string') {
+        this._content = this._content.concat(item.split(/(?<=\s)/));
+      } else {
+        this._content.push(item);
+      }
+    });
     this._update();
   }
 
