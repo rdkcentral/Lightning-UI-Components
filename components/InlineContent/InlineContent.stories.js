@@ -21,21 +21,22 @@ export const Basic = args =>
           type: InlineContent,
           x: 200,
           w: 200,
+          contentWrap: args.contentWrap,
           justify: args.justify,
           content: [
-            'Free',
+            'Text',
             {
               icon:
                 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
-            '75%',
+            'Wrapping Text',
             {
               icon:
                 'http://myriad.merlin.comcast.com/select/logo?entityId=6830964634263316239&width=32&height=&ratio=1x1&trim=false',
               title: 'Audience rating'
             },
-            '80%',
+            'and more text for fun',
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
           ]
