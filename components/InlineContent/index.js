@@ -112,15 +112,9 @@ class InlineContent extends lng.Component {
       if (typeof item === 'string') {
         announce += item;
       } else if (item.title) {
-        announce += item.title;
+        announce += ' ' + item.title;
       } else if (item.badge) {
-        announce += item.badge;
-      }
-      if (
-        announce[announce.length - 1] !== ' ' &&
-        index !== this._content.length - 1
-      ) {
-        announce += ' ';
+        announce += ' ' + item.badge;
       }
       return announce;
     }, '');
@@ -133,7 +127,7 @@ class InlineContent extends lng.Component {
     }
     content.forEach(item => {
       if (typeof item === 'string') {
-        this._content = this._content.concat(item.split(/(?<=\s)/));
+        this._content = this._content.concat(item.split(/(?=\s)/));
       } else {
         this._content.push(item);
       }

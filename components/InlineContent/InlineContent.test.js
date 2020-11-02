@@ -30,20 +30,20 @@ describe('InlineContent', () => {
     inlineContent.content =
       'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.';
     expect(inlineContent.content).toEqual([
-      'This ',
-      'is ',
-      'a ',
+      'This',
+      ' is',
+      ' a',
+      ' ',
       {
         title: 'setting',
         icon:
           'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
       },
+      ' and',
       ' ',
-      'and ',
       { badge: 'HD' },
-      ' ',
-      'badge ',
-      'test.'
+      ' badge',
+      ' test.'
     ]);
   });
 
