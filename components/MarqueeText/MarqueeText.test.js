@@ -90,7 +90,7 @@ describe('MarqueeText', () => {
         }
       });
       marquee.startScrolling();
-      expect(marquee._Text.text.textAlign).toBe('center');
+      expect(marquee._Content.text.textAlign).toBe('center');
       expect(marquee._scrolling).toBe(false);
     });
 
@@ -127,6 +127,14 @@ describe('MarqueeText', () => {
       testRenderer.update();
       const tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
+    });
+  });
+
+  describe('#contentTexture', () => {
+    it('updates the texture', () => {
+      marquee.contentTexture = marquee.getTexture();
+      testRenderer.update();
+      expect(marquee.contentTexture.constructor.name).toEqual('TextureSource');
     });
   });
 });

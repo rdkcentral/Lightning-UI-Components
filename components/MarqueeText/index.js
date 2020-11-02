@@ -4,67 +4,85 @@ import FadeShader from './FadeShader';
 export default class MarqueeText extends lng.Component {
   static _template() {
     return {
-      TextClipper: {
+      ContentClipper: {
         boundsMargin: [], // overwrite boundsMargin so text won't de-render if moved offscreen
-        TextBox: {
-          Text: {},
-          TextLoopTexture: {}
+        ContentBox: {
+          Content: {},
+          ContentLoopTexture: {}
         }
       }
     };
   }
 
   get title() {
-    return ((this._Text && this._Text.text) || {}).text;
+    return ((this._Content && this._Content.text) || {}).text;
   }
 
   set title(text) {
-    this._title = { ...this._title, ...text };
+    this._updateTexture({ text }, text.lineHeight);
+  }
+
+  set contentTexture(texture) {
+    this._updateTexture({ texture });
+  }
+
+  get contentTexture() {
+    return this._Content.getTexture();
+  }
+
+  _updateTexture(texture, h) {
+    this._ContentClipper.removeAllListeners();
+    this._Content.on('txLoaded', () => {
+      if (h === undefined) {
+        this._ContentClipper.h = this._Content.finalH;
+      }
+      this.autoStart && this.startScrolling();
+    });
+
     this.patch({
-      TextClipper: {
+      ContentClipper: {
         w: this.finalW + 14,
-        h: text.lineHeight + 10,
-        TextBox: {
-          Text: {
+        ContentBox: {
+          Content: {
             rtt: true,
-            text: this._title
+            ...texture
           },
-          TextLoopTexture: {}
+          ContentLoopTexture: {}
         }
       }
     });
-    this._Text.on('txLoaded', () => {
-      if (this.autoStart) {
-        this.startScrolling();
-      }
-    });
-    this._Text.loadTexture();
+
+    if (h !== undefined) {
+      this._ContentClipper.h = h;
+    }
+
+    this._Content.loadTexture();
     this._updateShader(this.finalW);
     this._scrolling && this.startScrolling();
   }
 
   set color(color) {
-    this.tag('TextBox.Text').smooth = { color };
+    this._Content.smooth = { color };
   }
 
   startScrolling(finalW = this.finalW) {
     if (this._textRenderedW === 0) {
-      this._Text.on('txLoaded', () => {
+      this._Content.on('txLoaded', () => {
         this.startScrolling();
       });
     }
 
     if (this._textRenderedW > finalW - this._fadeW) {
       this._scrolling = true;
-      this._TextLoopTexture.x = this._textRenderedW + this._offset;
-      this._TextLoopTexture.texture = this._Text.getTexture();
+      this._ContentLoopTexture.x = this._textRenderedW + this._offset;
+      this._ContentLoopTexture.texture = this._Content.getTexture();
       this._updateShader(finalW);
       this._updateAnimation();
       this._scrollAnimation.start();
     } else {
       // in case the metadata width gets larger on focus and the text goes from being clipped to not
-      this._TextClipper.shader = null;
-      if (this._Text.text && this._Text.text.textAlign === 'center') {
+      this._ContentClipper.shader = null;
+      if (this._Content.text && this._Content.text.textAlign === 'center') {
         this._centerText(finalW);
       }
       this._scrolling = false;
@@ -75,15 +93,15 @@ export default class MarqueeText extends lng.Component {
     this._scrolling = false;
     if (this._scrollAnimation) {
       this._scrollAnimation.stopNow();
-      this._TextLoopTexture.texture = null;
+      this._ContentLoopTexture.texture = null;
     }
     this._updateShader(finalW);
   }
 
   _updateShader(finalW) {
     this.stage.update();
-    this._Text.loadTexture();
-    this._TextClipper.patch({
+    this._Content.loadTexture();
+    this._ContentClipper.patch({
       w: finalW > 0 ? finalW + this._fadeW / 2 : 0,
       shader: { type: FadeShader, positionLeft: 0, positionRight: this._fadeW },
       rtt: true
@@ -98,7 +116,7 @@ export default class MarqueeText extends lng.Component {
       repeat: isNaN(this.repeat) ? -1 : this.repeat,
       actions: [
         {
-          t: 'TextBox',
+          t: 'ContentBox',
           p: 'x',
           v: {
             sm: 0,
@@ -107,7 +125,7 @@ export default class MarqueeText extends lng.Component {
           }
         },
         {
-          t: 'TextClipper',
+          t: 'ContentClipper',
           p: 'shader.positionLeft',
           v: {
             sm: 0,
@@ -122,20 +140,20 @@ export default class MarqueeText extends lng.Component {
   }
 
   _centerText(finalW) {
-    this._TextBox.x = ((finalW || this.finalW) - this._textRenderedW) / 2;
+    this._ContentBox.x = ((finalW || this.finalW) - this._textRenderedW) / 2;
   }
 
-  get _TextClipper() {
-    return this.tag('TextClipper');
+  get _ContentClipper() {
+    return this.tag('ContentClipper');
   }
-  get _TextBox() {
-    return this.tag('TextBox');
+  get _ContentBox() {
+    return this.tag('ContentBox');
   }
-  get _Text() {
-    return this.tag('Text');
+  get _Content() {
+    return this.tag('Content');
   }
-  get _TextLoopTexture() {
-    return this.tag('TextLoopTexture');
+  get _ContentLoopTexture() {
+    return this.tag('ContentLoopTexture');
   }
   get _offset() {
     return 32;
@@ -144,6 +162,6 @@ export default class MarqueeText extends lng.Component {
     return 30;
   }
   get _textRenderedW() {
-    return this._Text.renderWidth;
+    return this._Content.renderWidth;
   }
 }
