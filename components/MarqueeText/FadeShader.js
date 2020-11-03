@@ -47,7 +47,11 @@ export default class FadeShader extends lng.shaders.WebGLDefaultShader {
 
 FadeShader.fragmentShaderSource = `
   #ifdef GL_ES
+  # ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+  # else
   precision lowp float;
+  # endif
   #endif
 
   #define PI 3.14159265359
