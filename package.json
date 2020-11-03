@@ -1,6 +1,6 @@
 {
   "name": "@lightning/ui",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "dependencies": {},
   "peerDependencies": {
     "wpe-lightning": "1.x"
