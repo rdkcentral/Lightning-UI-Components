@@ -162,6 +162,9 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
         color: this.styles.title.color,
         text: {
           ...this.styles.title.text,
+          w: this._getTitleW(),
+          maxLines: 1,
+          maxLinesSuffix: '...',
           text: this.title
         }
       };
@@ -187,6 +190,17 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
 
     this._Left.patch({ ...left });
     this._Right.patch({ ...right });
+  }
+
+  _getTitleW() {
+    const w =
+      this.w ||
+      this.styles.dimensions[this.size] ||
+      this.styles.dimensions.large;
+
+    return (
+      w - this.styles.paddingLeft - this.styles.paddingRight - this._rightOffset
+    );
   }
 
   _focus() {
@@ -243,6 +257,17 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   get _icons() {
     return this._Right.children;
   }
+
+  get _rightOffset() {
+    if (this.icon !== undefined) {
+      return (
+        [...(Array.isArray(this.icon) ? this.icon : [this.icon])].length *
+          this.styles.icon.width +
+        16
+      );
+    }
+    return 0;
+  }
 }
 
 export class ListItemToggle extends ListItem {
@@ -257,6 +282,15 @@ export class ListItemToggle extends ListItem {
         checked: this.checked
       }
     });
+  }
+
+  _getTitleW() {
+    const w =
+      this.w ||
+      this.styles.dimensions[this.size] ||
+      this.styles.dimensions.large;
+
+    return w - this.styles.paddingLeft - this.styles.paddingRight - 72;
   }
 
   isChecked() {
@@ -285,6 +319,10 @@ export class ListItemToggle extends ListItem {
 
   get _Toggle() {
     return this.tag('Container').tag('Toggle');
+  }
+
+  get _rightOffset() {
+    return 72;
   }
 }
 
@@ -320,6 +358,10 @@ export class ListItemRadio extends ListItem {
 
   get _Radio() {
     return this.tag('Container').tag('Radio');
+  }
+
+  get _rightOffset() {
+    return 40;
   }
 }
 
@@ -365,6 +407,10 @@ export class ListItemImage extends ListItem {
 
   get _Image() {
     return this._Container.tag('Image');
+  }
+
+  get _rightOffset() {
+    return 72;
   }
 }
 
@@ -503,5 +549,9 @@ export class ListItemSlider extends ListItem {
 
   get _Slider() {
     return this.tag('Container.Right.Slider');
+  }
+
+  get _rightOffset() {
+    return 0;
   }
 }
