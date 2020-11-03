@@ -123,6 +123,8 @@ class Input extends lng.Component {
     this._h = this.constructor.styles.h;
     this._radius = this.constructor.styles.radius;
     this._focused = false;
+    this._mask = '•';
+    this._password = false;
     this._whenEnabled = new Promise(
       resolve => (this._enable = resolve),
       console.error
@@ -197,10 +199,11 @@ class Input extends lng.Component {
       Cursor = {
         x: this._getCursorX()
       };
+      const text =
+        (this.password ? this.mask.repeat(this.value.length) : this.value) ||
+        this.placeholder;
       Content = {
-        text: {
-          text: this.value || this.placeholder
-        }
+        text: { text }
       };
       Container.texture = lng.Tools.getRoundRect(this.w, this.h, this.radius);
 
@@ -285,8 +288,10 @@ class Input extends lng.Component {
   }
 
   _getCursorX() {
-    const { value, position } = this;
-    const text = value.substring(0, position);
+    const { value, position, password, mask } = this;
+    const text = password
+      ? mask.repeat(value.length).substring(0, position)
+      : value.substring(0, position);
 
     // update hidden value and calc width
     this._HiddenContent.text.text = text;
@@ -305,7 +310,7 @@ class Input extends lng.Component {
   }
 
   get announce() {
-    return this.value || this.placeholder;
+    return this.password ? 'Input hidden' : this.value || this.placeholder;
   }
 
   get w() {
@@ -359,6 +364,28 @@ class Input extends lng.Component {
   set value(value) {
     this._value = value;
     this._update();
+  }
+
+  get mask() {
+    return this._mask;
+  }
+
+  set mask(mask) {
+    if (mask !== this._mask) {
+      this._mask = mask.substring(0, 1);
+      this._update();
+    }
+  }
+
+  get password() {
+    return this._password;
+  }
+
+  set password(password) {
+    if (password !== this._password) {
+      this._password = password;
+      this._update();
+    }
   }
 
   get _Container() {
