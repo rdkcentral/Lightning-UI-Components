@@ -131,4 +131,28 @@ describe('Input', () => {
       done();
     });
   });
+
+  it('masks password input', done => {
+    input.password = true;
+    input.value = 'hello';
+    input._whenEnabled.then(() => {
+      testRenderer.update();
+      const tree = testRenderer.toJSON(2);
+      expect(tree).toMatchSnapshot();
+      expect(input.value).toBe('hello');
+      expect(input._Content.text.text).toBe('•••••');
+      done();
+    });
+  });
+
+  it('supports custom mask types', done => {
+    input.password = true;
+    input.mask = '*';
+    input.value = 'hello';
+    input._whenEnabled.then(() => {
+      testRenderer.update();
+      expect(input._Content.text.text).toBe('*****');
+      done();
+    });
+  });
 });

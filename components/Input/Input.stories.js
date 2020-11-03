@@ -19,7 +19,9 @@ export const Basic = args =>
         Input: {
           w: 500,
           type: Input,
-          placeholder: args.placeholder
+          placeholder: args.placeholder,
+          password: args.password,
+          mask: args.mask
         }
       };
     }
@@ -42,11 +44,15 @@ export const Basic = args =>
   };
 
 Basic.args = {
-  placeholder: 'Type something'
+  placeholder: 'Type something',
+  password: false,
+  mask: '•'
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
-  listening: { control: 'boolean' }
+  listening: { control: 'boolean' },
+  password: { control: 'boolean' },
+  mask: { control: 'text' }
 };
 Basic.parameters = {
   argActions: {
