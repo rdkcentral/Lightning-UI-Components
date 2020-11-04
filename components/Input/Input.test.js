@@ -40,6 +40,13 @@ describe('Input', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('renders a label', () => {
+    [input, testRenderer] = createInput({
+      label: 'Label'
+    });
+    expect(input._label).toBe('LABEL');
+  });
+
   it('renders custom dimensions', () => {
     [input, testRenderer] = createInput({
       w: 200,
@@ -72,6 +79,25 @@ describe('Input', () => {
 
     input.position = -1;
     expect(input._Cursor.x).toBe(0);
+  });
+
+  it('position moves with arrow key navigation', () => {
+    [input, testRenderer] = createInput({
+      value: 'hello'
+    });
+    testRenderer.keyPress('Left');
+    testRenderer.update();
+    expect(input.position).toBe(0);
+    testRenderer.keyPress('Right');
+    testRenderer.update();
+    expect(input.position).toBe(1);
+    testRenderer.keyPress('Left');
+    testRenderer.update();
+    expect(input.position).toBe(0);
+    input.position = 5;
+    testRenderer.keyPress('Right');
+    testRenderer.update();
+    expect(input.position).toBe(5);
   });
 
   it('inputs values if listening', done => {
@@ -114,9 +140,13 @@ describe('Input', () => {
     input.listening = true;
     input.insert('xoxoxo');
     input.backspace();
-
+    testRenderer.update();
     input._whenEnabled.then(() => {
-      expect(input._Content.text.text).toEqual('xoxox');
+      expect(input.value).toEqual('xoxox');
+      input.position--;
+      input.backspace();
+      testRenderer.update();
+      expect(input.value).toEqual('xoxx');
       done();
     });
   });
@@ -154,5 +184,14 @@ describe('Input', () => {
       expect(input._Content.text.text).toBe('*****');
       done();
     });
+  });
+
+  it('announces', () => {
+    input.placeholder = 'placeholder';
+    expect(input.announce).toBe('placeholder');
+    input.value = 'value';
+    expect(input.announce).toBe('value');
+    input.password = true;
+    expect(input.announce).toBe('Input hidden');
   });
 });
