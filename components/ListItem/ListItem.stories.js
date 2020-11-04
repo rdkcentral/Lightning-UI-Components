@@ -21,6 +21,7 @@ export const Basic = args =>
           type: ListItem,
           title: args.title,
           subtitle: args.subtitle,
+          collapse: args.collapse,
           icon,
           size: args.size,
           backgroundType: args.backgroundType
@@ -39,6 +40,7 @@ Basic.args = {
   focused: false,
   title: 'List Item',
   subtitle: 'List item metadata',
+  collapse: false,
   size: 'small'
 };
 Basic.argTypes = {

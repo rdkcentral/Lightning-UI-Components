@@ -190,6 +190,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
 
     this._Left.patch({ ...left });
     this._Right.patch({ ...right });
+    !this.hasFocus() && this._unfocus();
   }
 
   _getTitleW() {
@@ -213,33 +214,46 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       this._icons.forEach(icon =>
         icon.setSmooth('color', this.styles.focused.icon.color)
       );
+
+    this._Left.smooth = { y: 0 };
   }
 
   _unfocus() {
     super._unfocus();
     this._Title && this._Title.setSmooth('color', this.styles.title.color);
     this._Subtitle &&
-      this._Subtitle.setSmooth('color', this.styles.subtitle.color);
+      this._Subtitle.setSmooth(
+        'color',
+        this.collapse ? COLORS_BASE.transparent : this.styles.subtitle.color
+      );
     (this._icons || []).length &&
       this._icons.forEach(icon =>
         icon.setSmooth('color', this.styles.icon.color)
       );
+
+    this.collapse &&
+      this._Subtitle &&
+      this._Left.setSmooth('y', this._Subtitle.renderHeight / 2);
   }
 
   set subtitle(subtitle) {
-    this._Left.patch({
-      Title: {},
-      Subtitle: {
-        h: this.styles.subtitle.text.lineHeight,
-        color: this.hasFocus()
-          ? this.styles.focused.subtitle.color
-          : this.styles.subtitle.color,
-        text: {
-          ...this.styles.subtitle.text,
-          text: subtitle
+    if (subtitle) {
+      this._Left.patch({
+        Title: {},
+        Subtitle: {
+          h: this.styles.subtitle.text.lineHeight,
+          text: {
+            ...this.styles.subtitle.text,
+            text: subtitle
+          }
         }
-      }
-    });
+      });
+    } else {
+      this._Left.patch({ Subtitle: undefined });
+    }
+
+    this.hasFocus() ? this._focus() : this._unfocus();
+    this._refocus();
   }
 
   get _Title() {
