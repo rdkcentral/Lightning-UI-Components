@@ -196,6 +196,54 @@ describe('ListItem', () => {
       expect(listItem._Icon.color).toEqual(0xf2ffffff);
     });
   });
+
+  describe('collapse set to true', () => {
+    beforeEach(() => {
+      [listItem, testRenderer] = createListItem({
+        title: 'My Title',
+        subtitle: 'My Subtitle',
+        collapse: true
+      });
+      testRenderer.update();
+    });
+
+    describe('on focus', () => {
+      beforeEach(() => {
+        listItem._focus();
+        testRenderer.update();
+      });
+      it('should show subtitle', () => {
+        expect(listItem._Subtitle.color).toBeTruthy();
+      });
+      it('should shift title to top', () => {
+        expect(listItem._Left.y).toEqual(0);
+      });
+      it('should not shift text if no subtitle', () => {
+        listItem.subtitle = false;
+        testRenderer.update();
+        expect(listItem._Subtitle).toEqual(undefined);
+        expect(listItem._Left.y).toEqual(0);
+      });
+    });
+    describe('on unfocus', () => {
+      beforeEach(() => {
+        listItem._unfocus();
+        testRenderer.update();
+      });
+      it('should hide subtitle', () => {
+        expect(listItem._Subtitle.color).toEqual(0);
+      });
+      it('should vertically center title', () => {
+        expect(listItem._Left.y).toBeGreaterThan(0);
+      });
+      it('should not shift text if no subtitle', () => {
+        listItem.subtitle = false;
+        testRenderer.update();
+        expect(listItem._Subtitle).toEqual(undefined);
+        expect(listItem._Left.y).toEqual(0);
+      });
+    });
+  });
 });
 
 describe('ListItemToggle', () => {
