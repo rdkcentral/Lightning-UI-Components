@@ -66,7 +66,7 @@ export default class Keyboard extends lng.Component {
   _createKeys(keys = []) {
     return keys.map(keyProps => {
       const key = {
-        type: Key,
+        type: this.keyComponent || Key,
         config: this.keysConfig
       };
       if (!keyProps) {
@@ -180,7 +180,7 @@ export const KEYBOARD_FORMATS = {
     letters: [
       [
         {
-          label: '&123',
+          label: '#@!',
           size: 'large',
           toggle: 'symbols',
           announce: 'symbol mode, button'
@@ -285,7 +285,7 @@ export const KEYBOARD_FORMATS = {
         'O',
         'P',
         {
-          label: '&123',
+          label: '#@!',
           size: 'medium',
           toggle: 'symbols',
           announce: 'symbol mode, button'
@@ -303,10 +303,10 @@ export const KEYBOARD_FORMATS = {
         'L',
         '@',
         {
-          label: 'shift',
+          label: 'áöû',
           size: 'medium',
-          toggle: 'lowercase',
-          announce: 'shift off, button'
+          toggle: 'accents',
+          announce: 'accents, button'
         }
       ],
       [
@@ -320,7 +320,12 @@ export const KEYBOARD_FORMATS = {
         { label: '_', announce: 'underscore, button' },
         { label: '.', announce: 'period, button' },
         { label: '-', announce: 'dash, button' },
-        { label: '.com', size: 'medium' }
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'shift off, button'
+        }
       ],
       [
         { label: 'Clear', size: 'large' },
@@ -354,7 +359,7 @@ export const KEYBOARD_FORMATS = {
         'o',
         'p',
         {
-          label: '&123',
+          label: '#@!',
           size: 'medium',
           toggle: 'symbols',
           announce: 'symbol mode, button'
@@ -372,10 +377,10 @@ export const KEYBOARD_FORMATS = {
         'l',
         '@',
         {
-          label: 'shift',
+          label: 'áöû',
           size: 'medium',
-          toggle: 'uppercase',
-          announce: 'shift on, button'
+          toggle: 'accents',
+          announce: 'accents, button'
         }
       ],
       [
@@ -389,7 +394,160 @@ export const KEYBOARD_FORMATS = {
         { label: '_', announce: 'underscore, button' },
         { label: '.', announce: 'period, button' },
         { label: '-', announce: 'dash, button' },
-        { label: '.com', size: 'medium' }
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'uppercase',
+          announce: 'shift on, button'
+        }
+      ],
+      [
+        { label: 'Clear', size: 'large' },
+        { label: 'Space', size: 'xlarge' },
+        { label: 'Done', size: 'large' }
+      ]
+    ],
+    accents: [
+      [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '0',
+        { label: 'Delete', size: 'medium' }
+      ],
+      [
+        'ä',
+        'ë',
+        'ï',
+        'ö',
+        'ü',
+        'ÿ',
+        'à',
+        'è',
+        'ì',
+        'ò',
+        {
+          label: '#@!',
+          size: 'medium',
+          toggle: 'symbols',
+          announce: 'symbol mode, button'
+        }
+      ],
+      [
+        'ù',
+        'á',
+        'é',
+        'í',
+        'ó',
+        'ú',
+        'ý',
+        'â',
+        'ê',
+        'î',
+        {
+          label: 'abc',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'alpha mode, button'
+        }
+      ],
+      [
+        '',
+        '',
+        '',
+        'ô',
+        'û',
+        'ã',
+        'ñ',
+        '',
+        '',
+        '',
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'accentsUpper',
+          announce: 'shift off, button'
+        }
+      ],
+      [
+        { label: 'Clear', size: 'large' },
+        { label: 'Space', size: 'xlarge' },
+        { label: 'Done', size: 'large' }
+      ]
+    ],
+    accentsUpper: [
+      [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '0',
+        { label: 'Delete', size: 'medium' }
+      ],
+      [
+        'Ä',
+        'Ë',
+        'Ï',
+        'Ö',
+        'Ü',
+        'Ÿ',
+        'À',
+        'È',
+        'Ì',
+        'Ò',
+        {
+          label: '#@!',
+          size: 'medium',
+          toggle: 'symbols',
+          announce: 'symbol mode, button'
+        }
+      ],
+      [
+        'Ù',
+        'Á',
+        'É',
+        'Í',
+        'Ó',
+        'Ú',
+        'Ý',
+        'Â',
+        'Ê',
+        'Î',
+        {
+          label: 'abc',
+          size: 'medium',
+          toggle: 'lowercase',
+          announce: 'alpha mode, button'
+        }
+      ],
+      [
+        '',
+        '',
+        '',
+        'Ô',
+        'Û',
+        'Ã',
+        'Ñ',
+        '',
+        '',
+        '',
+        {
+          label: 'shift',
+          size: 'medium',
+          toggle: 'accents',
+          announce: 'shift off, button'
+        }
       ],
       [
         { label: 'Clear', size: 'large' },
@@ -441,10 +599,10 @@ export const KEYBOARD_FORMATS = {
         { label: '\\', announce: 'backslash, button' },
         { label: '/', announce: 'forwardslash, button' },
         {
-          label: 'shift',
+          label: 'áöû',
           size: 'medium',
-          toggle: 'lowercase',
-          announce: 'shift, button'
+          toggle: 'accents',
+          announce: 'accents, button'
         }
       ],
       [
@@ -457,8 +615,7 @@ export const KEYBOARD_FORMATS = {
         { label: '_', announce: 'underscore, button' },
         { label: '.', announce: 'period, button' },
         { label: '-', announce: 'dash, button' },
-        { label: '+', announce: 'plus sign, button' },
-        { label: '.com', size: 'medium' }
+        { label: '+', announce: 'plus sign, button' }
       ],
       [
         { label: 'Clear', size: 'large' },
