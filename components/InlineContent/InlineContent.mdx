@@ -47,3 +47,10 @@ iconH|number|false|36|height of all icons
 contentSpacing|number|false|8|padding between all content items
 contentWrap|boolean|false|false|determines whether the containing flexbox should wrap the content onto the next line
 badgeProperties|object|false|Xfinity Badge theme|styling to update the Badge component
+combinedLinesHeight|number|0|readonly prop of the total height of all of the contents of the component, accounting for the height of any wrapping that may have occured
+
+### Events
+
+#### $loadedInlineContent():void
+
+Fires when all contents inside the InlineContent component have finished rendering their textures. This is when you will have the all of the correct flex properties of the components as well as `combinedLinesHeight` available to be used.

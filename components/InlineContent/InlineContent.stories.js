@@ -44,11 +44,16 @@ export const Basic = args =>
       };
     }
 
+    $loadedInlineContent() {
+      args.loaded();
+    }
+
     _getFocused() {
       return this.tag('InlineContent');
     }
   };
 Basic.argTypes = {
+  loaded: { action: 'Inline Content textures loaded' },
   contentSpacing: { control: { type: 'number', min: 0, step: 1 } },
   contentWrap: { control: 'boolean' },
   justify: {

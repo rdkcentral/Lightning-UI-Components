@@ -31,6 +31,10 @@ class InlineContent extends lng.Component {
     this._contentSpacing = this.styles.contentSpacing;
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
+    this._contentTags = [];
+    this._loadedTags = [];
+    this._checkLoaded = true;
+    this.combinedLinesHeight = 0;
   }
 
   _init() {
@@ -42,6 +46,7 @@ class InlineContent extends lng.Component {
       this.patch(
         this._content.reduce(
           (patch, item, index) => {
+            let tag;
             let base = {
               flexItem: {
                 marginRight:
@@ -55,12 +60,17 @@ class InlineContent extends lng.Component {
               ) {
                 base.flexItem.marginRight = 0;
               }
-              patch[`Text${index}`] = this._createText(base, item);
+              tag = `Text${index}`;
+              patch[tag] = this._createText(base, item);
             } else if (item.icon) {
-              patch[`Icon${index}`] = this._createIcon(base, item.icon);
+              tag = `Icon${index}`;
+              patch[tag] = this._createIcon(base, item.icon);
             } else if (item.badge) {
-              patch[`Badge${index}`] = this._createBadge(base, item.badge);
+              tag = `Badge${index}`;
+              patch[tag] = this._createBadge(base, item.badge);
             }
+            if (tag && !this._contentTags.includes(tag))
+              this._contentTags.push(tag);
             return patch;
           },
           {
@@ -72,6 +82,7 @@ class InlineContent extends lng.Component {
           }
         )
       );
+      this._setContentsEvents();
     }
   }
 
@@ -90,6 +101,7 @@ class InlineContent extends lng.Component {
     return {
       ...base,
       y: this._textY,
+      h: this.textProperties.lineHeight || this.textProperties.fontSize,
       text: {
         ...this.textProperties,
         text
@@ -105,6 +117,29 @@ class InlineContent extends lng.Component {
       type: Badge,
       title: badge
     };
+  }
+
+  _setContentsEvents() {
+    this._contentTags.forEach(tag => {
+      this.tag(tag).on('txLoaded', () => {
+        this._tagLoaded(tag);
+      });
+    });
+  }
+
+  _tagLoaded(tag) {
+    if (this._checkLoaded) {
+      let loaded = this._loadedTags.includes(tag);
+      if (!loaded) {
+        this._loadedTags.push(tag);
+        if (this._contentTags.length === this._loadedTags.length) {
+          this._checkLoaded = false;
+          this.combinedLinesHeight =
+            this.finalH * this.flex._layout._lines.length;
+          this.fireAncestors('$loadedInlineContent');
+        }
+      }
+    }
   }
 
   get announce() {
