@@ -226,15 +226,16 @@ describe('Button', () => {
         background: { color: 0xffd22727 },
         radius: 4,
         text: { fontSize: 28, color: 0xffffc5c5 },
-        w: 200,
+        minWidth: 200,
         h: 50
       };
       const createButtonWithStyles = TestUtils.makeCreateComponent(
         withStyles(Button, styles)
       );
+
       [button] = createButtonWithStyles({
         h: 25,
-        w: 120,
+        minWidth: 120,
         radius: 10
       });
       expect(button.h).toBe(25);

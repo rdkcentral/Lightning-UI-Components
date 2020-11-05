@@ -12,7 +12,7 @@ import { RoundRect } from '../../utils';
 import { getHexColor, getFocusScale } from '../Styles';
 
 export const styles = theme => ({
-  w: 410,
+  minWidth: 410,
   h: 72,
   background: {
     color: theme.palette.background.float
@@ -27,8 +27,8 @@ export const styles = theme => ({
   shadow: theme.materials.glow,
   icon: {
     color: theme.palette.text.light.primary,
-    size: 32,
-    spacing: theme.spacing(2)
+    size: theme.sizes.icon.medium,
+    spacing: theme.spacing(1)
   },
   loading: {
     color: getHexColor('ffffff', 24)
@@ -44,11 +44,11 @@ export const styles = theme => ({
   }
 });
 
-class ActionButton extends Button {
+class ActionButtonBase extends Button {
   static _template() {
     return {
       ...super._template(),
-      w: this.styles.w,
+      minWidth: this.styles.minWidth,
       h: this.styles.h,
       padding: this.styles.padding,
       radius: this.styles.radius,
@@ -57,19 +57,10 @@ class ActionButton extends Button {
       unfocus: this.styles.unfocus,
       backgroundType: 'float',
       Loader: {
-        color: this.styles.loading.color,
-        texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.styles.w),
-          RoundRect.getHeight(this.styles.h),
-          this.styles.radius
-        )
+        color: this.styles.loading.color
       },
       DropShadow: {
-        alpha: 0,
-        ...this.styles.shadow({
-          w: this.styles.w,
-          h: this.styles.h
-        })
+        alpha: 0
       }
     };
   }
@@ -88,10 +79,8 @@ class ActionButton extends Button {
   }
 
   _updateDropShadow() {
-    if (this.w !== this.styles.w) {
-      const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-      this._DropShadow.patch(DropShadow);
-    }
+    const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+    this._DropShadow.patch(DropShadow);
     const alpha = Number(this._focused);
     if (this._smooth) {
       this._DropShadow.smooth = { alpha };
@@ -116,8 +105,8 @@ class ActionButton extends Button {
       this._Stroke.patch({ texture: false });
       this._Loader.patch({
         texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(this.styles.w),
-          RoundRect.getHeight(this.styles.h - 2),
+          RoundRect.getWidth(this.w),
+          RoundRect.getHeight(this.h - 2),
           this.styles.radius
         )
       });
@@ -178,4 +167,95 @@ class ActionButton extends Button {
   }
 }
 
-export default withStyles(ActionButton, styles);
+class ActionButton extends withStyles(ActionButtonBase, styles) {}
+
+export default ActionButton;
+
+export const largeStyles = theme => ({
+  h: 96,
+  minWidth: 320,
+  text: theme.typography.headline1,
+  icon: {
+    size: theme.sizes.icon.large
+  }
+});
+
+export const ActionButtonLarge = withStyles(
+  class ActionButtonLarge extends ActionButton {},
+  largeStyles
+);
+
+export const iconLargeStyles = () => ({
+  h: 96,
+  w: 96
+});
+
+export const ActionButtonIconLarge = withStyles(
+  class ActionButtonIconLarge extends ActionButtonLarge {
+    _construct() {
+      super._construct();
+      this._fixed = true;
+    }
+  },
+  iconLargeStyles
+);
+
+export const ActionButtonMedium = class ActionButtonMedium extends ActionButton {};
+
+export const iconMediumStyles = () => ({
+  h: 72,
+  w: 72
+});
+
+export const ActionButtonIconMedium = withStyles(
+  class ActionButtonIconMedium extends ActionButtonMedium {
+    _construct() {
+      super._construct();
+      this._fixed = true;
+    }
+  },
+  iconMediumStyles
+);
+
+export const smallStyles = theme => ({
+  h: 64,
+  minWidth: 185,
+  text: theme.typography.button2,
+  icon: {
+    size: theme.sizes.icon.small
+  }
+});
+
+export const ActionButtonSmall = withStyles(
+  class ActionButtonSmall extends ActionButton {},
+  smallStyles
+);
+
+export const iconSmallStyles = () => ({
+  h: 64,
+  w: 64
+});
+
+export const ActionButtonIconSmall = withStyles(
+  class ActionButtonIconSmall extends ActionButtonSmall {
+    _construct() {
+      super._construct();
+      this._fixed = true;
+    }
+  },
+  iconSmallStyles
+);
+
+export const xSmallStyles = theme => ({
+  h: 48,
+  minWidth: 152,
+  text: theme.typography.button2,
+  icon: {
+    size: theme.sizes.icon.small
+  }
+});
+
+export const ActionButtonXsmall = withStyles(
+  class ActionButtonXsmall extends ActionButton {},
+  xSmallStyles
+);

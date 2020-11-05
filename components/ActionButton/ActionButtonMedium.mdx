@@ -1,22 +1,24 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
-# ActionButton
+# ActionButtonMedium
 
-General purpose, Xfinity-branded [Button](?path=/docs/button--basic)
+Medium [ActionButton](?path=/docs/actionbutton--base). This component exists mostly to maintain sizing consistency. It is exactly the same as `ActionButton`.
 
 ## Usage
 
 The basic component just requires a title:
 
 ```js
-import { ActionButton } from '@lightning/ui';
+import { ActionButtonMedium } from '@lightning/ui';
+// or
+// import { ActionButtonMedium } from '@lightning/ui/components/ActionButton';
 
 class Basic extends lng.Component {
   static _template() {
     return {
       ActionButton: {
-        type: ActionButton,
-        title: 'My Button',
+        type: ActionButtonMedium,
+        title: 'Action Button',
         backgroundType: 'stroke'
       }
     };
@@ -25,14 +27,15 @@ class Basic extends lng.Component {
 ```
 
 An `icon` can also be included. The expected icon size is 40px by 40px. See [Icon](?path=/docs/icon--basic) for options.
+
 <Canvas>
-  <Story id="actionbutton--base" />
+  <Story id="actionbuttonmedium--base" />
 </Canvas>
 
 
 Before the Action Button receives its title, it should be in a loading state.
 <Canvas>
-  <Story id="actionbutton--loading" />
+  <Story id="actionbuttonmedium--loading" />
 </Canvas>
 
 ## API
@@ -46,11 +49,11 @@ backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button
 fixed|boolean|false|false|when true, `w` overrides `minWidth`
 h|number|false|72|height
 icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
-minWidth|number|false|150|minimum width of the button
+minWidth|number|false|410|minimum width of the button
 padding|number|false|16|left and right padding value
 radius|number|false|8|border radius
 title|string|false|-|button text
-w|number|false|410|width
+w|number|false|-|width
 
 ### Methods
 

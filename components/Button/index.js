@@ -10,7 +10,7 @@ import withStyles from '../../mixins/withStyles';
 import Icon from '../Icon';
 
 export const styles = {
-  w: 150,
+  minWidth: 150,
   h: 40,
   radius: 0,
   background: { color: 0xff1f1f1f },
@@ -34,7 +34,8 @@ export const styles = {
 class Button extends lng.Component {
   static _template() {
     return {
-      w: this.styles.w,
+      w: this.styles.w || 0,
+      minWidth: this.styles.minWidth,
       h: this.styles.h,
       radius: this.styles.radius,
       strokeColor: this.styles.stroke.color,
@@ -66,7 +67,9 @@ class Button extends lng.Component {
   }
 
   _construct() {
+    this._fixed = false;
     this._focused = false;
+    this._minWidth = 0;
     this._whenEnabled = new Promise(
       resolve => (this._enable = resolve),
       console.error
@@ -199,8 +202,8 @@ class Button extends lng.Component {
       const w =
         measureTextWidth(this._Title.text || {}) + padding * 2 + iconSize;
 
-      if (w && w !== this.w) {
-        this.w = w > this.styles.w ? w : this.styles.w;
+      if (w && w > this.minWidth) {
+        this.w = w;
         this.fireAncestors('$itemChanged');
         this.signal('buttonWidthChanged', { w: this.w });
       }
@@ -220,6 +223,28 @@ class Button extends lng.Component {
   _handleEnter() {
     if (typeof this.onEnter === 'function') {
       this.onEnter(this);
+    }
+  }
+
+  get fixed() {
+    return this._fixed;
+  }
+
+  set fixed(fixed) {
+    if (this._fixed !== fixed) {
+      this._fixed = fixed;
+      this._update();
+    }
+  }
+
+  get minWidth() {
+    return this._minWidth;
+  }
+
+  set minWidth(minWidth) {
+    if (this._minWidth !== minWidth) {
+      this._minWidth = minWidth;
+      this._update();
     }
   }
 
@@ -292,7 +317,8 @@ class Button extends lng.Component {
   }
 
   get w() {
-    return this._w;
+    if (this.fixed) return this._w;
+    return this.minWidth > this._w ? this.minWidth : this._w;
   }
 
   set w(w) {

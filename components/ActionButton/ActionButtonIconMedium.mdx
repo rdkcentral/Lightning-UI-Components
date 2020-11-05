@@ -1,22 +1,24 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
-# ActionButton
+# ActionButtonIconMedium
 
-General purpose, Xfinity-branded [Button](?path=/docs/button--basic)
+Medium [ActionButton](?path=/docs/actionbutton--base) for a single icon.
 
 ## Usage
 
-The basic component just requires a title:
+The basic component just requires a icon:
 
 ```js
-import { ActionButton } from '@lightning/ui';
+import { ActionButtonIconMedium } from '@lightning/ui';
+// or
+// import { ActionButtonIconMedium } from '@lightning/ui/components/ActionButton';
 
 class Basic extends lng.Component {
   static _template() {
     return {
       ActionButton: {
-        type: ActionButton,
-        title: 'My Button',
+        type: ActionButtonIconMedium,
+        icon: 'path/to/icon',
         backgroundType: 'stroke'
       }
     };
@@ -24,15 +26,16 @@ class Basic extends lng.Component {
 };
 ```
 
-An `icon` can also be included. The expected icon size is 40px by 40px. See [Icon](?path=/docs/icon--basic) for options.
+The expected icon size is 40px by 40px. See [Icon](?path=/docs/icon--basic) for options.
+
 <Canvas>
-  <Story id="actionbutton--base" />
+  <Story id="actionbuttoniconmedium--base" />
 </Canvas>
 
 
-Before the Action Button receives its title, it should be in a loading state.
+Before the Action Button receives its icon, it should be in a loading state.
 <Canvas>
-  <Story id="actionbutton--loading" />
+  <Story id="actionbuttoniconmedium--loading" />
 </Canvas>
 
 ## API
@@ -43,14 +46,12 @@ name|type|required|default|description
 --|--|--|--|--
 announce|string|true|label or title|announcement text for screen readers
 backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
-fixed|boolean|false|false|when true, `w` overrides `minWidth`
+fixed|boolean|false|true|when true, `w` overrides `minWidth`
 h|number|false|72|height
 icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
-minWidth|number|false|150|minimum width of the button
 padding|number|false|16|left and right padding value
 radius|number|false|8|border radius
-title|string|false|-|button text
-w|number|false|410|width
+w|number|false|72|width
 
 ### Methods
 
