@@ -1,4 +1,12 @@
-import ActionButton from '.';
+import ActionButton, {
+  ActionButtonIconLarge,
+  ActionButtonIconMedium,
+  ActionButtonIconSmall,
+  ActionButtonLarge,
+  ActionButtonMedium,
+  ActionButtonSmall,
+  ActionButtonXsmall
+} from '.';
 import TestUtils from '../lightning-test-utils';
 import { getHexColor } from '../Styles';
 
@@ -85,7 +93,7 @@ describe('ActionButton', () => {
         icon
       });
       expect(actionbutton.icon).toEqual(
-        expect.objectContaining({ src: icon, size: 32, spacing: 16 })
+        expect.objectContaining({ src: icon, size: 40, spacing: 8 })
       );
     });
   });
@@ -143,5 +151,120 @@ describe('ActionButton', () => {
       testRenderer.update();
       expect(actionbutton._DropShadow.alpha).toBe(0);
     });
+  });
+});
+
+describe('ActionButtonIconLarge', () => {
+  it('renders', () => {
+    const createActionButtonIconLarge = TestUtils.makeCreateComponent(
+      ActionButtonIconLarge,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonIconLarge();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(96);
+    expect(actionButton.h).toBe(96);
+    expect(actionButton.fixed).toBe(true);
+  });
+});
+
+describe('ActionButtonIconMedium', () => {
+  it('renders', () => {
+    const createActionButtonIconMedium = TestUtils.makeCreateComponent(
+      ActionButtonIconMedium,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonIconMedium();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(72);
+    expect(actionButton.h).toBe(72);
+    expect(actionButton.fixed).toBe(true);
+  });
+});
+
+describe('ActionButtonIconSmall', () => {
+  it('renders', () => {
+    const createActionButtonIconSmall = TestUtils.makeCreateComponent(
+      ActionButtonIconSmall,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonIconSmall();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(64);
+    expect(actionButton.h).toBe(64);
+    expect(actionButton.fixed).toBe(true);
+  });
+});
+
+describe('ActionButtonLarge', () => {
+  it('renders', () => {
+    const createActionButtonLarge = TestUtils.makeCreateComponent(
+      ActionButtonLarge,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonLarge();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(320);
+    expect(actionButton.h).toBe(96);
+  });
+});
+
+describe('ActionButtonMedium', () => {
+  it('renders', () => {
+    const createActionButtonMedium = TestUtils.makeCreateComponent(
+      ActionButtonMedium,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonMedium();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(410);
+    expect(actionButton.h).toBe(72);
+  });
+});
+
+describe('ActionButtonSmall', () => {
+  it('renders', () => {
+    const createActionButtonSmall = TestUtils.makeCreateComponent(
+      ActionButtonSmall,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonSmall();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(185);
+    expect(actionButton.h).toBe(64);
+  });
+});
+
+describe('ActionButtonXsmall', () => {
+  it('renders', () => {
+    const createActionButtonXsmall = TestUtils.makeCreateComponent(
+      ActionButtonXsmall,
+      {},
+      { focused: false }
+    );
+    const [actionButton, testRenderer] = createActionButtonXsmall();
+    testRenderer.update();
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(actionButton.w).toBe(152);
+    expect(actionButton.h).toBe(48);
   });
 });

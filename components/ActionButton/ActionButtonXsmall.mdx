@@ -1,22 +1,24 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
-# ActionButton
+# ActionButtonXsmall
 
-General purpose, Xfinity-branded [Button](?path=/docs/button--basic)
+Xsmall [ActionButton](?path=/docs/actionbutton--base).
 
 ## Usage
 
 The basic component just requires a title:
 
 ```js
-import { ActionButton } from '@lightning/ui';
+import { ActionButtonXsmall } from '@lightning/ui';
+// or
+// import { ActionButtonXsmall } from '@lightning/ui/components/ActionButton';
 
 class Basic extends lng.Component {
   static _template() {
     return {
       ActionButton: {
-        type: ActionButton,
-        title: 'My Button',
+        type: ActionButtonXsmall,
+        title: 'Action Button',
         backgroundType: 'stroke'
       }
     };
@@ -24,15 +26,16 @@ class Basic extends lng.Component {
 };
 ```
 
-An `icon` can also be included. The expected icon size is 40px by 40px. See [Icon](?path=/docs/icon--basic) for options.
+An `icon` can also be included. The expected icon size is 32px by 32px. See [Icon](?path=/docs/icon--basic) for options.
+
 <Canvas>
-  <Story id="actionbutton--base" />
+  <Story id="actionbuttonxsmall--base" />
 </Canvas>
 
 
 Before the Action Button receives its title, it should be in a loading state.
 <Canvas>
-  <Story id="actionbutton--loading" />
+  <Story id="actionbuttonxsmall--loading" />
 </Canvas>
 
 ## API
@@ -44,13 +47,13 @@ name|type|required|default|description
 announce|string|true|label or title|announcement text for screen readers
 backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
 fixed|boolean|false|false|when true, `w` overrides `minWidth`
-h|number|false|72|height
+h|number|false|48|height
 icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
-minWidth|number|false|150|minimum width of the button
+minWidth|number|false|152|minimum width of the button
 padding|number|false|16|left and right padding value
 radius|number|false|8|border radius
 title|string|false|-|button text
-w|number|false|410|width
+w|number|false|-|width
 
 ### Methods
 

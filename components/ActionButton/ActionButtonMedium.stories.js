@@ -1,12 +1,13 @@
 import lng from 'wpe-lightning';
 
-import ActionButton from '.';
-import mdx from './ActionButton.mdx';
+import { ActionButtonMedium } from '.';
+import mdx from './ActionButtonMedium.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
-  title: 'ActionButton',
+  title: 'ActionButtonMedium',
   parameters: {
+    tag: 'ActionButton',
     docs: {
       page: mdx
     }
@@ -18,7 +19,7 @@ export const Base = args =>
     static _template() {
       return {
         ActionButton: {
-          type: ActionButton,
+          type: ActionButtonMedium,
           backgroundType: args.backgroundType,
           icon: args.icon ? icon : undefined,
           title: args.title,
@@ -65,7 +66,7 @@ export const Loading = () =>
     static _template() {
       return {
         ActionButton: {
-          type: ActionButton
+          type: ActionButtonMedium
         }
       };
     }
