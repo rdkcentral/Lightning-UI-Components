@@ -156,20 +156,6 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     const left = {};
     const right = {};
 
-    if (this.title !== undefined) {
-      left.Title = {
-        h: this.styles.title.text.lineHeight,
-        color: this.styles.title.color,
-        text: {
-          ...this.styles.title.text,
-          w: this._getTitleW(),
-          maxLines: 1,
-          maxLinesSuffix: '...',
-          text: this.title
-        }
-      };
-    }
-
     if (this.icon !== undefined) {
       right.flex = {
         direction: 'row'
@@ -236,6 +222,23 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       this._Left.setSmooth('y', this._Subtitle.renderHeight / 2);
   }
 
+  set title(title) {
+    this._title = title;
+    this._Left.patch({
+      Title: {
+        h: this.styles.title.text.lineHeight,
+        color: this.styles.title.color,
+        text: {
+          ...this.styles.title.text,
+          wordWrapWidth: this._getTitleW(),
+          maxLines: 1,
+          maxLinesSuffix: '...',
+          text: title
+        }
+      }
+    });
+  }
+
   set subtitle(subtitle) {
     if (subtitle) {
       this._Left.patch({
@@ -281,6 +284,10 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       );
     }
     return 0;
+  }
+
+  get title() {
+    return this._title;
   }
 }
 
