@@ -1,0 +1,54 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# Notification
+
+This is an Xfinity branded notification. This notification should only be used inside of Xfinity branded apps. However, this notification can show up as an overlay to external apps if required.
+
+## Usage
+
+`Notification` must take in a `title`, `description`, and `icon`. These are the minimum design requirements for a notification. Notification is also able to accept an optional actionArea object that can provide context on how to proceed with the information provided.
+
+Based on the length of the `description`, the notification will dynamically grow its height to accomodate for any extra lines appended to it. The description field utilizes the [InlineContent](?path=/docs/inlinecontent--basic) component so you are able to mix text and icons as the description.
+
+```js
+import { Notification } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Notification: {
+        type: Notification,
+        icon: 'path/to/icon',
+        title: 'Title',
+        description: 'This is the description.'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="notification--basic" />
+</Canvas>
+
+## API
+requirements
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+title|string|true|-|Notificaiton title
+description|string/|array|true|-|Notification description that can be passed as a string or array depending if icons are needed
+icon|string|true|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
+actionArea|object|false|-|object with action area properties
+actionArea.text|string|false|-|text for action area
+actionArea.icon|string|false|-|URI for icon in action area
+
+### Methods
+
+#### enter(): null
+
+Triggers enter animation with Xfinity specific curves and duration values. Pops icon in and the slides notification text out to the left. If an action area is present, it will slide out from the bottom of the notification after the initial animation completes.
+
+#### dismiss(): null
+Triggers dismiss animation with Xfinity specific curves and duration values. Slides notification back to the right and alpha's all of the elements on the Notification out.
