@@ -47,9 +47,32 @@ function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
   };
 }
 
+function shadow({
+  w,
+  h,
+  color = 0xff000000,
+  borderRadius = CORNER_RADIUS.small,
+  blur = spacing(2)
+}) {
+  return {
+    color: color,
+    mount: 0.5,
+    x: w / 2,
+    y: h / 2,
+    zIndex: -1,
+    texture: lng.Tools.getShadowRect(
+      w - spacing(2),
+      h - spacing(2),
+      borderRadius,
+      blur
+    )
+  };
+}
+
 const materials = {
   glow,
-  luminance
+  luminance,
+  shadow
 };
 
 function spacing(multiplier) {

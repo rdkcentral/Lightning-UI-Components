@@ -134,9 +134,8 @@ class InlineContent extends lng.Component {
         this._loadedTags.push(tag);
         if (this._contentTags.length === this._loadedTags.length) {
           this._checkLoaded = false;
-          this.combinedLinesHeight =
-            this.finalH * this.flex._layout._lines.length;
-          this.fireAncestors('$loadedInlineContent');
+          this.stage.update();
+          this.fireAncestors('$loadedInlineContent', this);
         }
       }
     }
