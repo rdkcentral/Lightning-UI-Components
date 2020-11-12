@@ -66,8 +66,8 @@ export default class Column extends FocusManager {
       if (!data.appendItems) {
         this.items = [];
       }
-      this.appendItems(data.items);
       this._getMoreItems = data.getMoreItems;
+      this.appendItems(data.items);
     });
   }
 
