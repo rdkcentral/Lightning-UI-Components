@@ -1,7 +1,9 @@
 {
   "name": "@lightning/ui",
   "version": "2.1.1",
-  "dependencies": {},
+  "dependencies": {
+    "debounce": "^1.2.0"
+  },
   "peerDependencies": {
     "wpe-lightning": "1.x"
   },
