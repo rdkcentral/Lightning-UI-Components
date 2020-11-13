@@ -6,6 +6,10 @@ import lng from 'wpe-lightning';
 const speak = jest.fn();
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
+  _construct() {
+    this.announcerFocusDebounce = 0;
+  }
+
   _init() {
     this.announcerEnabled = true;
     this.debug = false;
@@ -159,10 +163,11 @@ const Component = {
 let testRenderer;
 let announcer;
 describe('AppAnnouncer', () => {
-  beforeEach(() => {
+  beforeEach(done => {
     speak.mockClear();
     testRenderer = TestRenderer.create(Component);
     announcer = testRenderer.getInstance();
+    setTimeout(() => done(), 1);
   });
 
   describe('on App load', () => {
@@ -187,34 +192,50 @@ describe('AppAnnouncer', () => {
   });
 
   describe('on key press', () => {
-    it('Right - should announce the new item', () => {
+    it('Right - should announce the new item', done => {
       testRenderer.keyPress('Right');
-      expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
+        done();
+      }, 1);
     });
 
-    it('Down - should announce new item and nav options', () => {
+    it('Down - should announce new item and nav options', done => {
       testRenderer.keyPress('Down');
-      expect(speak).toHaveBeenCalledWith(['Featured', 'Plague', '1 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith(['Featured', 'Plague', '1 of 3']);
+        done();
+      }, 1);
     });
 
-    it('Down twice - should announce new item and nav options', () => {
+    it('Down twice - should announce new item and nav options', done => {
       testRenderer.keyPress('Down');
       speak.mockClear();
       testRenderer.keyPress('Down');
-      expect(speak).toHaveBeenCalledWith(['Popular Movies', 'Thor', '1 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Popular Movies',
+          'Thor',
+          '1 of 3'
+        ]);
+        done();
+      }, 1);
     });
   });
 
   describe('announcerTimeout', () => {
     it('should announce the full navigation', done => {
       announcer.announcerTimeout = 10;
+      announcer._build();
       speak.mockClear();
       testRenderer.keyPress('Right');
-      expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
       speak.mockClear();
 
       setTimeout(() => {
         testRenderer.keyPress('Right');
+      }, 12);
+
+      setTimeout(() => {
         expect(speak).toHaveBeenCalledWith([
           'Welcome to Flex',
           'HomePage',
@@ -238,14 +259,18 @@ describe('AppAnnouncer', () => {
   });
 
   describe('debug', () => {
-    it('should call console.table', () => {
+    it('should call console.table', done => {
       announcer.debug = true;
       jest.spyOn(global.console, 'table');
       testRenderer.keyPress('Right');
-      expect(global.console.table).toHaveBeenCalledWith([
-        ['Item', 'Title', 'Transformers'],
-        ['Item', 'Context', '2 of 3']
-      ]);
+
+      setTimeout(() => {
+        expect(global.console.table).toHaveBeenCalledWith([
+          ['Item', 'Title', 'Transformers'],
+          ['Item', 'Context', '2 of 3']
+        ]);
+        done();
+      }, 1);
     });
   });
 
