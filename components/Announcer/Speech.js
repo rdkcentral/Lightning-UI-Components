@@ -27,16 +27,12 @@ function speakSeries(series) {
             return;
           }
 
-          return new Promise(resolve => {
-            let utterance = new SpeechSynthesisUtterance(toSpeak);
-            utterance.onend = resolve;
-            synth.speak(utterance);
-          });
+          let utterance = new SpeechSynthesisUtterance(toSpeak);
+          synth.speak(utterance);
         });
       });
     }, Promise.resolve())
     .catch(() => {});
-
   return {
     series: seriesChain,
     cancel: () => {
