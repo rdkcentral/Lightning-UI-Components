@@ -1,7 +1,7 @@
 import Speech from './Speech';
 
 global.speechSynthesis = {
-  speak: jest.fn(utter => utter.onend()),
+  speak: jest.fn(),
   cancel: jest.fn()
 };
 global.SpeechSynthesisUtterance = jest.fn();
@@ -24,6 +24,13 @@ describe('Speech', () => {
   it('should handle promise', () => {
     return Speech([Promise.resolve('Hello There')]).series.then(() => {
       expect(utter).toHaveBeenCalledWith('Hello There');
+    });
+  });
+
+  it('should handle promise with empty string', () => {
+    return Speech(['Hello', Promise.resolve(''), 'There']).series.then(() => {
+      expect(utter).toHaveBeenCalledWith('Hello');
+      expect(utter).toHaveBeenCalledWith('There');
     });
   });
 

@@ -55,6 +55,15 @@ resources:
       branch: main
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
+  
+  - name: source-repo-next
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      branch: next
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
@@ -66,6 +75,7 @@ groups:
       - Pull Requests
       - Docs
       - Publish
+      - Publish Next
   - name: Pull Requests
     jobs:
       - Pull Requests
@@ -139,6 +149,23 @@ jobs:
       file: source-repo/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        NPM_USERNAME: ((service-account.artifactory-username))
+        NPM_EMAIL: ((service-account.email))
+        NPM_PASSWORD: ((service-account.artifactory-api-key))
+
+- name: Publish Next
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo-next
+      trigger: true
+    - task: Version and Publish
+      file: source-repo-next/ci/tasks/publish.yml
+      input_mapping:
+        source-repo: source-repo-next
       params:
         HOST: ((github-enterprise.host))
         PRIVATE_KEY: ((github-enterprise.private-key))
