@@ -195,28 +195,29 @@ export function getFirstNumber(...numbers) {
  *
  * @return {array}
  */
-export function parseInlineContent(str) {
-  const regex = /({ICON.*?}|{BADGE:.*?})/g;
-  const badgeRegEx = /^{BADGE:(.*?)}$/g;
-  const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
-  let splitStr = str.split(regex);
+export function parseInlineContent(str = '') {
   let content = [];
+  if (str && typeof str === 'string') {
+    const regex = /({ICON.*?}|{BADGE:.*?})/g;
+    const badgeRegEx = /^{BADGE:(.*?)}$/g;
+    const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
+    let splitStr = str.split(regex);
 
-  if (splitStr && splitStr.length) {
-    splitStr.forEach(item => {
-      let formattedItem = item;
-      let badge = badgeRegEx.exec(item);
-      let icon = iconRegEx.exec(item);
+    if (splitStr && splitStr.length) {
+      splitStr.forEach(item => {
+        let formattedItem = item;
+        let badge = badgeRegEx.exec(item);
+        let icon = iconRegEx.exec(item);
 
-      if (badge && badge[1]) {
-        formattedItem = { badge: badge[1] };
-      }
-      if (icon && icon[1]) {
-        formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
-      }
-      content.push(formattedItem);
-    });
+        if (badge && badge[1]) {
+          formattedItem = { badge: badge[1] };
+        }
+        if (icon && icon[1]) {
+          formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
+        }
+        content.push(formattedItem);
+      });
+    }
   }
-
   return content;
 }
