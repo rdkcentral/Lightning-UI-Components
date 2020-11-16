@@ -14,7 +14,6 @@ export const styles = theme => ({
   textProperties: {
     ...theme.typography.body1,
     color: theme.palette.text.light.secondary,
-    textAlign: 'center',
     maxLines: 1
   },
   justify: 'center'
@@ -31,9 +30,6 @@ class InlineContent extends lng.Component {
     this._contentSpacing = this.styles.contentSpacing;
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
-    this._contentTags = [];
-    this._loadedTags = [];
-    this._checkLoaded = true;
     this.combinedLinesHeight = 0;
   }
 
@@ -42,48 +38,56 @@ class InlineContent extends lng.Component {
   }
 
   _update() {
-    if (this._content && this._content.length) {
-      this.patch(
-        this._content.reduce(
-          (patch, item, index) => {
-            let tag;
-            let base = {
-              flexItem: {
-                marginRight:
-                  index === this._content.length - 1 ? 0 : this._contentSpacing
-              }
-            };
-            if (typeof item === 'string') {
-              if (
-                this._content[index + 1] &&
-                typeof this._content[index + 1] === 'string'
-              ) {
-                base.flexItem.marginRight = 0;
-              }
-              tag = `Text${index}`;
-              patch[tag] = this._createText(base, item);
-            } else if (item.icon) {
-              tag = `Icon${index}`;
-              patch[tag] = this._createIcon(base, item.icon);
-            } else if (item.badge) {
-              tag = `Badge${index}`;
-              patch[tag] = this._createBadge(base, item.badge);
-            }
-            if (tag && !this._contentTags.includes(tag))
-              this._contentTags.push(tag);
-            return patch;
-          },
-          {
-            flex: {
-              direction: 'row',
-              wrap: this._contentWrap,
-              justifyContent: this._justify
-            }
+    this.childList.clear();
+    if (this._parsedContent && this._parsedContent.length) {
+      this.patch({
+        flex: {
+          direction: 'row',
+          wrap: this._contentWrap,
+          justifyContent: this._justify
+        }
+      });
+
+      this._parsedContent.forEach((item, index) => {
+        let base = {
+          flexItem: {
+            marginRight:
+              index === this._parsedContent.length - 1
+                ? 0
+                : this._contentSpacing
           }
-        )
-      );
-      this._setContentsEvents();
+        };
+        if (typeof item === 'string') {
+          if (typeof this._parsedContent[index + 1] === 'string') {
+            base.flexItem.marginRight = 0;
+          }
+          this.childList.a(this._createText(base, item));
+        } else if (item.icon) {
+          this.childList.a(this._createIcon(base, item.icon));
+        } else if (item.badge) {
+          this.childList.a(this._createBadge(base, item.badge));
+        }
+      });
     }
+    this._waitForComponentLoad();
+  }
+
+  _waitForComponentLoad() {
+    if (this.children.length) {
+      Promise.all(
+        this.children.map(
+          child => new Promise(resolve => child.on('txLoaded', resolve))
+        )
+      ).finally(() => this._contentLoaded());
+    } else {
+      this.h = 0;
+      this._contentLoaded();
+    }
+  }
+
+  _contentLoaded() {
+    this.stage.update();
+    this.fireAncestors('$loadedInlineContent', this);
   }
 
   _createIcon(base, icon) {
@@ -119,54 +123,50 @@ class InlineContent extends lng.Component {
     };
   }
 
-  _setContentsEvents() {
-    this._contentTags.forEach(tag => {
-      this.tag(tag).on('txLoaded', () => {
-        this._tagLoaded(tag);
-      });
-    });
-  }
-
-  _tagLoaded(tag) {
-    if (this._checkLoaded) {
-      let loaded = this._loadedTags.includes(tag);
-      if (!loaded) {
-        this._loadedTags.push(tag);
-        if (this._contentTags.length === this._loadedTags.length) {
-          this._checkLoaded = false;
-          this.stage.update();
-          this.fireAncestors('$loadedInlineContent', this);
-        }
-      }
-    }
-  }
-
   get announce() {
-    return this._content.reduce((announce, item, index) => {
+    let announce = this._parsedContent.reduce((announce, item) => {
       if (typeof item === 'string') {
         announce += item;
       } else if (item.title) {
-        announce += ' ' + item.title;
+        announce += item.title;
       } else if (item.badge) {
-        announce += ' ' + item.badge;
+        announce += item.badge;
       }
-      return announce;
+      return announce + ' ';
     }, '');
+    return announce.replace(/\s+(?=\s)|\s$/g, '');
+  }
+
+  /**
+   * RegEx Lookbehinds do not work in WPE Browser, but we want the space
+   * at the end of the previous string to prevent weird wrapping,
+   * so we need to separate on spaces, then re-attach to the previous string
+   *
+   * @param { array } parsedContent
+   *
+   * @return { array }
+   */
+  _formatSpaces(parsedContent) {
+    return (parsedContent || [])
+      .flatMap(item => (typeof item === 'string' ? item.split(/(\s+)/) : item))
+      .map((item, index, arr) => {
+        if (item === ' ') return false;
+        if (arr[index + 1] === ' ') return item + ' ';
+        return item;
+      })
+      .filter(Boolean);
   }
 
   set content(content) {
-    this._content = [];
-    if (content && !Array.isArray(content)) {
-      content = parseInlineContent(content);
-    }
-    content.forEach(item => {
-      if (typeof item === 'string') {
-        this._content = this._content.concat(item.split(/(?=\s)/));
-      } else {
-        this._content.push(item);
+    if (content !== this._content) {
+      this._content = content;
+      let parsedContent = this._content;
+      if (content && !Array.isArray(content)) {
+        parsedContent = parseInlineContent(content);
       }
-    });
-    this._update();
+      this._parsedContent = this._formatSpaces(parsedContent);
+      this._update();
+    }
   }
 
   get content() {
@@ -174,8 +174,10 @@ class InlineContent extends lng.Component {
   }
 
   set textProperties(textProperties) {
-    this._textProperties = textProperties;
-    this._update();
+    if (textProperties !== this._textProperties) {
+      this._textProperties = textProperties;
+      this._update();
+    }
   }
 
   get textProperties() {
@@ -183,80 +185,98 @@ class InlineContent extends lng.Component {
   }
 
   set justify(justify) {
-    this._justify = justify;
-    this._update();
+    if (justify !== this._justify) {
+      this._justify = justify;
+      this._update();
+    }
   }
 
   get justify() {
     return this._justify;
   }
 
-  set iconW(width) {
-    this._iconW = width;
-    this._update();
+  set iconW(iconW) {
+    if (iconW !== this._iconW) {
+      this._iconW = iconW;
+      this._update();
+    }
   }
 
   get iconW() {
     return this._iconW;
   }
 
-  set iconH(height) {
-    this._iconH = height;
-    this._update();
+  set iconH(iconH) {
+    if (iconH !== this._iconH) {
+      this._iconH = iconH;
+      this._update();
+    }
   }
 
   get iconH() {
     return this._iconH;
   }
 
-  set iconY(y) {
-    this._iconY = y;
-    this._update();
+  set iconY(iconY) {
+    if (iconY !== this._iconY) {
+      this._iconY = iconY;
+      this._update();
+    }
   }
 
   get iconY() {
     return this._iconY;
   }
 
-  set textY(y) {
-    this._textY = y;
-    this._update();
+  set textY(textY) {
+    if (textY !== this._textY) {
+      this._textY = textY;
+      this._update();
+    }
   }
 
   get textY() {
     return this._textY;
   }
 
-  set badgeY(y) {
-    this._badgeY = y;
-    this._update();
+  set badgeY(badgeY) {
+    if (badgeY !== this._badgeY) {
+      this._badgeY = badgeY;
+      this._update();
+    }
   }
 
   get badgeY() {
     return this._badgeY;
   }
 
-  set contentSpacing(spacing) {
-    this._contentSpacing = spacing;
-    this._update();
+  set contentSpacing(contentSpacing) {
+    if (contentSpacing !== this._contentSpacing) {
+      this._contentSpacing = contentSpacing;
+      this._update();
+    }
   }
 
   get contentSpacing() {
     return this._contentSpacing;
   }
 
-  set badgeProperties(properties) {
-    this._badgeProperties = properties;
-    this._update();
+  set badgeProperties(badgeProperties) {
+    if (badgeProperties !== this._badgeProperties) {
+      this._badgeProperties = badgeProperties;
+      this._update();
+    }
   }
 
   get badgeProperties() {
     return this._badgeProperties;
   }
 
-  set contentWrap(wrap) {
-    this._contentWrap = wrap;
-    this._update();
+  set contentWrap(contentWrap) {
+    if (contentWrap !== this._contentWrap) {
+      this._contentWrap = contentWrap;
+      this._update();
+    }
   }
 
   get contentWrap() {

@@ -39,7 +39,7 @@ Include previews:
 
 name|type|required|default|description
 --|--|--|--|--
-content|array|false|-|list of data to render inline
+content|string\|array|false|-|list of data to render inline
 textProperties|object|false|Xfinity theme|font properties to apply to the title
 justify|string|false|center|alignment of flexbox content ('flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly')
 iconW|number|false|36|width of all icons
@@ -53,4 +53,4 @@ combinedLinesHeight|number|0|readonly prop of the total height of all of the con
 
 #### $loadedInlineContent():void
 
-Fires when all contents inside the InlineContent component have finished rendering their textures. This is when you will have the all of the correct flex properties of the components as well as `combinedLinesHeight` available to be used.
+Fires when all contents inside the InlineContent component have finished rendering their textures. This is when you will have all of the correct flex properties of the components as well as `finalH` available to be used.
