@@ -23,6 +23,7 @@ export { default as Keyboard, KEYBOARD_FORMATS } from './components/Keyboard/ind
 export { default as KeyboardInput } from './components/Keyboard/KeyboardInput.js';
 export { default as ListItem, ListItemImage, ListItemSlider, ListItemToggle, ListItemRadio } from './components/ListItem/index.js';
 export { default as MarqueeText } from './components/MarqueeText/index.js';
+export { default as MetadataCard } from './components/MetadataCard/index.js';
 export { default as Pivot } from './components/Pivot/index.js';
 export { default as ProgressBar } from './components/ProgressBar/index.js';
 export { default as Radio } from './components/Radio/index.js';

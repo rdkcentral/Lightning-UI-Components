@@ -230,7 +230,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Text0": Object {
+                    "Element-17": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -248,7 +248,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Text0",
+                      "ref": null,
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -256,15 +256,12 @@ Object {
                       "scaleY": 1,
                       "state": undefined,
                       "tag": [Function],
-                      "tags": Array [
-                        "Text0",
-                      ],
                       "texture": Object {
                         "fontFace": "XfinityStandardMedium",
                         "fontSize": 24,
                         "h": 32,
                         "lineHeight": 32,
-                        "text": "This",
+                        "text": "This ",
                         "textColor": 3439329279,
                         "type": "TextTexture",
                         "verticalAlign": "middle",
@@ -275,7 +272,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Text1": Object {
+                    "Element-18": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -293,7 +290,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Text1",
+                      "ref": null,
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -301,15 +298,12 @@ Object {
                       "scaleY": 1,
                       "state": undefined,
                       "tag": [Function],
-                      "tags": Array [
-                        "Text1",
-                      ],
                       "texture": Object {
                         "fontFace": "XfinityStandardMedium",
                         "fontSize": 24,
                         "h": 32,
                         "lineHeight": 32,
-                        "text": " is",
+                        "text": "is ",
                         "textColor": 3439329279,
                         "type": "TextTexture",
                         "verticalAlign": "middle",
@@ -320,7 +314,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Text2": Object {
+                    "Element-19": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -338,7 +332,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Text2",
+                      "ref": null,
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -346,15 +340,12 @@ Object {
                       "scaleY": 1,
                       "state": undefined,
                       "tag": [Function],
-                      "tags": Array [
-                        "Text2",
-                      ],
                       "texture": Object {
                         "fontFace": "XfinityStandardMedium",
                         "fontSize": 24,
                         "h": 32,
                         "lineHeight": 32,
-                        "text": " a",
+                        "text": "a ",
                         "textColor": 3439329279,
                         "type": "TextTexture",
                         "verticalAlign": "middle",
@@ -365,7 +356,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Text3": Object {
+                    "Element-20": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -383,7 +374,7 @@ Object {
                       "pivot": 0.5,
                       "pivotX": 0.5,
                       "pivotY": 0.5,
-                      "ref": "Text3",
+                      "ref": null,
                       "renderOfScreen": undefined,
                       "renderToTexture": false,
                       "scale": 1,
@@ -391,15 +382,12 @@ Object {
                       "scaleY": 1,
                       "state": undefined,
                       "tag": [Function],
-                      "tags": Array [
-                        "Text3",
-                      ],
                       "texture": Object {
                         "fontFace": "XfinityStandardMedium",
                         "fontSize": 24,
                         "h": 32,
                         "lineHeight": 32,
-                        "text": " description",
+                        "text": "description",
                         "textColor": 3439329279,
                         "type": "TextTexture",
                         "verticalAlign": "middle",

@@ -22,28 +22,31 @@ describe('InlineContent', () => {
 
   it('should update the content array', () => {
     inlineContent.content = 'hi';
-    expect(inlineContent.content[0]).toBe('hi');
+    expect(inlineContent.content).toBe('hi');
+    expect(inlineContent._parsedContent[0]).toBe('hi');
 
     inlineContent.content = ['hello'];
-    expect(inlineContent.content[0]).toBe('hello');
+    expect(inlineContent.content).toEqual(['hello']);
+    expect(inlineContent._parsedContent[0]).toBe('hello');
 
-    inlineContent.content =
-      'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.';
-    expect(inlineContent.content).toEqual([
-      'This',
-      ' is',
-      ' a',
-      ' ',
+    const str =
+      'This is a{ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false}and {BADGE:HD} badge test.';
+    inlineContent.content = str;
+    expect(inlineContent.content).toBe(str);
+    expect(inlineContent._parsedContent).toEqual([
+      'This ',
+      'is ',
+      'a',
       {
         title: 'setting',
         icon:
           'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
       },
-      ' and',
-      ' ',
+      'and ',
       { badge: 'HD' },
-      ' badge',
-      ' test.'
+      ' ',
+      'badge ',
+      'test.'
     ]);
   });
 
@@ -84,7 +87,7 @@ describe('InlineContent', () => {
       content
     });
     expect(inlineContent.badgeProperties).toBe(badgeProperties);
-    expect(inlineContent.tag('Badge0').background.color).toBe(color);
+    expect(inlineContent.childList.getAt(0).background.color).toBe(color);
   });
 
   it('should render icons', () => {
@@ -95,7 +98,7 @@ describe('InlineContent', () => {
       }
     ];
     [inlineContent, testRenderer] = createInlineContent({ content });
-    expect(inlineContent.tag('Icon0').src).toBe(content[0].icon);
+    expect(inlineContent.childList.getAt(0).src).toBe(content[0].icon);
   });
 
   it('should not render content that is not a string, icon, or badge', () => {

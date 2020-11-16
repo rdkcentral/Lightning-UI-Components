@@ -4,6 +4,9 @@ import TestRenderer from '../lightning-test-renderer';
 import lng from 'wpe-lightning';
 
 const speak = jest.fn();
+speak.mockReturnValue({
+  cancel: jest.fn()
+});
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
   _construct() {
@@ -225,15 +228,11 @@ describe('AppAnnouncer', () => {
 
   describe('announcerTimeout', () => {
     it('should announce the full navigation', done => {
-      announcer.announcerTimeout = 10;
-      announcer._build();
-      speak.mockClear();
       testRenderer.keyPress('Right');
       speak.mockClear();
-
-      setTimeout(() => {
-        testRenderer.keyPress('Right');
-      }, 12);
+      announcer.announcerTimeout = 1;
+      announcer._build();
+      testRenderer.keyPress('Right');
 
       setTimeout(() => {
         expect(speak).toHaveBeenCalledWith([
@@ -245,7 +244,7 @@ describe('AppAnnouncer', () => {
           'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
         ]);
         done();
-      }, 15);
+      }, 4);
     });
   });
 
