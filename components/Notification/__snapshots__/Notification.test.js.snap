@@ -165,7 +165,7 @@ Object {
             "type": "RectangleTexture",
           },
           "visible": true,
-          "w": 560,
+          "w": 568,
           "x": 0,
           "y": 120,
           "zIndex": 0,

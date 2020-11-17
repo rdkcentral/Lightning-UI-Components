@@ -258,7 +258,7 @@ class Notification extends lng.Component {
   }
 
   _udpateActionArea() {
-    if (this._actionArea) {
+    if (Object.keys(this._actionArea).length) {
       this._ActionArea.y = this._containerH;
       this._ActionArea.w = this.styles.w;
       this._ActionArea.tag('Content.Text').text = this._actionArea.text;
@@ -295,7 +295,7 @@ class Notification extends lng.Component {
         alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.3 }]
       };
 
-      if (this._actionArea) {
+      if (Object.keys(this._actionArea).length) {
         this._Container.smooth = {
           h: [
             this._containerH + this.styles.actionArea.background.h,
@@ -309,12 +309,12 @@ class Notification extends lng.Component {
 
   dismiss() {
     this.entered = false;
-
-    let delay = this._actionArea ? 0.18 : 0;
-    if (this._actionArea) {
+    let delay = 0;
+    if (Object.keys(this._actionArea).length) {
       this._Container.smooth = {
         h: [this._containerH, { duration: 0.18 }]
       };
+      delay = 0.18;
     }
     this._Text.smooth = {
       x: [this.styles.dismiss.text.x, { duration: 0.24, delay: delay }],
