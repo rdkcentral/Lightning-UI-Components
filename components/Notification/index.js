@@ -113,7 +113,9 @@ class Notification extends lng.Component {
             Title: {
               type: MarqueeText,
               w: 432,
-              h: this.styles.title.lineHeight
+              h: this.styles.title.lineHeight,
+              autoStart: true,
+              delay: 3
             },
             Description: {
               type: InlineContent,
