@@ -36,10 +36,30 @@ export const GREY = {
   __isColor: true
 };
 
+export const BLUE = {
+  hover: getHexColor('8baff9'),
+  default: getHexColor('4784ff'),
+  pressed: getHexColor('3376ff'),
+  indicator: getHexColor('1f69ff'),
+  shade: getHexColor('000f33'),
+  __isColor: true
+};
+
+export const GREEN = {
+  hover: getHexColor('78e3bf'),
+  default: getHexColor('0ac284'),
+  pressed: getHexColor('009965'),
+  indicator: getHexColor('008558'),
+  shade: getHexColor('002418'),
+  __isColor: true
+};
+
 export const PALETTE = {
   black: getHexColor('000000'),
   white: getHexColor('ffffff'),
   grey: GREY,
+  blue: BLUE,
+  green: GREEN,
   __isColor: true,
   background: {
     default: GREY[80],
