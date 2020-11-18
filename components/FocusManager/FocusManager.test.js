@@ -121,16 +121,6 @@ describe('FocusManager', () => {
       testRenderer.keyPress('Right');
       expect(focusManager.selectedIndex).toBe(2);
     });
-
-    it('should keep selected in bounds for setting selected greater', () => {
-      focusManager.selectedIndex = 10;
-      expect(focusManager.selectedIndex).toBe(2);
-    });
-
-    it('should keep selected in bounds for setting selected less than', () => {
-      focusManager.selectedIndex = -1;
-      expect(focusManager.selectedIndex).toBe(0);
-    });
   });
 
   describe('signals', () => {
@@ -150,8 +140,7 @@ describe('FocusManager', () => {
       let previous = focusManager.items[focusManager.selectedIndex - 1];
       expect(app.selectedChangeMock).toHaveBeenCalledWith(
         focusManager.selected,
-        previous,
-        'next'
+        previous
       );
     });
     it('should not signal if items are empty', () => {
