@@ -1,34 +1,78 @@
 import lng from 'wpe-lightning';
-import { RoundRect } from '../../utils';
+import withStyles from '../../mixins/withStyles';
 
-export default class Toggle extends lng.Component {
+export const styles = theme => ({
+  w: 64,
+  h: 32,
+  radius: 16,
+  stroke: {
+    weight: 4,
+    color: theme.palette.grey[5]
+  },
+  knob: {
+    size: 16
+  },
+  checked: {
+    background: {
+      color: theme.palette.green.default
+    },
+    knob: {
+      color: theme.palette.grey[5],
+      x: 38
+    }
+  },
+  unchecked: {
+    background: {
+      color: theme.palette.grey[80]
+    },
+    knob: {
+      color: theme.palette.grey[20],
+      x: 8
+    }
+  }
+});
+
+class Toggle extends lng.Component {
   static _template() {
     return {
       checked: false,
       Container: {
-        w: 64,
-        h: 32,
+        w: this.styles.w,
+        h: this.styles.h,
         texture: lng.Tools.getRoundRect(
-          RoundRect.getWidth(64, { strokeWidth: 2 }),
-          RoundRect.getHeight(32, { strokeWidth: 2 }),
-          14,
-          2,
-          0xffececf2,
+          this.styles.w - 8,
+          this.styles.h - 4,
+          this.styles.radius,
+          0,
+          0,
           true,
-          0xff141417
+          0xffffffff
         ),
+        Stroke: {
+          w: this.styles.w,
+          h: this.styles.h,
+          texture: lng.Tools.getRoundRect(
+            this.styles.w,
+            this.styles.h,
+            this.styles.radius,
+            this.styles.stroke.weight,
+            this.styles.stroke.color,
+            false,
+            false
+          )
+        },
         Knob: {
           zIndex: 2,
-          x: 6,
+          x: 12,
           y: 7,
           texture: lng.Tools.getRoundRect(
-            RoundRect.getWidth(16),
-            RoundRect.getHeight(16),
-            8,
+            this.styles.knob.size,
+            this.styles.knob.size,
+            this.styles.knob.size / 2,
             0,
             0,
             true,
-            0xffececf2
+            0xffffffff
           )
         }
       }
@@ -61,7 +105,14 @@ export default class Toggle extends lng.Component {
 
   _update() {
     const { checked } = this;
-    this._Knob.smooth = { x: checked ? 40 : 6 };
+    const state = checked ? 'checked' : 'unchecked';
+    this._Knob.smooth = {
+      x: this.styles[state].knob.x,
+      color: this.styles[state].knob.color
+    };
+    this._Container.smooth = {
+      color: this.styles[state].background.color
+    };
   }
 
   get _Container() {
@@ -71,3 +122,5 @@ export default class Toggle extends lng.Component {
     return this._Container.tag('Knob');
   }
 }
+
+export default withStyles(Toggle, styles);
