@@ -40,6 +40,7 @@ resources:
     icon: source-pull
     webhook_token: ((webhook-token))
     check_every: 168h
+    tags: [aws]
     source:
       repository: ((ghe-org-name))/((ghe-repo-name))
       disable_forks: false
@@ -51,6 +52,7 @@ resources:
     type: git
     webhook_token: ((webhook-token))
     check_every: 168h
+    tags: [aws]
     source:
       branch: main
       private_key: ((github-enterprise.private-key))
@@ -60,6 +62,7 @@ resources:
     type: git
     webhook_token: ((webhook-token))
     check_every: 168h
+    tags: [aws]
     source:
       branch: next
       private_key: ((github-enterprise.private-key))
@@ -69,6 +72,7 @@ resources:
     type: git
     webhook_token: ((webhook-token))
     check_every: 168h
+    tags: [aws]
     source:
       branch: 1.x
       private_key: ((github-enterprise.private-key))
