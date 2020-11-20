@@ -26,7 +26,21 @@ export const Theme = ({ theme={} }) => {
       default:
         return (
           <li key={key}>
-            {key}: {isColor ? `0x${value.toString(16).toUpperCase()}` : value}
+            {key}: {isColor ? (
+              <>
+              <span>
+                0x{value.toString(16).toUpperCase()}
+              </span>
+              <div style={{
+                display: 'inline-block',
+                width: '20px',
+                height: '20px',
+                margin: '-4px 4px',
+                backgroundColor: `#${value.toString(16).slice(2)}`,
+                opacity: parseInt('0x' + value.toString(16).slice(0,2)) / 255
+              }}></div>
+              </>
+            ) : value}
           </li>
         );
     }
