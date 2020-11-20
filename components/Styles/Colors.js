@@ -6,7 +6,7 @@
 
 /**
  * Combines rgb hex string and alpha into argb hexadecimal number
- * @param {string} hex - 6 alphanumeric characters between 0-f
+ * @param {string|number} hex - 6 alphanumeric characters between 0-f or argb hexadecimal number
  * @param {number} [alpha] - number between 0-100 (0 is invisible, 100 is opaque)
  */
 export function getHexColor(hex, alpha = 100) {
@@ -14,9 +14,13 @@ export function getHexColor(hex, alpha = 100) {
     return 0x00;
   }
 
+  if (typeof hex === 'number') {
+    hex = hex.toString(16).slice(2);
+  }
+
   let hexAlpha = Math.round((alpha / 100) * 255).toString(16);
   let str = `0x${hexAlpha}${hex}`;
-  return parseInt(Number(str), 10);
+  return Number(str);
 }
 
 /**
@@ -55,8 +59,8 @@ export const GREEN = {
 };
 
 export const PALETTE = {
-  black: getHexColor('000000'),
-  white: getHexColor('ffffff'),
+  black: GREY[100],
+  white: GREY[0],
   grey: GREY,
   blue: BLUE,
   green: GREEN,
@@ -67,27 +71,28 @@ export const PALETTE = {
     float: 0x00,
     fill: GREY[70],
     focus: GREY[5],
-    ghost: getHexColor('232328', 48),
+    ghost: getHexColor(GREY[70], 48),
     __isColor: true
   },
   text: {
     light: {
-      primary: getHexColor('ffffff', 95),
-      secondary: getHexColor('ffffff', 80),
-      tertiary: getHexColor('ffffff', 60),
+      primary: getHexColor(GREY[0], 95),
+      secondary: getHexColor(GREY[0], 80),
+      tertiary: getHexColor(GREY[0], 60),
       __isColor: true
     },
     dark: {
-      primary: getHexColor('000000', 95),
-      secondary: getHexColor('000000', 80),
-      tertiary: getHexColor('000000', 60),
+      primary: getHexColor(GREY[100], 95),
+      secondary: getHexColor(GREY[100], 80),
+      tertiary: getHexColor(GREY[100], 60),
       __isColor: true
     },
-    focus: getHexColor('000000', 95),
+    focus: getHexColor(GREY[100], 95),
     __isColor: true
   },
   badge: {
-    default: getHexColor('ececf2', 32)
+    default: getHexColor(GREY[5], 32),
+    __isColor: true
   }
 };
 
