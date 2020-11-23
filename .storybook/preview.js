@@ -62,7 +62,7 @@ const stage = {
 let storyId;
 let app;
 
-addDecorator((StoryComponent, { id, args, kind, parameters, story, globals }) => {
+addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, globals }) => {
   const announce = globals.announce === 'on';
   class StoryApp extends Announcer(lng.Application) {
     _init() {
@@ -117,7 +117,8 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story, globals }) =>
 
   // render a new App if we've just swapped stories
   // or if the story component is missing children (for sandboxing purposes?)
-  if (id !== storyId || !app.tag('StoryComponent').children.length) {
+  // or if the forceReload parameter is set i.e. Basic.parameters = { forceReload: true }
+  if (id !== storyId || !app.tag('StoryComponent').children.length || parameters.forceReload) {
     storyId = id;
     app = createApp();
     clearInspector();
@@ -158,6 +159,14 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story, globals }) =>
           const argAction = parameters.argActions[arg];
           argAction(argValue, storyComponent, args);
         } else if (argValue !== component[arg]) {
+          // if forceReload is on the argType, create a new app
+          // example: Basic.argTypes = { title: { forceReload: true }}
+          if (argTypes[arg].forceReload) {
+            app = createApp();
+            clearInspector();
+            return app.getCanvas();
+          }
+
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
           const descriptor = getDescriptor(component.type.prototype, arg);
