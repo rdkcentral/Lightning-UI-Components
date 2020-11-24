@@ -158,14 +158,6 @@ export function measureTextWidth(text = {}) {
   ctx.font = fontCss;
   const textMetrics = ctx.measureText(text.text || '');
 
-  // try using the actual bounding box first because it will be more accurate
-  if (textMetrics.actualBoundingBoxLeft && textMetrics.actualBoundingBoxRight) {
-    return Math.round(
-      Math.abs(textMetrics.actualBoundingBoxLeft) +
-        Math.abs(textMetrics.actualBoundingBoxRight)
-    );
-  }
-
   return Math.round(textMetrics.width);
 }
 
