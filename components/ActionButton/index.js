@@ -65,17 +65,8 @@ class ActionButtonBase extends Button {
     };
   }
 
-  get icon() {
-    return this._icon;
-  }
-
-  set icon(src) {
-    if (src) {
-      this._icon = { ...this.styles.icon, src };
-    } else {
-      this._icon = null;
-    }
-    this._update();
+  _setIcon(src) {
+    return src ? { ...this.styles.icon, src } : null;
   }
 
   _updateDropShadow() {
@@ -118,12 +109,12 @@ class ActionButtonBase extends Button {
   }
 
   _update() {
-    this._whenEnabled.then(() => {
+    if (this._readyForUpdates) {
       this._updateDropShadow();
       this._updateScale();
       this._updateLoader();
       if (this.title || this.icon) super._update();
-    });
+    }
   }
 
   _firstEnable() {
@@ -134,6 +125,7 @@ class ActionButtonBase extends Button {
       actions: [{ p: 'alpha', v: { 0: 0.5, 0.5: 1, 1: 0.5 } }]
     });
     this._loading.start();
+    super._firstEnable && super._firstEnable();
   }
 
   get backgroundType() {

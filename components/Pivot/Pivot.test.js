@@ -28,24 +28,18 @@ describe('Pivot', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should update it's shadow width for long titles", done => {
+  it("should update it's shadow width for long titles", () => {
     [pivot, testRenderer] = createPivot({
       title:
         'This is a really long title title title title title title title title title title title title title title title title title title title title title title title'
     });
 
-    // default width
-    expect(pivot.w).toBe(185);
-
-    setTimeout(() => {
-      expect(pivot.w).toBe(191);
-      // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
-      pivot._DropShadow.loadTexture();
-      expect(pivot._DropShadow.texture._lookupId).toEqual(
-        'shadow175,32,16,32,8,8,8,8'
-      );
-      done();
-    });
+    expect(pivot.w).toBe(191);
+    // lookup ID provides texture width: shadow{w}{h}{radius}{blur}{...margin}
+    pivot._DropShadow.loadTexture();
+    expect(pivot._DropShadow.texture._lookupId).toEqual(
+      'shadow175,32,16,32,8,8,8,8'
+    );
   });
 
   describe('style', () => {
@@ -122,10 +116,10 @@ describe('Pivot', () => {
       testRenderer.update();
       expect(pivot._loading.isPlaying()).toBe(true);
       pivot.title = 'Action Button';
-      pivot._whenEnabled.then(() => {
+      setTimeout(() => {
         expect(pivot._loading.isPlaying()).toBe(false);
         done();
-      });
+      }, 1);
     });
   });
 
