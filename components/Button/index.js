@@ -213,6 +213,8 @@ class Button extends withUpdates(lng.Component) {
         this.w = w;
         this.fireAncestors('$itemChanged');
         this.signal('buttonWidthChanged', { w: this.w });
+      } else {
+        this._w = this.w;
       }
     }
   }
