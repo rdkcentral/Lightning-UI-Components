@@ -1,0 +1,56 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './ListItem.stories';
+
+# ListItemPicker
+
+[ListItem](?path=/docs/listitem--basic) component with the ability to let a user pick from a list of options.
+
+## Usage
+
+At a minimum, `ListItemPicker` requires a `title` and a list of `options`:
+
+```js
+import { ListItemPicker } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ListItem: {
+        type: ListItemPicker,
+        title: 'List Item',
+        options: ['sub1', 'sub2', 'sub3']
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="listitempicker--basic" />
+</Canvas>
+
+In an unfocused state, the current `selectedOption` is in view. While focused, the user can navigate through all of the available options with the right or left keys. The default `selectedOptionIndex` is 0. To load the `ListItemPicker` with a different `selectedOption`, set the `selectedOptionIndex` to a valid value.
+
+```js
+this.tag('ListItem').selectedOptionIndex = 2;
+```
+
+## API
+
+`ListItemPicker` extends the [ListItem API](?path=/docs/listitempicker--basic#api).
+
+
+### Properties
+
+name|type|default|description
+--|--|--|--
+options|any[]|[]|list of selectable options
+selectedOption|any|-|readonly current selected option
+selectedOptionIndex|number|index of current selected option
+
+### Events
+
+#### $listItemPickerChanged(selectedOption:any, selectedOptionIndex:number, listItemPicker:ListItemPicker)
+
+Fired when the selected option changes.

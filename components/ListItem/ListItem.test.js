@@ -3,7 +3,8 @@ import ListItem, {
   ListItemImage,
   ListItemSlider,
   ListItemToggle,
-  ListItemRadio
+  ListItemRadio,
+  ListItemPicker
 } from '.';
 import { getHexColor } from '../Styles';
 import TestUtils from '../lightning-test-utils';
@@ -21,6 +22,7 @@ const createListItemImage = TestUtils.makeCreateComponent(ListItemImage);
 const createListItemSlider = TestUtils.makeCreateComponent(ListItemSlider);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 const createListItemRadio = TestUtils.makeCreateComponent(ListItemRadio);
+const createListItemPicker = TestUtils.makeCreateComponent(ListItemPicker);
 
 describe('ListItemBase', () => {
   let listItemBase, testRenderer;
@@ -448,5 +450,76 @@ describe('ListItemSlider', () => {
     tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(listItemSlider.value).toEqual(0);
+  });
+});
+
+describe('ListItemPicker', () => {
+  let listItemPicker, testRenderer;
+  beforeEach(() => {
+    [listItemPicker, testRenderer] = createListItemPicker({
+      title: 'List Item Picker',
+      options: ['op1', 'op2', 'op3']
+    });
+    testRenderer.update();
+  });
+  afterEach(() => {
+    listItemPicker = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(listItemPicker.selectedOption).toBe('op1');
+    expect(listItemPicker._Subtitle.text.text).toBe('op1');
+  });
+
+  it('renders with options', done => {
+    [listItemPicker, testRenderer] = createListItemPicker({
+      title: 'List Item Picker',
+      options: ['op1', 'op2', 'op3'],
+      backgroundType: 'fill',
+      size: 'small',
+      selectedOptionIndex: 1
+    });
+    let tree = testRenderer.toJSON(2);
+    listItemPicker._whenEnabled.then(() => {
+      expect(tree).toMatchSnapshot();
+      expect(listItemPicker.selectedOptionIndex).toBe(1);
+      expect(listItemPicker.selectedOption).toBe('op2');
+      expect(listItemPicker.hasFocus()).toBe(true);
+      expect(
+        listItemPicker._Carousel.items[1].transition('x').targetValue
+      ).toBe(0);
+      testRenderer.unfocus();
+      tree = testRenderer.toJSON(2);
+      expect(tree).toMatchSnapshot();
+      expect(listItemPicker._Subtitle.text.text).toBe('op2');
+      done();
+    });
+  });
+
+  it('renders selected option as subtitle on unfocus', done => {
+    [listItemPicker, testRenderer] = createListItemPicker({
+      title: 'List Item Picker',
+      options: ['op1', 'op2', 'op3']
+    });
+    testRenderer.update();
+    testRenderer.unfocus();
+    expect(listItemPicker.hasFocus()).toBe(false);
+    expect(listItemPicker._Subtitle.visible).toBe(true);
+    expect(listItemPicker._Subtitle.text.text).toBe('op1');
+
+    testRenderer.focus();
+    testRenderer.update();
+    listItemPicker._whenEnabled.then(() => {
+      expect(listItemPicker.hasFocus()).toBe(true);
+      testRenderer.keyPress('Right');
+      expect(listItemPicker.selectedOption).toBe('op2');
+
+      testRenderer.keyPress('Left');
+      expect(listItemPicker.selectedOption).toBe('op1');
+      done();
+    });
   });
 });

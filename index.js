@@ -21,7 +21,7 @@ export { default as Input } from './components/Input/index.js';
 export { default as Key } from './components/Keyboard/Key.js';
 export { default as Keyboard, KEYBOARD_FORMATS } from './components/Keyboard/index.js';
 export { default as KeyboardInput } from './components/Keyboard/KeyboardInput.js';
-export { default as ListItem, ListItemImage, ListItemSlider, ListItemToggle, ListItemRadio } from './components/ListItem/index.js';
+export { default as ListItem, ListItemImage, ListItemSlider, ListItemToggle, ListItemRadio, ListItemPicker } from './components/ListItem/index.js';
 export { default as MarqueeText } from './components/MarqueeText/index.js';
 export { default as MetadataCard } from './components/MetadataCard/index.js';
 export { default as Pivot } from './components/Pivot/index.js';
