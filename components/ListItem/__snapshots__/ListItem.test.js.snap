@@ -3330,7 +3330,7 @@ Object {
               "flex": false,
               "flexItem": true,
               "h": 32,
-              "hasFinalFocus": 0,
+              "hasFinalFocus": false,
               "hasFocus": false,
               "isComponent": true,
               "mount": 0,
