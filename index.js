@@ -28,6 +28,7 @@ export { default as Pivot } from './components/Pivot/index.js';
 export { default as ProgressBar } from './components/ProgressBar/index.js';
 export { default as Radio } from './components/Radio/index.js';
 export { default as Row } from './components/Row/index.js';
+export { default as ScrollWrapper } from './components/ScrollWrapper/index.js';
 export { default as Slider } from './components/Slider/index.js';
 export { default as TabBar, Tab } from './components/Tabs/index.js';
 export { default as Tile } from './components/Tile/index.js';
