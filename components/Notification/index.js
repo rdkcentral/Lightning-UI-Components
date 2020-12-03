@@ -138,9 +138,10 @@ class Notification extends lng.Component {
             w: this.styles.w,
             Text: {
               y: -4,
-              text: {
-                ...this.styles.actionArea.text
-              }
+              type: InlineContent,
+              w: 464,
+              textProperties: this.styles.actionArea.text,
+              justify: 'flex-start'
             },
             Icon: {
               type: Icon,
@@ -263,7 +264,8 @@ class Notification extends lng.Component {
     if (Object.keys(this._actionArea).length) {
       this._ActionArea.y = this._containerH;
       this._ActionArea.w = this.styles.w;
-      this._ActionArea.tag('Content.Text').text = this._actionArea.text;
+      this._ActionArea.tag('Content.Text').content =
+        this._actionArea.content || this._actionArea.text;
       this._ActionArea.tag('Content.Icon').icon = this._actionArea.icon;
     }
   }
