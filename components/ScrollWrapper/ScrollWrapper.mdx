@@ -1,0 +1,99 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# ScrollWrapper
+
+A scrollable container for text content.
+
+## Usage
+
+`ScrollWrapper` requires three properties: `w`, `h`, and `content`:
+
+```js
+import { ScrollWrapper } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ScrollWrapper: {
+        type: ScrollWrapper,
+        h: 450,
+        w: 600,
+        content: 'Text content long enough to scroll vertically'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="scrollwrapper--basic" />
+</Canvas>
+
+The `h` and `w` properties will determine the viewable box for `ScrollWrapper`. When focused, `ScrollWrapper` will display a scroll bar to the right of the content and up/down scrolling will be handled.
+
+The amount of scrolling per keypress is determined via the `scrollStep` property. Change it to allow smaller or larger scroll steps per keypress.
+
+```js
+this.tag('ScrollWrapper').scrollStep = 50;
+```
+
+### Styling
+
+Below is the `styles` function for `ScrollWrapper`.
+
+```js
+const styles = theme => ({
+  text: {
+    ...theme.typography.body1,
+    color: theme.palette.text.light.primary
+  },
+  scrollBar: {
+    color: 0xffffffff,
+    w: 16,
+    h: 16
+  },
+  scrollBarContainer: {
+    color: 0xaaffffff,
+    w: 8
+  }
+});
+```
+
+To change the internal styles for `ScrollWrapper`, wrap it in the `withStyles` mixin.
+
+**Example**
+
+```js
+import withStyles from '@lightning/ui/mixins/withStyles';
+import BaseScrollWrapper from '@lightning/ui/components/ScrollWrapper';
+
+const styles = theme => ({
+  text: {
+    ...theme.typography.body2
+  }
+})
+class ScrollWrapper = withStyles(BaseScrollWrapper, styles);
+```
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+content|string|true|-|text content to be displayed
+h|number|true|0|height of viewable container
+scrollStep|number|false|10|how many pixels to scroll by on every up/down keypress
+w|number|true|0|width of viewable container
+
+### Methods
+
+#### resetScroll(): void
+
+Resets the `y` value of both the content and the scroll bar.
+
+### Events
+
+#### $scrollChanged('endUp'|'endDown', this)
+
+Event fired via `fireAncestors`, is triggered when scroll reaches the top or bottom of the scroll boundaries.

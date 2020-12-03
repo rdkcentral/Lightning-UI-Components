@@ -127,7 +127,7 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
     // there can only be one target per story
     const tag = parameters.tag || kind;
     const storyComponent = app.tag('StoryComponent');
-    const component = storyComponent.tag(tag);
+    const component = storyComponent.tag(tag) || storyComponent;
     app.debug = announce;
     app.announcerEnabled = announce;
     for (const arg in args) {
@@ -169,7 +169,8 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
 
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
-          const descriptor = getDescriptor(component.type.prototype, arg);
+          const proto = component.type ? component.type.prototype : component.__proto__;
+          const descriptor = getDescriptor(proto, arg);
 
           if (descriptor && descriptor.set) {
             component[arg] = argValue;

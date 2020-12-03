@@ -36,21 +36,17 @@ describe('ActionButton', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should update it's shadow width for long titles", done => {
+  it("should update it's shadow width for long titles", () => {
     [actionbutton, testRenderer] = createActionButton({
       title:
         'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
     });
-    // default width
-    expect(actionbutton.w).toBe(410);
-    setTimeout(() => {
-      expect(actionbutton.w).toBe(473);
-      actionbutton._DropShadow.loadTexture();
-      expect(actionbutton._DropShadow.texture._lookupId).toEqual(
-        'shadow457,56,16,32,8,8,8,8'
-      );
-      done();
-    });
+
+    expect(actionbutton.w).toBe(473);
+    actionbutton._DropShadow.loadTexture();
+    expect(actionbutton._DropShadow.texture._lookupId).toEqual(
+      'shadow457,56,16,32,8,8,8,8'
+    );
   });
 
   describe('style', () => {
@@ -107,11 +103,10 @@ describe('ActionButton', () => {
       [actionbutton, testRenderer] = createActionButton({});
       expect(actionbutton._loading.isPlaying()).toBe(true);
       actionbutton.title = 'Action Button';
-      actionbutton._whenEnabled.then(() => {
-        testRenderer.update();
+      setTimeout(() => {
         expect(actionbutton._loading.isPlaying()).toBe(false);
         done();
-      });
+      }, 1);
     });
   });
 
