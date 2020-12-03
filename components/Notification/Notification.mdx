@@ -38,10 +38,11 @@ requirements
 name|type|required|default|description
 --|--|--|--|--
 title|string|true|-|Notificaiton title
-description|string/|array|true|-|Notification description that can be passed as a string or array depending if icons are needed
+description|string\|array|true|-|Notification description that can be passed as a string or array depending if icons are needed
 icon|string|true|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
 actionArea|object|false|-|object with action area properties
-actionArea.text|string|false|-|text for action area
+actionArea.text|string\|array|false|-|text for action area can be passed as a string or array depending if icons are needed
+actionArea.content|string\|array|false|-|text for action area can be passed as a string or array depending if icons are needed
 actionArea.icon|string|false|-|URI for icon in action area
 
 ### Methods

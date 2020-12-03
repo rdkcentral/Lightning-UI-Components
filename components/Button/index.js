@@ -7,6 +7,7 @@
 import lng from 'wpe-lightning';
 import { RoundRect, measureTextWidth, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
+import withUpdates from '../../mixins/withUpdates';
 import Icon from '../Icon';
 
 export const styles = {
@@ -31,7 +32,20 @@ export const styles = {
   }
 };
 
-class Button extends lng.Component {
+class Button extends withUpdates(lng.Component) {
+  static get properties() {
+    return [
+      'fixed',
+      'icon',
+      'minWidth',
+      'radius',
+      'stroke',
+      'strokeColor',
+      'strokeWeight',
+      'title'
+    ];
+  }
+
   static _template() {
     return {
       w: this.styles.w || 0,
@@ -70,16 +84,9 @@ class Button extends lng.Component {
     this._fixed = false;
     this._focused = false;
     this._minWidth = 0;
-    this._whenEnabled = new Promise(
-      resolve => (this._enable = resolve),
-      console.error
-    );
     this._strokeWeight = 2;
     this._strokeColor = 0x00;
-  }
-
-  _init() {
-    this._update();
+    super._construct && super._construct();
   }
 
   _focus() {
@@ -206,18 +213,20 @@ class Button extends lng.Component {
         this.w = w;
         this.fireAncestors('$itemChanged');
         this.signal('buttonWidthChanged', { w: this.w });
+      } else {
+        this._w = this.w;
       }
     }
   }
 
   _update() {
-    this._whenEnabled.then(() => {
+    if (this._readyForUpdates) {
       this._updateColor();
       this._updateTitle();
       this._updateIcon();
       this._updateStroke();
       this._updateWidth();
-    });
+    }
   }
 
   _handleEnter() {
@@ -226,94 +235,8 @@ class Button extends lng.Component {
     }
   }
 
-  get fixed() {
-    return this._fixed;
-  }
-
-  set fixed(fixed) {
-    if (this._fixed !== fixed) {
-      this._fixed = fixed;
-      this._update();
-    }
-  }
-
-  get minWidth() {
-    return this._minWidth;
-  }
-
-  set minWidth(minWidth) {
-    if (this._minWidth !== minWidth) {
-      this._minWidth = minWidth;
-      this._update();
-    }
-  }
-
-  get radius() {
-    return this._radius;
-  }
-
-  set radius(radius) {
-    if (this._radius !== radius) {
-      this._radius = radius;
-      this._update();
-    }
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set title(title) {
-    if (this._title !== title) {
-      this._title = title;
-      this._update();
-    }
-  }
-
-  get icon() {
-    return this._icon;
-  }
-
-  set icon({ src, size = 20, spacing = 5, color = 0xffffffff }) {
-    if (src) {
-      this._icon = { src, size, spacing, color };
-    } else {
-      this._icon = null;
-    }
-    this._update();
-  }
-
-  get strokeWeight() {
-    return this._strokeWeight;
-  }
-
-  set strokeWeight(strokeWeight) {
-    if (this._strokeWeight !== strokeWeight) {
-      this._strokeWeight = strokeWeight;
-      this._update();
-    }
-  }
-
-  get strokeColor() {
-    return this._strokeColor;
-  }
-
-  set strokeColor(strokeColor) {
-    if (this._strokeColor !== strokeColor) {
-      this._strokeColor = strokeColor;
-      this._update();
-    }
-  }
-
-  get stroke() {
-    return this._stroke;
-  }
-
-  set stroke(stroke) {
-    if (this._stroke !== stroke) {
-      this._stroke = stroke;
-      this._update();
-    }
+  _setIcon({ src, size = 20, spacing = 5, color = 0xffffffff }) {
+    return src ? { src, size, spacing, color } : null;
   }
 
   get w() {

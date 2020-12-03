@@ -120,10 +120,10 @@ export default class Key extends withStyles(Button, keyStyles) {
   }
 
   _update() {
-    this._whenEnabled.then(() => {
+    if (this._readyForUpdates) {
       super._update();
       this._updateDropShadow();
-    });
+    }
   }
 
   get _DropShadow() {
