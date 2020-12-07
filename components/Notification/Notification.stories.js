@@ -31,9 +31,7 @@ export const Basic = args =>
     }
 
     _init() {
-      setTimeout(() => {
-        this.tag('Notification').enter();
-      }, 1000);
+      this.tag('Notification').enter();
     }
 
     _getFocused() {

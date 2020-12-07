@@ -24,10 +24,12 @@ export const styles = theme => ({
   },
   title: {
     ...theme.typography.headline3,
+    lineHeight: theme.typography.headline3.lineHeight + 6,
     color: theme.palette.text.light.primary
   },
   description: {
     ...theme.typography.body3,
+    lineHeight: theme.typography.body3.lineHeight + 4,
     textColor: theme.palette.text.light.secondary
   },
   actionArea: {
@@ -41,6 +43,7 @@ export const styles = theme => ({
     },
     text: {
       ...theme.typography.body3,
+      lineHeight: theme.typography.body3.lineHeight + 4,
       textColor: theme.palette.text.light.tertiary
     },
     icon: {
@@ -168,6 +171,15 @@ class Notification extends lng.Component {
     this.entered = false;
     this._icon = {};
     this._actionArea = {};
+    this._contentLoaded = false;
+    this._containerHIsFinal = new Promise(resolve => {
+      var intervalId = setInterval(() => {
+        if (this._contentLoaded) {
+          clearInterval(intervalId);
+          resolve();
+        }
+      }, 5);
+    });
   }
 
   _init() {
@@ -206,12 +218,13 @@ class Notification extends lng.Component {
   }
 
   $loadedInlineContent() {
+    this._contentLoaded = true;
     if (
       this._containerH === this.styles.minHeight &&
-      this._Description.finalH > this.styles.description.lineHeight
+      this._Description.multiLineHeight > this.styles.description.lineHeight
     ) {
       this._containerH +=
-        this._Description.finalH - this.styles.description.lineHeight;
+        this._Description.multiLineHeight - this.styles.description.lineHeight;
       this._update();
     }
   }
@@ -271,43 +284,45 @@ class Notification extends lng.Component {
   }
 
   enter() {
-    this.entered = true;
+    this._containerHIsFinal.then(() => {
+      this.entered = true;
 
-    this._Container.h = this._containerH;
-    this._Icon.smooth = {
-      scale: [this.styles.enter.icon.scale, { duration: 0.18, delay: 0.1 }],
-      alpha: [this.styles.enter.icon.alpha, { duration: 0.18, delay: 0.1 }]
-    };
-    let pop = this._Container.animation({
-      duration: 0.34,
-      actions: [
-        { p: 'alpha', v: { 0: 0, 1: this.styles.enter.container.alpha } },
-        {
-          p: 'scale',
-          v: { 0: 0.4, 0.8: 1.1, 1: this.styles.enter.container.scale }
-        }
-      ]
-    });
-    pop.start();
-    pop.on('finish', () => {
-      this._Container.smooth = {
-        w: [this.styles.enter.container.w, { duration: 0.24, delay: 0.2 }],
-        x: [this.styles.enter.container.x, { duration: 0.24, delay: 0.2 }]
+      this._Container.h = this._containerH;
+      this._Icon.smooth = {
+        scale: [this.styles.enter.icon.scale, { duration: 0.18, delay: 0.1 }],
+        alpha: [this.styles.enter.icon.alpha, { duration: 0.18, delay: 0.1 }]
       };
-      this._Text.smooth = {
-        x: [this.styles.enter.text.x, { duration: 0.28, delay: 0.3 }],
-        alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.3 }]
-      };
-
-      if (Object.keys(this._actionArea).length) {
+      let pop = this._Container.animation({
+        duration: 0.34,
+        actions: [
+          { p: 'alpha', v: { 0: 0, 1: this.styles.enter.container.alpha } },
+          {
+            p: 'scale',
+            v: { 0: 0.4, 0.8: 1.1, 1: this.styles.enter.container.scale }
+          }
+        ]
+      });
+      pop.start();
+      pop.on('finish', () => {
         this._Container.smooth = {
-          h: [
-            this._containerH + this.styles.actionArea.background.h,
-            { duration: 0.24, delay: 1 }
-          ]
+          w: [this.styles.enter.container.w, { duration: 0.24, delay: 0.2 }],
+          x: [this.styles.enter.container.x, { duration: 0.24, delay: 0.2 }]
         };
-      }
-      this.fireAncestors('$notificationEntered');
+        this._Text.smooth = {
+          x: [this.styles.enter.text.x, { duration: 0.28, delay: 0.3 }],
+          alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.3 }]
+        };
+
+        if (Object.keys(this._actionArea).length) {
+          this._Container.smooth = {
+            h: [
+              this._containerH + this.styles.actionArea.background.h,
+              { duration: 0.24, delay: 1 }
+            ]
+          };
+        }
+        this.fireAncestors('$notificationEntered');
+      });
     });
   }
 

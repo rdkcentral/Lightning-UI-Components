@@ -87,7 +87,15 @@ class InlineContent extends lng.Component {
 
   _contentLoaded() {
     this.stage.update();
-    this.fireAncestors('$loadedInlineContent', this);
+    // TODO: FIX
+    setTimeout(() => {
+      this.multiLineHeight = this.finalH;
+      if (this.flex) {
+        this.multiLineHeight =
+          this.finalH * this.flex._layout._lineLayouter._lines.length;
+      }
+      this.fireAncestors('$loadedInlineContent', this);
+    }, 10);
   }
 
   _createIcon(base, icon) {
