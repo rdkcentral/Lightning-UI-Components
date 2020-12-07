@@ -90,9 +90,9 @@ class MetadataCard extends lng.Component {
 
   $loadedInlineContent(line) {
     if (line.ref === this._FirstLine.ref) {
-      this._FirstLineWrapper.h = line.finalH;
+      this._FirstLineWrapper.h = line.multiLineHeight;
     }
-    line.h = line.finalH;
+    line.h = line.multiLineHeight;
   }
 
   _update() {
