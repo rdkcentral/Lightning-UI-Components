@@ -129,4 +129,13 @@ describe('MetadataCard', () => {
     expect(metadataCard.logoSpacing).toBe(spacing);
     expect(metadataCard._Text.flexItem.marginRight).toBe(spacing);
   });
+
+  it('should build announce text from the multiple lines', () => {
+    metadataCard.firstLine = 'First line text';
+    metadataCard.secondLine = 'Second line text';
+    metadataCard.thirdLine = 'Third line text';
+    expect(metadataCard.announce).toBe(
+      `${metadataCard.firstLine}. ${metadataCard.secondLine}. ${metadataCard.thirdLine}.`
+    );
+  });
 });
