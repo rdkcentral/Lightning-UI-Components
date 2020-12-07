@@ -73,7 +73,7 @@ export const CenteredText = () =>
       return {
         MarqueeText: {
           type: MarqueeText,
-          w: 400,
+          w: 450,
           h: 50,
           title: {
             text: 'No scroll center',
@@ -84,7 +84,40 @@ export const CenteredText = () =>
           },
           autoStart: true,
           delay: 1
+        },
+        InlineContent: {
+          type: InlineContent,
+          x: 200,
+          alpha: 0.001,
+          justify: 'flex-start',
+          content: [
+            'Centered',
+            {
+              icon:
+                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            },
+            ' InlineContent'
+          ],
+          rtt: true
+        },
+        MarqueeInlineContent: {
+          type: MarqueeText,
+          y: 100,
+          w: 450,
+          h: 180,
+          centerAlign: true,
+          alpha: 0,
+          autoStart: true,
+          delay: 1
         }
       };
+    }
+
+    _init() {
+      this.tag('MarqueeInlineContent').contentTexture = this.tag(
+        'InlineContent'
+      ).getTexture();
+      this.tag('MarqueeInlineContent').alpha = 1;
     }
   };

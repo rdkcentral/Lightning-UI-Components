@@ -40,6 +40,15 @@ describe('MarqueeText', () => {
 
       marquee.startScrolling();
       expect(marquee._scrolling).toBe(false);
+
+      [marquee, testRenderer] = createMarqueeText({
+        autoStart: true,
+        centerAlign: true
+      });
+
+      marquee.startScrolling();
+      expect(marquee.centerAlign).toBe(true);
+      expect(marquee._scrolling).toBe(false);
     });
 
     it('with autoStart property', done => {

@@ -22,6 +22,14 @@ export default class MarqueeText extends lng.Component {
     this._updateTexture({ text }, text.lineHeight);
   }
 
+  set centerAlign(centerAlign) {
+    this._centerAlign = centerAlign;
+  }
+
+  get centerAlign() {
+    return this._centerAlign;
+  }
+
   set contentTexture(texture) {
     this._updateTexture({ texture });
   }
@@ -82,8 +90,11 @@ export default class MarqueeText extends lng.Component {
     } else {
       // in case the metadata width gets larger on focus and the text goes from being clipped to not
       this._ContentClipper.shader = null;
-      if (this._Content.text && this._Content.text.textAlign === 'center') {
-        this._centerText(finalW);
+      if (
+        this._centerAlign ||
+        (this._Content.text && this._Content.text.textAlign === 'center')
+      ) {
+        this._centerTexture(finalW);
       }
       this._scrolling = false;
     }
@@ -139,7 +150,7 @@ export default class MarqueeText extends lng.Component {
     });
   }
 
-  _centerText(finalW) {
+  _centerTexture(finalW) {
     this._ContentBox.x = ((finalW || this.finalW) - this._textRenderedW) / 2;
   }
 
