@@ -46,7 +46,7 @@ export default (base, speak = Speech) =>
     }
 
     _focusChange() {
-      if (!this.announcerEnabled) {
+      if (!this.announcerEnabled || !this._resetFocusTimer) {
         return;
       }
 
