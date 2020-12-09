@@ -57,22 +57,29 @@ class MetadataTile extends lng.Component {
     this._marqueeProperties = this.styles.marqueeProperties;
     this._firstLineTextProperties = this.styles.firstLineTextProperties;
     this._secondLineTextProperties = this.styles.secondLineTextProperties;
+    this._getFocusScale = this.styles.focused.scale;
+    this._getUnfocusScale = this.styles.unfocused.scale;
     this.w = this.styles.w;
   }
 
   _init() {
-    this._originalW = this.w;
-    this._focusScale = this.styles.focused.scale(this._originalW);
-    this._unfocusScale = this.styles.unfocused.scale(this._originalW);
+    if (this.originalW === undefined) {
+      this.originalW = this.w;
+    }
+    if (this._focusScale === undefined) {
+      this._focusScale = this._getFocusScale(this.originalW);
+    }
+    if (this._unfocusScale === undefined) {
+      this._unfocusScale = this._getUnfocusScale(this.originalW);
+    }
     this._update();
   }
 
   $loadedInlineContent(line) {
-    // TODO: update this.finalH to this.multiLineHeight after PR #269 goes in
     if (line.ref === this._FirstLine.ref) {
-      this._FirstLineWrapper.h = line.finalH;
+      this._FirstLineWrapper.h = line.multiLineHeight;
     }
-    line.h = line.finalH;
+    line.h = line.multiLineHeight;
   }
 
   _update() {
@@ -130,13 +137,13 @@ class MetadataTile extends lng.Component {
   }
 
   get _textW() {
-    return this.hasFocus() ? this._focusW : this._originalW;
+    return this.hasFocus() ? this._focusW : this.originalW;
   }
 
   get _focusW() {
-    if (this._originalW) {
+    if (this.originalW) {
       const scale = this.hasFocus() ? this.focusScale : this.unfocusScale;
-      return scale * this._originalW;
+      return scale * this.originalW;
     }
     return this.w;
   }
@@ -227,6 +234,22 @@ class MetadataTile extends lng.Component {
 
   get secondLineTextProperties() {
     return this._secondLineTextProperties;
+  }
+
+  set originalW(w) {
+    this._originalW = w;
+    this._update();
+  }
+
+  get originalW() {
+    return this._originalW;
+  }
+
+  get h() {
+    return (
+      this.firstLineTextProperties.lineHeight +
+      this.secondLineTextProperties.lineHeight
+    );
   }
 
   get _FirstLineWrapper() {

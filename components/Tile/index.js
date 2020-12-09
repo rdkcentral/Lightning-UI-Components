@@ -45,6 +45,8 @@ class Tile extends withHandleKey(lng.Component) {
     );
     this._radius = this.styles.radius;
     this._src = this.styles.src;
+    this._getFocusScale = this.styles.focused.scale;
+    this._getUnfocusScale = this.styles.unfocused.scale;
   }
 
   _init() {
@@ -152,8 +154,8 @@ class Tile extends withHandleKey(lng.Component) {
 
   _updateScale() {
     const scale = this.hasFocus()
-      ? this.styles.focused.scale(this.w)
-      : this.styles.unfocused.scale(this.w);
+      ? this._getFocusScale(this.w)
+      : this._getUnfocusScale(this.w);
     if (this._smooth) {
       this._Item.smooth = { scale };
       this._FocusRing.smooth = { scale };
