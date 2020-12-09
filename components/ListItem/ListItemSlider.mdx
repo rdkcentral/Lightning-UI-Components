@@ -1,4 +1,6 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import { ListItemSlider } from '.';
 
 # ListItemSlider
 
@@ -94,3 +96,9 @@ _handler(value, slider) {
   console.log(value, slider);
 }
 ```
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={ListItemSlider.styles} />
