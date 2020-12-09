@@ -70,13 +70,21 @@ class MetadataCard extends lng.Component {
     this._firstLineTextProperties = this.styles.firstLineTextProperties;
     this._secondLineTextProperties = this.styles.secondLineTextProperties;
     this._thirdLineTextProperties = this.styles.thirdLineTextProperties;
+    this._getFocusScale = this.styles.focused.scale;
+    this._getUnfocusScale = this.styles.unfocused.scale;
     this.w = this.styles.w;
   }
 
   _init() {
-    this._originalW = this.w;
-    this._focusScale = this.styles.focused.scale(this._originalW);
-    this._unfocusScale = this.styles.unfocused.scale(this._originalW);
+    if (this.originalW === undefined) {
+      this.originalW = this.w;
+    }
+    if (this._focusScale === undefined) {
+      this._focusScale = this._getFocusScale(this.originalW);
+    }
+    if (this._unfocusScale === undefined) {
+      this._unfocusScale = this._getUnfocusScale(this.originalW);
+    }
     this._update();
 
     this._SecondLine.on('txLoaded', () => {
@@ -180,14 +188,14 @@ class MetadataCard extends lng.Component {
   }
 
   get _textW() {
-    const currentW = this.hasFocus() ? this._focusW : this._originalW;
+    const currentW = this.hasFocus() ? this._focusW : this.originalW;
     return currentW - (this.logo ? this.logoW + this.logoSpacing : 0);
   }
 
   get _focusW() {
-    if (this._originalW) {
+    if (this.originalW) {
       const scale = this.hasFocus() ? this.focusScale : this.unfocusScale;
-      return scale * this._originalW;
+      return scale * this.originalW;
     }
     return this.w;
   }
@@ -333,6 +341,23 @@ class MetadataCard extends lng.Component {
 
   get logoSpacing() {
     return this._logoSpacing;
+  }
+
+  set originalW(w) {
+    this._originalW = w;
+    this._update();
+  }
+
+  get originalW() {
+    return this._originalW;
+  }
+
+  get h() {
+    return (
+      this.firstLineTextProperties.lineHeight +
+      this.secondLineTextProperties.lineHeight +
+      this.thirdLineTextProperties.lineHeight
+    );
   }
 
   get _Text() {

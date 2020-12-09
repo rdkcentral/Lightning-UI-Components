@@ -1,0 +1,43 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# withMetadata
+
+The `withMetadata` mixin can be wrapped around any Tile component to position Metadata underneath it. This mixin will not work with non-Tile or non-Tile variant components. For example, TileIcon is valid as it extends Tile, but trying to use DataItem will cause a TypeError to be thrown.
+
+## Usage
+
+Pass in the Tile type to the `withMetadata` mixin and a Metadata component to display with the Tile (non-Tile and non-Tile variant components with throw a TypeError).
+
+```js
+import { withMetadata } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      TileWithMetadata: {
+        type: withMetadata(Tile),
+        w: 320,
+        h: 180,
+        persistentMetadata: true,
+        Metadata: {
+          type: MetadataCard,
+          firstLine: 'metadata text here'
+        }
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="mixins-withmetadata" />
+</Canvas>
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+persistentMetadata|boolean|false|false|determines whether the metadata should only be visible on focus or all the tile
+paddingTop|number|false|8|sets the amount of space between the bottom of the [Tile](?path=/docs/tile--basic) and top of the Metadata
+paddingSide|number|false|16|sets the amount of space the Metadata should be inset from the [Tile](?path=/docs/tile--basic) on either side
+Metadata|lng.Component|false|-|the component that will be added underneath the [Tile](?path=/docs/tile--basic), such as [MetadataCard](?path=/docs/metadatacard--basic) on either side or [MetadataTile](?path=/docs/metadatatile--basic) on either side
