@@ -2,6 +2,11 @@ import Tile from '../Tile';
 import Icon from '../Icon';
 
 export default class TileIcon extends Tile {
+  _construct() {
+    super._construct();
+    this._iconColor = 0xffffffff;
+  }
+
   set icon(src) {
     this._icon = src;
     this._update();
@@ -29,6 +34,15 @@ export default class TileIcon extends Tile {
     return this._iconH;
   }
 
+  set iconColor(color) {
+    this._iconColor = color;
+    this._update();
+  }
+
+  get iconColor() {
+    return this._iconColor;
+  }
+
   _update() {
     this._whenEnabled.then(() => {
       this._updateIcon();
@@ -42,6 +56,7 @@ export default class TileIcon extends Tile {
         Icon: {
           type: Icon,
           icon: this._icon,
+          color: this._iconColor,
           mount: 0.5,
           x: this.w / 2,
           y: this.h / 2,

@@ -26,6 +26,7 @@ export const Basic = args =>
           icon,
           w: 320,
           h: 180,
+          iconColor: rgba2argb(args.iconColor),
           iconW: args.iconW,
           iconH: args.iconH,
           blur: args.blur,
@@ -44,6 +45,7 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  iconColor: 'rgba(255,255,255,1)',
   iconW: 50,
   iconH: 50,
   blur: 0,
@@ -51,6 +53,9 @@ Basic.args = {
   color: 'rgba(63,92,30,0.7)'
 };
 Basic.argTypes = {
+  iconColor: {
+    control: 'color'
+  },
   iconW: {
     control: {
       type: 'range',
