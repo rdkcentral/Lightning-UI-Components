@@ -21,6 +21,11 @@ export const Basic = args =>
           h: 450,
           w: 600,
           scrollStep: args.scrollStep,
+          autoScroll: args.autoScroll,
+          scrollDuration: args.scrollDuration,
+          showScrollBar: args.showScrollBar,
+          autoScrollDelay: args.autoScrollDelay,
+          autoScrollSpeed: args.autoScrollSpeed,
           content:
             'By activating, you agree that you want to enable cloud DVR technology to ' +
             'your Xfinity TV subscription on additional supported devices like computers and ' +
@@ -47,13 +52,23 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  autoScroll: false,
+  autoScrollDelay: 2000,
+  autoScrollSpeed: 200,
   focused: true,
-  scrollStep: 10
+  scrollDuration: 0.2,
+  scrollStep: 10,
+  showScrollBar: true
 };
 Basic.argTypes = {
+  autoScroll: { control: 'boolean' },
+  autoScrollDelay: { control: 'number' },
+  autoScrollSpeed: { control: 'number' },
   focused: { control: 'boolean' },
   scrollChanged: { action: 'scrollChanged' },
-  scrollStep: { control: 'number' }
+  scrollDuration: { control: 'number' },
+  scrollStep: { control: 'number' },
+  showScrollBar: { control: 'boolean' }
 };
 Basic.parameters = {
   argActions: {

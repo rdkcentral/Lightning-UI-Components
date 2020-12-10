@@ -35,6 +35,9 @@ The `h` and `w` properties will determine the viewable box for `ScrollWrapper`. 
 
 The amount of scrolling per keypress is determined via the `scrollStep` property. Change it to allow smaller or larger scroll steps per keypress.
 
+Additionally, `ScrollWrapper` supports autoScroll flag, which will auto scroll the content. The delay to start is set via `autoScrollDelay` and
+speed via `autoScrollSpeed` both in ms. You can also hide the scrollBar with `showScrollBar`
+
 ```js
 this.tag('ScrollWrapper').scrollStep = 50;
 ```
@@ -85,7 +88,12 @@ name|type|required|default|description
 --|--|--|--|--
 content|string|true|-|text content to be displayed
 h|number|true|0|height of viewable container
+autoScroll|boolean|false|false|auto scroll the content
+autoScrollDelay|number|false|2000|delay before auto scroll starts
+autoScrollSpeed|number|false|200|time delay before each scroll step
+scrollDuration|number|false|0.2|animation duration for the scroll
 scrollStep|number|false|10|how many pixels to scroll by on every up/down keypress
+showScrollBar|boolean|false|true|show the scroll bar when focused
 w|number|true|0|width of viewable container
 
 ### Methods

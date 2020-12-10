@@ -21,7 +21,6 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   static _template() {
     return {
       clipping: true,
-      h: h => h,
       ScrollContainer: {
         w: w => w,
         wordWrap: true
@@ -60,27 +59,42 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   }
 
   _handleDown() {
-    if (this._scrollContainerY + this._ScrollContainer.h > this.h) {
+    if (this._scrollContainerY + this._ScrollContainer.h > this.renderHeight) {
       const containerY = this._scrollContainerY - this._scrollStep;
       this._ScrollContainer.patch({
         smooth: {
-          y:
-            containerY + this._ScrollContainer.h <= this.h
-              ? this.h - this._ScrollContainer.h
-              : containerY
+          y: [
+            containerY + this._ScrollContainer.h <= this.renderHeight
+              ? this.renderHeight - this._ScrollContainer.h
+              : containerY,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
         }
       });
-      const scrollBarY = this._scrollBarY + this._getScrollStep(this.h);
+      const scrollBarY =
+        this._scrollBarY + this._getScrollStep(this.renderHeight);
       this._ScrollBar.patch({
         smooth: {
-          y:
-            scrollBarY < this.h - this.styles.scrollBar.h
+          y: [
+            scrollBarY < this.renderHeight - this.styles.scrollBar.h
               ? scrollBarY
-              : this.h - this.styles.scrollBar.h
+              : this.renderHeight - this.styles.scrollBar.h,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
         }
       });
-      if (this._scrollContainerY + this._ScrollContainer.h <= this.h) {
+      if (
+        this._scrollContainerY + this._ScrollContainer.h <=
+        this.renderHeight
+      ) {
         this.fireAncestors('$scrollChanged', 'endDown', this);
+        this.autoScroll = false;
       }
     }
   }
@@ -90,13 +104,26 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
       const containerY = this._scrollContainerY + this._scrollStep;
       this._ScrollContainer.patch({
         smooth: {
-          y: containerY >= 0 ? 0 : this._scrollContainerY + this._scrollStep
+          y: [
+            containerY >= 0 ? 0 : this._scrollContainerY + this._scrollStep,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
         }
       });
-      const scrollBarY = this._scrollBarY - this._getScrollStep(this.h);
+      const scrollBarY =
+        this._scrollBarY - this._getScrollStep(this.renderHeight);
       this._ScrollBar.patch({
         smooth: {
-          y: scrollBarY > 0 ? scrollBarY : 0
+          y: [
+            scrollBarY > 0 ? scrollBarY : 0,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
         }
       });
 
@@ -119,7 +146,7 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
         w: adjustW - 10
       });
       this._ScrollBarContainer.patch({
-        h: this.h,
+        h: this.renderHeight,
         x: adjustW,
         ScrollBar: {
           x: (this._ScrollBarContainer.w - this._ScrollBar.w) / 2
@@ -136,9 +163,47 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
 
   _getScrollStep(height) {
     const numSteps = Math.ceil(
-      (this._ScrollContainer.h - this.h) / this._scrollStep
+      (this._ScrollContainer.h - this.renderHeight) / this._scrollStep
     );
     return (height - this.styles.scrollBar.h) / numSteps;
+  }
+
+  get autoScroll() {
+    return this._autoScroll;
+  }
+
+  set autoScroll(val) {
+    if (this._autoScroll !== val) {
+      this._autoScroll = val;
+    }
+
+    if (this._autoScroll) {
+      this._startAutoScroll = setTimeout(
+        () => this._performAutoScroll(),
+        isNaN(this.autoScrollDelay) ? 2000 : this.autoScrollDelay
+      );
+    } else {
+      clearTimeout(this._startAutoScroll);
+    }
+  }
+
+  get showScrollBar() {
+    return this._showScrollBar;
+  }
+
+  set showScrollBar(val) {
+    this._showScrollBar = val;
+    this._ScrollBarContainer.visible = val;
+  }
+
+  _performAutoScroll() {
+    if (this.autoScroll) {
+      this._handleDown();
+      setTimeout(
+        () => this._performAutoScroll(),
+        isNaN(this.autoScrollSpeed) ? 200 : this.autoScrollSpeed
+      );
+    }
   }
 
   get content() {
