@@ -1,4 +1,6 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import { ActionButtonXsmall } from '.';
 
 # ActionButtonXsmall
 
@@ -60,3 +62,9 @@ w|number|false|-|width
 #### onEnter(thisArg): void
 
 Callback to be executed on <kbd>Enter</kbd> key down event
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={ActionButtonXsmall.styles} />
