@@ -1,7 +1,5 @@
 import Button from '../Button';
 import withStyles from '../../mixins/withStyles';
-// styles
-import { getFocusScale } from '../Styles';
 
 export const KEY_DIMENSIONS = { h: 60, w: 60, padding: 0, fixed: true };
 const isUpperCase = string => /^[A-Z]$/.test(string);

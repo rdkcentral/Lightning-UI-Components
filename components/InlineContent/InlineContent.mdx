@@ -1,4 +1,6 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import InlineContent from '.';
 
 # InlineContent
 
@@ -52,3 +54,9 @@ combinedLinesHeight|number|0|readonly prop of the total height of all of the con
 #### $loadedInlineContent():void
 
 Fires when all contents inside the InlineContent component have finished rendering their textures. This is when you will have all of the correct flex properties of the components as well as `finalH` available to be used.
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={InlineContent.styles} />
