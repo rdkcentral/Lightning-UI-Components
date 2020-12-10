@@ -10,6 +10,7 @@ describe('ScrollWrapper', () => {
     [scrollWrapper, testRenderer] = createScrollWrapper({
       h: 100,
       w: 100,
+      scrollDuration: 0,
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.'
     });
@@ -93,5 +94,17 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper.scrollStep).toBe(10);
     scrollWrapper.scrollStep = 5;
     expect(scrollWrapper._scrollStep).toBe(5);
+  });
+
+  it('autoScrolls', done => {
+    scrollWrapper.autoScrollDelay = 0;
+    scrollWrapper.autoScrollSpeed = 0;
+    scrollWrapper.scrollStep = 100;
+    scrollWrapper.autoScroll = true;
+    setTimeout(() => {
+      testRenderer.update();
+      expect(scrollWrapper._ScrollContainer.y).toBe(-100);
+      done();
+    }, 1);
   });
 });
