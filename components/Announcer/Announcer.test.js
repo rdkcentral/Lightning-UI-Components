@@ -293,4 +293,18 @@ describe('AppAnnouncer', () => {
       ]);
     });
   });
+
+  describe('focusDiffHook', () => {
+    it('should be array of focused content', () => {
+      testRenderer.keyPress('Right');
+      let toAnnounce = announcer.focusDiffHook.reduce((acc, elm) => {
+        if (elm.title) {
+          acc.push(elm.title);
+        }
+        return acc;
+      }, []);
+
+      expect(toAnnounce).toEqual(['Ninja Turtles', 'Free to Me', 'HomePage']);
+    });
+  });
 });

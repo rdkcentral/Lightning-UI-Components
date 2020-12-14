@@ -60,6 +60,8 @@ export default (base, speak = Speech) =>
       let lastFocusPath = this._lastFocusPath || [];
       let loaded = focusPath.every(elm => !elm.loading);
       let focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
+      // Provide hook for focus diff for things like TextBanner
+      this.focusDiffHook = focusDiff;
 
       if (!loaded) {
         this._debounceAnnounceFocusChanges();
