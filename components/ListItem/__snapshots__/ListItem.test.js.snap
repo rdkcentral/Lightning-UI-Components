@@ -2146,6 +2146,49 @@ Object {
           "attached": true,
           "boundsMargin": null,
           "children": Object {
+            "Subtitle": Object {
+              "active": false,
+              "alpha": 1,
+              "attached": true,
+              "boundsMargin": null,
+              "clipping": false,
+              "color": "ccffffff",
+              "enabled": true,
+              "flex": false,
+              "flexItem": true,
+              "h": 32,
+              "isComponent": undefined,
+              "mount": 0,
+              "mountX": 0,
+              "mountY": 0,
+              "pivot": 0.5,
+              "pivotX": 0.5,
+              "pivotY": 0.5,
+              "ref": "Subtitle",
+              "renderOfScreen": undefined,
+              "renderToTexture": false,
+              "scale": 1,
+              "scaleX": 1,
+              "scaleY": 1,
+              "state": undefined,
+              "tag": [Function],
+              "tags": Array [
+                "Subtitle",
+              ],
+              "texture": Object {
+                "fontFace": "XfinityStandardMedium",
+                "fontSize": 24,
+                "h": 32,
+                "lineHeight": 32,
+                "text": "List Item Metadata",
+                "type": "TextTexture",
+              },
+              "visible": true,
+              "w": 0,
+              "x": 0,
+              "y": 0,
+              "zIndex": 0,
+            },
             "Title": Object {
               "active": false,
               "alpha": 1,
@@ -2373,7 +2416,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-532": Object {
+                    "Element-560": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -2416,7 +2459,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-533": Object {
+                    "Element-561": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -2459,7 +2502,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-534": Object {
+                    "Element-562": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -3163,7 +3206,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-581": Object {
+                    "Element-609": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -3206,7 +3249,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-582": Object {
+                    "Element-610": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -3249,7 +3292,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-583": Object {
+                    "Element-611": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
