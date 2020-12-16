@@ -197,6 +197,10 @@ describe('ListItem', () => {
       expect(listItem._Subtitle.color).toEqual(0xccffffff);
       expect(listItem._Icon.color).toEqual(0xf2ffffff);
     });
+
+    it('should announce title and subtitle', () => {
+      expect(listItem.announce).toBe('My Title My Subtitle');
+    });
   });
 
   describe('collapse set to true', () => {
@@ -450,6 +454,10 @@ describe('ListItemSlider', () => {
     tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(listItemSlider.value).toEqual(0);
+  });
+
+  it('should announce title and value', () => {
+    expect(listItemSlider.announce).toBe(`List Item 0`);
   });
 });
 

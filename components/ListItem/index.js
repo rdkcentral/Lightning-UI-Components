@@ -95,6 +95,12 @@ export class ListItemBase extends withStyles(
       }
     }
 
+    get announce() {
+      return (
+        this.title + ` ${this.subtitle !== undefined ? this.subtitle : ''}`
+      );
+    }
+
     get _Container() {
       return this.tag('Container');
     }
@@ -234,6 +240,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   set subtitle(subtitle) {
+    this._subtitle = subtitle;
     if (subtitle) {
       this._Left.patch({
         Title: {},
@@ -282,6 +289,10 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
 
   get title() {
     return this._title;
+  }
+
+  get subtitle() {
+    return this._subtitle;
   }
 }
 
