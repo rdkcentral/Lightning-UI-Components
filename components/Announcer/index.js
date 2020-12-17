@@ -46,7 +46,7 @@ export default (base, speak = Speech) =>
     }
 
     _focusChange() {
-      if (!this.announcerEnabled || !this._resetFocusTimer) {
+      if (!this._resetFocusTimer) {
         return;
       }
 
@@ -60,11 +60,17 @@ export default (base, speak = Speech) =>
       let lastFocusPath = this._lastFocusPath || [];
       let loaded = focusPath.every(elm => !elm.loading);
       let focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
-      // Provide hook for focus diff for things like TextBanner
-      this.focusDiffHook = focusDiff;
 
       if (!loaded) {
         this._debounceAnnounceFocusChanges();
+        return;
+      }
+
+      this._lastFocusPath = focusPath.slice(0);
+      // Provide hook for focus diff for things like TextBanner
+      this.focusDiffHook = focusDiff;
+
+      if (!this.announcerEnabled) {
         return;
       }
 
@@ -87,8 +93,6 @@ export default (base, speak = Speech) =>
         }
         return acc;
       }, toAnnounce);
-
-      this._lastFocusPath = focusPath.slice(0);
 
       if (this.debug) {
         console.table(toAnnounce);
