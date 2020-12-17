@@ -21,6 +21,7 @@ export const Basic = args =>
           type: InlineContent,
           x: 200,
           w: 200,
+          contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
           justify: args.justify,
           content: [
