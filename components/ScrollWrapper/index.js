@@ -136,6 +136,8 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   resetScroll() {
     this._ScrollContainer.patch({ y: 0 });
     this._ScrollBar.patch({ y: 0 });
+    this._ScrollContainer.transition('y').finish();
+    this._ScrollBar.transition('y').finish();
     delete this._ScrollContainer._transitions;
     delete this._ScrollBar._transitions;
     this._autoScrollComplete = false;
@@ -145,6 +147,7 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     this._ScrollContainer.on('txLoaded', () => {
       const adjustW = this.renderWidth - this._ScrollBar.renderWidth;
       this._ScrollContainer.patch({
+        y: 0,
         h: this._ScrollContainer.renderHeight,
         w: adjustW - 10
       });
