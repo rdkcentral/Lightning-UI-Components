@@ -179,6 +179,15 @@ export const KEYBOARD_FORMATS = {
   fullscreen: {
     letters: [
       [
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
         {
           label: '#@!',
           size: 'large',
@@ -186,7 +195,16 @@ export const KEYBOARD_FORMATS = {
           announce: 'symbol mode, button'
         },
         { label: 'Space', size: 'large' },
-        { label: 'Delete', size: 'large' }
+        { label: 'Delete', size: 'large' },
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
       ],
       [
         'A',
@@ -219,6 +237,15 @@ export const KEYBOARD_FORMATS = {
     ],
     symbols: [
       [
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
         {
           label: 'ABC',
           size: 'large',
@@ -226,7 +253,16 @@ export const KEYBOARD_FORMATS = {
           announce: 'caps on, button'
         },
         { label: 'Space', size: 'large' },
-        { label: 'Delete', size: 'large' }
+        { label: 'Delete', size: 'large' },
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
       ],
       [
         '1',
