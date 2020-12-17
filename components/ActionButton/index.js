@@ -70,7 +70,11 @@ class ActionButtonBase extends Button {
   }
 
   _updateDropShadow() {
-    const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+    const DropShadow = this.styles.shadow({
+      w: this.w,
+      h: this.h,
+      borderRadius: this.styles.radius
+    });
     this._DropShadow.patch(DropShadow);
     const alpha = Number(this._focused);
     if (this._smooth) {
