@@ -93,8 +93,8 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
         this._scrollContainerY + this._ScrollContainer.h <=
         this.renderHeight
       ) {
+        this._autoScrollComplete = true;
         this.fireAncestors('$scrollChanged', 'endDown', this);
-        this.autoScroll = false;
       }
     }
   }
@@ -136,11 +136,14 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   resetScroll() {
     this._ScrollContainer.patch({ y: 0 });
     this._ScrollBar.patch({ y: 0 });
+    delete this._ScrollContainer._transitions;
+    delete this._ScrollBar._transitions;
+    this._autoScrollComplete = false;
   }
 
   _update() {
     this._ScrollContainer.on('txLoaded', () => {
-      const adjustW = this.w - this._ScrollBar.w;
+      const adjustW = this.renderWidth - this._ScrollBar.renderWidth;
       this._ScrollContainer.patch({
         h: this._ScrollContainer.renderHeight,
         w: adjustW - 10
@@ -154,6 +157,7 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
       });
     });
     this._ScrollContainer.patch({
+      h: 0,
       text: {
         ...this.styles.text,
         text: this._content
@@ -176,14 +180,18 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     if (this._autoScroll !== val) {
       this._autoScroll = val;
     }
+    this._setupAutoScroll();
+  }
 
-    if (this._autoScroll) {
+  _setupAutoScroll() {
+    clearTimeout(this._startAutoScroll);
+    clearTimeout(this._performAutoScrollTimer);
+
+    if (this.autoScroll) {
       this._startAutoScroll = setTimeout(
         () => this._performAutoScroll(),
         isNaN(this.autoScrollDelay) ? 2000 : this.autoScrollDelay
       );
-    } else {
-      clearTimeout(this._startAutoScroll);
     }
   }
 
@@ -197,9 +205,9 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   }
 
   _performAutoScroll() {
-    if (this.autoScroll) {
+    if (this.autoScroll && !this._autoScrollComplete) {
       this._handleDown();
-      setTimeout(
+      this._performAutoScrollTimer = setTimeout(
         () => this._performAutoScroll(),
         isNaN(this.autoScrollSpeed) ? 200 : this.autoScrollSpeed
       );
@@ -213,6 +221,11 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   set content(content) {
     if (content !== this._content) {
       this._content = content;
+      if (this.enabled) {
+        this.resetScroll();
+        this._setupAutoScroll();
+        this._update();
+      }
     }
   }
 
