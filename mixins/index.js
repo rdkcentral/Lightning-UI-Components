@@ -1,4 +1,5 @@
 import { createTransitions } from '../components/Styles/Transitions';
+import { flatten } from '../utils';
 
 const patchTransitions = (element, transitions) => {
   if (!element._transitions) {
@@ -16,7 +17,7 @@ const patchTransitions = (element, transitions) => {
 const collectChildren = (children, result=[]) => {
   if (children && children.length) {
     result.push(...children);
-    return collectChildren(children.flatMap(child => child.children), result);
+    return collectChildren(flatten(children.map(child => child.children)), result);
   }
   return result
 }

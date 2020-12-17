@@ -2,7 +2,7 @@ import lng from 'wpe-lightning';
 import withStyles from '../../mixins/withStyles';
 import Icon from '../Icon';
 import Badge from '../Badge';
-import { parseInlineContent } from '../../utils';
+import { parseInlineContent, flatten } from '../../utils';
 
 export const styles = theme => ({
   iconW: 36,
@@ -155,8 +155,11 @@ class InlineContent extends lng.Component {
    * @return { array }
    */
   _formatSpaces(parsedContent) {
-    return (parsedContent || [])
-      .flatMap(item => (typeof item === 'string' ? item.split(/(\s+)/) : item))
+    return flatten(
+      (parsedContent || []).map(item =>
+        typeof item === 'string' ? item.split(/(\s+)/) : item
+      )
+    )
       .map((item, index, arr) => {
         if (item === ' ') return false;
         if (arr[index + 1] === ' ') return item + ' ';
