@@ -3,6 +3,7 @@ import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
+import { flatten } from '../../utils';
 
 export default {
   title: 'Column',
@@ -412,8 +413,8 @@ export const RainbowScreenEffect = args =>
   };
 
 export const StickyTitle = args => {
-  const items = Array.apply(null, { length: 5 })
-    .map((_, i) => {
+  const items = flatten(
+    Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
       let items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
@@ -432,7 +433,7 @@ export const StickyTitle = args => {
         ...items
       ];
     })
-    .flat();
+  );
   items.shift();
 
   return class ColumnExample extends lng.Component {

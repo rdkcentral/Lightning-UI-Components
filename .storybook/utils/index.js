@@ -1,4 +1,5 @@
 import React from 'react';
+import { flatten } from '../../utils';
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -30,9 +31,9 @@ export const ObjectFormat = ({ object }) => {
     '{',
     <br />,
     '  ',
-    ...Object.entries(object)
+    ...flatten(Object.entries(object)
       .map(([k, v]) => [<span>&nbsp;&nbsp;</span>, `${k}: `, v, ',', <br />])
-      .flat(),
+    ),
     '}'
   ].map((x, i) => <Item key={i}>{x}</Item>);
 };
