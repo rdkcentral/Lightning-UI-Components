@@ -32,6 +32,22 @@ export const Basic = () =>
     }
   };
 
+export const FullScreen = () =>
+  class Inline extends lng.Component {
+    static _template() {
+      return {
+        Keyboard: {
+          type: Keyboard,
+          defaultFormat: 'letters',
+          formats: KEYBOARD_FORMATS.fullscreen
+        }
+      };
+    }
+    _getFocused() {
+      return this.tag('Keyboard');
+    }
+  };
+
 export const Inline = () =>
   class Inline extends lng.Component {
     static _template() {
