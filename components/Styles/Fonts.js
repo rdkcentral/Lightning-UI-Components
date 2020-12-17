@@ -3,6 +3,9 @@
  *
  * Contains global font style information to easily maintain consistency throughout components.
  */
+
+import { flatten } from '../../utils';
+
 export const XfinityFonts = {
   default: {
     fontName: 'XfinityStandard',
@@ -41,8 +44,8 @@ export const XfinityFonts = {
 };
 
 export const createFonts = (...fonts) =>
-  fonts
-    .map(font =>
+  flatten(
+    fonts.map(font =>
       Object.values(font).reduce(
         (acc, { fontName, baseUrl, weights }) => [
           ...acc,
@@ -61,7 +64,7 @@ export const createFonts = (...fonts) =>
         []
       )
     )
-    .flat();
+  );
 
 /**
  * Xfinity-branded typography definitions for Lightning

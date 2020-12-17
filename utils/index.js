@@ -213,3 +213,18 @@ export function parseInlineContent(str = '') {
   }
   return content;
 }
+
+/**
+ * Array.prototype.flat() is not supported in WPE Browser
+ *
+ * @param {array} arr
+ *
+ * @return {array}
+ */
+export function flatten(arr) {
+  return arr.reduce(
+    (flat, toFlatten) =>
+      flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten),
+    []
+  );
+}

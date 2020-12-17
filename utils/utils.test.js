@@ -5,7 +5,8 @@ import {
   RoundRect,
   clone,
   getFirstNumber,
-  parseInlineContent
+  parseInlineContent,
+  flatten
 } from '.';
 
 describe('rgba2argb', () => {
@@ -224,5 +225,12 @@ describe('parseInlineContent', () => {
       { badge: 'HD' },
       ' badge test.'
     ]);
+  });
+});
+
+describe('flatten', () => {
+  it('should create a new array with all sub-array elements concatenated into it', () => {
+    const arr = [0, 1, 2, [3, 4]];
+    expect(flatten(arr)).toEqual([0, 1, 2, 3, 4]);
   });
 });
