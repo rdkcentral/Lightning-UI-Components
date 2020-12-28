@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 /**
  * Lightning uses ARGB values, use this function
