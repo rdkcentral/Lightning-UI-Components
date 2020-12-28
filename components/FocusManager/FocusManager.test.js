@@ -17,7 +17,7 @@
  */
 import FocusManager from '.';
 import TestUtils from '../lightning-test-utils';
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 const baseItem = { type: lng.Component };
 const createFocusManager = TestUtils.makeCreateComponent(FocusManager, {

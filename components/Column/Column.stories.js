@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
