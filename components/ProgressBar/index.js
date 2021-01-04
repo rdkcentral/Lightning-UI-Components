@@ -25,7 +25,7 @@ export default class ProgressBar extends lng.Component {
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
       this.w - 2,
-      this.h,
+      this._h,
       this._radius,
       0,
       0,
@@ -36,9 +36,8 @@ export default class ProgressBar extends lng.Component {
   }
 
   _update() {
-    let w = this.w * this.progress;
-    if (w > this.w) w = this.w;
-    if (w < 0) w = 0;
+    const p = this.w * this.progress;
+    const w = p <= 0 ? 0 : Math.min(p, this._w);
 
     this._Progress.texture = lng.Tools.getRoundRect(
       // transitioning to/from 0 texture width looks like it's missing a fill
@@ -50,6 +49,7 @@ export default class ProgressBar extends lng.Component {
       true,
       getHexColor(COLORS_NEUTRAL.light2, 96)
     );
+
     this._Progress.smooth = {
       w,
       alpha: Number(w > 0)
@@ -63,6 +63,17 @@ export default class ProgressBar extends lng.Component {
   set progress(progress) {
     if (progress !== this._progress) {
       this._progress = progress;
+      this._update();
+    }
+  }
+
+  get w() {
+    return this._w;
+  }
+
+  set w(w) {
+    if (w !== this._w) {
+      super._w = w;
       this._update();
     }
   }
