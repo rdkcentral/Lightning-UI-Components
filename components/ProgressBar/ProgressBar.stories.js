@@ -5,7 +5,8 @@ import mdx from './ProgressBar.mdx';
 export default {
   title: 'ProgressBar',
   args: {
-    progress: 0.5
+    progress: 0.5,
+    width: 410
   },
   argTypes: {
     progress: {
@@ -14,6 +15,13 @@ export default {
         min: 0,
         max: 1,
         step: 0.01
+      }
+    },
+    width: {
+      control: {
+        type: 'number',
+        min: 0,
+        step: 1
       }
     }
   },
@@ -30,7 +38,8 @@ export const Basic = args =>
       return {
         ProgressBar: {
           type: ProgressBar,
-          progress: args.progress
+          progress: args.progress,
+          w: args.width
         }
       };
     }
