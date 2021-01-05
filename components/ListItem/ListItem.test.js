@@ -201,6 +201,20 @@ describe('ListItem', () => {
     it('should announce title and subtitle', () => {
       expect(listItem.announce).toBe('My Title My Subtitle');
     });
+
+    it('should announce title when no subtitle/annouce passed', () => {
+      [listItem, testRenderer] = createListItem({
+        title: 'My Title'
+      });
+      expect(listItem.announce).toEqual('My Title ');
+    });
+
+    it('should announce when passed', () => {
+      [listItem, testRenderer] = createListItem({
+        announce: 'Override the default announce text'
+      });
+      expect(listItem.announce).toEqual('Override the default announce text');
+    });
   });
 
   describe('collapse set to true', () => {

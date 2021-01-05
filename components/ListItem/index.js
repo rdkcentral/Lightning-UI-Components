@@ -96,9 +96,15 @@ export class ListItemBase extends withStyles(
     }
 
     get announce() {
-      return (
-        this.title + ` ${this.subtitle !== undefined ? this.subtitle : ''}`
-      );
+      return this._announce
+        ? this._announce
+        : this.title + ` ${this.subtitle !== undefined ? this.subtitle : ''}`;
+    }
+
+    set announce(announce) {
+      if (this._announce !== announce) {
+        this._announce = announce;
+      }
     }
 
     get _Container() {
