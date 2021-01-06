@@ -1,5 +1,6 @@
-function speakSeries(series) {
+function speakSeries(series, root = true) {
   const synth = window.speechSynthesis;
+  const nestedSeriesResults = [];
   let cancelled = false;
   let seriesChain = series
     .reduce((series, phrase) => {
@@ -13,18 +14,22 @@ function speakSeries(series) {
             phrase = new Promise(resolve => {
               setTimeout(() => resolve(), pause);
             });
-          } else {
-            phrase = Promise.resolve(phrase);
           }
         }
 
-        return phrase.then(toSpeak => {
+        return Promise.resolve(phrase).then(toSpeak => {
           if (cancelled) {
             return Promise.reject();
           }
 
           if (!toSpeak) {
             return;
+          }
+
+          if (Array.isArray(toSpeak)) {
+            const seriesResult = speakSeries(toSpeak, false);
+            nestedSeriesResults.push(seriesResult);
+            return seriesResult.series;
           }
 
           let utterance = new SpeechSynthesisUtterance(toSpeak);
@@ -36,7 +41,12 @@ function speakSeries(series) {
   return {
     series: seriesChain,
     cancel: () => {
-      synth.cancel();
+      if (root) {
+        synth.cancel();
+      }
+      nestedSeriesResults.forEach(nestedSeriesResults => {
+        nestedSeriesResults.cancel();
+      });
       cancelled = true;
     }
   };
