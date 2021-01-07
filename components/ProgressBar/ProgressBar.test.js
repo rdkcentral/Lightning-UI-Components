@@ -69,4 +69,16 @@ describe('ProgressBar', () => {
     progressBar.w = 300;
     expect(updateSpy).not.toHaveBeenCalled();
   });
+
+  it('should set radius', () => {
+    expect(progressBar.radius).toBeDefined();
+  });
+
+  it('should set bar color', () => {
+    expect(progressBar.barColor).toBeDefined();
+  });
+
+  it('should set progress color', () => {
+    expect(progressBar.progressColor).toBeDefined();
+  });
 });
