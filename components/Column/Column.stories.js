@@ -35,8 +35,7 @@ export const Basic = args =>
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
-          })),
-          alwaysScroll: args.alwaysScroll
+          }))
         }
       };
     }
@@ -61,9 +60,6 @@ Basic.argTypes = {
     control: { type: 'range', min: 0, max: 1, step: 0.1 }
   },
   keepFullScreen: {
-    control: { type: 'boolean' }
-  },
-  alwaysScroll: {
     control: { type: 'boolean' }
   }
 };
