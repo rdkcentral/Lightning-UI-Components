@@ -6,7 +6,10 @@ export default {
   title: 'ProgressBar',
   args: {
     progress: 0.5,
-    width: 410
+    width: 410,
+    radius: 5,
+    barColor: '4284637804',
+    progressColor: '4127195135'
   },
   argTypes: {
     progress: {
@@ -18,6 +21,13 @@ export default {
       }
     },
     width: {
+      control: {
+        type: 'number',
+        min: 0,
+        step: 1
+      }
+    },
+    radius: {
       control: {
         type: 'number',
         min: 0,
@@ -39,7 +49,10 @@ export const Basic = args =>
         ProgressBar: {
           type: ProgressBar,
           progress: args.progress,
-          w: args.width
+          w: args.width,
+          radius: args.radius,
+          barColor: args.barColor,
+          progressColor: args.progressColor
         }
       };
     }

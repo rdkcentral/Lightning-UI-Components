@@ -19,7 +19,10 @@ class Example extends lng.Component {
       ProgressBar: {
         type: ProgressBar,
         w: 410,
-        percentage: 0.5
+        progress: 0.5,
+        radius: 5,
+        barColor: 4284637804,
+        progressColor: 4127195135
       }
     };
   }
@@ -38,5 +41,9 @@ The default progress bar width is 410.
 
 name|type|required|default|description
 --|--|--|--|--
-w|number|false|410|width of the bar
+h|number|false|8|height of the bar
+w|number|false|410|width of the bar when passed, `w` overrides 410 default
 progress|number|false|0|percentage of the current progress from 0 to 1
+radius|number|false|Xfinity theme (border.radius.xsmall)|radius of the bar corners, 'radius' overrides default
+barColor|number,string|false|Xfinity theme (GREY[20])|bar background, 'barColor' overrides default, formats(#000000|0x0000000|12345678)
+progressColor|number,string|false|Xfinity theme (getHexColor(GREY[0], 96))|progress fill, 'progressColor' overrides default, formats(#000000|0x0000000|12345678)
