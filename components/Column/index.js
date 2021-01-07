@@ -131,7 +131,9 @@ export default class Column extends FocusManager {
 
     let itemY = 0;
     let index = this.selectedIndex;
-    let lastIndex = this._computeLastIndex();
+    let lastIndex = this.alwaysScroll
+      ? this.items.length
+      : this._computeLastIndex();
 
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
       selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
