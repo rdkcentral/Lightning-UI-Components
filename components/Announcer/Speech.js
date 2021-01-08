@@ -1,8 +1,23 @@
+function flattenStrings(series = []) {
+  let flattenedSeries = [];
+
+  for (var i = 0; i < series.length; i++) {
+    if (typeof series[i] === 'string' && !series[i].includes('PAUSE-')) {
+      flattenedSeries.push(series[i]);
+    } else {
+      break;
+    }
+  }
+
+  return [flattenedSeries.join(' ')].concat(series.slice(i));
+}
+
 function speakSeries(series, root = true) {
   const synth = window.speechSynthesis;
   const nestedSeriesResults = [];
   let cancelled = false;
-  let seriesChain = series
+
+  let seriesChain = flattenStrings(series)
     .reduce((series, phrase) => {
       return series.then(() => {
         if (typeof phrase === 'string') {
@@ -32,8 +47,11 @@ function speakSeries(series, root = true) {
             return seriesResult.series;
           }
 
-          let utterance = new SpeechSynthesisUtterance(toSpeak);
-          synth.speak(utterance);
+          return new Promise(resolve => {
+            let utterance = new SpeechSynthesisUtterance(toSpeak);
+            utterance.onend = resolve;
+            synth.speak(utterance);
+          });
         });
       });
     }, Promise.resolve())

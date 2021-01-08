@@ -1,7 +1,7 @@
 import Speech from './Speech';
 
 global.speechSynthesis = {
-  speak: jest.fn(),
+  speak: jest.fn(utter => utter.onend()),
   cancel: jest.fn()
 };
 global.SpeechSynthesisUtterance = jest.fn();
@@ -17,7 +17,7 @@ describe('Speech', () => {
 
   it('should create an utterance from array', () => {
     return Speech(['Hello', 'There']).series.then(() => {
-      expect(utter).toHaveBeenLastCalledWith('There');
+      expect(utter).toHaveBeenLastCalledWith('Hello There');
     });
   });
 
@@ -46,8 +46,7 @@ describe('Speech', () => {
     return Speech(['Well', Promise.resolve(['Hello', 'There'])]).series.then(
       () => {
         expect(utter).toHaveBeenCalledWith('Well');
-        expect(utter).toHaveBeenCalledWith('Hello');
-        expect(utter).toHaveBeenCalledWith('There');
+        expect(utter).toHaveBeenCalledWith('Hello There');
       }
     );
   });

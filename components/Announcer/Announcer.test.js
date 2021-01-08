@@ -4,8 +4,9 @@ import TestRenderer from '../lightning-test-renderer';
 import lng from 'wpe-lightning';
 
 const speak = jest.fn();
+const speakCancel = jest.fn();
 speak.mockReturnValue({
-  cancel: jest.fn()
+  cancel: speakCancel
 });
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
@@ -281,16 +282,41 @@ describe('AppAnnouncer', () => {
   });
 
   describe('$announcerRefresh', () => {
-    it('should perform a full announce', () => {
+    it('should perform a full announce', done => {
+      speak.mockClear();
       announcer.$announcerRefresh();
-      expect(speak).toHaveBeenCalledWith([
-        'Welcome to Flex',
-        'HomePage',
-        'Free to Me',
-        'Ninja Turtles',
-        '1 of 3',
-        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-      ]);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ]);
+        done();
+      }, 1);
+    });
+
+    it.only('with depth should perform a partial announce', done => {
+      speak.mockClear();
+      announcer.$announcerRefresh(4);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3'
+        ]);
+        done();
+      }, 1);
+    });
+  });
+
+  describe('$announcerCancel', () => {
+    it('should stop currently speaking', () => {
+      announcer.$announce('Say something');
+      announcer.$announcerCancel();
+      expect(speakCancel).toHaveBeenCalled();
     });
   });
 
