@@ -9,7 +9,7 @@ function flattenStrings(series = []) {
     }
   }
 
-  return [flattenedSeries.join(' ')].concat(series.slice(i));
+  return [flattenedSeries.join(', ')].concat(series.slice(i));
 }
 
 function speakSeries(series, root = true) {
