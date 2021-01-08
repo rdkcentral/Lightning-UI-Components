@@ -17,7 +17,7 @@ describe('Speech', () => {
 
   it('should create an utterance from array', () => {
     return Speech(['Hello', 'There']).series.then(() => {
-      expect(utter).toHaveBeenLastCalledWith('Hello There');
+      expect(utter).toHaveBeenLastCalledWith('Hello, There');
     });
   });
 
@@ -46,7 +46,7 @@ describe('Speech', () => {
     return Speech(['Well', Promise.resolve(['Hello', 'There'])]).series.then(
       () => {
         expect(utter).toHaveBeenCalledWith('Well');
-        expect(utter).toHaveBeenCalledWith('Hello There');
+        expect(utter).toHaveBeenCalledWith('Hello, There');
       }
     );
   });
