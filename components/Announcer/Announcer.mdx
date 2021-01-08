@@ -7,6 +7,12 @@ import { Canvas, Story } from '@storybook/addon-docs/blocks';
 Extend your app with the `Announcer` class to add a framework for Voice Guidance. On Focus Change events, the `Announcer` class traverses the `_focusPath` property collecting strings or promises of strings to announce to the user. The array of information is passed to a speak function which is responsible for converting the text to speech. We include a default speak function
 which uses the [speechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), but you replace this with your own implementation by passing a speak function as the second argument to `Announcer`
 
+Note: The speechSynth api has some known problems:
+https://stackoverflow.com/questions/39391502/js-speechsynthesis-problems-with-the-cancel-method
+https://stackoverflow.com/questions/23483990/speechsynthesis-api-onend-callback-not-working
+
+This class does its best to work around these issues, but speech synth api can randomly fail.
+
 ## Usage
 
 Extend your application with `Announcer` before boot:
@@ -77,7 +83,8 @@ announcerTimeout|number|false|By default the announcer only gets information abo
 name|args|description
 --|--|--|--
 $announce|string|Announce a string or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
-$announcerRefresh|none|Performs a full announce using the focusPath
+$announcerRefresh|depth|Performs an announce using the focusPath - depth can trim known focusPath
+$announcerCancel|none|Cancels current speaking
 
 ### Hooks
 

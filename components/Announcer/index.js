@@ -113,12 +113,21 @@ export default (base, speak = Speech) =>
 
     $announce(toAnnounce) {
       if (this.announcerEnabled) {
+        currentlySpeaking && currentlySpeaking.cancel();
         currentlySpeaking = speak(toAnnounce);
       }
     }
 
-    $announcerRefresh() {
-      this._lastFocusPath = undefined;
+    $announcerCancel() {
+      currentlySpeaking && currentlySpeaking.cancel();
+    }
+
+    $announcerRefresh(depth) {
+      if (depth) {
+        this._lastFocusPath = this._lastFocusPath.slice(0, depth);
+      } else {
+        this._lastFocusPath = undefined;
+      }
       this._resetFocusTimer();
       this._focusChange();
     }
