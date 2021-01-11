@@ -1,4 +1,5 @@
 import lng from 'wpe-lightning';
+import { rgba2argb } from '../../utils';
 import ProgressBar from '.';
 import mdx from './ProgressBar.mdx';
 
@@ -8,8 +9,8 @@ export default {
     progress: 0.5,
     width: 410,
     radius: 5,
-    barColor: '4284637804',
-    progressColor: '4127195135'
+    barColor: 'rgba(98,98,98,1)',
+    progressColor: 'rgba(255,255,255,0.96)'
   },
   argTypes: {
     progress: {
@@ -33,7 +34,9 @@ export default {
         min: 0,
         step: 1
       }
-    }
+    },
+    barColor: { control: 'color' },
+    progressColor: { control: 'color' }
   },
   parameters: {
     docs: {
@@ -51,8 +54,8 @@ export const Basic = args =>
           progress: args.progress,
           w: args.width,
           radius: args.radius,
-          barColor: args.barColor,
-          progressColor: args.progressColor
+          barColor: rgba2argb(args.barColor),
+          progressColor: rgba2argb(args.progressColor)
         }
       };
     }

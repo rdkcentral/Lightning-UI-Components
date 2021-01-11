@@ -33,6 +33,7 @@ export { default as ScrollWrapper } from './components/ScrollWrapper/index.js';
 export { default as Slider } from './components/Slider/index.js';
 export { default as TabBar, Tab } from './components/Tabs/index.js';
 export { default as Tile } from './components/Tile/index.js';
+export { default as TileCircle } from './components/TileCircle/index.js';
 export { default as TileIcon } from './components/TileIcon/index.js';
 export { default as Toggle } from './components/Toggle/index.js';
 export { default as Tooltip } from './components/Tooltip/index.js';

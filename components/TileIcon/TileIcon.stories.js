@@ -30,10 +30,7 @@ export const Basic = args =>
           iconW: args.iconW,
           iconH: args.iconH,
           blur: args.blur,
-          radius: args.radius,
-          shadow: {
-            color: rgba2argb(args.color)
-          }
+          radius: args.radius
         }
       };
     }
@@ -48,9 +45,7 @@ Basic.args = {
   iconColor: 'rgba(255,255,255,1)',
   iconW: 50,
   iconH: 50,
-  blur: 0,
-  radius: 16,
-  color: 'rgba(63,92,30,0.7)'
+  radius: 16
 };
 Basic.argTypes = {
   iconColor: {
@@ -71,14 +66,6 @@ Basic.argTypes = {
     }
   },
   focused: { control: 'boolean' },
-  blur: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 4,
-      step: 0.5
-    }
-  },
   radius: {
     control: {
       type: 'range',
@@ -86,8 +73,7 @@ Basic.argTypes = {
       max: 100,
       step: 5
     }
-  },
-  color: { control: 'color' }
+  }
 };
 Basic.parameters = {
   argActions: {
@@ -103,38 +89,21 @@ Basic.parameters = {
 export const XfinityTheme = () =>
   class Basic extends lng.Component {
     static _template() {
+      const tileIcon = {
+        type: TileIcon,
+        src: blacktile,
+        icon,
+        w: 320,
+        h: 180,
+        radius: 8
+      };
       return {
         x: 60,
         y: 60,
         Row: {
           type: Row,
           itemSpacing: 60,
-          items: [
-            {
-              type: TileIcon,
-              src: blacktile,
-              icon,
-              w: 320,
-              h: 180,
-              radius: 8
-            },
-            {
-              type: TileIcon,
-              src: blacktile,
-              icon,
-              w: 320,
-              h: 180,
-              radius: 8
-            },
-            {
-              type: TileIcon,
-              src: blacktile,
-              icon,
-              w: 320,
-              h: 180,
-              radius: 8
-            }
-          ]
+          items: [tileIcon, tileIcon, tileIcon]
         }
       };
     }

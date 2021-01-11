@@ -24,6 +24,30 @@ export function getHexColor(hex, alpha = 100) {
 }
 
 /**
+ * Returns valid string of HEX color
+ *
+ * @param {string} color
+ * @param {boolean} fill
+ */
+export function getValidColor(color) {
+  if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
+    // User enters a valid 0x00000000 hex code
+    return Number(color);
+  } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
+    // User enters valid #000000 hex code
+    return getHexColor(color.substr(1, 6));
+  } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
+    return parseInt(color);
+  } else if (
+    typeof color === 'number' &&
+    /^[0-9]{8,10}/g.test(color.toString())
+  ) {
+    return color;
+  }
+  return null;
+}
+
+/**
  * Xfinity-branded color palette for Lightning
  * https://share.goabstract.com/06d0601d-b7d2-48f3-93a2-17cc78bedb5e?mode=build&sha=6d9d06ec3e924eb83ff133826956e1e9a4fc7e36
  */
@@ -32,6 +56,8 @@ export const GREY = {
   5: getHexColor('ececf2'),
   10: getHexColor('e2e2eb'),
   20: getHexColor('62626c'),
+  30: getHexColor('b1b1bd'),
+  40: getHexColor('8b8b97'),
   60: getHexColor('3e3e45'),
   70: getHexColor('232328'),
   80: getHexColor('141417'),
@@ -58,12 +84,34 @@ export const GREEN = {
   __isColor: true
 };
 
+export const YELLOW = {
+  hover: getHexColor('ffd88a'),
+  default: getHexColor('ffc95c'),
+  pressed: getHexColor('ffb829'),
+  indicator: getHexColor('ffaa00'),
+  shade: getHexColor('2e1700'),
+  __isColor: true
+};
+
+export const OPACITY = {
+  0: 0,
+  1: 16,
+  2: 32,
+  3: 48,
+  4: 64,
+  5: 80,
+  6: 96
+};
+
 export const PALETTE = {
+  getHexColor,
   black: GREY[100],
   white: GREY[0],
   grey: GREY,
   blue: BLUE,
   green: GREEN,
+  yellow: YELLOW,
+  opacity: OPACITY,
   __isColor: true,
   background: {
     default: GREY[80],

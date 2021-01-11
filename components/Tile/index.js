@@ -7,6 +7,7 @@ import withHandleKey from '../../mixins/withHandleKey';
 export const styles = theme => ({
   radius: theme.border.radius.small,
   shadow: theme.materials.luminance,
+  blur: 0,
   src: blackBackground,
   focusring: function({ w, h, radius }) {
     return {
@@ -34,7 +35,9 @@ export const styles = theme => ({
 class Tile extends withHandleKey(lng.Component) {
   static _template() {
     return {
-      Item: {}
+      Item: {
+        Image: {}
+      }
     };
   }
 
@@ -47,6 +50,7 @@ class Tile extends withHandleKey(lng.Component) {
     this._src = this.styles.src;
     this._getFocusScale = this.styles.focused.scale;
     this._getUnfocusScale = this.styles.unfocused.scale;
+    this._blur = this.styles.blur;
   }
 
   _init() {
@@ -55,6 +59,8 @@ class Tile extends withHandleKey(lng.Component) {
 
   _update() {
     this._whenEnabled.then(() => {
+      this._Item.w = this.w;
+      this._Item.h = this.h;
       this._updateImage();
       this._updateBlur();
       this._updateRadius();
@@ -65,42 +71,41 @@ class Tile extends withHandleKey(lng.Component) {
   }
 
   _updateImage() {
-    this.patch({
-      Item: {
-        rtt: true,
-        zIndex: 2,
-        src: this._src,
+    this._Image.patch({
+      rtt: true,
+      zIndex: 2,
+      src: this._src,
+      w: this.w,
+      h: this.h,
+      resizeMode: { type: 'cover' }
+    });
+  }
+
+  _patchBlur() {
+    this._Item.patch({
+      Blur: {
+        type: lng.components.FastBlurComponent,
         w: this.w,
         h: this.h,
-        resizeMode: { type: 'cover' }
+        rtt: true,
+        zIndex: 3,
+        content: {
+          Image: {
+            texture: this._Image.getTexture()
+          }
+        }
       }
     });
   }
 
   _updateBlur() {
     let amount = this._blur;
-    this._Item.removeAllListeners();
-    this._Item.on('txLoaded', () => {
-      this._Item.patch({
-        Blur: {
-          type: lng.components.FastBlurComponent,
-          w: this.w,
-          h: this.h,
-          rtt: true,
-          zIndex: 3,
-          content: {
-            Image: {
-              texture: this._Item.getTexture()
-            }
-          }
-        }
-      });
-      if (this._smooth) {
-        this._Blur.smooth = { amount };
-      } else {
-        this._Blur.amount = amount;
-      }
-    });
+    this._patchBlur();
+    if (this._smooth) {
+      this._Blur.smooth = { amount };
+    } else {
+      this._Blur.amount = amount;
+    }
   }
 
   _updateRadius() {
@@ -117,7 +122,7 @@ class Tile extends withHandleKey(lng.Component) {
       this._shadow = this.styles.shadow({
         w: this.w,
         h: this.h,
-        texture: this._Item.getTexture()
+        texture: this._Image.getTexture()
       });
     }
     let DropShadow = this._shadow;
@@ -166,8 +171,10 @@ class Tile extends withHandleKey(lng.Component) {
   }
 
   set src(src) {
-    this._src = src;
-    this._update();
+    if (this._src !== src) {
+      this._src = src;
+      this._update();
+    }
   }
 
   set blur(amount) {
@@ -208,6 +215,10 @@ class Tile extends withHandleKey(lng.Component) {
 
   get _Item() {
     return this.tag('Item');
+  }
+
+  get _Image() {
+    return this.tag('Image');
   }
 
   get _Blur() {

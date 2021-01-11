@@ -60,7 +60,7 @@ export default class TileIcon extends Tile {
           mount: 0.5,
           x: this.w / 2,
           y: this.h / 2,
-          zIndex: 3
+          zIndex: 4
         }
       }
     });
