@@ -201,7 +201,7 @@ describe('getFirstNumber', () => {
   it('returns the first number in a list', () => {
     expect(getFirstNumber(0, 100)).toBe(0);
     expect(getFirstNumber(true, undefined, null, '10', 12)).toBe(12);
-    expect(getFirstNumber([], {}, function() {}, 1)).toBe(1);
+    expect(getFirstNumber([], {}, function () {}, 1)).toBe(1);
   });
 
   it('returns undefined if a number does not exist', () => {

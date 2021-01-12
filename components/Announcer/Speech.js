@@ -71,7 +71,7 @@ function speakSeries(series, root = true) {
 }
 
 let currentSeries;
-export default function(toSpeak) {
+export default function (toSpeak) {
   toSpeak = Array.isArray(toSpeak) ? toSpeak : [toSpeak];
   currentSeries && currentSeries.cancel();
   currentSeries = speakSeries(toSpeak);

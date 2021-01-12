@@ -10,7 +10,7 @@ export const styles = theme => ({
     color: theme.palette.background.ghost
   },
   radius: theme.border.radius.medium,
-  focusring: function({ w, h, radius }) {
+  focusring: function ({ w, h, radius }) {
     return {
       type: FocusRing,
       w,
