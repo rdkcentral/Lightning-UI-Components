@@ -1,5 +1,8 @@
 import TestUtils from '../lightning-test-utils';
 import Input from '.';
+import { PALETTE, getHexColor } from '../Styles/Colors';
+import eye from '../../assets/images/ic_eye_white_48.png';
+import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 
 const createInput = TestUtils.makeCreateComponent(Input);
 
@@ -193,5 +196,47 @@ describe('Input', () => {
     expect(input.announce).toBe('value');
     input.password = true;
     expect(input.announce).toBe('Input hidden');
+  });
+
+  describe('Input Icon', () => {
+    it('should set icon properties from withStyles', () => {
+      expect(input.iconColor).toBe(getHexColor(PALETTE.grey[5]));
+      expect(input.iconFocusColor).toBe(getHexColor(PALETTE.grey[90]));
+    });
+
+    it('should set icon properties from args', () => {
+      [input, testRenderer] = createInput({
+        iconColor: getHexColor(PALETTE.grey[10]),
+        iconFocusColor: getHexColor(PALETTE.grey[80])
+      });
+      expect(input.iconColor).toBe(getHexColor(PALETTE.grey[10]));
+      expect(input.iconFocusColor).toBe(getHexColor(PALETTE.grey[80]));
+    });
+
+    it('should set icon from args', () => {
+      [input, testRenderer] = createInput({
+        icon: eye
+      });
+      expect(input.icon).toBe(eye);
+      // Change Icon
+      input.icon = eyeHide;
+      expect(input.icon).toBe(eyeHide);
+    });
+
+    it('should change icon color based on focus state', () => {
+      [input, testRenderer] = createInput({
+        icon: eye
+      });
+      input._focus();
+      input._updateIcon();
+      expect(input._Icon.color).toBe(
+        getHexColor(input.styles.iconProperties.focusColor)
+      );
+      input._unfocus();
+      input._updateIcon();
+      expect(input._Icon.color).toBe(
+        getHexColor(input.styles.iconProperties.color)
+      );
+    });
   });
 });
