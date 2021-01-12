@@ -85,7 +85,7 @@ export class Circle extends lng.Texture {
     canvas.width = dimension * 2;
     canvas.height = dimension * 2;
 
-    return function(cb) {
+    return function (cb) {
       const ctx = canvas.getContext('2d');
       ctx.lineWidth = strokeWidth;
       ctx.strokeStyle = strokeColor;
@@ -153,7 +153,7 @@ export class Arrow extends lng.Texture {
     const direction = this._direction;
 
     var canvas = this.stage.platform.getDrawingCanvas();
-    return function(cb) {
+    return function (cb) {
       var ctx = canvas.getContext('2d');
       canvas.width = w;
       canvas.height = h;
@@ -231,7 +231,7 @@ export class Line extends lng.Texture {
     const rounded = this._rounded;
 
     var canvas = this.stage.platform.getDrawingCanvas();
-    return function(cb) {
+    return function (cb) {
       var ctx = canvas.getContext('2d');
       canvas.width = w;
       canvas.height = h;

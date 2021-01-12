@@ -9,7 +9,7 @@ export const styles = theme => ({
   shadow: theme.materials.luminance,
   blur: 0,
   src: blackBackground,
-  focusring: function({ w, h, radius }) {
+  focusring: function ({ w, h, radius }) {
     return {
       type: FocusRing,
       w,

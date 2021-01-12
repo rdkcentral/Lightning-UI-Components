@@ -69,7 +69,7 @@ Basic.argTypes = {
 };
 Basic.parameters = {
   argActions: {
-    scroll: function(index, component) {
+    scroll: function (index, component) {
       component.tag('Column').scrollTo(index - 1);
     },
     itemTransition: (duration, component) => {

@@ -87,12 +87,12 @@ let orangeStyles = {
   h: 50,
   padding: 50,
   unfocus: {
-    patch: function() {
+    patch: function () {
       this.smooth = { scale: 1 };
     }
   },
   focus: {
-    patch: function() {
+    patch: function () {
       this.smooth = { scale: 1.1 };
     }
   }
