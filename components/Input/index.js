@@ -1,5 +1,7 @@
 import lng from 'wpe-lightning';
 import withStyles from '../../mixins/withStyles';
+import Icon from '../Icon';
+import InlineContent from '../InlineContent';
 
 export const styles = theme => ({
   h: 64,
@@ -14,8 +16,14 @@ export const styles = theme => ({
     blink: true,
     width: 4
   },
+  iconProperties: {
+    height: 32,
+    width: 32,
+    color: theme.palette.grey[5],
+    focusColor: theme.palette.grey[90]
+  },
   padding: {
-    left: theme.spacing(0)
+    left: theme.spacing(2)
   },
   radius: theme.border.radius.small,
   text: {
@@ -25,6 +33,10 @@ export const styles = theme => ({
   label: {
     ...theme.typography.callout1,
     textColor: theme.palette.grey[5]
+  },
+  caption: {
+    ...theme.typography.caption1,
+    textColor: theme.palette.text.light.tertiary
   },
   focused: {
     background: { color: theme.palette.background.focus },
@@ -50,61 +62,71 @@ class Input extends lng.Component {
       },
       Container: {
         y: this.styles.label.lineHeight + 16,
-        flex: {
-          paddingLeft: this.styles.padding.left,
-          alignContent: 'center'
-        },
         color: this.styles.background,
         texture: lng.Tools.getRoundRect(
           this.styles.w,
           this.styles.h,
           this.styles.radius
         ),
-        // TODO: need design input on cursor
-        Cursor: {
-          flexItem: {
-            alignSelf: 'center',
-            marginLeft: 8
-          },
-          w: this.styles.cursor.width,
-          h: this.styles.text.lineHeight,
-          color: this.styles.cursor.color,
-          rect: true,
-          alpha: 0.0001,
-          zIndex: 1
-        },
-        Content: {
-          flexItem: {
-            alignSelf: 'center'
-          },
-          text: {
-            ...this.styles.text,
-            text: '',
+        ContentWrapper: {
+          clipping: true,
+          x: this.styles.padding.left,
+          y: 8,
+          w: w => w,
+          h: this.styles.text.lineHeight + 12,
+          // TODO: need design input on cursor
+          Cursor: {
+            w: this.styles.cursor.width,
+            h: this.styles.text.lineHeight,
+            y: 8,
+            color: this.styles.cursor.color,
+            rect: true,
+            alpha: 0.0001,
             zIndex: 1
-          }
-        },
-        /**
-         * Hidden value is used for measuring where the cursor should
-         * be positioned when a user changes the cursor position. Since
-         * the text is one texture we don't know the exact position of each
-         * individual character, so we render a substring version of the text
-         * to determine the renderwidth and position the cursor based on that number
-         */
-        HiddenContent: {
-          alpha: 0.00001,
-          text: {
-            ...this.styles.text,
-            text: '',
-            textColor: 0xffffffff
+          },
+          Content: {
+            text: {
+              ...this.styles.text,
+              text: '',
+              zIndex: 1
+            }
+          },
+          /**
+           * Hidden value is used for measuring where the cursor should
+           * be positioned when a user changes the cursor position. Since
+           * the text is one texture we don't know the exact position of each
+           * individual character, so we render a substring version of the text
+           * to determine the renderwidth and position the cursor based on that number
+           */
+          HiddenContent: {
+            alpha: 0.00001,
+            text: {
+              ...this.styles.text,
+              text: '',
+              textColor: 0xffffffff
+            }
           }
         }
       },
+      Icon: {
+        type: Icon,
+        y: this.styles.label.lineHeight + 32
+      },
       Underline: {
-        rect: true,
         color: this.styles.underline.color,
-        h: this.styles.underline.weight,
-        w: this.styles.w,
         y: this.styles.label.lineHeight + 16 + this.styles.text.lineHeight + 24
+      },
+      Caption: {
+        type: InlineContent,
+        textProperties: this.styles.caption,
+        x: this.styles.padding.left,
+        y:
+          this.styles.label.lineHeight +
+          16 +
+          this.styles.text.lineHeight +
+          24 +
+          this.styles.underline.weight +
+          16
       },
       DropShadow: {
         alpha: 0,
@@ -125,6 +147,10 @@ class Input extends lng.Component {
     this._focused = false;
     this._mask = '•';
     this._password = false;
+    this._iconHeight = this.styles.iconProperties.height;
+    this._iconWidth = this.styles.iconProperties.width;
+    this._iconColor = this.styles.iconProperties.color;
+    this._iconFocusColor = this.styles.iconProperties.focusColor;
     this._whenEnabled = new Promise(
       resolve => (this._enable = resolve),
       console.error
@@ -175,6 +201,7 @@ class Input extends lng.Component {
 
   _update() {
     this._whenEnabled.then(() => {
+      this._updateIcon();
       this._updateContainer();
       this._updateUnderline();
       this._updateState();
@@ -182,34 +209,54 @@ class Input extends lng.Component {
     });
   }
 
+  _updateIcon() {
+    const alpha = this.icon ? 0.64 : 0;
+    this._Icon.patch({
+      x: this.w - (this._iconWidth + this.styles.padding.left),
+      h: this._iconHeight,
+      w: this._iconWidth,
+      icon: this._icon,
+      color: this._focused ? this.iconFocusColor : this.iconColor
+    });
+    if (this._smooth) {
+      this._Icon.smooth = { alpha };
+    } else {
+      this._Icon.alpha = alpha;
+    }
+
+    this._ContentWrapper.w =
+      (this.icon ? this._Icon.x : this.w) - this.styles.padding.left * 2;
+  }
+
   _updateUnderline() {
-    const Underline = {};
     if (this._Underline) {
-      Underline.w = this.w;
-      this.patch({ Underline });
+      this._Underline.patch({
+        texture: lng.Tools.getRoundRect(
+          this.w,
+          this.styles.underline.weight,
+          this.styles.underline.weight / 2
+        )
+      });
+      this._Underline.w = this.w;
     }
   }
 
   _updateContainer() {
-    const Container = {};
-    let Cursor;
-    let Content;
-
     if (this._Container) {
-      Cursor = {
-        x: this._getCursorX()
-      };
       const text =
         (this.password ? this.mask.repeat(this.value.length) : this.value) ||
         this.placeholder;
-      Content = {
-        text: { text }
-      };
-      Container.texture = lng.Tools.getRoundRect(this.w, this.h, this.radius);
-
-      Container.Content = Content;
-      Container.Cursor = Cursor;
-      this.patch({ Container });
+      this._Container.patch({
+        texture: lng.Tools.getRoundRect(this.w, this.h, this.radius),
+        ContentWrapper: {
+          Cursor: {
+            x: this._getCursorX()
+          },
+          Content: {
+            text: { text }
+          }
+        }
+      });
     }
   }
 
@@ -260,6 +307,7 @@ class Input extends lng.Component {
   }
 
   _focus() {
+    if (this._smooth === undefined) this._smooth = true;
     this._focused = true;
     this._update();
   }
@@ -299,6 +347,36 @@ class Input extends lng.Component {
     return this._HiddenContent.renderWidth;
   }
 
+  get icon() {
+    return this._icon;
+  }
+  set icon(icon) {
+    if (icon !== this.icon) {
+      this._icon = icon;
+      this._update();
+    }
+  }
+
+  get iconColor() {
+    return this._iconColor;
+  }
+  set iconColor(iconColor) {
+    if (iconColor !== this.iconColor) {
+      this._iconColor = iconColor;
+      this._update();
+    }
+  }
+
+  get iconFocusColor() {
+    return this._iconFocusColor;
+  }
+  set iconFocusColor(iconFocusColor) {
+    if (iconFocusColor !== this.iconFocusColor) {
+      this._iconFocusColor = iconFocusColor;
+      this._update();
+    }
+  }
+
   set listening(listening) {
     this._listening = listening;
     this._update();
@@ -322,6 +400,10 @@ class Input extends lng.Component {
       this._w = w;
       this._update();
     }
+  }
+
+  set caption(caption) {
+    this._Caption.content = caption;
   }
 
   get h() {
@@ -396,16 +478,20 @@ class Input extends lng.Component {
     return this.tag('Label');
   }
 
+  get _ContentWrapper() {
+    return this._Container.tag('ContentWrapper');
+  }
+
   get _Content() {
-    return this.tag('Container.Content');
+    return this._ContentWrapper.tag('Content');
   }
 
   get _Cursor() {
-    return this.tag('Container.Cursor');
+    return this._ContentWrapper.tag('Cursor');
   }
 
   get _HiddenContent() {
-    return this.tag('Container.HiddenContent');
+    return this._ContentWrapper.tag('HiddenContent');
   }
 
   get _DropShadow() {
@@ -414,6 +500,14 @@ class Input extends lng.Component {
 
   get _Underline() {
     return this.tag('Underline');
+  }
+
+  get _Icon() {
+    return this.tag('Icon');
+  }
+
+  get _Caption() {
+    return this.tag('Caption');
   }
 }
 

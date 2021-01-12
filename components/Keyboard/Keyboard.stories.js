@@ -107,7 +107,9 @@ export const KeyboardWithInput = () =>
       return {
         KeyboardInput: {
           type: KeyboardInput,
-          inputPlaceholder: 'Search'
+          inputPlaceholder: 'Search',
+          password: true,
+          mask: '*'
         }
       };
     }

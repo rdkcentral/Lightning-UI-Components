@@ -145,6 +145,9 @@ position|number|false|0|index of current cursor position
 radius|number|false|8|border radius
 value|string|false|''|text of input value
 w|number|false|808|width
+icon|image|false|icon to display in input
+iconColor|number|Xfinity theme (theme.palette.grey[5])|icon color for input unfocused state
+iconFocusColor|number|Xfinity theme (theme.palette.grey[90])|icon color for input focused state
 
 ### Methods
 
@@ -158,7 +161,7 @@ Appends `value` to `input.value` and moves the cursor by `value.length`.
 
 #### backspace(): void
 
-Removes one character behind `input.position` and moves the cursor back by 1. 
+Removes one character behind `input.position` and moves the cursor back by 1.
 
 ### Styles
 
