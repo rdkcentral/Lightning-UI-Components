@@ -78,6 +78,12 @@ describe('InlineContent', () => {
     expect(inlineContent.contentSpacing).toBe(padding);
   });
 
+  it('should update item flex spacing', () => {
+    const props = { marginBottom: 50 };
+    inlineContent.contentProperties = props;
+    expect(inlineContent.contentProperties).toBe(props);
+  });
+
   it('should update badge styling', () => {
     const color = getHexColor('ffffff', 25);
     const badgeProperties = { background: { color } };
