@@ -11,6 +11,9 @@ export const styles = theme => ({
   badgeY: 8,
   textY: 0,
   contentSpacing: theme.spacing(1),
+  contentProperties: {
+    marginBottom: theme.typography.body1.lineHeight / -10
+  },
   textProperties: {
     ...theme.typography.body1,
     color: theme.palette.text.light.secondary,
@@ -30,6 +33,7 @@ class InlineContent extends lng.Component {
     this._contentSpacing = this.styles.contentSpacing;
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
+    this._contentProperties = this.styles.contentProperties;
     this.combinedLinesHeight = 0;
   }
 
@@ -51,10 +55,15 @@ class InlineContent extends lng.Component {
       this._parsedContent.forEach((item, index) => {
         let base = {
           flexItem: {
+            ...this.contentProperties,
+            marginBottom:
+              index === this._parsedContent.length - 1
+                ? 0
+                : this._contentProperties.marginBottom,
             marginRight:
               index === this._parsedContent.length - 1
                 ? 0
-                : this._contentSpacing
+                : this._contentSpacing || this._contentProperties.marginRight
           }
         };
         if (typeof item === 'string') {
@@ -110,10 +119,16 @@ class InlineContent extends lng.Component {
   }
 
   _createText(base, text) {
+    const offset =
+      this.contentProperties.marginBottom < 0
+        ? this.contentProperties.marginBottom
+        : 0;
     return {
       ...base,
       y: this._textY,
-      h: this.textProperties.lineHeight || this.textProperties.fontSize,
+      h:
+        (this.textProperties.lineHeight || this.textProperties.fontSize) -
+        offset,
       text: {
         ...this.textProperties,
         text
@@ -193,6 +208,20 @@ class InlineContent extends lng.Component {
 
   get textProperties() {
     return this._textProperties;
+  }
+
+  set contentProperties(contentProperties) {
+    if (
+      JSON.stringify(contentProperties) !==
+      JSON.stringify(this._contentProperties)
+    ) {
+      this._contentProperties = contentProperties;
+      this._update();
+    }
+  }
+
+  get contentProperties() {
+    return this._contentProperties;
   }
 
   set justify(justify) {

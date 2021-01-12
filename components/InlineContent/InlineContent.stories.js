@@ -5,7 +5,12 @@ import mdx from './InlineContent.mdx';
 
 export default {
   title: 'InlineContent',
-  args: { contentSpacing: 8, contentWrap: false, justify: 'flex-start' },
+  args: {
+    contentSpacing: 8,
+    contentWrap: false,
+    justify: 'flex-start',
+    contentProperties: { marginBottom: -4 }
+  },
   parameters: {
     docs: {
       page: mdx
@@ -23,6 +28,7 @@ export const Basic = args =>
           w: 200,
           contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
+          contentProperties: args.contentProperties,
           justify: args.justify,
           content: [
             'Text',
@@ -56,6 +62,7 @@ export const Basic = args =>
 Basic.argTypes = {
   loaded: { action: 'Inline Content textures loaded' },
   contentSpacing: { control: { type: 'number', min: 0, step: 1 } },
+  contentProperties: { control: { type: 'object' } },
   contentWrap: { control: 'boolean' },
   justify: {
     control: {

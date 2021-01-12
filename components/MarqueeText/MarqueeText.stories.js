@@ -26,6 +26,7 @@ export const Basic = () =>
             text: 'This is a scrolling Marquee component for long text',
             ...TYPOGRAPHY.headline2,
             textColor: getHexColor(COLORS_TEXT.light),
+            lineHeight: 44,
             maxLines: 1
           },
           autoStart: true,
