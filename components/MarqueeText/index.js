@@ -14,6 +14,20 @@ export default class MarqueeText extends lng.Component {
     };
   }
 
+  _construct() {
+    this._shouldSmooth = true;
+  }
+
+  set shouldSmooth(smooth) {
+    if (this._shouldSmooth !== smooth) {
+      this._shouldSmooth = smooth;
+    }
+  }
+
+  get shouldSmooth() {
+    return this._shouldSmooth;
+  }
+
   get title() {
     return ((this._Content && this._Content.text) || {}).text;
   }
@@ -151,7 +165,13 @@ export default class MarqueeText extends lng.Component {
   }
 
   _centerTexture(finalW) {
-    this._ContentBox.x = ((finalW || this.finalW) - this._textRenderedW) / 2;
+    if (this.shouldSmooth) {
+      this._ContentBox.smooth = {
+        x: ((finalW || this.finalW) - this._textRenderedW) / 2
+      };
+    } else {
+      this._ContentBox.x = ((finalW || this.finalW) - this._textRenderedW) / 2;
+    }
   }
 
   get _ContentClipper() {
