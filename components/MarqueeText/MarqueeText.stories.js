@@ -68,13 +68,13 @@ export const Basic = () =>
     }
   };
 
-export const CenteredText = () =>
+export const CenteredText = args =>
   class CenteredText extends lng.Component {
     static _template() {
       return {
         MarqueeText: {
           type: MarqueeText,
-          w: 450,
+          w: args.width,
           h: 50,
           title: {
             text: 'No scroll center',
@@ -84,7 +84,8 @@ export const CenteredText = () =>
             textAlign: 'center'
           },
           autoStart: true,
-          delay: 1
+          delay: 1,
+          shouldSmooth: args.shouldSmooth
         },
         InlineContent: {
           type: InlineContent,
@@ -105,12 +106,13 @@ export const CenteredText = () =>
         MarqueeInlineContent: {
           type: MarqueeText,
           y: 100,
-          w: 450,
+          w: args.width,
           h: 180,
           centerAlign: true,
           alpha: 0,
           autoStart: true,
-          delay: 1
+          delay: 1,
+          shouldSmooth: args.shouldSmooth
         }
       };
     }
@@ -122,3 +124,12 @@ export const CenteredText = () =>
       this.tag('MarqueeInlineContent').alpha = 1;
     }
   };
+
+CenteredText.args = { shouldSmooth: true, width: 450 };
+CenteredText.argTypes = {
+  width: { control: 'number', min: 0 },
+  shouldSmooth: { control: 'boolean' }
+};
+CenteredText.parameters = {
+  argActions: {}
+};
