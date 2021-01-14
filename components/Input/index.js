@@ -38,6 +38,10 @@ export const styles = theme => ({
     ...theme.typography.caption1,
     textColor: theme.palette.text.light.tertiary
   },
+  captionIcon: {
+    width: 24,
+    height: 24
+  },
   focused: {
     background: { color: theme.palette.background.focus },
     text: { color: theme.palette.text.dark.primary },
@@ -126,7 +130,9 @@ class Input extends lng.Component {
           this.styles.text.lineHeight +
           24 +
           this.styles.underline.weight +
-          16
+          16,
+        iconH: this.styles.captionIcon.height,
+        iconW: this.styles.captionIcon.width
       },
       DropShadow: {
         alpha: 0,
