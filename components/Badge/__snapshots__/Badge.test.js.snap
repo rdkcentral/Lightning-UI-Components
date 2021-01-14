@@ -10,7 +10,7 @@ Object {
       "boundsMargin": null,
       "clipping": false,
       "color": 4294967295,
-      "enabled": true,
+      "enabled": false,
       "flex": false,
       "flexItem": false,
       "h": 0,

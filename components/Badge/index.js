@@ -56,7 +56,8 @@ class Badge extends lng.Component {
           ...this._textProperties,
           text: this._title
         }
-      }
+      },
+      alpha: this._title ? 1 : 0
     });
   }
 

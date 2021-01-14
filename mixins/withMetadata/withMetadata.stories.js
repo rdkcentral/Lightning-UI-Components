@@ -8,6 +8,7 @@ import MetadataCard from '../../components/MetadataCard';
 import MetadataTile from '../../components/MetadataTile';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import TileCircle from '../../components/TileCircle';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 
 export default {
   title: 'Mixins/withMetadata',
@@ -18,7 +19,67 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        TileWithMetadata: {
+          type: withMetadata(TileIcon),
+          w: 560,
+          h: 320,
+          persistentMetadata: args.persistentMetadata,
+          progress: args.progress,
+          badge: args.badge,
+          Metadata: {
+            type: args.metadataType === 'MetadataTile' ? MetadataTile : MetadataCard,
+            firstLine: `${args.metadataType} with a long title to show marquee scroll`,
+            secondLine: 'and positioned under the tile',
+            logo: lightningbolt,
+            logoW: 32
+          }
+        }
+      };
+    }
+
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('TileWithMetadata');
+      }
+    }
+  };
+Basic.args = {
+  focused: true,
+  persistentMetadata: true,
+  metadataType: 'MetadataCard',
+  badge: 'Live',
+  progress: 0.5
+};
+Basic.argTypes = {
+  focused: { control: 'boolean' },
+  persistentMetadata: { control: 'boolean' },
+  metadataType: { control: { type: 'radio', options: [ 'MetadataCard', 'MetadataTile' ] } },
+  badge: { control: 'text' },
+  progress: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.01
+    }
+  }
+};
+Basic.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('TileWithMetadata')
+        : () => {};
+      component._refocus();
+    }
+  }
+};
+
+export const XfinityTheme = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -29,6 +90,17 @@ export const Basic = () =>
           itemSpacing: 60,
           items: [
             {
+              type: withMetadata(),
+              src: pets,
+              w: 320,
+              h: 180,
+              Metadata: {
+                type: MetadataTile,
+                firstLine: 'MetadataTile (with long marquee title)',
+                secondLine: 'is visible on focus'
+              }
+            },
+            {
               type: withMetadata(TileIcon),
               w: 320,
               h: 180,
@@ -36,6 +108,8 @@ export const Basic = () =>
               iconW: 50,
               iconH: 50,
               persistentMetadata: true,
+              progress: .5,
+              badge: 'HD',
               Metadata: {
                 type: MetadataCard,
                 firstLine: 'MetadataCard (with long marquee title)',
@@ -43,16 +117,6 @@ export const Basic = () =>
                 thirdLine: '(for focus and unfocus)',
                 logo: lightningbolt,
                 logoW: 32
-              }
-            },
-            {
-              type: withMetadata(),
-              w: 320,
-              h: 180,
-              Metadata: {
-                type: MetadataTile,
-                firstLine: 'MetadataTile (with long marquee title)',
-                secondLine: 'is visible on focus'
               }
             },
             {
@@ -76,8 +140,3 @@ export const Basic = () =>
       return this.tag('Row');
     }
   };
-Basic.args = {};
-Basic.argTypes = {};
-Basic.parameters = {
-  argActions: {}
-};
