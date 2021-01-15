@@ -14,58 +14,66 @@ function flattenStrings(series = []) {
 
 function speakSeries(series, root = true) {
   const synth = window.speechSynthesis;
+  const remainingPhrases = flattenStrings(series);
   const nestedSeriesResults = [];
-  let cancelled = false;
+  const utterances = [];
+  let active = true;
 
-  let seriesChain = flattenStrings(series)
-    .reduce((series, phrase) => {
-      return series.then(() => {
-        if (typeof phrase === 'string') {
-          if (phrase.includes('PAUSE-')) {
-            let pause = phrase.split('PAUSE-')[1] * 1000;
-            if (isNaN(pause)) {
-              pause = 0;
-            }
-            phrase = new Promise(resolve => {
-              setTimeout(() => resolve(), pause);
-            });
+  const seriesChain = (async () => {
+    try {
+      while (active && remainingPhrases.length) {
+        const phrase = await Promise.resolve(remainingPhrases.shift());
+        if (!active) {
+          // Exit
+          // Need to check this after the await in case it was cancelled in between
+          break;
+        } else if (typeof phrase === 'string' && phrase.includes('PAUSE-')) {
+          // Pause it
+          let pause = phrase.split('PAUSE-')[1] * 1000;
+          if (isNaN(pause)) {
+            pause = 0;
           }
-        }
-
-        return Promise.resolve(phrase).then(toSpeak => {
-          if (cancelled) {
-            return Promise.reject();
-          }
-
-          if (!toSpeak) {
-            return;
-          }
-
-          if (Array.isArray(toSpeak)) {
-            const seriesResult = speakSeries(toSpeak, false);
-            nestedSeriesResults.push(seriesResult);
-            return seriesResult.series;
-          }
-
-          return new Promise(resolve => {
-            let utterance = new SpeechSynthesisUtterance(toSpeak);
+          await new Promise(resolve => {
+            setTimeout(() => resolve(), pause);
+          });
+        } else if (typeof phrase === 'string' && phrase.length) {
+          // Speak it
+          await new Promise(resolve => {
+            let utterance = new SpeechSynthesisUtterance(phrase);
+            utterances.push(utterance);
             utterance.onend = resolve;
             synth.speak(utterance);
           });
-        });
-      });
-    }, Promise.resolve())
-    .catch(() => {});
+        } else if (Array.isArray(phrase)) {
+          // Speak it (recursively)
+          const seriesResult = speakSeries(phrase, false);
+          nestedSeriesResults.push(seriesResult);
+          await seriesResult.series;
+        }
+      }
+    } finally {
+      active = false;
+    }
+  })();
   return {
     series: seriesChain,
+    get active() {
+      return active;
+    },
+    append: toSpeak => {
+      remainingPhrases.push(toSpeak);
+    },
     cancel: () => {
+      if (!active) {
+        return;
+      }
       if (root) {
         synth.cancel();
       }
       nestedSeriesResults.forEach(nestedSeriesResults => {
         nestedSeriesResults.cancel();
       });
-      cancelled = true;
+      active = false;
     }
   };
 }

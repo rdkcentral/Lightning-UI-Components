@@ -4,8 +4,11 @@ import TestRenderer from '../lightning-test-renderer';
 import lng from 'wpe-lightning';
 
 const speak = jest.fn();
+const speakAppend = jest.fn();
 const speakCancel = jest.fn();
 speak.mockReturnValue({
+  active: true,
+  append: speakAppend,
   cancel: speakCancel
 });
 const BaseAnnouncer = Announcer(lng.Component, speak);
@@ -168,7 +171,7 @@ let testRenderer;
 let announcer;
 describe('AppAnnouncer', () => {
   beforeEach(done => {
-    speak.mockClear();
+    jest.clearAllMocks();
     testRenderer = TestRenderer.create(Component);
     announcer = testRenderer.getInstance();
     setTimeout(() => done(), 1);
@@ -279,6 +282,48 @@ describe('AppAnnouncer', () => {
       announcer.$announce('hello');
       expect(speak).toHaveBeenCalledWith('hello');
     });
+
+    it('should call append', () => {
+      announcer.$announce('hello');
+      announcer.$announce('there', { append: true });
+      expect(speak).toHaveBeenNthCalledWith(2, 'hello');
+      expect(speakAppend).toHaveBeenNthCalledWith(1, 'there');
+    });
+
+    it('should force a pending focus change to be processed first', () => {
+      speak.mockClear();
+      announcer.$announcerRefresh(); // Forces focus change
+      expect(speak).not.toHaveBeenCalled();
+      announcer.$announce('there');
+      expect(speak).toHaveBeenNthCalledWith(1, [
+        'Welcome to Flex',
+        'HomePage',
+        'Free to Me',
+        'Ninja Turtles',
+        '1 of 3',
+        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+      ]);
+      expect(speak).toHaveBeenNthCalledWith(2, 'there');
+    });
+
+    it('should force a pending focus change to be processed first (append=true)', () => {
+      speak.mockClear();
+      announcer.$announcerRefresh(); // Forces focus change
+      expect(speak).not.toHaveBeenCalled();
+      announcer.$announce('there', { append: true });
+      expect(speak).toHaveBeenCalledWith([
+        'Welcome to Flex',
+        'HomePage',
+        'Free to Me',
+        'Ninja Turtles',
+        '1 of 3',
+        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+      ]);
+      expect(speakAppend).toHaveBeenCalledWith('there');
+      expect(speak.mock.invocationCallOrder[0]).toBeLessThan(
+        speakAppend.mock.invocationCallOrder[0]
+      );
+    });
   });
 
   describe('$announcerRefresh', () => {
@@ -298,7 +343,7 @@ describe('AppAnnouncer', () => {
       }, 1);
     });
 
-    it.only('with depth should perform a partial announce', done => {
+    it('with depth should perform a partial announce', done => {
       speak.mockClear();
       announcer.$announcerRefresh(4);
       setTimeout(() => {
