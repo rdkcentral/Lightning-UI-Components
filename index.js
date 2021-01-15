@@ -16,6 +16,7 @@ export { default as Column } from './components/Column/index.js';
 export { default as DataItem } from './components/DataItem/index.js';
 export { default as FocusManager } from './components/FocusManager/index.js';
 export { default as FocusRing } from './components/FocusRing/index.js';
+export { default as Icon } from './components/Icon/index.js';
 export { default as InlineContent } from './components/InlineContent/index.js';
 export { default as Input } from './components/Input/index.js';
 export { default as Key } from './components/Keyboard/Key.js';
