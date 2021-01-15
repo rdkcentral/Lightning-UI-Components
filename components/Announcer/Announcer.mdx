@@ -82,7 +82,9 @@ announcerTimeout|number|false|By default the announcer only gets information abo
 
 name|args|description
 --|--|--|--
-$announce|string|Announce a string or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+$announce||Performs a manual announce
+&nbsp;|`announcement`|String or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+&nbsp;|`options`|Object containing one or more boolean flags: <br/><ul><li>append - Appends announcement to the currently announcing series.</li></ul>
 $announcerRefresh|depth|Performs an announce using the focusPath - depth can trim known focusPath
 $announcerCancel|none|Cancels current speaking
 

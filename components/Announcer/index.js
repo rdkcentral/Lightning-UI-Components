@@ -7,7 +7,6 @@ function elmName(elm) {
   return elm.ref || elm.constructor.name;
 }
 
-/* istanbul ignore next */
 export default (base, speak = Speech) =>
   class Announcer extends base {
     _build() {
@@ -19,6 +18,7 @@ export default (base, speak = Speech) =>
           ? this.announcerFocusDebounce
           : 400
       );
+
       this.announcerTimeout = Number.isInteger(this.announcerTimeout)
         ? this.announcerTimeout
         : fiveMinutes;
@@ -51,7 +51,7 @@ export default (base, speak = Speech) =>
       }
 
       this._resetFocusTimer();
-      currentlySpeaking && currentlySpeaking.cancel();
+      this.$announcerCancel();
       this._debounceAnnounceFocusChanges();
     }
 
@@ -105,16 +105,22 @@ export default (base, speak = Speech) =>
       }, []);
 
       if (toAnnounce.length) {
+        this.$announcerCancel();
         currentlySpeaking = speak(
           toAnnounce.reduce((acc, val) => acc.concat(val), [])
         );
       }
     }
 
-    $announce(toAnnounce) {
+    $announce(toAnnounce, { append = false } = {}) {
       if (this.announcerEnabled) {
-        currentlySpeaking && currentlySpeaking.cancel();
-        currentlySpeaking = speak(toAnnounce);
+        this._debounceAnnounceFocusChanges.flush();
+        if (append && currentlySpeaking && currentlySpeaking.active) {
+          currentlySpeaking.append(toAnnounce);
+        } else {
+          this.$announcerCancel();
+          currentlySpeaking = speak(toAnnounce);
+        }
       }
     }
 
