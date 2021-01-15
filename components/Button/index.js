@@ -89,6 +89,13 @@ class Button extends withUpdates(lng.Component) {
     super._construct && super._construct();
   }
 
+  _init() {
+    this._Icon.on('txError', () => {
+      this.icon.src = null;
+      this._update();
+    });
+  }
+
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
     this._focused = true;
@@ -141,12 +148,13 @@ class Button extends withUpdates(lng.Component) {
   }
 
   _updateIcon() {
-    if (this.icon) {
+    if (this.icon && this.icon.src) {
       const { color, size, spacing, src } = this.icon;
       this._Icon.patch({
         w: size,
         h: size,
         icon: src,
+        visible: 1,
         flexItem: { marginRight: this.title ? spacing : 0 }
       });
 
@@ -162,6 +170,7 @@ class Button extends withUpdates(lng.Component) {
       this._Icon.patch({
         w: 0,
         h: 0,
+        visible: 0,
         texture: false,
         flexItem: false
       });
@@ -204,7 +213,8 @@ class Button extends withUpdates(lng.Component) {
 
   _updateWidth() {
     if (!this.fixed) {
-      const iconSize = this._icon ? this._icon.size + this._icon.spacing : 0;
+      const iconSize =
+        this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
       const padding = getFirstNumber(this.padding, this.styles.padding, 10);
       const w =
         measureTextWidth(this._Title.text || {}) + padding * 2 + iconSize;

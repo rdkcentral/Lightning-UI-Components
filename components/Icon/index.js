@@ -19,6 +19,7 @@ export default class Icon extends lng.Component {
   }
 
   _init() {
+    this.on('txError', () => (this.icon = null));
     this._update();
   }
 
