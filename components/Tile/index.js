@@ -91,6 +91,8 @@ class Tile extends withHandleKey(lng.Component) {
         zIndex: 3,
         content: {
           Image: {
+            w: this._Image.w,
+            h: this._Image.h,
             texture: this._Image.getTexture()
           }
         }
@@ -99,12 +101,13 @@ class Tile extends withHandleKey(lng.Component) {
   }
 
   _updateBlur() {
-    let amount = this._blur;
+    const alpha = this._blur > 0 ? 1 : 0;
+    const amount = this._blur;
     this._patchBlur();
     if (this._smooth) {
-      this._Blur.smooth = { amount };
+      this._Blur.smooth = { alpha, amount };
     } else {
-      this._Blur.amount = amount;
+      this._Blur.patch({ alpha, amount });
     }
   }
 
