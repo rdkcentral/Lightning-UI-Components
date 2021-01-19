@@ -36,19 +36,10 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  radius: 8,
   blurBackgroundColor: 'rgba(13,13,15,0.3216)'
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
-  radius: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 5
-    }
-  },
   blurBackgroundColor: { control: 'color' }
 };
 Basic.parameters = {

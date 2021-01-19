@@ -1792,7 +1792,7 @@ Object {
               "children": Object {
                 "Blur": Object {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0,
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
@@ -2103,7 +2103,7 @@ Object {
                           },
                           "clipping": false,
                           "color": 4294967295,
-                          "enabled": true,
+                          "enabled": false,
                           "flex": false,
                           "flexItem": false,
                           "h": 0,
@@ -2185,10 +2185,10 @@ Object {
                                   "boundsMargin": null,
                                   "clipping": false,
                                   "color": 4294967295,
-                                  "enabled": true,
+                                  "enabled": false,
                                   "flex": false,
                                   "flexItem": false,
-                                  "h": 0,
+                                  "h": 56,
                                   "isComponent": undefined,
                                   "mount": 0,
                                   "mountX": 0,
@@ -2211,7 +2211,7 @@ Object {
                                     "type": "SourceTexture",
                                   },
                                   "visible": true,
-                                  "w": 0,
+                                  "w": 56,
                                   "x": 0,
                                   "y": 0,
                                   "zIndex": 0,
@@ -2219,7 +2219,7 @@ Object {
                               },
                               "clipping": false,
                               "color": 4294967295,
-                              "enabled": true,
+                              "enabled": false,
                               "flex": false,
                               "flexItem": false,
                               "h": 0,
@@ -2250,7 +2250,7 @@ Object {
                           },
                           "clipping": false,
                           "color": 4294967295,
-                          "enabled": true,
+                          "enabled": false,
                           "flex": false,
                           "flexItem": false,
                           "forceZIndexContext": true,
@@ -2283,7 +2283,7 @@ Object {
                       },
                       "clipping": false,
                       "color": 4294967295,
-                      "enabled": true,
+                      "enabled": false,
                       "flex": false,
                       "flexItem": false,
                       "h": 56,
@@ -2317,7 +2317,7 @@ Object {
                   },
                   "clipping": false,
                   "color": 4294967295,
-                  "enabled": true,
+                  "enabled": false,
                   "flex": false,
                   "flexItem": false,
                   "h": 56,
@@ -3838,7 +3838,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-724": Object {
+                    "Element-694": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -3881,7 +3881,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-725": Object {
+                    "Element-695": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -3924,7 +3924,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-726": Object {
+                    "Element-696": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
