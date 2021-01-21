@@ -72,7 +72,7 @@ class InlineContent extends lng.Component {
           }
           this.childList.a(this._createText(base, item));
         } else if (item.icon) {
-          this.childList.a(this._createIcon(base, item.icon));
+          this.childList.a(this._createIcon(base, item));
         } else if (item.badge) {
           this.childList.a(this._createBadge(base, item.badge));
         }
@@ -107,8 +107,8 @@ class InlineContent extends lng.Component {
     }, 10);
   }
 
-  _createIcon(base, icon) {
-    return {
+  _createIcon(base, { icon, color }) {
+    let iconObj = {
       ...base,
       type: Icon,
       y: this._iconY,
@@ -116,6 +116,10 @@ class InlineContent extends lng.Component {
       h: this._iconH,
       icon
     };
+    if (color) {
+      iconObj.color = color;
+    }
+    return iconObj;
   }
 
   _createText(base, text) {

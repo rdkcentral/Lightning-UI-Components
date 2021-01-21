@@ -2,6 +2,8 @@ import lng from 'wpe-lightning';
 
 import InlineContent from '.';
 import mdx from './InlineContent.mdx';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import { getHexColor } from '../Styles/Colors';
 
 export default {
   title: 'InlineContent',
@@ -33,15 +35,15 @@ export const Basic = args =>
           content: [
             'Text',
             {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
+              title: 'Green Lightning Bolt'
             },
             'Wrapping Text',
             {
               icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=6830964634263316239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Audience rating'
+                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
             },
             'and more text for fun',
             { badge: 'HD', title: 'HD' },
