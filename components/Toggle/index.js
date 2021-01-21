@@ -31,7 +31,6 @@ export const styles = theme => ({
     }
   }
 });
-
 class Toggle extends lng.Component {
   static _template() {
     return {
@@ -43,7 +42,7 @@ class Toggle extends lng.Component {
           this.styles.w - 8,
           this.styles.h - 4,
           this.styles.radius,
-          0,
+          this.styles.stroke.weight,
           0,
           true,
           0xffffffff
