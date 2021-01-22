@@ -10,14 +10,14 @@ export const styles = theme => ({
     centerAlign: true
   },
   firstLineTextProperties: {
-    ...theme.typography.headline2,
-    color: theme.palette.text.light.primary,
+    ...theme.typography.headline3,
+    textColor: theme.palette.text.light.primary,
     textAlign: 'center',
     maxLines: 1
   },
   secondLineTextProperties: {
-    ...theme.typography.body2,
-    color: theme.palette.text.light.secondary,
+    ...theme.typography.body3,
+    textColor: theme.palette.text.light.secondary,
     maxLinesSuffix: '...',
     textAlign: 'center',
     maxLines: 1
