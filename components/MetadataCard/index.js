@@ -11,19 +11,19 @@ export const styles = theme => ({
   justify: 'flex-start',
   marqueeProperties: {},
   firstLineTextProperties: {
-    ...theme.typography.headline2,
-    color: theme.palette.text.light.primary,
+    ...theme.typography.headline3,
+    textColor: theme.palette.text.light.primary,
     maxLines: 1
   },
   secondLineTextProperties: {
-    ...theme.typography.body2,
-    color: theme.palette.text.light.secondary,
+    ...theme.typography.body3,
+    textColor: theme.palette.text.light.secondary,
     maxLinesSuffix: '...',
     maxLines: 1
   },
   thirdLineTextProperties: {
-    ...theme.typography.body2,
-    color: theme.palette.text.light.secondary,
+    ...theme.typography.body3,
+    textColor: theme.palette.text.light.secondary,
     maxLinesSuffix: '...',
     maxLines: 1
   },
