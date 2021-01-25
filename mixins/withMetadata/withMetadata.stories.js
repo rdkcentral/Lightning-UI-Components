@@ -33,7 +33,7 @@ export const Basic = args =>
           Metadata: {
             type: args.metadataType === 'MetadataTile' ? MetadataTile : MetadataCard,
             firstLine: `${args.metadataType} with a long title to show marquee scroll`,
-            secondLine: 'and positioned under the tile',
+            secondLine: [ 'and positioned under the tile', { badge: 'HD' }, { badge: 'SD' } ],
             logo: lightningbolt,
             logoW: 32
           }

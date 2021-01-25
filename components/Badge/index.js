@@ -44,6 +44,7 @@ class Badge extends lng.Component {
         this.styles.background.h ||
         this._BadgeText.renderHeight + this._padding * 2;
       this.w = this._BadgeText.renderWidth + this._padding * 2;
+      this.fireAncestors('$loadedBadge', this);
     });
   }
 

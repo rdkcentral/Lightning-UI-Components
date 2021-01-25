@@ -52,8 +52,28 @@ class MetadataCard extends lng.Component {
             rtt: true
           }
         },
-        SecondLine: {},
-        ThirdLine: {}
+        SecondLineWrapper: {
+          Marquee: {
+            type: MarqueeText,
+            alpha: 0
+          },
+          SecondLine: {
+            type: InlineContent,
+            alpha: 0.001,
+            rtt: true
+          }
+        },
+        ThirdLineWrapper: {
+          Marquee: {
+            type: MarqueeText,
+            alpha: 0
+          },
+          ThirdLine: {
+            type: InlineContent,
+            alpha: 0.001,
+            rtt: true
+          }
+        }
       },
       Logo: {
         type: Icon,
@@ -86,27 +106,18 @@ class MetadataCard extends lng.Component {
       this._unfocusScale = this._getUnfocusScale(this.originalW);
     }
     this._update();
-
-    this._SecondLine.on('txLoaded', () => {
-      let marginBottom =
-        this._SecondLine.text._source.renderInfo.lines.length *
-          this._secondLineTextProperties.lineHeight -
-        this._SecondLine.renderHeight;
-      this._SecondLine.patch({ flexItem: { marginBottom } });
-    });
   }
 
   $loadedInlineContent(line) {
-    if (line.ref === this._FirstLine.ref) {
-      this._FirstLineWrapper.h = line.multiLineHeight;
+    if (line.ref && this.tag(line.ref + 'Wrapper')) {
+      this.tag(line.ref + 'Wrapper').h = line.textHeight;
     }
-    line.h = line.multiLineHeight;
+    line.h = line.textHeight;
+    this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
   }
 
   _update() {
-    this._updateFirstLine();
-    this._updateSecondLine();
-    this._updateThirdLine();
+    this._updateLines();
     this._updateLogo();
     this._updateWidth();
     this._updateMarquee();
@@ -139,32 +150,41 @@ class MetadataCard extends lng.Component {
     }
   }
 
-  _updateFirstLine() {
-    this._FirstLine.justify = this._justify;
-    this._FirstLine.content = this._firstLine;
-    this._FirstLine.textProperties = this._firstLineTextProperties;
-    this._FirstLineMarquee.patch(this._marqueeProperties);
-    this._FirstLineMarquee.w = this._textW;
-    this._FirstLineMarquee.contentTexture = this._FirstLine.getTexture();
-    this._FirstLineMarquee.smooth = { alpha: this._firstLine ? 1 : 0 };
-  }
+  _updateLines() {
+    const lines = [
+      {
+        wrapper: this._FirstLineWrapper,
+        component: this._FirstLine,
+        marquee: this._FirstLineMarquee,
+        content: this._firstLine,
+        textProps: this._firstLineTextProperties
+      },
+      {
+        wrapper: this._SecondLineWrapper,
+        component: this._SecondLine,
+        marquee: this._SecondLineMarquee,
+        content: this._secondLine,
+        textProps: this._secondLineTextProperties
+      },
+      {
+        wrapper: this._ThirdLineWrapper,
+        component: this._ThirdLine,
+        marquee: this._ThirdLineMarquee,
+        content: this._thirdLine,
+        textProps: this._thirdLineTextProperties
+      }
+    ];
 
-  _updateSecondLine() {
-    this._SecondLine.text = {
-      ...this._secondLineTextProperties,
-      wordWrapWidth: this._textW,
-      text: this._secondLine || ''
-    };
-    this._SecondLine.visible = this._secondLine ? true : false;
-  }
-
-  _updateThirdLine() {
-    this._ThirdLine.text = {
-      ...this._thirdLineTextProperties,
-      wordWrapWidth: this._textW,
-      text: this._thirdLine || ''
-    };
-    this._ThirdLine.visible = this._thirdLine ? true : false;
+    lines.forEach(line => {
+      line.component.justify = this._justify;
+      line.component.content = line.content;
+      line.component.textProperties = line.textProps;
+      line.marquee.patch(this._marqueeProperties);
+      line.marquee.w = this._textW;
+      line.marquee.contentTexture = line.component.getTexture();
+      line.marquee.smooth = { alpha: line.content ? 1 : 0 };
+      line.wrapper.visible = line.content ? true : false;
+    });
   }
 
   _updateLogo() {
@@ -184,7 +204,7 @@ class MetadataCard extends lng.Component {
   }
 
   get announce() {
-    return `${this._FirstLine.announce}. ${this._SecondLine.text.text}. ${this._ThirdLine.text.text}.`;
+    return `${this._FirstLine.announce}. ${this._SecondLine.announce}. ${this._ThirdLine.announce}.`;
   }
 
   get _textW() {
@@ -376,12 +396,28 @@ class MetadataCard extends lng.Component {
     return this._FirstLineWrapper.tag('FirstLine');
   }
 
+  get _SecondLineWrapper() {
+    return this.tag('SecondLineWrapper');
+  }
+
+  get _SecondLineMarquee() {
+    return this._SecondLineWrapper.tag('Marquee');
+  }
+
   get _SecondLine() {
-    return this.tag('SecondLine');
+    return this._SecondLineWrapper.tag('SecondLine');
+  }
+
+  get _ThirdLineWrapper() {
+    return this.tag('ThirdLineWrapper');
+  }
+
+  get _ThirdLineMarquee() {
+    return this._ThirdLineWrapper.tag('Marquee');
   }
 
   get _ThirdLine() {
-    return this.tag('ThirdLine');
+    return this._ThirdLineWrapper.tag('ThirdLine');
   }
 
   get _Logo() {

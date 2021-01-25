@@ -39,7 +39,9 @@ export const Basic = args =>
           secondLine: args.secondLine
             ? 'Second line that is very long and will need to be truncated'
             : undefined,
-          thirdLine: args.thirdLine ? 'Third line text' : undefined,
+          thirdLine: args.thirdLine
+            ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
+            : undefined,
           logo: args.logo ? logo : undefined,
           logoW: 32
         }
@@ -78,7 +80,7 @@ Basic.parameters = {
     },
     thirdLine: (isThirdLine, component) => {
       component.tag('MetadataCard').thirdLine = isThirdLine
-        ? 'Third line text'
+        ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
         : undefined;
     },
     maxLines: (maxLines, component) => {

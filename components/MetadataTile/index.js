@@ -77,9 +77,9 @@ class MetadataTile extends lng.Component {
 
   $loadedInlineContent(line) {
     if (line.ref === this._FirstLine.ref) {
-      this._FirstLineWrapper.h = line.multiLineHeight;
+      this._FirstLineWrapper.h = line.textHeight;
     }
-    line.h = line.multiLineHeight;
+    line.h = line.textHeight;
   }
 
   _update() {
