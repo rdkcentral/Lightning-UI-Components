@@ -7,9 +7,6 @@ import { parseInlineContent, flatten } from '../../utils';
 export const styles = theme => ({
   iconW: 36,
   iconH: 36,
-  iconY: 6,
-  badgeY: 8,
-  textY: 0,
   contentSpacing: theme.spacing(1),
   contentProperties: {
     marginBottom: theme.typography.body1.lineHeight / -10
@@ -27,9 +24,9 @@ class InlineContent extends lng.Component {
     this._justify = this.styles.justify;
     this._iconW = this.styles.iconW;
     this._iconH = this.styles.iconH;
-    this._iconY = this.styles.iconY !== undefined ? this.styles.iconY : 0;
+    this._iconY = this.styles.iconY;
     this._textY = this.styles.textY !== undefined ? this.styles.textY : 0;
-    this._badgeY = this.styles.badgeY !== undefined ? this.styles.badgeY : 0;
+    this._badgeY = this.styles.badgeY;
     this._contentSpacing = this.styles.contentSpacing;
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
@@ -108,12 +105,16 @@ class InlineContent extends lng.Component {
   }
 
   _createIcon(base, { icon, color }) {
+    const y =
+      (this.textHeight > this.textProperties.lineHeight
+        ? this.textHeight
+        : this.textProperties.lineHeight) - this.iconH;
     let iconObj = {
       ...base,
       type: Icon,
-      y: this._iconY,
-      w: this._iconW,
-      h: this._iconH,
+      y: this.iconY !== undefined ? this.iconY : y,
+      w: this.iconW,
+      h: this.iconH,
       icon
     };
     if (color) {
@@ -123,16 +124,10 @@ class InlineContent extends lng.Component {
   }
 
   _createText(base, text) {
-    const offset =
-      this.contentProperties.marginBottom < 0
-        ? this.contentProperties.marginBottom
-        : 0;
     return {
       ...base,
-      y: this._textY,
-      h:
-        (this.textProperties.lineHeight || this.textProperties.fontSize) -
-        offset,
+      y: this.textY,
+      h: this.textHeight,
       text: {
         ...this.textProperties,
         text
@@ -140,28 +135,49 @@ class InlineContent extends lng.Component {
     };
   }
 
+  get textHeight() {
+    const offset =
+      this.contentProperties.marginBottom < 0
+        ? this.contentProperties.marginBottom
+        : 0;
+    return (
+      (this.textProperties.lineHeight || this.textProperties.fontSize) - offset
+    );
+  }
+
   _createBadge(base, badge) {
     return {
       ...base,
-      y: this._badgeY,
-      ...this._badgeProperties,
+      y: this.badgeY || 0,
+      ...this.badgeProperties,
       type: Badge,
       title: badge
     };
   }
 
+  $loadedBadge(badge) {
+    if (this.badgeY === undefined) {
+      badge.y =
+        (this.textHeight > this.textProperties.lineHeight
+          ? this.textHeight
+          : this.textProperties.lineHeight) - badge.h;
+    }
+  }
+
   get announce() {
-    let announce = this._parsedContent.reduce((announce, item) => {
-      if (typeof item === 'string') {
-        announce += item;
-      } else if (item.title) {
-        announce += item.title;
-      } else if (item.badge) {
-        announce += item.badge;
-      }
-      return announce + ' ';
-    }, '');
-    return announce.replace(/\s+(?=\s)|\s$/g, '');
+    let announce =
+      this._parsedContent &&
+      this._parsedContent.reduce((announce, item) => {
+        if (typeof item === 'string') {
+          announce += item;
+        } else if (item.title) {
+          announce += item.title;
+        } else if (item.badge) {
+          announce += item.badge;
+        }
+        return announce + ' ';
+      }, '');
+    return announce ? announce.replace(/\s+(?=\s)|\s$/g, '') : '';
   }
 
   /**

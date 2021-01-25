@@ -94,7 +94,9 @@ export default class MarqueeText extends lng.Component {
       });
     }
 
-    if (this._textRenderedW > finalW - this._fadeW) {
+    // using fadeW / 2 so that if something like the last character is slightly opacitied out,
+    // but still visible, we don't unnecessarily scroll
+    if (this._textRenderedW > finalW - this._fadeW / 2) {
       this._scrolling = true;
       this._ContentLoopTexture.x = this._textRenderedW + this._offset;
       this._ContentLoopTexture.texture = this._Content.getTexture();
@@ -190,7 +192,7 @@ export default class MarqueeText extends lng.Component {
     return 32;
   }
   get _fadeW() {
-    return 30;
+    return 100;
   }
   get _textRenderedW() {
     return this._Content.renderWidth;
