@@ -47,15 +47,15 @@ class FocusRing extends lng.Component {
     this._whenEnabled.then(() => {
       this.patch({
         Ring: {
-          w: w => w + this._size * 2,
-          h: h => h + this._size * 2,
-          x: -this._size,
-          y: -this._size,
-          rect: true,
-          shader: {
-            type: lng.shaders.RoundedRectangle,
-            radius: this._radius
-          }
+          mount: 0.5,
+          x: this.w / 2,
+          y: this.h / 2,
+          smooth: { alpha: 1 },
+          texture: lng.Tools.getRoundRect(
+            this.w + this._size * 2,
+            this.h + this._size * 2,
+            this._radius
+          )
         }
       });
       this._focusRingAnimation &&
