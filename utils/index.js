@@ -175,14 +175,6 @@ export function measureTextWidth(text = {}) {
   ctx.font = fontCss;
   const textMetrics = ctx.measureText(text.text || '');
 
-  // try using the actual bounding box first because it will be more accurate
-  if (textMetrics.actualBoundingBoxLeft && textMetrics.actualBoundingBoxRight) {
-    return Math.round(
-      Math.abs(textMetrics.actualBoundingBoxLeft) +
-        Math.abs(textMetrics.actualBoundingBoxRight)
-    );
-  }
-
   return Math.round(textMetrics.width);
 }
 
@@ -192,4 +184,84 @@ export function measureTextWidth(text = {}) {
  **/
 export function getFirstNumber(...numbers) {
   return numbers.find(Number.isFinite);
+}
+
+/**
+ * Returns an array of strings and icon or badge objects from a string using the syntax:
+ * 'This is a {ICON:<title>|<url>} and {BADGE:<title>} badge test.'
+ *
+ * i.e. 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:<HD>} badge.'
+ *  would create the object:
+ *  {
+ *    'This is an ',
+ *    { icon: './assets/icons/settings.png', title: 'settings' },
+ *    ' icon and ',
+ *    { badge: 'HD' },
+ *    ' badge.'
+ *  }
+ *
+ * @param {*} str
+ *
+ * @return {array}
+ */
+export function parseInlineContent(str = '') {
+  let content = [];
+  if (str && typeof str === 'string') {
+    const regex = /({ICON.*?}|{BADGE:.*?})/g;
+    const badgeRegEx = /^{BADGE:(.*?)}$/g;
+    const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
+    let splitStr = str.split(regex);
+
+    if (splitStr && splitStr.length) {
+      splitStr.forEach(item => {
+        let formattedItem = item;
+        let badge = badgeRegEx.exec(item);
+        let icon = iconRegEx.exec(item);
+
+        if (badge && badge[1]) {
+          formattedItem = { badge: badge[1] };
+        }
+        if (icon && icon[1]) {
+          formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
+        }
+        content.push(formattedItem);
+      });
+    }
+  }
+  return content;
+}
+
+/**
+ * Naively looks for dimensional prop (i.e. w, h, x, y, etc.), first searching for
+ * a transition target value then defaulting to the current set value
+ * @param {string} prop - property key
+ * @param {lng.Component} component - Lightning component to operate against
+ */
+export function getDimension(prop, component) {
+  if (!component) return 0;
+  const transition = component.transition(prop);
+  if (transition.isRunning()) return transition.targetValue;
+  return component[prop];
+}
+
+export const getX = getDimension.bind(null, 'x');
+export const getY = getDimension.bind(null, 'y');
+export const getW = component =>
+  getDimension('w', component) || component.renderWidth;
+export const getH = component =>
+  getDimension('h', component) || component.renderHeight;
+
+/**
+ * Array.prototype.flat() is not supported in WPE Browser
+ *
+ * @param {array} arr
+ *
+ * @return {array}
+ */
+export function flatten(arr) {
+  return arr.reduce(
+    (flat, toFlatten) =>
+      flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten),
+    []
+  );
 }

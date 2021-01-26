@@ -15,24 +15,42 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import Speech from './Speech';
+import { debounce } from 'debounce';
 const fiveMinutes = 300 * 1000;
+let currentlySpeaking;
 
 function elmName(elm) {
   return elm.ref || elm.constructor.name;
 }
 
-let focusTimer;
-/* istanbul ignore next */
 export default (base, speak = Speech) =>
   class Announcer extends base {
+    _build() {
+      super._build && super._build();
+
+      this._debounceAnnounceFocusChanges = debounce(
+        this._announceFocusChanges.bind(this),
+        Number.isInteger(this.announcerFocusDebounce)
+          ? this.announcerFocusDebounce
+          : 400
+      );
+
+      this.announcerTimeout = Number.isInteger(this.announcerTimeout)
+        ? this.announcerTimeout
+        : fiveMinutes;
+
+      this._resetFocusTimer = debounce(() => {
+        // Reset focus path for full announce
+        this._lastFocusPath = undefined;
+      }, this.announcerTimeout);
+    }
+
     _firstEnable() {
       super._firstEnable && super._firstEnable();
 
       // Lightning only calls Focus Change on second focus
       this._focusChange();
-      this.announcerTimeout = this.announcerTimeout || fiveMinutes;
     }
 
     set announcerEnabled(val) {
@@ -44,34 +62,42 @@ export default (base, speak = Speech) =>
       return this._announcerEnabled;
     }
 
-    _updateClearFocusTimer() {
-      clearTimeout(focusTimer);
-      focusTimer = setTimeout(() => {
-        this._lastFocusPath = undefined;
-      }, this.announcerTimeout);
+    _focusChange() {
+      if (!this._resetFocusTimer) {
+        return;
+      }
+
+      this._resetFocusTimer();
+      this.$announcerCancel();
+      this._debounceAnnounceFocusChanges();
     }
 
-    _focusChange() {
+    _announceFocusChanges() {
+      let focusPath = this.application.focusPath || [];
+      let lastFocusPath = this._lastFocusPath || [];
+      let loaded = focusPath.every(elm => !elm.loading);
+      let focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
+
+      if (!loaded) {
+        this._debounceAnnounceFocusChanges();
+        return;
+      }
+
+      this._lastFocusPath = focusPath.slice(0);
+      // Provide hook for focus diff for things like TextBanner
+      this.focusDiffHook = focusDiff;
+
       if (!this.announcerEnabled) {
         return;
       }
 
-      let focusPath = this.application.focusPath;
-      let lastFocusPath = this._lastFocusPath || [];
-      let loaded = focusPath.every(elm => !elm.loading);
-
-      this._updateClearFocusTimer();
-
-      if (!loaded) {
-        return;
-      }
-      let focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
-
       let toAnnounce = focusDiff.reduce((acc, elm) => {
         if (elm.announce) {
           acc.push([elmName(elm), 'Announce', elm.announce]);
-        } else {
+        } else if (elm.title) {
           acc.push([elmName(elm), 'Title', elm.title || '']);
+        } else {
+          acc.push([elmName(elm), 'Label', elm.label || '']);
         }
         return acc;
       }, []);
@@ -85,8 +111,6 @@ export default (base, speak = Speech) =>
         return acc;
       }, toAnnounce);
 
-      this._lastFocusPath = focusPath.slice(0);
-
       if (this.debug) {
         console.table(toAnnounce);
       }
@@ -98,18 +122,36 @@ export default (base, speak = Speech) =>
       }, []);
 
       if (toAnnounce.length) {
-        speak(toAnnounce.reduce((acc, val) => acc.concat(val), []));
+        this.$announcerCancel();
+        currentlySpeaking = speak(
+          toAnnounce.reduce((acc, val) => acc.concat(val), [])
+        );
       }
     }
 
-    $announce(toAnnounce) {
+    $announce(toAnnounce, { append = false } = {}) {
       if (this.announcerEnabled) {
-        speak(toAnnounce);
+        this._debounceAnnounceFocusChanges.flush();
+        if (append && currentlySpeaking && currentlySpeaking.active) {
+          currentlySpeaking.append(toAnnounce);
+        } else {
+          this.$announcerCancel();
+          currentlySpeaking = speak(toAnnounce);
+        }
       }
     }
 
-    $announcerRefresh() {
-      this._lastFocusPath = undefined;
+    $announcerCancel() {
+      currentlySpeaking && currentlySpeaking.cancel();
+    }
+
+    $announcerRefresh(depth) {
+      if (depth) {
+        this._lastFocusPath = this._lastFocusPath.slice(0, depth);
+      } else {
+        this._lastFocusPath = undefined;
+      }
+      this._resetFocusTimer();
       this._focusChange();
     }
   };

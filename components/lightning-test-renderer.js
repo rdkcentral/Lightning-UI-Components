@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import lng from 'wpe-lightning';
 
 const stage = {
@@ -34,13 +33,14 @@ function keyPress(elm, key) {
   if (
     !elm.stage.application.focusTopDownEvent(
       [`_capture${key}`, '_captureKey'],
-      pressEvent
+      { ...pressEvent, type: 'keydown', key }
     )
   ) {
-    elm.stage.application.focusBottomUpEvent(
-      [`_handle${key}`, '_handleKey'],
-      pressEvent
-    );
+    elm.stage.application.focusBottomUpEvent([`_handle${key}`, '_handleKey'], {
+      ...pressEvent,
+      type: 'keydown',
+      key
+    });
   }
 }
 
@@ -53,12 +53,17 @@ function keyRelease(elm, key) {
   ) {
     elm.stage.application.focusBottomUpEvent(
       [`_handle${key}Release`, '_handleKeyRelease'],
-      pressEvent
+      { ...pressEvent, type: 'keyup' }
     );
   }
 }
 
-function create(Component) {
+function create(Component, options = {}) {
+  const defaultOpts = { focused: true };
+  const opts = {
+    ...defaultOpts,
+    ...options
+  };
   class TestApp extends lng.Application {
     static _template() {
       return {
@@ -70,21 +75,33 @@ function create(Component) {
     }
 
     _getFocused() {
-      return this.childList.first;
+      return opts.focused && this.childList.first;
     }
   }
 
   let app = new TestApp({ stage });
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
+  app.updateFocusPath();
   return {
-    toJSON: () => toJSON(app.childList.first, { children: 1 }),
+    toJSON: (children = 1) => toJSON(app.childList.first, { children }),
     update: () => {
       app.stage.drawFrame();
     },
+    focus: () => {
+      app._focusPath = [app.childList.first];
+      app.childList.first._focus();
+    },
+    unfocus: () => {
+      app._focusPath = [app];
+      app.childList.first._unfocus();
+    },
     getInstance: () => app.childList.first,
     getApp: () => app,
-    keyPress: key => keyPress(app, key),
+    keyPress: key => {
+      keyPress(app, key);
+      app.stage.drawFrame();
+    },
     keyRelease: key => keyRelease(app, key),
     destroy: () => app.destroy(),
     focusPath: () => app.focusPath.map(p => p.ref)
@@ -130,7 +147,6 @@ function getProperties(element) {
     'clipping',
     'enabled',
     'h',
-    'id',
     'isComponent',
     'mount',
     'mountY',

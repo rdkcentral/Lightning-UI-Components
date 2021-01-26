@@ -15,15 +15,25 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import Announcer from '.';
 import FocusManager from '../FocusManager';
 import TestRenderer from '../lightning-test-renderer';
 import lng from 'wpe-lightning';
 
 const speak = jest.fn();
+const speakAppend = jest.fn();
+const speakCancel = jest.fn();
+speak.mockReturnValue({
+  active: true,
+  append: speakAppend,
+  cancel: speakCancel
+});
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
+  _construct() {
+    this.announcerFocusDebounce = 0;
+  }
+
   _init() {
     this.announcerEnabled = true;
     this.debug = false;
@@ -177,10 +187,11 @@ const Component = {
 let testRenderer;
 let announcer;
 describe('AppAnnouncer', () => {
-  beforeEach(() => {
-    speak.mockClear();
+  beforeEach(done => {
+    jest.clearAllMocks();
     testRenderer = TestRenderer.create(Component);
     announcer = testRenderer.getInstance();
+    setTimeout(() => done(), 1);
   });
 
   describe('on App load', () => {
@@ -205,34 +216,46 @@ describe('AppAnnouncer', () => {
   });
 
   describe('on key press', () => {
-    it('Right - should announce the new item', () => {
+    it('Right - should announce the new item', done => {
       testRenderer.keyPress('Right');
-      expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
+        done();
+      }, 1);
     });
 
-    it('Down - should announce new item and nav options', () => {
+    it('Down - should announce new item and nav options', done => {
       testRenderer.keyPress('Down');
-      expect(speak).toHaveBeenCalledWith(['Featured', 'Plague', '1 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith(['Featured', 'Plague', '1 of 3']);
+        done();
+      }, 1);
     });
 
-    it('Down twice - should announce new item and nav options', () => {
+    it('Down twice - should announce new item and nav options', done => {
       testRenderer.keyPress('Down');
       speak.mockClear();
       testRenderer.keyPress('Down');
-      expect(speak).toHaveBeenCalledWith(['Popular Movies', 'Thor', '1 of 3']);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Popular Movies',
+          'Thor',
+          '1 of 3'
+        ]);
+        done();
+      }, 1);
     });
   });
 
   describe('announcerTimeout', () => {
     it('should announce the full navigation', done => {
-      announcer.announcerTimeout = 10;
-      speak.mockClear();
       testRenderer.keyPress('Right');
-      expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
       speak.mockClear();
+      announcer.announcerTimeout = 1;
+      announcer._build();
+      testRenderer.keyPress('Right');
 
       setTimeout(() => {
-        testRenderer.keyPress('Right');
         expect(speak).toHaveBeenCalledWith([
           'Welcome to Flex',
           'HomePage',
@@ -242,7 +265,7 @@ describe('AppAnnouncer', () => {
           'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
         ]);
         done();
-      }, 15);
+      }, 4);
     });
   });
 
@@ -256,14 +279,18 @@ describe('AppAnnouncer', () => {
   });
 
   describe('debug', () => {
-    it('should call console.table', () => {
+    it('should call console.table', done => {
       announcer.debug = true;
       jest.spyOn(global.console, 'table');
       testRenderer.keyPress('Right');
-      expect(global.console.table).toHaveBeenCalledWith([
-        ['Item', 'Title', 'Transformers'],
-        ['Item', 'Context', '2 of 3']
-      ]);
+
+      setTimeout(() => {
+        expect(global.console.table).toHaveBeenCalledWith([
+          ['Item', 'Title', 'Transformers'],
+          ['Item', 'Context', '2 of 3']
+        ]);
+        done();
+      }, 1);
     });
   });
 
@@ -272,11 +299,35 @@ describe('AppAnnouncer', () => {
       announcer.$announce('hello');
       expect(speak).toHaveBeenCalledWith('hello');
     });
-  });
 
-  describe('$announcerRefresh', () => {
-    it('should perform a full announce', () => {
-      announcer.$announcerRefresh();
+    it('should call append', () => {
+      announcer.$announce('hello');
+      announcer.$announce('there', { append: true });
+      expect(speak).toHaveBeenNthCalledWith(2, 'hello');
+      expect(speakAppend).toHaveBeenNthCalledWith(1, 'there');
+    });
+
+    it('should force a pending focus change to be processed first', () => {
+      speak.mockClear();
+      announcer.$announcerRefresh(); // Forces focus change
+      expect(speak).not.toHaveBeenCalled();
+      announcer.$announce('there');
+      expect(speak).toHaveBeenNthCalledWith(1, [
+        'Welcome to Flex',
+        'HomePage',
+        'Free to Me',
+        'Ninja Turtles',
+        '1 of 3',
+        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+      ]);
+      expect(speak).toHaveBeenNthCalledWith(2, 'there');
+    });
+
+    it('should force a pending focus change to be processed first (append=true)', () => {
+      speak.mockClear();
+      announcer.$announcerRefresh(); // Forces focus change
+      expect(speak).not.toHaveBeenCalled();
+      announcer.$announce('there', { append: true });
       expect(speak).toHaveBeenCalledWith([
         'Welcome to Flex',
         'HomePage',
@@ -285,6 +336,63 @@ describe('AppAnnouncer', () => {
         '1 of 3',
         'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
       ]);
+      expect(speakAppend).toHaveBeenCalledWith('there');
+      expect(speak.mock.invocationCallOrder[0]).toBeLessThan(
+        speakAppend.mock.invocationCallOrder[0]
+      );
+    });
+  });
+
+  describe('$announcerRefresh', () => {
+    it('should perform a full announce', done => {
+      speak.mockClear();
+      announcer.$announcerRefresh();
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ]);
+        done();
+      }, 1);
+    });
+
+    it('with depth should perform a partial announce', done => {
+      speak.mockClear();
+      announcer.$announcerRefresh(4);
+      setTimeout(() => {
+        expect(speak).toHaveBeenCalledWith([
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3'
+        ]);
+        done();
+      }, 1);
+    });
+  });
+
+  describe('$announcerCancel', () => {
+    it('should stop currently speaking', () => {
+      announcer.$announce('Say something');
+      announcer.$announcerCancel();
+      expect(speakCancel).toHaveBeenCalled();
+    });
+  });
+
+  describe('focusDiffHook', () => {
+    it('should be array of focused content', () => {
+      testRenderer.keyPress('Right');
+      let toAnnounce = announcer.focusDiffHook.reduce((acc, elm) => {
+        if (elm.title) {
+          acc.push(elm.title);
+        }
+        return acc;
+      }, []);
+
+      expect(toAnnounce).toEqual(['Ninja Turtles', 'Free to Me', 'HomePage']);
     });
   });
 });
