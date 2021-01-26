@@ -1,21 +1,38 @@
 import Speech from './Speech';
 
+let speakError;
+
+global.SpeechSynthesisErrorEvent = class SpeechSynthesisErrorEvent {};
+
 global.speechSynthesis = {
-  speak: jest.fn(utter => utter.onend()),
+  speak: jest.fn(utter => {
+    if (speakError === 'nonSpeechSynthesisErrorEvent') {
+      const error = new Error('nonSpeechSynthesisErrorEvent');
+      utter.onerror(error);
+    } else if (speakError) {
+      const errorEvent = new SpeechSynthesisErrorEvent();
+      errorEvent.error = speakError;
+      utter.onerror(errorEvent);
+    } else {
+      utter.onend();
+    }
+  }),
   cancel: jest.fn()
 };
 global.SpeechSynthesisUtterance = jest.fn();
 
 const utter = global.SpeechSynthesisUtterance;
+const realSetTimeout = setTimeout; // Some tests override setTimeout to use fake timers
 
 async function nextFrame() {
   return new Promise(resolve => {
-    setTimeout(resolve, 0);
+    realSetTimeout(resolve, 0);
   });
 }
 
 describe('Speech', () => {
   beforeEach(() => {
+    speakError = undefined;
     jest.clearAllMocks();
   });
 
@@ -155,5 +172,72 @@ describe('Speech', () => {
     expect(speaking.active).toBe(true);
     await speaking.series;
     expect(speaking.active).toBe(false);
+  });
+
+  it('should retry 2 times on network errors', async () => {
+    speakError = 'network';
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    jest.useFakeTimers();
+    const speaking = Speech(['Hello', 'World']);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenLastCalledWith(
+      'Speech synthesis network error. Retries left: 2'
+    );
+    jest.advanceTimersByTime(500);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(2);
+    expect(warnSpy).toHaveBeenLastCalledWith(
+      'Speech synthesis network error. Retries left: 1'
+    );
+    jest.advanceTimersByTime(1000);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(3);
+    expect(warnSpy).toHaveBeenLastCalledWith(
+      'Speech synthesis network error. Retries left: 0'
+    );
+    jest.advanceTimersByTime(1500);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(3);
+    jest.useRealTimers();
+    warnSpy.mockRestore();
+  });
+
+  it('should not retry on canceled errors', async () => {
+    speakError = 'canceled';
+    jest.useFakeTimers();
+    Speech(['Hello', 'World']);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(500);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(1);
+    jest.useRealTimers();
+  });
+
+  it('should not retry on interrupted errors', async () => {
+    speakError = 'interrupted';
+    jest.useFakeTimers();
+    Speech(['Hello', 'World']);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(500);
+    await nextFrame();
+    expect(utter).toHaveBeenCalledTimes(1);
+    jest.useRealTimers();
+  });
+
+  it('should throw an error on unknown SpeechSynthesisErrorEvent errors', async () => {
+    speakError = 'someOtherError';
+    expect(Speech(['Hello', 'World']).series).rejects.toThrow(
+      'SpeechSynthesisErrorEvent: someOtherError'
+    );
+  });
+
+  it('should throw an error on other unknown errors', async () => {
+    speakError = 'nonSpeechSynthesisErrorEvent';
+    expect(Speech(['Hello', 'World']).series).rejects.toThrow(
+      'nonSpeechSynthesisErrorEvent'
+    );
   });
 });

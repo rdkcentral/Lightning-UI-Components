@@ -12,10 +12,43 @@ function flattenStrings(series = []) {
   return [flattenedSeries.join(', ')].concat(series.slice(i));
 }
 
+function delay(pause) {
+  return new Promise(resolve => {
+    setTimeout(resolve, pause);
+  });
+}
+
+/**
+ * Speak a string
+ *
+ * @param {string} phrase Phrase to speak
+ * @param {SpeechSynthesisUtterance[]} utterances An array which the new SpeechSynthesisUtterance instance representing this utterance will be appended
+ * @return {Promise<void>} Promise resolved when the utterance has finished speaking, and rejected if there's an error
+ */
+function speak(phrase, utterances) {
+  const synth = window.speechSynthesis;
+  return new Promise((resolve, reject) => {
+    let utterance = new SpeechSynthesisUtterance(phrase);
+    utterance.onend = () => {
+      resolve();
+    };
+    utterance.onerror = e => {
+      reject(e);
+    };
+    utterances.push(utterance);
+    synth.speak(utterance);
+  });
+}
+
 function speakSeries(series, root = true) {
   const synth = window.speechSynthesis;
   const remainingPhrases = flattenStrings(series);
   const nestedSeriesResults = [];
+  /*
+    We hold this array of SpeechSynthesisUtterances in order to prevent them from being
+    garbage collected prematurely on STB hardware which can cause the 'onend' events of
+    utterances to not fire consistently.
+  */
   const utterances = [];
   let active = true;
 
@@ -33,17 +66,37 @@ function speakSeries(series, root = true) {
           if (isNaN(pause)) {
             pause = 0;
           }
-          await new Promise(resolve => {
-            setTimeout(() => resolve(), pause);
-          });
+          await delay(pause);
         } else if (typeof phrase === 'string' && phrase.length) {
           // Speak it
-          await new Promise(resolve => {
-            let utterance = new SpeechSynthesisUtterance(phrase);
-            utterances.push(utterance);
-            utterance.onend = resolve;
-            synth.speak(utterance);
-          });
+          const totalRetries = 3;
+          let retriesLeft = totalRetries;
+          while (active && retriesLeft > 0) {
+            try {
+              await speak(phrase, utterances);
+              retriesLeft = 0;
+            } catch (e) {
+              if (e instanceof SpeechSynthesisErrorEvent) {
+                if (e.error === 'network') {
+                  retriesLeft--;
+                  console.warn(
+                    `Speech synthesis network error. Retries left: ${retriesLeft}`
+                  );
+                  await delay(500 * (totalRetries - retriesLeft));
+                } else if (
+                  e.error === 'canceled' ||
+                  e.error === 'interrupted'
+                ) {
+                  // Cancel or interrupt error (ignore)
+                  retriesLeft = 0;
+                } else {
+                  throw new Error(`SpeechSynthesisErrorEvent: ${e.error}`);
+                }
+              } else {
+                throw e;
+              }
+            }
+          }
         } else if (Array.isArray(phrase)) {
           // Speak it (recursively)
           const seriesResult = speakSeries(phrase, false);
