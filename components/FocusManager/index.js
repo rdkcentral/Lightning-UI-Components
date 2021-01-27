@@ -29,8 +29,8 @@ export default class FocusManager extends lng.Component {
     this._direction = this.direction || 'row';
   }
 
-  _init() {
-    this.selectedIndex = this.selectedIndex || 0;
+  _construct() {
+    this._selectedIndex = 0;
   }
 
   get direction() {
@@ -73,52 +73,37 @@ export default class FocusManager extends lng.Component {
     return this.Items.children[this.selectedIndex];
   }
 
+  get selectedIndex() {
+    return this._selectedIndex;
+  }
+
   set selectedIndex(index) {
-    let previousIndex = this.selectedIndex;
-    let prevSelected = this.selected;
-    let direction = index > previousIndex ? 'next' : 'previous';
-    let numItems = this.Items.children.length;
-
-    if (index > 0) {
-      if (index < numItems) {
-        this._selectedIndex = index;
-      } else {
-        this._selectedIndex = numItems - 1;
-      }
-    } else {
-      this._selectedIndex = 0;
+    const prevSelected = this.selected;
+    if (index !== this._selectedIndex) {
+      this._selectedIndex = index;
     }
-
     // Have items update (change height or width) before we render
     this._refocus();
-
     if (this.selected) {
-      let args = [this.selected, prevSelected, direction];
-      this.render(...args);
-      this.signal('selectedChange', ...args);
-
-      // We still want to signal so rendering can occur
-      if (this.selected.skipFocus) {
-        index = this.selectedIndex;
-        if (index === 0) {
-          this.selectedIndex++;
-        } else {
-          this.selectedIndex = direction === 'next' ? index + 1 : index - 1;
-        }
-      }
+      this.render(this.selected, prevSelected);
+      this.signal('selectedChange', this.selected, prevSelected);
     }
   }
 
   // Override
   render() {}
 
-  get selectedIndex() {
-    return this._selectedIndex || 0;
-  }
-
   selectPrevious() {
     if (this.selectedIndex > 0) {
-      this.selectedIndex--;
+      let prevIndex = this.selectedIndex - 1;
+      let previous = this.items[prevIndex];
+      while (prevIndex && previous.skipFocus) {
+        this._selectedIndex = prevIndex;
+        this.render(previous, this.items[prevIndex + 1]);
+        prevIndex -= 1;
+        previous = this.items[prevIndex];
+      }
+      this.selectedIndex = prevIndex;
       return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = this.Items.children.length - 1;
@@ -129,7 +114,15 @@ export default class FocusManager extends lng.Component {
 
   selectNext() {
     if (this.selectedIndex < this.Items.children.length - 1) {
-      this.selectedIndex++;
+      let nextIndex = this.selectedIndex + 1;
+      let next = this.items[nextIndex];
+      while (nextIndex < this.items.length - 1 && next.skipFocus) {
+        this._selectedIndex = nextIndex;
+        this.render(next, this.items[nextIndex - 1]);
+        nextIndex += 1;
+        next = this.items[nextIndex];
+      }
+      this.selectedIndex = nextIndex;
       return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = 0;

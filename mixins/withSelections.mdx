@@ -1,0 +1,170 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# withSelections
+
+The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time. 
+
+<Canvas>
+  <Story id="mixins-withselections--basic" />
+</Canvas>
+
+Take a look at the preview above. The row of modified [Buttons](?path=/docs/button--basic) has navigation managed by the [FocusManager](?path=/docs/focusmanager--rows) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/button--basic). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
+
+## Usage
+
+Out of the box, `withSelections` adds properties and methods to the wrapped parent component that allows it to manage the "selected" status of a direct list of components. All of the method and property names are customizable. In order to ensure that `withSelections` work correctly, we need to understand what this mixin **requires** and what **additions** it brings to the base class.
+
+### Required properties
+
+Let's look at a pseudo-code of the above example:
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Items: {
+        type: withSelections(FocusManager),
+        direction: 'row',
+        items: [{ type: UnderlineButton }]
+      }
+    }
+  }
+}
+```
+
+In this example, `withSelections` is expecting the `FocusManager` component to have a property called `items` which contains components that can handle an `isSelected` property. Fortunately, this describes the `FocusManager` and `UnderlineButton` components perfectly! If your components are working with different property names, they can be customized with the options property. See the [Customization](#customization) section for options.
+
+### Added properties and methods
+
+Now that it is wrapped with `withSelections`, the `FocusManager` component now has access to a few new properties and methods. The `currentSelected` and `currentSelectedIndex` properties point to the child component that is _currently selected_.
+
+```js
+_firstEnable() {
+  this.tag('Title').text.text = 'Selected: ' + this.tag('Items').currentSelected.title
+}
+```
+
+The core of the management functionality lives in the added `setSelected` method, which will set the `isSelected` value on the given component, then fire the `$onSelect` event. A `_captureKey` method is also added, which calls `setSelected` in response to an `Enter` key event. All of these values can be customized; see [Customization](#customization) for options.
+
+```js
+$onSelect() {/* respond to changes to the selected component */}
+```
+
+Lastly, a `fireAncestors` handler is added, in case you need to programmatically trigger the `setSelected` method via a child component.
+
+```js
+_focus() {
+  super._focus();
+  this.fireAncestors('$setSelected', this, true);
+}
+```
+
+### Customization
+
+This section addresses all of the optional properties that can be passed as the second argument to `withSelections`
+
+Here's an overview:
+
+```js
+const defaultOpts = {
+  captureKey: 'Enter',
+  defaultIndex: 0,
+  eventName: 'onSelect',
+  keys: {
+    currentSelected: 'currentSelected',
+    currentSelectedIndex: 'currentSelectedIndex',
+    isSelected: 'isSelected',
+    items: 'items',
+    setSelected: 'setSelected',
+  },
+}
+```
+
+#### captureKey
+
+Default value: `'Enter'`. Defines key name(s) to capture in order to set the selected status of the currently focused child component.
+
+```js
+withSelections(FocusManager, { captureKey: 'OK' });
+withSelections(FocusManager, { captureKey: ['Enter', 'OK']})
+```
+
+#### defaultIndex
+
+Default value: `0`. Defines the index of the component that should be `selected` on load.
+
+```js
+withSelections(FocusManager, { defaultIndex: 1 })
+```
+
+#### eventName
+
+Default value: `'onSelect'`. Defines the name of the event fired via `fireAncestors` by the wrapped component when a `selected` property is changed.
+
+```js
+withSelections(FocusManager, { eventName: 'selectChanged' });
+```
+
+> **NOTE**: The event fired will prepend a "$" to the event name. In the above example, the event will be `'$selectChanged'`
+
+#### keys.currentSelected
+
+Default value: `'currentSelected'`. Defines the name of the property applied to the wrapped component that refers to the **current selected component**
+
+```js
+withSelections(FocusManager, {
+  keys: {
+    currentSelected: 'current'
+  }
+});
+```
+
+#### keys.currentSelectedIndex
+
+Default value: `'currentSelectedIndex'`. Defines the name of the property applied to the wrapped component that refers to the **index of the current selected component**
+
+```js
+withSelections(FocusManager, {
+  keys: {
+    currentSelectedIndex: 'currentIndex'
+  }
+});
+```
+
+#### keys.isSelected
+
+Default value: `'isSelected'`. Defines the name of the property applied to the child components in `items`.
+
+```js
+withSelections(FocusManager, {
+  keys: {
+    isSelected: 'selected'
+  }
+});
+```
+
+#### keys.items
+
+Default value: `'items'`. Defines the name of the property applied to the wrapped component that refers to the **list of managed child components**
+
+```js
+withSelections(FocusManager, {
+  keys: {
+    items: 'children' 
+  }
+});
+```
+
+#### keys.setSelected
+
+Default value: `'setSelected'` Defines the name of the method applied to the wrapped component that manages `isSelected` values for child components in `items`.
+
+```js
+withSelections(FocusManager, {
+  keys: {
+    setSelected: 'setChildSelected'
+  }
+});
+```
+
+> **NOTE**: Lightning has a `select` method on it's `Element` class, so avoid setting `keys.setSelected` to `'select'`, as tempting as it may be...

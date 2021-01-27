@@ -20,6 +20,7 @@ import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
+import { flatten } from '../../utils';
 
 export default {
   title: 'Column',
@@ -46,7 +47,7 @@ export const Basic = args =>
           type: Column,
           h: 500,
           itemSpacing: args.itemSpacing,
-          scrollMount: args.scrollMount,
+          scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
@@ -60,7 +61,7 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  scrollMount: 0,
+  scrollIndex: 0,
   itemTransition: 0.4
 };
 Basic.argTypes = {
@@ -70,8 +71,8 @@ Basic.argTypes = {
   scroll: {
     control: { type: 'select', options: [1, 5, 15, 20] }
   },
-  scrollMount: {
-    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  scrollIndex: {
+    control: { type: 'number', min: 0 }
   }
 };
 Basic.parameters = {
@@ -95,7 +96,7 @@ export const TestCase = args =>
         Column: {
           type: Column,
           h: h => h,
-          scrollMount: args.scrollMount,
+          scrollIndex: args.scrollIndex,
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
@@ -111,11 +112,11 @@ export const TestCase = args =>
     }
   };
 TestCase.args = {
-  scrollMount: 1
+  scrollIndex: 3
 };
 TestCase.argTypes = {
-  scrollMount: {
-    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  scrollIndex: {
+    control: { type: 'range', min: 0, max: 4, step: 1 }
   }
 };
 
@@ -137,11 +138,11 @@ export const MultiColumn = args =>
   };
 MultiColumn.parameters = { tag: 'FocusManager' };
 MultiColumn.args = {
-  scrollMount: 0
+  scrollIndex: 0
 };
 MultiColumn.argTypes = {
-  scrollMount: {
-    control: { type: 'range', min: 0, max: 1, step: 0.1 }
+  scrollIndex: {
+    control: { type: 'range', min: 0, max: 4, step: 1 }
   }
 };
 
@@ -154,39 +155,6 @@ const getMoreItems = () => {
       buttonText: `Extra Button ${i + 1}`
     }))
   });
-};
-
-export const Provider = args =>
-  class Provider extends lng.Component {
-    static _template() {
-      return {
-        Text: {
-          text: {
-            fontSize: 20,
-            text: 'Key down till you find the end 😉 '
-          }
-        },
-        Column: {
-          y: 50,
-          type: Column,
-          itemSpacing: args.itemSpacing,
-          provider: getMoreItems(),
-          items: Array.apply(null, { length: 20 }).map((_, i) => {
-            return {
-              type: Button,
-              buttonText: `Button ${i + 1}`
-            };
-          })
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
-  };
-Provider.args = {
-  itemSpacing: 30
 };
 
 export const Plinko = args =>
@@ -281,6 +249,7 @@ export const ExpandableHeightRows = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
+          plinko: true,
           items: Array.apply(null, { length: 3 }).map((_, i) => ({
             type: ExpandingRow,
             y: 50 * i,
@@ -335,59 +304,9 @@ export const OnScreenEffect = args =>
       return {
         Column: {
           type: Column,
-          h: 430,
           itemSpacing: args.itemSpacing,
-          scrollMount: 0.5,
-          items: Array.apply(null, { length: 20 }).map((_, i) => {
-            return {
-              type: Button,
-              buttonText: `Button ${i}`
-            };
-          })
-        }
-      };
-    }
-
-    _init() {
-      this.tag('Column').onScreenEffect = items => {
-        const { selectedIndex } = this.tag('Column');
-
-        if (selectedIndex < 3 || selectedIndex > 16) {
-          items.forEach(item => (item.alpha = 1));
-          return;
-        }
-
-        let mid = parseInt(items.length / 2);
-        items[mid].setSmooth('alpha', 1);
-        items.slice(0, mid).forEach((item, i) => {
-          item.setSmooth('alpha', 1 / (i * 1.5));
-        });
-
-        items.slice(mid + 1).forEach((item, i) => {
-          item.setSmooth('alpha', 1 / (i * 1.5));
-        });
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
-  };
-OnScreenEffect.args = {
-  itemSpacing: 45
-};
-
-const rgb = (r, g, b) => {
-  return (r << 16) + (g << 8) + b + 255 * 16777216;
-};
-
-export const RainbowScreenEffect = args =>
-  class RainbowScreenEffect extends lng.Component {
-    static _template() {
-      return {
-        Column: {
-          type: Column,
-          itemSpacing: args.itemSpacing,
+          scrollIndex: 2,
+          h: 520,
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
               type: Button,
@@ -399,21 +318,18 @@ export const RainbowScreenEffect = args =>
     }
 
     _init() {
-      const colors = [
-        rgb(255, 0, 0), // red
-        rgb(255, 165, 0), // orange
-        rgb(200, 200, 0), // yellow
-        rgb(0, 128, 0), // green
-        rgb(0, 0, 255), // blue
-        rgb(75, 0, 130), // purple
-        rgb(238, 130, 238) // pink
-      ];
-
       this.tag('Column').onScreenEffect = items => {
-        items.forEach((item, i) => {
-          if (!item.hasFocus()) {
-            item.patch({ color: colors[i] });
-          }
+        const { selected } = this.tag('Column');
+        const selectedIndex = items.indexOf(selected);
+
+        items
+          .slice(0, selectedIndex)
+          .reverse()
+          .forEach((item, idx) => {
+            item.alpha = 1 / (1 + idx);
+          });
+        items.slice(selectedIndex + 1).forEach((item, idx) => {
+          item.alpha = 1 / (1 + idx);
         });
       };
     }
@@ -422,15 +338,23 @@ export const RainbowScreenEffect = args =>
       return this.tag('Column');
     }
   };
+OnScreenEffect.args = {
+  itemSpacing: 60
+};
+
+const rgb = (r, g, b) => {
+  return (r << 16) + (g << 8) + b + 255 * 16777216;
+};
 
 export const StickyTitle = args => {
-  const items = Array.apply(null, { length: 5 })
-    .map((_, i) => {
+  const items = flatten(
+    Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
       let items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
           type: Button,
           buttonText: `Button ${i + 1}`,
+          w: 200,
           headerText
         };
       });
@@ -444,7 +368,7 @@ export const StickyTitle = args => {
         ...items
       ];
     })
-    .flat();
+  );
   items.shift();
 
   return class ColumnExample extends lng.Component {
@@ -454,18 +378,19 @@ export const StickyTitle = args => {
         w: 200,
         ColumnHeader: {
           type: ColumnHeader,
+          headerText: 'Sticky Header 0',
           h: 40
         },
         Column: {
           y: 50,
-          w: 200,
+          w: 300,
           h: 400,
-          itemSpacing: args.itemSpacing,
           clipping: true,
+          itemSpacing: args.itemSpacing,
           type: Column,
           items,
           signals: {
-            selectedChanged: '_updateHeader'
+            selectedChange: '_updateHeader'
           }
         }
       };
@@ -537,8 +462,8 @@ class Button extends lng.Component {
       texture: lng.Tools.getRoundRect(150, 40, 4),
       h: 40,
       Label: {
-        x: 75,
-        y: 22,
+        x: w => w / 2,
+        y: y => y / 2,
         mount: 0.5,
         color: 0xffffffff,
         text: { fontSize: 20 }
@@ -562,6 +487,7 @@ class ExpandingButton extends Button {
   _focus() {
     super._focus();
     this.patch({ h: 100 });
+    this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {
@@ -574,6 +500,7 @@ class ExpandingRow extends Row {
   _focus() {
     super._focus();
     this.patch({ h: 100 });
+    this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {

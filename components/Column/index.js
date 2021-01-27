@@ -16,17 +16,152 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import FocusManager from '../FocusManager';
+import { getY, getW } from '../../utils';
 
 export default class Column extends FocusManager {
   static _template() {
     return {
       direction: 'column',
-      scrollMount: 0,
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
       }
     };
+  }
+
+  _construct() {
+    super._construct();
+    this._smooth = false;
+    this._itemSpacing = 0;
+    this._scrollIndex = 0;
+    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+    this._h = this.stage.h;
+  }
+
+  _init() {
+    this._updateLayout();
+  }
+
+  _focus() {
+    this.items.forEach(item => (item.parentFocus = true));
+  }
+
+  _unfocus() {
+    this.items.forEach(item => (item.parentFocus = false));
+  }
+
+  selectNext() {
+    this._smooth = true;
+    super.selectNext();
+  }
+
+  selectPrevious() {
+    this._smooth = true;
+    super.selectPrevious();
+  }
+
+  // TODO: can be documented in API when lastScrollIndex is made public
+  shouldScrollUp() {
+    return (
+      this._itemsY < 0 &&
+      (this._lastScrollIndex
+        ? this.selectedIndex < this._lastScrollIndex
+        : this.selectedIndex >= this._scrollIndex)
+    );
+  }
+
+  // TODO: can be documented in API when lastScrollIndex is made public
+  shouldScrollDown() {
+    const lastChild = this.Items.childList.last;
+    return (
+      this.selectedIndex > this._scrollIndex &&
+      // end of Items container < end of last item
+      Math.abs(this._itemsY - this.h) <
+        lastChild.y + this.Items.childList.last.h
+    );
+  }
+
+  render(next, prev) {
+    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+      next.selectedIndex = this._getIndexOfItemNear(next, prev);
+    }
+
+    this._whenEnabled.then(() => {
+      const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
+        .y;
+      const lastChild = this.Items.childList.last;
+      const shouldScroll =
+        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+
+      if (shouldScroll) {
+        const scrollItem =
+          this.selectedIndex > this._lastScrollIndex
+            ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
+            : this.selected;
+        if (this._smooth) {
+          this.Items.smooth = {
+            y: [
+              -scrollItem.transition('y').targetValue +
+                (scrollItem === this.selected ? scrollOffset : 0),
+              this.itemTransition
+            ]
+          };
+        } else {
+          this.Items.patch({
+            y: -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0)
+          });
+        }
+      }
+
+      this.onScreenEffect(
+        this.Items.children.filter((child, index) => {
+          const y = getY(child);
+          const { h } = child;
+          const withinLowerBounds = y + h + this._itemsY > 0;
+          const withinUpperBounds = y + this._itemsY < this.h;
+
+          return withinLowerBounds && withinUpperBounds;
+        })
+      );
+    });
+  }
+
+  _updateLayout() {
+    this._whenEnabled.then(() => {
+      let nextY = 0;
+      let nextW = 0;
+      // layout items in row
+      for (let i = 0; i < this.Items.children.length; i++) {
+        const child = this.Items.children[i];
+        nextW = Math.max(nextW, getW(child));
+        if (this._smooth) {
+          child.smooth = { y: [nextY, this.itemTransition] };
+        } else {
+          child.patch({ y: nextY });
+        }
+        nextY += this.itemSpacing + child.h;
+      }
+      this.patch({ w: nextW });
+
+      const lastChild = this.Items.childList.last;
+      const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
+      const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
+        .y;
+
+      // determine when to stop scrolling down
+      if (endOfLastChild > this.h) {
+        for (let i = this.Items.children.length - 1; i >= 0; i--) {
+          const child = this.Items.children[i];
+          const childY = getY(child);
+          if (childY + this.h - scrollOffset > endOfLastChild) {
+            this._lastScrollIndex = i;
+          } else {
+            break;
+          }
+        }
+      }
+      this.render(this.selected, null);
+    });
   }
 
   // finds the index of the item with the closest middle to the previously selected item
@@ -63,236 +198,70 @@ export default class Column extends FocusManager {
     return selected.items.length - 1;
   }
 
-  scrollTo(index, duration = this.itemTransition.duration * 100) {
-    for (let i = 0; i !== Math.abs(this.selectedIndex - index); i++) {
-      setTimeout(() => {
-        this.selectedIndex > index
-          ? this.selectedIndex--
-          : this.selectedIndex++;
-      }, duration * i);
+  get itemSpacing() {
+    return this._itemSpacing;
+  }
+
+  set itemSpacing(itemSpacing) {
+    if (itemSpacing !== this._itemSpacing) {
+      this._itemSpacing = itemSpacing;
+      this._updateLayout();
     }
   }
 
-  _nearEnd(BUFFER = 6) {
-    return this.items.length && this.selectedIndex > this.items.length - BUFFER;
+  get scrollIndex() {
+    return this._scrollIndex;
   }
 
-  set provider(provider) {
-    provider.then(data => {
-      if (!data.appendItems) {
-        this.items = [];
-      }
-      this.appendItems(data.items);
-      this._getMoreItems = data.getMoreItems;
-    });
+  set scrollIndex(scrollIndex) {
+    if (scrollIndex !== this._scrollIndex) {
+      this._scrollIndex = scrollIndex;
+      this._updateLayout();
+    }
+  }
+
+  get _itemsY() {
+    return getY(this.Items);
   }
 
   appendItems(items = []) {
     let itemWidth = this.renderWidth;
-    // Add items past the bounds margin so they don't load
-    let bottomOfScreen = this.y + this._columnHeight + this.itemSpacing;
+
     items.forEach(item => {
-      item.w = item.w || itemWidth;
-      item.y = bottomOfScreen;
-      item.alpha = 0;
       item.parentFocus = this.hasFocus();
+      item = this.Items.childList.a(item);
+      item.w = getW(item) || itemWidth;
     });
-    super.appendItems(items);
-
-    // Ensure items are drawn so they have height
     this.stage.update();
-
-    // Create boundsMargin to preload images off screen
-    let itemHeight = (items[0] || {}).h || this._columnHeight * 0.15;
-    let bounds = itemHeight + this.itemSpacing;
-    this.boundsMargin = [bounds, bounds, 0, 0];
-
-    this.render();
+    this._updateLayout();
   }
 
-  _computeLastIndex() {
-    let totalItems = this.items.length;
-    let MAX_HEIGHT = this._columnHeight - this.itemSpacing;
+  scrollTo(index, duration = this.itemTransition.duration * 100) {
+    if (duration === 0) this.selectedIndex = index;
 
-    for (let i = totalItems - 1; i >= 0; i--) {
-      MAX_HEIGHT -= this.items[i].h + this.itemSpacing;
-      if (MAX_HEIGHT <= 0) {
-        this._previousLastIndex = Math.max(this._previousLastIndex || 0, i + 1);
-        return this._previousLastIndex;
-      }
+    for (let i = 0; i !== Math.abs(this.selectedIndex - index); i++) {
+      setTimeout(() => {
+        this.selectedIndex > index ? this.selectPrevious() : this.selectNext();
+      }, duration * i);
     }
-
-    return 0;
+    this.Items.transition('y').on('finish', () => (this._smooth = false));
   }
 
-  _computeStartScrollIndex(scrollStart) {
-    let totalItems = this.items.length;
-    let MAX_HEIGHT = scrollStart;
-
-    for (let i = 0; i < totalItems; i++) {
-      MAX_HEIGHT -= this.items[i].h + this.itemSpacing;
-      if (MAX_HEIGHT <= 0) {
-        return i + 1;
-      }
-    }
-  }
-
-  // can be overridden
-  onScreenEffect() {}
-
-  render(selected = this.selected, prev) {
-    if (this.items.length === 0) {
-      return;
-    }
-
-    let itemY = 0;
-    let index = this.selectedIndex;
-    let lastIndex = this._computeLastIndex();
-
-    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-      selected.selectedIndex = this._getIndexOfItemNear(selected, prev);
-    }
-
-    if (this._nearEnd() && this._getMoreItems) {
-      this.provider = this._getMoreItems();
-      this._getMoreItems = false;
-    }
-
-    if (index > lastIndex && this._getMoreItems === undefined) {
-      index = lastIndex;
-    }
-
-    if (this.scrollMount === 0 || index === 0) {
-      return this.onScreenEffect(this._renderDown(index));
-    }
-
-    if (this.scrollMount === 1) {
-      itemY = this.selected.y;
-      if (this._isOnScreen(itemY)) {
-        return;
-      }
-
-      if (itemY >= this._columnHeight) {
-        return this.onScreenEffect(this._renderUp());
-      }
-
-      return this.onScreenEffect(this._renderDown(index));
-    }
-
-    // Scroll mount is middle
-    let scrollStart = this._columnHeight * this.scrollMount;
-    let startScrollIndex = this._computeStartScrollIndex(scrollStart);
-
-    // Handle first items on screen
-    if (index < startScrollIndex) {
-      return this.onScreenEffect(this._renderDown(0));
-    }
-
-    itemY = scrollStart - this.selected.h / 2;
-
-    // Handle last items on screen
-    if (
-      this.selected.y > itemY &&
-      this._isOnScreen(this.items[this.items.length - 1].y)
-    ) {
-      return;
-    }
-
-    this.onScreenEffect(
-      [].concat(
-        this._renderUp(this.selectedIndex - 1, itemY),
-        this._renderDown(this.selectedIndex, itemY)
-      )
-    );
-  }
-
-  _renderUp(index = this.selectedIndex, itemY = this._columnHeight) {
-    let onScreenItems = [];
-    const [BOUNDS] = this.boundsMargin;
-
-    if (index + 1 < this.items.length) {
-      index++;
-      itemY += this.items[index].h + this.itemSpacing;
-    }
-
-    while (itemY >= -BOUNDS && index >= 0) {
-      let item = this.items[index];
-      if (this._isOnScreen(itemY)) onScreenItems.push(item);
-      itemY -= item.h + this.itemSpacing;
-      let alpha = this._isOnScreen(itemY) ? 1 : 0;
-      item.smooth = { y: [itemY, this.itemTransition], alpha };
-      index--;
-    }
-
-    return onScreenItems;
-  }
-
-  _renderDown(index, itemY = 0) {
-    let onScreenItems = [];
-    const [BOUNDS] = this.boundsMargin;
-
-    if (index - 1 >= 0) {
-      index--;
-      itemY -= this.items[index].h + this.itemSpacing;
-    }
-
-    let overFillHeight = this._columnHeight + BOUNDS + this.itemSpacing;
-    while (itemY < overFillHeight && index < this.items.length) {
-      let item = this.items[index];
-      let alpha = this._isOnScreen(itemY) ? 1 : 0;
-      if (this._isOnScreen(itemY)) onScreenItems.push(item);
-
-      item.smooth = { y: [itemY, this.itemTransition], alpha };
-      itemY += item.h + this.itemSpacing;
-      index++;
-    }
-
-    return onScreenItems;
-  }
-
-  _isOnScreen(y) {
-    return y >= 0 && y < this._columnHeight;
-  }
-
-  get _columnHeight() {
-    return this.h || this.renderHeight || this.stage.h;
-  }
-
-  set itemSpacing(val) {
-    this._itemSpacing = val;
-    this.render();
-  }
-
-  get itemSpacing() {
-    return this._itemSpacing || 0;
-  }
-
-  _focus() {
-    // Wait till Items are focused before rendering
-    setTimeout(() => this.render(), 0);
-    this.items.forEach(item => (item.parentFocus = true));
-  }
-
-  _unfocus() {
-    // Wait till Items are focused before rendering
-    setTimeout(() => this.render(), 0);
-    this.items.forEach(item => (item.parentFocus = false));
+  $itemChanged() {
+    this._updateLayout();
   }
 
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
       this.Items.childList.remove(item);
+      this._updateLayout();
+
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
-        this.selectedIndex = this.selectedIndex;
+        this.selectedIndex = this._selectedIndex;
       }
 
-      let itemBefore;
-      if (this.selectedIndex > 0) {
-        itemBefore = this.items[this.selectedIndex - 1];
-      }
-      this.render(itemBefore);
       if (!this.items.length) {
         this.fireAncestors('$columnEmpty');
       }
@@ -300,6 +269,9 @@ export default class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this.render();
+    this._updateLayout();
   }
+
+  // can be overridden
+  onScreenEffect() {}
 }

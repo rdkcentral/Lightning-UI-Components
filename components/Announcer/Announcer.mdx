@@ -7,12 +7,18 @@ import { Canvas, Story } from '@storybook/addon-docs/blocks';
 Extend your app with the `Announcer` class to add a framework for Voice Guidance. On Focus Change events, the `Announcer` class traverses the `_focusPath` property collecting strings or promises of strings to announce to the user. The array of information is passed to a speak function which is responsible for converting the text to speech. We include a default speak function
 which uses the [speechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), but you replace this with your own implementation by passing a speak function as the second argument to `Announcer`
 
+Note: The speechSynth api has some known problems:
+https://stackoverflow.com/questions/39391502/js-speechsynthesis-problems-with-the-cancel-method
+https://stackoverflow.com/questions/23483990/speechsynthesis-api-onend-callback-not-working
+
+This class does its best to work around these issues, but speech synth api can randomly fail.
+
 ## Usage
 
 Extend your application with `Announcer` before boot:
 
 ```js
-import { Announcer } from '@lightningjs/ui-components'
+import { Announcer } from '@lightning/ui'
 const Base = Announcer(lng.Component, customSpeechImpl)
 export default class App extends Base {
 ```
@@ -36,14 +42,28 @@ Set `announcerEnabled` to true in your app and optionally `debug` to true to see
 | 12 | Grid | No Context |
 | 13 | BrowsePage-1 | Context |  PAUSE-2 Press LEFT or RIGHT to
 
-The `Announcer` will travel through the `_focusPath` looking for `component.announce` then `component.title` properties. After collecting those properties it reverses the `_focusPath` looking for `component.announceContext` properties.
+The `Announcer` will travel through the `_focusPath` looking for `component.announce` then `component.title` then `component.label` properties. After collecting those properties it reverses the `_focusPath` looking for `component.announceContext` properties.
 
-For async data you may return a promise which resolves to a string.
+All of the properties may return a string or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+```js
+  get announce() {
+    return [
+      'Despicable Me',
+      Promise.resolve([
+        ['2020', 'Rated PG'],
+        Promise.resolve('Steve Carell, Miranda Cosgrove, Kristen Wiig, Pierre Coffin')
+      ])
+    ];
+  }
+
+  get announceContext() {
+    return 'Press LEFT or RIGHT to review items';
+  }
+```
 
 You may also use `PAUSE-#` to pause speech for # seconds before saying the next string.
-
 ```js
-  get context() {
+  get announceContext() {
     return ['PAUSE-2.5', 'Hello there!'];
   }
 ```
@@ -62,5 +82,14 @@ announcerTimeout|number|false|By default the announcer only gets information abo
 
 name|args|description
 --|--|--|--
-$announce|string|Announce a string or array of strings can be passed
-$announcerRefresh|none|Performs a full announce using the focusPath
+$announce||Performs a manual announce
+&nbsp;|`announcement`|String or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+&nbsp;|`options`|Object containing one or more boolean flags: <br/><ul><li>append - Appends announcement to the currently announcing series.</li></ul>
+$announcerRefresh|depth|Performs an announce using the focusPath - depth can trim known focusPath
+$announcerCancel|none|Cancels current speaking
+
+### Hooks
+
+name|args|description
+--|--|--|--
+focusDiffHook|array|Array of elements that have changed focus
