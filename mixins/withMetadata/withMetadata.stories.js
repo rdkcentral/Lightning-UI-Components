@@ -97,7 +97,7 @@ export const XfinityTheme = () =>
               Metadata: {
                 type: MetadataTile,
                 firstLine: 'MetadataTile (with long marquee title)',
-                secondLine: 'is visible on focus'
+                secondLine: 'is visible on focus and should truncate'
               }
             },
             {

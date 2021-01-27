@@ -285,7 +285,7 @@ Object {
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 50,
+      "h": 0,
       "isComponent": undefined,
       "mount": 0,
       "mountX": 0,
