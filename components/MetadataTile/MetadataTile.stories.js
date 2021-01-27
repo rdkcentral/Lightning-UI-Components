@@ -22,15 +22,8 @@ export const Basic = args =>
         MetadataTile: {
           type: MetadataTile,
           w: 500,
-          firstLine: [
-            'First line',
-            {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
-            },
-            'with marquee scrolling text'
-          ],
+          firstLine:
+            'First line with marquee scrolling text that will truncate then scroll',
           secondLine: [
             'Free',
             {
@@ -44,7 +37,7 @@ export const Basic = args =>
                 'http://myriad.merlin.comcast.com/select/logo?entityId=6830964634263316239&width=32&height=&ratio=1x1&trim=false',
               title: 'Audience rating'
             },
-            '80',
+            '80%',
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
           ]

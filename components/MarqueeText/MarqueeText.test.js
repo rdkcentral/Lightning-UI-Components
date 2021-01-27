@@ -132,10 +132,12 @@ describe('MarqueeText', () => {
 
   describe('#color', () => {
     it('updates the text color', () => {
-      marquee.color = 0xff1c27bc;
+      const color = 0xff1c27bc;
+      marquee.color = color;
       testRenderer.update();
       const tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
+      expect(marquee.color).toBe(color);
     });
   });
 
@@ -144,6 +146,34 @@ describe('MarqueeText', () => {
       marquee.contentTexture = marquee.getTexture();
       testRenderer.update();
       expect(marquee.contentTexture.constructor.name).toEqual('TextureSource');
+    });
+  });
+
+  describe('#shouldSmooth', () => {
+    it('should transition the content box x position when centering', done => {
+      [marquee, testRenderer] = createMarqueeText({
+        autoStart: true,
+        shouldSmooth: true,
+        centerAlign: true,
+        w: 350,
+        h: 50,
+        title: {
+          text: 'Short text',
+          lineHeight: 50,
+          maxLines: 1
+        }
+      });
+
+      Object.defineProperty(marquee, '_textRenderedW', {
+        get: jest.fn(() => 100)
+      });
+
+      expect(marquee.shouldSmooth).toBe(true);
+
+      setTimeout(() => {
+        expect(marquee._scrolling).toBe(false);
+        done();
+      }, 50);
     });
   });
 });

@@ -27,17 +27,18 @@ export const Basic = args =>
         MetadataCard: {
           type: MetadataCard,
           w: 500,
-          firstLine: [
-            'First line',
-            {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
-            },
-            'with marquee scrolling'
-          ],
+          firstLine:
+            'First line with marquee scrolling text that will truncate then scroll',
           secondLine: args.secondLine
-            ? 'Second line that is very long and will need to be truncated'
+            ? [
+                'Second line',
+                {
+                  icon:
+                    'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+                  title: 'Rotten Tomatoes rating'
+                },
+                'that is very long and will truncate'
+              ]
             : undefined,
           thirdLine: args.thirdLine
             ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
@@ -75,7 +76,15 @@ Basic.parameters = {
     },
     secondLine: (isSecondLine, component) => {
       component.tag('MetadataCard').secondLine = isSecondLine
-        ? 'Second line that is very long and will need to be truncated'
+        ? [
+            'Second line',
+            {
+              icon:
+                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            },
+            'that is very long and will truncate'
+          ]
         : undefined;
     },
     thirdLine: (isThirdLine, component) => {

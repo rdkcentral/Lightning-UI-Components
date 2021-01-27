@@ -45,9 +45,16 @@ class MetadataTile extends lng.Component {
           rtt: true
         }
       },
-      SecondLine: {
-        type: InlineContent,
-        rtt: true
+      SecondLineWrapper: {
+        Marquee: {
+          type: MarqueeText,
+          alpha: 0
+        },
+        SecondLine: {
+          type: InlineContent,
+          alpha: 0.001,
+          rtt: true
+        }
       }
     };
   }
@@ -83,8 +90,7 @@ class MetadataTile extends lng.Component {
   }
 
   _update() {
-    this._updateFirstLine();
-    this._updateSecondLine();
+    this._updateLines();
     this._updateWidth();
     this._updateMarquee();
   }
@@ -116,20 +122,38 @@ class MetadataTile extends lng.Component {
     }
   }
 
-  _updateFirstLine() {
-    this._FirstLine.justify = this._justify;
-    this._FirstLine.content = this._firstLine;
-    this._FirstLine.textProperties = this._firstLineTextProperties;
-    this._FirstLineMarquee.patch(this._marqueeProperties);
-    this._FirstLineMarquee.w = this._textW;
-    this._FirstLineMarquee.contentTexture = this._FirstLine.getTexture();
-    this._FirstLineMarquee.smooth = { alpha: this._firstLine ? 1 : 0 };
-  }
+  _updateLines() {
+    const lines = [
+      {
+        wrapper: this._FirstLineWrapper,
+        component: this._FirstLine,
+        marquee: this._FirstLineMarquee,
+        content: this._firstLine,
+        textProps: this._firstLineTextProperties
+      },
+      {
+        wrapper: this._SecondLineWrapper,
+        component: this._SecondLine,
+        marquee: this._SecondLineMarquee,
+        content: this._secondLine,
+        textProps: this._secondLineTextProperties
+      }
+    ];
 
-  _updateSecondLine() {
-    this._SecondLine.justify = this._justify;
-    this._SecondLine.content = this._secondLine;
-    this._SecondLine.textProperties = this._secondLineTextProperties;
+    lines.forEach(line => {
+      // if losing focus, we don't want the lines to "pop" back into place
+      // as the tile width chages, but we want them to start in place when alphaing on
+      line.marquee.shouldSmooth = !this.hasFocus();
+
+      line.component.justify = this._justify;
+      line.component.content = line.content;
+      line.component.textProperties = line.textProps;
+      line.marquee.patch(this._marqueeProperties);
+      line.marquee.contentTexture = line.component.getTexture();
+      line.marquee.w = this._textW;
+      line.marquee.smooth = { alpha: line.content ? 1 : 0 };
+      line.wrapper.visible = line.content ? true : false;
+    });
   }
 
   get announce() {
@@ -264,8 +288,16 @@ class MetadataTile extends lng.Component {
     return this._FirstLineWrapper.tag('FirstLine');
   }
 
+  get _SecondLineWrapper() {
+    return this.tag('SecondLineWrapper');
+  }
+
+  get _SecondLineMarquee() {
+    return this._SecondLineWrapper.tag('Marquee');
+  }
+
   get _SecondLine() {
-    return this.tag('SecondLine');
+    return this._SecondLineWrapper.tag('SecondLine');
   }
 }
 
