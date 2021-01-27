@@ -29,7 +29,7 @@ export const XfinityFonts = {
   brand: {
     fontName: 'XfinityBrown',
     baseUrl:
-      'https://staging-static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized',
+      'https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized',
     weights: {
       regular: {
         family: 'Regular',
