@@ -4,7 +4,11 @@ export default function withHandleKey(Base) {
 
     _handleKey(keyEvent) {
       let { key } = keyEvent;
-      if (typeof this[`on${key}`] === 'function') {
+      if (!key) {
+        const keyMap = this.stage.application.__keymap || {};
+        key = keyMap[keyEvent.keyCode];
+      }
+      if (key && typeof this[`on${key}`] === 'function') {
         this[`on${key}`].call(this, keyEvent, this);
         return true;
       }

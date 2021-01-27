@@ -10,7 +10,11 @@ describe('withHandleKey', () => {
   }
 
   beforeEach(() => {
-    [HandleKeyComponent, testRenderer] = TestUtils.makeCreateComponent(withHandleKey(Example))();
+    [HandleKeyComponent, testRenderer] = TestUtils.makeCreateComponent(withHandleKey(Example), {}, {
+      keys: {
+        777: 'Sideways'
+      }
+    })();
   });
 
   afterEach(() => {
@@ -41,5 +45,11 @@ describe('withHandleKey', () => {
       preventDefault: expect.anything(),
       type: 'keydown'
     }, HandleKeyComponent);
+  });
+
+  it('fallback to keymap key resolution', () => {
+    HandleKeyComponent.onSideways = jest.fn();
+    testRenderer.keyPress({ key: '', keyCode: 777 });
+    expect(HandleKeyComponent.onSideways).toHaveBeenCalled();
   });
 });
