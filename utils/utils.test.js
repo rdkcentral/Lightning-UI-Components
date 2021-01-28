@@ -1,11 +1,13 @@
 import lng from 'wpe-lightning';
 import TestRenderer from '../components/lightning-test-renderer';
+import TestUtils from '../components/lightning-test-utils';
 import {
   rgba2argb,
   RoundRect,
   clone,
   getFirstNumber,
   parseInlineContent,
+  getDimension,
   flatten
 } from '.';
 
@@ -228,6 +230,24 @@ describe('parseInlineContent', () => {
   });
 });
 
+describe('getDimension', () => {
+  it('with no component, returns 0', () => {
+    expect(getDimension('x')).toBe(0);
+  });
+  it('returns the dimension of the component', () => {
+    const [component] = TestUtils.makeCreateComponent(lng.Component)({
+      x: 12
+    });
+    expect(getDimension('x', component)).toBe(12);
+  });
+  it('returns the target value of a transitioning component', () => {
+    const [component] = TestUtils.makeCreateComponent(lng.Component)({
+      y: 10
+    });
+    component.setSmooth('y', 20);
+    expect(getDimension('y', component)).toBe(20);
+  });
+});
 describe('flatten', () => {
   it('should create a new array with all sub-array elements concatenated into it', () => {
     const arr = [0, 1, 2, [3, 4]];
