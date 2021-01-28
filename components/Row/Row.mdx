@@ -7,7 +7,7 @@ Focus management and smooth scrolling for a horizontally-oriented list of items.
 
 ## Usage
 
-`Row` expects a list of `items` which will be laid out side-by-side. By default, the height of `Row` is the same as the height of the tallest item, and the width is the width of the application. You can change the `w` and `h` attributes to manage `width` and `height`, respectively. 
+Explain how the component works. Use an example:
 
 ```js
 import { Row } from '@lightning/ui';
@@ -30,21 +30,64 @@ class Basic extends lng.Component {
   <Story id="row--basic" />
 </Canvas>
 
+### Title
+
+A static title can easily be added to a row
+
+```js
+import { Row } from '@lightning/ui';
+
+class Title extends lng.Component {
+  static _template() {
+    return {
+      Row: {
+        type: Row,
+        title: { text: 'Title Text' }
+        items: []
+      }
+    }
+  }
+}
+```
+
+<Canvas>
+  <Story id="row--title" />
+</Canvas>
+
+The `title` property is an <DocsLink id="lng.Text" /> texture; you can customize it like any other text.
+
+```js
+{
+  title: { fontSize: 20, wordWrap: false, text: 'Hi' }
+}
+```
+
+You can show and hide the title with the `showTitle` property.
+
+```js
+{
+  type: Row,
+  title: { text: 'Hide Me' },
+  showTitle: false,
+  items: []
+}
+```
+
 ### Scrolling
 
-By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width). 
+By default, `Row` will scroll horizontally to capture items out of view.
 
 <Canvas>
   <Story id="row--side-scrolling" />
 </Canvas>
 
-The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
+You can force scrolling on every selection with `alwaysScroll`
 
 ```js
 {
   type: Row,
-  scrollIndex: 1,
-  items: [/* items */]
+  alwaysScroll: true,
+  items: []
 }
 ```
 
@@ -52,12 +95,30 @@ The `scrollIndex` property determines the index at which scrolling should begin.
 
 ### Properties
 
+export const ProviderType = () => (
+  <GenericType type="Promise">
+    <ObjectFormat object={{
+      items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
+      'appendItems?': 'boolean',
+      'getMoreItems?': '()=>Promise'
+    }} />
+  </GenericType>
+);
+
 name|type|readonly|default|description
 --|--|--|--|--
-h|number|false|0|height of the `Row`. Automatically set to tallest item `h` after adding `items`
+alwaysScroll|boolean|false|false|moves all items on every selection
 items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
-itemSpacing|number|false|0|px between items
-scrollIndex|number|false|0|Item index at which scrolling begins, provided the sum of item widths is greater than the width of the `Row`
+itemSpacing|number|false|40|px between items
+provider|<ProviderType />|false|-|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
 selected|<DocsLink id="lng.Component" />|true|-|selected item
 selectedIndex|number|false|0|index of selected item
-w|number|false|`stage.w`|width of the `Row`
+showTitle|boolean|false|true if title exists|whether to display title component
+title|<DocsLink id="lng.Text" />|false|-|static title to show above row items
+wrapSelected|boolean|false|false|whether to wrap selection from the last item to the first
+
+### Methods
+
+#### resetIndex
+
+Sets `selectedIndex` to `0`;

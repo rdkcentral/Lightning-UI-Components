@@ -510,6 +510,9 @@ describe('ListItemPicker', () => {
       expect(listItemPicker.selectedOptionIndex).toBe(1);
       expect(listItemPicker.selectedOption).toBe('op2');
       expect(listItemPicker.hasFocus()).toBe(true);
+      expect(
+        listItemPicker._Carousel.items[1].transition('x').targetValue
+      ).toBe(0);
       testRenderer.unfocus();
       tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
@@ -518,7 +521,7 @@ describe('ListItemPicker', () => {
     });
   });
 
-  it('renders selected option as subtitle on unfocus', () => {
+  it('renders selected option as subtitle on unfocus', done => {
     [listItemPicker, testRenderer] = createListItemPicker({
       title: 'List Item Picker',
       options: ['op1', 'op2', 'op3']
@@ -528,5 +531,17 @@ describe('ListItemPicker', () => {
     expect(listItemPicker.hasFocus()).toBe(false);
     expect(listItemPicker._Subtitle.visible).toBe(true);
     expect(listItemPicker._Subtitle.text.text).toBe('op1');
+
+    testRenderer.focus();
+    testRenderer.update();
+    listItemPicker._whenEnabled.then(() => {
+      expect(listItemPicker.hasFocus()).toBe(true);
+      testRenderer.keyPress('Right');
+      expect(listItemPicker.selectedOption).toBe('op2');
+
+      testRenderer.keyPress('Left');
+      expect(listItemPicker.selectedOption).toBe('op1');
+      done();
+    });
   });
 });

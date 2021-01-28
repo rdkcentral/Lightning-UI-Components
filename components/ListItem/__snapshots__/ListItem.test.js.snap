@@ -3035,7 +3035,12 @@ Object {
               "active": true,
               "alpha": 1,
               "attached": true,
-              "boundsMargin": null,
+              "boundsMargin": Array [
+                0,
+                0,
+                830,
+                830,
+              ],
               "children": Object {
                 "Items": Object {
                   "active": true,
@@ -3044,7 +3049,7 @@ Object {
                   "boundsMargin": null,
                   "children": Object {
                     "Element-645": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -3082,12 +3087,12 @@ Object {
                       },
                       "visible": true,
                       "w": 830,
-                      "x": 0,
+                      "x": 1660,
                       "y": 0,
                       "zIndex": 0,
                     },
                     "Element-646": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -3125,12 +3130,12 @@ Object {
                       },
                       "visible": true,
                       "w": 830,
-                      "x": 830,
+                      "x": 1660,
                       "y": 0,
                       "zIndex": 0,
                     },
                     "Element-647": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -3210,8 +3215,8 @@ Object {
               "flex": false,
               "flexItem": true,
               "h": 32,
-              "hasFinalFocus": false,
-              "hasFocus": false,
+              "hasFinalFocus": true,
+              "hasFocus": true,
               "isComponent": true,
               "mount": 0,
               "mountX": 0,
@@ -3820,7 +3825,12 @@ Object {
               "active": true,
               "alpha": 1,
               "attached": true,
-              "boundsMargin": null,
+              "boundsMargin": Array [
+                0,
+                0,
+                380,
+                380,
+              ],
               "children": Object {
                 "Items": Object {
                   "active": true,
@@ -3829,7 +3839,7 @@ Object {
                   "boundsMargin": null,
                   "children": Object {
                     "Element-694": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -3867,12 +3877,12 @@ Object {
                       },
                       "visible": true,
                       "w": 380,
-                      "x": 0,
+                      "x": 760,
                       "y": 0,
                       "zIndex": 0,
                     },
                     "Element-695": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -3910,12 +3920,12 @@ Object {
                       },
                       "visible": true,
                       "w": 380,
-                      "x": 380,
+                      "x": 760,
                       "y": 0,
                       "zIndex": 0,
                     },
                     "Element-696": Object {
-                      "active": true,
+                      "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,

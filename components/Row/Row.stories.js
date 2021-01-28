@@ -2,6 +2,7 @@ import lng from 'wpe-lightning';
 
 import Row from '.';
 import mdx from './Row.mdx';
+import Pivot from '../Pivot';
 
 export default {
   title: 'Row',
@@ -18,6 +19,7 @@ export const Basic = () =>
       return {
         Row: {
           type: Row,
+          w: 900,
           itemSpacing: 100,
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
@@ -41,7 +43,8 @@ export const SideScrolling = args =>
           type: Row,
           w: 900,
           itemSpacing: 20,
-          scrollIndex: args.scrollIndex,
+          alwaysScroll: args.alwaysScroll,
+          scrollMount: args.scrollMount,
           items: Array.apply(null, { length: 12 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`,
@@ -56,11 +59,18 @@ export const SideScrolling = args =>
     }
   };
 SideScrolling.args = {
-  scrollIndex: 0
+  alwaysScroll: false,
+  scrollMount: 0.5
 };
 SideScrolling.argTypes = {
-  scrollIndex: {
-    control: 'number'
+  alwaysScroll: { control: 'boolean' },
+  scrollMount: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.1
+    }
   }
 };
 
@@ -76,7 +86,8 @@ export const FocusHeightChange = () =>
             w: 150,
             h: 75
           })),
-          itemSpacing: 20
+          itemSpacing: 20,
+          focusHeightChange: 75
         }
       };
     }
@@ -182,14 +193,36 @@ export const ExtendingRow = () =>
     }
   };
 
+export const WithPivots = () =>
+  class WithPivots extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 900,
+          itemSpacing: 100,
+          items: [
+            { type: Pivot, title: 'Pivot 1' },
+            { type: Pivot, title: 'Long Pivot Title' },
+            { type: Pivot, title: 'Pivots adjust width to title' }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
 class Button extends lng.Component {
   static _template() {
     return {
       color: 0xff1f1f1f,
       texture: lng.Tools.getRoundRect(150, 40, 4),
       Label: {
-        x: w => w / 2,
-        y: h => h / 2,
+        x: 75,
+        y: 22,
         mount: 0.5,
         color: 0xffffffff,
         text: { textAlign: 'center', fontSize: 20 }
@@ -213,7 +246,6 @@ class ExpandingButton extends Button {
   _focus() {
     super._focus();
     this.patch({ w: 200 });
-    this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {
@@ -226,7 +258,6 @@ class ExpandingHeightButton extends Button {
   _focus() {
     super._focus();
     this.setSmooth('h', 150, { duration: 1 });
-    this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {
