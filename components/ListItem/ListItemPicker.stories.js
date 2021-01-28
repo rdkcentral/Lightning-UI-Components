@@ -24,7 +24,8 @@ export const Basic = args =>
           collapse: args.collapse,
           size: args.size,
           backgroundType: args.backgroundType,
-          options: args.options
+          options: args.options,
+          selectedOptionIndex: args.selectedOptionIndex
         }
       };
     }
@@ -46,6 +47,7 @@ Basic.args = {
   title: 'List Item',
   collapse: false,
   size: 'small',
+  selectedOptionIndex: 0,
   focused: false
 };
 Basic.argTypes = {

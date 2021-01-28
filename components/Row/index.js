@@ -1,9 +1,10 @@
 import FocusManager from '../FocusManager';
-import { getX, getH } from '../../utils';
+
 export default class Row extends FocusManager {
   static _template() {
     return {
       direction: 'row',
+      scrollMount: 0,
       itemTransition: {
         duration: 0.4,
         timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
@@ -11,174 +12,207 @@ export default class Row extends FocusManager {
     };
   }
 
-  _construct() {
-    super._construct();
-    this._smooth = false;
-    this._itemSpacing = 0;
-    this._scrollIndex = 0;
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this._w = this.stage.w;
-  }
-
-  _init() {
-    this._updateLayout();
-  }
-
-  _focus() {
-    this.items.forEach(item => (item.parentFocus = true));
-  }
-
-  _unfocus() {
-    this.items.forEach(item => (item.parentFocus = false));
-  }
-
-  selectNext() {
-    this._smooth = true;
-    super.selectNext();
-  }
-
-  selectPrevious() {
-    this._smooth = true;
-    super.selectPrevious();
-  }
-
-  // TODO: can be documented in API when lastScrollIndex is made public
-
-  shouldScrollLeft() {
-    return (
-      this._itemsX < 0 &&
-      (this._lastScrollIndex
-        ? this.selectedIndex < this._lastScrollIndex
-        : this.selectedIndex >= this._scrollIndex)
-    );
-  }
-
-  // TODO: can be documented in API when lastScrollIndex is made public
-  shouldScrollRight() {
-    const lastChild = this.Items.childList.last;
-    return (
-      this.selectedIndex > this._scrollIndex &&
-      // end of Items container < end of last item
-      Math.abs(this._itemsX - this.w) <
-        lastChild.x + this.Items.childList.last.w
-    );
-  }
-
-  render() {
-    this._whenEnabled.then(() => {
-      const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 })
-        .x;
-      const lastChild = this.Items.childList.last;
-      const shouldScroll =
-        lastChild && (this.shouldScrollLeft() || this.shouldScrollRight());
-
-      if (shouldScroll) {
-        const scrollItem =
-          this.selectedIndex > this._lastScrollIndex
-            ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
-            : this.selected;
-        if (this._smooth) {
-          this.Items.smooth = {
-            x: [
-              -scrollItem.transition('x').targetValue +
-                (scrollItem === this.selected ? scrollOffset : 0),
-              this.itemTransition
-            ]
-          };
-        } else {
-          this.Items.patch({
-            x: -scrollItem.x + (scrollItem === this.selected ? scrollOffset : 0)
-          });
-        }
-      }
-
-      this.onScreenEffect(
-        this.Items.children.filter((child, idx) => {
-          const x = getX(child);
-          const { w } = child;
-          const withinLowerBounds = x + w + this._itemsX > 0;
-          const withinUpperBounds = x + this._itemsX < this.w;
-          return withinLowerBounds && withinUpperBounds;
+  constructor(...args) {
+    super(...args);
+    // Ensure we have width + height
+    this._whenEnabled = new Promise(
+      resolve =>
+        (this._firstEnable = () => {
+          this._rowEnabled = true;
+          resolve();
         })
-      );
-    });
+    );
   }
 
-  _updateLayout() {
-    let nextX = 0;
-    let nextH = 0;
-    // layout items in row
-    for (let i = 0; i < this.Items.children.length; i++) {
-      const child = this.Items.children[i];
-      nextH = Math.max(nextH, getH(child));
-      if (this._smooth) {
-        child.smooth = { x: [nextX, this.itemTransition] };
-      } else {
-        child.patch({ x: nextX });
-      }
-      nextX += this.itemSpacing + child.w;
-    }
-    this.patch({ h: nextH });
-
-    const lastChild = this.Items.childList.last;
-    const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;
-    const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 }).x;
-
-    // determine when to stop scrolling right
-    if (endOfLastChild > this.w) {
-      for (let i = this.Items.children.length - 1; i >= 0; i--) {
-        const child = this.Items.children[i];
-        const childX = getX(child);
-        if (childX + this.w - scrollOffset > endOfLastChild) {
-          this._lastScrollIndex = i;
-        } else {
-          break;
-        }
-      }
-    }
-    this.render(this.selected, null);
+  set itemSpacing(val) {
+    this._itemSpacing = val;
+    this.render();
   }
 
   get itemSpacing() {
-    return this._itemSpacing;
+    return this._itemSpacing || 0;
   }
 
-  set itemSpacing(itemSpacing) {
-    if (itemSpacing !== this._itemSpacing) {
-      this._itemSpacing = itemSpacing;
-      this._updateLayout();
-    }
-  }
-
-  get scrollIndex() {
-    return this._scrollIndex;
-  }
-
-  set scrollIndex(scrollIndex) {
-    if (scrollIndex !== this._scrollIndex) {
-      this._scrollIndex = scrollIndex;
-      this._updateLayout();
-    }
-  }
-
-  get _itemsX() {
-    return getX(this.Items);
+  set provider(provider) {
+    provider.then(data => {
+      if (!data.appendItems) {
+        this.Items.childList.clear();
+      }
+      this.appendItems(data.items);
+      this._getMoreItems = data.getMoreItems;
+    });
   }
 
   appendItems(items = []) {
     let itemHeight = this.renderHeight;
-
+    // Add items past the bounds margin so they don't load
+    let outOfBounds = this.w + this._rowWidth + this.itemSpacing;
     items.forEach(item => {
+      item.x = outOfBounds;
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
       item.h = item.h || itemHeight;
     });
+
+    // Ensure items are drawn so they have height
     this.stage.update();
-    this._updateLayout();
+    let itemWidth = (items[0] || {}).w || this._rowWidth * 0.15;
+    let bounds = itemWidth + this.itemSpacing;
+    this.boundsMargin = [0, 0, bounds, bounds];
+    this._refocus();
+    this.render();
+  }
+
+  _updateHeight(change) {
+    this.h += change;
+  }
+
+  _focus() {
+    // Wait till items are focused before rendering
+    setTimeout(() => this.render(), 0);
+    this.items.forEach(item => (item.parentFocus = true));
+    if (this.focusHeightChange) {
+      this._updateHeight(this.focusHeightChange);
+    }
+  }
+
+  _unfocus() {
+    // Wait till items are focused before rendering
+    setTimeout(() => this.render(), 0);
+    this.items.forEach(item => (item.parentFocus = false));
+    if (this.focusHeightChange) {
+      this._updateHeight(-this.focusHeightChange);
+    }
+  }
+
+  _computeLastIndex() {
+    let totalItems = this.items.length;
+    let mount = this.scrollMount || 1;
+    let MAX_WIDTH = this._rowWidth * mount;
+
+    for (let i = totalItems - 1; i >= 0; i--) {
+      MAX_WIDTH -= this.items[i].w + this.itemSpacing;
+      if (MAX_WIDTH <= 0) {
+        return i + 1;
+      }
+    }
+
+    return 0;
+  }
+
+  _isOnScreen(x, w) {
+    return x >= 0 && x + w < this._rowWidth;
+  }
+
+  _computeStartScrollIndex(scrollStart) {
+    let totalItems = this.items.length;
+    let MAX_WIDTH = scrollStart;
+
+    for (let i = 0; i < totalItems; i++) {
+      MAX_WIDTH -= this.items[i].w + this.itemSpacing;
+      if (MAX_WIDTH <= 0) {
+        return i + 1;
+      }
+    }
+  }
+
+  get _rowWidth() {
+    return this.w || this.renderWidth || this.stage.w;
+  }
+
+  render(selected = this.selected, prev) {
+    if (this.items.length === 0) return;
+    let itemX = 0;
+    let index = this.selectedIndex;
+    let lastIndex = this._computeLastIndex();
+
+    if (index > lastIndex && this._getMoreItems === undefined) {
+      index = lastIndex;
+    }
+
+    if (this.scrollMount === 0 || index === 0) {
+      return this._renderRight(index);
+    }
+
+    if (this.scrollMount === 1) {
+      itemX = this.selected.x;
+      const itemW = this.selected.w;
+      if (!this.alwaysScroll && this._isOnScreen(itemX, itemW)) {
+        return;
+      }
+
+      if (itemX + this.selected.w >= this._rowWidth) {
+        return this._renderLeft();
+      }
+      return this._renderRight();
+    }
+
+    // Scroll mount is middle
+    let scrollStart = this._rowWidth * this.scrollMount;
+    let startScrollIndex = this._computeStartScrollIndex(scrollStart);
+
+    if (index < startScrollIndex) {
+      return this._renderRight(0);
+    }
+
+    if (index >= lastIndex) {
+      return this._renderLeft(this.items.length - 1);
+    }
+
+    itemX = scrollStart - this.selected.w / 2;
+    this._renderRight(index, itemX);
+    this._renderLeft(index - 1, itemX);
+  }
+
+  _renderLeft(
+    index = this.selectedIndex,
+    itemX = this._rowWidth - this.itemSpacing
+  ) {
+    let onScreenItems = [];
+    let BOUNDS = this.boundsMargin[3];
+    if (index + 1 < this.items.length) {
+      index++;
+      itemX += this.items[index].w + this.itemSpacing;
+    }
+    while (itemX >= -BOUNDS && index >= 0) {
+      let item = this.items[index];
+      if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
+      itemX -= item.w + this.itemSpacing;
+      item.smooth = { x: [itemX, this.itemTransition] };
+      index--;
+    }
+
+    this.onScreenEffect(onScreenItems);
+  }
+
+  _renderRight(index = this.selectedIndex, itemX = 0) {
+    let onScreenItems = [];
+    let BOUNDS = this.boundsMargin[3];
+    if (index - 1 >= 0) {
+      index--;
+      itemX -= this.items[index].w + this.itemSpacing;
+    }
+
+    let overFillWidth = this._rowWidth + BOUNDS + this.itemSpacing;
+    while (itemX < overFillWidth && index < this.items.length) {
+      let item = this.items[index];
+
+      if (this._isOnScreen(itemX, item.w)) onScreenItems.push(item);
+      item.smooth = { x: [itemX, this.itemTransition] };
+      itemX += item.w + this.itemSpacing;
+      index++;
+    }
+
+    this.onScreenEffect(onScreenItems);
   }
 
   $itemChanged() {
-    this._updateLayout();
+    this.render();
+  }
+
+  $itemHeightChanged(height) {
+    this.smooth = { y: height };
+    this._updateHeight(height);
   }
 
   // can be overridden

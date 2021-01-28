@@ -190,8 +190,12 @@ export class Tab extends withStyles(TabBase, tabStyles) {}
 export default class TabBar extends lng.Component {
   static _template() {
     return {
+      w: w => w,
+      h: h => h,
       Container: {
         type: Row,
+        w: w => w,
+        h: h => h,
         signals: {
           selectedChange: true
         }
@@ -207,7 +211,6 @@ export default class TabBar extends lng.Component {
   _construct() {
     this._barSpacing = 4;
     this._barLength = 0;
-    this._w = this.stage.w;
 
     // no setters/getters
     this.tabHeight = 0;
@@ -227,10 +230,6 @@ export default class TabBar extends lng.Component {
 
   _update() {
     this._whenEnabled.then(() => {
-      this._Container.patch({
-        w: this.w,
-        h: this.h
-      });
       if (this._Container.selected) {
         const { selected } = this._Container;
         const x = selected.transition('x').targetValue + selected.w / 2;
@@ -274,7 +273,9 @@ export default class TabBar extends lng.Component {
     this._FocusBar.alpha = 0.48;
   }
 
-  selectedChange(selected, prevSelected) {
+  selectedChange(selected) {
+    const prevSelected = this._Container.items.find(item => item.isSelected);
+
     if (prevSelected) prevSelected.deselect();
     if (selected) selected.select();
     if (selected.barLength && selected.barLength !== this.barLength) {
