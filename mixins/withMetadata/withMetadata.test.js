@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import TestUtils from '../../components/lightning-test-utils';
 import withMetadata from '.';
 import Tile from '../../components/Tile';

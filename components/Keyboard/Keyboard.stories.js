@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
 import KeyboardInput from './KeyboardInput';

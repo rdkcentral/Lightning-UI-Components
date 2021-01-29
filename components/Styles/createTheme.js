@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { clone } from '../../utils';
 import { CORNER_RADIUS, getFocusScale } from './Styles';
 import { PALETTE, COLORS_NEUTRAL, getHexColor } from '../Styles/Colors';

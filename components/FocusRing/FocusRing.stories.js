@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import FocusRing from '.';
 
 import { COLORS_NEUTRAL, getHexColor } from '../Styles/Styles';

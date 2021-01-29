@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import FadeShader from './FadeShader';
 
 export default class MarqueeText extends lng.Component {

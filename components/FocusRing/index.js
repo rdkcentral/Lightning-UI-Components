@@ -4,7 +4,7 @@
  * Blurred Ring to focus items and images
  *
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
 import { COLORS_NEUTRAL, getHexColor } from '../Styles/Styles';
 

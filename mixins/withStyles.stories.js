@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import withStyles from './withStyles';
 import withTheme from './withTheme';
 import mdx from './withStyles.mdx';

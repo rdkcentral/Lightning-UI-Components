@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import Icon from '.';
 import circle from '../../assets/images/circle.svg';

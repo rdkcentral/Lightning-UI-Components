@@ -1,7 +1,7 @@
 import Announcer from '.';
 import FocusManager from '../FocusManager';
 import TestRenderer from '../lightning-test-renderer';
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 const speak = jest.fn();
 const speakAppend = jest.fn();

@@ -1,7 +1,7 @@
 import Column from '.';
 import Row from '../Row';
 import TestRenderer from '../lightning-test-renderer';
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 const baseItem = {
   type: lng.Component,
@@ -34,11 +34,9 @@ const rows = [
 const Component = {
   Component: {
     type: Column,
-    title: 'My Column',
     h: 600,
     itemTransition: { duration: 0 },
     itemSpacing: 20,
-    scrollMount: 0,
     items: rows
   }
 };
@@ -67,12 +65,16 @@ describe('Column', () => {
   });
 
   describe('itemSpacing', () => {
-    it('should set spacing', () => {
+    it('should set spacing', done => {
       let spacing = 100;
       let item = column.items[1];
+
       column.itemSpacing = spacing;
       testRenderer.update();
-      expect(item.y).toBe(spacing + item.h);
+      column._whenEnabled.then(() => {
+        expect(item.y).toBe(spacing + item.h);
+        done();
+      });
     });
   });
 
@@ -92,31 +94,6 @@ describe('Column', () => {
     });
   });
 
-  describe('provider', () => {
-    it('should take a promise to append items', done => {
-      column.provider = Promise.resolve({
-        appendItems: true,
-        items: [{ ...baseItem }, { ...baseItem }]
-      });
-
-      setTimeout(() => {
-        expect(column.items.length).toBe(7);
-        done();
-      }, 1);
-    });
-
-    it('should take a promise to replace items', done => {
-      column.provider = Promise.resolve({
-        items: [{ ...baseItem }, { ...baseItem }]
-      });
-
-      setTimeout(() => {
-        expect(column.items.length).toBe(2);
-        done();
-      }, 1);
-    });
-  });
-
   describe('listeners', () => {
     describe('$removeItem', () => {
       it('removes an item', () => {
@@ -133,13 +110,16 @@ describe('Column', () => {
         expect(column.selectedIndex).toBe(selectedIndex);
       });
 
-      it('shifts selected index if necessary', () => {
+      it('shifts selected index if necessary', done => {
         expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300, 400]);
         const item = column.items[1];
         column.selectedIndex = 2;
         column.$removeItem(item);
-        testRenderer.update();
-        expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
+        column._whenEnabled.then(() => {
+          testRenderer.update();
+          expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
+          done();
+        });
       });
 
       it('fires $columnEmpty event', () => {
@@ -155,11 +135,14 @@ describe('Column', () => {
     });
 
     describe('$columnChanged', () => {
-      it('updates column', () => {
+      it('updates column', done => {
         //TODO come up with something better
         const spy = jest.spyOn(column, 'render');
         column.$columnChanged();
-        expect(spy).toHaveBeenCalled();
+        column._whenEnabled.then(() => {
+          expect(spy).toHaveBeenCalled();
+          done();
+        });
       });
     });
   });
@@ -245,50 +228,33 @@ describe('Column', () => {
         testRenderer.update();
       });
 
-      describe('and scrollMount = 0', () => {
-        it('should scroll down', () => {
-          let [item] = column.items;
+      describe('and scrollIndex = 0', () => {
+        it('should scroll down', done => {
+          let item = column.items[1];
           testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(-100);
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y).toBe(-item.y);
+            done();
+          });
         });
 
-        it('should scroll up', () => {
+        it('should scroll up', done => {
           let item = column.items[0];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
-          testRenderer.update();
-          expect(item.y).toBe(0);
-        });
-
-        it('should keep a full screen of items', () => {
-          let item = column.items[2];
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(0);
-        });
-
-        describe('and keepFullScreen false', () => {
-          it('should NOT keep a full screen of items', () => {
-            let item = column.items[column.items.length - 1];
-            column.keepFullScreen = false;
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
+          column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(item.y).toBe(0);
+            expect(column.Items.y).toBe(0);
+            done();
           });
         });
       });
 
-      describe('and scrollMount = 0.5', () => {
+      describe('and scrollIndex = 2', () => {
         beforeEach(() => {
           column.items = items.concat(items);
-          column.scrollMount = 0.5;
+          column.scrollIndex = 2;
           column.render();
           testRenderer.update();
         });
@@ -305,70 +271,62 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        it('should scroll down', () => {
-          let [item] = column.items;
+        it('should scroll down', done => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(-40);
+          testRenderer.keyPress('Down');
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y).toBe(-column.items[1].y);
+            done();
+          });
         });
 
-        it('should scroll up', () => {
-          let item = column.items[0];
+        it('should scroll up', done => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
-          testRenderer.update();
-          expect(item.y).toBe(0);
-        });
-
-        it('should keep a full screen of items', () => {
-          let item = column.items[1];
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(-140);
-        });
-
-        it('should keep a full screen of items when at bottom', () => {
-          let item = column.items[1];
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(-140);
-        });
-
-        describe('and keepFullScreen false', () => {
-          it('should NOT keep a full screen of items when at bottom', () => {
-            let item = column.items[column.items.length - 1];
-            column.keepFullScreen = false;
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
-            testRenderer.keyPress('Down');
+          column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(item.y).toBe(160);
+            expect(column.Items.y).toBe(0);
+            done();
+          });
+        });
+
+        it('should keep a full screen of items', done => {
+          let item = column.items[1];
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y + column.h).toBeGreaterThan(item.y);
+            done();
+          });
+        });
+
+        it('should keep a full screen of items when at bottom', done => {
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y).toBe(-600);
+            done();
           });
         });
       });
 
-      describe('and scrollMount = 1', () => {
+      describe('and scrollIndex = 4', () => {
         beforeEach(() => {
           column.items = items.concat(items);
-          column.scrollMount = 1;
+          column.scrollIndex = 4;
           column.render();
           testRenderer.update();
         });
@@ -378,34 +336,29 @@ describe('Column', () => {
           expect(column.items[1].y).toBe(100);
         });
 
-        it('should not scroll until the last item', () => {
+        it('should not scroll until the last item', done => {
           let [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(0);
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y).toBe(0);
+            done();
+          });
         });
 
-        it('should scroll down', () => {
-          let [item] = column.items;
+        it('should scroll down', done => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(-100);
-        });
-
-        it('should not scroll up until back to top item', () => {
-          let [item] = column.items;
           testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Up');
-          testRenderer.update();
-          expect(item.y).toBe(-100);
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y).toBe(-100);
+            done();
+          });
         });
 
         it('should not scroll up until back to top item', () => {
@@ -423,14 +376,17 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        it('should keep a full screen of items', () => {
+        it('should keep a full screen of items', done => {
           let item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          testRenderer.update();
-          expect(item.y).toBe(0);
+          column._whenEnabled.then(() => {
+            testRenderer.update();
+            expect(column.Items.y + column.h).toBeGreaterThan(item.y);
+            done();
+          });
         });
       });
 
@@ -448,16 +404,6 @@ describe('Column', () => {
         column.scrollTo(3);
         jest.runAllTimers();
         expect(column.selectedIndex).toBe(3);
-      });
-
-      it('should load more items near bottom with getMoreItems', () => {
-        column.items = items;
-        let mock = jest.fn();
-        mock.mockReturnValue(Promise.resolve([]));
-        column._getMoreItems = mock;
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        expect(mock).toHaveBeenCalled();
       });
     });
   });

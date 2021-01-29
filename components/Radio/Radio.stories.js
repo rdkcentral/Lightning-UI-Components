@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import Radio from '.';
 import mdx from './Radio.mdx';

@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
 import withSelections from '../../mixins/withSelections';

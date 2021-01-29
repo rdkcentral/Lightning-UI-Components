@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Key, { KEY_DIMENSIONS } from './Key';
 import Row from '../Row';
 import Column from '../Column';

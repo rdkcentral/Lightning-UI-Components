@@ -4,7 +4,7 @@
  * Pivot Class that contains styling and functionality for all pivot items.
  * These buttons are dynmaically sized.
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Button from '../Button';
 import { RoundRect } from '../../utils';
 import withStyles from '../../mixins/withStyles';

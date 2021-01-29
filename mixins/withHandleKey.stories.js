@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Tile from '../components/Tile';
 import Row from '../components/Row';
 import mdx from './withHandleKey.mdx';

@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import MarqueeText from '../MarqueeText';
 import InlineContent from '../InlineContent';
 import Icon from '../Icon';

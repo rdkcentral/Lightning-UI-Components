@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import Notification from '.';
 import icon from '../../assets/images/ic_lightning_white_32.png';

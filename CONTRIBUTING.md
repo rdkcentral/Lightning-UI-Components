@@ -274,7 +274,7 @@ Let's take a simple `Button` component. The `Button` accepts a `title` property 
 Our static story would look something like this:
 
 ```js
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Button from '.';
 
 export default {
@@ -372,7 +372,7 @@ Implementation description here
 
 ```js
 // example implementation
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { MyComponent } from '@lightning/ui';
 
 class Example extends lng.Component {

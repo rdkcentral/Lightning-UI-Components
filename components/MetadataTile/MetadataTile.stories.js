@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import MetadataTile from '.';
 import mdx from './MetadataTile.mdx';
