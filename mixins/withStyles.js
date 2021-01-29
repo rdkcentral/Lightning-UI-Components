@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import createStyles from '../components/Styles/createStyles';
 import { clone } from '../utils';
 import { getXfinityTheme } from '../components/Styles/createTheme';

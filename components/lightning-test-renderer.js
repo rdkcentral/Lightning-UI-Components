@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 const stage = {
   w: 1920,

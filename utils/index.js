@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 /**
  * Lightning uses ARGB values, use this function
@@ -213,6 +213,26 @@ export function parseInlineContent(str = '') {
   }
   return content;
 }
+
+/**
+ * Naively looks for dimensional prop (i.e. w, h, x, y, etc.), first searching for
+ * a transition target value then defaulting to the current set value
+ * @param {string} prop - property key
+ * @param {lng.Component} component - Lightning component to operate against
+ */
+export function getDimension(prop, component) {
+  if (!component) return 0;
+  const transition = component.transition(prop);
+  if (transition.isRunning()) return transition.targetValue;
+  return component[prop];
+}
+
+export const getX = getDimension.bind(null, 'x');
+export const getY = getDimension.bind(null, 'y');
+export const getW = component =>
+  getDimension('w', component) || component.renderWidth;
+export const getH = component =>
+  getDimension('h', component) || component.renderHeight;
 
 /**
  * Array.prototype.flat() is not supported in WPE Browser

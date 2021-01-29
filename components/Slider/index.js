@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { Arrow, Circle } from '../textures';
 
 const arrowWidth = 10;

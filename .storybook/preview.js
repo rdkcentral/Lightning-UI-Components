@@ -1,7 +1,7 @@
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
-import lng from 'wpe-lightning';
-import 'wpe-lightning/devtools/lightning-inspect';
+import lng from '@lightningjs/core';
+import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
 import Announcer from '../components/Announcer';

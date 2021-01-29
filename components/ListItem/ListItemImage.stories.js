@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import { ListItemImage } from '.';
 import mdx from './ListItemImage.mdx';

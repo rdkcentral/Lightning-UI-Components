@@ -3,7 +3,7 @@
  *
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 export default class FocusManager extends lng.Component {
   constructor(stage) {

@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import Toggle from '.';
 import mdx from './Toggle.mdx';

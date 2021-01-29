@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import TabBar, { Tab } from '.';
 import mdx from './Tabs.mdx';

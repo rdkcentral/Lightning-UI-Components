@@ -1,4 +1,3 @@
-import lng from 'wpe-lightning';
 import TestUtils from '../lightning-test-utils';
 import TileCircle from '.';
 import { rgba2argb } from '../../utils';

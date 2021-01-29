@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import { ActionButtonIconMedium } from '.';
 import mdx from './ActionButtonIconMedium.mdx';

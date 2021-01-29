@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Tile from '../Tile';
 import withStyles from '../../mixins/withStyles';
 import { getValidColor } from '../Styles/Colors';

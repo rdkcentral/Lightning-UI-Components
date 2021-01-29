@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import TestRenderer from '../components/lightning-test-renderer';
 import { withTransitions } from '.';
 

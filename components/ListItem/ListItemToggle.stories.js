@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 import { ListItemToggle } from '.';
 import mdx from './ListItemToggle.mdx';

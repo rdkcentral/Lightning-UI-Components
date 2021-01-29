@@ -3,6 +3,23 @@
 
 A collection of Comcast-branded UI components for the [Lightning](https://rdkcentral.github.io/Lightning/) framework.
 
+## Peer dependencies
+
+`@lightning/ui` has a peer dependency on `@lightningjs/core^2.x`. If you are stuck using the _old Lightning_, i.e. `wpe-lightning^1.x`, you will need to alias `@lightningjs/core` in your build process. If you are bundling your app using [Webpack](https://webpack.js.org/), you should add this to your config.
+
+```js
+// in webpack.config.js
+module.exports = {
+  resolve: {
+    alias: {
+      '@lightningjs/core': path.resolve(__dirname, 'node_modules/wpe-lightning')
+    }
+  }
+}
+```
+
+> **NOTE:** aliasing `@lightningjs/core` to point to `wpe-lightning` is _not_ guaranteed to work with everything! Consider updating your Lightning library as soon as possible.
+
 ## Installation
 
 `@lightning/ui` is published internally to [Artifactory](https://comcastcorp.sharepoint.com/sites/ArtifEnterprise/SitePages/Knowl.aspx). To install this package, add the following to your local `~/.npmrc` or `your-repo/.npmrc`
@@ -11,10 +28,10 @@ A collection of Comcast-branded UI components for the [Lightning](https://rdkcen
 @lightning:registry=https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/
 ```
 
-`@lightning/ui` has a peer dependency on the [Lightning package](https://www.npmjs.com/package/wpe-lightning)
+`@lightning/ui` has a peer dependency on the [Lightning package](https://www.npmjs.com/package/@lightningjs/core)
 
 ```sh
-npm install -S @lightning/ui wpe-lightning
+npm install -S @lightning/ui @lightningjs/core
 ```
 
 ## Usage
@@ -23,7 +40,7 @@ There are two ways to import components:
 
 ```js
 // App.js
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { ActionButton } from '@lightning/ui';
 // or
 import Button from '@lightning/ui/components/ActionButton';

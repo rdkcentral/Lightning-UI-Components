@@ -3,7 +3,7 @@
  *
  * Action Button Class that contains styling and functionality for all Action Button items
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Button from '../Button';
 import withStyles from '../../mixins/withStyles';
 import { RoundRect } from '../../utils';

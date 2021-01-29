@@ -4,7 +4,7 @@
  * Generic Button Component that handles setting text
  * and focus and unfocus states for the button background.
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { RoundRect, measureTextWidth, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
 import withUpdates from '../../mixins/withUpdates';

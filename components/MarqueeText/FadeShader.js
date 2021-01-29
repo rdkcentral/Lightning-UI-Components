@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 export default class FadeShader extends lng.shaders.WebGLDefaultShader {
   constructor(context) {

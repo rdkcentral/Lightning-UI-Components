@@ -1,4 +1,4 @@
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import TestUtils from '../lightning-test-utils';
 import Tile from '.';
 import { rgba2argb } from '../../utils';
