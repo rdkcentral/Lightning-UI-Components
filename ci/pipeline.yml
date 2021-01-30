@@ -57,7 +57,7 @@ resources:
       branch: main
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
-  
+
   - name: source-repo-next
     type: git
     webhook_token: ((webhook-token))
@@ -77,6 +77,15 @@ resources:
       branch: 1.x
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
+  - name: source-repo-2x
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    tags: [aws]
+    source:
+      branch: 2.x
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
@@ -90,6 +99,7 @@ groups:
       - Publish
       - Publish Next
       - Publish 1.x
+      - Publish 2.x
   - name: Pull Requests
     jobs:
       - Pull Requests
@@ -197,6 +207,23 @@ jobs:
       file: source-repo-1x/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-1x
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        NPM_USERNAME: ((service-account.artifactory-username))
+        NPM_EMAIL: ((service-account.email))
+        NPM_PASSWORD: ((service-account.artifactory-api-key))
+
+- name: Publish 2.x
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo-2x
+      trigger: true
+    - task: Version and Publish
+      file: source-repo-1x/ci/tasks/publish.yml
+      input_mapping:
+        source-repo: source-repo-2x
       params:
         HOST: ((github-enterprise.host))
         PRIVATE_KEY: ((github-enterprise.private-key))
