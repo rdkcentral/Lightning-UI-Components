@@ -47,7 +47,7 @@ class Tile extends withHandleKey(lng.Component) {
       console.error
     );
     this._radius = this.styles.radius;
-    this._src = this.styles.src;
+    this._src = this._fallbackSrc = this.styles.src;
     this._getFocusScale = this.styles.focused.scale;
     this._getUnfocusScale = this.styles.unfocused.scale;
     this._blur = this.styles.blur;
@@ -55,6 +55,10 @@ class Tile extends withHandleKey(lng.Component) {
 
   _init() {
     this._update();
+    this._Image.on('txError', () => {
+      this.src = this.src !== this.fallbackSrc ? this.fallbackSrc : null;
+      this._update();
+    });
   }
 
   _update() {
@@ -74,10 +78,13 @@ class Tile extends withHandleKey(lng.Component) {
     this._Image.patch({
       rtt: true,
       zIndex: 2,
-      src: this._src,
       w: this.w,
       h: this.h,
-      resizeMode: { type: 'cover' }
+      texture: {
+        type: lng.textures.ImageTexture,
+        src: this._src,
+        resizeMode: { type: 'cover', w: this.w, h: this.h }
+      }
     });
   }
 
@@ -180,6 +187,13 @@ class Tile extends withHandleKey(lng.Component) {
     }
   }
 
+  set fallbackSrc(src) {
+    if (this._fallbackSrc !== src) {
+      this._fallbackSrc = src;
+      this._update();
+    }
+  }
+
   set blur(amount) {
     this._blur = amount;
     this._update();
@@ -206,6 +220,10 @@ class Tile extends withHandleKey(lng.Component) {
 
   get src() {
     return this._src;
+  }
+
+  get fallbackSrc() {
+    return this._fallbackSrc;
   }
 
   get blur() {
