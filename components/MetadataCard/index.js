@@ -112,7 +112,7 @@ class MetadataCard extends lng.Component {
     if (line.ref && this.tag(line.ref + 'Wrapper')) {
       this.tag(line.ref + 'Wrapper').h = line.textHeight;
     }
-    line.h = line.textHeight;
+    line.h = line.content && line.content.length ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
   }
 
