@@ -52,12 +52,12 @@ export default class Column extends FocusManager {
 
   selectNext() {
     this._smooth = true;
-    super.selectNext();
+    return super.selectNext();
   }
 
   selectPrevious() {
     this._smooth = true;
-    super.selectPrevious();
+    return super.selectPrevious();
   }
 
   // TODO: can be documented in API when lastScrollIndex is made public
