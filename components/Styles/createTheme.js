@@ -16,7 +16,7 @@ function glow({
     mount: 0.5,
     x: w / 2,
     y: h / 2 + blur / 2,
-    zIndex: -1,
+    zIndex: 1,
     texture: lng.Tools.getShadowRect(
       w - spacing(2),
       h - spacing(2),
@@ -43,7 +43,7 @@ function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
         texture: texture
       }
     },
-    zIndex: -1
+    zIndex: 1
   };
 }
 
@@ -59,7 +59,7 @@ function shadow({
     mount: 0.5,
     x: w / 2,
     y: h / 2,
-    zIndex: -1,
+    zIndex: 1,
     texture: lng.Tools.getShadowRect(
       w - spacing(2),
       h - spacing(2),

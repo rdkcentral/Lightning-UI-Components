@@ -1744,7 +1744,7 @@ Object {
               "w": 56,
               "x": 28,
               "y": 52,
-              "zIndex": -1,
+              "zIndex": 1,
             },
             "FocusRing": Object {
               "active": false,
@@ -1782,7 +1782,7 @@ Object {
               "w": 56,
               "x": 0,
               "y": 0,
-              "zIndex": -1,
+              "zIndex": 1,
             },
             "Item": Object {
               "active": true,

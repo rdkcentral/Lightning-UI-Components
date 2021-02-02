@@ -67,6 +67,7 @@ class Input extends lng.Component {
       Container: {
         y: this.styles.label.lineHeight + 16,
         color: this.styles.background,
+        zIndex: 2,
         texture: lng.Tools.getRoundRect(
           this.styles.w,
           this.styles.h,
@@ -114,7 +115,8 @@ class Input extends lng.Component {
       },
       Icon: {
         type: Icon,
-        y: this.styles.label.lineHeight + 32
+        y: this.styles.label.lineHeight + 32,
+        zIndex: 2
       },
       Underline: {
         color: this.styles.underline.color,

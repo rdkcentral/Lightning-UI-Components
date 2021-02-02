@@ -103,7 +103,7 @@ describe('Tooltip', () => {
     it('should default to 40px above parent', done => {
       tooltip._Text.on('txLoaded', () => {
         let buffer = 2;
-        expect(tooltip.y).toEqual(-tooltip.finalH - 40 + buffer);
+        expect(tooltip.y).toEqual(-tooltip._Background.finalH - 40 + buffer);
 
         done();
       });
@@ -142,7 +142,7 @@ describe('Tooltip', () => {
         expect(diffW).toBeLessThan(5);
         expect(tooltip._DropShadow.finalW).toBeGreaterThan(textWidth);
 
-        let diffH = Math.abs(tooltip.finalH - textHeight);
+        let diffH = Math.abs(tooltip._Background.finalH - textHeight);
         expect(diffH).toBeLessThan(5);
         expect(tooltip._DropShadow.finalH).toBeGreaterThan(textHeight);
 
@@ -192,7 +192,7 @@ describe('Tooltip', () => {
       tooltip._Text.on('txLoaded', () => {
         twoLine_tooltip._Text.on('txLoaded', () => {
           let textHeight = twoLine_tooltip._Text.finalH;
-          let diffH = Math.abs(twoLine_tooltip.finalH - textHeight);
+          let diffH = Math.abs(twoLine_tooltip._Background.finalH - textHeight);
           expect(diffH).toBeLessThan(5);
           expect(twoLine_tooltip._DropShadow.finalH).toBeGreaterThan(
             textHeight

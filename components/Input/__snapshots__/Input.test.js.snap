@@ -204,7 +204,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 48,
-      "zIndex": 0,
+      "zIndex": 2,
     },
     "Label": Object {
       "active": true,
@@ -458,7 +458,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 48,
-      "zIndex": 0,
+      "zIndex": 2,
     },
     "Label": Object {
       "active": false,
@@ -712,7 +712,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 48,
-      "zIndex": 0,
+      "zIndex": 2,
     },
     "Label": Object {
       "active": false,
@@ -966,7 +966,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 48,
-      "zIndex": 0,
+      "zIndex": 2,
     },
     "Label": Object {
       "active": false,

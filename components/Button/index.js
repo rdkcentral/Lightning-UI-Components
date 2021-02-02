@@ -56,6 +56,7 @@ class Button extends withUpdates(lng.Component) {
       strokeWeight: this.styles.stroke.weight,
       Content: {
         mount: 0.5,
+        zIndex: 2,
         x: w => w / 2,
         y: h => h / 2,
         flex: {
@@ -72,7 +73,7 @@ class Button extends withUpdates(lng.Component) {
         Title: { y: 2 }
       },
       Stroke: {
-        zIndex: -1,
+        zIndex: 1,
         mount: 0.5,
         x: w => w / 2,
         y: h => h / 2

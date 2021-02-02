@@ -17,7 +17,7 @@ export const styles = theme => ({
       radius,
       size: theme.spacing(1),
       focusRingAnimation: theme.animations.gradient,
-      zIndex: -1
+      zIndex: 1
     };
   },
   unfocused: {

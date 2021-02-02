@@ -20,15 +20,19 @@ export default class Tooltip extends lng.Component {
       background: getHexColor(COLORS_NEUTRAL.light2),
       mountX: 0.5,
       x: w => w / 2,
+      Background: {
+        zIndex: 2
+      },
       //TO DO: update to luminance vs dark drop shadows
       DropShadow: {
-        zIndex: -1,
+        zIndex: 1,
         x: w => w / 2,
         y: h => h / 2 + GRID.spacingIncrement * 2,
         mount: 0.5,
         color: getHexColor(COLORS_NEUTRAL.dark1, 80)
       },
       Text: {
+        zIndex: 2,
         x: horizontalPadding,
         text: {
           ...TYPOGRAPHY.body3,
@@ -57,7 +61,9 @@ export default class Tooltip extends lng.Component {
           this._Text.finalH -
           (this._Text.finalH % TYPOGRAPHY.body3.lineHeight) / 2; // calculates even padding
 
-        this.texture = lng.Tools.getRoundRect(
+        this.h = backgroundH;
+        this.w = backgroundW;
+        this._Background.texture = lng.Tools.getRoundRect(
           RoundRect.getWidth(backgroundW),
           RoundRect.getHeight(backgroundH),
           CORNER_RADIUS.small
@@ -105,5 +111,8 @@ export default class Tooltip extends lng.Component {
   }
   get _DropShadow() {
     return this.tag('DropShadow');
+  }
+  get _Background() {
+    return this.tag('Background');
   }
 }

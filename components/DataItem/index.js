@@ -18,7 +18,7 @@ export const styles = theme => ({
       radius,
       size: theme.spacing(1),
       focusRingAnimation: theme.animations.gradient,
-      zIndex: -1
+      zIndex: 1
     };
   },
   unfocused: {
@@ -41,10 +41,10 @@ class DataItem extends lng.Component {
         },
         rect: true,
         color: this.styles.background.color,
-        zIndex: 1
+        zIndex: 2
       },
       Content: {
-        zIndex: 2
+        zIndex: 3
       }
     };
   }
