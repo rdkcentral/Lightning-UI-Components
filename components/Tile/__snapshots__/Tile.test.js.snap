@@ -562,7 +562,7 @@ Object {
       "w": 320,
       "x": 160,
       "y": 114,
-      "zIndex": -1,
+      "zIndex": 1,
     },
     "Item": Object {
       "active": false,
