@@ -59,6 +59,10 @@ describe('Column', () => {
     expect(column.items[0].hasFocus()).toBe(true);
   });
 
+  it('should return false on keyUp', () => {
+    expect(column._handleUp()).toBe(false);
+  });
+
   it('should set focus on next item on keyDown', () => {
     testRenderer.keyPress('Down');
     expect(column.items[1].hasFocus()).toBe(true);

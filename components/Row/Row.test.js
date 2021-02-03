@@ -55,6 +55,10 @@ describe('Row', () => {
     expect(row.items[0].hasFocus()).toBe(true);
   });
 
+  it('should return false on keyLeft', () => {
+    expect(row._handleLeft()).toBe(false);
+  });
+
   it('should set focus on next item on keyRight', () => {
     testRenderer.keyPress('Right');
     expect(row.items[1].hasFocus()).toBe(true);
