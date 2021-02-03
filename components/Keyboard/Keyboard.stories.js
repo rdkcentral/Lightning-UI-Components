@@ -65,6 +65,42 @@ export const Inline = () =>
     }
   };
 
+export const Dialpad = args =>
+  class Dialpad extends lng.Component {
+    static _template() {
+      return {
+        Keyboard: {
+          type: Keyboard,
+          defaultFormat: args.defaultFormat,
+          formats: KEYBOARD_FORMATS.numbers
+        }
+      };
+    }
+    _getFocused() {
+      return this.tag('Keyboard');
+    }
+  };
+
+Dialpad.args = {
+  defaultFormat: 'dialpad'
+};
+Dialpad.argTypes = {
+  defaultFormat: {
+    control: {
+      type: 'radio',
+      options: ['dialpad', 'dialpadExtended']
+    }
+  }
+};
+Dialpad.parameters = {
+  argActions: {
+    defaultFormat: (format, component) => {
+      component.tag('Keyboard').$toggleKeyboard(format);
+      component._refocus();
+    }
+  }
+};
+
 export const Keys = () =>
   class Keys extends lng.Component {
     static _template() {
