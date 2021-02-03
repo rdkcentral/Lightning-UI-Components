@@ -5,7 +5,7 @@ import blackBackground from '../Styles/black_background_tile';
 import withHandleKey from '../../mixins/withHandleKey';
 
 export const styles = theme => ({
-  radius: theme.border.radius.small,
+  radius: theme.border.radius.medium,
   shadow: theme.materials.luminance,
   blur: 0,
   src: blackBackground,
