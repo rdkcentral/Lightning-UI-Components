@@ -122,29 +122,35 @@ class MetadataTile extends lng.Component {
     }
   }
 
-  _updateLines() {
-    const lines = [
-      {
-        wrapper: this._FirstLineWrapper,
-        component: this._FirstLine,
-        marquee: this._FirstLineMarquee,
-        content: this._firstLine,
-        textProps: this._firstLineTextProperties
-      },
-      {
-        wrapper: this._SecondLineWrapper,
-        component: this._SecondLine,
-        marquee: this._SecondLineMarquee,
-        content: this._secondLine,
-        textProps: this._secondLineTextProperties
-      }
-    ];
+  get _linesArray() {
+    return [this._firstLineObject, this._secondLineObject];
+  }
 
-    lines.forEach(line => {
+  get _firstLineObject() {
+    return {
+      wrapper: this._FirstLineWrapper,
+      component: this._FirstLine,
+      marquee: this._FirstLineMarquee,
+      content: this._firstLine,
+      textProps: this._firstLineTextProperties
+    };
+  }
+
+  get _secondLineObject() {
+    return {
+      wrapper: this._SecondLineWrapper,
+      component: this._SecondLine,
+      marquee: this._SecondLineMarquee,
+      content: this._secondLine,
+      textProps: this._secondLineTextProperties
+    };
+  }
+
+  _updateLines() {
+    this._linesArray.forEach(line => {
       // if losing focus, we don't want the lines to "pop" back into place
       // as the tile width chages, but we want them to start in place when alphaing on
       line.marquee.shouldSmooth = !this.hasFocus();
-
       line.component.justify = this._justify;
       line.component.content = line.content;
       line.component.textProperties = line.textProps;
