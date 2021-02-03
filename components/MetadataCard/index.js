@@ -150,32 +150,46 @@ class MetadataCard extends lng.Component {
     }
   }
 
-  _updateLines() {
-    const lines = [
-      {
-        wrapper: this._FirstLineWrapper,
-        component: this._FirstLine,
-        marquee: this._FirstLineMarquee,
-        content: this._firstLine,
-        textProps: this._firstLineTextProperties
-      },
-      {
-        wrapper: this._SecondLineWrapper,
-        component: this._SecondLine,
-        marquee: this._SecondLineMarquee,
-        content: this._secondLine,
-        textProps: this._secondLineTextProperties
-      },
-      {
-        wrapper: this._ThirdLineWrapper,
-        component: this._ThirdLine,
-        marquee: this._ThirdLineMarquee,
-        content: this._thirdLine,
-        textProps: this._thirdLineTextProperties
-      }
+  get _linesArray() {
+    return [
+      this._firstLineObject,
+      this._secondLineObject,
+      this._thirdLineObject
     ];
+  }
 
-    lines.forEach(line => {
+  get _firstLineObject() {
+    return {
+      wrapper: this._FirstLineWrapper,
+      component: this._FirstLine,
+      marquee: this._FirstLineMarquee,
+      content: this._firstLine,
+      textProps: this._firstLineTextProperties
+    };
+  }
+
+  get _secondLineObject() {
+    return {
+      wrapper: this._SecondLineWrapper,
+      component: this._SecondLine,
+      marquee: this._SecondLineMarquee,
+      content: this._secondLine,
+      textProps: this._secondLineTextProperties
+    };
+  }
+
+  get _thirdLineObject() {
+    return {
+      wrapper: this._ThirdLineWrapper,
+      component: this._ThirdLine,
+      marquee: this._ThirdLineMarquee,
+      content: this._thirdLine,
+      textProps: this._thirdLineTextProperties
+    };
+  }
+
+  _updateLines() {
+    this._linesArray.forEach(line => {
       line.component.justify = this._justify;
       line.component.content = line.content;
       line.component.textProperties = line.textProps;
