@@ -3,6 +3,7 @@ import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../Styles/black_background_tile';
 import withHandleKey from '../../mixins/withHandleKey';
+import withTags from '../../mixins/withTags';
 
 export const styles = theme => ({
   radius: theme.border.radius.medium,
@@ -32,13 +33,17 @@ export const styles = theme => ({
   }
 });
 
-class Tile extends withHandleKey(lng.Component) {
+class Tile extends withTags(withHandleKey(lng.Component)) {
   static _template() {
     return {
       Item: {
         Image: {}
       }
     };
+  }
+
+  static get tags() {
+    return ['Blur', 'DropShadow', 'FocusRing', 'Item', 'Image'];
   }
 
   _construct() {
@@ -51,6 +56,7 @@ class Tile extends withHandleKey(lng.Component) {
     this._getFocusScale = this.styles.focused.scale;
     this._getUnfocusScale = this.styles.unfocused.scale;
     this._blur = this.styles.blur;
+    super._construct && super._construct();
   }
 
   _init() {
@@ -232,26 +238,6 @@ class Tile extends withHandleKey(lng.Component) {
 
   get radius() {
     return this._radius;
-  }
-
-  get _Item() {
-    return this.tag('Item');
-  }
-
-  get _Image() {
-    return this.tag('Image');
-  }
-
-  get _Blur() {
-    return this.tag('Blur');
-  }
-
-  get _DropShadow() {
-    return this.tag('DropShadow');
-  }
-
-  get _FocusRing() {
-    return this.tag('FocusRing');
   }
 }
 

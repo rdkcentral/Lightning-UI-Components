@@ -1,0 +1,28 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# withTags
+
+The `withTags` mixin can be wrapped around a parent component to have shortcuts for tags created.
+
+## Usage
+
+`withTags` looks for a `static get tags` which returns an array of tags to add getters for.
+
+```js
+class Example extends withTags(lng.Component) {
+  static _template() {
+    return {
+      Item: {
+        Image: {}
+      }
+    };
+  }
+
+  static get tags() {
+    return ['Item', { name: 'Image', path: 'Item.Image'}];
+  }
+}
+```
+
+This example will create two helpers `this._Item` and `this._Image` which will
+return `this.tag('Item')` and `this.tag('Item.Image')` repectively.
