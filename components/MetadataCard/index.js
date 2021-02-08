@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
+import withTags from '../../mixins/withTags';
 import InlineContent from '../InlineContent';
 import MarqueeText from '../MarqueeText';
 import Icon from '../Icon';
@@ -35,7 +36,7 @@ export const styles = theme => ({
   }
 });
 
-class MetadataCard extends lng.Component {
+class MetadataCard extends withTags(lng.Component) {
   static _template() {
     return {
       flex: { direction: 'row', justifyContent: 'flex-start' },
@@ -82,6 +83,22 @@ class MetadataCard extends lng.Component {
     };
   }
 
+  static get tags() {
+    return [
+      'Text',
+      'FirstLineWrapper',
+      'SecondLineWrapper',
+      'ThirdLineWrapper',
+      'Logo',
+      { name: 'FirstLineMarquee', path: 'FirstLineWrapper.Marquee' },
+      { name: 'FirstLine', path: 'FirstLineWrapper.FirstLine' },
+      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' },
+      { name: 'SecondLineMarquee', path: 'SecondLineWrapper.Marquee' },
+      { name: 'ThirdLine', path: 'ThirdLineWrapper.ThirdLine' },
+      { name: 'ThirdLineMarquee', path: 'ThirdLineWrapper.Marquee' }
+    ];
+  }
+
   _construct() {
     this._logoSpacing = this.styles.logoSpacing;
     this._logoW = this.styles.logoW;
@@ -93,6 +110,7 @@ class MetadataCard extends lng.Component {
     this._getFocusScale = this.styles.focused.scale;
     this._getUnfocusScale = this.styles.unfocused.scale;
     this.w = this.styles.w;
+    super._construct && super._construct();
   }
 
   _init() {
@@ -392,50 +410,6 @@ class MetadataCard extends lng.Component {
       this.secondLineTextProperties.lineHeight +
       this.thirdLineTextProperties.lineHeight
     );
-  }
-
-  get _Text() {
-    return this.tag('Text');
-  }
-
-  get _FirstLineWrapper() {
-    return this.tag('FirstLineWrapper');
-  }
-
-  get _FirstLineMarquee() {
-    return this._FirstLineWrapper.tag('Marquee');
-  }
-
-  get _FirstLine() {
-    return this._FirstLineWrapper.tag('FirstLine');
-  }
-
-  get _SecondLineWrapper() {
-    return this.tag('SecondLineWrapper');
-  }
-
-  get _SecondLineMarquee() {
-    return this._SecondLineWrapper.tag('Marquee');
-  }
-
-  get _SecondLine() {
-    return this._SecondLineWrapper.tag('SecondLine');
-  }
-
-  get _ThirdLineWrapper() {
-    return this.tag('ThirdLineWrapper');
-  }
-
-  get _ThirdLineMarquee() {
-    return this._ThirdLineWrapper.tag('Marquee');
-  }
-
-  get _ThirdLine() {
-    return this._ThirdLineWrapper.tag('ThirdLine');
-  }
-
-  get _Logo() {
-    return this.tag('Logo');
   }
 }
 
