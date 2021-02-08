@@ -2,11 +2,11 @@ import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 # withMetadata
 
-The `withMetadata` mixin can be wrapped around any Tile component to position Metadata underneath it. This mixin will not work with non-Tile or non-Tile variant components. For example, TileIcon is valid as it extends Tile, but trying to use DataItem will cause a TypeError to be thrown.
+The `withMetadata` mixin can be wrapped around any Tile component to position Metadata underneath it. This mixin is not designed for any non-Tile or non-Tile variant components. For example, TileIcon is valid as it extends Tile, but you should not try to use DataItem.
 
 ## Usage
 
-Pass in the Tile type to the `withMetadata` mixin and a Metadata component to display with the Tile (non-Tile and non-Tile variant components with throw a TypeError).
+Pass in the Tile type to the `withMetadata` mixin and a Metadata component to display with the Tile.
 
 ```js
 import { withMetadata } from '@lightning/ui';
