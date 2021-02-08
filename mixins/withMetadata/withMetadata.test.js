@@ -25,10 +25,6 @@ describe('withMetadata', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should throw an error if improper component is used as a Tile', () => {
-    expect(() => createTileWithMetadata(lng.Component)).toThrow(TypeError);
-  });
-
   it('should update badge, badgePadding, and Badge position', () => {
     const badge = 'HD';
     const badgePadding = 40;
