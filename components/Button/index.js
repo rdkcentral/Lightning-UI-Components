@@ -8,6 +8,7 @@ import lng from '@lightningjs/core';
 import { RoundRect, measureTextWidth, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
 import withUpdates from '../../mixins/withUpdates';
+import withHandleKey from '../../mixins/withHandleKey';
 import Icon from '../Icon';
 
 export const styles = {
@@ -32,7 +33,7 @@ export const styles = {
   }
 };
 
-class Button extends withUpdates(lng.Component) {
+class Button extends withHandleKey(withUpdates(lng.Component)) {
   static get properties() {
     return [
       'fixed',
@@ -237,12 +238,6 @@ class Button extends withUpdates(lng.Component) {
       this._updateIcon();
       this._updateStroke();
       this._updateWidth();
-    }
-  }
-
-  _handleEnter() {
-    if (typeof this.onEnter === 'function') {
-      this.onEnter(this);
     }
   }
 
