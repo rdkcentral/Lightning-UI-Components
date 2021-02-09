@@ -20,6 +20,7 @@ const items = [
 const baseRow = {
   type: Row,
   h: 80,
+  debounceDelay: 0,
   items
 };
 
@@ -37,17 +38,21 @@ const Component = {
     h: 600,
     itemTransition: { duration: 0 },
     itemSpacing: 20,
-    items: rows
+    items: rows,
+    debounceDelay: 1
   }
 };
 
 describe('Column', () => {
   let testRenderer, column;
 
-  beforeEach(() => {
+  beforeEach(done => {
     testRenderer = TestRenderer.create(Component);
     column = testRenderer.getInstance();
-    return column._whenEnabled;
+    setTimeout(() => {
+      column._update.flush();
+      done();
+    }, 3);
   });
 
   it('should render', () => {
@@ -74,6 +79,7 @@ describe('Column', () => {
       let item = column.items[1];
 
       column.itemSpacing = spacing;
+      column._update.flush();
       testRenderer.update();
       column._whenEnabled.then(() => {
         expect(item.y).toBe(spacing + item.h);
@@ -119,6 +125,7 @@ describe('Column', () => {
         const item = column.items[1];
         column.selectedIndex = 2;
         column.$removeItem(item);
+        column._update.flush();
         column._whenEnabled.then(() => {
           testRenderer.update();
           expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
@@ -139,14 +146,10 @@ describe('Column', () => {
     });
 
     describe('$columnChanged', () => {
-      it('updates column', done => {
-        //TODO come up with something better
-        const spy = jest.spyOn(column, 'render');
+      it('updates column', () => {
+        const spy = jest.spyOn(column, '_update');
         column.$columnChanged();
-        column._whenEnabled.then(() => {
-          expect(spy).toHaveBeenCalled();
-          done();
-        });
+        expect(spy).toHaveBeenCalled();
       });
     });
   });
@@ -195,6 +198,7 @@ describe('Column', () => {
       it('should selected last item in selected row if it is closest', () => {
         let row = column.items[0];
         row.items = [...items, { ...baseItem }];
+        row._update.flush();
         row.selectedIndex = row.items.length - 1;
         testRenderer.update();
         testRenderer.keyPress('Down');
@@ -228,7 +232,7 @@ describe('Column', () => {
     describe('with column height < items', () => {
       beforeEach(() => {
         column.h = 400;
-        column.render();
+        column._update.flush();
         testRenderer.update();
       });
 
@@ -238,7 +242,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(-item.y);
+            expect(column.Items.y).toBe(-100);
             done();
           });
         });
@@ -259,7 +263,7 @@ describe('Column', () => {
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollIndex = 2;
-          column.render();
+          column._update.flush();
           testRenderer.update();
         });
 
@@ -331,8 +335,8 @@ describe('Column', () => {
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollIndex = 4;
-          column.render();
           testRenderer.update();
+          return column._whenEnabled;
         });
 
         it('should render correctly', () => {
@@ -352,16 +356,15 @@ describe('Column', () => {
           });
         });
 
-        it('should scroll down', done => {
+        it('should scroll down', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          column._whenEnabled.then(() => {
+          return column._whenEnabled.then(() => {
             testRenderer.update();
             expect(column.Items.y).toBe(-100);
-            done();
           });
         });
 
@@ -380,34 +383,37 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        it('should keep a full screen of items', done => {
+        it('should keep a full screen of items', () => {
           let item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          column._whenEnabled.then(() => {
+          return column._whenEnabled.then(() => {
             testRenderer.update();
             expect(column.Items.y + column.h).toBeGreaterThan(item.y);
-            done();
           });
         });
       });
 
-      it('should scroll to index before', () => {
-        jest.useFakeTimers();
+      it('should scroll to index before', done => {
+        column.itemTransition = { duration: 0.001 };
         column.selectedIndex = 3;
         column.scrollTo(0);
-        jest.runAllTimers();
-        expect(column.selectedIndex).toBe(0);
+        setTimeout(() => {
+          expect(column.selectedIndex).toEqual(0);
+          done();
+        }, 2);
       });
 
-      it('should scroll to index after', () => {
-        jest.useFakeTimers();
+      it('should scroll to index after', done => {
+        column.itemTransition = { duration: 0.001 };
         column.selectedIndex = 0;
         column.scrollTo(3);
-        jest.runAllTimers();
-        expect(column.selectedIndex).toBe(3);
+        setTimeout(() => {
+          expect(column.selectedIndex).toEqual(3);
+          done();
+        }, 2);
       });
     });
   });

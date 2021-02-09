@@ -1,6 +1,6 @@
 import FocusManager from '../FocusManager';
 import { getY, getW } from '../../utils';
-
+import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
@@ -19,10 +19,10 @@ export default class Column extends FocusManager {
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
     this._h = this.stage.h;
-  }
-
-  _init() {
-    this._updateLayout();
+    this.debounceDelay = Number.isInteger(this.debounceDelay)
+      ? this.debounceDelay
+      : 3;
+    this._update = debounce(this._updateLayout, this.debounceDelay);
   }
 
   _focus() {
@@ -188,7 +188,7 @@ export default class Column extends FocusManager {
   set itemSpacing(itemSpacing) {
     if (itemSpacing !== this._itemSpacing) {
       this._itemSpacing = itemSpacing;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -199,7 +199,7 @@ export default class Column extends FocusManager {
   set scrollIndex(scrollIndex) {
     if (scrollIndex !== this._scrollIndex) {
       this._scrollIndex = scrollIndex;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -217,6 +217,8 @@ export default class Column extends FocusManager {
     });
     this.stage.update();
     this._updateLayout();
+    this._update.clear();
+    this._refocus();
   }
 
   scrollTo(index, duration = this.itemTransition.duration * 100) {
@@ -231,14 +233,14 @@ export default class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this._updateLayout();
+    this._update();
   }
 
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
       this.Items.childList.remove(item);
-      this._updateLayout();
+      this._update();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -252,7 +254,7 @@ export default class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._updateLayout();
+    this._update();
   }
 
   // can be overridden

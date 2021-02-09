@@ -23,6 +23,7 @@ const createRow = TestUtils.makeCreateComponent(Row, {
   signals: {
     selectedChange: 'selectedChangeMock'
   },
+  debounceDelay: 0,
   items
 });
 
@@ -69,6 +70,7 @@ describe('Row', () => {
       const itemSpacing = 20;
       [row, testRenderer] = createRow({ itemSpacing });
       let item = row.items[1];
+      row._update.flush();
 
       expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
@@ -77,6 +79,7 @@ describe('Row', () => {
       const itemSpacing = 100;
       const item = row.items[1];
       row.itemSpacing = itemSpacing;
+      row._update.flush();
 
       const x = item.x;
       expect(x).toBe(row.items[0].w + itemSpacing);
@@ -150,6 +153,7 @@ describe('Row', () => {
       row.scrollTransition = { duration: 0 };
       row.items[0].w += 200;
       row.$itemChanged();
+      row._update.flush();
       testRenderer.update();
       expect(row.items[1].x).toBe(item1X + 200);
     });
