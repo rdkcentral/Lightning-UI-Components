@@ -56,6 +56,25 @@ describe('Speech', () => {
     });
   });
 
+  it('should handle a function that returns a string', () => {
+    return Speech([() => 'Hello There']).series.then(() => {
+      expect(utter).toHaveBeenCalledWith('Hello There');
+    });
+  });
+
+  it('should handle a function that returns an array', () => {
+    return Speech([() => ['Well', () => 'Hello There']]).series.then(() => {
+      expect(utter).toHaveBeenNthCalledWith(1, 'Well');
+      expect(utter).toHaveBeenNthCalledWith(2, 'Hello There');
+    });
+  });
+
+  it('should handle a function that returns a promise', () => {
+    return Speech([() => Promise.resolve('Hello There')]).series.then(() => {
+      expect(utter).toHaveBeenCalledWith('Hello There');
+    });
+  });
+
   it('should handle promise of string', () => {
     return Speech([Promise.resolve('Hello There')]).series.then(() => {
       expect(utter).toHaveBeenCalledWith('Hello There');
@@ -76,6 +95,12 @@ describe('Speech', () => {
         expect(utter).toHaveBeenCalledWith('Hello, There');
       }
     );
+  });
+
+  it('should handle promise of a function', () => {
+    return Speech([Promise.resolve(() => 'Hello There')]).series.then(() => {
+      expect(utter).toHaveBeenCalledWith('Hello There');
+    });
   });
 
   it('should ignore invalid values', async () => {
