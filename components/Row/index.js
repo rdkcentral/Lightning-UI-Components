@@ -1,5 +1,6 @@
 import FocusManager from '../FocusManager';
 import { getX, getH } from '../../utils';
+import { debounce } from 'debounce';
 export default class Row extends FocusManager {
   static _template() {
     return {
@@ -18,10 +19,10 @@ export default class Row extends FocusManager {
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
     this._w = this.stage.w;
-  }
-
-  _init() {
-    this._updateLayout();
+    this.debounceDelay = Number.isInteger(this.debounceDelay)
+      ? this.debounceDelay
+      : 1;
+    this._update = debounce(this._updateLayout, this.debounceDelay);
   }
 
   _focus() {
@@ -43,7 +44,6 @@ export default class Row extends FocusManager {
   }
 
   // TODO: can be documented in API when lastScrollIndex is made public
-
   shouldScrollLeft() {
     return (
       this._itemsX < 0 &&
@@ -136,6 +136,7 @@ export default class Row extends FocusManager {
         }
       }
     }
+    this.fireAncestors('$itemChanged');
     this.render(this.selected, null);
   }
 
@@ -146,7 +147,7 @@ export default class Row extends FocusManager {
   set itemSpacing(itemSpacing) {
     if (itemSpacing !== this._itemSpacing) {
       this._itemSpacing = itemSpacing;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -157,7 +158,7 @@ export default class Row extends FocusManager {
   set scrollIndex(scrollIndex) {
     if (scrollIndex !== this._scrollIndex) {
       this._scrollIndex = scrollIndex;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -175,10 +176,12 @@ export default class Row extends FocusManager {
     });
     this.stage.update();
     this._updateLayout();
+    this._update.clear();
+    this._refocus();
   }
 
   $itemChanged() {
-    this._updateLayout();
+    this._update();
   }
 
   // can be overridden
