@@ -12,8 +12,8 @@ export const styles = theme => ({
 export class ProgressBar extends lng.Component {
   static _template() {
     return {
-      Bar: {},
-      Progress: { alpha: 0 }
+      Bar: { zIndex: 1 },
+      Progress: { alpha: 0, zIndex: 2 }
     };
   }
 
@@ -24,6 +24,7 @@ export class ProgressBar extends lng.Component {
     this._radius = this.styles.radius;
     this._progressColor = this.styles.progressColor;
     this._barColor = this.styles.barColor;
+    this._animationDuration = 0;
   }
 
   _init() {
@@ -56,9 +57,20 @@ export class ProgressBar extends lng.Component {
     );
 
     this._Progress.smooth = {
-      w,
+      w: [w, { duration: this._animationDuration }],
       alpha: Number(w > 0)
     };
+  }
+
+  set animationDuration(duration) {
+    if (this._animationDuration !== duration) {
+      this._animationDuration = duration;
+      this._update();
+    }
+  }
+
+  get animationDuration() {
+    return this._animationDuration;
   }
 
   get progress() {
@@ -75,6 +87,7 @@ export class ProgressBar extends lng.Component {
   get w() {
     return this._w;
   }
+
   set w(w) {
     if (w !== this._w) {
       super._w = w;

@@ -43,6 +43,17 @@ describe('ProgressBar', () => {
     expect(progressBar._Progress.transition('w').targetValue).toBe(205);
   });
 
+  it('animates the progress at the correct length over a set duration', () => {
+    [progressBar, testRenderer] = createProgressBar({ progress: 0.5 });
+    const duration = 3;
+    progressBar.animationDuration = duration;
+    expect(progressBar.animationDuration).toBe(duration);
+    progressBar.progress = 1;
+    expect(progressBar._Progress.transition('w').settings.duration).toBe(
+      duration
+    );
+  });
+
   it('should alpha the progress off if progress is set to zero', () => {
     progressBar.progress = 0;
     expect(progressBar._Progress.transition('w').targetValue).toBe(0);
@@ -75,10 +86,14 @@ describe('ProgressBar', () => {
   });
 
   it('should set bar color', () => {
-    expect(progressBar.barColor).toBeDefined();
+    const barColor = 4289216576;
+    progressBar.barColor = barColor;
+    expect(progressBar.barColor).toBe(barColor);
   });
 
   it('should set progress color', () => {
-    expect(progressBar.progressColor).toBeDefined();
+    const progressColor = 4289216576;
+    progressBar.progressColor = progressColor;
+    expect(progressBar.progressColor).toBe(progressColor);
   });
 });

@@ -52,6 +52,7 @@ export const Basic = args =>
         ProgressBar: {
           type: ProgressBar,
           progress: args.progress,
+          animationDuration: 0,
           w: args.width,
           radius: args.radius,
           barColor: rgba2argb(args.barColor),
