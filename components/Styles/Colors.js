@@ -4,6 +4,8 @@
  * Contains global color style information to easily maintain consistency throughout components.
  */
 
+import { rgba2argb } from '../../utils';
+
 /**
  * Combines rgb hex string and alpha into argb hexadecimal number
  * @param {string|number} hex - 6 alphanumeric characters between 0-f or argb hexadecimal number
@@ -43,6 +45,8 @@ export function getValidColor(color) {
     /^[0-9]{8,10}/g.test(color.toString())
   ) {
     return color;
+  } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
+    return rgba2argb(color);
   }
   return null;
 }
@@ -140,6 +144,11 @@ export const PALETTE = {
   },
   badge: {
     default: getHexColor(GREY[5], 32),
+    __isColor: true
+  },
+  focusRing: {
+    primary: getHexColor(GREY[5], 96),
+    secondary: getHexColor(GREY[0], 8),
     __isColor: true
   }
 };

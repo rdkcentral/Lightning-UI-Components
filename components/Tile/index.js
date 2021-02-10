@@ -15,9 +15,8 @@ export const styles = theme => ({
       type: FocusRing,
       w,
       h,
-      radius,
-      size: theme.spacing(1),
-      focusRingAnimation: theme.animations.gradient,
+      radius: radius + 2,
+      size: theme.spacing(0.5),
       zIndex: 1
     };
   },
@@ -158,7 +157,7 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
       this._focusRing = this.styles.focusring({
         w: this.w,
         h: this.h,
-        radius: this._radius
+        radius: this._radius + 2
       });
     }
     let FocusRingComponent = this._focusRing;
@@ -171,6 +170,12 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
       FocusRingComponent = { ...FocusRingComponent, ...style };
     }
     this.patch({ FocusRing: FocusRingComponent });
+
+    if (this.hasFocus()) {
+      this._FocusRing.startAnimation();
+    } else {
+      this._FocusRing.stopAnimation();
+    }
   }
 
   _updateScale() {
