@@ -1751,8 +1751,52 @@ Object {
               "alpha": 0,
               "attached": true,
               "boundsMargin": null,
+              "children": Object {
+                "Ring": Object {
+                  "active": false,
+                  "alpha": 1,
+                  "attached": true,
+                  "boundsMargin": null,
+                  "clipping": false,
+                  "color": 4294967295,
+                  "enabled": false,
+                  "flex": false,
+                  "flexItem": false,
+                  "h": 0,
+                  "isComponent": undefined,
+                  "mount": 0.5,
+                  "mountX": 0.5,
+                  "mountY": 0.5,
+                  "pivot": 0.5,
+                  "pivotX": 0.5,
+                  "pivotY": 0.5,
+                  "ref": "Ring",
+                  "renderOfScreen": undefined,
+                  "renderToTexture": false,
+                  "scale": 1,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "state": undefined,
+                  "tag": [Function],
+                  "tags": Array [
+                    "Ring",
+                  ],
+                  "texture": Object {
+                    "type": "StaticCanvasTexture",
+                  },
+                  "visible": true,
+                  "w": 0,
+                  "x": 28,
+                  "y": 28,
+                  "zIndex": 0,
+                },
+              },
               "clipping": false,
-              "color": "14f5f5f5",
+              "color": 4125945074,
+              "colorBl": "8aececf2",
+              "colorBr": "14ffffff",
+              "colorUl": "f5ececf2",
+              "colorUr": "8aececf2",
               "enabled": false,
               "flex": false,
               "flexItem": false,
@@ -3043,7 +3087,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-645": Object {
+                    "Element-648": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -3086,7 +3130,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-646": Object {
+                    "Element-649": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -3129,7 +3173,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-647": Object {
+                    "Element-650": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -3828,7 +3872,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-694": Object {
+                    "Element-697": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -3871,7 +3915,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-695": Object {
+                    "Element-698": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,
@@ -3914,7 +3958,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-696": Object {
+                    "Element-699": Object {
                       "active": true,
                       "alpha": 1,
                       "attached": true,

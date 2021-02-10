@@ -28,10 +28,22 @@ FocusRing: {
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
--|-|-|-
-size|number|false|set width of the ring (even values only)
+name|type|readonly|default|description
+--|--|--|--|--
+size|number|false|-|set width of the ring (even values only)
+radius|number|false|Xfinity Theme medium|set radius of corners
+color|color|false|Xfintity Theme palette.focusRing.primary|main color of focus ring (.96 alpha)
+secondaryColor|color|false|false|Xfintity Theme palette.focusRing.secondary|secondary color of focus ring (.08 alpha)
+
+### Methods
+
+#### startAnimation(): void
+
+Start the animation of the border
+
+#### stopAnimation(): void
+
+Stops the border animation fallback is a solid border gradient of color/secondaryColor or Xfinity Theme default
 
 ### Styles
 
