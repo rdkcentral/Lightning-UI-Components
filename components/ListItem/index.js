@@ -210,7 +210,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     this._Left.smooth = { y: 0 };
 
     if (this._collapseIcon) {
-      this._Right.alpha = 0;
+      this._Right.alpha = 1;
     }
   }
 
@@ -232,7 +232,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       this._Left.setSmooth('y', this._Subtitle.renderHeight / 2);
 
     if (this._collapseIcon) {
-      this._Right.alpha = 1;
+      this._Right.alpha = 0;
     }
   }
 
