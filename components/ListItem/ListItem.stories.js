@@ -25,7 +25,8 @@ export const Basic = args =>
           icon,
           size: args.size,
           backgroundType: args.backgroundType,
-          announce: args.announce
+          announce: args.announce,
+          collapseIcon: args.collapseIcon
         }
       };
     }
@@ -43,7 +44,8 @@ Basic.args = {
   subtitle: 'List item metadata',
   collapse: false,
   size: 'small',
-  announce: 'Press list item to view metadata'
+  announce: 'Press list item to view metadata',
+  collapseIcon: false
 };
 Basic.argTypes = {
   size: {
