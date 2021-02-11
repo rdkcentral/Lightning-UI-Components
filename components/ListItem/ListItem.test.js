@@ -163,6 +163,15 @@ describe('ListItem', () => {
     expect(listItem._Icon.icon).toEqual(listItem.icon);
   });
 
+  it('should hide icon on focus when flag is true', () => {
+    [listItem, testRenderer] = createListItem({
+      icon: icon,
+      collapseIcon: true
+    });
+    listItem._focus();
+    expect(listItem._Right.alpha).toEqual(0);
+  });
+
   it('should render multiple icons', () => {
     [listItem, testRenderer] = createListItem({
       icon: [icon, icon]

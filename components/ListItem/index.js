@@ -208,6 +208,10 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       );
 
     this._Left.smooth = { y: 0 };
+
+    if (this._collapseIcon) {
+      this._Right.alpha = 0;
+    }
   }
 
   _unfocus() {
@@ -226,6 +230,16 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     this.collapse &&
       this._Subtitle &&
       this._Left.setSmooth('y', this._Subtitle.renderHeight / 2);
+
+    if (this._collapseIcon) {
+      this._Right.alpha = 1;
+    }
+  }
+
+  set collapseIcon(hide) {
+    if (this._collapseIcon !== hide) {
+      this._collapseIcon = hide;
+    }
   }
 
   set title(title) {
