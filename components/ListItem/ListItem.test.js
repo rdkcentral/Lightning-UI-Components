@@ -169,7 +169,7 @@ describe('ListItem', () => {
       collapseIcon: true
     });
     listItem._focus();
-    expect(listItem._Right.alpha).toEqual(0);
+    expect(listItem._Right.alpha).toEqual(1);
   });
 
   it('should render multiple icons', () => {
