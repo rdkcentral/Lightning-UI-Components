@@ -2,8 +2,7 @@ import lng from '@lightningjs/core';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../Styles/black_background_tile';
-import withHandleKey from '../../mixins/withHandleKey';
-import withTags from '../../mixins/withTags';
+import { withUpdates, withTags, withHandleKey } from '../../mixins';
 
 export const styles = theme => ({
   radius: theme.border.radius.medium,
@@ -32,7 +31,7 @@ export const styles = theme => ({
   }
 });
 
-class Tile extends withTags(withHandleKey(lng.Component)) {
+class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   static _template() {
     return {
       Item: {
@@ -45,11 +44,11 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
     return ['Blur', 'DropShadow', 'FocusRing', 'Item', 'Image'];
   }
 
+  static get properties() {
+    return ['radius', 'blur', 'src', 'fallbackSrc'];
+  }
+
   _construct() {
-    this._whenEnabled = new Promise(
-      resolve => (this._enable = resolve),
-      console.error
-    );
     this._radius = this.styles.radius;
     this._src = this._fallbackSrc = this.styles.src;
     this._getFocusScale = this.styles.focused.scale;
@@ -59,7 +58,6 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
   }
 
   _init() {
-    this._update();
     this._Image.on('txError', () => {
       this.src = this.src !== this.fallbackSrc ? this.fallbackSrc : null;
       this._update();
@@ -124,12 +122,14 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
   }
 
   _updateRadius() {
-    this._Item.patch({
-      shader: {
-        type: lng.shaders.RoundedRectangle,
-        radius: this._radius
-      }
-    });
+    if (this._radius) {
+      this._Item.patch({
+        shader: {
+          type: lng.shaders.RoundedRectangle,
+          radius: this._radius
+        }
+      });
+    }
   }
 
   _updateDropShadow() {
@@ -191,33 +191,9 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
     }
   }
 
-  set src(src) {
-    if (this._src !== src) {
-      this._src = src;
-      this._update();
-    }
-  }
-
-  set fallbackSrc(src) {
-    if (this._fallbackSrc !== src) {
-      this._fallbackSrc = src;
-      this._update();
-    }
-  }
-
-  set blur(amount) {
-    this._blur = amount;
-    this._update();
-  }
-
-  set radius(radius) {
-    this._radius = radius;
-    this._update();
-  }
-
   set shadow(shadow) {
     this._shadow = shadow;
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _focus() {
@@ -227,22 +203,6 @@ class Tile extends withTags(withHandleKey(lng.Component)) {
 
   _unfocus() {
     this._update();
-  }
-
-  get src() {
-    return this._src;
-  }
-
-  get fallbackSrc() {
-    return this._fallbackSrc;
-  }
-
-  get blur() {
-    return this._blur;
-  }
-
-  get radius() {
-    return this._radius;
   }
 }
 
