@@ -1,5 +1,15 @@
 import { createTransitions } from '../components/Styles/Transitions';
 import { flatten } from '../utils';
+import withUpdates from './withUpdates';
+import withTags from './withTags';
+import withHandleKey from './withHandleKey';
+
+
+export {
+  withUpdates,
+  withTags,
+  withHandleKey,
+};
 
 const patchTransitions = (element, transitions) => {
   if (!element._transitions) {
