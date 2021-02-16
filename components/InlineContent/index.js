@@ -13,7 +13,7 @@ export const styles = theme => ({
   },
   textProperties: {
     ...theme.typography.body1,
-    color: theme.palette.text.light.secondary,
+    textColor: theme.palette.text.light.secondary,
     maxLines: 1
   },
   justify: 'center'
@@ -94,14 +94,25 @@ class InlineContent extends lng.Component {
   _contentLoaded() {
     this.stage.update();
     // TODO: FIX
-    setTimeout(() => {
-      this.multiLineHeight = this.finalH;
-      if (this.flex) {
-        this.multiLineHeight =
-          this.finalH * this.flex._layout._lineLayouter._lines.length;
-      }
+    if (this.children.length) {
+      setTimeout(() => {
+        this.multiLineHeight = this.finalH;
+        if (
+          this.flex &&
+          this.flex._layout &&
+          this.flex._layout._lineLayouter &&
+          this.flex._layout._lineLayouter._lines
+        ) {
+          this.multiLineHeight =
+            this.finalH * this.flex._layout._lineLayouter._lines.length;
+          this.fireAncestors('$loadedInlineContent', this);
+        } else {
+          this._contentLoaded();
+        }
+      }, 10);
+    } else {
       this.fireAncestors('$loadedInlineContent', this);
-    }, 10);
+    }
   }
 
   _createIcon(base, { icon, color }) {
