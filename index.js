@@ -12,6 +12,7 @@ export {
 export { default as Announcer } from './components/Announcer/index.js';
 export { default as Badge } from './components/Badge/index.js';
 export { default as Button } from './components/Button/index.js';
+export { default as Checkbox } from './components/Checkbox/index.js';
 export { default as Column } from './components/Column/index.js';
 export { default as DataItem } from './components/DataItem/index.js';
 export { default as FocusManager } from './components/FocusManager/index.js';
