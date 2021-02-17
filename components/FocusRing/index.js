@@ -11,7 +11,8 @@ import { getHexColor, getValidColor } from '../Styles/Styles';
 export const styles = theme => ({
   color: theme.palette.focusRing.primary,
   secondaryColor: theme.palette.focusRing.secondary,
-  radius: theme.border.radius.medium
+  radius: theme.border.radius.medium,
+  spacing: theme.spacing(2)
 });
 
 class FocusRing extends lng.Component {
@@ -27,6 +28,10 @@ class FocusRing extends lng.Component {
     this._update();
   }
 
+  _inactive() {
+    this.stopAnimation();
+  }
+
   _update() {
     const { transition, primary, secondary } = this.getColors();
 
@@ -37,8 +42,8 @@ class FocusRing extends lng.Component {
         y: this.h / 2,
         smooth: { alpha: 1 },
         texture: lng.Tools.getRoundRect(
-          this.w + this._size * 2,
-          this.h + this._size * 2,
+          this.w + this.styles.spacing,
+          this.h + this.styles.spacing,
           this._radius,
           4,
           false,
@@ -156,17 +161,6 @@ class FocusRing extends lng.Component {
   set secondaryColor(color) {
     if (this._secondaryColor !== color) {
       this._secondaryColor = getValidColor(color);
-      this._update();
-    }
-  }
-
-  get size() {
-    return this._size;
-  }
-
-  set size(size) {
-    if (size !== this._size) {
-      this._size = size;
       this._update();
     }
   }

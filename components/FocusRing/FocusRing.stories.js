@@ -7,22 +7,12 @@ import kabob from '../../assets/images/kabob_320x180.jpg';
 
 export default {
   args: {
-    size: 16,
     radius: 8,
     color: 'rgba(236,236,242,.96)',
     secondaryColor: 'rgba(255,255,255,.08)',
     animate: true
   },
   argTypes: {
-    size: {
-      name: 'Size',
-      control: {
-        type: 'range',
-        min: 0,
-        max: 60,
-        step: 2
-      }
-    },
     radius: {
       name: 'Radius',
       control: {
@@ -53,8 +43,7 @@ export const Basic = args =>
           type: FocusRing,
           w: 320,
           h: 180,
-          radius: 8,
-          size: 8,
+          radius: args.radius,
           color: args.color,
           secondaryColor: args.secondaryColor
         }
