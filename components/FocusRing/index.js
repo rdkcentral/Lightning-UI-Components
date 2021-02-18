@@ -12,7 +12,7 @@ export const styles = theme => ({
   color: theme.palette.focusRing.primary,
   secondaryColor: theme.palette.focusRing.secondary,
   radius: theme.border.radius.medium,
-  spacing: theme.spacing(2)
+  spacing: theme.spacing(1.5)
 });
 
 class FocusRing extends lng.Component {
@@ -22,6 +22,7 @@ class FocusRing extends lng.Component {
     this._middleColor = getHexColor(getValidColor(this.styles.color), 54);
     this._secondaryColor = this.styles.secondaryColor;
     this._radius = this.styles.radius;
+    this._spacing = this.styles.spacing;
   }
 
   _init() {
@@ -42,8 +43,8 @@ class FocusRing extends lng.Component {
         y: this.h / 2,
         smooth: { alpha: 1 },
         texture: lng.Tools.getRoundRect(
-          this.w + this.styles.spacing,
-          this.h + this.styles.spacing,
+          this.w + this.spacing,
+          this.h + this.spacing,
           this._radius,
           4,
           false,
@@ -174,6 +175,17 @@ class FocusRing extends lng.Component {
       this._radius = radius;
       this._update();
     }
+  }
+
+  set spacing(spacing) {
+    if (spacing !== this._spacing) {
+      this._spacing = spacing;
+      this._update();
+    }
+  }
+
+  get spacing() {
+    return this._spacing;
   }
 
   get _Ring() {
