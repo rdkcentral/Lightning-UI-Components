@@ -2,8 +2,6 @@ import TestUtils from '../lightning-test-utils';
 import FocusRing from '.';
 import { getHexColor, getValidColor, GREY } from '../Styles/Styles';
 
-const kabob = TestUtils.pathToDataURI('./assets/images/kabob_320x180.jpg');
-
 const createFocusRing = TestUtils.makeCreateComponent(FocusRing, {
   w: 320,
   h: 180,
@@ -60,5 +58,10 @@ describe('FocusRing', () => {
   it('should set radius', () => {
     [focusRing, testRenderer] = createFocusRing({ radius: 12 });
     expect(focusRing.radius).toEqual(12);
+  });
+
+  it('should set the spacing', () => {
+    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
+    expect(focusRing.spacing).toEqual(50);
   });
 });
