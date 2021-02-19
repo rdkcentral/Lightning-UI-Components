@@ -92,9 +92,9 @@ class InlineContent extends lng.Component {
   }
 
   _contentLoaded() {
-    this.stage.update();
     // TODO: FIX
     if (this.children.length) {
+      this.stage.update();
       setTimeout(() => {
         this.multiLineHeight = this.finalH;
         if (
