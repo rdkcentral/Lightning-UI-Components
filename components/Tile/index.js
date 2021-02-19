@@ -113,11 +113,13 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   _updateBlur() {
     const alpha = this._blur > 0 ? 1 : 0;
     const amount = this._blur;
-    this._patchBlur();
-    if (this._smooth) {
-      this._Blur.smooth = { alpha, amount };
-    } else {
-      this._Blur.patch({ alpha, amount });
+    if (this._blur || this._Blur) {
+      this._patchBlur();
+      if (this._smooth) {
+        this._Blur.smooth = { alpha, amount };
+      } else {
+        this._Blur.patch({ alpha, amount });
+      }
     }
   }
 
@@ -133,48 +135,52 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   }
 
   _updateDropShadow() {
-    if (!this._shadow) {
-      this._shadow = this.styles.shadow({
-        w: this.w,
-        h: this.h,
-        texture: this._Image.getTexture()
-      });
+    if (this.hasFocus() || this._shadow) {
+      if (!this._shadow) {
+        this._shadow = this.styles.shadow({
+          w: this.w,
+          h: this.h,
+          texture: this._Image.getTexture()
+        });
+      }
+      let DropShadow = this._shadow;
+      const style = this.hasFocus()
+        ? this.styles.focused.shadow
+        : this.styles.unfocused.shadow;
+      if (this._smooth) {
+        DropShadow.smooth = style;
+      } else {
+        DropShadow = { ...DropShadow, ...style };
+      }
+      this.patch({ DropShadow });
     }
-    let DropShadow = this._shadow;
-    const style = this.hasFocus()
-      ? this.styles.focused.shadow
-      : this.styles.unfocused.shadow;
-    if (this._smooth) {
-      DropShadow.smooth = style;
-    } else {
-      DropShadow = { ...DropShadow, ...style };
-    }
-    this.patch({ DropShadow });
   }
 
   _updateFocusRing() {
-    if (!this._focusRing) {
-      this._focusRing = this.styles.focusring({
-        w: this.w,
-        h: this.h,
-        radius: this._radius + 2
-      });
-    }
-    let FocusRingComponent = this._focusRing;
-    const style = this.hasFocus()
-      ? this.styles.focused.focusring
-      : this.styles.unfocused.focusring;
-    if (this._smooth) {
-      FocusRingComponent.smooth = style;
-    } else {
-      FocusRingComponent = { ...FocusRingComponent, ...style };
-    }
-    this.patch({ FocusRing: FocusRingComponent });
+    if (this.hasFocus() || this._focusRing) {
+      if (!this._focusRing) {
+        this._focusRing = this.styles.focusring({
+          w: this.w,
+          h: this.h,
+          radius: this._radius + 2
+        });
+      }
+      let FocusRingComponent = this._focusRing;
+      const style = this.hasFocus()
+        ? this.styles.focused.focusring
+        : this.styles.unfocused.focusring;
+      if (this._smooth) {
+        FocusRingComponent.smooth = style;
+      } else {
+        FocusRingComponent = { ...FocusRingComponent, ...style };
+      }
+      this.patch({ FocusRing: FocusRingComponent });
 
-    if (this.hasFocus()) {
-      this._FocusRing.startAnimation();
-    } else {
-      this._FocusRing.stopAnimation();
+      if (this.hasFocus()) {
+        this._FocusRing.startAnimation();
+      } else {
+        this._FocusRing.stopAnimation();
+      }
     }
   }
 
@@ -184,10 +190,10 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
       : this._getUnfocusScale(this.w);
     if (this._smooth) {
       this._Item.smooth = { scale };
-      this._FocusRing.smooth = { scale };
+      if (this._FocusRing) this._FocusRing.smooth = { scale };
     } else {
       this._Item.scale = scale;
-      this._FocusRing.scale = scale;
+      if (this._FocusRing) this._FocusRing.scale = scale;
     }
   }
 
