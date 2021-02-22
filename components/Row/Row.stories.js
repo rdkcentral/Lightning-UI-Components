@@ -22,6 +22,32 @@ export const Basic = () =>
           items: [
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+export const AlwaysScroll = () =>
+  class AlwasyScroll extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          itemSpacing: 100,
+          alwaysScroll: true,
+          items: [
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 }
           ]
         }
@@ -159,28 +185,6 @@ class ExtendedRow extends Row {
     return this.tag('Title');
   }
 }
-
-export const ExtendingRow = () =>
-  class ExtendingRow extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: ExtendedRow,
-          itemSpacing: 20,
-          title: 'My Button Row',
-          items: [
-            { type: Button, buttonText: 'Button 1', w: 150 },
-            { type: Button, buttonText: 'Button 2', w: 150 },
-            { type: Button, buttonText: 'Button 3', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
 
 class Button extends lng.Component {
   static _template() {

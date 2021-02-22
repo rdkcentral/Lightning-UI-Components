@@ -57,6 +57,9 @@ Basic.argTypes = {
   },
   scrollIndex: {
     control: { type: 'number', min: 0 }
+  },
+  alwaysScroll: {
+    control: { type: 'boolean' }
   }
 };
 Basic.parameters = {

@@ -75,7 +75,8 @@ export default class Column extends FocusManager {
       const firstChild = this.Items.childList.first;
       const lastChild = this.Items.childList.last;
       const shouldScroll =
-        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+        this.alwaysScroll ||
+        (lastChild && (this.shouldScrollUp() || this.shouldScrollDown()));
 
       if (shouldScroll) {
         const scrollItem =
@@ -133,7 +134,9 @@ export default class Column extends FocusManager {
         .y;
 
       // determine when to stop scrolling down
-      if (endOfLastChild > this.h) {
+      if (this.alwaysScroll) {
+        this._lastScrollIndex = this.Items.children.length - 1;
+      } else if (endOfLastChild > this.h) {
         for (let i = this.Items.children.length - 1; i >= 0; i--) {
           const child = this.Items.children[i];
           const childY = getY(child);

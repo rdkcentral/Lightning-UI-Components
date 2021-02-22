@@ -70,7 +70,8 @@ export default class Row extends FocusManager {
         .x;
       const lastChild = this.Items.childList.last;
       const shouldScroll =
-        lastChild && (this.shouldScrollLeft() || this.shouldScrollRight());
+        this.alwaysScroll ||
+        (lastChild && (this.shouldScrollLeft() || this.shouldScrollRight()));
 
       if (shouldScroll) {
         const scrollItem =
@@ -125,7 +126,9 @@ export default class Row extends FocusManager {
     const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 }).x;
 
     // determine when to stop scrolling right
-    if (endOfLastChild > this.w) {
+    if (this.alwaysScroll) {
+      this._lastScrollIndex = this.Items.children.length - 1;
+    } else if (endOfLastChild > this.w) {
       for (let i = this.Items.children.length - 1; i >= 0; i--) {
         const child = this.Items.children[i];
         const childX = getX(child);
