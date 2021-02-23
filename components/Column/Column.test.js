@@ -125,7 +125,6 @@ describe('Column', () => {
         const item = column.items[1];
         column.selectedIndex = 2;
         column.$removeItem(item);
-        column._update.flush();
         column._whenEnabled.then(() => {
           testRenderer.update();
           expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
@@ -147,7 +146,7 @@ describe('Column', () => {
 
     describe('$columnChanged', () => {
       it('updates column', () => {
-        const spy = jest.spyOn(column, '_update');
+        const spy = jest.spyOn(column, '_updateImmediate');
         column.$columnChanged();
         expect(spy).toHaveBeenCalled();
       });

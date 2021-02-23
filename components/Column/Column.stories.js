@@ -214,7 +214,7 @@ export const ExpandableHeightItems = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 5 }).map((_, i) => ({
+          items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingButton,
             h: 40,
             w: 150,
@@ -237,7 +237,7 @@ export const ExpandableHeightRows = args =>
           type: Column,
           itemSpacing: args.itemSpacing,
           plinko: true,
-          items: Array.apply(null, { length: 3 }).map((_, i) => ({
+          items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingRow,
             y: 50 * i,
             h: 40,
