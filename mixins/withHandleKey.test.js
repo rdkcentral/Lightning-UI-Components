@@ -40,11 +40,12 @@ describe('withHandleKey', () => {
   it('fires an event when a selected value changes', () => {
     jest.spyOn(HandleKeyComponent, 'fireAncestors');
     testRenderer.keyPress('Down');
-    expect(HandleKeyComponent.fireAncestors).toBeCalledWith('$onDown', {
+    expect(HandleKeyComponent.fireAncestors).toBeCalledWith('$onDown',
+    HandleKeyComponent, {
       key: 'Down',
       preventDefault: expect.anything(),
       type: 'keydown'
-    }, HandleKeyComponent);
+    });
   });
 
   it('fallback to keymap key resolution', () => {

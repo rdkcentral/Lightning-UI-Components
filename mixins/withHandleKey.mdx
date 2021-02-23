@@ -20,17 +20,17 @@ class Example extends lng.Component {
     return {
       MyTile: {
         type: Tile,
-        onArrowUp: () => {
+        onArrowUp: (targetElm, keyEvent) => {
           console.log('Up');
         },
-        onArrowDown: () => {
+        onArrowDown: (targetElm, keyEvent) => {
           console.log('Down');
         }
       }
     }
   }
 
-  $onEnter(keyEvent, item) {
+  $onEnter(item, keyEvent) {
     console.log('Child component entered: ', item);
   }
 }
