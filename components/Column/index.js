@@ -21,8 +21,13 @@ export default class Column extends FocusManager {
     this._h = this.stage.h;
     this.debounceDelay = Number.isInteger(this.debounceDelay)
       ? this.debounceDelay
-      : 3;
+      : 30;
     this._update = debounce(this._updateLayout, this.debounceDelay);
+    this._updateImmediate = debounce(
+      this._updateLayout,
+      this.debounceDelay,
+      true
+    );
   }
 
   _focus() {
@@ -69,6 +74,15 @@ export default class Column extends FocusManager {
       next.selectedIndex = this._getIndexOfItemNear(next, prev);
     }
 
+    // Rows are changing height, so we'll render via updateLayout
+    if (this.itemsChangeable) {
+      return;
+    }
+
+    this._performRender();
+  }
+
+  _performRender() {
     this._whenEnabled.then(() => {
       const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
         .y;
@@ -146,8 +160,11 @@ export default class Column extends FocusManager {
             break;
           }
         }
+      } else if (this._lastScrollIndex > this.items.length) {
+        this._lastScrollIndex = this.items.length - 1;
       }
-      this.render(this.selected, null);
+
+      this._performRender();
     });
   }
 
@@ -291,14 +308,15 @@ export default class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this._update();
+    this.itemsChangeable = true;
+    this._updateImmediate();
   }
 
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
       this.Items.childList.remove(item);
-      this._update();
+      this._updateImmediate();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -312,7 +330,7 @@ export default class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._update();
+    this._updateImmediate();
   }
 
   // can be overridden
