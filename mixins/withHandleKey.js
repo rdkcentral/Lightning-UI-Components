@@ -9,11 +9,11 @@ export default function withHandleKey(Base) {
         key = keyMap[keyEvent.keyCode];
       }
       if (key && typeof this[`on${key}`] === 'function') {
-        this[`on${key}`].call(this, keyEvent, this);
+        this[`on${key}`].call(this, this, keyEvent);
         return true;
       }
 
-      this.fireAncestors(`$on${key}`, keyEvent, this);
+      this.fireAncestors(`$on${key}`, this, keyEvent);
       return false;
     }
   }
