@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { clone } from '../../utils';
 import { CORNER_RADIUS, getFocusScale } from './Styles';
-import { PALETTE, COLORS_NEUTRAL, getHexColor } from '../Styles/Colors';
+import { PALETTE, getHexColor } from '../Styles/Colors';
 import { TYPOGRAPHY } from '../Styles/Fonts';
 
 function glow({
@@ -79,7 +79,7 @@ function spacing(multiplier) {
   return 8 * multiplier;
 }
 
-const gradientColor = COLORS_NEUTRAL.light2;
+const gradientColor = PALETTE.grey[5];
 const gradientAnimation = {
   duration: 0.6,
   actions: [

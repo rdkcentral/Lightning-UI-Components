@@ -91,7 +91,7 @@ Object {
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 216,
+      "h": 214,
       "isComponent": undefined,
       "mount": 0,
       "mountX": 0,
@@ -112,7 +112,7 @@ Object {
       ],
       "texture": Object {
         "fontFace": "XfinityStandardMedium",
-        "fontSize": 32,
+        "fontSize": 28,
         "lineHeight": 40,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.",
         "type": "TextTexture",

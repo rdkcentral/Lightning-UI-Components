@@ -17,7 +17,7 @@ export const styles = theme => ({
     y: 1
   },
   textProperties: {
-    ...theme.typography.caption1,
+    ...theme.typography.caption,
     color: theme.palette.text.light.primary,
     textAlign: 'center'
   }

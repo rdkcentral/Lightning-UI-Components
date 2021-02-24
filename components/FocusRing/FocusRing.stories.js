@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import FocusRing from '.';
 
-import { COLORS_NEUTRAL, getHexColor } from '../Styles/Styles';
+import { PALETTE, getHexColor } from '../Styles/Styles';
 import mdx from './FocusRing.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 
@@ -96,7 +96,7 @@ export const WithImage = args =>
           h: 180,
           radius: 8,
           size: 8,
-          color: getHexColor(COLORS_NEUTRAL.light2, 8)
+          color: PALETTE.grey[5]
         }
       };
     }

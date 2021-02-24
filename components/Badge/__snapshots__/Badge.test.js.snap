@@ -33,7 +33,7 @@ Object {
         "BadgeText",
       ],
       "texture": Object {
-        "fontFace": "XfinityStandardBold",
+        "fontFace": "XfinityBrownBold",
         "fontSize": 20,
         "lineHeight": 24,
         "text": "undefined",

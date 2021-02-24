@@ -4,8 +4,7 @@ import {
   TYPOGRAPHY,
   CORNER_RADIUS,
   getHexColor,
-  COLORS_NEUTRAL,
-  COLORS_TEXT
+  PALETTE
 } from '../Styles';
 
 import { RoundRect } from '../../utils';
@@ -17,7 +16,7 @@ export default class Tooltip extends lng.Component {
     return {
       alpha: 0,
       scale: 0.5,
-      background: getHexColor(COLORS_NEUTRAL.light2),
+      background: PALETTE.grey[5],
       mountX: 0.5,
       x: w => w / 2,
       Background: {
@@ -29,14 +28,14 @@ export default class Tooltip extends lng.Component {
         x: w => w / 2,
         y: h => h / 2 + GRID.spacingIncrement * 2,
         mount: 0.5,
-        color: getHexColor(COLORS_NEUTRAL.dark1, 80)
+        color: getHexColor(PALETTE.grey[90], 80)
       },
       Text: {
         zIndex: 2,
         x: horizontalPadding,
         text: {
           ...TYPOGRAPHY.body3,
-          textColor: getHexColor(COLORS_TEXT.dark),
+          textColor: PALETTE.text.dark.primary,
           wordWrapWidth: 400,
           textAlign: 'center',
           verticalAlign: 'middle'

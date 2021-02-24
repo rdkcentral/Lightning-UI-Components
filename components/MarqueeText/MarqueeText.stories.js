@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import MarqueeText from '.';
 import InlineContent from '../InlineContent';
 import mdx from './MarqueeText.mdx';
-import { getHexColor, COLORS_TEXT, TYPOGRAPHY } from '../Styles';
+import { getHexColor, PALETTE, TYPOGRAPHY } from '../Styles';
 
 export default {
   title: 'MarqueeText',
@@ -25,7 +25,7 @@ export const Basic = () =>
           title: {
             text: 'This is a scrolling Marquee component for long text',
             ...TYPOGRAPHY.headline2,
-            textColor: getHexColor(COLORS_TEXT.light),
+            textColor: PALETTE.text.light.primary,
             lineHeight: 44,
             maxLines: 1
           },
@@ -79,7 +79,7 @@ export const CenteredText = args =>
           title: {
             text: 'No scroll center',
             ...TYPOGRAPHY.headline2,
-            textColor: getHexColor(COLORS_TEXT.light),
+            textColor: PALETTE.text.light.primary,
             maxLines: 1,
             textAlign: 'center'
           },
