@@ -171,10 +171,10 @@ module.exports = {
   // transform: null,
   transform: {
     '^.+\\.mjs$': 'babel-jest',
-    '^.+\\.[t|j]sx?$': 'babel-jest'
+    '^.+\\.[t|j]sx?$': 'babel-jest',
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@lightningjs/core(-sdk)?)'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@lightningjs/core(-sdk)?|xfinity-ds-tokens)'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

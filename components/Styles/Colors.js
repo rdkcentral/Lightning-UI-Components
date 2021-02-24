@@ -3,7 +3,7 @@
  *
  * Contains global color style information to easily maintain consistency throughout components.
  */
-
+import tokens from 'xfinity-ds-tokens/dist/lightning-ui-tokens/lightning/lightning-ui';
 import { rgba2argb } from '../../utils';
 
 /**
@@ -19,6 +19,8 @@ export function getHexColor(hex, alpha = 100) {
   if (typeof hex === 'number') {
     hex = hex.toString(16).slice(2);
   }
+
+  hex = hex.replace('#', '');
 
   let hexAlpha = Math.round((alpha / 100) * 255).toString(16);
   let str = `0x${hexAlpha}${hex}`;
@@ -56,44 +58,64 @@ export function getValidColor(color) {
  * https://share.goabstract.com/06d0601d-b7d2-48f3-93a2-17cc78bedb5e?mode=build&sha=6d9d06ec3e924eb83ff133826956e1e9a4fc7e36
  */
 export const GREY = {
-  0: getHexColor('ffffff'),
-  5: getHexColor('ececf2'),
-  10: getHexColor('e2e2eb'),
-  20: getHexColor('62626c'),
-  30: getHexColor('b1b1bd'),
-  40: getHexColor('8b8b97'),
-  60: getHexColor('3e3e45'),
-  70: getHexColor('232328'),
-  80: getHexColor('141417'),
-  90: getHexColor('0d0d0f'),
-  100: getHexColor('000000'),
+  0: getHexColor(tokens.palette.white),
+  5: getHexColor(tokens.palette.grey05),
+  10: getHexColor(tokens.palette.grey10),
+  20: getHexColor(tokens.palette.grey20),
+  30: getHexColor(tokens.palette.grey30),
+  40: getHexColor(tokens.palette.grey40),
+  50: getHexColor(tokens.palette.grey50),
+  60: getHexColor(tokens.palette.grey60),
+  70: getHexColor(tokens.palette.grey70),
+  80: getHexColor(tokens.palette.grey80),
+  90: getHexColor(tokens.palette.grey90),
+  100: getHexColor(tokens.palette.black),
   __isColor: true
 };
 
 export const BLUE = {
-  hover: getHexColor('8baff9'),
-  default: getHexColor('4784ff'),
-  pressed: getHexColor('3376ff'),
-  indicator: getHexColor('1f69ff'),
-  shade: getHexColor('000f33'),
+  hover: getHexColor(tokens.palette.blue10),
+  default: getHexColor(tokens.palette.blue20),
+  pressed: getHexColor(tokens.palette.blue30),
+  indicator: getHexColor(tokens.palette.blue40),
+  shade: getHexColor(tokens.palette.blue90),
   __isColor: true
 };
 
 export const GREEN = {
-  hover: getHexColor('78e3bf'),
-  default: getHexColor('0ac284'),
-  pressed: getHexColor('009965'),
-  indicator: getHexColor('008558'),
-  shade: getHexColor('002418'),
+  hover: getHexColor(tokens.palette.green10),
+  default: getHexColor(tokens.palette.green20),
+  pressed: getHexColor(tokens.palette.green30),
+  indicator: getHexColor(tokens.palette.green40),
+  shade: getHexColor(tokens.palette.green90),
   __isColor: true
 };
 
 export const YELLOW = {
-  hover: getHexColor('ffd88a'),
-  default: getHexColor('ffc95c'),
-  pressed: getHexColor('ffb829'),
-  indicator: getHexColor('ffaa00'),
-  shade: getHexColor('2e1700'),
+  hover: getHexColor(tokens.palette.yellow10),
+  default: getHexColor(tokens.palette.yellow20),
+  pressed: getHexColor(tokens.palette.yellow30),
+  indicator: getHexColor(tokens.palette.yellow40),
+  shade: getHexColor(tokens.palette.yellow90),
+  __isColor: true
+};
+
+export const RED = {
+  hover: getHexColor(tokens.palette.red10),
+  default: getHexColor(tokens.palette.red20),
+  pressed: getHexColor(tokens.palette.red30),
+  indicator: getHexColor(tokens.palette.red40),
+  shade: getHexColor(tokens.palette.red90),
+  __isColor: true
+};
+
+export const PURPLE = {
+  base: getHexColor(tokens.palette.purple50),
+  hover: getHexColor(tokens.palette.purple10),
+  default: getHexColor(tokens.palette.purple20),
+  pressed: getHexColor(tokens.palette.purple30),
+  indicator: getHexColor(tokens.palette.purple40),
+  shade: getHexColor(tokens.palette.purple90),
   __isColor: true
 };
 
@@ -115,6 +137,8 @@ export const PALETTE = {
   blue: BLUE,
   green: GREEN,
   yellow: YELLOW,
+  red: RED,
+  purple: PURPLE,
   opacity: OPACITY,
   __isColor: true,
   background: {
@@ -122,7 +146,7 @@ export const PALETTE = {
     stroke: 0x00,
     float: 0x00,
     fill: GREY[70],
-    focus: GREY[5],
+    focus: GREY[10],
     ghost: getHexColor(GREY[70], 48),
     __isColor: true
   },
@@ -143,45 +167,12 @@ export const PALETTE = {
     __isColor: true
   },
   badge: {
-    default: getHexColor(GREY[5], 32),
+    default: getHexColor(GREY[10], 32),
     __isColor: true
   },
   focusRing: {
-    primary: getHexColor(GREY[5], 96),
+    primary: getHexColor(GREY[10], 96),
     secondary: getHexColor(GREY[0], 8),
     __isColor: true
   }
-};
-
-/**
- *
- *
- * TODO: DEPRECATED COLOR SCHEMES
- *
- *
- */
-
-/**
- * Pair color values with color names in the "Neutral" palette
- */
-export const COLORS_NEUTRAL = {
-  dark1: '000000',
-  dark2: '080808',
-  dark3: '101010',
-  light1: 'FFFFFF',
-  light2: 'F5F5F5',
-  light3: 'E8E8E8'
-};
-
-export const COLORS_TEXT = {
-  dark: '070707',
-  light: 'FAFAFA'
-};
-
-/**
- * Pair color values with color names in the "Base" palette
- */
-export const COLORS_BASE = {
-  transparent: 0x00,
-  inactive: '808080'
 };

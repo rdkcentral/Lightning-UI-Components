@@ -35,7 +35,7 @@ export const styles = theme => ({
     textColor: theme.palette.grey[5]
   },
   caption: {
-    ...theme.typography.caption1,
+    ...theme.typography.caption,
     textColor: theme.palette.text.light.tertiary
   },
   captionIcon: {

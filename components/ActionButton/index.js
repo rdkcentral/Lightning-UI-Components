@@ -35,7 +35,7 @@ export const styles = theme => ({
   },
   stroke: {
     weight: 2,
-    color: theme.palette.grey[5]
+    color: theme.palette.grey[10]
   },
   focused: {
     background: { color: theme.palette.background.focus },

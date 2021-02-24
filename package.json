@@ -52,7 +52,8 @@
     "jest-webgl-canvas-mock": "^0.2.3",
     "lint-staged": "^9.5.0",
     "prettier": "^2.2.1",
-    "semantic-release": "^17.3.2"
+    "semantic-release": "^17.3.2",
+    "xfinity-ds-tokens": "^4.0.1"
   },
   "husky": {
     "hooks": {
