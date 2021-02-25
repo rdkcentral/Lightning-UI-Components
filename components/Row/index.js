@@ -119,7 +119,7 @@ export default class Row extends FocusManager {
       }
       nextX += this.itemSpacing + child.w;
     }
-    this.patch({ h: nextH });
+    this.Items.patch({ h: nextH });
 
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;

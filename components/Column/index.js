@@ -140,7 +140,7 @@ export default class Column extends FocusManager {
         }
         nextY += this.itemSpacing + child.h;
       }
-      this.patch({ w: nextW });
+      this.Items.patch({ w: nextW });
 
       const lastChild = this.Items.childList.last;
       const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
