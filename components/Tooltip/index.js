@@ -1,83 +1,108 @@
 import lng from '@lightningjs/core';
-import {
-  GRID,
-  TYPOGRAPHY,
-  CORNER_RADIUS,
-  getHexColor,
-  PALETTE
-} from '../Styles';
-
+import withStyles from '../../mixins/withStyles';
+import withUpdates from '../../mixins/withUpdates';
 import { RoundRect } from '../../utils';
 
-const horizontalPadding = GRID.spacingIncrement * 2;
+export const styles = theme => ({
+  shadow: theme.materials.glow,
+  horizontalPadding: theme.spacing(2),
+  radius: theme.border.radius.small,
+  textProperties: {
+    ...theme.typography.body3,
+    textColor: theme.palette.text.dark.primary,
+    textAlign: 'center',
+    wordWrapWidth: 400
+  },
+  bottomMargin: theme.spacing(5)
+});
 
-export default class Tooltip extends lng.Component {
+export class Tooltip extends lng.Component {
   static _template() {
     return {
       alpha: 0,
       scale: 0.5,
-      background: PALETTE.grey[5],
       mountX: 0.5,
       x: w => w / 2,
       Background: {
         zIndex: 2
       },
-      //TO DO: update to luminance vs dark drop shadows
-      DropShadow: {
-        zIndex: 1,
-        x: w => w / 2,
-        y: h => h / 2 + GRID.spacingIncrement * 2,
-        mount: 0.5,
-        color: getHexColor(PALETTE.grey[90], 80)
-      },
       Text: {
-        zIndex: 2,
-        x: horizontalPadding,
-        text: {
-          ...TYPOGRAPHY.body3,
-          textColor: PALETTE.text.dark.primary,
-          wordWrapWidth: 400,
-          textAlign: 'center',
-          verticalAlign: 'middle'
-        }
+        zIndex: 3
       }
     };
   }
 
-  get title() {
-    return this._title;
+  static get properties() {
+    return [
+      'bottomMargin',
+      'horizontalPadding',
+      'radius',
+      'shadow',
+      'textProperties',
+      'title'
+    ];
   }
 
-  set title(title) {
-    if (this._title !== title) {
-      this._title = title;
-      this._Text.text = title;
-      this._Text.on('txLoaded', () => {
-        // set background size based on text size
+  _construct() {
+    this.shadow = this.styles.shadow;
+    this.textProperties = this.styles.textProperties;
+    this.radius = this.styles.radius;
+    this.horizontalPadding = this.styles.horizontalPadding;
+    this.bottomMargin = this.styles.bottomMargin;
+  }
 
-        let backgroundW = this._Text.finalW + horizontalPadding * 2;
-        let backgroundH =
-          this._Text.finalH -
-          (this._Text.finalH % TYPOGRAPHY.body3.lineHeight) / 2; // calculates even padding
+  _init() {
+    this._Text.on('txLoaded', () => this._updateContainer());
+  }
 
-        this.h = backgroundH;
-        this.w = backgroundW;
-        this._Background.texture = lng.Tools.getRoundRect(
-          RoundRect.getWidth(backgroundW),
-          RoundRect.getHeight(backgroundH),
-          CORNER_RADIUS.small
-        );
-        this._DropShadow.texture = lng.Tools.getShadowRect(
-          backgroundW,
-          backgroundH,
-          CORNER_RADIUS.small,
-          24
-        );
+  _update() {
+    this._updateText();
+  }
 
-        this.y =
-          -backgroundH -
-          (this.bottomMargin ? this.bottomMargin : GRID.spacingIncrement * 5);
-      });
+  _updateText() {
+    this._Text.text = {
+      ...this.textProperties,
+      text: this.title
+    };
+    this._Text.x = this.horizontalPadding;
+  }
+
+  _updateContainer() {
+    // set background size based on text size
+    const backgroundW = this._Text.finalW + this.horizontalPadding * 2;
+    const backgroundH =
+      this._Text.finalH -
+      (this._Text.finalH % this.textProperties.lineHeight) / 2; // calculates even padding
+
+    this.h = backgroundH;
+    this.w = backgroundW;
+
+    this._updateBackground();
+    this._updateDropShadow();
+
+    this.y = -backgroundH - this.bottomMargin;
+  }
+
+  _updateBackground() {
+    this._Background.texture = lng.Tools.getRoundRect(
+      this.w,
+      this.h,
+      this.radius
+    );
+  }
+
+  _updateDropShadow() {
+    const DropShadow = this.styles.shadow({
+      w: this.w,
+      h: this.h,
+      borderRadius: this.radius
+    });
+    this.patch({ DropShadow });
+    const alpha = Number(this.hasFocus());
+    if (this._smooth) {
+      this._DropShadow.smooth = { alpha };
+    } else {
+      this._DropShadow.alpha = alpha;
     }
   }
 
@@ -115,3 +140,5 @@ export default class Tooltip extends lng.Component {
     return this.tag('Background');
   }
 }
+
+export default withUpdates(withStyles(Tooltip, styles));

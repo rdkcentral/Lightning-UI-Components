@@ -10,7 +10,7 @@ export default {
   args: {
     focused: false,
     title: 'Type Something',
-    bottomMargin: 0,
+    bottomMargin: 40,
     delayVisible: 0,
     timeVisible: 0
   },

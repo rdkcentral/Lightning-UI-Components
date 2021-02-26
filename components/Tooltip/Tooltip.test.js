@@ -28,16 +28,23 @@ describe('Tooltip', () => {
   });
 
   describe('visibility', () => {
+    afterEach(() => {
+      jest.clearAllTimers();
+      jest.useRealTimers();
+    });
+
     it('should be visible when focused', () => {
       tooltip._focus();
       testRenderer.update();
       expect(tooltip.alpha).toEqual(1);
     });
+
     it('should be hidden when unfocused', () => {
       tooltip._unfocus();
       testRenderer.update();
       expect(tooltip.alpha).toEqual(0);
     });
+
     it('should show after delay if delayVisible is set', () => {
       jest.useFakeTimers();
       expect(tooltip.alpha).toEqual(0);
@@ -56,6 +63,7 @@ describe('Tooltip', () => {
       testRenderer.update();
       expect(tooltip.alpha).toEqual(1);
     });
+
     it('should hide after timer ends if timeVisible is set', () => {
       jest.useFakeTimers();
 
@@ -134,81 +142,105 @@ describe('Tooltip', () => {
     });
 
     it('should be slightly larger than text dimensions', done => {
-      tooltip._Text.on('txLoaded', () => {
-        let textWidth = tooltip._Text.finalW;
-        let textHeight = tooltip._Text.finalH;
-        let diffW = Math.abs(tooltip._Text.finalW - textWidth);
+      testRenderer.update();
 
-        expect(diffW).toBeLessThan(5);
-        expect(tooltip._DropShadow.finalW).toBeGreaterThan(textWidth);
+      setTimeout(() => {
+        try {
+          let textWidth = tooltip._Text.finalW;
+          let textHeight = tooltip._Text.finalH;
 
-        let diffH = Math.abs(tooltip._Background.finalH - textHeight);
-        expect(diffH).toBeLessThan(5);
-        expect(tooltip._DropShadow.finalH).toBeGreaterThan(textHeight);
+          let diffW = Math.abs(tooltip._Text.finalW - textWidth);
+          expect(diffW).toBeLessThan(5);
+          expect(tooltip._Background.finalW).toBeGreaterThan(textWidth);
 
-        done();
-      });
+          let diffH = Math.abs(tooltip._Background.finalH - textHeight);
+          expect(diffH).toBeLessThan(5);
+
+          done();
+        } catch (error) {
+          done(error);
+        }
+      }, 1000);
     });
 
-    it('should change width when hint message text changes', done => {
-      let short_tooltip, short_testRenderer;
-      [short_tooltip, short_testRenderer] = createTooltip({ title: 'Short' });
-      short_tooltip._focus();
+    it('should be narrower when the message text changes to a shorter message', done => {
+      testRenderer.update();
 
-      let long_tooltip, long_testRenderer;
-      [long_tooltip, long_testRenderer] = createTooltip({
-        title: 'Long Tooltip'
-      });
-      long_tooltip._focus();
+      const controlW = tooltip.finalW;
+      const controlBackgroundW = tooltip._Background.finalW;
 
-      tooltip._Text.on('txLoaded', () => {
-        let controlW = tooltip.finalW;
-        let controlShadowW = tooltip._DropShadow.finalW;
+      tooltip.title = 'short';
 
-        short_tooltip._Text.on('txLoaded', () => {
-          expect(short_tooltip.finalW).toBeLessThan(controlW);
-          expect(short_tooltip._DropShadow.finalW).toBeLessThan(controlShadowW);
+      tooltip._Text.loadTexture();
+      tooltip._Background.loadTexture();
+      testRenderer.update();
 
-          long_tooltip._Text.on('txLoaded', () => {
-            expect(long_tooltip.finalW).toBeGreaterThan(controlW);
-            expect(long_tooltip._DropShadow.finalW).toBeGreaterThan(
-              controlShadowW
-            );
+      setTimeout(() => {
+        try {
+          expect(tooltip.finalW).toBeLessThan(controlW);
+          expect(tooltip._Background.finalW).toBeLessThan(controlBackgroundW);
+          done();
+        } catch (error) {
+          done(error);
+        }
+      }, 1000);
+    });
 
-            done();
-          });
-        });
-      });
+    it('should have a longer hint message when the text changes', done => {
+      testRenderer.update();
+
+      const controlW = tooltip.finalW;
+      const controlBackgroundW = tooltip._Background.finalW;
+
+      tooltip.title = 'a longer title';
+
+      tooltip._Text.loadTexture();
+      tooltip._Background.loadTexture();
+      testRenderer.update();
+
+      setTimeout(() => {
+        try {
+          expect(tooltip.finalW).toBeGreaterThan(controlW);
+          expect(tooltip._Background.finalW).toBeGreaterThan(
+            controlBackgroundW
+          );
+          done();
+        } catch (error) {
+          done(error);
+        }
+      }, 1000);
     });
 
     it('should change height and wrap text when hint message is long', done => {
-      let twoLine_tooltip, twoLine_testRenderer;
-      [twoLine_tooltip, twoLine_testRenderer] = createTooltip({
-        title:
-          'This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...'
-      });
-      twoLine_tooltip._focus();
+      testRenderer.update();
 
-      tooltip._Text.on('txLoaded', () => {
-        twoLine_tooltip._Text.on('txLoaded', () => {
-          let textHeight = twoLine_tooltip._Text.finalH;
-          let diffH = Math.abs(twoLine_tooltip._Background.finalH - textHeight);
+      const controlH = tooltip._Text.finalH;
+      const controlBackgroundH = tooltip._Background.finalH;
+
+      tooltip.title =
+        'This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...This text should render in two lines...';
+
+      tooltip._Text.loadTexture();
+      tooltip._Background.loadTexture();
+      testRenderer.update();
+
+      setTimeout(() => {
+        try {
+          const textHeight = tooltip._Text.finalH;
+          const backgroundHeight = tooltip._Background.finalH;
+
+          const diffH = Math.abs(tooltip._Background.finalH - textHeight);
+
           expect(diffH).toBeLessThan(5);
-          expect(twoLine_tooltip._DropShadow.finalH).toBeGreaterThan(
-            textHeight
-          );
 
-          expect(twoLine_tooltip.finalH).toBeGreaterThan(tooltip.finalH);
-          expect(twoLine_tooltip._Text.finalH).toBeGreaterThan(
-            tooltip._Text.finalH
-          );
-          expect(twoLine_tooltip._DropShadow.finalH).toBeGreaterThan(
-            tooltip._DropShadow.finalH
-          );
+          expect(textHeight).toBeGreaterThan(controlH);
+          expect(backgroundHeight).toBeGreaterThan(controlBackgroundH);
 
           done();
-        });
-      });
+        } catch (error) {
+          done(error);
+        }
+      }, 1000);
     });
   });
 });
