@@ -34,6 +34,19 @@ class TileCircle extends Tile {
     return this._blurBackgroundColor;
   }
 
+  _updateRadius() {
+    if (this._radius) {
+      if (this._blur || this._Blur) {
+        this._Blur.patch({
+          shader: {
+            type: lng.shaders.RoundedRectangle,
+            radius: this._radius
+          }
+        });
+      }
+    }
+  }
+
   _patchBlur() {
     this._Item.patch({
       Blur: {

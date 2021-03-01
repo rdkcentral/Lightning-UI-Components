@@ -45,7 +45,7 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   }
 
   static get properties() {
-    return ['radius', 'blur', 'src', 'fallbackSrc'];
+    return ['radius', 'imgRadius', 'blur', 'src', 'fallbackSrc'];
   }
 
   _construct() {
@@ -125,12 +125,22 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
 
   _updateRadius() {
     if (this._radius) {
-      this._Item.patch({
-        shader: {
-          type: lng.shaders.RoundedRectangle,
-          radius: this._radius
-        }
-      });
+      if (this._imgRadius === undefined || this._imgRadius !== 0) {
+        this._Image.patch({
+          shader: {
+            type: lng.shaders.RoundedRectangle,
+            radius: this._imgRadius || this._radius
+          }
+        });
+      }
+      if (this._blur || this._Blur) {
+        this._Blur.patch({
+          shader: {
+            type: lng.shaders.RoundedRectangle,
+            radius: this._radius
+          }
+        });
+      }
     }
   }
 
@@ -140,7 +150,8 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
         this._shadow = this.styles.shadow({
           w: this.w,
           h: this.h,
-          texture: this._Image.getTexture()
+          texture: this._Image.getTexture(),
+          radius: this.radius
         });
       }
       let DropShadow = this._shadow;
