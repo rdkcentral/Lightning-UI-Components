@@ -26,7 +26,23 @@ function glow({
   };
 }
 
-function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
+function luminance({
+  w,
+  h,
+  blur = 3,
+  padding = spacing(8),
+  texture = null,
+  radius = 0
+}) {
+  let shader = {};
+
+  if (radius) {
+    radius = {
+      type: lng.shaders.RoundedRectangle,
+      radius
+    };
+  }
+
   return {
     type: lng.components.FastBlurComponent,
     x: w / 2,
@@ -40,7 +56,8 @@ function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
       Image: {
         w,
         h,
-        texture: texture
+        texture: texture,
+        shader
       }
     },
     zIndex: 1

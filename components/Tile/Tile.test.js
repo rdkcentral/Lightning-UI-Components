@@ -44,7 +44,7 @@ describe('Tile', () => {
     expect(tile.radius).toEqual(16);
   });
 
-  xit('should render with all options', done => {
+  it('should render with all options', () => {
     let [tile, testRenderer] = createTile({
       w: 320,
       h: 180,
@@ -60,14 +60,29 @@ describe('Tile', () => {
         color: rgba2argb('rgba(63,92,30,0.7)')
       }
     });
+
     tile._smooth = false;
     testRenderer.update();
-    tile._whenEnabled.then(() => {
-      tile._Item.on('txLoaded', () => {
-        expect(tile._Blur.amount).toBe(4);
-        expect(tile._Item.shader.radius[0]).toBe(16);
-        done();
-      });
+    return tile._whenEnabled.then(() => {
+      expect(tile._Blur.amount).toBe(4);
+      expect(tile._Image.shader.radius[0]).toBe(16);
+    });
+  });
+
+  it('should not round image with imgRadius = 0', () => {
+    let [tile, testRenderer] = createTile({
+      w: 320,
+      h: 180,
+      blur: 4,
+      radius: 16,
+      imgRadius: 0
+    });
+
+    tile._smooth = false;
+    testRenderer.update();
+    return tile._whenEnabled.then(() => {
+      expect(tile._Blur.amount).toBe(4);
+      expect(tile._Image.shader).toBeNull();
     });
   });
 

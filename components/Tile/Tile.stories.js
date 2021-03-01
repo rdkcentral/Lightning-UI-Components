@@ -31,6 +31,7 @@ export const Basic = args =>
           h: 180,
           blur: args.blur,
           radius: args.radius,
+          imgRadius: args.imgRadius,
           shadow: {
             w: 320,
             h: 180,
@@ -53,6 +54,7 @@ export const Basic = args =>
 Basic.args = {
   blur: 0,
   radius: 16,
+  imgRadius: 16,
   color: 'rgba(63,92,30,0.7)'
 };
 Basic.argTypes = {
@@ -73,6 +75,14 @@ Basic.argTypes = {
       step: 5
     }
   },
+  imgRadius: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 100,
+      step: 5
+    }
+  },
   color: { control: 'color' }
 };
 Basic.parameters = {
@@ -86,7 +96,7 @@ Basic.parameters = {
   }
 };
 
-export const XfinityTheme = () =>
+export const XfinityTheme = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -99,8 +109,9 @@ export const XfinityTheme = () =>
             {
               type: Tile,
               src: parks,
-              w: 320,
-              h: 180,
+              w: args.width,
+              h: args.height,
+              radius: args.radius,
               onEnter: (keyEvent, tile) => {
                 console.log('You hit Enter ', keyEvent);
               }
@@ -108,8 +119,9 @@ export const XfinityTheme = () =>
             {
               type: Tile,
               src: jurassic,
-              w: 320,
-              h: 180,
+              w: args.width,
+              h: args.height,
+              radius: args.radius,
               onArrowDown: (keyEvent, tile) => {
                 console.log('You hit Down ', keyEvent);
               }
@@ -117,8 +129,9 @@ export const XfinityTheme = () =>
             {
               type: Tile,
               src: trolls,
-              w: 320,
-              h: 180,
+              w: args.width,
+              h: args.height,
+              radius: args.radius,
               onArrowUp: (keyEvent, tile) => {
                 console.log('You hit Up ', keyEvent);
               }
@@ -126,13 +139,15 @@ export const XfinityTheme = () =>
             {
               type: Tile,
               src: pets,
-              w: 320,
-              h: 180
+              w: args.width,
+              h: args.height,
+              radius: args.radius
             },
             {
               type: Tile,
-              w: 320,
-              h: 180
+              w: args.width,
+              h: args.height,
+              radius: args.radius
             }
           ]
         }
@@ -147,3 +162,9 @@ export const XfinityTheme = () =>
       return this.tag('Row');
     }
   };
+
+XfinityTheme.args = {
+  width: 320,
+  height: 180,
+  radius: 8
+};
