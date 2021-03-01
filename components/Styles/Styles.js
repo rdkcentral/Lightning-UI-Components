@@ -3,7 +3,6 @@
  *
  * Contains global style information to easily maintain consistency throughout components.
  */
-import tokens from 'xfinity-ds-tokens/dist/lightning-ui-tokens/lightning/lightning-ui';
 import { SCREEN } from './Layout';
 export * from './Layout';
 export * from './Fonts';
@@ -15,7 +14,14 @@ export { default as createTheme, getXfinityTheme } from './createTheme';
 /**
  * Amount of rounding to add to corners based on the item's size
  */
-export const CORNER_RADIUS = tokens.cornerRadius;
+
+export const CORNER_RADIUS = {
+  none: 0,
+  xsmall: 4,
+  small: 8,
+  medium: 16,
+  large: 24
+};
 
 export const ALPHA = {
   overlays: {

@@ -3,7 +3,6 @@
  *
  * Contains global color style information to easily maintain consistency throughout components.
  */
-import tokens from 'xfinity-ds-tokens/dist/lightning-ui-tokens/lightning/lightning-ui';
 import { rgba2argb } from '../../utils';
 
 /**
@@ -57,65 +56,66 @@ export function getValidColor(color) {
  * Xfinity-branded color palette for Lightning
  * https://share.goabstract.com/06d0601d-b7d2-48f3-93a2-17cc78bedb5e?mode=build&sha=6d9d06ec3e924eb83ff133826956e1e9a4fc7e36
  */
+
 export const GREY = {
-  0: getHexColor(tokens.palette.white),
-  5: getHexColor(tokens.palette.grey05),
-  10: getHexColor(tokens.palette.grey10),
-  20: getHexColor(tokens.palette.grey20),
-  30: getHexColor(tokens.palette.grey30),
-  40: getHexColor(tokens.palette.grey40),
-  50: getHexColor(tokens.palette.grey50),
-  60: getHexColor(tokens.palette.grey60),
-  70: getHexColor(tokens.palette.grey70),
-  80: getHexColor(tokens.palette.grey80),
-  90: getHexColor(tokens.palette.grey90),
-  100: getHexColor(tokens.palette.black),
+  0: getHexColor('#FFFFFF'),
+  5: getHexColor('#F6F6F9'),
+  10: getHexColor('#ECECF2'),
+  20: getHexColor('#CECEDA'),
+  30: getHexColor('#B1B1BD'),
+  40: getHexColor('#8B8B97'),
+  50: getHexColor('#62626C'),
+  60: getHexColor('#3E3E45'),
+  70: getHexColor('#232328'),
+  80: getHexColor('#141417'),
+  90: getHexColor('#0D0D0F'),
+  100: getHexColor('#000000'),
   __isColor: true
 };
 
 export const BLUE = {
-  hover: getHexColor(tokens.palette.blue10),
-  default: getHexColor(tokens.palette.blue20),
-  pressed: getHexColor(tokens.palette.blue30),
-  indicator: getHexColor(tokens.palette.blue40),
-  shade: getHexColor(tokens.palette.blue90),
+  hover: getHexColor('#8BAFF9'),
+  default: getHexColor('#4784FF'),
+  pressed: getHexColor('#3376FF'),
+  indicator: getHexColor('#2970FF'),
+  shade: getHexColor('#111A32'),
   __isColor: true
 };
 
 export const GREEN = {
-  hover: getHexColor(tokens.palette.green10),
-  default: getHexColor(tokens.palette.green20),
-  pressed: getHexColor(tokens.palette.green30),
-  indicator: getHexColor(tokens.palette.green40),
-  shade: getHexColor(tokens.palette.green90),
+  hover: getHexColor('#78E3BF'),
+  default: getHexColor('#0AC284'),
+  pressed: getHexColor('#009965'),
+  indicator: getHexColor('#008F5E'),
+  shade: getHexColor('#0A1F18'),
   __isColor: true
 };
 
 export const YELLOW = {
-  hover: getHexColor(tokens.palette.yellow10),
-  default: getHexColor(tokens.palette.yellow20),
-  pressed: getHexColor(tokens.palette.yellow30),
-  indicator: getHexColor(tokens.palette.yellow40),
-  shade: getHexColor(tokens.palette.yellow90),
+  hover: getHexColor('#FFD88A'),
+  default: getHexColor('#FFC95C'),
+  pressed: getHexColor('#FFB829'),
+  indicator: getHexColor('#FFAA00'),
+  shade: getHexColor('#1F180A'),
   __isColor: true
 };
 
 export const RED = {
-  hover: getHexColor(tokens.palette.red10),
-  default: getHexColor(tokens.palette.red20),
-  pressed: getHexColor(tokens.palette.red30),
-  indicator: getHexColor(tokens.palette.red40),
-  shade: getHexColor(tokens.palette.red90),
+  hover: getHexColor('#FF99BA'),
+  default: getHexColor('#FF6194'),
+  pressed: getHexColor('#FF3878'),
+  indicator: getHexColor('#F0004D'),
+  shade: getHexColor('#2A120E'),
   __isColor: true
 };
 
 export const PURPLE = {
-  base: getHexColor(tokens.palette.purple50),
-  hover: getHexColor(tokens.palette.purple10),
-  default: getHexColor(tokens.palette.purple20),
-  pressed: getHexColor(tokens.palette.purple30),
-  indicator: getHexColor(tokens.palette.purple40),
-  shade: getHexColor(tokens.palette.purple90),
+  base: getHexColor('#6138F5'),
+  hover: getHexColor(`#BAA8FA`),
+  default: getHexColor(`#9378F8`),
+  pressed: getHexColor('#805FF6'),
+  indicator: getHexColor('#704BF7'),
+  shade: getHexColor(`#1E1236`),
   __isColor: true
 };
 
