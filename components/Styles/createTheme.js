@@ -35,9 +35,8 @@ function luminance({
   radius = 0
 }) {
   let shader = {};
-
   if (radius) {
-    radius = {
+    shader = {
       type: lng.shaders.RoundedRectangle,
       radius
     };
