@@ -65,7 +65,7 @@ describe('withMetadata', () => {
     testRenderer.update();
     expect(tileWithMetadata.paddingTop).toBe(paddingTop);
     testRenderer.focus();
-    expect(tileWithMetadata.Metadata.y).toBe(tileWithMetadata._focusedTileHeight + paddingTop);
+    expect(tileWithMetadata.Metadata.y).toBe(paddingTop + tileWithMetadata._focusedTileHeight - ((tileWithMetadata._focusedTileHeight - tileWithMetadata._unfocusedTileHeight) / 2));
     tileWithMetadata._smooth = false;
     testRenderer.unfocus();
     expect(tileWithMetadata.Metadata.y).toBe(h + paddingTop);

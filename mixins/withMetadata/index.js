@@ -36,9 +36,11 @@ export default (base = Tile) =>
     _updateDimensions() {
       this._unfocusedTileHeight = this.h;
       this._focusedTileHeight = this.h * this._getFocusScale(this.w);
+      this._tileScaleOffsetHeight =
+        (this._focusedTileHeight - this._unfocusedTileHeight) / 2;
       this._unfocusedTileWidth = this.w;
       this._focusedTileWidth = this.w * this._getFocusScale(this.w);
-      this._tileScaleOffset =
+      this._tileScaleOffsetWidth =
         (this._focusedTileWidth - this._unfocusedTileWidth) / 2;
     }
 
@@ -62,7 +64,7 @@ export default (base = Tile) =>
 
     _updateMetadataX() {
       const metadataX = this.hasFocus()
-        ? this._paddingSide - this._tileScaleOffset
+        ? this._paddingSide - this._tileScaleOffsetWidth
         : this._paddingSide;
       if (this._smooth) {
         this.Metadata.smooth = { x: metadataX };
@@ -75,7 +77,8 @@ export default (base = Tile) =>
       const currentTileHeight = this.hasFocus()
         ? this._focusedTileHeight
         : this._unfocusedTileHeight;
-      const metadataY = this._paddingTop + currentTileHeight;
+      const offset = this.hasFocus() ? this._tileScaleOffsetHeight : 0;
+      const metadataY = this._paddingTop + currentTileHeight - offset;
 
       if (this._smooth) {
         this.Metadata.smooth = { y: metadataY };
@@ -209,6 +212,9 @@ export default (base = Tile) =>
     }
 
     set Metadata(metadata) {
+      if (!metadata.zIndex) {
+        metadata.zIndex = 5;
+      }
       this.patch({ Metadata: metadata });
       this._update();
     }
