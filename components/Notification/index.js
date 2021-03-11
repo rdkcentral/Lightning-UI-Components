@@ -268,6 +268,19 @@ class Notification extends lng.Component {
       content: this._description
     });
 
+    const descLineLayouter = this._Description.flex._layout._lineLayouter;
+    if (
+      descLineLayouter &&
+      descLineLayouter._lines &&
+      descLineLayouter._lines.length
+    ) {
+      this._containerH =
+        this.styles.margin.y * 2 + // top bottom margins
+        this.styles.title.lineHeight + // title height
+        this._Description.textProperties.lineHeight *
+          descLineLayouter._lines.length; // description height
+    }
+
     const state = this.entered ? 'enter' : 'dismiss';
     this._Text.alpha = this.styles[state].text.alpha;
     this._Text.x = this.styles[state].text.x;

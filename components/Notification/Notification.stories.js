@@ -21,7 +21,9 @@ export const Basic = args =>
           type: Notification,
           icon: icon,
           title: 'Notification',
-          description: 'This is the description',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+          // description: 'This is the description',
           actionArea: {
             text: 'Action Area',
             icon
