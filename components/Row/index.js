@@ -117,9 +117,21 @@ export default class Row extends FocusManager {
       } else {
         child.patch({ x: nextX });
       }
-      nextX += this.itemSpacing + child.w;
+      nextX += child.w;
+      if (i < this.Items.children.length - 1) {
+        nextX += this.itemSpacing;
+      }
+
+      if (child.centerInParent) {
+        // if the child is another focus manager, check the height of the item container
+        const childHeight = (child.Items && child.Items.h) || child.h;
+        // only center the child if it is within the bounds of this focus manager
+        if (childHeight < this.h) {
+          child.y = (this.h - childHeight) / 2;
+        }
+      }
     }
-    this.Items.patch({ h: nextH });
+    this.Items.patch({ h: nextH, w: nextX });
 
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;

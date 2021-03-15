@@ -396,6 +396,44 @@ StickyTitle.args = {
   itemSpacing: 50
 };
 
+export const CenteredInParent = args =>
+  class CenteredInParent extends lng.Component {
+    static _template() {
+      const buttonW = 150;
+      const button = {
+        type: Button,
+        buttonText: 'Button',
+        w: buttonW
+      };
+      return {
+        Column: {
+          type: Column,
+          itemSpacing: args.itemSpacing,
+          w: buttonW * 3 + args.itemSpacing * 2,
+          items: [
+            {
+              type: Row,
+              h: 40,
+              itemSpacing: args.itemSpacing,
+              items: Array.apply(null, { length: 3 }).map(() => button)
+            },
+            {
+              type: Row,
+              h: 40,
+              itemSpacing: args.itemSpacing,
+              centerInParent: true,
+              items: Array.apply(null, { length: 1 }).map(() => button)
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+
 class ColumnHeader extends lng.Component {
   static _template() {
     return {

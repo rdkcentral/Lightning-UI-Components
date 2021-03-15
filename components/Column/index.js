@@ -138,9 +138,21 @@ export default class Column extends FocusManager {
         } else {
           child.patch({ y: nextY });
         }
-        nextY += this.itemSpacing + child.h;
+        nextY += child.h;
+        if (i < this.Items.children.length - 1) {
+          nextY += this.itemSpacing;
+        }
+
+        if (child.centerInParent) {
+          // if the child is another focus manager, check the width of the item container
+          const childWidth = (child.Items && child.Items.w) || child.w;
+          // only center the child if it is within the bounds of this focus manager
+          if (childWidth < this.w) {
+            child.x = (this.w - childWidth) / 2;
+          }
+        }
       }
-      this.Items.patch({ w: nextW });
+      this.Items.patch({ w: nextW, h: nextY });
 
       const lastChild = this.Items.childList.last;
       const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
