@@ -50,12 +50,21 @@ export default class Column extends FocusManager {
 
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollUp() {
-    return (
-      this._itemsY < 0 &&
-      (this._lastScrollIndex
-        ? this.selectedIndex < this._lastScrollIndex
-        : this.selectedIndex >= this._scrollIndex)
-    );
+    let shouldScroll = false;
+
+    if (this._lastScrollIndex) {
+      shouldScroll = this.selectedIndex < this._lastScrollIndex;
+      if (
+        this._prevLastScrollIndex !== undefined &&
+        this._prevLastScrollIndex !== this._lastScrollIndex
+      ) {
+        shouldScroll = true;
+      }
+    } else {
+      shouldScroll = this.selectedIndex >= this._scrollIndex;
+    }
+
+    return this._itemsY < 0 && shouldScroll;
   }
 
   // TODO: can be documented in API when lastScrollIndex is made public
@@ -70,6 +79,8 @@ export default class Column extends FocusManager {
   }
 
   render(next, prev) {
+    this._prevLastScrollIndex = this._lastScrollIndex;
+
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
       next.selectedIndex = this._getIndexOfItemNear(next, prev);
     }
