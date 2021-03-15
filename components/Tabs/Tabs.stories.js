@@ -242,10 +242,6 @@ export const withContent = args =>
       };
     }
 
-    $tabChanged(selectedTab) {
-      args.tabChanged(selectedTab.title);
-    }
-
     _getFocused() {
       return this.tag('TabBar');
     }
