@@ -4,11 +4,7 @@ import { debounce } from 'debounce';
 export default class Row extends FocusManager {
   static _template() {
     return {
-      direction: 'row',
-      itemTransition: {
-        duration: 0.4,
-        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
-      }
+      direction: 'row'
     };
   }
 
@@ -23,6 +19,15 @@ export default class Row extends FocusManager {
       ? this.debounceDelay
       : 1;
     this._update = debounce(this._updateLayout, this.debounceDelay);
+  }
+
+  get _itemTransition() {
+    return (
+      this.itemTransition || {
+        duration: 0.4,
+        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
+      }
+    );
   }
 
   _focus() {
@@ -83,7 +88,7 @@ export default class Row extends FocusManager {
             x: [
               -scrollItem.transition('x').targetValue +
                 (scrollItem === this.selected ? scrollOffset : 0),
-              this.itemTransition
+              this._itemTransition
             ]
           };
         } else {
@@ -113,7 +118,7 @@ export default class Row extends FocusManager {
       const child = this.Items.children[i];
       nextH = Math.max(nextH, getH(child));
       if (this._smooth) {
-        child.smooth = { x: [nextX, this.itemTransition] };
+        child.smooth = { x: [nextX, this._itemTransition] };
       } else {
         child.patch({ x: nextX });
       }
