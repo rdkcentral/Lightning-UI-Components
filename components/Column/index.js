@@ -4,11 +4,7 @@ import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
-      direction: 'column',
-      itemTransition: {
-        duration: 0.4,
-        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
-      }
+      direction: 'column'
     };
   }
 
@@ -27,6 +23,15 @@ export default class Column extends FocusManager {
       this._updateLayout,
       this.debounceDelay,
       true
+    );
+  }
+
+  get _itemTransition() {
+    return (
+      this.itemTransition || {
+        duration: 0.4,
+        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
+      }
     );
   }
 
@@ -113,7 +118,7 @@ export default class Column extends FocusManager {
             y: [
               -(scrollItem || firstChild).transition('y').targetValue +
                 (scrollItem === this.selected ? scrollOffset : 0),
-              this.itemTransition
+              this._itemTransition
             ]
           };
         } else {
@@ -145,7 +150,7 @@ export default class Column extends FocusManager {
         const child = this.Items.children[i];
         nextW = Math.max(nextW, getW(child));
         if (this._smooth) {
-          child.smooth = { y: [nextY, this.itemTransition] };
+          child.smooth = { y: [nextY, this._itemTransition] };
         } else {
           child.patch({ y: nextY });
         }
@@ -319,7 +324,7 @@ export default class Column extends FocusManager {
     this._refocus();
   }
 
-  scrollTo(index, duration = this.itemTransition.duration * 100) {
+  scrollTo(index, duration = this._itemTransition.duration * 100) {
     if (duration === 0) this.selectedIndex = index;
 
     for (let i = 0; i !== Math.abs(this.selectedIndex - index); i++) {
