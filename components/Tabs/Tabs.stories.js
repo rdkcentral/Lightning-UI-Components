@@ -1,8 +1,14 @@
 import lng from '@lightningjs/core';
 
 import TabBar, { Tab } from '.';
+import Column from '../Column';
+import ListItem, { ListItemImage } from '../ListItem';
 import mdx from './Tabs.mdx';
 import icon from '../../assets/images/person.png';
+import bolt from '../../assets/images/ic_lightning_white_32.png';
+import cast from '../../assets/images/cast.png';
+import cast1 from '../../assets/images/cast1.png';
+import cast2 from '../../assets/images/cast2.png';
 
 export default {
   title: 'TabBar',
@@ -134,4 +140,129 @@ TabProperties.argTypes = {
   },
   iconWidth: { control: 'number' },
   title: { control: 'text' }
+};
+
+const col1 = {
+  Column: {
+    type: Column,
+    h: 300,
+    w: 410,
+    y: 50,
+    itemSpacing: 16,
+    items: [
+      {
+        w: 410,
+        type: ListItemImage,
+        title: 'Item 1',
+        subtitle: 'Subtitle 1',
+        size: 'small',
+        image: cast
+      },
+      {
+        w: 410,
+        type: ListItemImage,
+        title: 'Item 2',
+        subtitle: 'Subtitle 2',
+        size: 'small',
+        image: cast1
+      },
+      {
+        w: 410,
+        type: ListItemImage,
+        title: 'Item 3',
+        subtitle: 'Subtitle 3',
+        size: 'small',
+        image: cast2
+      }
+    ]
+  }
+};
+
+const col2 = {
+  Column: {
+    type: Column,
+    h: 300,
+    w: 410,
+    y: 50,
+    itemSpacing: 16,
+    items: [
+      {
+        w: 410,
+        type: ListItem,
+        title: 'Item 1',
+        subtitle: 'Subtitle 1',
+        size: 'small',
+        icon: bolt
+      },
+      {
+        w: 410,
+        type: ListItem,
+        title: 'Item 2',
+        subtitle: 'Subtitle 2',
+        size: 'small',
+        icon: bolt
+      },
+      {
+        w: 410,
+        type: ListItem,
+        title: 'Item 3',
+        subtitle: 'Subtitle 3',
+        size: 'small',
+        icon: bolt
+      }
+    ]
+  }
+};
+
+export const withContent = args =>
+  class withContent extends lng.Component {
+    static _template() {
+      return {
+        TabBar: {
+          type: TabBar,
+          barLength: 150,
+          barSpacing: 4,
+          itemSpacing: 0,
+          tabHeight: 72,
+          tabWidth: 205,
+          wrapSelected: true,
+          tabs: [
+            {
+              type: Tab,
+              title: 'Tab Item 1',
+              content: col1
+            },
+            {
+              type: Tab,
+              title: 'Tab Item 2',
+              content: col2
+            }
+          ]
+        }
+      };
+    }
+
+    $tabChanged(selectedTab) {
+      args.tabChanged(selectedTab.title);
+    }
+
+    _getFocused() {
+      return this.tag('TabBar');
+    }
+  };
+withContent.args = {
+  focused: true
+};
+withContent.argTypes = {
+  focused: { control: 'boolean' }
+};
+withContent.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('TabBar')
+        : () => {};
+      component._refocus();
+    }
+  }
 };
