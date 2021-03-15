@@ -70,7 +70,7 @@ Basic.parameters = {
     itemTransition: (duration, component) => {
       component.tag('Column').itemTransition = {
         duration,
-        timingFunction: component.tag('Column').itemTransition.timingFunction
+        timingFunction: component.tag('Column')._itemTransition.timingFunction
       };
     }
   }
