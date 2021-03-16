@@ -58,7 +58,8 @@ class Badge extends lng.Component {
   }
 
   _updateText() {
-    this._BadgeText.once('txLoaded', () => {
+    this._BadgeText.on('txLoaded', () => {
+      this._BadgeText.removeAllListeners();
       this._calculatePadding();
     });
     this._BadgeText.patch({
@@ -71,7 +72,8 @@ class Badge extends lng.Component {
   }
 
   _updateIcon() {
-    this._Icon.once('txLoaded', () => {
+    this._Icon.on('txLoaded', () => {
+      this._Icon.removeAllListeners();
       this._calculatePadding();
     });
     this._Icon.patch({
