@@ -9,7 +9,6 @@ import lng from '@lightningjs/core';
 import Icon from '../Icon';
 import Row from '../Row';
 import Slider from '../Slider';
-import Tile from '../Tile';
 import Toggle from '../Toggle';
 import Radio from '../Radio';
 import { Arrow } from '../textures';
@@ -418,13 +417,16 @@ export class ListItemImage extends ListItem {
       ...template,
       Container: {
         Image: {
-          type: Tile,
           flexItem: {
             marginRight: 16
           },
-          rounded: 8,
           h: 56,
-          w: 56
+          w: 56,
+          zIndex: 2,
+          texture: {
+            type: lng.textures.ImageTexture,
+            resizeMode: { type: 'cover', w: 56, h: 56 }
+          }
         },
         ...template.Container,
         flex: {
@@ -448,11 +450,27 @@ export class ListItemImage extends ListItem {
         }
       });
     }
-    this._Image.patch({ src: this.image });
+    this._Image.patch({
+      texture: { src: this.image }
+    });
+    if (this.styles.radius > 0) {
+      this._Image.patch({
+        shader: {
+          type: lng.shaders.RoundedRectangle,
+          radius: this.styles.radius
+        }
+      });
+    }
   }
 
   get _Image() {
     return this._Container.tag('Image');
+  }
+
+  set texture(texture) {
+    this._Image.patch({
+      texture
+    });
   }
 
   get _rightOffset() {
