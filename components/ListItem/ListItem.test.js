@@ -406,6 +406,16 @@ describe('ListItemImage', () => {
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('accepts texture change', () => {
+    listItemImage.texture = {
+      type: lng.textures.ImageTexture,
+      resizeMode: { type: 'cover', w: 56, h: 56 },
+      src
+    };
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
 
 describe('ListItemSlider', () => {
