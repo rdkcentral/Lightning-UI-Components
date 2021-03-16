@@ -27,7 +27,7 @@ class Example extends lng.Component {
         tabs: [
           {
             type: Tab,
-            title: 'Tab Item 1'
+            title: 'Tab Item 1',
           },
           {
             type: Tab,
@@ -142,6 +142,7 @@ selectedTextColor|number|false|`tab.styles.selected.text.color`|color of text wh
 textColor|number|false|`tab.styles.text.color`|base color of `text`
 title|string|false|-|title of `Tab` to display
 w|number|true|0|width of `Tab`
+contents|object|true|-|contents inside of tab that can be composed of elements and component
 
 ### Tab Methods
 
@@ -184,5 +185,34 @@ Fires whenever a new `Tab` is selected via key handler.
 ```js
 $tabChanged(selectedTab) {
   console.log(selectedTab.title);
+}
+```
+### TabBar with Tab Content
+
+#### set content(content): void
+
+Patches content to a Tab, to be displayed when the corresponding Tab is in focus. Content can be any arrangement of elements and components.
+Contents will remain contained below the FocusBar at position x = 0 relative to the TabBar.
+
+**example**
+```js
+{
+  type: TabBar,
+  tabHeight: 72,
+  tabWidth: 205,
+  tabs: [
+    {
+      type: Tab,
+      icon: InfoIcon,
+      title: 'Info',
+      content: {...}
+    },
+    {
+      type: Tab,
+      icon: SportsIcon,
+      title: 'Sports',
+      content: {...}
+    }
+  ]
 }
 ```

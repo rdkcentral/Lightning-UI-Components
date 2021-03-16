@@ -22,7 +22,7 @@ export const Basic = args =>
           title: args.title,
           subtitle: args.subtitle,
           collapse: args.collapse,
-          icon,
+          icon: args.showIcon ? icon : null,
           size: args.size,
           backgroundType: args.backgroundType,
           announce: args.announce,
@@ -45,7 +45,8 @@ Basic.args = {
   collapse: false,
   size: 'small',
   announce: 'Press list item to view metadata',
-  collapseIcon: false
+  collapseIcon: false,
+  showIcon: true
 };
 Basic.argTypes = {
   size: {

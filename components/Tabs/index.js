@@ -35,13 +35,19 @@ export class TabBase extends lng.Component {
   static _template() {
     return {
       flex: {
-        alignItems: 'center',
-        justifyContent: 'center'
+        direction: 'column'
       },
-      Icon: {
-        type: Icon
-      },
-      Text: { text: this.styles.text }
+      Tab: {
+        type: lng.Component,
+        flex: {
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        Icon: {
+          type: Icon
+        },
+        Text: { text: this.styles.text }
+      }
     };
   }
 
@@ -50,15 +56,20 @@ export class TabBase extends lng.Component {
   }
 
   _init() {
+    this.selected = this._Tab;
+    this._Tab.selected = true;
     this._updateColor();
+    this._updateContent();
   }
 
   _focus() {
     this._updateColor();
+    this._updateContent();
   }
 
   _unfocus() {
     this._updateColor();
+    this._updateContent();
   }
 
   _update() {
@@ -80,17 +91,23 @@ export class TabBase extends lng.Component {
         });
       }
     }
+    if (this._content) {
+      const { h, y } = this.childList.last;
+      this.h = this.h + h || 0 + y || 0;
+    }
   }
 
   _updateColor() {
-    if (this.hasFocus()) {
+    const tabFocused = this.hasFocus() && this._Tab.selected;
+    const contentFocused = this.hasFocus() && !this._Tab.selected;
+    if (tabFocused) {
       this._Icon.smooth = {
         color: this.focusedIconColor || this.styles.focused.icon.color
       };
       this._Text.smooth = {
         color: this.focusedTextColor || this.styles.focused.text.color
       };
-    } else if (this.isSelected) {
+    } else if (contentFocused || this.isSelected) {
       this._Icon.smooth = {
         color: this.selectedIconColor || this.styles.selected.icon.color
       };
@@ -103,14 +120,30 @@ export class TabBase extends lng.Component {
     }
   }
 
+  _updateContent() {
+    if (this._content) {
+      this.childList.last.smooth = {
+        alpha: this.hasFocus() || this.isSelected ? 1 : 0
+      };
+    }
+  }
+
   select() {
     this._selected = true;
     this._updateColor();
+    this._updateContent();
   }
 
   deselect() {
     this._selected = false;
     this._updateColor();
+    this._updateContent();
+  }
+
+  set content(content) {
+    this._content = content;
+    this.patch(content, true);
+    this._update();
   }
 
   get announce() {
@@ -177,11 +210,35 @@ export class TabBase extends lng.Component {
   }
 
   get _Icon() {
-    return this.tag('Icon');
+    return this.tag('Tab.Icon');
   }
 
   get _Text() {
-    return this.tag('Text');
+    return this.tag('Tab.Text');
+  }
+
+  get _Tab() {
+    return this.tag('Tab');
+  }
+
+  _handleUp() {
+    if (this._content) {
+      this._Tab.selected = true;
+      this.selected = this._Tab;
+      this._updateColor();
+    }
+  }
+
+  _handleDown() {
+    if (this._content) {
+      this._Tab.selected = false;
+      this.selected = this.childList.last;
+      this._updateColor();
+    }
+  }
+
+  _getFocused() {
+    return this.selected;
   }
 }
 
@@ -194,12 +251,14 @@ export default class TabBar extends lng.Component {
         type: Row,
         signals: {
           selectedChange: true
-        }
+        },
+        zIndex: 1
       },
       FocusBar: {
         alpha: 0.48,
         mountX: 0.5,
-        color: 0xffffffff
+        color: 0xffffffff,
+        zIndex: 2
       }
     };
   }
@@ -335,6 +394,14 @@ export default class TabBar extends lng.Component {
         w: tab.w || this.tabWidth,
         h: tab.h || this.tabHeight
       }));
+      let xPos = 0;
+      this._Container.items.forEach((tab, tabIndex) => {
+        const x = tabIndex ? -xPos : 0;
+        if (tab._content) {
+          tab.childList.last.x = x;
+        }
+        xPos += tab.w;
+      });
       this._Container.selected.select();
       this._update();
     });

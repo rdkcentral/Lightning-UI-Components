@@ -50,6 +50,19 @@ title|string|false|main item info goes here
 
 Callback to be executed on <kbd>Enter</kbd> key down event
 
+#### set texture(newTexture): void
+
+Allows the image to be overriden with a custom texture component 
+Example:
+```
+let newTexture = {
+  type: lng.textures.ImageTexture,
+  resizeMode: { type: 'cover', w: 56, h: 56 },
+  src: 'pathToImage.jpg'
+};
+this.tag('ListItemImage').texture = newTexture;
+```
+
 ### Styles
 
 Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
