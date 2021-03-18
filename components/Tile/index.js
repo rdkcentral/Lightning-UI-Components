@@ -60,6 +60,9 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   _init() {
     this._Image.on('txError', () => {
       this.src = this.src !== this.fallbackSrc ? this.fallbackSrc : null;
+      if (this.imgRadius === 0 && this.radius) {
+        this.imgRadius = this.radius;
+      }
       this._update();
     });
   }
