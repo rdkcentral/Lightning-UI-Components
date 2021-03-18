@@ -19,7 +19,7 @@ export const styles = theme => ({
   },
   textProperties: {
     ...theme.typography.caption,
-    color: theme.palette.text.light.primary,
+    textColor: theme.palette.text.light.primary,
     textAlign: 'center'
   },
   iconAlign: 'left'
