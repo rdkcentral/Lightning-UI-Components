@@ -22,13 +22,51 @@ describe('ScrollWrapper', () => {
     testRenderer = null;
   });
 
-  it('renders', () => {
+  it('renders a content string', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    expect(scrollWrapper._ScrollContainer.text.text).toBe(
+    expect(scrollWrapper._ScrollContainer.children[0].text.text).toBe(
       scrollWrapper.content
     );
     expect(scrollWrapper._ScrollContainer.h).toBeGreaterThan(scrollWrapper.h);
+  });
+
+  it('renders a content array', () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper({
+      h: 100,
+      w: 100,
+      scrollDuration: 0,
+      content: [
+        {
+          text: 'Heading!',
+          style: {
+            fontFace: 'XfinityBrownBold',
+            alignContent: 'center'
+          }
+        },
+        {
+          text:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.',
+          style: {
+            alignContent: 'left',
+            fontSize: '30'
+          }
+        }
+      ]
+    });
+    testRenderer.update();
+
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(scrollWrapper._ScrollContainer.children[0].text.text).toBe(
+      scrollWrapper.content[0].text
+    );
+    expect(scrollWrapper._ScrollContainer.children[1].text.text).toBe(
+      scrollWrapper.content[1].text
+    );
+    expect(scrollWrapper._ScrollContainer.finalH).toBeGreaterThan(
+      scrollWrapper.h
+    );
   });
 
   it('hides scroll bar on unfocus', () => {
@@ -52,33 +90,27 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper._scrollBarY).toBe(0);
   });
 
-  it('does not scroll beyond boundaries', () => {
+  it('does not scroll beyond boundaries', done => {
     testRenderer.keyPress('Up');
     expect(scrollWrapper._scrollContainerY).toBe(0);
     expect(scrollWrapper._scrollBarY).toBe(0);
 
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
-    testRenderer.keyPress('Down');
+    scrollWrapper.autoScrollDelay = 0;
+    scrollWrapper.autoScrollSpeed = 0;
+    scrollWrapper.scrollStep = scrollWrapper._ScrollContainer.h;
+    scrollWrapper.autoScroll = true;
 
-    expect(
-      scrollWrapper._scrollContainerY + scrollWrapper._ScrollContainer.h
-    ).toBe(scrollWrapper.h);
-
-    testRenderer.keyPress('Down');
-    expect(
-      scrollWrapper._scrollContainerY + scrollWrapper._ScrollContainer.h
-    ).toBe(scrollWrapper.h);
+    setTimeout(() => {
+      testRenderer.update();
+      expect(scrollWrapper._ScrollContainer.y).toBe(
+        scrollWrapper.h - scrollWrapper._ScrollContainer.h
+      );
+      testRenderer.keyPress('Down');
+      expect(scrollWrapper._ScrollContainer.y).toBe(
+        scrollWrapper.h - scrollWrapper._ScrollContainer.h
+      );
+      done();
+    }, 1);
   });
 
   it('resets scroll', () => {

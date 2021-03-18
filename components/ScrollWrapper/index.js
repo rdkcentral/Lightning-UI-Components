@@ -7,13 +7,18 @@ const styles = theme => ({
     color: theme.palette.text.light.primary
   },
   scrollBar: {
-    color: 0xffffffff,
-    w: 16,
-    h: 16
+    fillColor: theme.palette.grey[80],
+    strokeColor: theme.palette.grey[10],
+    stroke: 5,
+    w: 32,
+    h: 32,
+    radius: 16
   },
   scrollBarContainer: {
-    color: 0xaaffffff,
-    w: 8
+    color: theme.palette.grey[50],
+    progressColor: theme.palette.grey[10],
+    w: 8,
+    radius: 4
   }
 });
 
@@ -23,39 +28,172 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
       clipping: true,
       ScrollContainer: {
         w: w => w,
-        wordWrap: true
+        wordWrap: true,
+        flex: {
+          direction: 'column'
+        }
       },
-      ScrollBarContainer: {
-        alpha: 0,
-        rect: true,
+      ScrollBarProgressOverlay: {
         w: this.styles.scrollBarContainer.w,
         x: w => w,
-        color: this.styles.scrollBarContainer.color,
-        ScrollBar: {
-          rect: true,
-          w: this.styles.scrollBar.w,
-          h: this.styles.scrollBar.h,
-          y: 0,
-          color: this.styles.scrollBar.color
-        }
+        zIndex: 2,
+        alpha: 0
+      },
+      ScrollBarContainer: {
+        // bar
+        alpha: 0,
+        w: this.styles.scrollBarContainer.w,
+        x: w => w,
+        zIndex: 1
+      },
+      ScrollBar: {
+        // indicator
+        texture: lng.Tools.getRoundRect(
+          this.styles.scrollBar.w,
+          this.styles.scrollBar.h,
+          this.styles.scrollBar.radius,
+          this.styles.scrollBar.stroke,
+          this.styles.scrollBar.strokeColor,
+          true,
+          this.styles.scrollBar.fillColor
+        ),
+        w: this.styles.scrollBar.w,
+        h: this.styles.scrollBar.h,
+        x: w => w,
+        zIndex: 3,
+        alpha: 0
       }
     };
   }
 
   _focus() {
     this._ScrollBarContainer.smooth = { alpha: 1 };
+    this._ScrollBarProgressOverlay.smooth = { alpha: 1 };
+    this._ScrollBar.smooth = { alpha: 1 };
   }
 
   _unfocus() {
     this._ScrollBarContainer.smooth = { alpha: 0 };
+    this._ScrollBarProgressOverlay.smooth = { alpha: 0 };
+    this._ScrollBar.smooth = { alpha: 0 };
   }
 
   _construct() {
     this._scrollStep = 10;
   }
 
+  _init() {
+    this._contentWidth = this.w - this._ScrollBar.w;
+  }
+
   _firstEnable() {
     this._update();
+  }
+
+  _waitForComponentLoad() {
+    if (this._ScrollContainer.children.length) {
+      return Promise.all(
+        this._ScrollContainer.children.map(
+          child => new Promise(resolve => child.on('txLoaded', resolve))
+        )
+      );
+    } else {
+      this.h = 0;
+      return Promise.resolve();
+    }
+  }
+
+  _update() {
+    this._initScrollableContent();
+
+    this._waitForComponentLoad().then(() => {
+      this._setScrollContainerSize();
+      this._initScrollBar();
+    });
+  }
+
+  _initScrollableContent() {
+    if (typeof this._content === 'string') {
+      // if content is a string, create an element and patch it in
+      this._ScrollContainer.patch({
+        ScrollableText: {
+          h: 0,
+          wordWrap: true,
+          w: this._contentWidth - this._ScrollBar.w,
+          text: {
+            text: this._content,
+            ...this.styles.text
+          }
+        }
+      });
+    } else {
+      // else, iterate through array items
+      const childElements = this._content.map((item, index) => {
+        const content = {};
+        const id = `ScrollText${index}`;
+        content[id] = {
+          w: this._contentWidth - this._ScrollBar.w,
+          text: {
+            text: item.text,
+            ...this.styles.text,
+            ...item.style
+          }
+        };
+        this._ScrollContainer.patch(content);
+      });
+    }
+  }
+
+  _setScrollContainerSize() {
+    this._ScrollContainer.patch({
+      y: 0,
+      h: this._getScrollableContentHeight(),
+      w: this._contentWidth
+    });
+    this._ScrollBarProgressOverlay.patch({
+      texture: lng.Tools.getRoundRect(
+        this._ScrollBarContainer.w,
+        this.renderHeight,
+        this.styles.scrollBarContainer.radius,
+        0,
+        0,
+        true,
+        this.styles.scrollBarContainer.progressColor
+      ),
+      h: 1,
+      x: this._contentWidth,
+      y: 4
+    });
+  }
+
+  _initScrollBar() {
+    this._ScrollBarContainer.patch({
+      texture: lng.Tools.getRoundRect(
+        this._ScrollBarContainer.w,
+        this.renderHeight,
+        this.styles.scrollBarContainer.radius,
+        0,
+        0,
+        true,
+        this.styles.scrollBarContainer.color
+      ),
+      h: this.renderHeight,
+      x: this._contentWidth,
+      y: 2
+    });
+    this._ScrollBar.patch({
+      x:
+        this._contentWidth -
+        (this._ScrollBar.w - this._ScrollBarContainer.w) / 2,
+      y: 0
+    });
+  }
+
+  _getScrollableContentHeight() {
+    return this._ScrollContainer.children.reduce(
+      (acc, child) => acc + child.renderHeight,
+      0
+    );
   }
 
   _handleDown() {
@@ -82,6 +220,17 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
             scrollBarY < this.renderHeight - this.styles.scrollBar.h
               ? scrollBarY
               : this.renderHeight - this.styles.scrollBar.h,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
+        }
+      });
+      this._ScrollBarProgressOverlay.patch({
+        smooth: {
+          h: [
+            this._ScrollBar.renderHeight / 2 + this._scrollBarY,
             {
               timingFunction: 'linear',
               duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
@@ -126,7 +275,17 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
           ]
         }
       });
-
+      this._ScrollBarProgressOverlay.patch({
+        smooth: {
+          h: [
+            this._ScrollBar.renderHeight / 2 + this._scrollBarY,
+            {
+              timingFunction: 'linear',
+              duration: isNaN(this.scrollDuration) ? 0.2 : this.scrollDuration
+            }
+          ]
+        }
+      });
       if (this._scrollContainerY >= 0) {
         this.fireAncestors('$scrollChanged', 'endUp', this);
       }
@@ -141,31 +300,6 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     delete this._ScrollContainer._transitions;
     delete this._ScrollBar._transitions;
     this._autoScrollComplete = false;
-  }
-
-  _update() {
-    this._ScrollContainer.on('txLoaded', () => {
-      const adjustW = this.renderWidth - this._ScrollBar.renderWidth;
-      this._ScrollContainer.patch({
-        y: 0,
-        h: this._ScrollContainer.renderHeight,
-        w: adjustW - 10
-      });
-      this._ScrollBarContainer.patch({
-        h: this.renderHeight,
-        x: adjustW,
-        ScrollBar: {
-          x: (this._ScrollBarContainer.w - this._ScrollBar.w) / 2
-        }
-      });
-    });
-    this._ScrollContainer.patch({
-      h: 0,
-      text: {
-        ...this.styles.text,
-        text: this._content
-      }
-    });
   }
 
   _getScrollStep(height) {
@@ -260,5 +394,9 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
 
   get _ScrollBarContainer() {
     return this.tag('ScrollBarContainer');
+  }
+
+  get _ScrollBarProgressOverlay() {
+    return this.tag('ScrollBarProgressOverlay');
   }
 }
