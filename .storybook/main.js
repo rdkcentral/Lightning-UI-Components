@@ -13,8 +13,8 @@ const stories =
 
 module.exports = {
   addons: [
-    '@storybook/addon-essentials',
     '@storybook/addon-docs',
+    '@storybook/addon-essentials',
     '@storybook/addon-storysource'
   ],
   stories
