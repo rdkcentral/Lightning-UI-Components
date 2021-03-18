@@ -83,18 +83,19 @@ export default class Row extends FocusManager {
           this.selectedIndex > this._lastScrollIndex
             ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
             : this.selected;
-        if (this._smooth) {
-          this.Items.smooth = {
-            x: [
-              -scrollItem.transition('x').targetValue +
-                (scrollItem === this.selected ? scrollOffset : 0),
-              this._itemTransition
-            ]
-          };
-        } else {
-          this.Items.patch({
-            x: -scrollItem.x + (scrollItem === this.selected ? scrollOffset : 0)
-          });
+        if (scrollItem) {
+          if (this._smooth) {
+            this.Items.smooth = {
+              x: [
+                -scrollItem.transition('x').targetValue +
+                  (scrollItem === this.selected ? scrollOffset : 0),
+                this._itemTransition
+              ]
+            };
+          } else {
+            this.Items.x =
+              -scrollItem.x + (scrollItem === this.selected ? scrollOffset : 0);
+          }
         }
       }
 
