@@ -50,12 +50,21 @@ export default class Row extends FocusManager {
 
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollLeft() {
-    return (
-      this._itemsX < 0 &&
-      (this._lastScrollIndex
-        ? this.selectedIndex < this._lastScrollIndex
-        : this.selectedIndex >= this._scrollIndex)
-    );
+    let shouldScroll = false;
+
+    if (this._lastScrollIndex) {
+      shouldScroll = this.selectedIndex < this._lastScrollIndex;
+      if (
+        this._prevLastScrollIndex !== undefined &&
+        this._prevLastScrollIndex !== this._lastScrollIndex
+      ) {
+        shouldScroll = true;
+      }
+    } else {
+      shouldScroll = this.selectedIndex >= this._scrollIndex;
+    }
+
+    return this._itemsX < 0 && shouldScroll;
   }
 
   // TODO: can be documented in API when lastScrollIndex is made public
@@ -71,6 +80,8 @@ export default class Row extends FocusManager {
 
   render() {
     this._whenEnabled.then(() => {
+      this._prevLastScrollIndex = this._lastScrollIndex;
+
       const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 })
         .x;
       const lastChild = this.Items.childList.last;
