@@ -244,8 +244,10 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   set title(title) {
     this._title = title;
     this._Left.patch({
+      //y: -2,
       Title: {
-        h: this.styles.title.text.lineHeight,
+        y: 2,
+        h: this.styles.title.text.lineHeight + 4,
         color: this.styles.title.color,
         text: {
           ...this.styles.title.text,
