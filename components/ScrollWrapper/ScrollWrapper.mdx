@@ -26,9 +26,40 @@ class Example extends lng.Component {
   }
 };
 ```
-
 <Canvas>
   <Story id="scrollwrapper--basic" />
+</Canvas>
+
+Alternatively, an array of objects containing `text` and `style` keys may be provided as `content`. Styles provided here will override the ones set using the [`withStyles` mixin](#styling) for it's section of text:
+```js
+import { ScrollWrapper } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ScrollWrapper: {
+        type: ScrollWrapper,
+        h: 450,
+        w: 600,
+        content: [
+          {
+            text: 'Text Heading',
+            style: {
+              fontFace: 'XfinityBrownBold',
+              alignContent: 'center'
+            }
+          },
+          {
+            text: 'Text content long enough to scroll vertically'
+          }
+        ]
+      }
+    };
+  }
+};
+```
+<Canvas>
+  <Story id="scrollwrapper--content-array" />
 </Canvas>
 
 The `h` and `w` properties will determine the viewable box for `ScrollWrapper`. When focused, `ScrollWrapper` will display a scroll bar to the right of the content and up/down scrolling will be handled.
@@ -53,13 +84,18 @@ const styles = theme => ({
     color: theme.palette.text.light.primary
   },
   scrollBar: {
-    color: 0xffffffff,
-    w: 16,
-    h: 16
+    fillColor: theme.palette.grey[80],
+    strokeColor: theme.palette.grey[10],
+    stroke: 5,
+    w: 32,
+    h: 32,
+    radius: 16
   },
   scrollBarContainer: {
-    color: 0xaaffffff,
-    w: 8
+    color: theme.palette.grey[50],
+    progressColor: theme.palette.grey[10],
+    w: 8,
+    radius: 4
   }
 });
 ```
@@ -86,7 +122,7 @@ class ScrollWrapper = withStyles(BaseScrollWrapper, styles);
 
 name|type|required|default|description
 --|--|--|--|--
-content|string|true|-|text content to be displayed
+content|string\|array|true|-|text content to be displayed. Can be passed as a string, or array of objects if varying text styles are needed
 h|number|true|0|height of viewable container
 autoScroll|boolean|false|false|auto scroll the content
 autoScrollDelay|number|false|2000|delay before auto scroll starts
