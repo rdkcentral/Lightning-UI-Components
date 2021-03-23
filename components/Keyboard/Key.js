@@ -37,20 +37,8 @@ export default class Key extends withStyles(Button, keyStyles) {
   static _template() {
     return {
       ...super._template(),
-      ...KEY_DIMENSIONS,
-      DropShadow: {
-        alpha: 0,
-        ...this.styles.shadow({
-          w: this.styles.w,
-          h: this.styles.h
-        })
-      }
+      ...KEY_DIMENSIONS
     };
-  }
-
-  _init() {
-    const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-    this._DropShadow.patch(DropShadow);
   }
 
   set config(config) {
@@ -105,15 +93,17 @@ export default class Key extends withStyles(Button, keyStyles) {
   }
 
   _updateDropShadow() {
-    if (this.w !== this.styles.w) {
-      const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-      this._DropShadow.patch(DropShadow);
-    }
-    const alpha = Number(this._focused);
-    if (this._smooth) {
-      this._DropShadow.smooth = { alpha };
-    } else {
-      this._DropShadow.alpha = alpha;
+    if (this._focused || this._DropShadow) {
+      if (this.w !== this.styles.w || !this._DropShadow) {
+        const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
+        this.patch({ DropShadow: DropShadow });
+      }
+      const alpha = Number(this._focused);
+      if (this._smooth) {
+        this._DropShadow.smooth = { alpha };
+      } else {
+        this._DropShadow.alpha = alpha;
+      }
     }
   }
 

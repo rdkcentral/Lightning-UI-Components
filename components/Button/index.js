@@ -65,9 +65,6 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
           alignContent: 'center',
           alignItems: 'center'
         },
-        Icon: {
-          type: Icon
-        },
         // TODO: Wonky lineHeight / fontsize from Lightning
         // Move title down 2 pixels to _visually_ center it
         // inside the button
@@ -92,10 +89,11 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   }
 
   _init() {
-    this._Icon.on('txError', () => {
-      this.icon.src = null;
-      this._update();
-    });
+    this._Icon &&
+      this._Icon.on('txError', () => {
+        this.icon.src = null;
+        this._update();
+      });
   }
 
   _focus() {
@@ -152,12 +150,15 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   _updateIcon() {
     if (this.icon && this.icon.src) {
       const { color, size, spacing, src } = this.icon;
-      this._Icon.patch({
-        w: size,
-        h: size,
-        icon: src,
-        visible: 1,
-        flexItem: { marginRight: this.title ? spacing : 0 }
+      this._Content.patch({
+        Icon: {
+          type: Icon,
+          w: size,
+          h: size,
+          icon: src,
+          visible: 1,
+          flexItem: { marginRight: this.title ? spacing : 0 }
+        }
       });
 
       const iconColor = this._focused
@@ -169,13 +170,14 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
         this._Icon.color = iconColor;
       }
     } else {
-      this._Icon.patch({
-        w: 0,
-        h: 0,
-        visible: 0,
-        texture: false,
-        flexItem: false
-      });
+      this._Icon &&
+        this._Icon.patch({
+          w: 0,
+          h: 0,
+          visible: 0,
+          texture: false,
+          flexItem: false
+        });
     }
   }
 
