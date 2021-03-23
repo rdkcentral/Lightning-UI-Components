@@ -37,7 +37,11 @@ describe('Key', () => {
   });
 
   it('should patch in an icon if provided', () => {
-    [key, testRenderer] = createKey({ icon });
+    [key, testRenderer] = createKey({
+      icon: {
+        src: icon
+      }
+    });
     expect(key._Icon).toBeDefined();
   });
 
@@ -95,8 +99,8 @@ describe('Keyboard', () => {
 
   beforeEach(() => {
     [keyboard, testRenderer] = createKeyboard({
-      formats: KEYBOARD_FORMATS.qwerty,
-      defaultFormat: 'lowercase'
+      defaultFormat: 'lowercase',
+      formats: KEYBOARD_FORMATS.qwerty
     });
     return keyboard._whenEnabled;
   });
@@ -198,7 +202,6 @@ describe('Keyboard', () => {
   it('should toggle to a different format', () => {
     keyboard.$toggleKeyboard('symbols');
     expect(keyboard.tag('Lowercase').alpha).toEqual(0);
-    expect(keyboard.tag('Uppercase').alpha).toEqual(0);
     expect(keyboard.tag('Symbols').alpha).toEqual(1);
   });
 
