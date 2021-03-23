@@ -101,7 +101,7 @@ export const TabProperties = args =>
               h: args.h,
               w: args.w,
               title: args.title,
-              icon: args.icon ? icon : undefined,
+              icon: args.icon ? bolt : undefined,
               iconHeight: args.iconHeight,
               iconSize: args.iconSize,
               iconWidth: args.iconWidth,
