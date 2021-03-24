@@ -150,16 +150,28 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   _updateIcon() {
     if (this.icon && this.icon.src) {
       const { color, size, spacing, src } = this.icon;
-      this._Content.patch({
-        Icon: {
-          type: Icon,
+      if (this._Icon) {
+        this._Icon.patch({
           w: size,
           h: size,
           icon: src,
           visible: 1,
           flexItem: { marginRight: this.title ? spacing : 0 }
-        }
-      });
+        });
+      } else {
+        this._Content.childList.addAt(
+          this.stage.c({
+            ref: 'Icon',
+            type: Icon,
+            w: size,
+            h: size,
+            icon: src,
+            visible: 1,
+            flexItem: { marginRight: this.title ? spacing : 0 }
+          }),
+          0
+        );
+      }
 
       const iconColor = this._focused
         ? getFirstNumber(this.focusedIconColor, this.styles.focused.icon.color)
