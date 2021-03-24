@@ -78,46 +78,82 @@ export default class Row extends FocusManager {
     );
   }
 
-  render() {
+  _isOnScreen(child) {
+    const x = getX(child);
+    const { w } = child;
+    const withinLowerBounds = x + w + this._itemsX > 0;
+    const withinUpperBounds = x + this._itemsX < this.w;
+    return withinLowerBounds && withinUpperBounds;
+  }
+
+  _isOnScreenCompletely(child) {
+    let itemX = child.core.renderContext.px;
+    let rowX = this.core.renderContext.px;
+    return itemX >= rowX && itemX + child.w <= rowX + this.w;
+  }
+
+  _shouldScroll() {
+    const lastChild = this.Items.childList.last;
+    let shouldScroll = this.alwaysScroll;
+    if (!shouldScroll) {
+      if (this.lazyScroll) {
+        shouldScroll = !this._isOnScreenCompletely(this.selected);
+      } else {
+        shouldScroll =
+          lastChild &&
+          (this.shouldScrollLeft() ||
+            this.shouldScrollRight() ||
+            !this._isOnScreenCompletely(this.selected));
+      }
+    }
+    return shouldScroll;
+  }
+
+  _getLazyScrollX(prev) {
+    let itemsContainerX;
+    const prevIndex = this.Items.childList.getIndex(prev);
+    if (prevIndex > this.selectedIndex) {
+      itemsContainerX = -this.selected.x;
+    } else if (prevIndex < this.selectedIndex) {
+      itemsContainerX = this.w - this.selected.x - this.selected.w;
+    }
+    return itemsContainerX;
+  }
+
+  _getScrollX() {
+    let itemsContainerX;
+    let itemIndex = this.selectedIndex - this.scrollIndex;
+    itemIndex = itemIndex < 0 ? 0 : itemIndex;
+    if (this.Items.children[itemIndex]) {
+      itemsContainerX = this.Items.children[itemIndex].transition('x')
+        ? -this.Items.children[itemIndex].transition('x').targetValue
+        : -this.Items.children[itemIndex].x;
+    }
+    return itemsContainerX;
+  }
+
+  render(next, prev) {
     this._whenEnabled.then(() => {
       this._prevLastScrollIndex = this._lastScrollIndex;
 
-      const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 })
-        .x;
-      const lastChild = this.Items.childList.last;
-      const shouldScroll =
-        this.alwaysScroll ||
-        (lastChild && (this.shouldScrollLeft() || this.shouldScrollRight()));
-
-      if (shouldScroll) {
-        const scrollItem =
-          this.selectedIndex > this._lastScrollIndex
-            ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
-            : this.selected;
-        if (scrollItem) {
+      if (this._shouldScroll()) {
+        const itemsContainerX =
+          this.lazyScroll && prev
+            ? this._getLazyScrollX(prev)
+            : this._getScrollX();
+        if (itemsContainerX !== undefined) {
           if (this._smooth) {
             this.Items.smooth = {
-              x: [
-                -scrollItem.transition('x').targetValue +
-                  (scrollItem === this.selected ? scrollOffset : 0),
-                this._itemTransition
-              ]
+              x: [itemsContainerX, this._itemTransition]
             };
           } else {
-            this.Items.x =
-              -scrollItem.x + (scrollItem === this.selected ? scrollOffset : 0);
+            this.Items.x = itemsContainerX;
           }
         }
       }
 
       this.onScreenEffect(
-        this.Items.children.filter((child, idx) => {
-          const x = getX(child);
-          const { w } = child;
-          const withinLowerBounds = x + w + this._itemsX > 0;
-          const withinUpperBounds = x + this._itemsX < this.w;
-          return withinLowerBounds && withinUpperBounds;
-        })
+        this.Items.children.filter(child => this._isOnScreen(child))
       );
     });
   }

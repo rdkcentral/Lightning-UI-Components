@@ -73,7 +73,8 @@ export const SideScrolling = args =>
             type: Button,
             buttonText: `Button ${i + 1}`,
             w: 150
-          }))
+          })),
+          lazyScroll: args.lazyScroll
         }
       };
     }
@@ -83,11 +84,15 @@ export const SideScrolling = args =>
     }
   };
 SideScrolling.args = {
-  scrollIndex: 0
+  scrollIndex: 0,
+  lazyScroll: false
 };
 SideScrolling.argTypes = {
   scrollIndex: {
     control: 'number'
+  },
+  lazyScroll: {
+    control: 'boolean'
   }
 };
 
