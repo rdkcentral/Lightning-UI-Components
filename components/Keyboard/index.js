@@ -41,7 +41,7 @@ export default class Keyboard extends lng.Component {
   _createKeyboard(key, rows = []) {
     key = key.charAt(0).toUpperCase() + key.slice(1);
     if (rows.length === 1) {
-      this.patch({ [key]: { ...rows[0], alpha: 0 } });
+      this.patch({ [key]: { ...rows[0] } });
     } else {
       this.patch({
         [key]: {
