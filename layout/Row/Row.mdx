@@ -1,0 +1,92 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { DocsLink, GenericType, ObjectFormat } from "../../.storybook/utils";
+
+# Row
+
+Focus management and smooth scrolling for a horizontally-oriented list of items.
+
+## Usage
+
+`Row` expects a list of `items` which will be laid out side-by-side. By default, the height of `Row` is the same as the height of the tallest item, and the width is the width of the application. You can change the `w` and `h` attributes to manage `width` and `height`, respectively.
+
+```js
+import { Row } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Row: {
+        type: Row,
+        items: [
+          // list of items
+        ]
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="layout-row--basic" />
+</Canvas>
+
+### Scrolling
+
+By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width).
+
+<Canvas>
+  <Story id="layout-row--side-scrolling" />
+</Canvas>
+
+The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
+
+```js
+{
+  type: Row,
+  scrollIndex: 1,
+  items: [/* items */]
+}
+```
+
+## API
+
+### Properties
+
+name|type|readonly|default|description
+--|--|--|--|--
+h|number|false|0|height of the `Row`. Automatically set to tallest item `h` after adding `items`
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
+itemSpacing|number|false|0|px between items
+scrollIndex|number|false|0|Item index at which scrolling begins, provided the sum of item widths is greater than the width of the `Row`
+selected|<DocsLink id="lng.Component" />|true|-|selected item
+selectedIndex|number|false|0|index of selected item
+w|number|false|`stage.w`|width of the `Row`
+alwaysScroll|boolean|false|determines whether the row will stop scrolling as it nears the right to prevent white space
+lazyScroll|boolean|false|will only scroll the row if the item is off screen
+
+### Child Item Properties
+The `Row` component will utilize the following properties on each individual element in its `items` array:
+
+name|type|readonly|description
+--|--|--|--
+centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will vertically center the child
+
+### Methods
+
+#### onScreenEffect(onScreenItems: lng.Component[]): void
+
+A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
+
+#### appendItems(items: lng.Component[]): void
+
+Adds items to the end of the child list
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|list of items to append
+
+#### render(): void
+
+Called when item focus changes. Render is responsible for the scroll behavior

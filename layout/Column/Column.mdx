@@ -1,0 +1,164 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
+
+# Column
+
+Focus management and smooth scrolling for a vertically-oriented list of items.
+
+## Usage
+
+```js
+import { Column } from '@lightning/ui';
+
+class BasicExample extends lng.Component {
+  static _template() {
+    return {
+      Column: {
+        type: Column,
+        items: [
+          // list of items
+        ]
+      }
+    };
+  }
+
+  _getFocused() {
+    return this.tag('Column');
+  }
+};
+```
+
+The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
+
+<Canvas>
+  <Story id="layout-column--basic" />
+</Canvas>
+
+## Infinite Scrolling
+
+The `provider` property can be set to allow continous fetching of new items as scrolling nears the end of the list. The resolved object is expected to look like this:
+
+```js
+{
+  appendItems?: boolean // true appends items, falsey replaces items
+  getMoreItems?: () => Promise // if passed, will be called to fetch more items
+  items: lng.Component[] // to be added to the list
+}
+```
+
+This example will append 5 buttons to the end of a list when `provider` is called:
+
+```js
+const getMoreItems = () => Promise.resolve({
+  appendItems: true,
+  getMoreItems,
+  items: Array.apply(null, { length: 5 })
+    .map((_,i) => ({
+      type: Button,
+      buttonText: `Extra Button ${i + 1}`
+    }))
+});
+```
+
+The promise returned by `getMoreItems` is then passed as the `provider` to a `Column` instance:
+
+```js
+{
+  type: Column,
+  provider: getMoreItems(),
+  items: [
+    // ...
+  ]
+}
+```
+
+<Canvas>
+  <Story id="layout-column--provider" />
+</Canvas>
+
+See the [Properties section](#properties) for details.
+
+## API
+
+The `Column` component extends `FocusManager` and inherits it's properties and methods. See the [FocusManager API][fm-api] for more references
+
+### Properties
+
+export const ProviderType = () => (
+  <GenericType type="Promise">
+    <ObjectFormat object={{
+      items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
+      'appendItems?': 'boolean',
+      'getMoreItems?': '()=>Promise'
+    }} />
+  </GenericType>
+);
+
+name|type|readonly|description
+--|--|--|--
+boundsMargin|number[]|true|bounding box of the `Column`
+plinko|boolean|false|When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.
+provider|<ProviderType />|false|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
+itemSpacing|number|false|padding to put between items
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
+itemTransition|<DocsLink id="lng.Transition" />|false|transition to apply to items on render
+keepFullScreen|boolean|true|With scrollmount < 1 determines if we keep a full screen of items
+scrollMount|number|false|Value between 0 and 1, determines at what point scrolling should start.
+selected|<DocsLink id="lng.Component" />|true|component that is currently in focus
+selectedIndex|number|false|index of currently selected item
+alwaysScroll|boolean|false|determines whether the column will stop scrolling as it nears the bottom to prevent white space
+
+### Child Item Properties
+The `Column` component will utilize the following properties on each individual element in its `items` array:
+
+name|type|readonly|description
+--|--|--|--
+centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will horizontally center the child
+
+### Methods
+
+#### onScreenEffect(onScreenItems: lng.Component[]): void
+
+A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
+
+#### scrollTo(index: number, duration: number): void
+
+scrolls to child at `index` at a rate of `duration` in ms * (`this.selectedIndex` - `index`)
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+index|number|true|-|index of child to scroll to
+duration|number|false|40|timeout value in ms
+
+#### appendItems(items: lng.Component[]): void
+
+Adds items to the end of the child list
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|list of items to append
+
+#### render(selected: lng.Component, previous: lng.Component): void
+
+Called when item focus changes. Render is responsible for the scroll behavior
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|item to select. Required if this.plinko=true
+previous|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|previously selected item. Required if this.plinko=true
+
+### Events
+
+#### $columnEmpty(): void
+
+Fires when all of the items have been removed from a `Column`
+
+[fm-docs]: ?path=/docs/focusmanager--rows
+[fm-api]: ?path=/docs/focusmanager--rows#api

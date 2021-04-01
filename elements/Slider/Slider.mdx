@@ -1,0 +1,86 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# Slider
+
+Progress control component, similar to the DOM's [input[type="range"]](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range)
+
+## Usage
+
+Allows a user to select from a range of values using the `<-` and `->` keys.
+
+```js
+import { Slider } from '@lightning/lightning-ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Slider: {
+        type: Slider
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-slider--basic"/>
+</Canvas>
+
+The `Slider` can be initialized with a `min`, `max` and current `value`. The `min` and `max` properties determine the bounds of the `Slider`. The `value` prop should be greater than or equal to `min` and less than or equal to `max`.
+
+```js
+import { Slider } from '@lightning/lightning-ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Slider: {
+        type: Slider,
+        min: 1,
+        max: 5,
+        value: 3
+      }
+    }
+  }
+}
+```
+
+The `step` property can be used to indicate _how much_ the slider should move by. In the below example, pressing `->` will jump by 10.
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Slider: {
+        type: Slider,
+        step: 10
+      }
+    }
+  }
+}
+```
+
+### Signal handling
+
+React to changes to the `Slider` value using the `onChange` signal.
+
+<Canvas>
+  <Story id="elements-slider--signal-handling"/>
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|readonly|default|description
+--|--|--|--|--
+max|number|false|100|upper bound of `value`
+min|number|false|0|lower bound of `value`
+step|number|false|1|+/- value on change
+value|number|false|0 or `min`|current value
+
+### Signals
+
+#### onChange(value:number, signal:Signal)
+
+Fires on key Left/Right events when `Slider` is in focus. 

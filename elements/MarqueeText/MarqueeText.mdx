@@ -1,0 +1,61 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# MarqueeText
+
+Scrolls long text
+
+## Usage
+
+MarqueeText works just like Marquee on the web
+
+```js
+import { MarqueeText } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MarqueeText: {
+        type: MarqueeText,
+        w: 350,
+        h: 50,
+        title: {
+          text: 'This is a scrolling Marquee component for long text',
+          ...TYPESCALE.headline2,
+          textColor: getHexColor(COLORS_TEXT.light),
+          maxLines: 1
+        },
+        autoStart: true
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="elements-marqueetext--basic" />
+</Preview>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+autoStart|boolean|false|false|Start scrolling on initiation
+color|string|false||Set color of text
+delay|number|false|1.5|Delay before scrolling starts
+repeat|number|false|-1|Number of times to repeat scrolling
+title|object|false|-|An object matching Lightning text object
+contentTexture|object|false|-|An object matching Lightning texture object (this.tag('MyTag').getTexture())
+centerAlign|boolean|false|false|will center the entire texture if the width of the content is less than the container
+shouldSmooth|boolean|false|true|determines whether things like centering should happen immediately or animate into place
+
+### Methods
+
+#### startScrolling(finalW):void
+
+Start scrolling
+
+#### stopScrolling():void
+
+Stops scrolling
