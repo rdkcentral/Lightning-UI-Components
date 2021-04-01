@@ -26,8 +26,7 @@ export const Basic = args =>
         }
       };
     }
-  }
+  };
 
 Basic.args = {};
 Basic.argTypes = {};
-

@@ -16,12 +16,12 @@
   "files": [
     "index.js",
     "Styles.js",
-    "{bin,components,mixins,utils}/**/*",
-    "!components/**/*.stories.js",
-    "!{components,utils}/**/*.test.js",
-    "components/lightning-test-renderer.js",
-    "components/lightning-test-utils.js",
-    "!components/**/__snapshots__",
+    "{bin,elements,layout,mixins,patterns,utils}/**/*",
+    "!{elements,layout,patterns}/**/*.stories.js",
+    "!{elements,layout,patterns,utils}/**/*.test.js",
+    "test/lightning-test-renderer.js",
+    "test/lightning-test-utils.js",
+    "!{elements,layout,patterns}/**/__snapshots__",
     "!public/"
   ],
   "devDependencies": {
@@ -61,7 +61,7 @@
     }
   },
   "lint-staged": {
-    "./{components,utils}/**/*.js": [
+    "./{elements,layout,patterns,utils}/**/*.js": [
       "npm run lint"
     ]
   },
@@ -70,8 +70,8 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "npx prettier --check './{components,utils}/**/*.js'",
-    "lint:fix": "npx prettier --write './{components,utils}/**/*.js'",
+    "lint": "npx prettier --check './{elements,layout,mixins,patterns,utils}/**/*.js'",
+    "lint:fix": "npx prettier --write './{elements,layout,mixins,patterns,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
     "start": "start-storybook -p 8000",

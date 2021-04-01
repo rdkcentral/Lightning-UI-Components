@@ -1,22 +1,22 @@
-if [ -z "$1" ]
+if [ -z "$1" ] || [ -z "$2" ]
 then
-  echo "No component name found, try again with something like:"
+  echo "No component name or type found, try again with something like:"
   echo ""
-  echo "npm run create MyComponent"
+  echo "npm run create element MyComponent"
   echo ""
   exit 0
 fi
 
-mkdir -p ./components/$1
-touch ./components/$1/index.js ./components/$1/$1.test.js ./components/$1/$1.stories.js
+mkdir -p ./$1/$2
+touch ./$1/$2/index.js ./$1/$2/$2.test.js ./$1/$2/$2.stories.js
 
 STORY_TEMPLATE=$(cat "bin/templates/story.template")
 MDX_TEMPLATE=$(cat "bin/templates/readme.template")
 TEST_TEMPLATE=$(cat "bin/templates/test.template")
 INDEX_TEMPLATE=$(cat "bin/templates/index.template")
 
-echo "${STORY_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.stories.js
-echo "${MDX_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.mdx
-echo "${TEST_TEMPLATE//MyComponent/$1}" > ./components/$1/$1.test.js
-echo "${INDEX_TEMPLATE//MyComponent/$1}" > ./components/$1/index.js
-echo "export { default as $1 } from './components/$1/index.js'; // TODO: alphabetize" >> ./index.js
+echo "${STORY_TEMPLATE//MyComponent/$2}" > ./$1/$2/$2.stories.js
+echo "${MDX_TEMPLATE//MyComponent/$2}" > ./$1/$2/$2.mdx
+echo "${TEST_TEMPLATE//MyComponent/$2}" > ./$1/$2/$2.test.js
+echo "${INDEX_TEMPLATE//MyComponent/$2}" > ./$1/$2/index.js
+echo "export { default as $2 } from './$1/$2/index.js'; // TODO: alphabetize" >> ./index.js

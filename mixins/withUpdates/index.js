@@ -8,7 +8,7 @@ function getPropertyDescriptor(name, key) {
   return {
     get() {
       const customGetter = this[`_get${capital(name)}`];
-      if (customGetter && typeof customGetter === "function") {
+      if (customGetter && typeof customGetter === 'function') {
         const value = customGetter(this[key]);
         this[key] = value;
       }
@@ -18,7 +18,7 @@ function getPropertyDescriptor(name, key) {
       const oldValue = this[key];
       if (value !== oldValue) {
         const changeHandler = this[`_set${capital(name)}`];
-        if (changeHandler && typeof changeHandler === "function") {
+        if (changeHandler && typeof changeHandler === 'function') {
           value = changeHandler.call(this, value);
         }
         this[key] = value;
@@ -32,7 +32,9 @@ function getPropertyDescriptor(name, key) {
 
 export default function withUpdates(Base) {
   return class extends Base {
-    static get name() { return Base.name }
+    static get name() {
+      return Base.name;
+    }
 
     _construct() {
       let props = this.constructor.properties || [];
@@ -65,5 +67,5 @@ export default function withUpdates(Base) {
         this._update();
       }
     }
-  }
+  };
 }

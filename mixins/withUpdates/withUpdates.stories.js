@@ -37,13 +37,12 @@ export const Basic = args =>
       // Only gets called when title is set, not _title
       return 'TITLE: ' + val;
     }
-  }
+  };
 
 Basic.args = {
-  title: 'Default Title Value',
+  title: 'Default Title Value'
 };
 
 Basic.argTypes = {
   title: { control: 'text' }
 };
-

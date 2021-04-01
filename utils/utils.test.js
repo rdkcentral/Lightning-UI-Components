@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
-import TestRenderer from '../components/lightning-test-renderer';
-import TestUtils from '../components/lightning-test-utils';
+import TestRenderer from '../test/lightning-test-renderer';
+import TestUtils from '../test/lightning-test-utils';
 import {
   rgba2argb,
   RoundRect,

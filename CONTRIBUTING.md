@@ -116,14 +116,14 @@ A component is considered "done" when the issue checklist is complete and the is
 If you are creating a new component, you can bootstrap the required file structure with
 
 ```sh
-npm run create MyComponent
+npm run create elements MyComponent
 ```
 
 This will create the following files:
 
 ```
 /
-└── components
+└── elements
     └── MyComponent
         ├── index.js
         ├── MyComponent.mdx
@@ -237,7 +237,7 @@ Component documentation is covered through a combination of `.mdx` and `.stories
 **Live Examples**
 <a id="live-examples" />
 
-Live examples are driven by [Storybook](https://storybook.js.org/) stories, and live in `components/<Component>/<Component>.stories.js`. If you generated a new component with `npm run create`, a template layout should exist for your component.
+Live examples are driven by [Storybook](https://storybook.js.org/) stories, and live in `<Type>/<Component>/<Component>.stories.js`. If you generated a new component with `npm run create`, a template layout should exist for your component.
 
 If you are contributing to an existing component, follow the patterns established there. Adding a story looks like this:
 
@@ -357,7 +357,7 @@ The render logic for story previews lives in `./.storybook/preview.js`
 **Usage Documentation**
 <a id="usage-documentation" />
 
-Usage documentation lives in `components/<Component>/<Component>.mdx`. [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
+Usage documentation lives in `<Type>/<Component>/<Component>.mdx`. [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
 
 If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
@@ -404,7 +404,7 @@ Repeat this pattern for as many usage variations as you see fit
 **API Documentation**
 <a id="api-documentation" />
 
-API documentation lives in `components/<Component>/<Component>.mdx`, below [usage documentation][#usage-documentation]. [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
+API documentation lives in `<Type>/<Component>/<Component>.mdx`, below [usage documentation][#usage-documentation]. [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
 
 If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding API documentation should follow this pattern:
 
