@@ -69,6 +69,19 @@ describe('ScrollWrapper', () => {
     );
   });
 
+  it('gracefully fails if no content is provided', () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper({
+      h: 100,
+      w: 100,
+      scrollDuration: 0,
+      content: undefined
+    });
+    testRenderer.update();
+
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
   it('hides scroll bar on unfocus', () => {
     testRenderer.unfocus();
     testRenderer.update();

@@ -113,6 +113,7 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   }
 
   _initScrollableContent() {
+    if (!this._content) return;
     if (typeof this._content === 'string') {
       // if content is a string, create an element and patch it in
       this._ScrollContainer.patch({
