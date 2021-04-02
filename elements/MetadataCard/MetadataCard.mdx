@@ -1,0 +1,61 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import MetadataCard from '.';
+
+# MetadataCard
+
+Metadata to be displayed along with "Card" styled Tiles, displaying a title, description, and logo.
+
+## Usage
+
+The basic component requires just a `firstLine`, but further description can be added with `secondLine`, and additional attribution with `thirdLine`. A logo is optional and the component will scale accordingly:
+
+```js
+import { MetadataCard } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MetadataCard: {
+        type: MetadataCard,
+        w: 400,
+        firstLine: 'Title text',
+        secondLine: 'Subtitle text',
+        thirdLine: 'Extra attribution line if necessary',
+        logo: 'url/path/logo.png'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="patterns-metadatacard--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+w|number|true|410|width of the entire component, and necessary to compute the focus width
+firstLine|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the title line
+secondLine|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the second line
+thirdLine|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the third line
+logo|string|false|-|sets the source path of the logo (can be any image type)
+logoSpacing|number|false|32|the amount of white space that should exist between the text and the logo
+logoW|number|false|99|the width of the logo image
+justify|'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly'|false|flex-start|alignment of first line flexbox content
+marqueeProperties|object|false|{}|properties to update the first line marquee scrolling (see [MarqueeText](?path=/docs/marqueetext--basic) component for all available properties)
+firstLineTextProperties|object|false|-|font properties to apply to the first line
+secondLineTextProperties|object|false|-|font properties to apply to the second line
+thirdLineTextProperties|object|false|-|font properties to apply to the third line
+focusScale|number|false|1.12|adds a custom scale of the component's width on focus
+unfocusScale|number|false|1|adds a custom scale of the component's width on unfocus
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={MetadataCard.styles} />

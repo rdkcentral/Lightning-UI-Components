@@ -3,11 +3,15 @@
 const stories =
   process.env.NODE_ENV === 'development'
     ? [
-        '../components/**/*.stories.{js,mdx}',
+        '../elements/**/*.stories.{js,mdx}',
+        '../layout/**/*.stories.{js,mdx}',
+        '../patterns/(**/)?*.stories.{js,mdx}',
         '../mixins/(**/)?*.stories.{js,mdx}'
       ]
     : [
-        '../components/**/!(ListItemBase).stories.{js,mdx}',
+        '../elements/**/!(ListItemBase).stories.{js,mdx}',
+        '../layout/**/!(ListItemBase).stories.{js,mdx}',
+        '../patterns/**/!(ListItemBase).stories.{js,mdx}',
         '../mixins/(**/)?*.stories.{js,mdx}'
       ];
 

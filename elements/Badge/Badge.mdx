@@ -1,0 +1,105 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import Badge from '.';
+
+# Badge
+
+General purpose, Xfinity-branded badge
+
+## Usage
+
+The basic component just requires a title:
+
+```js
+import { Badge } from '@lightning/ui';
+import circle from 'assets/images/circle.svg';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        title: 'HD'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-badge--text" />
+</Canvas>
+
+Or an icon:
+
+```js
+import { Badge } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        icon: circle,
+        iconWidth: 50,
+        iconHeight: 50
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-badge--icon" />
+</Canvas>
+
+A title and an icon can also be used together:
+
+```js
+import { Badge } from '@lightning/ui';
+import lightning from 'assets/images/lightning.png';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        title: 'HD',
+        icon: lightning
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-badge--text-with-icon" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+title|string|false|-|text to render
+icon|string|false|-|path to image or inline SVG XML
+background|object|false|Xfinity theme|background style properties such as shader and color
+textPosition|object|false|Xfinity theme|styling to apply to the text wrapper
+textProperties|object|false|Xfinity theme|font properties to apply to the title
+padding|number|false|8|padding to add on the left and right between the text and background
+iconAlign|string|false|Xfinity theme|side of the text the icon will appear on (`left` or `right`)
+iconWidth|string|false|-|icon width(required for SVG icons)
+iconHeight|string|false|-|icon height(required for SVG icons)
+
+### Events
+
+#### $loadedBadge():void
+
+Fires when the contents of the badge have finished loading and the background has been appropriately sized based on the text input.
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Badge.styles} />
