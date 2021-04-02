@@ -10,7 +10,9 @@ function getPropertyDescriptor(path) {
 
 export default function withTags(Base) {
   return class extends Base {
-    static get name() { return Base.name }
+    static get name() {
+      return Base.name;
+    }
 
     _construct() {
       let tags = this.constructor.tags || [];
@@ -28,5 +30,5 @@ export default function withTags(Base) {
 
       super._construct && super._construct();
     }
-  }
+  };
 }

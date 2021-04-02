@@ -1,0 +1,49 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import TileCircle from '.';
+
+# TileCircle
+
+Tile component with a centerted round image.
+
+## Usage
+
+Set a src propertty to load an image as a circe. From there you can set blur, rounded corners and drop shadow.
+
+```js
+import { TileCircle } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      TileCircle: {
+        type: TileCircle,
+        src: 'path/to/image',
+        w: 320,
+        h: 180
+      }
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="elements-tilecircle--basic" />
+</Canvas>
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+radius|number|false|-|set rounded corner radius
+shadow|obj|false|-|create a drop shadow using a Lightning element
+src|string|false|-|url to image
+blurBackgroundColor|number|false|2047675663|sets the color to apply to the blurred background image
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={TileCircle.styles} />

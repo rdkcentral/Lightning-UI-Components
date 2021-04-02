@@ -1,0 +1,60 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+
+# Pivot Button
+
+Button component used specifically for pivoting to new experiences.
+
+## Usage
+
+The basic component just requires a title:
+
+```js
+import { Pivot } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Pivot: {
+        type: Pivot,
+        title: 'Pivot'
+      }
+    };
+  }
+};
+```
+<Canvas>
+  <Story id="elements-pivot--basic" />
+</Canvas>
+
+
+Before the Pivot receives its title, it should be in a loading state.
+
+<Canvas>
+  <Story id="elements-pivot--loading" />
+</Canvas>
+
+Use the `onEnter` method to respond to <kbd>Enter</kbd> key down events:
+
+```js
+this.tag('Pivot').onEnter = pivot => console.log(pivot.title);
+```
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+w|number|false|185|width
+h|number|false|48|height
+padding|number|false|16|left and right padding value
+radius|number|false|8|border radius
+title|string|false|-|button text
+icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
+backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
+
+### Methods
+
+#### onEnter(thisArg): void
+
+Callback to be executed on <kbd>Enter</kbd> key down event

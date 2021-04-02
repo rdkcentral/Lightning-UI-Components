@@ -4,7 +4,7 @@ import lng from '@lightningjs/core';
 import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
-import Announcer from '../components/Announcer';
+import withAnnouncer from '../mixins/withAnnouncer';
 
 export const globalTypes = {
   announce: {
@@ -64,7 +64,7 @@ let app;
 
 addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, globals }) => {
   const announce = globals.announce === 'on';
-  class StoryApp extends Announcer(lng.Application) {
+  class StoryApp extends withAnnouncer(lng.Application) {
     _init() {
       setTimeout(() => {
         this._refocus();
