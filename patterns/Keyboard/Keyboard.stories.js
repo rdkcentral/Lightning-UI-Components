@@ -13,17 +13,27 @@ export default {
     docs: {
       page: mdx
     }
+  },
+  args: {
+    centerAlign: false,
+    width: 900
+  },
+  argTypes: {
+    centerAlign: { control: 'boolean' },
+    width: { control: 'number', min: 0 }
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Keyboard: {
           type: Keyboard,
           defaultFormat: 'lowercase',
-          formats: KEYBOARD_FORMATS.qwerty
+          formats: KEYBOARD_FORMATS.qwerty,
+          w: args.width,
+          centerAlign: args.centerAlign
         }
       };
     }
@@ -32,14 +42,16 @@ export const Basic = () =>
     }
   };
 
-export const FullScreen = () =>
-  class Inline extends lng.Component {
+export const FullScreen = args =>
+  class FullScreen extends lng.Component {
     static _template() {
       return {
         Keyboard: {
           type: Keyboard,
           defaultFormat: 'letters',
-          formats: KEYBOARD_FORMATS.fullscreen
+          formats: KEYBOARD_FORMATS.fullscreen,
+          w: args.width,
+          centerAlign: args.centerAlign
         }
       };
     }
@@ -48,7 +60,11 @@ export const FullScreen = () =>
     }
   };
 
-export const Inline = () =>
+FullScreen.story = {
+  parameters: { stage: { w: 1920 } }
+};
+
+export const Inline = args =>
   class Inline extends lng.Component {
     static _template() {
       return {
@@ -56,7 +72,9 @@ export const Inline = () =>
           type: Keyboard,
           inline: true,
           defaultFormat: 'numbers',
-          formats: KEYBOARD_FORMATS.numbers
+          formats: KEYBOARD_FORMATS.numbers,
+          w: args.width,
+          centerAlign: args.centerAlign
         }
       };
     }
@@ -72,7 +90,9 @@ export const Dialpad = args =>
         Keyboard: {
           type: Keyboard,
           defaultFormat: args.defaultFormat,
-          formats: KEYBOARD_FORMATS.numbers
+          formats: KEYBOARD_FORMATS.numbers,
+          w: args.width,
+          centerAlign: args.centerAlign
         }
       };
     }
@@ -137,7 +157,7 @@ export const Keys = () =>
     }
   };
 
-export const KeyboardWithInput = () =>
+export const KeyboardWithInput = args =>
   class KeyboardWithInput extends lng.Component {
     static _template() {
       return {
@@ -145,7 +165,9 @@ export const KeyboardWithInput = () =>
           type: KeyboardInput,
           inputPlaceholder: 'Search',
           password: true,
-          mask: '*'
+          mask: '*',
+          w: args.width,
+          centerAlign: args.centerAlign
         }
       };
     }
