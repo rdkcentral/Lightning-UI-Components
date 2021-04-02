@@ -89,6 +89,10 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   }
 
   _init() {
+    this._setIconError();
+  }
+
+  _setIconError() {
     this._Icon &&
       this._Icon.on('txError', () => {
         this.icon.src = null;
@@ -171,6 +175,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
           }),
           0
         );
+        this._setIconError();
       }
 
       const iconColor = this._focused
