@@ -12,14 +12,18 @@ export default class KeyboardInput extends lng.Component {
             w: 816,
             type: Input,
             placeholder: this.inputPlaceholder || 'Placeholder',
-            ref: 'Input'
+            ref: 'Input',
+            x: this.centerAlign ? this.w / 2 : 0,
+            mountX: this.centerAlign ? 0.5 : 0
           },
           {
             type: Keyboard,
             title: this.inputPlaceholder || 'Placeholder',
             defaultFormat: this.defaultFormat || 'lowercase',
             formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
-            ref: 'Keyboard'
+            ref: 'Keyboard',
+            centerAlign: this.centerAlign,
+            w: this.w
           }
         ],
         selectedIndex: 1

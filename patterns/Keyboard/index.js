@@ -41,14 +41,16 @@ export default class Keyboard extends lng.Component {
   _createKeyboard(key, rows = []) {
     key = key.charAt(0).toUpperCase() + key.slice(1);
     if (rows.length === 1) {
-      this.patch({ [key]: { ...rows[0] } });
+      this.patch({ [key]: { ...rows[0], w: this.w } });
     } else {
       this.patch({
         [key]: {
           type: Column,
           plinko: true,
           itemSpacing: this._spacing,
-          items: rows
+          items: rows,
+          centerInParent: this.centerAlign,
+          w: this.w
         }
       });
     }
@@ -60,6 +62,8 @@ export default class Keyboard extends lng.Component {
       return {
         type: Row,
         h,
+        centerInParent: this.centerAlign,
+        w: this.w,
         wrapSelected: this.rowWrap === undefined ? true : this.rowWrap,
         itemSpacing: this._spacing,
         items: this._createKeys(keys)
