@@ -109,7 +109,7 @@ export class Circle extends lng.Texture {
 export class Arrow extends lng.Texture {
   constructor(stage) {
     super(stage);
-
+    this._color = `rgb(13, 13, 15)`;
     this._w = 0;
     this._h = 0;
     this._direction = 'right';
@@ -137,6 +137,15 @@ export class Arrow extends lng.Texture {
     return this._direction;
   }
 
+  get color() {
+    return this._color;
+  }
+
+  set color(color) {
+    this._color = color;
+    this._changed();
+  }
+
   set direction(direction) {
     this._direction = direction;
     this._changed();
@@ -148,6 +157,7 @@ export class Arrow extends lng.Texture {
 
   _getSourceLoader() {
     // We need to scope these to protect them from modifications while loading (which may be async).
+    const color = this._color;
     const w = this._w;
     const h = this._h;
     const direction = this._direction;
@@ -157,7 +167,7 @@ export class Arrow extends lng.Texture {
       var ctx = canvas.getContext('2d');
       canvas.width = w;
       canvas.height = h;
-      ctx.fillStyle = 'rgb(13, 13, 15)';
+      ctx.fillStyle = color;
       ctx.strokeStyle = ctx.fillStyle;
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';

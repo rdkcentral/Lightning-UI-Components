@@ -48,6 +48,9 @@ export function getValidColor(color) {
     return color;
   } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
     return rgba2argb(color);
+  } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
+    let rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
+    return lng.StageUtils.getArgbNumber(rgba);
   }
   return null;
 }
