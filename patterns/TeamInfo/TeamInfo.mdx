@@ -1,0 +1,48 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import TeamInfo from '.';
+
+# TeamInfo
+
+Pattern for Data Item that displays team information with an optional logo and team specific background.
+
+```js
+import { TeamInfo } from '@lightning/ui/patterns';
+
+TeamInfo: {
+  type: TeamInfo,
+  team: 'Eagles',
+  backgroundColor: '4278742891',
+  overlayImage: path/to/img,
+  items: [
+    {
+      title: 'Standings',
+      subtitle: '2nd in NFC East'
+    },
+    {
+      title: 'Next game',
+      subtitle: '11/26 at 4:00p vs WAS'
+    }
+  ]
+}
+```
+
+<Canvas>
+  <Story id="patterns-teaminfo--basic" />
+</Canvas>
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+team|text|true|-|team name for announce text
+backgroundColor|number|false|-|team color displayed in background
+overlayImage|path|false|-|team logo overlayed on background
+items|object|true|-|list of text items to display
+
+### Items
+
+name|type|required|default|description
+--|--|--|--|--
+title|text|true|-|text to display in title
+subtitle|text|true|-|text to display in subtitle
+
