@@ -4,25 +4,25 @@ exports[`Column should render 1`] = `
 Object {
   "Component": Object {
     "Items": Object {
-      "active": true,
+      "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
         "Element-11": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-13": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -57,7 +57,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-14": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -92,7 +92,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-15": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -127,7 +127,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-16": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -162,7 +162,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-17": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -259,19 +259,19 @@ Object {
           "zIndex": 0,
         },
         "Element-18": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-20": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -306,7 +306,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-21": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -341,7 +341,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-22": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -376,7 +376,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-23": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -411,7 +411,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-24": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -508,19 +508,19 @@ Object {
           "zIndex": 0,
         },
         "Element-25": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-27": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -555,7 +555,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-28": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -590,7 +590,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-29": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -625,7 +625,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-30": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -660,7 +660,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-31": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -757,19 +757,19 @@ Object {
           "zIndex": 0,
         },
         "Element-32": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-34": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -804,7 +804,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-35": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -839,7 +839,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-36": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -874,7 +874,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-37": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -909,7 +909,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-38": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1006,19 +1006,19 @@ Object {
           "zIndex": 0,
         },
         "Element-4": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-10": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1053,7 +1053,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-6": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1088,7 +1088,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-7": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1123,7 +1123,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-8": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1158,7 +1158,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-9": Object {
-                  "active": true,
+                  "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
