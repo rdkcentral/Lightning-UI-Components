@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-import ListItem from '.';
+import ListItem from './ListItem';
 import mdx from './ListItem.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
