@@ -30,7 +30,7 @@ export const parameters = {
 const white = 0xffffffff;
 const grey = 0xff141417;
 const stage = {
-  w: 960,
+  w: 1060,
   h: 560,
   clearColor: grey,
   debug: false,
@@ -90,7 +90,7 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
         type: StoryComponent(),
         w: w => w,
         h: h => h,
-        x: 40,
+        x: 90,
         y: 40
       }
     };
