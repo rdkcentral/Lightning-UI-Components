@@ -4,6 +4,7 @@ export { default as ListItem } from './ListItem';
 export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataTile } from './MetadataTile';
 export { default as Notification } from './Notification';
-export { default as TeamInfo } from './TeamInfo';
 export { default as SportStats } from './SportsStats';
+export { default as TeamInfo } from './TeamInfo';
+export { default as TeamMatchup } from './TeamMatchup';
 export { default as withMetadata } from './withMetadata';
