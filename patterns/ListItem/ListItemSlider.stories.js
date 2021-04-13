@@ -23,7 +23,8 @@ export const Basic = args =>
           min: args.min,
           step: args.step,
           title: args.title,
-          value: args.value
+          value: args.value,
+          size: args.size
         }
       };
     }
@@ -41,7 +42,8 @@ Basic.args = {
   min: 0,
   step: 1,
   title: 'List Item Slider',
-  value: 50
+  value: 50,
+  size: 'small'
 };
 Basic.argTypes = {
   backgroundType: {
@@ -52,7 +54,8 @@ Basic.argTypes = {
   min: { control: 'number' },
   step: { control: 'number' },
   title: { control: 'text' },
-  value: { control: 'number' }
+  value: { control: 'number' },
+  size: { control: { type: 'radio', options: ['small', 'large'] } }
 };
 Basic.parameters = {
   argActions: {
@@ -72,6 +75,7 @@ export const OnSliderChange = args =>
         ListItemSlider: {
           type: ListItemSlider,
           title: 'List Item Slider',
+          value: 0,
           signals: {
             onSliderChange: '_handleChange'
           }

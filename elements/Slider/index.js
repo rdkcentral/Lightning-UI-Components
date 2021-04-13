@@ -5,25 +5,17 @@ const arrowWidth = 10;
 const arrowHeight = 16;
 const spacing = 10;
 const sliderHeight = 4;
-const sliderWidth = 328;
 const containerHeight = 20;
-const containerWidth = arrowWidth * 2 + spacing * 2 + sliderWidth;
+const sliderWidth = 328;
+const w = sliderWidth + (arrowWidth * 2 + spacing * 2);
 
 export default class Slider extends lng.Component {
   static getLeftBarTexture(w = 0) {
     return lng.Tools.getRoundRect(w, sliderHeight, 2, 0, 0, true, 0xff141417);
   }
 
-  static getRightBarTexture() {
-    return lng.Tools.getRoundRect(
-      sliderWidth,
-      sliderHeight,
-      2,
-      0,
-      0,
-      true,
-      0xffb1b1bd
-    );
+  static getRightBarTexture(w) {
+    return lng.Tools.getRoundRect(w, sliderHeight, 2, 0, 0, true, 0xffb1b1bd);
   }
 
   static getCircleTexture() {
@@ -57,10 +49,8 @@ export default class Slider extends lng.Component {
 
   static _template() {
     return {
-      w: containerWidth,
       h: containerHeight,
       Container: {
-        w: containerWidth,
         h: containerHeight,
         LeftArrow: {
           texture: Slider.getLeftArrowTexture(),
@@ -74,9 +64,7 @@ export default class Slider extends lng.Component {
             texture: Slider.getLeftBarTexture(),
             zIndex: 1
           },
-          RightBar: {
-            texture: Slider.getRightBarTexture()
-          },
+          RightBar: {},
           Circle: {
             texture: Slider.getCircleTexture(),
             mount: 0.5,
@@ -85,7 +73,6 @@ export default class Slider extends lng.Component {
           }
         },
         RightArrow: {
-          x: sliderWidth + arrowWidth * 3,
           texture: Slider.getRightArrowTexture(),
           mountY: 0.5,
           y: h => h / 2
@@ -95,14 +82,29 @@ export default class Slider extends lng.Component {
   }
 
   _construct() {
+    // set defaults
     this._min = 0;
     this._max = 100;
     this._step = 1;
     this._value = 0;
+    this._w = w;
+    this._sliderWidth = sliderWidth;
   }
 
   _init() {
     if (this.value > this.min) this._update();
+    this._updateSliderWidth();
+  }
+
+  _updateSliderWidth() {
+    this._sliderWidth = this._getSliderWidth(this._w);
+    this._RightBar.patch({
+      texture: Slider.getRightBarTexture(this._sliderWidth)
+    });
+    this._RightArrow.patch({
+      x: this._sliderWidth + arrowWidth * 3
+    });
+    this._update();
   }
 
   _handleLeft() {
@@ -120,15 +122,18 @@ export default class Slider extends lng.Component {
 
     const position =
       Math.round(
-        ((this.value - this.min) / (this.max - this.min)) * sliderWidth + 0.5
+        ((this.value - this.min) / (this.max - this.min)) * this._sliderWidth +
+          0.5
       ) + 1;
 
+    // shift progress bar and circle indicator
     this._LeftBar.patch({
       texture: Slider.getLeftBarTexture(position),
       smooth: { w: position }
     });
-    this._Circle.setSmooth('x', position);
+    this._Circle.setSmooth('x', position + 2);
 
+    // fade arrows at min/max
     if (this.value === this.min) {
       this._LeftArrow.setSmooth('alpha', 0.48);
     } else {
@@ -140,6 +145,10 @@ export default class Slider extends lng.Component {
     } else {
       this._RightArrow.setSmooth('alpha', 1);
     }
+  }
+
+  _getSliderWidth(w) {
+    return w - (arrowWidth * 2 + spacing * 2);
   }
 
   get min() {
@@ -186,8 +195,27 @@ export default class Slider extends lng.Component {
     }
   }
 
+  get w() {
+    return this._w;
+  }
+
+  set w(w) {
+    if (w > 0 && this._w !== w) {
+      this._w = w;
+    }
+    this._updateSliderWidth();
+  }
+
+  get _Container() {
+    return this.tag('Container');
+  }
+
   get _LeftBar() {
     return this.tag('LeftBar');
+  }
+
+  get _RightBar() {
+    return this.tag('RightBar');
   }
 
   get _Circle() {
