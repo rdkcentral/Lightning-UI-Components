@@ -6,7 +6,7 @@ import OverlayDataItem from '../OverlayDataItem';
 import withStyles from '../../mixins/withStyles';
 
 export const styles = theme => ({});
-export default class Team extends withStyles(lng.Component, styles) {
+export default class TeamInfo extends withStyles(lng.Component, styles) {
   static _template() {
     return {
       h: 140,
