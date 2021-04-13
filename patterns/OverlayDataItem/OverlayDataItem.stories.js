@@ -30,8 +30,8 @@ export const Gradient = args => {
 };
 
 Gradient.args = {
-  colorLeft: '4278742891',
-  colorRight: '4278931873'
+  colorLeft: 'rgba(8,111,107,1)',
+  colorRight: 'rgba(11,81,161,1)'
 };
 Gradient.argTypes = {
   colorLeft: { control: 'color' },
