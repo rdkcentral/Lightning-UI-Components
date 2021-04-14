@@ -78,6 +78,10 @@ export default class Row extends FocusManager {
     );
   }
 
+  get onScreenItems() {
+    return this.Items.children.filter(child => this._isOnScreen(child));
+  }
+
   _isOnScreen(child) {
     const x = getX(child);
     const { w } = child;
@@ -152,9 +156,7 @@ export default class Row extends FocusManager {
         }
       }
 
-      this.onScreenEffect(
-        this.Items.children.filter(child => this._isOnScreen(child))
-      );
+      this.onScreenEffect(this.onScreenItems);
     });
   }
 

@@ -128,17 +128,20 @@ export default class Column extends FocusManager {
         }
       }
 
-      this.onScreenEffect(
-        this.Items.children.filter((child, index) => {
-          const y = getY(child);
-          const { h } = child;
-          const withinLowerBounds = y + h + this._itemsY > 0;
-          const withinUpperBounds = y + this._itemsY < this.h;
-
-          return withinLowerBounds && withinUpperBounds;
-        })
-      );
+      this.onScreenEffect(this.onScreenItems);
     });
+  }
+
+  get onScreenItems() {
+    return this.Items.children.filter(child => this._isOnScreen(child));
+  }
+
+  _isOnScreen(child) {
+    const y = getY(child);
+    const { h } = child;
+    const withinLowerBounds = y + h + this._itemsY > 0;
+    const withinUpperBounds = y + this._itemsY < this.h;
+    return withinLowerBounds && withinUpperBounds;
   }
 
   _updateLayout() {
