@@ -47,19 +47,19 @@ describe('ListItemBase', () => {
   it('renders small size', () => {
     [listItemBase, testRenderer] = createListItemBase({ size: 'small' });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(412);
+    expect(listItemBase._Container.finalW).toBe(442);
   });
 
   it('renders large size', () => {
     [listItemBase, testRenderer] = createListItemBase({ size: 'large' });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(862);
+    expect(listItemBase._Container.finalW).toBe(892);
   });
 
   it('renders custom size', () => {
     [listItemBase, testRenderer] = createListItemBase({ w: 500 });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(502);
+    expect(listItemBase._Container.finalW).toBe(532);
   });
 
   describe('focus', () => {

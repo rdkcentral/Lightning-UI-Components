@@ -54,7 +54,7 @@ export class ListItemBase extends withStyles(
 
     _init() {
       // Init Container & DropShadow
-      const w =
+      this.w =
         this.w ||
         this.styles.dimensions[this.size] ||
         this.styles.dimensions.large;
@@ -63,23 +63,20 @@ export class ListItemBase extends withStyles(
         this.styles.backgrounds.fill
       );
       const texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(w, { padding: this.styles.paddingLeft }),
+        RoundRect.getWidth(this.w, { padding: this.styles.paddingLeft }),
         RoundRect.getHeight(this.h),
         this.styles.radius
       );
 
-      this._scaleX = getFocusScale(this.w);
-      this._scaleY =
-        (this.h + (this.w * getFocusScale(this.w) - this.w)) / this.h;
-
       this._Container.patch({
+        w: this.w,
         color,
         texture
       });
 
       this._DropShadow.patch({
         ...this.styles.shadow({
-          w: w,
+          w: this.w,
           h: this.h,
           borderRadius: this.styles.radius
         })
@@ -111,8 +108,8 @@ export class ListItemBase extends withStyles(
 
     _updateScale() {
       const scale = this.hasFocus()
-        ? this.styles.focused.scale(this._Container.w)
-        : this.styles.unfocused.scale(this._Container.w);
+        ? this.styles.focused.scale(this.w)
+        : this.styles.unfocused.scale(this.w);
       if (this._smooth) {
         this._Container.smooth = { scale };
       } else {
