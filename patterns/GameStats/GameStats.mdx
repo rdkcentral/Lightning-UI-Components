@@ -1,19 +1,19 @@
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
-import SportStats from '.';
+import GameStats from '.';
 
-# SportStats
+# GameStats
 
-Pattern for Data Item that displays game stats or team stats
+Pattern for Data Item that displays game stats
 
 ## Usage
 
-If displaying multiple entities, the items array should include the name, entity color and value of the statistic. For single entities, only the value is required.
+The items array should include the name, entity color and value of the statistic.
 
 ```js
-import { SportStats } from '@lightning/ui/patterns';
+import { GameStats } from '@lightning/ui/patterns';
 
 Stats: {
-  type: SportStats,
+  type: GameStats,
   stats: [
     {
       label: 'Total yards',
@@ -81,55 +81,6 @@ Stats: {
 ```
 <Canvas>
   <Story id="patterns-sportsstats--basic" />
-</Canvas>
-
-If displaying statistics for a single entity, the items array should only contain a single entitiy
-
-```js
-import { SportStats } from '@lightning/ui/patterns';
-
-Stats: {
-  type: SportStats,
-  stats: [
-    {
-      label: 'Total yards',
-      items: [{
-        name: 'Eagles',
-        color: '4278742891',
-        value: 252
-      }]
-    },
-    {
-      label: 'Turnovers',
-      items: [{
-        name: 'Eagles',
-        color: '4278742891',
-        value: 2
-      }]
-    },
-    {
-      label: 'First downs',
-      items: [{
-        name: 'Eagles',
-        color: '4278742891',
-        value: 12
-      }]
-    },
-    {
-      label: 'Red zone %',
-      percentage: true,
-      items: [{
-        name: 'Eagles',
-        color: '4278742891',
-        value: 100
-      }]
-    }
-  ]
-}
-```
-
-<Canvas>
-  <Story id="patterns-sportsstats--single-team" />
 </Canvas>
 
 ### Properties

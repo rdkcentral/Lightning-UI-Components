@@ -21,7 +21,7 @@ describe('TeamInfo', () => {
   beforeEach(() => {
     [team, testRenderer] = createTeamInfo({
       team: 'Eagles',
-      backgroundColor: 4278742891,
+      overlayColor: 4278742891,
       overlayImage: PHI,
       items
     });
@@ -41,7 +41,7 @@ describe('TeamInfo', () => {
   });
 
   it('sets background color', () => {
-    expect(team._DataItem.backgroundColor).toBe(4278742891);
+    expect(team._DataItem._OverlayColor.color).toBe(4278742891);
   });
 
   it('get announce', () => {

@@ -60,9 +60,9 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
     }
   }
 
-  set backgroundColor(backgroundColor) {
-    if (this._DataItem._Background.color !== backgroundColor) {
-      this._DataItem.backgroundColor = backgroundColor;
+  set overlayColor(overlayColor) {
+    if (this._DataItem._OverlayColor.color !== overlayColor) {
+      this._DataItem.overlayColor = overlayColor;
     }
   }
 

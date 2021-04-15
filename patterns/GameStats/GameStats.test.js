@@ -1,7 +1,7 @@
 import TestUtils from '../../test/lightning-test-utils';
-import SportsStats from '.';
+import GameStats from '.';
 
-const createSportsStats = TestUtils.makeCreateComponent(SportsStats);
+const createGameStats = TestUtils.makeCreateComponent(GameStats);
 
 const stats = [
   {
@@ -127,11 +127,11 @@ const singleStats = [
   }
 ];
 
-describe('SportsStats', () => {
+describe('GameStats', () => {
   let dataitem, testRenderer;
 
   beforeEach(() => {
-    [dataitem, testRenderer] = createSportsStats({ stats });
+    [dataitem, testRenderer] = createGameStats({ stats });
   });
   afterEach(() => {
     dataitem = null;
@@ -156,7 +156,7 @@ describe('SportsStats', () => {
     let dataitem, testRenderer;
 
     beforeEach(() => {
-      [dataitem, testRenderer] = createSportsStats({
+      [dataitem, testRenderer] = createGameStats({
         entity: 'Eagles',
         single: true,
         stats: singleStats
@@ -188,7 +188,7 @@ describe('SportsStats', () => {
     let dataitem, testRenderer;
 
     beforeEach(() => {
-      [dataitem, testRenderer] = createSportsStats({ stats });
+      [dataitem, testRenderer] = createGameStats({ stats });
     });
     afterEach(() => {
       dataitem = null;
