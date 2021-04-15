@@ -17,7 +17,7 @@ export const Basic = args => {
         TeamInfo: {
           type: TeamInfo,
           team: 'Eagles',
-          backgroundColor: 4278742891,
+          overlayColor: 4278742891,
           overlayImage: PHI,
           items: [
             {

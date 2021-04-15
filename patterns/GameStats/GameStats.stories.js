@@ -1,9 +1,9 @@
 import lng from '@lightningjs/core';
 import Stats from '.';
-import mdx from './SportsStats.mdx';
+import mdx from './GameStats.mdx';
 
 export default {
-  title: 'Patterns / SportsStats',
+  title: 'Patterns / GameStats',
   parameters: {
     docs: { page: mdx }
   }
@@ -89,76 +89,6 @@ Basic.argTypes = {
   focused: { control: 'boolean' }
 };
 Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Stats')
-        : () => {};
-      component._refocus();
-    }
-  }
-};
-
-export const singleTeam = args => {
-  return class singleTeam extends lng.Component {
-    static _template() {
-      return {
-        Stats: {
-          type: Stats,
-          stats: [
-            {
-              label: 'Total yards',
-              items: [
-                {
-                  name: 'Eagles',
-                  color: '4278742891',
-                  value: 252
-                }
-              ]
-            },
-            {
-              label: 'Turnovers',
-              items: [
-                {
-                  name: 'Eagles',
-                  color: 'rgb(8,111,107)',
-                  value: 2
-                }
-              ]
-            },
-            {
-              label: 'First downs',
-              items: [
-                {
-                  name: 'Eagles',
-                  color: 'rgb(8,111,107)',
-                  value: 12
-                }
-              ]
-            },
-            {
-              label: 'Red zone %',
-              percentage: true,
-              items: [
-                {
-                  name: 'Eagles',
-                  color: '4278742891',
-                  value: 100
-                }
-              ]
-            }
-          ]
-        }
-      };
-    }
-  };
-};
-
-singleTeam.args = { focused: false };
-singleTeam.argTypes = {
-  focused: { control: 'boolean' }
-};
-singleTeam.parameters = {
   argActions: {
     focused: (isFocused, component) => {
       component._getFocused = isFocused

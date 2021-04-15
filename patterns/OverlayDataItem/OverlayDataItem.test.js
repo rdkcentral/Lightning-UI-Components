@@ -21,10 +21,17 @@ describe('OverlayDataItem', () => {
   });
 
   it('patches overlay image and zIndex', () => {
+    expect(dataitem._OverlayColor).toBeDefined();
     expect(dataitem._OverlayImage).toBeDefined();
-    expect(dataitem._OverlayImage.zIndex).toEqual(3);
+    expect(dataitem._OverlayColor.zIndex).toBe(3);
+    expect(dataitem._OverlayImage.zIndex).toEqual(4);
     expect(dataitem._OverlayImage.src).toBe(PHI);
-    expect(dataitem._Content.zIndex).toEqual(4);
+    expect(dataitem._Content.zIndex).toEqual(5);
+  });
+
+  it('sets a overlay team color', () => {
+    dataitem.overlayColor = 'rgba(8,111,107,1)';
+    expect(dataitem._OverlayColor.color).toBe(4278742891);
   });
 
   it('sets a background gradient if passed', () => {

@@ -5,8 +5,20 @@ import { getFocusScale } from '../../Styles';
 import OverlayDataItem from '../OverlayDataItem';
 
 export const styles = theme => ({
-  title: theme.typography.headline1,
-  subtitle: theme.typography.caption,
+  title: {
+    h: 48,
+    text: {
+      ...theme.typography.headline1,
+      lineHeight: 48
+    }
+  },
+  subtitle: {
+    h: 24,
+    text: {
+      ...theme.typography.caption,
+      lineHeight: 24
+    }
+  },
   logo: {
     h: 100,
     w: 100
@@ -23,10 +35,10 @@ export const styles = theme => ({
 export default class Matchup extends withStyles(lng.Component, styles) {
   static _template() {
     return {
-      h: 120,
+      h: 140,
       DataItem: {
         type: OverlayDataItem,
-        h: 120,
+        h: 140,
         w: 410,
         margin: this.styles.margin,
         content: {
@@ -40,11 +52,16 @@ export default class Matchup extends withStyles(lng.Component, styles) {
               justifyContent: 'space-around'
             },
             LeftIcon: {
-              flexItem: { marginTop: -10 },
               type: Icon,
               ...this.styles.logo
             },
             Text: {
+              h: this.styles.logo.h,
+              y:
+                (this.styles.logo.h -
+                  this.styles.title.h -
+                  this.styles.subtitle.h) /
+                2,
               flexItem: {
                 marginLeft: this.styles.margin.x,
                 marginRight: this.styles.margin.x
@@ -55,8 +72,9 @@ export default class Matchup extends withStyles(lng.Component, styles) {
                 alignItems: 'center'
               },
               Subtitle: {
+                h: this.styles.subtitle.h,
                 text: {
-                  ...this.styles.subtitle,
+                  ...this.styles.subtitle.text,
                   wordWrapWidth: 160,
                   textOverflow: 'ellipsis',
                   maxLines: 1,
@@ -64,9 +82,9 @@ export default class Matchup extends withStyles(lng.Component, styles) {
                 }
               },
               Title: {
-                flexItem: { marginTop: -10 },
+                h: this.styles.title.h,
                 text: {
-                  ...this.styles.title,
+                  ...this.styles.title.text,
                   wordWrapWidth: 170,
                   textOverflow: 'ellipsis',
                   maxLines: 1,
@@ -75,7 +93,6 @@ export default class Matchup extends withStyles(lng.Component, styles) {
               }
             },
             RightIcon: {
-              flexItem: { marginTop: -10 },
               type: Icon,
               ...this.styles.logo
             }

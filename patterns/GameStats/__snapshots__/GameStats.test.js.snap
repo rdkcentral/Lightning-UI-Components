@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SportsStats renders 1`] = `
+exports[`GameStats renders 1`] = `
 Object {
   "Component": Object {
     "DataItem": Object {

@@ -49,6 +49,7 @@ export const Image = args => {
         OverlayDataItem: {
           w: 410,
           type: OverlayDataItem,
+          overlayColor: args.overlayColor,
           overlayImage: PHI
         }
       };
@@ -56,8 +57,12 @@ export const Image = args => {
   };
 };
 
-Image.args = {};
-Image.argTypes = {};
+Image.args = {
+  overlayColor: 'rgba(8,111,107,1)'
+};
+Image.argTypes = {
+  overlayColor: { control: 'color' }
+};
 Image.parameters = {
   argActions: {}
 };
