@@ -72,8 +72,7 @@ export default class Info extends withStyles(lng.Component, styles) {
     this.h = h;
     this._DataItem.h = h;
     this._DataItem._Background.h = h;
-    this._DataItem._FocusRing.h = h;
-    this._DataItem._FocusRing._update();
+    this._updateFocusRing();
     this.fireAncestors('$itemChanged');
   }
 
@@ -98,6 +97,13 @@ export default class Info extends withStyles(lng.Component, styles) {
       comp.on('txLoaded', () => this._update());
     }
     comp.text = text;
+  }
+
+  _updateFocusRing() {
+    if (this._DataItem._FocusRing) {
+      this._DataItem._FocusRing.h = this.h;
+      this._DataItem._FocusRing._update();
+    }
   }
 
   set title(title) {
