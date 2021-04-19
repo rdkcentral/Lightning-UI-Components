@@ -33,6 +33,7 @@ export const Basic = args => {
             },
             {
               label: 'Turnovers',
+              invertedScoring: true,
               items: [
                 {
                   name: 'Eagles',
@@ -42,7 +43,7 @@ export const Basic = args => {
                 {
                   name: 'Giants',
                   color: '4278931873',
-                  value: 2
+                  value: 1
                 }
               ]
             },
@@ -52,7 +53,7 @@ export const Basic = args => {
                 {
                   name: 'Eagles',
                   color: '4278742891',
-                  value: 12
+                  value: 15
                 },
                 {
                   name: 'Giants',

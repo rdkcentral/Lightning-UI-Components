@@ -32,6 +32,7 @@ Stats: {
     },
     {
       label: 'Turnovers',
+      invertedScoring: true,
       items: [
         {
           name: 'Eagles',
@@ -41,7 +42,7 @@ Stats: {
         {
           name: 'Giants',
           color: '4278931873',
-          value: 2
+          value: 1
         }
       ]
     },
@@ -51,7 +52,7 @@ Stats: {
         {
           name: 'Eagles',
           color: '4278742891',
-          value: 12
+          value: 15
         },
         {
           name: 'Giants',
@@ -94,6 +95,7 @@ stats|array\object|true|-|statistics array
 name|type|required|default|description
 --|--|--|--|--
 label|text|true|-|stat label
+invertedScoring|boolean|false|-|arrow will display in direction of lower value
 percentage|boolean|false|-|display statistic as a decimal
 items|array\object|true|-|entity details and stat values
 
