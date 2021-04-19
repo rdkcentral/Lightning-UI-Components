@@ -14,6 +14,7 @@ export const baseStyles = theme => ({
   },
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
+  strokeWidth: 2,
   radius: theme.border.radius.small,
   focused: {
     scale: theme.getFocusScale
@@ -42,18 +43,12 @@ export class ListItemBase extends withStyles(
             paddingRight: this.styles.paddingRight
           },
           Left: { flex: { direction: 'column' }, zIndex: 2 },
-          Right: { flex: { direction: 'column' }, zIndex: 2 },
-          DropShadow: {
-            zIndex: 1,
-            alpha: 0,
-            flexItem: false
-          }
+          Right: { flex: { direction: 'column' }, zIndex: 2 }
         }
       };
     }
 
     _init() {
-      // Init Container & DropShadow
       this.w =
         this.w ||
         this.styles.dimensions[this.size] ||
@@ -63,23 +58,18 @@ export class ListItemBase extends withStyles(
         this.styles.backgrounds.fill
       );
       const texture = lng.Tools.getRoundRect(
-        RoundRect.getWidth(this.w, { padding: this.styles.paddingLeft }),
-        RoundRect.getHeight(this.h),
+        RoundRect.getWidth(this.w, {
+          paddingLeft: this.styles.paddingLeft,
+          paddingRight: this.styles.paddingRight,
+          strokeWidth: this.styles.strokeWidth
+        }),
+        RoundRect.getHeight(this.h, { strokeWidth: this.styles.strokeWidth }),
         this.styles.radius
       );
 
       this._Container.patch({
-        w: this.w,
         color,
         texture
-      });
-
-      this._DropShadow.patch({
-        ...this.styles.shadow({
-          w: this.w,
-          h: this.h,
-          borderRadius: this.styles.radius
-        })
       });
 
       this._update();
@@ -110,6 +100,7 @@ export class ListItemBase extends withStyles(
       const scale = this.hasFocus()
         ? this.styles.focused.scale(this.w)
         : this.styles.unfocused.scale(this.w);
+
       if (this._smooth) {
         this._Container.smooth = { scale };
       } else {
@@ -118,11 +109,28 @@ export class ListItemBase extends withStyles(
     }
 
     _updateDropShadow() {
-      const alpha = Number(this._focused);
-      if (this._smooth) {
-        this._DropShadow.smooth = { alpha };
-      } else {
-        this._DropShadow.alpha = alpha;
+      if (this._focused && !this._DropShadow) {
+        this._Container.patch({
+          DropShadow: {
+            zIndex: 1,
+            alpha: 0,
+            flexItem: false,
+            ...this.styles.shadow({
+              w: this._Container.finalW,
+              h: this.h,
+              borderRadius: this.styles.radius
+            })
+          }
+        });
+      }
+
+      if (this._DropShadow) {
+        const alpha = Number(this._focused);
+        if (this._smooth) {
+          this._DropShadow.smooth = { alpha };
+        } else {
+          this._DropShadow.alpha = alpha;
+        }
       }
     }
 

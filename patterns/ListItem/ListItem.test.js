@@ -41,25 +41,25 @@ describe('ListItemBase', () => {
   });
 
   it('renders the correct height', () => {
-    expect(listItemBase._Container.finalH).toBe(90);
+    expect(listItemBase._Container.finalH).toBe(88);
   });
 
   it('renders small size', () => {
     [listItemBase, testRenderer] = createListItemBase({ size: 'small' });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(442);
+    expect(listItemBase._Container.finalW).toBe(410);
   });
 
   it('renders large size', () => {
     [listItemBase, testRenderer] = createListItemBase({ size: 'large' });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(892);
+    expect(listItemBase._Container.finalW).toBe(860);
   });
 
   it('renders custom size', () => {
     [listItemBase, testRenderer] = createListItemBase({ w: 500 });
     testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(532);
+    expect(listItemBase._Container.finalW).toBe(500);
   });
 
   describe('focus', () => {
