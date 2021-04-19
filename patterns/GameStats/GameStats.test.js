@@ -80,6 +80,22 @@ const stats = [
         value: 50
       }
     ]
+  },
+  {
+    label: 'Lower Value',
+    invertedScoring: true,
+    items: [
+      {
+        name: 'Eagles',
+        color: '4278742891',
+        value: 2
+      },
+      {
+        name: 'Giants',
+        color: '4278931873',
+        value: 1
+      }
+    ]
   }
 ];
 
@@ -205,14 +221,17 @@ describe('GameStats', () => {
         expect(i._Right.text.text).toBe(
           i.getPreciseStat(stats[idx].items[1].value)
         );
-        if (stats[idx].items[1].value > stats[idx].items[0].value) {
-          expect(i._RightArrow.alpha).toBe(1);
-          expect(i._LeftArrow.alpha).toBe(0);
-        } else if (stats[idx].items[1].value < stats[idx].items[0].value) {
+        if (
+          stats[idx].items[0].value > stats[idx].items[1].value &&
+          !stats[idx].invertedScoring
+        ) {
           expect(i._RightArrow.alpha).toBe(0);
           expect(i._LeftArrow.alpha).toBe(1);
-        } else {
+        } else if (stats[idx].items[1].value === stats[idx].items[0].value) {
           expect(i._RightArrow.alpha).toBe(0);
+          expect(i._LeftArrow.alpha).toBe(0);
+        } else {
+          expect(i._RightArrow.alpha).toBe(1);
           expect(i._LeftArrow.alpha).toBe(0);
         }
       });
