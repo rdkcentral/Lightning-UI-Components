@@ -24,6 +24,9 @@ export default (base = Tile) =>
       super._update();
       this._updateDimensions();
       if (this.Metadata) {
+        if (!this.Metadata.zIndex) {
+          this.Metadata.zIndex = 5;
+        }
         this._updateMetadataAlpha();
         this._updateMetadataW();
         this._updateMetadataX();
@@ -214,11 +217,8 @@ export default (base = Tile) =>
       return this._paddingSide;
     }
 
-    set Metadata(metadata) {
-      if (!metadata.zIndex) {
-        metadata.zIndex = 5;
-      }
-      this.patch({ Metadata: metadata });
+    set Metadata(Metadata) {
+      this.patch({ Metadata });
       this._update();
     }
 
