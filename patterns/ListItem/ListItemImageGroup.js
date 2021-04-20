@@ -10,7 +10,8 @@ export const styles = theme => ({
   itemSpacing: theme.spacing(1),
   padding: {
     y: theme.spacing(2)
-  }
+  },
+  imageRadius: theme.spacing(1)
 });
 
 export default class ListItemImageGroup extends withStyles(
@@ -44,6 +45,7 @@ export default class ListItemImageGroup extends withStyles(
     this.paddingY = this.styles.padding.y;
     this.imageResize = this.styles.imageResize;
     this.itemSpacing = this.styles.itemSpacing;
+    this.imageRadius = this.styles.imageRadius;
   }
 
   _focus() {
@@ -70,21 +72,31 @@ export default class ListItemImageGroup extends withStyles(
       type: ListItemImage,
       title: item.title,
       subtitle: item.subtitle,
+      size: 'small',
       image: item.src,
       backgroundType: 'float'
     }));
 
+    // Image must be set before
     this._Column.items.forEach(item => {
       item.h = this.imageResize + this.itemSpacing;
       item._Container.h = this.imageResize + this.itemSpacing;
       item._Image.h = this.imageResize;
       item._Image.w = this.imageResize;
+      item._Image.shader = {
+        type: lng.shaders.RoundedRectangle,
+        radius: this.imageRadius
+      };
       item._Image.texture.resizeMode = {
         h: this.imageResize,
         w: this.imageResize,
         type: 'cover'
       };
+      item._Title.text.wordWrapWidth = 280;
+      item._Subtitle.text.wordWrapWidth = 280;
+      item._update();
     });
+
     this.setHeight();
   }
 

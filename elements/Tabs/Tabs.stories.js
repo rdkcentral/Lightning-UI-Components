@@ -4,7 +4,6 @@ import TabBar, { Tab } from '.';
 import Column from '../../layout/Column';
 import ListItem, { ListItemImage } from '../../patterns/ListItem';
 import mdx from './Tabs.mdx';
-import icon from '../../assets/images/person.png';
 import bolt from '../../assets/images/ic_lightning_white_32.png';
 import cast from '../../assets/images/cast.png';
 import cast1 from '../../assets/images/cast1.png';

@@ -28,8 +28,11 @@ export const styles = theme => ({
     y: theme.spacing(2.5)
   },
   metadata: {
-    ...theme.typography.headline2,
-    textAlign: 'center'
+    h: 48,
+    text: {
+      ...theme.typography.headline2,
+      textAlign: 'center'
+    }
   }
 });
 export default class Matchup extends withStyles(lng.Component, styles) {
@@ -42,14 +45,14 @@ export default class Matchup extends withStyles(lng.Component, styles) {
         w: 410,
         margin: this.styles.margin,
         content: {
-          w: w => w - this.styles.margin.x * 2,
+          w: 410 - this.styles.margin.x * 2,
           Wrapper: {
-            w: w => w,
+            w: 410 - this.styles.margin.x * 2,
             flex: {
               direction: 'row',
               alignContent: 'center',
               alignItems: 'center',
-              justifyContent: 'space-around'
+              justifyContent: 'space-between'
             },
             LeftIcon: {
               type: Icon,
@@ -100,11 +103,12 @@ export default class Matchup extends withStyles(lng.Component, styles) {
         }
       },
       Metadata: {
+        h: this.styles.metadata.h,
         type: lng.Component,
         y: 120,
         w: 410,
         alpha: 0,
-        text: this.styles.metadata
+        text: this.styles.metadata.text
       }
     };
   }
