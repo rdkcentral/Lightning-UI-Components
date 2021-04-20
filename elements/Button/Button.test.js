@@ -40,6 +40,20 @@ describe('Button', () => {
     });
   });
 
+  it('should not grow width dynamically if fixed is set to true', done => {
+    [button, testRenderer] = createButton({
+      fixed: true,
+      w: 200,
+      title:
+        'This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title'
+    });
+    button._Title.on('txLoaded', () => {
+      expect(button.w).toBe(200);
+      expect(button._Title.renderWidth).toBeLessThan(200);
+      done();
+    });
+  });
+
   it('should grow a stroke if given dynamically if text renders longer than default size', done => {
     [button, testRenderer] = createButton({
       title:

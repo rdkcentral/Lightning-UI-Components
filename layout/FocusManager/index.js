@@ -71,12 +71,13 @@ export default class FocusManager extends lng.Component {
       if (index !== this._selectedIndex) {
         this._selectedIndex = index;
       }
-      // Have items update (change height or width) before we render
-      this._refocus();
       if (this.selected) {
         this.render(this.selected, prevSelected);
         this.signal('selectedChange', this.selected, prevSelected);
       }
+      // Don't call refocus until after a new render in case of a situation like Plinko nav
+      // where we don't want to focus the previously selected item and need to get the new one first
+      this._refocus();
     }
   }
 
