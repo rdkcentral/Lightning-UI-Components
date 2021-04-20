@@ -10,6 +10,7 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
   static _template() {
     return {
       h: 140,
+      w: 410,
       DataItem: {
         type: OverlayDataItem,
         h: 140,
@@ -47,11 +48,19 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
     return this._DataItem;
   }
 
+  setHeight() {
+    let itemsHeight = 0;
+    this._Column.items.forEach(item => {
+      itemsHeight += item.h;
+    });
+    this.h = Math.max(itemsHeight, this._DataItem.h);
+    this.fireAncestors('$itemChanged');
+  }
+
   get announce() {
-    return [
-      this._team,
-      this._Column.items.map(item => item.announce).join(',')
-    ].join(',');
+    let announceText = this._team ? `${this._team},` : '';
+    announceText += this._Column.items.map(item => item.announce).join(',');
+    return announceText;
   }
 
   set team(team) {
@@ -78,10 +87,11 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
       const columns = items.map(item => ({
         type: ListItem,
         backgroundType: 'float',
+        size: 'small',
         ...item
       }));
       this._Column.items = columns;
-      this.h = this._Column.h;
+      this.setHeight();
     }
   }
 

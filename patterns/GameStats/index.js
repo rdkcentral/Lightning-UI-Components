@@ -116,15 +116,21 @@ export class StatLine extends withStyles(
     }
 
     _updateArrows() {
-      if (this._stats[0] < this._stats[1]) {
-        this._LeftArrow.smooth = { alpha: 0 };
-        this._RightArrow.smooth = { alpha: 1 };
+      if (this._stats[0] > this._stats[1] && !this._invertedScoring) {
+        this._LeftArrow.smooth = { alpha: 1 };
+        this._RightArrow.smooth = { alpha: 0 };
       } else if (this._stats[0] === this._stats[1]) {
         this._LeftArrow.smooth = { alpha: 0 };
         this._RightArrow.smooth = { alpha: 0 };
       } else {
-        this._LeftArrow.smooth = { alpha: 1 };
-        this._RightArrow.smooth = { alpha: 0 };
+        this._LeftArrow.smooth = { alpha: 0 };
+        this._RightArrow.smooth = { alpha: 1 };
+      }
+    }
+
+    set invertedScoring(invertedScoring) {
+      if (this._invertedScoring !== invertedScoring) {
+        this._invertedScoring = invertedScoring;
       }
     }
 

@@ -30,6 +30,11 @@ export const styles = {
     background: { color: 0xffffffff },
     text: { color: 0xff1f1f1f },
     icon: { color: 0xff1f1f1f }
+  },
+  fixedText: {
+    wordWrap: false,
+    textOverflow: 'ellipsis',
+    maxLinesSuffix: '...'
   }
 };
 
@@ -233,10 +238,18 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   }
 
   _updateWidth() {
-    if (!this.fixed) {
-      const iconSize =
-        this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
-      const padding = getFirstNumber(this.padding, this.styles.padding, 10);
+    const iconSize =
+      this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
+    const padding = getFirstNumber(this.padding, this.styles.padding, 10);
+
+    if (this.fixed) {
+      this._Title.patch({
+        text: {
+          ...this.styles.fixedText,
+          wordWrapWidth: this.w - padding * 2 - iconSize
+        }
+      });
+    } else {
       const w =
         measureTextWidth(this._Title.text || {}) + padding * 2 + iconSize;
 
