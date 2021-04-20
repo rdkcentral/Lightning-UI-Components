@@ -22,7 +22,9 @@ export const Base = args =>
           backgroundType: args.backgroundType,
           icon: args.icon ? icon : undefined,
           title: args.title,
-          onEnter: args.onEnter
+          onEnter: args.onEnter,
+          fixed: args.fixed,
+          w: ActionButton.styles.minWidth
         }
       };
     }
@@ -44,7 +46,8 @@ Base.argTypes = {
   focused: { control: 'boolean' },
   icon: { control: 'boolean' },
   onEnter: { action: 'onEnter' },
-  title: { control: 'text' }
+  title: { control: 'text' },
+  fixed: { control: 'boolean' }
 };
 Base.parameters = {
   argActions: {

@@ -23,7 +23,9 @@ export const Basic = args =>
           fixed: args.fixed,
           title: args.title,
           radius: args.radius,
-          onEnter: args.onEnter
+          onEnter: args.onEnter,
+          fixed: args.fixed,
+          w: 200
         }
       };
     }
@@ -44,7 +46,8 @@ Basic.argTypes = {
   onEnter: { action: 'onEnter' },
   radius: { control: { type: 'number', min: 0, max: 20 } },
   stroke: { control: 'boolean' },
-  title: { control: 'text' }
+  title: { control: 'text' },
+  fixed: { control: 'boolean' }
 };
 Basic.parameters = {
   argActions: {
