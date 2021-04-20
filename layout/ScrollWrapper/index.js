@@ -4,7 +4,7 @@ import withStyles from '../../mixins/withStyles';
 const styles = theme => ({
   text: {
     ...theme.typography.body1,
-    color: theme.palette.text.light.primary
+    textColor: theme.palette.text.light.primary
   },
   scrollBar: {
     fillColor: theme.palette.grey[80],
