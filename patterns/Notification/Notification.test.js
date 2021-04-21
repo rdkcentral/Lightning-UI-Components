@@ -31,7 +31,16 @@ describe('Notification', () => {
     });
   });
 
-  it('can take in an action area', () => {
+  it('will not show the action area if it is undefined', () => {
+    [notification, testRenderer] = createNotification({
+      title: 'Title',
+      description: 'This is a description',
+      icon: 'patch/to/src'
+    });
+    expect(notification._ActionArea.alpha).toBe(0);
+  });
+
+  it('will show the action area if one is passed in', done => {
     [notification, testRenderer] = createNotification({
       title: 'Title',
       description: 'This is a description',
@@ -45,6 +54,10 @@ describe('Notification', () => {
       text: 'Action Area',
       icon: 'patch/to/src'
     });
+    setTimeout(() => {
+      expect(notification._ActionArea.alpha).toBe(1);
+      done();
+    }, 100);
   });
 
   it('should be able to mount entered', () => {
