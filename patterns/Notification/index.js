@@ -130,6 +130,7 @@ class Notification extends lng.Component {
           }
         },
         ActionArea: {
+          alpha: 0,
           rect: true,
           color: this.styles.actionArea.background.color,
           h: this.styles.actionArea.background.h,
@@ -170,7 +171,7 @@ class Notification extends lng.Component {
     this._containerH = this.styles.minHeight;
     this.entered = false;
     this._icon = {};
-    this._actionArea = {};
+    this._actionArea = false;
     this._contentLoaded = false;
     this._containerHIsFinal = new Promise(resolve => {
       var intervalId = setInterval(() => {
@@ -209,8 +210,10 @@ class Notification extends lng.Component {
 
   set actionArea(actionArea) {
     if (
-      this._actionArea.text !== actionArea.text ||
-      this._actionArea.icon !== actionArea.icon
+      !this._actionArea ||
+      (this._actionArea &&
+        (this._actionArea.text !== actionArea.text ||
+          this._actionArea.icon !== actionArea.icon))
     ) {
       this._actionArea = actionArea;
       this._update();
@@ -287,17 +290,21 @@ class Notification extends lng.Component {
   }
 
   _udpateActionArea() {
-    if (Object.keys(this._actionArea).length) {
+    if (this._actionArea && Object.keys(this._actionArea).length) {
+      this._ActionArea.alpha = 1;
       this._ActionArea.y = this._containerH;
       this._ActionArea.w = this.styles.w;
       this._ActionArea.tag('Content.Text').content =
         this._actionArea.content || this._actionArea.text;
       this._ActionArea.tag('Content.Icon').icon = this._actionArea.icon;
+    } else {
+      this._ActionArea.alpha = 0;
     }
   }
 
   enter() {
     this._containerHIsFinal.then(() => {
+      this._udpateActionArea();
       this.entered = true;
 
       this._Container.h = this._containerH;
@@ -326,7 +333,7 @@ class Notification extends lng.Component {
           alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.3 }]
         };
 
-        if (Object.keys(this._actionArea).length) {
+        if (this._actionArea && Object.keys(this._actionArea).length) {
           this._Container.smooth = {
             h: [
               this._containerH + this.styles.actionArea.background.h,
@@ -342,7 +349,7 @@ class Notification extends lng.Component {
   dismiss() {
     this.entered = false;
     let delay = 0;
-    if (Object.keys(this._actionArea).length) {
+    if (this._actionArea && Object.keys(this._actionArea).length) {
       this._Container.smooth = {
         h: [this._containerH, { duration: 0.18 }]
       };
