@@ -170,7 +170,7 @@ export const PALETTE = {
     __isColor: true
   },
   badge: {
-    default: getHexColor(GREY[10], 32),
+    default: getHexColor(GREY[70], 60),
     __isColor: true
   },
   focusRing: {
