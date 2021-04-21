@@ -23,11 +23,7 @@ export const Basic = args =>
           title: 'Notification',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-          // description: 'This is the description',
-          actionArea: {
-            text: 'Action Area',
-            icon
-          }
+          actionArea: args.actionArea
         }
       };
     }
@@ -41,7 +37,8 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  state: 'enter()'
+  state: 'enter()',
+  actionArea: { text: 'Action Area', icon }
 };
 Basic.argTypes = {
   state: {
@@ -49,13 +46,19 @@ Basic.argTypes = {
       type: 'radio',
       options: ['enter()', 'dismiss()']
     }
-  }
+  },
+  actionArea: { control: 'boolean' }
 };
 Basic.parameters = {
   argActions: {
     state: (state, component) => {
       let func = state.split('(')[0];
       component.tag('Notification')[func]();
+    },
+    actionArea: (action, component) => {
+      component.tag('Notification').actionArea = action
+        ? { text: 'Action Area', icon }
+        : false;
     }
   }
 };
