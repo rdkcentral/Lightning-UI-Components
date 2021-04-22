@@ -44,14 +44,23 @@ Set `announcerEnabled` to true in your app and optionally `debug` to true to see
 
 The `Announcer` will travel through the `_focusPath` looking for `component.announce` then `component.title` then `component.label` properties. After collecting those properties it reverses the `_focusPath` looking for `component.announceContext` properties.
 
-All of the properties may return a string or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+
+### SpeechType
+All of the properties may return values compatible with the following recursive type definition:
+```
+SpeechType = string | Array<SpeechType> | Promise<SpeechType> | () => SpeechType
+```
+At its simplest, you may return a string or an array of strings. Promises and functions that return SpeechType values may be used as necessary for advanced/asyncronous use cases.
+
+#### Examples
 ```js
   get announce() {
     return [
       'Despicable Me',
       Promise.resolve([
         ['2020', 'Rated PG'],
-        Promise.resolve('Steve Carell, Miranda Cosgrove, Kristen Wiig, Pierre Coffin')
+        Promise.resolve('Steve Carell, Miranda Cosgrove, Kristen Wiig, Pierre Coffin'),
+        () => 'A description of the movie'
       ])
     ];
   }
@@ -60,6 +69,8 @@ All of the properties may return a string or recursively nestable array containi
     return 'Press LEFT or RIGHT to review items';
   }
 ```
+
+## Inserting a pause
 
 You may also use `PAUSE-#` to pause speech for # seconds before saying the next string.
 ```js
@@ -83,7 +94,7 @@ announcerTimeout|number|false|By default the announcer only gets information abo
 name|args|description
 --|--|--|--
 $announce||Performs a manual announce
-&nbsp;|`announcement`|String or recursively nestable array containing strings. Promises for strings and arrays may be used as well for async data.
+&nbsp;|`announcement`|See *SpeechType* above
 &nbsp;|`options`|Object containing one or more boolean flags: <br/><ul><li>append - Appends announcement to the currently announcing series.</li></ul>
 $announcerRefresh|depth|Performs an announce using the focusPath - depth can trim known focusPath
 $announcerCancel|none|Cancels current speaking
