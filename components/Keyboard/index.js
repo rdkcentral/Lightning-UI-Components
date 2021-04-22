@@ -42,28 +42,24 @@ export default class Keyboard extends lng.Component {
     this._currentFormat = this._defaultFormat;
     // Ensure formats prop is set last
     this._whenEnabled.then(() => {
-      let format =
-        this._currentFormat.charAt(0).toLowerCase() +
-        this._currentFormat.slice(1);
-      this._createFormat(format);
+      Object.entries(formats).forEach(([key, value]) => {
+        let keyboardData = this._formatKeyboardData(value);
+        this._createKeyboard(key, this._createRows(keyboardData));
+      });
+      this.tag(this._currentFormat).alpha = 1;
       this._refocus();
     });
-  }
-
-  _createFormat(key) {
-    let format = this._formats[key];
-    let keyboardData = this._formatKeyboardData(format);
-    this._createKeyboard(key, this._createRows(keyboardData));
   }
 
   _createKeyboard(key, rows = []) {
     key = key.charAt(0).toUpperCase() + key.slice(1);
     if (rows.length === 1) {
-      this.patch({ [key]: { ...rows[0] } });
+      this.patch({ [key]: { ...rows[0], alpha: 0 } });
     } else {
       this.patch({
         [key]: {
           type: Column,
+          alpha: 0,
           plinko: true,
           itemSpacing: this._spacing,
           items: rows
@@ -121,18 +117,14 @@ export default class Keyboard extends lng.Component {
     }
   }
 
-  $toggleKeyboard(to) {
-    let toKeyboard = to.charAt(0).toUpperCase() + to.slice(1);
-    if (toKeyboard !== this._currentFormat) {
-      let toKeyboardTag = this.tag(toKeyboard);
-      if (!toKeyboardTag) {
-        this._createFormat(to);
-        toKeyboardTag = this.tag(toKeyboard);
-      }
-      this.selectKeyOn(toKeyboardTag);
-      this.tag(this._currentFormat).alpha = 1;
-      toKeyboardTag.alpha = 1;
-      this._currentFormat = toKeyboard;
+  $toggleKeyboard(keyboardFormat) {
+    keyboardFormat =
+      keyboardFormat.charAt(0).toUpperCase() + keyboardFormat.slice(1);
+    if (keyboardFormat !== this._currentFormat) {
+      this.selectKeyOn(this.tag(keyboardFormat));
+      this.tag(this._currentFormat).alpha = 0;
+      this.tag(keyboardFormat).alpha = 1;
+      this._currentFormat = keyboardFormat;
     }
   }
 

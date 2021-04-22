@@ -1,3 +1,21 @@
+/**
+ * Copyright 2021 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import TestUtils from '../lightning-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
@@ -37,11 +55,7 @@ describe('Key', () => {
   });
 
   it('should patch in an icon if provided', () => {
-    [key, testRenderer] = createKey({
-      icon: {
-        src: icon
-      }
-    });
+    [key, testRenderer] = createKey({ icon });
     expect(key._Icon).toBeDefined();
   });
 
@@ -99,8 +113,8 @@ describe('Keyboard', () => {
 
   beforeEach(() => {
     [keyboard, testRenderer] = createKeyboard({
-      defaultFormat: 'lowercase',
-      formats: KEYBOARD_FORMATS.qwerty
+      formats: KEYBOARD_FORMATS.qwerty,
+      defaultFormat: 'lowercase'
     });
     return keyboard._whenEnabled;
   });
@@ -202,6 +216,7 @@ describe('Keyboard', () => {
   it('should toggle to a different format', () => {
     keyboard.$toggleKeyboard('symbols');
     expect(keyboard.tag('Lowercase').alpha).toEqual(0);
+    expect(keyboard.tag('Uppercase').alpha).toEqual(0);
     expect(keyboard.tag('Symbols').alpha).toEqual(1);
   });
 
