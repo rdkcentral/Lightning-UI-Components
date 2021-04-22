@@ -59,7 +59,9 @@ function speak(phrase, utterances) {
 
 function speakSeries(series, root = true) {
   const synth = window.speechSynthesis;
-  const remainingPhrases = flattenStrings(series);
+  const remainingPhrases = flattenStrings(
+    Array.isArray(series) ? series : [series]
+  );
   const nestedSeriesResults = [];
   /*
     We hold this array of SpeechSynthesisUtterances in order to prevent them from being
@@ -114,6 +116,10 @@ function speakSeries(series, root = true) {
               }
             }
           }
+        } else if (typeof phrase === 'function') {
+          const seriesResult = speakSeries(phrase(), false);
+          nestedSeriesResults.push(seriesResult);
+          await seriesResult.series;
         } else if (Array.isArray(phrase)) {
           // Speak it (recursively)
           const seriesResult = speakSeries(phrase, false);
@@ -150,7 +156,6 @@ function speakSeries(series, root = true) {
 
 let currentSeries;
 export default function(toSpeak) {
-  toSpeak = Array.isArray(toSpeak) ? toSpeak : [toSpeak];
   currentSeries && currentSeries.cancel();
   currentSeries = speakSeries(toSpeak);
   return currentSeries;
