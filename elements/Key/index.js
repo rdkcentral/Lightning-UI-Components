@@ -40,21 +40,15 @@ export default class Key extends withStyles(Button, keyStyles) {
       ...KEY_DIMENSIONS
     };
   }
-
+  _updateIcon() {
+    super._updateIcon();
+    this._Title.patch({
+      alpha: this.icon && this.icon.src ? 0 : 1
+    });
+  }
   set config(config) {
     if (config) {
       this.sizes = config.sizes;
-    }
-  }
-
-  set icon(src) {
-    if (src) {
-      this._Icon.patch({
-        color: 0xffffffff,
-        size: 32,
-        spacing: 16,
-        src
-      });
     }
   }
 
