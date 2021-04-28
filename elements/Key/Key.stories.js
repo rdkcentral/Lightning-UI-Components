@@ -44,11 +44,17 @@ export const Icon = args =>
     static _template() {
       return {
         Key: {
+          label: 'Label',
           type: Key,
           icon: {
             src: icon
           }
         }
       };
+    }
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('Key');
+      }
     }
   };
