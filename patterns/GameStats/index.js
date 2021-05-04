@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-import StageUtils from '@lightningjs/core/src/tree/StageUtils';
 import Column from '../../layout/Column';
 import { getFocusScale, getValidColor } from '../../Styles';
 import DataItem from '../DataItem';
@@ -153,7 +152,7 @@ export class StatLine extends withStyles(
         this._items = items;
         const leftStat = this.getPreciseStat(value);
         this._Left.patch({ text: leftStat });
-        this._LeftArrowTexture.color = StageUtils.getRgbString(
+        this._LeftArrowTexture.color = lng.StageUtils.getRgbString(
           getValidColor(color)
         );
         if (items.length === 2) {
@@ -161,7 +160,7 @@ export class StatLine extends withStyles(
           const rightStat = this.getPreciseStat(val);
           this._Right.patch({ alpha: 1, text: rightStat });
           this._RightArrow.alpha = 1;
-          this._RightArrowTexture.color = StageUtils.getRgbString(
+          this._RightArrowTexture.color = lng.StageUtils.getRgbString(
             getValidColor(clr)
           );
         }
