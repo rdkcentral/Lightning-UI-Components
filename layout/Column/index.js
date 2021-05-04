@@ -138,10 +138,38 @@ export default class Column extends FocusManager {
 
   _isOnScreen(child) {
     const y = getY(child);
+
+    // to calculate the target absolute Y position of the item, we need to use
+    // 1) the entire column's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const ItemY =
+      this.core.renderContext.py + this.Items.transition('y').targetValue + y;
     const { h } = child;
-    const withinLowerBounds = y + h + this._itemsY > 0;
-    const withinUpperBounds = y + this._itemsY < this.h;
-    return withinLowerBounds && withinUpperBounds;
+
+    // check that the child is inside the bounds of the stage
+    const withinTopStageBounds = ItemY + h > 0;
+    // stage height needs to be adjusted with precision since all other values assume the original height and width (pre-scaling)
+    const withinBottomStageBounds =
+      ItemY < this.stage.h / this.stage.getRenderPrecision();
+
+    // check that the child is inside the bounds of any clipping
+    let withinTopClippingBounds = true;
+    let withinBottomClippingBounds = true;
+    if (this.core._scissor && this.core._scissor.length) {
+      // _scissor consists of [ left position (x), top position (y), width, height ]
+      const topBounds = this.core._scissor[1];
+      const bottomBounds = topBounds + this.core._scissor[3];
+      withinTopClippingBounds = Math.round(ItemY + h) > Math.round(topBounds);
+      withinBottomClippingBounds = Math.round(ItemY) < Math.round(bottomBounds);
+    }
+
+    return (
+      withinTopStageBounds &&
+      withinBottomStageBounds &&
+      withinTopClippingBounds &&
+      withinBottomClippingBounds
+    );
   }
 
   _updateLayout() {
