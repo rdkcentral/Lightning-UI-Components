@@ -1,6 +1,6 @@
 {
   "name": "@lightningjs/ui-components",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "debounce": "^1.2.0"
   },
