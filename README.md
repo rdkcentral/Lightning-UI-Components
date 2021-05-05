@@ -10,20 +10,20 @@ A collection of reusable UI components aimed at reducing the development cycle r
 Install from NPM:
 
 ```bash
-npm install --save lightning-ui-components
+npm install --save @lightningjs/ui-components
 ```
 
 Import components as ES Modules
 
 ```js
-import { FocusManager } from 'lightning-ui-components';
+import { FocusManager } from '@lightningjs/ui-components';
 ```
 
 Use components in your application
 
 ```js
-import from 'lightning-ui-components';
-import { FocusManager } from 'lightning-ui-components';
+import from '@lightningjs/ui-components';
+import { FocusManager } from '@lightningjs/ui-components';
 
 class MyComponent extends lng.Component {
   static _template() {
