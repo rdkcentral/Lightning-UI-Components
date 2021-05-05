@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import Announcer from '.';
 import Column from '../Column';
 import Row from '../Row';

@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import TestUtils from '../lightning-test-utils';
 import Row from '.';
 

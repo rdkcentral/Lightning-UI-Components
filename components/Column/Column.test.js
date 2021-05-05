@@ -18,7 +18,7 @@
 import Column from '.';
 import Row from '../Row';
 import TestRenderer from '../lightning-test-renderer';
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 
 const baseItem = {
   type: lng.Component,

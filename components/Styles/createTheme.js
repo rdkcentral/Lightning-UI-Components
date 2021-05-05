@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from 'wpe-lightning';
+import lng from '@lightningjs/core';
 import { clone } from '../../utils';
 import { CORNER_RADIUS } from './Styles';
 import { COLORS_NEUTRAL, getHexColor } from './Colors';
