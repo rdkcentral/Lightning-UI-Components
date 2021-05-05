@@ -1,9 +1,10 @@
 {
-  "name": "lightning-ui-components",
-  "version": "0.0.0",
+  "name": "@lightningjs/ui-components",
+  "version": "0.0.1",
   "dependencies": {
     "debounce": "^1.2.0"
   },
+  "sideEffects": false,
   "peerDependencies": {
     "@lightningjs/core": "^2.x"
   },
