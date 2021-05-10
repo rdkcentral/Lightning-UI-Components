@@ -1,7 +1,6 @@
 import Speech from './Speech';
 import { debounce } from 'debounce';
 const fiveMinutes = 300 * 1000;
-let currentlySpeaking;
 
 function elmName(elm) {
   return elm.ref || elm.constructor.name;
@@ -9,6 +8,20 @@ function elmName(elm) {
 
 export default (base, speak = Speech) =>
   class Announcer extends base {
+    _construct() {
+      this._currentlySpeaking = '';
+    }
+
+    _voiceOut(toAnnounce) {
+      const speech = speak(toAnnounce);
+      if (speech && speech.series) {
+        speech.series.then(() => {
+          this.stage.emit('announceEnded');
+        });
+      }
+      return speech;
+    }
+
     _build() {
       super._build && super._build();
 
@@ -106,7 +119,7 @@ export default (base, speak = Speech) =>
 
       if (toAnnounce.length) {
         this.$announcerCancel();
-        currentlySpeaking = speak(
+        this._currentlySpeaking = this._voiceOut(
           toAnnounce.reduce((acc, val) => acc.concat(val), [])
         );
       }
@@ -115,17 +128,21 @@ export default (base, speak = Speech) =>
     $announce(toAnnounce, { append = false } = {}) {
       if (this.announcerEnabled) {
         this._debounceAnnounceFocusChanges.flush();
-        if (append && currentlySpeaking && currentlySpeaking.active) {
-          currentlySpeaking.append(toAnnounce);
+        if (
+          append &&
+          this._currentlySpeaking &&
+          this._currentlySpeaking.active
+        ) {
+          this._currentlySpeaking.append(toAnnounce);
         } else {
           this.$announcerCancel();
-          currentlySpeaking = speak(toAnnounce);
+          this._currentlySpeaking = this._voiceOut(toAnnounce);
         }
       }
     }
 
     $announcerCancel() {
-      currentlySpeaking && currentlySpeaking.cancel();
+      this._currentlySpeaking && this._currentlySpeaking.cancel();
     }
 
     $announcerRefresh(depth) {

@@ -104,3 +104,11 @@ $announcerCancel|none|Cancels current speaking
 name|args|description
 --|--|--|--
 focusDiffHook|array|Array of elements that have changed focus
+
+### Events
+
+These stage level events can be listened to using the syntax `this.stage.on('EVENT_NAME', callback);`
+
+name|args|description
+--|--|--|--
+announceEnded|-|emitted when all contents of the announce array have finished being read out
