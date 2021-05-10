@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import lng from '@lightningjs/core';
-import TestUtils from '../../test/lightning-test-utils';
+import TestUtils from '../lightning-test-utils';
 import Row from '.';
 
 const baseItem = {
