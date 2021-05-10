@@ -19,7 +19,6 @@
 import TestUtils from '../lightning-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
-import KeyboardInput from './KeyboardInput';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
