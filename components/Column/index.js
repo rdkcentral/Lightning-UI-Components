@@ -17,15 +17,11 @@
  */
 import FocusManager from '../FocusManager';
 import { getY, getW } from '../../utils';
-
+import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
-      direction: 'column',
-      itemTransition: {
-        duration: 0.4,
-        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
-      }
+      direction: 'column'
     };
   }
 
@@ -36,10 +32,24 @@ export default class Column extends FocusManager {
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
     this._h = this.stage.h;
+    this.debounceDelay = Number.isInteger(this.debounceDelay)
+      ? this.debounceDelay
+      : 30;
+    this._update = debounce(this._updateLayout, this.debounceDelay);
+    this._updateImmediate = debounce(
+      this._updateLayout,
+      this.debounceDelay,
+      true
+    );
   }
 
-  _init() {
-    this._updateLayout();
+  get _itemTransition() {
+    return (
+      this.itemTransition || {
+        duration: 0.4,
+        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
+      }
+    );
   }
 
   _focus() {
@@ -62,12 +72,21 @@ export default class Column extends FocusManager {
 
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollUp() {
-    return (
-      this._itemsY < 0 &&
-      (this._lastScrollIndex
-        ? this.selectedIndex < this._lastScrollIndex
-        : this.selectedIndex >= this._scrollIndex)
-    );
+    let shouldScroll = false;
+
+    if (this._lastScrollIndex) {
+      shouldScroll = this.selectedIndex < this._lastScrollIndex;
+      if (
+        this._prevLastScrollIndex !== undefined &&
+        this._prevLastScrollIndex !== this._lastScrollIndex
+      ) {
+        shouldScroll = true;
+      }
+    } else {
+      shouldScroll = this.selectedIndex >= this._scrollIndex;
+    }
+
+    return this._itemsY < 0 && shouldScroll;
   }
 
   // TODO: can be documented in API when lastScrollIndex is made public
@@ -82,16 +101,29 @@ export default class Column extends FocusManager {
   }
 
   render(next, prev) {
+    this._prevLastScrollIndex = this._lastScrollIndex;
+
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
       next.selectedIndex = this._getIndexOfItemNear(next, prev);
     }
 
+    // Rows are changing height, so we'll render via updateLayout
+    if (this.itemsChangeable) {
+      return;
+    }
+
+    this._performRender();
+  }
+
+  _performRender() {
     this._whenEnabled.then(() => {
       const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
         .y;
+      const firstChild = this.Items.childList.first;
       const lastChild = this.Items.childList.last;
       const shouldScroll =
-        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+        this.alwaysScroll ||
+        (lastChild && (this.shouldScrollUp() || this.shouldScrollDown()));
 
       if (shouldScroll) {
         const scrollItem =
@@ -101,9 +133,9 @@ export default class Column extends FocusManager {
         if (this._smooth) {
           this.Items.smooth = {
             y: [
-              -scrollItem.transition('y').targetValue +
+              -(scrollItem || firstChild).transition('y').targetValue +
                 (scrollItem === this.selected ? scrollOffset : 0),
-              this.itemTransition
+              this._itemTransition
             ]
           };
         } else {
@@ -113,17 +145,20 @@ export default class Column extends FocusManager {
         }
       }
 
-      this.onScreenEffect(
-        this.Items.children.filter((child, index) => {
-          const y = getY(child);
-          const { h } = child;
-          const withinLowerBounds = y + h + this._itemsY > 0;
-          const withinUpperBounds = y + this._itemsY < this.h;
-
-          return withinLowerBounds && withinUpperBounds;
-        })
-      );
+      this.onScreenEffect(this.onScreenItems);
     });
+  }
+
+  get onScreenItems() {
+    return this.Items.children.filter(child => this._isOnScreen(child));
+  }
+
+  _isOnScreen(child) {
+    const y = getY(child);
+    const { h } = child;
+    const withinLowerBounds = y + h + this._itemsY > 0;
+    const withinUpperBounds = y + this._itemsY < this.h;
+    return withinLowerBounds && withinUpperBounds;
   }
 
   _updateLayout() {
@@ -135,13 +170,25 @@ export default class Column extends FocusManager {
         const child = this.Items.children[i];
         nextW = Math.max(nextW, getW(child));
         if (this._smooth) {
-          child.smooth = { y: [nextY, this.itemTransition] };
+          child.smooth = { y: [nextY, this._itemTransition] };
         } else {
           child.patch({ y: nextY });
         }
-        nextY += this.itemSpacing + child.h;
+        nextY += child.h;
+        if (i < this.Items.children.length - 1) {
+          nextY += this.itemSpacing;
+        }
+
+        if (child.centerInParent) {
+          // if the child is another focus manager, check the width of the item container
+          const childWidth = (child.Items && child.Items.w) || child.w;
+          // only center the child if it is within the bounds of this focus manager
+          if (childWidth < this.w) {
+            child.x = (this.w - childWidth) / 2;
+          }
+        }
       }
-      this.patch({ w: nextW });
+      this.Items.patch({ w: nextW, h: nextY });
 
       const lastChild = this.Items.childList.last;
       const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
@@ -149,7 +196,9 @@ export default class Column extends FocusManager {
         .y;
 
       // determine when to stop scrolling down
-      if (endOfLastChild > this.h) {
+      if (this.alwaysScroll) {
+        this._lastScrollIndex = this.Items.children.length - 1;
+      } else if (endOfLastChild > this.h) {
         for (let i = this.Items.children.length - 1; i >= 0; i--) {
           const child = this.Items.children[i];
           const childY = getY(child);
@@ -159,8 +208,11 @@ export default class Column extends FocusManager {
             break;
           }
         }
+      } else if (this._lastScrollIndex > this.items.length) {
+        this._lastScrollIndex = this.items.length - 1;
       }
-      this.render(this.selected, null);
+
+      this._performRender();
     });
   }
 
@@ -180,6 +232,11 @@ export default class Column extends FocusManager {
 
     // start at the 2nd item
     for (let i = 1; i < selected.items.length; i++) {
+      // for some reason here !!/!.. evals returning number
+      if (selected.items[i].skipFocus === true) {
+        continue;
+      }
+
       const item = selected.items[i];
       const middle = item.core.getAbsoluteCoords(0, 0)[0] + item.w / 2;
 
@@ -190,12 +247,61 @@ export default class Column extends FocusManager {
         closest = item;
         closestMiddle = middle;
       } else {
-        // previous index is the closest, return it
-        return i - 1;
+        if (!closest.skipFocus) {
+          // weve already found closest return its index
+          return selected.items.indexOf(closest);
+        } else if (!selected.items[i - 1].skipFocus) {
+          // previous item is focusable return it
+          return i - 1;
+        } else {
+          // return closest left or right of index
+          const prevIndex = prev.items.indexOf(prevItem);
+          return this._getIndexofClosestFocusable(
+            prevIndex,
+            selected,
+            prevMiddle
+          );
+        }
       }
     }
-    // last index is the closest
+    // if last index is focusable return
     return selected.items.length - 1;
+  }
+
+  _getIndexofClosestFocusable(selectedIndex, selected, prevMiddle) {
+    // dont want to mutate the original selected.items using spread for copy
+    // get first focusable item before and after the current focused item's index
+    const prevIndex = [...selected.items]
+      .slice(0, selectedIndex)
+      .map(item => !!item.skipFocus)
+      .lastIndexOf(false);
+    const nextIndex =
+      [...selected.items]
+        .slice(selectedIndex + 1)
+        .map(item => !!item.skipFocus)
+        .indexOf(false) +
+      selectedIndex +
+      1;
+
+    const prevItem = selected.items[prevIndex];
+    const nextItem = selected.items[nextIndex];
+
+    // Check if the items exist if not return the other
+    // covers case where at 0 idx, previous would not exist
+    // and opposite for last index next would not exist
+    if (prevIndex === -1 || !prevItem) {
+      return nextIndex;
+    }
+    if (nextIndex === -1 || !nextItem) {
+      return prevIndex;
+    }
+
+    // If both items compare coordinates to determine which direction of plinko
+    const next = nextItem.core.getAbsoluteCoords(0, 0)[0] + nextItem.w / 2;
+    const prev = prevItem.core.getAbsoluteCoords(0, 0)[0] + prevItem.w / 2;
+    return Math.abs(prev - prevMiddle) < Math.abs(next - prevMiddle)
+      ? prevIndex
+      : nextIndex;
   }
 
   get itemSpacing() {
@@ -205,7 +311,7 @@ export default class Column extends FocusManager {
   set itemSpacing(itemSpacing) {
     if (itemSpacing !== this._itemSpacing) {
       this._itemSpacing = itemSpacing;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -216,7 +322,7 @@ export default class Column extends FocusManager {
   set scrollIndex(scrollIndex) {
     if (scrollIndex !== this._scrollIndex) {
       this._scrollIndex = scrollIndex;
-      this._updateLayout();
+      this._update();
     }
   }
 
@@ -234,9 +340,11 @@ export default class Column extends FocusManager {
     });
     this.stage.update();
     this._updateLayout();
+    this._update.clear();
+    this._refocus();
   }
 
-  scrollTo(index, duration = this.itemTransition.duration * 100) {
+  scrollTo(index, duration = this._itemTransition.duration * 100) {
     if (duration === 0) this.selectedIndex = index;
 
     for (let i = 0; i !== Math.abs(this.selectedIndex - index); i++) {
@@ -248,14 +356,15 @@ export default class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this._updateLayout();
+    this.itemsChangeable = true;
+    this._updateImmediate();
   }
 
   $removeItem(item) {
     if (item) {
       let wasSelected = item === this.selected;
       this.Items.childList.remove(item);
-      this._updateLayout();
+      this._updateImmediate();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -269,7 +378,7 @@ export default class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._updateLayout();
+    this._updateImmediate();
   }
 
   // can be overridden
