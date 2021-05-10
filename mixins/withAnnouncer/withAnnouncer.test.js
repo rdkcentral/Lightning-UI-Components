@@ -9,7 +9,8 @@ const speakCancel = jest.fn();
 speak.mockReturnValue({
   active: true,
   append: speakAppend,
-  cancel: speakCancel
+  cancel: speakCancel,
+  series: Promise.resolve()
 });
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
@@ -376,6 +377,17 @@ describe('AppAnnouncer', () => {
       }, []);
 
       expect(toAnnounce).toEqual(['Ninja Turtles', 'Free to Me', 'HomePage']);
+    });
+  });
+
+  describe('announceEnded', () => {
+    it('should be emmitted when announcing has completed', () => {
+      announcer.stage = {
+        emit: event => {
+          expect(event).toEqual('announceEnded');
+        }
+      };
+      announcer.$announce('Text to announce');
     });
   });
 });
