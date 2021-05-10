@@ -10,7 +10,7 @@ Focus management and smooth scrolling for a horizontally-oriented list of items.
 `Row` expects a list of `items` which will be laid out side-by-side. By default, the height of `Row` is the same as the height of the tallest item, and the width is the width of the application. You can change the `w` and `h` attributes to manage `width` and `height`, respectively.
 
 ```js
-import { Row } from '@lightning/ui';
+import { Row } from '@lightningjs/ui-components';
 
 class Basic extends lng.Component {
   static _template() {
@@ -27,7 +27,7 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="layout-row--basic" />
+  <Story id="row--basic" />
 </Canvas>
 
 ### Scrolling
@@ -35,7 +35,7 @@ class Basic extends lng.Component {
 By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width).
 
 <Canvas>
-  <Story id="layout-row--side-scrolling" />
+  <Story id="row--side-scrolling" />
 </Canvas>
 
 The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.

@@ -22,7 +22,7 @@ import Column from '../Column';
 import mdx from './Row.mdx';
 
 export default {
-  title: 'Layout / Row',
+  title: 'Row',
   parameters: {
     docs: {
       page: mdx
