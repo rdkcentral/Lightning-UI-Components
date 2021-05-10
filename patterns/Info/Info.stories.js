@@ -22,12 +22,13 @@ export const Basic = args =>
       };
     }
 
-    _getFocused(ars) {
+    _getFocused() {
       if (args.focused) {
         return this.tag('Info');
       }
     }
   };
+
 Basic.args = {
   title: 'Series Title',
   subtitle: 'Season 5 - Episode 2',
