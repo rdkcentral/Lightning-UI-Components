@@ -116,7 +116,7 @@ export class ListItemBase extends withStyles(
             alpha: 0,
             flexItem: false,
             ...this.styles.shadow({
-              w: this._Container.finalW,
+              w: this.w,
               h: this.h,
               borderRadius: this.styles.radius
             })
