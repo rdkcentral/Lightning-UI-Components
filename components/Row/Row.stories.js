@@ -18,6 +18,7 @@
 import lng from '@lightningjs/core';
 
 import Row from '.';
+import Column from '../Column';
 import mdx from './Row.mdx';
 
 export default {
@@ -37,6 +38,32 @@ export const Basic = () =>
           type: Row,
           itemSpacing: 100,
           items: [
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+export const AlwaysScroll = () =>
+  class AlwasyScroll extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          itemSpacing: 100,
+          alwaysScroll: true,
+          items: [
+            { type: Button, buttonText: 'Button', w: 150 },
+            { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 },
             { type: Button, buttonText: 'Button', w: 150 }
@@ -63,7 +90,8 @@ export const SideScrolling = args =>
             type: Button,
             buttonText: `Button ${i + 1}`,
             w: 150
-          }))
+          })),
+          lazyScroll: args.lazyScroll
         }
       };
     }
@@ -73,11 +101,15 @@ export const SideScrolling = args =>
     }
   };
 SideScrolling.args = {
-  scrollIndex: 0
+  scrollIndex: 0,
+  lazyScroll: false
 };
 SideScrolling.argTypes = {
   scrollIndex: {
     control: 'number'
+  },
+  lazyScroll: {
+    control: 'boolean'
   }
 };
 
@@ -148,6 +180,50 @@ export const ExpandableWidth = () =>
     }
   };
 
+export const CenteredInParent = args =>
+  class CenteredInParent extends lng.Component {
+    static _template() {
+      const itemSpacing = 20;
+      const buttonW = 150;
+      const buttonH = 40;
+      const button = {
+        type: Button,
+        buttonText: 'Button',
+        w: buttonW,
+        h: buttonH
+      };
+      return {
+        Row: {
+          type: Row,
+          itemSpacing,
+          w: 400,
+          h: buttonH * 3 + itemSpacing * 2,
+          items: [
+            {
+              type: Column,
+              w: buttonW,
+              h: buttonH * 3 + itemSpacing * 2,
+              itemSpacing,
+              items: Array.apply(null, { length: 3 }).map(() => button)
+            },
+            {
+              type: Column,
+              w: buttonW,
+              h: buttonH,
+              itemSpacing,
+              centerInParent: true,
+              items: Array.apply(null, { length: 1 }).map(() => button)
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
 class ExtendedRow extends Row {
   static _template() {
     return {
@@ -177,39 +253,18 @@ class ExtendedRow extends Row {
   }
 }
 
-export const ExtendingRow = () =>
-  class ExtendingRow extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: ExtendedRow,
-          itemSpacing: 20,
-          title: 'My Button Row',
-          items: [
-            { type: Button, buttonText: 'Button 1', w: 150 },
-            { type: Button, buttonText: 'Button 2', w: 150 },
-            { type: Button, buttonText: 'Button 3', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
 class Button extends lng.Component {
   static _template() {
     return {
       color: 0xff1f1f1f,
       texture: lng.Tools.getRoundRect(150, 40, 4),
+      h: 40,
       Label: {
         x: w => w / 2,
-        y: h => h / 2,
+        y: y => y / 2,
         mount: 0.5,
         color: 0xffffffff,
-        text: { textAlign: 'center', fontSize: 20 }
+        text: { fontSize: 20 }
       }
     };
   }
