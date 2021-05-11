@@ -61,3 +61,33 @@ scrollIndex|number|false|0|Item index at which scrolling begins, provided the su
 selected|<DocsLink id="lng.Component" />|true|-|selected item
 selectedIndex|number|false|0|index of selected item
 w|number|false|`stage.w`|width of the `Row`
+alwaysScroll|boolean|false|determines whether the row will stop scrolling as it nears the right to prevent white space
+lazyScroll|boolean|false|will only scroll the row if the item is off screen
+onScreenItems|array|true|contains a list of items that are currently on screen (within the bounds of the container)
+
+### Child Item Properties
+The `Row` component will utilize the following properties on each individual element in its `items` array:
+
+name|type|readonly|description
+--|--|--|--
+centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will vertically center the child
+
+### Methods
+
+#### onScreenEffect(onScreenItems: lng.Component[]): void
+
+A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
+
+#### appendItems(items: lng.Component[]): void
+
+Adds items to the end of the child list
+
+##### Arguments
+
+name|type|required|default|description
+--|--|--|--|--
+items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|list of items to append
+
+#### render(): void
+
+Called when item focus changes. Render is responsible for the scroll behavior
