@@ -19,13 +19,11 @@
 import TestUtils from '../lightning-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
-import KeyboardInput from './KeyboardInput';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
 const createKeyboard = TestUtils.makeCreateComponent(Keyboard);
 const createKey = TestUtils.makeCreateComponent(Key);
-const createKeyboardInput = TestUtils.makeCreateComponent(KeyboardInput);
 
 describe('Key', () => {
   let key, testRenderer;
@@ -49,8 +47,8 @@ describe('Key', () => {
     expect(key._sizes).toEqual({
       small: 70,
       medium: 115,
-      large: 196,
-      xlarge: 400
+      large: 212,
+      xlarge: 350
     });
   });
 
@@ -61,7 +59,7 @@ describe('Key', () => {
 
   it('should adjust its width if given a size', () => {
     [key, testRenderer] = createKey({ size: 'medium' });
-    expect(key.w).toEqual(128);
+    expect(key.w).toEqual(110);
   });
 
   it('should make its width its height if given a size that doesnt exist', () => {
@@ -233,48 +231,5 @@ describe('Keyboard', () => {
       expect(keyboard.tag('Abc').alpha).toEqual(0);
       expect(keyboard.tag('Num').alpha).toEqual(1);
     });
-  });
-});
-
-describe('KeyboardInput', () => {
-  let keyboardInput, testRenderer;
-
-  beforeEach(() => {
-    [keyboardInput, testRenderer] = createKeyboardInput({ placeholder: '' });
-  });
-
-  afterEach(() => {
-    keyboardInput = null;
-    testRenderer = null;
-  });
-
-  it('renders', () => {
-    const tree = testRenderer.toJSON(2);
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('handels soft key events', () => {
-    keyboardInput.$onSoftKey({ key: 'a' });
-    expect(keyboardInput._Input.value).toEqual('a');
-
-    keyboardInput.$onSoftKey({ key: 'Space' });
-    expect(keyboardInput._Input.value).toEqual('a ');
-
-    keyboardInput.$onSoftKey({ key: 'b' });
-    expect(keyboardInput._Input.value).toEqual('a b');
-
-    keyboardInput.$onSoftKey({ key: 'Delete' });
-    expect(keyboardInput._Input.value).toEqual('a ');
-
-    keyboardInput.$onSoftKey({ key: 'Clear' });
-    expect(keyboardInput._Input.value).toEqual('');
-
-    keyboardInput.$onSoftKey({ key: 'Done' });
-    expect(keyboardInput._Input.value).toEqual('');
-  });
-
-  it('stops input from listening if the keyboard is unfocused', () => {
-    keyboardInput.$keyboardFocused(false);
-    expect(keyboardInput._Input._listening).toEqual(false);
   });
 });

@@ -107,7 +107,15 @@ keepFullScreen|boolean|true|With scrollmount < 1 determines if we keep a full sc
 scrollMount|number|false|Value between 0 and 1, determines at what point scrolling should start.
 selected|<DocsLink id="lng.Component" />|true|component that is currently in focus
 selectedIndex|number|false|index of currently selected item
+alwaysScroll|boolean|false|determines whether the column will stop scrolling as it nears the bottom to prevent white space
+onScreenItems|array|true|contains a list of items that are currently on screen (within the bounds of the container)
 
+### Child Item Properties
+The `Column` component will utilize the following properties on each individual element in its `items` array:
+
+name|type|readonly|description
+--|--|--|--
+centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will horizontally center the child
 
 ### Methods
 
@@ -145,7 +153,7 @@ Called when item focus changes. Render is responsible for the scroll behavior
 name|type|required|default|description
 --|--|--|--|--
 selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|item to select. Required if this.plinko=true
-selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|previously selected item. Required if this.plinko=true
+previous|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|previously selected item. Required if this.plinko=true
 
 ### Events
 

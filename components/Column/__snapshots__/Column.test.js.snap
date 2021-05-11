@@ -4,25 +4,25 @@ exports[`Column should render 1`] = `
 Object {
   "Component": Object {
     "Items": Object {
-      "active": false,
+      "active": true,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
         "Element-11": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-13": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -57,7 +57,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-14": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -92,7 +92,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-15": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -127,7 +127,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-16": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -162,7 +162,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-17": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -202,7 +202,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 0,
+              "h": 80,
               "isComponent": undefined,
               "mount": 0,
               "mountX": 0,
@@ -222,7 +222,7 @@ Object {
                 "Items",
               ],
               "visible": true,
-              "w": 0,
+              "w": 400,
               "x": 0,
               "y": 0,
               "zIndex": 0,
@@ -259,19 +259,19 @@ Object {
           "zIndex": 0,
         },
         "Element-18": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-20": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -306,7 +306,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-21": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -341,7 +341,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-22": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -376,7 +376,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-23": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -411,7 +411,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-24": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -451,7 +451,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 0,
+              "h": 80,
               "isComponent": undefined,
               "mount": 0,
               "mountX": 0,
@@ -471,7 +471,7 @@ Object {
                 "Items",
               ],
               "visible": true,
-              "w": 0,
+              "w": 400,
               "x": 0,
               "y": 0,
               "zIndex": 0,
@@ -508,19 +508,19 @@ Object {
           "zIndex": 0,
         },
         "Element-25": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-27": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -555,7 +555,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-28": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -590,7 +590,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-29": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -625,7 +625,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-30": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -660,7 +660,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-31": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -700,7 +700,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 0,
+              "h": 80,
               "isComponent": undefined,
               "mount": 0,
               "mountX": 0,
@@ -720,7 +720,7 @@ Object {
                 "Items",
               ],
               "visible": true,
-              "w": 0,
+              "w": 400,
               "x": 0,
               "y": 0,
               "zIndex": 0,
@@ -757,19 +757,19 @@ Object {
           "zIndex": 0,
         },
         "Element-32": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-34": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -804,7 +804,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-35": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -839,7 +839,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-36": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -874,7 +874,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-37": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -909,7 +909,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-38": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -949,7 +949,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 0,
+              "h": 80,
               "isComponent": undefined,
               "mount": 0,
               "mountX": 0,
@@ -969,7 +969,7 @@ Object {
                 "Items",
               ],
               "visible": true,
-              "w": 0,
+              "w": 400,
               "x": 0,
               "y": 0,
               "zIndex": 0,
@@ -1006,19 +1006,19 @@ Object {
           "zIndex": 0,
         },
         "Element-4": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "Element-10": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1053,7 +1053,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-6": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1088,7 +1088,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-7": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1123,7 +1123,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-8": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1158,7 +1158,7 @@ Object {
                   "zIndex": 0,
                 },
                 "Element-9": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -1198,7 +1198,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 0,
+              "h": 80,
               "isComponent": undefined,
               "mount": 0,
               "mountX": 0,
@@ -1218,7 +1218,7 @@ Object {
                 "Items",
               ],
               "visible": true,
-              "w": 0,
+              "w": 400,
               "x": 0,
               "y": 0,
               "zIndex": 0,
@@ -1260,7 +1260,7 @@ Object {
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 0,
+      "h": 480,
       "isComponent": undefined,
       "mount": 0,
       "mountX": 0,
@@ -1280,7 +1280,7 @@ Object {
         "Items",
       ],
       "visible": true,
-      "w": 0,
+      "w": 1920,
       "x": 0,
       "y": 0,
       "zIndex": 0,
