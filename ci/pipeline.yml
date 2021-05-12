@@ -48,19 +48,6 @@ resources:
       v3_endpoint: https://github.comcast.com/api/v3/
       v4_endpoint: https://github.comcast.com/api/graphql
 
-  - name: source-repo-publish
-    type: git
-    icon: source-pull
-    webhook_token: ((webhook-token))
-    check_every: 168h
-    tags: [aws]
-    source:
-      repository: ((ghe-org-name))/((ghe-repo-name))
-      disable_forks: false
-      access_token: ((ghe-token))
-      v3_endpoint: https://github.comcast.com/api/v3/
-      v4_endpoint: https://github.comcast.com/api/graphql
-
   - name: source-repo
     type: git
     webhook_token: ((webhook-token))
@@ -111,6 +98,7 @@ groups:
       - Pull Requests
       - Docs
       - Publish
+      - Publish Release
       - Publish Develop
       - Publish Next
   - name: Pull Requests
