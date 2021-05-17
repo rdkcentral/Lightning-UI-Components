@@ -24,6 +24,9 @@ export const parameters = {
   docs: {
     inlineStories: true,
     theme
+  },
+  options: {
+    enableShortcuts: false
   }
 }
 
