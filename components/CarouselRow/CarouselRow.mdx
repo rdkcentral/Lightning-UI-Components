@@ -1,0 +1,47 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
+import CarouselRow from '.';
+
+# CarouselRow
+
+The `Carousel Row` component extends the basic [Row Component][fm-docs] and inherits all of it's properites and abilitiles. The `Carousel Row` will shift the children from the end to the beginning or from the beginning to end of the the row to create and infinite loop effect on the items in the row.
+
+## Usage
+
+`Carousel Row` just requires the `CarouselRow` type and items.
+
+`Carousel Row` looks best when there are 4 more items in the row, but will work with any number of items, starting at any index in the row.
+
+```js
+import { CarouselRow } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      CarouselRow: {
+        type: CarouselRow,
+        items: [
+          { type: MyItem, title: 'Item1' },
+          { type: MyItem, title: 'Item2' },
+          { type: MyItem, title: 'Item3' },
+          { type: MyItem, title: 'Item4' }
+        ]
+      }
+    };
+  }
+};
+```
+
+## API
+The `Carousel Row` component extends `Row` and inherits it's properties and methods. See the [Row API][fm-api] for more references
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+carouselShfitTiming|number|false|total animation duration - 0.2|the amount of time before (delay) starting to alpha in the item in the row that is moving positions due to the carouseling
+carouselShfitDuration|number|false|0|the duration of the animation of the alpha in on the item in the row that is moving positions due to the carouseling
+
+[fm-docs]: ?path=/docs/row--basic
+[fm-api]: ?path=/docs/row--basic#api
