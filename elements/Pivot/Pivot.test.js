@@ -128,6 +128,7 @@ describe('Pivot', () => {
       [pivot, testRenderer] = createPivot();
       pivot._smooth = false;
       pivot._focus();
+      testRenderer.focus();
 
       setTimeout(() => {
         expect(pivot.color).toBe(getHexColor('ECECF2'));
@@ -149,6 +150,7 @@ describe('Pivot', () => {
       [pivot, testRenderer] = createPivot();
       pivot._smooth = false;
       pivot._focus();
+      testRenderer.focus();
       testRenderer.update();
 
       pivot._whenEnabled.then(() => {

@@ -82,7 +82,7 @@ export class ListItemBase extends withStyles(
     }
 
     _updateBackground() {
-      if (this._focused) {
+      if (this.hasFocus()) {
         this._Container.smooth = {
           color: this.styles.backgrounds.focus
         };
@@ -109,7 +109,7 @@ export class ListItemBase extends withStyles(
     }
 
     _updateDropShadow() {
-      if (this._focused && !this._DropShadow) {
+      if (this.hasFocus() && !this._DropShadow) {
         this._Container.patch({
           DropShadow: {
             zIndex: 1,
@@ -125,7 +125,7 @@ export class ListItemBase extends withStyles(
       }
 
       if (this._DropShadow) {
-        const alpha = Number(this._focused);
+        const alpha = Number(this.hasFocus());
         if (this._smooth) {
           this._DropShadow.smooth = { alpha };
         } else {
@@ -142,12 +142,10 @@ export class ListItemBase extends withStyles(
 
     _focus() {
       if (this._smooth === undefined) this._smooth = true;
-      this._focused = true;
       this._update();
     }
 
     _unfocus() {
-      this._focused = false;
       this._update();
     }
 
@@ -276,7 +274,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   _updateTitle() {
-    if (this._focused) {
+    if (this.hasFocus()) {
       this._Title &&
         this._Title.setSmooth('color', this.styles.focused.title.color);
     } else {
@@ -285,7 +283,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   _updateSubtitle() {
-    if (this._focused) {
+    if (this.hasFocus()) {
       this._Subtitle &&
         this._Subtitle.setSmooth('color', this.styles.focused.subtitle.color);
     } else {
@@ -302,7 +300,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   _updateIcons() {
-    if (this._focused) {
+    if (this.hasFocus()) {
       (this._icons || []).length &&
         this._icons.forEach(icon =>
           icon.setSmooth('color', this.styles.focused.icon.color)

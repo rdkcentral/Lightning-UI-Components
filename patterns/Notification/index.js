@@ -163,7 +163,6 @@ class Notification extends lng.Component {
   }
 
   _construct() {
-    this._focused = false;
     this._whenEnabled = new Promise(
       resolve => (this._enable = resolve),
       console.error
