@@ -92,6 +92,8 @@ describe('Button', () => {
     it('has a focus background', done => {
       button._smooth = false;
       button._focus();
+      testRenderer.focus();
+
       button._whenEnabled.then(() => {
         expect(button.color).toBe(getHexColor('ffffff'));
         done();

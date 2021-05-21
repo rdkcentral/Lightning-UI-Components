@@ -38,7 +38,7 @@ export default class ListItemSlider extends ListItem {
   }
 
   _updateSlider() {
-    if (this._focused) {
+    if (this.hasFocus()) {
       this._Slider.smooth = { alpha: 1 };
       this._Container.patch({
         flex: {

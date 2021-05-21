@@ -86,7 +86,6 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
 
   _construct() {
     this._fixed = false;
-    this._focused = false;
     this._minWidth = 0;
     this._strokeWeight = 2;
     this._strokeColor = 0x00;
@@ -107,17 +106,15 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._focused = true;
     this._update();
   }
 
   _unfocus() {
-    this._focused = false;
     this._update();
   }
 
   _updateColor() {
-    const color = this._focused
+    const color = this.hasFocus()
       ? getFirstNumber(
           this.focusedBackground,
           this.styles.focused.background.color
@@ -143,7 +140,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
         text: this.title
       };
 
-      const color = this._focused
+      const color = this.hasFocus()
         ? getFirstNumber(this.focusedTextColor, this.styles.focused.text.color)
         : getFirstNumber(this.textColor, this.styles.text.color);
       if (this._smooth) {
@@ -183,7 +180,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
         this._setIconError();
       }
 
-      const iconColor = this._focused
+      const iconColor = this.hasFocus()
         ? getFirstNumber(this.focusedIconColor, this.styles.focused.icon.color)
         : getFirstNumber(color, this.styles.icon.color);
       if (this._smooth) {
@@ -204,7 +201,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   }
 
   _updateStroke() {
-    if (this.stroke && !this._focused) {
+    if (this.stroke && !this.hasFocus()) {
       const radius = this.radius || this.styles.radius;
 
       this.texture = lng.Tools.getRoundRect(

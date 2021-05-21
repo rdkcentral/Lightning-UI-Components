@@ -228,11 +228,13 @@ describe('Input', () => {
         icon: eye
       });
       input._focus();
+      testRenderer.focus();
       input._updateIcon();
       expect(input._Icon.color).toBe(
         getHexColor(input.styles.iconProperties.focusColor)
       );
       input._unfocus();
+      testRenderer.unfocus();
       input._updateIcon();
       expect(input._Icon.color).toBe(
         getHexColor(input.styles.iconProperties.color)

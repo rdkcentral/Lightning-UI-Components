@@ -81,6 +81,7 @@ describe('ListItemBase', () => {
     });
     it('has a focus background', () => {
       listItemBase._focus();
+      testRenderer.focus();
       testRenderer.update();
       expect(listItemBase._Container.color).toBe(getHexColor('ECECF2'));
     });
@@ -200,6 +201,7 @@ describe('ListItem', () => {
     });
     it('unfocused items transition color', () => {
       listItem._unfocus();
+      testRenderer.unfocus();
       testRenderer.update();
 
       expect(listItem._Title.color).toEqual(0xf2ffffff);
@@ -257,6 +259,7 @@ describe('ListItem', () => {
     describe('on unfocus', () => {
       beforeEach(() => {
         listItem._unfocus();
+        testRenderer.unfocus();
         testRenderer.update();
       });
       it('should hide subtitle', () => {

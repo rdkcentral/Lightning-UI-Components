@@ -84,7 +84,7 @@ class Pivot extends Button {
       this._DropShadow.patch(DropShadow);
     }
 
-    const alpha = Number(this._focused);
+    const alpha = Number(this.hasFocus());
     if (this._smooth) {
       this._DropShadow.smooth = { alpha };
     } else {
@@ -93,7 +93,7 @@ class Pivot extends Button {
   }
 
   _updateScale() {
-    const scale = this._focused ? getFocusScale(this.w) : 1;
+    const scale = this.hasFocus() ? getFocusScale(this.w) : 1;
     if (this._smooth) {
       this.smooth = { scale };
     } else {

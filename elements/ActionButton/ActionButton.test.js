@@ -114,6 +114,7 @@ describe('ActionButton', () => {
     it('should update color and scale on focus', done => {
       actionbutton._smooth = false;
       actionbutton._focus();
+      testRenderer.focus();
 
       setTimeout(() => {
         expect(actionbutton.color).toBe(getHexColor('ECECF2'));
@@ -134,6 +135,7 @@ describe('ActionButton', () => {
     it('should alpha in drop shadow and scale up on focus', done => {
       actionbutton._smooth = false;
       actionbutton._focus();
+      testRenderer.focus();
       testRenderer.update();
       actionbutton._whenEnabled.then(() => {
         expect(actionbutton._DropShadow.alpha).toBe(1);

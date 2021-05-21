@@ -152,7 +152,6 @@ class Input extends lng.Component {
     this._w = this.constructor.styles.w;
     this._h = this.constructor.styles.h;
     this._radius = this.constructor.styles.radius;
-    this._focused = false;
     this._mask = '•';
     this._password = false;
     this._iconHeight = this.styles.iconProperties.height;
@@ -224,7 +223,7 @@ class Input extends lng.Component {
       h: this._iconHeight,
       w: this._iconWidth,
       icon: this._icon,
-      color: this._focused ? this.iconFocusColor : this.iconColor
+      color: this.hasFocus() ? this.iconFocusColor : this.iconColor
     });
     if (this._smooth) {
       this._Icon.smooth = { alpha };
@@ -269,7 +268,7 @@ class Input extends lng.Component {
   }
 
   _updateState() {
-    if (this._focused) {
+    if (this.hasFocus()) {
       if (this._cursorBlink && !this._cursorBlink.isPlaying())
         this._cursorBlink.start();
       this._Label.smooth = { alpha: 1 };
@@ -306,7 +305,7 @@ class Input extends lng.Component {
       this._DropShadow.patch(DropShadow);
       this._DropShadow.y = 92;
     }
-    const alpha = Number(this._focused);
+    const alpha = Number(this.hasFocus());
     if (this._smooth) {
       this._DropShadow.smooth = { alpha };
     } else {
@@ -316,12 +315,10 @@ class Input extends lng.Component {
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._focused = true;
     this._update();
   }
 
   _unfocus() {
-    this._focused = false;
     this._update();
   }
 

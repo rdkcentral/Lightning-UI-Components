@@ -87,12 +87,12 @@ export default class Key extends withStyles(Button, keyStyles) {
   }
 
   _updateDropShadow() {
-    if (this._focused || this._DropShadow) {
+    if (this.hasFocus() || this._DropShadow) {
       if (this.w !== this.styles.w || !this._DropShadow) {
         const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
         this.patch({ DropShadow: DropShadow });
       }
-      const alpha = Number(this._focused);
+      const alpha = Number(this.hasFocus());
       if (this._smooth) {
         this._DropShadow.smooth = { alpha };
       } else {
