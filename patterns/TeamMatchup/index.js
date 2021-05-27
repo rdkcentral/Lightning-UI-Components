@@ -3,6 +3,7 @@ import Icon from '../../elements/Icon';
 import withStyles from '../../mixins/withStyles';
 import { getFocusScale } from '../../Styles';
 import OverlayDataItem from '../OverlayDataItem';
+import { withTags } from '../../mixins';
 
 export const styles = theme => ({
   title: {
@@ -35,10 +36,11 @@ export const styles = theme => ({
     }
   }
 });
-export default class Matchup extends withStyles(lng.Component, styles) {
+export class Matchup extends withTags(lng.Component) {
   static _template() {
     return {
       h: 140,
+      alpha: 0,
       DataItem: {
         type: OverlayDataItem,
         h: 140,
@@ -113,6 +115,18 @@ export default class Matchup extends withStyles(lng.Component, styles) {
     };
   }
 
+  static get tags() {
+    return [
+      'DataItem',
+      'Metadata',
+      { name: 'Content', path: 'DataItem.Content' },
+      { name: 'LeftIcon', path: 'DataItem.Content.Wrapper.LeftIcon' },
+      { name: 'RightIcon', path: 'DataItem.Content.Wrapper.RightIcon' },
+      { name: 'Subtitle', path: 'DataItem.Content.Wrapper.Text.Subtitle' },
+      { name: 'Title', path: 'DataItem.Content.Wrapper.Text.Title' }
+    ];
+  }
+
   _focus() {
     const h = this._DataItem.h * getFocusScale(this._DataItem.w);
     this._Metadata.smooth = { alpha: 1, y: h };
@@ -156,6 +170,7 @@ export default class Matchup extends withStyles(lng.Component, styles) {
       this._icons = icons;
       this._LeftIcon.icon = left;
       this._RightIcon.icon = right;
+      this.smooth = { alpha: [1, { duration: 0.15 }] };
     }
   }
 
@@ -191,32 +206,6 @@ export default class Matchup extends withStyles(lng.Component, styles) {
       this._Metadata.text.text = metadata;
     }
   }
-
-  get _DataItem() {
-    return this.tag('DataItem');
-  }
-
-  get _Metadata() {
-    return this.tag('Metadata');
-  }
-
-  get _Content() {
-    return this.tag('DataItem')._Content;
-  }
-
-  get _LeftIcon() {
-    return this._Content.tag('Wrapper.LeftIcon');
-  }
-
-  get _RightIcon() {
-    return this._Content.tag('Wrapper.RightIcon');
-  }
-
-  get _Subtitle() {
-    return this._Content.tag('Wrapper.Text.Subtitle');
-  }
-
-  get _Title() {
-    return this._Content.tag('Wrapper.Text.Title');
-  }
 }
+
+export default withStyles(Matchup, styles);

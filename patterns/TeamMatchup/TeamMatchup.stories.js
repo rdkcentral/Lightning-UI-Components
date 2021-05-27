@@ -75,10 +75,24 @@ Basic.parameters = {
       component.tag('Matchup').title = title;
     },
     colorLeft: (colorLeft, component) => {
-      component.tag('Matchup').colorLeft = colorLeft;
+      const items = component.tag('Matchup')._items;
+      if (items) {
+        const { left } = items;
+        component.tag('Matchup').items = {
+          ...items,
+          left: { ...left, color: colorLeft }
+        };
+      }
     },
     colorRight: (colorRight, component) => {
-      component.tag('Matchup').colorRight = colorRight;
+      const items = component.tag('Matchup')._items;
+      if (items) {
+        const { right } = items;
+        component.tag('Matchup').items = {
+          ...items,
+          right: { ...right, color: colorRight }
+        };
+      }
     },
     subtitle: (subtitle, component) => {
       component.tag('Matchup').subtitle = subtitle;
