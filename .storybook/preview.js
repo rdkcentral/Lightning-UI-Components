@@ -66,6 +66,22 @@ const stage = {
 let storyId;
 let app;
 
+// Prevent scrolling when navigating with arrows on canvas
+window.addEventListener(
+  'keydown',
+  function (e) {
+    if (!document.body.classList.contains('canvas')) return;
+    if (
+      ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(
+        e.code
+      ) > -1
+    ) {
+      e.preventDefault();
+    }
+  },
+  false
+);
+
 addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, globals }) => {
   const announce = globals.announce === 'on';
   class StoryApp extends withAnnouncer(lng.Application) {
@@ -114,8 +130,11 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
 
     // Move lightning inspector out of the foreground
     if (window.top.location.search.indexOf('path=/docs/') > -1) {
+      document.body.classList.remove('canvas');
       let div = document.querySelector('[type=StoryApp]');
       div && (div.parentNode.style.zIndex = -1);
+    } else {
+      document.body.classList.add('canvas');
     }
   }
 
