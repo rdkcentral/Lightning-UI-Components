@@ -3,6 +3,43 @@ import withStyles from '../../mixins/withStyles';
 
 export const KEY_DIMENSIONS = { h: 60, w: 60, padding: 0, fixed: true };
 const isUpperCase = string => /^[A-Z]$/.test(string);
+const isAlphaChar = string => /^[A-Za-z]$/.test(string);
+const alphaNato = {
+  a: 'alpha',
+  b: 'bravo',
+  c: 'charlie',
+  d: 'delta',
+  e: 'echo',
+  f: 'foxtrot',
+  g: 'golf',
+  h: 'hotel',
+  i: 'india',
+  j: 'juliett',
+  k: 'kilo',
+  l: 'lima',
+  m: 'mike',
+  n: 'november',
+  o: 'oscar',
+  p: 'papa',
+  q: 'quebec',
+  r: 'romeo',
+  s: 'sierra',
+  t: 'tango',
+  u: 'uniform',
+  v: 'victor',
+  w: 'whiskey',
+  x: 'xray',
+  y: 'yankee',
+  z: 'zulu'
+};
+
+function getNato(char) {
+  if (isAlphaChar(char)) {
+    return `${char}, ${alphaNato[char.toLowerCase()]}`;
+  }
+
+  return char;
+}
 
 export const keyStyles = theme => ({
   background: {
@@ -70,10 +107,10 @@ export default class Key extends withStyles(Button, keyStyles) {
     }
 
     if (isUpperCase(this.title)) {
-      return `Capital ${this.title}, button`;
+      return `Capital ${getNato(this.title)}, button`;
     }
 
-    return this.title + ', button';
+    return getNato(this.title) + ', button';
   }
 
   set label(label) {

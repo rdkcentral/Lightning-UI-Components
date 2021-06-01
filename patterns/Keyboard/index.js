@@ -9,14 +9,24 @@ export default class Keyboard extends lng.Component {
   }
 
   get announce() {
-    return 'Keyboard' + (this.title ? `, ${this.title}` : '');
+    return this._announce || 'Keyboard' + (this.title ? `, ${this.title}` : '');
+  }
+
+  set announce(val) {
+    this._announce = val;
   }
 
   get announceContext() {
-    return [
-      'PAUSE-2',
-      'Use arrow keys to choose characters, press center to select'
-    ];
+    return (
+      this._announceContext || [
+        'PAUSE-2',
+        'Use arrow keys to choose characters, press center to select'
+      ]
+    );
+  }
+
+  set announceContext(val) {
+    this._announceContext = val;
   }
 
   set formats(formats = {}) {
