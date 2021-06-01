@@ -56,6 +56,23 @@ describe('Key', () => {
     expect(key.title).toEqual('done');
   });
 
+  describe('#announce', () => {
+    it('should set nato', () => {
+      [key, testRenderer] = createKey({ char: 'a' });
+      expect(key.announce).toEqual('a, alpha, button');
+    });
+
+    it('should add capital for capital characters', () => {
+      [key, testRenderer] = createKey({ char: 'Z' });
+      expect(key.announce).toEqual('Capital Z, zulu, button');
+    });
+
+    it('should work for numeric', () => {
+      [key, testRenderer] = createKey({ char: '4' });
+      expect(key.announce).toEqual('4, button');
+    });
+  });
+
   it('should fire $onSoftKey events on enter press', () => {
     key.fireAncestors = jest.fn();
     key._handleEnter();

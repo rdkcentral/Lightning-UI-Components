@@ -27,6 +27,28 @@ describe('Keyboard', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should have an announce', () => {
+    keyboard.title = 'Search';
+    expect(keyboard.announce).toEqual('Keyboard, Search');
+  });
+
+  it('should allow announce to be overriden', () => {
+    keyboard.announce = 'Qwerty Keyboard';
+    expect(keyboard.announce).toEqual('Qwerty Keyboard');
+  });
+
+  it('should have an announceContext', () => {
+    expect(keyboard.announceContext).toEqual([
+      'PAUSE-2',
+      'Use arrow keys to choose characters, press center to select'
+    ]);
+  });
+
+  it('should allow announceContext to be overriden', () => {
+    keyboard.announceContext = 'Context';
+    expect(keyboard.announceContext).toEqual('Context');
+  });
+
   it('should take in multi line format', () => {
     expect(keyboard.tag('Lowercase').constructor.name).toEqual('Column');
   });
