@@ -162,7 +162,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
           h: size,
           icon: src,
           visible: 1,
-          flexItem: { marginRight: this.title ? spacing : 0 }
+          flexItem: { marginRight: !this._fixed && this.title ? spacing : 0 }
         });
       } else {
         this._Content.childList.addAt(
@@ -173,7 +173,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
             h: size,
             icon: src,
             visible: 1,
-            flexItem: { marginRight: this.title ? spacing : 0 }
+            flexItem: { marginRight: !this._fixed && this.title ? spacing : 0 }
           }),
           0
         );

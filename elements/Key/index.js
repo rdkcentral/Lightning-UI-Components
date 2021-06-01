@@ -77,6 +77,12 @@ export default class Key extends withStyles(Button, keyStyles) {
       ...KEY_DIMENSIONS
     };
   }
+
+  _setIcon(icon) {
+    const mergedIcon = super._setIcon({ ...this.styles.icon, ...icon });
+    return mergedIcon.src ? mergedIcon : null;
+  }
+
   _updateIcon() {
     super._updateIcon();
     this._Title.patch({
