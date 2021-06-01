@@ -36,6 +36,7 @@ export const Basic = args =>
     static _template() {
       return {
         Lists: {
+          y: CollectionLabel.styles.h + 15,
           Column: {
             type: Column,
             alwaysScroll: true,

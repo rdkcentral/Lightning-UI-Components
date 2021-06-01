@@ -38,9 +38,11 @@ export const Basic = () => {
     static _template() {
       return {
         Buttons: {
+          y: CollectionLabel.styles.h + 15,
           Column: {
             type: Column,
             itemSpacing: this.styles.space,
+            alwaysScroll: true,
             items: [
               {
                 type: CollectionHeader,
