@@ -13,6 +13,9 @@ export default (base, speak = Speech) =>
     }
 
     _voiceOut(toAnnounce) {
+      if (this._voiceOutDisabled) {
+        return;
+      }
       const speech = speak(toAnnounce);
       if (speech && speech.series) {
         speech.series.then(() => {
@@ -125,7 +128,7 @@ export default (base, speak = Speech) =>
       }
     }
 
-    $announce(toAnnounce, { append = false } = {}) {
+    $announce(toAnnounce, { append = false, notification = false } = {}) {
       if (this.announcerEnabled) {
         this._debounceAnnounceFocusChanges.flush();
         if (
@@ -137,6 +140,14 @@ export default (base, speak = Speech) =>
         } else {
           this.$announcerCancel();
           this._currentlySpeaking = this._voiceOut(toAnnounce);
+        }
+
+        if (notification) {
+          this._voiceOutDisabled = true;
+          this._currentlySpeaking.series.finally(() => {
+            this._voiceOutDisabled = false;
+            this.$announcerRefresh();
+          });
         }
       }
     }

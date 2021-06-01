@@ -325,6 +325,30 @@ describe('AppAnnouncer', () => {
         speakAppend.mock.invocationCallOrder[0]
       );
     });
+
+    it('should stop focus change, announce notification, and refresh (notification=true)', done => {
+      speak.mockClear();
+      speak.mockReturnValue({
+        active: true,
+        append: speakAppend,
+        cancel: speakCancel,
+        series: Promise.resolve()
+      });
+      announcer.$announce('Some Notification', { notification: true });
+      expect(speak).toHaveBeenNthCalledWith(1, 'Some Notification');
+      expect(speak).toHaveBeenCalledTimes(1);
+      setTimeout(() => {
+        expect(speak).toHaveBeenNthCalledWith(2, [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ]);
+        done();
+      }, 2);
+    });
   });
 
   describe('$announcerRefresh', () => {
