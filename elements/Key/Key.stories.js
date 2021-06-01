@@ -1,8 +1,5 @@
 import lng from '@lightningjs/core';
-import Keyboard, { KEYBOARD_FORMATS } from '../../patterns/Keyboard';
 import Key from '.';
-import KeyboardInput from '../../patterns/Keyboard/KeyboardInput';
-import Row from '../../layout/Row';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
 // TODO: add mdx
@@ -12,8 +9,7 @@ export default {
   title: 'Elements / Key',
   component: Key,
   args: {
-    focused: false,
-    char: 'A'
+    focused: false
   },
   parameters: {
     docs: {
@@ -38,6 +34,10 @@ export const Basic = args =>
       }
     }
   };
+
+Basic.args = {
+  char: 'A'
+};
 
 export const Icon = args =>
   class Icon extends lng.Component {
