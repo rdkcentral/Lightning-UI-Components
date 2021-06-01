@@ -80,7 +80,7 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
-    "kick-concourse": "git commit --allow-empty -m 'Trigger Concourse' && git push origin"
+    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin"
   },
   "publishConfig": {
     "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
