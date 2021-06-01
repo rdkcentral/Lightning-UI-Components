@@ -57,8 +57,12 @@ export default class CollectionDocItem extends withTags(
     this._Row.items.forEach(item => {
       const identifier = item.title || item._label || '';
       if (identifier.toLowerCase().includes('(focus)')) {
-        const action = toggle ? item._focus() : item._unfocus();
-        if ('function' === typeof action) action();
+        // Fake the hasFocus checks
+        item.hasFocus = () => true;
+        if (item.title) item.title = item.title.replace('(focus)', '').trim();
+        if (item.label) item.label = item.label.replace('(focus)', '').trim();
+        const action = toggle ? item._focus : item._unfocus;
+        if ('function' === typeof action) action.call(item);
       }
     });
   }
