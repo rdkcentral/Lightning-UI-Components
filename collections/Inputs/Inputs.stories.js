@@ -31,6 +31,7 @@ export const Basic = args =>
         Inputs: {
           type: Column,
           itemSpacing: this.styles.space,
+          alwaysScroll: true,
           items: [
             {
               type: CollectionDocItem,

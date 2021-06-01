@@ -55,7 +55,7 @@ export default class CollectionDocItem extends withTags(
     if (!this._Row.items.length) return;
     this._Row.h = this.h;
     this._Row.items.forEach(item => {
-      const identifier = item.title || item._label || '';
+      const identifier = item.title || item.label || '';
       if (identifier.toLowerCase().includes('(focus)')) {
         // Fake the hasFocus checks
         item.hasFocus = () => true;
