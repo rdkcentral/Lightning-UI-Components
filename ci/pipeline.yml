@@ -155,7 +155,7 @@ jobs:
 - name: Docs
   build_logs_to_retain: 50
   plan:
-    - get: source-repo
+    - get: source-repo-release
       trigger: true
     - task: Publish Docs
       file: source-repo/ci/tasks/gh-pages.yml
