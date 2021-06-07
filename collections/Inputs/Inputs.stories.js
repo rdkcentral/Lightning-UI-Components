@@ -1,11 +1,11 @@
-import lng from '@lightningjs/core';
-import withStyles from '../../mixins/withStyles';
-import mdx from './Inputs.mdx';
-import Column from '../../layout/Column';
-import Input from '../../patterns/Input';
-import icEye from '../../assets/images/ic_eye_white_48.png';
-
 import CollectionDocItem from '../CollectionDocItem';
+import Column from '../../layout/Column';
+import lng from '@lightningjs/core';
+import icEye from '../../assets/images/ic_eye_white_48.png';
+import Input from '../../patterns/Input';
+import mdx from './Inputs.mdx';
+import { withFocusAlways } from '../';
+import withStyles from '../../mixins/withStyles';
 
 export default {
   title: 'Collections / Inputs',
@@ -47,9 +47,9 @@ export const Basic = args =>
                 },
                 {
                   w: 530,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 1 (focus)',
+                  label: 'Input Label 1',
                   icon: icEye
                 }
               ]
@@ -69,9 +69,9 @@ export const Basic = args =>
                 },
                 {
                   w: 530,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 2 (focus)',
+                  label: 'Input Label 2',
                   icon: icEye,
                   caption: 'Press ··· Caption 1'
                 }
@@ -92,9 +92,9 @@ export const Basic = args =>
                 },
                 {
                   w: 530,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 3 (focus)',
+                  label: 'Input Label 3',
                   icon: icEye,
                   password: true
                 }
@@ -115,9 +115,9 @@ export const Basic = args =>
                 },
                 {
                   w: 530,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 4 (focus)',
+                  label: 'Input Label 4',
                   icon: icEye,
                   caption: 'Press ··· Caption 1',
                   password: true
@@ -137,9 +137,9 @@ export const Basic = args =>
                 },
                 {
                   w: 380,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 5 (focus)',
+                  label: 'Input Label 5',
                   icon: icEye
                 }
               ]
@@ -157,9 +157,9 @@ export const Basic = args =>
                 },
                 {
                   w: 380,
-                  type: Input,
+                  type: withFocusAlways(Input),
                   placeholder: 'Suggested Text',
-                  label: 'Input Label 6 (focus)',
+                  label: 'Input Label 6',
                   icon: icEye
                 }
               ]

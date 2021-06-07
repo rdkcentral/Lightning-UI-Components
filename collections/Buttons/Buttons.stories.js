@@ -1,7 +1,3 @@
-import lng from '@lightningjs/core';
-import mdx from './Buttons.mdx';
-import withStyles from '../../mixins/withStyles';
-import Column from '../../layout/Column';
 import {
   ActionButtonLarge,
   ActionButtonMedium,
@@ -10,14 +6,20 @@ import {
   ActionButtonIconSmall,
   ActionButtonXsmall
 } from '../../elements/ActionButton';
-import icApps from '../../assets/images/ic_apps_white_32.png';
-import icOverflowVertical from '../../assets/images/ic_overflow_vertical_white_32.png';
-import icPlay from '../../assets/images/ic_play_white_32.png';
-import icAvatar from '../../assets/images/ic_avatar_white_32.png';
-import icMic from '../../assets/images/ic_mic_white_32.png';
+import Column from '../../layout/Column';
 import CollectionDocItem from '../CollectionDocItem';
 import CollectionHeader from '../CollectionHeader';
 import CollectionLabel from '../CollectionLabel';
+import icApps from '../../assets/images/ic_apps_white_32.png';
+import icAvatar from '../../assets/images/ic_avatar_white_32.png';
+import icMic from '../../assets/images/ic_mic_white_32.png';
+import icOverflowVertical from '../../assets/images/ic_overflow_vertical_white_32.png';
+import icPlay from '../../assets/images/ic_play_white_32.png';
+import lng from '@lightningjs/core';
+import mdx from './Buttons.mdx';
+import { withFocusAlways } from '../';
+import withStyles from '../../mixins/withStyles';
+
 export default {
   title: 'Collections/Buttons',
   parameters: {
@@ -68,9 +70,9 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonLarge,
+                    type: withFocusAlways(ActionButtonLarge),
                     icon: icApps,
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               },
@@ -93,9 +95,9 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonMedium,
+                    type: withFocusAlways(ActionButtonMedium),
                     icon: icPlay,
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               },
@@ -118,9 +120,9 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonIconMedium,
+                    type: withFocusAlways(ActionButtonIconMedium),
                     icon: icOverflowVertical,
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               },
@@ -143,9 +145,9 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonSmall,
+                    type: withFocusAlways(ActionButtonSmall),
                     icon: icPlay,
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               },
@@ -168,9 +170,9 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonIconSmall,
+                    type: withFocusAlways(ActionButtonIconSmall),
                     icon: icOverflowVertical,
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               },
@@ -199,10 +201,10 @@ export const Basic = () => {
                     title: 'Button'
                   },
                   {
-                    type: ActionButtonXsmall,
+                    type: withFocusAlways(ActionButtonXsmall),
                     icon: icMic,
                     backgroundType: 'ghost',
-                    title: 'Button (focus)'
+                    title: 'Button'
                   }
                 ]
               }
