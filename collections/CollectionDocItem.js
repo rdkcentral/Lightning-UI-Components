@@ -5,7 +5,7 @@ import withTags from '../mixins/withTags';
 import Row from '../layout/Row';
 const style = theme => {
   return {
-    space: theme.spacing(4),
+    space: theme.spacing(5),
     focusColor: theme.palette.background.focus
   };
 };
@@ -48,31 +48,6 @@ export default class CollectionDocItem extends withTags(
   _update() {
     if (!this.items.length) return;
     this._Row.items = [...this.items];
-    if (this._isActive()) this._setMockActiveState(true);
-  }
-
-  _setMockActiveState(toggle) {
-    if (!this._Row.items.length) return;
-    this._Row.h = this.h;
-    this._Row.items.forEach(item => {
-      const identifier = item.title || item.label || '';
-      if (identifier.toLowerCase().includes('(focus)')) {
-        // Fake the hasFocus checks
-        item.hasFocus = () => true;
-        if (item.title) item.title = item.title.replace('(focus)', '').trim();
-        if (item.label) item.label = item.label.replace('(focus)', '').trim();
-        const action = toggle ? item._focus : item._unfocus;
-        if ('function' === typeof action) action.call(item);
-      }
-    });
-  }
-
-  _active() {
-    this._setMockActiveState(true);
-  }
-
-  _inactive() {
-    this._setMockActiveState(false);
   }
 
   _focus() {
