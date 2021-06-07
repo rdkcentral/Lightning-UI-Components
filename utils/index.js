@@ -248,3 +248,7 @@ export function flatten(arr) {
     []
   );
 }
+
+export function stringifyCompare(objA, objB) {
+  return JSON.stringify(objA) === JSON.stringify(objB);
+}
