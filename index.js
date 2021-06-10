@@ -38,6 +38,7 @@ export { default as ListItem, ListItemImage, ListItemSlider, ListItemToggle, Lis
 export { default as MarqueeText } from './elements/MarqueeText/index.js';
 export { default as MetadataCard } from './elements/MetadataCard/index.js';
 export { default as MetadataTile } from './elements/MetadataTile/index.js';
+export { default as Notification } from './patterns/Notification/index.js';
 export { default as Pivot } from './elements/Pivot/index.js';
 export { default as ProgressBar } from './elements/ProgressBar/index.js';
 export { default as Radio } from './elements/Radio/index.js';
@@ -50,4 +51,4 @@ export { default as TileCircle } from './elements/TileCircle/index.js';
 export { default as TileIcon } from './elements/TileIcon/index.js';
 export { default as Toggle } from './elements/Toggle/index.js';
 export { default as Tooltip } from './elements/Tooltip/index.js';
-export { default as Notification } from './patterns/Notification/index.js'; // TODO: alphabetize
+
