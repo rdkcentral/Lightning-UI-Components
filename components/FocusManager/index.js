@@ -95,6 +95,7 @@ export default class FocusManager extends lng.Component {
 
   selectPrevious() {
     if (this.selectedIndex > 0) {
+      let currentIndex = this.selectedIndex;
       let prevIndex = this.selectedIndex - 1;
       let previous = this.items[prevIndex];
       while (prevIndex && previous.skipFocus) {
@@ -103,7 +104,10 @@ export default class FocusManager extends lng.Component {
         prevIndex -= 1;
         previous = this.items[prevIndex];
       }
-      this.selectedIndex = prevIndex;
+       if (previous.skipFocus && (prevIndex == 0))
+        this.selectedIndex = currentIndex;
+      else
+        this.selectedIndex = prevIndex;
       return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = this.Items.children.length - 1;
@@ -114,6 +118,7 @@ export default class FocusManager extends lng.Component {
 
   selectNext() {
     if (this.selectedIndex < this.Items.children.length - 1) {
+      let currentIndex = this.selectedIndex;
       let nextIndex = this.selectedIndex + 1;
       let next = this.items[nextIndex];
       while (nextIndex < this.items.length - 1 && next.skipFocus) {
@@ -122,7 +127,10 @@ export default class FocusManager extends lng.Component {
         nextIndex += 1;
         next = this.items[nextIndex];
       }
-      this.selectedIndex = nextIndex;
+      if (next.skipFocus && (nextIndex == this.items.length - 1))
+        this.selectedIndex = currentIndex;
+      else
+        this.selectedIndex = nextIndex;
       return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = 0;
