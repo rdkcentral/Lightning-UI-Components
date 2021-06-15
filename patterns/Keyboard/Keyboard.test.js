@@ -1,10 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
-import Key from '../../elements/Key';
 import KeyboardInput from './KeyboardInput';
 
 const createKeyboard = TestUtils.makeCreateComponent(Keyboard);
-const createKey = TestUtils.makeCreateComponent(Key);
 const createKeyboardInput = TestUtils.makeCreateComponent(KeyboardInput);
 
 describe('Keyboard', () => {
@@ -152,6 +150,43 @@ describe('Keyboard', () => {
       keyboard.$toggleKeyboard('num');
       expect(keyboard.tag('Abc').alpha).toEqual(0);
       expect(keyboard.tag('Num').alpha).toEqual(1);
+    });
+  });
+
+  it('should not scroll child rows if a width prop smaller than the auto calulated row is passed', done => {
+    [keyboard, testRenderer] = createKeyboard({
+      w: 10,
+      defaultFormat: 'lowercase',
+      formats: KEYBOARD_FORMATS.qwerty
+    });
+    return keyboard._whenEnabled.then(() => {
+      const firstRow = keyboard.tag('Lowercase').items[0];
+      expect(firstRow.Items.x).toBe(0);
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.update();
+      firstRow._whenEnabled.then(() => {
+        expect(firstRow._selectedIndex).toBe(3);
+        expect(firstRow.Items.transition('x').targetValue).toBe(0);
+        done();
+      });
+    });
+  });
+
+  it('should not scroll child rows if no width prop is passed', done => {
+    return keyboard._whenEnabled.then(() => {
+      const firstRow = keyboard.tag('Lowercase').items[0];
+      expect(firstRow.Items.x).toBe(0);
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.keyPress('Right');
+      testRenderer.update();
+      firstRow._whenEnabled.then(() => {
+        expect(firstRow._selectedIndex).toBe(3);
+        expect(firstRow.Items.transition('x').targetValue).toBe(0);
+        done();
+      });
     });
   });
 });

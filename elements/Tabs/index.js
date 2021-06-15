@@ -233,7 +233,9 @@ export class TabBase extends lng.Component {
       this._Tab.selected = true;
       this.selected = this._Tab;
       this._updateColor();
+      return true;
     }
+    return false;
   }
 
   _handleDown() {
@@ -241,7 +243,9 @@ export class TabBase extends lng.Component {
       this._Tab.selected = false;
       this.selected = this.childList.last;
       this._updateColor();
+      return true;
     }
+    return false;
   }
 
   _getFocused() {

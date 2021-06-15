@@ -97,12 +97,12 @@ export default class Row extends FocusManager {
   }
 
   _shouldScroll() {
-    const lastChild = this.Items.childList.last;
     let shouldScroll = this.alwaysScroll;
-    if (!shouldScroll) {
+    if (!shouldScroll && !this.neverScroll) {
       if (this.lazyScroll) {
         shouldScroll = !this._isOnScreenCompletely(this.selected);
       } else {
+        const lastChild = this.Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
