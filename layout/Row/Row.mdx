@@ -62,7 +62,8 @@ selected|<DocsLink id="lng.Component" />|true|-|selected item
 selectedIndex|number|false|0|index of selected item
 w|number|false|`stage.w`|width of the `Row`
 alwaysScroll|boolean|false|determines whether the row will stop scrolling as it nears the right to prevent white space
-lazyScroll|boolean|false|will only scroll the row if the item is off screen
+neverScroll|boolean|false|false|if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic
+lazyScroll|boolean|false|will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false
 onScreenItems|array|true|contains a list of items that are currently on screen (within the bounds of the container)
 
 ### Child Item Properties

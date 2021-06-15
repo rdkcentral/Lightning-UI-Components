@@ -1,7 +1,10 @@
-import lng from '@lightningjs/core';
-import mdx from './Lists.mdx';
 import { Column } from '../../layout';
-import withStyles from '../../mixins/withStyles';
+import CollectionHeader from '../CollectionHeader';
+import CollectionDocItem from '../CollectionDocItem';
+import CollectionLabel from '../CollectionLabel';
+import icList56 from '../../assets/images/list_56.png';
+import icSettings from '../../assets/images/ic_settings_white_40.png';
+import icWifi from '../../assets/images/ic_wifi_white_40.png';
 import ListItem, {
   ListItemRadio,
   ListItemToggle,
@@ -9,12 +12,10 @@ import ListItem, {
   ListItemPicker,
   ListItemImage
 } from '../../patterns/ListItem';
-import CollectionHeader from '../CollectionHeader';
-import CollectionDocItem from '../CollectionDocItem';
-import CollectionLabel from '../CollectionLabel';
-import icWifi from '../../assets/images/ic_wifi_white_40.png';
-import icSettings from '../../assets/images/ic_settings_white_40.png';
-import list56 from '../../assets/images/list_56.png';
+import lng from '@lightningjs/core';
+import mdx from './Lists.mdx';
+import { withFocusAlways } from '../';
+import withStyles from '../../mixins/withStyles';
 
 export default {
   title: 'Collections/Lists',
@@ -59,8 +60,8 @@ export const Basic = args =>
                     icon: [icWifi]
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     icon: [icWifi]
                   }
                 ]
@@ -74,8 +75,8 @@ export const Basic = args =>
                     icon: [icSettings, icWifi]
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     icon: [icSettings, icWifi]
                   }
                 ]
@@ -90,8 +91,8 @@ export const Basic = args =>
                     icon: icWifi
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata',
                     icon: icWifi
                   }
@@ -105,8 +106,8 @@ export const Basic = args =>
                     title: 'List Item'
                   },
                   {
-                    type: ListItemRadio,
-                    title: 'List Item (focus)'
+                    type: withFocusAlways(ListItemRadio),
+                    title: 'List Item'
                   }
                 ]
               },
@@ -119,8 +120,8 @@ export const Basic = args =>
                     subtitle: 'List Item Metadata'
                   },
                   {
-                    type: ListItemRadio,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemRadio),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata'
                   }
                 ]
@@ -134,8 +135,8 @@ export const Basic = args =>
                     checked: true
                   },
                   {
-                    type: ListItemToggle,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemToggle),
+                    title: 'List Item',
                     checked: true
                   }
                 ]
@@ -150,8 +151,8 @@ export const Basic = args =>
                     checked: true
                   },
                   {
-                    type: ListItemToggle,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemToggle),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata',
                     checked: true
                   }
@@ -166,27 +167,27 @@ export const Basic = args =>
                     subtitle: 'List Item Metadata'
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata'
                   }
                 ]
               },
-              // {
-              //   type: CollectionDocItem,
-              //   h: ListItemSlider.styles.h,
-              //   url: '/?path=/story/patterns-listitemslider--basic',
-              //   items: [
-              //     {
-              //       type: ListItemSlider,
-              //       title: 'ListItem'
-              //     },
-              //     {
-              //       type: ListItemSlider,
-              //       title: 'ListItem (focus)'
-              //     }
-              //   ]
-              // },
+              {
+                type: CollectionDocItem,
+                h: ListItemSlider.styles.h,
+                url: '/?path=/story/patterns-listitemslider--basic',
+                items: [
+                  {
+                    type: ListItemSlider,
+                    title: 'ListItem'
+                  },
+                  {
+                    type: withFocusAlways(ListItemSlider),
+                    title: 'ListItem'
+                  }
+                ]
+              },
               {
                 type: CollectionDocItem,
                 items: [
@@ -200,8 +201,8 @@ export const Basic = args =>
                     ]
                   },
                   {
-                    type: ListItemPicker,
-                    title: 'ListItem (focus)',
+                    type: withFocusAlways(ListItemPicker),
+                    title: 'ListItem',
                     options: [
                       'List Item Metadata 1',
                       'List Item Metadata 2',
@@ -224,8 +225,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     icon: icWifi,
                     size: 'small'
                   }
@@ -242,8 +243,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata',
                     icon: icWifi,
                     size: 'small'
@@ -256,13 +257,13 @@ export const Basic = args =>
                   {
                     type: ListItemImage,
                     title: 'List Item',
-                    image: list56,
+                    image: icList56,
                     size: 'small'
                   },
                   {
-                    type: ListItemImage,
-                    title: 'List Item (focus)',
-                    image: list56,
+                    type: withFocusAlways(ListItemImage),
+                    title: 'List Item',
+                    image: icList56,
                     size: 'small'
                   }
                 ]
@@ -274,14 +275,14 @@ export const Basic = args =>
                     type: ListItemImage,
                     title: 'List Item',
                     subtitle: 'List Item Metadata',
-                    image: list56,
+                    image: icList56,
                     size: 'small'
                   },
                   {
-                    type: ListItemImage,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemImage),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata',
-                    image: list56,
+                    image: icList56,
                     size: 'small'
                   }
                 ]
@@ -300,8 +301,8 @@ export const Basic = args =>
                     ]
                   },
                   {
-                    type: ListItemPicker,
-                    title: 'ListItem (focus)',
+                    type: withFocusAlways(ListItemPicker),
+                    title: 'ListItem',
                     size: 'small',
                     options: [
                       'List Item Metadata 1',
@@ -322,8 +323,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItemSlider,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemSlider),
+                    title: 'List Item',
                     size: 'small'
                   }
                 ]
@@ -339,8 +340,8 @@ export const Basic = args =>
                     checked: true
                   },
                   {
-                    type: ListItemToggle,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemToggle),
+                    title: 'List Item',
                     size: 'small',
                     checked: true
                   }
@@ -357,8 +358,8 @@ export const Basic = args =>
                     checked: true
                   },
                   {
-                    type: ListItemToggle,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemToggle),
+                    title: 'List Item',
                     subtitle: 'List Row Metadata',
                     size: 'small',
                     checked: true
@@ -374,8 +375,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItemRadio,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemRadio),
+                    title: 'List Item',
                     size: 'small'
                   }
                 ]
@@ -390,8 +391,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItemRadio,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItemRadio),
+                    title: 'List Item',
                     subtitle: 'List Row Metadata',
                     size: 'small'
                   }
@@ -407,8 +408,8 @@ export const Basic = args =>
                     backgroundType: 'float'
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     size: 'small',
                     backgroundType: 'float'
                   }
@@ -424,8 +425,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: ListItem,
-                    title: 'List Item (focus)',
+                    type: withFocusAlways(ListItem),
+                    title: 'List Item',
                     subtitle: 'List Item Metadata',
                     size: 'small'
                   }

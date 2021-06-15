@@ -1,0 +1,47 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import withBadgeProgress, {styles} from '.';
+
+# withBadgeProgress
+
+Adds a configurable progress bar and badge to the element. The element should have a height at least equal to the combined height of the badge and progress bar, and a width of at least 2x the badge width.
+
+## Usage
+
+To leverage the mixin, wrap an existing component with it and provide the expected properties `badge`, `badgeLocation`, and/or `progress`. Define the wrapped component as you normally would.
+
+```js
+import { withBadgeProgress } from '@lightning/ui/patterns';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      withBadgeProgress: {
+        type: withBadgeProgress(Tile),
+        Tile: {
+          // ...Tile properties
+        },
+        badge: '1:45',
+        badgeLocation: 'lowerLeft',
+        progress: 0.7
+      }
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="patterns-withbadgeprogress--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+badge|string|false|undefined|the content of the badge
+badgeLocation|string|false|'upperLeft'|position the badge will appear over the wrapped component
+progress|number|false|0|percentage of the current progress from 0 to 1

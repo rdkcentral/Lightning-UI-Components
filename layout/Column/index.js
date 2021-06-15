@@ -53,6 +53,16 @@ export default class Column extends FocusManager {
     return super.selectPrevious();
   }
 
+  _shouldScroll() {
+    let shouldScroll = this.alwaysScroll;
+    if (!shouldScroll && !this.neverScroll) {
+      const lastChild = this.Items.childList.last;
+      shouldScroll =
+        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+    }
+    return shouldScroll;
+  }
+
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollUp() {
     let shouldScroll = false;
@@ -100,20 +110,16 @@ export default class Column extends FocusManager {
 
   _performRender() {
     this._whenEnabled.then(() => {
-      const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
-        .y;
-      const firstChild = this.Items.childList.first;
-      const lastChild = this.Items.childList.last;
-      const shouldScroll =
-        this.alwaysScroll ||
-        (lastChild && (this.shouldScrollUp() || this.shouldScrollDown()));
-
-      if (shouldScroll) {
+      if (this._shouldScroll()) {
         const scrollItem =
           this.selectedIndex > this._lastScrollIndex
             ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
             : this.selected;
+        const scrollOffset = (
+          this.Items.children[this._scrollIndex] || { y: 0 }
+        ).y;
         if (this._smooth) {
+          const firstChild = this.Items.childList.first;
           this.Items.smooth = {
             y: [
               -(scrollItem || firstChild).transition('y').targetValue +

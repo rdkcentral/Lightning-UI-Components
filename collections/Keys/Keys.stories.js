@@ -1,11 +1,12 @@
-import lng from '@lightningjs/core';
-import Key from '../../elements/Key';
-import withStyles from '../../mixins/withStyles';
+import BackspaceIcon from '../../assets/images/ic_backspace_white_32.png';
 import Column from '../../layout/Column';
 import CollectionDocItem from '../CollectionDocItem';
 import CollectionLabel from '../CollectionLabel';
-import BackspaceIcon from '../../assets/images/ic_backspace_white_32.png';
+import Key from '../../elements/Key';
+import lng from '@lightningjs/core';
 import mdx from './Keys.mdx';
+import { withFocusAlways } from '../';
+import withStyles from '../../mixins/withStyles';
 
 export default {
   title: 'Collections / Keys',
@@ -46,8 +47,8 @@ export const Basic = args =>
                     size: 'xlarge'
                   },
                   {
-                    type: Key,
-                    label: 'Space (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'Space',
                     size: 'xlarge'
                   }
                 ]
@@ -64,8 +65,8 @@ export const Basic = args =>
                     }
                   },
                   {
-                    type: Key,
-                    label: 'Space (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'Space',
                     size: 'xlarge',
                     icon: {
                       src: BackspaceIcon
@@ -86,8 +87,8 @@ export const Basic = args =>
                     size: 'large'
                   },
                   {
-                    type: Key,
-                    label: 'ABC (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'ABC',
                     size: 'large'
                   }
                 ]
@@ -104,8 +105,8 @@ export const Basic = args =>
                     }
                   },
                   {
-                    type: Key,
-                    label: 'ABC (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'ABC',
                     size: 'large',
                     icon: {
                       src: BackspaceIcon
@@ -126,8 +127,8 @@ export const Basic = args =>
                     size: 'medium'
                   },
                   {
-                    type: Key,
-                    label: '&123 (focus)',
+                    type: withFocusAlways(Key),
+                    label: '&123',
                     size: 'medium'
                   }
                 ]
@@ -144,8 +145,8 @@ export const Basic = args =>
                     }
                   },
                   {
-                    type: Key,
-                    label: '&123 (focus)',
+                    type: withFocusAlways(Key),
+                    label: '&123',
                     size: 'medium',
                     icon: {
                       src: BackspaceIcon
@@ -166,8 +167,8 @@ export const Basic = args =>
                     size: 'small'
                   },
                   {
-                    type: Key,
-                    label: 'A (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'A',
                     size: 'small'
                   }
                 ]
@@ -184,8 +185,8 @@ export const Basic = args =>
                     }
                   },
                   {
-                    type: Key,
-                    label: 'A (focus)',
+                    type: withFocusAlways(Key),
+                    label: 'A',
                     size: 'small',
                     icon: {
                       src: BackspaceIcon

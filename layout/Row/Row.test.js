@@ -272,5 +272,21 @@ describe('Row', () => {
         });
       });
     });
+
+    describe('with neverScroll set to true', () => {
+      it('should never scroll the row', done => {
+        row.neverScroll = true;
+        expect(row.Items.x).toBe(0);
+        testRenderer.keyPress('Right');
+        testRenderer.keyPress('Right');
+        testRenderer.keyPress('Right');
+        testRenderer.update();
+        row._whenEnabled.then(() => {
+          expect(row._selectedIndex).toBe(3);
+          expect(row.Items.transition('x').targetValue).toBe(0);
+          done();
+        });
+      });
+    });
   });
 });
