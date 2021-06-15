@@ -194,7 +194,7 @@ describe('Column', () => {
         expect(column.items[1].selectedIndex).toBe(3);
       });
 
-      it('should selected last item in selected row if it is closest', () => {
+      it('should select last item in selected row if it is closest', () => {
         let row = column.items[0];
         row.items = [...items, { ...baseItem }];
         row._update.flush();
@@ -237,7 +237,6 @@ describe('Column', () => {
 
       describe('and scrollIndex = 0', () => {
         it('should scroll down', done => {
-          let item = column.items[1];
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
@@ -247,7 +246,6 @@ describe('Column', () => {
         });
 
         it('should scroll up', done => {
-          let item = column.items[0];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
           column._whenEnabled.then(() => {
@@ -413,6 +411,20 @@ describe('Column', () => {
           expect(column.selectedIndex).toEqual(3);
           done();
         }, 2);
+      });
+
+      it('should not scroll is neverScroll if true', done => {
+        column.neverScroll = true;
+        expect(column.Items.y).toBe(0);
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+        column._whenEnabled.then(() => {
+          expect(column._selectedIndex).toBe(3);
+          expect(column.Items.transition('y').targetValue).toBe(0);
+          done();
+        });
       });
     });
   });

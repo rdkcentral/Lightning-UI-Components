@@ -35,7 +35,8 @@ export const Basic = args =>
             type: Button,
             buttonText: `Button ${i + 1}`
           })),
-          alwaysScroll: args.alwaysScroll
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll
         }
       };
     }
@@ -46,27 +47,26 @@ export const Basic = args =>
   };
 Basic.args = {
   scrollIndex: 0,
-  itemTransition: 0.4
+  itemTransition: 0.4,
+  alwaysScroll: false,
+  neverScroll: false
 };
 Basic.argTypes = {
   itemTransition: {
     control: { type: 'number', min: 0, step: 0.1 }
   },
-  scroll: {
-    control: { type: 'select', options: [1, 5, 15, 20] }
-  },
   scrollIndex: {
     control: { type: 'number', min: 0 }
   },
   alwaysScroll: {
-    control: { type: 'boolean' }
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
   }
 };
 Basic.parameters = {
   argActions: {
-    scroll: function (index, component) {
-      component.tag('Column').scrollTo(index - 1);
-    },
     itemTransition: (duration, component) => {
       component.tag('Column').itemTransition = {
         duration,

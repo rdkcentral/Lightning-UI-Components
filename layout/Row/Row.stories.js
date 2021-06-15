@@ -13,68 +13,23 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Row: {
           type: Row,
-          itemSpacing: 100,
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-export const AlwaysScroll = () =>
-  class AlwasyScroll extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: Row,
-          itemSpacing: 100,
-          alwaysScroll: true,
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-export const SideScrolling = args =>
-  class SideScrolling extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: Row,
           w: 900,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 12 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`,
             w: 150
-          })),
-          lazyScroll: args.lazyScroll
+          }))
         }
       };
     }
@@ -83,13 +38,25 @@ export const SideScrolling = args =>
       return this.tag('Row');
     }
   };
-SideScrolling.args = {
+Basic.args = {
+  itemSpacing: 20,
   scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
   lazyScroll: false
 };
-SideScrolling.argTypes = {
+Basic.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
   scrollIndex: {
     control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
   },
   lazyScroll: {
     control: 'boolean'
