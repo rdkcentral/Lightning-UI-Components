@@ -74,6 +74,7 @@ export default class Keyboard extends lng.Component {
         h,
         centerInParent: this.centerAlign,
         w: this.w,
+        neverScroll: true,
         wrapSelected: this.rowWrap === undefined ? true : this.rowWrap,
         itemSpacing: this._spacing,
         items: this._createKeys(keys)
