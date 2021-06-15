@@ -159,6 +159,8 @@ jobs:
       trigger: true
     - task: Publish Docs
       file: source-repo-release/ci/tasks/gh-pages.yml
+      input_mapping:
+        source-repo: source-repo-release
       params:
         HOST: ((github-enterprise.host))
         PRIVATE_KEY: ((github-enterprise.private-key))
