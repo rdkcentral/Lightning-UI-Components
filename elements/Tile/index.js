@@ -2,11 +2,11 @@ import lng from '@lightningjs/core';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../../Styles/black_background_tile';
-import { withUpdates, withTags, withHandleKey } from '../../mixins';
+import Base from '../Base';
 
 export const styles = theme => ({
   radius: theme.border.radius.medium,
-  shadow: theme.materials.luminance,
+  shadow: theme.materials.shadow,
   blur: 0,
   src: blackBackground,
   focusring: function ({ w, h, radius }) {
@@ -20,18 +20,16 @@ export const styles = theme => ({
     };
   },
   unfocused: {
-    scale: () => 1,
     focusring: { alpha: 0 },
     shadow: { alpha: 0 }
   },
   focused: {
-    scale: theme.getFocusScale,
     focusring: { alpha: 1 },
     shadow: { alpha: 1 }
   }
 });
 
-class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
+class Tile extends Base {
   static _template() {
     return {
       Item: {
@@ -45,15 +43,21 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
   }
 
   static get properties() {
-    return ['radius', 'imgRadius', 'blur', 'src', 'fallbackSrc'];
+    return [
+      'radius',
+      'imgRadius',
+      'blur',
+      'src',
+      'fallbackSrc',
+      'focusRingColor'
+    ];
   }
 
   _construct() {
     this._radius = this.styles.radius;
     this._src = this._fallbackSrc = this.styles.src;
-    this._getFocusScale = this.styles.focused.scale;
-    this._getUnfocusScale = this.styles.unfocused.scale;
     this._blur = this.styles.blur;
+    this._focusRingColor = this.styles.focusRingColor;
     super._construct && super._construct();
   }
 
@@ -65,6 +69,7 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
       }
       this._update();
     });
+    super._init();
   }
 
   _update() {
@@ -153,8 +158,7 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
         this._shadow = this.styles.shadow({
           w: this.w,
           h: this.h,
-          texture: this._Image.getTexture(),
-          radius: this.radius
+          borderRadius: this.radius
         });
       }
       let DropShadow = this._shadow;
@@ -168,6 +172,11 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
       }
       this.patch({ DropShadow });
     }
+  }
+
+  vibrantCallback() {
+    this.focusRingColor = this.vibrantFocusRing;
+    this._update();
   }
 
   _updateFocusRing() {
@@ -188,6 +197,7 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
       } else {
         FocusRingComponent = { ...FocusRingComponent, ...style };
       }
+      FocusRingComponent.color = this.focusRingColor;
       this.patch({ FocusRing: FocusRingComponent });
 
       if (this.hasFocus()) {
@@ -205,24 +215,17 @@ class Tile extends withUpdates(withTags(withHandleKey(lng.Component))) {
     if (this._smooth) {
       this._Item.smooth = { scale };
       if (this._FocusRing) this._FocusRing.smooth = { scale };
+      if (this._DropShadow) this._DropShadow.smooth = { scale };
     } else {
       this._Item.scale = scale;
       if (this._FocusRing) this._FocusRing.scale = scale;
+      if (this._DropShadow) this._DropShadow.smooth = { scale };
     }
   }
 
   set shadow(shadow) {
     this._shadow = shadow;
     this._requestUpdateDebounce();
-  }
-
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
   }
 }
 

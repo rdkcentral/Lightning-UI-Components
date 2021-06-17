@@ -66,15 +66,15 @@ function luminance({
 function shadow({
   w,
   h,
-  color = 0xff000000,
+  color = getHexColor(PALETTE.grey[100], 60),
   borderRadius = CORNER_RADIUS.small,
-  blur = spacing(2)
+  blur = spacing(3)
 }) {
   return {
     color: color,
     mount: 0.5,
     x: w / 2,
-    y: h / 2,
+    y: h / 2 + spacing(3),
     zIndex: 1,
     texture: lng.Tools.getShadowRect(
       w - spacing(2),

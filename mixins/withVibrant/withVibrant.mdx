@@ -1,0 +1,61 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import withVibrant from '.';
+
+# withVibrant
+
+The `withVibrant` mixin can be wrapped around component with an image source ("src"), which will be used by the [VibrantJS](https://github.com/Vibrant-Colors/node-vibrant) library to return a relevant color palette.
+
+## Usage
+
+`withUpdates` looks for an image `src` to pass to the VibrantJS library.
+
+```js
+import { withVibrant } from '@lightning/ui';
+
+class Example extends withVibrant(lng.Component) {
+  static _template() {
+    return {
+      src: 'http://imagePath
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="mixins-withvibrant--basic" />
+</Canvas>
+
+The `id` for the preview comes from the url path generated for the story.
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+src|string|true|-|image source to use to generate the color palette from [VibrantJS](https://github.com/Vibrant-Colors/node-vibrant)
+vibrantPalette|Object|false|undefined|color palette returned from [VibrantJS](https://github.com/Vibrant-Colors/node-vibrant) if there is a valid image source
+vibrant|number|false|undefined|returns a formated 10-digit color value from the palette called "Vibrant"
+muted|number|false|undefined|returns a formated 10-digit color value from the palette called "Muted"
+darkVibrant|number|false|undefined|returns a formated 10-digit color value from the palette called "DarkVibrant"
+darkMuted|number|false|undefined|returns a formated 10-digit color value from the palette called "DarkMuted"
+lightVibrant|number|false|undefined|returns a formated 10-digit color value from the palette called "lightVibrant"
+lightMuted|number|false|undefined|returns a formated 10-digit color value from the palette called "LightMuted"
+vibrantMatieral|number|false|undefined|returns a formated 10-digit color value from the palette called meant to be used on the "material" layer of a component
+vibrantFill|number|false|undefined|returns a formated 10-digit color value from the palette called meant to be used on the "fill" layer of a component
+vibrantFocusRing|number|false|undefined|returns a formated 10-digit color value from the palette called meant to be used on the "focus ring" layer of a component
+
+### Methods
+
+#### printColors(): void
+
+Logs all available color names, their hex value, and how many times that color appeared in the image (population).
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={withVibrant.styles} />

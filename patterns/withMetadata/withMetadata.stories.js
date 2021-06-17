@@ -63,7 +63,7 @@ Basic.args = {
   metadataType: 'MetadataCard',
   badge: 'Live',
   progress: 0.5,
-  metadataLocation: 'inset'
+  metadataLocation: 'bottom'
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },

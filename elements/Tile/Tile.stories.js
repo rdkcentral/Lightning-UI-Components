@@ -166,5 +166,5 @@ export const XfinityTheme = args =>
 XfinityTheme.args = {
   width: 320,
   height: 180,
-  radius: 8
+  radius: 16
 };

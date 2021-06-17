@@ -51,6 +51,7 @@
     "jest": "^26.6.1",
     "jest-webgl-canvas-mock": "^0.2.3",
     "lint-staged": "^9.5.0",
+    "node-vibrant": "^3.1.6",
     "prettier": "^2.2.1",
     "semantic-release": "^17.4.2"
   },
