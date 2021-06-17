@@ -95,7 +95,7 @@ export const XfinityTheme = () =>
         icon,
         w: 320,
         h: 180,
-        radius: 8
+        radius: 16
       };
       return {
         x: 60,
