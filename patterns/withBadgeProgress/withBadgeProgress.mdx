@@ -10,6 +10,9 @@ Adds a configurable progress bar and badge to the element. The element should ha
 
 To leverage the mixin, wrap an existing component with it and provide the expected properties `badge`, `badgeLocation`, and/or `progress`. Define the wrapped component as you normally would.
 
+__Note__: because this mixin relies on the wrapped component's dimensions, there can be positioning issues if these properties aren't available quickly enough. If you notice this bug, try setting the `w` and `h` of the wrapped component in it's `_init` method.
+
+
 ```js
 import { withBadgeProgress } from '@lightning/ui/patterns';
 

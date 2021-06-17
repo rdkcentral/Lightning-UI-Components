@@ -11,10 +11,21 @@ export const styles = theme => ({
 
 export default (base = Tile) =>
   class withMetadata extends withStyles(withBadgeProgress(base), styles) {
+    static get properties() {
+      return [
+        'metadataLocation',
+        'paddingSide',
+        'paddingTop',
+        ...super.properties
+      ];
+    }
+
     _construct() {
-      super._construct();
       this._paddingTop = this.styles.paddingTop;
       this._paddingSide = this.styles.paddingSide;
+      this._progressBarPadding = this.styles.progressBarPadding; // available via withBadgeProgress
+      this._metadataLocation = this._metadataLocation || 'bottom';
+      super._construct();
     }
 
     _update() {
@@ -75,8 +86,26 @@ export default (base = Tile) =>
       const currentTileHeight = this.hasFocus()
         ? this._focusedTileHeight
         : this._unfocusedTileHeight;
-      const offset = this.hasFocus() ? this._tileScaleOffsetHeight : 0;
-      const metadataY = this._paddingTop + currentTileHeight - offset;
+
+      const focusOffset = this.hasFocus() ? this._tileScaleOffsetHeight : 0;
+
+      const progressBarOffset = this._ProgressBar
+        ? this._ProgressBar.h + this._progressBarPadding
+        : 0;
+
+      const metadataHeight = this.Metadata.finalH || this.Metadata.h;
+
+      const locations = {
+        bottom: this._paddingTop + currentTileHeight - focusOffset,
+        inset:
+          currentTileHeight -
+          (metadataHeight +
+            progressBarOffset +
+            this._paddingTop * 2 +
+            focusOffset)
+      };
+
+      const metadataY = locations[this._metadataLocation];
 
       if (this._smooth) {
         this.Metadata.smooth = { y: metadataY };
@@ -89,26 +118,20 @@ export default (base = Tile) =>
       return this.Metadata || super._getFocused();
     }
 
-    set paddingTop(padding) {
-      if (padding !== this._paddingTop) {
-        this._paddingTop = padding;
-        this._update();
+    _setMetadataLocation(metadataLocation) {
+      const metadataLocations = ['bottom', 'inset'];
+      if (this._metadataLocation !== metadataLocation) {
+        if (metadataLocations.includes(metadataLocation)) {
+          return metadataLocation;
+        } else {
+          console.warn(
+            `invalid property value: metadataLocation must match one of:${metadataLocations.map(
+              Position => ` ${Position}`
+            )}`
+          );
+          return metadataLocations[0];
+        }
       }
-    }
-
-    get paddingTop() {
-      return this._paddingTop;
-    }
-
-    set paddingSide(padding) {
-      if (padding !== this._paddingSide) {
-        this._paddingSide = padding;
-        this._update();
-      }
-    }
-
-    get paddingSide() {
-      return this._paddingSide;
     }
 
     set Metadata(Metadata) {
@@ -118,13 +141,5 @@ export default (base = Tile) =>
 
     get Metadata() {
       return this.tag('Metadata');
-    }
-
-    get Badge() {
-      return this.tag('Badge');
-    }
-
-    get ProgressBar() {
-      return this.tag('ProgressBar');
     }
   };
