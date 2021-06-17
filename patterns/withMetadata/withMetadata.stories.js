@@ -32,6 +32,7 @@ export const Basic = args =>
           persistentMetadata: args.persistentMetadata,
           progress: args.progress,
           badge: args.badge,
+          metadataLocation: args.metadataLocation,
           Metadata: {
             type:
               args.metadataType === 'MetadataTile'
@@ -61,13 +62,19 @@ Basic.args = {
   persistentMetadata: true,
   metadataType: 'MetadataCard',
   badge: 'Live',
-  progress: 0.5
+  progress: 0.5,
+  metadataLocation: 'inset'
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
   persistentMetadata: { control: 'boolean' },
   metadataType: {
-    control: { type: 'radio', options: ['MetadataCard', 'MetadataTile'] }
+    options: ['MetadataCard', 'MetadataTile'],
+    control: { type: 'radio' }
+  },
+  metadataLocation: {
+    options: ['bottom', 'inset'],
+    control: { type: 'radio' }
   },
   badge: { control: 'text' },
   progress: {
