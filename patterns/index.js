@@ -6,7 +6,6 @@ export { default as ListItem } from './ListItem';
 export { default as ListItemImageGroup } from './ListItem/ListItemImageGroup';
 export { default as Notification } from './Notification';
 export { default as OverlayDataItem } from './OverlayDataItem';
-export { default as ProgramCard } from './ProgramCard';
 export { default as TeamInfo } from './TeamInfo';
 export { default as TeamMatchup } from './TeamMatchup';
 export { default as withMetadata } from './withMetadata';
