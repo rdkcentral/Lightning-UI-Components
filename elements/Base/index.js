@@ -1,6 +1,12 @@
 import lng from '@lightningjs/core';
-import { withStyles, withUpdates, withTags, withHandleKey } from '../../mixins';
-import withVibrant from '../../mixins/withVibrant';
+import {
+  withStyles,
+  withUpdates,
+  withTags,
+  withHandleKey,
+  withLayout,
+  withVibrant
+} from '../../mixins';
 
 const baseStyles = theme => ({
   getUnfocusScale: () => 1,
@@ -35,7 +41,7 @@ function withMixins(baseComponent) {
   if (baseComponent.styles.withVibrant) {
     baseComponent = withVibrant(baseComponent);
   }
-  return withUpdates(withTags(withHandleKey(baseComponent)));
+  return withLayout(withUpdates(withTags(withHandleKey(baseComponent))));
 }
 
 export default withMixins(withStyles(Base, baseStyles));
