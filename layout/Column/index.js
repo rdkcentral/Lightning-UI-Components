@@ -97,7 +97,8 @@ export default class Column extends FocusManager {
     this._prevLastScrollIndex = this._lastScrollIndex;
 
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-      next.selectedIndex = this._getIndexOfItemNear(next, prev);
+      const prevPlinko = this.checkSkipPlinko(prev, next);
+      next.selectedIndex = this._getIndexOfItemNear(next, prevPlinko || prev);
     }
 
     // Rows are changing height, so we'll render via updateLayout
@@ -106,6 +107,46 @@ export default class Column extends FocusManager {
     }
 
     this._performRender();
+  }
+
+  checkSkipPlinko(prev, next) {
+    // If previous doesnt have skip plinko or previous is the first or last item
+    if (
+      !prev ||
+      !prev.skipPlinko ||
+      [0, this.items.length - 1].includes(this.items.indexOf(prev))
+    ) {
+      return null;
+    }
+
+    const prevIndex = this.items.indexOf(prev);
+    const direction = prevIndex - this.items.indexOf(next);
+    const up = direction > 0;
+
+    // Grab all items below prev if up or all items before prev if down
+    const prevItems = up
+      ? this.items.slice(prevIndex).map((i, idx) => ({
+          skipPlinko: i.skipPlinko,
+          index: this.items.indexOf(i)
+        }))
+      : this.items
+          .slice(0, prevIndex + 1)
+          .map(i => ({
+            skipPlinko: i.skipPlinko,
+            index: this.items.indexOf(i)
+          }))
+          .reverse();
+
+    // first item that has skipPlinko but the previous does not
+    // Start at the index prev
+    const endOfMultiSkipPlinkos = prevItems.find(
+      i => i.skipPlinko && !this.items[i.index + direction].skipPlinko
+    );
+    const prevPlinkoIndex = endOfMultiSkipPlinkos
+      ? endOfMultiSkipPlinkos.index + direction
+      : prevIndex + direction; // +/- 1, item index before prev
+
+    return this.items[prevPlinkoIndex];
   }
 
   _performRender() {
