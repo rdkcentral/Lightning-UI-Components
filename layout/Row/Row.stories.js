@@ -256,3 +256,64 @@ class ExpandingHeightButton extends Button {
     this.setSmooth('h', 75, { duration: 1 });
   }
 }
+
+export const Plinko = args => {
+  return class Plinko extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          itemSpacing: 20,
+          plinko: true,
+          items: [
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map((item, index) => ({
+                type: Button,
+                buttonText: 1 !== index ? 'Button' : 'Skip focus',
+                w: 150,
+                skipFocus: 1 === index
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+};

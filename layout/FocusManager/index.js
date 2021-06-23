@@ -150,6 +150,55 @@ export default class FocusManager extends lng.Component {
     return true;
   }
 
+  _getIndexOfItemNear(selected, prev) {
+    // Euclidean distance
+    function distance(xA, yA, xB, yB) {
+      const xDiff = xA - xB;
+      const yDiff = yA - yB;
+      return Math.sqrt(Math.pow(xDiff, 2) + Math.sqrt(Math.pow(yDiff, 2)));
+    }
+
+    const prevItem = prev.selected || prev.currentItem;
+
+    if (!selected || !selected.items || !selected.items.length || !prevItem) {
+      return 0;
+    }
+
+    const prevOffsetX = prev.transition('x').targetValue || 0;
+    const prevOffsetY = prev.transition('y').targetValue || 0;
+    const [itemX, itemY] = prevItem.core.getAbsoluteCoords(
+      -prevOffsetX,
+      -prevOffsetY
+    );
+    const prevMiddle = [itemX + prevItem.w / 2, itemY + prevItem.h / 2];
+
+    // Get all item center points from selected
+    const selectedCoordArray = selected.items
+      .map((item, index) => {
+        const [x, y] = item.core.getAbsoluteCoords(0, 0);
+        return {
+          index,
+          distance: !item.skipFocus
+            ? distance(
+                prevMiddle[0],
+                prevMiddle[1],
+                x + item.w / 2,
+                y + item.h / 2
+              )
+            : null
+        };
+      })
+      .filter(item => {
+        // Remove all indexes that don't have a distance (skipFocus)
+        return null !== item.distance;
+      })
+      .sort(function (a, b) {
+        return a.distance - b.distance;
+      });
+
+    return selectedCoordArray[0].index;
+  }
+
   _getFocused() {
     let { selected } = this;
     // Make sure we're focused on a component
