@@ -51,6 +51,7 @@
     "jest": "^26.6.1",
     "jest-webgl-canvas-mock": "^0.2.3",
     "lint-staged": "^9.5.0",
+    "node-vibrant": "^3.1.6",
     "prettier": "^2.2.1",
     "semantic-release": "^17.4.2"
   },
@@ -80,7 +81,8 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --no-coverage --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
-    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin"
+    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
+    "release": "git fetch origin && git checkout release && git pull origin release && git pull origin develop && git push origin release"
   },
   "publishConfig": {
     "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"

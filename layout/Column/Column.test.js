@@ -24,6 +24,14 @@ const baseRow = {
   items
 };
 
+const skipPlinkoRow = {
+  type: Row,
+  h: 80,
+  skipPlinko: true,
+  debounceDelay: 0,
+  items: [{ type: lng.Component, w: 400, h: 80 }]
+};
+
 const rows = [
   { ...baseRow },
   { ...baseRow },
@@ -426,6 +434,47 @@ describe('Column', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('with skpPlinko true a row', () => {
+    it('should set selected item for item based on item before skipPlinko item', () => {
+      column.plinko = true;
+      column.items = [{ ...baseRow }, { ...skipPlinkoRow }, { ...baseRow }];
+      let item = column.items[0];
+      item.selectedIndex = 3;
+      testRenderer.update();
+      testRenderer.keyPress('Down');
+      expect(column.items[1].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[2].selectedIndex).toBe(3);
+    });
+
+    it('should set selected item for item based on item before multiple skipPlinko items', () => {
+      column.plinko = true;
+      column.items = [
+        { ...baseRow },
+        { ...skipPlinkoRow },
+        { ...skipPlinkoRow },
+        { ...skipPlinkoRow },
+        { ...baseRow }
+      ];
+      let item = column.items[0];
+      item.selectedIndex = 3;
+      testRenderer.update();
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[1].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[2].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[3].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[4].selectedIndex).toBe(3);
     });
   });
 });

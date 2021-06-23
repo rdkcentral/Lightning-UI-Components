@@ -7,7 +7,7 @@ then
   exit 0
 fi
 
-if [ "$1" != "collections" ] && [ "$1" != "elements" ] && [ "$1" != "layout" ] && [ "$1" != "patterns" ]
+if [ "$1" != "collections" ] && [ "$1" != "elements" ] && [ "$1" != "layout" ] && [ "$1" != "mixins" ] && [ "$1" != "patterns" ]
 then
   echo "Invalid component directory, please use one of the following:"
   echo "collections, elements, layout, patterns"

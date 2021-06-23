@@ -5,3 +5,4 @@ export { default as withStyles } from './withStyles';
 export { default as withTags } from './withTags';
 export { default as withTransitions } from './withTransitions';
 export { default as withUpdates } from './withUpdates';
+export { default as withVibrant } from './withVibrant';

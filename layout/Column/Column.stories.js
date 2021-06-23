@@ -4,6 +4,15 @@ import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
 import { flatten } from '../../utils';
+import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
+import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+import person from '../../assets/images/cast.png';
+import person1 from '../../assets/images/cast1.png';
+import person2 from '../../assets/images/cast2.png';
+import { TileIcon, MetadataTile } from '../../elements';
+import { withMetadata } from '../../patterns';
 
 export default {
   title: 'Layout / Column',
@@ -35,8 +44,7 @@ export const Basic = args =>
             type: Button,
             buttonText: `Button ${i + 1}`
           })),
-          alwaysScroll: args.alwaysScroll,
-          neverScroll: args.neverScroll
+          alwaysScroll: args.alwaysScroll
         }
       };
     }
@@ -47,26 +55,27 @@ export const Basic = args =>
   };
 Basic.args = {
   scrollIndex: 0,
-  itemTransition: 0.4,
-  alwaysScroll: false,
-  neverScroll: false
+  itemTransition: 0.4
 };
 Basic.argTypes = {
   itemTransition: {
     control: { type: 'number', min: 0, step: 0.1 }
   },
+  scroll: {
+    control: { type: 'select', options: [1, 5, 15, 20] }
+  },
   scrollIndex: {
     control: { type: 'number', min: 0 }
   },
   alwaysScroll: {
-    control: 'boolean'
-  },
-  neverScroll: {
-    control: 'boolean'
+    control: { type: 'boolean' }
   }
 };
 Basic.parameters = {
   argActions: {
+    scroll: function (index, component) {
+      component.tag('Column').scrollTo(index - 1);
+    },
     itemTransition: (duration, component) => {
       component.tag('Column').itemTransition = {
         duration,
@@ -533,3 +542,116 @@ class ExpandingRow extends Row {
     this.patch({ h: 40 });
   }
 }
+
+export const SkipPlinko = () =>
+  class SkipPlinko extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          w: 900,
+          itemSpacing: 32,
+          plinko: true,
+          items: [
+            {
+              type: Row,
+              h: 200,
+              itemSpacing: 50,
+              items: [
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: parks,
+                  iconW: 50,
+                  iconH: 50,
+                  persistentMetadata: true,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person,
+                  progress: 0.8,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: trolls,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                }
+              ]
+            },
+            {
+              type: Row,
+              h: 340,
+              skipPlinko: true,
+              items: [
+                {
+                  type: withMetadata(TileIcon),
+                  w: 1060,
+                  h: 300,
+                  iconW: 50,
+                  iconH: 50,
+                  src: pets,
+                  badge: 'HD',
+                  Metadata: {
+                    type: MetadataTile,
+                    firstLine: `Row with skipPlinko set to true`
+                  }
+                }
+              ]
+            },
+
+            {
+              type: Row,
+              itemSpacing: 50,
+              h: 180,
+              items: [
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person2,
+                  iconW: 50,
+                  iconH: 50,
+                  progress: 0.2,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: jurassic,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person1,
+                  iconW: 50,
+                  iconH: 50,
+                  progress: 0.5,
+                  badge: 'HD'
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };

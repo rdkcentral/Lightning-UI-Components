@@ -25,41 +25,34 @@ describe('withBadgeProgress', () => {
     expect(component.constructor.name).toBe('TileWithBadgeProgress');
   });
 
-  it('should display badge, badgePadding, and Badge position', done => {
+  it('should display badge, and Badge position', () => {
     const badge = 'HD';
-    const badgePadding = 40;
-    component.badge = badge;
-    component._badgePadding = badgePadding;
-    component.badgeLocation = 'upperLeft';
-    testRenderer.update();
+    const badgePadding = component.styles.badgePadding;
+    const badgeLocation = 'upperLeft';
 
-    setTimeout(() => {
-      expect(component.badge).toBe(badge);
-      expect(component._badgePadding).toBe(badgePadding);
-      expect(component._Badge.x).toBe(component.x + badgePadding);
-      expect(component._Badge.y).toBe(badgePadding);
-      done();
-    }, 100);
+    [component, testRenderer] = createTileWithBadgeProgress(Tile, {
+      badge,
+      badgeLocation
+    });
+
+    expect(component.badge).toBe(badge);
+    expect(component._Badge.x).toBe(component.x + badgePadding);
+    expect(component._Badge.y).toBe(badgePadding);
   });
 
-  it('should display the progress bar', done => {
+  it('should display the progress bar', () => {
     const progress = 0.5;
-    const progressBarPadding = 50;
-    component.progress = progress;
-    component._progressBarPadding = progressBarPadding;
-    testRenderer.update();
+    const progressBarPadding = component.styles.progressBarPadding;
 
-    setTimeout(() => {
-      expect(component.progress).toBe(progress);
-      expect(component._progressBarPadding).toBe(progressBarPadding);
-      expect(component._ProgressBar.x).toBe(progressBarPadding);
-      expect(component._ProgressBar.y).toBe(
-        component._unfocusedHeight -
-          component._ProgressBar.h -
-          progressBarPadding
-      );
-      done();
-    }, 100);
+    [component, testRenderer] = createTileWithBadgeProgress(Tile, {
+      progress
+    });
+
+    expect(component.progress).toBe(progress);
+    expect(component._ProgressBar.x).toBe(progressBarPadding);
+    expect(component._ProgressBar.y).toBe(
+      component._unfocusedHeight - component._ProgressBar.h - progressBarPadding
+    );
   });
 
   it('should alpha the progress off if progress is 0', () => {

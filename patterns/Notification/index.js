@@ -17,7 +17,6 @@ export const styles = theme => ({
     x: theme.spacing(3),
     y: theme.spacing(3)
   },
-  shadow: theme.materials.shadow,
   icon: {
     size: 64,
     spacing: theme.spacing(2)

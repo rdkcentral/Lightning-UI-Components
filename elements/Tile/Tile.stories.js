@@ -10,6 +10,7 @@ import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+import { withLayout } from '../../mixins';
 
 export default {
   title: 'Elements / Tile',
@@ -108,6 +109,19 @@ export const XfinityTheme = args =>
           items: [
             {
               type: Tile,
+              src: trolls,
+              itemLayout: {
+                ratioX: 16,
+                ratioY: 9,
+                upCount: 5
+              },
+              radius: args.radius,
+              onArrowUp: (keyEvent, tile) => {
+                console.log('You hit Up ', keyEvent);
+              }
+            },
+            {
+              type: Tile,
               src: parks,
               w: args.width,
               h: args.height,
@@ -128,26 +142,19 @@ export const XfinityTheme = args =>
             },
             {
               type: Tile,
-              src: trolls,
-              w: args.width,
-              h: args.height,
-              radius: args.radius,
-              onArrowUp: (keyEvent, tile) => {
-                console.log('You hit Up ', keyEvent);
-              }
-            },
-            {
-              type: Tile,
               src: pets,
               w: args.width,
               h: args.height,
               radius: args.radius
             },
             {
-              type: Tile,
-              w: args.width,
-              h: args.height,
-              radius: args.radius
+              type: withLayout(Tile),
+              radius: args.radius,
+              itemLayout: {
+                ratioX: 16,
+                ratioY: 9,
+                upCount: 5
+              }
             }
           ]
         }
@@ -166,5 +173,5 @@ export const XfinityTheme = args =>
 XfinityTheme.args = {
   width: 320,
   height: 180,
-  radius: 8
+  radius: 16
 };

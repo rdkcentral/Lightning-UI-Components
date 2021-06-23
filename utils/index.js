@@ -249,6 +249,13 @@ export function flatten(arr) {
   );
 }
 
+export function objectPropertyOf(object, path) {
+  return path.reduce(
+    (obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined),
+    object
+  );
+}
+
 export function stringifyCompare(objA, objB) {
   return JSON.stringify(objA) === JSON.stringify(objB);
 }
