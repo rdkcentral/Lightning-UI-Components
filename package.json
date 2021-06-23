@@ -82,7 +82,7 @@
     "test:watch": "jest --no-coverage --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
     "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
-    "release": "get fetch origin && git checkout release && git pull origin release && git pull origin develop && git push origin release"
+    "release": "git fetch origin && git checkout release && git pull origin release && git pull origin develop && git push origin release"
   },
   "publishConfig": {
     "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
