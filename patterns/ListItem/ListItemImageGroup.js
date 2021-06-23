@@ -68,30 +68,22 @@ export default class ListItemImageGroup extends withStyles(
   }
 
   set listItems(listItems) {
+    // Allow override of props with spread as last prop
     this._Column.items = listItems.map(item => ({
       type: ListItemImage,
       title: item.title,
       subtitle: item.subtitle,
       size: 'small',
       image: item.src,
-      backgroundType: 'float'
+      backgroundType: 'float',
+      imageSize: this.imageResize,
+      ...item
     }));
 
     // Image must be set before
     this._Column.items.forEach(item => {
       item.h = this.imageResize + this.itemSpacing;
       item._Container.h = this.imageResize + this.itemSpacing;
-      item._Image.h = this.imageResize;
-      item._Image.w = this.imageResize;
-      item._Image.shader = {
-        type: lng.shaders.RoundedRectangle,
-        radius: this.imageRadius
-      };
-      item._Image.texture.resizeMode = {
-        h: this.imageResize,
-        w: this.imageResize,
-        type: 'cover'
-      };
       item._Title.text.wordWrapWidth = 280;
       item._Subtitle.text.wordWrapWidth = 280;
       item._update();

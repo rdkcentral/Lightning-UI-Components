@@ -14,6 +14,8 @@ export const baseStyles = theme => ({
   },
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
   strokeWidth: 2,
   radius: theme.border.radius.small,
   focused: {
@@ -53,6 +55,7 @@ export class ListItemBase extends withStyles(
         this.w ||
         this.styles.dimensions[this.size] ||
         this.styles.dimensions.large;
+      this._defaultHeight = this.styles.h;
       const color = getFirstNumber(
         this.styles.backgrounds[this.backgroundType],
         this.styles.backgrounds.fill

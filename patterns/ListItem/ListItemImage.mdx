@@ -43,6 +43,7 @@ size|'small'\|'large'\|number|false|width of the `ListItem` container
 image|string|false|path to image
 subtitle|string|false|item metadata info goes here
 title|string|false|main item info goes here
+imageSize|number|false|applied to height and width of the image which shoule be square and defaults to 56
 
 ### Methods
 
@@ -52,7 +53,7 @@ Callback to be executed on <kbd>Enter</kbd> key down event
 
 #### set texture(newTexture): void
 
-Allows the image to be overriden with a custom texture component 
+Allows the image to be overriden with a custom texture component
 Example:
 ```
 let newTexture = {
