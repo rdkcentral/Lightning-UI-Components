@@ -22,7 +22,7 @@ export {
 } from './elements/ActionButton/index.js';
 export { default as Announcer } from './mixins/withAnnouncer/index.js';
 export { default as Badge } from './elements/Badge/index.js';
-export { default as BoardRow } from './layout/BoardRow/index.js';
+export { default as BoardRow } from './patterns/BoardRow/index.js';
 export { default as Button } from './elements/Button/index.js';
 export { default as Card, BasicCard, HorziontalCard, HorizontalCardLarg, VerticalCard, VerticalCardLarge, VerticalCardDynamic } from './patterns/Card/index.js';
 export { default as CardArtwork } from './elements/CardArtwork/index.js';
