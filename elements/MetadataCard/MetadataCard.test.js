@@ -24,7 +24,7 @@ describe('MetadataCard', () => {
   it('should calculate the focus scale', () => {
     testRenderer.focus();
     testRenderer.update();
-    expect(metadataCard._focusW).toBe(400 * 1.15);
+    expect(Math.floor(metadataCard._focusW)).toBe(metadataCard.originalW + 40);
 
     testRenderer.unfocus();
     testRenderer.update();
@@ -44,15 +44,6 @@ describe('MetadataCard', () => {
     testRenderer.unfocus();
     testRenderer.update();
     expect(metadataCard._focusW).toBe(400 * 0.9);
-  });
-
-  it('should not calculate the focus scale if there is no width', () => {
-    let [metadataCardNoWidth, testRenderer2] = TestUtils.makeCreateComponent(
-      MetadataCard
-    )();
-    testRenderer2.focus();
-    testRenderer2.update();
-    expect(metadataCardNoWidth._focusW).toBe(410 * 1.12);
   });
 
   it('should set justification of the first line', () => {

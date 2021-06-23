@@ -93,11 +93,15 @@ describe('DataItem', () => {
   });
 
   it('should update item and focus ring scale on focus', done => {
+    [dataitem, testRenderer] = createDataItem({
+      h: 100,
+      w: 150
+    });
     dataitem._smooth = false;
     dataitem._focus();
     testRenderer.update();
     dataitem._whenEnabled.then(() => {
-      expect(dataitem.scale).toEqual(1.18);
+      expect(dataitem.scale).toEqual((dataitem.w + 40) / dataitem.w);
       done();
     });
   });

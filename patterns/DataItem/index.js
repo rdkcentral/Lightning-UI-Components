@@ -2,9 +2,6 @@ import lng from '@lightningjs/core';
 import FocusRing from '../../elements/FocusRing';
 import withStyles from '../../mixins/withStyles';
 
-// styles
-import { getFocusScale } from '../../Styles';
-
 export const styles = theme => ({
   background: {
     color: theme.palette.background.ghost
@@ -61,9 +58,6 @@ class DataItem extends lng.Component {
     this._Background.h = this.h;
     this._Content.w = this.w;
     this._Content.h = this.h;
-    this._scaleX = getFocusScale(this.w);
-    this._scaleY =
-      (this.h + (this.w * getFocusScale(this.w) - this.w)) / this.h;
     this._update();
   }
 
@@ -125,8 +119,8 @@ class DataItem extends lng.Component {
 
   _updateScale() {
     const scale = this.hasFocus()
-      ? this.styles.focused.scale(this.w)
-      : this.styles.unfocused.scale(this.w);
+      ? this.styles.focused.scale(this.w, this.h)
+      : this.styles.unfocused.scale(this.w, this.h);
     if (this._smooth) {
       this.smooth = { scale };
     } else {

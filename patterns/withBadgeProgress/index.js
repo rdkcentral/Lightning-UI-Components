@@ -50,7 +50,9 @@ export default Base =>
     }
 
     _setDimensions() {
-      const focusScale = this._getFocusScale ? this._getFocusScale(this.w) : 1;
+      const focusScale = this._getFocusScale
+        ? this._getFocusScale(this.w, this.h)
+        : 1;
       this._unfocusedHeight = this.h;
       this._focusedHeight = this.h * focusScale;
       this._ScaleOffsetHeight =

@@ -1,6 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
 import Info from '.';
-import { getFocusScale } from '../../Styles';
 
 const createInfo = TestUtils.makeCreateComponent(Info);
 
@@ -68,7 +67,8 @@ describe('Info', () => {
     component._focus();
     component._update();
     expect(component.h).toBe(
-      component._DataItem.h * getFocusScale(component._DataItem.w) +
+      component._DataItem.h *
+        component.styles.getFocusScale(component._DataItem.w) +
         component._DataItem.y
     );
     component._unfocus();

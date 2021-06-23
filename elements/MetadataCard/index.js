@@ -118,10 +118,10 @@ class MetadataCard extends withTags(lng.Component) {
       this.originalW = this.w;
     }
     if (this._focusScale === undefined) {
-      this._focusScale = this._getFocusScale(this.originalW);
+      this._focusScale = this._getFocusScale(this.originalW, this.h);
     }
     if (this._unfocusScale === undefined) {
-      this._unfocusScale = this._getUnfocusScale(this.originalW);
+      this._unfocusScale = this._getUnfocusScale(this.originalW, this.h);
     }
     this._update();
   }

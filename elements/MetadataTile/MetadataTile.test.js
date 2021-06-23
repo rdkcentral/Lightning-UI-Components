@@ -24,7 +24,7 @@ describe('MetadataTile', () => {
   it('should calculate the focus scale', () => {
     testRenderer.focus();
     testRenderer.update();
-    expect(metadataTile._focusW).toBe(400 * 1.15);
+    expect(Math.floor(metadataTile._focusW)).toBe(metadataTile.originalW + 40);
 
     testRenderer.unfocus();
     testRenderer.update();
@@ -44,15 +44,6 @@ describe('MetadataTile', () => {
     testRenderer.unfocus();
     testRenderer.update();
     expect(metadataTile._focusW).toBe(400 * 0.9);
-  });
-
-  it('should not calculate the focus scale if there is no width', () => {
-    let [metadataTileNoWidth, testRenderer2] = TestUtils.makeCreateComponent(
-      MetadataTile
-    )();
-    testRenderer2.focus();
-    testRenderer2.update();
-    expect(metadataTileNoWidth._focusW).toBe(410 * 1.12);
   });
 
   it('should set justification of the first line', () => {

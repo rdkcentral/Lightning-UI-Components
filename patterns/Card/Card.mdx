@@ -1,0 +1,53 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import Card from '.';
+
+# Card
+
+Short component description
+
+## Usage
+
+Explain how `Card` works with examples:
+
+```js
+import { Card } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Card: {
+        type: Card
+      }
+    };
+  }
+};
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="patterns-card--basic" />
+</Canvas>
+
+The `id` for the preview comes from the url path generated for the story.
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+-|-|-|-|-
+
+### Methods
+
+#### methodName(args): returnValue
+
+Method description
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Card.styles} />

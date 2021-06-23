@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import Icon from '../../elements/Icon';
 import withStyles from '../../mixins/withStyles';
-import { getFocusScale } from '../../Styles';
 import OverlayDataItem from '../OverlayDataItem';
 import { withTags } from '../../mixins';
 
@@ -34,7 +33,8 @@ export const styles = theme => ({
       ...theme.typography.headline2,
       textAlign: 'center'
     }
-  }
+  },
+  getFocusScale: theme.getFocusScale
 });
 export class Matchup extends withTags(lng.Component) {
   static _template() {
@@ -128,7 +128,9 @@ export class Matchup extends withTags(lng.Component) {
   }
 
   _focus() {
-    const h = this._DataItem.h * getFocusScale(this._DataItem.w);
+    const h =
+      this._DataItem.h *
+      this.styles.getFocusScale(this._DataItem.w, this._DataItem.h);
     this._Metadata.smooth = { alpha: 1, y: h };
     this.h = h + this._Metadata.h;
     this.fireAncestors('$itemChanged');

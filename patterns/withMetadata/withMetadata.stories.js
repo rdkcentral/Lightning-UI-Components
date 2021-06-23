@@ -6,8 +6,10 @@ import { Row } from '../../layout';
 import {
   MetadataCard,
   MetadataTile,
+  Tile,
   TileIcon,
-  TileCircle
+  TileCircle,
+  MetadataSmall
 } from '../../elements';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
@@ -18,6 +20,25 @@ export default {
     docs: {
       page: mdx
     }
+  }
+};
+
+const getMetadataType = metadataType => {
+  switch (metadataType) {
+    case 'MetadataTile':
+      return MetadataTile;
+      break;
+
+    case 'MetadataCard':
+      return MetadataCard;
+      break;
+
+    case 'MetadataSmall':
+      return MetadataSmall;
+      break;
+
+    default:
+      break;
   }
 };
 
@@ -69,7 +90,7 @@ Basic.argTypes = {
   focused: { control: 'boolean' },
   persistentMetadata: { control: 'boolean' },
   metadataType: {
-    options: ['MetadataCard', 'MetadataTile'],
+    options: ['MetadataCard', 'MetadataTile', 'MetadataSmall'],
     control: { type: 'radio' }
   },
   metadataLocation: {
@@ -93,6 +114,55 @@ Basic.parameters = {
         ? () => component.tag('TileWithMetadata')
         : () => {};
       component._refocus();
+    }
+  }
+};
+
+export const InsetMetadata = args =>
+  class InsetMetadata extends lng.Component {
+    static _template() {
+      return {
+        TileWithMetadata: {
+          type: withMetadata(Tile),
+          w: 410,
+          h: 230,
+          persistentMetadata: args.persistentMetadata,
+          progress: args.progress,
+          metadataLocation: 'inset',
+          Metadata: {
+            w: 410,
+            h: 230,
+            type: MetadataSmall,
+            title: 'metadata title',
+            data: 'description',
+            logo: lightningbolt,
+            logoWidth: 1920,
+            logoHeight: 1080
+          }
+        }
+      };
+    }
+
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('TileWithMetadata');
+      }
+    }
+  };
+
+InsetMetadata.args = {
+  focused: true,
+  persistentMetadata: true,
+  progress: 0
+};
+InsetMetadata.argTypes = {
+  persistentMetadata: { control: 'boolean' },
+  progress: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.01
     }
   }
 };

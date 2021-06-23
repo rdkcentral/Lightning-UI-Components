@@ -2,7 +2,6 @@ import lng from '@lightningjs/core';
 import Column from '../../layout/Column';
 import DataItem from '../DataItem';
 import { ListItemImage } from '.';
-import { getFocusScale } from '../../Styles';
 import withStyles from '../../mixins/withStyles';
 
 export const styles = theme => ({
@@ -11,7 +10,8 @@ export const styles = theme => ({
   padding: {
     y: theme.spacing(2)
   },
-  imageRadius: theme.spacing(1)
+  imageRadius: theme.spacing(1),
+  getFocusScale: theme.getFocusScale
 });
 
 export default class ListItemImageGroup extends withStyles(
@@ -50,7 +50,9 @@ export default class ListItemImageGroup extends withStyles(
 
   _focus() {
     this.h =
-      this._DataItem.h * getFocusScale(this._DataItem.w) + this._DataItem.y;
+      this._DataItem.h *
+        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h) +
+      this._DataItem.y;
     this.fireAncestors('$itemChanged');
   }
 
