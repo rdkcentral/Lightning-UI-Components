@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import { clone } from '../utils';
-import { CORNER_RADIUS, getFocusScale } from './Styles';
+import { CORNER_RADIUS } from './Styles';
 import { PALETTE, getHexColor } from './Colors';
 import { TYPOGRAPHY } from './Fonts';
 
@@ -93,6 +93,22 @@ const materials = {
 
 function spacing(multiplier) {
   return 8 * multiplier;
+}
+
+/**
+ * Generates a scale percentage that will increase the item by 40 pixels
+ *
+ * @param { number } w
+ * @param { number } h
+ * @returns
+ */
+export function getFocusScale(w, h) {
+  if (h > w) {
+    return (h + spacing(5)) / h;
+  }
+  else {
+    return (w + spacing(5)) / w;
+  }
 }
 
 const gradientColor = PALETTE.grey[5];

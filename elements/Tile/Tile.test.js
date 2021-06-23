@@ -100,12 +100,13 @@ describe('Tile', () => {
       });
     });
     it('should update item and focus ring scale on focus', done => {
+      const scale = (tile.w + 40) / tile.w;
       tile._smooth = false;
       tile._focus();
       testRenderer.update();
       tile._whenEnabled.then(() => {
-        expect(tile._Item.scale).toBe(1.15);
-        expect(tile._FocusRing.scale).toBe(1.15);
+        expect(tile._Item.scale).toBe(scale);
+        expect(tile._FocusRing.scale).toBe(scale);
         done();
       });
     });

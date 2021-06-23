@@ -46,7 +46,7 @@ export default function withUpdates(Base) {
         }
       });
 
-      this._whenEnabled = new Promise((resolve, reject) => {
+      this._whenEnabled = new Promise(resolve => {
         this._whenEnabledResolver = resolve;
       });
 

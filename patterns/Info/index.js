@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import DataItem from '../DataItem';
 import withStyles from '../../mixins/withStyles';
-import { getFocusScale } from '../../Styles';
 
 export const styles = theme => ({
   title: theme.typography.headline1,
@@ -19,7 +18,8 @@ export const styles = theme => ({
   padding: {
     y: theme.spacing(2)
   },
-  wordWrapWidth: 410 - theme.spacing(4)
+  wordWrapWidth: 410 - theme.spacing(4),
+  getFocusScale: theme.getFocusScale
 });
 
 export default class Info extends withStyles(lng.Component, styles) {
@@ -67,7 +67,8 @@ export default class Info extends withStyles(lng.Component, styles) {
       this._Subtitle.renderHeight +
       this._Description.renderHeight;
     const h = this.hasFocus()
-      ? contentHeight * getFocusScale(this._DataItem.w)
+      ? contentHeight *
+        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h)
       : contentHeight + this.paddingY * 2;
     this.h = h;
     this._DataItem.h = h;
@@ -78,7 +79,9 @@ export default class Info extends withStyles(lng.Component, styles) {
 
   _focus() {
     this.h =
-      this._DataItem.h * getFocusScale(this._DataItem.w) + this._DataItem.y;
+      this._DataItem.h *
+        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h) +
+      this._DataItem.y;
     this.fireAncestors('$itemChanged');
   }
 

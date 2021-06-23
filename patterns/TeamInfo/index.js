@@ -1,11 +1,12 @@
 import lng from '@lightningjs/core';
 import Column from '../../layout/Column';
 import ListItem from '../ListItem';
-import { getXfinityTheme, getFocusScale } from '../../Styles';
 import OverlayDataItem from '../OverlayDataItem';
 import withStyles from '../../mixins/withStyles';
 
-export const styles = theme => ({});
+export const styles = theme => ({
+  getFocusScale: theme.getFocusScale
+});
 export default class TeamInfo extends withStyles(lng.Component, styles) {
   static _template() {
     return {
@@ -35,7 +36,9 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
 
   _focus() {
     this.h =
-      this._DataItem.h * getFocusScale(this._DataItem.w) + this._DataItem.y;
+      this._DataItem.h *
+        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h) +
+      this._DataItem.y;
     this.fireAncestors('$itemChanged');
   }
 

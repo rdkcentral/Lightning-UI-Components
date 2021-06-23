@@ -44,11 +44,11 @@ export default (base = Tile) =>
 
     _updateDimensions() {
       this._unfocusedTileHeight = this.h;
-      this._focusedTileHeight = this.h * this._getFocusScale(this.w);
+      this._focusedTileHeight = this.h * this._getFocusScale(this.w, this.h);
       this._tileScaleOffsetHeight =
         (this._focusedTileHeight - this._unfocusedTileHeight) / 2;
       this._unfocusedTileWidth = this.w;
-      this._focusedTileWidth = this.w * this._getFocusScale(this.w);
+      this._focusedTileWidth = this.w * this._getFocusScale(this.w, this.h);
       this._tileScaleOffsetWidth =
         (this._focusedTileWidth - this._unfocusedTileWidth) / 2;
     }

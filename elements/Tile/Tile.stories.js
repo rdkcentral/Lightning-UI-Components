@@ -7,6 +7,7 @@ import Row from '../../layout/Row';
 import mdx from './Tile.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import parksFocus from '../../assets/images/Parks_and_Recreation_16x9_NoTitle.jpg';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
@@ -123,6 +124,7 @@ export const XfinityTheme = args =>
             {
               type: Tile,
               src: parks,
+              focusSrc: parksFocus,
               w: args.width,
               h: args.height,
               radius: args.radius,

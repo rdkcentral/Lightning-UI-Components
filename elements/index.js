@@ -16,6 +16,7 @@ export { default as Icon } from './Icon';
 export { default as Key } from './Key';
 export { default as MarqueeText } from './MarqueeText';
 export { default as MetadataCard } from './MetadataCard';
+export { default as MetadataSmall } from './MetadataSmall';
 export { default as MetadataTile } from './MetadataTile';
 export { default as Pivot } from './Pivot';
 export { default as ProgressBar } from './ProgressBar';

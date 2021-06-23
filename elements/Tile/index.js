@@ -39,15 +39,17 @@ class Tile extends Base {
   }
 
   static get tags() {
-    return ['Blur', 'DropShadow', 'FocusRing', 'Item', 'Image'];
+    return ['Blur', 'DropShadow', 'FocusRing', 'Item', 'Image', 'FocusImage'];
   }
 
   static get properties() {
     return [
       'radius',
       'imgRadius',
+      'focusImgRadius',
       'blur',
       'src',
+      'focusSrc',
       'fallbackSrc',
       'focusRingColor'
     ];
@@ -77,6 +79,7 @@ class Tile extends Base {
       this._Item.w = this.w;
       this._Item.h = this.h;
       this._updateImage();
+      this._updateFocusImage();
       this._updateBlur();
       this._updateRadius();
       this._updateDropShadow();
@@ -97,6 +100,47 @@ class Tile extends Base {
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       }
     });
+  }
+
+  _updateFocusImage() {
+    if (this._focusSrc && (this.hasFocus() || this._FocusImage)) {
+      if (!this._FocusImage) {
+        this._Item.patch({
+          FocusImage: {
+            alpha: 0.001,
+            firstLoad: true,
+            rtt: true,
+            zIndex: 2,
+            w: this.w,
+            h: this.h,
+            texture: {
+              type: lng.textures.ImageTexture,
+              src: this._focusSrc,
+              resizeMode: { type: 'cover', w: this.w, h: this.h }
+            }
+          }
+        });
+        this._FocusImage.on('txLoaded', () => {
+          this._FocusImage.off('txLoaded');
+          this._FocusImage.firstLoad = false;
+          this._updateFocusImageAlpha();
+        });
+      } else if (!this._FocusImage.firstLoad) {
+        this._updateFocusImageAlpha();
+      }
+    }
+  }
+
+  _updateFocusImageAlpha() {
+    const focusImageAlpha = this.hasFocus() ? 1 : 0;
+    const imageAlpha = Number(!focusImageAlpha);
+    if (this._smooth) {
+      this._FocusImage.smooth = { alpha: focusImageAlpha };
+      this._Image.smooth = { alpha: imageAlpha };
+    } else {
+      this._FocusImage.alpha = focusImageAlpha;
+      this._Image.alpha = imageAlpha;
+    }
   }
 
   _patchBlur() {
@@ -138,6 +182,17 @@ class Tile extends Base {
           shader: {
             type: lng.shaders.RoundedRectangle,
             radius: this._imgRadius || this._radius
+          }
+        });
+      }
+      if (
+        this._FocusImage &&
+        (this._focusImgRadius === undefined || this._focusImgRadius !== 0)
+      ) {
+        this._FocusImage.patch({
+          shader: {
+            type: lng.shaders.RoundedRectangle,
+            radius: this._focusImgRadius || this._radius
           }
         });
       }
@@ -210,8 +265,8 @@ class Tile extends Base {
 
   _updateScale() {
     const scale = this.hasFocus()
-      ? this._getFocusScale(this.w)
-      : this._getUnfocusScale(this.w);
+      ? this._getFocusScale(this.w, this.h)
+      : this._getUnfocusScale(this.w, this.h);
     if (this._smooth) {
       this._Item.smooth = { scale };
       if (this._FocusRing) this._FocusRing.smooth = { scale };

@@ -8,7 +8,7 @@ import lng from '@lightningjs/core';
 import Button from '../Button';
 import { RoundRect } from '../../utils';
 import withStyles from '../../mixins/withStyles';
-import { getHexColor, getFocusScale } from '../../Styles';
+import { getHexColor } from '../../Styles';
 
 export const styles = theme => ({
   w: 185,
@@ -39,7 +39,8 @@ export const styles = theme => ({
     background: { color: theme.palette.background.focus },
     icon: { color: theme.palette.text.focus },
     text: { color: theme.palette.text.focus }
-  }
+  },
+  getFocusScale: theme.getFocusScale
 });
 
 class Pivot extends Button {
@@ -93,7 +94,9 @@ class Pivot extends Button {
   }
 
   _updateScale() {
-    const scale = this.hasFocus() ? getFocusScale(this.w) : 1;
+    const scale = this.hasFocus()
+      ? this.styles.getFocusScale(this.w, this.h)
+      : 1;
     if (this._smooth) {
       this.smooth = { scale };
     } else {

@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Column from '../../layout/Column';
-import { getFocusScale, getValidColor } from '../../Styles';
+import { getValidColor } from '../../Styles';
 import DataItem from '../DataItem';
 import withStyles from '../../mixins/withStyles';
 import { Arrow } from '../../textures';
@@ -49,7 +49,8 @@ export const styles = theme => ({
   padding: {
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1)
-  }
+  },
+  getFocusScale: theme.getFocusScale
 });
 
 export class StatLine extends withStyles(
@@ -337,7 +338,9 @@ class Stats extends lng.Component {
 
   _focus() {
     this.h =
-      this._DataItem.h * getFocusScale(this._DataItem.w) + this._DataItem.y;
+      this._DataItem.h *
+        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h) +
+      this._DataItem.y;
     this.fireAncestors('$itemChanged');
   }
 

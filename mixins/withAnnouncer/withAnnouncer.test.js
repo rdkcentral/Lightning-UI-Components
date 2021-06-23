@@ -347,7 +347,7 @@ describe('AppAnnouncer', () => {
           'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
         ]);
         done();
-      }, 2);
+      }, 100);
     });
   });
 

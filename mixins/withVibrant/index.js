@@ -4,8 +4,13 @@ import { getValidColor } from '../../Styles/Styles';
 
 export const styles = theme => ({});
 
-export default base =>
-  class withVibrant extends withStyles(base, styles) {
+export default Base =>
+  class withVibrant extends withStyles(Base, styles) {
+    _init() {}
+    static get name() {
+      return Base.name;
+    }
+
     _setSrc(src) {
       this._loadVibrant(src);
       return super._setSrc ? super._setSrc(src) : src;

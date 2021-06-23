@@ -118,7 +118,7 @@ describe('ActionButton', () => {
 
       setTimeout(() => {
         expect(actionbutton.color).toBe(getHexColor('ECECF2'));
-        expect(actionbutton.scale).toBe(1.12);
+        expect(actionbutton.scale).toBe((actionbutton.w + 40) / actionbutton.w);
         expect(actionbutton._Title.color).toBe(4060086272);
         done();
       });

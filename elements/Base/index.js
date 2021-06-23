@@ -16,9 +16,16 @@ const baseStyles = theme => ({
 
 class Base extends lng.Component {
   _construct() {
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+    this._whenEnabled = new Promise(
+      resolve => (this._whenEnabledResolver = resolve)
+    );
+    // this._whenEnabled = 5; // new Promise.resolve(); //resolve => (this._firstEnable = resolve));
     this._getFocusScale = this.styles.getFocusScale || function () {};
     this._getUnfocusScale = this.styles.getUnfocusScale || function () {};
+  }
+
+  _firstEnable() {
+    this._whenEnabledResolver();
   }
 
   _init() {

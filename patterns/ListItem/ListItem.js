@@ -2,7 +2,6 @@ import lng from '@lightningjs/core';
 import Icon from '../../elements/Icon';
 import { RoundRect, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
-import { getFocusScale } from '../../Styles';
 
 export const baseStyles = theme => ({
   h: 88,
@@ -101,8 +100,8 @@ export class ListItemBase extends withStyles(
 
     _updateScale() {
       const scale = this.hasFocus()
-        ? this.styles.focused.scale(this.w)
-        : this.styles.unfocused.scale(this.w);
+        ? this.styles.focused.scale(this.w, this.h)
+        : this.styles.unfocused.scale(this.w, this.h);
 
       if (this._smooth) {
         this._Container.smooth = { scale };

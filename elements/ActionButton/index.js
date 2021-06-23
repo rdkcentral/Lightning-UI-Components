@@ -9,7 +9,7 @@ import withStyles from '../../mixins/withStyles';
 import { RoundRect } from '../../utils';
 
 // styles
-import { getHexColor, getFocusScale } from '../../Styles';
+import { getHexColor } from '../../Styles';
 
 export const styles = theme => ({
   minWidth: 410,
@@ -41,7 +41,8 @@ export const styles = theme => ({
     background: { color: theme.palette.background.focus },
     icon: { color: theme.palette.text.dark.primary },
     text: { color: theme.palette.text.dark.primary }
-  }
+  },
+  getFocusScale: theme.getFocusScale
 });
 
 class ActionButtonBase extends Button {
@@ -85,7 +86,9 @@ class ActionButtonBase extends Button {
   }
 
   _updateScale() {
-    const scale = this.hasFocus() ? getFocusScale(this.w) : 1;
+    const scale = this.hasFocus()
+      ? this.styles.getFocusScale(this.w, this.h)
+      : 1;
     if (this._smooth) {
       this.smooth = { scale };
     } else {
