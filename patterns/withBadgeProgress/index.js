@@ -35,7 +35,18 @@ export default Base =>
 
     _init() {
       super._init();
+      this._update();
+    }
+
+    _update() {
+      super._update();
       this._setDimensions();
+      this._updateBadge();
+      this._updateProgressBar();
+    }
+
+    $loadedBadge() {
+      this._updateBadge();
     }
 
     _setDimensions() {
@@ -47,12 +58,6 @@ export default Base =>
       this._unfocusedWidth = this.w;
       this._focusedWidth = this.w * focusScale;
       this._ScaleOffsetWidth = (this._focusedWidth - this._unfocusedWidth) / 2;
-    }
-
-    _update() {
-      super._update();
-      this._updateBadge();
-      this._updateProgressBar();
     }
 
     _updateProgressBar() {

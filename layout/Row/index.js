@@ -138,6 +138,10 @@ export default class Row extends FocusManager {
 
   render(next, prev) {
     this._whenEnabled.then(() => {
+      if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+        next.selectedIndex = this._getIndexOfItemNear(next, prev);
+      }
+
       this._prevLastScrollIndex = this._lastScrollIndex;
 
       if (this._shouldScroll()) {

@@ -51,4 +51,4 @@ export { default as TileCircle } from './elements/TileCircle/index.js';
 export { default as TileIcon } from './elements/TileIcon/index.js';
 export { default as Toggle } from './elements/Toggle/index.js';
 export { default as Tooltip } from './elements/Tooltip/index.js';
-
+export { default as withVibrant } from './mixins/withVibrant/index.js'; // TODO: alphabetize

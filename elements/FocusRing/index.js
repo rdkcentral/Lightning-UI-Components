@@ -149,9 +149,12 @@ class FocusRing extends lng.Component {
 
   set color(color) {
     if (this._color !== color) {
-      this._color = getValidColor(color);
-      this._middleColor = getHexColor(getValidColor(color), 54);
-      this._update();
+      color = getValidColor(color);
+      if (color) {
+        this._color = color;
+        this._middleColor = getHexColor(getValidColor(color), 54);
+        this._update();
+      }
     }
   }
 

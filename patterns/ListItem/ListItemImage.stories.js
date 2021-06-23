@@ -11,7 +11,8 @@ export default {
     backgroundType: 'fill',
     title: 'List Item',
     subtitle: 'List Item Metadata',
-    size: 'small'
+    size: 'small',
+    imageSize: 56
   },
   argTypes: {
     backgroundType: {
@@ -34,6 +35,13 @@ export default {
         type: 'radio',
         options: ['small', 'large']
       }
+    },
+    imageSize: {
+      control: {
+        type: 'range',
+        min: 56,
+        max: 96
+      }
     }
   },
   parameters: {
@@ -42,6 +50,10 @@ export default {
         component._getFocused = isFocused
           ? () => component.tag('ListItem')
           : () => {};
+        component._refocus();
+      },
+      imageSize: (size, component) => {
+        component.tag('ListItem').imageSize = size;
         component._refocus();
       }
     },
@@ -62,7 +74,8 @@ export const Basic = args =>
           subtitle: args.subtitle,
           size: args.size,
           backgroundType: args.backgroundType,
-          image: fiftysix
+          image: fiftysix,
+          imageSize: args.imageSize
         }
       };
     }
@@ -85,6 +98,7 @@ export const Icon = args =>
           size: args.size,
           backgroundType: args.backgroundType,
           image: fiftysix,
+          imageSize: args.imageSize,
           icon
         }
       };

@@ -419,6 +419,18 @@ describe('ListItemImage', () => {
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('updates image size', () => {
+    listItemImage.imageSize = 80;
+    testRenderer.update();
+    expect(listItemImage.imageSize).toBe(80);
+    expect(listItemImage.h).toBe(96);
+
+    listItemImage.imageSize = 60;
+    testRenderer.update();
+    expect(listItemImage.imageSize).toBe(60);
+    expect(listItemImage.h).toBe(88);
+  });
 });
 
 describe('ListItemSlider', () => {
