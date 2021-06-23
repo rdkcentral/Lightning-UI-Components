@@ -307,7 +307,7 @@ export const horizontalLargeStyles = theme => ({
   imgRadius: [theme.border.radius.medium, 0, 0, theme.border.radius.medium]
 });
 
-export class HorizontalLargeCard extends withStyles(
+export class HorizontalCardLarge extends withStyles(
   Card,
   horizontalLargeStyles
 ) {
