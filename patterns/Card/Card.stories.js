@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import {
   BasicCard,
   HorizontalCard,
-  HorizontalLargeCard,
+  HorizontalCardLarge,
   VerticalCard,
   VerticalCardLarge,
   VerticalCardDynamic
@@ -87,7 +87,7 @@ export const HorziontalLarge = args =>
     static _template() {
       return {
         Card: {
-          type: HorizontalLargeCard,
+          type: HorizontalCardLarge,
           src: pets,
           artHeight: 1080,
           artWidth: 1920,
