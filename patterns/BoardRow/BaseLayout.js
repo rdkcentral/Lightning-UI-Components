@@ -10,9 +10,7 @@ import withStyles from '../../mixins/withStyles';
 
 function warningMessage(item) {
   console.warn(
-    `Item ${item.title} does not contain a valid type for BoardRow ${
-      this.layout.name
-    }. Please make sure your items are using ${arrayOfTypes.join(', ').trim()}.`
+    `Item ${item.title} does not contain a valid type for BoardRow ${this.layout.name}.`
   );
 }
 export default class BaseType extends withStyles(Base, styles) {
@@ -59,48 +57,54 @@ export default class BaseType extends withStyles(Base, styles) {
       HorizontalCard
     };
 
-    return items
-      .filter(item => {
-        const isForbiddenType = arrayOfTypesToExclude.find(
-          type => item.type && item.type.prototype instanceof types[type]
-        );
-        if (isForbiddenType) {
-          warningMessage.call(this, item);
-          return false;
-        }
-        const valid = arrayOfTypes.find(
-          type => item.type && item.type.prototype instanceof types[type]
-        );
-        if (!valid) {
-          warningMessage.call(this, item);
-        }
-        return !!valid;
-      })
-      .map(item => {
-        const addMetaData = item.type && item.type.prototype instanceof Tile;
-        const onEnter = !item.onEnter ? () => {} : item.onEnter;
-        if (addMetaData) {
-          const newItem = {
-            ...item,
-            onEnter,
-            type: withMetaData(item.type),
-            metadataLocation: 'inset',
-            Metadata: {
-              type: MetadataCard,
-              firstLine: item.title,
-              secondLine: item.description,
-              logo: item.logo,
-              logoW: 32
-            }
-          };
-          return newItem;
-        }
+    return (
+      items
+        // This check does not work in flex
+        // .filter(item => {
+        //   const isForbiddenType = arrayOfTypesToExclude.find(
+        //     type => item.type && item.type.prototype instanceof types[type]
+        //   );
+        //   if (isForbiddenType) {
+        //     warningMessage.call(this, item);
+        //     return false;
+        //   }
+        //   const valid = arrayOfTypes.find(
+        //     type => {
+        //       debugger
+        //       return item.type && item.type.prototype instanceof types[type]
+        //     }
+        //   );
+        //   if (!valid) {
+        //     warningMessage.call(this, item);
+        //   }
+        //   return !!valid;
+        // })
+        .map(item => {
+          const addMetaData = item.type && item.type.prototype instanceof Tile;
+          const onEnter = !item.onEnter ? () => {} : item.onEnter;
+          if (addMetaData) {
+            const newItem = {
+              ...item,
+              onEnter,
+              type: withMetaData(item.type),
+              metadataLocation: 'inset',
+              Metadata: {
+                type: MetadataCard,
+                firstLine: item.title,
+                secondLine: item.description,
+                logo: item.logo,
+                logoW: 32
+              }
+            };
+            return newItem;
+          }
 
-        return {
-          ...item,
-          onEnter
-        };
-      });
+          return {
+            ...item,
+            onEnter
+          };
+        })
+    );
   }
 
   _aspectRatioW(h, ratio) {

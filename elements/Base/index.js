@@ -4,8 +4,8 @@ import {
   withUpdates,
   withTags,
   withHandleKey,
-  withLayout,
-  withVibrant
+  withLayout
+  // withVibrant
 } from '../../mixins';
 
 const baseStyles = theme => ({
@@ -45,9 +45,9 @@ class Base extends lng.Component {
 }
 
 function withMixins(baseComponent) {
-  if (baseComponent.styles.withVibrant) {
-    baseComponent = withVibrant(baseComponent);
-  }
+  // if (baseComponent.styles.withVibrant) {
+  //   baseComponent = withVibrant(baseComponent);
+  // }
   return withLayout(withUpdates(withTags(withHandleKey(baseComponent))));
 }
 

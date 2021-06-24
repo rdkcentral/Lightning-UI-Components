@@ -70,6 +70,7 @@ class BoardRow extends Base {
   }
 
   get _srcCallbackItems() {
+    if (!this.items || !this.items.length) return [];
     if (this.srcCallback && 'function' === typeof this.srcCallback) {
       return this.items.map(item => {
         const newItem = {
