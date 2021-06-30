@@ -33,8 +33,8 @@ export const parameters = {
 const white = 0xffffffff;
 const grey = 0xff141417;
 const stage = {
-  w: 1920,
-  h: 1080,
+  w: 1280,
+  h: 720,
   precision: 2/3,
   clearColor: grey,
   debug: false,
