@@ -10,7 +10,8 @@ export const styles = theme => ({
     ...theme.typography.headline3,
     textColor: theme.palette.text.light.primary,
     maxLines: 2,
-    maxLinesSuffix: '...'
+    maxLinesSuffix: '...',
+    lineHeight: 34
   },
   description: {
     ...theme.typography.body3,
@@ -116,7 +117,7 @@ export default class Metadata extends withStyles(Base, styles) {
     this._Title.patch({
       content: this._title,
       wordWrapWidth: this.w,
-      ...this.styles.title
+      style: this.styles.title
     });
   }
 
@@ -124,7 +125,7 @@ export default class Metadata extends withStyles(Base, styles) {
     this._Description.patch({
       content: this._description,
       wordWrapWidth: this.w,
-      ...this.styles.description
+      style: this.styles.description
     });
   }
 
@@ -175,7 +176,7 @@ export default class Metadata extends withStyles(Base, styles) {
     let action = this._action.toUpperCase();
     this._Action.patch({
       content: action,
-      ...this.styles.action
+      style: this.styles.action
     });
   }
 }
