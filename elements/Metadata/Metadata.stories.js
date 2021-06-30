@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
-import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import { getHexColor } from '../../Styles/Colors';
 
 import Metadata from '.';
@@ -22,11 +21,10 @@ export const Basic = args =>
       return {
         Metadata: {
           type: Metadata,
-          w: 400,
-          h: 300,
-          title: 'Title Title Title Title Title Title Title Title Title Title ',
-          description:
-            'Description Description Description Description Description Description Description Description Description Description ',
+          w: args.w,
+          h: args.h,
+          title: args.title,
+          description: args.description,
           data: [
             '94%',
             {
@@ -41,10 +39,10 @@ export const Basic = args =>
               title: 'Rotten Tomatoes rating'
             }
           ],
-          logo: circle,
+          logo: args.showIcon ? circle : null,
           logoWidth: 1920,
           logoHeight: 1080,
-          action: 'Watch on Netflix'
+          action: args.showAction ? args.action : null
         }
       };
     }
@@ -53,8 +51,24 @@ export const Basic = args =>
       return this.tag('Metadata');
     }
   };
-Basic.args = {};
-Basic.argTypes = {};
+Basic.args = {
+  w: 400,
+  h: 300,
+  title: 'Title',
+  description: 'Description',
+  action: 'Watch on Netflix',
+  showAction: false,
+  showIcon: true
+};
+Basic.argTypes = {
+  w: { control: 'number' },
+  h: { control: 'number' },
+  title: { control: 'text' },
+  description: { control: 'text' },
+  action: { control: 'text' },
+  showAction: { control: 'boolean' },
+  showIcon: { control: 'boolean' }
+};
 Basic.parameters = {
   argActions: {}
 };
