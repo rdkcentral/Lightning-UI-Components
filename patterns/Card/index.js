@@ -24,7 +24,8 @@ export const baseCardProps = [
 export const logoProps = ['logo', 'logoWidth', 'logoHeight'];
 
 export const styles = theme => ({
-  padding: theme.spacing(2),
+  paddingHorizontal: theme.spacing(3),
+  paddingVertical: theme.spacing(2),
   focusRing: function ({ w, h, radius }) {
     return {
       type: FocusRing,
@@ -44,7 +45,12 @@ export const styles = theme => ({
     shadow: { alpha: 1 }
   },
   radius: theme.border.radius.medium,
-  background: { color: theme.palette.grey[70] }
+  background: { color: theme.palette.grey[70] },
+  metadata: {
+    title: {
+      flexItem: { marginBottom: -theme.spacing(1) }
+    }
+  }
 });
 
 export default class Card extends withStyles(Base, styles) {
@@ -187,24 +193,24 @@ export default class Card extends withStyles(Base, styles) {
   _calculateMetadataDimensions() {
     if (this._orientation === 'horizontal') {
       return {
-        w: this.w - this.finalArtWidth - 2 * this.styles.padding,
-        h: this.h - 2 * this.styles.padding
+        w: this.w - this.finalArtWidth - 2 * this.styles.paddingHorizontal,
+        h: this.h - 2 * this.styles.paddingVertical
       };
     } else {
       return {
-        w: this.w - 2 * this.styles.padding,
-        h: this.h - this.finalArtHeight - this.styles.padding
+        w: this.w - 2 * this.styles.paddingHorizontal,
+        h: this.h - this.finalArtHeight - 2 * this.styles.paddingVertical
       };
     }
   }
 
   _moveMetadata() {
     if (this._orientation === 'horizontal') {
-      this._Metadata.x = this.finalArtWidth + this.styles.padding;
-      this._Metadata.y = this.styles.padding;
+      this._Metadata.x = this.finalArtWidth + this.styles.paddingHorizontal;
+      this._Metadata.y = this.styles.paddingVertical;
     } else {
-      this._Metadata.x = this.styles.padding;
-      this._Metadata.y = this.finalArtHeight;
+      this._Metadata.x = this.styles.paddingHorizontal;
+      this._Metadata.y = this.finalArtHeight + this.styles.paddingVertical;
     }
   }
 
@@ -258,7 +264,18 @@ export default class Card extends withStyles(Base, styles) {
   }
 }
 
+export const largeMetadataStyles = theme => ({
+  metadata: {
+    title: theme.typography.headline1,
+    description: {
+      ...theme.typography.body1,
+      lineHeight: 36
+    }
+  }
+});
+
 export const basicStyles = theme => ({
+  ...largeMetadataStyles,
   w: 410,
   h: 231
 });
@@ -270,6 +287,7 @@ export class BasicCard extends withStyles(Card, basicStyles) {
 }
 
 export const horizontalStyles = theme => ({
+  ...largeMetadataStyles,
   orientation: 'horizontal',
   w: 860,
   h: 231,
@@ -283,6 +301,7 @@ export class HorizontalCard extends withStyles(Card, horizontalStyles) {
 }
 
 export const horizontalLargeStyles = theme => ({
+  ...largeMetadataStyles,
   orientation: 'horizontal',
   w: 1085,
   h: 231,
@@ -302,7 +321,15 @@ export const verticalStyles = theme => ({
   orientation: 'vertical',
   w: 410,
   h: 335,
-  imgRadius: [theme.border.radius.medium, theme.border.radius.medium, 0, 0]
+  imgRadius: [theme.border.radius.medium, theme.border.radius.medium, 0, 0],
+  metadata: {
+    title: {
+      maxLines: 1
+    },
+    description: {
+      maxLines: 1
+    }
+  }
 });
 
 export class VerticalCard extends withStyles(Card, verticalStyles) {
@@ -325,6 +352,7 @@ export class VerticalCardLarge extends withStyles(Card, verticalLargeStyles) {
 }
 
 export const verticalDynamicStyles = theme => ({
+  ...largeMetadataStyles,
   orientation: 'vertical',
   w: 410,
   h: 502
@@ -345,8 +373,8 @@ export class VerticalCardDynamic extends withStyles(
       w: dimensions.w,
       h: dimensions.h
     });
-    this._Artwork.x = this.styles.padding;
-    this._Artwork.y = this.styles.padding;
+    this._Artwork.x = this.styles.paddingHorizontal;
+    this._Artwork.y = this.styles.paddingVertical;
     this.finalArtHeight = dimensions.h || 0;
     this.finalArtWidth = dimensions.w || 0;
   }
@@ -368,13 +396,17 @@ export class VerticalCardDynamic extends withStyles(
 
   _calculateMetadataDimensions() {
     return {
-      w: this.w - 2 * this.styles.padding,
-      h: this.h - this.finalArtHeight - 2 * this.styles.padding
+      w: this.w - 2 * this.styles.paddingHorizontal,
+      h:
+        this.h -
+        this.finalArtHeight -
+        (this._src ? 3 : 2) * this.styles.paddingVertical
     };
   }
 
   _moveMetadata() {
-    this._Metadata.x = this.styles.padding;
-    this._Metadata.y = this.finalArtHeight + this.styles.padding;
+    this._Metadata.x = this.styles.paddingHorizontal;
+    this._Metadata.y =
+      this.finalArtHeight + (this._src ? 2 : 1) * this.styles.paddingVertical;
   }
 }
