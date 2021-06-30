@@ -5,6 +5,24 @@ import Metadata from '../../elements/Metadata';
 import FocusRing from '../../elements/FocusRing';
 import withStyles from '../../mixins/withStyles';
 
+export const artCardProps = [
+  'src',
+  'artWidth',
+  'artHeight',
+  'badge',
+  'badgeLocation',
+  'progress'
+];
+
+export const baseCardProps = [
+  'title',
+  'description',
+  'backgroundColor',
+  'focusColor'
+];
+
+export const logoProps = ['logo', 'logoWidth', 'logoHeight'];
+
 export const styles = theme => ({
   padding: theme.spacing(2),
   focusRing: function ({ w, h, radius }) {
@@ -44,27 +62,14 @@ export default class Card extends withStyles(Base, styles) {
 
   static get properties() {
     return [
-      'collapseArt',
-      'collapseData',
-      'orientation',
-      'src',
-      'artWidth',
-      'artHeight',
-      'badge',
-      'badgeLocation',
-      'progress',
-      'title',
-      'description',
+      ...artCardProps,
+      ...baseCardProps,
+      ...logoProps,
       'data',
-      'logo',
-      'logoWidth',
-      'logoHeight',
       'action',
       'focusRing',
       'radius',
-      'imgRadius',
-      'backgroundColor',
-      'focusRingColor'
+      'imgRadius'
     ];
   }
 
@@ -260,15 +265,7 @@ export const basicStyles = theme => ({
 
 export class BasicCard extends withStyles(Card, basicStyles) {
   static get properties() {
-    return [
-      'title',
-      'description',
-      'logo',
-      'logoWidth',
-      'logoHeight',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...baseCardProps, 'logo', 'logoWidth', 'logoHeight'];
   }
 }
 
@@ -281,22 +278,7 @@ export const horizontalStyles = theme => ({
 
 export class HorizontalCard extends withStyles(Card, horizontalStyles) {
   static get properties() {
-    return [
-      'src',
-      'artWidth',
-      'artHeight',
-      'title',
-      'description',
-      'data',
-      'logo',
-      'logoWidth',
-      'logoHeight',
-      'action',
-      'progress',
-      'badge',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
   }
 }
 
@@ -312,22 +294,7 @@ export class HorizontalCardLarge extends withStyles(
   horizontalLargeStyles
 ) {
   static get properties() {
-    return [
-      'src',
-      'artWidth',
-      'artHeight',
-      'title',
-      'description',
-      'data',
-      'logo',
-      'logoWidth',
-      'logoHeight',
-      'action',
-      'progress',
-      'badge',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
   }
 }
 
@@ -340,17 +307,7 @@ export const verticalStyles = theme => ({
 
 export class VerticalCard extends withStyles(Card, verticalStyles) {
   static get properties() {
-    return [
-      'src',
-      'artWidth',
-      'artHeight',
-      'title',
-      'description',
-      'progress',
-      'badge',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...artCardProps, ...baseCardProps];
   }
 }
 
@@ -363,22 +320,7 @@ export const verticalLargeStyles = theme => ({
 
 export class VerticalCardLarge extends withStyles(Card, verticalLargeStyles) {
   static get properties() {
-    return [
-      'src',
-      'artWidth',
-      'artHeight',
-      'title',
-      'description',
-      'data',
-      'logo',
-      'logoWidth',
-      'logoHeight',
-      'action',
-      'progress',
-      'badge',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
   }
 }
 
@@ -393,20 +335,7 @@ export class VerticalCardDynamic extends withStyles(
   verticalDynamicStyles
 ) {
   static get properties() {
-    return [
-      'src',
-      'artWidth',
-      'artHeight',
-      'title',
-      'description',
-      'data',
-      'logo',
-      'logoWidth',
-      'logoHeight',
-      'action',
-      'backgroundColor',
-      'focusRingColor'
-    ];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
   }
 
   _updateArtwork() {
