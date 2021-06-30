@@ -15,7 +15,7 @@ export default class SquareSmallLayout extends BaseLayout {
     const items = this._processItems(originalItems, ['Tile']);
 
     // Everything will be two rows high, this is the total height
-    const totalRowHeight = this._cardHeight * 2 + this.styles.columnSpacing;
+    const totalRowHeight = this._cardHeight * 2 + this._itemSpacing;
 
     // Create two arrays
     const formattedItems = items.reduce((acc, curr, index) => {
@@ -32,9 +32,9 @@ export default class SquareSmallLayout extends BaseLayout {
       if (-1 === targetColumnIndex) {
         targetColumnIndex = acc.push({
           w: this._cardWidth,
-          h: this._cardHeight * 2 + this.styles.columnSpacing,
+          h: this._cardHeight * 2 + this._itemSpacing,
           type: Column,
-          itemSpacing: this.styles.columnSpacing,
+          itemSpacing: this._itemSpacing,
           items: []
         });
         acc[targetColumnIndex - 1].items.push(component);

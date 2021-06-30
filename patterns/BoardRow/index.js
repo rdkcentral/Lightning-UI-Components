@@ -1,13 +1,14 @@
 import { VerticalCardDynamic } from '../../patterns/Card';
-import Base from '../../elements/Base';
 import CardLayout from './CardLayout';
 import HeroLayout from './HeroLayout';
 import PosterLayout from './PosterLayout';
 import SquareLayout from './SquareLayout';
 import SquareSmallLayout from './SquareSmallLayout';
 import StandardLayout from './StandardLayout';
-import styles from './styles.js';
-import withStyles from '../../mixins/withStyles';
+import withTags from '../../mixins/withTags';
+import withUpdates from '../../mixins/withUpdates';
+import lng from '@lightningjs/core';
+import { calculateColumnWidth } from '../../Styles';
 
 const LAYOUTS = {
   card: CardLayout,
@@ -18,7 +19,7 @@ const LAYOUTS = {
   standard: StandardLayout
 };
 
-class BoardRow extends Base {
+class BoardRow extends lng.Component {
   static _template() {
     return {};
   }
@@ -38,6 +39,7 @@ class BoardRow extends Base {
     return [
       ...VerticalCardDynamic.properties, // Suport same api as VerticalCard as it will always be the first item in the rows
       // Rows Props
+      'itemSpacing',
       'scrollIndex',
       'alwaysScroll',
       'neverScroll',
@@ -58,15 +60,37 @@ class BoardRow extends Base {
   _construct() {
     super._construct();
     this._layout = LAYOUTS['standard']; // Sets default layout
+    this._itemSpacing = 0;
   }
 
   _setLayout(layout) {
     const normalizeTypeName =
       'string' === typeof layout ? layout.toLowerCase() : null;
+    this._calculateHeight(normalizeTypeName);
     if (LAYOUTS[normalizeTypeName]) {
       return LAYOUTS[normalizeTypeName];
     }
     return LAYOUTS['standard'];
+  }
+
+  _calculateHeight(layoutName) {
+    let boardRowHeight;
+    switch (layoutName) {
+      case 'card':
+      case 'poster':
+        boardRowHeight = calculateColumnWidth(4) / (2 / 3);
+        break;
+      case 'square':
+        boardRowHeight = calculateColumnWidth(4);
+        break;
+      case 'squaresmall':
+        boardRowHeight = calculateColumnWidth(8) * 2 + this.itemSpacing;
+        break;
+      default:
+        boardRowHeight =
+          (calculateColumnWidth(4) / (16 / 9)) * 2 + this.itemSpacing;
+    }
+    this.h = boardRowHeight;
   }
 
   get _srcCallbackItems() {
@@ -115,6 +139,11 @@ class BoardRow extends Base {
     // After new layout is patched, set the focus
     this._setState('LayoutSet');
   }
+
+  $itemChanged() {
+    // catch the item changed event from child or column scroll doesn't work properly
+    return false;
+  }
 }
 
-export default withStyles(BoardRow, styles);
+export default withUpdates(withTags(BoardRow));

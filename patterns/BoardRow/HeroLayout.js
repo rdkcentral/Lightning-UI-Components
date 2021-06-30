@@ -5,7 +5,7 @@ export default class HeroLayout extends BaseLayout {
   async _setItems(originalItems) {
     const items = this._processItems(originalItems, ['Tile']);
     // Everything will be two rows high, this is the total height
-    const totalRowHeight = this._cardHeight * 2 + this.styles.columnSpacing;
+    const totalRowHeight = this._cardHeight * 2 + this._itemSpacing;
     // Create two arrays
     const formattedItems = items.reduce((acc, curr, index) => {
       const component = {
@@ -34,9 +34,9 @@ export default class HeroLayout extends BaseLayout {
             acc.length % 2
               ? this._cardWidth
               : this._aspectRatioW(totalRowHeight),
-          h: this._cardHeight * 2 + this.styles.columnSpacing,
+          h: this._cardHeight * 2 + this._itemSpacing,
           type: Column,
-          itemSpacing: this.styles.columnSpacing,
+          itemSpacing: this._itemSpacing,
           items: [
             {
               ...component,
@@ -57,7 +57,7 @@ export default class HeroLayout extends BaseLayout {
     }, []);
 
     this._updateLayout(
-      this._cardHeight * 2 + this.styles.columnSpacing,
+      this._cardHeight * 2 + this._itemSpacing,
       formattedItems
     );
   }
