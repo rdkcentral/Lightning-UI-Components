@@ -4,33 +4,55 @@ import Metadata from '.';
 
 # Metadata
 
-Short component description
+A component to quickly and easily lay out several pieces of content.
 
 ## Usage
 
-Explain how `Metadata` works with examples:
+Metadata can be used with any combination of title, description, data (inline content), call-to-action (text), and/or a logo.
 
 ```js
 import { Metadata } from '@lightning/ui';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
 
 class Example extends lng.Component {
   static _template() {
     return {
       Metadata: {
-        type: Metadata
+        type: Metadata,
+        w: 400,
+        h: 300,
+        title: 'Title',
+        description: 'Description',
+        data: [
+          '94%',
+          {
+            icon: lightningbolt,
+            color: getHexColor('00ff00'),
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon:
+              'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            title: 'Rotten Tomatoes rating'
+          }
+        ],
+        logo: circle,
+        logoWidth: 1920,
+        logoHeight: 1080,
+        // Uncommenting the line below will add a call to action,
+        // which will take priority over any data provided.
+        // action: 'Watch on Netflix'
       }
     };
   }
 };
 ```
 
-Include previews:
-
 <Canvas>
-  <Story id="component--basic" />
+  <Story id="elements-metadata--basic" />
 </Canvas>
-
-The `id` for the preview comes from the url path generated for the story.
 
 ## API
 
@@ -38,13 +60,15 @@ The `id` for the preview comes from the url path generated for the story.
 
 name|type|required|default|description
 --|--|--|--|--
--|-|-|-|-
-
-### Methods
-
-#### methodName(args): returnValue
-
-Method description
+w|number|true|-|width of component
+h|number|true|-|height of component
+title|string|false|-|first line or headline of the content
+description|string|false|-|second line or synopsis of the content
+data|inline content|false|-|relevant content data at the bottom
+action|string|false|-|call to action text (will be converted to all caps); takes priority over data
+logo|string|false|-|logo to display at bottom of component
+logoWidth|number|true (if using logo)|-|width of logo source images
+logoHeight|number|true (if using logo)|-|height of logo source image
 
 ### Styles
 
