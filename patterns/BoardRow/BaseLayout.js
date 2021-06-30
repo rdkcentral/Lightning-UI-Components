@@ -1,24 +1,25 @@
 import { calculateColumnWidth } from '../../Styles';
 import Card, { VerticalCardDynamic, HorizontalCard } from '../../patterns/Card';
-import Base from '../../elements/Base';
 import MetadataCard from '../../elements/MetadataCard';
 import Row from '../../layout/Row';
 import styles from './styles';
 import Tile from '../../elements/Tile';
 import withMetaData from '../../patterns/withMetadata';
 import withStyles from '../../mixins/withStyles';
+import withTags from '../../mixins/withTags';
+import withUpdates from '../../mixins/withUpdates';
+import lng from '@lightningjs/core';
 
 function warningMessage(item) {
   console.warn(
     `Item ${item.title} does not contain a valid type for BoardRow ${this.layout.name}.`
   );
 }
-export default class BaseType extends withStyles(Base, styles) {
+class BaseType extends lng.Component {
   static _template() {
     return {
       Layout: {
         type: Row,
-        itemSpacing: this.styles.columnSpacing,
         plinko: true,
         items: []
       }
@@ -48,6 +49,10 @@ export default class BaseType extends withStyles(Base, styles) {
 
   get _cardHeight() {
     return this._aspectRatioH(this._cardWidth, '16:9');
+  }
+
+  _init() {
+    this._Layout.itemSpacing = this._itemSpacing;
   }
 
   _processItems(items, arrayOfTypes = [], arrayOfTypesToExclude = []) {
@@ -129,6 +134,8 @@ export default class BaseType extends withStyles(Base, styles) {
     }
   }
 
+  _update() {}
+
   _updateLayout(totalHeight, items) {
     const menuCard = { ...this.FirstCard, h: totalHeight };
     let itemsArray = [menuCard, ...items];
@@ -147,3 +154,5 @@ export default class BaseType extends withStyles(Base, styles) {
     return this._Layout;
   }
 }
+
+export default withUpdates(withTags(withStyles(BaseType, styles)));

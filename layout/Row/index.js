@@ -82,32 +82,68 @@ export default class Row extends FocusManager {
     return this.Items.children.filter(child => this._isOnScreen(child));
   }
 
+  // _isOnScreen(child) {
+  //   const x = getX(child);
+  //   const { w } = child;
+  //   const withinLowerBounds = x + w + this._itemsX > 0;
+  //   const withinUpperBounds = x + this._itemsX < this.w;
+  //   return withinLowerBounds && withinUpperBounds;
+  // }
+
   _isOnScreen(child) {
     const x = getX(child);
+
+    // to calculate the target absolute X position of the item, we need to use
+    // 1) the entire row's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const ItemX =
+      this.core.renderContext.px + this.Items.transition('x').targetValue + x;
     const { w } = child;
-    const withinLowerBounds = x + w + this._itemsX > 0;
-    const withinUpperBounds = x + this._itemsX < this.w;
-    return withinLowerBounds && withinUpperBounds;
+
+    // check that the child is inside the bounds of the stage
+    const withinLeftStageBounds = ItemX > 0;
+    // stage width needs to be adjusted with precision since all other values assume the original height and width (pre-scaling)
+    const withinRightStageBounds =
+      ItemX + w < this.stage.w / this.stage.getRenderPrecision();
+
+    // check that the child is inside the bounds of any clipping
+    let withinLeftClippingBounds = true;
+    let withinRightClippingBounds = true;
+    if (this.core._scissor && this.core._scissor.length) {
+      // _scissor consists of [ left position (x), top position (y), width, height ]
+      const leftBounds = this.core._scissor[0];
+      const rightBounds = leftBounds + this.core._scissor[2];
+      withinLeftClippingBounds = Math.round(ItemX + w) > Math.round(leftBounds);
+      withinRightClippingBounds = Math.round(ItemX) < Math.round(rightBounds);
+    }
+
+    return (
+      withinLeftStageBounds &&
+      withinRightStageBounds &&
+      withinLeftClippingBounds &&
+      withinRightClippingBounds
+    );
   }
 
-  _isOnScreenCompletely(child) {
-    let itemX = child.core.renderContext.px;
-    let rowX = this.core.renderContext.px;
-    return itemX >= rowX && itemX + child.w <= rowX + this.w;
-  }
+  // _isOnScreenCompletely(child) {
+  //   let itemX = child.core.renderContext.px;
+  //   let rowX = this.core.renderContext.px;
+  //   return itemX >= rowX && itemX + child.w <= rowX + this.w;
+  // }
 
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
       if (this.lazyScroll) {
-        shouldScroll = !this._isOnScreenCompletely(this.selected);
+        shouldScroll = !this._isOnScreen(this.selected);
       } else {
         const lastChild = this.Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
             this.shouldScrollRight() ||
-            !this._isOnScreenCompletely(this.selected));
+            !this._isOnScreen(this.selected));
       }
     }
     return shouldScroll;
@@ -119,7 +155,11 @@ export default class Row extends FocusManager {
     if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
-      itemsContainerX = this.w - this.selected.x - this.selected.w;
+      itemsContainerX =
+        this.w -
+        this.selected.x -
+        this.selected.w -
+        (this.core.renderContext.px + this.itemSpacing);
     }
     return itemsContainerX;
   }

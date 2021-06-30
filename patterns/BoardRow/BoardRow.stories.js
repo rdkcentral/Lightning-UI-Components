@@ -1,6 +1,7 @@
 import lng from '@lightningjs/core';
 
 import BoardRow from '.';
+import Column from '../../layout/Column';
 import mdx from './BoardRow.mdx';
 import circle from '../../assets/images/circle.svg';
 import Tile from '../../elements/Tile';
@@ -130,6 +131,12 @@ function srcCallback({ type, src, w, h }) {
         src: `http://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=16x9`
       });
     };
+
+    var imgFocusPreload = new Image();
+    imgFocusPreload.src = focusSrc;
+    imgFocusPreload.onload = () => {
+      console.log(`${focusSrc} preloaded`);
+    };
   });
 }
 
@@ -149,37 +156,117 @@ export const Basic = args =>
     static _template() {
       return {
         BoardRow: {
-          type: BoardRow,
-          // Menu Card Props
-          title: `Today's Top 20`,
-          description: `See what's trending in movies and TV today`,
-          action: 'View All',
-          onEnter: () => {
-            alert('View All Action');
-          },
-          // Row settings
-          alwaysScroll: args.alwaysScroll,
-          neverScroll: args.neverScroll,
-          lazyScroll: args.lazyScroll,
-          scrollIndex: args.scrollIndex,
-          // Board Row item content
-          items: (() => {
-            let items;
-            switch (args.layout) {
-              case 'card':
-                items = getItems(VerticalCardLarge);
-                break;
-              default:
-                items = getItems(Tile);
+          type: Column,
+          itemSpacing: 40,
+          x: 200,
+          alwaysScroll: true,
+          items: [
+            {
+              // h: 500,
+              type: BoardRow,
+              // Menu Card Props
+              itemSpacing: 40,
+              title: `Today's Top 20`,
+              description: `See what's trending in movies and TV today`,
+              action: 'View All',
+              onEnter: () => {
+                alert('View All Action');
+              },
+              // Row settings
+              alwaysScroll: args.alwaysScroll,
+              neverScroll: args.neverScroll,
+              lazyScroll: args.lazyScroll,
+              scrollIndex: args.scrollIndex,
+              // Board Row item content
+              items: (() => {
+                let items;
+                switch (args.layout) {
+                  case 'card':
+                    items = getItems(VerticalCardLarge);
+                    break;
+                  default:
+                    items = getItems(Tile);
+                }
+                return items;
+              })(),
+              // Layout will default to standard if not specified
+              layout: args.layout,
+              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
+              viewAll: args.viewAll,
+              // sync or async function that will generate a final src if specified
+              srcCallback
+            },
+            {
+              // h: 500,
+              type: BoardRow,
+              // Menu Card Props
+              itemSpacing: 40,
+              title: `Today's Top 20`,
+              description: `See what's trending in movies and TV today`,
+              action: 'View All',
+              onEnter: () => {
+                alert('View All Action');
+              },
+              // Row settings
+              alwaysScroll: args.alwaysScroll,
+              neverScroll: args.neverScroll,
+              lazyScroll: args.lazyScroll,
+              scrollIndex: args.scrollIndex,
+              // Board Row item content
+              items: (() => {
+                let items;
+                switch (args.layout) {
+                  case 'card':
+                    items = getItems(VerticalCardLarge);
+                    break;
+                  default:
+                    items = getItems(Tile);
+                }
+                return items;
+              })(),
+              // Layout will default to standard if not specified
+              layout: args.layout,
+              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
+              viewAll: args.viewAll,
+              // sync or async function that will generate a final src if specified
+              srcCallback
+            },
+            {
+              // h: 500,
+              type: BoardRow,
+              // Menu Card Props
+              title: `Today's Top 20`,
+              itemSpacing: 40,
+              description: `See what's trending in movies and TV today`,
+              action: 'View All',
+              onEnter: () => {
+                alert('View All Action');
+              },
+              // Row settings
+              alwaysScroll: args.alwaysScroll,
+              neverScroll: args.neverScroll,
+              lazyScroll: args.lazyScroll,
+              scrollIndex: args.scrollIndex,
+              // Board Row item content
+              items: (() => {
+                let items;
+                switch (args.layout) {
+                  case 'card':
+                    items = getItems(VerticalCardLarge);
+                    break;
+                  default:
+                    items = getItems(Tile);
+                }
+                return items;
+              })(),
+              // Layout will default to standard if not specified
+              layout: args.layout,
+              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
+              viewAll: args.viewAll,
+              // sync or async function that will generate a final src if specified
+              srcCallback
             }
-            return items;
-          })(),
-          // Layout will default to standard if not specified
-          layout: args.layout,
-          // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-          viewAll: args.viewAll,
-          // sync or async function that will generate a final src if specified
-          srcCallback
+          ]
         }
       };
     }
