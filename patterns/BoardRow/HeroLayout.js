@@ -22,7 +22,7 @@ export default class HeroLayout extends BaseLayout {
       if (!lastItem || lastItem.items.length === maxItems) {
         // This column is full, create a new one
         const componentWidth =
-          acc.length % 2 ? component.w : this._aspectRatioW(totalRowHeight);
+          acc.length % 2 ? component.w : component.w * 2 + this.itemSpacing;
 
         const componentHeight =
           acc.length % 2 ? this._aspectRatioH(component.w) : totalRowHeight;
@@ -33,7 +33,7 @@ export default class HeroLayout extends BaseLayout {
           w:
             acc.length % 2
               ? this._cardWidth
-              : this._aspectRatioW(totalRowHeight),
+              : component.w * 2 + this.itemSpacing,
           h: this._cardHeight * 2 + this._itemSpacing,
           type: Column,
           itemSpacing: this._itemSpacing,
