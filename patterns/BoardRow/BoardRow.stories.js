@@ -158,7 +158,6 @@ export const Basic = args =>
         BoardRow: {
           type: Column,
           itemSpacing: 40,
-          x: 200,
           alwaysScroll: true,
           items: [
             {
@@ -214,18 +213,10 @@ export const Basic = args =>
               scrollIndex: args.scrollIndex,
               // Board Row item content
               items: (() => {
-                let items;
-                switch (args.layout) {
-                  case 'card':
-                    items = getItems(VerticalCardLarge);
-                    break;
-                  default:
-                    items = getItems(Tile);
-                }
-                return items;
+                return getItems(Tile);
               })(),
               // Layout will default to standard if not specified
-              layout: args.layout,
+              layout: 'hero',
               // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
               viewAll: args.viewAll,
               // sync or async function that will generate a final src if specified
@@ -249,18 +240,10 @@ export const Basic = args =>
               scrollIndex: args.scrollIndex,
               // Board Row item content
               items: (() => {
-                let items;
-                switch (args.layout) {
-                  case 'card':
-                    items = getItems(VerticalCardLarge);
-                    break;
-                  default:
-                    items = getItems(Tile);
-                }
-                return items;
+                return getItems(Tile);
               })(),
               // Layout will default to standard if not specified
-              layout: args.layout,
+              layout: 'poster',
               // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
               viewAll: args.viewAll,
               // sync or async function that will generate a final src if specified
