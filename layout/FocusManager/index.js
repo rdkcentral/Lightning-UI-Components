@@ -6,9 +6,12 @@
 import lng from '@lightningjs/core';
 
 export default class FocusManager extends lng.Component {
+  static _template() {
+    return { Items: {} };
+  }
+
   _construct() {
     this._selectedIndex = 0;
-    this.patch({ Items: {} });
     this.direction = this.direction || 'row';
   }
 
@@ -30,6 +33,9 @@ export default class FocusManager extends lng.Component {
   }
 
   get Items() {
+    if (!this.tag('Items')) {
+      this.patch({ Items: {} });
+    }
     return this.tag('Items');
   }
 
