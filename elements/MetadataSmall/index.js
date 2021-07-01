@@ -13,13 +13,11 @@ export const styles = theme => ({
   },
   data: {
     ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    alphaDark: theme.palette.opacity[6] / 100,
-    alphaLight: theme.palette.opacity[4] / 100
+    textColor: theme.palette.text.light.tertiary
   },
   logo: {
     h: theme.typography.body3.lineHeight,
-    offset: 8
+    offset: theme.spacing(1)
   },
   progressBarPadding: theme.spacing(3)
 });
@@ -72,9 +70,6 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     this._progressBarPadding = this.styles.progressBarPadding;
     this._progressBarHeight =
       this.styles.progressBarPadding + ProgressBar.styles.h;
-    this._mixedContentAlpha = this.styles.data.alphaDark;
-    this._textAlpha = this.styles.data.alphaLight;
-    this._dataAlpha = this._textAlpha;
   }
 
   _init() {
@@ -98,10 +93,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
 
   _updateData() {
     if (this._data) {
-      this._Data.patch({
-        content: this._data,
-        alpha: this._dataAlpha
-      });
+      this._Data.content = this._data;
     }
   }
 
@@ -133,12 +125,5 @@ export default class MetadataSmall extends withStyles(Base, styles) {
         }
       });
     }
-  }
-
-  _setData(data) {
-    this._dataAlpha = Array.isArray(data)
-      ? this._mixedContentAlpha
-      : this._textAlpha;
-    return data;
   }
 }
