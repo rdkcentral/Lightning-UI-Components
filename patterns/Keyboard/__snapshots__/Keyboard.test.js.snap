@@ -8384,7 +8384,7 @@ Object {
                   ],
                   "texture": Object {
                     "fontFace": "XfinityBrownBold",
-                    "fontSize": 14,
+                    "fontSize": 24,
                     "letterSpacing": 2,
                     "lineHeight": 32,
                     "text": "LABEL",

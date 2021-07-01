@@ -153,7 +153,7 @@ export const TYPOGRAPHY = {
   },
   callout1: {
     fontFace: 'XfinityBrownBold',
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: 700,
     letterSpacing: 2,
     lineHeight: 32,

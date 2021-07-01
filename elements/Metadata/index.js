@@ -7,39 +7,34 @@ import withStyles from '../../mixins/withStyles';
 
 export const styles = theme => ({
   title: {
-    ...theme.typography.headline3,
+    ...theme.typography.headline1,
     textColor: theme.palette.text.light.primary,
     maxLines: 2,
     maxLinesSuffix: '...',
     lineHeight: 34
   },
   description: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    alpha: theme.palette.opacity[4] / 100,
+    ...theme.typography.body2,
+    textColor: theme.palette.text.light.tertiary,
+    lineHeight: 36,
     maxLines: 3,
     maxLinesSuffix: '...'
   },
-  info: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    alpha: theme.palette.opacity[6] / 100,
-    maxLines: 1,
-    maxLinesSuffix: '...',
-    h: 32,
-    offset: theme.typography.body3.lineHeight + 4
-  },
+  infoOffset: theme.typography.body3.lineHeight + 4,
   data: {
     ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    alpha: theme.palette.opacity[6] / 100
+    textColor: theme.palette.text.light.primary,
+    maxLines: 1,
+    maxLinesSuffix: '...'
   },
   logo: {
     h: theme.typography.body3.lineHeight
   },
   action: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary
+    ...theme.typography.callout1,
+    textColor: theme.palette.text.light.primary,
+    maxLines: 1,
+    maxLinesSuffix: '...'
   }
 });
 
@@ -75,7 +70,7 @@ export default class Metadata extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
-    this._infoHeight = this.styles.info.offset;
+    this._infoHeight = this.styles.infoOffset;
     this._logoRenderHeight = this.styles.logo.h;
   }
 

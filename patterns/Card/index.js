@@ -264,18 +264,7 @@ export default class Card extends withStyles(Base, styles) {
   }
 }
 
-export const largeMetadataStyles = theme => ({
-  metadata: {
-    title: theme.typography.headline1,
-    description: {
-      ...theme.typography.body1,
-      lineHeight: 36
-    }
-  }
-});
-
-export const basicStyles = theme => ({
-  ...largeMetadataStyles,
+const basicStyles = theme => ({
   w: 410,
   h: 231
 });
@@ -286,8 +275,7 @@ export class BasicCard extends withStyles(Card, basicStyles) {
   }
 }
 
-export const horizontalStyles = theme => ({
-  ...largeMetadataStyles,
+const horizontalStyles = theme => ({
   orientation: 'horizontal',
   w: 860,
   h: 231,
@@ -300,8 +288,7 @@ export class HorizontalCard extends withStyles(Card, horizontalStyles) {
   }
 }
 
-export const horizontalLargeStyles = theme => ({
-  ...largeMetadataStyles,
+const horizontalLargeStyles = theme => ({
   orientation: 'horizontal',
   w: 1085,
   h: 231,
@@ -317,16 +304,30 @@ export class HorizontalCardLarge extends withStyles(
   }
 }
 
-export const verticalStyles = theme => ({
+const smallMetadataStyles = theme => ({
+  title: {
+    ...theme.typography.headline3,
+    textColor: theme.palette.text.light.primary
+  },
+  description: {
+    ...theme.typography.body3,
+    textColor: theme.palette.text.light.tertiary
+  }
+});
+
+const verticalStyles = theme => ({
   orientation: 'vertical',
   w: 410,
   h: 335,
   imgRadius: [theme.border.radius.medium, theme.border.radius.medium, 0, 0],
   metadata: {
+    ...smallMetadataStyles(theme),
     title: {
+      ...smallMetadataStyles(theme).title,
       maxLines: 1
     },
     description: {
+      ...smallMetadataStyles(theme).description,
       maxLines: 1
     }
   }
@@ -338,7 +339,8 @@ export class VerticalCard extends withStyles(Card, verticalStyles) {
   }
 }
 
-export const verticalLargeStyles = theme => ({
+const verticalLargeStyles = theme => ({
+  metadata: smallMetadataStyles(theme),
   orientation: 'vertical',
   w: 410,
   h: 502,
@@ -351,8 +353,7 @@ export class VerticalCardLarge extends withStyles(Card, verticalLargeStyles) {
   }
 }
 
-export const verticalDynamicStyles = theme => ({
-  ...largeMetadataStyles,
+const verticalDynamicStyles = theme => ({
   orientation: 'vertical',
   w: 410,
   h: 502

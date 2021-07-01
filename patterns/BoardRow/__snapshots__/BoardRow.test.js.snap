@@ -233,7 +233,7 @@ Object {
                       "children": Object {
                         "Description": Object {
                           "active": false,
-                          "alpha": 0.64,
+                          "alpha": 0.001,
                           "attached": true,
                           "boundsMargin": null,
                           "clipping": false,
@@ -265,10 +265,10 @@ Object {
                           "texture": Object {
                             "fontFace": "XfinityStandardMedium",
                             "fontSize": 24,
-                            "lineHeight": 32,
+                            "lineHeight": 36,
                             "maxLines": 3,
                             "maxLinesSuffix": "...",
-                            "textColor": 3439329279,
+                            "textColor": 2583691263,
                             "type": "TextTexture",
                             "verticalAlign": "middle",
                             "wordWrapWidth": 362,
@@ -321,7 +321,9 @@ Object {
                                 "fontFace": "XfinityStandardMedium",
                                 "fontSize": 28,
                                 "lineHeight": 40,
-                                "textColor": 3439329279,
+                                "maxLines": 1,
+                                "maxLinesSuffix": "...",
+                                "textColor": 4076863487,
                                 "type": "TextTexture",
                                 "verticalAlign": "middle",
                               },
@@ -334,7 +336,7 @@ Object {
                             },
                             "Data": Object {
                               "active": false,
-                              "alpha": 0.96,
+                              "alpha": 1,
                               "attached": true,
                               "boundsMargin": null,
                               "clipping": false,
@@ -475,7 +477,7 @@ Object {
                           ],
                           "texture": Object {
                             "fontFace": "XfinityBrownBold",
-                            "fontSize": 28,
+                            "fontSize": 36,
                             "letterSpacing": -0.2,
                             "lineHeight": 34,
                             "maxLines": 2,
