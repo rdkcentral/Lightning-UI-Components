@@ -101,7 +101,7 @@ describe('DataItem', () => {
     dataitem._focus();
     testRenderer.update();
     dataitem._whenEnabled.then(() => {
-      expect(dataitem.scale).toEqual((dataitem.w + 40) / dataitem.w);
+      expect(dataitem.scale).toEqual((dataitem.w + 24) / dataitem.w);
       done();
     });
   });

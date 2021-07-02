@@ -132,7 +132,7 @@ describe('Pivot', () => {
 
       setTimeout(() => {
         expect(pivot.color).toBe(getHexColor('ECECF2'));
-        expect(pivot.scale).toBe((pivot.w + 40) / pivot.w);
+        expect(pivot.scale).toBe((pivot.w + 32) / pivot.w);
         expect(pivot._Title.color).toBe(getHexColor('000000', 95));
         done();
       });

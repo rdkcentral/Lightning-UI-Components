@@ -102,13 +102,27 @@ function spacing(multiplier) {
  * @param { number } h
  * @returns
  */
-export function getFocusScale(w, h) {
-  if (h > w) {
-    return (h + spacing(5)) / h;
+export function getFocusScale(w = 0, h = 0) {
+  const size = Math.max(w, h);
+  let multiplier = 5;
+  switch (true) {
+    case size >= 260:
+      multiplier = 5;
+      break;
+    case size >= 185:
+      multiplier = 4;
+      break;
+    case size >= 140:
+      multiplier = 3;
+      break;
+    case size >= 110:
+      multiplier = 2;
+      break;
+    default:
+      multiplier = 2;
+      break;
   }
-  else {
-    return (w + spacing(5)) / w;
-  }
+  return (size + spacing(multiplier)) / size;
 }
 
 const gradientColor = PALETTE.grey[5];
