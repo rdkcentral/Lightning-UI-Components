@@ -112,3 +112,4 @@ These stage level events can be listened to using the syntax `this.stage.on('EVE
 name|args|description
 --|--|--|--
 announceEnded|-|emitted when all contents of the announce array have finished being read out
+announceTimoutEnded|-|emitted after the amount of time of announded word count * 500ms, used to account for the known speechSynth api issues above

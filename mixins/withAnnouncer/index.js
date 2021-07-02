@@ -9,6 +9,7 @@ function elmName(elm) {
 export default (base, speak = Speech) =>
   class Announcer extends base {
     _construct() {
+      this._announceEndedTimeout;
       this._currentlySpeaking = '';
     }
 
@@ -17,11 +18,24 @@ export default (base, speak = Speech) =>
         return;
       }
       const speech = speak(toAnnounce);
+      // event using speech synthesis api promise
       if (speech && speech.series) {
         speech.series.then(() => {
           this.stage.emit('announceEnded');
         });
       }
+
+      // event in case speech synthesis api is flakey,
+      // assume the ammount of time it takes to read each word
+      const toAnnounceStr = Array.isArray(toAnnounce)
+        ? toAnnounce.concat().join(' ')
+        : toAnnounce;
+      const toAnnounceWords = toAnnounceStr.split(' ');
+      clearTimeout(this._announceEndedTimeout);
+      this._announceEndedTimeout = setTimeout(() => {
+        this.stage.emit('announceTimeoutEnded');
+      }, toAnnounceWords.length * 500);
+
       return speech;
     }
 
@@ -50,6 +64,12 @@ export default (base, speak = Speech) =>
 
       // Lightning only calls Focus Change on second focus
       this._focusChange();
+    }
+
+    _disable() {
+      clearTimeout(this._announceEndedTimeout);
+      this.stage.emit('announceEnded');
+      this.stage.emit('announceTimeoutEnded');
     }
 
     set announcerEnabled(val) {
