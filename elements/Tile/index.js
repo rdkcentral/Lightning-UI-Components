@@ -3,6 +3,8 @@ import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../../Styles/black_background_tile';
 import Base from '../Base';
+import Gradient from '../Gradient';
+import { getValidColor } from '../../Styles/Styles';
 
 export const styles = theme => ({
   radius: theme.border.radius.medium,
@@ -39,7 +41,15 @@ class Tile extends Base {
   }
 
   static get tags() {
-    return ['Blur', 'DropShadow', 'FocusRing', 'Item', 'Image', 'FocusImage'];
+    return [
+      'Blur',
+      'DropShadow',
+      'FocusRing',
+      'Item',
+      'Image',
+      'FocusImage',
+      'Gradient'
+    ];
   }
 
   static get properties() {
@@ -51,7 +61,10 @@ class Tile extends Base {
       'src',
       'focusSrc',
       'fallbackSrc',
-      'focusRingColor'
+      'focusRingColor',
+      'gradientColor',
+      'focusGradient',
+      'persistGradient'
     ];
   }
 
@@ -82,6 +95,7 @@ class Tile extends Base {
       this._updateFocusImage();
       this._updateBlur();
       this._updateRadius();
+      this._updateGradient();
       this._updateDropShadow();
       this._updateFocusRing();
       this._updateScale();
@@ -207,6 +221,36 @@ class Tile extends Base {
     }
   }
 
+  _updateGradient() {
+    if (this._shouldShowGradient()) {
+      const gradientParams = {
+        x: this.x - 1,
+        w: this.w + 2,
+        h: this.h + 1,
+        radius: this.radius,
+        zIndex: 3
+      };
+      if (this._gradientColor) {
+        gradientParams.gradientColor = this._gradientColor;
+      }
+      if (!this._Gradient) {
+        this._Item.patch({ Gradient: { type: Gradient, ...gradientParams } });
+      } else {
+        this._Gradient.patch(gradientParams);
+      }
+    }
+  }
+
+  _shouldShowGradient() {
+    if (this._persistGradient) {
+      return true;
+    } else if (this._focusGradient && this.hasFocus()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _updateDropShadow() {
     if (this.hasFocus() || this._shadow) {
       if (!this._shadow) {
@@ -274,7 +318,7 @@ class Tile extends Base {
     } else {
       this._Item.scale = scale;
       if (this._FocusRing) this._FocusRing.scale = scale;
-      if (this._DropShadow) this._DropShadow.smooth = { scale };
+      if (this._DropShadow) this._DropShadow.scale = scale;
     }
   }
 

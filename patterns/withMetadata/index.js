@@ -2,7 +2,7 @@ import Tile from '../../elements/Tile';
 import ProgressBar from '../../elements/ProgressBar';
 import Badge from '../../elements/Badge';
 import withStyles from '../../mixins/withStyles';
-import withBadgeProgress from '../../patterns/withBadgeProgress';
+import withBadgeProgress from '../withBadgeProgress';
 
 export const styles = theme => ({
   paddingTop: theme.spacing(1),
@@ -39,6 +39,7 @@ export default (base = Tile) =>
         this._updateMetadataW();
         this._updateMetadataX();
         this._updateMetadataY();
+        this._updateGradient();
       }
     }
 
@@ -112,6 +113,13 @@ export default (base = Tile) =>
       } else {
         this.Metadata.y = metadataY;
       }
+    }
+
+    _updateGradient() {
+      if (this._metadataLocation === 'inset') {
+        this._focusGradient = true;
+      }
+      super._updateGradient && super._updateGradient();
     }
 
     _getFocused() {

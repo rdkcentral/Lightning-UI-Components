@@ -28,12 +28,16 @@ export const Basic = args =>
       return {
         Tile: {
           type: withStyles(Tile, { unfocused: { shadow: { alpha: 1 } } }),
+          type: Tile,
           src: kabob,
           w: 320,
           h: 180,
           blur: args.blur,
           radius: args.radius,
           imgRadius: args.imgRadius,
+          focusGradient: args.focusGradient,
+          persistGradient: args.persistGradient,
+          gradientColor: rgba2argb(args.color),
           shadow: {
             w: 320,
             h: 180,
@@ -57,7 +61,9 @@ Basic.args = {
   blur: 0,
   radius: 16,
   imgRadius: 16,
-  color: 'rgba(63,92,30,0.7)'
+  color: 'rgba(63,92,30,0.7)',
+  focusGradient: false,
+  persistGradient: false
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
