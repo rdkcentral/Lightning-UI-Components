@@ -228,7 +228,8 @@ class Tile extends Base {
         w: this.w + 2,
         h: this.h + 1,
         radius: this.radius,
-        zIndex: 3
+        zIndex: 3,
+        alpha: 1
       };
       if (this._gradientColor) {
         gradientParams.gradientColor = this._gradientColor;
@@ -237,6 +238,12 @@ class Tile extends Base {
         this._Item.patch({ Gradient: { type: Gradient, ...gradientParams } });
       } else {
         this._Gradient.patch(gradientParams);
+      }
+    } else if (this._Gradient) {
+      if (this._smooth) {
+        this._Gradient.smooth = { alpha: 0 };
+      } else {
+        this._Gradient.alpha = 0;
       }
     }
   }
