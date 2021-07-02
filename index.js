@@ -57,3 +57,4 @@ export { default as TileIcon } from './elements/TileIcon/index.js';
 export { default as Toggle } from './elements/Toggle/index.js';
 export { default as Tooltip } from './elements/Tooltip/index.js';
 export { default as withVibrant } from './mixins/withVibrant/index.js'; // TODO: alphabetize
+export { default as Gradient } from './elements/Gradient/index.js'; // TODO: alphabetize

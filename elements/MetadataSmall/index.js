@@ -77,10 +77,15 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   _update() {
+    this._updateWidth();
     this._updateTitle();
     this._updateData();
     this._updateLogo();
     this._updateProgress();
+  }
+
+  _updateWidth() {
+    this.w = this.originalW || this.w;
   }
 
   _updateTitle() {

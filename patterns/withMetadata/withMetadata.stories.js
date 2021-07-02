@@ -124,9 +124,11 @@ export const InsetMetadata = args =>
       return {
         TileWithMetadata: {
           type: withMetadata(Tile),
+          src: pets,
           w: 410,
           h: 230,
           persistentMetadata: args.persistentMetadata,
+          color: 0xff5d7a74,
           progress: args.progress,
           metadataLocation: 'inset',
           Metadata: {
