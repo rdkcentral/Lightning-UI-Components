@@ -4,6 +4,7 @@ import CardArtwork from '../../elements/CardArtwork';
 import Metadata from '../../elements/Metadata';
 import FocusRing from '../../elements/FocusRing';
 import withStyles from '../../mixins/withStyles';
+import { getValidColor } from '../../Styles';
 
 export const artCardProps = [
   'src',
@@ -14,12 +15,7 @@ export const artCardProps = [
   'progress'
 ];
 
-export const baseCardProps = [
-  'title',
-  'description',
-  'backgroundColor',
-  'focusColor'
-];
+export const baseCardProps = ['title', 'description', 'backgroundColor'];
 
 export const logoProps = ['logo', 'logoWidth', 'logoHeight'];
 
@@ -120,16 +116,18 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _updateBackground() {
-    this._Background.texture = lng.Tools.getRoundRect(
-      // Compensating for the extra two pixels getRoundRect adds.
-      this.w - 2,
-      this.h - 2,
-      this._radius,
-      0,
-      null,
-      true,
-      this.backgroundColor
-    );
+    this._Background.patch({
+      texture: lng.Tools.getRoundRect(
+        // Compensating for the extra two pixels getRoundRect adds.
+        this.w - 2,
+        this.h - 2,
+        this._radius,
+        0,
+        null,
+        true,
+        this.backgroundColor
+      )
+    });
   }
 
   _updateArtwork() {
@@ -356,15 +354,72 @@ export class VerticalCardLarge extends withStyles(Card, verticalLargeStyles) {
 const verticalDynamicStyles = theme => ({
   orientation: 'vertical',
   w: 410,
-  h: 502
+  h: 502,
+  gradient: {
+    w: 820,
+    h: 410,
+    radius: 410,
+    blur: 100,
+    margin: 100
+  }
 });
 
 export class VerticalCardDynamic extends withStyles(
   Card,
   verticalDynamicStyles
 ) {
+  _construct() {
+    super._construct();
+    this._gradientW = this.styles.gradient.w;
+    this._gradientH = this.styles.gradient.h;
+    this._gradientRadius = this.styles.gradient.radius;
+    this._gradientBlur = this.styles.gradient.blur;
+    this._gradientMargin = this.styles.gradient.margin;
+  }
+
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
+    return [
+      ...artCardProps,
+      ...baseCardProps,
+      ...logoProps,
+      'data',
+      'action',
+      'gradientColor'
+    ];
+  }
+
+  _updateBackground() {
+    let gradientColor = getValidColor(this._gradientColor);
+    if (gradientColor) {
+      this._Background.patch({
+        texture: undefined,
+        rect: true,
+        w: this.w,
+        h: this.h,
+        color: this.backgroundColor,
+        rtt: true,
+        shader: {
+          type: lng.shaders.RoundedRectangle,
+          radius: this._radius
+        },
+        Gradient: {
+          mountX: 0.5,
+          x: this.w / 2,
+          y: this.h - this._gradientMargin - 50,
+          color: gradientColor,
+          texture: lng.Tools.getShadowRect(
+            this._gradientW,
+            this._gradientH,
+            this._gradientRadius,
+            this._gradientBlur,
+            this._gradientMargin
+          ),
+          smooth: { alpha: this.hasFocus() ? 1 : 0 }
+        }
+      });
+    } else {
+      super._updateBackground();
+    }
   }
 
   _updateArtwork() {

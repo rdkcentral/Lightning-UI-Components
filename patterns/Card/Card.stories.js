@@ -235,6 +235,8 @@ export const VerticalDynamic = args =>
       return {
         Card: {
           type: VerticalCardDynamic,
+          gradientColor: args.gradientColor,
+          focusRingColor: args.focusRingColor,
           src: pets,
           artWidth: 1920,
           artHeight: 1080,
@@ -255,12 +257,15 @@ export const VerticalDynamic = args =>
     }
   };
 VerticalDynamic.args = {
+  gradientColor: '#E6004A',
   title: 'Title',
   description: 'Short Description',
   action: 'Watch on Netflix',
   showLogo: true
 };
 VerticalDynamic.argTypes = {
+  gradientColor: { control: 'color' },
+  focusRingColor: { control: 'color' },
   title: { content: 'text' },
   description: { content: 'text' },
   action: { content: 'text' },
