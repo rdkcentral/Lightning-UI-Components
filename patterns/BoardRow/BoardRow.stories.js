@@ -163,6 +163,7 @@ export const Basic = args =>
             {
               // h: 500,
               type: BoardRow,
+              gradientColor: args.gradientColor,
               // Menu Card Props
               itemSpacing: 40,
               title: `Today's Top 20`,
@@ -198,6 +199,7 @@ export const Basic = args =>
             {
               // h: 500,
               type: BoardRow,
+              gradientColor: args.gradientColor,
               // Menu Card Props
               itemSpacing: 40,
               title: `Today's Top 20`,
@@ -225,6 +227,7 @@ export const Basic = args =>
             {
               // h: 500,
               type: BoardRow,
+              gradientColor: args.gradientColor,
               // Menu Card Props
               title: `Today's Top 20`,
               itemSpacing: 40,
@@ -259,7 +262,11 @@ export const Basic = args =>
     }
   };
 
+Basic.args = {
+  gradientColor: '#E6004A'
+};
 Basic.argTypes = {
+  gradientColor: { control: 'color' },
   layout: {
     control: {
       type: 'select',

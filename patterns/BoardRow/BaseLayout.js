@@ -4,7 +4,7 @@ import MetadataCard from '../../elements/MetadataCard';
 import Row from '../../layout/Row';
 import styles from './styles';
 import Tile from '../../elements/Tile';
-import withMetaData from '../../patterns/withMetadata';
+import withMetadata from '../../patterns/withMetadata';
 import withStyles from '../../mixins/withStyles';
 import withTags from '../../mixins/withTags';
 import withUpdates from '../../mixins/withUpdates';
@@ -39,7 +39,8 @@ class BaseType extends lng.Component {
       type: VerticalCardDynamic,
       title: this.title,
       description: this.description,
-      action: this.action
+      action: this.action,
+      gradientColor: this.gradientColor
     };
   }
 
@@ -85,13 +86,14 @@ class BaseType extends lng.Component {
         //   return !!valid;
         // })
         .map(item => {
-          const addMetaData = item.type && item.type.prototype instanceof Tile;
+          const addMetadata =
+            (item.type && Tile === item.type) || Tile.isPrototypeOf(item.type);
           const onEnter = !item.onEnter ? () => {} : item.onEnter;
-          if (addMetaData) {
+          if (addMetadata) {
             const newItem = {
               ...item,
               onEnter,
-              type: withMetaData(item.type),
+              type: withMetadata(item.type),
               metadataLocation: 'inset',
               Metadata: {
                 type: MetadataCard,
