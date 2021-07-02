@@ -68,7 +68,10 @@ describe('Info', () => {
     component._update();
     expect(component.h).toBe(
       component._DataItem.h *
-        component.styles.getFocusScale(component._DataItem.w) +
+        component.styles.getFocusScale(
+          component._DataItem.w,
+          component._DataItem.h
+        ) +
         component._DataItem.y
     );
     component._unfocus();
