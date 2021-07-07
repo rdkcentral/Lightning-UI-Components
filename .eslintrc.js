@@ -14,18 +14,25 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        trailingComma: false,
+        trailingComma: 'none',
         singleQuote: true,
         tabWidth: 2,
         printWidth: 80
       }
     ],
     'space-before-function-paren': [
-      'ignore',
+      0,
       {
         anonymous: 'always',
         named: 'never',
         asyncArrow: 'always'
+      }
+    ],
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: false
       }
     ]
   },
