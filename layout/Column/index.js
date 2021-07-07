@@ -101,11 +101,6 @@ export default class Column extends FocusManager {
       next.selectedIndex = this._getIndexOfItemNear(next, prevPlinko || prev);
     }
 
-    // Rows are changing height, so we'll render via updateLayout
-    if (this.itemsChangeable) {
-      return;
-    }
-
     this._performRender();
   }
 
@@ -301,7 +296,7 @@ export default class Column extends FocusManager {
   }
 
   appendItems(items = []) {
-    let itemWidth = this.renderWidth;
+    const itemWidth = this.renderWidth;
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
@@ -326,13 +321,12 @@ export default class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this.itemsChangeable = true;
     this._updateImmediate();
   }
 
   $removeItem(item) {
     if (item) {
-      let wasSelected = item === this.selected;
+      const wasSelected = item === this.selected;
       this.Items.childList.remove(item);
       this._updateImmediate();
 
