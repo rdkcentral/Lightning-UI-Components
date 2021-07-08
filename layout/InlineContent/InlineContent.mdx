@@ -21,6 +21,7 @@ class Example extends lng.Component {
         content: [
           'example of simple text',
           { icon: 'http://myIconUrl.com/goeshere, title: 'to add voice out content (essentially alt text)', color: '00ff00' },
+          { newline: true },
           { badge: 'HD' }
         ]
       }
@@ -39,7 +40,7 @@ class Example extends lng.Component {
 
 name|type|required|default|description
 --|--|--|--|--
-content|string\|array|false|-|list of data to render inline
+content|string\|array|false|-|list of data to render inline, see [Content Element Properties](#content-element-properties) below
 textProperties|object|false|Xfinity theme|font properties to apply to the title
 justify|'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly'|false|flex-start|alignment of first line flexbox content
 iconW|number|false|36|width of all icons
@@ -55,6 +56,16 @@ combinedLinesHeight|number|0|readonly prop of the total height of all of the con
 #### $loadedInlineContent():void
 
 Fires when all contents inside the InlineContent component have finished rendering their textures. This is when you will have all of the correct flex properties of the components as well as `finalH` available to be used.
+
+### Content Element Properties
+The `InlineContent` component will recognize the following elements inside its `content` param:
+
+string\|object|description
+--|--|--
+'Text'|any stand alone string will be used a pure text
+{ icon: 'pathToIcon', title: 'IconTitle' }|will render an [Icon](/story/elements-icon--text) with the given source and use the title param as the string to announce
+{ badge: 'BadgeName' }|will render a [Badge](/story/elements-badge--text)
+{ newline: true }|will insert a line break between content if the contentWrap param is true
 
 ### Styles
 

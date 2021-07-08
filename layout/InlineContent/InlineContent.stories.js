@@ -49,6 +49,37 @@ export const Basic = args =>
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
           ]
+        },
+        InlineContentWithNewLines: {
+          type: InlineContent,
+          x: 200,
+          y: 300,
+          w: 400,
+          contentSpacing: args.contentSpacing,
+          contentWrap: args.contentWrap,
+          contentProperties: args.contentProperties,
+          justify: args.justify,
+          content: [
+            'Example with',
+            {
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
+              title: 'Green Lightning Bolt'
+            },
+            { newline: true },
+            'line breaks ({ newline: true})',
+            { newline: true },
+            {
+              icon:
+                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            },
+            'placed throughout',
+            { newline: true },
+            { badge: 'HD', title: 'HD' },
+            { newline: true },
+            { badge: 'SD', title: 'SD' }
+          ]
         }
       };
     }

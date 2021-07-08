@@ -50,7 +50,7 @@ class InlineContent extends lng.Component {
       });
 
       this._parsedContent.forEach((item, index) => {
-        let base = {
+        const base = {
           flexItem: {
             ...this.contentProperties,
             marginBottom:
@@ -72,6 +72,8 @@ class InlineContent extends lng.Component {
           this.childList.a(this._createIcon(base, item));
         } else if (item.badge) {
           this.childList.a(this._createBadge(base, item.badge));
+        } else if (item.newline && this._contentWrap) {
+          this.childList.a({ h: 0, w: this.w });
         }
       });
     }
@@ -120,7 +122,7 @@ class InlineContent extends lng.Component {
       (this.textHeight > this.textProperties.lineHeight
         ? this.textHeight
         : this.textProperties.lineHeight) - this.iconH;
-    let iconObj = {
+    const iconObj = {
       ...base,
       type: Icon,
       y: this.iconY !== undefined ? this.iconY : y,
@@ -176,7 +178,7 @@ class InlineContent extends lng.Component {
   }
 
   get announce() {
-    let announce =
+    const announce =
       this._parsedContent &&
       this._parsedContent.reduce((announce, item) => {
         if (typeof item === 'string') {

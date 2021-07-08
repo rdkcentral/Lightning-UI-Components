@@ -148,4 +148,15 @@ describe('InlineContent', () => {
     testRenderer.update();
     expect(inlineContent.flex.wrap).toBe(true);
   });
+
+  it('should create an empty item with full width to force a line break if a newline object is passed in', () => {
+    const width = 100;
+    inlineContent.w = width;
+    inlineContent.content = ['sentence', { newline: true }, 'with a linebreak'];
+    inlineContent.contentWrap = true;
+    testRenderer.update();
+    const newline = inlineContent.childList.getAt(1);
+    expect(newline.w).toBe(width);
+    expect(newline.h).toBe(0);
+  });
 });
