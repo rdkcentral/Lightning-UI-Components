@@ -112,7 +112,7 @@ export const HorizontalLarge = args =>
           artHeight: 1080,
           artWidth: 1920,
           title: 'Title',
-          description: 'Short description',
+          description: 'Short Description',
           data: args.showData
             ? [
                 '86%',
