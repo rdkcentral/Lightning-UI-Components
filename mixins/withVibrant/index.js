@@ -8,9 +8,8 @@ export default Base => {
 
 // export const styles = theme => ({});
 
-// export default Base =>
-//   class withVibrant extends withStyles(Base, styles) {
-//     _init() {}
+// export default base =>
+//   class withVibrant extends withStyles(base, styles) {
 //     static get name() {
 //       return Base.name;
 //     }
