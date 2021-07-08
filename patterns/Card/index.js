@@ -15,7 +15,19 @@ export const artCardProps = [
   'progress'
 ];
 
-export const baseCardProps = ['title', 'description', 'backgroundColor'];
+export const baseCardProps = [
+  'orientation',
+  'title',
+  'description',
+  'backgroundColor',
+  'focusRing',
+  'focusRingFocused',
+  'focusRingUnfocused',
+  'radius',
+  'imgRadius',
+  'paddingHorizontal',
+  'paddingVertical'
+];
 
 export const logoProps = ['logo', 'logoWidth', 'logoHeight'];
 
@@ -63,16 +75,7 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return [
-      ...artCardProps,
-      ...baseCardProps,
-      ...logoProps,
-      'data',
-      'action',
-      'focusRing',
-      'radius',
-      'imgRadius'
-    ];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
   }
 
   static get tags() {
@@ -81,13 +84,18 @@ export default class Card extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
-    this._radius = this.styles.radius;
-    this._imgRadius = this.styles.imgRadius || this._radius;
-    this._orientation = this.styles.orientation || this._orientation;
-    this._backgroundColor = this.styles.background.color;
-    this._focusRingColor = this.styles.focusRingColor;
     this.w = this.styles.w || this.w;
     this.h = this.styles.h || this.h;
+    this._radius = this.styles.radius;
+    this._imgRadius = this.styles.imgRadius;
+    this._orientation = this.styles.orientation;
+    this._backgroundColor = this.styles.background.color;
+    this._focusRingColor = this.styles.focusRingColor;
+    this._focusRingFocused = this.styles.focused.focusring;
+    this._focusRingUnfocused = this.styles.unfocused.focusring;
+    this._createFocusRing = this.styles.focusRing;
+    this._paddingHorizontal = this.styles.paddingHorizontal;
+    this._paddingVertical = this.styles.paddingVertical;
   }
 
   _init() {
@@ -110,8 +118,8 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _checkCollapseProps() {
-    if (this._collapseArt && this._collapseData) {
-      this._collapseArt = false;
+    if (this.collapseArt && this.collapseData) {
+      this.collapseArt = false;
     }
   }
 
@@ -121,7 +129,7 @@ export default class Card extends withStyles(Base, styles) {
         // Compensating for the extra two pixels getRoundRect adds.
         this.w - 2,
         this.h - 2,
-        this._radius,
+        this.radius,
         0,
         null,
         true,
@@ -131,22 +139,22 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _updateArtwork() {
-    let dimensions = this._calculateArtDimensions();
+    const dimensions = this._calculateArtDimensions();
     this._Artwork.patch({
-      src: this._src,
+      src: this.src,
       w: dimensions.w,
       h: dimensions.h,
-      badge: this._badge,
-      badgeLocation: this._badgeLocation,
-      progress: this._progress,
-      alpha: this._collapseArt ? 0 : 1,
+      badge: this.badge,
+      badgeLocation: this.badgeLocation,
+      progress: this.progress,
+      alpha: this.collapseArt ? 0 : 1,
       rtt: true,
       shader: {
         type: lng.shaders.RoundedRectangle,
-        radius: this._imgRadius
+        radius: this.imgRadius
       }
     });
-    if (!this._collapseArt) {
+    if (!this.collapseArt) {
       this.finalArtHeight = dimensions.h || 0;
       this.finalArtWidth = dimensions.w || 0;
     } else {
@@ -156,8 +164,8 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _calculateArtDimensions() {
-    let ratio = this._artWidth / this._artHeight;
-    if (this._orientation === 'horizontal') {
+    const ratio = this.artWidth / this.artHeight;
+    if (this.orientation === 'horizontal') {
       return {
         w: ratio * this.h,
         h: this.h
@@ -172,59 +180,59 @@ export default class Card extends withStyles(Base, styles) {
 
   _updateMetadata() {
     let dimensions = this._calculateMetadataDimensions();
-    if (!this._collapseData) {
+    if (!this.collapseData) {
       this._Metadata.patch({
         w: dimensions.w,
         h: dimensions.h,
-        title: this._title,
-        description: this._description,
-        data: this._data,
-        action: this._action,
-        logo: this._logo,
-        logoHeight: this._logoHeight,
-        logoWidth: this._logoWidth
+        title: this.title,
+        description: this.description,
+        data: this.data,
+        action: this.action,
+        logo: this.logo,
+        logoHeight: this.logoHeight,
+        logoWidth: this.logoWidth
       });
       this._moveMetadata();
     }
   }
 
   _calculateMetadataDimensions() {
-    if (this._orientation === 'horizontal') {
+    if (this.orientation === 'horizontal') {
       return {
-        w: this.w - this.finalArtWidth - 2 * this.styles.paddingHorizontal,
-        h: this.h - 2 * this.styles.paddingVertical
+        w: this.w - this.finalArtWidth - 2 * this.paddingHorizontal,
+        h: this.h - 2 * this.paddingVertical
       };
     } else {
       return {
-        w: this.w - 2 * this.styles.paddingHorizontal,
-        h: this.h - this.finalArtHeight - 2 * this.styles.paddingVertical
+        w: this.w - 2 * this.paddingHorizontal,
+        h: this.h - this.finalArtHeight - 2 * this.paddingVertical
       };
     }
   }
 
   _moveMetadata() {
-    if (this._orientation === 'horizontal') {
-      this._Metadata.x = this.finalArtWidth + this.styles.paddingHorizontal;
-      this._Metadata.y = this.styles.paddingVertical;
+    if (this.orientation === 'horizontal') {
+      this._Metadata.x = this.finalArtWidth + this.paddingHorizontal;
+      this._Metadata.y = this.paddingVertical;
     } else {
-      this._Metadata.x = this.styles.paddingHorizontal;
-      this._Metadata.y = this.finalArtHeight + this.styles.paddingVertical;
+      this._Metadata.x = this.paddingHorizontal;
+      this._Metadata.y = this.finalArtHeight + this.paddingVertical;
     }
   }
 
   _updateFocusRing() {
-    if (this.hasFocus() || this._focusRing) {
-      if (!this._focusRing) {
-        this._focusRing = this.styles.focusRing({
+    if (this.hasFocus() || this.focusRing) {
+      if (!this.focusRing) {
+        this.focusRing = this._createFocusRing({
           w: this.w,
           h: this.h,
-          radius: this._radius + 2
+          radius: this.radius + 2
         });
       }
-      let FocusRingComponent = this._focusRing;
+      const FocusRingComponent = this.focusRing;
       const style = this.hasFocus()
-        ? this.styles.focused.focusring
-        : this.styles.unfocused.focusring;
+        ? this.focusRingFocused
+        : this.focusRingUnfocused;
       if (this._smooth) {
         FocusRingComponent.smooth = style;
       } else {
@@ -370,11 +378,11 @@ export class VerticalCardDynamic extends withStyles(
 ) {
   _construct() {
     super._construct();
-    this._gradientW = this.styles.gradient.w;
-    this._gradientH = this.styles.gradient.h;
-    this._gradientRadius = this.styles.gradient.radius;
-    this._gradientBlur = this.styles.gradient.blur;
-    this._gradientMargin = this.styles.gradient.margin;
+    this.gradientW = this.styles.gradient.w;
+    this.gradientH = this.styles.gradient.h;
+    this.gradientRadius = this.styles.gradient.radius;
+    this.gradientBlur = this.styles.gradient.blur;
+    this.gradientMargin = this.styles.gradient.margin;
   }
 
   static get properties() {
@@ -384,12 +392,17 @@ export class VerticalCardDynamic extends withStyles(
       ...logoProps,
       'data',
       'action',
-      'gradientColor'
+      'gradientColor',
+      'gradientW',
+      'gradientH',
+      'gradientRadius',
+      'gradientBlur',
+      'gradientMargin'
     ];
   }
 
   _updateBackground() {
-    let gradientColor = getValidColor(this._gradientColor);
+    const gradientColor = getValidColor(this._gradientColor);
     if (gradientColor) {
       this._Background.patch({
         texture: undefined,
@@ -400,7 +413,7 @@ export class VerticalCardDynamic extends withStyles(
         rtt: true,
         shader: {
           type: lng.shaders.RoundedRectangle,
-          radius: this._radius
+          radius: this.radius
         },
         Gradient: {
           mountX: 0.5,
@@ -423,21 +436,21 @@ export class VerticalCardDynamic extends withStyles(
   }
 
   _updateArtwork() {
-    let dimensions = this._calculateArtRatio();
+    const dimensions = this._calculateArtRatio();
     this._Artwork.patch({
       src: this._src,
       w: dimensions.w,
       h: dimensions.h
     });
-    this._Artwork.x = this.styles.paddingHorizontal;
-    this._Artwork.y = this.styles.paddingVertical;
+    this._Artwork.x = this.paddingHorizontal;
+    this._Artwork.y = this.paddingVertical;
     this.finalArtHeight = dimensions.h || 0;
     this.finalArtWidth = dimensions.w || 0;
   }
 
   _calculateArtRatio() {
-    if (this._artWidth && this._artHeight) {
-      let ratio = this._artWidth / this._artHeight;
+    if (this.artWidth && this.artHeight) {
+      const ratio = this.artWidth / this.artHeight;
       return {
         w: ratio * 100,
         h: 100
@@ -452,17 +465,15 @@ export class VerticalCardDynamic extends withStyles(
 
   _calculateMetadataDimensions() {
     return {
-      w: this.w - 2 * this.styles.paddingHorizontal,
+      w: this.w - 2 * this.paddingHorizontal,
       h:
-        this.h -
-        this.finalArtHeight -
-        (this._src ? 3 : 2) * this.styles.paddingVertical
+        this.h - this.finalArtHeight - (this.src ? 3 : 2) * this.paddingVertical
     };
   }
 
   _moveMetadata() {
-    this._Metadata.x = this.styles.paddingHorizontal;
+    this._Metadata.x = this.paddingHorizontal;
     this._Metadata.y =
-      this.finalArtHeight + (this._src ? 2 : 1) * this.styles.paddingVertical;
+      this.finalArtHeight + (this.src ? 2 : 1) * this.paddingVertical;
   }
 }
