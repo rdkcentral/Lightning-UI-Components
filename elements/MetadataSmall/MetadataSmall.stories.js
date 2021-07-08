@@ -24,7 +24,7 @@ export const Basic = args =>
           w: 400,
           h: 200,
           title: args.title,
-          data: getData(args.dataType),
+          data: args.data,
           progress: args.progress,
           logo: circle,
           logoWidth: 1920,
@@ -39,35 +39,22 @@ export const Basic = args =>
   };
 Basic.args = {
   title: 'TitleTitleTitleTitle',
-  dataType: 'string',
+  data: [
+    '94%',
+    {
+      icon: lightningbolt,
+      color: getHexColor('00ff00'),
+      title: 'Green Lightning Bolt'
+    },
+    '86%',
+    {
+      icon:
+        'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+      title: 'Rotten Tomatoes rating'
+    }
+  ],
   progress: 0
-};
-Basic.argTypes = {
-  dataType: {
-    control: { type: 'radio' },
-    options: ['string', 'inlineContent']
-  }
 };
 Basic.parameters = {
   argActions: {}
-};
-
-const getData = contentType => {
-  if (contentType === 'string') return 'Trending';
-  else if (contentType === 'inlineContent') {
-    return [
-      '94%',
-      {
-        icon: lightningbolt,
-        color: getHexColor('00ff00'),
-        title: 'Green Lightning Bolt'
-      },
-      '86%',
-      {
-        icon:
-          'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-        title: 'Rotten Tomatoes rating'
-      }
-    ];
-  }
 };

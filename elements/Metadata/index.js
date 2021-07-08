@@ -1,4 +1,3 @@
-import lng from '@lightningjs/core';
 import Base from '../Base';
 import Icon from '../Icon';
 import InlineContent from '../../layout/InlineContent';
@@ -44,11 +43,11 @@ export default class Metadata extends withStyles(Base, styles) {
       flex: { direction: 'column', justifyContent: 'flex-start' },
       Title: {
         type: TextBox,
-        ...this.styles.title
+        style: this.styles.title
       },
       Description: {
         type: TextBox,
-        ...this.styles.description
+        style: this.styles.description
       },
       Info: {
         flexItem: false,
@@ -58,7 +57,7 @@ export default class Metadata extends withStyles(Base, styles) {
         },
         Action: {
           type: TextBox,
-          ...this.styles.action
+          style: this.styles.action
         },
         Logo: {
           type: Icon,
@@ -110,53 +109,50 @@ export default class Metadata extends withStyles(Base, styles) {
 
   _updateTitle() {
     this._Title.patch({
-      content: this._title,
-      wordWrapWidth: this.w,
-      style: this.styles.title
+      content: this.title,
+      wordWrapWidth: this.w
     });
   }
 
   _updateDescription() {
     this._Description.patch({
-      content: this._description,
-      wordWrapWidth: this.w,
-      style: this.styles.description
+      content: this.description,
+      wordWrapWidth: this.w
     });
   }
 
   _updateInfo() {
-    if (this._action) {
-      this._updateAction();
-    } else {
-      this._updateData();
-    }
+    this._updateAction();
+    this._updateData();
     this._updateLogo();
 
     this._Info.y = this.renderHeight - this._infoHeight;
   }
 
   _updateData() {
-    this._Data.patch({
-      content: this._data,
-      w: 200,
-      contentSpacing: 8,
-      contentWrap: false,
-      justify: 'flex-start',
-      ...this.styles.data
-    });
+    if (this.action && this._Data) {
+      this._Data.patch({ content: undefined });
+    } else if (this.data) {
+      this._Data.patch({
+        content: this.data,
+        w: 200,
+        contentSpacing: 8,
+        contentWrap: false,
+        justify: 'flex-start'
+      });
+    }
   }
 
   _updateLogo() {
-    let ratio = this._calculateIconRatio();
+    const ratio = this._calculateIconRatio();
     this._Logo.patch({
       type: Icon,
       h: this._logoRenderHeight,
       w: this._logoRenderHeight * ratio,
-      icon: this.logo,
-      ...this.styles.logo
+      icon: this.logo
     });
 
-    if (this._action || this._data) {
+    if (this.action || this.data) {
       this._Logo.x = this.renderWidth - this._Logo.w;
     }
 
@@ -168,10 +164,8 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   _updateAction() {
-    let action = this._action.toUpperCase();
-    this._Action.patch({
-      content: action,
-      style: this.styles.action
-    });
+    if (this.action) {
+      this._Action.content = this.action.toUpperCase();
+    }
   }
 }
