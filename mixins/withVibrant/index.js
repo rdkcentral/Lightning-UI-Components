@@ -1,110 +1,114 @@
-import withStyles from '../../mixins/withStyles';
-import Vibrant from 'node-vibrant';
-import { getValidColor } from '../../Styles/Styles';
+export default Base => {
+  return class withVibrant extends Base {};
+};
 
-export const styles = theme => ({});
+// import withStyles from '../../mixins/withStyles';
+// import Vibrant from 'node-vibrant';
+// import { getValidColor } from '../../Styles/Styles';
 
-export default base =>
-  class withVibrant extends withStyles(base, styles) {
-    _setSrc(src) {
-      this._loadVibrant(src);
-      return super._setSrc ? super._setSrc(src) : src;
-    }
+// export const styles = theme => ({});
 
-    set src(src) {
-      super.src = src;
-      this._loadVibrant(src);
-    }
+// export default base =>
+//   class withVibrant extends withStyles(base, styles) {
+//     _setSrc(src) {
+//       this._loadVibrant(src);
+//       return super._setSrc ? super._setSrc(src) : src;
+//     }
 
-    _loadVibrant(src) {
-      // if the global theme has applied the withVibrant mixin
-      // but the component's styles have overriden it to turn it off
-      // do not request the palette
-      if (this.styles.withVibrant !== false) {
-        this._vibrantPromise = Vibrant.from(src)
-          .getPalette()
-          .then(palette => {
-            this._vibrantPalette = palette;
-            this.vibrantCallback();
-          });
-      }
-    }
+//     set src(src) {
+//       super.src = src;
+//       this._loadVibrant(src);
+//     }
 
-    vibrantCallback() {
-      if (!super.vibrantCallback) {
-        throw new Error('Parent must implement vibrantCallback method');
-      }
-      if (this._vibrantPalette) {
-        super.vibrantCallback();
-      }
-    }
+//     _loadVibrant(src) {
+//       // if the global theme has applied the withVibrant mixin
+//       // but the component's styles have overriden it to turn it off
+//       // do not request the palette
+//       if (this.styles.withVibrant !== false) {
+//         this._vibrantPromise = Vibrant.from(src)
+//           .getPalette()
+//           .then(palette => {
+//             this._vibrantPalette = palette;
+//             this.vibrantCallback();
+//           });
+//       }
+//     }
 
-    get vibrantPalette() {
-      return this._vibrantPromise.then(() => this._vibrantPalette);
-    }
+//     vibrantCallback() {
+//       if (!super.vibrantCallback) {
+//         throw new Error('Parent must implement vibrantCallback method');
+//       }
+//       if (this._vibrantPalette) {
+//         super.vibrantCallback();
+//       }
+//     }
 
-    printColors() {
-      if (this._vibrantPalette) {
-        Object.keys(this._vibrantPalette).forEach(key => {
-          console.log(
-            key,
-            this._vibrantPalette[key].hex,
-            this._vibrantPalette[key].population,
-            getValidColor(this._vibrantPalette[key].hex)
-          );
-        });
-      }
-    }
+//     get vibrantPalette() {
+//       return this._vibrantPromise.then(() => this._vibrantPalette);
+//     }
 
-    _getColor(color) {
-      if (
-        this._vibrantPalette &&
-        this._vibrantPalette[color] &&
-        this._vibrantPalette[color].hex &&
-        this._vibrantPalette[color].population > 0
-      ) {
-        return getValidColor(this._vibrantPalette[color].hex);
-      }
-      return;
-    }
+//     printColors() {
+//       if (this._vibrantPalette) {
+//         Object.keys(this._vibrantPalette).forEach(key => {
+//           console.log(
+//             key,
+//             this._vibrantPalette[key].hex,
+//             this._vibrantPalette[key].population,
+//             getValidColor(this._vibrantPalette[key].hex)
+//           );
+//         });
+//       }
+//     }
 
-    get vibrant() {
-      return this._getColor('Vibrant');
-    }
+//     _getColor(color) {
+//       if (
+//         this._vibrantPalette &&
+//         this._vibrantPalette[color] &&
+//         this._vibrantPalette[color].hex &&
+//         this._vibrantPalette[color].population > 0
+//       ) {
+//         return getValidColor(this._vibrantPalette[color].hex);
+//       }
+//       return;
+//     }
 
-    get lightVibrant() {
-      return this._getColor('LightVibrant');
-    }
+//     get vibrant() {
+//       return this._getColor('Vibrant');
+//     }
 
-    get darkVibrant() {
-      return this._getColor('DarkVibrant');
-    }
+//     get lightVibrant() {
+//       return this._getColor('LightVibrant');
+//     }
 
-    get muted() {
-      return this._getColor('Muted');
-    }
+//     get darkVibrant() {
+//       return this._getColor('DarkVibrant');
+//     }
 
-    get lightMuted() {
-      return this._getColor('LightMuted');
-    }
+//     get muted() {
+//       return this._getColor('Muted');
+//     }
 
-    get darkMuted() {
-      return this._getColor('DarkMuted');
-    }
+//     get lightMuted() {
+//       return this._getColor('LightMuted');
+//     }
 
-    get vibrantMaterial() {
-      return this.darkMuted || this.darkVibrant || null;
-    }
+//     get darkMuted() {
+//       return this._getColor('DarkMuted');
+//     }
 
-    get vibrantFill() {
-      return this.darkMuted || this.darkVibrant || null;
-    }
+//     get vibrantMaterial() {
+//       return this.darkMuted || this.darkVibrant || null;
+//     }
 
-    get vibrantShadow() {
-      return this.lightMuted || this.lightVibrant || null;
-    }
+//     get vibrantFill() {
+//       return this.darkMuted || this.darkVibrant || null;
+//     }
 
-    get vibrantFocusRing() {
-      return this.vibrant || this.muted || null;
-    }
-  };
+//     get vibrantShadow() {
+//       return this.lightMuted || this.lightVibrant || null;
+//     }
+
+//     get vibrantFocusRing() {
+//       return this.vibrant || this.muted || null;
+//     }
+//   };
