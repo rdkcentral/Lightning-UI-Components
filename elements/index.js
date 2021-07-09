@@ -9,12 +9,16 @@ export {
   ActionButtonXsmall
 } from './ActionButton';
 export { default as Badge } from './Badge';
+export { default as Base } from './Base';
 export { default as Button } from './Button';
+export { default as CardArtwork } from './CardArtwork';
 export { default as Checkbox } from './Checkbox';
 export { default as FocusRing } from './FocusRing';
+export { default as Gradient } from './Gradient';
 export { default as Icon } from './Icon';
 export { default as Key } from './Key';
 export { default as MarqueeText } from './MarqueeText';
+export { default as Metadata } from './Metadata';
 export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataSmall } from './MetadataSmall';
 export { default as MetadataTile } from './MetadataTile';

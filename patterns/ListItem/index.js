@@ -1,5 +1,6 @@
 import ListItem, { ListItemBase } from './ListItem';
 import ListItemImage from './ListItemImage';
+import ListItemImageGroup from './ListItemImageGroup';
 import ListItemPicker from './ListItemPicker';
 import ListItemRadio from './ListItemRadio';
 import ListItemSlider from './ListItemSlider';
@@ -11,6 +12,7 @@ export {
   ListItemToggle,
   ListItemRadio,
   ListItemImage,
+  ListItemImageGroup,
   ListItemPicker,
   ListItemSlider
 };
