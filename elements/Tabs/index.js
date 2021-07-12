@@ -8,7 +8,9 @@ export const tabStyles = theme => ({
   icon: {
     color: theme.palette.text.light.tertiary,
     sizes: theme.sizes.icon,
-    marginRight: theme.spacing(1.5)
+    flexParams: {
+      marginRight: theme.spacing(1.5)
+    }
   },
   text: {
     ...theme.typography.headline2,
@@ -77,9 +79,7 @@ export class TabBase extends lng.Component {
     if (this.icon) {
       if (this.iconWidth && this.iconHeight) {
         this._Icon.patch({
-          flexItem: {
-            marginRight: this.styles.icon.marginRight
-          },
+          flexItem: this.styles.icon.flexParams,
           icon: this.icon,
           w: this.iconWidth,
           h: this.iconHeight
@@ -89,9 +89,7 @@ export class TabBase extends lng.Component {
           this.styles.icon.sizes[this.iconSize] ||
           this.styles.icon.sizes.medium;
         this._Icon.patch({
-          flexItem: {
-            marginRight: this.styles.icon.marginRight
-          },
+          flexItem: this.styles.icon.flexParams,
           icon: this.icon,
           w: size,
           h: size
