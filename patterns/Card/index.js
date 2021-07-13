@@ -179,7 +179,7 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _updateMetadata() {
-    let dimensions = this._calculateMetadataDimensions();
+    const dimensions = this._calculateMetadataDimensions();
     if (!this.collapseData) {
       this._Metadata.patch({
         w: dimensions.w,
@@ -229,7 +229,7 @@ export default class Card extends withStyles(Base, styles) {
           radius: this.radius + 2
         });
       }
-      const FocusRingComponent = this.focusRing;
+      let FocusRingComponent = this.focusRing;
       const style = this.hasFocus()
         ? this.focusRingFocused
         : this.focusRingUnfocused;
