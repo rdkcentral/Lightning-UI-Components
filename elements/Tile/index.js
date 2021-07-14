@@ -224,7 +224,7 @@ class Tile extends Base {
   _updateGradient() {
     if (this._shouldShowGradient()) {
       const gradientParams = {
-        x: this.x - 1,
+        x: -1,
         w: this.w + 2,
         h: this.h + 1,
         radius: this.radius,
