@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import { withTags, withUpdates } from '../../mixins';
 import withStyles from '../../mixins/withStyles';
-import { getW, getH } from '../../utils';
 import { getValidColor } from '../../Styles';
 
 const styles = theme => {
@@ -41,9 +40,8 @@ class TextBox extends lng.Component {
   }
 
   _setDimensions() {
-    const width = getW(this);
-    const height = getH(this);
-
+    const width = this.texture.getRenderWidth();
+    const height = this.texture.getRenderHeight();
     if (width && height) {
       this.h = height;
       this.w = width;
