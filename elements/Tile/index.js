@@ -4,19 +4,19 @@ import withStyles from '../../mixins/withStyles';
 import blackBackground from '../../Styles/black_background_tile';
 import Base from '../Base';
 import Gradient from '../Gradient';
-import { getValidColor } from '../../Styles/Styles';
 
 export const styles = theme => ({
   radius: theme.border.radius.medium,
   shadow: theme.materials.shadow,
   blur: 0,
   src: blackBackground,
-  focusring: function ({ w, h, radius }) {
+  focusringType: FocusRing,
+  focusring: function ({ w, h, radius, color }) {
     return {
-      type: FocusRing,
       w,
       h,
       radius: radius + 2,
+      color,
       size: theme.spacing(0.5),
       zIndex: 1
     };
@@ -286,25 +286,28 @@ class Tile extends Base {
   }
 
   _updateFocusRing() {
-    if (this.hasFocus() || this._focusRing) {
-      if (!this._focusRing) {
-        this._focusRing = this.styles.focusring({
+    if (this.hasFocus() || this._FocusRing) {
+      if (!this._FocusRing) {
+        this.patch({ FocusRing: { type: this.styles.focusringType } });
+      }
+
+      this._FocusRing.patch({
+        ...this.styles.focusring({
           w: this.w,
           h: this.h,
-          radius: this._radius + 2
-        });
-      }
-      let FocusRingComponent = this._focusRing;
+          radius: this._radius,
+          color: this.focusRingColor
+        })
+      });
+
       const style = this.hasFocus()
         ? this.styles.focused.focusring
         : this.styles.unfocused.focusring;
       if (this._smooth) {
-        FocusRingComponent.smooth = style;
+        this._FocusRing.smooth = style;
       } else {
-        FocusRingComponent = { ...FocusRingComponent, ...style };
+        this._FocusRing.patch(style);
       }
-      FocusRingComponent.color = this.focusRingColor;
-      this.patch({ FocusRing: FocusRingComponent });
 
       if (this.hasFocus()) {
         this._FocusRing.startAnimation();
