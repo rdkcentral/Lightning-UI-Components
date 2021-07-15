@@ -1,12 +1,12 @@
 export { default as BoardRow } from './BoardRow';
 export {
   default as Card,
-  BasicCard,
-  HorizontalCard,
-  HorizontalCardLarge,
-  VerticalCard,
-  VerticalCardLarge,
-  VerticalCardDynamic
+  CardBasic,
+  CardHorizontal,
+  CardHorizontalLarge,
+  CardVertical,
+  CardVerticalLarge,
+  CardVerticalDynamic
 } from './Card';
 export { default as DataItem } from './DataItem';
 export { default as GameStats } from './GameStats';

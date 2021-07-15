@@ -1,12 +1,11 @@
 import lng from '@lightningjs/core';
 
 import BoardRow from '.';
+import { CardVerticalLarge } from '../Card';
 import Column from '../../layout/Column';
 import mdx from './BoardRow.mdx';
-import circle from '../../assets/images/circle.svg';
 import Tile from '../../elements/Tile';
 import withVibrant from '../../mixins/withVibrant';
-import { VerticalCardLarge } from '../../patterns/Card';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
@@ -35,7 +34,7 @@ const cardData = {
 const getItems = type => {
   return [
     {
-      src: `7245349740136736112`,
+      src: '7245349740136736112',
       title: 'Tenet',
       description:
         'Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
@@ -45,16 +44,18 @@ const getItems = type => {
       }
     },
     {
-      src: `7615274088441709112`,
+      src: '7615274088441709112',
       title: 'Antebellum',
-      description: `Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.`,
+      description:
+        "Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.",
       ...cardData
     },
     {
-      src: `4787646614985090112`,
+      src: '4787646614985090112',
       title: 'Bill & Ted Face the Music',
       logo: lightningbolt,
-      description: `Once told they'd save the universe during a time-traveling adventure, 2 would-be rockers from San Dimas, California find themselves as middle-aged dads still trying to crank out a hit song and fulfill their destiny.`,
+      description:
+        "Once told they'd save the universe during a time-traveling adventure, 2 would-be rockers from San Dimas, California find themselves as middle-aged dads still trying to crank out a hit song and fulfill their destiny.",
       ...cardData
     },
     {
@@ -74,31 +75,36 @@ const getItems = type => {
     {
       src: '6702815185485076112',
       title: 'The New Mutants',
-      description: `Five young mutants, just discovering their abilities while held in a secret facility against their will, fight to escape their past sins and save themselves.`,
+      description:
+        'Five young mutants, just discovering their abilities while held in a secret facility against their will, fight to escape their past sins and save themselves.',
       ...cardData
     },
     {
       src: '7762245375893944112',
       title: 'Wonder Woman 1984',
-      description: `Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.`,
+      description:
+        'Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.',
       ...cardData
     },
     {
       src: '5369987084856006112',
       title: 'Vikings',
-      description: `Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.`,
+      description:
+        'Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.',
       ...cardData
     },
     {
       src: '7108813814104030112',
       title: 'The Invisible Man',
-      description: `When Cecilia's abusive ex takes his own life and leaves her his fortune, she suspects his death was a hoax. As a series of coincidences turn lethal, Cecilia works to prove that she is being hunted by someone nobody can see.`,
+      description:
+        "When Cecilia's abusive ex takes his own life and leaves her his fortune, she suspects his death was a hoax. As a series of coincidences turn lethal, Cecilia works to prove that she is being hunted by someone nobody can see.",
       ...cardData
     },
     {
       src: '6030648778584858112',
       title: 'Birds Of Prey',
-      description: `After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.`,
+      description:
+        'After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.',
       ...cardData
     }
   ].map(item => {
@@ -113,7 +119,7 @@ const getItems = type => {
 function srcCallback({ type, src, w, h }) {
   return new Promise(resolve => {
     let imgSrc, focusSrc;
-    if (type.prototype instanceof VerticalCardLarge) {
+    if (type.prototype instanceof CardVerticalLarge) {
       imgSrc = `http://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=3x2`;
     } else {
       imgSrc = `http://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&height=${h}&rule=title`;
@@ -143,7 +149,7 @@ function srcCallback({ type, src, w, h }) {
 // Example of synchronous callback
 // function srcCallback({ type, src, w, h }) {
 //   let imgSrc;
-//     if (type.prototype instanceof VerticalCardLarge) {
+//     if (type.prototype instanceof CardVerticalLarge) {
 //       imgSrc = `http://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=3x2`;
 //     } else {
 //       imgSrc = `http://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&height=${h}`;
@@ -166,8 +172,8 @@ export const Basic = args =>
               gradientColor: args.gradientColor,
               // Menu Card Props
               itemSpacing: 40,
-              title: `Today's Top 20`,
-              description: `See what's trending in movies and TV today`,
+              title: "Today's Top 20",
+              description: "See what's trending in movies and TV today",
               action: 'View All',
               onEnter: () => {
                 alert('View All Action');
@@ -182,7 +188,7 @@ export const Basic = args =>
                 let items;
                 switch (args.layout) {
                   case 'card':
-                    items = getItems(VerticalCardLarge);
+                    items = getItems(CardVerticalLarge);
                     break;
                   default:
                     items = getItems(Tile);
@@ -202,8 +208,8 @@ export const Basic = args =>
               gradientColor: args.gradientColor,
               // Menu Card Props
               itemSpacing: 40,
-              title: `Today's Top 20`,
-              description: `See what's trending in movies and TV today`,
+              title: "Today's Top 20",
+              description: "See what's trending in movies and TV today",
               action: 'View All',
               onEnter: () => {
                 alert('View All Action');
@@ -229,9 +235,9 @@ export const Basic = args =>
               type: BoardRow,
               gradientColor: args.gradientColor,
               // Menu Card Props
-              title: `Today's Top 20`,
+              title: "Today's Top 20",
               itemSpacing: 40,
-              description: `See what's trending in movies and TV today`,
+              description: "See what's trending in movies and TV today",
               action: 'View All',
               onEnter: () => {
                 alert('View All Action');

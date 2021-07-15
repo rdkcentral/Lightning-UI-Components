@@ -553,7 +553,7 @@ Object {
                   "scaleY": 1,
                   "state": "",
                   "tag": [Function],
-                  "type": "VerticalCardDynamic",
+                  "type": "CardVerticalDynamic",
                   "visible": true,
                   "w": 410,
                   "x": 0,

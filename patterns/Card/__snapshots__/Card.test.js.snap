@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BasicCard renders 1`] = `
+exports[`CardBasic renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
@@ -123,7 +123,7 @@ Object {
 }
 `;
 
-exports[`HorizontalCard renders 1`] = `
+exports[`CardHorizontal renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
@@ -246,7 +246,7 @@ Object {
 }
 `;
 
-exports[`HorizontalCardLarge renders 1`] = `
+exports[`CardHorizontalLarge renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
@@ -369,7 +369,7 @@ Object {
 }
 `;
 
-exports[`VerticalCard renders 1`] = `
+exports[`CardVertical renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
@@ -492,7 +492,7 @@ Object {
 }
 `;
 
-exports[`VerticalCardDynamic renders 1`] = `
+exports[`CardVerticalDynamic renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
@@ -615,7 +615,7 @@ Object {
 }
 `;
 
-exports[`VerticalCardLarge renders 1`] = `
+exports[`CardVerticalLarge renders 1`] = `
 Object {
   "Component": Object {
     "Artwork": Object {
