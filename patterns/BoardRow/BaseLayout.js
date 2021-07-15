@@ -1,5 +1,5 @@
 import { calculateColumnWidth } from '../../Styles';
-import Card, { VerticalCardDynamic, HorizontalCard } from '../../patterns/Card';
+import Card, { CardVerticalDynamic, CardHorizontal } from '../../patterns/Card';
 import MetadataCard from '../../elements/MetadataCard';
 import Row from '../../layout/Row';
 import styles from './styles';
@@ -36,7 +36,7 @@ class BaseType extends lng.Component {
 
   get FirstCard() {
     return {
-      type: VerticalCardDynamic,
+      type: CardVerticalDynamic,
       title: this.title,
       description: this.description,
       action: this.action,
@@ -60,7 +60,7 @@ class BaseType extends lng.Component {
     const types = {
       Tile,
       Card,
-      HorizontalCard
+      CardHorizontal
     };
 
     return (
@@ -140,7 +140,7 @@ class BaseType extends lng.Component {
 
   _updateLayout(totalHeight, items) {
     const menuCard = { ...this.FirstCard, h: totalHeight };
-    let itemsArray = [menuCard, ...items];
+    const itemsArray = [menuCard, ...items];
     this.viewAll && itemsArray.push(menuCard);
 
     this._Layout.patch({

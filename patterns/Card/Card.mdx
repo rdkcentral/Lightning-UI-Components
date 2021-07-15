@@ -11,13 +11,13 @@ Cards are very configurable and can include [CardArtwork](/story/elements-cardar
 Cards work by providing many of the relevant properties from CardArtwork and Metadata.
 
 ```js
-import { VerticalCardLarge } from '@lightning/ui';
+import { CardVerticalLarge } from '@lightning/ui';
 
 class Example extends lng.Component {
   static _template() {
     return {
       Card: {
-        type: VerticalCardLarge,
+        type: CardVerticalLarge,
         src: pets,
         artHeight: 1080,
         artWidth: 1920,
@@ -69,6 +69,8 @@ logoHeight|number|true (if using logo)|-|height of logo source image
 radius|number|false|16|corner radius
 backgroundColor|color|false|#232328|card background color
 focusRingColor|color|false|#ECECF2|color of focus ring
+collapseArt|boolean|false|-|hides the Artwork portion of the card
+collapseData|boolean|false|-|hides the Metadata portion of the card
 
 ### Styles
 

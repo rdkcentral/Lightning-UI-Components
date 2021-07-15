@@ -1,4 +1,4 @@
-import { VerticalCardDynamic } from '../../patterns/Card';
+import { CardVerticalDynamic } from '../../patterns/Card';
 import CardLayout from './CardLayout';
 import HeroLayout from './HeroLayout';
 import PosterLayout from './PosterLayout';
@@ -37,7 +37,7 @@ class BoardRow extends lng.Component {
 
   static get properties() {
     return [
-      ...VerticalCardDynamic.properties, // Suport same api as VerticalCard as it will always be the first item in the rows
+      ...CardVerticalDynamic.properties, // Suport same api as VerticalCard as it will always be the first item in the rows
       // Rows Props
       'itemSpacing',
       'scrollIndex',

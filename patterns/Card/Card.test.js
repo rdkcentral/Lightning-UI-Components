@@ -1,11 +1,11 @@
 import TestUtils from '../../test/lightning-test-utils';
 import {
-  BasicCard,
-  HorizontalCard,
-  HorizontalCardLarge,
-  VerticalCard,
-  VerticalCardLarge,
-  VerticalCardDynamic
+  CardBasic,
+  CardHorizontal,
+  CardHorizontalLarge,
+  CardVertical,
+  CardVerticalLarge,
+  CardVerticalDynamic
 } from '.';
 
 const pets = TestUtils.pathToDataURI(
@@ -14,13 +14,13 @@ const pets = TestUtils.pathToDataURI(
 
 const circle = TestUtils.pathToDataURI('./assets/images/circle.svg');
 
-const createBasicCardComponent = TestUtils.makeCreateComponent(BasicCard, {});
+const createCardBasicComponent = TestUtils.makeCreateComponent(CardBasic, {});
 
-describe('BasicCard', () => {
+describe('CardBasic', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createBasicCardComponent();
+    [card, testRenderer] = createCardBasicComponent();
   });
   afterEach(() => {
     card = null;
@@ -60,16 +60,16 @@ describe('BasicCard', () => {
   });
 });
 
-const createHorizontalCardComponent = TestUtils.makeCreateComponent(
-  HorizontalCard,
+const createCardHorizontalComponent = TestUtils.makeCreateComponent(
+  CardHorizontal,
   {}
 );
 
-describe('HorizontalCard', () => {
+describe('CardHorizontal', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createHorizontalCardComponent();
+    [card, testRenderer] = createCardHorizontalComponent();
   });
   afterEach(() => {
     card = null;
@@ -145,16 +145,16 @@ describe('HorizontalCard', () => {
   });
 });
 
-const createHorizontalCardLargeComponent = TestUtils.makeCreateComponent(
-  HorizontalCardLarge,
+const createCardHorizontalLargeComponent = TestUtils.makeCreateComponent(
+  CardHorizontalLarge,
   {}
 );
 
-describe('HorizontalCardLarge', () => {
+describe('CardHorizontalLarge', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createHorizontalCardLargeComponent();
+    [card, testRenderer] = createCardHorizontalLargeComponent();
   });
   afterEach(() => {
     card = null;
@@ -230,16 +230,16 @@ describe('HorizontalCardLarge', () => {
   });
 });
 
-const createVerticalCardComponent = TestUtils.makeCreateComponent(
-  VerticalCard,
+const createCardVerticalComponent = TestUtils.makeCreateComponent(
+  CardVertical,
   {}
 );
 
-describe('VerticalCard', () => {
+describe('CardVertical', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createVerticalCardComponent();
+    [card, testRenderer] = createCardVerticalComponent();
   });
   afterEach(() => {
     card = null;
@@ -286,16 +286,16 @@ describe('VerticalCard', () => {
   });
 });
 
-const createVerticalCardLargeComponent = TestUtils.makeCreateComponent(
-  VerticalCardLarge,
+const createCardVerticalLargeComponent = TestUtils.makeCreateComponent(
+  CardVerticalLarge,
   {}
 );
 
-describe('VerticalCardLarge', () => {
+describe('CardVerticalLarge', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createVerticalCardLargeComponent();
+    [card, testRenderer] = createCardVerticalLargeComponent();
   });
   afterEach(() => {
     card = null;
@@ -342,16 +342,16 @@ describe('VerticalCardLarge', () => {
   });
 });
 
-const createVerticalCardDynamicComponent = TestUtils.makeCreateComponent(
-  VerticalCardDynamic,
+const createCardVerticalDynamicComponent = TestUtils.makeCreateComponent(
+  CardVerticalDynamic,
   {}
 );
 
-describe('VerticalCardDynamic', () => {
+describe('CardVerticalDynamic', () => {
   let card, testRenderer;
 
   beforeEach(() => {
-    [card, testRenderer] = createVerticalCardDynamicComponent();
+    [card, testRenderer] = createCardVerticalDynamicComponent();
   });
   afterEach(() => {
     card = null;
