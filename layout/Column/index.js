@@ -147,10 +147,13 @@ export default class Column extends FocusManager {
   _performRender() {
     this._whenEnabled.then(() => {
       if (this._shouldScroll()) {
-        const scrollItem =
+        let scrollItem =
           this.selectedIndex > this._lastScrollIndex
             ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
             : this.selected;
+        if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
+          scrollItem = this.Items.children[0];
+        }
         const scrollOffset = (
           this.Items.children[this._scrollIndex] || { y: 0 }
         ).y;

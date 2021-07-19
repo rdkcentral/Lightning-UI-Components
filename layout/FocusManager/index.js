@@ -90,34 +90,47 @@ export default class FocusManager extends lng.Component {
   // Override
   render() {}
 
+  _firstFocusableIndex() {
+    const firstItem = this.items
+      .reduce((acc, item, idx) => {
+        if (!item.skipFocus) {
+          acc.push({ ...item, originalIdx: idx });
+        }
+        return acc;
+      }, [])
+      .shift();
+
+    return firstItem.originalIdx;
+  }
+
+  _lastFocusableIndex() {
+    const lastItem = this.items
+      .reduce((acc, item, idx) => {
+        if (!item.skipFocus) {
+          acc.push({ ...item, originalIdx: idx });
+        }
+        return acc;
+      }, [])
+      .pop();
+
+    return lastItem.originalIdx;
+  }
+
   selectPrevious() {
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if ((this.selectedIndex === 0 && !this.wrapSelected) || !hasFocusable) {
       return false;
     }
 
-    let prevIndex =
-      this.selectedIndex === 0
-        ? this.Items.children.length - 1
-        : this.selectedIndex - 1;
-    let previous = this.items[prevIndex];
+    const previousItemIndex = this.items
+      .map(item => !!item.skipFocus)
+      .lastIndexOf(false, this._selectedIndex - 1);
 
-    while (prevIndex >= 0 && previous && previous.skipFocus) {
-      if (prevIndex === 0 && this.wrapSelected) {
-        prevIndex = this.Items.children.length - 1;
-        previous = this.items[prevIndex];
-      } else {
-        this._selectedIndex = prevIndex;
-        this.render(previous, this.items[prevIndex + 1]);
-        if (prevIndex > 0) {
-          prevIndex -= 1;
-          previous = this.items[prevIndex];
-        } else {
-          break;
-        }
-      }
+    if (previousItemIndex > -1) {
+      this.selectedIndex = previousItemIndex;
+    } else if (this.wrapSelected) {
+      this.selectedIndex = this._lastFocusableIndex();
     }
-    this.selectedIndex = prevIndex;
     return true;
   }
 
@@ -131,28 +144,15 @@ export default class FocusManager extends lng.Component {
       return false;
     }
 
-    let nextIndex =
-      this.selectedIndex === this.Items.children.length - 1
-        ? 0
-        : this.selectedIndex + 1;
-    let next = this.items[nextIndex];
+    const nextIndex = this.items.findIndex(
+      (item, idx) => !item.skipFocus && idx > this._selectedIndex
+    );
 
-    while (nextIndex <= this.items.length - 1 && next && next.skipFocus) {
-      if (nextIndex === this.Items.children.length - 1 && this.wrapSelected) {
-        nextIndex = 0;
-        next = this.items[nextIndex];
-      } else {
-        this._selectedIndex = nextIndex;
-        this.render(next, this.items[nextIndex - 1]);
-        if (nextIndex < this.Items.children.length - 1) {
-          nextIndex += 1;
-          next = this.items[nextIndex];
-        } else {
-          break;
-        }
-      }
+    if (nextIndex > -1) {
+      this.selectedIndex = nextIndex;
+    } else if (this.wrapSelected) {
+      this.selectedIndex = this._firstFocusableIndex();
     }
-    this.selectedIndex = nextIndex;
     return true;
   }
 

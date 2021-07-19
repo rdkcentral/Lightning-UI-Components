@@ -25,11 +25,19 @@ export const Basic = args =>
           neverScroll: args.neverScroll,
           lazyScroll: args.lazyScroll,
           scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 12 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`,
-            w: 150
-          }))
+          items: [
+            {
+              type: Button,
+              buttonText: 'Button 0',
+              w: 150,
+              skipFocus: true
+            },
+            ...Array.apply(null, { length: 12 }).map((_, i) => ({
+              type: Button,
+              buttonText: `Button ${i + 1}`,
+              w: 150
+            }))
+          ]
         }
       };
     }
@@ -316,4 +324,61 @@ export const Plinko = args => {
       return this.tag('Row');
     }
   };
+};
+
+class Title extends lng.Component {
+  static _template() {
+    return {
+      Label: {
+        x: 75,
+        y: 22,
+        mount: 0.5,
+        color: 0xffffffff,
+        text: { fontSize: 20 }
+      }
+    };
+  }
+
+  _init() {
+    this.tag('Label').text = this.titleText;
+  }
+}
+
+export const SkipFocus = args =>
+  class SkipFocus extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Row,
+          itemSpacing: args.itemSpacing,
+          wrapSelected: args.wrapSelected,
+          items: [
+            ...Array.apply(null, { length: 13 }).map((_, i) => {
+              if (i % 4 === 0)
+                return {
+                  type: Title,
+                  titleText: 'Skip Focus Text',
+                  h: 30,
+                  skipFocus: true
+                };
+              return { type: Button, buttonText: 'Button' };
+            }),
+            {
+              type: Title,
+              titleText: 'Skip Focus Text',
+              h: 30,
+              skipFocus: true
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+SkipFocus.args = {
+  itemSpacing: 200,
+  wrapSelected: false
 };
