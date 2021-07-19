@@ -152,7 +152,9 @@ export default class Row extends FocusManager {
   _getLazyScrollX(prev) {
     let itemsContainerX;
     const prevIndex = this.Items.childList.getIndex(prev);
-    if (prevIndex > this.selectedIndex) {
+    if (prevIndex === this._lastFocusableIndex()) {
+      itemsContainerX = -this.Items.children[0].x;
+    } else if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
       itemsContainerX =
@@ -168,6 +170,9 @@ export default class Row extends FocusManager {
     let itemsContainerX;
     let itemIndex = this.selectedIndex - this.scrollIndex;
     itemIndex = itemIndex < 0 ? 0 : itemIndex;
+    if (itemIndex === this._firstFocusableIndex()) {
+      itemIndex = 0;
+    }
     if (this.Items.children[itemIndex]) {
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue

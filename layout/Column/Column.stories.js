@@ -272,16 +272,25 @@ export const SkipFocus = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 50 }).map((_, i) => {
-            if (i % 4 === 0)
-              return {
-                type: Title,
-                titleText: 'Skip Focus Text',
-                h: 30,
-                skipFocus: true
-              };
-            return { type: Button, buttonText: 'Button' };
-          })
+          wrapSelected: args.wrapSelected,
+          items: [
+            ...Array.apply(null, { length: 49 }).map((_, i) => {
+              if (i % 4 === 0)
+                return {
+                  type: Title,
+                  titleText: 'Skip Focus Text',
+                  h: 30,
+                  skipFocus: true
+                };
+              return { type: Button, buttonText: 'Button' };
+            }),
+            {
+              type: Title,
+              titleText: 'Skip Focus Text',
+              h: 30,
+              skipFocus: true
+            }
+          ]
         }
       };
     }
@@ -291,7 +300,8 @@ export const SkipFocus = args =>
     }
   };
 SkipFocus.args = {
-  itemSpacing: 30
+  itemSpacing: 30,
+  wrapSelected: false
 };
 
 export const OnScreenEffect = args =>
