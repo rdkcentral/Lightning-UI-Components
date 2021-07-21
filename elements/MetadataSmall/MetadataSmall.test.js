@@ -1,11 +1,12 @@
 import TestUtils from '../../test/lightning-test-utils';
 import MetadataSmall from '.';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import { FadeShader } from '../../textures';
 
 const createComponent = TestUtils.makeCreateComponent(MetadataSmall, {
   title: 'title',
-  w: 410,
-  w: 230
+  w: 310,
+  h: 130
 });
 
 describe('MetadataSmall', () => {
@@ -60,5 +61,27 @@ describe('MetadataSmall', () => {
 
     metadataWithProgress = null;
     testRenderer2 = null;
+  });
+
+  it("shouldn't truncate short data", () => {
+    expect(component._shouldClipData).toBe(false);
+    // Canvas mock doesnt render text, just uses length
+    // https://github.com/hustcc/jest-canvas-mock/issues/67
+    Object.defineProperty(component, '_dataRenderW', {
+      get: jest.fn(() => component.w / 2)
+    });
+
+    expect(component._shouldClipData).toBe(false);
+  });
+
+  it('should truncate data that would overflow', () => {
+    expect(component._shouldClipData).toBe(false);
+    // Canvas mock doesnt render text, just uses length
+    // https://github.com/hustcc/jest-canvas-mock/issues/67
+    Object.defineProperty(component, '_dataRenderW', {
+      get: jest.fn(() => component.w)
+    });
+
+    expect(component._shouldClipData).toBe(true);
   });
 });

@@ -1,19 +1,32 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import Column from '../../layout/Column';
+import { calculateColumnWidth, getAspectRatioH } from '../../Styles';
 export default class StandardLayout extends BaseLayout {
-  async _setItems(originalItems) {
-    const items = this._processItems(originalItems, ['Tile']);
-    // Everything will be two rows high, this is the total height
-    const totalRowHeight = this._cardHeight * 2 + this._itemSpacing;
-    // Create two arrays
+  static get _cardWidth() {
+    return calculateColumnWidth(4);
+  }
+
+  static get _cardHeight() {
+    return getAspectRatioH(StandardLayout._cardWidth, '16:9');
+  }
+
+  static _calcTotalHeight(itemSpacing = 0) {
+    return StandardLayout._cardHeight * 2 + itemSpacing;
+  }
+
+  _setItems(items) {
+    return this._processItems(items, ['Tile']);
+  }
+
+  async _updateItems(items) {
     const formattedItems = items.reduce((acc, curr, index) => {
       const Component = BoardRowComponent(curr.type, this.srcCallback);
       const component = {
         ...curr,
         type: Component,
-        w: this._cardWidth,
-        h: this._cardHeight
+        w: StandardLayout._cardWidth,
+        h: StandardLayout._cardHeight
       };
       let targetColumnIndex = acc.findIndex(
         column => column.items.length && column.items.length < 2
@@ -21,8 +34,8 @@ export default class StandardLayout extends BaseLayout {
 
       if (-1 === targetColumnIndex) {
         targetColumnIndex = acc.push({
-          w: this._cardWidth,
-          h: this._cardHeight * 2 + this._itemSpacing,
+          w: StandardLayout._cardWidth,
+          h: StandardLayout._calcTotalHeight(this._itemSpacing),
           type: Column,
           itemSpacing: this._itemSpacing,
           items: []
@@ -34,6 +47,6 @@ export default class StandardLayout extends BaseLayout {
       return acc;
     }, []);
 
-    this._updateLayout(totalRowHeight, formattedItems);
+    this._updateLayout(formattedItems);
   }
 }

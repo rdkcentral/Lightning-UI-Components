@@ -182,7 +182,7 @@ export default class Card extends withStyles(Base, styles) {
       w: dimensions.w,
       h: dimensions.h,
       badge: this.badge,
-      badgeLocation: this.badgeLocation,
+      badgeLocation: this.badgeLocation || 'upperLeft',
       progress: this.progress,
       alpha: this.collapseArt ? 0 : 1,
       rtt: true,

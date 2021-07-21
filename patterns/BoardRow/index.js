@@ -1,14 +1,12 @@
-import { CardVerticalDynamic } from '../../patterns/Card';
 import CardLayout from './CardLayout';
 import HeroLayout from './HeroLayout';
+import lng from '@lightningjs/core';
 import PosterLayout from './PosterLayout';
 import SquareLayout from './SquareLayout';
 import SquareSmallLayout from './SquareSmallLayout';
 import StandardLayout from './StandardLayout';
 import withTags from '../../mixins/withTags';
 import withUpdates from '../../mixins/withUpdates';
-import lng from '@lightningjs/core';
-import { calculateColumnWidth } from '../../Styles';
 
 const LAYOUTS = {
   card: CardLayout,
@@ -29,7 +27,7 @@ class BoardRow extends lng.Component {
       class LayoutNotSet extends this {},
       class LayoutSet extends this {
         _getFocused() {
-          return this.tag('Container');
+          return this.tag('Layout');
         }
       }
     ];
@@ -37,63 +35,56 @@ class BoardRow extends lng.Component {
 
   static get properties() {
     return [
-      ...CardVerticalDynamic.properties, // Suport same api as VerticalCard as it will always be the first item in the rows
-      // Rows Props
-      'itemSpacing',
-      'scrollIndex',
+      'menuCard',
       'alwaysScroll',
-      'neverScroll',
-      'lazyScroll',
-      // BoardRow Specific
-      'onEnter',
-      'viewAll',
-      'layout',
       'items',
-      'srcCallback' // This should be a function that returns a value or a promise
+      'itemSpacing',
+      'layout',
+      'lazyScroll',
+      'neverScroll',
+      'scrollIndex',
+      'srcCallback',
+      'viewAll'
     ];
   }
 
   static get tags() {
-    return ['Container'];
+    return ['Layout'];
   }
 
   _construct() {
-    super._construct();
-    this._layout = LAYOUTS['standard']; // Sets default layout
+    // Set default prop values
+    this._layout = 'standard';
+    this._selectedLayout = LAYOUTS['standard'];
     this._itemSpacing = 0;
+    this._menuCard = {};
   }
 
   _setLayout(layout) {
+    // Normalize the layout string and set the correct _selectedLayout
     const normalizeTypeName =
       'string' === typeof layout ? layout.toLowerCase() : null;
-    this._calculateHeight(normalizeTypeName);
     if (LAYOUTS[normalizeTypeName]) {
-      return LAYOUTS[normalizeTypeName];
+      this._selectedLayout = LAYOUTS[normalizeTypeName];
+    } else {
+      this._selectedLayout = LAYOUTS['standard'];
     }
-    return LAYOUTS['standard'];
+    return normalizeTypeName;
   }
 
-  _calculateHeight(layoutName) {
-    let boardRowHeight;
-    switch (layoutName) {
-      case 'card':
-      case 'poster':
-        boardRowHeight = calculateColumnWidth(4) / (2 / 3);
-        break;
-      case 'square':
-        boardRowHeight = calculateColumnWidth(4);
-        break;
-      case 'squaresmall':
-        boardRowHeight = calculateColumnWidth(8) * 2 + this.itemSpacing;
-        break;
-      default:
-        boardRowHeight =
-          (calculateColumnWidth(4) / (16 / 9)) * 2 + this.itemSpacing;
+  _calculateHeight() {
+    // Get the correct height from the current selected layout
+    let h;
+    if (this.layout && LAYOUTS[this.layout]) {
+      h = LAYOUTS[this.layout]._calcTotalHeight(this.itemSpacing);
+    } else {
+      h = LAYOUTS['standard']._calcTotalHeight(this.itemSpacing);
     }
-    this.h = boardRowHeight;
+    this.h = h;
   }
 
   get _srcCallbackItems() {
+    // Cache item src if using srcCallback
     if (!this.items || !this.items.length) return [];
     if (this.srcCallback && 'function' === typeof this.srcCallback) {
       return this.items.map(item => {
@@ -109,6 +100,7 @@ class BoardRow extends lng.Component {
   }
 
   _update() {
+    this._calculateHeight(); // Calculate height here to minimize flash of unpositioned elements
     this._setState('LayoutNotSet'); // Ensures focus is not called until the layout is set
 
     // Get all properties to pass in to layout
@@ -124,12 +116,17 @@ class BoardRow extends lng.Component {
       {}
     );
 
+    const _selectedLayout = this._selectedLayout;
     this.patch({
-      Container: {
-        type: class extends this.layout {
+      Layout: {
+        type: class extends this._selectedLayout {
           // Allow layouts to share the same properties api as BoardRow
           static get properties() {
-            return BoardRow.properties;
+            return [...BoardRow.properties];
+          }
+
+          get _selectedLayout() {
+            return _selectedLayout;
           }
         },
         // Pass in property values to layout
@@ -141,7 +138,7 @@ class BoardRow extends lng.Component {
   }
 
   $itemChanged() {
-    // catch the item changed event from child or column scroll doesn't work properly
+    // Catch the item changed event from child or column scroll doesn't work properly. This may be able to be removed later after focus manager is patched
     return false;
   }
 }

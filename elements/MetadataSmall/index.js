@@ -1,10 +1,11 @@
-import lng from '@lightningjs/core';
 import Base from '../Base';
 import { Icon, TextBox, ProgressBar } from '..';
-import { withStyles } from '../../mixins';
 import { InlineContent } from '../../layout';
+import { withStyles } from '../../mixins';
+import { FadeShader } from '../../textures';
 
 export const styles = theme => ({
+  h: 200,
   title: {
     ...theme.typography.headline3,
     textColor: theme.palette.text.light.primary,
@@ -25,18 +26,20 @@ export const styles = theme => ({
 export default class MetadataSmall extends withStyles(Base, styles) {
   static _template() {
     return {
+      h: this.styles.h,
       flex: { direction: 'column', justifyContent: 'flex-end' },
       Title: {
         type: TextBox,
         ...this.styles.title
       },
-      Data: {
-        type: InlineContent,
-        w: 200,
-        contentSpacing: 8,
-        contentWrap: false,
-        justify: 'flex-start',
-        ...this.styles.data
+      DataClipContainer: {
+        Data: {
+          type: InlineContent,
+          contentSpacing: 8,
+          contentWrap: false,
+          justify: 'flex-start',
+          ...this.styles.data
+        }
       },
       Logo: {
         flexItem: false,
@@ -50,26 +53,29 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['title', 'data', 'logo', 'progress'];
+    return ['title', 'data', 'logo', 'logoWidth', 'logoHeight', 'progress'];
   }
 
   static get tags() {
     return [
       'Title',
-      'Data',
       'Logo',
       'ProgressBarWrapper',
+      'DataClipContainer',
+      { name: 'Data', path: 'DataClipContainer.Data' },
       { name: 'ProgressBar', path: 'ProgressBarWrapper.ProgressBar' }
     ];
   }
 
   _construct() {
     super._construct();
-    this._logoRenderHeight = this.styles.logo.h;
+    this._logoRenderHeight = this.logoHeight || this.styles.logo.h;
+    this._logoRenderWidth = this.logoWidth || this._logoRenderHeight;
     this._logoYOffset = this.styles.logo.offset;
     this._progressBarPadding = this.styles.progressBarPadding;
     this._progressBarHeight =
       this.styles.progressBarPadding + ProgressBar.styles.h;
+    this._fadeW = 100;
   }
 
   _init() {
@@ -82,6 +88,12 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     this._updateData();
     this._updateLogo();
     this._updateProgress();
+    this._updateShader();
+  }
+
+  $loadedInlineContent() {
+    // update the shader if Data reloads
+    this._updateShader();
   }
 
   _updateWidth() {
@@ -97,25 +109,47 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   _updateData() {
-    if (this._data) {
-      this._Data.content = this._data;
+    if (this.data) {
+      this._Data.content = this.data;
+      this._DataClipContainer.w = this.w - this._Logo.w;
+      this._DataClipContainer.h = this._Data.finalH;
+    }
+  }
+
+  _updateShader() {
+    if (this._shouldClipData) {
+      const logoOffset = this.logo ? this._Logo.w + this._Logo.offset : 0;
+      this.stage.update();
+      this._Data.loadTexture();
+      this._DataClipContainer.patch({
+        w: this.w + this._fadeW / 2 - logoOffset / 2,
+        shader: {
+          type: FadeShader,
+          positionLeft: 0,
+          positionRight: this._fadeW + logoOffset
+        },
+        rtt: true
+      });
+    } else {
+      this._DataClipContainer.shader = undefined;
     }
   }
 
   _updateLogo() {
     const ratio = this.logoWidth / this.logoHeight;
     const progressBarOffset = this._progress ? this._progressBarHeight : 0;
+    const height = this.finalH || this.h;
     this._Logo.patch({
       type: Icon,
       h: this._logoRenderHeight,
       w: this._logoRenderHeight * ratio,
       icon: this.logo,
-      ...this.styles.logo
+      offset: this._logoYOffset
     });
 
     this._Logo.x = this.renderWidth - this._Logo.w;
     this._Logo.y =
-      this.h - (this._logoRenderHeight + this._logoYOffset + progressBarOffset);
+      height - (this._logoRenderHeight + this._logoYOffset + progressBarOffset);
   }
 
   _updateProgress() {
@@ -130,5 +164,13 @@ export default class MetadataSmall extends withStyles(Base, styles) {
         }
       });
     }
+  }
+
+  get _shouldClipData() {
+    return this._dataRenderW > this.w - this._fadeW;
+  }
+
+  get _dataRenderW() {
+    return this._Data.finalW;
   }
 }
