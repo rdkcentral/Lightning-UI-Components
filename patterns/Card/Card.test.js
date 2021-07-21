@@ -122,18 +122,18 @@ describe('CardHorizontal', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates action to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async done => {
     const data = 'Data';
-    const action = 'Action';
+    const cta = 'CTA';
 
     card.data = data;
-    card.action = action;
+    card.cta = cta;
     card._update();
     testRenderer.update();
 
     setTimeout(() => {
       expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._Action.title).toBe(action.toUpperCase());
+      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
       done();
     }, 0);
   });
@@ -207,18 +207,18 @@ describe('CardHorizontalLarge', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates action to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async done => {
     const data = 'Data';
-    const action = 'Action';
+    const cta = 'CTA';
 
     card.data = data;
-    card.action = action;
+    card.cta = cta;
     card._update();
     testRenderer.update();
 
     setTimeout(() => {
       expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._Action.title).toBe(action.toUpperCase());
+      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
       done();
     }, 0);
   });
@@ -398,18 +398,18 @@ describe('CardVerticalDynamic', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates action to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async done => {
     const data = 'Data';
-    const action = 'Action';
+    const cta = 'CTA';
 
     card.data = data;
-    card.action = action;
+    card.cta = cta;
     card._update();
     testRenderer.update();
 
     setTimeout(() => {
       expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._Action.title).toBe(action.toUpperCase());
+      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
       done();
     }, 0);
   });

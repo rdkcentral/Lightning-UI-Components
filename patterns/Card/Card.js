@@ -71,7 +71,7 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
   }
 
   static get tags() {
@@ -231,7 +231,7 @@ export default class Card extends withStyles(Base, styles) {
         title: this.title,
         description: this.description,
         data: this.data,
-        action: this.action,
+        cta: this.cta,
         logo: this.logo,
         logoHeight: this.logoHeight,
         logoWidth: this.logoWidth,

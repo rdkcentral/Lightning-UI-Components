@@ -42,7 +42,7 @@ export const Basic = args =>
           logo: args.showIcon ? circle : null,
           logoWidth: 1920,
           logoHeight: 1080,
-          action: args.showAction ? args.action : null
+          cta: args.showCTA ? args.cta : null
         }
       };
     }
@@ -56,8 +56,8 @@ Basic.args = {
   h: 300,
   title: 'Title',
   description: 'Description',
-  action: 'Watch on Netflix',
-  showAction: false,
+  cta: 'Watch on Netflix',
+  showCTA: false,
   showIcon: true
 };
 Basic.argTypes = {
@@ -65,8 +65,8 @@ Basic.argTypes = {
   h: { control: 'number' },
   title: { control: 'text' },
   description: { control: 'text' },
-  action: { control: 'text' },
-  showAction: { control: 'boolean' },
+  cta: { control: 'text' },
+  showCTA: { control: 'boolean' },
   showIcon: { control: 'boolean' }
 };
 Basic.parameters = {
