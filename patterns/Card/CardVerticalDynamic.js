@@ -35,7 +35,7 @@ export default class CardVerticalDynamic extends withStyles(
       ...baseCardProps,
       ...logoProps,
       'data',
-      'action',
+      'cta',
       'gradientColor',
       'gradientW',
       'gradientH',

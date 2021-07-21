@@ -46,6 +46,6 @@ const verticalLargeStyles = theme => ({
 
 export class CardVerticalLarge extends withStyles(Card, verticalLargeStyles) {
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
   }
 }

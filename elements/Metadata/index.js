@@ -29,7 +29,7 @@ export const styles = theme => ({
   logo: {
     h: theme.typography.body3.lineHeight
   },
-  action: {
+  cta: {
     ...theme.typography.callout1,
     textColor: theme.palette.text.light.primary,
     maxLines: 1,
@@ -55,9 +55,9 @@ export default class Metadata extends withStyles(Base, styles) {
           type: InlineContent,
           textProperties: this.styles.data
         },
-        Action: {
+        CTA: {
           type: TextBox,
-          style: this.styles.action
+          style: this.styles.cta
         },
         Logo: {
           type: Icon,
@@ -78,7 +78,7 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['title', 'description', 'data', 'logo', 'action'];
+    return ['title', 'description', 'data', 'logo', 'cta'];
   }
 
   static get tags() {
@@ -95,8 +95,8 @@ export default class Metadata extends withStyles(Base, styles) {
         path: 'Info.Logo'
       },
       {
-        name: 'Action',
-        path: 'Info.Action'
+        name: 'CTA',
+        path: 'Info.CTA'
       }
     ];
   }
@@ -122,7 +122,7 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   _updateInfo() {
-    this._updateAction();
+    this._updateCTA();
     this._updateData();
     this._updateLogo();
 
@@ -130,7 +130,7 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   _updateData() {
-    if (this.action && this._Data) {
+    if (this.cta && this._Data) {
       this._Data.patch({ content: undefined });
     } else if (this.data) {
       this._Data.patch({
@@ -152,7 +152,7 @@ export default class Metadata extends withStyles(Base, styles) {
       icon: this.logo
     });
 
-    if (this.action || this.data) {
+    if (this.cta || this.data) {
       this._Logo.x = this.renderWidth - this._Logo.w;
     }
 
@@ -163,9 +163,9 @@ export default class Metadata extends withStyles(Base, styles) {
     return this.logoWidth / this.logoHeight;
   }
 
-  _updateAction() {
-    if (this.action) {
-      this._Action.content = this.action.toUpperCase();
+  _updateCTA() {
+    if (this.cta) {
+      this._CTA.content = this.cta.toUpperCase();
     }
   }
 }

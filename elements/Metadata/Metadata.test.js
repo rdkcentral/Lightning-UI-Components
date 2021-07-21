@@ -47,17 +47,17 @@ describe('Metadata', () => {
     expect(component.logo).toBe(lightningbolt);
   });
 
-  it('hides Data if there is an Action, and converts the Action text to uppercase', async done => {
-    const actionText = 'action text';
+  it('hides Data if there is an CTA, and converts the CTA text to uppercase', async done => {
+    const ctaText = 'cta text';
     const dataText = 'data text';
 
     component.data = dataText;
-    component.action = actionText;
+    component.cta = ctaText;
     testRenderer.update();
 
     setTimeout(() => {
       expect(component._Data.content).toBe(undefined);
-      expect(component._Action.title).toBe(actionText.toUpperCase());
+      expect(component._CTA.title).toBe(ctaText.toUpperCase());
       done();
     }, 0);
   });

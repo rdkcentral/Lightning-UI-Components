@@ -34,8 +34,8 @@ class Example extends lng.Component {
         logo: circle,
         logoWidth: 1920,
         logoHeight: 1080,
-        // Commenting out the line below removes the call-to-action, which is taking priority over the supplied data above.
-        action: 'Watch on Netflix'
+        // Commenting out the line below removes the call-to-cta, which is taking priority over the supplied data above.
+        cta: 'Watch on Netflix'
       }
     };
   }
@@ -62,7 +62,7 @@ progress|number|false|-|amount of the [Progress Bar](/story/elements-progressbar
 title|string|false|-|first line or headline of content
 description|string|false|-|second line or synopsis of content
 data|[InlineContent](/story/layout-inlinecontent--basic)|false|-|relevant content data at the bottom
-action|string|false|-|call to action text (will be converted to all caps) at the bottom; takes priority over data
+cta|string|false|-|call to action text (will be converted to all caps) at the bottom; takes priority over data
 logo|string|false|-|logo to display at bottom of component
 logoWidth|number|true (if using logo)|-|width of logo source image
 logoHeight|number|true (if using logo)|-|height of logo source image

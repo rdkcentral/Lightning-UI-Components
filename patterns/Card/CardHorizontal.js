@@ -10,7 +10,7 @@ const horizontalStyles = theme => ({
 
 export default class CardHorizontal extends withStyles(Card, horizontalStyles) {
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
   }
 }
 
@@ -26,6 +26,6 @@ export class CardHorizontalLarge extends withStyles(
   horizontalLargeStyles
 ) {
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'action'];
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
   }
 }
