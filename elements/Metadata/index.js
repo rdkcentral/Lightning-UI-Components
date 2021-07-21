@@ -72,7 +72,8 @@ export default class Metadata extends withStyles(Base, styles) {
   _construct() {
     super._construct();
     this._infoHeight = this.styles.infoOffset;
-    this._logoRenderHeight = this.styles.logo.h;
+    this._logoHeight = this.styles.logo.h;
+    this._logoWidth = this.styles.logo.w || this._logoHeight;
   }
 
   _init() {
@@ -80,7 +81,15 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['title', 'description', 'data', 'logo', 'cta'];
+    return [
+      'title',
+      'description',
+      'data',
+      'logo',
+      'cta',
+      'logoWidth',
+      'logoHeight'
+    ];
   }
 
   static get tags() {
@@ -144,11 +153,10 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   _updateLogo() {
-    const ratio = this._calculateIconRatio();
     this._Logo.patch({
       type: Icon,
-      h: this._logoRenderHeight,
-      w: this._logoRenderHeight * ratio,
+      w: this.logoWidth,
+      h: this.logoHeight,
       icon: this.logo
     });
 
@@ -156,16 +164,20 @@ export default class Metadata extends withStyles(Base, styles) {
       this._Logo.x = this.renderWidth - this._Logo.w;
     }
 
-    this._Logo.y = this._infoHeight - this._logoRenderHeight;
-  }
-
-  _calculateIconRatio() {
-    return this.logoWidth / this.logoHeight;
+    this._Logo.y = this._infoHeight - this.logoHeight;
   }
 
   _updateCTA() {
     if (this.cta) {
       this._CTA.content = this.cta.toUpperCase();
     }
+  }
+
+  _setLogoWidth(w) {
+    return w !== undefined ? w : this.logoWidth;
+  }
+
+  _setLogoHeight(h) {
+    return h !== undefined ? h : this.logoHeight;
   }
 }

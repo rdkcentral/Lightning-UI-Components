@@ -110,9 +110,7 @@ class BaseType extends lng.Component {
             title: item.title,
             data: item.description,
             progress: item.progress,
-            logo: item.logo,
-            logoWidth: 32,
-            logoHeight: 32
+            logo: item.logo
           };
         }
         return updatedItem;
