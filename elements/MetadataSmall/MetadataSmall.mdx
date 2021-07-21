@@ -4,30 +4,41 @@ import MetadataSmall from '.';
 
 # MetadataSmall
 
-Short component description
+Content to be displayed inside Tiles using the inset metadata position in [withMetadata](?path=/docs/patterns-withmetadata--basic). Displays title, info, progress bar, and logo.
 
 ## Usage
 
-Explain how `MetadataSmall` works with examples:
+Wrap a Tile in the `withMetadata` mixin, and pass `MetadataSmall` as the `Metadata` prop:
 
 ```js
-import { MetadataSmall } from '@lightning/ui';
+import { MetadataSmall, Tile } from '@lightning/ui';
 
 class Example extends lng.Component {
   static _template() {
     return {
-      MetadataSmall: {
-        type: MetadataSmall
+      TileWithMetadata: {
+        type: withMetadata(Tile),
+        src: 'asset/path/pets.png',
+        w: 410,
+        h: 230,
+        color: 0xff5d7a74,
+        metadataLocation: 'inset',
+        Metadata: {
+          type: MetadataSmall,
+          title: 'Movie Title',
+          data: 'A description of the movie',
+          logo: 'url/path/logo.png'
+        }
       }
     };
   }
-};
+}
 ```
 
 Include previews:
 
 <Canvas>
-  <Story id="component--basic" />
+  <Story id="patterns-withmetadata--inset-metadata" />
 </Canvas>
 
 The `id` for the preview comes from the url path generated for the story.
@@ -36,15 +47,12 @@ The `id` for the preview comes from the url path generated for the story.
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
--|-|-|-|-
-
-### Methods
-
-#### methodName(args): returnValue
-
-Method description
+| name     | type                                                     | required | default | description                                                          |
+| -------- | -------------------------------------------------------- | -------- | ------- | -------------------------------------------------------------------- |
+| title    | string                                                   | false    | -       | the first line of text                                               |
+| data     | [InlineContent](?path=/docs/layout-inlinecontent--basic) | false    | -       | relevant content data at the bottom                                  |
+| progress | number                                                   | false    | 0       | percentage of the current progress from 0 to 1. Hidden if value is 0 |
+| logo     | string                                                   | false    | -       | URI of a logo to display at bottom of component                      |
 
 ### Styles
 

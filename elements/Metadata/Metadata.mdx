@@ -40,14 +40,14 @@ class Example extends lng.Component {
         ],
         logo: circle,
         logoWidth: 32,
-        logoHeight: 32,
+        logoHeight: 32
         // Uncommenting the line below will add a call to action,
         // which will take priority over any data provided.
         // cta: 'Watch on Netflix'
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -58,17 +58,17 @@ class Example extends lng.Component {
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-w|number|true|-|width of component
-h|number|true|-|height of component
-title|string|false|-|first line or headline of the content
-description|string|false|-|second line or synopsis of the content
-data|inline content|false|-|relevant content data at the bottom
-cta|string|false|-|call to action text (will be converted to all caps); takes priority over data
-logo|string|false|-|logo to display at bottom of component
-logoWidth|number|true (if using logo)|-|width of logo source images
-logoHeight|number|true (if using logo)|-|height of logo source image
+| name        | type           | required             | default | description                                                                   |
+| ----------- | -------------- | -------------------- | ------- | ----------------------------------------------------------------------------- |
+| w           | number         | true                 | -       | width of component                                                            |
+| h           | number         | true                 | -       | height of component                                                           |
+| title       | string         | false                | -       | first line or headline of the content                                         |
+| description | string         | false                | -       | second line or synopsis of the content                                        |
+| data        | inline content | false                | -       | relevant content data at the bottom                                           |
+| cta         | string         | false                | -       | call to action text (will be converted to all caps); takes priority over data |
+| logo        | string         | false                | -       | logo to display at bottom of component                                        |
+| logoWidth   | number         | true (if using logo) | -       | width of logo                                                                 |
+| logoHeight  | number         | true (if using logo) | -       | height of logo                                                                |
 
 ### Styles
 

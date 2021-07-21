@@ -116,9 +116,7 @@ export const InsetMetadata = args =>
             type: MetadataSmall,
             title: 'metadata title',
             data: 'a very long description that should fade out',
-            logo: args.showLogo ? lightningbolt : undefined,
-            logoWidth: 1920,
-            logoHeight: 1080
+            logo: args.showLogo ? lightningbolt : undefined
           }
         }
       };

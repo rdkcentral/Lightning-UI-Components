@@ -67,9 +67,7 @@ export const ClippedText = args =>
           title: args.title,
           data: args.data,
           progress: args.progress,
-          logo: args.showLogo ? lightningbolt : undefined,
-          logoWidth: 1920,
-          logoHeight: 1080
+          logo: args.showLogo ? lightningbolt : undefined
         }
       };
     }
