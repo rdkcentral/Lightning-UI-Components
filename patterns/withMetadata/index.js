@@ -1,6 +1,4 @@
 import Tile from '../../elements/Tile';
-import ProgressBar from '../../elements/ProgressBar';
-import Badge from '../../elements/Badge';
 import withStyles from '../../mixins/withStyles';
 import withBadgeProgress from '../withBadgeProgress';
 
@@ -94,7 +92,7 @@ export default (base = Tile) =>
         ? this._ProgressBar.h + this._progressBarPadding
         : 0;
 
-      const metadataHeight = this.Metadata.finalH || this.Metadata.h;
+      const metadataHeight = this.Metadata.h;
 
       const locations = {
         bottom: this._paddingTop + currentTileHeight - focusOffset,

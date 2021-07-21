@@ -1,11 +1,14 @@
-export class Circle extends lng.Texture {
+import lng from '@lightningjs/core';
+import FadeShader from './FadeShader';
+
+class Circle extends lng.Texture {
   constructor(stage) {
     super(stage);
-    this._color = `rgb(0,0,0)`;
+    this._color = 'rgb(0,0,0)';
     this._fill = true;
     this._radius = 100;
     this._stroke = false;
-    this._strokeColor = `rgb(0,0,0)`;
+    this._strokeColor = 'rgb(0,0,0)';
     this._strokeWidth = 1;
   }
 
@@ -106,10 +109,10 @@ export class Circle extends lng.Texture {
   }
 }
 
-export class Arrow extends lng.Texture {
+class Arrow extends lng.Texture {
   constructor(stage) {
     super(stage);
-    this._color = `rgb(13, 13, 15)`;
+    this._color = 'rgb(13, 13, 15)';
     this._w = 0;
     this._h = 0;
     this._direction = 'right';
@@ -173,7 +176,7 @@ export class Arrow extends lng.Texture {
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
-      let p = ctx.lineWidth / 2;
+      const p = ctx.lineWidth / 2;
       ctx.beginPath();
 
       if (direction === 'right') {
@@ -194,7 +197,7 @@ export class Arrow extends lng.Texture {
   }
 }
 
-export class Line extends lng.Texture {
+class Line extends lng.Texture {
   constructor(stage) {
     super(stage);
 
@@ -261,3 +264,5 @@ export class Line extends lng.Texture {
     };
   }
 }
+
+export { FadeShader, Circle, Arrow, Line };

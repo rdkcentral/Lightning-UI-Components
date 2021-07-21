@@ -1,24 +1,23 @@
-import { calculateColumnWidth } from '../../Styles';
 import Card, { CardVerticalDynamic, CardHorizontal } from '../../patterns/Card';
-import MetadataCard from '../../elements/MetadataCard';
+import MetadataSmall from '../../elements/MetadataSmall';
 import Row from '../../layout/Row';
-import styles from './styles';
-import Tile from '../../elements/Tile';
+import { Tile } from '../../elements';
 import withMetadata from '../../patterns/withMetadata';
-import withStyles from '../../mixins/withStyles';
 import withTags from '../../mixins/withTags';
 import withUpdates from '../../mixins/withUpdates';
 import lng from '@lightningjs/core';
 
 function warningMessage(item) {
   console.warn(
-    `Item ${item.title} does not contain a valid type for BoardRow ${this.layout.name}.`
+    `${
+      item.title ? 'Item ' + item.title : 'Item'
+    } does not contain a valid type for ${this._selectedLayout.name}.`
   );
 }
 class BaseType extends lng.Component {
   static _template() {
     return {
-      Layout: {
+      Row: {
         type: Row,
         plinko: true,
         items: []
@@ -31,29 +30,40 @@ class BaseType extends lng.Component {
   }
 
   static get tags() {
-    return ['Layout'];
+    return ['Row'];
   }
 
-  get FirstCard() {
-    return {
-      type: CardVerticalDynamic,
-      title: this.title,
-      description: this.description,
-      action: this.action,
-      gradientColor: this.gradientColor
+  get MenuCard() {
+    if (!this.menuCard.title) return undefined;
+
+    const card = {
+      ...this.menuCard,
+      h: this._selectedLayout._calcTotalHeight(this.itemSpacing),
+      type: CardVerticalDynamic
     };
+
+    return card;
   }
 
-  get _cardWidth() {
-    return calculateColumnWidth(4);
+  // Required by extending classes
+  static get _cardWidth() {
+    throw new Error('Layout must have a static _cardWidth getter');
   }
 
-  get _cardHeight() {
-    return this._aspectRatioH(this._cardWidth, '16:9');
+  static get _cardHeight() {
+    throw new Error('Layout must have a static _cardHeight getter');
+  }
+
+  static _calcTotalHeight() {
+    throw new Error('Layout must have a static _calcTotalHeight method');
+  }
+
+  _setItems() {
+    throw new Error('Layout must have a _setItems method');
   }
 
   _init() {
-    this._Layout.itemSpacing = this._itemSpacing;
+    this._Row.itemSpacing = this._itemSpacing;
   }
 
   _processItems(items, arrayOfTypes = [], arrayOfTypesToExclude = []) {
@@ -63,87 +73,71 @@ class BaseType extends lng.Component {
       CardHorizontal
     };
 
-    return (
-      items
-        // This check does not work in flex
-        // .filter(item => {
-        //   const isForbiddenType = arrayOfTypesToExclude.find(
-        //     type => item.type && item.type.prototype instanceof types[type]
-        //   );
-        //   if (isForbiddenType) {
-        //     warningMessage.call(this, item);
-        //     return false;
-        //   }
-        //   const valid = arrayOfTypes.find(
-        //     type => {
-        //       debugger
-        //       return item.type && item.type.prototype instanceof types[type]
-        //     }
-        //   );
-        //   if (!valid) {
-        //     warningMessage.call(this, item);
-        //   }
-        //   return !!valid;
-        // })
-        .map(item => {
-          const addMetadata =
-            (item.type && Tile === item.type) || Tile.isPrototypeOf(item.type);
-          const onEnter = !item.onEnter ? () => {} : item.onEnter;
-          if (addMetadata) {
-            const newItem = {
-              ...item,
-              onEnter,
-              type: withMetadata(item.type),
-              metadataLocation: 'inset',
-              Metadata: {
-                type: MetadataCard,
-                firstLine: item.title,
-                secondLine: item.description,
-                logo: item.logo,
-                logoW: 32
-              }
-            };
-            return newItem;
-          }
+    return items
+      .filter(item => {
+        const isForbiddenType = arrayOfTypesToExclude.find(
+          type =>
+            (item.type && item.type === types[type]) ||
+            types[type].isPrototypeOf(item.type)
+        );
+        if (isForbiddenType) {
+          warningMessage.call(this, item);
+          return false;
+        }
+        const valid = arrayOfTypes.find(
+          type =>
+            (item.type && item.type === types[type]) ||
+            types[type].isPrototypeOf(item.type)
+        );
+        if (!valid) {
+          warningMessage.call(this, item);
+        }
+        return !!valid;
+      })
+      .map(item => {
+        const updatedItem = {
+          ...item
+        };
 
-          return {
-            ...item,
-            onEnter
+        if (
+          (item.type && Tile === item.type) ||
+          Tile.isPrototypeOf(item.type)
+        ) {
+          updatedItem.type = withMetadata(item.type);
+          updatedItem.metadataLocation = 'inset';
+          updatedItem.Metadata = {
+            type: MetadataSmall,
+            title: item.title,
+            data: item.description,
+            progress: item.progress,
+            logo: item.logo,
+            logoWidth: 32,
+            logoHeight: 32
           };
-        })
-    );
+        }
+        return updatedItem;
+      });
   }
 
-  _aspectRatioW(h, ratio) {
-    switch (ratio) {
-      case '1:1':
-        return h;
-      case '2:3':
-        return h * (2 / 3);
-      default:
-        return h * (16 / 9);
+  _update() {
+    if (this.items) this._updateItems(this.items);
+  }
+
+  _updateItems() {
+    // This is overwritten by the selected layout. Responsible for organizing the tiles or cards
+  }
+
+  // Always called by _updateItems after the tiles have been organized in the correct structure
+  _updateLayout(items) {
+    let itemsArray;
+    if (this.MenuCard) {
+      itemsArray = [this.MenuCard, ...items];
+      this.viewAll && itemsArray.push(this.MenuCard);
+    } else {
+      itemsArray = items;
     }
-  }
 
-  _aspectRatioH(w, ratio) {
-    switch (ratio) {
-      case '1:1':
-        return w;
-      case '2:3':
-        return w / (2 / 3);
-      default:
-        return w / (16 / 9);
-    }
-  }
-
-  _update() {}
-
-  _updateLayout(totalHeight, items) {
-    const menuCard = { ...this.FirstCard, h: totalHeight };
-    const itemsArray = [menuCard, ...items];
-    this.viewAll && itemsArray.push(menuCard);
-
-    this._Layout.patch({
+    this._Row.patch({
       scrollIndex: this.scrollIndex || 0,
       alwaysScroll: this.alwaysScroll || false,
       neverScroll: this.neverScroll || false,
@@ -153,8 +147,8 @@ class BaseType extends lng.Component {
   }
 
   _getFocused() {
-    return this._Layout;
+    return this._Row;
   }
 }
 
-export default withUpdates(withTags(withStyles(BaseType, styles)));
+export default withUpdates(withTags(BaseType));

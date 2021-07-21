@@ -92,7 +92,7 @@ export default class Row extends FocusManager {
 
   _isOnScreen(child) {
     const x = getX(child);
-
+    if (!x) return false;
     // to calculate the target absolute X position of the item, we need to use
     // 1) the entire row's absolute position,
     // 2) the target animation value of the items container, and

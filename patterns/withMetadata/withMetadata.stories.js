@@ -23,25 +23,6 @@ export default {
   }
 };
 
-const getMetadataType = metadataType => {
-  switch (metadataType) {
-    case 'MetadataTile':
-      return MetadataTile;
-      break;
-
-    case 'MetadataCard':
-      return MetadataCard;
-      break;
-
-    case 'MetadataSmall':
-      return MetadataSmall;
-      break;
-
-    default:
-      break;
-  }
-};
-
 export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
@@ -133,10 +114,10 @@ export const InsetMetadata = args =>
           metadataLocation: 'inset',
           Metadata: {
             w: 410,
-            h: 230,
             type: MetadataSmall,
             title: 'metadata title',
-            data: 'description',
+            data:
+              'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
             logo: lightningbolt,
             logoWidth: 1920,
             logoHeight: 1080
@@ -155,7 +136,9 @@ export const InsetMetadata = args =>
 InsetMetadata.args = {
   focused: true,
   persistentMetadata: true,
-  progress: 0
+  progress: 0,
+  showLogo: true,
+  data: ['a very long clipping text description']
 };
 InsetMetadata.argTypes = {
   persistentMetadata: { control: 'boolean' },

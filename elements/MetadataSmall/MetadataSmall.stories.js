@@ -38,7 +38,7 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  title: 'TitleTitleTitleTitle',
+  title: 'Tile Title',
   data: [
     '94%',
     {
@@ -56,5 +56,38 @@ Basic.args = {
   progress: 0
 };
 Basic.parameters = {
+  argActions: {}
+};
+
+export const ClippedText = args =>
+  class ClippedText extends lng.Component {
+    static _template() {
+      return {
+        MetadataSmall: {
+          type: MetadataSmall,
+          w: 400,
+          title: args.title,
+          data: args.data,
+          progress: args.progress,
+          logo: args.showLogo ? lightningbolt : undefined,
+          logoWidth: 1920,
+          logoHeight: 1080
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('MetadataSmall');
+    }
+  };
+ClippedText.args = {
+  title: 'Tile Title',
+  // data: ["an example of text that will fade out i swear to god it'll fade out"],
+  data:
+    'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
+  progress: 0,
+  showLogo: false
+};
+ClippedText.parameters = {
   argActions: {}
 };

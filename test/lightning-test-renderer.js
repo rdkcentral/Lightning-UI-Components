@@ -87,6 +87,7 @@ function create(Component, options = {}) {
       app.childList.first._unfocus();
     },
     getInstance: () => app.childList.first,
+    getFocused: () => app.focusPath[app.focusPath.length - 1],
     getApp: () => app,
     keyPress: key => {
       keyPress(app, key);

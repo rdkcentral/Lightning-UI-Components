@@ -1,20 +1,32 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
+import { calculateColumnWidth } from '../../Styles';
 export default class SquareLayout extends BaseLayout {
-  get _cardHeight() {
-    return this._cardWidth;
+  static get _cardWidth() {
+    return calculateColumnWidth(4);
   }
 
-  async _setItems(originalItems) {
-    const items = this._processItems(originalItems, ['Tile']);
+  static get _cardHeight() {
+    return SquareLayout._cardWidth;
+  }
+
+  static _calcTotalHeight() {
+    return SquareLayout._cardHeight;
+  }
+
+  _setItems(items) {
+    return this._processItems(items, ['Tile']);
+  }
+
+  async _updateItems(items) {
     const formattedItems = items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(item.type, this.srcCallback),
-        h: this._cardHeight,
-        w: this._cardWidth
+        h: SquareLayout._cardHeight,
+        w: SquareLayout._cardWidth
       };
     });
-    this._updateLayout(this._cardHeight, formattedItems);
+    this._updateLayout(formattedItems);
   }
 }

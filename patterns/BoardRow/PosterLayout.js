@@ -1,21 +1,34 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
+import { calculateColumnWidth, getAspectRatioH } from '../../Styles';
+
 export default class PosterLayout extends BaseLayout {
-  get _cardHeight() {
-    return this._aspectRatioH(this._cardWidth, '2:3');
+  static get _cardWidth() {
+    return calculateColumnWidth(4);
   }
 
-  async _setItems(originalItems) {
-    const items = this._processItems(originalItems, ['Tile']);
+  static get _cardHeight() {
+    return getAspectRatioH(PosterLayout._cardWidth, '2:3');
+  }
+
+  static _calcTotalHeight() {
+    return PosterLayout._cardHeight;
+  }
+
+  _setItems(items) {
+    return this._processItems(items, ['Tile']);
+  }
+
+  async _updateItems(items) {
     const formattedItems = items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(item.type, this.srcCallback),
-        h: this._cardHeight,
-        w: this._cardWidth
+        h: PosterLayout._cardHeight,
+        w: PosterLayout._cardWidth
       };
     });
 
-    this._updateLayout(this._cardHeight, formattedItems);
+    this._updateLayout(formattedItems);
   }
 }

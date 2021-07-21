@@ -41,6 +41,16 @@ export const GRID_SIZE_PARAMS = {
   itemSpacing: GRID.gutters.vertical
 };
 
+export function getAspectRatioW(h, ratio = '16:9', seperator = ':') {
+  const [ratioW, ratioH] = ratio.split(seperator);
+  return h * (ratioW / ratioH);
+}
+
+export function getAspectRatioH(w, ratio = '16:9', seperator = ':') {
+  const [ratioW, ratioH] = ratio.split(seperator);
+  return w / (ratioW / ratioH);
+}
+
 /**
  * Determines the width and height of an item based off the data passed into the item
  * (either all necessary parameters to calculate the dimensions dynamically,

@@ -91,6 +91,7 @@ export default class FocusManager extends lng.Component {
   render() {}
 
   _firstFocusableIndex() {
+    if (!this.items.length) return 0;
     const firstItem = this.items
       .reduce((acc, item, idx) => {
         if (!item.skipFocus) {
@@ -104,6 +105,7 @@ export default class FocusManager extends lng.Component {
   }
 
   _lastFocusableIndex() {
+    if (!this.items.length) return 0;
     const lastItem = this.items
       .reduce((acc, item, idx) => {
         if (!item.skipFocus) {

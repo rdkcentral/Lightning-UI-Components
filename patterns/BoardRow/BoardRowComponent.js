@@ -17,6 +17,7 @@ export default function (Base, callback) {
         } else {
           this._updateKeys(srcCallback);
         }
+        return srcCallback; // For testing
       }
     }
 

@@ -1,17 +1,31 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import Column from '../../layout/Column';
+import { calculateColumnWidth, getAspectRatioH } from '../../Styles';
 export default class HeroLayout extends BaseLayout {
-  async _setItems(originalItems) {
-    const items = this._processItems(originalItems, ['Tile']);
-    // Everything will be two rows high, this is the total height
-    const totalRowHeight = this._cardHeight * 2 + this._itemSpacing;
+  static get _cardWidth() {
+    return calculateColumnWidth(4);
+  }
+
+  static get _cardHeight() {
+    return getAspectRatioH(HeroLayout._cardWidth, '16:9');
+  }
+
+  static _calcTotalHeight(itemSpacing = 0) {
+    return HeroLayout._cardHeight * 2 + itemSpacing;
+  }
+
+  _setItems(items) {
+    return this._processItems(items, ['Tile']);
+  }
+
+  async _updateItems(items) {
     // Create two arrays
     const formattedItems = items.reduce((acc, curr, index) => {
       const component = {
         ...curr,
-        w: this._cardWidth,
-        h: this._cardHeight
+        w: HeroLayout._cardWidth,
+        h: HeroLayout._cardHeight
       };
 
       // Even columns will always get a hero tile
@@ -25,16 +39,18 @@ export default class HeroLayout extends BaseLayout {
           acc.length % 2 ? component.w : component.w * 2 + this.itemSpacing;
 
         const componentHeight =
-          acc.length % 2 ? this._aspectRatioH(component.w) : totalRowHeight;
+          acc.length % 2
+            ? getAspectRatioH(component.w)
+            : HeroLayout._calcTotalHeight(this.itemSpacing);
 
         const componentType = BoardRowComponent(curr.type, this.srcCallback);
 
         acc.push({
           w:
             acc.length % 2
-              ? this._cardWidth
+              ? HeroLayout._cardWidth
               : component.w * 2 + this.itemSpacing,
-          h: this._cardHeight * 2 + this._itemSpacing,
+          h: HeroLayout._cardHeight * 2 + this._itemSpacing,
           type: Column,
           itemSpacing: this._itemSpacing,
           items: [
@@ -51,14 +67,11 @@ export default class HeroLayout extends BaseLayout {
       lastItem.items.push({
         ...component,
         type: BoardRowComponent(curr.type, this.srcCallback),
-        h: this._aspectRatioH(component.w)
+        h: getAspectRatioH(component.w)
       });
       return acc;
     }, []);
 
-    this._updateLayout(
-      this._cardHeight * 2 + this._itemSpacing,
-      formattedItems
-    );
+    this._updateLayout(formattedItems);
   }
 }
