@@ -40,8 +40,6 @@ export default class MetadataSmall extends withStyles(Base, styles) {
         Data: {
           type: InlineContent,
           x: this.styles.textPaddingLeft,
-          contentSpacing: 8,
-          contentWrap: false,
           justify: 'flex-start',
           ...this.styles.data
         }
@@ -74,8 +72,8 @@ export default class MetadataSmall extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
-    this._logoRenderHeight = this.logoHeight || this.styles.logo.h;
-    this._logoRenderWidth = this.logoWidth || this._logoRenderHeight;
+    this._logoHeight = this.styles.logo.h;
+    this._logoWidth = this.styles.logo.w || this._logoHeight;
     this._logoYOffset = this.styles.logo.offset;
     this._progressBarPadding = this.styles.progressBarPadding;
     this._progressBarHeight =
@@ -141,20 +139,19 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   _updateLogo() {
-    const ratio = this.logoWidth / this.logoHeight;
     const progressBarOffset = this._progress ? this._progressBarHeight : 0;
     const height = this.finalH || this.h;
     this._Logo.patch({
       type: Icon,
-      h: this._logoRenderHeight,
-      w: this._logoRenderHeight * ratio,
+      w: this.logoWidth,
+      h: this.logoHeight,
       icon: this.logo,
       offset: this._logoYOffset
     });
 
     this._Logo.x = this.renderWidth - this._Logo.w;
     this._Logo.y =
-      height - (this._logoRenderHeight + this._logoYOffset + progressBarOffset);
+      height - (this.logoHeight + this._logoYOffset + progressBarOffset);
   }
 
   _updateProgress() {

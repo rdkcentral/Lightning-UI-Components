@@ -17,9 +17,7 @@ export const VerticalDynamic = args =>
           title: args.title,
           description: args.description,
           cta: args.cta,
-          logo: args.showLogo ? circle : null,
-          logoWidth: 1920,
-          logoHeight: 1080
+          logo: args.showLogo ? circle : null
         }
       };
     }

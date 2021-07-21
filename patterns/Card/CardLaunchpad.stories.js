@@ -24,9 +24,7 @@ export const Launchpad = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null,
-          logoWidth: 1920,
-          logoHeight: 1080
+          logo: args.showLogo ? circle : null
         }
       };
     }

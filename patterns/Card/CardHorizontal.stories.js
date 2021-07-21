@@ -25,9 +25,7 @@ export const Horizontal = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null,
-          logoWidth: 1920,
-          logoHeight: 1080
+          logo: args.showLogo ? circle : null
         }
       };
     }
@@ -73,9 +71,7 @@ export const HorizontalLarge = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null,
-          logoWidth: 1920,
-          logoHeight: 1080
+          logo: args.showLogo ? circle : null
         }
       };
     }

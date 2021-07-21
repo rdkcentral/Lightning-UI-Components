@@ -40,8 +40,6 @@ export const Basic = args =>
             }
           ],
           logo: args.showIcon ? circle : null,
-          logoWidth: 1920,
-          logoHeight: 1080,
           cta: args.showCTA ? args.cta : null
         }
       };

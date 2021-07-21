@@ -24,9 +24,7 @@ const cardData = {
         'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
       title: 'Rotten Tomatoes rating'
     }
-  ],
-  logoWidth: 1920,
-  logoHeight: 1080
+  ]
 };
 
 const getItems = type => {
@@ -179,7 +177,8 @@ export const Basic = args =>
                 title: `${
                   args.layout ? capitalizeFirstLetter(args.layout) : 'Standard'
                 } Layout`,
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 onEnter: () => {
@@ -224,8 +223,9 @@ export const Basic = args =>
               // Menu Card Props
               itemSpacing: 40,
               menuCard: {
-                title: `Hero Layout`,
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                title: 'Hero Layout',
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 actions: {
@@ -260,7 +260,8 @@ export const Basic = args =>
               // Row settings
               menuCard: {
                 title: 'Poster Layout',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 actions: {
@@ -293,7 +294,8 @@ export const Basic = args =>
               itemSpacing: 40,
               menuCard: {
                 title: 'Card Layout',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 actions: {
@@ -328,7 +330,8 @@ export const Basic = args =>
               itemSpacing: 40,
               menuCard: {
                 title: 'Square Layout',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 actions: {
@@ -363,7 +366,8 @@ export const Basic = args =>
               itemSpacing: 40,
               menuCard: {
                 title: 'SquareSmall Layout',
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.`,
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
                 cta: 'View All',
                 gradientColor: args.gradientColor,
                 actions: {
