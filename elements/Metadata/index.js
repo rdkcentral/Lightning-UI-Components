@@ -12,6 +12,7 @@ export const styles = theme => ({
     maxLinesSuffix: '...',
     lineHeight: 34
   },
+  descriptionY: -theme.spacing(2), // account for font whitespace
   description: {
     ...theme.typography.body2,
     textColor: theme.palette.text.light.tertiary,
@@ -47,6 +48,7 @@ export default class Metadata extends withStyles(Base, styles) {
       },
       Description: {
         type: TextBox,
+        y: this.styles.descriptionY,
         style: this.styles.description
       },
       Info: {
@@ -136,8 +138,6 @@ export default class Metadata extends withStyles(Base, styles) {
       this._Data.patch({
         content: this.data,
         w: 200,
-        contentSpacing: 8,
-        contentWrap: false,
         justify: 'flex-start'
       });
     }
