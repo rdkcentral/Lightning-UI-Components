@@ -113,12 +113,10 @@ export const InsetMetadata = args =>
           progress: args.progress,
           metadataLocation: 'inset',
           Metadata: {
-            w: 410,
             type: MetadataSmall,
             title: 'metadata title',
-            data:
-              'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
-            logo: lightningbolt,
+            data: 'a very long description that should fade out',
+            logo: args.showLogo ? lightningbolt : undefined,
             logoWidth: 1920,
             logoHeight: 1080
           }

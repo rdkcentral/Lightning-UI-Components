@@ -6,6 +6,8 @@ import { FadeShader } from '../../textures';
 
 export const styles = theme => ({
   h: 200,
+  textPaddingLeft: theme.spacing(1),
+  titleY: theme.spacing(2), // account for font whitespace
   title: {
     ...theme.typography.headline3,
     textColor: theme.palette.text.light.primary,
@@ -30,11 +32,14 @@ export default class MetadataSmall extends withStyles(Base, styles) {
       flex: { direction: 'column', justifyContent: 'flex-end' },
       Title: {
         type: TextBox,
+        y: this.styles.titleY,
+        x: this.styles.textPaddingLeft,
         ...this.styles.title
       },
       DataClipContainer: {
         Data: {
           type: InlineContent,
+          x: this.styles.textPaddingLeft,
           contentSpacing: 8,
           contentWrap: false,
           justify: 'flex-start',
