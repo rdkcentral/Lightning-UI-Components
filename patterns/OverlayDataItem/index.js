@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import DataItem from '../DataItem';
 import withStyles from '../../mixins/withStyles';
 import { getValidColor } from '../../Styles';

@@ -1,5 +1,5 @@
+import lng from '@lightningjs/core';
 import ListItem from '.';
-
 export default class ListItemImage extends ListItem {
   static _template() {
     const template = super._template();
@@ -77,7 +77,6 @@ export default class ListItemImage extends ListItem {
         h: imageSize,
         w: imageSize,
         resizeMode: {
-          type: lng.textures.ImageTexture,
           h: imageSize,
           w: imageSize,
           type: 'cover'
