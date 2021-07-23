@@ -1,16 +1,8 @@
+import Base from '../Base';
 import lng from '@lightningjs/core';
+import styles from './Radio.styles.js';
 import withStyles from '../../mixins/withStyles';
-
-export const styles = theme => ({
-  w: 32,
-  h: 32,
-  radius: 16,
-  background: { color: theme.palette.background.default },
-  stroke: { color: theme.palette.grey[5], width: 4 },
-  knob: { color: theme.palette.grey[5], h: 16, w: 16 }
-});
-
-class Radio extends lng.Component {
+class Radio extends Base {
   static _template() {
     return {
       w: this.styles.w,
@@ -44,14 +36,8 @@ class Radio extends lng.Component {
     };
   }
 
-  _init() {
-    this._update();
-  }
-
-  toggle() {
-    this.checked = !this.checked;
-    this._update();
-    return this;
+  static get tags() {
+    return ['Knob'];
   }
 
   _handleEnter() {
@@ -63,8 +49,10 @@ class Radio extends lng.Component {
     this._Knob.smooth = { alpha: checked ? 1 : 0 };
   }
 
-  get _Knob() {
-    return this.tag('Knob');
+  toggle() {
+    this.checked = !this.checked;
+    this._update();
+    return this;
   }
 }
 
