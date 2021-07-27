@@ -1,28 +1,9 @@
 import lng from '@lightningjs/core';
+import Base from '../../elements/Base';
 import withStyles from '../../mixins/withStyles';
+import styles from './ScrollWrapper.styles';
 
-const styles = theme => ({
-  text: {
-    ...theme.typography.body1,
-    textColor: theme.palette.text.light.primary
-  },
-  scrollBar: {
-    fillColor: theme.palette.grey[80],
-    strokeColor: theme.palette.grey[10],
-    stroke: 5,
-    w: 32,
-    h: 32,
-    radius: 16
-  },
-  scrollBarContainer: {
-    color: theme.palette.grey[50],
-    progressColor: theme.palette.grey[10],
-    w: 8,
-    radius: 4
-  }
-});
-
-export default class ScrollWrapper extends withStyles(lng.Component, styles) {
+export default class ScrollWrapper extends withStyles(Base, styles) {
   static _template() {
     return {
       clipping: true,
@@ -66,6 +47,28 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     };
   }
 
+  static get properties() {
+    return [
+      'autoScroll',
+      'autoScrollDelay',
+      'autoScrollSpeed',
+      'content',
+      'scrollBarY',
+      'scrollContainerY',
+      'scrollDuration',
+      'scrollStep'
+    ];
+  }
+
+  static get tags() {
+    return [
+      'ScrollBar',
+      'ScrollBarContainer',
+      'ScrollBarProgressOverlay',
+      'ScrollContainer'
+    ];
+  }
+
   _focus() {
     this._ScrollBarContainer.smooth = { alpha: 1 };
     this._ScrollBarProgressOverlay.smooth = { alpha: 1 };
@@ -79,6 +82,7 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
   }
 
   _construct() {
+    super._construct();
     this._scrollStep = 10;
   }
 
@@ -310,15 +314,12 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     return (height - this.styles.scrollBar.h) / numSteps;
   }
 
-  get autoScroll() {
-    return this._autoScroll;
-  }
-
-  set autoScroll(val) {
+  _setAutoScroll(val) {
     if (this._autoScroll !== val) {
       this._autoScroll = val;
     }
     this._setupAutoScroll();
+    return val;
   }
 
   _setupAutoScroll() {
@@ -333,13 +334,9 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     }
   }
 
-  get showScrollBar() {
-    return this._showScrollBar;
-  }
-
-  set showScrollBar(val) {
-    this._showScrollBar = val;
+  _setShowScrollBar(val) {
     this._ScrollBarContainer.visible = val;
+    return val;
   }
 
   _performAutoScroll() {
@@ -352,29 +349,15 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
     }
   }
 
-  get content() {
-    return this._content;
-  }
-
-  set content(content) {
+  _setContent(content) {
     if (content !== this._content) {
-      this._content = content;
       if (this.enabled) {
         this.resetScroll();
         this._setupAutoScroll();
         this._update();
       }
     }
-  }
-
-  get scrollStep() {
-    return this._scrollStep;
-  }
-
-  set scrollStep(scrollStep) {
-    if (scrollStep !== this._scrollStep) {
-      this._scrollStep = scrollStep;
-    }
+    return content;
   }
 
   get _scrollContainerY() {
@@ -383,21 +366,5 @@ export default class ScrollWrapper extends withStyles(lng.Component, styles) {
 
   get _scrollBarY() {
     return this._ScrollBar.transition('y').targetValue;
-  }
-
-  get _ScrollContainer() {
-    return this.tag('ScrollContainer');
-  }
-
-  get _ScrollBar() {
-    return this.tag('ScrollBar');
-  }
-
-  get _ScrollBarContainer() {
-    return this.tag('ScrollBarContainer');
-  }
-
-  get _ScrollBarProgressOverlay() {
-    return this.tag('ScrollBarProgressOverlay');
   }
 }
