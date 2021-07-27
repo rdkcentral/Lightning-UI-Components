@@ -40,9 +40,9 @@ Object {
           ],
           "texture": Object {
             "fontFace": "XfinityBrownBold",
-            "fontSize": 28,
+            "fontSize": 36,
             "letterSpacing": -0.2,
-            "lineHeight": 32,
+            "lineHeight": 48,
             "maxLinesSuffix": "...",
             "text": "a",
             "textOverflow": "ellipsis",
