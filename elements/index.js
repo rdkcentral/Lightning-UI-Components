@@ -27,6 +27,7 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as Radio } from './Radio';
 export { default as Slider } from './Slider';
 export { default as TabBar, Tab } from './Tabs';
+export { default as Tag } from './Tag';
 export { default as TextBox } from './TextBox';
 export { default as Tile } from './Tile';
 export { default as TileCircle } from './TileCircle';
