@@ -136,8 +136,8 @@ describe('ScrollWrapper', () => {
   });
 
   it('gets and sets scrollStep', () => {
-    expect(scrollWrapper.scrollStep).toBe(10);
-    scrollWrapper.scrollStep = 5;
+    expect(scrollWrapper._scrollStep).toBe(10);
+    scrollWrapper._scrollStep = 5;
     expect(scrollWrapper._scrollStep).toBe(5);
   });
 
