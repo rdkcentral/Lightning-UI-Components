@@ -21,7 +21,7 @@ export default class FocusManager extends lng.Component {
 
   set direction(direction) {
     this._direction = direction;
-    let state = {
+    const state = {
       none: 'None',
       column: 'Column',
       row: 'Row'
@@ -208,7 +208,7 @@ export default class FocusManager extends lng.Component {
   }
 
   _getFocused() {
-    let { selected } = this;
+    const { selected } = this;
     // Make sure we're focused on a component
     if (selected) {
       if (selected.focusRef) {
