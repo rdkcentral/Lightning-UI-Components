@@ -1,0 +1,48 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import Tag from '.';
+
+# Tag
+
+General purpose component to help label content.
+
+## Usage
+
+Tags simply require a background color, a title, and a title color. The Tag will automatically adjust based on the rendered width of its text.
+
+```js
+import { Tag } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Tag: {
+        type: Tag,
+        backgroundColor: '#f6a50a',
+        title: 'Tag',
+        titleColor: '#ffffff'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-tag--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+backgroundColor|color|true|#232328|color of the tag's background
+title|string|true|-|text to display in tag
+titleColor|color|false|#ffffff|color of text
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Tag.styles} />
