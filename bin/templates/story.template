@@ -4,7 +4,7 @@ import MyComponent from '.';
 import mdx from './MyComponent.mdx';
 
 export default {
-  title: 'MyComponent',
+  title: 'Directory/MyComponent',
   parameters: {
     docs: {
       page: mdx

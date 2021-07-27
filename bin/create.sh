@@ -33,5 +33,5 @@ else
   echo "export { default as $2 } from './$2'; // TODO: alphabetize" >> ./$1/index.js
 fi
 
-echo "${STORY_TEMPLATE//MyComponent/$2}" > ./$1/$2/$2.stories.js
+echo "${STORY_TEMPLATE//MyComponent/$2}" | sed -e "s,Directory,$1,g" > ./$1/$2/$2.stories.js
 echo "${MDX_TEMPLATE//MyComponent/$2}" > ./$1/$2/$2.mdx
