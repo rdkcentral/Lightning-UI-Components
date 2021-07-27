@@ -6,7 +6,7 @@ function elmName(elm) {
   return elm.ref || elm.constructor.name;
 }
 
-export default (base, speak = Speech) =>
+export default (base, speak = Speech, options = {}) =>
   class Announcer extends base {
     _construct() {
       this._announceEndedTimeout;
@@ -31,10 +31,12 @@ export default (base, speak = Speech) =>
         ? toAnnounce.concat().join(' ')
         : toAnnounce;
       const toAnnounceWords = toAnnounceStr.split(' ');
+      const timeoutDelay =
+        options.voiceOutDelay || toAnnounceWords.length * 500;
       clearTimeout(this._announceEndedTimeout);
       this._announceEndedTimeout = setTimeout(() => {
         this.stage.emit('announceTimeoutEnded');
-      }, toAnnounceWords.length * 500);
+      }, timeoutDelay);
 
       return speech;
     }
