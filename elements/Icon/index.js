@@ -14,6 +14,10 @@ export default class Icon extends lng.Component {
   }
 
   set icon(icon) {
+    if (!icon) {
+      this.texture = 'undefined';
+      return;
+    }
     this._icon = icon;
     this._update();
   }

@@ -19,17 +19,23 @@ export const Basic = args =>
       return {
         Notification: {
           type: Notification,
-          icon: icon,
-          title: 'Notification',
+          title:
+            'Notification: Lorem ipsum dolor sit amet, consectetur adipiscing elit',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-          actionArea: args.actionArea
+          actionArea: {
+            text:
+              'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+            icon
+          }
         }
       };
     }
 
     _init() {
-      this.tag('Notification').enter();
+      setTimeout(() => {
+        this.tag('Notification').enter();
+      }, 1e3);
     }
 
     _getFocused() {
@@ -38,7 +44,11 @@ export const Basic = args =>
   };
 Basic.args = {
   state: 'enter()',
-  actionArea: { text: 'Action Area', icon }
+  actionArea: {
+    text:
+      'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+    icon
+  }
 };
 Basic.argTypes = {
   state: {
@@ -57,7 +67,11 @@ Basic.parameters = {
     },
     actionArea: (action, component) => {
       component.tag('Notification').actionArea = action
-        ? { text: 'Action Area', icon }
+        ? {
+            text:
+              'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+            icon
+          }
         : false;
     }
   }

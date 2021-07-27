@@ -139,7 +139,7 @@ class TextBox extends lng.Component {
 
   _notifyAncestors() {
     this.fireAncestors('$itemChanged');
-    this.signal('buttonWidthChanged', {
+    this.signal('textBoxChanged', {
       w: this.w,
       h: this.h
     });

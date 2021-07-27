@@ -1,159 +1,97 @@
 import lng from '@lightningjs/core';
-import MarqueeText from '../../elements/MarqueeText';
-import InlineContent from '../../layout/InlineContent';
+import { FadeShader } from '../../textures';
+import Base from '../../elements/Base';
+import defaultIcon from '../../assets/images/notification_64.png';
 import Icon from '../../elements/Icon';
+import InlineContent from '../../layout/InlineContent';
+import styles from './Notification.style';
+import TextBox from '../../elements/TextBox';
 import withStyles from '../../mixins/withStyles';
-import { withTransitions } from '../../mixins';
 
-export const styles = theme => ({
-  minHeight: 120,
-  w: 560,
-  background: {
-    color: theme.palette.background.fill
-  },
-  backgrounds: theme.palette.background,
-  radius: theme.border.radius.small,
-  margin: {
-    x: theme.spacing(3),
-    y: theme.spacing(3)
-  },
-  icon: {
-    size: 64,
-    spacing: theme.spacing(2)
-  },
-  title: {
-    ...theme.typography.headline3,
-    lineHeight: theme.typography.headline3.lineHeight + 6,
-    color: theme.palette.text.light.primary
-  },
-  description: {
-    ...theme.typography.body3,
-    lineHeight: theme.typography.body3.lineHeight + 4,
-    textColor: theme.palette.text.light.secondary
-  },
-  actionArea: {
-    margin: {
-      x: theme.spacing(3),
-      y: theme.spacing(2)
-    },
-    background: {
-      color: theme.palette.grey[60],
-      h: 64
-    },
-    text: {
-      ...theme.typography.body3,
-      lineHeight: theme.typography.body3.lineHeight + 4,
-      textColor: theme.palette.text.light.tertiary
-    },
-    icon: {
-      size: 32
-    }
-  },
-  enter: {
-    icon: {
-      alpha: 1,
-      scale: 1
-    },
-    container: {
-      alpha: 1,
-      scale: 1,
-      x: 0,
-      w: 560
-    },
-    text: {
-      alpha: 1,
-      x: 0
-    }
-  },
-  dismiss: {
-    icon: {
-      alpha: 0.001,
-      scale: 0.2
-    },
-    container: {
-      alpha: 0.001,
-      scale: 0.4,
-      x: 440,
-      w: 120
-    },
-    text: {
-      alpha: 0.001,
-      x: 64
-    }
-  }
-});
-
-class Notification extends lng.Component {
+export default class Notification extends withStyles(Base, styles) {
   static _template() {
     return {
       Container: {
-        pivot: 0.5,
-        h: this.styles.minHeight,
-        w: this.styles.w,
-        rect: true,
+        alpha: this.styles.dismiss.icon.alpha,
         clipping: true,
         color: this.styles.background.color,
+        h: this.styles.icon.size + this.styles.margin.y * 2,
+        rect: true,
+        scale: this.styles.dismiss.container.scale,
         shader: {
           type: lng.shaders.RoundedRectangle,
           radius: this.styles.radius
         },
-        pivotX: 1,
+        w: this.styles.icon.size + this.styles.margin.x * 2,
+        x: this.styles.w - (this.styles.icon.size + this.styles.margin.x * 2),
         Content: {
+          flex: { direction: 'row' },
           x: this.styles.margin.x,
           y: this.styles.margin.y,
-          flex: { direction: 'row' },
           Icon: {
-            type: Icon,
-            w: this.styles.icon.size,
-            h: this.styles.icon.size,
+            alpha: this.styles.dismiss.icon.alpha,
             flexItem: { marginRight: this.styles.icon.spacing },
-            pivot: 0.5
+            h: this.styles.icon.size,
+            type: Icon,
+            w: this.styles.icon.size
           },
           Text: {
-            w: 432,
+            alpha: this.styles.dismiss.text.alpha,
             flex: { direction: 'column' },
             Title: {
-              type: MarqueeText,
-              w: 432,
-              h: this.styles.title.lineHeight,
-              autoStart: true,
-              delay: 3
+              signals: {
+                textBoxChanged: '_titleChanged'
+              },
+              style: 'headline3',
+              type: TextBox,
+              wordWrapWidth:
+                this.styles.w -
+                (this.styles.icon.size +
+                  this.styles.margin.x * 2 +
+                  this.styles.margin.x)
             },
             Description: {
-              type: InlineContent,
-              w: 432,
               contentWrap: true,
+              justify: 'flex-start',
               textProperties: this.styles.description,
-              justify: 'flex-start'
+              type: InlineContent,
+              w:
+                this.styles.w -
+                (this.styles.icon.size +
+                  this.styles.margin.x * 2 +
+                  this.styles.margin.x)
             }
           }
         },
         ActionArea: {
           alpha: 0,
-          rect: true,
           color: this.styles.actionArea.background.color,
           h: this.styles.actionArea.background.h,
-          w: this.styles.w + 8,
-          y: this.styles.minHeight,
+          w: this.styles.w,
+          rect: true,
+          shader: {
+            type: lng.shaders.RoundedRectangle,
+            radius: [0, 0, this.styles.radius, this.styles.radius]
+          },
           Content: {
-            y: this.styles.actionArea.margin.y,
+            w: this.styles.w - this.styles.margin.x * 2,
             x: this.styles.actionArea.margin.x,
-            w: this.styles.w,
+            y: this.styles.actionArea.margin.y,
             Text: {
-              y: -4,
-              type: InlineContent,
-              w: 464,
+              justify: 'flex-start',
               textProperties: this.styles.actionArea.text,
-              justify: 'flex-start'
+              type: InlineContent,
+              y: -4,
+              w: this.styles.w - this.styles.margin.x * 2
             },
             Icon: {
+              h: this.styles.actionArea.icon.size,
               type: Icon,
+              w: this.styles.actionArea.icon.size,
               x:
                 this.styles.w -
                 this.styles.actionArea.icon.size -
-                this.styles.actionArea.margin.x * 2,
-              w: this.styles.actionArea.icon.size,
-              h: this.styles.actionArea.icon.size
+                this.styles.actionArea.margin.x * 2
             }
           }
         }
@@ -161,242 +99,363 @@ class Notification extends lng.Component {
     };
   }
 
+  static get properties() {
+    return ['icon', 'title', 'description', 'actionArea', 'entered'];
+  }
+
+  static get tags() {
+    return [
+      'Container',
+      { name: 'Content', path: 'Container.Content' },
+      { name: 'Text', path: 'Container.Content.Text' },
+      { name: 'ActionArea', path: 'Container.ActionArea' },
+      { name: 'ActionAreaText', path: 'Container.ActionArea.Content.Text' },
+      { name: 'ActionAreaIcon', path: 'Container.ActionArea.Content.Icon' },
+      { name: 'Icon', path: 'Container.Content.Icon' },
+      { name: 'Title', path: 'Container.Content.Title' },
+      { name: 'Description', path: 'Container.Content.Description' }
+    ];
+  }
+
+  get _animations() {
+    const animations = [this._step1, this._step2, this._step3];
+    if (!this._notificationActive) animations.reverse();
+    return animations;
+  }
+
+  get _totalHeight() {
+    const descLineLayouter =
+      this._Description.flex && this._Description.flex._layout._lineLayouter;
+    if (
+      (this._Title.h,
+      descLineLayouter &&
+        descLineLayouter._lines &&
+        descLineLayouter._lines.length)
+    ) {
+      return (
+        this._Title.h +
+        this.styles.margin.y * 2 +
+        this._Description.textProperties.lineHeight *
+          descLineLayouter._lines.length
+      );
+    } else {
+      return (
+        Math.max(this.styles.icon.size, this._Title.h) +
+        this.styles.margin.y * 2
+      );
+    }
+  }
+
   _construct() {
-    this._whenEnabled = new Promise(
-      resolve => (this._enable = resolve),
-      console.error
-    );
-    this._containerH = this.styles.minHeight;
-    this.entered = false;
-    this._icon = {};
-    this._actionArea = false;
-    this._contentLoaded = false;
-    this._containerHIsFinal = new Promise(resolve => {
-      var intervalId = setInterval(() => {
-        if (this._contentLoaded) {
-          clearInterval(intervalId);
-          resolve();
-        }
-      }, 5);
+    super._construct();
+
+    this._animating = false;
+    this._notificationActive = false;
+    this._icon = defaultIcon;
+
+    const titleLoaded = new Promise(resolve => {
+      this._titleLoaded = resolve;
     });
+
+    const descriptionLoaded = new Promise(resolve => {
+      this._descriptionLoaded = resolve;
+    });
+
+    this._textLoaded = Promise.all([titleLoaded, descriptionLoaded]);
   }
 
   _init() {
-    this._update();
-  }
-
-  set icon(src) {
-    if (this._icon.src !== src) {
-      this._icon = { ...this.styles.icon, src };
-      this._update();
-    }
-  }
-
-  set title(title) {
-    if (this._title !== title) {
-      this._title = title;
-      this._update();
-    }
-  }
-
-  set description(description) {
-    if (this._description !== description) {
-      this._description = description;
-      this._update();
-    }
-  }
-
-  set actionArea(actionArea) {
-    if (
-      !this._actionArea ||
-      (this._actionArea &&
-        (this._actionArea.text !== actionArea.text ||
-          this._actionArea.icon !== actionArea.icon))
-    ) {
-      this._actionArea = actionArea;
-      this._update();
-    }
-  }
-
-  $loadedInlineContent() {
-    this._contentLoaded = true;
-    if (
-      this._containerH === this.styles.minHeight &&
-      this._Description.multiLineHeight > this.styles.description.lineHeight
-    ) {
-      this._containerH +=
-        this._Description.multiLineHeight - this.styles.description.lineHeight;
-      this._update();
+    // Open notification as soon as attached for the first time
+    if (this._entered) {
+      this.enter();
     }
   }
 
   _update() {
-    this._whenEnabled.then(() => {
-      this._updateProps();
-      this._updateIcon();
-      this._updateText();
-      this._udpateActionArea();
-    });
-  }
-
-  _updateProps() {
-    const state = this.entered ? 'enter' : 'dismiss';
-
-    this._Container.alpha = this.styles[state].container.alpha;
-    this._Container.scale = this.styles[state].container.scale;
-    this._Container.x = this.styles[state].container.x;
-    this._Container.w = this.styles[state].container.w;
+    this._updateIcon();
+    this._updateTitle();
+    this._updateDescription();
+    this._updateActionArea();
+    // If any value is changed after the notification is opened we should animated to accommodate the new content
+    if (this._notificationActive) this._animate(true);
   }
 
   _updateIcon() {
-    const state = this.entered ? 'enter' : 'dismiss';
-    this._Icon.alpha = this.styles[state].icon.alpha;
-    this._Icon.scale = this.styles[state].icon.scale;
-
-    if (this._icon) {
-      this._Icon.icon = this._icon.src;
-    }
-  }
-
-  _updateText() {
-    this._Title.title = {
-      ...this.styles.title,
-      textColor: this.styles.title.color,
-      maxLines: 1,
-      text: this._title
-    };
-    this._Description.patch({
-      content: this._description
+    this._Icon.patch({
+      src: this._icon,
+      h: this.styles.icon.size,
+      w: this.styles.icon.size
     });
-
-    const descLineLayouter = this._Description.flex._layout._lineLayouter;
-    if (
-      descLineLayouter &&
-      descLineLayouter._lines &&
-      descLineLayouter._lines.length
-    ) {
-      this._containerH =
-        this.styles.margin.y * 2 + // top bottom margins
-        this.styles.title.lineHeight + // title height
-        this._Description.textProperties.lineHeight *
-          descLineLayouter._lines.length; // description height
-    }
-
-    const state = this.entered ? 'enter' : 'dismiss';
-    this._Text.alpha = this.styles[state].text.alpha;
-    this._Text.x = this.styles[state].text.x;
   }
 
-  _udpateActionArea() {
-    if (this._actionArea && Object.keys(this._actionArea).length) {
-      this._ActionArea.alpha = 1;
-      this._ActionArea.y = this._containerH;
-      this._ActionArea.w = this.styles.w;
-      this._ActionArea.tag('Content.Text').content =
-        this._actionArea.content || this._actionArea.text;
-      this._ActionArea.tag('Content.Icon').icon = this._actionArea.icon;
+  _updateTitle() {
+    if (this._title) {
+      this._Title.content = this._title;
     } else {
-      this._ActionArea.alpha = 0;
+      this._Title.content = undefined;
+      this._titleLoaded(true);
+    }
+    // Position the title in the center if description is not defined
+    if (this._title && !this._description) {
+      this._Content.patch({
+        flex: { direction: 'row', alignItems: 'center' }
+      });
+    } else {
+      this._Content.patch({
+        flex: { direction: 'row' }
+      });
     }
   }
 
-  enter() {
-    this._containerHIsFinal.then(() => {
-      this._udpateActionArea();
-      this.entered = true;
+  _updateDescription() {
+    if (this._description) {
+      this._Description.content = this._description;
+    } else {
+      this._Description.content = undefined;
+      this._descriptionLoaded(true);
+    }
+  }
 
-      this._Container.h = this._containerH;
-      this._Icon.smooth = {
-        scale: [this.styles.enter.icon.scale, { duration: 0.18, delay: 0.1 }],
-        alpha: [this.styles.enter.icon.alpha, { duration: 0.18, delay: 0.1 }]
-      };
-      let pop = this._Container.animation({
-        duration: 0.34,
-        actions: [
-          { p: 'alpha', v: { 0: 0, 1: this.styles.enter.container.alpha } },
-          {
-            p: 'scale',
-            v: { 0: 0.4, 0.8: 1.1, 1: this.styles.enter.container.scale }
+  _updateActionArea() {
+    if (this._actionArea) {
+      if (this._actionArea.text) {
+        this._ActionAreaText.patch({
+          rtt: true,
+          content: this._actionArea.text,
+          shader: {
+            type: FadeShader,
+            positionLeft: 0,
+            positionRight: 100
           }
-        ]
+        });
+      } else {
+        this._ActionAreaText.patch({
+          content: undefined,
+          rtt: false,
+          shader: undefined
+        });
+      }
+      if (this._actionArea.icon) {
+        this._ActionAreaIcon.patch({
+          icon: this._actionArea.icon
+        });
+      } else {
+        this._ActionAreaIcon.patch({
+          icon: undefined
+        });
+      }
+    } else {
+      this._ActionAreaText.patch({
+        content: undefined,
+        rtt: false,
+        shader: undefined
       });
-      pop.start();
-      pop.on('finish', () => {
-        this._Container.smooth = {
-          w: [this.styles.enter.container.w, { duration: 0.24, delay: 0.2 }],
-          x: [this.styles.enter.container.x, { duration: 0.24, delay: 0.2 }]
-        };
-        this._Text.smooth = {
-          x: [this.styles.enter.text.x, { duration: 0.28, delay: 0.3 }],
-          alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.3 }]
-        };
-
-        if (this._actionArea && Object.keys(this._actionArea).length) {
-          this._Container.smooth = {
-            h: [
-              this._containerH + this.styles.actionArea.background.h,
-              { duration: 0.24, delay: 1 }
-            ]
-          };
-        }
-        this.fireAncestors('$notificationEntered');
+      this._ActionAreaIcon.patch({
+        icon: undefined
       });
-    });
+    }
   }
 
-  dismiss() {
-    this.entered = false;
-    let delay = 0;
-    if (this._actionArea && Object.keys(this._actionArea).length) {
-      this._Container.smooth = {
-        h: [this._containerH, { duration: 0.18 }]
-      };
-      delay = 0.18;
-    }
-    this._Text.smooth = {
-      x: [this.styles.dismiss.text.x, { duration: 0.24, delay: delay }],
-      alpha: [this.styles.dismiss.text.alpha, { duration: 0.24, delay: delay }]
-    };
-    this._Container.smooth = {
-      w: [
-        this.styles.dismiss.container.w,
-        { duration: 0.16, delay: delay + 0.1 }
-      ],
-      x: [
-        this.styles.dismiss.container.x,
-        { duration: 0.16, delay: delay + 0.1 }
-      ],
-      scale: [
-        this.styles.dismiss.container.scale,
-        { duration: 0.16, delay: delay + 0.22 }
-      ],
-      alpha: [
-        this.styles.dismiss.container.alpha,
-        { duration: 0.16, delay: delay + 0.28 }
-      ]
-    };
+  _titleChanged() {
+    // Resolve promise after title is completely loaded
+    this._titleLoaded(true);
+  }
 
+  $loadedInlineContent() {
+    // Resolve promise after description is completely loaded
+    this._descriptionLoaded(true);
+  }
+
+  async enter() {
+    if (this._animating) return;
+    this._notificationActive = true;
+    await this._animate();
+  }
+
+  async dismiss() {
+    if (this._animating) return;
+    this._notificationActive = false;
+    await this._animate();
+    this.signal('notificationDismissed');
     this.fireAncestors('$notificationDismissed');
   }
 
-  get _Container() {
-    return this.tag('Container');
+  async _animate(updateOnly = false) {
+    await this._textLoaded;
+    for (const step in this._animations) {
+      await this._animations[step].call(this, updateOnly);
+    }
   }
-  get _Icon() {
-    return this.tag('Container.Icon');
+
+  _step1(updateOnly = false) {
+    return new Promise(resolve => {
+      let animation;
+      if (this._notificationActive) {
+        animation = this._Container.animation({
+          duration: 0.34,
+          delay: 0,
+          actions: [
+            {
+              p: 'alpha',
+              v: {
+                0: this._Container.alpha,
+                1: this.styles.enter.container.alpha
+              }
+            },
+            {
+              p: 'scale',
+              v: {
+                0: this._Container.scale,
+                0.8: this.styles.enter.container.scale + (updateOnly ? 0 : 0.1),
+                1: this.styles.enter.container.scale
+              }
+            }
+          ]
+        });
+        this._Icon.smooth = {
+          alpha: 1
+        };
+      } else {
+        animation = this._Container.animation({
+          duration: 0.34,
+          delay: 0,
+          actions: [
+            {
+              p: 'alpha',
+              v: {
+                0: this._Container.alpha,
+                1: this.styles.dismiss.container.alpha
+              }
+            },
+            {
+              p: 'scale',
+              v: {
+                0: this._Container.scale,
+                0.1:
+                  this.styles.dismiss.container.scale + (updateOnly ? 0 : 0.1),
+                1: this.styles.dismiss.container.scale
+              }
+            }
+          ]
+        });
+        this._Icon.smooth = {
+          alpha: this.styles.dismiss.icon.alpha
+        };
+      }
+      animation.start();
+      animation.on('finish', resolve);
+    });
   }
-  get _Text() {
-    return this.tag('Container.Text');
+
+  _step2() {
+    return new Promise(resolve => {
+      let animation;
+      if (this._notificationActive) {
+        this._Text.smooth = {
+          alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.4 }]
+        };
+        animation = this._Container.animation({
+          duration: 0.24,
+          delay: 0.2,
+          actions: [
+            {
+              p: 'w',
+              v: {
+                0: this._Container.w,
+                1: this.styles.w
+              }
+            },
+            {
+              p: 'h',
+              v: { 0: this._Container.h, 1: this._totalHeight }
+            },
+            {
+              p: 'x',
+              v: {
+                0: this._Container.x,
+                1: 0
+              }
+            }
+          ]
+        });
+      } else {
+        this._Text.smooth = {
+          alpha: [this.styles.dismiss.text.alpha, { duration: 0.28, delay: 0 }]
+        };
+        animation = this._Container.animation({
+          duration: 0.24,
+          delay: 0.2,
+          actions: [
+            {
+              p: 'w',
+              v: {
+                0: this._Container.w,
+                1: this.styles.icon.size + this.styles.margin.x * 2
+              }
+            },
+            {
+              p: 'h',
+              v: {
+                0: this._Container.h,
+                1: this.styles.icon.size + this.styles.margin.y * 2
+              }
+            },
+            {
+              p: 'x',
+              v: {
+                0: this._Container.x,
+                1:
+                  this.styles.w -
+                  (this.styles.icon.size + this.styles.margin.x * 2)
+              }
+            }
+          ]
+        });
+      }
+      animation.start();
+      animation.on('finish', resolve);
+    });
   }
-  get _Title() {
-    return this.tag('Container.Text.Title');
-  }
-  get _Description() {
-    return this.tag('Container.Text.Description');
-  }
-  get _ActionArea() {
-    return this.tag('Container.ActionArea');
+
+  _step3() {
+    return new Promise(resolve => {
+      let animation;
+      if (this._notificationActive && this._actionArea) {
+        this._ActionArea.patch({
+          y: this._totalHeight,
+          alpha: 1
+        });
+        animation = this._Container.animation({
+          duration: 0.24,
+          delay: 0.5,
+          actions: [
+            {
+              p: 'h',
+              v: {
+                0: this._Container.h,
+                1: this._totalHeight + this.styles.actionArea.background.h
+              }
+            }
+          ]
+        });
+      } else {
+        animation = this._Container.animation({
+          duration: 0.24,
+          delay: 0.5,
+          actions: [
+            {
+              p: 'h',
+              v: {
+                0: this._Container.h,
+                1: this._totalHeight
+              }
+            }
+          ]
+        });
+      }
+
+      animation.start();
+      animation.on('finish', resolve);
+    });
   }
 }
-
-export default withTransitions(withStyles(Notification, styles));

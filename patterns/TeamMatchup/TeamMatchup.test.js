@@ -1,7 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
 import TeamMatchup from '.';
-import PHI from '../../static/images/PHI.png';
-import NYG from '../../assets/images/NYG.png';
+
+const PHI = TestUtils.pathToDataURI('./assets/images/PHI.png');
+const NYG = TestUtils.pathToDataURI('./assets/images/NYG.png');
 
 const createTeamMatchup = TestUtils.makeCreateComponent(TeamMatchup);
 
