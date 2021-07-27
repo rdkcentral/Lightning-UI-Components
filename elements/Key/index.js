@@ -48,7 +48,7 @@ export const keyStyles = theme => ({
   backgrounds: theme.palette.background,
   radius: theme.border.radius.small,
   text: {
-    ...theme.typography.button1,
+    ...theme.typography.headline1,
     color: theme.palette.text.light.primary
   },
   shadow: theme.materials.glow,
