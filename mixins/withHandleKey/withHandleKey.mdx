@@ -12,7 +12,7 @@ Take a look at the preview above. Tile component is using the withHandleKey mixi
 
 ## Usage
 
-Out of the box, `withHandleKey` adds a generic _handleKey function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` event.
+Out of the box, `withHandleKey` adds a generic _handleKey & _handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & $on${Key}Release event.
 
 ```js
 class Example extends lng.Component {
