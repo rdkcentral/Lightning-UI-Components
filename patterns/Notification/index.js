@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { FadeShader } from '../../textures';
 import Base from '../../elements/Base';
-import defaultIcon from '../../assets/images/notification_64.png';
+import defaultIcon from '../../Styles/notification_64.png';
 import Icon from '../../elements/Icon';
 import InlineContent from '../../layout/InlineContent';
 import styles from './Notification.style';
