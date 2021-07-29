@@ -1,31 +1,9 @@
-import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
+import Base from '../Base';
 import Icon from '../Icon';
+import styles from './Badge.styles';
 
-export const styles = theme => ({
-  padding: theme.spacing(1),
-  background: {
-    h: theme.spacing(4),
-    rect: true,
-    shader: {
-      type: lng.shaders.RoundedRectangle,
-      radius: theme.border.radius.xsmall
-    },
-    color: theme.palette.badge.default
-  },
-  textPosition: {
-    x: theme.spacing(1),
-    y: 1
-  },
-  textProperties: {
-    ...theme.typography.caption,
-    textColor: theme.palette.text.light.primary,
-    textAlign: 'center'
-  },
-  iconAlign: 'left'
-});
-
-class Badge extends lng.Component {
+export default class Badge extends withStyles(Base, styles) {
   static _template() {
     return {
       BadgeText: {},
@@ -35,7 +13,25 @@ class Badge extends lng.Component {
     };
   }
 
+  static get properties() {
+    return [
+      'background',
+      'icon',
+      'iconHeight',
+      'iconWidth',
+      'padding',
+      'textPosition',
+      'textProperties',
+      'title'
+    ];
+  }
+
+  static get tags() {
+    return ['BadgeText', 'Icon'];
+  }
+
   _construct() {
+    super._construct();
     this._textPosition = this.styles.textPosition;
     this._textProperties = this.styles.textProperties;
     this._background = this.styles.background;
@@ -51,7 +47,7 @@ class Badge extends lng.Component {
   _update() {
     this.patch({
       ...this._background,
-      alpha: this._title || this._Icon ? 1 : 0
+      alpha: this.title || this._Icon ? 1 : 0
     });
     this._updateText();
     this._updateIcon();
@@ -63,10 +59,10 @@ class Badge extends lng.Component {
       this._calculatePadding();
     });
     this._BadgeText.patch({
-      ...this._textPosition,
+      ...this.textPosition,
       text: {
-        ...this._textProperties,
-        text: this._title || ''
+        ...this.textProperties,
+        text: this.title || ''
       }
     });
   }
@@ -77,7 +73,7 @@ class Badge extends lng.Component {
       this._calculatePadding();
     });
     this._Icon.patch({
-      icon: this._icon,
+      icon: this.icon,
       w: this.iconWidth,
       h: this.iconHeight
     });
@@ -108,99 +104,17 @@ class Badge extends lng.Component {
 
       // set icon and text position
       if (this.iconAlign === 'left') {
-        this._Icon.x = this._padding;
+        this._Icon.x = this.padding;
         this._BadgeText.x = this._Icon.x + this._Icon.w;
       } else if (this.iconAlign === 'right') {
-        this._BadgeText.x = this._padding;
+        this._BadgeText.x = this.padding;
         this._Icon.x = this._BadgeText.x + this._BadgeText.renderWidth;
       }
     }
 
     this.w =
-      this._BadgeText.renderWidth + this._padding * 2 + (this._Icon.w || 0);
+      this._BadgeText.renderWidth + this.padding * 2 + (this._Icon.w || 0);
 
     this.fireAncestors('$loadedBadge', this);
   }
-
-  set title(title) {
-    this._title = title;
-    this._update();
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set icon(icon) {
-    this._icon = icon;
-    this._update();
-  }
-
-  get icon() {
-    return this._icon;
-  }
-
-  set iconHeight(iconHeight) {
-    this._iconHeight = iconHeight;
-    this._update();
-  }
-
-  get iconHeight() {
-    return this._iconHeight;
-  }
-
-  set iconWidth(iconWidth) {
-    this._iconWidth = iconWidth;
-    this._update();
-  }
-
-  get iconWidth() {
-    return this._iconWidth;
-  }
-
-  set background(background) {
-    this._background = background;
-    this._update();
-  }
-
-  get background() {
-    return this._background;
-  }
-
-  set textPosition(textPosition) {
-    this._textPosition = textPosition;
-    this._update();
-  }
-
-  get textPosition() {
-    return this._textPosition;
-  }
-
-  set textProperties(textProperties) {
-    this._textProperties = textProperties;
-    this._update();
-  }
-
-  get textProperties() {
-    return this._textProperties;
-  }
-
-  set padding(padding) {
-    this._padding = padding;
-    this._update();
-  }
-
-  get padding() {
-    return this._padding;
-  }
-
-  get _BadgeText() {
-    return this.tag('BadgeText');
-  }
-
-  get _Icon() {
-    return this.tag('Icon');
-  }
 }
-
-export default withStyles(Badge, styles);

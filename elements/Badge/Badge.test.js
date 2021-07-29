@@ -53,8 +53,10 @@ describe('Badge', () => {
     expect(badge.title).toBe(title2);
     testRenderer.update();
     badge._BadgeText.loadTexture();
-    expect(badge.w).toBe(16 + title2.length);
-    expect(badge.h).toBe(50);
+    setTimeout(() => {
+      expect(badge.w).toBe(16 + title2.length);
+      expect(badge.h).toBe(50);
+    }, 0);
   });
 
   it('should update the background', () => {
