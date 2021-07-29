@@ -1,21 +1,32 @@
 import lng from '@lightningjs/core';
 import { Arrow, Circle } from '../../textures';
+import Base from '../Base';
+import { withStyles } from '../../mixins';
+import styles from './Slider.styles';
 
-const arrowWidth = 10;
-const arrowHeight = 16;
-const spacing = 10;
-const sliderHeight = 4;
-const containerHeight = 20;
-const sliderWidth = 328;
-const w = sliderWidth + (arrowWidth * 2 + spacing * 2);
-
-export default class Slider extends lng.Component {
+export default class Slider extends withStyles(Base, styles) {
   static getLeftBarTexture(w = 0) {
-    return lng.Tools.getRoundRect(w, sliderHeight, 2, 0, 0, true, 0xff141417);
+    return lng.Tools.getRoundRect(
+      w,
+      this.styles.sliderHeight,
+      2,
+      0,
+      0,
+      true,
+      0xff141417
+    );
   }
 
   static getRightBarTexture(w) {
-    return lng.Tools.getRoundRect(w, sliderHeight, 2, 0, 0, true, 0xffb1b1bd);
+    return lng.Tools.getRoundRect(
+      w,
+      this.styles.sliderHeight,
+      2,
+      0,
+      0,
+      true,
+      0xffb1b1bd
+    );
   }
 
   static getCircleTexture() {
@@ -33,8 +44,8 @@ export default class Slider extends lng.Component {
     return {
       type: Arrow,
       direction: 'left',
-      w: arrowWidth,
-      h: arrowHeight
+      w: this._arrowWidth,
+      h: this._arrowHeight
     };
   }
 
@@ -42,24 +53,24 @@ export default class Slider extends lng.Component {
     return {
       type: Arrow,
       direction: 'right',
-      w: arrowWidth,
-      h: arrowHeight
+      w: this._arrowWidth,
+      h: this._arrowHeight
     };
   }
 
   static _template() {
     return {
-      h: containerHeight,
+      h: this.styles.containerHeight,
       Container: {
-        h: containerHeight,
+        h: this.styles.containerHeight,
         LeftArrow: {
           texture: Slider.getLeftArrowTexture(),
           mountY: 0.5,
           y: h => h / 2
         },
         Bar: {
-          y: containerHeight / 2 - sliderHeight + 1,
-          x: arrowWidth * 2 - 2,
+          y: this.styles.containerHeight / 2 - this.styles.sliderHeight + 1,
+          x: this.styles.arrowWidth * 2 - 2,
           LeftBar: {
             texture: Slider.getLeftBarTexture(),
             zIndex: 1
@@ -81,14 +92,43 @@ export default class Slider extends lng.Component {
     };
   }
 
+  static get properties() {
+    return ['max', 'min', 'step', 'value', 'w'];
+  }
+
+  static get tags() {
+    return [
+      'Container',
+      'LeftBar',
+      'RightBar',
+      'Circle',
+      {
+        name: 'LeftArrow',
+        path: 'Container.LeftArrow'
+      },
+      {
+        name: 'RightArrow',
+        path: 'Container.RightArrow'
+      }
+    ];
+  }
+
   _construct() {
+    super._construct();
+    this._sliderWidth = this.styles.sliderWidth;
+    this._arrowWidth = this.styles.arrowWidth;
+    this._arrowHeight = this.styles.arrowHeight;
+    this._spacing = this.styles.spacing;
+    this._sliderHeight = this.styles.sliderHeight;
+    this._containerHeight = this.styles.containerHeight;
     // set defaults
     this._min = 0;
     this._max = 100;
     this._step = 1;
     this._value = 0;
-    this._w = w;
-    this._sliderWidth = sliderWidth;
+    this._w =
+      this._sliderWidth +
+      (this.styles.arrowWidth * 2 + this.styles.spacing * 2);
   }
 
   _init() {
@@ -102,7 +142,7 @@ export default class Slider extends lng.Component {
       texture: Slider.getRightBarTexture(this._sliderWidth)
     });
     this._RightArrow.patch({
-      x: this._sliderWidth + arrowWidth * 3
+      x: this._sliderWidth + this._arrowWidth * 3
     });
     this._update();
   }
@@ -148,85 +188,14 @@ export default class Slider extends lng.Component {
   }
 
   _getSliderWidth(w) {
-    return w - (arrowWidth * 2 + spacing * 2);
+    return w - (this._arrowWidth * 2 + this._spacing * 2);
   }
 
-  get min() {
-    return this._min;
-  }
-
-  set min(min) {
-    if (this._min !== min) {
-      this._min = min;
-      this._update();
-    }
-  }
-
-  get max() {
-    return this._max;
-  }
-
-  set max(max) {
-    if (this._max !== max) {
-      this._max = max;
-      this._update();
-    }
-  }
-
-  get step() {
-    return this._step;
-  }
-
-  set step(step) {
-    if (this._step !== step) {
-      this._step = step;
-      this._update();
-    }
-  }
-
-  get value() {
-    return this._value;
-  }
-
-  set value(value) {
-    if (this._value !== value) {
-      this._value = value;
-      this._update();
-    }
-  }
-
-  get w() {
-    return this._w;
-  }
-
-  set w(w) {
+  _setW(w) {
     if (w > 0 && this._w !== w) {
       this._w = w;
     }
     this._updateSliderWidth();
-  }
-
-  get _Container() {
-    return this.tag('Container');
-  }
-
-  get _LeftBar() {
-    return this.tag('LeftBar');
-  }
-
-  get _RightBar() {
-    return this.tag('RightBar');
-  }
-
-  get _Circle() {
-    return this.tag('Circle');
-  }
-
-  get _LeftArrow() {
-    return this.tag('Container').tag('LeftArrow');
-  }
-
-  get _RightArrow() {
-    return this.tag('Container').tag('RightArrow');
+    return w;
   }
 }
