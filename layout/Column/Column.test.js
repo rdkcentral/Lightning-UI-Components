@@ -63,9 +63,25 @@ describe('Column', () => {
     }, 3);
   });
 
-  it('should render', () => {
-    let tree = testRenderer.toJSON();
+  it('should render', async done => {
+    let resolvePromise;
+    const waitForEnable = new Promise(resolve => (resolvePromise = resolve));
+    const awaitComponent = {
+      Component: {
+        ...Component.Component,
+        type: class extends Column {
+          _enable() {
+            if (super.enable) super.enable();
+            resolvePromise();
+          }
+        }
+      }
+    };
+    testRenderer = TestRenderer.create(awaitComponent);
+    await waitForEnable;
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+    done();
   });
 
   it('should set focus on first item', () => {
