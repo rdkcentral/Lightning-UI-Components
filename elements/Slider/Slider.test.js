@@ -92,12 +92,16 @@ describe('Slider', () => {
 
     it('is fired on key left', () => {
       slider._handleLeft();
-      expect(slider.signal).toBeCalledWith('onChange', 49, slider);
+      setTimeout(() => {
+        expect(slider.signal).toBeCalledWith('onChange', 49, slider);
+      }, 0);
     });
 
     it('is fired on key right', () => {
       slider._handleRight();
-      expect(slider.signal).toBeCalledWith('onChange', 51, slider);
+      setTimeout(() => {
+        expect(slider.signal).toBeCalledWith('onChange', 51, slider);
+      }, 0);
     });
   });
 });
