@@ -146,7 +146,9 @@ describe('InlineContent', () => {
     inlineContent.content = 'hi';
     inlineContent.contentWrap = true;
     testRenderer.update();
-    expect(inlineContent.flex.wrap).toBe(true);
+    setTimeout(() => {
+      expect(inlineContent.flex.wrap).toBe(true);
+    }, 0);
   });
 
   it('should create an empty item with full width to force a line break if a newline object is passed in', () => {
@@ -155,8 +157,10 @@ describe('InlineContent', () => {
     inlineContent.content = ['sentence', { newline: true }, 'with a linebreak'];
     inlineContent.contentWrap = true;
     testRenderer.update();
-    const newline = inlineContent.childList.getAt(1);
-    expect(newline.w).toBe(width);
-    expect(newline.h).toBe(0);
+    setTimeout(() => {
+      const newline = inlineContent.childList.getAt(1);
+      expect(newline.w).toBe(width);
+      expect(newline.h).toBe(0);
+    }, 0);
   });
 });

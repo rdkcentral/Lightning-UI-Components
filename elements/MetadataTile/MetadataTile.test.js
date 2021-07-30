@@ -62,16 +62,20 @@ describe('MetadataTile', () => {
     const content = ['text', { icon: 'icon.png', title: 'icon' }];
     metadataTile.firstLine = content;
     testRenderer.update();
-    expect(metadataTile.firstLine).toBe(content);
-    expect(metadataTile._FirstLine.childList.length).toBe(2);
+    setTimeout(() => {
+      expect(metadataTile.firstLine).toBe(content);
+      expect(metadataTile._FirstLine.childList.length).toBe(2);
+    }, 0);
   });
 
   it('should set second line text', () => {
     const content = 'second line text';
     metadataTile.secondLine = content;
     testRenderer.update();
-    expect(metadataTile.secondLine).toBe(content);
-    expect(metadataTile._SecondLine.childList.length).toBe(3);
+    setTimeout(() => {
+      expect(metadataTile.secondLine).toBe(content);
+      expect(metadataTile._SecondLine.childList.length).toBe(3);
+    }, 0);
   });
 
   it('should set first line text properties', () => {
@@ -79,8 +83,12 @@ describe('MetadataTile', () => {
     metadataTile.firstLine = 'first line text';
     metadataTile.firstLineTextProperties = font;
     testRenderer.update();
-    expect(metadataTile.firstLineTextProperties).toBe(font);
-    expect(metadataTile._FirstLine.childList.getAt(0).text).toMatchObject(font);
+    setTimeout(() => {
+      expect(metadataTile.firstLineTextProperties).toBe(font);
+      expect(metadataTile._FirstLine.childList.getAt(0).text).toMatchObject(
+        font
+      );
+    }, 0);
   });
 
   it('should set second line text properties', () => {
@@ -88,10 +96,12 @@ describe('MetadataTile', () => {
     metadataTile.secondLine = 'second line text';
     metadataTile.secondLineTextProperties = font;
     testRenderer.update();
-    expect(metadataTile.secondLineTextProperties).toBe(font);
-    expect(metadataTile._SecondLine.childList.getAt(0).text).toMatchObject(
-      font
-    );
+    setTimeout(() => {
+      expect(metadataTile.secondLineTextProperties).toBe(font);
+      expect(metadataTile._SecondLine.childList.getAt(0).text).toMatchObject(
+        font
+      );
+    }, 0);
   });
 
   it('should build announce text from the multiple lines', () => {

@@ -1,26 +1,30 @@
-import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
 import Icon from '../../elements/Icon';
 import Badge from '../../elements/Badge';
 import { parseInlineContent, flatten } from '../../utils';
+import Base from '../../elements/Base';
+import styles from './InlineContent.styles';
 
-export const styles = theme => ({
-  iconW: 36,
-  iconH: 36,
-  contentSpacing: theme.spacing(1),
-  contentProperties: {
-    marginBottom: theme.typography.body1.lineHeight / -10
-  },
-  textProperties: {
-    ...theme.typography.body1,
-    textColor: theme.palette.text.light.secondary,
-    maxLines: 1
-  },
-  justify: 'center'
-});
+export default class InlineContent extends withStyles(Base, styles) {
+  static get properties() {
+    return [
+      'content',
+      'contentProperties',
+      'textProperties',
+      'justify',
+      'iconW',
+      'iconH',
+      'iconY',
+      'textY',
+      'badgeY',
+      'contentSpacing',
+      'badgeProperties',
+      'contentWrap'
+    ];
+  }
 
-class InlineContent extends lng.Component {
   _construct() {
+    super._construct();
     this._justify = this.styles.justify;
     this._iconW = this.styles.iconW;
     this._iconH = this.styles.iconH;
@@ -32,10 +36,6 @@ class InlineContent extends lng.Component {
     this._badgeProperties = this.styles.badgeProperties;
     this._contentProperties = this.styles.contentProperties;
     this.combinedLinesHeight = 0;
-  }
-
-  _init() {
-    this._update();
   }
 
   _update() {
@@ -60,7 +60,7 @@ class InlineContent extends lng.Component {
             marginRight:
               index === this._parsedContent.length - 1
                 ? 0
-                : this._contentSpacing || this._contentProperties.marginRight
+                : this.contentSpacing || this.contentProperties.marginRight
           }
         };
         if (typeof item === 'string') {
@@ -72,7 +72,7 @@ class InlineContent extends lng.Component {
           this.childList.a(this._createIcon(base, item));
         } else if (item.badge) {
           this.childList.a(this._createBadge(base, item.badge));
-        } else if (item.newline && this._contentWrap) {
+        } else if (item.newline && this.contentWrap) {
           this.childList.a({ h: 0, w: this.w });
         }
       });
@@ -216,7 +216,7 @@ class InlineContent extends lng.Component {
       .filter(Boolean);
   }
 
-  set content(content) {
+  _setContent(content) {
     if (content !== this._content) {
       this._content = content;
       let parsedContent = this._content;
@@ -224,137 +224,7 @@ class InlineContent extends lng.Component {
         parsedContent = parseInlineContent(content);
       }
       this._parsedContent = this._formatSpaces(parsedContent);
-      this._update();
     }
-  }
-
-  get content() {
-    return this._content;
-  }
-
-  set textProperties(textProperties) {
-    if (textProperties !== this._textProperties) {
-      this._textProperties = textProperties;
-      this._update();
-    }
-  }
-
-  get textProperties() {
-    return this._textProperties;
-  }
-
-  set contentProperties(contentProperties) {
-    if (
-      JSON.stringify(contentProperties) !==
-      JSON.stringify(this._contentProperties)
-    ) {
-      this._contentProperties = contentProperties;
-      this._update();
-    }
-  }
-
-  get contentProperties() {
-    return this._contentProperties;
-  }
-
-  set justify(justify) {
-    if (justify !== this._justify) {
-      this._justify = justify;
-      this._update();
-    }
-  }
-
-  get justify() {
-    return this._justify;
-  }
-
-  set iconW(iconW) {
-    if (iconW !== this._iconW) {
-      this._iconW = iconW;
-      this._update();
-    }
-  }
-
-  get iconW() {
-    return this._iconW;
-  }
-
-  set iconH(iconH) {
-    if (iconH !== this._iconH) {
-      this._iconH = iconH;
-      this._update();
-    }
-  }
-
-  get iconH() {
-    return this._iconH;
-  }
-
-  set iconY(iconY) {
-    if (iconY !== this._iconY) {
-      this._iconY = iconY;
-      this._update();
-    }
-  }
-
-  get iconY() {
-    return this._iconY;
-  }
-
-  set textY(textY) {
-    if (textY !== this._textY) {
-      this._textY = textY;
-      this._update();
-    }
-  }
-
-  get textY() {
-    return this._textY;
-  }
-
-  set badgeY(badgeY) {
-    if (badgeY !== this._badgeY) {
-      this._badgeY = badgeY;
-      this._update();
-    }
-  }
-
-  get badgeY() {
-    return this._badgeY;
-  }
-
-  set contentSpacing(contentSpacing) {
-    if (contentSpacing !== this._contentSpacing) {
-      this._contentSpacing = contentSpacing;
-      this._update();
-    }
-  }
-
-  get contentSpacing() {
-    return this._contentSpacing;
-  }
-
-  set badgeProperties(badgeProperties) {
-    if (badgeProperties !== this._badgeProperties) {
-      this._badgeProperties = badgeProperties;
-      this._update();
-    }
-  }
-
-  get badgeProperties() {
-    return this._badgeProperties;
-  }
-
-  set contentWrap(contentWrap) {
-    if (contentWrap !== this._contentWrap) {
-      this._contentWrap = contentWrap;
-      this._update();
-    }
-  }
-
-  get contentWrap() {
-    return this._contentWrap;
+    return content;
   }
 }
-
-export default withStyles(InlineContent, styles);

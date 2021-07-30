@@ -60,24 +60,30 @@ describe('MetadataCard', () => {
     const content = ['text', { icon: 'icon.png', title: 'icon' }];
     metadataCard.firstLine = content;
     testRenderer.update();
-    expect(metadataCard.firstLine).toBe(content);
-    expect(metadataCard._FirstLine.childList.length).toBe(2);
+    setTimeout(() => {
+      expect(metadataCard.firstLine).toBe(content);
+      expect(metadataCard._FirstLine.childList.length).toBe(2);
+    }, 0);
   });
 
   it('should set second line text', () => {
     const content = 'second line text';
     metadataCard.secondLine = content;
     testRenderer.update();
-    expect(metadataCard.secondLine).toBe(content);
-    expect(metadataCard._SecondLine.childList.length).toBe(3);
+    setTimeout(() => {
+      expect(metadataCard.secondLine).toBe(content);
+      expect(metadataCard._SecondLine.childList.length).toBe(3);
+    }, 0);
   });
 
   it('should set third line text', () => {
     const content = 'third line text';
     metadataCard.thirdLine = content;
     testRenderer.update();
-    expect(metadataCard.thirdLine).toBe(content);
-    expect(metadataCard._ThirdLine.childList.length).toBe(3);
+    setTimeout(() => {
+      expect(metadataCard.thirdLine).toBe(content);
+      expect(metadataCard._ThirdLine.childList.length).toBe(3);
+    }, 0);
   });
 
   it('should set first line text properties', () => {
@@ -85,8 +91,12 @@ describe('MetadataCard', () => {
     metadataCard.firstLine = 'first line text';
     metadataCard.firstLineTextProperties = font;
     testRenderer.update();
-    expect(metadataCard.firstLineTextProperties).toBe(font);
-    expect(metadataCard._FirstLine.childList.getAt(0).text).toMatchObject(font);
+    setTimeout(() => {
+      expect(metadataCard.firstLineTextProperties).toBe(font);
+      expect(metadataCard._FirstLine.childList.getAt(0).text).toMatchObject(
+        font
+      );
+    }, 0);
   });
 
   it('should set second line text properties', () => {
@@ -94,10 +104,12 @@ describe('MetadataCard', () => {
     metadataCard.secondLine = 'second line text';
     metadataCard.secondLineTextProperties = font;
     testRenderer.update();
-    expect(metadataCard.secondLineTextProperties).toBe(font);
-    expect(metadataCard._SecondLine.childList.getAt(0).text).toMatchObject(
-      font
-    );
+    setTimeout(() => {
+      expect(metadataCard.secondLineTextProperties).toBe(font);
+      expect(metadataCard._SecondLine.childList.getAt(0).text).toMatchObject(
+        font
+      );
+    }, 0);
   });
 
   it('should set third line text properties', () => {
@@ -105,8 +117,12 @@ describe('MetadataCard', () => {
     metadataCard.thirdLine = 'third line text';
     metadataCard.thirdLineTextProperties = font;
     testRenderer.update();
-    expect(metadataCard.thirdLineTextProperties).toBe(font);
-    expect(metadataCard._ThirdLine.childList.getAt(0).text).toMatchObject(font);
+    setTimeout(() => {
+      expect(metadataCard.thirdLineTextProperties).toBe(font);
+      expect(metadataCard._ThirdLine.childList.getAt(0).text).toMatchObject(
+        font
+      );
+    }, 0);
   });
 
   it('should render a logo', () => {

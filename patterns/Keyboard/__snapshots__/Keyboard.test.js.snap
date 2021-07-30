@@ -8343,9 +8343,6 @@ Object {
                   "tags": Array [
                     "Icon",
                   ],
-                  "texture": Object {
-                    "type": "ImageTexture",
-                  },
                   "type": "Icon",
                   "visible": true,
                   "w": 32,
