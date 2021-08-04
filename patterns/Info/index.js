@@ -128,12 +128,20 @@ export default class Info extends withStyles(lng.Component, styles) {
   }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
     const description = this._Description.text.text
       ? [this._Description.text.text]
       : [];
     const subtitle = this._Subtitle.text.text ? [this._Subtitle.text.text] : [];
     const title = this._Title.text.text ? [this._Title.text.text] : [];
     return [...title, ...subtitle, ...description].join(',');
+  }
+
+  set announce(announce) {
+    this._announce = announce;
   }
 
   get _DataItem() {

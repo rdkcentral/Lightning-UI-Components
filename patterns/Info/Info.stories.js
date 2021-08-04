@@ -17,7 +17,8 @@ export const Basic = args =>
           type: Info,
           title: args.title,
           subtitle: args.subtitle,
-          description: args.description
+          description: args.description,
+          announce: args.announce
         }
       };
     }
@@ -34,6 +35,7 @@ Basic.args = {
   subtitle: 'Season 5 - Episode 2',
   description:
     'This is a description of episode 2 from Season 5 of Series Title',
+  announce: '',
   focused: false
 };
 Basic.argTypes = {
@@ -55,6 +57,9 @@ Basic.parameters = {
     },
     description: (description, component) => {
       component.tag('Info').description = description;
+    },
+    announce: (announce, component) => {
+      component.tag('Info').announce = announce;
     }
   }
 };
