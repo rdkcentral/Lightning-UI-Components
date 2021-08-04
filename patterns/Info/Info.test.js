@@ -63,6 +63,16 @@ describe('Info', () => {
     );
   });
 
+  it('should override default announce', () => {
+    [component, testRenderer] = createInfo({
+      title,
+      subtitle,
+      description,
+      announce: 'Should override default announce'
+    });
+    expect(component.announce).toBe('Should override default announce');
+  });
+
   it('update height', () => {
     component._focus();
     component._update();
