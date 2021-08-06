@@ -14,6 +14,7 @@ export const artCardProps = [
 export const baseCardProps = [
   'orientation',
   'title',
+  'subtitle',
   'description',
   'backgroundColor',
   'focusRing',
@@ -49,12 +50,7 @@ export const styles = theme => ({
     shadow: { alpha: 1 }
   },
   radius: theme.border.radius.medium,
-  background: { color: theme.palette.grey[70] },
-  metadata: {
-    title: {
-      flexItem: { marginBottom: -theme.spacing(1) }
-    }
-  }
+  background: { color: theme.palette.grey[70] }
 });
 
 export default class Card extends withStyles(Base, styles) {
@@ -65,7 +61,8 @@ export default class Card extends withStyles(Base, styles) {
         type: CardArtwork
       },
       Metadata: {
-        type: withStyles(Metadata, this.styles.metadata)
+        type: Metadata,
+        ...this.styles.metadata
       }
     };
   }
@@ -229,6 +226,7 @@ export default class Card extends withStyles(Base, styles) {
         w: dimensions.w,
         h: dimensions.h,
         title: this.title,
+        subtitle: this.subtitle,
         description: this.description,
         data: this.data,
         cta: this.cta,

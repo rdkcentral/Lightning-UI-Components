@@ -1,0 +1,83 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import MetadataHero from '.';
+
+# MetadataHero
+
+A component to quickly and easily layout text and data for a Hero card
+
+## Usage
+
+Metadata can be used with any combination of title, subtitle, description, data (inline content), call-to-action (text), and/or a logo.
+
+```js
+import { MetadataHero } from '@lightning/ui';
+import lng from '@lightningjs/core';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
+import { getHexColor } from '../../Styles/Colors';
+
+class Basic extends lng.Component {
+    static _template() {
+      return {
+        MetadataHero: {
+          type: MetadataHero,
+          w: args.w,
+          h: args.h,
+          title: args.title,
+          subtitle: args.subtitle,
+          description: args.description,
+          data: [
+            '94%',
+            {
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
+              title: 'Green Lightning Bolt'
+            },
+            '86%',
+            {
+              icon:
+                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            }
+          ],
+          logo: args.showIcon ? circle : null,
+          cta: args.showCTA ? args.cta : null
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('MetadataHero');
+    }
+  };
+```
+
+<Canvas>
+  <Story id="component--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name        | type           | required             | default | description                                                                   |
+| ----------- | -------------- | -------------------- | ------- | ----------------------------------------------------------------------------- |
+| title       | string         | false                | -       | first line or headline of the content                                         |
+| subtitle    | string         | false                | -       | second line or subtext of the content                                         |
+| description | string         | false                | -       | Third line or synopsis of the content                                         |
+| data        | inline content | false                | -       | relevant content data under the description                                   |
+| cta         | string         | false                | -       | call to action text (will be converted to all caps)                           |
+| logo        | string         | false                | -       | logo to display at bottom of component                                        |
+
+### Methods
+
+#### methodName(args): returnValue
+
+Method description
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={MetadataHero.styles} />

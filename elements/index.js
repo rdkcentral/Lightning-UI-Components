@@ -20,6 +20,7 @@ export { default as Key } from './Key';
 export { default as MarqueeText } from './MarqueeText';
 export { default as Metadata } from './Metadata';
 export { default as MetadataCard } from './MetadataCard';
+export { default as MetadataHero } from './MetadataHero';
 export { default as MetadataSmall } from './MetadataSmall';
 export { default as MetadataTile } from './MetadataTile';
 export { default as Pivot } from './Pivot';
