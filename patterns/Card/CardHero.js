@@ -1,0 +1,25 @@
+import { withStyles } from '../../mixins';
+import Card, { baseCardProps, artCardProps, logoProps } from '.';
+import { MetadataHero } from '../../elements';
+
+const heroStyles = theme => ({
+  orientation: 'horizontal',
+  w: 1346,
+  h: 369,
+  imgRadius: theme.border.radius.medium
+});
+
+export default class CardHero extends withStyles(Card, heroStyles) {
+  static _template() {
+    return {
+      ...super._template(),
+      Metadata: {
+        type: MetadataHero
+      }
+    };
+  }
+
+  static get properties() {
+    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
+  }
+}

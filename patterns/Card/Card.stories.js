@@ -1,4 +1,5 @@
 import { Basic } from './CardBasic.stories';
+import { Hero } from './CardHero.stories';
 import { Horizontal, HorizontalLarge } from './CardHorizontal.stories';
 import { Vertical, VerticalLarge } from './CardVertical.stories';
 import { VerticalDynamic } from './CardVerticalDynamic.stories';
@@ -17,6 +18,7 @@ export default {
 
 export {
   Basic,
+  Hero,
   Horizontal,
   HorizontalLarge,
   Launchpad,
