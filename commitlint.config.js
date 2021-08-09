@@ -4,6 +4,6 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'scope-case': [0],
-    'footer-max-line-length': [ERROR, 'never']
+    'footer-max-line-length': [0]
   }
 };
