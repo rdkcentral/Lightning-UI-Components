@@ -32,7 +32,7 @@ export default (base, speak = Speech, options = {}) =>
         : toAnnounce;
       const toAnnounceWords = toAnnounceStr.split(' ');
       const timeoutDelay =
-        options.voiceOutDelay || toAnnounceWords.length * 500;
+        toAnnounceWords.length * (options.voiceOutDelay || 500);
       clearTimeout(this._announceEndedTimeout);
       this._announceEndedTimeout = setTimeout(() => {
         this.stage.emit('announceTimeoutEnded');
@@ -94,10 +94,10 @@ export default (base, speak = Speech, options = {}) =>
     }
 
     _announceFocusChanges() {
-      let focusPath = this.application.focusPath || [];
-      let lastFocusPath = this._lastFocusPath || [];
-      let loaded = focusPath.every(elm => !elm.loading);
-      let focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
+      const focusPath = this.application.focusPath || [];
+      const lastFocusPath = this._lastFocusPath || [];
+      const loaded = focusPath.every(elm => !elm.loading);
+      const focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
 
       if (!loaded) {
         this._debounceAnnounceFocusChanges();
@@ -137,7 +137,7 @@ export default (base, speak = Speech, options = {}) =>
       }
 
       toAnnounce = toAnnounce.reduce((acc, a) => {
-        let txt = a[2];
+        const txt = a[2];
         txt && acc.push(txt);
         return acc;
       }, []);
