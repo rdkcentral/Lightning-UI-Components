@@ -74,6 +74,16 @@ resources:
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
 
+  - name: source-repo-beta
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    tags: [aws]
+    source:
+      branch: next
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
+
   - name: source-repo-develop
     type: git
     webhook_token: ((webhook-token))
@@ -96,6 +106,7 @@ groups:
       - Publish Release
       - Publish Develop
       - Publish Next
+      - Publish Beta
   - name: Pull Requests
     jobs:
       - Pull Requests
@@ -225,6 +236,23 @@ jobs:
       file: source-repo-next/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-next
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        NPM_USERNAME: ((service-account.artifactory-username))
+        NPM_EMAIL: ((service-account.email))
+        NPM_PASSWORD: ((service-account.artifactory-api-key))
+
+- name: Publish Beta
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo-beta
+      trigger: true
+    - task: Version and Publish
+      file: source-repo-beta/ci/tasks/publish.yml
+      input_mapping:
+        source-repo: source-repo-beta
       params:
         HOST: ((github-enterprise.host))
         PRIVATE_KEY: ((github-enterprise.private-key))
