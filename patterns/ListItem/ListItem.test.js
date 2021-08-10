@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import ListItem, {
   ListItemBase,
   ListItemImage,
@@ -315,12 +316,14 @@ describe('ListItemToggle', () => {
     testRenderer.keyPress('Enter');
     testRenderer.update();
 
-    expect(listItemToggle.isChecked()).toBe(true);
+    setTimeout(() => {
+      expect(listItemToggle.isChecked()).toBe(true);
+    }, 0);
   });
 
   describe('#toggle', () => {
     it('toggles checked state', () => {
-      const spy = spyOn(listItemToggle._Toggle, 'toggle');
+      const spy = jest.spyOn(listItemToggle._Toggle, 'toggle');
       listItemToggle.toggle();
       expect(spy).toHaveBeenCalled();
     });
@@ -369,7 +372,7 @@ describe('ListItemRadio', () => {
 
   describe('#radio', () => {
     it('radios checked state', () => {
-      const spy = spyOn(listItemRadio._Radio, 'toggle');
+      const spy = jest.spyOn(listItemRadio._Radio, 'toggle');
       listItemRadio.toggle();
       expect(spy).toHaveBeenCalled();
     });
