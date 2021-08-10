@@ -1,37 +1,9 @@
 import lng from '@lightningjs/core';
+import Base from '../Base';
 import withStyles from '../../mixins/withStyles';
+import styles from './Toggle.styles';
 
-export const styles = theme => ({
-  w: 64,
-  h: 32,
-  radius: 16,
-  stroke: {
-    weight: 4,
-    color: theme.palette.grey[5]
-  },
-  knob: {
-    size: 16
-  },
-  checked: {
-    background: {
-      color: theme.palette.green.default
-    },
-    knob: {
-      color: theme.palette.grey[5],
-      x: 38
-    }
-  },
-  unchecked: {
-    background: {
-      color: theme.palette.grey[80]
-    },
-    knob: {
-      color: theme.palette.grey[20],
-      x: 8
-    }
-  }
-});
-class Toggle extends lng.Component {
+export default class Toggle extends withStyles(Base, styles) {
   static _template() {
     return {
       checked: false,
@@ -78,22 +50,38 @@ class Toggle extends lng.Component {
     };
   }
 
-  toggle() {
-    this.checked = !this.checked;
-    this._update();
-    return this;
+  static get properties() {
+    return ['onEnter'];
+  }
+
+  static get tags() {
+    return [
+      'Container',
+      {
+        name: 'Knob',
+        path: 'Container.Knob'
+      }
+    ];
+  }
+
+  _construct() {
+    super._construct();
+    this._checkedStyles = this.styles.checked;
+    this._uncheckedStyles = this.styles.unchecked;
   }
 
   _init() {
     this._update();
   }
 
-  get onEnter() {
-    return this._onEnter || this.toggle;
+  toggle() {
+    this.checked = !this.checked;
+    this._update();
+    return this;
   }
 
-  set onEnter(onEnter) {
-    this._onEnter = onEnter;
+  get onEnter() {
+    return this._onEnter || this.toggle;
   }
 
   _handleEnter() {
@@ -104,22 +92,13 @@ class Toggle extends lng.Component {
 
   _update() {
     const { checked } = this;
-    const state = checked ? 'checked' : 'unchecked';
+    const style = checked ? this._checkedStyles : this._uncheckedStyles;
     this._Knob.smooth = {
-      x: this.styles[state].knob.x,
-      color: this.styles[state].knob.color
+      x: style.knob.x,
+      color: style.knob.color
     };
     this._Container.smooth = {
-      color: this.styles[state].background.color
+      color: style.background.color
     };
   }
-
-  get _Container() {
-    return this.tag('Container');
-  }
-  get _Knob() {
-    return this._Container.tag('Knob');
-  }
 }
-
-export default withStyles(Toggle, styles);

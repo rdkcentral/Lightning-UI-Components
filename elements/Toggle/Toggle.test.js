@@ -40,13 +40,15 @@ describe('Toggle', () => {
 
   describe('Key handling', () => {
     it('Enter press toggles', () => {
-      const spy = spyOn(toggle, 'toggle');
+      const spy = jest.spyOn(toggle, 'toggle');
 
       // TODO: this should work
       // testRenderer.keyPress('Enter')
 
       toggle._handleEnter();
-      expect(spy).toBeCalled();
+      setTimeout(() => {
+        expect(spy).toBeCalled();
+      }, 0);
     });
   });
 });
