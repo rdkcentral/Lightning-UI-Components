@@ -31,9 +31,7 @@ export default class Notification extends withStyles(Base, styles) {
           Icon: {
             alpha: this.styles.dismiss.icon.alpha,
             flexItem: { marginRight: this.styles.icon.spacing },
-            h: this.styles.icon.size,
-            type: Icon,
-            w: this.styles.icon.size
+            type: Icon
           },
           Text: {
             alpha: this.styles.dismiss.text.alpha,
@@ -298,14 +296,14 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'alpha',
               v: {
-                0: this._Container.alpha,
+                0: this.styles.dismiss.icon.alpha,
                 1: this.styles.enter.container.alpha
               }
             },
             {
               p: 'scale',
               v: {
-                0: this._Container.scale,
+                0: this.styles.dismiss.container.scale,
                 0.8: this.styles.enter.container.scale + (updateOnly ? 0 : 0.1),
                 1: this.styles.enter.container.scale
               }
@@ -313,7 +311,7 @@ export default class Notification extends withStyles(Base, styles) {
           ]
         });
         this._Icon.smooth = {
-          alpha: 1
+          alpha: this.styles.enter.icon.alpha
         };
       } else {
         animation = this._Container.animation({
@@ -323,14 +321,14 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'alpha',
               v: {
-                0: this._Container.alpha,
+                0: this.styles.enter.container.alpha,
                 1: this.styles.dismiss.container.alpha
               }
             },
             {
               p: 'scale',
               v: {
-                0: this._Container.scale,
+                0: this.styles.enter.container.scale,
                 0.1:
                   this.styles.dismiss.container.scale + (updateOnly ? 0 : 0.1),
                 1: this.styles.dismiss.container.scale
@@ -361,18 +359,23 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'w',
               v: {
-                0: this._Container.w,
+                0: this.styles.icon.size + this.styles.margin.x * 2,
                 1: this.styles.w
               }
             },
             {
               p: 'h',
-              v: { 0: this._Container.h, 1: this._totalHeight }
+              v: {
+                0: this.styles.icon.size + this.styles.margin.y * 2,
+                1: this._totalHeight
+              }
             },
             {
               p: 'x',
               v: {
-                0: this._Container.x,
+                0:
+                  this.styles.w -
+                  (this.styles.icon.size + this.styles.margin.x * 2),
                 1: 0
               }
             }
@@ -389,21 +392,21 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'w',
               v: {
-                0: this._Container.w,
+                0: this.styles.w,
                 1: this.styles.icon.size + this.styles.margin.x * 2
               }
             },
             {
               p: 'h',
               v: {
-                0: this._Container.h,
+                0: this._totalHeight,
                 1: this.styles.icon.size + this.styles.margin.y * 2
               }
             },
             {
               p: 'x',
               v: {
-                0: this._Container.x,
+                0: 0,
                 1:
                   this.styles.w -
                   (this.styles.icon.size + this.styles.margin.x * 2)
@@ -432,13 +435,13 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'h',
               v: {
-                0: this._Container.h,
+                0: this._totalHeight,
                 1: this._totalHeight + this.styles.actionArea.background.h
               }
             }
           ]
         });
-      } else {
+      } else if (this._actionArea) {
         animation = this._Container.animation({
           duration: 0.24,
           delay: 0.5,
@@ -446,12 +449,15 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'h',
               v: {
-                0: this._Container.h,
+                0: this._totalHeight + this.styles.actionArea.background.h,
                 1: this._totalHeight
               }
             }
           ]
         });
+      } else {
+        resolve();
+        return;
       }
 
       animation.start();

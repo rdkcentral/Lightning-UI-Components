@@ -50,12 +50,9 @@ export default theme => ({
     container: {
       alpha: 1,
       scale: 1
-      //x: 0,
-      //w: 560
     },
     text: {
       alpha: 1
-      //x: 0
     }
   },
   dismiss: {
@@ -66,12 +63,9 @@ export default theme => ({
     container: {
       alpha: 0.001,
       scale: 0.4
-      //x: 440, // This value is wrong
-      //w: 120 // This value is wrong
     },
     text: {
       alpha: 0.001
-      //x: 64
     }
   }
 });
