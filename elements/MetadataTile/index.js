@@ -282,6 +282,10 @@ class MetadataTile extends lng.Component {
     );
   }
 
+  set h(h) {
+    console.warn('warning: cannot set property "h" of MetadataTile');
+  }
+
   get _FirstLineWrapper() {
     return this.tag('FirstLineWrapper');
   }

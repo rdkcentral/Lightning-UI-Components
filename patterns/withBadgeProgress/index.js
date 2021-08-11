@@ -84,7 +84,7 @@ export default Base =>
 
         if (this.hasFocus()) {
           w = this._focusedWidth - this._progressBarPadding * 2;
-          x -= (this._focusedWidth - this._unfocusedWidth) / 2;
+          x = this._focusedWidth - this._unfocusedWidth - this._paddingSide;
           y += (this._focusedHeight - this._unfocusedHeight) / 2;
         }
 
