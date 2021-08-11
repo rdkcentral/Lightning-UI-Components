@@ -222,14 +222,13 @@ class Tile extends Base {
   }
 
   _updateGradient() {
-    if (this._shouldShowGradient()) {
+    if (this._shouldShowGradient) {
       const gradientParams = {
         x: -1,
         w: this.w + 2,
         h: this.h + 1,
         radius: this.radius,
-        zIndex: 3,
-        alpha: 1
+        zIndex: 3
       };
       if (this._gradientColor) {
         gradientParams.gradientColor = this._gradientColor;
@@ -239,22 +238,15 @@ class Tile extends Base {
       } else {
         this._Gradient.patch(gradientParams);
       }
-    } else if (this._Gradient) {
-      if (this._smooth) {
-        this._Gradient.smooth = { alpha: 0 };
-      } else {
-        this._Gradient.alpha = 0;
-      }
     }
-  }
 
-  _shouldShowGradient() {
-    if (this._persistGradient) {
-      return true;
-    } else if (this._focusGradient && this.hasFocus()) {
-      return true;
-    } else {
-      return false;
+    if (this._Gradient) {
+      const alpha = Number(this._shouldShowGradient);
+      if (this._smooth) {
+        this._Gradient.smooth = { alpha };
+      } else {
+        this._Gradient.alpha = alpha;
+      }
     }
   }
 
@@ -329,6 +321,16 @@ class Tile extends Base {
       this._Item.scale = scale;
       if (this._FocusRing) this._FocusRing.scale = scale;
       if (this._DropShadow) this._DropShadow.scale = scale;
+    }
+  }
+
+  get _shouldShowGradient() {
+    if (this.persistGradient) {
+      return true;
+    } else if (this.focusGradient && this.hasFocus()) {
+      return true;
+    } else {
+      return false;
     }
   }
 

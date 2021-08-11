@@ -71,11 +71,7 @@ Basic.argTypes = {
   focused: { control: 'boolean' },
   persistentMetadata: { control: 'boolean' },
   metadataType: {
-    options: ['MetadataCard', 'MetadataTile', 'MetadataSmall'],
-    control: { type: 'radio' }
-  },
-  metadataLocation: {
-    options: ['bottom', 'inset'],
+    options: ['MetadataCard', 'MetadataTile'],
     control: { type: 'radio' }
   },
   badge: { control: 'text' },
@@ -198,6 +194,67 @@ export const XfinityTheme = () =>
                 type: MetadataTile,
                 firstLine: 'Personality entity',
                 secondLine: 'with cropped 3x4'
+              }
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+export const InsetRow = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        x: 60,
+        y: 60,
+        Row: {
+          type: Row,
+          itemSpacing: 60,
+          items: [
+            {
+              type: withMetadata(),
+              src: pets,
+              w: 320,
+              h: 180,
+              metadataLocation: 'inset',
+              Metadata: {
+                type: MetadataSmall,
+                title: 'MetadataTile (with long wrapping title)',
+                data: 'Trending'
+              }
+            },
+            {
+              type: withMetadata(),
+              w: 320,
+              h: 180,
+              progress: 0.5,
+              badge: 'HD',
+              persistentMetadata: true,
+              metadataLocation: 'inset',
+              Metadata: {
+                type: MetadataSmall,
+                title: 'MetadataCard',
+                data: 'Is always visible and is very long and clips out',
+                logo: lightningbolt,
+                logoW: 32
+              }
+            },
+            {
+              type: withMetadata(TileCircle),
+              w: 320,
+              h: 180,
+              src:
+                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
+              metadataLocation: 'inset',
+              Metadata: {
+                type: MetadataSmall,
+                title: 'Personality entity',
+                data: 'with cropped 3x4'
               }
             }
           ]

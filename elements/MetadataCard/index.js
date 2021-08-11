@@ -411,6 +411,10 @@ class MetadataCard extends withTags(lng.Component) {
       this.thirdLineTextProperties.lineHeight
     );
   }
+
+  set h(h) {
+    console.warn('warning: cannot set property "h" of MetadataCard');
+  }
 }
 
 export default withStyles(MetadataCard, styles);

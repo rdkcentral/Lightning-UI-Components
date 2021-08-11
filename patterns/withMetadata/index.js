@@ -35,9 +35,10 @@ export default (base = Tile) =>
         }
         this._updateMetadataAlpha();
         this._updateMetadataW();
+        this._updateMetadataH();
         this._updateMetadataX();
         this._updateMetadataY();
-        this._updateGradient();
+        this._updateShowGradient();
       }
     }
 
@@ -62,26 +63,60 @@ export default (base = Tile) =>
       }
     }
 
+    _updateMetadataH() {
+      if (this.metadataLocation === 'inset') {
+        if (this._smooth) {
+          this.Metadata.smooth = { h: this.h - this.paddingTop };
+        } else {
+          this.Metadata.h = this.h - this.paddingTop;
+        }
+      }
+    }
+
     _updateMetadataW() {
-      this.Metadata.focusScale = 1;
-      const currentTileWidth = this.hasFocus()
-        ? this._focusedTileWidth
-        : this._unfocusedTileWidth;
-      this.Metadata.originalW = currentTileWidth - this._paddingSide * 2;
+      this.Metadata.focusScale =
+        this.metadataLocation !== 'inset' ? 1 : this.Metadata.focusScale;
+
+      const currentTileWidth =
+        this.hasFocus() || !this.persistentMetadata // prevent logo from sliding horizontally
+          ? this._focusedTileWidth
+          : this._unfocusedTileWidth;
+
+      this.Metadata.originalW = currentTileWidth - this.paddingSide * 2;
     }
 
     _updateMetadataX() {
-      const metadataX = this.hasFocus()
-        ? this._paddingSide - this._tileScaleOffsetWidth
-        : this._paddingSide;
+      const focusX = this.paddingSide - this._tileScaleOffsetWidth;
+      const unfocusX = this.paddingSide;
+
+      const nextX =
+        (this._metadataLocation === 'inset' && !this.persistentMetadata) ||
+        this.hasFocus()
+          ? focusX
+          : unfocusX;
+
       if (this._smooth) {
-        this.Metadata.smooth = { x: metadataX };
+        this.Metadata.smooth = { x: nextX };
       } else {
-        this.Metadata.x = metadataX;
+        this.Metadata.x = nextX;
       }
     }
 
     _updateMetadataY() {
+      const focusY = this._calcMetadataLocation();
+      const unfocusY = this._metadataLocation === 'inset' ? focusY : focusY;
+      this.Metadata.animate =
+        !this.persistentMetadata && this.metadataLocation === 'inset';
+
+      const nextY = this.hasFocus() ? focusY : unfocusY;
+      if (this._smooth) {
+        this.Metadata.smooth = { y: nextY };
+      } else {
+        this.Metadata.y = nextY;
+      }
+    }
+
+    _calcMetadataLocation() {
       const currentTileHeight = this.hasFocus()
         ? this._focusedTileHeight
         : this._unfocusedTileHeight;
@@ -95,29 +130,27 @@ export default (base = Tile) =>
       const metadataHeight = this.Metadata.h;
 
       const locations = {
-        bottom: this._paddingTop + currentTileHeight - focusOffset,
+        bottom: this.paddingTop + currentTileHeight - focusOffset,
         inset:
           currentTileHeight -
           (metadataHeight +
             progressBarOffset +
-            this._paddingTop * 2 +
+            this.paddingTop * 2 +
             focusOffset)
       };
 
       const metadataY = locations[this._metadataLocation];
 
-      if (this._smooth) {
-        this.Metadata.smooth = { y: metadataY };
-      } else {
-        this.Metadata.y = metadataY;
-      }
+      return metadataY;
     }
 
-    _updateGradient() {
-      if (this._metadataLocation === 'inset') {
-        this._focusGradient = true;
+    _updateShowGradient() {
+      if (this.metadataLocation === 'inset') {
+        this.focusGradient = true;
       }
-      super._updateGradient && super._updateGradient();
+      if (this.persistentMetadata && this.metadataLocation === 'inset') {
+        this.persistGradient = true;
+      }
     }
 
     _getFocused() {

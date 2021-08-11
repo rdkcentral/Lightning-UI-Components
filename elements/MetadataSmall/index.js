@@ -20,87 +20,135 @@ export const styles = theme => ({
   },
   logo: {
     h: theme.typography.body3.lineHeight,
-    offset: theme.spacing(1)
+    verticalOffset: theme.spacing(2)
   },
-  progressBarPadding: theme.spacing(3)
+  progressBarPadding: theme.spacing(3),
+  animationHeight: theme.spacing(7),
+  logoClipOffset: theme.spacing(4), // pads the right size of the logo to prevent clipping on scale
+  fadeWidth: 100 // sets length of the fade from the right edge of the element. see textures/FadeShader.js for more details
 });
 
 export default class MetadataSmall extends withStyles(Base, styles) {
   static _template() {
     return {
       h: this.styles.h,
+      clipping: true,
       flex: { direction: 'column', justifyContent: 'flex-end' },
-      Title: {
-        type: TextBox,
-        y: this.styles.titleY,
-        x: this.styles.textPaddingLeft,
-        ...this.styles.title
-      },
-      DataClipContainer: {
-        Data: {
-          type: InlineContent,
+      Content: {
+        h: this.styles.h,
+        flex: { direction: 'column', justifyContent: 'flex-end' },
+        Title: {
+          type: TextBox,
+          y: this.styles.titleY,
           x: this.styles.textPaddingLeft,
-          justify: 'flex-start',
-          ...this.styles.data
+          ...this.styles.title
+        },
+        DataClipContainer: {
+          Data: {
+            type: InlineContent,
+            x: this.styles.textPaddingLeft,
+            justify: 'flex-start',
+            ...this.styles.data
+          }
+        },
+        Logo: {
+          flexItem: false,
+          type: Icon,
+          alpha: 0,
+          ...this.styles.logo
+        },
+        ProgressBarWrapper: {
+          h: 0
         }
-      },
-      Logo: {
-        flexItem: false,
-        type: Icon,
-        ...this.styles.logo
-      },
-      ProgressBarWrapper: {
-        h: 0
       }
     };
   }
 
   static get properties() {
-    return ['title', 'data', 'logo', 'logoWidth', 'logoHeight', 'progress'];
+    return [
+      'title',
+      'data',
+      'logo',
+      'logoWidth',
+      'logoHeight',
+      'progress',
+      'originalW',
+      'animate',
+      'animationHeight',
+      'logoClipOffset',
+      'fadeWidth'
+    ];
   }
 
   static get tags() {
     return [
-      'Title',
-      'Logo',
-      'ProgressBarWrapper',
+      'Content',
+      { name: 'Title', path: 'Content.Title' },
+      { name: 'Logo', path: 'Content.Logo' },
+      {
+        name: 'ProgressBarWrapper',
+        path: 'Content.ProgressBarWrapper'
+      },
       'DataClipContainer',
-      { name: 'Data', path: 'DataClipContainer.Data' },
-      { name: 'ProgressBar', path: 'ProgressBarWrapper.ProgressBar' }
+      { name: 'Data', path: 'Content.DataClipContainer.Data' },
+      {
+        name: 'ProgressBar',
+        path: 'Content.ProgressBarWrapper.ProgressBar'
+      }
     ];
   }
 
   _construct() {
     super._construct();
+    this._animate = true;
     this._logoHeight = this.styles.logo.h;
     this._logoWidth = this.styles.logo.w || this._logoHeight;
-    this._logoYOffset = this.styles.logo.offset;
+    this._logoYOffset = this.styles.logo.verticalOffset;
     this._progressBarPadding = this.styles.progressBarPadding;
     this._progressBarHeight =
       this.styles.progressBarPadding + ProgressBar.styles.h;
-    this._fadeW = 100;
+    this._logoClipOffset = this.styles.logoClipOffset; // prevent the logo from clipping out on animation
+    this._fadeWidth = this.styles.fadeWidth;
+    this._animationHeight = this.styles.animationHeight;
   }
 
-  _init() {
-    this._update();
+  _firstEnable() {
+    super._firstEnable();
+    this._whenEnabled.then(() => {
+      this._update();
+    });
   }
 
   _update() {
     this._updateWidth();
+    this._updateY();
     this._updateTitle();
-    this._updateData();
     this._updateLogo();
+    this._updateData();
     this._updateProgress();
     this._updateShader();
   }
 
   $loadedInlineContent() {
-    // update the shader if Data reloads
+    // update the shader when Data reloads
     this._updateShader();
   }
 
+  _updateY() {
+    const animateDistance = this.animationHeight;
+    const focusY = 0;
+    const unfocusY = this.animate ? animateDistance : 0;
+    const y = this.hasFocus() ? focusY : unfocusY;
+
+    if (this._smooth) {
+      this._Content.smooth = { y };
+    } else {
+      this._Content.y = y;
+    }
+  }
+
   _updateWidth() {
-    this.w = this.originalW || this.w;
+    this.w = (this.originalW || this.w) + this._logoClipOffset;
   }
 
   _updateTitle() {
@@ -125,11 +173,11 @@ export default class MetadataSmall extends withStyles(Base, styles) {
       this.stage.update();
       this._Data.loadTexture();
       this._DataClipContainer.patch({
-        w: this.w + this._fadeW / 2 - logoOffset / 2,
+        w: this.w + this.fadeWidth / 2 - logoOffset,
         shader: {
           type: FadeShader,
           positionLeft: 0,
-          positionRight: this._fadeW + logoOffset
+          positionRight: this.fadeWidth + logoOffset
         },
         rtt: true
       });
@@ -140,7 +188,8 @@ export default class MetadataSmall extends withStyles(Base, styles) {
 
   _updateLogo() {
     const progressBarOffset = this._progress ? this._progressBarHeight : 0;
-    const height = this.finalH || this.h;
+    const height = this._Content.finalH;
+
     this._Logo.patch({
       type: Icon,
       w: this.logoWidth,
@@ -149,18 +198,54 @@ export default class MetadataSmall extends withStyles(Base, styles) {
       offset: this._logoYOffset
     });
 
-    this._Logo.x = this.renderWidth - this._Logo.w;
-    this._Logo.y =
+    const x = this.renderWidth - this._Logo.w - this._logoClipOffset;
+    const y =
       height - (this.logoHeight + this._logoYOffset + progressBarOffset);
+
+    if (this._smooth) {
+      this._Logo.smooth = { x, y };
+    } else {
+      this._Logo.x = x;
+      this._Logo.y = y;
+    }
+
+    if (!this.animate) {
+      // show logo if metadata is persistent
+      if (this._smooth) {
+        this._Logo.smooth = { alpha: 1 };
+      } else {
+        this._Logo.alpha = 1;
+      }
+    }
+
+    if (this._Logo.alpha === 0) {
+      this._Logo.transition('x').on('finish', () => {
+        // wait until logo is positioned to render in
+        this._Logo.transition('x').off();
+        if (this._smooth) {
+          this._Logo.smooth = { alpha: 1 };
+        } else {
+          this._Logo.alpha = 1;
+        }
+      });
+    }
+  }
+
+  _updateLogoAlpha() {
+    if (this._smooth) {
+      this._Logo.smooth = { alpha: 1 };
+    } else {
+      this._Logo.alpha = 1;
+    }
   }
 
   _updateProgress() {
-    if (this._progress) {
+    if (this.progress) {
       this._ProgressBarWrapper.patch({
         h: this._progressBarHeight,
         ProgressBar: {
           type: ProgressBar,
-          progress: this._progress,
+          progress: this.progress,
           y: this._progressBarPadding, // offset flexItem height
           w: this.finalW
         }
@@ -169,7 +254,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   get _shouldClipData() {
-    return this._dataRenderW > this.w - this._fadeW;
+    return this._dataRenderW > this.w - this.fadeWidth;
   }
 
   get _dataRenderW() {
