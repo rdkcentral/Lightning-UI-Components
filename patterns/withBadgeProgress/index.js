@@ -17,7 +17,14 @@ export default Base =>
     }
 
     static get properties() {
-      return ['badge', 'badgeLocation', 'progress', ...super.properties];
+      return [
+        'badge',
+        'badgeLocation',
+        'badgePadding',
+        'progress',
+        'progressBarPadding',
+        ...super.properties
+      ];
     }
 
     static get tags() {
@@ -40,7 +47,7 @@ export default Base =>
 
     _update() {
       super._update();
-      this._setDimensions();
+      this._updateDimensions();
       this._updateBadge();
       this._updateProgressBar();
     }
@@ -49,17 +56,14 @@ export default Base =>
       this._updateBadge();
     }
 
-    _setDimensions() {
+    _updateDimensions() {
       const focusScale = this._getFocusScale
         ? this._getFocusScale(this.w, this.h)
         : 1;
-      this._unfocusedHeight = this.h;
-      this._focusedHeight = this.h * focusScale;
-      this._ScaleOffsetHeight =
-        (this._focusedHeight - this._unfocusedHeight) / 2;
-      this._unfocusedWidth = this.w;
-      this._focusedWidth = this.w * focusScale;
-      this._ScaleOffsetWidth = (this._focusedWidth - this._unfocusedWidth) / 2;
+      this._unfocusedTileHeight = this.h;
+      this._focusedTileHeight = this.h * focusScale;
+      this._unfocusedTileWidth = this.w;
+      this._focusedTileWidth = this.w * focusScale;
     }
 
     _updateProgressBar() {
@@ -75,23 +79,24 @@ export default Base =>
         this._ProgressBar.progress = this._progress;
 
         const alpha = this._progress ? 1 : 0;
-        let w = this._unfocusedWidth - this._progressBarPadding * 2;
-        let x = this._progressBarPadding;
+        let w = this._unfocusedTileWidth - this.progressBarPadding * 2;
+        let x = this.progressBarPadding;
         let y =
-          this._unfocusedHeight -
+          this._unfocusedTileHeight -
           this._ProgressBar.h -
-          this._progressBarPadding;
+          this.progressBarPadding;
 
         if (this.hasFocus()) {
-          w = this._focusedWidth - this._progressBarPadding * 2;
-          x = this._focusedWidth - this._unfocusedWidth - this._paddingSide;
-          y += (this._focusedHeight - this._unfocusedHeight) / 2;
+          w = this._focusedTileWidth - this.progressBarPadding * 2;
+          x -= (this._focusedTileWidth - this._unfocusedTileWidth) / 2;
+          y += (this._focusedTileHeight - this._unfocusedTileHeight) / 2;
         }
 
+        const patch = { alpha, w, x, y };
         if (this._smooth) {
-          this._ProgressBar.smooth = { alpha, w, x, y };
+          this._ProgressBar.smooth = patch;
         } else {
-          this._ProgressBar.patch({ alpha, w, x, y });
+          this._ProgressBar.patch(patch);
         }
       }
     }
@@ -122,8 +127,8 @@ export default Base =>
 
     _getBadgeLocation() {
       // calculate component offsets
-      const badgeWidthOffset = this._Badge.w + this._badgePadding;
-      const badgeHeightOffset = this._Badge.h + this._badgePadding;
+      const badgeWidthOffset = this._Badge.w + this.badgePadding;
+      const badgeHeightOffset = this._Badge.h + this.badgePadding;
       const progressBarOffset = this._ProgressBar
         ? this._ProgressBar.h + this._progressBarPadding
         : 0;
@@ -131,19 +136,19 @@ export default Base =>
       // calculate focus state offsets
       const xFocusOffset =
         this._getFocusScale && this.hasFocus()
-          ? (this._focusedWidth - this._unfocusedWidth) / 2
+          ? (this._focusedTileWidth - this._unfocusedTileWidth) / 2
           : 0;
       const yFocusOffset =
         this._getFocusScale && this.hasFocus()
-          ? (this._focusedHeight - this._unfocusedHeight) / 2
+          ? (this._focusedTileHeight - this._unfocusedTileHeight) / 2
           : 0;
 
       // calculate positions
-      const xLeft = this._badgePadding - xFocusOffset;
-      const xRight = this._unfocusedWidth - badgeWidthOffset + xFocusOffset;
-      const yTop = this._badgePadding - yFocusOffset;
+      const xLeft = this.badgePadding - xFocusOffset;
+      const xRight = this._unfocusedTileWidth - badgeWidthOffset + xFocusOffset;
+      const yTop = this.badgePadding - yFocusOffset;
       const yBottom =
-        this._unfocusedHeight -
+        this._unfocusedTileHeight -
         (badgeHeightOffset + progressBarOffset) +
         yFocusOffset;
 

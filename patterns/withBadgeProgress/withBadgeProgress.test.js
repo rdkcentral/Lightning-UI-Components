@@ -51,7 +51,9 @@ describe('withBadgeProgress', () => {
     expect(component.progress).toBe(progress);
     expect(component._ProgressBar.x).toBe(progressBarPadding);
     expect(component._ProgressBar.y).toBe(
-      component._unfocusedHeight - component._ProgressBar.h - progressBarPadding
+      component._unfocusedTileHeight -
+        component._ProgressBar.h -
+        progressBarPadding
     );
   });
 

@@ -40,6 +40,17 @@ export default class ProgressBar extends withStyles(Base, styles) {
     this._update();
   }
 
+  set w(w) {
+    if (this._w !== w) {
+      this._w = w;
+      this._update();
+    }
+  }
+
+  get w() {
+    return this._w;
+  }
+
   _update() {
     const p = this.w * this.progress;
     const w = p <= 0 ? 0 : Math.min(p, this._w);
