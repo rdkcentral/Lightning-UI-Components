@@ -9,7 +9,7 @@ function getPropertyDescriptor(name, key) {
     get() {
       const customGetter = this[`_get${capital(name)}`];
       if (customGetter && typeof customGetter === 'function') {
-        const value = customGetter(this[key]);
+        const value = customGetter.call(this, this[key]);
         this[key] = value;
       }
       return this[key];
