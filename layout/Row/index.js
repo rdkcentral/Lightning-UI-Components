@@ -4,6 +4,7 @@ import { debounce } from 'debounce';
 export default class Row extends FocusManager {
   static _template() {
     return {
+      ...super._template(),
       direction: 'row'
     };
   }

@@ -33,9 +33,6 @@ export default class FocusManager extends lng.Component {
   }
 
   get Items() {
-    if (!this.tag('Items')) {
-      this.patch({ Items: {} });
-    }
     return this.tag('Items');
   }
 

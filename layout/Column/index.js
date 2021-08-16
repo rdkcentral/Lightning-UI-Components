@@ -4,6 +4,7 @@ import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
+      ...super._template(),
       direction: 'column'
     };
   }
