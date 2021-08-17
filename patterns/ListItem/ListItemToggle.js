@@ -36,10 +36,6 @@ export default class ListItemToggle extends ListItem {
     return this._Toggle;
   }
 
-  _handleEnter() {
-    this._Toggle._handleEnter();
-  }
-
   get onEnter() {
     return this._Toggle.onEnter;
   }

@@ -50,10 +50,6 @@ export default class Toggle extends withStyles(Base, styles) {
     };
   }
 
-  static get properties() {
-    return ['onEnter'];
-  }
-
   static get tags() {
     return [
       'Container',
@@ -80,14 +76,13 @@ export default class Toggle extends withStyles(Base, styles) {
     return this;
   }
 
-  get onEnter() {
-    return this._onEnter || this.toggle;
-  }
-
   _handleEnter() {
     if (typeof this.onEnter === 'function') {
-      this.onEnter(this);
+      return this.onEnter(this);
+    } else {
+      this.toggle();
     }
+    return false;
   }
 
   _update() {
