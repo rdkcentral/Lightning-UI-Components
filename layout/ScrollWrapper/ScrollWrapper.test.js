@@ -85,7 +85,7 @@ describe('ScrollWrapper', () => {
   it('hides scroll bar on unfocus', () => {
     testRenderer.unfocus();
     testRenderer.update();
-    expect(scrollWrapper._ScrollBarContainer.alpha).toBe(0);
+    expect(scrollWrapper._ScrollBarWrapper.alpha).toBe(0);
   });
 
   it('scrolls up and down', () => {
