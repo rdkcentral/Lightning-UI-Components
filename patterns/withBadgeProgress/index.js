@@ -47,7 +47,7 @@ export default Base =>
 
     _update() {
       super._update();
-      this._updateDimensions();
+      this._updateComponentDimensions();
       this._updateBadge();
       this._updateProgressBar();
     }
@@ -56,7 +56,7 @@ export default Base =>
       this._updateBadge();
     }
 
-    _updateDimensions() {
+    _updateComponentDimensions() {
       const focusScale = this._getFocusScale
         ? this._getFocusScale(this.w, this.h)
         : 1;

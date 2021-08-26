@@ -28,7 +28,7 @@ export default (base = Tile) =>
 
     _update() {
       super._update();
-      this._updateDimensions();
+      this._updateComponentDimensions();
       if (this.Metadata) {
         if (!this.Metadata.zIndex) {
           this.Metadata.zIndex = 5;
@@ -42,8 +42,8 @@ export default (base = Tile) =>
       }
     }
 
-    _updateDimensions() {
-      super._updateDimensions();
+    _updateComponentDimensions() {
+      super._updateComponentDimensions();
       this._tileScaleOffsetHeight =
         (this._focusedTileHeight - this._unfocusedTileHeight) / 2;
       this._tileScaleOffsetWidth =
