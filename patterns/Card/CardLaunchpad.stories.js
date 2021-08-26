@@ -10,8 +10,6 @@ export const Launchpad = args =>
         Card: {
           type: CardLaunchpad,
           src: pets,
-          artHeight: 1080,
-          artWidth: 1920,
           title: 'Title',
           description: 'Short description',
           data: args.showData

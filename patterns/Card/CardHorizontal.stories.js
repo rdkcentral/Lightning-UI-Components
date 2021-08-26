@@ -11,8 +11,6 @@ export const Horizontal = args =>
         Card: {
           type: CardHorizontal,
           src: pets,
-          artHeight: 1080,
-          artWidth: 1920,
           title: args.title,
           description: args.description,
           data: args.showData
@@ -57,8 +55,6 @@ export const HorizontalLarge = args =>
         Card: {
           type: CardHorizontalLarge,
           src: pets,
-          artHeight: 1080,
-          artWidth: 1920,
           title: 'Title',
           description: 'Short Description',
           data: args.showData

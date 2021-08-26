@@ -24,14 +24,6 @@ export default class CardLayout extends BaseLayout {
         ...item,
         type: BoardRowComponent(
           class extends item.type {
-            get _artWidth() {
-              return 3;
-            }
-
-            get _artHeight() {
-              return 2;
-            }
-
             set src(src) {
               this.artwork = src;
               this._src = src;
