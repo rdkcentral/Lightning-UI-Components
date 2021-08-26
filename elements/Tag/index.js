@@ -35,13 +35,19 @@ export default class Tag extends withStyles(Base, styles) {
   _init() {
     this.w = 60;
     this.h = 40;
-    this._update();
+    super._init();
+  }
+
+  _attach() {
+    this._Text.on('txLoaded', this._updateBackground.bind(this));
+  }
+
+  _detach() {
+    this._Text.off('txLoaded', this._updateBackground.bind(this));
   }
 
   _update() {
     this._updateText();
-    this._updateDimensions();
-    this._updateBackground();
   }
 
   _updateText() {
@@ -55,11 +61,8 @@ export default class Tag extends withStyles(Base, styles) {
     this._Text.y = this._paddingY;
   }
 
-  _updateDimensions() {
-    this.w = Math.max(this._Text.renderWidth + 32, 60);
-  }
-
   _updateBackground() {
+    this.w = Math.max(this._Text.renderWidth + 32, 60);
     this._Background.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra two pixels getRoundRect adds.
