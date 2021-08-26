@@ -152,4 +152,18 @@ describe('ScrollWrapper', () => {
       done();
     }, 1);
   });
+
+  it('fades out scrollable content', () => {
+    scrollWrapper.content = 'my string';
+    scrollWrapper._update();
+    testRenderer.update();
+    expect(scrollWrapper._shouldFadeContent).toBe(false);
+
+    scrollWrapper.content =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.';
+
+    scrollWrapper._update();
+    testRenderer.update();
+    expect(scrollWrapper._shouldFadeContent).toBe(true);
+  });
 });

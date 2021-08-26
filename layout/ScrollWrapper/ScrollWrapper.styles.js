@@ -16,5 +16,6 @@ export default theme => ({
     progressColor: theme.palette.grey[10],
     w: 8,
     radius: 4
-  }
+  },
+  fadeHeight: 100
 });
