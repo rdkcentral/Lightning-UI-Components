@@ -2,6 +2,7 @@ export { default as BoardRow } from './BoardRow';
 export {
   default as Card,
   CardBasic,
+  CardHero,
   CardHorizontal,
   CardHorizontalLarge,
   CardVertical,

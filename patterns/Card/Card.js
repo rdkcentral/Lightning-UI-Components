@@ -91,6 +91,8 @@ export default class Card extends withStyles(Base, styles) {
     this._paddingHorizontal = this.styles.paddingHorizontal;
     this._paddingVertical = this.styles.paddingVertical;
     this._collapsed = this.collapseArt || this.collapseData;
+    this._artWidth = this.styles.artWidth;
+    this._artHeight = this.styles.artHeight;
   }
 
   _init() {
@@ -172,12 +174,11 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _updateArtwork() {
-    const dimensions = this._calculateArtDimensions();
     const radius = this._getArtRadius();
     this._Artwork.patch({
       src: this.src,
-      w: dimensions.w,
-      h: dimensions.h,
+      w: this.artWidth,
+      h: this.artHeight,
       badge: this.badge,
       badgeLocation: this.badgeLocation || 'upperLeft',
       progress: this.progress,
@@ -188,8 +189,8 @@ export default class Card extends withStyles(Base, styles) {
         radius
       }
     });
-    this.finalArtHeight = dimensions.h || 0;
-    this.finalArtWidth = dimensions.w || 0;
+    this.finalArtHeight = this.artHeight || 0;
+    this.finalArtWidth = this.artWidth || 0;
   }
 
   _getArtRadius() {
@@ -201,21 +202,6 @@ export default class Card extends withStyles(Base, styles) {
     }
     if (this._orientation === 'vertical') {
       return [this.imgRadius, this.imgRadius, 0, 0];
-    }
-  }
-
-  _calculateArtDimensions() {
-    const ratio = this.artWidth / this.artHeight;
-    if (this.orientation === 'horizontal') {
-      return {
-        w: ratio * this.h,
-        h: this.h
-      };
-    } else {
-      return {
-        w: this.w,
-        h: this.w / ratio
-      };
     }
   }
 

@@ -11,8 +11,6 @@ export const Hero = args =>
         Card: {
           type: CardHero,
           src: pets,
-          artHeight: 360,
-          artWidth: 640,
           title: args.title,
           subtitle: args.subtitle,
           description: args.description,

@@ -10,8 +10,6 @@ export const Vertical = args =>
         Card: {
           type: CardVertical,
           src: pets,
-          artHeight: 1080,
-          artWidth: 1920,
           title: args.title,
           description: args.description
         }
@@ -41,8 +39,6 @@ export const VerticalLarge = args =>
         Card: {
           type: CardVerticalLarge,
           src: pets,
-          artHeight: 1080,
-          artWidth: 1920,
           title: args.title,
           description: args.description,
           data: args.showData

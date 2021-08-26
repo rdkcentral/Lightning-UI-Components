@@ -8,8 +8,6 @@ const createCardComponent = TestUtils.makeCreateComponent(CardLaunchpad, {
   h: 231,
   imgRadius: 4,
   src: pets,
-  artHeight: 1080,
-  artWidth: 1920,
   title: 'Title',
   description: 'Short description',
   badgeLocation: 'upperLeft'

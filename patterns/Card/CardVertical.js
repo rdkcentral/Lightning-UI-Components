@@ -16,6 +16,8 @@ const verticalStyles = theme => ({
   orientation: 'vertical',
   w: 410,
   h: 335,
+  artHeight: 231,
+  artWidth: 410,
   imgRadius: theme.border.radius.medium,
   metadata: {
     ...smallMetadataStyles(theme),
@@ -37,11 +39,9 @@ export default class CardVertical extends withStyles(Card, verticalStyles) {
 }
 
 const verticalLargeStyles = theme => ({
+  ...verticalStyles(theme),
   metadata: smallMetadataStyles(theme),
-  orientation: 'vertical',
-  w: 410,
-  h: 502,
-  imgRadius: theme.border.radius.medium
+  h: 502
 });
 
 export class CardVerticalLarge extends withStyles(Card, verticalLargeStyles) {

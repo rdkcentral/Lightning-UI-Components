@@ -6,7 +6,9 @@ const heroStyles = theme => ({
   orientation: 'horizontal',
   w: 1346,
   h: 369,
-  imgRadius: theme.border.radius.medium
+  imgRadius: theme.border.radius.medium,
+  artHeight: 360,
+  artWidth: 640
 });
 
 export default class CardHero extends withStyles(Card, heroStyles) {
