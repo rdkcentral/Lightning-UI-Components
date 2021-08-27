@@ -4,8 +4,8 @@ import { MetadataHero } from '../../elements';
 
 const heroStyles = theme => ({
   orientation: 'horizontal',
-  w: 1346,
-  h: 369,
+  w: 1310,
+  h: 360,
   imgRadius: theme.border.radius.medium,
   artHeight: 360,
   artWidth: 640
