@@ -48,4 +48,15 @@ describe('TeamInfo', () => {
     const itemsAnnounce = items.map(i => `${i.title} ${i.subtitle}`).join(',');
     expect(team.announce).toBe(`${team._team},${itemsAnnounce}`);
   });
+
+  it('should override default announce', () => {
+    [team, testRenderer] = createTeamInfo({
+      team: 'Eagles',
+      overlayColor: 4278742891,
+      overlayImage: PHI,
+      announce: 'Should override default announce',
+      items
+    });
+    expect(team.announce).toBe('Should override default announce');
+  });
 });

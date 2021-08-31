@@ -147,10 +147,27 @@ export class Matchup extends withTags(lng.Component) {
   }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    let announceScore;
+    const { left, right } = this._items;
+    if (left.score === right.score) {
+      announceScore = `${left.score} to ${right.score}`;
+    } else if (left.score > right.score) {
+      announceScore = `${left.score} to ${right.score}, ${left.name}`;
+    } else {
+      announceScore = `${right.score} to ${left.score}, ${right.name}`;
+    }
+
     const metadata = this._metadata ? [this._metadata] : [];
     const subtitle = this._subtitle ? [this._subtitle] : [];
-    const title = this._title ? [this._title] : [];
-    return [...metadata, ...title, ...subtitle].join(',');
+    return [...metadata, ...subtitle, announceScore].join(',');
+  }
+
+  set announce(announce) {
+    this._announce = announce;
   }
 
   set removeBackground(removeBackground) {

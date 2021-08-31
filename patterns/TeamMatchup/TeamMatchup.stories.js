@@ -28,12 +28,14 @@ export const Basic = args => {
             left: {
               name: 'Eagles',
               color: getValidColor(args.colorLeft),
-              src: PHI
+              src: PHI,
+              score: 24
             },
             right: {
               name: 'Giants',
               color: getValidColor(args.colorRight),
-              src: NYG
+              src: NYG,
+              score: 13
             }
           }
         }
