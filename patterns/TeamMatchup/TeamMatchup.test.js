@@ -13,12 +13,14 @@ const items = {
   left: {
     name: 'Eagles',
     color: 4278742891,
-    src: PHI
+    src: PHI,
+    score: 24
   },
   right: {
     name: 'Giants',
     color: '4278931873',
-    src: NYG
+    src: NYG,
+    score: 13
   }
 };
 
@@ -68,6 +70,20 @@ describe('TeamMatchup', () => {
   });
 
   it('get announce text', () => {
-    expect(matchup.announce).toBe('Eagles vs Giants,24 - 13,1st - 1:15');
+    expect(matchup.announce).toBe(
+      'Eagles vs Giants,1st - 1:15,24 to 13, Eagles'
+    );
+  });
+
+  it('should override default announce', () => {
+    [matchup, testRenderer] = createTeamMatchup({
+      subtitle,
+      title,
+      removeBackground: false,
+      metadata,
+      announce: 'Should override default announce',
+      items
+    });
+    expect(matchup.announce).toBe('Should override default announce');
   });
 });

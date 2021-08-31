@@ -61,9 +61,17 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
   }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
     let announceText = this._team ? `${this._team},` : '';
     announceText += this._Column.items.map(item => item.announce).join(',');
     return announceText;
+  }
+
+  set announce(announce) {
+    this._announce = announce;
   }
 
   set team(team) {

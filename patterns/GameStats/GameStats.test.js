@@ -198,6 +198,16 @@ describe('GameStats', () => {
         singleStats.map(i => `${i.label},${i.items[0].value}`).join(',')
       );
     });
+
+    it('should override default announce', () => {
+      [dataitem, testRenderer] = createGameStats({
+        entity: 'Eagles',
+        single: true,
+        stats: singleStats,
+        announce: 'Should override default announce'
+      });
+      expect(dataitem.announce).toBe('Should override default announce');
+    });
   });
 
   describe('Multiple entities', () => {

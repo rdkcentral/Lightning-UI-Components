@@ -196,6 +196,10 @@ export class StatLine extends withStyles(
     }
 
     get announce() {
+      if (this._announce) {
+        return this._announce;
+      }
+
       const label = this._label ? [this._label] : [];
       const entity1 =
         this._entities && this._entities[0] ? [this._entities[0]] : [];
@@ -204,6 +208,10 @@ export class StatLine extends withStyles(
         this._entities && this._entities[1] ? [this._entities[1]] : [];
       const stat2 = this._stats && this._stats[1] ? [this._stats[1]] : [];
       return [...label, ...entity1, ...stat1, ...entity2, ...stat2].join(',');
+    }
+
+    set announce(announce) {
+      this._announce = announce;
     }
 
     get _LeftArrow() {
@@ -303,7 +311,11 @@ export class SingleStatLine extends withStyles(
     }
 
     get announce() {
-      return [this._label, this._stat].join(',');
+      return this._announce || [this._label, this._stat].join(',');
+    }
+
+    set announce(announce) {
+      this._announce = announce;
     }
 
     get _Stat() {
@@ -354,7 +366,14 @@ class Stats extends lng.Component {
   }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
     return this._Column.items.map(statline => statline.announce).join(',');
+  }
+
+  set announce(announce) {
+    this._announce = announce;
   }
 
   set stats(stats) {
