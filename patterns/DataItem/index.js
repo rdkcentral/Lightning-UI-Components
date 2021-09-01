@@ -1,33 +1,9 @@
 import lng from '@lightningjs/core';
-import FocusRing from '../../elements/FocusRing';
+import { Base } from '../../elements';
+import styles from './DataItem.styles';
 import withStyles from '../../mixins/withStyles';
 
-export const styles = theme => ({
-  background: {
-    color: theme.palette.background.ghost
-  },
-  radius: theme.border.radius.medium,
-  focusring: function ({ w, h, radius }) {
-    return {
-      type: FocusRing,
-      w,
-      h,
-      radius: radius + 2,
-      size: theme.spacing(0.5),
-      zIndex: 1
-    };
-  },
-  unfocused: {
-    scale: () => 1,
-    focusring: { alpha: 0 }
-  },
-  focused: {
-    scale: theme.getFocusScale,
-    focusring: { alpha: 1 }
-  }
-});
-
-class DataItem extends lng.Component {
+class DataItem extends Base {
   static _template() {
     return {
       Background: {
@@ -45,45 +21,30 @@ class DataItem extends lng.Component {
     };
   }
 
+  static get properties() {
+    return ['backgroundImage', 'margin'];
+  }
+
+  static get tags() {
+    return ['FocusRing', 'Content', 'Background'];
+  }
+
   _construct() {
-    this._whenEnabled = new Promise(
-      resolve => (this._enable = resolve),
-      console.error
-    );
+    super._construct();
     this._radius = this.styles.radius;
   }
 
   _init() {
-    this._Background.w = this.w;
-    this._Background.h = this.h;
     this._Content.w = this.w;
     this._Content.h = this.h;
     this._update();
   }
 
-  set backgroundImage(backgroundImage) {
-    this._backgroundImage = backgroundImage;
-    this._update();
-  }
-
-  set margin(margin) {
-    if (typeof margin === 'object') {
-      this._marginX = margin.x;
-      this._marginY = margin.y;
-    } else {
-      this._marginX = margin;
-      this._marginY = margin;
-    }
-    this._update();
-  }
-
-  set content(content) {
-    this._Content.patch(content, true);
-    this._update();
-  }
-
   _update() {
+    this._Background.w = this.w;
+    this._Background.h = this.h;
     this._whenEnabled.then(() => {
+      // this._updateContent();
       this._updateFocusRing();
       this._updateScale();
       this._updateMargins();
@@ -91,29 +52,55 @@ class DataItem extends lng.Component {
     });
   }
 
-  _updateFocusRing() {
-    if (!this._focusRing) {
-      this._focusRing = this.styles.focusring({
-        w: this.w,
-        h: this.h,
-        radius: this._radius + 2
-      });
+  // TODO: After other components using DataItem are refactored,
+  // add content to the properties array, remove the getter and setter
+  // and uncomment the _updateContent method below and in _update
+  set content(content) {
+    if (this._content != content) {
+      this._content = content;
+      this._Content.patch(this._content, true);
+      this._update();
     }
-    let FocusRingComponent = this._focusRing;
-    const style = this.hasFocus()
-      ? this.styles.focused.focusring
-      : this.styles.unfocused.focusring;
-    if (this._smooth) {
-      FocusRingComponent.smooth = style;
-    } else {
-      FocusRingComponent = { ...FocusRingComponent, ...style };
-    }
-    this.patch({ FocusRing: FocusRingComponent });
+  }
 
-    if (this.hasFocus()) {
-      this._FocusRing.startAnimation();
-    } else {
-      this._FocusRing.stopAnimation();
+  get content() {
+    return this.content;
+  }
+
+  // _updateContent() {
+  //   if (this.content) {
+  //     this._Content.patch(this.content, true);
+  //   }
+  // }
+  _updateFocusRing() {
+    if (this.hasFocus() || this._FocusRing) {
+      if (!this._FocusRing) {
+        this.patch({ FocusRing: { type: this.styles.focusringType } });
+      }
+
+      this._FocusRing.patch({
+        ...this.styles.focusring({
+          w: this.w,
+          h: this.h,
+          radius: this._radius,
+          color: this.focusRingColor
+        })
+      });
+
+      const style = this.hasFocus()
+        ? this.styles.focused.focusring
+        : this.styles.unfocused.focusring;
+      if (this._smooth) {
+        this._FocusRing.smooth = style;
+      } else {
+        this._FocusRing.patch(style);
+      }
+
+      if (this.hasFocus()) {
+        this._FocusRing.startAnimation();
+      } else {
+        this._FocusRing.stopAnimation();
+      }
     }
   }
 
@@ -142,24 +129,15 @@ class DataItem extends lng.Component {
     }
   }
 
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
-  }
-
-  get _FocusRing() {
-    return this.tag('FocusRing');
-  }
-
-  get _Content() {
-    return this.tag('Content');
-  }
-  get _Background() {
-    return this.tag('Background');
+  _setMargin(margin) {
+    if (typeof margin === 'object') {
+      this._marginX = margin.x;
+      this._marginY = margin.y;
+    } else {
+      this._marginX = margin;
+      this._marginY = margin;
+    }
+    return margin;
   }
 }
 
