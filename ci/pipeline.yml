@@ -80,7 +80,7 @@ resources:
     check_every: 168h
     tags: [aws]
     source:
-      branch: next
+      branch: beta
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
 
