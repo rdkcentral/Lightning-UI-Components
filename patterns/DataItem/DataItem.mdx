@@ -22,7 +22,7 @@ class Example extends lng.Component {
         type: DataItem,
           h,
           w,
-          contents: { ... }
+          content: { ... }
       }
     };
   }
@@ -42,7 +42,8 @@ name|type|required|default|description
 h|number|true|-|height of background and all contents inside
 w|number|true|-|width of background and all contents inside
 margin|number\|object|false|0|spacing between background edges and content start
-contents|object|true|-|contents inside of data item that can be composed of elements and component
+content|object|true|-|contents inside of data item that can be composed of elements and component
+backgroundImage|string|false|-|sets the source path of the backgroundImage (can be any image type)
 
 ### Styles
 
