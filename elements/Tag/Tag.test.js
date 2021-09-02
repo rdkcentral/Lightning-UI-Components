@@ -1,4 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
+import { getValidColor } from '../../Styles';
 import Tag from '.';
 
 const createComponent = TestUtils.makeCreateComponent(Tag);
@@ -44,5 +45,12 @@ describe('Tag', () => {
     setTimeout(() => {
       expect(tag.w).toBe(68);
     });
+  });
+
+  it('changes background color gradient', () => {
+    const gradientColor = '#000000';
+    [tag, testRenderer] = createComponent({ gradientColor });
+    testRenderer.update();
+    expect(tag._Background.colorRight).toEqual(getValidColor(gradientColor));
   });
 });
