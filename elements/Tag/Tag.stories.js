@@ -19,6 +19,7 @@ export const Basic = args =>
         Tag: {
           type: Tag,
           backgroundColor: args.backgroundColor,
+          gradientColor: args.gradientColor,
           title: args.title,
           titleColor: args.titleColor
         }
@@ -31,10 +32,12 @@ export const Basic = args =>
   };
 Basic.args = {
   backgroundColor: '#f6a50a',
+  gradientColor: undefined,
   title: 'Tag',
   titleColor: '#ffffff'
 };
 Basic.argTypes = {
   backgroundColor: { control: 'color' },
+  gradientColor: { control: 'color' },
   titleColor: { control: 'color' }
 };

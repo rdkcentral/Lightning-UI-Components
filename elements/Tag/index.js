@@ -17,7 +17,13 @@ export default class Tag extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['backgroundColor', 'radius', 'title', 'titleColor'];
+    return [
+      'backgroundColor',
+      'gradientColor',
+      'radius',
+      'title',
+      'titleColor'
+    ];
   }
 
   static get tags() {
@@ -75,6 +81,9 @@ export default class Tag extends withStyles(Base, styles) {
         this.backgroundColor || getValidColor('#232328')
       )
     });
+    if (this.gradientColor) {
+      this._Background.colorRight = getValidColor(this.gradientColor);
+    }
   }
 
   _setBackgroundColor(color) {
