@@ -81,7 +81,7 @@
     "test:watch": "jest --no-coverage --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
     "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
-    "release": "git fetch origin && git checkout release && git pull origin release && git pull origin develop && git push origin release",
+    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "update:next": "git fetch origin && git checkout next && git pull origin next && git pull origin develop && git push origin next",
     "update:beta": "git fetch origin && git checkout beta && git pull origin beta && git pull origin develop && git push origin beta"
   },
