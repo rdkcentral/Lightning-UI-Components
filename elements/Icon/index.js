@@ -1,6 +1,7 @@
 import lng from '@lightningjs/core';
 
-export default class Icon extends lng.Component {
+import Base from '../Base';
+export default class Icon extends Base {
   static _template() {
     return {
       color: 0xffffffff,
@@ -9,25 +10,28 @@ export default class Icon extends lng.Component {
     };
   }
 
-  get icon() {
-    return this._icon;
-  }
-
-  set icon(icon) {
-    if (!icon) {
-      this.texture = undefined;
-      return;
-    }
-    this._icon = icon;
-    this._update();
+  static get properties() {
+    return ['icon'];
   }
 
   _init() {
-    this.on('txError', () => (this.icon = null));
-    this._update();
+    this.on('txError', this._handleTxtError.bind(this));
+  }
+
+  _detach() {
+    this.off('txError', this._handleTxtError.bind(this));
+  }
+
+  _handleTxtError(error) {
+    this._icon = null;
+    this.texture = null;
   }
 
   _update() {
+    if (!this._icon) {
+      this.texture = null;
+      return;
+    }
     const { icon, w, h } = this;
     const template = getIconTemplate(icon, w, h);
     this.patch(template);

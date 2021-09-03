@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import Notification from '.';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Notification.mdx';
-
+import iconSvg from '../../assets/images/success.svg';
 export default {
   title: 'Patterns/Notification',
   parameters: {
@@ -19,6 +19,7 @@ export const Basic = args =>
       return {
         Notification: {
           type: Notification,
+          icon: iconSvg,
           title:
             'Notification: Lorem ipsum dolor sit amet, consectetur adipiscing elit',
           description:
@@ -27,6 +28,9 @@ export const Basic = args =>
             text:
               'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
             icon
+          },
+          onEnter() {
+            this.dismiss();
           }
         }
       };
@@ -36,6 +40,14 @@ export const Basic = args =>
       setTimeout(() => {
         this.tag('Notification').enter();
       }, 1e3);
+    }
+
+    $notificationEntered() {
+      console.log('Notification entered');
+    }
+
+    $notificationDismissed() {
+      console.log('Notification dismissed');
     }
 
     _getFocused() {

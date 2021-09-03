@@ -117,7 +117,7 @@ export default class Notification extends withStyles(Base, styles) {
 
   get _animations() {
     const animations = [this._step1, this._step2, this._step3];
-    if (!this._notificationActive) animations.reverse();
+    if (!this._notificationActivated) animations.reverse();
     return animations;
   }
 
@@ -146,20 +146,14 @@ export default class Notification extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
-
-    this._animating = false;
-    this._notificationActive = false;
-    this._icon = defaultIcon;
-
-    const titleLoaded = new Promise(resolve => {
-      this._titleLoaded = resolve;
-    });
-
-    const descriptionLoaded = new Promise(resolve => {
-      this._descriptionLoaded = resolve;
-    });
-
-    this._textLoaded = Promise.all([titleLoaded, descriptionLoaded]);
+    this._animating = false; // Track if animation is still being processed
+    this._descriptionLoadedPromise = null;
+    this._icon = defaultIcon; // Resolved when description texture is loaded
+    this._notificationActivated = false; // Toggled when enter() is called
+    this._notificationOpen = false; // Animation has completed
+    this._titleLoadedPromise = null; // Resolved when title texture is loaded
+    this._titleLoaded = () => {};
+    this._descriptionLoaded = () => {};
   }
 
   _init() {
@@ -174,13 +168,30 @@ export default class Notification extends withStyles(Base, styles) {
     this._updateTitle();
     this._updateDescription();
     this._updateActionArea();
-    // If any value is changed after the notification is opened we should animated to accommodate the new content
-    if (this._notificationActive) this._animate(true);
+    if (this._notificationActivated && this._triggerUpdate) {
+      this._updateLayout();
+    }
+  }
+
+  async _updateLayout() {
+    if (this._animating || !this._notificationOpen) return;
+    await Promise.all(
+      [this._titleLoadedPromise, this._descriptionLoadedPromise].filter(Boolean)
+    );
+    this._Container.h =
+      this._totalHeight +
+      (this._actionArea ? this.styles.actionArea.background.h : 0);
+    if (this._actionArea) {
+      this._ActionArea.patch({
+        y: this._totalHeight,
+        alpha: 1
+      });
+    }
   }
 
   _updateIcon() {
     this._Icon.patch({
-      src: this._icon,
+      icon: this._icon,
       h: this.styles.icon.size,
       w: this.styles.icon.size
     });
@@ -191,7 +202,6 @@ export default class Notification extends withStyles(Base, styles) {
       this._Title.content = this._title;
     } else {
       this._Title.content = undefined;
-      this._titleLoaded(true);
     }
     // Position the title in the center if description is not defined
     if (this._title && !this._description) {
@@ -254,6 +264,22 @@ export default class Notification extends withStyles(Base, styles) {
     }
   }
 
+  _setTitle(title) {
+    this._triggerUpdate = true; // This will effect the height of the component if changed after Notification is open
+    this._titleLoadedPromise = new Promise(resolve => {
+      this._titleLoaded = resolve;
+    });
+    return title;
+  }
+
+  _setDescription(description) {
+    this._triggerUpdate = true; // This will effect the height of the component if changed after Notification is open
+    this._descriptionLoadedPromise = new Promise(resolve => {
+      this._descriptionLoaded = resolve;
+    });
+    return description;
+  }
+
   _titleChanged() {
     // Resolve promise after title is completely loaded
     this._titleLoaded(true);
@@ -265,30 +291,40 @@ export default class Notification extends withStyles(Base, styles) {
   }
 
   async enter() {
-    if (this._animating) return;
-    this._notificationActive = true;
+    if (this._animating || this._notificationOpen) return;
+    this._notificationActivated = true;
     await this._animate();
+    this.signal('notificationEntered');
+    this.fireAncestors('$notificationEntered');
   }
 
   async dismiss() {
-    if (this._animating) return;
-    this._notificationActive = false;
+    if (this._animating || !this._notificationOpen) return;
+    this._notificationActivated = false;
     await this._animate();
     this.signal('notificationDismissed');
     this.fireAncestors('$notificationDismissed');
   }
 
   async _animate(updateOnly = false) {
-    await this._textLoaded;
+    this._animating = true;
+    await Promise.all(
+      [this._titleLoadedPromise, this._descriptionLoadedPromise].filter(Boolean)
+    );
+
     for (const step in this._animations) {
       await this._animations[step].call(this, updateOnly);
     }
+
+    this._animating = false;
+    this._notificationOpen = this._notificationActivated;
   }
 
   _step1(updateOnly = false) {
     return new Promise(resolve => {
       let animation;
-      if (this._notificationActive) {
+      if (this._notificationActivated) {
+        this._Content.h = this.styles.icon.size; // Make sure icon is always centered
         animation = this._Container.animation({
           duration: 0.34,
           delay: 0,
@@ -336,6 +372,7 @@ export default class Notification extends withStyles(Base, styles) {
             }
           ]
         });
+
         this._Icon.smooth = {
           alpha: this.styles.dismiss.icon.alpha
         };
@@ -346,9 +383,9 @@ export default class Notification extends withStyles(Base, styles) {
   }
 
   _step2() {
-    return new Promise(resolve => {
+    const animation1 = new Promise(resolve => {
       let animation;
-      if (this._notificationActive) {
+      if (this._notificationActivated) {
         this._Text.smooth = {
           alpha: [this.styles.enter.text.alpha, { duration: 0.28, delay: 0.4 }]
         };
@@ -418,12 +455,49 @@ export default class Notification extends withStyles(Base, styles) {
       animation.start();
       animation.on('finish', resolve);
     });
+
+    const animation2 = new Promise(resolve => {
+      let animation;
+      if (this._notificationActivated) {
+        animation = this._Content.animation({
+          duration: 0.24,
+          delay: 0.2,
+          actions: [
+            {
+              p: 'h',
+              v: {
+                0: this._Content.h,
+                1: this._totalHeight - this.styles.margin.y * 2
+              }
+            }
+          ]
+        });
+      } else {
+        animation = this._Content.animation({
+          duration: 0.24,
+          delay: 0.2,
+          actions: [
+            {
+              p: 'h',
+              v: {
+                0: this._totalHeight - this.styles.margin.y * 2,
+                1: this.styles.icon.size
+              }
+            }
+          ]
+        });
+      }
+      animation.start();
+      animation.on('finish', resolve);
+    });
+
+    return Promise.all([animation1, animation2]);
   }
 
   _step3() {
     return new Promise(resolve => {
       let animation;
-      if (this._notificationActive && this._actionArea) {
+      if (this._notificationActivated && this._actionArea) {
         this._ActionArea.patch({
           y: this._totalHeight,
           alpha: 1
