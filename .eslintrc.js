@@ -34,6 +34,14 @@ module.exports = {
         destructuring: 'any',
         ignoreReadBeforeAssign: false
       }
+    ],
+    'id-blacklist': [
+      2,
+      '_updateDimensions',
+      '_updateTextureCoords',
+      '_updateCollision',
+      '_updateAttachedFlag',
+      '_updateEnabledFlag'
     ]
   },
   parserOptions: {
