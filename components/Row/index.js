@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import FocusManager from '../FocusManager';
 import { getX, getH } from '../../utils';
 import { debounce } from 'debounce';
 export default class Row extends FocusManager {
   static _template() {
     return {
+      ...super._template(),
       direction: 'row'
     };
   }
@@ -100,32 +100,68 @@ export default class Row extends FocusManager {
     return this.Items.children.filter(child => this._isOnScreen(child));
   }
 
+  // _isOnScreen(child) {
+  //   const x = getX(child);
+  //   const { w } = child;
+  //   const withinLowerBounds = x + w + this._itemsX > 0;
+  //   const withinUpperBounds = x + this._itemsX < this.w;
+  //   return withinLowerBounds && withinUpperBounds;
+  // }
+
   _isOnScreen(child) {
     const x = getX(child);
+    if (!x) return false;
+    // to calculate the target absolute X position of the item, we need to use
+    // 1) the entire row's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const ItemX =
+      this.core.renderContext.px + this.Items.transition('x').targetValue + x;
     const { w } = child;
-    const withinLowerBounds = x + w + this._itemsX > 0;
-    const withinUpperBounds = x + this._itemsX < this.w;
-    return withinLowerBounds && withinUpperBounds;
+
+    // check that the child is inside the bounds of the stage
+    const withinLeftStageBounds = ItemX > 0;
+    // stage width needs to be adjusted with precision since all other values assume the original height and width (pre-scaling)
+    const withinRightStageBounds =
+      ItemX + w < this.stage.w / this.stage.getRenderPrecision();
+
+    // check that the child is inside the bounds of any clipping
+    let withinLeftClippingBounds = true;
+    let withinRightClippingBounds = true;
+    if (this.core._scissor && this.core._scissor.length) {
+      // _scissor consists of [ left position (x), top position (y), width, height ]
+      const leftBounds = this.core._scissor[0];
+      const rightBounds = leftBounds + this.core._scissor[2];
+      withinLeftClippingBounds = Math.round(ItemX + w) > Math.round(leftBounds);
+      withinRightClippingBounds = Math.round(ItemX) < Math.round(rightBounds);
+    }
+
+    return (
+      withinLeftStageBounds &&
+      withinRightStageBounds &&
+      withinLeftClippingBounds &&
+      withinRightClippingBounds
+    );
   }
 
-  _isOnScreenCompletely(child) {
-    let itemX = child.core.renderContext.px;
-    let rowX = this.core.renderContext.px;
-    return itemX >= rowX && itemX + child.w <= rowX + this.w;
-  }
+  // _isOnScreenCompletely(child) {
+  //   let itemX = child.core.renderContext.px;
+  //   let rowX = this.core.renderContext.px;
+  //   return itemX >= rowX && itemX + child.w <= rowX + this.w;
+  // }
 
   _shouldScroll() {
-    const lastChild = this.Items.childList.last;
     let shouldScroll = this.alwaysScroll;
-    if (!shouldScroll) {
+    if (!shouldScroll && !this.neverScroll) {
       if (this.lazyScroll) {
-        shouldScroll = !this._isOnScreenCompletely(this.selected);
+        shouldScroll = !this._isOnScreen(this.selected);
       } else {
+        const lastChild = this.Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
             this.shouldScrollRight() ||
-            !this._isOnScreenCompletely(this.selected));
+            !this._isOnScreen(this.selected));
       }
     }
     return shouldScroll;
@@ -134,10 +170,16 @@ export default class Row extends FocusManager {
   _getLazyScrollX(prev) {
     let itemsContainerX;
     const prevIndex = this.Items.childList.getIndex(prev);
-    if (prevIndex > this.selectedIndex) {
+    if (prevIndex === this._lastFocusableIndex()) {
+      itemsContainerX = -this.Items.children[0].x;
+    } else if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
-      itemsContainerX = this.w - this.selected.x - this.selected.w;
+      itemsContainerX =
+        this.w -
+        this.selected.x -
+        this.selected.w -
+        (this.core.renderContext.px + this.itemSpacing);
     }
     return itemsContainerX;
   }
@@ -146,6 +188,9 @@ export default class Row extends FocusManager {
     let itemsContainerX;
     let itemIndex = this.selectedIndex - this.scrollIndex;
     itemIndex = itemIndex < 0 ? 0 : itemIndex;
+    if (itemIndex === this._firstFocusableIndex()) {
+      itemIndex = 0;
+    }
     if (this.Items.children[itemIndex]) {
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue
@@ -156,6 +201,10 @@ export default class Row extends FocusManager {
 
   render(next, prev) {
     this._whenEnabled.then(() => {
+      if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+        next.selectedIndex = this._getIndexOfItemNear(next, prev);
+      }
+
       this._prevLastScrollIndex = this._lastScrollIndex;
 
       if (this._shouldScroll()) {
