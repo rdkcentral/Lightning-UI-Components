@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,14 @@ const baseRow = {
   items
 };
 
+const skipPlinkoRow = {
+  type: Row,
+  h: 80,
+  skipPlinko: true,
+  debounceDelay: 0,
+  items: [{ type: lng.Component, w: 400, h: 80 }]
+};
+
 const rows = [
   { ...baseRow },
   { ...baseRow },
@@ -72,9 +80,25 @@ describe('Column', () => {
     }, 3);
   });
 
-  it('should render', () => {
-    let tree = testRenderer.toJSON();
+  it('should render', async done => {
+    let resolvePromise;
+    const waitForEnable = new Promise(resolve => (resolvePromise = resolve));
+    const awaitComponent = {
+      Component: {
+        ...Component.Component,
+        type: class extends Column {
+          _enable() {
+            if (super.enable) super.enable();
+            resolvePromise();
+          }
+        }
+      }
+    };
+    testRenderer = TestRenderer.create(awaitComponent);
+    await waitForEnable;
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
+    done();
   });
 
   it('should set focus on first item', () => {
@@ -211,7 +235,7 @@ describe('Column', () => {
         expect(column.items[1].selectedIndex).toBe(3);
       });
 
-      it('should selected last item in selected row if it is closest', () => {
+      it('should select last item in selected row if it is closest', () => {
         let row = column.items[0];
         row.items = [...items, { ...baseItem }];
         row._update.flush();
@@ -254,7 +278,6 @@ describe('Column', () => {
 
       describe('and scrollIndex = 0', () => {
         it('should scroll down', done => {
-          let item = column.items[1];
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
@@ -264,7 +287,6 @@ describe('Column', () => {
         });
 
         it('should scroll up', done => {
-          let item = column.items[0];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Up');
           column._whenEnabled.then(() => {
@@ -431,6 +453,61 @@ describe('Column', () => {
           done();
         }, 2);
       });
+
+      it('should not scroll is neverScroll if true', done => {
+        column.neverScroll = true;
+        expect(column.Items.y).toBe(0);
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+        column._whenEnabled.then(() => {
+          expect(column._selectedIndex).toBe(3);
+          expect(column.Items.transition('y').targetValue).toBe(0);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('with skpPlinko true a row', () => {
+    it('should set selected item for item based on item before skipPlinko item', () => {
+      column.plinko = true;
+      column.items = [{ ...baseRow }, { ...skipPlinkoRow }, { ...baseRow }];
+      let item = column.items[0];
+      item.selectedIndex = 3;
+      testRenderer.update();
+      testRenderer.keyPress('Down');
+      expect(column.items[1].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[2].selectedIndex).toBe(3);
+    });
+
+    it('should set selected item for item based on item before multiple skipPlinko items', () => {
+      column.plinko = true;
+      column.items = [
+        { ...baseRow },
+        { ...skipPlinkoRow },
+        { ...skipPlinkoRow },
+        { ...skipPlinkoRow },
+        { ...baseRow }
+      ];
+      let item = column.items[0];
+      item.selectedIndex = 3;
+      testRenderer.update();
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[1].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[2].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[3].selectedIndex).toBe(0);
+      testRenderer.keyPress('Down');
+      testRenderer.update();
+      expect(column.items[4].selectedIndex).toBe(3);
     });
   });
 });

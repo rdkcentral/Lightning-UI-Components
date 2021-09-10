@@ -1,3 +1,20 @@
+<!--
+ Copyright 2021 Comcast Cable Communications Management, LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ SPDX-License-Identifier: Apache-2.0
+ -->
 import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
@@ -9,7 +26,7 @@ Focus management and smooth scrolling for a vertically-oriented list of items.
 ## Usage
 
 ```js
-import { Column } from '@lightningjs/ui-components';
+import { Column } from '@lightning/ui';
 
 class BasicExample extends lng.Component {
   static _template() {
@@ -32,7 +49,7 @@ class BasicExample extends lng.Component {
 The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
 
 <Canvas>
-  <Story id="column--basic" />
+  <Story id="layout-column--basic" />
 </Canvas>
 
 ## Infinite Scrolling
@@ -74,7 +91,7 @@ The promise returned by `getMoreItems` is then passed as the `provider` to a `Co
 ```
 
 <Canvas>
-  <Story id="column--provider" />
+  <Story id="layout-column--provider" />
 </Canvas>
 
 See the [Properties section](#properties) for details.
@@ -108,6 +125,7 @@ scrollMount|number|false|Value between 0 and 1, determines at what point scrolli
 selected|<DocsLink id="lng.Component" />|true|component that is currently in focus
 selectedIndex|number|false|index of currently selected item
 alwaysScroll|boolean|false|determines whether the column will stop scrolling as it nears the bottom to prevent white space
+neverScroll|boolean|false|false|if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic
 onScreenItems|array|true|contains a list of items that are currently on screen (within the bounds of the container)
 
 ### Child Item Properties
@@ -116,6 +134,8 @@ The `Column` component will utilize the following properties on each individual 
 name|type|readonly|description
 --|--|--|--
 centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will horizontally center the child
+skipPlinko|boolean|false|if set to true, plinko will use the previous item to determine the horizontal index of the next focused item
+
 
 ### Methods
 

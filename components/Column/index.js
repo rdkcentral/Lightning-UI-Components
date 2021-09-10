@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
+      ...super._template(),
       direction: 'column'
     };
   }
@@ -70,6 +71,16 @@ export default class Column extends FocusManager {
     return super.selectPrevious();
   }
 
+  _shouldScroll() {
+    let shouldScroll = this.alwaysScroll;
+    if (!shouldScroll && !this.neverScroll) {
+      const lastChild = this.Items.childList.last;
+      shouldScroll =
+        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+    }
+    return shouldScroll;
+  }
+
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollUp() {
     let shouldScroll = false;
@@ -104,33 +115,68 @@ export default class Column extends FocusManager {
     this._prevLastScrollIndex = this._lastScrollIndex;
 
     if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-      next.selectedIndex = this._getIndexOfItemNear(next, prev);
-    }
-
-    // Rows are changing height, so we'll render via updateLayout
-    if (this.itemsChangeable) {
-      return;
+      const prevPlinko = this.checkSkipPlinko(prev, next);
+      next.selectedIndex = this._getIndexOfItemNear(next, prevPlinko || prev);
     }
 
     this._performRender();
   }
 
+  checkSkipPlinko(prev, next) {
+    // If previous doesnt have skip plinko or previous is the first or last item
+    if (
+      !prev ||
+      !prev.skipPlinko ||
+      [0, this.items.length - 1].includes(this.items.indexOf(prev))
+    ) {
+      return null;
+    }
+
+    const prevIndex = this.items.indexOf(prev);
+    const direction = prevIndex - this.items.indexOf(next);
+    const up = direction > 0;
+
+    // Grab all items below prev if up or all items before prev if down
+    const prevItems = up
+      ? this.items.slice(prevIndex).map((i, idx) => ({
+          skipPlinko: i.skipPlinko,
+          index: this.items.indexOf(i)
+        }))
+      : this.items
+          .slice(0, prevIndex + 1)
+          .map(i => ({
+            skipPlinko: i.skipPlinko,
+            index: this.items.indexOf(i)
+          }))
+          .reverse();
+
+    // first item that has skipPlinko but the previous does not
+    // Start at the index prev
+    const endOfMultiSkipPlinkos = prevItems.find(
+      i => i.skipPlinko && !this.items[i.index + direction].skipPlinko
+    );
+    const prevPlinkoIndex = endOfMultiSkipPlinkos
+      ? endOfMultiSkipPlinkos.index + direction
+      : prevIndex + direction; // +/- 1, item index before prev
+
+    return this.items[prevPlinkoIndex];
+  }
+
   _performRender() {
     this._whenEnabled.then(() => {
-      const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
-        .y;
-      const firstChild = this.Items.childList.first;
-      const lastChild = this.Items.childList.last;
-      const shouldScroll =
-        this.alwaysScroll ||
-        (lastChild && (this.shouldScrollUp() || this.shouldScrollDown()));
-
-      if (shouldScroll) {
-        const scrollItem =
+      if (this._shouldScroll()) {
+        let scrollItem =
           this.selectedIndex > this._lastScrollIndex
             ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
             : this.selected;
+        if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
+          scrollItem = this.Items.children[0];
+        }
+        const scrollOffset = (
+          this.Items.children[this._scrollIndex] || { y: 0 }
+        ).y;
         if (this._smooth) {
+          const firstChild = this.Items.childList.first;
           this.Items.smooth = {
             y: [
               -(scrollItem || firstChild).transition('y').targetValue +
@@ -155,10 +201,38 @@ export default class Column extends FocusManager {
 
   _isOnScreen(child) {
     const y = getY(child);
+
+    // to calculate the target absolute Y position of the item, we need to use
+    // 1) the entire column's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const ItemY =
+      this.core.renderContext.py + this.Items.transition('y').targetValue + y;
     const { h } = child;
-    const withinLowerBounds = y + h + this._itemsY > 0;
-    const withinUpperBounds = y + this._itemsY < this.h;
-    return withinLowerBounds && withinUpperBounds;
+
+    // check that the child is inside the bounds of the stage
+    const withinTopStageBounds = ItemY + h > 0;
+    // stage height needs to be adjusted with precision since all other values assume the original height and width (pre-scaling)
+    const withinBottomStageBounds =
+      ItemY < this.stage.h / this.stage.getRenderPrecision();
+
+    // check that the child is inside the bounds of any clipping
+    let withinTopClippingBounds = true;
+    let withinBottomClippingBounds = true;
+    if (this.core._scissor && this.core._scissor.length) {
+      // _scissor consists of [ left position (x), top position (y), width, height ]
+      const topBounds = this.core._scissor[1];
+      const bottomBounds = topBounds + this.core._scissor[3];
+      withinTopClippingBounds = Math.round(ItemY + h) > Math.round(topBounds);
+      withinBottomClippingBounds = Math.round(ItemY) < Math.round(bottomBounds);
+    }
+
+    return (
+      withinTopStageBounds &&
+      withinBottomStageBounds &&
+      withinTopClippingBounds &&
+      withinBottomClippingBounds
+    );
   }
 
   _updateLayout() {
@@ -216,94 +290,6 @@ export default class Column extends FocusManager {
     });
   }
 
-  // finds the index of the item with the closest middle to the previously selected item
-  _getIndexOfItemNear(selected, prev) {
-    // edge case
-    if (selected.items.length < 2) return 0;
-
-    let prevItem = prev.selected || prev.currentItem;
-    let prevOffset = prev.transition('x').targetValue || 0;
-    let [itemX] = prevItem.core.getAbsoluteCoords(-prevOffset, 0);
-    let prevMiddle = itemX + prevItem.w / 2;
-
-    // set the first item to be closest
-    let closest = selected.items[0];
-    let closestMiddle = closest.core.getAbsoluteCoords(0, 0)[0] + closest.w / 2;
-
-    // start at the 2nd item
-    for (let i = 1; i < selected.items.length; i++) {
-      // for some reason here !!/!.. evals returning number
-      if (selected.items[i].skipFocus === true) {
-        continue;
-      }
-
-      const item = selected.items[i];
-      const middle = item.core.getAbsoluteCoords(0, 0)[0] + item.w / 2;
-
-      if (
-        Math.abs(middle - prevMiddle) < Math.abs(closestMiddle - prevMiddle)
-      ) {
-        // current item is the closest
-        closest = item;
-        closestMiddle = middle;
-      } else {
-        if (!closest.skipFocus) {
-          // weve already found closest return its index
-          return selected.items.indexOf(closest);
-        } else if (!selected.items[i - 1].skipFocus) {
-          // previous item is focusable return it
-          return i - 1;
-        } else {
-          // return closest left or right of index
-          const prevIndex = prev.items.indexOf(prevItem);
-          return this._getIndexofClosestFocusable(
-            prevIndex,
-            selected,
-            prevMiddle
-          );
-        }
-      }
-    }
-    // if last index is focusable return
-    return selected.items.length - 1;
-  }
-
-  _getIndexofClosestFocusable(selectedIndex, selected, prevMiddle) {
-    // dont want to mutate the original selected.items using spread for copy
-    // get first focusable item before and after the current focused item's index
-    const prevIndex = [...selected.items]
-      .slice(0, selectedIndex)
-      .map(item => !!item.skipFocus)
-      .lastIndexOf(false);
-    const nextIndex =
-      [...selected.items]
-        .slice(selectedIndex + 1)
-        .map(item => !!item.skipFocus)
-        .indexOf(false) +
-      selectedIndex +
-      1;
-
-    const prevItem = selected.items[prevIndex];
-    const nextItem = selected.items[nextIndex];
-
-    // Check if the items exist if not return the other
-    // covers case where at 0 idx, previous would not exist
-    // and opposite for last index next would not exist
-    if (prevIndex === -1 || !prevItem) {
-      return nextIndex;
-    }
-    if (nextIndex === -1 || !nextItem) {
-      return prevIndex;
-    }
-
-    // If both items compare coordinates to determine which direction of plinko
-    const next = nextItem.core.getAbsoluteCoords(0, 0)[0] + nextItem.w / 2;
-    const prev = prevItem.core.getAbsoluteCoords(0, 0)[0] + prevItem.w / 2;
-    return Math.abs(prev - prevMiddle) < Math.abs(next - prevMiddle)
-      ? prevIndex
-      : nextIndex;
-  }
-
   get itemSpacing() {
     return this._itemSpacing;
   }
@@ -331,7 +317,7 @@ export default class Column extends FocusManager {
   }
 
   appendItems(items = []) {
-    let itemWidth = this.renderWidth;
+    const itemWidth = this.renderWidth;
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
@@ -356,13 +342,12 @@ export default class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this.itemsChangeable = true;
     this._updateImmediate();
   }
 
   $removeItem(item) {
     if (item) {
-      let wasSelected = item === this.selected;
+      const wasSelected = item === this.selected;
       this.Items.childList.remove(item);
       this._updateImmediate();
 
