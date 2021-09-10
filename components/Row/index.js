@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import FocusManager from '../FocusManager';
 import { getX, getH } from '../../utils';
 import { debounce } from 'debounce';
