@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import lng from '@lightningjs/core';
-import TestUtils from '../../test/lightning-test-utils';
+import TestUtils from '../../components/lightning-test-utils';
 import withTags from '.';
 
 const updateMock = jest.fn();
