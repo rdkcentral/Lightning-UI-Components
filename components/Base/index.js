@@ -21,7 +21,7 @@ import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
 import withUpdates from '../../mixins/withUpdates';
 
-const baseStyles = theme => ({
+const baseStyles = () => ({
   getUnfocusScale: () => 1
   // getFocusScale: theme.getFocusScale
 });
