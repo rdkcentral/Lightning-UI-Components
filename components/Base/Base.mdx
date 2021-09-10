@@ -1,0 +1,26 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import Base from '.';
+
+# Base
+
+This component is used to provide a solid starting point for component development. It includes default mixins and some class methods.
+
+## Usage
+
+
+```js
+import { Base } from '@lightningjs/ui-components';
+class MyNewComponent extends Base {
+  static _template() {
+    return {
+      // ...
+    };
+  }
+};
+```
+
+## API
+
+### Styles
+
+Styled components can be adjusted by using [withStyles](?path=/docs/mixins-withstyles--basic)
