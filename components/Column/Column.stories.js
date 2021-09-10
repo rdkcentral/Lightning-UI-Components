@@ -22,6 +22,15 @@ import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
 import { flatten } from '../../utils';
+import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
+import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+import person from '../../assets/images/cast.png';
+import person1 from '../../assets/images/cast1.png';
+import person2 from '../../assets/images/cast2.png';
+import { TileIcon, MetadataTile } from '../../elements';
+import { withMetadata } from '../../patterns';
 
 export default {
   title: 'Layout / Column',
