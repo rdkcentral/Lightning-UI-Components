@@ -1,7 +1,26 @@
 import Column from '../../layout/Column';
+import { Base } from '../../elements';
 import Input from '../Input';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
-export default class KeyboardInput extends lng.Component {
+
+export default class KeyboardInput extends Base {
+  static get tags() {
+    return [
+      'Wrapper',
+      { name: 'Input', path: 'Wrapper.Input' },
+      { name: 'Keyboard', path: 'Wrapper.Keyboard' }
+    ];
+  }
+
+  static get properties() {
+    return [
+      'inputPlaceholder',
+      'centerAlign',
+      'defaultFormat',
+      'keyboardFormats'
+    ];
+  }
+
   _init() {
     this.patch({
       Wrapper: {
@@ -64,13 +83,5 @@ export default class KeyboardInput extends lng.Component {
 
   _getFocused() {
     return this._Wrapper || this;
-  }
-
-  get _Wrapper() {
-    return this.tag('Wrapper');
-  }
-
-  get _Input() {
-    return this.tag('Wrapper.Input');
   }
 }

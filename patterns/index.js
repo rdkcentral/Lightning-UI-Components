@@ -14,6 +14,7 @@ export { default as GameStats } from './GameStats';
 export { default as Info } from './Info';
 export { default as Input } from './Input';
 export { default as Keyboard, KEYBOARD_FORMATS } from './Keyboard';
+export { default as KeyboardInput } from './Keyboard/KeyboardInput';
 export {
   default as ListItem,
   ListItemImage,
