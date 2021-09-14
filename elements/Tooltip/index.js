@@ -1,22 +1,9 @@
 import lng from '@lightningjs/core';
-import withStyles from '../../mixins/withStyles';
-import withUpdates from '../../mixins/withUpdates';
-import { RoundRect } from '../../utils';
+import { withStyles } from '../../mixins';
+import Base from '../Base';
+import styles from './Tooltip.styles';
 
-export const styles = theme => ({
-  shadow: theme.materials.glow,
-  horizontalPadding: theme.spacing(2),
-  radius: theme.border.radius.small,
-  textProperties: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.dark.primary,
-    textAlign: 'center',
-    wordWrapWidth: 400
-  },
-  bottomMargin: theme.spacing(5)
-});
-
-export class Tooltip extends lng.Component {
+export default class Tooltip extends withStyles(Base, styles) {
   static _template() {
     return {
       alpha: 0,
@@ -28,7 +15,8 @@ export class Tooltip extends lng.Component {
       },
       Text: {
         zIndex: 3
-      }
+      },
+      DropShadow: {}
     };
   }
 
@@ -43,7 +31,12 @@ export class Tooltip extends lng.Component {
     ];
   }
 
+  static get tags() {
+    return ['Background', 'Text', 'DropShadow'];
+  }
+
   _construct() {
+    super._construct();
     this.shadow = this.styles.shadow;
     this.textProperties = this.styles.textProperties;
     this.radius = this.styles.radius;
@@ -51,8 +44,12 @@ export class Tooltip extends lng.Component {
     this.bottomMargin = this.styles.bottomMargin;
   }
 
-  _init() {
+  _attach() {
     this._Text.on('txLoaded', () => this._updateContainer());
+  }
+
+  _detach() {
+    this._Text.off('txLoaded', () => this._updateContainer());
   }
 
   _update() {
@@ -129,16 +126,4 @@ export class Tooltip extends lng.Component {
 
     this.smooth = { alpha: 0, scale: 0.5 };
   }
-
-  get _Text() {
-    return this.tag('Text');
-  }
-  get _DropShadow() {
-    return this.tag('DropShadow');
-  }
-  get _Background() {
-    return this.tag('Background');
-  }
 }
-
-export default withUpdates(withStyles(Tooltip, styles));

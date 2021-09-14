@@ -3,9 +3,7 @@ import lng from '@lightningjs/core';
 import Tooltip from '.';
 import mdx from './Tooltip.mdx';
 import Button from '../Button';
-import ActionButton, {
-  styles as ACTION_BUTTON_STYLES
-} from '../../elements/ActionButton';
+import ActionButton from '../ActionButton';
 
 export default {
   title: 'Elements / Tooltip',
