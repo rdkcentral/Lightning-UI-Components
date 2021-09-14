@@ -20,7 +20,10 @@ class BaseType extends lng.Component {
       Row: {
         type: Row,
         plinko: true,
-        items: []
+        items: [],
+        passSignals: {
+          selectedChange: 'selectedChange'
+        }
       }
     };
   }
