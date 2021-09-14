@@ -1,15 +1,9 @@
-import lng from '@lightningjs/core';
-import { withTags, withUpdates } from '../../mixins';
+import Base from '../Base';
+import styles from './TextBox.styles';
 import withStyles from '../../mixins/withStyles';
 import { getValidColor } from '../../Styles';
 
-const styles = theme => {
-  return {
-    typography: theme.typography,
-    maxLinesSuffix: '...'
-  };
-};
-class TextBox extends lng.Component {
+export default class TextBox extends withStyles(Base, styles) {
   static _template() {
     return {
       alpha: 0.001,
@@ -158,5 +152,3 @@ class TextBox extends lng.Component {
     this.patch({ text: fontStyle });
   }
 }
-
-export default withTags(withUpdates(withStyles(TextBox, styles)));
