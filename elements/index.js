@@ -13,6 +13,7 @@ export { default as Base } from './Base';
 export { default as Button } from './Button';
 export { default as CardArtwork } from './CardArtwork';
 export { default as Checkbox } from './Checkbox';
+export { default as Control, ControlMedium, ControlSmall } from './Control';
 export { default as FocusRing } from './FocusRing';
 export { default as Gradient } from './Gradient';
 export { default as Icon } from './Icon';
