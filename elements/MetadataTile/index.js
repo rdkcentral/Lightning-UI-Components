@@ -1,36 +1,11 @@
-import lng from '@lightningjs/core';
-import withStyles from '../../mixins/withStyles';
 import InlineContent from '../../layout/InlineContent';
 import MarqueeText from '../MarqueeText';
+import Base from '../Base';
+import { FadeShader } from '../../textures';
+import { withStyles } from '../../mixins';
+import styles from './MetadataTile.styles';
 
-export const styles = theme => ({
-  w: 410,
-  justify: 'center',
-  marqueeProperties: {
-    centerAlign: true
-  },
-  firstLineTextProperties: {
-    ...theme.typography.headline3,
-    textColor: theme.palette.text.light.primary,
-    textAlign: 'center',
-    maxLines: 1
-  },
-  secondLineTextProperties: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    maxLinesSuffix: '...',
-    textAlign: 'center',
-    maxLines: 1
-  },
-  unfocused: {
-    scale: () => 1
-  },
-  focused: {
-    scale: theme.getFocusScale
-  }
-});
-
-class MetadataTile extends lng.Component {
+export default class MetadataTile extends withStyles(Base, styles) {
   static _template() {
     return {
       flex: { direction: 'column', justifyContent: 'center' },
@@ -46,19 +21,14 @@ class MetadataTile extends lng.Component {
         }
       },
       SecondLineWrapper: {
-        Marquee: {
-          type: MarqueeText,
-          alpha: 0
-        },
         SecondLine: {
           type: InlineContent,
-          alpha: 0.001,
+          alpha: 1,
           rtt: true
         }
       }
     };
   }
-
   _construct() {
     this._justify = this.styles.justify;
     this._marqueeProperties = this.styles.marqueeProperties;
@@ -67,6 +37,42 @@ class MetadataTile extends lng.Component {
     this._getFocusScale = this.styles.focused.scale;
     this._getUnfocusScale = this.styles.unfocused.scale;
     this.w = this.styles.w;
+    this._fadeWidth = this.styles.fadeWidth;
+    super._construct();
+  }
+
+  static get tags() {
+    return [
+      'Text',
+      'FirstLineWrapper',
+      'SecondLineWrapper',
+      {
+        name: 'FirstLineMarquee',
+        path: 'FirstLineWrapper.Marquee'
+      },
+      {
+        name: 'FirstLine',
+        path: 'FirstLineWrapper.FirstLine'
+      },
+      {
+        name: 'SecondLine',
+        path: 'SecondLineWrapper.SecondLine'
+      }
+    ];
+  }
+  static get properties() {
+    return [
+      'focusScale',
+      'justify',
+      'unfocusScale',
+      'marqueeProperties',
+      'firstLine',
+      'firstLineTextProperties',
+      'secondLine',
+      'secondLineTextProperties',
+      'originalW',
+      'fadeWidth'
+    ];
   }
 
   _init() {
@@ -87,12 +93,15 @@ class MetadataTile extends lng.Component {
       this._FirstLineWrapper.h = line.textHeight;
     }
     line.h = line.textHeight;
+    this._update();
   }
 
   _update() {
-    this._updateLines();
     this._updateWidth();
+    this._updateFirstLine();
+    this._updateSecondLine();
     this._updateMarquee();
+    this._updateShader();
   }
 
   _focus() {
@@ -105,10 +114,16 @@ class MetadataTile extends lng.Component {
   }
 
   _updateWidth() {
-    if (this._smooth) {
+    const secondLineXPosition =
+      this._focusW > this._SecondLine.finalW
+        ? Math.abs((this._focusW - this._SecondLine.finalW) / 2)
+        : 0;
+    if (this.smooth) {
       this.smooth = { w: this._focusW };
+      this._SecondLine.smooth = { x: secondLineXPosition };
     } else {
       this.w = this._focusW;
+      this._SecondLine.x = secondLineXPosition;
     }
   }
 
@@ -120,10 +135,6 @@ class MetadataTile extends lng.Component {
       this._FirstLineMarquee.stopScrolling &&
         this._FirstLineMarquee.stopScrolling(this._textW);
     }
-  }
-
-  get _linesArray() {
-    return [this._firstLineObject, this._secondLineObject];
   }
 
   get _firstLineObject() {
@@ -140,28 +151,50 @@ class MetadataTile extends lng.Component {
     return {
       wrapper: this._SecondLineWrapper,
       component: this._SecondLine,
-      marquee: this._SecondLineMarquee,
       content: this._secondLine,
       textProps: this._secondLineTextProperties
     };
   }
 
-  _updateLines() {
-    this._linesArray.forEach(line => {
-      // if losing focus, we don't want the lines to "pop" back into place
-      // as the tile width chages, but we want them to start in place when alphaing on
-      line.marquee.shouldSmooth = !this.hasFocus();
-      line.component.justify = this._justify;
-      line.component.content = line.content;
-      line.component.textProperties = line.textProps;
-      line.marquee.patch(this._marqueeProperties);
-      line.marquee.contentTexture = line.component.getTexture();
-      line.marquee.w = this._textW;
-      line.marquee.smooth = { alpha: line.content ? 1 : 0 };
-      line.wrapper.visible = line.content ? true : false;
+  _updateFirstLine() {
+    this._firstLineObject.component.patch({
+      justify: this._justify,
+      content: this._firstLineObject.content,
+      textProperties: this._firstLineObject.textProps
+    });
+    this._firstLineObject.marquee.patch({
+      ...this.marqueeProperties,
+      w: this._textW,
+      contentTexture: this._firstLineObject.component.getTexture(),
+      smooth: { alpha: this._firstLineObject.content ? 1 : 0 }
+    });
+    this._firstLineObject.wrapper.visible = this._firstLineObject.content
+      ? true
+      : false;
+  }
+  _updateSecondLine() {
+    this._secondLineObject.component.patch({
+      justify: this._justify,
+      content: this._secondLineObject.content,
+      textProperties: this._secondLineObject.textProps
     });
   }
-
+  _updateShader() {
+    if (this._SecondLine.finalW > this.w) {
+      this._SecondLineWrapper.patch({
+        w: this._focusW + this._fadeWidth / 2,
+        h: this._SecondLine.h,
+        shader: {
+          type: FadeShader,
+          positionLeft: 0,
+          positionRight: this._fadeWidth
+        },
+        rtt: true
+      });
+    } else {
+      this._SecondLineWrapper.shader = undefined;
+    }
+  }
   get announce() {
     return `${this._FirstLine.announce}. ${this._SecondLine.announce}.`;
   }
@@ -172,107 +205,10 @@ class MetadataTile extends lng.Component {
 
   get _focusW() {
     if (this.originalW) {
-      const scale = this.hasFocus() ? this.focusScale : this.unfocusScale;
+      const scale = this.hasFocus() ? this._focusScale : this._unfocusScale;
       return scale * this.originalW;
     }
     return this.w;
-  }
-
-  set focusScale(focusScale) {
-    if (focusScale !== this._focusScale) {
-      this._focusScale = focusScale;
-      this._update();
-    }
-  }
-
-  get focusScale() {
-    return this._focusScale;
-  }
-
-  set unfocusScale(unfocusScale) {
-    if (unfocusScale !== this._unfocusScale) {
-      this._unfocusScale = unfocusScale;
-      this._update();
-    }
-  }
-
-  get unfocusScale() {
-    return this._unfocusScale;
-  }
-
-  set justify(justify) {
-    if (justify !== this._justify) {
-      this._justify = justify;
-      this._update();
-    }
-  }
-
-  get justify() {
-    return this._justify;
-  }
-
-  set marqueeProperties(marqueeProperties) {
-    if (marqueeProperties !== this._marqueeProperties) {
-      this._marqueeProperties = marqueeProperties;
-      this._update();
-    }
-  }
-
-  get marqueeProperties() {
-    return this._marqueeProperties;
-  }
-
-  set firstLine(firstLine) {
-    if (firstLine !== this._firstLine) {
-      this._firstLine = firstLine;
-      this._update();
-    }
-  }
-
-  get firstLine() {
-    return this._firstLine;
-  }
-
-  set firstLineTextProperties(firstLineTextProperties) {
-    if (firstLineTextProperties !== this._firstLineTextProperties) {
-      this._firstLineTextProperties = firstLineTextProperties;
-      this._update();
-    }
-  }
-
-  get firstLineTextProperties() {
-    return this._firstLineTextProperties;
-  }
-
-  set secondLine(secondLine) {
-    if (secondLine !== this._secondLine) {
-      this._secondLine = secondLine;
-      this._update();
-    }
-  }
-
-  get secondLine() {
-    return this._secondLine;
-  }
-
-  set secondLineTextProperties(secondLineTextProperties) {
-    if (secondLineTextProperties !== this._secondLineTextProperties) {
-      this._secondLineTextProperties = secondLineTextProperties;
-      this._update();
-    }
-  }
-
-  get secondLineTextProperties() {
-    return this._secondLineTextProperties;
-  }
-
-  set originalW(w) {
-    this._originalW = w;
-    this._update();
-  }
-
-  get originalW() {
-    return this._originalW;
   }
 
   get h() {
@@ -285,30 +221,4 @@ class MetadataTile extends lng.Component {
   set h(h) {
     console.warn('warning: cannot set property "h" of MetadataTile');
   }
-
-  get _FirstLineWrapper() {
-    return this.tag('FirstLineWrapper');
-  }
-
-  get _FirstLineMarquee() {
-    return this._FirstLineWrapper.tag('Marquee');
-  }
-
-  get _FirstLine() {
-    return this._FirstLineWrapper.tag('FirstLine');
-  }
-
-  get _SecondLineWrapper() {
-    return this.tag('SecondLineWrapper');
-  }
-
-  get _SecondLineMarquee() {
-    return this._SecondLineWrapper.tag('Marquee');
-  }
-
-  get _SecondLine() {
-    return this._SecondLineWrapper.tag('SecondLine');
-  }
 }
-
-export default withStyles(MetadataTile, styles);
