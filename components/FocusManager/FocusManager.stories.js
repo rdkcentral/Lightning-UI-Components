@@ -21,7 +21,7 @@ import mdx from './FocusManager.mdx';
 import withSelections from '../../mixins/withSelections';
 
 export default {
-  title: 'FocusManager',
+  title: 'layout / FocusManager',
   parameters: {
     docs: {
       page: mdx
