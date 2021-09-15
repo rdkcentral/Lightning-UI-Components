@@ -54,6 +54,10 @@ export default class Tag extends withStyles(Base, styles) {
 
   _update() {
     this._updateText();
+    this._Text.on('txLoaded', () => {
+      this._Text.removeAllListeners();
+      this._updateBackground();
+    });
   }
 
   _updateText() {

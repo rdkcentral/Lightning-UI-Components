@@ -1,26 +1,22 @@
+const theme = getXfinityTheme();
+import { getXfinityTheme } from '../Styles/createTheme';
 import lng from '@lightningjs/core';
-import withUpdates from '../mixins/withUpdates';
-import withTags from '../mixins/withTags';
+import TextBox from '../elements/TextBox';
 import withStyles from '../mixins/withStyles';
-import { TYPOGRAPHY } from '../Styles';
+import withTags from '../mixins/withTags';
+import withUpdates from '../mixins/withUpdates';
 
-const style = theme => {
-  return {
-    h: theme.typography.caption.lineHeight
-  };
-};
-
+const styles = () => ({ h: 55 });
 export default class CollectionLabel extends withTags(
-  withUpdates(withStyles(lng.Component, style))
+  withUpdates(withStyles(lng.Component, styles))
 ) {
   static _template() {
     return {
       h: this.styles.h,
       skipFocus: true,
       Label: {
-        text: {
-          ...TYPOGRAPHY.caption
-        }
+        type: TextBox,
+        textColor: theme.palette.yellow.indicator
       }
     };
   }
@@ -34,6 +30,6 @@ export default class CollectionLabel extends withTags(
   }
 
   _update() {
-    if (this.title) this._Label.text.text = this.title;
+    if (this.title) this._Label.content = this.title;
   }
 }
