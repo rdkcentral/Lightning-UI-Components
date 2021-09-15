@@ -18,7 +18,7 @@
 
 import Column from '.';
 import Row from '../Row';
-import TestRenderer from '../../components/lightning-test-renderer';
+import TestRenderer from '../../elements/lightning-test-renderer';
 import lng from '@lightningjs/core';
 
 const baseItem = {
