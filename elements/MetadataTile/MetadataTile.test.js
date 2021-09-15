@@ -34,13 +34,13 @@ describe('MetadataTile', () => {
   it('should set the focus and unfocus scales', () => {
     metadataTile.focusScale = 1.5;
     metadataTile.unfocusScale = 0.9;
-    expect(metadataTile.focusScale).toBe(1.5);
-    expect(metadataTile.unfocusScale).toBe(0.9);
-
+    setTimeout(() => {
+      expect(metadataTile.focusScale).toBe(1.5);
+      expect(metadataTile.unfocusScale).toBe(0.9);
+    }, 0);
     testRenderer.focus();
     testRenderer.update();
     expect(metadataTile._focusW).toBe(400 * 1.5);
-
     testRenderer.unfocus();
     testRenderer.update();
     expect(metadataTile._focusW).toBe(400 * 0.9);
@@ -107,8 +107,10 @@ describe('MetadataTile', () => {
   it('should build announce text from the multiple lines', () => {
     metadataTile.firstLine = 'First line text';
     metadataTile.secondLine = 'Second line text';
-    expect(metadataTile.announce).toBe(
-      `${metadataTile.firstLine}. ${metadataTile.secondLine}.`
-    );
+    setTimeout(() => {
+      expect(metadataTile.announce).toBe(
+        `${metadataTile.firstLine}. ${metadataTile.secondLine}.`
+      );
+    }, 0);
   });
 });
