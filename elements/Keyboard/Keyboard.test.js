@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
- import TestUtils from '../../test/lightning-test-utils';
+import TestUtils from '../../test/lightning-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
 
