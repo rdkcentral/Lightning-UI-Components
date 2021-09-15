@@ -16,7 +16,7 @@
 * SPDX-License-Identifier: Apache-2.0
 */
 
-import { createTransitions } from '../components/Styles/Transitions';
+import { createTransitions } from '../Styles/Transitions';
 
 const patchTransitions = (element, transitions) => {
   if (!element._transitions) {
