@@ -53,7 +53,7 @@ export const Basic = args =>
               },
               {
                 type: CollectionDocItem,
-                defaultHeight: 112,
+                defaultHeight: 136,
                 items: [
                   {
                     type: withEnter(Notification),
@@ -69,7 +69,7 @@ export const Basic = args =>
               },
               {
                 type: CollectionDocItem,
-                defaultHeight: 112,
+                defaultHeight: 200,
                 items: [
                   {
                     type: withEnter(Notification),
