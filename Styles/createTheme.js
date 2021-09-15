@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { clone } from '../../utils';
+import { clone } from '../utils';
 import { CORNER_RADIUS } from './Styles';
 import { COLORS_NEUTRAL, getHexColor } from './Colors';
 

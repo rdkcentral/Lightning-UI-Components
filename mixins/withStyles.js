@@ -15,7 +15,7 @@
 *
 * SPDX-License-Identifier: Apache-2.0
 */
-import createStyles from '../elements/Styles/createStyles';
+import createStyles from '../Styles/createStyles';
 import { clone } from '../utils';
 
 export default function withStyles(Base, styles, theme) {
