@@ -15,12 +15,33 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-export * from './components/Styles/index.js';
-export { default as Announcer } from './components/Announcer/index.js';
-export { default as Button } from './components/Button/index.js';
-export { default as Column } from './components/Column/index.js';
-export { default as FocusManager } from './components/FocusManager/index.js';
-export { default as Icon } from './components/Icon/index.js';
-export { default as MarqueeText } from './components/MarqueeText/index.js';
-export { default as Row } from './components/Row/index.js';
-export { default as Base } from './components/Base';
+
+import mdx from './Base.mdx';
+
+export default {
+  title: 'Base',
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
+};
+
+export const Basic = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        Text: {
+          text: {
+            text: 'See Docs'
+          }
+        }
+      };
+    }
+
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('Text');
+      }
+    }
+  };
