@@ -18,7 +18,7 @@
 import Button from '.';
 import { getHexColor } from '../Styles';
 import withStyles from '../../mixins/withStyles';
-import TestUtils from '../lightning-test-utils';
+import TestUtils from '../../test/lightning-test-utils';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 

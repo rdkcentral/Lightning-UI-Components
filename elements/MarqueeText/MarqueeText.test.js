@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import TestUtils from '../lightning-test-utils';
+ import TestUtils from '../../test/lightning-test-utils';
 import MarqueeText from '.';
 
 const createMarqueeText = TestUtils.makeCreateComponent(MarqueeText, {

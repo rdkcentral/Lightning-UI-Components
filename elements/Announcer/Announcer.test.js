@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import Announcer from '.';
-import FocusManager from '../FocusManager';
-import TestRenderer from '../lightning-test-renderer';
+import { FocusManager } from '../../layout';
+import TestRenderer from '../../test/lightning-test-renderer';
 import lng from '@lightningjs/core';
 
 const speak = jest.fn();

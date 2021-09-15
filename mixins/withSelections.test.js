@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import TestUtils from '../components/lightning-test-utils';
+import TestUtils from '../test/lightning-test-utils';
 import withSelections from './withSelections';
 
 const duplicate = (object, quantity) => Array.apply(null, { length: quantity }).map(() => Object.assign({}, object));

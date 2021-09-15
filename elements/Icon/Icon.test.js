@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { readFileSync } from 'fs';
-import TestUtils from '../lightning-test-utils';
+import TestUtils from '../../test/lightning-test-utils';
 import Icon from '.';
 
 const createIcon = TestUtils.makeCreateComponent(Icon, {
