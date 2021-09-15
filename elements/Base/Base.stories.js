@@ -19,7 +19,7 @@
 import mdx from './Base.mdx';
 
 export default {
-  title: 'Base',
+  title: 'Elements / Base',
   parameters: {
     docs: {
       page: mdx

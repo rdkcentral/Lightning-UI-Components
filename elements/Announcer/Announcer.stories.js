@@ -24,7 +24,7 @@ import Button from '../Button';
 import mdx from './Announcer.mdx';
 
 export default {
-  title: 'Announcer',
+  title: 'Elements / Announcer',
   component: Announcer,
   parameters: {
     docs: {

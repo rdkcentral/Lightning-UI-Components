@@ -23,7 +23,7 @@ import mdx from './MarqueeText.mdx';
 import { getHexColor, COLORS_TEXT, TYPOGRAPHY } from '../Styles';
 
 export default {
-  title: 'MarqueeText',
+  title: 'Elements / MarqueeText',
   parameters: {
     docs: {
       page: mdx

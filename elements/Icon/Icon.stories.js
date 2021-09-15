@@ -23,7 +23,7 @@ import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Icon.mdx';
 
 export default {
-  title: 'Icon',
+  title: 'Elements / Icon',
   parameters: {
     docs: {
       page: mdx

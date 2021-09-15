@@ -24,7 +24,7 @@ import Row from '../Row';
 import mdx from './Keyboard.mdx';
 
 export default {
-  title: 'Keyboard',
+  title: 'Elements / Keyboard',
   component: Keyboard,
   parameters: {
     docs: {

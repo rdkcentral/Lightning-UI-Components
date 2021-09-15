@@ -22,7 +22,7 @@ import mdx from './Button.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
-  title: 'Button',
+  title: 'Elements / Button',
   parameters: {
     docs: {
       page: mdx
