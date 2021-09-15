@@ -15,21 +15,13 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import lng from '@lightningjs/core';
 import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
 import { flatten } from '../../utils';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
-import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
-import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
-import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
-import person from '../../assets/images/cast.png';
-import person1 from '../../assets/images/cast1.png';
-import person2 from '../../assets/images/cast2.png';
-import { TileIcon, MetadataTile } from '../../elements';
-import { withMetadata } from '../../patterns';
 
 export default {
   title: 'Layout / Column',
@@ -365,15 +357,11 @@ OnScreenEffect.args = {
   itemSpacing: 60
 };
 
-const rgb = (r, g, b) => {
-  return (r << 16) + (g << 8) + b + 255 * 16777216;
-};
-
 export const StickyTitle = args => {
   const items = flatten(
     Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
-      let items = Array.apply(null, { length: 8 }).map((_, i) => {
+      const items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
           type: Button,
           buttonText: `Button ${i + 1}`,
@@ -573,6 +561,12 @@ class ExpandingRow extends Row {
 export const SkipPlinko = () =>
   class SkipPlinko extends lng.Component {
     static _template() {
+      const buttonW = 150;
+      const button = {
+        type: Button,
+        buttonText: 'Button',
+        w: buttonW
+      };
       return {
         Column: {
           type: Column,
@@ -582,57 +576,19 @@ export const SkipPlinko = () =>
           items: [
             {
               type: Row,
-              h: 200,
+              h: 50,
               itemSpacing: 50,
-              items: [
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: parks,
-                  iconW: 50,
-                  iconH: 50,
-                  persistentMetadata: true,
-                  badge: 'HD'
-                },
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: person,
-                  progress: 0.8,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
-                },
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: trolls,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
-                }
-              ]
+              items: Array.apply(null, { length: 3 }).map(() => button)
             },
             {
               type: Row,
-              h: 340,
+              h: 100,
               skipPlinko: true,
               items: [
                 {
-                  type: withMetadata(TileIcon),
-                  w: 1060,
-                  h: 300,
-                  iconW: 50,
-                  iconH: 50,
-                  src: pets,
-                  badge: 'HD',
-                  Metadata: {
-                    type: MetadataTile,
-                    firstLine: `Row with skipPlinko set to true`
-                  }
+                  ...button,
+                  w: 550,
+                  h: 75
                 }
               ]
             },
@@ -641,37 +597,7 @@ export const SkipPlinko = () =>
               type: Row,
               itemSpacing: 50,
               h: 180,
-              items: [
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: person2,
-                  iconW: 50,
-                  iconH: 50,
-                  progress: 0.2,
-                  badge: 'HD'
-                },
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: jurassic,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
-                },
-                {
-                  type: withMetadata(TileIcon),
-                  w: 320,
-                  h: 180,
-                  src: person1,
-                  iconW: 50,
-                  iconH: 50,
-                  progress: 0.5,
-                  badge: 'HD'
-                }
-              ]
+              items: Array.apply(null, { length: 3 }).map(() => button)
             }
           ]
         }
