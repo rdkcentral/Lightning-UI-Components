@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import FocusManager from '.';
 import TestUtils from '../lightning-test-utils';
 import lng from '@lightningjs/core';

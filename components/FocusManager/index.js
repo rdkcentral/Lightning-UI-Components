@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
  *
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
+
 import lng from '@lightningjs/core';
 
 export default class FocusManager extends lng.Component {
