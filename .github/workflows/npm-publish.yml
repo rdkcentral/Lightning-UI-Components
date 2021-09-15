@@ -34,7 +34,7 @@ jobs:
       - run: npm ci
       - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-gpr:
@@ -49,5 +49,5 @@ jobs:
       - run: npm ci
       - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
