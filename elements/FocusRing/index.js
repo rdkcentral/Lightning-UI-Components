@@ -5,28 +5,27 @@
  *
  */
 import lng from '@lightningjs/core';
+import Base from '../Base';
 import withStyles from '../../mixins/withStyles';
 import { getHexColor, getValidColor } from '../../Styles/Styles';
+import styles from './FocusRing.styles';
 
-export const styles = theme => ({
-  color: theme.palette.focusRing.primary,
-  secondaryColor: theme.palette.focusRing.secondary,
-  radius: theme.border.radius.medium,
-  spacing: theme.spacing(1.5)
-});
+export default class FocusRing extends withStyles(Base, styles) {
+  static get properties() {
+    return ['color', 'secondaryColor', 'radius', 'spacing'];
+  }
 
-class FocusRing extends lng.Component {
+  static get tags() {
+    return ['Ring'];
+  }
+
   _construct() {
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
+    super._construct();
     this._color = getValidColor(this.styles.color);
     this._middleColor = getHexColor(getValidColor(this.styles.color), 54);
     this._secondaryColor = this.styles.secondaryColor;
     this._radius = this.styles.radius;
     this._spacing = this.styles.spacing;
-  }
-
-  _init() {
-    this._update();
   }
 
   _inactive() {
@@ -45,7 +44,7 @@ class FocusRing extends lng.Component {
         texture: lng.Tools.getRoundRect(
           this.w + this.spacing,
           this.h + this.spacing,
-          this._radius,
+          this.radius,
           4,
           false,
           false
@@ -63,9 +62,9 @@ class FocusRing extends lng.Component {
 
   getColors() {
     return {
-      primary: this._color,
+      primary: this.color,
       transition: this._middleColor,
-      secondary: this._secondaryColor
+      secondary: this.secondaryColor
     };
   }
 
@@ -143,57 +142,22 @@ class FocusRing extends lng.Component {
     }
   }
 
-  get color() {
+  _setColor(color) {
+    if (this._color !== color) {
+      const validColor = getValidColor(color);
+      if (validColor) {
+        this._middleColor = getHexColor(getValidColor(validColor), 54);
+        return validColor;
+      }
+    }
     return this._color;
   }
 
-  set color(color) {
-    if (this._color !== color) {
-      color = getValidColor(color);
-      if (color) {
-        this._color = color;
-        this._middleColor = getHexColor(getValidColor(color), 54);
-        this._update();
-      }
+  _setSecondaryColor(color) {
+    if (this._secondaryColor !== color) {
+      const validColor = getValidColor(color);
+      return validColor;
     }
-  }
-
-  get secondaryColor() {
     return this._secondaryColor;
   }
-
-  set secondaryColor(color) {
-    if (this._secondaryColor !== color) {
-      this._secondaryColor = getValidColor(color);
-      this._update();
-    }
-  }
-
-  get radius() {
-    return this._radius;
-  }
-
-  set radius(radius) {
-    if (radius !== this._radius) {
-      this._radius = radius;
-      this._update();
-    }
-  }
-
-  set spacing(spacing) {
-    if (spacing !== this._spacing) {
-      this._spacing = spacing;
-      this._update();
-    }
-  }
-
-  get spacing() {
-    return this._spacing;
-  }
-
-  get _Ring() {
-    return this.tag('Ring');
-  }
 }
-
-export default withStyles(FocusRing, styles);

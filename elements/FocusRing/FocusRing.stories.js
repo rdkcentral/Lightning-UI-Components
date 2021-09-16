@@ -51,7 +51,11 @@ export const Basic = args =>
     }
 
     _init() {
-      this._FocusRing.startAnimation();
+      if (args.animate) {
+        this._FocusRing.startAnimation();
+      } else {
+        this._FocusRing.stopAnimation();
+      }
     }
 
     get _FocusRing() {
@@ -73,6 +77,15 @@ Basic.parameters = {
         component._FocusRing.stopAnimation();
       }
       component._refocus();
+    },
+    color: (color, component) => {
+      component._FocusRing.color = color;
+    },
+    secondaryColor: (color, component) => {
+      component._FocusRing.secondaryColor = color;
+    },
+    radius: (radius, component) => {
+      component._FocusRing.radius = radius;
     }
   }
 };

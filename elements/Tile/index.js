@@ -72,7 +72,12 @@ class Tile extends Base {
     this._radius = this.styles.radius;
     this._src = this._fallbackSrc = this.styles.src;
     this._blur = this.styles.blur;
+    this._createShadow = this.styles.shadow;
+    this._createFocusRing = this.styles.focusring;
     this._focusRingColor = this.styles.focusRingColor;
+    this._focusRingType = this.styles.focusringType;
+    this._focusedStyle = this.styles.focused;
+    this._unfocusedStyle = this.styles.unfocused;
     super._construct && super._construct();
   }
 
@@ -253,7 +258,7 @@ class Tile extends Base {
   _updateDropShadow() {
     if (this.hasFocus() || this._shadow) {
       if (!this._shadow) {
-        this._shadow = this.styles.shadow({
+        this._shadow = this._createShadow({
           w: this.w,
           h: this.h,
           borderRadius: this.radius
@@ -261,8 +266,8 @@ class Tile extends Base {
       }
       let DropShadow = this._shadow;
       const style = this.hasFocus()
-        ? this.styles.focused.shadow
-        : this.styles.unfocused.shadow;
+        ? this._focusedStyle.shadow
+        : this._unfocusedStyle.shadow;
       if (this._smooth) {
         DropShadow.smooth = style;
       } else {
@@ -279,22 +284,21 @@ class Tile extends Base {
 
   _updateFocusRing() {
     if (this.hasFocus() || this._FocusRing) {
-      if (!this._FocusRing) {
-        this.patch({ FocusRing: { type: this.styles.focusringType } });
-      }
-
-      this._FocusRing.patch({
-        ...this.styles.focusring({
-          w: this.w,
-          h: this.h,
-          radius: this._radius,
-          color: this.focusRingColor
-        })
+      const focusRingPatch = this._createFocusRing({
+        w: this.w,
+        h: this.h,
+        radius: this._radius,
+        color: this.focusRingColor
       });
 
+      if (!this._FocusRing) {
+        focusRingPatch.type = this._focusRingType;
+      }
+      this.patch({ FocusRing: focusRingPatch });
+
       const style = this.hasFocus()
-        ? this.styles.focused.focusring
-        : this.styles.unfocused.focusring;
+        ? this._focusedStyle.focusring
+        : this._unfocusedStyle.focusring;
       if (this._smooth) {
         this._FocusRing.smooth = style;
       } else {
