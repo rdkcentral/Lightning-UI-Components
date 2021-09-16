@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2020 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,36 +15,24 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import createStyles from '../../Styles/createStyles';
+import { clone } from '../../utils';
 
-import lng from '@lightningjs/core';
-import mdx from './withTags.mdx';
-import withTags from '.';
+export default function withStyles(Base, styles, theme) {
+  const _theme = theme || Base.theme;
+  const _styles = Base.styles
+    ? clone(Base.styles, createStyles(styles, _theme))
+    : createStyles(styles, _theme);
 
-export default {
-  title: 'Mixins/withTags',
-  parameters: {
-    docs: {
-      page: mdx
+  return class extends Base {
+    static get name() {
+      return Base.name;
     }
-  }
-};
-
-export const Basic = args =>
-  class Basic extends withTags(lng.Component) {
-    static get tags() {
-      return ['Text'];
+    static get styles() {
+      return _styles;
     }
-
-    static _template() {
-      return {
-        x: 50,
-        y: 50,
-        Text: {
-          text: 'This has a tag'
-        }
-      };
+    get styles() {
+      return _styles;
     }
   };
-
-Basic.args = {};
-Basic.argTypes = {};
+}

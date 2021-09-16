@@ -16,38 +16,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-function getPropertyDescriptor(path) {
-  return {
-    get() {
-      return this.tag(path);
-    },
-    configurable: true,
-    enumerable: true
-  };
-}
+import createTheme from '../components/Styles/createTheme';
 
-export default function withTags(Base) {
+export default function withTheme(Base, theme) {
+  const defaultTheme = Base.theme;
+  const _theme = defaultTheme
+    ? createTheme(theme, defaultTheme)
+    : createTheme(theme);
+
   return class extends Base {
     static get name() {
       return Base.name;
     }
-
-    _construct() {
-      const tags = this.constructor.tags || [];
-      let name, path;
-      tags.forEach(tag => {
-        if (typeof tag === 'object') {
-          ({ name, path } = tag);
-        } else {
-          name = tag;
-          path = tag;
-        }
-        const key = '_' + name;
-        const descriptor = getPropertyDescriptor(path);
-        Object.defineProperty(Object.getPrototypeOf(this), key, descriptor);
-      });
-
-      super._construct && super._construct();
+    static get theme() {
+      return _theme;
+    }
+    get theme() {
+      return _theme;
     }
   };
 }
