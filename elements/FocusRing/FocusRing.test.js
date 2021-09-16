@@ -22,7 +22,7 @@ describe('FocusRing', () => {
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON(2);
+    const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
 
@@ -63,5 +63,21 @@ describe('FocusRing', () => {
   it('should set the spacing', () => {
     [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
     expect(focusRing.spacing).toEqual(50);
+  });
+
+  it('should start and stop animating', () => {
+    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
+    focusRing.startAnimation();
+    expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
+    focusRing.stopAnimation();
+    expect(focusRing._focusRingAnimation.isPlaying()).toBe(false);
+  });
+
+  it('should stop animating if the component becomes inactive', () => {
+    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
+    focusRing.startAnimation();
+    expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
+    focusRing._inactive();
+    expect(focusRing._focusRingAnimation.isPlaying()).toBe(false);
   });
 });
