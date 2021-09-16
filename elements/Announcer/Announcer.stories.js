@@ -18,9 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Announcer from '.';
-import Column from '../Column';
-import Row from '../Row';
-import Button from '../Button';
+import { Column, Row } from '../../layout';
+import { Button } from '../../elements';
 import mdx from './Announcer.mdx';
 
 export default {

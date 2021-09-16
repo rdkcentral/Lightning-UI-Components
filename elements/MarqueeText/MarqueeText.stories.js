@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 
 import MarqueeText from '.';
 import mdx from './MarqueeText.mdx';
-import { getHexColor, COLORS_TEXT, TYPOGRAPHY } from '../Styles';
+import { getHexColor, COLORS_TEXT, TYPOGRAPHY } from '../../Styles';
 
 export default {
   title: 'Elements / MarqueeText',

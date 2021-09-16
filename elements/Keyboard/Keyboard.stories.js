@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import Key from './Key';
-import Row from '../Row';
+import { Row } from '../../layout';
 
 import mdx from './Keyboard.mdx';
 

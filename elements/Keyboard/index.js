@@ -18,8 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Key, { KEY_DIMENSIONS } from './Key';
-import Row from '../Row';
-import Column from '../Column';
+import { Column, Row } from '../../layout';
 
 export default class Keyboard extends lng.Component {
   _construct() {

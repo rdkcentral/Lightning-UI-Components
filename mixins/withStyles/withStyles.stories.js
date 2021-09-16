@@ -17,9 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import withStyles from './withStyles';
+import withStyles from '.';
 import mdx from './withStyles.mdx';
-import { rgba2argb } from '../utils';
+import { rgba2argb } from '../../utils';
 
 export default {
   title: 'Mixins/withStyles',
