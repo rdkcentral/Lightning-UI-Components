@@ -1,20 +1,20 @@
 /**
-* Copyright 2020 Comcast Cable Communications Management, LLC
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* SPDX-License-Identifier: Apache-2.0
-*/
+ * Copyright 2021 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
@@ -24,13 +24,16 @@ import { addDecorator } from '@storybook/html';
 import theme from './theme';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: { hideNoControlsWarning: true },
   docs: {
     inlineStories: true,
     theme
+  },
+  options: {
+    enableShortcuts: false
   }
-}
+};
 
 const white = 0xffffffff;
 const black = 0xff000000;
@@ -77,62 +80,92 @@ class StoryApp extends lng.Application {
 let storyId;
 let app;
 
-addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
-  function createApp() {
-    const app = new StoryApp({
-      stage: {
-        ...stage,
-        ...(parameters.stage || {})
-      }
-    });
-    app.children = {
-      StoryComponent: {
-        type: StoryComponent(),
-        w: w => w,
-        h: h => h,
-        x: 40,
-        y: 40
-      }
-    };
-
-    //Expose the APP for debugging
-    window.APP = app;
-
-    return app;
-  }
-
-  function clearInspector() {
-    // Clear any lightning inspector info
-    if (document.querySelectorAll('[type=StoryApp]').length > 1) {
-      let div = document.querySelector('[type=StoryApp]');
-      div && div.parentNode.remove();
-    };
-
-    // Move lightning inspector out of the foreground
-    if (window.top.location.search.indexOf('path=/docs/') > -1) {
-      let div = document.querySelector('[type=StoryApp]');
-      div && (div.parentNode.style.zIndex = -1);
+// Prevent scrolling when navigating with arrows on canvas
+window.addEventListener(
+  'keydown',
+  function(e) {
+    if (!document.body.classList.contains('canvas')) return;
+    if (
+      ['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(
+        e.code
+      ) > -1
+    ) {
+      e.preventDefault();
     }
-  }
+  },
+  false
+);
 
-  // render a new App if we've just swapped stories
-  // or if the story component is missing children (for sandboxing purposes?)
-  if (id !== storyId || !app.tag('StoryComponent').children.length) {
-    storyId = id;
-    app = createApp();
-    clearInspector();
-  } else {
-    // tag is what we use to target a component for controls.
-    // there can only be one target per story
-    const tag = parameters.tag || kind;
-    const storyComponent = app.tag('StoryComponent');
-    const component = storyComponent.tag(tag);
+addDecorator(
+  (
+    StoryComponent,
+    { id, args, argTypes, kind, parameters, story, globals }
+  ) => {
+    function createApp() {
+      const app = new StoryApp({
+        stage: {
+          ...stage,
+          ...(parameters.stage || {})
+        }
+      });
+      app.children = {
+        StoryComponent: {
+          type: StoryComponent(),
+          w: w => w,
+          h: h => h,
+          x: 40,
+          y: 40
+        }
+      };
 
-    for (const arg in args) {
+      //Expose the APP for debugging
+      window.APP = app;
+
+      return app;
+    }
+
+    function clearInspector() {
+      // Clear any lightning inspector info
+      if (document.querySelectorAll('[type=StoryApp]').length > 1) {
+        let div = document.querySelector('[type=StoryApp]');
+        div && div.parentNode.remove();
+      }
+
+      // Move lightning inspector out of the foreground
+      if (window.top.location.search.indexOf('path=/docs/') > -1) {
+        document.body.classList.remove('canvas');
+        let div = document.querySelector('[type=StoryApp]');
+        div && (div.parentNode.style.zIndex = -1);
+      } else {
+        document.body.classList.add('canvas');
+      }
+    }
+
+    // render a new App if we've just swapped stories
+    // or if the story component is missing children (for sandboxing purposes?)
+    // or if the forceReload parameter is set i.e. Basic.parameters = { forceReload: true }
+    if (
+      id !== storyId ||
+      !app.tag('StoryComponent').children.length ||
+      parameters.forceReload
+    ) {
+      storyId = id;
+      app = createApp();
+      clearInspector();
+    } else {
+      // tag is what we use to target a component for controls.
+      // there can only be one target per story
+      const tag = parameters.tag || kind;
+      const storyComponent = app.tag('StoryComponent');
+      const component = storyComponent.tag(tag) || storyComponent;
+
+      for (const arg in args) {
         const argValue = args[arg];
 
         if (!component) {
-          console.error(`.storybook/preview.js - No tag '${tag}' found inside story '${story}'. Change the component tag name to '${tag}' or set "${story}.parameters = { tag: '${storyComponent.childList.first.tags[0]}' }"`);
+          console.error(
+            `.storybook/preview.js - No tag '${tag}' found inside story '${story}'. Change the component tag name to '${tag}' or set "${story}.parameters = { tag: '${storyComponent.childList.first.tags[0]}' }"`
+          );
         }
 
         // argActions are callbacks keyed to args.
@@ -157,9 +190,20 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
           const argAction = parameters.argActions[arg];
           argAction(argValue, storyComponent, args);
         } else if (argValue !== component[arg]) {
+          // if forceReload is on the argType, create a new app
+          // example: Basic.argTypes = { title: { forceReload: true }}
+          if (argTypes[arg].forceReload) {
+            app = createApp();
+            clearInspector();
+            return app.getCanvas();
+          }
+
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
-          const descriptor = getDescriptor(component.type.prototype, arg);
+          const proto = component.type
+            ? component.type.prototype
+            : component.__proto__;
+          const descriptor = getDescriptor(proto, arg);
 
           if (descriptor && descriptor.set) {
             component[arg] = argValue;
@@ -168,11 +212,12 @@ addDecorator((StoryComponent, { id, args, kind, parameters, story }) => {
             clearInspector();
             return app.getCanvas();
           }
+        }
       }
     }
+    return app.getCanvas();
   }
-  return app.getCanvas();
-});
+);
 
 function getDescriptor(prototype, property) {
   let proto = prototype.__proto__;
@@ -182,7 +227,7 @@ function getDescriptor(prototype, property) {
     if (proto.constructor.isPrototypeOf(lng.Component)) break;
     descriptor = Object.getOwnPropertyDescriptor(proto, property);
     proto = proto.__proto__;
-  };
+  }
 
   return descriptor;
 }

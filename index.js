@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,3 +24,4 @@ export { default as Icon } from './components/Icon/index.js';
 export { default as MarqueeText } from './components/MarqueeText/index.js';
 export { default as Row } from './components/Row/index.js';
 export { default as Base } from './components/Base';
+export { default as withHandleKey } from './mixins/withHandleKey';

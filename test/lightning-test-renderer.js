@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import lng from '@lightningjs/core';
 
 const stage = {
@@ -30,30 +31,37 @@ const pressEvent = {
 };
 
 function keyPress(elm, key) {
+  const keyEvt = typeof key === 'string' ? { key } : key;
+
   if (
     !elm.stage.application.focusTopDownEvent(
-      [`_capture${key}`, '_captureKey'],
-      { ...pressEvent, type: 'keydown', key }
+      [`_capture${keyEvt.key}`, '_captureKey'],
+      { ...pressEvent, type: 'keydown', ...keyEvt }
     )
   ) {
-    elm.stage.application.focusBottomUpEvent([`_handle${key}`, '_handleKey'], {
-      ...pressEvent,
-      type: 'keydown',
-      key
-    });
+    elm.stage.application.focusBottomUpEvent(
+      [`_handle${keyEvt.key}`, '_handleKey'],
+      {
+        ...pressEvent,
+        type: 'keydown',
+        ...keyEvt
+      }
+    );
   }
 }
 
 function keyRelease(elm, key) {
+  const keyEvt = typeof key === 'string' ? { key } : key;
+
   if (
     !elm.stage.application.focusTopDownEvent(
-      [`_capture${key}`, '_captureKey'],
-      pressEvent
+      [`_capture${keyEvt.key}`, '_captureKey'],
+      { ...pressEvent, ...keyEvt }
     )
   ) {
     elm.stage.application.focusBottomUpEvent(
-      [`_handle${key}Release`, '_handleKeyRelease'],
-      { ...pressEvent, type: 'keyup' }
+      [`_handle${keyEvt.key}Release`, '_handleKeyRelease'],
+      { ...pressEvent, type: 'keyup', ...keyEvt }
     );
   }
 }
@@ -79,7 +87,7 @@ function create(Component, options = {}) {
     }
   }
 
-  let app = new TestApp({ stage });
+  const app = new TestApp({ stage, ...opts });
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
   app.updateFocusPath();
@@ -97,6 +105,7 @@ function create(Component, options = {}) {
       app.childList.first._unfocus();
     },
     getInstance: () => app.childList.first,
+    getFocused: () => app.focusPath[app.focusPath.length - 1],
     getApp: () => app,
     keyPress: key => {
       keyPress(app, key);
