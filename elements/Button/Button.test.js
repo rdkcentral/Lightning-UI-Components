@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import Button from '.';
-import { getHexColor } from '../Styles';
+import { getHexColor } from '../../Styles';
 import withStyles from '../../mixins/withStyles';
 import TestUtils from '../../test/lightning-test-utils';
 

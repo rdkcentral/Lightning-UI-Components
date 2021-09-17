@@ -17,7 +17,7 @@
  */
 
 import FocusManager from '.';
-import TestUtils from '../../elements/lightning-test-utils';
+import TestUtils from '../../test/lightning-test-utils';
 import lng from '@lightningjs/core';
 
 const baseItem = { type: lng.Component };
