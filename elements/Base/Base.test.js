@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2020 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,35 +16,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from '@lightningjs/core';
-import mdx from './withTags.mdx';
-import withTags from '.';
+import TestUtils from '../../test/lightning-test-utils';
+import Base from '.';
 
-export default {
-  title: 'Mixins/withTags',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
-};
+const createComponent = TestUtils.makeCreateComponent(Base);
 
-export const Basic = args =>
-  class Basic extends withTags(lng.Component) {
-    static get tags() {
-      return ['Text'];
-    }
+describe('Base', () => {
+  let component, testRenderer;
 
-    static _template() {
-      return {
-        x: 50,
-        y: 50,
-        Text: {
-          text: 'This has a tag'
-        }
-      };
-    }
-  };
+  beforeEach(() => {
+    [component, testRenderer] = createComponent();
+  });
+  afterEach(() => {
+    component = null;
+    testRenderer = null;
+  });
 
-Basic.args = {};
-Basic.argTypes = {};
+  it('renders', () => {
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+});

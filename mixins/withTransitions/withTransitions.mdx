@@ -1,0 +1,178 @@
+<!--
+ Copyright 2020 Comcast Cable Communications Management, LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ SPDX-License-Identifier: Apache-2.0
+ -->
+
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { DocsLink, ObjectFormat } from '../../.storybook/utils';
+
+# withTransitions
+
+Wrap a component with `withTransitions` to bulk apply transition settings to standard properties.
+
+```js
+import { withTransitions } from '@lightningjs/ui-components/mixins';
+
+class MyExample extends lng.Component {}
+
+export default withTransitions(MyExample);
+```
+
+<Canvas>
+  <Story id="mixins-withtransitions--basic" />
+</Canvas>
+
+`withTransitions` takes two arguments: a `class` that extends `lng.Component` and an options object (optional).
+
+See the table below for available options:
+
+export const TransitionType = () => (
+  <ObjectFormat
+    object={{ duration: 'number', delay: 'number', timingFunction: 'string' }}
+  />
+);
+
+export const TransitionDefault = () => (
+  <ObjectFormat
+    object={{
+      duration: 0.3,
+      delay: 0,
+      timingFunction: 'cubic-bezier(0.80, 0.00, 0.20, 1.00)'
+    }}
+  />
+);
+
+| name       | type               | default                                         | description                                                                                                  |
+| ---------- | ------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| properties | string[]           | ['alpha', 'color', 'scale', 'h', 'w', 'x', 'y'] | names of properties to which transition settings should be applied                                           |
+| transition | <TransitionType /> | <TransitionDefault />                           | transition values to be applied. For more info, see <DocsLink id="lng.Transition">Transition docs</DocsLink> |
+
+### How it works
+
+If you wrap a component in `withTransitions`, transitions will be set for _all_ properties of that component and _all of it's children that exist on `_init()`_. This means that any child defined in the component's template will receive the transitions, along with all of their children, and so on. Any transitions that are explicitly set in a template will override the `withTransitions` options.
+
+For example, let's say you have a component that renders a child:
+
+```js
+class Child extends lng.Component {}
+
+class Container extends lng.Component {
+  static _template() {
+    return {
+      Child: {
+        type: Child
+      }
+    };
+  }
+}
+```
+
+Now, you want to apply transitions globally to both the `Container` and its `Child`.
+
+```js
+withTransitions(Container, {
+  properties: ['alpha'],
+  transition: { duration: 0.5, timingFunction: 'ease-out' }
+});
+```
+
+The "manual" version of this would look like:
+
+```js
+class Container extends lng.Component {
+  static _template() {
+    return {
+      transitions: {
+        alpha: {
+          duration: 0.5,
+          timingFunction: 'ease-out',
+          delay: 0 // applied by default since we ommitted it in the options
+        }
+      },
+      Child: { type: Child }
+    };
+  }
+
+  _init() {
+    this.tag('Child').transitions = {
+      alpha: {
+        duration: 0.5,
+        timingFunction: 'ease-out',
+        delay: 0 // applied by default since we ommitted it in the options
+      }
+    };
+  }
+}
+```
+
+As you can see, the amount of manual work to set transition values for just one property is pretty hefty, and it would grow exponentionally as you add children and properties to apply transitions to. This is trivial using `withTransitions`.
+
+If you want to add another `Child`:
+
+```js
+class Container extends lng.Component {
+  static _template() {
+    return {
+      Child1: { type: Child },
+      Child2: { type: Child }
+    };
+  }
+}
+
+export default withTransitions(Container, {
+  properties: ['alpha'],
+  transition: { duration: 0.5, timingFunction: 'ease-out' }
+});
+```
+
+If you want to override one of the global transitions:
+
+```js
+class Container extends lng.Component {
+  static _template() {
+    return {
+      Child1: { type: Child },
+      Child2: {
+        type: Child,
+        transitions: {
+          alpha: { delay: 0.3 }
+        }
+      }
+    };
+  }
+}
+
+export default withTransitions(Container, {
+  properties: ['alpha'],
+  transition: { duration: 0.5, timingFunction: 'ease-out' }
+});
+```
+
+In the above example, `Container.transitions` and `Child1.transitions` will look like:
+
+```js
+{
+  alpha: { duration: 0.5, timingFunction: 'ease-out', delay: 0 }
+}
+```
+
+and `Child2.transitions` will look like:
+
+```js
+{
+  alpha: { duration: 0.5, timingFunction: 'ease-out', delay: 0.3 }
+}
+```

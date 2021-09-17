@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2020 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from '@lightningjs/core';
-import mdx from './withTags.mdx';
-import withTags from '.';
+import mdx from './Base.mdx';
 
 export default {
-  title: 'Mixins/withTags',
+  title: 'Elements / Base',
   parameters: {
     docs: {
       page: mdx
@@ -30,21 +28,20 @@ export default {
 };
 
 export const Basic = args =>
-  class Basic extends withTags(lng.Component) {
-    static get tags() {
-      return ['Text'];
-    }
-
+  class Basic extends lng.Component {
     static _template() {
       return {
-        x: 50,
-        y: 50,
         Text: {
-          text: 'This has a tag'
+          text: {
+            text: 'See Docs'
+          }
         }
       };
     }
-  };
 
-Basic.args = {};
-Basic.argTypes = {};
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('Text');
+      }
+    }
+  };
