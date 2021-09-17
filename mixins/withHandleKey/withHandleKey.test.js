@@ -105,7 +105,7 @@ describe('withHandleKey', () => {
     expect(HandleKeyComponent.onSideways).toHaveBeenCalled();
   });
 
-  it('propogates an undefined a signal when a key cannot be mapped', () => {
+  it('propogates an undefined signal when a key cannot be mapped', () => {
     const createHandleKeyComp = TestUtils.makeCreateComponent(
       withHandleKey(Example),
       {},
