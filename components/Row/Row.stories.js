@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import lng from '@lightningjs/core';
 
 import Row from '.';
@@ -22,7 +23,7 @@ import Column from '../Column';
 import mdx from './Row.mdx';
 
 export default {
-  title: 'Row',
+  title: 'Layout / Row',
   parameters: {
     docs: {
       page: mdx
@@ -30,68 +31,31 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Row: {
           type: Row,
-          itemSpacing: 100,
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-export const AlwaysScroll = () =>
-  class AlwasyScroll extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: Row,
-          itemSpacing: 100,
-          alwaysScroll: true,
-          items: [
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 },
-            { type: Button, buttonText: 'Button', w: 150 }
-          ]
-        }
-      };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-export const SideScrolling = args =>
-  class SideScrolling extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: Row,
           w: 900,
-          itemSpacing: 20,
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
           scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 12 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`,
-            w: 150
-          })),
-          lazyScroll: args.lazyScroll
+          items: [
+            {
+              type: Button,
+              buttonText: 'Button 0',
+              w: 150,
+              skipFocus: true
+            },
+            ...Array.apply(null, { length: 12 }).map((_, i) => ({
+              type: Button,
+              buttonText: `Button ${i + 1}`,
+              w: 150
+            }))
+          ]
         }
       };
     }
@@ -100,13 +64,25 @@ export const SideScrolling = args =>
       return this.tag('Row');
     }
   };
-SideScrolling.args = {
+Basic.args = {
+  itemSpacing: 20,
   scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
   lazyScroll: false
 };
-SideScrolling.argTypes = {
+Basic.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
   scrollIndex: {
     control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
   },
   lazyScroll: {
     control: 'boolean'
@@ -306,3 +282,121 @@ class ExpandingHeightButton extends Button {
     this.setSmooth('h', 75, { duration: 1 });
   }
 }
+
+export const Plinko = args => {
+  return class Plinko extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          itemSpacing: 20,
+          plinko: true,
+          items: [
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map((item, index) => ({
+                type: Button,
+                buttonText: 1 !== index ? 'Button' : 'Skip focus',
+                w: 150,
+                skipFocus: 1 === index
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            },
+            {
+              w: 150,
+              type: Column,
+              itemSpacing: 20,
+              items: new Array(3).fill().map(() => ({
+                type: Button,
+                buttonText: 'Button',
+                w: 150
+              }))
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+};
+
+class Title extends lng.Component {
+  static _template() {
+    return {
+      Label: {
+        x: 75,
+        y: 22,
+        mount: 0.5,
+        color: 0xffffffff,
+        text: { fontSize: 20 }
+      }
+    };
+  }
+
+  _init() {
+    this.tag('Label').text = this.titleText;
+  }
+}
+
+export const SkipFocus = args =>
+  class SkipFocus extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Row,
+          itemSpacing: args.itemSpacing,
+          wrapSelected: args.wrapSelected,
+          items: [
+            ...Array.apply(null, { length: 13 }).map((_, i) => {
+              if (i % 4 === 0)
+                return {
+                  type: Title,
+                  titleText: 'Skip Focus Text',
+                  h: 30,
+                  skipFocus: true
+                };
+              return { type: Button, buttonText: 'Button' };
+            }),
+            {
+              type: Title,
+              titleText: 'Skip Focus Text',
+              h: 30,
+              skipFocus: true
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+SkipFocus.args = {
+  itemSpacing: 200,
+  wrapSelected: false
+};

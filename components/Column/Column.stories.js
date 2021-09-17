@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import lng from '@lightningjs/core';
 import Column from '.';
 import FocusManager from '../FocusManager';
@@ -23,7 +24,7 @@ import mdx from './Column.mdx';
 import { flatten } from '../../utils';
 
 export default {
-  title: 'Column',
+  title: 'Layout / Column',
   args: {
     itemSpacing: 20
   },
@@ -280,16 +281,25 @@ export const SkipFocus = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 50 }).map((_, i) => {
-            if (i % 4 === 0)
-              return {
-                type: Title,
-                titleText: 'Skip Focus Text',
-                h: 30,
-                skipFocus: true
-              };
-            return { type: Button, buttonText: 'Button' };
-          })
+          wrapSelected: args.wrapSelected,
+          items: [
+            ...Array.apply(null, { length: 49 }).map((_, i) => {
+              if (i % 4 === 0)
+                return {
+                  type: Title,
+                  titleText: 'Skip Focus Text',
+                  h: 30,
+                  skipFocus: true
+                };
+              return { type: Button, buttonText: 'Button' };
+            }),
+            {
+              type: Title,
+              titleText: 'Skip Focus Text',
+              h: 30,
+              skipFocus: true
+            }
+          ]
         }
       };
     }
@@ -299,7 +309,8 @@ export const SkipFocus = args =>
     }
   };
 SkipFocus.args = {
-  itemSpacing: 30
+  itemSpacing: 30,
+  wrapSelected: false
 };
 
 export const OnScreenEffect = args =>
@@ -346,15 +357,11 @@ OnScreenEffect.args = {
   itemSpacing: 60
 };
 
-const rgb = (r, g, b) => {
-  return (r << 16) + (g << 8) + b + 255 * 16777216;
-};
-
 export const StickyTitle = args => {
   const items = flatten(
     Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
-      let items = Array.apply(null, { length: 8 }).map((_, i) => {
+      const items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
           type: Button,
           buttonText: `Button ${i + 1}`,
@@ -550,3 +557,54 @@ class ExpandingRow extends Row {
     this.patch({ h: 40 });
   }
 }
+
+export const SkipPlinko = () =>
+  class SkipPlinko extends lng.Component {
+    static _template() {
+      const buttonW = 150;
+      const button = {
+        type: Button,
+        buttonText: 'Button',
+        w: buttonW
+      };
+      return {
+        Column: {
+          type: Column,
+          w: 900,
+          itemSpacing: 32,
+          plinko: true,
+          items: [
+            {
+              type: Row,
+              h: 50,
+              itemSpacing: 50,
+              items: Array.apply(null, { length: 3 }).map(() => button)
+            },
+            {
+              type: Row,
+              h: 100,
+              skipPlinko: true,
+              items: [
+                {
+                  ...button,
+                  w: 550,
+                  h: 75
+                }
+              ]
+            },
+
+            {
+              type: Row,
+              itemSpacing: 50,
+              h: 180,
+              items: Array.apply(null, { length: 3 }).map(() => button)
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
