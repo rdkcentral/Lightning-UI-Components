@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import TestRenderer from '../../test/lightning-test-renderer';
-import { withTransitions } from '.';
+import withTransitions from '.';
 
 describe('withTransitions', () => {
   class Example extends lng.Component {};
