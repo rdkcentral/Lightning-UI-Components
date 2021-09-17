@@ -34,9 +34,10 @@ describe('MetadataCard', () => {
   it('should set the focus and unfocus scales', () => {
     metadataCard.focusScale = 1.5;
     metadataCard.unfocusScale = 0.9;
-    expect(metadataCard.focusScale).toBe(1.5);
-    expect(metadataCard.unfocusScale).toBe(0.9);
-
+    setTimeout(() => {
+      expect(metadataCard.focusScale).toBe(1.5);
+      expect(metadataCard.unfocusScale).toBe(0.9);
+    }, 1);
     testRenderer.focus();
     testRenderer.update();
     expect(metadataCard._focusW).toBe(400 * 1.5);
@@ -133,20 +134,26 @@ describe('MetadataCard', () => {
     metadataCard.logoW = width;
     metadataCard.logoSpacing = spacing;
     testRenderer.update();
-    expect(metadataCard.logo).toBe(logo);
-    expect(metadataCard._Logo.src).toBe(logo);
-    expect(metadataCard.logoW).toBe(width);
-    expect(metadataCard._Logo.w).toBe(width);
-    expect(metadataCard.logoSpacing).toBe(spacing);
-    expect(metadataCard._Text.flexItem.marginRight).toBe(spacing);
+
+    setTimeout(() => {
+      expect(metadataCard.logo).toBe(logo);
+      expect(metadataCard._Logo.src).toBe(logo);
+      expect(metadataCard.logoW).toBe(width);
+      expect(metadataCard._Logo.w).toBe(width);
+      expect(metadataCard.logoSpacing).toBe(spacing);
+      expect(metadataCard._Text.flexItem.marginRight).toBe(spacing);
+    });
   });
 
   it('should build announce text from the multiple lines', () => {
     metadataCard.firstLine = 'First line text';
     metadataCard.secondLine = 'Second line text';
     metadataCard.thirdLine = 'Third line text';
-    expect(metadataCard.announce).toBe(
-      `${metadataCard.firstLine}. ${metadataCard.secondLine}. ${metadataCard.thirdLine}.`
-    );
+
+    setTimeout(() => {
+      expect(metadataCard.announce).toBe(
+        `${metadataCard.firstLine}. ${metadataCard.secondLine}. ${metadataCard.thirdLine}.`
+      );
+    });
   });
 });

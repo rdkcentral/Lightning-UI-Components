@@ -1,42 +1,12 @@
-import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
-import withTags from '../../mixins/withTags';
 import InlineContent from '../../layout/InlineContent';
 import MarqueeText from '../MarqueeText';
 import Icon from '../Icon';
+import Base from '../Base';
+import { FadeShader } from '../../textures';
+import styles from './MetadataCard.styles';
 
-export const styles = theme => ({
-  logoSpacing: theme.spacing(4),
-  logoW: 99,
-  w: 410,
-  justify: 'flex-start',
-  marqueeProperties: {},
-  firstLineTextProperties: {
-    ...theme.typography.headline3,
-    textColor: theme.palette.text.light.primary,
-    maxLines: 1
-  },
-  secondLineTextProperties: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    maxLinesSuffix: '...',
-    maxLines: 1
-  },
-  thirdLineTextProperties: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    maxLinesSuffix: '...',
-    maxLines: 1
-  },
-  unfocused: {
-    scale: () => 1
-  },
-  focused: {
-    scale: theme.getFocusScale
-  }
-});
-
-class MetadataCard extends withTags(lng.Component) {
+export default class MetadataCard extends withStyles(Base, styles) {
   static _template() {
     return {
       flex: { direction: 'row', justifyContent: 'flex-start' },
@@ -54,24 +24,16 @@ class MetadataCard extends withTags(lng.Component) {
           }
         },
         SecondLineWrapper: {
-          Marquee: {
-            type: MarqueeText,
-            alpha: 0
-          },
           SecondLine: {
             type: InlineContent,
-            alpha: 0.001,
+            alpha: 1,
             rtt: true
           }
         },
         ThirdLineWrapper: {
-          Marquee: {
-            type: MarqueeText,
-            alpha: 0
-          },
           ThirdLine: {
             type: InlineContent,
-            alpha: 0.001,
+            alpha: 1,
             rtt: true
           }
         }
@@ -90,16 +52,46 @@ class MetadataCard extends withTags(lng.Component) {
       'SecondLineWrapper',
       'ThirdLineWrapper',
       'Logo',
-      { name: 'FirstLineMarquee', path: 'FirstLineWrapper.Marquee' },
-      { name: 'FirstLine', path: 'FirstLineWrapper.FirstLine' },
-      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' },
-      { name: 'SecondLineMarquee', path: 'SecondLineWrapper.Marquee' },
-      { name: 'ThirdLine', path: 'ThirdLineWrapper.ThirdLine' },
-      { name: 'ThirdLineMarquee', path: 'ThirdLineWrapper.Marquee' }
+      {
+        name: 'FirstLineMarquee',
+        path: 'FirstLineWrapper.Marquee'
+      },
+      {
+        name: 'FirstLine',
+        path: 'FirstLineWrapper.FirstLine'
+      },
+      {
+        name: 'SecondLine',
+        path: 'SecondLineWrapper.SecondLine'
+      },
+      {
+        name: 'ThirdLine',
+        path: 'ThirdLineWrapper.ThirdLine'
+      }
+    ];
+  }
+  static get properties() {
+    return [
+      'focusScale',
+      'justify',
+      'unfocusScale',
+      'marqueeProperties',
+      'firstLine',
+      'firstLineTextProperties',
+      'secondLine',
+      'secondLineTextProperties',
+      'thirdLine',
+      'thirdLineTextProperties',
+      'logo',
+      'logoW',
+      'logoSpacing',
+      'originalW',
+      'fadeWidth'
     ];
   }
 
   _construct() {
+    super._construct();
     this._logoSpacing = this.styles.logoSpacing;
     this._logoW = this.styles.logoW;
     this._justify = this.styles.justify;
@@ -107,23 +99,23 @@ class MetadataCard extends withTags(lng.Component) {
     this._firstLineTextProperties = this.styles.firstLineTextProperties;
     this._secondLineTextProperties = this.styles.secondLineTextProperties;
     this._thirdLineTextProperties = this.styles.thirdLineTextProperties;
-    this._getFocusScale = this.styles.focused.scale;
-    this._getUnfocusScale = this.styles.unfocused.scale;
-    this.w = this.styles.w;
-    super._construct && super._construct();
+    this._focusScale = undefined;
+    this._unfocusScale = undefined;
+    this._fadeWidth = this.styles.fadeWidth;
   }
 
   _init() {
     if (this.originalW === undefined) {
       this.originalW = this.w;
     }
+
     if (this._focusScale === undefined) {
       this._focusScale = this._getFocusScale(this.originalW, this.h);
     }
     if (this._unfocusScale === undefined) {
       this._unfocusScale = this._getUnfocusScale(this.originalW, this.h);
     }
-    this._update();
+    super._init();
   }
 
   $loadedInlineContent(line) {
@@ -132,22 +124,16 @@ class MetadataCard extends withTags(lng.Component) {
     }
     line.h = line.content && line.content.length ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
+    this._update();
   }
 
   _update() {
-    this._updateLines();
-    this._updateLogo();
     this._updateWidth();
+    this._updateFirstLine();
+    this._updateSecondAndThirdLines();
+    this._updateLogo();
     this._updateMarquee();
-  }
-
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
+    this._updateShader();
   }
 
   _updateWidth() {
@@ -168,12 +154,12 @@ class MetadataCard extends withTags(lng.Component) {
     }
   }
 
+  get _secondAndThirdLinesObjectsArray() {
+    return [this._secondLineObject, this._thirdLineObject];
+  }
+
   get _linesArray() {
-    return [
-      this._firstLineObject,
-      this._secondLineObject,
-      this._thirdLineObject
-    ];
+    return [this._SecondLine, this._ThirdLine];
   }
 
   get _firstLineObject() {
@@ -190,7 +176,6 @@ class MetadataCard extends withTags(lng.Component) {
     return {
       wrapper: this._SecondLineWrapper,
       component: this._SecondLine,
-      marquee: this._SecondLineMarquee,
       content: this._secondLine,
       textProps: this._secondLineTextProperties
     };
@@ -200,21 +185,35 @@ class MetadataCard extends withTags(lng.Component) {
     return {
       wrapper: this._ThirdLineWrapper,
       component: this._ThirdLine,
-      marquee: this._ThirdLineMarquee,
       content: this._thirdLine,
       textProps: this._thirdLineTextProperties
     };
   }
 
-  _updateLines() {
-    this._linesArray.forEach(line => {
-      line.component.justify = this._justify;
-      line.component.content = line.content;
-      line.component.textProperties = line.textProps;
-      line.marquee.patch(this._marqueeProperties);
-      line.marquee.w = this._textW;
-      line.marquee.contentTexture = line.component.getTexture();
-      line.marquee.smooth = { alpha: line.content ? 1 : 0 };
+  _updateFirstLine() {
+    this._firstLineObject.component.patch({
+      justify: this._justify,
+      content: this._firstLineObject.content,
+      textProperties: this._firstLineObject.textProps
+    });
+    this._firstLineObject.marquee.patch({
+      ...this.marqueeProperties,
+      w: this._textW,
+      contentTexture: this._firstLineObject.component.getTexture(),
+      smooth: { alpha: this._firstLineObject.content ? 1 : 0 }
+    });
+    this._firstLineObject.wrapper.visible = this._firstLineObject.content
+      ? true
+      : false;
+  }
+
+  _updateSecondAndThirdLines() {
+    this._secondAndThirdLinesObjectsArray.forEach(line => {
+      line.component.patch({
+        justify: this._justify,
+        content: line.content,
+        textProperties: line.textProps
+      });
       line.wrapper.visible = line.content ? true : false;
     });
   }
@@ -235,6 +234,23 @@ class MetadataCard extends withTags(lng.Component) {
     });
   }
 
+  _updateShader() {
+    this._linesArray.forEach(line => {
+      if (line.finalW > this.w) {
+        const logoOffset = this.logo ? this.logoW : 0;
+        this.tag(line.ref + 'Wrapper').patch({
+          w: this._focusW + this._fadeWidth / 2 - logoOffset,
+          shader: {
+            type: FadeShader,
+            positionLeft: 0,
+            positionRight: this._fadeWidth + logoOffset
+          },
+          rtt: true
+        });
+      }
+    });
+  }
+
   get announce() {
     return `${this._FirstLine.announce}. ${this._SecondLine.announce}. ${this._ThirdLine.announce}.`;
   }
@@ -245,163 +261,11 @@ class MetadataCard extends withTags(lng.Component) {
   }
 
   get _focusW() {
-    if (this.originalW) {
-      const scale = this.hasFocus() ? this.focusScale : this.unfocusScale;
+    if (this.originalW && this.enabled) {
+      const scale = this.hasFocus() ? this._focusScale : this._unfocusScale;
       return scale * this.originalW;
     }
     return this.w;
-  }
-
-  set focusScale(focusScale) {
-    if (focusScale !== this._focusScale) {
-      this._focusScale = focusScale;
-      this._update();
-    }
-  }
-
-  get focusScale() {
-    return this._focusScale;
-  }
-
-  set unfocusScale(unfocusScale) {
-    if (unfocusScale !== this._unfocusScale) {
-      this._unfocusScale = unfocusScale;
-      this._update();
-    }
-  }
-
-  get unfocusScale() {
-    return this._unfocusScale;
-  }
-
-  set justify(justify) {
-    if (justify !== this._justify) {
-      this._justify = justify;
-      this._update();
-    }
-  }
-
-  get justify() {
-    return this._justify;
-  }
-
-  set marqueeProperties(marqueeProperties) {
-    if (marqueeProperties !== this._marqueeProperties) {
-      this._marqueeProperties = marqueeProperties;
-      this._update();
-    }
-  }
-
-  get marqueeProperties() {
-    return this._marqueeProperties;
-  }
-
-  set firstLine(firstLine) {
-    if (firstLine !== this._firstLine) {
-      this._firstLine = firstLine;
-      this._update();
-    }
-  }
-
-  get firstLine() {
-    return this._firstLine;
-  }
-
-  set firstLineTextProperties(firstLineTextProperties) {
-    if (firstLineTextProperties !== this._firstLineTextProperties) {
-      this._firstLineTextProperties = firstLineTextProperties;
-      this._update();
-    }
-  }
-
-  get firstLineTextProperties() {
-    return this._firstLineTextProperties;
-  }
-
-  set secondLine(secondLine) {
-    if (secondLine !== this._secondLine) {
-      this._secondLine = secondLine;
-      this._update();
-    }
-  }
-
-  get secondLine() {
-    return this._secondLine;
-  }
-
-  set secondLineTextProperties(secondLineTextProperties) {
-    if (secondLineTextProperties !== this._secondLineTextProperties) {
-      this._secondLineTextProperties = secondLineTextProperties;
-      this._update();
-    }
-  }
-
-  get secondLineTextProperties() {
-    return this._secondLineTextProperties;
-  }
-
-  set thirdLine(thirdLine) {
-    if (thirdLine !== this._thirdLine) {
-      this._thirdLine = thirdLine;
-      this._update();
-    }
-  }
-
-  get thirdLine() {
-    return this._thirdLine;
-  }
-
-  set thirdLineTextProperties(thirdLineTextProperties) {
-    if (thirdLineTextProperties !== this._thirdLineTextProperties) {
-      this._thirdLineTextProperties = thirdLineTextProperties;
-      this._update();
-    }
-  }
-
-  get thirdLineTextProperties() {
-    return this._thirdLineTextProperties;
-  }
-
-  set logo(logo) {
-    if (logo !== this._logo) {
-      this._logo = logo;
-      this._update();
-    }
-  }
-
-  get logo() {
-    return this._logo;
-  }
-
-  set logoW(logoW) {
-    if (logoW !== this._logoW) {
-      this._logoW = logoW;
-      this._update();
-    }
-  }
-
-  get logoW() {
-    return this._logoW;
-  }
-
-  set logoSpacing(logoSpacing) {
-    if (logoSpacing !== this._logoSpacing) {
-      this._logoSpacing = logoSpacing;
-      this._update();
-    }
-  }
-
-  get logoSpacing() {
-    return this._logoSpacing;
-  }
-
-  set originalW(w) {
-    this._originalW = w;
-    this._update();
-  }
-
-  get originalW() {
-    return this._originalW;
   }
 
   get h() {
@@ -416,5 +280,3 @@ class MetadataCard extends withTags(lng.Component) {
     console.warn('warning: cannot set property "h" of MetadataCard');
   }
 }
-
-export default withStyles(MetadataCard, styles);

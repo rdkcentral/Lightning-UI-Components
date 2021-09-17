@@ -10,8 +10,7 @@ export default {
     logo: true,
     secondLine: true,
     thirdLine: true,
-    focused: false,
-    maxLines: 1
+    focused: false
   },
   parameters: {
     docs: {
@@ -60,8 +59,7 @@ Basic.argTypes = {
   focused: { control: 'boolean' },
   secondLine: { control: 'boolean' },
   thirdLine: { control: 'boolean' },
-  logo: { control: 'boolean' },
-  maxLines: { control: { type: 'range', min: 1, max: 2, step: 1 } }
+  logo: { control: 'boolean' }
 };
 Basic.parameters = {
   argActions: {
@@ -91,12 +89,6 @@ Basic.parameters = {
       component.tag('MetadataCard').thirdLine = isThirdLine
         ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
         : undefined;
-    },
-    maxLines: (maxLines, component) => {
-      component.tag('MetadataCard').secondLineTextProperties = {
-        ...component.tag('MetadataCard').secondLineTextProperties,
-        maxLines
-      };
     }
   }
 };
