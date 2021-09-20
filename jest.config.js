@@ -83,7 +83,8 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+    '\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/__mocks__/fileMock.js'
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -120,7 +121,12 @@ module.exports = {
   rootDir: '.',
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ['<rootDir>/components', '<rootDir>/utils', '<rootDir>/mixins'],
+  roots: [
+    '<rootDir>/elements',
+    '<rootDir>/layout',
+    '<rootDir>/mixins',
+    '<rootDir>/utils'
+  ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -135,7 +141,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jest-environment-jsdom-fifteen',
+  testEnvironment: 'jest-environment-jsdom',
 
   // Options that will be passed to the testEnvironment
   testEnvironmentOptions: { resources: 'usable' },

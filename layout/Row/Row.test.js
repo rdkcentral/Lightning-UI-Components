@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import TestUtils from '../lightning-test-utils';
+import TestUtils from '../../test/lightning-test-utils';
 import Row from '.';
 
 const baseItem = {
