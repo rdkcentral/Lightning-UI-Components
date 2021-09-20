@@ -28,7 +28,7 @@ describe('withStyles', () => {
     expect(withStyles(Example).name).toEqual(Example.name);
   });
 
-  describe('settings a styles property on the class', () => {
+  describe('setting a styles property on the class', () => {
     it('should be derived from a theme parameter, style parameter, and styles property on the base class', () => {
       const styles = theme => ({ ...theme, base: 'styles' });
       const theme = { theme: 'styles' };
