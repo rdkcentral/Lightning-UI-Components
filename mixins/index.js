@@ -16,8 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as withSelections } from '/withSelections';
+export { default as withSelections } from './withSelections';
 export { default as withStyles } from './withStyles';
 export { default as withTheme } from './withTheme';
 export { default as withTransitions } from './withTransitions';
 export { default as withUpdates } from './withUpdates';
+export { default as withHandleKey } from './withHandleKey';
+export { default as withTags } from './withTags';
+export { default as withLayout } from './withLayout';
