@@ -13,16 +13,7 @@ on:
       - next
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.17
-      - run: npm ci
-
-  test:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +24,7 @@ jobs:
       - run: npm run test
 
   publish-npm:
-    needs: test
+    needs: build-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,7 +39,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-gpr:
-    needs: test
+    needs: build-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
