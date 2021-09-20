@@ -22,13 +22,12 @@ import Base from '.';
 const createComponent = TestUtils.makeCreateComponent(Base);
 
 describe('Base', () => {
-  let component, testRenderer;
+  let testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
     testRenderer = null;
   });
 
