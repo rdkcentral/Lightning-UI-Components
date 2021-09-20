@@ -265,3 +265,15 @@ export function flatten(arr) {
     []
   );
 }
+
+/**
+ * Deep equality check two values
+ *
+ * @param {any} valA - value to be compared against valB
+ * @param {any} valB - value to be compared against valA
+ *
+ * @return {boolean} - returns true if values are equal
+ */
+export function stringifyCompare(valA, valB) {
+  return JSON.stringify(valA) === JSON.stringify(valB);
+}

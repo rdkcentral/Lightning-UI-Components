@@ -25,7 +25,8 @@ import {
   getFirstNumber,
   parseInlineContent,
   getDimension,
-  flatten
+  flatten,
+  stringifyCompare
 } from '.';
 
 describe('rgba2argb', () => {
@@ -269,5 +270,46 @@ describe('flatten', () => {
   it('should create a new array with all sub-array elements concatenated into it', () => {
     const arr = [0, 1, 2, [3, 4]];
     expect(flatten(arr)).toEqual([0, 1, 2, 3, 4]);
+  });
+});
+
+describe('stringifyCompare', () => {
+  it('should return true for equal values', () => {
+    const values = [
+      ['str', 'str'],
+      [123, 123],
+      [true, true],
+      [
+        ['str', 123],
+        ['str', 123]
+      ],
+      [
+        { string: 'str', num: 123, bool: true },
+        { string: 'str', num: 123, bool: true }
+      ]
+    ];
+    values.forEach(vals => {
+      const [valA, valB] = vals;
+      expect(stringifyCompare(valA, valB)).toBe(true);
+    });
+  });
+  it('should return false for differing values', () => {
+    const values = [
+      ['str', 'ing'],
+      [123, 321],
+      [true, false],
+      [
+        ['str', 123],
+        ['str', 321]
+      ],
+      [
+        { string: 'aaa', num: 123, bool: true },
+        { string: 'str', num: 123, bool: true }
+      ]
+    ];
+    values.forEach(vals => {
+      const [valA, valB] = vals;
+      expect(stringifyCompare(valA, valB)).toBe(false);
+    });
   });
 });
