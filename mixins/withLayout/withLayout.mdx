@@ -92,15 +92,16 @@ class Basic extends lng.Component {
 }
 ```
 
-**NOTE**: A combination of properties is required:
+**NOTE: One of the following combinations of properties is required:**
 
-`h and w` (If explicitly set, it may be uncessary to use the withLayout pattern as these properties can be set on the component),
-`h and ratioX and ratioY`,
-`ratioX and ratioY and upCount`,
-`h and upCount`,
-`h`, and finally `w`
+- `h` and `w` (If explicitly set, it may be uncessary to use the `withLayout` pattern as these properties can be set on the component),
+- `h` and `ratioX` and `ratioY`,
+- `ratioX` and `ratioY` and `upCount`,
+- `h` and `upCount`,
+- `h`
+- `w`
 
-Auto sizing of the item will happen based on the above priority. So if the `w and h` are passed no other calculations will occur.
+Auto sizing of the item will happen based on the above priority. So if the `w` and `h` are passed no other calculations will occur.
 If the mixin is unable to calculate the height OR width from the passed parameters. The height will default 9/16 of the width. Inversely the width will default to 16/9 of the height.
 If the mixin is unable to calculate height AND width from the passed parameters. No autosize will occur.
 
