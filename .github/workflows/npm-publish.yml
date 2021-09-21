@@ -50,7 +50,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         token: ${{secrets.GIT_PUBLISH_TOKEN}}
-    - run: echo ${{ steps.publish-npm.outputs }}
+    - run: echo "message; $RELEASE_MESSAGE"
+      env:
+        RELEASE_MESSAGE: ${{ steps.publish-npm.outputs }}
     # - uses: ncipollo/release-action@v1
     #   with:
     #     body:  ${{ steps.publish-npm.outputs }}
