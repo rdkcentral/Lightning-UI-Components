@@ -42,15 +42,7 @@ jobs:
         env:
           GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-  create-release:
-    needs: publish-npm
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        token: ${{secrets.GIT_PUBLISH_TOKEN}}
-    - uses: ncipollo/release-action@v1
-      with:
-        body:  ${{ steps.publish-npm.outputs }}
-        token: ${{secrets.GIT_PUBLISH_TOKEN}}
+      - uses: ncipollo/release-action@v1
+        with:
+          body:  ${{ steps.publish-npm.outputs }}
+          token: ${{secrets.GIT_PUBLISH_TOKEN}}
