@@ -8,9 +8,31 @@ import { rgba2argb } from '../../utils';
 
 export default {
   title: 'Patterns/Input',
+  args: {
+    placeholder: 'Type something',
+    focused: false,
+    listening: false
+  },
+  argTypes: {
+    placeholder: { control: 'text' },
+    focused: { control: 'boolean' },
+    listening: { control: 'boolean' }
+  },
   parameters: {
+    tag: 'Input',
     docs: {
       page: mdx
+    },
+    argActions: {
+      focused: (isFocused, component) => {
+        component._getFocused = isFocused
+          ? () => component.tag('Input')
+          : () => {};
+        component._refocus();
+      },
+      listening: (isListening, component) => {
+        component.tag('Input').listening = isListening;
+      }
     }
   }
 };
@@ -43,27 +65,6 @@ export const Basic = args =>
       }
     }
   };
-
-Basic.args = {
-  placeholder: 'Type something'
-};
-Basic.argTypes = {
-  focused: { control: 'boolean' },
-  listening: { control: 'boolean' }
-};
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Input')
-        : () => {};
-      component._refocus();
-    },
-    listening: (isListening, component) => {
-      component.tag('Input').listening = isListening;
-    }
-  }
-};
 
 export const Caption = args =>
   class Caption extends lng.Component {
@@ -103,27 +104,6 @@ export const Caption = args =>
     }
   };
 
-Caption.args = {
-  placeholder: 'Type something'
-};
-Caption.argTypes = {
-  focused: { control: 'boolean' },
-  listening: { control: 'boolean' }
-};
-Caption.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Input')
-        : () => {};
-      component._refocus();
-    },
-    listening: (isListening, component) => {
-      component.tag('Input').listening = isListening;
-    }
-  }
-};
-
 export const Icon = args =>
   class Basic extends lng.Component {
     static _template() {
@@ -157,27 +137,15 @@ export const Icon = args =>
   };
 
 Icon.args = {
-  placeholder: 'Type something',
   iconColor: 'rgba(98,98,98,1)',
   iconFocusColor: 'rgba(13,13,15,1)'
 };
 Icon.argTypes = {
-  focused: { control: 'boolean' },
-  listening: { control: 'boolean' },
   iconColor: { control: 'color' },
   iconFocusColor: { control: 'color' }
 };
 Icon.parameters = {
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Input')
-        : () => {};
-      component._refocus();
-    },
-    listening: (isListening, component) => {
-      component.tag('Input').listening = isListening;
-    },
     iconColor: (iconColor, component) => {
       component.tag('Input').iconColor = rgba2argb(iconColor);
     },
@@ -219,27 +187,15 @@ export const Password = args =>
   };
 
 Password.args = {
-  placeholder: 'Type something',
   password: false,
   mask: '•'
 };
 Password.argTypes = {
-  focused: { control: 'boolean' },
-  listening: { control: 'boolean' },
   password: { control: 'boolean' },
   mask: { control: 'text' }
 };
 Password.parameters = {
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Input')
-        : () => {};
-      component._refocus();
-    },
-    listening: (isListening, component) => {
-      component.tag('Input').listening = isListening;
-    },
     password: (isPassword, component) => {
       component.tag('Input').password = isPassword;
     }
@@ -281,15 +237,12 @@ export const PasswordWithIcon = args =>
   };
 
 PasswordWithIcon.args = {
-  placeholder: 'Type something',
   password: false,
   mask: '•',
   iconColor: 'rgba(98,98,98,1)',
   iconFocusColor: 'rgba(13,13,15,1)'
 };
 PasswordWithIcon.argTypes = {
-  focused: { control: 'boolean' },
-  listening: { control: 'boolean' },
   password: { control: 'boolean' },
   mask: { control: 'text' },
   iconColor: { control: 'color' },
@@ -297,15 +250,6 @@ PasswordWithIcon.argTypes = {
 };
 PasswordWithIcon.parameters = {
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Input')
-        : () => {};
-      component._refocus();
-    },
-    listening: (isListening, component) => {
-      component.tag('Input').listening = isListening;
-    },
     password: (isPassword, component) => {
       component.tag('Input').password = isPassword;
       component.tag('Input').icon = isPassword ? eyeHide : eye;

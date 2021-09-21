@@ -106,11 +106,10 @@ describe('Input', () => {
   it('inputs values if listening', done => {
     input.listening = true;
     input.insert('x');
-    testRenderer.update();
-    input._whenEnabled.then(() => {
+    setTimeout(() => {
       expect(input._Content.text.text).toEqual('x');
       done();
-    });
+    }, 1);
   });
 
   it('should not input values if not listening', () => {
@@ -133,10 +132,10 @@ describe('Input', () => {
     input.listening = false;
     input.value = 'xxx';
     input.clear();
-    input._whenEnabled.then(() => {
+    setTimeout(() => {
       expect(input._Content.text.text).toEqual('xxx');
       done();
-    });
+    }, 1);
   });
 
   it('does backspace deletions if listening', done => {
@@ -159,34 +158,39 @@ describe('Input', () => {
     input.value = 'xoxoxo';
     input.backspace();
 
-    input._whenEnabled.then(() => {
+    setTimeout(() => {
       expect(input._Content.text.text).toEqual('xoxoxo');
       done();
-    });
+    }, 1);
   });
 
   it('masks password input', done => {
     input.password = true;
     input.value = 'hello';
-    input._whenEnabled.then(() => {
-      testRenderer.update();
-      const tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    setTimeout(() => {
       expect(input.value).toBe('hello');
       expect(input._Content.text.text).toBe('•••••');
       done();
-    });
+    }, 1);
   });
 
   it('supports custom mask types', done => {
     input.password = true;
     input.mask = '*';
     input.value = 'hello';
-    input._whenEnabled.then(() => {
+    setTimeout(() => {
       testRenderer.update();
       expect(input._Content.text.text).toBe('*****');
       done();
-    });
+    }, 1);
+  });
+
+  it('should allow adding a caption', () => {
+    const caption = 'test caption';
+    [input, testRenderer] = createInput({ caption });
+    expect(input._Caption.content).toEqual(caption);
   });
 
   it('announces', () => {
