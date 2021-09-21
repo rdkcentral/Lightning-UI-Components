@@ -7,48 +7,37 @@
 import lng from '@lightningjs/core';
 import { RoundRect, measureTextWidth, getFirstNumber } from '../../utils';
 import withStyles from '../../mixins/withStyles';
-import withUpdates from '../../mixins/withUpdates';
-import withHandleKey from '../../mixins/withHandleKey';
 import Icon from '../Icon';
+import Base from '../Base';
+import styles from './Button.styles';
 
-export const styles = {
-  minWidth: 150,
-  h: 40,
-  radius: 0,
-  background: { color: 0xff1f1f1f },
-  icon: { color: 0xffffffff },
-  text: {
-    fontSize: 20,
-    color: 0xffffffff
-  },
-  padding: 50,
-  stroke: {
-    color: 0x00,
-    weight: 2
-  },
-  focused: {
-    background: { color: 0xffffffff },
-    text: { color: 0xff1f1f1f },
-    icon: { color: 0xff1f1f1f }
-  },
-  fixedText: {
-    wordWrap: false,
-    textOverflow: 'ellipsis',
-    maxLinesSuffix: '...'
-  }
-};
-
-class Button extends withHandleKey(withUpdates(lng.Component)) {
+export default class Button extends withStyles(Base, styles) {
   static get properties() {
     return [
       'fixed',
       'icon',
+      'label',
       'minWidth',
       'radius',
       'stroke',
       'strokeColor',
       'strokeWeight',
       'title'
+    ];
+  }
+
+  static get tags() {
+    return [
+      'Content',
+      {
+        name: 'Title',
+        path: 'Content.Title'
+      },
+      {
+        name: 'Icon',
+        path: 'Content.Icon'
+      },
+      'Stroke'
     ];
   }
 
@@ -89,6 +78,15 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
     this._minWidth = 0;
     this._strokeWeight = 2;
     this._strokeColor = 0x00;
+    this._focusedBackgroundColor = this.styles.focused.background.color;
+    this._backgroundColor = this.styles.background.color;
+    this._textStyles = this.styles.text;
+    this._stylesRadius = this.styles.radius;
+    this._padding = this.styles.padding;
+    this._fixedTextStyles = this.styles.fixedText;
+    this._iconColorFocused = this.styles.focused.icon.color;
+    this._iconStyles = this.styles.icon;
+    this._textColorFocused = this.styles.focused.text.color;
     super._construct && super._construct();
   }
 
@@ -115,11 +113,8 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
 
   _updateColor() {
     const color = this.hasFocus()
-      ? getFirstNumber(
-          this.focusedBackground,
-          this.styles.focused.background.color
-        )
-      : getFirstNumber(this.background, this.styles.background.color);
+      ? getFirstNumber(this.focusedBackground, this._focusedBackgroundColor)
+      : getFirstNumber(this.background, this._backgroundColor);
     if (this._smooth) {
       this.smooth = { color };
     } else {
@@ -130,19 +125,19 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   _updateTitle() {
     if (this.title) {
       this._Title.text = {
-        ...this.styles.text,
-        fontColor: this.styles.text.color,
-        fontSize: this.fontSize || this.styles.text.fontSize,
+        ...this._textStyles,
+        fontColor: this._textStyles.color,
+        fontSize: this.fontSize || this._textStyles.fontSize,
         fontFamily:
-          this.styles.text.fontFace ||
-          this.styles.text.fontFamily ||
+          this._textStyles.fontFace ||
+          this._textStyles.fontFamily ||
           this.stage._options.defaultFontFace,
         text: this.title
       };
 
       const color = this.hasFocus()
-        ? getFirstNumber(this.focusedTextColor, this.styles.focused.text.color)
-        : getFirstNumber(this.textColor, this.styles.text.color);
+        ? getFirstNumber(this.focusedTextColor, this._textColorFocused)
+        : getFirstNumber(this.textColor, this._textStyles.color);
       if (this._smooth) {
         this._Title.smooth = { color };
       } else {
@@ -181,8 +176,8 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
       }
 
       const iconColor = this.hasFocus()
-        ? getFirstNumber(this.focusedIconColor, this.styles.focused.icon.color)
-        : getFirstNumber(color, this.styles.icon.color);
+        ? getFirstNumber(this.focusedIconColor, this._iconColorFocused)
+        : getFirstNumber(color, this._iconStyles.color);
       if (this._smooth) {
         this._Icon.smooth = { color: iconColor };
       } else {
@@ -202,7 +197,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
 
   _updateStroke() {
     if (this.stroke && !this.hasFocus()) {
-      const radius = this.radius || this.styles.radius;
+      const radius = this.radius || this._stylesRadius;
 
       this.texture = lng.Tools.getRoundRect(
         RoundRect.getWidth(this.w),
@@ -224,7 +219,7 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
         this.background
       );
     } else {
-      const radius = this.radius || this.styles.radius;
+      const radius = this.radius || this._stylesRadius;
       this.texture = lng.Tools.getRoundRect(
         RoundRect.getWidth(this.w),
         RoundRect.getHeight(this.h),
@@ -237,12 +232,12 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
   _updateWidth() {
     const iconSize =
       this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
-    const padding = getFirstNumber(this.padding, this.styles.padding, 10);
+    const padding = getFirstNumber(this.padding, this._padding, 10);
 
     if (this.fixed) {
       this._Title.patch({
         text: {
-          ...this.styles.fixedText,
+          ...this._fixedTextStyles,
           wordWrapWidth: this.w - padding * 2 - iconSize
         }
       });
@@ -274,6 +269,10 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
     return src ? { src, size, spacing, color } : null;
   }
 
+  _getLabel() {
+    return this._label || this._title;
+  }
+
   get w() {
     if (this.fixed) return this._w;
     return this.minWidth > this._w ? this.minWidth : this._w;
@@ -286,34 +285,10 @@ class Button extends withHandleKey(withUpdates(lng.Component)) {
     }
   }
 
-  set label(label) {
-    this._label = label;
-  }
-
-  get label() {
-    return this._label || this._title;
-  }
-
   get announce() {
     // TODO - Localization?
     // Do we need a locale file with
     // component translations?
     return this.label + ', Button';
   }
-
-  get _Content() {
-    return this.tag('Content');
-  }
-
-  get _Title() {
-    return this.tag('Content.Title');
-  }
-  get _Icon() {
-    return this.tag('Content.Icon');
-  }
-  get _Stroke() {
-    return this.tag('Stroke');
-  }
 }
-
-export default withStyles(Button, styles);

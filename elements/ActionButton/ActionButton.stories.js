@@ -35,7 +35,7 @@ export const Base = args =>
       }
     }
   };
-Base.args = { title: 'Action Button' };
+Base.args = { title: 'Action Button', backgroundType: 'stroke' };
 Base.argTypes = {
   backgroundType: {
     control: {

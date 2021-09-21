@@ -36,17 +36,19 @@ describe('ActionButton', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should update it's shadow width for long titles", () => {
+  it("should update it's shadow width for long titles", done => {
     [actionbutton, testRenderer] = createActionButton({
       title:
         'This is a really long title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title title'
     });
-
-    expect(actionbutton.w).toBe(473);
-    actionbutton._DropShadow.loadTexture();
-    expect(actionbutton._DropShadow.texture._lookupId).toEqual(
-      'shadow457,56,16,32,8,8,8,8'
-    );
+    setTimeout(() => {
+      expect(actionbutton.w).toBe(473);
+      actionbutton._DropShadow.loadTexture();
+      expect(actionbutton._DropShadow.texture._lookupId).toEqual(
+        'shadow457,56,16,32,8,8,8,8'
+      );
+      done();
+    }, 0);
   });
 
   describe('style', () => {
@@ -59,26 +61,35 @@ describe('ActionButton', () => {
       expect(actionbutton.strokeColor).toBe(0xffececf2);
       expect(actionbutton.strokeWeight).toBe(2);
     });
-    it('should set background to fill', () => {
+    it('should set background to fill', done => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'fill'
       });
-      expect(actionbutton.background).toBe(0xff232328);
-      expect(actionbutton.stroke).toBe(false);
+      setTimeout(() => {
+        expect(actionbutton.background).toBe(0xff232328);
+        expect(actionbutton.stroke).toBe(false);
+        done();
+      }, 0);
     });
-    it('should set background to float', () => {
+    it('should set background to float', done => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'float'
       });
-      expect(actionbutton.background).toBe(0);
-      expect(actionbutton.stroke).toBe(false);
+      setTimeout(() => {
+        expect(actionbutton.background).toBe(0);
+        expect(actionbutton.stroke).toBe(false);
+        done();
+      }, 0);
     });
-    it('should default background to float', () => {
+    it('should default background to float', done => {
       [actionbutton, testRenderer] = createActionButton({
         backgroundType: 'orange'
       });
-      expect(actionbutton.background).toBe(0);
-      expect(actionbutton.stroke).toBe(false);
+      setTimeout(() => {
+        expect(actionbutton.background).toBe(0);
+        expect(actionbutton.stroke).toBe(false);
+        done();
+      }, 0);
     });
   });
 
@@ -95,18 +106,20 @@ describe('ActionButton', () => {
   });
 
   describe('loading', () => {
-    it('should load if no title is set', () => {
+    it('should load if no title is set', done => {
       [actionbutton, testRenderer] = createActionButton({});
-      expect(actionbutton._loading.isPlaying()).toBe(true);
+      setTimeout(() => {
+        expect(actionbutton._loading.isPlaying()).toBe(true);
+        done();
+      }, 0);
     });
     it('should stop loading once title is set', done => {
       [actionbutton, testRenderer] = createActionButton({});
-      expect(actionbutton._loading.isPlaying()).toBe(true);
       actionbutton.title = 'Action Button';
       setTimeout(() => {
         expect(actionbutton._loading.isPlaying()).toBe(false);
         done();
-      }, 1);
+      }, 0);
     });
   });
 

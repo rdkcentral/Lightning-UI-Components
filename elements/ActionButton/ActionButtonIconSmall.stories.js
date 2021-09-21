@@ -14,7 +14,7 @@ export default {
   }
 };
 
-const args = { icon };
+const args = { icon, backgroundType: 'stroke' };
 const argTypes = {
   backgroundType: {
     control: {
