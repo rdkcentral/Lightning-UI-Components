@@ -70,8 +70,8 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "npx prettier --check './{elements,layout,utils}/**/*.js'",
-    "lint:fix": "npx prettier --write './{elements,layout,utils}/**/*.js'",
+    "lint": "eslint './{elements,layout,utils}/**/*.js'",
+    "lint:fix": "eslint --fix './{elements,layout,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
     "start": "start-storybook -p 8000",
