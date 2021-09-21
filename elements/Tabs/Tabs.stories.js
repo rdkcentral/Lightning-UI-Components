@@ -30,6 +30,7 @@ export const Basic = args =>
           tabHeight: args.tabHeight,
           tabWidth: args.tabWidth,
           wrapSelected: args.wrapSelected,
+          dynamicBar: args.dynamicBar,
           tabs: [
             {
               type: Tab,
@@ -59,6 +60,7 @@ export const Basic = args =>
     }
   };
 Basic.args = {
+  dynamicBar: false,
   barLength: 150,
   barSpacing: 4,
   focused: true,
@@ -68,6 +70,7 @@ Basic.args = {
   wrapSelected: true
 };
 Basic.argTypes = {
+  dynamicBar: { control: 'boolean' },
   tabChanged: { action: 'tabChanged' },
   barLength: { control: 'number' },
   barSpacing: { control: 'number' },
