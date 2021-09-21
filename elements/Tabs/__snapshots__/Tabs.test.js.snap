@@ -117,7 +117,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -246,7 +246,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -379,7 +379,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -511,7 +511,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -643,7 +643,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -775,7 +775,7 @@ Object {
       "tags": Array [
         "Tab",
       ],
-      "type": "Component",
+      "type": "_class",
       "visible": true,
       "w": 0,
       "x": 0,
@@ -1039,7 +1039,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -1198,7 +1198,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -1481,7 +1481,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -1640,7 +1640,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -1918,7 +1918,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -2077,7 +2077,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -2355,7 +2355,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -2514,7 +2514,7 @@ Object {
                   "tags": Array [
                     "Tab",
                   ],
-                  "type": "Component",
+                  "type": "_class",
                   "visible": true,
                   "w": 0,
                   "x": 0,

@@ -157,11 +157,13 @@ describe('TabBar', () => {
       testRenderer.update();
       const tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
-      expect(tabBar._Container.items[0].w).toBe(100);
-      expect(tabBar._Container.items[0].h).toBe(100);
-      expect(tabBar._Container.items[1].w).toBe(50);
-      expect(tabBar._Container.items[1].h).toBe(50);
-      done();
+      setTimeout(() => {
+        expect(tabBar._Container.items[0].w).toBe(100);
+        expect(tabBar._Container.items[0].h).toBe(100);
+        expect(tabBar._Container.items[1].w).toBe(50);
+        expect(tabBar._Container.items[1].h).toBe(50);
+        done();
+      }, 0);
     });
   });
 
@@ -180,9 +182,11 @@ describe('TabBar', () => {
       testRenderer.update();
       const tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
-      expect(tabBar._FocusBar.y).toBe(10);
-      expect(tabBar._FocusBar.w).toBe(100);
-      done();
+      setTimeout(() => {
+        expect(tabBar._FocusBar.y).toBe(10);
+        expect(tabBar._FocusBar.w).toBe(100);
+        done();
+      }, 0);
     });
   });
 
@@ -219,7 +223,7 @@ describe('TabBar', () => {
       testRenderer.keyPress('Left');
       expect(tabBar._FocusBar.w).toBe(100);
       done();
-    });
+    }, 0);
   });
 
   it('supports Row props itemSpacing and wrapSelected', done => {
@@ -249,7 +253,7 @@ describe('TabBar', () => {
       testRenderer.keyPress('Left');
       expect(tabBar.selected.title).toBe('Two');
       done();
-    });
+    }, 0);
   });
 
   it('focus bar alpha changes on unfocus', done => {
