@@ -53,7 +53,9 @@ describe('Key', () => {
 
   it('should set its label as its title', () => {
     [key, testRenderer] = createKey({ label: 'done' });
-    expect(key.title).toEqual('done');
+    setTimeout(() => {
+      expect(key.title).toEqual('done');
+    }, 0);
   });
 
   describe('#announce', () => {
