@@ -4,24 +4,24 @@ exports[`Input masks password input 1`] = `
 Object {
   "Component": Object {
     "Container": Object {
-      "active": true,
+      "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
         "ContentWrapper": Object {
-          "active": true,
+          "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Content": Object {
-              "active": true,
+              "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
-              "color": "f2000000",
+              "color": 4294967295,
               "enabled": true,
               "flex": false,
               "flexItem": false,
@@ -49,7 +49,6 @@ Object {
                 "fontSize": 28,
                 "letterSpacing": -0.2,
                 "lineHeight": 32,
-                "text": "•••••",
                 "textColor": 4294375161,
                 "type": "TextTexture",
                 "verticalAlign": "middle",
@@ -61,12 +60,12 @@ Object {
               "zIndex": 0,
             },
             "Cursor": Object {
-              "active": true,
-              "alpha": 0.000971129142102773,
+              "active": false,
+              "alpha": 0.0001,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
-              "color": "f2000000",
+              "color": "fff6f6f9",
               "enabled": true,
               "flex": false,
               "flexItem": false,
@@ -99,7 +98,7 @@ Object {
               "zIndex": 1,
             },
             "HiddenContent": Object {
-              "active": true,
+              "active": false,
               "alpha": 0.00001,
               "attached": true,
               "boundsMargin": null,
@@ -174,7 +173,7 @@ Object {
         },
       },
       "clipping": false,
-      "color": "ffececf2",
+      "color": "0",
       "enabled": true,
       "flex": false,
       "flexItem": false,
@@ -207,7 +206,7 @@ Object {
       "zIndex": 2,
     },
     "Label": Object {
-      "active": true,
+      "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,

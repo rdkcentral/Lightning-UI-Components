@@ -1,54 +1,10 @@
 import lng from '@lightningjs/core';
 import withStyles from '../../mixins/withStyles';
-import Icon from '../../elements/Icon';
+import { Base, Icon } from '../../elements';
 import InlineContent from '../../layout/InlineContent';
+import styles from './index.styles';
 
-export const styles = theme => ({
-  h: 64,
-  background: theme.palette.background.float,
-  shadow: theme.materials.glow,
-  underline: {
-    color: theme.palette.grey[5],
-    weight: 4
-  },
-  cursor: {
-    color: theme.palette.grey[5],
-    blink: true,
-    width: 4
-  },
-  iconProperties: {
-    height: 32,
-    width: 32,
-    color: theme.palette.grey[5],
-    focusColor: theme.palette.grey[90]
-  },
-  padding: {
-    left: theme.spacing(2)
-  },
-  radius: theme.border.radius.small,
-  text: {
-    ...theme.typography.button1,
-    textColor: theme.palette.grey[5]
-  },
-  label: {
-    ...theme.typography.callout1,
-    textColor: theme.palette.grey[5]
-  },
-  caption: {
-    ...theme.typography.caption,
-    textColor: theme.palette.text.light.tertiary
-  },
-  captionIcon: {
-    width: 24,
-    height: 24
-  },
-  focused: {
-    background: { color: theme.palette.background.focus },
-    text: { color: theme.palette.text.dark.primary },
-    cursor: { color: theme.palette.text.dark.primary }
-  }
-});
-class Input extends lng.Component {
+export default class Input extends withStyles(Base, styles) {
   static _template() {
     return {
       w: this.styles.w,
@@ -146,22 +102,51 @@ class Input extends lng.Component {
     };
   }
 
+  static get tags() {
+    return [
+      'Label',
+      'Container',
+      { name: 'ContentWrapper', path: 'Container.ContentWrapper' },
+      { name: 'Cursor', path: 'Container.Cursor' },
+      { name: 'Content', path: 'Container.Content' },
+      { name: 'HiddenContent', path: 'Container.HiddenContent' },
+      'Icon',
+      'Underline',
+      'Caption',
+      'DropShadow'
+    ];
+  }
+
+  static get properties() {
+    return [
+      'icon',
+      'iconColor',
+      'iconFocusColor',
+      'listening',
+      'label',
+      'announce',
+      'caption',
+      'radius',
+      'position',
+      'value',
+      'mask',
+      'password'
+    ];
+  }
+
   _construct() {
+    super._construct();
     this._value = '';
     this._position = 0;
-    this._w = this.constructor.styles.w;
-    this._h = this.constructor.styles.h;
-    this._radius = this.constructor.styles.radius;
+    this.w = this.styles.w;
+    this.h = this.styles.h;
+    this._radius = this.styles.radius;
     this._mask = '•';
     this._password = false;
     this._iconHeight = this.styles.iconProperties.height;
     this._iconWidth = this.styles.iconProperties.width;
     this._iconColor = this.styles.iconProperties.color;
     this._iconFocusColor = this.styles.iconProperties.focusColor;
-    this._whenEnabled = new Promise(
-      resolve => (this._enable = resolve),
-      console.error
-    );
   }
 
   _init() {
@@ -173,18 +158,18 @@ class Input extends lng.Component {
         actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
       });
     }
-    this._update();
+    super._init();
   }
 
   clear() {
-    if (this._listening) {
+    if (this.listening) {
       this.value = '';
       this.position = 0;
     }
   }
 
   insert(value) {
-    if (this._listening) {
+    if (this.listening) {
       this.value =
         this.value.slice(0, this.position) +
         value +
@@ -194,7 +179,7 @@ class Input extends lng.Component {
   }
 
   backspace() {
-    if (this._listening) {
+    if (this.listening) {
       if (this.position === this.value.length) {
         this.value = this.value.slice(0, -1);
       } else if (this.position > 0) {
@@ -222,7 +207,7 @@ class Input extends lng.Component {
       x: this.w - (this._iconWidth + this.styles.padding.left),
       h: this._iconHeight,
       w: this._iconWidth,
-      icon: this._icon,
+      icon: this.icon,
       color: this.hasFocus() ? this.iconFocusColor : this.iconColor
     });
     if (this._smooth) {
@@ -289,13 +274,13 @@ class Input extends lng.Component {
         color: this.styles.background
       };
       this._Content.smooth = { color: this.styles.text.textColor };
-      this._Underline.smooth = { alpha: this._listening ? 1 : 0.64 };
+      this._Underline.smooth = { alpha: this.listening ? 1 : 0.64 };
       this._Cursor.smooth = {
-        alpha: this._listening ? 1 : 0,
+        alpha: this.listening ? 1 : 0,
         color: this.styles.cursor.color
       };
       if (this._cursorBlink)
-        this._listening ? this._cursorBlink.start() : this._cursorBlink.stop();
+        this.listening ? this._cursorBlink.start() : this._cursorBlink.stop();
     }
   }
 
@@ -352,168 +337,27 @@ class Input extends lng.Component {
     return this._HiddenContent.renderWidth;
   }
 
-  get icon() {
-    return this._icon;
-  }
-  set icon(icon) {
-    if (icon !== this.icon) {
-      this._icon = icon;
-      this._update();
-    }
+  _setLabel(label) {
+    const upcaseLabel = label.toUpperCase();
+    this._Label.text = upcaseLabel;
+    return upcaseLabel;
   }
 
-  get iconColor() {
-    return this._iconColor;
-  }
-  set iconColor(iconColor) {
-    if (iconColor !== this.iconColor) {
-      this._iconColor = iconColor;
-      this._update();
-    }
-  }
-
-  get iconFocusColor() {
-    return this._iconFocusColor;
-  }
-  set iconFocusColor(iconFocusColor) {
-    if (iconFocusColor !== this.iconFocusColor) {
-      this._iconFocusColor = iconFocusColor;
-      this._update();
-    }
-  }
-
-  set listening(listening) {
-    this._listening = listening;
-    this._update();
-  }
-
-  set label(label) {
-    this._label = label.toUpperCase();
-    this._Label.text = this._label;
-  }
-
-  get announce() {
+  _getAnnounce() {
     return this.password ? 'Input hidden' : this.value || this.placeholder;
   }
 
-  get w() {
-    return this._w;
-  }
-
-  set w(w) {
-    if (w !== this.w) {
-      this._w = w;
-      this._update();
-    }
-  }
-
-  set caption(caption) {
+  _setCaption(caption) {
     this._Caption.content = caption;
   }
 
-  get h() {
-    return this._h;
-  }
-
-  set h(h) {
-    if (h !== this.h) {
-      this._h = h;
-      this._update();
-    }
-  }
-
-  get radius() {
-    return this._radius;
-  }
-
-  set radius(radius) {
-    if (radius !== this.radius) {
-      this._radius = radius;
-      this._update();
-    }
-  }
-
-  get position() {
-    return this._position;
-  }
-
-  set position(position) {
+  _setPosition(position) {
     if (position >= 0 && position <= this.value.length) {
-      this._position = position;
-      this._update();
+      return position;
     }
   }
 
-  get value() {
-    return this._value;
-  }
-
-  set value(value) {
-    this._value = value;
-    this._update();
-  }
-
-  get mask() {
-    return this._mask;
-  }
-
-  set mask(mask) {
-    if (mask !== this._mask) {
-      this._mask = mask.substring(0, 1);
-      this._update();
-    }
-  }
-
-  get password() {
-    return this._password;
-  }
-
-  set password(password) {
-    if (password !== this._password) {
-      this._password = password;
-      this._update();
-    }
-  }
-
-  get _Container() {
-    return this.tag('Container');
-  }
-
-  get _Label() {
-    return this.tag('Label');
-  }
-
-  get _ContentWrapper() {
-    return this._Container.tag('ContentWrapper');
-  }
-
-  get _Content() {
-    return this._ContentWrapper.tag('Content');
-  }
-
-  get _Cursor() {
-    return this._ContentWrapper.tag('Cursor');
-  }
-
-  get _HiddenContent() {
-    return this._ContentWrapper.tag('HiddenContent');
-  }
-
-  get _DropShadow() {
-    return this.tag('DropShadow');
-  }
-
-  get _Underline() {
-    return this.tag('Underline');
-  }
-
-  get _Icon() {
-    return this.tag('Icon');
-  }
-
-  get _Caption() {
-    return this.tag('Caption');
+  _setMask(mask) {
+    return mask.substring(0, 1);
   }
 }
-
-export default withStyles(Input, styles);
