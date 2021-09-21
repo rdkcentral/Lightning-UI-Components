@@ -52,7 +52,7 @@
     "jest-webgl-canvas-mock": "^0.2.3",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "semantic-release": "^17.1.1"
+    "semantic-release": "^18.0.0"
   },
   "husky": {
     "hooks": {
@@ -79,6 +79,7 @@
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch",
-    "test:updateSnapshot": "jest --updateSnapshot"
+    "test:updateSnapshot": "jest --updateSnapshot",
+    "semantic-release": "semantic-release"
   }
 }
