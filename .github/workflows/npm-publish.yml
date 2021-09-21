@@ -13,20 +13,20 @@ on:
       - next
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{secrets.GIT_PUBLISH_TOKEN}}
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.17
-      - run: npm ci
-      - run: npm run test
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         token: ${{secrets.GIT_PUBLISH_TOKEN}}
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 14.17
+  #     - run: npm ci
+  #     - run: npm run test
 
   publish-npm:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
