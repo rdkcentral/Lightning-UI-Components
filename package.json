@@ -78,7 +78,7 @@
     "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --no-coverage",
     "test:updateSnapshot": "jest --updateSnapshot"
   }
 }
