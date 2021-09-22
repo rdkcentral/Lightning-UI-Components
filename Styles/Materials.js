@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { CORNER_RADIUS } from './Styles';
 
-const spacing = multiplier => 8 * multiplier;
+export const spacing = multiplier => 8 * multiplier;
 
 function glow({
   w,
