@@ -17,6 +17,7 @@
  */
 
 import withStyles from '.';
+import { DEFAULT_THEME } from '../../Styles';
 
 describe('withStyles', () => {
   let Example = class {};
@@ -57,6 +58,14 @@ describe('withStyles', () => {
       const Wrapped = withStyles(Example, styles);
       expect(Wrapped.styles).toMatchObject({
         ...styles(baseTheme)
+      });
+    });
+
+    it('should use the default theme when no theme is provided nor exists on the base class', () => {
+      const styles = theme => ({ ...theme, base: 'styles' });
+      const Wrapped = withStyles(Example, styles);
+      expect(Wrapped.styles).toMatchObject({
+        ...styles(DEFAULT_THEME)
       });
     });
   });

@@ -16,11 +16,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { createTheme } from '../../Styles';
+jest.mock('../../Styles');
 import withTheme from '.';
+
+const MOCK_THEME = { mock: 'theme' };
 
 describe('withTheme', () => {
   let Example = class {};
   beforeEach(() => {
+    createTheme.mockClear();
+    createTheme.mockReturnValue(MOCK_THEME);
     Example = class {};
   });
 
@@ -32,20 +38,19 @@ describe('withTheme', () => {
     it('should be derived from a theme property on the base class and theme parameter', () => {
       const theme = theme => ({ ...theme, base: 'styles' });
       const defaultTheme = { theme: 'styles' };
-
       Example.theme = defaultTheme;
+      expect(createTheme).not.toHaveBeenCalled();
       const Wrapped = withTheme(Example, theme);
-      expect(Wrapped.theme).toMatchObject({
-        ...theme(theme(defaultTheme)),
-        ...defaultTheme
-      });
+      expect(createTheme).toHaveBeenCalledWith(theme, defaultTheme);
+      expect(Wrapped.theme).toEqual(MOCK_THEME);
     });
 
-    it('should be derived from a a theme parameter when there is not a theme defined on the base class', () => {
+    it('should be derived from a theme parameter when there is not a theme defined on the base class', () => {
       const theme = { base: 'styles' };
-
+      expect(createTheme).not.toHaveBeenCalled();
       const Wrapped = withTheme(Example, theme);
-      expect(Wrapped.theme).toEqual(theme);
+      expect(createTheme).toHaveBeenCalledWith(theme);
+      expect(Wrapped.theme).toEqual(MOCK_THEME);
     });
   });
 });

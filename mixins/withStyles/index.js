@@ -16,11 +16,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createStyles } from '../../Styles';
+import lng from '@lightningjs/core';
+import { createStyles, DEFAULT_THEME } from '../../Styles';
 import { clone } from '../../utils';
 
+lng.uiTheme = lng.uiTheme || DEFAULT_THEME;
+
 export default function withStyles(Base, styles, theme) {
-  const _theme = theme || Base.theme;
+  const _theme = theme || Base.theme || lng.uiTheme;
   const _styles = Base.styles
     ? clone(Base.styles, createStyles(styles, _theme))
     : createStyles(styles, _theme);

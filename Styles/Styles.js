@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,10 @@ export * from './Fonts';
 export * from './Layout';
 export * from './Colors';
 export * from './Transitions';
+export * from './Animation';
+export * from './Materials';
 export { default as createStyles } from './createStyles';
-export { default as createTheme } from './createTheme';
+export { default as createTheme, DEFAULT_THEME } from './createTheme';
 
 /**
  * Amount of rounding to add to corners based on the item's size
