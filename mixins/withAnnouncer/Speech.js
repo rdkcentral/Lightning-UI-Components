@@ -16,6 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* global SpeechSynthesisErrorEvent */
+
 function flattenStrings(series = []) {
   const flattenedSeries = [];
 
@@ -96,7 +98,7 @@ function speakSeries(series, root = true) {
               await speak(phrase, utterances);
               retriesLeft = 0;
             } catch (e) {
-              if (e instanceof window.SpeechSynthesisErrorEvent) {
+              if (e instanceof SpeechSynthesisErrorEvent) {
                 if (e.error === 'network') {
                   retriesLeft--;
                   console.warn(

@@ -16,6 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* global SpeechSynthesisErrorEvent */
+
 import Speech from './Speech';
 
 let speakError;
@@ -28,7 +30,7 @@ global.speechSynthesis = {
       const error = new Error('nonSpeechSynthesisErrorEvent');
       utter.onerror(error);
     } else if (speakError) {
-      const errorEvent = new window.SpeechSynthesisErrorEvent();
+      const errorEvent = new SpeechSynthesisErrorEvent();
       errorEvent.error = speakError;
       utter.onerror(errorEvent);
     } else {
