@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,4 +16,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from './Styles';
+/**
+ * Styles
+ *
+ * Contains global style information to easily maintain consistency throughout components.
+ */
+export * from './Fonts';
+export * from './Layout';
+export * from './Colors';
+export * from './Transitions';
+export * from './Animation';
+export * from './Materials';
+export { default as createStyles } from './createStyles';
+export { default as getFocusScale } from './getFocusScale';

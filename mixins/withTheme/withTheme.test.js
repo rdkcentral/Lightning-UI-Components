@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createTheme } from '../../Styles';
-jest.mock('../../Styles');
+import createTheme from '../createTheme';
+jest.mock('../createTheme');
 import withTheme from '.';
 
 const MOCK_THEME = { mock: 'theme' };

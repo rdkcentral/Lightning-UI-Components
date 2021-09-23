@@ -17,7 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import { createStyles, DEFAULT_THEME } from '../../Styles';
+import { createStyles } from '../../Styles';
+import { DEFAULT_THEME } from '../createTheme';
 import { clone } from '../../utils';
 
 lng.uiTheme = lng.uiTheme || DEFAULT_THEME;

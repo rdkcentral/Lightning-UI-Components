@@ -25,7 +25,7 @@ import {
   MATERIALS,
   getFocusScale,
   spacing
-} from './Styles';
+} from '../Styles';
 
 const SIZES = {
   icon: {

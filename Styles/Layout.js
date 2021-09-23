@@ -196,3 +196,17 @@ export function getAbsoluteYPosition(y) {
 export function getAbsoluteXPosition(x) {
   return x - GRID.margin.x;
 }
+
+/**
+ * Amount of pixels to increase a tile item width on focus
+ */
+export const FOCUS_SCALE = {
+  tile: 48,
+  launchpad: 360,
+  background: 284
+};
+
+export const BACKGROUND_DIMENSIONS = {
+  h: SCREEN.h * ((SCREEN.w + FOCUS_SCALE.background) / SCREEN.w),
+  w: SCREEN.w * ((SCREEN.w + FOCUS_SCALE.background) / SCREEN.w)
+};

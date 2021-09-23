@@ -21,64 +21,14 @@
  *
  * Contains global style information to easily maintain consistency throughout components.
  */
-import { SCREEN } from './Layout';
-export * from './Fonts';
-export * from './Layout';
-export * from './Colors';
-export * from './Transitions';
-export * from './Animation';
-export * from './Materials';
-export { default as createStyles } from './createStyles';
-export { default as createTheme, DEFAULT_THEME } from './createTheme';
-
-/**
- * Amount of rounding to add to corners based on the item's size
- */
-export const CORNER_RADIUS = {
-  large: 24,
-  medium: 16,
-  small: 8,
-  xsmall: 4
-};
-
-export const ALPHA = {
-  overlays: {
-    background: 72,
-    bubble: 56,
-    shelf: 56
-  },
-  text: {
-    primary: 100,
-    secondary: 72,
-    tertiary: 56,
-    inactive: 40
-  }
-};
-
-/**
- * Amount to blur shaders on components like the Shelf.
- *
- * The cap for Fast Blur component is 4, but Sketch files use "50"
- * The higher number is also necessary for when requesting a blurred version
- * of an image from a service using something like image magick.
- */
-export const BLUR_AMOUNT = 4;
-
-/**
- * Amount of pixels to increase a tile item width on focus
- */
-export const FOCUS_SCALE = {
-  tile: 48,
-  launchpad: 360,
-  background: 284
-};
 
 /**
  * Scale size based on width of component using the 12-column layout
  *
  * @param { number } w
+ * @returns {number} focus scale size based on 12-column layout
  */
-export function getFocusScale(w) {
+export default function getFocusScale(w) {
   switch (true) {
     case w >= 1760:
       return 1.03; // 1 col
@@ -102,8 +52,3 @@ export function getFocusScale(w) {
       return 1.18; // default to 6 col
   }
 }
-
-export const BACKGROUND_DIMENSIONS = {
-  h: SCREEN.h * ((SCREEN.w + FOCUS_SCALE.background) / SCREEN.w),
-  w: SCREEN.w * ((SCREEN.w + FOCUS_SCALE.background) / SCREEN.w)
-};
