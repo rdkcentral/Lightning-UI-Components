@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,11 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
+/* global SpeechSynthesisErrorEvent */
+
 function flattenStrings(series = []) {
-  let flattenedSeries = [];
+  const flattenedSeries = [];
 
   for (var i = 0; i < series.length; i++) {
     if (typeof series[i] === 'string' && !series[i].includes('PAUSE-')) {
@@ -45,7 +48,7 @@ function delay(pause) {
 function speak(phrase, utterances) {
   const synth = window.speechSynthesis;
   return new Promise((resolve, reject) => {
-    let utterance = new SpeechSynthesisUtterance(phrase);
+    const utterance = new SpeechSynthesisUtterance(phrase);
     utterance.onend = () => {
       resolve();
     };

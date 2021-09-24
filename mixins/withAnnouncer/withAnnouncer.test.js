@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,9 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import Announcer from '.';
-import { FocusManager } from '../../layout';
+import FocusManager from '../../layout/FocusManager';
 import TestRenderer from '../../test/lightning-test-renderer';
 import lng from '@lightningjs/core';
 
@@ -26,7 +27,8 @@ const speakCancel = jest.fn();
 speak.mockReturnValue({
   active: true,
   append: speakAppend,
-  cancel: speakCancel
+  cancel: speakCancel,
+  series: Promise.resolve()
 });
 const BaseAnnouncer = Announcer(lng.Component, speak);
 class MyApp extends BaseAnnouncer {
@@ -102,7 +104,7 @@ const FeaturedItems = {
       },
       {
         type: Item,
-        title: 'Corona',
+        title: 'Pandemic',
         announceContext: '3 of 3'
       }
     ]
@@ -135,7 +137,7 @@ const PopularItems = {
 const Component = {
   MyApp: {
     type: MyApp,
-    announce: 'Welcome to Flex',
+    announce: 'Welcome to this page',
     Component: {
       type: FocusManager,
       direction: 'column',
@@ -197,7 +199,7 @@ describe('AppAnnouncer', () => {
   describe('on App load', () => {
     it('should announce the full focus path', () => {
       expect(speak).toHaveBeenCalledWith([
-        'Welcome to Flex',
+        'Welcome to this page',
         'HomePage',
         'Free to Me',
         'Ninja Turtles',
@@ -257,7 +259,7 @@ describe('AppAnnouncer', () => {
 
       setTimeout(() => {
         expect(speak).toHaveBeenCalledWith([
-          'Welcome to Flex',
+          'Welcome to this page',
           'HomePage',
           'Free to Me',
           'Batman',
@@ -313,7 +315,7 @@ describe('AppAnnouncer', () => {
       expect(speak).not.toHaveBeenCalled();
       announcer.$announce('there');
       expect(speak).toHaveBeenNthCalledWith(1, [
-        'Welcome to Flex',
+        'Welcome to this page',
         'HomePage',
         'Free to Me',
         'Ninja Turtles',
@@ -329,7 +331,7 @@ describe('AppAnnouncer', () => {
       expect(speak).not.toHaveBeenCalled();
       announcer.$announce('there', { append: true });
       expect(speak).toHaveBeenCalledWith([
-        'Welcome to Flex',
+        'Welcome to this page',
         'HomePage',
         'Free to Me',
         'Ninja Turtles',
@@ -341,6 +343,30 @@ describe('AppAnnouncer', () => {
         speakAppend.mock.invocationCallOrder[0]
       );
     });
+
+    it('should stop focus change, announce notification, and refresh (notification=true)', done => {
+      speak.mockClear();
+      speak.mockReturnValue({
+        active: true,
+        append: speakAppend,
+        cancel: speakCancel,
+        series: Promise.resolve()
+      });
+      announcer.$announce('Some Notification', { notification: true });
+      expect(speak).toHaveBeenNthCalledWith(1, 'Some Notification');
+      expect(speak).toHaveBeenCalledTimes(1);
+      setTimeout(() => {
+        expect(speak).toHaveBeenNthCalledWith(2, [
+          'Welcome to this page',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ]);
+        done();
+      }, 100);
+    });
   });
 
   describe('$announcerRefresh', () => {
@@ -349,7 +375,7 @@ describe('AppAnnouncer', () => {
       announcer.$announcerRefresh();
       setTimeout(() => {
         expect(speak).toHaveBeenCalledWith([
-          'Welcome to Flex',
+          'Welcome to this page',
           'HomePage',
           'Free to Me',
           'Ninja Turtles',
@@ -393,6 +419,17 @@ describe('AppAnnouncer', () => {
       }, []);
 
       expect(toAnnounce).toEqual(['Ninja Turtles', 'Free to Me', 'HomePage']);
+    });
+  });
+
+  describe('announceEnded', () => {
+    it('should be emmitted when announcing has completed', () => {
+      announcer.stage = {
+        emit: event => {
+          expect(event).toEqual('announceEnded');
+        }
+      };
+      announcer.$announce('Text to announce');
     });
   });
 });

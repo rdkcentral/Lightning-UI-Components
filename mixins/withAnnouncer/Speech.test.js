@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2021 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
+/* global SpeechSynthesisErrorEvent */
 
 import Speech from './Speech';
 
@@ -135,7 +137,7 @@ describe('Speech', () => {
   });
 
   it('should cancel a running series', () => {
-    let unresolvedPromise = new Promise((resolve, reject) => {});
+    const unresolvedPromise = new Promise(() => {});
     const speaking1 = Speech(['Hello', unresolvedPromise]);
     expect(speaking1.active).toBe(true);
     const speaking2 = Speech(['Cancelled']);
@@ -221,7 +223,7 @@ describe('Speech', () => {
     speakError = 'network';
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.useFakeTimers();
-    const speaking = Speech(['Hello', 'World']);
+    Speech(['Hello', 'World']);
     await nextFrame();
     expect(utter).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenLastCalledWith(
