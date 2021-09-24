@@ -23,6 +23,16 @@ import Base from '.';
 
 This component is used to provide a solid starting point for component development. It includes default mixins and some class methods.
 
+#### Mixins used in Base component:
+
+mixin|description
+--|--
+withStyles|provides base styles
+withHandleKey|processes and propogates key events
+withTags|adds getters and setters for all values in `tags` property on compoent
+withUpdates|adds getters and setters for all values int `properties` property on component and triggers updates when changes to any of those values
+withLayout|provides `itemLayout` property to define component's width and height based on screen dimensions
+
 ## Usage
 
 

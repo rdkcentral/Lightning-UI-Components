@@ -17,9 +17,13 @@
  */
 
 import lng from '@lightningjs/core';
-
-import withStyles from '../../mixins/withStyles';
-import withUpdates from '../../mixins/withUpdates';
+import {
+  withStyles,
+  withUpdates,
+  withTags,
+  withHandleKey,
+  withLayout
+} from '../../mixins';
 
 const baseStyles = theme => ({
   getUnfocusScale: () => 1,
@@ -55,4 +59,8 @@ class Base extends lng.Component {
   }
 }
 
-export default withUpdates(withStyles(Base, baseStyles));
+function withMixins(baseComponent) {
+  return withLayout(withUpdates(withTags(withHandleKey(baseComponent))));
+}
+
+export default withMixins(withStyles(Base, baseStyles));
