@@ -22,6 +22,19 @@ import lng from '@lightningjs/core';
 import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
+import { withAnnouncer } from '../mixins';
+
+export const globalTypes = {
+  announce: {
+    name: 'Announce',
+    description: 'Enable a11y announcing of components',
+    defaultValue: 'off',
+    toolbar: {
+      icon: 'speaker',
+      items: ['off', 'on']
+    }
+  }
+};
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -46,17 +59,6 @@ const stage = {
   useImageWorker: false,
   inspector: false
 };
-class StoryApp extends lng.Application {
-  _init() {
-    setTimeout(() => {
-      this._refocus();
-    }, 0);
-  }
-
-  _getFocused() {
-    return this.childList.first || this;
-  }
-}
 
 /**
  * To customize the stage in each storybook file...
@@ -101,6 +103,21 @@ addDecorator(
     StoryComponent,
     { id, args, argTypes, kind, parameters, story, globals }
   ) => {
+    const announce = globals.announce === 'on';
+    class StoryApp extends withAnnouncer(lng.Application) {
+      _init() {
+        setTimeout(() => {
+          this._refocus();
+        }, 0);
+        this.debug = announce;
+        this.announcerEnabled = announce;
+        this.announcerTimeout = 15 * 1000;
+      }
+
+      _getFocused() {
+        return this.childList.first || this;
+      }
+    }
     function createApp() {
       const app = new StoryApp({
         stage: {
@@ -158,7 +175,8 @@ addDecorator(
       const tag = parameters.tag || kind;
       const storyComponent = app.tag('StoryComponent');
       const component = storyComponent.tag(tag) || storyComponent;
-
+      app.debug = announce;
+      app.announcerEnabled = announce;
       for (const arg in args) {
         const argValue = args[arg];
 
