@@ -16,9 +16,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from '@lightningjs/core';
+export * from './Fonts';
+export * from './Layout';
+export * from './Colors';
+export * from './Transitions';
+export { default as createStyles } from './createStyles';
+export {
+  default as createTheme,
+  getDefaultTheme,
+  getFocusScale
+} from './createTheme';
 
-export const spacing = multiplier => 8 * multiplier;
+export const CORNER_RADIUS = {
+  large: 24,
+  medium: 16,
+  small: 8,
+  xsmall: 4
+};
 
 export const ALPHA = {
   overlays: {
@@ -34,13 +48,6 @@ export const ALPHA = {
   }
 };
 
-export const CORNER_RADIUS = {
-  large: 24,
-  medium: 16,
-  small: 8,
-  xsmall: 4
-};
-
 /**
  * Amount to blur shaders on components like the Shelf.
  *
@@ -49,48 +56,3 @@ export const CORNER_RADIUS = {
  * of an image from a service using something like image magick.
  */
 export const BLUR_AMOUNT = 4;
-
-function glow({
-  w,
-  h,
-  color = 0xffffffff,
-  borderRadius = CORNER_RADIUS.small,
-  blur = spacing(2)
-}) {
-  return {
-    color: color,
-    mount: 0.5,
-    x: w / 2,
-    y: h / 2 + blur / 2,
-    zIndex: -1,
-    texture: lng.Tools.getShadowRect(
-      w - spacing(2),
-      h - spacing(2),
-      borderRadius,
-      blur
-    )
-  };
-}
-
-function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
-  return {
-    type: lng.components.FastBlurComponent,
-    x: w / 2,
-    y: h / 2 + spacing(3),
-    mount: 0.5,
-    w,
-    h,
-    amount: blur,
-    padding: padding,
-    content: {
-      Image: {
-        w,
-        h,
-        texture: texture
-      }
-    },
-    zIndex: -1
-  };
-}
-
-export const MATERIALS = { glow, luminance };

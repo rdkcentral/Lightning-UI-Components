@@ -21,11 +21,4 @@
  *
  * Contains global style information to easily maintain consistency throughout components.
  */
-export * from './Fonts';
-export * from './Layout';
-export * from './Colors';
-export * from './Transitions';
-export * from './Animation';
-export * from './Materials';
-export { default as createStyles } from './createStyles';
-export { default as getFocusScale } from './getFocusScale';
+export * from './Styles';

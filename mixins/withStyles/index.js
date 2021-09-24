@@ -18,10 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { createStyles } from '../../Styles';
-import { DEFAULT_THEME } from '../createTheme';
+import { getDefaultTheme } from '../../Styles';
 import { clone } from '../../utils';
 
-lng.uiTheme = lng.uiTheme || DEFAULT_THEME;
+lng.uiTheme = lng.uiTheme || getDefaultTheme();
 
 export default function withStyles(Base, styles, theme) {
   const _theme = theme || Base.theme || lng.uiTheme;

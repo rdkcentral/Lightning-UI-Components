@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import createTheme from '../createTheme';
+import { createTheme } from '../../Styles';
 
 export default function withTheme(Base, theme) {
   const defaultTheme = Base.theme;

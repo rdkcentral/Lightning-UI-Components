@@ -81,21 +81,22 @@ export function getValidColor(color) {
  * Pair color values with color names in the "Neutral" palette
  */
 export const COLORS_NEUTRAL = {
-  dark1: getHexColor('000000'),
-  dark2: getHexColor('080808'),
-  dark3: getHexColor('101010'),
-  light1: getHexColor('FFFFFF'),
-  light2: getHexColor('F5F5F5'),
-  light3: getHexColor('E8E8E8')
+  dark1: getHexColor('#000000'),
+  dark2: getHexColor('#080808'),
+  dark3: getHexColor('#101010'),
+  light1: getHexColor('#FFFFFF'),
+  light2: getHexColor('#F5F5F5'),
+  light3: getHexColor('#E8E8E8')
 };
 
 export const COLORS_TEXT = {
-  dark: getHexColor('080808'),
-  light: getHexColor('FFFFFF')
+  dark: getHexColor('#080808'),
+  light: getHexColor('#FFFFFF')
 };
 
 export const PALETTE = {
   getHexColor,
+  COLORS_NEUTRAL,
   text: {
     light: {
       primary: COLORS_TEXT.light,
