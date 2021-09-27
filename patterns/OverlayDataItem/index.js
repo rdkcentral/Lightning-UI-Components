@@ -2,19 +2,7 @@ import lng from '@lightningjs/core';
 import DataItem from '../DataItem';
 import withStyles from '../../mixins/withStyles';
 import { getValidColor } from '../../Styles';
-
-export const styles = theme => ({
-  image: {
-    alpha: 0.2,
-    justify: 'right',
-    size: 160,
-    margin: theme.spacing(2)
-  },
-  color: {
-    alpha: 0.5,
-    radius: theme.border.radius.medium
-  }
-});
+import styles from './OverlayDataItem.styles';
 
 export default class OverlayDataItem extends withStyles(DataItem, styles) {
   static _template() {
@@ -45,35 +33,48 @@ export default class OverlayDataItem extends withStyles(DataItem, styles) {
     };
   }
 
+  static get properties() {
+    return [
+      ...super.properties,
+      'backgroundColors',
+      'overlayColor',
+      'overlayImage'
+    ];
+  }
+
+  static get tags() {
+    return [...super.tags, 'OverlayColor', 'OverlayImage'];
+  }
+
   _construct() {
     super._construct();
     this._image = this.styles.image;
     this._color = this.styles.color;
   }
 
-  set overlayColor(overlayColor) {
+  _setOverlayColor(overlayColor) {
     if (this._overlayColor !== overlayColor) {
-      this._overlayColor = overlayColor;
       this._OverlayColor.patch({
         alpha: this._color.alpha,
         color: getValidColor(overlayColor)
       });
+      return overlayColor;
     }
   }
 
-  set backgroundColors(backgroundColors) {
+  _setBackgroundColors(backgroundColors) {
     if (this._backgroundColors !== backgroundColors) {
       const { colorLeft, colorRight } = backgroundColors;
-      this._backgroundColors = backgroundColors;
       this._Background.patch({
         color: false,
         colorLeft: getValidColor(colorLeft),
         colorRight: getValidColor(colorRight)
       });
+      return backgroundColors;
     }
   }
 
-  set overlayImage(overlayImage) {
+  _setOverlayImage(overlayImage) {
     if (this._OverlayImage.src !== overlayImage) {
       const { size, justify, margin, alpha } = this._image;
 
@@ -92,6 +93,7 @@ export default class OverlayDataItem extends withStyles(DataItem, styles) {
         h: size,
         w: size
       });
+      return overlayImage;
     }
   }
 
