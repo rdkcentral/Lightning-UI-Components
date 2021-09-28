@@ -42,7 +42,7 @@ Object {
       "zIndex": 0,
     },
     "Text": Object {
-      "active": true,
+      "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
@@ -138,9 +138,6 @@ Object {
                           "tags": Array [
                             "Content",
                           ],
-                          "texture": Object {
-                            "type": "SourceTexture",
-                          },
                           "visible": true,
                           "w": 0,
                           "x": 0,
@@ -239,7 +236,7 @@ Object {
                     "ContentClipper",
                   ],
                   "visible": true,
-                  "w": 490.00000000000006,
+                  "w": 0,
                   "x": 0,
                   "y": 0,
                   "zIndex": 0,

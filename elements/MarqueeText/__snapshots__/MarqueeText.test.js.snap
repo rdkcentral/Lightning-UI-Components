@@ -21,7 +21,7 @@ Object {
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
-              "color": "ff1c27bc",
+              "color": 4294967295,
               "enabled": true,
               "flex": false,
               "flexItem": false,
@@ -161,19 +161,19 @@ exports[`MarqueeText renders 1`] = `
 Object {
   "Component": Object {
     "ContentClipper": Object {
-      "active": false,
+      "active": true,
       "alpha": 1,
       "attached": true,
       "boundsMargin": Array [],
       "children": Object {
         "ContentBox": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Content": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
@@ -214,7 +214,7 @@ Object {
               "zIndex": 0,
             },
             "ContentLoopTexture": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
@@ -285,7 +285,7 @@ Object {
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 0,
+      "h": 50,
       "isComponent": undefined,
       "mount": 0,
       "mountX": 0,
