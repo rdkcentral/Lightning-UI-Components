@@ -1,28 +1,9 @@
-import lng from '@lightningjs/core';
+import { Base } from '../../elements';
+import styles from './Info.styles';
 import DataItem from '../DataItem';
 import withStyles from '../../mixins/withStyles';
 
-export const styles = theme => ({
-  title: theme.typography.headline1,
-  subtitle: {
-    ...theme.typography.button1,
-    textColor: theme.palette.text.light.primary
-  },
-  description: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary
-  },
-  margin: {
-    x: theme.spacing(2)
-  },
-  padding: {
-    y: theme.spacing(2)
-  },
-  wordWrapWidth: 410 - theme.spacing(4),
-  getFocusScale: theme.getFocusScale
-});
-
-export default class Info extends withStyles(lng.Component, styles) {
+export default class Info extends withStyles(Base, styles) {
   static _template() {
     return {
       DataItem: {
@@ -56,78 +37,68 @@ export default class Info extends withStyles(lng.Component, styles) {
     };
   }
 
+  static get properties() {
+    return ['title', 'subtitle', 'description', 'announce'];
+  }
+
+  static get tags() {
+    return [
+      'DataItem',
+      { name: 'Content', path: 'DataItem.Content' },
+      { name: 'Title', path: 'DataItem.Content.Title' },
+      { name: 'Subtitle', path: 'DataItem.Content.Subtitle' },
+      { name: 'Description', path: 'DataItem.Content.Description' }
+    ];
+  }
+
   _construct() {
     super._construct();
-    this.paddingY = this.styles.padding.y;
+    this._paddingY = this.styles.padding.y;
+  }
+
+  _init() {
+    this._Title.on('txLoaded', () => this._onTextLoaded());
+    this._Subtitle.on('txLoaded', () => this._onTextLoaded());
+    this._Description.on('txLoaded', () => this._onTextLoaded());
+    this._update();
   }
 
   _update() {
-    const contentHeight =
-      this._Title.renderHeight +
-      this._Subtitle.renderHeight +
-      this._Description.renderHeight;
-    const h = this.hasFocus()
-      ? contentHeight *
-        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h)
-      : contentHeight + this.paddingY * 2;
-    this.h = h;
-    this._DataItem.h = h;
-    this._DataItem._Background.h = h;
+    this._updateText();
     this._updateFocusRing();
     this.fireAncestors('$itemChanged');
   }
 
-  _focus() {
-    this.h =
-      this._DataItem.h *
-        this.styles.getFocusScale(this._DataItem.w, this._DataItem.h) +
-      this._DataItem.y;
-    this.fireAncestors('$itemChanged');
+  _updateText() {
+    this._Title.text = this.title;
+    this._Subtitle.text = this.subtitle;
+    this._Description.text = this.description;
   }
 
-  _unfocus() {
-    this.h = this._DataItem.h + this._DataItem.y;
-    this.fireAncestors('$itemChanged');
+  _onTextLoaded() {
+    const contentHeight =
+      this._Title.renderHeight +
+      this._Subtitle.renderHeight +
+      this._Description.renderHeight;
+
+    const nextH = contentHeight + this._paddingY * 2;
+    this._DataItem.h = nextH;
+    this._DataItem._Background.h = nextH;
+    this._update();
+  }
+
+  _updateFocusRing() {
+    if (this._DataItem._FocusRing) {
+      this._DataItem._FocusRing.h = this._DataItem.h;
+      this._DataItem._FocusRing._update();
+    }
   }
 
   _getFocused() {
     return this._DataItem;
   }
 
-  _loadText(comp, text) {
-    if (!comp._hasTxLoader) {
-      comp._hasTxLoader = true;
-      comp.on('txLoaded', () => this._update());
-    }
-    comp.text = text;
-  }
-
-  _updateFocusRing() {
-    if (this._DataItem._FocusRing) {
-      this._DataItem._FocusRing.h = this.h;
-      this._DataItem._FocusRing._update();
-    }
-  }
-
-  set title(title) {
-    if (this._Title.text.text !== title) {
-      this._loadText(this._Title, title);
-    }
-  }
-
-  set subtitle(subtitle) {
-    if (this._Subtitle.text.text !== subtitle) {
-      this._loadText(this._Subtitle, subtitle);
-    }
-  }
-
-  set description(description) {
-    if (this._Description.text.text !== description) {
-      this._loadText(this._Description, description);
-    }
-  }
-
-  get announce() {
+  _getAnnounce() {
     if (this._announce) {
       return this._announce;
     }
@@ -138,25 +109,5 @@ export default class Info extends withStyles(lng.Component, styles) {
     const subtitle = this._Subtitle.text.text ? [this._Subtitle.text.text] : [];
     const title = this._Title.text.text ? [this._Title.text.text] : [];
     return [...title, ...subtitle, ...description].join(',');
-  }
-
-  set announce(announce) {
-    this._announce = announce;
-  }
-
-  get _DataItem() {
-    return this.tag('DataItem');
-  }
-  get _Content() {
-    return this.tag('DataItem')._Content;
-  }
-  get _Title() {
-    return this._Content.tag('Title');
-  }
-  get _Subtitle() {
-    return this._Content.tag('Subtitle');
-  }
-  get _Description() {
-    return this._Content.tag('Description');
   }
 }

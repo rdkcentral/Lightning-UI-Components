@@ -44,16 +44,19 @@ describe('Info', () => {
 
   it('update title', () => {
     component.title = 'Update the title';
+    testRenderer.update();
     expect(component._Title.text.text).toBe('Update the title');
   });
 
   it('update subtitle', () => {
     component.subtitle = 'Update the subtitle';
+    testRenderer.update();
     expect(component._Subtitle.text.text).toBe('Update the subtitle');
   });
 
   it('update description', () => {
     component.description = 'Update the description';
+    testRenderer.update();
     expect(component._Description.text.text).toBe('Update the description');
   });
 
@@ -71,21 +74,5 @@ describe('Info', () => {
       announce: 'Should override default announce'
     });
     expect(component.announce).toBe('Should override default announce');
-  });
-
-  it('update height', () => {
-    component._focus();
-    component._update();
-    expect(component.h).toBe(
-      component._DataItem.h *
-        component.styles.getFocusScale(
-          component._DataItem.w,
-          component._DataItem.h
-        ) +
-        component._DataItem.y
-    );
-    component._unfocus();
-    component._update();
-    expect(component.h).toBe(component._DataItem.h + component._DataItem.y);
   });
 });
