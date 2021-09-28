@@ -41,14 +41,14 @@ describe('Row', () => {
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should render with no items', () => {
     row.items = [];
     testRenderer.update();
-    let tree = testRenderer.toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -69,7 +69,7 @@ describe('Row', () => {
     it('should initialize spacing between items', () => {
       const itemSpacing = 20;
       [row, testRenderer] = createRow({ itemSpacing });
-      let item = row.items[1];
+      const item = row.items[1];
       row._update.flush();
 
       expect(item.x).toBe(row.items[0].w + itemSpacing);
@@ -104,7 +104,7 @@ describe('Row', () => {
     });
 
     it('items are added outside of the viewable bounds', () => {
-      let item = { ...baseItem };
+      const item = { ...baseItem };
       expect(row.items.length).toBe(5);
       row.appendItems([item]);
       expect(row.items.length).toBe(6);
@@ -149,7 +149,7 @@ describe('Row', () => {
 
   describe('listeners', () => {
     it('should listen for $itemChanged', () => {
-      let item1X = row.items[1].x;
+      const item1X = row.items[1].x;
       row.scrollTransition = { duration: 0 };
       row.items[0].w += 200;
       row.$itemChanged();
@@ -171,6 +171,16 @@ describe('Row', () => {
       row._whenEnabled.then(() => {
         expect(row._selectedIndex).toBe(1);
         expect(row.Items.transition('x').targetValue).toBe(-row.selected.x);
+        done();
+      });
+    });
+
+    it('should reset the Items x position when there are no items', done => {
+      row.itemPosX = 100;
+      row.items = [];
+      testRenderer.keyPress('Right');
+      row._whenEnabled.then(() => {
+        expect(row.Items.x).toBe(100);
         done();
       });
     });

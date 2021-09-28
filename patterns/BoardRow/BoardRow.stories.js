@@ -165,237 +165,54 @@ export const Basic = args =>
     static _template() {
       return {
         BoardRow: {
-          type: Column,
+          type: BoardRow,
+          w: 1920 - 180, // x offset from preview.js * 2
+          // Menu Card Props
           itemSpacing: 40,
-          alwaysScroll: true,
-          items: [
-            {
-              type: BoardRow,
-              // Menu Card Props
-              itemSpacing: 40,
-              menuCard: {
-                title: `${
-                  args.layout ? capitalizeFirstLetter(args.layout) : 'Standard'
-                } Layout`,
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                onEnter: () => {
-                  console.log('view all action');
-                },
-                onInfo: () => {
-                  console.log('view all on info action');
-                }
-              },
-              // Row settings
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              //Board Row item content
-              items: (() => {
-                let items;
-                switch (args.layout) {
-                  case 'card':
-                    items = getItems(CardVerticalLarge);
-                    break;
-                  default:
-                    items = getItems(Tile);
-                }
-                return [
-                  {
-                    title: 'Horizantal Card',
-                    type: CardHorizontal
-                  },
-                  ...items
-                ];
-              })(),
-              // Layout will default to standard if not specified
-              layout: args.layout,
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
+          menuCard: {
+            title: `${
+              args.layout ? capitalizeFirstLetter(args.layout) : 'Standard'
+            } Layout`,
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
+            cta: 'View All',
+            gradientColor: args.gradientColor,
+            onEnter: () => {
+              console.log('view all action');
             },
-            {
-              type: BoardRow,
-              // Menu Card Props
-              itemSpacing: 40,
-              menuCard: {
-                title: 'Hero Layout',
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                actions: {
-                  onEnter: () => {
-                    console.log('view all action');
-                  },
-                  onInfo: () => {
-                    console.log('view all on info action');
-                  }
-                }
-              },
-              // Row settings
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              // Board Row item content
-              items: (() => {
-                return getItems(Tile);
-              })(),
-              // Layout will default to standard if not specified
-              layout: 'hero',
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
-            },
-            {
-              type: BoardRow,
-              // Menu Card Props
-              itemSpacing: 40,
-              // Row settings
-              menuCard: {
-                title: 'Poster Layout',
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                actions: {
-                  onEnter: () => {
-                    console.log('view all action');
-                  },
-                  onInfo: () => {
-                    console.log('view all on info action');
-                  }
-                }
-              },
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              // Board Row item content
-              items: (() => {
-                return getItems(Tile);
-              })(),
-              // Layout will default to standard if not specified
-              layout: 'poster',
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
-            },
-            {
-              type: BoardRow,
-              // Menu Card Props
-              itemSpacing: 40,
-              menuCard: {
-                title: 'Card Layout',
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                actions: {
-                  onEnter: () => {
-                    console.log('view all action');
-                  },
-                  onInfo: () => {
-                    console.log('view all on info action');
-                  }
-                }
-              },
-              // Row settings
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              // Board Row item content
-              items: (() => {
-                return getItems(CardVerticalLarge);
-              })(),
-              // Layout will default to standard if not specified
-              layout: 'card',
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
-            },
-            {
-              type: BoardRow,
-              gradientColor: args.gradientColor,
-              // Menu Card Props
-              itemSpacing: 40,
-              menuCard: {
-                title: 'Square Layout',
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                actions: {
-                  onEnter: () => {
-                    console.log('view all action');
-                  },
-                  onInfo: () => {
-                    console.log('view all on info action');
-                  }
-                }
-              },
-              // Row settings
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              // Board Row item content
-              items: (() => {
-                return getItems(Tile);
-              })(),
-              // Layout will default to standard if not specified
-              layout: 'square',
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
-            },
-            {
-              type: BoardRow,
-              // Menu Card Props
-
-              itemSpacing: 40,
-              menuCard: {
-                title: 'SquareSmall Layout',
-                description:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-                cta: 'View All',
-                gradientColor: args.gradientColor,
-                actions: {
-                  onEnter: () => {
-                    console.log('view all action');
-                  },
-                  onInfo: () => {
-                    console.log('view all on info action');
-                  }
-                }
-              },
-              // Row settings
-              alwaysScroll: args.alwaysScroll,
-              neverScroll: args.neverScroll,
-              lazyScroll: args.lazyScroll,
-              scrollIndex: args.scrollIndex,
-              // Board Row item content
-              items: (() => {
-                return getItems(Tile);
-              })(),
-              // Layout will default to standard if not specified
-              layout: 'squareSmall',
-              // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-              viewAll: args.viewAll,
-              // sync or async function that will generate a final src if specified
-              srcCallback
+            onInfo: () => {
+              console.log('view all on info action');
             }
-          ]
+          },
+          // Row settings
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          scrollIndex: args.scrollIndex,
+          // Board Row item content
+          items: (() => {
+            let items;
+            switch (args.layout) {
+              case 'card':
+                items = getItems(CardVerticalLarge);
+                break;
+              default:
+                items = getItems(Tile);
+            }
+            return [
+              {
+                title: 'Horizantal Card',
+                type: CardHorizontal
+              },
+              ...items
+            ];
+          })(),
+          // Layout will default to standard if not specified
+          layout: args.layout,
+          // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
+          viewAll: args.viewAll,
+          // sync or async function that will generate a final src if specified
+          srcCallback
         }
       };
     }
@@ -406,7 +223,13 @@ export const Basic = args =>
   };
 
 Basic.args = {
-  gradientColor: '#E6004A'
+  gradientColor: '#E6004A',
+  layout: 'standard',
+  viewAll: true,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: true
 };
 Basic.argTypes = {
   gradientColor: { control: 'color' },

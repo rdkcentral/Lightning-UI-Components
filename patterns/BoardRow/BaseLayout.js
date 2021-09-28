@@ -1,11 +1,12 @@
+import lng from '@lightningjs/core';
 import Card, { CardVerticalDynamic, CardHorizontal } from '../../patterns/Card';
 import MetadataSmall from '../../elements/MetadataSmall';
+import FocusManager from '../../layout/FocusManager';
 import Row from '../../layout/Row';
 import { Tile } from '../../elements';
 import withMetadata from '../../patterns/withMetadata';
 import withTags from '../../mixins/withTags';
 import withUpdates from '../../mixins/withUpdates';
-import lng from '@lightningjs/core';
 
 function warningMessage(item) {
   console.warn(
@@ -30,6 +31,7 @@ class BaseType extends lng.Component {
 
   static get properties() {
     // This will overwritten by the base BoardRow component so all properties from parent are available in layout
+    return [];
   }
 
   static get tags() {
@@ -66,7 +68,20 @@ class BaseType extends lng.Component {
   }
 
   _init() {
+    super._init();
     this._Row.itemSpacing = this._itemSpacing;
+
+    if (!this.w) {
+      // if width is undefinend or 0, set the Row's width
+      this._Row.w =
+        this.parent && // if the Row is a child item in a FocusManager (like Column)
+        this.parent.parent &&
+        this.parent.parent instanceof FocusManager
+          ? this.parent.parent.w
+          : this.stage.w;
+    } else {
+      this._Row.w = this.w;
+    }
   }
 
   _processItems(items, arrayOfTypes = [], arrayOfTypesToExclude = []) {

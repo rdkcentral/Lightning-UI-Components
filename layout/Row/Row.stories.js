@@ -19,25 +19,17 @@ export const Basic = args =>
       return {
         Row: {
           type: Row,
-          w: 900,
+          w: 1920 - 180, // x offset from preview.js * 2
           itemSpacing: args.itemSpacing,
           alwaysScroll: args.alwaysScroll,
           neverScroll: args.neverScroll,
           lazyScroll: args.lazyScroll,
           scrollIndex: args.scrollIndex,
-          items: [
-            {
-              type: Button,
-              buttonText: 'Button 0',
-              w: 150,
-              skipFocus: true
-            },
-            ...Array.apply(null, { length: 12 }).map((_, i) => ({
-              type: Button,
-              buttonText: `Button ${i + 1}`,
-              w: 150
-            }))
-          ]
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
         }
       };
     }

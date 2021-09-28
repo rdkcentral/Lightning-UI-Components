@@ -165,7 +165,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 180, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -176,7 +176,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 180, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -356,7 +356,7 @@ export const StickyTitle = args => {
   const items = flatten(
     Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
-      let items = Array.apply(null, { length: 8 }).map((_, i) => {
+      const items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
           type: Button,
           buttonText: `Button ${i + 1}`,
@@ -559,7 +559,7 @@ export const SkipPlinko = () =>
       return {
         Column: {
           type: Column,
-          w: 900,
+          w: 1920 - 180, // x offset from preview.js * 2,
           itemSpacing: 32,
           plinko: true,
           items: [
@@ -614,7 +614,7 @@ export const SkipPlinko = () =>
                   badge: 'HD',
                   Metadata: {
                     type: MetadataTile,
-                    firstLine: `Row with skipPlinko set to true`
+                    firstLine: 'Row with skipPlinko set to true'
                   }
                 }
               ]

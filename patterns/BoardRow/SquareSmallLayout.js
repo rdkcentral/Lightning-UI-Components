@@ -20,7 +20,7 @@ export default class SquareSmallLayout extends BaseLayout {
     return this._processItems(items, ['Tile']);
   }
 
-  async _updateItems(items) {
+  _updateItems(items) {
     // Everything will be two rows high, this is the total height
     const totalRowHeight =
       SquareSmallLayout._cardHeight * 2 + this._itemSpacing;

@@ -99,8 +99,8 @@ describe('Column', () => {
 
   describe('itemSpacing', () => {
     it('should set spacing', done => {
-      let spacing = 100;
-      let item = column.items[1];
+      const spacing = 100;
+      const item = column.items[1];
 
       column.itemSpacing = spacing;
       column._update.flush();
@@ -131,14 +131,14 @@ describe('Column', () => {
   describe('listeners', () => {
     describe('$removeItem', () => {
       it('removes an item', () => {
-        let item = column.items[1];
+        const item = column.items[1];
         column.$removeItem(item);
         expect(column.items.length).toBe(4);
       });
 
       it('removes selected item', () => {
         const { selectedIndex } = column;
-        let item = column.items[selectedIndex];
+        const item = column.items[selectedIndex];
         column.$removeItem(item);
         expect(column.items.length).toBe(4);
         expect(column.selectedIndex).toBe(selectedIndex);
@@ -194,13 +194,23 @@ describe('Column', () => {
   describe('scrolling', () => {
     describe('with plinko false', () => {
       it('should NOT set selected item for item based on previous item', () => {
-        let item = column.items[0];
+        const item = column.items[0];
         column.plinko = false;
         item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
         testRenderer.update();
         expect(column.items[1].selectedIndex).toBe(0);
+      });
+
+      it('should reset the Items y position when there are no items', done => {
+        column.itemPosY = 100;
+        column.items = [];
+        testRenderer.keyPress('Down');
+        column._whenEnabled.then(() => {
+          expect(column.Items.y).toBe(100);
+          done();
+        });
       });
     });
 
@@ -210,7 +220,7 @@ describe('Column', () => {
       });
 
       it('should set selected item for item based on previous item', () => {
-        let item = column.items[0];
+        const item = column.items[0];
         item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
@@ -219,7 +229,7 @@ describe('Column', () => {
       });
 
       it('should select last item in selected row if it is closest', () => {
-        let row = column.items[0];
+        const row = column.items[0];
         row.items = [...items, { ...baseItem }];
         row._update.flush();
         row.selectedIndex = row.items.length - 1;
@@ -231,7 +241,7 @@ describe('Column', () => {
       });
 
       it('should select first item if there is only one', () => {
-        let row = column.items[1];
+        const row = column.items[1];
         row.items = [{ ...baseItem }];
         testRenderer.update();
         testRenderer.keyPress('Down');
@@ -243,7 +253,7 @@ describe('Column', () => {
 
     describe('with column height > items', () => {
       it('should not scroll', () => {
-        let [item] = column.items;
+        const [item] = column.items;
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
@@ -294,7 +304,7 @@ describe('Column', () => {
         });
 
         it('should not scroll until past the mid point', () => {
-          let [item] = column.items;
+          const [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.update();
           expect(item.y).toBe(0);
@@ -322,7 +332,7 @@ describe('Column', () => {
         });
 
         it('should keep a full screen of items', done => {
-          let item = column.items[1];
+          const item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -366,7 +376,7 @@ describe('Column', () => {
         });
 
         it('should not scroll until the last item', done => {
-          let [item] = column.items;
+          const [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -390,7 +400,7 @@ describe('Column', () => {
         });
 
         it('should not scroll up until back to top item', () => {
-          let [item] = column.items;
+          const [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -405,7 +415,7 @@ describe('Column', () => {
         });
 
         it('should keep a full screen of items', () => {
-          let item = column.items[1];
+          const item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -457,7 +467,7 @@ describe('Column', () => {
     it('should set selected item for item based on item before skipPlinko item', () => {
       column.plinko = true;
       column.items = [{ ...baseRow }, { ...skipPlinkoRow }, { ...baseRow }];
-      let item = column.items[0];
+      const item = column.items[0];
       item.selectedIndex = 3;
       testRenderer.update();
       testRenderer.keyPress('Down');
@@ -476,7 +486,7 @@ describe('Column', () => {
         { ...skipPlinkoRow },
         { ...baseRow }
       ];
-      let item = column.items[0];
+      const item = column.items[0];
       item.selectedIndex = 3;
       testRenderer.update();
       testRenderer.keyPress('Down');

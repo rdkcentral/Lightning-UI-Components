@@ -130,16 +130,12 @@ class BoardRow extends lng.Component {
           }
         },
         // Pass in property values to layout
-        ...properties
+        ...properties,
+        w: this.w
       }
     });
     // After new layout is patched, set the focus
     this._setState('LayoutSet');
-  }
-
-  $itemChanged() {
-    // Catch the item changed event from child or column scroll doesn't work properly. This may be able to be removed later after focus manager is patched
-    return false;
   }
 }
 
