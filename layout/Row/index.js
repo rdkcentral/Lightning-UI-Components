@@ -13,13 +13,27 @@ export default class Row extends FocusManager {
     super._construct();
     this._smooth = false;
     this._itemSpacing = 0;
+    this._itemPosX = 0;
+    this._itemPosY = 0;
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this._w = this.stage.w;
     this.debounceDelay = Number.isInteger(this.debounceDelay)
       ? this.debounceDelay
       : 1;
     this._update = debounce(this._updateLayout, this.debounceDelay);
+  }
+
+  _init() {
+    super._init();
+    if (!this.w) {
+      // if width is undefinend or 0, set the Row's width
+      this.w =
+        this.parent && // if the Row is a child item in a FocusManager (like Column)
+        this.parent.parent &&
+        this.parent.parent instanceof FocusManager
+          ? this.parent.parent.w
+          : this.stage.w;
+    }
   }
 
   get _itemTransition() {
@@ -83,17 +97,10 @@ export default class Row extends FocusManager {
     return this.Items.children.filter(child => this._isOnScreen(child));
   }
 
-  // _isOnScreen(child) {
-  //   const x = getX(child);
-  //   const { w } = child;
-  //   const withinLowerBounds = x + w + this._itemsX > 0;
-  //   const withinUpperBounds = x + this._itemsX < this.w;
-  //   return withinLowerBounds && withinUpperBounds;
-  // }
-
   _isOnScreen(child) {
+    if (!child) return false;
     const x = getX(child);
-    if (!x) return false;
+    if (!Number.isFinite(x)) return false;
     // to calculate the target absolute X position of the item, we need to use
     // 1) the entire row's absolute position,
     // 2) the target animation value of the items container, and
@@ -127,24 +134,25 @@ export default class Row extends FocusManager {
     );
   }
 
-  // _isOnScreenCompletely(child) {
-  //   let itemX = child.core.renderContext.px;
-  //   let rowX = this.core.renderContext.px;
-  //   return itemX >= rowX && itemX + child.w <= rowX + this.w;
-  // }
+  _isOnScreenCompletely(child) {
+    if (!child) return false;
+    const itemX = child.core.renderContext.px;
+    const rowX = this.core.renderContext.px;
+    return itemX >= rowX && itemX + child.w <= rowX + this.w;
+  }
 
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
       if (this.lazyScroll) {
-        shouldScroll = !this._isOnScreen(this.selected);
+        shouldScroll = !this._isOnScreenCompletely(this.selected);
       } else {
         const lastChild = this.Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
             this.shouldScrollRight() ||
-            !this._isOnScreen(this.selected));
+            !this._isOnScreenCompletely(this.selected));
       }
     }
     return shouldScroll;
@@ -158,11 +166,7 @@ export default class Row extends FocusManager {
     } else if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
-      itemsContainerX =
-        this.w -
-        this.selected.x -
-        this.selected.w -
-        (this.core.renderContext.px + this.itemSpacing);
+      itemsContainerX = this.w - this.selected.x - this.selected.w;
     }
     return itemsContainerX;
   }
@@ -190,19 +194,22 @@ export default class Row extends FocusManager {
 
       this._prevLastScrollIndex = this._lastScrollIndex;
 
-      if (this._shouldScroll()) {
-        const itemsContainerX =
+      let itemsContainerX;
+      if (!this.Items.children.length) {
+        itemsContainerX = this.itemPosX;
+      } else if (this._shouldScroll()) {
+        itemsContainerX =
           this.lazyScroll && prev
             ? this._getLazyScrollX(prev)
             : this._getScrollX();
-        if (itemsContainerX !== undefined) {
-          if (this._smooth) {
-            this.Items.smooth = {
-              x: [itemsContainerX, this._itemTransition]
-            };
-          } else {
-            this.Items.x = itemsContainerX;
-          }
+      }
+      if (itemsContainerX !== undefined) {
+        if (this._smooth) {
+          this.Items.smooth = {
+            x: [itemsContainerX, this._itemTransition]
+          };
+        } else {
+          this.Items.x = itemsContainerX;
         }
       }
 
@@ -257,7 +264,7 @@ export default class Row extends FocusManager {
       }
     }
     this.fireAncestors('$itemChanged');
-    this.render(this.selected, null);
+    this.render(this.selected, this.prevSelected);
   }
 
   get itemSpacing() {
@@ -282,12 +289,28 @@ export default class Row extends FocusManager {
     }
   }
 
+  set itemPosX(x) {
+    this.Items.x = this._itemPosX = x;
+  }
+
+  get itemPosX() {
+    return this._itemPosX;
+  }
+
+  set itemPosY(y) {
+    this.Items.y = this._itemPosY = y;
+  }
+
+  get itemPosY() {
+    return this._itemPosY;
+  }
+
   get _itemsX() {
     return getX(this.Items);
   }
 
   appendItems(items = []) {
-    let itemHeight = this.renderHeight;
+    const itemHeight = this.renderHeight;
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();

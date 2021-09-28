@@ -19,7 +19,7 @@ export default class StandardLayout extends BaseLayout {
     return this._processItems(items, ['Tile']);
   }
 
-  async _updateItems(items) {
+  _updateItems(items) {
     const formattedItems = items.reduce((acc, curr, index) => {
       const Component = BoardRowComponent(curr.type, this.srcCallback);
       const component = {

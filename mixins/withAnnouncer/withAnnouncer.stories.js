@@ -18,7 +18,7 @@ export default {
 const rows = [
   {
     type: Row,
-    w: 900,
+    w: 1920 - 180, // x offset from preview.js * 2,
     h: 100,
     itemSpacing: 30,
     items: [
@@ -29,7 +29,7 @@ const rows = [
   },
   {
     type: Row,
-    w: 900,
+    w: 1920 - 180, // x offset from preview.js * 2,
     h: 100,
     itemSpacing: 30,
     items: [
@@ -40,7 +40,7 @@ const rows = [
   },
   {
     type: Row,
-    w: 900,
+    w: 1920 - 180, // x offset from preview.js * 2,
     h: 100,
     itemSpacing: 30,
     items: [
@@ -60,7 +60,7 @@ export const Basic = () =>
         announcerTimeout: 15 * 1000,
         Column: {
           type: Column,
-          w: 900,
+          w: 1920 - 180, // x offset from preview.js * 2,
           h: 400,
           itemSpacing: 20,
           items: rows

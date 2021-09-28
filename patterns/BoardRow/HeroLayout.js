@@ -19,7 +19,7 @@ export default class HeroLayout extends BaseLayout {
     return this._processItems(items, ['Tile']);
   }
 
-  async _updateItems(items) {
+  _updateItems(items) {
     // Create two arrays
     const formattedItems = items.reduce((acc, curr, index) => {
       const component = {

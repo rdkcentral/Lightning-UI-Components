@@ -13,9 +13,10 @@ export default class Column extends FocusManager {
     super._construct();
     this._smooth = false;
     this._itemSpacing = 0;
+    this._itemPosX = 0;
+    this._itemPosY = 0;
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this._h = this.stage.h;
     this.debounceDelay = Number.isInteger(this.debounceDelay)
       ? this.debounceDelay
       : 30;
@@ -25,6 +26,19 @@ export default class Column extends FocusManager {
       this.debounceDelay,
       true
     );
+  }
+
+  _init() {
+    super._init();
+    if (!this.h) {
+      // if height is undefinend or 0, set the Columns's height
+      this.h =
+        this.parent && // if the Column is a child item in a FocusManager (like Row)
+        this.parent.parent &&
+        this.parent.parent instanceof FocusManager
+          ? this.parent.parent.h
+          : this.stage.h;
+    }
   }
 
   get _itemTransition() {
@@ -97,7 +111,12 @@ export default class Column extends FocusManager {
   render(next, prev) {
     this._prevLastScrollIndex = this._lastScrollIndex;
 
-    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+    if (
+      this.plinko &&
+      prev &&
+      (prev.currentItem || prev.selected) &&
+      !(this.items.indexOf(prev) === 0 && prev.skipPlinko)
+    ) {
       const prevPlinko = this.checkSkipPlinko(prev, next);
       next.selectedIndex = this._getIndexOfItemNear(next, prevPlinko || prev);
     }
@@ -121,7 +140,7 @@ export default class Column extends FocusManager {
 
     // Grab all items below prev if up or all items before prev if down
     const prevItems = up
-      ? this.items.slice(prevIndex).map((i, idx) => ({
+      ? this.items.slice(prevIndex).map(i => ({
           skipPlinko: i.skipPlinko,
           index: this.items.indexOf(i)
         }))
@@ -147,7 +166,13 @@ export default class Column extends FocusManager {
 
   _performRender() {
     this._whenEnabled.then(() => {
-      if (this._shouldScroll()) {
+      if (!this.Items.children.length) {
+        if (this._smooth) {
+          this.Items.smooth = { y: this.itemPosY };
+        } else {
+          this.Items.y = this.itemPosY;
+        }
+      } else if (this._shouldScroll()) {
         let scrollItem =
           this.selectedIndex > this._lastScrollIndex
             ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
@@ -183,8 +208,9 @@ export default class Column extends FocusManager {
   }
 
   _isOnScreen(child) {
+    if (!child) return false;
     const y = getY(child);
-
+    if (!Number.isFinite(y)) return false;
     // to calculate the target absolute Y position of the item, we need to use
     // 1) the entire column's absolute position,
     // 2) the target animation value of the items container, and
@@ -293,6 +319,22 @@ export default class Column extends FocusManager {
       this._scrollIndex = scrollIndex;
       this._update();
     }
+  }
+
+  set itemPosX(x) {
+    this.Items.x = this._itemPosX = x;
+  }
+
+  get itemPosX() {
+    return this._itemPosX;
+  }
+
+  set itemPosY(y) {
+    this.Items.y = this._itemPosY = y;
+  }
+
+  get itemPosY() {
+    return this._itemPosY;
   }
 
   get _itemsY() {

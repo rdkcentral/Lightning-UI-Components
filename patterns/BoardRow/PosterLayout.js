@@ -19,7 +19,7 @@ export default class PosterLayout extends BaseLayout {
     return this._processItems(items, ['Tile']);
   }
 
-  async _updateItems(items) {
+  _updateItems(items) {
     const formattedItems = items.map(item => {
       return {
         ...item,

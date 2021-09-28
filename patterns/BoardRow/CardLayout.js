@@ -18,7 +18,7 @@ export default class CardLayout extends BaseLayout {
     return this._processItems(items, ['Card'], ['CardHorizontal']);
   }
 
-  async _updateItems(items) {
+  _updateItems(items) {
     const formattedItems = items.map(item => {
       return {
         ...item,
