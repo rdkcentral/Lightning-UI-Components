@@ -41,3 +41,19 @@ jobs:
         env:
           GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish-sb:
+    needs: publish-npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{secrets.GIT_PUBLISH_TOKEN}}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.17
+      - run: npm i
+      - run: npm run build
+      - run: npm run gh-pages
+        env:
+          GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
