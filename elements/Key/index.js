@@ -1,5 +1,6 @@
 import Button from '../Button';
 import withStyles from '../../mixins/withStyles';
+import keyStyles from './Key.styles';
 
 export const KEY_DIMENSIONS = { h: 60, w: 60, padding: 0, fixed: true };
 const isUpperCase = string => /^[A-Z]$/.test(string);
@@ -41,41 +42,16 @@ function getNato(char) {
   return char;
 }
 
-export const keyStyles = theme => ({
-  background: {
-    color: theme.palette.background.float
-  },
-  backgrounds: theme.palette.background,
-  radius: theme.border.radius.small,
-  text: {
-    ...theme.typography.headline1,
-    color: theme.palette.text.light.primary
-  },
-  shadow: theme.materials.glow,
-  icon: {
-    color: theme.palette.text.light.primary,
-    size: 32,
-    spacing: theme.spacing(2)
-  },
-  sizes: {
-    small: 60,
-    medium: 128,
-    large: 196,
-    xlarge: 400
-  },
-  focused: {
-    background: { color: theme.palette.background.focus },
-    icon: { color: theme.palette.text.dark.primary },
-    text: { color: theme.palette.text.dark.primary }
-  }
-});
-
 export default class Key extends withStyles(Button, keyStyles) {
   static _template() {
     return {
       ...super._template(),
       ...KEY_DIMENSIONS
     };
+  }
+
+  static get properties() {
+    return [...super.properties, 'config', 'size', 'toggle'];
   }
 
   _setIcon(icon) {
@@ -89,14 +65,17 @@ export default class Key extends withStyles(Button, keyStyles) {
       alpha: this.icon && this.icon.src ? 0 : 1
     });
   }
-  set config(config) {
+
+  _setConfig(config) {
     if (config) {
       this.sizes = config.sizes;
+      return config;
     }
   }
 
-  set size(size) {
+  _setSize(size) {
     this.w = this._sizes[size] || this.h;
+    return size;
   }
 
   set char(char) {
@@ -119,8 +98,9 @@ export default class Key extends withStyles(Button, keyStyles) {
     return getNato(this.title) + ', button';
   }
 
-  set label(label) {
+  _setLabel(label) {
     this.title = label;
+    return label;
   }
 
   get _sizes() {
