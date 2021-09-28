@@ -1,7 +1,7 @@
-import lng from '@lightningjs/core';
 import { FadeShader } from '../../textures';
+import Base from '../Base';
 
-export default class MarqueeText extends lng.Component {
+export default class MarqueeText extends Base {
   static _template() {
     return {
       ContentClipper: {
@@ -13,40 +13,56 @@ export default class MarqueeText extends lng.Component {
       }
     };
   }
+  static get tags() {
+    return ['ContentClipper', 'ContentBox', 'Content', 'ContentLoopTexture'];
+  }
 
+  static get properties() {
+    return [
+      'shouldSmooth',
+      'autoStart',
+      'centerAlign',
+      'color',
+      'title',
+      'contentTexture'
+    ];
+  }
   _construct() {
+    super._construct();
     this._shouldSmooth = false;
-    this._contentTexture = {};
     this._scrolling = false;
     this._centerAlign = false;
     this._autoStart = false;
+    this._fadeW = 100;
+    this._offset = 32;
   }
 
   _init() {
-    this._w = this.w;
-
-    this._Content.on('txLoaded', () => {
-      if (this._contentTexture.h === undefined) {
-        this._ContentClipper.h =
-          this._contentTexture.text && this._contentTexture.text.lineHeight
-            ? this._contentTexture.text.lineHeight
-            : this._Content.finalH;
-      }
-
-      // in case the metadata width gets larger on focus and the text goes from being clipped to not
-      if (this._shouldClip) {
-        this._updateShader();
-      } else {
-        this._ContentClipper.shader = null;
-        this._shouldCenter && this._centerTexture();
-      }
-
-      (this.autoStart || this._scrolling) && this.startScrolling();
-    });
-
+    super._init();
+    this._Content.on('txLoaded', this._updateContentTexture.bind(this));
     this._update();
   }
+  _detach() {
+    this._Content.off('txLoaded', this._updateContentTexture.bind(this));
+  }
+  _updateContentTexture() {
+    if (this._contentTexture.h === undefined) {
+      this._ContentClipper.h =
+        this._contentTexture.text && this._contentTexture.text.lineHeight
+          ? this._contentTexture.text.lineHeight
+          : this._Content.finalH;
+    }
 
+    // in case the metadata width gets larger on focus and the text goes from being clipped to not
+    if (this._shouldClip) {
+      this._updateShader();
+    } else {
+      this._ContentClipper.shader = null;
+      this._shouldCenter && this._centerTexture();
+    }
+
+    (this.autoStart || this._scrolling) && this.startScrolling();
+  }
   _update() {
     this._updateColor();
     this._updateTexture();
@@ -63,7 +79,7 @@ export default class MarqueeText extends lng.Component {
   _updateTexture() {
     this.patch({
       ContentClipper: {
-        w: this._w + 14,
+        w: this.w + 14,
         ContentBox: {
           Content: {
             rtt: true,
@@ -73,7 +89,6 @@ export default class MarqueeText extends lng.Component {
         }
       }
     });
-
     this._Content.loadTexture();
   }
 
@@ -81,7 +96,7 @@ export default class MarqueeText extends lng.Component {
     this.stage.update();
     this._Content.loadTexture();
     this._ContentClipper.patch({
-      w: this._w > 0 ? this._w + this._fadeW / 2 : 0,
+      w: this.w > 0 ? this.w + this._fadeW / 2 : 0,
       shader: { type: FadeShader, positionLeft: 0, positionRight: this._fadeW },
       rtt: true
     });
@@ -121,10 +136,10 @@ export default class MarqueeText extends lng.Component {
   _centerTexture() {
     if (this.shouldSmooth) {
       this._ContentBox.smooth = {
-        x: (this._w - this._textRenderedW) / 2
+        x: (this.w - this._textRenderedW) / 2
       };
     } else {
-      this._ContentBox.x = (this._w - this._textRenderedW) / 2;
+      this._ContentBox.x = (this.w - this._textRenderedW) / 2;
     }
   }
 
@@ -157,7 +172,7 @@ export default class MarqueeText extends lng.Component {
   get _shouldClip() {
     // using fadeW / 4 so that if something like the last character is slightly opacitied out,
     // but still visible, we don't unnecessarily scroll
-    return this._textRenderedW > this._w - this._fadeW / 4;
+    return this._textRenderedW > this.w - this._fadeW / 4;
   }
 
   get _shouldCenter() {
@@ -167,96 +182,17 @@ export default class MarqueeText extends lng.Component {
     );
   }
 
-  set shouldSmooth(smooth) {
-    if (this._shouldSmooth !== smooth) {
-      this._shouldSmooth = smooth;
-    }
-  }
-
-  get shouldSmooth() {
-    return this._shouldSmooth;
-  }
-
-  set autoStart(autoStart) {
-    if (this._autoStart !== autoStart) {
-      this._autoStart = autoStart;
-      this._update();
-    }
-  }
-
-  get autoStart() {
-    return this._autoStart;
-  }
-
-  set title(text) {
-    this._contentTexture = this._title = { text };
-    this._update();
-  }
-
-  get title() {
-    return this._title && this._title.text && this._title.text.text;
-  }
-
-  set centerAlign(centerAlign) {
-    if (this._centerAlign !== centerAlign) {
-      this._centerAlign = centerAlign;
-      this._update();
-    }
-  }
-
-  get centerAlign() {
-    return this._centerAlign;
-  }
-
-  set contentTexture(texture) {
+  _setContentTexture(texture) {
     this._contentTexture = { texture };
-    this._update();
+    return this._contentTexture;
   }
 
-  get contentTexture() {
-    return this._contentTexture.texture;
+  _setTitle(text) {
+    this._title = { text };
+    this._contentTexture = this._title;
+    return this._title.text.text;
   }
 
-  set color(color) {
-    if (this._color !== color) {
-      this._color = color;
-      this._update();
-    }
-  }
-
-  get color() {
-    return this._color;
-  }
-
-  set w(w) {
-    if (this._w !== w) {
-      this._w = w;
-      this._update();
-    }
-  }
-
-  get w() {
-    return this._w;
-  }
-
-  get _ContentClipper() {
-    return this.tag('ContentClipper');
-  }
-  get _ContentBox() {
-    return this.tag('ContentBox');
-  }
-  get _Content() {
-    return this.tag('Content');
-  }
-  get _ContentLoopTexture() {
-    return this.tag('ContentLoopTexture');
-  }
-  get _offset() {
-    return 32;
-  }
-  get _fadeW() {
-    return 100;
-  }
   get _textRenderedW() {
     return this._Content.renderWidth;
   }
