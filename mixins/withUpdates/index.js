@@ -62,6 +62,11 @@ export default function withUpdates(Base) {
       super._firstEnable && super._firstEnable();
     }
 
+    _detach() {
+      super._detach();
+      this._requestUpdateDebounce.clear();
+    }
+
     _requestUpdate() {
       if (this._readyForUpdates) {
         this._update();

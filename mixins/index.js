@@ -1,5 +1,6 @@
 export { default as Announcer } from './withAnnouncer'; // TO DEPRECATE IN 5.0
 export { default as withAnnouncer } from './withAnnouncer';
+export { default as withClassCache } from './withClassCache';
 export { default as withHandleKey } from './withHandleKey';
 export { default as withLayout } from './withLayout';
 export { default as withSelections } from './withSelections';
