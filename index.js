@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 export * from './elements';
-export * from './layouts';
+export * from './layout';
 export * from './mixins';
 export * from './Styles';
