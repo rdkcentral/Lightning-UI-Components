@@ -23,3 +23,4 @@ export { default as Icon } from './Icon';
 export { default as Keyboard, KEYBOARD_FORMATS } from './Keyboard';
 export { default as MarqueeText } from './MarqueeText';
 export { default as Radio } from './Radio';
+export { default as Toggle } from './Toggle';
