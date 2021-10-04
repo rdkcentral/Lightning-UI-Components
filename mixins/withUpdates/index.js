@@ -27,7 +27,7 @@ function getPropertyDescriptor(name, key) {
     get() {
       const customGetter = this[`_get${capital(name)}`];
       if (customGetter && typeof customGetter === 'function') {
-        const value = customGetter(this[key]);
+        const value = customGetter.call(this, this[key]);
         this[key] = value;
       }
       return this[key];
@@ -64,7 +64,7 @@ export default function withUpdates(Base) {
         }
       });
 
-      this._whenEnabled = new Promise((resolve, reject) => {
+      this._whenEnabled = new Promise(resolve => {
         this._whenEnabledResolver = resolve;
       });
 
@@ -78,6 +78,11 @@ export default function withUpdates(Base) {
       this._whenEnabledResolver();
       this._update();
       super._firstEnable && super._firstEnable();
+    }
+
+    _detach() {
+      super._detach();
+      this._requestUpdateDebounce.clear();
     }
 
     _requestUpdate() {
