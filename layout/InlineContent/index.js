@@ -35,7 +35,6 @@ export default class InlineContent extends withStyles(Base, styles) {
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
     this._contentProperties = this.styles.contentProperties;
-    this.combinedLinesHeight = 0;
   }
 
   _update() {

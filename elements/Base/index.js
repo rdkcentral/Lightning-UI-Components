@@ -19,7 +19,6 @@ class Base extends lng.Component {
     this._whenEnabled = new Promise(
       resolve => (this._whenEnabledResolver = resolve)
     );
-    // this._whenEnabled = 5; // new Promise.resolve(); //resolve => (this._firstEnable = resolve));
     this._getFocusScale = this.styles.getFocusScale || function () {};
     this._getUnfocusScale = this.styles.getUnfocusScale || function () {};
   }
@@ -29,18 +28,18 @@ class Base extends lng.Component {
   }
 
   _init() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _update() {}
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _unfocus() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 }
 

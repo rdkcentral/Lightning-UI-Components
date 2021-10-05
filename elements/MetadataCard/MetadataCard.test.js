@@ -24,7 +24,9 @@ describe('MetadataCard', () => {
   it('should calculate the focus scale', () => {
     testRenderer.focus();
     testRenderer.update();
-    expect(Math.floor(metadataCard._focusW)).toBe(metadataCard.originalW + 40);
+    expect(Math.floor(metadataCard._focusW)).toBe(
+      Math.floor(metadataCard.focusScaleConst * metadataCard.w)
+    );
 
     testRenderer.unfocus();
     testRenderer.update();
@@ -32,11 +34,11 @@ describe('MetadataCard', () => {
   });
 
   it('should set the focus and unfocus scales', () => {
-    metadataCard.focusScale = 1.5;
-    metadataCard.unfocusScale = 0.9;
+    metadataCard.focusScaleConst = 1.5;
+    metadataCard.unfocusScaleConst = 0.9;
     setTimeout(() => {
-      expect(metadataCard.focusScale).toBe(1.5);
-      expect(metadataCard.unfocusScale).toBe(0.9);
+      expect(metadataCard.focusScaleConst).toBe(1.5);
+      expect(metadataCard.unfocusScaleConst).toBe(0.9);
     }, 1);
     testRenderer.focus();
     testRenderer.update();

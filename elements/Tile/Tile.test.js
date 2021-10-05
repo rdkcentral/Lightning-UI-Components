@@ -87,17 +87,15 @@ describe('Tile', () => {
   });
 
   describe('focus', () => {
-    it('should update item and focus ring scale on unfocus', done => {
-      tile._smooth = false;
+    it('should update item and focus ring scale on unfocus', async done => {
       testRenderer.unfocus();
-      testRenderer.update();
-      tile._whenEnabled.then(() => {
-        expect(tile._Item.scale).toBe(1);
-        expect(tile._FocusRing.scale).toBe(1);
-        expect(tile._FocusRing.alpha).toBe(0);
-        expect(tile._DropShadow.alpha).toBe(0);
-        done();
-      });
+      await TestUtils.nextTick(2e3);
+      const unfocusScale = tile._getUnfocusScale(tile.w, tile.h);
+      expect(tile._Item.scale).toBe(unfocusScale);
+      expect(tile._FocusRing.scale).toBe(unfocusScale);
+      expect(tile._FocusRing.alpha).toBe(0);
+      expect(tile._DropShadow.alpha).toBe(0);
+      done();
     });
     it('should update item and focus ring scale on focus', done => {
       const scale = (tile.w + 40) / tile.w;
@@ -111,15 +109,13 @@ describe('Tile', () => {
       });
     });
 
-    it('should update focus ring and drop shadow alpha on focus', done => {
+    it('should update focus ring and drop shadow alpha on focus', async done => {
       tile._smooth = false;
       tile._focus();
-      testRenderer.update();
-      tile._whenEnabled.then(() => {
-        expect(tile._FocusRing.alpha).toBe(1);
-        expect(tile._DropShadow.alpha).toBe(1);
-        done();
-      });
+      await TestUtils.nextTick();
+      expect(tile._FocusRing.alpha).toBe(1);
+      expect(tile._DropShadow.alpha).toBe(1);
+      done();
     });
   });
 });

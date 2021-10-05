@@ -1,15 +1,14 @@
+import Base from '../Base';
+import styles from './MetadataCard.styles';
 import withStyles from '../../mixins/withStyles';
 import InlineContent from '../../layout/InlineContent';
 import MarqueeText from '../MarqueeText';
 import Icon from '../Icon';
-import Base from '../Base';
 import { FadeShader } from '../../textures';
-import styles from './MetadataCard.styles';
 
 export default class MetadataCard extends withStyles(Base, styles) {
   static _template() {
     return {
-      flex: { direction: 'row', justifyContent: 'flex-start' },
       Text: {
         flex: { direction: 'column' },
         FirstLineWrapper: {
@@ -25,24 +24,38 @@ export default class MetadataCard extends withStyles(Base, styles) {
         },
         SecondLineWrapper: {
           SecondLine: {
-            type: InlineContent,
-            alpha: 1,
-            rtt: true
+            type: InlineContent
           }
         },
         ThirdLineWrapper: {
           ThirdLine: {
-            type: InlineContent,
-            alpha: 1,
-            rtt: true
+            type: InlineContent
           }
         }
       },
       Logo: {
-        type: Icon,
-        flexItem: { alignSelf: 'center' }
+        type: Icon
       }
     };
+  }
+
+  static get properties() {
+    return [
+      'logo',
+      'logoW',
+      'logoSpacing',
+      'firstLine',
+      'secondLine',
+      'thirdLine',
+      'justify',
+      'fadeWidth',
+      'marqueeProperties',
+      'firstLineTextProperties',
+      'secondLineTextProperties',
+      'thirdLineTextProperties',
+      'focusScaleConst',
+      'unfocusScaleConst'
+    ];
   }
 
   static get tags() {
@@ -52,41 +65,10 @@ export default class MetadataCard extends withStyles(Base, styles) {
       'SecondLineWrapper',
       'ThirdLineWrapper',
       'Logo',
-      {
-        name: 'FirstLineMarquee',
-        path: 'FirstLineWrapper.Marquee'
-      },
-      {
-        name: 'FirstLine',
-        path: 'FirstLineWrapper.FirstLine'
-      },
-      {
-        name: 'SecondLine',
-        path: 'SecondLineWrapper.SecondLine'
-      },
-      {
-        name: 'ThirdLine',
-        path: 'ThirdLineWrapper.ThirdLine'
-      }
-    ];
-  }
-  static get properties() {
-    return [
-      'focusScale',
-      'justify',
-      'unfocusScale',
-      'marqueeProperties',
-      'firstLine',
-      'firstLineTextProperties',
-      'secondLine',
-      'secondLineTextProperties',
-      'thirdLine',
-      'thirdLineTextProperties',
-      'logo',
-      'logoW',
-      'logoSpacing',
-      'originalW',
-      'fadeWidth'
+      { name: 'FirstLineMarquee', path: 'FirstLineWrapper.Marquee' },
+      { name: 'FirstLine', path: 'FirstLineWrapper.FirstLine' },
+      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' },
+      { name: 'ThirdLine', path: 'ThirdLineWrapper.ThirdLine' }
     ];
   }
 
@@ -99,21 +81,16 @@ export default class MetadataCard extends withStyles(Base, styles) {
     this._firstLineTextProperties = this.styles.firstLineTextProperties;
     this._secondLineTextProperties = this.styles.secondLineTextProperties;
     this._thirdLineTextProperties = this.styles.thirdLineTextProperties;
-    this._focusScale = undefined;
-    this._unfocusScale = undefined;
     this._fadeWidth = this.styles.fadeWidth;
+    this._w = this.styles.w;
   }
 
   _init() {
-    if (this.originalW === undefined) {
-      this.originalW = this.w;
+    if (this.focusScaleConst === undefined) {
+      this._focusScaleConst = this._getFocusScale(this.w, this.h);
     }
-
-    if (this._focusScale === undefined) {
-      this._focusScale = this._getFocusScale(this.originalW, this.h);
-    }
-    if (this._unfocusScale === undefined) {
-      this._unfocusScale = this._getUnfocusScale(this.originalW, this.h);
+    if (this.unfocusScaleConst === undefined) {
+      this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
     }
     super._init();
   }
@@ -121,45 +98,75 @@ export default class MetadataCard extends withStyles(Base, styles) {
   $loadedInlineContent(line) {
     if (line.ref && this.tag(line.ref + 'Wrapper')) {
       this.tag(line.ref + 'Wrapper').h = line.textHeight;
+      this.tag(line.ref + 'Wrapper').alpha = 1;
     }
-    line.h = line.content && line.content.length ? line.textHeight : 0;
+    line.h = line.content ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _update() {
-    this._updateWidth();
-    this._updateFirstLine();
-    this._updateSecondAndThirdLines();
-    this._updateLogo();
-    this._updateMarquee();
-    this._updateShader();
+    this._whenEnabled.then(() => {
+      this._updateLogo();
+      this._updateText();
+      this._updateLines();
+    });
   }
 
-  _updateWidth() {
+  _updateLogo() {
+    this._Logo.icon = this.logo;
+    this._Logo.w = this.logoW;
+
+    const alpha = this.logo ? 1 : 0;
+    const logoX = this._textW + this.logoSpacing;
+    const logoY =
+      this._Text.h > this._Logo.finalH
+        ? (this._Text.h - this._Logo.finalH) / 2
+        : (this._Logo.finalH - this._Text.h) / 2;
+
     if (this._smooth) {
-      this.smooth = { w: this._focusW };
+      this._Logo.smooth = { alpha, x: logoX, y: logoY };
     } else {
-      this.w = this._focusW;
+      this._Logo.patch({ alpha, x: logoX, y: logoY });
     }
   }
 
-  _updateMarquee() {
-    if (this.hasFocus()) {
-      this._FirstLineMarquee.startScrolling &&
-        this._FirstLineMarquee.startScrolling(this._textW);
+  _updateText() {
+    if (this._smooth) {
+      this._Text.smooth = { w: this._textW };
     } else {
-      this._FirstLineMarquee.stopScrolling &&
-        this._FirstLineMarquee.stopScrolling(this._textW);
+      this._Text.w = this._textW;
     }
   }
 
-  get _secondAndThirdLinesObjectsArray() {
-    return [this._secondLineObject, this._thirdLineObject];
+  _updateLines() {
+    this._linesArray.forEach(line => {
+      line.component.patch({
+        justify: this._justify,
+        content: line.content,
+        textProperties: line.textProps
+      });
+      if (line.marquee) {
+        line.marquee.patch({
+          ...this._marqueeProperties,
+          w: this._textW,
+          contentTexture: line.component.getTexture()
+        });
+        line.marquee.smooth = { alpha: line.content ? 1 : 0 };
+        this._updateMarquee(line.marquee);
+      } else {
+        this._updateShader(line);
+      }
+      line.wrapper.visible = line.content ? true : false;
+    });
   }
 
   get _linesArray() {
-    return [this._SecondLine, this._ThirdLine];
+    return [
+      this._firstLineObject,
+      this._secondLineObject,
+      this._thirdLineObject
+    ];
   }
 
   get _firstLineObject() {
@@ -190,65 +197,28 @@ export default class MetadataCard extends withStyles(Base, styles) {
     };
   }
 
-  _updateFirstLine() {
-    this._firstLineObject.component.patch({
-      justify: this._justify,
-      content: this._firstLineObject.content,
-      textProperties: this._firstLineObject.textProps
-    });
-    this._firstLineObject.marquee.patch({
-      ...this.marqueeProperties,
-      w: this._textW,
-      contentTexture: this._firstLineObject.component.getTexture(),
-      smooth: { alpha: this._firstLineObject.content ? 1 : 0 }
-    });
-    this._firstLineObject.wrapper.visible = this._firstLineObject.content
-      ? true
-      : false;
-  }
-
-  _updateSecondAndThirdLines() {
-    this._secondAndThirdLinesObjectsArray.forEach(line => {
-      line.component.patch({
-        justify: this._justify,
-        content: line.content,
-        textProperties: line.textProps
-      });
-      line.wrapper.visible = line.content ? true : false;
-    });
-  }
-
-  _updateLogo() {
-    this._Logo.icon = this.logo;
-    this._Logo.w = this.logoW;
-    const alpha = this.logo ? 1 : 0;
-    if (this._smooth) {
-      this._Text.smooth = { w: this._textW };
-      this._Logo.smooth = { alpha };
+  _updateMarquee(marquee) {
+    if (this.hasFocus()) {
+      marquee.startScrolling && marquee.startScrolling(this._textW);
     } else {
-      this._Text.w = this._textW;
-      this._Logo.alpha = alpha;
+      marquee.stopScrolling && marquee.stopScrolling(this._textW);
     }
-    this._Text.patch({
-      flexItem: { marginRight: this.logo ? this.logoSpacing : 0 }
-    });
   }
 
-  _updateShader() {
-    this._linesArray.forEach(line => {
-      if (line.finalW > this.w) {
-        const logoOffset = this.logo ? this.logoW : 0;
-        this.tag(line.ref + 'Wrapper').patch({
-          w: this._focusW + this._fadeWidth / 2 - logoOffset,
-          shader: {
-            type: FadeShader,
-            positionLeft: 0,
-            positionRight: this._fadeWidth + logoOffset
-          },
-          rtt: true
-        });
-      }
-    });
+  _updateShader(line) {
+    if (line.component.finalW > this._textW) {
+      line.wrapper.patch({
+        w: this._textW + this.fadeWidth / 2,
+        shader: {
+          type: FadeShader,
+          positionLeft: 0,
+          positionRight: this.fadeWidth
+        },
+        rtt: true
+      });
+    } else {
+      line.wrapper.shader = undefined;
+    }
   }
 
   get announce() {
@@ -256,16 +226,13 @@ export default class MetadataCard extends withStyles(Base, styles) {
   }
 
   get _textW() {
-    const currentW = this.hasFocus() ? this._focusW : this.originalW;
-    return currentW - (this.logo ? this.logoW + this.logoSpacing : 0);
+    return this._focusW - (this.logo ? this.logoW + this.logoSpacing : 0);
   }
 
   get _focusW() {
-    if (this.originalW && this.enabled) {
-      const scale = this.hasFocus() ? this._focusScale : this._unfocusScale;
-      return scale * this.originalW;
-    }
-    return this.w;
+    const scale =
+      (this.hasFocus() ? this.focusScaleConst : this.unfocusScaleConst) || 1;
+    return this.w * scale;
   }
 
   get h() {

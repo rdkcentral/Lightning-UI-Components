@@ -4,8 +4,17 @@ import TestRenderer from './lightning-test-renderer';
 export default {
   fastForward,
   makeCreateComponent,
-  pathToDataURI
+  pathToDataURI,
+  nextTick
 };
+
+function nextTick(wait = 0) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, wait);
+  });
+}
 
 function fastForward(elements) {
   const _fastForward = element => {
