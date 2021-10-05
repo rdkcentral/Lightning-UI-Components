@@ -98,25 +98,25 @@ resources:
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 
 groups:
-  - name: Overview
+  - name: overview
     jobs:
-      - Pull Requests
-      - Docs
-      - Publish
-      - Publish Release
-      - Publish Develop
-      - Publish Next
-      - Publish Beta
-  - name: Pull Requests
+      - pull-requests
+      - docs
+      - publish
+      - publish-release
+      - publish-develop
+      - publish-next
+      - publish-beta
+  - name: pull-requests
     jobs:
-      - Pull Requests
+      - pull-requests
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Jobs: https://concourse-ci.org/jobs.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 
 jobs:
-- name: Pull Requests
+- name: pull-requests
   build_logs_to_retain: 50
   serial: true
   on_success:
@@ -138,32 +138,32 @@ jobs:
       params:
         path: source-repo-pr
         status: pending
-    - task: 📦 NPM Install
+    - task: npm-install
       file: source-repo-pr/ci/tasks/install.yml
       input_mapping:
         source-repo: source-repo-pr
     - in_parallel:
-        - task: 🛡 Code Quality
+        - task: code-quality
           file: source-repo-pr/ci/tasks/quality.yml
           input_mapping:
             source-repo: source-repo-pr
-        - task: 💪 Unit Tests
+        - task: unit-tests
           file: source-repo-pr/ci/tasks/unit-tests.yml
           input_mapping:
             source-repo: source-repo-pr
-    - task: 🦾 Build Storybook and Components
+    - task: build-storybook-and-components
       file: source-repo-pr/ci/tasks/build.yml
       params:
         BUILD_PATH: "packages/core/storybook-static/*"
       input_mapping:
         source-repo: source-repo-pr
 
-- name: Docs
+- name: docs
   build_logs_to_retain: 50
   plan:
     - get: source-repo-release
       trigger: true
-    - task: Publish Docs
+    - task: publish-docs
       file: source-repo-release/ci/tasks/gh-pages.yml
       input_mapping:
         source-repo: source-repo-release
@@ -173,12 +173,12 @@ jobs:
         USERNAME: ((service-account.username))
         EMAIL: ((service-account.email))
 
-- name: Publish
+- name: publish
   build_logs_to_retain: 50
   plan:
     - get: source-repo
       trigger: true
-    - task: Version and Publish
+    - task: version-and-publish
       file: source-repo/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo
@@ -191,12 +191,12 @@ jobs:
         NPM_PASSWORD: ((service-account.artifactory-api-key))
 
 
-- name: Publish Release
+- name: publish-release
   build_logs_to_retain: 50
   plan:
     - get: source-repo-release
       trigger: true
-    - task: Version and Publish
+    - task: version-and-publish
       file: source-repo-release/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-release
@@ -210,12 +210,12 @@ jobs:
         NPM_EMAIL: ((service-account.email))
         NPM_PASSWORD: ((service-account.artifactory-api-key))
 
-- name: Publish Develop
+- name: publish-develop
   build_logs_to_retain: 50
   plan:
     - get: source-repo-develop
       trigger: true
-    - task: Version and Publish
+    - task: version-and-publish
       file: source-repo-develop/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-develop
@@ -227,12 +227,12 @@ jobs:
         NPM_EMAIL: ((service-account.email))
         NPM_PASSWORD: ((service-account.artifactory-api-key))
 
-- name: Publish Next
+- name: publish-next
   build_logs_to_retain: 50
   plan:
     - get: source-repo-next
       trigger: true
-    - task: Version and Publish
+    - task: version-and-publish
       file: source-repo-next/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-next
@@ -244,12 +244,12 @@ jobs:
         NPM_EMAIL: ((service-account.email))
         NPM_PASSWORD: ((service-account.artifactory-api-key))
 
-- name: Publish Beta
+- name: publish-beta
   build_logs_to_retain: 50
   plan:
     - get: source-repo-beta
       trigger: true
-    - task: Version and Publish
+    - task: version-and-publish
       file: source-repo-beta/ci/tasks/publish.yml
       input_mapping:
         source-repo: source-repo-beta
