@@ -82,14 +82,13 @@ describe('DataItem', () => {
     });
   });
 
-  it('should update item and focus ring scale on unfocus', done => {
+  it('should update item and focus ring scale on unfocus', async done => {
     dataitem._smooth = false;
     testRenderer.unfocus();
     testRenderer.update();
-    dataitem._whenEnabled.then(() => {
-      expect(dataitem.scale).toEqual(1);
-      done();
-    });
+    await TestUtils.nextTick();
+    expect(dataitem.scale).toEqual(1);
+    done();
   });
 
   it('should update item and focus ring scale on focus', done => {

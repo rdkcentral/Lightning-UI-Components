@@ -24,7 +24,9 @@ describe('MetadataTile', () => {
   it('should calculate the focus scale', () => {
     testRenderer.focus();
     testRenderer.update();
-    expect(Math.floor(metadataTile._focusW)).toBe(metadataTile.originalW + 40);
+    expect(Math.floor(metadataTile._focusW)).toBe(
+      Math.floor(metadataTile.focusScaleConst * metadataTile.w)
+    );
 
     testRenderer.unfocus();
     testRenderer.update();
@@ -32,11 +34,11 @@ describe('MetadataTile', () => {
   });
 
   it('should set the focus and unfocus scales', () => {
-    metadataTile.focusScale = 1.5;
-    metadataTile.unfocusScale = 0.9;
+    metadataTile.focusScaleConst = 1.5;
+    metadataTile.unfocusScaleConst = 0.9;
     setTimeout(() => {
-      expect(metadataTile.focusScale).toBe(1.5);
-      expect(metadataTile.unfocusScale).toBe(0.9);
+      expect(metadataTile.focusScaleConst).toBe(1.5);
+      expect(metadataTile.unfocusScaleConst).toBe(0.9);
     }, 0);
     testRenderer.focus();
     testRenderer.update();

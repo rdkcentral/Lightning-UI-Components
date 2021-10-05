@@ -33,12 +33,12 @@ export default (base = Tile) =>
         if (!this.Metadata.zIndex) {
           this.Metadata.zIndex = 5;
         }
-        this._updateMetadataAlpha();
         this._updateMetadataW();
         this._updateMetadataH();
         this._updateMetadataX();
         this._updateMetadataY();
         this._updateShowGradient();
+        this._updateMetadataAlpha();
       }
     }
 
@@ -51,7 +51,7 @@ export default (base = Tile) =>
     }
 
     _updateMetadataAlpha() {
-      const unfocusAlpha = this.persistentMetadata ? 1 : 0;
+      const unfocusAlpha = this.persistentMetadata ? 1 : 0.001;
       const alpha = this.hasFocus() ? 1 : unfocusAlpha;
       if (this._smooth) {
         this.Metadata.smooth = { alpha };
@@ -71,27 +71,21 @@ export default (base = Tile) =>
     }
 
     _updateMetadataW() {
-      this.Metadata.focusScale =
-        this.metadataLocation !== 'inset' ? 1 : this.Metadata.focusScale;
-
-      const currentTileWidth =
-        this.hasFocus() || !this.persistentMetadata // prevent logo from sliding horizontally
-          ? this._focusedTileWidth
-          : this._unfocusedTileWidth;
-
-      this.Metadata.originalW = currentTileWidth - this.paddingSide * 2;
+      this.Metadata.w = this._unfocusedTileWidth - this.paddingSide * 2;
+      if (this.metadataLocation !== 'inset') {
+        this.Metadata.focusScaleConst =
+          (this._focusedTileWidth - this.paddingSide * 2) / this.Metadata.w;
+      }
     }
 
     _updateMetadataX() {
       const focusX = this.paddingSide - this._tileScaleOffsetWidth;
       const unfocusX = this.paddingSide;
-
       const nextX =
         (this._metadataLocation === 'inset' && !this.persistentMetadata) ||
         this.hasFocus()
           ? focusX
           : unfocusX;
-
       if (this._smooth) {
         this.Metadata.smooth = { x: nextX };
       } else {

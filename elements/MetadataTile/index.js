@@ -8,37 +8,40 @@ import styles from './MetadataTile.styles';
 export default class MetadataTile extends withStyles(Base, styles) {
   static _template() {
     return {
-      flex: { direction: 'column', justifyContent: 'center' },
-      FirstLineWrapper: {
-        Marquee: {
-          type: MarqueeText,
-          alpha: 0
+      Text: {
+        flex: { direction: 'column', justifyContent: 'center' },
+        FirstLineWrapper: {
+          Marquee: {
+            type: MarqueeText,
+            alpha: 0
+          },
+          FirstLine: {
+            type: InlineContent,
+            alpha: 0.001,
+            rtt: true
+          }
         },
-        FirstLine: {
-          type: InlineContent,
-          alpha: 0.001,
-          rtt: true
-        }
-      },
-      SecondLineWrapper: {
-        SecondLine: {
-          type: InlineContent,
-          alpha: 1,
-          rtt: true
+        SecondLineWrapper: {
+          SecondLine: {
+            type: InlineContent
+          }
         }
       }
     };
   }
-  _construct() {
-    this._justify = this.styles.justify;
-    this._marqueeProperties = this.styles.marqueeProperties;
-    this._firstLineTextProperties = this.styles.firstLineTextProperties;
-    this._secondLineTextProperties = this.styles.secondLineTextProperties;
-    this._getFocusScale = this.styles.focused.scale;
-    this._getUnfocusScale = this.styles.unfocused.scale;
-    this.w = this.styles.w;
-    this._fadeWidth = this.styles.fadeWidth;
-    super._construct();
+
+  static get properties() {
+    return [
+      'firstLine',
+      'secondLine',
+      'justify',
+      'fadeWidth',
+      'marqueeProperties',
+      'firstLineTextProperties',
+      'secondLineTextProperties',
+      'focusScaleConst',
+      'unfocusScaleConst'
+    ];
   }
 
   static get tags() {
@@ -46,95 +49,99 @@ export default class MetadataTile extends withStyles(Base, styles) {
       'Text',
       'FirstLineWrapper',
       'SecondLineWrapper',
-      {
-        name: 'FirstLineMarquee',
-        path: 'FirstLineWrapper.Marquee'
-      },
-      {
-        name: 'FirstLine',
-        path: 'FirstLineWrapper.FirstLine'
-      },
-      {
-        name: 'SecondLine',
-        path: 'SecondLineWrapper.SecondLine'
-      }
+      { name: 'FirstLineMarquee', path: 'FirstLineWrapper.Marquee' },
+      { name: 'FirstLine', path: 'FirstLineWrapper.FirstLine' },
+      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' }
     ];
   }
-  static get properties() {
-    return [
-      'focusScale',
-      'justify',
-      'unfocusScale',
-      'marqueeProperties',
-      'firstLine',
-      'firstLineTextProperties',
-      'secondLine',
-      'secondLineTextProperties',
-      'originalW',
-      'fadeWidth'
-    ];
+
+  _construct() {
+    super._construct();
+    this._justify = this.styles.justify;
+    this._marqueeProperties = this.styles.marqueeProperties;
+    this._firstLineTextProperties = this.styles.firstLineTextProperties;
+    this._secondLineTextProperties = this.styles.secondLineTextProperties;
+    this._fadeWidth = this.styles.fadeWidth;
+    this._w = this.styles.w;
   }
 
   _init() {
-    if (this.originalW === undefined) {
-      this.originalW = this.w;
+    if (this.focusScaleConst === undefined) {
+      this._focusScaleConst = this._getFocusScale(this.w, this.h);
     }
-    if (this._focusScale === undefined) {
-      this._focusScale = this._getFocusScale(this.originalW, this.h);
+    if (this.unfocusScaleConst === undefined) {
+      this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
     }
-    if (this._unfocusScale === undefined) {
-      this._unfocusScale = this._getUnfocusScale(this.originalW, this.h);
-    }
-    this._update();
+    super._init();
   }
 
   $loadedInlineContent(line) {
-    if (line.ref === this._FirstLine.ref) {
-      this._FirstLineWrapper.h = line.textHeight;
+    if (line.ref && this.tag(line.ref + 'Wrapper')) {
+      this.tag(line.ref + 'Wrapper').h = line.textHeight;
+      this.tag(line.ref + 'Wrapper').alpha = 1;
     }
-    line.h = line.textHeight;
-    this._update();
+    line.h = line.content ? line.textHeight : 0;
+    this._Text.h = this._FirstLine.h + this._SecondLine.h;
+    this._requestUpdateDebounce();
   }
 
   _update() {
-    this._updateWidth();
-    this._updateFirstLine();
-    this._updateSecondLine();
-    this._updateMarquee();
-    this._updateShader();
+    this._whenEnabled.then(() => {
+      this._updateText();
+      this._updatePosX();
+      this._updateLines();
+    });
   }
 
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
-  }
-
-  _updateWidth() {
-    const secondLineXPosition =
-      this._focusW > this._SecondLine.finalW
-        ? Math.abs((this._focusW - this._SecondLine.finalW) / 2)
-        : 0;
-    if (this.smooth) {
-      this.smooth = { w: this._focusW };
-      this._SecondLine.smooth = { x: secondLineXPosition };
+  _updateText() {
+    if (this._smooth) {
+      this._Text.smooth = { w: this._textW };
     } else {
-      this.w = this._focusW;
-      this._SecondLine.x = secondLineXPosition;
+      this._Text.w = this._textW;
     }
   }
 
-  _updateMarquee() {
-    if (this.hasFocus()) {
-      this._FirstLineMarquee.startScrolling &&
-        this._FirstLineMarquee.startScrolling(this._textW);
-    } else {
-      this._FirstLineMarquee.stopScrolling &&
-        this._FirstLineMarquee.stopScrolling(this._textW);
+  _updatePosX() {
+    if (this.secondLine !== this._SecondLine.content) {
+      this._SecondLineWrapper.alpha = 0.001;
     }
+    if (this.secondLine && this._textW && this._SecondLine.finalW) {
+      const x =
+        this._textW > this._SecondLine.finalW
+          ? Math.abs((this._textW - this._SecondLine.finalW) / 2)
+          : 0;
+      if (this.smooth) {
+        this._SecondLine.smooth = { x };
+      } else {
+        this._SecondLine.x = x;
+      }
+    }
+  }
+
+  _updateLines() {
+    this._linesArray.forEach(line => {
+      line.component.patch({
+        justify: this._justify,
+        content: line.content,
+        textProperties: line.textProps
+      });
+      if (line.marquee) {
+        line.marquee.patch({
+          ...this._marqueeProperties,
+          w: this._textW,
+          contentTexture: line.component.getTexture()
+        });
+        line.marquee.smooth = { alpha: line.content ? 1 : 0 };
+        this._updateMarquee(line.marquee);
+      } else {
+        this._updateShader(line);
+      }
+      line.wrapper.visible = line.content ? true : false;
+    });
+  }
+
+  get _linesArray() {
+    return [this._firstLineObject, this._secondLineObject];
   }
 
   get _firstLineObject() {
@@ -142,8 +149,8 @@ export default class MetadataTile extends withStyles(Base, styles) {
       wrapper: this._FirstLineWrapper,
       component: this._FirstLine,
       marquee: this._FirstLineMarquee,
-      content: this._firstLine,
-      textProps: this._firstLineTextProperties
+      content: this.firstLine,
+      textProps: this.firstLineTextProperties
     };
   }
 
@@ -151,64 +158,47 @@ export default class MetadataTile extends withStyles(Base, styles) {
     return {
       wrapper: this._SecondLineWrapper,
       component: this._SecondLine,
-      content: this._secondLine,
-      textProps: this._secondLineTextProperties
+      content: this.secondLine,
+      textProps: this.secondLineTextProperties
     };
   }
 
-  _updateFirstLine() {
-    this._firstLineObject.component.patch({
-      justify: this._justify,
-      content: this._firstLineObject.content,
-      textProperties: this._firstLineObject.textProps
-    });
-    this._firstLineObject.marquee.patch({
-      ...this.marqueeProperties,
-      w: this._textW,
-      contentTexture: this._firstLineObject.component.getTexture(),
-      smooth: { alpha: this._firstLineObject.content ? 1 : 0 }
-    });
-    this._firstLineObject.wrapper.visible = this._firstLineObject.content
-      ? true
-      : false;
+  _updateMarquee(marquee) {
+    if (this.hasFocus()) {
+      marquee.startScrolling && marquee.startScrolling(this._textW);
+    } else {
+      marquee.stopScrolling && marquee.stopScrolling(this._textW);
+    }
   }
-  _updateSecondLine() {
-    this._secondLineObject.component.patch({
-      justify: this._justify,
-      content: this._secondLineObject.content,
-      textProperties: this._secondLineObject.textProps
-    });
-  }
-  _updateShader() {
-    if (this._SecondLine.finalW > this.w) {
-      this._SecondLineWrapper.patch({
-        w: this._focusW + this._fadeWidth / 2,
-        h: this._SecondLine.h,
+
+  _updateShader(line) {
+    if (line.component.finalW > this._textW) {
+      line.wrapper.patch({
+        w: this._textW + this.fadeWidth / 2,
         shader: {
           type: FadeShader,
           positionLeft: 0,
-          positionRight: this._fadeWidth
+          positionRight: this.fadeWidth
         },
         rtt: true
       });
     } else {
-      this._SecondLineWrapper.shader = undefined;
+      line.wrapper.shader = undefined;
     }
   }
+
   get announce() {
     return `${this._FirstLine.announce}. ${this._SecondLine.announce}.`;
   }
 
   get _textW() {
-    return this.hasFocus() ? this._focusW : this.originalW;
+    return this._focusW; // MetadataCard has a logo so textW is different from focusW
   }
 
   get _focusW() {
-    if (this.originalW) {
-      const scale = this.hasFocus() ? this._focusScale : this._unfocusScale;
-      return scale * this.originalW;
-    }
-    return this.w;
+    const scale =
+      (this.hasFocus() ? this.focusScaleConst : this.unfocusScaleConst) || 1;
+    return this.w * scale;
   }
 
   get h() {

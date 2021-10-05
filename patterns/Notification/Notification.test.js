@@ -53,10 +53,13 @@ describe('Notification', () => {
 
     notification.enter();
 
+    testRenderer.update();
+
     setTimeout(() => {
       expect(notification._ActionArea.alpha).toBe(1);
+      console.log(notification._ActionArea.alpha);
       done();
-    }, 1e3);
+    }, 1000); // bumping the timer resolves a race condition with the alpha update
   });
 
   it('should be able to mount entered', done => {

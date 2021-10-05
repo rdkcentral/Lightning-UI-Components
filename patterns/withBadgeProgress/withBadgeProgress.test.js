@@ -57,15 +57,16 @@ describe('withBadgeProgress', () => {
     );
   });
 
-  it('should alpha the progress off if progress is 0', () => {
+  it('should alpha the progress off if progress is 0', async done => {
     component.progress = 0.5; // need to make sure the ProgressBar has been created
     testRenderer.update();
     testRenderer.focus();
+    await TestUtils.nextTick();
     expect(component._ProgressBar.alpha).toBe(1);
-
     component.progress = 0;
-    testRenderer.focus();
     testRenderer.update();
+    await TestUtils.nextTick(2e3);
     expect(component._ProgressBar.alpha).toBe(0);
+    done();
   });
 });
