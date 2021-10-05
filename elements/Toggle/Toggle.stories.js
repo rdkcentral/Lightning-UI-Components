@@ -41,7 +41,7 @@ export const Basic = args =>
           type: Toggle,
           checked: args.checked,
           onEnter: toggle => {
-            alert('Sample onEnter override');
+            args.onEnter('toggled');
             toggle.toggle();
             return true;
           }
