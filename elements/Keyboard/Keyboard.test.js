@@ -95,14 +95,11 @@ describe('Key', () => {
   });
 
   // TODO fix test
-  // this is currently a false success, if done()
-  // is added inside the setTimeout it'll fail.
   it('should update color and scale on focus', () => {
     key._smooth = false;
     key._focus();
 
     setTimeout(() => {
-      // are these test values correct?
       expect(key.color).toBe(getHexColor('ECECF2'));
       expect(key.scale).toBe(1.12);
       expect(key._Title.color).toBe(4060086272);
