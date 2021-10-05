@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import mdx from './Base.mdx';
-import lng from '@lightningjs/core';
 
 export default {
   title: 'Elements / Base',
