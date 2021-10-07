@@ -298,15 +298,6 @@ export default class Input extends withStyles(Base, styles) {
     }
   }
 
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
-  }
-
   _handleLeft() {
     const { position } = this;
     if (position > 0) {

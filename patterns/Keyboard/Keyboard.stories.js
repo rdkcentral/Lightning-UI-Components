@@ -55,29 +55,16 @@ export const FullScreen = args =>
         }
       };
     }
-    _getFocused() {
-      return this.tag('Keyboard');
-    }
-  };
 
-FullScreen.story = {
-  parameters: { stage: { w: 1920 } }
-};
-
-export const Inline = args =>
-  class Inline extends lng.Component {
-    static _template() {
-      return {
-        Keyboard: {
-          type: Keyboard,
-          inline: true,
-          defaultFormat: 'numbers',
-          formats: KEYBOARD_FORMATS.numbers,
-          w: args.width,
-          centerAlign: args.centerAlign
-        }
-      };
+    _init() {
+      this.tag('Keyboard')._whenEnabled.then(() => {
+        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {
+          row: 1,
+          column: 0
+        });
+      });
     }
+
     _getFocused() {
       return this.tag('Keyboard');
     }

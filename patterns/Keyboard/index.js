@@ -9,35 +9,46 @@ const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 export default class Keyboard extends Base {
   static get properties() {
-    return [
-      'title',
-      'columnCount',
-      'rowCount',
-      'formats',
-      'defaultFormat',
-      'centerAlign',
-      'keyComponent',
-      'rowWrap',
-      'spacing',
-      'keysConfig',
-      'inline'
-    ];
+    return ['centerAlign', 'spacing', 'rowWrap'];
+  }
+
+  _construct() {
+    super._construct();
+    this._spacing = 8;
   }
 
   _update() {
-    this._updateCurrentFormat();
+    Object.keys(this.formats).forEach(key => {
+      const element = this.tag(capitalize(key));
+      if (element) {
+        element.patch({
+          itemSpacing: this.spacing,
+          centerInParent: this.centerAlign,
+          w: this.w
+        });
+        element.items.forEach(row => {
+          row.patch({
+            itemSpacing: this.spacing,
+            centerInParent: this.centerAlign,
+            wrapSelected: this.rowWrap === undefined ? true : this.rowWrap
+          });
+        });
+      }
+    });
   }
 
-  _updateCurrentFormat() {
-    // Ensure currentFormat is set after formats and defaultFormat
-    this._currentFormat = this.defaultFormat;
-    this._whenEnabled.then(() => {
-      const format =
-        this._currentFormat.charAt(0).toLowerCase() +
-        this._currentFormat.slice(1);
-      this._createFormat(format);
-      this._refocus();
-    });
+  _getFocused() {
+    return this.tag(this._currentFormat) || this;
+  }
+
+  _focus() {
+    super._focus();
+    this.fireAncestors('$keyboardFocused', true);
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.fireAncestors('$keyboardFocused', false);
   }
 
   get announce() {
@@ -61,30 +72,6 @@ export default class Keyboard extends Base {
     this._announceContext = val;
   }
 
-  _setFormats(formats) {
-    return formats || {};
-  }
-
-  _getDefaultFormat(defaultFormat) {
-    const format = defaultFormat || Object.keys(this.formats)[0];
-    return capitalize(format);
-  }
-
-  _getColumnCount(columnCount) {
-    if (columnCount) return columnCount;
-    if (this.rowCount)
-      return (
-        this.formats[this.defaultFormat.toLowerCase()].length / this.rowCount
-      );
-    if (this.inline)
-      return this.formats[this.defaultFormat.toLowerCase()].length;
-    else return 11;
-  }
-
-  _getSpacing(spacing) {
-    return spacing || 8;
-  }
-
   _createFormat(key) {
     const format = this.formats[key];
     const keyboardData = this._formatKeyboardData(format);
@@ -94,14 +81,14 @@ export default class Keyboard extends Base {
   _createKeyboard(key, rows = []) {
     key = capitalize(key);
     if (rows.length === 1) {
-      this.patch({ [key]: { ...rows[0], w: this.w } });
+      this.patch({ [key]: rows[0] });
     } else {
       this.patch({
         [key]: {
           type: Column,
           plinko: true,
-          itemSpacing: this.spacing,
           items: rows,
+          itemSpacing: this.spacing,
           centerInParent: this.centerAlign,
           w: this.w
         }
@@ -116,7 +103,6 @@ export default class Keyboard extends Base {
         type: Row,
         h,
         centerInParent: this.centerAlign,
-        w: this.w,
         neverScroll: true,
         wrapSelected: this.rowWrap === undefined ? true : this.rowWrap,
         itemSpacing: this.spacing,
@@ -176,12 +162,14 @@ export default class Keyboard extends Base {
   }
 
   selectKeyOn(keyboard, { row, column } = this.getSelectedKey()) {
-    const type = keyboard.constructor.name;
-    if (type === 'Row') {
-      keyboard.selectedIndex = column;
-    } else {
-      keyboard.selectedIndex = row;
-      keyboard.Items.children[row].selectedIndex = column;
+    if (keyboard && keyboard.constructor) {
+      const type = keyboard.constructor.name;
+      if (type === 'Row') {
+        keyboard.selectedIndex = column;
+      } else {
+        keyboard.selectedIndex = row;
+        keyboard.selected.selectedIndex = column;
+      }
     }
   }
 
@@ -194,20 +182,49 @@ export default class Keyboard extends Base {
       column = keyboard.selectedIndex;
     } else {
       row = keyboard.selectedIndex;
-      column = keyboard.Items.children[row].selectedIndex;
+      column = keyboard.selected.selectedIndex;
     }
     return { row, column };
   }
 
-  _getFocused() {
-    return this.tag(this._currentFormat) || this;
+  set formats(formats = {}) {
+    this._formats = formats;
+    this._currentFormat = this.defaultFormat;
+    // Ensure formats prop is set last
+    this._whenEnabled.then(() => {
+      const format =
+        this._currentFormat.charAt(0).toLowerCase() +
+        this._currentFormat.slice(1);
+      this._createFormat(format);
+      this._refocus();
+    });
   }
 
-  _focus() {
-    this.fireAncestors('$keyboardFocused', true);
+  get formats() {
+    return this._formats;
   }
 
-  _unfocus() {
-    this.fireAncestors('$keyboardFocused', false);
+  set columnCount(columnCount) {
+    this._columnCount = columnCount;
+  }
+
+  get columnCount() {
+    if (this._columnCount) return this._columnCount;
+    if (this.rowCount)
+      return (
+        this.formats[this.defaultFormat.toLowerCase()].length / this.rowCount
+      );
+    if (this.inline)
+      return this.formats[this.defaultFormat.toLowerCase()].length;
+    else return 11;
+  }
+
+  set defaultFormat(format) {
+    this._defaultFormat = format;
+  }
+
+  get defaultFormat() {
+    const defaultFormat = this._defaultFormat || Object.keys(this.formats)[0];
+    return defaultFormat.charAt(0).toUpperCase() + defaultFormat.slice(1);
   }
 }

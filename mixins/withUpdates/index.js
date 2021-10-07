@@ -37,7 +37,7 @@ export default function withUpdates(Base) {
     }
 
     _construct() {
-      let props = this.constructor.properties || [];
+      const props = this.constructor.properties || [];
       props.forEach(name => {
         const key = '_' + name;
         const descriptor = getPropertyDescriptor(name, key);
