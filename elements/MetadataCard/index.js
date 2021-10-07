@@ -106,11 +106,9 @@ export default class MetadataCard extends withStyles(Base, styles) {
   }
 
   _update() {
-    this._whenEnabled.then(() => {
-      this._updateLogo();
-      this._updateText();
-      this._updateLines();
-    });
+    this._updateLogo();
+    this._updateText();
+    this._updateLines();
   }
 
   _updateLogo() {
@@ -222,7 +220,13 @@ export default class MetadataCard extends withStyles(Base, styles) {
   }
 
   get announce() {
-    return `${this._FirstLine.announce}. ${this._SecondLine.announce}. ${this._ThirdLine.announce}.`;
+    return [
+      this._FirstLine.announce,
+      this._SecondLine.announce,
+      this._ThirdLine.announce
+    ]
+      .filter(s => s) // remove empty
+      .join('. ');
   }
 
   get _textW() {
