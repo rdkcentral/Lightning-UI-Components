@@ -62,7 +62,7 @@ The `InlineContent` component will recognize the following elements inside its `
 
 string\|object|description
 --|--|--
-'Text'|any stand alone string will be used a pure text
+'Text' \|\| {text: 'Text', style: { styleName: styleValue }}|any stand alone string will be used a pure text, or an object with the properties of `text` and `style` can be passed to override the default text styles
 { icon: 'pathToIcon', title: 'IconTitle' }|will render an [Icon](/story/elements-icon--text) with the given source and use the title param as the string to announce
 { badge: 'BadgeName' }|will render a [Badge](/story/elements-badge--text)
 { newline: true }|will insert a line break between content if the contentWrap param is true

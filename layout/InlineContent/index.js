@@ -62,7 +62,7 @@ export default class InlineContent extends withStyles(Base, styles) {
                 : this.contentSpacing || this.contentProperties.marginRight
           }
         };
-        if (typeof item === 'string') {
+        if (typeof item === 'string' || item.text) {
           if (typeof this._parsedContent[index + 1] === 'string') {
             base.flexItem.marginRight = 0;
           }
@@ -136,15 +136,18 @@ export default class InlineContent extends withStyles(Base, styles) {
   }
 
   _createText(base, text) {
-    return {
+    const textObj = {
       ...base,
       y: this.textY,
       h: this.textHeight,
       text: {
         ...this.textProperties,
-        text
+        ...text.style,
+        text: text?.text || text
       }
     };
+
+    return textObj;
   }
 
   get textHeight() {
@@ -182,6 +185,8 @@ export default class InlineContent extends withStyles(Base, styles) {
       this._parsedContent.reduce((announce, item) => {
         if (typeof item === 'string') {
           announce += item;
+        } else if (item.text) {
+          announce += item.text;
         } else if (item.title) {
           announce += item.title;
         } else if (item.badge) {

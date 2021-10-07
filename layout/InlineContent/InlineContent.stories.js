@@ -45,7 +45,12 @@ export const Basic = args =>
                 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
-            'and more text for fun',
+            'and more text',
+            {
+              text: 'with some red ',
+              style: { textColor: getHexColor('FF6194') }
+            },
+            'for fun',
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
           ]

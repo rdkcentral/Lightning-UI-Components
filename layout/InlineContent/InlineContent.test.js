@@ -96,6 +96,18 @@ describe('InlineContent', () => {
     expect(inlineContent.childList.getAt(0).background.color).toBe(color);
   });
 
+  it('should render text with custom properties', () => {
+    const color = getHexColor('ffffff', 25);
+    const content = [
+      {
+        text: 'some test text',
+        style: { textColor: color }
+      }
+    ];
+    [inlineContent, testRenderer] = createInlineContent({ content });
+    expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
+  });
+
   it('should render icons', () => {
     const content = [
       {
@@ -115,7 +127,8 @@ describe('InlineContent', () => {
 
   it('should build announce text from the content array', () => {
     const content = [
-      'this is the',
+      'this is',
+      { text: 'the', style: { textColor: 0xffffffff } },
       { badge: 'announce' },
       { fake: 'and this will not be read' },
       {
