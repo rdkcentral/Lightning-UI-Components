@@ -183,23 +183,25 @@ export function getFirstNumber(...numbers) {
  *    ' badge.'
  *  }
  *
- * @param {*} str
+ * @param {(string|object)} str
  *
  * @return {array}
  */
 export function parseInlineContent(str = '') {
-  let content = [];
-  if (str && typeof str === 'string') {
+  const content = [];
+  if ((str && typeof str === 'string') || str.text) {
+    const string = typeof str === 'string' ? str : str.text;
     const regex = /({ICON.*?}|{BADGE:.*?})/g;
     const badgeRegEx = /^{BADGE:(.*?)}$/g;
     const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
-    let splitStr = str.split(regex);
+
+    const splitStr = string.split(regex);
 
     if (splitStr && splitStr.length) {
       splitStr.forEach(item => {
+        const badge = badgeRegEx.exec(item);
+        const icon = iconRegEx.exec(item);
         let formattedItem = item;
-        let badge = badgeRegEx.exec(item);
-        let icon = iconRegEx.exec(item);
 
         if (badge && badge[1]) {
           formattedItem = { badge: badge[1] };

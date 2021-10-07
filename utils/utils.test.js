@@ -228,6 +228,26 @@ describe('parseInlineContent', () => {
       ' badge test.'
     ]);
   });
+
+  it('separates text, icons, and badges into an array from a text object', () => {
+    const str = {
+      text:
+        'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.'
+    };
+
+    const response = parseInlineContent(str);
+    expect(response).toEqual([
+      'This is a ',
+      {
+        title: 'setting',
+        icon:
+          'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
+      },
+      ' and ',
+      { badge: 'HD' },
+      ' badge test.'
+    ]);
+  });
 });
 
 describe('getDimension', () => {
