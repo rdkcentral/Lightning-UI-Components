@@ -23,7 +23,7 @@ export const Base = args => {
       };
     }
 
-    $itemChanged(payload) {}
+    $itemChanged(payload) {} // eslint-disable-line no-unused-vars
   }
 
   return Base;

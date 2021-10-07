@@ -1,8 +1,7 @@
-import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import withMetadata from '.';
 import Tile from '../../elements/Tile';
-import { MetadataCard, MetadataTile } from '../../elements';
+import { MetadataTile } from '../../elements';
 
 const createTileWithMetadata = (base, props) =>
   TestUtils.makeCreateComponent(withMetadata(base))(props);

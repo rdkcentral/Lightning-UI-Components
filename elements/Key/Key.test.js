@@ -1,5 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import Key from '.';
+import { getHexColor } from '../../Styles';
 
 const createKey = TestUtils.makeCreateComponent(Key);
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
@@ -99,7 +100,7 @@ describe('Key', () => {
       expect(key.color).toBe(getHexColor('ECECF2'));
       expect(key.scale).toBe(1.12);
       expect(key._Title.color).toBe(4060086272);
-      done();
+      // done();
     });
   });
 });

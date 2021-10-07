@@ -24,28 +24,28 @@ describe('Tile', () => {
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON(2);
+    const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(tile.src).toEqual(kabob);
   });
 
   it('should render with blur', () => {
-    let [tile, testRenderer] = createTile({ blur: 2 });
+    const [tile, testRenderer] = createTile({ blur: 2 });
     tile._Item.loadTexture();
-    let tree = testRenderer.toJSON(2);
+    const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(tile.blur).toEqual(2);
   });
 
   it('should render with rounded corners', () => {
-    let [tile, testRenderer] = createTile({ radius: 16 });
-    let tree = testRenderer.toJSON(2);
+    const [tile, testRenderer] = createTile({ radius: 16 });
+    const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(tile.radius).toEqual(16);
   });
 
   it('should render with all options', () => {
-    let [tile, testRenderer] = createTile({
+    const [tile, testRenderer] = createTile({
       w: 320,
       h: 180,
       blur: 4,
@@ -70,7 +70,7 @@ describe('Tile', () => {
   });
 
   it('should not round image with imgRadius = 0', () => {
-    let [tile, testRenderer] = createTile({
+    const [tile, testRenderer] = createTile({
       w: 320,
       h: 180,
       blur: 4,

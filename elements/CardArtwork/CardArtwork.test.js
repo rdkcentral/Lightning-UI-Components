@@ -10,7 +10,7 @@ describe('CardArtwork', () => {
     [component, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    component = null; // eslint-disable-line no-unused-vars
     testRenderer = null;
   });
 

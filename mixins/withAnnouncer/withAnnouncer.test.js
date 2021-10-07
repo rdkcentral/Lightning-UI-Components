@@ -393,7 +393,7 @@ describe('AppAnnouncer', () => {
   describe('focusDiffHook', () => {
     it('should be array of focused content', () => {
       testRenderer.keyPress('Right');
-      let toAnnounce = announcer.focusDiffHook.reduce((acc, elm) => {
+      const toAnnounce = announcer.focusDiffHook.reduce((acc, elm) => {
         if (elm.title) {
           acc.push(elm.title);
         }

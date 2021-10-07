@@ -1,38 +1,33 @@
 import TestUtils from '../../test/lightning-test-utils';
-import lng from '@lightningjs/core';
 import TextBox from '.';
 import { TYPOGRAPHY, getValidColor } from '../../Styles';
 
 const createElement = TestUtils.makeCreateComponent(TextBox);
 
 const testOptions = async (element, optionProp, optionsValues, match) => {
-  try {
-    for (const option of optionsValues) {
-      await (() => {
-        return new Promise(resolve => {
-          element[optionProp] = option;
-          setTimeout(() => {
-            let expects;
-            switch (typeof match) {
-              case 'function':
-                expects = match(option);
-                break;
-              case 'undefined':
-                expects = option;
-                break;
-              default:
-                expects = match;
-            }
-            expect(element.text[optionProp]).toBe(expects);
-            resolve();
-          });
+  for (const option of optionsValues) {
+    await (() => {
+      return new Promise(resolve => {
+        element[optionProp] = option;
+        setTimeout(() => {
+          let expects;
+          switch (typeof match) {
+            case 'function':
+              expects = match(option);
+              break;
+            case 'undefined':
+              expects = option;
+              break;
+            default:
+              expects = match;
+          }
+          expect(element.text[optionProp]).toBe(expects);
+          resolve();
         });
-      })();
-    }
-    return;
-  } catch (error) {
-    throw error;
+      });
+    })();
   }
+  return;
 };
 
 describe('TextBox', () => {

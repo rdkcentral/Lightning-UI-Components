@@ -1,15 +1,12 @@
 import lng from '@lightningjs/core';
 
-import WithBadgeProgress from '.';
 import mdx from './withBadgeProgress.mdx';
-import Base from '../../elements/Base';
 import Tile from '../../elements/Tile';
 import withStyles from '../../mixins/withStyles';
 
 import { rgba2argb } from '../../utils';
 
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
-import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import withBadgeProgress from '.';
 
 export default {

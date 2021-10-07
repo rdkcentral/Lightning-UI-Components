@@ -22,7 +22,7 @@ const LightMuted10 = 4291865767;
 const DarkMuted = { hex: '#69313b', population: 175 };
 const DarkMuted10 = 4285083963;
 
-let colorPalette = {
+const colorPalette = {
   Vibrant: Vibrant2,
   LightVibrant,
   DarkVibrant,
@@ -31,7 +31,7 @@ let colorPalette = {
   DarkMuted
 };
 
-let getPaletteMock = jest.fn();
+const getPaletteMock = jest.fn();
 jest.mock('node-vibrant');
 Vibrant.from.mockReturnValue({ getPalette: getPaletteMock });
 
@@ -81,13 +81,13 @@ describe('withVibrant', () => {
   });
 
   it('should not call the parent vibrantCallback method if the palette is undefined', () => {
-    let [tile] = createVibrantComponent(Tile, tileParams);
+    const [tile] = createVibrantComponent(Tile, tileParams);
     tile.vibrantCallback();
     expect(tile._vibrantPalette).toBeUndefined();
   });
 
   it('should throw an error if a base component without a vibrantCallback method is used', () => {
-    let [mockSrc] = createVibrantComponent(Button, { src: trolls });
+    const [mockSrc] = createVibrantComponent(Button, { src: trolls });
     expect(async () => await mockSrc._vibrantPromise).rejects.toThrow(
       new Error('Parent must implement vibrantCallback method')
     );
@@ -99,7 +99,7 @@ describe('withVibrant', () => {
         DarkVibrant,
         DarkMuted: { ...DarkMuted, population: 0 }
       });
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.darkMuted).toBeUndefined();
       expect(tile.vibrantMaterial).toBe(DarkVibrant10);
@@ -107,7 +107,7 @@ describe('withVibrant', () => {
 
     it('should return null if darkVibrant and darkMuted are not available', async () => {
       getPaletteMock.mockResolvedValue({});
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.darkMuted).toBeUndefined();
       expect(tile.darkVibrant).toBeUndefined();
@@ -121,7 +121,7 @@ describe('withVibrant', () => {
         DarkVibrant,
         DarkMuted: { ...DarkMuted, population: 0 }
       });
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.darkMuted).toBeUndefined();
       expect(tile.vibrantFill).toBe(DarkVibrant10);
@@ -129,7 +129,7 @@ describe('withVibrant', () => {
 
     it('should return null if darkVibrant and darkMuted are not available', async () => {
       getPaletteMock.mockResolvedValue({});
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.darkMuted).toBeUndefined();
       expect(tile.darkVibrant).toBeUndefined();
@@ -143,7 +143,7 @@ describe('withVibrant', () => {
         LightVibrant,
         LightMuted: { ...LightMuted, population: 0 }
       });
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.lightMuted).toBeUndefined();
       expect(tile.vibrantShadow).toBe(LightVibrant10);
@@ -151,7 +151,7 @@ describe('withVibrant', () => {
 
     it('should return null if lightVibrant and lightMuted are not available', async () => {
       getPaletteMock.mockResolvedValue({});
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.lightMuted).toBeUndefined();
       expect(tile.lightVibrant).toBeUndefined();
@@ -165,7 +165,7 @@ describe('withVibrant', () => {
         Muted,
         Vibrant: { ...Vibrant2, population: 0 }
       });
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.vibrant).toBeUndefined();
       expect(tile.vibrantFocusRing).toBe(Muted10);
@@ -173,7 +173,7 @@ describe('withVibrant', () => {
 
     it('should return null if vibrant and muted are not available', async () => {
       getPaletteMock.mockResolvedValue({});
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       await tile._vibrantPromise;
       expect(tile.vibrant).toBeUndefined();
       expect(tile.muted).toBeUndefined();
@@ -189,7 +189,7 @@ describe('withVibrant', () => {
 
     it('should not print anything if the palette is undefined', () => {
       getPaletteMock.mockResolvedValue({});
-      let [tile] = createVibrantComponent(Tile, tileParams);
+      const [tile] = createVibrantComponent(Tile, tileParams);
       tile.printColors();
       expect(console.log).toHaveBeenCalledTimes(0);
     });

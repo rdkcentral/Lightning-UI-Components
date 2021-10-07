@@ -7,7 +7,7 @@ const patchTransitions = (element, transitions) => {
     return;
   }
 
-  for (let key in transitions) {
+  for (const key in transitions) {
     if (!element._transitions[key]) {
       element.transition(key, transitions[key]);
     }

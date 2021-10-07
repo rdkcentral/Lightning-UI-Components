@@ -21,7 +21,7 @@ export default class HeroLayout extends BaseLayout {
 
   _updateItems(items) {
     // Create two arrays
-    const formattedItems = items.reduce((acc, curr, index) => {
+    const formattedItems = items.reduce((acc, curr) => {
       const component = {
         ...curr,
         w: HeroLayout._cardWidth,

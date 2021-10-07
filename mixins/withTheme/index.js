@@ -1,7 +1,7 @@
 import createTheme from '../../Styles/createTheme';
 
 export default function withTheme(Base, theme) {
-  let defaultTheme = Base.theme;
+  const defaultTheme = Base.theme;
   const _theme = defaultTheme
     ? createTheme(theme, defaultTheme)
     : createTheme(theme);

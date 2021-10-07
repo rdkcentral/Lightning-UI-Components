@@ -23,6 +23,7 @@ describe('Badge', () => {
   });
 
   it('renders icon and text side by side', () => {
+    // eslint-disable-next-line no-unused-vars
     const [_, testRenderer] = createBadge({
       title: 'HD',
       icon: lightningPath
@@ -32,6 +33,7 @@ describe('Badge', () => {
   });
 
   it('renders icon only', () => {
+    // eslint-disable-next-line no-unused-vars
     const [_, testRenderer] = createBadge({
       icon: lightningPath
     });

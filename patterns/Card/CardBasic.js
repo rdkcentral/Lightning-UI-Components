@@ -1,6 +1,7 @@
 import { withStyles } from '../../mixins';
 import Card, { baseCardProps } from '.';
 
+// eslint-disable-next-line no-unused-vars
 const basicStyles = theme => ({
   w: 410,
   h: 231

@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import MarqueeText from '.';
 import InlineContent from '../../layout/InlineContent';
 import mdx from './MarqueeText.mdx';
-import { getHexColor, PALETTE, TYPOGRAPHY } from '../../Styles';
+import { PALETTE, TYPOGRAPHY } from '../../Styles';
 
 export default {
   title: 'Elements / MarqueeText',

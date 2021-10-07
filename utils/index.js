@@ -6,7 +6,7 @@ import lng from '@lightningjs/core';
  * https://ifpb.github.io/javascript-guide/ecma/expression-and-operator/argb.html
  */
 export function rgba2argb(rgbaStr) {
-  let rgba = rgbaStr.replace(/rgba\(|\)/g, '').split(',');
+  const rgba = rgbaStr.replace(/rgba\(|\)/g, '').split(',');
   // Multiple Alpha Value
   rgba[3] = rgba[3] * 255;
   return lng.StageUtils.getArgbNumber(rgba);
@@ -93,7 +93,7 @@ export function clone(target, object) {
   const _clone = { ...target };
   if (!object || target === object) return _clone;
 
-  for (let key in object) {
+  for (const key in object) {
     const value = object[key];
     if (target.hasOwnProperty(key)) {
       _clone[key] = getMergeValue(key, target, object);

@@ -1,8 +1,6 @@
 import lng from '@lightningjs/core';
-
 import Gradient from '.';
 import mdx from './Gradient.mdx';
-import kabob from '../../assets/images/kabob_320x180.jpg';
 
 export default {
   title: 'elements / Gradient',

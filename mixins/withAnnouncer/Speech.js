@@ -1,5 +1,6 @@
+/* global SpeechSynthesisErrorEvent */
 function flattenStrings(series = []) {
-  let flattenedSeries = [];
+  const flattenedSeries = [];
 
   for (var i = 0; i < series.length; i++) {
     if (typeof series[i] === 'string' && !series[i].includes('PAUSE-')) {
@@ -28,7 +29,7 @@ function delay(pause) {
 function speak(phrase, utterances) {
   const synth = window.speechSynthesis;
   return new Promise((resolve, reject) => {
-    let utterance = new SpeechSynthesisUtterance(phrase);
+    const utterance = new SpeechSynthesisUtterance(phrase);
     utterance.onend = () => {
       resolve();
     };

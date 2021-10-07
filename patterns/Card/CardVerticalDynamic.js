@@ -3,6 +3,7 @@ import { withStyles } from '../../mixins';
 import Card, { baseCardProps, artCardProps, logoProps } from '.';
 import { getValidColor } from '../../Styles';
 
+// eslint-disable-next-line no-unused-vars
 const verticalDynamicStyles = theme => ({
   orientation: 'vertical',
   w: 410,

@@ -81,7 +81,7 @@ describe('Tooltip', () => {
       testRenderer.update();
       expect(tooltip.alpha).toEqual(1);
 
-      // set timeVisilbe
+      // set timeVisible
       tooltip.timeVisible = 5000;
 
       // timer not run unless focused
@@ -104,13 +104,14 @@ describe('Tooltip', () => {
     beforeEach(() => {
       tooltip._focus();
 
+      // eslint-disable-next-line no-unused-vars
       [button, buttonRenderer] = createButton({ title: 'Button' });
       buttonRenderer.update();
     });
     it('should be horizontally centered', () => {});
     it('should default to 40px above parent', done => {
       tooltip._Text.on('txLoaded', () => {
-        let buffer = 2;
+        const buffer = 2;
         expect(tooltip.y).toEqual(-tooltip._Background.finalH - 40 + buffer);
 
         done();
@@ -118,8 +119,7 @@ describe('Tooltip', () => {
     });
 
     it('should change when "bottomMargin" is set', done => {
-      let closer_tooltip, closer_testRenderer;
-      [closer_tooltip, closer_testRenderer] = createTooltip({
+      const [closer_tooltip] = createTooltip({
         title: 'Tooltip',
         bottomMargin: 20
       });
@@ -146,14 +146,14 @@ describe('Tooltip', () => {
 
       setTimeout(() => {
         try {
-          let textWidth = tooltip._Text.finalW;
-          let textHeight = tooltip._Text.finalH;
+          const textWidth = tooltip._Text.finalW;
+          const textHeight = tooltip._Text.finalH;
 
-          let diffW = Math.abs(tooltip._Text.finalW - textWidth);
+          const diffW = Math.abs(tooltip._Text.finalW - textWidth);
           expect(diffW).toBeLessThan(5);
           expect(tooltip._Background.finalW).toBeGreaterThan(textWidth);
 
-          let diffH = Math.abs(tooltip._Background.finalH - textHeight);
+          const diffH = Math.abs(tooltip._Background.finalH - textHeight);
           expect(diffH).toBeLessThan(5);
 
           done();

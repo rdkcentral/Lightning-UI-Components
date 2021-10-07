@@ -2,9 +2,6 @@ import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import withHandleKey from '.';
 
-const duplicate = (object, quantity) =>
-  Array.apply(null, { length: quantity }).map(() => Object.assign({}, object));
-
 describe('withHandleKey', () => {
   let HandleKeyComponent, testRenderer;
   class Example extends lng.Component {}

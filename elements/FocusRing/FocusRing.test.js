@@ -1,6 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import FocusRing from '.';
-import { getHexColor, getValidColor, GREY } from '../../Styles';
+import { getHexColor, GREY } from '../../Styles';
 
 const createFocusRing = TestUtils.makeCreateComponent(FocusRing, {
   w: 320,

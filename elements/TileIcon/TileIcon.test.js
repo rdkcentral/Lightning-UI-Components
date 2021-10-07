@@ -26,7 +26,7 @@ describe('TileIcon', () => {
   });
 
   it('should render', () => {
-    let tree = testRenderer.toJSON(2);
+    const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(tileicon.icon).toEqual(icon);
   });

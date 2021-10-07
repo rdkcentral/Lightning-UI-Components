@@ -376,7 +376,6 @@ describe('Column', () => {
         });
 
         it('should not scroll until the last item', done => {
-          const [item] = column.items;
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');

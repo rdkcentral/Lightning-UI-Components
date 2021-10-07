@@ -216,7 +216,7 @@ const col2 = {
   }
 };
 
-export const withContent = args =>
+export const withContent = () =>
   class withContent extends lng.Component {
     static _template() {
       return {

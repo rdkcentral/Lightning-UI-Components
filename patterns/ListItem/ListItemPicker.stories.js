@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import { ListItemPicker } from '.';
 import mdx from './ListItemPicker.mdx';
-// import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'Patterns/ListItemPicker',
@@ -46,8 +45,7 @@ Basic.args = {
   title: 'List Item',
   collapse: false,
   size: 'small',
-  selectedOptionIndex: 0,
-  focused: false
+  selectedOptionIndex: 0
 };
 Basic.argTypes = {
   listItemPickerChanged: {

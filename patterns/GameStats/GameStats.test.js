@@ -169,10 +169,10 @@ describe('GameStats', () => {
   });
 
   describe('Single entity', () => {
-    let dataitem, testRenderer;
+    let dataitem;
 
     beforeEach(() => {
-      [dataitem, testRenderer] = createGameStats({
+      [dataitem] = createGameStats({
         entity: 'Eagles',
         single: true,
         stats: singleStats
@@ -180,7 +180,6 @@ describe('GameStats', () => {
     });
     afterEach(() => {
       dataitem = null;
-      testRenderer = null;
     });
 
     it('sets label text', () => {
@@ -200,7 +199,7 @@ describe('GameStats', () => {
     });
 
     it('should override default announce', () => {
-      [dataitem, testRenderer] = createGameStats({
+      [dataitem] = createGameStats({
         entity: 'Eagles',
         single: true,
         stats: singleStats,
@@ -211,14 +210,13 @@ describe('GameStats', () => {
   });
 
   describe('Multiple entities', () => {
-    let dataitem, testRenderer;
+    let dataitem;
 
     beforeEach(() => {
-      [dataitem, testRenderer] = createGameStats({ stats });
+      [dataitem] = createGameStats({ stats });
     });
     afterEach(() => {
       dataitem = null;
-      testRenderer = null;
     });
 
     it('sets label text', () => {
