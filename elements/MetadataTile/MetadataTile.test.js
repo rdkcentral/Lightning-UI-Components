@@ -33,12 +33,13 @@ describe('MetadataTile', () => {
     expect(metadataTile._focusW).toBe(400);
   });
 
-  it('should set the focus and unfocus scales', () => {
+  it('should set the focus and unfocus scales', done => {
     metadataTile.focusScaleConst = 1.5;
     metadataTile.unfocusScaleConst = 0.9;
     setTimeout(() => {
       expect(metadataTile.focusScaleConst).toBe(1.5);
       expect(metadataTile.unfocusScaleConst).toBe(0.9);
+      done();
     }, 0);
     testRenderer.focus();
     testRenderer.update();
@@ -60,27 +61,29 @@ describe('MetadataTile', () => {
     expect(metadataTile.marqueeProperties.delayStart).toBe(1);
   });
 
-  it('should set first line content', () => {
+  it('should set first line content', done => {
     const content = ['text', { icon: 'icon.png', title: 'icon' }];
     metadataTile.firstLine = content;
     testRenderer.update();
     setTimeout(() => {
       expect(metadataTile.firstLine).toBe(content);
       expect(metadataTile._FirstLine.childList.length).toBe(2);
+      done();
     }, 0);
   });
 
-  it('should set second line text', () => {
+  it('should set second line text', done => {
     const content = 'second line text';
     metadataTile.secondLine = content;
     testRenderer.update();
     setTimeout(() => {
       expect(metadataTile.secondLine).toBe(content);
       expect(metadataTile._SecondLine.childList.length).toBe(3);
+      done();
     }, 0);
   });
 
-  it('should set first line text properties', () => {
+  it('should set first line text properties', done => {
     const font = { fontFace: 'MyGenericFont', fontSize: 50 };
     metadataTile.firstLine = 'first line text';
     metadataTile.firstLineTextProperties = font;
@@ -90,10 +93,11 @@ describe('MetadataTile', () => {
       expect(metadataTile._FirstLine.childList.getAt(0).text).toMatchObject(
         font
       );
+      done();
     }, 0);
   });
 
-  it('should set second line text properties', () => {
+  it('should set second line text properties', done => {
     const font = { fontFace: 'MyGenericFont', fontSize: 30 };
     metadataTile.secondLine = 'second line text';
     metadataTile.secondLineTextProperties = font;
@@ -103,16 +107,27 @@ describe('MetadataTile', () => {
       expect(metadataTile._SecondLine.childList.getAt(0).text).toMatchObject(
         font
       );
+      done();
     }, 0);
   });
 
-  it('should build announce text from the multiple lines', () => {
+  it('should build announce text from the multiple lines', done => {
     metadataTile.firstLine = 'First line text';
     metadataTile.secondLine = 'Second line text';
     setTimeout(() => {
       expect(metadataTile.announce).toBe(
-        `${metadataTile.firstLine}. ${metadataTile.secondLine}.`
+        `${metadataTile.firstLine}. ${metadataTile.secondLine}`
       );
+      done();
+    }, 0);
+  });
+
+  it('should build announce text from one line', done => {
+    metadataTile.firstLine = 'First line text';
+    metadataTile.secondLine = '';
+    setTimeout(() => {
+      expect(metadataTile.announce).toBe(`${metadataTile.firstLine}`);
+      done();
     }, 0);
   });
 });
