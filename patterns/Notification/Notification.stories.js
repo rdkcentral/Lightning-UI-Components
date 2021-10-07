@@ -13,7 +13,7 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -74,7 +74,7 @@ Basic.argTypes = {
 Basic.parameters = {
   argActions: {
     state: (state, component) => {
-      let func = state.split('(')[0];
+      const func = state.split('(')[0];
       component.tag('Notification')[func]();
     },
     actionArea: (action, component) => {

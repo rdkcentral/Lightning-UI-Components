@@ -9,14 +9,14 @@
  */
 export const GRID = {
   gutters: {
-    horizontal: 80,     // space between rows
-    vertical: 40        // space between columns (items)
+    horizontal: 80, // space between rows
+    vertical: 40 // space between columns (items)
   },
   margin: {
     x: 80,
     y: 64
   },
-  spacingIncrement: 8,  // the grid is built on an 8-point system
+  spacingIncrement: 8, // the grid is built on an 8-point system
   columnWidth: 110
 };
 
@@ -32,7 +32,11 @@ export const GRID_SIZE_PARAMS = {
   // Width of a Grid assuming a margins on the left and right of the screen
   w: SCREEN.w - GRID.margin.x * 2,
   // Height of a Grid assuming a space for the header and a 48px margin at the bottom of the screen
-  h: SCREEN.h - GRID.margin.y - (GRID.gutters.vertical * 3) - GRID.spacingIncrement,
+  h:
+    SCREEN.h -
+    GRID.margin.y -
+    GRID.gutters.vertical * 3 -
+    GRID.spacingIncrement,
   // Y position adds space between the header and the top of the Grid
   y: GRID.gutters.vertical,
   // Sets the items container in from the left by the margin amount
@@ -62,9 +66,9 @@ export function getAspectRatioH(w, ratio = '16:9', seperator = ':') {
  * @return { { number, number } }
  */
 export function getDimensions(obj = {}, fallback = {}) {
-  let { w, h, ratioX, ratioY, upCount } = obj;
-  let fallbackW = fallback.w || 0;
-  let fallbackH = fallback.h || 0;
+  const { w, h, ratioX, ratioY, upCount } = obj;
+  const fallbackW = fallback.w || 0;
+  const fallbackH = fallback.h || 0;
   let dimensions = {};
 
   // hard set width and height values were passed in and should override other params
@@ -73,15 +77,17 @@ export function getDimensions(obj = {}, fallback = {}) {
       w,
       h: h
     };
-  } else if (h && ratioX && ratioY) { // hard set height and ratio values were passed in, meaning the row has items with mixed ratios, so the width needs to be calculated
+  } else if (h && ratioX && ratioY) {
+    // hard set height and ratio values were passed in, meaning the row has items with mixed ratios, so the width needs to be calculated
     dimensions = {
-      w: Math.round(h * ratioX / ratioY),
+      w: Math.round((h * ratioX) / ratioY),
       h: h
     };
-  // calculate dynamic width and height based off item ratios
+    // calculate dynamic width and height based off item ratios
   } else if (ratioX && ratioY && upCount) {
     dimensions = getItemRatioDimensions(ratioX, ratioY, upCount);
-  } else if (h && upCount) { // calculate dynamic width based off a row upcount and a given height
+  } else if (h && upCount) {
+    // calculate dynamic width based off a row upcount and a given height
     dimensions = {
       w: Math.round(calculateColumnWidth(upCount)),
       h: h
@@ -96,7 +102,8 @@ export function getDimensions(obj = {}, fallback = {}) {
       w: w,
       h: fallbackH
     };
-  } else {   // not enough information was provided to properly size the component
+  } else {
+    // not enough information was provided to properly size the component
     dimensions = {
       w: fallbackW,
       h: fallbackH
@@ -145,17 +152,17 @@ export function getItemRatioDimensions(ratioX, ratioY, upCount) {
  */
 export function calculateColumnWidth(upCount) {
   // the screen width, minus the margin x on each side
-  let rowWidth = SCREEN.w - (GRID.margin.x * 2);
+  const rowWidth = SCREEN.w - GRID.margin.x * 2;
 
   if (upCount) {
     // the total space of column gaps in between items
-    let columnGapTotal = (upCount - 1) * GRID.gutters.vertical;
+    const columnGapTotal = (upCount - 1) * GRID.gutters.vertical;
 
     // the remaining amount of space left for all items
-    let totalColumnsWidth = rowWidth - columnGapTotal;
+    const totalColumnsWidth = rowWidth - columnGapTotal;
 
     // the width of each item in that remaining width
-    let itemWidth = totalColumnsWidth / upCount;
+    const itemWidth = totalColumnsWidth / upCount;
 
     return itemWidth;
   }

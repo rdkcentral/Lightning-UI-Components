@@ -341,7 +341,7 @@ describe('BoardRow', () => {
   it('should return each item in items as a BoardRowComponent that extends the item type', () => {
     const mock = jest.fn();
 
-    mock.mockImplementation(async ({ type, src, w, h }) => {
+    mock.mockImplementation(async () => {
       return jurassic;
     });
 

@@ -143,7 +143,7 @@ export default class InlineContent extends withStyles(Base, styles) {
       text: {
         ...this.textProperties,
         ...text.style,
-        text: text?.text || text
+        text: text.text || text
       }
     };
 

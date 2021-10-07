@@ -1,4 +1,4 @@
-import ListItem, { ListItemBase } from '.';
+import ListItem from '.';
 import Slider from '../../elements/Slider';
 
 export default class ListItemSlider extends ListItem {

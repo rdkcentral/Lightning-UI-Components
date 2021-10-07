@@ -1,4 +1,3 @@
-import Tile from '../../elements/Tile';
 import ProgressBar from '../../elements/ProgressBar';
 import Badge from '../../elements/Badge';
 import { withStyles, withUpdates } from '../../mixins';

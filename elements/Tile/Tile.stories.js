@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
 import { rgba2argb } from '../../utils';
-import withStyles from '../../mixins/withStyles';
 
 import Tile from '.';
 import Row from '../../layout/Row';
@@ -27,7 +26,6 @@ export const Basic = args =>
     static _template() {
       return {
         Tile: {
-          type: withStyles(Tile, { unfocused: { shadow: { alpha: 1 } } }),
           type: Tile,
           src: kabob,
           w: 320,
@@ -123,7 +121,7 @@ export const XfinityTheme = args =>
                 upCount: 5
               },
               radius: args.radius,
-              onArrowUp: (keyEvent, tile) => {
+              onArrowUp: keyEvent => {
                 console.log('You hit Up ', keyEvent);
               }
             },
@@ -134,7 +132,7 @@ export const XfinityTheme = args =>
               w: args.width,
               h: args.height,
               radius: args.radius,
-              onEnter: (keyEvent, tile) => {
+              onEnter: keyEvent => {
                 console.log('You hit Enter ', keyEvent);
               }
             },
@@ -144,7 +142,7 @@ export const XfinityTheme = args =>
               w: args.width,
               h: args.height,
               radius: args.radius,
-              onArrowDown: (keyEvent, tile) => {
+              onArrowDown: keyEvent => {
                 console.log('You hit Down ', keyEvent);
               }
             },

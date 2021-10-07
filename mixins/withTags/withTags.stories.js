@@ -11,7 +11,7 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends withTags(lng.Component) {
     static get tags() {
       return ['Text'];

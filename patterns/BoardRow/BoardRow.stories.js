@@ -1,6 +1,5 @@
 import { CardVerticalLarge, CardHorizontal } from '../../patterns/Card';
 import BoardRow from '.';
-import Column from '../../layout/Column';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import lng from '@lightningjs/core';
 import mdx from './BoardRow.mdx';

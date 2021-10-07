@@ -21,12 +21,8 @@ export default class SquareSmallLayout extends BaseLayout {
   }
 
   _updateItems(items) {
-    // Everything will be two rows high, this is the total height
-    const totalRowHeight =
-      SquareSmallLayout._cardHeight * 2 + this._itemSpacing;
-
     // Create two arrays
-    const formattedItems = items.reduce((acc, curr, index) => {
+    const formattedItems = items.reduce((acc, curr) => {
       const component = {
         ...curr,
         type: BoardRowComponent(curr.type, this.srcCallback),

@@ -23,7 +23,7 @@ const styles = theme => {
   };
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends withStyles(lng.Component, styles) {
     static _template() {
       return {

@@ -125,7 +125,7 @@ export default class Column extends FocusManager {
   }
 
   checkSkipPlinko(prev, next) {
-    // If previous doesnt have skip plinko or previous is the first or last item
+    // If previous doesn't have skip plinko or previous is the first or last item
     if (
       !prev ||
       !prev.skipPlinko ||

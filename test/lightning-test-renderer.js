@@ -69,7 +69,7 @@ function create(Component, options = {}) {
     }
   }
 
-  let app = new TestApp({ stage, ...opts });
+  const app = new TestApp({ stage, ...opts });
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
   app.updateFocusPath();

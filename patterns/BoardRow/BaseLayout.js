@@ -29,6 +29,7 @@ class BaseType extends lng.Component {
     };
   }
 
+  // eslint-disable-next-line getter-return
   static get properties() {
     // This will overwritten by the base BoardRow component so all properties from parent are available in layout
     return [];

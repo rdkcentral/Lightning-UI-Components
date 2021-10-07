@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import FocusRing from '.';
 
-import { PALETTE, getHexColor } from '../../Styles/Styles';
+import { PALETTE } from '../../Styles/Styles';
 import mdx from './FocusRing.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 
@@ -90,7 +90,7 @@ Basic.parameters = {
   }
 };
 
-export const WithImage = args =>
+export const WithImage = () =>
   class Basic extends lng.Component {
     static _template() {
       return {

@@ -17,7 +17,7 @@ describe('FocusManager', () => {
     testRenderer = null;
   });
   it('should render', () => {
-    let tree = testRenderer.toJSON();
+    const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -81,7 +81,7 @@ describe('FocusManager', () => {
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Down');
       testRenderer.keyPress('Up');
-      let focusManager = testRenderer.getInstance();
+      const focusManager = testRenderer.getInstance();
       expect(focusManager.selectedIndex).toBe(1);
     });
   });
@@ -137,7 +137,7 @@ describe('FocusManager', () => {
     });
     it('should signal selectedChange', () => {
       testRenderer.keyPress('Down');
-      let previous = focusManager.items[focusManager.selectedIndex - 1];
+      const previous = focusManager.items[focusManager.selectedIndex - 1];
       expect(app.selectedChangeMock).toHaveBeenCalledWith(
         focusManager.selected,
         previous

@@ -5,7 +5,7 @@ import withUpdates from '.';
 const updateMock = jest.fn();
 
 describe('withUpdates', () => {
-  let WithUpdatesComponent, testRenderer;
+  let WithUpdatesComponent;
   class Example extends lng.Component {
     static get properties() {
       return ['title', 'score'];
@@ -17,7 +17,7 @@ describe('withUpdates', () => {
   }
 
   beforeEach(() => {
-    [WithUpdatesComponent, testRenderer] = TestUtils.makeCreateComponent(
+    [WithUpdatesComponent] = TestUtils.makeCreateComponent(
       withUpdates(Example)
     )();
   });

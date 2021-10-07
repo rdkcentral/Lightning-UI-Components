@@ -43,7 +43,7 @@ export const Text = args =>
     }
   };
 
-export const Icon = args =>
+export const Icon = () =>
   class Basic extends lng.Component {
     static _template() {
       return {

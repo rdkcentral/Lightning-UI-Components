@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import { getXfinityTheme } from '../Styles/createTheme';
 const theme = getXfinityTheme();
 const style = {

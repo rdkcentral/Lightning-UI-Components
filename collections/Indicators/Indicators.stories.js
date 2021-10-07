@@ -29,7 +29,7 @@ const style = {
   verticalSpace: theme.spacing(4)
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {

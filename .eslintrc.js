@@ -42,7 +42,8 @@ module.exports = {
       '_updateCollision',
       '_updateAttachedFlag',
       '_updateEnabledFlag'
-    ]
+    ],
+    'no-prototype-builtins': [0]
   },
   parserOptions: {
     parser: 'babel-eslint',

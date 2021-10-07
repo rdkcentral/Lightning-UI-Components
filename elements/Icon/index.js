@@ -22,6 +22,7 @@ export default class Icon extends Base {
     this.off('txError', this._handleTxtError.bind(this));
   }
 
+  // eslint-disable-next-line no-unused-vars
   _handleTxtError(error) {
     this._icon = null;
     this.texture = null;
@@ -39,7 +40,7 @@ export default class Icon extends Base {
 }
 
 const [isSvgTag, isSvgURI, isImageURI] = [
-  /^<svg.*<\/svg\>$/,
+  /^<svg.*<\/svg>$/,
   /\.svg$/,
   /\.(a?png|bmp|gif|ico|cur|jpe?g|pjp(eg)?|jfif|tiff?|webp)$/
 ].map(regex => RegExp.prototype.test.bind(regex));

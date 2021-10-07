@@ -1,6 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import withLayout from '.';
-import { SCREEN, GRID } from '../../Styles/Layout';
+import { SCREEN } from '../../Styles/Layout';
 import Tile from '../../elements/Tile';
 
 const createTileWithLayout = props =>

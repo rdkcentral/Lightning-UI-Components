@@ -508,7 +508,7 @@ describe('ListItemSlider', () => {
   });
 
   it('should announce title and value', () => {
-    expect(listItemSlider.announce).toBe(`List Item 0`);
+    expect(listItemSlider.announce).toBe('List Item 0');
   });
 });
 

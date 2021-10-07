@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
 import withStyles from '.';
-import withTheme from '../withTheme';
 import mdx from './withStyles.mdx';
 import { rgba2argb } from '../../utils';
 

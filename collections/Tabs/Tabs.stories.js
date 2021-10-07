@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import mdx from './Tabs.mdx';
 import Column from '../../layout/Column';
-import CollectionHeader from '../CollectionHeader';
 import CollectionLabel from '../CollectionLabel';
 import CollectionDocItem from '../CollectionDocItem';
 import TabBar, { Tab } from '../../elements/Tabs';
@@ -24,7 +23,7 @@ const style = {
   horizontalSpace: theme.spacing(5)
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {

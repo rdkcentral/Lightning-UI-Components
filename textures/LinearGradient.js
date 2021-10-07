@@ -32,6 +32,8 @@
     color: string ('hsla(0,0,0,0)' or 'rgba(0,0,0,0)`
 */
 
+import lng from '@lightningjs/core';
+
 // translates degrees into radians
 const rad = deg => {
   return (deg * Math.PI) / 180;
@@ -76,8 +78,8 @@ const points = (degrees, width, height) => {
     degrees = breakAngles[breakIndex] - degrees;
   }
 
-  let A = degrees;
-  let B = 90 - A;
+  const A = degrees;
+  const B = 90 - A;
   let a = Math.ceil((Math.sin(rad(A)) * b) / Math.sin(rad(B)));
   if (a > max) {
     a = max;
@@ -202,7 +204,7 @@ export default class LinearGradient extends lng.Texture {
 
     const steps = this._steps;
     return function (cb: any) {
-      let canvas = this.stage.platform.getDrawingCanvas();
+      const canvas = this.stage.platform.getDrawingCanvas();
 
       canvas.width = w;
       canvas.height = h;

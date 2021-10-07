@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import OverlayDataItem from '.';
 import PHI from '../../assets/images/PHI.png';
-import NYG from '../../assets/images/NYG.png';
 import { getValidColor } from '../../Styles';
 import mdx from './OverlayDataItem.mdx';
 

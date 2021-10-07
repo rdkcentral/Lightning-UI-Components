@@ -161,14 +161,14 @@ export const StackedText = () =>
         Text1: {
           text: {
             fontSize: 28,
-            text: `This is a title`
+            text: 'This is a title'
           }
         },
         Text2: {
           alpha: 0.7,
           text: {
             fontSize: 22,
-            text: `this is a subtitle`
+            text: 'this is a subtitle'
           }
         }
       });

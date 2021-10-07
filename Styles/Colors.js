@@ -21,8 +21,8 @@ export function getHexColor(hex, alpha = 100) {
 
   hex = hex.replace('#', '');
 
-  let hexAlpha = Math.round((alpha / 100) * 255).toString(16);
-  let str = `0x${hexAlpha}${hex}`;
+  const hexAlpha = Math.round((alpha / 100) * 255).toString(16);
+  const str = `0x${hexAlpha}${hex}`;
   return Number(str);
 }
 
@@ -49,7 +49,7 @@ export function getValidColor(color) {
   } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
     return rgba2argb(color);
   } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
-    let rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
+    const rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
     return lng.StageUtils.getArgbNumber(rgba);
   }
   return null;
@@ -114,11 +114,11 @@ export const RED = {
 
 export const PURPLE = {
   base: getHexColor('#6138F5'),
-  hover: getHexColor(`#BAA8FA`),
-  default: getHexColor(`#9378F8`),
+  hover: getHexColor('#BAA8FA'),
+  default: getHexColor('#9378F8'),
   pressed: getHexColor('#805FF6'),
   indicator: getHexColor('#704BF7'),
-  shade: getHexColor(`#1E1236`),
+  shade: getHexColor('#1E1236'),
   __isColor: true
 };
 

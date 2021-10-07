@@ -2,10 +2,8 @@ import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import withTags from '.';
 
-const updateMock = jest.fn();
-
 describe('withTags', () => {
-  let withTagsComponent, testRenderer;
+  let withTagsComponent;
   class Example extends lng.Component {
     static get tags() {
       return ['Title', { name: 'WrappedItem', path: 'Wrapper.WrappedItem' }];
@@ -28,9 +26,7 @@ describe('withTags', () => {
   }
 
   beforeEach(() => {
-    [withTagsComponent, testRenderer] = TestUtils.makeCreateComponent(
-      withTags(Example)
-    )();
+    [withTagsComponent] = TestUtils.makeCreateComponent(withTags(Example))();
   });
 
   afterEach(() => {
@@ -42,12 +38,12 @@ describe('withTags', () => {
   });
 
   it('creates tag for _Title', () => {
-    let tag = withTagsComponent.tag('Title');
+    const tag = withTagsComponent.tag('Title');
     expect(withTagsComponent._Title).toEqual(tag);
   });
 
   it('creates tags _WrappedItem', () => {
-    let tag = withTagsComponent.tag('Wrapper.WrappedItem');
+    const tag = withTagsComponent.tag('Wrapper.WrappedItem');
     expect(withTagsComponent._WrappedItem).toEqual(tag);
   });
 });

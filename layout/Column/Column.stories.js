@@ -142,17 +142,6 @@ MultiColumn.argTypes = {
   }
 };
 
-const getMoreItems = () => {
-  return Promise.resolve({
-    appendItems: true,
-    getMoreItems,
-    items: Array.apply(null, { length: 5 }).map((_, i) => ({
-      type: Button,
-      buttonText: `Extra Button ${i + 1}`
-    }))
-  });
-};
-
 export const Plinko = args =>
   class Plinko extends lng.Component {
     static _template() {
@@ -202,7 +191,7 @@ export const VaryingItemHeight = args =>
           type: Column,
           h: 500,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+          items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
             buttonText: 'Button',
             h: 40 + Math.floor(Math.random() * 100)
@@ -223,7 +212,7 @@ export const ExpandableHeightItems = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 15 }).map((_, i) => ({
+          items: Array.apply(null, { length: 15 }).map(() => ({
             type: ExpandingButton,
             h: 40,
             w: 150,
@@ -346,10 +335,6 @@ export const OnScreenEffect = args =>
   };
 OnScreenEffect.args = {
   itemSpacing: 60
-};
-
-const rgb = (r, g, b) => {
-  return (r << 16) + (g << 8) + b + 255 * 16777216;
 };
 
 export const StickyTitle = args => {

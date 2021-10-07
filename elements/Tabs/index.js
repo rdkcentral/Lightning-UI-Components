@@ -1,4 +1,3 @@
-import lng from '@lightningjs/core';
 import Row from '../../layout/Row';
 import Base from '../Base';
 import Icon from '../Icon';

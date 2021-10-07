@@ -9,7 +9,7 @@ export default {
   }
 };
 
-export const Basic = args => {
+export const Basic = () => {
   return class Basic extends lng.Component {
     static _template() {
       return {

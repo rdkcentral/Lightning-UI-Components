@@ -56,6 +56,7 @@ export const Base = args =>
       };
     }
 
+    // eslint-disable-next-line no-unused-vars
     $onEnter(keyEvent, tile) {
       args.onEnter();
     }

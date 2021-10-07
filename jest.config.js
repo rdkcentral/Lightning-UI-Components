@@ -83,13 +83,12 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+    '\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/__mocks__/fileMock.js'
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: [
-    '<rootDir>/mixins/withVibrant'
-  ],
+  modulePathIgnorePatterns: ['<rootDir>/mixins/withVibrant'],
 
   // Activates notifications for test results
   // notify: false,
@@ -122,7 +121,13 @@ module.exports = {
   rootDir: '.',
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ['<rootDir>/elements', '<rootDir>/layout', '<rootDir>/utils', '<rootDir>/mixins', '<rootDir>/patterns'],
+  roots: [
+    '<rootDir>/elements',
+    '<rootDir>/layout',
+    '<rootDir>/utils',
+    '<rootDir>/mixins',
+    '<rootDir>/patterns'
+  ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -173,10 +178,12 @@ module.exports = {
   // transform: null,
   transform: {
     '^.+\\.mjs$': 'babel-jest',
-    '^.+\\.[t|j]sx?$': 'babel-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest'
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@lightningjs/core(-sdk)?)'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!@lightningjs/core(-sdk)?)'
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

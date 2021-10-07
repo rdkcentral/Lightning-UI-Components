@@ -15,13 +15,13 @@ export default function withTags(Base) {
     }
 
     _construct() {
-      let tags = this.constructor.tags || [];
+      const tags = this.constructor.tags || [];
       tags.forEach(tag => {
         if (typeof tag === 'object') {
           var { name, path } = tag;
         } else {
-          var name = tag;
-          var path = tag;
+          var name = tag; // eslint-disable-line no-redeclare
+          var path = tag; // eslint-disable-line no-redeclare
         }
         const key = '_' + name;
         const descriptor = getPropertyDescriptor(path);

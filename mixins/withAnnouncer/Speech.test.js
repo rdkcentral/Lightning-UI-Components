@@ -1,3 +1,5 @@
+/* global SpeechSynthesisErrorEvent */
+
 import Speech from './Speech';
 
 let speakError;
@@ -117,7 +119,7 @@ describe('Speech', () => {
   });
 
   it('should cancel a running series', () => {
-    let unresolvedPromise = new Promise((resolve, reject) => {});
+    const unresolvedPromise = new Promise(() => {});
     const speaking1 = Speech(['Hello', unresolvedPromise]);
     expect(speaking1.active).toBe(true);
     const speaking2 = Speech(['Cancelled']);
@@ -203,7 +205,7 @@ describe('Speech', () => {
     speakError = 'network';
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.useFakeTimers();
-    const speaking = Speech(['Hello', 'World']);
+    const speaking = Speech(['Hello', 'World']); // eslint-disable-line no-unused-vars
     await nextFrame();
     expect(utter).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenLastCalledWith(
