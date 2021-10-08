@@ -119,6 +119,8 @@ export default class Column extends FocusManager {
     ) {
       const prevPlinko = this.checkSkipPlinko(prev, next);
       next.selectedIndex = this._getIndexOfItemNear(next, prevPlinko || prev);
+    } else if (next && !next.selectedIndex) {
+      next.selectedIndex = 0;
     }
 
     this._performRender();
