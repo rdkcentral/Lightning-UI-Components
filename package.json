@@ -8,10 +8,6 @@
   "peerDependencies": {
     "@lightningjs/core": "^2.1.1"
   },
-  "engines": {
-    "npm": "^7.21.1",
-    "node": "^16.9.1"
-  },
   "browser": "index.js",
   "main": "index.js",
   "bin": {
