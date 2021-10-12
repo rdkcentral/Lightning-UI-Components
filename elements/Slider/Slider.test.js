@@ -32,6 +32,18 @@ describe('Slider', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the slider width', () => {
+    const w = 20;
+    [slider, testRenderer] = createSlider({ w });
+    expect(slider._w).toEqual(w);
+  });
+
+  it('does not set the slider width to invalid values', () => {
+    const w = -20;
+    [slider, testRenderer] = createSlider({ w });
+    expect(slider._w).not.toEqual(w);
+  });
+
   it('sets the inital LeftBar and Circle textures without smoothing', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
