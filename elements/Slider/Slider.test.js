@@ -32,6 +32,17 @@ describe('Slider', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the inital LeftBar and Circle textures without smoothing', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 5
+    });
+
+    expect(slider._LeftBar.w).toBeGreaterThan(0);
+  });
+
   describe('key handling', () => {
     describe('right', () => {
       beforeEach(() => {
@@ -52,6 +63,21 @@ describe('Slider', () => {
         expect(slider.value).toEqual(2);
         slider._handleRight();
         expect(slider.value).toEqual(2);
+      });
+
+      it('updates the LeftBar and Circle textures with smoothing', done => {
+        const initialWidth = slider._LeftBar.w;
+        expect(slider._LeftBar.w).toEqual(initialWidth);
+
+        testRenderer.keyPress('Right');
+
+        setTimeout(() => {
+          TestUtils.fastForward(slider._LeftBar);
+          testRenderer.update();
+          const updatedWidth = testRenderer.getInstance()._LeftBar.w;
+          expect(updatedWidth).toBeGreaterThan(initialWidth);
+          done();
+        }, 0);
       });
     });
 
@@ -75,6 +101,21 @@ describe('Slider', () => {
         slider._handleLeft();
         expect(slider.value).toEqual(0);
       });
+
+      it('updates the LeftBar and Circle textures with smoothing', done => {
+        const initialWidth = slider._LeftBar.w;
+        expect(slider._LeftBar.w).toEqual(initialWidth);
+
+        testRenderer.keyPress('Left');
+
+        setTimeout(() => {
+          TestUtils.fastForward(slider._LeftBar);
+          testRenderer.update();
+          const updatedWidth = testRenderer.getInstance()._LeftBar.w;
+          expect(updatedWidth).toBeLessThan(initialWidth);
+          done();
+        }, 0);
+      });
     });
   });
 
@@ -90,17 +131,19 @@ describe('Slider', () => {
       expect(slider.signal).toBeCalledWith('onChange', 50, slider);
     });
 
-    it('is fired on key left', () => {
+    it('is fired on key left', done => {
       slider._handleLeft();
       setTimeout(() => {
         expect(slider.signal).toBeCalledWith('onChange', 49, slider);
+        done();
       }, 0);
     });
 
-    it('is fired on key right', () => {
+    it('is fired on key right', done => {
       slider._handleRight();
       setTimeout(() => {
         expect(slider.signal).toBeCalledWith('onChange', 51, slider);
+        done();
       }, 0);
     });
   });
