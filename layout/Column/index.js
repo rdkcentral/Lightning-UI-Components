@@ -345,6 +345,7 @@ export default class Column extends FocusManager {
 
   appendItems(items = []) {
     const itemWidth = this.renderWidth;
+    this._smooth = false;
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();

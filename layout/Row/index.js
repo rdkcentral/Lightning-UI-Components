@@ -311,6 +311,7 @@ export default class Row extends FocusManager {
 
   appendItems(items = []) {
     const itemHeight = this.renderHeight;
+    this._smooth = false;
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
