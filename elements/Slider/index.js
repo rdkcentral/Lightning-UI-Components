@@ -40,31 +40,12 @@ export default class Slider extends withStyles(Base, styles) {
     };
   }
 
-  static getLeftArrowTexture() {
-    return {
-      type: Arrow,
-      direction: 'left',
-      w: this._arrowWidth,
-      h: this._arrowHeight
-    };
-  }
-
-  static getRightArrowTexture() {
-    return {
-      type: Arrow,
-      direction: 'right',
-      w: this._arrowWidth,
-      h: this._arrowHeight
-    };
-  }
-
   static _template() {
     return {
       h: this.styles.containerHeight,
       Container: {
         h: this.styles.containerHeight,
         LeftArrow: {
-          texture: Slider.getLeftArrowTexture(),
           mountY: 0.5,
           y: h => h / 2
         },
@@ -84,7 +65,6 @@ export default class Slider extends withStyles(Base, styles) {
           }
         },
         RightArrow: {
-          texture: Slider.getRightArrowTexture(),
           mountY: 0.5,
           y: h => h / 2
         }
@@ -93,7 +73,7 @@ export default class Slider extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['max', 'min', 'step', 'value', 'w'];
+    return ['max', 'min', 'step', 'value'];
   }
 
   static get tags() {
@@ -167,11 +147,19 @@ export default class Slider extends withStyles(Base, styles) {
       ) + 1;
 
     // shift progress bar and circle indicator
-    this._LeftBar.patch({
-      texture: Slider.getLeftBarTexture(position),
-      smooth: { w: position }
-    });
-    this._Circle.setSmooth('x', position + 2);
+    if (this._smooth) {
+      this._LeftBar.patch({
+        texture: Slider.getLeftBarTexture(position),
+        smooth: { w: position }
+      });
+      this._Circle.patch({ smooth: { x: position + 2 } });
+    } else {
+      this._LeftBar.patch({
+        texture: Slider.getLeftBarTexture(position),
+        w: position
+      });
+      this._Circle.patch({ x: position + 2 });
+    }
 
     // fade arrows at min/max
     if (this.value === this.min) {
@@ -185,17 +173,36 @@ export default class Slider extends withStyles(Base, styles) {
     } else {
       this._RightArrow.setSmooth('alpha', 1);
     }
+
+    if (!this._LeftArrow.texture || !this._RightArrow.texture) {
+      this._updateArrows();
+    }
+  }
+
+  _updateArrows() {
+    const arrowTexture = {
+      type: Arrow,
+      w: this._arrowWidth,
+      h: this._arrowHeight
+    };
+    this._LeftArrow.texture = {
+      ...arrowTexture,
+      direction: 'left'
+    };
+    this._RightArrow.texture = {
+      ...arrowTexture,
+      direction: 'right'
+    };
   }
 
   _getSliderWidth(w) {
     return w - (this._arrowWidth * 2 + this._spacing * 2);
   }
 
-  _setW(w) {
+  set w(w) {
     if (w > 0 && this._w !== w) {
       this._w = w;
     }
     this._updateSliderWidth();
-    return w;
   }
 }
