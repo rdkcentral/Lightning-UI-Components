@@ -359,7 +359,10 @@ export default class Column extends FocusManager {
   }
 
   scrollTo(index, duration = this._itemTransition.duration * 100) {
-    if (duration === 0) this.selectedIndex = index;
+    if (duration === 0) {
+      this.selectedIndex = index;
+      return;
+    }
 
     for (let i = 0; i !== Math.abs(this.selectedIndex - index); i++) {
       setTimeout(() => {
