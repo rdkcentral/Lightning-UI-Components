@@ -37,25 +37,17 @@ export const Basic = args =>
       return {
         Row: {
           type: Row,
-          w: 900,
+          w: 1920 - 180, // x offset from preview.js * 2
           itemSpacing: args.itemSpacing,
           alwaysScroll: args.alwaysScroll,
           neverScroll: args.neverScroll,
           lazyScroll: args.lazyScroll,
           scrollIndex: args.scrollIndex,
-          items: [
-            {
-              type: Button,
-              buttonText: 'Button 0',
-              w: 150,
-              skipFocus: true
-            },
-            ...Array.apply(null, { length: 12 }).map((_, i) => ({
-              type: Button,
-              buttonText: `Button ${i + 1}`,
-              w: 150
-            }))
-          ]
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
         }
       };
     }
@@ -95,7 +87,7 @@ export const FocusHeightChange = () =>
       return {
         Row: {
           type: Row,
-          items: Array.apply(null, { length: 5 }).map((_, i) => ({
+          items: Array.apply(null, { length: 5 }).map(() => ({
             type: ExpandingHeightButton,
             buttonText: 'Button',
             w: 150,
@@ -118,7 +110,7 @@ export const VaryingItemWidth = () =>
         Row: {
           type: Row,
           itemSpacing: 20,
-          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+          items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
             buttonText: 'Button',
             w: 120 + Math.floor(Math.random() * 80)
@@ -156,7 +148,7 @@ export const ExpandableWidth = () =>
     }
   };
 
-export const CenteredInParent = args =>
+export const CenteredInParent = () =>
   class CenteredInParent extends lng.Component {
     static _template() {
       const itemSpacing = 20;
@@ -199,35 +191,6 @@ export const CenteredInParent = args =>
       return this.tag('Row');
     }
   };
-
-class ExtendedRow extends Row {
-  static _template() {
-    return {
-      ...super._template(),
-      Title: {
-        text: {
-          x: 0,
-          y: 0
-        }
-      },
-      Items: {
-        y: 60
-      }
-    };
-  }
-
-  set title(val) {
-    this.Title.text = val;
-  }
-
-  get title() {
-    return this.Title.text;
-  }
-
-  get Title() {
-    return this.tag('Title');
-  }
-}
 
 class Button extends lng.Component {
   static _template() {
@@ -283,7 +246,7 @@ class ExpandingHeightButton extends Button {
   }
 }
 
-export const Plinko = args => {
+export const Plinko = () => {
   return class Plinko extends lng.Component {
     static _template() {
       return {
