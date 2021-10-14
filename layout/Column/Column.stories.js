@@ -151,17 +151,6 @@ MultiColumn.argTypes = {
   }
 };
 
-const getMoreItems = () => {
-  return Promise.resolve({
-    appendItems: true,
-    getMoreItems,
-    items: Array.apply(null, { length: 5 }).map((_, i) => ({
-      type: Button,
-      buttonText: `Extra Button ${i + 1}`
-    }))
-  });
-};
-
 export const Plinko = args =>
   class Plinko extends lng.Component {
     static _template() {
@@ -174,7 +163,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 180, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -185,7 +174,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 180, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -211,7 +200,7 @@ export const VaryingItemHeight = args =>
           type: Column,
           h: 500,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 10 }).map((_, i) => ({
+          items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
             buttonText: 'Button',
             h: 40 + Math.floor(Math.random() * 100)
@@ -232,7 +221,7 @@ export const ExpandableHeightItems = args =>
         Column: {
           type: Column,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 15 }).map((_, i) => ({
+          items: Array.apply(null, { length: 15 }).map(() => ({
             type: ExpandingButton,
             h: 40,
             w: 150,

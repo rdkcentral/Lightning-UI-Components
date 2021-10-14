@@ -26,6 +26,9 @@ Focus management and smooth scrolling for a vertically-oriented list of items.
 
 ## Usage
 
+
+`Column` expects a list of `items` which will be laid out top-to-bottom. By default, the width of `Column`'s Item container is the same as the width of the widest item, and the height is the height passed in, the height of the wrapping FocusManager if available, or the height of the stage by default. You can change the `w` and `h` attributes to manage `width` and `height`, respectively.
+
 ```js
 import { Column } from '@lightning/ui';
 
@@ -90,6 +93,10 @@ The promise returned by `getMoreItems` is then passed as the `provider` to a `Co
   ]
 }
 ```
+
+<Canvas>
+  <Story id="layout-column--provider" />
+</Canvas>
 
 See the [Properties section](#properties) for details.
 
