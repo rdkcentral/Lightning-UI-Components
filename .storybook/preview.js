@@ -41,7 +41,9 @@ const stage = {
   canvas2d: false,
   useImageWorker: false,
   inspector: false,
-  defaultFontFace: 'XfinityStandardMedium'
+  defaultFontFace: 'XfinityStandardMedium',
+  textRenderSharpPrecision: 1,
+  textRenderSharpFontSize: 1
 };
 
 /**
