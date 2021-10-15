@@ -46,8 +46,7 @@ Basic.args = {
     },
     '86%',
     {
-      icon:
-        'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+      icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
       title: 'Rotten Tomatoes rating'
     }
   ],
@@ -79,8 +78,7 @@ export const ClippedText = args =>
 ClippedText.args = {
   title: 'Tile Title',
   // data: ["an example of text that will fade out i swear to god it'll fade out"],
-  data:
-    'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
+  data: 'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
   progress: 0,
   showLogo: false
 };

@@ -1,20 +1,17 @@
 # Contributing to @lightning/ui
 
-:rocket: First off, thanks for taking the time to contribute! :rocket:
+First off, thanks for taking the time to contribute!
 
 The following is a set of guidelines for contributing to @lightning/ui. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 #### Table Of Contents
-
-[I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
-
-[How Can I Contribute?](#how-can-i-contribute)
+* [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+* [How Can I Contribute?](#how-can-i-contribute)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
   * [Your First Code Contribution](#your-first-code-contribution)
   * [Pull Requests](#pull-requests)
-
-[Styleguides](#styleguides)
+* [Styleguides](#styleguides)
   * [Git Commit Messages](#git-commit-messages)
   * [JavaScript Styleguide](#javascript-styleguide)
   * [Test Styleguide](#test-styleguide)
@@ -22,8 +19,7 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
     * [Usage Documentation](#usage-documentation)
     * [Storybook](#storybook)
     * [API Documentation](#api-documentation)
-
-[Additional Notes](#additional-notes)
+* [Additional Notes](#additional-notes)
   * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
 
 ## I don't want to read this whole thing I just have a question!!!
@@ -34,7 +30,7 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
 
 **Documentation**
 
-* [See the README for setup help](../main/README.md)
+* [See the README for setup help](../README.md)
 * [See Storybook for component docs with live examples](https://github.comcast.com/pages/Lightning/lightning-ui/)
 
 **Discuss on Slack**
@@ -48,19 +44,19 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
 
 This section guides you through submitting a bug report for @lightning/ui. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
 
-When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](../main/.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
+When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](../.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
 #### How Do I Submit A (Good) Bug Report?
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information by filling in [the template](../main/.github/ISSUE_TEMPLATE/bug_report.md).
+Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information by filling in [the template](../.github/ISSUE_TEMPLATE/bug_report.md).
 
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion for @lightning/ui, including new components, completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
-Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](../main/.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
+Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](../.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -362,7 +358,7 @@ Usage documentation lives in `<Type>/<Component>/<Component>.mdx`. [MDX](https:/
 If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
 <pre>
-import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs';
 
 // title, description, etc.
 

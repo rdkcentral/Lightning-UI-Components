@@ -188,8 +188,7 @@ export const XfinityTheme = () =>
               type: withMetadata(TileCircle),
               w: 320,
               h: 180,
-              src:
-                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
+              src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
               Metadata: {
                 type: MetadataTile,
                 firstLine: 'Personality entity',
@@ -248,8 +247,7 @@ export const InsetRow = () =>
               type: withMetadata(TileCircle),
               w: 320,
               h: 180,
-              src:
-                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
+              src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
               metadataLocation: 'inset',
               Metadata: {
                 type: MetadataSmall,

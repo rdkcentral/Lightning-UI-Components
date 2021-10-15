@@ -1,8 +1,8 @@
-import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs';
 
 # withSelections
 
-The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time. 
+The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time.
 
 <Canvas>
   <Story id="mixins-withselections--basic" />
@@ -150,7 +150,7 @@ Default value: `'items'`. Defines the name of the property applied to the wrappe
 ```js
 withSelections(FocusManager, {
   keys: {
-    items: 'children' 
+    items: 'children'
   }
 });
 ```

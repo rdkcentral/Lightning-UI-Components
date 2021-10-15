@@ -48,8 +48,7 @@ export const Basic = () => {
             items: [
               {
                 type: CollectionHeader,
-                url:
-                  'https://etwiki.sys.comcast.net/display/XDSS/Action+buttons'
+                url: 'https://etwiki.sys.comcast.net/display/XDSS/Action+buttons'
               },
               {
                 type: CollectionLabel,
