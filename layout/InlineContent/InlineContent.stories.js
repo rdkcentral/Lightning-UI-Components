@@ -41,8 +41,7 @@ export const Basic = args =>
             },
             'Wrapping Text',
             {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
             'and more text',
@@ -75,8 +74,7 @@ export const Basic = args =>
             'line breaks ({ newline: true})',
             { newline: true },
             {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
             'placed throughout',

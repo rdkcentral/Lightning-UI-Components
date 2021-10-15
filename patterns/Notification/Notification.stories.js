@@ -25,8 +25,7 @@ export const Basic = () =>
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
           actionArea: {
-            text:
-              'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
             icon
           },
           onEnter() {
@@ -57,8 +56,7 @@ export const Basic = () =>
 Basic.args = {
   state: 'enter()',
   actionArea: {
-    text:
-      'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+    text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
     icon
   }
 };
@@ -80,8 +78,7 @@ Basic.parameters = {
     actionArea: (action, component) => {
       component.tag('Notification').actionArea = action
         ? {
-            text:
-              'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
             icon
           }
         : false;

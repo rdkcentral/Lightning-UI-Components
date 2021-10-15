@@ -40,8 +40,7 @@ export const Basic = () =>
           content: [
             'This is a scrolling ',
             {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
             ' InlineContent component'
@@ -61,9 +60,8 @@ export const Basic = () =>
     }
 
     _init() {
-      this.tag('MarqueeInlineContent').contentTexture = this.tag(
-        'InlineContent'
-      ).getTexture();
+      this.tag('MarqueeInlineContent').contentTexture =
+        this.tag('InlineContent').getTexture();
       this.tag('MarqueeInlineContent').alpha = 1;
     }
   };
@@ -95,8 +93,7 @@ export const CenteredText = args =>
           content: [
             'Centered',
             {
-              icon:
-                'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
             ' InlineContent'
@@ -118,9 +115,8 @@ export const CenteredText = args =>
     }
 
     _init() {
-      this.tag('MarqueeInlineContent').contentTexture = this.tag(
-        'InlineContent'
-      ).getTexture();
+      this.tag('MarqueeInlineContent').contentTexture =
+        this.tag('InlineContent').getTexture();
       this.tag('MarqueeInlineContent').alpha = 1;
     }
   };

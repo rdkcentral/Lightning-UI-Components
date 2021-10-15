@@ -4,9 +4,8 @@ import cast from '../../assets/images/cast.png';
 import cast1 from '../../assets/images/cast1.png';
 import cast2 from '../../assets/images/cast2.png';
 
-const createListItemImageGroup = TestUtils.makeCreateComponent(
-  ListItemImageGroup
-);
+const createListItemImageGroup =
+  TestUtils.makeCreateComponent(ListItemImageGroup);
 
 const listItems = [
   {

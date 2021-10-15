@@ -153,8 +153,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
@@ -184,8 +184,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
@@ -215,8 +215,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
@@ -246,8 +246,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(CardVerticalLarge),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
@@ -277,8 +277,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
@@ -308,8 +308,8 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
-    const whenColumnEnabled = testRenderer.getInstance()._Layout._Row.selected
-      ._whenEnabled;
+    const whenColumnEnabled =
+      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;

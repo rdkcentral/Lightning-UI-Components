@@ -220,8 +220,7 @@ describe('parseInlineContent', () => {
       'This is a ',
       {
         title: 'setting',
-        icon:
-          'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
       },
       ' and ',
       { badge: 'HD' },
@@ -231,8 +230,7 @@ describe('parseInlineContent', () => {
 
   it('separates text, icons, and badges into an array from a text object', () => {
     const str = {
-      text:
-        'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.'
+      text: 'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.'
     };
 
     const response = parseInlineContent(str);
@@ -240,8 +238,7 @@ describe('parseInlineContent', () => {
       'This is a ',
       {
         title: 'setting',
-        icon:
-          'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
       },
       ' and ',
       { badge: 'HD' },

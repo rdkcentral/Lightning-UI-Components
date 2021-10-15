@@ -40,8 +40,7 @@ export const InlineSvg = () =>
           type: Icon,
           w: 50,
           h: 50,
-          icon:
-            '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'
         }
       };
     }

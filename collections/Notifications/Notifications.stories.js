@@ -44,8 +44,7 @@ export const Basic = () =>
             items: [
               {
                 type: CollectionHeader,
-                url:
-                  'https://etwiki.sys.comcast.net/display/XDSS/Notification+banner'
+                url: 'https://etwiki.sys.comcast.net/display/XDSS/Notification+banner'
               },
               {
                 type: CollectionLabel,

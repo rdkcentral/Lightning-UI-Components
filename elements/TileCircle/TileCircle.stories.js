@@ -20,8 +20,7 @@ export const Basic = args =>
       return {
         TileCircle: {
           type: TileCircle,
-          src:
-            'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
+          src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
           w: 320,
           h: 180,
           blurBackgroundColor: rgba2argb(args.blurBackgroundColor)
@@ -75,23 +74,19 @@ export const XfinityTheme = () =>
           items: [
             {
               ...tileCircle,
-              src:
-                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
+              src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
             },
             {
               ...tileCircle,
-              src:
-                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5019753201541604111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
+              src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5019753201541604111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
             },
             {
               ...tileCircle,
-              src:
-                'http://rexsearch.g1.app.cloud.comcast.net/myriad/select/image?entityId=4703069175195008111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
+              src: 'http://rexsearch.g1.app.cloud.comcast.net/myriad/select/image?entityId=4703069175195008111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
             },
             {
               ...tileCircle,
-              src:
-                'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5039986756924604111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
+              src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5039986756924604111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100'
             }
           ]
         }

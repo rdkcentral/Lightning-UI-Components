@@ -235,16 +235,7 @@ describe('Row', () => {
         it('shifts items to the left if selected index > start scroll index', done => {
           expect(row.items.map(({ x }) => x)).toEqual(
             expect.arrayContaining([
-              0,
-              80,
-              160,
-              240,
-              320,
-              400,
-              480,
-              560,
-              640,
-              720
+              0, 80, 160, 240, 320, 400, 480, 560, 640, 720
             ])
           );
 
