@@ -1,13 +1,10 @@
-import lng from '@lightningjs/core';
 import Column from '../../layout/Column';
 import ListItem from '../ListItem';
 import OverlayDataItem from '../OverlayDataItem';
 import withStyles from '../../mixins/withStyles';
-
-export const styles = theme => ({
-  getFocusScale: theme.getFocusScale
-});
-export default class TeamInfo extends withStyles(lng.Component, styles) {
+import { Base } from '../../elements';
+import styles from './TeamInfo.styles';
+export default class TeamInfo extends withStyles(Base, styles) {
   static _template() {
     return {
       h: 140,
@@ -30,8 +27,18 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
     };
   }
 
-  _construct() {
-    this._team = '';
+  static get properties() {
+    return ['items', 'overlayColor', 'overlayImage', 'team'];
+  }
+
+  static get tags() {
+    return [
+      {
+        name: 'Column',
+        path: 'DataItem.Content.Column'
+      },
+      'DataItem'
+    ];
   }
 
   _focus() {
@@ -74,25 +81,7 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
     this._announce = announce;
   }
 
-  set team(team) {
-    if (this._team !== team) {
-      this._team = team;
-    }
-  }
-
-  set overlayColor(overlayColor) {
-    if (this._DataItem._OverlayColor.color !== overlayColor) {
-      this._DataItem.overlayColor = overlayColor;
-    }
-  }
-
-  set overlayImage(overlayImage) {
-    if (this._DataItem._OverlayImage.src !== overlayImage) {
-      this._DataItem.overlayImage = overlayImage;
-    }
-  }
-
-  set items(items) {
+  _setItems(items) {
     if (this._items !== items) {
       this._items = items;
       const columns = items.map(item => ({
@@ -103,14 +92,18 @@ export default class TeamInfo extends withStyles(lng.Component, styles) {
       }));
       this._Column.items = columns;
       this.setHeight();
+      return items;
     }
   }
 
-  get _DataItem() {
-    return this.tag('DataItem');
+  _update() {
+    this._updateDataItem();
   }
 
-  get _Column() {
-    return this.tag('DataItem.Content.Column');
+  _updateDataItem() {
+    this._DataItem.patch({
+      overlayColor: this._overlayColor,
+      overlayImage: this._overlayImage
+    });
   }
 }
