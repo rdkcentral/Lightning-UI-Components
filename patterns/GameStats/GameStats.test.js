@@ -233,14 +233,20 @@ describe('GameStats', () => {
           stats[idx].items[0].value > stats[idx].items[1].value &&
           !stats[idx].invertedScoring
         ) {
-          expect(i._RightArrow.alpha).toBe(0);
-          expect(i._LeftArrow.alpha).toBe(1);
+          setTimeout(() => {
+            expect(i._RightArrow.alpha).toBe(0);
+            expect(i._LeftArrow.alpha).toBe(1);
+          }, 0);
         } else if (stats[idx].items[1].value === stats[idx].items[0].value) {
-          expect(i._RightArrow.alpha).toBe(0);
-          expect(i._LeftArrow.alpha).toBe(0);
+          setTimeout(() => {
+            expect(i._RightArrow.alpha).toBe(0);
+            expect(i._LeftArrow.alpha).toBe(0);
+          }, 0);
         } else {
-          expect(i._RightArrow.alpha).toBe(1);
-          expect(i._LeftArrow.alpha).toBe(0);
+          setTimeout(() => {
+            expect(i._RightArrow.alpha).toBe(1);
+            expect(i._LeftArrow.alpha).toBe(0);
+          }, 0);
         }
       });
     });
