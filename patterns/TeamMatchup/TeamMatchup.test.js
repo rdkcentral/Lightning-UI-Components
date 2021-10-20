@@ -66,7 +66,10 @@ describe('TeamMatchup', () => {
   it('floats background', () => {
     expect(matchup._DataItem._Background.alpha).toEqual(1);
     matchup.removeBackground = true;
-    expect(matchup._DataItem._Background.alpha).toEqual(0);
+    testRenderer.update();
+    setTimeout(() => {
+      expect(matchup._DataItem._Background.alpha).toEqual(0);
+    }, 0);
   });
 
   it('get announce text', () => {

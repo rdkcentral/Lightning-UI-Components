@@ -2,41 +2,10 @@ import lng from '@lightningjs/core';
 import Icon from '../../elements/Icon';
 import withStyles from '../../mixins/withStyles';
 import OverlayDataItem from '../OverlayDataItem';
-import { withTags } from '../../mixins';
+import styles from './TeamMatchup.styles';
+import { Base } from '../../elements';
 
-export const styles = theme => ({
-  title: {
-    h: 48,
-    text: {
-      ...theme.typography.headline1,
-      lineHeight: 48
-    }
-  },
-  subtitle: {
-    h: 24,
-    text: {
-      ...theme.typography.caption,
-      lineHeight: 24
-    }
-  },
-  logo: {
-    h: 100,
-    w: 100
-  },
-  margin: {
-    x: theme.spacing(2),
-    y: theme.spacing(2.5)
-  },
-  metadata: {
-    h: 48,
-    text: {
-      ...theme.typography.headline2,
-      textAlign: 'center'
-    }
-  },
-  getFocusScale: theme.getFocusScale
-});
-export class Matchup extends withTags(lng.Component) {
+export default class Matchup extends withStyles(Base, styles) {
   static _template() {
     return {
       h: 140,
@@ -115,6 +84,18 @@ export class Matchup extends withTags(lng.Component) {
     };
   }
 
+  static get properties() {
+    return [
+      'backgroundColors',
+      'icons',
+      'items',
+      'metadata',
+      'removeBackground',
+      'subtitle',
+      'title'
+    ];
+  }
+
   static get tags() {
     return [
       'DataItem',
@@ -127,19 +108,34 @@ export class Matchup extends withTags(lng.Component) {
     ];
   }
 
+  _construct() {
+    super._construct();
+    this._getFocusScale = this.styles.getFocusScale;
+  }
+
+  _update() {
+    this._updateRemoveBackground();
+    this._updateBackgroundColors();
+    this._Subtitle.text = this.subtitle;
+    this._Title.text = this.title;
+    this._Metadata.text.text = this.metadata;
+  }
+
   _focus() {
     const h =
       this._DataItem.h *
-      this.styles.getFocusScale(this._DataItem.w, this._DataItem.h);
+      this._getFocusScale(this._DataItem.w, this._DataItem.h);
     this._Metadata.smooth = { alpha: 1, y: h };
     this.h = h + this._Metadata.h;
     this.fireAncestors('$itemChanged');
+    super._focus();
   }
 
   _unfocus() {
     this._Metadata.smooth = { alpha: 0, y: this._DataItem.h };
     this.h = this._DataItem.h;
     this.fireAncestors('$itemChanged');
+    super._unfocus();
   }
 
   _getFocused() {
@@ -170,20 +166,20 @@ export class Matchup extends withTags(lng.Component) {
     this._announce = announce;
   }
 
-  set removeBackground(removeBackground) {
-    const alpha = removeBackground ? 0 : 1;
+  _updateRemoveBackground() {
+    const alpha = this._removeBackground ? 0 : 1;
     if (this._DataItem._Background.alpha !== alpha) {
       this._DataItem._Background.alpha = alpha;
     }
   }
 
-  set backgroundColors(backgroundColors) {
-    if (backgroundColors !== this._DataItem.backgroundColors) {
-      this._DataItem.backgroundColors = backgroundColors;
+  _updateBackgroundColors() {
+    if (this._backgroundColors !== this._DataItem.backgroundColors) {
+      this._DataItem.backgroundColors = this._backgroundColors;
     }
   }
 
-  set icons(icons) {
+  _setIcons(icons) {
     if (this._icons !== icons) {
       const { left, right } = icons;
       this._icons = icons;
@@ -191,40 +187,18 @@ export class Matchup extends withTags(lng.Component) {
       this._RightIcon.icon = right;
       this.smooth = { alpha: [1, { duration: 0.15 }] };
     }
+    return icons;
   }
 
-  set subtitle(subtitle) {
-    if (this._subtitle !== subtitle) {
-      this._subtitle = subtitle;
-      this._Subtitle.text = subtitle;
-    }
-  }
-
-  set title(title) {
-    if (this._title !== title) {
-      this._title = title;
-      this._Title.text = title;
-    }
-  }
-
-  set items(items) {
+  _setItems(items) {
     if (items !== this._items) {
       const { left, right } = items;
-      this._items = items;
-      this.backgroundColors = {
+      this._backgroundColors = {
         colorLeft: left && left.color,
         colorRight: right && right.color
       };
       this.icons = { left: left && left.src, right: right && right.src };
     }
-  }
-
-  set metadata(metadata) {
-    if (this._metadata !== metadata) {
-      this._metadata = metadata;
-      this._Metadata.text.text = metadata;
-    }
+    return items;
   }
 }
-
-export default withStyles(Matchup, styles);
