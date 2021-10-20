@@ -58,6 +58,7 @@ export default function withUpdates(Base) {
     _firstEnable() {
       this._readyForUpdates = true;
       this._whenEnabledResolver();
+      this._requestUpdateDebounce.clear();
       this._update();
       super._firstEnable && super._firstEnable();
     }
