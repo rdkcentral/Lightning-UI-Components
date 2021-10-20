@@ -52,10 +52,11 @@ describe('Key', () => {
     expect(key.title).toEqual('a');
   });
 
-  it('should set its label as its title', () => {
-    [key, testRenderer] = createKey({ label: 'done' });
+  it('should set its label as its title', done => {
+    [key] = createKey({ label: 'done' });
     setTimeout(() => {
       expect(key.title).toEqual('done');
+      done();
     }, 0);
   });
 
@@ -92,15 +93,15 @@ describe('Key', () => {
     );
   });
 
-  it('should update color and scale on focus', () => {
+  it('should update color on focus', () => {
     key._smooth = false;
-    key._focus();
 
-    setTimeout(() => {
-      expect(key.color).toBe(getHexColor('ECECF2'));
-      expect(key.scale).toBe(1.12);
-      expect(key._Title.color).toBe(4060086272);
-      // done();
-    });
+    expect(key.color).not.toBe(getHexColor('ECECF2'));
+    expect(key._Title.color).not.toBe(4060086272);
+
+    testRenderer.focus();
+
+    expect(key.color).toBe(getHexColor('ECECF2'));
+    expect(key._Title.color).toBe(4060086272);
   });
 });

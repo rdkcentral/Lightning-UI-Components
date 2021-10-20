@@ -87,19 +87,21 @@ describe('ProgressBar', () => {
     expect(progressBar.radius).toBeDefined();
   });
 
-  it('should set bar color', () => {
+  it('should set bar color', done => {
     const barColor = 4289216576;
     progressBar.barColor = barColor;
     setTimeout(() => {
       expect(progressBar.barColor).toBe(barColor);
+      done();
     }, 0);
   });
 
-  it('should set progress color', () => {
+  it('should set progress color', done => {
     const progressColor = 4289216576;
     progressBar.progressColor = progressColor;
     setTimeout(() => {
       expect(progressBar.progressColor).toBe(progressColor);
+      done();
     }, 0);
   });
 });

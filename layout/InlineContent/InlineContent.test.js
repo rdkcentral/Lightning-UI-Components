@@ -154,16 +154,17 @@ describe('InlineContent', () => {
     expect(inlineContent.badgeY).toBe(0);
   });
 
-  it('should update the flex box wrapping', () => {
+  it('should update the flex box wrapping', done => {
     inlineContent.content = 'hi';
     inlineContent.contentWrap = true;
     testRenderer.update();
     setTimeout(() => {
       expect(inlineContent.flex.wrap).toBe(true);
+      done();
     }, 0);
   });
 
-  it('should create an empty item with full width to force a line break if a newline object is passed in', () => {
+  it('should create an empty item with full width to force a line break if a newline object is passed in', done => {
     const width = 100;
     inlineContent.w = width;
     inlineContent.content = ['sentence', { newline: true }, 'with a linebreak'];
@@ -173,6 +174,7 @@ describe('InlineContent', () => {
       const newline = inlineContent.childList.getAt(1);
       expect(newline.w).toBe(width);
       expect(newline.h).toBe(0);
+      done();
     }, 0);
   });
 });

@@ -41,7 +41,7 @@ describe('Badge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update the title', () => {
+  it('should update the title', done => {
     const title = 'HD';
     [badge, testRenderer] = createBadge({ title });
     expect(badge.title).toBe(title);
@@ -58,6 +58,7 @@ describe('Badge', () => {
     setTimeout(() => {
       expect(badge.w).toBe(16 + title2.length);
       expect(badge.h).toBe(50);
+      done();
     }, 0);
   });
 
