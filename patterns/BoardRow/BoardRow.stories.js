@@ -164,7 +164,7 @@ export const Basic = args =>
       return {
         BoardRow: {
           type: BoardRow,
-          w: 1920 - 180, // x offset from preview.js * 2
+          w: 1920 - 160, // x offset from preview.js * 2
           // Menu Card Props
           itemSpacing: 40,
           menuCard: {

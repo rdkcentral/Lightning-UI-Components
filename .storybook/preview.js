@@ -112,7 +112,7 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
         type: StoryComponent(),
         w: w => w,
         h: h => h,
-        x: 90,
+        x: 80,
         y: 40
       }
     };
