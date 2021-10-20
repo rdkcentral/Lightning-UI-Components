@@ -22,6 +22,7 @@ import Base from '.';
 const createComponent = TestUtils.makeCreateComponent(Base);
 
 describe('Base', () => {
+  let component; /* eslint-disable-line no-unused-vars */
   let testRenderer;
 
   beforeEach(() => {

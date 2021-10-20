@@ -47,7 +47,7 @@ export default class Icon extends lng.Component {
 }
 
 const [isSvgTag, isSvgURI, isImageURI] = [
-  /^<svg.*<\/svg\>$/,
+  /^<svg.*<\/svg>$/,
   /\.svg$/,
   /\.(a?png|bmp|gif|ico|cur|jpe?g|pjp(eg)?|jfif|tiff?|webp)$/
 ].map(regex => RegExp.prototype.test.bind(regex));

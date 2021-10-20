@@ -70,15 +70,15 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "npx prettier --check './{elements,layout,utils}/**/*.js'",
-    "lint:fix": "npx prettier --write './{elements,layout,utils}/**/*.js'",
+    "lint": "eslint './{elements,layout,utils}/**/*.js'",
+    "lint:fix": "eslint --fix './{elements,layout,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
     "start": "start-storybook -p 8000",
     "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --no-coverage",
     "test:updateSnapshot": "jest --updateSnapshot"
   }
 }
