@@ -312,12 +312,13 @@ describe('ListItemToggle', () => {
     );
   });
 
-  it('toggles on enter', () => {
+  it('toggles on enter', done => {
     testRenderer.keyPress('Enter');
     testRenderer.update();
 
     setTimeout(() => {
       expect(listItemToggle.isChecked()).toBe(true);
+      done();
     }, 0);
   });
 
