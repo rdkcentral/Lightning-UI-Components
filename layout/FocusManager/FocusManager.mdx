@@ -16,7 +16,7 @@
  SPDX-License-Identifier: Apache-2.0
  -->
 
-import { Canvas, Story } from '@storybook/addon-docs/blocks'
+import { Canvas, Story } from '@storybook/addon-docs'
 import { DocsLink } from "../../.storybook/utils";
 
 # FocusManager
@@ -50,7 +50,7 @@ class RowExample extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="focusmanager--rows" />
+  <Story id="layout-focusmanager--rows" />
 </Canvas>
 
 Set the `direction` property to `row` for left/right or `column` for up/down key handling.
@@ -64,7 +64,7 @@ Set the `direction` property to `row` for left/right or `column` for up/down key
 ```
 
 <Canvas>
-  <Story id="focusmanager--columns" />
+  <Story id="layout-focusmanager--columns" />
 </Canvas>
 
 Enable the `wrapSelected` property to allow cycling focus between the first and last items.
@@ -78,7 +78,7 @@ Enable the `wrapSelected` property to allow cycling focus between the first and 
 ```
 
 <Canvas>
-  <Story id="focusmanager--wrap-selected" />
+  <Story id="layout-focusmanager--wrap-selected" />
 </Canvas>
 
 ## Extending FocusManager
@@ -100,7 +100,7 @@ class FancyFocus extends FocusManager {
 ```
 
 <Canvas>
-  <Story id="focusmanager--extended-component" />
+  <Story id="layout-focusmanager--extended-component" />
 </Canvas>
 
 ## API
