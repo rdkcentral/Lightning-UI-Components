@@ -34,10 +34,10 @@
     "@lightningjs/core": "^2.3.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@storybook/addon-actions": "^6.0.21",
-    "@storybook/addon-docs": "^6.0.21",
-    "@storybook/addon-essentials": "^6.0.21",
-    "@storybook/html": "^6.0.21",
+    "@storybook/addon-docs": "^6.3.10",
+    "@storybook/addon-essentials": "^6.3.10",
+    "@storybook/addon-storysource": "^6.3.10",
+    "@storybook/html": "^6.3.10",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "canvas": "^2.7.0",
@@ -70,15 +70,15 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
-    "lint": "npx prettier --check './{elements,layout,utils}/**/*.js'",
-    "lint:fix": "npx prettier --write './{elements,layout,utils}/**/*.js'",
+    "lint": "eslint './{elements,layout,utils}/**/*.js'",
+    "lint:fix": "eslint --fix './{elements,layout,utils}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "sh bin/create.sh",
     "start": "start-storybook -p 8000",
     "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --no-coverage",
     "test:updateSnapshot": "jest --updateSnapshot"
   }
 }

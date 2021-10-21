@@ -23,7 +23,7 @@ import lng from '@lightningjs/core';
  * https://ifpb.github.io/javascript-guide/ecma/expression-and-operator/argb.html
  */
 export function rgba2argb(rgbaStr) {
-  let rgba = rgbaStr.replace(/rgba\(|\)/g, '').split(',');
+  const rgba = rgbaStr.replace(/rgba\(|\)/g, '').split(',');
   // Multiple Alpha Value
   rgba[3] = rgba[3] * 255;
   return lng.StageUtils.getArgbNumber(rgba);
@@ -110,9 +110,9 @@ export function clone(target, object) {
   const _clone = { ...target };
   if (!object || target === object) return _clone;
 
-  for (let key in object) {
+  for (const key in object) {
     const value = object[key];
-    if (target.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
       _clone[key] = getMergeValue(key, target, object);
     } else {
       _clone[key] = value;
@@ -205,18 +205,18 @@ export function getFirstNumber(...numbers) {
  * @return {array}
  */
 export function parseInlineContent(str = '') {
-  let content = [];
+  const content = [];
   if (str && typeof str === 'string') {
     const regex = /({ICON.*?}|{BADGE:.*?})/g;
     const badgeRegEx = /^{BADGE:(.*?)}$/g;
     const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
-    let splitStr = str.split(regex);
+    const splitStr = str.split(regex);
 
     if (splitStr && splitStr.length) {
       splitStr.forEach(item => {
         let formattedItem = item;
-        let badge = badgeRegEx.exec(item);
-        let icon = iconRegEx.exec(item);
+        const badge = badgeRegEx.exec(item);
+        const icon = iconRegEx.exec(item);
 
         if (badge && badge[1]) {
           formattedItem = { badge: badge[1] };

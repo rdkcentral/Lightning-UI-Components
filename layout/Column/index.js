@@ -401,7 +401,6 @@ export default class Column extends FocusManager {
       this._updateImmediate();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
-        // eslint-disable-next-line no-self-assign
         this.selectedIndex = this._selectedIndex;
       }
 

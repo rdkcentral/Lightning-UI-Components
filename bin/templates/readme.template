@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Story } from '@storybook/addon-docs';
 
 # MyComponent
 
@@ -9,7 +9,7 @@ Component to be displayed in a list
 `ListItem` can display a `title`, `subtitle`, and `icon`:
 
 ```js
-import { MyComponent } from '@lightning/lightning-ui';
+import { MyComponent } from '@lightningjs/ui-components';
 
 class Example extends lng.Component {
   static _template() {

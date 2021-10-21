@@ -42,7 +42,7 @@ export default class Keyboard extends lng.Component {
     // Ensure formats prop is set last
     this._whenEnabled.then(() => {
       Object.entries(formats).forEach(([key, value]) => {
-        let keyboardData = this._formatKeyboardData(value);
+        const keyboardData = this._formatKeyboardData(value);
         this._createKeyboard(key, this._createRows(keyboardData));
       });
       this.tag(this._currentFormat).alpha = 1;
@@ -69,7 +69,7 @@ export default class Keyboard extends lng.Component {
 
   _createRows(rows = []) {
     return rows.map(keys => {
-      let h = (this.keysConfig && this.keysConfig.h) || KEY_DIMENSIONS.h;
+      const h = (this.keysConfig && this.keysConfig.h) || KEY_DIMENSIONS.h;
       return {
         type: Row,
         h,
@@ -98,9 +98,8 @@ export default class Keyboard extends lng.Component {
   _formatKeyboardData(data = []) {
     if (Array.isArray(data) && data.length) {
       if (!Array.isArray(data[0]) && !this.inline) {
-        let keyRows = [],
-          idx,
-          counter;
+        const keyRows = [];
+        let idx, counter;
         for (idx = 0, counter = -1; idx < data.length; idx++) {
           if (idx % this.columnCount === 0) {
             counter++;
@@ -128,7 +127,7 @@ export default class Keyboard extends lng.Component {
   }
 
   selectKeyOn(keyboard, { row, column } = this.getSelectedKey()) {
-    let type = keyboard.constructor.name;
+    const type = keyboard.constructor.name;
     if (type === 'Row') {
       keyboard.selectedIndex = column;
     } else {
@@ -139,8 +138,8 @@ export default class Keyboard extends lng.Component {
 
   getSelectedKey() {
     let row, column;
-    let keyboard = this.tag(this._currentFormat);
-    let type = keyboard.constructor.name;
+    const keyboard = this.tag(this._currentFormat);
+    const type = keyboard.constructor.name;
     if (type === 'Row') {
       row = 0;
       column = keyboard.selectedIndex;
@@ -187,7 +186,7 @@ export default class Keyboard extends lng.Component {
   }
 
   get _defaultFormat() {
-    let defaultFormat = this.defaultFormat || Object.keys(this._formats)[0];
+    const defaultFormat = this.defaultFormat || Object.keys(this._formats)[0];
     return defaultFormat.charAt(0).toUpperCase() + defaultFormat.slice(1);
   }
 }

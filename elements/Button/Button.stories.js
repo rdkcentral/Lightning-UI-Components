@@ -86,7 +86,7 @@ LongTitle.args = {
   title: 'This is a button with a really long title'
 };
 
-let orangeStyles = {
+const orangeStyles = {
   background: {
     color: 0xffffd18c
   },

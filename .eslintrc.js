@@ -42,7 +42,8 @@ module.exports = {
       '_updateCollision',
       '_updateAttachedFlag',
       '_updateEnabledFlag'
-    ]
+    ],
+    'no-unused-vars': ['error', { args: 'after-used' }]
   },
   parserOptions: {
     parser: 'babel-eslint',
