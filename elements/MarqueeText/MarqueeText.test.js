@@ -89,7 +89,7 @@ describe('MarqueeText', () => {
     });
 
     it('#startScrolling waits till rendered', done => {
-      let renderWMock = jest.fn();
+      const renderWMock = jest.fn();
       renderWMock.mockReturnValueOnce(0).mockReturnValueOnce(500);
       Object.defineProperty(marquee, '_textRenderedW', {
         get: renderWMock
