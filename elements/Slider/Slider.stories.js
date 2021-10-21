@@ -8,9 +8,6 @@ export default {
   parameters: {
     docs: {
       page: mdx
-    },
-    stage: {
-      clearColor: 0xffffffff
     }
   }
 };
@@ -52,10 +49,7 @@ export const SignalHandling = () =>
       return {
         flex: { direction: 'column' },
         Text: {
-          text: {
-            text: 'Value: 0',
-            textColor: 0xff000000
-          }
+          text: { text: 'Value: 0' }
         },
         Slider: {
           type: Slider,
