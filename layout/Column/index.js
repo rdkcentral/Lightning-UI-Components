@@ -139,7 +139,7 @@ export default class Column extends FocusManager {
 
     // Grab all items below prev if up or all items before prev if down
     const prevItems = up
-      ? this.items.slice(prevIndex).map((i, idx) => ({
+      ? this.items.slice(prevIndex).map(i => ({
           skipPlinko: i.skipPlinko,
           index: this.items.indexOf(i)
         }))
@@ -353,7 +353,6 @@ export default class Column extends FocusManager {
       this._updateImmediate();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
-        // eslint-disable-next-line no-self-assign
         this.selectedIndex = this._selectedIndex;
       }
 

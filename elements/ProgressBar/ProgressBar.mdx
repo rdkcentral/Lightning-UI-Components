@@ -1,0 +1,66 @@
+<!-- 
+Copyright 2021 Comcast Cable Communications Management, LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# ProgressBar
+
+Component that shows current progress in a range
+
+## Usage
+
+`ProgressBar` can display `progress` as a perctange of the total `w`:
+
+```js
+import { ProgressBar } from '@lightningjs/ui-components';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ProgressBar: {
+        type: ProgressBar,
+        w: 410,
+        progress: 0.5,
+        radius: 5,
+        barColor: 4284637804,
+        progressColor: 4127195135
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-progressbar--basic" />
+</Canvas>
+
+The default progress bar width is 410.
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+h|number|false|8|height of the bar
+w|number|false|410|width of the bar when passed, `w` overrides 410 default
+progress|number|false|0|percentage of the current progress from 0 to 1
+radius|number|false|4|radius of the bar corners, 'radius' overrides default
+barColor|number,string|false|0xffceceda|bar background, 'barColor' overrides default, formats(#000000|0x0000000|12345678)
+progressColor|number,string|false|4127195135|progress fill, 'progressColor' overrides default, formats(#000000|0x0000000|12345678)
+animationDuration|number|false|0|sets the amount of time the change in progress should take
