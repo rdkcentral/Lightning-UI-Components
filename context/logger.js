@@ -1,0 +1,41 @@
+import app from './app';
+export class Logger {
+  constructor() {
+    this._logCallback = undefined;
+    this._prefix = 'LightningUI';
+  }
+
+  get logCallback() {
+    return this._logCallback;
+  }
+
+  set logCallback(value) {
+    if ('function' !== typeof value) {
+      this.warn(
+        `logCallback value must be a function, instead received ${typeof value}`
+      );
+      return;
+    }
+    this._logCallback = value;
+  }
+
+  log(...args) {
+    if (this._logCallback) this._logCallback({ level: 'log', payload: args });
+    if (app.application && app.application.getOption('debug'))
+      console.log(this._prefix, ...args);
+  }
+
+  warn(...args) {
+    if (this._logCallback) this._logCallback({ level: 'warn', payload: args });
+    if (app.application && app.application.getOption('debug'))
+      console.warn(this._prefix, ...args);
+  }
+
+  error(...args) {
+    if (this._logCallback) this._logCallback({ level: 'error', payload: args });
+    if (app.application && app.application.getOption('debug'))
+      console.error(this._prefix, ...args);
+  }
+}
+
+export default new Logger();

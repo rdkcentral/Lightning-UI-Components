@@ -1,10 +1,16 @@
 import lng from '@lightningjs/core';
+import context from '../context';
+import XfinityDarkTheme from '../themes/xfinity/dark';
+import extensions from '../themes/xfinity/extensions';
+context.setTheme({
+  ...XfinityDarkTheme,
+  extensions
+});
 
 const stage = {
   w: 1920,
   h: 1080,
   clearColor: 0x00000000,
-  debug: false,
   canvas2d: false,
   useImageWorker: false
 };
@@ -97,6 +103,7 @@ function create(Component, options = {}) {
       app._focusPath = [app];
       app.childList.first._unfocus();
     },
+    getContext: () => context,
     getInstance: () => app.childList.first,
     getFocused: () => app.focusPath[app.focusPath.length - 1],
     getApp: () => app,

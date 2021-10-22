@@ -1,7 +1,10 @@
-export default theme => ({
-  h: 8,
-  w: 410,
-  radius: theme.border.radius.xsmall,
-  barColor: theme.palette.getHexColor(theme.palette.grey[5], 15),
-  progressColor: theme.palette.getHexColor(theme.palette.grey[5], 100)
-});
+export default theme => {
+  return {
+    w: 410,
+    h: theme.spacing(1),
+    radius: theme.radius.xsmall,
+    barColor: theme.colors.fillNeutralDown,
+    progressColor: theme.colors.fillNeutralFocus
+    // focusRing: true
+  };
+};

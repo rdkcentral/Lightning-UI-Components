@@ -127,7 +127,8 @@ module.exports = {
     '<rootDir>/utils',
     '<rootDir>/mixins',
     '<rootDir>/patterns',
-    '<rootDir>/suite'
+    '<rootDir>/suite',
+    '<rootDir>/context'
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner

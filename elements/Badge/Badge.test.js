@@ -58,8 +58,13 @@ describe('Badge', () => {
     await badge.__updateSpyPromise;
     expect(badge.title).toBe(title2);
     testRenderer.update();
-    expect(badge.w).toBe(16 + title2.length);
-    expect(badge.h).toBe(50);
+    badge._BadgeText.loadTexture();
+    setTimeout(() => {
+      // TODO: This test has a race condition
+      expect(badge.w).toBe(16 + title2.length);
+      expect(badge.h).toBe(50);
+      done();
+    }, 1000);
   });
 
   it('should update the background', () => {
