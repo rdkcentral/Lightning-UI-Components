@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import FadeShader from './FadeShader';
+import { FadeShader } from '../../textures';
 
 export default class MarqueeText extends lng.Component {
   static _template() {

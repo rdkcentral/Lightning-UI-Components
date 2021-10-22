@@ -19,3 +19,4 @@ export * from './elements';
 export * from './layout';
 export * from './mixins';
 export * from './Styles';
+export * from './textures';
