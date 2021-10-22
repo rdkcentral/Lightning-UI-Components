@@ -24,3 +24,9 @@ pipeline-experiment.yml
 # publish
 *.tgz
 *.env
+
+# Definitions
+*d.ts
+
+# IntelliJ
+.idea
