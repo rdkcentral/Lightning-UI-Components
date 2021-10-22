@@ -193,6 +193,16 @@ describe('Row', () => {
       });
     });
 
+    it('should reset the Items x position when there are no items', done => {
+      row.itemPosX = 100;
+      row.items = [];
+      testRenderer.keyPress('Right');
+      row._whenEnabled.then(() => {
+        expect(row.Items.x).toBe(100);
+        done();
+      });
+    });
+
     // TODO: Fix - released to get h
     // it('should pass on screen items to onScreenEffect', done => {
     //   row.w = 200;
