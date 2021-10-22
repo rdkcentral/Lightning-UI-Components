@@ -15,3 +15,4 @@ export { default as withUpdates } from './withUpdates';
 export { default as withVibrant } from './withVibrant';
 export { default as withSoftFocus } from './withSoftFocus';
 export { default as withEditItems } from './withEditItems';
+export { default as withExtensions } from './withExtensions';

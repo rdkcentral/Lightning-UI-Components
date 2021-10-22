@@ -1,7 +1,11 @@
+import { getValidColor } from '../../Styles/Colors';
+import { withExtensions } from '../../mixins';
 import lng from '@lightningjs/core';
+import styles from './TileCircle.styles.js';
 import Tile from '../Tile';
 import withStyles from '../../mixins/withStyles';
 import CardArtwork from '../CardArtwork';
+
 export const styles = theme => ({
   spacing: theme.spacing(2)
 });
@@ -49,4 +53,4 @@ class TileCircle extends Tile {
   }
 }
 
-export default withStyles(TileCircle, styles);
+export default withExtensions(withStyles(TileCircle, styles));

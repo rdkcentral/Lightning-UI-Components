@@ -1,37 +1,10 @@
 import lng from '@lightningjs/core';
-import FocusRing from '../FocusRing';
-import withStyles from '../../mixins/withStyles';
-import blackBackground from '../../Styles/assets/black_background_tile';
-import Base from '../Base';
+import styles from './Tile.styles';
+import Base from '../../Base';
+import { withExtensions } from '../../mixins';
+import withStyles from '../../mixins/withThemeStyles';
 import Gradient from '../Gradient';
 import Pool from '../../utils/pool';
-
-export const styles = theme => ({
-  shouldAnimate: true,
-  radius: theme.border.radius.medium,
-  shadow: theme.materials.shadow,
-  blur: 0,
-  src: blackBackground,
-  focusringType: FocusRing,
-  focusring: function ({ w, h, radius, color }) {
-    return {
-      w,
-      h,
-      radius: radius + 2,
-      color,
-      size: theme.spacing(0.5),
-      zIndex: 1
-    };
-  },
-  unfocused: {
-    focusring: { alpha: 0 },
-    shadow: { alpha: 0 }
-  },
-  focused: {
-    focusring: { alpha: 1 },
-    shadow: { alpha: 1 }
-  }
-});
 
 class Tile extends Base {
   static _template() {
@@ -42,9 +15,17 @@ class Tile extends Base {
     };
   }
 
+  static get name() {
+    return 'Tile';
+  }
+
+  static get properties() {
+    return ['src', 'focusSrc', 'fallbackSrc'];
+  }
+
   static get tags() {
     return [
-      'Blur',
+      { name: 'Blur', path: 'Item.Blur' },
       'DropShadow',
       'FocusRing',
       'Item',
@@ -54,193 +35,113 @@ class Tile extends Base {
     ];
   }
 
-  static get properties() {
-    return [
-      'radius',
-      'imgRadius',
-      'focusImgRadius',
-      'blur',
-      'src',
-      'focusSrc',
-      'fallbackSrc',
-      'focusRingColor',
-      'gradientColor',
-      'focusGradient',
-      'persistGradient',
-      'shouldAnimate'
-    ];
+  static get __componentName() {
+    return 'Tile';
   }
 
-  _construct() {
-    this._radius = this.styles.radius;
-    this._shouldAnimate = this.styles.shouldAnimate;
-    this._src = this._fallbackSrc = this.styles.src;
-    this._blur = this.styles.blur;
-    this._createShadow = this.styles.shadow;
-    this._createFocusRing = this.styles.focusring;
-    this._focusRingColor = this.styles.focusRingColor;
-    this._focusRingType = this.styles.focusringType;
-    this._focusedStyle = this.styles.focused;
-    this._unfocusedStyle = this.styles.unfocused;
-    super._construct && super._construct();
-  }
-
-  _init() {
-    this._Image.on('txError', () => {
-      this.src = this.src !== this.fallbackSrc ? this.fallbackSrc : null;
-      if (this.imgRadius === 0 && this.radius) {
-        this.imgRadius = this.radius;
-      }
-      this._update();
-    });
-    super._init();
+  get _shouldShowGradient() {
+    if (this._componentStyles.persistGradient) {
+      return true;
+    } else if (this._componentStyles.focusGradient && this.hasFocus()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _update() {
-    this._whenEnabled.then(() => {
-      this._Item.w = this.w;
-      this._Item.h = this.h;
-      this._updateImage();
-      this._updateFocusImage();
-      this._updateBlur();
-      this._updateRadius();
-      this._updateGradient();
-      this._updateDropShadow();
-      this._updateFocusRing();
-      this._updateScale();
-    });
+    this._Item.w = this.finalW;
+    this._Item.h = this.finalH;
+    this._updateImage();
+    this._updateBlur();
+    this._updateRadius();
+    this._updateGradient();
+    this._updateScale();
   }
 
   _updateImage() {
-    this._Image.patch({
-      rtt: true,
-      zIndex: 2,
-      w: this.w,
-      h: this.h,
-      texture: {
-        type: lng.textures.ImageTexture,
-        src: this._src,
-        resizeMode: { type: 'cover', w: this.w, h: this.h }
+    if (this._componentStyles.blur > 1) {
+      const _Image = this._Item.childList.getByRef('Blur');
+      if (_Image) {
+        this._Item.childList.remove(_Image);
       }
-    });
-  }
-
-  _updateFocusImage() {
-    if (this._focusSrc && (this.hasFocus() || this._FocusImage)) {
-      if (!this._FocusImage) {
-        this._Item.patch({
-          FocusImage: {
-            alpha: 0.001,
-            firstLoad: true,
-            rtt: true,
-            zIndex: 2,
-            w: this.w,
-            h: this.h,
-            texture: {
-              type: lng.textures.ImageTexture,
-              src: this._focusSrc,
-              resizeMode: { type: 'cover', w: this.w, h: this.h }
-            }
-          }
-        });
-        this._FocusImage.on('txLoaded', () => {
-          this._FocusImage.off('txLoaded');
-          this._FocusImage.firstLoad = false;
-          this._updateFocusImageAlpha();
-        });
-      } else if (!this._FocusImage.firstLoad) {
-        this._updateFocusImageAlpha();
-      }
-    }
-  }
-
-  _updateFocusImageAlpha() {
-    const focusImageAlpha = this.hasFocus() ? 1 : 0;
-    const imageAlpha = Number(!focusImageAlpha);
-    if (this._smooth) {
-      this._FocusImage.smooth = { alpha: focusImageAlpha };
-      this._Image.smooth = { alpha: imageAlpha };
     } else {
-      this._FocusImage.alpha = focusImageAlpha;
-      this._Image.alpha = imageAlpha;
-    }
-  }
-
-  _patchBlur() {
-    this._Item.patch({
-      Blur: {
-        type: lng.components.FastBlurComponent,
-        w: this.w,
-        h: this.h,
+      this._Image.patch({
         rtt: true,
-        zIndex: 3,
-        content: {
-          Image: {
-            w: this._Image.w,
-            h: this._Image.h,
-            texture: this._Image.getTexture()
-          }
+        zIndex: 2,
+        w: this.finalW,
+        h: this.finalH,
+        texture: {
+          type: lng.textures.ImageTexture,
+          radius: this._componentStyles.radius,
+          src: this._src,
+          resizeMode: { type: 'cover', w: this.w, h: this.h }
         }
-      }
-    });
+      });
+    }
   }
 
   _updateBlur() {
-    const alpha = this._blur > 0 ? 1 : 0;
-    const amount = this._blur;
-    if (this._blur || this._Blur) {
-      this._patchBlur();
-      if (this._smooth) {
-        this._Blur.smooth = { alpha, amount };
-      } else {
-        this._Blur.patch({ alpha, amount });
-      }
+    if (this._componentStyles.blur > 0) {
+      const alpha = this._componentStyles.blur > 0 ? 1 : 0;
+      const amount = this._componentStyles.blur;
+      this._Item.patch({
+        Blur: {
+          alpha,
+          amount,
+          type: lng.components.FastBlurComponent,
+          w: this.w,
+          h: this.h,
+          rtt: true,
+          zIndex: 3,
+          content: {
+            Image: {
+              w: this._Image.w,
+              h: this._Image.h,
+              texture: {
+                type: lng.textures.ImageTexture,
+                radius: this._componentStyles.radius,
+                src: this._src,
+                resizeMode: { type: 'cover', w: this.w, h: this.h }
+              }
+            }
+          }
+        }
+      });
+    } else if (this._Blur) {
+      const _Blur = this._Item.childList.getByRef('Blur');
+      this._Item.childList.remove(_Blur);
     }
   }
 
   _updateRadius() {
-    if (this._radius) {
-      if (this._imgRadius === undefined || this._imgRadius !== 0) {
-        this._Image.patch({
-          shader: {
-            type: lng.shaders.RoundedRectangle,
-            radius: this._imgRadius || this._radius
-          }
-        });
-      }
-      if (
-        this._FocusImage &&
-        (this._focusImgRadius === undefined || this._focusImgRadius !== 0)
-      ) {
-        this._FocusImage.patch({
-          shader: {
-            type: lng.shaders.RoundedRectangle,
-            radius: this._focusImgRadius || this._radius
-          }
-        });
-      }
-      if (this._blur || this._Blur) {
-        this._Blur.patch({
-          shader: {
-            type: lng.shaders.RoundedRectangle,
-            radius: this._radius
-          }
-        });
-      }
+    if (this._componentStyles.radius > 0) {
+      this._Item.patch({
+        shader: {
+          type: lng.shaders.RoundedRectangle,
+          radius: this._componentStyles.radius
+        }
+      });
+    } else {
+      this._Item.patch({
+        shader: null
+      });
     }
   }
 
   _updateGradient() {
+    // TODO: Remove gradient if changed
     if (this._shouldShowGradient) {
       const gradientParams = {
         x: -1,
+        y: 1,
         w: this.w + 2,
         h: this.h + 1,
-        radius: this.radius,
+        radius: this._componentStyles.radius,
         zIndex: 3
       };
-      if (this._gradientColor) {
-        gradientParams.gradientColor = this._gradientColor;
+      if (this._componentStyles.gradientColor) {
+        gradientParams.gradientColor = this._componentStyles.gradientColor;
       }
       if (!this._Gradient) {
         this._Item.patch({ Gradient: { type: Gradient, ...gradientParams } });
@@ -259,87 +160,10 @@ class Tile extends Base {
     }
   }
 
-  _updateDropShadow() {
-    if (this.hasFocus() || this._shadow) {
-      if (!this._shadow) {
-        this._shadow = this._createShadow({
-          w: this.w,
-          h: this.h,
-          borderRadius: this.radius
-        });
-      }
-      let DropShadow = this._shadow;
-      const style = this.hasFocus()
-        ? this._focusedStyle.shadow
-        : this._unfocusedStyle.shadow;
-      if (this._smooth) {
-        DropShadow.smooth = style;
-      } else {
-        DropShadow = { ...DropShadow, ...style };
-      }
-      this.patch({ DropShadow });
-    }
-  }
-
-  vibrantCallback() {
-    this.focusRingColor = this.vibrantFocusRing;
-    this._update();
-  }
-
-  _updateFocusRing() {
-    let style,
-      focusRingComp = this._FocusRing;
-
-    if (this.hasFocus()) {
-      focusRingComp =
-        focusRingComp ||
-        Pool.get('tile_focusring') ||
-        Pool.create({
-          name: 'tile_focusring',
-          component: {
-            ...this._createFocusRing({
-              w: this.w,
-              h: this.h,
-              radius: this._radius,
-              color: this.focusRingColor
-            }),
-            alpha: 0,
-            type: this._focusRingType
-          },
-          stage: this.stage
-        });
-
-      this.patch({ FocusRing: focusRingComp });
-      focusRingComp.shouldAnimate = this.shouldAnimate;
-      style = this._focusedStyle.focusring;
-
-      const mustUpdate =
-        focusRingComp.w !== this.w || focusRingComp.h !== this.h;
-      focusRingComp.patch({
-        w: this.w,
-        h: this.h,
-        radius: this._radius,
-        alpha: 0,
-        scale: 1
-      });
-      mustUpdate && focusRingComp._update();
-    } else if (focusRingComp) {
-      style = this._unfocusedStyle.focusring;
-    }
-
-    if (style) {
-      if (this._smooth) {
-        focusRingComp.smooth = style;
-      } else {
-        focusRingComp.patch(style);
-      }
-    }
-  }
-
   _updateScale() {
     const scale = this.hasFocus()
-      ? this._getFocusScale(this.w, this.h)
-      : this._getUnfocusScale(this.w, this.h);
+      ? this._componentStyles.getFocusScale(this.w, this.h)
+      : this._componentStyles.getUnfocusScale(this.w, this.h);
     if (this._smooth) {
       this._Item.smooth = { scale };
       if (this._FocusRing) this._FocusRing.smooth = { scale };
@@ -347,24 +171,10 @@ class Tile extends Base {
     } else {
       this._Item.scale = scale;
       if (this._FocusRing) this._FocusRing.scale = scale;
+
       if (this._DropShadow) this._DropShadow.scale = scale;
     }
   }
-
-  get _shouldShowGradient() {
-    if (this.persistGradient) {
-      return true;
-    } else if (this.focusGradient && this.hasFocus()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  set shadow(shadow) {
-    this._shadow = shadow;
-    this._requestUpdateDebounce();
-  }
 }
 
-export default withStyles(Tile, styles);
+export default withExtensions(withStyles(Tile, styles));

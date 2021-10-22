@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-import { rgba2argb } from '../../utils';
 
 import Tile from '.';
 import Row from '../../layout/Row';
@@ -10,7 +9,6 @@ import parksFocus from '../../assets/images/Parks_and_Recreation_16x9_NoTitle.jp
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
-import { withLayout } from '../../mixins';
 
 export default {
   title: 'Elements / Tile',
@@ -29,27 +27,10 @@ export const Basic = args =>
           type: Tile,
           src: kabob,
           w: 320,
-          h: 180,
-          blur: args.blur,
-          radius: args.radius,
-          imgRadius: args.imgRadius,
-          focusGradient: args.focusGradient,
-          persistGradient: args.persistGradient,
-          gradientColor: rgba2argb(args.color),
-          shadow: {
-            w: 320,
-            h: 180,
-            x: 10,
-            y: 10,
-            zIndex: -1,
-            texture: lng.Tools.getShadowRect(320, 180, args.radius, args.blur),
-            color: rgba2argb(args.color)
-          },
-          shouldAnimate: args.shouldAnimate
+          h: 180
         }
       };
     }
-
     _getFocused() {
       if (args.focused) {
         return this.tag('Tile');
@@ -122,7 +103,6 @@ export const XfinityTheme = args =>
                 ratioY: 9,
                 upCount: 5
               },
-              radius: args.radius,
               onArrowUp: keyEvent => {
                 // eslint-disable-next-line no-restricted-syntax
                 console.log('You hit Up ', keyEvent);
@@ -157,15 +137,6 @@ export const XfinityTheme = args =>
               w: args.width,
               h: args.height,
               radius: args.radius
-            },
-            {
-              type: withLayout(Tile),
-              radius: args.radius,
-              itemLayout: {
-                ratioX: 16,
-                ratioY: 9,
-                upCount: 5
-              }
             }
           ]
         }
