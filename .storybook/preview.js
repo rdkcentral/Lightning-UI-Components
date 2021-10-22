@@ -51,13 +51,16 @@ export const parameters = {
 const white = 0xffffffff;
 const black = 0xff000000;
 const stage = {
-  w: 920,
-  h: 560,
+  w: 1280,
+  h: 720,
+  precision: 2 / 3,
   clearColor: black,
   debug: false,
   canvas2d: false,
   useImageWorker: false,
-  inspector: false
+  inspector: false,
+  textRenderSharpPrecision: 1,
+  textRenderSharpFontSize: 1
 };
 
 /**
@@ -130,7 +133,7 @@ addDecorator(
           type: StoryComponent(),
           w: w => w,
           h: h => h,
-          x: 40,
+          x: 80,
           y: 40
         }
       };

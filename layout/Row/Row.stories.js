@@ -37,7 +37,7 @@ export const Basic = args =>
       return {
         Row: {
           type: Row,
-          w: 1920 - 180, // x offset from preview.js * 2
+          w: 1920 - 160, // x offset from preview.js * 2
           itemSpacing: args.itemSpacing,
           alwaysScroll: args.alwaysScroll,
           neverScroll: args.neverScroll,
