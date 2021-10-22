@@ -22,7 +22,7 @@ import mdx from './FocusManager.mdx';
 import withSelections from '../../mixins/withSelections';
 
 export default {
-  title: 'layout / FocusManager',
+  title: 'Layout / FocusManager',
   parameters: {
     docs: {
       page: mdx
