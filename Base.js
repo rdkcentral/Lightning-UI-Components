@@ -25,7 +25,7 @@ class Base extends lng.Component {
     this._smooth = false;
   }
 
- _focus() {
+  _focus() {
     if (this._smooth === undefined) this._smooth = true;
     this._update();
   }

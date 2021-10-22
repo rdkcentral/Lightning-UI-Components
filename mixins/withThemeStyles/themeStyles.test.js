@@ -2,7 +2,11 @@ import TestUtils from '../../test/lightning-test-utils';
 import withThemeStyles from '.';
 import Base from '../../Base';
 import { context } from '../..';
+<<<<<<< HEAD
 import XfinityTheme from '../../themes/xfinity';
+=======
+import XfinityDarkTheme from '../../themes/xfinity/dark';
+>>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
 const style = theme => {
   return {
     radius: theme.radius.medium,
@@ -32,7 +36,11 @@ beforeEach(() => {
   [withThemeStylesComponent] = TestUtils.makeCreateComponent(
     withThemeStyles(TestComponent, style)
   )();
+<<<<<<< HEAD
   context.setTheme(XfinityTheme);
+=======
+  context.setTheme(XfinityDarkTheme);
+>>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
 });
 
 afterEach(() => {
