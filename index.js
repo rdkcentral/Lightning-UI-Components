@@ -6,4 +6,5 @@ export * from './patterns';
 export * from './suite';
 export * from './textures';
 export * from './utils';
-export {default as context} from './context';
+export { default as context } from './context';
+export * from './Base';

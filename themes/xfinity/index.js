@@ -3,6 +3,7 @@ import { layout, getFocusScale } from './layout';
 import radius from './radius';
 import typography from './typography';
 import animations from './animations';
+import extensions from './extensions';
 
 export default {
   colors: COLORS_DARK,
@@ -10,5 +11,6 @@ export default {
   getFocusScale,
   radius,
   typography,
-  animations
+  animations,
+  extensions
 };
