@@ -104,7 +104,11 @@ describe('Tooltip', () => {
     let button, buttonRenderer;
     beforeEach(() => {
       tooltip._focus();
+<<<<<<< HEAD
       // eslint-disable-next-line no-unused-vars
+=======
+
+>>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
       [button, buttonRenderer] = createButton({ title: 'Button' });
       buttonRenderer.update();
     });

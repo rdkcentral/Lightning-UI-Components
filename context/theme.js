@@ -17,7 +17,7 @@ export class Theme {
   constructor() {
     this._cache = new Map();
   }
-  
+
   getTheme() {
     if (this._cache.has('theme')) {
       return this._cache.get('theme');
@@ -38,7 +38,6 @@ export class Theme {
     this._cache.set('theme', this._processTheme.call(this, [value]));
 
     events.emit('themeUpdate'); // Notify components that an update cycle is required
-    
   }
 
   /**
