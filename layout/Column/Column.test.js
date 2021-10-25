@@ -220,6 +220,16 @@ describe('Column', () => {
         testRenderer.update();
         expect(column.items[1].selectedIndex).toBe(0);
       });
+
+      it('should reset the Items y position when there are no items', done => {
+        column.itemPosY = 100;
+        column.items = [];
+        testRenderer.keyPress('Down');
+        column._whenEnabled.then(() => {
+          expect(column.Items.y).toBe(100);
+          done();
+        });
+      });
     });
 
     describe('with plinko true', () => {

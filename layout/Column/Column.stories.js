@@ -163,7 +163,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 160, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -174,7 +174,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 900,
+              w: 1920 - 160, // x offset from preview.js * 2,
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
