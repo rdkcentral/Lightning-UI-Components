@@ -1,3 +1,10 @@
+## [1.2.1-beta.1](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.0...v1.2.1-beta.1) (2021-10-26)
+
+
+### Bug Fixes
+
+* **package:** add Styles dir to files ([cbc719f](https://github.com/rdkcentral/Lightning-UI-Components/commit/cbc719f6fd9ef4c887e54c3b50fa37cd233bf1ec))
+
 # [1.2.0](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.1.0...v1.2.0) (2021-10-26)
 
 
