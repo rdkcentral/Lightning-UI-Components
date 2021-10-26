@@ -25,25 +25,25 @@ jobs:
       - run: npm ci
       - run: npm run test
 
-  # publish-npm:
-  #   needs: test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         token: ${{secrets.GIT_PUBLISH_TOKEN}}
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 14.17
-  #         registry-url: https://registry.npmjs.org/
-  #     - run: npm ci
-  #     - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
-  #       env:
-  #         GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
-  #         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  publish-npm:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{secrets.GIT_PUBLISH_TOKEN}}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.17
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
+        env:
+          GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-sb:
-    needs: test
+    needs: publish-npm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
