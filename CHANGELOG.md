@@ -1,3 +1,10 @@
+## [1.2.1-beta.1](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.0...v1.2.1-beta.1) (2021-10-26)
+
+
+### Bug Fixes
+
+* **workflow:** build package before publishing ([1175363](https://github.com/rdkcentral/Lightning-UI-Components/commit/117536381591839f0a958c45eaf8c25932ad4148))
+
 # [1.2.0](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.1.0...v1.2.0) (2021-10-26)
 
 
