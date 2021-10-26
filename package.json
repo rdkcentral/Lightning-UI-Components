@@ -14,8 +14,8 @@
   "files": [
     "index.js",
     "Styles.js",
-    "{bin,elements,layout,mixins,utils}/**/*",
-    "!elements|layout/**/*.stories.js",
+    "{bin,elements,layout,mixins,Styles,utils}/**/*",
+    "!elements|layout|Styles/**/*.stories.js",
     "!{elements,layout,utils}/**/*.test.js",
     "!elements|layout/lightning-test-renderer.js",
     "!elements|layout/lightning-test-utils.js",
