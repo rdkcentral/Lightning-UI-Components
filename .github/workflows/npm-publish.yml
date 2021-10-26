@@ -48,12 +48,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{secrets.GIT_PUBLISH_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
       - uses: actions/setup-node@v2
         with:
           node-version: 14.17
       - run: npm i
       - run: npm run build
-      - run: npm run gh-pages
-        env:
-          GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
+      - run: |
+          git remote set-url origin https://git:${{secrets.GITHUB_TOKEN}}@github.com/rdkcentral/Lightning-UI-Components.git
+          npm run gh-pages -- -u "github-actions-bot <support+actions@github.com>"
+
