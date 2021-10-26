@@ -3,10 +3,14 @@ import withThemeStyles from '.';
 import Base from '../../Base';
 import { context } from '../..';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import XfinityTheme from '../../themes/xfinity';
 =======
 import XfinityDarkTheme from '../../themes/xfinity/dark';
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+import XfinityTheme from '../../themes/xfinity';
+>>>>>>> refactor(Theming): update colors and move to single Xfinity theme (#720)
 const style = theme => {
   return {
     radius: theme.radius.medium,
@@ -37,10 +41,14 @@ beforeEach(() => {
     withThemeStyles(TestComponent, style)
   )();
 <<<<<<< HEAD
+<<<<<<< HEAD
   context.setTheme(XfinityTheme);
 =======
   context.setTheme(XfinityDarkTheme);
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+  context.setTheme(XfinityTheme);
+>>>>>>> refactor(Theming): update colors and move to single Xfinity theme (#720)
 });
 
 afterEach(() => {
