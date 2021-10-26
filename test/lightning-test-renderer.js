@@ -1,9 +1,9 @@
 import lng from '@lightningjs/core';
 import context from '../context';
-import XfinityDarkTheme from '../themes/xfinity/dark';
+import XfinityTheme from '../themes/xfinity';
 import extensions from '../themes/xfinity/extensions';
 context.setTheme({
-  ...XfinityDarkTheme,
+  ...XfinityTheme,
   extensions
 });
 

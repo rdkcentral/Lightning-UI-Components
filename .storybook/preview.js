@@ -11,8 +11,7 @@ import withAnnouncer from '../mixins/withAnnouncer';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
-import XfinityDarkTheme from '../themes/xfinity/dark';
-import XfinityLightTheme from '../themes/xfinity/light';
+import XfinityTheme from '../themes/xfinity';
 
 export const globalTypes = {
   announce: {
@@ -31,8 +30,7 @@ export const globalTypes = {
     toolbar: {
       items: [
         { title: 'Base', value: 'base' },
-        { title: 'Xfinity Dark', value: 'dark' },
-        { title: 'Xfinity Light', value: 'light' }
+        { title: 'Xfinity', value: 'xfinity' },
       ],
       showName: true
     }
@@ -70,11 +68,8 @@ window.addEventListener(
 let lightningUITheme;
 if (!window.localStorage.getItem('customTheme')) {
   switch (window.localStorage.getItem('theme')) {
-    case 'dark':
-      lightningUITheme = XfinityDarkTheme;
-      break;
-    case 'light':
-      lightningUITheme = XfinityLightTheme;
+    case 'xfinity':
+      lightningUITheme = XfinityTheme;
       break;
     default:
       lightningUITheme = {};
@@ -137,16 +132,10 @@ function createApp(parameters) {
 
 function setTheme(themeName) {
   switch (themeName) {
-    case 'dark':
+    case 'xfinity':
       if (window.APP) {
-        window.APP.stage.emit('setTheme', XfinityDarkTheme);
-        window.localStorage.setItem('theme', 'dark');
-      }
-      break;
-    case 'light':
-      if (window.APP) {
-        window.APP.stage.emit('setTheme', XfinityLightTheme);
-        window.localStorage.setItem('theme', 'light');
+        window.APP.stage.emit('setTheme', XfinityTheme);
+        window.localStorage.setItem('theme', 'xfinity');
       }
       break;
     default:

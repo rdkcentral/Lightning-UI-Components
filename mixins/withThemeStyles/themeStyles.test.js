@@ -2,7 +2,7 @@ import TestUtils from '../../test/lightning-test-utils';
 import withThemeStyles from '.';
 import Base from '../../Base';
 import { context } from '../..';
-import XfinityDarkTheme from '../../themes/xfinity/dark';
+import XfinityTheme from '../../themes/xfinity';
 const style = theme => {
   return {
     radius: theme.radius.medium,
@@ -32,7 +32,7 @@ beforeEach(() => {
   [withThemeStylesComponent] = TestUtils.makeCreateComponent(
     withThemeStyles(TestComponent, style)
   )();
-  context.setTheme(XfinityDarkTheme);
+  context.setTheme(XfinityTheme);
 });
 
 afterEach(() => {
