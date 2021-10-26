@@ -358,6 +358,14 @@ export default class TabBar extends Base {
     return this._Container.selected;
   }
 
+  get selectedIndex() {
+    return this._Container.selectedIndex;
+  }
+
+  set selectedIndex(index) {
+    this._Container.selectedIndex = index;
+  }
+
   get tabs() {
     return this._Container.items;
   }
