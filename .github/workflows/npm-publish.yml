@@ -37,6 +37,7 @@ jobs:
           node-version: 14.17
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm run build
       - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
         env:
           GH_TOKEN: ${{secrets.GIT_PUBLISH_TOKEN}}
