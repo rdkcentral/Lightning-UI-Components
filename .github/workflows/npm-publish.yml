@@ -56,7 +56,7 @@ jobs:
       - run: npm run build
       - run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/rdkcentral/Lightning-UI-Components.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+          npm run gh-pages -- -u "github-actions-bot <support+actions@github.com>"
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
