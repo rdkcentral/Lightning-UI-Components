@@ -100,6 +100,7 @@ describe('Tooltip', () => {
   });
 
   describe('position', () => {
+    // eslint-disable-next-line no-unused-vars
     let button, buttonRenderer;
     beforeEach(() => {
       tooltip._focus();

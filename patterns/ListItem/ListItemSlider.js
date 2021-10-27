@@ -22,12 +22,6 @@ export default class ListItemSlider extends ListItem {
     };
   }
 
-  _init() {
-    this.icon = undefined;
-    super._init();
-    this._update();
-  }
-
   _update() {
     this._Slider.w =
       this._Container.finalW -
@@ -38,6 +32,14 @@ export default class ListItemSlider extends ListItem {
   }
 
   _updateSlider() {
+    const sliderValues = ['value'].reduce((acc, curr) => {
+      if ('undefined' !== typeof this[curr]) acc[curr] = this[curr];
+      return acc;
+    }, {});
+
+    this._Slider.patch(sliderValues);
+
+    this._previousFocus = this.hasFocus();
     if (this.hasFocus()) {
       this._Slider.smooth = { alpha: 1 };
       this._Container.patch({
@@ -90,16 +92,6 @@ export default class ListItemSlider extends ListItem {
     }
   }
 
-  _focus() {
-    super._focus();
-    this._update();
-  }
-
-  _unfocus() {
-    super._unfocus();
-    this._update();
-  }
-
   _getFocused() {
     return this._Slider;
   }
@@ -111,47 +103,55 @@ export default class ListItemSlider extends ListItem {
     }
   }
 
-  get max() {
-    return this._Slider.max;
+  static get properties() {
+    return [...super.properties, 'max', 'min', 'step', 'value'];
   }
 
-  set max(max) {
-    this._Slider.max = max;
+  static get tags() {
+    return [...super.tags, { name: 'Slider', path: 'Right.Slider' }];
   }
 
-  get min() {
-    return this._Slider.min;
+  get announce() {
+    return this._announce
+      ? this._announce
+      : [this._title, this._value].join(' ');
+  }
+  set announce(announce) {
+    if (this._announce !== announce) {
+      this._announce = announce;
+      this._update();
+    }
   }
 
-  set min(min) {
-    this._Slider.min = min;
-  }
-
-  get step() {
-    return this._Slider.step;
-  }
-
-  set step(step) {
-    this._Slider.step = step;
-  }
-
-  get subtitle() {
-    return this.value;
-  }
-
-  get value() {
+  _getValue() {
     return this._Slider.value;
   }
 
-  set value(value) {
+  _setValue(value) {
     this._Slider.value = value;
   }
 
-  get _Slider() {
-    return this.tag('Container.Right.Slider');
+  _getMax() {
+    return this._Slider.max;
   }
 
-  get _rightOffset() {
-    return 0;
+  _setMax(max) {
+    return (this._Slider.max = max);
+  }
+
+  _getMin() {
+    return this._Slider.min;
+  }
+
+  _setMin(min) {
+    this._Slider.min = min;
+  }
+
+  _getStep() {
+    return this._Slider.step;
+  }
+
+  _setStep(step) {
+    return (this._Slider.step = step);
   }
 }

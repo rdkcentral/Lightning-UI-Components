@@ -1,4 +1,5 @@
-import ListItem, { ListItemBase } from './ListItem';
+import ListItem from './ListItem';
+import ListItemBase from './ListItemBase';
 import ListItemImage from './ListItemImage';
 import ListItemImageGroup from './ListItemImageGroup';
 import ListItemPicker from './ListItemPicker';
@@ -9,10 +10,10 @@ import ListItemToggle from './ListItemToggle';
 export {
   ListItem as default,
   ListItemBase,
-  ListItemToggle,
-  ListItemRadio,
   ListItemImage,
   ListItemImageGroup,
   ListItemPicker,
-  ListItemSlider
+  ListItemRadio,
+  ListItemSlider,
+  ListItemToggle
 };

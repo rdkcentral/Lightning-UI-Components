@@ -4,6 +4,7 @@ import Gradient from '.';
 const createComponent = TestUtils.makeCreateComponent(Gradient);
 
 describe('Gradient', () => {
+  // eslint-disable-next-line no-unused-vars
   let component, testRenderer;
 
   beforeEach(() => {

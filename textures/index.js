@@ -160,6 +160,7 @@ class Arrow extends lng.Texture {
 
   _getSourceLoader() {
     // We need to scope these to protect them from modifications while loading (which may be async).
+
     const color = this._color;
     const w = this._w;
     const h = this._h;
@@ -175,7 +176,6 @@ class Arrow extends lng.Texture {
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
-
       const p = ctx.lineWidth / 2;
       ctx.beginPath();
 

@@ -3,6 +3,7 @@ import lng from '@lightningjs/core';
 import ListItem from './ListItem';
 import mdx from './ListItem.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
+import menuIcon from '../../assets/images/ic_eye_white_48.png';
 
 export default {
   title: 'Patterns/ListItem',
@@ -115,7 +116,7 @@ export const MultipleIcons = () =>
           type: ListItem,
           title: 'List Item',
           subtitle: 'List item metadata',
-          icon: [icon, icon],
+          icon: [menuIcon, menuIcon],
           size: 'small',
           backgroundType: 'fill'
         }

@@ -42,7 +42,7 @@ describe('ListItemBase', () => {
   });
 
   it('renders the correct height', () => {
-    expect(listItemBase._Container.finalH).toBe(88);
+    expect(listItemBase._Container.finalH).toBe(96);
   });
 
   it('renders small size', () => {
@@ -315,7 +315,6 @@ describe('ListItemToggle', () => {
   it('toggles on enter', done => {
     testRenderer.keyPress('Enter');
     testRenderer.update();
-
     setTimeout(() => {
       expect(listItemToggle.isChecked()).toBe(true);
       done();
@@ -424,16 +423,32 @@ describe('ListItemImage', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('updates image size', () => {
-    listItemImage.imageSize = 80;
-    testRenderer.update();
-    expect(listItemImage.imageSize).toBe(80);
-    expect(listItemImage.h).toBe(96);
+  it('updates image size', async done => {
+    listItemImage.image = src;
 
-    listItemImage.imageSize = 60;
-    testRenderer.update();
-    expect(listItemImage.imageSize).toBe(60);
-    expect(listItemImage.h).toBe(88);
+    const test1 = () => {
+      return new Promise(resolve => {
+        listItemImage.imageSize = 80;
+        setTimeout(() => {
+          expect(listItemImage.h).toBe(96);
+          resolve();
+        }, 0);
+      });
+    };
+
+    const test2 = () => {
+      return new Promise(resolve => {
+        listItemImage.imageSize = 60;
+        setTimeout(() => {
+          expect(listItemImage.h).toBe(96);
+          resolve();
+        }, 0);
+      });
+    };
+
+    await test1();
+    await test2();
+    done();
   });
 });
 
@@ -469,7 +484,7 @@ describe('ListItemSlider', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('passes properties to the Slider', () => {
+  it('passes properties to the Slider', done => {
     [listItemSlider, testRenderer] = createListItemSlider({
       value: 8,
       min: 1,
@@ -478,10 +493,13 @@ describe('ListItemSlider', () => {
     });
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    expect(listItemSlider._Slider.value).toEqual(8);
-    expect(listItemSlider._Slider.min).toEqual(1);
-    expect(listItemSlider._Slider.max).toEqual(10);
-    expect(listItemSlider._Slider.step).toEqual(2);
+    setTimeout(() => {
+      expect(listItemSlider._Slider.value).toEqual(8);
+      expect(listItemSlider._Slider.min).toEqual(1);
+      expect(listItemSlider._Slider.max).toEqual(10);
+      expect(listItemSlider._Slider.step).toEqual(2);
+      done();
+    }, 0);
   });
 
   it('renders properly on unfocus', () => {
@@ -493,7 +511,7 @@ describe('ListItemSlider', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('updates the value', () => {
+  it('updates the value', done => {
     let tree;
     listItemSlider._focus();
 
@@ -506,6 +524,7 @@ describe('ListItemSlider', () => {
     tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(listItemSlider.value).toEqual(0);
+    done();
   });
 
   it('should announce title and value', () => {
@@ -556,7 +575,7 @@ describe('ListItemPicker', () => {
     });
   });
 
-  it('renders selected option as subtitle on unfocus', () => {
+  it('renders selected option as subtitle on unfocus', done => {
     [listItemPicker, testRenderer] = createListItemPicker({
       title: 'List Item Picker',
       options: ['op1', 'op2', 'op3']
@@ -565,6 +584,9 @@ describe('ListItemPicker', () => {
     testRenderer.unfocus();
     expect(listItemPicker.hasFocus()).toBe(false);
     expect(listItemPicker._Subtitle.visible).toBe(true);
-    expect(listItemPicker._Subtitle.text.text).toBe('op1');
+    setTimeout(() => {
+      expect(listItemPicker._Subtitle.text.text).toBe('op1');
+      done();
+    }, 1);
   });
 });

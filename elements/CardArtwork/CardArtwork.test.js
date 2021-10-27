@@ -4,6 +4,7 @@ import CardArtwork from '.';
 const createComponent = TestUtils.makeCreateComponent(CardArtwork);
 
 describe('CardArtwork', () => {
+  // eslint-disable-next-line no-unused-vars
   let component, testRenderer;
 
   beforeEach(() => {

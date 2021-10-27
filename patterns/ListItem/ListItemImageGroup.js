@@ -1,23 +1,10 @@
-import lng from '@lightningjs/core';
+import { ListItemImage } from '.';
+import Base from '../../elements/Base';
 import Column from '../../layout/Column';
 import DataItem from '../DataItem';
-import { ListItemImage } from '.';
+import styles from './ListItemImageGroup.styles';
 import withStyles from '../../mixins/withStyles';
-
-export const styles = theme => ({
-  imageResize: 96,
-  itemSpacing: theme.spacing(1),
-  padding: {
-    y: theme.spacing(2)
-  },
-  imageRadius: theme.spacing(1),
-  getFocusScale: theme.getFocusScale
-});
-
-export default class ListItemImageGroup extends withStyles(
-  lng.Component,
-  styles
-) {
+export default class ListItemImageGroup extends withStyles(Base, styles) {
   static _template() {
     return {
       w: 410,
@@ -40,12 +27,53 @@ export default class ListItemImageGroup extends withStyles(
     };
   }
 
-  _construct() {
-    super._construct();
-    this.paddingY = this.styles.padding.y;
-    this.imageResize = this.styles.imageResize;
-    this.itemSpacing = this.styles.itemSpacing;
-    this.imageRadius = this.styles.imageRadius;
+  static get properties() {
+    return ['listItems'];
+  }
+
+  static get tags() {
+    return ['DataItem', { name: 'Column', path: 'DataItem.Content.Column' }];
+  }
+
+  get announce() {
+    return this._Column.items.map(item => item.announce).join(',');
+  }
+
+  _update() {
+    // Allow override of props with spread as last prop
+    this._Column.items = this._listItems.map(item => ({
+      type: ListItemImage,
+      title: item.title,
+      subtitle: item.subtitle,
+      size: 'small',
+      image: item.src,
+      backgroundType: 'float',
+      imageSize: this.styles.imageResize,
+      ...item
+    }));
+
+    // Image must be set before
+    this._Column.items.forEach(item => {
+      item.h = this.imageResize + this.styles.itemSpacing;
+      item._Container.h = this.imageResize + this.styles.itemSpacing;
+      item._Title.text.wordWrapWidth = 280;
+      item._Subtitle.text.wordWrapWidth = 280;
+      item._update();
+    });
+
+    this._setHeight();
+  }
+
+  _setHeight() {
+    let height = this.styles.padding.y * 2;
+    this._Column.items.forEach((item, idx) => {
+      const spacing =
+        idx < this._Column.items.length - 1 ? this.styles.itemSpacing : 0;
+      height += item.h + spacing;
+    });
+    this.h = height;
+    this._DataItem.h = height;
+    this._DataItem._Background.h = height;
   }
 
   _focus() {
@@ -63,54 +91,5 @@ export default class ListItemImageGroup extends withStyles(
 
   _getFocused() {
     return this._DataItem;
-  }
-
-  get announce() {
-    return this._Column.items.map(item => item.announce).join(',');
-  }
-
-  set listItems(listItems) {
-    // Allow override of props with spread as last prop
-    this._Column.items = listItems.map(item => ({
-      type: ListItemImage,
-      title: item.title,
-      subtitle: item.subtitle,
-      size: 'small',
-      image: item.src,
-      backgroundType: 'float',
-      imageSize: this.imageResize,
-      ...item
-    }));
-
-    // Image must be set before
-    this._Column.items.forEach(item => {
-      item.h = this.imageResize + this.itemSpacing;
-      item._Container.h = this.imageResize + this.itemSpacing;
-      item._Title.text.wordWrapWidth = 280;
-      item._Subtitle.text.wordWrapWidth = 280;
-      item._update();
-    });
-
-    this.setHeight();
-  }
-
-  setHeight() {
-    let height = this.paddingY * 2;
-    this._Column.items.forEach((item, idx) => {
-      const spacing =
-        idx < this._Column.items.length - 1 ? this.itemSpacing : 0;
-      height += item.h + spacing;
-    });
-    this.h = height;
-    this._DataItem.h = height;
-    this._DataItem._Background.h = height;
-  }
-
-  get _DataItem() {
-    return this.tag('DataItem');
-  }
-
-  get _Column() {
-    return this.tag('DataItem.Content.Column');
   }
 }

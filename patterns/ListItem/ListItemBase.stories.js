@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-import { ListItemBase } from '.';
+import ListItemBase from './ListItemBase';
 import mdx from './ListItem.mdx';
 
 export default {
