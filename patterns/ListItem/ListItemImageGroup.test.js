@@ -1,8 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
 import ListItemImageGroup from './ListItemImageGroup';
-import cast from '../../assets/images/cast.png';
-import cast1 from '../../assets/images/cast1.png';
-import cast2 from '../../assets/images/cast2.png';
+const cast = TestUtils.pathToDataURI('./assets/images/cast.png');
+const cast1 = TestUtils.pathToDataURI('./assets/images/cast1.png');
+const cast2 = TestUtils.pathToDataURI('./assets/images/cast2.png');
 
 const createListItemImageGroup =
   TestUtils.makeCreateComponent(ListItemImageGroup);

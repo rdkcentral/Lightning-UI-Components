@@ -62,7 +62,11 @@ export const Basic = args =>
           title: args.title,
           subtitle: args.subtitle,
           size: args.size,
-          checked: args.checked
+          checked: args.checked,
+          onEnter: toggle => {
+            toggle.toggle();
+            console.log('On enter has fired');
+          }
         }
       };
     }

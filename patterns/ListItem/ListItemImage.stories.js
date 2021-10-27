@@ -12,7 +12,7 @@ export default {
     title: 'List Item',
     subtitle: 'List Item Metadata',
     size: 'small',
-    imageSize: 56
+    imageSize: 64
   },
   argTypes: {
     backgroundType: {
@@ -39,7 +39,7 @@ export default {
     imageSize: {
       control: {
         type: 'range',
-        min: 56,
+        min: 64,
         max: 96
       }
     }
