@@ -104,7 +104,7 @@ describe('Tooltip', () => {
     let button, buttonRenderer;
     beforeEach(() => {
       tooltip._focus();
-
+      // eslint-disable-next-line no-unused-vars
       [button, buttonRenderer] = createButton({ title: 'Button' });
       buttonRenderer.update();
     });

@@ -1,3 +1,5 @@
+import context from '../../context';
+
 export default function withHandleKey(Base) {
   return class extends Base {
     static get name() {
@@ -19,10 +21,20 @@ export default function withHandleKey(Base) {
         key = keyEvent.key;
       }
       if (key && typeof this[`on${key}${suffix}`] === 'function') {
+        this._invokeKeyPayloadCallback(key + suffix);
         return this[`on${key}${suffix}`].call(this, this, keyEvent);
       }
       this.fireAncestors(`$on${key}${suffix}`, this, keyEvent);
       return false;
+    }
+
+    _invokeKeyPayloadCallback(key) {
+      if (
+        this.metricsPayload &&
+        typeof context.keyMetricsCallback === 'function'
+      ) {
+        context.keyMetricsCallback(key, this.metricsPayload);
+      }
     }
   };
 }

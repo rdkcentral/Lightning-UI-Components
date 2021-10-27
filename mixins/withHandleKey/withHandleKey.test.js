@@ -1,10 +1,15 @@
 import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import withHandleKey from '.';
+import { mockContext, resetContext } from '../../test/MockContextUtils';
 
 describe('withHandleKey', () => {
-  let HandleKeyComponent, testRenderer;
+  let HandleKeyComponent, testRenderer, mockedContext;
   class Example extends lng.Component {}
+
+  beforeAll(() => {
+    mockedContext = mockContext();
+  });
 
   beforeEach(() => {
     [HandleKeyComponent, testRenderer] = TestUtils.makeCreateComponent(
@@ -22,6 +27,10 @@ describe('withHandleKey', () => {
     HandleKeyComponent = null;
   });
 
+  afterAll(() => {
+    resetContext();
+  });
+
   it('extends the base class', () => {
     expect(HandleKeyComponent.constructor.name).toBe('Example');
   });
@@ -30,6 +39,22 @@ describe('withHandleKey', () => {
     HandleKeyComponent.onDown = jest.fn();
     testRenderer.keyPress('Down');
     expect(HandleKeyComponent.onDown).toHaveBeenCalled();
+  });
+
+  it('calls keyMeyricsCallback with metricsPayload on key press down', () => {
+    HandleKeyComponent.onDown = jest.fn();
+    HandleKeyComponent.metricsPayload = { id: 123, saved: true };
+    testRenderer.keyPress('Down');
+    expect(HandleKeyComponent.onDown).toHaveBeenCalled();
+    expect(mockedContext.keyMetricsCallback).toHaveBeenCalledTimes(1);
+    expect(mockedContext.keyMetricsCallback).toHaveBeenNthCalledWith(
+      1,
+      'Down',
+      {
+        id: 123,
+        saved: true
+      }
+    );
   });
 
   it('does not call onEnter on key down up', () => {

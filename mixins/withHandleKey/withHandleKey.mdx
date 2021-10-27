@@ -1,18 +1,23 @@
-import { Canvas, Story } from '@storybook/addon-docs';
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
 
 # withHandleKey
 
-The `withHandleKey` mixin can be wrapped around a parent component to handle key events.
+The `withHandleKey` mixin can be wrapped around a parent component to handle key events and also to take advantage of the
+global `keyMetricsCallbackHandler` in the lightning UI Context.
 
 <Canvas>
-  <Story id="mixins-withhandlekey--basic" />
+  <Story id="mixins-withhandlekey--base" />
 </Canvas>
 
 Take a look at the preview above. Tile component is using the withHandleKey mixin.
+If you press enter on the first tile, you should see it print a metrics payload in the console (inspector view)
 
 ## Usage
 
 Out of the box, `withHandleKey` adds a generic _handleKey & _handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & $on${Key}Release event.
+
+Additionally, if a `metricsPayload` is defined, the global `keyMetricsCallbackHandler` in Context will be invoked with
+the given `metricsPayload`.
 
 ```js
 class Example extends lng.Component {
@@ -25,6 +30,10 @@ class Example extends lng.Component {
         },
         onArrowDown: (targetElm, keyEvent) => {
           console.log('Down');
+        },
+        metricsPayload: {
+          buttonName: 'arrowUp',
+          uniqueId: 'unique-123'
         }
       }
     }
@@ -37,3 +46,8 @@ class Example extends lng.Component {
 ```
 
 In this example, Tile extends `withHandleKey` and allows dynamically adding on${Key} functions or event listener for $on{key}.
+
+Example below - an metricPayload is provided, which will be invoked when any key is handled, with the payload
+`metricsPayload: { buttonName: 'arrowUp', uniqueId: 'unique-123' }`
+
+
