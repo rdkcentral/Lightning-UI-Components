@@ -15,11 +15,11 @@
     "index.js",
     "Styles.js",
     "{bin,elements,layout,mixins,Styles,textures,utils}/**/*",
-    "!{elements,layout,mixins,Styles}/**/*.stories.js",
-    "!{elements,layout,mixins,textures,utils}/**/*.test.js",
+    "!{elements,layout,mixins,Styles,textures,utils}/**/*.stories.js",
+    "!{elements,layout,mixins,Styles,textures,utils}/**/*.test.js",
     "test/lightning-test-renderer.js",
     "test/lightning-test-utils.js",
-    "!{elements,layout,textures}/**/__snapshots__",
+    "!{elements,layout,mixins,Styles,textures,utils}/**/__snapshots__",
     "!public/"
   ],
   "devDependencies": {
