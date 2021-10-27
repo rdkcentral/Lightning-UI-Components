@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.0...v1.2.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* **package:** add Styles textures and mixins to package ([#86](https://github.com/rdkcentral/Lightning-UI-Components/issues/86)) ([02148bb](https://github.com/rdkcentral/Lightning-UI-Components/commit/02148bb511e6b65868db64c5d9df388cb90f5b3b))
+
 # [1.2.0](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.1.0...v1.2.0) (2021-10-26)
 
 
