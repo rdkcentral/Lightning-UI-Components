@@ -1,5 +1,4 @@
 export default theme => {
-  console.log(theme);
   return {
     w: 410,
     h: theme.spacing(1),
