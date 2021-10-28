@@ -28,7 +28,6 @@ describe('context', () => {
       const processedBaseTheme = theme._processTheme();
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
-<<<<<<< HEAD
     it('should allow context.debug to be set', () => {
       const context = require('./index').default;
       expect(context.debug).toBe(false);
@@ -46,8 +45,11 @@ describe('context', () => {
       expect(typeof context.on).toBe('function');
       expect(typeof context.emit).toBe('function');
     });
+<<<<<<< HEAD
 =======
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+>>>>>>> Fix/lui 250 event emitter (#718)
     it('should not allow context.theme to be set directly', () => {
       const context = require('./index').default;
       const theme = require('./theme').default;
@@ -109,6 +111,7 @@ describe('context', () => {
       expect(metrics.keyMetricsCallback).toBeUndefined();
     });
 <<<<<<< HEAD
+<<<<<<< HEAD
     it('should log to the console when using context.log() if context.debug is set to true', () => {
       const Context = require('./index').Context;
       const context = new Context();
@@ -123,37 +126,28 @@ describe('context', () => {
       console.log = jest.fn();
 =======
     it('should log to the console when using context.log() if debug is set to true', () => {
+=======
+    it('should log to the console when using context.log() if context.debug is set to true', () => {
+>>>>>>> Fix/lui 250 event emitter (#718)
       const Context = require('./index').Context;
-      const app = require('./app').default;
-      class ContextTest extends Context {
-        get __app() {
-          return app;
-        }
-      }
-      const context = new ContextTest();
+      const context = new Context();
       console.log = jest.fn();
-      context.__app.application = {
-        stage: { on: () => {} },
-        getOption: () => true
-      };
+      context.debug = true;
       context.log('message');
       expect(console.log).toHaveBeenCalledWith('LightningUI', 'message');
     });
-    it('should not log to the console when using context.log() if debug is set to false', () => {
+    it('should not log to the console when using context.log() if context.debug is set to false', () => {
       const Context = require('./index').Context;
-      const app = require('./app').default;
-      class ContextTest extends Context {
-        get __app() {
-          return app;
-        }
-      }
-      const context = new ContextTest();
+      const context = new Context();
       console.log = jest.fn();
+<<<<<<< HEAD
       context.__app.application = {
         stage: { on: () => {} },
         getOption: () => false
       };
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+>>>>>>> Fix/lui 250 event emitter (#718)
       context.log('message');
       expect(console.log).not.toHaveBeenCalled();
     });
@@ -184,6 +178,7 @@ describe('context', () => {
       });
     });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     it('should allow a component to be added and removed using context.addComponent', () => {
       const context = require('./index').default;
@@ -203,6 +198,8 @@ describe('context', () => {
     });
     // TODO Add tests for this in the base component
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+>>>>>>> Fix/lui 250 event emitter (#718)
     it('should allow theme, keyMetricsCallback, logCallback to be set with context.config', () => {
       const context = require('./index').default;
       const metrics = require('./metrics').default;
@@ -386,6 +383,7 @@ describe('context', () => {
     });
   });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   describe('app', () => {
     it('should have an event queue', () => {
@@ -454,4 +452,6 @@ describe('context', () => {
     });
   });
 >>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
+=======
+>>>>>>> Fix/lui 250 event emitter (#718)
 });
