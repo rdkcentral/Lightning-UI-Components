@@ -134,13 +134,13 @@ function setTheme(themeName) {
   switch (themeName) {
     case 'xfinity':
       if (window.APP) {
-        window.APP.stage.emit('setTheme', XfinityTheme);
+        context.setTheme(XfinityTheme);
         window.localStorage.setItem('theme', 'xfinity');
       }
       break;
     default:
       if (window.APP) {
-        window.APP.stage.emit('setTheme', BaseTheme);
+        context.setTheme(BaseTheme);
         window.localStorage.removeItem('theme');
       }
       break;

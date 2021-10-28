@@ -1,8 +1,8 @@
 import { clone } from '../utils';
 import baseTheme from '../themes/base';
 import { getHexColor, getValidColor } from '../Styles/Colors';
-import app from './app';
 import logger from './logger';
+import events from './events';
 
 const merge = {
   all: objArray => {
@@ -16,14 +16,6 @@ const merge = {
 export class Theme {
   constructor() {
     this._cache = new Map();
-    app.addEvent({
-      name: 'setTheme',
-      callback: this._setThemeCb.bind(this)
-    });
-    app.addEvent({
-      name: 'updateTheme',
-      callback: this.updateTheme.bind(this)
-    });
   }
   
   getTheme() {
@@ -44,9 +36,9 @@ export class Theme {
     this._cache.clear();
 
     this._cache.set('theme', this._processTheme.call(this, [value]));
-    if (app.application) {
-      app.application.stage.emit('lightningUIUpdate'); // Notify components to re-render
-    }
+
+    events.emit('themeUpdate'); // Notify components that an update cycle is required
+    
   }
 
   /**
@@ -62,9 +54,7 @@ export class Theme {
       'theme',
       this._processTheme.call(this, [currentTheme, value])
     );
-    if (app.application) {
-      app.application.stage.emit('lightningUIUpdate'); // Notify components to re-render
-    }
+    events.emit('themeUpdate'); // Notify components that an update cycle is required
     return this.getTheme();
   }
 

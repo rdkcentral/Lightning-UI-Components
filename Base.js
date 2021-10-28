@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
 import { withUpdates, withTags, withHandleKey, withLayout } from './mixins';
-import context from './context';
 
 class Base extends lng.Component {
   static get __componentName() {
@@ -8,7 +7,6 @@ class Base extends lng.Component {
   }
 
   _construct() {
-    context.addComponent(this);
     this._whenEnabled = new Promise(
       resolve => (this._whenEnabledResolver = resolve)
     );
@@ -25,10 +23,6 @@ class Base extends lng.Component {
 
   _update() {
     this._smooth = false;
-  }
-
-  _detach() {
-   context.removeComponent(this);
   }
 
  _focus() {

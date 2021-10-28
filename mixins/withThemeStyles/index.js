@@ -92,7 +92,7 @@ export default function withStyles(Base, styles) {
         );
       }
       // Listen for events emitted from the stage to update each component
-      this.stage.on('lightningUIUpdate', () => {
+      context.on('themeUpdate', () => {
         this._updateComponent();
       });
 
@@ -135,8 +135,12 @@ export default function withStyles(Base, styles) {
         : this._update && this._update();
     }
 
+    _setTheme(theme = {}) {
+      context.setTheme(theme);
+    }
+
     _updateTheme(theme = {}) {
-      this.stage.emit('updateTheme', theme);
+      context.updateTheme(theme);
     }
 
     _detach() {
