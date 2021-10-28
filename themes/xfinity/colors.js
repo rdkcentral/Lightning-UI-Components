@@ -1,6 +1,9 @@
 const COLOR_PALETTE = {
+  constants: {
+    white: '#FFFFFF',
+    black: '#000000'
+  },
   grey: {
-    0: '#FFFFFF',
     5: '#F6F6F9',
     10: '#ECECF2',
     20: '#CECEDA',
@@ -10,8 +13,7 @@ const COLOR_PALETTE = {
     60: '#484851',
     70: '#35353B',
     80: '#232328',
-    90: '#141417',
-    100: '#000000'
+    90: '#141417'
   },
   red: {
     5: '#F2D9E1',
