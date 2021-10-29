@@ -180,7 +180,7 @@ export default class Row extends FocusManager {
     let itemsContainerX;
     const prevIndex = this.Items.childList.getIndex(prev);
     if (prevIndex === this._lastFocusableIndex()) {
-      itemsContainerX = -this.Items.children[0].x;
+      itemsContainerX = -this.Items.children[prevIndex - 1].x;
     } else if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
