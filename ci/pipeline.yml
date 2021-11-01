@@ -138,6 +138,10 @@ jobs:
       params:
         path: source-repo-pr
         status: pending
+    - task: pr-verify
+      file: source-repo-pr/ci/tasks/detect_commit_and_pr_ids.yml
+      input_mapping:
+        source-repo: source-repo-pr
     - task: npm-install
       file: source-repo-pr/ci/tasks/install.yml
       input_mapping:

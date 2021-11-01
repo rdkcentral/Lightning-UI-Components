@@ -1,0 +1,19 @@
+---
+platform: linux
+inputs:
+- name: source-repo
+
+outputs:
+- name: commit-id
+- name: pull-request-id
+- name: comment
+- name: pull-request-title
+
+image_resource:
+  type: docker-image
+  source:
+    repository: hub.comcast.net/ottx/frontend-build-tools
+    tag: latest
+
+run:
+  path: source-repo/ci/tasks/detect_commit_and_pr_ids.sh
