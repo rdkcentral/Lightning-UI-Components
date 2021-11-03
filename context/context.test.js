@@ -45,11 +45,6 @@ describe('context', () => {
       expect(typeof context.on).toBe('function');
       expect(typeof context.emit).toBe('function');
     });
-<<<<<<< HEAD
-=======
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
->>>>>>> Fix/lui 250 event emitter (#718)
     it('should not allow context.theme to be set directly', () => {
       const context = require('./index').default;
       const theme = require('./theme').default;
@@ -110,8 +105,6 @@ describe('context', () => {
       context.setKeyMetricsCallback(keyMetricsCallback);
       expect(metrics.keyMetricsCallback).toBeUndefined();
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
     it('should log to the console when using context.log() if context.debug is set to true', () => {
       const Context = require('./index').Context;
       const context = new Context();
@@ -124,30 +117,6 @@ describe('context', () => {
       const Context = require('./index').Context;
       const context = new Context();
       console.log = jest.fn();
-=======
-    it('should log to the console when using context.log() if debug is set to true', () => {
-=======
-    it('should log to the console when using context.log() if context.debug is set to true', () => {
->>>>>>> Fix/lui 250 event emitter (#718)
-      const Context = require('./index').Context;
-      const context = new Context();
-      console.log = jest.fn();
-      context.debug = true;
-      context.log('message');
-      expect(console.log).toHaveBeenCalledWith('LightningUI', 'message');
-    });
-    it('should not log to the console when using context.log() if context.debug is set to false', () => {
-      const Context = require('./index').Context;
-      const context = new Context();
-      console.log = jest.fn();
-<<<<<<< HEAD
-      context.__app.application = {
-        stage: { on: () => {} },
-        getOption: () => false
-      };
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
->>>>>>> Fix/lui 250 event emitter (#718)
       context.log('message');
       expect(console.log).not.toHaveBeenCalled();
     });
@@ -177,29 +146,6 @@ describe('context', () => {
         payload: ['message']
       });
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    it('should allow a component to be added and removed using context.addComponent', () => {
-      const context = require('./index').default;
-      class TestComponent {
-        static get __componentName() {
-          return 'TestComponent';
-        }
-      }
-
-      const component = new TestComponent();
-      context.addComponent(component);
-      expect(context.stats.components.total).toEqual(1);
-      expect(context.stats.components.TestComponent).toEqual(1);
-      context.removeComponent(component);
-      expect(context.stats.components.total).toEqual(0);
-      expect(context.stats.components.TestComponent).toBeUndefined();
-    });
-    // TODO Add tests for this in the base component
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
->>>>>>> Fix/lui 250 event emitter (#718)
     it('should allow theme, keyMetricsCallback, logCallback to be set with context.config', () => {
       const context = require('./index').default;
       const metrics = require('./metrics').default;
@@ -382,76 +328,4 @@ describe('context', () => {
       expect(metrics.keyMetricsCallback).toEqual(validFunction);
     });
   });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  describe('app', () => {
-    it('should have an event queue', () => {
-      const app = require('./app').default;
-      expect(app._eventQueue.constructor.name).toMatch('Map');
-    });
-    it('should have and _application value of undefined if not yet set', () => {
-      const app = require('./app').default;
-      expect(app._application).toBeUndefined();
-    });
-    it('should have an default stats object', () => {
-      const app = require('./app').default;
-      expect(app.stats).toMatchObject({ components: { total: 0 } });
-    });
-    it('should set the application after the first components construct is called', () => {
-      const app = require('./app').default;
-      const [component] = createComponent();
-      app.addComponent(component);
-      expect(app._application).toEqual(component.application);
-    });
-    it('should update stats after a new lightning-ui component is added', () => {
-      const app = require('./app').default;
-      const [component] = createComponent();
-      app.addComponent(component);
-      expect(app.stats).toMatchObject({
-        components: {
-          total: 1
-        }
-      });
-    });
-    it('should update stats after a lightning-ui component is removed', () => {
-      const app = require('./app').default;
-      const [component] = createComponent();
-      app.addComponent(component);
-      expect(app.stats).toMatchObject({
-        components: {
-          total: 1
-        }
-      });
-      app.removeComponent(component);
-      expect(app.stats).toMatchObject({
-        components: {
-          total: 0
-        }
-      });
-    });
-    it('should call process eventQueue after the application is set since the stage will not exist', () => {
-      const app = require('./app').default;
-      expect(app._eventQueue.size).toBe(0);
-      const event = { name: 'foo', payload: function () {} };
-      app.addEvent(event);
-      expect(app._eventQueue.size).toBe(1);
-      const [component] = createComponent();
-      app.addComponent(component);
-      expect(app._eventQueue.size).toBe(0);
-    });
-    it('add an event to the stage if application exists', () => {
-      const app = require('./app').default;
-      const [component, testRenderer] = createComponent();
-      app.addComponent(component);
-      const callback = jest.fn();
-      const event = { name: 'foo', callback };
-      app.addEvent(event);
-      testRenderer.getApp().stage.emit('foo');
-      expect(callback).toHaveBeenCalled();
-    });
-  });
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
->>>>>>> Fix/lui 250 event emitter (#718)
 });
