@@ -2,15 +2,8 @@ import TestUtils from '../../test/lightning-test-utils';
 import withThemeStyles from '.';
 import Base from '../../Base';
 import { context } from '../..';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import XfinityTheme from '../../themes/xfinity';
-=======
-import XfinityDarkTheme from '../../themes/xfinity/dark';
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
-import XfinityTheme from '../../themes/xfinity';
->>>>>>> refactor(Theming): update colors and move to single Xfinity theme (#720)
+
 const style = theme => {
   return {
     radius: theme.radius.medium,
@@ -40,15 +33,7 @@ beforeEach(() => {
   [withThemeStylesComponent] = TestUtils.makeCreateComponent(
     withThemeStyles(TestComponent, style)
   )();
-<<<<<<< HEAD
-<<<<<<< HEAD
   context.setTheme(XfinityTheme);
-=======
-  context.setTheme(XfinityDarkTheme);
->>>>>>> feat(Theming): add LUI Context and Theming to ProgressBar and Tile (#715)
-=======
-  context.setTheme(XfinityTheme);
->>>>>>> refactor(Theming): update colors and move to single Xfinity theme (#720)
 });
 
 afterEach(() => {
@@ -61,13 +46,16 @@ describe('withThemeStyles', () => {
       radius: 16
     });
   });
+
   it('should properly merge instantiation styles', () => {
     const [testComponent] = TestUtils.makeCreateComponent(
       ExtendedTestComponent
     )();
     expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
   });
-  it('should save instantiation styles in the context cache', () => {});
+
+  // it('should save instantiation styles in the context cache', () => {});
+
   it("should create getters and setters for all keys in the component's style", () => {
     expect(
       withThemeStylesComponent.__lookupGetter__('styleRadius')
@@ -100,6 +88,7 @@ describe('withThemeStyles Hierarchy', () => {
     )();
     expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
   });
+
   it('should should allow instantiation styles to be overwritten by componentStyles in the theme', () => {
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
       radius: 16
@@ -118,6 +107,7 @@ describe('withThemeStyles Hierarchy', () => {
     });
     expect(testComponent._componentStyles).toMatchObject({ radius: 30 });
   });
+
   it('should should allow instantiation styles and componentStyles to be overwritten by component level styles', () => {
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
       radius: 16
