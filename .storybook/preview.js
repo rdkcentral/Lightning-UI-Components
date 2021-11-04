@@ -30,7 +30,7 @@ export const globalTypes = {
     toolbar: {
       items: [
         { title: 'Base', value: 'base' },
-        { title: 'Xfinity', value: 'xfinity' },
+        { title: 'Xfinity', value: 'xfinity' }
       ],
       showName: true
     }
@@ -43,9 +43,6 @@ export const parameters = {
   docs: {
     inlineStories: true,
     theme
-  },
-  options: {
-    enableShortcuts: false
   }
 };
 
@@ -163,19 +160,16 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   // If an update is required patch in the new child element
   if (triggerUpdate) {
     app.childList.clear();
-    window.test = app.childList.a({
+    app.childList.a({
       StoryComponent: {
-        type: class extends StoryComponent() {
-          _init() {
-            this._refocus(); // Force Lightning to reset focus
-          }
-        },
+        type: StoryComponent(),
         w: w => w,
         h: h => h,
-        x: 90,
+        x: 80,
         y: 40
       }
     });
+    app._refocus();
   }
 
   const isDefault =
@@ -195,14 +189,20 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   if (LightningUIComponent && Object.keys(args).length) {
     for (const prop in args) {
       // Apply arguments from controls
-      const hasSetter = LightningUIComponent.__lookupSetter__(prop);
+      const propValue = 'undefined' !== typeof args[prop] ? args[prop] : parameters.argTypes[prop].defaultValue;
+      LightningUIComponent[prop] = propValue;
+    }
+  }
 
-      const propValue =
-        parameters.argTypes[prop].callback &&
-        'function' === typeof parameters.argTypes[prop].callback
-          ? parameters.argTypes[prop].callback(args[prop], args)
-          : args[prop] || parameters.argTypes[prop].defaultValue;
-      if (hasSetter && propValue) LightningUIComponent[prop] = propValue;
+  if (
+    LightningUIComponent &&
+    parameters.argActions &&
+    Object.keys(parameters.argActions).length
+  ) {
+    for (const prop in parameters.argActions) {
+      if ('function' === typeof parameters.argActions[prop]) {
+        parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
+      }
     }
     return app.getCanvas();
   }

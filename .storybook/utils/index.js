@@ -51,7 +51,6 @@ export const GenericType = ({ children, type }) => {
 export const Theme = ({ theme={}, isColor=false }) => {
   /** Naively parses a theme object to generate value documentation */
   const getValue = ([key, value], isColor=false) => {
-    console.log('key', key, 'value', value, 'isColor', isColor)
     if (key === '__isColor') return false;
     switch (typeof value) {
       case 'function':
