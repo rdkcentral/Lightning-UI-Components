@@ -30,16 +30,12 @@ export default theme => ({
       y: theme.spacing(2)
     },
     background: {
-      color: theme.palette.grey[60],
-      h: 64
+      color: theme.palette.grey[60]
     },
     text: {
       ...theme.typography.body3,
       lineHeight: theme.typography.body3.lineHeight + 4,
       textColor: theme.palette.text.light.tertiary
-    },
-    icon: {
-      size: 32
     }
   },
   enter: {

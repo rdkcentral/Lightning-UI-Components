@@ -11,7 +11,7 @@ Object {
       "children": Object {
         "ActionArea": Object {
           "active": false,
-          "alpha": 0,
+          "alpha": 0.001,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
@@ -21,44 +21,6 @@ Object {
               "attached": true,
               "boundsMargin": null,
               "children": Object {
-                "Icon": Object {
-                  "active": false,
-                  "alpha": 1,
-                  "attached": true,
-                  "boundsMargin": null,
-                  "clipping": false,
-                  "color": 4294967295,
-                  "enabled": false,
-                  "flex": false,
-                  "flexItem": false,
-                  "h": 32,
-                  "hasFinalFocus": false,
-                  "hasFocus": false,
-                  "isComponent": true,
-                  "mount": 0,
-                  "mountX": 0,
-                  "mountY": 0,
-                  "pivot": 0.5,
-                  "pivotX": 0.5,
-                  "pivotY": 0.5,
-                  "ref": "Icon",
-                  "renderOfScreen": undefined,
-                  "renderToTexture": false,
-                  "scale": 1,
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "state": "",
-                  "tag": [Function],
-                  "tags": Array [
-                    "Icon",
-                  ],
-                  "type": "Icon",
-                  "visible": true,
-                  "w": 32,
-                  "x": 480,
-                  "y": 0,
-                  "zIndex": 0,
-                },
                 "Text": Object {
                   "active": false,
                   "alpha": 1,
@@ -66,7 +28,7 @@ Object {
                   "boundsMargin": null,
                   "clipping": false,
                   "color": 4294967295,
-                  "enabled": false,
+                  "enabled": true,
                   "flex": false,
                   "flexItem": false,
                   "h": 0,
@@ -100,7 +62,7 @@ Object {
               },
               "clipping": false,
               "color": 4294967295,
-              "enabled": false,
+              "enabled": true,
               "flex": false,
               "flexItem": false,
               "h": 0,
@@ -131,10 +93,10 @@ Object {
           },
           "clipping": false,
           "color": "ff3e3e45",
-          "enabled": false,
+          "enabled": true,
           "flex": false,
           "flexItem": false,
-          "h": 64,
+          "h": 0,
           "isComponent": undefined,
           "mount": 0,
           "mountX": 0,
@@ -222,7 +184,7 @@ Object {
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
-                    "Element-13": Object {
+                    "Element-12": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -264,7 +226,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-14": Object {
+                    "Element-13": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -306,7 +268,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-15": Object {
+                    "Element-14": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -348,7 +310,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-16": Object {
+                    "Element-15": Object {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
