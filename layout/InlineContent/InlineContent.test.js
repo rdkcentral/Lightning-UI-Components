@@ -177,4 +177,15 @@ describe('InlineContent', () => {
       done();
     }, 0);
   });
+
+  it('should use user entered textStyles when specified for a text object', done => {
+    const color = getHexColor('ff0000');
+    inlineContent.textStyles = { red: { textColor: color } };
+    inlineContent.content = [{ text: 'red text', style: 'red' }];
+    testRenderer.update();
+    setTimeout(() => {
+      expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
+      done();
+    }, 0);
+  });
 });

@@ -41,6 +41,7 @@ class Example extends lng.Component {
 name|type|required|default|description
 --|--|--|--|--
 content|string\|array|false|-|list of data to render inline, see [Content Element Properties](#content-element-properties) below
+textStyles|object|false|{}|set of nested objects containing [Lightning Text](https://rdkcentral.github.io/Lightning/docs/textures/text) properties which can be referenced in the [Content Element Properties](#content-element-properties) to apply styling to individual text elements
 textProperties|object|false|Xfinity theme|font properties to apply to the title
 justify|'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly'|false|flex-start|alignment of first line flexbox content
 iconW|number|false|36|width of all icons
@@ -61,11 +62,59 @@ Fires when all contents inside the InlineContent component have finished renderi
 The `InlineContent` component will recognize the following elements inside its `content` param:
 
 string\|object|description
---|--|--
-'Text' \|\| {text: 'Text', style: { styleName: styleValue }}|any stand alone string will be used a pure text, or an object with the properties of `text` and `style` can be passed to override the default text styles
+--|--
+'Text' \|\| {text: 'Text', style: { styleName: styleValue }} \|\| {text: 'Text', style: 'StyleName' |any stand alone string will be used a pure text, or an object with the properties of `text` and `style` can be passed to override the default text styles, and `style` can be passed a string which references a predefined entry in the [textStyles](#properties) object passed to the component
 { icon: 'pathToIcon', title: 'IconTitle' }|will render an [Icon](/story/elements-icon--text) with the given source and use the title param as the string to announce
 { badge: 'BadgeName' }|will render a [Badge](/story/elements-badge--text)
 { newline: true }|will insert a line break between content if the contentWrap param is true
+
+#### Content String Markup
+Additionally, the `content` param will automatically parse a string into the above elements using the following markup:
+
+string markup|parsed element
+--|--
+`{ICON:title\|url}`|`{ icon: 'url', title: 'title' }`
+`{BADGE:title}`|`{ badge: 'title' }`
+`{NEWLINE}`|`{ newline: true }`
+`{TEXT:text\|styleName}`|`{ text: 'text', style: 'styleName' }`
+
+For example:
+
+```js
+
+import { InlineContent } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      InlineContent: {
+        type: InlineContent,
+        contentWrap: true,
+        textStyles: {
+            red: { textColor: getHexColor('FF6194') }
+        },
+        content: 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:HD} badge with a{NEWLINE} and {TEXT:red text|red}.'
+      }
+    };
+  }
+};
+```
+
+will yield
+
+```js
+[
+  'This is an ',
+  { icon: './assets/icons/settings.png', title: 'settings' },
+  ' icon and ',
+  { badge: 'HD' },
+  ' badge with a',
+  { newline: true },
+  ' and ',
+  { text: 'red text', style: 'red' },
+  '.'
+]
+```
 
 ### Styles
 

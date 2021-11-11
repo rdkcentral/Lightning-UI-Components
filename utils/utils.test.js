@@ -214,17 +214,18 @@ describe('getFirstNumber', () => {
 describe('parseInlineContent', () => {
   it('separates text, icons, and badges into an array from a string', () => {
     const str =
-      'This is a {ICON:setting|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} and {BADGE:HD} badge test.';
+      'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:HD} badge with a{NEWLINE} and {TEXT:red text|red}.';
     const response = parseInlineContent(str);
     expect(response).toEqual([
-      'This is a ',
-      {
-        title: 'setting',
-        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false'
-      },
-      ' and ',
+      'This is an ',
+      { icon: './assets/icons/settings.png', title: 'settings' },
+      ' icon and ',
       { badge: 'HD' },
-      ' badge test.'
+      ' badge with a',
+      { newline: true },
+      ' and ',
+      { text: 'red text', style: 'red' },
+      '.'
     ]);
   });
 
