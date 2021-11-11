@@ -33,7 +33,7 @@ describe('Notification', () => {
       description: 'This is a description',
       icon: 'patch/to/src'
     });
-    expect(notification._ActionArea.alpha).toBe(0);
+    expect(notification._ActionArea.alpha).toBe(0.001);
   });
 
   it('will show the action area if one is passed in', done => {
@@ -42,13 +42,11 @@ describe('Notification', () => {
       description: 'This is a description',
       icon: 'patch/to/src',
       actionArea: {
-        text: 'Action Area',
-        icon: 'patch/to/src'
+        text: 'Action Area'
       }
     });
     expect(notification._actionArea).toEqual({
-      text: 'Action Area',
-      icon: 'patch/to/src'
+      text: 'Action Area'
     });
 
     notification.enter();
@@ -57,9 +55,21 @@ describe('Notification', () => {
 
     setTimeout(() => {
       expect(notification._ActionArea.alpha).toBe(1);
-      console.log(notification._ActionArea.alpha);
       done();
     }, 1000); // bumping the timer resolves a race condition with the alpha update
+  });
+
+  it('should not show the action area if the one passed in does not have text', async () => {
+    [notification, testRenderer] = createNotification({
+      title: 'Title',
+      description: 'This is a description',
+      icon: 'patch/to/src',
+      actionArea: {}
+    });
+
+    await notification.enter();
+
+    expect(notification._ActionArea.alpha).toEqual(0.001);
   });
 
   it('should be able to mount entered', done => {

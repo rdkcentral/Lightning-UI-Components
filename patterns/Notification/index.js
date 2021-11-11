@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-import { FadeShader } from '../../textures';
 import Base from '../../elements/Base';
 import defaultIcon from '../../Styles/notification_64';
 import Icon from '../../elements/Icon';
@@ -7,6 +6,7 @@ import InlineContent from '../../layout/InlineContent';
 import styles from './Notification.style';
 import TextBox from '../../elements/TextBox';
 import withStyles from '../../mixins/withStyles';
+import { stringifyCompare } from '../../utils';
 
 export default class Notification extends withStyles(Base, styles) {
   static _template() {
@@ -62,9 +62,8 @@ export default class Notification extends withStyles(Base, styles) {
           }
         },
         ActionArea: {
-          alpha: 0,
+          alpha: 0.001,
           color: this.styles.actionArea.background.color,
-          h: this.styles.actionArea.background.h,
           w: this.styles.w,
           rect: true,
           shader: {
@@ -76,20 +75,12 @@ export default class Notification extends withStyles(Base, styles) {
             x: this.styles.actionArea.margin.x,
             y: this.styles.actionArea.margin.y,
             Text: {
+              contentWrap: true,
               justify: 'flex-start',
               textProperties: this.styles.actionArea.text,
               type: InlineContent,
               y: -4,
               w: this.styles.w - this.styles.margin.x * 2
-            },
-            Icon: {
-              h: this.styles.actionArea.icon.size,
-              type: Icon,
-              w: this.styles.actionArea.icon.size,
-              x:
-                this.styles.w -
-                this.styles.actionArea.icon.size -
-                this.styles.actionArea.margin.x * 2
             }
           }
         }
@@ -108,7 +99,6 @@ export default class Notification extends withStyles(Base, styles) {
       { name: 'Text', path: 'Container.Content.Text' },
       { name: 'ActionArea', path: 'Container.ActionArea' },
       { name: 'ActionAreaText', path: 'Container.ActionArea.Content.Text' },
-      { name: 'ActionAreaIcon', path: 'Container.ActionArea.Content.Icon' },
       { name: 'Icon', path: 'Container.Content.Icon' },
       { name: 'Title', path: 'Container.Content.Title' },
       { name: 'Description', path: 'Container.Content.Description' }
@@ -144,16 +134,37 @@ export default class Notification extends withStyles(Base, styles) {
     }
   }
 
+  get _actionAreaHeight() {
+    if (this.actionArea && this.actionArea.text) {
+      const actionAreaLinesLength =
+        this._ActionAreaText.flex &&
+        this._ActionAreaText.flex._layout._lineLayouter &&
+        this._ActionAreaText.flex._layout._lineLayouter._lines &&
+        this._ActionAreaText.flex._layout._lineLayouter._lines.length;
+      if (actionAreaLinesLength) {
+        const actionTextHeight =
+          this._ActionAreaText.textProperties.lineHeight *
+          actionAreaLinesLength;
+        const actionYMargins = this.styles.actionArea.margin.y * 2;
+        return actionTextHeight + actionYMargins;
+      }
+    }
+
+    return 0;
+  }
+
   _construct() {
     super._construct();
     this._animating = false; // Track if animation is still being processed
     this._descriptionLoadedPromise = null;
+    this._actionAreaTextLoadedPromise = null;
     this._icon = defaultIcon; // Resolved when description texture is loaded
     this._notificationActivated = false; // Toggled when enter() is called
     this._notificationOpen = false; // Animation has completed
     this._titleLoadedPromise = null; // Resolved when title texture is loaded
     this._titleLoaded = () => {};
     this._descriptionLoaded = () => {};
+    this._actionAreaTextLoaded = () => {};
   }
 
   _init() {
@@ -173,17 +184,25 @@ export default class Notification extends withStyles(Base, styles) {
     }
   }
 
+  async _waitForElementsToRender() {
+    return Promise.all(
+      [
+        this._titleLoadedPromise,
+        this._descriptionLoadedPromise,
+        this._actionAreaTextLoadedPromise
+      ].filter(Boolean)
+    );
+  }
+
   async _updateLayout() {
     if (this._animating || !this._notificationOpen) return;
-    await Promise.all(
-      [this._titleLoadedPromise, this._descriptionLoadedPromise].filter(Boolean)
-    );
-    this._Container.h =
-      this._totalHeight +
-      (this._actionArea ? this.styles.actionArea.background.h : 0);
+    await this._waitForElementsToRender();
+    const actionAreaHeight = this._actionAreaHeight;
+    this._Container.h = this._totalHeight + actionAreaHeight;
     if (this._actionArea) {
       this._ActionArea.patch({
         y: this._totalHeight,
+        h: actionAreaHeight,
         alpha: 1
       });
     }
@@ -225,42 +244,15 @@ export default class Notification extends withStyles(Base, styles) {
   }
 
   _updateActionArea() {
-    if (this._actionArea) {
-      if (this._actionArea.text) {
-        this._ActionAreaText.patch({
-          rtt: true,
-          content: this._actionArea.text,
-          shader: {
-            type: FadeShader,
-            positionLeft: 0,
-            positionRight: 100
-          }
-        });
-      } else {
-        this._ActionAreaText.patch({
-          content: undefined,
-          rtt: false,
-          shader: undefined
-        });
-      }
-      if (this._actionArea.icon) {
-        this._ActionAreaIcon.patch({
-          icon: this._actionArea.icon
-        });
-      } else {
-        this._ActionAreaIcon.patch({
-          icon: undefined
-        });
-      }
+    if (this._actionArea && this._actionArea.text) {
+      this._ActionAreaText.patch({
+        content: this._actionArea.text
+      });
     } else {
       this._ActionAreaText.patch({
-        content: undefined,
-        rtt: false,
-        shader: undefined
+        content: undefined
       });
-      this._ActionAreaIcon.patch({
-        icon: undefined
-      });
+      this._actionAreaTextLoaded(true);
     }
   }
 
@@ -280,14 +272,30 @@ export default class Notification extends withStyles(Base, styles) {
     return description;
   }
 
+  _setActionArea(actionArea) {
+    if (!stringifyCompare(this._actionArea, actionArea)) {
+      this._triggerUpdate = true; // This will effect the height of the component if changed after Notification is open
+      this._actionAreaTextLoadedPromise = new Promise(resolve => {
+        this._actionAreaTextLoaded = resolve;
+      });
+    }
+    return actionArea;
+  }
+
   _titleChanged() {
     // Resolve promise after title is completely loaded
     this._titleLoaded(true);
   }
 
-  $loadedInlineContent() {
-    // Resolve promise after description is completely loaded
-    this._descriptionLoaded(true);
+  $loadedInlineContent(inlineContent) {
+    const loadedTag = inlineContent.ref;
+    // Resolve promises for each InlineContent element once they have loaded
+    if (loadedTag === 'Description') {
+      this._descriptionLoaded(true);
+    }
+    if (loadedTag === 'Text') {
+      this._actionAreaTextLoaded(true);
+    }
   }
 
   async enter() {
@@ -308,10 +316,7 @@ export default class Notification extends withStyles(Base, styles) {
 
   async _animate(updateOnly = false) {
     this._animating = true;
-    await Promise.all(
-      [this._titleLoadedPromise, this._descriptionLoadedPromise].filter(Boolean)
-    );
-
+    await this._waitForElementsToRender();
     for (const step in this._animations) {
       await this._animations[step].call(this, updateOnly);
     }
@@ -497,10 +502,16 @@ export default class Notification extends withStyles(Base, styles) {
   _step3() {
     return new Promise(resolve => {
       let animation;
-      if (this._notificationActivated && this._actionArea) {
+      const actionAreaHeight = this._actionAreaHeight;
+      if (
+        this._notificationActivated &&
+        this._actionArea &&
+        this._actionArea.text
+      ) {
         this._ActionArea.patch({
           y: this._totalHeight,
-          alpha: 1
+          alpha: 1,
+          h: actionAreaHeight
         });
         animation = this._Container.animation({
           duration: 0.24,
@@ -510,7 +521,7 @@ export default class Notification extends withStyles(Base, styles) {
               p: 'h',
               v: {
                 0: this._totalHeight,
-                1: this._totalHeight + this.styles.actionArea.background.h
+                1: this._totalHeight + actionAreaHeight
               }
             }
           ]
@@ -523,7 +534,7 @@ export default class Notification extends withStyles(Base, styles) {
             {
               p: 'h',
               v: {
-                0: this._totalHeight + this.styles.actionArea.background.h,
+                0: this._totalHeight + actionAreaHeight,
                 1: this._totalHeight
               }
             }

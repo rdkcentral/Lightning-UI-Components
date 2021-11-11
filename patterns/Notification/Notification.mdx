@@ -42,10 +42,8 @@ name|type|required|default|description
 title|string|true|-|Notification title
 description|string\|array|true|-|Notification description that can be passed as a string or array depending if icons are needed
 icon|string|true|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
-actionArea|object|false|false|object with action area properties (if undefined or false, the action area will not be displayed)
+actionArea|object|false|false|object with action area text property (if undefined, false, or missing text property, the action area will not be displayed)
 actionArea.text|string\|array|false|-|text for action area can be passed as a string or array depending if icons are needed
-actionArea.content|string\|array|false|-|text for action area can be passed as a string or array depending if icons are needed
-actionArea.icon|string|false|-|URI for icon in action area
 
 ### Methods
 

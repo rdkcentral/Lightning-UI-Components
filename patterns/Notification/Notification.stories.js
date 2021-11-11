@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 
 import Notification from '.';
-import icon from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Notification.mdx';
 import iconSvg from '../../assets/images/success.svg';
 export default {
@@ -25,8 +24,7 @@ export const Basic = () =>
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
           actionArea: {
-            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-            icon
+            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
           },
           onEnter() {
             this.dismiss();
@@ -56,8 +54,7 @@ export const Basic = () =>
 Basic.args = {
   state: 'enter()',
   actionArea: {
-    text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-    icon
+    text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
   }
 };
 Basic.argTypes = {
@@ -78,8 +75,7 @@ Basic.parameters = {
     actionArea: (action, component) => {
       component.tag('Notification').actionArea = action
         ? {
-            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-            icon
+            text: 'Action Area: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
           }
         : false;
     }
