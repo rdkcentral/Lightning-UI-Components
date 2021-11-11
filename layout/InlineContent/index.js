@@ -19,7 +19,8 @@ export default class InlineContent extends withStyles(Base, styles) {
       'badgeY',
       'contentSpacing',
       'badgeProperties',
-      'contentWrap'
+      'contentWrap',
+      'textStyles'
     ];
   }
 
@@ -35,6 +36,7 @@ export default class InlineContent extends withStyles(Base, styles) {
     this._textProperties = this.styles.textProperties;
     this._badgeProperties = this.styles.badgeProperties;
     this._contentProperties = this.styles.contentProperties;
+    this._textStyles = {};
   }
 
   _update() {
@@ -136,13 +138,16 @@ export default class InlineContent extends withStyles(Base, styles) {
   }
 
   _createText(base, text) {
+    const textOverrideStyles =
+      typeof text.style === 'string' ? this.textStyles[text.style] : text.style;
+    console.log(text.style);
     const textObj = {
       ...base,
       y: this.textY,
       h: this.textHeight,
       text: {
         ...this.textProperties,
-        ...text.style,
+        ...textOverrideStyles,
         text: text.text || text
       }
     };

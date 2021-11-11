@@ -83,6 +83,24 @@ export const Basic = args =>
             { newline: true },
             { badge: 'SD', title: 'SD' }
           ]
+        },
+        InlineContentWithParsing: {
+          type: InlineContent,
+          x: 200,
+          y: 550,
+          w: 400,
+          contentSpacing: args.contentSpacing,
+          contentWrap: args.contentWrap,
+          contentProperties: args.contentProperties,
+          justify: args.justify,
+          textStyles: {
+            italic: {
+              fontStyle: 'italic',
+              textColor: getHexColor('FF6194')
+            }
+          },
+          content:
+            'This is an example of using custom markup {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.'
         }
       };
     }
