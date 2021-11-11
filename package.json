@@ -16,12 +16,10 @@
   "files": [
     "index.js",
     "Styles.js",
-    "{bin,elements,layout,mixins,patterns,Styles,textures,utils}/**/*",
-    "!{elements,layout,mixins,patterns,Styles}/**/*.stories.js",
-    "!{elements,layout,mixins,patterns,textures,utils}/**/*.test.js",
+    "{bin,elements,layout,mixins,patterns,Styles,textures,utils}/**/!(*.test.js|*.stories.js|*.stories.mdx|*.mdx)",
+    "!{elements,layout,patterns,textures}/**/__snapshots__",
     "test/lightning-test-renderer.js",
     "test/lightning-test-utils.js",
-    "!{elements,layout,patterns,textures}/**/__snapshots__",
     "!public/"
   ],
   "devDependencies": {
