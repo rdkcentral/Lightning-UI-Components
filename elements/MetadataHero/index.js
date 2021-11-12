@@ -17,7 +17,7 @@ export const styles = theme => ({
   },
   descriptionY: 0,
   description: {
-    maxLines: 2
+    maxLines: 3
   },
   dataY: theme.spacing(1),
   infoOffset: theme.typography.body3.lineHeight + 12,
@@ -65,16 +65,22 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
   }
 
   static get properties() {
-    return [...super.properties, 'subtitle', 'logoHeight'];
+    return [...super.properties, 'subtitle', 'description', 'logoHeight'];
   }
 
   static get tags() {
-    return [...super.tags, 'Subtitle', 'Data'];
+    return [...super.tags, 'Subtitle', 'Description', 'Data'];
+  }
+
+  _construct() {
+    super._construct();
+    this._descriptionProperties = this.styles.description;
   }
 
   _update() {
     super._update();
     this._updateSubtitle();
+    this._updateDescription();
   }
 
   _updateSubtitle() {
@@ -90,5 +96,21 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
       w: 200,
       justify: 'flex-start'
     });
+  }
+
+  _updateDescription() {
+    if (!this.data) {
+      this._Description.patch({
+        content: this.description,
+        wordWrapWidth: this.w,
+        maxLines: this._descriptionProperties.maxLines + 1
+      });
+    } else {
+      this._Description.patch({
+        content: this.description,
+        wordWrapWidth: this.w,
+        ...this._descriptionProperties
+      });
+    }
   }
 }
