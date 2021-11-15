@@ -1,10 +1,12 @@
 import CardLayout from './CardLayout';
 import HeroLayout from './HeroLayout';
+import lng from '@lightningjs/core';
 import PosterLayout from './PosterLayout';
 import SquareLayout from './SquareLayout';
 import SquareSmallLayout from './SquareSmallLayout';
 import StandardLayout from './StandardLayout';
-import { Base } from '../../elements';
+import withTags from '../../mixins/withTags';
+import withUpdates from '../../mixins/withUpdates';
 
 const LAYOUTS = {
   card: CardLayout,
@@ -15,7 +17,7 @@ const LAYOUTS = {
   standard: StandardLayout
 };
 
-export default class BoardRow extends Base {
+class BoardRow extends lng.Component {
   static _template() {
     return {};
   }
@@ -51,7 +53,6 @@ export default class BoardRow extends Base {
   }
 
   _construct() {
-    super._construct();
     // Set default prop values
     this._layout = 'standard';
     this._selectedLayout = LAYOUTS['standard'];
@@ -137,3 +138,5 @@ export default class BoardRow extends Base {
     this._setState('LayoutSet');
   }
 }
+
+export default withUpdates(withTags(BoardRow));
