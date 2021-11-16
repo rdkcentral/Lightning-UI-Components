@@ -1,0 +1,60 @@
+
+import { Meta, Description } from '@storybook/addon-docs';
+
+<style>{`
+.sbdocs.sbdocs-li {
+    color: white !important;
+  }
+`}</style>
+
+<Meta title="Docs / Theming/ Variants" />
+
+# Variants
+Each Lightning-UI component can be displayed in one of three visual modes that are called variants. 
+All components have three variants: **neutral**, **brand**, and **inverse**. Each component has a default variant. 
+For example, Xfinity buttons and ListItems default to the neutral variant. 
+A component's variant can be set at the theme or component level. 
+
+### Theme level
+Each theme may contain a property `componentVariants`. This property can hold one or more properties which correspond to each LUI component's `__componentName`.
+You may change the default variant across all LUI components by setting this value in your themes file.
+If you want to use a neutral variant on all ProgressBar components in the Xfinity theme you would do this:
+
+```js
+componentVariants: {
+  ProgressBar: 'neutral'
+}
+``` 
+The resulting theme object would look like this: 
+
+```js
+//Inside of themes/Xfinity/index.js
+export default{
+  colors,
+  layout, 
+  spacing, 
+  getFocusScale,
+  getUnfocusScale,
+  radius, 
+  typography, 
+  animations,
+  componentStyles:{},
+  componentVariants:{
+    ProgresBar: 'neutral'
+  }
+};
+```
+
+In this example, **all** ProgressBars will be using the neutral variant. 
+
+### Component level
+
+You may also update this value on a per component basis by setting its variant property. For example: 
+
+```js
+MyComponent: {
+  type: ProgressBar,
+  variant: 'inverse'
+}
+```
+In this example, **only** MyComponent's ProgressBar will use the inverse variant. 

@@ -17,7 +17,6 @@ export class Theme {
   constructor() {
     this._cache = new Map();
   }
-
   getTheme() {
     if (this._cache.has('theme')) {
       return this._cache.get('theme');

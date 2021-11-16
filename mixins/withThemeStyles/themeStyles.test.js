@@ -3,7 +3,6 @@ import withThemeStyles from '.';
 import Base from '../../Base';
 import { context } from '../..';
 import XfinityTheme from '../../themes/xfinity';
-
 const style = theme => {
   return {
     radius: theme.radius.medium,

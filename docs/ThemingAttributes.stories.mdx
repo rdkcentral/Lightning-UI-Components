@@ -1,0 +1,36 @@
+import { Meta, Description } from '@storybook/addon-docs';
+import themingAttributes from '../scriptingFiles/attributes1.md';
+import themingAttributes2 from '../scriptingFiles/attributes2.md';
+<style>{`
+.sbdocs.sbdocs-li {
+    color: white !important;
+  }
+`}</style>
+
+<Meta title="Docs / Theming/ Theme Properties" />
+
+# Theming Properties
+<br />
+<Description>{themingAttributes}</Description>
+
+
+## Typography
+
+Theme typography is set up to use semantically-named tokens. They are Javascript objects, with keys for different font attributes and positioning.
+
+<Description>{themingAttributes2}</Description>
+
+
+## Animations
+
+Theme animations are stringified functions used to generate curves to be used within components who need animations. These are also tokenized to assist with ensuring consistent behavior between components.
+
+## Colors
+
+Theme colors are set up using semantically-named tokens, which are then used within each component's styles file. Changing the value of one of these tokens propagates that change to all instances where the token is used.
+These tokens are set up to take an array of two values: the first is the six character hex code for the color; the second is the alpha value, ranging from 0 to 100. For example:
+
+```js
+
+fillNeutral = ['#ffffff', 95];
+```
