@@ -140,7 +140,6 @@ export default class InlineContent extends withStyles(Base, styles) {
   _createText(base, text) {
     const textOverrideStyles =
       typeof text.style === 'string' ? this.textStyles[text.style] : text.style;
-    console.log(text.style);
     const textObj = {
       ...base,
       y: this.textY,
