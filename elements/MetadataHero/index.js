@@ -99,7 +99,7 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
   }
 
   _updateDescription() {
-    if (!this.data) {
+    if (!this.data || (this.data && !this.data.length)) {
       this._Description.patch({
         content: this.description,
         wordWrapWidth: this.w,
