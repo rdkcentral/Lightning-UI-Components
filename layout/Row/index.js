@@ -18,7 +18,6 @@
 
 import FocusManager from '../FocusManager';
 import { getX, getH } from '../../utils';
-import { debounce } from 'debounce';
 export default class Row extends FocusManager {
   static _template() {
     return {
@@ -35,16 +34,12 @@ export default class Row extends FocusManager {
     this._itemPosY = 0;
     this._scrollIndex = 0;
     this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
-    this.debounceDelay = Number.isInteger(this.debounceDelay)
-      ? this.debounceDelay
-      : 1;
-    this._update = debounce(this._updateLayout, this.debounceDelay);
   }
 
   _init() {
     super._init();
     if (!this.w) {
-      // if width is undefinend or 0, set the Row's width
+      // if width is undefined or 0, set the Row's width
       this.w =
         this.parent && // if the Row is a child item in a FocusManager (like Column)
         this.parent.parent &&
@@ -53,6 +48,15 @@ export default class Row extends FocusManager {
           : this.stage.w;
     }
   }
+
+  _update() {
+    this._updateLayout();
+  }
+
+  static get properties() {
+    return [...super.properties, 'itemSpacing', 'scrollIndex'];
+  }
+
 
   get _itemTransition() {
     return (
@@ -102,17 +106,17 @@ export default class Row extends FocusManager {
 
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollRight() {
-    const lastChild = this.Items.childList.last;
+    const lastChild = this._Items.childList.last;
     return (
       this.selectedIndex > this._scrollIndex &&
       // end of Items container < end of last item
       Math.abs(this._itemsX - this.w) <
-        lastChild.x + this.Items.childList.last.w
+        lastChild.x + this._Items.childList.last.w
     );
   }
 
   get onScreenItems() {
-    return this.Items.children.filter(child => this._isOnScreen(child));
+    return this._Items.children.filter(child => this._isOnScreen(child));
   }
 
   _isOnScreen(child) {
@@ -124,7 +128,7 @@ export default class Row extends FocusManager {
     // 2) the target animation value of the items container, and
     // 3) the target value of the item itself
     const ItemX =
-      this.core.renderContext.px + this.Items.transition('x').targetValue + x;
+      this.core.renderContext.px + this._Items.transition('x').targetValue + x;
     const { w } = child;
 
     // check that the child is inside the bounds of the stage
@@ -165,7 +169,7 @@ export default class Row extends FocusManager {
       if (this.lazyScroll) {
         shouldScroll = !this._isOnScreenCompletely(this.selected);
       } else {
-        const lastChild = this.Items.childList.last;
+        const lastChild = this._Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
@@ -178,9 +182,9 @@ export default class Row extends FocusManager {
 
   _getLazyScrollX(prev) {
     let itemsContainerX;
-    const prevIndex = this.Items.childList.getIndex(prev);
+    const prevIndex = this._Items.childList.getIndex(prev);
     if (prevIndex === this._lastFocusableIndex()) {
-      itemsContainerX = -this.Items.children[prevIndex - 1].x;
+      itemsContainerX = -this._Items.children[prevIndex - 1].x;
     } else if (prevIndex > this.selectedIndex) {
       itemsContainerX = -this.selected.x;
     } else if (prevIndex < this.selectedIndex) {
@@ -196,10 +200,10 @@ export default class Row extends FocusManager {
     if (itemIndex === this._firstFocusableIndex()) {
       itemIndex = 0;
     }
-    if (this.Items.children[itemIndex]) {
-      itemsContainerX = this.Items.children[itemIndex].transition('x')
-        ? -this.Items.children[itemIndex].transition('x').targetValue
-        : -this.Items.children[itemIndex].x;
+    if (this._Items.children[itemIndex]) {
+      itemsContainerX = this._Items.children[itemIndex].transition('x')
+        ? -this._Items.children[itemIndex].transition('x').targetValue
+        : -this._Items.children[itemIndex].x;
     }
     return itemsContainerX;
   }
@@ -213,7 +217,7 @@ export default class Row extends FocusManager {
       this._prevLastScrollIndex = this._lastScrollIndex;
 
       let itemsContainerX;
-      if (!this.Items.children.length) {
+      if (!this._Items.children.length) {
         itemsContainerX = this.itemPosX;
       } else if (this._shouldScroll()) {
         itemsContainerX =
@@ -223,11 +227,11 @@ export default class Row extends FocusManager {
       }
       if (itemsContainerX !== undefined) {
         if (this._smooth) {
-          this.Items.smooth = {
+          this._Items.smooth = {
             x: [itemsContainerX, this._itemTransition]
           };
         } else {
-          this.Items.x = itemsContainerX;
+          this._Items.x = itemsContainerX;
         }
       }
 
@@ -239,8 +243,8 @@ export default class Row extends FocusManager {
     let nextX = 0;
     let nextH = 0;
     // layout items in row
-    for (let i = 0; i < this.Items.children.length; i++) {
-      const child = this.Items.children[i];
+    for (let i = 0; i < this._Items.children.length; i++) {
+      const child = this._Items.children[i];
       nextH = Math.max(nextH, getH(child));
       if (this._smooth) {
         child.smooth = { x: [nextX, this._itemTransition] };
@@ -248,31 +252,31 @@ export default class Row extends FocusManager {
         child.patch({ x: nextX });
       }
       nextX += child.w;
-      if (i < this.Items.children.length - 1) {
+      if (i < this._Items.children.length - 1) {
         nextX += this.itemSpacing;
       }
 
       if (child.centerInParent) {
         // if the child is another focus manager, check the height of the item container
-        const childHeight = (child.Items && child.Items.h) || child.h;
+        const childHeight = (child._Items && child._Items.h) || child.h;
         // only center the child if it is within the bounds of this focus manager
         if (childHeight < this.h) {
           child.y = (this.h - childHeight) / 2;
         }
       }
     }
-    this.Items.patch({ h: nextH, w: nextX });
+    this._Items.patch({ h: nextH, w: nextX });
 
-    const lastChild = this.Items.childList.last;
+    const lastChild = this._Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;
-    const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 }).x;
+    const scrollOffset = (this._Items.children[this._scrollIndex] || { x: 0 }).x;
 
     // determine when to stop scrolling right
     if (this.alwaysScroll) {
-      this._lastScrollIndex = this.Items.children.length - 1;
+      this._lastScrollIndex = this._Items.children.length - 1;
     } else if (endOfLastChild > this.w) {
-      for (let i = this.Items.children.length - 1; i >= 0; i--) {
-        const child = this.Items.children[i];
+      for (let i = this._Items.children.length - 1; i >= 0; i--) {
+        const child = this._Items.children[i];
         const childX = getX(child);
         if (childX + this.w - scrollOffset > endOfLastChild) {
           this._lastScrollIndex = i;
@@ -285,30 +289,8 @@ export default class Row extends FocusManager {
     this.render(this.selected, this.prevSelected);
   }
 
-  get itemSpacing() {
-    return this._itemSpacing;
-  }
-
-  set itemSpacing(itemSpacing) {
-    if (itemSpacing !== this._itemSpacing) {
-      this._itemSpacing = itemSpacing;
-      this._update();
-    }
-  }
-
-  get scrollIndex() {
-    return this._scrollIndex;
-  }
-
-  set scrollIndex(scrollIndex) {
-    if (scrollIndex !== this._scrollIndex) {
-      this._scrollIndex = scrollIndex;
-      this._update();
-    }
-  }
-
   set itemPosX(x) {
-    this.Items.x = this._itemPosX = x;
+    this._Items.x = this._itemPosX = x;
   }
 
   get itemPosX() {
@@ -316,7 +298,7 @@ export default class Row extends FocusManager {
   }
 
   set itemPosY(y) {
-    this.Items.y = this._itemPosY = y;
+    this._Items.y = this._itemPosY = y;
   }
 
   get itemPosY() {
@@ -324,7 +306,7 @@ export default class Row extends FocusManager {
   }
 
   get _itemsX() {
-    return getX(this.Items);
+    return getX(this._Items);
   }
 
   appendItems(items = []) {
@@ -333,12 +315,11 @@ export default class Row extends FocusManager {
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
-      item = this.Items.childList.a(item);
+      item = this._Items.childList.a(item);
       item.h = item.h || itemHeight;
     });
     this.stage.update();
     this._updateLayout();
-    this._update.clear();
     this._refocus();
   }
 
