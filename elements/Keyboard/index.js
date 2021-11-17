@@ -132,7 +132,7 @@ export default class Keyboard extends lng.Component {
       keyboard.selectedIndex = column;
     } else {
       keyboard.selectedIndex = row;
-      keyboard.Items.children[row].selectedIndex = column;
+      keyboard._Items.children[row].selectedIndex = column;
     }
   }
 
@@ -145,7 +145,7 @@ export default class Keyboard extends lng.Component {
       column = keyboard.selectedIndex;
     } else {
       row = keyboard.selectedIndex;
-      column = keyboard.Items.children[row].selectedIndex;
+      column = keyboard._Items.children[row].selectedIndex;
     }
     return { row, column };
   }

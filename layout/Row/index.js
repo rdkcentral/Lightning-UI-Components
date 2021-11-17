@@ -57,7 +57,6 @@ export default class Row extends FocusManager {
     return [...super.properties, 'itemSpacing', 'scrollIndex'];
   }
 
-
   get _itemTransition() {
     return (
       this.itemTransition || {
@@ -269,7 +268,8 @@ export default class Row extends FocusManager {
 
     const lastChild = this._Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;
-    const scrollOffset = (this._Items.children[this._scrollIndex] || { x: 0 }).x;
+    const scrollOffset = (this._Items.children[this._scrollIndex] || { x: 0 })
+      .x;
 
     // determine when to stop scrolling right
     if (this.alwaysScroll) {
