@@ -78,7 +78,7 @@ export default class TeamInfo extends withStyles(Base, styles) {
   }
 
   set announce(announce) {
-    this._announce = announce;
+    super._announce = announce;
   }
 
   _setItems(items) {

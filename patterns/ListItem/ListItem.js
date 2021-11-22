@@ -46,16 +46,14 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   get announce() {
-    return this._announce
-      ? this._announce
-      : this.title + ` ${this.subtitle !== undefined ? this.subtitle : ''}`;
+    if (this._announce) {
+      return this._announce;
+    }
+    return this.title + ` ${this.subtitle !== undefined ? this.subtitle : ''}`;
   }
 
   set announce(announce) {
-    if (this._announce !== announce) {
-      this._announce = announce;
-      this._update();
-    }
+    super._announce = announce;
   }
   _init() {
     super._init();

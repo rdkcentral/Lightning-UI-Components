@@ -124,7 +124,6 @@ export default class Input extends withStyles(Base, styles) {
       'iconFocusColor',
       'listening',
       'label',
-      'announce',
       'caption',
       'radius',
       'position',
@@ -334,8 +333,14 @@ export default class Input extends withStyles(Base, styles) {
     return upcaseLabel;
   }
 
-  _getAnnounce() {
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
     return this.password ? 'Input hidden' : this.value || this.placeholder;
+  }
+  set announce(announce) {
+    super._announce = announce;
   }
 
   _setCaption(caption) {

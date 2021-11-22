@@ -182,8 +182,14 @@ export default class InlineContent extends withStyles(Base, styles) {
           : this.textProperties.lineHeight) - badge.h;
     }
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
     const announce =
       this._parsedContent &&
       this._parsedContent.reduce((announce, item) => {

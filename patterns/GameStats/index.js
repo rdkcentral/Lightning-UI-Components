@@ -127,6 +127,9 @@ export class StatLine extends withStyles(Base, baseStyles) {
     }
     return preciseStat;
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
     if (this._announce) {
@@ -141,10 +144,6 @@ export class StatLine extends withStyles(Base, baseStyles) {
     return announce
       .filter(s => s) // remove empty
       .join('. ');
-  }
-
-  set announce(announce) {
-    this._announce = announce;
   }
 
   get _LeftArrowTexture() {
@@ -217,13 +216,15 @@ export class SingleStatLine extends withStyles(Base, baseStyles) {
     this._Label.patch({ text: this._label });
     this._Stat.patch({ text: this.getPreciseStat(this._stat) });
   }
-
-  get announce() {
-    return this._announce || [this._label, this._stat].join(',');
+  set announce(announce) {
+    super._announce = announce;
   }
 
-  set announce(announce) {
-    this._announce = announce;
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [this._label, this._stat].join(',');
   }
 }
 
@@ -277,16 +278,15 @@ class Stats extends Base {
   _getFocused() {
     return this._DataItem;
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
     if (this._announce) {
       return this._announce;
     }
     return this._Column.items.map(statline => statline.announce).join(',');
-  }
-
-  set announce(announce) {
-    this._announce = announce;
   }
 
   _setStats(stats) {

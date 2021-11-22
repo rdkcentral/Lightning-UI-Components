@@ -170,8 +170,14 @@ export class TabBase extends Base {
     this.patch(content, true);
     return content;
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
     return this.title + ', Tab';
   }
 

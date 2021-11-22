@@ -38,7 +38,7 @@ export default class Info extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return ['title', 'subtitle', 'description', 'announce'];
+    return ['title', 'subtitle', 'description'];
   }
 
   static get tags() {
@@ -97,8 +97,11 @@ export default class Info extends withStyles(Base, styles) {
   _getFocused() {
     return this._DataItem;
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
-  _getAnnounce() {
+  get announce() {
     if (this._announce) {
       return this._announce;
     }

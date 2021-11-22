@@ -163,7 +163,7 @@ export default class Matchup extends withStyles(Base, styles) {
   }
 
   set announce(announce) {
-    this._announce = announce;
+    super._announce = announce;
   }
 
   _updateRemoveBackground() {

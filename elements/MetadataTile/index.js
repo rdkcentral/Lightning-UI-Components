@@ -184,8 +184,14 @@ export default class MetadataTile extends withStyles(Base, styles) {
       line.wrapper.shader = undefined;
     }
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
     return [this._FirstLine.announce, this._SecondLine.announce]
       .filter(s => s) // remove empty
       .join('. ');

@@ -112,15 +112,13 @@ export default class ListItemSlider extends ListItem {
   }
 
   get announce() {
-    return this._announce
-      ? this._announce
-      : [this._title, this._value].join(' ');
+    if (this._announce) {
+      return this._announce;
+    }
+    return [this._title, this._value].join(' ');
   }
   set announce(announce) {
-    if (this._announce !== announce) {
-      this._announce = announce;
-      this._update();
-    }
+    super._announce = announce;
   }
 
   _getValue() {
