@@ -52,11 +52,14 @@ export default class Keyboard extends Base {
   }
 
   get announce() {
-    return this._announce || 'Keyboard' + (this.title ? `, ${this.title}` : '');
+    if (this._announce) {
+      return this._announce;
+    }
+    return 'Keyboard' + (this.title ? `, ${this.title}` : '');
   }
 
-  set announce(val) {
-    this._announce = val;
+  set announce(announce) {
+    super._announce = announce;
   }
 
   get announceContext() {

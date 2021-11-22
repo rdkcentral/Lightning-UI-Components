@@ -41,6 +41,15 @@ class Base extends lng.Component {
   _unfocus() {
     this._requestUpdateDebounce();
   }
+
+  // keep announce methods out of the update lifecycle (do not put in properties array)
+  // announce methods does not re-render component
+  get announce() {
+    return this._announce;
+  }
+  set announce(announce) {
+    this._announce = announce;
+  }
 }
 
 function withMixins(baseComponent) {

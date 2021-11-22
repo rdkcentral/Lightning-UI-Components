@@ -35,10 +35,6 @@ export default class ListItemImageGroup extends withStyles(Base, styles) {
     return ['DataItem', { name: 'Column', path: 'DataItem.Content.Column' }];
   }
 
-  get announce() {
-    return this._Column.items.map(item => item.announce).join(',');
-  }
-
   _update() {
     // Allow override of props with spread as last prop
     this._Column.items = this._listItems.map(item => ({
@@ -63,7 +59,16 @@ export default class ListItemImageGroup extends withStyles(Base, styles) {
 
     this._setHeight();
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return this._Column.items.map(item => item.announce).join(',');
+  }
   _setHeight() {
     let height = this.styles.padding.y * 2;
     this._Column.items.forEach((item, idx) => {

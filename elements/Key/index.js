@@ -82,8 +82,8 @@ export default class Key extends withStyles(Button, keyStyles) {
     this.title = char;
   }
 
-  set announce(value) {
-    this._announce = value;
+  set announce(announce) {
+    super._announce = announce;
   }
 
   get announce() {

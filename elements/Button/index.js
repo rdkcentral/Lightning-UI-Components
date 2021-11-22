@@ -284,8 +284,15 @@ export default class Button extends withStyles(Base, styles) {
       this._update();
     }
   }
+  set announce(announce) {
+    super._announce = announce;
+  }
 
   get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
     // TODO - Localization?
     // Do we need a locale file with
     // component translations?
