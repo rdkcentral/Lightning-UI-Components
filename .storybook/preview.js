@@ -128,6 +128,7 @@ function createApp(parameters) {
 }
 
 function setTheme(themeName) {
+  if (window.localStorage.getItem('theme') === themeName) return;
   switch (themeName) {
     case 'xfinity':
       if (window.APP) {
@@ -138,12 +139,13 @@ function setTheme(themeName) {
     default:
       if (window.APP) {
         context.setTheme(BaseTheme);
-        window.localStorage.removeItem('theme');
+        window.localStorage.setItem('theme', 'base');
       }
       break;
   }
 }
 
+let previousID = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   if (
     !window.localStorage.getItem('customTheme') &&
@@ -190,7 +192,9 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
     for (const prop in args) {
       // Apply arguments from controls
       const propValue = 'undefined' !== typeof args[prop] ? args[prop] : parameters.argTypes[prop].defaultValue;
-      LightningUIComponent[prop] = propValue;
+      if (!parameters.argActions || !parameters.argActions[prop]) {
+        LightningUIComponent[prop] = propValue;
+      }
     }
   }
 
@@ -201,7 +205,12 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   ) {
     for (const prop in parameters.argActions) {
       if ('function' === typeof parameters.argActions[prop]) {
-        parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
+        try {
+          const propValue = 'undefined' !== typeof args[prop] ? args[prop] : parameters.argTypes[prop].defaultValue;
+          if ('undefined' !== typeof propValue) parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
+        } catch(err) {
+          console.error('unable to apply argAction for ' + prop);
+        }
       }
     }
     return app.getCanvas();

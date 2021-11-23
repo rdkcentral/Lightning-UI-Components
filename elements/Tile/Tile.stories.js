@@ -1,14 +1,8 @@
 import lng from '@lightningjs/core';
 
 import Tile from '.';
-import Row from '../../layout/Row';
 import mdx from './Tile.mdx';
-import kabob from '../../assets/images/kabob_320x180.jpg';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
-import parksFocus from '../../assets/images/Parks_and_Recreation_16x9_NoTitle.jpg';
-import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
-import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 
 export default {
   title: 'Elements / Tile',
@@ -19,60 +13,30 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
+        x: 60,
+        y: 60,
         Tile: {
           type: Tile,
-          src: kabob,
-          w: 320,
-          h: 180
+          src: trolls,
+          itemLayout: {
+            ratioX: 16,
+            ratioY: 9,
+            upCount: 5
+          }
         }
       };
     }
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Tile');
-      }
+
+    $onEnter(keyEvent, tile) {
+      console.log('Enter on Tile ', tile);
     }
   };
-Basic.args = {
-  blur: 0,
-  radius: 16,
-  imgRadius: 16,
-  color: 'rgba(63,92,30,0.7)',
-  focusGradient: false,
-  persistGradient: false,
-  shouldAnimate: true
-};
 Basic.argTypes = {
-  focused: { control: 'boolean' },
-  blur: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 4,
-      step: 0.5
-    }
-  },
-  radius: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 5
-    }
-  },
-  imgRadius: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 5
-    }
-  },
-  color: { control: 'color' }
+  focused: { control: 'boolean' }
 };
 Basic.parameters = {
   argActions: {
@@ -83,78 +47,4 @@ Basic.parameters = {
       component._refocus();
     }
   }
-};
-
-export const XfinityTheme = args =>
-  class Basic extends lng.Component {
-    static _template() {
-      return {
-        x: 60,
-        y: 60,
-        Row: {
-          type: Row,
-          itemSpacing: 60,
-          items: [
-            {
-              type: Tile,
-              src: trolls,
-              itemLayout: {
-                ratioX: 16,
-                ratioY: 9,
-                upCount: 5
-              },
-              onArrowUp: keyEvent => {
-                // eslint-disable-next-line no-restricted-syntax
-                console.log('You hit Up ', keyEvent);
-              }
-            },
-            {
-              type: Tile,
-              src: parks,
-              focusSrc: parksFocus,
-              w: args.width,
-              h: args.height,
-              radius: args.radius,
-              onEnter: keyEvent => {
-                // eslint-disable-next-line no-restricted-syntax
-                console.log('You hit Enter ', keyEvent);
-              }
-            },
-            {
-              type: Tile,
-              src: jurassic,
-              w: args.width,
-              h: args.height,
-              radius: args.radius,
-              onArrowDown: keyEvent => {
-                // eslint-disable-next-line no-restricted-syntax
-                console.log('You hit Down ', keyEvent);
-              }
-            },
-            {
-              type: Tile,
-              src: pets,
-              w: args.width,
-              h: args.height,
-              radius: args.radius
-            }
-          ]
-        }
-      };
-    }
-
-    $onEnter(keyEvent, tile) {
-      // eslint-disable-next-line no-restricted-syntax
-      console.log('Enter on Tile ', tile);
-    }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
-  };
-
-XfinityTheme.args = {
-  width: 320,
-  height: 180,
-  radius: 16
 };

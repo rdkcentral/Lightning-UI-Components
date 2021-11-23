@@ -1,7 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
-import withThemeStyles from '.';
+import withThemeStyles, { processThemeStyles } from '.';
 import Base from '../../Base';
 import { context } from '../..';
+import { theme } from '../../context';
 import XfinityTheme from '../../themes/xfinity';
 const style = theme => {
   return {
@@ -27,23 +28,64 @@ class ExtendedTestComponent extends withThemeStyles(
   extendedStyle
 ) {}
 
-let withThemeStylesComponent = null;
+const [withThemeStylesComponent, testRenderer] = TestUtils.makeCreateComponent(
+  withThemeStyles(TestComponent, style)
+)();
+
 beforeEach(() => {
-  [withThemeStylesComponent] = TestUtils.makeCreateComponent(
-    withThemeStyles(TestComponent, style)
-  )();
+  withThemeStylesComponent.style = {};
   context.setTheme(XfinityTheme);
 });
 
-afterEach(() => {
-  withThemeStylesComponent = null;
-});
+afterEach(() => {});
 
 describe('withThemeStyles', () => {
-  it('should return componentStyles as an object', () => {
+  it('should export processThemeStyles', () => {
+    expect(typeof processThemeStyles).toBe('function');
+  });
+  it('processThemeStyles should return a function', () => {
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
       radius: 16
     });
+    const base = theme => ({ foo: 'bar', radius: theme.radius });
+    const variant = theme => ({
+      inverse: { radius: theme.radius * 2 },
+      brand: { radius: theme.radius * 4 }
+    });
+    expect(
+      processThemeStyles({ radius: 10 }, 'inverse', undefined, variant)
+    ).toMatchObject({ radius: 20 });
+    expect(
+      processThemeStyles({ radius: 10 }, 'inverse', base, undefined)
+    ).toMatchObject({ foo: 'bar' });
+    expect(
+      processThemeStyles({ radius: 10 }, 'inverse', base, variant)
+    ).toMatchObject({ foo: 'bar', radius: 20 });
+    expect(
+      processThemeStyles({ radius: 10 }, 'brand', base, variant)
+    ).toMatchObject({ foo: 'bar', radius: 40 });
+  });
+  it('processThemeStyles should throw proper errors', () => {
+    const base = theme => ({ foo: 'bar', radius: theme.radius });
+    const variant = theme => ({
+      inverse: { radius: theme.radius * 2 },
+      brand: { radius: theme.radius * 4 }
+    });
+    expect(() =>
+      processThemeStyles('should throw', 'brand', base, variant)
+    ).toThrowError(
+      new Error('processThemeStyles theme parameter must be an object')
+    );
+    expect(() =>
+      processThemeStyles({ radius: 10 }, 'brand', 'should throw', variant)
+    ).toThrowError(
+      new Error('processThemeStyles base parameter must be a function')
+    );
+    expect(() =>
+      processThemeStyles({ radius: 10 }, 'brand', base, 'should throw')
+    ).toThrowError(
+      new Error('processThemeStyles variant parameter must be a function')
+    );
   });
 
   it('should properly merge instantiation styles', () => {
@@ -53,50 +95,48 @@ describe('withThemeStyles', () => {
     expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
   });
 
-  // it('should save instantiation styles in the context cache', () => {});
-
-  it("should create getters and setters for all keys in the component's style", () => {
+  it("should create getters and setters for all keys in the component's style", async done => {
     expect(
-      withThemeStylesComponent.__lookupGetter__('styleRadius')
+      withThemeStylesComponent.style.__lookupGetter__('radius')
     ).not.toBeUndefined();
     expect(
-      withThemeStylesComponent.__lookupGetter__('styleFoo')
+      withThemeStylesComponent.style.__lookupGetter__('foo')
     ).not.toBeUndefined();
     expect(
-      withThemeStylesComponent.__lookupSetter__('styleRadius')
+      withThemeStylesComponent.style.__lookupSetter__('radius')
     ).not.toBeUndefined();
     expect(
-      withThemeStylesComponent.__lookupSetter__('styleFoo')
+      withThemeStylesComponent.style.__lookupSetter__('foo')
     ).not.toBeUndefined();
-    withThemeStylesComponent.styleRadius = 20;
-    withThemeStylesComponent.styleFoo = 'updated';
+    withThemeStylesComponent.style.radius = 20;
+    withThemeStylesComponent.style.foo = 'updated';
+    await TestUtils.nextTick();
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
       radius: 20,
       foo: 'updated'
     });
+    done();
+  });
+});
+
+describe('component variants', () => {
+  it('should have a variant getter and setter', done => {
+    expect(withThemeStylesComponent.variant).toBeUndefined();
+    context.updateTheme({
+      componentVariants: {
+        TestComponent: 'inverse'
+      }
+    });
+    expect(withThemeStylesComponent.variant).toBe('inverse');
+    withThemeStylesComponent.variant = 'brand';
+    expect(withThemeStylesComponent.variant).toBe('brand');
+    done();
   });
 });
 
 describe('withThemeStyles Hierarchy', () => {
-  it('should obey styles set with instantiation styles first', () => {
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 16
-    });
-    const [testComponent] = TestUtils.makeCreateComponent(
-      ExtendedTestComponent
-    )();
-    expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
-  });
-
-  it('should should allow instantiation styles to be overwritten by componentStyles in the theme', () => {
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 16
-    });
-    const [testComponent] = TestUtils.makeCreateComponent(
-      ExtendedTestComponent
-    )();
-    expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
-    // Merge new component level styles
+  it('should allow instantiation styles to be overwritten by componentStyles in the theme', async done => {
+    await TestUtils.nextTick();
     context.updateTheme({
       componentStyles: {
         TestComponent: {
@@ -104,18 +144,12 @@ describe('withThemeStyles Hierarchy', () => {
         }
       }
     });
-    expect(testComponent._componentStyles).toMatchObject({ radius: 30 });
-  });
-
-  it('should should allow instantiation styles and componentStyles to be overwritten by component level styles', () => {
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 16
+      radius: 30
     });
-    const [testComponent] = TestUtils.makeCreateComponent(
-      ExtendedTestComponent
-    )();
-    expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
-    // Merge new component level styles
+    done();
+  });
+  it('should allow instantiation styles and componentStyles to be overwritten by component level styles', async done => {
     context.updateTheme({
       componentStyles: {
         TestComponent: {
@@ -123,8 +157,26 @@ describe('withThemeStyles Hierarchy', () => {
         }
       }
     });
-    expect(testComponent._componentStyles).toMatchObject({ radius: 30 });
-    testComponent.styleRadius = 40;
-    expect(testComponent._componentStyles).toMatchObject({ radius: 40 });
+    await TestUtils.nextTick();
+    expect(withThemeStylesComponent._componentStyles).toMatchObject({
+      radius: 30
+    });
+    withThemeStylesComponent.style.radius = 40;
+    await TestUtils.nextTick();
+    expect(withThemeStylesComponent._componentStyles).toMatchObject({
+      radius: 40
+    });
+    done();
+  });
+});
+
+describe('withThemeStyles cleanup', () => {
+  it('cleans up caches stored in the context when the component is detached', () => {
+    console.log;
+    const spy = jest.spyOn(theme, 'resetComponentInstantiationStyles');
+    const spy2 = jest.spyOn(theme, 'resetComponentLevelStyles');
+    testRenderer.destroy();
+    expect(spy).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
   });
 });

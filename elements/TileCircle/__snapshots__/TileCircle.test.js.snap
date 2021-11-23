@@ -97,7 +97,45 @@ Object {
           "attached": true,
           "boundsMargin": null,
           "children": Object {
-            "Artwork": Object {
+            "Background": Object {
+              "active": false,
+              "alpha": 1,
+              "attached": true,
+              "boundsMargin": null,
+              "clipping": false,
+              "color": "a30d0d0f",
+              "enabled": true,
+              "flex": false,
+              "flexItem": false,
+              "h": 180,
+              "isComponent": undefined,
+              "mount": 0,
+              "mountX": 0,
+              "mountY": 0,
+              "pivot": 0.5,
+              "pivotX": 0.5,
+              "pivotY": 0.5,
+              "ref": "Background",
+              "renderOfScreen": undefined,
+              "renderToTexture": false,
+              "scale": 1,
+              "scaleX": 1,
+              "scaleY": 1,
+              "state": undefined,
+              "tag": [Function],
+              "tags": Array [
+                "Background",
+              ],
+              "texture": Object {
+                "type": "RectangleTexture",
+              },
+              "visible": true,
+              "w": 320,
+              "x": 0,
+              "y": 0,
+              "zIndex": 0,
+            },
+            "Wrap": Object {
               "active": false,
               "alpha": 1,
               "attached": true,
@@ -115,7 +153,7 @@ Object {
                       "attached": true,
                       "boundsMargin": null,
                       "children": Object {
-                        "Blur": Object {
+                        "Image": Object {
                           "active": false,
                           "alpha": 1,
                           "attached": true,

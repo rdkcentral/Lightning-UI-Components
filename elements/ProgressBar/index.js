@@ -18,23 +18,11 @@ class ProgressBar extends Base {
   }
 
   static get properties() {
-    return ['animationDuration', 'progress'];
+    return ['animationDuration', 'progress', 'w', 'h'];
   }
 
   static get tags() {
     return ['Bar', 'Progress'];
-  }
-
-  set w(w) {
-    if (this._w !== w) {
-      this._w = w;
-      this._update();
-      this._updateProgress();
-    }
-  }
-
-  get w() {
-    return this._w || this._componentStyles.w;
   }
 
   _construct() {
@@ -44,11 +32,10 @@ class ProgressBar extends Base {
   }
 
   _update() {
-    this.h = this._componentStyles.h;
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
-      this.w - 2,
-      this.h,
+      this._componentStyles.w - 2,
+      this._componentStyles.h,
       this._componentStyles.radius,
       0,
       0,
@@ -57,8 +44,8 @@ class ProgressBar extends Base {
     );
 
     this._Progress.texture = lng.Tools.getRoundRect(
-      this.w + 1,
-      this.h,
+      this._componentStyles.w + 1,
+      this._componentStyles.h,
       this._componentStyles.radius,
       0,
       0,
@@ -69,8 +56,8 @@ class ProgressBar extends Base {
   }
 
   _updateProgress() {
-    const p = this.w * this._progress;
-    const w = p <= 0 ? 0 : Math.min(p, this.w);
+    const p = this._componentStyles.w * this._progress;
+    const w = p <= 0 ? 0 : Math.min(p, this._componentStyles.w);
     this._Progress.smooth = {
       w: [w, { duration: this._animationDuration }],
       alpha: Number(w > 0)

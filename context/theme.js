@@ -105,7 +105,6 @@ export class Theme {
         return value;
       }
     });
-
     return { ...JSON.parse(themeString), ...themeFunctions };
   }
 

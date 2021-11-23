@@ -44,12 +44,14 @@ describe('Tile', () => {
     expect(tile.radius).toEqual(16);
   });
 
-  it('should render with all options', () => {
-    const [tile, testRenderer] = createTile({
+  it('should render with all options', async done => {
+    const [tile] = createTile({
       w: 320,
       h: 180,
-      styleBlur: 4,
-      styleRadius: 16,
+      style: {
+        blur: 4,
+        radius: 16
+      },
       shadow: {
         w: 320,
         h: 180,
@@ -62,20 +64,25 @@ describe('Tile', () => {
     });
 
     tile._smooth = false;
-    testRenderer.update();
-    return tile._whenEnabled.then(() => {
-      expect(tile._Blur.amount).toBe(4);
-      expect(tile._Item.shader.radius[0]).toBe(16);
-    });
+    await TestUtils.nextTick();
+    await TestUtils.nextTick();
+    expect(tile._Blur.amount).toBe(4);
+    expect(tile._Item.shader.radius[0]).toBe(16);
+    done();
   });
 
-  it('should not round image with imgRadius = 0', () => {
+  it('should not round image with imgRadius = 0', async done => {
     const [tile] = createTile({
       w: 320,
       h: 180,
-      styleRadius: 0
+      style: {
+        radius: 0
+      }
     });
+    await TestUtils.nextTick(); // Wait for tile to update the value
+    await TestUtils.nextTick(); // Wait for patch to complete
     expect(tile._Item.shader.constructor.name).toBe('DefaultShader');
+    done();
   });
 
   describe('focus', () => {

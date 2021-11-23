@@ -13,5 +13,6 @@ export default {
   radius,
   typography,
   animations,
-  componentStyles: {}
+  componentStyles: {},
+  componentVariants: {}
 };

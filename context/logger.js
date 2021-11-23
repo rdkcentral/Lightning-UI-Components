@@ -1,4 +1,3 @@
-// import app from './app';
 export class Logger {
   constructor() {
     this._logCallback = undefined;
