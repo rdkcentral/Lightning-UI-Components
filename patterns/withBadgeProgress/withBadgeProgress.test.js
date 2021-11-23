@@ -41,7 +41,7 @@ describe('withBadgeProgress', () => {
     expect(component._Badge.y).toBe(badgePadding);
   });
 
-  it('should display the progress bar', () => {
+  it('should display the progress bar', done => {
     const progress = 0.5;
     const progressBarPadding = component.styles.progressBarPadding;
 
@@ -49,14 +49,18 @@ describe('withBadgeProgress', () => {
       w: 300,
       progress
     });
-
-    expect(component.progress).toBe(progress);
-    expect(component._ProgressBar.x).toBe(progressBarPadding);
-    expect(component._ProgressBar.y).toBe(
-      component._unfocusedTileHeight -
-        component._ProgressBar.h -
-        progressBarPadding
-    );
+    setTimeout(() => {
+      setTimeout(() => {
+        expect(component.progress).toBe(progress);
+        expect(component._ProgressBar.x).toBe(progressBarPadding);
+        expect(component._ProgressBar.y).toBe(
+          component._unfocusedTileHeight -
+            component._ProgressBar.h -
+            progressBarPadding
+        );
+        done();
+      });
+    });
   });
 
   it('should alpha the progress off if progress is 0', async () => {

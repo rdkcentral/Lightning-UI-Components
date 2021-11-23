@@ -37,6 +37,7 @@ export default function withUpdates(Base) {
     }
 
     _construct() {
+      super._construct && super._construct();
       const props = this.constructor.properties || [];
       props.forEach(name => {
         const key = '_' + name;

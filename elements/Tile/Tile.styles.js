@@ -1,10 +1,10 @@
-import blackBackground from '../../Styles/black_background_tile';
+import { processThemeStyles } from '../../mixins/withThemeStyles';
 
-export default theme => {
+export function base(theme) {
   return {
+    w: 400,
     radius: theme.radius.medium,
     blur: 0,
-    src: blackBackground,
     unfocused: {
       shadow: { alpha: 0 }
     },
@@ -15,4 +15,21 @@ export default theme => {
     getFocusScale: theme.getFocusScale,
     getUnfocusScale: theme.getUnfocusScale
   };
-};
+}
+
+export function variants(theme) {
+  return {
+    neutral: {
+      progressColor: theme.colors.fillInverseBase
+    },
+    brand: {
+      progressColor: theme.colors.fillPositiveFocus
+    },
+    inverse: {
+      progressColor: theme.colors.materialNegative
+    }
+  };
+}
+
+export default (theme, variant) =>
+  processThemeStyles(theme, variant, base, variants);

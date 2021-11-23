@@ -3,7 +3,6 @@ import ProgressBar from '.';
 import mdx from './ProgressBar.mdx';
 import { getHexColor } from '../../Styles';
 import context from '../../context';
-
 export default {
   title: 'Elements / ProgressBar',
   parameters: {
@@ -19,6 +18,7 @@ export default {
     }
   }
 };
+
 export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
@@ -28,6 +28,7 @@ export const Basic = () =>
         }
       };
     }
+
     _getFocused() {
       return this.tag('ProgressBar');
     }
