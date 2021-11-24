@@ -76,7 +76,6 @@ describe('Column', () => {
     testRenderer = TestRenderer.create(Component);
     column = testRenderer.getInstance();
     setTimeout(() => {
-      column._update.flush();
       done();
     }, 3);
   });
@@ -121,7 +120,7 @@ describe('Column', () => {
       const item = column.items[1];
 
       column.itemSpacing = spacing;
-      column._update.flush();
+      column._update();
       testRenderer.update();
       column._whenEnabled.then(() => {
         expect(item.y).toBe(spacing + item.h);
@@ -226,7 +225,7 @@ describe('Column', () => {
         column.items = [];
         testRenderer.keyPress('Down');
         column._whenEnabled.then(() => {
-          expect(column.Items.y).toBe(100);
+          expect(column._Items.y).toBe(100);
           done();
         });
       });
@@ -249,7 +248,6 @@ describe('Column', () => {
       it('should select last item in selected row if it is closest', () => {
         const row = column.items[0];
         row.items = [...items, { ...baseItem }];
-        row._update.flush();
         row.selectedIndex = row.items.length - 1;
         testRenderer.update();
         testRenderer.keyPress('Down');
@@ -283,7 +281,6 @@ describe('Column', () => {
     describe('with column height < items', () => {
       beforeEach(() => {
         column.h = 400;
-        column._update.flush();
         testRenderer.update();
       });
 
@@ -292,7 +289,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(-100);
+            expect(column._Items.y).toBe(-100);
             done();
           });
         });
@@ -302,7 +299,7 @@ describe('Column', () => {
           testRenderer.keyPress('Up');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(0);
+            expect(column._Items.y).toBe(0);
             done();
           });
         });
@@ -312,7 +309,6 @@ describe('Column', () => {
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollIndex = 2;
-          column._update.flush();
           testRenderer.update();
         });
 
@@ -334,7 +330,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(-column.items[1].y);
+            expect(column._Items.y).toBe(-column.items[1].y);
             done();
           });
         });
@@ -344,7 +340,7 @@ describe('Column', () => {
           testRenderer.keyPress('Up');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(0);
+            expect(column._Items.y).toBe(0);
             done();
           });
         });
@@ -357,7 +353,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y + column.h).toBeGreaterThan(item.y);
+            expect(column._Items.y + column.h).toBeGreaterThan(item.y);
             done();
           });
         });
@@ -374,7 +370,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(-600);
+            expect(column._Items.y).toBe(-600);
             done();
           });
         });
@@ -399,7 +395,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(0);
+            expect(column._Items.y).toBe(0);
             done();
           });
         });
@@ -412,7 +408,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           return column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y).toBe(-100);
+            expect(column._Items.y).toBe(-100);
           });
         });
 
@@ -439,7 +435,7 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           return column._whenEnabled.then(() => {
             testRenderer.update();
-            expect(column.Items.y + column.h).toBeGreaterThan(item.y);
+            expect(column._Items.y + column.h).toBeGreaterThan(item.y);
           });
         });
       });
@@ -466,14 +462,14 @@ describe('Column', () => {
 
       it('should not scroll is neverScroll if true', done => {
         column.neverScroll = true;
-        expect(column.Items.y).toBe(0);
+        expect(column._Items.y).toBe(0);
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
         testRenderer.update();
         column._whenEnabled.then(() => {
           expect(column._selectedIndex).toBe(3);
-          expect(column.Items.transition('y').targetValue).toBe(0);
+          expect(column._Items.transition('y').targetValue).toBe(0);
           done();
         });
       });
