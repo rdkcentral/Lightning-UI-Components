@@ -25,7 +25,7 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'large']
+        options: ['small', 'medium', 'large']
       }
     },
     checked: { control: 'boolean' }

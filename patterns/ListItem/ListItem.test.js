@@ -45,16 +45,16 @@ describe('ListItemBase', () => {
     expect(listItemBase._Container.finalH).toBe(96);
   });
 
-  it('renders small size', () => {
-    [listItemBase, testRenderer] = createListItemBase({ size: 'small' });
-    testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(410);
-  });
-
-  it('renders large size', () => {
-    [listItemBase, testRenderer] = createListItemBase({ size: 'large' });
-    testRenderer.update();
-    expect(listItemBase._Container.finalW).toBe(860);
+  it('supports rendering at small, medium, and large sizes', () => {
+    const sizes = ['small', 'medium', 'large'];
+    sizes.forEach(size => {
+      [listItemBase, testRenderer] = createListItemBase({ size });
+      testRenderer.update();
+      expect(typeof listItemBase.styles.dimensions[size]).toBe('number');
+      expect(listItemBase._Container.finalW).toBe(
+        listItemBase.styles.dimensions[size]
+      );
+    });
   });
 
   it('renders custom size', () => {
