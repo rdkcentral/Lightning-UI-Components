@@ -4,6 +4,7 @@ export default theme => ({
   backgroundType: 'fill',
   dimensions: {
     large: 860,
+    medium: 523,
     small: 410
   },
   paddingLeft: theme.spacing(2),
