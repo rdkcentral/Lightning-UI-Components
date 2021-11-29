@@ -173,6 +173,7 @@ export default class Column extends FocusManager {
           this.Items.smooth = { y: this.itemPosY };
         } else {
           this.Items.y = this.itemPosY;
+          this._updateTransitionTarget(this.Items, this.itemPosY);
         }
       } else if (this._shouldScroll()) {
         let scrollItem =
@@ -195,14 +196,27 @@ export default class Column extends FocusManager {
             ]
           };
         } else {
+          const scrollTarget =
+            -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
           this.Items.patch({
-            y: -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0)
+            y: scrollTarget
           });
+          this._updateTransitionTarget(this.Items, scrollTarget);
         }
       }
 
       this.onScreenEffect(this.onScreenItems);
     });
+  }
+
+  _updateTransitionTarget(element, newValue) {
+    if (
+      element.transition('y') &&
+      !element.transition('y').isRunning() &&
+      element.transition('y').targetValue !== newValue
+    ) {
+      element.transition('y').updateTargetValue(newValue);
+    }
   }
 
   get onScreenItems() {
@@ -258,6 +272,7 @@ export default class Column extends FocusManager {
           child.smooth = { y: [nextY, this._itemTransition] };
         } else {
           child.patch({ y: nextY });
+          this._updateTransitionTarget(child, nextY);
         }
         nextY += child.h;
         if (i < this.Items.children.length - 1) {
@@ -369,7 +384,18 @@ export default class Column extends FocusManager {
         this.selectedIndex > index ? this.selectPrevious() : this.selectNext();
       }, duration * i);
     }
-    this.Items.transition('y').on('finish', () => (this._smooth = false));
+    this.Items.transition('y').on(
+      'finish',
+      this._transitionListener.bind(this)
+    );
+  }
+
+  _transitionListener() {
+    this._smooth = false;
+    this.Items.transition('y').removeListener(
+      'finish',
+      this._transitionListener
+    );
   }
 
   $itemChanged() {
