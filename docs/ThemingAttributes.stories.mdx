@@ -1,6 +1,7 @@
 import { Meta, Description } from '@storybook/addon-docs';
-import themingAttributes from '../scriptingFiles/attributes1.md';
-import themingAttributes2 from '../scriptingFiles/attributes2.md';
+import radiusTable from '../bin/scriptingFiles/radiusTable.md';
+import typographyTable from '../bin/scriptingFiles/typographyTable.md';
+import colorsTable from '../bin/scriptingFiles/colorsTable.md';
 <style>{`
 .sbdocs.sbdocs-li {
     color: white !important;
@@ -11,19 +12,26 @@ import themingAttributes2 from '../scriptingFiles/attributes2.md';
 
 # Theming Properties
 <br />
-<Description>{themingAttributes}</Description>
 
+## Radius
+
+<Description>{radiusTable}</Description>
+
+<br />
 
 ## Typography
 
 Theme typography is set up to use semantically-named tokens. They are Javascript objects, with keys for different font attributes and positioning.
 
-<Description>{themingAttributes2}</Description>
+<Description>{typographyTable}</Description>
 
+<br />
 
 ## Animations
 
 Theme animations are stringified functions used to generate curves to be used within components who need animations. These are also tokenized to assist with ensuring consistent behavior between components.
+
+<br />
 
 ## Colors
 
@@ -34,3 +42,4 @@ These tokens are set up to take an array of two values: the first is the six cha
 
 fillNeutral = ['#ffffff', 95];
 ```
+<Description>{colorsTable}</Description>
