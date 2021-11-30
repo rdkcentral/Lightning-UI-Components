@@ -5,12 +5,16 @@
  *
  */
 import lng from '@lightningjs/core';
-import Base from '../Base';
-import withStyles from '../../mixins/withStyles';
+import Base from '../../Base';
+import withStyles from '../../mixins/withThemeStyles';
 import { getHexColor, getValidColor } from '../../Styles/Styles';
 import styles from './FocusRing.styles';
 
 export default class FocusRing extends withStyles(Base, styles) {
+  static get __componentName() {
+    return 'FocusRing';
+  }
+
   static get properties() {
     return [
       'color',
@@ -26,16 +30,6 @@ export default class FocusRing extends withStyles(Base, styles) {
     return ['Ring'];
   }
 
-  _construct() {
-    super._construct();
-    this._color = getValidColor(this.styles.color);
-    this._middleColor = getHexColor(getValidColor(this.styles.color), 54);
-    this._secondaryColor = this.styles.secondaryColor;
-    this._radius = this.styles.radius;
-    this._spacing = this.styles.spacing;
-    this._borderWidth = this.styles.borderWidth;
-  }
-
   _inactive() {
     this.stopAnimation();
   }
@@ -47,10 +41,6 @@ export default class FocusRing extends withStyles(Base, styles) {
 
   _updateRing() {
     const { transition, primary, secondary } = this.getColors();
-    const offset = this.spacing * 2 + this.borderWidth;
-    const radius = this.radius
-      ? this.radius + this.spacing + this.borderWidth / 2
-      : 0;
 
     this.patch({
       Ring: {
@@ -59,11 +49,10 @@ export default class FocusRing extends withStyles(Base, styles) {
         y: this.h / 2,
         alpha: this.w && this.h ? 1 : 0.001,
         texture: lng.Tools.getRoundRect(
-          this.w + offset,
-          this.h + offset,
-          Math.max(0, radius), // Ensure number is always positive
-          this.borderWidth,
-          false,
+          this.w + this._componentStyles.spacing,
+          this.h + this._componentStyles.spacing,
+          this._componentStyles.radius,
+          4,
           false,
           false
         ),
@@ -78,9 +67,9 @@ export default class FocusRing extends withStyles(Base, styles) {
 
   getColors() {
     return {
-      primary: this.color,
-      transition: this._middleColor,
-      secondary: this.secondaryColor
+      primary: this._componentStyles.color,
+      transition: getHexColor(getValidColor(this._componentStyles.color), 54),
+      secondary: this._componentStyles.secondaryColor
     };
   }
 

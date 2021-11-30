@@ -270,7 +270,15 @@ Object {
             },
           },
           "clipping": false,
+<<<<<<< HEAD
           "color": 4125945074,
+=======
+          "color": 4294375161,
+          "colorBl": "8af6f6f9",
+          "colorBr": "26f6f6f9",
+          "colorUl": "fff6f6f9",
+          "colorUr": "8af6f6f9",
+>>>>>>> e7ad4391 (feat: Theme focus ring (#746))
           "enabled": true,
           "flex": false,
           "flexItem": false,

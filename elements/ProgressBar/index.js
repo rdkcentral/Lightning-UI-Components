@@ -31,6 +31,13 @@ class ProgressBar extends Base {
   }
 
   _update() {
+    if (!this.w) {
+      this.w = this._componentStyles.w;
+    }
+    if (!this.h) {
+      this.h = this._componentStyles.h;
+    }
+
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
       this._componentStyles.w - 2,
