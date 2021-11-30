@@ -9,6 +9,15 @@ module.exports = {
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "CallExpression[callee.object.name='console'][callee.property.name!=/^(table|warn|error|info|trace)$/]",
+        message: 'Unexpected property on console object was called'
+      }
+    ],
     quotes: [2, 'single', 'avoid-escape'],
     'no-extra-boolean-cast': 'off',
     'prettier/prettier': [

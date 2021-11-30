@@ -65,6 +65,7 @@ export const Basic = args =>
           checked: args.checked,
           onEnter: toggle => {
             toggle.toggle();
+            // eslint-disable-next-line no-restricted-syntax
             console.log('On enter has fired');
           }
         }

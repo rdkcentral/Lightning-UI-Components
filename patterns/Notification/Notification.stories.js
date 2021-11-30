@@ -40,10 +40,12 @@ export const Basic = () =>
     }
 
     $notificationEntered() {
+      // eslint-disable-next-line no-restricted-syntax
       console.log('Notification entered');
     }
 
     $notificationDismissed() {
+      // eslint-disable-next-line no-restricted-syntax
       console.log('Notification dismissed');
     }
 

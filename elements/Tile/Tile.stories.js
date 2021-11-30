@@ -122,6 +122,7 @@ export const XfinityTheme = args =>
               },
               radius: args.radius,
               onArrowUp: keyEvent => {
+                // eslint-disable-next-line no-restricted-syntax
                 console.log('You hit Up ', keyEvent);
               }
             },
@@ -133,6 +134,7 @@ export const XfinityTheme = args =>
               h: args.height,
               radius: args.radius,
               onEnter: keyEvent => {
+                // eslint-disable-next-line no-restricted-syntax
                 console.log('You hit Enter ', keyEvent);
               }
             },
@@ -143,6 +145,7 @@ export const XfinityTheme = args =>
               h: args.height,
               radius: args.radius,
               onArrowDown: keyEvent => {
+                // eslint-disable-next-line no-restricted-syntax
                 console.log('You hit Down ', keyEvent);
               }
             },
@@ -168,6 +171,7 @@ export const XfinityTheme = args =>
     }
 
     $onEnter(keyEvent, tile) {
+      // eslint-disable-next-line no-restricted-syntax
       console.log('Enter on Tile ', tile);
     }
 
