@@ -23,7 +23,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 In an **unfocused** state, `ListItemSlider` only shows the `value` below the `title`.
@@ -52,30 +52,29 @@ class Example extends lng.Component {
   }
 
   _handleChange(value) {
-    console.log(value)
+    console.log(value);
   }
-};
+}
 ```
 
 <Canvas>
   <Story id="patterns-listitemslider--on-slider-change" />
 </Canvas>
 
-
 ## API
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-backgroundType|'fill'\|'float'\|'ghost'|false|color of `ListItem` container
-min|number|false|0|minimum allowed value
-max|number|false|100|maximum allowed value
-size|'small'\|'medium'\|'large'\|number|false|width of the `ListItem` container
-step|number|false|1|value multiplier
-title|string|true|-|label for slider
-value|number|false|0|slider value
-w|number|false|368|the slider width
+| name           | type                                         | required | default                           | description           |
+| -------------- | -------------------------------------------- | -------- | --------------------------------- | --------------------- |
+| backgroundType | 'fill'\|'float'\|'ghost'                     | false    | color of `ListItem` container     |
+| min            | number                                       | false    | 0                                 | minimum allowed value |
+| max            | number                                       | false    | 100                               | maximum allowed value |
+| size           | 'xsmall'\|'small'\|'medium'\|'large'\|number | false    | width of the `ListItem` container |
+| step           | number                                       | false    | 1                                 | value multiplier      |
+| title          | string                                       | true     | -                                 | label for slider      |
+| value          | number                                       | false    | 0                                 | slider value          |
+| w              | number                                       | false    | 368                               | the slider width      |
 
 ### Signals
 
