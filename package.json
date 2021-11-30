@@ -3,7 +3,9 @@
   "version": "4.48.0",
   "sideEffects": false,
   "dependencies": {
-    "debounce": "^1.2.1"
+    "csv-writer": "^1.6.0",
+    "debounce": "^1.2.1",
+    "fast-csv": "^4.3.6"
   },
   "peerDependencies": {
     "@lightningjs/core": "^2.1.1"
@@ -45,6 +47,7 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-jest": "^24.3.2",
     "eslint-plugin-prettier": "^3.3.1",
+    "esm": "^3.2.25",
     "gh-pages": "^4.0.0",
     "husky": "^8.0.1",
     "jest": "^26.6.1",
@@ -62,7 +65,7 @@
     "url": "https://github.comcast.com/Lightning/lightning-ui"
   },
   "scripts": {
-    "build": "build-storybook -c .storybook -o dist",
+    "build": "build-storybook -c .storybook -o dist && node -r esm bin/translationScript.js",
     "create": "sh bin/create.sh",
     "gh-pages": "gh-pages -d dist",
     "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
@@ -81,5 +84,12 @@
   },
   "publishConfig": {
     "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
-  }
+  },
+  "description": "A collection of Comcast-branded UI components for the [Lightning](https://rdkcentral.github.io/Lightning/) framework.",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
 }

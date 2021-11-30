@@ -4,7 +4,6 @@ import { withExtensions } from '../../mixins';
 import withStyles from '../../mixins/withThemeStyles';
 import styles from './ProgressBar.styles';
 import withFocusRing from '../../patterns/withFocusRing';
-
 class ProgressBar extends Base {
   static _template() {
     return {

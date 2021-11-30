@@ -1,5 +1,7 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
 
+export const variantDefault = 'brand';
+
 export function base(theme) {
   return {
     w: 400,
