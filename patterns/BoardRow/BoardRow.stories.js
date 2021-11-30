@@ -176,9 +176,11 @@ export const Basic = args =>
             cta: 'View All',
             gradientColor: args.gradientColor,
             onEnter: () => {
+              // eslint-disable-next-line no-restricted-syntax
               console.log('view all action');
             },
             onInfo: () => {
+              // eslint-disable-next-line no-restricted-syntax
               console.log('view all on info action');
             }
           },
