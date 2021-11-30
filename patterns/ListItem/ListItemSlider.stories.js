@@ -55,7 +55,9 @@ Basic.argTypes = {
   step: { control: 'number' },
   title: { control: 'text' },
   value: { control: 'number' },
-  size: { control: { type: 'radio', options: ['small', 'medium', 'large'] } }
+  size: {
+    control: { type: 'radio', options: ['xsmall', 'small', 'medium', 'large'] }
+  }
 };
 Basic.parameters = {
   argActions: {

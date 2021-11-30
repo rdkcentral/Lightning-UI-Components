@@ -5,7 +5,8 @@ export default theme => ({
   dimensions: {
     large: 860,
     medium: 523,
-    small: 410
+    small: 410,
+    xsmall: 231
   },
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),

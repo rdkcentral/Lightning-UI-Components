@@ -45,8 +45,8 @@ describe('ListItemBase', () => {
     expect(listItemBase._Container.finalH).toBe(96);
   });
 
-  it('supports rendering at small, medium, and large sizes', () => {
-    const sizes = ['small', 'medium', 'large'];
+  it('supports rendering at xsmall, small, medium, and large sizes', () => {
+    const sizes = ['xsmall', 'small', 'medium', 'large'];
     sizes.forEach(size => {
       [listItemBase, testRenderer] = createListItemBase({ size });
       testRenderer.update();

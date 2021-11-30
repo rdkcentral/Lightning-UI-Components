@@ -53,7 +53,7 @@ Basic.argTypes = {
   size: {
     control: {
       type: 'radio',
-      options: ['small', 'medium', 'large']
+      options: ['xsmall', 'small', 'medium', 'large']
     }
   },
   backgroundType: {
