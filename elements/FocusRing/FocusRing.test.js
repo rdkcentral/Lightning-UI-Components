@@ -52,15 +52,17 @@ describe('FocusRing', () => {
   it('should set primary color accounting for color type passed', () => {
     const testColor = getHexColor(GREY[5], 96);
     [focusRing, testRenderer] = createFocusRing({
-      color: getHexColor(GREY[5], 96)
+      style: { color: getHexColor(GREY[5], 96) }
     });
     expect(focusRing.color).toEqual(testColor);
   });
 
   it('should set primary color transition from color', () => {
-    const testColor = getHexColor(getHexColor(GREY[5], 96), 54);
+    const testColor = getHexColor(getHexColor('#663399', 96), 54);
     [focusRing, testRenderer] = createFocusRing({
-      color: getHexColor(GREY[5], 96)
+      style: {
+        color: getHexColor('#663399', 96)
+      }
     });
     const { transition } = focusRing.getColors();
     expect(transition).toEqual(testColor);
@@ -68,23 +70,38 @@ describe('FocusRing', () => {
 
   it('should set secondary color', () => {
     [focusRing, testRenderer] = createFocusRing({
-      secondaryColor: getHexColor(GREY[0], 8)
+      style: {
+        secondaryColor: getHexColor('#663399', 8)
+      }
     });
-    expect(focusRing.secondaryColor).toEqual(getHexColor(GREY[0], 8));
+    const { secondary } = focusRing.getColors();
+    expect(secondary).toEqual(getHexColor('#663399', 8));
   });
 
-  it('should set radius', () => {
-    [focusRing, testRenderer] = createFocusRing({ radius: 12 });
-    expect(focusRing.radius).toEqual(12);
+  it('should set radius', done => {
+    [focusRing, testRenderer] = createFocusRing({ style: { radius: 12 } });
+    expect(
+      parseInt(focusRing.tag('Ring').texture._lookupId.split(',').pop())
+    ).toEqual(12);
+    done();
   });
 
   it('should set the spacing', () => {
-    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
-    expect(focusRing.spacing).toEqual(50);
+    [focusRing, testRenderer] = createFocusRing({
+      style: {
+        spacing: 50
+      }
+    });
+    const rectSettings = focusRing
+      .tag('Ring')
+      .texture._lookupId.replace('rect', '')
+      .split(',');
+    expect(parseInt(rectSettings[0])).toEqual(focusRing.w + 50);
+    expect(parseInt(rectSettings[1])).toEqual(focusRing.h + 50);
   });
 
   it('should start and stop animating', () => {
-    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
+    [focusRing, testRenderer] = createFocusRing();
     focusRing.startAnimation();
     expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
     focusRing.stopAnimation();
@@ -92,9 +109,7 @@ describe('FocusRing', () => {
   });
 
   it('should stop animating if the component becomes inactive', () => {
-    [focusRing, testRenderer] = createFocusRing({
-      spacing: 50
-    });
+    [focusRing, testRenderer] = createFocusRing();
     focusRing.startAnimation();
     expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
     focusRing._inactive();

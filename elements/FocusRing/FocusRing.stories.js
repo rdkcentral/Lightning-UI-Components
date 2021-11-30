@@ -1,27 +1,11 @@
 import lng from '@lightningjs/core';
 import FocusRing from '.';
-
-import { PALETTE } from '../../Styles/Styles';
 import mdx from './FocusRing.mdx';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 
 export default {
   args: {
-    radius: 8,
-    color: 'rgba(236,236,242,.96)',
-    secondaryColor: 'rgba(255,255,255,.08)',
     animate: true
-  },
-  argTypes: {
-    radius: {
-      name: 'Radius',
-      control: {
-        type: 'range',
-        min: 0,
-        max: 160,
-        step: 1
-      }
-    }
   },
   title: 'Elements / FocusRing',
   parameters: {
@@ -64,8 +48,6 @@ export const Basic = args =>
   };
 
 Basic.argTypes = {
-  color: { name: 'Color', control: { type: 'color' } },
-  secondaryColor: { name: 'Secondary Color', control: { type: 'color' } },
   animate: { control: 'boolean' }
 };
 Basic.parameters = {
@@ -77,15 +59,6 @@ Basic.parameters = {
         component._FocusRing.stopAnimation();
       }
       component._refocus();
-    },
-    color: (color, component) => {
-      component._FocusRing.color = color;
-    },
-    secondaryColor: (color, component) => {
-      component._FocusRing.secondaryColor = color;
-    },
-    radius: (radius, component) => {
-      component._FocusRing.radius = radius;
     }
   }
 };
@@ -104,12 +77,14 @@ export const WithImage = () =>
           radius: 8
         },
         FocusRing: {
-          type: FocusRing,
+          type: class extends FocusRing {
+            _update() {
+              super._update();
+              this.startAnimation();
+            }
+          },
           w: 320,
-          h: 180,
-          radius: 8,
-          size: 8,
-          color: PALETTE.grey[5]
+          h: 180
         }
       };
     }

@@ -42,7 +42,11 @@ function withFocusRing(Base) {
           w: this.w,
           h: this.h,
           radius: this._componentStyles.radius + 2,
-          color: this._componentStyles.focusRingColor
+          color: this._componentStyles.focusRingColor,
+          variant: this.variant
+          // style: {
+          //   color: 0xfffff0000
+          // }
         });
 
         const style = this.hasFocus() ? this.focusStyle : this.unfocusStyle;
