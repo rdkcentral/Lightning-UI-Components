@@ -211,7 +211,7 @@ export default function withStyles(Base, styles) {
         ...this._stylesQueue()
       ].reduce((acc, curr) => {
         return { ...acc, ...curr }; // TODO: Check performance of spread operator in reduce
-      }, style);
+      }, {});
       contextTheme.setComponentInstantiationStyles(this.constructor, style);
 
       return style;
