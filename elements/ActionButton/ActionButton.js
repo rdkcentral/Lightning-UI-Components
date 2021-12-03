@@ -1,7 +1,8 @@
 import lng from '@lightningjs/core';
 import Button from '../Button';
+import Checkbox from '../Checkbox';
 import { RoundRect } from '../../utils';
-import withStyles from '../../mixins/withStyles';
+import { withStyles } from '../../mixins';
 import ActionButtonBaseStyles from './ActionButtonBase.styles';
 
 export class ActionButtonBase extends withStyles(
@@ -29,11 +30,19 @@ export class ActionButtonBase extends withStyles(
   }
 
   static get properties() {
-    return [...super.properties, 'backgroundType'];
+    return [...super.properties, 'backgroundType', 'checkbox'];
   }
 
   static get tags() {
-    return [...super.tags, 'Loader', 'DropShadow'];
+    return [
+      ...super.tags,
+      'Loader',
+      'DropShadow',
+      {
+        name: 'Checkbox',
+        path: 'Content.Checkbox'
+      }
+    ];
   }
 
   _construct() {
@@ -43,6 +52,14 @@ export class ActionButtonBase extends withStyles(
 
   _setIcon(src) {
     return src ? { ...this._iconStyles, src } : null;
+  }
+
+  _setCheckbox(checkbox) {
+    if (checkbox && typeof checkbox.checked === 'boolean') {
+      const { checked, spacing = 10 } = checkbox;
+      return { checked, spacing };
+    }
+    return null;
   }
 
   _updateDropShadow() {
@@ -95,7 +112,40 @@ export class ActionButtonBase extends withStyles(
       this._updateDropShadow();
       this._updateScale();
       this._updateLoader();
+      this._updateCheckbox();
       if (this.title || this.icon) super._update();
+    }
+  }
+
+  _updateCheckbox() {
+    if (this.checkbox) {
+      const { checked, spacing } = this.checkbox;
+      const checkboxProps = {
+        checked,
+        visible: 1,
+        flexItem: {
+          marginRight: !this._fixed && this.title ? spacing : 0
+        }
+      };
+      if (this._Checkbox) {
+        this._Checkbox.patch(checkboxProps);
+      } else {
+        this._Content.childList.addAt(
+          this.stage.c({
+            ...checkboxProps,
+            type: Checkbox,
+            ref: 'Checkbox'
+          }),
+          0
+        );
+      }
+    } else if (this._Checkbox) {
+      this._Checkbox.patch({
+        w: 0,
+        h: 0,
+        visible: 0,
+        texture: false
+      });
     }
   }
 

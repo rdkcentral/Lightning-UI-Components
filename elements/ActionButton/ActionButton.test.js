@@ -105,6 +105,50 @@ describe('ActionButton', () => {
     });
   });
 
+  describe('rendering with a checkbox', () => {
+    it('should prepend button text with a checkbox', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        title: 'Action Button',
+        checkbox: {
+          checked: false
+        }
+      });
+      expect(actionbutton.checkbox).toMatchObject({
+        checked: false,
+        spacing: expect.any(Number)
+      });
+      expect(actionbutton._Checkbox).toMatchObject({
+        ref: 'Checkbox',
+        checked: false
+      });
+    });
+    it('should allow custom spacing between the checkbox and button text', () => {
+      const spacing = 20;
+      [actionbutton, testRenderer] = createActionButton({
+        title: 'Action Button',
+        checkbox: {
+          checked: false,
+          spacing
+        }
+      });
+      expect(actionbutton.checkbox).toMatchObject({
+        checked: false,
+        spacing
+      });
+      expect(actionbutton._Checkbox.flexItem.marginRight).toEqual(spacing);
+    });
+    it('should not prepend with a checkbox if the checked property is invalid', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        title: 'Action Button',
+        checkbox: {
+          checked: 'yes'
+        }
+      });
+      expect(actionbutton.checkbox).toBeNull();
+      expect(actionbutton._Checkbox).toBeUndefined();
+    });
+  });
+
   describe('loading', () => {
     it('should load if no title is set', done => {
       [actionbutton, testRenderer] = createActionButton({});
