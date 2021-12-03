@@ -6,6 +6,7 @@ import Base from '../Base';
 import Gradient from '../Gradient';
 
 export const styles = theme => ({
+  shouldAnimate: true,
   radius: theme.border.radius.medium,
   shadow: theme.materials.shadow,
   blur: 0,
@@ -70,6 +71,7 @@ class Tile extends Base {
 
   _construct() {
     this._radius = this.styles.radius;
+    this._shouldAnimate = this.styles.shouldAnimate;
     this._src = this._fallbackSrc = this.styles.src;
     this._blur = this.styles.blur;
     this._createShadow = this.styles.shadow;
@@ -305,7 +307,7 @@ class Tile extends Base {
         this._FocusRing.patch(style);
       }
 
-      if (this.hasFocus()) {
+      if (this.hasFocus() && this._shouldAnimate) {
         this._FocusRing.startAnimation();
       } else {
         this._FocusRing.stopAnimation();

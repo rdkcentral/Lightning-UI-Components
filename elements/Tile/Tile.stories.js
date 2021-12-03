@@ -50,7 +50,12 @@ export const Basic = args =>
     }
 
     _getFocused() {
-      if (args.focused) {
+      if (args.focused && args.animate) {
+        this.tag('Tile')._shouldAnimate = true;
+        return this.tag('Tile');
+      }
+      if (args.focused && !args.animate) {
+        this.tag('Tile')._shouldAnimate = false;
         return this.tag('Tile');
       }
     }
@@ -65,6 +70,7 @@ Basic.args = {
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
+  animate: { control: 'boolean' },
   blur: {
     control: {
       type: 'range',
