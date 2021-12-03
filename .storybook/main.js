@@ -6,6 +6,7 @@ const stories =
         '../docs/Introduction.stories.mdx',
         '../docs/Readme.stories.mdx',
         '../docs/Contributing.stories.mdx',
+        '../docs/LightningResources.stories.mdx',
         '../collections/**/*.stories.{js,mdx}',
         '../elements/**/*.stories.{js,mdx}',
         '../layout/**/*.stories.{js,mdx}',
@@ -15,7 +16,8 @@ const stories =
     : [
         '../docs/Introduction.stories.mdx',
         '../docs/Readme.stories.mdx',
-        '../docs/Contributing.stories.mdx',
+        '../docs/Contributing.stories.md',
+         '../docs/LightningResources.stories.mdx',
         '../collections/**/*.stories.{js,mdx}',
         '../elements/**/*.stories.{js,mdx}',
         '../layout/**/*.stories.{js,mdx}',
