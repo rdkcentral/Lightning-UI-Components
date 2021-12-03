@@ -24,7 +24,11 @@ export const Base = args =>
           title: args.title,
           onEnter: args.onEnter,
           fixed: args.fixed,
-          w: ActionButton.styles.minWidth
+          w: ActionButton.styles.minWidth,
+          checkbox: {
+            checked: args.checked,
+            spacing: args.checkboxSpacing
+          }
         }
       };
     }
@@ -35,7 +39,12 @@ export const Base = args =>
       }
     }
   };
-Base.args = { title: 'Action Button', backgroundType: 'stroke' };
+Base.args = {
+  title: 'Action Button',
+  backgroundType: 'stroke',
+  checked: undefined,
+  checkboxSpacing: 5
+};
 Base.argTypes = {
   backgroundType: {
     control: {
@@ -45,6 +54,13 @@ Base.argTypes = {
   },
   focused: { control: 'boolean' },
   icon: { control: 'boolean' },
+  checked: {
+    control: {
+      type: 'radio',
+      options: [true, false, undefined]
+    }
+  },
+  checkboxSpacing: { control: 'number' },
   onEnter: { action: 'onEnter' },
   title: { control: 'text' },
   fixed: { control: 'boolean' }

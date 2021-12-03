@@ -28,7 +28,7 @@ class Basic extends lng.Component {
 };
 ```
 
-An `icon` can also be included. The expected icon size is 32px by 32px. See [Icon](?path=/docs/icon--basic) for options.
+An `icon` or `checkbox` can also be included. The expected icon size is 32px by 32px. See [Icon](?path=/docs/icon--basic) for options.
 
 <Canvas>
   <Story id="elements-actionbuttonsmall--base" />
@@ -50,8 +50,10 @@ announce|string|true|label or title|announcement text for screen readers
 backgroundType|'stroke'\|'fill'\|'float'\|'ghost'|false|'float'|color of `Button` container.
 fixed|boolean|false|false|when true, `w` overrides `minWidth`
 h|number|false|64|height
-icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/icon--basic">Icon</a>
-minWidth|number|false|185|minimum width of the button
+icon|string|false|-|URI for icon or inline svg that may live next to the title. See <a href="?path=/docs/elements-badge--icon">Icon</a>
+checkbox|object|false|-|object with `checked` and `spacing` properties to prepend button text with a `Checkbox`. See <a href="?path=/docs/elements-checkbox--basic">Checkbox</a>
+checkbox.checked|boolean|false|-|controls whether a `Checkbox` rendered in the button is checked or not
+checkbox.spacing|number|false|5|controls the amount of space to the right of the `Checkbox`minWidth|number|false|185|minimum width of the button
 padding|number|false|16|left and right padding value
 radius|number|false|8|border radius
 title|string|false|-|button text

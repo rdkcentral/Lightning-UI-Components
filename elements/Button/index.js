@@ -232,18 +232,26 @@ export default class Button extends withStyles(Base, styles) {
   _updateWidth() {
     const iconSize =
       this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
+    // checkboxes may be rendered in ActionButton
+    const checkboxSize =
+      this._Checkbox && this._Checkbox.w
+        ? this._Checkbox.w + this.checkbox.spacing
+        : 0;
     const padding = getFirstNumber(this.padding, this._padding, 10);
 
     if (this.fixed) {
       this._Title.patch({
         text: {
           ...this._fixedTextStyles,
-          wordWrapWidth: this.w - padding * 2 - iconSize
+          wordWrapWidth: this.w - padding * 2 - iconSize - checkboxSize
         }
       });
     } else {
       const w =
-        measureTextWidth(this._Title.text || {}) + padding * 2 + iconSize;
+        measureTextWidth(this._Title.text || {}) +
+        padding * 2 +
+        iconSize +
+        checkboxSize;
 
       if (w && w > this.minWidth) {
         this.w = w;
