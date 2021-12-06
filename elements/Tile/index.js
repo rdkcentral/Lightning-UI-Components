@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import FocusRing from '../FocusRing';
+import Checkbox from '../Checkbox';
 import withStyles from '../../mixins/withStyles';
 import blackBackground from '../../Styles/black_background_tile';
 import Base from '../Base';
@@ -49,7 +50,11 @@ class Tile extends Base {
       'Item',
       'Image',
       'FocusImage',
-      'Gradient'
+      'Gradient',
+      {
+        name: 'Checkbox',
+        path: 'Item.Checkbox'
+      }
     ];
   }
 
@@ -65,7 +70,8 @@ class Tile extends Base {
       'focusRingColor',
       'gradientColor',
       'focusGradient',
-      'persistGradient'
+      'persistGradient',
+      'checkbox'
     ];
   }
 
@@ -106,6 +112,7 @@ class Tile extends Base {
       this._updateDropShadow();
       this._updateFocusRing();
       this._updateScale();
+      this._updateCheckbox();
     });
   }
 
@@ -330,6 +337,39 @@ class Tile extends Base {
     }
   }
 
+  _updateCheckbox() {
+    if (this.checkbox) {
+      const checkboxProps = {
+        checked: this.checkbox.checked,
+        placement: this.checkbox.placement,
+        x:
+          this.checkbox.placement === 'center'
+            ? this.w / 2
+            : this.w - Checkbox.styles.w
+      };
+      if (this._Checkbox) {
+        this._Checkbox.patch(checkboxProps);
+      } else {
+        this._Item.patch({
+          Checkbox: {
+            type: Checkbox,
+            ...checkboxProps,
+            zIndex: 3,
+            mount: 0.5,
+            y: this.h - Checkbox.styles.h
+          }
+        });
+      }
+    } else if (this._Checkbox) {
+      this._Checkbox.patch({
+        texture: false,
+        visible: 0,
+        w: 0,
+        h: 0
+      });
+    }
+  }
+
   get _shouldShowGradient() {
     if (this.persistGradient) {
       return true;
@@ -343,6 +383,14 @@ class Tile extends Base {
   set shadow(shadow) {
     this._shadow = shadow;
     this._requestUpdateDebounce();
+  }
+
+  _setCheckbox(checkbox) {
+    if (checkbox && typeof checkbox.checked === 'boolean') {
+      const { checked, placement = 'right' } = checkbox;
+      return { checked, placement };
+    }
+    return null;
   }
 }
 

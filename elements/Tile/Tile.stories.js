@@ -44,6 +44,10 @@ export const Basic = args =>
             zIndex: -1,
             texture: lng.Tools.getShadowRect(320, 180, args.radius, args.blur),
             color: rgba2argb(args.color)
+          },
+          checkbox: {
+            checked: args.checked,
+            placement: args.checkboxPlacement
           }
         }
       };
@@ -95,7 +99,19 @@ Basic.argTypes = {
       step: 5
     }
   },
-  color: { control: 'color' }
+  color: { control: 'color' },
+  checked: {
+    control: {
+      type: 'radio',
+      options: [true, false, undefined]
+    }
+  },
+  checkboxPlacement: {
+    control: {
+      type: 'radio',
+      options: ['center', 'right', undefined]
+    }
+  }
 };
 Basic.parameters = {
   argActions: {
