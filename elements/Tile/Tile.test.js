@@ -117,5 +117,51 @@ describe('Tile', () => {
       expect(tile._DropShadow.alpha).toBe(1);
       done();
     });
+
+    describe('rendering with a checkbox', () => {
+      it('should prepend button text with a checkbox', async () => {
+        [tile, testRenderer] = createTile({
+          checkbox: {
+            checked: false
+          }
+        });
+        expect(tile.checkbox).toMatchObject({
+          checked: false,
+          placement: 'right'
+        });
+
+        await testRenderer.update();
+
+        expect(tile._Checkbox.checked).toBe(false);
+      });
+      it('should allow center aligned placement of the checkbox', async () => {
+        const placement = 'center';
+        [tile, testRenderer] = createTile({
+          checkbox: {
+            checked: false,
+            placement
+          }
+        });
+        expect(tile.checkbox).toMatchObject({
+          checked: false,
+          placement
+        });
+
+        await testRenderer.update();
+        expect(tile._Checkbox.x).toEqual(tile.w / 2);
+      });
+      it('should add a checkbox if the checked property is invalid', async () => {
+        [tile, testRenderer] = createTile({
+          checkbox: {
+            checked: 'yes'
+          }
+        });
+        expect(tile.checkbox).toBeNull();
+
+        await testRenderer.update();
+
+        expect(tile._Checkbox).toBeUndefined();
+      });
+    });
   });
 });
