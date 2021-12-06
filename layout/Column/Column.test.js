@@ -164,7 +164,9 @@ describe('Column', () => {
       });
 
       it('handles empty item', () => {
+        const updateImmediateSpy = jest.spyOn(column, '_updateImmediate');
         column.$removeItem();
+        expect(updateImmediateSpy).not.toHaveBeenCalled();
       });
     });
 

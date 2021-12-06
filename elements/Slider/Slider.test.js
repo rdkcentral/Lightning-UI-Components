@@ -65,19 +65,22 @@ describe('Slider', () => {
         expect(slider.value).toEqual(2);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', done => {
+      it('updates the LeftBar and Circle textures with smoothing', async () => {
+        [slider, testRenderer] = createSlider(
+          {},
+          { spyOnMethods: ['_update'] }
+        );
+        await slider.__updateSpyPromise;
         const initialWidth = slider._LeftBar.w;
         expect(slider._LeftBar.w).toEqual(initialWidth);
 
         testRenderer.keyPress('Right');
+        await slider.__updateSpyPromise;
 
-        setTimeout(() => {
-          TestUtils.fastForward(slider._LeftBar);
-          testRenderer.update();
-          const updatedWidth = testRenderer.getInstance()._LeftBar.w;
-          expect(updatedWidth).toBeGreaterThan(initialWidth);
-          done();
-        }, 0);
+        TestUtils.fastForward(slider._LeftBar);
+        testRenderer.update();
+        const updatedWidth = testRenderer.getInstance()._LeftBar.w;
+        expect(updatedWidth).toBeGreaterThan(initialWidth);
       });
     });
 
@@ -102,19 +105,27 @@ describe('Slider', () => {
         expect(slider.value).toEqual(0);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', done => {
+      it('updates the LeftBar and Circle textures with smoothing', async () => {
+        [slider, testRenderer] = createSlider(
+          {
+            max: 2,
+            value: 2
+          },
+          {
+            spyOnMethods: ['_update']
+          }
+        );
+        await slider.__updateSpyPromise;
         const initialWidth = slider._LeftBar.w;
         expect(slider._LeftBar.w).toEqual(initialWidth);
 
         testRenderer.keyPress('Left');
+        await slider.__updateSpyPromise;
 
-        setTimeout(() => {
-          TestUtils.fastForward(slider._LeftBar);
-          testRenderer.update();
-          const updatedWidth = testRenderer.getInstance()._LeftBar.w;
-          expect(updatedWidth).toBeLessThan(initialWidth);
-          done();
-        }, 0);
+        TestUtils.fastForward(slider._LeftBar);
+        testRenderer.update();
+        const updatedWidth = testRenderer.getInstance()._LeftBar.w;
+        expect(updatedWidth).toBeLessThan(initialWidth);
       });
     });
   });
@@ -131,20 +142,26 @@ describe('Slider', () => {
       expect(slider.signal).toBeCalledWith('onChange', 50, slider);
     });
 
-    it('is fired on key left', done => {
+    it('is fired on key left', async () => {
+      [slider, testRenderer] = createSlider(
+        { value: 50 },
+        { spyOnMethods: ['_update'] }
+      );
+      await slider.__updateSpyPromise;
       slider._handleLeft();
-      setTimeout(() => {
-        expect(slider.signal).toBeCalledWith('onChange', 49, slider);
-        done();
-      }, 0);
+      await slider.__updateSpyPromise;
+      expect(slider.signal).toBeCalledWith('onChange', 49, slider);
     });
 
-    it('is fired on key right', done => {
+    it('is fired on key right', async () => {
+      [slider, testRenderer] = createSlider(
+        { value: 50 },
+        { spyOnMethods: ['_update'] }
+      );
+      await slider.__updateSpyPromise;
       slider._handleRight();
-      setTimeout(() => {
-        expect(slider.signal).toBeCalledWith('onChange', 51, slider);
-        done();
-      }, 0);
+      await slider.__updateSpyPromise;
+      expect(slider.signal).toBeCalledWith('onChange', 51, slider);
     });
   });
 });

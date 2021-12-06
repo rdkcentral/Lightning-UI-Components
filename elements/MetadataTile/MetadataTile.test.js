@@ -33,14 +33,17 @@ describe('MetadataTile', () => {
     expect(metadataTile._focusW).toBe(400);
   });
 
-  it('should set the focus and unfocus scales', done => {
-    metadataTile.focusScaleConst = 1.5;
-    metadataTile.unfocusScaleConst = 0.9;
-    setTimeout(() => {
-      expect(metadataTile.focusScaleConst).toBe(1.5);
-      expect(metadataTile.unfocusScaleConst).toBe(0.9);
-      done();
-    }, 0);
+  it('should set the focus and unfocus scales', async () => {
+    const focusScaleConst = 1.5;
+    const unfocusScaleConst = 0.9;
+    [metadataTile, testRenderer] = createMetadataTile(
+      {
+        focusScaleConst,
+        unfocusScaleConst
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
     testRenderer.focus();
     testRenderer.update();
     expect(metadataTile._focusW).toBe(400 * 1.5);
@@ -61,73 +64,94 @@ describe('MetadataTile', () => {
     expect(metadataTile.marqueeProperties.delayStart).toBe(1);
   });
 
-  it('should set first line content', done => {
+  it('should set first line content', async () => {
     const content = ['text', { icon: 'icon.png', title: 'icon' }];
-    metadataTile.firstLine = content;
+    [metadataTile, testRenderer] = createMetadataTile(
+      { firstLine: content },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(metadataTile.firstLine).toBe(content);
-      expect(metadataTile._FirstLine.childList.length).toBe(2);
-      done();
-    }, 0);
+
+    expect(metadataTile.firstLine).toBe(content);
+    expect(metadataTile._FirstLine.childList.length).toBe(2);
   });
 
-  it('should set second line text', done => {
+  it('should set second line text', async () => {
     const content = 'second line text';
-    metadataTile.secondLine = content;
+    [metadataTile, testRenderer] = createMetadataTile(
+      { secondLine: content },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(metadataTile.secondLine).toBe(content);
-      expect(metadataTile._SecondLine.childList.length).toBe(3);
-      done();
-    }, 0);
+    expect(metadataTile.secondLine).toBe(content);
+    expect(metadataTile._SecondLine.childList.length).toBe(3);
   });
 
-  it('should set first line text properties', done => {
+  it('should set first line text properties', async () => {
     const font = { fontFace: 'MyGenericFont', fontSize: 50 };
-    metadataTile.firstLine = 'first line text';
-    metadataTile.firstLineTextProperties = font;
+    const firstLine = 'first line text';
+    const firstLineTextProperties = font;
+    [metadataTile, testRenderer] = createMetadataTile(
+      {
+        firstLine,
+        firstLineTextProperties
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(metadataTile.firstLineTextProperties).toBe(font);
-      expect(metadataTile._FirstLine.childList.getAt(0).text).toMatchObject(
-        font
-      );
-      done();
-    }, 0);
+    expect(metadataTile.firstLineTextProperties).toBe(font);
+    expect(metadataTile._FirstLine.childList.getAt(0).text).toMatchObject(font);
   });
 
-  it('should set second line text properties', done => {
+  it('should set second line text properties', async () => {
     const font = { fontFace: 'MyGenericFont', fontSize: 30 };
-    metadataTile.secondLine = 'second line text';
-    metadataTile.secondLineTextProperties = font;
+    const secondLine = 'second line text';
+    const secondLineTextProperties = font;
+    [metadataTile, testRenderer] = createMetadataTile(
+      {
+        secondLine,
+        secondLineTextProperties
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(metadataTile.secondLineTextProperties).toBe(font);
-      expect(metadataTile._SecondLine.childList.getAt(0).text).toMatchObject(
-        font
-      );
-      done();
-    }, 0);
+    expect(metadataTile.secondLineTextProperties).toBe(font);
+    expect(metadataTile._SecondLine.childList.getAt(0).text).toMatchObject(
+      font
+    );
   });
 
-  it('should build announce text from the multiple lines', done => {
-    metadataTile.firstLine = 'First line text';
-    metadataTile.secondLine = 'Second line text';
-    setTimeout(() => {
-      expect(metadataTile.announce).toBe(
-        `${metadataTile.firstLine}. ${metadataTile.secondLine}`
-      );
-      done();
-    }, 0);
+  it('should build announce text from the multiple lines', async () => {
+    const firstLine = 'First line text';
+    const secondLine = 'Second line text';
+    [metadataTile, testRenderer] = createMetadataTile(
+      {
+        firstLine,
+        secondLine
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
+    expect(metadataTile.announce).toBe(
+      `${metadataTile.firstLine}. ${metadataTile.secondLine}`
+    );
   });
 
-  it('should build announce text from one line', done => {
-    metadataTile.firstLine = 'First line text';
-    metadataTile.secondLine = '';
-    setTimeout(() => {
-      expect(metadataTile.announce).toBe(`${metadataTile.firstLine}`);
-      done();
-    }, 0);
+  it('should build announce text from one line', async () => {
+    const firstLine = 'First line text';
+    const secondLine = '';
+    [metadataTile, testRenderer] = createMetadataTile(
+      {
+        firstLine,
+        secondLine
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await metadataTile.__updatePromiseSpy;
+    expect(metadataTile.announce).toBe(`${metadataTile.firstLine}`);
   });
 });

@@ -47,18 +47,18 @@ describe('Metadata', () => {
     expect(component.logo).toBe(lightningbolt);
   });
 
-  it('hides Data if there is an CTA, and converts the CTA text to uppercase', async done => {
+  it('hides Data if there is an CTA, and converts the CTA text to uppercase', async () => {
     const ctaText = 'cta text';
     const dataText = 'data text';
+    [component, testRenderer] = createComponent(
+      { data: dataText, cta: ctaText },
+      { spyOnMethods: ['_update'] }
+    );
 
-    component.data = dataText;
-    component.cta = ctaText;
+    await component.__updateSpyPromise;
     testRenderer.update();
 
-    setTimeout(() => {
-      expect(component._Data.content).toBe(undefined);
-      expect(component._CTA.title).toBe(ctaText.toUpperCase());
-      done();
-    }, 0);
+    expect(component._Data.content).toBe(undefined);
+    expect(component._CTA.title).toBe(ctaText.toUpperCase());
   });
 });

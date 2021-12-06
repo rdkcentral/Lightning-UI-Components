@@ -39,14 +39,16 @@ describe('Toggle', () => {
   });
 
   describe('Key handling', () => {
-    it('Enter press toggles', done => {
+    it('Enter press toggles', async () => {
+      [toggle, testRenderer] = createToggle(
+        {},
+        { spyOnMethods: ['_handleEnter'] }
+      );
       const spy = jest.spyOn(toggle, 'toggle');
 
       testRenderer.keyPress('Enter');
-      setTimeout(() => {
-        expect(spy).toBeCalled();
-        done();
-      }, 0);
+      await toggle.__handleEnterPromiseSpy;
+      expect(spy).toBeCalled();
     });
   });
 });

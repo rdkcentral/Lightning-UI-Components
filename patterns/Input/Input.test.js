@@ -15,6 +15,7 @@ describe('Input', () => {
   afterEach(() => {
     input = null;
     testRenderer = null;
+    jest.clearAllMocks();
   });
 
   it('renders', () => {
@@ -61,18 +62,16 @@ describe('Input', () => {
     expect(input._Container.texture._lookupId).toEqual('rect,64,,,0,,8,8,8,8');
   });
 
-  it('cursor moves left and right', done => {
-    [input, testRenderer] = createInput({
-      value: 'hello'
-    });
+  it('cursor moves left and right', async () => {
+    [input, testRenderer] = createInput(
+      { value: 'hello' },
+      { spyOnMethods: ['_update'] }
+    );
 
     expect(input._Cursor.x).toEqual(0);
     input.position = 1;
-    testRenderer.update();
-    input._whenEnabled.then(() => {
-      expect(input._Cursor.x).toEqual(1);
-      done();
-    });
+    await input.__updatePromiseSpy;
+    expect(input._Cursor.x).toEqual(1);
   });
 
   it('cursor position stays within bounds', () => {
@@ -103,13 +102,15 @@ describe('Input', () => {
     expect(input.position).toBe(5);
   });
 
-  it('inputs values if listening', done => {
+  it('inputs values if listening', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.listening = true;
+
     input.insert('x');
-    setTimeout(() => {
-      expect(input._Content.text.text).toEqual('x');
-      done();
-    }, 1);
+    await input._updateSpyPromise;
+
+    expect(input.value).toEqual('x');
+    expect(input._Content.text.text).toEqual('x');
   });
 
   it('should not input values if not listening', () => {
@@ -118,73 +119,66 @@ describe('Input', () => {
     expect(input._Content.text.text).toEqual('');
   });
 
-  it('clears values if listening', done => {
+  it('clears values if listening', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.listening = true;
     input.value = 'xxx';
     input.clear();
-    input._whenEnabled.then(() => {
-      expect(input._Content.text.text).toEqual('');
-      done();
-    });
+    await input._updateSpyPromise;
+    expect(input._Content.text.text).toEqual('');
   });
 
-  it('should not clear values if not listening', done => {
+  it('should not clear values if not listening', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.listening = false;
     input.value = 'xxx';
+    await input._updateSpyPromise;
     input.clear();
-    setTimeout(() => {
-      expect(input._Content.text.text).toEqual('xxx');
-      done();
-    }, 1);
+    expect(input._Content.text.text).toEqual('xxx');
   });
 
-  it('does backspace deletions if listening', done => {
+  it('does backspace deletions if listening', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.listening = true;
     input.insert('xoxoxo');
     input.backspace();
-    testRenderer.update();
-    input._whenEnabled.then(() => {
-      expect(input.value).toEqual('xoxox');
-      input.position--;
-      input.backspace();
-      testRenderer.update();
-      expect(input.value).toEqual('xoxx');
-      done();
-    });
+    await input._updateSpyPromise;
+    expect(input.value).toEqual('xoxox');
+    input.position--;
+    input.backspace();
+    await input._updateSpyPromise;
+    expect(input.value).toEqual('xoxx');
   });
 
-  it('should not backspace deletions if not listening', done => {
+  it('should not backspace deletions if not listening', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.listening = false;
     input.value = 'xoxoxo';
     input.backspace();
+    await input._updateSpyPromise;
 
-    setTimeout(() => {
-      expect(input._Content.text.text).toEqual('xoxoxo');
-      done();
-    }, 1);
+    expect(input._Content.text.text).toEqual('xoxoxo');
   });
 
-  it('masks password input', done => {
+  it('masks password input', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.password = true;
     input.value = 'hello';
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    setTimeout(() => {
-      expect(input.value).toBe('hello');
-      expect(input._Content.text.text).toBe('•••••');
-      done();
-    }, 1);
+
+    await input._updateSpyPromise;
+    expect(input.value).toBe('hello');
+    expect(input._Content.text.text).toBe('•••••');
   });
 
-  it('supports custom mask types', done => {
+  it('supports custom mask types', async () => {
+    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
     input.password = true;
     input.mask = '*';
     input.value = 'hello';
-    setTimeout(() => {
-      testRenderer.update();
-      expect(input._Content.text.text).toBe('*****');
-      done();
-    }, 1);
+    await input._updateSpyPromise;
+    expect(input._Content.text.text).toBe('*****');
   });
 
   it('should allow adding a caption', () => {

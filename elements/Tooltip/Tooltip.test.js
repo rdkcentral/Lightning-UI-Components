@@ -109,7 +109,6 @@ describe('Tooltip', () => {
       [button, buttonRenderer] = createButton({ title: 'Button' });
       buttonRenderer.update();
     });
-    it('should be horizontally centered', () => {});
     it('should default to 40px above parent', done => {
       tooltip._Text.on('txLoaded', () => {
         const buffer = 2;

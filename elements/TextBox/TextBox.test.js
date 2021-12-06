@@ -47,28 +47,34 @@ describe('TextBox', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders with content prop', done => {
-    element.content = 'Hello world';
-    setTimeout(() => {
-      expect(element.text.text).toBe('Hello world');
-      done();
-    });
+  it('renders with content prop', async () => {
+    const content = 'Hello world';
+    [element, testRenderer] = createElement(
+      { content },
+      { spyOnMethods: ['_update'] }
+    );
+    await element.__updatePromiseSpy;
+    expect(element.text.text).toBe('Hello world');
   });
 
-  it('should set content to an empty string if the content prop is invalid', done => {
-    element.content = null;
-    setTimeout(() => {
-      expect(element.text.text).toBe('');
-      done();
-    });
+  it('should set content to an empty string if the content prop is invalid', async () => {
+    const content = null;
+    [element, testRenderer] = createElement(
+      { content },
+      { spyOnMethods: ['_update'] }
+    );
+    await element.__updatePromiseSpy;
+    expect(element.text.text).toBe('');
   });
 
-  it('renders with a title that matches the content prop', done => {
-    element.content = 'Hello world';
-    setTimeout(() => {
-      expect(element.title).toBe('Hello world');
-      done();
-    });
+  it('renders with a title that matches the content prop', async () => {
+    const content = 'Hello world';
+    [element, testRenderer] = createElement(
+      { content },
+      { spyOnMethods: ['_update'] }
+    );
+    await element.__updatePromiseSpy;
+    expect(element.title).toBe('Hello world');
   });
 
   test.each(Object.keys(TYPOGRAPHY).map(style => [style]))(

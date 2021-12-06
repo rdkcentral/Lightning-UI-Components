@@ -31,16 +31,16 @@ describe('TileIcon', () => {
     expect(tileicon.icon).toEqual(icon);
   });
 
-  it('should update icon dimensions', done => {
-    tileicon.iconW = 50;
-    tileicon.iconH = 25;
+  it('should update icon dimensions', async () => {
+    [tileicon, testRenderer] = createTileIcon(
+      { iconW: 50, iconH: 25 },
+      { spyOnMethods: ['_update'] }
+    );
+    await tileicon.__updatePromiseSpy;
     testRenderer.update();
     expect(tileicon.iconW).toBe(50);
     expect(tileicon.iconH).toBe(25);
-    setTimeout(() => {
-      expect(tileicon._Icon.w).toBe(50);
-      expect(tileicon._Icon.h).toBe(25);
-      done();
-    });
+    expect(tileicon._Icon.w).toBe(50);
+    expect(tileicon._Icon.h).toBe(25);
   });
 });

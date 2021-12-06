@@ -154,38 +154,52 @@ describe('InlineContent', () => {
     expect(inlineContent.badgeY).toBe(0);
   });
 
-  it('should update the flex box wrapping', done => {
-    inlineContent.content = 'hi';
-    inlineContent.contentWrap = true;
+  it('should update the flex box wrapping', async () => {
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        content: 'hi',
+        contentWrap: true
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await inlineContent.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(inlineContent.flex.wrap).toBe(true);
-      done();
-    }, 0);
+
+    expect(inlineContent.flex.wrap).toBe(true);
   });
 
-  it('should create an empty item with full width to force a line break if a newline object is passed in', done => {
+  it('should create an empty item with full width to force a line break if a newline object is passed in', async () => {
     const width = 100;
-    inlineContent.w = width;
-    inlineContent.content = ['sentence', { newline: true }, 'with a linebreak'];
-    inlineContent.contentWrap = true;
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        w: width,
+        content: ['sentence', { newline: true }, 'with a linebreak'],
+        contentWrap: true
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await inlineContent.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      const newline = inlineContent.childList.getAt(1);
-      expect(newline.w).toBe(width);
-      expect(newline.h).toBe(0);
-      done();
-    }, 0);
+    const newline = inlineContent.childList.getAt(1);
+    expect(newline.w).toBe(width);
+    expect(newline.h).toBe(0);
   });
 
-  it('should use user entered textStyles when specified for a text object', done => {
+  it('should use user entered textStyles when specified for a text object', async () => {
     const color = getHexColor('ff0000');
     inlineContent.textStyles = { red: { textColor: color } };
     inlineContent.content = [{ text: 'red text', style: 'red' }];
+
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        textStyles: { red: { textColor: color } },
+        content: [{ text: 'red text', style: 'red' }]
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await inlineContent.__updatePromiseSpy;
+
     testRenderer.update();
-    setTimeout(() => {
-      expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
-      done();
-    }, 0);
+    expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
   });
 });
