@@ -63,12 +63,13 @@ describe('TeamMatchup', () => {
     expect(matchup._RightIcon.icon).toBe(NYG);
   });
 
-  it('floats background', () => {
+  it('floats background', done => {
     expect(matchup._DataItem._Background.alpha).toEqual(1);
     matchup.removeBackground = true;
     testRenderer.update();
     setTimeout(() => {
       expect(matchup._DataItem._Background.alpha).toEqual(0);
+      done();
     }, 0);
   });
 

@@ -312,13 +312,15 @@ describe('ListItemToggle', () => {
     );
   });
 
-  it('toggles on enter', done => {
+  it('toggles on enter', async () => {
+    [listItemToggle, testRenderer] = createListItemToggle(
+      {},
+      { spyOnMethods: ['_update'] }
+    );
     testRenderer.keyPress('Enter');
+    await listItemToggle.__updatePromiseSpy;
     testRenderer.update();
-    setTimeout(() => {
-      expect(listItemToggle.isChecked()).toBe(true);
-      done();
-    }, 0);
+    expect(listItemToggle.isChecked()).toBe(true);
   });
 
   describe('#toggle', () => {

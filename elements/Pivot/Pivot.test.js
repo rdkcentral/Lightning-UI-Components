@@ -43,47 +43,46 @@ describe('Pivot', () => {
   });
 
   describe('style', () => {
-    it('should set background to stroke', done => {
-      [pivot, testRenderer] = createPivot({
-        backgroundType: 'stroke'
-      });
-
-      setTimeout(() => {
-        expect(pivot.color).toBe(0);
-        expect(pivot.stroke).toBe(true);
-        expect(pivot.strokeWeight).toBe(2);
-        expect(pivot.strokeColor).toBe(0xffececf2);
-        done();
-      });
+    it('should set background to stroke', async () => {
+      [pivot, testRenderer] = createPivot(
+        { backgroundType: 'stroke' },
+        { spyOnMethods: ['_update'] }
+      );
+      await pivot.__updateSpyPromise;
+      expect(pivot.color).toBe(0);
+      expect(pivot.stroke).toBe(true);
+      expect(pivot.strokeWeight).toBe(2);
+      expect(pivot.strokeColor).toBe(0xffececf2);
     });
 
-    it('should set background to fill', done => {
-      [pivot, testRenderer] = createPivot({
-        backgroundType: 'fill'
-      });
-      setTimeout(() => {
-        expect(pivot.color).toBe(getHexColor('232328'));
-        done();
-      });
+    it('should set background to fill', async () => {
+      [pivot, testRenderer] = createPivot(
+        { backgroundType: 'fill' },
+        { spyOnMethods: ['_update'] }
+      );
+      await pivot.__updateSpyPromise;
+      expect(pivot.color).toBe(getHexColor('232328'));
     });
-    it('should set background to float', done => {
-      [pivot, testRenderer] = createPivot({
-        backgroundType: 'float'
-      });
-      setTimeout(() => {
-        expect(pivot.color).toBe(0);
-        done();
-      });
+    it('should set background to float', async () => {
+      [pivot, testRenderer] = createPivot(
+        {
+          backgroundType: 'float'
+        },
+        { spyOnMethods: ['_update'] }
+      );
+      await pivot.__updateSpyPromise;
+      expect(pivot.color).toBe(0);
     });
-    it('should default background to float', done => {
-      [pivot, testRenderer] = createPivot({
-        backgroundType: 'orange'
-      });
+    it('should default background to float', async () => {
+      [pivot, testRenderer] = createPivot(
+        {
+          backgroundType: 'orange'
+        },
+        { spyOnMethods: ['_update'] }
+      );
+      await pivot.__updateSpyPromise;
 
-      setTimeout(() => {
-        expect(pivot.color).toBe(0);
-        done();
-      });
+      expect(pivot.color).toBe(0);
     });
   });
 
@@ -108,34 +107,38 @@ describe('Pivot', () => {
       testRenderer.update();
       expect(pivot._loading.isPlaying()).toBe(true);
     });
-    it('should stop loading once title is set', done => {
-      [pivot, testRenderer] = createPivot({
-        title: undefined
-      });
+    it('should stop loading once title is set', async () => {
+      [pivot, testRenderer] = createPivot(
+        {
+          title: undefined
+        },
+        { spyOnMethods: ['_update'] }
+      );
 
+      await pivot.__updateSpyPromise;
       testRenderer.update();
+
       expect(pivot._loading.isPlaying()).toBe(true);
+
       pivot.title = 'Action Button';
-      setTimeout(() => {
-        expect(pivot._loading.isPlaying()).toBe(false);
-        done();
-      }, 1);
+      await pivot.__updateSpyPromise;
+
+      expect(pivot._loading.isPlaying()).toBe(false);
     });
   });
 
   describe('focus', () => {
-    it('should update color and scale on focus', done => {
-      [pivot, testRenderer] = createPivot();
+    it('should update color and scale on focus', async () => {
+      [pivot, testRenderer] = createPivot({}, { spyOnMethods: ['_update'] });
+
+      await pivot.__updateSpyPromise;
       pivot._smooth = false;
       pivot._focus();
       testRenderer.focus();
 
-      setTimeout(() => {
-        expect(pivot.color).toBe(getHexColor('ECECF2'));
-        expect(pivot.scale).toBe((pivot.w + 32) / pivot.w);
-        expect(pivot._Title.color).toBe(getHexColor('000000', 95));
-        done();
-      });
+      expect(pivot.color).toBe(getHexColor('ECECF2'));
+      expect(pivot.scale).toBe((pivot.w + 32) / pivot.w);
+      expect(pivot._Title.color).toBe(getHexColor('000000', 95));
     });
 
     it('should update color and scale on unfocus', () => {
@@ -146,18 +149,16 @@ describe('Pivot', () => {
       expect(pivot._Title.color).toBe(getHexColor('FFFFFF', 95));
     });
 
-    it('should alpha in drop shadow and scale up on focus', done => {
-      [pivot, testRenderer] = createPivot();
+    it('should alpha in drop shadow and scale up on focus', async () => {
+      [pivot, testRenderer] = createPivot({}, { spyOnMethods: ['_update'] });
       pivot._smooth = false;
       pivot._focus();
       testRenderer.focus();
+      await pivot.__updateSpyPromise;
       testRenderer.update();
 
-      pivot._whenEnabled.then(() => {
-        expect(pivot._DropShadow.alpha).toBe(1);
-        expect(pivot.alpha).toBe(1);
-        done();
-      });
+      expect(pivot._DropShadow.alpha).toBe(1);
+      expect(pivot.alpha).toBe(1);
     });
     it('should alpha out drop shadow on unfocus', () => {
       pivot._unfocus();

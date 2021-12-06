@@ -122,20 +122,19 @@ describe('CardHorizontal', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates cta to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async () => {
     const data = 'Data';
     const cta = 'CTA';
-
-    card.data = data;
-    card.cta = cta;
+    [card, testRenderer] = createCardHorizontalComponent(
+      { data, cta },
+      { spyOnMethods: ['_update'] }
+    );
+    await card.__updatePromiseSpy;
     card._update();
     testRenderer.update();
 
-    setTimeout(() => {
-      expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
-      done();
-    }, 0);
+    expect(card._Metadata._Data.content).toBe(undefined);
+    expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
   });
 
   it('updates logo', () => {
@@ -207,20 +206,19 @@ describe('CardHorizontalLarge', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates cta to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async () => {
     const data = 'Data';
     const cta = 'CTA';
-
-    card.data = data;
-    card.cta = cta;
+    [card, testRenderer] = createCardHorizontalComponent(
+      { data, cta },
+      { spyOnMethods: ['_update'] }
+    );
+    await card.__updatePromiseSpy;
     card._update();
     testRenderer.update();
 
-    setTimeout(() => {
-      expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
-      done();
-    }, 0);
+    expect(card._Metadata._Data.content).toBe(undefined);
+    expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
   });
 
   it('updates logo', () => {
@@ -398,20 +396,19 @@ describe('CardVerticalDynamic', () => {
     expect(card.data).toBe(data);
   });
 
-  it('updates cta to uppercase and hides data', async done => {
+  it('updates cta to uppercase and hides data', async () => {
     const data = 'Data';
     const cta = 'CTA';
-
-    card.data = data;
-    card.cta = cta;
+    [card, testRenderer] = createCardHorizontalComponent(
+      { data, cta },
+      { spyOnMethods: ['_update'] }
+    );
+    await card.__updatePromiseSpy;
     card._update();
     testRenderer.update();
 
-    setTimeout(() => {
-      expect(card._Metadata._Data.content).toBe(undefined);
-      expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
-      done();
-    }, 0);
+    expect(card._Metadata._Data.content).toBe(undefined);
+    expect(card._Metadata._CTA.title).toBe(cta.toUpperCase());
   });
 
   it('updates logo', () => {

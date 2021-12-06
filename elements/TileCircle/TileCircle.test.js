@@ -33,15 +33,19 @@ describe('TileCircle', () => {
     expect(tilecircle._Image.shader.radius[0]).toBe(tilecircle._Image.w / 2);
   });
 
-  it('should update the background blur color', done => {
+  it('should update the background blur color', async () => {
     const blurColor = rgba2argb('rgba(0,0,255,1)');
-    tilecircle.blurBackgroundColor = blurColor;
+    [tilecircle, testRenderer] = createTileCircle(
+      {
+        blurBackgroundColor: blurColor
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await tilecircle.__updatePromiseSpy;
     testRenderer.update();
     expect(tilecircle.blurBackgroundColor).toBe(blurColor);
-    setTimeout(() => {
-      expect(tilecircle._Blur.content.tag('Background').color).toBe(blurColor);
-      done();
-    }, 0);
+
+    expect(tilecircle._Blur.content.tag('Background').color).toBe(blurColor);
   });
 
   it('should not accept a invalid color', () => {

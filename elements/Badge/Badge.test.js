@@ -41,25 +41,25 @@ describe('Badge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update the title', done => {
+  it('should update the title', async () => {
     const title = 'HD';
-    [badge, testRenderer] = createBadge({ title });
+    [badge, testRenderer] = createBadge(
+      { title },
+      { spyOnMethods: ['_update'] }
+    );
+    await badge.__updateSpyPromise;
     expect(badge.title).toBe(title);
     testRenderer.update();
-    badge._BadgeText.loadTexture();
     expect(badge.w).toBe(16 + title.length);
 
     const title2 = 'longer title';
     badge.title = title2;
     badge.background.h = undefined;
+    await badge.__updateSpyPromise;
     expect(badge.title).toBe(title2);
     testRenderer.update();
-    badge._BadgeText.loadTexture();
-    setTimeout(() => {
-      expect(badge.w).toBe(16 + title2.length);
-      expect(badge.h).toBe(50);
-      done();
-    }, 0);
+    expect(badge.w).toBe(16 + title2.length);
+    expect(badge.h).toBe(50);
   });
 
   it('should update the background', () => {

@@ -52,12 +52,9 @@ describe('Key', () => {
     expect(key.title).toEqual('a');
   });
 
-  it('should set its label as its title', done => {
+  it('should set its label as its title', () => {
     [key] = createKey({ label: 'done' });
-    setTimeout(() => {
-      expect(key.title).toEqual('done');
-      done();
-    }, 0);
+    expect(key.title).toEqual('done');
   });
 
   describe('#announce', () => {

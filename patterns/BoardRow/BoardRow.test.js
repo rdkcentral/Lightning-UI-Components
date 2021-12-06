@@ -109,17 +109,19 @@ describe('BoardRow', () => {
     ).toBe(true);
   });
 
-  it('should execute function if enter is pressed while focused on the first vertical card', done => {
-    [component, testRenderer] = createComponent({
-      menuCard,
-      items: mockItemsValid(Tile)
-    });
-    setTimeout(() => {
-      const spy = jest.spyOn(component._Layout._Row.items[0], 'onEnter');
-      testRenderer.keyPress('Enter');
-      expect(spy).toBeCalled();
-      done();
-    }, 0);
+  it('should execute function if enter is pressed while focused on the first vertical card', async () => {
+    [component, testRenderer] = createComponent(
+      {
+        menuCard,
+        items: mockItemsValid(Tile)
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await component.__updatePromiseSpy;
+
+    const spy = jest.spyOn(component._Layout._Row.items[0], 'onEnter');
+    testRenderer.keyPress('Enter');
+    expect(spy).toBeCalled();
   });
 
   it('should accept viewAll prop', () => {

@@ -227,6 +227,34 @@ npm test
 npm run test:watch
 ```
 
+## `spyOnMethods`
+
+spyOnMethods is an optional array that may be passed to `makeCreateComponent` via the `defaultOptions` or `options` object. Doing so will extend the component being tested and provide methods that use Jest spies to create mock functions for each method included in the `spyOnMethods` array. Each spy method created is a Promise, which resolves after the spied upon method is invoked, and can be awaited in tests.
+
+The most common usage of this is to await the completion of the `_update` method in a component being invoked after changes to a component.
+
+example.
+
+```js
+it('should stop loading once title is set', async () => {
+  [actionbutton, testRenderer] = createActionButton(
+    {},
+    { spyOnMethods: ['_update'] }
+  );
+  // ensure _update has completed on the initial render of the component
+  await actionbutton.__updateSpyPromise;
+
+  expect(actionbutton._loading.isPlaying()).toBe(true);
+
+  // ensure _update has completed after the title property has been changed
+  actionbutton.title = 'Action Button';
+  await actionbutton.__updateSpyPromise;
+
+  // assertions may now be made on the state of the component after _update has been called
+  expect(actionbutton._loading.isPlaying()).toBe(false);
+});
+```
+
 ### Documentation Styleguide
 
 Component documentation is covered through a combination of `.mdx` and `.stories.js` files within each component directory. This guide is intended to help you understand how to add [usage documentation](#usage-documentation), [API documentation](#api-documentation) and [live examples](#live-examples)

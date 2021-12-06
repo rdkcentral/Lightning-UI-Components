@@ -142,29 +142,28 @@ describe('TabBar', () => {
     });
   });
 
-  it('renders tabs with tabHeight and tabWidth', done => {
-    [tabBar, testRenderer] = createTabBar({
-      tabHeight: 100,
-      tabWidth: 100,
-      tabs: [
-        { type: Tab, title: 'Foo' },
-        { type: Tab, title: 'Bar', w: 50, h: 50 }
-      ]
-    });
+  it('renders tabs with tabHeight and tabWidth', async () => {
+    [tabBar, testRenderer] = createTabBar(
+      {
+        tabHeight: 100,
+        tabWidth: 100,
+        tabs: [
+          { type: Tab, title: 'Foo' },
+          { type: Tab, title: 'Bar', w: 50, h: 50 }
+        ]
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await tabBar.__updatePromiseSpy;
+    TestUtils.fastForward(tabBar.tabs);
+    testRenderer.update();
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
 
-    tabBar._whenEnabled.then(() => {
-      TestUtils.fastForward(tabBar.tabs);
-      testRenderer.update();
-      const tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      setTimeout(() => {
-        expect(tabBar._Container.items[0].w).toBe(100);
-        expect(tabBar._Container.items[0].h).toBe(100);
-        expect(tabBar._Container.items[1].w).toBe(50);
-        expect(tabBar._Container.items[1].h).toBe(50);
-        done();
-      }, 0);
-    });
+    expect(tabBar._Container.items[0].w).toBe(100);
+    expect(tabBar._Container.items[0].h).toBe(100);
+    expect(tabBar._Container.items[1].w).toBe(50);
+    expect(tabBar._Container.items[1].h).toBe(50);
   });
 
   it('renders a focus bar with barLength and barSpacing', done => {
@@ -226,46 +225,47 @@ describe('TabBar', () => {
     }, 0);
   });
 
-  it('supports Row props itemSpacing and wrapSelected', done => {
-    [tabBar, testRenderer] = createTabBar({
-      itemSpacing: 20,
-      wrapSelected: true,
-      tabs: [
-        { type: Tab, title: 'One' },
-        { type: Tab, title: 'Two' }
-      ]
-    });
+  it('supports Row props itemSpacing and wrapSelected', async () => {
+    [tabBar, testRenderer] = createTabBar(
+      {
+        itemSpacing: 20,
+        wrapSelected: true,
+        tabs: [
+          { type: Tab, title: 'One' },
+          { type: Tab, title: 'Two' }
+        ]
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await tabBar.__updatePromiseSpy;
 
     expect(tabBar.wrapSelected).toBe(true);
     expect(tabBar.itemSpacing).toBe(20);
 
-    setTimeout(() => {
-      TestUtils.fastForward(tabBar.tabs);
-      TestUtils.fastForward(tabBar._Container);
-      testRenderer.update();
-      const tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      expect(tabBar.selected.title).toBe('One');
-      testRenderer.keyPress('Right');
-      expect(tabBar.selected.title).toBe('Two');
-      testRenderer.keyPress('Right');
-      expect(tabBar.selected.title).toBe('One');
-      testRenderer.keyPress('Left');
-      expect(tabBar.selected.title).toBe('Two');
-      done();
-    }, 0);
+    TestUtils.fastForward(tabBar.tabs);
+    TestUtils.fastForward(tabBar._Container);
+    testRenderer.update();
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+    expect(tabBar.selected.title).toBe('One');
+    testRenderer.keyPress('Right');
+    expect(tabBar.selected.title).toBe('Two');
+    testRenderer.keyPress('Right');
+    expect(tabBar.selected.title).toBe('One');
+    testRenderer.keyPress('Left');
+    expect(tabBar.selected.title).toBe('Two');
   });
 
-  it('focus bar alpha changes on unfocus', done => {
-    [tabBar, testRenderer] = createTabBar({
-      barLength: 10,
-      tabs: [{ type: Tab }]
-    });
-
-    setTimeout(() => {
-      testRenderer.unfocus();
-      expect(tabBar._FocusBar.alpha).toBe(0.48);
-      done();
-    });
+  it('focus bar alpha changes on unfocus', async () => {
+    [tabBar, testRenderer] = createTabBar(
+      {
+        barLength: 10,
+        tabs: [{ type: Tab }]
+      },
+      { spyOnMethods: ['_update'] }
+    );
+    await tabBar.__updatePromiseSpy;
+    testRenderer.unfocus();
+    expect(tabBar._FocusBar.alpha).toBe(0.48);
   });
 });

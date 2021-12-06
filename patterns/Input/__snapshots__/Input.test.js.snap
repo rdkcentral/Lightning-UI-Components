@@ -166,7 +166,7 @@ Object {
             "ContentWrapper",
           ],
           "visible": true,
-          "w": NaN,
+          "w": 0,
           "x": 16,
           "y": 8,
           "zIndex": 0,
