@@ -183,7 +183,7 @@ Object {
                         "Subtitle",
                       ],
                       "texture": Object {
-                        "fontFace": "XfinityBrownBold",
+                        "fontFace": "XfinityStandardMedium",
                         "fontSize": 20,
                         "h": 24,
                         "lineHeight": 24,

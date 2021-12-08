@@ -48,6 +48,14 @@ function keyRelease(elm, key) {
   }
 }
 
+function forceAllUpdates(app) {
+  const instance = app.childList.first;
+  if (instance && instance._requestUpdateDebounce) {
+    instance._requestUpdateDebounce.flush();
+  }
+  app.stage.drawFrame();
+}
+
 function create(Component, options = {}) {
   const defaultOpts = { focused: true };
   const opts = {
@@ -77,6 +85,9 @@ function create(Component, options = {}) {
     toJSON: (children = 1) => toJSON(app.childList.first, { children }),
     update: () => {
       app.stage.drawFrame();
+    },
+    forceAllUpdates: () => {
+      forceAllUpdates(app);
     },
     focus: () => {
       app._focusPath = [app.childList.first];

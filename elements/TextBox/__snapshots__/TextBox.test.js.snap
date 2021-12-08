@@ -35,7 +35,7 @@ Object {
     ],
     "texture": Object {
       "fontFace": "XfinityStandardMedium",
-      "fontSize": 28,
+      "fontSize": 32,
       "lineHeight": 40,
       "type": "TextTexture",
       "verticalAlign": "middle",

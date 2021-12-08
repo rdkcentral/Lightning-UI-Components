@@ -189,8 +189,9 @@ Object {
             "Title",
           ],
           "texture": Object {
-            "fontFace": "XfinityStandardMedium",
+            "fontFace": "XfinityBrownBold",
             "fontSize": 28,
+            "letterSpacing": -0.2,
             "lineHeight": 40,
             "maxLines": 2,
             "maxLinesSuffix": "...",

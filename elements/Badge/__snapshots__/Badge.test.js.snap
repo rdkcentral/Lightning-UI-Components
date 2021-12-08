@@ -33,7 +33,7 @@ Object {
         "BadgeText",
       ],
       "texture": Object {
-        "fontFace": "XfinityBrownBold",
+        "fontFace": "XfinityStandardMedium",
         "fontSize": 20,
         "lineHeight": 24,
         "textAlign": "center",
@@ -122,7 +122,7 @@ Object {
         "BadgeText",
       ],
       "texture": Object {
-        "fontFace": "XfinityBrownBold",
+        "fontFace": "XfinityStandardMedium",
         "fontSize": 20,
         "lineHeight": 24,
         "text": "HD",
@@ -216,7 +216,7 @@ Object {
         "BadgeText",
       ],
       "texture": Object {
-        "fontFace": "XfinityBrownBold",
+        "fontFace": "XfinityStandardMedium",
         "fontSize": 20,
         "lineHeight": 24,
         "textAlign": "center",
