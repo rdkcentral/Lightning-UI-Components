@@ -42,7 +42,7 @@ Object {
             "fontFace": "XfinityBrownBold",
             "fontSize": 28,
             "letterSpacing": -0.2,
-            "lineHeight": 32,
+            "lineHeight": 40,
             "text": "Action Button",
             "type": "TextTexture",
             "verticalAlign": "middle",

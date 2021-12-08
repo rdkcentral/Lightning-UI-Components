@@ -24,7 +24,7 @@ describe('withMetadata', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update paddingTop and Metadata y position', async done => {
+  it('should update paddingTop and Metadata y position', () => {
     const paddingTop = 50;
     [tileWithMetadata, testRenderer] = createTileWithMetadata(Tile, {
       w,
@@ -32,10 +32,10 @@ describe('withMetadata', () => {
       paddingTop,
       Metadata: { type: MetadataTile }
     });
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.paddingTop).toBe(paddingTop);
     testRenderer.focus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.Metadata.y).toBe(
       paddingTop +
         tileWithMetadata._focusedTileHeight -
@@ -45,12 +45,11 @@ describe('withMetadata', () => {
     );
     tileWithMetadata._smooth = false;
     testRenderer.unfocus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.Metadata.y).toBe(h + paddingTop);
-    done();
   });
 
-  it('should update paddingSide and Metadata x position', async done => {
+  it('should update paddingSide and Metadata x position', () => {
     const paddingSide = 20;
     [tileWithMetadata, testRenderer] = createTileWithMetadata(Tile, {
       w,
@@ -58,44 +57,43 @@ describe('withMetadata', () => {
       paddingSide,
       Metadata: { type: MetadataTile }
     });
-    testRenderer.update();
-    await TestUtils.nextTick();
     expect(tileWithMetadata.paddingSide).toBe(paddingSide);
+
     testRenderer.focus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.Metadata.x).toBe(
       paddingSide -
         (tileWithMetadata._focusedTileWidth -
           tileWithMetadata._unfocusedTileWidth) /
           2
     );
+
     tileWithMetadata._smooth = false;
     testRenderer.unfocus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
+
     expect(tileWithMetadata.Metadata.x).toBe(paddingSide);
-    done();
   });
 
-  it('should only display metadata on unfocus if persistentMetadata is true', async done => {
+  it('should only display metadata on unfocus if persistentMetadata is true', () => {
     tileWithMetadata.Metadata = { type: MetadataTile };
     tileWithMetadata._smooth = false;
     testRenderer.update();
     testRenderer.unfocus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.persistentMetadata).toBeUndefined();
     expect(tileWithMetadata.Metadata.alpha).toBe(0.001);
     tileWithMetadata.persistentMetadata = false;
     testRenderer.update();
     testRenderer.unfocus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.persistentMetadata).toBe(false);
     expect(tileWithMetadata.Metadata.alpha).toBe(0.001);
     tileWithMetadata.persistentMetadata = true;
     testRenderer.update();
     testRenderer.unfocus();
-    await TestUtils.nextTick();
+    testRenderer.forceAllUpdates();
     expect(tileWithMetadata.persistentMetadata).toBe(true);
     expect(tileWithMetadata.Metadata.alpha).toBe(1);
-    done();
   });
 });

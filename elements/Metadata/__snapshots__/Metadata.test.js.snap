@@ -36,7 +36,7 @@ Object {
       ],
       "texture": Object {
         "fontFace": "XfinityStandardMedium",
-        "fontSize": 24,
+        "fontSize": 28,
         "lineHeight": 36,
         "maxLines": 3,
         "maxLinesSuffix": "...",

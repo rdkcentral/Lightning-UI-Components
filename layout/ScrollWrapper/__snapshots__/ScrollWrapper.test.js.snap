@@ -270,7 +270,7 @@ Object {
               ],
               "texture": Object {
                 "fontFace": "XfinityBrownBold",
-                "fontSize": 28,
+                "fontSize": 32,
                 "lineHeight": 40,
                 "text": "Heading!",
                 "textColor": 4076863487,
@@ -586,7 +586,7 @@ Object {
               ],
               "texture": Object {
                 "fontFace": "XfinityStandardMedium",
-                "fontSize": 28,
+                "fontSize": 32,
                 "lineHeight": 40,
                 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.",
                 "textColor": 4076863487,
@@ -606,7 +606,7 @@ Object {
           "enabled": true,
           "flex": true,
           "flexItem": true,
-          "h": 674,
+          "h": 676,
           "isComponent": undefined,
           "mount": 0,
           "mountX": 0,

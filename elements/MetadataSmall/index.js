@@ -41,14 +41,14 @@ export default class MetadataSmall extends withStyles(Base, styles) {
           type: TextBox,
           y: this.styles.titleY,
           x: this.styles.textPaddingLeft,
-          ...this.styles.title
+          style: this.styles.title
         },
         DataClipContainer: {
           Data: {
             type: InlineContent,
             x: this.styles.textPaddingLeft,
             justify: 'flex-start',
-            ...this.styles.data
+            textProperties: this.styles.data
           }
         },
         Logo: {

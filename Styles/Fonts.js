@@ -108,12 +108,12 @@ export const TYPOGRAPHY = {
     fontSize: 28,
     fontWeight: 700,
     letterSpacing: -0.2,
-    lineHeight: 36,
+    lineHeight: 40,
     verticalAlign: 'middle'
   },
   body1: {
     fontFace: 'XfinityStandardMedium',
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 500,
     letterSpacing: 0,
     lineHeight: 40,
@@ -121,10 +121,10 @@ export const TYPOGRAPHY = {
   },
   body2: {
     fontFace: 'XfinityStandardMedium',
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 500,
     letterSpacing: 0,
-    lineHeight: 32,
+    lineHeight: 40,
     verticalAlign: 'middle'
   },
   body3: {
@@ -140,7 +140,7 @@ export const TYPOGRAPHY = {
     fontSize: 28,
     fontWeight: 700,
     letterSpacing: -0.2,
-    lineHeight: 32,
+    lineHeight: 40,
     verticalAlign: 'middle'
   },
   button2: {
@@ -152,7 +152,7 @@ export const TYPOGRAPHY = {
     verticalAlign: 'middle'
   },
   callout1: {
-    fontFace: 'XfinityBrownBold',
+    fontFace: 'XfinityStandardMedium',
     fontSize: 24,
     fontWeight: 700,
     letterSpacing: 2,
@@ -160,7 +160,7 @@ export const TYPOGRAPHY = {
     verticalAlign: 'middle'
   },
   caption: {
-    fontFace: 'XfinityBrownBold',
+    fontFace: 'XfinityStandardMedium',
     fontSize: 20,
     fontWeight: 700,
     letterSpacing: 0,

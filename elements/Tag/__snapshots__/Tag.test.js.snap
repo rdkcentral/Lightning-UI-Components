@@ -68,7 +68,7 @@ Object {
         "Text",
       ],
       "texture": Object {
-        "fontFace": "XfinityBrownBold",
+        "fontFace": "XfinityStandardMedium",
         "fontSize": 20,
         "lineHeight": 24,
         "text": "undefined",
