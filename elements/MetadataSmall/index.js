@@ -20,7 +20,8 @@ export const styles = theme => ({
   },
   logo: {
     h: theme.typography.body3.lineHeight,
-    verticalOffset: theme.spacing(2)
+    verticalOffset: theme.spacing(2),
+    paddingLeft: theme.spacing(2)
   },
   progressBarPadding: theme.spacing(3),
   animationHeight: theme.spacing(7),
@@ -110,6 +111,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     this._logoClipOffset = this.styles.logoClipOffset; // prevent the logo from clipping out on animation
     this._fadeWidth = this.styles.fadeWidth;
     this._animationHeight = this.styles.animationHeight;
+    this._logoPaddingLeft = this.styles.logo.paddingLeft;
   }
 
   _firstEnable() {
@@ -152,7 +154,14 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   _updateTitle() {
-    const wordWrapWidth = this._logo ? this.w - this._Logo.finalW : this.w;
+    // Logo's x position is calculated using _logoClipOffset, so we need to make sure
+    // we account for that for the title's word wrapping
+    const wordWrapWidth = this._logo
+      ? this.w -
+        this._Logo.finalW -
+        this._logoClipOffset -
+        this._logoPaddingLeft
+      : this.w;
     this._Title.patch({
       content: this._title,
       wordWrapWidth

@@ -74,6 +74,7 @@ export default class Metadata extends withStyles(Base, styles) {
     this._infoHeight = this.styles.infoOffset;
     this._logoHeight = this.styles.logo.h;
     this._logoWidth = this.styles.logo.w || this._logoHeight;
+    this._dataHeight = this.styles.data.lineHeight;
   }
 
   _init() {
@@ -164,7 +165,7 @@ export default class Metadata extends withStyles(Base, styles) {
       this._Logo.x = this.renderWidth - this._Logo.w;
     }
 
-    this._Logo.y = this._infoHeight - this.logoHeight;
+    this._Logo.y = this._dataHeight - this.logoHeight;
   }
 
   _updateCTA() {

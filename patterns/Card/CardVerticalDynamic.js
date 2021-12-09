@@ -14,6 +14,14 @@ const verticalDynamicStyles = theme => ({
     radius: 410,
     blur: 100,
     margin: 100
+  },
+  metadata: {
+    title: {
+      ...theme.typography.headline1
+    },
+    description: {
+      maxLines: 7
+    }
   }
 });
 

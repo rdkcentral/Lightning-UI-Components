@@ -40,7 +40,10 @@ export default class CardVertical extends withStyles(Card, verticalStyles) {
 
 const verticalLargeStyles = theme => ({
   ...verticalStyles(theme),
-  metadata: smallMetadataStyles(theme),
+  metadata: {
+    ...smallMetadataStyles(theme),
+    infoOffset: theme.typography.body3.lineHeight + 8
+  },
   h: 502
 });
 

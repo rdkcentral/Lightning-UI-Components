@@ -61,8 +61,7 @@ export default class Card extends withStyles(Base, styles) {
         type: CardArtwork
       },
       Metadata: {
-        type: Metadata,
-        ...this.styles.metadata
+        type: withStyles(Metadata, this.styles.metadata)
       }
     };
   }
