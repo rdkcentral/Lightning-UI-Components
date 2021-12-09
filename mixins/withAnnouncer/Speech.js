@@ -26,10 +26,11 @@ function delay(pause) {
  * @param {SpeechSynthesisUtterance[]} utterances An array which the new SpeechSynthesisUtterance instance representing this utterance will be appended
  * @return {Promise<void>} Promise resolved when the utterance has finished speaking, and rejected if there's an error
  */
-function speak(phrase, utterances) {
+function speak(phrase, utterances, lang = 'en-US') {
   const synth = window.speechSynthesis;
   return new Promise((resolve, reject) => {
     const utterance = new SpeechSynthesisUtterance(phrase);
+    utterance.lang = lang;
     utterance.onend = () => {
       resolve();
     };
@@ -41,7 +42,7 @@ function speak(phrase, utterances) {
   });
 }
 
-function speakSeries(series, root = true) {
+function speakSeries(series, lang, root = true) {
   const synth = window.speechSynthesis;
   const remainingPhrases = flattenStrings(
     Array.isArray(series) ? series : [series]
@@ -76,7 +77,7 @@ function speakSeries(series, root = true) {
           let retriesLeft = totalRetries;
           while (active && retriesLeft > 0) {
             try {
-              await speak(phrase, utterances);
+              await speak(phrase, utterances, lang);
               retriesLeft = 0;
             } catch (e) {
               if (e instanceof SpeechSynthesisErrorEvent) {
@@ -101,12 +102,12 @@ function speakSeries(series, root = true) {
             }
           }
         } else if (typeof phrase === 'function') {
-          const seriesResult = speakSeries(phrase(), false);
+          const seriesResult = speakSeries(phrase(), lang, false);
           nestedSeriesResults.push(seriesResult);
           await seriesResult.series;
         } else if (Array.isArray(phrase)) {
           // Speak it (recursively)
-          const seriesResult = speakSeries(phrase, false);
+          const seriesResult = speakSeries(phrase, lang, false);
           nestedSeriesResults.push(seriesResult);
           await seriesResult.series;
         }
@@ -139,8 +140,8 @@ function speakSeries(series, root = true) {
 }
 
 let currentSeries;
-export default function (toSpeak) {
+export default function (toSpeak, lang) {
   currentSeries && currentSeries.cancel();
-  currentSeries = speakSeries(toSpeak);
+  currentSeries = speakSeries(toSpeak, lang);
   return currentSeries;
 }

@@ -12,7 +12,8 @@ speak.mockReturnValue({
   cancel: speakCancel,
   series: Promise.resolve()
 });
-const BaseAnnouncer = Announcer(lng.Component, speak);
+const language = 'en-US';
+const BaseAnnouncer = Announcer(lng.Component, speak, { language });
 class MyApp extends BaseAnnouncer {
   _construct() {
     this.announcerFocusDebounce = 0;
@@ -180,14 +181,17 @@ describe('AppAnnouncer', () => {
 
   describe('on App load', () => {
     it('should announce the full focus path', () => {
-      expect(speak).toHaveBeenCalledWith([
-        'Welcome to Flex',
-        'HomePage',
-        'Free to Me',
-        'Ninja Turtles',
-        '1 of 3',
-        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-      ]);
+      expect(speak).toHaveBeenCalledWith(
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
     });
 
     it('should delay announcing if loading', () => {
@@ -203,7 +207,10 @@ describe('AppAnnouncer', () => {
     it('Right - should announce the new item', done => {
       testRenderer.keyPress('Right');
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3']);
+        expect(speak).toHaveBeenCalledWith(
+          ['Transformers', '2 of 3'],
+          language
+        );
         done();
       }, 1);
     });
@@ -211,7 +218,10 @@ describe('AppAnnouncer', () => {
     it('Down - should announce new item and nav options', done => {
       testRenderer.keyPress('Down');
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(['Featured', 'Plague', '1 of 3']);
+        expect(speak).toHaveBeenCalledWith(
+          ['Featured', 'Plague', '1 of 3'],
+          language
+        );
         done();
       }, 1);
     });
@@ -221,11 +231,10 @@ describe('AppAnnouncer', () => {
       speak.mockClear();
       testRenderer.keyPress('Down');
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith([
-          'Popular Movies',
-          'Thor',
-          '1 of 3'
-        ]);
+        expect(speak).toHaveBeenCalledWith(
+          ['Popular Movies', 'Thor', '1 of 3'],
+          language
+        );
         done();
       }, 1);
     });
@@ -240,14 +249,17 @@ describe('AppAnnouncer', () => {
       testRenderer.keyPress('Right');
 
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith([
-          'Welcome to Flex',
-          'HomePage',
-          'Free to Me',
-          'Batman',
-          '3 of 3',
-          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-        ]);
+        expect(speak).toHaveBeenCalledWith(
+          [
+            'Welcome to Flex',
+            'HomePage',
+            'Free to Me',
+            'Batman',
+            '3 of 3',
+            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+          ],
+          language
+        );
         done();
       }, 4);
     });
@@ -281,13 +293,13 @@ describe('AppAnnouncer', () => {
   describe('$announce', () => {
     it('should call speak', () => {
       announcer.$announce('hello');
-      expect(speak).toHaveBeenCalledWith('hello');
+      expect(speak).toHaveBeenCalledWith('hello', language);
     });
 
     it('should call append', () => {
       announcer.$announce('hello');
       announcer.$announce('there', { append: true });
-      expect(speak).toHaveBeenNthCalledWith(2, 'hello');
+      expect(speak).toHaveBeenNthCalledWith(2, 'hello', language);
       expect(speakAppend).toHaveBeenNthCalledWith(1, 'there');
     });
 
@@ -296,15 +308,19 @@ describe('AppAnnouncer', () => {
       announcer.$announcerRefresh(); // Forces focus change
       expect(speak).not.toHaveBeenCalled();
       announcer.$announce('there');
-      expect(speak).toHaveBeenNthCalledWith(1, [
-        'Welcome to Flex',
-        'HomePage',
-        'Free to Me',
-        'Ninja Turtles',
-        '1 of 3',
-        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-      ]);
-      expect(speak).toHaveBeenNthCalledWith(2, 'there');
+      expect(speak).toHaveBeenNthCalledWith(
+        1,
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
+      expect(speak).toHaveBeenNthCalledWith(2, 'there', language);
     });
 
     it('should force a pending focus change to be processed first (append=true)', () => {
@@ -312,14 +328,17 @@ describe('AppAnnouncer', () => {
       announcer.$announcerRefresh(); // Forces focus change
       expect(speak).not.toHaveBeenCalled();
       announcer.$announce('there', { append: true });
-      expect(speak).toHaveBeenCalledWith([
-        'Welcome to Flex',
-        'HomePage',
-        'Free to Me',
-        'Ninja Turtles',
-        '1 of 3',
-        'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-      ]);
+      expect(speak).toHaveBeenCalledWith(
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
       expect(speakAppend).toHaveBeenCalledWith('there');
       expect(speak.mock.invocationCallOrder[0]).toBeLessThan(
         speakAppend.mock.invocationCallOrder[0]
@@ -335,17 +354,21 @@ describe('AppAnnouncer', () => {
         series: Promise.resolve()
       });
       announcer.$announce('Some Notification', { notification: true });
-      expect(speak).toHaveBeenNthCalledWith(1, 'Some Notification');
+      expect(speak).toHaveBeenNthCalledWith(1, 'Some Notification', language);
       expect(speak).toHaveBeenCalledTimes(1);
       setTimeout(() => {
-        expect(speak).toHaveBeenNthCalledWith(2, [
-          'Welcome to Flex',
-          'HomePage',
-          'Free to Me',
-          'Ninja Turtles',
-          '1 of 3',
-          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-        ]);
+        expect(speak).toHaveBeenNthCalledWith(
+          2,
+          [
+            'Welcome to Flex',
+            'HomePage',
+            'Free to Me',
+            'Ninja Turtles',
+            '1 of 3',
+            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+          ],
+          language
+        );
         done();
       }, 100);
     });
@@ -356,14 +379,17 @@ describe('AppAnnouncer', () => {
       speak.mockClear();
       announcer.$announcerRefresh();
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith([
-          'Welcome to Flex',
-          'HomePage',
-          'Free to Me',
-          'Ninja Turtles',
-          '1 of 3',
-          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-        ]);
+        expect(speak).toHaveBeenCalledWith(
+          [
+            'Welcome to Flex',
+            'HomePage',
+            'Free to Me',
+            'Ninja Turtles',
+            '1 of 3',
+            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+          ],
+          language
+        );
         done();
       }, 1);
     });
@@ -372,11 +398,10 @@ describe('AppAnnouncer', () => {
       speak.mockClear();
       announcer.$announcerRefresh(4);
       setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith([
-          'Free to Me',
-          'Ninja Turtles',
-          '1 of 3'
-        ]);
+        expect(speak).toHaveBeenCalledWith(
+          ['Free to Me', 'Ninja Turtles', '1 of 3'],
+          language
+        );
         done();
       }, 1);
     });
