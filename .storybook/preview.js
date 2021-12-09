@@ -86,7 +86,7 @@ window.addEventListener(
 
 addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, globals }) => {
   const announce = globals.announce === 'on';
-  class StoryApp extends withAnnouncer(lng.Application) {
+  class StoryApp extends withAnnouncer(lng.Application, window.Speech, { language: 'en-US'}) {
     _init() {
       setTimeout(() => {
         this._refocus();

@@ -17,7 +17,7 @@ export default (base, speak = Speech, options = {}) =>
       if (this._voiceOutDisabled) {
         return;
       }
-      const speech = speak(toAnnounce);
+      const speech = speak(toAnnounce, options.language);
       // event using speech synthesis api promise
       if (speech && speech.series) {
         speech.series.then(() => {

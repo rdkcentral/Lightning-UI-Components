@@ -18,8 +18,8 @@ This class does its best to work around these issues, but speech synth api can r
 Extend your application with `Announcer` before boot:
 
 ```js
-import { Announcer } from '@lightning/ui'
-const Base = Announcer(lng.Component, customSpeechImpl)
+import { withAnnouncer } from '@lightning/ui'
+const Base = withAnnouncer(lng.Application, window.Speech, { language: 'en-US'} )
 export default class App extends Base {
 ```
 
@@ -86,6 +86,7 @@ You may also use `PAUSE-#` to pause speech for # seconds before saying the next 
 name|type|readonly|description
 --|--|--|--
 voiceOutDelay|integer|false|time in ms to determine when voice out is read.
+language|string|false|[BCP 47 Language Code](https://appmakers.dev/bcp-47-language-codes-list/) the SpeechSynthesisAPI should read out the strings in
 
 ### Properties
 
