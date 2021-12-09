@@ -11,7 +11,8 @@ const stories =
         '../elements/**/*.stories.{js,mdx}',
         '../layout/**/*.stories.{js,mdx}',
         '../patterns/**/*.stories.{js,mdx}',
-        '../mixins/**/*.stories.{js,mdx}'
+        '../mixins/**/*.stories.{js,mdx}',
+        '../suite/**/*.stories.{js,mdx}'
       ]
     : [
         '../docs/Introduction.stories.mdx',
@@ -22,7 +23,8 @@ const stories =
         '../elements/**/*.stories.{js,mdx}',
         '../layout/**/*.stories.{js,mdx}',
         '../patterns/**/!(ListItemBase).stories.{js,mdx}',
-        '../mixins/**/*.stories.{js,mdx}'
+        '../mixins/**/*.stories.{js,mdx}',
+        '../suite/**/*.stories.{js,mdx}'
       ];
 
 module.exports = {
