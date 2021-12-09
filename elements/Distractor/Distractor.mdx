@@ -1,0 +1,54 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../.storybook/utils';
+import Distractor from '.';
+
+# Distractor
+
+Basic component that handles styling and functionality for a Distractor.
+
+## Usage
+
+```js
+import { Distractor } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Distractor: {
+        type: Distractor,
+        title: 'Distractor'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="elements-distractor--basic" />
+</Canvas>
+
+
+### Sizing
+
+`Distractor` widths dynamically adjust over the course of the animation.  You can set the 'initial' individual circle size via `circleSize`.
+
+### Color
+
+All buttons have the ability to be passed an icon. This will position the icon to the left of the title and center it horizontally and vertically.
+
+## API
+
+### Properties
+
+name|type|readonly|default|description
+--|--|--|--|--
+circleSize|number|false|100|minimum width of the button
+color|number|false|0|border color
+
+### Methods
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Distractor.styles} />
