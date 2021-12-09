@@ -41,7 +41,7 @@ describe('Badge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update the title', async () => {
+  it('should update the title', async done => {
     const title = 'HD';
     [badge, testRenderer] = createBadge(
       { title },
