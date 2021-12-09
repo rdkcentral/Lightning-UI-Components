@@ -29,7 +29,7 @@
 
   Each step in the gradient is an object with the following properties:
     percent: number between 0 and 1
-    color: string ('hsla(0,0,0,0)' or 'rgba(0,0,0,0)`
+    color: string 'hsla(0,0,0,0)' or 'rgba(0,0,0,0)`
 */
 
 import lng from '@lightningjs/core';
@@ -203,7 +203,8 @@ export default class LinearGradient extends lng.Texture {
     const { x0, y0, x1, y1 } = p;
 
     const steps = this._steps;
-    return function (cb: any) {
+
+    return function (cb) {
       const canvas = this.stage.platform.getDrawingCanvas();
 
       canvas.width = w;
