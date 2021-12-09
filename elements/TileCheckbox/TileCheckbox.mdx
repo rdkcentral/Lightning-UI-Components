@@ -1,0 +1,73 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../.storybook/utils';
+import Tile from '.';
+
+# TileCheckbox
+
+Variant of [Tile](?path=/docs/elements-tile--basic) component that supports displaying a [Checkbox](?path=/story/elements-checkbox--basic)
+
+## Usage
+
+Supports all propeties of [Tile](?path=/docs/elements-tile--basic). Additionally, a [Checkbox](?path=/story/elements-checkbox--basic)
+can optionally be added to the bottom of the tile, either centered or right aligned.
+
+```js
+import { TileCheckbox } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: TileCheckbox,
+        src: 'path/to/image',
+        w: 320,
+        h: 180,
+        blur: 2,
+        radius: 16,
+        shadow: {
+          w: 320,
+          h: 180,
+          x: 10,
+          y: 10,
+          zIndex: -1,
+          texture: lng.Tools.getShadowRect(320, 180, 8, 4),
+          color: 0x00ff00
+        },
+        checked: true,
+        placement: 'center'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-tilecheckbox--basic" />
+</Canvas>
+
+### Properties
+
+| name            | type                        | required | default | description                                                          |
+| --------------- | --------------------------- | -------- | ------- | -------------------------------------------------------------------- |
+| blur            | number                      | false    | -       | Blur amount from 0-4                                                 |
+| radius          | number                      | false    | -       | set rounded corner radius                                            |
+| imgRadius       | number                      | false    | -       | set rounded corner radius of image                                   |
+| shadow          | obj                         | false    | -       | create a drop shadow using a Lightning element                       |
+| src             | string                      | false    | -       | url to image                                                         |
+| fallbackSrc     | string                      | false    | -       | url to image to use if the requested src fails                       |
+| gradientColor   | color                       | false    | -       | overlay gradient color                                               |
+| focusGradient   | boolean                     | false    | false   | show gradient overlay on focus                                       |
+| persistGradient | boolean                     | false    | false   | always show gradient overlay                                         |
+| animate         | boolean                     | false    | false   | animates focus ring                                                  |
+| checked         | boolean                     | false    | -       | controls whether a `Checkbox` rendered in the Tile is checked or not |
+| placement       | string['centered', 'right'] | false    | 'right' | controls whether the `Checkbox` is center or right aligned           |
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Tile.styles} />
+
+### Sizing
+
+`TileCheckbox` can be autosized by composing using [withLayout](?path=/docs/mixins-withlayout--basic).
