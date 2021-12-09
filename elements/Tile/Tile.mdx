@@ -9,7 +9,6 @@ General purpose Tile component
 ## Usage
 
 Just set a src property to load an image. From there you can set blur, rounded corners and drop shadow.
-A [Checkbox](?path=/story/elements-checkbox--basic) can optionally be added to the bottom of the tile, either centered or right aligned.
 
 ```js
 import { Tile } from '@lightning/ui';
@@ -46,9 +45,6 @@ Tile: {
 | focusGradient   | boolean | false    | false   | show gradient overlay on focus                 |
 | persistGradient | boolean | false    | false   | always show gradient overlay                   |
 | animate         | boolean | false    | false   | animates focus ring                            |
-checkbox|object|false|-|object with `checked` and `placement` properties to display a `Checkbox` at the bottom of the tile. See <a href="?path=/docs/elements-checkbox--basic">Checkbox</a>
-checkbox.checked|boolean|false|-|controls whether a `Checkbox` rendered in the Tile is checked or not
-checkbox.placement|string['centered', 'right']|false|'right'|controls whethere the `Checkbox` is center or right aligned
 
 ### Styles
 
