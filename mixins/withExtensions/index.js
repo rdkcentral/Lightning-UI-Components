@@ -35,6 +35,7 @@ export default function withExtensions(Base) {
 
     return newBase;
   } catch (error) {
+    // eslint-disable-next-line
     console.log(error);
     // If Base.__componentName is not defined an error will be thrown and Base should be returned
     return Base;

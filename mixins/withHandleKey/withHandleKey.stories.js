@@ -9,6 +9,7 @@ import context from '../../context';
 context.config({
   // Inspect console to see - should only be called when pressing enter on first tile.
   keyMetricsCallback: (key, p) => {
+    // eslint-disable-next-line
     console.log('Metrics payload received', key, p);
   }
 });

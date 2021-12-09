@@ -30,10 +30,6 @@ export const Basic = () =>
         }
       };
     }
-
-    $onEnter(keyEvent, tile) {
-      console.log('Enter on Tile ', tile);
-    }
   };
 Basic.argTypes = {
   focused: { control: 'boolean' }
