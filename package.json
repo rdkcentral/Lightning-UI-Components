@@ -16,8 +16,8 @@
   "files": [
     "index.js",
     "Styles.js",
-    "{bin,elements,layout,mixins,patterns,Styles,textures,utils}/**/!(*.test.js|*.stories.js|*.stories.mdx|*.mdx)",
-    "!{elements,layout,patterns,textures}/**/__snapshots__",
+    "{bin,elements,layout,mixins,patterns,suite,Styles,textures,utils}/**/!(*.test.js|*.stories.js|*.stories.mdx|*.mdx)",
+    "!{elements,layout,patterns,suite,textures}/**/__snapshots__",
     "test/lightning-test-renderer.js",
     "test/lightning-test-utils.js",
     "!public/"
@@ -58,7 +58,7 @@
     }
   },
   "lint-staged": {
-    "./{elements,layout,patterns,utils}/**/*.js": [
+    "./{elements,layout,patterns,suite,utils}/**/*.js": [
       "npm run lint"
     ]
   },
