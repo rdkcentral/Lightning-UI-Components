@@ -72,6 +72,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
       'logo',
       'logoWidth',
       'logoHeight',
+      'logoTitle',
       'progress',
       'originalW',
       'animate',
@@ -103,6 +104,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     super._construct();
     this._animate = true;
     this._logoHeight = this.styles.logo.h;
+    this._logoTitle = this.logoTitle;
     this._logoWidth = this.styles.logo.w || this._logoHeight;
     this._logoYOffset = this.styles.logo.verticalOffset;
     this._progressBarPadding = this.styles.progressBarPadding;
@@ -260,6 +262,24 @@ export default class MetadataSmall extends withStyles(Base, styles) {
         }
       });
     }
+  }
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [
+      this.title,
+      this.subtitle,
+      this.description,
+      this._Data.announce,
+      this.logoTitle
+    ]
+      .filter(s => s)
+      .join('. ');
+  }
+
+  set announce(announce) {
+    super._announce = announce;
   }
 
   get _shouldClipData() {

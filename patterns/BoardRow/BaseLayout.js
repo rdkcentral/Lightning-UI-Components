@@ -71,7 +71,6 @@ class BaseType extends lng.Component {
   _init() {
     super._init();
     this._Row.itemSpacing = this._itemSpacing;
-
     if (!this.w) {
       // if width is undefinend or 0, set the Row's width
       this._Row.w =
@@ -117,7 +116,6 @@ class BaseType extends lng.Component {
         const updatedItem = {
           ...item
         };
-
         if (
           (item.type && Tile === item.type) ||
           Tile.isPrototypeOf(item.type)
@@ -126,11 +124,12 @@ class BaseType extends lng.Component {
           updatedItem.metadataLocation = 'inset';
           updatedItem.Metadata = {
             type: MetadataSmall,
-            title: item.title,
             data: item.description,
             progress: item.progress,
-            logo: item.logo
+            logo: item.logo,
+            title: item.title
           };
+          updatedItem.title = undefined;
         }
         return updatedItem;
       });

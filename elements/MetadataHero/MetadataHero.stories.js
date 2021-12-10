@@ -40,6 +40,7 @@ export const Basic = args =>
             }
           ],
           logo: args.showIcon ? circle : null,
+          logoTitle: args.showIcon ? args.logoTitle : null,
           cta: args.showCTA ? args.cta : null
         }
       };
@@ -57,7 +58,8 @@ Basic.args = {
   description: 'Short Description',
   cta: 'Call to action text',
   showCTA: true,
-  showIcon: true
+  showIcon: true,
+  logoTitle: 'Logo title'
 };
 Basic.argTypes = {
   title: { control: 'text' },
@@ -65,7 +67,8 @@ Basic.argTypes = {
   description: { control: 'text' },
   cta: { control: 'text' },
   showCTA: { control: 'boolean' },
-  showIcon: { control: 'boolean' }
+  showIcon: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };
 Basic.parameters = {
   argActions: {}

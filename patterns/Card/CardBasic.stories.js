@@ -11,7 +11,8 @@ export const Basic = args =>
           type: CardBasic,
           title: args.title,
           description: args.description,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -25,11 +26,13 @@ export const Basic = args =>
 Basic.args = {
   title: 'Title',
   description: 'Short Description',
-  showLogo: true
+  showLogo: true,
+  logoTitle: 'Logo Title'
 };
 Basic.argTypes = {
   title: { content: 'text' },
   description: { content: 'text' },
   showLogo: { content: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };

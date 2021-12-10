@@ -21,7 +21,8 @@ export const Program = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -37,7 +38,11 @@ Program.args = {
   description: 'Short Description',
   showData: true,
   showLogo: true,
-  focused: false
+  focused: false,
+  logoTitle: 'Logo Title'
+};
+Program.argTypes = {
+  logoTitle: { control: 'text' }
 };
 Program.parameters = {
   argActions: {

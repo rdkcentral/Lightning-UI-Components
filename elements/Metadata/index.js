@@ -74,6 +74,7 @@ export default class Metadata extends withStyles(Base, styles) {
     this._infoHeight = this.styles.infoOffset;
     this._logoHeight = this.styles.logo.h;
     this._logoWidth = this.styles.logo.w || this._logoHeight;
+    this._logoTitle = this.logoTitle;
     this._dataHeight = this.styles.data.lineHeight;
   }
 
@@ -89,7 +90,8 @@ export default class Metadata extends withStyles(Base, styles) {
       'logo',
       'cta',
       'logoWidth',
-      'logoHeight'
+      'logoHeight',
+      'logoTitle'
     ];
   }
 
@@ -180,5 +182,25 @@ export default class Metadata extends withStyles(Base, styles) {
 
   _setLogoHeight(h) {
     return h !== undefined ? h : this.logoHeight;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [
+      this.title,
+      this.subtitle,
+      this.description,
+      this._Data.announce,
+      this.cta,
+      this.logoTitle
+    ]
+      .filter(s => s)
+      .join('. ');
+  }
+
+  set announce(announce) {
+    super._announce = announce;
   }
 }

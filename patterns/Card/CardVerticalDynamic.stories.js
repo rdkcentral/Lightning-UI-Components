@@ -17,7 +17,8 @@ export const VerticalDynamic = args =>
           title: args.title,
           description: args.description,
           cta: args.cta,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -33,7 +34,8 @@ VerticalDynamic.args = {
   title: 'Title',
   description: 'Short Description',
   cta: 'Watch on Netflix',
-  showLogo: true
+  showLogo: true,
+  logoTitle: 'Logo Title'
 };
 VerticalDynamic.argTypes = {
   gradientColor: { control: 'color' },
@@ -42,5 +44,6 @@ VerticalDynamic.argTypes = {
   description: { content: 'text' },
   cta: { content: 'text' },
   showLogo: { content: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };

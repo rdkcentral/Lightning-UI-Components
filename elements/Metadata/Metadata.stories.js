@@ -39,6 +39,7 @@ export const Basic = args =>
             }
           ],
           logo: args.showIcon ? circle : null,
+          logoTitle: args.showIcon ? args.logoTitle : null,
           cta: args.showCTA ? args.cta : null
         }
       };
@@ -55,7 +56,8 @@ Basic.args = {
   description: 'Description',
   cta: 'Watch on Netflix',
   showCTA: false,
-  showIcon: true
+  showIcon: true,
+  logoTitle: 'Logo title'
 };
 Basic.argTypes = {
   w: { control: 'number' },
@@ -64,7 +66,8 @@ Basic.argTypes = {
   description: { control: 'text' },
   cta: { control: 'text' },
   showCTA: { control: 'boolean' },
-  showIcon: { control: 'boolean' }
+  showIcon: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };
 Basic.parameters = {
   argActions: {}

@@ -113,4 +113,23 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
       });
     }
   }
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [
+      this.title,
+      this.subtitle,
+      this.description,
+      this._Data.announce,
+      this.cta,
+      this.logoTitle
+    ]
+      .filter(s => s)
+      .join('. ');
+  }
+
+  set announce(announce) {
+    super._announce = announce;
+  }
 }
