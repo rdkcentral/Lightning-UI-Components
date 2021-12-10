@@ -1,12 +1,13 @@
 export default theme => ({
   h: 96,
+  xsmallHeight: 80,
   backgrounds: theme.palette.background,
   backgroundType: 'fill',
   dimensions: {
     large: 860,
     medium: 523,
     small: 410,
-    xsmall: 231
+    xsmall: 410
   },
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
