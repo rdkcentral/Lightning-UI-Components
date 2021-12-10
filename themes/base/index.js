@@ -5,6 +5,7 @@ import typography from './typography';
 import animations from './animations';
 
 export default {
+  name: 'Base',
   colors,
   layout,
   spacing,

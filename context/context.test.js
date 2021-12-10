@@ -188,6 +188,7 @@ describe('context', () => {
       theme.setTheme('string');
       expect(theme.getTheme()).toMatchObject(processedBaseTheme);
       theme.setTheme(() => {
+        // eslint-disable-next-line
         console.log('foobar');
       });
       expect(theme.getTheme()).toMatchObject(processedBaseTheme);

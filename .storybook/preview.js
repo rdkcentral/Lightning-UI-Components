@@ -13,24 +13,20 @@ import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
 import XfinityTheme from '../themes/xfinity';
 
+context.on('themeUpdate', () => {
+  window.parent.postMessage('themeSet', '*');
+});
+
 export const globalTypes = {
-  announce: {
-    name: 'Announce',
-    description: 'Enable a11y announcing of components',
-    defaultValue: 'off',
-    toolbar: {
-      icon: 'speaker',
-      items: ['off', 'on']
-    }
-  },
-  theme: {
+  LUITheme: {
     name: 'Theme',
     description: 'Theme select',
-    defaultValue: 'Base',
+    defaultValue: 'base',
     toolbar: {
       items: [
         { title: 'Base', value: 'base' },
-        { title: 'Xfinity', value: 'xfinity' }
+        { title: 'Xfinity', value: 'xfinity' },
+        { title: 'Custom', value: 'custom' }
       ],
       showName: true
     }
@@ -39,7 +35,10 @@ export const globalTypes = {
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: { hideNoControlsWarning: true },
+  controls: {
+    hideNoControlsWarning: true,
+    expanded: true
+  },
   docs: {
     inlineStories: true,
     theme
@@ -62,19 +61,7 @@ window.addEventListener(
 );
 
 // Setup Lightning UI Theme
-let lightningUITheme;
-if (!window.localStorage.getItem('customTheme')) {
-  switch (window.localStorage.getItem('theme')) {
-    case 'xfinity':
-      lightningUITheme = XfinityTheme;
-      break;
-    default:
-      lightningUITheme = {};
-  }
-} else {
-  lightningUITheme = JSON.parse(window.localStorage.getItem('customTheme'));
-}
-
+let lightningUITheme = {};
 window.CONTEXT = context.config({
   theme: {
     ...lightningUITheme,
@@ -84,6 +71,7 @@ window.CONTEXT = context.config({
     console.log('key metrics callback');
   }
 });
+context.storybookCustomTheme = JSON.parse(JSON.stringify(context.theme));
 
 function createLightningUIApp(announcerOptions) {
   return class LightningUIApp extends withAnnouncer(lng.Application, window.Speech, announcerOptions) {
@@ -128,46 +116,39 @@ function createApp(parameters) {
 }
 
 function setTheme(themeName) {
-  if (window.localStorage.getItem('theme') === themeName) return;
+  let theme = BaseTheme;
   switch (themeName) {
     case 'xfinity':
-      if (window.APP) {
-        context.setTheme(XfinityTheme);
-        window.localStorage.setItem('theme', 'xfinity');
-      }
+      theme = XfinityTheme;
       break;
-    default:
-      if (window.APP) {
-        context.setTheme(BaseTheme);
-        window.localStorage.setItem('theme', 'base');
-      }
+    case 'custom':
+      theme = { ...context.storybookCustomTheme, name: 'Custom' };
       break;
   }
+  context.setTheme(theme);
 }
 
 let previousID = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
-  if (
-    !window.localStorage.getItem('customTheme') &&
-    globals.theme !== window.localStorage.getItem('theme')
-  ) {
-    setTheme(globals.theme);
-  }
-
+  setTheme(globals.LUITheme);
   const triggerUpdate = previousID !== id;
   previousID = id;
   const app = createApp(parameters);
-  app.announcerEnabled = globals.announce === 'on';
-  app.debug = globals.announce === 'on';
+  app.announcerEnabled = globals.announce;
+  app.debug = globals.announce;
   // If an update is required patch in the new child element
   if (triggerUpdate) {
     app.childList.clear();
     app.childList.a({
       StoryComponent: {
-        type: StoryComponent(),
+        type: class extends StoryComponent() {
+          _init() {
+            this._refocus(); // Force Lightning to reset focus
+          }
+        },
         w: w => w,
         h: h => h,
-        x: 80,
+        x: 90,
         y: 40
       }
     });
@@ -181,17 +162,14 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
       })
       .filter(Boolean).length === Object.keys(parameters.argTypes).length;
 
-  if (isDefault && window.localStorage.getItem('customTheme')) {
-    // Reset the theme
-    window.localStorage.removeItem('customTheme');
-    setTheme(globals.theme);
-  }
-
   const LightningUIComponent = app.tag('StoryComponent').childList.first;
   if (LightningUIComponent && Object.keys(args).length) {
     for (const prop in args) {
       // Apply arguments from controls
-      const propValue = 'undefined' !== typeof args[prop] ? args[prop] : parameters.argTypes[prop].defaultValue;
+      const propValue =
+        'undefined' !== typeof args[prop]
+          ? args[prop]
+          : parameters.argTypes[prop].defaultValue;
       if (!parameters.argActions || !parameters.argActions[prop]) {
         LightningUIComponent[prop] = propValue;
       }
@@ -206,9 +184,13 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
     for (const prop in parameters.argActions) {
       if ('function' === typeof parameters.argActions[prop]) {
         try {
-          const propValue = 'undefined' !== typeof args[prop] ? args[prop] : parameters.argTypes[prop].defaultValue;
-          if ('undefined' !== typeof propValue) parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
-        } catch(err) {
+          const propValue =
+            'undefined' !== typeof args[prop]
+              ? args[prop]
+              : parameters.argTypes[prop].defaultValue;
+          if ('undefined' !== typeof propValue)
+            parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
+        } catch (err) {
           console.error('unable to apply argAction for ' + prop);
         }
       }

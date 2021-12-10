@@ -1,11 +1,11 @@
 colors Value | Components 
 --------|-------- 
-fillNeutral1 | ProgressBar (neutral variant)
-fillNeutral1Tertiary | ProgressBar (neutral variant)
-fillInverse1 | ProgressBar (inverse variant)
-fillInverse1Tertiary | ProgressBar (inverse variant)
-fillBrand | ProgressBar (brand variant)
-fillBrandTertiary | ProgressBar (brand variant)
+fillNeutral1 | FocusRing (neutral variant), ProgressBar (neutral variant)
+fillNeutral1Tertiary | FocusRing (neutral variant), ProgressBar (neutral variant)
+fillInverse1 | FocusRing (inverse variant), ProgressBar (inverse variant)
+fillInverse1Tertiary | FocusRing (inverse variant), ProgressBar (inverse variant)
+fillBrand | FocusRing (brand variant), ProgressBar (brand variant)
+fillBrandTertiary | FocusRing (brand variant), ProgressBar (brand variant)
 materialNegative | Tile (inverse variant)
 material | No components are using this value
 surface | No components are using this value

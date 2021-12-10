@@ -1,5 +1,6 @@
 import React from 'react';
 import { flatten } from '../../utils';
+import baseTheme from '../../themes/base';
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -109,4 +110,54 @@ export const Theme = ({ theme={}, isColor=false }) => {
     {Object.entries(theme).map(entries => getValue(entries, isColor))}
     </ul>
   )
+}
+
+export const globalContext = () =>
+  document && document.querySelector('iframe') &&
+  document.querySelector('iframe').contentWindow &&
+  document.querySelector('iframe').contentWindow.CONTEXT;
+
+  export const globalTheme = () => {
+  const context = globalContext();
+  return context && context.theme;
+}
+
+export const getPanelsTheme = () => globalTheme() || baseTheme;
+
+export const updateGlobalTheme = (updates, updateGlobals) => {
+  let context = globalContext();
+  if (context) {
+    context.updateTheme(updates);
+    globalContext().storybookCustomTheme = JSON.parse(JSON.stringify(globalTheme()));
+  }
+
+  updateGlobals({ LUITheme: 'custom' });
+}
+
+export function createTable(title, rows) {
+  return (
+    <div key={title}>
+      <h2>{title}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function createTableRow(key, control, scope) {
+  return (
+    <tr key={key + scope}>
+      <td>{key}</td>
+      <td>{control}</td>
+    </tr>
+  );
 }

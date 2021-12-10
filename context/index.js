@@ -56,6 +56,12 @@ export class Context {
   }
   /**
    * @type {function}
+   */
+  off() {
+    return events.off(...arguments);
+  }
+  /**
+   * @type {function}
    * @param {string} name
    * @param {string|object|number|boolean} payload
    */

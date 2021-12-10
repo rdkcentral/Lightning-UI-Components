@@ -35,7 +35,6 @@ export class Theme {
     this._cache.clear();
 
     this._cache.set('theme', this._processTheme.call(this, [value]));
-
     events.emit('themeUpdate'); // Notify components that an update cycle is required
   }
 

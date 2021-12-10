@@ -1,3 +1,5 @@
+import lng from '@lightningjs/core';
+
 /**
  * Colors
  *
