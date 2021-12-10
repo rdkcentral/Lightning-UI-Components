@@ -1,8 +1,9 @@
 import lng from '@lightningjs/core';
 import { CardHero } from '.';
-
+import { getHexColor } from '../../Styles/Colors';
 import circle from '../../assets/images/circle.svg';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 
 export const Hero = args =>
   class Hero extends lng.Component {
@@ -22,7 +23,8 @@ export const Hero = args =>
             },
             '94%',
             {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
               title: 'Green Lightning Bolt'
             },
             'age 6+',
@@ -32,6 +34,7 @@ export const Hero = args =>
             }
           ],
           logo: args.showIcon ? circle : null,
+          logoTitle: args.showIcon ? args.logoTitle : null,
           cta: args.showCTA ? args.cta : null
         }
       };
@@ -49,7 +52,8 @@ Hero.args = {
   description: 'Short Description',
   cta: 'Call to action text',
   showCTA: true,
-  showIcon: true
+  showIcon: true,
+  logoTitle: 'Logo Title'
 };
 Hero.argTypes = {
   title: { control: 'text' },
@@ -58,5 +62,6 @@ Hero.argTypes = {
   cta: { control: 'text' },
   showCTA: { control: 'boolean' },
   showIcon: { control: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };

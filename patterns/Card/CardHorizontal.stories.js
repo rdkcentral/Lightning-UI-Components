@@ -22,7 +22,8 @@ export const Horizontal = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -37,14 +38,16 @@ Horizontal.args = {
   title: 'Title',
   description: 'Short Description',
   showData: true,
-  showLogo: true
+  showLogo: true,
+  logoTitle: 'Logo Title'
 };
 Horizontal.argTypes = {
   title: { content: 'text' },
   description: { content: 'text' },
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };
 
 export const HorizontalLarge = args =>
@@ -64,8 +67,9 @@ export const HorizontalLarge = args =>
                   title: 'Rotten Tomatoes rating'
                 }
               ]
-            : null,
-          logo: args.showLogo ? circle : null
+            : undefined,
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -80,12 +84,14 @@ HorizontalLarge.args = {
   title: 'Title',
   description: 'Short Description',
   showData: true,
-  showLogo: true
+  showLogo: true,
+  logoTitle: 'Logo Title'
 };
 HorizontalLarge.argTypes = {
   title: { content: 'text' },
   description: { content: 'text' },
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };

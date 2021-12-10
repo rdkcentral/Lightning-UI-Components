@@ -24,9 +24,22 @@ export const Basic = args =>
           w: 400,
           h: 200,
           title: args.title,
-          data: args.data,
+          data: [
+            '94%',
+            {
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
+              title: 'Green Lightning Bolt'
+            },
+            '86%',
+            {
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            }
+          ],
           progress: args.progress,
-          logo: circle
+          logo: circle,
+          logoTitle: args.logoTitle
         }
       };
     }
@@ -50,7 +63,11 @@ Basic.args = {
       title: 'Rotten Tomatoes rating'
     }
   ],
-  progress: 0
+  progress: 0,
+  logoTitle: 'logoTitle'
+};
+Basic.argTypes = {
+  logoTitle: { control: 'text' }
 };
 Basic.parameters = {
   argActions: {}
@@ -77,8 +94,7 @@ export const ClippedText = args =>
   };
 ClippedText.args = {
   title: 'Tile Title',
-  // data: ["an example of text that will fade out i swear to god it'll fade out"],
-  data: 'description askdljfh sadf as jfhk asf as lfa sfdj alsk fd kask jldfalks d a sd fa lsdkjf lakjs dfk sdalkf al f',
+  data: 'description is very long and will fade out',
   progress: 0,
   showLogo: false
 };

@@ -26,7 +26,7 @@ export const baseCardProps = [
   'paddingVertical'
 ];
 
-export const logoProps = ['logo', 'logoWidth', 'logoHeight'];
+export const logoProps = ['logo', 'logoWidth', 'logoHeight', 'logoTitle'];
 
 export const styles = theme => ({
   paddingHorizontal: theme.spacing(3),
@@ -309,5 +309,25 @@ export default class Card extends withStyles(Base, styles) {
 
   _unfocus() {
     this._update();
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [
+      this.title,
+      this.subtitle,
+      this.description,
+      this._Metadata._Data.announce,
+      this.cta,
+      this.logoTitle
+    ]
+      .filter(s => s)
+      .join('. ');
+  }
+
+  set announce(announce) {
+    super._announce = announce;
   }
 }

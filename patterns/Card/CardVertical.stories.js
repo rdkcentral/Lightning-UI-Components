@@ -50,7 +50,8 @@ export const VerticalLarge = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -65,12 +66,14 @@ VerticalLarge.args = {
   title: 'Title',
   description: 'Short Description',
   showData: true,
-  showLogo: true
+  showLogo: true,
+  logoTitle: 'Logo Title'
 };
 VerticalLarge.argTypes = {
   title: { content: 'text' },
   description: { content: 'text' },
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  logoTitle: { control: 'text' }
 };

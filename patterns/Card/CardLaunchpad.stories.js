@@ -21,7 +21,8 @@ export const Launchpad = args =>
                 }
               ]
             : null,
-          logo: args.showLogo ? circle : null
+          logo: args.showLogo ? circle : null,
+          logoTitle: args.showLogo ? args.logoTitle : null
         }
       };
     }
@@ -37,7 +38,11 @@ Launchpad.args = {
   description: 'Short Description',
   showData: true,
   showLogo: true,
-  focused: false
+  focused: false,
+  logoTitle: 'Logo Title'
+};
+Launchpad.argTypes = {
+  logoTitle: { control: 'text' }
 };
 Launchpad.parameters = {
   argActions: {
