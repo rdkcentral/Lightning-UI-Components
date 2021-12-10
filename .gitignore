@@ -11,6 +11,7 @@ test-results.json
 /build
 /styleguide
 dist
+tmp
 
 # misc
 .DS_Store

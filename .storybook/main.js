@@ -41,7 +41,8 @@ module.exports = {
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-essentials',
-    '@storybook/addon-storysource'
+    '@storybook/addon-storysource',
+    './addons/register'
   ],
   stories
 };

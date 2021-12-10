@@ -1,7 +1,7 @@
 radius Value | Components 
 --------|-------- 
+medium | FocusRing, Tile
 xsmall | ProgressBar
-medium | Tile
 none | No components are using this value
 small | No components are using this value
 large | No components are using this value

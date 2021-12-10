@@ -323,3 +323,17 @@ export function isComponentOnScreen(component) {
 export function delayForAnimation(callback, delay = 16) {
   setTimeout(callback, delay);
 }
+
+export function downloadFile(content, fileName, contentType) {
+  const validContentTypes = ['plain', 'json'];
+  if (!validContentTypes.includes(contentType)) {
+    contentType = 'plain';
+  }
+  const dataStr =
+    `data:text/${contentType};charset=utf-8,` +
+    encodeURIComponent(JSON.stringify(content));
+  const dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute('href', dataStr);
+  dlAnchorElem.setAttribute('download', fileName);
+  dlAnchorElem.click();
+}

@@ -94,7 +94,6 @@ describe('withThemeStyles', () => {
     )();
     expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
   });
-
   it("should create getters and setters for all keys in the component's style", async done => {
     expect(
       withThemeStylesComponent.style.__lookupGetter__('radius')
