@@ -102,15 +102,18 @@ export default function withStyles(Base, styles) {
     }
 
     get _processedStyles() {
-      // if (this._processedStylesCache) { //TODO: There are issue with this cache when class is extended
-      //   return this._processedStylesCache;
-      // }
+      if (this._processedStylesCache) {
+        return this._processedStylesCache;
+      }
       const processedStyles =
         'function' === typeof styles
           ? styles(context.theme, this.variant)
           : styles;
-      this._processedStylesCache = processedStyles;
-      return processedStyles;
+      this._processedStylesCache = {
+        ...(super._processedStyles || {}),
+        ...processedStyles
+      };
+      return this._processedStylesCache;
     }
 
     /**
@@ -149,7 +152,7 @@ export default function withStyles(Base, styles) {
     _construct() {
       super._construct && super._construct();
       this._style = new Style(this);
-      if (!this._processedStylesCache) this._processedStylesCache = null; // Cache calls to styles
+      this._processedStylesCache = null; // Cache calls to styles
       this._styleUpdateDebounce = debounce(this._styleUpdate.bind(this), 0);
       /**
        * Component Styles - set only by _generateComponentStyles
