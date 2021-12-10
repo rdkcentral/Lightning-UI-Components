@@ -99,7 +99,9 @@ export default class ListItemImage extends withStyles(ListItem, styles) {
 
   _updateImage() {
     if (this.image) {
-      const { h, paddingTop } = this.styles;
+      const paddingTop = this.styles.paddingTop;
+      const h =
+        this.size == 'xsmall' ? this.styles.xsmallHeight : this.styles.h;
       const imageHeight = this.imageSize + 2 * paddingTop;
       if (imageHeight > h) {
         this.h = imageHeight;

@@ -49,7 +49,11 @@ export default class ListItemBase extends withStyles(Base, baseStyles) {
       this.styles.dimensions[this.size] ||
       this.styles.dimensions.large;
 
-    this.h = this.h || this.styles.h;
+    if (this.size == 'xsmall') {
+      this.h = this.h || this.styles.xsmallHeight;
+    } else {
+      this.h = this.h || this.styles.h;
+    }
 
     const color = getFirstNumber(
       this.styles.backgrounds[this.backgroundType],
