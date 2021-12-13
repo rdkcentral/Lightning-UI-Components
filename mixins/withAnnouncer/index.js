@@ -15,9 +15,10 @@ const defaultOptions = {
   abbreviationsConfig: {}
 };
 
-export default (base, speak = Speech, options = {}) => {
+export default function withAnnouncer(Base, speak = Speech, options = {}) {
   const announcerOptions = { ...defaultOptions, ...options };
-  class Announcer extends base {
+
+  return class extends Base {
     _construct() {
       this._announceEndedTimeout;
       this._currentlySpeaking = '';
@@ -205,6 +206,5 @@ export default (base, speak = Speech, options = {}) => {
       this._resetFocusTimer();
       this._focusChange();
     }
-  }
-  return Announcer;
-};
+  };
+}

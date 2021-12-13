@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 export { default as Announcer } from './withAnnouncer'; // TO DEPRECATE IN 5.0
 export {
   default as withAnnouncer,
   generateAbbrevConfig,
   defaultAbbrevConfig
 } from './withAnnouncer';
+=======
+export { default as withAnnouncer } from './withAnnouncer';
+>>>>>>> f7f56cff... feat(withAnnouncer): remove alias from renaming Announncer to withAnnouncer and mimic mixin pattern (#776)
 export { default as withClassCache } from './withClassCache';
 export { default as withHandleKey } from './withHandleKey';
 export { default as withLayout } from './withLayout';

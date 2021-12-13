@@ -2,7 +2,7 @@ import { Canvas, Story } from '@storybook/addon-docs';
 // uncomment the line below and edit the path to point to your component
 // import * as stories from './Announcer.stories';
 
-# Announcer
+# withAnnouncer
 
 Extend your app with the `Announcer` class to add a framework for Voice Guidance. On Focus Change events, the `Announcer` class traverses the `_focusPath` property collecting strings or promises of strings to announce to the user. The array of information is passed to a speak function which is responsible for converting the text to speech. We include a default speak function
 which uses the [speechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), but you replace this with your own implementation by passing a speak function as the second argument to `Announcer`
