@@ -12,15 +12,24 @@ export default {
   parameters: {
     docs: {
       page: mdx
+    },
+    argActions: {
+      focused: (isFocused, component) => {
+        component._getFocused = isFocused
+          ? () => component.tag('Keyboard')
+          : () => {};
+      }
     }
   },
   args: {
     centerAlign: false,
-    width: 900
+    width: 900,
+    focused: true
   },
   argTypes: {
     centerAlign: { control: 'boolean' },
-    width: { control: 'number', min: 0 }
+    width: { control: 'number', min: 0 },
+    focused: { control: 'boolean' }
   }
 };
 
@@ -38,7 +47,9 @@ export const Basic = args =>
       };
     }
     _getFocused() {
-      return this.tag('Keyboard');
+      if (args.focused) {
+        return this.tag('Keyboard');
+      }
     }
   };
 
@@ -66,7 +77,9 @@ export const FullScreen = args =>
     }
 
     _getFocused() {
-      return this.tag('Keyboard');
+      if (args.focused) {
+        return this.tag('Keyboard');
+      }
     }
   };
 
@@ -84,7 +97,9 @@ export const Dialpad = args =>
       };
     }
     _getFocused() {
-      return this.tag('Keyboard');
+      if (args.focused) {
+        return this.tag('Keyboard');
+      }
     }
   };
 
@@ -160,6 +175,19 @@ export const KeyboardWithInput = args =>
     }
 
     _getFocused() {
-      return this.tag('KeyboardInput');
+      if (args.focused) {
+        return this.tag('KeyboardInput');
+      }
     }
   };
+
+KeyboardWithInput.parameters = {
+  tag: 'KeyboardInput',
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('KeyboardInput')
+        : () => {};
+    }
+  }
+};

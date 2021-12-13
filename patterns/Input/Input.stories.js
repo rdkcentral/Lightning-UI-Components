@@ -44,7 +44,8 @@ export const Basic = args =>
         Input: {
           w: 500,
           type: Input,
-          placeholder: args.placeholder
+          placeholder: args.placeholder,
+          listening: args.listening
         }
       };
     }
@@ -81,7 +82,8 @@ export const Caption = args =>
               title: 'Rotten Tomatoes rating'
             },
             'with an image'
-          ]
+          ],
+          listening: args.listening
         }
       };
     }
@@ -113,7 +115,8 @@ export const Icon = args =>
           placeholder: args.placeholder,
           icon: eye,
           iconColor: rgba2argb(args.iconColor),
-          iconFocusColor: rgba2argb(args.iconFocusColor)
+          iconFocusColor: rgba2argb(args.iconFocusColor),
+          listening: args.listening
         }
       };
     }
@@ -163,7 +166,8 @@ export const Password = args =>
           type: Input,
           placeholder: args.placeholder,
           password: args.password,
-          mask: args.mask
+          mask: args.mask,
+          listening: args.listening
         }
       };
     }
@@ -213,7 +217,8 @@ export const PasswordWithIcon = args =>
           mask: args.mask,
           icon: eye,
           iconColor: rgba2argb(args.iconColor),
-          iconFocusColor: rgba2argb(args.iconFocusColor)
+          iconFocusColor: rgba2argb(args.iconFocusColor),
+          listening: args.listening
         }
       };
     }

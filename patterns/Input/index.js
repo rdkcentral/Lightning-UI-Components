@@ -122,14 +122,14 @@ export default class Input extends withStyles(Base, styles) {
       'icon',
       'iconColor',
       'iconFocusColor',
-      'listening',
       'label',
       'caption',
       'radius',
       'position',
       'value',
       'mask',
-      'password'
+      'password',
+      'listening'
     ];
   }
 
@@ -142,6 +142,7 @@ export default class Input extends withStyles(Base, styles) {
     this._radius = this.styles.radius;
     this._mask = '•';
     this._password = false;
+    this._listening = false;
     this._iconHeight = this.styles.iconProperties.height;
     this._iconWidth = this.styles.iconProperties.width;
     this._iconColor = this.styles.iconProperties.color;
@@ -149,7 +150,6 @@ export default class Input extends withStyles(Base, styles) {
   }
 
   _init() {
-    this.listening = false;
     if (this.styles.cursor && this.styles.cursor.blink) {
       this._cursorBlink = this._Cursor.animation({
         duration: 1.5,
@@ -179,14 +179,12 @@ export default class Input extends withStyles(Base, styles) {
 
   backspace() {
     if (this.listening) {
-      if (this.position === this.value.length) {
-        this.value = this.value.slice(0, -1);
-      } else if (this.position > 0) {
-        this.value =
-          this.value.slice(0, this.position - 1) +
-          this.value.slice(this.position);
+      this.value =
+        this.value.slice(0, this.position - 1) +
+        this.value.slice(this.position);
+      if (this.position > 0) {
+        this.position--;
       }
-      this.position--;
     }
   }
 
@@ -269,7 +267,7 @@ export default class Input extends withStyles(Base, styles) {
     } else {
       this._Label.smooth = { alpha: 0.64 };
       this._Container.smooth = {
-        alpha: this._listening ? 1 : 0.64,
+        alpha: this.listening ? 1 : 0.64,
         color: this.styles.background
       };
       this._Content.smooth = { color: this.styles.text.textColor };

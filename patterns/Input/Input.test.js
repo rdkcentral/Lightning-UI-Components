@@ -137,27 +137,39 @@ describe('Input', () => {
     expect(input._Content.text.text).toEqual('xxx');
   });
 
-  it('does backspace deletions if listening', async () => {
-    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
-    input.listening = true;
-    input.insert('xoxoxo');
-    input.backspace();
-    await input._updateSpyPromise;
-    expect(input.value).toEqual('xoxox');
-    input.position--;
-    input.backspace();
-    await input._updateSpyPromise;
-    expect(input.value).toEqual('xoxx');
-  });
+  describe('backspace', () => {
+    it('does backspace deletions if listening', done => {
+      input.listening = true;
+      input.insert('xoxoxo');
+      input.backspace();
+      testRenderer.update();
+      input._whenEnabled.then(() => {
+        expect(input.value).toEqual('xoxox');
+        input.position--;
+        input.backspace();
+        testRenderer.update();
+        expect(input.value).toEqual('xoxx');
+        done();
+      });
+    });
 
-  it('should not backspace deletions if not listening', async () => {
-    [input, testRenderer] = createInput({}, { spyOnMethods: ['_update'] });
-    input.listening = false;
-    input.value = 'xoxoxo';
-    input.backspace();
-    await input._updateSpyPromise;
+    it('should not backspace deletions if not listening', done => {
+      input.listening = false;
+      input.value = 'xoxoxo';
+      input.backspace();
 
-    expect(input._Content.text.text).toEqual('xoxoxo');
+      setTimeout(() => {
+        expect(input._Content.text.text).toEqual('xoxoxo');
+        done();
+      }, 1);
+    });
+
+    it('should not decrement the cursor position if the input is empty', () => {
+      [input, testRenderer] = createInput({ listening: true });
+      expect(input.position).toEqual(0);
+      input.backspace();
+      expect(input.position).toEqual(0);
+    });
   });
 
   it('masks password input', async () => {
