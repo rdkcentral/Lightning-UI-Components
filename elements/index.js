@@ -25,7 +25,6 @@ export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataHero } from './MetadataHero';
 export { default as MetadataSmall } from './MetadataSmall';
 export { default as MetadataTile } from './MetadataTile';
-export { default as Pivot } from './Pivot';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Radio } from './Radio';
 export { default as Slider } from './Slider';

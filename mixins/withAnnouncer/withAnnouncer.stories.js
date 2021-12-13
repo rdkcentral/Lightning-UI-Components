@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row } from '../../layout';
-import { Pivot } from '../../elements';
+import { ActionButton } from '../../elements';
 import mdx from './withAnnouncer.mdx';
 
 export default {
@@ -22,9 +22,17 @@ const rows = [
     h: 100,
     itemSpacing: 30,
     items: [
-      { type: Pivot, title: 'Pivot 1', announceContext: '1 of 3' },
-      { type: Pivot, title: 'Pivot 2', announceContext: '2 of 3' },
-      { type: Pivot, title: 'Pivot 3', announceContext: '3 of 3' }
+      {
+        type: ActionButton,
+        title: 'ActionButton 1',
+        announceContext: '1 of 3'
+      },
+      {
+        type: ActionButton,
+        title: 'ActionButton 2',
+        announceContext: '2 of 3'
+      },
+      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
     ]
   },
   {
@@ -33,9 +41,17 @@ const rows = [
     h: 100,
     itemSpacing: 30,
     items: [
-      { type: Pivot, title: 'Pivot 1', announceContext: '1 of 3' },
-      { type: Pivot, title: 'Pivot 2', announceContext: '2 of 3' },
-      { type: Pivot, title: 'Pivot 3', announceContext: '3 of 3' }
+      {
+        type: ActionButton,
+        title: 'ActionButton 1',
+        announceContext: '1 of 3'
+      },
+      {
+        type: ActionButton,
+        title: 'ActionButton 2',
+        announceContext: '2 of 3'
+      },
+      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
     ]
   },
   {
@@ -44,9 +60,17 @@ const rows = [
     h: 100,
     itemSpacing: 30,
     items: [
-      { type: Pivot, title: 'Pivot 1', announceContext: '1 of 3' },
-      { type: Pivot, title: 'Pivot 2', announceContext: '2 of 3' },
-      { type: Pivot, title: 'Pivot 3', announceContext: '3 of 3' }
+      {
+        type: ActionButton,
+        title: 'ActionButton 1',
+        announceContext: '1 of 3'
+      },
+      {
+        type: ActionButton,
+        title: 'ActionButton 2',
+        announceContext: '2 of 3'
+      },
+      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
     ]
   }
 ];
