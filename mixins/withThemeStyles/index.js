@@ -291,10 +291,11 @@ export default function withStyles(Base, styles) {
      */
     _updateThemeComponent() {
       this._processedStylesCache = null;
-      this._generateComponentStyles(); //Refresh the _componentStyles object
+      this._generateComponentStyles(); // Refresh the _componentStyles object
       this._requestUpdateDebounce
         ? this._requestUpdateDebounce()
         : this._update && this._update();
+      this._updateItemLayout && this._updateItemLayout(); // Update withLayout
     }
     /**
      * Cleanup caches when the component is destroyed

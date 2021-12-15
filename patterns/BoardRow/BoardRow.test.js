@@ -47,17 +47,17 @@ describe('BoardRow', () => {
   });
 
   it('should have a height if layout is not defined', () => {
-    expect(component.h).toEqual(461.25);
+    expect(component.h).toEqual(507.00000000000006);
   });
 
   it('should deliver the correct height for default layout', () => {
     const component = createComponent({ layout: 'standard' })[0];
-    expect(component.h).toEqual(461.25);
+    expect(component.h).toEqual(507.00000000000006);
   });
 
   it('should deliver the correct height for hero layout', () => {
     const component = createComponent({ layout: 'hero' })[0];
-    expect(component.h).toEqual(461.25);
+    expect(component.h).toEqual(507.00000000000006);
   });
 
   it('should deliver the correct height for poster layout', () => {
@@ -74,12 +74,12 @@ describe('BoardRow', () => {
 
   it('should deliver the correct height for square layout', () => {
     const component = createComponent({ layout: 'square' })[0];
-    expect(component.h).toEqual(410);
+    expect(component.h).toEqual(450.6666666666667);
   });
 
   it('should deliver the correct height for square small layout', () => {
     const component = createComponent({ layout: 'squareSmall' })[0];
-    expect(component.h).toEqual(370); // Not sure this one is right
+    expect(component.h).toEqual(450.6666666666667);
   });
 
   it('should accept all properties for menuCard', () => {

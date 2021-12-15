@@ -79,6 +79,7 @@ export class Theme {
     const theme = merge.all([baseTheme, ...themeArray], {
       arrayMerge: this._overwriteMerge
     });
+
     // Clear all component styles if set to undefined
     if (
       theme.componentStyles &&
@@ -92,7 +93,11 @@ export class Theme {
     const themeString = JSON.stringify(theme, (key, value) => {
       if (Array.isArray(value) && 2 === value.length) {
         return getHexColor(value[0], value[1]);
-      } else if ('extensions' === key || 'function' === typeof value) {
+      } else if (
+        'extensions' === key ||
+        'function' === typeof value ||
+        ('object' === typeof value && 'Object' !== value.constructor.name)
+      ) {
         // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.spacing()
         themeFunctions[key] = value;
         return;
