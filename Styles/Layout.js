@@ -7,6 +7,9 @@
 /**
  * Sets up spacing configurations to correctly position Items and Rows.
  */
+
+import context from '../context';
+
 export const GRID = {
   gutters: {
     horizontal: 80, // space between rows
@@ -151,22 +154,7 @@ export function getItemRatioDimensions(ratioX, ratioY, upCount) {
  * @return { number }
  */
 export function calculateColumnWidth(upCount) {
-  // the screen width, minus the margin x on each side
-  const rowWidth = SCREEN.w - GRID.margin.x * 2;
-
-  if (upCount) {
-    // the total space of column gaps in between items
-    const columnGapTotal = (upCount - 1) * GRID.gutters.vertical;
-
-    // the remaining amount of space left for all items
-    const totalColumnsWidth = rowWidth - columnGapTotal;
-
-    // the width of each item in that remaining width
-    const itemWidth = totalColumnsWidth / upCount;
-
-    return itemWidth;
-  }
-  return rowWidth;
+  return context.theme.calculateColumnWidth(upCount);
 }
 
 /**

@@ -7,18 +7,7 @@ class Base extends lng.Component {
   }
 
   _construct() {
-    this._whenEnabled = new Promise(
-      resolve => (this._whenEnabledResolver = resolve)
-    );
-
     this.constructor.__componentName; // Check that __componentName is set
-    this._whenEnabled = new Promise(
-      resolve => (this._whenEnabledResolver = resolve)
-    );
-  }
-
-  _firstEnable() {
-    this._whenEnabledResolver();
   }
 
   _update() {

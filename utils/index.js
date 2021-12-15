@@ -94,7 +94,9 @@ export function capitalizeFirstLetter(string) {
  * @param {Object} [object] - secondary object to merge into clone
  */
 export function clone(target, object) {
-  const _clone = { ...target };
+  // Make sure getters and setters are applied correctly
+  const _clone = Object.create(Object.getPrototypeOf(target));
+  Object.defineProperties(_clone, Object.getOwnPropertyDescriptors(target));
   if (!object || target === object) return _clone;
 
   for (const key in object) {

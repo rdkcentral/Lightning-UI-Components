@@ -5,7 +5,7 @@ import BoardRowComponent from './BoardRowComponent';
 import Column from '../../layout/Column';
 export default class SquareSmallLayout extends BaseLayout {
   static get _cardWidth() {
-    return calculateColumnWidth(8);
+    return calculateColumnWidth(2);
   }
 
   static get _cardHeight() {
