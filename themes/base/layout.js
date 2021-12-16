@@ -228,17 +228,12 @@ export function calculateColumnWidth(upCount = 1) {
 
   // the screen width, minus the margin x on each side
   const columnWidth = screenW - marginX * 2;
-
-  if (upCount) {
-    // the total space of column gaps in between items
-    const columnGapTotal = (upCount - 1) * gutterX;
-    // the remaining amount of space left for all items
-    const totalColumnsWidth = columnWidth - columnGapTotal;
-    // the width of each item in that remaining width
-    return totalColumnsWidth / upCount;
-  }
-
-  return columnWidth;
+  // the total space of column gaps in between items
+  const columnGapTotal = (upCount - 1) * gutterX;
+  // the remaining amount of space left for all items
+  const totalColumnsWidth = columnWidth - columnGapTotal;
+  // the width of each item in that remaining width
+  return totalColumnsWidth / upCount;
 }
 
 export function getFocusScale(w) {

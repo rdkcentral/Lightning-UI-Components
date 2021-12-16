@@ -12,6 +12,7 @@ import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
 import XfinityTheme from '../themes/xfinity';
+import RogersTheme from '../themes/rogers';
 
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
@@ -26,6 +27,7 @@ export const globalTypes = {
       items: [
         { title: 'Base', value: 'base' },
         { title: 'Xfinity', value: 'xfinity' },
+        { title: 'Rogers', value: 'rogers' },
         { title: 'Custom', value: 'custom' }
       ],
       showName: true
@@ -120,6 +122,9 @@ function setTheme(themeName) {
   switch (themeName) {
     case 'xfinity':
       theme = XfinityTheme;
+      break;
+    case 'rogers':
+      theme = RogersTheme;
       break;
     case 'custom':
       theme = { ...context.storybookCustomTheme, name: 'Custom' };
