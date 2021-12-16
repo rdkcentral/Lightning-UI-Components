@@ -163,6 +163,16 @@ class Layout {
     this._spacingBase = v;
   }
 
+  get safe() {
+    if (!this._safe) return this._spacingBase * this._safeMultiplier;
+    return this._safe;
+  }
+
+  set safe(v) {
+    if (isInvalidNum(v)) return;
+    this._safe = v;
+  }
+
   get utility() {
     if (!this._utility) return this._spacingBase * this._utilityMultiplier;
     return this._utility;
@@ -216,17 +226,19 @@ export function calculateColumnWidth(upCount = 1) {
     return;
   }
 
-  // Total width of column container after outer margins have been subtracted
-  const containerWidth = screenW - marginX * 2;
+  // the screen width, minus the margin x on each side
+  const columnWidth = screenW - marginX * 2;
 
-  // Total of all gutters is equal to the gutter value multiplied by the 1 less that the total column count
-  const totalGutterXWidth = gutterX * (columnCount - 1);
+  if (upCount) {
+    // the total space of column gaps in between items
+    const columnGapTotal = (upCount - 1) * gutterX;
+    // the remaining amount of space left for all items
+    const totalColumnsWidth = columnWidth - columnGapTotal;
+    // the width of each item in that remaining width
+    return totalColumnsWidth / upCount;
+  }
 
-  /**
-   * Single column width is equal to the container minus the total of the gutters divided by the column count.
-   * The Single column value is then multiplied by the upCount
-   */
-  return ((containerWidth - totalGutterXWidth) / columnCount) * upCount;
+  return columnWidth;
 }
 
 export function getFocusScale(w) {
