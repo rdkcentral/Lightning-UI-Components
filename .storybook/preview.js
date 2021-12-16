@@ -153,8 +153,8 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
         },
         w: w => w,
         h: h => h,
-        x: 90,
-        y: 40
+        x: context.theme.layout.marginX,
+        y: context.theme.layout.marginY
       }
     });
     app._refocus();

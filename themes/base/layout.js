@@ -97,8 +97,11 @@ class Layout {
   }
 
   set gutterX(v) {
-    if (isInvalidNum(v)) return;
-    this._gutterX = v;
+    if ('object' !== typeof v) return;
+    this._gutterX = {
+      ...this._getGutterXDefaults(),
+      ...v
+    };
   }
 
   get gutterY() {
