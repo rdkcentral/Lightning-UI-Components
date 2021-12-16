@@ -31,6 +31,9 @@ export const Basic = () =>
       };
     }
   };
+Basic.args = {
+  focused: true
+};
 Basic.argTypes = {
   focused: { control: 'boolean' }
 };
