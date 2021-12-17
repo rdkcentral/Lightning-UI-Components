@@ -171,7 +171,6 @@ class Tile extends Base {
     } else {
       this._Item.scale = scale;
       if (this._FocusRing) this._FocusRing.scale = scale;
-
       if (this._DropShadow) this._DropShadow.scale = scale;
     }
   }

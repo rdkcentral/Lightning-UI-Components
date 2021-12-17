@@ -10,9 +10,7 @@ class Base extends lng.Component {
     this.constructor.__componentName; // Check that __componentName is set
   }
 
-  _update() {
-    this._smooth = false;
-  }
+  _update() {}
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
