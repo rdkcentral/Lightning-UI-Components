@@ -54,6 +54,7 @@ const getValueFromString = stringValue => {
 };
 
 function createVariantControlRow({ theme, componentName, variant, updateVariantState, updateGlobals }) {
+
   return createTableRow(
     'variant',
     <OptionsControl
@@ -129,12 +130,6 @@ function createStyleRows(componentName, variant) {
     const fieldData = componentStyleVariantData[prop];
     if (fieldData) {
       const overwrittenValue = themeComponentOverrides && themeComponentOverrides[prop];
-      console.log(
-        `Overwritten value for [${componentName}]`,
-        prop,
-        theme && theme.componentStyles
-      );
-
       const rowProps = {
         theme: LUITheme,
         componentName,

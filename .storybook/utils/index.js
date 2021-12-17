@@ -124,14 +124,24 @@ export const globalContext = () =>
 
 export const getPanelsTheme = () => globalTheme() || baseTheme;
 
-export const updateGlobalTheme = (updates, updateGlobals) => {
+export const updateGlobalTheme = (updates, updateGlobals, customTheme = true) => {
   let context = globalContext();
   if (context) {
     context.updateTheme(updates);
-    globalContext().storybookCustomTheme = JSON.parse(JSON.stringify(globalTheme()));
+    if (customTheme) {
+      const theme = globalTheme();
+      const functions = Object.keys(theme).reduce((acc, key) => {
+        if ('function' === typeof theme[key]) {
+          acc[key] = theme[key];
+        }
+        return acc;
+      }, {});
+      globalContext().storybookCustomTheme = {...JSON.parse(JSON.stringify(globalTheme())), ...functions, extensions: theme.extensions};
+      updateGlobals({ LUITheme: 'custom' });
+    }
   }
 
-  updateGlobals({ LUITheme: 'custom' });
+  
 }
 
 export function createTable(title, rows) {
