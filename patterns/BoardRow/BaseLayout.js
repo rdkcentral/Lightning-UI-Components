@@ -1,12 +1,9 @@
-import lng from '@lightningjs/core';
 import Card, { CardVerticalDynamic, CardHorizontal } from '../../patterns/Card';
 import MetadataSmall from '../../elements/MetadataSmall';
 import FocusManager from '../../layout/FocusManager';
 import Row from '../../layout/Row';
-import { Tile } from '../../elements';
+import { Base, Tile } from '../../elements';
 import withMetadata from '../../patterns/withMetadata';
-import withTags from '../../mixins/withTags';
-import withUpdates from '../../mixins/withUpdates';
 
 function warningMessage(item) {
   console.warn(
@@ -15,7 +12,7 @@ function warningMessage(item) {
     } does not contain a valid type for ${this._selectedLayout.name}.`
   );
 }
-class BaseType extends lng.Component {
+export default class BaseType extends Base {
   static _template() {
     return {
       Row: {
@@ -166,5 +163,3 @@ class BaseType extends lng.Component {
     return this._Row;
   }
 }
-
-export default withUpdates(withTags(BaseType));
