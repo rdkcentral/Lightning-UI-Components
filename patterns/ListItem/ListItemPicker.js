@@ -128,7 +128,7 @@ export default class ListItemPicker extends ListItem {
   _updateCarousel() {
     this._Carousel.visible = this.hasFocus();
 
-    const currentOptionsString = this._Carousel.Items.childList._items.reduce(
+    const currentOptionsString = this._Carousel._Items.childList._items.reduce(
       (acc, curr) => {
         return acc + curr.text.text;
       },

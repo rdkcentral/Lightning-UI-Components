@@ -3,24 +3,32 @@
  *
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
-import lng from '@lightningjs/core';
+import Base from '../../elements/Base';
 
-export default class FocusManager extends lng.Component {
+export default class FocusManager extends Base {
   static _template() {
     return { Items: {} };
   }
 
   _construct() {
+    super._construct();
     this._selectedIndex = 0;
     this.direction = this.direction || 'row';
   }
 
-  get direction() {
-    return this._direction;
+  static get tags() {
+    return ['Items'];
   }
 
-  set direction(direction) {
-    this._direction = direction;
+  static get properties() {
+    return ['direction', 'items', 'selectedIndex'];
+  }
+
+  get Items() {
+    return this._Items;
+  }
+
+  _setDirection(direction) {
     const state = {
       none: 'None',
       column: 'Column',
@@ -30,46 +38,40 @@ export default class FocusManager extends lng.Component {
     if (state) {
       this._setState(state);
     }
+    return direction;
   }
 
-  get Items() {
-    return this.tag('Items');
+  _getItems() {
+    return this._Items.children;
   }
 
-  get items() {
-    return this.Items.children;
-  }
-
-  set items(items) {
-    this.Items.childList.clear();
+  _setItems(items) {
+    this._Items.childList.clear();
     this._selectedIndex = 0;
     this.appendItems(items);
     // If the first item has skip focus when appended get the next focusable item
-    const initialSelection = this.Items.children[this.selectedIndex];
+    const initialSelection = this._Items.children[this.selectedIndex];
     if (initialSelection && initialSelection.skipFocus) {
       this.selectNext();
     }
+    return items;
   }
 
   appendItems(items = []) {
-    this.Items.childList.a(items);
+    this._Items.childList.a(items);
     this._refocus();
   }
 
   get selected() {
-    return this.Items.children[this.selectedIndex];
+    return this._Items.children[this.selectedIndex];
   }
 
-  get selectedIndex() {
-    return this._selectedIndex;
-  }
-
-  set selectedIndex(index) {
+  _setSelectedIndex(index) {
     this.prevSelected = this.selected;
     if (
-      !this.Items.children.length ||
-      !this.Items.children[index] ||
-      !this.Items.children[index].skipFocus
+      !this._Items.children.length ||
+      !this._Items.children[index] ||
+      !this._Items.children[index].skipFocus
     ) {
       if (index !== this._selectedIndex) {
         this._selectedIndex = index;
@@ -82,6 +84,7 @@ export default class FocusManager extends lng.Component {
       // where we don't want to focus the previously selected item and need to get the new one first
       this._refocus();
     }
+    return index;
   }
 
   // Override
@@ -136,7 +139,7 @@ export default class FocusManager extends lng.Component {
   selectNext() {
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (
-      (this.selectedIndex === this.Items.children.length - 1 &&
+      (this.selectedIndex === this._Items.children.length - 1 &&
         !this.wrapSelected) ||
       !hasFocusable
     ) {
