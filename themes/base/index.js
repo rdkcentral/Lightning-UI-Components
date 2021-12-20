@@ -9,11 +9,13 @@ import {
 import radius from './radius';
 import typography from './typography';
 import animations from './animations';
+import fonts from './fonts';
 
 export default {
   name: 'Base',
   colors,
   layout,
+  fonts,
   spacing,
   getFocusScale,
   getUnfocusScale,

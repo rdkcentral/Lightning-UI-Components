@@ -118,6 +118,7 @@ function createApp(parameters) {
 }
 
 function setTheme(themeName) {
+  if (context.theme.name.toLowerCase() === themeName.toLowerCase()) return;
   let theme = BaseTheme;
   switch (themeName) {
     case 'xfinity':

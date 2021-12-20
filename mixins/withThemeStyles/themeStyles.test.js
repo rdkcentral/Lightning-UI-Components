@@ -135,7 +135,6 @@ describe('component variants', () => {
 
 describe('withThemeStyles Hierarchy', () => {
   it('should allow instantiation styles to be overwritten by componentStyles in the theme', async done => {
-    await TestUtils.nextTick();
     context.updateTheme({
       componentStyles: {
         TestComponent: {
@@ -143,6 +142,7 @@ describe('withThemeStyles Hierarchy', () => {
         }
       }
     });
+    await TestUtils.nextTick();
     expect(withThemeStylesComponent._componentStyles).toMatchObject({
       radius: 30
     });

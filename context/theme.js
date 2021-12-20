@@ -3,7 +3,7 @@ import baseTheme from '../themes/base';
 import { getHexColor, getValidColor } from '../Styles/Colors';
 import logger from './logger';
 import events from './events';
-
+import { fontLoader, cleanupFonts } from './fonts';
 const merge = {
   all: objArray => {
     let result = {};
@@ -17,42 +17,56 @@ export class Theme {
   constructor() {
     this._cache = new Map();
   }
+
   getTheme() {
     if (this._cache.has('theme')) {
       return this._cache.get('theme');
     }
+
     const theme = this._processTheme.call(this);
     this._cache.set('theme', theme);
     return theme;
   }
 
-  setTheme(value) {
+  async setTheme(value) {
     if ('object' !== typeof value || null === value) {
       logger.warn(`context theme expected an object. Received ${typeof value}`);
       return;
     }
-
     this._cache.clear();
-
-    this._cache.set('theme', this._processTheme.call(this, [value]));
+    const theme = this._processTheme.call(this, [value]);
+    this._cache.set('theme', theme);
+    await cleanupFonts(theme.fonts);
+    if (theme.fonts && theme.fonts.length) {
+      await this._loadFonts(theme.fonts);
+    }
     events.emit('themeUpdate'); // Notify components that an update cycle is required
+  }
+
+  async _loadFonts(fontArray) {
+    try {
+      await fontLoader(fontArray);
+      events.emit('fontsLoaded');
+    } catch (err) {
+      logger.error('Unable to load font');
+    }
   }
 
   /**
    * Merge values with current theme
    */
-  updateTheme(value) {
+  async updateTheme(value) {
     let currentTheme = {};
     if (this._cache.has('theme')) {
       currentTheme = this._cache.get('theme');
     }
     this._cache.clear();
-    this._cache.set(
-      'theme',
-      this._processTheme.call(this, [currentTheme, value])
-    );
+    const theme = this._processTheme.call(this, [currentTheme, value]);
+    this._cache.set('theme', theme);
+    if (theme.fonts && theme.fonts.length) {
+      await this._loadFonts(theme.fonts);
+    }
     events.emit('themeUpdate'); // Notify components that an update cycle is required
-    return this.getTheme();
   }
 
   _setThemeCb(theme) {
@@ -98,7 +112,7 @@ export class Theme {
         'function' === typeof value ||
         ('object' === typeof value && 'Object' !== value.constructor.name)
       ) {
-        // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.spacing()
+        // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.spacing(). Also supports custom objects with getters and setters
         themeFunctions[key] = value;
         return;
       } else {
