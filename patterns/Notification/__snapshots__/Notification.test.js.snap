@@ -418,9 +418,8 @@ Object {
                     "Title",
                   ],
                   "texture": Object {
-                    "fontFace": "XfinityBrownBold",
-                    "fontSize": 28,
-                    "letterSpacing": -0.2,
+                    "fontFace": "XfinityStandardMedium",
+                    "fontSize": 32,
                     "lineHeight": 40,
                     "text": "Title",
                     "type": "TextTexture",

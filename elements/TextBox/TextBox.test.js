@@ -1,7 +1,7 @@
 import TestUtils from '../../test/lightning-test-utils';
 import TextBox from '.';
 import { TYPOGRAPHY, getValidColor } from '../../Styles';
-
+import xfinityTheme from '../../themes/xfinity';
 const createElement = TestUtils.makeCreateComponent(TextBox);
 
 const testOptions = async (element, optionProp, optionsValues, match) => {
@@ -34,7 +34,7 @@ describe('TextBox', () => {
   let element, testRenderer;
 
   beforeEach(() => {
-    [element, testRenderer] = createElement();
+    [element, testRenderer] = createElement({}, { spyOnMethods: ['_update'] });
   });
 
   afterEach(() => {
@@ -47,78 +47,76 @@ describe('TextBox', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders with content prop', async () => {
-    const content = 'Hello world';
-    [element, testRenderer] = createElement(
-      { content },
-      { spyOnMethods: ['_update'] }
-    );
-    await element.__updatePromiseSpy;
+  it('renders with content prop', async done => {
+    element.content = 'Hello world';
+    await element.__updateSpyPromise;
     expect(element.text.text).toBe('Hello world');
+    done();
   });
 
-  it('should set content to an empty string if the content prop is invalid', async () => {
-    const content = null;
-    [element, testRenderer] = createElement(
-      { content },
-      { spyOnMethods: ['_update'] }
-    );
-    await element.__updatePromiseSpy;
+  it('should set content to an empty string if the content prop is invalid', async done => {
+    element.content = null;
+    await element.__updateSpyPromise;
     expect(element.text.text).toBe('');
+    done();
   });
 
-  it('renders with a title that matches the content prop', async () => {
-    const content = 'Hello world';
-    [element, testRenderer] = createElement(
-      { content },
-      { spyOnMethods: ['_update'] }
-    );
-    await element.__updatePromiseSpy;
+  it('renders with a title that matches the content prop', async done => {
+    element.content = 'Hello world';
+    await element.__updateSpyPromise;
     expect(element.title).toBe('Hello world');
+    done();
   });
 
-  test.each(Object.keys(TYPOGRAPHY).map(style => [style]))(
-    'should render the correct style prop for %s',
-    style => {
-      [element, testRenderer] = createElement({ style });
-      const testObj = Object.keys(TYPOGRAPHY[style]).reduce((acc, curr) => {
-        return {
-          ...acc,
-          [curr]: element.text[curr]
-        };
-      }, {});
-      expect(testObj).toEqual(TYPOGRAPHY[style]);
-    }
-  );
-
-  it('should set style to "body1" object if the style prop is an invalid string', () => {
-    element.style = 'invalidstyle';
-    expect(element._style).toEqual(TYPOGRAPHY.body1);
+  it('should fallback to "body1" object if the style prop is an invalid string', async done => {
+    element.textStyle = 'invalidstyle';
+    await element.__updateSpyPromise;
+    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontWeight).toBe(
+      xfinityTheme.typography.body1.fontWeight
+    );
+    expect(element.text.lineHeight).toBe(
+      xfinityTheme.typography.body1.lineHeight
+    );
+    expect(element.text.verticalAlign).toBe(
+      xfinityTheme.typography.body1.verticalAlign
+    );
+    done();
   });
 
-  it('should set style to "body1" object if the style prop is null', () => {
-    element.style = null;
-    expect(element._style).toEqual(TYPOGRAPHY.body1);
+  it('should set style to "body1" object if the style prop is null', async done => {
+    element.textStyle = null;
+    await element.__updateSpyPromise;
+    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontWeight).toBe(
+      xfinityTheme.typography.body1.fontWeight
+    );
+    expect(element.text.lineHeight).toBe(
+      xfinityTheme.typography.body1.lineHeight
+    );
+    expect(element.text.verticalAlign).toBe(
+      xfinityTheme.typography.body1.verticalAlign
+    );
+    done();
   });
 
-  it('should set style to "body1" object if the style prop is not a string or object', () => {
-    element.style = () => {};
-    expect(element._style).toEqual(TYPOGRAPHY.body1);
-  });
-
-  it('should accept an object for style prop', () => {
-    const customStyle = {
-      fontFace: 'XfinityBrownBold',
-      fontSize: 56,
-      fontWeight: 700,
-      letterSpacing: -0.4,
-      lineHeight: 72,
-      verticalAlign: 'middle'
-    };
-
-    element.style = customStyle;
-    expect(element._style).toEqual(customStyle);
-    expect(element._style.fontSize).toBe(customStyle.fontSize);
+  it('should set style to "body1" object if the style prop is not a string or object', async done => {
+    element.textStyle = () => {};
+    await element.__updateSpyPromise;
+    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontWeight).toBe(
+      xfinityTheme.typography.body1.fontWeight
+    );
+    expect(element.text.lineHeight).toBe(
+      xfinityTheme.typography.body1.lineHeight
+    );
+    expect(element.text.verticalAlign).toBe(
+      xfinityTheme.typography.body1.verticalAlign
+    );
+    done();
   });
 
   it('should accept a hex color for the textColor prop', async done => {

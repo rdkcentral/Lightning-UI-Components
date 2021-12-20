@@ -1,14 +1,18 @@
-import Base from '../Base';
+import Base from '../../Base';
 import styles from './TextBox.styles';
-import withStyles from '../../mixins/withStyles';
+import withStyles from '../../mixins/withThemeStyles';
 import { getValidColor } from '../../Styles';
-
+import context from '../../context';
 export default class TextBox extends withStyles(Base, styles) {
   static _template() {
     return {
       alpha: 0.001,
       text: {}
     };
+  }
+
+  static get __componentName() {
+    return 'TextBox';
   }
 
   static get tags() {
@@ -18,7 +22,7 @@ export default class TextBox extends withStyles(Base, styles) {
   static get properties() {
     return [
       'content',
-      'style',
+      'textStyle',
       'textColor',
       'textAlign',
       'verticalAlign',
@@ -29,8 +33,26 @@ export default class TextBox extends withStyles(Base, styles) {
     ];
   }
 
+  _construct() {
+    super._construct && super._construct();
+    context.on('fontsLoaded', this._forceUpdate.bind(this));
+  }
+
+  _detach() {
+    context.off('fontsLoaded', this._forceUpdate.bind(this));
+  }
+
   _init() {
     this.on('txLoaded', this._setDimensions.bind(this));
+  }
+
+  _forceUpdate() {
+    // Fonts that are loaded asynchronous via the theme are not picked up by the component unless the textureSourceHashmap is cleared first.
+    const id = this.text._getLookupId();
+    if (this.text && id) {
+      this.stage.textureManager.textureSourceHashmap.delete(id);
+      this.text._changed();
+    }
   }
 
   _setDimensions() {
@@ -55,21 +77,6 @@ export default class TextBox extends withStyles(Base, styles) {
       return '';
     }
     return content;
-  }
-
-  _setStyle(style) {
-    const styleProps = Object.keys(this.styles.typography);
-    switch (typeof style) {
-      case 'string':
-        if (-1 === styleProps.indexOf(style)) {
-          return this.styles.typography.body1;
-        }
-        return this.styles.typography[style];
-      case 'object':
-        return style || this.styles.typography.body1; // Allow overrides and default if is null
-      default:
-        return this.styles.typography.body1;
-    }
   }
 
   _setTextColor(textColor) {
@@ -122,7 +129,7 @@ export default class TextBox extends withStyles(Base, styles) {
 
   _setMaxLinesSuffix(maxLinesSuffix) {
     if ('string' !== typeof maxLinesSuffix) {
-      return this.styles.maxLinesSuffix;
+      return this._componentStyles.maxLinesSuffix;
     }
     return maxLinesSuffix;
   }
@@ -141,14 +148,18 @@ export default class TextBox extends withStyles(Base, styles) {
 
   _update() {
     const fontStyle = {
-      ...(this._style || this.styles.typography.body1)
+      ...(this._componentStyles.typography[this.textStyle] ||
+        this._componentStyles.typography.body1)
     };
+
     this.constructor.properties.forEach(prop => {
-      if ('undefined' !== typeof this[`_${prop}`]) {
+      if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
         const key = 'content' === prop ? 'text' : prop;
+
         fontStyle[key] = this[`_${prop}`];
       }
     });
+
     this.patch({ text: fontStyle });
   }
 

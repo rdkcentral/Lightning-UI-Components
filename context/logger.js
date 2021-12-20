@@ -37,6 +37,16 @@ export class Logger {
     }
   }
 
+  info(...args) {
+    if (this._logCallback) {
+      this._logCallback({ level: 'info', payload: args });
+    }
+    if (this.debug) {
+      // eslint-disable-next-line
+      console.info(this._prefix, ...args);
+    }
+  }
+
   warn(...args) {
     if (this._logCallback) {
       this._logCallback({ level: 'warn', payload: args });
