@@ -161,14 +161,14 @@ describe('Keyboard', () => {
     });
     return keyboard._whenEnabled.then(() => {
       const firstRow = keyboard.tag('Lowercase').items[0];
-      expect(firstRow.Items.x).toBe(0);
+      expect(firstRow._Items.x).toBe(0);
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
       testRenderer.update();
       firstRow._whenEnabled.then(() => {
         expect(firstRow._selectedIndex).toBe(3);
-        expect(firstRow.Items.transition('x').targetValue).toBe(0);
+        expect(firstRow._Items.transition('x').targetValue).toBe(0);
         done();
       });
     });
@@ -177,14 +177,14 @@ describe('Keyboard', () => {
   it('should not scroll child rows if no width prop is passed', done => {
     return keyboard._whenEnabled.then(() => {
       const firstRow = keyboard.tag('Lowercase').items[0];
-      expect(firstRow.Items.x).toBe(0);
+      expect(firstRow._Items.x).toBe(0);
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Right');
       testRenderer.update();
       firstRow._whenEnabled.then(() => {
         expect(firstRow._selectedIndex).toBe(3);
-        expect(firstRow.Items.transition('x').targetValue).toBe(0);
+        expect(firstRow._Items.transition('x').targetValue).toBe(0);
         done();
       });
     });

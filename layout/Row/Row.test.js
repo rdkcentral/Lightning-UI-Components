@@ -70,8 +70,7 @@ describe('Row', () => {
       const itemSpacing = 20;
       [row, testRenderer] = createRow({ itemSpacing });
       const item = row.items[1];
-      row._update.flush();
-
+      row._update();
       expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
 
@@ -79,10 +78,8 @@ describe('Row', () => {
       const itemSpacing = 100;
       const item = row.items[1];
       row.itemSpacing = itemSpacing;
-      row._update.flush();
-
-      const x = item.x;
-      expect(x).toBe(row.items[0].w + itemSpacing);
+      row._update();
+      expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
   });
 
@@ -153,7 +150,6 @@ describe('Row', () => {
       row.scrollTransition = { duration: 0 };
       row.items[0].w += 200;
       row.$itemChanged();
-      row._update.flush();
       testRenderer.update();
       expect(row.items[1].x).toBe(item1X + 200);
     });
@@ -166,11 +162,11 @@ describe('Row', () => {
     });
 
     it('should scroll long rows', done => {
-      expect(row.Items.x).toBe(0);
+      expect(row._Items.x).toBe(0);
       testRenderer.keyPress('Right');
       row._whenEnabled.then(() => {
         expect(row._selectedIndex).toBe(1);
-        expect(row.Items.transition('x').targetValue).toBe(-row.selected.x);
+        expect(row._Items.transition('x').targetValue).toBe(-row.selected.x);
         done();
       });
     });
@@ -180,7 +176,7 @@ describe('Row', () => {
       row.items = [];
       testRenderer.keyPress('Right');
       row._whenEnabled.then(() => {
-        expect(row.Items.x).toBe(100);
+        expect(row._Items.x).toBe(100);
         done();
       });
     });
@@ -278,14 +274,14 @@ describe('Row', () => {
     describe('with neverScroll set to true', () => {
       it('should never scroll the row', done => {
         row.neverScroll = true;
-        expect(row.Items.x).toBe(0);
+        expect(row._Items.x).toBe(0);
         testRenderer.keyPress('Right');
         testRenderer.keyPress('Right');
         testRenderer.keyPress('Right');
         testRenderer.update();
         row._whenEnabled.then(() => {
           expect(row._selectedIndex).toBe(3);
-          expect(row.Items.transition('x').targetValue).toBe(0);
+          expect(row._Items.transition('x').targetValue).toBe(0);
           done();
         });
       });
