@@ -203,7 +203,10 @@ export default class Row extends FocusManager {
         itemsContainerX = this.itemPosX;
       } else if (this._shouldScroll()) {
         itemsContainerX =
-          this.lazyScroll && prev
+          this.lazyScroll &&
+          prev &&
+          1 ===
+            Math.abs(this.selectedIndex - this.Items.childList.getIndex(prev))
             ? this._getLazyScrollX(prev)
             : this._getScrollX();
       }
