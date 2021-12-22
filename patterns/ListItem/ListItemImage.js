@@ -39,8 +39,8 @@ export default class ListItemImage extends withStyles(ListItem, styles) {
     return (
       this.w -
       this.imageSize -
-      2 * this.styles.paddingRight -
-      this.styles.paddingLeft -
+      this.styles.paddingRight -
+      2 * this.styles.paddingLeft -
       this._calculateIconWidth()
     );
   }
@@ -54,29 +54,7 @@ export default class ListItemImage extends withStyles(ListItem, styles) {
     this._updateIcon();
     this._updateImage();
     this._updateRadius();
-    super._update(); //Order matters to properly update the height
-    this._Left.patch({
-      Subtitle: {
-        h: this.styles.subtitle.text.lineHeight,
-        text: {
-          ...this.styles.subtitle.text,
-          text: this._subtitle,
-          wordWrapWidth: this._textWidth
-        }
-      }
-    });
-    this._Left.patch({
-      Title: {
-        y: 2,
-        h: this.styles.title.text.lineHeight + 4,
-        color: this.styles.title.color,
-        text: {
-          ...this.styles.title.text,
-          text: this._title,
-          wordWrapWidth: this._textWidth
-        }
-      }
-    });
+    super._update();
   }
 
   _updateIcon() {

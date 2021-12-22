@@ -83,7 +83,7 @@ describe('ListItemBase', () => {
     it('has a focus background', () => {
       listItemBase._focus();
       testRenderer.focus();
-      testRenderer.update();
+      testRenderer.forceAllUpdates();
       expect(listItemBase._Container.color).toBe(getHexColor('ECECF2'));
     });
     it('resets colors on unfocus', () => {
@@ -122,7 +122,7 @@ describe('ListItem', () => {
     testRenderer.update();
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(listItem._Title.text.text).toEqual(listItem.title);
+    expect(listItem._Title.title).toEqual(listItem.title);
   });
 
   it('should render a subtitle', () => {
@@ -133,7 +133,7 @@ describe('ListItem', () => {
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
     expect(listItem._Subtitle).toBeDefined();
-    expect(listItem._Subtitle.text.text).toEqual('My Subtitle');
+    expect(listItem._Subtitle.title).toEqual('My Subtitle');
   });
 
   it('should render a title and subtitle together', () => {
@@ -149,11 +149,10 @@ describe('ListItem', () => {
     [listItem, testRenderer] = createListItem({});
     testRenderer.update();
     expect(listItem._Subtitle).toBeUndefined();
-
     listItem.subtitle = 'Update Subtitle';
-    testRenderer.update();
+    testRenderer.forceAllUpdates();
     expect(listItem._Subtitle).toBeDefined();
-    expect(listItem._Subtitle.text.text).toEqual('Update Subtitle');
+    expect(listItem._Subtitle.title).toEqual('Update Subtitle');
   });
 
   it('should render an icon', () => {
@@ -171,7 +170,11 @@ describe('ListItem', () => {
       collapseIcon: true
     });
     listItem._focus();
+    testRenderer.forceAllUpdates();
+    //setTimeout(() => {
     expect(listItem._Right.alpha).toEqual(1);
+    // done();
+    //  }, 0);
   });
 
   it('should render multiple icons', () => {
@@ -193,7 +196,7 @@ describe('ListItem', () => {
         icon: icon
       });
       listItem._focus();
-      testRenderer.update();
+      testRenderer.forceAllUpdates();
     });
     it('focused items transition color', () => {
       expect(listItem._Title.color).toEqual(0xf2000000);
@@ -203,7 +206,7 @@ describe('ListItem', () => {
     it('unfocused items transition color', () => {
       listItem._unfocus();
       testRenderer.unfocus();
-      testRenderer.update();
+      testRenderer.forceAllUpdates();
 
       expect(listItem._Title.color).toEqual(0xf2ffffff);
       expect(listItem._Subtitle.color).toEqual(0xccffffff);
@@ -242,18 +245,17 @@ describe('ListItem', () => {
     describe('on focus', () => {
       beforeEach(() => {
         listItem._focus();
-        testRenderer.update();
+        testRenderer.forceAllUpdates();
       });
       it('should show subtitle', () => {
-        expect(listItem._Subtitle.color).toBeTruthy();
+        expect(listItem._Subtitle.alpha).toEqual(1);
       });
       it('should shift title to top', () => {
         expect(listItem._Left.y).toEqual(0);
       });
       it('should not shift text if no subtitle', () => {
         listItem.subtitle = false;
-        testRenderer.update();
-        expect(listItem._Subtitle).toEqual(undefined);
+        testRenderer.forceAllUpdates();
         expect(listItem._Left.y).toEqual(0);
       });
     });
@@ -264,15 +266,16 @@ describe('ListItem', () => {
         testRenderer.update();
       });
       it('should hide subtitle', () => {
-        expect(listItem._Subtitle.color).toEqual(0);
+        expect(listItem._Subtitle.alpha).toEqual(0);
       });
       it('should vertically center title', () => {
         expect(listItem._Left.y).toBeGreaterThan(0);
       });
       it('should not shift text if no subtitle', () => {
         listItem.subtitle = false;
-        testRenderer.update();
+        testRenderer.forceAllUpdates();
         expect(listItem._Subtitle).toEqual(undefined);
+
         expect(listItem._Left.y).toEqual(0);
       });
     });
@@ -431,20 +434,22 @@ describe('ListItemImage', () => {
     const test1 = () => {
       return new Promise(resolve => {
         listItemImage.imageSize = 80;
-        setTimeout(() => {
-          expect(listItemImage.h).toBe(96);
-          resolve();
-        }, 0);
+        testRenderer.forceAllUpdates();
+        // setTimeout(() => {
+        expect(listItemImage.h).toBe(96);
+        resolve();
+        // }, 0);
       });
     };
 
     const test2 = () => {
       return new Promise(resolve => {
         listItemImage.imageSize = 60;
-        setTimeout(() => {
-          expect(listItemImage.h).toBe(96);
-          resolve();
-        }, 0);
+        // setTimeout(() => {
+        testRenderer.forceAllUpdates();
+        expect(listItemImage.h).toBe(96);
+        resolve();
+        //}, 0);
       });
     };
 
@@ -486,7 +491,7 @@ describe('ListItemSlider', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('passes properties to the Slider', done => {
+  it('passes properties to the Slider', () => {
     [listItemSlider, testRenderer] = createListItemSlider({
       value: 8,
       min: 1,
@@ -495,13 +500,14 @@ describe('ListItemSlider', () => {
     });
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    setTimeout(() => {
-      expect(listItemSlider._Slider.value).toEqual(8);
-      expect(listItemSlider._Slider.min).toEqual(1);
-      expect(listItemSlider._Slider.max).toEqual(10);
-      expect(listItemSlider._Slider.step).toEqual(2);
-      done();
-    }, 0);
+    testRenderer.forceAllUpdates();
+    // setTimeout(() => {
+    expect(listItemSlider._Slider.value).toEqual(8);
+    expect(listItemSlider._Slider.min).toEqual(1);
+    expect(listItemSlider._Slider.max).toEqual(10);
+    expect(listItemSlider._Slider.step).toEqual(2);
+    //   done();
+    // }, 0);
   });
 
   it('renders properly on unfocus', () => {
@@ -552,7 +558,7 @@ describe('ListItemPicker', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(listItemPicker.selectedOption).toBe('op1');
-    expect(listItemPicker._Subtitle.text.text).toBe('op1');
+    expect(listItemPicker._Subtitle.title).toBe('op1');
   });
 
   it('renders with options', done => {
@@ -572,23 +578,28 @@ describe('ListItemPicker', () => {
       testRenderer.unfocus();
       tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
-      expect(listItemPicker._Subtitle.text.text).toBe('op2');
+      expect(listItemPicker._Subtitle.title).toBe('op2');
       done();
     });
   });
+  it('renders selected option as subtitle on unfocus', async () => {
+    [listItemPicker, testRenderer] = createListItemPicker(
+      {
+        title: 'List Item Picker',
+        options: ['op1', 'op2', 'op3']
+      },
+      { spyOnMethods: ['_updateSubtitle'] }
+    );
+    await listItemPicker.__updateSubtitleSpyPromise;
+    testRenderer.forceAllUpdates();
 
-  it('renders selected option as subtitle on unfocus', done => {
-    [listItemPicker, testRenderer] = createListItemPicker({
-      title: 'List Item Picker',
-      options: ['op1', 'op2', 'op3']
-    });
-    testRenderer.update();
+    expect(listItemPicker.hasFocus()).toBe(true);
+    expect(listItemPicker._Subtitle.visible).toBe(false);
+
     testRenderer.unfocus();
+    await listItemPicker.__updateSubtitleSpyPromise;
+
     expect(listItemPicker.hasFocus()).toBe(false);
     expect(listItemPicker._Subtitle.visible).toBe(true);
-    setTimeout(() => {
-      expect(listItemPicker._Subtitle.text.text).toBe('op1');
-      done();
-    }, 1);
   });
 });

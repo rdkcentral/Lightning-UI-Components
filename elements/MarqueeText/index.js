@@ -134,12 +134,12 @@ export default class MarqueeText extends Base {
   }
 
   _centerTexture() {
+    const x =
+      (this.w - this._textRenderedW - (this._shouldClip ? this._fadeW : 0)) / 2;
     if (this.shouldSmooth) {
-      this._ContentBox.smooth = {
-        x: (this.w - this._textRenderedW) / 2
-      };
+      this._ContentBox.smooth = { x };
     } else {
-      this._ContentBox.x = (this.w - this._textRenderedW) / 2;
+      this._ContentBox.x = x;
     }
   }
 
