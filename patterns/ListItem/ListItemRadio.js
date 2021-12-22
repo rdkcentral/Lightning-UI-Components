@@ -21,7 +21,7 @@ export default class ListItemRadio extends ListItem {
   get _textWidth() {
     return (
       this.w -
-      2 * this.styles.paddingRight -
+      3 * this.styles.paddingRight -
       this.styles.paddingLeft -
       this._Right.w
     );

@@ -21,7 +21,9 @@ export default class ListItemSlider extends ListItem {
       }
     };
   }
-
+  get _textWidth() {
+    return this.w - 2 * this.styles.paddingRight - this.styles.paddingLeft;
+  }
   _update() {
     this._Slider.w =
       this._Container.finalW -

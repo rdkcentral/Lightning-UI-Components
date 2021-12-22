@@ -52,8 +52,6 @@ export default class ListItemImageGroup extends withStyles(Base, styles) {
     this._Column.items.forEach(item => {
       item.h = this.imageResize + this.styles.itemSpacing;
       item._Container.h = this.imageResize + this.styles.itemSpacing;
-      item._Title.text.wordWrapWidth = 280;
-      item._Subtitle.text.wordWrapWidth = 280;
       item._update();
     });
 

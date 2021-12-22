@@ -113,14 +113,6 @@ export default class ListItemBase extends withStyles(Base, baseStyles) {
       }
     }
   }
-  _focus() {
-    if (this._smooth === undefined) this._smooth = true;
-    this._update();
-  }
-
-  _unfocus() {
-    this._update();
-  }
 
   _updateDropShadow() {
     if (this.hasFocus() && !this._DropShadow) {

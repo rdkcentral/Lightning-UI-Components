@@ -38,28 +38,6 @@ export default class ListItemToggle extends ListItem {
   _update() {
     super._update();
     this.icon = undefined;
-    this._Left.patch({
-      Title: {
-        y: 2,
-        h: this.styles.title.text.lineHeight + 4,
-        color: this.styles.title.color,
-        text: {
-          ...this.styles.title.text,
-          text: this._title,
-          wordWrapWidth: this._textWidth
-        }
-      }
-    });
-    this._Left.patch({
-      Subtitle: {
-        h: this.styles.subtitle.text.lineHeight,
-        text: {
-          ...this.styles.subtitle.text,
-          text: this._subtitle,
-          wordWrapWidth: this._textWidth
-        }
-      }
-    });
   }
   get _textWidth() {
     return (

@@ -1,6 +1,7 @@
 import ListItem from '.';
-import { Arrow } from '../../textures'; // What is this
+import { Arrow } from '../../textures';
 import Row from '../../layout/Row';
+import { MarqueeText } from '../../elements';
 
 export default class ListItemPicker extends ListItem {
   static _template() {
@@ -11,19 +12,21 @@ export default class ListItemPicker extends ListItem {
         LeftArrow: {
           flexItem: false,
           mount: 0.5,
-          x: 24,
+          x: 24, // TODO: utilze styles, not a hard coded number
           y: h => h / 2,
           zIndex: 2,
           texture: {
             type: Arrow,
             direction: 'left',
-            h: 25,
-            w: 14
+            h: 25, // TODO: utilze styles, not a hard coded number
+            w: 14 // TODO: utilze styles, not a hard coded number
           }
         },
         Left: {
           ...ListItem.Container.Left,
-          Title: {},
+          Title: {
+            type: MarqueeText
+          },
           Carousel: {
             type: Row,
             signals: {
@@ -38,25 +41,18 @@ export default class ListItemPicker extends ListItem {
         RightArrow: {
           flexItem: false,
           mount: 0.5,
-          x: w => w - 24,
+          x: w => w - 24, // TODO: utilze styles, not a hard coded number
           y: h => h / 2,
           zIndex: 2,
           texture: {
             type: Arrow,
             direction: 'right',
-            h: 25,
-            w: 14
+            h: 25, // TODO: utilze styles, not a hard coded number
+            w: 14 // TODO: utilze styles, not a hard coded number
           }
         }
       }
     };
-  }
-  _init() {
-    if (this.selectedOptionIndex == null) {
-      this.subtitle = this.options[0];
-    } else {
-      this.subtitle = this.selectedOption;
-    }
   }
 
   static get properties() {
@@ -73,24 +69,29 @@ export default class ListItemPicker extends ListItem {
     ];
   }
 
-  get selectedOption() {
-    return this.options[this._selectedOptionIndex];
-  }
-
   _construct() {
     super._construct();
     this._options = [];
     this._selectedOptionIndex = 0;
   }
 
+  _init() {
+    this.subtitle = !this.selectedOptionIndex
+      ? this.options[0]
+      : this.selectedOption;
+  }
+
+  get selectedOption() {
+    return this.options[this._selectedOptionIndex];
+  }
+
   _update() {
+    this._updateTitle();
+    this._updateArrows();
+    this._updateCarousel();
     this._whenEnabled.then(() => {
       super._update();
       this._updateLeft();
-      this._updateArrows();
-      this._updateCarousel();
-      this._updateTitle();
-      this._updateSubtitle();
     });
   }
 
@@ -108,39 +109,66 @@ export default class ListItemPicker extends ListItem {
       }
     });
   }
+
   get _textWidth() {
-    if (!this.hasFocus()) {
-      return this.w - this.styles.paddingRight - this.styles.paddingLeft;
-    } else {
-      return (
-        this.w - 2 * this.styles.paddingRight - 2 * this.styles.paddingLeft - 28
-      );
-    }
+    // TODO: This hard coded number needs to go away. Harshita, does this represent the width of the arrows? Emily guessed here
+    const arrowWidth = 28;
+    return this.hasFocus()
+      ? this.w -
+          2 * this.styles.paddingRight -
+          2 * this.styles.paddingLeft -
+          arrowWidth
+      : this.w - this.styles.paddingRight - this.styles.paddingLeft;
   }
+
   _updateSubtitle() {
     super._updateSubtitle();
-    if (!this._Subtitle) return;
-    this._Subtitle.patch({
-      visible: !this.hasFocus()
+    if (this._Subtitle) {
+      this._Subtitle.visible = !this.hasFocus();
+    }
+  }
+
+  _updateTitle() {
+    if (!this._title) {
+      this._Left.patch({ Title: undefined });
+      return;
+    }
+
+    this._Left.patch({
+      w: this.w,
+      Title: {
+        centerAlign: this.hasFocus(),
+        w: this._textWidth,
+        y: 2,
+        h: this.styles.title.text.lineHeight + 4,
+        color: this.hasFocus()
+          ? this.styles.focused.title.color
+          : this.styles.title.color,
+        title: {
+          ...this.styles.title.text,
+          text: this._title
+        }
+      }
     });
+
+    this.hasFocus()
+      ? this._Title.startScrolling()
+      : this._Title.stopScrolling();
   }
 
   _updateCarousel() {
     this._Carousel.visible = this.hasFocus();
 
-    const currentOptionsString = this._Carousel._Items.childList._items.reduce(
-      (acc, curr) => {
-        return acc + curr.text.text;
-      },
+    const currentOptionsString = this._Carousel.Items.childList._items.reduce(
+      (acc, curr) => acc + curr.title,
       ''
     );
-
-    const newOptionsString = this.options.reduce((acc, curr) => {
-      return acc + curr;
-    }, '');
+    const newOptionsString = this.options.reduce((acc, curr) => acc + curr, '');
 
     if (this._Carousel.w > 0 && currentOptionsString === newOptionsString) {
-      this._Carousel.selectedIndex = this._selectedOptionIndex;
+      if (this._Carousel.selectedIndex !== this._selectedOptionIndex) {
+        this._Carousel.selectedIndex = this._selectedOptionIndex;
+      }
       return;
     }
     this._Left.patch({
@@ -148,19 +176,18 @@ export default class ListItemPicker extends ListItem {
         type: Row,
         h: this.styles.subtitle.text.lineHeight,
         w: this._Left.finalW,
-        visible: this.hasFocus(),
         alwaysScroll: true,
         scrollMount: 0,
         clipping: true,
         items: this.options.map(option => ({
           h: this.styles.subtitle.text.lineHeight,
           w: this._Left.finalW,
-          text: {
+          type: MarqueeText,
+          title: {
             ...this.styles.subtitle.text,
             textAlign: 'center',
             textColor: this.styles.focused.subtitle.color,
-            text: option,
-            wordWrapWidth: this._textWidth
+            text: option
           }
         })),
         signals: {
@@ -168,52 +195,41 @@ export default class ListItemPicker extends ListItem {
         }
       }
     });
-    const { _selectedOptionIndex } = this;
+
     while (
-      Number.isInteger(_selectedOptionIndex) &&
-      _selectedOptionIndex !== this._Carousel.selectedIndex
+      Number.isInteger(this._selectedOptionIndex) &&
+      this._selectedOptionIndex !== this._Carousel.selectedIndex
     ) {
-      if (_selectedOptionIndex > this._Carousel.selectedIndex) {
-        this._Carousel.selectedIndex++;
-      } else {
-        this._Carousel.selectedIndex--;
-      }
+      this._selectedOptionIndex > this._Carousel.selectedIndex
+        ? this._Carousel.selectedIndex++
+        : this._Carousel.selectedIndex--;
     }
   }
 
   _updateArrows() {
+    const visible = this.hasFocus();
     this._Container.patch({
-      LeftArrow: {
-        visible: this.hasFocus()
-      },
-      RightArrow: {
-        visible: this.hasFocus()
-      }
+      LeftArrow: { visible },
+      RightArrow: { visible }
     });
 
+    // TODO: Remove hardcoded alphas and add to styles
     if (this._Carousel.selectedIndex === 0) {
       this._Container.tag('LeftArrow').smooth = { alpha: 0.48 };
     } else if (this._Carousel.selectedIndex === this.options.length - 1) {
       this._Container.tag('RightArrow').smooth = { alpha: 0.48 };
     } else {
+      const smooth = { smooth: { alpha: 1 } };
       this._Container.patch({
-        LeftArrow: {
-          smooth: {
-            alpha: 1
-          }
-        },
-        RightArrow: {
-          smooth: {
-            alpha: 1
-          }
-        }
+        LeftArrow: smooth,
+        RightArrow: smooth
       });
     }
   }
 
   _onSelectedChange() {
-    this.currentIndex = this._Carousel.selectedIndex;
     // Store the index at the top level since row resets it if items changes or construct runs
+    this.currentIndex = this._Carousel.selectedIndex;
 
     this.fireAncestors(
       '$listItemPickerChanged',
