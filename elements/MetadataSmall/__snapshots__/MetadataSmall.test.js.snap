@@ -204,7 +204,7 @@ Object {
             "Title",
           ],
           "texture": Object {
-            "fontFace": "XfinityStandardMedium",
+            "fontFace": "DMSansRegular",
             "fontSize": 32,
             "lineHeight": 40,
             "text": "title",
