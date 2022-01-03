@@ -40,25 +40,25 @@ export default {
     verticalAlign: 'middle'
   },
   body1: {
-    fontFace: 'XfinityStandardMedium',
+    fontFace: 'DMSansRegular',
     fontSize: 32,
-    fontWeight: 500,
+    fontWeight: 400,
     letterSpacing: 0,
     lineHeight: 40,
     verticalAlign: 'middle'
   },
   body2: {
-    fontFace: 'XfinityStandardMedium',
+    fontFace: 'DMSansRegular',
     fontSize: 28,
-    fontWeight: 500,
+    fontWeight: 400,
     letterSpacing: 0,
     lineHeight: 40,
     verticalAlign: 'middle'
   },
   body3: {
-    fontFace: 'XfinityStandardMedium',
+    fontFace: 'DMSansRegular',
     fontSize: 24,
-    fontWeight: 500,
+    fontWeight: 400,
     letterSpacing: 0,
     lineHeight: 32,
     verticalAlign: 'middle'
@@ -80,15 +80,15 @@ export default {
     verticalAlign: 'middle'
   },
   callout1: {
-    fontFace: 'XfinityStandardMedium',
+    fontFace: 'DMSansRegular',
     fontSize: 24,
-    fontWeight: 700,
+    fontWeight: 500,
     letterSpacing: 2,
     lineHeight: 32,
     verticalAlign: 'middle'
   },
   caption: {
-    fontFace: 'XfinityStandardMedium',
+    fontFace: 'DMSansBold',
     fontSize: 20,
     fontWeight: 700,
     letterSpacing: 0,

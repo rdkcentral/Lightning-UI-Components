@@ -35,7 +35,7 @@ Object {
         "Description",
       ],
       "texture": Object {
-        "fontFace": "XfinityStandardMedium",
+        "fontFace": "DMSansRegular",
         "fontSize": 32,
         "lineHeight": 40,
         "type": "TextTexture",
@@ -80,7 +80,7 @@ Object {
         "Title",
       ],
       "texture": Object {
-        "fontFace": "XfinityStandardMedium",
+        "fontFace": "DMSansRegular",
         "fontSize": 32,
         "lineHeight": 40,
         "type": "TextTexture",

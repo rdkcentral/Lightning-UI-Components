@@ -34,7 +34,7 @@ Object {
       "Component",
     ],
     "texture": Object {
-      "fontFace": "XfinityStandardMedium",
+      "fontFace": "DMSansRegular",
       "fontSize": 32,
       "lineHeight": 40,
       "type": "TextTexture",
