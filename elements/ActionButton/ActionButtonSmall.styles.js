@@ -4,5 +4,8 @@ export default theme => ({
   text: theme.typography.button2,
   icon: {
     size: theme.sizes.icon.small
+  },
+  checkbox: {
+    size: 20
   }
 });

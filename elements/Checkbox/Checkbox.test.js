@@ -34,4 +34,21 @@ describe('Checkbox', () => {
     testRenderer.keyPress('Enter');
     expect(checkBox._Check.alpha).toEqual(0);
   });
+
+  it('resizes the check image proportionally to the checkbox', () => {
+    expect(checkBox._Check.w).toEqual(checkBox.styles.check.w);
+    expect(checkBox._Check.h).toEqual(checkBox.styles.check.h);
+
+    const updatedSize = 28;
+    checkBox.w = updatedSize;
+    checkBox.h = updatedSize;
+    testRenderer.forceAllUpdates();
+
+    expect(checkBox._Check.w).toEqual(
+      checkBox.styles.check.w * (updatedSize / checkBox.styles.w)
+    );
+    expect(checkBox._Check.h).toEqual(
+      checkBox.styles.check.h * (updatedSize / checkBox.styles.h)
+    );
+  });
 });
