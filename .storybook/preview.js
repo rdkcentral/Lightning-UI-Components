@@ -5,6 +5,7 @@ import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
 import withAnnouncer from '../mixins/withAnnouncer';
+import Speech from '../mixins/withAnnouncer/Speech';
 
 export const globalTypes = {
   announce: {
@@ -19,7 +20,7 @@ export const globalTypes = {
 };
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: { hideNoControlsWarning: true },
   docs: {
     inlineStories: true,
@@ -28,14 +29,14 @@ export const parameters = {
   options: {
     enableShortcuts: false
   }
-}
+};
 
 const white = 0xffffffff;
 const grey = 0xff141417;
 const stage = {
   w: 1280,
   h: 720,
-  precision: 2/3,
+  precision: 2 / 3,
   clearColor: grey,
   debug: false,
   canvas2d: false,
@@ -84,82 +85,101 @@ window.addEventListener(
   false
 );
 
-addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, globals }) => {
-  const announce = globals.announce === 'on';
-  class StoryApp extends withAnnouncer(lng.Application, window.Speech, { language: 'en-US'}) {
-    _init() {
-      setTimeout(() => {
-        this._refocus();
-      }, 0);
-      this.debug = announce;
-      this.announcerEnabled = announce;
-      this.announcerTimeout = 15 * 1000;
+const defaultAnnouncerOptions = { language: 'en-US' };
+
+addDecorator(
+  (
+    StoryComponent,
+    { id, args, argTypes, kind, parameters, story, globals }
+  ) => {
+    const announce = globals.announce === 'on';
+    const announcerOptions = parameters.announcerOptions
+      ? { ...defaultAnnouncerOptions, ...parameters.announcerOptions }
+      : defaultAnnouncerOptions;
+    class StoryApp extends withAnnouncer(
+      lng.Application,
+      window.Speech,
+      announcerOptions
+    ) {
+      _init() {
+        setTimeout(() => {
+          this._refocus();
+        }, 0);
+        this.debug = announce;
+        this.announcerEnabled = announce;
+        this.announcerTimeout = 15 * 1000;
+      }
+
+      _getFocused() {
+        return this.childList.first || this;
+      }
+    }
+    function createApp() {
+      const app = new StoryApp({
+        stage: {
+          ...stage,
+          ...(parameters.stage || {})
+        }
+      });
+      app.children = {
+        StoryComponent: {
+          type: StoryComponent(),
+          w: w => w,
+          h: h => h,
+          x: 80,
+          y: 40
+        }
+      };
+
+      //Expose the APP for debugging
+      window.APP = app;
+
+      return app;
     }
 
-    _getFocused() {
-      return this.childList.first || this;
+    function clearInspector() {
+      // Clear any lightning inspector info
+      if (document.querySelectorAll('[type=StoryApp]').length > 1) {
+        let div = document.querySelector('[type=StoryApp]');
+        div && div.parentNode.remove();
+      }
+
+      // Move lightning inspector out of the foreground
+      if (window.top.location.search.indexOf('path=/docs/') > -1) {
+        document.body.classList.remove('canvas');
+        let div = document.querySelector('[type=StoryApp]');
+        div && (div.parentNode.style.zIndex = -1);
+      } else {
+        document.body.classList.add('canvas');
+      }
     }
-  }
-  function createApp() {
-    const app = new StoryApp({
-      stage: {
-        ...stage,
-        ...(parameters.stage || {})
-      }
-    });
-    app.children = {
-      StoryComponent: {
-        type: StoryComponent(),
-        w: w => w,
-        h: h => h,
-        x: 80,
-        y: 40
-      }
-    };
 
-    //Expose the APP for debugging
-    window.APP = app;
-
-    return app;
-  }
-
-  function clearInspector() {
-    // Clear any lightning inspector info
-    if (document.querySelectorAll('[type=StoryApp]').length > 1) {
-      let div = document.querySelector('[type=StoryApp]');
-      div && div.parentNode.remove();
-    };
-
-    // Move lightning inspector out of the foreground
-    if (window.top.location.search.indexOf('path=/docs/') > -1) {
-      document.body.classList.remove('canvas');
-      let div = document.querySelector('[type=StoryApp]');
-      div && (div.parentNode.style.zIndex = -1);
+    // render a new App if we've just swapped stories
+    // or if the story component is missing children (for sandboxing purposes?)
+    // or if the forceReload parameter is set i.e. Basic.parameters = { forceReload: true }
+    if (
+      id !== storyId ||
+      !app.tag('StoryComponent').children.length ||
+      parameters.forceReload
+    ) {
+      storyId = id;
+      app = createApp();
+      clearInspector();
     } else {
-      document.body.classList.add('canvas');
-    }
-  }
-
-  // render a new App if we've just swapped stories
-  // or if the story component is missing children (for sandboxing purposes?)
-  // or if the forceReload parameter is set i.e. Basic.parameters = { forceReload: true }
-  if (id !== storyId || !app.tag('StoryComponent').children.length || parameters.forceReload) {
-    storyId = id;
-    app = createApp();
-    clearInspector();
-  } else {
-    // tag is what we use to target a component for controls.
-    // there can only be one target per story
-    const tag = parameters.tag || kind;
-    const storyComponent = app.tag('StoryComponent');
-    const component = storyComponent.tag(tag) || storyComponent;
-    app.debug = announce;
-    app.announcerEnabled = announce;
-    for (const arg in args) {
+      // tag is what we use to target a component for controls.
+      // there can only be one target per story
+      const tag = parameters.tag || kind;
+      const storyComponent = app.tag('StoryComponent');
+      const component = storyComponent.tag(tag) || storyComponent;
+      app.debug = announce;
+      app.announcerEnabled = announce;
+      for (const arg in args) {
         const argValue = args[arg];
 
         if (!component) {
-          console.error(`.storybook/preview.js - No tag '${tag}' found inside story '${story}'. Change the component tag name to '${tag}' or set "${story}.parameters = { tag: '${storyComponent.childList.first.tags[0]}' }"`);
+          console.error(
+            `.storybook/preview.js - No tag '${tag}' found inside story '${story}'. Change the component tag name to '${tag}' or set "${story}.parameters = { tag: '${storyComponent.childList.first.tags[0]}' }"`
+          );
         }
 
         // argActions are callbacks keyed to args.
@@ -194,7 +214,9 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
 
           // only apply an arg value directly if the component has a dedicated setter, otherwise return a new app.
           // We are assuming that a setter will handle UI updates for value changes
-          const proto = component.type ? component.type.prototype : component.__proto__;
+          const proto = component.type
+            ? component.type.prototype
+            : component.__proto__;
           const descriptor = getDescriptor(proto, arg);
 
           if (descriptor && descriptor.set) {
@@ -204,11 +226,12 @@ addDecorator((StoryComponent, { id, args, argTypes, kind, parameters, story, glo
             clearInspector();
             return app.getCanvas();
           }
+        }
       }
     }
+    return app.getCanvas();
   }
-  return app.getCanvas();
-});
+);
 
 function getDescriptor(prototype, property) {
   let proto = prototype.__proto__;
@@ -218,7 +241,7 @@ function getDescriptor(prototype, property) {
     if (proto.constructor.isPrototypeOf(lng.Component)) break;
     descriptor = Object.getOwnPropertyDescriptor(proto, property);
     proto = proto.__proto__;
-  };
+  }
 
   return descriptor;
 }

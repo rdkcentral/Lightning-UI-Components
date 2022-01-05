@@ -1,4 +1,4 @@
-import Announcer from '.';
+import withAnnouncer, { generateAbbrevConfig } from '.';
 import FocusManager from '../../layout/FocusManager';
 import TestRenderer from '../../test/lightning-test-renderer';
 import lng from '@lightningjs/core';
@@ -13,7 +13,7 @@ speak.mockReturnValue({
   series: Promise.resolve()
 });
 const language = 'en-US';
-const BaseAnnouncer = Announcer(lng.Component, speak, { language });
+const BaseAnnouncer = withAnnouncer(lng.Component, speak, { language });
 class MyApp extends BaseAnnouncer {
   _construct() {
     this.announcerFocusDebounce = 0;
@@ -174,6 +174,7 @@ let announcer;
 describe('AppAnnouncer', () => {
   beforeEach(done => {
     jest.clearAllMocks();
+    // translateAbbrev.mockImplementation(phrase => phrase);
     testRenderer = TestRenderer.create(Component);
     announcer = testRenderer.getInstance();
     setTimeout(() => done(), 1);
@@ -437,6 +438,49 @@ describe('AppAnnouncer', () => {
         }
       };
       announcer.$announce('Text to announce');
+    });
+  });
+
+  describe('translating abbreviations', () => {
+    const createComp = options => {
+      const BaseAnnouncer = withAnnouncer(lng.Component, speak, {
+        ...options,
+        language
+      });
+      const Component = {
+        Comp: {
+          type: BaseAnnouncer,
+          announcerEnabled: true
+        }
+      };
+      testRenderer = TestRenderer.create(Component);
+      return testRenderer.getInstance();
+    };
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should pass phrases to an abbreviation translation function when abbreviations have been provided', () => {
+      const abbreviationsConfig = generateAbbrevConfig([
+        {
+          pattern: 'CT',
+          replacer: 'Connecticut'
+        }
+      ]);
+      announcer = createComp({ abbreviationsConfig });
+      expect(speak).not.toHaveBeenCalled();
+
+      announcer.$announce('CT');
+      expect(speak).toHaveBeenCalledWith('Connecticut', language);
+    });
+    it('should not pass phrases to an abbreviation translation function when abbreviations have not been provided', () => {
+      announcer = createComp();
+
+      expect(speak).not.toHaveBeenCalled();
+
+      announcer.$announce('CT');
+      expect(speak).toHaveBeenCalledWith('CT', language);
     });
   });
 });
