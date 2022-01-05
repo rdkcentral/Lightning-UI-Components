@@ -1,12 +1,22 @@
 import Speech from './Speech';
+import { translateAbbrev } from './abbreviations';
 import { debounce } from 'debounce';
+
+export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations';
+
 const fiveMinutes = 300 * 1000;
 
 function elmName(elm) {
   return elm.ref || elm.constructor.name;
 }
 
-export default (base, speak = Speech, options = {}) =>
+const defaultOptions = {
+  voiceOutDelay: 500,
+  abbreviationsConfig: {}
+};
+
+export default (base, speak = Speech, options = {}) => {
+  const announcerOptions = { ...defaultOptions, ...options };
   class Announcer extends base {
     _construct() {
       this._announceEndedTimeout;
@@ -17,7 +27,15 @@ export default (base, speak = Speech, options = {}) =>
       if (this._voiceOutDisabled) {
         return;
       }
-      const speech = speak(toAnnounce, options.language);
+      let toSpeak = toAnnounce;
+      if (announcerOptions.abbreviationsConfig.abbreviationsPattern) {
+        toSpeak = Array.isArray(toAnnounce)
+          ? toAnnounce.map(phrase =>
+              translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
+            )
+          : translateAbbrev(toAnnounce, announcerOptions.abbreviationsConfig);
+      }
+      const speech = speak(toSpeak, options.language);
       // event using speech synthesis api promise
       if (speech && speech.series) {
         speech.series.then(() => {
@@ -27,12 +45,12 @@ export default (base, speak = Speech, options = {}) =>
 
       // event in case speech synthesis api is flakey,
       // assume the ammount of time it takes to read each word
-      const toAnnounceStr = Array.isArray(toAnnounce)
-        ? toAnnounce.concat().join(' ')
-        : toAnnounce;
+      const toAnnounceStr = Array.isArray(toSpeak)
+        ? toSpeak.concat().join(' ')
+        : toSpeak;
       const toAnnounceWords = toAnnounceStr.split(' ');
       const timeoutDelay =
-        toAnnounceWords.length * (options.voiceOutDelay || 500);
+        toAnnounceWords.length * announcerOptions.voiceOutDelay;
       clearTimeout(this._announceEndedTimeout);
       this._announceEndedTimeout = setTimeout(() => {
         this.stage.emit('announceTimeoutEnded');
@@ -187,4 +205,6 @@ export default (base, speak = Speech, options = {}) =>
       this._resetFocusTimer();
       this._focusChange();
     }
-  };
+  }
+  return Announcer;
+};
