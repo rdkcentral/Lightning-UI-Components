@@ -4,9 +4,11 @@ import { getHexColor } from '../../Styles';
 export default theme => ({
   w: 54,
   h: 54,
-  radius: 54 / 2,
   background: {
     color: getHexColor('#018558', 100)
+  },
+  unchecked: {
+    background: getHexColor('#141417', 30)
   },
   stroke: { color: theme.palette.grey[0], width: 2 },
   check: {

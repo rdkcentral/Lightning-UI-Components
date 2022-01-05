@@ -146,6 +146,38 @@ describe('ActionButton', () => {
       expect(actionbutton.checkbox).toBeNull();
       expect(actionbutton._Checkbox).toBeUndefined();
     });
+    it('should resize the button when a checkbox is added', async () => {
+      [actionbutton, testRenderer] = createActionButton(
+        {
+          title: 'Action Button',
+          minWidth: 0 // ensure button width is always updated
+        },
+        { spyOnMethods: ['_updateWidth'] }
+      );
+      await actionbutton.__updateWidthSpyPromise;
+      const initialW = actionbutton.w;
+
+      actionbutton.checkbox = { checked: true };
+      await actionbutton.__updateWidthSpyPromise;
+      const updatedW = actionbutton.w;
+
+      expect(updatedW).toBeGreaterThan(initialW);
+    });
+    it('should remove a checkbox from the template', () => {
+      [actionbutton, testRenderer] = createActionButton({
+        title: 'Action Button',
+        checkbox: {
+          checked: true
+        }
+      });
+      testRenderer.forceAllUpdates();
+      expect(actionbutton._Checkbox.w).toBeGreaterThan(0);
+
+      actionbutton.checkbox = undefined;
+      testRenderer.forceAllUpdates();
+
+      expect(actionbutton._Checkbox.w).toEqual(0);
+    });
   });
 
   describe('loading', () => {

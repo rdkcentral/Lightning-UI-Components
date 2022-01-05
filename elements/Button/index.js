@@ -229,29 +229,24 @@ export default class Button extends withStyles(Base, styles) {
     }
   }
 
+  _calcPreTextWidth() {
+    return this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
+  }
+
   _updateWidth() {
-    const iconSize =
-      this.icon && this.icon.src ? this.icon.size + this.icon.spacing : 0;
-    // checkboxes may be rendered in ActionButton
-    const checkboxSize =
-      this._Checkbox && this._Checkbox.w
-        ? this._Checkbox.w + this.checkbox.spacing
-        : 0;
+    const preTextWidth = this._calcPreTextWidth();
     const padding = getFirstNumber(this.padding, this._padding, 10);
 
     if (this.fixed) {
       this._Title.patch({
         text: {
           ...this._fixedTextStyles,
-          wordWrapWidth: this.w - padding * 2 - iconSize - checkboxSize
+          wordWrapWidth: this.w - padding * 2 - preTextWidth
         }
       });
     } else {
       const w =
-        measureTextWidth(this._Title.text || {}) +
-        padding * 2 +
-        iconSize +
-        checkboxSize;
+        measureTextWidth(this._Title.text || {}) + padding * 2 + preTextWidth;
 
       if (w && w > this.minWidth) {
         this.w = w;

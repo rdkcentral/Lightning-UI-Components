@@ -31,5 +31,9 @@ export default theme => ({
     icon: { color: theme.palette.text.dark.primary },
     text: { color: theme.palette.text.dark.primary }
   },
-  getFocusScale: theme.getFocusScale
+  getFocusScale: theme.getFocusScale,
+  checkbox: {
+    size: 28,
+    spacing: 8
+  }
 });

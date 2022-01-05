@@ -48,6 +48,7 @@ export class ActionButtonBase extends withStyles(
   _construct() {
     super._construct();
     this._createDropShadow = this.styles.shadow;
+    this._checkboxSize = this.styles.checkbox.size;
   }
 
   _setIcon(src) {
@@ -56,7 +57,7 @@ export class ActionButtonBase extends withStyles(
 
   _setCheckbox(checkbox) {
     if (checkbox && typeof checkbox.checked === 'boolean') {
-      const { checked, spacing = 10 } = checkbox;
+      const { checked, spacing = this.styles.checkbox.spacing } = checkbox;
       return { checked, spacing };
     }
     return null;
@@ -119,12 +120,13 @@ export class ActionButtonBase extends withStyles(
 
   _updateCheckbox() {
     if (this.checkbox) {
-      const { checked, spacing } = this.checkbox;
       const checkboxProps = {
-        checked,
+        w: this._checkboxSize,
+        h: this._checkboxSize,
+        checked: this.checkbox.checked,
         visible: 1,
         flexItem: {
-          marginRight: !this._fixed && this.title ? spacing : 0
+          marginRight: !this._fixed && this.title ? this.checkbox.spacing : 0
         }
       };
       if (this._Checkbox) {
@@ -144,7 +146,8 @@ export class ActionButtonBase extends withStyles(
         w: 0,
         h: 0,
         visible: 0,
-        texture: false
+        texture: false,
+        flexItem: false
       });
     }
   }
@@ -158,6 +161,15 @@ export class ActionButtonBase extends withStyles(
     });
     this._loading.start();
     super._firstEnable && super._firstEnable();
+  }
+
+  _calcPreTextWidth() {
+    const iconW = super._calcPreTextWidth();
+    const checkboxW =
+      this._Checkbox && this._Checkbox.w
+        ? this._Checkbox.w + this.checkbox.spacing
+        : 0;
+    return iconW + checkboxW;
   }
 
   _setBackgroundType(backgroundType) {

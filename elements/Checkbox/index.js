@@ -38,36 +38,39 @@ export default class Checkbox extends withStyles(Base, styles) {
   }
 
   _update() {
+    this._updateCheck();
     this._updateColor();
-    const { checked } = this;
-    this._Check.smooth = { alpha: checked ? 1 : 0 };
+  }
+
+  _updateCheck() {
+    if (
+      this.w &&
+      this.w !== this.styles.w &&
+      this.h &&
+      this.h !== this.styles.h
+    ) {
+      this._Check.patch({
+        w: this.styles.check.w * (this.w / this.styles.w),
+        h: this.styles.check.h * (this.h / this.styles.h)
+      });
+    }
+    this._Check.smooth = { alpha: this.checked ? 1 : 0 };
   }
 
   _updateColor() {
-    if (this.checked) {
-      this.patch({
-        texture: lng.Tools.getRoundRect(
-          this.styles.w,
-          this.styles.h,
-          this.styles.radius,
-          this.styles.stroke.width,
-          this.styles.stroke.color,
-          true,
-          this.styles.background.color
-        )
-      });
-    } else {
-      this.patch({
-        texture: lng.Tools.getRoundRect(
-          this.styles.w,
-          this.styles.h,
-          this.styles.radius,
-          this.styles.stroke.width,
-          this.styles.stroke.color,
-          false,
-          this.styles.background.color
-        )
-      });
-    }
+    const fillColor = this.checked
+      ? this.styles.background.color
+      : this.styles.unchecked.background;
+    this.patch({
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        this.h,
+        this.w / 2,
+        this.styles.stroke.width,
+        this.styles.stroke.color,
+        true,
+        fillColor
+      )
+    });
   }
 }

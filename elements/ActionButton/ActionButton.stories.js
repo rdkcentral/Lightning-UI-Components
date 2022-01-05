@@ -42,8 +42,8 @@ export const Base = args =>
 Base.args = {
   title: 'Action Button',
   backgroundType: 'stroke',
-  checked: undefined,
-  checkboxSpacing: 5
+  checked: undefined
+  // checkboxSpacing: 5
 };
 Base.argTypes = {
   backgroundType: {
