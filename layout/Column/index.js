@@ -8,6 +8,16 @@ export default class Column extends FocusManager {
     };
   }
 
+  static get properties() {
+    return [
+      ...super.properties,
+      'itemSpacing',
+      'scrollIndex',
+      'alwaysScroll',
+      'neverScroll'
+    ];
+  }
+
   _construct() {
     super._construct();
     this._smooth = false;
@@ -15,7 +25,6 @@ export default class Column extends FocusManager {
     this._itemPosX = 0;
     this._itemPosY = 0;
     this._scrollIndex = 0;
-    this._whenEnabled = new Promise(resolve => (this._firstEnable = resolve));
   }
 
   _init() {
@@ -35,18 +44,8 @@ export default class Column extends FocusManager {
     this._updateLayout();
   }
 
-  _updateImmediate() {
-    this._update();
-  }
-
-  static get properties() {
-    return [
-      ...super.properties,
-      'itemPosX',
-      'itemPosY',
-      'itemSpacing',
-      'scrollIndex'
-    ];
+  _setItemSpacing(itemSpacing) {
+    return itemSpacing || 0;
   }
 
   get _itemTransition() {
@@ -79,7 +78,7 @@ export default class Column extends FocusManager {
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
-      const lastChild = this._Items.childList.last;
+      const lastChild = this.Items.childList.last;
       shouldScroll =
         lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
     }
@@ -107,12 +106,12 @@ export default class Column extends FocusManager {
 
   // TODO: can be documented in API when lastScrollIndex is made public
   shouldScrollDown() {
-    const lastChild = this._Items.childList.last;
+    const lastChild = this.Items.childList.last;
     return (
       this.selectedIndex > this._scrollIndex &&
       // end of Items container < end of last item
       Math.abs(this._itemsY - this.h) <
-        lastChild.y + this._Items.childList.last.h
+        lastChild.y + this.Items.childList.last.h
     );
   }
 
@@ -176,27 +175,27 @@ export default class Column extends FocusManager {
 
   _performRender() {
     this._whenEnabled.then(() => {
-      if (!this._Items.children.length) {
+      if (!this.Items.children.length) {
         if (this._smooth) {
-          this._Items.smooth = { y: this.itemPosY };
+          this.Items.smooth = { y: this.itemPosY };
         } else {
-          this._Items.y = this.itemPosY;
+          this.Items.y = this.itemPosY;
           this._updateTransitionTarget(this.Items, this.itemPosY);
         }
       } else if (this._shouldScroll()) {
         let scrollItem =
           this.selectedIndex > this._lastScrollIndex
-            ? this._Items.children[this._lastScrollIndex - this._scrollIndex]
+            ? this.Items.children[this._lastScrollIndex - this._scrollIndex]
             : this.selected;
-        if (this._Items.children[this._firstFocusableIndex()] === scrollItem) {
-          scrollItem = this._Items.children[0];
+        if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
+          scrollItem = this.Items.children[0];
         }
         const scrollOffset = (
-          this._Items.children[this._scrollIndex] || { y: 0 }
+          this.Items.children[this._scrollIndex] || { y: 0 }
         ).y;
         if (this._smooth) {
-          const firstChild = this._Items.childList.first;
-          this._Items.smooth = {
+          const firstChild = this.Items.childList.first;
+          this.Items.smooth = {
             y: [
               -(scrollItem || firstChild).transition('y').targetValue +
                 (scrollItem === this.selected ? scrollOffset : 0),
@@ -206,7 +205,7 @@ export default class Column extends FocusManager {
         } else {
           const scrollTarget =
             -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
-          this._Items.patch({
+          this.Items.patch({
             y: scrollTarget
           });
           this._updateTransitionTarget(this.Items, scrollTarget);
@@ -229,7 +228,7 @@ export default class Column extends FocusManager {
   }
 
   get onScreenItems() {
-    return this._Items.children.filter(child => this._isOnScreen(child));
+    return this.Items.children.filter(child => this._isOnScreen(child));
   }
 
   _isOnScreen(child) {
@@ -241,7 +240,7 @@ export default class Column extends FocusManager {
     // 2) the target animation value of the items container, and
     // 3) the target value of the item itself
     const ItemY =
-      this.core.renderContext.py + this._Items.transition('y').targetValue + y;
+      this.core.renderContext.py + this.Items.transition('y').targetValue + y;
     const { h } = child;
 
     // check that the child is inside the bounds of the stage
@@ -274,8 +273,8 @@ export default class Column extends FocusManager {
       let nextY = 0;
       let nextW = 0;
       // layout items in row
-      for (let i = 0; i < this._Items.children.length; i++) {
-        const child = this._Items.children[i];
+      for (let i = 0; i < this.Items.children.length; i++) {
+        const child = this.Items.children[i];
         nextW = Math.max(nextW, getW(child));
         if (this._smooth) {
           child.smooth = { y: [nextY, this._itemTransition] };
@@ -284,32 +283,32 @@ export default class Column extends FocusManager {
           this._updateTransitionTarget(child, nextY);
         }
         nextY += child.h;
-        if (i < this._Items.children.length - 1) {
+        if (i < this.Items.children.length - 1) {
           nextY += this.itemSpacing;
         }
 
         if (child.centerInParent) {
           // if the child is another focus manager, check the width of the item container
-          const childWidth = (child._Items && child._Items.w) || child.w;
+          const childWidth = (child.Items && child.Items.w) || child.w;
           // only center the child if it is within the bounds of this focus manager
           if (childWidth < this.w) {
             child.x = (this.w - childWidth) / 2;
           }
         }
       }
-      this._Items.patch({ w: nextW, h: nextY });
+      this.Items.patch({ w: nextW, h: nextY });
 
-      const lastChild = this._Items.childList.last;
+      const lastChild = this.Items.childList.last;
       const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
-      const scrollOffset = (this._Items.children[this._scrollIndex] || { y: 0 })
+      const scrollOffset = (this.Items.children[this._scrollIndex] || { y: 0 })
         .y;
 
       // determine when to stop scrolling down
       if (this.alwaysScroll) {
-        this._lastScrollIndex = this._Items.children.length - 1;
+        this._lastScrollIndex = this.Items.children.length - 1;
       } else if (endOfLastChild > this.h) {
-        for (let i = this._Items.children.length - 1; i >= 0; i--) {
-          const child = this._Items.children[i];
+        for (let i = this.Items.children.length - 1; i >= 0; i--) {
+          const child = this.Items.children[i];
           const childY = getY(child);
           if (childY + this.h - scrollOffset > endOfLastChild) {
             this._lastScrollIndex = i;
@@ -325,18 +324,24 @@ export default class Column extends FocusManager {
     });
   }
 
-  _setItemPosX(x) {
-    this._Items.x = x;
-    return x;
+  get itemPosX() {
+    return this._itemPosX;
   }
 
-  _setItemPosY(y) {
-    this._Items.y = y;
-    return y;
+  set itemPosX(x) {
+    this.Items.x = this._itemPosX = x;
+  }
+
+  get itemPosY() {
+    return this._itemPosY;
+  }
+
+  set itemPosY(y) {
+    this.Items.y = this._itemPosY = y;
   }
 
   get _itemsY() {
-    return getY(this._Items);
+    return getY(this.Items);
   }
 
   appendItems(items = []) {
@@ -345,11 +350,11 @@ export default class Column extends FocusManager {
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
-      item = this._Items.childList.a(item);
+      item = this.Items.childList.a(item);
       item.w = getW(item) || itemWidth;
     });
     this.stage.update();
-    this._updateLayout();
+    this._update();
     this._refocus();
   }
 
@@ -364,27 +369,29 @@ export default class Column extends FocusManager {
         this.selectedIndex > index ? this.selectPrevious() : this.selectNext();
       }, duration * i);
     }
-    this._Items
-      .transition('y')
-      .on('finish', this._transitionListener.bind(this));
+    this.Items.transition('y').on(
+      'finish',
+      this._transitionListener.bind(this)
+    );
   }
 
   _transitionListener() {
     this._smooth = false;
-    this._Items
-      .transition('y')
-      .removeListener('finish', this._transitionListener);
+    this.Items.transition('y').removeListener(
+      'finish',
+      this._transitionListener
+    );
   }
 
   $itemChanged() {
-    this._updateImmediate();
+    this._update();
   }
 
   $removeItem(item) {
     if (item) {
       const wasSelected = item === this.selected;
-      this._Items.childList.remove(item);
-      this._updateImmediate();
+      this.Items.childList.remove(item);
+      this._update();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -398,7 +405,7 @@ export default class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._updateImmediate();
+    this._update();
   }
 
   // can be overridden

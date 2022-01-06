@@ -16,31 +16,15 @@ const LAYOUTS = {
 };
 
 export default class BoardRow extends Base {
-  static _template() {
-    return {};
-  }
-
-  static _states() {
-    return [
-      class LayoutNotSet extends this {},
-      class LayoutSet extends this {
-        _getFocused() {
-          return this.tag('Layout');
-        }
-      }
-    ];
-  }
-
   static get properties() {
     return [
-      'menuCard',
-      'alwaysScroll',
       'items',
+      'menuCard',
       'itemSpacing',
-      'layout',
-      'lazyScroll',
-      'neverScroll',
       'scrollIndex',
+      'alwaysScroll',
+      'neverScroll',
+      'lazyScroll',
       'srcCallback',
       'viewAll'
     ];
@@ -52,34 +36,52 @@ export default class BoardRow extends Base {
 
   _construct() {
     super._construct();
-    // Set default prop values
-    this._layout = 'standard';
-    this._selectedLayout = LAYOUTS['standard'];
     this._itemSpacing = 0;
     this._menuCard = {};
   }
 
-  _setLayout(layout) {
-    // Normalize the layout string and set the correct _selectedLayout
+  /**
+   * TODO: Update Base to remove the focus/unfocus calls and add a second "BaseComponent" that does have them
+   *
+   * Layout Components (Column, Row, BoardRows, etc.) would extend only Base,
+   *    need to confirm this applies to InlineContnet and ScrollWrapper??
+   * Element/Pattern Components (Tile, Badge, etc.) would extend "BaseComponent" that does have focus/unfocus overrides
+   */
+  _focus() {}
+  _unfocus() {}
+
+  _init() {
+    super._init();
     const normalizeTypeName =
-      'string' === typeof layout ? layout.toLowerCase() : null;
-    if (LAYOUTS[normalizeTypeName]) {
-      this._selectedLayout = LAYOUTS[normalizeTypeName];
-    } else {
-      this._selectedLayout = LAYOUTS['standard'];
+      'string' === typeof this.layout ? this.layout.toLowerCase() : null;
+    this.layout = LAYOUTS[normalizeTypeName] ? normalizeTypeName : 'standard';
+    this._createLayout();
+  }
+
+  _update() {
+    if (this._Layout) {
+      this._Layout.patch(this._layoutProperties);
+      this._calculateHeight(this.itemSpacing);
     }
-    return normalizeTypeName;
+  }
+
+  get _layoutProperties() {
+    return Object.values(BoardRow.properties).reduce((acc, curr) => {
+      if ('items' === curr) {
+        acc[curr] = this._srcCallbackItems;
+        return acc;
+      }
+      acc[curr] = this[curr];
+      return acc;
+    }, {});
   }
 
   _calculateHeight() {
     // Get the correct height from the current selected layout
-    let h;
-    if (this.layout && LAYOUTS[this.layout]) {
-      h = LAYOUTS[this.layout]._calcTotalHeight(this.itemSpacing);
-    } else {
-      h = LAYOUTS['standard']._calcTotalHeight(this.itemSpacing);
-    }
-    this.h = h;
+    this.h =
+      this.layout && LAYOUTS[this.layout]
+        ? LAYOUTS[this.layout]._calcTotalHeight(this.itemSpacing)
+        : LAYOUTS['standard']._calcTotalHeight(this.itemSpacing);
   }
 
   get _srcCallbackItems() {
@@ -98,42 +100,33 @@ export default class BoardRow extends Base {
     return this.items;
   }
 
-  _update() {
-    this._calculateHeight(); // Calculate height here to minimize flash of unpositioned elements
-    this._setState('LayoutNotSet'); // Ensures focus is not called until the layout is set
+  _createLayout() {
+    const layout = this.layout;
+    // do not include items in the update lifecycle
+    const layoutProps = BoardRow.properties;
+    layoutProps.splice(BoardRow.properties.indexOf('items'), 1);
 
-    // Get all properties to pass in to layout
-    const properties = Object.values(BoardRow.properties).reduce(
-      (acc, curr) => {
-        if ('items' === curr) {
-          acc[curr] = this._srcCallbackItems;
-          return acc;
-        }
-        acc[curr] = this[curr];
-        return acc;
-      },
-      {}
-    );
-
-    const _selectedLayout = this._selectedLayout;
     this.patch({
       Layout: {
-        type: class extends this._selectedLayout {
+        type: class extends LAYOUTS[layout] {
           // Allow layouts to share the same properties api as BoardRow
           static get properties() {
-            return [...BoardRow.properties];
+            return layoutProps;
           }
 
-          get _selectedLayout() {
-            return _selectedLayout;
+          get _layoutType() {
+            return LAYOUTS[layout];
           }
         },
-        // Pass in property values to layout
-        ...properties,
+
         w: this.w
       }
     });
-    // After new layout is patched, set the focus
-    this._setState('LayoutSet');
+
+    this._calculateHeight(this.itemSpacing);
+  }
+
+  _getFocused() {
+    return this.tag('Layout') || this;
   }
 }

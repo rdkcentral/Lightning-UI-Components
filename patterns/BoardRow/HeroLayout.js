@@ -15,13 +15,9 @@ export default class HeroLayout extends BaseLayout {
     return HeroLayout._cardHeight * 2 + itemSpacing;
   }
 
-  _setItems(items) {
-    return this._processItems(items, ['Tile']);
-  }
-
-  _updateItems(items) {
+  _updateItems() {
     // Create two arrays
-    const formattedItems = items.reduce((acc, curr) => {
+    const formattedItems = this.items.reduce((acc, curr) => {
       const component = {
         ...curr,
         w: HeroLayout._cardWidth,
@@ -72,6 +68,6 @@ export default class HeroLayout extends BaseLayout {
       return acc;
     }, []);
 
-    this._updateLayout(formattedItems);
+    super._updateItems(formattedItems);
   }
 }

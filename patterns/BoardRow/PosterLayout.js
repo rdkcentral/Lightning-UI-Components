@@ -15,12 +15,8 @@ export default class PosterLayout extends BaseLayout {
     return PosterLayout._cardHeight;
   }
 
-  _setItems(items) {
-    return this._processItems(items, ['Tile']);
-  }
-
-  _updateItems(items) {
-    const formattedItems = items.map(item => {
+  _updateItems() {
+    const formattedItems = this.items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(item.type, this.srcCallback),
@@ -29,6 +25,6 @@ export default class PosterLayout extends BaseLayout {
       };
     });
 
-    this._updateLayout(formattedItems);
+    super._updateItems(formattedItems);
   }
 }

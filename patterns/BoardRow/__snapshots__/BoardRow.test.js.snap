@@ -4,19 +4,19 @@ exports[`BoardRow renders 1`] = `
 Object {
   "Component": Object {
     "Layout": Object {
-      "active": false,
+      "active": true,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
         "Row": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Items": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,

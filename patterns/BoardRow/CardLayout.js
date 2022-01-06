@@ -14,12 +14,16 @@ export default class CardLayout extends BaseLayout {
     return CardLayout._cardHeight;
   }
 
-  _setItems(items) {
-    return this._processItems(items, ['Card'], ['CardHorizontal']);
+  get _validItemTypes() {
+    return ['Card'];
   }
 
-  _updateItems(items) {
-    const formattedItems = items.map(item => {
+  get _invalidItemTypes() {
+    return ['CardHorizontal'];
+  }
+
+  _updateItems() {
+    const formattedItems = this.items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(
@@ -36,6 +40,7 @@ export default class CardLayout extends BaseLayout {
         w: CardLayout._cardWidth
       };
     });
-    this._updateLayout(formattedItems);
+
+    super._updateItems(formattedItems);
   }
 }

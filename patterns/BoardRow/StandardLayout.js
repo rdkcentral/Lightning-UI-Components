@@ -15,12 +15,8 @@ export default class StandardLayout extends BaseLayout {
     return StandardLayout._cardHeight * 2 + itemSpacing;
   }
 
-  _setItems(items) {
-    return this._processItems(items, ['Tile']);
-  }
-
-  async _updateItems(items) {
-    const formattedItems = items.reduce((acc, curr) => {
+  _updateItems() {
+    const formattedItems = this.items.reduce((acc, curr) => {
       const Component = BoardRowComponent(curr.type, this.srcCallback);
       const component = {
         ...curr,
@@ -35,9 +31,9 @@ export default class StandardLayout extends BaseLayout {
       if (-1 === targetColumnIndex) {
         targetColumnIndex = acc.push({
           w: StandardLayout._cardWidth,
-          h: StandardLayout._calcTotalHeight(this._itemSpacing),
+          h: StandardLayout._calcTotalHeight(this.itemSpacing),
           type: Column,
-          itemSpacing: this._itemSpacing,
+          itemSpacing: this.itemSpacing,
           items: []
         });
         acc[targetColumnIndex - 1].items.push(component);
@@ -47,6 +43,6 @@ export default class StandardLayout extends BaseLayout {
       return acc;
     }, []);
 
-    this._updateLayout(formattedItems);
+    super._updateItems(formattedItems);
   }
 }
