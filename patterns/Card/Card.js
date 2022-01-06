@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { withStyles } from '../../mixins';
 import { Base, CardArtwork, FocusRing, Metadata } from '../../elements';
-
+import withBadgeProgress from '../withBadgeProgress';
 export const artCardProps = [
   'src',
   'artWidth',
@@ -58,7 +58,7 @@ export default class Card extends withStyles(Base, styles) {
     return {
       Background: {},
       Artwork: {
-        type: CardArtwork
+        type: withBadgeProgress(CardArtwork)
       },
       Metadata: {
         type: withStyles(Metadata, this.styles.metadata)
@@ -76,6 +76,7 @@ export default class Card extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
+    this.circleImage = false;
     this.w = this.styles.w || this.w;
     this.h = this.styles.h || this.h;
     this._originalDimensions = { w: this.w, h: this.h };
@@ -178,15 +179,22 @@ export default class Card extends withStyles(Base, styles) {
       src: this.src,
       w: this.artWidth,
       h: this.artHeight,
-      badge: this.badge,
-      badgeLocation: this.badgeLocation || 'upperLeft',
-      progress: this.progress,
-      alpha: this.collapseArt ? 0 : 1,
-      rtt: true,
+      imageSize: this.artHeight,
+      circleImage: this.circleImage,
+      blurBackground: this.circleImage,
       shader: {
         type: lng.shaders.RoundedRectangle,
         radius
       }
+    });
+
+    this._Artwork.patch({
+      src: this.src,
+      badge: this.badge,
+      badgeLocation: this.badgeLocation || 'upperLeft',
+      progress: this.progress,
+      alpha: this.collapseArt ? 0 : 1,
+      rtt: true
     });
     this.finalArtHeight = this.artHeight || 0;
     this.finalArtWidth = this.artWidth || 0;

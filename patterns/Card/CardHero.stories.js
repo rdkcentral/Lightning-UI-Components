@@ -12,6 +12,7 @@ export const Hero = args =>
         Card: {
           type: CardHero,
           src: pets,
+          circleImage: args.circleImage,
           title: args.title,
           subtitle: args.subtitle,
           description: args.description,
@@ -53,7 +54,9 @@ Hero.args = {
   cta: 'Call to action text',
   showCTA: true,
   showIcon: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  circleImage: false
 };
 Hero.argTypes = {
   title: { control: 'text' },
@@ -63,5 +66,6 @@ Hero.argTypes = {
   showCTA: { control: 'boolean' },
   showIcon: { control: 'boolean' },
   focused: { control: 'boolean' },
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  circleImage: { control: 'boolean' }
 };

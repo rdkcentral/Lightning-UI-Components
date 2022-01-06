@@ -9,6 +9,7 @@ export const Vertical = args =>
       return {
         Card: {
           type: CardVertical,
+          circleImage: args.circleImage,
           src: pets,
           title: args.title,
           description: args.description
@@ -24,12 +25,15 @@ export const Vertical = args =>
   };
 Vertical.args = {
   title: 'Title',
-  description: 'Short Description'
+  description: 'Short Description',
+  focused: false,
+  circleImage: false
 };
 Vertical.argTypes = {
   title: { content: 'text' },
   description: { content: 'text' },
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  circleImage: { control: 'boolean' }
 };
 
 export const VerticalLarge = args =>
@@ -40,6 +44,7 @@ export const VerticalLarge = args =>
           type: CardVerticalLarge,
           src: pets,
           title: args.title,
+          circleImage: args.circleImage,
           description: args.description,
           data: args.showData
             ? [
@@ -67,7 +72,9 @@ VerticalLarge.args = {
   description: 'Short Description',
   showData: true,
   showLogo: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  circleImage: false
 };
 VerticalLarge.argTypes = {
   title: { content: 'text' },
@@ -75,5 +82,6 @@ VerticalLarge.argTypes = {
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
+  circleImage: { control: 'boolean' },
   logoTitle: { control: 'text' }
 };
