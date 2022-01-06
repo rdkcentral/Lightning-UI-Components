@@ -11,6 +11,7 @@ export const Horizontal = args =>
         Card: {
           type: CardHorizontal,
           src: pets,
+          circleImage: args.circleImage,
           title: args.title,
           description: args.description,
           data: args.showData
@@ -39,7 +40,9 @@ Horizontal.args = {
   description: 'Short Description',
   showData: true,
   showLogo: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  circleImage: false
 };
 Horizontal.argTypes = {
   title: { content: 'text' },
@@ -47,6 +50,7 @@ Horizontal.argTypes = {
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
+  circleImage: { control: 'boolean' },
   logoTitle: { control: 'text' }
 };
 
@@ -59,6 +63,7 @@ export const HorizontalLarge = args =>
           src: pets,
           title: 'Title',
           description: 'Short Description',
+          circleImage: args.circleImage,
           data: args.showData
             ? [
                 '86%',
@@ -85,7 +90,9 @@ HorizontalLarge.args = {
   description: 'Short Description',
   showData: true,
   showLogo: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  circleImage: false
 };
 HorizontalLarge.argTypes = {
   title: { content: 'text' },
@@ -93,5 +100,6 @@ HorizontalLarge.argTypes = {
   showData: { content: 'boolean' },
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
+  circleImage: { control: 'boolean' },
   logoTitle: { control: 'text' }
 };

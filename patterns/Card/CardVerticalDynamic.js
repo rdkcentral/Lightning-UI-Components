@@ -36,6 +36,7 @@ export default class CardVerticalDynamic extends withStyles(
     this.gradientRadius = this.styles.gradient.radius;
     this.gradientBlur = this.styles.gradient.blur;
     this.gradientMargin = this.styles.gradient.margin;
+    this.circleImage = false;
   }
 
   static get properties() {
@@ -90,15 +91,18 @@ export default class CardVerticalDynamic extends withStyles(
 
   _updateArtwork() {
     const dimensions = this._calculateArtRatio();
-    this._Artwork.patch({
-      src: this._src,
-      w: dimensions.w,
-      h: dimensions.h
-    });
     this._Artwork.x = this.paddingHorizontal;
     this._Artwork.y = this.paddingVertical;
     this.finalArtHeight = dimensions.h || 0;
     this.finalArtWidth = dimensions.w || 0;
+    this._Artwork.patch({
+      src: this._src,
+      w: dimensions.w,
+      h: dimensions.h,
+      imageSize: this.finalArtHeight,
+      circleImage: this.circleImage,
+      blurBackground: true
+    });
   }
 
   _calculateArtRatio() {

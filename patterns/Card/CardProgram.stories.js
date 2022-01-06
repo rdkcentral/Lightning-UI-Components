@@ -11,6 +11,7 @@ export const Program = args =>
           type: CardProgram,
           src: pets,
           title: 'Title',
+          circleImage: args.circleImage,
           description: 'Short description',
           data: args.showData
             ? [
@@ -39,10 +40,12 @@ Program.args = {
   showData: true,
   showLogo: true,
   focused: false,
+  circleImage: false,
   logoTitle: 'Logo Title'
 };
 Program.argTypes = {
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  circleImage: { control: 'boolean' }
 };
 Program.parameters = {
   argActions: {

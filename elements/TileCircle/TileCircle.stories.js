@@ -35,7 +35,8 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  blurBackgroundColor: 'rgba(13,13,15,0.3216)'
+  blurBackgroundColor: 'rgba(13,13,15,0.3216)',
+  focused: false
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },

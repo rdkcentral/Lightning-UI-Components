@@ -11,6 +11,7 @@ export const Launchpad = args =>
           type: CardLaunchpad,
           src: pets,
           title: 'Title',
+          circleImage: args.circleImage,
           description: 'Short description',
           data: args.showData
             ? [
@@ -39,10 +40,12 @@ Launchpad.args = {
   showData: true,
   showLogo: true,
   focused: false,
+  circleImage: false,
   logoTitle: 'Logo Title'
 };
 Launchpad.argTypes = {
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  circleImage: { control: 'boolean' }
 };
 Launchpad.parameters = {
   argActions: {

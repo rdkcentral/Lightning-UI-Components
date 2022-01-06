@@ -12,6 +12,7 @@ export const VerticalDynamic = args =>
           gradientColor: args.gradientColor,
           focusRingColor: args.focusRingColor,
           src: pets,
+          circleImage: args.circleImage,
           artWidth: 1920,
           artHeight: 1080,
           title: args.title,
@@ -35,7 +36,9 @@ VerticalDynamic.args = {
   description: 'Short Description',
   cta: 'Watch on Netflix',
   showLogo: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  circleImage: false
 };
 VerticalDynamic.argTypes = {
   gradientColor: { control: 'color' },
@@ -45,5 +48,6 @@ VerticalDynamic.argTypes = {
   cta: { content: 'text' },
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
+  circleImage: { control: 'boolean' },
   logoTitle: { control: 'text' }
 };
