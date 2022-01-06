@@ -4,6 +4,7 @@ import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import lng from '@lightningjs/core';
 import mdx from './BoardRow.mdx';
 import Tile from '../../elements/Tile';
+import { Column } from '../../layout';
 
 export default {
   title: 'Patterns / BoardRow',
@@ -161,64 +162,69 @@ function capitalizeFirstLetter(string) {
 export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
-      return {
-        BoardRow: {
-          type: BoardRow,
-          w: 1920 - 160, // x offset from preview.js * 2
-          // Menu Card Props
-          itemSpacing: 40,
-          menuCard: {
-            title: `${
-              args.layout ? capitalizeFirstLetter(args.layout) : 'Standard'
-            } Layout`,
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
-            cta: 'View All',
-            gradientColor: args.gradientColor,
-            onEnter: () => {
-              // eslint-disable-next-line no-restricted-syntax
-              console.log('view all action');
-            },
-            onInfo: () => {
-              // eslint-disable-next-line no-restricted-syntax
-              console.log('view all on info action');
-            }
+      const boardRow = {
+        type: BoardRow,
+        w: 1920 - 160, // x offset from preview.js * 2
+        // Menu Card Props
+        itemSpacing: 40,
+        menuCard: {
+          title: `${
+            args.layout ? capitalizeFirstLetter(args.layout) : 'Standard'
+          } Layout`,
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
+          cta: 'View All',
+          gradientColor: args.gradientColor,
+          onEnter: () => {
+            // eslint-disable-next-line no-restricted-syntax
+            console.log('view all action');
           },
-          // Row settings
-          alwaysScroll: args.alwaysScroll,
-          neverScroll: args.neverScroll,
-          lazyScroll: args.lazyScroll,
-          scrollIndex: args.scrollIndex,
-          // Board Row item content
-          items: (() => {
-            let items;
-            switch (args.layout) {
-              case 'card':
-                items = getItems(CardVerticalLarge);
-                break;
-              default:
-                items = getItems(Tile);
-            }
-            return [
-              {
-                title: 'Horizantal Card',
-                type: CardHorizontal
-              },
-              ...items
-            ];
-          })(),
-          // Layout will default to standard if not specified
-          layout: args.layout,
-          // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
-          viewAll: args.viewAll,
-          // sync or async function that will generate a final src if specified
-          srcCallback
+          onInfo: () => {
+            // eslint-disable-next-line no-restricted-syntax
+            console.log('view all on info action');
+          }
+        },
+        // Row settings
+        alwaysScroll: args.alwaysScroll,
+        neverScroll: args.neverScroll,
+        lazyScroll: args.lazyScroll,
+        scrollIndex: args.scrollIndex,
+        // Board Row item content
+        items: (() => {
+          let items;
+          switch (args.layout) {
+            case 'card':
+              items = getItems(CardVerticalLarge);
+              break;
+            default:
+              items = getItems(Tile);
+          }
+          return [
+            {
+              title: 'Horizontal Card',
+              type: CardHorizontal
+            },
+            ...items
+          ];
+        })(),
+        // Layout will default to standard if not specified
+        layout: args.layout,
+        // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
+        viewAll: args.viewAll,
+        // sync or async function that will generate a final src if specified
+        srcCallback
+      };
+      return {
+        Column: {
+          type: Column,
+          itemSpacing: 100,
+          items: [boardRow, boardRow]
         }
       };
     }
 
     _getFocused() {
-      return this.tag('BoardRow');
+      return this.tag('Column');
     }
   };
 

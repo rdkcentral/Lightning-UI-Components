@@ -98,8 +98,7 @@ describe('BoardRow', () => {
       'scrollIndex',
       'alwaysScroll',
       'neverScroll',
-      'lazyScroll',
-      'items'
+      'lazyScroll'
     ];
 
     expect(
@@ -131,22 +130,39 @@ describe('BoardRow', () => {
     expect(component.viewAll).toBe(true);
   });
 
-  it('should show a duplicate the verticalCard dynamic at the end of the row if viewAll is equal to true', () => {
+  it('should show a duplicate the verticalCard dynamic at the end of the row if viewAll is equal to true', async done => {
     [component, testRenderer] = createComponent({
       viewAll: true,
       menuCard
     });
+
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
+
     expect(
       component._Layout._Row.items[component._Layout._Row.items.length - 1]
         .constructor.name
     ).toEqual(component._Layout._Row.items[0].constructor.name);
+    done();
   });
 
   it('should show standard layout update', () => {
     [component, testRenderer] = createComponent({
       layout: 'standard'
     });
-    expect(component._selectedLayout.name).toBe('StandardLayout');
+    expect(component._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it('should display items in the proper order for standard layout', async done => {
@@ -155,6 +171,21 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
+
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -177,7 +208,7 @@ describe('BoardRow', () => {
     [component, testRenderer] = createComponent({
       layout: 'hero'
     });
-    expect(component._selectedLayout.name).toBe('HeroLayout');
+    expect(component._Layout._layoutType.name).toBe('HeroLayout');
   });
 
   it('should display items in the proper order for hero layout', async done => {
@@ -186,6 +217,20 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -208,7 +253,7 @@ describe('BoardRow', () => {
     [component, testRenderer] = createComponent({
       layout: 'poster'
     });
-    expect(component._selectedLayout.name).toBe('PosterLayout');
+    expect(component._Layout._layoutType.name).toBe('PosterLayout');
   });
 
   it('should display items in the proper order for poster layout', async done => {
@@ -217,6 +262,20 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -239,7 +298,7 @@ describe('BoardRow', () => {
     [component, testRenderer] = createComponent({
       layout: 'card'
     });
-    expect(component._selectedLayout.name).toBe('CardLayout');
+    expect(component._Layout._layoutType.name).toBe('CardLayout');
   });
 
   it('should display items in the proper order for card layout', async done => {
@@ -248,6 +307,20 @@ describe('BoardRow', () => {
       items: mockItemsValid(CardVerticalLarge),
       menuCard
     });
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -270,7 +343,7 @@ describe('BoardRow', () => {
     [component, testRenderer] = createComponent({
       layout: 'square'
     });
-    expect(component._selectedLayout.name).toBe('SquareLayout');
+    expect(component._Layout._layoutType.name).toBe('SquareLayout');
   });
 
   it('should display items in the proper order for square layout', async done => {
@@ -279,6 +352,20 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -301,7 +388,7 @@ describe('BoardRow', () => {
     [component, testRenderer] = createComponent({
       layout: 'squareSmall'
     });
-    expect(component._selectedLayout.name).toBe('SquareSmallLayout');
+    expect(component._Layout._layoutType.name).toBe('SquareSmallLayout');
   });
 
   it('should display items in the proper order for squareSmall layout', async done => {
@@ -310,6 +397,20 @@ describe('BoardRow', () => {
       items: mockItemsValid(Tile),
       menuCard
     });
+    testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
+      resolve =>
+        (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
+          resolve)
+    );
+    const originalSetItems =
+      testRenderer.getInstance()._Layout._Row.appendItems;
+    jest
+      .spyOn(testRenderer.getInstance()._Layout._Row, 'appendItems')
+      .mockImplementation(function (items) {
+        originalSetItems.call(this, items);
+        testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver();
+      });
+    await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
     await component._whenEnabled;
@@ -329,7 +430,7 @@ describe('BoardRow', () => {
   });
 
   it('should fallback to the standard layout if none specified', () => {
-    expect(component._selectedLayout.name).toBe('StandardLayout');
+    expect(component._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it('should fallback to the standard layout if wrong value is specified', () => {
@@ -337,7 +438,8 @@ describe('BoardRow', () => {
       layout: 'foobar',
       items: mockItemsValid(Tile)
     });
-    expect(component._selectedLayout.name).toBe('StandardLayout');
+
+    expect(component._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it('should return each item in items as a BoardRowComponent that extends the item type', () => {

@@ -21,7 +21,7 @@ export default class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction', 'items', 'selectedIndex'];
+    return ['direction'];
   }
 
   get Items() {
@@ -45,33 +45,45 @@ export default class FocusManager extends Base {
     return this._Items.children;
   }
 
-  _setItems(items) {
-    this._Items.childList.clear();
+  get items() {
+    return this.Items.children;
+  }
+
+  set items(items) {
+    this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
     // If the first item has skip focus when appended get the next focusable item
-    const initialSelection = this._Items.children[this.selectedIndex];
+    const initialSelection = this.Items.children[this.selectedIndex];
     if (initialSelection && initialSelection.skipFocus) {
       this.selectNext();
     }
-    return items;
+  }
+
+  _resetItems() {
+    this.Items.childList.clear();
+    this.Items.patch({ w: 0, h: 0 });
   }
 
   appendItems(items = []) {
-    this._Items.childList.a(items);
+    this.Items.childList.a(items);
     this._refocus();
   }
 
   get selected() {
-    return this._Items.children[this.selectedIndex];
+    return this.Items.children[this.selectedIndex];
   }
 
-  _setSelectedIndex(index) {
+  get selectedIndex() {
+    return this._selectedIndex;
+  }
+
+  set selectedIndex(index) {
     this.prevSelected = this.selected;
     if (
-      !this._Items.children.length ||
-      !this._Items.children[index] ||
-      !this._Items.children[index].skipFocus
+      !this.Items.children.length ||
+      !this.Items.children[index] ||
+      !this.Items.children[index].skipFocus
     ) {
       if (index !== this._selectedIndex) {
         this._selectedIndex = index;
@@ -84,7 +96,6 @@ export default class FocusManager extends Base {
       // where we don't want to focus the previously selected item and need to get the new one first
       this._refocus();
     }
-    return index;
   }
 
   // Override
@@ -139,7 +150,7 @@ export default class FocusManager extends Base {
   selectNext() {
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (
-      (this.selectedIndex === this._Items.children.length - 1 &&
+      (this.selectedIndex === this.Items.children.length - 1 &&
         !this.wrapSelected) ||
       !hasFocusable
     ) {
@@ -209,6 +220,16 @@ export default class FocusManager extends Base {
 
     return selectedCoordArray[0].index;
   }
+
+  /**
+   * TODO: Update Base to remove the focus/unfocus calls and add a second "BaseComponent" that does have them
+   *
+   * Layout Components (Column, Row, BoardRows, etc.) would extend only Base,
+   *    need to confirm this applies to InlineContnet and ScrollWrapper??
+   * Element/Pattern Components (Tile, Badge, etc.) would extend "BaseComponent" that does have focus/unfocus overrides
+   */
+  _focus() {}
+  _unfocus() {}
 
   _getFocused() {
     const { selected } = this;

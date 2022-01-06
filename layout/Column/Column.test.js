@@ -163,7 +163,7 @@ describe('Column', () => {
       });
 
       it('handles empty item', () => {
-        const updateImmediateSpy = jest.spyOn(column, '_updateImmediate');
+        const updateImmediateSpy = jest.spyOn(column, '_update');
         column.$removeItem();
         expect(updateImmediateSpy).not.toHaveBeenCalled();
       });
@@ -171,7 +171,7 @@ describe('Column', () => {
 
     describe('$columnChanged', () => {
       it('updates column', () => {
-        const spy = jest.spyOn(column, '_updateImmediate');
+        const spy = jest.spyOn(column, '_update');
         column.$columnChanged();
         expect(spy).toHaveBeenCalled();
       });

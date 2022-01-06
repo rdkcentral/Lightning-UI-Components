@@ -9,7 +9,7 @@ function warningMessage(item) {
   console.warn(
     `${
       item.title ? 'Item ' + item.title : 'Item'
-    } does not contain a valid type for ${this._selectedLayout.name}.`
+    } does not contain a valid type for ${this._layoutType.name}.`
   );
 }
 export default class BaseType extends Base {
@@ -18,7 +18,6 @@ export default class BaseType extends Base {
       Row: {
         type: Row,
         plinko: true,
-        items: [],
         passSignals: {
           selectedChange: 'selectedChange'
         }
@@ -26,26 +25,8 @@ export default class BaseType extends Base {
     };
   }
 
-  // eslint-disable-next-line getter-return
-  static get properties() {
-    // This will overwritten by the base BoardRow component so all properties from parent are available in layout
-    return [];
-  }
-
   static get tags() {
     return ['Row'];
-  }
-
-  get MenuCard() {
-    if (!this.menuCard.title) return undefined;
-
-    const card = {
-      ...this.menuCard,
-      h: this._selectedLayout._calcTotalHeight(this.itemSpacing),
-      type: CardVerticalDynamic
-    };
-
-    return card;
   }
 
   // Required by extending classes
@@ -61,13 +42,7 @@ export default class BaseType extends Base {
     throw new Error('Layout must have a static _calcTotalHeight method');
   }
 
-  _setItems() {
-    throw new Error('Layout must have a _setItems method');
-  }
-
   _init() {
-    super._init();
-    this._Row.itemSpacing = this._itemSpacing;
     if (!this.w) {
       // if width is undefinend or 0, set the Row's width
       this._Row.w =
@@ -79,9 +54,47 @@ export default class BaseType extends Base {
     } else {
       this._Row.w = this.w;
     }
+
+    super._init();
   }
 
-  _processItems(items, arrayOfTypes = [], arrayOfTypesToExclude = []) {
+  _update() {
+    this._updateLayout();
+  }
+
+  get _validItemTypes() {
+    return ['Tile'];
+  }
+
+  get _invalidItemTypes() {
+    return [];
+  }
+
+  get MenuCard() {
+    if (!this.menuCard.title) return undefined;
+
+    const card = {
+      ...this.menuCard,
+      h: this._layoutType._calcTotalHeight(this.itemSpacing),
+      type: CardVerticalDynamic
+    };
+
+    return card;
+  }
+
+  set items(items) {
+    // need to wait for other properties to load, like the itemSpacing, srcCallbacks, etc.
+    this._whenEnabled.then(() => {
+      this._items = this._processItems(items);
+      this._updateItems();
+    });
+  }
+
+  get items() {
+    return this._items;
+  }
+
+  _processItems(items) {
     const types = {
       Tile,
       Card,
@@ -90,7 +103,7 @@ export default class BaseType extends Base {
 
     return items
       .filter(item => {
-        const isForbiddenType = arrayOfTypesToExclude.find(
+        const isForbiddenType = this._invalidItemTypes.find(
           type =>
             (item.type && item.type === types[type]) ||
             types[type].isPrototypeOf(item.type)
@@ -99,7 +112,7 @@ export default class BaseType extends Base {
           warningMessage.call(this, item);
           return false;
         }
-        const valid = arrayOfTypes.find(
+        const valid = this._validItemTypes.find(
           type =>
             (item.type && item.type === types[type]) ||
             types[type].isPrototypeOf(item.type)
@@ -132,30 +145,25 @@ export default class BaseType extends Base {
       });
   }
 
-  _update() {
-    if (this.items) this._updateItems(this.items);
-  }
-
-  _updateItems() {
-    // This is overwritten by the selected layout. Responsible for organizing the tiles or cards
-  }
-
-  // Always called by _updateItems after the tiles have been organized in the correct structure
-  _updateLayout(items) {
+  _updateItems(formattedItems) {
     let itemsArray;
     if (this.MenuCard) {
-      itemsArray = [this.MenuCard, ...items];
+      itemsArray = [this.MenuCard, ...formattedItems];
       this.viewAll && itemsArray.push(this.MenuCard);
     } else {
-      itemsArray = items;
+      itemsArray = formattedItems;
     }
 
+    this._Row.items = itemsArray;
+  }
+
+  _updateLayout() {
     this._Row.patch({
+      itemSpacing: this.itemSpacing,
       scrollIndex: this.scrollIndex || 0,
       alwaysScroll: this.alwaysScroll || false,
       neverScroll: this.neverScroll || false,
-      lazyScroll: this.lazyScroll || true,
-      items: itemsArray
+      lazyScroll: this.lazyScroll || true
     });
   }
 
