@@ -113,27 +113,27 @@ const createRow = items => ({
   itemSpacing: 30,
   items
 });
-const createPivot = (title, announceContext) => ({
-  type: Pivot,
+const createActionButton = (title, announceContext) => ({
+  type: ActionButton,
   title,
   announceContext
 });
 
 const abbrevRows = [
   createRow([
-    createPivot('TV-14', '1 of 9'),
-    createPivot('(CC)', '2 of 9'),
-    createPivot('HD', '3 of 9')
+    createActionButton('TV-14', '1 of 9'),
+    createActionButton('(CC)', '2 of 9'),
+    createActionButton('HD', '3 of 9')
   ]),
   createRow([
-    createPivot('ENG', '4 of 9'),
-    createPivot('ENG+ES', '5 of 9'),
-    createPivot('AD', '6 of 9')
+    createActionButton('ENG', '4 of 9'),
+    createActionButton('ENG+ES', '5 of 9'),
+    createActionButton('AD', '6 of 9')
   ]),
   createRow([
-    createPivot('RT 95%', '7 of 9'),
-    createPivot('S3E12', '8 of 9'),
-    createPivot('S12E1, TV-14, CC, HD, ENG+ES, AD, RT 95%', '9 of 9')
+    createActionButton('RT 95%', '7 of 9'),
+    createActionButton('S3E12', '8 of 9'),
+    createActionButton('S12E1, TV-14, CC, HD, ENG+ES, AD, RT 95%', '9 of 9')
   ])
 ];
 

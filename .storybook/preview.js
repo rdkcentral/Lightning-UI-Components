@@ -7,10 +7,10 @@ import { withAnnouncer } from '../';
 import BaseTheme from '../themes/base';
 import extensions from '../themes/xfinity/extensions';
 import lng from '@lightningjs/core';
-import withAnnouncer from '../mixins/withAnnouncer';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
+import Speech from '../mixins/withAnnouncer/Speech';
 import XfinityTheme from '../themes/xfinity';
 import RogersTheme from '../themes/rogers';
 
@@ -95,7 +95,7 @@ function createApp(parameters) {
   // const white = 0xffffffff;
   const grey = 0xff141417;
   const announcerOptions = { language: 'en-US', ...parameters.announcerOptions };
-  window.APP = createLightningUIApp(announcerOptions)({
+  const appParams = {
     stage: {
       w: 1280,
       h: 720,
@@ -112,7 +112,20 @@ function createApp(parameters) {
       }
     },
     debug: true
-  });
+  };
+  window.APP = new class LightningUIApp extends withAnnouncer(
+    lng.Application,
+    Speech,
+    announcerOptions
+  ) {
+    _construct() {
+      this.announcerTimeout = 15 * 1000;
+    }
+
+    _getFocused() {
+      return ((this.childList.first || {}).childList || {}).first || this;
+    }
+  }(appParams);
   document.body.appendChild(window.APP.stage.getCanvas());
   return window.APP;
 }
