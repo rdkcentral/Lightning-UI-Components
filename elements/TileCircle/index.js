@@ -1,7 +1,6 @@
-import { getValidColor } from '../../Styles/Colors';
 import { withExtensions } from '../../mixins';
 import lng from '@lightningjs/core';
-import styles from './TileCircle.styles.js';
+// import styles from './TileCircle.styles.js';
 import Tile from '../Tile';
 import withStyles from '../../mixins/withStyles';
 import CardArtwork from '../CardArtwork';

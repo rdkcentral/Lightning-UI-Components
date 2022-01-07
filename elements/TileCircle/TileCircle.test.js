@@ -35,7 +35,7 @@ describe('TileCircle', () => {
     expect(tilecircle._Artwork.shader.radius[0]).toBe(tilecircle._radius);
   });
 
-  it('should update the background blur color', async done => {
+  it('should update the background blur color', async () => {
     const blurColor = rgba2argb('rgba(0,0,255,1)');
     [tilecircle, testRenderer] = createTileCircle(
       {
