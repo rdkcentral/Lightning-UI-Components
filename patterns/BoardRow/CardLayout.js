@@ -7,7 +7,7 @@ export default class CardLayout extends BaseLayout {
   }
 
   static get _cardHeight() {
-    return getAspectRatioH(CardLayout._cardWidth, '2:3');
+    return getAspectRatioH(CardLayout._cardWidth, '3:4');
   }
 
   static _calcTotalHeight() {

@@ -8,7 +8,7 @@ export default class PosterLayout extends BaseLayout {
   }
 
   static get _cardHeight() {
-    return getAspectRatioH(PosterLayout._cardWidth, '2:3');
+    return getAspectRatioH(PosterLayout._cardWidth, '3:4');
   }
 
   static _calcTotalHeight() {
