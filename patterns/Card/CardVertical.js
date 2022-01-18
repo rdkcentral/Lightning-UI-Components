@@ -42,7 +42,10 @@ const verticalLargeStyles = theme => ({
   ...verticalStyles(theme),
   metadata: {
     ...smallMetadataStyles(theme),
-    infoOffset: theme.typography.body3.lineHeight + 8
+    infoOffset: theme.typography.body3.lineHeight + theme.spacing(1),
+    title: {
+      maxLines: 3
+    }
   },
   h: 502
 });
