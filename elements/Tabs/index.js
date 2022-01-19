@@ -257,7 +257,7 @@ export default class TabBar extends Base {
     super._construct();
     this._barSpacing = 4;
     this._barLength = 0;
-    this._w = this.stage.w;
+    this._w = this.stage.w / this.stage.getRenderPrecision();
 
     // no setters/getters
     this.tabHeight = 0;
