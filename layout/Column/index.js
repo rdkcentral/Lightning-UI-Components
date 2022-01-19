@@ -36,7 +36,7 @@ export default class Column extends FocusManager {
         this.parent.parent &&
         this.parent.parent instanceof FocusManager
           ? this.parent.parent.h
-          : this.stage.h;
+          : this.stage.h / this.stage.getRenderPrecision();
     }
   }
 

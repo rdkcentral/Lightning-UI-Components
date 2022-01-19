@@ -37,7 +37,7 @@ export default class Row extends FocusManager {
         this.parent.parent &&
         this.parent.parent instanceof FocusManager
           ? this.parent.parent.w
-          : this.stage.w;
+          : this.stage.w / this.stage.getRenderPrecision();
     }
   }
 

@@ -50,7 +50,7 @@ export default class BaseType extends Base {
         this.parent.parent &&
         this.parent.parent instanceof FocusManager
           ? this.parent.parent.w
-          : this.stage.w;
+          : this.stage.w / this.stage.getRenderPrecision();
     } else {
       this._Row.w = this.w;
     }
