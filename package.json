@@ -75,7 +75,7 @@
     "lint": "eslint './{collections,elements,layout,mixins,patterns,suite,Styles,styles,textures,utils,themes,context}/**/*.js'",
     "lint:fix": "eslint --fix './{collections,elements,layout,mixins,patterns,suite,Styles,styles,textures,utils,themes,context}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
-    "create": "sh bin/create.sh",
+    "create": "node bin/create.js",
     "start": "npm run generateStorybookData && start-storybook --no-manager-cache -p 8000",
     "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
