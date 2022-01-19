@@ -1,10 +1,13 @@
-import lng from '@lightningjs/core';
+module.exports = (name, type) => {
+  const upperCaseType = type.charAt(0).toUpperCase() + type.slice(1);
 
-import MyComponent from '.';
-import mdx from './MyComponent.mdx';
+  return `import lng from '@lightningjs/core';
+
+import ${name} from '.';
+import mdx from './${name}.mdx';
 
 export default {
-  title: 'Directory/MyComponent',
+  title: '${upperCaseType} / ${name}',
   parameters: {
     docs: {
       page: mdx
@@ -16,14 +19,14 @@ export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        MyComponent: {
-          type: MyComponent
+        ${name}: {
+          type: ${name}
         }
       };
     }
 
     _getFocused() {
-      return this.tag('MyComponent');
+      return this.tag('${name}');
     }
   };
 Basic.args = {
@@ -41,4 +44,6 @@ Basic.argTypes = {
 };
 Basic.parameters = {
   argActions: {}
+};
+`;
 };

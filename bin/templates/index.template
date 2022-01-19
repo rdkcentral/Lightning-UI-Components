@@ -1,7 +1,0 @@
-import lng from '@lightningjs/core';
-
-export default class MyComponent extends lng.Component {
-  static _template() { 
-    return {};
-  }
-}

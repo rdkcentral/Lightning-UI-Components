@@ -1,9 +1,9 @@
-import TestUtils from '../../test/lightning-test-utils';
-import MyComponent from '.';
+module.exports = name => `import TestUtils from '../../test/lightning-test-utils';
+import ${name} from '.';
 
-const createComponent = TestUtils.makeCreateComponent(MyComponent);
+const createComponent = TestUtils.makeCreateComponent(${name});
 
-describe('MyComponent', () => {
+describe('${name}', () => {
   let component, testRenderer;
 
   beforeEach(() => {
@@ -19,3 +19,4 @@ describe('MyComponent', () => {
     expect(tree).toMatchSnapshot();
   });
 });
+`;
