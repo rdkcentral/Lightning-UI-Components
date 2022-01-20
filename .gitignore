@@ -26,8 +26,5 @@ pipeline-experiment.yml
 *.tgz
 *.env
 
-# Definitions
-*d.ts
-
 # IntelliJ
 .idea

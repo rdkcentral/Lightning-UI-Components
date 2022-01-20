@@ -1,0 +1,22 @@
+{
+  "inputs": ["./index.d.ts"],
+  "include": ["./{context,elements,layout,mixins,patterns}/**/*.js"],
+  "exclude": ["*.story.js,*.test.js,*.styles.js,*.mdx"],
+  "compilerOptions": {
+    "outDir": "./types",
+    "sourceMap": true,
+    "module": "es6",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "exactOptionalPropertyTypes": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "emitDeclarationOnly": true
+  }
+}
