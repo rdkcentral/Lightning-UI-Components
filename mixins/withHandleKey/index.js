@@ -13,10 +13,10 @@ export default function withHandleKey(Base) {
     }
 
     _processEvent(keyEvent, suffix = '') {
-      let { key } = keyEvent;
+      const keyMap = this.stage.application.__keymap || {};
+      let key = keyMap[keyEvent.keyCode];
       if (!key) {
-        const keyMap = this.stage.application.__keymap || {};
-        key = keyMap[keyEvent.keyCode];
+        key = keyEvent.key;
       }
       if (key && typeof this[`on${key}${suffix}`] === 'function') {
         return this[`on${key}${suffix}`].call(this, this, keyEvent) || false;
