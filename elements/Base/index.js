@@ -44,7 +44,7 @@ class Base extends lng.Component {
   }
 
   // keep announce methods out of the update lifecycle (do not put in properties array)
-  // announce methods does not re-render component
+  // announce methods do not need to re-render component
   get announce() {
     return this._announce;
   }

@@ -58,5 +58,28 @@ module.exports = {
     parser: 'babel-eslint',
     ecmaVersion: 2018,
     sourceType: 'module'
-  }
+  },
+  overrides: [
+    {
+      files: ['**/*.d.ts'],
+      env: { browser: true, es6: true, node: true },
+      extends: [
+        'plugin:prettier/recommended',
+        'prettier',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended'
+      ],
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        ecmaVersion: 2018,
+        sourceType: 'module'
+      },
+      rules: {
+        'no-prototype-builtins': [0],
+        'no-redeclare': 'off',
+        '@typescript-eslint/no-redeclare': [1, { ignoreDeclarationMerge: true }]
+      },
+      plugins: ['@typescript-eslint']
+    }
+  ]
 };
