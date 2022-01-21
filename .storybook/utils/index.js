@@ -1,6 +1,8 @@
 import React from 'react';
 import { flatten } from '../../utils';
 import baseTheme from '../../themes/base';
+import { getValidColor } from '../../Styles/Colors';
+import debounce from 'debounce';
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -32,8 +34,14 @@ export const ObjectFormat = ({ object }) => {
     '{',
     <br />,
     '  ',
-    ...flatten(Object.entries(object)
-      .map(([k, v]) => [<span>&nbsp;&nbsp;</span>, `${k}: `, v, ',', <br />])
+    ...flatten(
+      Object.entries(object).map(([k, v]) => [
+        <span>&nbsp;&nbsp;</span>,
+        `${k}: `,
+        v,
+        ',',
+        <br />
+      ])
     ),
     '}'
   ].map((x, i) => <Item key={i}>{x}</Item>);
@@ -49,22 +57,28 @@ export const GenericType = ({ children, type }) => {
   return [type, '<', children, '>'].map((x, i) => <Item key={i}>{x}</Item>);
 };
 
-export const Theme = ({ theme={}, isColor=false }) => {
+export const Theme = ({ theme = {}, isColor = false }) => {
   /** Naively parses a theme object to generate value documentation */
-  const getValue = ([key, value], isColor=false) => {
+  const getValue = ([key, value], isColor = false) => {
     if (key === '__isColor') return false;
     switch (typeof value) {
       case 'function':
         return <li key={key}>{`${key}: function()`}</li>;
       case 'string':
-        return <li key={key}>{key}: "{value}"</li>;
+        return (
+          <li key={key}>
+            {key}: "{value}"
+          </li>
+        );
       case 'object':
         return (
           <li key={key}>
             <details>
               <summary>{key}: Object</summary>
               <ul style={{ listStyleType: 'none' }}>
-              {Object.entries(value).map(entries => getValue(entries, '__isColor' in value))}
+                {Object.entries(value).map(entries =>
+                  getValue(entries, '__isColor' in value)
+                )}
               </ul>
             </details>
           </li>
@@ -74,57 +88,67 @@ export const Theme = ({ theme={}, isColor=false }) => {
         // if "color" is in the key name
         return (
           <li key={key}>
-            {key}: {isColor || key.match(/color/i) ? (
+            {key}:{' '}
+            {isColor || key.match(/color/i) ? (
               <>
-              <span>
-                0x{value.toString(16).toUpperCase()}
-              </span>
-              <div style={{
-                display: 'inline-block',
-                width: '20px',
-                height: '20px',
-                margin: '-4px 4px',
-                backgroundColor: `#${value.toString(16).slice(2)}`,
-                opacity: parseInt('0x' + value.toString(16).slice(0,2)) / 255
-              }}></div>
+                <span>0x{value.toString(16).toUpperCase()}</span>
+                <div
+                  style={{
+                    display: 'inline-block',
+                    width: '20px',
+                    height: '20px',
+                    margin: '-4px 4px',
+                    backgroundColor: `#${value.toString(16).slice(2)}`,
+                    opacity:
+                      parseInt('0x' + value.toString(16).slice(0, 2)) / 255
+                  }}
+                ></div>
               </>
-            ) : value}
+            ) : (
+              value
+            )}
           </li>
         );
     }
   };
   const style = {
     fontFamily: `"Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif`,
-    margin:0,
+    margin: 0,
     fontSize: '14px',
     color: 'white',
     lineHeight: '24px',
     listStyleType: 'none'
-  }
+  };
 
   const liStyle = {
     marginTop: '.25em'
-  }
+  };
+
   return (
     <ul style={style}>
-    {Object.entries(theme).map(entries => getValue(entries, isColor))}
+      {Object.entries(theme).map(entries => getValue(entries, isColor))}
     </ul>
-  )
-}
+  );
+};
 
 export const globalContext = () =>
-  document && document.querySelector('iframe') &&
+  document &&
+  document.querySelector('iframe') &&
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.CONTEXT;
 
-  export const globalTheme = () => {
+export const globalTheme = () => {
   const context = globalContext();
   return context && context.theme;
-}
+};
 
 export const getPanelsTheme = () => globalTheme() || baseTheme;
 
-export const updateGlobalTheme = (updates, updateGlobals, customTheme = true) => {
+export const updateGlobalTheme = (
+  updates,
+  updateGlobals,
+  customTheme = true
+) => {
   let context = globalContext();
   if (context) {
     context.updateTheme(updates);
@@ -136,38 +160,44 @@ export const updateGlobalTheme = (updates, updateGlobals, customTheme = true) =>
         }
         return acc;
       }, {});
-      globalContext().storybookCustomTheme = {...JSON.parse(JSON.stringify(globalTheme())), ...functions, extensions: theme.extensions};
+      globalContext().storybookCustomTheme = {
+        ...JSON.parse(JSON.stringify(globalTheme())),
+        ...functions,
+        extensions: theme.extensions
+      };
       updateGlobals({ LUITheme: 'custom' });
     }
   }
+};
 
-  
-}
+export const getThemeValueFromString = function (stringValue) {
+  if (!stringValue) {
+    return;
+  }
 
-export function createTable(title, rows) {
-  return (
-    <div key={title}>
-      <h2>{title}</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-    </div>
+  let theme = { ...globalTheme() };
+  const stringValueArray = stringValue.split('.');
+  let success = false;
+  for (let i = 0; i < stringValueArray.length; i++) {
+    if ('undefined' !== typeof theme[stringValueArray[i]]) {
+      theme = theme[stringValueArray[i]];
+      if (i === stringValueArray.length - 1) {
+        success = true;
+      }
+    }
+  }
+  if (success) {
+    return theme;
+  }
+};
+
+const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
+  updateGlobalTheme(
+    { colors: { [name]: getValidColor(value) } },
+    updateGlobals
   );
-}
+}, 500);
 
-export function createTableRow(key, control, scope) {
-  return (
-    <tr key={key + scope}>
-      <td>{key}</td>
-      <td>{control}</td>
-    </tr>
-  );
+export function colorUpdate() {
+  debouncedColorUpdate(...arguments);
 }

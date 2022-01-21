@@ -2,6 +2,7 @@ import React from 'react';
 import { addons, types } from '@storybook/addons';
 import * as ids from './constants';
 import { ThemeDownload } from './ThemeDownload';
+import ThemePicker from './ThemePicker';
 import { Announce } from './Announce';
 import ThemePanel from './ThemePanel';
 import ComponentStylesPanel from './ComponentStylesPanel';
@@ -11,6 +12,14 @@ addons.register(ids.ANNOUNCE_ID, () => {
     type: types.TOOL,
     title: 'Announce Toggle',
     render: Announce
+  });
+});
+
+addons.register(ids.THEMEPICKER_ID, () => {
+  addons.add(ids.THEMEPICKER_ID, {
+    type: types.TOOL,
+    title: 'Theme',
+    render: ThemePicker
   });
 });
 

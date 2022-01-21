@@ -1,13 +1,15 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import lng from '@lightningjs/core';
 import { useGlobals } from '@storybook/api';
+import debounce from 'debounce';
+import { capitalizeFirstLetter } from '../../utils';
 import {
   globalContext,
   globalTheme,
-  getPanelsTheme,
-  updateGlobalTheme,
-  createTable,
-  createTableRow
+  getThemeValueFromString,
+  updateGlobalTheme
 } from '../utils';
+import { Table, TableRow } from './components';
 import {
   OptionsControl,
   ColorControl,
@@ -16,202 +18,165 @@ import {
 
 const styleData = require('../../tmp/component-styles.json');
 
-const updateComponentValue = (
-  componentName,
-  styleProp,
-  value,
-  updateGlobals
-) => {
+const updateComponentValue = (component, styleProp, value, updateGlobals) => {
   updateGlobalTheme(
     {
       componentStyles: {
-        [componentName]: { [styleProp]: value }
+        [component]: { [styleProp]: value }
       }
     },
     updateGlobals
   );
 };
 
-const getValueFromString = stringValue => {
-  if (!stringValue) {
-    return;
-  }
-
-  let theme = globalTheme();
-  const stringValueArray = stringValue.split('.');
-  let success = false;
-  for (let i = 0; i < stringValueArray.length; i++) {
-    if ('undefined' !== typeof theme[stringValueArray[i]]) {
-      theme = theme[stringValueArray[i]];
-      if (i === stringValueArray.length - 1) {
-        success = true;
-      }
-    }
-  }
-  if (success) {
-    return theme;
-  }
-};
-
-function createVariantControlRow({ theme, componentName, variant, updateVariantState, updateGlobals }) {
-
-  return createTableRow(
-    'variant',
-    <OptionsControl
-      name='variants'
-      type='inline-radio'
-      value={variant}
-      options={['neutral', 'inverse', 'brand']}
-      onChange={val => {
-        updateGlobalTheme(
-          { componentVariants: { [componentName]: val } },
-          updateGlobals
-        );
-        updateVariantState(val);
-      }}
-    />,
-    theme
-  );
-}
-
-function createColorControlRow({ theme, componentName, prop, variant, defaultValue, updateGlobals }) {
-  return createTableRow(
-    prop,
-    <ColorControl
-      key={`Color-${prop}-${variant || defaultVariant}`}
-      name={prop}
-      onChange={val =>
-        updateComponentValue(
-          componentName,
-          prop,
-          val,
-          updateGlobals
-        )
-      }
-      value={'#' + defaultValue.toString(16).substr(2)}
-    />,
-    theme
-  );
-}
-
-function createNumberControlRow({ theme, componentName, prop, variant, defaultValue, updateGlobals }) {
-  return createTableRow(
-    prop,
-    <NumberControl
-      key={`Number-${prop}-${variant || defaultVariant}`}
-      name={prop}
-      onChange={val =>
-        updateComponentValue(
-          componentName,
-          prop,
-          val,
-          updateGlobals
-        )
-      }
-      value={defaultValue}
-    />,
-    theme
-  )
-}
-
-function createStyleRows(componentName, variant) {
-  if (!styleData) {
-    return;
-  }
-
+export default (params, api) => {
   const theme = globalTheme();
   const [{ LUITheme }, updateGlobals] = useGlobals();
-  const componentStyleData = styleData[componentName];
-  const componentStyleVariantData = componentStyleData ? styleData[componentName][variant] : {};
-  const properties = Object.keys(componentStyleVariantData);
-  const themeComponentOverrides = theme && theme.componentStyles && theme.componentStyles[componentName];
-
-  return properties.map(prop => {
-    const fieldData = componentStyleVariantData[prop];
-    if (fieldData) {
-      const overwrittenValue = themeComponentOverrides && themeComponentOverrides[prop];
-      const rowProps = {
-        theme: LUITheme,
-        componentName,
-        prop,
-        variant,
-        defaultValue: overwrittenValue || getValueFromString(fieldData.stringValue),
-        updateGlobals
-      };
-
-      switch (fieldData.type) {
-        case 'color':
-          return createColorControlRow(rowProps);
-        case 'number':
-          return createNumberControlRow(rowProps);
-      }
-    }
-  });
-}
-
-const generateTable = (componentName, variant, updateVariantState) => {
-  const [{ LUITheme }, updateGlobals] = useGlobals();
-
-  return createTable(
-    'Component styles',
-    [
-      createVariantControlRow({
-        componentName,
-        variant,
-        updateVariantState,
-        updateGlobals,
-        theme: LUITheme
-      }),
-      ...createStyleRows(componentName, variant)
-    ]
-  );
-};
-
-function ComponentStyles(props) {
-  const [storyKey, updateStoryKey] = useState();
-  const [variant, updateVariantState] = useState('neutral');
-  // Make sure that the component re-renders on these events
-  useEffect(() => {
-    updateStoryKey([props.componentName, props.theme].join('-'));
-    const theme = globalTheme();
-    const globalVariant = theme && theme.componentVariants && theme.componentVariants[props.componentName];
-    const defaultVariant =
-      (styleData[props.componentName] && styleData[props.componentName].variantDefault) ||
-      'neutral';
-    updateVariantState(globalVariant || defaultVariant);
-  }, [props.componentName, props.theme]);
-
-  if (props.active && props.componentName) {
-    if (!styleData[props.componentName]) {
-      return <div>This component does not yet support theming</div>
-    }
-    return (
-      <div>
-        <h1>Current Theme: {getPanelsTheme().name}</h1>
-        {generateTable(props.componentName, variant, updateVariantState)}
-      </div>
-    );
-  }
-  return <div></div>;
-}
-
-export default (params, api) => {
-  const [{ LUITheme }] = useGlobals();
   const storyComponent = api.getCurrentStoryData();
-  const componentName = storyComponent?.parameters?.fileName
+
+  const debouncedUpdateComponentValue = debounce(function (prop, val) {
+    updateComponentValue(component, prop, val, updateGlobals);
+  }, 500);
+
+  const component = storyComponent?.parameters?.fileName
     .split('/')
     .pop()
     .replace('.stories.js', '');
 
+  const [listenersSet, updateListenersSet] = useState();
+  const [themeVersion, updateThemeVersion] = useState(new Date().valueOf());
+  const [variant, updateVariantState] = useState();
+  const [styleRows, updateStyleRows] = useState([]);
+
+  useEffect(() => {
+    const context = globalContext();
+    if (context && !listenersSet) {
+      context.on('themeUpdate', () => updateThemeVersion(new Date().valueOf()));
+      updateListenersSet(true); // Make sure this is only run once
+    }
+  });
+
+  useEffect(() => {
+    // Check if the current component already has a variant set and update the state if so
+    if (theme?.componentVariants?.[component]) {
+      updateVariantState(theme.componentVariants[component]);
+      return;
+    }
+    // If you have switched stories to another component check to find it's default variant state
+    const variantDefault = styleData?.[component]?.variantDefault || 'neutral';
+    updateVariantState(variantDefault);
+  }, [component, LUITheme]);
+
+  useEffect(() => {
+    // If the variant selector has been changed update the theme to reflect the change in the UI
+    const context = globalContext();
+    if (context) {
+      context.updateTheme({ componentVariants: { [component]: variant } });
+    }
+  }, [variant]);
+
+  useEffect(() => setFields(themeVersion), [themeVersion, variant, component]);
+
+  function setFields(version) {
+    if (styleData?.[component]?.[variant]) {
+      const selectedStyles = styleData[component][variant];
+      const styles = Object.keys(selectedStyles).map(prop => {
+        const themeComponentOverrides =
+          theme?.componentStyles?.[component]?.[prop];
+
+        return {
+          prop,
+          type: selectedStyles[prop].type,
+          defaultValue:
+            themeComponentOverrides ||
+            getThemeValueFromString(selectedStyles[prop].stringValue)
+        };
+      });
+
+      const fields = styles.reduce((acc, curr, idx) => {
+        switch (curr.type) {
+          case 'color':
+            acc.push(
+              <TableRow
+                label={curr.prop}
+                key={idx}
+                scope={variant}
+                control={
+                  <ColorControl
+                    key={`Color-${curr.prop}-${variant}-${LUITheme}-${version}`}
+                    name={curr.prop}
+                    onChange={val =>
+                      debouncedUpdateComponentValue.call(this, curr.prop, val)
+                    }
+                    value={lng.StageUtils.getRgbaString(curr.defaultValue)}
+                  />
+                }
+              />
+            );
+            break;
+          case 'number':
+            acc.push(
+              <TableRow
+                label={curr.prop}
+                key={idx}
+                scope={variant}
+                control={
+                  <NumberControl
+                    key={`Color-${curr.prop}-${variant}-${LUITheme}-${version}`}
+                    name={curr.prop}
+                    onChange={val =>
+                      debouncedUpdateComponentValue.call(this, curr.prop, val)
+                    }
+                    value={curr.defaultValue}
+                  />
+                }
+              />
+            );
+            break;
+        }
+
+        return acc;
+      }, []);
+      updateStyleRows(fields);
+    }
+  }
+
   return (
-    <div className="component-styles-panel-wrapper">
-      {
-        <ComponentStyles
-          active={params.active && globalContext()}
-          componentName={componentName}
-          theme={LUITheme}
-        />
-      }
+    <div key="component-styles-tab" className="component-styles-panel-wrapper">
+      {params.active ? (
+        styleData[component] ? (
+          <>
+            <h1>Current Theme: {capitalizeFirstLetter(LUITheme)}</h1>
+            <div>
+              <Table
+                title="Component Level Theme Styles"
+                rows={[
+                  <TableRow
+                    key="variant-row"
+                    label="variant"
+                    control={
+                      <OptionsControl
+                        name="variants"
+                        type="inline-radio"
+                        value={variant}
+                        options={['neutral', 'inverse', 'brand']}
+                        onChange={val => {
+                          updateVariantState(val);
+                        }}
+                      />
+                    }
+                  />,
+                  ...styleRows
+                ]}
+              />
+            </div>
+          </>
+        ) : (
+          <h3>This component does not support themed styles</h3>
+        )
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -4,15 +4,12 @@ import context from '../context';
 import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import { withAnnouncer } from '../';
-import BaseTheme from '../themes/base';
 import extensions from '../themes/xfinity/extensions';
 import lng from '@lightningjs/core';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
 import Speech from '../mixins/withAnnouncer/Speech';
-import XfinityTheme from '../themes/xfinity';
-import RogersTheme from '../themes/rogers';
 
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
@@ -22,16 +19,7 @@ export const globalTypes = {
   LUITheme: {
     name: 'Theme',
     description: 'Theme select',
-    defaultValue: 'base',
-    toolbar: {
-      items: [
-        { title: 'Base', value: 'base' },
-        { title: 'Xfinity', value: 'xfinity' },
-        { title: 'Rogers', value: 'rogers' },
-        { title: 'Custom', value: 'custom' }
-      ],
-      showName: true
-    }
+    defaultValue: 'base'
   }
 };
 
@@ -74,18 +62,6 @@ window.CONTEXT = context.config({
   }
 });
 context.storybookCustomTheme = JSON.parse(JSON.stringify(context.theme));
-
-function createLightningUIApp(announcerOptions) {
-  return class LightningUIApp extends withAnnouncer(lng.Application, window.Speech, announcerOptions) {
-    _construct() {
-      this.announcerTimeout = 15 * 1000;
-    }
-
-    _getFocused() {
-      return ((this.childList.first || {}).childList || {}).first || this;
-    }
-  };
-}
 
 function createApp(parameters) {
   // Make sure app is only created once
@@ -130,29 +106,11 @@ function createApp(parameters) {
   return window.APP;
 }
 
-function setTheme(themeName) {
-  if (context.theme.name.toLowerCase() === themeName.toLowerCase()) return;
-  let theme = BaseTheme;
-  switch (themeName) {
-    case 'xfinity':
-      theme = XfinityTheme;
-      break;
-    case 'rogers':
-      theme = RogersTheme;
-      break;
-    case 'custom':
-      theme = { ...context.storybookCustomTheme, name: 'Custom' };
-      break;
-  }
-  context.setTheme(theme);
-}
-
 let previousID = null;
-addDecorator((StoryComponent, { id, args, parameters, globals }) => {
-  setTheme(globals.LUITheme);
+addDecorator((StoryComponent, { id, args, parameters, globals, updateGlobals }) => {
   const triggerUpdate = previousID !== id;
   previousID = id;
-  const app = createApp(parameters);
+  const app = createApp(globals.LUITheme);
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
   // If an update is required patch in the new child element
@@ -173,13 +131,6 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
     });
     app._refocus();
   }
-
-  const isDefault =
-    Object.keys(parameters.argTypes)
-      .map(prop => {
-        return parameters.argTypes[prop].defaultValue === args[prop];
-      })
-      .filter(Boolean).length === Object.keys(parameters.argTypes).length;
 
   const LightningUIComponent = app.tag('StoryComponent').childList.first;
   if (LightningUIComponent && Object.keys(args).length) {
