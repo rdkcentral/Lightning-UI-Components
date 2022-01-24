@@ -22,6 +22,25 @@ class MyApp extends BaseAnnouncer {
   _init() {
     this.announcerEnabled = true;
     this.debug = false;
+    this._resetPromise();
+    this.stage.on('announceEnded', this._speakComplete.bind(this));
+    this.stage.on('announceTimeoutEnded', this._speakComplete.bind(this));
+  }
+
+  _detatch() {
+    this.stage.off('announceEnded', this._speakComplete.bind(this));
+    this.stage.off('announceTimeoutEnded', this._speakComplete.bind(this));
+  }
+
+  _resetPromise() {
+    this._announceEnded = new Promise(
+      resolve => (this._announceEndedResolver = resolve)
+    );
+  }
+
+  _speakComplete() {
+    this._announceEndedResolver && this._announceEndedResolver();
+    this._resetPromise();
   }
 
   _getFocused() {
@@ -205,64 +224,58 @@ describe('AppAnnouncer', () => {
   });
 
   describe('on key press', () => {
-    it('Right - should announce the new item', done => {
+    it('Right - should announce the new item', async done => {
       testRenderer.keyPress('Right');
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          ['Transformers', '2 of 3'],
-          language
-        );
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+
+      expect(speak).toHaveBeenCalledWith(['Transformers', '2 of 3'], language);
+      done();
     });
 
-    it('Down - should announce new item and nav options', done => {
+    it('Down - should announce new item and nav options', async done => {
       testRenderer.keyPress('Down');
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          ['Featured', 'Plague', '1 of 3'],
-          language
-        );
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenCalledWith(
+        ['Featured', 'Plague', '1 of 3'],
+        language
+      );
+      done();
     });
 
-    it('Down twice - should announce new item and nav options', done => {
+    it('Down twice - should announce new item and nav options', async done => {
       testRenderer.keyPress('Down');
       speak.mockClear();
       testRenderer.keyPress('Down');
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          ['Popular Movies', 'Thor', '1 of 3'],
-          language
-        );
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenCalledWith(
+        ['Popular Movies', 'Thor', '1 of 3'],
+        language
+      );
+      done();
     });
   });
 
   describe('announcerTimeout', () => {
-    it('should announce the full navigation', done => {
+    it('should announce the full navigation', async done => {
       testRenderer.keyPress('Right');
+      await testRenderer.getInstance()._announceEnded;
       speak.mockClear();
       announcer.announcerTimeout = 1;
       announcer._build();
       testRenderer.keyPress('Right');
-
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          [
-            'Welcome to Flex',
-            'HomePage',
-            'Free to Me',
-            'Batman',
-            '3 of 3',
-            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-          ],
-          language
-        );
-        done();
-      }, 4);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenCalledWith(
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Batman',
+          '3 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
+      done();
     });
   });
 
@@ -276,18 +289,16 @@ describe('AppAnnouncer', () => {
   });
 
   describe('debug', () => {
-    it('should call console.table', done => {
+    it('should call console.table', async done => {
       announcer.debug = true;
       jest.spyOn(global.console, 'table');
       testRenderer.keyPress('Right');
-
-      setTimeout(() => {
-        expect(global.console.table).toHaveBeenCalledWith([
-          ['Item', 'Title', 'Transformers'],
-          ['Item', 'Context', '2 of 3']
-        ]);
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+      expect(global.console.table).toHaveBeenCalledWith([
+        ['Item', 'Title', 'Transformers'],
+        ['Item', 'Context', '2 of 3']
+      ]);
+      done();
     });
   });
 
@@ -346,7 +357,7 @@ describe('AppAnnouncer', () => {
       );
     });
 
-    it('should stop focus change, announce notification, and refresh (notification=true)', done => {
+    it('should stop focus change, announce notification, and refresh (notification=true)', async done => {
       speak.mockClear();
       speak.mockReturnValue({
         active: true,
@@ -355,56 +366,54 @@ describe('AppAnnouncer', () => {
         series: Promise.resolve()
       });
       announcer.$announce('Some Notification', { notification: true });
+      await testRenderer.getInstance()._announceEnded;
       expect(speak).toHaveBeenNthCalledWith(1, 'Some Notification', language);
       expect(speak).toHaveBeenCalledTimes(1);
-      setTimeout(() => {
-        expect(speak).toHaveBeenNthCalledWith(
-          2,
-          [
-            'Welcome to Flex',
-            'HomePage',
-            'Free to Me',
-            'Ninja Turtles',
-            '1 of 3',
-            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-          ],
-          language
-        );
-        done();
-      }, 100);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenNthCalledWith(
+        2,
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
+      done();
     });
   });
 
   describe('$announcerRefresh', () => {
-    it('should perform a full announce', done => {
+    it('should perform a full announce', async done => {
       speak.mockClear();
       announcer.$announcerRefresh();
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          [
-            'Welcome to Flex',
-            'HomePage',
-            'Free to Me',
-            'Ninja Turtles',
-            '1 of 3',
-            'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
-          ],
-          language
-        );
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenCalledWith(
+        [
+          'Welcome to Flex',
+          'HomePage',
+          'Free to Me',
+          'Ninja Turtles',
+          '1 of 3',
+          'press LEFT or RIGHT to review items​, press UP or DOWN to review categories​, press CENTER to select'
+        ],
+        language
+      );
+      done();
     });
 
-    it('with depth should perform a partial announce', done => {
+    it('with depth should perform a partial announce', async done => {
       speak.mockClear();
       announcer.$announcerRefresh(4);
-      setTimeout(() => {
-        expect(speak).toHaveBeenCalledWith(
-          ['Free to Me', 'Ninja Turtles', '1 of 3'],
-          language
-        );
-        done();
-      }, 1);
+      await testRenderer.getInstance()._announceEnded;
+      expect(speak).toHaveBeenCalledWith(
+        ['Free to Me', 'Ninja Turtles', '1 of 3'],
+        language
+      );
+      done();
     });
   });
 
