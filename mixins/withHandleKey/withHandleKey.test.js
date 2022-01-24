@@ -63,20 +63,6 @@ describe('withHandleKey', () => {
     expect(HandleKeyComponent.onDown).not.toHaveBeenCalled();
   });
 
-  it('fires an event when a selected value changes', () => {
-    jest.spyOn(HandleKeyComponent, 'fireAncestors');
-    testRenderer.keyPress('Down');
-    expect(HandleKeyComponent.fireAncestors).toBeCalledWith(
-      '$onDown',
-      HandleKeyComponent,
-      {
-        key: 'Down',
-        preventDefault: expect.anything(),
-        type: 'keydown'
-      }
-    );
-  });
-
   it('call onEnterRelease on key enter up', () => {
     HandleKeyComponent.onEnterRelease = jest.fn();
     testRenderer.keyRelease('Enter');
@@ -87,20 +73,6 @@ describe('withHandleKey', () => {
     HandleKeyComponent.onEnterRelease = jest.fn();
     testRenderer.keyPress('Enter');
     expect(HandleKeyComponent.onEnterRelease).not.toHaveBeenCalled();
-  });
-
-  it('fires an event when a selected value changes for keyRelease', () => {
-    jest.spyOn(HandleKeyComponent, 'fireAncestors');
-    testRenderer.keyRelease('Down');
-    expect(HandleKeyComponent.fireAncestors).toBeCalledWith(
-      '$onDownRelease',
-      HandleKeyComponent,
-      {
-        key: 'Down',
-        preventDefault: expect.anything(),
-        type: 'keyup'
-      }
-    );
   });
 
   it('fallback to keymap key resolution', () => {

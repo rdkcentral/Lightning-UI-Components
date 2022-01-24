@@ -24,7 +24,6 @@ export default function withHandleKey(Base) {
         this._invokeKeyPayloadCallback(key + suffix);
         return this[`on${key}${suffix}`].call(this, this, keyEvent);
       }
-      this.fireAncestors(`$on${key}${suffix}`, this, keyEvent);
       return false;
     }
 
