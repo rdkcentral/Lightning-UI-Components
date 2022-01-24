@@ -66,6 +66,12 @@ class Spinner {
     return this;
   }
 
+  destroy() {
+    std.clearLine();
+    std.cursorTo(0);
+    process.stderr.write('\x1B[?25h');
+  }
+
   color(colorName) {
     colorName = colors[colorName];
     this.setColor(colorName);
@@ -85,5 +91,6 @@ child.on('message', message => {
 });
 
 child.on('close', () => {
+  progress.destroy();
   process.exit();
 });
