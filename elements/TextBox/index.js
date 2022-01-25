@@ -151,4 +151,12 @@ export default class TextBox extends withStyles(Base, styles) {
     });
     this.patch({ text: fontStyle });
   }
+
+  get announce() {
+    return this._announce || this.content;
+  }
+
+  set announce(announce) {
+    super._announce = announce;
+  }
 }

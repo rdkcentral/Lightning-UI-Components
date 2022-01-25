@@ -64,8 +64,7 @@ Basic.args = {
   persistentMetadata: true,
   metadataType: 'MetadataCard',
   badge: 'Live',
-  progress: 0.5,
-  metadataLocation: 'bottom'
+  progress: 0.5
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
@@ -110,8 +109,8 @@ export const InsetMetadata = args =>
           metadataLocation: 'inset',
           Metadata: {
             type: MetadataSmall,
-            title: 'metadata title',
-            data: 'a very long description that should fade out',
+            firstLine: 'metadata title',
+            secondLine: 'a very long description that should fade out',
             logo: args.showLogo ? lightningbolt : undefined
           }
         }
@@ -223,8 +222,8 @@ export const InsetRow = () =>
               metadataLocation: 'inset',
               Metadata: {
                 type: MetadataSmall,
-                title: 'MetadataTile (with long wrapping title)',
-                data: 'Trending'
+                firstLine: 'MetadataSmall (with long wrapping title)',
+                secondLine: 'Trending'
               }
             },
             {
@@ -237,8 +236,8 @@ export const InsetRow = () =>
               metadataLocation: 'inset',
               Metadata: {
                 type: MetadataSmall,
-                title: 'MetadataCard',
-                data: 'Is always visible and is very long and clips out',
+                firstLine: 'MetadataSmall',
+                secondLine: 'Is always visible and is very long and clips out',
                 logo: lightningbolt,
                 logoW: 32
               }
@@ -251,8 +250,8 @@ export const InsetRow = () =>
               metadataLocation: 'inset',
               Metadata: {
                 type: MetadataSmall,
-                title: 'Personality entity',
-                data: 'with cropped 3x4'
+                firstLine: 'Personality entity',
+                secondLine: 'with cropped 3x4'
               }
             }
           ]

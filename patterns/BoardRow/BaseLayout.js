@@ -134,10 +134,10 @@ export default class BaseType extends Base {
           updatedItem.metadataLocation = 'inset';
           updatedItem.Metadata = {
             type: MetadataSmall,
-            data: item.description,
+            secondLine: item.description,
             progress: item.progress,
             logo: item.logo,
-            title: item.title
+            firstLine: item.title
           };
           updatedItem.title = undefined;
         }

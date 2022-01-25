@@ -65,14 +65,17 @@ describe('withMetadata', () => {
       paddingSide -
         (tileWithMetadata._focusedTileWidth -
           tileWithMetadata._unfocusedTileWidth) /
-          2
+          2 +
+        tileWithMetadata.Metadata.w / 2
     );
 
     tileWithMetadata._smooth = false;
     testRenderer.unfocus();
     testRenderer.forceAllUpdates();
 
-    expect(tileWithMetadata.Metadata.x).toBe(paddingSide);
+    expect(tileWithMetadata.Metadata.x).toBe(
+      paddingSide + tileWithMetadata.Metadata.w / 2
+    );
   });
 
   it('should only display metadata on unfocus if persistentMetadata is true', () => {

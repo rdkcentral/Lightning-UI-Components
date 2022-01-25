@@ -34,7 +34,6 @@ export default (base = Tile) =>
           this.Metadata.zIndex = 5;
         }
         this._updateMetadataW();
-        this._updateMetadataH();
         this._updateMetadataX();
         this._updateMetadataY();
         this._updateShowGradient();
@@ -43,7 +42,7 @@ export default (base = Tile) =>
     }
 
     _updateComponentDimensions() {
-      super._updateComponentDimensions();
+      super._updateComponentDimensions && super._updateComponentDimensions();
       this._tileScaleOffsetHeight =
         (this._focusedTileHeight - this._unfocusedTileHeight) / 2;
       this._tileScaleOffsetWidth =
@@ -60,32 +59,22 @@ export default (base = Tile) =>
       }
     }
 
-    _updateMetadataH() {
-      if (this.metadataLocation === 'inset') {
-        if (this._smooth) {
-          this.Metadata.smooth = { h: this.h - this.paddingTop };
-        } else {
-          this.Metadata.h = this.h - this.paddingTop;
-        }
-      }
-    }
-
     _updateMetadataW() {
       this.Metadata.w = this._unfocusedTileWidth - this.paddingSide * 2;
-      if (this.metadataLocation !== 'inset') {
-        this.Metadata.focusScaleConst =
-          (this._focusedTileWidth - this.paddingSide * 2) / this.Metadata.w;
-      }
+      this.Metadata.focusScaleConst =
+        (this._focusedTileWidth - this.paddingSide * 2) / this.Metadata.w;
     }
 
     _updateMetadataX() {
-      const focusX = this.paddingSide - this._tileScaleOffsetWidth;
-      const unfocusX = this.paddingSide;
+      const focusX =
+        this.paddingSide - this._tileScaleOffsetWidth + this.Metadata.w / 2;
+      const unfocusX = this.paddingSide + this.Metadata.w / 2;
       const nextX =
-        (this._metadataLocation === 'inset' && !this.persistentMetadata) ||
+        (this.metadataLocation === 'inset' && !this.persistentMetadata) ||
         this.hasFocus()
           ? focusX
           : unfocusX;
+      this.Metadata.mountX = 0.5;
       if (this._smooth) {
         this.Metadata.smooth = { x: nextX };
       } else {
@@ -94,12 +83,8 @@ export default (base = Tile) =>
     }
 
     _updateMetadataY() {
-      const focusY = this._calcMetadataLocation();
-      const unfocusY = this._metadataLocation === 'inset' ? focusY : focusY;
-      this.Metadata.animate =
-        !this.persistentMetadata && this.metadataLocation === 'inset';
-
-      const nextY = this.hasFocus() ? focusY : unfocusY;
+      this.Metadata.mountY = this.metadataLocation === 'inset' ? 1 : 0;
+      const nextY = this._calcMetadataLocation();
       if (this._smooth) {
         this.Metadata.smooth = { y: nextY };
       } else {
@@ -118,16 +103,11 @@ export default (base = Tile) =>
         ? this._ProgressBar.h + this._progressBarPadding
         : 0;
 
-      const metadataHeight = this.Metadata.h;
-
       const locations = {
         bottom: this.paddingTop + currentTileHeight - focusOffset,
         inset:
           currentTileHeight -
-          (metadataHeight +
-            progressBarOffset +
-            this.paddingTop * 2 +
-            focusOffset)
+          (progressBarOffset + this.paddingTop * 2 + focusOffset)
       };
 
       const metadataY = locations[this._metadataLocation];
