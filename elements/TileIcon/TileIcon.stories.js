@@ -5,7 +5,7 @@ import TileIcon from '.';
 import Row from '../../layout/Row';
 import mdx from './TileIcon.mdx';
 import icon from '../../assets/images/ic_lightning_white_32.png';
-import blacktile from '../../Styles/black_background_tile.png';
+import blacktile from '../../Styles/assets/black_background_tile.png';
 
 export default {
   title: 'Elements / TileIcon',

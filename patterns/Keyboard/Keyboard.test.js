@@ -208,7 +208,7 @@ describe('KeyboardInput', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('handels soft key events', () => {
+  it('handles soft key events', () => {
     keyboardInput.$onSoftKey({ key: 'a' });
     expect(keyboardInput._Input.value).toEqual('a');
 

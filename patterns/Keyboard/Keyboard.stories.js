@@ -166,8 +166,8 @@ export const KeyboardWithInput = args =>
         KeyboardInput: {
           type: KeyboardInput,
           inputPlaceholder: 'Search',
-          password: true,
-          mask: '*',
+          password: args.password,
+          mask: args.mask,
           w: args.width,
           centerAlign: args.centerAlign
         }
@@ -181,6 +181,14 @@ export const KeyboardWithInput = args =>
     }
   };
 
+KeyboardWithInput.args = {
+  password: false,
+  mask: '•'
+};
+KeyboardWithInput.argTypes = {
+  password: { control: 'boolean' },
+  mask: { control: 'text' }
+};
 KeyboardWithInput.parameters = {
   tag: 'KeyboardInput',
   argActions: {
@@ -188,6 +196,54 @@ KeyboardWithInput.parameters = {
       component._getFocused = isFocused
         ? () => component.tag('KeyboardInput')
         : () => {};
+    },
+    password: (isPassword, component) => {
+      component.tag('KeyboardInput').password = isPassword;
+    }
+  }
+};
+
+export const EmailWithInput = args =>
+  class EmailWithInput extends lng.Component {
+    static _template() {
+      return {
+        EmailInput: {
+          type: KeyboardInput,
+          inputPlaceholder: 'Email address',
+          password: args.password,
+          mask: args.mask,
+          w: args.width,
+          centerAlign: args.centerAlign,
+          keyboardFormats: KEYBOARD_FORMATS.email
+        }
+      };
+    }
+
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('EmailInput');
+      }
+    }
+  };
+
+EmailWithInput.args = {
+  password: false,
+  mask: '•'
+};
+EmailWithInput.argTypes = {
+  password: { control: 'boolean' },
+  mask: { control: 'text' }
+};
+EmailWithInput.parameters = {
+  tag: 'EmailInput',
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('EmailInput')
+        : () => {};
+    },
+    password: (isPassword, component) => {
+      component.tag('EmailInput').password = isPassword;
     }
   }
 };

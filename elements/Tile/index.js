@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import FocusRing from '../FocusRing';
 import withStyles from '../../mixins/withStyles';
-import blackBackground from '../../Styles/black_background_tile';
+import blackBackground from '../../Styles/assets/black_background_tile';
 import Base from '../Base';
 import Gradient from '../Gradient';
 
