@@ -172,7 +172,7 @@ export default (params, api) => {
             </div>
           </>
         ) : (
-          <h3>This component does not support themed styles</h3>
+          <h3>No theme values available on this component.</h3>
         )
       ) : (
         <></>

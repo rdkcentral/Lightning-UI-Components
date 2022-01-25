@@ -13,7 +13,7 @@ let messageQueue = null;
 const sendMessage = message => {
   if (null === messageQueue) {
     messageQueue = [];
-    process.send(message);
+    process.send && process.send(message);
   } else {
     messageQueue.push(message);
   }
@@ -21,7 +21,7 @@ const sendMessage = message => {
 
 let messageEngine = setInterval(() => {
   const message = messageQueue.shift();
-  if (message) process.send(message);
+  if (message) process.send && process.send(message);
   if (!messageQueue.length && scriptComplete) {
     clearInterval(messageEngine);
   }
@@ -88,10 +88,28 @@ function createStyleVariantInfo(file) {
   const base = baseFunc(context.theme);
   const variants = variantsFunc(context.theme);
   const payload = {};
-  for (const variant in variants) {
+
+  const baseValues = Object.keys(base).reduce((acc, prop) => {
+    const value = {};
+    const regExpPattern = new RegExp(`${prop}: ([^,}])*(?=[\n|,])`);
+    const match = baseFuncString.match(regExpPattern);
+    if (match && match[0]) {
+      const stringValue = match[0].replace(`${prop}:`, '').trim();
+      value[prop] = {
+        stringValue,
+        defaultValue: base[prop],
+        type: checkType(stringValue) || undefined
+      };
+    }
+    return { ...acc, ...value };
+  }, {});
+
+  for (const variant in {
+    ...{ neutral: {}, inverse: {}, brand: {} },
+    ...variants
+  }) {
     const style = variants[variant];
-    const styleValues = {};
-    for (const prop of Object.keys(style)) {
+    const styleValues = Object.keys(style).reduce((acc, prop) => {
       const variantSectionRegExp = new RegExp(`(?<=${variant})(.|\n)+?(?=})`);
       // Get variant section of file
       const sectionMatch = variantSectionRegExp.exec(variantsFuncString);
@@ -101,28 +119,17 @@ function createStyleVariantInfo(file) {
         const propMatch = matchPropRegExp.exec(sectionMatch[0].trim());
         if (propMatch && propMatch[0]) {
           const stringValue = propMatch[0].replace(`${prop}:`, '').trim();
-          styleValues[prop] = {
+          acc[prop] = {
             stringValue,
             defaultValue: style[prop],
             type: checkType(stringValue) || undefined
           };
         }
       }
+      return acc;
+    }, {});
 
-      for (const prop of Object.keys(base)) {
-        const regExpPattern = new RegExp(`${prop}: ([^,}])*(?=[\n|,])`);
-        const match = baseFuncString.match(regExpPattern);
-        if (match && match[0]) {
-          const stringValue = match[0].replace(`${prop}:`, '').trim();
-          styleValues[prop] = {
-            stringValue,
-            defaultValue: base[prop],
-            type: checkType(stringValue) || undefined
-          };
-        }
-      }
-    }
-    payload[variant] = styleValues;
+    payload[variant] = { ...baseValues, ...styleValues };
   }
   return { variantDefault, ...payload };
 }
