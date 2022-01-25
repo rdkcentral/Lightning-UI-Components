@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Base from '../../elements/Base';
-import defaultIcon from '../../Styles/notification_64';
+import defaultIcon from '../../Styles/assets/notification_64';
 import Icon from '../../elements/Icon';
 import InlineContent from '../../layout/InlineContent';
 import styles from './Notification.style';

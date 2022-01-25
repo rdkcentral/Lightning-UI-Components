@@ -17,7 +17,9 @@ export default class KeyboardInput extends Base {
       'inputPlaceholder',
       'centerAlign',
       'defaultFormat',
-      'keyboardFormats'
+      'keyboardFormats',
+      'mask',
+      'password'
     ];
   }
 
@@ -48,6 +50,13 @@ export default class KeyboardInput extends Base {
         selectedIndex: 1
       }
     });
+  }
+
+  _update() {
+    if (this.mask) {
+      this._Input.mask = this.mask;
+    }
+    this._Input.password = this.password;
   }
 
   $onSoftKey({ key }) {
