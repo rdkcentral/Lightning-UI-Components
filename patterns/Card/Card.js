@@ -1,6 +1,7 @@
 import lng from '@lightningjs/core';
 import { withStyles } from '../../mixins';
 import { Base, CardArtwork, FocusRing, Metadata } from '../../elements';
+import { getValidColor } from '../../Styles/Colors';
 import withBadgeProgress from '../withBadgeProgress';
 export const artCardProps = [
   'src',
@@ -17,6 +18,7 @@ export const baseCardProps = [
   'subtitle',
   'description',
   'backgroundColor',
+  'backgroundColorFocus',
   'focusRing',
   'focusRingFocused',
   'focusRingUnfocused',
@@ -111,6 +113,10 @@ export default class Card extends withStyles(Base, styles) {
     this._updateScale();
   }
 
+  _setBackgroundColorFocus(v) {
+    return getValidColor(v);
+  }
+
   vibrantCallback() {
     this.focusRingColor = this.vibrantFocusRing;
     this.backgroundColor = this.vibrantFill;
@@ -168,7 +174,9 @@ export default class Card extends withStyles(Base, styles) {
         0,
         null,
         true,
-        this.backgroundColor
+        this.hasFocus()
+          ? this._backgroundColorFocus || this._backgroundColor
+          : this._backgroundColor
       )
     });
   }

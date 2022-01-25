@@ -11,6 +11,7 @@ export const Hero = args =>
       return {
         Card: {
           type: CardHero,
+          backgroundColorFocus: args.backgroundColorFocus,
           src: pets,
           circleImage: args.circleImage,
           title: args.title,
@@ -67,5 +68,6 @@ Hero.argTypes = {
   showIcon: { control: 'boolean' },
   focused: { control: 'boolean' },
   logoTitle: { control: 'text' },
-  circleImage: { control: 'boolean' }
+  circleImage: { control: 'boolean' },
+  backgroundColorFocus: { control: 'color' }
 };

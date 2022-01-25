@@ -9,6 +9,7 @@ export const Launchpad = args =>
       return {
         Card: {
           type: CardLaunchpad,
+          backgroundColorFocus: args.backgroundColorFocus,
           src: pets,
           title: 'Title',
           circleImage: args.circleImage,
@@ -45,7 +46,8 @@ Launchpad.args = {
 };
 Launchpad.argTypes = {
   logoTitle: { control: 'text' },
-  circleImage: { control: 'boolean' }
+  circleImage: { control: 'boolean' },
+  backgroundColorFocus: { control: 'color' }
 };
 Launchpad.parameters = {
   argActions: {

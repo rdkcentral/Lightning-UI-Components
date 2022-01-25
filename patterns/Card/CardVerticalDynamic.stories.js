@@ -9,6 +9,7 @@ export const VerticalDynamic = args =>
       return {
         Card: {
           type: CardVerticalDynamic,
+          backgroundColorFocus: args.backgroundColorFocus,
           gradientColor: args.gradientColor,
           focusRingColor: args.focusRingColor,
           src: pets,
@@ -49,5 +50,6 @@ VerticalDynamic.argTypes = {
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
   circleImage: { control: 'boolean' },
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  backgroundColorFocus: { control: 'color' }
 };

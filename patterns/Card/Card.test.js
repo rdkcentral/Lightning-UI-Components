@@ -39,6 +39,14 @@ describe('CardBasic', () => {
     expect(card.focusRing.smooth.alpha).toBe(1);
   });
 
+  it('shows backgroundColorFocus on focus', () => {
+    card.backgroundColorFocus = '#E6004A';
+    card._focus();
+    expect(card._Background.texture._lookupId).toBe(
+      'rect408,229,0,,1,4293263434,16,16,16,16'
+    );
+  });
+
   it('updates title', () => {
     const title = 'Title';
     expect(card.title).toBe(undefined);
