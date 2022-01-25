@@ -260,4 +260,10 @@ describe('TextBox', () => {
     );
     done();
   });
+
+  it('should announce its content', async () => {
+    const content = 'Hello world';
+    [element, testRenderer] = createElement({ content });
+    expect(element.announce).toBe(content);
+  });
 });

@@ -193,16 +193,16 @@ describe('BoardRow', () => {
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 1');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 2');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 4');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
     testRenderer.keyPress('Up');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 3');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
     done();
   });
 
@@ -238,16 +238,16 @@ describe('BoardRow', () => {
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 1');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 2');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 3');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 4');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
     done();
   });
 
@@ -283,16 +283,16 @@ describe('BoardRow', () => {
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 1');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 2');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 3');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 4');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
     done();
   });
 
@@ -373,16 +373,16 @@ describe('BoardRow', () => {
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 1');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 2');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 3');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 4');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
     done();
   });
 
@@ -418,16 +418,16 @@ describe('BoardRow', () => {
     await component._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 1');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 2');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 4');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
     testRenderer.keyPress('Up');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().title).toBe('Item 3');
+    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
     done();
   });
 

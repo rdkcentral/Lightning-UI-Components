@@ -1,292 +1,205 @@
 import Base from '../Base';
-import { Icon, TextBox, ProgressBar } from '..';
-import { InlineContent } from '../../layout';
-import { withStyles } from '../../mixins';
+import styles from './MetadataSmall.styles';
+import withStyles from '../../mixins/withStyles';
+import InlineContent from '../../layout/InlineContent';
+import Icon from '../Icon';
 import { FadeShader } from '../../textures';
-
-export const styles = theme => ({
-  h: 200,
-  textPaddingLeft: theme.spacing(1),
-  titleY: theme.spacing(2), // account for font whitespace
-  title: {
-    ...theme.typography.headline3,
-    textColor: theme.palette.text.light.primary,
-    maxLines: 2,
-    maxLinesSuffix: '...'
-  },
-  data: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.tertiary
-  },
-  logo: {
-    h: theme.typography.body3.lineHeight,
-    verticalOffset: theme.spacing(2),
-    paddingLeft: theme.spacing(2)
-  },
-  progressBarPadding: theme.spacing(3),
-  animationHeight: theme.spacing(7),
-  logoClipOffset: theme.spacing(4), // pads the right size of the logo to prevent clipping on scale
-  fadeWidth: 100 // sets length of the fade from the right edge of the element. see textures/FadeShader.js for more details
-});
+import TextBox from '../TextBox';
 
 export default class MetadataSmall extends withStyles(Base, styles) {
   static _template() {
     return {
-      h: this.styles.h,
-      clipping: true,
-      flex: { direction: 'column', justifyContent: 'flex-end' },
-      Content: {
-        h: this.styles.h,
-        flex: { direction: 'column', justifyContent: 'flex-end' },
-        Title: {
+      Text: {
+        flex: { direction: 'column' },
+        FirstLine: {
           type: TextBox,
-          y: this.styles.titleY,
-          x: this.styles.textPaddingLeft,
-          style: this.styles.title
-        },
-        DataClipContainer: {
-          Data: {
-            type: InlineContent,
-            x: this.styles.textPaddingLeft,
-            justify: 'flex-start',
-            textProperties: this.styles.data
+          signals: {
+            textBoxChanged: '_textBoxChanged'
           }
         },
-        Logo: {
-          flexItem: false,
-          type: Icon,
-          alpha: 0,
-          ...this.styles.logo
-        },
-        ProgressBarWrapper: {
-          h: 0
+        SecondLineWrapper: {
+          SecondLine: {
+            type: InlineContent,
+            y: this.styles.secondLinePaddingTop
+          }
         }
+      },
+      Logo: {
+        type: Icon
       }
     };
   }
 
   static get properties() {
     return [
-      'title',
-      'data',
       'logo',
-      'logoWidth',
-      'logoHeight',
-      'logoTitle',
-      'progress',
-      'originalW',
-      'animate',
-      'animationHeight',
-      'logoClipOffset',
-      'fadeWidth'
+      'logoW',
+      'logoSpacing',
+      'firstLine',
+      'secondLine',
+      'justify',
+      'fadeWidth',
+      'firstLineTextProperties',
+      'secondLineTextProperties',
+      'focusScaleConst',
+      'unfocusScaleConst'
     ];
   }
 
   static get tags() {
     return [
-      'Content',
-      { name: 'Title', path: 'Content.Title' },
-      { name: 'Logo', path: 'Content.Logo' },
-      {
-        name: 'ProgressBarWrapper',
-        path: 'Content.ProgressBarWrapper'
-      },
-      'DataClipContainer',
-      { name: 'Data', path: 'Content.DataClipContainer.Data' },
-      {
-        name: 'ProgressBar',
-        path: 'Content.ProgressBarWrapper.ProgressBar'
-      }
+      'Text',
+      'SecondLineWrapper',
+      'Logo',
+      'FirstLine',
+      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' }
     ];
   }
 
   _construct() {
     super._construct();
-    this._animate = true;
-    this._logoHeight = this.styles.logo.h;
-    this._logoTitle = this.logoTitle;
-    this._logoWidth = this.styles.logo.w || this._logoHeight;
-    this._logoYOffset = this.styles.logo.verticalOffset;
-    this._progressBarPadding = this.styles.progressBarPadding;
-    this._progressBarHeight =
-      this.styles.progressBarPadding + ProgressBar.styles.h;
-    this._logoClipOffset = this.styles.logoClipOffset; // prevent the logo from clipping out on animation
+    this._logoSpacing = this.styles.logoSpacing;
+    this._logoW = this.styles.logoW;
+    this._justify = this.styles.justify;
+    this._firstLineTextProperties = this.styles.firstLineTextProperties;
+    this._secondLineTextProperties = this.styles.secondLineTextProperties;
     this._fadeWidth = this.styles.fadeWidth;
-    this._animationHeight = this.styles.animationHeight;
-    this._logoPaddingLeft = this.styles.logo.paddingLeft;
+    this._w = this.styles.w;
+    this._secondLinePaddingTop = this.styles.secondLinePaddingTop;
   }
 
-  _firstEnable() {
-    super._firstEnable();
-    this._whenEnabled.then(() => {
-      this._update();
-    });
+  _init() {
+    if (this.focusScaleConst === undefined) {
+      this._focusScaleConst = this._getFocusScale(this.w, this.h);
+    }
+    if (this.unfocusScaleConst === undefined) {
+      this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
+    }
+    this._Logo.on('txLoaded', this._requestUpdateDebounce.bind(this));
+    super._init();
+  }
+
+  $loadedInlineContent(line) {
+    if (line.ref && this.tag(line.ref + 'Wrapper')) {
+      this.tag(line.ref + 'Wrapper').h = line.textHeight;
+      this.tag(line.ref + 'Wrapper').alpha = 1;
+    }
+    line.h = line.content ? line.textHeight : 0;
+    this._updateComponentDimensions();
+  }
+
+  _textBoxChanged() {
+    this._updateComponentDimensions();
   }
 
   _update() {
-    this._updateWidth();
-    this._updateY();
-    this._updateTitle();
+    this._updateFirstLine();
+    this._updateSecondLine();
     this._updateLogo();
-    this._updateData();
-    this._updateProgress();
-    this._updateShader();
   }
 
-  $loadedInlineContent() {
-    // update the shader when Data reloads
-    this._updateShader();
+  _updateComponentDimensions() {
+    this._Text.h = this._FirstLine.renderHeight + this._SecondLine.h;
+    this.h = this._FirstLine.renderHeight + this._SecondLine.renderHeight;
+    this._updateLogo();
   }
 
-  _updateY() {
-    const animateDistance = this.animationHeight;
-    const focusY = 0;
-    const unfocusY = this.animate ? animateDistance : 0;
-    const y = this.hasFocus() ? focusY : unfocusY;
+  _updateLogo() {
+    this._Logo.icon = this.logo;
+    this._Logo.w = this.logoW;
+
+    const alpha = this.logo ? 1 : 0;
+    const logoX = this._textW + this.logoSpacing;
+    const logoY =
+      this._Text.h > this._Logo.finalH
+        ? (this._Text.h - this._Logo.finalH) / 2
+        : (this._Logo.finalH - this._Text.h) / 2;
 
     if (this._smooth) {
-      this._Content.smooth = { y };
+      this._Logo.smooth = { alpha, x: logoX, y: logoY };
     } else {
-      this._Content.y = y;
+      this._Logo.patch({ alpha, x: logoX, y: logoY });
     }
   }
 
-  _updateWidth() {
-    this.w = (this.originalW || this.w) + this._logoClipOffset;
-  }
-
-  _updateTitle() {
-    // Logo's x position is calculated using _logoClipOffset, so we need to make sure
-    // we account for that for the title's word wrapping
-    const wordWrapWidth = this._logo
-      ? this.w -
-        this._Logo.finalW -
-        this._logoClipOffset -
-        this._logoPaddingLeft
-      : this.w;
-    this._Title.patch({
-      content: this._title,
-      wordWrapWidth
+  _updateFirstLine() {
+    this._firstLineObject.component.patch({
+      content: this._firstLineObject.content,
+      wordWrap: true,
+      wordWrapWidth: this._textW,
+      style: this._firstLineTextProperties
     });
   }
 
-  _updateData() {
-    if (this.data) {
-      this._Data.content = this.data;
-      this._DataClipContainer.w = this.w - this._Logo.w;
-      this._DataClipContainer.h = this._Data.finalH;
-    }
+  _updateSecondLine() {
+    this._secondLineObject.component.patch({
+      justify: this._justify,
+      content: this._secondLineObject.content,
+      textProperties: this._secondLineObject.textProps
+    });
+    this._updateShader(this._secondLineObject);
+    this._secondLineObject.wrapper.visible = this._secondLineObject.content
+      ? true
+      : false;
   }
 
-  _updateShader() {
-    if (this._shouldClipData) {
-      const logoOffset = this.logo ? this._Logo.w + this._Logo.offset : 0;
-      this.stage.update();
-      this._Data.loadTexture();
-      this._DataClipContainer.patch({
-        w: this.w + this.fadeWidth / 2 - logoOffset,
+  _updateShader(line) {
+    if (line.component.finalW > this._textW) {
+      line.wrapper.patch({
+        w: this._textW + this.fadeWidth / 2,
         shader: {
           type: FadeShader,
           positionLeft: 0,
-          positionRight: this.fadeWidth + logoOffset
+          positionRight: this.fadeWidth
         },
         rtt: true
       });
     } else {
-      this._DataClipContainer.shader = undefined;
+      line.wrapper.shader = undefined;
     }
   }
 
-  _updateLogo() {
-    const progressBarOffset = this._progress ? this._progressBarHeight : 0;
-    const height = this._Content.finalH;
-
-    this._Logo.patch({
-      type: Icon,
-      w: this.logoWidth,
-      h: this.logoHeight,
-      icon: this.logo,
-      offset: this._logoYOffset
-    });
-
-    const x = this.renderWidth - this._Logo.w - this._logoClipOffset;
-    const y =
-      height - (this.logoHeight + this._logoYOffset + progressBarOffset);
-
-    if (this._smooth) {
-      this._Logo.smooth = { x, y };
-    } else {
-      this._Logo.x = x;
-      this._Logo.y = y;
-    }
-
-    if (!this.animate) {
-      // show logo if metadata is persistent
-      if (this._smooth) {
-        this._Logo.smooth = { alpha: 1 };
-      } else {
-        this._Logo.alpha = 1;
-      }
-    }
-
-    if (this._Logo.alpha === 0) {
-      this._Logo.transition('x').on('finish', () => {
-        // wait until logo is positioned to render in
-        this._Logo.transition('x').off();
-        if (this._smooth) {
-          this._Logo.smooth = { alpha: 1 };
-        } else {
-          this._Logo.alpha = 1;
-        }
-      });
-    }
+  get _linesArray() {
+    return [this._firstLineObject, this._secondLineObject];
   }
 
-  _updateLogoAlpha() {
-    if (this._smooth) {
-      this._Logo.smooth = { alpha: 1 };
-    } else {
-      this._Logo.alpha = 1;
-    }
+  get _firstLineObject() {
+    return {
+      component: this._FirstLine,
+      content: this._firstLine,
+      textProps: this._firstLineTextProperties
+    };
   }
 
-  _updateProgress() {
-    if (this.progress) {
-      this._ProgressBarWrapper.patch({
-        h: this._progressBarHeight,
-        ProgressBar: {
-          type: ProgressBar,
-          progress: this.progress,
-          y: this._progressBarPadding, // offset flexItem height
-          w: this.finalW
-        }
-      });
-    }
-  }
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-    return [
-      this.title,
-      this.subtitle,
-      this.description,
-      this._Data.announce,
-      this.logoTitle
-    ]
-      .filter(s => s)
-      .join('. ');
+  get _secondLineObject() {
+    return {
+      wrapper: this._SecondLineWrapper,
+      component: this._SecondLine,
+      content: this._secondLine,
+      textProps: this._secondLineTextProperties
+    };
   }
 
   set announce(announce) {
     super._announce = announce;
   }
 
-  get _shouldClipData() {
-    return this._dataRenderW > this.w - this.fadeWidth;
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    return [this._FirstLine.announce, this._SecondLine.announce]
+      .filter(s => s) // remove empty
+      .join('. ');
   }
 
-  get _dataRenderW() {
-    return this._Data.finalW;
+  get _textW() {
+    return this._focusW - (this.logo ? this.logoW + this.logoSpacing : 0);
+  }
+
+  get _focusW() {
+    const scale =
+      (this.hasFocus() ? this.focusScaleConst : this.unfocusScaleConst) || 1;
+    return this.w * scale;
   }
 }
