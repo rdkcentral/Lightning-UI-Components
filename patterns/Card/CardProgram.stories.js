@@ -9,6 +9,7 @@ export const Program = args =>
       return {
         Card: {
           type: CardProgram,
+          backgroundColorFocus: args.backgroundColorFocus,
           src: pets,
           title: 'Title',
           circleImage: args.circleImage,
@@ -45,7 +46,8 @@ Program.args = {
 };
 Program.argTypes = {
   logoTitle: { control: 'text' },
-  circleImage: { control: 'boolean' }
+  circleImage: { control: 'boolean' },
+  backgroundColorFocus: { control: 'color' }
 };
 Program.parameters = {
   argActions: {

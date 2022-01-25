@@ -9,6 +9,7 @@ export const Basic = args =>
       return {
         Card: {
           type: CardBasic,
+          backgroundColorFocus: args.backgroundColorFocus,
           title: args.title,
           description: args.description,
           logo: args.showLogo ? circle : null,
@@ -34,5 +35,6 @@ Basic.argTypes = {
   description: { content: 'text' },
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  backgroundColorFocus: { control: 'color' }
 };

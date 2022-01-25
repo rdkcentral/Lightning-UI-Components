@@ -57,7 +57,7 @@ export default class CardVerticalDynamic extends withStyles(
 
   _updateBackground() {
     const gradientColor = getValidColor(this._gradientColor);
-    if (gradientColor) {
+    if (!this._backgroundColorFocus && gradientColor) {
       this._Background.patch({
         texture: undefined,
         rect: true,

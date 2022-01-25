@@ -175,6 +175,7 @@ export const Basic = args =>
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis quam eget mi fermentum, a malesuada lectus convallis. Suspendisse potenti.',
           cta: 'View All',
           gradientColor: args.gradientColor,
+          backgroundColorFocus: args.backgroundColorFocus,
           onEnter: () => {
             // eslint-disable-next-line no-restricted-syntax
             console.log('view all action');
@@ -230,6 +231,7 @@ export const Basic = args =>
 
 Basic.args = {
   gradientColor: '#E6004A',
+  backgroundColorFocus: undefined,
   layout: 'standard',
   viewAll: true,
   scrollIndex: 0,
@@ -239,6 +241,7 @@ Basic.args = {
 };
 Basic.argTypes = {
   gradientColor: { control: 'color' },
+  backgroundColorFocus: { control: 'color' },
   layout: {
     control: {
       type: 'select',

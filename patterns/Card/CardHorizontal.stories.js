@@ -10,6 +10,7 @@ export const Horizontal = args =>
       return {
         Card: {
           type: CardHorizontal,
+          backgroundColorFocus: args.backgroundColorFocus,
           src: pets,
           circleImage: args.circleImage,
           title: args.title,
@@ -51,7 +52,8 @@ Horizontal.argTypes = {
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
   circleImage: { control: 'boolean' },
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  backgroundColorFocus: { control: 'color' }
 };
 
 export const HorizontalLarge = args =>
@@ -60,6 +62,7 @@ export const HorizontalLarge = args =>
       return {
         Card: {
           type: CardHorizontalLarge,
+          backgroundColorFocus: args.backgroundColorFocus,
           src: pets,
           title: 'Title',
           description: 'Short Description',
@@ -101,5 +104,6 @@ HorizontalLarge.argTypes = {
   showLogo: { content: 'boolean' },
   focused: { control: 'boolean' },
   circleImage: { control: 'boolean' },
-  logoTitle: { control: 'text' }
+  logoTitle: { control: 'text' },
+  backgroundColorFocus: { control: 'color' }
 };
