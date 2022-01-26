@@ -15,7 +15,8 @@ export default class Row extends FocusManager {
       'scrollIndex',
       'alwaysScroll',
       'neverScroll',
-      'lazyScroll'
+      'lazyScroll',
+      'autoResize'
     ];
   }
 
@@ -255,6 +256,10 @@ export default class Row extends FocusManager {
       }
     }
     this.Items.patch({ h: nextH, w: nextX });
+    if (this.autoResize) {
+      this.h = this.Items.h;
+      this.w = this.Items.w;
+    }
 
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;
