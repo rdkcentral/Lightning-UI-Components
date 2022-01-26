@@ -10,10 +10,7 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
       FadeContainer: {
         ScrollContainer: {
           w: w => w,
-          wordWrap: true,
-          flex: {
-            direction: 'column'
-          }
+          wordWrap: true
         }
       },
       ScrollBarWrapper: {
@@ -59,7 +56,9 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
       'scrollContainerY',
       'scrollDuration',
       'scrollStep',
-      'showScrollBar'
+      'showScrollBar',
+      'wrap',
+      'flexDirection'
     ];
   }
 
@@ -95,6 +94,8 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
     this._scrollStep = 10;
     this._fadeContent = this.styles.fadeContent || true;
     this._fadeHeight = this.styles.fadeHeight;
+    this._shouldWrap = false;
+    this._flexDirection = 'column';
   }
 
   _init() {
@@ -116,11 +117,14 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
 
   _waitForComponentLoad() {
     if (this._ScrollContainer.children.length) {
-      return Promise.all(
-        this._ScrollContainer.children.map(
-          child => new Promise(resolve => child.on('txLoaded', resolve))
-        )
-      );
+      const promisesArray = this._ScrollContainer.children.map(child => {
+        if (child && child.text) {
+          return new Promise(resolve => child.on('txLoaded', resolve));
+        } else {
+          return Promise.resolve();
+        }
+      });
+      return Promise.all(promisesArray);
     } else {
       this.h = 0;
       return Promise.resolve();
@@ -133,17 +137,19 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
       this._setupAutoScroll();
       this._contentChanged = false;
     }
-
     this._initScrollableContent();
     this._updateScrollBarPosition();
+    this._updateScrollContainer();
+    this._updateAlpha();
+  }
 
+  _updateScrollContainer() {
     this._waitForComponentLoad().then(() => {
       this._setScrollContainerSize();
       this._updateFadeContainer();
       this._initScrollBar();
     });
-
-    this._updateAlpha();
+    this._updateFadeContainer();
   }
 
   _updateFadeContainer() {
@@ -165,6 +171,7 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
     if (typeof this.content === 'string') {
       // if content is a string, create an element and patch it in
       this._ScrollContainer.patch({
+        flex: { direction: 'column' },
         ScrollableText: {
           h: 0,
           wordWrap: true,
@@ -175,20 +182,25 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
           }
         }
       });
-    } else {
-      // else, iterate through array items
+    } else if (Array.isArray(this.content)) {
+      const content = {};
       this.content.forEach((item, index) => {
-        const content = {};
         const id = `ScrollText${index}`;
         content[id] = {
           w: this._contentWidth - this._ScrollBar.w,
-          text: {
+          ...item
+        };
+        if (item.text) {
+          content[id].text = {
             ...this.styles.text,
             ...item.style,
             text: item.text
-          }
-        };
-        this._ScrollContainer.patch(content);
+          };
+        }
+      });
+      this._ScrollContainer.patch({
+        flex: { direction: this.flexDirection, wrap: this.shouldWrap },
+        ...content
       });
     }
   }
@@ -205,7 +217,6 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
   _setScrollContainerSize() {
     this._ScrollContainer.patch({
       y: 0,
-      h: this._scrollableContentHeight + this._fadeHeight,
       w: this._contentWidth
     });
     this._ScrollBarProgressOverlay.patch({
@@ -244,13 +255,17 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
   }
 
   _handleDown() {
-    if (this._scrollContainerY + this._ScrollContainer.h > this.renderHeight) {
+    if (
+      this._scrollContainerY + this._computedScrollContainerHeight >
+      this.renderHeight
+    ) {
       const containerY = this._scrollContainerY - this._scrollStep;
       this._ScrollContainer.patch({
         smooth: {
           y: [
-            containerY + this._ScrollContainer.h <= this.renderHeight
-              ? this.renderHeight - this._ScrollContainer.h
+            containerY + this._computedScrollContainerHeight <=
+            this.renderHeight
+              ? this.renderHeight - this._computedScrollContainerHeight
               : containerY,
             {
               timingFunction: 'linear',
@@ -286,7 +301,7 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
         }
       });
       if (
-        this._scrollContainerY + this._ScrollContainer.h <=
+        this._scrollContainerY + this._computedScrollContainerHeight <=
         this.renderHeight
       ) {
         this._autoScrollComplete = true;
@@ -351,9 +366,14 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
 
   _getScrollStep(height) {
     const numSteps = Math.ceil(
-      (this._ScrollContainer.h - this.renderHeight) / this._scrollStep
+      (this._computedScrollContainerHeight - this.renderHeight) /
+        this._scrollStep
     );
     return (height - this.styles.scrollBar.h) / numSteps;
+  }
+
+  get _computedScrollContainerHeight() {
+    return this._ScrollContainer.finalH + this._fadeHeight;
   }
 
   _setAutoScroll(val) {
@@ -412,14 +432,14 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
     return this._ScrollBar.transition('y').targetValue;
   }
 
-  get _scrollableContentHeight() {
-    return this._ScrollContainer.children.reduce(
-      (acc, child) => acc + child.renderHeight,
-      0
-    );
+  $itemChanged() {
+    this._updateScrollContainer();
   }
 
-  get _shouldFadeContent() {
-    return this._fadeContent && this._scrollableContentHeight > this.h;
+  _shouldFadeContent() {
+    return (
+      this._fadeContent &&
+      this._computedScrollContainerHeight - this._fadeHeight > this.h
+    );
   }
 }

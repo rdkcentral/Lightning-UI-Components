@@ -14,7 +14,8 @@ export default class Column extends FocusManager {
       'itemSpacing',
       'scrollIndex',
       'alwaysScroll',
-      'neverScroll'
+      'neverScroll',
+      'autoResize'
     ];
   }
 
@@ -297,6 +298,10 @@ export default class Column extends FocusManager {
         }
       }
       this.Items.patch({ w: nextW, h: nextY });
+      if (this.autoResize) {
+        this.h = this.Items.h;
+        this.w = this.Items.w;
+      }
 
       const lastChild = this.Items.childList.last;
       const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
@@ -321,6 +326,7 @@ export default class Column extends FocusManager {
       }
 
       this._performRender();
+      this.fireAncestors('$itemChanged');
     });
   }
 

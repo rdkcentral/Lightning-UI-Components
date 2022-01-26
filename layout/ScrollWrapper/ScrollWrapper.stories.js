@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
-
 import ScrollWrapper from '.';
+import { Card } from '../../patterns';
 import mdx from './ScrollWrapper.mdx';
 
 export default {
@@ -81,8 +81,8 @@ export const Basic = args =>
     }
   };
 
-export const ContentArray = args =>
-  class ContentArray extends lng.Component {
+export const TextArray = args =>
+  class TextArray extends lng.Component {
     static _template() {
       return {
         ScrollWrapper: {
@@ -121,6 +121,203 @@ export const ContentArray = args =>
               }
             }
           ],
+          signals: {
+            scrollChanged: true
+          }
+        }
+      };
+    }
+
+    $scrollChanged(type) {
+      args.scrollChanged(type);
+    }
+
+    _getFocused() {
+      if (args.focused) return this.tag('ScrollWrapper');
+    }
+  };
+
+export const ObjectArray = args =>
+  class ObjectArray extends lng.Component {
+    static _template() {
+      return {
+        ScrollWrapper: {
+          type: ScrollWrapper,
+          h: 764,
+          w: 1100,
+          shouldWrap: true, // determines if items should wrap around ScrollContainer
+          flexDirection: 'row', //determines the direction items are placed in flexContainer
+          scrollStep: args.scrollStep,
+          autoScroll: args.autoScroll,
+          scrollDuration: args.scrollDuration,
+          showScrollBar: args.showScrollBar,
+          autoScrollDelay: args.autoScrollDelay,
+          autoScrollSpeed: args.autoScrollSpeed,
+          content: [
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            },
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            },
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            },
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            },
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            },
+            {
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 16
+              },
+              type: Card,
+              rect: true,
+              w: 308,
+              h: 400,
+              color: 0xf53e3e45,
+              flexItem: {
+                margin: 24
+              },
+              Text: {
+                x: 20,
+                y: 10,
+                text: {
+                  fontSize: 28,
+                  textAlign: 'left',
+                  text:
+                    'By activating, you agree that you want to enable cloud DVR technology to ' +
+                    'your Xfinity TV subscription on additional supported devices like computers and ' +
+                    'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
+                  wordWrapWidth: 280
+                }
+              }
+            }
+          ],
+
           signals: {
             scrollChanged: true
           }
