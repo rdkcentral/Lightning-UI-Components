@@ -41,13 +41,16 @@ function withFocusRing(Base) {
         this._FocusRing.patch({
           w: this.w,
           h: this.h,
-          radius: this._componentStyles.radius + 2,
-          color: this._componentStyles.focusRingColor,
           variant: this.variant,
-          zIndex: this.zIndex + 10
+          zIndex: this.zIndex + 10,
+          style: {
+            color: this._componentStyles.focusRingColor,
+            radius: this._componentStyles.radius || 0 + 2
+          }
         });
 
         const style = this.hasFocus() ? this.focusStyle : this.unfocusStyle;
+
         if (this._smooth) {
           this._FocusRing.smooth = style;
         } else {

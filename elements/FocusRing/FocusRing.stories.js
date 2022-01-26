@@ -1,12 +1,12 @@
 import lng from '@lightningjs/core';
 import FocusRing from '.';
 import mdx from './FocusRing.mdx';
-import kabob from '../../assets/images/kabob_320x180.jpg';
+import parksAndRec from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import withFocusRing from '../../patterns/withFocusRing';
+import Base from '../../Base';
+import withStyles from '../../mixins/withThemeStyles';
 
 export default {
-  args: {
-    animate: true
-  },
   title: 'Elements / FocusRing',
   parameters: {
     docs: {
@@ -15,7 +15,7 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -25,67 +25,67 @@ export const Basic = args =>
         h: 180,
         FocusRing: {
           type: FocusRing,
-          w: 320,
-          h: 180,
-          radius: args.radius,
-          color: args.color,
-          secondaryColor: args.secondaryColor
+          itemLayout: {
+            ratioX: 16,
+            ratioY: 9,
+            upCount: 5
+          }
         }
       };
     }
-
-    _init() {
-      if (args.animate) {
-        this._FocusRing.startAnimation();
-      } else {
-        this._FocusRing.stopAnimation();
-      }
-    }
-
     get _FocusRing() {
       return this.tag('FocusRing');
     }
   };
 
-Basic.argTypes = {
-  animate: { control: 'boolean' }
+Basic.args = {
+  focused: true
 };
+
+Basic.argTypes = {
+  focused: { control: 'boolean' }
+};
+
 Basic.parameters = {
   argActions: {
-    animate: (play, component) => {
-      if (play) {
-        component._FocusRing.startAnimation();
-      } else {
-        component._FocusRing.stopAnimation();
-      }
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('FocusRing')
+        : () => {};
       component._refocus();
     }
   }
 };
 
-export const WithImage = () =>
-  class Basic extends lng.Component {
-    static _template() {
-      return {
-        x: 60,
-        y: 60,
-        Kabob: {
-          src: kabob,
-          w: 320,
-          h: 180,
-          zIndex: 2,
-          radius: 8
-        },
-        FocusRing: {
-          type: class extends FocusRing {
-            _update() {
-              super._update();
-              this.startAnimation();
-            }
-          },
-          w: 320,
-          h: 180
+class FocusRingWithImage extends lng.Component {
+  static _template() {
+    return {
+      FocusRing: {
+        type: class extends withFocusRing(
+          withStyles(Base, { focusRing: true })
+        ) {
+          static __componentName() {
+            return 'ImageTile';
+          }
+
+          static _template() {
+            return {
+              src: parksAndRec,
+              itemLayout: {
+                ratioX: 16,
+                ratioY: 9,
+                upCount: 5
+              }
+            };
+          }
         }
-      };
-    }
-  };
+      }
+    };
+  }
+
+  _getFocused() {
+    return this.tag('FocusRing');
+  }
+}
+
+export const WithImage = () => withFocusRing(FocusRingWithImage);

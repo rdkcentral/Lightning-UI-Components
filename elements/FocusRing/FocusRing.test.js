@@ -58,13 +58,13 @@ describe('FocusRing', () => {
   });
 
   it('should set primary color transition from color', () => {
-    const testColor = getHexColor(getHexColor('#663399', 96), 54);
+    const testColor = getHexColor(getHexColor('#663399', 96), 60);
     [focusRing, testRenderer] = createFocusRing({
       style: {
-        color: getHexColor('#663399', 96)
+        color: getHexColor(getHexColor('#663399', 96), 60)
       }
     });
-    const { transition } = focusRing.getColors();
+    const { transition } = focusRing._getColors();
     expect(transition).toEqual(testColor);
   });
 
@@ -74,7 +74,7 @@ describe('FocusRing', () => {
         secondaryColor: getHexColor('#663399', 8)
       }
     });
-    const { secondary } = focusRing.getColors();
+    const { secondary } = focusRing._getColors();
     expect(secondary).toEqual(getHexColor('#663399', 8));
   });
 

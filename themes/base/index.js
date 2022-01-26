@@ -1,3 +1,4 @@
+import alphas from './alphas';
 import colors from './colors';
 import {
   layout,
@@ -13,6 +14,7 @@ import fonts from './fonts';
 
 export default {
   name: 'Base',
+  alphas,
   colors,
   layout,
   fonts,

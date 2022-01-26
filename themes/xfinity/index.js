@@ -1,3 +1,4 @@
+import alphas from './alphas';
 import colors from './colors';
 import { layout, getFocusScale } from './layout';
 import radius from './radius';
@@ -7,6 +8,7 @@ import fonts from './fonts';
 
 export default {
   name: 'Xfinity',
+  alphas,
   colors,
   layout,
   fonts,

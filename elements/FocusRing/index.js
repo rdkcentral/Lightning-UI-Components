@@ -1,29 +1,13 @@
-/**
- * Focus Ring Component
- *
- * Blurred Ring to focus items and images
- *
- */
 import lng from '@lightningjs/core';
 import Base from '../../Base';
+import { withExtensions } from '../../mixins';
 import withStyles from '../../mixins/withThemeStyles';
-import { getHexColor, getValidColor } from '../../Styles/Styles';
 import styles from './FocusRing.styles';
+import { getHexColor, getValidColor } from '../../Styles/Styles';
 
-export default class FocusRing extends withStyles(Base, styles) {
+class FocusRing extends Base {
   static get __componentName() {
     return 'FocusRing';
-  }
-
-  static get properties() {
-    return [
-      'color',
-      'secondaryColor',
-      'radius',
-      'spacing',
-      'shouldAnimate',
-      'borderWidth'
-    ];
   }
 
   static get tags() {
@@ -35,12 +19,7 @@ export default class FocusRing extends withStyles(Base, styles) {
   }
 
   _update() {
-    this._updateRing();
-    this.setAnimation();
-  }
-
-  _updateRing() {
-    const { transition, primary, secondary } = this.getColors();
+    const { transition, primary, secondary } = this._getColors();
 
     this.patch({
       Ring: {
@@ -52,7 +31,7 @@ export default class FocusRing extends withStyles(Base, styles) {
           this.w + this._componentStyles.spacing,
           this.h + this._componentStyles.spacing,
           this._componentStyles.radius,
-          4,
+          this._componentStyles.borderWidth,
           false,
           false
         ),
@@ -63,21 +42,35 @@ export default class FocusRing extends withStyles(Base, styles) {
         colorBr: secondary
       }
     });
+
+    this._setAnimation();
+
+    if (this.hasFocus() && this._componentStyles.shouldAnimate) {
+      this.startAnimation();
+    } else {
+      this.stopAnimation();
+    }
   }
 
-  getColors() {
+  _getColors() {
     return {
       primary: this._componentStyles.color,
-      transition: getHexColor(getValidColor(this._componentStyles.color), 54),
+      transition:
+        this._componentStyles.transitionColor ||
+        getHexColor(
+          getValidColor(this._componentStyles.color),
+          this._componentStyles.colorTransitionAlpha
+        ),
       secondary: this._componentStyles.secondaryColor
     };
   }
 
-  setAnimation() {
+  _setAnimation() {
     const isPlaying = !!(
       this._focusRingAnimation && this._focusRingAnimation.isPlaying()
     );
-    const { transition, primary, secondary } = this.getColors();
+
+    const { transition, primary, secondary } = this._getColors();
 
     if (isPlaying) {
       this.stopAnimation();
@@ -130,7 +123,7 @@ export default class FocusRing extends withStyles(Base, styles) {
       ]
     });
 
-    if (isPlaying || this.shouldAnimate) {
+    if (!isPlaying) {
       this.startAnimation();
     }
   }
@@ -166,23 +159,6 @@ export default class FocusRing extends withStyles(Base, styles) {
       }
     }
   }
-
-  _setColor(color) {
-    if (this._color !== color) {
-      const validColor = getValidColor(color);
-      if (validColor) {
-        this._middleColor = getHexColor(getValidColor(validColor), 54);
-        return validColor;
-      }
-    }
-    return this._color;
-  }
-
-  _setSecondaryColor(color) {
-    if (this._secondaryColor !== color) {
-      const validColor = getValidColor(color);
-      return validColor;
-    }
-    return this._secondaryColor;
-  }
 }
+
+export default withExtensions(withStyles(FocusRing, styles));

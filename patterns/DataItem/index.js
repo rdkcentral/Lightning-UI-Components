@@ -46,7 +46,7 @@ class DataItem extends Base {
     this._Background.h = this.h;
     this._whenEnabled.then(() => {
       // this._updateContent();
-      this._updateFocusRing();
+      // this._updateFocusRing();
       this._updateScale();
       this._updateMargins();
       this._updateBackgroundImg();
@@ -73,37 +73,38 @@ class DataItem extends Base {
   //     this._Content.patch(this.content, true);
   //   }
   // }
-  _updateFocusRing() {
-    if (this.hasFocus() || this._FocusRing) {
-      if (!this._FocusRing) {
-        this.patch({ FocusRing: { type: this.styles.focusringType } });
-      }
+  // Focus ring should be handled by theme extensions after the refactor
+  // _updateFocusRing() {
+  //   if (this.hasFocus() || this._FocusRing) {
+  //     if (!this._FocusRing) {
+  //       this.patch({ FocusRing: { type: this.styles.focusringType } });
+  //     }
 
-      this._FocusRing.patch({
-        ...this.styles.focusring({
-          w: this.w,
-          h: this.h,
-          radius: this._radius,
-          color: this.focusRingColor
-        })
-      });
+  //     this._FocusRing.patch({
+  //       ...this.styles.focusring({
+  //         w: this.w,
+  //         h: this.h,
+  //         radius: this._radius,
+  //         color: this.focusRingColor
+  //       })
+  //     });
 
-      const style = this.hasFocus()
-        ? this.styles.focused.focusring
-        : this.styles.unfocused.focusring;
-      if (this._smooth) {
-        this._FocusRing.smooth = style;
-      } else {
-        this._FocusRing.patch(style);
-      }
-      this._FocusRing._shouldAnimate = this.shouldAnimate;
-      if (this.hasFocus()) {
-        this._FocusRing.startAnimation();
-      } else {
-        this._FocusRing.stopAnimation();
-      }
-    }
-  }
+  //     const style = this.hasFocus()
+  //       ? this.styles.focused.focusring
+  //       : this.styles.unfocused.focusring;
+  //     if (this._smooth) {
+  //       this._FocusRing.smooth = style;
+  //     } else {
+  //       this._FocusRing.patch(style);
+  //     }
+
+  //     if (this.hasFocus()) {
+  //       this._FocusRing.startAnimation();
+  //     } else {
+  //       this._FocusRing.stopAnimation();
+  //     }
+  //   }
+  // }
 
   _updateScale() {
     const scale = this.hasFocus()

@@ -14,6 +14,7 @@ export function base(theme) {
       shadow: { alpha: 1 }
     },
     focusRing: true,
+    focusRingColor: undefined, // If set to undefined this value will be established by the theme
     getFocusScale: theme.getFocusScale,
     getUnfocusScale: theme.getUnfocusScale
   };
