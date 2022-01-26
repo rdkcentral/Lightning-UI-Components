@@ -1,3 +1,5 @@
+import ALPHAS from './alphas';
+
 const COLOR_PALETTE = {
   constants: {
     white: '#FFFFFF',
@@ -89,14 +91,6 @@ const COLOR_PALETTE = {
   }
 };
 
-const ALPHAS = {
-  primary: 100,
-  secondary: 60,
-  inactive: 30,
-  tertiary: 15,
-  none: 0
-};
-
 export default {
   material: [COLOR_PALETTE.grey[90], ALPHAS.primary],
   surface: [COLOR_PALETTE.grey[80], ALPHAS.primary],
@@ -129,5 +123,12 @@ export default {
   fillInverseFocus: [COLOR_PALETTE.grey[70], ALPHAS.primary],
   fillInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
   fillBrandFocus: [COLOR_PALETTE.purple[20], ALPHAS.primary],
-  fillBrandFocusSoft: [COLOR_PALETTE.purple[20], ALPHAS.tertiary]
+  fillBrandFocusSoft: [COLOR_PALETTE.purple[20], ALPHAS.tertiary],
+  gray: [COLOR_PALETTE.grey[40], ALPHAS.primary],
+  red: [COLOR_PALETTE.red[40], ALPHAS.primary],
+  orange: [COLOR_PALETTE.orange[40], ALPHAS.primary],
+  yellow: [COLOR_PALETTE.yellow[40], ALPHAS.primary],
+  green: [COLOR_PALETTE.green[40], ALPHAS.primary],
+  blue: [COLOR_PALETTE.blue[40], ALPHAS.primary],
+  purple: [COLOR_PALETTE.purple[40], ALPHAS.primary]
 };
