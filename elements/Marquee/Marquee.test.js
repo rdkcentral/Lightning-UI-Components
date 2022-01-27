@@ -1,7 +1,7 @@
 import TestUtils from '../../test/lightning-test-utils';
-import MarqueeText from '.';
+import Marquee from '.';
 
-const createMarqueeText = TestUtils.makeCreateComponent(MarqueeText, {
+const createMarquee = TestUtils.makeCreateComponent(Marquee, {
   w: 350,
   h: 50,
   title: {
@@ -12,11 +12,11 @@ const createMarqueeText = TestUtils.makeCreateComponent(MarqueeText, {
   delay: 0
 });
 
-describe('MarqueeText', () => {
+describe('Marquee', () => {
   let marquee, testRenderer;
 
   beforeEach(() => {
-    [marquee, testRenderer] = createMarqueeText();
+    [marquee, testRenderer] = createMarquee();
   });
 
   afterEach(() => {
@@ -31,28 +31,26 @@ describe('MarqueeText', () => {
 
   describe('scrolling', () => {
     it('does not scroll when width is big enough', () => {
-      [marquee, testRenderer] = createMarqueeText({
+      [marquee, testRenderer] = createMarquee({
         autoStart: true,
         text: {
           textAlign: 'center'
         }
       });
-
       marquee.startScrolling();
       expect(marquee._scrolling).toBe(false);
-
-      [marquee, testRenderer] = createMarqueeText({
+      [marquee, testRenderer] = createMarquee({
         autoStart: true,
         centerAlign: true
       });
-
       marquee.startScrolling();
       expect(marquee.centerAlign).toBe(true);
+      expect(marquee._shouldCenter()).toBe(true);
       expect(marquee._scrolling).toBe(false);
     });
 
     it('with autoStart property', done => {
-      [marquee, testRenderer] = createMarqueeText({
+      [marquee, testRenderer] = createMarquee({
         autoStart: true
       });
       // Canvas mock doesnt render text, just uses length
@@ -60,11 +58,18 @@ describe('MarqueeText', () => {
       Object.defineProperty(marquee, '_textRenderedW', {
         get: jest.fn(() => 500)
       });
-
+      marquee.startScrolling();
       setTimeout(() => {
         expect(marquee._scrollAnimation.isPlaying()).toBe(true);
         done();
       }, 50);
+    });
+
+    it('handles txLoaded', () => {
+      const [marquee] = createMarquee({ w: 300, h: 300, title: '' });
+      marquee.startScrolling();
+      marquee._Content.emit('txLoaded', 'loaded');
+      expect(marquee._scrolling).toBe(false);
     });
 
     it('#startScrolling', done => {
@@ -93,7 +98,7 @@ describe('MarqueeText', () => {
     });
 
     it('#startScrolling centers text with enough width', () => {
-      [marquee, testRenderer] = createMarqueeText({
+      [marquee, testRenderer] = createMarquee({
         title: {
           textAlign: 'center'
         }
@@ -112,7 +117,6 @@ describe('MarqueeText', () => {
       setTimeout(() => {
         marquee.stopScrolling();
       }, 50);
-
       setTimeout(() => {
         expect(marquee._scrolling).toBe(false);
         done();
@@ -149,9 +153,61 @@ describe('MarqueeText', () => {
     });
   });
 
+  describe('should position contentBox', () => {
+    it('updates the texture', () => {
+      [marquee, testRenderer] = createMarquee({
+        w: 300,
+        h: 300,
+        centerAlign: true
+      });
+      marquee._componentStyles.shouldSmooth = true;
+      marquee._centerTexture();
+      expect(marquee._ContentBox.x).toBe(124.5);
+    });
+  });
+
+  describe('should center', () => {
+    it('updates the texture', () => {
+      [marquee, testRenderer] = createMarquee({
+        w: 300,
+        h: 300,
+        centerAlign: false
+      });
+      marquee._Content.text = 'marque is scrolling';
+      marquee._Content.text.textAlign = 'center';
+      expect(marquee._shouldCenter()).toBe(true);
+    });
+  });
+
+  describe('should clip', () => {
+    it('updates the texture', () => {
+      [marquee, testRenderer] = createMarquee({
+        w: 0,
+        h: 300,
+        shouldClip: true
+      });
+      expect(marquee._ContentClipper.w).toBe(0);
+    });
+  });
+
+  describe('should update delay and repeat', () => {
+    it('updates the texture', () => {
+      [marquee, testRenderer] = createMarquee({
+        w: 300,
+        h: 300,
+        shouldClip: true,
+        delay: NaN,
+        repeat: 5
+      });
+      marquee._updateAnimation();
+      expect(marquee.animation().element.repeat).toBe(marquee.repeat);
+      expect(marquee._scrollAnimation._settings.delay).toBe(1.5);
+    });
+  });
+
   describe('#shouldSmooth', () => {
     it('should transition the content box x position when centering', done => {
-      [marquee, testRenderer] = createMarqueeText({
+      [marquee, testRenderer] = createMarquee({
         autoStart: true,
         shouldSmooth: true,
         centerAlign: true,
@@ -163,13 +219,10 @@ describe('MarqueeText', () => {
           maxLines: 1
         }
       });
-
       Object.defineProperty(marquee, '_textRenderedW', {
         get: jest.fn(() => 100)
       });
-
       expect(marquee.shouldSmooth).toBe(true);
-
       setTimeout(() => {
         expect(marquee._scrolling).toBe(false);
         done();

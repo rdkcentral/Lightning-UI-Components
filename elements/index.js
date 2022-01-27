@@ -19,7 +19,7 @@ export { default as FocusRing } from './FocusRing';
 export { default as Gradient } from './Gradient';
 export { default as Icon } from './Icon';
 export { default as Key } from './Key';
-export { default as MarqueeText } from './MarqueeText';
+export { default as Marquee } from './Marquee';
 export { default as Metadata } from './Metadata';
 export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataHero } from './MetadataHero';

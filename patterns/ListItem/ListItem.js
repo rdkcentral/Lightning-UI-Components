@@ -2,7 +2,7 @@ import Icon from '../../elements/Icon';
 import ListItemBase from './ListItemBase';
 import styles from './ListItem.styles.js';
 import withStyles from '../../mixins/withStyles';
-import { MarqueeText } from '../../elements';
+import { Marquee } from '../../elements';
 export default class ListItem extends withStyles(ListItemBase, styles) {
   static get properties() {
     return [
@@ -83,6 +83,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
         y: 2,
         h: this.styles.title.text.lineHeight + 4,
         w: this._textWidth,
+        type: Marquee,
         color: this.hasFocus()
           ? this.styles.focused.title.color
           : this.styles.title.color,
@@ -104,7 +105,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       return;
     }
     if (!this._Subtitle) {
-      this._Left.patch({ Subtitle: { type: MarqueeText } });
+      this._Left.patch({ Subtitle: { type: Marquee } });
     }
     this._Left.patch({
       w: this._textWidth,

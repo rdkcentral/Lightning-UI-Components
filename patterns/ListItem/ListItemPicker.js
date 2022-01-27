@@ -1,7 +1,7 @@
 import ListItem from '.';
 import { Arrow } from '../../textures';
 import Row from '../../layout/Row';
-import { MarqueeText } from '../../elements';
+import { Marquee } from '../../elements';
 
 export default class ListItemPicker extends ListItem {
   static _template() {
@@ -25,7 +25,7 @@ export default class ListItemPicker extends ListItem {
         Left: {
           ...ListItem.Container.Left,
           Title: {
-            type: MarqueeText
+            type: Marquee
           },
           Carousel: {
             type: Row,
@@ -182,7 +182,7 @@ export default class ListItemPicker extends ListItem {
         items: this.options.map(option => ({
           h: this.styles.subtitle.text.lineHeight,
           w: this._Left.finalW,
-          type: MarqueeText,
+          type: Marquee,
           title: {
             ...this.styles.subtitle.text,
             textAlign: 'center',

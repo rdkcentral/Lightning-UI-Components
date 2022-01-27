@@ -1,5 +1,5 @@
 import InlineContent from '../../layout/InlineContent';
-import MarqueeText from '../MarqueeText';
+import Marquee from '../Marquee';
 import Base from '../Base';
 import { FadeShader } from '../../textures';
 import { withStyles } from '../../mixins';
@@ -12,7 +12,7 @@ export default class MetadataTile extends withStyles(Base, styles) {
         flex: { direction: 'column', justifyContent: 'center' },
         FirstLineWrapper: {
           Marquee: {
-            type: MarqueeText,
+            type: Marquee,
             alpha: 0
           },
           FirstLine: {

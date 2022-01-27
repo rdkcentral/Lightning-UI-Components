@@ -173,10 +173,7 @@ describe('ListItem', () => {
     });
     listItem._focus();
     testRenderer.forceAllUpdates();
-    //setTimeout(() => {
     expect(listItem._Right.alpha).toEqual(1);
-    // done();
-    //  }, 0);
   });
 
   it('should render multiple icons', () => {

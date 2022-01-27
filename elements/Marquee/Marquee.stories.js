@@ -1,13 +1,12 @@
 import lng from '@lightningjs/core';
 
-import MarqueeText from '.';
+import Marquee from '.';
 import InlineContent from '../../layout/InlineContent';
-import icon from '../../assets/images/ic_lightning_white_32.png';
-import mdx from './MarqueeText.mdx';
+import mdx from './Marquee.mdx';
 import { PALETTE, TYPOGRAPHY } from '../../Styles';
 
 export default {
-  title: 'Elements / MarqueeText',
+  title: 'Elements / Marquee',
   parameters: {
     docs: {
       page: mdx
@@ -15,64 +14,74 @@ export default {
   }
 };
 
-export const Basic = () =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        MarqueeText: {
-          type: MarqueeText,
+        Marquee: {
+          type: Marquee,
           w: 350,
           h: 180,
           title: {
-            text: 'This is a scrolling Marquee component for long text',
+            text: args.title,
             ...TYPOGRAPHY.headline2,
             textColor: PALETTE.text.light.primary,
             lineHeight: 44,
             maxLines: 1
           },
-          autoStart: true,
-          delay: 1
-        },
-        InlineContent: {
-          type: InlineContent,
-          x: 200,
-          alpha: 0.001,
-          justify: 'flex-start',
-          content: [
-            'This is a scrolling ',
-            {
-              icon,
-              title: 'Lightning bolt'
-            },
-            ' InlineContent component'
-          ],
-          rtt: true
-        },
-        MarqueeInlineContent: {
-          type: MarqueeText,
-          y: 100,
-          w: 350,
-          h: 180,
-          alpha: 0,
-          autoStart: true,
-          delay: 1
+          autoStart: args.autoStart,
+          delay: args.delay,
+          color: args.color,
+          repeat: args.repeat
         }
       };
     }
-
-    _init() {
-      this.tag('MarqueeInlineContent').contentTexture =
-        this.tag('InlineContent').getTexture();
-      this.tag('MarqueeInlineContent').alpha = 1;
+    _getFocused() {
+      return this.tag('Marquee');
     }
   };
+Basic.args = {
+  title: 'This is a scrolling Marquee component for long text',
+  autoStart: true,
+  centerAlign: false,
+  repeat: -1,
+  delay: 1.5
+};
+Basic.argTypes = {
+  title: {
+    control: 'text',
+    description: 'An object matching Lightning text object'
+  },
+  autoStart: {
+    control: { type: 'boolean' },
+    description: 'Start scrolling on initiation'
+  },
+  color: {
+    name: 'color',
+    control: { type: 'color' },
+    description: 'Set color of text'
+  },
+  repeat: {
+    control: { type: 'number', min: -1 },
+    description: 'Number of times to repeat scrolling'
+  },
+  delay: {
+    control: { type: 'number', min: 1.5 },
+    description: 'Delay before scrolling starts'
+  },
+  centerAlign: {
+    control: { type: 'boolean' },
+    description:
+      'Will center the entire texture if the width of the content is less than the container'
+  }
+};
 
 export const CenteredText = args =>
   class CenteredText extends lng.Component {
     static _template() {
       return {
-        MarqueeText: {
-          type: MarqueeText,
+        Marquee: {
+          type: Marquee,
           w: args.width,
           h: 50,
           title: {
@@ -102,7 +111,7 @@ export const CenteredText = args =>
           rtt: true
         },
         MarqueeInlineContent: {
-          type: MarqueeText,
+          type: Marquee,
           y: 100,
           w: args.width,
           h: 180,

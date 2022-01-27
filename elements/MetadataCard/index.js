@@ -2,7 +2,7 @@ import Base from '../Base';
 import styles from './MetadataCard.styles';
 import withStyles from '../../mixins/withStyles';
 import InlineContent from '../../layout/InlineContent';
-import MarqueeText from '../MarqueeText';
+import Marquee from '../Marquee';
 import Icon from '../Icon';
 import { FadeShader } from '../../textures';
 
@@ -13,7 +13,7 @@ export default class MetadataCard extends withStyles(Base, styles) {
         flex: { direction: 'column' },
         FirstLineWrapper: {
           Marquee: {
-            type: MarqueeText,
+            type: Marquee,
             alpha: 0
           },
           FirstLine: {

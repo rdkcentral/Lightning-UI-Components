@@ -268,7 +268,7 @@ Object {
               "tags": Array [
                 "Marquee",
               ],
-              "type": "MarqueeText",
+              "type": "Marquee",
               "visible": true,
               "w": 400,
               "x": 0,
