@@ -10,7 +10,8 @@ export default {
     subtitle: 'List Item Metadata',
     size: 'small',
     backgroundType: 'fill',
-    checked: false
+    checked: false,
+    focused: false
   },
   argTypes: {
     backgroundType: {

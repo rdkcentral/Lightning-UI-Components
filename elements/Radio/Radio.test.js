@@ -27,4 +27,24 @@ describe('Radio', () => {
     testRenderer.keyPress('Enter');
     expect(radio.checked).toEqual(false);
   });
+
+  it('stroke color should change when active', () => {
+    [radio, testRenderer] = createRadio({
+      isInactive: false
+    });
+    const strokeColor = radio.isInactive
+      ? radio._componentStyles.strokeColorInactive
+      : radio._componentStyles.strokeColor;
+    expect(strokeColor).toBe(radio._componentStyles.strokeColor);
+  });
+
+  it('stroke color should change when inactive', () => {
+    [radio, testRenderer] = createRadio({
+      isInactive: true
+    });
+    const strokeColor = radio.isInactive
+      ? radio._componentStyles.strokeColorInactive
+      : radio._componentStyles.strokeColor;
+    expect(strokeColor).toBe(radio._componentStyles.strokeColorInactive);
+  });
 });
