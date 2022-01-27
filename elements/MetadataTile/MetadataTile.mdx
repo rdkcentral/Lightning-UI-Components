@@ -24,7 +24,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -35,17 +35,17 @@ class Example extends lng.Component {
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-w|number|true|410|width of the entire component, and necessary to compute the focus width
-firstLine|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the title line
-secondLine|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the subtitle line
-justify|'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly'|false|flex-start|alignment of first line flexbox content
-marqueeProperties|object|false|{}|properties to update the first line marquee scrolling (see [MarqueeText](?path=/docs/marqueetext--basic) component for all available properties)
-firstLineTextProperties|object|false|-|font properties to apply to the first line
-secondLineTextProperties|object|false|-|font properties to apply to the second line
-focusScaleConst|number|false|1.12|adds a custom scale of the component's width on focus
-unfocusScaleConst|number|false|1|adds a custom scale of the component's width on unfocus
+| name                     | type                                                                                | required | default    | description                                                                                                                              |
+| ------------------------ | ----------------------------------------------------------------------------------- | -------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| w                        | number                                                                              | true     | 410        | width of the entire component, and necessary to compute the focus width                                                                  |
+| firstLine                | string\|array                                                                       | false    | -          | used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the title line                     |
+| secondLine               | string\|array                                                                       | false    | -          | used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the subtitle line                  |
+| justify                  | 'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly' | false    | flex-start | alignment of first line flexbox content                                                                                                  |
+| marqueeProperties        | object                                                                              | false    | {}         | properties to update the first line marquee scrolling (see [Marquee](?path=/docs/marquee--basic) component for all available properties) |
+| firstLineTextProperties  | object                                                                              | false    | -          | font properties to apply to the first line                                                                                               |
+| secondLineTextProperties | object                                                                              | false    | -          | font properties to apply to the second line                                                                                              |
+| focusScaleConst          | number                                                                              | false    | 1.12       | adds a custom scale of the component's width on focus                                                                                    |
+| unfocusScaleConst        | number                                                                              | false    | 1          | adds a custom scale of the component's width on unfocus                                                                                  |
 
 ### Styles
 

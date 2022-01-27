@@ -1,0 +1,68 @@
+import { Preview, Story } from '@storybook/addon-docs';
+
+# Marquee
+
+Scrolls long text
+
+## Usage
+
+This component takes in a string or a texture, applies a fade shader to the right, and scrolls the content in a loop.
+
+```js
+import { Marquee } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Marquee: {
+        type: Marquee,
+        w: 350,
+        h: 50,
+        title: {
+          text: 'This is a scrolling Marquee component for long text',
+          ...TYPESCALE.headline2,
+          textColor: getHexColor(COLORS_TEXT.light),
+          maxLines: 1
+        },
+        autoStart: true
+      }
+    };
+  }
+}
+```
+
+<Preview>
+  <Story id="elements-Marquee--basic" />
+</Preview>
+
+## API
+
+### Properties
+
+| name           | type    | required | default                   | description                                                                           |
+| -------------- | ------- | -------- | ------------------------- | ------------------------------------------------------------------------------------- |
+| autoStart      | boolean | false    | false                     | Start scrolling on initiation                                                         |
+| color          | string  | false    | theme.colors.fillNeutral1 | Set color of text                                                                     |
+| delay          | number  | false    | 1.5                       | Delay before scrolling starts                                                         |
+| repeat         | number  | false    | -1                        | Number of times to repeat scrolling                                                   |
+| title          | string  | false    | -                         | An object matching Lightning text object                                              |
+| contentTexture | object  | false    | false                     | An object matching Lightning texture object (this.tag('MyTag').getTexture())          |
+| centerAlign    | boolean | false    | false                     | Will center the entire texture if the width of the content is less than the container |
+
+### Style Properties
+
+| name         | type    | description                                                                              |
+| ------------ | ------- | ---------------------------------------------------------------------------------------- |
+| shouldSmooth | boolean | Determines whether things like centering should happen immediately or animate into place |
+| fadeW        | number  | Starting point of where fadeShader is applied                                            |
+| offset       | number  | Helps decide whether content should be clipped and where it should be positioned         |
+
+### Methods
+
+#### startScrolling(finalW):void
+
+Start scrolling
+
+#### stopScrolling():void
+
+Stops scrolling

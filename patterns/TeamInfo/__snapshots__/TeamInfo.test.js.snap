@@ -270,7 +270,7 @@ Object {
                                   "tags": Array [
                                     "Subtitle",
                                   ],
-                                  "type": "MarqueeText",
+                                  "type": "Marquee",
                                   "visible": true,
                                   "w": 362,
                                   "x": 0,
@@ -465,7 +465,7 @@ Object {
                                   "tags": Array [
                                     "Title",
                                   ],
-                                  "type": "MarqueeText",
+                                  "type": "Marquee",
                                   "visible": true,
                                   "w": 362,
                                   "x": 0,
@@ -808,7 +808,7 @@ Object {
                                   "tags": Array [
                                     "Subtitle",
                                   ],
-                                  "type": "MarqueeText",
+                                  "type": "Marquee",
                                   "visible": true,
                                   "w": 362,
                                   "x": 0,
@@ -1003,7 +1003,7 @@ Object {
                                   "tags": Array [
                                     "Title",
                                   ],
-                                  "type": "MarqueeText",
+                                  "type": "Marquee",
                                   "visible": true,
                                   "w": 362,
                                   "x": 0,
