@@ -1,10 +1,16 @@
 import lng from '@lightningjs/core';
+import { withExtensions } from '../../mixins';
+import Base from '../../Base';
+import withStyles from '../../mixins/withThemeStyles';
+import styles from './Icon.styles';
+import context from '../../context';
 
-import Base from '../Base';
-export default class Icon extends Base {
+class Icon extends Base {
+  static get __componentName() {
+    return 'Icon';
+  }
   static _template() {
     return {
-      color: 0xffffffff,
       w: 0,
       h: 0
     };
@@ -18,12 +24,9 @@ export default class Icon extends Base {
     this.on('txError', this._handleTxtError.bind(this));
   }
 
-  _detach() {
-    this.off('txError', this._handleTxtError.bind(this));
-  }
-
   // eslint-disable-next-line no-unused-vars
   _handleTxtError(error) {
+    context.error(`Unable to load icon ${this._icon}`);
     this._icon = null;
     this.texture = null;
   }
@@ -36,6 +39,9 @@ export default class Icon extends Base {
     const { icon, w, h } = this;
     const template = getIconTemplate(icon, w, h);
     this.patch(template);
+    if (!template.texture) {
+      this.smooth = { color: this._componentStyles.color };
+    }
   }
 }
 
@@ -68,3 +74,5 @@ function getIconTemplate(icon, w, h) {
   }
   return template;
 }
+
+export default withExtensions(withStyles(Icon, styles));
