@@ -8,6 +8,7 @@ import {
   calculateColumnWidth
 } from './layout';
 import radius from './radius';
+import stroke from './stroke';
 import typography from './typography';
 import animations from './animations';
 import fonts from './fonts';
@@ -23,6 +24,7 @@ export default {
   getUnfocusScale,
   calculateColumnWidth,
   radius,
+  stroke,
   typography,
   animations,
   componentStyles: {},

@@ -17,6 +17,7 @@ export default theme => ({
       maxLinesSuffix: '...'
     }
   },
+
   subtitle: {
     color: theme.palette.text.light.secondary,
     text: {

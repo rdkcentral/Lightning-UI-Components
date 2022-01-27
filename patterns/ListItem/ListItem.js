@@ -159,7 +159,6 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     const color = this.hasFocus()
       ? this.styles.iconVariantFocus
       : this.styles.iconVariantUnfocus;
-
     if (this._icons && this._icons.length) {
       this._icons.forEach(icon => (icon.variant = color));
     }
