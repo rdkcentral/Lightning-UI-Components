@@ -2,7 +2,7 @@ typography Value | Components
 --------|-------- 
 button1 | ActionButtonBase
 headline1 | ActionButtonLarge, Key
-button2 | ActionButtonSmall, ActionButtonXsmall
+button2 | ActionButtonXsmall, ActionButtonSmall
 caption | Badge, Tag
 headline3 | MetadataCard, MetadataTile
 body3 | MetadataCard, MetadataCard, MetadataTile, Tooltip

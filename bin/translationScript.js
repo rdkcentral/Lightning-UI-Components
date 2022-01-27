@@ -1,5 +1,3 @@
-// to run script run this command 'node -r esm bin/translationScript.js'
-//then re-start storybook
 const fs = require('fs');
 const readline = require('readline');
 const radius = require('../themes/base/radius.js');
@@ -21,7 +19,10 @@ function createTable(themeProperty, mdFile, themeFiles) {
   }
   const styleFileArray = [];
   const variantsArray = ['neutral:', 'inverse:', 'brand:'];
-  const fileOutput = fs.readdirSync('./elements');
+  let fileOutput = fs.readdirSync('./elements');
+  fileOutput = fileOutput.filter(file => {
+    return file !== 'index.d.ts' && file !== 'index.js'
+  });
   const filteredFileOutput = fileOutput.filter(file => {
     return !file.endsWith('.js');
   });
@@ -56,16 +57,22 @@ function createTable(themeProperty, mdFile, themeFiles) {
           const valueFound = themeValueArray.some(val => line.includes(val));
           const temp = variantsArray.find(val => line.includes(val));
           if (temp != undefined) {
-            variantFound = temp.substr(0, temp.length - 1);
+            variantFound = temp.substring(0, temp.length - 1);
           }
           if (valueFound == true) {
             const updateFileName = file.split('/');
             line = line.trim();
             line = line.split('.');
             const modifiedLine = line[line.length - 1];
-            const updatedLine = modifiedLine.includes(',')
-              ? modifiedLine.substr(0, modifiedLine.length - 1)
+            let updatedLine = modifiedLine.includes(',')
+              ? modifiedLine.substring(0, modifiedLine.length - 1)
               : modifiedLine;
+            updatedLine = updatedLine.includes('}')
+              ? updatedLine.substring(0, updatedLine.length - 1)
+              : updatedLine;
+             updatedLine = updatedLine.includes(' ')
+              ? updatedLine.substring(0, updatedLine.length - 1)
+               : updatedLine;
             const newFileName = updateFileName[updateFileName.length - 1];
             const seperatedFileName = newFileName.split('.');
             const finalFileName = seperatedFileName[0];
