@@ -22,7 +22,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 A valid `icon` value can be any path to any [common image type](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types) or an inline SVG.
@@ -43,8 +43,14 @@ With an inline svg:
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-icon|string|true|-|path to image or inline SVG XML
-w|number|true|0|texture width
-h|number|true|0|texture height
+| name | type   | required | default | description                     |
+| ---- | ------ | -------- | ------- | ------------------------------- |
+| icon | string | true     | -       | path to image or inline SVG XML |
+| w    | number | true     | 0       | texture width                   |
+| h    | number | true     | 0       | texture height                  |
+
+### Style Properties
+
+| name  | type   | description                                   |
+| ----- | ------ | --------------------------------------------- |
+| color | string | icon color (can only be applied on png icons) |

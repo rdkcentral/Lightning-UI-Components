@@ -133,7 +133,6 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     if (this.icon) {
       this._Right.patch({
         Icon: {
-          color: this.styles.icon.color,
           icon: this.icon
         }
       });
@@ -146,7 +145,6 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
             type: Icon,
             h: this.styles.icon.height,
             w: this.styles.icon.width,
-            color: this.styles.icon.color,
             icon,
             flexItem: {
               marginLeft: index > 0 ? this.styles.icon.spacing : 0
@@ -159,10 +157,11 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
     );
 
     const color = this.hasFocus()
-      ? this.styles.focused.icon.color
-      : this.styles.icon.color;
+      ? this.styles.iconVariantFocus
+      : this.styles.iconVariantUnfocus;
+
     if (this._icons && this._icons.length) {
-      this._icons.forEach(icon => (icon.smooth = { color }));
+      this._icons.forEach(icon => (icon.variant = color));
     }
     if (this._collapseIcon) {
       this._Right.visible = this.hasFocus();

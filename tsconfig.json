@@ -1,7 +1,7 @@
 {
-  "inputs": ["./index.d.ts"],
-  "include": ["./{context,elements,layout,mixins,patterns}/**/*.js"],
-  "exclude": ["*.story.js,*.test.js,*.styles.js,*.mdx"],
+  "include": [
+    "./**/*.d.ts"
+  ],
   "compilerOptions": {
     "outDir": "./types",
     "sourceMap": true,

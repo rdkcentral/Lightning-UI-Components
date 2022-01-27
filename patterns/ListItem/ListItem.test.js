@@ -203,7 +203,7 @@ describe('ListItem', () => {
     it('focused items transition color', () => {
       expect(listItem._Title.color).toEqual(0xf2000000);
       expect(listItem._Subtitle.color).toEqual(0xcc000000);
-      expect(listItem._Icon.color).toEqual(0xf2000000);
+      expect(listItem._Icon.color).toEqual(4294967295);
     });
     it('unfocused items transition color', () => {
       listItem._unfocus();
@@ -212,7 +212,7 @@ describe('ListItem', () => {
 
       expect(listItem._Title.color).toEqual(0xf2ffffff);
       expect(listItem._Subtitle.color).toEqual(0xccffffff);
-      expect(listItem._Icon.color).toEqual(0xf2ffffff);
+      expect(listItem._Icon.color).toEqual(4294967295);
     });
 
     it('should announce title and subtitle', () => {

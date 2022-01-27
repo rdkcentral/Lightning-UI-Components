@@ -5,6 +5,8 @@ export default theme => ({
     color: theme.palette.text.light.primary,
     spacing: theme.spacing(2)
   },
+  iconVariantFocus: 'inverse', // these can change with additional listItem refactoring
+  iconVariantUnfocus: 'neutral',
   title: {
     color: theme.palette.text.light.primary,
     text: {
