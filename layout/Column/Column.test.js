@@ -500,4 +500,36 @@ describe('Column', () => {
       expect(column.items[4].selectedIndex).toBe(3);
     });
   });
+
+  describe('visible on screen', () => {
+    beforeEach(done => {
+      column.items = [...column.items, ...rows, ...rows];
+      column.items.forEach((r, idx) => {
+        r.rowTitle = `row ${idx + 1}`;
+        r.items.forEach((t, tileIndex) => {
+          t.tileTitle = `${idx + 1} x ${tileIndex + 1}`;
+        });
+      });
+      column.itemSpacing = 35;
+      column._update();
+      testRenderer.update();
+      column._whenEnabled.then(() => done());
+    });
+
+    it('should return fully and partially visible items', async () => {
+      expect(column.onScreenItems).toHaveLength(50);
+      for (let idx = 0; idx < 12; idx++) {
+        testRenderer.keyPress('Down');
+        column._update();
+        testRenderer.update();
+        await column._whenEnabled;
+      }
+      expect(column.onScreenItems).toHaveLength(25);
+      testRenderer.keyPress('Right');
+      column._update();
+      testRenderer.update();
+      await column._whenEnabled;
+      expect(column.onScreenItems).toHaveLength(24);
+    });
+  });
 });

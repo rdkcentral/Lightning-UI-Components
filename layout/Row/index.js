@@ -107,66 +107,24 @@ export default class Row extends FocusManager {
     );
   }
 
-  get onScreenItems() {
-    return this.Items.children.filter(child => this._isOnScreen(child));
-  }
-
-  _isOnScreen(child) {
-    if (!child) return false;
-    const x = getX(child);
-    if (!Number.isFinite(x)) return false;
-    // to calculate the target absolute X position of the item, we need to use
-    // 1) the entire row's absolute position,
-    // 2) the target animation value of the items container, and
-    // 3) the target value of the item itself
-    const ItemX =
-      this.core.renderContext.px + this.Items.transition('x').targetValue + x;
-    const { w } = child;
-
-    // check that the child is inside the bounds of the stage
-    const withinLeftStageBounds = ItemX > 0;
-    // stage width needs to be adjusted with precision since all other values assume the original height and width (pre-scaling)
-    const withinRightStageBounds =
-      ItemX + w < this.stage.w / this.stage.getRenderPrecision();
-
-    // check that the child is inside the bounds of any clipping
-    let withinLeftClippingBounds = true;
-    let withinRightClippingBounds = true;
-    if (this.core._scissor && this.core._scissor.length) {
-      // _scissor consists of [ left position (x), top position (y), width, height ]
-      const leftBounds = this.core._scissor[0];
-      const rightBounds = leftBounds + this.core._scissor[2];
-      withinLeftClippingBounds = Math.round(ItemX + w) > Math.round(leftBounds);
-      withinRightClippingBounds = Math.round(ItemX) < Math.round(rightBounds);
-    }
-
-    return (
-      withinLeftStageBounds &&
-      withinRightStageBounds &&
-      withinLeftClippingBounds &&
-      withinRightClippingBounds
-    );
-  }
-
-  _isOnScreenCompletely(child) {
-    if (!child) return false;
-    const itemX = child.core.renderContext.px;
-    const rowX = this.core.renderContext.px;
-    return itemX >= rowX && itemX + child.w <= rowX + this.w;
-  }
-
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
+      const isCompletelyOnScreen = this._isComponentOnScreen(
+        this.selected,
+        true,
+        true,
+        true
+      );
       if (this.lazyScroll) {
-        shouldScroll = !this._isOnScreenCompletely(this.selected);
+        shouldScroll = !isCompletelyOnScreen;
       } else {
         const lastChild = this.Items.childList.last;
         shouldScroll =
           lastChild &&
           (this.shouldScrollLeft() ||
             this.shouldScrollRight() ||
-            !this._isOnScreenCompletely(this.selected));
+            !isCompletelyOnScreen);
       }
     }
     return shouldScroll;
