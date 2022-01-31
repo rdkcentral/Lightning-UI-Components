@@ -4,6 +4,7 @@
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
 import Base from '../../elements/Base';
+import { getX, getY } from '../../utils';
 
 export default class FocusManager extends Base {
   static _template() {
@@ -242,6 +243,150 @@ export default class FocusManager extends Base {
       }
     }
     return this;
+  }
+
+  /**
+   * Return list of items that are currently fully and partially on screen
+   * @returns {Array} Array of matching lng.Component objects or empty array
+   */
+  get onScreenItems() {
+    return this._onScreenItems(false);
+  }
+
+  /**
+   * Gets list of items that are completely visible on screen.
+   * This function will return list of items and not containers (i.e. FocusManager)
+   * @returns {Array} Array of matching lng.Component objects or empty array
+   */
+  get onScreenCompletelyItems() {
+    return this._onScreenItems(true);
+  }
+
+  _onScreenItems(fully) {
+    return this.Items.children.reduce((res, child) => {
+      const isFm = child instanceof FocusManager;
+      const xBound = isFm && child.direction === 'column' ? false : true;
+
+      // if current child is of type FocusManager and it is _partially_ on screen,
+      // return this child's fully on screen items. This would account for a case,
+      // where we have a column that has 2 rows and first row is visible, but second is not
+      if (isFm && this._isComponentOnScreen(child, xBound, true, false)) {
+        const osi = fully ? child.onScreenCompletelyItems : child.onScreenItems;
+        return [...res, ...osi];
+      }
+      // if child is NOT a FocusManager, return it if it's _fully_ on screen
+      else if (!isFm && this._isComponentOnScreen(child, true, true, fully)) {
+        return [...res, child];
+      }
+      // return accumulated list of items w/out adding current child to the list
+      else {
+        return res;
+      }
+    }, []);
+  }
+
+  /**
+   * Checks component's visibility
+   * @param {lng.Component} child Component to check visibility of
+   * @param {boolean} withinXBounds Whether component is visible horizontally
+   * @param {boolean} withinYBounds Whether component is visible vertically
+   * @param {boolean} fullyVisible Whether component is visible in its entirety on screen
+   * @returns True if component is visible; False otherwise
+   */
+  _isComponentOnScreen(child, withinXBounds, withinYBounds, fullyVisible) {
+    if (!child) return false;
+
+    const verticallyVisible = withinYBounds
+      ? this._isComponentVerticallyVisible(child, fullyVisible)
+      : true;
+
+    const horizontallyVisible = withinXBounds
+      ? this._isComponentHorizontallyVisible(child, fullyVisible)
+      : true;
+
+    return verticallyVisible && horizontallyVisible;
+  }
+
+  _isComponentHorizontallyVisible(child, fullyVisible) {
+    // get child's destination X; If child is moving to a destination,
+    // get the value of where child will end up
+    const x = getX(child);
+    if (!Number.isFinite(x)) return false;
+
+    // to calculate the target absolute X position of the item, we need to use
+    // 1) the entire component's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const transitionTarget = this.Items.transition('x').targetValue;
+    // get absolute position of FocusManager on screen
+    const px = this.core.renderContext.px;
+    const itemX = px + transitionTarget + x;
+
+    // _scissor consists of [ left position (x), top position (y), width, height ]
+    const [leftBounds = null, , clipWidth = null] = this.core._scissor || [];
+    const stageW = this.stage.w / this.stage.getRenderPrecision();
+    const { w } = child;
+
+    const withinLeftStageBounds = itemX >= 0;
+    const withinRightStageBounds = itemX + w <= stageW;
+
+    let withinLeftClippingBounds = true;
+    let withinRightClippingBounds = true;
+    if (Number.isFinite(leftBounds)) {
+      const leftClippingBound = itemX + (fullyVisible ? 0 : w);
+      const rightClippingBound = itemX + (fullyVisible ? w : 0);
+      withinLeftClippingBounds =
+        Math.round(leftClippingBound) >= Math.round(leftBounds);
+      withinRightClippingBounds =
+        Math.round(rightClippingBound) <= Math.round(leftBounds + clipWidth);
+    }
+
+    return (
+      withinLeftStageBounds &&
+      withinRightStageBounds &&
+      withinLeftClippingBounds &&
+      withinRightClippingBounds
+    );
+  }
+
+  _isComponentVerticallyVisible(child, fullyVisible) {
+    // get child's destination Y; If child is moving to a destination,
+    // get the value of where child will end up
+    const y = getY(child);
+    if (!Number.isFinite(y)) return false;
+
+    // to calculate the target absolute Y position of the item, we need to use
+    // 1) the entire component's absolute position,
+    // 2) the target animation value of the items container, and
+    // 3) the target value of the item itself
+    const transitionY = this.Items.transition('y').targetValue;
+
+    // get absolute position of FocusManager on screen
+    const py = this.core.renderContext.py;
+
+    // _scissor consists of [ left position (x), top position (y), width, height ]
+    const [, topBounds = null, , clipHeight = null] = this.core._scissor || [];
+    const { h } = child;
+
+    const itemY = py + transitionY + y;
+    const stageH = this.stage.h / this.stage.getRenderPrecision();
+    const withinTopStageBounds = itemY + (fullyVisible ? 0 : h) >= 0;
+    const withingBottomStageBounds = itemY + (fullyVisible ? h : 0) <= stageH;
+
+    let withinTopClippingBounds = true;
+    let withinBottomClippingBounds = true;
+    if (Number.isFinite(topBounds)) {
+      withinTopClippingBounds = Math.round(itemY + h) > Math.round(topBounds);
+      withinBottomClippingBounds =
+        Math.round(itemY) < Math.round(topBounds + clipHeight);
+    }
+
+    return (
+      withinTopStageBounds &&
+      withingBottomStageBounds &&
+      withinTopClippingBounds &&
+      withinBottomClippingBounds
+    );
   }
 
   static _states() {

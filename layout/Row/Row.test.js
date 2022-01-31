@@ -286,5 +286,49 @@ describe('Row', () => {
         });
       });
     });
+
+    describe('visible on screen', () => {
+      beforeEach(() => {
+        const largeItem = idx => ({
+          type: lng.Component,
+          w: 700,
+          h: 80,
+          atext: `item: ${idx}`
+        });
+        [row, testRenderer] = TestUtils.makeCreateComponent(Row, {
+          title: 'My Row',
+          h: 80,
+          signals: {
+            selectedChange: 'selectedChangeMock'
+          },
+          debounceDelay: 0,
+          items: new Array(10).fill(undefined).map((_, idx) => largeItem(idx)),
+          itemSpacing: 20,
+          lazyScroll: true
+        })();
+
+        row.scrollTransition = { duration: 0 };
+      });
+
+      it('should return fully and partially visible items', async () => {
+        expect(row.onScreenItems).toHaveLength(2);
+        for (let i = 0; i < 5; i++) {
+          testRenderer.keyPress('Right');
+          row._update();
+          testRenderer.update();
+          await row._whenEnabled;
+        }
+        expect(row.onScreenItems).toHaveLength(2);
+      });
+
+      it('should return fully visible items', async () => {
+        expect(row.onScreenCompletelyItems).toHaveLength(2);
+        new Array(8).fill(null).forEach(async () => {
+          testRenderer.keyPress('Right');
+          await row._whenEnabled;
+        });
+        expect(row.onScreenCompletelyItems).toHaveLength(2);
+      });
+    });
   });
 });
