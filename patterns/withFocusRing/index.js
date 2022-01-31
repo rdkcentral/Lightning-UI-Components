@@ -48,6 +48,7 @@ function withFocusRing(Base) {
             radius: this._componentStyles.radius || 0 + 2
           }
         });
+        this._FocusRing._update(); // TODO: This should not be necessary, need to rework withThemeStyles to make sure variant is being properly set at the end
 
         const style = this.hasFocus() ? this.focusStyle : this.unfocusStyle;
 
