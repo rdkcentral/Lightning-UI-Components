@@ -213,7 +213,10 @@ export default class Row extends FocusManager {
         }
       }
     }
+
+    const itemChanged = this.Items.h !== nextH || this.Items.w !== nextX;
     this.Items.patch({ h: nextH, w: nextX });
+
     if (this.autoResize) {
       this.h = this.Items.h;
       this.w = this.Items.w;
@@ -237,7 +240,7 @@ export default class Row extends FocusManager {
         }
       }
     }
-    this.fireAncestors('$itemChanged');
+    itemChanged && this.fireAncestors('$itemChanged');
     this.render(this.selected, this.prevSelected);
   }
 
