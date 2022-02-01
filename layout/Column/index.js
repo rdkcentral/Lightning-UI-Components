@@ -256,7 +256,10 @@ export default class Column extends FocusManager {
           }
         }
       }
+
+      const itemChanged = this.Items.w !== nextW || this.Items.h !== nextY;
       this.Items.patch({ w: nextW, h: nextY });
+
       if (this.autoResize) {
         this.h = this.Items.h;
         this.w = this.Items.w;
@@ -284,8 +287,8 @@ export default class Column extends FocusManager {
         this._lastScrollIndex = this.items.length - 1;
       }
 
+      itemChanged && this.fireAncestors('$itemChanged');
       this._performRender();
-      this.fireAncestors('$itemChanged');
     });
   }
 
