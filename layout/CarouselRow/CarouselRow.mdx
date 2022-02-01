@@ -1,0 +1,43 @@
+import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Theme } from '../../.storybook/utils';
+import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
+import CarouselRow from '.';
+
+# CarouselRow
+
+## Usage
+
+`Carousel Row` just requires the `CarouselRow` type and items.
+
+```js
+import { CarouselRow } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      CarouselRow: {
+        type: CarouselRow,
+        items: [
+          { type: MyItem, title: 'Item1' },
+          { type: MyItem, title: 'Item2' },
+          { type: MyItem, title: 'Item3' },
+          { type: MyItem, title: 'Item4' }
+        ]
+      }
+    };
+  }
+};
+```
+
+## API
+The `Carousel Row` component extends `Row` and inherits it's properties and methods. See the [Row API][fm-api] for more references
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+carouselShiftTiming|number|false|total animation duration - 0.2|the amount of time before (delay) starting to alpha in the item in the row that is moving positions due to the carouseling
+carouselShiftDuration|number|false|0|the duration of the animation of the alpha in on the item in the row that is moving positions due to the carouseling
+
+[fm-docs]: ?path=/docs/row--basic
+[fm-api]: ?path=/docs/row--basic#api
