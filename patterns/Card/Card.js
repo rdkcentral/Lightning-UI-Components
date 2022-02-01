@@ -5,6 +5,7 @@ import { getValidColor } from '../../Styles/Colors';
 import withBadgeProgress from '../withBadgeProgress';
 export const artCardProps = [
   'src',
+  'icon',
   'artWidth',
   'artHeight',
   'badge',
@@ -185,6 +186,7 @@ export default class Card extends withStyles(Base, styles) {
     const radius = this._getArtRadius();
     this._Artwork.patch({
       src: this.src,
+      icon: this.icon,
       w: this.artWidth,
       h: this.artHeight,
       imageSize: this.artHeight,
