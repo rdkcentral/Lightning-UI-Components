@@ -1,16 +1,30 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { getValidColor } from '../../Styles/Colors';
-import style from './CardArtwork.styles';
+import styles from './CardArtwork.styles';
 import withStyles from '../../mixins/withStyles';
+import Icon from '../Icon';
 
-class CardArtwork extends withStyles(Base, style) {
+class CardArtwork extends Base {
   static get properties() {
-    return ['src', 'circleImage', 'imageSize', 'blur', 'blurBackgroundColor'];
+    return [
+      'src',
+      'fallbackSrc',
+      'circleImage',
+      'imageSize',
+      'blur',
+      'blurBackgroundColor',
+      'icon',
+      'iconW',
+      'iconH',
+      'iconColor'
+    ];
   }
+
   static get tags() {
-    return ['Image', 'Item', 'Blur'];
+    return ['Image', 'Item', 'Blur', 'Icon'];
   }
+
   static _template() {
     return {
       w: w => w,
@@ -35,14 +49,20 @@ class CardArtwork extends withStyles(Base, style) {
     this.padding = this.styles.padding;
     this._blurBackgroundColor = this.styles.blurBackgroundColor;
     this._blurBackground = false;
+    this._src = this._fallbackSrc = this.styles.src;
   }
 
   _init() {
-    this._update();
+    this._Image.on('txError', () => {
+      this.src = this.src !== this.fallbackSrc ? this.fallbackSrc : null;
+      this._update();
+    });
     super._init();
   }
+
   _update() {
     this._updateImage();
+    this._updateIcon();
     super._update();
   }
 
@@ -62,6 +82,7 @@ class CardArtwork extends withStyles(Base, style) {
       }
     }
   }
+
   _updateBlur() {
     this._Blur.content.Background.color = this.blurBackgroundColor;
     const alpha = this._blur > 0 ? 1 : 0;
@@ -108,7 +129,7 @@ class CardArtwork extends withStyles(Base, style) {
         this._imageSize = this.w > this.h ? this.h : this.w;
       }
       if (this.blurBackground) {
-        var updatedImageSize = this.imageSize - this.padding;
+        var updatedImageSize = this.imageSize - this.imageSize * this.padding;
       } else {
         updatedImageSize = this.imageSize;
       }
@@ -146,20 +167,41 @@ class CardArtwork extends withStyles(Base, style) {
         this._updateBlur();
         this._patchBlur();
       }
-    }
-    if (!this._circleImage) {
+    } else {
       this._Image.patch({
-        src: this.src,
         w: this.w,
         h: this.h,
         texture: {
           type: lng.textures.ImageTexture,
-          src: this._src,
+          src: this._src || this.fallbackSrc,
           resizeMode: { type: 'cover', w: this.w, h: this.h }
         }
       });
     }
   }
+
+  _updateIcon() {
+    if (!this.icon) {
+      this.patch({ Item: { Icon: undefined } });
+    } else {
+      if (!this._Icon) {
+        this.patch({ Item: { Icon: { type: Icon } } });
+      }
+      this._Icon.patch({
+        icon: this.icon,
+        mount: 0.5,
+        x: this.w / 2,
+        y: this.h / 2,
+        zIndex: 4
+      });
+      if (this.iconW && this.iconH) {
+        this._Icon.patch({ w: this.iconW, h: this.iconH });
+      }
+      if (this.iconColor) {
+        this._Icon.color = this.iconColor;
+      }
+    }
+  }
 }
 
-export default CardArtwork;
+export default withStyles(CardArtwork, styles);
