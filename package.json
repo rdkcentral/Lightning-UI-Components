@@ -20,9 +20,9 @@
     "index.js",
     "Styles.js",
     "Base.js",
-    "{bin,elements,layout,mixins,patterns,suite,Styles,textures,utils,themes,context}/**/*",
-    "!{elements,layout,mixins,patterns,suite,Styles}/**/*.stories.js",
-    "!{elements,layout,mixins,patterns,suite,textures,utils}/**/*.test.js",
+    "{bin,elements,extensions,layout,mixins,patterns,suite,Styles,textures,utils,themes,context}/**/*",
+    "!{elements,extensions,layout,mixins,patterns,suite,Styles}/**/*.stories.js",
+    "!{elements,extensions,layout,mixins,patterns,suite,textures,utils}/**/*.test.js",
     "test/lightning-test-renderer.js",
     "test/lightning-test-utils.js",
     "!public/"
