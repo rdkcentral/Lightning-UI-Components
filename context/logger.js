@@ -60,9 +60,7 @@ export class Logger {
     if (this._logCallback) {
       this._logCallback({ level: 'error', payload: args });
     }
-    if (this.debug) {
-      console.error(this._prefix, ...args);
-    }
+    console.error(this._prefix, ...args);
   }
 }
 

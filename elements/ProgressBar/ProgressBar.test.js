@@ -37,7 +37,10 @@ describe('ProgressBar', () => {
 
   beforeEach(() => {
     defaultThemeStyles.mockClear();
-    [progressBar, testRenderer] = createProgressBar();
+    [progressBar, testRenderer] = createProgressBar(
+      {},
+      { spyOnMethods: ['_update'] }
+    );
   });
 
   afterEach(() => {
@@ -74,7 +77,7 @@ describe('ProgressBar', () => {
     expect(variantStyles.inverse).toBeDefined();
   });
 
-  it.skip('expects the processThemeStyles function to be exported from styles by default', () => {
+  it('expects the processThemeStyles function to be exported from styles by default', () => {
     expect(typeof defaultThemeStyles).toBe('function');
     expect(defaultThemeStyles).toHaveBeenCalledTimes(1);
     expect(defaultThemeStyles).toHaveBeenLastCalledWith(
@@ -83,11 +86,9 @@ describe('ProgressBar', () => {
     );
   });
 
-  it('renders the correct height', done => {
-    setTimeout(() => {
-      expect(progressBar.h).toBe(8);
-      done();
-    });
+  it('renders the correct height', async done => {
+    expect(progressBar.h).toBe(8);
+    done();
   });
 
   it('renders the progress bar at the correct length', () => {
@@ -100,9 +101,11 @@ describe('ProgressBar', () => {
     expect(progressBar._Progress.transition('w').targetValue).toBe(250);
   });
 
-  it('does not render the progress past the width of the item', () => {
-    [progressBar, testRenderer] = createProgressBar({ progress: 1.5, w: 300 });
+  it('does not render the progress past the width of the item', async done => {
+    progressBar.patch({ progress: 1.5, w: 300 });
+    await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').targetValue).toBe(300);
+    done();
   });
 
   it('renders the progress at the correct length if passed through in component creation', () => {

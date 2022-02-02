@@ -96,7 +96,7 @@ describe('withThemeStyles', () => {
     expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
   });
 
-  it.skip("should create getters and setters for all keys in the component's style", async done => {
+  it("should create getters and setters for all keys in the component's style", async done => {
     expect(
       withThemeStylesComponent.style.__lookupGetter__('radius')
     ).not.toBeUndefined();
@@ -136,7 +136,7 @@ describe('component variants', () => {
 });
 
 describe('withThemeStyles Hierarchy', () => {
-  it.skip('should allow instantiation styles to be overwritten by componentStyles in the theme', async done => {
+  it('should allow instantiation styles to be overwritten by componentStyles in the theme', async done => {
     context.updateTheme({
       componentStyles: {
         TestComponent: {
@@ -150,7 +150,7 @@ describe('withThemeStyles Hierarchy', () => {
     });
     done();
   });
-  it.skip('should allow instantiation styles and componentStyles to be overwritten by component level styles', async done => {
+  it('should allow instantiation styles and componentStyles to be overwritten by component level styles', async done => {
     context.updateTheme({
       componentStyles: {
         TestComponent: {

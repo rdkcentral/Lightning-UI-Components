@@ -18,9 +18,8 @@ context.on('themeUpdate', () => {
 
 window.addEventListener('message', themeSelect, false);
 function themeSelect(event) {
-  
   if (!event.data.theme) return;
-  switch(event.data.theme) {
+  switch (event.data.theme) {
     case 'rogers':
       context.setTheme(rogers);
       break;
@@ -69,7 +68,6 @@ window.addEventListener(
 );
 
 // Setup Lightning UI Theme
-let lightningUITheme = {};
 window.CONTEXT = context.config({
   keyMetricsCallback() {
     console.log('key metrics callback');
@@ -82,9 +80,12 @@ function createApp(parameters) {
   if (window.APP) return window.APP;
   Pool.clear();
 
+  const announcerOptions = {
+    language: 'en-US',
+    ...parameters.announcerOptions
+  };
   // const white = 0xffffffff;
   const grey = 0xff141417;
-  const announcerOptions = { language: 'en-US', ...parameters.announcerOptions };
   const appParams = {
     stage: {
       w: 1280,
@@ -103,7 +104,7 @@ function createApp(parameters) {
     },
     debug: true
   };
-  window.APP = new class LightningUIApp extends withAnnouncer(
+  window.APP = new (class LightningUIApp extends withAnnouncer(
     lng.Application,
     Speech,
     announcerOptions
@@ -115,72 +116,77 @@ function createApp(parameters) {
     _getFocused() {
       return ((this.childList.first || {}).childList || {}).first || this;
     }
-  }(appParams);
+  })(appParams);
   document.body.appendChild(window.APP.stage.getCanvas());
   return window.APP;
 }
 
 let previousID = null;
-addDecorator((StoryComponent, { id, args, parameters, globals, updateGlobals }) => {
-  const triggerUpdate = previousID !== id;
-  previousID = id;
-  const app = createApp(globals.LUITheme);
-  app.announcerEnabled = globals.announce;
-  app.debug = globals.announce;
-  // If an update is required patch in the new child element
-  if (triggerUpdate) {
-    app.childList.clear();
-    app.childList.a({
-      StoryComponent: {
-        type: class extends StoryComponent() {
-          _init() {
-            this._refocus(); // Force Lightning to reset focus
-          }
-        },
-        w: w => w,
-        h: h => h,
-        x: context.theme.layout.marginX,
-        y: context.theme.layout.marginY
-      }
-    });
-    app._refocus();
-  }
-
-  const LightningUIComponent = app.tag('StoryComponent').childList.first;
-  if (LightningUIComponent && Object.keys(args).length) {
-    for (const prop in args) {
-      // Apply arguments from controls
-      const propValue =
-        'undefined' !== typeof args[prop]
-          ? args[prop]
-          : parameters.argTypes[prop].defaultValue;
-      if (!parameters.argActions || !parameters.argActions[prop]) {
-        LightningUIComponent[prop] = propValue;
-      }
+addDecorator(
+  (StoryComponent, { id, args, parameters, globals, updateGlobals }) => {
+    const triggerUpdate = previousID !== id;
+    previousID = id;
+    const app = createApp(globals.LUITheme);
+    app.announcerEnabled = globals.announce;
+    app.debug = globals.announce;
+    // If an update is required patch in the new child element
+    if (triggerUpdate) {
+      app.childList.clear();
+      app.childList.a({
+        StoryComponent: {
+          type: class extends StoryComponent() {
+            _init() {
+              this._refocus(); // Force Lightning to reset focus
+            }
+          },
+          w: w => w,
+          h: h => h,
+          x: context.theme.layout.marginX,
+          y: context.theme.layout.marginY
+        }
+      });
+      app._refocus();
     }
-  }
 
-  if (
-    LightningUIComponent &&
-    parameters.argActions &&
-    Object.keys(parameters.argActions).length
-  ) {
-    for (const prop in parameters.argActions) {
-      if ('function' === typeof parameters.argActions[prop]) {
-        try {
-          const propValue =
-            'undefined' !== typeof args[prop]
-              ? args[prop]
-              : parameters.argTypes[prop].defaultValue;
-          if ('undefined' !== typeof propValue)
-            parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
-        } catch (err) {
-          console.error('unable to apply argAction for ' + prop);
+    const LightningUIComponent = app.tag('StoryComponent').childList.first;
+    if (LightningUIComponent && Object.keys(args).length) {
+      for (const prop in args) {
+        // Apply arguments from controls
+        const propValue =
+          'undefined' !== typeof args[prop]
+            ? args[prop]
+            : parameters.argTypes[prop].defaultValue;
+        if (!parameters.argActions || !parameters.argActions[prop]) {
+          LightningUIComponent[prop] = propValue;
         }
       }
     }
-    return app.getCanvas();
-  }
 
-  return app.stage.getCanvas();
-});
+    if (
+      LightningUIComponent &&
+      parameters.argActions &&
+      Object.keys(parameters.argActions).length
+    ) {
+      for (const prop in parameters.argActions) {
+        if ('function' === typeof parameters.argActions[prop]) {
+          try {
+            const propValue =
+              'undefined' !== typeof args[prop]
+                ? args[prop]
+                : parameters.argTypes[prop].defaultValue;
+            if ('undefined' !== typeof propValue)
+              parameters.argActions[prop](
+                args[prop],
+                app.tag('StoryComponent')
+              );
+          } catch (err) {
+            console.error('unable to apply argAction for ' + prop);
+          }
+        }
+      }
+      return app.getCanvas();
+    }
+
+    return app.stage.getCanvas();
+  }
+);

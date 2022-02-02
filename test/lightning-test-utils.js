@@ -55,9 +55,7 @@ function withMethodSpies(Component, methods) {
         const spyResolver = `_${method}SpyResolve`;
 
         // Add Promise which resolves following the mock function being called
-        this[spyPromise] = generateSpyPromise(spyResolver).then(() => {
-          resetSpyPromise(spyPromise, spyResolver);
-        });
+        this[spyPromise] = generateSpyPromise(spyResolver);
 
         // Create mock function which calls the class method and resolves a
         // Promise that can be awaited in test cases
@@ -66,6 +64,7 @@ function withMethodSpies(Component, methods) {
           .mockImplementation(async function (...args) {
             await spyMethod.call(this, ...args);
             this[spyResolver]();
+            resetSpyPromise(spyPromise, spyResolver);
           });
       });
     }
