@@ -1,5 +1,5 @@
-import rogers from '../../themes/rogers';
-import xfinity from '../../themes/xfinity';
+import rogers from '../themes/rogers';
+import xfinity from '../themes/xfinity';
 
 export const ADDON_ID = 'lui-addons';
 export const DOWNLOAD_ID = `${ADDON_ID}/downloadbutton`;

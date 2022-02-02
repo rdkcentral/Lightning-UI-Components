@@ -32,7 +32,7 @@ describe('CardBasic', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');
@@ -89,7 +89,7 @@ describe('CardHorizontal', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');
@@ -173,7 +173,7 @@ describe('CardHorizontalLarge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');
@@ -257,7 +257,7 @@ describe('CardVertical', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');
@@ -313,7 +313,7 @@ describe('CardVerticalLarge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');
@@ -369,7 +369,7 @@ describe('CardVerticalDynamic', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('shows focus ring with custom color on focus', () => {
+  it.skip('shows focus ring with custom color on focus', () => {
     card.focusRingColor = '#E6004A';
     card._focus();
     expect(card.focusRing.color).toBe('#E6004A');

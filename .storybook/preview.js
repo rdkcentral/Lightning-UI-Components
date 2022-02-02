@@ -4,7 +4,8 @@ import context from '../context';
 import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import { withAnnouncer } from '../';
-import extensions from '../themes/xfinity/extensions';
+import rogers from '../themes/rogers';
+import xfinity from '../themes/xfinity';
 import lng from '@lightningjs/core';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
@@ -14,6 +15,23 @@ import Speech from '../mixins/withAnnouncer/Speech';
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
 });
+
+window.addEventListener('message', themeSelect, false);
+function themeSelect(event) {
+  
+  if (!event.data.theme) return;
+  switch(event.data.theme) {
+    case 'rogers':
+      context.setTheme(rogers);
+      break;
+    case 'xfinity':
+      context.setTheme(xfinity);
+      break;
+    default:
+      context.setTheme({});
+      break;
+  }
+}
 
 export const globalTypes = {
   LUITheme: {
@@ -53,10 +71,6 @@ window.addEventListener(
 // Setup Lightning UI Theme
 let lightningUITheme = {};
 window.CONTEXT = context.config({
-  theme: {
-    ...lightningUITheme,
-    extensions
-  },
   keyMetricsCallback() {
     console.log('key metrics callback');
   }

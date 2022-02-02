@@ -32,4 +32,3 @@ export { default as TeamInfo } from './TeamInfo';
 export { default as TeamMatchup } from './TeamMatchup';
 export { default as withBadgeProgress } from './withBadgeProgress';
 export { default as withMetadata } from './withMetadata';
-export { default as withFocusRing } from './withFocusRing';

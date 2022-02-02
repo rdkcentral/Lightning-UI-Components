@@ -3,6 +3,7 @@ import { flatten } from '../../utils';
 import baseTheme from '../../themes/base';
 import { getValidColor } from '../../Styles/Colors';
 import debounce from 'debounce';
+import { THEMES } from '../constants';
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -144,6 +145,15 @@ export const globalTheme = () => {
 
 export const getPanelsTheme = () => globalTheme() || baseTheme;
 
+export function setGlobalTheme(theme, updateGlobals) {
+  document &&
+  document.querySelector('iframe') &&
+  document.querySelector('iframe').contentWindow &&
+  document.querySelector('iframe').contentWindow.postMessage({theme})
+  //globalContext().setTheme(THEMES[theme] || {}); // If no theme is found it means that the base theme should be set
+  if (updateGlobals) updateGlobals({ LUITheme: theme });
+}
+
 export const updateGlobalTheme = (
   updates,
   updateGlobals,
@@ -163,7 +173,7 @@ export const updateGlobalTheme = (
       globalContext().storybookCustomTheme = {
         ...JSON.parse(JSON.stringify(globalTheme())),
         ...functions,
-        extensions: theme.extensions
+
       };
       updateGlobals({ LUITheme: 'custom' });
     }

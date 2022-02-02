@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icons, IconButton } from '@storybook/components';
 import { downloadFile } from '../../utils';
-import { DOWNLOAD_ID } from './constants';
+import { DOWNLOAD_ID } from '../constants';
 
 export const ThemeDownload = () => {
 

@@ -1,21 +1,5 @@
-import withFocusRing from '../../patterns/withFocusRing';
+import FocusRingExtension from '../../extensions/FocusRing.extension';
 
 export default {
-  global: base => withFocusRing(base)
-
-  // Tile: Base =>
-  //   class extends Base {
-  //     _updateRadius() {
-  //       super._updateRadius();
-  //       console.log('override radius logic');
-  //     }
-  //   },
-
-  // withFocusRing: Base =>
-  //   class extends Base {
-  //     _updateFocusRing() {
-  //       super._updateFocusRing();
-  //       console.log('apply new focus ring logic');
-  //     }
-  //   }
+  global: FocusRingExtension // TODO: Support an Array of extensions
 };
