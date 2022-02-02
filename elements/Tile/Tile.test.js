@@ -15,7 +15,7 @@ describe('Tile', () => {
   let tile, testRenderer;
 
   beforeEach(() => {
-    [tile, testRenderer] = createTile();
+    [tile, testRenderer] = createTile({}, { spyOnMethods: ['_update'] });
   });
 
   afterEach(() => {
@@ -72,25 +72,25 @@ describe('Tile', () => {
   });
 
   it('should not round image with imgRadius = 0', async done => {
-    const [tile] = createTile({
+    tile.patch({
       w: 320,
       h: 180,
       style: {
         radius: 0
       }
     });
-    await TestUtils.nextTick(); // Wait for tile to update the value
-    await TestUtils.nextTick(); // Wait for patch to complete
+    await tile.__updateSpyPromise;
     expect(tile._Item.shader.constructor.name).toBe('DefaultShader');
     done();
   });
 
   describe('focus', () => {
     it('should update item and focus ring scale on unfocus', async done => {
-      tile._focus();
-      await TestUtils.nextTick(2e3);
+      tile._smooth = false;
+      testRenderer.focus();
+      await tile.__updateSpyPromise;
       testRenderer.unfocus();
-      await TestUtils.nextTick(2e3);
+      await tile.__updateSpyPromise;
       const unfocusScale = tile._componentStyles.getUnfocusScale(
         tile.w,
         tile.h
@@ -100,16 +100,15 @@ describe('Tile', () => {
       expect(tile._FocusRing.alpha).toBe(0);
       done();
     });
-    it('should update item and focus ring scale on focus', done => {
+
+    it('should update item and focus ring scale on focus', async done => {
       const scale = (tile.w + 40) / tile.w;
       tile._smooth = false;
-      tile._focus();
-      testRenderer.update();
-      setTimeout(() => {
-        expect(tile._Item.scale).toBe(scale);
-        expect(tile._FocusRing.scale).toBe(scale);
-        done();
-      }, 1);
+      testRenderer.focus();
+      await tile.__updateSpyPromise;
+      expect(tile._Item.scale).toBe(scale);
+      expect(tile._FocusRing.scale).toBe(scale);
+      done();
     });
 
     it('should update focus ring and drop shadow alpha on focus', async done => {

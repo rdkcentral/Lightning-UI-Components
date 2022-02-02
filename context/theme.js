@@ -13,6 +13,7 @@ const merge = {
     return result;
   }
 };
+const isSubTheme = themeName => 'subTheme' === themeName.slice(0, 8);
 export class Theme {
   constructor() {
     this._cache = new Map();
@@ -33,15 +34,60 @@ export class Theme {
       logger.warn(`context theme expected an object. Received ${typeof value}`);
       return;
     }
-    this._cache.clear();
+    this._clearCache();
     const theme = this._processTheme.call(this, [value], value.extensions);
     this._cache.set('theme', theme);
     await cleanupFonts(theme.fonts);
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
+    this._refreshSubThemes();
     events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
+  }
+
+  getSubTheme(subThemeName) {
+    if (this._cache.has(`subTheme${subThemeName}`)) {
+      return this._cache.get(`subTheme${subThemeName}`).result;
+    }
+    return;
+  }
+
+  setSubTheme(subThemeName, value, triggerUpdate = true) {
+    if (!subThemeName) {
+      logger.warn('Sub theme name not specified');
+      return;
+    }
+    if ('string' !== typeof subThemeName) {
+      logger.warn(
+        `Sub theme name must be a string. Received an ${typeof subThemeName}`
+      );
+      return;
+    }
+    if ('object' !== typeof value || !Object.keys(value).length) {
+      logger.warn(
+        `Could not set subTheme ${subThemeName}, value should be an object with properties. Received an ${typeof value}`
+      );
+      return;
+    }
+    const globalTheme = this.getTheme();
+
+    this._cache.set(`subTheme${subThemeName}`, {
+      original: value,
+      result: this._processTheme.call(this, [globalTheme, value])
+    });
+    if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+  }
+
+  _refreshSubThemes() {
+    // Triggered when global theme is updated
+    [...this._cache.keys()].forEach(key => {
+      if ('string' === typeof key && isSubTheme(key)) {
+        const cache = this._cache.get(key);
+        if (cache.original)
+          this.updateSubTheme(key.replace(/^subTheme/, ''), cache.original);
+      }
+    });
   }
 
   async _loadFonts(fontArray) {
@@ -49,7 +95,7 @@ export class Theme {
       await fontLoader(fontArray);
       events.emit('fontsLoaded');
     } catch (err) {
-      logger.error('Unable to load font');
+      logger.error(`Unable to load font: ${err}`);
     }
   }
 
@@ -61,7 +107,7 @@ export class Theme {
     if (this._cache.has('theme')) {
       currentTheme = this._cache.get('theme');
     }
-    this._cache.clear();
+    this._clearCache();
     const theme = this._processTheme.call(
       this,
       [currentTheme, value],
@@ -71,19 +117,57 @@ export class Theme {
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
+    this._refreshSubThemes();
     if (value.extensions) events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
   }
 
-  _setThemeCb(theme) {
-    if ('object' === typeof theme && Object.keys(theme).length > 0) {
-      this.setTheme(theme);
-    } else {
-      logger.warn(
-        'Unable to update theme, expected an object with at least one property.'
-      );
+  _clearCache() {
+    this._cache.forEach((value, key) => {
+      if ('string' !== typeof key || !isSubTheme(key)) {
+        this._cache.delete(key);
+      }
+    });
+    // Regenerate sub themes
+    this._cache.forEach((value, key) => {
+      if ('string' === typeof key && isSubTheme(key)) {
+        this.setSubTheme(key.replace('subTheme', ''), value.original, false); // Dont trigger the update...the parent theme will trigger
+      }
+    });
+  }
+
+  updateSubTheme(subThemeName, value, triggerUpdate = true) {
+    if (!subThemeName) {
+      logger.warn('Sub theme name not specified');
+      return;
     }
-    return this.getTheme();
+    if ('object' !== typeof value || !Object.keys(value).length) {
+      logger.warn(
+        `Could not update subTheme ${subThemeName} due to invalid value`
+      );
+      return;
+    }
+
+    const globalTheme = this.getTheme();
+    let currentTheme = {};
+
+    if (this._cache.has(`subTheme${subThemeName}`)) {
+      currentTheme = this._cache.get(`subTheme${subThemeName}`).original;
+    }
+
+    this._cache.set(`subTheme${subThemeName}`, {
+      original: clone(currentTheme, value),
+      result: this._processTheme.call(this, [globalTheme, currentTheme, value])
+    });
+
+    if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+  }
+
+  removeSubTheme(subThemeName) {
+    if (this._cache.has(`subTheme${subThemeName}`)) {
+      this._cache.delete(`subTheme${subThemeName}`);
+    }
+    events.emit(`updateTheme${subThemeName}`);
   }
 
   _getComponentUUID(id) {

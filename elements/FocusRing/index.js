@@ -123,7 +123,7 @@ class FocusRing extends Base {
       ]
     });
 
-    if (!isPlaying) {
+    if (isPlaying || this.shouldAnimate) {
       this.startAnimation();
     }
   }

@@ -69,12 +69,18 @@ export class Context {
     return events.emit(...arguments);
   }
   /**
-   * A log function that will show in the console only in
    * @property {function}
    * @return {void}
    */
   log(...args) {
     logger.log(...args);
+  }
+  /**
+   * @property {function}
+   * @return {void}
+   */
+  info(...args) {
+    logger.info(...args);
   }
   /**
    * @property {function}
@@ -105,6 +111,49 @@ export class Context {
   updateTheme(value) {
     theme.updateTheme(value);
     return theme.getTheme();
+  }
+  /**
+   * @property {string}
+   * @return {object}
+   */
+  getSubTheme(subThemeName) {
+    return theme.getSubTheme(subThemeName);
+  }
+  /**
+   * Expects an object where properties are child theme names. Values will be merged with the global theme.
+   * @property {object}
+   */
+  setSubThemes(subThemesObj) {
+    if ('object' !== typeof subThemesObj) {
+      logger.warn('subThemes must be an object');
+      return;
+    }
+    for (const subTheme in subThemesObj) {
+      theme.setSubTheme(subTheme, subThemesObj[subTheme]);
+    }
+  }
+  /**
+   * @property {string}
+   * @return {object}
+   */
+  setSubTheme(subThemeName, value) {
+    theme.setSubTheme(subThemeName, value);
+    return theme.getSubTheme(subThemeName);
+  }
+  /**
+   * @property {string}
+   * @return {object}
+   */
+  updateSubTheme(subThemeName, value) {
+    theme.updateSubTheme(subThemeName, value);
+    return theme.getSubTheme(subThemeName);
+  }
+  /**
+   * @property {string}
+   * @return {void}
+   */
+  removeSubTheme(subThemeName) {
+    theme.removeSubTheme(subThemeName);
   }
   /**
    * @property {function}

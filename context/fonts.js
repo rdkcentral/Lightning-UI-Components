@@ -2,6 +2,10 @@ import logger from './logger';
 
 let customFontFaces = [];
 
+export function getCustomFontFaces() {
+  return customFontFaces;
+}
+
 export const fontLoader = async fonts => {
   const promises = [];
   for (let i = 0; i < fonts.length; i++) {
@@ -29,17 +33,22 @@ export const fontLoader = async fonts => {
     );
   }
   return Promise.all(promises).then(fontsLoaded => {
-    logger.log(
-      `Fonts loaded: ${fontsLoaded
-        .filter(font => !(font instanceof Error))
-        .join(', ')}`
-    );
-    logger.error(
-      `Unable to load fonts: ${fontsLoaded
-        .filter(font => font instanceof Error)
-        .map(item => item.message)
-        .join(', ')}`
-    );
+    const loaded = fontsLoaded
+      .filter(font => !(font instanceof Error))
+      .join(', ');
+
+    if (loaded) {
+      logger.log(`Fonts loaded: ${loaded}`);
+    }
+
+    const failed = fontsLoaded
+      .filter(font => font instanceof Error)
+      .map(item => item.message)
+      .join(', ');
+
+    if (failed) {
+      logger.error(`Unable to load fonts: ${failed}`);
+    }
   });
 };
 
@@ -50,6 +59,7 @@ export const cleanupFonts = async fonts => {
       if (!fonts.find(font => font.family === fontFace.family)) {
         logger.info('Removing font', fontFace.family);
         document.fonts.delete(fontFace);
+        return false;
       } else {
         return fontFace;
       }

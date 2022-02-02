@@ -18,6 +18,7 @@ export const Basic = () =>
       return {
         x: 60,
         y: 60,
+        // childTheme: 'childTheme',
         Tile: {
           type: Tile,
           src: trolls,
