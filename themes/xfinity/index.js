@@ -1,5 +1,6 @@
 import alphas from './alphas';
 import colors from './colors';
+import extensions from './extensions';
 import { layout, getFocusScale } from './layout';
 import radius from './radius';
 import stroke from './stroke';
@@ -11,6 +12,7 @@ export default {
   name: 'Xfinity',
   alphas,
   colors,
+  extensions,
   layout,
   fonts,
   getFocusScale,

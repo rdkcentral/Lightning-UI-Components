@@ -3,7 +3,6 @@ import Base from '../../Base';
 import { withExtensions } from '../../mixins';
 import withStyles from '../../mixins/withThemeStyles';
 import styles from './ProgressBar.styles';
-import withFocusRing from '../../patterns/withFocusRing';
 
 class ProgressBar extends Base {
   static _template() {
@@ -18,7 +17,7 @@ class ProgressBar extends Base {
   }
 
   static get properties() {
-    return ['animationDuration', 'progress', 'w', 'h'];
+    return ['animationDuration', 'progress'];
   }
 
   static get tags() {
@@ -32,16 +31,10 @@ class ProgressBar extends Base {
   }
 
   _update() {
-    if (!this.w) {
-      this.w = this._componentStyles.w;
-    }
-    if (!this.h) {
-      this.h = this._componentStyles.h;
-    }
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
-      this._componentStyles.w - 2,
-      this._componentStyles.h,
+      this.w - 2,
+      this.h,
       this._componentStyles.radius,
       0,
       0,
@@ -50,8 +43,8 @@ class ProgressBar extends Base {
     );
 
     this._Progress.texture = lng.Tools.getRoundRect(
-      this._componentStyles.w + 1,
-      this._componentStyles.h,
+      this.w + 1,
+      this.h,
       this._componentStyles.radius,
       0,
       0,
@@ -62,8 +55,8 @@ class ProgressBar extends Base {
   }
 
   _updateProgress() {
-    const p = this._componentStyles.w * this._progress;
-    const w = p <= 0 ? 0 : Math.min(p, this._componentStyles.w);
+    const p = this.w * this._progress;
+    const w = p <= 0 ? 0 : Math.min(p, this.w);
     this._Progress.smooth = {
       w: [w, { duration: this._animationDuration }],
       alpha: Number(w > 0)
@@ -71,4 +64,4 @@ class ProgressBar extends Base {
   }
 }
 
-export default withFocusRing(withExtensions(withStyles(ProgressBar, styles)));
+export default withExtensions(withStyles(ProgressBar, styles));

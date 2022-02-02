@@ -116,7 +116,7 @@ export default class Card extends withStyles(Base, styles) {
     this._updateBackground();
     this._updateArtwork();
     this._updateMetadata();
-    this._updateFocusRing();
+    //this._updateFocusRing();
     this._updateScale();
   }
 

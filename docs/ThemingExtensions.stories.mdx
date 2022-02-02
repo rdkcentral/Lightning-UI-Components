@@ -11,42 +11,5 @@ import { Meta, Description } from '@storybook/addon-docs';
 
 # Extensions
 
-Extensions offer a way to override our component classes by wrapping the passed in component constructor and adding in new functionality and styles to return the newly extended class. Extensions wrap the components and are used when the component is created, so they cannot be removed or reapplied to an already existing component. Extensions must be added to the global theme `context`  **before** the application is created or they will not work. 
-
-```js
-import Xfinity from '../../themes/Xfinity';
-
-context.setTheme({
-    ...Xfinity,
-    extensions //see extensions documentation
-});
-```
-To set up extensions, you first need to create an extensions object, where the keys in the object directly match the `__componentName` property of the component you wish to override.
-
-``` js
-export const extensions = {
-Tile: Base =>
-  class extends Base {
-    _updateRadius() {
-      super._updateRadius();
-      console.log('override radius logic');
-    }
-  }
-};
-```
-You may also apply extensions to all components by using the property **global**.
-``` js
-import withFocusRing from '../../patterns/withFocusRing';
-export default {
-  global: base => withFocusRing(base)
-};
-```
-The extension object may contain a global property as seen above which is a mixin that will be applied to **all** components.
-To utilize this extension you have to import the extensions file and pass it into the context config and then add the code from the top of context that shows extensions.
-
-```js 
-
-import extensions from '../themes/xfinity/extensions';
-
-```
+Documentation pending
 

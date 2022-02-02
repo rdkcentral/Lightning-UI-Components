@@ -2,10 +2,9 @@ import lng from '@lightningjs/core';
 import FocusRing from '.';
 import mdx from './FocusRing.mdx';
 import parksAndRec from '../../assets/images/Parks_and_Recreation_16x9.jpg';
-import withFocusRing from '../../patterns/withFocusRing';
 import Base from '../../Base';
 import withStyles from '../../mixins/withThemeStyles';
-
+import withExtensions from '../../mixins/withExtensions';
 export default {
   title: 'Elements / FocusRing',
   parameters: {
@@ -61,7 +60,7 @@ class FocusRingWithImage extends lng.Component {
   static _template() {
     return {
       FocusRing: {
-        type: class extends withFocusRing(
+        type: class extends withExtensions(
           withStyles(Base, { focusRing: true })
         ) {
           static __componentName() {
@@ -88,4 +87,4 @@ class FocusRingWithImage extends lng.Component {
   }
 }
 
-export const WithImage = () => withFocusRing(FocusRingWithImage);
+export const WithImage = () => FocusRingWithImage;

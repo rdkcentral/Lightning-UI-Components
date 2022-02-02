@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-
 import Tile from '.';
 import mdx from './Tile.mdx';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';

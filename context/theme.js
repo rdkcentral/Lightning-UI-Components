@@ -34,12 +34,13 @@ export class Theme {
       return;
     }
     this._cache.clear();
-    const theme = this._processTheme.call(this, [value]);
+    const theme = this._processTheme.call(this, [value], value.extensions);
     this._cache.set('theme', theme);
     await cleanupFonts(theme.fonts);
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
+    events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
   }
 
@@ -61,11 +62,16 @@ export class Theme {
       currentTheme = this._cache.get('theme');
     }
     this._cache.clear();
-    const theme = this._processTheme.call(this, [currentTheme, value]);
+    const theme = this._processTheme.call(
+      this,
+      [currentTheme, value],
+      value.extensions || currentTheme.extensions
+    );
     this._cache.set('theme', theme);
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
+    if (value.extensions) events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
   }
 
@@ -84,15 +90,14 @@ export class Theme {
     return `componentStyle${id}`;
   }
 
-  _processTheme(themeArray = []) {
+  _processTheme(themeArray = [], extensions) {
     if (!Array.isArray(themeArray)) {
       throw new Error(
         `context processTheme expected an array. Received ${typeof themeArray}`
       );
     }
-    const theme = merge.all([baseTheme, ...themeArray], {
-      arrayMerge: this._overwriteMerge
-    });
+
+    const theme = merge.all([baseTheme, ...themeArray]);
 
     // Clear all component styles if set to undefined
     if (
@@ -123,7 +128,8 @@ export class Theme {
         return value;
       }
     });
-    return { ...JSON.parse(themeString), ...themeFunctions };
+
+    return { ...JSON.parse(themeString), ...themeFunctions, extensions };
   }
 
   setComponentInstantiationStyles(constructor, payload) {

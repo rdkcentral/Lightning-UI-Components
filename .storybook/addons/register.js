@@ -1,6 +1,6 @@
 import React from 'react';
 import { addons, types } from '@storybook/addons';
-import * as ids from './constants';
+import * as ids from '../constants';
 import { ThemeDownload } from './ThemeDownload';
 import ThemePicker from './ThemePicker';
 import { Announce } from './Announce';

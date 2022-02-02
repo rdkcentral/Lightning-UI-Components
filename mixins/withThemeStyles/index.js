@@ -1,94 +1,35 @@
+export { default as processThemeStyles } from './processThemeStyles';
 import { default as context, theme as contextTheme } from '../../context';
 import { debounce } from 'debounce';
+import Style from './Style';
 
-/**
- * Used by Component.style.js files to merge variants with base styles
- * @param {object} - Theme
- * @param {string} - Variant string - example: brand, neutral, inverse
- * @param {function} - Base theme function that returns an object
- * @param {function} - Variant theme function that returns an object with properties of brand, neutral, inverse
- * @return {object} - Final theme style object
- */
-export function processThemeStyles(
-  theme = {},
-  variant,
-  base = () => {},
-  variants = () => {}
-) {
-  if (
-    'string' !== typeof variant ||
-    -1 === ['neutral', 'inverse', 'brand'].indexOf(variant)
-  ) {
-    variant = 'neutral';
-  }
-  if (typeof theme !== 'object')
-    throw new Error('processThemeStyles theme parameter must be an object');
-  if (typeof base !== 'function')
-    throw new Error('processThemeStyles base parameter must be a function');
-  if (typeof variants !== 'function')
-    throw new Error('processThemeStyles variant parameter must be a function');
-  const baseStyles = base(theme);
-  const variantStyles = variants(theme);
-  const selectedVariant =
-    ('object' === typeof variantStyles && variantStyles[variant]) || {};
-  return {
-    ...(('object' === typeof baseStyles && baseStyles) || {}),
-    ...selectedVariant
-  };
-}
-
-class Style {
-  constructor(parent) {
-    const styleUpdateDebounce = debounce(parent._styleUpdate.bind(parent), 0);
-    /**
-     * Setup getters and setters on component to override style values
-     */
-    parent._styleProps.forEach(name => {
-      const key = `_${name}`;
-      Object.defineProperty(this, name, {
-        get() {
-          return this[key] || parent._componentStyles[name];
-        },
-        set(value) {
-          const oldValue = this[key];
-          if (value !== oldValue) {
-            this[key] = value;
-            styleUpdateDebounce();
-          }
-        },
-        configurable: true,
-        enumerable: true
-      });
-    });
-  }
-}
-
-export default function withStyles(Base, styles) {
+export default function withThemeStyles(Base, styles) {
   return class extends Base {
     static get name() {
       return Base.name;
     }
 
-    /**
-     * @type {string}
-     */
+    get theme() {
+      const subTheme = this._subTheme && context.getSubTheme(this._subTheme);
+      if (subTheme) {
+        return subTheme;
+      }
+      return context.theme;
+    }
+
     get variant() {
       if (
         !this._variant &&
-        context.theme.componentVariants &&
-        'object' === typeof context.theme.componentVariants &&
+        this.theme.componentVariants &&
+        'object' === typeof this.theme.componentVariants &&
         Object.prototype.hasOwnProperty.call(
-          context.theme.componentVariants,
+          this.theme.componentVariants,
           this.constructor.__componentName
         ) &&
         'string' ===
-          typeof context.theme.componentVariants[
-            this.constructor.__componentName
-          ]
+          typeof this.theme.componentVariants[this.constructor.__componentName]
       ) {
-        return context.theme.componentVariants[
-          this.constructor.__componentName
-        ];
+        return this.theme.componentVariants[this.constructor.__componentName];
       }
       return this._variant || undefined;
     }
@@ -98,7 +39,7 @@ export default function withStyles(Base, styles) {
       this._variant = value;
       this._processedStylesCache = null; // Clear the style props cache since it will now produce a different result
       contextTheme.resetComponentInstantiationStyles(this.constructor); // Make sure previous version of instantiation styles is not being cached
-      if (this._withThemeStylesSetup) this._updateThemeComponent(); // Update component again since the styles may have changed
+      this._updateThemeComponent(); // Update component again since the styles may have changed
     }
 
     get _processedStyles() {
@@ -107,8 +48,9 @@ export default function withStyles(Base, styles) {
       }
       const processedStyles =
         'function' === typeof styles
-          ? styles(context.theme, this.variant)
+          ? styles(this.theme, this.variant)
           : styles;
+
       this._processedStylesCache = {
         ...(super._processedStyles || {}),
         ...processedStyles
@@ -149,11 +91,52 @@ export default function withStyles(Base, styles) {
       }
     }
 
-    _construct() {
-      super._construct && super._construct();
+    get w() {
+      return this._w || this._componentStyles.w || 0;
+    }
+
+    set w(v) {
+      super.w = v;
+      this._debounceUpdateThemeComponent &&
+        this._debounceUpdateThemeComponent();
+    }
+
+    get h() {
+      return this._h || this._componentStyles.h || 0;
+    }
+
+    set h(v) {
+      super.h = v;
+      this._debounceUpdateThemeComponent &&
+        this._debounceUpdateThemeComponent();
+    }
+
+    /** LIFECYCLE EVENTS */
+
+    constructor(stage, properties) {
+      super(stage, properties);
+      this._debounceUpdateThemeComponent = debounce(
+        this._updateThemeComponent.bind(this),
+        200
+      );
+      /**
+       * Style override support
+       */
       this._style = new Style(this);
-      this._processedStylesCache = null; // Cache calls to styles
-      this._styleUpdateDebounce = debounce(this._styleUpdate.bind(this), 0);
+    }
+
+    async _construct() {
+      super._construct && super._construct();
+      /**
+       * Cache for styles for performance
+       * @private
+       */
+      this._processedStylesCache = null;
+      /**
+       * Component Styles - set only by _generateComponentStyles
+       * @private
+       */
+      this._componentStyles = {};
       /**
        * Component Styles - set only by _generateComponentStyles
        * @private
@@ -161,42 +144,65 @@ export default function withStyles(Base, styles) {
       this._componentStyles = {};
 
       /**
-       * Setup component style object
+       * Setup themeSetupComplete promise to delay actions
        */
-      this._style = new Style(this);
+      this._themeSetupResolver;
+      this._themeSetupComplete = new Promise(
+        resolve => (this._themeSetupResolver = resolve)
+      ).then(() => {
+        /**
+         * Setup context listeners
+         */
+        this._setupListeners();
+      });
     }
 
+    /**
+     * Theming setup must be triggered on the _setup lifecycle event to allow the component to traverse the tree to find child theme properties
+     */
     _setup() {
       super._setup && super._setup();
-
-      // /**
-      //  * Listen for events emitted from the stage to update each component
-      //  */
-      context.on('themeUpdate', () => {
-        this._updateThemeComponent();
-      });
-
       /**
-       * Set _componentStyles for the first time
+       * Set the component's sub theme if one exists
+       * @private
        */
+      this._subTheme = this._getSubTheme();
+      /**
+       * Setup is complete resolve the promise
+       */
+      this._themeSetupResolver();
       this._generateComponentStyles();
-      this._withThemeStylesSetup = true;
     }
 
-    _setW(v) {
-      this.style.w = v;
+    /**
+     * Cleanup caches when the component is destroyed
+     */
+    _detach() {
+      super._detach && super._detach();
+      context.off('themeUpdate', this._debounceUpdateThemeComponent.bind(this));
+
+      if (this._subTheme) {
+        context.off(
+          `updateTheme${this._subTheme}`,
+          this._debounceUpdateThemeComponent.bind(this)
+        );
+      }
+      contextTheme.resetComponentInstantiationStyles(this.constructor);
+      contextTheme.resetComponentLevelStyles(this.__id);
     }
 
-    _setH(v) {
-      this.style.h = v;
-    }
+    /** METHODS */
 
-    _getW() {
-      return this._componentStyles.w || 0;
-    }
-
-    _getH() {
-      return this._componentStyles.h || 0;
+    /**
+     * Updates _componentStyles with an object that adheres to the following theme hierarchy rules
+     * @private
+     */
+    _generateComponentStyles() {
+      this._componentStyles = {
+        ...this._getInstantiationLevelStyles(), // Level 1
+        ...this._getThemeLevelStyles(), // Level 2
+        ...this._getComponentLevelStyles() // Level 3
+      };
     }
 
     /**
@@ -226,14 +232,14 @@ export default function withStyles(Base, styles) {
      */
     _getThemeLevelStyles() {
       if (
-        context.theme.componentStyles &&
-        'object' === typeof context.theme.componentStyles &&
+        this.theme.componentStyles &&
+        'object' === typeof this.theme.componentStyles &&
         Object.prototype.hasOwnProperty.call(
-          context.theme.componentStyles,
+          this.theme.componentStyles,
           this.constructor.__componentName
         )
       ) {
-        return context.theme.componentStyles[this.constructor.__componentName];
+        return this.theme.componentStyles[this.constructor.__componentName];
       }
       return {};
     }
@@ -244,7 +250,9 @@ export default function withStyles(Base, styles) {
      */
     _getComponentLevelStyles() {
       const cache = contextTheme.getComponentLevelStyles(this.__id);
-      if (cache) return cache;
+      if (cache) {
+        return cache;
+      }
       const componentStyles = this._styleProps.reduce((acc, curr) => {
         const value = this.style[`_${curr}`];
         if ('undefined' !== typeof value) {
@@ -260,6 +268,36 @@ export default function withStyles(Base, styles) {
     }
 
     /**
+     * Traverse the tree to check if any parent components are requesting a child theme
+     * @private
+     * @return {string}
+     */
+    _getSubTheme() {
+      let parent = this.p;
+      while (parent && !parent.subTheme) {
+        parent = parent.parent;
+      }
+      return (parent && parent.subTheme) || undefined;
+    }
+
+    /**
+     * Listen for context events - these events tell the component when to update styles and refresh the component
+     * @private
+     * @return {void}
+     */
+    _setupListeners() {
+      // Listen for global theme updates
+      context.on('themeUpdate', this._debounceUpdateThemeComponent.bind(this));
+      // Listen for child theme updates
+      if (this._subTheme) {
+        context.on(
+          `updateTheme${this._subTheme}`,
+          this._debounceUpdateThemeComponent.bind(this)
+        );
+      }
+    }
+
+    /**
      * Process all styles from extended classes
      * @return {array}
      */
@@ -268,42 +306,16 @@ export default function withStyles(Base, styles) {
     }
 
     /**
-     * Updates _componentStyles with an object that adheres to the following theme hierarchy rules
-     */
-    _generateComponentStyles() {
-      this._componentStyles = {
-        ...this._getInstantiationLevelStyles(), // Level 1
-        ...this._getThemeLevelStyles(), // Level 2
-        ...this._getComponentLevelStyles() // Level 3
-      };
-    }
-
-    /**
-     * Called when style setter runs
-     */
-    _styleUpdate() {
-      contextTheme.resetComponentLevelStyles(this.__id); // Make sure the component level cache is cleared to receive the change
-      this._updateThemeComponent();
-    }
-
-    /**
      * Debounce call to trigger component update
      */
     _updateThemeComponent() {
       this._processedStylesCache = null;
+      contextTheme.resetComponentInstantiationStyles(this.constructor);
       this._generateComponentStyles(); // Refresh the _componentStyles object
       this._requestUpdateDebounce
         ? this._requestUpdateDebounce()
         : this._update && this._update();
       this._updateItemLayout && this._updateItemLayout(); // Update withLayout
-    }
-    /**
-     * Cleanup caches when the component is destroyed
-     */
-    _detach() {
-      super._detach && super._detach();
-      contextTheme.resetComponentInstantiationStyles(this.constructor);
-      contextTheme.resetComponentLevelStyles(this.__id);
     }
   };
 }

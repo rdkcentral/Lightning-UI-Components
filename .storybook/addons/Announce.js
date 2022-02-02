@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useGlobals } from '@storybook/api';
 import { Icons, IconButton } from '@storybook/components';
-import { ANNOUNCE_ID } from './constants';
+import { ANNOUNCE_ID } from '../constants';
 
 export const Announce = () => {
   const [{ announce }, updateGlobals] = useGlobals();
