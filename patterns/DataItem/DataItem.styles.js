@@ -23,5 +23,6 @@ export default theme => ({
   focused: {
     scale: theme.getFocusScale,
     focusring: { alpha: 1 }
-  }
+  },
+  shouldAnimate: true
 });

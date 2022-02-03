@@ -23,7 +23,8 @@ export const Basic = args =>
           src: 'https://edge.myriad-gn.top.comcast.net/select/image?entityId=5299164605973043111&default=true&width=320&ratio=3x4&rule=keyArt&quality=100',
           w: 320,
           h: 180,
-          blurBackgroundColor: rgba2argb(args.blurBackgroundColor)
+          blurBackgroundColor: rgba2argb(args.blurBackgroundColor),
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -36,7 +37,8 @@ export const Basic = args =>
   };
 Basic.args = {
   blurBackgroundColor: 'rgba(13,13,15,0.3216)',
-  focused: false
+  focused: false,
+  shouldAnimate: true
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },

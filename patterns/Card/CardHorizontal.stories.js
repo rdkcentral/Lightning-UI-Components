@@ -25,7 +25,8 @@ export const Horizontal = args =>
               ]
             : null,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -43,6 +44,7 @@ Horizontal.args = {
   showLogo: true,
   logoTitle: 'Logo Title',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 Horizontal.argTypes = {
@@ -77,7 +79,8 @@ export const HorizontalLarge = args =>
               ]
             : undefined,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -95,6 +98,7 @@ HorizontalLarge.args = {
   showLogo: true,
   logoTitle: 'Logo Title',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 HorizontalLarge.argTypes = {

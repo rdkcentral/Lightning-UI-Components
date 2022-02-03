@@ -22,7 +22,7 @@ class DataItem extends Base {
   }
 
   static get properties() {
-    return ['backgroundImage', 'margin'];
+    return ['backgroundImage', 'margin', 'shouldAnimate'];
   }
 
   static get tags() {
@@ -32,6 +32,7 @@ class DataItem extends Base {
   _construct() {
     super._construct();
     this._radius = this.styles.radius;
+    this._shouldAnimate = this.styles.shouldAnimate;
   }
 
   _init() {
@@ -95,7 +96,7 @@ class DataItem extends Base {
       } else {
         this._FocusRing.patch(style);
       }
-
+      this._FocusRing._shouldAnimate = this.shouldAnimate;
       if (this.hasFocus()) {
         this._FocusRing.startAnimation();
       } else {

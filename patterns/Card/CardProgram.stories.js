@@ -24,7 +24,8 @@ export const Program = args =>
               ]
             : null,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -41,6 +42,7 @@ Program.args = {
   showData: true,
   showLogo: true,
   focused: false,
+  shouldAnimate: true,
   circleImage: false,
   logoTitle: 'Logo Title'
 };

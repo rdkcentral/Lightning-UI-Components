@@ -13,7 +13,8 @@ export const Basic = args =>
           title: args.title,
           description: args.description,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -28,7 +29,9 @@ Basic.args = {
   title: 'Title',
   description: 'Short Description',
   showLogo: true,
-  logoTitle: 'Logo Title'
+  logoTitle: 'Logo Title',
+  focused: false,
+  shouldAnimate: true
 };
 Basic.argTypes = {
   title: { content: 'text' },

@@ -12,7 +12,7 @@ import styles from './FocusRing.styles';
 
 export default class FocusRing extends withStyles(Base, styles) {
   static get properties() {
-    return ['color', 'secondaryColor', 'radius', 'spacing'];
+    return ['color', 'secondaryColor', 'radius', 'spacing', 'shouldAnimate'];
   }
 
   static get tags() {
@@ -131,14 +131,34 @@ export default class FocusRing extends withStyles(Base, styles) {
   }
 
   startAnimation() {
-    if (this._focusRingAnimation && !this._focusRingAnimation.isPlaying()) {
-      this._focusRingAnimation.start();
+    if (this.shouldAnimate !== undefined) {
+      if (
+        this._focusRingAnimation &&
+        !this._focusRingAnimation.isPlaying() &&
+        this.shouldAnimate
+      ) {
+        this._focusRingAnimation.start();
+      }
+    } else {
+      if (this._focusRingAnimation && !this._focusRingAnimation.isPlaying()) {
+        this._focusRingAnimation.start();
+      }
     }
   }
 
   stopAnimation() {
-    if (this._focusRingAnimation && this._focusRingAnimation.isPlaying()) {
-      this._focusRingAnimation.stop();
+    if (this.shouldAnimate !== undefined) {
+      if (
+        this._focusRingAnimation &&
+        this._focusRingAnimation.isPlaying() &&
+        !this._shouldAnimate
+      ) {
+        this._focusRingAnimation.stop();
+      }
+    } else {
+      if (this._focusRingAnimation && this._focusRingAnimation.isPlaying()) {
+        this._focusRingAnimation.stop();
+      }
     }
   }
 

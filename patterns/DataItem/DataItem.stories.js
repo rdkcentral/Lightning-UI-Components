@@ -12,10 +12,13 @@ export default {
     docs: {
       page: mdx
     }
+  },
+  args: {
+    shouldAnimate: true
   }
 };
 
-export const Basic = () => {
+export const Basic = args => {
   const DataItem1 = {
     type: DataItem,
     h: 140,
@@ -24,6 +27,7 @@ export const Basic = () => {
       x: 20,
       y: 25
     },
+    shouldAnimate: args.shouldAnimate,
     content: {
       Wrapper: {
         flex: {
@@ -72,6 +76,7 @@ export const Basic = () => {
     h: 140,
     w: 410,
     margin: 16,
+    shouldAnimate: args.shouldAnimate,
     content: {
       Wrapper: {
         flex: {
@@ -123,10 +128,4 @@ export const Basic = () => {
       return this.tag('Row');
     }
   };
-};
-
-Basic.args = {};
-Basic.argTypes = {};
-Basic.parameters = {
-  argActions: {}
 };

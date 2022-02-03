@@ -30,7 +30,8 @@ export const Basic = args =>
           iconW: args.iconW,
           iconH: args.iconH,
           blur: args.blur,
-          radius: args.radius
+          radius: args.radius,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -45,7 +46,8 @@ Basic.args = {
   iconColor: 'rgba(255,255,255,1)',
   iconW: 50,
   iconH: 50,
-  radius: 16
+  radius: 16,
+  shouldAnimate: true
 };
 Basic.argTypes = {
   iconColor: {
@@ -127,7 +129,8 @@ export const BasicSVG = args =>
           iconW: args.iconW,
           iconH: args.iconH,
           blur: args.blur,
-          radius: args.radius
+          radius: args.radius,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -142,7 +145,8 @@ BasicSVG.args = {
   iconColor: 'rgba(255,255,255,1)',
   iconW: 50,
   iconH: 50,
-  radius: 16
+  radius: 16,
+  shouldAnimate: true
 };
 BasicSVG.argTypes = {
   iconColor: {
