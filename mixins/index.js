@@ -13,3 +13,4 @@ export { default as withTags } from './withTags';
 export { default as withTransitions } from './withTransitions';
 export { default as withUpdates } from './withUpdates';
 export { default as withVibrant } from './withVibrant';
+export { default as withSoftFocus } from './withSoftFocus';
