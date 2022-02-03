@@ -13,7 +13,8 @@ export const Vertical = args =>
           circleImage: args.circleImage,
           src: pets,
           title: args.title,
-          description: args.description
+          description: args.description,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -28,6 +29,7 @@ Vertical.args = {
   title: 'Title',
   description: 'Short Description',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 Vertical.argTypes = {
@@ -59,7 +61,8 @@ export const VerticalLarge = args =>
               ]
             : null,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -77,6 +80,7 @@ VerticalLarge.args = {
   showLogo: true,
   logoTitle: 'Logo Title',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 VerticalLarge.argTypes = {

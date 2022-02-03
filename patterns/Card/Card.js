@@ -53,7 +53,8 @@ export const styles = theme => ({
     shadow: { alpha: 1 }
   },
   radius: theme.border.radius.medium,
-  background: { color: theme.palette.grey[70] }
+  background: { color: theme.palette.grey[70] },
+  shouldAnimate: true
 });
 
 export default class Card extends withStyles(Base, styles) {
@@ -70,7 +71,14 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return [...artCardProps, ...baseCardProps, ...logoProps, 'data', 'cta'];
+    return [
+      ...artCardProps,
+      ...baseCardProps,
+      ...logoProps,
+      'data',
+      'cta',
+      'shouldAnimate'
+    ];
   }
 
   static get tags() {
@@ -79,6 +87,7 @@ export default class Card extends withStyles(Base, styles) {
 
   _construct() {
     super._construct();
+    this._shouldAnimate = this.styles.shouldAnimate;
     this.circleImage = false;
     this.w = this.styles.w || this.w;
     this.h = this.styles.h || this.h;
@@ -300,7 +309,7 @@ export default class Card extends withStyles(Base, styles) {
       }
       FocusRingComponent.color = this.focusRingColor;
       this.patch({ FocusRing: FocusRingComponent });
-
+      this._FocusRing._shouldAnimate = this.shouldAnimate;
       if (this.hasFocus()) {
         this._FocusRing.startAnimation();
       } else {

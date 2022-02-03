@@ -306,8 +306,9 @@ class Tile extends Base {
       } else {
         this._FocusRing.patch(style);
       }
+      this._FocusRing._shouldAnimate = this.shouldAnimate;
 
-      if (this.hasFocus() && this._shouldAnimate) {
+      if (this.hasFocus()) {
         this._FocusRing.startAnimation();
       } else {
         this._FocusRing.stopAnimation();

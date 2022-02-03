@@ -44,18 +44,14 @@ export const Basic = args =>
             zIndex: -1,
             texture: lng.Tools.getShadowRect(320, 180, args.radius, args.blur),
             color: rgba2argb(args.color)
-          }
+          },
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
 
     _getFocused() {
-      if (args.focused && args.animate) {
-        this.tag('Tile')._shouldAnimate = true;
-        return this.tag('Tile');
-      }
-      if (args.focused && !args.animate) {
-        this.tag('Tile')._shouldAnimate = false;
+      if (args.focused) {
         return this.tag('Tile');
       }
     }
@@ -66,11 +62,11 @@ Basic.args = {
   imgRadius: 16,
   color: 'rgba(63,92,30,0.7)',
   focusGradient: false,
-  persistGradient: false
+  persistGradient: false,
+  shouldAnimate: true
 };
 Basic.argTypes = {
   focused: { control: 'boolean' },
-  animate: { control: 'boolean' },
   blur: {
     control: {
       type: 'range',

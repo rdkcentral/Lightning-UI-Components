@@ -37,7 +37,8 @@ export const Hero = args =>
           ],
           logo: args.showIcon ? circle : null,
           logoTitle: args.showIcon ? args.logoTitle : null,
-          cta: args.showCTA ? args.cta : null
+          cta: args.showCTA ? args.cta : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -57,6 +58,7 @@ Hero.args = {
   showIcon: true,
   logoTitle: 'Logo Title',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 Hero.argTypes = {

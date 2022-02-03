@@ -20,7 +20,8 @@ export const VerticalDynamic = args =>
           description: args.description,
           cta: args.cta,
           logo: args.showLogo ? circle : null,
-          logoTitle: args.showLogo ? args.logoTitle : null
+          logoTitle: args.showLogo ? args.logoTitle : null,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
@@ -39,6 +40,7 @@ VerticalDynamic.args = {
   showLogo: true,
   logoTitle: 'Logo Title',
   focused: false,
+  shouldAnimate: true,
   circleImage: false
 };
 VerticalDynamic.argTypes = {

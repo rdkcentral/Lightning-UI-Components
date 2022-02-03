@@ -39,18 +39,13 @@ export const Basic = args =>
             color: rgba2argb(args.color)
           },
           checked: args.checked,
-          placement: args.placement
+          placement: args.placement,
+          shouldAnimate: args.shouldAnimate
         }
       };
     }
-
     _getFocused() {
-      if (args.focused && args.animate) {
-        this.tag('TileCheckbox')._shouldAnimate = true;
-        return this.tag('TileCheckbox');
-      }
-      if (args.focused && !args.animate) {
-        this.tag('TileCheckbox')._shouldAnimate = false;
+      if (args.focused) {
         return this.tag('TileCheckbox');
       }
     }
@@ -58,7 +53,8 @@ export const Basic = args =>
 
 Basic.args = {
   ...TileBasic.args,
-  checked: false
+  checked: false,
+  shouldAnimate: true
 };
 
 Basic.argTypes = {

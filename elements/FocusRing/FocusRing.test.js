@@ -74,7 +74,9 @@ describe('FocusRing', () => {
   });
 
   it('should stop animating if the component becomes inactive', () => {
-    [focusRing, testRenderer] = createFocusRing({ spacing: 50 });
+    [focusRing, testRenderer] = createFocusRing({
+      spacing: 50
+    });
     focusRing.startAnimation();
     expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
     focusRing._inactive();
