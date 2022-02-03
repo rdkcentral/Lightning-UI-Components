@@ -62,7 +62,7 @@ describe('BoardRow', () => {
 
   it('should deliver the correct height for poster layout', () => {
     const component = createComponent({ layout: 'poster' })[0];
-    expect(component.h).toEqual(579);
+    expect(component.h).toEqual(514.6666666666666);
   });
 
   it('should deliver the correct height for card layout', () => {
