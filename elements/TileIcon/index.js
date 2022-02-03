@@ -44,10 +44,8 @@ export default class TileIcon extends Tile {
   }
 
   _update() {
-    this._whenEnabled.then(() => {
-      this._updateIcon();
-      super._update();
-    });
+    this._updateIcon();
+    super._update();
   }
 
   _updateIcon() {
