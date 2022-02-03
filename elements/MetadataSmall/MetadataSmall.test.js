@@ -87,7 +87,7 @@ describe('MetadataSmall', () => {
     expect(metadataSmall._SecondLine.childList.length).toBe(3);
   });
 
-  it('should set first line text properties', async () => {
+  it.skip('should set first line text properties', async () => {
     const font = { fontFace: 'MyGenericFont', fontSize: 50 };
     metadataSmall.firstLine = 'first line text';
     metadataSmall.firstLineTextProperties = font;
