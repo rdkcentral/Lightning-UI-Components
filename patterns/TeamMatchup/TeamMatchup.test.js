@@ -46,6 +46,33 @@ describe('TeamMatchup', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('centers the text if the title is missing', done => {
+    [matchup, testRenderer] = createTeamMatchup({
+      title: '',
+      subtitle,
+      removeBackground: false,
+      metadata,
+      items
+    });
+    TestUtils.nextTick().then(() => {
+      const tree = testRenderer.toJSON(2);
+      expect(tree).toMatchSnapshot();
+      done();
+    });
+  });
+
+  it('centers the text if the subtitle is missing', () => {
+    [matchup, testRenderer] = createTeamMatchup({
+      subtitle: '',
+      title,
+      removeBackground: false,
+      metadata,
+      items
+    });
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
+  });
+
   it('sets title', () => {
     expect(matchup._title).toBe(title);
   });

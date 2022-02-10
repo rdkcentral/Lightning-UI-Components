@@ -1,16 +1,12 @@
 export default theme => ({
   title: {
-    h: 48,
     text: {
-      ...theme.typography.headline1,
-      lineHeight: 48
+      ...theme.typography.headline1
     }
   },
   subtitle: {
-    h: 24,
     text: {
-      ...theme.typography.caption,
-      lineHeight: 24
+      ...theme.typography.caption
     }
   },
   logo: {
