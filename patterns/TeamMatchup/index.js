@@ -31,11 +31,6 @@ export default class Matchup extends withStyles(Base, styles) {
             },
             Text: {
               h: this.styles.logo.h,
-              y:
-                (this.styles.logo.h -
-                  this.styles.title.h -
-                  this.styles.subtitle.h) /
-                2,
               flexItem: {
                 marginLeft: this.styles.margin.x,
                 marginRight: this.styles.margin.x
@@ -43,10 +38,10 @@ export default class Matchup extends withStyles(Base, styles) {
               flex: {
                 direction: 'column',
                 alignContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center'
               },
               Subtitle: {
-                h: this.styles.subtitle.h,
                 text: {
                   ...this.styles.subtitle.text,
                   wordWrapWidth: 160,
@@ -56,7 +51,6 @@ export default class Matchup extends withStyles(Base, styles) {
                 }
               },
               Title: {
-                h: this.styles.title.h,
                 text: {
                   ...this.styles.title.text,
                   wordWrapWidth: 170,
@@ -111,13 +105,24 @@ export default class Matchup extends withStyles(Base, styles) {
   _construct() {
     super._construct();
     this._getFocusScale = this.styles.getFocusScale;
+    this._fontSizes = {
+      title: {
+        fontSize: this.styles.title.text.fontSize,
+        lineHeight: this.styles.title.text.lineHeight
+      },
+      subtitle: {
+        fontSize: this.styles.subtitle.text.fontSize,
+        lineHeight: this.styles.subtitle.text.lineHeight
+      }
+    };
   }
 
   _update() {
     this._updateRemoveBackground();
     this._updateBackgroundColors();
-    this._Subtitle.text = this.subtitle;
-    this._Title.text = this.title;
+    this._updateSubtitle();
+    this._updateTitle();
+
     this._Metadata.text.text = this.metadata;
   }
 
@@ -177,6 +182,45 @@ export default class Matchup extends withStyles(Base, styles) {
     if (this._backgroundColors !== this._DataItem.backgroundColors) {
       this._DataItem.backgroundColors = this._backgroundColors;
     }
+  }
+
+  _updateSubtitle() {
+    this._Subtitle.patch({
+      visible: !!this.subtitle,
+      /**
+       * This component originally sized the title/subtitle elements by setting a 'h' value on the Title/Subtitle
+       * equal to the lineHeight in the styles.  This had the side-effect of clipping off the descenders on 'y' and 'g'
+       * To preserve the text placement behavior of the original implementation, adjust the offset to accommodate for
+       * the difference in height of the text.
+       * Lightning computes the height of a text element as 1.5 * fontSize + (lineHeight - fontSize)
+       * The difference ((1.5 * fontSize + (lineHeight - fontSize)) - lineHeight) can be simplified to fontSize / 2.
+       * Computing this instead of using a magic number (which is 14, btw)
+       */
+      y: this.title
+        ? 0.25 *
+          (this._fontSizes.title.fontSize + this._fontSizes.subtitle.fontSize)
+        : 0,
+      text: {
+        text: this.subtitle
+      }
+    });
+  }
+
+  _updateTitle() {
+    this._Title.patch({
+      visible: !!this.title,
+      // Adjust the positioning of the title to accommodate where it would have been placed with the old sizing
+      // (top margin from centering - the difference in height of the subtitle element) (this ends up being 4)
+      y: this.subtitle
+        ? 0.25 *
+            (this._fontSizes.title.fontSize +
+              this._fontSizes.subtitle.fontSize) -
+          0.5 * this._fontSizes.subtitle.fontSize
+        : 0,
+      text: {
+        text: this.title
+      }
+    });
   }
 
   _setIcons(icons) {
