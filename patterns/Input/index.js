@@ -178,13 +178,11 @@ export default class Input extends withStyles(Base, styles) {
   }
 
   backspace() {
-    if (this.listening) {
+    if (this.listening && this.position > 0) {
       this.value =
         this.value.slice(0, this.position - 1) +
         this.value.slice(this.position);
-      if (this.position > 0) {
-        this.position--;
-      }
+      this.position--;
     }
   }
 
@@ -192,6 +190,7 @@ export default class Input extends withStyles(Base, styles) {
     this._whenEnabled.then(() => {
       this._updateIcon();
       this._updateContainer();
+      this._updateTextPosition();
       this._updateUnderline();
       this._updateState();
       this._updateDropShadow();
@@ -238,15 +237,36 @@ export default class Input extends withStyles(Base, styles) {
       this._Container.patch({
         texture: lng.Tools.getRoundRect(this.w, this.h, this.radius),
         ContentWrapper: {
-          Cursor: {
-            x: this._getCursorX()
-          },
           Content: {
             text: { text }
           }
         }
       });
     }
+  }
+
+  _updateTextPosition() {
+    const { value, position, password, mask } = this;
+    const textBeforeCursor = password
+      ? mask.repeat(value.length).substring(0, position)
+      : value.substring(0, position);
+
+    // update hidden value and calc width
+    this._HiddenContent.text.text = textBeforeCursor;
+    this._HiddenContent.loadTexture();
+
+    let contentPatch = { x: 0 };
+    let cursorX = this._HiddenContent.renderWidth;
+
+    if (this._HiddenContent.renderWidth > this._ContentWrapper.w) {
+      contentPatch = {
+        x: this._ContentWrapper.w - this._HiddenContent.renderWidth
+      };
+      cursorX = this._ContentWrapper.w - this._Cursor.w;
+    }
+    this._Content.patch(contentPatch);
+    this._HiddenContent.patch(contentPatch);
+    this._Cursor.patch({ x: cursorX });
   }
 
   _updateState() {
@@ -311,18 +331,6 @@ export default class Input extends withStyles(Base, styles) {
       return true;
     }
     return false;
-  }
-
-  _getCursorX() {
-    const { value, position, password, mask } = this;
-    const text = password
-      ? mask.repeat(value.length).substring(0, position)
-      : value.substring(0, position);
-
-    // update hidden value and calc width
-    this._HiddenContent.text.text = text;
-    this._HiddenContent.loadTexture();
-    return this._HiddenContent.renderWidth;
   }
 
   _setLabel(label) {

@@ -208,6 +208,34 @@ describe('Input', () => {
     expect(input.announce).toBe('Input hidden');
   });
 
+  describe('when the input value width exceeds the input container width', () => {
+    it('should keep the cursor and entered text in view', async () => {
+      [input, testRenderer] = createInput(
+        {
+          value: '',
+          listening: true,
+          w: 50
+        },
+        {
+          spyOnMethods: ['_updateTextPosition']
+        }
+      );
+
+      await input.__updateTextPositionPromiseSpy;
+
+      const initialContentX = input._Content.x;
+
+      input.insert(
+        'really really really really really really really really really really really really really really long string'
+      );
+      testRenderer.forceAllUpdates();
+      await input.__updateTextPositionPromiseSpy;
+
+      const newContentX = testRenderer.getInstance()._Content.x;
+      expect(newContentX).toBeLessThan(initialContentX);
+    });
+  });
+
   describe('Input Icon', () => {
     it('should set icon properties from withStyles', () => {
       expect(input.iconColor).toBe(getHexColor(PALETTE.grey[5]));
