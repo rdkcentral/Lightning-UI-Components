@@ -517,19 +517,19 @@ describe('Column', () => {
     });
 
     it('should return fully and partially visible items', async () => {
-      expect(column.onScreenItems).toHaveLength(50);
+      expect(column.onScreenItems).toHaveLength(60);
       for (let idx = 0; idx < 12; idx++) {
         testRenderer.keyPress('Down');
         column._update();
         testRenderer.update();
         await column._whenEnabled;
       }
-      expect(column.onScreenItems).toHaveLength(25);
+      expect(column.onScreenItems).toHaveLength(30);
       testRenderer.keyPress('Right');
       column._update();
       testRenderer.update();
       await column._whenEnabled;
-      expect(column.onScreenItems).toHaveLength(24);
+      expect(column.onScreenItems).toHaveLength(29);
     });
   });
 });
