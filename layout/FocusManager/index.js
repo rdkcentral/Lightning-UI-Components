@@ -272,7 +272,7 @@ export default class FocusManager extends Base {
       // where we have a column that has 2 rows and first row is visible, but second is not
       if (isFm && this._isComponentOnScreen(child, xBound, true, false)) {
         const osi = fully ? child.onScreenCompletelyItems : child.onScreenItems;
-        return [...res, ...osi];
+        return [...res, child, ...osi];
       }
       // if child is NOT a FocusManager, return it if it's _fully_ on screen
       else if (!isFm && this._isComponentOnScreen(child, true, true, fully)) {
