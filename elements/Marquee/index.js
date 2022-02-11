@@ -58,7 +58,7 @@ class Marquee extends Base {
       this._updateShader();
     } else {
       this._ContentClipper.shader = null;
-      this._shouldCenter && this._centerTexture();
+      this._shouldCenter() && this._centerTexture();
     }
 
     restartScrolling && this.startScrolling();
