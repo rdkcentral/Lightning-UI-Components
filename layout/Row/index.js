@@ -40,6 +40,11 @@ export default class Row extends FocusManager {
           ? this.parent.parent.w
           : this.stage.w / this.stage.getRenderPrecision();
     }
+
+    this.Items.transition('x').on(
+      'finish',
+      this._transitionListener.bind(this)
+    );
   }
 
   _update() {
@@ -281,6 +286,14 @@ export default class Row extends FocusManager {
     this._update();
   }
 
+  _transitionListener() {
+    this._smooth = false;
+    this.transitionDone();
+  }
+
   // can be overridden
   onScreenEffect() {}
+
+  // can be overridden
+  transitionDone() {}
 }
