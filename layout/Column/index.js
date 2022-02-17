@@ -39,6 +39,11 @@ export default class Column extends FocusManager {
           ? this.parent.parent.h
           : this.stage.h / this.stage.getRenderPrecision();
     }
+
+    this.Items.transition('y').on(
+      'finish',
+      this._transitionListener.bind(this)
+    );
   }
 
   _update() {
@@ -337,18 +342,11 @@ export default class Column extends FocusManager {
         this.selectedIndex > index ? this.selectPrevious() : this.selectNext();
       }, duration * i);
     }
-    this.Items.transition('y').on(
-      'finish',
-      this._transitionListener.bind(this)
-    );
   }
 
   _transitionListener() {
     this._smooth = false;
-    this.Items.transition('y').removeListener(
-      'finish',
-      this._transitionListener
-    );
+    this.transitionDone();
   }
 
   $itemChanged() {
@@ -378,4 +376,7 @@ export default class Column extends FocusManager {
 
   // can be overridden
   onScreenEffect() {}
+
+  // can be overridden
+  transitionDone() {}
 }
