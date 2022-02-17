@@ -110,12 +110,11 @@ export default class Row extends FocusManager {
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
-      const isCompletelyOnScreen = this._isComponentOnScreen(
-        this.selected,
-        true,
-        true,
-        true
-      );
+      const isCompletelyOnScreen = this._isComponentOnScreen(this.selected, {
+        withinXBounds: true,
+        withinYBounds: false,
+        fullyVisible: true
+      });
       if (this.lazyScroll) {
         shouldScroll = !isCompletelyOnScreen;
       } else {

@@ -262,20 +262,36 @@ export default class FocusManager extends Base {
     return this._onScreenItems(true);
   }
 
-  _onScreenItems(fully) {
+  _onScreenItems(fullyVisible) {
     return this.Items.children.reduce((res, child) => {
       const isFm = child instanceof FocusManager;
-      const xBound = isFm && child.direction === 'column' ? false : true;
+      const withinXBounds = isFm && child.direction === 'column' ? false : true;
 
       // if current child is of type FocusManager and it is _partially_ on screen,
       // return this child's fully on screen items. This would account for a case,
       // where we have a column that has 2 rows and first row is visible, but second is not
-      if (isFm && this._isComponentOnScreen(child, xBound, true, false)) {
-        const osi = fully ? child.onScreenCompletelyItems : child.onScreenItems;
+      if (
+        isFm &&
+        this._isComponentOnScreen(child, {
+          withinXBounds,
+          withinYBounds: true,
+          fullyVisible
+        })
+      ) {
+        const osi = fullyVisible
+          ? child.onScreenCompletelyItems
+          : child.onScreenItems;
         return [...res, child, ...osi];
       }
       // if child is NOT a FocusManager, return it if it's _fully_ on screen
-      else if (!isFm && this._isComponentOnScreen(child, true, true, fully)) {
+      else if (
+        !isFm &&
+        this._isComponentOnScreen(child, {
+          withinXBounds: true,
+          withinYBounds: true,
+          fullyVisible
+        })
+      ) {
         return [...res, child];
       }
       // return accumulated list of items w/out adding current child to the list
@@ -293,18 +309,21 @@ export default class FocusManager extends Base {
    * @param {boolean} fullyVisible Whether component is visible in its entirety on screen
    * @returns True if component is visible; False otherwise
    */
-  _isComponentOnScreen(child, withinXBounds, withinYBounds, fullyVisible) {
+  _isComponentOnScreen(child, { withinXBounds, withinYBounds, fullyVisible }) {
     if (!child) return false;
 
-    const verticallyVisible = withinYBounds
-      ? this._isComponentVerticallyVisible(child, fullyVisible)
-      : true;
-
-    const horizontallyVisible = withinXBounds
-      ? this._isComponentHorizontallyVisible(child, fullyVisible)
-      : true;
-
-    return verticallyVisible && horizontallyVisible;
+    if (!withinXBounds && !withinYBounds) {
+      return false;
+    } else if (withinYBounds && !withinXBounds) {
+      return this._isComponentVerticallyVisible(child, fullyVisible);
+    } else if (withinXBounds && !withinYBounds) {
+      return this._isComponentHorizontallyVisible(child, fullyVisible);
+    } else {
+      return (
+        this._isComponentVerticallyVisible(child, fullyVisible) &&
+        this._isComponentHorizontallyVisible(child, fullyVisible)
+      );
+    }
   }
 
   _isComponentHorizontallyVisible(child, fullyVisible) {
@@ -317,10 +336,10 @@ export default class FocusManager extends Base {
     // 1) the entire component's absolute position,
     // 2) the target animation value of the items container, and
     // 3) the target value of the item itself
-    const transitionTarget = this.Items.transition('x').targetValue;
+    const transitionX = this.getTransitionXTargetValue();
     // get absolute position of FocusManager on screen
     const px = this.core.renderContext.px;
-    const itemX = px + transitionTarget + x;
+    const itemX = px + transitionX + x;
 
     // _scissor consists of [ left position (x), top position (y), width, height ]
     const [leftBounds = null, , clipWidth = null] = this.core._scissor || [];
@@ -329,23 +348,30 @@ export default class FocusManager extends Base {
 
     const withinLeftStageBounds = itemX >= 0;
     const withinRightStageBounds = itemX + w <= stageW;
+    // short circuit
+    if (!withinLeftStageBounds || !withinRightStageBounds) return false;
 
     let withinLeftClippingBounds = true;
     let withinRightClippingBounds = true;
     if (Number.isFinite(leftBounds)) {
-      const leftClippingBound = itemX + (fullyVisible ? 0 : w);
-      const rightClippingBound = itemX + (fullyVisible ? w : 0);
       withinLeftClippingBounds =
-        Math.round(leftClippingBound) >= Math.round(leftBounds);
+        Math.round(itemX + w) >= Math.round(leftBounds);
       withinRightClippingBounds =
-        Math.round(rightClippingBound) <= Math.round(leftBounds + clipWidth);
+        Math.round(itemX) <= Math.round(leftBounds + clipWidth);
+    }
+
+    let isFullyVisible = true;
+    if (fullyVisible) {
+      const childPx = child.core.renderContext.px;
+      isFullyVisible = childPx >= px && childPx + child.w <= px + this.w;
     }
 
     return (
       withinLeftStageBounds &&
       withinRightStageBounds &&
       withinLeftClippingBounds &&
-      withinRightClippingBounds
+      withinRightClippingBounds &&
+      isFullyVisible
     );
   }
 
@@ -359,7 +385,7 @@ export default class FocusManager extends Base {
     // 1) the entire component's absolute position,
     // 2) the target animation value of the items container, and
     // 3) the target value of the item itself
-    const transitionY = this.Items.transition('y').targetValue;
+    const transitionY = this.getTransitionYTargetValue();
 
     // get absolute position of FocusManager on screen
     const py = this.core.renderContext.py;
@@ -370,8 +396,10 @@ export default class FocusManager extends Base {
 
     const itemY = py + transitionY + y;
     const stageH = this.stage.h / this.stage.getRenderPrecision();
-    const withinTopStageBounds = itemY + (fullyVisible ? 0 : h) >= 0;
-    const withingBottomStageBounds = itemY + (fullyVisible ? h : 0) <= stageH;
+    const withinTopStageBounds = itemY + h >= 0;
+    const withingBottomStageBounds = itemY <= stageH;
+    // short circuit
+    if (!withinTopStageBounds || !withingBottomStageBounds) return false;
 
     let withinTopClippingBounds = true;
     let withinBottomClippingBounds = true;
@@ -381,12 +409,27 @@ export default class FocusManager extends Base {
         Math.round(itemY) < Math.round(topBounds + clipHeight);
     }
 
+    let isFullyVisible = true;
+    if (fullyVisible) {
+      const childPy = child.core.renderContext.py;
+      isFullyVisible = childPy >= py && childPy + child.h <= py + this.h;
+    }
+
     return (
       withinTopStageBounds &&
       withingBottomStageBounds &&
       withinTopClippingBounds &&
-      withinBottomClippingBounds
+      withinBottomClippingBounds &&
+      isFullyVisible
     );
+  }
+
+  getTransitionXTargetValue() {
+    return this.Items.transition('x').targetValue;
+  }
+
+  getTransitionYTargetValue() {
+    return this.Items.transition('y').targetValue;
   }
 
   static _states() {
