@@ -163,20 +163,21 @@ class CardArtwork extends Base {
           }
         }
       });
-      if (this.blurBackground) {
-        this._updateBlur();
-        this._patchBlur();
-      }
     } else {
       this._Image.patch({
         w: this.w,
         h: this.h,
+        rtt: this.blurBackground ? true : false,
         texture: {
           type: lng.textures.ImageTexture,
           src: this._src || this.fallbackSrc,
           resizeMode: { type: 'cover', w: this.w, h: this.h }
         }
       });
+    }
+    if (this.blurBackground) {
+      this._updateBlur();
+      this._patchBlur();
     }
   }
 
