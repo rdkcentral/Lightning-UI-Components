@@ -61,9 +61,6 @@ export default class Card extends withStyles(Base, styles) {
   static _template() {
     return {
       Background: {},
-      Artwork: {
-        type: withBadgeProgress(CardArtwork)
-      },
       Metadata: {
         type: withStyles(Metadata, this.styles.metadata)
       }
@@ -192,41 +189,46 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   _updateArtwork() {
-    const radius = this._getArtRadius();
-    this._Artwork.patch({
-      src: this.src,
-      icon: this.icon,
-      w: this.artWidth,
-      h: this.artHeight,
-      imageSize: this.artHeight,
-      circleImage: this.circleImage,
-      blurBackground: this.circleImage,
-      shader: {
-        type: lng.shaders.RoundedRectangle,
-        radius
+    if (this.src) {
+      const radius = this._artRadius;
+      const artworkPatch = {
+        src: this.src,
+        icon: this.icon,
+        w: this.artWidth,
+        h: this.artHeight,
+        imageSize: this.artHeight,
+        circleImage: this.circleImage,
+        blurBackground: this.circleImage,
+        badge: this.badge,
+        badgeLocation: this.badgeLocation || 'upperLeft',
+        progress: this.progress,
+        alpha: this.collapseArt ? 0 : 1,
+        rtt: true,
+        shader: {
+          type: lng.shaders.RoundedRectangle,
+          radius
+        }
+      };
+      if (!this._Artwork) {
+        this.patch({
+          Artwork: {
+            type: withBadgeProgress(CardArtwork)
+          }
+        });
       }
-    });
-
-    this._Artwork.patch({
-      src: this.src,
-      badge: this.badge,
-      badgeLocation: this.badgeLocation || 'upperLeft',
-      progress: this.progress,
-      alpha: this.collapseArt ? 0 : 1,
-      rtt: true
-    });
+      this._Artwork.patch(artworkPatch);
+    }
     this.finalArtHeight = this.artHeight || 0;
     this.finalArtWidth = this.artWidth || 0;
   }
 
-  _getArtRadius() {
+  get _artRadius() {
     if (this.collapseData || this.collapseArt) {
       return this.imgRadius;
     }
     if (this._orientation === 'horizontal') {
       return [this.imgRadius, 0, 0, this.imgRadius];
-    }
-    if (this._orientation === 'vertical') {
+    } else {
       return [this.imgRadius, this.imgRadius, 0, 0];
     }
   }

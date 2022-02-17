@@ -1,7 +1,9 @@
 import lng from '@lightningjs/core';
 import { withStyles } from '../../mixins';
+import { CardArtwork } from '../../elements';
 import Card, { baseCardProps, artCardProps, logoProps } from '.';
 import { getValidColor } from '../../Styles';
+import withBadgeProgress from '../withBadgeProgress';
 
 // eslint-disable-next-line no-unused-vars
 const verticalDynamicStyles = theme => ({
@@ -91,18 +93,27 @@ export default class CardVerticalDynamic extends withStyles(
 
   _updateArtwork() {
     const dimensions = this._calculateArtRatio();
-    this._Artwork.x = this.paddingHorizontal;
-    this._Artwork.y = this.paddingVertical;
+    if (this.src) {
+      const artworkPatch = {
+        src: this._src,
+        x: this.paddingHorizontal,
+        y: this.paddingVertical,
+        w: dimensions.w,
+        h: dimensions.h,
+        imageSize: this.finalArtHeight,
+        circleImage: this.circleImage
+      };
+      if (!this._Artwork) {
+        this.patch({
+          Artwork: {
+            type: withBadgeProgress(CardArtwork)
+          }
+        });
+      }
+      this._Artwork.patch(artworkPatch);
+    }
     this.finalArtHeight = dimensions.h || 0;
     this.finalArtWidth = dimensions.w || 0;
-    this._Artwork.patch({
-      src: this._src,
-      w: dimensions.w,
-      h: dimensions.h,
-      imageSize: this.finalArtHeight,
-      circleImage: this.circleImage,
-      blurBackground: this.circleImage ? true : false
-    });
   }
 
   _calculateArtRatio() {
