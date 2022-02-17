@@ -1,6 +1,9 @@
 import TestUtils from '../../test/lightning-test-utils';
 import CardLaunchpad from './CardLaunchpad';
-import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+
+const pets = TestUtils.pathToDataURI(
+  './assets/images/The_Secret_Life_of_Pets_16x9.jpg'
+);
 
 const createCardComponent = TestUtils.makeCreateComponent(CardLaunchpad, {
   orientation: 'horizontal',
