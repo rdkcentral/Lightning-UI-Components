@@ -101,7 +101,7 @@ export default class CardVerticalDynamic extends withStyles(
       h: dimensions.h,
       imageSize: this.finalArtHeight,
       circleImage: this.circleImage,
-      blurBackground: true
+      blurBackground: this.circleImage ? true : false
     });
   }
 
