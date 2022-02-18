@@ -96,6 +96,7 @@ export default function withThemeStyles(Base, styles) {
     }
 
     set w(v) {
+      if (this._w === v) return;
       super.w = v;
       this._debounceUpdateThemeComponent &&
         this._debounceUpdateThemeComponent();
@@ -106,6 +107,7 @@ export default function withThemeStyles(Base, styles) {
     }
 
     set h(v) {
+      if (this._h === v) return;
       super.h = v;
       this._debounceUpdateThemeComponent &&
         this._debounceUpdateThemeComponent();

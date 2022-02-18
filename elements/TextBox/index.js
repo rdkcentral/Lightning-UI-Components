@@ -7,7 +7,7 @@ export default class TextBox extends withStyles(Base, styles) {
   static _template() {
     return {
       alpha: 0.001,
-      text: {}
+      text: { textBaseline: 'bottom' }
     };
   }
 
