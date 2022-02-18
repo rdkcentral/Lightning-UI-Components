@@ -7,41 +7,41 @@ export default class TileIcon extends Tile {
     this._iconColor = 0xffffffff;
   }
 
-  set icon(src) {
-    this._icon = src;
-    this._update();
-  }
+  // set icon(src) {
+  //   this._icon = src;
+  //   this._update();
+  // }
 
-  get icon() {
-    return this._icon;
-  }
+  // get icon() {
+  //   return this._icon;
+  // }
 
-  set iconW(w) {
-    this._iconW = w;
-    this._update();
-  }
+  // set iconW(w) {
+  //   this._iconW = w;
+  //   this._update();
+  // }
 
-  get iconW() {
-    return this._iconW;
-  }
+  // get iconW() {
+  //   return this._iconW;
+  // }
 
-  set iconH(h) {
-    this._iconH = h;
-    this._update();
-  }
+  // set iconH(h) {
+  //   this._iconH = h;
+  //   this._update();
+  // }
 
-  get iconH() {
-    return this._iconH;
-  }
+  // get iconH() {
+  //   return this._iconH;
+  // }
 
-  set iconColor(color) {
-    this._iconColor = color;
-    this._update();
-  }
+  // set iconColor(color) {
+  //   this._iconColor = color;
+  //   this._update();
+  // }
 
-  get iconColor() {
-    return this._iconColor;
-  }
+  // get iconColor() {
+  //   return this._iconColor;
+  // }
 
   _update() {
     this._updateIcon();
