@@ -82,6 +82,7 @@ Object {
             "fontFace": "DMSansRegular",
             "fontSize": 32,
             "lineHeight": 40,
+            "textBaseline": "bottom",
             "type": "TextTexture",
             "verticalAlign": "middle",
             "wordWrapWidth": 400,

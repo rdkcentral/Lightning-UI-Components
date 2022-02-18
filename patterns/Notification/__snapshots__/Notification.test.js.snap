@@ -422,6 +422,7 @@ Object {
                     "fontSize": 32,
                     "lineHeight": 40,
                     "text": "Title",
+                    "textBaseline": "bottom",
                     "type": "TextTexture",
                     "verticalAlign": "middle",
                     "wordWrapWidth": 424,

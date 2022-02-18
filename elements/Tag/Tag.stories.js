@@ -18,10 +18,7 @@ export const Basic = args =>
       return {
         Tag: {
           type: Tag,
-          backgroundColor: args.backgroundColor,
-          gradientColor: args.gradientColor,
-          title: args.title,
-          titleColor: args.titleColor
+          title: args.title
         }
       };
     }
@@ -31,13 +28,13 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  backgroundColor: '#f6a50a',
-  gradientColor: undefined,
-  title: 'Tag',
-  titleColor: '#ffffff'
+  title: 'Tag'
 };
 Basic.argTypes = {
-  backgroundColor: { control: 'color' },
-  gradientColor: { control: 'color' },
-  titleColor: { control: 'color' }
+  title: {
+    control: {
+      type: 'text'
+    },
+    description: 'Text to display in tag'
+  }
 };

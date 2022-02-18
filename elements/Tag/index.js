@@ -1,100 +1,81 @@
 import lng from '@lightningjs/core';
-import Base from '../Base';
+import Base from '../../Base';
+import { withExtensions } from '../../mixins';
+import withStyles from '../../mixins/withThemeStyles';
 import styles from './Tag.styles';
-import { withStyles } from '../../mixins';
-import { getValidColor } from '../../Styles';
+import TextBox from '../TextBox';
 
-export default class Tag extends withStyles(Base, styles) {
+class Tag extends Base {
   static _template() {
     return {
       Background: {},
       Text: {
-        text: {
-          ...this.styles.title
-        }
+        type: TextBox,
+        signals: {
+          textBoxChanged: '_updateBackground'
+        },
+        mountY: 0.5,
+        mountX: 0.5
       }
     };
   }
+  static get __componentName() {
+    return 'Tag';
+  }
 
   static get properties() {
-    return [
-      'backgroundColor',
-      'gradientColor',
-      'radius',
-      'title',
-      'titleColor'
-    ];
+    return ['title'];
   }
 
   static get tags() {
     return ['Background', 'Text'];
   }
 
-  _construct() {
-    super._construct();
-    this._radius = this.styles.radius;
-    this._titleStyles = this.styles.title;
-    this._paddingX = this.styles.padding.x;
-    this._paddingY = this.styles.padding.y;
-  }
-
   _init() {
-    this.w = 60;
-    this.h = 40;
+    this._Text.on('txLoaded', this._updateBackground.bind(this));
     super._init();
   }
 
-  _attach() {
-    this._Text.on('txLoaded', this._updateBackground.bind(this));
-  }
-
-  _detach() {
-    this._Text.off('txLoaded', this._updateBackground.bind(this));
-  }
-
   _update() {
+    this._updateBackground();
     this._updateText();
-    this._Text.on('txLoaded', () => {
-      this._Text.removeAllListeners();
-      this._updateBackground();
-    });
   }
 
   _updateText() {
     this._Text.patch({
-      text: {
-        text: this.title,
-        textColor: this.titleColor || getValidColor('#ffffff')
-      }
+      content: this.title,
+      textColor: this._componentStyles.titleColor,
+      textStyle: this._componentStyles.textStyle
     });
-    this._Text.x = this._paddingX;
-    this._Text.y = this._paddingY;
   }
 
   _updateBackground() {
-    this.w = Math.max(this._Text.renderWidth + 32, 60);
+    this._Text.x = this.w / 2;
+    this._Text.y = this.h / 2;
+    this.h = !this.title
+      ? 0
+      : this._Text.renderHeight + 2 * this._componentStyles.paddingY;
+    this.w = !this.title
+      ? 0
+      : this._Text.renderWidth + 2 * this._componentStyles.paddingX;
     this._Background.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra two pixels getRoundRect adds.
         this.w - 2,
         this.h - 2,
-        this.radius,
+        [
+          this._componentStyles.radiusTopLeft,
+          this._componentStyles.radiusTopRight,
+          this._componentStyles.radiusBottomRight,
+          this._componentStyles.radiusBottomLeft
+        ],
         0,
         null,
         true,
-        this.backgroundColor || getValidColor('#232328')
+        this._componentStyles.backgroundColor
       )
     });
-    if (this.gradientColor) {
-      this._Background.colorRight = getValidColor(this.gradientColor);
-    }
-  }
-
-  _setBackgroundColor(color) {
-    return getValidColor(color);
-  }
-
-  _setTitleColor(color) {
-    return getValidColor(color);
   }
 }
+
+export default withExtensions(withStyles(Tag, styles));

@@ -24,7 +24,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -35,15 +35,20 @@ class Example extends lng.Component {
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-backgroundColor|color|true|#232328|color of the tag's background
-title|string|true|-|text to display in tag
-titleColor|color|false|#ffffff|color of text
-gradientColor|color|false|-|color of gradient
+| name  | type   | required | default | description            |
+| ----- | ------ | -------- | ------- | ---------------------- |
+| title | string | true     | -       | text to display in tag |
 
-### Styles
+### Style Properties
 
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Tag.styles} />
+| name              | type   | description                                       |
+| ----------------- | ------ | ------------------------------------------------- |
+| backgroundColor   | string | color of the tag's background                     |
+| titleColor        | string | color of text                                     |
+| textStyle         | string | text properties of tag                            |
+| paddingX          | number | padding between left and right of text and tag    |
+| paddingY          | number | padding between top and bottom of text and tag    |
+| radiusTopLeft     | number | determines the shape of the top left's corner     |
+| radiusTopRight    | number | determines the shape of the top right's corner    |
+| radiusBottomRight | number | determines the shape of the bottom right's corner |
+| radiusBottomLeft  | number | determines the shape of the bottom left's corner  |
