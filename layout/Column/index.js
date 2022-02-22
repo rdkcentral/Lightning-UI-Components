@@ -374,6 +374,12 @@ export default class Column extends FocusManager {
     this._update();
   }
 
+  _isOnScreen(child) {
+    if (!child) return false;
+
+    return this._isComponentVerticallyVisible(child);
+  }
+
   // can be overridden
   onScreenEffect() {}
 

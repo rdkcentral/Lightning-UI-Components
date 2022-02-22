@@ -115,11 +115,8 @@ export default class Row extends FocusManager {
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
-      const isCompletelyOnScreen = this._isComponentOnScreen(this.selected, {
-        withinXBounds: true,
-        withinYBounds: false,
-        fullyVisible: true
-      });
+      const isCompletelyOnScreen = this._isOnScreenCompletely(this.selected);
+
       if (this.lazyScroll) {
         shouldScroll = !isCompletelyOnScreen;
       } else {
@@ -266,6 +263,19 @@ export default class Row extends FocusManager {
 
   get _itemsX() {
     return getX(this.Items);
+  }
+
+  _isOnScreen(child) {
+    if (!child) return false;
+
+    return this._isComponentHorizontallyVisible(child);
+  }
+
+  _isOnScreenCompletely(child) {
+    if (!child) return false;
+    const itemX = child.core.renderContext.px;
+    const rowX = this.core.renderContext.px;
+    return itemX >= rowX && itemX + child.w <= rowX + this.w;
   }
 
   appendItems(items = []) {

@@ -250,83 +250,14 @@ export default class FocusManager extends Base {
    * @returns {Array} Array of matching lng.Component objects or empty array
    */
   get onScreenItems() {
-    return this._onScreenItems(false);
+    return this.Items.children.filter(child => this._isOnScreen(child));
   }
 
-  /**
-   * Gets list of items that are completely visible on screen.
-   * This function will return list of items and not containers (i.e. FocusManager)
-   * @returns {Array} Array of matching lng.Component objects or empty array
-   */
-  get onScreenCompletelyItems() {
-    return this._onScreenItems(true);
+  _isOnScreen() {
+    throw new Error("'_isOnScreen' must be implemented by 'row'/'column'");
   }
 
-  _onScreenItems(fullyVisible) {
-    return this.Items.children.reduce((res, child) => {
-      const isFm = child instanceof FocusManager;
-      const withinXBounds = isFm && child.direction === 'column' ? false : true;
-
-      // if current child is of type FocusManager and it is _partially_ on screen,
-      // return this child's fully on screen items. This would account for a case,
-      // where we have a column that has 2 rows and first row is visible, but second is not
-      if (
-        isFm &&
-        this._isComponentOnScreen(child, {
-          withinXBounds,
-          withinYBounds: true,
-          fullyVisible
-        })
-      ) {
-        const osi = fullyVisible
-          ? child.onScreenCompletelyItems
-          : child.onScreenItems;
-        return [...res, child, ...osi];
-      }
-      // if child is NOT a FocusManager, return it if it's _fully_ on screen
-      else if (
-        !isFm &&
-        this._isComponentOnScreen(child, {
-          withinXBounds: true,
-          withinYBounds: true,
-          fullyVisible
-        })
-      ) {
-        return [...res, child];
-      }
-      // return accumulated list of items w/out adding current child to the list
-      else {
-        return res;
-      }
-    }, []);
-  }
-
-  /**
-   * Checks component's visibility
-   * @param {lng.Component} child Component to check visibility of
-   * @param {boolean} withinXBounds Whether component is visible horizontally
-   * @param {boolean} withinYBounds Whether component is visible vertically
-   * @param {boolean} fullyVisible Whether component is visible in its entirety on screen
-   * @returns True if component is visible; False otherwise
-   */
-  _isComponentOnScreen(child, { withinXBounds, withinYBounds, fullyVisible }) {
-    if (!child) return false;
-
-    if (!withinXBounds && !withinYBounds) {
-      return false;
-    } else if (withinYBounds && !withinXBounds) {
-      return this._isComponentVerticallyVisible(child, fullyVisible);
-    } else if (withinXBounds && !withinYBounds) {
-      return this._isComponentHorizontallyVisible(child, fullyVisible);
-    } else {
-      return (
-        this._isComponentVerticallyVisible(child, fullyVisible) &&
-        this._isComponentHorizontallyVisible(child, fullyVisible)
-      );
-    }
-  }
-
-  _isComponentHorizontallyVisible(child, fullyVisible) {
+  _isComponentHorizontallyVisible(child) {
     // get child's destination X; If child is moving to a destination,
     // get the value of where child will end up
     const x = getX(child);
@@ -360,22 +291,10 @@ export default class FocusManager extends Base {
         Math.round(itemX) <= Math.round(leftBounds + clipWidth);
     }
 
-    let isFullyVisible = true;
-    if (fullyVisible) {
-      const childPx = child.core.renderContext.px;
-      isFullyVisible = childPx >= px && childPx + child.w <= px + this.w;
-    }
-
-    return (
-      withinLeftStageBounds &&
-      withinRightStageBounds &&
-      withinLeftClippingBounds &&
-      withinRightClippingBounds &&
-      isFullyVisible
-    );
+    return withinLeftClippingBounds && withinRightClippingBounds;
   }
 
-  _isComponentVerticallyVisible(child, fullyVisible) {
+  _isComponentVerticallyVisible(child) {
     // get child's destination Y; If child is moving to a destination,
     // get the value of where child will end up
     const y = getY(child);
@@ -398,6 +317,7 @@ export default class FocusManager extends Base {
     const stageH = this.stage.h / this.stage.getRenderPrecision();
     const withinTopStageBounds = itemY + h >= 0;
     const withingBottomStageBounds = itemY <= stageH;
+
     // short circuit
     if (!withinTopStageBounds || !withingBottomStageBounds) return false;
 
@@ -409,19 +329,7 @@ export default class FocusManager extends Base {
         Math.round(itemY) < Math.round(topBounds + clipHeight);
     }
 
-    let isFullyVisible = true;
-    if (fullyVisible) {
-      const childPy = child.core.renderContext.py;
-      isFullyVisible = childPy >= py && childPy + child.h <= py + this.h;
-    }
-
-    return (
-      withinTopStageBounds &&
-      withingBottomStageBounds &&
-      withinTopClippingBounds &&
-      withinBottomClippingBounds &&
-      isFullyVisible
-    );
+    return withinTopClippingBounds && withinBottomClippingBounds;
   }
 
   getTransitionXTargetValue() {
