@@ -150,41 +150,4 @@ describe('FocusManager', () => {
       expect(app.selectedChangeMock).not.toBeCalled();
     });
   });
-
-  describe('on screen visibility error cases', () => {
-    it("should return false if visibility of 'null' child is tested", () => {
-      const result = focusManager._isComponentOnScreen(null, true, true, false);
-      expect(result).toBeFalsy();
-    });
-
-    it("should return false if item's 'x' is not a number and 'x' bounds are used", () => {
-      focusManager.Items.children.splice(1);
-      const item = focusManager.Items.children[0];
-      item.x = undefined;
-
-      const result = focusManager._isComponentOnScreen(
-        item,
-        true,
-        false,
-        false
-      );
-
-      expect(result).toBeFalsy();
-    });
-
-    it("should return false if item's 'y' is not a number and 'y' bounds are used", () => {
-      focusManager.Items.children.splice(1);
-      const item = focusManager.Items.children[0];
-      item.y = undefined;
-
-      const result = focusManager._isComponentOnScreen(
-        item,
-        false,
-        true,
-        false
-      );
-
-      expect(result).toBeFalsy();
-    });
-  });
 });
