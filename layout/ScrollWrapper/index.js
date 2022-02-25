@@ -126,7 +126,6 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
       });
       return Promise.all(promisesArray);
     } else {
-      this.h = 0;
       return Promise.resolve();
     }
   }
