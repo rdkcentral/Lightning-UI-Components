@@ -27,7 +27,6 @@ describe('Tag', () => {
     tag.title = 'Tag';
     tag._componentStyles.titleColor = '#ffffff';
     await TestUtils.nextTick();
-    tag._updateText();
     expect(tag._Text.content).toBe('Tag');
     expect(tag._Text.textColor).toBe(getValidColor('#ffffff'));
   });
@@ -37,7 +36,7 @@ describe('Tag', () => {
     tag.title = 'Really really really really really long title';
     tag._Text.on('txLoaded', async () => {
       await TestUtils.nextTick();
-      testRenderer.update();
+      testRenderer.forceAllUpdates();
       expect(tag.w).not.toEqual(60);
       expect(tag._Text.renderWidth + 32).toBeGreaterThan(60);
       expect(tag.w).toEqual(tag._Text.renderWidth + 32);

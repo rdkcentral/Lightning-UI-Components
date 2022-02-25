@@ -2,7 +2,7 @@ import type { Base } from '../../Base';
 
 declare class TagStyles {
   backgroundColor?: string;
-  tileColor?: string;
+  titleColor?: string;
   textStyle?: string;
   paddingX?: number;
   paddingY?: number;
