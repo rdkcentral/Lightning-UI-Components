@@ -50,7 +50,7 @@ Object {
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 0,
+      "h": 100,
       "isComponent": undefined,
       "mount": 0,
       "mountX": 0,
