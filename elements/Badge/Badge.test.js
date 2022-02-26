@@ -41,7 +41,7 @@ describe('Badge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update the title', async done => {
+  it('should update the title', async () => {
     const title = 'HD';
     [badge, testRenderer] = createBadge(
       { title },
@@ -49,64 +49,77 @@ describe('Badge', () => {
     );
     await badge.__updateSpyPromise;
     expect(badge.title).toBe(title);
-    testRenderer.update();
+    testRenderer.forceAllUpdates();
     expect(badge.w).toBe(16 + title.length);
 
     const title2 = 'longer title';
     badge.title = title2;
-    badge.background.h = undefined;
     await badge.__updateSpyPromise;
     expect(badge.title).toBe(title2);
-    testRenderer.update();
-    badge._BadgeText.loadTexture();
-    setTimeout(() => {
-      // TODO: This test has a race condition
-      expect(badge.w).toBe(16 + title2.length);
-      expect(badge.h).toBe(50);
-      done();
-    }, 1000);
+    expect(badge.w).toBe(16 + title.length);
+    expect(badge.h).toBe(
+      badge._BadgeText.renderHeight + 2 * badge._componentStyles.paddingY
+    );
+    badge.title = undefined;
+    expect(badge.w).toBe(
+      badge._BadgeText.renderWidth + 2 * badge._componentStyles.paddingX
+    );
   });
 
   it('should update the background', () => {
     const color = getHexColor('ffffff', 25);
-    [badge] = createBadge({ background: { color } });
+    [badge] = createBadge({ background: { color }, icon: undefined });
     expect(badge.background.color).toBe(color);
   });
 
   it('should update the text style', () => {
     const color = getHexColor('ffffff', 25);
-    const textPosition = { x: 0, y: 0 };
+    const title = 'HD';
+    const icon = circlePath;
     const textProperties = { color, textAlign: 'left' };
-    [badge] = createBadge({ textPosition, textProperties });
-    expect(badge.textPosition).toBe(textPosition);
-    expect(badge.textProperties).toBe(textProperties);
-    expect(badge.textProperties.color).toBe(color);
-  });
 
-  it('should update padding', () => {
-    expect(badge.padding).toBe(8);
-    badge.padding = 50;
-    expect(badge.padding).toBe(50);
+    [badge, testRenderer] = createBadge({
+      title,
+      icon,
+      h: 30,
+      iconAlign: 'right',
+      iconWidth: 50,
+      iconHeight: 50
+    });
+    badge._componentStyles.paddingX = 0;
+    testRenderer.forceAllUpdates();
+    badge._BadgeText.text = textProperties;
+    expect(badge._BadgeText.x).toBe(0);
+    expect(badge._BadgeText.y).toBe(badge.h / 2);
+    expect(badge._BadgeText.text.textAlign).toBe(textProperties.textAlign);
+    expect(badge._BadgeText.text.color).toBe(color);
   });
 
   it('should update the icon', () => {
     const icon = circlePath;
     [badge, testRenderer] = createBadge({ icon });
     expect(badge.icon).toBe(icon);
-
     const icon2 = lightningPath;
     badge.icon = icon2;
     expect(badge.icon).toBe(icon2);
+    expect(badge._Icon.color).toBe(badge._BadgeText.color);
   });
 
   it('should render the text and icon', () => {
     const title = 'HD';
     const icon = circlePath;
 
-    [badge, testRenderer] = createBadge({ title, icon });
+    [badge, testRenderer] = createBadge({ title, icon, iconWidth: 50 });
 
     expect(badge._BadgeText.text.text).toBe(title);
     expect(badge._Icon.icon).toBe(icon);
+    testRenderer.forceAllUpdates();
+    expect(badge.w).toBe(
+      badge._Icon.w +
+        badge._BadgeText.renderWidth +
+        badge._componentStyles.paddingX * 2 +
+        badge._componentStyles.contentSpacing
+    );
   });
 
   it('should position the text and icon based on the iconAlign property', () => {
@@ -120,13 +133,26 @@ describe('Badge', () => {
       iconWidth: 50,
       iconHeight: 50
     });
-
-    testRenderer.update();
-    badge._BadgeText.loadTexture();
-    badge._Icon.loadTexture();
-
+    testRenderer.forceAllUpdates();
     expect(badge._Icon.x).toEqual(
-      badge._BadgeText.x + badge._BadgeText.renderWidth
+      badge._BadgeText.x +
+        badge._BadgeText.renderWidth +
+        badge._componentStyles.contentSpacing
     );
+  });
+
+  it('should position the text and icon based on the iconAlign property', () => {
+    const title = 'HD';
+    const icon = circlePath;
+
+    [badge, testRenderer] = createBadge({
+      title,
+      icon,
+      iconAlign: 'left',
+      iconWidth: 50,
+      iconHeight: 50
+    });
+    testRenderer.forceAllUpdates();
+    expect(badge._Icon.x).toEqual(8);
   });
 });

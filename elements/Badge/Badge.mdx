@@ -23,7 +23,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -46,7 +46,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -69,7 +69,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -80,26 +80,30 @@ class Example extends lng.Component {
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-title|string|false|-|text to render
-icon|string|false|-|path to image or inline SVG XML
-background|object|false|Xfinity theme|background style properties such as shader and color
-textPosition|object|false|Xfinity theme|styling to apply to the text wrapper
-textProperties|object|false|Xfinity theme|font properties to apply to the title
-padding|number|false|8|padding to add on the left and right between the text and background
-iconAlign|string|false|Xfinity theme|side of the text the icon will appear on (`left` or `right`)
-iconWidth|string|false|-|icon width(required for SVG icons)
-iconHeight|string|false|-|icon height(required for SVG icons)
+| name      | type   | required | default | description                                                          |
+| --------- | ------ | -------- | ------- | -------------------------------------------------------------------- |
+| title     | string | false    | -       | text to render                                                       |
+| icon      | string | false    | -       | path to image or inline SVG XML                                      |
+| padding   | number | false    | -       | padding to add on the left and right between the text and background |
+| iconWidth | string | false    | -       | icon width (required for SVG icons)                                  |
+| iconColor | string | false    | -       | color to be applied to the icon (only works with pure white PNGs)    |
+| iconAlign | string | false    | -       | side of the text the icon will appear on (`left` or `right`)         |
+
+### Style Properties
+
+| name            | type   | description                                                          |
+| --------------- | ------ | -------------------------------------------------------------------- |
+| paddingX        | number | padding to add on the left and right between the text and background |
+| paddingY        | number | padding to add on the top and bottom between the text and background |
+| radius          | number | shape of component                                                   |
+| textStyle       | string | font properties to apply to the title                                |
+| textAlign       | string | side of the component the text will appear on (`left` or `right`)    |
+| backgroundColor | string | background style properties such as shader and color                 |
+| textColor       | string | color of BadgeText                                                   |
+| contentSpacing  | number | padding to add between the icon and the text                         |
 
 ### Events
 
 #### $loadedBadge():void
 
 Fires when the contents of the badge have finished loading and the background has been appropriately sized based on the text input.
-
-### Styles
-
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Badge.styles} />
