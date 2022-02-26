@@ -1,28 +1,44 @@
-import withStyles from '../../mixins/withStyles';
-import Base from '../Base';
+import lng from '@lightningjs/core';
+import Base from '../../Base';
 import Icon from '../Icon';
 import styles from './Badge.styles';
+import TextBox from '../TextBox';
+import { withExtensions } from '../../mixins';
+import withStyles from '../../mixins/withThemeStyles';
+import { getHexColor } from '../../Styles';
 
-export default class Badge extends withStyles(Base, styles) {
+class Badge extends Base {
   static _template() {
     return {
-      BadgeText: {},
+      rect: true,
+      shader: {
+        type: lng.shaders.RoundedRectangle
+      },
+      BadgeText: {
+        type: TextBox,
+        mountY: 0.5,
+        signals: {
+          textBoxChanged: '_badgeTextLoaded'
+        }
+      },
       Icon: {
         type: Icon
       }
     };
   }
 
+  static get __componentName() {
+    return 'Badge';
+  }
+
   static get properties() {
     return [
-      'background',
       'icon',
-      'iconHeight',
+      'title',
       'iconWidth',
-      'padding',
-      'textPosition',
-      'textProperties',
-      'title'
+      'iconColor',
+      'iconHeight',
+      'iconAlign'
     ];
   }
 
@@ -30,91 +46,109 @@ export default class Badge extends withStyles(Base, styles) {
     return ['BadgeText', 'Icon'];
   }
 
-  _construct() {
-    super._construct();
-    this._textPosition = this.styles.textPosition;
-    this._textProperties = this.styles.textProperties;
-    this._background = this.styles.background;
-    this._padding = this.styles.padding;
-    this._iconH = this._background.h - this._padding * 2;
-    this.iconAlign = this.styles.iconAlign;
+  _update() {
+    this._updateText();
+    this._updateIcon();
+    this._updatePositions();
+    this._updateBackground();
   }
 
   _init() {
-    this._update();
+    this._Icon.on('txLoaded', this._updatePositions.bind(this));
+    this._BadgeText.on('txLoaded', this._updatePositions.bind(this));
+    super._init();
   }
 
-  _update() {
+  _updateBackground() {
+    this._updateWidth();
+    let heightDifference = 0;
+    if (this.iconHeight > this._BadgeText.renderHeight) {
+      heightDifference = this.iconHeight - this._BadgeText.renderHeight;
+    }
+
     this.patch({
-      ...this._background,
-      alpha: this.title || this._Icon ? 1 : 0
+      h: this.title
+        ? this._BadgeText.renderHeight +
+          this._componentStyles.paddingY * 2 +
+          heightDifference
+        : this._componentStyles.paddingY * 2 + this.iconHeight,
+      color: this._componentStyles.backgroundColor,
+      shader: { radius: this._componentStyles.radius }
     });
-    this._updateText();
-    this._updateIcon();
   }
 
   _updateText() {
-    this._BadgeText.on('txLoaded', () => {
-      this._BadgeText.removeAllListeners();
-      this._calculatePadding();
-    });
+    this._updateWidth();
     this._BadgeText.patch({
-      ...this.textPosition,
-      text: {
-        ...this.textProperties,
-        text: this.title || ''
-      }
+      textColor: this._componentStyles.textColor,
+      textAlign: this._componentStyles.textAlign,
+      textStyle: this._componentStyles.textStyle,
+      content: this.title || '',
+      x: this._componentStyles.paddingX,
+      y: this._h / 2
     });
   }
 
   _updateIcon() {
-    this._Icon.on('txLoaded', () => {
-      this._Icon.removeAllListeners();
-      this._calculatePadding();
-    });
     this._Icon.patch({
       icon: this.icon,
       w: this.iconWidth,
-      h: this.iconHeight
+      h: this.iconHeight,
+      style: {
+        color: getHexColor(this._componentStyles.textColor)
+      }
     });
   }
-
-  _calculateIconRatio() {
-    if (this.iconWidth && this.iconHeight) {
-      // use provided dimensions - required for SVGs
-      return this.iconWidth / this.iconHeight;
-    } else {
-      // fallback to rendered dimensions - PNGs only
-      return this._Icon.finalW / this._Icon.finalH;
+  _updateWidth() {
+    let contentSpacing = 0;
+    if (this.icon && this.title) {
+      contentSpacing = this._componentStyles.contentSpacing;
     }
+    this.w = this.title
+      ? this._BadgeText.renderWidth +
+        this._componentStyles.paddingX * 2 +
+        (this._Icon.finalW || 0) +
+        contentSpacing
+      : this._componentStyles.paddingX * 2 + (this._Icon.finalW || 0);
   }
 
-  _calculatePadding() {
-    this.h =
-      this._background.h || this._BadgeText.renderHeight + this._padding * 2;
-
-    const iconRatio = this._calculateIconRatio();
-
-    // use iconRatio here to prevent a bug causing a PNG's ratio to be calculated incorrectly
-    if (iconRatio) {
-      // set icon dimensions
-      this._Icon.h = this._iconH;
-      this._Icon.w = this._iconH * iconRatio;
-      this._Icon.y = (this.h - this._Icon.h) / 2;
-
-      // set icon and text position
-      if (this.iconAlign === 'left') {
-        this._Icon.x = this.padding;
-        this._BadgeText.x = this._Icon.x + this._Icon.w;
-      } else if (this.iconAlign === 'right') {
-        this._BadgeText.x = this.padding;
-        this._Icon.x = this._BadgeText.x + this._BadgeText.renderWidth;
-      }
+  _updatePositions() {
+    this._Icon.h = this.iconHeight;
+    this._Icon.w = this.iconWidth || this._Icon.finalW;
+    this._Icon.y = (this.h - this._Icon.h) / 2;
+    // set icon and text position
+    if (this.iconAlign === 'left' && this.title) {
+      this._Icon.x = this._componentStyles.paddingX;
+      this._BadgeText.x =
+        this._Icon.x + this._Icon.w + this._componentStyles.contentSpacing;
+    } else if (this.iconAlign === 'right' && this.title) {
+      this._BadgeText.x = this._componentStyles.paddingX;
+      this._Icon.x =
+        this._BadgeText.x +
+        this._BadgeText.renderWidth +
+        this._componentStyles.contentSpacing;
+    } else {
+      this._Icon.x = this._componentStyles.paddingX;
     }
 
-    this.w =
-      this._BadgeText.renderWidth + this.padding * 2 + (this._Icon.w || 0);
+    this._updateWidth();
+
+    this._BadgeText.y = this._h / 2; // Set new alignment for badge text
 
     this.fireAncestors('$loadedBadge', this);
   }
+
+  _getIconHeight() {
+    if (this.icon) {
+      if (!this._Icon.finalH) {
+        return this._BadgeText.text.lineHeight;
+      } else {
+        return this._Icon.finalH;
+      }
+    } else {
+      return 0;
+    }
+  }
 }
+
+export default withExtensions(withStyles(Badge, styles));

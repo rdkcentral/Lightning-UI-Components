@@ -1,24 +1,34 @@
-import lng from '@lightningjs/core';
+import { processThemeStyles } from '../../mixins/withThemeStyles';
 
-export default theme => ({
-  padding: theme.spacing(1),
-  background: {
-    h: theme.spacing(4),
-    rect: true,
-    shader: {
-      type: lng.shaders.RoundedRectangle,
-      radius: theme.border.radius.xsmall
+export const variantDefault = 'brand';
+
+export function base(theme) {
+  return {
+    paddingX: theme.spacing(1),
+    paddingY: theme.spacing(0.5),
+    radius: theme.radius.small,
+    textStyle: 'caption',
+    textAlign: 'center',
+    contentSpacing: theme.spacing(0.75)
+  };
+}
+
+export function variants(theme) {
+  return {
+    neutral: {
+      backgroundColor: theme.colors.fillInverse1Secondary,
+      textColor: theme.colors.fillNeutral1
     },
-    color: theme.palette.badge.default
-  },
-  textPosition: {
-    x: theme.spacing(1),
-    y: 1
-  },
-  textProperties: {
-    ...theme.typography.caption,
-    textColor: theme.palette.text.light.primary,
-    textAlign: 'center'
-  },
-  iconAlign: 'left'
-});
+    inverse: {
+      backgroundColor: theme.colors.fillNeutral1Secondary,
+      textColor: theme.colors.fillInverse1
+    },
+    brand: {
+      backgroundColor: theme.colors.fillBrand,
+      textColor: theme.colors.fillNeutral1
+    }
+  };
+}
+
+export default (theme, variant = variantDefault) =>
+  processThemeStyles(theme, variant, base, variants);
