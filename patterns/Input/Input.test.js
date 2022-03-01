@@ -1,8 +1,10 @@
+import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import Input from '.';
 import { PALETTE, getHexColor } from '../../Styles/Colors';
 import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
+import { withStyles } from '../../mixins';
 
 const createInput = TestUtils.makeCreateComponent(Input);
 
@@ -277,6 +279,40 @@ describe('Input', () => {
       expect(input._Icon.color).toBe(
         getHexColor(input.styles.iconProperties.color)
       );
+    });
+  });
+  describe('when _Content has been centered', () => {
+    class CenteredInput extends lng.Component {
+      static _template() {
+        return {
+          Input: {
+            w: 1280,
+            type: withStyles(Input, { text: { textAlign: 'center' } }),
+            placeholder: 'SEARCH',
+            listening: true
+          }
+        };
+      }
+
+      _init() {
+        // center input;
+        this._Input._Content.x = this._Input.w / 2;
+        this._Input._Content.mountX = 0.5;
+      }
+
+      get _Input() {
+        return this.tag('Input');
+      }
+    }
+
+    const createCenteredInput = TestUtils.makeCreateComponent(CenteredInput);
+
+    beforeEach(() => {
+      [input, testRenderer] = createCenteredInput();
+    });
+
+    it('should hide the cursor', () => {
+      expect(input._Input._Cursor.visible).toBe(false);
     });
   });
 });

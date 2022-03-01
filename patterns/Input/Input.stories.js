@@ -5,6 +5,7 @@ import mdx from './Input.mdx';
 import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 import { rgba2argb } from '../../utils';
+import { withStyles } from '../../mixins';
 
 export default {
   title: 'Patterns/Input',
@@ -44,6 +45,36 @@ export const Basic = args =>
         Input: {
           w: 500,
           type: Input,
+          placeholder: args.placeholder,
+          listening: args.listening
+        }
+      };
+    }
+
+    _handleKey(event) {
+      const { key } = event;
+      if (key.length === 1) {
+        this.tag('Input').insert(key);
+      }
+      if (key === 'Backspace') {
+        this.tag('Input').backspace();
+      }
+    }
+
+    _getFocused() {
+      if (args.focused) {
+        return this.tag('Input');
+      }
+    }
+  };
+
+export const Centered = args =>
+  class Centered extends lng.Component {
+    static _template() {
+      return {
+        Input: {
+          w: 500,
+          type: withStyles(Input, { text: { textAlign: 'center' } }),
           placeholder: args.placeholder,
           listening: args.listening
         }
