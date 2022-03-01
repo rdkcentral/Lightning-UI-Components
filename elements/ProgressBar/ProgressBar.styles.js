@@ -4,9 +4,11 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    w: 410,
     h: theme.spacing(1),
-    radius: theme.radius.xsmall
+    radius: theme.radius.xsmall,
+    animationCurve: theme.animations.functionalStandard,
+    animationDelay: theme.animations.functionalStandardDelay,
+    animationDuration: theme.animations.functionalStandardDuration
   };
 }
 

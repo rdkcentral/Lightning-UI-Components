@@ -39,7 +39,8 @@ Basic.argTypes = {
       max: 1,
       step: 0.01
     },
-    description: 'percentage of the current progress from 0 to 1'
+    description: 'percentage of the current progress from 0 to 1',
+    table: { defaultValue: { summary: 0 } }
   },
   w: {
     defaultValue: 410,
@@ -49,6 +50,6 @@ Basic.argTypes = {
       max: 600,
       step: 0.01
     },
-    description: 'width of the bar when passed, w overrides 410 default'
+    description: 'width of the entire bar'
   }
 };
