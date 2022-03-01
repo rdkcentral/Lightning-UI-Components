@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
 import kabob from '../../assets/images/kabob_320x180.jpg';
-import { rgba2argb } from '../../utils';
 import { Basic as TileBasic } from '../Tile/Tile.stories';
 import mdx from './TileCheckbox.mdx';
 import TileCheckbox from '.';
@@ -23,21 +22,6 @@ export const Basic = args =>
           src: kabob,
           w: 320,
           h: 180,
-          blur: args.blur,
-          radius: args.radius,
-          imgRadius: args.imgRadius,
-          focusGradient: args.focusGradient,
-          persistGradient: args.persistGradient,
-          gradientColor: rgba2argb(args.color),
-          shadow: {
-            w: 320,
-            h: 180,
-            x: 10,
-            y: 10,
-            zIndex: -1,
-            texture: lng.Tools.getShadowRect(320, 180, args.radius, args.blur),
-            color: rgba2argb(args.color)
-          },
           checked: args.checked,
           placement: args.placement,
           shouldAnimate: args.shouldAnimate
@@ -53,8 +37,7 @@ export const Basic = args =>
 
 Basic.args = {
   ...TileBasic.args,
-  checked: false,
-  shouldAnimate: true
+  checked: false
 };
 
 Basic.argTypes = {

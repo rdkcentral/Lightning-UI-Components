@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Button from '../Button';
-import Checkbox from '../Checkbox';
+import Checkbox from '../Checkbox/LegacyCheckbox';
 import { RoundRect } from '../../utils';
 import { withStyles } from '../../mixins';
 import ActionButtonBaseStyles from './ActionButtonBase.styles';

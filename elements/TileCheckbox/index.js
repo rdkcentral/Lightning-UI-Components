@@ -1,5 +1,5 @@
 import Tile from '../Tile';
-import Checkbox from '../Checkbox';
+import LegacyCheckbox from '../Checkbox/LegacyCheckbox';
 
 export default class TileCheckbox extends Tile {
   static get tags() {
@@ -33,17 +33,17 @@ export default class TileCheckbox extends Tile {
     } else if (this.checked) {
       this._Item.patch({
         Checkbox: {
-          type: Checkbox,
+          type: LegacyCheckbox,
           alpha: 1,
           placement: this.placement,
           x:
             this.placement === 'center'
               ? this.w / 2
-              : this.w - Checkbox.styles.w,
+              : this.w - LegacyCheckbox.styles.w,
           checked: true,
           zIndex: 3,
           mount: 0.5,
-          y: this.h - Checkbox.styles.h
+          y: this.h - LegacyCheckbox.styles.h
         }
       });
     }

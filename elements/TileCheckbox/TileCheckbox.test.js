@@ -1,5 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
-import Checkbox from '../Checkbox';
+import LegacyCheckbox from '../Checkbox/LegacyCheckbox';
 import TileCheckbox from '.';
 
 const kabob = TestUtils.pathToDataURI('./assets/images/kabob_320x180.jpg');
@@ -40,7 +40,7 @@ describe('TileCheckbox', () => {
 
     expect(tileCheckbox._Checkbox).toMatchObject({
       checked,
-      x: w - Checkbox.styles.w
+      x: w - LegacyCheckbox.styles.w
     });
   });
 
