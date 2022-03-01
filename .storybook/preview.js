@@ -174,7 +174,6 @@ addDecorator(
               'undefined' !== typeof args[prop]
                 ? args[prop]
                 : parameters.argTypes[prop].defaultValue;
-            if ('undefined' !== typeof propValue)
               parameters.argActions[prop](
                 args[prop],
                 app.tag('StoryComponent')

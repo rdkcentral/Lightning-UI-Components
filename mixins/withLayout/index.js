@@ -24,6 +24,7 @@ export default function withLayout(Base) {
       const {
         w = '',
         h = '',
+        circle = '',
         ratioX = '',
         ratioY = '',
         upCount = ''
@@ -31,7 +32,7 @@ export default function withLayout(Base) {
       // Store a string representation of all values from previous update to compare and decide if layout should change
       const layoutString =
         Object.values(context.theme.layout).join('') +
-        `${w}${h}${ratioX}${ratioY}${upCount}`;
+        `${w}${h}${circle ? 1 : 0}${ratioX}${ratioY}${upCount}`;
       if (layoutString !== this._previousDimensionData) {
         this._previousDimensionData = layoutString;
         return true;
@@ -42,14 +43,24 @@ export default function withLayout(Base) {
     _updateItemLayout() {
       if (!this._allowUpdate()) return;
       const { w, h } = getDimensions(this._itemLayout);
-      // If there is not enough information passed in args t∏o calculate item size
-      // Do not try to set h/w this will cause issues sizing the focus ring
+      // If there is not enough information passed in args to calculate item size
       if (h || w) {
         const width = context.theme.layout.screenW;
         const height = context.theme.layout.screenH;
         this.h = h || w * (height / width);
-        this.w = w || h * (width / height);
+        if (this._itemLayout.circle) {
+          this.w = this.h;
+          this._layoutCircleMode = true;
+          if (this.style) this.style.radius = this.h / 2;
+        } else {
+          this.w = w || h * (width / height);
+          if (this._layoutCircleMode) {
+            this.style.radius = undefined;
+            this._layoutCircleMode = false;
+          }
+        }
         super._update && super._update();
+        this.fireAncestors('$itemChanged');
       }
     }
   };
