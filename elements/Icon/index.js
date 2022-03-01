@@ -4,6 +4,8 @@ import Base from '../../Base';
 import withStyles from '../../mixins/withThemeStyles';
 import styles from './Icon.styles';
 import context from '../../context';
+import { stringifyCompare } from '../../utils';
+import { getValidColor } from '../../Styles/Colors';
 
 class Icon extends Base {
   static get __componentName() {
@@ -37,10 +39,18 @@ class Icon extends Base {
       return;
     }
     const { icon, w, h } = this;
-    const template = getIconTemplate(icon, w, h);
-    this.patch(template);
-    if (!template.texture) {
-      this.smooth = { color: this._componentStyles.color };
+    if (
+      !this.prevTemplateParams ||
+      !stringifyCompare({ icon, w, h }, this.prevTemplateParams)
+    ) {
+      this.prevTemplateParams = { icon, w, h };
+      const template = getIconTemplate(icon, w, h);
+      this.patch(template);
+      if (!template.texture) {
+        this.smooth = {
+          color: getValidColor(this.color) || this._componentStyles.color
+        };
+      }
     }
   }
 }

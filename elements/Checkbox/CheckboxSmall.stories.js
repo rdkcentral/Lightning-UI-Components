@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 
-import Checkbox from '.';
+import CheckboxSmall from './CheckboxSmall';
 import mdx from './Checkbox.mdx';
 
 export default {
-  title: 'Elements / Checkbox',
+  title: 'Elements / CheckboxSmall',
   parameters: {
     docs: {
       page: mdx
@@ -12,12 +12,12 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const Basic = args => {
+  return class Basic extends lng.Component {
     static _template() {
       return {
         Checkbox: {
-          type: Checkbox,
+          type: CheckboxSmall,
           checked: args.checked,
           disabled: args.disabled
         }
@@ -28,6 +28,7 @@ export const Basic = args =>
       return this.tag('Checkbox');
     }
   };
+};
 Basic.args = {
   checked: false,
   disabled: false
@@ -42,7 +43,6 @@ Basic.argTypes = {
   },
   disabled: {
     control: 'boolean',
-    defaultValue: false,
     description: 'State where toggle cannot be changed',
     table: {
       defaultValue: { summary: false }

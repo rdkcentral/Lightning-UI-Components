@@ -1,19 +1,50 @@
-const Check =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFKADAAQAAAABAAAADgAAAACYjX/eAAABKElEQVQ4EbXSO04DMRAGYHtlWaJYpYMcgSBxAUhFi1KkoUrBJVLmENR0XIDUFOQSCTT0SJEziLXzFOzwD3lIWbLahIAby/b42xnPavUHw3t/OJvxPaj3aF9vjqkOszqDVdL7gCGEo+mUH5n5RGvds1Zd/NoTbDDwPecSxtyVTP8Hg36Fr9S31ReZPeVmhoMANHUuXBehhRiAKIp0E4+KN+VbomEtDwVWRgPQTa4sGxDHcX9jPDJsSQnO+RFRUs0GCYaz59wysxdkDfRmfiF5Iwqny5hdsdV/KGUDvQPUUEq/GmPOjfkcTybcUYqPC8tcZLACZQ3UEPk2/vpLLF8Af+yCibEGygbQA5T8gPn7LbfNTO7K+AHKJhGX0jS00Xlrra7ndlOCM+MLVJf04NpHPKcAAAAASUVORK5CYII=';
-import { getHexColor } from '../../Styles';
-export default theme => ({
-  w: 54,
-  h: 54,
-  background: {
-    color: getHexColor('#018558', 100)
-  },
-  unchecked: {
-    background: getHexColor('#141417', 30)
-  },
-  stroke: { color: theme.palette.grey[0], width: 2 },
-  check: {
-    w: 23,
-    h: 16,
-    src: Check
-  }
-});
+import { processThemeStyles } from '../../mixins/withThemeStyles';
+import check from './check-icon.png';
+
+export const variantDefault = 'neutral';
+
+export function base(theme) {
+  const strokeWidth = theme.stroke.small;
+  const size = theme.spacing(4) - strokeWidth * 2;
+  return {
+    w: size,
+    h: size,
+    radius: size / 2,
+    strokeWidth,
+    checkW: theme.spacing(2),
+    checkH: theme.spacing(1.5),
+    checkSrc: check
+  };
+}
+
+export function variants(theme) {
+  return {
+    neutral: {
+      strokeColor: theme.colors.fillInverse1,
+      disabledStrokeColor: theme.colors.fillInverse1Disabled,
+      checkColor: theme.colors.fillInverse1,
+      checkedBackgroundColor: theme.colors.fillNeutral1,
+      uncheckedBackgroundColor: theme.colors.fillNeutral1Disabled,
+      disabledBackgroundColor: theme.colors.fillNeutral1Disabled
+    },
+    inverse: {
+      strokeColor: theme.colors.fillNeutral1,
+      disabledStrokeColor: theme.colors.fillNeutral1Disabled,
+      checkColor: theme.colors.fillNeutral1,
+      checkedBackgroundColor: theme.colors.fillInverse1,
+      uncheckedBackgroundColor: theme.colors.fillInverse1Disabled,
+      disabledBackgroundColor: theme.colors.fillInverse1Disabled
+    },
+    brand: {
+      strokeColor: theme.colors.fillNeutral1,
+      disabledStrokeColor: theme.colors.fillNeutral1Disabled,
+      checkColor: theme.colors.fillNeutral1,
+      checkedBackgroundColor: theme.colors.fillBrand,
+      uncheckedBackgroundColor: theme.colors.fillInverse1Disabled,
+      disabledBackgroundColor: theme.colors.fillInverse1Disabled
+    }
+  };
+}
+
+export default (theme, variant = variantDefault) =>
+  processThemeStyles(theme, variant, base, variants);

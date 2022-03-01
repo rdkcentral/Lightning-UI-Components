@@ -13,7 +13,7 @@ export { default as Badge } from './Badge';
 export { default as Base } from './Base';
 export { default as Button } from './Button';
 export { default as CardArtwork } from './CardArtwork';
-export { default as Checkbox } from './Checkbox';
+export { default as Checkbox, CheckboxSmall } from './Checkbox';
 export { default as Control, ControlMedium, ControlSmall } from './Control';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing } from './FocusRing';

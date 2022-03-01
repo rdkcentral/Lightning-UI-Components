@@ -46,7 +46,7 @@ describe('TeamMatchup', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('centers the text if the title is missing', done => {
+  it('centers the text if the title is missing', () => {
     [matchup, testRenderer] = createTeamMatchup({
       title: '',
       subtitle,
@@ -54,12 +54,16 @@ describe('TeamMatchup', () => {
       metadata,
       items
     });
-    TestUtils.nextTick(10).then(() => {
-      testRenderer.update();
-      const tree = testRenderer.toJSON(2);
-      expect(tree).toMatchSnapshot();
-      done();
-    });
+
+    testRenderer.forceAllUpdates();
+
+    const tree = testRenderer.toJSON(2);
+    const { _Title, _Subtitle } = matchup;
+    expect(tree).toMatchSnapshot();
+    expect(_Title.visible).toBe(false);
+    expect(_Title.y).toBeGreaterThan(0);
+    expect(_Subtitle.visible).toBe(true);
+    expect(_Subtitle.y).toBe(0);
   });
 
   it('centers the text if the subtitle is missing', () => {
@@ -70,8 +74,16 @@ describe('TeamMatchup', () => {
       metadata,
       items
     });
+
+    testRenderer.forceAllUpdates();
+
     const tree = testRenderer.toJSON(2);
+    const { _Title, _Subtitle } = matchup;
     expect(tree).toMatchSnapshot();
+    expect(_Title.visible).toBe(true);
+    expect(_Title.y).toBe(0);
+    expect(_Subtitle.visible).toBe(false);
+    expect(_Subtitle.y).toBeGreaterThan(0);
   });
 
   it('sets title', () => {

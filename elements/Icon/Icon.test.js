@@ -1,4 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
+import lightning from '../../assets/images/ic_lightning_white_32.png';
 import Icon from '.';
 
 const createIcon = TestUtils.makeCreateComponent(Icon, {
@@ -96,5 +97,44 @@ describe('Icon', () => {
     const [_, testRenderer] = createIcon({ icon: 'bad/path' });
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+  });
+
+  it('should not regenerate the same icon template', () => {
+    const [icon, testRenderer] = createIcon({
+      icon: lightning
+    });
+    const patch = jest.spyOn(icon, 'patch');
+
+    testRenderer.forceAllUpdates();
+
+    expect(patch).not.toHaveBeenCalled();
+
+    icon.icon = lightning;
+    testRenderer.forceAllUpdates();
+
+    expect(patch).not.toHaveBeenCalled();
+  });
+
+  it('should regenerate the icon template if an icon is changed', () => {
+    const png = 'assets/images/ic_lightning_white_32.png';
+    const [icon, testRenderer] = createIcon({
+      icon: lightning
+    });
+    const patch = jest.spyOn(icon, 'patch');
+
+    testRenderer.forceAllUpdates();
+
+    expect(patch).not.toHaveBeenCalled();
+
+    icon.icon = png;
+    testRenderer.forceAllUpdates();
+
+    expect(patch).toHaveBeenCalled();
+  });
+
+  it('should overwrite the themed color of the icon if one is provide', () => {
+    const color = '#F6F6F9';
+    const [icon] = createIcon({ icon: lightning, color });
+    expect(icon.color).toEqual(color);
   });
 });

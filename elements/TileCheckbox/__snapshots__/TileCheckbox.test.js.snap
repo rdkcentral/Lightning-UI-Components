@@ -166,7 +166,7 @@ Object {
           "texture": Object {
             "type": "StaticCanvasTexture",
           },
-          "type": "Checkbox",
+          "type": "LegacyCheckbox",
           "visible": true,
           "w": 54,
           "x": 160,
