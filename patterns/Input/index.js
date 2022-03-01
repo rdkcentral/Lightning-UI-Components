@@ -255,18 +255,34 @@ export default class Input extends withStyles(Base, styles) {
     this._HiddenContent.text.text = textBeforeCursor;
     this._HiddenContent.loadTexture();
 
-    let contentPatch = { x: 0 };
+    // TODO: consider adding a property to control if text is center aligned instead of through styles
+    const centerAlign = 'center' === this.styles.text.textAlign;
+    let contentPatch = {
+      mountX: centerAlign ? 0.5 : 0,
+      x: centerAlign ? this._w / 2 : 0
+    };
     let cursorX = this._HiddenContent.renderWidth;
 
-    if (this._HiddenContent.renderWidth > this._ContentWrapper.w) {
+    // width of input value exceeds width of input, requires "scrolling" on further input
+    const isOverflow = this._HiddenContent.renderWidth > this._ContentWrapper.w;
+
+    if (isOverflow) {
       contentPatch = {
-        x: this._ContentWrapper.w - this._HiddenContent.renderWidth
+        mountX: 0,
+        x:
+          this._ContentWrapper.w -
+          this._HiddenContent.renderWidth -
+          this._Cursor.w
       };
       cursorX = this._ContentWrapper.w - this._Cursor.w;
     }
     this._Content.patch(contentPatch);
     this._HiddenContent.patch(contentPatch);
-    this._Cursor.patch({ x: cursorX });
+    this._Cursor.patch({
+      x: cursorX,
+      // TODO: cursor is not currently supported when center aligned. add support at later date
+      visible: !centerAlign
+    });
   }
 
   _updateState() {
