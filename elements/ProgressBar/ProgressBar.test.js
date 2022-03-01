@@ -61,9 +61,9 @@ describe('ProgressBar', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
-        w: expect.any(Number),
         h: expect.any(Number),
-        radius: expect.any(Number)
+        radius: expect.any(Number),
+        animationDuration: expect.any(Number)
       })
     );
   });
@@ -92,37 +92,67 @@ describe('ProgressBar', () => {
   });
 
   it('renders the progress bar at the correct length', () => {
-    [progressBar, testRenderer] = createProgressBar({ w: 500 });
+    progressBar.w = 500;
     expect(progressBar.w).toBe(500);
   });
 
-  it('renders the progress at the correct length', () => {
-    [progressBar, testRenderer] = createProgressBar({ progress: 0.5, w: 500 });
+  it('renders the progress at the correct length', async done => {
+    progressBar.w = 500;
+    progressBar.progress = 0.5;
+    await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').targetValue).toBe(250);
+    done();
   });
 
   it('does not render the progress past the width of the item', async done => {
-    progressBar.patch({ progress: 1.5, w: 300 });
+    progressBar.w = 300;
+    progressBar.progress = 1.5;
     await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').targetValue).toBe(300);
     done();
   });
 
   it('renders the progress at the correct length if passed through in component creation', () => {
-    [progressBar, testRenderer] = createProgressBar({ progress: 0.5 });
-    expect(progressBar._Progress.transition('w').targetValue).toBe(205);
+    [progressBar, testRenderer] = createProgressBar({ progress: 0.5, w: 400 });
+    expect(progressBar._Progress.transition('w').targetValue).toBe(200);
   });
 
-  it('animates the progress at the correct length over a set duration', () => {
-    [progressBar, testRenderer] = createProgressBar({ progress: 0.5 });
+  it('animates the progress at the correct length over a set duration', async done => {
+    progressBar.w = 400;
+    progressBar.progress = 0.5;
     const duration = 3;
-    progressBar.animationDuration = duration;
-    expect(progressBar.animationDuration).toBe(duration);
+    progressBar._componentStyles.animationDuration = duration;
+    expect(progressBar._componentStyles.animationDuration).toBe(duration);
     progressBar.progress = 1;
-    progressBar._update();
+    await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').settings.duration).toBe(
       duration
     );
+    done();
+  });
+
+  it('animates the progress with a giving timing function', async done => {
+    progressBar.w = 400;
+    progressBar.progress = 0.5;
+    const curve = 'linear';
+    progressBar._componentStyles.animationCurve = curve;
+    expect(progressBar._componentStyles.animationCurve).toBe(curve);
+    await progressBar.__updateSpyPromise;
+    expect(progressBar._Progress.transition('w').settings.timingFunction).toBe(
+      curve
+    );
+    done();
+  });
+
+  it('animates the progress after a given delay', async done => {
+    progressBar.w = 400;
+    progressBar.progress = 0.5;
+    const delay = 2;
+    progressBar._componentStyles.animationDelay = delay;
+    expect(progressBar._componentStyles.animationDelay).toBe(delay);
+    await progressBar.__updateSpyPromise;
+    expect(progressBar._Progress.transition('w').settings.delay).toBe(delay);
+    done();
   });
 
   it('should alpha the progress off if progress is set to zero', () => {
@@ -138,6 +168,7 @@ describe('ProgressBar', () => {
   });
 
   it('should alpha the progress on if there is valid progress', () => {
+    [progressBar, testRenderer] = createProgressBar({ progress: 0, w: 400 });
     progressBar.progress = 0.5;
     progressBar._update();
     expect(progressBar._Progress.transition('w').targetValue).toBeGreaterThan(
@@ -147,7 +178,8 @@ describe('ProgressBar', () => {
   });
 
   it('should not set width and update if width is not changed', () => {
-    [progressBar, testRenderer] = createProgressBar({ progress: 1.5, w: 300 });
+    progressBar.w = 300;
+    progressBar.progress = 1.5;
     const updateSpy = jest.spyOn(progressBar, '_update');
     progressBar.w = 300;
     expect(updateSpy).not.toHaveBeenCalled();

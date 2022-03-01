@@ -17,7 +17,7 @@ class ProgressBar extends Base {
   }
 
   static get properties() {
-    return ['animationDuration', 'progress'];
+    return ['progress'];
   }
 
   static get tags() {
@@ -27,10 +27,14 @@ class ProgressBar extends Base {
   _construct() {
     super._construct && super._construct();
     this._progress = 0;
-    this._animationDuration = 0;
   }
 
   _update() {
+    this._updateTextures();
+    this._updateProgress();
+  }
+
+  _updateTextures() {
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
       this.w - 2,
@@ -51,14 +55,20 @@ class ProgressBar extends Base {
       true,
       this._componentStyles.progressColor
     );
-    this._updateProgress();
   }
 
   _updateProgress() {
     const p = this.w * this._progress;
     const w = p <= 0 ? 0 : Math.min(p, this.w);
     this._Progress.smooth = {
-      w: [w, { duration: this._animationDuration }],
+      w: [
+        w,
+        {
+          timingFunction: this._componentStyles.animationCurve,
+          delay: this._componentStyles.animationDelay,
+          duration: this._componentStyles.animationDuration
+        }
+      ],
       alpha: Number(w > 0)
     };
   }
