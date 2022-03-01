@@ -1,0 +1,56 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../.storybook/utils';
+import Artwork from '.';
+
+# Artwork
+
+A simple component to handle the display of images
+
+## Usage
+
+Explain how `Artwork` works with examples:
+
+```js
+import { Artwork } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Artwork: {
+        type: Artwork
+      }
+    };
+  }
+}
+```
+<Canvas>
+  <Story id="elements-artwork--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name        | type    | required | default | description                                                                                      |
+| ----------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------ |
+| blur        | boolean | false    | false   | When true, a blur will be applied to the image this will default to true if circleImage is true  |
+| circleImage | boolean | false    | false   | When true, the shape of the image will be a circle                                               |
+| gradient    | boolean | false    | false   | When true, a gradient will be added over all other elements                                      |
+| src         | string  | true     |         | Which image will be displayed                                                                    |
+
+### Style Properties
+
+| name                         | type        | description |
+| ---------------------------- | ----------- | -------------------------------------------------------------------- |
+| blur                         | number      | Amount of blur when blur is set to true                              |
+| blurBackgroundColor          | hexadecimal | Hue applied to blur                                                  |
+| blurBackgroundColorAlpha     | number      | Alpha value applied to blurBackgroundColor                           |
+| componentAlphaDelay          | number      | Delay when fading in Artwork after texture is loaded                 | 
+| componentAlphaDuration       | number      | Duration of animation when fading in Artwork after texture is loaded |
+| componentAlphaTimingFunction | string      | Component animation behavior - [Lightning timingFunction](https://rdkcentral.github.io/Lightning/docs/transitions/attributes#timingfunction-settings) |
+| gradientAlphaDelay           | number      | Delay when animating gradient overlay                                |
+| gradientAlphaDuration        | number      | Duration of gradient fade animation                                  |
+| gradientColor                | hexadecimal | Gradient base color                                                  |
+| gradientAlphaTimingFunction  | string      | Gradient animation behavior - [Lightning timingFunction](https://rdkcentral.github.io/Lightning/docs/transitions/attributes#timingfunction-settings) |
+| padding                      | number      | Padding from edges used when displaying component in circle mode     |
+| radius                       | number      | Radius applied to the component as a whole                           | 

@@ -8,6 +8,7 @@ export {
   ActionButtonSmall,
   ActionButtonXsmall
 } from './ActionButton';
+export { default as Artwork } from './Artwork';
 export { default as Badge } from './Badge';
 export { default as Base } from './Base';
 export { default as Button } from './Button';
