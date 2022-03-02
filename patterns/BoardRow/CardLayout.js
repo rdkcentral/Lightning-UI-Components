@@ -1,13 +1,13 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
-import { calculateColumnWidth, getAspectRatioH } from '../../Styles';
+import { calculateColumnWidth } from '../../Styles';
 export default class CardLayout extends BaseLayout {
   static get _cardWidth() {
     return calculateColumnWidth(4);
   }
 
   static get _cardHeight() {
-    return getAspectRatioH(CardLayout._cardWidth, '3:4');
+    return 502;
   }
 
   static _calcTotalHeight() {

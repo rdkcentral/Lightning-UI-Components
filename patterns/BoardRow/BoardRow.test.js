@@ -69,7 +69,7 @@ describe('BoardRow', () => {
   it('should deliver the correct height for card layout', () => {
     const component = createComponent({ layout: 'card' })[0];
     const roundedHeight = Math.round(component.h * 100) / 100;
-    expect(roundedHeight).toEqual(546.67);
+    expect(roundedHeight).toEqual(502);
   });
 
   it('should deliver the correct height for square layout', () => {
