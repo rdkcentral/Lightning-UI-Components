@@ -19,7 +19,25 @@ class FocusRing extends Base {
   }
 
   _update() {
-    const { transition, primary, secondary } = this._getColors();
+    this._updateRing();
+    this._updateAnimation();
+  }
+
+  get _ringColors() {
+    return {
+      primary: this._componentStyles.color,
+      transition:
+        this._componentStyles.transitionColor ||
+        getHexColor(
+          getValidColor(this._componentStyles.color),
+          this._componentStyles.colorTransitionAlpha
+        ),
+      secondary: this._componentStyles.secondaryColor
+    };
+  }
+
+  _updateRing() {
+    const { transition, primary, secondary } = this._ringColors;
 
     this.patch({
       Ring: {
@@ -42,43 +60,20 @@ class FocusRing extends Base {
         colorBr: secondary
       }
     });
-
-    this._setAnimation();
-
-    if (this.hasFocus() && this._componentStyles.shouldAnimate) {
-      this.startAnimation();
-    } else {
-      this.stopAnimation();
-    }
   }
 
-  _getColors() {
-    return {
-      primary: this._componentStyles.color,
-      transition:
-        this._componentStyles.transitionColor ||
-        getHexColor(
-          getValidColor(this._componentStyles.color),
-          this._componentStyles.colorTransitionAlpha
-        ),
-      secondary: this._componentStyles.secondaryColor
-    };
-  }
-
-  _setAnimation() {
-    const isPlaying = !!(
-      this._focusRingAnimation && this._focusRingAnimation.isPlaying()
-    );
-
-    const { transition, primary, secondary } = this._getColors();
-
-    if (isPlaying) {
-      this.stopAnimation();
+  _updateAnimation() {
+    if (!this._componentStyles.shouldAnimate) {
+      this._focusRingAnimation = null;
+      return;
     }
 
+    const { transition, primary, secondary } = this._ringColors;
+
+    this.stopAnimation();
     this._focusRingAnimation = this._Ring.animation({
       repeat: -1,
-      duration: 5,
+      duration: this._componentStyles.animationDuration,
       actions: [
         {
           p: 'colorUl',
@@ -123,41 +118,25 @@ class FocusRing extends Base {
       ]
     });
 
-    if (isPlaying || this.shouldAnimate) {
-      this.startAnimation();
-    }
+    this.hasFocus() ? this.startAnimation() : this.stopAnimation();
   }
 
   startAnimation() {
-    if (this.shouldAnimate !== undefined) {
-      if (
-        this._focusRingAnimation &&
-        !this._focusRingAnimation.isPlaying() &&
-        this.shouldAnimate
-      ) {
-        this._focusRingAnimation.start();
-      }
-    } else {
-      if (this._focusRingAnimation && !this._focusRingAnimation.isPlaying()) {
-        this._focusRingAnimation.start();
-      }
+    if (!this._componentStyles.shouldAnimate) {
+      this.stopAnimation();
+      return;
+    }
+
+    if (!this._focusRingAnimation) {
+      this._updateAnimation();
+    }
+    if (!this._focusRingAnimation.isPlaying()) {
+      this._focusRingAnimation.start();
     }
   }
 
   stopAnimation() {
-    if (this.shouldAnimate !== undefined) {
-      if (
-        this._focusRingAnimation &&
-        this._focusRingAnimation.isPlaying() &&
-        !this._shouldAnimate
-      ) {
-        this._focusRingAnimation.stop();
-      }
-    } else {
-      if (this._focusRingAnimation && this._focusRingAnimation.isPlaying()) {
-        this._focusRingAnimation.stop();
-      }
-    }
+    this._focusRingAnimation && this._focusRingAnimation.stop();
   }
 }
 
