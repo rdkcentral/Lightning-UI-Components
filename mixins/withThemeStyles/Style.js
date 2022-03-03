@@ -1,5 +1,5 @@
 import { theme as contextTheme } from '../../context';
-
+import { getValFromObjPath } from '../../utils';
 export default class Style {
   constructor(parent) {
     this._parent = parent;
@@ -16,9 +16,17 @@ export default class Style {
         set(value) {
           const oldValue = this[key];
           if (value !== oldValue) {
-            this[key] = value;
-
-            this._styleUpdate();
+            // Check if the value is a string and if it looks like a theme value
+            if ('string' === typeof value && value.includes('theme.')) {
+              const newValue = getValFromObjPath(parent, value);
+              if ('undefined' !== typeof newValue) {
+                this[key] = newValue;
+                this._styleUpdate();
+              }
+            } else {
+              this[key] = value;
+              this._styleUpdate();
+            }
           }
         },
         configurable: true,

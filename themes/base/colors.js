@@ -64,6 +64,8 @@ export default {
   fillInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
   fillBrandFocus: [COLOR_PALETTE.blue[20], ALPHAS.primary],
   fillBrandFocusSoft: [COLOR_PALETTE.blue[20], ALPHAS.tertiary],
+  black: [COLOR_PALETTE.constants.black, ALPHAS.primary],
+  white: [COLOR_PALETTE.constants.white, ALPHAS.primary],
   gray: [COLOR_PALETTE.grey[40], ALPHAS.primary],
   red: ['#E74C3C', ALPHAS.primary],
   orange: ['#DC7633', ALPHAS.primary],

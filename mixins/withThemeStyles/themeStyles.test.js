@@ -7,7 +7,8 @@ import XfinityTheme from '../../themes/xfinity';
 const style = theme => {
   return {
     radius: theme.radius.medium,
-    foo: 'bar'
+    foo: 'bar',
+    color: theme.colors.fillNeutral1
   };
 };
 
@@ -169,6 +170,46 @@ describe('withThemeStyles Hierarchy', () => {
     });
     done();
   });
+});
+
+it('should allow theme level styles to use a theme value representation as a string', async done => {
+  context.updateTheme({
+    componentStyles: {
+      TestComponent: {
+        color: 'theme.colors.notacolor'
+      }
+    }
+  });
+  // Will not trigger an update cycle since the color does not exist in the theme
+  expect(withThemeStylesComponent._componentStyles).toMatchObject({
+    color: 4294375161
+  });
+  context.updateTheme({
+    componentStyles: {
+      TestComponent: {
+        color: 'theme.colors.black'
+      }
+    }
+  });
+  await withThemeStylesComponent.__updateSpyPromise;
+  expect(withThemeStylesComponent._componentStyles).toMatchObject({
+    color: 4278190080
+  });
+  done();
+});
+
+it('should allow component level styles to use a theme value representation as a string', async done => {
+  withThemeStylesComponent.style.color = 'theme.colors.notacolor';
+  // Will not trigger an update cycle since the color does not exist in the theme
+  expect(withThemeStylesComponent._componentStyles).toMatchObject({
+    color: 4294375161
+  });
+  withThemeStylesComponent.style.color = 'theme.colors.black';
+  await withThemeStylesComponent.__updateSpyPromise;
+  expect(withThemeStylesComponent._componentStyles).toMatchObject({
+    color: 4278190080
+  });
+  done();
 });
 
 describe('withThemeStyles cleanup', () => {

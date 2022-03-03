@@ -2,6 +2,7 @@ export { default as processThemeStyles } from './processThemeStyles';
 import { default as context, theme as contextTheme } from '../../context';
 import { debounce } from 'debounce';
 import Style from './Style';
+import { getValFromObjPath } from '../../utils';
 
 export default function withThemeStyles(Base, styles) {
   return class extends Base {
@@ -241,7 +242,23 @@ export default function withThemeStyles(Base, styles) {
           this.constructor.__componentName
         )
       ) {
-        return this.theme.componentStyles[this.constructor.__componentName];
+        const payload = {
+          ...this.theme.componentStyles[this.constructor.__componentName]
+        };
+        for (const style in payload) {
+          const value = payload[style];
+          // Check if the value is a string and if it looks like a theme value
+          if ('string' === typeof value && value.includes('theme.')) {
+            const newValue = getValFromObjPath(this, value);
+            if (newValue) {
+              payload[style] = newValue;
+            } else {
+              // Delete the key since it does not exist and fallback
+              delete payload[style];
+            }
+          }
+        }
+        return payload;
       }
       return {};
     }

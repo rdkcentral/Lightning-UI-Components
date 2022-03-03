@@ -1,6 +1,18 @@
 import lng from '@lightningjs/core';
 
 /**
+ * Gets the value at `path` of `object`.
+ * @param {Object} object
+ * @param {string|Array} path
+ * @returns {*} value if exists else undefined
+ */
+export const getValFromObjPath = (object, path) => {
+  if (typeof path === 'string')
+    path = path.split('.').filter(key => key.length);
+  return path.reduce((dive, key) => dive && dive[key], object);
+};
+
+/**
  * Lightning uses ARGB values, use this function
  * to convert know color to Lightning value
  * https://ifpb.github.io/javascript-guide/ecma/expression-and-operator/argb.html
