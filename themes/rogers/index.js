@@ -12,6 +12,12 @@ export default {
   getFocusScale,
   radius,
   typography,
+  componentStyles: {
+    Tag: {
+      titleColor: 'theme.colors.black',
+      backgroundColor: 'theme.colors.yellow'
+    }
+  },
   componentVariants: {
     ProgressBar: 'brand',
     FocusRing: 'brand'
