@@ -64,7 +64,7 @@ describe('FocusRing', () => {
         color: getHexColor(getHexColor('#663399', 96), 60)
       }
     });
-    const { transition } = focusRing._getColors();
+    const { transition } = focusRing._ringColors;
     expect(transition).toEqual(testColor);
   });
 
@@ -74,7 +74,7 @@ describe('FocusRing', () => {
         secondaryColor: getHexColor('#663399', 8)
       }
     });
-    const { secondary } = focusRing._getColors();
+    const { secondary } = focusRing._ringColors;
     expect(secondary).toEqual(getHexColor('#663399', 8));
   });
 
@@ -114,5 +114,20 @@ describe('FocusRing', () => {
     expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
     focusRing._inactive();
     expect(focusRing._focusRingAnimation.isPlaying()).toBe(false);
+  });
+
+  it('should not animate if shouldAnimate is set to false in the styles', () => {
+    [focusRing, testRenderer] = createFocusRing({
+      style: { shouldAnimate: false }
+    });
+    expect(focusRing._componentStyles.shouldAnimate).toBe(false);
+    focusRing.startAnimation();
+    expect(focusRing._focusRingAnimation).toBe(null);
+  });
+
+  it('should create the focus ring animation if it does not exist', () => {
+    focusRing._focusRingAnimation = null;
+    focusRing.startAnimation();
+    expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
   });
 });

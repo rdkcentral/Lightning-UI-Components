@@ -8,7 +8,8 @@ export function base(theme) {
     colorTransitionAlpha: theme.alphas.secondary,
     radius: theme.radius.medium,
     spacing: theme.spacing(1.5),
-    shouldAnimate: true
+    shouldAnimate: true,
+    animationDuration: theme.animations.durationXSlow * 4
   };
 }
 

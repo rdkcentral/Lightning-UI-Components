@@ -1,14 +1,15 @@
 import type { Base } from '../../Base';
 
 declare class FocusRingStyles {
+  radius?: number;
   borderWidth?: number;
   color?: number;
-  colorTransitionAlpha?: number;
-  radius?: number;
   secondaryColor?: number;
+  transitionColor?: number;
+  colorTransitionAlpha?: number;
   shouldAnimate?: boolean;
   spacing?: number;
-  transitionColor?: number;
+  animationDuration?: number;
 }
 
 export declare class FocusRing extends Base {
