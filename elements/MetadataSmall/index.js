@@ -25,7 +25,8 @@ export default class MetadataSmall extends withStyles(Base, styles) {
         }
       },
       Logo: {
-        type: Icon
+        type: Icon,
+        alpha: 0.001
       }
     };
   }
@@ -34,6 +35,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     return [
       'logo',
       'logoW',
+      'logoH',
       'logoSpacing',
       'firstLine',
       'secondLine',
@@ -75,8 +77,29 @@ export default class MetadataSmall extends withStyles(Base, styles) {
     if (this.unfocusScaleConst === undefined) {
       this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
     }
-    this._Logo.on('txLoaded', this._requestUpdateDebounce.bind(this));
+    this._enabledLogoListeners();
     super._init();
+  }
+
+  _enabledLogoListeners() {
+    this._Logo.on('txLoaded', () => this._logoTxListenerCb(false));
+    this._Logo.on('txError', () => this._logoTxListenerCb(true));
+  }
+
+  _logoTxListenerCb(isError = false) {
+    this.logo = isError ? null : this.logo;
+    this._logoLoaded = !isError;
+    this._requestUpdateDebounce();
+    this._alphaLogo();
+  }
+
+  _alphaLogo() {
+    const alpha = this.logo ? 1 : 0;
+    if (this._smooth) {
+      this._Logo.smooth = { alpha };
+    } else {
+      this._Logo.patch({ alpha });
+    }
   }
 
   $loadedInlineContent(line) {
@@ -105,20 +128,28 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   }
 
   _updateLogo() {
-    this._Logo.icon = this.logo;
     this._Logo.w = this.logoW;
+    if (this.logoH) {
+      this._Logo.h = this.logoH;
+    }
 
-    const alpha = this.logo ? 1 : 0;
+    const logoH = this.logoH || this._Logo.finalH || this.h;
     const logoX = this._textW + this.logoSpacing;
-    const logoY =
-      this._Text.h > this._Logo.finalH
-        ? (this._Text.h - this._Logo.finalH) / 2
-        : (this._Logo.finalH - this._Text.h) / 2;
 
-    if (this._smooth) {
-      this._Logo.smooth = { alpha, x: logoX, y: logoY };
+    const logoY =
+      this._Text.h > logoH
+        ? (this._Text.h - logoH) / 2
+        : (logoH - this._Text.h) / 2;
+
+    if (this._smooth && this._logoLoaded) {
+      this._Logo.smooth = { x: logoX, y: logoY };
     } else {
-      this._Logo.patch({ alpha, x: logoX, y: logoY });
+      this._Logo.patch({ x: logoX, y: logoY });
+    }
+
+    if (this._Logo.icon !== this.logo) {
+      this._logoLoaded = false;
+      this._Logo.icon = this.logo;
     }
   }
 
