@@ -6,6 +6,7 @@ import ListItemPicker from './ListItemPicker';
 import ListItemRadio from './ListItemRadio';
 import ListItemSlider from './ListItemSlider';
 import ListItemToggle from './ListItemToggle';
+import ListItemPlan from './ListItemPlan';
 
 export {
   ListItem as default,
@@ -14,6 +15,7 @@ export {
   ListItemImageGroup,
   ListItemPicker,
   ListItemRadio,
+  ListItemPlan,
   ListItemSlider,
   ListItemToggle
 };
