@@ -26,8 +26,19 @@ export const Basic = args =>
       return this.tag('MyComponent');
     }
   };
-Basic.args = {};
-Basic.argTypes = {};
+Basic.args = {
+  // argName: undefined
+};
+Basic.argTypes = {
+  // argName: {
+  //   control: '',
+  //   defaultValue: undefined,
+  //   description: '',
+  //   table: {
+  //     defaultValue: { summary: undefined }
+  //   }
+  // }
+};
 Basic.parameters = {
   argActions: {}
 };
