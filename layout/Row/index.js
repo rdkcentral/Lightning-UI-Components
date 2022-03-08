@@ -112,10 +112,23 @@ export default class Row extends FocusManager {
     );
   }
 
+  // Since this is a Row, scrolling should be done only when focused item (this.selected) is fully visible horizontally
+  // as scrolling is happening along X axis. So, if we have a row that has height greater than screen's height, it still
+  // can scroll. Method below the '_isComponentHorizontallyVisible' does not take "full" visibility into an account.
+  // At the same time, 'isFullyOnScreen' method on the Base class or utils method checks that element is fully visible
+  // both vertically and horizontally.
+  // At a later time, we should investigate this further.
+  _isOnScreenForScrolling(child) {
+    if (!child) return false;
+    const itemX = child.core.renderContext.px;
+    const rowX = this.core.renderContext.px;
+    return itemX >= rowX && itemX + child.w <= rowX + this.w;
+  }
+
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
-      const isCompletelyOnScreen = this._isOnScreenCompletely(this.selected);
+      const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
 
       if (this.lazyScroll) {
         shouldScroll = !isCompletelyOnScreen;
@@ -181,6 +194,7 @@ export default class Row extends FocusManager {
           };
         } else {
           this.Items.x = itemsContainerX;
+          this._updateTransitionTarget(this.Items, 'x', itemsContainerX);
         }
       }
 
@@ -199,6 +213,7 @@ export default class Row extends FocusManager {
         child.smooth = { x: [nextX, this._itemTransition] };
       } else {
         child.patch({ x: nextX });
+        this._updateTransitionTarget(child, 'x', nextX);
       }
       nextX += child.w;
       if (i < this.Items.children.length - 1) {
@@ -269,13 +284,6 @@ export default class Row extends FocusManager {
     if (!child) return false;
 
     return this._isComponentHorizontallyVisible(child);
-  }
-
-  _isOnScreenCompletely(child) {
-    if (!child) return false;
-    const itemX = child.core.renderContext.px;
-    const rowX = this.core.renderContext.px;
-    return itemX >= rowX && itemX + child.w <= rowX + this.w;
   }
 
   appendItems(items = []) {

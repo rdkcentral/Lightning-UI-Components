@@ -4,7 +4,7 @@
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
 import Base from '../../elements/Base';
-import { getX, getY } from '../../utils';
+import { getX, getY, isComponentOnScreen } from '../../utils';
 
 export default class FocusManager extends Base {
   static _template() {
@@ -245,12 +245,48 @@ export default class FocusManager extends Base {
     return this;
   }
 
+  _updateTransitionTarget(element, property, newValue) {
+    if (
+      element &&
+      element.transition(property) &&
+      !element.transition(property).isRunning() &&
+      element.transition(property).targetValue !== newValue
+    ) {
+      element.transition(property).updateTargetValue(newValue);
+    }
+  }
+
   /**
    * Return list of items that are currently fully and partially on screen
    * @returns {Array} Array of matching lng.Component objects or empty array
    */
   get onScreenItems() {
     return this.Items.children.filter(child => this._isOnScreen(child));
+  }
+
+  _isOnScreenCompletely(child) {
+    // 'isFullyOnScreen' method has been added to the Base class.
+    // in case child does _not_ extend Base, 'isComponentOnScreen'
+    // from the 'util' module will be invoked. The same method is
+    // invoked by Base class
+    return child.isFullyOnScreen
+      ? child.isFullyOnScreen()
+      : isComponentOnScreen(child);
+  }
+
+  get fullyOnScreenItems() {
+    return this.Items.children.reduce((rv, item) => {
+      if (item instanceof FocusManager) {
+        return [
+          ...rv,
+          ...item.Items.children.filter(this._isOnScreenCompletely)
+        ];
+      } else if (this._isOnScreenCompletely(item)) {
+        return [...rv, item];
+      } else {
+        return rv;
+      }
+    }, []);
   }
 
   _isOnScreen() {

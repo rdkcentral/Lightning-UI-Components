@@ -129,4 +129,8 @@ export default class BoardRow extends Base {
   _getFocused() {
     return this.tag('Layout') || this;
   }
+
+  get fullyOnScreenItems() {
+    return this._Layout._Row.fullyOnScreenItems;
+  }
 }
