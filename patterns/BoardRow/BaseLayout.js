@@ -44,7 +44,7 @@ export default class BaseType extends Base {
 
   _init() {
     if (!this.w) {
-      // if width is undefinend or 0, set the Row's width
+      // if width is undefined or 0, set the Row's width
       this._Row.w =
         this.parent && // if the Row is a child item in a FocusManager (like Column)
         this.parent.parent &&
@@ -55,10 +55,12 @@ export default class BaseType extends Base {
       this._Row.w = this.w;
     }
 
+    this._Row.h = this.h = this._layoutType._cardHeight;
     super._init();
   }
 
   _update() {
+    this.h = this._layoutType._calcTotalHeight(this.itemSpacing);
     this._updateLayout();
   }
 
@@ -159,6 +161,7 @@ export default class BaseType extends Base {
 
   _updateLayout() {
     this._Row.patch({
+      h: this.h,
       itemSpacing: this.itemSpacing,
       scrollIndex: this.scrollIndex || 0,
       alwaysScroll: this.alwaysScroll || false,

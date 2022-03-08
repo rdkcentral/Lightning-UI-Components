@@ -7,6 +7,7 @@ import {
   withLayout
   // withVibrant
 } from '../../mixins';
+import { isComponentOnScreen } from '../../utils';
 
 const baseStyles = theme => ({
   getUnfocusScale: () => 1,
@@ -49,6 +50,10 @@ class Base extends lng.Component {
   }
   set announce(announce) {
     this._announce = announce;
+  }
+
+  isFullyOnScreen() {
+    return isComponentOnScreen(this);
   }
 }
 

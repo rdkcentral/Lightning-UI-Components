@@ -272,3 +272,46 @@ export function objectPropertyOf(object, path) {
 export function stringifyCompare(objA, objB) {
   return JSON.stringify(objA) === JSON.stringify(objB);
 }
+
+export function isComponentOnScreen(component) {
+  if (!component) return false;
+
+  const {
+    w,
+    h,
+    core: { renderContext: { px, py }, _scissor: scissor = [] } = {}
+  } = component;
+  const stageH = component.stage.h / component.stage.getRenderPrecision();
+  const stageW = component.stage.w / component.stage.getRenderPrecision();
+
+  const wVis = px >= 0 && px + w <= stageW;
+  const hVis = py >= 0 && py + h <= stageH;
+
+  if (!wVis || !hVis) return false;
+
+  if (scissor && scissor.length) {
+    const [
+      leftBounds = null,
+      topBounds = null,
+      clipWidth = null,
+      clipHeight = null
+    ] = scissor;
+
+    const withinLeftClippingBounds =
+      Math.round(px + w) >= Math.round(leftBounds);
+    const withinRightClippingBounds =
+      Math.round(px) <= Math.round(leftBounds + clipWidth);
+    const withinTopClippingBounds = Math.round(py + h) >= Math.round(topBounds);
+    const withinBottomClippingBounds =
+      Math.round(py + h) <= Math.round(topBounds + clipHeight);
+
+    return (
+      withinLeftClippingBounds &&
+      withinRightClippingBounds &&
+      withinTopClippingBounds &&
+      withinBottomClippingBounds
+    );
+  }
+
+  return true;
+}
