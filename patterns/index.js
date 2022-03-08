@@ -22,7 +22,8 @@ export {
   ListItemSlider,
   ListItemToggle,
   ListItemRadio,
-  ListItemPicker
+  ListItemPicker,
+  ListItemPlan
 } from './ListItem';
 export { default as Notification } from './Notification';
 export { default as OverlayDataItem } from './OverlayDataItem';

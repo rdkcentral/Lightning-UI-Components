@@ -5,7 +5,8 @@ import ListItem, {
   ListItemSlider,
   ListItemToggle,
   ListItemRadio,
-  ListItemPicker
+  ListItemPicker,
+  ListItemPlan
 } from '.';
 import { getHexColor } from '../../Styles';
 import TestUtils from '../../test/lightning-test-utils';
@@ -24,6 +25,7 @@ const createListItemSlider = TestUtils.makeCreateComponent(ListItemSlider);
 const createListItemToggle = TestUtils.makeCreateComponent(ListItemToggle);
 const createListItemRadio = TestUtils.makeCreateComponent(ListItemRadio);
 const createListItemPicker = TestUtils.makeCreateComponent(ListItemPicker);
+const createListItemPlan = TestUtils.makeCreateComponent(ListItemPlan);
 
 describe('ListItemBase', () => {
   let listItemBase, testRenderer;
@@ -601,5 +603,72 @@ describe('ListItemPicker', () => {
 
     expect(listItemPicker.hasFocus()).toBe(false);
     expect(listItemPicker._Subtitle.visible).toBe(true);
+  });
+});
+
+describe('ListItemPlan', () => {
+  let listItemPlan, testRenderer;
+
+  beforeEach(() => {
+    [listItemPlan, testRenderer] = createListItemPlan({
+      title: 'ListItemPlan title',
+      subtitle: 'ListItemPlan subtitle',
+      content: 'ListItemPlan content'
+    });
+    testRenderer.update();
+  });
+
+  afterEach(() => {
+    listItemPlan = null;
+    testRenderer = null;
+  });
+
+  it('renders', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render a content', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItemPlan._Content.content).toEqual(listItemPlan.content);
+  });
+
+  it('should update content', () => {
+    [listItemPlan, testRenderer] = createListItemPlan({});
+    testRenderer.update();
+    expect(listItemPlan._Content).toBeUndefined();
+    listItemPlan.content = 'Update Content';
+    testRenderer.forceAllUpdates();
+    expect(listItemPlan._Content).toBeDefined();
+    expect(listItemPlan._Content.content).toEqual('Update Content');
+  });
+
+  describe('focus', () => {
+    beforeEach(() => {
+      [listItemPlan, testRenderer] = createListItemPlan({
+        title: 'ListItemPlan title',
+        subtitle: 'ListItemPlan subtitle',
+        content: 'ListItemPlan content'
+      });
+      listItemPlan._focus();
+      testRenderer.forceAllUpdates();
+    });
+    it('focused items transition color', () => {
+      expect(listItemPlan._Content.textColor).toEqual(0x99000000);
+    });
+    it('unfocused items transition color', () => {
+      listItemPlan._unfocus();
+      testRenderer.unfocus();
+      testRenderer.forceAllUpdates();
+
+      expect(listItemPlan._Content.textColor).toEqual(0x99ffffff);
+    });
+
+    it('should announce title and subtitle', () => {
+      expect(listItemPlan.announce).toBe(
+        'ListItemPlan title. ListItemPlan subtitle. ListItemPlan content'
+      );
+    });
   });
 });
