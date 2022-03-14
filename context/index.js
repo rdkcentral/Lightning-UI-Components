@@ -1,9 +1,9 @@
-export { default as theme } from './theme';
 import { capitalizeFirstLetter } from '../utils';
 import logger from './logger';
 import metrics from './metrics';
-import theme from './theme';
 import events from './events';
+import themeManager from './theme-manager';
+
 /**
  * Class to create a context object. Context is a singleton that will hold settings and logic to be used across all Lightning UI components.
  */
@@ -12,7 +12,7 @@ export class Context {
    * @type {Object}
    */
   get theme() {
-    return theme.getTheme();
+    return themeManager.getTheme();
   }
   /**
    * theme cannot be set directly
@@ -101,26 +101,26 @@ export class Context {
    * @return {Object}
    */
   setTheme(value) {
-    theme.setTheme(value);
-    return theme.getTheme();
+    themeManager.setTheme(value);
+    return themeManager.getTheme();
   }
   /**
    * @property {Object}
    * @return {Object}
    */
   updateTheme(value) {
-    theme.updateTheme(value);
-    return theme.getTheme();
+    themeManager.updateTheme(value);
+    return themeManager.getTheme();
   }
   /**
    * @property {string}
    * @return {object}
    */
   getSubTheme(subThemeName) {
-    return theme.getSubTheme(subThemeName);
+    return themeManager.getSubTheme(subThemeName);
   }
   /**
-   * Expects an object where properties are child theme names. Values will be merged with the global theme.
+   * Expects an object where properties are child theme names. Values will be merged with the global themeManager.
    * @property {object}
    */
   setSubThemes(subThemesObj) {
@@ -129,7 +129,7 @@ export class Context {
       return;
     }
     for (const subTheme in subThemesObj) {
-      theme.setSubTheme(subTheme, subThemesObj[subTheme]);
+      themeManager.setSubTheme(subTheme, subThemesObj[subTheme]);
     }
   }
   /**
@@ -137,23 +137,23 @@ export class Context {
    * @return {object}
    */
   setSubTheme(subThemeName, value) {
-    theme.setSubTheme(subThemeName, value);
-    return theme.getSubTheme(subThemeName);
+    themeManager.setSubTheme(subThemeName, value);
+    return themeManager.getSubTheme(subThemeName);
   }
   /**
    * @property {string}
    * @return {object}
    */
   updateSubTheme(subThemeName, value) {
-    theme.updateSubTheme(subThemeName, value);
-    return theme.getSubTheme(subThemeName);
+    themeManager.updateSubTheme(subThemeName, value);
+    return themeManager.getSubTheme(subThemeName);
   }
   /**
    * @property {string}
    * @return {void}
    */
   removeSubTheme(subThemeName) {
-    theme.removeSubTheme(subThemeName);
+    themeManager.removeSubTheme(subThemeName);
   }
   /**
    * @property {function}

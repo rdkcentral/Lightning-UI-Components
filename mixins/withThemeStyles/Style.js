@@ -1,4 +1,4 @@
-import { theme as contextTheme } from '../../context';
+import themeManager from '../../context/theme-manager';
 import { getValFromObjPath } from '../../utils';
 export default class Style {
   constructor(parent) {
@@ -36,7 +36,7 @@ export default class Style {
   }
 
   _styleUpdate() {
-    contextTheme.resetComponentLevelStyles(this._parent.__id); // Make sure the component level cache is cleared to receive the change
+    themeManager.resetComponentLevelStyles(this._parent.__id); // Make sure the component level cache is cleared to receive the change
     this._parent._debounceUpdateThemeComponent();
   }
 }

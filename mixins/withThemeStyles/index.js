@@ -1,5 +1,6 @@
 export { default as processThemeStyles } from './processThemeStyles';
-import { default as context, theme as contextTheme } from '../../context';
+import { default as context } from '../../context';
+import themeManager from '../../context/theme-manager';
 import { debounce } from 'debounce';
 import Style from './Style';
 import { getValFromObjPath } from '../../utils';
@@ -39,7 +40,7 @@ export default function withThemeStyles(Base, styles) {
       if (value === this._variant) return;
       this._variant = value;
       this._processedStylesCache = null; // Clear the style props cache since it will now produce a different result
-      contextTheme.resetComponentInstantiationStyles(this.constructor); // Make sure previous version of instantiation styles is not being cached
+      themeManager.resetComponentInstantiationStyles(this.constructor); // Make sure previous version of instantiation styles is not being cached
       this._updateThemeComponent(); // Update component again since the styles may have changed
     }
 
@@ -190,8 +191,8 @@ export default function withThemeStyles(Base, styles) {
           this._debounceUpdateThemeComponent.bind(this)
         );
       }
-      contextTheme.resetComponentInstantiationStyles(this.constructor);
-      contextTheme.resetComponentLevelStyles(this.__id);
+      themeManager.resetComponentInstantiationStyles(this.constructor);
+      themeManager.resetComponentLevelStyles(this.__id);
     }
 
     /** METHODS */
@@ -213,7 +214,7 @@ export default function withThemeStyles(Base, styles) {
      * @return {object}
      */
     _getInstantiationLevelStyles() {
-      const cache = contextTheme.getComponentInstantiationStyles(
+      const cache = themeManager.getComponentInstantiationStyles(
         this.constructor
       );
       if (cache) return cache;
@@ -224,7 +225,7 @@ export default function withThemeStyles(Base, styles) {
       ].reduce((acc, curr) => {
         return { ...acc, ...curr }; // TODO: Check performance of spread operator in reduce
       }, {});
-      contextTheme.setComponentInstantiationStyles(this.constructor, style);
+      themeManager.setComponentInstantiationStyles(this.constructor, style);
 
       return style;
     }
@@ -268,7 +269,7 @@ export default function withThemeStyles(Base, styles) {
      * @return {object}
      */
     _getComponentLevelStyles() {
-      const cache = contextTheme.getComponentLevelStyles(this.__id);
+      const cache = themeManager.getComponentLevelStyles(this.__id);
       if (cache) {
         return cache;
       }
@@ -280,7 +281,7 @@ export default function withThemeStyles(Base, styles) {
         return acc;
       }, {});
       if (Object.keys(componentStyles).length) {
-        contextTheme.setComponentLevelStyles(this.__id, componentStyles);
+        themeManager.setComponentLevelStyles(this.__id, componentStyles);
         return componentStyles;
       }
       return {};
@@ -329,7 +330,7 @@ export default function withThemeStyles(Base, styles) {
      */
     _updateThemeComponent() {
       this._processedStylesCache = null;
-      contextTheme.resetComponentInstantiationStyles(this.constructor);
+      themeManager.resetComponentInstantiationStyles(this.constructor);
       this._generateComponentStyles(); // Refresh the _componentStyles object
       this._requestUpdateDebounce
         ? this._requestUpdateDebounce()
