@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import { withUpdates, withTags, withHandleKey, withLayout } from './mixins';
+import { isComponentOnScreen } from './utils';
 
 class Base extends lng.Component {
   static get __componentName() {
@@ -26,8 +27,13 @@ class Base extends lng.Component {
   get announce() {
     return this._announce;
   }
+
   set announce(announce) {
     this._announce = announce;
+  }
+
+  isFullyOnScreen() {
+    return isComponentOnScreen(this);
   }
 }
 
