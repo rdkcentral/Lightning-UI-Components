@@ -8,4 +8,6 @@ export declare class Base extends lng.Component {
 
   set announce(announce: string): void;
   get announce(): string;
+  set announceContext(announce: string): void;
+  get announceContext(): string;
 }
