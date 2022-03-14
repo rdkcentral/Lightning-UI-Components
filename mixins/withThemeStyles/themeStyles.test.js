@@ -2,7 +2,7 @@ import TestUtils from '../../test/lightning-test-utils';
 import withThemeStyles, { processThemeStyles } from '.';
 import Base from '../../Base';
 import { context } from '../..';
-import { theme } from '../../context';
+import themeManager from '../../context/theme-manager';
 import XfinityTheme from '../../themes/xfinity';
 const style = theme => {
   return {
@@ -214,9 +214,8 @@ it('should allow component level styles to use a theme value representation as a
 
 describe('withThemeStyles cleanup', () => {
   it('cleans up caches stored in the context when the component is detached', () => {
-    console.log;
-    const spy = jest.spyOn(theme, 'resetComponentInstantiationStyles');
-    const spy2 = jest.spyOn(theme, 'resetComponentLevelStyles');
+    const spy = jest.spyOn(themeManager, 'resetComponentInstantiationStyles');
+    const spy2 = jest.spyOn(themeManager, 'resetComponentLevelStyles');
     testRenderer.destroy();
     expect(spy).toHaveBeenCalled();
     expect(spy2).toHaveBeenCalled();

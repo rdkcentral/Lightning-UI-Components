@@ -28,8 +28,8 @@ describe('context', () => {
 
   describe('context api', () => {
     it('should get the base theme by default', () => {
-      const theme = require('./theme').default;
-      const processedBaseTheme = theme._processTheme();
+      const themeManager = require('./theme-manager').default;
+      const processedBaseTheme = themeManager._processTheme();
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
 
@@ -54,8 +54,8 @@ describe('context', () => {
     });
 
     it('should not allow context.theme to be set directly', () => {
-      const theme = require('./theme').default;
-      const processedBaseTheme = theme._processTheme();
+      const themeManager = require('./theme-manager').default;
+      const processedBaseTheme = themeManager._processTheme();
       context.theme = { foo: 'bar' };
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
@@ -66,8 +66,8 @@ describe('context', () => {
     });
 
     it('should remove previous theme and deep merge theme properties with the original baseTheme when using context.set', () => {
-      const theme = require('./theme').default;
-      const { colors: baseColors } = theme._processTheme();
+      const themeManager = require('./theme-manager').default;
+      const { colors: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const colors = {};
       colors[firstColorProp] = ['#663399', 100];
@@ -81,8 +81,8 @@ describe('context', () => {
     });
 
     it('should merge previous theme properties context.update', () => {
-      const theme = require('./theme').default;
-      const { colors: baseColors } = theme._processTheme();
+      const themeManager = require('./theme-manager').default;
+      const { colors: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const colors = {};
       colors[firstColorProp] = ['#663399', 100];
@@ -182,17 +182,17 @@ describe('context', () => {
     });
 
     it('should set multiple subThemes', () => {
-      const theme = require('./theme').default;
-      theme.setSubTheme = jest.fn().mockImplementation(() => {});
+      const themeManager = require('./theme-manager').default;
+      themeManager.setSubTheme = jest.fn().mockImplementation(() => {});
       context.setSubThemes({
         one: { foo: 'bar' },
         two: { foo2: 'bar2' }
       });
-      expect(theme.setSubTheme).toHaveBeenCalledTimes(2);
-      expect(theme.setSubTheme).toHaveBeenNthCalledWith(1, 'one', {
+      expect(themeManager.setSubTheme).toHaveBeenCalledTimes(2);
+      expect(themeManager.setSubTheme).toHaveBeenNthCalledWith(1, 'one', {
         foo: 'bar'
       });
-      expect(theme.setSubTheme).toHaveBeenNthCalledWith(2, 'two', {
+      expect(themeManager.setSubTheme).toHaveBeenNthCalledWith(2, 'two', {
         foo2: 'bar2'
       });
     });
@@ -203,19 +203,22 @@ describe('context', () => {
       expect(logger.warn).toHaveBeenCalledTimes(1);
       expect(logger.warn).toHaveBeenCalledWith('subThemes must be an object');
     });
+
     it('should be able to update logCallback using setLogCallback', () => {
       const logCallback = () => {};
       context.setLogCallback(logCallback);
       expect(logger.logCallback).toEqual(logCallback);
     });
+
     it('should only allow logCallback to be a function using context.set', () => {
       const logCallback = 'invalid';
       context.setLogCallback(logCallback);
       expect(context.logCallback).toBeUndefined();
     });
+
     it('should allow theme, keyMetricsCallback, logCallback to be set with context.config', () => {
       const metrics = require('./metrics').default;
-      const theme = require('./theme').default;
+      const themeManager = require('./theme-manager').default;
       const themeSetting = { foo: 'bar' };
       const keyMetricsCallback = () => {};
       const logCallback = () => {};
@@ -224,7 +227,7 @@ describe('context', () => {
         keyMetricsCallback,
         logCallback
       });
-      expect(theme.getTheme().foo).toMatch('bar');
+      expect(themeManager.getTheme().foo).toMatch('bar');
       expect(metrics.keyMetricsCallback).toBe(keyMetricsCallback);
       expect(logger.logCallback).toBe(logCallback);
     });

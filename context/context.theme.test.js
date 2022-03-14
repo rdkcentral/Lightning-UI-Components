@@ -20,42 +20,40 @@ class TestComponent extends withThemeStyles(Base, theme => ({
 const createComponent = TestUtils.makeCreateComponent(TestComponent, {});
 
 describe('theme context', () => {
-  let theme;
+  let themeManager;
 
   beforeEach(() => {
-    let themeModule;
     // create a new instance of theme module for each test
     jest.isolateModules(() => {
-      themeModule = require('./theme');
+      themeManager = require('./theme-manager').default;
     });
-    theme = themeModule.default;
-    theme._clearCache();
+    themeManager._clearCache();
     jest.clearAllMocks();
   });
 
   describe('basic theme functionality', () => {
     it('should have default theme', () => {
-      const processedBaseTheme = theme._processTheme();
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
+      const processedBaseTheme = themeManager._processTheme();
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
     it('should deep merge object with existing theme when theme is set', () => {
-      const processedBaseTheme = theme._processTheme([{ foo: 'bar' }]);
-      theme.setTheme({ foo: 'bar' });
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
+      const processedBaseTheme = themeManager._processTheme([{ foo: 'bar' }]);
+      themeManager.setTheme({ foo: 'bar' });
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
     it('should not attempt to set any value for theme that is not an object', () => {
-      const processedBaseTheme = theme._processTheme();
-      theme.setTheme('string');
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
-      theme.setTheme(() => {
+      const processedBaseTheme = themeManager._processTheme();
+      themeManager.setTheme('string');
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
+      themeManager.setTheme(() => {
         // eslint-disable-next-line
         console.log('invalid');
       });
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
-      theme.setTheme(1);
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
-      theme.setTheme(null);
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
+      themeManager.setTheme(1);
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
+      themeManager.setTheme(null);
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
       expect(logger.warn).toHaveBeenCalledTimes(4);
       expect(logger.warn.mock.calls).toContainEqual(
         ['context theme expected an object. Received string'],
@@ -65,21 +63,21 @@ describe('theme context', () => {
       );
     });
     it('should return a _getComponentUUID', () => {
-      expect(theme._getComponentUUID(100)).toMatch('componentStyle100');
+      expect(themeManager._getComponentUUID(100)).toMatch('componentStyle100');
     });
     it('should process the theme correctly', () => {
-      const processedBaseTheme = theme._processTheme();
-      expect(theme.getTheme()).toMatchObject(processedBaseTheme);
-      theme.setTheme({ foo: 'bar' });
-      expect(theme.getTheme().foo).toBe('bar');
-      theme.setTheme({ colors: { primary: ['#ff0000', 100] } });
-      expect(theme.getTheme().colors.primary).toBe(4294901760);
+      const processedBaseTheme = themeManager._processTheme();
+      expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
+      themeManager.setTheme({ foo: 'bar' });
+      expect(themeManager.getTheme().foo).toBe('bar');
+      themeManager.setTheme({ colors: { primary: ['#ff0000', 100] } });
+      expect(themeManager.getTheme().colors.primary).toBe(4294901760);
     });
     // NOTE: This error is currently unreachable by public methods.
     // It is only used internally and is always called with an array
     it('should throw an error if attempting to process a non array theme update', () => {
       expect(() => {
-        theme._processTheme('newThemeValue');
+        themeManager._processTheme('newThemeValue');
       }).toThrow('context processTheme expected an array. Received string');
     });
   });
@@ -94,10 +92,10 @@ describe('theme context', () => {
       expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
       expect(logger.error).not.toHaveBeenCalledWith();
 
-      theme.updateTheme({
+      themeManager.updateTheme({
         fonts: [mockFont]
       });
-      const currTheme = theme.getTheme();
+      const currTheme = themeManager.getTheme();
 
       expect(fontLoader).toHaveBeenCalledWith(currTheme.fonts);
       expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
@@ -117,10 +115,10 @@ describe('theme context', () => {
       expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
       expect(logger.error).not.toHaveBeenCalledWith();
 
-      theme.updateTheme({
+      themeManager.updateTheme({
         fonts: [mockFont]
       });
-      const currTheme = theme.getTheme();
+      const currTheme = themeManager.getTheme();
 
       expect(fontLoader).toHaveBeenCalledWith(currTheme.fonts);
       expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
@@ -139,7 +137,7 @@ describe('theme context', () => {
     it('should log a warning if no sub theme name is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
 
-      theme.setSubTheme();
+      themeManager.setSubTheme();
 
       expect(logger.warn).toHaveBeenCalled();
     });
@@ -147,36 +145,36 @@ describe('theme context', () => {
       const subThemeName = 'MyTheme';
       const subTheme = { foo: 'bar' };
 
-      expect(theme.getSubTheme(subThemeName)).toBeUndefined();
+      expect(themeManager.getSubTheme(subThemeName)).toBeUndefined();
 
-      theme.setSubTheme(subThemeName, subTheme);
+      themeManager.setSubTheme(subThemeName, subTheme);
 
-      expect(theme.getSubTheme(subThemeName)).toMatchObject(subTheme);
+      expect(themeManager.getSubTheme(subThemeName)).toMatchObject(subTheme);
 
-      await theme.setTheme({
+      await themeManager.setTheme({
         foo: 'baz'
       });
 
-      const cachedSubTheme = theme._cache.get('subThemeMyTheme');
-      expect(theme.getSubTheme(subThemeName)).toMatchObject(subTheme);
+      const cachedSubTheme = themeManager._cache.get('subThemeMyTheme');
+      expect(themeManager.getSubTheme(subThemeName)).toMatchObject(subTheme);
       expect(cachedSubTheme.original).toEqual(subTheme);
       expect(cachedSubTheme.result.foo).toEqual('bar');
     });
     it('should log a warning if no subTheme name is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
-      theme.updateSubTheme();
+      themeManager.updateSubTheme();
       expect(logger.warn).toHaveBeenCalledWith('Sub theme name not specified');
     });
     it('should log a warning if a non-object subTheme value is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
-      theme.updateSubTheme('MockTheme', 'makeItPop');
+      themeManager.updateSubTheme('MockTheme', 'makeItPop');
       expect(logger.warn).toHaveBeenCalledWith(
         'Could not update subTheme MockTheme due to invalid value'
       );
     });
     it('should log a warning if an empty object subTheme value is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
-      theme.updateSubTheme('MockTheme', {});
+      themeManager.updateSubTheme('MockTheme', {});
       expect(logger.warn).toHaveBeenCalledWith(
         'Could not update subTheme MockTheme due to invalid value'
       );
@@ -185,53 +183,61 @@ describe('theme context', () => {
 
   describe('storage and caching', () => {
     it('should have a cache', () => {
-      expect(theme._cache.constructor.name).toMatch('Map');
+      expect(themeManager._cache.constructor.name).toMatch('Map');
     });
     it('should setComponentInstantiationStyles to the cache', () => {
       const [component] = createComponent();
       const payload = { foo: 'bar' };
-      const response = theme.setComponentInstantiationStyles(
+      const response = themeManager.setComponentInstantiationStyles(
         component,
         payload
       );
-      expect(theme._cache.get(component)).toEqual(payload);
+      expect(themeManager._cache.get(component)).toEqual(payload);
       expect(response).toBeUndefined();
     });
     it('should getComponentInstantiationStyles from the cache', () => {
       const [component] = createComponent();
       const payload = { foo: 'bar' };
-      expect(theme.getComponentInstantiationStyles(component)).toBeUndefined();
-      theme.setComponentInstantiationStyles(component, payload);
-      expect(theme.getComponentInstantiationStyles(component)).toEqual(payload);
+      expect(
+        themeManager.getComponentInstantiationStyles(component)
+      ).toBeUndefined();
+      themeManager.setComponentInstantiationStyles(component, payload);
+      expect(themeManager.getComponentInstantiationStyles(component)).toEqual(
+        payload
+      );
     });
     it('should reset component instantiation styles', () => {
       const [component] = createComponent();
       const payload = { foo: 'bar' };
-      theme.setComponentInstantiationStyles(component, payload);
-      expect(theme.getComponentInstantiationStyles(component)).toEqual(payload);
-      theme.resetComponentInstantiationStyles(component);
-      expect(theme.getComponentInstantiationStyles(component)).toBeUndefined();
+      themeManager.setComponentInstantiationStyles(component, payload);
+      expect(themeManager.getComponentInstantiationStyles(component)).toEqual(
+        payload
+      );
+      themeManager.resetComponentInstantiationStyles(component);
+      expect(
+        themeManager.getComponentInstantiationStyles(component)
+      ).toBeUndefined();
     });
     it('should setComponentLevelStyles to the cache', () => {
       const payload = { foo: 'bar' };
-      const response = theme.setComponentLevelStyles(123, payload);
-      expect(theme._cache.get('componentStyle123')).toEqual(payload);
+      const response = themeManager.setComponentLevelStyles(123, payload);
+      expect(themeManager._cache.get('componentStyle123')).toEqual(payload);
       expect(response).toBeUndefined();
     });
     it('should getComponentLevelStyles to the cache', () => {
       const payload = { foo: 'bar' };
       expect(
-        theme.getComponentLevelStyles('componentStyle123')
+        themeManager.getComponentLevelStyles('componentStyle123')
       ).toBeUndefined();
-      theme.setComponentLevelStyles(123, payload);
-      expect(theme.getComponentLevelStyles(123)).toEqual(payload);
+      themeManager.setComponentLevelStyles(123, payload);
+      expect(themeManager.getComponentLevelStyles(123)).toEqual(payload);
     });
     it('should reset componentLevelStyles', () => {
       const payload = { foo: 'bar' };
-      theme.setComponentLevelStyles(123, payload);
-      expect(theme._cache.get('componentStyle123')).toEqual(payload);
-      theme.resetComponentLevelStyles(123);
-      expect(theme._cache.has('componentStyle123')).toEqual(false);
+      themeManager.setComponentLevelStyles(123, payload);
+      expect(themeManager._cache.get('componentStyle123')).toEqual(payload);
+      themeManager.resetComponentLevelStyles(123);
+      expect(themeManager._cache.has('componentStyle123')).toEqual(false);
     });
   });
 });
