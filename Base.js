@@ -32,6 +32,14 @@ class Base extends lng.Component {
     this._announce = announce;
   }
 
+  get announceContext() {
+    return this._announceContext;
+  }
+
+  set announceContext(announce) {
+    this._announceContext = announce;
+  }
+
   isFullyOnScreen() {
     return isComponentOnScreen(this);
   }
