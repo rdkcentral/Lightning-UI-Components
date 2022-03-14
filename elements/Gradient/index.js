@@ -25,6 +25,7 @@ export default class Gradient extends withStyles(Base, styles) {
     if (this.gradientColor) {
       this.patch({
         rect: true,
+        rtt: true,
         colorTop: this.gradientTop,
         colorBottom: this.gradientColor,
         texture: lng.Tools.getRoundRect(this.w, this.h, this.radius)

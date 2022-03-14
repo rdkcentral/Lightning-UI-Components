@@ -28,7 +28,7 @@ Object {
     "pivotY": 0.5,
     "ref": "Component",
     "renderOfScreen": undefined,
-    "renderToTexture": false,
+    "renderToTexture": true,
     "scale": 1,
     "scaleX": 1,
     "scaleY": 1,
