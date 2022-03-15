@@ -184,6 +184,14 @@ describe('GameStats', () => {
     expect(dataitem._Column.items.length).toEqual(stats.length);
   });
 
+  it('should display a focused and focused state', () => {
+    testRenderer.focus();
+    const focusHeight = dataitem.h;
+    testRenderer.unfocus();
+    const unfocusHeight = dataitem.h;
+    expect(focusHeight).toBeGreaterThan(unfocusHeight);
+  });
+
   describe('Single entity', () => {
     let dataitem;
 
