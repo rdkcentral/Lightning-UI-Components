@@ -7,16 +7,6 @@ import Base from '../../elements/Base';
 import { getX, getY, isComponentOnScreen } from '../../utils';
 
 export default class FocusManager extends Base {
-  static _template() {
-    return { Items: {} };
-  }
-
-  _construct() {
-    super._construct();
-    this._selectedIndex = 0;
-    this.direction = this.direction || 'row';
-  }
-
   static get tags() {
     return ['Items'];
   }
@@ -25,7 +15,24 @@ export default class FocusManager extends Base {
     return ['direction'];
   }
 
+  _construct() {
+    super._construct();
+    this._selectedIndex = 0;
+    this.direction = this.direction || 'row';
+  }
+
+  _init() {
+    // If the first item has skip focus when appended get the next focusable item
+    const initialSelection = this.Items.children[this.selectedIndex];
+    if (initialSelection && initialSelection.skipFocus) {
+      this.selectNext();
+    }
+  }
+
   get Items() {
+    if (!this.tag('Items')) {
+      this.patch({ Items: {} });
+    }
     return this._Items;
   }
 
@@ -54,11 +61,6 @@ export default class FocusManager extends Base {
     this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
-    // If the first item has skip focus when appended get the next focusable item
-    const initialSelection = this.Items.children[this.selectedIndex];
-    if (initialSelection && initialSelection.skipFocus) {
-      this.selectNext();
-    }
   }
 
   _resetItems() {

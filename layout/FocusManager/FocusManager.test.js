@@ -25,6 +25,48 @@ describe('FocusManager', () => {
     expect(focusManager.selectedIndex).toBe(0);
   });
 
+  describe('adding items to the template', () => {
+    const testTask = 'add items to the template';
+    it(`should ${testTask} via the items property`, () => {
+      expect(focusManager._Items.children.length).toBe(3);
+    });
+    it(`should ${testTask} via setting an Items ref in the initial render tree`, () => {
+      class TestComp extends FocusManager {
+        static _template() {
+          return {
+            Items: {
+              ItemA: baseItem,
+              ItemB: baseItem
+            }
+          };
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+
+      expect(testComp.children.length).toBe(1);
+      expect(testComp._Items.children.length).toBe(2);
+    });
+    it(`should ${testTask} via patching Items to the template`, () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            Items: {
+              ItemA: baseItem,
+              ItemB: baseItem
+            }
+          });
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+
+      expect(testComp.children.length).toBe(1);
+      expect(testComp._Items.children.length).toBe(2);
+    });
+  });
+
   it('skips items with skipFocus=true', () => {
     [focusManager, testRenderer] = createFocusManager({
       direction: 'column',
@@ -38,6 +80,53 @@ describe('FocusManager', () => {
     expect(focusManager.selectedIndex).toBe(2);
     testRenderer.keyPress('Up');
     expect(focusManager.selectedIndex).toBe(0);
+  });
+
+  it('should skip items defined in the initial render tree with skipFocus=true', () => {
+    class TestComp extends FocusManager {
+      _construct() {
+        super._construct();
+        this.patch({
+          direction: 'column',
+          Items: {
+            ItemA: baseItem,
+            ItemB: { ...baseItem, skipFocus: true },
+            ItemC: baseItem
+          }
+        });
+      }
+    }
+    const createTestComp = TestUtils.makeCreateComponent(TestComp);
+    const [testComp, testRenderer] = createTestComp();
+
+    expect(testComp.selectedIndex).toBe(0);
+
+    testRenderer.keyPress('Down');
+
+    expect(testComp.selectedIndex).toBe(2);
+
+    testRenderer.keyPress('Up');
+
+    expect(testComp.selectedIndex).toBe(0);
+  });
+
+  it('should focus on the first item that is not skip focus', () => {
+    class TestComp extends FocusManager {
+      _construct() {
+        super._construct();
+        this.patch({
+          Items: {
+            ItemB: { ...baseItem, skipFocus: true },
+            ItemA: baseItem,
+            ItemC: baseItem
+          }
+        });
+      }
+    }
+    const createTestComp = TestUtils.makeCreateComponent(TestComp);
+    const [testComp] = createTestComp();
+
+    expect(testComp.selectedIndex).toBe(1);
   });
 
   it('looks for focusRef on the selected item', () => {
