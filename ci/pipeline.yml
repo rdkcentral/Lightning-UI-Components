@@ -117,6 +117,7 @@ groups:
 
 jobs:
 - name: pull-requests
+  public: true
   build_logs_to_retain: 50
   serial: true
   on_success:
