@@ -113,10 +113,42 @@ describe('TeamMatchup', () => {
     }, 0);
   });
 
-  it('get announce text', () => {
-    expect(matchup.announce).toBe(
-      'Eagles vs Giants,1st - 1:15,24 to 13, Eagles'
-    );
+  describe('announcing the score', () => {
+    it('should announce a tied score', () => {
+      matchup.items = {
+        left: {
+          ...items.left,
+          score: 7
+        },
+        right: {
+          ...items.right,
+          score: 7
+        }
+      };
+      testRenderer.update();
+      expect(matchup.announce).toEqual('Eagles vs Giants,1st - 1:15,7 to 7');
+    });
+    it('should announce a score where the left team leads', () => {
+      expect(matchup.announce).toEqual(
+        'Eagles vs Giants,1st - 1:15,24 to 13, Eagles'
+      );
+    });
+    it('should announce a score where the right team leads', () => {
+      matchup.items = {
+        left: {
+          ...items.left,
+          score: 13
+        },
+        right: {
+          ...items.right,
+          score: 24
+        }
+      };
+      testRenderer.update();
+      expect(matchup.announce).toEqual(
+        'Eagles vs Giants,1st - 1:15,24 to 13, Giants'
+      );
+    });
   });
 
   it('should override default announce', () => {
@@ -129,5 +161,15 @@ describe('TeamMatchup', () => {
       items
     });
     expect(matchup.announce).toBe('Should override default announce');
+  });
+
+  it('should toggle the display of meta data when focused/unfocused', () => {
+    testRenderer.update();
+    expect(matchup._Metadata.alpha).toEqual(1);
+
+    testRenderer.unfocus();
+    testRenderer.update();
+
+    expect(matchup._Metadata.alpha).toEqual(0);
   });
 });

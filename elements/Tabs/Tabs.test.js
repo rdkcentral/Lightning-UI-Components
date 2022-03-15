@@ -1,4 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
+import Column from '../../layout/Column';
+import ListItem from '../../patterns/ListItem';
 import TabBar, { Tab } from '.';
 
 const createTabBar = TestUtils.makeCreateComponent(TabBar);
@@ -99,6 +101,51 @@ describe('Tab', () => {
   it('has announcer text', () => {
     [tab, testRenderer] = createTab({ title: 'Foo' });
     expect(tab.announce).toBe('Foo, Tab');
+  });
+
+  it('updates the selected item with up and down key presses', () => {
+    const content = {
+      Column: {
+        type: Column,
+        items: [
+          {
+            w: 410,
+            type: ListItem,
+            title: 'Item 1'
+          }
+        ]
+      }
+    };
+    [tab, testRenderer] = createTab({
+      title: 'Tab Item 1',
+      content
+    });
+    testRenderer.focus();
+    expect(tab._Tab.selected).toBe(true);
+    expect(tab.selected).toEqual(tab._Tab);
+
+    testRenderer.keyPress('Down');
+    expect(tab._Tab.selected).toBe(false);
+    expect(tab.selected).toEqual(tab.childList.last);
+
+    testRenderer.keyPress('Up');
+    expect(tab._Tab.selected).toBe(true);
+    expect(tab.selected).toEqual(tab._Tab);
+  });
+
+  it('should ignore up and down key presses when there is no content', () => {
+    [tab, testRenderer] = createTab({ title: 'Tab Item 1' });
+    testRenderer.focus();
+    expect(tab._Tab.selected).toBe(true);
+    expect(tab.selected).toEqual(tab._Tab);
+
+    testRenderer.keyPress('Down');
+    expect(tab._Tab.selected).toBe(true);
+    expect(tab.selected).toEqual(tab._Tab);
+
+    testRenderer.keyPress('Up');
+    expect(tab._Tab.selected).toBe(true);
+    expect(tab.selected).toEqual(tab._Tab);
   });
 });
 
