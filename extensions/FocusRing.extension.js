@@ -28,7 +28,7 @@ export default {
           zIndex: this.zIndex + 10,
           style: {
             color: this._componentStyles.focusRingColor,
-            radius: this._componentStyles.radius || 0 + 2
+            radius: this._componentStyles.radius || 0
           }
         });
 

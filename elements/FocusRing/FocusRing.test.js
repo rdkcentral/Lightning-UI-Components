@@ -5,8 +5,7 @@ import { getHexColor, GREY } from '../../Styles';
 const createFocusRing = TestUtils.makeCreateComponent(FocusRing, {
   w: 320,
   h: 180,
-  radius: 8,
-  size: 8
+  radius: 8
 });
 
 describe('FocusRing', () => {
@@ -78,26 +77,24 @@ describe('FocusRing', () => {
     expect(secondary).toEqual(getHexColor('#663399', 8));
   });
 
-  it('should set radius', done => {
+  it('should set radius and include the size of the ring', done => {
     [focusRing, testRenderer] = createFocusRing({ style: { radius: 12 } });
     expect(
       parseInt(focusRing.tag('Ring').texture._lookupId.split(',').pop())
-    ).toEqual(12);
+    ).toEqual(18);
     done();
   });
 
   it('should set the spacing', () => {
-    [focusRing, testRenderer] = createFocusRing({
-      style: {
-        spacing: 50
-      }
-    });
+    const spacing = 50;
+    [focusRing, testRenderer] = createFocusRing({ style: { spacing } });
     const rectSettings = focusRing
       .tag('Ring')
       .texture._lookupId.replace('rect', '')
       .split(',');
-    expect(parseInt(rectSettings[0])).toEqual(focusRing.w + 50);
-    expect(parseInt(rectSettings[1])).toEqual(focusRing.h + 50);
+    const offset = spacing * 2 + focusRing._componentStyles.borderWidth;
+    expect(parseInt(rectSettings[0])).toEqual(focusRing.w + offset);
+    expect(parseInt(rectSettings[1])).toEqual(focusRing.h + offset);
   });
 
   it('should start and stop animating', () => {

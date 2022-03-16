@@ -4,6 +4,7 @@ import { layout, getFocusScale } from '../xfinity/layout';
 import radius from './radius';
 import animations from '../xfinity/animations';
 import typography from '../xfinity/typography';
+import extensions from '../xfinity/extensions';
 
 export default {
   name: 'Rogers',
@@ -13,6 +14,7 @@ export default {
   getFocusScale,
   radius,
   animations,
+  extensions,
   typography,
   componentStyles: {
     Tag: {

@@ -7,7 +7,7 @@ export function base(theme) {
     borderWidth: theme.spacing(0.5),
     colorTransitionAlpha: theme.alphas.secondary,
     radius: theme.radius.medium,
-    spacing: theme.spacing(1.5),
+    spacing: theme.spacing(0.5),
     shouldAnimate: true,
     animationDuration: theme.animations.durationXSlow * 4
   };
