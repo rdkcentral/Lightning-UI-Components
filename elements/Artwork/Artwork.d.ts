@@ -1,8 +1,7 @@
-export declare class Artwork {
+import type { Base } from '../../Base';
+export default class Artwork extends Base {
   blur?: boolean;
   circleImage?: boolean;
   gradient?: boolean;
-  h: number;
   src: string;
-  w: number;
 }

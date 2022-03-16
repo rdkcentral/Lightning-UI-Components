@@ -1,6 +1,6 @@
 import type { Base } from '../../Base';
 
-declare class BadgeStyles {
+export interface BadgeStyles {
   paddingX?: number;
   paddingY?: number;
   radius?: number;
@@ -11,7 +11,7 @@ declare class BadgeStyles {
   contentSpacing?: number;
 }
 
-export declare class Badge extends Base {
+export default class Badge extends Base {
   title?: string;
   iconWidth?: number;
   iconColor?: string;

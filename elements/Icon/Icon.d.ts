@@ -1,10 +1,10 @@
 import type { Base } from '../../Base';
 
-declare class IconStyles {
+export interface IconStyles {
   color?: string;
 }
 
-export declare class Icon extends Base {
+export default class Icon extends Base {
   icon: string;
   style?: IconStyles;
 }

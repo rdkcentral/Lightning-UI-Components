@@ -1,6 +1,6 @@
 import type { Base } from '../../Base';
 
-declare class FocusRingStyles {
+export interface FocusRingStyles {
   radius?: number;
   borderWidth?: number;
   color?: number;
@@ -12,7 +12,7 @@ declare class FocusRingStyles {
   animationDuration?: number;
 }
 
-export declare class FocusRing extends Base {
+export default class FocusRing extends Base {
   startAnimation(): void;
   stopAnimation(): void;
   style: FocusRingStyles;

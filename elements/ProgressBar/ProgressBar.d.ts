@@ -1,6 +1,6 @@
 import type { Base } from '../../Base';
 
-declare class ProgressBarStyles {
+export interface ProgressBarStyles {
   h?: number;
   radius?: number;
   progressColor?: string;
@@ -10,7 +10,7 @@ declare class ProgressBarStyles {
   animationDuration?: number;
 }
 
-export declare class ProgressBar extends Base {
+export default class ProgressBar extends Base {
   progress: string;
   style?: ProgressBarStyles;
 }
