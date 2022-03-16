@@ -1,6 +1,6 @@
 import type { Base } from '../../Base';
 
-declare class TagStyles {
+export interface TagStyles {
   backgroundColor?: string;
   titleColor?: string;
   textStyle?: string;
@@ -12,7 +12,7 @@ declare class TagStyles {
   radiusBottomLeft: number;
 }
 
-export declare class Tag extends Base {
+export default class Tag extends Base {
   title: string;
   style?: TagStyles;
 }
