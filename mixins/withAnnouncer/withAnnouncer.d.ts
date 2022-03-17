@@ -22,7 +22,7 @@ export interface WithAnnouncer {
   set announcerEnabled(val: boolean): void;
   get announcerEnabled(): boolean;
 
-  _voiceOut(toAnnounce: string): void;
+  _voiceOut(toAnnounce: SpeechType): void;
   _focusChange(): void;
   _announceFocusChanges(): void;
 

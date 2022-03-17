@@ -9,8 +9,8 @@ export default class Base extends lng.Component {
   _announce?: SpeechType;
   _announceContext?: SpeechType;
 
-  set announce(announce: string): void;
-  get announce(): string;
-  set announceContext(announce: string): void;
-  get announceContext(): string;
+  set announce(announce: SpeechType): void;
+  get announce(): SpeechType;
+  set announceContext(announce: SpeechType): void;
+  get announceContext(): SpeechType;
 }
