@@ -21,7 +21,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
@@ -37,8 +37,7 @@ this.tag('Toggle').toggle();
 The `toggle()` method is chainable. Let's say your `Toggle` component has `checked=false`
 
 ```js
-const checked = this.tag('Toggle').toggle.checked;
-console.log(checked) //=> true
+console.log(this.tag('Toggle').checked); //=> true
 ```
 
 By default, the `onEnter()` method executes `toggle()`. To add or change functionality, override this method:
@@ -47,16 +46,39 @@ By default, the `onEnter()` method executes `toggle()`. To add or change functio
 this.tag('Toggle').onEnter = toggle => {
   // do stuff
   toggle.toggle();
-}
+};
 ```
 
 ## API
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
-checked|boolean|true|toggle state
+| name     | type    | readonly | description                                    |
+| -------- | ------- | -------- | ---------------------------------------------- |
+| checked  | boolean | true     | toggle state                                   |
+| disabled | boolean | false    | should the component be unavailable to toggle? |
+
+### Style Properties
+
+| name                     | type   | description                        |
+| ------------------------ | ------ | ---------------------------------- |
+| w                        | number | width of Toggle                    |
+| strokeRadius             | number | radius of Toggle                   |
+| strokeWeight             | number | thickness of stroke                |
+| strokeColor              | string | color of stroke                    |
+| strokeDisabledColor      | string | color of stroke when disabled      |
+| backgroundCheckedColor   | string | color of background when checked   |
+| backgroundUncheckedColor | string | color of background when unchecked |
+| backgroundDisabledColor  | string | color of background when disabled  |
+| knobWidth                | number | width of Toggle knob               |
+| knobHeight               | number | height of Toggle knob              |
+| knobRadius               | number | radius of Toggle knob              |
+| knobPadding              | number | padding to apply around knob       |
+| knobCheckedX             | number | X position of knob when checked    |
+| knobUncheckedX           | number | X position of knob when unchecked  |
+| knobCheckedColor         | string | color of knob when checked         |
+| knobUncheckedColor       | string | color of knob when unchecked       |
+| knobDisabledColor        | string | color of knob when disabled        |
 
 ### Methods
 
@@ -67,9 +89,3 @@ Toggles `checked` state and updates UI accordingly
 #### onEnter(thisArg): void
 
 Callback to be executed on <kbd>Enter</kbd> key down event. Calls `toggle()` by default.
-
-### Styles
-
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Toggle.styles} />

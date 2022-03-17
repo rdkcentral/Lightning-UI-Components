@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 
-import Toggle from '.';
+import { ToggleSmall } from '.';
 import mdx from './Toggle.mdx';
 
 export default {
-  title: 'Elements / Toggle',
+  title: 'Elements / ToggleSmall',
   parameters: {
     docs: {
       page: mdx
@@ -18,9 +18,9 @@ export const Basic = args =>
       return {
         flex: { direction: 'column' },
         text: { fontSize: 24, text: 'Press Enter' },
-        Toggle: {
+        ToggleSmall: {
           y: 40,
-          type: Toggle,
+          type: ToggleSmall,
           checked: args.checked,
           disabled: args.disabled,
           onEnter: toggle => {
@@ -33,7 +33,7 @@ export const Basic = args =>
     }
 
     _getFocused() {
-      return this.tag('Toggle');
+      return this.tag('ToggleSmall');
     }
   };
 Basic.args = {
