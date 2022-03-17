@@ -1,0 +1,65 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../.storybook/utils';
+import Wave from '.';
+
+# Wave
+
+Animating the Wave icon
+
+## Usage
+
+Explain how `Wave` works with examples:
+
+```js
+import { Wave } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Wave: {
+        type: Wave
+      }
+    };
+  }
+}
+```
+
+Include previews:
+
+<Canvas>
+  <Story id="elements-wave--basic" />
+</Canvas>
+
+### Sizing
+
+`Wave` height dynamically adjust over the course of the animation. You can set the 'initial' Wave height via this.h.
+
+The `id` for the preview comes from the url path generated for the story.
+
+## API
+
+### Properties
+
+| name         | type   | required | default                   | description                                                                                                                      |
+| ------------ | ------ | -------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| color        | string | false    | 0xfffffff                 | color of the rectangles                                                                                                          |
+| h            | number | false    | 20                        | height of the first and last rectangle. All the other rectangle heights are calculated through this initial h.                   |
+| w            | number | false    | 6                         | width of the individual rectangles. All rectangles have the save width.                                                          |
+| padding      | number | false    | 10                        | padding between the rectangles                                                                                                   |
+| basicOptions | object | false    | {repeat: -1, duration: 2} | Encompasses repeat and duration value. Duration is how long the animation runs and repeat is how many times the animation runs . |
+
+### Methods
+
+#### startAnimation(): void
+
+Starts the animation of the wave icon
+
+#### stopAnimation(): void
+
+Stops the animation of the wave icon
+
+### Styles
+
+Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+
+<Theme theme={Wave.styles} />

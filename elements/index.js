@@ -37,3 +37,4 @@ export { default as TileCircle } from './TileCircle';
 export { default as TileIcon } from './TileIcon';
 export { default as Toggle } from './Toggle';
 export { default as Tooltip } from './Tooltip';
+export { default as Wave } from './Wave'; // TODO: alphabetize
