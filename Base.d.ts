@@ -2,7 +2,8 @@ import lng from '@lightningjs/core';
 import { SpeechType } from './mixins/withAnnouncer/withAnnouncer';
 
 export default class Base extends lng.Component {
-  static __componentName(): string;
+  static get __componentName(): string;
+
   _whenEnabled: Promise<void>; //TODO move this to withUpdates mixin def
   _update(): void;
   _smooth?: boolean;
