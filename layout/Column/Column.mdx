@@ -70,10 +70,11 @@ export const ProviderType = () => (
 
 The `Column` component will utilize the following properties on each individual element in its `items` array:
 
-| name           | type    | readonly | description                                                                                                  |
-| -------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| centerInParent | boolean | false    | if set to true on an individual element in the `items` array, this will horizontally center the child        |
-| skipPlinko     | boolean | false    | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
+| name             | type    | readonly | default | description                                                                                                  |
+| ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will horizontally center the child        |
+| skipPlinko       | boolean | false    | false   | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
+| extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                                     |
 
 ### Methods
 
