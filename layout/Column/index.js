@@ -238,7 +238,8 @@ export default class Column extends FocusManager {
         }
         nextY += child.h;
         if (i < this.Items.children.length - 1) {
-          nextY += this.itemSpacing;
+          const extraItemSpacing = child.extraItemSpacing || 0;
+          nextY += this.itemSpacing + extraItemSpacing;
         }
 
         if (child.centerInParent) {

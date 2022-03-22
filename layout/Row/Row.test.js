@@ -81,6 +81,20 @@ describe('Row', () => {
       row._update();
       expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
+
+    it('should support adding additional spacing to an item', () => {
+      const itemSpacing = 100;
+      const extraItemSpacing = 50;
+      row.itemSpacing = itemSpacing;
+      row.items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
+      testRenderer.forceAllUpdates();
+
+      const itemW = row.items[0].w;
+      expect(row.items[1].x).toBe(itemW + itemSpacing);
+      expect(row.items[2].x).toBe(
+        itemW * 2 + itemSpacing * 2 + extraItemSpacing
+      );
+    });
   });
 
   describe('parentFocus', () => {
