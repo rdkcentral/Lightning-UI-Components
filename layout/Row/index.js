@@ -217,7 +217,8 @@ export default class Row extends FocusManager {
       }
       nextX += child.w;
       if (i < this.Items.children.length - 1) {
-        nextX += this.itemSpacing;
+        const extraItemSpacing = child.extraItemSpacing || 0;
+        nextX += this.itemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {

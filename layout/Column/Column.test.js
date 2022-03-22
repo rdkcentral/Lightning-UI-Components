@@ -1,6 +1,7 @@
 import Column from '.';
 import Row from '../Row';
 import TestRenderer from '../../test/lightning-test-renderer';
+import TestUtils from '../../test/lightning-test-utils';
 import lng from '@lightningjs/core';
 
 const baseItem = {
@@ -50,6 +51,8 @@ const Component = {
     debounceDelay: 1
   }
 };
+
+const createColumn = TestUtils.makeCreateComponent(Column);
 
 describe('Column', () => {
   let testRenderer, column;
@@ -108,6 +111,29 @@ describe('Column', () => {
         expect(item.y).toBe(spacing + item.h);
         done();
       });
+    });
+
+    it('should support adding additional spacing to an item', async () => {
+      const itemSpacing = 100;
+      const extraItemSpacing = 50;
+      const items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
+      const [column] = createColumn(
+        {
+          h: 600,
+          itemSpacing,
+          items
+        },
+        {
+          spyOnMethods: ['_update']
+        }
+      );
+
+      await column.__updateSpyPromise;
+      const itemH = column.items[0].h;
+      expect(column.items[1].y).toBe(itemH + itemSpacing);
+      expect(column.items[2].y).toBe(
+        itemH * 2 + itemSpacing * 2 + extraItemSpacing
+      );
     });
   });
 
