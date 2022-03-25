@@ -147,10 +147,18 @@ export default class TextBox extends withStyles(Base, styles) {
   }
 
   _update() {
-    const fontStyle = {
-      ...(this._componentStyles.typography[this.textStyle] ||
-        this._componentStyles.typography.body1)
-    };
+    const fontStyle =
+      null !== this.textStyle &&
+      'object' === typeof this.textStyle &&
+      Object.keys(this.textStyle)
+        ? this.textStyle
+        : {
+            ...(this._componentStyles.typography[this.textStyle] ||
+              this._componentStyles.typography[
+                this._componentStyles.defaultTextStyle
+              ] ||
+              this._componentStyles.typography.body1)
+          };
 
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {

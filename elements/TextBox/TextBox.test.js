@@ -1,7 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
 import TextBox from '.';
+import context from '../../context';
 import { TYPOGRAPHY, getValidColor } from '../../Styles';
-import xfinityTheme from '../../themes/xfinity';
+import XfinityTheme from '../../themes/xfinity';
 const createElement = TestUtils.makeCreateComponent(TextBox);
 
 const testOptions = async (element, optionProp, optionsValues, match) => {
@@ -33,8 +34,10 @@ const testOptions = async (element, optionProp, optionsValues, match) => {
 describe('TextBox', () => {
   let element, testRenderer;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    context.setTheme(XfinityTheme);
     [element, testRenderer] = createElement({}, { spyOnMethods: ['_update'] });
+    await element.__updateSpyPromise;
   });
 
   afterEach(() => {
@@ -71,16 +74,16 @@ describe('TextBox', () => {
   it('should fallback to "body1" object if the style prop is an invalid string', async done => {
     element.textStyle = 'invalidstyle';
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
     expect(element.text.fontWeight).toBe(
-      xfinityTheme.typography.body1.fontWeight
+      XfinityTheme.typography.body1.fontWeight
     );
     expect(element.text.lineHeight).toBe(
-      xfinityTheme.typography.body1.lineHeight
+      XfinityTheme.typography.body1.lineHeight
     );
     expect(element.text.verticalAlign).toBe(
-      xfinityTheme.typography.body1.verticalAlign
+      XfinityTheme.typography.body1.verticalAlign
     );
     done();
   });
@@ -88,16 +91,16 @@ describe('TextBox', () => {
   it('should set style to "body1" object if the style prop is null', async done => {
     element.textStyle = null;
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
     expect(element.text.fontWeight).toBe(
-      xfinityTheme.typography.body1.fontWeight
+      XfinityTheme.typography.body1.fontWeight
     );
     expect(element.text.lineHeight).toBe(
-      xfinityTheme.typography.body1.lineHeight
+      XfinityTheme.typography.body1.lineHeight
     );
     expect(element.text.verticalAlign).toBe(
-      xfinityTheme.typography.body1.verticalAlign
+      XfinityTheme.typography.body1.verticalAlign
     );
     done();
   });
@@ -105,17 +108,32 @@ describe('TextBox', () => {
   it('should set style to "body1" object if the style prop is not a string or object', async done => {
     element.textStyle = () => {};
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(xfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(xfinityTheme.typography.body1.fontSize);
+    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
+    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
     expect(element.text.fontWeight).toBe(
-      xfinityTheme.typography.body1.fontWeight
+      XfinityTheme.typography.body1.fontWeight
     );
     expect(element.text.lineHeight).toBe(
-      xfinityTheme.typography.body1.lineHeight
+      XfinityTheme.typography.body1.lineHeight
     );
     expect(element.text.verticalAlign).toBe(
-      xfinityTheme.typography.body1.verticalAlign
+      XfinityTheme.typography.body1.verticalAlign
     );
+    done();
+  });
+
+  it('should allow the default textStyle to be set with componentStyles in the theme', async done => {
+    context.updateTheme({
+      componentStyles: {
+        TextBox: {
+          defaultTextStyle: 'headline1'
+        }
+      }
+    });
+    await element.__updateSpyPromise;
+    element.content = 'Hello world';
+    await element.__updateSpyPromise;
+    expect(element.text.fontSize).toBe(36);
     done();
   });
 
