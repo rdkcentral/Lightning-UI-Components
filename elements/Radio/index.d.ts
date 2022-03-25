@@ -1,4 +1,4 @@
-import type { Base } from '../../Base';
+import type Base from '../../Base';
 
 export interface RadioStyles {
   strokeColor?: string;
@@ -12,8 +12,11 @@ export interface RadioStyles {
   knobHeight?: number;
   knobWidth?: number;
 }
+
 export default class Radio extends Base {
   checked?: boolean;
   isInactive?: boolean;
   style?: RadioStyles;
 }
+
+export class RadioSmall extends Radio {}

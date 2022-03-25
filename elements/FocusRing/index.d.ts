@@ -1,4 +1,4 @@
-import type { Base } from '../../Base';
+import type Base from '../../Base';
 
 export interface FocusRingStyles {
   radius?: number;
