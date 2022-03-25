@@ -12,13 +12,12 @@ export default {
   }
 };
 
-export const Base = args => {
+export const Base = () => {
   class Base extends lng.Component {
     static _template() {
       return {
         TextBox: {
-          type: TextBox,
-          ...args
+          type: TextBox
         }
       };
     }
