@@ -1,4 +1,5 @@
-import Base from '../../Base.d.ts';
+import type Base from '../../Base.d.ts';
+import type ToggleSmall from './ToggleSmall';
 
 export interface ToggleStyles {
   w?: number;
@@ -20,8 +21,10 @@ export interface ToggleStyles {
   backgroundDisabledColor?: string;
 }
 
-export default class Toggle extends Base {
+class Toggle extends Base {
   checked?: boolean;
   disabled?: boolean;
   styles?: ToggleStyles;
 }
+
+export { Toggle as default, ToggleSmall };

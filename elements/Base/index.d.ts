@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-export declare class Base extends lng.Component {
+export default class Base extends lng.Component {
   _whenEnabled: Promise<void>;
   _getFocusScale(): number;
   _getUnfocusScale(): number;

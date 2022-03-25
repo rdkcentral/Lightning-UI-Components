@@ -12,7 +12,7 @@
   },
   "browser": "index.js",
   "main": "index.js",
-  "typings": "index.d.ts",
+  "types": "index.d.ts",
   "bin": {
     "bootstrap": "bin/bootstrap.sh"
   },

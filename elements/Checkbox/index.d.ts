@@ -1,4 +1,5 @@
-import type { Base } from '../../Base';
+import type Base from '../../Base';
+import type CheckboxSmall from './CheckboxSmall';
 
 export interface CheckboxStyles {
   w?: number;
@@ -15,9 +16,11 @@ export interface CheckboxStyles {
   disabledBackgroundColor: string;
 }
 
-export default class Checkbox extends Base {
+class Checkbox extends Base {
   checked?: boolean;
   disabled?: boolean;
   style: CheckboxStyles;
   toggle(): Checkbox;
 }
+
+export { Checkbox as default, CheckboxSmall };

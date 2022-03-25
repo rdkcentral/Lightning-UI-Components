@@ -1,4 +1,4 @@
-import type { Base } from '../../Base';
+import type Base from '../../Base';
 export default class Artwork extends Base {
   blur?: boolean;
   circleImage?: boolean;
