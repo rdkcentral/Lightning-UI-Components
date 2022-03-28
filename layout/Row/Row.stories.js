@@ -345,3 +345,48 @@ SkipFocus.args = {
   itemSpacing: 200,
   wrapSelected: false
 };
+
+export const LazyScrollIndexes = ({
+  startLazyScrollIndex,
+  stopLazyScrollIndex
+}) =>
+  class LazyScrollIndexes extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: 20,
+          alwaysScroll: false,
+          neverScroll: false,
+          lazyScroll: true,
+          scrollIndex: 0,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1} ${
+              i === startLazyScrollIndex ? '(start lazy scroll)' : ''
+            } ${i === stopLazyScrollIndex ? '(stop lazy scroll)' : ''}`,
+            w: 250
+          })),
+          startLazyScrollIndex,
+          stopLazyScrollIndex
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+LazyScrollIndexes.args = {
+  startLazyScrollIndex: 1,
+  stopLazyScrollIndex: 10
+};
+LazyScrollIndexes.argTypes = {
+  startLazyScrollIndex: {
+    control: 'number'
+  },
+  stopLazyScrollIndex: {
+    control: 'number'
+  }
+};

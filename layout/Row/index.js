@@ -16,7 +16,9 @@ export default class Row extends FocusManager {
       'alwaysScroll',
       'neverScroll',
       'lazyScroll',
-      'autoResize'
+      'autoResize',
+      'startLazyScrollIndex',
+      'stopLazyScrollIndex'
     ];
   }
 
@@ -126,6 +128,14 @@ export default class Row extends FocusManager {
   }
 
   _shouldScroll() {
+    if (
+      this.lazyScroll &&
+      (this.selectedIndex <= this.startLazyScrollIndex ||
+        this.selectedIndex >= this.stopLazyScrollIndex)
+    ) {
+      return true;
+    }
+
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
       const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
@@ -145,14 +155,39 @@ export default class Row extends FocusManager {
   }
 
   _getLazyScrollX(prev) {
-    let itemsContainerX;
-    const prevIndex = this.Items.childList.getIndex(prev);
-    if (prevIndex > this.selectedIndex) {
-      itemsContainerX = -this.selected.x;
-    } else if (prevIndex < this.selectedIndex) {
-      itemsContainerX = this.w - this.selected.x - this.selected.w;
+    const prevIndex = this.Items.childList.getIndex(this.prevSelected);
+
+    if (this.selectedIndex <= this.startLazyScrollIndex) {
+      // if navigating on items before start lazy scroll index, use normal scroll logic
+      return this._getScrollX();
+    } else if (
+      this.selectedIndex >= this.stopLazyScrollIndex &&
+      this.selectedIndex < prevIndex
+    ) {
+      // if navigating left on items after stop lazy scroll index, only shift by size of prev item
+      const currItemsX = this.Items.transition('x')
+        ? this.Items.transition('x').targetValue
+        : this.Items.x;
+
+      return (
+        currItemsX +
+        (this.prevSelected.w +
+          this.itemSpacing +
+          (this.selected.extraItemSpacing || 0))
+      );
+    } else if (prev) {
+      // otherwise, no start/stop indexes, perform normal lazy scroll
+      let itemsContainerX;
+      const prevIndex = this.Items.childList.getIndex(prev);
+      if (prevIndex > this.selectedIndex) {
+        itemsContainerX = -this.selected.x;
+      } else if (prevIndex < this.selectedIndex) {
+        itemsContainerX = this.w - this.selected.x - this.selected.w;
+      }
+      return itemsContainerX;
     }
-    return itemsContainerX;
+    // if no prev item or start/stop index, default to normal scroll logic
+    return this._getScrollX();
   }
 
   _getScrollX() {
@@ -162,11 +197,13 @@ export default class Row extends FocusManager {
     if (itemIndex === this._firstFocusableIndex()) {
       itemIndex = 0;
     }
+
     if (this.Items.children[itemIndex]) {
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue
         : -this.Items.children[itemIndex].x;
     }
+
     return itemsContainerX;
   }
 
@@ -182,10 +219,9 @@ export default class Row extends FocusManager {
       if (!this.Items.children.length) {
         itemsContainerX = this.itemPosX;
       } else if (this._shouldScroll()) {
-        itemsContainerX =
-          this.lazyScroll && prev
-            ? this._getLazyScrollX(prev)
-            : this._getScrollX();
+        itemsContainerX = this.lazyScroll
+          ? this._getLazyScrollX(prev)
+          : this._getScrollX();
       }
       if (itemsContainerX !== undefined) {
         if (this._smooth) {
