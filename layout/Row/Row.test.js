@@ -300,5 +300,73 @@ describe('Row', () => {
         });
       });
     });
+
+    describe('when lazyScroll enabled', () => {
+      beforeEach(() => {
+        row.lazyScroll = true;
+      });
+
+      describe('when indexes to start and stop lazy scroll are provided', () => {
+        let _getLazyScrollX;
+        let _getScrollX;
+        beforeEach(() => {
+          _getLazyScrollX = jest.spyOn(row, '_getLazyScrollX');
+          _getScrollX = jest.spyOn(row, '_getScrollX');
+          row.items = Array.from({ length: 6 }).map(() => baseItem);
+          row.itemSpacing = 0;
+          row.w = baseItem.w * 2;
+          row.scrollTransition = { duration: 0 };
+          row.startLazyScrollIndex = 1;
+          row.stopLazyScrollIndex = 4;
+        });
+
+        it('should not lazy scroll when the selected item is at or before the start lazy scroll index', done => {
+          row.selectedIndex = 0;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Right');
+          testRenderer.forceAllUpdates();
+          testRenderer.update();
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).toHaveBeenCalled();
+            done();
+          });
+        });
+
+        it('should lazy scroll when navigating left on items after stop lazy scroll index', done => {
+          row.selectedIndex = 5;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Left');
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).not.toHaveBeenCalled();
+            done();
+          });
+        });
+
+        it('should lazy scroll when the selected item is between the start and stop lazy scroll indexes', done => {
+          row.selectedIndex = 2;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Right');
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).not.toHaveBeenCalled();
+            done();
+          });
+        });
+      });
+    });
   });
 });
