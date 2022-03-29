@@ -82,7 +82,7 @@ const stats = [
     ]
   },
   {
-    label: 'Lower Value',
+    label: 'Lower Value Right (invertedScoring)',
     invertedScoring: true,
     items: [
       {
@@ -94,6 +94,22 @@ const stats = [
         name: 'Giants',
         color: '4278931873',
         value: 1
+      }
+    ]
+  },
+  {
+    label: 'Lower Value Left (invertedScoring)',
+    invertedScoring: true,
+    items: [
+      {
+        name: 'Eagles',
+        color: '4278742891',
+        value: 1
+      },
+      {
+        name: 'Giants',
+        color: '4278931873',
+        value: 2
       }
     ]
   }
@@ -229,26 +245,34 @@ describe('GameStats', () => {
         expect(i._Right.text.text).toBe(
           i.getPreciseStat(stats[idx].items[1].value)
         );
-        if (
-          stats[idx].items[0].value > stats[idx].items[1].value &&
-          !stats[idx].invertedScoring
-        ) {
-          setTimeout(() => {
-            expect(i._RightArrow.alpha).toBe(0);
-            expect(i._LeftArrow.alpha).toBe(1);
-          }, 0);
-        } else if (stats[idx].items[1].value === stats[idx].items[0].value) {
-          setTimeout(() => {
-            expect(i._RightArrow.alpha).toBe(0);
-            expect(i._LeftArrow.alpha).toBe(0);
-          }, 0);
-        } else {
-          setTimeout(() => {
-            expect(i._RightArrow.alpha).toBe(1);
-            expect(i._LeftArrow.alpha).toBe(0);
-          }, 0);
-        }
       });
+    });
+
+    it('displays arrow indicators', done => {
+      const items = dataitem._Column.items;
+
+      window.setTimeout(() => {
+        // Left side greater
+        expect(items[0]._LeftArrow.alpha).toBe(1);
+        expect(items[0]._RightArrow.alpha).toBe(0);
+
+        // Right side greater
+        expect(items[2]._LeftArrow.alpha).toBe(0);
+        expect(items[2]._RightArrow.alpha).toBe(1);
+
+        // Both sides equal
+        expect(items[4]._LeftArrow.alpha).toBe(0);
+        expect(items[4]._RightArrow.alpha).toBe(0);
+
+        // Lower value on the right w/invertedScoring
+        expect(items[5]._LeftArrow.alpha).toBe(0);
+        expect(items[5]._RightArrow.alpha).toBe(1);
+
+        // Lower value on the left w/invertedScoring
+        expect(items[6]._LeftArrow.alpha).toBe(1);
+        expect(items[6]._RightArrow.alpha).toBe(0);
+        done();
+      }, 0);
     });
   });
 });

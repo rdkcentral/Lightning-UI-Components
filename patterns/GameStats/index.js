@@ -78,16 +78,11 @@ export class StatLine extends withStyles(Base, baseStyles) {
   }
 
   _updateArrows() {
-    if (this._stats[0] > this._stats[1] && !this._invertedScoring) {
-      this._LeftArrow.smooth = { alpha: 1 };
-      this._RightArrow.smooth = { alpha: 0 };
-    } else if (this._stats[0] === this._stats[1]) {
-      this._LeftArrow.smooth = { alpha: 0 };
-      this._RightArrow.smooth = { alpha: 0 };
-    } else {
-      this._LeftArrow.smooth = { alpha: 0 };
-      this._RightArrow.smooth = { alpha: 1 };
-    }
+    const left = this.stats[0] > this._stats[1] ? 1 : 0;
+    const right = this.stats[1] > this._stats[0] ? 1 : 0;
+
+    this._LeftArrow.smooth = { alpha: !this._invertedScoring ? left : right };
+    this._RightArrow.smooth = { alpha: !this._invertedScoring ? right : left };
   }
 
   _setItems(items) {
