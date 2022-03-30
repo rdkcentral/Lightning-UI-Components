@@ -141,7 +141,12 @@ git push -u origin chore/1.x
 
 #### 5 - Set pipeline in Concourse
 
-Any changes to `pipeline.yml` need to be updated in Concourse using the [fly CLI](https://concourse-ci.org/fly.html). If you don't have the `fly` command installed and/or have never logged into `ci.comcast.net`, [follow the instructions here](https://better.delivery.comcast.net/docs/site/gettingstarted/ciaccess/) to get started.
+Any changes to `pipeline.yml` need to be updated in Concourse using the [fly CLI](https://concourse-ci.org/fly.html). If you don't have the `fly` command installed and/or have never logged into `ci.comcast.net`, [follow the instructions here](https://better.delivery.comcast.net/docs/site/gettingstarted/ciaccess/) to get started. After downloading `fly`, you may have to manually move it to `/usr/local/bin/fly` with execute access (`chmod 0755`).
+
+To login, you will need to run the following command:
+```sh
+fly --target ci login --concourse-url https://ci.comcast.net --team-name lightning --open-browser
+```
 
 To trigger changes, run the following command:
 
@@ -161,7 +166,7 @@ groups:
   - Publish Next
 + - Publish 1.x
   name: Overview
-  
+
 resources:
   resource source-repo-1x has been added:
 + check_every: 168h
@@ -172,7 +177,7 @@ resources:
 +   uri: git@github.comcast.com:Lightning/lightning-ui.git
 + type: git
 + webhook_token: ((github-enterprise.webhook-token))
-  
+
 jobs:
   job Publish 1.x has been added:
 + build_logs_to_retain: 50
