@@ -102,6 +102,7 @@ groups:
     jobs:
       - pull-requests
       - docs
+      - docs-next
       - publish
       - publish-release
       - publish-develop
@@ -177,6 +178,22 @@ jobs:
         PRIVATE_KEY: ((github-enterprise.private-key))
         USERNAME: ((service-account.username))
         EMAIL: ((service-account.email))
+
+- name: docs-next
+  build_logs_to_retain: 50
+  plan:
+    - get: source-repo-next
+      trigger: true
+    - task: publish-docs
+      file: source-repo-release/ci/tasks/cloudfoundry.yml
+      input_mapping:
+        source-repo: source-repo-next
+      params:
+        HOST: ((github-enterprise.host))
+        PRIVATE_KEY: ((github-enterprise.private-key))
+        USERNAME: ((service-account.username))
+        PASSWORD: ((service-account.password))
+        SPACE: lui
 
 - name: publish
   build_logs_to_retain: 50
