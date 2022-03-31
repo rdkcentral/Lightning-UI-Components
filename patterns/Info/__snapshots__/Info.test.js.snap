@@ -228,7 +228,7 @@ Object {
           "children": Object {
             "Ring": Object {
               "active": false,
-              "alpha": 1,
+              "alpha": 0.001,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
