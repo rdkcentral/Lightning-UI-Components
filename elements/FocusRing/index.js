@@ -40,7 +40,7 @@ export default class FocusRing extends withStyles(Base, styles) {
         mount: 0.5,
         x: this.w / 2,
         y: this.h / 2,
-        smooth: { alpha: 1 },
+        alpha: this.w && this.h ? 1 : 0.001,
         texture: lng.Tools.getRoundRect(
           this.w + this.spacing,
           this.h + this.spacing,

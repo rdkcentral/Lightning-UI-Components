@@ -26,6 +26,24 @@ describe('FocusRing', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should hide the FocusRing if no h & w is specified and fade it in otherwise', async done => {
+    [focusRing, testRenderer] = createFocusRing(
+      { w: 0, h: 0 },
+      { spyOnMethods: ['_update'] }
+    );
+    await focusRing.__updateSpyPromise;
+    expect(focusRing._Ring.alpha).toBe(0.001);
+    focusRing.patch({
+      w: 320,
+      h: 180
+    });
+    await focusRing.__updateSpyPromise; // Update w
+    await focusRing.__updateSpyPromise; // Update h
+    testRenderer.update();
+    expect(focusRing._Ring.alpha).toBe(1);
+    done();
+  });
+
   it('should set size', () => {
     [focusRing, testRenderer] = createFocusRing({ size: 4 });
     expect(focusRing.size).toEqual(4);
