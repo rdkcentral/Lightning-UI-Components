@@ -22,11 +22,7 @@ export default class FocusManager extends Base {
   }
 
   _init() {
-    // If the first item has skip focus when appended get the next focusable item
-    const initialSelection = this.Items.children[this.selectedIndex];
-    if (initialSelection && initialSelection.skipFocus) {
-      this.selectNext();
-    }
+    this._checkSkipFocus();
   }
 
   get Items() {
@@ -61,6 +57,7 @@ export default class FocusManager extends Base {
     this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
+    this._checkSkipFocus();
   }
 
   _resetItems() {
@@ -71,6 +68,14 @@ export default class FocusManager extends Base {
   appendItems(items = []) {
     this.Items.childList.a(items);
     this._refocus();
+  }
+
+  _checkSkipFocus() {
+    // If the first item has skip focus when appended get the next focusable item
+    const initialSelection = this.Items.children[this.selectedIndex];
+    if (initialSelection && initialSelection.skipFocus) {
+      this.selectNext();
+    }
   }
 
   get selected() {
