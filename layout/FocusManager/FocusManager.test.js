@@ -110,23 +110,44 @@ describe('FocusManager', () => {
     expect(testComp.selectedIndex).toBe(0);
   });
 
-  it('should focus on the first item that is not skip focus', () => {
-    class TestComp extends FocusManager {
-      _construct() {
-        super._construct();
-        this.patch({
-          Items: {
-            ItemB: { ...baseItem, skipFocus: true },
-            ItemA: baseItem,
-            ItemC: baseItem
-          }
-        });
+  describe('when skipFocus is set on an item', () => {
+    const skipItem = { ...baseItem, skipFocus: true };
+    it('should focus on the first item that is not skip focus when items are patched to the Items tag', () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            Items: {
+              ItemB: skipItem,
+              ItemA: baseItem,
+              ItemC: baseItem
+            }
+          });
+        }
       }
-    }
-    const createTestComp = TestUtils.makeCreateComponent(TestComp);
-    const [testComp] = createTestComp();
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
 
-    expect(testComp.selectedIndex).toBe(1);
+      expect(testComp.selectedIndex).toBe(1);
+    });
+
+    it('should focus on the first item that is not skip focus when items are set via the items property', () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            items: [{ ...baseItem, skipFocus: true }, baseItem, baseItem]
+          });
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+      testComp.items = [skipItem, baseItem, baseItem];
+      expect(testComp.selectedIndex).toBe(1);
+
+      testComp.patch({ items: [skipItem, skipItem, baseItem, baseItem] });
+      expect(testComp.selectedIndex).toBe(2);
+    });
   });
 
   it('looks for focusRef on the selected item', () => {
