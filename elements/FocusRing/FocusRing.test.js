@@ -25,7 +25,7 @@ describe('FocusRing', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should hide the FocusRing if no h & w is specified and fade it in otherwise', async done => {
+  it.skip('should hide the FocusRing if no h & w is specified and fade it in otherwise', async done => {
     [focusRing, testRenderer] = createFocusRing(
       { w: 0, h: 0 },
       { spyOnMethods: ['_update'] }
