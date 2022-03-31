@@ -185,7 +185,7 @@ jobs:
     - get: source-repo-next
       trigger: true
     - task: publish-docs
-      file: source-repo-release/ci/tasks/cloudfoundry.yml
+      file: source-repo-next/ci/tasks/cloudfoundry.yml
       input_mapping:
         source-repo: source-repo-next
       params:
