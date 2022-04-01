@@ -22,6 +22,18 @@ class Base extends lng.Component {
     this._update();
   }
 
+  get disabled() {
+    return this._disabled;
+  }
+
+  set disabled(disabled) {
+    if (this._disabled === disabled) {
+      return;
+    }
+    this._disabled = disabled;
+    this._requestUpdateDebounce();
+  }
+
   // keep announce methods out of the update lifecycle (do not put in properties array)
   // announce methods do not need to re-render component
   get announce() {

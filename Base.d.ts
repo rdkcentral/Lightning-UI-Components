@@ -7,6 +7,7 @@ export default class Base extends lng.Component {
   _whenEnabled: Promise<void>; //TODO move this to withUpdates mixin def
   _update(): void;
   _smooth?: boolean;
+  _disabled?: boolean;
   _announce?: SpeechType;
   _announceContext?: SpeechType;
 

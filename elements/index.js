@@ -29,6 +29,7 @@ export { default as MetadataTile } from './MetadataTile';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Radio } from './Radio';
 export { default as Slider } from './Slider';
+export { default as Surface } from './Surface';
 export { default as TabBar, Tab } from './Tabs';
 export { default as Tag } from './Tag';
 export { default as TextBox } from './TextBox';

@@ -19,5 +19,10 @@ export default {
   radius,
   stroke,
   typography,
-  animations
+  animations,
+  componentStyles: {
+    Surface: {
+      focusRing: true
+    }
+  }
 };
