@@ -32,7 +32,10 @@ export default {
           }
         });
 
-        const style = this.hasFocus() ? this.focusStyle : this.unfocusStyle;
+        const style =
+          this.hasFocus() && !this.disabled
+            ? this.focusStyle
+            : this.unfocusStyle;
 
         if (this._smooth) {
           this.tag('FocusRing').smooth = style;
@@ -40,7 +43,7 @@ export default {
           this.tag('FocusRing').patch(style);
         }
 
-        if (this.hasFocus()) {
+        if (this.hasFocus() && !this.disabled) {
           this.tag('FocusRing').startAnimation();
         } else {
           this.tag('FocusRing').stopAnimation();
