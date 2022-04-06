@@ -25,10 +25,7 @@ export default class ListItemSlider extends ListItem {
     return this.w - 2 * this.styles.paddingRight - this.styles.paddingLeft;
   }
   _update() {
-    this._Slider.w =
-      this._Container.finalW -
-      (this.styles.paddingLeft + this.styles.paddingRight); // set sliderWidth here to ensure the parent has rendered
-
+    this._Slider._Container.w = this._Slider.w;
     super._update();
     this._updateSlider();
   }
@@ -62,7 +59,7 @@ export default class ListItemSlider extends ListItem {
       this._Right.patch({
         w: this._Container.finalW - 32,
         h: 0,
-        y: -10,
+        y: -this._Slider._componentStyles.containerHeight / 2,
         flex: {
           direction: 'row',
           justifyContent: 'flex-start'

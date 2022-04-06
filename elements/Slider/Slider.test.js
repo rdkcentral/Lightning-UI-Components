@@ -40,7 +40,151 @@ describe('Slider', () => {
       value: 5
     });
 
-    expect(slider._LeftBar.w).toBeGreaterThan(0);
+    expect(slider._SliderBar.w).toBeGreaterThan(0);
+  });
+
+  it('Circle x position when value is greater than the max value', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 15
+    });
+
+    expect(slider._Circle.x).toEqual(slider._calculatedSliderWidth);
+  });
+
+  it('Circle x position when value is less than the min value', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 0
+    });
+
+    expect(slider._Circle.x).toEqual((1 / 10) * slider._calculatedSliderWidth);
+  });
+
+  it('Circle x position and progress bar width when minimum value is negative', () => {
+    [slider, testRenderer] = createSlider({
+      min: -10,
+      max: 10,
+      step: 1,
+      value: 3
+    });
+
+    expect(slider._Circle.x).toEqual(
+      ((slider.value - slider.min) / (slider.max - slider.min)) *
+        slider._calculatedSliderWidth
+    );
+    expect(slider._SliderBar.progress).toEqual(
+      (slider.value - slider.min) / (slider.max - slider.min)
+    );
+  });
+
+  it('Alpha value of arrow when value is equal to max value', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 1,
+      disabled: false
+    });
+
+    expect(slider._LeftArrow.alpha).toEqual(0.5);
+  });
+
+  it('Alpha value of arrow when disabled is true', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 1,
+      disabled: true
+    });
+
+    expect(slider._LeftArrow.alpha).toEqual(0);
+  });
+
+  it('Arrow height when image is used for arrows', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      smooth: true
+    });
+    slider._componentStyles.iconLeftSrc = undefined;
+    slider._componentStyles.iconRightSrc = undefined;
+    slider._updateArrows();
+    expect(slider._LeftArrow.h).toEqual(0);
+  });
+
+  it('Width larger than knob and arrows', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      w: 300
+    });
+    expect(slider._calculatedSliderWidth).toEqual(
+      300 -
+        slider._componentStyles.arrowSpacing * 2 -
+        slider._componentStyles.arrowWidth * 2
+    );
+  });
+
+  it('handle left override function', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      disabled: false,
+      onLeft: () => {
+        return false;
+      }
+    });
+    slider._handleLeft();
+    expect(slider.onLeft()).toEqual(false);
+  });
+
+  it('handle left when disabled is true', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      disabled: true
+    });
+    expect(slider._handleLeft()).toEqual(false);
+  });
+
+  it('handle right override function', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      disabled: false,
+      onRight: () => {
+        return false;
+      }
+    });
+    slider._handleRight();
+    expect(slider.onRight()).toEqual(false);
+  });
+
+  it('handle right when disabled is true', () => {
+    [slider, testRenderer] = createSlider({
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 2,
+      disabled: true
+    });
+    expect(slider._handleRight()).toEqual(false);
   });
 
   describe('key handling', () => {
@@ -67,20 +211,19 @@ describe('Slider', () => {
 
       it('updates the LeftBar and Circle textures with smoothing', async () => {
         [slider, testRenderer] = createSlider(
-          {},
+          { max: 2, value: 1 },
           { spyOnMethods: ['_update'] }
         );
         await slider.__updateSpyPromise;
-        const initialWidth = slider._LeftBar.w;
-        expect(slider._LeftBar.w).toEqual(initialWidth);
+        expect(slider._SliderBar._Progress.w).toEqual(0);
 
         testRenderer.keyPress('Right');
         await slider.__updateSpyPromise;
 
-        TestUtils.fastForward(slider._LeftBar);
+        TestUtils.fastForward(slider._SliderBar);
         testRenderer.update();
-        const updatedWidth = testRenderer.getInstance()._LeftBar.w;
-        expect(updatedWidth).toBeGreaterThan(initialWidth);
+        const updatedWidth = testRenderer.getInstance()._SliderBar._Progress.w;
+        expect(updatedWidth).toBeGreaterThan(0);
       });
     });
 
@@ -116,15 +259,15 @@ describe('Slider', () => {
           }
         );
         await slider.__updateSpyPromise;
-        const initialWidth = slider._LeftBar.w;
-        expect(slider._LeftBar.w).toEqual(initialWidth);
+        const initialWidth = slider._SliderBar.w;
+        expect(slider._SliderBar.w).toEqual(initialWidth);
 
         testRenderer.keyPress('Left');
         await slider.__updateSpyPromise;
 
-        TestUtils.fastForward(slider._LeftBar);
+        TestUtils.fastForward(slider._SliderBar);
         testRenderer.update();
-        const updatedWidth = testRenderer.getInstance()._LeftBar.w;
+        const updatedWidth = slider._SliderBar._Progress.w;
         expect(updatedWidth).toBeLessThan(initialWidth);
       });
     });

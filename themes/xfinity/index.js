@@ -7,6 +7,8 @@ import stroke from './stroke';
 import typography from './typography';
 import animations from './animations';
 import fonts from './fonts';
+import iconLeftArrow from './assets/ic_sort_left_fill_inverse_64';
+import iconRightArrow from './assets/ic_sort_right_fill_inverse_64';
 
 export default {
   name: 'Xfinity',
@@ -23,6 +25,15 @@ export default {
   componentStyles: {
     Surface: {
       focusRing: true
+    },
+    Knob: {
+      focusRing: true
+    },
+    Slider: {
+      iconLeftSrc: iconLeftArrow,
+      iconRightSrc: iconRightArrow,
+      arrowWidth: layout.spacingBase * 4,
+      arrowHeight: layout.spacingBase * 4
     }
   }
 };
