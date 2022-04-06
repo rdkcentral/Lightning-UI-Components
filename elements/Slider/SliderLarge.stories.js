@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
-
-import Slider from '.';
+import Slider from './SliderLarge';
 import mdx from './Slider.mdx';
 
 export default {
@@ -12,8 +11,8 @@ export default {
   }
 };
 
-export const BasicSlider = args =>
-  class BasicSlider extends lng.Component {
+export const SliderLarge = args =>
+  class SliderLarge extends lng.Component {
     static _template() {
       return {
         Slider: {
@@ -32,7 +31,7 @@ export const BasicSlider = args =>
       return this.tag('Slider');
     }
   };
-BasicSlider.args = {
+SliderLarge.args = {
   min: 0,
   max: 100,
   value: 50,
@@ -40,11 +39,23 @@ BasicSlider.args = {
   focused: true,
   disabled: false
 };
-BasicSlider.argTypes = {
-  min: { control: 'number', description: 'lower bound of value' },
-  max: { control: 'number', description: 'upper bound of value' },
-  value: { control: 'number', description: 'current value' },
-  step: { control: 'number', description: '+/- value on change' },
+SliderLarge.argTypes = {
+  min: {
+    control: 'number',
+    description: 'lower bound of value'
+  },
+  max: {
+    control: 'number',
+    description: 'upper bound of value'
+  },
+  value: {
+    control: 'number',
+    description: 'current value'
+  },
+  step: {
+    control: 'number',
+    description: '+/- value on change'
+  },
   focused: {
     control: 'boolean',
     description: 'focused state of slider where knob is not shown'
@@ -54,7 +65,7 @@ BasicSlider.argTypes = {
     description: 'disabled state where arrows are not shown'
   }
 };
-BasicSlider.parameters = {
+SliderLarge.parameters = {
   argActions: {
     focused: (isFocused, component) => {
       component._getFocused = isFocused
@@ -64,11 +75,12 @@ BasicSlider.parameters = {
         ? () => component.tag('Slider')._Circle
         : () => {};
       component._refocus();
+      component._refocus();
     }
   }
 };
 
-export const SignalHandling = () =>
+export const SignalHandlingLarge = () =>
   class SignalHandling extends lng.Component {
     static _template() {
       return {
@@ -78,8 +90,9 @@ export const SignalHandling = () =>
         },
         Slider: {
           type: Slider,
+          y: 20,
           step: 10,
-          y: 15,
+          value: 30,
           w: 328,
           signals: {
             onChange: true

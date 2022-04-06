@@ -9,7 +9,7 @@ Progress control component, similar to the DOM's [input[type="range"]](https://d
 Allows a user to select from a range of values using the `<-` and `->` keys.
 
 ```js
-import { Slider } from '@lightning/lightning-ui';
+import { Slider, SliderLarge } from '@lightning/lightning-ui';
 
 class Example extends lng.Component {
   static _template() {
@@ -19,11 +19,11 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
-  <Story id="elements-slider--basic"/>
+  <Story id="elements-slider--basic" />
 </Canvas>
 
 The `Slider` can be initialized with a `min`, `max` and current `value`. The `min` and `max` properties determine the bounds of the `Slider`. The `value` prop should be greater than or equal to `min` and less than or equal to `max`.
@@ -40,7 +40,7 @@ class Example extends lng.Component {
         max: 5,
         value: 3
       }
-    }
+    };
   }
 }
 ```
@@ -55,7 +55,7 @@ class Example extends lng.Component {
         type: Slider,
         step: 10
       }
-    }
+    };
   }
 }
 ```
@@ -65,20 +65,38 @@ class Example extends lng.Component {
 React to changes to the `Slider` value using the `onChange` signal.
 
 <Canvas>
-  <Story id="elements-slider--signal-handling"/>
+  <Story id="elements-slider--signal-handling" />
 </Canvas>
 
 ## API
 
 ### Properties
 
-name|type|readonly|default|description
---|--|--|--|--
-max|number|false|100|upper bound of `value`
-min|number|false|0|lower bound of `value`
-step|number|false|1|+/- value on change
-value|number|false|0 or `min`|current value
-w|number|false|328|width of the component
+| name  | type   | readonly | default    | description            |
+| ----- | ------ | -------- | ---------- | ---------------------- |
+| max   | number | false    | 100        | upper bound of `value` |
+| min   | number | false    | 0          | lower bound of `value` |
+| step  | number | false    | 1          | +/- value on change    |
+| value | number | false    | 0 or `min` | current value          |
+| w     | number | false    | 126        | width of the component |
+
+### Style Properties
+
+| name                 | type   | description                                                                                       |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------- |
+| arrowAlphaDisabled   | number | alpha value of the arrows when slider is disabled                                                 |
+| arrowAlphaValue      | number | alpha value of the arrows when slider is not disabled and value is not equal to the min/max value |
+| arrowAlphaValueLimit | number | alpha value of the arrows when value is equal to the min/max value and slider is not disabled     |
+| arrowColor           | string | color of the arrows                                                                               |
+| arrowHeight          | number | height of the arrows                                                                              |
+| arrowSpacing         | number | space between the arrow and the slider                                                            |
+| arrowWidth           | number | width of the arrows                                                                               |
+| circleColor          | string | color of the knob                                                                                 |
+| containerHeight      | number | height of the container that holds the slider                                                     |
+| innerCircleSize      | number | size of the knob                                                                                  |
+| minWidth             | number | minimum width of the slider container                                                             |
+| progressStyles       | object | styles inherited from progressBar [See ProgressBar documentation](../ProgressBar/ProgressBar.mdx) |
+| sliderHeight         | number | height of the slider                                                                              |
 
 ### Signals
 

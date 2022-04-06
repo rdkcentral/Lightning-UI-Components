@@ -65,6 +65,9 @@ Basic.parameters = {
       component._getFocused = isFocused
         ? () => component.tag('ListItemSlider')
         : () => {};
+      component._getFocused = isFocused
+        ? () => component.tag('ListItemSlider')._Slider._Circle
+        : () => {};
       component._refocus();
     }
   }
