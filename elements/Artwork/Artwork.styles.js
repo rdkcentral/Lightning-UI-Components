@@ -2,31 +2,51 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 export const variantDefault = 'neutral';
 export function base(theme) {
   return {
+    animationBlurEntrance: {
+      delay: theme.animations.functionalEntranceDelay,
+      duration: theme.animations.functionalEntranceDuration,
+      timingFunction: theme.animations.functionalEntrance
+    },
+    animationBlurExit: {
+      delay: theme.animations.functionalExitDelay,
+      duration: theme.animations.functionalExitDuration,
+      timingFunction: theme.animations.functionalExit
+    },
+    animationComponentEntrance: {
+      delay: theme.animations.functionalEntranceDelay,
+      duration: theme.animations.functionalEntranceDuration,
+      timingFunction: theme.animations.functionalEntrance
+    },
+    animationGradientEntrance: {
+      delay: theme.animations.functionalEntranceDelay,
+      duration: theme.animations.functionalEntranceDuration,
+      timingFunction: theme.animations.functionalEntrance
+    },
+    animationGradientExit: {
+      delay: theme.animations.functionalExitDelay,
+      duration: theme.animations.functionalExitDuration,
+      timingFunction: theme.animations.functionalExit
+    },
+    animationImageScaleEntrance: {
+      delay: theme.animations.emphasizedStandardDelay,
+      duration: theme.animations.emphasizedStandardDuration,
+      timingFunction: theme.animations.emphasizedStandard
+    },
+    animationImageScaleExit: {
+      delay: theme.animations.functionalExitDelay,
+      duration: theme.animations.functionalExitDuration,
+      timingFunction: theme.animations.functionalExit
+    },
     blur: 4,
-    blurAlphaDelay: theme.animations.functionalEntranceDelay,
-    blurAlphaDuration: theme.animations.functionalEntranceDuration,
-    blurAlphaTimingFunction: theme.animations.functionalEntrance,
-    blurBackgroundColor: theme.colors.material,
-    blurBackgroundColorAlpha: 0,
     centerImageRadius: theme.radius.medium,
-    componentAlphaDelay: theme.animations.functionalEntranceDelay,
-    componentAlphaDuration: theme.animations.functionalEntranceDuration,
-    componentAlphaTimingFunction: theme.animations.functionalEntrance,
-    gradientAlphaDelay: theme.animations.functionalEntranceDelay,
-    gradientAlphaDuration: theme.animations.functionalEntranceDuration,
-    gradientAlphaTimingFunction: theme.animations.functionalEntrance,
+    fillColor: undefined,
     gradientColor: theme.colors.material,
     imageScale: undefined,
-    imageScaleDelayEntrance: theme.animations.emphasizedStandardDelay,
-    imageScaleDurationEntrance: theme.animations.emphasizedStandardDuration,
-    imageScaleTimingFunctionEntrance: theme.animations.emphasizedStandard,
-    imageScaleDelayExit: theme.animations.functionalExitDelay,
-    imageScaleDurationExit: theme.animations.functionalExitDuration,
-    imageScaleTimingFunctionExit: theme.animations.functionalExit,
-    logoPercentageX: undefined,
-    logoPercentageY: undefined,
+    imageScalePivotX: 0.5,
+    imageScalePivotY: 0.5,
     padding: theme.spacing(1),
-    radius: 0
+    radius: 0,
+    fallbackSrc: undefined
   };
 }
 
