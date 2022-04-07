@@ -1,5 +1,22 @@
 import lng from '@lightningjs/core';
 
+function simplifyFraction([numerator, denominator]) {
+  for (let i = numerator; i > 0; i--) {
+    if (!(numerator % i) && !(denominator % i)) {
+      return [numerator / i, denominator / i];
+    }
+  }
+}
+
+/**
+ * Reduce a fraction represented as a string
+ * @param {string} - a reprentation of a fraction in this format 16/9
+ * @returns {string} - a reduced representation of the fraction
+ */
+export function reduceFraction(string) {
+  return simplifyFraction(string.split('/').map(n => +n)).join('/');
+}
+
 /**
  * Gets the value at `path` of `object`.
  * @param {Object} object

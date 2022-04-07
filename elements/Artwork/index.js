@@ -1,10 +1,11 @@
 import lng from '@lightningjs/core';
-import { getHexColor, getValidColor } from '../../Styles/Colors';
+import { getValidColor } from '../../Styles/Colors';
 import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
 import Base from '../../Base';
-import context from '../../context';
 import Gradient from '../Gradient';
 import styles from './Artwork.styles';
+import context from '../../context';
+import { reduceFraction } from '../../utils';
 
 class Artwork extends Base {
   static get __componentName() {
@@ -12,11 +13,32 @@ class Artwork extends Base {
   }
 
   static get properties() {
-    return ['blur', 'mode', 'fallbackSrc', 'gradient', 'logo', 'src'];
+    return [
+      'blur',
+      'fallbackSrc',
+      'foregroundH',
+      'foregroundSrc',
+      'foregroundW',
+      'gradient',
+      'gradientType',
+      'mode',
+      'src',
+      'srcCallback',
+      'srcCallbackAspectRatios'
+    ];
   }
 
   static get tags() {
-    return ['Blur', 'CenterImage', 'Gradient', 'Image', 'Item', 'Logo'];
+    return [
+      'Blur',
+      'CenterImage',
+      'FillColor',
+      'ForegroundImage',
+      'Gradient',
+      'Gradient',
+      'Image',
+      'Item'
+    ];
   }
 
   static _template() {
@@ -37,21 +59,82 @@ class Artwork extends Base {
     );
   }
 
-  _getSrc() {
-    return this._src || this._fallbackSrc;
+  set w(v) {
+    super.w = v;
+    this._componentSrc = this._generatePromise();
+  }
+
+  set h(v) {
+    super.h = v;
+    this._componentSrc = this._generatePromise();
+  }
+
+  get _actualAspectRatio() {
+    return reduceFraction(`${this.w}/${this.h}`).replace('/', 'x');
+  }
+
+  get _supportedAspectRatioHeights() {
+    return this._srcCallbackAspectRatios.map(ratio => {
+      const [rw, rh] = ratio.split('x').map(v => parseInt(v));
+      const calcHeight = (this.w / rw) * rh;
+      return calcHeight;
+    });
+  }
+
+  get _closestSupportedAspectRatio() {
+    const closest = this._supportedAspectRatioHeights.reduce((prev, curr) =>
+      Math.abs(curr - this.h) < Math.abs(prev - this.h) ? curr : prev
+    );
+    return this._srcCallbackAspectRatios[
+      this._supportedAspectRatioHeights.indexOf(closest)
+    ];
+  }
+
+  get _processedImageSrc() {
+    let src = this._src || this.fallbackSrc;
+    if (
+      src !== this.fallbackSrc &&
+      this.srcCallback &&
+      typeof this.srcCallback === 'function'
+    ) {
+      src = this.srcCallback({
+        closestAspectRatio: this._closestSupportedAspectRatio,
+        aspectRatio: this._actualAspectRatio,
+        src: this.src,
+        w: this.w,
+        h: this.h
+      });
+    }
+    return src;
+  }
+
+  _construct() {
+    super._construct();
+    this._gradientType = 'default';
+    this._srcCallbackAspectRatios = ['16x9', '3x4', '4x3', '2x1', '1x1'];
   }
 
   _setSrc(v) {
-    this._componentSrc = this._generatePromise(); // When a new src value is added promises need to be reset
+    this._componentSrc = this._generatePromise();
     return v;
   }
 
-  _setMode(v) {
-    this._smooth = false; // Make sure smooth is set to false when changing to circleImage at runtime
-    return v;
+  _getFallbackSrc() {
+    return (
+      this._fallbackSrc ||
+      (this._componentStyles && this._componentStyles.fallbackSrc)
+    );
+  }
+
+  _setGradientType(v) {
+    if (v === 'mesh') {
+      return v;
+    }
+    return 'default';
   }
 
   _generatePromise() {
+    // When a new src, w, or h value is added promises need to be reset
     let resolvePromise, rejectPromise;
     const complete = new Promise(function (resolve, reject) {
       resolvePromise = resolve;
@@ -74,11 +157,12 @@ class Artwork extends Base {
   }
 
   _resolveLoading() {
-    this._aspectRatioEqual =
-      parseFloat(this.finalW / this.finalH).toFixed(2) ===
-      parseFloat(
-        this._Image.texture.source.w / this._Image.texture.source.h
-      ).toFixed(2);
+    this._aspectRatioEqual = this._Image.texture.source
+      ? parseFloat(this.finalW / this.finalH).toFixed(2) ===
+        parseFloat(
+          this._Image.texture.source.w / this._Image.texture.source.h
+        ).toFixed(2)
+      : false;
     this._componentSrc.resolve && this._componentSrc.resolve();
   }
 
@@ -89,17 +173,12 @@ class Artwork extends Base {
   async _update() {
     this._updateRadius();
     this._updateGradient();
-    if (
-      (this.w !== this._Image && this._Image.w) ||
-      (this.h !== this._Image && this._Image.h) ||
-      this._src !==
-        Boolean(this._Image && this._Image.texture && this._Image.texture.src)
-    ) {
-      this._updateImage();
-    }
-    this._updateLogoImage();
-    if (!this._src) {
+    this._updateImage();
+    this._updateFillColor();
+    this._updateForegroundImage();
+    if (!this.src) {
       this._showComponent(); // Ensure that component displays even in the case that src is not set
+      return;
     }
     try {
       // These actions are dependent on the image loading so we wait for the process to complete
@@ -109,140 +188,104 @@ class Artwork extends Base {
       // After everything is setup fade in the Artwork component for the first time
       this._showComponent();
       this._updateScale();
-    } catch (err) {
+    } catch (e) {
       this._handleImageLoadError();
     }
+    if (this._smooth === undefined) this._smooth = true;
   }
 
   _updateScale() {
     const scale = this._componentStyles.imageScale || 1;
-    if (this._smooth) {
-      this._Image.smooth = {
-        scale: [
-          scale,
-          scale > 1
-            ? {
-                delay: this._componentStyles.imageScaleDelayDuration,
-                duration: this._componentStyles.imageScaleDurationEntrance,
-                timingFunction:
-                  this._componentStyles.imageScaleTimingFunctionEntrance
-              }
-            : {
-                delay: this._componentStyles.imageScaleDelayExit,
-                duration: this._componentStyles.imageScaleDurationExit,
-                timingFunction:
-                  this._componentStyles.imageScaleTimingFunctionExit
-              }
-        ]
-      };
-    } else {
-      this._Image.patch({ scale });
-    }
-  }
-
-  _handleImageLoadError() {
-    if (this._srcFailed) return;
-    this._srcFailed = true;
-    context.error(`Image ${this._src} failed to load`);
-    if (this._fallbackSrc && this._fallbackSrc !== this._src) {
-      this.src = this._fallbackSrc;
-    }
-  }
-
-  _showComponent() {
-    if (this._Image.alpha < 1) {
-      this._smooth = false;
-      this._Image.alpha = 1;
-    }
-
-    this._smooth = true; // Set smooth back to true if updating circleImage changed it to false
-    this.smooth = {
-      alpha: [
-        1,
-        {
-          duration: this._componentStyles.componentAlphaDuration,
-          delay: this._componentStyles.componentAlphaDelay,
-          timingFunction: this._componentStyles.componentAlphaTimingFunction
-        }
+    this._Image.smooth = {
+      pivotX: this._componentStyles.imageScalePivotX,
+      pivotY: this._componentStyles.imageScalePivotY,
+      scale: [
+        scale,
+        this._Image.scale < scale
+          ? this._componentStyles.animationImageScaleEntrance
+          : this._componentStyles.animationImageScaleExit
       ]
     };
   }
 
-  _updateLogoImage() {
-    if (!this._logo && this._Logo) {
-      this.patch({
-        Logo: undefined
-      });
-    }
-    if (this._logo) {
-      if (!this._Logo) {
-        this.patch({
-          Logo: {
-            mount: 0.5,
-            zIndex: 5,
-            texture: {
-              type: lng.textures.ImageTexture,
-              src: this._logo,
-              hasAlpha: true
-            }
-          }
-        });
-        this._Logo.once('txLoaded', () => {
-          this._alignLogoImage();
-        });
-      } else {
-        this._alignLogoImage();
-      }
+  _handleImageLoadError() {
+    if (this.src === this.fallbackSrc) return;
+    context.error(`Image ${this._src} failed to load`);
+    if (this.fallbackSrc && this.fallbackSrc !== this._src) {
+      this.src = this.fallbackSrc;
     }
   }
 
-  _alignLogoImage() {
-    const imageW = this._Logo.texture.getRenderWidth();
-    const imageH = this._Logo.texture.getRenderHeight();
+  _showComponent() {
+    this.smooth = {
+      alpha: [1, this._componentStyles.animationComponentEntrance]
+    };
+  }
 
-    if (imageW > imageH) {
-      let newWMultiplier;
-      if (this._componentStyles.logoPercentageX) {
-        newWMultiplier =
-          this._componentStyles.logoPercentageX < 1
-            ? Math.abs(this._componentStyles.logoPercentageX)
-            : 1;
-      } else {
-        newWMultiplier =
-          parseFloat(this.w / this.h).toFixed(2) ===
-          parseFloat(16 / 9).toFixed(2)
-            ? 0.5
-            : 0.75;
+  async _updateForegroundImage() {
+    if (!this._foregroundSrc) {
+      if (this._ForegroundImage) {
+        this.patch({
+          ForegroundImage: undefined
+        });
       }
+      return;
+    }
 
-      this._Logo.patch({
-        x: this.w / 2,
-        y: this.h / 2,
-        w: this.w * newWMultiplier,
-        h: this.w * newWMultiplier * (imageH / imageW)
+    const foregroundImagePatch = {
+      mount: 0.5,
+      x: this.w / 2,
+      y: this.h / 2,
+      zIndex: 5,
+      texture: {
+        type: lng.textures.ImageTexture,
+        src: this._foregroundSrc,
+        hasAlpha: true
+      }
+    };
+
+    if (this.foregroundW && this.foregroundH) {
+      // The image size is already known so we can just patch it
+      foregroundImagePatch.h = this.foregroundH;
+      foregroundImagePatch.w = this.foregroundW;
+
+      this.patch({
+        ForegroundImage: foregroundImagePatch
       });
-    } else {
-      let newWMultiplier;
-      if (this._componentStyles.logoPercentageY) {
-        newWMultiplier =
-          this._componentStyles.logoPercentageY < 1
-            ? Math.abs(this._componentStyles.logoPercentageY)
-            : 1;
-      } else {
-        newWMultiplier = 1;
-      }
+    } else if (this.foregroundW || this.foregroundH) {
+      // Load the image to get the aspect ratio before showing
+      this.patch({
+        ForegroundImage: { ...foregroundImagePatch, alpha: 0.001 }
+      });
 
-      this._Logo.patch({
-        x: this.w / 2,
-        y: this.h / 2,
-        w: this.h * newWMultiplier * (imageW / imageH),
-        h: this.h * newWMultiplier
+      this._ForegroundImage.once('txLoaded', () => {
+        const imageW = this._ForegroundImage.texture.getRenderWidth();
+        const imageH = this._ForegroundImage.texture.getRenderHeight();
+        this._ForegroundImage.patch({
+          alpha: 1,
+          w: this.foregroundH
+            ? this.foregroundH * (imageW / imageH)
+            : this.foregroundW,
+          h: this.foregroundW
+            ? this.foregroundW * (imageH / imageW)
+            : this.foregroundH
+        });
       });
     }
+
+    this.patch({
+      ForegroundImage: foregroundImagePatch
+    });
   }
 
   _updateBlur() {
-    if ((!this._shouldBlur || this._srcFailed) && this._Blur) {
+    if (
+      (!this._shouldBlur ||
+        (this._Image &&
+          this._Image.texture &&
+          this._Image.texture.src === this.fallbackSrc)) &&
+      this._Blur
+    ) {
       // Remove Blur element as it is not longer required
       if (this._smooth) {
         this._Blur._getTransition('alpha').once('finish', () => {
@@ -250,14 +293,7 @@ class Artwork extends Base {
           this.patch({ Blur: undefined });
         });
         this._Blur.smooth = {
-          alpha: [
-            0,
-            {
-              duration: this._componentStyles.blurAlphaDuration,
-              delay: this._componentStyles.blurAlphaDelay,
-              timingFunction: this._componentStyles.blurAlphaTimingFunction
-            }
-          ]
+          alpha: [0, this._componentStyles.animationBlurExit]
         };
       } else {
         this.patch({
@@ -278,21 +314,7 @@ class Artwork extends Base {
               h: this.h,
               texture: this._Image.getTexture(),
               w: this.w
-            },
-            ...(this._componentStyles.blurBackgroundColor &&
-            this._componentStyles.blurBackgroundColorAlpha
-              ? {
-                  Background: {
-                    color: getHexColor(
-                      getValidColor(this._componentStyles.blurBackgroundColor),
-                      this._componentStyles.blurBackgroundColorAlpha
-                    ),
-                    h: this.h,
-                    rect: true,
-                    w: this.w
-                  }
-                }
-              : {})
+            }
           },
           h: this.h,
           rtt: true,
@@ -303,51 +325,53 @@ class Artwork extends Base {
 
       if (this._Blur.alpha < 1) {
         this._Blur.smooth = {
-          alpha: [
-            1,
-            {
-              duration: this._componentStyles.blurAlphaDuration,
-              delay: this._componentStyles.blurAlphaDelay,
-              timingFunction: this._componentStyles.blurAlphaTimingFunction
-            }
-          ]
+          alpha: [1, this._componentStyles.animationBlurEntrance]
         };
       }
     }
   }
 
   _updateCenterImage() {
-    if (this._CenterImage) {
+    if (this.mode === 'contain') {
+      this._updateModeContain();
+    } else if (this.mode === 'circle' || this.mode === 'square') {
+      this._updateModeSquareCircle();
+    } else if (this._CenterImage) {
+      // Remove the center image element if no longer required
       this.patch({
         CenterImage: undefined
       });
     }
-    if (!this._srcFailed) {
-      if (-1 < ['circle', 'square'].indexOf(this._mode))
-        this._updateForegroundCircleImage();
-      if (-1 < ['contain'].indexOf(this._mode)) this._updateForegroundImage();
-    }
   }
 
-  _updateForegroundImage() {
-    let imageW;
-    let imageH;
-    // if ('square' === this._mode) {
-    //   imageW = Math.min(this.w, this.h) - this._componentStyles.padding * 2;
-    //   imageH = imageW;
-    // } else {
-    // Check image dimensions, if same ratio as the artwork container do nothing
-    if (this._aspectRatioEqual) {
-      return;
+  _updateModeContain() {
+    if (
+      (this._CenterImage && this._CenterImage.mode !== this.mode) ||
+      this.src === this.fallbackSrc ||
+      this._aspectRatioEqual
+    ) {
+      // Make sure previous mode is propertly cleaned up
+      this.patch({
+        CenterImage: undefined
+      });
+
+      if (this.src === this.fallbackSrc || this._aspectRatioEqual) {
+        this._Image.alpha = 1;
+        return; // If is fallback image or the aspect ratio already fits the space there is no need to proceed
+      }
     }
 
-    this._smooth = false;
+    let imageW;
+    let imageH;
+
     const ratioW = Math.abs(
       this._Image.texture.source.w / this._Image.texture.source.h
     );
+
     const ratioH = Math.abs(
       this._Image.texture.source.h / this._Image.texture.source.w
     );
+
     if (this._Image.texture.source.w < this._Image.texture.source.h) {
       // portrait
       if (this.h * ratioW < this.w) {
@@ -356,6 +380,7 @@ class Artwork extends Base {
         imageH = this.h;
       } else {
         // make 100% width
+
         imageW = this.w;
         imageH = this.w * ratioH;
       }
@@ -378,6 +403,7 @@ class Artwork extends Base {
 
     this.patch({
       CenterImage: {
+        mode: this.mode,
         mount: 0.5,
         w: imageW,
         h: imageH,
@@ -385,7 +411,7 @@ class Artwork extends Base {
         y: this.h / 2,
         zIndex: 3,
         texture: {
-          src: this._src,
+          src: this._processedImageSrc,
           resizeMode: {
             h: imageH,
             type: 'cover',
@@ -397,11 +423,23 @@ class Artwork extends Base {
     });
   }
 
-  _updateForegroundCircleImage() {
+  _updateModeSquareCircle() {
+    if (
+      (this._CenterImage && this._CenterImage.mode !== this.mode) ||
+      this.src === this.fallbackSrc
+    ) {
+      // Make sure previous mode is propertly cleaned up
+      this.patch({
+        CenterImage: undefined
+      });
+      if (this.src === this.fallbackSrc) return;
+    }
     const imageSize =
       Math.min(this.w, this.h) - this._componentStyles.padding * 2;
+
     this.patch({
       CenterImage: {
+        mode: this.mode,
         h: imageSize,
         shader: {
           radius:
@@ -411,7 +449,7 @@ class Artwork extends Base {
           type: lng.shaders.RoundedRectangle
         },
         w: imageSize,
-        zIndex: 4,
+        zIndex: 3,
         Image: {
           h: imageSize,
           mount: 0.5,
@@ -420,7 +458,7 @@ class Artwork extends Base {
           x: this.w / 2,
           y: this.h / 2,
           texture: {
-            src: this._src,
+            src: this._Image.texture.src,
             resizeMode: {
               h: imageSize,
               type: 'cover',
@@ -434,7 +472,7 @@ class Artwork extends Base {
   }
 
   _updateGradient() {
-    if (!this._gradient && this._Gradient) {
+    if (!this.gradient && this._Gradient) {
       // Remove CircleImage element as it is not longer required
       if (this._smooth) {
         this._Gradient._getTransition('alpha').once('finish', () => {
@@ -442,69 +480,121 @@ class Artwork extends Base {
           this.patch({ Gradient: undefined });
         });
         this._Gradient.smooth = {
-          alpha: [
-            0,
-            {
-              duration: this._componentStyles.gradientAlphaDuration,
-              delay: this._componentStyles.gradientAlphaDelay,
-              timingFunction: this._componentStyles.gradientAlphaTimingFunction
-            }
-          ]
+          alpha: [0, this._componentStyles.animationGradientExit]
         };
       } else {
         this.patch({ Gradient: undefined });
       }
       return;
     }
-    if (this._gradient) {
-      // Create/update the CircleImage element
-      this.patch({
-        Gradient: {
-          alpha: !this._Gradient && this._smooth ? 0 : 1,
-          gradientColor: getValidColor(this._componentStyles.gradientColor),
-          h: this.h + 4,
-          radius: 4,
-          type: Gradient,
-          w: this.w + 4,
-          x: -2,
-          y: -2,
-          zIndex: 4
-        }
-      });
+    if (this.gradient) {
+      // Clear previous gradient type if changed
+      if (this._Gradient && this.gradientType !== this._Gradient.name) {
+        this.patch({ Gradient: undefined });
+      }
+      let gradientPatch;
+      // 2 is added to each side to account for rounded rectangle bug
+      if (this.gradientType === 'mesh') {
+        gradientPatch = {
+          Gradient: {
+            name: 'mesh',
+            rtt: true,
+            w: this.w + 4,
+            h: this.h + 4,
+            zIndex: 4,
+            alpha: !this._Gradient && this._smooth ? 0.001 : 1,
+            TopGradient: {
+              gradientColor: getValidColor(this._componentStyles.gradientColor),
+              h: this.w + 4,
+              radius: 4,
+              type: Gradient,
+              pivot: 0,
+              w: this.h + 4,
+              x: this.w - 2, // Seams to be the only way I can align this properly open to ideas
+              y: -2,
+              rotation: (90 * Math.PI) / 180 // Calculate radians
+            },
+            BottomGradient: {
+              gradientColor: getValidColor(this._componentStyles.gradientColor),
+              h: this.h + 4,
+              radius: 4,
+              type: Gradient,
+              w: this.w + 4,
+              x: -2,
+              y: -2
+            }
+          }
+        };
+      } else {
+        gradientPatch = {
+          Gradient: {
+            name: 'default',
+            alpha: !this._Gradient && this._smooth ? 0.001 : 1,
+            gradientColor: getValidColor(this._componentStyles.gradientColor),
+            h: this.h + 4,
+            radius: 4,
+            type: Gradient,
+            w: this.w + 4,
+            x: -2,
+            y: -2,
+            zIndex: 4
+          }
+        };
+      }
+      this.patch(gradientPatch);
       if (this._smooth) {
         this._Gradient.smooth = {
-          alpha: [
-            1,
-            {
-              duration: this._componentStyles.gradientAlphaDuration,
-              delay: this._componentStyles.gradientAlphaDelay,
-              timingFunction: this._componentStyles.gradientAlphaTimingFunction
-            }
-          ]
+          alpha: [1, this._componentStyles.animationGradientEntrance]
         };
       }
     }
   }
 
   _updateImage() {
-    if (!this._src) {
+    this._aspectRatioEqual = false; // Set this back to false since we will not know the aspect ratio until after the image has loaded
+
+    if (!this._processedImageSrc) {
       if (this._Image) {
         this._Image.texture = undefined;
       }
       return;
     }
-    this._aspectRatioEqual = false; // Set this back to false since we will not know the aspect ratio until after the image has loaded
+
     this._Image.patch({
-      alpha: (this.alpha < 1 && this._blur) || this._hasCenterImage ? 0.001 : 1, // Prevent image from flashing on first load if mode requires a center image or blur is true
+      alpha:
+        this._src !== this.fallbackSrc && (this._blur || this._hasCenterImage)
+          ? 0.001
+          : 1, // Prevent image from flashing on first load if mode requires a center image or blur is true
       h: this.h,
       rtt: true,
       texture: {
         type: lng.textures.ImageTexture,
-        src: this._src,
+        src: this._processedImageSrc,
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,
       zIndex: 1
+    });
+  }
+
+  _updateFillColor() {
+    if (!this._componentStyles.fillColor) {
+      if (this._FillColor) {
+        this.patch({
+          FillColor: undefined
+        });
+      }
+      return;
+    }
+
+    this.patch({
+      FillColor: {
+        rect: true,
+        w: this.w,
+        h: this.h,
+        color: this._componentStyles.fillColor,
+        zIndex: 5
+      }
     });
   }
 
