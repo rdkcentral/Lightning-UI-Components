@@ -128,6 +128,7 @@ export default (params, api) => {
                       debouncedUpdateComponentValue.call(this, curr.prop, val)
                     }
                     value={curr.defaultValue}
+                    min={0} // may need to revisit this if there are ever valid negative values
                   />
                 }
               />
