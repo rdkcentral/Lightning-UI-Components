@@ -38,14 +38,18 @@ export default function withUpdates(Base) {
 
     _construct() {
       super._construct && super._construct();
-      const props = this.constructor.properties || [];
-      props.forEach(name => {
-        const key = '_' + name;
-        const descriptor = getPropertyDescriptor(name, key);
-        if (descriptor !== undefined) {
-          Object.defineProperty(Object.getPrototypeOf(this), name, descriptor);
-        }
-      });
+      const prototype = Object.getPrototypeOf(this);
+      if (!prototype._withUpdatesInitialized) {
+        const props = this.constructor.properties || [];
+        props.forEach(name => {
+          const key = '_' + name;
+          const descriptor = getPropertyDescriptor(name, key);
+          if (descriptor !== undefined) {
+            Object.defineProperty(prototype, name, descriptor);
+          }
+        });
+        prototype._withUpdatesInitialized = true;
+      }
 
       this._whenEnabled = new Promise(resolve => {
         this._whenEnabledResolver = resolve;
