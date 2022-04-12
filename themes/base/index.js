@@ -16,17 +16,17 @@ import fonts from './fonts';
 export default {
   name: 'Base',
   alphas,
+  animations,
+  calculateColumnWidth,
   colors,
-  layout,
   fonts,
-  spacing,
   getFocusScale,
   getUnfocusScale,
-  calculateColumnWidth,
+  layout,
   radius,
+  spacing,
   stroke,
   typography,
-  animations,
   componentStyles: {},
   componentVariants: {}
 };

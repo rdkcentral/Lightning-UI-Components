@@ -6,7 +6,7 @@ export function base(theme) {
   const size = theme.spacing(2);
   return {
     circleSize: size,
-    radius: size / 2 + 2
+    radius: size / 2
   };
 }
 

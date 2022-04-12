@@ -32,11 +32,9 @@ export { default as Radio } from './Radio';
 export { default as Slider } from './Slider';
 export { default as Surface } from './Surface';
 export { default as TabBar, Tab } from './Tabs';
-export { default as Tag } from './Tag';
+export { default as Label } from './Label';
 export { default as TextBox } from './TextBox';
 export { default as Tile } from './Tile';
-export { default as TileCircle } from './TileCircle';
-export { default as TileIcon } from './TileIcon';
 export { default as Toggle } from './Toggle';
 export { default as Tooltip } from './Tooltip';
 export { default as Wave } from './Wave'; // TODO: alphabetize

@@ -43,25 +43,27 @@ export default function withLayout(Base) {
     _updateItemLayout() {
       if (!this._allowUpdate()) return;
       const { w, h } = getDimensions(this._itemLayout);
-      // If there is not enough information passed in args to calculate item size
-      if (h || w) {
+      if (this._itemLayout && this._itemLayout.circle) {
+        this.w = this.h;
+        this._layoutCircleMode = true;
+        if (this.style) this.style.radius = this.h / 2;
+      } else if (h || w) {
+        // If there is not enough information passed in args to calculate item size
         const width = context.theme.layout.screenW;
         const height = context.theme.layout.screenH;
         this.h = h || w * (height / width);
-        if (this._itemLayout.circle) {
-          this.w = this.h;
-          this._layoutCircleMode = true;
-          if (this.style) this.style.radius = this.h / 2;
-        } else {
-          this.w = w || h * (width / height);
-          if (this._layoutCircleMode) {
-            this.style.radius = undefined;
-            this._layoutCircleMode = false;
-          }
-        }
-        super._update && super._update();
-        this.fireAncestors('$itemChanged');
+        this.w = w || h * (width / height);
       }
+      if (
+        !this._itemLayout ||
+        (!this._itemLayout.circle && this._layoutCircleMode)
+      ) {
+        // Cleanup after circle layout removed
+        this.style.radius = undefined;
+        this._layoutCircleMode = false;
+      }
+      super._update && super._update();
+      this.fireAncestors('$itemChanged');
     }
   };
 }

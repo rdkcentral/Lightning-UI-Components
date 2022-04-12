@@ -1,28 +1,24 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../.storybook/utils';
 import Tile from '.';
 
 # Tile
 
-General purpose Tile component
+A flexible solution for displaying artwork and meta information. Used to render entity posters for browsing.
 
 ## Usage
 
-Just set a src property to load an image. From there you can set blur, rounded corners and drop shadow.
+Allows objects to be passed in that reflect all properties available in Artwork, Badge, Checkbox, Label, ProgressBar, and Metadata. Additionally, metadataLocation and persistentMetadata are available to configure Metadata placement and visibility.
 
 ```js
 import { Tile } from '@lightning/ui';
 
-Tile: {
-  type: Tile,
-  src: 'path/to/image',
-  w: 320,
-  h: 180,
-  blur: 2,
-  radius: 16,
-  shadow: { w: 320, h: 180, x: 10, y: 10, zIndex: -1,
-    texture: lng.Tools.getShadowRect(320, 180, 8, 4),
-    color: 0x00ff00
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile
+      }
+    };
   }
 }
 ```
@@ -33,25 +29,33 @@ Tile: {
 
 ### Properties
 
-| name            | type    | required | default | description                                    |
-| --------------- | ------- | -------- | ------- | ---------------------------------------------- |
-| blur            | number  | false    | -       | Blur amount from 0-4                           |
-| radius          | number  | false    | -       | set rounded corner radius                      |
-| imgRadius       | number  | false    | -       | set rounded corner radius of image             |
-| shadow          | obj     | false    | -       | create a drop shadow using a Lightning element |
-| src             | string  | false    | -       | url to image                                   |
-| fallbackSrc     | string  | false    | -       | url to image to use if the requested src fails |
-| gradientColor   | color   | false    | -       | overlay gradient color                         |
-| focusGradient   | boolean | false    | false   | show gradient overlay on focus                 |
-| persistGradient | boolean | false    | false   | always show gradient overlay                   |
-| animate         | boolean | false    | false   | animates focus ring                            |
+| name               | type    | required | default   | description                                                                                                          |
+| ------------------ | ------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------------- |
+| artwork            | object  | false    | undefined | Object containing all properties supported in the [Artwork component](?path=/docs/elements-artwork--basic)           |
+| badge              | object  | false    | undefined | Object containing all properties supported in the [Badge component](?path=/docs/elements-badge--basic)               |
+| checkbox           | object  | false    | undefined | Object containing all properties supported in the [Checkbox component](?path=/docs/elements-checkbox--basic)         |
+| label              | object  | false    | undefined | Object containing all properties supported in the [Label component](?path=/docs/elements-label--basic)               |
+| metadataLocation   | string  | false    | 'bottom'  | Controls where there metadata is displayed in relation to the Tile. Available values are 'bottom' and 'inset'        |
+| persistentMetadata | boolean | false    | false     | Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus              |
+| progressBar        | object  | false    | undefined | Object containing all properties supported in the [ProgressBar component](?path=/docs/elements-progressbar--basic)   |
+| metadata           | object  | false    | undefined | Object containing all properties supported in the [MetadataTile component](?path=/docs/elements-metadatatile--basic) |
 
-### Styles
+### Style Properties
 
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Tile.styles} />
-
-### Sizing
-
-Tile can be autosized by composing using [withLayout](?path=/docs/mixins-withlayout--basic).
+| name              | type     | description                                                                      |
+| ----------------- | -------- | -------------------------------------------------------------------------------- |
+| animationEntrance | object   | Animation values applied on entrance                                             |
+| animationExit     | object   | Animation values applied on exit                                                 |
+| artworkFocusScale | number   | Controls how much artwork will scale when component has focus                    |
+| artworkStyles     | object   | Overwrite any styles in artwork                                                  |
+| badgeStyles       | object   | Overwrite any styles in badge                                                    |
+| checkboxStyles    | object   | Overwrite any styles in checkbox                                                 |
+| focusRing         | boolean  | Flag used by extension layer to apply FocusRing                                  |
+| getFocusScale     | function | Function that returns a number representing the scale of component when focused  |
+| getUnfocusScale   | function | Function that returns a number representing the scale of componen when unfocused |
+| labelStyles       | object   | Overwrite any styles in label                                                    |
+| metadataStyles    | object   | Overwrite any styles in metadata                                                 |
+| paddingX          | number   | Padding applied to the inside of the left and right of component                 |
+| paddingY          | number   | Padding applied to the inside of the top and bottom of component                 |
+| progressBarStyles | object   | Overwrite any styles in progressBar                                              |
+| radius            | number   | Outer radius of component                                                        |

@@ -2,10 +2,10 @@ import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { withExtensions } from '../../mixins';
 import withStyles from '../../mixins/withThemeStyles';
-import styles from './Tag.styles';
+import styles from './Label.styles';
 import TextBox from '../TextBox';
 
-class Tag extends Base {
+class Label extends Base {
   static _template() {
     return {
       Background: {},
@@ -20,7 +20,7 @@ class Tag extends Base {
     };
   }
   static get __componentName() {
-    return 'Tag';
+    return 'Label';
   }
 
   static get properties() {
@@ -78,4 +78,4 @@ class Tag extends Base {
   }
 }
 
-export default withExtensions(withStyles(Tag, styles));
+export default withExtensions(withStyles(Label, styles));

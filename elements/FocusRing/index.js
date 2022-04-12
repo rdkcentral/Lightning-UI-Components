@@ -61,7 +61,6 @@ class FocusRing extends Base {
           false,
           false
         ),
-        color: primary,
         colorUl: primary,
         colorBl: transition,
         colorUr: transition,
@@ -77,8 +76,11 @@ class FocusRing extends Base {
     }
 
     const { transition, primary, secondary } = this._ringColors;
-
-    this.stopAnimation();
+    if (this.stage.animations.active.has(this._focusRingAnimation)) {
+      // Delete the animation so it can recieve the new update
+      this.stage.animations.active.delete(this._focusRingAnimation); // TODO: Ask metrological about this approach, there should be something added to core to allow this
+      this._focusRingAnimation = undefined;
+    }
     this._focusRingAnimation = this._Ring.animation({
       repeat: -1,
       duration: this._componentStyles.animationDuration,
@@ -125,26 +127,34 @@ class FocusRing extends Base {
         }
       ]
     });
-
-    this.hasFocus() ? this.startAnimation() : this.stopAnimation();
+    if (this._isAnimating) this._focusRingAnimation.start();
   }
 
   startAnimation() {
+    if (!this._Ring || !this._focusRingAnimation) {
+      // Ring is not setup yet, store the flag to start animation once it is
+      this._isAnimating = true;
+      return;
+    }
+
     if (!this._componentStyles.shouldAnimate) {
       this.stopAnimation();
       return;
     }
 
-    if (!this._focusRingAnimation) {
-      this._updateAnimation();
-    }
-    if (!this._focusRingAnimation.isPlaying()) {
-      this._focusRingAnimation.start();
-    }
+    this._isAnimating = true;
+    this._focusRingAnimation.start();
   }
 
   stopAnimation() {
-    this._focusRingAnimation && this._focusRingAnimation.stop();
+    if (!this._Ring || !this._focusRingAnimation) {
+      // Ring is not setup yet, store the flag to make sure animation does not start when created
+      this._isAnimating = false;
+      return;
+    }
+
+    this._isAnimating = false;
+    this._focusRingAnimation.stop();
   }
 }
 

@@ -25,24 +25,6 @@ describe('FocusRing', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it.skip('should hide the FocusRing if no h & w is specified and fade it in otherwise', async done => {
-    [focusRing, testRenderer] = createFocusRing(
-      { w: 0, h: 0 },
-      { spyOnMethods: ['_update'] }
-    );
-    await focusRing.__updateSpyPromise;
-    expect(focusRing._Ring.alpha).toBe(0.001);
-    focusRing.patch({
-      w: 320,
-      h: 180
-    });
-    await focusRing.__updateSpyPromise; // Update w
-    await focusRing.__updateSpyPromise; // Update h
-    testRenderer.update();
-    expect(focusRing._Ring.alpha).toBe(1);
-    done();
-  });
-
   it('should set size', () => {
     [focusRing, testRenderer] = createFocusRing({ size: 4 });
     expect(focusRing.size).toEqual(4);
@@ -53,7 +35,7 @@ describe('FocusRing', () => {
     [focusRing, testRenderer] = createFocusRing({
       style: { color: getHexColor(GREY[5], 96) }
     });
-    expect(focusRing.color).toEqual(testColor);
+    expect(focusRing._Ring.colorUl).toEqual(testColor);
   });
 
   it('should set primary color transition from color', () => {
@@ -120,11 +102,5 @@ describe('FocusRing', () => {
     expect(focusRing._componentStyles.shouldAnimate).toBe(false);
     focusRing.startAnimation();
     expect(focusRing._focusRingAnimation).toBe(null);
-  });
-
-  it('should create the focus ring animation if it does not exist', () => {
-    focusRing._focusRingAnimation = null;
-    focusRing.startAnimation();
-    expect(focusRing._focusRingAnimation.isPlaying()).toBe(true);
   });
 });

@@ -22,7 +22,11 @@ class Badge extends Base {
         }
       },
       Icon: {
-        type: Icon
+        type: Icon,
+        mountY: 0.5,
+        signals: {
+          itemChanged: '_iconLoaded'
+        }
       }
     };
   }
@@ -46,39 +50,64 @@ class Badge extends Base {
     return ['BadgeText', 'Icon'];
   }
 
-  _update() {
+  _setTitle(v) {
+    this._badgeTextPromise = new Promise(resolve => {
+      this._badgeTextPromiseResolver = resolve;
+    });
+    return v;
+  }
+
+  _setIcon(v) {
+    this._iconPromise = new Promise(resolve => {
+      this._iconPromiseResolver = resolve;
+    });
+    return v;
+  }
+
+  _setIconWidth(v) {
+    this._iconPromise = new Promise(resolve => {
+      this._iconPromiseResolver = resolve;
+    });
+    return v;
+  }
+
+  _setIconHeight(v) {
+    this._iconPromise = new Promise(resolve => {
+      this._iconPromiseResolver = resolve;
+    });
+    return v;
+  }
+
+  async _update() {
     this._updateText();
     this._updateIcon();
+    await Promise.all(
+      [this._badgeTextPromise, this._iconPromise].filter(Boolean)
+    );
+    this._updateWidth();
     this._updatePositions();
     this._updateBackground();
   }
 
-  _init() {
-    this._Icon.on('txLoaded', this._updatePositions.bind(this));
-    this._BadgeText.on('txLoaded', this._updatePositions.bind(this));
-    super._init();
+  _badgeTextLoaded() {
+    this._badgeTextPromiseResolver();
+  }
+
+  _iconLoaded() {
+    this._iconPromiseResolver();
   }
 
   _updateBackground() {
-    this._updateWidth();
-    let heightDifference = 0;
-    if (this.iconHeight > this._BadgeText.renderHeight) {
-      heightDifference = this.iconHeight - this._BadgeText.renderHeight;
-    }
-
     this.patch({
-      h: this.title
-        ? this._BadgeText.renderHeight +
-          this._componentStyles.paddingY * 2 +
-          heightDifference
-        : this._componentStyles.paddingY * 2 + this.iconHeight,
+      h:
+        Math.max(this._BadgeText.h, this._Icon.h) +
+        this._componentStyles.paddingY * 2,
       color: this._componentStyles.backgroundColor,
       shader: { radius: this._componentStyles.radius }
     });
   }
 
   _updateText() {
-    this._updateWidth();
     this._BadgeText.patch({
       textColor: this._componentStyles.textColor,
       textAlign: this._componentStyles.textAlign,
@@ -99,6 +128,7 @@ class Badge extends Base {
       }
     });
   }
+
   _updateWidth() {
     let contentSpacing = 0;
     if (this.icon && this.title) {
@@ -107,18 +137,17 @@ class Badge extends Base {
     this.w = this.title
       ? this._BadgeText.renderWidth +
         this._componentStyles.paddingX * 2 +
-        (this._Icon.finalW || 0) +
+        (this._Icon.w || 0) +
         contentSpacing
-      : this._componentStyles.paddingX * 2 + (this._Icon.finalW || 0);
+      : this._componentStyles.paddingX * 2 + (this._Icon.w || 0);
   }
 
   _updatePositions() {
-    this._Icon.h = this.iconHeight;
-    this._Icon.w = this.iconWidth || this._Icon.finalW;
-    this._Icon.y = (this.h - this._Icon.h) / 2;
+    this._Icon.y = this.h / 2;
     // set icon and text position
     if (this.iconAlign === 'left' && this.title) {
       this._Icon.x = this._componentStyles.paddingX;
+
       this._BadgeText.x =
         this._Icon.x + this._Icon.w + this._componentStyles.contentSpacing;
     } else if (this.iconAlign === 'right' && this.title) {
@@ -130,18 +159,13 @@ class Badge extends Base {
     } else {
       this._Icon.x = this._componentStyles.paddingX;
     }
-
-    this._updateWidth();
-
-    this._BadgeText.y = this._h / 2; // Set new alignment for badge text
-
-    this.fireAncestors('$loadedBadge', this);
+    this._BadgeText.y = this.h / 2; // Set new alignment for badge text
   }
 
   _getIconHeight() {
     if (this.icon) {
       if (!this._Icon.finalH) {
-        return this._BadgeText.text.lineHeight;
+        return this._BadgeText._Text.text.lineHeight;
       } else {
         return this._Icon.finalH;
       }

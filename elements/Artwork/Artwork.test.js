@@ -80,7 +80,6 @@ describe('Artwork', () => {
       'FillColor',
       'ForegroundImage',
       'Gradient',
-      'Gradient',
       'Image',
       'Item'
     ]);

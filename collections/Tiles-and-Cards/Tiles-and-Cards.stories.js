@@ -7,7 +7,6 @@ import { getXfinityTheme } from '../../Styles/createTheme';
 import CollectionDocItem from '../CollectionDocItem';
 import CollectionHeader from '../CollectionHeader';
 import CollectionLabel from '../CollectionLabel';
-import withMetadata from '../../patterns/withMetadata';
 import { withFocusAlways } from '..';
 
 export default {
@@ -56,7 +55,7 @@ export const Basic = () =>
                     skipFocus: true
                   },
                   {
-                    type: withMetadata(Tile),
+                    type: Tile,
                     w: 560,
                     h: 320,
                     persistentMetadata: true,
@@ -68,7 +67,7 @@ export const Basic = () =>
                     }
                   },
                   {
-                    type: withFocusAlways(withMetadata(Tile)),
+                    type: withFocusAlways(Tile),
                     w: 560,
                     h: 320,
                     skipFocus: true,
@@ -96,7 +95,7 @@ export const Basic = () =>
                     skipFocus: true
                   },
                   {
-                    type: withMetadata(Tile),
+                    type: Tile,
                     w: 410,
                     h: 230,
                     persistentMetadata: true,
@@ -108,7 +107,7 @@ export const Basic = () =>
                     }
                   },
                   {
-                    type: withFocusAlways(withMetadata(Tile)),
+                    type: withFocusAlways(Tile),
                     w: 410,
                     h: 230,
                     skipFocus: true,
@@ -136,7 +135,7 @@ export const Basic = () =>
                     skipFocus: true
                   },
                   {
-                    type: withMetadata(Tile),
+                    type: Tile,
                     w: 320,
                     h: 176,
                     persistentMetadata: true,
@@ -148,7 +147,7 @@ export const Basic = () =>
                     }
                   },
                   {
-                    type: withFocusAlways(withMetadata(Tile)),
+                    type: withFocusAlways(Tile),
                     w: 320,
                     h: 176,
                     skipFocus: true,
@@ -180,7 +179,7 @@ export const Basic = () =>
                         skipFocus: true
                       },
                       {
-                        type: withMetadata(Tile),
+                        type: Tile,
                         w: 260,
                         h: 260,
                         persistentMetadata: true,
@@ -192,7 +191,7 @@ export const Basic = () =>
                         }
                       },
                       {
-                        type: withFocusAlways(withMetadata(Tile)),
+                        type: withFocusAlways(Tile),
                         w: 260,
                         h: 260,
                         skipFocus: true,
@@ -210,7 +209,7 @@ export const Basic = () =>
                         skipFocus: true
                       },
                       {
-                        type: withMetadata(Tile),
+                        type: Tile,
                         w: 260,
                         h: 260,
                         radius: 130,
@@ -223,7 +222,7 @@ export const Basic = () =>
                         }
                       },
                       {
-                        type: withFocusAlways(withMetadata(Tile)),
+                        type: withFocusAlways(Tile),
                         w: 260,
                         h: 260,
                         radius: 130,
@@ -247,7 +246,7 @@ export const Basic = () =>
                         skipFocus: true
                       },
                       {
-                        type: withMetadata(Tile),
+                        type: Tile,
                         w: 260,
                         h: 346,
                         persistentMetadata: true,
@@ -259,7 +258,7 @@ export const Basic = () =>
                         }
                       },
                       {
-                        type: withFocusAlways(withMetadata(Tile)),
+                        type: withFocusAlways(Tile),
                         w: 260,
                         h: 346,
                         skipFocus: true,

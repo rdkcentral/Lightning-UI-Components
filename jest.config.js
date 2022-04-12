@@ -144,7 +144,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: '<rootDir>/test/lng-test-env.js',
 
   // Options that will be passed to the testEnvironment
   testEnvironmentOptions: { resources: 'usable' },

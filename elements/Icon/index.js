@@ -23,9 +23,13 @@ class Icon extends Base {
   }
 
   _init() {
+    this.on('txLoaded', this._notify.bind(this));
     this.on('txError', this._handleTxtError.bind(this));
   }
 
+  _notify() {
+    this.signal('itemChanged');
+  }
   // eslint-disable-next-line no-unused-vars
   _handleTxtError(error) {
     context.error(`Unable to load icon ${this._icon}`);

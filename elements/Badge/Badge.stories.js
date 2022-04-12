@@ -33,7 +33,11 @@ Text.args = {
 };
 Text.argTypes = {
   title: {
-    description: 'Badge text'
+    description: 'Badge text',
+    control: {
+      type: 'text',
+      defaultValue: 'HD'
+    }
   }
 };
 
