@@ -3,7 +3,6 @@ import { withStyles } from '../../mixins';
 import { CardArtwork } from '../../elements';
 import Card, { baseCardProps, artCardProps, logoProps } from '.';
 import { getValidColor } from '../../Styles';
-import withBadgeProgress from '../withBadgeProgress';
 
 // eslint-disable-next-line no-unused-vars
 const verticalDynamicStyles = theme => ({
@@ -106,7 +105,7 @@ export default class CardVerticalDynamic extends withStyles(
       if (!this._Artwork) {
         this.patch({
           Artwork: {
-            type: withBadgeProgress(CardArtwork)
+            type: CardArtwork
           }
         });
       }

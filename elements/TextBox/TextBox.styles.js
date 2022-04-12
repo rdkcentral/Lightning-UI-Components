@@ -2,6 +2,8 @@ export default theme => {
   return {
     defaultTextStyle: 'body1',
     typography: theme.typography,
-    maxLinesSuffix: '...'
+    maxLinesSuffix: '...',
+    offsetY: 0,
+    offsetX: 0
   };
 };

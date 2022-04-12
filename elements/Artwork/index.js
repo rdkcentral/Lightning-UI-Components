@@ -35,7 +35,6 @@ class Artwork extends Base {
       'FillColor',
       'ForegroundImage',
       'Gradient',
-      'Gradient',
       'Image',
       'Item'
     ];
@@ -74,7 +73,7 @@ class Artwork extends Base {
   }
 
   get _supportedAspectRatioHeights() {
-    return this._srcCallbackAspectRatios.map(ratio => {
+    return this.srcCallbackAspectRatios.map(ratio => {
       const [rw, rh] = ratio.split('x').map(v => parseInt(v));
       const calcHeight = (this.w / rw) * rh;
       return calcHeight;
@@ -85,13 +84,13 @@ class Artwork extends Base {
     const closest = this._supportedAspectRatioHeights.reduce((prev, curr) =>
       Math.abs(curr - this.h) < Math.abs(prev - this.h) ? curr : prev
     );
-    return this._srcCallbackAspectRatios[
+    return this.srcCallbackAspectRatios[
       this._supportedAspectRatioHeights.indexOf(closest)
     ];
   }
 
   get _processedImageSrc() {
-    let src = this._src || this.fallbackSrc;
+    let src = this.src || this.fallbackSrc;
     if (
       src !== this.fallbackSrc &&
       this.srcCallback &&
@@ -211,7 +210,7 @@ class Artwork extends Base {
   _handleImageLoadError() {
     if (this.src === this.fallbackSrc) return;
     context.error(`Image ${this._src} failed to load`);
-    if (this.fallbackSrc && this.fallbackSrc !== this._src) {
+    if (this.fallbackSrc && this.fallbackSrc !== this.src) {
       this.src = this.fallbackSrc;
     }
   }
@@ -473,11 +472,13 @@ class Artwork extends Base {
 
   _updateGradient() {
     if (!this.gradient && this._Gradient) {
-      // Remove CircleImage element as it is not longer required
       if (this._smooth) {
         this._Gradient._getTransition('alpha').once('finish', () => {
-          // Clean up gradient after animation is complete
-          this.patch({ Gradient: undefined });
+          // Remove gradient if no longer required
+          const transition =
+            this._Gradient && this._Gradient._getTransition('alpha');
+          if (transition && transition.p === 1)
+            this.patch({ Gradient: undefined });
         });
         this._Gradient.smooth = {
           alpha: [0, this._componentStyles.animationGradientExit]
@@ -562,7 +563,7 @@ class Artwork extends Base {
 
     this._Image.patch({
       alpha:
-        this._src !== this.fallbackSrc && (this._blur || this._hasCenterImage)
+        this.src !== this.fallbackSrc && (this._blur || this._hasCenterImage)
           ? 0.001
           : 1, // Prevent image from flashing on first load if mode requires a center image or blur is true
       h: this.h,

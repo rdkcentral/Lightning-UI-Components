@@ -5,7 +5,7 @@ import CollectionDocItem from '../CollectionDocItem';
 import CollectionLabel from '../CollectionLabel';
 import Badge from '../../elements/Badge';
 import ProgressBar from '../../elements/ProgressBar';
-import Tag from '../../elements/Tag';
+import Label from '../../elements/Label';
 import Tile from '../../elements/Tile';
 import { withFocusAlways } from '..';
 import { getXfinityTheme } from '../../Styles/createTheme';
@@ -89,7 +89,7 @@ export const Basic = () =>
               },
               {
                 type: CollectionLabel,
-                title: 'Tag'
+                title: 'Label'
               },
               {
                 type: CollectionDocItem,
@@ -105,27 +105,27 @@ export const Basic = () =>
                         itemSpacing: 88,
                         items: [
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.yellow.indicator,
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[100]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.red.indicator,
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[0]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.blue.indicator,
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[0]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.grey[5],
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[100]
                           }
                         ]
@@ -135,27 +135,27 @@ export const Basic = () =>
                         itemSpacing: 88,
                         items: [
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: '#f95600',
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[100]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.purple.indicator,
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[0]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.green.indicator,
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[0]
                           },
                           {
-                            type: Tag,
+                            type: Label,
                             backgroundColor: theme.palette.grey[70],
-                            title: 'Tag',
+                            title: 'Label',
                             titleColor: theme.palette.grey[0]
                           }
                         ]

@@ -17,17 +17,8 @@ class Knob extends Base {
     return 'Knob';
   }
 
-  static get properties() {
-    return [];
-  }
-
   static get tags() {
     return ['Circle'];
-  }
-
-  _init() {
-    this.w = this._componentStyles.circleSize;
-    this.h = this._componentStyles.circleSize;
   }
 
   _getCircleTexture() {
@@ -42,17 +33,13 @@ class Knob extends Base {
   }
 
   _update() {
+    this.w = this._componentStyles.circleSize;
+    this.h = this._componentStyles.circleSize;
     this._updateCircleLayout();
-    if (this.tag('FocusRing')) {
-      this.tag('FocusRing').x = -this.w / 2;
-      this.tag('FocusRing').y = -this.h / 2;
-    }
   }
 
   _updateCircleLayout() {
     this._Circle.patch({
-      mountX: 0.5,
-      mountY: 0.5,
       texture: this._getCircleTexture(),
       color: this._componentStyles.circleColor,
       alpha: this.disabled ? 0 : 1

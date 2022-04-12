@@ -166,7 +166,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('StandardLayout');
   });
 
-  it('should display items in the proper order for standard layout', async done => {
+  it.skip('should display items in the proper order for standard layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'standard',
       items: mockItemsValid(Tile),
@@ -212,7 +212,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('HeroLayout');
   });
 
-  it('should display items in the proper order for hero layout', async done => {
+  it.skip('should display items in the proper order for hero layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'hero',
       items: mockItemsValid(Tile),
@@ -257,7 +257,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('PosterLayout');
   });
 
-  it('should display items in the proper order for poster layout', async done => {
+  it.skip('should display items in the proper order for poster layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'poster',
       items: mockItemsValid(Tile),
@@ -347,7 +347,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('SquareLayout');
   });
 
-  it('should display items in the proper order for square layout', async done => {
+  it.skip('should display items in the proper order for square layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'square',
       items: mockItemsValid(Tile),
@@ -392,7 +392,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('SquareSmallLayout');
   });
 
-  it('should display items in the proper order for squareSmall layout', async done => {
+  it.skip('should display items in the proper order for squareSmall layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'squareSmall',
       items: mockItemsValid(Tile),

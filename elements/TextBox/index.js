@@ -7,7 +7,9 @@ export default class TextBox extends withStyles(Base, styles) {
   static _template() {
     return {
       alpha: 0.001,
-      text: { textBaseline: 'bottom' }
+      Text: {
+        text: { textBaseline: 'bottom' }
+      }
     };
   }
 
@@ -16,7 +18,7 @@ export default class TextBox extends withStyles(Base, styles) {
   }
 
   static get tags() {
-    return ['TextBox'];
+    return ['TextBox', 'Text'];
   }
 
   static get properties() {
@@ -43,21 +45,21 @@ export default class TextBox extends withStyles(Base, styles) {
   }
 
   _init() {
-    this.on('txLoaded', this._setDimensions.bind(this));
+    this._Text.on('txLoaded', this._setDimensions.bind(this));
   }
 
   _forceUpdate() {
     // Fonts that are loaded asynchronous via the theme are not picked up by the component unless the textureSourceHashmap is cleared first.
-    const id = this.text._getLookupId();
-    if (this.text && id) {
+    const id = this._Text.text._getLookupId();
+    if (this._Text.text && id) {
       this.stage.textureManager.textureSourceHashmap.delete(id);
-      this.text._changed();
+      this._Text.text._changed();
     }
   }
 
   _setDimensions() {
-    const width = this.texture.getRenderWidth();
-    const height = this.texture.getRenderHeight();
+    const width = this._Text.texture.getRenderWidth();
+    const height = this._Text.texture.getRenderHeight();
     if (width && height) {
       this.h = height;
       this.w = width;
@@ -167,8 +169,11 @@ export default class TextBox extends withStyles(Base, styles) {
         fontStyle[key] = this[`_${prop}`];
       }
     });
-
-    this.patch({ text: fontStyle });
+    this._Text.patch({
+      y: this._componentStyles.offsetY,
+      x: this._componentStyles.offsetX,
+      text: fontStyle
+    });
   }
 
   get announce() {

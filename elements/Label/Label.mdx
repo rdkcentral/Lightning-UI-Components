@@ -1,24 +1,24 @@
 import { Canvas, Story } from '@storybook/addon-docs';
 import { Theme } from '../../.storybook/utils';
-import Tag from '.';
+import Label from '.';
 
-# Tag
+# Label
 
 General purpose component to help label content.
 
 ## Usage
 
-Tags simply require a background color, a title, and a title color. The Tag will automatically adjust based on the rendered width of its text.
+Labels simply require a background color, a title, and a title color. The Label will automatically adjust based on the rendered width of its text.
 
 ```js
-import { Tag } from '@lightning/ui';
+import { Label } from '@lightning/ui';
 
 class Example extends lng.Component {
   static _template() {
     return {
-      Tag: {
-        type: Tag,
-        title: 'Tag',
+      Label: {
+        type: Label,
+        title: 'Label',
         style: {
           backgroundColor: '#f6a50a',
           titleColor: '#ffffff'
@@ -30,7 +30,7 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="elements-tag--basic" />
+  <Story id="elements-label--basic" />
 </Canvas>
 
 ## API
@@ -39,17 +39,17 @@ class Example extends lng.Component {
 
 | name  | type   | required | default | description            |
 | ----- | ------ | -------- | ------- | ---------------------- |
-| title | string | true     | -       | text to display in tag |
+| title | string | true     | -       | text to display in label |
 
 ### Style Properties
 
 | name              | type   | description                                       |
 | ----------------- | ------ | ------------------------------------------------- |
-| backgroundColor   | string | color of the tag's background                     |
+| backgroundColor   | string | color of the label's background                     |
 | titleColor        | string | color of text                                     |
-| textStyle         | string | text properties of tag                            |
-| paddingX          | number | padding between left and right of text and tag    |
-| paddingY          | number | padding between top and bottom of text and tag    |
+| textStyle         | string | text properties of label                            |
+| paddingX          | number | padding between left and right of text and label    |
+| paddingY          | number | padding between top and bottom of text and label    |
 | radiusTopLeft     | number | determines the shape of the top left's corner     |
 | radiusTopRight    | number | determines the shape of the top right's corner    |
 | radiusBottomRight | number | determines the shape of the bottom right's corner |

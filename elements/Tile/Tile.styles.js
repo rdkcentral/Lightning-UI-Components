@@ -1,38 +1,52 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
-
+import { processThemeStyles } from '../../mixins';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    w: 400,
-    radius: theme.radius.medium,
-    blur: 0,
-    unfocused: {
-      shadow: { alpha: 0 }
+    animationEntrance: {
+      delay: theme.animations.emphasizedEntranceDelay,
+      duration: theme.animations.emphasizedEntranceDuration,
+      timingFunction: theme.animations.emphasizedEntrance
     },
-    focused: {
-      shadow: { alpha: 1 }
+    animationExit: {
+      delay: theme.animations.emphasizedExitDelay,
+      duration: theme.animations.emphasizedExitDuration,
+      timingFunction: theme.animations.emphasizedExit
     },
+    artworkStyles: {
+      animationImageScaleEntrance: {
+        delay: theme.animations.emphasizedEntranceDelay,
+        duration: theme.animations.emphasizedEntranceDuration,
+        timingFunction: theme.animations.emphasizedEntrance
+      },
+      animationImageScaleExit: {
+        delay: theme.animations.emphasizedExitDelay,
+        duration: theme.animations.emphasizedExitDuration,
+        timingFunction: theme.animations.emphasizedExit
+      }
+    },
+    artworkFocusScale: undefined,
+    badgeStyles: {},
+    checkboxStyles: {},
     focusRing: true,
-    focusRingColor: undefined, // If set to undefined this value will be established by the theme
     getFocusScale: theme.getFocusScale,
-    getUnfocusScale: theme.getUnfocusScale
+    getUnfocusScale: theme.getUnfocusScale,
+    labelStyles: {},
+    metadataStyles: {},
+    paddingX: theme.spacing(3),
+    paddingY: theme.spacing(2),
+    progressBarStyles: {},
+    radius: theme.radius.medium
   };
 }
 
-export function variants(theme) {
+export function variants() {
   return {
-    neutral: {
-      progressColor: theme.colors.fillInverseBase
-    },
-    brand: {
-      progressColor: theme.colors.fillPositiveFocus
-    },
-    inverse: {
-      progressColor: theme.colors.materialNegative
-    }
+    neutral: {},
+    inverse: {},
+    brand: {}
   };
 }
 
-export default (theme, variant) =>
+export default (theme, variant = variantDefault) =>
   processThemeStyles(theme, variant, base, variants);

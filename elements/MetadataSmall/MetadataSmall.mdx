@@ -4,11 +4,11 @@ import MetadataSmall from '.';
 
 # MetadataSmall
 
-Content to be displayed inside Tiles using the inset metadata position in [withMetadata](?path=/docs/patterns-withmetadata--basic). Displays title, info, progress bar, and logo.
+Content to be displayed inside Tile using the metadataType in [Tile](?path=/docs/tile--basic). Displays title, info, progress bar, and logo.
 
 ## Usage
 
-Wrap a Tile in the `withMetadata` mixin, and pass `MetadataSmall` as the `Metadata` prop:
+Pass Metadata in as metadataType for a Tile component
 
 ```js
 import { MetadataSmall, Tile } from '@lightning/ui';
@@ -17,14 +17,13 @@ class Example extends lng.Component {
   static _template() {
     return {
       TileWithMetadata: {
-        type: withMetadata(Tile),
+        type: Tile,
         src: 'asset/path/pets.png',
         w: 410,
         h: 230,
-        color: 0xff5d7a74,
         metadataLocation: 'inset',
-        Metadata: {
-          type: MetadataSmall,
+        metadataType: MetadataSmall,
+        metadata: {
           title: 'Movie Title',
           data: 'A description of the movie',
           logo: 'url/path/logo.png'

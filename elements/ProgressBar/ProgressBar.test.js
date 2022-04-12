@@ -121,7 +121,8 @@ describe('ProgressBar', () => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const duration = 3;
-    progressBar._componentStyles.animationDuration = duration;
+    progressBar.style.animationDuration = duration;
+    await progressBar.__updateSpyPromise;
     expect(progressBar._componentStyles.animationDuration).toBe(duration);
     progressBar.progress = 1;
     await progressBar.__updateSpyPromise;
@@ -135,9 +136,9 @@ describe('ProgressBar', () => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const curve = 'linear';
-    progressBar._componentStyles.animationCurve = curve;
-    expect(progressBar._componentStyles.animationCurve).toBe(curve);
+    progressBar.style.animationCurve = curve;
     await progressBar.__updateSpyPromise;
+    expect(progressBar._componentStyles.animationCurve).toBe(curve);
     expect(progressBar._Progress.transition('w').settings.timingFunction).toBe(
       curve
     );
@@ -148,9 +149,9 @@ describe('ProgressBar', () => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const delay = 2;
-    progressBar._componentStyles.animationDelay = delay;
-    expect(progressBar._componentStyles.animationDelay).toBe(delay);
+    progressBar.style.animationDelay = delay;
     await progressBar.__updateSpyPromise;
+    expect(progressBar._componentStyles.animationDelay).toBe(delay);
     expect(progressBar._Progress.transition('w').settings.delay).toBe(delay);
     done();
   });

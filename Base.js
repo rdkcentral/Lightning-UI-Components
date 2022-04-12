@@ -9,17 +9,31 @@ class Base extends lng.Component {
 
   _construct() {
     this.constructor.__componentName; // Check that __componentName is set
+    if (!this.loaded) this.loaded = Promise.resolve(); // By default this is a resolved promise. Components can use _resetLoadedPromise if they requre the functionality
+  }
+
+  _init() {
+    this._requestUpdateDebounce();
+  }
+
+  _resetLoadedPromise() {
+    this.loaded = new Promise((resolve, reject) => {
+      this._resolveLoadedPromise = resolve;
+      this._rejectLoadedPromise = reject;
+    });
   }
 
   _update() {}
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._update();
+    this._hasFocus = true; // Flag added as optimization. This should be more performant than calling this.hasFocus() repeatedly in component
+    this._requestUpdateDebounce();
   }
 
   _unfocus() {
-    this._update();
+    this._hasFocus = false;
+    this._requestUpdateDebounce();
   }
 
   get disabled() {

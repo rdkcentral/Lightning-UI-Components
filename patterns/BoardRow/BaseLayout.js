@@ -3,7 +3,6 @@ import MetadataSmall from '../../elements/MetadataSmall';
 import FocusManager from '../../layout/FocusManager';
 import Row from '../../layout/Row';
 import { Base, Tile } from '../../elements';
-import withMetadata from '../../patterns/withMetadata';
 
 function warningMessage(item) {
   console.warn(
@@ -132,7 +131,7 @@ export default class BaseType extends Base {
           (item.type && Tile === item.type) ||
           Tile.isPrototypeOf(item.type)
         ) {
-          updatedItem.type = withMetadata(item.type);
+          updatedItem.type = item.type;
           updatedItem.metadataLocation = 'inset';
           updatedItem.Metadata = {
             type: MetadataSmall,

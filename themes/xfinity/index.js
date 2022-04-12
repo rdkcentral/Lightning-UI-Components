@@ -13,15 +13,14 @@ import iconRightArrow from './assets/ic_sort_right_fill_inverse_64';
 export default {
   name: 'Xfinity',
   alphas,
+  animations,
   colors,
-  extensions,
-  layout,
   fonts,
   getFocusScale,
+  layout,
   radius,
   stroke,
   typography,
-  animations,
   componentStyles: {
     Surface: {
       focusRing: true
@@ -34,6 +33,13 @@ export default {
       iconRightSrc: iconRightArrow,
       arrowWidth: layout.spacingBase * 4,
       arrowHeight: layout.spacingBase * 4
+    },
+    TextBox: {
+      offsetY: 2 // Hopefully this can be fixed in a future release. For now we can center align for badge, tag with this adjustment font doesnt seam to fill the whole area in textbox texture
+    },
+    Tile: {
+      artworkFocusScale: 1.12
     }
-  }
+  },
+  extensions
 };

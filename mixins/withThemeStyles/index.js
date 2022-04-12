@@ -115,13 +115,21 @@ export default function withThemeStyles(Base, styles) {
         this._debounceUpdateThemeComponent();
     }
 
+    // If the w/h changes we will need to re-render the component again
+    // eslint-disable-next-line id-blacklist
+    _updateDimensions(w, h) {
+      super._updateDimensions(w, h);
+      this._debounceUpdateThemeComponent &&
+        this._debounceUpdateThemeComponent();
+    }
+
     /** LIFECYCLE EVENTS */
 
     constructor(stage, properties) {
       super(stage, properties);
       this._debounceUpdateThemeComponent = debounce(
         this._updateThemeComponent.bind(this),
-        200
+        0
       );
       /**
        * Style override support
@@ -207,6 +215,15 @@ export default function withThemeStyles(Base, styles) {
         ...this._getThemeLevelStyles(), // Level 2
         ...this._getComponentLevelStyles() // Level 3
       };
+
+      // Fixes mount issues if height is controled by a component's style alone
+      if (!this._w && this._componentStyles.w) {
+        this._w = this._componentStyles.w;
+      }
+
+      if (!this._h && this._componentStyles.h) {
+        this._h = this._componentStyles.h;
+      }
     }
 
     /**

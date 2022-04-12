@@ -154,7 +154,7 @@ describe('Marquee', () => {
   });
 
   describe('should position contentBox', () => {
-    it('updates the texture', () => {
+    it('updates the texture', done => {
       [marquee, testRenderer] = createMarquee({
         w: 300,
         h: 300,
@@ -162,7 +162,10 @@ describe('Marquee', () => {
       });
       marquee._componentStyles.shouldSmooth = true;
       marquee._centerTexture();
-      expect(marquee._ContentBox.x).toBe(124.5);
+      setTimeout(() => {
+        expect(marquee._ContentBox.x).toBe(124.5);
+        done();
+      }, 50);
     });
   });
 

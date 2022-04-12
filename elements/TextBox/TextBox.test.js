@@ -22,7 +22,7 @@ const testOptions = async (element, optionProp, optionsValues, match) => {
             default:
               expects = match;
           }
-          expect(element.text[optionProp]).toBe(expects);
+          expect(element.tag('Text').text[optionProp]).toBe(expects);
           resolve();
         });
       });
@@ -53,14 +53,14 @@ describe('TextBox', () => {
   it('renders with content prop', async done => {
     element.content = 'Hello world';
     await element.__updateSpyPromise;
-    expect(element.text.text).toBe('Hello world');
+    expect(element.tag('Text').text.text).toBe('Hello world');
     done();
   });
 
   it('should set content to an empty string if the content prop is invalid', async done => {
     element.content = null;
     await element.__updateSpyPromise;
-    expect(element.text.text).toBe('');
+    expect(element.tag('Text').text.text).toBe('');
     done();
   });
 
@@ -74,15 +74,19 @@ describe('TextBox', () => {
   it('should fallback to "body1" object if the style prop is an invalid string', async done => {
     element.textStyle = 'invalidstyle';
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
-    expect(element.text.fontWeight).toBe(
+    expect(element._Text.text.fontFace).toBe(
+      XfinityTheme.typography.body1.fontFace
+    );
+    expect(element._Text.text.fontSize).toBe(
+      XfinityTheme.typography.body1.fontSize
+    );
+    expect(element._Text.text.fontWeight).toBe(
       XfinityTheme.typography.body1.fontWeight
     );
-    expect(element.text.lineHeight).toBe(
+    expect(element._Text.text.lineHeight).toBe(
       XfinityTheme.typography.body1.lineHeight
     );
-    expect(element.text.verticalAlign).toBe(
+    expect(element._Text.text.verticalAlign).toBe(
       XfinityTheme.typography.body1.verticalAlign
     );
     done();
@@ -91,15 +95,19 @@ describe('TextBox', () => {
   it('should set style to "body1" object if the style prop is null', async done => {
     element.textStyle = null;
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
-    expect(element.text.fontWeight).toBe(
+    expect(element._Text.text.fontFace).toBe(
+      XfinityTheme.typography.body1.fontFace
+    );
+    expect(element._Text.text.fontSize).toBe(
+      XfinityTheme.typography.body1.fontSize
+    );
+    expect(element._Text.text.fontWeight).toBe(
       XfinityTheme.typography.body1.fontWeight
     );
-    expect(element.text.lineHeight).toBe(
+    expect(element._Text.text.lineHeight).toBe(
       XfinityTheme.typography.body1.lineHeight
     );
-    expect(element.text.verticalAlign).toBe(
+    expect(element._Text.text.verticalAlign).toBe(
       XfinityTheme.typography.body1.verticalAlign
     );
     done();
@@ -108,15 +116,19 @@ describe('TextBox', () => {
   it('should set style to "body1" object if the style prop is not a string or object', async done => {
     element.textStyle = () => {};
     await element.__updateSpyPromise;
-    expect(element.text.fontFace).toBe(XfinityTheme.typography.body1.fontFace);
-    expect(element.text.fontSize).toBe(XfinityTheme.typography.body1.fontSize);
-    expect(element.text.fontWeight).toBe(
+    expect(element._Text.text.fontFace).toBe(
+      XfinityTheme.typography.body1.fontFace
+    );
+    expect(element._Text.text.fontSize).toBe(
+      XfinityTheme.typography.body1.fontSize
+    );
+    expect(element._Text.text.fontWeight).toBe(
       XfinityTheme.typography.body1.fontWeight
     );
-    expect(element.text.lineHeight).toBe(
+    expect(element._Text.text.lineHeight).toBe(
       XfinityTheme.typography.body1.lineHeight
     );
-    expect(element.text.verticalAlign).toBe(
+    expect(element._Text.text.verticalAlign).toBe(
       XfinityTheme.typography.body1.verticalAlign
     );
     done();
@@ -133,7 +145,7 @@ describe('TextBox', () => {
     await element.__updateSpyPromise;
     element.content = 'Hello world';
     await element.__updateSpyPromise;
-    expect(element.text.fontSize).toBe(36);
+    expect(element._Text.text.fontSize).toBe(36);
     done();
   });
 

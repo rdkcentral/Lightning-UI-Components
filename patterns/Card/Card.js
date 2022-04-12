@@ -2,7 +2,6 @@ import lng from '@lightningjs/core';
 import { withStyles } from '../../mixins';
 import { Base, CardArtwork, FocusRing, Metadata } from '../../elements';
 import { getValidColor } from '../../Styles/Colors';
-import withBadgeProgress from '../withBadgeProgress';
 export const artCardProps = [
   'src',
   'icon',
@@ -213,7 +212,7 @@ export default class Card extends withStyles(Base, styles) {
       if (!this._Artwork) {
         this.patch({
           Artwork: {
-            type: withBadgeProgress(CardArtwork)
+            type: CardArtwork
           }
         });
       }

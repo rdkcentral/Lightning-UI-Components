@@ -183,14 +183,6 @@ export class ThemeManager {
 
     const theme = merge.all([baseTheme, ...themeArray]);
 
-    // Clear all component styles if set to undefined
-    if (
-      theme.componentStyles &&
-      themeArray[1] &&
-      undefined === themeArray[1].componentStyles
-    ) {
-      theme.componentStyles = {};
-    }
     // Parse all colors in theme
     const themeFunctions = {};
     const themeString = JSON.stringify(theme, (key, value) => {

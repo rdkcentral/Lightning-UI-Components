@@ -1,6 +1,5 @@
 import { CardVerticalLarge, CardHorizontal } from '../../patterns/Card';
 import BoardRow from '.';
-import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import lng from '@lightningjs/core';
 import mdx from './BoardRow.mdx';
 import Tile from '../../elements/Tile';
@@ -15,92 +14,40 @@ export default {
   }
 };
 
-const cardData = {
-  logo: lightningbolt,
-  data: [
-    '86%',
-    {
-      icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-      title: 'Rotten Tomatoes rating'
-    }
-  ]
-};
-
 const getItems = type => {
   return [
     {
       src: '7245349740136736112',
-      title: 'Tenet',
-      description:
-        'Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
-      ...cardData,
       onEnter: () => {
         alert('Tenet card onEnter');
       }
     },
     {
-      src: '7615274088441709112',
-      title: 'Antebellum',
-      description:
-        "Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.",
-      ...cardData
+      src: '7615274088441709112'
     },
     {
-      src: '4787646614985090112',
-      title: 'Bill & Ted Face the Music',
-      logo: lightningbolt,
-      description:
-        "Once told they'd save the universe during a time-traveling adventure, 2 would-be rockers from San Dimas, California find themselves as middle-aged dads still trying to crank out a hit song and fulfill their destiny.",
-      ...cardData
+      src: '4787646614985090112'
     },
     {
-      src: '6366577040434117112',
-      title: 'Onward',
-      description:
-        'Two elven brothers embark on a quest to bring their father back for one day.',
-      ...cardData
+      src: '6366577040434117112'
     },
     {
-      src: '5879798181352259112',
-      title: 'Fear The Walking Dead',
-      description:
-        'A Walking Dead spinoff set in Los Angeles, California. Follows two families who must band together to survive the undead apocalypse.',
-      ...cardData
+      src: '5879798181352259112'
     },
     {
-      src: '6702815185485076112',
-      title: 'The New Mutants',
-      description:
-        'Five young mutants, just discovering their abilities while held in a secret facility against their will, fight to escape their past sins and save themselves.',
-      ...cardData
+      src: '6702815185485076112'
     },
     {
-      src: '7762245375893944112',
-      title: 'Wonder Woman 1984',
-      description:
-        'Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.',
-      ...cardData
+      src: '7762245375893944112'
     },
     {
-      src: '5369987084856006112',
-      title: 'Vikings',
-      description:
-        'Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.',
-      ...cardData
+      src: '5369987084856006112'
     },
     {
-      src: '7108813814104030112',
-      title: 'The Invisible Man',
-      description:
-        "When Cecilia's abusive ex takes his own life and leaves her his fortune, she suspects his death was a hoax. As a series of coincidences turn lethal, Cecilia works to prove that she is being hunted by someone nobody can see.",
-      ...cardData
+      src: '7108813814104030112'
     },
     {
-      src: '6030648778584858112',
-      title: 'Birds Of Prey',
-      description:
-        'After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.',
-      ...cardData
+      src: '6030648778584858112'
     }
   ].map(item => {
     return {

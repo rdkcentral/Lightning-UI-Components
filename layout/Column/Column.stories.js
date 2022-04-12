@@ -11,8 +11,7 @@ import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 import person from '../../assets/images/cast.png';
 import person1 from '../../assets/images/cast1.png';
 import person2 from '../../assets/images/cast2.png';
-import { TileIcon, MetadataTile } from '../../elements';
-import { withMetadata } from '../../patterns';
+import { Tile } from '../../elements';
 
 export default {
   title: 'Layout / Column',
@@ -556,7 +555,7 @@ export const SkipPlinko = () =>
               itemSpacing: 50,
               items: [
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: parks,
@@ -566,7 +565,7 @@ export const SkipPlinko = () =>
                   badge: 'HD'
                 },
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: person,
@@ -576,7 +575,7 @@ export const SkipPlinko = () =>
                   badge: 'HD'
                 },
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: trolls,
@@ -592,15 +591,14 @@ export const SkipPlinko = () =>
               skipPlinko: true,
               items: [
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 1060,
                   h: 300,
                   iconW: 50,
                   iconH: 50,
                   src: pets,
                   badge: 'HD',
-                  Metadata: {
-                    type: MetadataTile,
+                  metadata: {
                     firstLine: 'Row with skipPlinko set to true'
                   }
                 }
@@ -613,7 +611,7 @@ export const SkipPlinko = () =>
               h: 180,
               items: [
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: person2,
@@ -623,7 +621,7 @@ export const SkipPlinko = () =>
                   badge: 'HD'
                 },
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: jurassic,
@@ -632,7 +630,7 @@ export const SkipPlinko = () =>
                   badge: 'HD'
                 },
                 {
-                  type: withMetadata(TileIcon),
+                  type: Tile,
                   w: 320,
                   h: 180,
                   src: person1,
