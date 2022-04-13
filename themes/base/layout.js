@@ -188,19 +188,21 @@ class Layout {
 
   _getGutterXDefaults() {
     return {
-      small: this._spacingBase * this._gutterXMultiplier,
-      medium: this._spacingBase * (this._gutterXMultiplier * 2),
-      large: this._spacingBase * (this._gutterXMultiplier * 3),
-      xlarge: this._spacingBase * (this._gutterXMultiplier * 4)
+      xsmall: this._spacingBase * this._gutterXMultiplier,
+      small: this._spacingBase * (this._gutterXMultiplier * 2),
+      medium: this._spacingBase * (this._gutterXMultiplier * 3),
+      large: this._spacingBase * (this._gutterXMultiplier * 4),
+      xlarge: this._spacingBase * (this._gutterXMultiplier * 5)
     };
   }
 
   _getGutterYDefaults() {
     return {
-      small: this._spacingBase * this._gutterYMultiplier,
-      medium: this._spacingBase * (this._gutterYMultiplier * 2),
-      large: this._spacingBase * (this._gutterYMultiplier * 3),
-      xlarge: this._spacingBase * (this._gutterYMultiplier * 4)
+      xsmall: this._spacingBase * this._gutterYMultiplier,
+      small: this._spacingBase * (this._gutterYMultiplier * 2),
+      medium: this._spacingBase * (this._gutterYMultiplier * 3),
+      large: this._spacingBase * (this._gutterYMultiplier * 4),
+      xlarge: this._spacingBase * (this._gutterYMultiplier * 5)
     };
   }
 }
@@ -220,7 +222,7 @@ export function calculateColumnWidth(upCount = 1) {
   const screenW = context.theme.layout.screenW;
   const columnCount = context.theme.layout.columnCount;
   const marginX = context.theme.layout.marginX;
-  const gutterX = context.theme.layout.gutterX.small;
+  const gutterX = context.theme.layout.gutterX.xsmall;
 
   if (upCount < 1 || upCount > columnCount) {
     context.error(
