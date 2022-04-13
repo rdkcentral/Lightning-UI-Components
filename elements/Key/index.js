@@ -29,7 +29,7 @@ const alphaNato = {
   u: 'uniform',
   v: 'victor',
   w: 'whiskey',
-  x: 'xray',
+  x: 'x-ray',
   y: 'yankee',
   z: 'zulu'
 };
