@@ -112,7 +112,8 @@ export default class ListItemImage extends withStyles(ListItem, styles) {
         shader: {
           type: lng.shaders.RoundedRectangle,
           radius: this.styles.radius
-        }
+        },
+        rtt: true
       });
     } else {
       this._Image.patch({
