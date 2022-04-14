@@ -4,18 +4,18 @@ const isInvalidNum = v => isNaN(parseFloat(v)) || v < 0;
 class Layout {
   constructor() {
     // Multiplier Defaults
-    this._gutterXMultiplier = 4;
-    this._gutterYMultiplier = 4;
+    this._gutterXMultiplier = 2;
+    this._gutterYMultiplier = 2;
     this._marginXMultiplier = 15;
     this._marginYMultiplier = 15;
     this._safeMultiplier = 5;
     this._utilityMultiplier = 10;
 
     // Layout defaults
+    this._spacingBase = 10;
     this._columnCount = 10;
     this._screenH = 1080;
     this._screenW = 1920;
-    this._spacingBase = 10;
   }
 
   /**
