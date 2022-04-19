@@ -1,9 +1,7 @@
-import type Base from '../../Base';
-import type ProgressBar from '../ProgressBar';
-import SliderLarge from '.';
-import Knob from '../Knob';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
-export interface SliderStyles extends ProgressBar, Knob {
+export interface SliderStyles {
   arrowAlphaDisabled?: number;
   arrowAlphaValueLimit?: number;
   arrowAlphaValue?: number;
@@ -18,11 +16,14 @@ export interface SliderStyles extends ProgressBar, Knob {
   minWidth?: number;
 }
 
-class Slider extends Base {
+declare const Slider_base: WithThemeStylesConstructor<
+  typeof Base,
+  SliderStyles
+>;
+
+export default class Slider extends Slider_base {
   max?: number;
   min?: number;
   step?: number;
-  style?: SliderStyles;
   value?: number;
 }
-export { Slider as default, SliderLarge };

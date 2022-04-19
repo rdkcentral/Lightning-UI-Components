@@ -1,10 +1,12 @@
-import type Base from '../../Base';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface IconStyles {
   color?: string;
 }
 
-export default class Icon extends Base {
+declare const Icon_base: WithThemeStylesConstructor<typeof Base, IconStyles>;
+
+export default class Icon extends Icon_base {
   icon: string;
-  style?: IconStyles;
 }

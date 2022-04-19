@@ -1,16 +1,23 @@
-import type Base from '../../Base';
+import lng from '@lightningjs/core';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface MarqueeStyles {
   fadeW?: number;
   shouldSmooth?: boolean;
   offset?: number;
 }
-export default class Marquee extends Base {
+
+declare const Marquee_base: WithThemeStylesConstructor<
+  typeof Base,
+  MarqueeStyles
+>;
+
+export default class Marquee extends Marquee_base {
   title?: string;
-  contentTexture?: Record<string, any>;
+  contentTexture?: lng.__ElementPatchObj;
   centerAlign?: boolean;
   autostart?: boolean;
-  color?: string;
   delay?: number;
   repeat?: number;
   style?: MarqueeStyles;

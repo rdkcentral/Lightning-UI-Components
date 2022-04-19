@@ -1,4 +1,5 @@
-import type Base from '../../Base';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface RadioStyles {
   strokeColor?: string;
@@ -13,10 +14,11 @@ export interface RadioStyles {
   knobWidth?: number;
 }
 
-export default class Radio extends Base {
+declare const Radio_base: WithThemeStylesConstructor<typeof Base, RadioStyles>;
+
+export default class Radio extends Radio_base {
   checked?: boolean;
   isInactive?: boolean;
-  style?: RadioStyles;
 }
 
 export class RadioSmall extends Radio {}

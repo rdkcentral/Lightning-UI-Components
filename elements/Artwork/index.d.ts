@@ -6,7 +6,7 @@ type transitionObject = {
   delay: number;
   duration: number;
   timingFunction: string;
-}
+};
 
 export interface ArtworkStyles {
   animationBlurEntrance?: transitionObject;
@@ -37,8 +37,14 @@ export default class Artwork extends Base {
   gradient?: boolean;
   gradientType?: 'default' | 'mesh';
   mode?: 'default' | 'circle' | 'square' | 'contain';
-  src?: string;
-  srcCallback?: (obj: { closestAspectRatio: string, aspectRatio: string, src: string, w: number, h: number }) => string;
+  src: string; // Inherited from lng.Element
+  srcCallback?: (obj: {
+    closestAspectRatio: string;
+    aspectRatio: string;
+    src: string;
+    w: number;
+    h: number;
+  }) => string;
   srcCallbackAspectRatios?: aspectRatio[];
   style?: ArtworkStyles;
 }

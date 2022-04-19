@@ -1,6 +1,7 @@
 {
   "include": [
-    "./**/*.d.ts"
+    "**/*.d.ts",
+    "node_modules/@lightning/lng-typed/**/*",
   ],
   "compilerOptions": {
     "outDir": "./types",
@@ -9,14 +10,12 @@
     "target": "ES2020",
     "moduleResolution": "node",
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "exactOptionalPropertyTypes": false,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
-    "skipLibCheck": true,
     "emitDeclarationOnly": true
   }
 }

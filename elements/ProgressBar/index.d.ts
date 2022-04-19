@@ -1,4 +1,5 @@
-import type Base from '../../Base';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface ProgressBarStyles {
   h?: number;
@@ -10,7 +11,11 @@ export interface ProgressBarStyles {
   animationDuration?: number;
 }
 
-export default class ProgressBar extends Base {
+declare const ProgressBar_base: WithThemeStylesConstructor<
+  typeof Base,
+  ProgressBarStyles
+>;
+
+export default class ProgressBar extends ProgressBar_base {
   progress: string;
-  style?: ProgressBarStyles;
 }

@@ -1,6 +1,7 @@
-import type Base from '../../Base';
+import Base from '../../Base';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
-export interface TagStyles {
+export interface LabelStyles {
   backgroundColor?: string;
   titleColor?: string;
   textStyle?: string;
@@ -12,7 +13,9 @@ export interface TagStyles {
   radiusBottomLeft: number;
 }
 
-export default class Tag extends Base {
+declare const Label_base: WithThemeStylesConstructor<typeof Base, LabelStyles>;
+
+export default class Label extends Label_base {
   title: string;
-  style?: TagStyles;
+  style?: LabelStyles;
 }
