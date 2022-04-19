@@ -24,4 +24,4 @@ The Vault CLI can be downloaded here: https://www.vaultproject.io/docs/commands
 
 ## Managing Users and Groups
 
-All of the users and groups for vault are managed in a single repo. You can find the info for the `lightning` org here:  https://github.comcast.com/TP-PSP/VaultPolicies/blob/main/organizations/lightning/oidc/mapping.hcl. To add/remove users/groups, make a PR against this repo.
+All of the users and groups for vault are managed in a single repo. You can find the info for the `lightning` org here: https://github.comcast.com/TP-PSP/VaultPolicies/blob/main/organizations/lightning/oidc/mapping.hcl. To add/remove users/groups, make a PR against this repo. You can look up the user's "user principal name" (upn) here: https://portal.azure.com/#blade/Microsoft_AAD_IAM/UsersManagementMenuBlade/MsGraphUsers.
