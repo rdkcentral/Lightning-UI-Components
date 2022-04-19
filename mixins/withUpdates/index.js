@@ -37,7 +37,6 @@ export default function withUpdates(Base) {
     }
 
     _construct() {
-      super._construct && super._construct();
       const prototype = Object.getPrototypeOf(this);
       if (!prototype._withUpdatesInitialized) {
         const props = this.constructor.properties || [];
