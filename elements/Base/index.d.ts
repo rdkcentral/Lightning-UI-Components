@@ -9,6 +9,6 @@ export default class Base extends lng.Component {
   _unfocus(): void;
   _smooth?: boolean;
 
-  set announce(announce: string): void;
+  set announce(announce: string);
   get announce(): string;
 }

@@ -1,8 +1,10 @@
 import lng from '@lightningjs/core';
-import { SpeechType } from './mixins/withAnnouncer/withAnnouncer';
-import WithLayout from'./mixins/withLayout/withLayout';
+import { SpeechType } from './mixins/withAnnouncer';
+import { WithLayoutConstructor } from './mixins/withLayout';
 
-export default class Base extends lng.Component implements WithLayout {
+declare const Base_base: WithLayoutConstructor<typeof lng.Component>;
+
+export default class Base extends Base_base {
   static get __componentName(): string;
   _whenEnabled: Promise<void>; //TODO move this to withUpdates mixin def
   _update(): void;
@@ -11,8 +13,8 @@ export default class Base extends lng.Component implements WithLayout {
   _announce?: SpeechType;
   _announceContext?: SpeechType;
 
-  set announce(announce: SpeechType): void;
+  set announce(announce: SpeechType);
   get announce(): SpeechType;
-  set announceContext(announce: SpeechType): void;
+  set announceContext(announce: SpeechType);
   get announceContext(): SpeechType;
 }

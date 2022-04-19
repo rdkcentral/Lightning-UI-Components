@@ -1,13 +1,20 @@
+import lng from '@lightningjs/core';
+import { AbbreviationConfig } from './abbreviations';
+export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations';
+
 export type SpeechType =
   | string
+  | undefined
   | Array<SpeechType>
   | Promise<SpeechType>
   | (() => SpeechType);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SpeakFunction = (toSpeak: SpeechType) => any;
 
 export interface WithAnnouncerOptions {
-  voiceOutDelay: number;
+  voiceOutDelay?: number;
+  abbreviationsConfig?: AbbreviationConfig;
 }
 
 export interface AnnounceOptions {
@@ -16,10 +23,9 @@ export interface AnnounceOptions {
 }
 
 export interface WithAnnouncer {
-  announcerEnabled: boolean;
   announcerTimeout: number;
 
-  set announcerEnabled(val: boolean): void;
+  set announcerEnabled(val: boolean);
   get announcerEnabled(): boolean;
 
   _voiceOut(toAnnounce: SpeechType): void;
@@ -32,10 +38,11 @@ export interface WithAnnouncer {
 }
 
 export interface WithAnnouncerConstructor {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   new (...args: any[]): WithAnnouncer;
 }
 
-export default function withAnnouncer<T>(
+export default function withAnnouncer<T extends typeof lng.Component>(
   base: T,
   speak?: SpeakFunction,
   options?: WithAnnouncerOptions

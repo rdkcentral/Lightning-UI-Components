@@ -1,10 +1,11 @@
-import type { Base } from '../../Base';
+import lng from '@lightningjs/core';
+import Base from '../../Base';
 import { default as Badge, BadgeStyles } from '../Badge';
 import { default as Checkbox, CheckboxStyles } from '../Checkbox';
-import { Component } from '@lightning/lng-typed';
-import type { default as Artwork, ArtworkStyles } from '../Artwork';
-import type { default as Label, LabelStyles } from '../Label';
-import type { default as ProgressBar, ProgressBarStyles } from '../ProgressBar';
+import { default as Artwork, ArtworkStyles } from '../Artwork';
+import { default as Label, LabelStyles } from '../Label';
+import { default as ProgressBar, ProgressBarStyles } from '../ProgressBar';
+import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface TileStyles {
   animationEntrance?: object;
@@ -14,8 +15,8 @@ export interface TileStyles {
   badgeStyles?: BadgeStyles;
   checkboxStyles?: CheckboxStyles;
   focusRing?: boolean;
-  getFocusScale?: function;
-  getUnfocusScale?: function;
+  getFocusScale?: (w: number, h: number) => number;
+  getUnfocusScale?: (w: number, h: number) => number;
   labelStyles?: LabelStyles;
   metadataStyles?: object; // TODO: Replace with TS from MetadataTile after completed
   paddingX?: number | string;
@@ -24,14 +25,17 @@ export interface TileStyles {
   radius?: number | string;
 }
 
-export declare class Tile extends Base {
-  artwork?: Artwork;
-  badge?: Badge;
-  checkbox?: Checkbox;
-  label?: Label;
+declare const Tile_base: WithThemeStylesConstructor<typeof Base, TileStyles>;
+
+export default class Tile extends Tile_base {
+  artwork?: Omit<lng.__ComponentPatchObj<typeof Artwork>, 'type'>;
+  badge?: Omit<lng.__ComponentPatchObj<typeof Badge>, 'type'>;
+  checkbox?: Omit<lng.__ComponentPatchObj<typeof Checkbox>, 'type'>;
+  label?: Omit<lng.__ComponentPatchObj<typeof Label>, 'type'>;
   metadataLocation?: string;
-  metadata?: object; // TODO: Replace with TS from MetadataTile after completed
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  metadata?: any; // TODO: Replace with TS from MetadataTile after completed
   persistentMetadata?: boolean;
-  progressBar?: ProgressBar;
+  progressBar?: Omit<lng.__ComponentPatchObj<typeof ProgressBar>, 'type'>;
   style?: TileStyles;
 }
