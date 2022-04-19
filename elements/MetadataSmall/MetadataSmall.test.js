@@ -154,7 +154,7 @@ describe('MetadataSmall', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataSmall.__updateSpyPromise;
-    expect(metadataSmall.announce).toBe(`${firstLine}. ${secondLine}`);
+    expect(metadataSmall.announce).toStrictEqual([firstLine, secondLine]);
   });
 
   it('should announce text from only some lines', async () => {
@@ -166,6 +166,6 @@ describe('MetadataSmall', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataSmall.__updateSpyPromise;
-    expect(metadataSmall.announce).toBe(`${metadataSmall.firstLine}`);
+    expect(metadataSmall.announce).toStrictEqual([firstLine, '']);
   });
 });

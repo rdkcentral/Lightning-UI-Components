@@ -9,8 +9,11 @@ function flattenStrings(series = []) {
       break;
     }
   }
-
-  return [flattenedSeries.join(', ')].concat(series.slice(i));
+  // add a "word boundary" to ensure the Announcer doesn't automatically try to
+  // interpret strings that look like dates but are not actually dates
+  // for example, if "Rising Sun" and "1993" are meant to be two separate lines,
+  // when read together, "Sun 1993" is interpretted as "Sunday 1993"
+  return [flattenedSeries.join(',\b ')].concat(series.slice(i));
 }
 
 function delay(pause) {

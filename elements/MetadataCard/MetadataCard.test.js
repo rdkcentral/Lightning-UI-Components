@@ -185,9 +185,11 @@ describe('MetadataCard', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataCard.__updateSpyPromise;
-    expect(metadataCard.announce).toBe(
-      `${firstLine}. ${secondLine}. ${thirdLine}`
-    );
+    expect(metadataCard.announce).toStrictEqual([
+      firstLine,
+      secondLine,
+      thirdLine
+    ]);
   });
 
   it('should announce text from only some lines', async () => {
@@ -199,6 +201,6 @@ describe('MetadataCard', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataCard.__updateSpyPromise;
-    expect(metadataCard.announce).toBe(`${metadataCard.firstLine}`);
+    expect(metadataCard.announce).toStrictEqual([firstLine, '', '']);
   });
 });

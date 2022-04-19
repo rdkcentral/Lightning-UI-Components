@@ -136,9 +136,7 @@ export class StatLine extends withStyles(Base, baseStyles) {
     this._stats && this._stats.length && announce.push(this._stats[0]);
     this._entities && this._entities.length && announce.push(this._entities[1]);
     this._stats && this._stats.length && announce.push(this._stats[1]);
-    return announce
-      .filter(s => s) // remove empty
-      .join('. ');
+    return announce;
   }
 
   get _LeftArrowTexture() {

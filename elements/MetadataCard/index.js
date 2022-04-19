@@ -231,9 +231,7 @@ export default class MetadataCard extends withStyles(Base, styles) {
       this._FirstLine.announce,
       this._SecondLine.announce,
       this._ThirdLine.announce
-    ]
-      .filter(s => s) // remove empty
-      .join('. ');
+    ];
   }
 
   get _textW() {

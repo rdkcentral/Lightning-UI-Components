@@ -105,6 +105,14 @@ export default class Notification extends withStyles(Base, styles) {
     ];
   }
 
+  get announce() {
+    return [
+      this.title,
+      this._Description.announce,
+      this._ActionAreaText.announce
+    ];
+  }
+
   get _animations() {
     const animations = [this._step1, this._step2, this._step3];
     if (!this._notificationActivated) animations.reverse();
