@@ -19,7 +19,7 @@ export default function withHandleKey(Base) {
         key = keyEvent.key;
       }
       if (key && typeof this[`on${key}${suffix}`] === 'function') {
-        return this[`on${key}${suffix}`].call(this, this, keyEvent) || false;
+        return this[`on${key}${suffix}`].call(this, this, keyEvent);
       }
       this.fireAncestors(`$on${key}${suffix}`, this, keyEvent);
       return false;
