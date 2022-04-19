@@ -195,9 +195,7 @@ export default class Metadata extends withStyles(Base, styles) {
       this._Data.announce,
       this.cta,
       this.logoTitle
-    ]
-      .filter(s => s)
-      .join('. ');
+    ];
   }
 
   set announce(announce) {

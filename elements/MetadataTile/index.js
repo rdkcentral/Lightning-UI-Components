@@ -192,9 +192,7 @@ export default class MetadataTile extends withStyles(Base, styles) {
     if (this._announce) {
       return this._announce;
     }
-    return [this._FirstLine.announce, this._SecondLine.announce]
-      .filter(s => s) // remove empty
-      .join('. ');
+    return [this._FirstLine.announce, this._SecondLine.announce];
   }
 
   get _textW() {

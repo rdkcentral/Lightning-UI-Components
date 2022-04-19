@@ -136,9 +136,7 @@ describe('MetadataTile', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataTile.__updatePromiseSpy;
-    expect(metadataTile.announce).toBe(
-      `${metadataTile.firstLine}. ${metadataTile.secondLine}`
-    );
+    expect(metadataTile.announce).toStrictEqual([firstLine, secondLine]);
   });
 
   it('should build announce text from one line', async () => {
@@ -152,6 +150,6 @@ describe('MetadataTile', () => {
       { spyOnMethods: ['_update'] }
     );
     await metadataTile.__updatePromiseSpy;
-    expect(metadataTile.announce).toBe(`${metadataTile.firstLine}`);
+    expect(metadataTile.announce).toStrictEqual([firstLine, '']);
   });
 });

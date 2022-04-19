@@ -351,9 +351,7 @@ export default class Card extends withStyles(Base, styles) {
       this._Metadata._Data.announce,
       this.cta,
       this.logoTitle
-    ]
-      .filter(s => s)
-      .join('. ');
+    ];
   }
 
   set announce(announce) {

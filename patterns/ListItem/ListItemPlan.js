@@ -90,6 +90,6 @@ export default class ListItemPlan extends withStyles(ListItemRadio, styles) {
       return this._announce;
     }
 
-    return [this.title, this.subtitle, this.content].filter(s => s).join('. ');
+    return [this.title, this.subtitle, this.content];
   }
 }

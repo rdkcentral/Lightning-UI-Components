@@ -666,9 +666,11 @@ describe('ListItemPlan', () => {
     });
 
     it('should announce title and subtitle', () => {
-      expect(listItemPlan.announce).toBe(
-        'ListItemPlan title. ListItemPlan subtitle. ListItemPlan content'
-      );
+      expect(listItemPlan.announce).toStrictEqual([
+        listItemPlan.title,
+        listItemPlan.subtitle,
+        listItemPlan.content
+      ]);
     });
   });
 });

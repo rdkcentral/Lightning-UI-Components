@@ -124,9 +124,7 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
       this._Data.announce,
       this.cta,
       this.logoTitle
-    ]
-      .filter(s => s)
-      .join('. ');
+    ];
   }
 
   set announce(announce) {
