@@ -88,6 +88,8 @@ describe('Tile', () => {
 
   describe('focus', () => {
     it('should update item and focus ring scale on unfocus', async done => {
+      tile._focus();
+      await TestUtils.nextTick(2e3);
       testRenderer.unfocus();
       await TestUtils.nextTick(2e3);
       const unfocusScale = tile._getUnfocusScale(tile.w, tile.h);
@@ -102,11 +104,11 @@ describe('Tile', () => {
       tile._smooth = false;
       tile._focus();
       testRenderer.update();
-      tile._whenEnabled.then(() => {
+      setTimeout(() => {
         expect(tile._Item.scale).toBe(scale);
         expect(tile._FocusRing.scale).toBe(scale);
         done();
-      });
+      }, 1);
     });
 
     it('should update focus ring and drop shadow alpha on focus', async done => {

@@ -125,7 +125,7 @@ export default class FocusRing extends withStyles(Base, styles) {
       ]
     });
 
-    if (isPlaying) {
+    if (isPlaying || this.shouldAnimate) {
       this.startAnimation();
     }
   }
