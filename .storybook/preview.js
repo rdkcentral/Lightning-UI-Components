@@ -5,6 +5,7 @@ import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
 import theme from './theme';
 import withAnnouncer from '../mixins/withAnnouncer';
+import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 
 export const globalTypes = {
@@ -115,6 +116,9 @@ addDecorator(
       }
     }
     function createApp() {
+      window.APP && window.APP.destroy && window.APP.destroy();
+      Pool.clear();
+
       const app = new StoryApp({
         stage: {
           ...stage,

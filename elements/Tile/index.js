@@ -4,6 +4,7 @@ import withStyles from '../../mixins/withStyles';
 import blackBackground from '../../Styles/assets/black_background_tile';
 import Base from '../Base';
 import Gradient from '../Gradient';
+import Pool from '../../utils/pool';
 
 export const styles = theme => ({
   shouldAnimate: true,
@@ -285,33 +286,51 @@ class Tile extends Base {
   }
 
   _updateFocusRing() {
-    if (this.hasFocus() || this._FocusRing) {
-      const focusRingPatch = this._createFocusRing({
+    let style,
+      focusRingComp = this._FocusRing;
+
+    if (this.hasFocus()) {
+      focusRingComp =
+        focusRingComp ||
+        Pool.get('tile_focusring') ||
+        Pool.create({
+          name: 'tile_focusring',
+          component: {
+            ...this._createFocusRing({
+              w: this.w,
+              h: this.h,
+              radius: this._radius,
+              color: this.focusRingColor
+            }),
+            alpha: 0,
+            type: this._focusRingType
+          },
+          stage: this.stage
+        });
+
+      this.patch({ FocusRing: focusRingComp });
+      focusRingComp._shouldAnimate = this._shouldAnimate;
+      style = this._focusedStyle.focusring;
+
+      const mustUpdate =
+        focusRingComp.w !== this.w || focusRingComp.h !== this.h;
+      focusRingComp.patch({
         w: this.w,
         h: this.h,
         radius: this._radius,
-        color: this.focusRingColor
+        alpha: 0,
+        scale: 1
       });
+      mustUpdate && focusRingComp._update();
+    } else if (focusRingComp) {
+      style = this._unfocusedStyle.focusring;
+    }
 
-      if (!this._FocusRing) {
-        focusRingPatch.type = this._focusRingType;
-      }
-      this.patch({ FocusRing: focusRingPatch });
-
-      const style = this.hasFocus()
-        ? this._focusedStyle.focusring
-        : this._unfocusedStyle.focusring;
+    if (style) {
       if (this._smooth) {
-        this._FocusRing.smooth = style;
+        focusRingComp.smooth = style;
       } else {
-        this._FocusRing.patch(style);
-      }
-      this._FocusRing._shouldAnimate = this.shouldAnimate;
-
-      if (this.hasFocus()) {
-        this._FocusRing.startAnimation();
-      } else {
-        this._FocusRing.stopAnimation();
+        focusRingComp.patch(style);
       }
     }
   }
