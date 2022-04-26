@@ -2,7 +2,10 @@ import TestUtils from '../../test/lightning-test-utils';
 import Metadata from '.';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 
-const createComponent = TestUtils.makeCreateComponent(Metadata);
+const createComponent = TestUtils.makeCreateComponent(Metadata, {
+  w: 400,
+  h: 300
+});
 
 describe('Metadata', () => {
   let component, testRenderer;
@@ -20,45 +23,44 @@ describe('Metadata', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('updates the Title', () => {
-    const title = 'title text';
-    expect(component.title).toBe(undefined);
-    component.title = title;
-    expect(component.title).toBe(title);
+  it('updates the firstLine', () => {
+    const firstLine = 'title text';
+    expect(component.firstLine).toBe(undefined);
+    component.firstLine = firstLine;
+    expect(component.firstLine).toBe(firstLine);
   });
 
-  it('updates the Description', () => {
-    const description = 'description text';
-    expect(component.description).toBe(undefined);
-    component.description = description;
-    expect(component.description).toBe(description);
+  it('updates the secondLine', () => {
+    const secondLine = 'secondLine text';
+    expect(component.secondLine).toBe(undefined);
+    component.secondLine = secondLine;
+    expect(component.secondLine).toBe(secondLine);
   });
 
-  it('updates the Data', () => {
-    const dataText = 'data text';
-    expect(component.data).toBe(undefined);
-    component.data = dataText;
-    expect(component.data).toBe(dataText);
+  it('updates the thirdLine', () => {
+    const thirdLine = 'thirdLine text';
+    expect(component.thirdLine).toBe(undefined);
+    component.thirdLine = thirdLine;
+    expect(component.thirdLine).toBe(thirdLine);
   });
 
-  it('updates the Logo', () => {
+  it('updates the Logo and its position', () => {
     expect(component.logo).toBe(undefined);
     component.logo = lightningbolt;
     expect(component.logo).toBe(lightningbolt);
-  });
 
-  it('hides Data if there is an CTA, and converts the CTA text to uppercase', async () => {
-    const ctaText = 'cta text';
-    const dataText = 'data text';
-    [component, testRenderer] = createComponent(
-      { data: dataText, cta: ctaText },
-      { spyOnMethods: ['_update'] }
-    );
-
-    await component.__updateSpyPromise;
+    const secondLine = 'secondLine text';
+    component.secondLine = secondLine;
     testRenderer.update();
-
-    expect(component._Data.content).toBe(undefined);
-    expect(component._CTA.title).toBe(ctaText.toUpperCase());
+    setTimeout(() => {
+      const logoX = component.w - component.logoWidth;
+      expect(component._Logo.x).toBe(logoX);
+      component.logoPosition = 'left';
+      testRenderer.update();
+      expect(component._Logo.x).toBe(0);
+      const secondLineX =
+        component.logoWidth + component._componentStyles.logoPadding;
+      expect(component._SecondLine.x).toBe(secondLineX);
+    }, 1);
   });
 });
