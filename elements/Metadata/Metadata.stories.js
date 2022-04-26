@@ -22,25 +22,12 @@ export const Basic = args =>
         Metadata: {
           type: Metadata,
           w: args.w,
-          h: args.h,
           title: args.title,
+          subtitle: args.subtitle,
           description: args.description,
-          data: [
-            '94%',
-            {
-              icon: lightningbolt,
-              color: getHexColor('00ff00'),
-              title: 'Green Lightning Bolt'
-            },
-            '86%',
-            {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
-            }
-          ],
-          logo: args.showIcon ? circle : null,
-          logoTitle: args.showIcon ? args.logoTitle : null,
-          cta: args.showCTA ? args.cta : null
+          logo: args.logo !== 'none' ? circle : null,
+          logoTitle: args.logo !== 'none' ? args.logoTitle : null,
+          logoPosition: args.logoPosition
         }
       };
     }
@@ -49,26 +36,94 @@ export const Basic = args =>
       return this.tag('Metadata');
     }
   };
-Basic.args = {
-  w: 400,
-  h: 300,
-  title: 'Title',
-  description: 'Description',
-  cta: 'Watch on Netflix',
-  showCTA: false,
-  showIcon: true,
-  logoTitle: 'Logo title'
-};
+
 Basic.argTypes = {
-  w: { control: 'number' },
-  h: { control: 'number' },
-  title: { control: 'text' },
-  description: { control: 'text' },
-  cta: { control: 'text' },
-  showCTA: { control: 'boolean' },
-  showIcon: { control: 'boolean' },
-  logoTitle: { control: 'text' }
-};
-Basic.parameters = {
-  argActions: {}
+  w: {
+    defaultValue: 400,
+    table: {
+      defaultValue: { summary: 400 }
+    },
+    control: 'number',
+    description: 'width of component'
+  },
+  title: {
+    defaultValue: 'Title',
+    table: {
+      defaultValue: { summary: 'Title' }
+    },
+    control: 'text',
+    description: 'title text'
+  },
+  subtitle: {
+    defaultValue: [
+      '94%',
+      {
+        icon: lightningbolt,
+        color: getHexColor('00ff00'),
+        title: 'Green Lightning Bolt'
+      },
+      '86%',
+      {
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+        title: 'Rotten Tomatoes rating'
+      }
+    ],
+    table: {
+      defaultValue: {
+        summary: [
+          '94%',
+          {
+            icon: lightningbolt,
+            color: getHexColor('00ff00'),
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            title: 'Rotten Tomatoes rating'
+          }
+        ]
+      }
+    },
+    control: 'text',
+    description: 'subtitle content'
+  },
+  description: {
+    defaultValue: 'Description',
+    table: {
+      defaultValue: { summary: 'Description' }
+    },
+    control: 'text',
+    description: 'description text'
+  },
+  logo: {
+    defaultValue: circle,
+    table: {
+      defaultValue: { summary: circle }
+    },
+    control: {
+      type: 'select',
+      options: ['none', circle]
+    },
+    description: 'image to use for logo'
+  },
+  logoTitle: {
+    defaultValue: 'Logo title',
+    table: {
+      defaultValue: { summary: 'Logo title' }
+    },
+    control: 'text',
+    description: 'title to use for logo in announcer'
+  },
+  logoPosition: {
+    defaultValue: 'right',
+    table: {
+      defaultValue: { summary: 'right' }
+    },
+    control: {
+      type: 'select',
+      options: ['right', 'left']
+    },
+    description: 'position logo on the left/right side'
+  }
 };
