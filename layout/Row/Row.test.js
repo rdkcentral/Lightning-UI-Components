@@ -137,6 +137,123 @@ describe('Row', () => {
     });
   });
 
+  describe('appendItemsAt', () => {
+    let initialLength;
+    const items = [
+      {
+        ...baseItem,
+        testId: 'A'
+      },
+      {
+        ...baseItem,
+        testId: 'B'
+      }
+    ];
+    beforeEach(() => {
+      initialLength = row.items.length;
+    });
+
+    it('should add items at the specified index', () => {
+      row.appendItemsAt(items, 1);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[1].testId).toBe(items[0].testId);
+      expect(row.items[2].testId).toBe(items[1].testId);
+    });
+    it('should append items to the end of the row if an index is not specified', () => {
+      row.appendItemsAt(items);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[row.items.length - 2].testId).toBe(items[0].testId);
+      expect(row.items[row.items.length - 1].testId).toBe(items[1].testId);
+    });
+    it('should not add items when none are passed to the method', () => {
+      row.appendItemsAt();
+      expect(row.items.length).toBe(initialLength);
+    });
+  });
+
+  describe('prependItems', () => {
+    it('should prepend items to the row', () => {
+      const initialLength = row.items.length;
+      const items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        }
+      ];
+      row.prependItems(items);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[0].testId).toBe(items[0].testId);
+      expect(row.items[1].testId).toBe(items[1].testId);
+    });
+  });
+
+  describe('when items are added at an index lesser than the current selected item', () => {
+    const item = {
+      ...baseItem,
+      testId: 'added',
+      w: 100,
+      h: undefined
+    };
+    const items = [
+      { ...baseItem, testId: 'A' },
+      { ...baseItem, testId: 'B' },
+      { ...baseItem, testId: 'C' }
+    ];
+    const itemSpacing = 20;
+
+    beforeEach(async () => {
+      [row, testRenderer] = createRow(
+        {
+          items,
+          selectedIndex: 2,
+          itemSpacing
+        },
+        {
+          spyOnMethods: ['_updateLayout']
+        }
+      );
+
+      await row.__updateLayoutSpyPromise;
+    });
+
+    it('should maintain the x position of the current selected item relative to the row by shifting the row', async () => {
+      const initialX = row.Items.x;
+      const exepctedX = row.Items.x - item.w - itemSpacing;
+      expect(row.Items.x).toBe(initialX);
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.Items.x).toBe(exepctedX);
+    });
+    it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
+      row.lazyScroll = true;
+      const initialX = row.Items.x;
+      const exepctedX = row.Items.x - item.w - itemSpacing;
+      expect(row.Items.x).toBe(initialX);
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.Items.x).toBe(exepctedX);
+    });
+    it('should persist which item is selected', async () => {
+      expect(row.selected.testId).toBe('C');
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.selected.testId).toBe('C');
+    });
+  });
+
   describe('wrapping', () => {
     it('should default to false and should not wrap', () => {
       row._selectedIndex = 4;

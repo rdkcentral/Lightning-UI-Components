@@ -390,3 +390,98 @@ LazyScrollIndexes.argTypes = {
     control: 'number'
   }
 };
+
+export const AddingItems = args =>
+  class AddingItems extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i}`,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Row').appendItemsAt(
+          [
+            {
+              type: Button,
+              buttonText: 'New Button 0',
+              w: 150
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 1',
+              w: 150
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 2',
+              w: 150
+            }
+          ],
+          3
+        );
+      }, 3000);
+      setTimeout(() => {
+        this.tag('Row').prependItems([
+          {
+            type: Button,
+            buttonText: 'New Button 3',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 4',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 5',
+            w: 150
+          }
+        ]);
+      }, 3750);
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+AddingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false
+};
+AddingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
+};
