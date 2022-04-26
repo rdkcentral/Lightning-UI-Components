@@ -136,7 +136,7 @@ export default class Row extends FocusManager {
       return true;
     }
 
-    let shouldScroll = this.alwaysScroll;
+    let shouldScroll = this.alwaysScroll || this._selectedPastAdded;
     if (!shouldScroll && !this.neverScroll) {
       const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
 
@@ -154,8 +154,17 @@ export default class Row extends FocusManager {
     return shouldScroll;
   }
 
+  _getPrependedOffset() {
+    this._selectedPastAdded = false;
+    return this.Items.x - this._totalAddedWidth;
+  }
+
   _getLazyScrollX(prev) {
     const prevIndex = this.Items.childList.getIndex(this.prevSelected);
+
+    if (this._selectedPastAdded) {
+      return this._getPrependedOffset();
+    }
 
     if (this.selectedIndex <= this.startLazyScrollIndex) {
       // if navigating on items before start lazy scroll index, use normal scroll logic
@@ -191,6 +200,9 @@ export default class Row extends FocusManager {
   }
 
   _getScrollX() {
+    if (this._selectedPastAdded) {
+      return this._getPrependedOffset();
+    }
     let itemsContainerX;
     let itemIndex = this.selectedIndex - this.scrollIndex;
     itemIndex = itemIndex < 0 ? 0 : itemIndex;
@@ -268,7 +280,7 @@ export default class Row extends FocusManager {
     }
 
     const itemChanged = this.Items.h !== nextH || this.Items.w !== nextX;
-    this.Items.patch({ h: nextH, w: nextX });
+    this.Items.patch({ h: nextH, w: nextX + (this._totalAddedWidth || 0) });
 
     if (this.autoResize) {
       this.h = this.Items.h;
@@ -335,6 +347,38 @@ export default class Row extends FocusManager {
     this.stage.update();
     this._update();
     this._refocus();
+  }
+
+  appendItemsAt(items = [], idx) {
+    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
+    this._smooth = false;
+    this._lastAppendedIdx = addIndex;
+    this._totalAddedWidth = 0;
+
+    items.forEach((item, itemIdx) => {
+      this.Items.childList.addAt(
+        {
+          ...item,
+          parentFocus: this.hasFocus(),
+          h: item.h || this.Items.h
+        },
+        addIndex + itemIdx
+      );
+      const extraItemSpacing = item.extraItemSpacing || 0;
+      this._totalAddedWidth += item.w + this.itemSpacing + extraItemSpacing;
+    });
+
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedPastAdded = true;
+      this._selectedIndex += items.length;
+    }
+
+    this._updateLayout();
+    this._refocus();
+  }
+
+  prependItems(items) {
+    this.appendItemsAt(items, 0);
   }
 
   $itemChanged() {

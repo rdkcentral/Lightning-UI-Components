@@ -65,7 +65,7 @@ The `scrollIndex` property determines the index at which scrolling should begin.
 | neverScroll          | boolean                                                 | false    | false     | if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic                                                      |
 | lazyScroll           | boolean                                                 | false    |           | will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false                                                                                   |
 | onScreenItems        | array                                                   | true     |           | contains a list of items that are currently on screen (within the bounds of the container)                                                                                           |
-| autoResize           | boolean                                                 | false    | false     | automatically sets the height and width of the column to be the same as the Items container inside                                                                                   |
+| autoResize           | boolean                                                 | false    | false     | automatically sets the height and width of the row to be the same as the Items container inside                                                                                      |
 | startLazyScrollIndex | number                                                  | false    |           | when `lazyScroll` is `true`, index of item in `items`, and items thereafter, at which lazy scrolling should occur at (alwasy scroll functionality will take place before this index) |
 | stopLazyScrollIndex  | number                                                  | false    |           | when `lazyScroll` is `true`, index of item in `items`, and items preceding, at which lazy scrolling should occur (alwasy scroll functionality will take place after this index)      |
 
@@ -87,6 +87,14 @@ A callback that can be overridden to do something with the items that are curren
 #### appendItems(items: lng.Component[]): void
 
 Adds items to the end of the child list
+
+#### appendItemsAt(items: lng.Component[], index: number): void
+
+Adds items at a specified index of the child list
+
+#### prependItems(items: lng.Component[]): void
+
+Adds items to the start of the child list
 
 ##### Arguments
 
