@@ -4,9 +4,12 @@ import context from '../context';
 export default {
   methods: {
     after__update() {
-
       /** If component does not have FocusRing true clean up any previous element and stop execution */
-      if (!this._componentStyles || !this._componentStyles.focusRing) {
+      if (
+        !this._componentStyles ||
+        this.disabled ||
+        !this._componentStyles.focusRing
+      ) {
         if (this.tag('FocusRing')) {
           this.patch({
             FocusRing: undefined
@@ -68,7 +71,7 @@ export default {
       /**
        * Update variant and styles
        */
-      let focusRingPatch = {
+      const focusRingPatch = {
         variant: this.variant,
         style: {
           radius: this._componentStyles.radius || 0
@@ -114,6 +117,7 @@ export default {
         this.tag('FocusRing').startAnimation();
       } else {
         this.tag('FocusRing').stopAnimation();
+        this.tag('FocusRing').alpha = 0;
       }
     }
   },
