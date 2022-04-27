@@ -11,7 +11,7 @@ import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import theme from './theme';
 import Speech from '../mixins/withAnnouncer/Speech';
-
+import { getValidColor } from '../Styles';
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
 });
@@ -84,15 +84,13 @@ function createApp(parameters) {
     language: 'en-US',
     ...parameters.announcerOptions
   };
-  // const white = 0xffffffff;
-  const grey = 0xff141417;
+
   const appParams = {
     stage: {
       w: 1280,
       h: 720,
       precision: 2 / 3,
-      clearColor: grey,
-      debug: false,
+      clearColor: getValidColor('#232328'),
       canvas2d: false,
       useImageWorker: false,
       inspector: true,

@@ -78,7 +78,6 @@ Object {
           "tags": Array [
             "Logo",
           ],
-<<<<<<< HEAD
           "texture": Object {
             "fontFace": "XfinityStandardMedium",
             "fontSize": 28,
@@ -92,9 +91,6 @@ Object {
             "wordWrapWidth": 402,
           },
           "type": "TextBox",
-=======
-          "type": "Icon",
->>>>>>> b01b56f4 (feat(Metadata): refactor for theming (#892))
           "visible": true,
           "w": 32,
           "x": 370,
@@ -344,7 +340,6 @@ Object {
               "tags": Array [
                 "Title",
               ],
-<<<<<<< HEAD
               "type": "Icon",
               "visible": true,
               "w": 32,
@@ -422,9 +417,6 @@ Object {
                 "textBaseline": "bottom",
                 "type": "TextTexture",
               },
-=======
-              "type": "TextBox",
->>>>>>> b01b56f4 (feat(Metadata): refactor for theming (#892))
               "visible": true,
               "w": 0,
               "x": 0,
@@ -434,13 +426,8 @@ Object {
           },
           "clipping": false,
           "color": 4294967295,
-<<<<<<< HEAD
           "enabled": true,
           "flex": false,
-=======
-          "enabled": false,
-          "flex": true,
->>>>>>> b01b56f4 (feat(Metadata): refactor for theming (#892))
           "flexItem": true,
           "h": 0,
           "isComponent": undefined,
@@ -461,7 +448,6 @@ Object {
           "tags": Array [
             "Text",
           ],
-<<<<<<< HEAD
           "texture": Object {
             "fontFace": "XfinityBrownBold",
             "fontSize": 36,
@@ -476,8 +462,6 @@ Object {
             "wordWrapWidth": 402,
           },
           "type": "TextBox",
-=======
->>>>>>> b01b56f4 (feat(Metadata): refactor for theming (#892))
           "visible": true,
           "w": 0,
           "x": 0,
@@ -487,17 +471,10 @@ Object {
       },
       "clipping": false,
       "color": 4294967295,
-<<<<<<< HEAD
       "enabled": true,
       "flex": true,
       "flexItem": true,
       "h": 199,
-=======
-      "enabled": false,
-      "flex": false,
-      "flexItem": false,
-      "h": 32,
->>>>>>> b01b56f4 (feat(Metadata): refactor for theming (#892))
       "hasFinalFocus": false,
       "hasFocus": false,
       "isComponent": true,
