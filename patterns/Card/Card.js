@@ -355,6 +355,6 @@ export default class Card extends withStyles(Base, styles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 }

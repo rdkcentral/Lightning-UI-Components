@@ -58,7 +58,7 @@ export default class ListItemImageGroup extends withStyles(Base, styles) {
     this._setHeight();
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

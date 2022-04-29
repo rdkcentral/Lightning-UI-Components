@@ -83,7 +83,7 @@ export default class Key extends withStyles(Button, keyStyles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

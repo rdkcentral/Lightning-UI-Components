@@ -123,7 +123,7 @@ export class StatLine extends withStyles(Base, baseStyles) {
     return preciseStat;
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {
@@ -210,7 +210,7 @@ export class SingleStatLine extends withStyles(Base, baseStyles) {
     this._Stat.patch({ text: this.getPreciseStat(this._stat) });
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {
@@ -272,7 +272,7 @@ class Stats extends Base {
     return this._DataItem;
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

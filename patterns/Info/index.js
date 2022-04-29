@@ -98,7 +98,7 @@ export default class Info extends withStyles(Base, styles) {
     return this._DataItem;
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

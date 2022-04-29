@@ -59,7 +59,7 @@ export default class Keyboard extends Base {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announceContext() {
