@@ -362,7 +362,7 @@ export default class Input extends withStyles(Base, styles) {
     return this.password ? 'Input hidden' : this.value || this.placeholder;
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   _setCaption(caption) {

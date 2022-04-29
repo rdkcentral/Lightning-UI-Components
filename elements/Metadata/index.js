@@ -199,6 +199,6 @@ export default class Metadata extends withStyles(Base, styles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 }

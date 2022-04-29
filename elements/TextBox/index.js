@@ -157,6 +157,6 @@ export default class TextBox extends withStyles(Base, styles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 }

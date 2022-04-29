@@ -171,7 +171,7 @@ export class TabBase extends Base {
     return content;
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

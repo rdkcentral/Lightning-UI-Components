@@ -128,6 +128,6 @@ export default class MetadataHero extends withStyles(Metadata, styles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 }

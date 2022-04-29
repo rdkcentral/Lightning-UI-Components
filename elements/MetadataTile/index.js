@@ -185,7 +185,7 @@ export default class MetadataTile extends withStyles(Base, styles) {
     }
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   get announce() {

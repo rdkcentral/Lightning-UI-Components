@@ -120,7 +120,7 @@ export default class ListItemSlider extends ListItem {
     return [this._title, this._value].join(' ');
   }
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
 
   _getValue() {

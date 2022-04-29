@@ -54,7 +54,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   }
 
   set announce(announce) {
-    super._announce = announce;
+    super.announce = announce;
   }
   _init() {
     super._init();
