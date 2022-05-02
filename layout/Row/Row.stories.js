@@ -485,3 +485,58 @@ AddingItems.argTypes = {
     control: 'boolean'
   }
 };
+
+export const LazyUpCount = args =>
+  class LazyUpCount extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          lazyUpCount: args.lazyUpCount,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+LazyUpCount.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false,
+  lazyUpCount: 4
+};
+LazyUpCount.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  lazyUpCount: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
+};

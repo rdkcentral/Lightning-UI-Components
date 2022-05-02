@@ -315,3 +315,7 @@ export function isComponentOnScreen(component) {
 
   return true;
 }
+
+export function delayForAnimation(callback, delay = 16) {
+  setTimeout(callback, delay);
+}
