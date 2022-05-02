@@ -15,7 +15,7 @@ const items = [
   { ...baseItem }
 ];
 
-const createRow = TestUtils.makeCreateComponent(Row, {
+const properties = {
   title: 'My Row',
   h: 80,
   w: 400,
@@ -24,15 +24,17 @@ const createRow = TestUtils.makeCreateComponent(Row, {
     selectedChange: 'selectedChangeMock'
   },
   debounceDelay: 0,
-  items
-});
+  items,
+  itemSpacing: 0
+};
+
+const createRow = TestUtils.makeCreateComponent(Row, properties);
 
 describe('Row', () => {
   let testRenderer, row;
 
   beforeEach(() => {
     [row, testRenderer] = createRow();
-    return row._whenEnabled;
   });
 
   afterEach(() => {
@@ -118,6 +120,7 @@ describe('Row', () => {
       const item = { ...baseItem };
       expect(row.items.length).toBe(5);
       row.appendItems([item]);
+      testRenderer.forceAllUpdates();
       expect(row.items.length).toBe(6);
       expect(row.items[row.items.length - 1].x >= row.x + row.w).toBe(true);
     });
@@ -329,14 +332,19 @@ describe('Row', () => {
       row.items = [...items, ...items];
     });
 
-    it('should scroll long rows', done => {
+    it('should scroll long rows', () => {
+      [row, testRenderer] = createRow({
+        ...properties,
+        scrollTransition: { duration: 0 },
+        items: [...items, ...items]
+      });
+      testRenderer.forceAllUpdates();
       expect(row._Items.x).toBe(0);
       testRenderer.keyPress('Right');
-      row._whenEnabled.then(() => {
-        expect(row._selectedIndex).toBe(1);
-        expect(row._Items.transition('x').targetValue).toBe(-row.selected.x);
-        done();
-      });
+      TestUtils.fastForward(row._Items);
+      testRenderer.update();
+      expect(row._selectedIndex).toBe(1);
+      expect(row._Items.x).toBe(-row.selected.x);
     });
 
     it('should add items on lazyUpCount', done => {
@@ -354,10 +362,8 @@ describe('Row', () => {
       row.itemPosX = 100;
       row.items = [];
       testRenderer.keyPress('Right');
-      row._whenEnabled.then(() => {
-        expect(row._Items.x).toBe(100);
-        done();
-      });
+      expect(row._Items.x).toBe(100);
+      done();
     });
 
     // TODO: Fix - released to get h
@@ -408,20 +414,23 @@ describe('Row', () => {
         });
 
         it('shifts items to the left if selected index > start scroll index', done => {
+          [row, testRenderer] = createRow({
+            ...properties,
+            items: [...items, ...items],
+            scrollMount: 0.5
+          });
           expect(row.items.map(({ x }) => x)).toEqual(
             expect.arrayContaining([
               0, 80, 160, 240, 320, 400, 480, 560, 640, 720
             ])
           );
-
+          testRenderer.forceAllUpdates();
           testRenderer.keyPress('Right');
-
-          row._whenEnabled.then(() => {
-            testRenderer.update();
-            expect(row.selected.x).toBe(80);
-            expect(row._itemsX).toBe(-80);
-            done();
-          });
+          TestUtils.fastForward(row._Items);
+          testRenderer.update();
+          expect(row.selected.x).toBe(80);
+          expect(row._itemsX).toBe(-80);
+          done();
         });
 
         it('does not scroll if last item is already in view', () => {
@@ -458,11 +467,9 @@ describe('Row', () => {
         testRenderer.keyPress('Right');
         testRenderer.keyPress('Right');
         testRenderer.update();
-        row._whenEnabled.then(() => {
-          expect(row._selectedIndex).toBe(3);
-          expect(row._Items.transition('x').targetValue).toBe(0);
-          done();
-        });
+        expect(row._selectedIndex).toBe(3);
+        expect(row._Items.transition('x').targetValue).toBe(0);
+        done();
       });
     });
 

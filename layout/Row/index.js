@@ -1,6 +1,14 @@
 import FocusManager from '../FocusManager';
 import { getX, getH, delayForAnimation } from '../../utils';
-export default class Row extends FocusManager {
+import withStyles from '../../mixins/withThemeStyles';
+import withExtensions from '../../mixins/withExtensions';
+import styles from './Row.styles';
+
+class Row extends FocusManager {
+  static get __componentName() {
+    return 'Row';
+  }
+
   static _template() {
     return {
       ...super._template(),
@@ -26,12 +34,9 @@ export default class Row extends FocusManager {
   _construct() {
     super._construct();
     this._smooth = false;
-    this._itemSpacing = 0;
-    this._scrollIndex = 0;
   }
 
   _init() {
-    super._init();
     if (!this.w) {
       // if width is undefined or 0, set the Row's width
       if (
@@ -57,23 +62,40 @@ export default class Row extends FocusManager {
       'finish',
       this._transitionListener.bind(this)
     );
+
+    super._init();
   }
 
   _update() {
     this._updateLayout();
   }
 
-  _setItemSpacing(itemSpacing) {
-    return itemSpacing || 0;
+  _getItemSpacing() {
+    return this._itemSpacing !== undefined
+      ? this._itemSpacing
+      : this._componentStyles.itemSpacing;
+  }
+
+  _getScrollIndex() {
+    return this._scrollIndex !== undefined
+      ? this._scrollIndex
+      : this._componentStyles.scrollIndex;
+  }
+
+  _getAlwaysScroll() {
+    return this._alwaysScroll !== undefined
+      ? this._alwaysScroll
+      : this._componentStyles.alwaysScroll;
+  }
+
+  _getNeverScroll() {
+    return this._neverScroll !== undefined
+      ? this._neverScroll
+      : this._componentStyles.neverScroll;
   }
 
   get _itemTransition() {
-    return (
-      this.itemTransition || {
-        duration: 0.4,
-        timingFunction: 'cubic-bezier(0.20, 1.00, 0.30, 1.00)'
-      }
-    );
+    return this._componentStyles.itemTransition;
   }
 
   _focus() {
@@ -112,7 +134,7 @@ export default class Row extends FocusManager {
         shouldScroll = true;
       }
     } else {
-      shouldScroll = this.selectedIndex >= this._scrollIndex;
+      shouldScroll = this.selectedIndex >= this.scrollIndex;
     }
 
     return this._itemsX < 0 && shouldScroll;
@@ -122,7 +144,7 @@ export default class Row extends FocusManager {
   shouldScrollRight() {
     const lastChild = this.Items.childList.last;
     return (
-      this.selectedIndex > this._scrollIndex &&
+      this.selectedIndex > this.scrollIndex &&
       // end of Items container < end of last item
       Math.abs(this._itemsX - this.w) <
         lastChild.x + this.Items.childList.last.w
@@ -240,34 +262,33 @@ export default class Row extends FocusManager {
   }
 
   render(next, prev) {
-    this._whenEnabled.then(() => {
-      if (this.plinko && prev && (prev.currentItem || prev.selected)) {
-        next.selectedIndex = this._getIndexOfItemNear(next, prev);
-      }
+    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+      next.selectedIndex = this._getIndexOfItemNear(next, prev);
+    }
 
-      this._prevLastScrollIndex = this._lastScrollIndex;
+    this._prevLastScrollIndex = this._lastScrollIndex;
 
-      let itemsContainerX;
-      if (!this.Items.children.length) {
-        itemsContainerX = this.itemPosX;
-      } else if (this._shouldScroll()) {
-        itemsContainerX = this.lazyScroll
+    let itemsContainerX;
+    if (!this.Items.children.length) {
+      itemsContainerX = this.itemPosX;
+    } else if (this._shouldScroll()) {
+      itemsContainerX =
+        this.lazyScroll && prev
           ? this._getLazyScrollX(prev)
           : this._getScrollX();
+    }
+    if (itemsContainerX !== undefined) {
+      if (this._smooth) {
+        this.Items.smooth = {
+          x: [itemsContainerX, this._itemTransition]
+        };
+      } else {
+        this.Items.x = itemsContainerX;
+        this._updateTransitionTarget(this.Items, 'x', itemsContainerX);
       }
-      if (itemsContainerX !== undefined) {
-        if (this._smooth) {
-          this.Items.smooth = {
-            x: [itemsContainerX, this._itemTransition]
-          };
-        } else {
-          this.Items.x = itemsContainerX;
-          this._updateTransitionTarget(this.Items, 'x', itemsContainerX);
-        }
-      }
+    }
 
-      this.onScreenEffect(this.onScreenItems);
-    });
+    this.onScreenEffect(this.onScreenItems);
   }
 
   _updateLayout() {
@@ -309,7 +330,7 @@ export default class Row extends FocusManager {
 
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild ? getX(lastChild) + lastChild.w : 0;
-    const scrollOffset = (this.Items.children[this._scrollIndex] || { x: 0 }).x;
+    const scrollOffset = (this.Items.children[this.scrollIndex] || { x: 0 }).x;
 
     // determine when to stop scrolling right
     if (this.alwaysScroll) {
@@ -353,7 +374,7 @@ export default class Row extends FocusManager {
       item.h = item.h || itemHeight;
     });
     this.stage.update();
-    this._update();
+    this._requestUpdateDebounce();
     this._refocus();
   }
 
@@ -419,3 +440,5 @@ export default class Row extends FocusManager {
   // can be overridden
   transitionDone() {}
 }
+
+export default withExtensions(withStyles(Row, styles));

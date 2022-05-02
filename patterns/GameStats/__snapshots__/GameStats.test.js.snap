@@ -425,7 +425,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 88,
+                      "y": 112,
                       "zIndex": 0,
                     },
                     "Element-26": Object {
@@ -788,7 +788,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 176,
+                      "y": 224,
                       "zIndex": 0,
                     },
                     "Element-35": Object {
@@ -1151,7 +1151,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 264,
+                      "y": 336,
                       "zIndex": 0,
                     },
                     "Element-44": Object {
@@ -1514,7 +1514,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 352,
+                      "y": 448,
                       "zIndex": 0,
                     },
                     "Element-53": Object {
@@ -1877,7 +1877,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 440,
+                      "y": 560,
                       "zIndex": 0,
                     },
                     "Element-62": Object {
@@ -2240,7 +2240,7 @@ Object {
                       "visible": true,
                       "w": 0,
                       "x": 0,
-                      "y": 528,
+                      "y": 672,
                       "zIndex": 0,
                     },
                     "Element-8": Object {
@@ -2612,7 +2612,7 @@ Object {
                   "enabled": true,
                   "flex": false,
                   "flexItem": false,
-                  "h": 616,
+                  "h": 760,
                   "isComponent": undefined,
                   "mount": 0,
                   "mountX": 0,

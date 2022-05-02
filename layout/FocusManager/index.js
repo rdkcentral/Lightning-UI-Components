@@ -3,10 +3,15 @@
  *
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
-import Base from '../../elements/Base';
+import Base from '../../Base';
 import { getX, getY, isComponentOnScreen } from '../../utils';
+import withExtensions from '../../mixins/withExtensions';
 
-export default class FocusManager extends Base {
+class FocusManager extends Base {
+  static get __componentName() {
+    return 'FocusManager';
+  }
+
   static get tags() {
     return ['Items'];
   }
@@ -439,3 +444,5 @@ export default class FocusManager extends Base {
     ];
   }
 }
+
+export default withExtensions(FocusManager);
