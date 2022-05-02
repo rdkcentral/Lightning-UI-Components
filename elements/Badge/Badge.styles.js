@@ -16,16 +16,16 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      backgroundColor: theme.colors.fillInverse1Secondary,
-      textColor: theme.colors.fillNeutral1
+      backgroundColor: theme.colors.coreInverseSecondary,
+      textColor: theme.colors.coreNeutral
     },
     inverse: {
-      backgroundColor: theme.colors.fillNeutral1Secondary,
-      textColor: theme.colors.fillInverse1
+      backgroundColor: theme.colors.coreNeutralSecondary,
+      textColor: theme.colors.coreInverse
     },
     brand: {
-      backgroundColor: theme.colors.fillBrand,
-      textColor: theme.colors.fillNeutral1
+      backgroundColor: theme.colors.coreBrand,
+      textColor: theme.colors.coreNeutral
     }
   };
 }

@@ -15,16 +15,16 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      progressColor: theme.colors.fillNeutral1,
-      barColor: theme.colors.fillNeutral1Tertiary
+      progressColor: theme.colors.coreNeutral,
+      barColor: theme.colors.coreNeutralTertiary
     },
     inverse: {
-      progressColor: theme.colors.fillInverse1,
-      barColor: theme.colors.fillInverse1Tertiary
+      progressColor: theme.colors.coreInverse,
+      barColor: theme.colors.coreInverseTertiary
     },
     brand: {
-      progressColor: theme.colors.fillBrand,
-      barColor: theme.colors.fillBrandTertiary
+      progressColor: theme.colors.coreBrand,
+      barColor: theme.colors.coreBrandTertiary
     }
   };
 }

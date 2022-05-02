@@ -22,16 +22,16 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      arrowColor: theme.colors.fillNeutral1,
-      circleColor: theme.colors.fillNeutralFocus
+      arrowColor: theme.colors.coreNeutral,
+      circleColor: theme.colors.interactiveNeutralFocus
     },
     inverse: {
-      arrowColor: theme.colors.fillInverse1,
-      circleColor: theme.colors.fillInverseFocus
+      arrowColor: theme.colors.coreInverse,
+      circleColor: theme.colors.interactiveInverseFocus
     },
     brand: {
-      arrowColor: theme.colors.fillInverse1,
-      circleColor: theme.colors.fillBrandFocus
+      arrowColor: theme.colors.coreInverse,
+      circleColor: theme.colors.coreBrandFocus
     }
   };
 }

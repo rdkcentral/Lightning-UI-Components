@@ -19,34 +19,34 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      strokeColor: theme.colors.fillInverse1,
-      strokeDisabledColor: theme.colors.fillInverse1Disabled,
-      backgroundCheckedColor: theme.colors.fillNeutral1,
-      backgroundUncheckedColor: theme.colors.fillNeutral1Disabled,
-      backgroundDisabledColor: theme.colors.fillNeutral1Disabled,
-      knobCheckedColor: theme.colors.fillInverse1,
-      knobUncheckedColor: theme.colors.fillInverse1,
-      knobDisabledColor: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreInverse,
+      strokeDisabledColor: theme.colors.coreInverseDisabled,
+      backgroundCheckedColor: theme.colors.coreNeutral,
+      backgroundUncheckedColor: theme.colors.coreNeutralDisabled,
+      backgroundDisabledColor: theme.colors.coreNeutralDisabled,
+      knobCheckedColor: theme.colors.coreInverse,
+      knobUncheckedColor: theme.colors.coreInverse,
+      knobDisabledColor: theme.colors.coreInverseDisabled
     },
     inverse: {
-      strokeColor: theme.colors.fillNeutral1,
-      strokeDisabledColor: theme.colors.fillInverse1Disabled,
-      backgroundCheckedColor: theme.colors.fillInverse1,
-      backgroundUncheckedColor: theme.colors.fillInverse1Disabled,
-      backgroundDisabledColor: theme.colors.fillNeutral1Disabled,
-      knobCheckedColor: theme.colors.fillNeutral1,
-      knobUncheckedColor: theme.colors.fillNeutral1,
-      knobDisabledColor: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      strokeDisabledColor: theme.colors.coreInverseDisabled,
+      backgroundCheckedColor: theme.colors.coreInverse,
+      backgroundUncheckedColor: theme.colors.coreInverseDisabled,
+      backgroundDisabledColor: theme.colors.coreNeutralDisabled,
+      knobCheckedColor: theme.colors.coreNeutral,
+      knobUncheckedColor: theme.colors.coreNeutral,
+      knobDisabledColor: theme.colors.coreInverseDisabled
     },
     brand: {
-      strokeColor: theme.colors.fillNeutral1,
-      strokeDisabledColor: theme.colors.fillNeutral1Disabled,
-      backgroundCheckedColor: theme.colors.fillBrand,
-      backgroundUncheckedColor: theme.colors.fillInverse1Disabled,
-      backgroundDisabledColor: theme.colors.fillInverse1Disabled,
-      knobCheckedColor: theme.colors.fillNeutral1,
-      knobUncheckedColor: theme.colors.fillNeutral1,
-      knobDisabledColor: theme.colors.fillNeutral1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      strokeDisabledColor: theme.colors.coreNeutralDisabled,
+      backgroundCheckedColor: theme.colors.coreBrand,
+      backgroundUncheckedColor: theme.colors.coreInverseDisabled,
+      backgroundDisabledColor: theme.colors.coreInverseDisabled,
+      knobCheckedColor: theme.colors.coreNeutral,
+      knobUncheckedColor: theme.colors.coreNeutral,
+      knobDisabledColor: theme.colors.coreNeutralDisabled
     }
   };
 }

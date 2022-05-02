@@ -9,9 +9,9 @@ export function base(theme) {
 
 export function variants(theme) {
   return {
-    neutral: { color: theme.colors.fillNeutral1 },
-    inverse: { color: theme.colors.fillInverse1 },
-    brand: { color: theme.colors.fillBrand }
+    neutral: { color: theme.colors.coreNeutral },
+    inverse: { color: theme.colors.coreInverse },
+    brand: { color: theme.colors.coreBrand }
   };
 }
 
