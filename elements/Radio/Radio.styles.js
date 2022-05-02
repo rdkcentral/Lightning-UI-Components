@@ -17,28 +17,28 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      strokeColor: theme.colors.fillInverse1,
-      knobColor: theme.colors.fillInverse1,
-      backgroundColor: theme.colors.fillNeutral1,
-      backgroundColorOff: theme.colors.fillNeutral1Disabled,
-      backgroundColorInactive: theme.colors.fillNeutral1Disabled,
-      strokeColorInactive: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreInverse,
+      knobColor: theme.colors.coreInverse,
+      backgroundColor: theme.colors.coreNeutral,
+      backgroundColorOff: theme.colors.coreNeutralDisabled,
+      backgroundColorInactive: theme.colors.coreNeutralDisabled,
+      strokeColorInactive: theme.colors.coreInverseDisabled
     },
     inverse: {
-      strokeColor: theme.colors.fillNeutral1,
-      knobColor: theme.colors.fillNeutral1,
-      backgroundColor: theme.colors.fillInverse1,
-      backgroundColorOff: theme.colors.fillInverse1,
-      backgroundColorInactive: theme.colors.fillNeutral1Disabled,
-      strokeColorInactive: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      knobColor: theme.colors.coreNeutral,
+      backgroundColor: theme.colors.coreInverse,
+      backgroundColorOff: theme.colors.coreInverse,
+      backgroundColorInactive: theme.colors.coreNeutralDisabled,
+      strokeColorInactive: theme.colors.coreInverseDisabled
     },
     brand: {
-      strokeColor: theme.colors.fillNeutral1,
-      knobColor: theme.colors.fillNeutral1,
-      backgroundColor: theme.colors.fillBrand,
-      backgroundColorOff: theme.colors.fillInverse1Disabled,
-      backgroundColorInactive: theme.colors.fillInverse1Disabled,
-      strokeColorInactive: theme.colors.fillNeutral1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      knobColor: theme.colors.coreNeutral,
+      backgroundColor: theme.colors.coreBrand,
+      backgroundColorOff: theme.colors.coreInverseDisabled,
+      backgroundColorInactive: theme.colors.coreInverseDisabled,
+      strokeColorInactive: theme.colors.coreNeutralDisabled
     }
   };
 }

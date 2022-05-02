@@ -8,12 +8,12 @@ const COLOR_PALETTE = {
 };
 
 export default {
-  fillBrand: [COLOR_PALETTE.red[40], ALPHAS.primary],
-  fillBrandSecondary: [COLOR_PALETTE.red[40], ALPHAS.secondary],
-  fillBrandTertiary: [COLOR_PALETTE.red[40], ALPHAS.tertiary],
-  fillBrandDisabled: [COLOR_PALETTE.red[40], ALPHAS.inactive],
-  fillBrandGhost: [COLOR_PALETTE.red[40], ALPHAS.none],
-  fillBrandFocus: [COLOR_PALETTE.red[20], ALPHAS.primary],
-  fillBrandFocusSoft: [COLOR_PALETTE.red[20], ALPHAS.tertiary],
+  coreBrand: [COLOR_PALETTE.red[40], ALPHAS.primary],
+  coreBrandSecondary: [COLOR_PALETTE.red[40], ALPHAS.secondary],
+  coreBrandTertiary: [COLOR_PALETTE.red[40], ALPHAS.tertiary],
+  coreBrandDisabled: [COLOR_PALETTE.red[40], ALPHAS.inactive],
+  coreBrandGhost: [COLOR_PALETTE.red[40], ALPHAS.none],
+  coreBrandFocus: [COLOR_PALETTE.red[20], ALPHAS.primary],
+  coreBrandFocusSoft: [COLOR_PALETTE.red[20], ALPHAS.tertiary],
   red: [COLOR_PALETTE.red[40], ALPHAS.primary]
 };

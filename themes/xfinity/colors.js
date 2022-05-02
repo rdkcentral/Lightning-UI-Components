@@ -27,7 +27,7 @@ const COLOR_PALETTE = {
     60: '#B7023C',
     70: '#8F002F',
     80: '#660021',
-    90: '#2A120E'
+    90: '#31111B'
   },
   orange: {
     5: '#F2E1D9',
@@ -39,7 +39,7 @@ const COLOR_PALETTE = {
     60: '#B33D00',
     70: '#A33800',
     80: '#8F3100',
-    90: '#2A170E'
+    90: '#392014'
   },
   yellow: {
     5: '#F2EAD9',
@@ -51,7 +51,7 @@ const COLOR_PALETTE = {
     60: '#8F5D00',
     70: '#7A5000',
     80: '#664200',
-    90: '#1F180A'
+    90: '#352913'
   },
   green: {
     5: '#D9F2EA',
@@ -63,7 +63,7 @@ const COLOR_PALETTE = {
     60: '#006851',
     70: '#005240',
     80: '#003328',
-    90: '#0A1F18'
+    90: '#0E2A21'
   },
   blue: {
     5: '#D9E1F2',
@@ -75,7 +75,7 @@ const COLOR_PALETTE = {
     60: '#0051D0',
     70: '#0040A3',
     80: '#003485',
-    90: '#111A32'
+    90: '#131E34'
   },
   purple: {
     5: '#E3E0F4',
@@ -87,43 +87,32 @@ const COLOR_PALETTE = {
     60: '#4D00BD',
     70: '#3A0092',
     80: '#28006A',
-    90: '#1E1236'
+    90: '#1C1538'
   }
 };
 
 export default {
   material: [COLOR_PALETTE.grey[90], ALPHAS.primary],
-  surface: [COLOR_PALETTE.grey[80], ALPHAS.primary],
-  surfaceSecondary: [COLOR_PALETTE.grey[80], ALPHAS.secondary],
-  surfaceTertiary: [COLOR_PALETTE.grey[80], ALPHAS.tertiary],
-  surfaceDisabled: [COLOR_PALETTE.grey[80], ALPHAS.inactive],
-  surfaceGhost: [COLOR_PALETTE.grey[80], ALPHAS.none],
-  fillNeutral1: [COLOR_PALETTE.grey[5], ALPHAS.primary],
-  fillNeutral1Secondary: [COLOR_PALETTE.grey[5], ALPHAS.secondary],
-  fillNeutral1Tertiary: [COLOR_PALETTE.grey[5], ALPHAS.tertiary],
-  fillNeutral1Disabled: [COLOR_PALETTE.grey[5], ALPHAS.inactive],
-  fillNeutral1Ghost: [COLOR_PALETTE.grey[5], ALPHAS.none],
-  fillNeutral2: [COLOR_PALETTE.grey[40], ALPHAS.primary],
-  fillInverse1: [COLOR_PALETTE.grey[90], ALPHAS.primary],
-  fillInverse1Secondary: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
-  fillInverse1Tertiary: [COLOR_PALETTE.grey[90], ALPHAS.tertiary],
-  fillInverse1Disabled: [COLOR_PALETTE.grey[90], ALPHAS.inactive],
-  fillInverse1Ghost: [COLOR_PALETTE.grey[90], ALPHAS.none],
-  fillInverse2: [COLOR_PALETTE.grey[50], ALPHAS.primary],
-  fillBrand: [COLOR_PALETTE.purple[40], ALPHAS.primary],
-  fillBrandSecondary: [COLOR_PALETTE.purple[40], ALPHAS.secondary],
-  fillBrandTertiary: [COLOR_PALETTE.purple[40], ALPHAS.tertiary],
-  fillBrandDisabled: [COLOR_PALETTE.purple[40], ALPHAS.inactive],
-  fillBrandGhost: [COLOR_PALETTE.purple[40], ALPHAS.none],
-  overlay: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
-  surfaceFocus: [COLOR_PALETTE.constants.white, ALPHAS.primary],
-  surfaceFocusSoft: [COLOR_PALETTE.constants.white, ALPHAS.tertiary],
-  fillNeutralFocus: [COLOR_PALETTE.constants.white, ALPHAS.primary],
-  fillNeutralFocusSoft: [COLOR_PALETTE.constants.white, ALPHAS.tertiary],
-  fillInverseFocus: [COLOR_PALETTE.grey[70], ALPHAS.primary],
-  fillInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
-  fillBrandFocus: [COLOR_PALETTE.purple[20], ALPHAS.primary],
-  fillBrandFocusSoft: [COLOR_PALETTE.purple[20], ALPHAS.tertiary],
+  materialBrand: [COLOR_PALETTE.purple[90], ALPHAS.primary],
+  coreNeutral: [COLOR_PALETTE.grey[5], ALPHAS.primary],
+  coreNeutralSecondary: [COLOR_PALETTE.grey[5], ALPHAS.secondary],
+  coreNeutralTertiary: [COLOR_PALETTE.grey[5], ALPHAS.tertiary],
+  coreNeutralDisabled: [COLOR_PALETTE.grey[5], ALPHAS.inactive],
+  coreInverse: [COLOR_PALETTE.grey[90], ALPHAS.primary],
+  coreInverseSecondary: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
+  coreInverseTertiary: [COLOR_PALETTE.grey[90], ALPHAS.tertiary],
+  coreInverseDisabled: [COLOR_PALETTE.grey[90], ALPHAS.inactive],
+  coreBrand: [COLOR_PALETTE.purple[40], ALPHAS.primary],
+  coreBrandSecondary: [COLOR_PALETTE.purple[40], ALPHAS.secondary],
+  coreBrandTertiary: [COLOR_PALETTE.purple[40], ALPHAS.tertiary],
+  coreBrandDisabled: [COLOR_PALETTE.purple[40], ALPHAS.inactive],
+  coreOverlay: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
+  interactiveNeutralFocus: [COLOR_PALETTE.constants.white, ALPHAS.primary],
+  interactiveNeutralFocusSoft: [COLOR_PALETTE.constants.white, ALPHAS.tertiary],
+  interactiveInverseFocus: [COLOR_PALETTE.grey[70], ALPHAS.primary],
+  interactiveInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
+  interactiveBrandFocus: [COLOR_PALETTE.purple[20], ALPHAS.primary],
+  interactiveBrandFocusSoft: [COLOR_PALETTE.purple[20], ALPHAS.tertiary],
   gray: [COLOR_PALETTE.grey[40], ALPHAS.primary],
   red: [COLOR_PALETTE.red[40], ALPHAS.primary],
   orange: [COLOR_PALETTE.orange[40], ALPHAS.primary],

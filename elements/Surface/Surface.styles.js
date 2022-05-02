@@ -4,8 +4,8 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    backgroundColorUnfocused: theme.colors.fillInverse1Secondary,
-    backgroundColorDisabled: theme.colors.fillInverse1Disabled,
+    backgroundColorUnfocused: theme.colors.coreInverseSecondary,
+    backgroundColorDisabled: theme.colors.coreInverseDisabled,
     radius: theme.radius.medium
   };
 }
@@ -13,13 +13,13 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      backgroundColorFocused: theme.colors.fillNeutralFocusSoft
+      backgroundColorFocused: theme.colors.interactiveNeutralFocusSoft
     },
     inverse: {
-      backgroundColorFocused: theme.colors.fillInverseFocusSoft
+      backgroundColorFocused: theme.colors.interactiveInverseFocusSoft
     },
     brand: {
-      backgroundColorFocused: theme.colors.fillBrandFocusSoft
+      backgroundColorFocused: theme.colors.coreBrandFocusSoft
     }
   };
 }

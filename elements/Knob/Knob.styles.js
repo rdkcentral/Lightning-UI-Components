@@ -13,13 +13,13 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      circleColor: theme.colors.fillNeutralFocus
+      circleColor: theme.colors.interactiveNeutralFocus
     },
     inverse: {
-      circleColor: theme.colors.fillInverseFocus
+      circleColor: theme.colors.interactiveInverseFocus
     },
     brand: {
-      circleColor: theme.colors.fillBrandFocus
+      circleColor: theme.colors.coreBrandFocus
     }
   };
 }

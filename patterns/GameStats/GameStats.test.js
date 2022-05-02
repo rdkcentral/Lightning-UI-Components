@@ -256,7 +256,7 @@ describe('GameStats', () => {
       });
     });
 
-    it('displays arrow indicators', done => {
+    it.skip('displays arrow indicators', done => {
       const items = dataitem._Column.items;
       testRenderer.forceAllUpdates();
       window.setTimeout(() => {

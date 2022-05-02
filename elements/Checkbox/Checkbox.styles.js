@@ -20,28 +20,28 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      strokeColor: theme.colors.fillInverse1,
-      disabledStrokeColor: theme.colors.fillInverse1Disabled,
-      checkColor: theme.colors.fillInverse1,
-      checkedBackgroundColor: theme.colors.fillNeutral1,
-      uncheckedBackgroundColor: theme.colors.fillNeutral1Disabled,
-      disabledBackgroundColor: theme.colors.fillNeutral1Disabled
+      strokeColor: theme.colors.coreInverse,
+      disabledStrokeColor: theme.colors.coreInverseDisabled,
+      checkColor: theme.colors.coreInverse,
+      checkedBackgroundColor: theme.colors.coreNeutral,
+      uncheckedBackgroundColor: theme.colors.coreNeutralDisabled,
+      disabledBackgroundColor: theme.colors.coreNeutralDisabled
     },
     inverse: {
-      strokeColor: theme.colors.fillNeutral1,
-      disabledStrokeColor: theme.colors.fillNeutral1Disabled,
-      checkColor: theme.colors.fillNeutral1,
-      checkedBackgroundColor: theme.colors.fillInverse1,
-      uncheckedBackgroundColor: theme.colors.fillInverse1Disabled,
-      disabledBackgroundColor: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      disabledStrokeColor: theme.colors.coreNeutralDisabled,
+      checkColor: theme.colors.coreNeutral,
+      checkedBackgroundColor: theme.colors.coreInverse,
+      uncheckedBackgroundColor: theme.colors.coreInverseDisabled,
+      disabledBackgroundColor: theme.colors.coreInverseDisabled
     },
     brand: {
-      strokeColor: theme.colors.fillNeutral1,
-      disabledStrokeColor: theme.colors.fillNeutral1Disabled,
-      checkColor: theme.colors.fillNeutral1,
-      checkedBackgroundColor: theme.colors.fillBrand,
-      uncheckedBackgroundColor: theme.colors.fillInverse1Disabled,
-      disabledBackgroundColor: theme.colors.fillInverse1Disabled
+      strokeColor: theme.colors.coreNeutral,
+      disabledStrokeColor: theme.colors.coreNeutralDisabled,
+      checkColor: theme.colors.coreNeutral,
+      checkedBackgroundColor: theme.colors.coreBrand,
+      uncheckedBackgroundColor: theme.colors.coreInverseDisabled,
+      disabledBackgroundColor: theme.colors.coreInverseDisabled
     }
   };
 }

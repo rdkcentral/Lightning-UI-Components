@@ -8,7 +8,7 @@ const style = theme => {
   return {
     radius: theme.radius.medium,
     foo: 'bar',
-    color: theme.colors.fillNeutral1
+    color: theme.colors.coreNeutral
   };
 };
 

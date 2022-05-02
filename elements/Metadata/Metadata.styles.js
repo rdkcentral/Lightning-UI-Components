@@ -16,43 +16,43 @@ export function variants(theme) {
     neutral: {
       titleTextProperties: {
         ...theme.typography.headline1,
-        textColor: theme.colors.fillNeutral1
+        textColor: theme.colors.coreNeutral
       },
       subtitleTextProperties: {
         ...theme.typography.body3,
-        textColor: theme.colors.fillNeutral1
+        textColor: theme.colors.coreNeutral
       },
       descriptionTextProperties: {
         ...theme.typography.body2,
-        textColor: theme.colors.fillNeutral1Secondary
+        textColor: theme.colors.coreNeutralSecondary
       }
     },
     inverse: {
       titleTextProperties: {
         ...theme.typography.headline1,
-        textColor: theme.colors.fillInverse1
+        textColor: theme.colors.coreInverse
       },
       subtitleTextProperties: {
         ...theme.typography.body3,
-        textColor: theme.colors.fillInverse1
+        textColor: theme.colors.coreInverse
       },
       descriptionTextProperties: {
         ...theme.typography.body2,
-        textColor: theme.colors.fillInverse1Secondary
+        textColor: theme.colors.coreInverseSecondary
       }
     },
     brand: {
       titleTextProperties: {
         ...theme.typography.headline1,
-        textColor: theme.colors.fillNeutral1
+        textColor: theme.colors.coreNeutral
       },
       subtitleTextProperties: {
         ...theme.typography.body3,
-        textColor: theme.colors.fillNeutral1
+        textColor: theme.colors.coreNeutral
       },
       descriptionTextProperties: {
         ...theme.typography.body2,
-        textColor: theme.colors.fillNeutral1Secondary
+        textColor: theme.colors.coreNeutralSecondary
       }
     }
   };
