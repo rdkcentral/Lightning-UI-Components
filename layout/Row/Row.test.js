@@ -302,6 +302,17 @@ describe('Row', () => {
       });
     });
 
+    it('should add items on lazyUpCount', done => {
+      row.lazyUpCount = 4;
+      row.items = [...items, ...items];
+      expect(row.items.length).toBe(6);
+      testRenderer.keyPress('Right');
+      setTimeout(() => {
+        expect(row.items.length).toBe(7);
+        done();
+      }, 17);
+    });
+
     it('should reset the Items x position when there are no items', done => {
       row.itemPosX = 100;
       row.items = [];

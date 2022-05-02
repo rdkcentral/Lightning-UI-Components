@@ -68,6 +68,7 @@ The `scrollIndex` property determines the index at which scrolling should begin.
 | autoResize           | boolean                                                 | false    | false     | automatically sets the height and width of the row to be the same as the Items container inside                                                                                      |
 | startLazyScrollIndex | number                                                  | false    |           | when `lazyScroll` is `true`, index of item in `items`, and items thereafter, at which lazy scrolling should occur at (alwasy scroll functionality will take place before this index) |
 | stopLazyScrollIndex  | number                                                  | false    |           | when `lazyScroll` is `true`, index of item in `items`, and items preceding, at which lazy scrolling should occur (alwasy scroll functionality will take place after this index)      |
+| lazyUpCount  | number                                                  | false    |           | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a row and most are off screen, set this to the number of items that are displayed on screen by default       |
 
 ### Child Item Properties
 
