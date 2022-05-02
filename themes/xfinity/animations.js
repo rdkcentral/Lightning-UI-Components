@@ -1,41 +1,49 @@
-export default {
+const durations = {
   durationNone: 0,
   durationXFast: 0.2,
   durationFast: 0.4,
   durationNormal: 0.6,
   durationSlow: 0.8,
-  durationXSlow: 1,
+  durationXSlow: 1
+};
+
+const delays = {
   delayNone: 0,
   delayXFast: 0.02,
   delayFast: 0.04,
   delayNormal: 0.06,
   delaySlow: 0.08,
-  delayXSlow: 0.1,
+  delayXSlow: 0.1
+};
+
+export default {
+  ...durations,
+  ...delays,
   emphasizedEntrance: 'cubic-bezier(0.1, 0.4, 0.16, 1.4)',
-  emphasizedEntranceDelay: 0,
+  emphasizedEntranceDelay: delays.delayNone,
   emphasizedEntranceDuration: 0.3,
   emphasizedExit: 'cubic-bezier(0.8, -0.4, 0.8, 0.4)',
-  emphasizedExitDelay: 0,
+  emphasizedExitDelay: delays.delayNone,
   emphasizedExitDuration: 0.3,
   emphasizedStandard: 'cubic-bezier(0.8, -0.4, 0.2, 1.4)',
-  emphasizedStandardDelay: 0,
-  emphasizedStandardDuration: 0.6,
+  emphasizedStandardDelay: delays.delayNone,
+  emphasizedStandardDuration: durations.durationNormal,
   expressiveEntrance: 'cubic-bezier(0, 0, 0.15, 1)',
-  expressiveEntranceDelay: 0,
-  expressiveEntranceDuration: 0.6,
+  expressiveEntranceDelay: delays.delayNone,
+  expressiveEntranceDuration: durations.durationNormal,
   expressiveExit: 'cubic-bezier(0.9, 0, 1, 1)',
-  expressiveExitDelay: 0,
-  expressiveExitDuration: 0.6,
+  expressiveExitDelay: delays.delayNone,
+  expressiveExitDuration: durations.durationNormal,
   expressiveStandard: 'cubic-bezier(0.6, 0, 0.1, 1)',
-  expressiveStandardDelay: 0,
-  expressiveStandardDuration: 0.6,
+  expressiveStandardDelay: delays.delayNone,
+  expressiveStandardDuration: durations.durationNormal,
   functionalEntrance: 'cubic-bezier(0, 0, 0.4, 1)',
-  functionalEntranceDelay: 0,
-  functionalEntranceDuration: 0.6,
+  functionalEntranceDelay: delays.delayNone,
+  functionalEntranceDuration: durations.durationNormal,
   functionalExit: 'cubic-bezier(0.4, 0, 1, 1)',
-  functionalExitDelay: 0,
-  functionalExitDuration: 0.6,
+  functionalExitDelay: delays.delayNone,
+  functionalExitDuration: durations.durationNormal,
   functionalStandard: 'cubic-bezier(0.4, 0.15, 0.1, 1)',
-  functionalStandardDelay: 0,
-  functionalStandardDuration: 0.6
+  functionalStandardDelay: delays.delayNone,
+  functionalStandardDuration: durations.durationNormal
 };
