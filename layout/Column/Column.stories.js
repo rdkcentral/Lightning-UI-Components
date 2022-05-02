@@ -12,15 +12,16 @@ import person from '../../assets/images/cast.png';
 import person1 from '../../assets/images/cast1.png';
 import person2 from '../../assets/images/cast2.png';
 import { Tile } from '../../elements';
+import context from '../../context';
 
 export default {
   title: 'Layout / Column',
-  args: {
-    itemSpacing: 20
-  },
   argTypes: {
     itemSpacing: {
-      control: { type: 'range', min: 0, max: 100, step: 5 }
+      defaultValue: 20,
+      control: { type: 'range', min: 0, max: 100, step: 5 },
+      description: 'px between items',
+      table: { defaultValue: { summary: 20 } }
     }
   },
   parameters: {
@@ -36,14 +37,17 @@ export const Basic = args =>
       return {
         Column: {
           type: Column,
-          h: 500,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
             buttonText: `Button ${i + 1}`
-          })),
-          alwaysScroll: args.alwaysScroll
+          }))
         }
       };
     }
@@ -52,34 +56,32 @@ export const Basic = args =>
       return this.tag('Column');
     }
   };
-Basic.args = {
-  scrollIndex: 0,
-  itemTransition: 0.4
-};
 Basic.argTypes = {
-  itemTransition: {
-    control: { type: 'number', min: 0, step: 0.1 }
-  },
   scroll: {
-    control: { type: 'select', options: [1, 5, 15, 20] }
+    defaultValue: 1,
+    control: { type: 'select', options: [1, 5, 15, 20] },
+    description: 'scroll to selected index',
+    table: { defaultValue: { summary: 1 } }
   },
   scrollIndex: {
-    control: { type: 'number', min: 0 }
+    defaultValue: 0,
+    control: { type: 'number', min: 0 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 0 } }
   },
   alwaysScroll: {
-    control: { type: 'boolean' }
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'determines whether the column will stop scrolling as it nears the bottom to prevent white space',
+    table: { defaultValue: { summary: false } }
   }
 };
 Basic.parameters = {
   argActions: {
     scroll: function (index, component) {
       component.tag('Column').scrollTo(index - 1);
-    },
-    itemTransition: (duration, component) => {
-      component.tag('Column').itemTransition = {
-        duration,
-        timingFunction: component.tag('Column')._itemTransition.timingFunction
-      };
     }
   }
 };
@@ -90,7 +92,11 @@ export const TestCase = args =>
       return {
         Column: {
           type: Column,
-          h: h => h,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           scrollIndex: args.scrollIndex,
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
@@ -106,12 +112,13 @@ export const TestCase = args =>
       return this.tag('Column');
     }
   };
-TestCase.args = {
-  scrollIndex: 3
-};
 TestCase.argTypes = {
   scrollIndex: {
-    control: { type: 'range', min: 0, max: 4, step: 1 }
+    defaultValue: 3,
+    control: { type: 'range', min: 0, max: 4, step: 1 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 3 } }
   }
 };
 
@@ -132,12 +139,13 @@ export const MultiColumn = args =>
     }
   };
 MultiColumn.parameters = { tag: 'FocusManager' };
-MultiColumn.args = {
-  scrollIndex: 0
-};
 MultiColumn.argTypes = {
   scrollIndex: {
-    control: { type: 'range', min: 0, max: 4, step: 1 }
+    defaultValue: 0,
+    control: { type: 'range', min: 0, max: 4, step: 1 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 0 } }
   }
 };
 
@@ -153,7 +161,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 1920 - 160, // x offset from preview.js * 2,
+              w: context.theme.calculateColumnWidth(1),
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -164,7 +172,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: 1920 - 160, // x offset from preview.js * 2,
+              w: context.theme.calculateColumnWidth(1),
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -188,7 +196,11 @@ export const VaryingItemHeight = args =>
       return {
         Column: {
           type: Column,
-          h: 500,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
@@ -210,7 +222,11 @@ export const ExpandableHeightItems = args =>
       return {
         Column: {
           type: Column,
-          h: 500,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingButton,
@@ -233,17 +249,22 @@ export const ExpandableHeightRows = args =>
       return {
         Column: {
           type: Column,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: args.itemSpacing,
           plinko: true,
-          h: 500,
-          items: Array.apply(null, { length: 15 }).map((_, i) => ({
+          items: Array.apply(null, { length: 15 }).map(() => ({
             type: ExpandingRow,
-            y: 50 * i,
+            w: context.theme.calculateColumnWidth(1),
             h: 40,
             items: [
-              { type: ExpandingButton, buttonText: 'Button', w: 150 },
-              { type: ExpandingButton, buttonText: 'Button', w: 150 },
-              { type: ExpandingButton, buttonText: 'Button', w: 150 }
+              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 },
+              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 },
+              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 }
             ]
           }))
         }
@@ -261,6 +282,11 @@ export const SkipFocus = args =>
       return {
         Column: {
           type: Column,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
           items: [
@@ -289,9 +315,20 @@ export const SkipFocus = args =>
       return this.tag('Column');
     }
   };
-SkipFocus.args = {
-  itemSpacing: 30,
-  wrapSelected: false
+SkipFocus.argTypes = {
+  itemSpacing: {
+    defaultValue: 30,
+    control: { type: 'range', min: 0, max: 100, step: 5 },
+    description: 'px between items',
+    table: { defaultValue: { summary: 30 } }
+  },
+  wrapSelected: {
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
+    table: { defaultValue: { summary: false } }
+  }
 };
 
 export const OnScreenEffect = args =>
@@ -302,7 +339,11 @@ export const OnScreenEffect = args =>
           type: Column,
           itemSpacing: args.itemSpacing,
           scrollIndex: 2,
-          h: 520,
+          h:
+            context.theme.layout.screenH -
+            2 *
+              (context.theme.layout.marginY +
+                context.theme.layout.gutterY.small),
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
               type: Button,
@@ -334,8 +375,13 @@ export const OnScreenEffect = args =>
       return this.tag('Column');
     }
   };
-OnScreenEffect.args = {
-  itemSpacing: 60
+OnScreenEffect.argTypes = {
+  itemSpacing: {
+    defaultValue: 60,
+    control: { type: 'range', min: 0, max: 100, step: 5 },
+    description: 'px between items',
+    table: { defaultValue: { summary: 60 } }
+  }
 };
 
 export const StickyTitle = args => {
@@ -397,8 +443,13 @@ export const StickyTitle = args => {
     }
   };
 };
-StickyTitle.args = {
-  itemSpacing: 50
+StickyTitle.argTypes = {
+  itemSpacing: {
+    defaultValue: 50,
+    control: { type: 'range', min: 0, max: 100, step: 5 },
+    description: 'px between items',
+    table: { defaultValue: { summary: 50 } }
+  }
 };
 
 export const CenteredInParent = args =>
@@ -460,10 +511,6 @@ class ColumnHeader extends lng.Component {
         h: 3
       }
     };
-  }
-
-  set headerText(val) {
-    this.tag('Label').text = val;
   }
 }
 
@@ -545,7 +592,7 @@ export const SkipPlinko = () =>
       return {
         Column: {
           type: Column,
-          w: 1920 - 160, // x offset from preview.js * 2,
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: 32,
           plinko: true,
           items: [
@@ -558,30 +605,25 @@ export const SkipPlinko = () =>
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: parks,
-                  iconW: 50,
-                  iconH: 50,
-                  persistentMetadata: true,
-                  badge: 'HD'
+                  artwork: {
+                    src: parks
+                  }
                 },
                 {
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: person,
-                  progress: 0.8,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
+                  artwork: {
+                    src: person
+                  }
                 },
                 {
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: trolls,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
+                  artwork: {
+                    src: trolls
+                  }
                 }
               ]
             },
@@ -594,17 +636,15 @@ export const SkipPlinko = () =>
                   type: Tile,
                   w: 1060,
                   h: 300,
-                  iconW: 50,
-                  iconH: 50,
-                  src: pets,
-                  badge: 'HD',
+                  artwork: {
+                    src: pets
+                  },
                   metadata: {
                     firstLine: 'Row with skipPlinko set to true'
                   }
                 }
               ]
             },
-
             {
               type: Row,
               itemSpacing: 50,
@@ -614,30 +654,25 @@ export const SkipPlinko = () =>
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: person2,
-                  iconW: 50,
-                  iconH: 50,
-                  progress: 0.2,
-                  badge: 'HD'
+                  artwork: {
+                    src: person2
+                  }
                 },
                 {
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: jurassic,
-                  iconW: 50,
-                  iconH: 50,
-                  badge: 'HD'
+                  artwork: {
+                    src: jurassic
+                  }
                 },
                 {
                   type: Tile,
                   w: 320,
                   h: 180,
-                  src: person1,
-                  iconW: 50,
-                  iconH: 50,
-                  progress: 0.5,
-                  badge: 'HD'
+                  artwork: {
+                    src: person1
+                  }
                 }
               ]
             }

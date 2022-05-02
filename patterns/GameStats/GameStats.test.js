@@ -258,7 +258,7 @@ describe('GameStats', () => {
 
     it('displays arrow indicators', done => {
       const items = dataitem._Column.items;
-
+      testRenderer.forceAllUpdates();
       window.setTimeout(() => {
         // Left side greater
         expect(items[0]._LeftArrow.alpha).toBe(1);

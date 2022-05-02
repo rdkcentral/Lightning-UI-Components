@@ -2111,7 +2111,7 @@ Object {
               "type": "Tab",
               "visible": true,
               "w": 50,
-              "x": 100,
+              "x": 0,
               "y": 0,
               "zIndex": 0,
             },
@@ -2121,7 +2121,7 @@ Object {
           "enabled": true,
           "flex": false,
           "flexItem": false,
-          "h": 100,
+          "h": 0,
           "isComponent": undefined,
           "mount": 0,
           "mountX": 0,
@@ -2141,7 +2141,7 @@ Object {
             "Items",
           ],
           "visible": true,
-          "w": 150,
+          "w": 0,
           "x": 0,
           "y": 0,
           "zIndex": 0,
@@ -2234,7 +2234,7 @@ Object {
           "attached": true,
           "boundsMargin": null,
           "children": Object {
-            "Element-227": Object {
+            "Element-209": Object {
               "active": true,
               "alpha": 1,
               "attached": true,
@@ -2393,7 +2393,7 @@ Object {
               "y": 0,
               "zIndex": 0,
             },
-            "Element-231": Object {
+            "Element-213": Object {
               "active": true,
               "alpha": 1,
               "attached": true,
@@ -2548,7 +2548,7 @@ Object {
               "type": "Tab",
               "visible": true,
               "w": 0,
-              "x": 20,
+              "x": 0,
               "y": 0,
               "zIndex": 0,
             },
@@ -2578,7 +2578,7 @@ Object {
             "Items",
           ],
           "visible": true,
-          "w": 20,
+          "w": 0,
           "x": 0,
           "y": 0,
           "zIndex": 0,

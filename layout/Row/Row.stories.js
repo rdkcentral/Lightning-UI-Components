@@ -1,8 +1,8 @@
 import lng from '@lightningjs/core';
-
 import Row from '.';
 import Column from '../Column';
 import mdx from './Row.mdx';
+import context from '../../context';
 
 export default {
   title: 'Layout / Row',
@@ -19,7 +19,7 @@ export const Basic = args =>
       return {
         Row: {
           type: Row,
-          w: 1920 - 160, // x offset from preview.js * 2
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: args.itemSpacing,
           alwaysScroll: args.alwaysScroll,
           neverScroll: args.neverScroll,
@@ -38,28 +38,40 @@ export const Basic = args =>
       return this.tag('Row');
     }
   };
-Basic.args = {
-  itemSpacing: 20,
-  scrollIndex: 0,
-  alwaysScroll: false,
-  neverScroll: false,
-  lazyScroll: false
-};
 Basic.argTypes = {
   itemSpacing: {
-    control: { type: 'range', min: 0, max: 100, step: 5 }
+    defaultValue: 20,
+    control: { type: 'range', min: 0, max: 100, step: 5 },
+    description: 'px between items',
+    table: { defaultValue: { summary: 20 } }
   },
   scrollIndex: {
-    control: 'number'
+    defaultValue: 0,
+    control: { type: 'number', min: 0 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item widths is greater than the width of the Row',
+    table: { defaultValue: { summary: 0 } }
   },
   alwaysScroll: {
-    control: 'boolean'
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'determines whether the row will stop scrolling as it nears the right to prevent white space',
+    table: { defaultValue: { summary: false } }
   },
   neverScroll: {
-    control: 'boolean'
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
+    table: { defaultValue: { summary: false } }
   },
   lazyScroll: {
-    control: 'boolean'
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+    table: { defaultValue: { summary: false } }
   }
 };
 
@@ -69,6 +81,7 @@ export const FocusHeightChange = () =>
       return {
         Row: {
           type: Row,
+          w: context.theme.calculateColumnWidth(1),
           items: Array.apply(null, { length: 5 }).map(() => ({
             type: ExpandingHeightButton,
             buttonText: 'Button',
@@ -91,6 +104,7 @@ export const VaryingItemWidth = () =>
       return {
         Row: {
           type: Row,
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
@@ -112,6 +126,7 @@ export const ExpandableWidth = () =>
       return {
         Row: {
           type: Row,
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: 20,
           items: [
             { type: ExpandingButton, buttonText: 'Button', w: 150 },
@@ -146,7 +161,7 @@ export const CenteredInParent = () =>
         Row: {
           type: Row,
           itemSpacing,
-          w: 400,
+          w: context.theme.calculateColumnWidth(1),
           h: buttonH * 3 + itemSpacing * 2,
           items: [
             {
@@ -234,6 +249,7 @@ export const Plinko = () => {
       return {
         Row: {
           type: Row,
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: 20,
           plinko: true,
           items: [
@@ -313,6 +329,7 @@ export const SkipFocus = args =>
       return {
         Column: {
           type: Row,
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
           items: [
@@ -341,9 +358,20 @@ export const SkipFocus = args =>
       return this.tag('Column');
     }
   };
-SkipFocus.args = {
-  itemSpacing: 200,
-  wrapSelected: false
+SkipFocus.argTypes = {
+  itemSpacing: {
+    defaultValue: 200,
+    control: { type: 'range', min: 200, max: 400, step: 5 },
+    description: 'px between items',
+    table: { defaultValue: { summary: 200 } }
+  },
+  wrapSelected: {
+    defaultValue: false,
+    control: { type: 'boolean' },
+    description:
+      'enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
+    table: { defaultValue: { summary: false } }
+  }
 };
 
 export const LazyScrollIndexes = ({
@@ -355,7 +383,7 @@ export const LazyScrollIndexes = ({
       return {
         Row: {
           type: Row,
-          w: 1920 - 160, // x offset from preview.js * 2
+          w: context.theme.calculateColumnWidth(1),
           itemSpacing: 20,
           alwaysScroll: false,
           neverScroll: false,
