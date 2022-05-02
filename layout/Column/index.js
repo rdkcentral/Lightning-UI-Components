@@ -336,7 +336,7 @@ class Column extends FocusManager {
       item.w = getW(item) || itemWidth;
     });
     this.stage.update();
-    this._update();
+    this._requestUpdateDebounce();
     this._refocus();
   }
 
