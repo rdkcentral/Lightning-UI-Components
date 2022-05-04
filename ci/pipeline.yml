@@ -93,6 +93,15 @@ resources:
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
 
+  - name: docs-cf-app
+    type: cf
+    source:
+      api: https://api.ame1-g2.cf.comcast.net
+      username: ((service-account.username))
+      password: ((service-account.password))
+      space: lui
+
+
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -169,6 +178,10 @@ jobs:
   plan:
     - get: source-repo-release
       trigger: true
+    - task: build-docs
+      file: source-repo-release/ci/tasks/build-docs.yml
+      input_mapping:
+        source-repo: source-repo-release
     - task: publish-docs
       file: source-repo-release/ci/tasks/gh-pages.yml
       input_mapping:
@@ -184,16 +197,13 @@ jobs:
   plan:
     - get: source-repo-next
       trigger: true
-    - task: publish-docs
-      file: source-repo-next/ci/tasks/cloudfoundry.yml
+    - task: build-docs
+      file: source-repo-next/ci/tasks/build-docs.yml
       input_mapping:
         source-repo: source-repo-next
+    - put: docs-cf-app
       params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        PASSWORD: ((service-account.password))
-        SPACE: lui
+        manifest: source-repo-next/cloudfoundry/manifest.yml
 
 - name: publish
   build_logs_to_retain: 50
