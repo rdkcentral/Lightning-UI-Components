@@ -97,8 +97,9 @@ resources:
     type: cf
     source:
       api: https://api.ame1-g2.cf.comcast.net
-      username: ((service-account.username))
+      username: ((service-account.artifactory-username))
       password: ((service-account.password))
+      organization: xd-prototype
       space: lui
 
 
@@ -182,10 +183,13 @@ jobs:
       file: source-repo-release/ci/tasks/build-docs.yml
       input_mapping:
         source-repo: source-repo-release
+      output_mapping:
+        source-repo/dist: build-output
     - task: publish-docs
       file: source-repo-release/ci/tasks/gh-pages.yml
       input_mapping:
         source-repo: source-repo-release
+        source-repo/dist: build-output
       params:
         HOST: ((github-enterprise.host))
         PRIVATE_KEY: ((github-enterprise.private-key))
@@ -201,9 +205,12 @@ jobs:
       file: source-repo-next/ci/tasks/build-docs.yml
       input_mapping:
         source-repo: source-repo-next
+      output_mapping:
+        source-repo/dist: build-output
     - put: docs-cf-app
       params:
         manifest: source-repo-next/cloudfoundry/manifest.yml
+        path: build-output
 
 - name: publish
   build_logs_to_retain: 50
