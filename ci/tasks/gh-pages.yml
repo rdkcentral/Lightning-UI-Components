@@ -2,6 +2,7 @@
 platform: linux
 inputs:
   - name: source-repo
+  - name: source-repo/dist
 outputs:
   - name: source-repo/dist
 caches:
