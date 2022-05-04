@@ -1,0 +1,14 @@
+---
+defaults: &defaults
+  path: ../dist
+  buildpacks:
+    - staticfile_buildpack
+  stack: cflinuxfs3
+
+org: xd-prototype
+space: lui
+applications:
+  - <<: *defaults
+    name: lui-theming
+    routes:
+      - route: lui-theming.ame1-g2.cf.comcast.net
