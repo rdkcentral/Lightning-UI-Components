@@ -66,7 +66,8 @@ class Tile extends Base {
       'focusRingColor',
       'gradientColor',
       'focusGradient',
-      'persistGradient'
+      'persistGradient',
+      'shouldAnimate'
     ];
   }
 
@@ -309,7 +310,7 @@ class Tile extends Base {
         });
 
       this.patch({ FocusRing: focusRingComp });
-      focusRingComp._shouldAnimate = this._shouldAnimate;
+      focusRingComp.shouldAnimate = this.shouldAnimate;
       style = this._focusedStyle.focusring;
 
       const mustUpdate =
