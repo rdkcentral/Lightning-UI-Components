@@ -405,14 +405,14 @@ class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   $removeItem(item) {
     if (item) {
       const wasSelected = item === this.selected;
       this.Items.childList.remove(item);
-      this._update();
+      this._requestUpdateDebounce();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -426,7 +426,7 @@ class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _isOnScreen(child) {
