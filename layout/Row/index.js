@@ -426,7 +426,7 @@ class Row extends FocusManager {
   }
 
   $itemChanged() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _transitionListener() {
