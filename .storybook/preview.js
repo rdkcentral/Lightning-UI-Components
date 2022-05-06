@@ -134,6 +134,7 @@ addDecorator(
         StoryComponent: {
           type: class extends StoryComponent() {
             _init() {
+              super._init();
               this._refocus(); // Force Lightning to reset focus
             }
           },
