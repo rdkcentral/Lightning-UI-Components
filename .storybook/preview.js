@@ -1,17 +1,19 @@
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
+import lng from '@lightningjs/core';
 import context from '../context';
 import '@lightningjs/core/devtools/lightning-inspect';
 import { addDecorator } from '@storybook/html';
-import { withAnnouncer } from '../';
+
+import theme from './theme';
 import rogers from '../themes/rogers';
 import xfinity from '../themes/xfinity';
-import lng from '@lightningjs/core';
+
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
-import theme from './theme';
-import Speech from '../mixins/withAnnouncer/Speech';
+import { withAnnouncer } from '../';
 import { getValidColor } from '../Styles';
+
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
 });
