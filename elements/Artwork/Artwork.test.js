@@ -700,7 +700,9 @@ describe('Artwork', () => {
     expect(component._Image.texture).not.toBeNull();
     component.src = undefined;
     await component.__updateImageSpyPromise;
-    expect(component._Image.texture).toBeNull();
+    expect(component._Image.texture.src).toBe(
+      './images/default_background.png'
+    );
     expect(component._Image).not.toBeUndefined();
     done();
   });

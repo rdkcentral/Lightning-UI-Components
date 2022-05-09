@@ -24,12 +24,17 @@ export const Basic = () =>
       return {
         Tile: {
           type: Tile,
+          itemLayout: {
+            ratioX: 16,
+            ratioY: 9,
+            upCount: 3
+          },
           artwork: {
             src: tileImage
           },
           metadata: {
-            firstLine: 'Title',
-            secondLine: ['Description']
+            title: 'Title',
+            description: 'Description'
           }
         }
       };

@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import fallbackSrc from '../../assets/images/black_background_tile.png';
+import fallbackSrc from '../../assets/images/default_background.png';
 import Artwork from '.';
 import mdx from './Artwork.mdx';
 

@@ -44,5 +44,6 @@ module.exports = {
     '@storybook/addon-storysource',
     './addons/register'
   ],
-  stories
+  stories,
+  staticDirs: ['../assets']
 };

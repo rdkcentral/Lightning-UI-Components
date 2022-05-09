@@ -18,7 +18,7 @@ describe('Tile', () => {
           '_updateArtwork',
           '_updateBadge',
           '_updateCheckbox',
-          '_updateItemContainer',
+          '_updateContent',
           '_updateMetadata',
           '_updateProgressBar',
           '_updateLabel'
@@ -46,10 +46,15 @@ describe('Tile', () => {
       expect.objectContaining({
         Artwork: {
           type: Artwork,
-          mount: 0.5
+          mount: 0.5,
+          zIndex: 2
         },
-        Item: {
-          mount: 0.5
+        Background: {
+          zIndex: 1
+        },
+        Content: {
+          mount: 0.5,
+          zIndex: 3
         }
       })
     );
@@ -79,12 +84,12 @@ describe('Tile', () => {
     expect(Tile.tags).toEqual(
       expect.arrayContaining([
         'Artwork',
-        'Item',
-        { name: 'Badge', path: 'Item.Badge' },
-        { name: 'Checkbox', path: 'Item.Checkbox' },
-        { name: 'Metadata', path: 'Item.Metadata' },
-        { name: 'ProgressBar', path: 'Item.ProgressBar' },
-        { name: 'Tag', path: 'Item.Tag' }
+        'Content',
+        { name: 'Badge', path: 'Content.Badge' },
+        { name: 'Checkbox', path: 'Content.Checkbox' },
+        { name: 'Metadata', path: 'Content.Metadata' },
+        { name: 'ProgressBar', path: 'Content.ProgressBar' },
+        { name: 'Tag', path: 'Content.Tag' }
       ])
     );
   });
@@ -104,7 +109,7 @@ describe('Tile', () => {
     component.progress = 0.5;
     expect(component._gradient).toBe(true);
     component.progress = 0;
-    component.metadata = { firstLine: 'test' };
+    component.metadata = { title: 'test' };
 
     testRenderer.unfocus();
     await component.__updateSpyPromise;
@@ -129,7 +134,7 @@ describe('Tile', () => {
     component.progress = 0;
     await component.__updateSpyPromise;
     expect(component._gradient).toBe(false);
-    component.metadata = { firstLine: 'test' };
+    component.metadata = { title: 'test' };
     await component.__updateSpyPromise;
     expect(component._gradient).toBe(false);
     component.metadataLocation = 'inset';
@@ -191,13 +196,13 @@ describe('Tile', () => {
 
   it.skip('ensures the metadata is always an object', async done => {
     expect(component._metadata).toMatchObject({});
-    component.metadata = { firstLine: 'foo' };
+    component.metadata = { title: 'foo' };
     await component.__updateSpyPromise;
-    expect(component.metadata).toMatchObject({ firstLine: 'foo' });
+    expect(component.metadata).toMatchObject({ title: 'foo' });
     component.metadata = 'foo';
-    expect(component.metadata).toMatchObject({ firstLine: 'foo' });
+    expect(component.metadata).toMatchObject({ title: 'foo' });
     component.metadata = 1;
-    expect(component.metadata).toMatchObject({ firstLine: 'foo' });
+    expect(component.metadata).toMatchObject({ title: 'foo' });
     done();
   });
 
@@ -442,14 +447,14 @@ describe('Tile', () => {
 
   it('should update metadata and remove if no longer needed', async done => {
     expect(component._Metadata).toBeUndefined();
-    component.metadata = { firstLine: 'test' };
+    component.metadata = { title: 'test' };
     await component.__updateMetadataSpyPromise;
     expect(component._Metadata).not.toBeUndefined();
-    component.metadata = { firstLine: undefined };
+    component.metadata = { title: undefined };
     await component.__updateMetadataSpyPromise;
     expect(component._Metadata).toBeUndefined();
     component._smooth = false;
-    component.metadata = { firstLine: 'test2' };
+    component.metadata = { title: 'test2' };
     await component.__updateMetadataSpyPromise;
     expect(component._Metadata).not.toBeUndefined();
     done();

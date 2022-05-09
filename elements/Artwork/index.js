@@ -48,7 +48,9 @@ class Artwork extends Base {
   }
 
   get _shouldBlur() {
-    return this._blur || this._hasCenterImage; // Artwork should always use blur when circleImage is set to true
+    const shouldBur = this._blur || this._hasCenterImage;
+    this._Image.rtt = shouldBur; // rtt can cause a performance hit. Remove if not needed on Image
+    return shouldBur; // Artwork should always use blur when circleImage is set to true
   }
 
   get _hasCenterImage() {
@@ -69,6 +71,8 @@ class Artwork extends Base {
   }
 
   get _actualAspectRatio() {
+    /* eslint-disable getter-return */
+    if (!this.w || !this.h) return undefined;
     return reduceFraction(`${this.w}/${this.h}`).replace('/', 'x');
   }
 
@@ -477,7 +481,7 @@ class Artwork extends Base {
           // Remove gradient if no longer required
           const transition =
             this._Gradient && this._Gradient._getTransition('alpha');
-          if (transition && transition.p === 1)
+          if (!this.gradient && transition && transition.p === 1)
             this.patch({ Gradient: undefined });
         });
         this._Gradient.smooth = {
@@ -567,7 +571,6 @@ class Artwork extends Base {
           ? 0.001
           : 1, // Prevent image from flashing on first load if mode requires a center image or blur is true
       h: this.h,
-      rtt: true,
       texture: {
         type: lng.textures.ImageTexture,
         src: this._processedImageSrc,

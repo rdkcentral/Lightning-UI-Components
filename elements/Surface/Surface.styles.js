@@ -6,7 +6,9 @@ export function base(theme) {
   return {
     backgroundColorUnfocused: theme.colors.coreInverseSecondary,
     backgroundColorDisabled: theme.colors.coreInverseDisabled,
-    radius: theme.radius.medium
+    radius: theme.radius.medium,
+    getFocusScale: theme.getFocusScale,
+    getUnfocusScale: theme.getUnfocusScale
   };
 }
 

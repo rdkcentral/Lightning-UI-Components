@@ -75,9 +75,9 @@ Object {
       "type": "FocusRing",
       "visible": true,
       "w": 16,
-      "x": [Function],
-      "y": [Function],
-      "zIndex": -1,
+      "x": 8,
+      "y": 8,
+      "zIndex": 4,
     },
   },
 }
