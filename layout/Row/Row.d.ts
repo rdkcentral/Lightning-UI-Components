@@ -20,7 +20,8 @@ export declare class Row extends FocusManager {
   alwaysScroll?: boolean;
   neverScroll?: boolean;
   lazyScroll?: boolean;
-  autoResize?: boolean;
+  autoResizeWidth?: boolean;
+  autoResizeHeight?: boolean;
   styles?: RowStyles;
 
   get itemPosX(): number;

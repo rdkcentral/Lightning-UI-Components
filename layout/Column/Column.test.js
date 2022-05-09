@@ -144,6 +144,45 @@ describe('Column', () => {
     });
   });
 
+  describe('autoResize', () => {
+    it('resizes width', () => {
+      const [column, testRenderer] = createColumn({
+        autoResizeWidth: true,
+        w: 400
+      });
+      expect(column.Items.w).toBe(400);
+      expect(column.w).toBe(column.Items.w);
+      column.appendItems([
+        {
+          type: lng.Component,
+          w: 600,
+          h: 80
+        }
+      ]);
+      testRenderer.forceAllUpdates();
+      expect(column.Items.w).toBe(600);
+      expect(column.w).toBe(column.Items.w);
+    });
+
+    it('resizes height', () => {
+      const [column, testRenderer] = createColumn({
+        autoResizeHeight: true
+      });
+      expect(column.Items.h).toBe(480);
+      expect(column.h).toBe(column.Items.h);
+      column.appendItems([
+        {
+          type: lng.Component,
+          w: 80,
+          h: 80
+        }
+      ]);
+      testRenderer.forceAllUpdates();
+      expect(column.Items.h).toBe(580);
+      expect(column.h).toBe(column.Items.h);
+    });
+  });
+
   describe('appendItems', () => {
     it('has works with no items', () => {
       const { length } = column.items;
