@@ -23,7 +23,7 @@ Object {
       "pivotY": 0.5,
       "ref": "Image",
       "renderOfScreen": undefined,
-      "renderToTexture": true,
+      "renderToTexture": false,
       "scale": 1,
       "scaleX": 1,
       "scaleY": 1,

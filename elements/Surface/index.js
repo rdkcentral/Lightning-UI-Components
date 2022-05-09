@@ -7,7 +7,9 @@ import lng from '@lightningjs/core';
 class Surface extends Base {
   static _template() {
     return {
-      Background: {}
+      Background: {
+        zIndex: 1
+      }
     };
   }
 
@@ -29,15 +31,36 @@ class Surface extends Base {
     }
   }
 
+  get _scale() {
+    return this._hasFocus ? this._focusScale : this._unfocusScale;
+  }
+
+  get _focusScale() {
+    return this._componentStyles.getFocusScale(this._w, this._h);
+  }
+
+  get _unfocusScale() {
+    return this._componentStyles.getUnfocusScale(this._w, this._h);
+  }
+
+  get innerH() {
+    return this.h;
+  }
+
+  get innerW() {
+    return this.w;
+  }
+
   _update() {
     this._updateLayout();
+    this._updateScale();
   }
 
   _updateLayout() {
     this._Background.patch({
       texture: lng.Tools.getRoundRect(
-        this.w - 2,
-        this.h - 2,
+        this.innerW - 2, // Reference the underscored values here in cause the h or w getters need to be overwritten for alignment - see Tile
+        this.innerH - 2,
         this._componentStyles.radius,
         0,
         null,
@@ -45,6 +68,21 @@ class Surface extends Base {
         this._stateColor
       )
     });
+  }
+
+  _updateScale() {
+    if (this._smooth) {
+      this._Background.smooth = {
+        scale: [
+          this._scale,
+          this._hasFocus
+            ? this._componentStyles.animationEntrance
+            : this._componentStyles.animationExit
+        ]
+      };
+    } else {
+      this._Background.patch({ scale: this._scale });
+    }
   }
 }
 

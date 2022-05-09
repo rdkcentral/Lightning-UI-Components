@@ -5,7 +5,7 @@ import { debounce } from 'debounce';
 import Style from './Style';
 import { getValFromObjPath } from '../../utils';
 
-export default function withThemeStyles(Base, styles) {
+export default function withThemeStyles(Base, styles = {}) {
   return class extends Base {
     static get name() {
       return Base.name;
@@ -48,6 +48,21 @@ export default function withThemeStyles(Base, styles) {
       if (this._processedStylesCache) {
         return this._processedStylesCache;
       }
+
+      let processedThemeStyles = {};
+
+      if ('function' === typeof this.constructor.__themeStyles) {
+        processedThemeStyles = this.constructor.__themeStyles(
+          this.theme,
+          this.variant
+        );
+      } else if (
+        'object' === typeof this.constructor.__themeStyles &&
+        null !== this.constructor.__themeStyles
+      ) {
+        processedThemeStyles = this.constructor.__themeStyles;
+      }
+
       const processedStyles =
         'function' === typeof styles
           ? styles(this.theme, this.variant)
@@ -55,8 +70,10 @@ export default function withThemeStyles(Base, styles) {
 
       this._processedStylesCache = {
         ...(super._processedStyles || {}),
+        ...processedThemeStyles,
         ...processedStyles
       };
+
       return this._processedStylesCache;
     }
 
@@ -100,17 +117,19 @@ export default function withThemeStyles(Base, styles) {
     set w(v) {
       if (this._w === v) return;
       super.w = v;
+      this._wSetByUser = true; // Flag to track if width has been set by the user. If so, it will no longer be tethered to the component's w value if exists
       this._debounceUpdateThemeComponent &&
         this._debounceUpdateThemeComponent();
     }
 
     get h() {
-      return this._h || this._componentStyles.h || 0;
+      return this._h || this._componentStyles.h || 0; // Add getH to allow override
     }
 
     set h(v) {
       if (this._h === v) return;
       super.h = v;
+      this._hSetByUser = true; // Flag to track if height has been set by the user. If so, it will no longer be tethered to the component's h value if exists
       this._debounceUpdateThemeComponent &&
         this._debounceUpdateThemeComponent();
     }
@@ -216,12 +235,20 @@ export default function withThemeStyles(Base, styles) {
         ...this._getComponentLevelStyles() // Level 3
       };
 
-      // Fixes mount issues if height is controled by a component's style alone
-      if (!this._w && this._componentStyles.w) {
+      // Fixes mount issues if height is controled by a component's style alone setters for w/h will set the wSet and hSet flag to block this functionality and allow customization
+      if (
+        !this._wSetByUser &&
+        this._componentStyles.w &&
+        this._w !== this._componentStyles.w
+      ) {
         this._w = this._componentStyles.w;
       }
 
-      if (!this._h && this._componentStyles.h) {
+      if (
+        !this._hSetByUser &&
+        this._componentStyles.h &&
+        this._h !== this._componentStyles.h
+      ) {
         this._h = this._componentStyles.h;
       }
     }

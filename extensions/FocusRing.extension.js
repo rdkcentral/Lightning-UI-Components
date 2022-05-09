@@ -19,7 +19,8 @@ export default {
       }
 
       const _focused = this.hasFocus();
-
+      const calculatedW = this._w; // Reference the underscore value to support Tile with metadataLocation set to bottom
+      const calculatedH = this._h;
       /**
        * Only patch the FocusRing for the first time if item is focused
        */
@@ -28,20 +29,20 @@ export default {
           FocusRing: {
             type: FocusRing,
             alpha: 0.001, // Hide when first loads
-            h: this.h,
+            h: calculatedH,
             mount: 0.5,
-            w: this.w,
-            x: w => w / 2,
-            y: h => h / 2,
-            zIndex: -1
+            w: calculatedW,
+            x: calculatedW / 2,
+            y: calculatedH / 2,
+            zIndex: 4 // One under the value in Surface
           }
         });
         // Get the values from the FocusRing to establish the proper scale when unfocused so it animates in properly
         const { borderWidth, spacing } = this.tag('FocusRing')._componentStyles;
         const focusRingScaleW =
-          this.w / (this.w + borderWidth * 2 + spacing * 2 + 2); // 2 to account for rounded rectangle bug
+        calculatedW / (calculatedW + borderWidth * 2 + spacing * 2 + 2); // 2 to account for rounded rectangle bug
         const focusRingScaleH =
-          this.h / (this.h + borderWidth * 2 + spacing * 2 + 2);
+        calculatedH / (calculatedH + borderWidth * 2 + spacing * 2 + 2);
         this._unfocusedFocusRingScale = Math.min(
           focusRingScaleW,
           focusRingScaleH
@@ -57,14 +58,14 @@ export default {
        * Update width of the FocusRing if the component w/h is updated
        */
       if (
-        this.w !== this.tag('FocusRing').w ||
-        this.h !== this.tag('FocusRing').h
+        calculatedW !== this.tag('FocusRing').w ||
+        calculatedH !== this.tag('FocusRing').h
       ) {
         this.tag('FocusRing').patch({
-          x: w => w / 2,
-          y: h => h / 2,
-          w: this.w,
-          h: this.h
+          x: calculatedW / 2,
+          y: calculatedH / 2,
+          w: calculatedW,
+          h: calculatedH
         });
       }
 
@@ -88,6 +89,14 @@ export default {
               timingFunction: context.theme.animations.emphasizedEntrance
             }
           ];
+          focusRingPatch.alpha = [
+            1,
+            {
+              duration: context.theme.animations.emphasizedEntranceDuration,
+              delay: context.theme.animations.emphasizedEntranceDelay,
+              timingFunction: context.theme.animations.emphasizedEntrance
+            }
+          ];
         } else {
           focusRingPatch.scale = 1;
           focusRingPatch.alpha = 1;
@@ -96,6 +105,14 @@ export default {
         if (this._smooth) {
           focusRingPatch.scale = [
             this._unfocusedFocusRingScale,
+            {
+              duration: context.theme.animations.emphasizedExitDuration,
+              delay: context.theme.animations.emphasizedExitDelay,
+              timingFunction: context.theme.animations.emphasizedExit
+            }
+          ];
+          focusRingPatch.alpha = [
+            0.001,
             {
               duration: context.theme.animations.emphasizedExitDuration,
               delay: context.theme.animations.emphasizedExitDelay,

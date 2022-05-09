@@ -51,8 +51,8 @@ export default function withLayout(Base) {
         // If there is not enough information passed in args to calculate item size
         const width = context.theme.layout.screenW;
         const height = context.theme.layout.screenH;
+        this.w = w || h * (width / height); // Width must be set first in order for Cards to be displayed properly
         this.h = h || w * (height / width);
-        this.w = w || h * (width / height);
       }
       if (
         !this._itemLayout ||

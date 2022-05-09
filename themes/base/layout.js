@@ -3,6 +3,8 @@ import context from '../../context';
 const isInvalidNum = v => isNaN(parseFloat(v)) || v < 0;
 class Layout {
   constructor() {
+    // FocusScale Multiplier
+    this._focusScaleMultiplier = 2;
     // Multiplier Defaults
     this._gutterXMultiplier = 2;
     this._gutterYMultiplier = 2;
@@ -21,6 +23,15 @@ class Layout {
   /**
    * Multipliers
    */
+
+  get focusScaleMultiplier() {
+    return this._focusScaleMultiplier;
+  }
+
+  set focusScaleMultiplier(v) {
+    if (isInvalidNum(v)) return;
+    this._focusScaleMultiplier = v;
+  }
 
   get gutterXMultiplier() {
     return this._gutterXMultiplier;
@@ -242,7 +253,12 @@ export function calculateColumnWidth(upCount = 1) {
 }
 
 export function getFocusScale(w) {
-  return w ? (w + context.theme.layout.spacingBase * 2) / w : 1;
+  return w && context.theme.layout.focusScaleMultiplier > 1
+    ? (w +
+        context.theme.layout.spacingBase *
+          context.theme.layout.focusScaleMultiplier) /
+        w
+    : 1;
 }
 
 export function getUnfocusScale() {

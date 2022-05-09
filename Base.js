@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { withUpdates, withTags, withHandleKey, withLayout } from './mixins';
+import { withUpdates, withTags, withHandleKey, withLayout, withThemeStyles } from './mixins';
 import { isComponentOnScreen } from './utils';
 
 class Base extends lng.Component {
@@ -72,7 +72,7 @@ class Base extends lng.Component {
 }
 
 function withMixins(baseComponent) {
-  return withLayout(withUpdates(withTags(withHandleKey(baseComponent))));
+  return withLayout(withThemeStyles(withUpdates(withTags(withHandleKey(baseComponent)))));
 }
 
 export default withMixins(Base);

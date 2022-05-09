@@ -29,8 +29,6 @@ export function base(theme) {
     badgeStyles: {},
     checkboxStyles: {},
     focusRing: true,
-    getFocusScale: theme.getFocusScale,
-    getUnfocusScale: theme.getUnfocusScale,
     labelStyles: {},
     metadataStyles: {},
     paddingX: theme.spacing(3),

@@ -124,6 +124,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   _updateComponentDimensions() {
     this._Text.h = this._FirstLine.renderHeight + this._SecondLine.h;
     this.h = this._FirstLine.renderHeight + this._SecondLine.renderHeight;
+    this.signal('updateComponentDimensions', { w: this.w, h: this.h });
     this._updateLogo();
   }
 
