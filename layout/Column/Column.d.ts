@@ -20,7 +20,8 @@ export declare class Column extends FocusManager {
   scrollIndex?: number;
   alwaysScroll?: boolean;
   neverScroll?: boolean;
-  autoResize?: boolean;
+  autoResizeWidth?: boolean;
+  autoResizeHeight?: boolean;
   plinko?: boolean;
   styles?: ColumnStyles;
 

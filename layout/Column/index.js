@@ -24,7 +24,8 @@ class Column extends FocusManager {
       'alwaysScroll',
       'lazyUpCount',
       'neverScroll',
-      'autoResize'
+      'autoResizeWidth',
+      'autoResizeHeight'
     ];
   }
 
@@ -286,9 +287,11 @@ class Column extends FocusManager {
       const itemChanged = this.Items.w !== nextW || this.Items.h !== nextY;
       this.Items.patch({ w: nextW, h: nextY });
 
-      if (this.autoResize) {
-        this.h = this.Items.h;
+      if (this.autoResizeWidth) {
         this.w = this.Items.w;
+      }
+      if (this.autoResizeHeight) {
+        this.h = this.Items.h;
       }
 
       const lastChild = this.Items.childList.last;

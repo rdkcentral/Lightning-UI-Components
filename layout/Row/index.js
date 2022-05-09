@@ -25,7 +25,8 @@ class Row extends FocusManager {
       'neverScroll',
       'lazyScroll',
       'lazyUpCount',
-      'autoResize',
+      'autoResizeWidth',
+      'autoResizeHeight',
       'startLazyScrollIndex',
       'stopLazyScrollIndex'
     ];
@@ -323,9 +324,11 @@ class Row extends FocusManager {
     const itemChanged = this.Items.h !== nextH || this.Items.w !== nextX;
     this.Items.patch({ h: nextH, w: nextX + (this._totalAddedWidth || 0) });
 
-    if (this.autoResize) {
-      this.h = this.Items.h;
+    if (this.autoResizeWidth) {
       this.w = this.Items.w;
+    }
+    if (this.autoResizeHeight) {
+      this.h = this.Items.h;
     }
 
     const lastChild = this.Items.childList.last;

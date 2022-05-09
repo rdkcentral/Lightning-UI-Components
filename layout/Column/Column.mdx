@@ -97,45 +97,40 @@ export const ProviderType = () => (
 
 ### Properties
 
-| name           | type                                                    | readonly | description                                                                                                                                            |
-| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| boundsMargin   | number[]                                                | true     | bounding box of the `Column`                                                                                                                           |
-| plinko         | boolean                                                 | false    | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.           |
-| provider       | <ProviderType />                                        | false    | used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider` |
-| items          | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | components to list in the column                                                                                                                       |
-| itemSpacing    | number                                                  | false    | px between items                                                                                                                                       |
-| keepFullScreen | boolean                                                 | true     | With scrollmount < 1 determines if we keep a full screen of items                                                                                      |
-| scrollMount    | number                                                  | false    | Value between 0 and 1, determines at what point scrolling should start.                                                                                |
-| selected       | <DocsLink id="lng.Component" />                         | true     | component that is currently in focus                                                                                                                   |
-| selectedIndex  | number                                                  | false    | index of currently selected item                                                                                                                       |
-| scrollIndex    | number                                                  | false    | Item index at which scrolling begins, provided the sum of item heights is greater than the height of the `Column`                                      |
-| alwaysScroll   | boolean                                                 | false    | determines whether the column will stop scrolling as it nears the bottom to prevent white space                                                        |
-| neverScroll    | boolean                                                 | false    | false if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic            |
-| onScreenItems  | array                                                   | true     | contains a list of items that are currently on screen (within the bounds of the container)                                                             |
-| autoResize     | boolean                                                 | false    | automatically sets the height and width of the column to be the same as the Items container inside                                                     |
-| lazyUpCount    | number                                                  | false    |                                                                                                                                                        | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a column and most are off screen, set this to the number of items that are displayed on screen by default |
-|                |
+| name             | type                                                    | required | default   | description                                                                                                                                                                                                                             |
+| ---------------- | ------------------------------------------------------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| alwaysScroll     | boolean                                                 | false    | false     | determines whether the column will stop scrolling as it nears the bottom to prevent white space                                                                                                                                         |
+| autoResizeWidth  | boolean                                                 | false    | false     | automatically sets the width of the column to be the same as the Items container inside                                                                                                                                                 |
+| autoResizeHeight | boolean                                                 | false    | false     | automatically sets the height of the column to be the same as the Items container inside (this will prevent scrolling)                                                                                                                  |
+| items            | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []        | components to list in the column                                                                                                                                                                                                        |
+| itemSpacing      | number                                                  | false    | -         | px between items                                                                                                                                                                                                                        |     |
+| lazyUpCount      | number                                                  | false    | undefined | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a column and most are off screen, set this to the number of items that are displayed on screen by default |
+| neverScroll      | boolean                                                 | false    | false     | false if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic                                                                                             |
+| onScreenItems    | array                                                   | true     | []        | contains a list of items that are currently on screen (within the bounds of the container)                                                                                                                                              |
+| plinko           | boolean                                                 | false    | false     | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.                                                                                            |
+| scrollIndex      | number                                                  | false    | 0         | Item index at which scrolling begins, provided the sum of item heights is greater than the height of the `Column`                                                                                                                       |
+| selected         | <DocsLink id="lng.Component" />                         | true     | undefined | component that is currently in focus                                                                                                                                                                                                    |
+| selectedIndex    | number                                                  | false    | 0         | index of currently selected item                                                                                                                                                                                                        |
 
 ### Style Properties
 
 | name           | type                             | description                                 |
 | -------------- | -------------------------------- | ------------------------------------------- |
-| itemSpacing    | number                           | [See Properties section above](#properties) |
-| scrollIndex    | number                           | [See Properties section above](#properties) |
 | alwaysScroll   | boolean                          | [See Properties section above](#properties) |
-| neverScroll    | boolean                          | [See Properties section above](#properties) |
+| itemSpacing    | number                           | [See Properties section above](#properties) |
 | itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render      |
-| plinko         | boolean                          | [See Properties section above](#properties) |
+| neverScroll    | boolean                          | [See Properties section above](#properties) |
+| scrollIndex    | number                           | [See Properties section above](#properties) |
 
 ### Child Item Properties
 
 The `Column` component will utilize the following properties on each individual element in its `items` array:
 
-| name             | type    | readonly | default | description                                                                                                  |
+| name             | type    | required | default | description                                                                                                  |
 | ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
 | centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will horizontally center the child        |
-| skipPlinko       | boolean | false    | false   | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
 | extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                                     |
+| skipPlinko       | boolean | false    | false   | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
 
 ### Methods
 

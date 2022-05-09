@@ -99,6 +99,45 @@ describe('Row', () => {
     });
   });
 
+  describe('autoResize', () => {
+    it('resizes width', () => {
+      const [row, testRenderer] = createRow({
+        autoResizeWidth: true
+      });
+      expect(row.Items.w).toBe(400);
+      expect(row.w).toBe(row.Items.w);
+      row.appendItems([
+        {
+          type: lng.Component,
+          w: 120,
+          h: 80
+        }
+      ]);
+      testRenderer.forceAllUpdates();
+      expect(row.Items.w).toBe(520);
+      expect(row.w).toBe(row.Items.w);
+    });
+
+    it('resizes height', () => {
+      const [row, testRenderer] = createRow({
+        autoResizeHeight: true,
+        h: 80
+      });
+      expect(row.Items.h).toBe(80);
+      expect(row.h).toBe(row.Items.h);
+      row.appendItems([
+        {
+          type: lng.Component,
+          w: 80,
+          h: 160
+        }
+      ]);
+      testRenderer.forceAllUpdates();
+      expect(row.Items.h).toBe(160);
+      expect(row.h).toBe(row.Items.h);
+    });
+  });
+
   describe('parentFocus', () => {
     it('should tell the items when row focus changes', () => {
       row._focus();
