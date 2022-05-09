@@ -1,7 +1,6 @@
 radius Value | Components 
 --------|-------- 
-75 | Toggle, ToggleSmall
-medium | Artwork, FocusRing, Label, Label, Label, Surface, Toggle, Tile
+medium | Artwork, FocusRing, Label, Surface, Tile, Toggle, ToggleSmall
 small | Badge, ToggleSmall
 none | Label
 xsmall | ProgressBar
