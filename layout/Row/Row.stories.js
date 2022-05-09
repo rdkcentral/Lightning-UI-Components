@@ -540,3 +540,60 @@ LazyUpCount.argTypes = {
     control: 'boolean'
   }
 };
+
+export const RemovingItems = args =>
+  class RemovingItems extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          scrollIndex: args.scrollIndex,
+          items: ['A', 'B', 'C', 'D', 'E'].map(letter => ({
+            type: Button,
+            buttonText: letter,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Row').removeItemAt(1);
+      }, 3000);
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+RemovingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false
+};
+RemovingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
+};
