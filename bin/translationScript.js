@@ -14,8 +14,8 @@ function createTable(themeProperty, mdFile, themeFiles) {
   const themeValueModifiedArray = Object.keys(themeKeys.default);
   const str = `theme.${themeProperty}.`;
   for (const key in themeValueModifiedArray) {
-    const temporarykey = str.concat(themeValueModifiedArray[key]);
-    themeValueArray.push(temporarykey);
+    const temporaryKey = str.concat(themeValueModifiedArray[key]);
+    themeValueArray.push(temporaryKey);
   }
   const styleFileArray = [];
   const variantsArray = ['neutral:', 'inverse:', 'brand:'];
@@ -56,40 +56,54 @@ function createTable(themeProperty, mdFile, themeFiles) {
         file1.on('line', line => {
           const valueFound = themeValueArray.some(val => line.includes(val));
           const temp = variantsArray.find(val => line.includes(val));
-          if (temp != undefined) {
+          if (temp) {
             variantFound = temp.substring(0, temp.length - 1);
           }
-          if (valueFound == true) {
+          if (valueFound) {
             const updateFileName = file.split('/');
             line = line.trim();
-            line = line.split('.');
-            const modifiedLine = line[line.length - 1];
-            let updatedLine = modifiedLine.includes(',')
-              ? modifiedLine.substring(0, modifiedLine.length - 1)
-              : modifiedLine;
-            updatedLine = updatedLine.includes('}')
-              ? updatedLine.substring(0, updatedLine.length - 1)
-              : updatedLine;
-             updatedLine = updatedLine.includes(' ')
-              ? updatedLine.substring(0, updatedLine.length - 1)
-               : updatedLine;
-            const newFileName = updateFileName[updateFileName.length - 1];
-            const seperatedFileName = newFileName.split('.');
-            const finalFileName = seperatedFileName[0];
-            if (dict[updatedLine] != undefined && variantFound == undefined) {
-              const temp = dict[updatedLine];
-              dict[updatedLine] = `${temp}, ${finalFileName}`;
-            }
-            if (dict[updatedLine] != undefined && variantFound != undefined) {
-              const temp = dict[updatedLine];
-              dict[updatedLine] =
-                `${temp}, ${finalFileName} (${variantFound} variant)`;
-            }
-            if (dict[updatedLine] == undefined && variantFound == undefined) {
-              dict[updatedLine] = finalFileName;
-            }
-            if (dict[updatedLine] == undefined && variantFound != undefined) {
-              dict[updatedLine] = `${finalFileName} (${variantFound} variant)`;
+            line = line.split(/[-=/_+*]/)
+            for (let i = 0; i < line.length; i++) {
+              let foundIndex = 0;
+              const newLine = line[i].split('.');
+              for (let j = newLine.length - 1; j >= 0; j--){
+                newLine[j] = newLine[j].includes(',')
+                  ? newLine[j].substring(0, newLine[j].length - 1)
+                  : newLine[j];
+                 newLine[j] = newLine[j].includes('}')
+                  ? newLine[j].substring(0, newLine[j].length - 1)
+                  : newLine[j];
+                newLine[j] = newLine[j].includes(' ')
+                  ? newLine[j].substring(0, newLine[j].length - 1)
+                  : newLine[j];
+                const foundCorrectIndex = themeValueArray.some(val => val.includes(newLine[j]));
+                if (foundCorrectIndex) {
+                  foundIndex = j;
+                  break;
+                }
+              }
+              const updatedLine = newLine[foundIndex];
+              if (isNaN(updatedLine)) {
+                const newFileName = updateFileName[updateFileName.length - 1];
+                const separatedFileName = newFileName.split('.');
+                const finalFileName = separatedFileName[0];
+                if (dict[updatedLine]) {
+                  if (!variantFound) {
+                    dict[updatedLine] = `${dict[updatedLine]}, ${finalFileName}`;
+                    dict[updatedLine] = dict[updatedLine].trim();
+                    const removeDuplicates = dict[updatedLine].split(', ');
+                    const duplicates = [...new Set(removeDuplicates)];
+                    dict[updatedLine] = duplicates.join(', ')
+                  }
+                  else {
+                      dict[updatedLine] =
+                    `${dict[updatedLine]}, ${finalFileName} (${variantFound} variant)`;
+                  }
+                }
+                else {
+                  dict[updatedLine] = variantFound ? `${finalFileName} (${variantFound} variant)` : dict[updatedLine] = finalFileName;
+                }
+              }
             }
           }
           resolve();
@@ -99,27 +113,26 @@ function createTable(themeProperty, mdFile, themeFiles) {
   ).then(() => {
     const content = `${themeProperty} Value | Components \n`;
     fs.writeFileSync(mdFile, content);
-    const content1 = '--------|-------- \n';
-    fs.appendFileSync(mdFile, content1);
-    const content2 = '';
+    const header = '--------|-------- \n';
+    fs.appendFileSync(mdFile, header);
     for (const key in dict) {
       let modifiedKey = `theme.${themeProperty}.`;
       modifiedKey = modifiedKey.concat(key);
-      const content2 = `${key} | ${dict[key]}`;
-      fs.appendFileSync(mdFile, content2);
+      const valuesAndComponents = `${key} | ${dict[key]}`;
+      fs.appendFileSync(mdFile, valuesAndComponents);
       fs.appendFileSync(mdFile, '\n');
-      const valueFound1 = themeValueArray.some(val =>
+      const duplicates = themeValueArray.some(val =>
         modifiedKey.includes(val)
       );
-      if (valueFound1 == true) {
+      if (duplicates === true) {
         themeValueArray.splice(themeValueArray.indexOf(modifiedKey), 1);
       }
     }
     for (const element of themeValueArray) {
       const temp = element.split('.');
       const temporary = temp[temp.length - 1];
-      const content3 = `${temporary} | No components are using this value`;
-      fs.appendFileSync(mdFile, content3);
+      const unusedThemeValue = `${temporary} | No components are using this value`;
+      fs.appendFileSync(mdFile, unusedThemeValue);
       fs.appendFileSync(mdFile, '\n');
     }
   });
