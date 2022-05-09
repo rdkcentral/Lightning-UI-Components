@@ -194,6 +194,43 @@ describe('Row', () => {
     });
   });
 
+  describe('removeItemAt', () => {
+    beforeEach(() => {
+      row.items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        },
+        {
+          ...baseItem,
+          testId: 'C'
+        }
+      ];
+    });
+
+    it('should remove an item from the row', () => {
+      row.removeItemAt(1);
+      expect(row.items.length).toBe(2);
+    });
+    it('should maintain which item is selected after removing an item', () => {
+      row.selectedIndex = 2;
+      expect(row.selected.testId).toBe('C');
+      row.removeItemAt(1);
+      expect(row.selectedIndex).toBe(1);
+      expect(row.selected.testId).toBe('C');
+    });
+    it('should select the next item after a selected item has been removed', () => {
+      row.selectedIndex = 1;
+      row.removeItemAt(1);
+      expect(row.selectedIndex).toBe(1);
+      expect(row.selected.testId).toBe('C');
+    });
+  });
+
   describe('when items are added at an index lesser than the current selected item', () => {
     const item = {
       ...baseItem,
