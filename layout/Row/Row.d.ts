@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import { FocusManager } from '../FocusManager/FocusManager';
 
 type transitionObject = {
@@ -33,6 +34,9 @@ export declare class Row extends FocusManager {
   shouldScrollRight(): boolean;
   onScreenEffect(): void;
   transitionDone(): void;
+  appendItemsAt(items: lng.Component[], index: number): void;
+  prependItems(items: lng.Component[]): void;
+  removeItemAt(index: number): void;
 
   $itemChanged(): void;
 }
