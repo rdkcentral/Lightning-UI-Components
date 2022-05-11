@@ -3,7 +3,7 @@ import { default as context } from '../../context';
 import themeManager from '../../context/theme-manager';
 import { debounce } from 'debounce';
 import Style from './Style';
-import { getValFromObjPath } from '../../utils';
+import { getValFromObjPath, clone } from '../../utils';
 
 export default function withThemeStyles(Base, styles = {}) {
   return class extends Base {
@@ -68,11 +68,10 @@ export default function withThemeStyles(Base, styles = {}) {
           ? styles(this.theme, this.variant)
           : styles;
 
-      this._processedStylesCache = {
-        ...(super._processedStyles || {}),
-        ...processedThemeStyles,
-        ...processedStyles
-      };
+      this._processedStylesCache = clone(
+        clone(super._processedStyles || {}, processedThemeStyles),
+        processedStyles
+      );
 
       return this._processedStylesCache;
     }
