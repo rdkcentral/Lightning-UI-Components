@@ -39,7 +39,7 @@ export function base(theme) {
     },
     blur: 4,
     centerImageRadius: theme.radius.medium,
-    fillColor: undefined,
+    fillColor: theme.colors.material,
     gradientColor: theme.colors.material,
     imageScale: undefined,
     imageScalePivotX: 0.5,

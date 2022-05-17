@@ -26,6 +26,7 @@ describe('Artwork', () => {
           '_updateRadius',
           '_updateGradient',
           '_updateImage',
+          '_updateFillColor',
           '_updateCenterImage',
           '_updateBlur',
           '_showComponent',
@@ -68,6 +69,7 @@ describe('Artwork', () => {
       'gradientType',
       'mode',
       'src',
+      'fill',
       'srcCallback',
       'srcCallbackAspectRatios'
     ]);
@@ -275,11 +277,13 @@ describe('Artwork', () => {
   });
 
   it('will update fillColor if defined in componentStyles and remove the element if not required', async done => {
+    component.fill = true;
     component.style.fillColor = 0xfff663399;
     await component.__updateSpyPromise;
     expect(component._FillColor).not.toBeUndefined();
     expect(component._FillColor.color).toBe(0xfff663399);
     component.style.fillColor = undefined;
+    component.fill = false;
     await component.__updateSpyPromise;
     expect(component._FillColor).toBeUndefined();
     done();

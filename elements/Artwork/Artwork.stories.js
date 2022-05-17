@@ -35,7 +35,8 @@ Basic.args = {
   gradient: false,
   gradientType: 'default',
   mode: 'default',
-  srcCallback: false
+  srcCallback: false,
+  fill: false
 };
 
 Basic.argTypes = {
@@ -89,6 +90,10 @@ Basic.argTypes = {
     table: {
       defaultValue: { summary: undefined }
     }
+  },
+  fill: {
+    control: 'boolean',
+    description: 'show/hide fill'
   }
 };
 
