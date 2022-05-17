@@ -23,6 +23,7 @@ class Artwork extends Base {
       'gradientType',
       'mode',
       'src',
+      'fill',
       'srcCallback',
       'srcCallbackAspectRatios'
     ];
@@ -582,24 +583,22 @@ class Artwork extends Base {
   }
 
   _updateFillColor() {
-    if (!this._componentStyles.fillColor) {
-      if (this._FillColor) {
-        this.patch({
-          FillColor: undefined
-        });
-      }
-      return;
+    if (!this.fill) {
+      this.patch({
+        FillColor: undefined
+      });
+    } else {
+      this.patch({
+        FillColor: {
+          rect: true,
+          w: this.w,
+          h: this.h,
+          color: this._componentStyles.fillColor,
+          zIndex: 5,
+          alpha: 0.7
+        }
+      });
     }
-
-    this.patch({
-      FillColor: {
-        rect: true,
-        w: this.w,
-        h: this.h,
-        color: this._componentStyles.fillColor,
-        zIndex: 5
-      }
-    });
   }
 
   _updateRadius() {
