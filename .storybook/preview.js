@@ -8,7 +8,7 @@ import { addDecorator } from '@storybook/html';
 import theme from './theme';
 import rogers from '../themes/rogers';
 import xfinity from '../themes/xfinity';
-
+import sky from '../themes/sky';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import { withAnnouncer } from '../';
@@ -27,6 +27,9 @@ function themeSelect(event) {
       break;
     case 'xfinity':
       context.setTheme(xfinity);
+      break;
+    case 'sky':
+      context.setTheme(sky);
       break;
     default:
       context.setTheme({});
@@ -175,10 +178,7 @@ addDecorator(
               'undefined' !== typeof args[prop]
                 ? args[prop]
                 : parameters.argTypes[prop].defaultValue;
-              parameters.argActions[prop](
-                args[prop],
-                app.tag('StoryComponent')
-              );
+            parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
           } catch (err) {
             console.error('unable to apply argAction for ' + prop);
           }

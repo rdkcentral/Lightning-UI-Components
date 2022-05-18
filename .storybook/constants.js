@@ -1,5 +1,6 @@
 import rogers from '../themes/rogers';
 import xfinity from '../themes/xfinity';
+import sky from '../themes/sky';
 
 export const ADDON_ID = 'lui-addons';
 export const DOWNLOAD_ID = `${ADDON_ID}/downloadbutton`;
@@ -9,5 +10,6 @@ export const COMPONENTSTYLES_ID = `${ADDON_ID}/componentstylespanel`;
 export const THEMEPICKER_ID = `${ADDON_ID}/themepicker`;
 export const THEMES = {
   xfinity,
-  rogers
+  rogers,
+  sky
 }

@@ -3,9 +3,9 @@ import colors from './colors';
 import { layout } from '../xfinity/layout';
 import radius from './radius';
 import animations from '../xfinity/animations';
-import typography from '../xfinity/typography';
+import typography from './typography';
+import fonts from './fonts';
 import extensions from '../xfinity/extensions';
-import fonts from '../xfinity/fonts';
 
 export default {
   name: 'Rogers',
