@@ -1,9 +1,7 @@
 import withThemeStyles from '../mixins/withThemeStyles';
 import Base from '../Base';
 import TestUtils from '../test/lightning-test-utils';
-import { fontLoader } from './fonts';
 import logger from './logger';
-import events from './events';
 
 jest.mock('./fonts');
 jest.mock('./logger');
@@ -79,57 +77,6 @@ describe('theme context', () => {
       expect(() => {
         themeManager._processTheme('newThemeValue');
       }).toThrow('context processTheme expected an array. Received string');
-    });
-  });
-
-  describe('when loading fonts - _loadFonts', () => {
-    const mockFont = { family: 'MockFont', url: 'mockurl' };
-    it('should emit a message when fonts have been loaded', async () => {
-      const fontLoaderPromise = Promise.resolve(['mockFontA', 'mockFontB']);
-      fontLoader.mockReturnValue(fontLoaderPromise);
-
-      expect(fontLoader).not.toHaveBeenCalled();
-      expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).not.toHaveBeenCalledWith();
-
-      themeManager.updateTheme({
-        fonts: [mockFont]
-      });
-      const currTheme = themeManager.getTheme();
-
-      expect(fontLoader).toHaveBeenCalledWith(currTheme.fonts);
-      expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).not.toHaveBeenCalledWith();
-
-      await fontLoaderPromise;
-
-      expect(events.emit).toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).not.toHaveBeenCalledWith();
-    });
-    it('should log an error if fonts fail to load', async () => {
-      const errorMessage = 'err';
-      const fontLoaderPromise = Promise.reject(errorMessage);
-      fontLoader.mockReturnValue(fontLoaderPromise);
-
-      expect(fontLoader).not.toHaveBeenCalled();
-      expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).not.toHaveBeenCalledWith();
-
-      themeManager.updateTheme({
-        fonts: [mockFont]
-      });
-      const currTheme = themeManager.getTheme();
-
-      expect(fontLoader).toHaveBeenCalledWith(currTheme.fonts);
-      expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).not.toHaveBeenCalledWith();
-
-      await fontLoaderPromise.catch(() => {});
-
-      expect(events.emit).not.toHaveBeenCalledWith('fontsLoaded');
-      expect(logger.error).toHaveBeenCalledWith(
-        `Unable to load font: ${errorMessage}`
-      );
     });
   });
 

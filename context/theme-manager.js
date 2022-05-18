@@ -93,7 +93,6 @@ export class ThemeManager {
   async _loadFonts(fontArray) {
     try {
       await fontLoader(fontArray);
-      events.emit('fontsLoaded');
     } catch (err) {
       logger.error(`Unable to load font: ${err}`);
     }

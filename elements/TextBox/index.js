@@ -2,7 +2,7 @@ import Base from '../../Base';
 import styles from './TextBox.styles';
 import withStyles from '../../mixins/withThemeStyles';
 import { getValidColor } from '../../Styles';
-import context from '../../context';
+
 export default class TextBox extends withStyles(Base, styles) {
   static _template() {
     return {
@@ -35,26 +35,8 @@ export default class TextBox extends withStyles(Base, styles) {
     ];
   }
 
-  _construct() {
-    super._construct && super._construct();
-    context.on('fontsLoaded', this._forceUpdate.bind(this));
-  }
-
-  _detach() {
-    context.off('fontsLoaded', this._forceUpdate.bind(this));
-  }
-
   _init() {
     this._Text.on('txLoaded', this._setDimensions.bind(this));
-  }
-
-  _forceUpdate() {
-    // Fonts that are loaded asynchronous via the theme are not picked up by the component unless the textureSourceHashmap is cleared first.
-    const id = this._Text.text._getLookupId();
-    if (this._Text.text && id) {
-      this.stage.textureManager.textureSourceHashmap.delete(id);
-      this._Text.text._changed();
-    }
   }
 
   _setDimensions() {
@@ -149,6 +131,12 @@ export default class TextBox extends withStyles(Base, styles) {
   }
 
   _update() {
+    if (!this.content) {
+      // If content is not defined hide the component
+      this.visible = false;
+      return;
+    }
+    this.visible = true;
     const fontStyle =
       null !== this.textStyle &&
       'object' === typeof this.textStyle &&

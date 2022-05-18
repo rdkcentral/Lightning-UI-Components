@@ -9,6 +9,7 @@ const testOptions = async (element, optionProp, optionsValues, match) => {
   for (const option of optionsValues) {
     await (() => {
       return new Promise(resolve => {
+        element.content = 'Hello world';
         element[optionProp] = option;
         setTimeout(() => {
           let expects;
@@ -72,6 +73,7 @@ describe('TextBox', () => {
   });
 
   it('should fallback to "body1" object if the style prop is an invalid string', async done => {
+    element.content = 'Hello world';
     element.textStyle = 'invalidstyle';
     await element.__updateSpyPromise;
     expect(element._Text.text.fontFace).toBe(
@@ -93,6 +95,7 @@ describe('TextBox', () => {
   });
 
   it('should set style to "body1" object if the style prop is null', async done => {
+    element.content = 'Hello World';
     element.textStyle = null;
     await element.__updateSpyPromise;
     expect(element._Text.text.fontFace).toBe(
@@ -114,6 +117,7 @@ describe('TextBox', () => {
   });
 
   it('should set style to "body1" object if the style prop is not a string or object', async done => {
+    element.content = 'Hello World';
     element.textStyle = () => {};
     await element.__updateSpyPromise;
     expect(element._Text.text.fontFace).toBe(

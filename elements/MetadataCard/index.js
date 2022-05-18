@@ -101,6 +101,7 @@ export default class MetadataCard extends withStyles(Base, styles) {
       this.tag(line.ref + 'Wrapper').h = line.textHeight;
       this.tag(line.ref + 'Wrapper').alpha = 1;
     }
+
     line.h = line.content ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
     this._requestUpdateDebounce();
