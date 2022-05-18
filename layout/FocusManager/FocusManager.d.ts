@@ -7,7 +7,7 @@ export declare class FocusManager extends Base {
   get items(): Array<lng.Component>;
   get selected(): lng.Component;
   get selectedIndex(): number;
-  set selectedIndex(index: number): void;
+  set selectedIndex(index: number);
   get fullyOnScreenItems(): Array<lng.Component>;
 
   appendItems(items: Array<lng.Component>): void;
