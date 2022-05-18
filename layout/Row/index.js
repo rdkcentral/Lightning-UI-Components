@@ -263,7 +263,7 @@ class Row extends FocusManager {
   }
 
   render(next, prev) {
-    if (this.plinko && prev && (prev.currentItem || prev.selected)) {
+    if (this.plinko && prev && prev.selected) {
       next.selectedIndex = this._getIndexOfItemNear(next, prev);
     }
 

@@ -221,7 +221,7 @@ class FocusManager extends Base {
       return Math.sqrt(Math.pow(xDiff, 2) + Math.sqrt(Math.pow(yDiff, 2)));
     }
 
-    const prevItem = prev.selected || prev.currentItem;
+    const prevItem = prev.selected;
 
     if (!selected || !selected.items || !selected.items.length || !prevItem) {
       return 0;

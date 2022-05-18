@@ -164,7 +164,7 @@ class Column extends FocusManager {
     if (
       this.plinko &&
       prev &&
-      (prev.currentItem || prev.selected) &&
+      prev.selected &&
       !(this.items.indexOf(prev) === 0 && prev.skipPlinko)
     ) {
       const prevPlinko = this.checkSkipPlinko(prev, next);
