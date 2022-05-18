@@ -33,7 +33,6 @@ Basic.args = {
   blur: false,
   foregroundSrc: false,
   gradient: false,
-  gradientType: 'default',
   mode: 'default',
   srcCallback: false,
   fill: false
@@ -60,14 +59,6 @@ Basic.argTypes = {
     description: 'Adds gradient to artwork area',
     table: {
       defaultValue: { summary: false }
-    }
-  },
-  gradientType: {
-    control: 'radio',
-    options: ['default', 'mesh'],
-    description: 'Set type of gradient that will be applied to content',
-    table: {
-      defaultValue: { summary: 'default' }
     }
   },
   foregroundSrc: {
