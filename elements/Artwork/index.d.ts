@@ -35,7 +35,6 @@ export default class Artwork extends Base {
   foregroundSrc?: string;
   foregroundW?: number;
   gradient?: boolean;
-  gradientType?: 'default' | 'mesh';
   mode?: 'default' | 'circle' | 'square' | 'contain';
   src: string; // Inherited from lng.Element
   srcCallback?: (obj: {

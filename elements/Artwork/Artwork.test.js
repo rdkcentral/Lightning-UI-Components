@@ -66,7 +66,6 @@ describe('Artwork', () => {
       'foregroundSrc',
       'foregroundW',
       'gradient',
-      'gradientType',
       'mode',
       'src',
       'fill',
@@ -287,12 +286,6 @@ describe('Artwork', () => {
     await component.__updateSpyPromise;
     expect(component._FillColor).toBeUndefined();
     done();
-  });
-
-  it('will only allow gradient type to be set to mesh or default', () => {
-    expect(component._setGradientType('mesh')).toBe('mesh');
-    expect(component._setGradientType('foo')).toBe('default');
-    expect(component._setGradientType(undefined)).toBe('default');
   });
 
   it('will call resolveLoading on _Image txLoaded event', async done => {
@@ -691,12 +684,6 @@ describe('Artwork', () => {
     await component.__showComponentSpyPromise;
     TestUtils.fastForward([component._Gradient]);
     expect(component._Gradient).not.toBeUndefined();
-    expect(component._Gradient.name).toBe('default');
-    component.gradientType = 'mesh';
-    await component.__showComponentSpyPromise;
-    TestUtils.fastForward([component._Gradient]);
-    expect(component._Gradient).not.toBeUndefined();
-    expect(component._Gradient.name).toBe('mesh');
     done();
   });
 

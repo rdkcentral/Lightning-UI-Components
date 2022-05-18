@@ -20,7 +20,6 @@ class Artwork extends Base {
       'foregroundSrc',
       'foregroundW',
       'gradient',
-      'gradientType',
       'mode',
       'src',
       'fill',
@@ -72,8 +71,7 @@ class Artwork extends Base {
   }
 
   get _actualAspectRatio() {
-    /* eslint-disable getter-return */
-    if (!this.w || !this.h) return undefined;
+    if (!this.w || !this.h) return null;
     return reduceFraction(`${this.w}/${this.h}`).replace('/', 'x');
   }
 
@@ -112,9 +110,22 @@ class Artwork extends Base {
     return src;
   }
 
+  get _gradientPatch() {
+    return {
+      alpha: !this._Gradient && this._smooth ? 0.001 : 1,
+      gradientColor: getValidColor(this._componentStyles.gradientColor),
+      h: this.h + 4,
+      radius: this._componentStyles.radius,
+      type: Gradient,
+      w: this.w + 4,
+      x: -2,
+      y: -2,
+      zIndex: 4
+    };
+  }
+
   _construct() {
     super._construct();
-    this._gradientType = 'default';
     this._srcCallbackAspectRatios = ['16x9', '3x4', '4x3', '2x1', '1x1'];
   }
 
@@ -128,13 +139,6 @@ class Artwork extends Base {
       this._fallbackSrc ||
       (this._componentStyles && this._componentStyles.fallbackSrc)
     );
-  }
-
-  _setGradientType(v) {
-    if (v === 'mesh') {
-      return v;
-    }
-    return 'default';
   }
 
   _generatePromise() {
@@ -476,83 +480,38 @@ class Artwork extends Base {
   }
 
   _updateGradient() {
-    if (!this.gradient && this._Gradient) {
-      if (this._smooth) {
-        this._Gradient._getTransition('alpha').once('finish', () => {
-          // Remove gradient if no longer required
-          const transition =
-            this._Gradient && this._Gradient._getTransition('alpha');
-          if (!this.gradient && transition && transition.p === 1)
-            this.patch({ Gradient: undefined });
-        });
-        this._Gradient.smooth = {
-          alpha: [0, this._componentStyles.animationGradientExit]
-        };
-      } else {
-        this.patch({ Gradient: undefined });
+    if (!this.gradient) {
+      if (this._Gradient) {
+        // Cleanup previous gradient
+        if (this._smooth) {
+          this._Gradient._getTransition('alpha').once('finish', () => {
+            // Remove gradient if no longer required
+            const transition =
+              this._Gradient && this._Gradient._getTransition('alpha');
+            if (!this.gradient && transition && transition.p === 1)
+              this.patch({ Gradient: undefined });
+          });
+          this._Gradient.smooth = {
+            alpha: [0, this._componentStyles.animationGradientExit]
+          };
+        } else {
+          this.patch({ Gradient: undefined });
+        }
       }
       return;
     }
-    if (this.gradient) {
-      // Clear previous gradient type if changed
-      if (this._Gradient && this.gradientType !== this._Gradient.name) {
-        this.patch({ Gradient: undefined });
-      }
-      let gradientPatch;
-      // 2 is added to each side to account for rounded rectangle bug
-      if (this.gradientType === 'mesh') {
-        gradientPatch = {
-          Gradient: {
-            name: 'mesh',
-            rtt: true,
-            w: this.w + 4,
-            h: this.h + 4,
-            zIndex: 4,
-            alpha: !this._Gradient && this._smooth ? 0.001 : 1,
-            TopGradient: {
-              gradientColor: getValidColor(this._componentStyles.gradientColor),
-              h: this.w + 4,
-              radius: 4,
-              type: Gradient,
-              pivot: 0,
-              w: this.h + 4,
-              x: this.w - 2, // Seams to be the only way I can align this properly open to ideas
-              y: -2,
-              rotation: (90 * Math.PI) / 180 // Calculate radians
-            },
-            BottomGradient: {
-              gradientColor: getValidColor(this._componentStyles.gradientColor),
-              h: this.h + 4,
-              radius: 4,
-              type: Gradient,
-              w: this.w + 4,
-              x: -2,
-              y: -2
-            }
-          }
-        };
-      } else {
-        gradientPatch = {
-          Gradient: {
-            name: 'default',
-            alpha: !this._Gradient && this._smooth ? 0.001 : 1,
-            gradientColor: getValidColor(this._componentStyles.gradientColor),
-            h: this.h + 4,
-            radius: 4,
-            type: Gradient,
-            w: this.w + 4,
-            x: -2,
-            y: -2,
-            zIndex: 4
-          }
-        };
-      }
-      this.patch(gradientPatch);
-      if (this._smooth) {
-        this._Gradient.smooth = {
-          alpha: [1, this._componentStyles.animationGradientEntrance]
-        };
-      }
+
+    this._createGradient();
+  }
+
+  _createGradient() {
+    this.patch({
+      Gradient: this._gradientPatch // Allows for an easier way to extend and replace the gradient
+    });
+    if (this._smooth) {
+      this._Gradient.smooth = {
+        alpha: [1, this._componentStyles.animationGradientEntrance]
+      };
     }
   }
 
