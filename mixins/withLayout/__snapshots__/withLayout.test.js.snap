@@ -80,7 +80,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 0,
-      "zIndex": 2,
+      "zIndex": 0,
     },
     "Background": Object {
       "active": false,
@@ -118,7 +118,7 @@ Object {
       "w": 0,
       "x": 0,
       "y": 0,
-      "zIndex": 1,
+      "zIndex": 0,
     },
   },
 }

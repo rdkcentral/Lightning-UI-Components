@@ -34,7 +34,7 @@ export default {
             w: calculatedW,
             x: calculatedW / 2,
             y: calculatedH / 2,
-            zIndex: 4 // One under the value in Surface
+            zIndex: this.parent.core.findZContext().zIndex - 1
           }
         });
         // Get the values from the FocusRing to establish the proper scale when unfocused so it animates in properly
@@ -89,30 +89,13 @@ export default {
               timingFunction: context.theme.animations.emphasizedEntrance
             }
           ];
-          focusRingPatch.alpha = [
-            1,
-            {
-              duration: context.theme.animations.emphasizedEntranceDuration,
-              delay: context.theme.animations.emphasizedEntranceDelay,
-              timingFunction: context.theme.animations.emphasizedEntrance
-            }
-          ];
         } else {
           focusRingPatch.scale = 1;
-          focusRingPatch.alpha = 1;
         }
       } else {
         if (this._smooth) {
           focusRingPatch.scale = [
             this._unfocusedFocusRingScale,
-            {
-              duration: context.theme.animations.emphasizedExitDuration,
-              delay: context.theme.animations.emphasizedExitDelay,
-              timingFunction: context.theme.animations.emphasizedExit
-            }
-          ];
-          focusRingPatch.alpha = [
-            0.001,
             {
               duration: context.theme.animations.emphasizedExitDuration,
               delay: context.theme.animations.emphasizedExitDelay,
@@ -134,7 +117,6 @@ export default {
         this.tag('FocusRing').startAnimation();
       } else {
         this.tag('FocusRing').stopAnimation();
-        this.tag('FocusRing').alpha = 0;
       }
     }
   },
