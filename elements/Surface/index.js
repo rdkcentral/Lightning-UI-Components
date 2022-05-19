@@ -7,9 +7,7 @@ import lng from '@lightningjs/core';
 class Surface extends Base {
   static _template() {
     return {
-      Background: {
-        zIndex: 1
-      }
+      Background: {}
     };
   }
 

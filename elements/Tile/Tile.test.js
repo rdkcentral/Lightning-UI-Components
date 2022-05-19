@@ -46,15 +46,7 @@ describe('Tile', () => {
       expect.objectContaining({
         Artwork: {
           type: Artwork,
-          mount: 0.5,
-          zIndex: 2
-        },
-        Background: {
-          zIndex: 1
-        },
-        Content: {
-          mount: 0.5,
-          zIndex: 3
+          mount: 0.5
         }
       })
     );

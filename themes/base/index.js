@@ -19,6 +19,8 @@ export default {
   animations,
   calculateColumnWidth,
   colors,
+  componentStyles: {},
+  componentVariants: {},
   fonts,
   getFocusScale,
   getUnfocusScale,
@@ -26,7 +28,5 @@ export default {
   radius,
   spacing,
   stroke,
-  typography,
-  componentStyles: {},
-  componentVariants: {}
+  typography
 };

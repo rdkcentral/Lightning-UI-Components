@@ -23,12 +23,10 @@ class Tile extends Surface {
       ...super._template(), // Make sure surface elments are patched
       Artwork: {
         type: Artwork,
-        mount: 0.5,
-        zIndex: 2
+        mount: 0.5
       },
       Content: {
-        mount: 0.5,
-        zIndex: 3
+        mount: 0.5
       }
     };
   }

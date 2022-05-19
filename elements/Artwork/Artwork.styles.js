@@ -46,7 +46,15 @@ export function base(theme) {
     imageScalePivotY: 0.5,
     padding: theme.spacing(1),
     radius: 0,
-    fallbackSrc: undefined
+    fallbackSrc: undefined,
+    zIndex: {
+      image: 1,
+      blur: 2,
+      centerImage: 3,
+      fill: 4,
+      gradient: 5,
+      foreground: 6
+    }
   };
 }
 
