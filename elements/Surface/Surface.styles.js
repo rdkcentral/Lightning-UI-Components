@@ -15,13 +15,13 @@ export function base(theme) {
 export function variants(theme) {
   return {
     neutral: {
-      backgroundColorFocused: theme.colors.interactiveNeutralFocusSoft
+      backgroundColorFocused: theme.colors.interactiveNeutralFocus
     },
     inverse: {
-      backgroundColorFocused: theme.colors.interactiveInverseFocusSoft
+      backgroundColorFocused: theme.colors.interactiveInverseFocus
     },
     brand: {
-      backgroundColorFocused: theme.colors.coreBrandFocusSoft
+      backgroundColorFocused: theme.colors.interactiveBrandFocus
     }
   };
 }
