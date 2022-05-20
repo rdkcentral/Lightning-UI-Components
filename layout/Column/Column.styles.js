@@ -7,9 +7,9 @@ export function base(theme) {
     itemSpacing: theme.layout.gutterY.xsmall,
     scrollIndex: 0,
     itemTransition: {
-      timingFunction: theme.animations.expressiveStandard,
-      delay: theme.animations.expressiveStandardDelay,
-      duration: theme.animations.expressiveStandardDuration
+      timingFunction: theme.animations.expressiveEntrance,
+      delay: theme.animations.expressiveEntranceDelay,
+      duration: theme.animations.expressiveEntranceDuration
     }
   };
 }
