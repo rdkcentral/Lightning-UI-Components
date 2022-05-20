@@ -37,7 +37,9 @@ export default {
       offsetY: 2 // Hopefully this can be fixed in a future release. For now we can center align for badge, tag with this adjustment font doesnt seam to fill the whole area in textbox texture
     },
     Tile: {
-      artworkFocusScale: 1.12
+      artworkStyles: {
+        imageScale: 1.2
+      }
     },
     Artwork: {
       fallbackSrc: './images/default_background.png'

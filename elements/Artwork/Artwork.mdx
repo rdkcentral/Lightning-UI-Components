@@ -43,6 +43,7 @@ class Example extends lng.Component {
 | gradient                | boolean  | false    | false                                | When true, a gradient will be added over all other elements                                                                                                                                                                                                             |
 | mode                    | string   | false    | 'default'                            | Selction of image display modes. 'default', 'circle', 'square', 'contain'                                                                                                                                                                                               |
 | src                     | string   | true     |                                      | Which image will be displayed                                                                                                                                                                                                                                           |
+| shouldScale             | boolean  | false    | false                                | When true, scale will be applied over the image and this will default to false                                                                                                                                                                                          |
 | srcCallback             | function | false    | undefined                            | optional callback that can be used to generate custom strings to request an image. The callback will be passed an object containing the following parameters: aspectRatio, src, w, h. Be default aspect ratio will match the closest value from srcCallbackAspectRatios |
 | srcCallbackAspectRatios | array    | false    | ['16x9', '3x4', '4x3', '2x1', '1x1'] | srcCallback will recieve an aspectRatio parameter when called, this array is used to find the closest value for your use case.                                                                                                                                          |
 
@@ -63,7 +64,7 @@ class Example extends lng.Component {
 | fillColor                   | hexadecimal        | Hue applied to artwork                                                           |
 | fillColor                   | hexidecimal number | color to be applied as an overlay to entire artwork                              |
 | gradientColor               | hexidecimal number | color to be applied as bas for mesh and default gradients                        |
-| imageScale                  | number             | value to scale image inside of artwork container                                 |
+| imageScale                  | number or function | scale value will be applied when scale is set to true                            |
 | imageScalePivotX            | number             | number number between 0 and 1 to represent the pivotX point for imageScale       |
 | imageScalePivotY            | number             | number number between 0 and 1 to represent the PivotY point for imageScale       |
 | padding                     | number             | padding value used around center image when using a mode set to square or circle |

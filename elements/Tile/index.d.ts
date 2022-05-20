@@ -10,7 +10,6 @@ import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 export interface TileStyles {
   animationEntrance?: object;
   animationExit?: object;
-  artworkFocusScale?: number;
   artworkStyles?: ArtworkStyles;
   badgeStyles?: BadgeStyles;
   checkboxStyles?: CheckboxStyles;

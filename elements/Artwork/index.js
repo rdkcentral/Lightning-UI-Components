@@ -23,6 +23,7 @@ class Artwork extends Base {
       'mode',
       'src',
       'fill',
+      'shouldScale',
       'srcCallback',
       'srcCallbackAspectRatios'
     ];
@@ -202,21 +203,36 @@ class Artwork extends Base {
     }
     if (this._smooth === undefined) this._smooth = true;
   }
-
   _updateScale() {
-    const scale = this._componentStyles.imageScale || 1;
-    this._Image.smooth = {
-      pivotX: this._componentStyles.imageScalePivotX,
-      pivotY: this._componentStyles.imageScalePivotY,
-      scale: [
-        scale,
-        this._Image.scale < scale
-          ? this._componentStyles.animationImageScaleEntrance
-          : this._componentStyles.animationImageScaleExit
-      ]
-    };
+    if (this.shouldScale) {
+      let imageScale;
+      switch (typeof this._componentStyles.imageScale) {
+        case 'function':
+          imageScale = this._componentStyles.imageScale(this.w);
+          break;
+        case 'number':
+          imageScale = this._componentStyles.imageScale;
+          break;
+        default:
+          imageScale = 1;
+      }
+      this._Image.smooth = {
+        pivotX: this._componentStyles.imageScalePivotX,
+        pivotY: this._componentStyles.imageScalePivotY,
+        scale: [
+          imageScale,
+          this._Image.scale < imageScale
+            ? this._componentStyles.animationImageScaleEntrance
+            : this._componentStyles.animationImageScaleExit
+        ]
+      };
+    } else {
+      const scale = 1;
+      this._Image.smooth = {
+        scale: [scale, this._componentStyles.animationImageScaleExit]
+      };
+    }
   }
-
   _handleImageLoadError() {
     if (this.src === this.fallbackSrc) return;
     context.error(`Image ${this._src} failed to load`);
