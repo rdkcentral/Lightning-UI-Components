@@ -30,7 +30,7 @@ export default {
   emphasizedStandardDuration: durations.durationNormal,
   expressiveEntrance: 'cubic-bezier(0, 0, 0.15, 1)',
   expressiveEntranceDelay: delays.delayNone,
-  expressiveEntranceDuration: durations.durationNormal,
+  expressiveEntranceDuration: durations.durationFast,
   expressiveExit: 'cubic-bezier(0.9, 0, 1, 1)',
   expressiveExitDelay: delays.delayNone,
   expressiveExitDuration: durations.durationNormal,
@@ -45,5 +45,5 @@ export default {
   functionalExitDuration: durations.durationNormal,
   functionalStandard: 'cubic-bezier(0.4, 0.15, 0.1, 1)',
   functionalStandardDelay: delays.delayNone,
-  functionalStandardDuration: durations.durationNormal
+  functionalStandardDuration: durations.durationFast
 };
