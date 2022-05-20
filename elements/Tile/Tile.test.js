@@ -215,43 +215,11 @@ describe('Tile', () => {
   it('updates artwork scale on focus', async done => {
     testRenderer.focus();
     await component.__updateArtworkSpyPromise;
-    expect(component._Artwork.style.imageScale).toBe(1.12);
+    expect(component._Artwork.style.imageScale).toBe(1.2);
     component.style.artworkStyles = { imageScale: 2 };
     await component.__updateArtworkSpyPromise;
     expect(component._Artwork.style.imageScale).toBe(2);
-    component.style.artworkStyles = { imageScale: undefined };
-    done();
-  });
-
-  it('will scale the artwork component appropriatly if needed on focus', async done => {
-    expect(component.scale).toBe(1);
-    component.style.getFocusScale = () => 2;
-    await component.__updateArtworkSpyPromise;
-    testRenderer.focus();
-    await component.__updateArtworkSpyPromise;
-    expect(component._Artwork._transitions.scale.targetValue).toBe(2);
-    testRenderer.unfocus();
-    await component.__updateArtworkSpyPromise;
-    expect(component._Artwork._transitions.scale.targetValue).toBe(1);
-    // Check behavior if _smooth is false
-    component._smooth = false;
-    testRenderer.focus();
-    await component.__updateArtworkSpyPromise;
-    expect(component._Artwork.scale).toBe(2);
-    component._smooth = false;
-    testRenderer.unfocus();
-    await component.__updateArtworkSpyPromise;
-    expect(component._Artwork._transitions.scale.targetValue).toBe(1);
-    component.style.getFocusScale = () => 1;
-    await component.__updateArtworkSpyPromise;
-    testRenderer.focus();
-    expect(component._Artwork._transitions.scale.targetValue).toBe(1);
-    testRenderer.unfocus();
-    await component.__updateArtworkSpyPromise;
-    component._smooth = false;
-    testRenderer.focus();
-    await component.__updateArtworkSpyPromise;
-    expect(component._Artwork.scale).toBe(1);
+    component.style.artworkStyles = { scale: undefined };
     done();
   });
 

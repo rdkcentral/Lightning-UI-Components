@@ -214,15 +214,12 @@ class Tile extends Surface {
       w: this._w,
       x: this._w / 2,
       y: this._h / 2,
+      shouldScale: this._hasFocus,
       style: {
         radius: this._componentStyles.radius, // This can be overwritten by artworkStyles to support no rounding for performance
-        imageScale: this._hasFocus
-          ? this._componentStyles.artworkFocusScale
-          : 1,
         ...this._componentStyles.artworkStyles
       }
     });
-
     if (this._smooth) {
       this._Artwork.smooth = {
         scale: [

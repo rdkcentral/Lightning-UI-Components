@@ -69,6 +69,7 @@ describe('Artwork', () => {
       'mode',
       'src',
       'fill',
+      'shouldScale',
       'srcCallback',
       'srcCallbackAspectRatios'
     ]);
@@ -661,6 +662,14 @@ describe('Artwork', () => {
     expect(component._CenterImage.w).toBe(
       component.w - component.style.padding * 2
     );
+    done();
+  });
+
+  it('should update scale', async done => {
+    component.scale = true;
+    component._updateScale();
+    expect(component._Image).not.toBeUndefined();
+    expect(component._Image.scale).not.toBeUndefined();
     done();
   });
 

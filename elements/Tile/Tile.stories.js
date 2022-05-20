@@ -168,7 +168,8 @@ generateSubStory(Basic, LabelStory, 'label');
 generateSubStory(Basic, ArtworkStory, 'artwork', [
   'gradient',
   'itemLayout',
-  'srcCallback'
+  'srcCallback',
+  'shouldScale'
 ]);
 generateSubStory(Basic, ProgressBarStory, 'progressBar', ['w']);
 generateSubStory(Basic, CheckboxStory, 'checkbox');

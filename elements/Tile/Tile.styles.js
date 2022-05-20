@@ -25,7 +25,6 @@ export function base(theme) {
         timingFunction: theme.animations.emphasizedExit
       }
     },
-    artworkFocusScale: undefined,
     badgeStyles: {},
     checkboxStyles: {},
     focusRing: true,

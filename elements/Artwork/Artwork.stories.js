@@ -23,7 +23,10 @@ export const Basic = () =>
             ratioY: 9,
             upCount: 3
           },
-          fallbackSrc: fallbackSrc
+          fallbackSrc: fallbackSrc,
+          style: {
+            imageScale: 1.2
+          }
         }
       };
     }
@@ -35,7 +38,8 @@ Basic.args = {
   gradient: false,
   mode: 'default',
   srcCallback: false,
-  fill: false
+  fill: false,
+  shouldScale: false
 };
 
 Basic.argTypes = {
@@ -85,6 +89,10 @@ Basic.argTypes = {
   fill: {
     control: 'boolean',
     description: 'show/hide fill'
+  },
+  shouldScale: {
+    control: 'boolean',
+    description: 'show/hide scale'
   }
 };
 
