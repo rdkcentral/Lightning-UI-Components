@@ -169,7 +169,7 @@ describe('Tile', () => {
   });
 
   it('returns the proper scale', async done => {
-    expect(component._scale).toBe(1);
+    expect(component._surfaceScale).toBe(1);
     component.patch({
       style: {
         getFocusScale: () => 2,
@@ -179,10 +179,10 @@ describe('Tile', () => {
     await component.__updateSpyPromise;
     testRenderer.focus();
     await component.__updateSpyPromise;
-    expect(component._scale).toBe(2);
+    expect(component._surfaceScale).toBe(2);
     testRenderer.unfocus();
     await component.__updateSpyPromise;
-    expect(component._scale).toBe(1.5);
+    expect(component._surfaceScale).toBe(1.5);
     done();
   });
 
@@ -219,7 +219,7 @@ describe('Tile', () => {
     component.style.artworkStyles = { imageScale: 2 };
     await component.__updateArtworkSpyPromise;
     expect(component._Artwork.style.imageScale).toBe(2);
-    component.style.artworkStyles = { scale: undefined };
+    component.style.artworkStyles = { imageScale: undefined };
     done();
   });
 

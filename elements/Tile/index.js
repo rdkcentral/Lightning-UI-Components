@@ -141,10 +141,8 @@ class Tile extends Surface {
 
   get _metadataY() {
     return 'inset' === this._metadataLocation
-      ? this._h * this._scale -
-          this._componentStyles.paddingY -
-          this._progressBarHeight
-      : this._h * this._scale + this._componentStyles.paddingY;
+      ? this._h - this._componentStyles.paddingY - this._progressBarHeight
+      : this._h + this._componentStyles.paddingY;
   }
 
   get _metadataTransitions() {
@@ -153,7 +151,7 @@ class Tile extends Surface {
         this._persistentMetadata ||
         ('inset' === this._metadataLocation && this._hasFocus)
           ? this._metadataY
-          : this._h * this._scale + this._componentStyles.paddingY,
+          : this._h + this._componentStyles.paddingY,
         this._shouldShowMetadata
           ? this._componentStyles.animationEntrance
           : this._componentStyles.animationExit
@@ -181,8 +179,8 @@ class Tile extends Surface {
 
   _updateContent() {
     const itemContainerPatch = {
-      h: this._h * this._scale,
-      w: this._w * this._scale,
+      h: this._h,
+      w: this._w,
       x: this._w / 2,
       y: this._h / 2
     };
@@ -220,18 +218,6 @@ class Tile extends Surface {
         ...this._componentStyles.artworkStyles
       }
     });
-    if (this._smooth) {
-      this._Artwork.smooth = {
-        scale: [
-          this._scale,
-          this._hasFocus
-            ? this._componentStyles.animationEntrance
-            : this._componentStyles.animationExit
-        ]
-      };
-    } else {
-      this._Artwork.patch({ scale: this._scale });
-    }
   }
 
   _updateBadge() {
@@ -287,7 +273,7 @@ class Tile extends Surface {
     const labelPatch = {
       variant: this.variant, // Allow variant to be overwritten
       ...this.label,
-      x: this._w * this._scale - this._componentStyles.paddingX,
+      x: this._w - this._componentStyles.paddingX,
       y: this._componentStyles.paddingY,
       alpha: !this._persistentMetadata ? 0.001 : 1,
       style: this._componentStyles.labelStyles
@@ -308,7 +294,7 @@ class Tile extends Surface {
       this._Label.smooth = {
         ...labelPatch,
         x: [
-          this._w * this._scale - this._componentStyles.paddingX,
+          labelPatch.x,
           this._shouldShowMetadata
             ? this._componentStyles.animationEntrance
             : this._componentStyles.animationExit
@@ -338,8 +324,8 @@ class Tile extends Surface {
 
     const checkboxPatch = {
       ...this.checkbox,
-      x: this._w * this._scale - this._componentStyles.paddingX,
-      y: this._h * this._scale - this._componentStyles.paddingY,
+      x: this._w - this._componentStyles.paddingX,
+      y: this._h - this._componentStyles.paddingY,
       style: this._componentStyles.checkboxStyles
     };
 
@@ -391,9 +377,9 @@ class Tile extends Surface {
       const progressPatch = {
         variant: this.variant,
         ...this.progressBar,
-        w: this._w * this._scale - this._componentStyles.paddingX * 2,
-        x: (this._w * this._scale) / 2,
-        y: this._h * this._scale - this._componentStyles.paddingY,
+        w: this._w - this._componentStyles.paddingX * 2,
+        x: this._w / 2,
+        y: this._h - this._componentStyles.paddingY,
         style: this._componentStyles.progressBarStyles
       };
 
@@ -461,8 +447,8 @@ class Tile extends Surface {
           : 1,
       mountX: 0.5,
       mountY: 'inset' === this._metadataLocation ? 1 : 0,
-      w: this._w * this._scale - this._componentStyles.paddingX * 2,
-      x: (this._w * this._scale) / 2,
+      w: this._w - this._componentStyles.paddingX * 2,
+      x: this._w / 2,
       y: this._metadataY,
       style: this._componentStyles.metadataStyles
     };
