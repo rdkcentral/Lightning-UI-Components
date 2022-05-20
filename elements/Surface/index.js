@@ -29,7 +29,7 @@ class Surface extends Base {
     }
   }
 
-  get _scale() {
+  get _surfaceScale() {
     return this._hasFocus ? this._focusScale : this._unfocusScale;
   }
 
@@ -70,16 +70,16 @@ class Surface extends Base {
 
   _updateScale() {
     if (this._smooth) {
-      this._Background.smooth = {
+      this.smooth = {
         scale: [
-          this._scale,
+          this._surfaceScale,
           this._hasFocus
             ? this._componentStyles.animationEntrance
             : this._componentStyles.animationExit
         ]
       };
     } else {
-      this._Background.patch({ scale: this._scale });
+      this.patch({ scale: this._surfaceScale });
     }
   }
 }
