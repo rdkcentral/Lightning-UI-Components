@@ -29,33 +29,27 @@
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.10",
-    "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
     "@lightningjs/core": "2.5.0",
-    "@semantic-release/git": "^9.0.0",
-    "@storybook/addon-docs": "^6.3.10",
-    "@storybook/addon-essentials": "^6.3.10",
-    "@storybook/addon-storysource": "^6.3.10",
-    "@storybook/html": "^6.3.10",
+    "@semantic-release/git": "^10.0.1",
+    "@storybook/addon-docs": "^6.5.3",
+    "@storybook/addon-essentials": "^6.5.3",
+    "@storybook/addon-storysource": "^6.5.3",
+    "@storybook/html": "^6.5.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-jest": "^24.3.2",
     "eslint-plugin-prettier": "^3.3.1",
-    "gh-pages": "^3.1.0",
-    "husky": "^3.1.0",
+    "gh-pages": "^4.0.0",
+    "husky": "^8.0.1",
     "jest": "^26.6.1",
     "jest-webgl-canvas-mock": "^0.2.3",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.4.1",
-    "semantic-release": "^17.4.2"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+    "semantic-release": "^19.0.2"
   },
   "lint-staged": {
     "./{elements,layout,patterns,suite,utils}/**/*.js": [
@@ -67,20 +61,21 @@
   },
   "scripts": {
     "build": "build-storybook -c .storybook -o dist",
+    "create": "sh bin/create.sh",
+    "gh-pages": "gh-pages -d dist",
+    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
     "lint": "eslint './{collections,elements,layout,mixins,patterns,styles,utils}/**/*.js'",
     "lint:fix": "eslint --fix './{collections,elements,layout,mixins,patterns,styles,utils}/**/*.js'",
-    "gh-pages": "gh-pages -d dist",
-    "create": "sh bin/create.sh",
+    "prepare": "husky install",
+    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "start": "start-storybook -p 8000",
     "start:ci": "start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --no-coverage --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
-    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
-    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
-    "update:next": "git fetch origin && git checkout next && git pull origin next && git pull origin develop && git push origin next",
-    "update:beta": "git fetch origin && git checkout beta && git pull origin beta && git pull origin develop && git push origin beta"
+    "test:watch": "jest --no-coverage --watch",
+    "update:beta": "git fetch origin && git checkout beta && git pull origin beta && git pull origin develop && git push origin beta",
+    "update:next": "git fetch origin && git checkout next && git pull origin next && git pull origin develop && git push origin next"
   },
   "publishConfig": {
     "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
