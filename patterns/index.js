@@ -9,6 +9,7 @@ export {
   CardVerticalLarge,
   CardVerticalDynamic
 } from './Card';
+export { default as ContentTray } from './ContentTray';
 export { default as DataItem } from './DataItem';
 export { default as GameStats } from './GameStats';
 export { default as Info } from './Info';
