@@ -40,9 +40,9 @@ export default {
         // Get the values from the FocusRing to establish the proper scale when unfocused so it animates in properly
         const { borderWidth, spacing } = this.tag('FocusRing')._componentStyles;
         const focusRingScaleW =
-        calculatedW / (calculatedW + borderWidth * 2 + spacing * 2 + 2); // 2 to account for rounded rectangle bug
+          calculatedW / (calculatedW + borderWidth * 2 + spacing * 2 + 2); // 2 to account for rounded rectangle bug
         const focusRingScaleH =
-        calculatedH / (calculatedH + borderWidth * 2 + spacing * 2 + 2);
+          calculatedH / (calculatedH + borderWidth * 2 + spacing * 2 + 2);
         this._unfocusedFocusRingScale = Math.min(
           focusRingScaleW,
           focusRingScaleH
@@ -81,29 +81,37 @@ export default {
 
       if (_focused) {
         if (this._smooth) {
-          focusRingPatch.scale = [
-            1,
-            {
-              duration: context.theme.animations.emphasizedEntranceDuration,
-              delay: context.theme.animations.emphasizedEntranceDelay,
-              timingFunction: context.theme.animations.emphasizedEntrance
-            }
-          ];
+          focusRingPatch.smooth = {
+            alpha: 1,
+            scale: [
+              1,
+              {
+                duration: context.theme.animations.emphasizedEntranceDuration,
+                delay: context.theme.animations.emphasizedEntranceDelay,
+                timingFunction: context.theme.animations.emphasizedEntrance
+              }
+            ]
+          };
         } else {
           focusRingPatch.scale = 1;
+          focusRingPatch.alpha = 1;
         }
       } else {
         if (this._smooth) {
-          focusRingPatch.scale = [
-            this._unfocusedFocusRingScale,
-            {
-              duration: context.theme.animations.emphasizedExitDuration,
-              delay: context.theme.animations.emphasizedExitDelay,
-              timingFunction: context.theme.animations.emphasizedExit
-            }
-          ];
+          focusRingPatch.smooth = {
+            alpha: 0,
+            scale: [
+              this._unfocusedFocusRingScale,
+              {
+                duration: context.theme.animations.emphasizedExitDuration,
+                delay: context.theme.animations.emphasizedExitDelay,
+                timingFunction: context.theme.animations.emphasizedExit
+              }
+            ]
+          };
         } else {
           focusRingPatch.scale = this._unfocusedFocusRingScale;
+          focusRingPatch.alpha = 0;
         }
       }
 
