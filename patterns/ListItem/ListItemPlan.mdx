@@ -4,11 +4,11 @@ import { ListItemPlan } from '.';
 
 # ListItemPlan
 
-A [`ListItem`](?path=/docs/listitem--basic) with a 3rd line text content and [`Radio`](?path=/docs/toggle--basic) functionality.
+A [`ListItem`](?path=/docs/listitem--basic) with more lines of text content and [`Radio`](?path=/docs/toggle--basic) functionality.
 
 ## Usage
 
-`ListItemPlan` can display a `title`, `subtitle`, and `content`. The radio itself sits on the right side:
+`ListItemPlan` can display a `title`, `subtitle`, `content`, and `disclaimer`. The radio itself sits on the right side.
 
 ```js
 import { ListItemPlan } from '@lightning/ui';
@@ -20,7 +20,8 @@ class Example extends lng.Component {
         type: ListItemPlan,
         title: 'ListItemPlan Title',
         subtitile: 'ListItemPlan subtitle',
-        content: 'ListItemPlan content'
+        content: 'ListItemPlan content',
+        disclaimer: 'ListItemPlan disclaimer'
       }
     };
   }
@@ -47,13 +48,11 @@ if (ListItemPlan.isChecked()) {
 
 | name           | type                                         | readonly | description                                                                      |
 | -------------- | -------------------------------------------- | -------- | -------------------------------------------------------------------------------- |
-| title          | string                                       | false    | the 1st line, main item info goes here                                                         |
-| subtitle       | string                                       | false    | the 2nd line, item metadata info goes here                                                     |
-| content        | string                                       | false    | the 3rd line, the details of item, can be undefined or set to empty string so this line won't show|
+| title          | string                                       | false    | the 1st line, main item info goes here, maxLines=2                                           |
+| subtitle       | string                                       | false    | the 2nd line, item metadata info goes here, maxLines=0(default), this line won't be shown if the property was set to falsy value |
+| content        | string                                       | false    | the 3rd line, the details of item, maxLines=6, this line won't be shown if the property was set to falsy value |
+| disclaimer     | string                                       | false    | the 4th line, the disclaimer of item, maxLines=2, this line won't be shown if the property was set to falsy value |
 | checked        | boolean                                      | false    | sets initial `checked` value of Radio. Use `toggle()` to change value after init |
-| backgroundType | 'fill'\|'float'\|'ghost'                     | false    | color of `ListItem` container.                                                   |
-| checked        | boolean                                      | false    | sets initial `checked` value of Radio. Use `toggle()` to change value after init |
-| size           | 'xsmall'\|'small'\|'medium'\|'large'\|number | false    | width of the `ListItem` container, only works when w is undefined or 0.<br /><br />**RECOMMEND** setting prop `w` instead since this componenet might need customized width                                         |
 
 
 ### Methods

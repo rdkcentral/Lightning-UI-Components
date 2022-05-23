@@ -613,7 +613,8 @@ describe('ListItemPlan', () => {
     [listItemPlan, testRenderer] = createListItemPlan({
       title: 'ListItemPlan title',
       subtitle: 'ListItemPlan subtitle',
-      content: 'ListItemPlan content'
+      content: 'ListItemPlan content',
+      disclaimer: 'ListItemPlan disclaimer'
     });
     testRenderer.update();
   });
@@ -644,12 +645,29 @@ describe('ListItemPlan', () => {
     expect(listItemPlan._Content.content).toEqual('Update Content');
   });
 
+  it('should render a disclaimer', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+    expect(listItemPlan._Disclaimer.content).toEqual(listItemPlan.disclaimer);
+  });
+
+  it('should update disclaimer', () => {
+    [listItemPlan, testRenderer] = createListItemPlan({});
+    testRenderer.update();
+    expect(listItemPlan._Disclaimer).toBeUndefined();
+    listItemPlan.disclaimer = 'Update Content';
+    testRenderer.forceAllUpdates();
+    expect(listItemPlan._Disclaimer).toBeDefined();
+    expect(listItemPlan._Disclaimer.content).toEqual('Update Content');
+  });
+
   describe('focus', () => {
     beforeEach(() => {
       [listItemPlan, testRenderer] = createListItemPlan({
         title: 'ListItemPlan title',
         subtitle: 'ListItemPlan subtitle',
-        content: 'ListItemPlan content'
+        content: 'ListItemPlan content',
+        disclaimer: 'ListItemPlan disclaimer'
       });
       listItemPlan._focus();
       testRenderer.forceAllUpdates();
@@ -665,11 +683,12 @@ describe('ListItemPlan', () => {
       expect(listItemPlan._Content.textColor).toEqual(0x99ffffff);
     });
 
-    it('should announce title and subtitle', () => {
+    it('should announce all text', () => {
       expect(listItemPlan.announce).toStrictEqual([
         listItemPlan.title,
         listItemPlan.subtitle,
-        listItemPlan.content
+        listItemPlan.content,
+        listItemPlan.disclaimer
       ]);
     });
   });
