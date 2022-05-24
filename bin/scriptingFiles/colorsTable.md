@@ -11,16 +11,16 @@ coreNeutralDisabled | Checkbox (neutral variant), Checkbox (neutral variant), Ch
 coreNeutralTertiary | FocusRing (neutral variant), ProgressBar (neutral variant)
 coreInverseTertiary | FocusRing (inverse variant), ProgressBar (inverse variant)
 coreBrandTertiary | FocusRing (brand variant), ProgressBar (brand variant)
-interactiveNeutralFocus | Knob (neutral variant), Slider (neutral variant)
-interactiveInverseFocus | Knob (inverse variant), Slider (inverse variant)
-colors | Knob (brand variant), Slider (brand variant), Surface (brand variant)
-interactiveNeutralFocusSoft | Surface (neutral variant)
-interactiveInverseFocusSoft | Surface (inverse variant)
+interactiveNeutralFocus | Knob (neutral variant), Slider (neutral variant), Surface (neutral variant)
+interactiveInverseFocus | Knob (inverse variant), Slider (inverse variant), Surface (inverse variant)
+colors | Knob (brand variant), Slider (brand variant)
+interactiveBrandFocus | Surface (brand variant)
 materialBrand | No components are using this value
 coreBrandSecondary | No components are using this value
 coreBrandDisabled | No components are using this value
 coreOverlay | No components are using this value
-interactiveBrandFocus | No components are using this value
+interactiveNeutralFocusSoft | No components are using this value
+interactiveInverseFocusSoft | No components are using this value
 interactiveBrandFocusSoft | No components are using this value
 black | No components are using this value
 white | No components are using this value
