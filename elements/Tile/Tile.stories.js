@@ -8,7 +8,7 @@ import { Basic as LabelStory } from '../Label/Label.stories';
 import { Basic as ProgressBarStory } from '../ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../Badge/Badge.stories';
 import { Basic as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories';
-
+import { generateSubStory } from '../../.storybook/utils';
 export default {
   title: 'Elements / Tile',
   parameters: {
@@ -40,84 +40,6 @@ export const Basic = () =>
       };
     }
   };
-
-function nestedArgs(argsObj = {}, targetProp, ignore = []) {
-  return Object.keys(argsObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
-    return {
-      ...acc,
-      [targetProp + '_' + curr]: argsObj[curr]
-    };
-  }, {});
-}
-
-function nestedArgTypes(argTypesObj = {}, targetProp, ignore = []) {
-  return Object.keys(argTypesObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
-    return {
-      ...acc,
-      [targetProp + '_' + curr]: {
-        // Namespaced to avoid conflicts
-        name: curr,
-        ...argTypesObj[curr],
-        table: {
-          ...(argTypesObj[curr].table || {}),
-          category: targetProp
-        }
-      }
-    };
-  }, {});
-}
-
-const prevValues = {};
-
-function nestedArgActions(argTypesObj = {}, targetProp, ignore = []) {
-  return Object.keys(argTypesObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
-    return {
-      ...acc,
-      [targetProp + '_' + curr]: (value, component) => {
-        component.tag('Tile').patch({
-          [targetProp]: {
-            ...prevValues[targetProp],
-            [curr.replace(targetProp + '_', '')]:
-              'none' === value ? undefined : value // There are issues with merging objects here
-          }
-        });
-        // Allow patching to work with nested objects
-        if (!prevValues[targetProp]) {
-          prevValues[targetProp] = {};
-        }
-        prevValues[targetProp][curr.replace(targetProp + '_', '')] =
-          'none' === value ? undefined : value;
-        component.tag('Tile')._update(); // Update does not trigger is replacing individual properties
-      }
-    };
-  }, {});
-}
-
-function generateSubStory(BaseStory, SubStory, targetProperty, ignore = []) {
-  BaseStory.args = {
-    ...BaseStory.args,
-    ...nestedArgs(SubStory.args, targetProperty, ignore)
-  };
-
-  BaseStory.argTypes = {
-    ...BaseStory.argTypes,
-    ...nestedArgTypes(SubStory.argTypes, targetProperty, ignore)
-  };
-
-  if (!(BaseStory && BaseStory.parameters && BaseStory.parameters.argActions)) {
-    BaseStory.parameters = {
-      argActions: {}
-    };
-  }
-
-  BaseStory.parameters.argActions = {
-    ...BaseStory.parameters.argActions,
-    ...nestedArgActions(SubStory.argTypes, targetProperty, ignore)
-  };
-}
 
 Basic.args = {
   focused: true,
@@ -162,14 +84,14 @@ Basic.parameters = {
   }
 };
 
-generateSubStory(Basic, ItemLayoutStory, 'itemLayout');
-generateSubStory(Basic, BadgeStory, 'badge');
-generateSubStory(Basic, LabelStory, 'label');
-generateSubStory(Basic, ArtworkStory, 'artwork', [
+generateSubStory('Tile', Basic, ItemLayoutStory, 'itemLayout');
+generateSubStory('Tile', Basic, BadgeStory, 'badge');
+generateSubStory('Tile', Basic, LabelStory, 'label');
+generateSubStory('Tile', Basic, ArtworkStory, 'artwork', [
   'gradient',
   'itemLayout',
   'srcCallback',
   'shouldScale'
 ]);
-generateSubStory(Basic, ProgressBarStory, 'progressBar', ['w']);
-generateSubStory(Basic, CheckboxStory, 'checkbox');
+generateSubStory('Tile', Basic, ProgressBarStory, 'progressBar', ['w']);
+generateSubStory('Tile', Basic, CheckboxStory, 'checkbox');

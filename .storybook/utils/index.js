@@ -211,3 +211,81 @@ const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
 export function colorUpdate() {
   debouncedColorUpdate(...arguments);
 }
+
+export function nestedArgs(argsObj = {}, targetProp, ignore = []) {
+  return Object.keys(argsObj).reduce((acc, curr) => {
+    if (ignore.includes(curr)) return acc;
+    return {
+      ...acc,
+      [targetProp + '_' + curr]: argsObj[curr]
+    };
+  }, {});
+}
+
+export function nestedArgTypes(argTypesObj = {}, targetProp, ignore = []) {
+  return Object.keys(argTypesObj).reduce((acc, curr) => {
+    if (ignore.includes(curr)) return acc;
+    return {
+      ...acc,
+      [targetProp + '_' + curr]: {
+        // Namespaced to avoid conflicts
+        name: curr,
+        ...argTypesObj[curr],
+        table: {
+          ...(argTypesObj[curr].table || {}),
+          category: targetProp
+        }
+      }
+    };
+  }, {});
+}
+
+export const prevValues = {};
+
+export function nestedArgActions(componentName, argTypesObj = {}, targetProp, ignore = []) {
+  return Object.keys(argTypesObj).reduce((acc, curr) => {
+    if (ignore.includes(curr)) return acc;
+    return {
+      ...acc,
+      [targetProp + '_' + curr]: (value, component) => {
+        component.tag(componentName).patch({
+          [targetProp]: {
+            ...prevValues[targetProp],
+            [curr.replace(targetProp + '_', '')]:
+              'none' === value ? undefined : value // There are issues with merging objects here
+          }
+        });
+        // Allow patching to work with nested objects
+        if (!prevValues[targetProp]) {
+          prevValues[targetProp] = {};
+        }
+        prevValues[targetProp][curr.replace(targetProp + '_', '')] =
+          'none' === value ? undefined : value;
+        component.tag(componentName)._update(); // Update does not trigger is replacing individual properties
+      }
+    };
+  }, {});
+}
+
+export function generateSubStory(componentName, BaseStory, SubStory, targetProperty, ignore = []) {
+  BaseStory.args = {
+    ...BaseStory.args,
+    ...nestedArgs(SubStory.args, targetProperty, ignore)
+  };
+
+  BaseStory.argTypes = {
+    ...BaseStory.argTypes,
+    ...nestedArgTypes(SubStory.argTypes, targetProperty, ignore)
+  };
+
+  if (!(BaseStory && BaseStory.parameters && BaseStory.parameters.argActions)) {
+    BaseStory.parameters = {
+      argActions: {}
+    };
+  }
+
+  BaseStory.parameters.argActions = {
+    ...BaseStory.parameters.argActions,
+    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, ignore)
+  };
+}
