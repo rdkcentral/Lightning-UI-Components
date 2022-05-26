@@ -1,0 +1,56 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import AboutCard from './AboutCard';
+
+# AboutCard
+
+Component that shows title, aligned icons and text in the middle, and description below.
+
+## Usage
+
+`AboutCard` can display ratings, icons, and titles and descriptions for different types of content.
+`AboutCard` extends [NewCard](?path=/docs/patterns-newcard--base)
+
+```js
+import { AboutCard } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      AboutCard: {
+        type: AboutCard,
+        title: 'AboutCard',
+        description:
+          'AboutCard allows you a lot of customization with titles, icons, and descriptions'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="patterns-aboutcard--about-cards" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name       | type   | required | default | description                        |
+| ---------- | ------ | -------- | ------- | ---------------------------------- |
+| iconHeight | string | false    | -       | height of the icon on the right    |
+| iconLeft   | string | false    | -       | icon left source                   |
+| iconRight  | string | false    | -       | icon right source                  |
+| iconWidth  | number | false    | -       | width of the icon on the right     |
+| textLeft   | string | false    | -       | text on the left side of the card  |
+| textRight  | string | false    | -       | text on the right side of the card |
+
+### Style Properties
+
+| name                      | type   | description                                            |
+| ------------------------- | ------ | ------------------------------------------------------ |
+| contentSpacing            | number | spacing between left and right side content            |
+| descriptionTextProperties | object | textProperties of the description                      |
+| paddingFirstLine          | number | padding between the top of the card and the first line |
+| paddingVertical           | number | padding vertically between lines                       |
+| textContainerProperties   | object | text properties of the middle text container content   |
+| titleTextProperties       | object | text properties of the title                           |

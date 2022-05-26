@@ -2,12 +2,14 @@ export default {
   display1: {
     fontFace: 'Arial',
     fontSize: 75,
+    lineHeight: 85,
     fontWeight: 500,
     verticalAlign: 'middle'
   },
   display2: {
     fontFace: 'Arial',
     fontSize: 50,
+    lineHeight: 60,
     fontWeight: 500,
     verticalAlign: 'middle'
   },
