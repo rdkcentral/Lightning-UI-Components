@@ -89,19 +89,20 @@ function createTable(themeProperty, mdFile, themeFiles) {
                 const finalFileName = separatedFileName[0];
                 if (dict[updatedLine]) {
                   if (!variantFound) {
-                    dict[updatedLine] = `${dict[updatedLine]}, ${finalFileName}`;
+                    dict[updatedLine] = `<li> ${dict[updatedLine]} </li>, <li>${finalFileName}</li>`;
                     dict[updatedLine] = dict[updatedLine].trim();
                     const removeDuplicates = dict[updatedLine].split(', ');
                     const duplicates = [...new Set(removeDuplicates)];
-                    dict[updatedLine] = duplicates.join(', ')
+                    dict[updatedLine] = duplicates.join('</li>, ');
+
                   }
                   else {
                       dict[updatedLine] =
-                    `${dict[updatedLine]}, ${finalFileName} (${variantFound} variant)`;
+                    `<li> ${dict[updatedLine]},</li> ${finalFileName} (${variantFound})`;
                   }
                 }
                 else {
-                  dict[updatedLine] = variantFound ? `${finalFileName} (${variantFound} variant)` : dict[updatedLine] = finalFileName;
+                  dict[updatedLine] = variantFound ? `<li> ${finalFileName} (${variantFound}) </li>` : dict[updatedLine] = `<li> ${finalFileName} </li>`;
                 }
               }
             }
