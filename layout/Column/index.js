@@ -321,6 +321,48 @@ export default class Column extends FocusManager {
     this._refocus();
   }
 
+  appendItemsAt(items = [], idx) {
+    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
+    this._smooth = false;
+    this._lastAppendedIdx = addIndex;
+
+    items.forEach((item, itemIdx) => {
+      this.Items.childList.addAt(
+        {
+          ...item,
+          parentFocus: this.hasFocus()
+        },
+        addIndex + itemIdx
+      );
+    });
+
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedIndex += items.length;
+    }
+
+    this._update();
+    this._refocus();
+  }
+
+  prependItems(items) {
+    this.appendItemsAt(items, 0);
+  }
+
+  removeItemAt(index) {
+    this._smooth = false;
+    this.Items.childList.removeAt(index);
+
+    if (
+      this.selectedIndex > index ||
+      this.selectedIndex === this.Items.children.length
+    ) {
+      this._selectedIndex--;
+    }
+
+    this._update();
+    this._refocus();
+  }
+
   scrollTo(index, duration = this._itemTransition.duration * 100) {
     if (duration === 0) {
       this.selectedIndex = index;

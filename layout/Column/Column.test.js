@@ -153,6 +153,104 @@ describe('Column', () => {
     });
   });
 
+  describe('appendItemsAt', () => {
+    let initialLength;
+    const items = [
+      {
+        ...baseItem,
+        testId: 'A'
+      },
+      {
+        ...baseItem,
+        testId: 'B'
+      }
+    ];
+    beforeEach(() => {
+      initialLength = column.items.length;
+    });
+
+    it('should add items at the specified index', () => {
+      column.appendItemsAt(items, 1);
+
+      expect(column.items.length).toBe(initialLength + items.length);
+      expect(column.items[1].testId).toBe(items[0].testId);
+      expect(column.items[2].testId).toBe(items[1].testId);
+    });
+    it('should append items to the end of the column if an index is not specified', () => {
+      column.appendItemsAt(items);
+
+      expect(column.items.length).toBe(initialLength + items.length);
+      expect(column.items[column.items.length - 2].testId).toBe(
+        items[0].testId
+      );
+      expect(column.items[column.items.length - 1].testId).toBe(
+        items[1].testId
+      );
+    });
+    it('should not add items when none are passed to the method', () => {
+      column.appendItemsAt();
+      expect(column.items.length).toBe(initialLength);
+    });
+  });
+
+  describe('prependItems', () => {
+    it('should prepend items to the column', () => {
+      const initialLength = column.items.length;
+      const items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        }
+      ];
+      column.prependItems(items);
+
+      expect(column.items.length).toBe(initialLength + items.length);
+      expect(column.items[0].testId).toBe(items[0].testId);
+      expect(column.items[1].testId).toBe(items[1].testId);
+    });
+  });
+
+  describe('removeItemAt', () => {
+    beforeEach(() => {
+      column.items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        },
+        {
+          ...baseItem,
+          testId: 'C'
+        }
+      ];
+    });
+
+    it('should remove an item from the column', () => {
+      column.removeItemAt(1);
+      expect(column.items.length).toBe(2);
+    });
+    it('should maintain which item is selected after removing an item', () => {
+      column.selectedIndex = 2;
+      expect(column.selected.testId).toBe('C');
+      column.removeItemAt(1);
+      expect(column.selectedIndex).toBe(1);
+      expect(column.selected.testId).toBe('C');
+    });
+    it('should select the next item after a selected item has been removed', () => {
+      column.selectedIndex = 1;
+      column.removeItemAt(1);
+      expect(column.selectedIndex).toBe(1);
+      expect(column.selected.testId).toBe('C');
+    });
+  });
+
   describe('listeners', () => {
     describe('$removeItem', () => {
       it('removes an item', () => {
