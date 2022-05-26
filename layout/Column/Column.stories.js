@@ -650,3 +650,120 @@ export const SkipPlinko = () =>
       return this.tag('Column');
     }
   };
+
+export const AddingItems = args =>
+  class AddingItems extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Column').appendItemsAt(
+          [
+            {
+              type: Button,
+              buttonText: 'New Button 0'
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 1'
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 2'
+            }
+          ],
+          3
+        );
+      }, 3000);
+      setTimeout(() => {
+        this.tag('Column').prependItems([
+          {
+            type: Button,
+            buttonText: 'New Button 3',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 4',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 5',
+            w: 150
+          }
+        ]);
+      }, 3750);
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+AddingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0
+};
+AddingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  }
+};
+
+export const RemovingItems = args =>
+  class RemovingItems extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Column').removeItemAt(1);
+      }, 3000);
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+RemovingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0
+};
+RemovingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  }
+};
