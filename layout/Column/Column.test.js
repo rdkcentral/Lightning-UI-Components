@@ -384,6 +384,21 @@ describe('Column', () => {
         testRenderer.update();
         expect(item.y).toBe(0);
       });
+
+      it('should add items on lazyUpCount', done => {
+        column.lazyUpCount = 4;
+        column.items = items.concat(items);
+        testRenderer.update();
+        expect(column.items.length).toBe(6);
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.update();
+        setTimeout(() => {
+          expect(column.items.length).toBe(9);
+          done();
+        }, 17);
+      });
     });
 
     describe('with column height < items', () => {

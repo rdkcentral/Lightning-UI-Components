@@ -651,6 +651,65 @@ export const SkipPlinko = () =>
     }
   };
 
+export const LazyUpCount = args =>
+  class LazyUpCount extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          lazyUpCount: args.lazyUpCount,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          })),
+          alwaysScroll: args.alwaysScroll
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+LazyUpCount.args = {
+  scrollIndex: 0,
+  lazyUpCount: 5,
+  itemTransition: 0.4
+};
+LazyUpCount.argTypes = {
+  itemTransition: {
+    control: { type: 'number', min: 0, step: 0.1 }
+  },
+  scroll: {
+    control: { type: 'select', options: [1, 5, 15, 20] }
+  },
+  scrollIndex: {
+    control: { type: 'number', min: 0 }
+  },
+  lazyUpCount: {
+    control: { type: 'number', min: 0 }
+  },
+  alwaysScroll: {
+    control: { type: 'boolean' }
+  }
+};
+LazyUpCount.parameters = {
+  argActions: {
+    scroll: function (index, component) {
+      component.tag('Column').scrollTo(index - 1);
+    },
+    itemTransition: (duration, component) => {
+      component.tag('Column').itemTransition = {
+        duration,
+        timingFunction: component.tag('Column')._itemTransition.timingFunction
+      };
+    }
+  }
+};
+
 export const AddingItems = args =>
   class AddingItems extends lng.Component {
     static _template() {
