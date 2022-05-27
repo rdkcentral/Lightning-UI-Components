@@ -52,9 +52,13 @@ class Icon extends Base {
       this.patch(template);
       if (!template.texture) {
         this.smooth = {
-          color: getValidColor(this.color) || this._componentStyles.color
+          color:
+            getValidColor(this.color) ||
+            getValidColor(this._componentStyles.color)
         };
       }
+    } else {
+      this.color = getValidColor(this._componentStyles.color);
     }
   }
 }
