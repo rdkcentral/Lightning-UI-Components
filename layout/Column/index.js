@@ -1,5 +1,5 @@
 import FocusManager from '../FocusManager';
-import { getY, getW } from '../../utils';
+import { getY, getW, delayForAnimation } from '../../utils';
 export default class Column extends FocusManager {
   static _template() {
     return {
@@ -14,6 +14,7 @@ export default class Column extends FocusManager {
       'itemSpacing',
       'scrollIndex',
       'alwaysScroll',
+      'lazyUpCount',
       'neverScroll',
       'autoResize'
     ];
@@ -73,6 +74,11 @@ export default class Column extends FocusManager {
 
   selectNext() {
     this._smooth = true;
+    if (this._lazyItems && this._lazyItems.length) {
+      delayForAnimation(() => {
+        this.appendItems(this._lazyItems.splice(0, 1));
+      });
+    }
     return super.selectNext();
   }
 
@@ -310,6 +316,10 @@ export default class Column extends FocusManager {
   appendItems(items = []) {
     const itemWidth = this.renderWidth;
     this._smooth = false;
+
+    if (items.length > this.lazyUpCount + 2) {
+      this._lazyItems = items.splice(this.lazyUpCount + 2);
+    }
 
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
