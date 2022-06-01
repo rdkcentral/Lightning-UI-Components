@@ -2643,7 +2643,7 @@ Object {
               "enabled": true,
               "flex": false,
               "flexItem": true,
-              "h": 1080,
+              "h": 616,
               "hasFinalFocus": false,
               "hasFocus": false,
               "isComponent": true,

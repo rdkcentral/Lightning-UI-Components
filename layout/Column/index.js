@@ -33,12 +33,23 @@ export default class Column extends FocusManager {
     super._init();
     if (!this.h) {
       // if height is undefined or 0, set the Columns's height
-      this.h =
-        this.parent && // if the Column is a child item in a FocusManager (like Row)
+      if (
+        // if the Column is a child item in a FocusManager (like Row)
+        this.parent &&
         this.parent.parent &&
-        this.parent.parent instanceof FocusManager
-          ? this.parent.parent.h
-          : this.stage.h / this.stage.getRenderPrecision();
+        this.parent.parent instanceof FocusManager &&
+        this.parent.parent.h
+      ) {
+        this.h = this.parent.parent.h;
+      } else {
+        let parent = this.p;
+        while (parent && !parent.h) {
+          parent = parent.p;
+        }
+        this.h =
+          (parent && parent.h) ||
+          this.stage.h / this.stage.getRenderPrecision();
+      }
     }
 
     this.Items.transition('y').on(
