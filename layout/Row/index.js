@@ -36,12 +36,23 @@ export default class Row extends FocusManager {
     super._init();
     if (!this.w) {
       // if width is undefined or 0, set the Row's width
-      this.w =
-        this.parent && // if the Row is a child item in a FocusManager (like Column)
+      if (
+        // if the Row is a child item in a FocusManager (like Column)
+        this.parent &&
         this.parent.parent &&
-        this.parent.parent instanceof FocusManager
-          ? this.parent.parent.w
-          : this.stage.w / this.stage.getRenderPrecision();
+        this.parent.parent instanceof FocusManager &&
+        this.parent.parent.w
+      ) {
+        this.w = this.parent.parent.w;
+      } else {
+        let parent = this.p;
+        while (parent && !parent.w) {
+          parent = parent.p;
+        }
+        this.w =
+          (parent && parent.w) ||
+          this.stage.h / this.stage.getRenderPrecision();
+      }
     }
 
     this.Items.transition('x').on(
