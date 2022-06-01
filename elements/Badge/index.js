@@ -137,9 +137,9 @@ class Badge extends Base {
     this.w = this.title
       ? this._BadgeText.renderWidth +
         this._componentStyles.paddingX * 2 +
-        (this._Icon.w || 0) +
+        (this._Icon.finalW || 0) +
         contentSpacing
-      : this._componentStyles.paddingX * 2 + (this._Icon.w || 0);
+      : this._componentStyles.paddingX * 2 + (this._Icon.finalW || 0);
   }
 
   _updatePositions() {
@@ -147,9 +147,8 @@ class Badge extends Base {
     // set icon and text position
     if (this.iconAlign === 'left' && this.title) {
       this._Icon.x = this._componentStyles.paddingX;
-
       this._BadgeText.x =
-        this._Icon.x + this._Icon.w + this._componentStyles.contentSpacing;
+        this._Icon.x + this._Icon.finalW + this._componentStyles.contentSpacing;
     } else if (this.iconAlign === 'right' && this.title) {
       this._BadgeText.x = this._componentStyles.paddingX;
       this._Icon.x =
