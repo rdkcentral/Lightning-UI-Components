@@ -157,7 +157,7 @@ class Tile extends Surface {
           : this._componentStyles.animationExit
       ],
       alpha: [
-        this._shouldShowMetadata ? 1 : 0,
+        this._shouldShowMetadata ? 1 : 0.001,
         this._hasFocus
           ? this._componentStyles.animationEntrance
           : this._componentStyles.animationExit
@@ -428,54 +428,77 @@ class Tile extends Surface {
     }
   }
 
-  _updateMetadata() {
-    if (!this._hasMetadata || this._isCircleLayout) {
-      if (this._Metadata) {
-        this._Content.patch({
-          Metadata: undefined
-        });
-      }
-      return;
-    }
+  _inactive() {
+    // Cleanup components and elements that may not be used again
+    this._cleanupMetadata();
+  }
 
-    // Metadata placement and style overrides
-    const metadataPatch = {
+  get _metadataPatch() {
+    return {
       variant: this.variant,
-      alpha:
-        !this._hasFocus && !this._persistentMetadata && this._hasMetadata
-          ? 0.001
-          : 1,
+      alpha: !this._persistentMetadata && this._hasMetadata ? 0.001 : 1,
       mountX: 0.5,
       mountY: 'inset' === this._metadataLocation ? 1 : 0,
       w: this._w - this._componentStyles.paddingX * 2,
       x: this._w / 2,
-      y: this._metadataY,
-      style: this._componentStyles.metadataStyles
+      style: this._componentStyles.metadataStyles,
+      ...(this.metadata || {})
     };
+  }
+
+  _updateMetadata() {
+    if (!this._hasMetadata || this._isCircleLayout) {
+      this._cleanupMetadata();
+      return;
+    }
+
+    if (
+      !this._persistentMetadata &&
+      this._metadataLocation === 'inset' &&
+      !this._hasFocus
+    ) {
+      this._animateMetadata();
+      return;
+    }
 
     if (!this._Metadata) {
+      // Patch in Metadata for the first time
       this._Content.patch({
         Metadata: {
           type: MetadataTile,
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
-          ...metadataPatch
+          ...this._metadataPatch,
+          // Patch in as if it was already in unfocused stage so it will animate up the first time
+          y: !('inset' === this._metadataLocation && this._hasFocus)
+            ? this._metadataY
+            : this._h + this._componentStyles.paddingY
         }
       });
+      this._animateMetadata();
       return;
     }
 
-    this._Metadata.patch(this.metadata); // Metadata should never be patched with smooth
+    this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
 
+    this._animateMetadata();
+  }
+
+  _animateMetadata() {
+    if (!this._Metadata) return;
     if (this._smooth) {
-      this._Metadata.smooth = {
-        ...metadataPatch,
-        ...this._metadataTransitions // Defines how metadata should move when being placed on the Tile
-      };
+      this._Metadata.smooth = this._metadataTransitions;
     } else {
-      this._Metadata.patch(metadataPatch);
+      this._Metadata.patch(this._metadataPatch);
     }
+  }
+
+  _cleanupMetadata() {
+    if (this._persistentMetadata || !this._Metadata) return;
+    this._Content.patch({
+      Metadata: undefined
+    });
   }
 
   _metadataLoaded() {
