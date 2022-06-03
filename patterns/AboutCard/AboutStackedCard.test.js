@@ -4,7 +4,7 @@ import AboutStackedCard from './AboutStackedCard';
 const createAboutStackedCardComponent =
   TestUtils.makeCreateComponent(AboutStackedCard);
 
-describe('aboutCard', () => {
+describe('AboutStackedCard', () => {
   let aboutStackedCard, testRenderer;
 
   beforeEach(() => {
