@@ -131,13 +131,6 @@ export default function withThemeStyles(Base, styles = {}) {
       this.queueThemeUpdate && this.queueThemeUpdate();
     }
 
-    // If the w/h changes we will need to re-render the component again
-    // eslint-disable-next-line id-blacklist
-    _updateDimensions(w, h) {
-      super._updateDimensions(w, h);
-      this.queueThemeUpdate && this.queueThemeUpdate();
-    }
-
     /** LIFECYCLE EVENTS */
 
     constructor(stage, properties) {
