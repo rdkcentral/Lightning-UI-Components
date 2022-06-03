@@ -11,7 +11,7 @@ class NewCard extends Surface {
       Title: {
         type: TextBox,
         signals: {
-          textBoxChanged: '_requestUpdateDebounce'
+          textBoxChanged: 'queueRequestUpdate'
         }
       }
     };

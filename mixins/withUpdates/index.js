@@ -1,4 +1,4 @@
-import { debounce } from 'debounce';
+import { updateManager } from '../../utils/GlobalUpdateManager';
 
 function capital(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -22,7 +22,7 @@ function getPropertyDescriptor(name, key) {
           value = changeHandler.call(this, value);
         }
         this[key] = value;
-        this._requestUpdateDebounce();
+        this.queueRequestUpdate();
       }
     },
     configurable: true,
@@ -54,22 +54,24 @@ export default function withUpdates(Base) {
         this._whenEnabledResolver = resolve;
       });
 
-      this._requestUpdateDebounce = debounce(this._requestUpdate.bind(this), 0);
-
       super._construct && super._construct();
+    }
+
+    queueRequestUpdate() {
+      updateManager.addRequestUpdate(this);
     }
 
     _firstEnable() {
       this._readyForUpdates = true;
       this._whenEnabledResolver();
-      this._requestUpdateDebounce.clear();
+      updateManager.deleteRequestUpdate(this);
       this._update();
       super._firstEnable && super._firstEnable();
     }
 
     _detach() {
       super._detach();
-      this._requestUpdateDebounce.clear();
+      updateManager.deleteRequestUpdate(this);
     }
 
     _requestUpdate() {

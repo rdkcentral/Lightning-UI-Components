@@ -165,14 +165,14 @@ class Tile extends Surface {
     };
   }
 
-  async _update() {
+  _update() {
     super._update();
     this._updateContent();
     this._updateArtwork();
     this._updateBadge();
     this._updateLabel();
     this._updateCheckbox();
-    await this._updateProgressBar();
+    this._updateProgressBar();
     this._updateMetadata();
     if (this._smooth === undefined) this._smooth = true;
   }
@@ -352,7 +352,7 @@ class Tile extends Surface {
     this._updateMetadata();
   }
 
-  async _updateProgressBar() {
+  _updateProgressBar() {
     // Remove ProgressBar if no longer required
     if (
       !this.progressBar ||
@@ -424,7 +424,6 @@ class Tile extends Surface {
       } else {
         this._ProgressBar.patch(progressPatch);
       }
-      await this._ProgressBar.loaded;
     }
   }
 

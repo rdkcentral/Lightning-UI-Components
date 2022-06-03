@@ -92,7 +92,7 @@ export default class MetadataCard extends withStyles(Base, styles) {
     if (this.unfocusScaleConst === undefined) {
       this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
     }
-    this._Logo.on('txLoaded', this._requestUpdateDebounce.bind(this));
+    this._Logo.on('txLoaded', this.queueRequestUpdate.bind(this));
     super._init();
   }
 
@@ -104,7 +104,7 @@ export default class MetadataCard extends withStyles(Base, styles) {
 
     line.h = line.content ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h + this._ThirdLine.h;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _update() {

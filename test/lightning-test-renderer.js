@@ -2,6 +2,8 @@ import lng from '@lightningjs/core';
 import context from '../context';
 import XfinityTheme from '../themes/xfinity';
 import extensions from '../themes/xfinity/extensions';
+import { updateManager } from '../utils/GlobalUpdateManager';
+
 context.setTheme({
   ...XfinityTheme,
   extensions
@@ -55,10 +57,7 @@ function keyRelease(elm, key) {
 }
 
 function forceAllUpdates(app) {
-  const instance = app.childList.first;
-  if (instance && instance._requestUpdateDebounce) {
-    instance._requestUpdateDebounce.flush();
-  }
+  updateManager.flush();
   app.stage.drawFrame();
 }
 
