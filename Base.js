@@ -13,7 +13,7 @@ class Base extends lng.Component {
   }
 
   _init() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _resetLoadedPromise() {
@@ -28,12 +28,12 @@ class Base extends lng.Component {
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
     this._hasFocus = true; // Flag added as optimization. This should be more performant than calling this.hasFocus() repeatedly in component
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _unfocus() {
     this._hasFocus = false;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   get disabled() {
@@ -45,7 +45,7 @@ class Base extends lng.Component {
       return;
     }
     this._disabled = disabled;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   // keep announce methods out of the update lifecycle (do not put in properties array)

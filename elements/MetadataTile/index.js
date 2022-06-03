@@ -82,7 +82,7 @@ export default class MetadataTile extends withStyles(Base, styles) {
     }
     line.h = line.content ? line.textHeight : 0;
     this._Text.h = this._FirstLine.h + this._SecondLine.h;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _update() {

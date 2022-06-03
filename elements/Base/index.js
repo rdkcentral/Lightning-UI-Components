@@ -29,18 +29,18 @@ class Base extends lng.Component {
   }
 
   _init() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _update() {}
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _unfocus() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   // keep announce methods out of the update lifecycle (do not put in properties array)

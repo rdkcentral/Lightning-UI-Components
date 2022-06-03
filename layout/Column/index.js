@@ -339,7 +339,7 @@ class Column extends FocusManager {
       item.w = getW(item) || itemWidth;
     });
     this.stage.update();
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
     this._refocus();
   }
 
@@ -408,14 +408,14 @@ class Column extends FocusManager {
   }
 
   $itemChanged() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   $removeItem(item) {
     if (item) {
       const wasSelected = item === this.selected;
       this.Items.childList.remove(item);
-      this._requestUpdateDebounce();
+      this.queueRequestUpdate();
 
       if (wasSelected || this.selectedIndex >= this.items.length) {
         // eslint-disable-next-line no-self-assign
@@ -429,7 +429,7 @@ class Column extends FocusManager {
   }
 
   $columnChanged() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _isOnScreen(child) {

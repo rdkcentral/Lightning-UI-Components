@@ -37,6 +37,6 @@ export default class Style {
 
   _styleUpdate() {
     themeManager.resetComponentLevelStyles(this._parent.__id); // Make sure the component level cache is cleared to receive the change
-    this._parent._debounceUpdateThemeComponent();
+    this._parent.queueThemeUpdate();
   }
 }

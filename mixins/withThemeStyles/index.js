@@ -1,7 +1,7 @@
 export { default as processThemeStyles } from './processThemeStyles';
 import { default as context } from '../../context';
 import themeManager from '../../context/theme-manager';
-import { debounce } from 'debounce';
+import { updateManager } from '../../utils/GlobalUpdateManager';
 import Style from './Style';
 import { getValFromObjPath, clone } from '../../utils';
 
@@ -117,8 +117,7 @@ export default function withThemeStyles(Base, styles = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true; // Flag to track if width has been set by the user. If so, it will no longer be tethered to the component's w value if exists
-      this._debounceUpdateThemeComponent &&
-        this._debounceUpdateThemeComponent();
+      this.queueThemeUpdate && this.queueThemeUpdate();
     }
 
     get h() {
@@ -129,30 +128,28 @@ export default function withThemeStyles(Base, styles = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true; // Flag to track if height has been set by the user. If so, it will no longer be tethered to the component's h value if exists
-      this._debounceUpdateThemeComponent &&
-        this._debounceUpdateThemeComponent();
+      this.queueThemeUpdate && this.queueThemeUpdate();
     }
 
     // If the w/h changes we will need to re-render the component again
     // eslint-disable-next-line id-blacklist
     _updateDimensions(w, h) {
       super._updateDimensions(w, h);
-      this._debounceUpdateThemeComponent &&
-        this._debounceUpdateThemeComponent();
+      this.queueThemeUpdate && this.queueThemeUpdate();
     }
 
     /** LIFECYCLE EVENTS */
 
     constructor(stage, properties) {
       super(stage, properties);
-      this._debounceUpdateThemeComponent = debounce(
-        this._updateThemeComponent.bind(this),
-        0
-      );
       /**
        * Style override support
        */
       this._style = new Style(this);
+    }
+
+    queueThemeUpdate() {
+      updateManager.addUpdateTheme(this);
     }
 
     async _construct() {
@@ -209,12 +206,12 @@ export default function withThemeStyles(Base, styles = {}) {
      */
     _detach() {
       super._detach && super._detach();
-      context.off('themeUpdate', this._debounceUpdateThemeComponent.bind(this));
+      context.off('themeUpdate', this.queueThemeUpdate.bind(this));
 
       if (this._subTheme) {
         context.off(
           `updateTheme${this._subTheme}`,
-          this._debounceUpdateThemeComponent.bind(this)
+          this.queueThemeUpdate.bind(this)
         );
       }
       themeManager.resetComponentInstantiationStyles(this.constructor);
@@ -350,12 +347,12 @@ export default function withThemeStyles(Base, styles = {}) {
      */
     _setupListeners() {
       // Listen for global theme updates
-      context.on('themeUpdate', this._debounceUpdateThemeComponent.bind(this));
+      context.on('themeUpdate', this.queueThemeUpdate.bind(this));
       // Listen for child theme updates
       if (this._subTheme) {
         context.on(
           `updateTheme${this._subTheme}`,
-          this._debounceUpdateThemeComponent.bind(this)
+          this.queueThemeUpdate.bind(this)
         );
       }
     }
@@ -375,8 +372,8 @@ export default function withThemeStyles(Base, styles = {}) {
       this._processedStylesCache = null;
       themeManager.resetComponentInstantiationStyles(this.constructor);
       this._generateComponentStyles(); // Refresh the _componentStyles object
-      this._requestUpdateDebounce
-        ? this._requestUpdateDebounce()
+      this.queueRequestUpdate
+        ? this.queueRequestUpdate()
         : this._update && this._update();
       this._updateItemLayout && this._updateItemLayout(); // Update withLayout
     }

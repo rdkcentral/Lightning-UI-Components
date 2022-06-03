@@ -21,6 +21,7 @@
     "Styles.js",
     "Base.js",
     "Base.d.ts",
+    "GlobalUpdateManager.js",
     "{bin,elements,extensions,layout,mixins,patterns,suite,Styles,textures,utils,themes,context}/**/*",
     "!{elements,extensions,layout,mixins,patterns,suite,Styles}/**/*.stories.js",
     "!{elements,extensions,layout,mixins,patterns,suite,textures,utils}/**/*.test.js",

@@ -89,7 +89,7 @@ export default class MetadataSmall extends withStyles(Base, styles) {
   _logoTxListenerCb(isError = false) {
     this.logo = isError ? null : this.logo;
     this._logoLoaded = !isError;
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
     this._alphaLogo();
   }
 

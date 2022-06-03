@@ -377,7 +377,7 @@ class Row extends FocusManager {
       item.h = item.h || itemHeight;
     });
     this.stage.update();
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
     this._refocus();
   }
 
@@ -429,7 +429,7 @@ class Row extends FocusManager {
   }
 
   $itemChanged() {
-    this._requestUpdateDebounce();
+    this.queueRequestUpdate();
   }
 
   _transitionListener() {
