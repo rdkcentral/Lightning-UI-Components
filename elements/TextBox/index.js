@@ -137,26 +137,23 @@ export default class TextBox extends withStyles(Base, styles) {
       return;
     }
     this.visible = true;
-    const fontStyle =
-      null !== this.textStyle &&
+    const fontStyle = {
+      ...(this._componentStyles.typography[
+        this._componentStyles.defaultTextStyle
+      ] || this._componentStyles.typography.body1),
+      ...(null !== this.textStyle &&
       'object' === typeof this.textStyle &&
       Object.keys(this.textStyle)
         ? this.textStyle
-        : {
-            ...(this._componentStyles.typography[this.textStyle] ||
-              this._componentStyles.typography[
-                this._componentStyles.defaultTextStyle
-              ] ||
-              this._componentStyles.typography.body1)
-          };
-
+        : this._componentStyles.typography[this.textStyle])
+    };
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
         const key = 'content' === prop ? 'text' : prop;
-
         fontStyle[key] = this[`_${prop}`];
       }
     });
+
     this._Text.patch({
       y: this._componentStyles.offsetY,
       x: this._componentStyles.offsetX,

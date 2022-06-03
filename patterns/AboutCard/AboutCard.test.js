@@ -3,7 +3,7 @@ import AboutCard from './AboutCard';
 
 const createAboutCardComponent = TestUtils.makeCreateComponent(AboutCard);
 
-describe('aboutCard', () => {
+describe('AboutCard', () => {
   let aboutCard, testRenderer;
   const lightningPath = 'assets/images/ic_lightning_white_32.png';
 
