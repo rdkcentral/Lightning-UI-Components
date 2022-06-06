@@ -24,8 +24,6 @@ export default class Column extends FocusManager {
     super._construct();
     this._smooth = false;
     this._itemSpacing = 0;
-    this._itemPosX = 0;
-    this._itemPosY = 0;
     this._scrollIndex = 0;
   }
 
@@ -302,22 +300,6 @@ export default class Column extends FocusManager {
       itemChanged && this.fireAncestors('$itemChanged');
       this._performRender();
     });
-  }
-
-  get itemPosX() {
-    return this._itemPosX;
-  }
-
-  set itemPosX(x) {
-    this.Items.x = this._itemPosX = x;
-  }
-
-  get itemPosY() {
-    return this._itemPosY;
-  }
-
-  set itemPosY(y) {
-    this.Items.y = this._itemPosY = y;
   }
 
   get _itemsY() {

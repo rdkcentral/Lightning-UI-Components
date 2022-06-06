@@ -27,8 +27,6 @@ export default class Row extends FocusManager {
     super._construct();
     this._smooth = false;
     this._itemSpacing = 0;
-    this._itemPosX = 0;
-    this._itemPosY = 0;
     this._scrollIndex = 0;
   }
 
@@ -324,22 +322,6 @@ export default class Row extends FocusManager {
     }
     itemChanged && this.fireAncestors('$itemChanged');
     this.render(this.selected, this.prevSelected);
-  }
-
-  set itemPosX(x) {
-    this.Items.x = this._itemPosX = x;
-  }
-
-  get itemPosX() {
-    return this._itemPosX;
-  }
-
-  set itemPosY(y) {
-    this.Items.y = this._itemPosY = y;
-  }
-
-  get itemPosY() {
-    return this._itemPosY;
   }
 
   get _itemsX() {

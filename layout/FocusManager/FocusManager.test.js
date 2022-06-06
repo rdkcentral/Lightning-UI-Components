@@ -174,6 +174,23 @@ describe('FocusManager', () => {
     expect(focusManager.items.length).toBe(length + 1);
   });
 
+  it('resets the Items container when a new item array is patched in', () => {
+    const pos = 100;
+    focusManager.itemPosX = pos;
+    focusManager.itemPosY = pos;
+    expect(focusManager.Items.x).toBe(pos);
+    expect(focusManager.Items.y).toBe(pos);
+
+    const _resetItems = jest.spyOn(focusManager, '_resetItems');
+    focusManager.items = [];
+
+    expect(_resetItems).toHaveBeenCalled();
+    expect(focusManager.Items.w).toBe(0);
+    expect(focusManager.Items.h).toBe(0);
+    expect(focusManager.Items.x).toBe(pos);
+    expect(focusManager.Items.y).toBe(pos);
+  });
+
   describe('direction column', () => {
     beforeEach(() => {
       [focusManager, testRenderer] = createFocusManager({
