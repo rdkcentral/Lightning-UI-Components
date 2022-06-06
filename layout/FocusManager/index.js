@@ -18,6 +18,8 @@ export default class FocusManager extends Base {
   _construct() {
     super._construct();
     this._selectedIndex = 0;
+    this._itemPosX = 0;
+    this._itemPosY = 0;
     this.direction = this.direction || 'row';
   }
 
@@ -60,9 +62,30 @@ export default class FocusManager extends Base {
     this._checkSkipFocus();
   }
 
+  set itemPosX(x) {
+    this.Items.x = this._itemPosX = x;
+  }
+
+  get itemPosX() {
+    return this._itemPosX;
+  }
+
+  set itemPosY(y) {
+    this.Items.y = this._itemPosY = y;
+  }
+
+  get itemPosY() {
+    return this._itemPosY;
+  }
+
   _resetItems() {
     this.Items.childList.clear();
-    this.Items.patch({ w: 0, h: 0 });
+    this.Items.patch({
+      w: 0,
+      h: 0,
+      x: this.itemPosX,
+      y: this.itemPosY
+    });
   }
 
   appendItems(items = []) {
