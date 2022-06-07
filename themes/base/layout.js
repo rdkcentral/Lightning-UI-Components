@@ -131,20 +131,20 @@ class Layout {
   }
 
   get marginX() {
-    if (!this._margins) return this._spacingBase * this._marginXMultiplier;
-    return this._marginX;
+    return this._marginX !== undefined
+      ? this._marginX
+      : this._spacingBase * this._marginXMultiplier;
   }
-
   set marginX(v) {
     if (isInvalidNum(v)) return;
     this._marginX = v;
   }
 
   get marginY() {
-    if (!this._margins) return this._spacingBase * this._marginYMultiplier;
-    return this._marginY;
+    return this._marginY !== undefined
+      ? this._marginY
+      : this._spacingBase * this._marginYMultiplier;
   }
-
   set marginY(v) {
     if (isInvalidNum(v)) return;
     this._marginY = v;
