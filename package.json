@@ -38,7 +38,7 @@
     "@babel/preset-react": "^7.12.10",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
-    "@lightning/lng-typed": "^1.2.0",
+    "@lightning/lng-typed": "^1.2.1",
     "@lightningjs/core": "2.5.0",
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-docs": "^6.5.3",
