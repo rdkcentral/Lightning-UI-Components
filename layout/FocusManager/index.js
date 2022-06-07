@@ -120,13 +120,17 @@ export default class FocusManager extends Base {
         this._selectedIndex = index;
       }
       if (this.selected) {
-        this.render(this.selected, this.prevSelected);
-        this.signal('selectedChange', this.selected, this.prevSelected);
+        this._selectedChange(this.selected, this.prevSelected);
       }
       // Don't call refocus until after a new render in case of a situation like Plinko nav
       // where we don't want to focus the previously selected item and need to get the new one first
       this._refocus();
     }
+  }
+
+  _selectedChange(selected, prevSelected) {
+    this.render(selected, prevSelected);
+    this.signal('selectedChange', selected, prevSelected);
   }
 
   // Override
