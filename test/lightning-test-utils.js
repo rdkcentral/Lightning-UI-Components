@@ -5,7 +5,8 @@ export default {
   fastForward,
   makeCreateComponent,
   pathToDataURI,
-  nextTick
+  nextTick,
+  completeAnimation
 };
 
 function nextTick(wait = 0) {
@@ -103,4 +104,30 @@ function makeCreateComponent(type, defaultConfig = {}, defaultOptions = {}) {
     );
     return [testRenderer.getInstance(), testRenderer];
   };
+}
+
+/**
+ * Returns a Promise that resolves once all animating properties have updated
+ * to their target value(s).
+ * @param { Element } Element with properties that have animations
+ * @param { string | string[] } transitionProperties property name or names
+ * that will be animating.
+ *
+ * @return {Promise} Promise which resolves upon completion of animations of
+ * transitionProperties have completed.
+ */
+function completeAnimation(element, transitionProperties = []) {
+  const props = Array.isArray(transitionProperties)
+    ? transitionProperties
+    : [transitionProperties];
+
+  const transitions = props.map(prop => {
+    return new Promise(resolve => {
+      element._getTransition(prop).once('finish', () => {
+        resolve();
+      });
+    });
+  });
+
+  return Promise.all(transitions);
 }
