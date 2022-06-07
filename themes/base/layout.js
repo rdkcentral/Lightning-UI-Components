@@ -4,7 +4,7 @@ const isInvalidNum = v => isNaN(parseFloat(v)) || v < 0;
 class Layout {
   constructor() {
     // FocusScale Multiplier
-    this._focusScaleMultiplier = 2;
+    this._focusScaleMultiplier = 1.2;
     // Multiplier Defaults
     this._gutterXMultiplier = 2;
     this._gutterYMultiplier = 2;
@@ -253,6 +253,7 @@ export function calculateColumnWidth(upCount = 1) {
 }
 
 export function getFocusScale(w) {
+  // return w * context.theme.layout.focusScaleMultiplier;
   return w && context.theme.layout.focusScaleMultiplier > 1
     ? (w +
         context.theme.layout.spacingBase *

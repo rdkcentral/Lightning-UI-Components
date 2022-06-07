@@ -1,4 +1,5 @@
 export const layout = {
+  focusScaleMultiplier: 1.08,
   gutterXMultiplier: 3,
   gutterYMultiplier: 3,
   marginXMultiplier: 12,
@@ -8,7 +9,3 @@ export const layout = {
   spacingBase: 8,
   columnCount: 12
 };
-
-export function getFocusScale() {
-  return 1.08;
-}

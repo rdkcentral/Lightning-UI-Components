@@ -1,7 +1,7 @@
 import alphas from './alphas';
 import colors from './colors';
 // import extensions from './extensions';
-import { layout, getFocusScale } from './layout';
+import { layout } from './layout';
 import radius from './radius';
 import stroke from './stroke';
 import typography from './typography';
@@ -14,7 +14,6 @@ export default {
   animations,
   colors,
   fonts,
-  getFocusScale,
   layout,
   radius,
   stroke,
