@@ -2,12 +2,14 @@ import ALPHAS from '../base/alphas';
 
 const COLOR_PALETTE = {
   red: {
-    20: '#DC2A1D',
-    40: '#AD2F07'
+    20: '#D40139',
+    40: '#A1001E',
+    90: '38060E'
   }
 };
 
 export default {
+  materialBrand: [COLOR_PALETTE.red[90], ALPHAS.primary],
   coreBrand: [COLOR_PALETTE.red[40], ALPHAS.primary],
   coreBrandSecondary: [COLOR_PALETTE.red[40], ALPHAS.secondary],
   coreBrandTertiary: [COLOR_PALETTE.red[40], ALPHAS.tertiary],

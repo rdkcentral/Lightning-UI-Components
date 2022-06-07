@@ -54,7 +54,16 @@ export const parameters = {
   docs: {
     inlineStories: true,
     theme
-  }
+  },
+  options: {
+    // storySort: (a, b) => {
+    // //   console.log('story sort??', a, b)
+    // //   console.log('TEST', a[1].parameters.important, b[1].parameters.important)
+    // //   if (a[1].parameters.important) { return a[0] }
+    // //   if (b[1].parameters.important) { return b[0] }
+    //   return a[0].localeCompare(b[0])
+    // }
+  },
 };
 
 // Prevent scrolling when navigating with arrows on canvas
