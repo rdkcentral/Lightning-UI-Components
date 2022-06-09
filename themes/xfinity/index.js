@@ -1,6 +1,5 @@
 import alphas from './alphas';
 import colors from './colors';
-import extensions from './extensions';
 import { layout } from './layout';
 import radius from './radius';
 import stroke from './stroke';
@@ -9,6 +8,7 @@ import animations from './animations';
 import fonts from './fonts';
 import iconLeftArrow from './assets/ic_sort_left_fill_inverse_64';
 import iconRightArrow from './assets/ic_sort_right_fill_inverse_64';
+import extensions from './extensions';
 
 export default {
   name: 'Xfinity',
@@ -21,12 +21,6 @@ export default {
   stroke,
   typography,
   componentStyles: {
-    Surface: {
-      focusRing: true
-    },
-    Knob: {
-      focusRing: true
-    },
     Slider: {
       iconLeftSrc: iconLeftArrow,
       iconRightSrc: iconRightArrow,

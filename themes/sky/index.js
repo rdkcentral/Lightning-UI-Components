@@ -1,6 +1,5 @@
 import alphas from './alphas';
 import colors from './colors';
-// import extensions from './extensions';
 import { layout } from './layout';
 import radius from './radius';
 import stroke from './stroke';
@@ -33,5 +32,4 @@ export default {
   componentVariants: {
     ProgressBar: 'brand'
   }
-  // extensions
 };
