@@ -1,12 +1,11 @@
 import lng from '@lightningjs/core';
 import context from '../context';
 import XfinityTheme from '../themes/xfinity';
-import extensions from '../themes/xfinity/extensions';
 import { updateManager } from '../utils/GlobalUpdateManager';
 
 context.setTheme({
   ...XfinityTheme,
-  extensions
+  extensions: [] // Disable extensions for tests
 });
 
 const stage = {

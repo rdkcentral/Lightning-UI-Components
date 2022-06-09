@@ -27,7 +27,6 @@ export function base(theme) {
     },
     badgeStyles: {},
     checkboxStyles: {},
-    focusRing: true,
     labelStyles: {},
     metadataStyles: {},
     paddingX: theme.spacing(3),

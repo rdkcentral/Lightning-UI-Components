@@ -185,7 +185,12 @@ export class ThemeManager {
     // Parse all colors in theme
     const themeFunctions = {};
     const themeString = JSON.stringify(theme, (key, value) => {
-      if (Array.isArray(value) && 2 === value.length) {
+      if (
+        Array.isArray(value) &&
+        2 === value.length &&
+        !value[0].targetComponent
+      ) {
+        // Better check to filter out extensions?
         return getHexColor(value[0], value[1]);
       } else if (
         'extensions' === key ||
