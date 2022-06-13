@@ -20,13 +20,15 @@ class Tile extends Surface {
 
   static _template() {
     return {
-      ...super._template(), // Make sure surface elments are patched
-      Artwork: {
-        type: Artwork,
-        mount: 0.5
-      },
-      Content: {
-        mount: 0.5
+      ...super._template(), // Make sure surface elements are patched
+      Tile: {
+        Artwork: {
+          type: Artwork,
+          mount: 0.5
+        },
+        Content: {
+          mount: 0.5
+        }
       }
     };
   }
@@ -49,6 +51,7 @@ class Tile extends Surface {
       ...super.tags,
       'Artwork',
       'Content',
+      'Tile',
       { name: 'Badge', path: 'Content.Badge' },
       { name: 'Checkbox', path: 'Content.Checkbox' },
       { name: 'Metadata', path: 'Content.Metadata' },
@@ -167,6 +170,7 @@ class Tile extends Surface {
 
   _update() {
     super._update();
+    this._updateTileColor();
     this._updateContent();
     this._updateArtwork();
     this._updateBadge();
@@ -177,6 +181,13 @@ class Tile extends Surface {
     if (this._smooth === undefined) this._smooth = true;
   }
 
+  _updateTileColor() {
+    if (this._disabled) {
+      this._Tile.alpha = this._componentStyles.disabledAlpha;
+    } else {
+      this._Tile.alpha = 1;
+    }
+  }
   _updateContent() {
     const itemContainerPatch = {
       h: this._h,

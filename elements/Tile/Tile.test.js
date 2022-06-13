@@ -42,7 +42,7 @@ describe('Tile', () => {
   // Template
   it('should return the proper structure initially', () => {
     const templateObj = Tile._template();
-    expect(templateObj).toEqual(
+    expect(templateObj.Tile).toEqual(
       expect.objectContaining({
         Artwork: {
           type: Artwork,

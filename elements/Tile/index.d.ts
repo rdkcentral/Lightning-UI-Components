@@ -22,6 +22,7 @@ export interface TileStyles {
   paddingY?: number | string;
   progressBarStyles?: ProgressBarStyles;
   radius?: number | string;
+  disabledAlpha?: number;
 }
 
 declare const Tile_base: WithThemeStylesConstructor<typeof Base, TileStyles>;

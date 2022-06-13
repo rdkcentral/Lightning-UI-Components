@@ -43,11 +43,19 @@ export const Basic = () =>
 
 Basic.args = {
   focused: true,
+  disabled: false,
   metadataLocation: 'standard',
   persistentMetadata: false
 };
 
 Basic.argTypes = {
+  disabled: {
+    description: 'Disabled tile state',
+    table: {
+      defaultValue: { summary: false }
+    },
+    control: 'boolean'
+  },
   focused: {
     description: 'Toggle focus',
     table: {
