@@ -32,7 +32,8 @@ export function base(theme) {
     paddingX: theme.spacing(3),
     paddingY: theme.spacing(2),
     progressBarStyles: {},
-    radius: theme.radius.medium
+    radius: theme.radius.medium,
+    disabledAlpha: theme.alphas.inactive / 100
   };
 }
 
