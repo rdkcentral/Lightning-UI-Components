@@ -2,31 +2,27 @@ import lng from '@lightningjs/core';
 
 import Tooltip from '.';
 import mdx from './Tooltip.mdx';
-import Button from '../Button';
 import ActionButton from '../ActionButton';
 
 export default {
   title: 'Elements / Tooltip',
   args: {
-    focused: false,
-    title: 'Type Something',
-    bottomMargin: 40,
+    focused: true,
+    title: 'Tooltip',
     delayVisible: 0,
     timeVisible: 0
   },
   argTypes: {
     focused: { control: 'boolean' },
     title: { control: 'text' },
-    bottomMargin: { control: 'number' },
     delayVisible: { control: 'number' },
     timeVisible: { control: 'number' }
   },
   parameters: {
-    tag: 'Button.Tooltip',
     argActions: {
       focused: (isFocused, component) => {
         component._getFocused = isFocused
-          ? () => component.tag('Button.Tooltip')
+          ? () => component.tag('Tooltip')
           : () => {};
         component._refocus();
       }
@@ -41,32 +37,24 @@ export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        Button: {
-          type: Button,
-          x: 300,
-          y: 100,
-          title: 'Button',
-          Tooltip: {
-            type: Tooltip,
-            title: args.title,
-            bottomMargin: args.bottomMargin,
-            delayVisible: args.delayVisible,
-            timeVisible: args.timeVisible
-          }
+        Tooltip: {
+          type: Tooltip
         }
       };
     }
 
     _getFocused() {
       if (args.focused) {
-        return this.tag('Button.Tooltip');
+        return this.tag('Tooltip');
       }
     }
   };
 
 export const LongTitle = Basic.bind({});
 LongTitle.args = {
-  title: 'Type something with a long message here...'
+  x: 1280 / 2,
+  title:
+    'This is a long message. Text will remain on a single line and does not have a maximum width'
 };
 
 export const WithActionButton = args =>
@@ -82,7 +70,6 @@ export const WithActionButton = args =>
           Tooltip: {
             type: Tooltip,
             title: args.title,
-            bottomMargin: args.bottomMargin,
             delayVisible: args.delayVisible,
             timeVisible: args.timeVisible
           }
@@ -96,6 +83,23 @@ export const WithActionButton = args =>
       }
     }
   };
-WithActionButton.args = {
-  bottomMargin: 24
+
+WithActionButton.parameters = {
+  argActions: {
+    focused: (isFocused, component) => {
+      component._getFocused = isFocused
+        ? () => component.tag('Button.Tooltip')
+        : () => {};
+      component._refocus();
+    },
+    title: (title, component) => {
+      component.tag('Button.Tooltip').title = title;
+    },
+    delayVisible: (delayVisible, component) => {
+      component.tag('Button.Tooltip').delayVisible = delayVisible;
+    },
+    timeVisible: (timeVisible, component) => {
+      component.tag('Button.Tooltip').timeVisible = timeVisible;
+    }
+  }
 };

@@ -183,7 +183,12 @@ class Arrow extends lng.Texture {
         ctx.moveTo(p, p);
         ctx.lineTo(p, h - p);
         ctx.lineTo(w - p, h / 2);
+      } else if (direction === 'down') {
+        ctx.moveTo(p, p);
+        ctx.lineTo(w - p, p);
+        ctx.lineTo(w / 2, h - p);
       } else {
+        // default is left arrow
         ctx.moveTo(p, h / 2);
         ctx.lineTo(w - p, p);
         ctx.lineTo(w - p, h - p);
@@ -265,4 +270,165 @@ class Line extends lng.Texture {
   }
 }
 
-export { FadeShader, Circle, Arrow, Line };
+class Bubble extends lng.Texture {
+  constructor(stage) {
+    super(stage);
+    this._w = 0;
+    this._h = 0;
+    this._radius = 0;
+    this._pointerW = 0;
+    this._pointerH = 0;
+    this._strokeWidth = 0;
+    this._color = 'white';
+  }
+
+  set w(w) {
+    this._w = w;
+    this._changed();
+  }
+
+  get w() {
+    return this._w;
+  }
+
+  set h(h) {
+    this._h = h;
+    this._changed();
+  }
+
+  get h() {
+    return this._h;
+  }
+
+  set radius(radius) {
+    this._radius = radius;
+    this._changed();
+  }
+
+  get radius() {
+    return this._radius;
+  }
+
+  set pointerW(pointerW) {
+    this._pointerW = pointerW;
+    this._changed();
+  }
+
+  get pointerW() {
+    return this._pointerW;
+  }
+
+  set pointerH(pointerH) {
+    this._pointerH = pointerH;
+    this._changed();
+  }
+
+  get pointerH() {
+    return this._pointerH;
+  }
+
+  set strokeWidth(strokeWidth) {
+    this._strokeWidth = strokeWidth;
+    this._changed();
+  }
+
+  get strokeWidth() {
+    return this._strokeWidth;
+  }
+
+  set color(color) {
+    this._color = lng.StageUtils.getRgbaString(color);
+    this._changed();
+  }
+
+  get color() {
+    return this._color;
+  }
+
+  createBubble({
+    stage,
+    w = 0,
+    h = 0,
+    radius = 0,
+    pointerW = 0,
+    pointerH = 0,
+    strokeWidth = 1,
+    color = 'white'
+  }) {
+    const canvas = stage.platform.getDrawingCanvas();
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = w + strokeWidth + 4;
+    canvas.height = h + strokeWidth + 4;
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = strokeWidth;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    const initialCoord = 0.5 * strokeWidth + 1;
+    const leftX = initialCoord;
+    const rightX = leftX + w;
+    const topY = initialCoord;
+    const bottomY = topY + h;
+    const bottomBubbleY = bottomY - pointerH;
+
+    // start: top left
+    ctx.beginPath();
+    ctx.moveTo(leftX + radius, topY);
+
+    // top side
+    ctx.lineTo(rightX - radius, topY);
+
+    // top right corner
+    ctx.arcTo(rightX, topY, rightX, topY + radius, radius);
+
+    // right side
+    ctx.lineTo(rightX, bottomBubbleY - radius);
+
+    // bottom right corner
+    ctx.arcTo(rightX, bottomBubbleY, rightX - radius, bottomBubbleY, radius);
+
+    // bottom side, right of point
+    ctx.lineTo(w / 2 + pointerW / 2, bottomBubbleY);
+
+    // point
+    ctx.arcTo(w / 2, bottomY, w / 2 - pointerW / 2, bottomBubbleY, 2);
+    ctx.lineTo(w / 2 - pointerW / 2, bottomBubbleY);
+
+    // bottom side, left of point
+    ctx.lineTo(leftX + radius, bottomBubbleY);
+
+    // bottom left corner
+    ctx.arcTo(leftX, bottomBubbleY, leftX, bottomBubbleY - radius, radius);
+
+    // left side
+    ctx.lineTo(leftX, topY + radius);
+
+    // top left corner
+    ctx.arcTo(leftX, topY, leftX + radius, topY, radius);
+
+    // draw shape and fill with color
+    ctx.stroke();
+    ctx.fill();
+
+    return canvas;
+  }
+
+  _getLookupId() {
+    const { w, h, radius, pointerW, pointerH, color } = this;
+    return `__bubble_${w}x${h}_radius-${radius}_pointer-${pointerW}x${pointerH}_fill-${color}`;
+  }
+
+  _getSourceLoader() {
+    return cb => {
+      cb(null, {
+        source: this.createBubble(this)
+      });
+    };
+  }
+}
+
+export { FadeShader, Circle, Arrow, Line, Bubble };

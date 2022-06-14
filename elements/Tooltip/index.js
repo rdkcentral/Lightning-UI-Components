@@ -1,9 +1,14 @@
-import lng from '@lightningjs/core';
-import { withStyles } from '../../mixins';
-import Base from '../Base';
+import { withExtensions } from '../../mixins';
+import withStyles from '../../mixins/withThemeStyles';
+import { Bubble } from '../../textures';
+import { TextBox } from '../';
+import Base from '../../Base';
 import styles from './Tooltip.styles';
 
-export default class Tooltip extends withStyles(Base, styles) {
+class Tooltip extends Base {
+  static get __componentName() {
+    return 'Tooltip';
+  }
   static _template() {
     return {
       alpha: 0,
@@ -11,45 +16,22 @@ export default class Tooltip extends withStyles(Base, styles) {
       mountX: 0.5,
       x: w => w / 2,
       Background: {
-        zIndex: 2
-      },
-      Text: {
-        zIndex: 3
-      },
-      DropShadow: {}
+        Text: {
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_textLoaded'
+          }
+        }
+      }
     };
   }
 
   static get properties() {
-    return [
-      'bottomMargin',
-      'horizontalPadding',
-      'radius',
-      'shadow',
-      'textProperties',
-      'title'
-    ];
+    return ['title', 'delayVisible', 'timeVisible'];
   }
 
   static get tags() {
-    return ['Background', 'Text', 'DropShadow'];
-  }
-
-  _construct() {
-    super._construct();
-    this.shadow = this.styles.shadow;
-    this.textProperties = this.styles.textProperties;
-    this.radius = this.styles.radius;
-    this.horizontalPadding = this.styles.horizontalPadding;
-    this.bottomMargin = this.styles.bottomMargin;
-  }
-
-  _attach() {
-    this._Text.on('txLoaded', () => this._updateContainer());
-  }
-
-  _detach() {
-    this._Text.off('txLoaded', () => this._updateContainer());
+    return ['Background', { name: 'Text', path: 'Background.Text' }];
   }
 
   _update() {
@@ -57,73 +39,101 @@ export default class Tooltip extends withStyles(Base, styles) {
   }
 
   _updateText() {
-    this._Text.text = {
-      ...this.textProperties,
-      text: this.title
-    };
-    this._Text.x = this.horizontalPadding;
+    this._Text.patch({
+      content: this.title,
+      textStyle: this._componentStyles.textStyle,
+      textColor: this._componentStyles.textColor
+    });
   }
 
-  _updateContainer() {
-    // set background size based on text size
-    const backgroundW = this._Text.finalW + this.horizontalPadding * 2;
-    const backgroundH =
-      this._Text.finalH -
-      (this._Text.finalH % this.textProperties.lineHeight) / 2; // calculates even padding
-
-    this.h = backgroundH;
-    this.w = backgroundW;
-
+  _textLoaded() {
     this._updateBackground();
-    this._updateDropShadow();
-
-    this.y = -backgroundH - this.bottomMargin;
+    this._updateTextPosition();
   }
 
   _updateBackground() {
-    this._Background.texture = lng.Tools.getRoundRect(
-      this.w,
-      this.h,
-      this.radius
-    );
-  }
+    const backgroundH =
+      this._Text.finalH +
+      this._componentStyles.paddingY * 2 +
+      this._componentStyles.pointerH;
+    const backgroundW = this._Text.finalW + this._componentStyles.paddingX * 2;
 
-  _updateDropShadow() {
-    const DropShadow = this.styles.shadow({
-      w: this.w,
-      h: this.h,
-      borderRadius: this.radius
+    this.patch({
+      w: backgroundW,
+      h: backgroundH,
+      mountY: 1,
+      y: -this._componentStyles.marginBottom,
+      Background: {
+        w: backgroundW,
+        h: backgroundH,
+        texture: {
+          type: Bubble,
+          w: backgroundW,
+          h: backgroundH,
+          radius: this._componentStyles.radius,
+          pointerW: this._componentStyles.pointerW,
+          pointerH: this._componentStyles.pointerH,
+          color: this._componentStyles.backgroundColor
+        }
+      }
     });
-    this.patch({ DropShadow });
-    const alpha = Number(this.hasFocus());
-    if (this._smooth) {
-      this._DropShadow.smooth = { alpha };
-    } else {
-      this._DropShadow.alpha = alpha;
-    }
   }
 
-  _focus() {
+  _updateTextPosition() {
+    this._Text.patch({
+      mount: 0.5,
+      x: this._Background.w / 2,
+      y: (this._Background.h - this._componentStyles.pointerH) / 2
+    });
+  }
+
+  _clearTimers() {
     clearTimeout(this._hideTimer);
     clearTimeout(this._showTimer);
+  }
 
-    this.delayVisible
-      ? (this._showTimer = setTimeout(() => {
-          this.smooth = { alpha: 1, scale: 1 };
-        }, this.delayVisible))
-      : (this.smooth = { alpha: 1, scale: 1 });
+  _transitionIn() {
+    const smooth = {
+      smooth: {
+        alpha: [1, this._componentStyles.transition],
+        scale: [1, this._componentStyles.transition]
+      }
+    };
+
+    if (this.delayVisible) {
+      this._showTimer = setTimeout(() => {
+        this.patch({ smooth });
+      }, this.delayVisible);
+    } else {
+      this._showTimer = undefined;
+      this.patch({ smooth });
+    }
 
     this._hideTimer = this.timeVisible
       ? setTimeout(() => {
           this._unfocus();
-        }, this.timeVisible + this.delayVisible)
-      : null;
+        }, this.timeVisible + (this.delayVisible || 0))
+      : undefined;
+  }
+
+  _transitionOut() {
+    this.patch({
+      smooth: {
+        alpha: [0, this._componentStyles.transition],
+        scale: [0.5, this._componentStyles.transition]
+      }
+    });
+  }
+
+  _focus() {
+    this._clearTimers();
+    this._transitionIn();
   }
 
   _unfocus() {
-    clearTimeout(this._hideTimer);
-    clearTimeout(this._showTimer);
-
-    this.smooth = { alpha: 0, scale: 0.5 };
+    this._clearTimers();
+    this._transitionOut();
   }
 }
+
+export default withExtensions(withStyles(Tooltip, styles));
