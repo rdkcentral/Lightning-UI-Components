@@ -6,7 +6,7 @@ Component to provide hint information to other components like buttons and actio
 
 ## Usage
 
-`Tooltip` can display a `title` and is added as a child to any component that needs hint text.  It is positioned above the parent component using the property 'bottomMargin' and centered horizontally based on the parent's width:
+`Tooltip` can display a `title` and is added as a child to any component that needs hint text. It is positioned above the parent component using the theme style property `marginBottom` and centered horizontally based on the parent's width:
 
 ```js
 import { Tooltip } from '@lightning/ui';
@@ -15,33 +15,30 @@ import ActionButton from '../ActionButton';
 class Example extends lng.Component {
   static _template() {
     return {
-        Button: {
-          type: ActionButton,
-          x: 200,
-          y: 100,
-          w: 410,
-          title: '+',
-          background: 'stroke',
-          Tooltip: {
-            type: Tooltip,
-            title: 'Add to My List!',
-            bottomMargin: 24
-          }
+      Button: {
+        type: ActionButton,
+        x: 200,
+        y: 100,
+        w: 410,
+        title: '+',
+        background: 'stroke',
+        Tooltip: {
+          type: Tooltip,
+          title: 'Add to My List!'
         }
+      }
     };
   }
-};
+}
 ```
 
 <Canvas>
   <Story id="elements-tooltip--basic" />
 </Canvas>
 
-The default 'bottomMargin' is 40px above the parent
-
 ### Sizing
 
-The size of the tooltip is based on the length of it's 'title'.  If the 'title' exceeds 400px the text wraps, and the background resizes to accomodate.
+The size of the tooltip is based on the length of it's 'title'.
 
 ### Focus
 
@@ -51,8 +48,22 @@ Tooltip is only visible on focus of the parent.
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
-title|string|false|tool tip text goes here
-bottomMargin|int|false|space between parent component and tooltip in pixels (default: 40px)
+| name         | type   | default | description                                                                                           |
+| ------------ | ------ | ------- | ----------------------------------------------------------------------------------------------------- |
+| title        | string | ''      | tool tip text goes here                                                                               |
+| delayVisible | number | -       | the amount of time, in milliseconds, before the tooltip is displayed after being focused              |
+| timeVisible  | number | -       | the amount of time, in milliseconds, the tooltip is displayed before transitioning out of the display |
 
+### Style Properties
+
+| name            | type   | description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| radius          | number | radius of tooltip corners                            |
+| textStyle       | string | font styles used for Tooltip's text                  |
+| marginBottom    | number | space below tooltip                                  |
+| paddingY        | number | space above and below tooltip text                   |
+| paddingX        | number | space on left and right sides of tooltip text        |
+| pointerW        | number | width of point beneath rounded rectangle of tooltip  |
+| pointerH        | number | height of point beneath rounded rectangle of tooltip |
+| backgroundColor | number | background color of tooltip                          |
+| textColor       | number | color of tooltip text                                |
