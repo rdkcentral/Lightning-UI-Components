@@ -4,6 +4,7 @@ import * as ids from '../constants';
 import { ThemeDownload } from './ThemeDownload';
 import ThemePicker from './ThemePicker';
 import { Announce } from './Announce';
+import GridOverlayPanel from './GridOverlayPanel';
 import ThemePanel from './ThemePanel';
 import ComponentStylesPanel from './ComponentStylesPanel';
 
@@ -28,6 +29,14 @@ addons.register(ids.DOWNLOAD_ID, () => {
     type: types.TOOL,
     title: 'Download Button',
     render: ThemeDownload
+  });
+});
+
+addons.register(ids.GRIDOVERLAY_ID, () => {
+  addons.add(ids.GRIDOVERLAY_ID, {
+    title: 'Grid Layout Overlay',
+    type: types.PANEL,
+    render: (params) => GridOverlayPanel(params)
   });
 });
 
