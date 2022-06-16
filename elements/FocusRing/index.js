@@ -12,7 +12,14 @@ import styles from './FocusRing.styles';
 
 export default class FocusRing extends withStyles(Base, styles) {
   static get properties() {
-    return ['color', 'secondaryColor', 'radius', 'spacing', 'shouldAnimate'];
+    return [
+      'color',
+      'secondaryColor',
+      'radius',
+      'spacing',
+      'shouldAnimate',
+      'borderWidth'
+    ];
   }
 
   static get tags() {
@@ -26,6 +33,7 @@ export default class FocusRing extends withStyles(Base, styles) {
     this._secondaryColor = this.styles.secondaryColor;
     this._radius = this.styles.radius;
     this._spacing = this.styles.spacing;
+    this._borderWidth = this.styles.borderWidth;
   }
 
   _inactive() {
@@ -33,7 +41,16 @@ export default class FocusRing extends withStyles(Base, styles) {
   }
 
   _update() {
+    this._updateRing();
+    this.setAnimation();
+  }
+
+  _updateRing() {
     const { transition, primary, secondary } = this.getColors();
+    const offset = this.spacing * 2 + this.borderWidth;
+    const radius = this.radius
+      ? this.radius + this.spacing + this.borderWidth / 2
+      : 0;
 
     this.patch({
       Ring: {
@@ -42,22 +59,21 @@ export default class FocusRing extends withStyles(Base, styles) {
         y: this.h / 2,
         alpha: this.w && this.h ? 1 : 0.001,
         texture: lng.Tools.getRoundRect(
-          this.w + this.spacing,
-          this.h + this.spacing,
-          this.radius,
-          4,
+          this.w + offset,
+          this.h + offset,
+          Math.max(0, radius), // Ensure number is always positive
+          this.borderWidth,
+          false,
           false,
           false
-        )
-      },
-      color: primary,
-      colorUl: primary,
-      colorBl: transition,
-      colorUr: transition,
-      colorBr: secondary
+        ),
+        color: primary,
+        colorUl: primary,
+        colorBl: transition,
+        colorUr: transition,
+        colorBr: secondary
+      }
     });
-
-    this.setAnimation();
   }
 
   getColors() {
