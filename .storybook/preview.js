@@ -13,6 +13,7 @@ import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import { withAnnouncer } from '../';
 import { getValidColor } from '../Styles';
+import GridOverlay from '../layout/GridOverlay';
 
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
@@ -42,6 +43,24 @@ export const globalTypes = {
     name: 'Theme',
     description: 'Theme select',
     defaultValue: 'base'
+  },
+  'GridOverlay-alpha': {
+    defaultValue: '0'
+  },
+  'GridOverlay-toggle-showColumns': {
+    defaultValue: 'true'
+  },
+  'GridOverlay-toggle-showMargins': {
+    defaultValue: 'false'
+  },
+  'GridOverlay-toggle-showSafe': {
+    defaultValue: 'false'
+  },
+  'GridOverlay-toggle-showGutters': {
+    defaultValue: 'false'
+  },
+  'GridOverlay-toggle-showText': {
+    defaultValue: 'false'
   }
 };
 
@@ -54,16 +73,7 @@ export const parameters = {
   docs: {
     inlineStories: true,
     theme
-  },
-  options: {
-    // storySort: (a, b) => {
-    // //   console.log('story sort??', a, b)
-    // //   console.log('TEST', a[1].parameters.important, b[1].parameters.important)
-    // //   if (a[1].parameters.important) { return a[0] }
-    // //   if (b[1].parameters.important) { return b[0] }
-    //   return a[0].localeCompare(b[0])
-    // }
-  },
+  }
 };
 
 // Prevent scrolling when navigating with arrows on canvas
@@ -160,6 +170,18 @@ addDecorator(
       });
       app._refocus();
     }
+    if (!app.tag('GridOverlay')) {
+      app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
+    }
+    app.tag('GridOverlay').patch({
+      // do not render this on top of the actual GridOverlay component's story
+      alpha: id.includes('gridoverlay') ? 0 : parseFloat(globals['GridOverlay-alpha']),
+      showColumns: globals['GridOverlay-toggle-showColumns'] === 'true',
+      showMargins: globals['GridOverlay-toggle-showMargins'] === 'true',
+      showSafe: globals['GridOverlay-toggle-showSafe'] === 'true',
+      showGutters: globals['GridOverlay-toggle-showGutters'] === 'true',
+      showText: globals['GridOverlay-toggle-showText'] === 'true'
+    });
 
     const LightningUIComponent = app.tag('StoryComponent').childList.first;
     if (LightningUIComponent && Object.keys(args).length) {
