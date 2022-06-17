@@ -1,31 +1,27 @@
-import FocusRing from '../../elements/FocusRing';
-
 export default theme => ({
   shouldAnimate: true,
   radius: theme.border.radius.medium,
   shadow: theme.materials.shadow,
   blur: 0,
-  focusringType: FocusRing,
-  focusring: function ({ w, h, radius, color }) {
-    return {
-      w,
-      h,
-      radius: radius + 2,
-      color,
-      size: theme.spacing(0.5),
-      zIndex: 1
-    };
+  verticalSpacing: 60,
+  tabSpacing: 24,
+  resultSpacing: 48,
+  visibleTabs: {
+    alpha: 1
   },
-  text: {
-    ...theme.typography.headline2,
-    color: theme.palette.text.light.tertiary
+  hideSoftFocus: {
+    alpha: 0
   },
-  unfocused: {
-    focusring: { alpha: 0 },
-    shadow: { alpha: 0 }
+  fadedTabs: {
+    alpha: 0.3
   },
-  focused: {
-    focusring: { alpha: 1 },
-    shadow: { alpha: 1 }
+  softFocus: {
+    alpha: 1,
+    rect: true,
+    color: 0xfffffffff,
+    h: 4,
+    w: 76,
+    y: 120,
+    x: 12
   }
 });

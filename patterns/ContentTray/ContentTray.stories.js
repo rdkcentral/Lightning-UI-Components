@@ -64,7 +64,6 @@ export const Basic = args =>
       return {
         ContentTray: {
           type: ContentTray,
-          itemSpacing: args.itemSpacing,
           lazyScroll: true,
           w: 1920 - 160,
           items: [
@@ -184,12 +183,10 @@ export const Basic = args =>
   };
 
 Basic.args = {
-  itemSpacing: 16,
   focused: true
 };
 
 Basic.argTypes = {
-  itemSpacing: { control: 'number' },
   focused: { control: 'boolean' }
 };
 
