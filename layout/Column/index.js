@@ -283,42 +283,41 @@ class Column extends FocusManager {
           child.x = (this.w - childWidth) / 2;
         }
       }
+    }
 
-      const itemChanged = this.Items.w !== nextW || this.Items.h !== nextY;
-      this.Items.patch({ w: nextW, h: nextY });
+    const itemChanged = this.Items.w !== nextW || this.Items.h !== nextY;
+    this.Items.patch({ w: nextW, h: nextY });
 
-      if (this.autoResizeWidth) {
-        this.w = this.Items.w;
-      }
-      if (this.autoResizeHeight) {
-        this.h = this.Items.h;
-      }
+    if (this.autoResizeWidth) {
+      this.w = this.Items.w;
+    }
+    if (this.autoResizeHeight) {
+      this.h = this.Items.h;
+    }
 
-      const lastChild = this.Items.childList.last;
-      const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
-      const scrollOffset = (this.Items.children[this.scrollIndex] || { y: 0 })
-        .y;
+    const lastChild = this.Items.childList.last;
+    const endOfLastChild = lastChild ? getY(lastChild) + lastChild.h : 0;
+    const scrollOffset = (this.Items.children[this.scrollIndex] || { y: 0 }).y;
 
-      // determine when to stop scrolling down
-      if (this.alwaysScroll) {
-        this._lastScrollIndex = this.Items.children.length - 1;
-      } else if (endOfLastChild > this.h) {
-        for (let i = this.Items.children.length - 1; i >= 0; i--) {
-          const child = this.Items.children[i];
-          const childY = getY(child);
-          if (childY + this.h - scrollOffset > endOfLastChild) {
-            this._lastScrollIndex = i;
-          } else {
-            break;
-          }
+    // determine when to stop scrolling down
+    if (this.alwaysScroll) {
+      this._lastScrollIndex = this.Items.children.length - 1;
+    } else if (endOfLastChild > this.h) {
+      for (let i = this.Items.children.length - 1; i >= 0; i--) {
+        const child = this.Items.children[i];
+        const childY = getY(child);
+        if (childY + this.h - scrollOffset > endOfLastChild) {
+          this._lastScrollIndex = i;
+        } else {
+          break;
         }
-      } else if (this._lastScrollIndex > this.items.length) {
-        this._lastScrollIndex = this.items.length - 1;
       }
+    } else if (this._lastScrollIndex > this.items.length) {
+      this._lastScrollIndex = this.items.length - 1;
+    }
 
-      itemChanged && this.fireAncestors('$itemChanged');
-      this._performRender();
-    });
+    itemChanged && this.fireAncestors('$itemChanged');
+    this._performRender();
   }
 
   get _itemsY() {
