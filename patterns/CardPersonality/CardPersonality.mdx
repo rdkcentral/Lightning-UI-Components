@@ -1,0 +1,48 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import CardPersonality from './CardPersonality.js';
+import tileImage from '../../assets/images/tile-image.png';
+
+# CardPersonality
+
+This component is used to display a circular image with a title and a description
+
+## Usage
+
+`CardPersonality` takes in a Tile and both a title and description
+`CardPersonality` extends [CardTitle](?path=/docs/patterns-cardtitle--title-and-description)
+
+```js
+import { CardPersonality } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      CardPersonality: {
+        type: CardPersonality,
+        title: 'Title',
+        description: 'Description',
+        src: tileImage
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="patterns-cardpersonality--base" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name | type   | required | default | description        |
+| ---- | ------ | -------- | ------- | ------------------ |
+| src  | string | false    | -       | image for the tile |
+
+### Style Properties
+
+| name                      | type   | description                   |
+| ------------------------- | ------ | ----------------------------- |
+| descriptionTextProperties | object | text style of the description |
+| titleTextProperties       | object | text style of the title       |
