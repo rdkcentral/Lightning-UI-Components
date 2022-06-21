@@ -12,7 +12,8 @@ export default [
       'CardTitle',
       'CardSection',
       'AboutCard',
-      'AboutStackedCard'
+      'AboutStackedCard',
+      'CardPersonality'
     ],
     extension: focusRingExtension
   }
