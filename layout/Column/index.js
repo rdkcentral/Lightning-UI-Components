@@ -1,5 +1,6 @@
 import FocusManager from '../FocusManager';
 import { getY, getW, delayForAnimation } from '../../utils';
+import { debounce } from 'debounce';
 export default class Column extends FocusManager {
   static _template() {
     return {
@@ -25,6 +26,7 @@ export default class Column extends FocusManager {
     this._smooth = false;
     this._itemSpacing = 0;
     this._scrollIndex = 0;
+    this._performRenderDebounce = debounce(this._performRender.bind(this), 0);
   }
 
   _init() {
@@ -151,7 +153,7 @@ export default class Column extends FocusManager {
       next.selectedIndex = 0;
     }
 
-    this._performRender();
+    this._performRenderDebounce();
   }
 
   checkSkipPlinko(prev, next) {
@@ -298,7 +300,7 @@ export default class Column extends FocusManager {
       }
 
       itemChanged && this.fireAncestors('$itemChanged');
-      this._performRender();
+      this._performRenderDebounce();
     });
   }
 

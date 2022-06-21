@@ -33,6 +33,50 @@ class BasicExample extends lng.Component {
 
 The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
 
+### Column items with changing height
+
+If the heights of various items in the column can change (ex. an item which expands), the layout
+of the items in the Column must be recalculated. To trigger this update, fire an event, called `$itemChanged`, from the
+item when its height changes.
+ex.
+
+```js
+class ExpandingButton extends Button {
+  _focus() {
+    super._focus();
+    this.patch({ h: 100 });
+    // triggers recalculation of Column items layout
+    this.fireAncestors('$itemChanged');
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.patch({ h: 40 });
+  }
+}
+
+class ExpandableHeightItems extends lng.Component {
+  static _template() {
+    return {
+      Column: {
+        type: Column,
+        h: 500,
+        items: Array.apply(null, { length: 15 }).map((_, i) => ({
+          type: ExpandingButton,
+          h: 40,
+          w: 150,
+          buttonText: `Button ${i}`
+        }))
+      }
+    };
+  }
+
+  _getFocused() {
+    return this.tag('Column');
+  }
+}
+```
+
 <Canvas>
   <Story id="layout-column--basic" />
 </Canvas>
@@ -50,7 +94,7 @@ export const ProviderType = () => (
 );
 
 | name           | type                                                    | readonly | description                                                                                                                                            |
-| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | boundsMargin   | number[]                                                | true     | bounding box of the `Column`                                                                                                                           |
 | plinko         | boolean                                                 | false    | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.           |
 | provider       | <ProviderType />                                        | false    | used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider` |
@@ -64,9 +108,9 @@ export const ProviderType = () => (
 | alwaysScroll   | boolean                                                 | false    | determines whether the column will stop scrolling as it nears the bottom to prevent white space                                                        |
 | neverScroll    | boolean                                                 | false    | false if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic            |
 | onScreenItems  | array                                                   | true     | contains a list of items that are currently on screen (within the bounds of the container)                                                             |
-| autoResize     | boolean                                                 | false    | automatically sets the height and width of the column to be the same as the Items container inside
-| lazyUpCount  | number                                                  | false    |           | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a column and most are off screen, set this to the number of items that are displayed on screen by default       |
-                                                |
+| autoResize     | boolean                                                 | false    | automatically sets the height and width of the column to be the same as the Items container inside                                                     |
+| lazyUpCount    | number                                                  | false    |                                                                                                                                                        | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a column and most are off screen, set this to the number of items that are displayed on screen by default |
+|                |
 
 ### Child Item Properties
 
