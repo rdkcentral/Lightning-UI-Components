@@ -17,6 +17,29 @@ export default function withExtensions(Base) {
     }
 
     /**
+     * Climb the prototype chain to establish what component's extension rules this component should also inherit
+     * @returns {set} // set of strings
+     */
+    get _prototypeChain() {
+      if (this.__prototypeChain) return this.__prototypeChain;
+      const prototypeChain = new Set();
+      let proto = this;
+      do {
+        proto = Object.getPrototypeOf(proto);
+        if (null !== proto && typeof proto === 'object') {
+          try {
+            if (proto.constructor.__componentName)
+              prototypeChain.add(proto.constructor.__componentName);
+          } catch (error) {
+            // Catch error when __componentName is not set in Base component
+          }
+        }
+      } while (proto);
+      this.__prototypeChain = prototypeChain;
+      return prototypeChain;
+    }
+
+    /**
      * Get all valid extensions from the current theme
      * @returns {object[]} // Array of objects
      */
@@ -50,15 +73,21 @@ export default function withExtensions(Base) {
         .filter(({ targetComponent }) => {
           // check to see if extension should be applied to this component
           if (typeof targetComponent === 'string') {
-            return targetComponent === this.constructor.__componentName;
-          } else if (Array.isArray(targetComponent)) {
-            return targetComponent.find(pattern =>
-              pattern.startsWith('/') && pattern.endsWith('/')
-                ? new RegExp(pattern.slice(1, -1)).test(
-                    this.constructor.__componentName
-                  )
-                : pattern === this.constructor.__componentName
+            return (
+              targetComponent === this.constructor.__componentName ||
+              this._prototypeChain.has(targetComponent)
             );
+          } else if (Array.isArray(targetComponent)) {
+            return targetComponent.find(pattern => {
+              if (pattern.startsWith('/') && pattern.endsWith('/')) {
+                const ComponentRegExp = new RegExp(pattern.slice(1, -1));
+                return Array.from(this._prototypeChain).some(name =>
+                  ComponentRegExp.test(name)
+                );
+              } else {
+                return this._prototypeChain.has(pattern);
+              }
+            });
           }
           return false;
         })
