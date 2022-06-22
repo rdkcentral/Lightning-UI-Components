@@ -18,9 +18,11 @@
 
 export { default as Base } from './Base';
 export { default as Button } from './Button';
+export { default as Checkbox } from './Checkbox';
 export { default as Icon } from './Icon';
 export { default as Keyboard, KEYBOARD_FORMATS } from './Keyboard';
 export { default as MarqueeText } from './MarqueeText';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Radio } from './Radio';
+export { default as Slider } from './Slider';
 export { default as Toggle } from './Toggle';
