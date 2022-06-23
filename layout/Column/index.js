@@ -133,8 +133,7 @@ export default class Column extends FocusManager {
     return (
       this.selectedIndex > this._scrollIndex &&
       // end of Items container < end of last item
-      Math.abs(this._itemsY - this.h) <
-        lastChild.y + this.Items.childList.last.h
+      Math.abs(this.itemPosY - this.h) < lastChild.y + lastChild.h
     );
   }
 
