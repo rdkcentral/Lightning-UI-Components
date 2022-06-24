@@ -257,7 +257,7 @@ export const ExpandableHeightRows = args =>
           w: context.theme.calculateColumnWidth(1),
           itemSpacing: args.itemSpacing,
           plinko: true,
-          items: Array.apply(null, { length: 15 }).map(() => ({
+          items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingRow,
             w: context.theme.calculateColumnWidth(1),
             h: 40,
@@ -729,19 +729,6 @@ LazyUpCount.argTypes = {
   },
   alwaysScroll: {
     control: { type: 'boolean' }
-  }
-};
-LazyUpCount.parameters = {
-  argActions: {
-    scroll: function (index, component) {
-      component.tag('Column').scrollTo(index - 1);
-    },
-    itemTransition: (duration, component) => {
-      component.tag('Column').itemTransition = {
-        duration,
-        timingFunction: component.tag('Column')._itemTransition.timingFunction
-      };
-    }
   }
 };
 
