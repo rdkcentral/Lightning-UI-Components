@@ -1,3 +1,5 @@
+import { clone } from '../../utils';
+
 /**
  * Used by Component.style.js files to merge variants with base styles
  * @param {object} - Theme
@@ -28,8 +30,8 @@ export default function processThemeStyles(
   const variantStyles = variants(theme);
   const selectedVariant =
     ('object' === typeof variantStyles && variantStyles[variant]) || {};
-  return {
-    ...(('object' === typeof baseStyles && baseStyles) || {}),
-    ...selectedVariant
-  };
+  return clone(
+    ('object' === typeof baseStyles && baseStyles) || {},
+    selectedVariant
+  );
 }
