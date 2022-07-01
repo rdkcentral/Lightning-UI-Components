@@ -1,9 +1,9 @@
 import Base from '../../Base';
 import styles from './TextBox.styles';
-import withStyles from '../../mixins/withThemeStyles';
+import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
 import { getValidColor } from '../../Styles';
 
-export default class TextBox extends withStyles(Base, styles) {
+class TextBox extends Base {
   static _template() {
     return {
       alpha: 0.001,
@@ -24,14 +24,14 @@ export default class TextBox extends withStyles(Base, styles) {
   static get properties() {
     return [
       'content',
-      'textStyle',
-      'textColor',
       'textAlign',
+      'textColor',
+      'textStyle',
+      'maxLines',
+      'maxLinesSuffix',
       'verticalAlign',
       'wordWrap',
-      'maxLines',
-      'wordWrapWidth',
-      'maxLinesSuffix'
+      'wordWrapWidth'
     ];
   }
 
@@ -137,10 +137,8 @@ export default class TextBox extends withStyles(Base, styles) {
       return;
     }
     this.visible = true;
-    const fontStyle = {
-      ...(this._componentStyles.typography[
-        this._componentStyles.defaultTextStyle
-      ] || this._componentStyles.typography.body1),
+    const textStyle = {
+      ...this._componentStyles.textStyle,
       ...(null !== this.textStyle &&
       'object' === typeof this.textStyle &&
       Object.keys(this.textStyle)
@@ -150,14 +148,14 @@ export default class TextBox extends withStyles(Base, styles) {
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
         const key = 'content' === prop ? 'text' : prop;
-        fontStyle[key] = this[`_${prop}`];
+        textStyle[key] = this[`_${prop}`];
       }
     });
 
     this._Text.patch({
       y: this._componentStyles.offsetY,
       x: this._componentStyles.offsetX,
-      text: fontStyle
+      text: textStyle
     });
   }
 
@@ -169,3 +167,5 @@ export default class TextBox extends withStyles(Base, styles) {
     super.announce = announce;
   }
 }
+
+export default withExtensions(withStyles(TextBox, styles));

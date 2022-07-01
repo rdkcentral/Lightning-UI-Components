@@ -142,7 +142,7 @@ describe('TextBox', () => {
     context.updateTheme({
       componentStyles: {
         TextBox: {
-          defaultTextStyle: 'headline1'
+          textStyle: context.theme.typography.headline1
         }
       }
     });
