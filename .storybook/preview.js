@@ -44,8 +44,10 @@ const stage = {
   useImageWorker: false,
   inspector: false,
   defaultFontFace: 'XfinityStandardMedium',
-  textRenderSharpPrecision: 1,
-  textRenderSharpFontSize: 1
+  fontSharp: {
+    precision: 2 / 3,
+    fontSize: 12
+  }
 };
 
 /**

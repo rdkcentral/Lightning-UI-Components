@@ -9,7 +9,7 @@ describe('withBadgeProgress', () => {
   let component, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createTileWithBadgeProgress(Tile);
+    [component, testRenderer] = createTileWithBadgeProgress(Tile, { w: 300 });
   });
   afterEach(() => {
     component = null;
@@ -31,6 +31,7 @@ describe('withBadgeProgress', () => {
     const badgeLocation = 'upperLeft';
 
     [component, testRenderer] = createTileWithBadgeProgress(Tile, {
+      w: 300,
       badge,
       badgeLocation
     });
@@ -45,6 +46,7 @@ describe('withBadgeProgress', () => {
     const progressBarPadding = component.styles.progressBarPadding;
 
     [component, testRenderer] = createTileWithBadgeProgress(Tile, {
+      w: 300,
       progress
     });
 
@@ -57,7 +59,7 @@ describe('withBadgeProgress', () => {
     );
   });
 
-  it('should alpha the progress off if progress is 0', async done => {
+  it('should alpha the progress off if progress is 0', async () => {
     component.progress = 0.5; // need to make sure the ProgressBar has been created
     testRenderer.update();
     testRenderer.focus();
@@ -67,6 +69,5 @@ describe('withBadgeProgress', () => {
     testRenderer.update();
     await TestUtils.nextTick(2e3);
     expect(component._ProgressBar.alpha).toBe(0);
-    done();
   });
 });
