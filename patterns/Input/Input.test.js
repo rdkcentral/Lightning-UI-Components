@@ -53,15 +53,19 @@ describe('Input', () => {
     expect(input._label).toBe('LABEL');
   });
 
-  it('renders custom dimensions', () => {
+  it('renders custom dimensions', async () => {
     [input, testRenderer] = createInput({
-      w: 200,
+      w: 250,
       h: 50,
       radius: 2
     });
     input._Container.loadTexture();
+    testRenderer.update();
+    await TestUtils.nextTick();
     // lookup ID provides texture dimensions: shadow{w}{h}{radius}{blur}{...margin}
-    expect(input._Container.texture._lookupId).toEqual('rect,64,,,0,,8,8,8,8');
+    expect(input._Container.texture._lookupId).toEqual(
+      'rect250,50,,,0,,2,2,2,2'
+    );
   });
 
   it('cursor moves left and right', async () => {

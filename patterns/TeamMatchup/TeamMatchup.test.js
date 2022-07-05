@@ -54,7 +54,8 @@ describe('TeamMatchup', () => {
       metadata,
       items
     });
-    TestUtils.nextTick().then(() => {
+    TestUtils.nextTick(10).then(() => {
+      testRenderer.update();
       const tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
       done();

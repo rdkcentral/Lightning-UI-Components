@@ -420,7 +420,7 @@ Object {
             "ContentWrapper",
           ],
           "visible": true,
-          "w": NaN,
+          "w": 168,
           "x": 16,
           "y": 8,
           "zIndex": 0,

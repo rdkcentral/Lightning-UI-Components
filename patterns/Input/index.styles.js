@@ -1,5 +1,6 @@
 export default theme => ({
   h: 64,
+  w: 200,
   background: theme.palette.background.float,
   shadow: theme.materials.glow,
   underline: {

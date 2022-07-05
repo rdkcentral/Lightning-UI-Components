@@ -505,13 +505,13 @@ exports[`TeamMatchup centers the text if the title is missing 1`] = `
 Object {
   "Component": Object {
     "DataItem": Object {
-      "active": false,
+      "active": true,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
         "Background": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
@@ -553,19 +553,19 @@ Object {
           "zIndex": 2,
         },
         "Content": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Wrapper": Object {
-              "active": false,
+              "active": true,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "children": Object {
                 "LeftIcon": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -607,7 +607,7 @@ Object {
                   "zIndex": 0,
                 },
                 "RightIcon": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
@@ -649,13 +649,13 @@ Object {
                   "zIndex": 0,
                 },
                 "Text": Object {
-                  "active": false,
+                  "active": true,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
                   "children": Object {
                     "Subtitle": Object {
-                      "active": false,
+                      "active": true,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
@@ -842,21 +842,21 @@ Object {
           "zIndex": 5,
         },
         "FocusRing": Object {
-          "active": false,
+          "active": true,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": Object {
             "Ring": Object {
-              "active": false,
-              "alpha": 0.001,
+              "active": true,
+              "alpha": 1,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
-              "color": 4125945074,
-              "colorBl": "8aececf2",
-              "colorBr": "14ffffff",
-              "colorUl": "f5ececf2",
+              "color": 4109102065,
+              "colorBl": "89ececf2",
+              "colorBr": "14fefefe",
+              "colorUl": "f4ebebf1",
               "colorUr": "8aececf2",
               "enabled": true,
               "flex": false,
@@ -885,8 +885,8 @@ Object {
               },
               "visible": true,
               "w": 0,
-              "x": 0,
-              "y": 0,
+              "x": 205,
+              "y": 70,
               "zIndex": 0,
             },
           },
@@ -1015,9 +1015,9 @@ Object {
       "ref": "DataItem",
       "renderOfScreen": undefined,
       "renderToTexture": false,
-      "scale": 1,
-      "scaleX": 1,
-      "scaleY": 1,
+      "scale": 1.0975609756097562,
+      "scaleX": 1.0975609756097562,
+      "scaleY": 1.0975609756097562,
       "state": "",
       "tag": [Function],
       "tags": Array [
@@ -1031,13 +1031,13 @@ Object {
       "zIndex": 0,
     },
     "Metadata": Object {
-      "active": false,
-      "alpha": 0,
+      "active": true,
+      "alpha": 1,
       "attached": true,
       "boundsMargin": null,
       "clipping": false,
       "color": 4294967295,
-      "enabled": false,
+      "enabled": true,
       "flex": false,
       "flexItem": false,
       "h": 48,
@@ -1077,7 +1077,7 @@ Object {
       "visible": true,
       "w": 410,
       "x": 0,
-      "y": 120,
+      "y": 153.65853658536588,
       "zIndex": 0,
     },
   },

@@ -272,7 +272,7 @@ describe('GameStats', () => {
         expect(items[6]._LeftArrow.alpha).toBe(1);
         expect(items[6]._RightArrow.alpha).toBe(0);
         done();
-      }, 0);
+      }, 5);
     });
   });
 });
