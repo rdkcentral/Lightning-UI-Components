@@ -148,13 +148,14 @@ export default class Card extends withStyles(Base, styles) {
     const dimensions = { ...this._originalDimensions };
     const toUpdate = this.orientation === 'vertical' ? 'h' : 'w';
 
-    if (this.collapseArt) {
-      dimensions[toUpdate] =
-        this._originalDimensions[toUpdate] - this._Artwork[toUpdate];
-    } else if (this.collapseData) {
-      dimensions[toUpdate] = this._Artwork[toUpdate];
-    } else {
-      dimensions[toUpdate] = this._originalDimensions[toUpdate];
+    dimensions[toUpdate] = this._originalDimensions[toUpdate];
+    if (this._Artwork) {
+      if (this.collapseArt) {
+        dimensions[toUpdate] =
+          this._originalDimensions[toUpdate] - this._Artwork[toUpdate];
+      } else if (this.collapseData) {
+        dimensions[toUpdate] = this._Artwork[toUpdate];
+      }
     }
 
     this._collapsed = this.collapseArt || this.collapseData;

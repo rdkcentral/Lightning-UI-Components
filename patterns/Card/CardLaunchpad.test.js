@@ -33,6 +33,7 @@ describe('CardProgram', () => {
   });
 
   it('hides artwork when unfocused and shows it on focus', () => {
+    card._unfocus();
     expect(card._Metadata.alpha).toBe(0);
     testRenderer.focus();
     expect(card._Metadata.alpha).toBe(1);
