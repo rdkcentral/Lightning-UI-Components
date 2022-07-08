@@ -9,6 +9,7 @@ import withStyles from '../../mixins/withThemeStyles';
 class Knob extends Base {
   static _template() {
     return {
+      mount: 0.5,
       Circle: {}
     };
   }

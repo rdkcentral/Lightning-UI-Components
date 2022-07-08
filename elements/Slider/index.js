@@ -27,7 +27,6 @@ class Slider extends Base {
           },
           Circle: {
             type: Knob,
-            mountY: 0.5,
             zIndex: 5 // places circle knob on top of sliderBar
           }
         },
@@ -99,16 +98,9 @@ class Slider extends Base {
         xCirclePosition = (this.value / this.max) * this._calculatedSliderWidth;
       }
     }
-
     this._Circle.patch({
       x: xCirclePosition,
-      y:
-        (this._componentStyles.containerHeight -
-          this._componentStyles.sliderHeight) /
-          2 +
-        (this._componentStyles.innerCircleSize +
-          this._componentStyles.sliderHeight) /
-          2,
+      y: this._SliderBar.y,
       alpha: this.hasFocus() && !this.disabled ? 1 : 0
     });
   }
@@ -147,10 +139,7 @@ class Slider extends Base {
         x:
           this._componentStyles.arrowSpacing + this._componentStyles.arrowWidth,
         SliderBar: {
-          y:
-            (this._componentStyles.containerHeight -
-              this._componentStyles.sliderHeight) /
-            2,
+          y: this._componentStyles.containerHeight / 2,
           w: this._calculatedSliderWidth,
           variant: this.variant,
           style: {
