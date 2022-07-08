@@ -44,6 +44,7 @@ Object {
             "letterSpacing": -0.2,
             "lineHeight": 32,
             "text": "Pivot",
+            "textColor": 4076863487,
             "type": "TextTexture",
             "verticalAlign": "middle",
           },

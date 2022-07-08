@@ -45,6 +45,7 @@ Object {
             "lineHeight": 48,
             "maxLinesSuffix": "...",
             "text": "a",
+            "textColor": 4076863487,
             "textOverflow": "ellipsis",
             "type": "TextTexture",
             "verticalAlign": "middle",

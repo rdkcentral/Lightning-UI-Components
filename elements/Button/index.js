@@ -126,7 +126,7 @@ export default class Button extends withStyles(Base, styles) {
     if (this.title) {
       this._Title.text = {
         ...this._textStyles,
-        fontColor: this._textStyles.color,
+        textColor: this._textStyles.color,
         fontSize: this.fontSize || this._textStyles.fontSize,
         fontFamily:
           this._textStyles.fontFace ||
