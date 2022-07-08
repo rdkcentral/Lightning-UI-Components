@@ -55,11 +55,12 @@
     "eslint-plugin-prettier": "^3.3.1",
     "esm": "^3.2.25",
     "fast-glob": "^3.2.7",
-    "glob": "^7.2.0",
     "gh-pages": "^4.0.0",
+    "glob": "^7.2.0",
     "husky": "^8.0.1",
     "jest": "^26.6.1",
     "jest-webgl-canvas-mock": "^0.2.3",
+    "line-reader-sync": "^0.1.0",
     "lint-staged": "^12.1.2",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
@@ -76,7 +77,7 @@
     "url": "https://github.comcast.com/Lightning/lightning-ui"
   },
   "scripts": {
-    "generateStorybookData": "node ./scripts/storybook/generate",
+    "generateStorybookData": "node ./scripts/storybook/generate && npm run styleDocs",
     "build": "npm run generateStorybookData && build-storybook -c .storybook -o dist && node -r esm bin/translationScript.js",
     "styleDocs": "node -r esm bin/translationScript.js",
     "lint": "eslint './{collections,elements,layout,mixins,patterns,suite,Styles,styles,textures,utils,themes,context}/**/*.js'",
