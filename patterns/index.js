@@ -9,6 +9,13 @@ export {
   CardVerticalLarge,
   CardVerticalDynamic
 } from './Card';
+export {
+  default as CardAbout,
+  CardAboutLarge,
+  CardAboutStacked
+} from './CardAbout';
+export { default as CardPersonality } from './CardPersonality';
+export { default as NewCard, CardSection, CardTitle } from './NewCard'; // TODO: rename and replace regular Cards
 export { default as ContentTray } from './ContentTray';
 export { default as DataItem } from './DataItem';
 export { default as GameStats } from './GameStats';

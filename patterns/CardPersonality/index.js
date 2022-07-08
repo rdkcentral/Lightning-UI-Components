@@ -1,7 +1,7 @@
 import withStyles from '../../mixins/withThemeStyles';
 import { withExtensions } from '../../mixins';
 import styles from './CardPersonality.styles';
-import CardTitle from '../NewCards/CardTitle';
+import CardTitle from '../NewCard/CardTitle';
 import Tile from '../../elements/Tile';
 
 class CardPersonality extends CardTitle {

@@ -1,5 +1,5 @@
 import withStyles from '../../mixins/withThemeStyles';
-import NewCard from './index';
+import NewCard from './NewCard';
 import { Icon } from '../../elements';
 import styles from './CardSection.styles';
 import { withExtensions } from '../../mixins';

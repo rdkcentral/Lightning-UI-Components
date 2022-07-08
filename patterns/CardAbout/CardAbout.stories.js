@@ -1,24 +1,24 @@
 import lng from '@lightningjs/core';
-import AboutCard from './AboutCard';
-import AboutCardIcon from '../../assets/images/rt-tomatometer-fresh.png';
+import CardAbout from './CardAbout';
+import CardAboutIcon from '../../assets/images/rt-tomatometer-fresh.png';
 import RatingsIcon from '../../assets/images/rt-audience-score-fill.png';
-import mdx from './AboutCard.mdx';
+import mdx from './CardAbout.mdx';
 
 export default {
-  title: 'Patterns / AboutCard',
+  title: 'Patterns / CardAbout',
   parameters: {
-    tag: 'AboutCards',
+    tag: 'CardAbout',
     docs: {
       page: mdx
     }
   }
 };
-export const AboutCards = args =>
-  class AboutCards extends lng.Component {
+export const Basic = args =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Card: {
-          type: AboutCard,
+          type: CardAbout,
           description: args.description,
           iconLeft: args.iconLeft,
           iconHeight: 64,
@@ -37,19 +37,19 @@ export const AboutCards = args =>
       }
     }
   };
-AboutCards.args = {
+Basic.args = {
   focused: true,
   disabled: false,
+  title: 'Rotten Tomatoes',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.',
-  iconLeft: AboutCardIcon,
+  iconLeft: CardAboutIcon,
   iconRight: RatingsIcon,
   textLeft: '00%',
-  textRight: '00%',
-  title: 'Rotten Tomatoes'
+  textRight: '00%'
 };
 
-AboutCards.argTypes = {
+Basic.argTypes = {
   focused: {
     control: 'boolean',
     description: 'Determines if component is in focused or unfocused state'
@@ -58,11 +58,12 @@ AboutCards.argTypes = {
     control: 'boolean',
     description: 'Determines if component is disabled'
   },
+  title: { content: 'text', description: 'Title' },
   description: { control: 'text', description: 'Description' },
   iconLeft: {
-    defaultValue: AboutCardIcon,
+    defaultValue: CardAboutIcon,
     control: 'select',
-    options: [AboutCardIcon, null],
+    options: [CardAboutIcon, null],
     description: 'Icon source for icon on the left side'
   },
   iconRight: {
@@ -78,11 +79,10 @@ AboutCards.argTypes = {
   textRight: {
     content: 'text',
     description: 'Text on the right side of the card and icon'
-  },
-  title: { content: 'text', description: 'Title' }
+  }
 };
 
-AboutCards.parameters = {
+Basic.parameters = {
   argActions: {
     disabled: (isDisabled, component) => {
       component.tag('Card').disabled = isDisabled;

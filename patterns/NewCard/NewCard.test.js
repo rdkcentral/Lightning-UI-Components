@@ -1,5 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
-import NewCard from './index';
+import NewCard from './NewCard';
 
 const createNewCardComponent = TestUtils.makeCreateComponent(NewCard);
 

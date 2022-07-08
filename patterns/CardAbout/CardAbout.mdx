@@ -1,26 +1,26 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import AboutCard from './AboutCard';
+import CardAbout from './CardAbout';
 
-# AboutCard
+# CardAbout
 
 Component that shows title, aligned icons and text in the middle, and description below.
 
 ## Usage
 
-`AboutCard` can display ratings, icons, and titles and descriptions for different types of content.
-`AboutCard` extends [NewCard](?path=/docs/patterns-newcard--base)
+`CardAbout` can display ratings, icons, and titles and descriptions for different types of content.
+`CardAbout` extends [NewCard](?path=/docs/patterns-newcard--base)
 
 ```js
-import { AboutCard } from '@lightning/ui';
+import { CardAbout } from '@lightning/ui';
 
 class Basic extends lng.Component {
   static _template() {
     return {
-      AboutCard: {
-        type: AboutCard,
-        title: 'AboutCard',
+      CardAbout: {
+        type: CardAbout,
+        title: 'CardAbout',
         description:
-          'AboutCard allows you a lot of customization with titles, icons, and descriptions'
+          'CardAbout allows you a lot of customization with titles, icons, and descriptions'
       }
     };
   }
@@ -28,7 +28,7 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="patterns-aboutcard--about-cards" />
+  <Story id="patterns-CardAbout--about-cards" />
 </Canvas>
 
 ## API

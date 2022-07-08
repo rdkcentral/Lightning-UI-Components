@@ -1,5 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
-import CardPersonality from './CardPersonality';
+import CardPersonality from '.';
 import tileImage from '../../assets/images/tile-image.png';
 const createCardPersonality = TestUtils.makeCreateComponent(CardPersonality);
 

@@ -1,7 +1,7 @@
 import { __TextType } from '@lightningjs/core';
-import NewCard from '../NewCards/NewCard';
+import NewCard from '../NewCard/NewCard';
 
-export interface AboutCardStyles extends NewCard {
+export interface CardAboutStyles extends NewCard {
   contentSpacing?: number;
   descriptionTextProperties?: __TextType;
   paddingFirstLine?: number;
@@ -10,12 +10,12 @@ export interface AboutCardStyles extends NewCard {
   titleTextProperties?: __TextType;
 }
 
-export default class AboutCard extends NewCard {
+export default class CardAbout extends NewCard {
   iconHeight?: number;
   iconLeft?: string;
   iconRight?: string;
   iconWidth?: number;
   textLeft?: string;
   textRight?: string;
-  styles?: AboutCardStyles;
+  styles?: CardAboutStyles;
 }
