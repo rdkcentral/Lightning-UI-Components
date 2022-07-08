@@ -324,10 +324,6 @@ class Column extends FocusManager {
     return getY(this.Items);
   }
 
-  get _itemsY() {
-    return getY(this.Items);
-  }
-
   appendItems(items = []) {
     const itemWidth = this.renderWidth;
     this._smooth = false;
