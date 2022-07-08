@@ -81,7 +81,10 @@ export default function withThemeStyles(Base, styles = {}) {
      * @return {array}
      */
     get _styleProps() {
-      return Object.keys(this._processedStyles);
+      return [
+        ...Object.keys(this._processedStyles),
+        ...((this.style && this.style.customProperties) || [])
+      ]; // Allow custom property support
     }
 
     /**
@@ -104,6 +107,10 @@ export default function withThemeStyles(Base, styles = {}) {
         ...value
       }) {
         if (this._style.__lookupSetter__(key)) {
+          this._style[key] = value[key];
+        } else {
+          // Create the getter at runtime as it is a custom variable
+          this.style._setupProperty(key);
           this._style[key] = value[key];
         }
       }
