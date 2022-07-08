@@ -12,13 +12,13 @@ The `Input` component manages the state of a user's keyboard input. An important
 
 ```js
 import { Input } from '@lightning/ui';
+import withStyles from '../../mixins/withStyles';
 
 class Example extends lng.Component {
   static _template() {
     return {
       Input: {
-        type: Input,
-        w: 500,
+        type: withStyles(Input, { w: 500 }),
         placeholder: 'Type something'
       }
     };
@@ -37,7 +37,7 @@ class Example extends lng.Component {
   _getFocused() {
     return this.tag('Input');
   }
-};
+}
 ```
 
 <Canvas>
@@ -55,7 +55,7 @@ this.tag('Input').value = 'Hello';
 Now we will see "Hello" in the input, but the cursor will be at the beginning of the text. We can set the position:
 
 ```js
-this.tag('Input').position = 5
+this.tag('Input').position = 5;
 ```
 
 If we want to set the value _and_ change the position, we can use the `insert()` method.
@@ -69,8 +69,9 @@ this.tag('Input').position = 5;
 ```
 
 The main two differences between `insert()` and setting `input.value` are:
-  1. setting `value` _replaces_ the text completely, `insert()` adds to the value at the current cursor `position`
-  2. setting `value` does not move the cursor `position`, while `insert()` moves the cursor to the right by the number of characters inserted
+
+1. setting `value` _replaces_ the text completely, `insert()` adds to the value at the current cursor `position`
+2. setting `value` does not move the cursor `position`, while `insert()` moves the cursor to the right by the number of characters inserted
 
 For key handling, use `insert()`. For total control over `value`, use the setter.
 
@@ -89,8 +90,8 @@ this.tag('Input').value = 'foo';
 this.tag('Input').position = 1;
 
 this.tag('Input').backspace();
-this.tag('Input').value //=> 'oo'
-this.tag('Input').position //=> 0
+this.tag('Input').value; //=> 'oo'
+this.tag('Input').position; //=> 0
 ```
 
 ### Cursor position
@@ -101,10 +102,10 @@ The `Input` component has left and right key handlers to manage cursor position,
 this.tag('Input').value = 'foo';
 
 this.tag('Input')._handleRight();
-this.tag('Input').position //=> 1
+this.tag('Input').position; //=> 1
 
 this.tag('Input')._handleLeft();
-this.tag('Input').position //=> 0
+this.tag('Input').position; //=> 0
 ```
 
 The cursor position stays within the bounds of the current `value`, so it is always >= 0 and <= `value.length`
@@ -135,21 +136,19 @@ When `password` is `true`, the Announcer will say "Input hidden" when the `Input
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-h|number|false|64|height
-mask|string|false|•|character to use as a mask when `password` is `true`
-password|boolean|false|false|determines whether input should be masked
-placeholder|string|false|''|text to display when there is no value
-position|number|false|0|index of current cursor position
-radius|number|false|8|border radius
-value|string|false|''|text of input value
-w|number|false|808|width
-icon|image|false|null|icon to display in input
-iconColor|number|false|Xfinity theme (theme.palette.grey[5])|icon color for input unfocused state
-iconFocusColor|number|false|Xfinity theme (theme.palette.grey[90])|icon color for input focused state
-caption|string\|array|false|-|used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the caption line
-listening|boolean|false|false|When true, input will accept changes from `clear`, `insert`, and `backspace` methods. When false, effects of those methods will be ignored and not affect the input.
+| name           | type          | required | default                                | description                                                                                                                                                          |
+| -------------- | ------------- | -------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| mask           | string        | false    | •                                      | character to use as a mask when `password` is `true`                                                                                                                 |
+| password       | boolean       | false    | false                                  | determines whether input should be masked                                                                                                                            |
+| placeholder    | string        | false    | ''                                     | text to display when there is no value                                                                                                                               |
+| position       | number        | false    | 0                                      | index of current cursor position                                                                                                                                     |
+| radius         | number        | false    | 8                                      | border radius                                                                                                                                                        |
+| value          | string        | false    | ''                                     | text of input value                                                                                                                                                  |
+| icon           | image         | false    | null                                   | icon to display in input                                                                                                                                             |
+| iconColor      | number        | false    | Xfinity theme (theme.palette.grey[5])  | icon color for input unfocused state                                                                                                                                 |
+| iconFocusColor | number        | false    | Xfinity theme (theme.palette.grey[90]) | icon color for input focused state                                                                                                                                   |
+| caption        | string\|array | false    | -                                      | used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the caption line                                               |
+| listening      | boolean       | false    | false                                  | When true, input will accept changes from `clear`, `insert`, and `backspace` methods. When false, effects of those methods will be ignored and not affect the input. |
 
 ### Methods
 
