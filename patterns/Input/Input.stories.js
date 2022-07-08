@@ -43,8 +43,7 @@ export const Basic = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: Input,
+          type: withStyles(Input, { w: 500 }),
           placeholder: args.placeholder,
           listening: args.listening
         }
@@ -73,8 +72,12 @@ export const Centered = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: withStyles(Input, { text: { textAlign: 'center' } }),
+          type: withStyles(Input, {
+            w: 500,
+            text: {
+              textAlign: 'center'
+            }
+          }),
           placeholder: args.placeholder,
           listening: args.listening
         }
@@ -103,8 +106,7 @@ export const Caption = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: Input,
+          type: withStyles(Input, { w: 500 }),
           placeholder: args.placeholder,
           caption: [
             'This is a caption using an array',
@@ -141,8 +143,7 @@ export const Icon = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: Input,
+          type: withStyles(Input, { w: 500 }),
           placeholder: args.placeholder,
           icon: eye,
           iconColor: rgba2argb(args.iconColor),
@@ -193,8 +194,7 @@ export const Password = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: Input,
+          type: withStyles(Input, { w: 500 }),
           placeholder: args.placeholder,
           password: args.password,
           mask: args.mask,
@@ -241,8 +241,7 @@ export const PasswordWithIcon = args =>
     static _template() {
       return {
         Input: {
-          w: 500,
-          type: Input,
+          type: withStyles(Input, { w: 500 }),
           placeholder: args.placeholder,
           password: args.password,
           mask: args.mask,
