@@ -1,23 +1,23 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import AboutStackedCard from './AboutStackedCard.js';
+import CardAboutStacked from './CardAboutStacked.js';
 
-# AboutStackedCard
+# CardAboutStacked
 
 This component is used to display two titles with content below to create a stacked effect.
 
 ## Usage
 
-`AboutStackedCard` takes in a title and a titleBottom to create a stacked effect. contentBottom is the inline content that can be passed in to go below the title, and descriptionBottom can be passed in to go below titleBottom.
-`AboutStackedCard` extends [NewCard](?path=/docs/patterns-newcard--base)
+`CardAboutStacked` takes in a title and a titleBottom to create a stacked effect. contentBottom is the inline content that can be passed in to go below the title, and descriptionBottom can be passed in to go below titleBottom.
+`CardAboutStacked` extends [NewCard](?path=/docs/patterns-newcard--base)
 
 ```js
-import { AboutStackedCard } from '@lightning/ui';
+import { CardAboutStacked } from '@lightning/ui';
 
 class Basic extends lng.Component {
   static _template() {
     return {
-      AboutStackedCard: {
-        type: AboutStackedCard,
+      CardAboutStacked: {
+        type: CardAboutStacked,
         title: 'Audio',
         titleBottom: 'Title for the bottom part of the card'
       }
@@ -27,7 +27,7 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="patterns-aboutstackedcard--about-stacked-cards" />
+  <Story id="patterns-CardAboutStacked--about-stacked-cards" />
 </Canvas>
 
 ## API

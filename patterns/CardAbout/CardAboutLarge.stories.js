@@ -1,12 +1,11 @@
 import lng from '@lightningjs/core';
-import CardPersonality from '.';
-import mdx from './CardPersonality.mdx';
-import tileImage from '../../assets/images/tile-image.png';
-export default {
-  title: 'Patterns / CardPersonality',
-  tag: 'NewCard',
+import CardAboutLarge from './CardAboutLarge';
+import mdx from './CardAbout.mdx';
 
+export default {
+  title: 'Patterns / CardAboutLarge',
   parameters: {
+    tag: 'CardAboutLarge',
     docs: {
       page: mdx
     }
@@ -17,12 +16,9 @@ export const Basic = args =>
     static _template() {
       return {
         Card: {
-          type: CardPersonality,
+          type: CardAboutLarge,
           description: args.description,
-          title: args.title,
-          h: 332,
-          w: 249,
-          src: tileImage
+          title: args.title
         }
       };
     }
@@ -34,10 +30,11 @@ export const Basic = args =>
     }
   };
 Basic.args = {
-  focused: false,
+  focused: true,
   disabled: false,
-  description: 'Description',
-  title: 'Title'
+  title: 'Overview',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.'
 };
 
 Basic.argTypes = {
@@ -49,8 +46,8 @@ Basic.argTypes = {
     control: 'boolean',
     description: 'Determines if component is disabled'
   },
-  description: { control: 'text', description: 'Description' },
-  title: { control: 'text', description: 'title' }
+  title: { content: 'text', description: 'Title' },
+  description: { control: 'text', description: 'Description' }
 };
 
 Basic.parameters = {

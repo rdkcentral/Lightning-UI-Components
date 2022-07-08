@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import NewCard from './index';
+import NewCard from './NewCard';
 import mdx from './NewCard.mdx';
 
 export default {

@@ -1,10 +1,10 @@
-import CardTitle from '../NewCards/CardTitle';
+import CardTitle from '../NewCard/CardTitle';
 import withStyles from '../../mixins/withThemeStyles';
-import styles from './AboutCard.styles';
+import styles from './CardAbout.styles';
 import InlineContent from '../../layout/InlineContent';
 import { withExtensions } from '../../mixins';
 
-class AboutCard extends CardTitle {
+class CardAbout extends CardTitle {
   static _template() {
     return {
       ...super._template(),
@@ -18,7 +18,7 @@ class AboutCard extends CardTitle {
   }
 
   static get __componentName() {
-    return 'AboutCard';
+    return 'CardAbout';
   }
 
   static get properties() {
@@ -149,4 +149,4 @@ class AboutCard extends CardTitle {
   }
 }
 
-export default withExtensions(withStyles(AboutCard, styles));
+export default withExtensions(withStyles(CardAbout, styles));

@@ -1,5 +1,5 @@
 import { __TextType } from '@lightningjs/core';
-import CardTitle from '../NewCards/CardTitle';
+import CardTitle from '../NewCard/CardTitle';
 
 export interface CardPersonalityStyles extends CardTitle {
   descriptionTextProperties?: __TextType;

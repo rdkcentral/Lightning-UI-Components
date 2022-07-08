@@ -1,12 +1,12 @@
 import withStyles from '../../mixins/withThemeStyles';
-import styles from './AboutStackedCard.styles';
+import styles from './CardAboutStacked.styles';
 import { withExtensions } from '../../mixins';
-import AboutCard from './AboutCard';
+import CardAbout from './CardAbout';
 import TextBox from '../../elements/TextBox';
 
-class AboutStackedCard extends AboutCard {
+class CardAboutStacked extends CardAbout {
   static get __componentName() {
-    return 'AboutStackedCard';
+    return 'CardAboutStacked';
   }
   static get properties() {
     return [
@@ -92,9 +92,9 @@ class AboutStackedCard extends AboutCard {
 
   _updateContent() {
     return;
-    // This method from AboutCard needs to be overridden
-    // disabled because there is no RightIconTextContainer that is used in AboutCard
+    // This method from CardAbout needs to be overridden
+    // disabled because there is no RightIconTextContainer that is used in CardAbout
   }
 }
 
-export default withExtensions(withStyles(AboutStackedCard, styles));
+export default withExtensions(withStyles(CardAboutStacked, styles));

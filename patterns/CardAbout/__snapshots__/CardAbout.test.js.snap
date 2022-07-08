@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AboutStackedCard renders 1`] = `
+exports[`CardAbout renders 1`] = `
 Object {
   "Component": Object {
     "Background": Object {
@@ -43,7 +43,7 @@ Object {
     },
     "Title": Object {
       "active": false,
-      "alpha": 0,
+      "alpha": 0.001,
       "attached": true,
       "boundsMargin": null,
       "children": Object {
@@ -54,7 +54,7 @@ Object {
           "boundsMargin": null,
           "clipping": false,
           "color": 4294967295,
-          "enabled": false,
+          "enabled": true,
           "flex": false,
           "flexItem": false,
           "h": 0,
@@ -77,19 +77,28 @@ Object {
             "Text",
           ],
           "texture": Object {
+            "fontFace": "DMSansRegular",
+            "fontSize": 24,
+            "letterSpacing": 2,
+            "lineHeight": 32,
+            "maxLines": 1,
+            "text": "SOME STRING",
             "textBaseline": "bottom",
+            "textColor": 2583099129,
             "type": "TextTexture",
+            "verticalAlign": "middle",
+            "wordWrapWidth": 474.66666666666663,
           },
           "visible": true,
           "w": 0,
           "x": 0,
-          "y": 0,
+          "y": 2,
           "zIndex": 0,
         },
       },
       "clipping": false,
       "color": 4294967295,
-      "enabled": false,
+      "enabled": true,
       "flex": false,
       "flexItem": false,
       "h": 0,

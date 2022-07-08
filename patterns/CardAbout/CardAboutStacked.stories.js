@@ -1,22 +1,22 @@
 import lng from '@lightningjs/core';
-import AboutStackedCard from './AboutStackedCard';
-import mdx from './AboutStackedCard.mdx';
+import CardAboutStacked from './CardAboutStacked';
+import mdx from './CardAboutStacked.mdx';
 
 export default {
-  title: 'Patterns / AboutStackedCard',
+  title: 'Patterns / CardAboutStacked',
   parameters: {
-    tag: 'AboutCards',
+    tag: 'CardAbout',
     docs: {
       page: mdx
     }
   }
 };
-export const AboutStackedCards = args =>
-  class AboutStackedCards extends lng.Component {
+export const Basic = args =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Card: {
-          type: AboutStackedCard,
+          type: CardAboutStacked,
           contentBottom: [
             { badge: 'Badge' },
             { badge: 'Badge' },
@@ -38,7 +38,7 @@ export const AboutStackedCards = args =>
     }
   };
 
-AboutStackedCards.args = {
+Basic.args = {
   focused: true,
   disabled: false,
   descriptionBottom: 'English, Spanish, French',
@@ -46,7 +46,7 @@ AboutStackedCards.args = {
   titleBottom: 'Languages'
 };
 
-AboutStackedCards.argTypes = {
+Basic.argTypes = {
   focused: {
     control: 'boolean',
     description: 'Determines if component is in focused or unfocused state'
@@ -63,7 +63,7 @@ AboutStackedCards.argTypes = {
   titleBottom: { content: 'text', description: 'Title for bottom text' }
 };
 
-AboutStackedCards.parameters = {
+Basic.parameters = {
   argActions: {
     disabled: (isDisabled, component) => {
       component.tag('Card').disabled = isDisabled;
