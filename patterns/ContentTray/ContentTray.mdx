@@ -59,7 +59,7 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
 
 Include previews:
@@ -70,10 +70,12 @@ Include previews:
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-items|array|false|{}|an array of objects that represent components in the `Tabs` row, which themselves can have another level of `items` which represent components in the `Results` row
-itemSpacing|number|false|0|horizontal gutter between items
+| name        | type    | required | default   | description                                                                                                                                                         |
+| ----------- | ------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| collapse    | boolean | false    | undefined | will collapse results when ContentTray does not have focus                                                                                                          |
+| items       | array   | false    | {}        | an array of objects that represent components in the `Tabs` row, which themselves can have another level of `items` which represent components in the `Results` row |
+| itemSpacing | number  | false    | 0         | horizontal gutter between items                                                                                                                                     |
+| reset       | boolean | false    | undefined | will reset Tabs / Results Rows when loses focus                                                                                                                     |
 
 ### Methods
 

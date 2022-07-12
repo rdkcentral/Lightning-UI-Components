@@ -176,10 +176,12 @@ export default class FocusManager extends Base {
 
     if (previousItemIndex > -1) {
       this.selectedIndex = previousItemIndex;
+      return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = this._lastFocusableIndex();
+      return true;
     }
-    return true;
+    return false;
   }
 
   selectNext() {
@@ -198,10 +200,12 @@ export default class FocusManager extends Base {
 
     if (nextIndex > -1) {
       this.selectedIndex = nextIndex;
+      return true;
     } else if (this.wrapSelected) {
       this.selectedIndex = this._firstFocusableIndex();
+      return true;
     }
-    return true;
+    return false;
   }
 
   _getIndexOfItemNear(selected, prev) {

@@ -183,11 +183,15 @@ export const Basic = args =>
   };
 
 Basic.args = {
-  focused: true
+  focused: true,
+  reset: false,
+  collapse: false
 };
 
 Basic.argTypes = {
-  focused: { control: 'boolean' }
+  focused: { control: 'boolean' },
+  reset: { control: 'boolean' },
+  collapse: { control: 'boolean' }
 };
 
 Basic.parameters = {
