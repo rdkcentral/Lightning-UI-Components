@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,15 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
-import { createStyles } from '../../Styles';
+import lng from '@lightningjs/core';
+import createStyles from '../../Styles/createStyles';
 import { clone } from '../../utils';
+import { getXfinityTheme } from '../../Styles/createTheme';
+
+lng.uiTheme = lng.uiTheme || getXfinityTheme();
 
 export default function withStyles(Base, styles, theme) {
-  const _theme = theme || Base.theme;
+  const _theme = theme || Base.theme || lng.uiTheme;
   const _styles = Base.styles
     ? clone(Base.styles, createStyles(styles, _theme))
     : createStyles(styles, _theme);

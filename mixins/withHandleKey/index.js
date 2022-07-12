@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,13 +31,13 @@ export default function withHandleKey(Base) {
     }
 
     _processEvent(keyEvent, suffix = '') {
-      let { key } = keyEvent;
+      const keyMap = this.stage.application.__keymap || {};
+      let key = keyMap[keyEvent.keyCode];
       if (!key) {
-        const keyMap = this.stage.application.__keymap || {};
-        key = keyMap[keyEvent.keyCode];
+        key = keyEvent.key;
       }
       if (key && typeof this[`on${key}${suffix}`] === 'function') {
-        return this[`on${key}${suffix}`].call(this, this, keyEvent) || false;
+        return this[`on${key}${suffix}`].call(this, this, keyEvent);
       }
       this.fireAncestors(`$on${key}${suffix}`, this, keyEvent);
       return false;

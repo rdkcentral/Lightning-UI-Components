@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ export default function withUpdates(Base) {
     }
 
     _construct() {
-      let props = this.constructor.properties || [];
+      const props = this.constructor.properties || [];
       props.forEach(name => {
         const key = '_' + name;
         const descriptor = getPropertyDescriptor(name, key);
@@ -76,6 +76,7 @@ export default function withUpdates(Base) {
     _firstEnable() {
       this._readyForUpdates = true;
       this._whenEnabledResolver();
+      this._requestUpdateDebounce.clear();
       this._update();
       super._firstEnable && super._firstEnable();
     }

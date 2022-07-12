@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import { clone } from '../utils';
 import { CORNER_RADIUS } from './Styles';
-import { COLORS_NEUTRAL, getHexColor } from './Colors';
+import { PALETTE, getHexColor } from './Colors';
+import { TYPOGRAPHY } from './Fonts';
 
 function glow({
   w,
@@ -33,7 +34,7 @@ function glow({
     mount: 0.5,
     x: w / 2,
     y: h / 2 + blur / 2,
-    zIndex: -1,
+    zIndex: 1,
     texture: lng.Tools.getShadowRect(
       w - spacing(2),
       h - spacing(2),
@@ -43,7 +44,22 @@ function glow({
   };
 }
 
-function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
+function luminance({
+  w,
+  h,
+  blur = 3,
+  padding = spacing(8),
+  texture = null,
+  radius = 0
+}) {
+  let shader = {};
+  if (radius) {
+    shader = {
+      type: lng.shaders.RoundedRectangle,
+      radius
+    };
+  }
+
   return {
     type: lng.components.FastBlurComponent,
     x: w / 2,
@@ -57,23 +73,77 @@ function luminance({ w, h, blur = 3, padding = spacing(8), texture = null }) {
       Image: {
         w,
         h,
-        texture: texture
+        texture: texture,
+        shader
       }
     },
-    zIndex: -1
+    zIndex: 1
+  };
+}
+
+function shadow({
+  w,
+  h,
+  color = getHexColor(PALETTE.grey[100], 60),
+  borderRadius = CORNER_RADIUS.small,
+  blur = spacing(3)
+}) {
+  return {
+    color: color,
+    mount: 0.5,
+    x: w / 2,
+    y: h / 2 + spacing(3),
+    zIndex: 1,
+    texture: lng.Tools.getShadowRect(
+      w - spacing(2),
+      h - spacing(2),
+      borderRadius,
+      blur
+    )
   };
 }
 
 const materials = {
   glow,
-  luminance
+  luminance,
+  shadow
 };
 
 function spacing(multiplier) {
   return 8 * multiplier;
 }
 
-const gradientColor = COLORS_NEUTRAL.light2;
+/**
+ * Generates a scale percentage that will increase the item by 40 pixels
+ *
+ * @param { number } w
+ * @param { number } h
+ * @returns
+ */
+export function getFocusScale(w = 0, h = 0) {
+  const size = Math.max(w, h);
+  let multiplier = 5;
+  switch (true) {
+    case size >= 260:
+      multiplier = 5;
+      break;
+    case size >= 185:
+      multiplier = 4;
+      break;
+    case size >= 140:
+      multiplier = 3;
+      break;
+    case size >= 110:
+      multiplier = 2;
+      break;
+    default:
+      multiplier = 2;
+      break;
+  }
+  return (size + spacing(multiplier)) / size;
+}
+
+const gradientColor = PALETTE.grey[5];
 const gradientAnimation = {
   duration: 0.6,
   actions: [
@@ -113,12 +183,30 @@ const SIZES = {
   }
 };
 
+export const getXfinityTheme = () => ({
+  getFocusScale,
+  spacing,
+  materials,
+  palette: PALETTE,
+  sizes: SIZES,
+  typography: TYPOGRAPHY,
+  border: {
+    focused: {
+      width: 2
+    },
+    radius: CORNER_RADIUS
+  },
+  animations: {
+    gradient: gradientAnimation
+  }
+});
+
 /**
  * Combines two theme objects to create a new theme
  * @param {Object|function} theme - An object or callback that accepts the default theme as an argument. Gets merged with the default theme
- * @param {Object} [defaultTheme] - Theme to be merged with.
+ * @param {Object} [defaultTheme] - Theme to be merged with. Defaults to the Xfinity theme
  */
-export default (theme, defaultTheme = {}) => {
+export default (theme, defaultTheme = getXfinityTheme()) => {
   if (typeof theme === 'function') {
     return clone(defaultTheme, theme(defaultTheme));
   }

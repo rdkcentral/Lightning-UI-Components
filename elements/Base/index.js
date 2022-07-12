@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,14 @@ import {
   withTags,
   withHandleKey,
   withLayout
+  // withVibrant
 } from '../../mixins';
+import { isComponentOnScreen } from '../../utils';
 
-const baseStyles = () => ({
-  getUnfocusScale: () => 1
-  // getFocusScale: theme.getFocusScale
+const baseStyles = theme => ({
+  getUnfocusScale: () => 1,
+  getFocusScale: theme.getFocusScale
+  // withVibrant: true
 });
 
 class Base extends lng.Component {
@@ -44,22 +47,38 @@ class Base extends lng.Component {
   }
 
   _init() {
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _update() {}
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._update();
+    this._requestUpdateDebounce();
   }
 
   _unfocus() {
-    this._update();
+    this._requestUpdateDebounce();
+  }
+
+  // keep announce methods out of the update lifecycle (do not put in properties array)
+  // announce methods does not re-render component
+  get announce() {
+    return this._announce;
+  }
+  set announce(announce) {
+    this._announce = announce;
+  }
+
+  isFullyOnScreen() {
+    return isComponentOnScreen(this);
   }
 }
 
 function withMixins(baseComponent) {
+  // if (baseComponent.styles.withVibrant) {
+  //   baseComponent = withVibrant(baseComponent);
+  // }
   return withLayout(withUpdates(withTags(withHandleKey(baseComponent))));
 }
 

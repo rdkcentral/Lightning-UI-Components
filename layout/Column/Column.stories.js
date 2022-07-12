@@ -1,27 +1,18 @@
-/**
- * Copyright 2021 Comcast Cable Communications Management, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import lng from '@lightningjs/core';
 import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
 import { flatten } from '../../utils';
+import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
+import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
+import person from '../../assets/images/cast.png';
+import person1 from '../../assets/images/cast1.png';
+import person2 from '../../assets/images/cast2.png';
+import { TileIcon, MetadataTile } from '../../elements';
+import { withMetadata } from '../../patterns';
 
 export default {
   title: 'Layout / Column',
@@ -82,7 +73,7 @@ Basic.argTypes = {
 };
 Basic.parameters = {
   argActions: {
-    scroll: function(index, component) {
+    scroll: function (index, component) {
       component.tag('Column').scrollTo(index - 1);
     },
     itemTransition: (duration, component) => {
@@ -220,12 +211,13 @@ export const ExpandableHeightItems = args =>
       return {
         Column: {
           type: Column,
+          h: 500,
           itemSpacing: args.itemSpacing,
-          items: Array.apply(null, { length: 15 }).map(() => ({
+          items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingButton,
             h: 40,
             w: 150,
-            buttonText: 'Button'
+            buttonText: `Button ${i}`
           }))
         }
       };
@@ -244,6 +236,7 @@ export const ExpandableHeightRows = args =>
           type: Column,
           itemSpacing: args.itemSpacing,
           plinko: true,
+          h: 500,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingRow,
             y: 50 * i,
@@ -550,34 +543,66 @@ class ExpandingRow extends Row {
 export const SkipPlinko = () =>
   class SkipPlinko extends lng.Component {
     static _template() {
-      const buttonW = 150;
-      const button = {
-        type: Button,
-        buttonText: 'Button',
-        w: buttonW
-      };
       return {
         Column: {
           type: Column,
-          w: 900,
+          w: 1920 - 160, // x offset from preview.js * 2,
           itemSpacing: 32,
           plinko: true,
           items: [
             {
               type: Row,
-              h: 50,
+              h: 200,
               itemSpacing: 50,
-              items: Array.apply(null, { length: 3 }).map(() => button)
+              items: [
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: parks,
+                  iconW: 50,
+                  iconH: 50,
+                  persistentMetadata: true,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person,
+                  progress: 0.8,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: trolls,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                }
+              ]
             },
             {
               type: Row,
-              h: 100,
+              h: 340,
               skipPlinko: true,
               items: [
                 {
-                  ...button,
-                  w: 550,
-                  h: 75
+                  type: withMetadata(TileIcon),
+                  w: 1060,
+                  h: 300,
+                  iconW: 50,
+                  iconH: 50,
+                  src: pets,
+                  badge: 'HD',
+                  Metadata: {
+                    type: MetadataTile,
+                    firstLine: 'Row with skipPlinko set to true'
+                  }
                 }
               ]
             },
@@ -586,7 +611,37 @@ export const SkipPlinko = () =>
               type: Row,
               itemSpacing: 50,
               h: 180,
-              items: Array.apply(null, { length: 3 }).map(() => button)
+              items: [
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person2,
+                  iconW: 50,
+                  iconH: 50,
+                  progress: 0.2,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: jurassic,
+                  iconW: 50,
+                  iconH: 50,
+                  badge: 'HD'
+                },
+                {
+                  type: withMetadata(TileIcon),
+                  w: 320,
+                  h: 180,
+                  src: person1,
+                  iconW: 50,
+                  iconH: 50,
+                  progress: 0.5,
+                  badge: 'HD'
+                }
+              ]
             }
           ]
         }
@@ -597,3 +652,179 @@ export const SkipPlinko = () =>
       return this.tag('Column');
     }
   };
+
+export const LazyUpCount = args =>
+  class LazyUpCount extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          lazyUpCount: args.lazyUpCount,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          })),
+          alwaysScroll: args.alwaysScroll
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+LazyUpCount.args = {
+  scrollIndex: 0,
+  lazyUpCount: 5,
+  itemTransition: 0.4
+};
+LazyUpCount.argTypes = {
+  itemTransition: {
+    control: { type: 'number', min: 0, step: 0.1 }
+  },
+  scroll: {
+    control: { type: 'select', options: [1, 5, 15, 20] }
+  },
+  scrollIndex: {
+    control: { type: 'number', min: 0 }
+  },
+  lazyUpCount: {
+    control: { type: 'number', min: 0 }
+  },
+  alwaysScroll: {
+    control: { type: 'boolean' }
+  }
+};
+LazyUpCount.parameters = {
+  argActions: {
+    scroll: function (index, component) {
+      component.tag('Column').scrollTo(index - 1);
+    },
+    itemTransition: (duration, component) => {
+      component.tag('Column').itemTransition = {
+        duration,
+        timingFunction: component.tag('Column')._itemTransition.timingFunction
+      };
+    }
+  }
+};
+
+export const AddingItems = args =>
+  class AddingItems extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Column').appendItemsAt(
+          [
+            {
+              type: Button,
+              buttonText: 'New Button 0'
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 1'
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 2'
+            }
+          ],
+          3
+        );
+      }, 3000);
+      setTimeout(() => {
+        this.tag('Column').prependItems([
+          {
+            type: Button,
+            buttonText: 'New Button 3',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 4',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 5',
+            w: 150
+          }
+        ]);
+      }, 3750);
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+AddingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0
+};
+AddingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  }
+};
+
+export const RemovingItems = args =>
+  class RemovingItems extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          h: 500,
+          itemSpacing: args.itemSpacing,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 20 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Column').removeItemAt(1);
+      }, 3000);
+    }
+
+    _getFocused() {
+      return this.tag('Column');
+    }
+  };
+RemovingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0
+};
+RemovingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  }
+};
