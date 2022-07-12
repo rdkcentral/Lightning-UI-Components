@@ -9,19 +9,14 @@ export default theme => ({
   visibleTabs: {
     alpha: 1
   },
-  hideSoftFocus: {
-    alpha: 0
-  },
   fadedTabs: {
     alpha: 0.3
   },
   softFocus: {
-    alpha: 1,
     rect: true,
     color: 0xfffffffff,
     h: 4,
     w: 76,
-    y: 120,
-    x: 12
+    y: 20
   }
 });

@@ -9,14 +9,14 @@ export default class ContentTray extends withStyles(Base, styles) {
       Container: {
         type: Column,
         signals: {
-          tabChanged: '_tabChanged',
-          selectedChange: '_columnChanged'
+          onTabChanged: '_onTabChanged',
+          selectedChange: '_onColumnChanged'
         },
         Items: {
           Tabs: {
             type: Row,
             passSignals: {
-              selectedChange: 'tabChanged' // Pass event to parent
+              selectedChange: 'onTabChanged' // Pass event to Container
             }
           },
           Results: {
@@ -28,7 +28,7 @@ export default class ContentTray extends withStyles(Base, styles) {
   }
 
   static get properties() {
-    return [...Row.properties, 'items']; // Set to items to match api for Rows/Columns
+    return [...Row.properties, 'collapse', 'items', 'reset']; // Set to items to match api for Rows/Columns
   }
 
   static get tags() {
@@ -50,31 +50,12 @@ export default class ContentTray extends withStyles(Base, styles) {
     }, {});
   }
 
-  _construct() {
-    super._construct();
-    this._items = []; // Sets the default state for this.items when using withUpdates mixin
-    this._results = []; // This will be filled when items is set
+  get _collapsedHeight() {
+    return this._Tabs.h;
   }
 
-  _columnChanged() {
-    // filtering for tabs that are not the current focused tab
-    const focusedIndex = this._Tabs.items[this._selectedResultsIndex];
-    const unfocused = this._Tabs.items.filter(x => x !== focusedIndex);
-
-    // results row is in focus, add soft focus treatment and fade inactive tabs
-    if (this._Container.selectedIndex === 1) {
-      focusedIndex.patch({ SoftFocus: this.styles.softFocus });
-      unfocused.map(tab => {
-        tab.patch(this.styles.fadedTabs);
-      });
-      return;
-    }
-
-    // tabs row focused, hide soft focus and reset tabs alpha
-    focusedIndex.patch({
-      SoftFocus: this.styles.hideSoftFocus
-    });
-    unfocused.map(tab => tab.patch(this.styles.visibleTabs));
+  get _expandedHeight() {
+    return this._Tabs.h + this._Container.itemSpacing + this._Results.h;
   }
 
   _setItems(v) {
@@ -91,18 +72,35 @@ export default class ContentTray extends withStyles(Base, styles) {
       delete tab.items; // delete child items as they are now stored in _results; this will be referenced by _updateResults by the selected top item's index
       return tab; // done going through top level items
     });
-    this._selectedResultsIndex = 0; // Set the initial selected index
+
+    this._updateTabItems(tabItems); // Create tabs
+    this._updateResultsItems(); // Update results for the first time
+
     return tabItems;
   }
 
+  _onColumnChanged() {
+    this._updateSoftFocus(); // Reset soft focus every time the Container Column selected index changes
+  }
+
+  _onTabChanged() {
+    this._updateSoftFocus(); // Reset soft focus every time the Tab selected index changes
+    this._updateResultsItems(); // Populate new Results every time the Tab selected index changes
+  }
+
   _update() {
+    this._updateContainer(); // Allows Container Column settings to be adjusted at runtime
+    this._updateTabs(); // Allows Tabs Row settings to be adjusted at runtime
+    this._updateResults(); // Allows Results Row settings to be adjusted at runtime
+    this._updateComponentDisplay(); // Adjust height of component and show/hide results
+  }
+
+  _updateContainer() {
     this._Container.patch({
       w: this.w,
       ...this._layoutPatch,
       itemSpacing: this.styles.verticalSpacing
     });
-    this._updateTabs();
-    this._updateResults();
   }
 
   _updateTabs() {
@@ -111,29 +109,35 @@ export default class ContentTray extends withStyles(Base, styles) {
       ...this._layoutPatch,
       itemSpacing: this.styles.tabSpacing
     });
-    this._Tabs.items = this.items;
+  }
+
+  _updateTabItems(items) {
+    this._Tabs.items = items;
     this._Tabs.h = this._Tabs.Items.h; // Make sure the height renders correctly
+    this._updateComponentDisplay();
   }
 
   _updateResults() {
-    this._Results.smooth = { alpha: 0.001 };
-    this._Results._getTransition('alpha').once('finish', () => {
-      this._Results.patch({
-        w: this.w,
-        ...this._layoutPatch,
-        itemSpacing: this.styles.resultSpacing
-      });
+    this._Results.patch({
+      w: this.w,
+      ...this._layoutPatch,
+      itemSpacing: this.styles.resultSpacing
+    });
+  }
 
-      if ('function' === typeof this._results[this._selectedResultsIndex]) {
-        // if the results are being returned from a function
-        const resultsFunc = this._results[this._selectedResultsIndex]; // store function
-        const results = resultsFunc(); // execute function
+  _updateResultsItems() {
+    this._Results.smooth = { alpha: 0.001 };
+
+    this._Results._getTransition('alpha').once('finish', () => {
+      if ('function' === typeof this._results[this._Tabs.selectedIndex]) {
+        // Check if results are being returned from a function
+        const resultsFunc = this._results[this._Tabs.selectedIndex]; // Store function
+        const results = resultsFunc(); // Execute function
         if (results.then) {
-          this._Results.items = []; // Clear current results
           results.then(items => {
             // Make sure still on the current tab
             if (resultsFunc === this._results[this._Tabs._selectedIndex]) {
-              this._Results.items = items; // get results from Promise function
+              this._Results.items = items; // Get results from Promise function
               this._updateResultsLayout();
             }
           });
@@ -143,22 +147,75 @@ export default class ContentTray extends withStyles(Base, styles) {
           this._updateResultsLayout();
         }
       } else {
-        this._Results.items = this._results[this._selectedResultsIndex]; // set results children to what is stored in _results
+        this._Results.items = this._results[this._Tabs.selectedIndex]; // Set results children to what is stored in _results
         this._updateResultsLayout();
       }
     });
   }
 
   _updateResultsLayout() {
-    this._Results.skipFocus = !this._Results.items.length; // Make sure to skip focus if no results for first time
-    // todo: make sure we switch the following to use autoResizeHeight when merging into 'next' branch
-    this._Results.h = this._Results.Items.h; // Make sure the height renders correctly
-    this._Results.smooth = { alpha: 1 };
+    this._Results.skipFocus = !this._Results.items.length;
+    this._Results.h = this._Results.Items.h;
+    this._updateComponentDisplay();
   }
 
-  _tabChanged() {
-    this._selectedResultsIndex = this._Tabs._selectedIndex;
-    this._updateResults();
+  _updateComponentDisplay() {
+    let h;
+    if (this.collapse) {
+      h =
+        this.hasFocus() && this._Results.items.length
+          ? this._expandedHeight
+          : this._collapsedHeight;
+    } else {
+      h = this._expandedHeight;
+    }
+
+    this._Results.smooth = {
+      alpha: !this.collapse || this.hasFocus() ? 1 : 0.001
+    };
+
+    if (this.h !== h) {
+      this.h = h;
+      this.smooth = { h };
+      this.fireAncestors('$itemChanged');
+    }
+  }
+
+  _updateSoftFocus() {
+    this._Tabs.items.forEach((element, index) => {
+      if (
+        this._Container.selectedIndex === 1 &&
+        index === this._Tabs.selectedIndex &&
+        this._results[this._Tabs.selectedIndex] &&
+        this._results[this._Tabs.selectedIndex].length
+      ) {
+        element.patch({
+          SoftFocus: {
+            ...this.styles.softFocus,
+            mountX: 0.5,
+            mountY: 1,
+            y: element.h + this.styles.softFocus.y,
+            x: element.w / 2
+          }
+        });
+      } else {
+        element.patch({
+          ...(this._Container.selectedIndex === 1
+            ? this.styles.fadedTabs
+            : this.styles.visibleTabs),
+          SoftFocus: undefined
+        });
+      }
+    });
+  }
+
+  _unfocus() {
+    super._unfocus();
+    if (this.reset) {
+      // If the reset flag is set restore ContentTray to its original state when it loses focus
+      this._Tabs.selectedIndex = 0;
+      this._Container.selectedIndex = 0;
+    }
   }
 
   _getFocused() {

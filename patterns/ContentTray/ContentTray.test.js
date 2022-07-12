@@ -154,7 +154,6 @@ describe('ContentTray', () => {
   });
 
   it('renders items in tabs and results', async done => {
-    const tree = testRenderer.toJSON(2);
     const [Tabs, Results] = component._Container.items;
 
     const alphaTransitionPromise = new Promise(resolve => {
@@ -167,20 +166,14 @@ describe('ContentTray', () => {
     expect(Tabs.items.length).toBe(3);
     expect(Results.items.length).toBe(5);
     expect(Results.items[0].src).toBeDefined();
-    expect(tree).toMatchSnapshot();
     done();
   });
 
   it('updates results when tab is changed', async () => {
     const [Tabs] = component._Container.items;
-    component._updateResults = jest.fn();
-
-    expect(component._selectedResultsIndex).toBe(0);
-    Tabs._selectedIndex = 1; // manually change selected index
-    component._tabChanged();
-
-    expect(component._selectedResultsIndex).toBe(1);
-    expect(component._updateResults).toHaveBeenCalledTimes(1);
+    component._updateResultsItems = jest.fn();
+    Tabs.selectedIndex = 1; // manually change selected index
+    expect(component._updateResultsItems).toHaveBeenCalledTimes(1);
   });
 
   it('lowers the alpha of inactive tabs when the results row is focused', async () => {
@@ -219,14 +212,12 @@ describe('ContentTray', () => {
     expect(Tabs.selectedIndex).toBe(1);
     testRenderer.keyPress('Down');
     expect(component._Container.selectedIndex).toBe(1);
-
+    component._onTabChanged(); // Mock event from tabs
     // SoftFocus definitions
-    expect(component._Tabs.items[0].getByRef('SoftFocus')).toBeDefined();
+    expect(component._Tabs.items[0].getByRef('SoftFocus')).toBeUndefined();
     expect(component._Tabs.items[1].getByRef('SoftFocus')).toBeDefined();
     expect(component._Tabs.items[2].getByRef('SoftFocus')).toBeUndefined();
     // correct alphas are set
-    expect(component._Tabs.items[0].getByRef('SoftFocus').alpha).toBe(0);
-    expect(component._Tabs.items[1].getByRef('SoftFocus').alpha).toBe(1);
     expect(component._Tabs.items[0].alpha).toBe(0.3);
     expect(component._Tabs.items[1].alpha).toBe(1);
     expect(component._Tabs.items[2].alpha).toBe(0.3);

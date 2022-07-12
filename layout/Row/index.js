@@ -203,11 +203,16 @@ export default class Row extends FocusManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
+      if (prevIndex === -1) {
+        // No matches found in childList, start set x to 0
+        return;
+      }
       if (prevIndex > this.selectedIndex) {
         itemsContainerX = -this.selected.x;
       } else if (prevIndex < this.selectedIndex) {
         itemsContainerX = this.w - this.selected.x - this.selected.w;
       }
+
       return itemsContainerX;
     }
     // if no prev item or start/stop index, default to normal scroll logic
