@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import FocusManager from '.';
 import TestUtils from '../../test/lightning-test-utils';
 import lng from '@lightningjs/core';
@@ -43,6 +42,48 @@ describe('FocusManager', () => {
     expect(focusManager.selectedIndex).toBe(0);
   });
 
+  describe('adding items to the template', () => {
+    const testTask = 'add items to the template';
+    it(`should ${testTask} via the items property`, () => {
+      expect(focusManager._Items.children.length).toBe(3);
+    });
+    it(`should ${testTask} via setting an Items ref in the initial render tree`, () => {
+      class TestComp extends FocusManager {
+        static _template() {
+          return {
+            Items: {
+              ItemA: baseItem,
+              ItemB: baseItem
+            }
+          };
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+
+      expect(testComp.children.length).toBe(1);
+      expect(testComp._Items.children.length).toBe(2);
+    });
+    it(`should ${testTask} via patching Items to the template`, () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            Items: {
+              ItemA: baseItem,
+              ItemB: baseItem
+            }
+          });
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+
+      expect(testComp.children.length).toBe(1);
+      expect(testComp._Items.children.length).toBe(2);
+    });
+  });
+
   it('skips items with skipFocus=true', () => {
     [focusManager, testRenderer] = createFocusManager({
       direction: 'column',
@@ -56,6 +97,74 @@ describe('FocusManager', () => {
     expect(focusManager.selectedIndex).toBe(2);
     testRenderer.keyPress('Up');
     expect(focusManager.selectedIndex).toBe(0);
+  });
+
+  it('should skip items defined in the initial render tree with skipFocus=true', () => {
+    class TestComp extends FocusManager {
+      _construct() {
+        super._construct();
+        this.patch({
+          direction: 'column',
+          Items: {
+            ItemA: baseItem,
+            ItemB: { ...baseItem, skipFocus: true },
+            ItemC: baseItem
+          }
+        });
+      }
+    }
+    const createTestComp = TestUtils.makeCreateComponent(TestComp);
+    const [testComp, testRenderer] = createTestComp();
+
+    expect(testComp.selectedIndex).toBe(0);
+
+    testRenderer.keyPress('Down');
+
+    expect(testComp.selectedIndex).toBe(2);
+
+    testRenderer.keyPress('Up');
+
+    expect(testComp.selectedIndex).toBe(0);
+  });
+
+  describe('when skipFocus is set on an item', () => {
+    const skipItem = { ...baseItem, skipFocus: true };
+    it('should focus on the first item that is not skip focus when items are patched to the Items tag', () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            Items: {
+              ItemB: skipItem,
+              ItemA: baseItem,
+              ItemC: baseItem
+            }
+          });
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+
+      expect(testComp.selectedIndex).toBe(1);
+    });
+
+    it('should focus on the first item that is not skip focus when items are set via the items property', () => {
+      class TestComp extends FocusManager {
+        _construct() {
+          super._construct();
+          this.patch({
+            items: [{ ...baseItem, skipFocus: true }, baseItem, baseItem]
+          });
+        }
+      }
+      const createTestComp = TestUtils.makeCreateComponent(TestComp);
+      const [testComp] = createTestComp();
+      testComp.items = [skipItem, baseItem, baseItem];
+      expect(testComp.selectedIndex).toBe(1);
+
+      testComp.patch({ items: [skipItem, skipItem, baseItem, baseItem] });
+      expect(testComp.selectedIndex).toBe(2);
+    });
   });
 
   it('looks for focusRef on the selected item', () => {
@@ -80,6 +189,23 @@ describe('FocusManager', () => {
 
     focusManager.appendItems([{ ...baseItem }]);
     expect(focusManager.items.length).toBe(length + 1);
+  });
+
+  it('resets the Items container when a new item array is patched in', () => {
+    const pos = 100;
+    focusManager.itemPosX = pos;
+    focusManager.itemPosY = pos;
+    expect(focusManager.Items.x).toBe(pos);
+    expect(focusManager.Items.y).toBe(pos);
+
+    const _resetItems = jest.spyOn(focusManager, '_resetItems');
+    focusManager.items = [];
+
+    expect(_resetItems).toHaveBeenCalled();
+    expect(focusManager.Items.w).toBe(0);
+    expect(focusManager.Items.h).toBe(0);
+    expect(focusManager.Items.x).toBe(pos);
+    expect(focusManager.Items.y).toBe(pos);
   });
 
   describe('direction column', () => {

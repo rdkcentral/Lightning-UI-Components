@@ -37,9 +37,9 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-      statements: 90,
-      functions: 90,
-      lines: 90
+      statements: 85,
+      functions: 85,
+      lines: 85
     }
   },
 
@@ -124,6 +124,7 @@ module.exports = {
   roots: [
     '<rootDir>/elements',
     '<rootDir>/layout',
+    '<rootDir>/utils',
     '<rootDir>/mixins',
     '<rootDir>/utils'
   ],
@@ -180,7 +181,9 @@ module.exports = {
     '^.+\\.[t|j]sx?$': 'babel-jest'
   },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@lightningjs?)'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!@lightningjs/core(-sdk)?)'
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

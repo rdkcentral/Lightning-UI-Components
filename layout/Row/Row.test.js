@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import Row from '.';
@@ -88,23 +87,30 @@ describe('Row', () => {
       const itemSpacing = 20;
       [row, testRenderer] = createRow({ itemSpacing });
       const item = row.items[1];
-
-      setTimeout(done => {
-        expect(item.x).toBe(row.items[0].w + itemSpacing);
-        done();
-      }, 0);
+      row._update();
+      expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
 
     it('should set spacing', () => {
       const itemSpacing = 100;
       const item = row.items[1];
       row.itemSpacing = itemSpacing;
+      row._update();
+      expect(item.x).toBe(row.items[0].w + itemSpacing);
+    });
 
-      const x = item.x;
-      setTimeout(done => {
-        expect(x).toBe(row.items[0].w + itemSpacing);
-        done();
-      }, 0);
+    it('should support adding additional spacing to an item', () => {
+      const itemSpacing = 100;
+      const extraItemSpacing = 50;
+      row.itemSpacing = itemSpacing;
+      row.items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
+      testRenderer.forceAllUpdates();
+
+      const itemW = row.items[0].w;
+      expect(row.items[1].x).toBe(itemW + itemSpacing);
+      expect(row.items[2].x).toBe(
+        itemW * 2 + itemSpacing * 2 + extraItemSpacing
+      );
     });
   });
 
@@ -145,6 +151,160 @@ describe('Row', () => {
 
       row.appendItems([item]);
       expect(row.items[row.items.length - 1].h).toBe(row.h);
+    });
+  });
+
+  describe('appendItemsAt', () => {
+    let initialLength;
+    const items = [
+      {
+        ...baseItem,
+        testId: 'A'
+      },
+      {
+        ...baseItem,
+        testId: 'B'
+      }
+    ];
+    beforeEach(() => {
+      initialLength = row.items.length;
+    });
+
+    it('should add items at the specified index', () => {
+      row.appendItemsAt(items, 1);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[1].testId).toBe(items[0].testId);
+      expect(row.items[2].testId).toBe(items[1].testId);
+    });
+    it('should append items to the end of the row if an index is not specified', () => {
+      row.appendItemsAt(items);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[row.items.length - 2].testId).toBe(items[0].testId);
+      expect(row.items[row.items.length - 1].testId).toBe(items[1].testId);
+    });
+    it('should not add items when none are passed to the method', () => {
+      row.appendItemsAt();
+      expect(row.items.length).toBe(initialLength);
+    });
+  });
+
+  describe('prependItems', () => {
+    it('should prepend items to the row', () => {
+      const initialLength = row.items.length;
+      const items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        }
+      ];
+      row.prependItems(items);
+
+      expect(row.items.length).toBe(initialLength + items.length);
+      expect(row.items[0].testId).toBe(items[0].testId);
+      expect(row.items[1].testId).toBe(items[1].testId);
+    });
+  });
+
+  describe('removeItemAt', () => {
+    beforeEach(() => {
+      row.items = [
+        {
+          ...baseItem,
+          testId: 'A'
+        },
+        {
+          ...baseItem,
+          testId: 'B'
+        },
+        {
+          ...baseItem,
+          testId: 'C'
+        }
+      ];
+    });
+
+    it('should remove an item from the row', () => {
+      row.removeItemAt(1);
+      expect(row.items.length).toBe(2);
+    });
+    it('should maintain which item is selected after removing an item', () => {
+      row.selectedIndex = 2;
+      expect(row.selected.testId).toBe('C');
+      row.removeItemAt(1);
+      expect(row.selectedIndex).toBe(1);
+      expect(row.selected.testId).toBe('C');
+    });
+    it('should select the next item after a selected item has been removed', () => {
+      row.selectedIndex = 1;
+      row.removeItemAt(1);
+      expect(row.selectedIndex).toBe(1);
+      expect(row.selected.testId).toBe('C');
+    });
+  });
+
+  describe('when items are added at an index lesser than the current selected item', () => {
+    const item = {
+      ...baseItem,
+      testId: 'added',
+      w: 100,
+      h: undefined
+    };
+    const items = [
+      { ...baseItem, testId: 'A' },
+      { ...baseItem, testId: 'B' },
+      { ...baseItem, testId: 'C' }
+    ];
+    const itemSpacing = 20;
+
+    beforeEach(async () => {
+      [row, testRenderer] = createRow(
+        {
+          items,
+          selectedIndex: 2,
+          itemSpacing
+        },
+        {
+          spyOnMethods: ['_updateLayout']
+        }
+      );
+
+      await row.__updateLayoutSpyPromise;
+    });
+
+    it('should maintain the x position of the current selected item relative to the row by shifting the row', async () => {
+      const initialX = row.Items.x;
+      const exepctedX = row.Items.x - item.w - itemSpacing;
+      expect(row.Items.x).toBe(initialX);
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.Items.x).toBe(exepctedX);
+    });
+    it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
+      row.lazyScroll = true;
+      const initialX = row.Items.x;
+      const exepctedX = row.Items.x - item.w - itemSpacing;
+      expect(row.Items.x).toBe(initialX);
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.Items.x).toBe(exepctedX);
+    });
+    it('should persist which item is selected', async () => {
+      expect(row.selected.testId).toBe('C');
+
+      row.appendItemsAt([item], 1);
+      await row.__updateLayoutSpyPromise;
+
+      expect(row.selected.testId).toBe('C');
     });
   });
 
@@ -194,6 +354,17 @@ describe('Row', () => {
         expect(row._Items.transition('x').targetValue).toBe(-row.selected.x);
         done();
       });
+    });
+
+    it('should add items on lazyUpCount', done => {
+      row.lazyUpCount = 4;
+      row.items = [...items, ...items];
+      expect(row.items.length).toBe(6);
+      testRenderer.keyPress('Right');
+      setTimeout(() => {
+        expect(row.items.length).toBe(7);
+        done();
+      }, 17);
     });
 
     it('should reset the Items x position when there are no items', done => {
@@ -317,6 +488,74 @@ describe('Row', () => {
           expect(row._selectedIndex).toBe(3);
           expect(row._Items.transition('x').targetValue).toBe(0);
           done();
+        });
+      });
+    });
+
+    describe('when lazyScroll enabled', () => {
+      beforeEach(() => {
+        row.lazyScroll = true;
+      });
+
+      describe('when indexes to start and stop lazy scroll are provided', () => {
+        let _getLazyScrollX;
+        let _getScrollX;
+        beforeEach(() => {
+          _getLazyScrollX = jest.spyOn(row, '_getLazyScrollX');
+          _getScrollX = jest.spyOn(row, '_getScrollX');
+          row.items = Array.from({ length: 6 }).map(() => baseItem);
+          row.itemSpacing = 0;
+          row.w = baseItem.w * 2;
+          row.scrollTransition = { duration: 0 };
+          row.startLazyScrollIndex = 1;
+          row.stopLazyScrollIndex = 4;
+        });
+
+        it('should not lazy scroll when the selected item is at or before the start lazy scroll index', done => {
+          row.selectedIndex = 0;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Right');
+          testRenderer.forceAllUpdates();
+          testRenderer.update();
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).toHaveBeenCalled();
+            done();
+          });
+        });
+
+        it('should lazy scroll when navigating left on items after stop lazy scroll index', done => {
+          row.selectedIndex = 5;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Left');
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).not.toHaveBeenCalled();
+            done();
+          });
+        });
+
+        it('should lazy scroll when the selected item is between the start and stop lazy scroll indexes', done => {
+          row.selectedIndex = 2;
+          testRenderer.forceAllUpdates();
+          _getLazyScrollX.mockClear();
+          _getScrollX.mockClear();
+
+          testRenderer.keyPress('Right');
+
+          row._whenEnabled.then(() => {
+            expect(_getLazyScrollX).toHaveBeenCalled();
+            expect(_getScrollX).not.toHaveBeenCalled();
+            done();
+          });
         });
       });
     });
