@@ -301,7 +301,11 @@ class Bubble extends lng.Texture {
   }
 
   set radius(radius) {
-    this._radius = radius;
+    if (Array.isArray(radius)) {
+      this._radius = new Array(4).fill().map((_, index) => radius[index] || 0);
+    } else {
+      this._radius = radius;
+    }
     this._changed();
   }
 
@@ -374,22 +378,32 @@ class Bubble extends lng.Texture {
     const topY = initialCoord;
     const bottomY = topY + h;
     const bottomBubbleY = bottomY - pointerH;
-
+    const isRadiusAnArray = Array.isArray(radius);
     // start: top left
     ctx.beginPath();
-    ctx.moveTo(leftX + radius, topY);
-
+    ctx.moveTo(leftX + (isRadiusAnArray ? radius[0] : radius), topY);
     // top side
-    ctx.lineTo(rightX - radius, topY);
-
+    ctx.lineTo(rightX - (isRadiusAnArray ? radius[0] : radius), topY);
     // top right corner
-    ctx.arcTo(rightX, topY, rightX, topY + radius, radius);
+    ctx.arcTo(
+      rightX,
+      topY,
+      rightX,
+      topY + (isRadiusAnArray ? radius[1] : radius),
+      isRadiusAnArray ? radius[1] : radius
+    );
 
     // right side
-    ctx.lineTo(rightX, bottomBubbleY - radius);
+    ctx.lineTo(rightX, bottomBubbleY - (isRadiusAnArray ? radius[2] : radius));
 
     // bottom right corner
-    ctx.arcTo(rightX, bottomBubbleY, rightX - radius, bottomBubbleY, radius);
+    ctx.arcTo(
+      rightX,
+      bottomBubbleY,
+      rightX - (isRadiusAnArray ? radius[2] : radius),
+      bottomBubbleY,
+      isRadiusAnArray ? radius[2] : radius
+    );
 
     // bottom side, right of point
     ctx.lineTo(w / 2 + pointerW / 2, bottomBubbleY);
@@ -399,16 +413,28 @@ class Bubble extends lng.Texture {
     ctx.lineTo(w / 2 - pointerW / 2, bottomBubbleY);
 
     // bottom side, left of point
-    ctx.lineTo(leftX + radius, bottomBubbleY);
+    ctx.lineTo(leftX + (isRadiusAnArray ? radius[3] : radius), bottomBubbleY);
 
     // bottom left corner
-    ctx.arcTo(leftX, bottomBubbleY, leftX, bottomBubbleY - radius, radius);
+    ctx.arcTo(
+      leftX,
+      bottomBubbleY,
+      leftX,
+      bottomBubbleY - (isRadiusAnArray ? radius[3] : radius),
+      isRadiusAnArray ? radius[3] : radius
+    );
 
     // left side
-    ctx.lineTo(leftX, topY + radius);
+    ctx.lineTo(leftX, topY + (isRadiusAnArray ? radius[0] : radius));
 
     // top left corner
-    ctx.arcTo(leftX, topY, leftX + radius, topY, radius);
+    ctx.arcTo(
+      leftX,
+      topY,
+      leftX + (isRadiusAnArray ? radius[0] : radius),
+      topY,
+      isRadiusAnArray ? radius[0] : radius
+    );
 
     // draw shape and fill with color
     ctx.stroke();

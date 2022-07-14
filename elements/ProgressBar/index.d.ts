@@ -1,9 +1,10 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { Tools } from '@lightningjs/core';
 
 export interface ProgressBarStyles {
   h?: number;
-  radius?: number;
+  radius?: Tools.CornerRadius;
   progressColor?: string;
   barColor?: string;
   animationCurve?: string;

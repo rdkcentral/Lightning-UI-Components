@@ -1,9 +1,10 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { Tools } from '@lightningjs/core';
 
 export interface ToggleStyles {
   w?: number;
-  strokeRadius?: number;
+  strokeRadius?: Tools.CornerRadius;
   strokeWeight?: number;
   strokeColor?: string;
   strokeDisabledColor?: string;

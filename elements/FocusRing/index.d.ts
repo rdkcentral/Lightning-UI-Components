@@ -1,8 +1,9 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Tools } from '@lightningjs/core';
 
 export interface FocusRingStyles {
-  radius?: number;
+  radius?: Tools.CornerRadius;
   borderWidth?: number;
   color?: number;
   secondaryColor?: number;
