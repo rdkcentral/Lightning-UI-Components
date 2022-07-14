@@ -40,12 +40,22 @@ class FocusRing extends Base {
     const { transition, primary, secondary } = this._ringColors;
     const offset =
       this._componentStyles.spacing * 2 + this._componentStyles.borderWidth;
-    const radius = this._componentStyles.radius
-      ? this._componentStyles.radius +
-        this._componentStyles.spacing +
-        this._componentStyles.borderWidth / 2
-      : 0;
-
+    const focusRingPadding =
+      this._componentStyles.spacing + this._componentStyles.borderWidth / 2;
+    let radius = [];
+    if (Array.isArray(this._componentStyles.radius)) {
+      radius = new Array(4)
+        .fill()
+        .map(
+          (_, index) =>
+            (this._componentStyles.radius[index] || 0) + focusRingPadding
+        );
+    } else {
+      radius = this._componentStyles.radius
+        ? this._componentStyles.radius + focusRingPadding
+        : 0;
+      radius = Math.max(0, radius); // Ensure number is always positive
+    }
     this.patch({
       Ring: {
         mount: 0.5,
@@ -55,7 +65,7 @@ class FocusRing extends Base {
         texture: lng.Tools.getRoundRect(
           this.w + offset,
           this.h + offset,
-          Math.max(0, radius), // Ensure number is always positive
+          radius,
           this._componentStyles.borderWidth,
           false,
           false,

@@ -1,5 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Tools } from '@lightningjs/core';
 
 export interface LabelStyles {
   backgroundColor?: string;
@@ -7,10 +8,7 @@ export interface LabelStyles {
   textStyle?: string;
   paddingX?: number;
   paddingY?: number;
-  radiusTopLeft: number;
-  radiusTopRight: number;
-  radiusBottomRight: number;
-  radiusBottomLeft: number;
+  radius?: Tools.CornerRadius;
 }
 
 declare const Label_base: WithThemeStylesConstructor<typeof Base, LabelStyles>;

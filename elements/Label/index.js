@@ -63,12 +63,7 @@ class Label extends Base {
         // Compensating for the extra two pixels getRoundRect adds.
         this.w - 2,
         this.h - 2,
-        [
-          this._componentStyles.radiusTopLeft,
-          this._componentStyles.radiusTopRight,
-          this._componentStyles.radiusBottomRight,
-          this._componentStyles.radiusBottomLeft
-        ],
+        this._componentStyles.radius,
         0,
         null,
         true,

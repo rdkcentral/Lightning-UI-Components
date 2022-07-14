@@ -1,5 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Tools } from '@lightningjs/core';
 
 type transitionObject = {
   delay: number;
@@ -8,7 +9,7 @@ type transitionObject = {
 };
 
 export interface TooltipStyles {
-  radius: number;
+  radius?: Tools.CornerRadius;
   textStyle: string;
   marginBottom: number;
   paddingY: number;

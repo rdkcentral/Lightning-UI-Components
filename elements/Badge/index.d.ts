@@ -1,9 +1,10 @@
 import type Base from '../../Base';
+import type { Tools } from '@lightningjs/core';
 
 export interface BadgeStyles {
   paddingX?: number;
   paddingY?: number;
-  radius?: number;
+  radius?: Tools.CornerRadius;
   textStyle?: string;
   textAlign?: string;
   backgroundColor?: string;

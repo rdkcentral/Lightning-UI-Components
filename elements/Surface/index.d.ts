@@ -1,11 +1,12 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { Tools } from '@lightningjs/core';
 
 export interface SurfaceStyles {
   backgroundColorDisabled?: string;
   backgroundColorFocused?: string;
   backgroundColorUnfocused?: string;
-  radius?: number;
+  radius?: Tools.CornerRadius;
 }
 
 declare const Surface_base: WithThemeStylesConstructor<

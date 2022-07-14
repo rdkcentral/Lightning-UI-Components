@@ -6,6 +6,7 @@ import { default as Artwork, ArtworkStyles } from '../Artwork';
 import { default as Label, LabelStyles } from '../Label';
 import { default as ProgressBar, ProgressBarStyles } from '../ProgressBar';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { Tools } from '@lightningjs/core';
 
 export interface TileStyles {
   animationEntrance?: object;
@@ -21,7 +22,7 @@ export interface TileStyles {
   paddingX?: number | string;
   paddingY?: number | string;
   progressBarStyles?: ProgressBarStyles;
-  radius?: number | string;
+  radius?: Tools.CornerRadius | string;
   disabledAlpha?: number;
 }
 

@@ -4,10 +4,12 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    radiusTopLeft: theme.radius.medium,
-    radiusTopRight: theme.radius.medium,
-    radiusBottomRight: theme.radius.medium,
-    radiusBottomLeft: theme.radius.none,
+    radius: [
+      theme.radius.medium,
+      theme.radius.medium,
+      theme.radius.medium,
+      theme.radius.none
+    ],
     paddingX: theme.spacing(2),
     paddingY: theme.spacing(1),
     textStyle: 'caption'
