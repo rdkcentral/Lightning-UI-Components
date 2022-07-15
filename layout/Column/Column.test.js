@@ -190,12 +190,12 @@ describe('Column', () => {
       initialLength = column.items.length;
     });
 
-    fit('should add items at the specified index', () => {
+    it('should add items at the specified index', () => {
       column.appendItemsAt(items, 1);
 
-      // expect(column.items.length).toBe(initialLength + items.length);
-      // expect(column.items[1].testId).toBe(items[0].testId);
-      // expect(column.items[2].testId).toBe(items[1].testId);
+      expect(column.items.length).toBe(initialLength + items.length);
+      expect(column.items[1].testId).toBe(items[0].testId);
+      expect(column.items[2].testId).toBe(items[1].testId);
     });
     it('should append items to the end of the column if an index is not specified', () => {
       column.appendItemsAt(items);
