@@ -357,12 +357,12 @@ export default class Column extends FocusManager {
       );
     });
 
-    // if (this.selectedIndex >= this._lastAppendedIdx) {
-    //   this._selectedIndex += items.length;
-    // }
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedIndex += items.length;
+    }
 
-    // this._update();
-    // this._refocus();
+    this._update();
+    this._refocus();
   }
 
   prependItems(items) {

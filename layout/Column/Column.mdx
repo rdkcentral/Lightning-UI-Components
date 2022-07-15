@@ -111,7 +111,7 @@ export const ProviderType = () => (
 );
 
 | name           | type                                                    | readonly | description                                                                                                                                            |
-| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | boundsMargin   | number[]                                                | true     | bounding box of the `Column`                                                                                                                           |
 | plinko         | boolean                                                 | false    | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.           |
 | provider       | <ProviderType />                                        | false    | used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider` |
@@ -191,7 +191,7 @@ Called when item focus changes. Render is responsible for the scroll behavior
 
 ### Events
 
-#### \$columnEmpty(): void
+#### $columnEmpty(): void
 
 Fires when all of the items have been removed from a `Column`
 
