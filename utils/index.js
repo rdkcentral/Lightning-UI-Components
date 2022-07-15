@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ export function clone(target, object) {
 
   for (const key in object) {
     const value = object[key];
-    if (Object.prototype.hasOwnProperty.call(target, key)) {
+    if (target.hasOwnProperty(key)) {
       _clone[key] = getMergeValue(key, target, object);
     } else {
       _clone[key] = value;
@@ -187,42 +187,55 @@ export function getFirstNumber(...numbers) {
 }
 
 /**
- * Returns an array of strings and icon or badge objects from a string using the syntax:
- * 'This is a {ICON:<title>|<url>} and {BADGE:<title>} badge test.'
+ * Returns an array of strings and icon, badge, newline, and text objects from a string using the syntax:
+ * 'This is an {ICON:<title>|<url>} and {BADGE:<title>} badge test with a {NEWLINE} newline and {TEXT:<text>|<style>}.'
  *
- * i.e. 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:<HD>} badge.'
- *  would create the object:
- *  {
+ * i.e. 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:HD} badge with a{NEWLINE} and {TEXT:red text|red}.'
+ *  would create the array:
+ *  [
  *    'This is an ',
  *    { icon: './assets/icons/settings.png', title: 'settings' },
  *    ' icon and ',
  *    { badge: 'HD' },
- *    ' badge.'
- *  }
+ *    ' badge with a',
+ *    { newline: true },
+ *    ' and ',
+ *    { text: 'red text', style: 'red' },
+ *    '.'
+ *  ]
  *
- * @param {*} str
+ * @param {(string|object)} str
  *
  * @return {array}
  */
 export function parseInlineContent(str = '') {
   const content = [];
-  if (str && typeof str === 'string') {
-    const regex = /({ICON.*?}|{BADGE:.*?})/g;
-    const badgeRegEx = /^{BADGE:(.*?)}$/g;
+  if ((str && typeof str === 'string') || str.text) {
+    const string = typeof str === 'string' ? str : str.text;
+    const regex = /({ICON.*?}|{BADGE:.*?}|{NEWLINE}|{TEXT:.*?})/g;
     const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
-    const splitStr = str.split(regex);
+    const badgeRegEx = /^{BADGE:(.*?)}$/g;
+    const newlineRegEx = /^{NEWLINE}$/g;
+    const textRegEx = /^{TEXT:(.*?)?\|(.*?)?}$/g;
+
+    const splitStr = string.split(regex);
 
     if (splitStr && splitStr.length) {
       splitStr.forEach(item => {
         let formattedItem = item;
         const badge = badgeRegEx.exec(item);
         const icon = iconRegEx.exec(item);
+        const newline = newlineRegEx.exec(item);
+        const text = textRegEx.exec(item);
 
         if (badge && badge[1]) {
           formattedItem = { badge: badge[1] };
-        }
-        if (icon && icon[1]) {
+        } else if (icon && icon[1]) {
           formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
+        } else if (newline) {
+          formattedItem = { newline: true };
+        } else if (text && text[1]) {
+          formattedItem = { text: text[1], style: text[2] };
         }
         content.push(formattedItem);
       });
@@ -266,14 +279,60 @@ export function flatten(arr) {
   );
 }
 
-/**
- * Deep equality check two values
- *
- * @param {any} valA - value to be compared against valB
- * @param {any} valB - value to be compared against valA
- *
- * @return {boolean} - returns true if values are equal
- */
-export function stringifyCompare(valA, valB) {
-  return JSON.stringify(valA) === JSON.stringify(valB);
+export function objectPropertyOf(object, path) {
+  return path.reduce(
+    (obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined),
+    object
+  );
+}
+
+export function stringifyCompare(objA, objB) {
+  return JSON.stringify(objA) === JSON.stringify(objB);
+}
+
+export function isComponentOnScreen(component) {
+  if (!component) return false;
+
+  const {
+    w,
+    h,
+    core: { renderContext: { px, py }, _scissor: scissor = [] } = {}
+  } = component;
+  const stageH = component.stage.h / component.stage.getRenderPrecision();
+  const stageW = component.stage.w / component.stage.getRenderPrecision();
+
+  const wVis = px >= 0 && px + w <= stageW;
+  const hVis = py >= 0 && py + h <= stageH;
+
+  if (!wVis || !hVis) return false;
+
+  if (scissor && scissor.length) {
+    const [
+      leftBounds = null,
+      topBounds = null,
+      clipWidth = null,
+      clipHeight = null
+    ] = scissor;
+
+    const withinLeftClippingBounds =
+      Math.round(px + w) >= Math.round(leftBounds);
+    const withinRightClippingBounds =
+      Math.round(px) <= Math.round(leftBounds + clipWidth);
+    const withinTopClippingBounds = Math.round(py + h) >= Math.round(topBounds);
+    const withinBottomClippingBounds =
+      Math.round(py + h) <= Math.round(topBounds + clipHeight);
+
+    return (
+      withinLeftClippingBounds &&
+      withinRightClippingBounds &&
+      withinTopClippingBounds &&
+      withinBottomClippingBounds
+    );
+  }
+
+  return true;
+}
+
+export function delayForAnimation(callback, delay = 16) {
+  setTimeout(callback, delay);
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Comcast Cable Communications Management, LLC
+ * Copyright 2022 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -362,4 +362,256 @@ export const SkipFocus = args =>
 SkipFocus.args = {
   itemSpacing: 200,
   wrapSelected: false
+};
+
+export const LazyScrollIndexes = ({
+  startLazyScrollIndex,
+  stopLazyScrollIndex
+}) =>
+  class LazyScrollIndexes extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: 20,
+          alwaysScroll: false,
+          neverScroll: false,
+          lazyScroll: true,
+          scrollIndex: 0,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1} ${
+              i === startLazyScrollIndex ? '(start lazy scroll)' : ''
+            } ${i === stopLazyScrollIndex ? '(stop lazy scroll)' : ''}`,
+            w: 250
+          })),
+          startLazyScrollIndex,
+          stopLazyScrollIndex
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+LazyScrollIndexes.args = {
+  startLazyScrollIndex: 1,
+  stopLazyScrollIndex: 10
+};
+LazyScrollIndexes.argTypes = {
+  startLazyScrollIndex: {
+    control: 'number'
+  },
+  stopLazyScrollIndex: {
+    control: 'number'
+  }
+};
+
+export const AddingItems = args =>
+  class AddingItems extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i}`,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Row').appendItemsAt(
+          [
+            {
+              type: Button,
+              buttonText: 'New Button 0',
+              w: 150
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 1',
+              w: 150
+            },
+            {
+              type: Button,
+              buttonText: 'New Button 2',
+              w: 150
+            }
+          ],
+          3
+        );
+      }, 3000);
+      setTimeout(() => {
+        this.tag('Row').prependItems([
+          {
+            type: Button,
+            buttonText: 'New Button 3',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 4',
+            w: 150
+          },
+          {
+            type: Button,
+            buttonText: 'New Button 5',
+            w: 150
+          }
+        ]);
+      }, 3750);
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+AddingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false
+};
+AddingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
+};
+
+export const LazyUpCount = args =>
+  class LazyUpCount extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          lazyUpCount: args.lazyUpCount,
+          scrollIndex: args.scrollIndex,
+          items: Array.apply(null, { length: 12 }).map((_, i) => ({
+            type: Button,
+            buttonText: `Button ${i + 1}`,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+LazyUpCount.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false,
+  lazyUpCount: 4
+};
+LazyUpCount.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  lazyUpCount: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
+};
+
+export const RemovingItems = args =>
+  class RemovingItems extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          w: 1920 - 160, // x offset from preview.js * 2
+          itemSpacing: args.itemSpacing,
+          alwaysScroll: args.alwaysScroll,
+          neverScroll: args.neverScroll,
+          lazyScroll: args.lazyScroll,
+          scrollIndex: args.scrollIndex,
+          items: ['A', 'B', 'C', 'D', 'E'].map(letter => ({
+            type: Button,
+            buttonText: letter,
+            w: 150
+          }))
+        }
+      };
+    }
+
+    _init() {
+      super._init();
+      setTimeout(() => {
+        this.tag('Row').removeItemAt(1);
+      }, 3000);
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+RemovingItems.args = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false
+};
+RemovingItems.argTypes = {
+  itemSpacing: {
+    control: { type: 'range', min: 0, max: 100, step: 5 }
+  },
+  scrollIndex: {
+    control: 'number'
+  },
+  alwaysScroll: {
+    control: 'boolean'
+  },
+  neverScroll: {
+    control: 'boolean'
+  },
+  lazyScroll: {
+    control: 'boolean'
+  }
 };

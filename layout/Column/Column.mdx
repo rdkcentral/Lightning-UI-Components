@@ -1,5 +1,5 @@
 <!--
- Copyright 2021 Comcast Cable Communications Management, LLC
+ Copyright 2022 Comcast Cable Communications Management, LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,8 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- SPDX-License-Identifier: Apache-2.0
- -->
+ SPDX-License-Identifier: Apache-2.0 -->
 
 import { Canvas, Story } from '@storybook/addon-docs';
 
@@ -25,7 +24,6 @@ import { DocsLink, GenericType, ObjectFormat } from '../../.storybook/utils';
 Focus management and smooth scrolling for a vertically-oriented list of items.
 
 ## Usage
-
 
 `Column` expects a list of `items` which will be laid out top-to-bottom. By default, the width of `Column`'s Item container is the same as the width of the widest item, and the height is the height passed in, the height of the wrapping FocusManager if available, or the height of the stage by default. You can change the `w` and `h` attributes to manage `width` and `height`, respectively.
 
@@ -47,99 +45,99 @@ class BasicExample extends lng.Component {
   _getFocused() {
     return this.tag('Column');
   }
-};
+}
 ```
 
 The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
+
+### Column items with changing height
+
+If the heights of various items in the column can change (ex. an item which expands), the layout
+of the items in the Column must be recalculated. To trigger this update, fire an event, called `$itemChanged`, from the
+item when its height changes.
+ex.
+
+```js
+class ExpandingButton extends Button {
+  _focus() {
+    super._focus();
+    this.patch({ h: 100 });
+    // triggers recalculation of Column items layout
+    this.fireAncestors('$itemChanged');
+  }
+
+  _unfocus() {
+    super._unfocus();
+    this.patch({ h: 40 });
+  }
+}
+
+class ExpandableHeightItems extends lng.Component {
+  static _template() {
+    return {
+      Column: {
+        type: Column,
+        h: 500,
+        items: Array.apply(null, { length: 15 }).map((_, i) => ({
+          type: ExpandingButton,
+          h: 40,
+          w: 150,
+          buttonText: `Button ${i}`
+        }))
+      }
+    };
+  }
+
+  _getFocused() {
+    return this.tag('Column');
+  }
+}
+```
 
 <Canvas>
   <Story id="layout-column--basic" />
 </Canvas>
 
-## Infinite Scrolling
-
-The `provider` property can be set to allow continous fetching of new items as scrolling nears the end of the list. The resolved object is expected to look like this:
-
-```js
-{
-  appendItems?: boolean // true appends items, falsey replaces items
-  getMoreItems?: () => Promise // if passed, will be called to fetch more items
-  items: lng.Component[] // to be added to the list
-}
-```
-
-This example will append 5 buttons to the end of a list when `provider` is called:
-
-```js
-const getMoreItems = () => Promise.resolve({
-  appendItems: true,
-  getMoreItems,
-  items: Array.apply(null, { length: 5 })
-    .map((_,i) => ({
-      type: Button,
-      buttonText: `Extra Button ${i + 1}`
-    }))
-});
-```
-
-The promise returned by `getMoreItems` is then passed as the `provider` to a `Column` instance:
-
-```js
-{
-  type: Column,
-  provider: getMoreItems(),
-  items: [
-    // ...
-  ]
-}
-```
-
-<Canvas>
-  <Story id="layout-column--provider" />
-</Canvas>
-
-See the [Properties section](#properties) for details.
-
-## API
-
-The `Column` component extends `FocusManager` and inherits it's properties and methods. See the [FocusManager API][fm-api] for more references
-
-### Properties
-
 export const ProviderType = () => (
   <GenericType type="Promise">
-    <ObjectFormat object={{
-      items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
-      'appendItems?': 'boolean',
-      'getMoreItems?': '()=>Promise'
-    }} />
+    <ObjectFormat
+      object={{
+        items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
+        'appendItems?': 'boolean',
+        'getMoreItems?': '()=>Promise'
+      }}
+    />
   </GenericType>
 );
 
-name|type|readonly|description
---|--|--|--
-boundsMargin|number[]|true|bounding box of the `Column`
-plinko|boolean|false|When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.
-provider|<ProviderType />|false|used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider`
-itemSpacing|number|false|padding to put between items
-items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|components to list in the row
-itemTransition|<DocsLink id="lng.Transition" />|false|transition to apply to items on render
-keepFullScreen|boolean|true|With scrollmount < 1 determines if we keep a full screen of items
-scrollMount|number|false|Value between 0 and 1, determines at what point scrolling should start.
-selected|<DocsLink id="lng.Component" />|true|component that is currently in focus
-selectedIndex|number|false|index of currently selected item
-alwaysScroll|boolean|false|determines whether the column will stop scrolling as it nears the bottom to prevent white space
-neverScroll|boolean|false|false|if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic
-onScreenItems|array|true|contains a list of items that are currently on screen (within the bounds of the container)
+| name           | type                                                    | readonly | description                                                                                                                                            |
+| -------------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| boundsMargin   | number[]                                                | true     | bounding box of the `Column`                                                                                                                           |
+| plinko         | boolean                                                 | false    | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items.           |
+| provider       | <ProviderType />                                        | false    | used for providing additional items when scroll nears the end of the column.<br />Promise returned by `getMoreItems` has the same schema as `provider` |
+| itemSpacing    | number                                                  | false    | padding to put between items                                                                                                                           |
+| items          | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | components to list in the column                                                                                                                       |
+| itemTransition | <DocsLink id="lng.Transition" />                        | false    | transition to apply to items on render                                                                                                                 |
+| keepFullScreen | boolean                                                 | true     | With scrollmount < 1 determines if we keep a full screen of items                                                                                      |
+| scrollMount    | number                                                  | false    | Value between 0 and 1, determines at what point scrolling should start.                                                                                |
+| selected       | <DocsLink id="lng.Component" />                         | true     | component that is currently in focus                                                                                                                   |
+| selectedIndex  | number                                                  | false    | index of currently selected item                                                                                                                       |
+| alwaysScroll   | boolean                                                 | false    | determines whether the column will stop scrolling as it nears the bottom to prevent white space                                                        |
+| neverScroll    | boolean                                                 | false    | false if true, the column will never scroll, unless alwaysScroll is set to true, and if false, the column will apply normal scrolling logic            |
+| onScreenItems  | array                                                   | true     | contains a list of items that are currently on screen (within the bounds of the container)                                                             |
+| autoResize     | boolean                                                 | false    | automatically sets the height and width of the column to be the same as the Items container inside                                                     |
+| lazyUpCount    | number                                                  | false    |                                                                                                                                                        | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a column and most are off screen, set this to the number of items that are displayed on screen by default |
+|                |
 
 ### Child Item Properties
+
 The `Column` component will utilize the following properties on each individual element in its `items` array:
 
-name|type|readonly|description
---|--|--|--
-centerInParent|boolean|false|if set to true on an individual element in the `items` array, this will horizontally center the child
-skipPlinko|boolean|false|if set to true, plinko will use the previous item to determine the horizontal index of the next focused item
-
+| name             | type    | readonly | default | description                                                                                                  |
+| ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will horizontally center the child        |
+| skipPlinko       | boolean | false    | false   | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
+| extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                                     |
 
 ### Methods
 
@@ -149,24 +147,36 @@ A callback that can be overridden to do something with the items that are curren
 
 #### scrollTo(index: number, duration: number): void
 
-scrolls to child at `index` at a rate of `duration` in ms * (`this.selectedIndex` - `index`)
+scrolls to child at `index` at a rate of `duration` in ms \* (`this.selectedIndex` - `index`)
 
 ##### Arguments
 
-name|type|required|default|description
---|--|--|--|--
-index|number|true|-|index of child to scroll to
-duration|number|false|40|timeout value in ms
+| name     | type   | required | default | description                 |
+| -------- | ------ | -------- | ------- | --------------------------- |
+| index    | number | true     | -       | index of child to scroll to |
+| duration | number | false    | 40      | timeout value in ms         |
 
 #### appendItems(items: lng.Component[]): void
 
 Adds items to the end of the child list
 
+#### appendItemsAt(items: lng.Component[], index: number): void
+
+Adds items at a specified index of the child list
+
+#### prependItems(items: lng.Component[]): void
+
+Adds items to the start of the child list
+
+#### removeItemAt(index: number): void
+
+Removes an item (by index) from the row
+
 ##### Arguments
 
-name|type|required|default|description
---|--|--|--|--
-items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|list of items to append
+| name  | type                                                    | required | default | description             |
+| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
 
 #### render(selected: lng.Component, previous: lng.Component): void
 
@@ -174,10 +184,10 @@ Called when item focus changes. Render is responsible for the scroll behavior
 
 ##### Arguments
 
-name|type|required|default|description
---|--|--|--|--
-selected|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|item to select. Required if this.plinko=true
-previous|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|-|previously selected item. Required if this.plinko=true
+| name     | type                                                    | required | default | description                                            |
+| -------- | ------------------------------------------------------- | -------- | ------- | ------------------------------------------------------ |
+| selected | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | item to select. Required if this.plinko=true           |
+| previous | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | previously selected item. Required if this.plinko=true |
 
 ### Events
 

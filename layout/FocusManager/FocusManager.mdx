@@ -1,5 +1,5 @@
 <!--
- Copyright 2021 Comcast Cable Communications Management, LLC
+ Copyright 2022 Comcast Cable Communications Management, LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,11 +13,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- SPDX-License-Identifier: Apache-2.0
- -->
+ SPDX-License-Identifier: Apache-2.0 -->
 
-import { Canvas, Story } from '@storybook/addon-docs'
-import { DocsLink } from "../../.storybook/utils";
+import { Canvas, Story } from '@storybook/addon-docs';
+import { DocsLink } from '../../.storybook/utils';
 
 # FocusManager
 
@@ -44,9 +43,9 @@ class RowExample extends lng.Component {
   }
 
   _getFocused() {
-      return this.tag('Row');
+    return this.tag('Row');
   }
-};
+}
 ```
 
 <Canvas>
@@ -93,7 +92,15 @@ class FancyFocus extends FocusManager {
   render() {
     // do something with selected item
     this.selected.patch({
-      texture: lng.Tools.getRoundRect(150, 40, 4, 3, 0xffff00ff, true, 0xff00ffff)
+      texture: lng.Tools.getRoundRect(
+        150,
+        40,
+        4,
+        3,
+        0xffff00ff,
+        true,
+        0xff00ffff
+      )
     });
   }
 }
@@ -107,14 +114,14 @@ class FancyFocus extends FocusManager {
 
 ### Properties
 
-name|type|readonly|description
---|--|--|--
-direction|'column'\|'row'|false|determines whether focus handling responds to left/right or up/down keys
-selected|<DocsLink id="lng.Component" />|true|current item in focus
-selectedIndex|number|false|index of current item in focus
-loading|boolean|true|False if an item is in focus, true otherwise
-items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|alias for `children`
-wrapSelected|boolean|false|enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa
+| name          | type                                                    | readonly | description                                                                                                                  |
+| ------------- | ------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| direction     | 'column'\|'row'                                         | false    | determines whether focus handling responds to left/right or up/down keys                                                     |
+| selected      | <DocsLink id="lng.Component" />                         | true     | current item in focus                                                                                                        |
+| selectedIndex | number                                                  | false    | index of current item in focus                                                                                               |
+| loading       | boolean                                                 | true     | False if an item is in focus, true otherwise                                                                                 |
+| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | alias for `children`                                                                                                         |
+| wrapSelected  | boolean                                                 | false    | enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa |
 
 ### Methods
 
@@ -124,9 +131,9 @@ Appends items to child list and updates focus
 
 ##### Arguments
 
-name|type|required|default|description
---|--|--|--|--
-items|<DocsLink id="lng.Component">lng.Component[]</DocsLink>|false|[]|items to append
+| name  | type                                                    | required | default | description     |
+| ----- | ------------------------------------------------------- | -------- | ------- | --------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | items to append |
 
 #### render
 
