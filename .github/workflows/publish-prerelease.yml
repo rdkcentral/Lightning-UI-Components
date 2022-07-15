@@ -20,7 +20,7 @@ jobs:
           token: ${{secrets.GIT_PUBLISH_TOKEN}}
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.17
+          node-version: 16.16
       - run: npm ci
       - run: npm run test
 
@@ -33,7 +33,7 @@ jobs:
           token: ${{secrets.GIT_PUBLISH_TOKEN}}
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.17
+          node-version: 16.16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npx semantic-release --no-ci --repository-url git@github.com:rdkcentral/Lightning-UI-Components.git
