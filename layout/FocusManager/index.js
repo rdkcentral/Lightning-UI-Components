@@ -270,7 +270,7 @@ export default class FocusManager extends Base {
         // Remove all indexes that don't have a distance (skipFocus)
         return null !== item.distance;
       })
-      .sort(function(a, b) {
+      .sort(function (a, b) {
         return a.distance - b.distance;
       });
 
