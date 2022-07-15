@@ -280,9 +280,6 @@ export default class FocusManager extends Base {
   /**
    * TODO: Update Base to remove the focus/unfocus calls and add a second "BaseComponent" that does have them
    *
-   * Layout Components (Column, Row, BoardRows, etc.) would extend only Base,
-   *    need to confirm this applies to InlineContnet and ScrollWrapper??
-   * Element/Pattern Components (Tile, Badge, etc.) would extend "BaseComponent" that does have focus/unfocus overrides
    */
   _focus() {}
   _unfocus() {}
