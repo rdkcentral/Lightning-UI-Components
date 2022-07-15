@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.1...v1.3.0) (2022-07-15)
+
+
+### Bug Fixes
+
+* **ci:** add missing dependency required by semantic-release ([#100](https://github.com/rdkcentral/Lightning-UI-Components/issues/100)) ([25e6994](https://github.com/rdkcentral/Lightning-UI-Components/commit/25e6994a3a1b71ca9d89ddf0f0811eaabcd5347d))
+* **FocusManager:** refactor to extend Base ([#90](https://github.com/rdkcentral/Lightning-UI-Components/issues/90)) ([b11baf5](https://github.com/rdkcentral/Lightning-UI-Components/commit/b11baf57637e032439aef63946cd93ecda232f5f))
+* **Row:** lazy scrolling was scrolling too much on left press ([#89](https://github.com/rdkcentral/Lightning-UI-Components/issues/89)) ([539c869](https://github.com/rdkcentral/Lightning-UI-Components/commit/539c8694d5f6dabb4c293e5fb02ae8ec7d2582fd))
+
+
+### Features
+
+* support adding and removing items by index and lazy loading in Rows and Column  ([#99](https://github.com/rdkcentral/Lightning-UI-Components/issues/99)) ([4dd96a4](https://github.com/rdkcentral/Lightning-UI-Components/commit/4dd96a4bc7c43f170d35f6e9130306a9c407a9ad))
+
 ## [1.2.1](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.0...v1.2.1) (2021-10-27)
 
 
