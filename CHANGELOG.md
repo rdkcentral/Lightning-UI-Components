@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.3.0...v1.3.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* bump all referenced versions of node to current LTS v16.16 ([#101](https://github.com/rdkcentral/Lightning-UI-Components/issues/101)) ([445e7f5](https://github.com/rdkcentral/Lightning-UI-Components/commit/445e7f5abb640aead3bf0b7db560c390bfe4fb3a))
+
 # [1.3.0](https://github.com/rdkcentral/Lightning-UI-Components/compare/v1.2.1...v1.3.0) (2022-07-15)
 
 
