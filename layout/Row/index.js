@@ -315,8 +315,8 @@ class Row extends FocusManager {
         // if the child is another focus manager, check the height of the item container
         const childHeight = (child.Items && child.Items.h) || child.h;
         // only center the child if it is within the bounds of this focus manager
-        if (childHeight < this.h) {
-          child.y = (this.h - childHeight) / 2;
+        if (childHeight < this.Items.h) {
+          child.y = (this.Items.h - childHeight) / 2;
         }
       }
     }

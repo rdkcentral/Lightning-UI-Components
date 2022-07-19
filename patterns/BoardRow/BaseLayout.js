@@ -16,6 +16,7 @@ export default class BaseType extends Base {
     return {
       Row: {
         type: Row,
+        autoResizeHeight: false,
         plinko: true,
         passSignals: {
           selectedChange: 'selectedChange'
