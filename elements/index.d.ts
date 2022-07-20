@@ -12,6 +12,10 @@ export { default as Artwork, ArtworkStyles } from './Artwork';
 export { default as Badge, BadgeStyles } from './Badge';
 export { default as Base } from './Base';
 export { default as Button } from './Button';
+export {
+  default as ButtonThemed,
+  ButtonSmall as ButtonSmallThemed
+} from './ButtonThemed';
 export { default as CardArtwork } from './CardArtwork';
 export { default as Checkbox, CheckboxSmall, CheckboxStyles } from './Checkbox';
 export { default as Control, ControlMedium } from './Control';

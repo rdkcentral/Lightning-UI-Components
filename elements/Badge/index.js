@@ -90,11 +90,11 @@ class Badge extends Base {
   }
 
   _badgeTextLoaded() {
-    this._badgeTextPromiseResolver();
+    this._badgeTextPromiseResolver && this._badgeTextPromiseResolver();
   }
 
   _iconLoaded() {
-    this._iconPromiseResolver();
+    this._iconPromiseResolver && this._iconPromiseResolver();
   }
 
   _updateBackground() {

@@ -1,6 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import OverlayDataItem from '.';
-import PHI from '../../static/images/PHI.png';
+import PHI from '../../assets/images/PHI.png';
 
 const createOverlayDataItem = TestUtils.makeCreateComponent(OverlayDataItem);
 

@@ -84,6 +84,10 @@ export const WithActionButton = args =>
     }
   };
 
+WithActionButton.args = {
+  bottomMargin: 24
+};
+
 WithActionButton.parameters = {
   argActions: {
     focused: (isFocused, component) => {
