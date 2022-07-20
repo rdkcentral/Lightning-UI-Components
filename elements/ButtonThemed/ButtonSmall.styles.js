@@ -1,16 +1,15 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
+import { variantDefault as buttonVariantDefault } from './Button.styles';
 
-export const variantDefault = 'neutral';
+export const variantDefault = buttonVariantDefault;
 
 export function base(theme) {
   return {
-    descriptionTextProperties: {
-      ...theme.typography.body2,
-      textColor: theme.colors.coreNeutral,
-      maxLines: 2,
-      wordWrap: true
-    },
-    w: theme.calculateColumnWidth(3)
+    h: theme.spacing(8),
+    minWidth: theme.calculateColumnWidth(theme.layout.columnCount),
+    paddingX: theme.spacing(4),
+    prefixSize: theme.spacing(3.5),
+    textStyle: theme.typography.button2
   };
 }
 

@@ -6,7 +6,7 @@ Component to provide hint information to other components like buttons and actio
 
 ## Usage
 
-`Tooltip` can display a `title` and is added as a child to any component that needs hint text. It is positioned above the parent component using the theme style property `marginBottom` and centered horizontally based on the parent's width:
+`Tooltip` can display a `title` and is added as a child to any component that needs hint text. It is positioned above the parent component using the property 'bottomMargin' and centered horizontally based on the parent's width:
 
 ```js
 import { Tooltip } from '@lightning/ui';
@@ -24,7 +24,8 @@ class Example extends lng.Component {
         background: 'stroke',
         Tooltip: {
           type: Tooltip,
-          title: 'Add to My List!'
+          title: 'Add to My List!',
+          bottomMargin: 24
         }
       }
     };
@@ -38,7 +39,7 @@ class Example extends lng.Component {
 
 ### Sizing
 
-The size of the tooltip is based on the length of it's 'title'.
+The size of the tooltip is based on the length of it's 'title'. If the 'title' exceeds 400px the text wraps, and the background resizes to accomodate.
 
 ### Focus
 

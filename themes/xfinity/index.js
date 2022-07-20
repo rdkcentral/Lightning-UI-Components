@@ -39,5 +39,8 @@ export default {
       fallbackSrc: './images/default_background.png'
     }
   },
+  // componentVariants: {
+  //   FocusRing: 'brand'
+  // },
   extensions
 };

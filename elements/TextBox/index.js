@@ -134,6 +134,7 @@ class TextBox extends Base {
     if (!this.content) {
       // If content is not defined hide the component
       this.visible = false;
+      this._notifyAncestors(); // need to alert parents that the width and height are now 0
       return;
     }
     this.visible = true;

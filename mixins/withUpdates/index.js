@@ -79,5 +79,16 @@ export default function withUpdates(Base) {
         this._update();
       }
     }
+
+    _logPropTable() {
+      console.table(this._propTable);
+    }
+
+    get _propTable() {
+      return this.constructor.properties.reduce((acc, prop) => {
+        acc[prop] = this[prop];
+        return acc;
+      }, {});
+    }
   };
 }

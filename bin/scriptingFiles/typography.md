@@ -1,8 +1,8 @@
 typography Value | Components 
 --------|-------- 
-button1 | [ActionButtonBase](../?path=/docs/elements-actionbutton--base)<br>[Info](../?path=/docs/patterns-info--basic)<br>[Input](../?path=/docs/patterns-input--basic)<br>[ListItem](../?path=/docs/patterns-listitem--basic)
+button1 | [ActionButtonBase](../?path=/docs/elements-actionbutton--base)<br>[Button](../?path=/docs/elements-button-themed--basic)<br>[Info](../?path=/docs/patterns-info--basic)<br>[Input](../?path=/docs/patterns-input--basic)<br>[ListItem](../?path=/docs/patterns-listitem--basic)
 headline1 | [ActionButtonLarge](../?path=/docs/elements-actionbuttonlarge--base)<br>[Info](../?path=/docs/patterns-info--basic)<br>[Key](undefined)<br>[MetadataBase](../?path=/docs/elements-metadatabase--basic)<br>[NewCard](../?path=/docs/patterns-newcard--base)<br>[TeamMatchup](../?path=/docs/patterns-teammatchup--basic)
-button2 | [ActionButtonSmall](../?path=/docs/elements-actionbuttonsmall--base)<br>[ActionButtonXsmall](../?path=/docs/elements-actionbuttonxsmall--base)
+button2 | [ActionButtonSmall](../?path=/docs/elements-actionbuttonsmall--base)<br>[ActionButtonXsmall](../?path=/docs/elements-actionbuttonxsmall--base)<br>[ButtonSmall](undefined)
 body3 | [CardPersonality](../?path=/docs/patterns-cardpersonality--base)<br>[Info](../?path=/docs/patterns-info--basic)<br>[ListItem](../?path=/docs/patterns-listitem--basic)<br>[MetadataBase](../?path=/docs/elements-metadatabase--basic)<br>[MetadataTile](../?path=/docs/elements-metadatatile--basic)
 body2 | [CardAboutStacked](../?path=/docs/patterns-CardAboutStacked--about-stacked-cards)<br>[CardAbout](../?path=/docs/patterns-CardAbout--about-cards)<br>[CardTitle](../?path=/docs/patterns-cardtitle--title-and-description)<br>[GameStats](../?path=/docs/patterns-gamestats--basic)<br>[MetadataBase](../?path=/docs/elements-metadatabase--basic)
 headline3 | [CardPersonality](../?path=/docs/patterns-cardpersonality--base)<br>[MetadataTile](../?path=/docs/elements-metadatatile--basic)<br>[Provider](../?path=/docs/elements-provider--basic)

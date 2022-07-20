@@ -30,10 +30,6 @@ class Checkbox extends Base {
     return ['checked', 'disabled'];
   }
 
-  _init() {
-    this._update();
-  }
-
   _update() {
     this._updateCheck();
     this._updateColor();
@@ -46,6 +42,7 @@ class Checkbox extends Base {
       icon: this._componentStyles.checkSrc,
       color: this._componentStyles.checkColor
     });
+
     this._Check.smooth = {
       alpha: this.checked ? 1 : 0
     };
