@@ -103,20 +103,22 @@ describe('context', () => {
       expect(subTheme).toMatchObject(baseTheme);
     });
 
-    it('should only accept a string as the first argument for setSubTheme', () => {
-      const subTheme = context.setSubTheme({ foo: 'bar' });
+    it('should only accept a string as the first argument for setSubTheme', async done => {
+      const subTheme = await context.setSubTheme({ foo: 'bar' });
       expect(logger.warn.mock.calls).toContainEqual([
         'Sub theme name must be a string. Received an object'
       ]);
       expect(subTheme).toBeUndefined();
+      done();
     });
 
-    it('should only accept an object as the second argument for setSubTheme', () => {
-      const subTheme = context.setSubTheme('shouldFail', 50);
+    it('should only accept an object as the second argument for setSubTheme', async done => {
+      const subTheme = await context.setSubTheme('shouldFail', 50);
       expect(logger.warn.mock.calls).toContainEqual([
         'Could not set subTheme shouldFail, value should be an object with properties. Received an number'
       ]);
       expect(subTheme).toBeUndefined();
+      done();
     });
 
     it('should update an existing subTheme when using updateSubTheme', () => {
