@@ -29,11 +29,19 @@ export class ThemeManager {
     return theme;
   }
 
-  async setTheme(value) {
+  async setTheme(themeConfig) {
+    let value;
+    if (Array.isArray(themeConfig)) {
+      value = merge.all(themeConfig);
+    } else {
+      value = themeConfig;
+    }
+
     if ('object' !== typeof value || null === value) {
       logger.warn(`context theme expected an object. Received ${typeof value}`);
       return;
     }
+
     this._clearCache();
     const theme = this._processTheme.call(this, [value], value.extensions);
     this._cache.set('theme', theme);
@@ -44,6 +52,7 @@ export class ThemeManager {
     this._refreshSubThemes();
     events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
+    return theme;
   }
 
   getSubTheme(subThemeName) {
@@ -53,7 +62,7 @@ export class ThemeManager {
     return;
   }
 
-  setSubTheme(subThemeName, value, triggerUpdate = true) {
+  async setSubTheme(subThemeName, value, triggerUpdate = true) {
     if (!subThemeName) {
       logger.warn('Sub theme name not specified');
       return;
@@ -71,12 +80,14 @@ export class ThemeManager {
       return;
     }
     const globalTheme = this.getTheme();
+    const subTheme = this._processTheme.call(this, [globalTheme, value]);
 
     this._cache.set(`subTheme${subThemeName}`, {
       original: value,
-      result: this._processTheme.call(this, [globalTheme, value])
+      result: subTheme
     });
     if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+    return subTheme;
   }
 
   _refreshSubThemes() {
@@ -101,7 +112,14 @@ export class ThemeManager {
   /**
    * Merge values with current theme
    */
-  async updateTheme(value) {
+  async updateTheme(themeConfig) {
+    let value;
+    if (Array.isArray(themeConfig)) {
+      value = merge.all(themeConfig);
+    } else {
+      value = themeConfig;
+    }
+
     let currentTheme = {};
     if (this._cache.has('theme')) {
       currentTheme = this._cache.get('theme');
@@ -119,6 +137,7 @@ export class ThemeManager {
     this._refreshSubThemes();
     if (value.extensions) events.emit('themeExtensionsUpdate');
     events.emit('themeUpdate'); // Notify components that an update cycle is required
+    return theme;
   }
 
   _clearCache() {
@@ -135,7 +154,7 @@ export class ThemeManager {
     });
   }
 
-  updateSubTheme(subThemeName, value, triggerUpdate = true) {
+  async updateSubTheme(subThemeName, value, triggerUpdate = true) {
     if (!subThemeName) {
       logger.warn('Sub theme name not specified');
       return;
@@ -154,12 +173,20 @@ export class ThemeManager {
       currentTheme = this._cache.get(`subTheme${subThemeName}`).original;
     }
 
+    const subTheme = this._processTheme.call(this, [
+      globalTheme,
+      currentTheme,
+      value
+    ]);
+
     this._cache.set(`subTheme${subThemeName}`, {
       original: clone(currentTheme, value),
-      result: this._processTheme.call(this, [globalTheme, currentTheme, value])
+      result: subTheme
     });
 
     if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+
+    return subTheme;
   }
 
   removeSubTheme(subThemeName) {

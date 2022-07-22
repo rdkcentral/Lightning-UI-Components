@@ -9,7 +9,7 @@ import themeManager from './theme-manager';
  */
 export class Context {
   /**
-   * @type {Object}
+   * @type {object}
    */
   get theme() {
     return themeManager.getTheme();
@@ -23,7 +23,7 @@ export class Context {
     );
   }
   /**
-   * @type {Object}
+   * @type {object}
    */
   get keyMetricsCallback() {
     return metrics.keyMetricsCallback;
@@ -97,20 +97,18 @@ export class Context {
     logger.error(args);
   }
   /**
-   * @property {Object}
-   * @return {Object}
+   * @property {object|array}
+   * @return {object}
    */
   setTheme(value) {
-    themeManager.setTheme(value);
-    return themeManager.getTheme();
+    return themeManager.setTheme(value);
   }
   /**
-   * @property {Object}
-   * @return {Object}
+   * @property {object|array}}
+   * @return {object}
    */
   updateTheme(value) {
-    themeManager.updateTheme(value);
-    return themeManager.getTheme();
+    return themeManager.updateTheme(value);
   }
   /**
    * @property {string}
@@ -137,16 +135,14 @@ export class Context {
    * @return {object}
    */
   setSubTheme(subThemeName, value) {
-    themeManager.setSubTheme(subThemeName, value);
-    return themeManager.getSubTheme(subThemeName);
+    return themeManager.setSubTheme(subThemeName, value);
   }
   /**
    * @property {string}
    * @return {object}
    */
   updateSubTheme(subThemeName, value) {
-    themeManager.updateSubTheme(subThemeName, value);
-    return themeManager.getSubTheme(subThemeName);
+    return themeManager.updateSubTheme(subThemeName, value);
   }
   /**
    * @property {string}
@@ -171,9 +167,9 @@ export class Context {
   }
   /**
    * @property {function}
-   * @return {Object}
+   * @return {object}
    */
-  config(config) {
+  config(config = {}) {
     const configKeys = Object.keys(config);
     for (let i = 0; i < configKeys.length; i++) {
       const setMethod = this['set' + capitalizeFirstLetter(configKeys[i])];
