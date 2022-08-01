@@ -1,0 +1,14 @@
+{
+  "display1": "Display 1 is primarily used for program titles, examples being entity, hero browse and playback patterns.",
+  "display2": "Display 2 is primarily used for page headers",
+  "headline1": "Headline 1 is primarily used for row titles within the experience, both as a card and stand alone title.",
+  "headline2": "Headline 2 is used for key text within the keyboard",
+  "headline3": "Headline 3 should be used for titles within a tile, due to limited size headline 3 provides enough visible impact and text length affordance. Can also be used for tabs",
+  "body1": "Body 1 should be used for primary text areas like the synopsis on entity or within a hero browse pattern.",
+  "body2": "Body 2 can be used for secondary level metadata on cards like descriptions.",
+  "body3": "Body 3 can be used for tertiary level metadata on tiles and cards for text elements like details, ratings, runtime and air date.",
+  "button1": "Button 1 should only be used within the standard button component.",
+  "button2": "Button 2 should only be used within the small button component.",
+  "callout1": "Callout 1 can be used for headers within a card where it could be visible near a larger row header. This can be used for secondary headers for less emphasis",
+  "caption1": "Caption 1 should be used for text within a badge and helper text strings. It should not be used for any long bodies of text due to its size."
+}

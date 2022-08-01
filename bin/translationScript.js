@@ -1,6 +1,7 @@
 const fs = require('fs');
 import { getStorybookLinks } from './getStorybookLinks.js';
 import colorsJsonFile from './colorsRole.json';
+import typographyJsonFile from './typographyRole.json';
 //You could change the path and get the values for different themes
 const radius = require('../themes/base/radius.js');
 const typography = require('../themes/base/typography.js');
@@ -187,8 +188,8 @@ export function cleanDictionaryValues(dict, updatedLine){
  * @returns {string} returns cleaned up line with no duplicate components
  */
 export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray) {
-  const colorFile = mdFile === 'bin/scriptingFiles/colors.md';
-  const content = colorFile? `${themeProperty} Value | Components | Role \n`:`${themeProperty} Value | Components \n`;
+  const roleFile = mdFile === ('bin/scriptingFiles/colors.md') || (mdFile === 'bin/scriptingFiles/typography.md');
+  const content = roleFile? `${themeProperty} Value | Components | Role \n`:`${themeProperty} Value | Components \n`;
     //ensure folder exists
     fs.mkdir(mdFile.substring(0, mdFile.lastIndexOf('/')), { recursive: true }, (err) => {
       if (err) {
@@ -197,7 +198,7 @@ export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray)
     });
     fs.writeFileSync(mdFile, content, {encoding:'utf8',flag:'w'});
     // needed for a markdown file below the header
-    const header = colorFile ?'--------|--------|--------\n' :'--------|-------- \n';
+    const header = roleFile ?'--------|--------|--------\n' :'--------|-------- \n';
     fs.appendFileSync(mdFile, header);
     for (const key in dict) {
       let modifiedKey = `theme.${themeProperty}.`;
@@ -209,8 +210,8 @@ export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray)
       }
       //alphabetizes the components using a specific theme property
       let valuesAndComponents = alphabetizeContent(dict, key);
-      if (colorFile) {
-        const role = getPropertyRole(key);
+      if (roleFile) {
+        const role = getPropertyRole(key, mdFile);
         valuesAndComponents = valuesAndComponents.concat(role);
       }
       //everything is appended to the file
@@ -227,7 +228,7 @@ export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray)
       const temp = element.split('.');
       const temporary = temp[temp.length - 1];
        //all theme properties that are currently not being used are added to the bottom
-      const unusedThemeValue = colorFile ? `${temporary} | No components are using this value ${getPropertyRole(temporary)}`:`${temporary} | No components are using this value`;
+      const unusedThemeValue = roleFile ? `${temporary} | No components are using this value ${getPropertyRole(temporary, mdFile)}`:`${temporary} | No components are using this value`;
       fs.appendFileSync(mdFile, unusedThemeValue);
       fs.appendFileSync(mdFile, '\n');
     }
@@ -258,6 +259,12 @@ export function alphabetizeContent(dict, key) {
  * @param {key} key - value in the object
  * @returns {string} extra information about the theme property
  */
-export function getPropertyRole(key) {
-  return `|${colorsJsonFile[key] || 'More info coming'}`;
+export function getPropertyRole(key, mdFile) {
+  if (mdFile === 'bin/scriptingFiles/colors.md') {
+      return `|${colorsJsonFile[key] || 'More info coming'}`;
+  }
+  else if (mdFile === 'bin/scriptingFiles/typography.md') {
+    return `|${typographyJsonFile[key] || 'More info coming'}`;
+  }
+
 }
