@@ -167,6 +167,13 @@ class TextBox extends Base {
   set announce(announce) {
     super.announce = announce;
   }
+
+  set smooth(v) {
+    console.warn(
+      'warning: value smoothing is known to cause bugs with the TextBox - patch updated values instead.'
+    );
+    super.smooth = v;
+  }
 }
 
 export default withExtensions(withStyles(TextBox, styles));

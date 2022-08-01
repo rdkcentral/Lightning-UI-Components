@@ -35,7 +35,7 @@ const sharedArgs = {
   focused: true,
   disabled: false,
   w: 0,
-  fixed: true,
+  fixed: false,
   justify: 'center'
 };
 
