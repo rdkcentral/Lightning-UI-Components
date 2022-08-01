@@ -33,8 +33,10 @@ export const Basic = args =>
 
 const sharedArgs = {
   focused: true,
+  fixed: false,
   disabled: false,
-  w: 0
+  w: 0,
+  justify: 'center'
 };
 
 const sharedArgTypes = {
@@ -59,6 +61,14 @@ const sharedArgTypes = {
       defaultValue: { summary: 'false' }
     },
     control: 'boolean'
+  },
+  justify: {
+    control: 'radio',
+    options: ['left', 'center', 'right'],
+    description: 'justification of button content',
+    table: {
+      defaultValue: { summary: 'center' }
+    }
   }
 };
 

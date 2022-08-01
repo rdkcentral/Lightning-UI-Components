@@ -152,11 +152,7 @@ class Button extends Surface {
       maxLines: 1
     };
 
-    if (this._smooth) {
-      this._Title.smooth = titlePatch;
-    } else {
-      this._Title.patch(titlePatch);
-    }
+    this._Title.patch(titlePatch);
   }
 
   _updateTruncation() {
