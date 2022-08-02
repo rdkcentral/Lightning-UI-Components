@@ -14,7 +14,7 @@ export { default as Base } from './Base';
 export { default as Button } from './Button';
 export {
   default as ButtonThemed,
-  ButtonSmall as ButtonSmallThemed
+  ButtonSmall as ButtonThemedSmall
 } from './ButtonThemed';
 export { default as CardArtwork } from './CardArtwork';
 export { default as Checkbox, CheckboxSmall, CheckboxStyles } from './Checkbox';
