@@ -4,7 +4,7 @@ import { __TextType } from '@lightningjs/core';
 export interface MetadataStyles {
   titleTextProperties?: __TextType;
   subtitleTextProperties?: __TextType;
-  descriptionProperties?: __TextType;
+  descriptionTextProperties?: __TextType;
   logoW?: number;
   logoH?: number;
   logoPadding?: number;
