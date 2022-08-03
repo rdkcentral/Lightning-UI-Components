@@ -1,0 +1,58 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import MetadataCardContent from '.';
+import Provider from '../Provider';
+import xfinityProviderLogo from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+
+# MetadataCardContent
+
+A component to format metadata on CardContent. Contains a [Provider](?path=/docs/elements-provider--basic) to format [Icon(s)](?path=/docs/elements-icon--png).
+
+## Usage
+
+```js
+import { MetadataCardContent } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      MetadataCardContent: {
+        type: MetadataCardContent,
+        w: 600,
+        h: 250,
+        title: 'Title',
+        description: 'Description',
+        details: 'Details',
+        provider: {
+          visibleCount: args.visibleCount,
+          providers: Array.apply(null, { length: 10 }).map(
+            () => xfinityProviderLogoSquare
+          )
+        }
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-metadatacardcontent--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name        | type                                             | required | default | description                                                                          |
+| ----------- | ------------------------------------------------ | -------- | ------- | ------------------------------------------------------------------------------------ |
+| title       | string                                           | false    | -       | title text                                                                           |
+| description | string                                           | false    | -       | description text directly below title                                                |
+| details     | string                                           | false    | -       | details text at bottom left of component                                             |
+| provider    | [Provider](?path=/docs/elements-provider--basic) | false    | -       | an object of [Provider](?path=/docs/elements-provider--basic) properties to patch in |
+
+### Style Properties
+
+| name     | type   | description                                                                            |
+| -------- | ------ | -------------------------------------------------------------------------------------- |
+| provider | object | style properties to pass along to the [Provider](?path=/docs/elements-provider--basic) |
+
+### Methods
