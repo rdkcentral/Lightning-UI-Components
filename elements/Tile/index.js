@@ -457,7 +457,10 @@ class Tile extends Surface {
   }
 
   _updateMetadata() {
-    if (!this._hasMetadata || this._isCircleLayout) {
+    if (
+      !this._hasMetadata ||
+      (this._isCircleLayout && this._metadataLocation === 'inset')
+    ) {
       this._cleanupMetadata();
       return;
     }

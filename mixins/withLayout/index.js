@@ -44,7 +44,7 @@ export default function withLayout(Base) {
       if (!this._allowUpdate()) return;
       const { w, h } = getDimensions(this._itemLayout);
       if (this._itemLayout && this._itemLayout.circle) {
-        this.w = this.h;
+        this.w = this.innerH;
         this._layoutCircleMode = true;
         if (this.style) this.style.radius = this.h / 2;
       } else if (h || w) {
