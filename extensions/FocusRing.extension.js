@@ -1,5 +1,6 @@
 import FocusRing from '../elements/FocusRing';
 import context from '../context';
+import { getThemeAnimation } from '../utils';
 
 export default function focusRingExtension(Base) {
   return class WithFocusRing extends Base {
@@ -19,11 +20,7 @@ export default function focusRingExtension(Base) {
         alpha: 1,
         scale: [
           1,
-          {
-            duration: context.theme.animations.emphasizedEntranceDuration,
-            delay: context.theme.animations.emphasizedEntranceDelay,
-            timingFunction: context.theme.animations.emphasizedEntrance
-          }
+          getThemeAnimation('emphasizedEntrance', 'fast')
         ]
       };
     }
@@ -40,11 +37,7 @@ export default function focusRingExtension(Base) {
         alpha: 0,
         scale: [
           this._unfocusedFocusRingScale,
-          {
-            duration: context.theme.animations.emphasizedExitDuration,
-            delay: context.theme.animations.emphasizedExitDelay,
-            timingFunction: context.theme.animations.emphasizedExit
-          }
+          getThemeAnimation('expressiveEntrance', 'xFast')
         ]
       };
     }

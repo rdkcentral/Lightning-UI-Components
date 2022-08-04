@@ -3,7 +3,7 @@ import { default as context } from '../../context';
 import themeManager from '../../context/theme-manager';
 import { updateManager } from '../../utils/GlobalUpdateManager';
 import Style from './Style';
-import { getValFromObjPath, clone } from '../../utils';
+import { clone } from '../../utils';
 
 export default function withThemeStyles(Base, styles = {}) {
   return class extends Base {
@@ -225,11 +225,11 @@ export default function withThemeStyles(Base, styles = {}) {
      * @private
      */
     _generateComponentStyles() {
-      this._componentStyles = {
-        ...this._getInstantiationLevelStyles(), // Level 1
-        ...this._getThemeLevelStyles(), // Level 2
-        ...this._getComponentLevelStyles() // Level 3
-      };
+      // Make sure all values are deep merged
+      this._componentStyles = clone(
+        this._getInstantiationLevelStyles(),
+        clone(this._getThemeLevelStyles(), this._getComponentLevelStyles())
+      );
 
       // Fixes mount issues if height is controled by a component's style alone setters for w/h will set the wSet and hSet flag to block this functionality and allow customization
       if (
@@ -283,23 +283,7 @@ export default function withThemeStyles(Base, styles = {}) {
           this.constructor.__componentName
         )
       ) {
-        const payload = {
-          ...this.theme.componentStyles[this.constructor.__componentName]
-        };
-        for (const style in payload) {
-          const value = payload[style];
-          // Check if the value is a string and if it looks like a theme value
-          if ('string' === typeof value && value.includes('theme.')) {
-            const newValue = getValFromObjPath(this, value);
-            if (newValue) {
-              payload[style] = newValue;
-            } else {
-              // Delete the key since it does not exist and fallback
-              delete payload[style];
-            }
-          }
-        }
-        return payload;
+        return this.theme.componentStyles[this.constructor.__componentName];
       }
       return {};
     }

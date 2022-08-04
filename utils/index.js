@@ -1,4 +1,5 @@
 import lng from '@lightningjs/core';
+import context from '../context';
 
 function simplifyFraction([numerator, denominator]) {
   for (let i = numerator; i > 0; i--) {
@@ -9,9 +10,31 @@ function simplifyFraction([numerator, denominator]) {
 }
 
 /**
+ * @param {string} timingFunction - Target timing function in theme
+ * @param {string} duration - Target duration in theme, will fallback and attempt to use named duration value connected to to timing function if not defined
+ * @param {string} delay - Target delay in theme, will fallback and attempt to use named delay value connected to to timing function if not defined
+ * @return {object} -Object containing timingFunction, duration, and delay
+ */
+export function getThemeAnimation(timingFunction, duration, delay) {
+  return {
+    timingFunction: context.theme.animations[timingFunction],
+    duration: duration
+      ? context.theme.animations[
+          `duration${duration[0].toUpperCase() + duration.substring(1)}`
+        ]
+      : context.theme.animations[`${timingFunction}Duration`],
+    delay: delay
+      ? context.theme.animations[
+          `delay${delay[0].toUpperCase() + delay.substring(1)}`
+        ]
+      : context.theme.animations[`${timingFunction}Delay`]
+  };
+}
+
+/**
  * Reduce a fraction represented as a string
  * @param {string} - a reprentation of a fraction in this format 16/9
- * @returns {string} - a reduced representation of the fraction
+ * @return {string} - a reduced representation of the fraction
  */
 export function reduceFraction(string) {
   return simplifyFraction(string.split('/').map(n => +n)).join('/');
@@ -21,7 +44,7 @@ export function reduceFraction(string) {
  * Gets the value at `path` of `object`.
  * @param {Object} object
  * @param {string|Array} path
- * @returns {*} value if exists else undefined
+ * @return {*} value if exists else undefined
  */
 export const getValFromObjPath = (object, path) => {
   if (typeof path === 'string')
@@ -171,7 +194,7 @@ function getMergeValue(key, target, object) {
  * @param {string} [text.fontFamily=sans-serif] - css font-weight property
  * @param {string} text.fontFace - alias for fontFamily
  *
- * @returns {number} text width
+ * @return {number} text width
  * */
 export function measureTextWidth(text = {}) {
   const canvas = document.createElement('canvas');

@@ -1,4 +1,4 @@
-import { clone } from '../utils';
+import { clone, getValFromObjPath } from '../utils';
 import baseTheme from '../themes/base';
 import { getHexColor, getValidColor } from '../Styles/Colors';
 import logger from './logger';
@@ -227,6 +227,13 @@ export class ThemeManager {
         // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.spacing(). Also supports custom objects with getters and setters
         themeFunctions[key] = value;
         return;
+      } else if ('string' === typeof value && value.includes('theme.')) {
+        const themeValue = getValFromObjPath({ theme }, value);
+        if (themeValue) {
+          return themeValue;
+        } else {
+          return value;
+        }
       } else {
         const validColor = getValidColor(value);
         if (validColor) {

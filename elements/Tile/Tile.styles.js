@@ -1,30 +1,13 @@
 import { processThemeStyles } from '../../mixins';
+import { getThemeAnimation } from '../../utils';
+
 export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    animationEntrance: {
-      delay: theme.animations.emphasizedEntranceDelay,
-      duration: theme.animations.emphasizedEntranceDuration,
-      timingFunction: theme.animations.emphasizedEntrance
-    },
-    animationExit: {
-      delay: theme.animations.emphasizedExitDelay,
-      duration: theme.animations.emphasizedExitDuration,
-      timingFunction: theme.animations.emphasizedExit
-    },
-    artworkStyles: {
-      animationImageScaleEntrance: {
-        delay: theme.animations.emphasizedEntranceDelay,
-        duration: theme.animations.emphasizedEntranceDuration,
-        timingFunction: theme.animations.emphasizedEntrance
-      },
-      animationImageScaleExit: {
-        delay: theme.animations.emphasizedExitDelay,
-        duration: theme.animations.emphasizedExitDuration,
-        timingFunction: theme.animations.emphasizedExit
-      }
-    },
+    animationEntrance: getThemeAnimation('emphasizedEntrance', 'fast'),
+    animationExit: getThemeAnimation('expressiveEntrance', 'fast'),
+    artworkStyles: {},
     badgeStyles: {},
     checkboxStyles: {},
     labelStyles: {},
