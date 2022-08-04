@@ -216,6 +216,7 @@ class Artwork extends Base {
         default:
           imageScale = 1;
       }
+
       this._Image.smooth = {
         pivotX: this._componentStyles.imageScalePivotX,
         pivotY: this._componentStyles.imageScalePivotY,

@@ -32,7 +32,19 @@ export default {
     },
     Tile: {
       artworkStyles: {
-        imageScale: 1.2
+        imageScale: 1.2,
+        animationGradientEntrance: {
+          duration: 'theme.animations.durationXFast'
+        },
+        animationGradientExit: {
+          duration: 'theme.animations.durationXFast'
+        },
+        animationImageScaleEntrance: {
+          duration: 'theme.animations.durationFast'
+        },
+        animationImageScaleExit: {
+          duration: 'theme.animations.durationXFast'
+        }
       }
     },
     Artwork: {

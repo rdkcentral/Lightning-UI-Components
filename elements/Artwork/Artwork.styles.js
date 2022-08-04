@@ -1,42 +1,16 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
+import { getThemeAnimation } from '../../utils';
 export const variantDefault = 'neutral';
+
 export function base(theme) {
   return {
-    animationBlurEntrance: {
-      delay: theme.animations.functionalEntranceDelay,
-      duration: theme.animations.functionalEntranceDuration,
-      timingFunction: theme.animations.functionalEntrance
-    },
-    animationBlurExit: {
-      delay: theme.animations.functionalExitDelay,
-      duration: theme.animations.functionalExitDuration,
-      timingFunction: theme.animations.functionalExit
-    },
-    animationComponentEntrance: {
-      delay: theme.animations.functionalEntranceDelay,
-      duration: theme.animations.functionalEntranceDuration,
-      timingFunction: theme.animations.functionalEntrance
-    },
-    animationGradientEntrance: {
-      delay: theme.animations.functionalEntranceDelay,
-      duration: theme.animations.functionalEntranceDuration,
-      timingFunction: theme.animations.functionalEntrance
-    },
-    animationGradientExit: {
-      delay: theme.animations.functionalExitDelay,
-      duration: theme.animations.functionalExitDuration,
-      timingFunction: theme.animations.functionalExit
-    },
-    animationImageScaleEntrance: {
-      delay: theme.animations.emphasizedStandardDelay,
-      duration: theme.animations.emphasizedStandardDuration,
-      timingFunction: theme.animations.emphasizedStandard
-    },
-    animationImageScaleExit: {
-      delay: theme.animations.functionalExitDelay,
-      duration: theme.animations.functionalExitDuration,
-      timingFunction: theme.animations.functionalExit
-    },
+    animationBlurEntrance: getThemeAnimation('functionalEntrance'),
+    animationBlurExit: getThemeAnimation('functionalExit'),
+    animationComponentEntrance: getThemeAnimation('functionalEntrance'),
+    animationGradientEntrance: getThemeAnimation('functionalEntrance'),
+    animationGradientExit: getThemeAnimation('functionalExit'),
+    animationImageScaleEntrance: getThemeAnimation('emphasizedEntrance'),
+    animationImageScaleExit: getThemeAnimation('expressiveEntrance'),
     blur: 4,
     centerImageRadius: theme.radius.medium,
     fillColor: theme.colors.material,
