@@ -2,7 +2,7 @@ import { clone, getValFromObjPath } from '../utils';
 import baseTheme from '../themes/base';
 import { getHexColor, getValidColor } from '../Styles/Colors';
 import logger from './logger';
-import events from './events';
+
 import { fontLoader, cleanupFonts } from './fonts';
 const merge = {
   all: objArray => {
@@ -19,13 +19,32 @@ export class ThemeManager {
     this._cache = new Map();
   }
 
+  // Handle separate instances of context accross the application and keep them in sync
+  _setCache(key, payload) {
+    window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
+      themeManager._cache.set(key, payload);
+    });
+  }
+
+  _deleteCache(key) {
+    window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
+      themeManager._cache.delete(key);
+    });
+  }
+
+  _emit(key, payload) {
+    window.LUI.themeManagerInstances.forEach(({ events }) => {
+      events.emit(key, payload);
+    });
+  }
+
   getTheme() {
     if (this._cache.has('theme')) {
       return this._cache.get('theme');
     }
 
     const theme = this._processTheme.call(this);
-    this._cache.set('theme', theme);
+    this._setCache('theme', theme);
     return theme;
   }
 
@@ -44,14 +63,14 @@ export class ThemeManager {
 
     this._clearCache();
     const theme = this._processTheme.call(this, [value], value.extensions);
-    this._cache.set('theme', theme);
+    this._setCache('theme', theme);
     await cleanupFonts(theme.fonts);
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
     this._refreshSubThemes();
-    events.emit('themeExtensionsUpdate');
-    events.emit('themeUpdate'); // Notify components that an update cycle is required
+    this._emit('themeExtensionsUpdate');
+    this._emit('themeUpdate'); // Notify components that an update cycle is required
     return theme;
   }
 
@@ -82,11 +101,11 @@ export class ThemeManager {
     const globalTheme = this.getTheme();
     const subTheme = this._processTheme.call(this, [globalTheme, value]);
 
-    this._cache.set(`subTheme${subThemeName}`, {
+    this._setCache(`subTheme${subThemeName}`, {
       original: value,
       result: subTheme
     });
-    if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+    if (triggerUpdate) this._emit(`updateTheme${subThemeName}`);
     return subTheme;
   }
 
@@ -130,20 +149,20 @@ export class ThemeManager {
       [currentTheme, value],
       value.extensions || currentTheme.extensions
     );
-    this._cache.set('theme', theme);
+    this._setCache('theme', theme);
     if (theme.fonts && theme.fonts.length) {
       await this._loadFonts(theme.fonts);
     }
     this._refreshSubThemes();
-    if (value.extensions) events.emit('themeExtensionsUpdate');
-    events.emit('themeUpdate'); // Notify components that an update cycle is required
+    if (value.extensions) this._emit('themeExtensionsUpdate');
+    this._emit('themeUpdate'); // Notify components that an update cycle is required
     return theme;
   }
 
   _clearCache() {
     this._cache.forEach((value, key) => {
       if ('string' !== typeof key || !isSubTheme(key)) {
-        this._cache.delete(key);
+        this._deleteCache(key);
       }
     });
     // Regenerate sub themes
@@ -179,21 +198,21 @@ export class ThemeManager {
       value
     ]);
 
-    this._cache.set(`subTheme${subThemeName}`, {
+    this._setCache(`subTheme${subThemeName}`, {
       original: clone(currentTheme, value),
       result: subTheme
     });
 
-    if (triggerUpdate) events.emit(`updateTheme${subThemeName}`);
+    if (triggerUpdate) this._emit(`updateTheme${subThemeName}`);
 
     return subTheme;
   }
 
   removeSubTheme(subThemeName) {
     if (this._cache.has(`subTheme${subThemeName}`)) {
-      this._cache.delete(`subTheme${subThemeName}`);
+      this._deleteCache(`subTheme${subThemeName}`);
     }
-    events.emit(`updateTheme${subThemeName}`);
+    this._emit(`updateTheme${subThemeName}`);
   }
 
   _getComponentUUID(id) {
@@ -247,7 +266,7 @@ export class ThemeManager {
   }
 
   setComponentInstantiationStyles(constructor, payload) {
-    this._cache.set(constructor, payload);
+    this._setCache(constructor, payload);
   }
 
   getComponentInstantiationStyles(constructor) {
@@ -258,12 +277,12 @@ export class ThemeManager {
   }
 
   resetComponentInstantiationStyles(constructor) {
-    this._cache.delete(constructor);
+    this._deleteCache(constructor);
   }
 
   setComponentLevelStyles(id, payload) {
     const uuid = this._getComponentUUID(id);
-    this._cache.set(uuid, payload);
+    this._setCache(uuid, payload);
   }
 
   getComponentLevelStyles(id) {
@@ -276,7 +295,7 @@ export class ThemeManager {
 
   resetComponentLevelStyles(id) {
     const uuid = this._getComponentUUID(id);
-    this._cache.delete(uuid);
+    this._deleteCache(uuid);
   }
 }
 
