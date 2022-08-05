@@ -10,6 +10,7 @@ import themeManager from './theme-manager';
 export class Context {
   constructor() {
     /** Different projects may have multiple instances of LUI - Store references to keep everything in sync */
+    if (!window) return;
     if (!window.LUI) {
       window.LUI = {};
     }
