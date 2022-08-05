@@ -63,10 +63,20 @@ describe('InlineContent', () => {
     expect(inlineContent.justify).toBe(justify);
   });
 
-  it('should update icon size', () => {
+  it('should update icon size, position, and color', () => {
     const iconSize = 50;
-    inlineContent.iconW = iconSize;
-    inlineContent.iconH = iconSize;
+    [inlineContent] = createInlineContent({
+      content: [
+        {
+          title: 'setting',
+          icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+          color: getHexColor('00ff00')
+        }
+      ],
+      iconY: 10,
+      iconW: iconSize,
+      iconH: iconSize
+    });
     expect(inlineContent.iconW).toBe(iconSize);
     expect(inlineContent.iconH).toBe(iconSize);
   });
@@ -93,6 +103,58 @@ describe('InlineContent', () => {
     });
     expect(inlineContent.badgeProperties).toBe(badgeProperties);
     expect(inlineContent.childList.getAt(0).background.color).toBe(color);
+  });
+
+  it('should vertically center a badge once it has loaded based on textHeight', async done => {
+    const content = [
+      'This is a badge: ',
+      {
+        badge: 'HD',
+        title: 'HD'
+      }
+    ];
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        content,
+        contentProperties: { marginBottom: -2 },
+        textProperties: { lineHeight: 150 }
+      },
+      {
+        spyOnMethods: ['$loadedBadge']
+      }
+    );
+    expect(inlineContent.childList.last.y).toBe(0);
+    testRenderer.forceAllUpdates();
+    await inlineContent._$loadedBadge;
+    await TestUtils.nextTick();
+    expect(inlineContent.childList.last.y).toBeGreaterThan(0);
+    done();
+  });
+
+  it('should vertically center a badge once it has loaded based on lineHeight', async done => {
+    const content = [
+      'This is a badge: ',
+      {
+        badge: 'HD',
+        title: 'HD'
+      }
+    ];
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        content,
+        contentProperties: { marginBottom: 20 },
+        textProperties: { lineHeight: 150 }
+      },
+      {
+        spyOnMethods: ['$loadedBadge']
+      }
+    );
+    expect(inlineContent.childList.last.y).toBe(0);
+    testRenderer.forceAllUpdates();
+    await inlineContent._$loadedBadge;
+    await TestUtils.nextTick();
+    expect(inlineContent.childList.last.y).toBeGreaterThan(0);
+    done();
   });
 
   it('should render text with custom properties', () => {
@@ -122,6 +184,20 @@ describe('InlineContent', () => {
     const content = [{ test: 'blah' }, { fake: 'stuff' }];
     [inlineContent, testRenderer] = createInlineContent({ content });
     expect(inlineContent.childList.length).toBe(0);
+  });
+
+  it('should notifiy ancestors after content has loaded', async () => {
+    [inlineContent, testRenderer] = createInlineContent(
+      {},
+      { spyOnMethods: ['_notifyAncestors'] }
+    );
+    await inlineContent.__notifyAncestorsSpyPromise;
+    jest.spyOn(inlineContent, 'fireAncestors');
+    jest.spyOn(inlineContent, 'signal');
+    expect(inlineContent.fireAncestors).not.toHaveBeenCalled();
+    inlineContent.content = [{ text: 'some text' }];
+    await inlineContent.__notifyAncestorsSpyPromise;
+    expect(inlineContent.fireAncestors).toHaveBeenCalled();
   });
 
   it('should build announce text from the content array', () => {
@@ -201,5 +277,35 @@ describe('InlineContent', () => {
 
     testRenderer.update();
     expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
+  });
+
+  it('should fire signals to parent components after content has loaded', async () => {
+    [inlineContent, testRenderer] = createInlineContent(
+      {},
+      { spyOnMethods: ['_notifyAncestors'] }
+    );
+
+    await inlineContent.__notifyAncestorsPromiseSpy;
+
+    jest.spyOn(inlineContent, 'fireAncestors');
+    jest.spyOn(inlineContent, 'signal');
+    inlineContent.patch({ content: [{ text: 'text' }] });
+    testRenderer.forceAllUpdates();
+    testRenderer.update();
+
+    await TestUtils.nextTick(20);
+    await inlineContent.__notifyAncestorsPromiseSpy;
+
+    expect(inlineContent.finalW).toBeGreaterThan(0);
+    expect(inlineContent.multiLineHeight).toBeGreaterThan(0);
+    expect(inlineContent.fireAncestors).toHaveBeenCalledWith(
+      '$loadedInlineContent',
+      inlineContent
+    );
+    expect(inlineContent.signal).toHaveBeenCalledWith(
+      'loadedInlineContent',
+      inlineContent.finalW,
+      inlineContent.multiLineHeight
+    );
   });
 });

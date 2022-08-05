@@ -2,6 +2,9 @@ import lng from '@lightningjs/core';
 import TextBox from '.';
 import mdx from './TextBox.mdx';
 import { TYPOGRAPHY } from '../../Styles';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import { getHexColor } from '../../Styles/Colors';
+import inlineContentStory from '../../layout/InlineContent/InlineContent.stories';
 
 export default {
   title: 'Elements / TextBox',
@@ -11,6 +14,9 @@ export default {
     }
   }
 };
+
+const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =
+  inlineContentStory;
 
 const lorum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales est eu eleifend interdum. Vivamus egestas maximus elementum. Sed condimentum ligula justo, non sollicitudin lectus rutrum vel. Integer iaculis vitae nisl quis tincidunt. Sed quis dui vehicula, vehicula felis a, tempor leo. Fusce tincidunt, ante eget pretium efficitur, libero elit volutpat quam, sit amet porta tortor odio non ligula. Ut sed dolor eleifend massa auctor porttitor eget ut lectus. Vivamus elementum lorem mauris, eu luctus tortor posuere sit amet. Nunc a interdum metus.';
@@ -136,3 +142,70 @@ Base.argTypes = {
     }
   }
 };
+
+export const WithInlineContentArray = () =>
+  class WithInlineContentArray extends lng.Component {
+    static _template() {
+      return {
+        TextBox: {
+          type: TextBox,
+          x: 200,
+          w: 400,
+          content: [
+            'Text',
+            {
+              icon: lightningbolt,
+              color: getHexColor('00ff00'),
+              title: 'Green Lightning Bolt'
+            },
+            'Wrapping Text',
+            {
+              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              title: 'Rotten Tomatoes rating'
+            },
+            'and more text',
+            {
+              text: 'with some red ',
+              style: { textColor: getHexColor('FF6194') }
+            },
+            'for fun',
+            { badge: 'HD', title: 'HD' },
+            { badge: 'SD', title: 'SD' }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('TextBox');
+    }
+  };
+WithInlineContentArray.args = inlineContentArgs;
+WithInlineContentArray.argTypes = inlineContentArgTypes;
+
+export const WithInlineContentString = () =>
+  class WithInlineContentArray extends lng.Component {
+    static _template() {
+      return {
+        TextBox: {
+          type: TextBox,
+          w: 400,
+          content:
+            'This is an example of using custom markup {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.',
+          textStyles: {
+            italic: {
+              fontStyle: 'italic',
+              textColor: getHexColor('FF6194')
+            }
+          }
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('TextBox');
+    }
+  };
+
+WithInlineContentString.args = inlineContentArgs;
+WithInlineContentString.argTypes = inlineContentArgTypes;

@@ -293,6 +293,37 @@ describe('TextBox', () => {
     done();
   });
 
+  it('should parse an array of content and render as InlineContent', async () => {
+    const content = [
+      'Text',
+      {
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+        title: 'Rotten Tomatoes rating'
+      },
+      { badge: 'HD', title: 'HD' },
+      { badge: 'SD', title: 'SD' }
+    ];
+    [element, testRenderer] = createElement(
+      { content },
+      { spyOnMethods: ['_update'] }
+    );
+    await element.__updateSpyPromise;
+    expect(element._isInlineContent).toBe(true);
+    expect(element._InlineContent.content).toBe(content);
+  });
+
+  it('should parse a string with markup and render as InlineContent', async () => {
+    const content =
+      'Example {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes {TEXT:styled text|italic}.';
+    [element, testRenderer] = createElement(
+      { content },
+      { spyOnMethods: ['_update'] }
+    );
+    await element.__updateSpyPromise;
+    expect(element._isInlineContent).toBe(true);
+    expect(element._InlineContent.content).toBe(content);
+  });
+
   it('should announce its content', async () => {
     const content = 'Hello world';
     [element, testRenderer] = createElement({ content });

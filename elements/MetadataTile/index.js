@@ -116,72 +116,13 @@ export default class MetadataTile extends withStyles(Base, styles) {
     }
   }
 
-  _updateLines() {
-    this._linesArray.forEach(line => {
-      line.component.patch({
-        justify: this._justify,
-        content: line.content,
-        textProperties: line.textProps
-      });
-      if (line.marquee) {
-        line.marquee.patch({
-          ...this._marqueeProperties,
-          w: this._textW,
-          contentTexture: line.component.getTexture()
-        });
-        line.marquee.smooth = { alpha: line.content ? 1 : 0 };
-        this._updateMarquee(line.marquee);
-      } else {
-        this._updateShader(line);
-      }
-      line.wrapper.visible = line.content ? true : false;
-    });
-  }
-
-  get _linesArray() {
-    return [this._firstLineObject, this._secondLineObject];
-  }
-
-  get _firstLineObject() {
-    return {
-      wrapper: this._FirstLineWrapper,
-      component: this._FirstLine,
-      marquee: this._FirstLineMarquee,
-      content: this.firstLine,
-      textProps: this.firstLineTextProperties
-    };
-  }
-
-  get _secondLineObject() {
-    return {
-      wrapper: this._SecondLineWrapper,
-      component: this._SecondLine,
-      content: this.secondLine,
-      textProps: this.secondLineTextProperties
-    };
-  }
-
-  _updateMarquee(marquee) {
-    if (this.hasFocus()) {
-      marquee.startScrolling && marquee.startScrolling(this._textW);
+  _resolveSubtitle({ h }) {
+    this._subtitlePromiseResolver && this._subtitlePromiseResolver();
+    if (this.subtitle && !this.description) {
+      this._SubtitleWrapper.h = h;
+      this._SubtitleWrapper.alpha = 1;
     } else {
-      marquee.stopScrolling && marquee.stopScrolling(this._textW);
-    }
-  }
-
-  _updateShader(line) {
-    if (line.component.finalW > this._textW) {
-      line.wrapper.patch({
-        w: this._textW + this.fadeWidth / 2,
-        shader: {
-          type: FadeShader,
-          positionLeft: 0,
-          positionRight: this.fadeWidth
-        },
-        rtt: true
-      });
-    } else {
-      line.wrapper.shader = undefined;
+      this._SubtitleWrapper.h = 0;
     }
   }
   set announce(announce) {

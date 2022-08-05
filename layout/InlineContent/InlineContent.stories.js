@@ -10,8 +10,69 @@ export default {
   args: {
     contentSpacing: 8,
     contentWrap: false,
-    justify: 'flex-start',
+    justify: 'center',
     contentProperties: { marginBottom: -4 }
+  },
+  argTypes: {
+    loaded: {
+      action: 'Inline Content textures loaded',
+      description: 'action fired when $loadedInlineContent has been called'
+    },
+    contentSpacing: {
+      control: {
+        type: 'number',
+        min: 0,
+        step: 1
+      },
+      defaultValue: 8,
+      description: 'padding between all content items',
+      type: 'string',
+      table: {
+        defaultValue: { summary: 8 }
+      }
+    },
+    contentProperties: {
+      control: {
+        type: 'object'
+      },
+      defaultValue: { marginBottom: -4 },
+      description: 'object setting flexItem props on all content items',
+      type: 'object',
+      table: {
+        defaultValue: {
+          summary: '{ marginBottom: -4 }'
+        }
+      }
+    },
+    contentWrap: {
+      control: 'boolean',
+      defaultValue: false,
+      description:
+        'determines whether the containing flexbox should wrap the content onto the next line',
+      type: 'boolean',
+      table: {
+        defaultValue: { summary: false }
+      }
+    },
+    justify: {
+      control: {
+        type: 'radio',
+        options: [
+          'flex-start',
+          'flex-end',
+          'center',
+          'space-between',
+          'space-around',
+          'space-evenly'
+        ]
+      },
+      defaultValue: 'center',
+      description: 'alignment of first line flexbox content',
+      type: 'string',
+      table: {
+        defaultValue: { summary: 'center' }
+      }
+    }
   },
   parameters: {
     docs: {
@@ -53,11 +114,26 @@ export const Basic = args =>
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
           ]
-        },
-        InlineContentWithNewLines: {
+        }
+      };
+    }
+
+    $loadedInlineContent() {
+      args.loaded();
+    }
+
+    _getFocused() {
+      return this.tag('InlineContent');
+    }
+  };
+
+export const WithNewLines = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        InlineContent: {
           type: InlineContent,
           x: 200,
-          y: 300,
           w: 400,
           contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
@@ -83,11 +159,26 @@ export const Basic = args =>
             { newline: true },
             { badge: 'SD', title: 'SD' }
           ]
-        },
-        InlineContentWithParsing: {
+        }
+      };
+    }
+
+    $loadedInlineContent() {
+      args.loaded();
+    }
+
+    _getFocused() {
+      return this.tag('InlineContent');
+    }
+  };
+
+export const WithParsing = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        InlineContent: {
           type: InlineContent,
           x: 200,
-          y: 550,
           w: 400,
           contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
@@ -113,22 +204,3 @@ export const Basic = args =>
       return this.tag('InlineContent');
     }
   };
-Basic.argTypes = {
-  loaded: { action: 'Inline Content textures loaded' },
-  contentSpacing: { control: { type: 'number', min: 0, step: 1 } },
-  contentProperties: { control: { type: 'object' } },
-  contentWrap: { control: 'boolean' },
-  justify: {
-    control: {
-      type: 'radio',
-      options: [
-        'flex-start',
-        'flex-end',
-        'center',
-        'space-between',
-        'space-around',
-        'space-evenly'
-      ]
-    }
-  }
-};
