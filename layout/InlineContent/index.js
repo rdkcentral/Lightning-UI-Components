@@ -1,11 +1,11 @@
-import withStyles from '../../mixins/withStyles';
+import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
 import Icon from '../../elements/Icon';
 import Badge from '../../elements/Badge';
 import { parseInlineContent, flatten } from '../../utils';
-import Base from '../../elements/Base';
+import Base from '../../Base';
 import styles from './InlineContent.styles';
 
-export default class InlineContent extends withStyles(Base, styles) {
+class InlineContent extends withStyles(Base, styles) {
   static get properties() {
     return [
       'content',
@@ -24,44 +24,42 @@ export default class InlineContent extends withStyles(Base, styles) {
     ];
   }
 
+  static get __componentName() {
+    return 'InlineContent';
+  }
+
   _construct() {
     super._construct();
-    this._justify = this.styles.justify;
-    this._iconW = this.styles.iconW;
-    this._iconH = this.styles.iconH;
-    this._iconY = this.styles.iconY;
-    this._textY = this.styles.textY !== undefined ? this.styles.textY : 0;
-    this._badgeY = this.styles.badgeY;
-    this._contentSpacing = this.styles.contentSpacing;
-    this._textProperties = this.styles.textProperties;
-    this._badgeProperties = this.styles.badgeProperties;
-    this._contentProperties = this.styles.contentProperties;
-    this._textStyles = {};
   }
 
   _update() {
+    this._updateContent();
+    this._waitForComponentLoad();
+  }
+
+  _updateContent() {
     this.childList.clear();
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
         flex: {
           direction: 'row',
-          wrap: this._contentWrap,
-          justifyContent: this._justify
+          wrap: !!this.contentWrap,
+          justifyContent:
+            this.justify != undefined
+              ? this.justify
+              : this._componentStyles.justify
         }
       });
 
       this._parsedContent.forEach((item, index) => {
+        const isLast = index === this._parsedContent.length - 1;
         const base = {
           flexItem: {
             ...this.contentProperties,
-            marginBottom:
-              index === this._parsedContent.length - 1
-                ? 0
-                : this._contentProperties.marginBottom,
-            marginRight:
-              index === this._parsedContent.length - 1
-                ? 0
-                : this.contentSpacing || this.contentProperties.marginRight
+            marginBottom: isLast ? 0 : this._marginBottom,
+            marginRight: isLast
+              ? 0
+              : this.contentSpacing || this.contentProperties.marginRight
           }
         };
         if (typeof item === 'string' || item.text) {
@@ -78,7 +76,6 @@ export default class InlineContent extends withStyles(Base, styles) {
         }
       });
     }
-    this._waitForComponentLoad();
   }
 
   _waitForComponentLoad() {
@@ -92,6 +89,11 @@ export default class InlineContent extends withStyles(Base, styles) {
       this.h = 0;
       this._contentLoaded();
     }
+  }
+
+  _notifyAncestors() {
+    this.fireAncestors('$loadedInlineContent', this);
+    this.signal('loadedInlineContent', this.finalW, this.multiLineHeight);
   }
 
   _contentLoaded() {
@@ -108,13 +110,13 @@ export default class InlineContent extends withStyles(Base, styles) {
         ) {
           this.multiLineHeight =
             this.finalH * this.flex._layout._lineLayouter._lines.length;
-          this.fireAncestors('$loadedInlineContent', this);
+          this._notifyAncestors();
         } else {
           this._contentLoaded();
         }
       }, 10);
     } else {
-      this.fireAncestors('$loadedInlineContent', this);
+      this._notifyAncestors();
     }
   }
 
@@ -122,13 +124,13 @@ export default class InlineContent extends withStyles(Base, styles) {
     const y =
       (this.textHeight > this.textProperties.lineHeight
         ? this.textHeight
-        : this.textProperties.lineHeight) - this.iconH;
+        : this.textProperties.lineHeight) - this._componentStyles.iconH;
     const iconObj = {
       ...base,
       type: Icon,
       y: this.iconY !== undefined ? this.iconY : y,
-      w: this.iconW,
-      h: this.iconH,
+      w: this.iconW !== undefined ? this.iconW : this._componentStyles.iconW,
+      h: this.iconH !== undefined ? this.iconH : this._componentStyles.iconH,
       icon
     };
     if (color) {
@@ -142,7 +144,7 @@ export default class InlineContent extends withStyles(Base, styles) {
       typeof text.style === 'string' ? this.textStyles[text.style] : text.style;
     const textObj = {
       ...base,
-      y: this.textY,
+      y: this.textY !== undefined ? this.textY : this._componentStyles.textY,
       h: this.textHeight,
       text: {
         ...this.textProperties,
@@ -150,18 +152,7 @@ export default class InlineContent extends withStyles(Base, styles) {
         text: text.text || text
       }
     };
-
     return textObj;
-  }
-
-  get textHeight() {
-    const offset =
-      this.contentProperties.marginBottom < 0
-        ? this.contentProperties.marginBottom
-        : 0;
-    return (
-      (this.textProperties.lineHeight || this.textProperties.fontSize) - offset
-    );
   }
 
   _createBadge(base, badge) {
@@ -181,30 +172,6 @@ export default class InlineContent extends withStyles(Base, styles) {
           ? this.textHeight
           : this.textProperties.lineHeight) - badge.h;
     }
-  }
-  set announce(announce) {
-    super.announce = announce;
-  }
-
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-    const announce =
-      this._parsedContent &&
-      this._parsedContent.reduce((announce, item) => {
-        if (typeof item === 'string') {
-          announce += item;
-        } else if (item.text) {
-          announce += item.text;
-        } else if (item.title) {
-          announce += item.title;
-        } else if (item.badge) {
-          announce += item.badge;
-        }
-        return announce + ' ';
-      }, '');
-    return announce ? announce.replace(/\s+(?=\s)|\s$/g, '') : '';
   }
 
   /**
@@ -241,4 +208,93 @@ export default class InlineContent extends withStyles(Base, styles) {
     }
     return content;
   }
+
+  _setBadgeProperties(badgeProperties) {
+    if (typeof badgeProperties === 'object') {
+      return badgeProperties;
+    }
+  }
+
+  _getBadgeProperties() {
+    return this._badgeProperties || {};
+  }
+
+  _setContentProperties(contentProperties) {
+    if (typeof contentProperties === 'object') {
+      return contentProperties;
+    }
+  }
+
+  _getContentProperties() {
+    return this._contentProperties || {};
+  }
+
+  _setTextStyles(textStyles) {
+    if (typeof textStyles === 'object') {
+      return textStyles;
+    }
+  }
+
+  _getTextStyles() {
+    return this._textStyles || {};
+  }
+
+  _getTextProperties() {
+    return this._textProperties != undefined
+      ? this._textProperties
+      : {
+          maxLines: this._componentStyles.maxLines,
+          ...this._componentStyles.textProperties
+        };
+  }
+
+  _getContentSpacing() {
+    return this._contentSpacing != undefined
+      ? this._contentSpacing
+      : this._componentStyles.contentSpacing;
+  }
+
+  get textHeight() {
+    const offset = this._marginBottom < 0 ? this._marginBottom : 0;
+    return (
+      (this.textProperties.lineHeight || this.textProperties.fontSize) - offset
+    );
+  }
+
+  get _marginBottom() {
+    if (this.contentProperties.marginBottom) {
+      return this.contentProperties.marginBottom;
+    }
+    if (this._componentStyles.marginBottom) {
+      return this._componentStyles.marginBottom;
+    }
+    return 0;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+    const announce =
+      this._parsedContent &&
+      this._parsedContent.reduce((announce, item) => {
+        if (typeof item === 'string') {
+          announce += item;
+        } else if (item.text) {
+          announce += item.text;
+        } else if (item.title) {
+          announce += item.title;
+        } else if (item.badge) {
+          announce += item.badge;
+        }
+        return announce + ' ';
+      }, '');
+    return announce ? announce.replace(/\s+(?=\s)|\s$/g, '') : '';
+  }
 }
+
+export default withExtensions(InlineContent);

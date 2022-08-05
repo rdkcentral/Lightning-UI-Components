@@ -158,6 +158,7 @@ class Badge extends Base {
     } else {
       this._Icon.x = this._componentStyles.paddingX;
     }
+    this.fireAncestors('$loadedBadge', this);
     this._BadgeText.y = this.h / 2; // Set new alignment for badge text
   }
 

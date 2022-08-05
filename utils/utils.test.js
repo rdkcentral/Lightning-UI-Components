@@ -7,6 +7,7 @@ import {
   clone,
   getFirstNumber,
   parseInlineContent,
+  isMarkupString,
   getDimension,
   flatten
 } from '.';
@@ -245,6 +246,18 @@ describe('parseInlineContent', () => {
       { badge: 'HD' },
       ' badge test.'
     ]);
+  });
+});
+
+describe('isMarkupString', () => {
+  it('should return true if a string contains markup syntax', () => {
+    const markupString =
+      'An {ICON:settings|./assets/icons/settings.png} icon, {BADGE:HD} badge with a{NEWLINE}, and {TEXT:red text|red}.';
+    expect(isMarkupString(markupString)).toBe(true);
+  });
+  it('should return false if a string does not contain markup syntax', () => {
+    const string = 'An icon, badge, and text.';
+    expect(isMarkupString(string)).toBe(false);
   });
 });
 

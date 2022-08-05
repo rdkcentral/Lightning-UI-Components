@@ -1,6 +1,5 @@
 import Base from '../../Base';
 import Icon from '../Icon';
-import InlineContent from '../../layout/InlineContent';
 import TextBox from '../TextBox';
 import { FadeShader } from '../../textures';
 import withStyles from '../../mixins/withThemeStyles';
@@ -24,7 +23,10 @@ class Metadata extends Base {
         },
         SubtitleWrapper: {
           Subtitle: {
-            type: InlineContent
+            type: TextBox,
+            signals: {
+              textBoxChanged: '_resolveSubtitle'
+            }
           }
         },
         Description: {
@@ -210,11 +212,10 @@ class Metadata extends Base {
     this._titlePromiseResolver && this._titlePromiseResolver();
   }
 
-  // TODO: swap out for signal when InlineContent is refactored
-  $loadedInlineContent() {
+  _resolveSubtitle({ h }) {
     this._subtitlePromiseResolver && this._subtitlePromiseResolver();
     if (this.subtitle) {
-      this._SubtitleWrapper.h = this._Subtitle.multiLineHeight;
+      this._SubtitleWrapper.h = h;
       this._SubtitleWrapper.alpha = 1;
     } else {
       this._SubtitleWrapper.h = 0;

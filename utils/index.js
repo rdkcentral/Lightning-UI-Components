@@ -1,6 +1,8 @@
 import lng from '@lightningjs/core';
 import context from '../context';
 
+const MARKUP_STRING_PATTERN = /({ICON.*?}|{BADGE:.*?}|{NEWLINE}|{TEXT:.*?})/g;
+
 function simplifyFraction([numerator, denominator]) {
   for (let i = numerator; i > 0; i--) {
     if (!(numerator % i) && !(denominator % i)) {
@@ -253,13 +255,12 @@ export function parseInlineContent(str = '') {
   const content = [];
   if ((str && typeof str === 'string') || str.text) {
     const string = typeof str === 'string' ? str : str.text;
-    const regex = /({ICON.*?}|{BADGE:.*?}|{NEWLINE}|{TEXT:.*?})/g;
     const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
     const badgeRegEx = /^{BADGE:(.*?)}$/g;
     const newlineRegEx = /^{NEWLINE}$/g;
     const textRegEx = /^{TEXT:(.*?)?\|(.*?)?}$/g;
 
-    const splitStr = string.split(regex);
+    const splitStr = string.split(MARKUP_STRING_PATTERN);
 
     if (splitStr && splitStr.length) {
       splitStr.forEach(item => {
@@ -283,6 +284,13 @@ export function parseInlineContent(str = '') {
     }
   }
   return content;
+}
+
+export function isMarkupString(str = '') {
+  if (typeof str !== 'string') {
+    return false;
+  }
+  return MARKUP_STRING_PATTERN.test(str);
 }
 
 /**

@@ -1,6 +1,8 @@
 import Base from '../../Base';
 import styles from './TextBox.styles';
 import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import { InlineContent } from '../../layout';
+import { isMarkupString } from '../../utils';
 import { getValidColor } from '../../Styles';
 
 class TextBox extends Base {
@@ -18,7 +20,7 @@ class TextBox extends Base {
   }
 
   static get tags() {
-    return ['TextBox', 'Text'];
+    return ['TextBox', 'Text', 'InlineContent'];
   }
 
   static get properties() {
@@ -31,7 +33,8 @@ class TextBox extends Base {
       'maxLinesSuffix',
       'verticalAlign',
       'wordWrap',
-      'wordWrapWidth'
+      'wordWrapWidth',
+      ...InlineContent.properties
     ];
   }
 
@@ -57,7 +60,11 @@ class TextBox extends Base {
   }
 
   _setContent(content) {
-    if ('string' !== typeof content) {
+    this._isInlineContent = false;
+    if (Array.isArray(content) || isMarkupString(content)) {
+      this._isInlineContent = true;
+    }
+    if ('string' !== typeof content && !this._isInlineContent) {
       return '';
     }
     return content;
@@ -122,12 +129,9 @@ class TextBox extends Base {
     return this._content;
   }
 
-  _notifyAncestors() {
+  _notifyAncestors(w = this.w, h = this.h) {
     this.fireAncestors('$itemChanged');
-    this.signal('textBoxChanged', {
-      w: this.w,
-      h: this.h
-    });
+    this.signal('textBoxChanged', { w, h });
   }
 
   _update() {
@@ -137,6 +141,31 @@ class TextBox extends Base {
       this._notifyAncestors(); // need to alert parents that the width and height are now 0
       return;
     }
+    if (this._isInlineContent) {
+      const inlineContentPatch = InlineContent.properties.reduce(
+        (acc, prop) => {
+          if (this[prop] != undefined) {
+            acc[prop] = this[prop];
+          }
+          return acc;
+        },
+        {}
+      );
+      this.patch({
+        alpha: 1,
+        visible: true,
+        InlineContent: {
+          w: this.w,
+          type: InlineContent,
+          ...inlineContentPatch,
+          signals: {
+            loadedInlineContent: '_notifyAncestors'
+          }
+        }
+      });
+      return;
+    }
+
     this.visible = true;
     const textStyle = {
       ...this._componentStyles.textStyle,
