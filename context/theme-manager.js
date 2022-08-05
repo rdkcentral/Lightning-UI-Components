@@ -21,18 +21,21 @@ export class ThemeManager {
 
   // Handle separate instances of context accross the application and keep them in sync
   _setCache(key, payload) {
+    if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
       themeManager._cache.set(key, payload);
     });
   }
 
   _deleteCache(key) {
+    if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
       themeManager._cache.delete(key);
     });
   }
 
   _emit(key, payload) {
+    if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ events }) => {
       events.emit(key, payload);
     });
