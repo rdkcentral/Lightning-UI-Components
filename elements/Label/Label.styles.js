@@ -5,13 +5,13 @@ export const variantDefault = 'neutral';
 export function base(theme) {
   return {
     radius: [
-      theme.radius.medium,
-      theme.radius.medium,
-      theme.radius.medium,
+      theme.radius.md,
+      theme.radius.md,
+      theme.radius.md,
       theme.radius.none
     ],
-    paddingX: theme.spacing(2),
-    paddingY: theme.spacing(1),
+    paddingX: theme.spacer.lg,
+    paddingY: theme.spacer.md,
     textStyle: 'caption'
   };
 }

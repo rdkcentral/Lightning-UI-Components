@@ -4,7 +4,7 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    itemSpacing: theme.layout.gutterX.xsmall,
+    itemSpacing: theme.layout.gutterX.xs,
     scrollIndex: 0,
     alwaysScroll: false,
     neverScroll: false,

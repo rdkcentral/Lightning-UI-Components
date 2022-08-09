@@ -428,11 +428,11 @@ export const TypographyAndColors = () => {
                     },
                     RadiusXSmall: {
                       type: Radius,
-                      radiusName: 'xsmall'
+                      radiusName: 'xs'
                     },
                     RadiusSmall: {
                       type: Radius,
-                      radiusName: 'small'
+                      radiusName: 'sm'
                     }
                   }
                 },
@@ -442,15 +442,15 @@ export const TypographyAndColors = () => {
                   Items: {
                     RadiusMedium: {
                       type: Radius,
-                      radiusName: 'medium'
+                      radiusName: 'md'
                     },
                     RadiusLarge: {
                       type: Radius,
-                      radiusName: 'large'
+                      radiusName: 'lg'
                     },
                     RadiusXLarge: {
                       type: Radius,
-                      radiusName: 'xlarge'
+                      radiusName: 'xl'
                     }
                   }
                 }
@@ -464,12 +464,12 @@ export const TypographyAndColors = () => {
             SpacingBase: {
               type: MiscProp,
               propName: 'spacing-base',
-              propPath: ['layout', 'spacingBase']
+              propPath: ['spacer', 'md']
             },
             FocusScale: {
               type: MiscProp,
               propName: 'focus-scale',
-              propPath: ['layout', 'focusScaleMultiplier']
+              propPath: ['layout', 'focusScale']
             }
           }
         }

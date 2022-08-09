@@ -1,11 +1,21 @@
-export const layout = {
-  focusScaleMultiplier: 1.08,
-  gutterXMultiplier: 3,
-  gutterYMultiplier: 3,
-  marginXMultiplier: 12,
-  marginYMultiplier: 12,
-  safeMultiplier: 6,
-  utilityMultiplier: 8,
-  spacingBase: 8,
-  columnCount: 12
+export default {
+  columnCount: 12,
+  marginX: 96,
+  marginY: 96,
+  safe: 48,
+  gutterX: {
+    xs: 24,
+    sm: 48,
+    md: 72,
+    lg: 96,
+    xl: 120
+  },
+  gutterY: {
+    xs: 24,
+    sm: 48,
+    md: 72,
+    lg: 96,
+    xl: 120
+  },
+  focusScale: 1.08
 };

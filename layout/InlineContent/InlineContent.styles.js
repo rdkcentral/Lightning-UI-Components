@@ -3,9 +3,9 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 export function base(theme) {
   return {
     textY: 0,
-    iconW: theme.spacing(4.5),
-    iconH: theme.spacing(4.5),
-    contentSpacing: theme.spacing(1),
+    iconW: theme.spacer.xxl + theme.spacer.xs,
+    iconH: theme.spacer.xxl + theme.spacer.xs,
+    contentSpacing: theme.spacer.md,
     marginBottom: theme.typography.body1.lineHeight / -10,
     textProperties: theme.typography.body1,
     maxLines: 1,

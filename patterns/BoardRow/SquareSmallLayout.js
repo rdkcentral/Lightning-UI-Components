@@ -1,11 +1,11 @@
-import { calculateColumnWidth } from '../../Styles';
-
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import Column from '../../layout/Column';
+import { getWidthByUpCount } from '../../utils';
+
 export default class SquareSmallLayout extends BaseLayout {
   static get _cardWidth() {
-    return calculateColumnWidth(8);
+    return getWidthByUpCount(8);
   }
 
   static get _cardHeight() {

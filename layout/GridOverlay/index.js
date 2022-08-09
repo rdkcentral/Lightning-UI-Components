@@ -5,6 +5,7 @@ import context from '../../context';
 import Column from '../Column';
 import Row from '../Row';
 import TextBox from '../../elements/TextBox';
+import { getWidthByColumnSpan } from '../../utils';
 
 class Spacer extends Base {
   static __componentName() {
@@ -204,7 +205,7 @@ class GridOverlay extends Base {
   }
 
   _updateGlobalThemeProps() {
-    const { layout, calculateColumnWidth, colors } = context.theme;
+    const { layout, colors } = context.theme;
     const {
       screenW,
       screenH,
@@ -222,10 +223,8 @@ class GridOverlay extends Base {
     this._marginX = marginX;
     this._marginY = marginY;
     this._safe = safe;
-    this._gutterX = gutterX.xsmall;
-    this._gutterY = gutterY.xsmall;
-
-    this._calculateColumnWidth = calculateColumnWidth;
+    this._gutterX = gutterX.xs;
+    this._gutterY = gutterY.xs;
 
     this._columnColor = colors.interactiveNeutralFocusSoft;
     this._marginColor = colors.green;
@@ -281,7 +280,7 @@ class GridOverlay extends Base {
   get _columnRects() {
     return Array.apply(null, { length: this._columnCount }).map(() => ({
       rect: true,
-      w: this._calculateColumnWidth(this._columnCount),
+      w: getWidthByColumnSpan(1),
       h: this._screenH,
       color: this._columnColor
     }));
@@ -302,8 +301,7 @@ class GridOverlay extends Base {
     const prop = 'Property';
     const val = 'Value';
 
-    this._TextPanel.x =
-      this._screenW - this._marginX - this._calculateColumnWidth(4);
+    this._TextPanel.x = this._screenW - this._marginX - getWidthByColumnSpan(3);
     this._TextPanel.y = this._safe;
 
     this._TextScreenW.Items.tag(prop).content = 'Screen Width';
@@ -315,7 +313,7 @@ class GridOverlay extends Base {
     this._TextColumnCount.Items.tag(prop).content = 'Columns';
     this._TextColumnCount.Items.tag(val).content = `${
       this._columnCount
-    }, ${Math.round(this._calculateColumnWidth(this._columnCount))}px each`;
+    }, ${Math.round(getWidthByColumnSpan(1))}px each`;
 
     this._TextMarginX.Items.tag(prop).content = 'Margin-X';
     this._TextMarginX.Items.tag(prop).textColor = this._marginColor;

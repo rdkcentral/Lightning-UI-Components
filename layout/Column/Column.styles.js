@@ -4,7 +4,7 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    itemSpacing: theme.layout.gutterY.xsmall,
+    itemSpacing: theme.layout.gutterY.xs,
     scrollIndex: 0,
     itemTransition: {
       timingFunction: theme.animations.expressiveEntrance,

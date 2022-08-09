@@ -3,12 +3,12 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
-  const size = theme.spacing(4);
+  const size = theme.spacer.xxl;
   return {
     w: size,
     h: size,
     radius: size / 2,
-    strokeWidth: theme.stroke.medium,
+    strokeWidth: theme.stroke.md,
     knobHeight: size / 2,
     knobWidth: size / 2
   };

@@ -6,7 +6,7 @@ import themeManager from '../../context/theme-manager';
 import XfinityTheme from '../../themes/xfinity';
 const style = theme => {
   return {
-    radius: theme.radius.medium,
+    radius: theme.radius.md,
     foo: 'bar',
     color: theme.colors.coreNeutral
   };
@@ -14,7 +14,7 @@ const style = theme => {
 
 const extendedStyle = theme => {
   return {
-    radius: theme.radius.large
+    radius: theme.radius.lg
   };
 };
 

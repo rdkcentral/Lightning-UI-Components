@@ -4,10 +4,10 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    itemSize: theme.spacing(6),
-    itemSpacing: theme.spacing(1),
+    itemSize: theme.layout.gutterX.sm,
+    itemSpacing: theme.spacer.md,
     counterTextProperties: theme.typography.headline3,
-    radius: theme.radius.small
+    radius: theme.radius.sm
   };
 }
 

@@ -6,8 +6,8 @@ export function base(theme) {
   return {
     logoWidth: theme.typography.body3.lineHeight,
     logoHeight: theme.typography.body3.lineHeight,
-    logoPadding: theme.spacing(2),
-    fadeWidth: theme.spacing(8)
+    logoPadding: theme.spacer.lg,
+    fadeWidth: theme.layout.gutterX.lg
   };
 }
 

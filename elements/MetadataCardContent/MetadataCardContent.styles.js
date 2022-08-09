@@ -6,8 +6,8 @@ export function base(theme) {
   return {
     detailsTextProperties: theme.typography.body3,
     providerStyle: {
-      fadeWidth: theme.spacing(8),
-      itemSize: theme.spacing(6)
+      fadeWidth: theme.spacer.md * theme.spacer.md,
+      itemSize: theme.spacer.xxxl + theme.spacer.md
     }
   };
 }

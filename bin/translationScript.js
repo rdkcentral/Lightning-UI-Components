@@ -11,7 +11,7 @@ const LineReaderSync = require('line-reader-sync');
 createDocumentation(); //This call starts the scripts to create the documentation
 /**
  * Creates documentation for the colors, typography, and radius that our components (both elements and patterns) use.
- * hypothetically if you replace the parameters with other values like (stroke, 'tmp?scriptingFiles/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value. 
+ * hypothetically if you replace the parameters with other values like (stroke, 'tmp?scriptingFiles/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value.
  */
 export function createDocumentation() {
   getStyleFiles('colors', 'bin/scriptingFiles/colors.md', colors);
@@ -22,8 +22,8 @@ export function createDocumentation() {
 /**
  * Combines all the necessary files and theme values
  * @param {string} themeProperty - what theme property we are looking for ie). colors, radius, typography
- * @param {string} mdFile - the markdown file the contents will be written to 
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xsmall
+ * @param {string} mdFile - the markdown file the contents will be written to
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xs
  */
 export function getStyleFiles(themeProperty, mdFile, themeFiles) {
   const fileOutput = fs.readdirSync('./elements');
@@ -56,7 +56,7 @@ export function getComponentFiles(fileList, componentType) {
 
 /**
  * Grabs all the values for theme properties. For example radius: xmall, color: coreBrand, etc.
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xsmall
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xs
  * @param {string} componentType - type of component (element or pattern)
  * @returns {array} array with all the components style files
  */
@@ -97,7 +97,7 @@ export function findThemedComponents(styleFileArray, themeValueArray, themePrope
         break;
       }
       else if (themeValueArray.some(val => line.includes(val))){
-          //we split the line up by above characters to account for cases like theme.radius.medium + theme.radius.small
+          //we split the line up by above characters to account for cases like theme.radius.md + theme.radius.small
           line = line.split(/[-=/_+*]/);
           for (let i = 0; i < line.length; i++) {
             let foundIndex = 0;
@@ -131,7 +131,7 @@ export function findThemedComponents(styleFileArray, themeValueArray, themePrope
  * @returns {number} returns index where theme value is found
  */
 export function cleanLine(newLine, themeValueArray) {
-  let foundIndex; 
+  let foundIndex;
   for (let j = newLine.length - 1; j >= 0; j--) {
       newLine[j] = newLine[j].trim();
       newLine[j] = newLine[j].includes(',')
@@ -156,7 +156,7 @@ export function cleanLine(newLine, themeValueArray) {
  * @param {string} componentName - name of the component in case file name is index.js
  * @returns {string} returns correct file name
  */
-export function getFinalFileName(newFileName, componentName) { 
+export function getFinalFileName(newFileName, componentName) {
   const separatedFileName = newFileName.split('.');
     let finalFileName = separatedFileName[0];
     //edge cases because of how some style files are named
@@ -251,7 +251,7 @@ export function alphabetizeContent(dict, key) {
     const noCommaLine = alphabetizeString.replace(/,/g, '<br>');
     const valuesAndComponentsContent = `${key} | ${[noCommaLine]}`;
   return valuesAndComponentsContent;
-  
+
 }
 
 /**

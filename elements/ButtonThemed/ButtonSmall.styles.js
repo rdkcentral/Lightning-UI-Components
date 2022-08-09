@@ -1,14 +1,15 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
 import { variantDefault as buttonVariantDefault } from './Button.styles';
+import { getWidthByColumnSpan } from '../../utils';
 
 export const variantDefault = buttonVariantDefault;
 
 export function base(theme) {
   return {
-    h: theme.spacing(8),
-    minWidth: theme.calculateColumnWidth(theme.layout.columnCount),
-    paddingX: theme.spacing(4),
-    prefixSize: theme.spacing(3.5),
+    h: theme.spacer.md * 8,
+    minWidth: getWidthByColumnSpan(1),
+    paddingX: theme.spacer.xxl,
+    prefixSize: theme.spacer.xl + theme.spacer.xs,
     textStyle: theme.typography.button2
   };
 }

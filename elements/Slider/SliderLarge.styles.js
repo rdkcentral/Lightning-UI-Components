@@ -2,7 +2,7 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 import { variants, variantDefault } from './Slider.styles';
 
 export function base(theme) {
-  const size = theme.spacing(4);
+  const size = theme.spacer.xxl;
   return {
     innerCircleSize: size,
     radius: size / 2

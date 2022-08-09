@@ -1,21 +1,22 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
+import { getWidthByColumnSpan } from '../../utils';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
-  const size = theme.spacing(2);
+  const size = theme.spacer.lg;
   return {
     arrowAlphaDisabled: 0,
     arrowAlphaValue: 1,
     arrowAlphaValueLimit: 0.5,
-    arrowHeight: theme.spacing(2),
-    arrowSpacing: theme.spacing(1),
-    arrowWidth: theme.spacing(1),
-    containerHeight: theme.spacing(2.5),
+    arrowHeight: theme.spacer.lg,
+    arrowSpacing: theme.spacer.md,
+    arrowWidth: theme.spacer.md,
+    containerHeight: theme.spacer.lg + theme.spacer.xs,
     innerCircleSize: size,
-    minWidth: theme.calculateColumnWidth(10),
+    minWidth: getWidthByColumnSpan(2),
     progressBarStyles: {},
     radius: size / 2,
-    sliderHeight: theme.spacing(1)
+    sliderHeight: theme.spacer.md
   };
 }
 

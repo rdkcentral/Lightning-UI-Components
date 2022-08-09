@@ -12,10 +12,10 @@ export function base(theme) {
     checkboxStyles: {},
     labelStyles: {},
     metadataStyles: {},
-    paddingX: theme.spacing(3),
-    paddingY: theme.spacing(2),
+    paddingX: theme.spacer.xl,
+    paddingY: theme.spacer.lg,
     progressBarStyles: {},
-    radius: theme.radius.medium,
+    radius: theme.radius.md,
     disabledAlpha: theme.alphas.inactive / 100
   };
 }

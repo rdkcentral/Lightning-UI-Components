@@ -3,9 +3,9 @@
 // https://etwiki.sys.comcast.net/display/XDS/Corner+radius
 export default {
   none: 0,
-  xsmall: 4,
-  small: 8,
-  medium: 16,
-  large: 24,
-  xlarge: 32
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32
 };

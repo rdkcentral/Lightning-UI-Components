@@ -246,7 +246,7 @@ export class ThemeManager {
         'function' === typeof value ||
         ('object' === typeof value && 'Object' !== value.constructor.name)
       ) {
-        // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.spacing(). Also supports custom objects with getters and setters
+        // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.getFocusScale(w). Also supports custom objects with getters and setters
         themeFunctions[key] = value;
         return;
       } else if ('string' === typeof value && value.includes('theme.')) {

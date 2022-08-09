@@ -1,18 +1,18 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
-import { getDimensions } from '../../themes/base/layout';
+import { getWidthByUpCount, getDimensions } from '../../utils';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    contentSpacing: theme.spacing(1),
+    contentSpacing: theme.spacer.md,
     descriptionTextProperties: {
       ...theme.typography.body2,
       textColor: theme.colors.coreNeutral,
       wordWrap: true,
       maxLines: 3
     },
-    paddingFirstLine: theme.spacing(2.5),
-    paddingVertical: theme.spacing(2),
+    paddingFirstLine: theme.spacer.lg + theme.spacer.xs,
+    paddingVertical: theme.spacer.lg,
     textContainerProperties: {
       ...theme.typography.display2,
       textColor: theme.colors.coreNeutral
@@ -23,7 +23,7 @@ export function base(theme) {
       maxLines: 1,
       wordWrap: true
     },
-    w: theme.calculateColumnWidth(3),
+    w: getWidthByUpCount(3),
     h: getDimensions({ ratioX: 16, ratioY: 9, upCount: 3 }).h
   };
 }
