@@ -5,8 +5,8 @@ export const variantDefault = 'neutral';
 export function base(theme) {
   return {
     shouldSmooth: false,
-    fadeW: theme.spacing(12.5),
-    offset: theme.spacing(4)
+    fadeW: theme.layout.gutterX.lg,
+    offset: theme.spacer.xxl
   };
 }
 

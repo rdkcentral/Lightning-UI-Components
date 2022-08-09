@@ -96,10 +96,10 @@ describe('context', () => {
     });
 
     it('should set a sub theme when with setSubTheme and fetch to appropriate theme when using getSubTheme', () => {
-      context.setSubTheme('mySubTheme', { radius: { medium: 80 } });
+      context.setSubTheme('mySubTheme', { radius: { md: 80 } });
       const baseTheme = context.theme;
       const subTheme = context.getSubTheme('mySubTheme');
-      baseTheme.radius.medium = 80;
+      baseTheme.radius.md = 80;
       expect(subTheme).toMatchObject(baseTheme);
     });
 
@@ -122,31 +122,23 @@ describe('context', () => {
     });
 
     it('should update an existing subTheme when using updateSubTheme', () => {
-      context.setSubTheme('mySubTheme', {
-        radius: {
-          medium: 80
-        }
-      });
+      context.setSubTheme('mySubTheme', { radius: { md: 80 } });
       const baseTheme = context.theme;
       let subTheme = context.getSubTheme('mySubTheme');
-      baseTheme.radius.medium = 80;
+      baseTheme.radius.md = 80;
       expect(subTheme).toMatchObject(baseTheme);
-      context.updateSubTheme('mySubTheme', { radius: { medium: 60 } });
-      baseTheme.radius.medium = 60;
+      context.updateSubTheme('mySubTheme', { radius: { md: 60 } });
+      baseTheme.radius.md = 60;
       subTheme = context.getSubTheme('mySubTheme');
       expect(subTheme).toMatchObject(baseTheme);
-      context.updateSubTheme('mySubTheme', { radius: { small: 30 } });
+      context.updateSubTheme('mySubTheme', { radius: { sm: 30 } });
       subTheme = context.getSubTheme('mySubTheme');
-      baseTheme.radius.small = 30;
+      baseTheme.radius.sm = 30;
       expect(subTheme).toMatchObject(baseTheme);
     });
 
     it('should remove a subTheme from memory', () => {
-      context.setSubTheme('mySubTheme', {
-        radius: {
-          medium: 80
-        }
-      });
+      context.setSubTheme('mySubTheme', { radius: { md: 80 } });
       let subTheme = context.getSubTheme('mySubTheme');
       expect(subTheme).not.toBeUndefined();
       context.removeSubTheme('mySubTheme');
@@ -157,9 +149,9 @@ describe('context', () => {
     it('should emit an event when sub a sub theme is modified', () => {
       const spy = jest.fn();
       context.on('updateThemetest', spy);
-      context.setSubTheme('test', { radius: { medium: 80 } });
+      context.setSubTheme('test', { radius: { md: 80 } });
       expect(spy).toHaveBeenCalledTimes(1);
-      context.updateSubTheme('test', { radius: { medium: 60 } });
+      context.updateSubTheme('test', { radius: { md: 60 } });
       expect(spy).toHaveBeenCalledTimes(2);
       context.removeSubTheme('test');
       expect(spy).toHaveBeenCalledTimes(3);

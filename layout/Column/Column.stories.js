@@ -3,7 +3,7 @@ import Column from '.';
 import FocusManager from '../FocusManager';
 import Row from '../Row';
 import mdx from './Column.mdx';
-import { flatten } from '../../utils';
+import { flatten, getWidthByUpCount } from '../../utils';
 import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
@@ -161,7 +161,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: context.theme.calculateColumnWidth(1),
+              w: getWidthByUpCount(1),
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -172,7 +172,7 @@ export const Plinko = args =>
             {
               type: Row,
               h: 40,
-              w: context.theme.calculateColumnWidth(1),
+              w: getWidthByUpCount(1),
               itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
@@ -254,12 +254,12 @@ export const ExpandableHeightRows = args =>
             2 *
               (context.theme.layout.marginY +
                 context.theme.layout.gutterY.small),
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: args.itemSpacing,
           plinko: true,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingRow,
-            w: context.theme.calculateColumnWidth(1),
+            w: getWidthByUpCount(1),
             h: 40,
             items: [
               { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 },
@@ -592,7 +592,7 @@ export const SkipPlinko = () =>
       return {
         Column: {
           type: Column,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: 32,
           plinko: true,
           items: [

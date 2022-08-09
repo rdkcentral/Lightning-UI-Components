@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Row from '.';
 import Column from '../Column';
 import mdx from './Row.mdx';
-import context from '../../context';
+import { getWidthByUpCount } from '../../utils';
 
 export default {
   title: 'Layout / Row',
@@ -19,7 +19,7 @@ export const Basic = args =>
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: args.itemSpacing,
           alwaysScroll: args.alwaysScroll,
           neverScroll: args.neverScroll,
@@ -81,7 +81,7 @@ export const FocusHeightChange = () =>
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           items: Array.apply(null, { length: 5 }).map(() => ({
             type: ExpandingHeightButton,
             buttonText: 'Button',
@@ -104,7 +104,7 @@ export const VaryingItemWidth = () =>
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: 20,
           items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
@@ -126,7 +126,7 @@ export const ExpandableWidth = () =>
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: 20,
           items: [
             { type: ExpandingButton, buttonText: 'Button', w: 150 },
@@ -161,7 +161,7 @@ export const CenteredInParent = () =>
         Row: {
           type: Row,
           itemSpacing,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           h: buttonH * 3 + itemSpacing * 2,
           items: [
             {
@@ -249,7 +249,7 @@ export const Plinko = () => {
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: 20,
           plinko: true,
           items: [
@@ -329,7 +329,7 @@ export const SkipFocus = args =>
       return {
         Column: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
           items: [
@@ -383,7 +383,7 @@ export const LazyScrollIndexes = ({
       return {
         Row: {
           type: Row,
-          w: context.theme.calculateColumnWidth(1),
+          w: getWidthByUpCount(1),
           itemSpacing: 20,
           alwaysScroll: false,
           neverScroll: false,

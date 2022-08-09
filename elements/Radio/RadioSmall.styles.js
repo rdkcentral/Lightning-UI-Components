@@ -2,7 +2,7 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
-  const size = theme.spacing(3);
+  const size = theme.spacer.xl;
   return {
     w: size,
     h: size,

@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
-import context from '../context';
-
-const MARKUP_STRING_PATTERN = /({ICON.*?}|{BADGE:.*?}|{NEWLINE}|{TEXT:.*?})/g;
+export * from './layoutUtils';
+export * from './markupUtils';
+export * from './themeUtils';
 
 function simplifyFraction([numerator, denominator]) {
   for (let i = numerator; i > 0; i--) {
@@ -9,28 +9,6 @@ function simplifyFraction([numerator, denominator]) {
       return [numerator / i, denominator / i];
     }
   }
-}
-
-/**
- * @param {string} timingFunction - Target timing function in theme
- * @param {string} duration - Target duration in theme, will fallback and attempt to use named duration value connected to to timing function if not defined
- * @param {string} delay - Target delay in theme, will fallback and attempt to use named delay value connected to to timing function if not defined
- * @return {object} -Object containing timingFunction, duration, and delay
- */
-export function getThemeAnimation(timingFunction, duration, delay) {
-  return {
-    timingFunction: context.theme.animations[timingFunction],
-    duration: duration
-      ? context.theme.animations[
-          `duration${duration[0].toUpperCase() + duration.substring(1)}`
-        ]
-      : context.theme.animations[`${timingFunction}Duration`],
-    delay: delay
-      ? context.theme.animations[
-          `delay${delay[0].toUpperCase() + delay.substring(1)}`
-        ]
-      : context.theme.animations[`${timingFunction}Delay`]
-  };
 }
 
 /**
@@ -64,6 +42,10 @@ export function rgba2argb(rgbaStr) {
   // Multiple Alpha Value
   rgba[3] = rgba[3] * 255;
   return lng.StageUtils.getArgbNumber(rgba);
+}
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /**
@@ -121,25 +103,6 @@ export const RoundRect = {
     );
   }
 };
-
-export const getTheme = (prev = {}, next = {}) => {
-  return {
-    ...prev,
-    ...next,
-    focus: {
-      ...prev.focus,
-      ...next.focus
-    },
-    unfocus: {
-      ...prev.unfocus,
-      ...next.unfocus
-    }
-  };
-};
-
-export function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 /**
  * Merges two objects together and returns the duplicate.
@@ -230,70 +193,6 @@ export function getFirstNumber(...numbers) {
 }
 
 /**
- * Returns an array of strings and icon, badge, newline, and text objects from a string using the syntax:
- * 'This is an {ICON:<title>|<url>} and {BADGE:<title>} badge test with a {NEWLINE} newline and {TEXT:<text>|<style>}.'
- *
- * i.e. 'This is an {ICON:settings|./assets/icons/settings.png} icon and {BADGE:HD} badge with a{NEWLINE} and {TEXT:red text|red}.'
- *  would create the array:
- *  [
- *    'This is an ',
- *    { icon: './assets/icons/settings.png', title: 'settings' },
- *    ' icon and ',
- *    { badge: 'HD' },
- *    ' badge with a',
- *    { newline: true },
- *    ' and ',
- *    { text: 'red text', style: 'red' },
- *    '.'
- *  ]
- *
- * @param {(string|object)} str
- *
- * @return {array}
- */
-export function parseInlineContent(str = '') {
-  const content = [];
-  if ((str && typeof str === 'string') || str.text) {
-    const string = typeof str === 'string' ? str : str.text;
-    const iconRegEx = /^{ICON:(.*?)?\|(.*?)?}$/g;
-    const badgeRegEx = /^{BADGE:(.*?)}$/g;
-    const newlineRegEx = /^{NEWLINE}$/g;
-    const textRegEx = /^{TEXT:(.*?)?\|(.*?)?}$/g;
-
-    const splitStr = string.split(MARKUP_STRING_PATTERN);
-
-    if (splitStr && splitStr.length) {
-      splitStr.forEach(item => {
-        let formattedItem = item;
-        const badge = badgeRegEx.exec(item);
-        const icon = iconRegEx.exec(item);
-        const newline = newlineRegEx.exec(item);
-        const text = textRegEx.exec(item);
-
-        if (badge && badge[1]) {
-          formattedItem = { badge: badge[1] };
-        } else if (icon && icon[1]) {
-          formattedItem = { title: icon[1], icon: icon[2] || icon[1] };
-        } else if (newline) {
-          formattedItem = { newline: true };
-        } else if (text && text[1]) {
-          formattedItem = { text: text[1], style: text[2] };
-        }
-        content.push(formattedItem);
-      });
-    }
-  }
-  return content;
-}
-
-export function isMarkupString(str = '') {
-  if (typeof str !== 'string') {
-    return false;
-  }
-  return MARKUP_STRING_PATTERN.test(str);
-}
-
-/**
  * Naively looks for dimensional prop (i.e. w, h, x, y, etc.), first searching for
  * a transition target value then defaulting to the current set value
  * @param {string} prop - property key
@@ -337,49 +236,6 @@ export function objectPropertyOf(object, path) {
 
 export function stringifyCompare(objA, objB) {
   return JSON.stringify(objA) === JSON.stringify(objB);
-}
-
-export function isComponentOnScreen(component) {
-  if (!component) return false;
-
-  const {
-    w,
-    h,
-    core: { renderContext: { px, py }, _scissor: scissor = [] } = {}
-  } = component;
-  const stageH = component.stage.h / component.stage.getRenderPrecision();
-  const stageW = component.stage.w / component.stage.getRenderPrecision();
-
-  const wVis = px >= 0 && px + w <= stageW;
-  const hVis = py >= 0 && py + h <= stageH;
-
-  if (!wVis || !hVis) return false;
-
-  if (scissor && scissor.length) {
-    const [
-      leftBounds = null,
-      topBounds = null,
-      clipWidth = null,
-      clipHeight = null
-    ] = scissor;
-
-    const withinLeftClippingBounds =
-      Math.round(px + w) >= Math.round(leftBounds);
-    const withinRightClippingBounds =
-      Math.round(px) <= Math.round(leftBounds + clipWidth);
-    const withinTopClippingBounds = Math.round(py + h) >= Math.round(topBounds);
-    const withinBottomClippingBounds =
-      Math.round(py + h) <= Math.round(topBounds + clipHeight);
-
-    return (
-      withinLeftClippingBounds &&
-      withinRightClippingBounds &&
-      withinTopClippingBounds &&
-      withinBottomClippingBounds
-    );
-  }
-
-  return true;
 }
 
 export function delayForAnimation(callback, delay = 16) {

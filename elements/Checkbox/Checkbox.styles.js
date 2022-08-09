@@ -4,15 +4,15 @@ import check from './check-icon.png';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
-  const strokeWidth = theme.stroke.small;
-  const size = theme.spacing(4) - strokeWidth * 2;
+  const strokeWidth = theme.stroke.sm;
+  const size = theme.spacer.xxl - strokeWidth * 2;
   return {
     w: size,
     h: size,
     radius: size / 2,
     strokeWidth,
-    checkW: theme.spacing(2),
-    checkH: theme.spacing(1.5),
+    checkW: theme.spacer.lg,
+    checkH: theme.spacer.md + theme.spacer.xs,
     checkSrc: check
   };
 }

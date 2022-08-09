@@ -4,10 +4,10 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    borderWidth: theme.spacing(0.5),
+    borderWidth: theme.stroke.md,
     colorTransitionAlpha: theme.alphas.secondary,
-    radius: theme.radius.medium,
-    spacing: theme.spacing(0.5),
+    radius: theme.radius.md,
+    spacing: theme.spacer.xs,
     shouldAnimate: true,
     animationDuration: theme.animations.durationXSlow * 4
   };

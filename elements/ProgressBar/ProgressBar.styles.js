@@ -4,8 +4,8 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    h: theme.spacing(1),
-    radius: theme.radius.xsmall,
+    h: theme.spacer.md,
+    radius: theme.radius.xs,
     animationCurve: theme.animations.functionalStandard,
     animationDelay: theme.animations.functionalStandardDelay,
     animationDuration: theme.animations.functionalStandardDuration

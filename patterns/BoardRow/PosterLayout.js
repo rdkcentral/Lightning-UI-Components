@@ -1,10 +1,11 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
-import { calculateColumnWidth, getAspectRatioH } from '../../Styles';
+import { getAspectRatioH } from '../../Styles';
+import { getWidthByUpCount } from '../../utils';
 
 export default class PosterLayout extends BaseLayout {
   static get _cardWidth() {
-    return calculateColumnWidth(4);
+    return getWidthByUpCount(4);
   }
 
   static get _cardHeight() {

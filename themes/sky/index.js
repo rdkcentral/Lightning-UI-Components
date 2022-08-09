@@ -1,7 +1,8 @@
 import alphas from './alphas';
 import colors from './colors';
-import { layout } from './layout';
+import layout from './layout';
 import radius from './radius';
+import spacer from './spacer';
 import stroke from './stroke';
 import typography from './typography';
 import animations from './animations';
@@ -15,18 +16,19 @@ export default {
   fonts,
   layout,
   radius,
+  spacer,
   stroke,
   typography,
   componentStyles: {
     ProgressBar: {
-      h: stroke.medium,
-      radius: stroke.medium / 2
+      h: stroke.md,
+      radius: stroke.md / 2
     },
     Tile: {
       paddingX: 20,
       paddingY: 14,
       metadataLocation: 'inset',
-      radius: radius.xsmall
+      radius: radius.xs
     }
   },
   componentVariants: {

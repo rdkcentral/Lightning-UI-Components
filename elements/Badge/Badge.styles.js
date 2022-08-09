@@ -4,12 +4,12 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    paddingX: theme.spacing(1),
-    paddingY: theme.spacing(0.5),
-    radius: theme.radius.small,
+    paddingX: theme.spacer.md,
+    paddingY: theme.spacer.xs,
+    radius: theme.radius.sm,
     textStyle: 'caption',
     textAlign: 'center',
-    contentSpacing: theme.spacing(0.75)
+    contentSpacing: theme.spacer.sm
   };
 }
 

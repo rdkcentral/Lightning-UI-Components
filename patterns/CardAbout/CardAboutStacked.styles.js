@@ -1,5 +1,5 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
-
+import { getWidthByUpCount } from '../../utils';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
@@ -10,7 +10,7 @@ export function base(theme) {
       maxLines: 2,
       wordWrap: true
     },
-    w: theme.calculateColumnWidth(3)
+    w: getWidthByUpCount(3)
   };
 }
 

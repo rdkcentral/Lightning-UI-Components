@@ -4,15 +4,15 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    w: theme.spacing(8),
-    strokeRadius: theme.radius.medium,
-    strokeWeight: theme.stroke.small,
-    knobWidth: theme.spacing(3),
-    knobHeight: theme.spacing(3),
-    knobRadius: theme.radius.medium * 0.75,
-    knobPadding: theme.spacing(0.25),
-    knobCheckedX: theme.spacing(4.5),
-    knobUncheckedX: theme.spacing(0.5)
+    w: theme.spacer.md * 8,
+    strokeRadius: theme.radius.md,
+    strokeWeight: theme.stroke.sm,
+    knobWidth: theme.spacer.xl,
+    knobHeight: theme.spacer.xl,
+    knobRadius: theme.radius.sm + theme.radius.xs,
+    knobPadding: theme.spacer.xxs,
+    knobCheckedX: theme.spacer.xxl + theme.spacer.xs,
+    knobUncheckedX: theme.spacer.xs
   };
 }
 

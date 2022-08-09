@@ -3,7 +3,7 @@ import { processThemeStyles } from '../../mixins/withThemeStyles';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
-  const size = theme.spacing(2);
+  const size = theme.spacer.lg;
   return {
     circleSize: size,
     radius: size / 2

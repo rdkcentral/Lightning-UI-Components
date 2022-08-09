@@ -4,13 +4,13 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    radius: theme.radius.medium,
+    radius: theme.radius.md,
     textStyle: 'caption',
-    marginBottom: theme.spacing(5),
-    paddingY: theme.spacing(1),
-    paddingX: theme.spacing(2),
-    pointerW: theme.spacing(3),
-    pointerH: theme.spacing(1.5),
+    marginBottom: theme.spacer.xxxl,
+    paddingY: theme.spacer.md,
+    paddingX: theme.spacer.lg,
+    pointerW: theme.spacer.xl,
+    pointerH: theme.spacer.md + theme.spacer.xs,
     transition: {
       timingFunction: theme.animations.functionalStandard,
       delay: theme.animations.delayXFast,

@@ -3,9 +3,9 @@ export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
-    iconWidth: theme.spacing(4),
-    iconHeight: theme.spacing(4),
-    h: theme.spacing(20)
+    iconWidth: theme.spacer.xxl,
+    iconHeight: theme.spacer.xxl,
+    h: theme.spacer.md * 20
   };
 }
 

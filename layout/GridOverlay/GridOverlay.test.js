@@ -1,5 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import GridOverlay from '.';
+import { getWidthByColumnSpan } from '../../utils';
 
 const createGridOverlay = TestUtils.makeCreateComponent(GridOverlay);
 
@@ -25,9 +26,7 @@ describe('GridOverlay', () => {
   it('utilizes theme layout values', async () => {
     await gridOverlay.__updateSpyPromise;
 
-    expect(gridOverlay._Columns.items[0].w).toBe(
-      gridOverlay._calculateColumnWidth(gridOverlay._columnCount)
-    );
+    expect(gridOverlay._Columns.items[0].w).toBe(getWidthByColumnSpan(1));
     expect(gridOverlay._MarginLeft.w).toBe(gridOverlay._marginX);
     expect(gridOverlay._MarginTop.w).toBe(gridOverlay._marginY);
     expect(gridOverlay._SafeLeft.w).toBe(gridOverlay._safe);

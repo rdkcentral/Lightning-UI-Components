@@ -1,6 +1,5 @@
 import { default as context } from '../../context';
-import { getDimensions } from '../../Styles/Layout';
-import { stringifyCompare } from '../../utils';
+import { stringifyCompare, getDimensions } from '../../utils';
 
 export default function withLayout(Base) {
   return class extends Base {

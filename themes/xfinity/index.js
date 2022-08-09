@@ -1,7 +1,8 @@
 import alphas from './alphas';
 import colors from './colors';
-import { layout } from './layout';
+import layout from './layout';
 import radius from './radius';
+import spacer from './spacer';
 import stroke from './stroke';
 import typography from './typography';
 import animations from './animations';
@@ -18,14 +19,15 @@ export default {
   fonts,
   layout,
   radius,
+  spacer,
   stroke,
   typography,
   componentStyles: {
     Slider: {
       iconLeftSrc: iconLeftArrow,
       iconRightSrc: iconRightArrow,
-      arrowWidth: layout.spacingBase * 4,
-      arrowHeight: layout.spacingBase * 4
+      arrowWidth: spacer.xxl,
+      arrowHeight: spacer.xxl
     },
     TextBox: {
       offsetY: 2 // Hopefully this can be fixed in a future release. For now we can center align for badge, tag with this adjustment font doesnt seam to fill the whole area in textbox texture

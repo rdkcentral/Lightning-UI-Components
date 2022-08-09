@@ -1,14 +1,14 @@
 import { processThemeStyles } from '../../mixins/withThemeStyles';
-import { calculateColumnWidth } from '../../themes/base/layout';
+import { getWidthByUpCount } from '../../utils';
 export const variantDefault = 'neutral';
 
 export function base(theme) {
   return {
     backgroundColorDisabled: theme.colors.coreInverseDisabled,
     backgroundColorUnfocused: theme.colors.coreInverseSecondary,
-    paddingHorizontal: theme.spacing(3),
-    paddingVertical: theme.spacing(3),
-    radius: theme.radius.medium,
+    paddingHorizontal: theme.spacer.xl,
+    paddingVertical: theme.spacer.xl,
+    radius: theme.radius.md,
     textColorDisabled: theme.colors.coreNeutralDisabled,
     titleTextProperties: {
       ...theme.typography.headline1,
@@ -16,7 +16,7 @@ export function base(theme) {
       maxLines: 2,
       textColor: theme.colors.coreNeutral
     },
-    w: calculateColumnWidth(6)
+    w: getWidthByUpCount(6)
   };
 }
 

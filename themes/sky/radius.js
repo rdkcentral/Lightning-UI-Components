@@ -1,8 +1,8 @@
 export default {
   none: 0,
-  xsmall: 6,
-  small: 10,
-  medium: 16,
-  large: 24,
-  xlarge: 32
+  xs: 6,
+  sm: 10,
+  md: 16,
+  lg: 24,
+  xl: 32
 };
