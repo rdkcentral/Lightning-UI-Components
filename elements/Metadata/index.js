@@ -8,7 +8,7 @@ import styles from './Metadata.styles';
 
 class Metadata extends Base {
   static get __componentName() {
-    return 'Metadata';
+    return 'MetadataBase';
   }
 
   static _template() {
@@ -164,6 +164,8 @@ class Metadata extends Base {
         ? this.logoWidth + this._componentStyles.logoPadding
         : 0;
     this._Text.y = (this.h - this._Text.h) / 2;
+
+    this.signal('updateComponentDimensions');
   }
 
   _updateTitle() {
@@ -249,7 +251,7 @@ class Metadata extends Base {
   _textH() {
     const titleH = (this.title && this._Title && this._Title.h) || 0;
     const subtitleH =
-      (this.subtitle && this._Subtitle && this._Subtitle.multiLineHeight) || 0;
+      (this.subtitle && this._SubtitleWrapper && this._SubtitleWrapper.h) || 0;
     const descriptionH =
       (this.description && this._Description && this._Description.h) || 0;
     return titleH + subtitleH + descriptionH;

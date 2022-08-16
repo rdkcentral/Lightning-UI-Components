@@ -136,14 +136,17 @@ export default class MetadataTile extends withStyles(Base, styles) {
     return [this._FirstLine.announce, this._SecondLine.announce];
   }
 
-  get _textW() {
-    return this._focusW; // MetadataCard has a logo so textW is different from focusW
-  }
-
-  get _focusW() {
-    const scale =
-      (this.hasFocus() ? this.focusScaleConst : this.unfocusScaleConst) || 1;
-    return this.w * scale;
+  _textH() {
+    const titleH = (this.title && this._Title && this._Title.h) || 0;
+    const subtitleH =
+      (this.subtitle &&
+        this._Subtitle &&
+        this._Subtitle.visible &&
+        this._SubtitleWrapper.h) ||
+      0;
+    const descriptionH =
+      (this.description && this._Description && this._Description.h) || 0;
+    return titleH + subtitleH + descriptionH;
   }
 
   get h() {
