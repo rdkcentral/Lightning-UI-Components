@@ -135,3 +135,31 @@ not this:
 ```js
 import { Base, Checkbox, TextBox } from '..';
 ```
+
+## Storybook Config
+
+Notes from exploring LUI's current Storybook config and how Storybook config works.
+Take aways:
+- We are doing a lot of custom configs for panels, more of an observation than a critique.
+- For the most part the standard Storybook config files look to be in order except `preview.js`
+- We should refactor the code in `main.js`. The stories glob could probably be simplified, to keep things DRY
+- `preview.js` and `argActions` is where we should dedicate our refactoring and research time. 
+- further research needs to be done decorators and figuring out how to rewrite the custom one we have in `preview.js` 
+
+
+| File                                     | Description                                                                                                                                                                 | Storybook Description                                                                                                                                         |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.storybook/addons/Announce`             | custom config for screen readers                                                                                                                                            |
+| `.storybook/addons/ComponentStylesPanel` | creates panel specfic component style controls                                                                                                                              |
+| `.storybook/addons/GridOverlay `         | creates panel grid overlay controls                                                                                                                                         |
+| `.storybook/addons/ThemeDownload`        | creates the theme download function & button the lives on the Storybook Toolbar                                                                                             |
+| `.storybook/addons/ThemePanel`           | creates Global Theme values panel with controls to adjust global values                                                                                                     |
+| `.storybook/addons/ThemePicker`          | creates Theme picker dropdown that is located in the toolbar                                                                                                                |
+| `.storybook/addons/Register`             | imports all the addons                                                                                                                                                      |
+| `.storybook/addons/components`           | folder containing table and table row components used in Component Style Panel, Grid Overlay Panel, and Global Theme Values                                                 |
+| `.storybook/utils/index.js`              | various custom Storybook utility functions                                                                                                                                  |
+| `.storybook/constants.js`                | creates variables used through out the Storybook config files (ex. `THEMES`)                                                                                                |
+| `.storybook/main.js`                     | in general this file lines up with Storybook expected usage, should examine the way we are loading stories for `Development` vs  `Production`, the code could be simplified | controls Storybook server's behavior, contains the location of stories to load, webpack and babel custom configs, add-ons, and any framework specific configs |
+| `.storybook/manager-head.html`           | grid overlay styles                                                                                                                                                         |                                                                                                                                                               |
+| `.storybook/manager.js`                  | Config for Storybook theme                                                                                                                                                  | controls the behavior of the Storybook UI, the place to set UI options and configure the Storybook theme                                                      |
+| `.storybook/preview-head.html`           | docs style overrides                                                                                                                                                        | add extra elements to the head of the preview iframe, for instance, to load static stylesheets, font files                                                    | `.storybook/preview.js` | has a custom decorator function so Lightning and Storybook work together , case logic for which theme is loaded when the ThemePicker is used. NOTE: `argActions` (LUI specific) used to define functions to execute on changes to an arg. See `Contributing.md` for more detail | config to render components in Canvas (preview iframe). The JavaScript build configuration of the preview is controlled by a webpack config |
