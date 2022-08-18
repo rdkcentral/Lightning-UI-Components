@@ -13,6 +13,7 @@ const stories =
         '../docs/ThemingStorybook.stories.mdx',
         '../docs/LightningResources.stories.mdx',
         '../docs/ThemingFoundations.stories.js',
+        '../docs/ThemingSubTheming.stories.mdx',
         '../collections/**/*.stories.{js,mdx}',
         '../elements/**/*.stories.{js,mdx}',
         '../layout/**/*.stories.{js,mdx}',
