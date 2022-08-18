@@ -295,10 +295,13 @@ class Row extends FocusManager {
   _updateLayout() {
     let nextX = 0;
     let nextH = 0;
+    let maxInnerH = 0;
+    const childrenToCenter = [];
     // layout items in row
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
       nextH = Math.max(nextH, getH(child));
+      maxInnerH = Math.max(maxInnerH, child.innerH || 0);
       if (this._smooth) {
         child.smooth = { x: [nextX, this._itemTransition] };
       } else {
@@ -315,14 +318,28 @@ class Row extends FocusManager {
         // if the child is another focus manager, check the height of the item container
         const childHeight = (child.Items && child.Items.h) || child.h;
         // only center the child if it is within the bounds of this focus manager
-        if (childHeight < this.Items.h) {
-          child.y = (this.Items.h - childHeight) / 2;
+        // center based off innerH in cases where elements with innerH exist in Items (ex. Tile with metadata)
+        if (childHeight < this.Items.innerH) {
+          childrenToCenter.push({ childIdx: i, childHeight });
         }
       }
     }
 
     const itemChanged = this.Items.h !== nextH || this.Items.w !== nextX;
-    this.Items.patch({ h: nextH, w: nextX + (this._totalAddedWidth || 0) });
+    this.Items.patch({
+      h: nextH,
+      innerH: maxInnerH || nextH,
+      w: nextX + (this._totalAddedWidth || 0)
+    });
+
+    if (childrenToCenter.length) {
+      childrenToCenter.forEach(({ childIdx, childHeight }) => {
+        if (childHeight < this.Items.innerH) {
+          this.Items.children[childIdx].y =
+            (this.Items.innerH - childHeight) / 2;
+        }
+      });
+    }
 
     if (this.autoResizeWidth) {
       this.w = this.Items.w;
