@@ -9,16 +9,15 @@ type transitionObject = {
 };
 
 export interface TooltipStyles {
-  radius?: Tools.CornerRadius;
-  textStyle: string;
+  backgroundColor: string;
   marginBottom: number;
-  paddingY: number;
   paddingX: number;
+  paddingY: number;
   pointerW: number;
   pointerH: number;
+  radius?: Tools.CornerRadius;
+  textStyle: string;
   transition: transitionObject;
-  backgroundColor: string;
-  textColor: string;
 }
 
 declare const Tooltip_base: WithThemeStylesConstructor<typeof Base, Tooltip>;

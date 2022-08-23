@@ -6,7 +6,7 @@ import icon from '../../assets/images/ic_lightning_white_32.png';
 import menuIcon from '../../assets/images/ic_eye_white_48.png';
 
 export default {
-  title: 'Patterns/ListItem',
+  title: 'Patterns / ListItem',
   parameters: {
     docs: {
       page: mdx

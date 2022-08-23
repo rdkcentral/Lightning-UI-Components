@@ -1,4 +1,4 @@
-import { CardVerticalLarge, CardHorizontal } from '../../patterns/Card';
+import { CardVerticalLarge, CardHorizontal } from '../../legacy/Card';
 import BoardRow from '.';
 import lng from '@lightningjs/core';
 import mdx from './BoardRow.mdx';

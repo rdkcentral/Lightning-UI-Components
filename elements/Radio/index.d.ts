@@ -1,17 +1,16 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Tools } from '@lightningjs/core';
 
 export interface RadioStyles {
-  strokeColor?: string;
-  knobColor?: string;
   backgroundColor?: string;
-  backgroundColorOff?: string;
-  backgroundColorInactive?: string;
-  strokeColorInactive?: string;
-  radius?: number;
-  strokeWidth?: number;
+  backgroundColorChecked?: string;
+  knobColor?: string;
   knobHeight?: number;
   knobWidth?: number;
+  radius?: Tools.CornerRadius;
+  strokeColor?: string;
+  strokeWidth?: number;
 }
 
 declare const Radio_base: WithThemeStylesConstructor<typeof Base, RadioStyles>;

@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
-import { clone } from '../utils';
+import { clone, getHexColor } from '../utils';
 import { CORNER_RADIUS } from './Styles';
-import { PALETTE, getHexColor } from './Colors';
+import { PALETTE } from './Colors';
 import { TYPOGRAPHY } from './Fonts';
 
 function glow({

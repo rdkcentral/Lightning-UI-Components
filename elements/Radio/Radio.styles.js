@@ -1,47 +1,50 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
-
-export const variantDefault = 'neutral';
-
-export function base(theme) {
+export const base = theme => {
   const size = theme.spacer.xxl;
   return {
     w: size,
     h: size,
-    radius: size / 2,
-    strokeWidth: theme.stroke.md,
     knobHeight: size / 2,
-    knobWidth: size / 2
+    knobWidth: size / 2,
+    radius: size / 2,
+    strokeWidth: theme.stroke.md
   };
-}
+};
 
-export function variants(theme) {
-  return {
-    neutral: {
-      strokeColor: theme.colors.coreInverse,
-      knobColor: theme.colors.coreInverse,
-      backgroundColor: theme.colors.coreNeutral,
-      backgroundColorOff: theme.colors.coreNeutralDisabled,
-      backgroundColorInactive: theme.colors.coreNeutralDisabled,
-      strokeColorInactive: theme.colors.coreInverseDisabled
-    },
-    inverse: {
-      strokeColor: theme.colors.coreNeutral,
-      knobColor: theme.colors.coreNeutral,
-      backgroundColor: theme.colors.coreInverse,
-      backgroundColorOff: theme.colors.coreInverse,
-      backgroundColorInactive: theme.colors.coreNeutralDisabled,
-      strokeColorInactive: theme.colors.coreInverseDisabled
-    },
-    brand: {
-      strokeColor: theme.colors.coreNeutral,
-      knobColor: theme.colors.coreNeutral,
-      backgroundColor: theme.colors.coreBrand,
-      backgroundColorOff: theme.colors.coreInverseDisabled,
-      backgroundColorInactive: theme.colors.coreInverseDisabled,
-      strokeColorInactive: theme.colors.coreNeutralDisabled
+export const palette = theme => ({
+  neutral: {
+    backgroundColor: theme.colors.coreNeutralDisabled,
+    backgroundColorChecked: theme.colors.coreNeutral,
+    knobColor: theme.colors.coreInverse,
+    strokeColor: theme.colors.coreInverse,
+    mode: {
+      disabled: {
+        backgroundColor: theme.colors.coreNeutralDisabled,
+        strokeColor: theme.colors.coreInverseDisabled
+      }
     }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+  },
+  inverse: {
+    backgroundColor: theme.colors.coreInverse,
+    backgroundColorChecked: theme.colors.coreInverse,
+    knobColor: theme.colors.coreNeutral,
+    strokeColor: theme.colors.coreNeutral,
+    mode: {
+      disabled: {
+        backgroundColor: theme.colors.coreNeutralDisabled,
+        strokeColor: theme.colors.coreInverseDisabled
+      }
+    }
+  },
+  brand: {
+    backgroundColor: theme.colors.coreInverseDisabled,
+    backgroundColorChecked: theme.colors.coreBrand,
+    knobColor: theme.colors.coreNeutral,
+    strokeColor: theme.colors.coreNeutral,
+    mode: {
+      disabled: {
+        backgroundColor: theme.colors.coreInverseDisabled,
+        strokeColor: theme.colors.coreNeutralDisabled
+      }
+    }
+  }
+});

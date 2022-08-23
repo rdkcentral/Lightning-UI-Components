@@ -1,11 +1,10 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 import Icon from '../Icon';
-import styles from './Badge.styles';
+import * as styles from './Badge.styles';
 import TextBox from '../TextBox';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import { getHexColor } from '../../Styles';
+import { getHexColor } from '../../utils';
 
 class Badge extends Base {
   static _template() {
@@ -33,6 +32,10 @@ class Badge extends Base {
 
   static get __componentName() {
     return 'Badge';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
@@ -85,8 +88,8 @@ class Badge extends Base {
       [this._badgeTextPromise, this._iconPromise].filter(Boolean)
     );
     this._updateWidth();
-    this._updatePositions();
     this._updateBackground();
+    this._updatePositions();
   }
 
   _badgeTextLoaded() {
@@ -99,21 +102,18 @@ class Badge extends Base {
 
   _updateBackground() {
     this.patch({
-      h:
-        Math.max(this._BadgeText.h, this._Icon.h) +
-        this._componentStyles.paddingY * 2,
-      color: this._componentStyles.backgroundColor,
-      shader: { radius: this._componentStyles.radius }
+      h: Math.max(this._BadgeText.h, this._Icon.h) + this.style.paddingY * 2,
+      color: this.style.backgroundColor,
+      shader: { radius: this.style.radius }
     });
   }
 
   _updateText() {
     this._BadgeText.patch({
-      textColor: this._componentStyles.textColor,
-      textAlign: this._componentStyles.textAlign,
-      textStyle: this._componentStyles.textStyle,
+      textAlign: this.style.textAlign,
+      textStyle: this.style.textStyle,
       content: this.title || '',
-      x: this._componentStyles.paddingX,
+      x: this.style.paddingX,
       y: this._h / 2
     });
   }
@@ -124,7 +124,7 @@ class Badge extends Base {
       w: this.iconWidth,
       h: this.iconHeight,
       style: {
-        color: getHexColor(this._componentStyles.textColor)
+        color: getHexColor(this.style.iconColor)
       }
     });
   }
@@ -132,31 +132,31 @@ class Badge extends Base {
   _updateWidth() {
     let contentSpacing = 0;
     if (this.icon && this.title) {
-      contentSpacing = this._componentStyles.contentSpacing;
+      contentSpacing = this.style.contentSpacing;
     }
     this.w = this.title
       ? this._BadgeText.renderWidth +
-        this._componentStyles.paddingX * 2 +
+        this.style.paddingX * 2 +
         (this._Icon.finalW || 0) +
         contentSpacing
-      : this._componentStyles.paddingX * 2 + (this._Icon.finalW || 0);
+      : this.style.paddingX * 2 + (this._Icon.finalW || 0);
   }
 
   _updatePositions() {
     this._Icon.y = this.h / 2;
     // set icon and text position
     if (this.iconAlign === 'left' && this.title) {
-      this._Icon.x = this._componentStyles.paddingX;
+      this._Icon.x = this.style.paddingX;
       this._BadgeText.x =
-        this._Icon.x + this._Icon.finalW + this._componentStyles.contentSpacing;
+        this._Icon.x + this._Icon.finalW + this.style.contentSpacing;
     } else if (this.iconAlign === 'right' && this.title) {
-      this._BadgeText.x = this._componentStyles.paddingX;
+      this._BadgeText.x = this.style.paddingX;
       this._Icon.x =
         this._BadgeText.x +
         this._BadgeText.renderWidth +
-        this._componentStyles.contentSpacing;
+        this.style.contentSpacing;
     } else {
-      this._Icon.x = this._componentStyles.paddingX;
+      this._Icon.x = this.style.paddingX;
     }
     this.fireAncestors('$loadedBadge', this);
     this._BadgeText.y = this.h / 2; // Set new alignment for badge text
@@ -175,4 +175,4 @@ class Badge extends Base {
   }
 }
 
-export default withExtensions(withStyles(Badge, styles));
+export default withExtensions(Badge);

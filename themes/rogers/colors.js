@@ -14,8 +14,7 @@ export default {
   coreBrandSecondary: [COLOR_PALETTE.red[40], ALPHAS.secondary],
   coreBrandTertiary: [COLOR_PALETTE.red[40], ALPHAS.tertiary],
   coreBrandDisabled: [COLOR_PALETTE.red[40], ALPHAS.inactive],
-  coreBrandGhost: [COLOR_PALETTE.red[40], ALPHAS.none],
-  coreBrandFocus: [COLOR_PALETTE.red[20], ALPHAS.primary],
-  coreBrandFocusSoft: [COLOR_PALETTE.red[20], ALPHAS.tertiary],
+  interactiveBrandFocus: [COLOR_PALETTE.red[20], ALPHAS.primary],
+  interactiveBrandFocusSoft: [COLOR_PALETTE.red[20], ALPHAS.tertiary],
   red: [COLOR_PALETTE.red[40], ALPHAS.primary]
 };

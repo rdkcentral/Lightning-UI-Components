@@ -1,14 +1,18 @@
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
 import { Bubble } from '../../textures';
 import { TextBox } from '../';
 import Base from '../../Base';
-import styles from './Tooltip.styles';
+import * as styles from './Tooltip.styles';
 
 class Tooltip extends Base {
   static get __componentName() {
     return 'Tooltip';
   }
+
+  static get __themeStyles() {
+    return styles;
+  }
+
   static _template() {
     return {
       alpha: 0,
@@ -41,8 +45,7 @@ class Tooltip extends Base {
   _updateText() {
     this._Text.patch({
       content: this.title,
-      textStyle: this._componentStyles.textStyle,
-      textColor: this._componentStyles.textColor
+      textStyle: this.style.textStyle
     });
   }
 
@@ -53,16 +56,14 @@ class Tooltip extends Base {
 
   _updateBackground() {
     const backgroundH =
-      this._Text.finalH +
-      this._componentStyles.paddingY * 2 +
-      this._componentStyles.pointerH;
-    const backgroundW = this._Text.finalW + this._componentStyles.paddingX * 2;
+      this._Text.finalH + this.style.paddingY * 2 + this.style.pointerH;
+    const backgroundW = this._Text.finalW + this.style.paddingX * 2;
 
     this.patch({
       w: backgroundW,
       h: backgroundH,
       mountY: 1,
-      y: -this._componentStyles.marginBottom,
+      y: -this.style.marginBottom,
       Background: {
         w: backgroundW,
         h: backgroundH,
@@ -70,10 +71,10 @@ class Tooltip extends Base {
           type: Bubble,
           w: backgroundW,
           h: backgroundH,
-          radius: this._componentStyles.radius,
-          pointerW: this._componentStyles.pointerW,
-          pointerH: this._componentStyles.pointerH,
-          color: this._componentStyles.backgroundColor
+          radius: this.style.radius,
+          pointerW: this.style.pointerW,
+          pointerH: this.style.pointerH,
+          color: this.style.backgroundColor
         }
       }
     });
@@ -83,7 +84,7 @@ class Tooltip extends Base {
     this._Text.patch({
       mount: 0.5,
       x: this._Background.w / 2,
-      y: (this._Background.h - this._componentStyles.pointerH) / 2
+      y: (this._Background.h - this.style.pointerH) / 2
     });
   }
 
@@ -95,8 +96,8 @@ class Tooltip extends Base {
   _transitionIn() {
     const smooth = {
       smooth: {
-        alpha: [1, this._componentStyles.transition],
-        scale: [1, this._componentStyles.transition]
+        alpha: [1, this.style.transition],
+        scale: [1, this.style.transition]
       }
     };
 
@@ -119,8 +120,8 @@ class Tooltip extends Base {
   _transitionOut() {
     this.patch({
       smooth: {
-        alpha: [0, this._componentStyles.transition],
-        scale: [0.5, this._componentStyles.transition]
+        alpha: [0, this.style.transition],
+        scale: [0.5, this.style.transition]
       }
     });
   }
@@ -136,4 +137,4 @@ class Tooltip extends Base {
   }
 }
 
-export default withExtensions(withStyles(Tooltip, styles));
+export default withExtensions(Tooltip);

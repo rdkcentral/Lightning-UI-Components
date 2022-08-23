@@ -1,24 +1,11 @@
-export {
-  default as ActionButton,
-  ActionButtonIconLarge,
-  ActionButtonIconMedium,
-  ActionButtonIconSmall,
-  ActionButtonLarge,
-  ActionButtonMedium,
-  ActionButtonSmall,
-  ActionButtonXsmall
-} from './ActionButton';
 export { default as Artwork, ArtworkStyles } from './Artwork';
 export { default as Badge, BadgeStyles } from './Badge';
 export { default as Base } from './Base';
-export { default as Button } from './Button';
 export {
-  default as ButtonThemed,
-  ButtonSmall as ButtonThemedSmall
-} from './ButtonThemed';
-export { default as CardArtwork } from './CardArtwork';
+  default as Button,
+  ButtonSmall
+} from './Button';
 export { default as Checkbox, CheckboxSmall, CheckboxStyles } from './Checkbox';
-export { default as Control, ControlMedium } from './Control';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing, FocusRingStyles } from './FocusRing';
 export { default as Gradient } from './Gradient';

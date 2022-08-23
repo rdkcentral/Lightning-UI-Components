@@ -7,31 +7,17 @@ import icon from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'Elements / Key',
-  component: Key,
-  args: {
-    focused: false
-  },
-  parameters: {
-    docs: {
-      // page: mdx
-    }
-  }
+  component: Key
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Key: {
-          type: Key,
-          char: args.char
+          type: Key
         }
       };
-    }
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Key');
-      }
     }
   };
 
@@ -39,7 +25,7 @@ Basic.args = {
   char: 'A'
 };
 
-export const Icon = args =>
+export const Icon = () =>
   class Icon extends lng.Component {
     static _template() {
       return {
@@ -51,10 +37,5 @@ export const Icon = args =>
           }
         }
       };
-    }
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Key');
-      }
     }
   };

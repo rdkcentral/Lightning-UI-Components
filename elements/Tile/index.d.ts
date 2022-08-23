@@ -14,16 +14,12 @@ export interface TileStyles {
   artworkStyles?: ArtworkStyles;
   badgeStyles?: BadgeStyles;
   checkboxStyles?: CheckboxStyles;
-  focusRing?: boolean;
-  getFocusScale?: (w: number, h: number) => number;
-  getUnfocusScale?: (w: number, h: number) => number;
   labelStyles?: LabelStyles;
   metadataStyles?: object; // TODO: Replace with TS from MetadataTile after completed
   paddingX?: number | string;
   paddingY?: number | string;
   progressBarStyles?: ProgressBarStyles;
   radius?: Tools.CornerRadius | string;
-  disabledAlpha?: number;
 }
 
 declare const Tile_base: WithThemeStylesConstructor<typeof Base, TileStyles>;

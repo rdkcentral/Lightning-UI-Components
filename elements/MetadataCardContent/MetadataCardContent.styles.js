@@ -1,36 +1,25 @@
-import { processThemeStyles } from '../../mixins';
+export const base = theme => ({
+  detailsTextProperties: theme.typography.body3,
+  providerStyle: {
+    fadeWidth: theme.spacer.md * theme.spacer.md,
+    itemSize: theme.spacer.xxxl + theme.spacer.md
+  }
+});
 
-export const variantDefault = 'neutral';
-
-export function base(theme) {
-  return {
-    detailsTextProperties: theme.typography.body3,
-    providerStyle: {
-      fadeWidth: theme.spacer.md * theme.spacer.md,
-      itemSize: theme.spacer.xxxl + theme.spacer.md
+export const palette = theme => ({
+  neutral: {
+    detailsTextProperties: {
+      textColor: theme.colors.coreNeutral
     }
-  };
-}
-
-export function variants(theme) {
-  return {
-    neutral: {
-      detailsTextProperties: {
-        textColor: theme.colors.coreNeutral
-      }
-    },
-    inverse: {
-      detailsTextProperties: {
-        textColor: theme.colors.coreInverse
-      }
-    },
-    brand: {
-      detailsTextProperties: {
-        textColor: theme.colors.coreNeutral
-      }
+  },
+  inverse: {
+    detailsTextProperties: {
+      textColor: theme.colors.coreInverse
     }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+  },
+  brand: {
+    detailsTextProperties: {
+      textColor: theme.colors.coreNeutral
+    }
+  }
+});

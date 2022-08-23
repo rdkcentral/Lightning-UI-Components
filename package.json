@@ -22,9 +22,9 @@
     "Base.js",
     "Base.d.ts",
     "GlobalUpdateManager.js",
-    "{bin,elements,extensions,layout,mixins,patterns,suite,Styles,textures,utils,themes,context}/**/*",
-    "!{elements,extensions,layout,mixins,patterns,suite,Styles}/**/*.stories.js",
-    "!{elements,extensions,layout,mixins,patterns,suite,textures,utils}/**/*.test.js",
+    "{bin,elements,extensions,layout,mixins,patterns,Styles,textures,utils,themes,context}/**/*",
+    "!{elements,extensions,layout,mixins,patterns,Styles}/**/*.stories.js",
+    "!{elements,extensions,layout,mixins,patterns,textures,utils}/**/*.test.js",
     "test/lightning-test-renderer.js",
     "test/lightning-test-utils.js",
     "!public/"
@@ -69,7 +69,7 @@
     "typescript": "^4.4.4"
   },
   "lint-staged": {
-    "./{collections,elements,layout,mixins,patterns,suite,Styles,textures,utils,themes,context}/**/*.js": [
+    "./{collections,elements,layout,mixins,patterns,Styles,textures,utils,themes,context}/**/*.js": [
       "npm run lint"
     ]
   },
@@ -77,11 +77,11 @@
     "url": "https://github.comcast.com/Lightning/lightning-ui"
   },
   "scripts": {
-    "generateStorybookData": "node ./scripts/storybook/generate && npm run styleDocs",
+    "generateStorybookData": "node ./bin/generate && npm run styleDocs",
     "build": "npm run generateStorybookData && build-storybook -c .storybook -o dist && node -r esm bin/translationScript.js",
     "styleDocs": "node -r esm bin/translationScript.js",
-    "lint": "eslint './{collections,elements,layout,mixins,patterns,suite,Styles,styles,textures,utils,themes,context}/**/*.js'",
-    "lint:fix": "eslint --fix './{collections,elements,layout,mixins,patterns,suite,Styles,styles,textures,utils,themes,context}/**/*.js'",
+    "lint": "eslint './{collections,elements,layout,mixins,patterns,Styles,styles,textures,utils,themes,context}/**/*.js'",
+    "lint:fix": "eslint --fix './{collections,elements,layout,mixins,patterns,Styles,styles,textures,utils,themes,context}/**/*.js'",
     "gh-pages": "gh-pages -d dist",
     "create": "node bin/create.js",
     "start": "npm run generateStorybookData && start-storybook --no-manager-cache -p 8000",

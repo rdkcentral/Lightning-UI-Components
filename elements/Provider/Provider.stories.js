@@ -43,34 +43,26 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Provider: {
           type: Provider,
-          visibleCount: args.visibleCount,
           providers: Array.apply(null, { length: 10 }).map(
             () => xfinityProviderLogoSquare
-          ),
-          counterText: args.counterText,
-          disableRadius: args.disableRadius
+          )
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Provider');
-    }
   };
 
-export const With2x1 = args =>
+export const With2x1 = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Provider: {
           type: Provider,
-          visibleCount: args.visibleCount,
           providers: [
             xfinityProviderLogoSquare,
             {
@@ -82,14 +74,8 @@ export const With2x1 = args =>
             ...Array.apply(null, { length: 8 }).map(
               () => xfinityProviderLogoSquare
             )
-          ],
-          counterText: args.counterText,
-          disableRadius: args.disableRadius
+          ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Provider');
     }
   };

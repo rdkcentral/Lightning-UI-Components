@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 export { default as processThemeStyles } from './processThemeStyles';
 
 export interface WithThemeStyles<StyleType> {
-  _componentStyles: StyleType;
+  _componentStyle: StyleType;
 }
 
 export type WithThemeStylesConstructor<
@@ -11,7 +11,7 @@ export type WithThemeStylesConstructor<
   StyleType
 > = BaseType & {
   new (...args: any[]): BaseType & WithThemeStyles<StyleType>;
-  _componentStyles: StyleType;
+  _componentStyle: StyleType;
 };
 
 export default function withThemeStyles<

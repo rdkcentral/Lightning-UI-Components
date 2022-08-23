@@ -18,24 +18,22 @@ const createStyledToggle = TestUtils.makeCreateComponent(
 );
 
 describe('Toggle', () => {
-  let toggle, styledToggle, testRenderer, styledTestRenderer;
+  let toggle, styledToggle, testRenderer;
 
   beforeEach(() => {
     [toggle, testRenderer] = createToggle();
-    [styledToggle, styledTestRenderer] = createStyledToggle();
+    [styledToggle] = createStyledToggle();
   });
+
   afterEach(() => {
     toggle = null;
     testRenderer = null;
     styledToggle = null;
-    styledTestRenderer = null;
   });
 
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    const styledTree = styledTestRenderer.toJSON(2);
-    expect(styledTree).toMatchSnapshot();
   });
 
   describe('#toggle', () => {
@@ -58,13 +56,13 @@ describe('Toggle', () => {
 
     it('calculates unchecked position if not specified', async () => {
       const uncheckedPosition =
-        styledToggle._componentStyles.strokeWeight +
-        styledToggle._componentStyles.knobPadding;
+        styledToggle._componentStyle.strokeWeight +
+        styledToggle._componentStyle.knobPadding;
       const checkedPosition =
-        styledToggle._componentStyles.w -
-        styledToggle._componentStyles.strokeWeight -
-        styledToggle._componentStyles.knobPadding -
-        styledToggle._componentStyles.knobWidth;
+        styledToggle._componentStyle.w -
+        styledToggle._componentStyle.strokeWeight -
+        styledToggle._componentStyle.knobPadding -
+        styledToggle._componentStyle.knobWidth;
 
       expect(styledToggle.checked).toBe(false);
       expect(styledToggle._Knob.x).toBe(uncheckedPosition);
@@ -78,15 +76,15 @@ describe('Toggle', () => {
 
     it('calculates correct stroke height', () => {
       const height =
-        toggle._componentStyles.knobHeight +
+        toggle._componentStyle.knobHeight +
         2 *
-          (toggle._componentStyles.knobPadding +
-            toggle._componentStyles.strokeWeight);
+          (toggle._componentStyle.knobPadding +
+            toggle._componentStyle.strokeWeight);
       const styledHeight =
-        styledToggle._componentStyles.knobHeight +
+        styledToggle._componentStyle.knobHeight +
         2 *
-          (styledToggle._componentStyles.knobPadding +
-            styledToggle._componentStyles.strokeWeight);
+          (styledToggle._componentStyle.knobPadding +
+            styledToggle._componentStyle.strokeWeight);
 
       expect(toggle._Stroke.h).toBe(height);
       expect(styledToggle._Stroke.h).toBe(styledHeight);

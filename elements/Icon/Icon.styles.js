@@ -1,19 +1,5 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
-
-export const variantDefault = 'neutral';
-
-// eslint-disable-next-line no-unused-vars
-export function base(theme) {
-  return {};
-}
-
-export function variants(theme) {
-  return {
-    neutral: { color: theme.colors.coreNeutral },
-    inverse: { color: theme.colors.coreInverse },
-    brand: { color: theme.colors.coreBrand }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+export const palette = theme => ({
+  neutral: { color: theme.colors.coreNeutral },
+  inverse: { color: theme.colors.coreInverse },
+  brand: { color: theme.colors.coreBrand }
+});

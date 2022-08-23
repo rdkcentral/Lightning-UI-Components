@@ -160,7 +160,7 @@ describe('Marquee', () => {
         h: 300,
         centerAlign: true
       });
-      marquee._componentStyles.shouldSmooth = true;
+      marquee._componentStyle.shouldSmooth = true;
       marquee._centerTexture();
       setTimeout(() => {
         expect(marquee._ContentBox.x).toBe(124.5);

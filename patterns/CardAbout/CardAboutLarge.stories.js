@@ -1,9 +1,10 @@
 import lng from '@lightningjs/core';
 import CardAboutLarge from './CardAboutLarge';
 import mdx from './CardAbout.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
-  title: 'Patterns / CardAboutLarge',
+  title: 'Patterns / CardAbout',
   parameters: {
     tag: 'CardAboutLarge',
     docs: {
@@ -11,55 +12,25 @@ export default {
     }
   }
 };
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const BasicLarge = () =>
+  class BasicLarge extends lng.Component {
     static _template() {
       return {
         Card: {
-          type: CardAboutLarge,
-          description: args.description,
-          title: args.title
+          type: CardAboutLarge
         }
       };
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Card');
-      }
-    }
   };
-Basic.args = {
-  focused: true,
-  disabled: false,
+
+BasicLarge.args = {
   title: 'Overview',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.'
 };
 
-Basic.argTypes = {
-  focused: {
-    control: 'boolean',
-    description: 'Determines if component is in focused or unfocused state'
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'Determines if component is disabled'
-  },
+BasicLarge.argTypes = {
+  ...createModeControl(),
   title: { content: 'text', description: 'Title' },
   description: { control: 'text', description: 'Description' }
-};
-
-Basic.parameters = {
-  argActions: {
-    disabled: (isDisabled, component) => {
-      component.tag('Card').disabled = isDisabled;
-    },
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Card')
-        : () => {};
-      component._refocus();
-    }
-  }
 };

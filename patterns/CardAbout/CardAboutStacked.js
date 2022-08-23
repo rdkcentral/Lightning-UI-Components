@@ -1,5 +1,4 @@
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './CardAboutStacked.styles';
+import * as styles from './CardAboutStacked.styles';
 import { withExtensions } from '../../mixins';
 import CardAbout from './CardAbout';
 import TextBox from '../../elements/TextBox';
@@ -8,6 +7,11 @@ class CardAboutStacked extends CardAbout {
   static get __componentName() {
     return 'CardAboutStacked';
   }
+
+  static get __themeStyles() {
+    return styles;
+  }
+
   static get properties() {
     return [
       ...super.properties,
@@ -16,6 +20,7 @@ class CardAboutStacked extends CardAbout {
       'descriptionBottom'
     ];
   }
+
   static get tags() {
     return [...super.tags, 'TitleBottom'];
   }
@@ -35,12 +40,11 @@ class CardAboutStacked extends CardAbout {
     }
     this.patch({
       LeftIconTextContainer: {
-        x: this._componentStyles.paddingHorizontal,
+        x: this.style.paddingHorizontal,
         content: this.contentBottom,
         y:
-          this._Title.y +
-          this._Title.textStyle.lineHeight +
-          this._componentStyles.paddingVertical * 1.5
+          this._Title.y + this._Title.textStyle &&
+          this._Title.textStyle.lineHeight + this.style.paddingVertical * 1.5
       }
     });
   }
@@ -48,20 +52,15 @@ class CardAboutStacked extends CardAbout {
   _updateBottomText() {
     let titleBottomObject = {};
     titleBottomObject = {
-      content: this.titleBottom.toUpperCase(),
-      x: this._componentStyles.paddingHorizontal,
+      content: this.titleBottom && this.titleBottom.toUpperCase(),
+      x: this.style.paddingHorizontal,
       y: this.contentBottom
         ? this._LeftIconTextContainer.y +
           this._LeftIconTextContainer.textProperties.lineHeight +
-          this._componentStyles.paddingVertical * 2
-        : this._componentStyles.paddingFirstLine,
+          this.style.paddingVertical * 2
+        : this.style.paddingFirstLine,
       wordWrapWidth: this._calculateTextWidth(),
-      textStyle: {
-        ...this._componentStyles.titleTextProperties,
-        textColor: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : this._componentStyles.titleTextProperties.textColor
-      }
+      textStyle: this.style.titleTextProperties
     };
     if (!this._TitleBottom) {
       titleBottomObject.type = TextBox;
@@ -74,18 +73,13 @@ class CardAboutStacked extends CardAbout {
       this._Description.patch({
         content: this.descriptionBottom,
         alpha: this.titleBottom ? 1 : 0,
-        x: this._componentStyles.paddingHorizontal,
+        x: this.style.paddingHorizontal,
         y:
           this._TitleBottom.textStyle.lineHeight +
           this._TitleBottom.y +
-          this._componentStyles.paddingVertical,
+          this.style.paddingVertical,
         wordWrapWidth: this._calculateTextWidth(),
-        textStyle: {
-          ...this._componentStyles.descriptionTextProperties,
-          textColor: this.disabled
-            ? this._componentStyles.textColorDisabled
-            : this._componentStyles.descriptionTextProperties.textColor
-        }
+        textStyle: this.style.descriptionTextProperties
       });
     }
   }
@@ -97,4 +91,4 @@ class CardAboutStacked extends CardAbout {
   }
 }
 
-export default withExtensions(withStyles(CardAboutStacked, styles));
+export default withExtensions(CardAboutStacked);

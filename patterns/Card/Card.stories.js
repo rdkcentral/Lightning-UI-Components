@@ -1,29 +1,35 @@
-import { Basic } from './CardBasic.stories';
-import { Hero } from './CardHero.stories';
-import { Horizontal, HorizontalLarge } from './CardHorizontal.stories';
-import { Vertical, VerticalLarge } from './CardVertical.stories';
-import { VerticalDynamic } from './CardVerticalDynamic.stories';
-import { Program } from './CardProgram.stories';
-import { Launchpad } from './CardLaunchpad.stories';
+import lng from '@lightningjs/core';
+import Card from './Card';
 import mdx from './Card.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
-  title: 'Patterns/Card',
+  title: 'Patterns / Card',
+  tag: 'Card',
+
   parameters: {
     docs: {
       page: mdx
     }
   }
 };
+export const Base = args =>
+  class Base extends lng.Component {
+    static _template() {
+      return {
+        Card: {
+          title: args.title,
+          type: Card,
+          h: 386
+        }
+      };
+    }
+  };
+Base.args = {
+  title: 'Title'
+};
 
-export {
-  Basic,
-  Hero,
-  Horizontal,
-  HorizontalLarge,
-  Launchpad,
-  Program,
-  Vertical,
-  VerticalLarge,
-  VerticalDynamic
+Base.argTypes = {
+  ...createModeControl(),
+  title: { control: 'text', description: 'title' }
 };

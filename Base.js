@@ -9,10 +9,6 @@ import {
 import { isComponentOnScreen } from './utils';
 
 class Base extends lng.Component {
-  static get __componentName() {
-    throw new Error('Every component must have a __componentName getter');
-  }
-
   _construct() {
     this.constructor.__componentName; // Check that __componentName is set
     if (!this.loaded) this.loaded = Promise.resolve(); // By default this is a resolved promise. Components can use _resetLoadedPromise if they requre the functionality
@@ -39,18 +35,6 @@ class Base extends lng.Component {
 
   _unfocus() {
     this._hasFocus = false;
-    this.queueRequestUpdate();
-  }
-
-  get disabled() {
-    return this._disabled;
-  }
-
-  set disabled(disabled) {
-    if (this._disabled === disabled) {
-      return;
-    }
-    this._disabled = disabled;
     this.queueRequestUpdate();
   }
 

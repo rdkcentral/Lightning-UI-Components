@@ -639,7 +639,7 @@ Object {
                       "visible": true,
                       "w": 410,
                       "x": 0,
-                      "y": 112,
+                      "y": 136,
                       "zIndex": 0,
                     },
                     "Element-38": Object {
@@ -1216,7 +1216,7 @@ Object {
                       "visible": true,
                       "w": 410,
                       "x": 0,
-                      "y": 224,
+                      "y": 272,
                       "zIndex": 0,
                     },
                     "Element-8": Object {
@@ -1802,7 +1802,7 @@ Object {
                   "enabled": true,
                   "flex": false,
                   "flexItem": false,
-                  "h": 336,
+                  "h": 384,
                   "isComponent": undefined,
                   "mount": 0,
                   "mountX": 0,

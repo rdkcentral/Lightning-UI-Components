@@ -10,11 +10,11 @@ type transitionObject = {
 
 export interface ArtworkStyles {
   animationBlurEntrance?: transitionObject;
+  animationBlurExit?: transitionObject;
   animationComponentEntrance?: transitionObject;
   animationGradientEntrance?: transitionObject;
-  animationImageScaleEntrance?: transitionObject;
-  animationBlurExit?: transitionObject;
   animationGradientExit?: transitionObject;
+  animationImageScaleEntrance?: transitionObject;
   animationImageScaleExit?: transitionObject;
   blur?: number;
   centerImageRadius?: number;
@@ -26,6 +26,14 @@ export interface ArtworkStyles {
   imageScalePivotY?: number;
   padding?: number;
   radius?: Tools.CornerRadius;
+  zIndex?: {
+    image?: number;
+    blur?: number;
+    centerImage?: number;
+    fill?: number;
+    gradient?: number;
+    foreground?: number;
+  };
 }
 
 export default class Artwork extends Base {

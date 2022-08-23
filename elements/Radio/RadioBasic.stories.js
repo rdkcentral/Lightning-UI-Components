@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import Radio from './index';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export const Basic = () =>
   class Basic extends lng.Component {
@@ -10,19 +11,12 @@ export const Basic = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Radio');
-    }
   };
-Basic.args = { checked: false, isInactive: false };
+Basic.args = { checked: false };
 Basic.argTypes = {
+  ...createModeControl(['disabled']),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off'
-  },
-  isInactive: {
-    control: 'boolean',
-    description: 'State where toggle cannot be changed'
   }
 };

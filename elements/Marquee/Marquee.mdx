@@ -42,20 +42,20 @@ class Example extends lng.Component {
 | name           | type    | required | default                   | description                                                                           |
 | -------------- | ------- | -------- | ------------------------- | ------------------------------------------------------------------------------------- |
 | autoStart      | boolean | false    | false                     | Start scrolling on initiation                                                         |
+| centerAlign    | boolean | false    | false                     | Will center the entire texture if the width of the content is less than the container |
+| contentTexture | object  | false    | false                     | An object matching Lightning texture object (this.tag('MyTag').getTexture())          |
 | color          | string  | false    | theme.colors.fillNeutral1 | Set color of text                                                                     |
 | delay          | number  | false    | 1.5                       | Delay before scrolling starts                                                         |
 | repeat         | number  | false    | -1                        | Number of times to repeat scrolling                                                   |
 | title          | string  | false    | -                         | An object matching Lightning text object                                              |
-| contentTexture | object  | false    | false                     | An object matching Lightning texture object (this.tag('MyTag').getTexture())          |
-| centerAlign    | boolean | false    | false                     | Will center the entire texture if the width of the content is less than the container |
 
 ### Style Properties
 
 | name         | type    | description                                                                              |
 | ------------ | ------- | ---------------------------------------------------------------------------------------- |
-| shouldSmooth | boolean | Determines whether things like centering should happen immediately or animate into place |
 | fadeW        | number  | Starting point of where fadeShader is applied                                            |
 | offset       | number  | Helps decide whether content should be clipped and where it should be positioned         |
+| shouldSmooth | boolean | Determines whether things like centering should happen immediately or animate into place |
 
 ### Methods
 

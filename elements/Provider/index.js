@@ -2,12 +2,16 @@ import lng from '@lightningjs/core';
 import Base from '../../Base';
 import Row from '../../layout/Row';
 import { Icon, TextBox } from '..';
-import styles from './Provider.styles.js';
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import * as styles from './Provider.styles.js';
+import { withExtensions } from '../../mixins';
 
 class Provider extends Base {
   static get __componentName() {
     return 'Provider';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -30,6 +34,11 @@ class Provider extends Base {
     return this.providers.length - this.visibleCount;
   }
 
+  _construct() {
+    this._providers = [];
+    super._construct();
+  }
+
   _update() {
     this._updateProviders();
     this._updateCounter();
@@ -44,7 +53,7 @@ class Provider extends Base {
           rect: true,
           shader: {
             type: lng.shaders.RoundedRectangle,
-            radius: this._componentStyles.radius
+            radius: this.style.radius
           },
           rtt: true
         };
@@ -67,8 +76,8 @@ class Provider extends Base {
         patch = {
           type: Icon,
           icon: provider.icon,
-          w: this._componentStyles.itemSize * ratio,
-          h: this._componentStyles.itemSize,
+          w: this.style.itemSize * ratio,
+          h: this.style.itemSize,
           ...patch
         };
       } else {
@@ -76,17 +85,17 @@ class Provider extends Base {
         patch = {
           type: Icon,
           icon: provider,
-          w: this._componentStyles.itemSize,
-          h: this._componentStyles.itemSize,
+          w: this.style.itemSize,
+          h: this.style.itemSize,
           ...patch
         };
       }
       providerList.push(patch);
     });
     this._Row.patch({
-      itemSpacing: this._componentStyles.itemSpacing,
+      itemSpacing: this.style.itemSpacing,
       items: providerList,
-      h: this._componentStyles.itemSize
+      h: this.style.itemSize
     });
   }
 
@@ -94,30 +103,30 @@ class Provider extends Base {
     if (this.providers.length > this.visibleCount) {
       const remaining = this.providersHidden;
       const counter = {
-        w: this._componentStyles.itemSize,
-        h: this._componentStyles.itemSize,
+        w: this.style.itemSize,
+        h: this.style.itemSize,
         centerInParent: true,
         Background: {
-          w: this._componentStyles.itemSize,
-          h: this._componentStyles.itemSize,
+          w: this.style.itemSize,
+          h: this.style.itemSize,
           texture: lng.Tools.getRoundRect(
-            this._componentStyles.itemSize,
-            this._componentStyles.itemSize,
-            this._componentStyles.radius,
+            this.style.itemSize,
+            this.style.itemSize,
+            this.style.radius,
             0,
             null,
             true,
-            this._componentStyles.counterBackgroundColor
+            this.style.counterBackgroundColor
           )
         },
         Text: {
           type: TextBox,
           mountX: 0.5,
           mountY: 0.5,
-          x: this._componentStyles.itemSize / 2,
-          y: this._componentStyles.itemSize / 2,
+          x: this.style.itemSize / 2,
+          y: this.style.itemSize / 2,
           content: this.counterText || `+${remaining}`,
-          textStyle: this._componentStyles.counterTextProperties
+          textStyle: this.style.counterTextProperties
         }
       };
       this._Row.appendItems([counter]);
@@ -125,4 +134,4 @@ class Provider extends Base {
   }
 }
 
-export default withExtensions(withStyles(Provider, styles));
+export default withExtensions(Provider);

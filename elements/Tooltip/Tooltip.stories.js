@@ -2,38 +2,30 @@ import lng from '@lightningjs/core';
 
 import Tooltip from '.';
 import mdx from './Tooltip.mdx';
-import ActionButton from '../ActionButton';
+import Button from '../Button';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / Tooltip',
   args: {
-    focused: true,
     title: 'Tooltip',
     delayVisible: 0,
     timeVisible: 0
   },
   argTypes: {
-    focused: { control: 'boolean' },
+    ...createModeControl(['focused'], 'focused'),
     title: { control: 'text' },
     delayVisible: { control: 'number' },
     timeVisible: { control: 'number' }
   },
   parameters: {
-    argActions: {
-      focused: (isFocused, component) => {
-        component._getFocused = isFocused
-          ? () => component.tag('Tooltip')
-          : () => {};
-        component._refocus();
-      }
-    },
     docs: {
       page: mdx
     }
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -41,12 +33,6 @@ export const Basic = args =>
           type: Tooltip
         }
       };
-    }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Tooltip');
-      }
     }
   };
 
@@ -57,12 +43,16 @@ LongTitle.args = {
     'This is a long message. Text will remain on a single line and does not have a maximum width'
 };
 
-export const WithActionButton = args =>
-  class WithActionButton extends lng.Component {
+export const WithButton = args =>
+  class WithButton extends lng.Component {
     static _template() {
       return {
         Button: {
-          type: ActionButton,
+          type: class extends Button {
+            _getFocused() {
+              return this.childList.getByRef('Tooltip');
+            }
+          },
           x: 200,
           y: 100,
           title: 'Button',
@@ -76,26 +66,14 @@ export const WithActionButton = args =>
         }
       };
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Button.Tooltip');
-      }
-    }
   };
 
-WithActionButton.args = {
+WithButton.args = {
   bottomMargin: 24
 };
 
-WithActionButton.parameters = {
+WithButton.parameters = {
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Button.Tooltip')
-        : () => {};
-      component._refocus();
-    },
     title: (title, component) => {
       component.tag('Button.Tooltip').title = title;
     },

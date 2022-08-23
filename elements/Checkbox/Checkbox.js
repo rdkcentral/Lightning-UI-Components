@@ -1,13 +1,16 @@
 import lng from '@lightningjs/core';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
 import Icon from '../Icon';
 import Base from '../../Base';
-import styles from './Checkbox.styles';
+import * as styles from './Checkbox.styles';
 
 class Checkbox extends Base {
   static get __componentName() {
     return 'Checkbox';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -27,7 +30,7 @@ class Checkbox extends Base {
   }
 
   static get properties() {
-    return ['checked', 'disabled'];
+    return ['checked'];
   }
 
   _update() {
@@ -37,52 +40,54 @@ class Checkbox extends Base {
 
   _updateCheck() {
     this._Check.patch({
-      w: this._componentStyles.checkW,
-      h: this._componentStyles.checkH,
-      icon: this._componentStyles.checkSrc,
-      color: this._componentStyles.checkColor
+      w: this.style.checkW,
+      h: this.style.checkH,
+      icon: this.style.checkSrc,
+      color: this.style.checkColor
     });
 
-    this._Check.smooth = {
+    const alphaPatch = {
       alpha: this.checked ? 1 : 0
     };
+
+    if (this._smooth) {
+      this._Check.smooth = alphaPatch;
+    } else {
+      this._Check.patch(alphaPatch);
+    }
   }
 
   _updateColor() {
-    let fillColor, strokeColor;
-    if (this.disabled) {
-      fillColor = this._componentStyles.disabledBackgroundColor;
-      strokeColor = this._componentStyles.disabledStrokeColor;
-    } else {
-      fillColor = this.checked
-        ? this._componentStyles.checkedBackgroundColor
-        : this._componentStyles.uncheckedBackgroundColor;
-      strokeColor = this._componentStyles.strokeColor;
-    }
     this.patch({
       texture: lng.Tools.getRoundRect(
-        this._componentStyles.w,
-        this._componentStyles.h,
-        this._componentStyles.radius,
-        this._componentStyles.strokeWidth,
-        strokeColor,
+        this.style.w,
+        this.style.h,
+        this.style.radius,
+        this.style.strokeWidth,
+        this.style.strokeColor,
         true,
-        fillColor
+        this.style.backgroundColor
       )
     });
   }
 
+  _setChecked(checked) {
+    return this.mode !== 'disabled' ? checked : this.checked;
+  }
+
   toggle() {
     this.checked = !this.checked;
-    this._update();
     return this;
   }
 
   _handleEnter() {
-    if (!this.disabled) {
+    if (typeof this.onEnter === 'function') {
+      return this.onEnter(this);
+    } else {
       this.toggle();
     }
+    return false;
   }
 }
 
-export default withExtensions(withStyles(Checkbox, styles));
+export default withExtensions(Checkbox);

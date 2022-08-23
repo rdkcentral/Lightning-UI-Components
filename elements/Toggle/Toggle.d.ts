@@ -3,23 +3,19 @@ import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 import { Tools } from '@lightningjs/core';
 
 export interface ToggleStyles {
-  w?: number;
-  strokeRadius?: Tools.CornerRadius;
-  strokeWeight?: number;
-  strokeColor?: string;
-  strokeDisabledColor?: string;
+  backgroundColor?: string;
+  backgroundColorChecked?: string;
   knobWidth?: number;
   knobHeight?: number;
-  knobRadius?: number;
   knobPadding?: number;
-  knobCheckedColor?: string;
-  knobUncheckedColor?: string;
-  knobDisabledColor?: string;
-  knobCheckedX?: number;
-  knobUncheckedX?: number;
-  backgroundCheckedColor?: string;
-  backgroundUncheckedColor?: string;
-  backgroundDisabledColor?: string;
+  knobRadius?: Tools.CornerRadius;
+  knobColor?: string;
+  knobColorChecked?: string;
+  knobX?: number;
+  knobXChecked?: number;
+  strokeColor?: string;
+  strokeRadius?: Tools.CornerRadius;
+  strokeWeight?: number;
 }
 
 declare const Toggle_base: WithThemeStylesConstructor<
@@ -29,6 +25,5 @@ declare const Toggle_base: WithThemeStylesConstructor<
 
 export default class Toggle extends Base {
   checked?: boolean;
-  disabled?: boolean;
   styles?: ToggleStyles;
 }

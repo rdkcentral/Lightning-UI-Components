@@ -5,7 +5,7 @@ module.exports = name => {
     import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
     
     class ${name} extends Base {
-      static __componentName() {
+      static get __componentName() {
         return '${name}';
       }
 
@@ -28,7 +28,7 @@ module.exports = name => {
       _update() {
         /**
          * All Logic to update component should go here.
-         * Styles can be accessed by this._componentStyles.myStyle
+         * Styles can be accessed by this.style.myStyle
          */
       }
     }

@@ -11,8 +11,10 @@ export default {
   fonts,
   radius,
   typography,
-  componentVariants: {
+  componentPalette: {
     ProgressBar: 'brand',
-    FocusRing: 'brand'
+    FocusRing: 'brand',
+    Distractor: 'brand',
+    Wave: 'brand'
   }
 };

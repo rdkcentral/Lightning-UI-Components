@@ -10,7 +10,7 @@ LUI-
 For Component Refactoring:
 - [ ] change Base/index.js component extension to new Base.js
 - [ ] change component export to be wrapped in withExtensions
-- [ ] strip out component styles from the properties array and reference them via this._componentStyles.propName
+- [ ] strip out component styles from the properties array and reference them via this.style.propName
 - [ ] replace any found instants of Lightning text with LUI Textbox component
 - [ ] remove all instances of whenEnabled and test that the component still works correctly without it (if it doesn't, create a ticket and mark it in the code)
 - [ ] create a TypeScript definitions file for easier use in SUITE/Loki

@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-
 import Distractor from '.';
 import mdx from './Distractor.mdx';
 
@@ -9,32 +8,17 @@ export default {
     docs: {
       page: mdx
     }
-  },
-  args: {
-    circleSize: 100,
-    color: 'rgba(256,256,256,1)'
-  },
-  argTypes: {
-    color: { name: 'color', control: { type: 'color' } }
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Distractor: {
-          type: Distractor,
-          circleSize: args.circleSize,
-          color: args.color
+          type: Distractor
         }
       };
-    }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Distractor');
-      }
     }
   };
 Basic.args = {};

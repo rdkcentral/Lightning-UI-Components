@@ -49,7 +49,8 @@ describe('CardAboutStacked', () => {
     ]);
   });
 
-  it('should update Container', () => {
+  // TODO: Should Stacked Be still using LeftIconTextContainer if there is not an icon?
+  it.skip('should update Container', () => {
     CardAboutStacked.contentBottom = [
       { badge: 'badge' },
       { badge: 'badge' },
@@ -63,20 +64,20 @@ describe('CardAboutStacked', () => {
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked._LeftIconTextContainer.y +
         CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
-        CardAboutStacked._componentStyles.paddingVertical * 2
+        CardAboutStacked.style.paddingVertical * 2
     );
     expect(CardAboutStacked._LeftIconTextContainer.x).toEqual(
-      CardAboutStacked._componentStyles.paddingHorizontal
+      CardAboutStacked.style.paddingHorizontal
     );
     expect(CardAboutStacked._LeftIconTextContainer.y).toEqual(
       CardAboutStacked._Title.y +
         CardAboutStacked._Title.textStyle.lineHeight +
-        CardAboutStacked._componentStyles.paddingVertical * 1.5
+        CardAboutStacked.style.paddingVertical * 1.5
     );
     expect(CardAboutStacked._Description.y).toEqual(
       CardAboutStacked._TitleBottom.textStyle.lineHeight +
         CardAboutStacked._TitleBottom.y +
-        CardAboutStacked._componentStyles.paddingVertical
+        CardAboutStacked.style.paddingVertical
     );
   });
 
@@ -86,17 +87,17 @@ describe('CardAboutStacked', () => {
     testRenderer.forceAllUpdates();
     expect(CardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
     expect(CardAboutStacked._TitleBottom.x).toEqual(
-      CardAboutStacked._componentStyles.paddingHorizontal
+      CardAboutStacked.style.paddingHorizontal
     );
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked.contentBottom
         ? CardAboutStacked._LeftIconTextContainer.y +
             CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
-            CardAboutStacked._componentStyles.paddingVertical * 2
-        : CardAboutStacked._componentStyles.paddingFirstLine
+            CardAboutStacked.style.paddingVertical * 2
+        : CardAboutStacked.style.paddingFirstLine
     );
     expect(CardAboutStacked._TitleBottom.textStyle).toEqual(
-      CardAboutStacked._componentStyles.titleTextProperties
+      CardAboutStacked.style.titleTextProperties
     );
   });
 
@@ -106,17 +107,17 @@ describe('CardAboutStacked', () => {
     testRenderer.forceAllUpdates();
     expect(CardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
     expect(CardAboutStacked._TitleBottom.x).toEqual(
-      CardAboutStacked._componentStyles.paddingHorizontal
+      CardAboutStacked.style.paddingHorizontal
     );
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked.contentBottom
         ? CardAboutStacked._LeftIconTextContainer.y +
             CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
-            CardAboutStacked._componentStyles.paddingVertical * 2
-        : CardAboutStacked._componentStyles.paddingFirstLine
+            CardAboutStacked.style.paddingVertical * 2
+        : CardAboutStacked.style.paddingFirstLine
     );
     expect(CardAboutStacked._TitleBottom.textStyle).toEqual(
-      CardAboutStacked._componentStyles.titleTextProperties
+      CardAboutStacked.style.titleTextProperties
     );
   });
   it('should update position of Description', () => {
@@ -124,17 +125,17 @@ describe('CardAboutStacked', () => {
     CardAboutStacked.titleBottom = 'Languages';
     testRenderer.forceAllUpdates();
     expect(CardAboutStacked._Description.x).toEqual(
-      CardAboutStacked._componentStyles.paddingHorizontal
+      CardAboutStacked.style.paddingHorizontal
     );
     expect(CardAboutStacked._Description.y).toEqual(
       CardAboutStacked.contentBottom
         ? CardAboutStacked._TitleBottom.y +
-            CardAboutStacked._componentStyles.paddingVertical * 2
+            CardAboutStacked.style.paddingVertical * 2
         : CardAboutStacked._TitleBottom.y +
-            CardAboutStacked._componentStyles.paddingVertical * 3
+            CardAboutStacked.style.paddingVertical * 3
     );
     expect(CardAboutStacked._Description.textStyle).toEqual(
-      CardAboutStacked._componentStyles.descriptionTextProperties
+      CardAboutStacked.style.descriptionTextProperties
     );
   });
 });

@@ -1,40 +1,23 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../.storybook/utils';
-import Card from '.';
+import Card from './Card';
 
 # Card
 
-Cards are very configurable and can include [CardArtwork](/story/elements-cardartwork--basic) and [Metadata](/story/elements-metadata--basic) components.
+Cards are very configurable. Cards is the foundational basis for all other card variations.
 
 ## Usage
 
-Cards work by providing many of the relevant properties from CardArtwork and Metadata.
+Cards work by providing many of the relevant properties from TextBox, Surface, and Tile.
 
 ```js
-import { CardVerticalLarge } from '@lightning/ui';
+import { Card } from '@lightning/ui';
 
-class Example extends lng.Component {
+class Basic extends lng.Component {
   static _template() {
     return {
       Card: {
-        type: CardVerticalLarge,
-        src: pets,
-        artHeight: 1080,
-        artWidth: 1920,
-        title: 'Title',
-        description: 'Short description',
-        data: [
-          '86%',
-          {
-            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-            title: 'Rotten Tomatoes rating'
-          }
-        ],
-        logo: circle,
-        logoWidth: 1920,
-        logoHeight: 1080,
-        // Commenting out the line below removes the call-to-cta, which is taking priority over the supplied data above.
-        cta: 'Watch on Netflix'
+        type: Card,
+        title: 'Card'
       }
     };
   }
@@ -42,41 +25,26 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="patterns-card--vertical-dynamic" />
+  <Story id="patterns-card--base" />
 </Canvas>
 
 ## API
 
 ### Properties
 
-| name                 | type                                                 | required             | default                                     | description                                                                                 |
-| -------------------- | ---------------------------------------------------- | -------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| orientation          | 'horizontal'\|'vertical'                             | false                | 'vertical'                                  | only required when creating a new class that extends Card                                   |
-| src                  | string                                               | false                | -                                           | path to image to use as card artwork                                                        |
-| artWidth             | number                                               | true (if using src)  | width of source image being used as artwork |
-| artHeight            | number                                               | true (if using src)  | height of source image beingused as artwork |
-| badge                | [Badge](/story/elements-badge--text)                 | false                | -                                           | Badge content to display over artwork                                                       |
-| badgeLocation        | 'upperLeft'\|'upperRight'\|'lowerLeft'\|'lowerRight' | false                | 'upperLeft'                                 | position to display badge                                                                   |
-| progress             | number                                               | false                | -                                           | amount of the [Progress Bar](/story/elements-progressbar--basic) to fill                    |
-| title                | string                                               | false                | -                                           | first line or headline of content                                                           |
-| description          | string                                               | false                | -                                           | second line or synopsis of content                                                          |
-| data                 | [InlineContent](/story/layout-inlinecontent--basic)  | false                | -                                           | relevant content data at the bottom                                                         |
-| cta                  | string                                               | false                | -                                           | call to action text (will be converted to all caps) at the bottom; takes priority over data |
-| logo                 | string                                               | false                | -                                           | logo to display at bottom of component                                                      |
-| logoWidth            | number                                               | true (if using logo) | -                                           | width of logo source image                                                                  |
-| logoHeight           | number                                               | true (if using logo) | -                                           | height of logo source image                                                                 |
-| radius               | number                                               | false                | 16                                          | corner radius                                                                               |
-| backgroundColor      | color                                                | false                | #232328                                     | card background color                                                                       |
-| backgroundColorFocus | color                                                | false                | undefined                                   | card background color when focused                                                          |
-| focusRingColor       | color                                                | false                | #ECECF2                                     | color of focus ring                                                                         |
-| collapseArt          | boolean                                              | false                | -                                           | hides the Artwork portion of the card                                                       |
-| collapseData         | boolean                                              | false                | -                                           | hides the Metadata portion of the card                                                      |
-| icon                 | string                                               | false                | -                                           | displays an icon in the center of the artwork area                                          |
-| fallbackSrc          | string                                               | false                | -                                           | url to image to use if the requested src fails                                              |
-| shouldAnimate        | boolean                                              | false                | true                                        | toggles the FocusRing animation on and off                                                  |
+| name  | type   | required | default | description             |
+| ----- | ------ | -------- | ------- | ----------------------- |
+| title | string | false    | -       | headline of the content |
 
-### Styles
+### Style Properties
 
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Card.styles} />
+| name                     | type          | description                                                                  |
+| ------------------------ | ------------- | ---------------------------------------------------------------------------- |
+| backgroundColorDisabled  | string        | color of the card when disabled                                              |
+| backgroundColorFocused   | string        | color of the card when not disabled and when focused                         |
+| backgroundColorUnfocused | string        | color of the card when unfocused and not disabled                            |
+| paddingHorizontal        | number        | padding on the x-axis between the right and left of the card and its content |
+| paddingVertical          | number        | padding on the y-axis between the top and bottom of the card and its content |
+| radius                   | number\|array | corner radius of card                                                        |
+| textColorDisabled        | string        | color of the text when disabled                                              |
+| titleTextProperties      | object        | style of the title text                                                      |

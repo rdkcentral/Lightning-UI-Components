@@ -46,16 +46,6 @@ export const GRID_SIZE_PARAMS = {
   itemSpacing: GRID.gutters.vertical
 };
 
-export function getAspectRatioW(h, ratio = '16:9', seperator = ':') {
-  const [ratioW, ratioH] = ratio.split(seperator);
-  return h * (ratioW / ratioH);
-}
-
-export function getAspectRatioH(w, ratio = '16:9', seperator = ':') {
-  const [ratioW, ratioH] = ratio.split(seperator);
-  return w / (ratioW / ratioH);
-}
-
 /**
  * This will return the absolute Y position by subtracting the Y margin from the current position.
  *

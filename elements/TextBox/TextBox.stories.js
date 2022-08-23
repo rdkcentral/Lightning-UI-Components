@@ -1,9 +1,9 @@
 import lng from '@lightningjs/core';
 import TextBox from '.';
 import mdx from './TextBox.mdx';
-import { TYPOGRAPHY } from '../../Styles';
+import context from '../../context';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
-import { getHexColor } from '../../Styles/Colors';
+import { getHexColor } from '../../utils';
 import inlineContentStory from '../../layout/InlineContent/InlineContent.stories';
 
 export default {
@@ -21,7 +21,7 @@ const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =
 const lorum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales est eu eleifend interdum. Vivamus egestas maximus elementum. Sed condimentum ligula justo, non sollicitudin lectus rutrum vel. Integer iaculis vitae nisl quis tincidunt. Sed quis dui vehicula, vehicula felis a, tempor leo. Fusce tincidunt, ante eget pretium efficitur, libero elit volutpat quam, sit amet porta tortor odio non ligula. Ut sed dolor eleifend massa auctor porttitor eget ut lectus. Vivamus elementum lorem mauris, eu luctus tortor posuere sit amet. Nunc a interdum metus.';
 
-export const Base = () => {
+export const Base = () =>
   class Base extends lng.Component {
     static _template() {
       return {
@@ -30,12 +30,7 @@ export const Base = () => {
         }
       };
     }
-
-    $itemChanged(payload) {} // eslint-disable-line no-unused-vars
-  }
-
-  return Base;
-};
+  };
 
 Base.argTypes = {
   content: {
@@ -71,7 +66,7 @@ Base.argTypes = {
   textStyle: {
     control: {
       type: 'select',
-      options: Object.keys(TYPOGRAPHY)
+      options: Object.keys(context.theme.typography)
     },
     defaultValue: 'body1',
     description:
@@ -175,11 +170,8 @@ export const WithInlineContentArray = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('TextBox');
-    }
   };
+
 WithInlineContentArray.args = inlineContentArgs;
 WithInlineContentArray.argTypes = inlineContentArgTypes;
 
@@ -200,10 +192,6 @@ export const WithInlineContentString = () =>
           }
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('TextBox');
     }
   };
 

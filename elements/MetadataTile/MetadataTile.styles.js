@@ -1,28 +1,31 @@
-export default theme => ({
-  w: 410,
-  fadeWidth: theme.spacing(12.5),
-  centerAlign: 'True',
-  justify: 'center',
-  marqueeProperties: {
-    centerAlign: true
+export const base = theme => ({
+  titleTextProperties: theme.typography.headline3,
+  descriptionTextProperties: theme.typography.body3
+});
+
+export const palette = theme => ({
+  neutral: {
+    subtitleTextProperties: {
+      textColor: theme.colors.coreNeutralSecondary
+    },
+    descriptionTextProperties: {
+      textColor: theme.colors.coreNeutral
+    }
   },
-  firstLineTextProperties: {
-    ...theme.typography.headline3,
-    textColor: theme.palette.text.light.primary,
-    textAlign: 'center',
-    maxLines: 1
+  inverse: {
+    subtitleTextProperties: {
+      textColor: theme.colors.coreInverseSecondary
+    },
+    descriptionTextProperties: {
+      textColor: theme.colors.coreInverse
+    }
   },
-  secondLineTextProperties: {
-    ...theme.typography.body3,
-    textColor: theme.palette.text.light.secondary,
-    maxLinesSuffix: '...',
-    textAlign: 'center',
-    maxLines: 1
-  },
-  unfocused: {
-    scale: () => 1
-  },
-  focused: {
-    scale: theme.getFocusScale
+  brand: {
+    subtitleTextProperties: {
+      textColor: theme.colors.coreNeutralSecondary
+    },
+    descriptionTextProperties: {
+      textColor: theme.colors.coreNeutral
+    }
   }
 });

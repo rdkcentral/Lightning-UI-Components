@@ -1,4 +1,4 @@
-import { getHexColor } from '../Styles/Colors';
+import { getHexColor } from '../utils';
 
 describe('context', () => {
   let context;
@@ -148,7 +148,7 @@ describe('context', () => {
 
     it('should emit an event when sub a sub theme is modified', () => {
       const spy = jest.fn();
-      context.on('updateThemetest', spy);
+      context.on('themeUpdatetest', spy);
       context.setSubTheme('test', { radius: { md: 80 } });
       expect(spy).toHaveBeenCalledTimes(1);
       context.updateSubTheme('test', { radius: { md: 60 } });

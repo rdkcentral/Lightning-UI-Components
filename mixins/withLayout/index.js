@@ -42,27 +42,38 @@ export default function withLayout(Base) {
     _updateItemLayout() {
       if (!this._allowUpdate()) return;
       const { w, h } = getDimensions(this._itemLayout);
-      if (this._itemLayout && this._itemLayout.circle) {
-        this.w = this.innerH;
-        this._layoutCircleMode = true;
-        if (this.style) this.style.radius = this.h / 2;
-      } else if (h || w) {
+      if (h || w) {
         // If there is not enough information passed in args to calculate item size
         const width = context.theme.layout.screenW;
         const height = context.theme.layout.screenH;
-        this.w = w || h * (width / height); // Width must be set first in order for Cards to be displayed properly
-        this.h = h || w * (height / width);
+        const calculatedWidth = w || h * (width / height);
+        const calculatedHeight = h || w * (height / width);
+        this.w =
+          this._itemLayout && this._itemLayout.circle
+            ? calculatedHeight
+            : calculatedWidth; // Width must be set first in order for Cards to be displayed properly
+        this.h = calculatedHeight;
+        if (this._itemLayout && this._itemLayout.circle && this.style) {
+          if (-1 < this._componentStyleSourceProps.indexOf('radius')) {
+            this._circleSet = true;
+            this._originalRadius = this.style.radius;
+            this.style = {
+              ...this.style,
+              radius: calculatedHeight / 2
+            };
+          }
+        } else if (this._circleSet) {
+          // Restore to it's original state
+          this.style = {
+            ...this.style,
+            radius: this._originalRadius
+          };
+          this._originalRadius = undefined;
+          this._circleSet = false;
+        }
+        this.queueRequestUpdate && this.queueRequestUpdate();
+        this.fireAncestors('$itemChanged');
       }
-      if (
-        !this._itemLayout ||
-        (!this._itemLayout.circle && this._layoutCircleMode)
-      ) {
-        // Cleanup after circle layout removed
-        this.style.radius = undefined;
-        this._layoutCircleMode = false;
-      }
-      super._update && super._update();
-      this.fireAncestors('$itemChanged');
     }
   };
 }

@@ -10,13 +10,13 @@ Component to provide hint information to other components like buttons and actio
 
 ```js
 import { Tooltip } from '@lightning/ui';
-import ActionButton from '../ActionButton';
+import Button from '../Button';
 
 class Example extends lng.Component {
   static _template() {
     return {
       Button: {
-        type: ActionButton,
+        type: Button,
         x: 200,
         y: 100,
         w: 410,
@@ -51,20 +51,20 @@ Tooltip is only visible on focus of the parent.
 
 | name         | type   | default | description                                                                                           |
 | ------------ | ------ | ------- | ----------------------------------------------------------------------------------------------------- |
-| title        | string | ''      | tool tip text goes here                                                                               |
 | delayVisible | number | -       | the amount of time, in milliseconds, before the tooltip is displayed after being focused              |
 | timeVisible  | number | -       | the amount of time, in milliseconds, the tooltip is displayed before transitioning out of the display |
+| title        | string | ''      | tool tip text goes here                                                                               |
 
 ### Style Properties
 
-| name            | type          | description                                          |
-| --------------- | ------------- | ---------------------------------------------------- |
-| radius          | number\|array | radius of tooltip corners                            |
-| textStyle       | string        | font styles used for Tooltip's text                  |
-| marginBottom    | number        | space below tooltip                                  |
-| paddingY        | number        | space above and below tooltip text                   |
-| paddingX        | number        | space on left and right sides of tooltip text        |
-| pointerW        | number        | width of point beneath rounded rectangle of tooltip  |
-| pointerH        | number        | height of point beneath rounded rectangle of tooltip |
-| backgroundColor | number        | background color of tooltip                          |
-| textColor       | number        | color of tooltip text                                |
+| name | type | description |
+| ---- | ---- | ----------- |
+
+| backgroundColor | number | background color of tooltip |
+| marginBottom | number | space below tooltip |
+| paddingX | number | space on left and right sides of tooltip text |
+| paddingY | number | space above and below tooltip text |
+| pointerW | number | width of point beneath rounded rectangle of tooltip |
+| pointerH | number | height of point beneath rounded rectangle of tooltip |
+| radius | number\|array | radius of tooltip corners |
+| textStyle | string | font styles used for Tooltip's text |

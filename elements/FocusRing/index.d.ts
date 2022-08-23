@@ -3,15 +3,15 @@ import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 import type { Tools } from '@lightningjs/core';
 
 export interface FocusRingStyles {
-  radius?: Tools.CornerRadius;
+  animationDuration?: number;
   borderWidth?: number;
   color?: number;
-  secondaryColor?: number;
-  transitionColor?: number;
   colorTransitionAlpha?: number;
+  radius?: Tools.CornerRadius;
+  secondaryColor?: number;
   shouldAnimate?: boolean;
   spacing?: number;
-  animationDuration?: number;
+  transitionColor?: number;
 }
 
 declare const FocusRing_base: WithThemeStylesConstructor<

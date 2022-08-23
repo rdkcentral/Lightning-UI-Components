@@ -1,13 +1,16 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './FocusRing.styles';
-import { getHexColor, getValidColor } from '../../Styles/Styles';
+import * as styles from './FocusRing.styles';
+import { getHexColor, getValidColor } from '../../utils';
 
 class FocusRing extends Base {
   static get __componentName() {
     return 'FocusRing';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get tags() {
@@ -25,35 +28,28 @@ class FocusRing extends Base {
 
   get _ringColors() {
     return {
-      primary: this._componentStyles.color,
+      primary: this.style.color,
       transition:
-        this._componentStyles.transitionColor ||
+        this.style.transitionColor ||
         getHexColor(
-          getValidColor(this._componentStyles.color),
-          this._componentStyles.colorTransitionAlpha
+          getValidColor(this.style.color),
+          this.style.colorTransitionAlpha
         ),
-      secondary: this._componentStyles.secondaryColor
+      secondary: this.style.secondaryColor
     };
   }
 
   _updateRing() {
     const { transition, primary, secondary } = this._ringColors;
-    const offset =
-      this._componentStyles.spacing * 2 + this._componentStyles.borderWidth;
-    const focusRingPadding =
-      this._componentStyles.spacing + this._componentStyles.borderWidth / 2;
+    const offset = this.style.spacing * 2 + this.style.borderWidth;
+    const focusRingPadding = this.style.spacing + this.style.borderWidth / 2;
     let radius = [];
-    if (Array.isArray(this._componentStyles.radius)) {
+    if (Array.isArray(this.style.radius)) {
       radius = new Array(4)
         .fill()
-        .map(
-          (_, index) =>
-            (this._componentStyles.radius[index] || 0) + focusRingPadding
-        );
+        .map((_, index) => (this.style.radius[index] || 0) + focusRingPadding);
     } else {
-      radius = this._componentStyles.radius
-        ? this._componentStyles.radius + focusRingPadding
-        : 0;
+      radius = this.style.radius ? this.style.radius + focusRingPadding : 0;
       radius = Math.max(0, radius); // Ensure number is always positive
     }
     this.patch({
@@ -66,7 +62,7 @@ class FocusRing extends Base {
           this.w + offset,
           this.h + offset,
           radius,
-          this._componentStyles.borderWidth,
+          this.style.borderWidth,
           false,
           false,
           false
@@ -80,7 +76,7 @@ class FocusRing extends Base {
   }
 
   _updateAnimation() {
-    if (!this._componentStyles.shouldAnimate) {
+    if (!this.style.shouldAnimate) {
       this._focusRingAnimation = null;
       return;
     }
@@ -93,7 +89,7 @@ class FocusRing extends Base {
     }
     this._focusRingAnimation = this._Ring.animation({
       repeat: -1,
-      duration: this._componentStyles.animationDuration,
+      duration: this.style.animationDuration,
       actions: [
         {
           p: 'colorUl',
@@ -147,7 +143,7 @@ class FocusRing extends Base {
       return;
     }
 
-    if (!this._componentStyles.shouldAnimate) {
+    if (!this.style.shouldAnimate) {
       this.stopAnimation();
       return;
     }
@@ -168,4 +164,4 @@ class FocusRing extends Base {
   }
 }
 
-export default withExtensions(withStyles(FocusRing, styles));
+export default withExtensions(FocusRing);

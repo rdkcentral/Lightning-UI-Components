@@ -1,12 +1,15 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './Toggle.styles';
+import * as styles from './Toggle.styles';
 
 class Toggle extends Base {
   static get __componentName() {
     return 'Toggle';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -33,7 +36,7 @@ class Toggle extends Base {
   }
 
   static get properties() {
-    return ['checked', 'disabled'];
+    return ['checked'];
   }
 
   _construct() {
@@ -42,17 +45,12 @@ class Toggle extends Base {
   }
 
   toggle() {
-    if (!this.disabled) {
-      this.checked = !this.checked;
-    }
+    this.checked = !this.checked;
     return this;
   }
 
   _setChecked(checked) {
-    if (!this.disabled) {
-      return checked;
-    }
-    return this._checked;
+    return this.mode !== 'disabled' ? checked : this.checked;
   }
 
   _handleEnter() {
@@ -73,18 +71,12 @@ class Toggle extends Base {
   }
 
   _updateKnobPosition() {
-    const {
-      w,
-      knobCheckedX,
-      knobUncheckedX,
-      knobPadding,
-      knobWidth,
-      strokeWeight
-    } = this._componentStyles;
-    this._knobUncheckedX = knobUncheckedX || strokeWeight + knobPadding;
-    this._knobCheckedX =
-      knobCheckedX || w - strokeWeight - knobPadding - knobWidth;
-    const x = this.checked ? this._knobCheckedX : this._knobUncheckedX;
+    const { w, knobXChecked, knobX, knobPadding, knobWidth, strokeWeight } =
+      this.style;
+    this._knobX = knobX || strokeWeight + knobPadding;
+    this._knobXChecked =
+      knobXChecked || w - strokeWeight - knobPadding - knobWidth;
+    const x = this.checked ? this._knobXChecked : this._knobX;
 
     if (this._smooth) {
       this._Knob.smooth = { x };
@@ -95,34 +87,26 @@ class Toggle extends Base {
 
   _updateColors() {
     const {
-      backgroundCheckedColor,
-      backgroundUncheckedColor,
-      backgroundDisabledColor,
-      knobCheckedColor,
-      knobUncheckedColor,
-      knobDisabledColor
-    } = this._componentStyles;
-    let knobColor;
-    let containerColor;
-    if (this.disabled) {
-      knobColor = knobDisabledColor;
-      containerColor = backgroundDisabledColor;
-    } else {
-      knobColor = this.checked ? knobCheckedColor : knobUncheckedColor;
-      containerColor = this.checked
-        ? backgroundCheckedColor
-        : backgroundUncheckedColor;
-    }
+      backgroundColor,
+      backgroundColorChecked,
+      knobColor,
+      knobColorChecked
+    } = this.style;
+
+    const currentKnobColor = this.checked ? knobColorChecked : knobColor;
+    const containerColor = this.checked
+      ? backgroundColorChecked
+      : backgroundColor;
 
     if (this._smooth) {
       this._Knob.smooth = {
-        color: knobColor
+        color: currentKnobColor
       };
       this._Container.smooth = {
         color: containerColor
       };
     } else {
-      this._Knob.color = knobColor;
+      this._Knob.color = currentKnobColor;
       this._Container.color = containerColor;
     }
   }
@@ -135,7 +119,7 @@ class Toggle extends Base {
       knobPadding,
       strokeRadius,
       strokeWeight
-    } = this._componentStyles;
+    } = this.style;
     const h = knobHeight + 2 * knobPadding + 2 * strokeWeight;
 
     let radius;
@@ -171,12 +155,10 @@ class Toggle extends Base {
       knobRadius,
       knobPadding,
       strokeColor,
-      strokeDisabledColor,
       strokeRadius,
       strokeWeight
-    } = this._componentStyles;
+    } = this.style;
     const h = knobHeight + 2 * knobPadding + 2 * strokeWeight;
-    const newStrokeColor = this.disabled ? strokeDisabledColor : strokeColor;
     this._Stroke.patch({
       w,
       h,
@@ -187,7 +169,7 @@ class Toggle extends Base {
           ? strokeRadius
           : knobRadius + knobPadding + strokeWeight,
         strokeWeight,
-        newStrokeColor,
+        strokeColor,
         false,
         false
       )
@@ -196,7 +178,7 @@ class Toggle extends Base {
 
   _updateKnob() {
     const { knobHeight, knobWidth, knobRadius, knobPadding, strokeWeight } =
-      this._componentStyles;
+      this.style;
     this._Knob.patch({
       zIndex: 2,
       y: strokeWeight + knobPadding,
@@ -213,4 +195,4 @@ class Toggle extends Base {
   }
 }
 
-export default withExtensions(withStyles(Toggle, styles));
+export default withExtensions(Toggle);

@@ -4,11 +4,10 @@ import type { Tools } from '@lightningjs/core';
 
 export interface LabelStyles {
   backgroundColor?: string;
-  titleColor?: string;
-  textStyle?: string;
   paddingX?: number;
   paddingY?: number;
   radius?: Tools.CornerRadius;
+  textStyle?: string;
 }
 
 declare const Label_base: WithThemeStylesConstructor<typeof Base, LabelStyles>;

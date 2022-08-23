@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
-
 import Surface from '.';
 import mdx from './Surface.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / Surface',
@@ -12,7 +12,7 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -26,36 +26,6 @@ export const Basic = args =>
         }
       };
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Surface');
-      }
-    }
   };
 
-Basic.args = { focused: true, disabled: false };
-
-Basic.argTypes = {
-  focused: {
-    control: 'boolean',
-    description: 'Determines if component is in focused or unfocused state'
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'Determines if component is disabled'
-  }
-};
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Surface')
-        : () => {};
-      component._refocus();
-    },
-    disabled: (isDisabled, component) => {
-      component.tag('Surface').disabled = isDisabled;
-    }
-  }
-};
+Basic.argTypes = createModeControl();

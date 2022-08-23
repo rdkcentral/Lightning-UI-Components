@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 
 import { ToggleSmall } from '.';
 import mdx from './Toggle.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / ToggleSmall',
@@ -12,17 +13,13 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         flex: { direction: 'column' },
-        text: { fontSize: 24, text: 'Press Enter' },
         ToggleSmall: {
-          y: 40,
           type: ToggleSmall,
-          checked: args.checked,
-          disabled: args.disabled,
           onEnter: toggle => {
             alert('Sample onEnter override');
             toggle.toggle();
@@ -31,22 +28,14 @@ export const Basic = args =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('ToggleSmall');
-    }
   };
 Basic.args = {
-  checked: false,
-  disabled: false
+  checked: false
 };
 Basic.argTypes = {
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'the state of the toggle being checked'
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'the state of the component being able to toggle'
   }
 };

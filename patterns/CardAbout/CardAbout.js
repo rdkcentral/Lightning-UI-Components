@@ -1,24 +1,15 @@
-import CardTitle from '../NewCard/CardTitle';
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './CardAbout.styles';
+import CardTitle from '../Card/CardTitle';
+import * as styles from './CardAbout.styles';
 import InlineContent from '../../layout/InlineContent';
 import { withExtensions } from '../../mixins';
 
 class CardAbout extends CardTitle {
-  static _template() {
-    return {
-      ...super._template(),
-      LeftIconTextContainer: {
-        type: InlineContent
-      },
-      RightIconTextContainer: {
-        type: InlineContent
-      }
-    };
-  }
-
   static get __componentName() {
     return 'CardAbout';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
@@ -37,6 +28,18 @@ class CardAbout extends CardTitle {
     return [...super.tags, 'LeftIconTextContainer', 'RightIconTextContainer'];
   }
 
+  static _template() {
+    return {
+      ...super._template(),
+      LeftIconTextContainer: {
+        type: InlineContent
+      },
+      RightIconTextContainer: {
+        type: InlineContent
+      }
+    };
+  }
+
   _update() {
     super._update();
     this._updateTitleStyle();
@@ -48,39 +51,38 @@ class CardAbout extends CardTitle {
     const iconTextContainerObject = {
       iconW: this.iconWidth,
       iconH: this.iconHeight,
-      contentSpacing: this._componentStyles.contentSpacing,
+      contentSpacing: this.style.contentSpacing,
       y:
         this._Title.textStyle.lineHeight +
-        this._componentStyles.paddingVertical +
-        this._componentStyles.paddingFirstLine
+        this.style.paddingVertical +
+        this.style.paddingFirstLine
     };
     this.patch({
       LeftIconTextContainer: {
-        x: this._componentStyles.paddingHorizontal,
+        x: this.style.paddingHorizontal,
+        iconY: 0,
         ...iconTextContainerObject
       },
       RightIconTextContainer: {
         mountX: !this.iconLeft && !this.textLeft ? 0 : 1,
+        iconY: 0,
         x:
           !this.iconLeft && !this.textLeft
-            ? this._componentStyles.paddingHorizontal
-            : this.w - this._componentStyles.paddingHorizontal,
+            ? this.style.paddingHorizontal
+            : this.w - this.style.paddingHorizontal,
         ...iconTextContainerObject
       }
     });
   }
 
   _updateTitleStyle() {
-    this._Title.patch({
-      textStyle: {
-        ...this._componentStyles.titleTextProperties,
-        textColor: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : this._componentStyles.titleTextProperties.textColor
-      },
-      y: this._componentStyles.paddingFirstLine,
-      content: this.title.toUpperCase()
-    });
+    if (typeof this.title === 'string') {
+      this._Title.patch({
+        textStyle: this.style.titleTextProperties,
+        y: this.style.paddingFirstLine,
+        content: this.title.toUpperCase()
+      });
+    }
   }
 
   _updateDescriptionPosition() {
@@ -90,18 +92,13 @@ class CardAbout extends CardTitle {
           (this.iconHeight ||
             this._LeftIconTextContainer.textProperties.lineHeight ||
             this._RightIconTextContainer.textProperties.lineHeight) +
-          this._componentStyles.paddingVertical
+          this.style.paddingVertical
         : this._Title.textStyle.lineHeight +
-          this._componentStyles.paddingVertical +
-          this._componentStyles.paddingFirstLine,
-      textStyle: {
-        ...this._componentStyles.descriptionTextProperties,
-        textColor: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : this._componentStyles.descriptionTextProperties.textColor
-      },
+          this.style.paddingVertical +
+          this.style.paddingFirstLine,
+      textStyle: this.style.descriptionTextProperties,
       maxLines: this._hasContent ? 3 : 5,
-      x: this._componentStyles.paddingHorizontal
+      x: this.style.paddingHorizontal
     });
   }
 
@@ -116,37 +113,29 @@ class CardAbout extends CardTitle {
     this.iconLeft &&
       contentLeft.push({
         icon: this.iconLeft,
-        color: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : undefined
+        color: this.style.textColor
       });
     this.textLeft && contentLeft.push(this.textLeft);
     this._LeftIconTextContainer.content = contentLeft;
     this._LeftIconTextContainer.patch({
       textProperties: {
-        ...this._componentStyles.textContainerProperties,
-        textColor: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : this._componentStyles.textContainerProperties.textColor
+        ...this.style.textContainerProperties,
+        textColor: this.style.textColor
       }
     });
     const contentRight = [];
     this.iconRight &&
       contentRight.push({
         icon: this.iconRight,
-        color: this.disabled
-          ? this._componentStyles.textColorDisabled
-          : undefined
+        color: this.style.textColor
       });
     this.textRight && contentRight.push(this.textRight);
     this._RightIconTextContainer.content = contentRight;
     this._RightIconTextContainer.textProperties = {
-      ...this._componentStyles.textContainerProperties,
-      textColor: this.disabled
-        ? this._componentStyles.textColorDisabled
-        : this._componentStyles.textContainerProperties.textColor
+      ...this.style.textContainerProperties,
+      textColor: this.style.textColor
     };
   }
 }
 
-export default withExtensions(withStyles(CardAbout, styles));
+export default withExtensions(CardAbout);

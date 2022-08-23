@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { withExtensions } from '../../mixins';
 import withStyles from '../../mixins/withThemeStyles';
-import styles from './Label.styles';
+import * as styles from './Label.styles';
 import TextBox from '../TextBox';
 
 class Label extends Base {
@@ -19,8 +19,13 @@ class Label extends Base {
       }
     };
   }
+
   static get __componentName() {
     return 'Label';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
@@ -44,8 +49,7 @@ class Label extends Base {
   _updateText() {
     this._Text.patch({
       content: this.title,
-      textColor: this._componentStyles.titleColor,
-      textStyle: this._componentStyles.textStyle
+      textStyle: this.style.textStyle
     });
   }
 
@@ -54,20 +58,18 @@ class Label extends Base {
     this._Text.y = this.h / 2;
     this.h = !this.title
       ? 0
-      : this._Text.renderHeight + 2 * this._componentStyles.paddingY;
-    this.w = !this.title
-      ? 0
-      : this._Text.renderWidth + 2 * this._componentStyles.paddingX;
+      : this._Text.renderHeight + 2 * this.style.paddingY;
+    this.w = !this.title ? 0 : this._Text.renderWidth + 2 * this.style.paddingX;
     this._Background.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra two pixels getRoundRect adds.
         this.w - 2,
         this.h - 2,
-        this._componentStyles.radius,
+        this.style.radius,
         0,
         null,
         true,
-        this._componentStyles.backgroundColor
+        this.style.backgroundColor
       )
     });
   }

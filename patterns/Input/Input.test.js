@@ -1,7 +1,8 @@
 import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import Input from '.';
-import { PALETTE, getHexColor } from '../../Styles/Colors';
+import { getHexColor } from '../../utils';
+import { PALETTE } from '../../Styles/Colors';
 import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 import { withStyles } from '../../mixins';

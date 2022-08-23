@@ -1,0 +1,71 @@
+
+import { Meta, Description } from '@storybook/addon-docs';
+
+<Meta title="Docs / Theming/ Mode" />
+
+# Mode
+
+LightningUI components utilize modes to update `this.style`. The component's appearance can be changed depending on it's mode. 
+
+**Common modes include:**
+
+* unfocused (default)
+* focused
+* disabled
+* selected
+
+By default each component will attempt to find a `focused` mode when thte component gains focus. 
+
+### Theme level
+
+You can set any component's default mode by specifying it in the componentMode property of your theme.
+
+```js
+componentMode: {
+  Tile: 'focused'
+}
+``` 
+
+You can also adjust the functionality of a mode by overriding it in your theme using the componentStyle property. To target a mode override select the component to target ex. `ProgressBar` add a mode property to the theme level component overrride.
+
+```js
+componentStyle: {
+  Tile: {
+    mode: {
+      focused: {
+        radius: 100
+      }
+    }
+  }
+}
+```
+
+### Component level overrides
+
+Modes can be set on individual components as well. 
+
+In the example below this instance of a Tile would be shown in it's focused state
+
+```js
+ModeTest: {
+  type: Tile,
+  mode: 'focused',
+  ...
+}
+```
+
+Mode styles can also be overwritten using the same overwrite syntax as shown above in the theme overrides
+
+```js
+ModeTest: {
+  type: Tile,
+  style: {
+    mode: {
+      focused: {
+        radius: 100
+      }
+    }
+  }
+  ...
+}
+```

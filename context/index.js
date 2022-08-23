@@ -8,18 +8,6 @@ import themeManager from './theme-manager';
  * Class to create a context object. Context is a singleton that will hold settings and logic to be used across all Lightning UI components.
  */
 export class Context {
-  constructor() {
-    /** Different projects may have multiple instances of LUI - Store references to keep everything in sync */
-    if (typeof window === 'undefined') return;
-    if (!window.LUI) {
-      window.LUI = {};
-    }
-    if (!window.LUI.themeManagerInstances) {
-      window.LUI.themeManagerInstances = [{ themeManager, events }];
-    } else {
-      window.LUI.themeManagerInstances.push({ themeManager, events });
-    }
-  }
   /**
    * @type {object}
    */

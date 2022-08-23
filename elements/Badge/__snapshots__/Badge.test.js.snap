@@ -79,7 +79,7 @@ Object {
       "visible": false,
       "w": 0,
       "x": 8,
-      "y": 0,
+      "y": 4,
       "zIndex": 0,
     },
     "Icon": Object {
@@ -117,7 +117,7 @@ Object {
       "visible": true,
       "w": 0,
       "x": 8,
-      "y": 0,
+      "y": 4,
       "zIndex": 0,
     },
   },

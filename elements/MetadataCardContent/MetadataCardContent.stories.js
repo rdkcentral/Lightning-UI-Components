@@ -12,29 +12,14 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         MetadataCardContent: {
-          w: args.w,
-          h: args.h,
-          type: MetadataCardContent,
-          title: args.title,
-          description: args.description,
-          details: args.details,
-          provider: {
-            visibleCount: args.visibleCount,
-            providers: Array.apply(null, { length: 10 }).map(
-              () => xfinityProviderLogoSquare
-            )
-          }
+          type: MetadataCardContent
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('MetadataCardContent');
     }
   };
 Basic.argTypes = {
@@ -84,6 +69,19 @@ Basic.argTypes = {
     description: 'number of visible providers',
     table: {
       defaultValue: { summary: 3 }
+    }
+  }
+};
+
+Basic.parameters = {
+  argActions: {
+    visibleCount(visibleCount, component) {
+      component.tag('MetadataCardContent').provider = {
+        visibleCount: visibleCount,
+        providers: Array.apply(null, { length: 10 }).map(
+          () => xfinityProviderLogoSquare
+        )
+      };
     }
   }
 };

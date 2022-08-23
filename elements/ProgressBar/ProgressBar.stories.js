@@ -24,10 +24,6 @@ export const Basic = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('ProgressBar');
-    }
   };
 
 Basic.argTypes = {

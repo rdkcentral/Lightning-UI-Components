@@ -1,5 +1,5 @@
-import Card, { CardVerticalDynamic, CardHorizontal } from '../../patterns/Card';
-import MetadataSmall from '../../elements/MetadataSmall';
+import Card, { CardVerticalDynamic, CardHorizontal } from '../../legacy/Card';
+import MetadataTile from '../../elements/MetadataTile';
 import FocusManager from '../../layout/FocusManager';
 import Row from '../../layout/Row';
 import { Base, Tile } from '../../elements';

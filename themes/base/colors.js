@@ -53,6 +53,7 @@ export default {
   interactiveInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
   interactiveBrandFocus: [COLOR_PALETTE.blue[20], ALPHAS.primary],
   interactiveBrandFocusSoft: [COLOR_PALETTE.blue[20], ALPHAS.tertiary],
+  transparent: [COLOR_PALETTE.constants.white, ALPHAS.none],
   black: [COLOR_PALETTE.constants.black, ALPHAS.primary],
   white: [COLOR_PALETTE.constants.white, ALPHAS.primary],
   gray: [COLOR_PALETTE.grey[40], ALPHAS.primary],

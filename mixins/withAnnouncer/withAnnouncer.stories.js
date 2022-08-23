@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row } from '../../layout';
-import { ActionButton } from '../../elements';
+import { Button } from '../../elements';
 import mdx from './withAnnouncer.mdx';
 
 export default {
@@ -23,16 +23,16 @@ const rows = [
     itemSpacing: 30,
     items: [
       {
-        type: ActionButton,
-        title: 'ActionButton 1',
+        type: Button,
+        title: 'Button 1',
         announceContext: '1 of 3'
       },
       {
-        type: ActionButton,
-        title: 'ActionButton 2',
+        type: Button,
+        title: 'Button 2',
         announceContext: '2 of 3'
       },
-      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
+      { type: Button, title: 'Button 3', announceContext: '3 of 3' }
     ]
   },
   {
@@ -42,16 +42,16 @@ const rows = [
     itemSpacing: 30,
     items: [
       {
-        type: ActionButton,
-        title: 'ActionButton 1',
+        type: Button,
+        title: 'Button 1',
         announceContext: '1 of 3'
       },
       {
-        type: ActionButton,
-        title: 'ActionButton 2',
+        type: Button,
+        title: 'Button 2',
         announceContext: '2 of 3'
       },
-      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
+      { type: Button, title: 'Button 3', announceContext: '3 of 3' }
     ]
   },
   {
@@ -61,16 +61,16 @@ const rows = [
     itemSpacing: 30,
     items: [
       {
-        type: ActionButton,
-        title: 'ActionButton 1',
+        type: Button,
+        title: 'Button 1',
         announceContext: '1 of 3'
       },
       {
-        type: ActionButton,
-        title: 'ActionButton 2',
+        type: Button,
+        title: 'Button 2',
         announceContext: '2 of 3'
       },
-      { type: ActionButton, title: 'ActionButton 3', announceContext: '3 of 3' }
+      { type: Button, title: 'Button 3', announceContext: '3 of 3' }
     ]
   }
 ];
@@ -113,27 +113,27 @@ const createRow = items => ({
   itemSpacing: 30,
   items
 });
-const createActionButton = (title, announceContext) => ({
-  type: ActionButton,
+const createButton = (title, announceContext) => ({
+  type: Button,
   title,
   announceContext
 });
 
 const abbrevRows = [
   createRow([
-    createActionButton('TV-14', '1 of 9'),
-    createActionButton('(CC)', '2 of 9'),
-    createActionButton('HD', '3 of 9')
+    createButton('TV-14', '1 of 9'),
+    createButton('(CC)', '2 of 9'),
+    createButton('HD', '3 of 9')
   ]),
   createRow([
-    createActionButton('ENG', '4 of 9'),
-    createActionButton('ENG+ES', '5 of 9'),
-    createActionButton('AD', '6 of 9')
+    createButton('ENG', '4 of 9'),
+    createButton('ENG+ES', '5 of 9'),
+    createButton('AD', '6 of 9')
   ]),
   createRow([
-    createActionButton('RT 95%', '7 of 9'),
-    createActionButton('S3E12', '8 of 9'),
-    createActionButton('S12E1, TV-14, CC, HD, ENG+ES, AD, RT 95%', '9 of 9')
+    createButton('RT 95%', '7 of 9'),
+    createButton('S3E12', '8 of 9'),
+    createButton('S12E1, TV-14, CC, HD, ENG+ES, AD, RT 95%', '9 of 9')
   ])
 ];
 

@@ -77,11 +77,7 @@ Object {
                   "pivot": 0.5,
                   "pivotX": 0.5,
                   "pivotY": 0.5,
-<<<<<<< HEAD
-                  "ref": "ContentClipper",
-=======
                   "ref": "Text",
->>>>>>> 2c7793fe (feat(InlineContent): theme refactor and support inline content in TextBox (#1011))
                   "renderOfScreen": undefined,
                   "renderToTexture": false,
                   "scale": 1,
@@ -90,17 +86,12 @@ Object {
                   "state": undefined,
                   "tag": [Function],
                   "tags": Array [
-<<<<<<< HEAD
-                    "ContentClipper",
-                  ],
-=======
                     "Text",
                   ],
                   "texture": Object {
                     "textBaseline": "bottom",
                     "type": "TextTexture",
                   },
->>>>>>> 2c7793fe (feat(InlineContent): theme refactor and support inline content in TextBox (#1011))
                   "visible": true,
                   "w": 0,
                   "x": 0,
@@ -134,11 +125,7 @@ Object {
               "tags": Array [
                 "Marquee",
               ],
-<<<<<<< HEAD
-              "type": "Marquee",
-=======
               "type": "TextBox",
->>>>>>> 2c7793fe (feat(InlineContent): theme refactor and support inline content in TextBox (#1011))
               "visible": true,
               "w": 400,
               "x": 0,

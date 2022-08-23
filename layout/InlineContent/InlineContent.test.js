@@ -1,6 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import InlineContent from '.';
-import { getHexColor } from '../../Styles';
+import { getHexColor } from '../../utils';
 
 const createInlineContent = TestUtils.makeCreateComponent(InlineContent);
 

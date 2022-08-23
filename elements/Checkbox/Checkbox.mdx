@@ -4,11 +4,11 @@ import Checkbox from '.';
 
 # Checkbox
 
-A checkbox has 3 states: "on", "off", or "disabled". Checkboxes can be checked in multiples in a group.
+A checkbox component that can be toggled between a checked an unchecked state.
 
 ## Usage
 
-Simple component that just needs a type.
+Simple component that just needs a type, and, if checked, the `checked` flag.
 
 ```js
 import { Checkbox } from '@lightning/ui';
@@ -32,25 +32,23 @@ class Example extends lng.Component {
 
 ### Properties
 
-| name     | type    | readonly | description                                                                                                                                      |
-| -------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| checked  | boolean | true     | toggle state                                                                                                                                     |
-| disabled | boolean | true     | disabled the Checkbox, preventing Enter key presses to trigger toggle (Note: does not disable functionality of calling `toggle` method directly) |
+| name    | type    | readonly | description  |
+| ------- | ------- | -------- | ------------ |
+| checked | boolean | true     | toggle state |
 
 ### Style Properties
 
 | name                     | type   | description                                 |
 | ------------------------ | ------ | ------------------------------------------- |
-| radius                   | number | radius of Checkbox                          |
-| strokeWidth              | number | width of Checkbox border                    |
-| checkW                   | number | width of check icon                         |
-| checkH                   | number | height of check icon                        |
-| strokeColor              | string | color of the Checkbox border                |
-| disabledStrokeColor      | string | color of the Checkbox border when disabled  |
 | checkColor               | string | color of check icon                         |
+| checkH                   | number | height of check icon                        |
+| checkSrc                 | string | path the icon to use for the checkmark      |
+| checkW                   | number | width of check icon                         |
 | checkedBackgroundColor   | string | color of Checkbox background when checked   |
+| radius                   | number | radius of Checkbox                          |
+| strokeColor              | string | color of the Checkbox border                |
+| strokeWidth              | number | width of Checkbox border                    |
 | uncheckedBackgroundColor | string | color of Checkbox background when unchecked |
-| disabledBackgroundColor  | string | color of Checkbox background when disabled  |
 
 ### Methods
 

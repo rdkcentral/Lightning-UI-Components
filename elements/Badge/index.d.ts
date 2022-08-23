@@ -2,14 +2,14 @@ import type Base from '../../Base';
 import type { Tools } from '@lightningjs/core';
 
 export interface BadgeStyles {
+  backgroundColor?: string;
+  contentSpacing?: number;
+  iconColor?: string;
   paddingX?: number;
   paddingY?: number;
   radius?: Tools.CornerRadius;
   textStyle?: string;
   textAlign?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  contentSpacing?: number;
 }
 
 export default class Badge extends Base {

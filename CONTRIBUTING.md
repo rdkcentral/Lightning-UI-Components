@@ -186,13 +186,13 @@ Example: `feat: <description>`
 
 **Scope**
 
-Example: `fix(ActionButton): <description>`
+Example: `fix(Button): <description>`
 
 Use scope to specify which component your changes are related to.
 
 **Description**
 
-Example: `feat(ActionButton): add key-down handler`
+Example: `feat(Button): add key-down handler`
 
 * Start description with lower-case letter ("do something" not "Do something")
 * Use the present tense ("add feature" not "added feature")
@@ -237,21 +237,21 @@ example.
 
 ```js
 it('should stop loading once title is set', async () => {
-  [actionbutton, testRenderer] = createActionButton(
+  [Button, testRenderer] = createButton(
     {},
     { spyOnMethods: ['_update'] }
   );
   // ensure _update has completed on the initial render of the component
-  await actionbutton.__updateSpyPromise;
+  await Button.__updateSpyPromise;
 
-  expect(actionbutton._loading.isPlaying()).toBe(true);
+  expect(Button._loading.isPlaying()).toBe(true);
 
   // ensure _update has completed after the title property has been changed
-  actionbutton.title = 'Action Button';
-  await actionbutton.__updateSpyPromise;
+  Button.title = 'Action Button';
+  await Button.__updateSpyPromise;
 
   // assertions may now be made on the state of the component after _update has been called
-  expect(actionbutton._loading.isPlaying()).toBe(false);
+  expect(Button._loading.isPlaying()).toBe(false);
 });
 ```
 

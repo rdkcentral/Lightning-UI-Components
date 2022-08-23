@@ -4,8 +4,8 @@ import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface MarqueeStyles {
   fadeW?: number;
-  shouldSmooth?: boolean;
   offset?: number;
+  shouldSmooth?: boolean;
 }
 
 declare const Marquee_base: WithThemeStylesConstructor<
@@ -14,11 +14,11 @@ declare const Marquee_base: WithThemeStylesConstructor<
 >;
 
 export default class Marquee extends Marquee_base {
-  title?: string;
-  contentTexture?: lng.__ElementPatchObj;
-  centerAlign?: boolean;
   autostart?: boolean;
+  centerAlign?: boolean;
+  contentTexture?: lng.__ElementPatchObj;
   delay?: number;
   repeat?: number;
+  title?: string;
   style?: MarqueeStyles;
 }

@@ -41,9 +41,9 @@ There are two ways to import components:
 ```js
 // App.js
 import lng from '@lightningjs/core';
-import { ActionButton } from '@lightning/ui';
+import { Button } from '@lightning/ui';
 // or
-import Button from '@lightning/ui/components/ActionButton';
+import Button from '@lightning/ui/components/Button';
 ```
 
 All components are available at the top level `@lightning/ui`. For more information on the difference between these patterns, the `@material/ui` documentation has a great guide on [development bundle size](https://material-ui.com/guides/minimizing-bundle-size/) (**note**: this is external documentation otherwise unrelated to this project!).

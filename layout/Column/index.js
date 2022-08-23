@@ -1,12 +1,15 @@
 import FocusManager from '../FocusManager';
 import { getY, getW, delayForAnimation } from '../../utils';
-import withStyles from '../../mixins/withThemeStyles';
 import withExtensions from '../../mixins/withExtensions';
-import styles from './Column.styles';
+import * as styles from './Column.styles';
 
 class Column extends FocusManager {
   static get __componentName() {
     return 'Column';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -27,6 +30,11 @@ class Column extends FocusManager {
       'autoResizeWidth',
       'autoResizeHeight'
     ];
+  }
+
+  // TODO: withUpdates will set the _itemSpacing property the first time the getter runs. Using accessor to ensure theme updates are applied. May need to update withUpdates to not modify the underscore property
+  get _calculatedItemSpacing() {
+    return this.itemSpacing || this.style.itemSpacing;
   }
 
   _construct() {
@@ -68,32 +76,26 @@ class Column extends FocusManager {
     this._updateLayout();
   }
 
-  _getItemSpacing() {
-    return this._itemSpacing !== undefined
-      ? this._itemSpacing
-      : this._componentStyles.itemSpacing;
-  }
-
   _getScrollIndex() {
     return this._scrollIndex !== undefined
       ? this._scrollIndex
-      : this._componentStyles.scrollIndex;
+      : this.style.scrollIndex;
   }
 
   _getAlwaysScroll() {
     return this._alwaysScroll !== undefined
       ? this._alwaysScroll
-      : this._componentStyles.alwaysScroll;
+      : this.style.alwaysScroll;
   }
 
   _getNeverScroll() {
     return this._neverScroll !== undefined
       ? this._neverScroll
-      : this._componentStyles.neverScroll;
+      : this.style.neverScroll;
   }
 
   get _itemTransition() {
-    return this._componentStyles.itemTransition;
+    return this.style.itemTransition;
   }
 
   _focus() {
@@ -275,7 +277,7 @@ class Column extends FocusManager {
       nextY += child.h;
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
-        nextY += this.itemSpacing + extraItemSpacing;
+        nextY += this._calculatedItemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {
@@ -461,4 +463,4 @@ class Column extends FocusManager {
   transitionDone() {}
 }
 
-export default withExtensions(withStyles(Column, styles));
+export default withExtensions(Column);

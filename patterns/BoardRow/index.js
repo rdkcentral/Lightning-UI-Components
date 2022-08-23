@@ -4,7 +4,8 @@ import PosterLayout from './PosterLayout';
 import SquareLayout from './SquareLayout';
 import SquareSmallLayout from './SquareSmallLayout';
 import StandardLayout from './StandardLayout';
-import { Base } from '../../elements';
+import Base from '../../Base';
+import { withExtensions } from '../../mixins';
 
 const LAYOUTS = {
   card: CardLayout,
@@ -15,7 +16,15 @@ const LAYOUTS = {
   standard: StandardLayout
 };
 
-export default class BoardRow extends Base {
+class BoardRow extends Base {
+  static get __componentName() {
+    return 'BoardRow';
+  }
+
+  // static get __themeStyles() {
+  //   return styles;
+  // }
+
   static get properties() {
     return [
       'items',
@@ -134,3 +143,5 @@ export default class BoardRow extends Base {
     return this._Layout._Row.fullyOnScreenItems;
   }
 }
+
+export default withExtensions(BoardRow);
