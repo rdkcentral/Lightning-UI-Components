@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 
 import Checkbox from '.';
 import mdx from './Checkbox.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / Checkbox',
@@ -12,38 +13,26 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Checkbox: {
-          type: Checkbox,
-          checked: args.checked,
-          disabled: args.disabled
+          type: Checkbox
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Checkbox');
-    }
   };
+
 Basic.args = {
-  checked: false,
-  disabled: false
+  checked: false
 };
+
 Basic.argTypes = {
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
-  disabled: {
-    control: 'boolean',
-    defaultValue: false,
-    description: 'State where toggle cannot be changed',
     table: {
       defaultValue: { summary: false }
     }

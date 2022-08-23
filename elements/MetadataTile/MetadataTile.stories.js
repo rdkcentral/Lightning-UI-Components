@@ -1,4 +1,7 @@
 import lng from '@lightningjs/core';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
+import { getHexColor } from '../../utils';
 
 import MetadataTile from '.';
 import mdx from './MetadataTile.mdx';

@@ -1,62 +1,45 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
+export const base = theme => ({
+  descriptionTextProperties: theme.typography.body2,
+  fadeWidth: theme.layout.gutterX.lg,
+  logoWidth: theme.typography.body3.lineHeight,
+  logoHeight: theme.typography.body3.lineHeight,
+  logoPadding: theme.spacer.lg,
+  subtitleTextProperties: theme.typography.body3,
+  titleTextProperties: theme.typography.headline1
+});
 
-export const variantDefault = 'neutral';
-
-export function base(theme) {
-  return {
-    logoWidth: theme.typography.body3.lineHeight,
-    logoHeight: theme.typography.body3.lineHeight,
-    logoPadding: theme.spacer.lg,
-    fadeWidth: theme.layout.gutterX.lg
-  };
-}
-
-export function variants(theme) {
-  return {
-    neutral: {
-      titleTextProperties: {
-        ...theme.typography.headline1,
-        textColor: theme.colors.coreNeutral
-      },
-      subtitleTextProperties: {
-        ...theme.typography.body3,
-        textColor: theme.colors.coreNeutral
-      },
-      descriptionTextProperties: {
-        ...theme.typography.body2,
-        textColor: theme.colors.coreNeutralSecondary
-      }
+export const palette = theme => ({
+  neutral: {
+    titleTextProperties: {
+      textColor: theme.colors.coreNeutral
     },
-    inverse: {
-      titleTextProperties: {
-        ...theme.typography.headline1,
-        textColor: theme.colors.coreInverse
-      },
-      subtitleTextProperties: {
-        ...theme.typography.body3,
-        textColor: theme.colors.coreInverse
-      },
-      descriptionTextProperties: {
-        ...theme.typography.body2,
-        textColor: theme.colors.coreInverseSecondary
-      }
+    subtitleTextProperties: {
+      textColor: theme.colors.coreNeutral
     },
-    brand: {
-      titleTextProperties: {
-        ...theme.typography.headline1,
-        textColor: theme.colors.coreNeutral
-      },
-      subtitleTextProperties: {
-        ...theme.typography.body3,
-        textColor: theme.colors.coreNeutral
-      },
-      descriptionTextProperties: {
-        ...theme.typography.body2,
-        textColor: theme.colors.coreNeutralSecondary
-      }
+    descriptionTextProperties: {
+      textColor: theme.colors.coreNeutralSecondary
     }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+  },
+  inverse: {
+    titleTextProperties: {
+      textColor: theme.colors.coreInverse
+    },
+    subtitleTextProperties: {
+      textColor: theme.colors.coreInverse
+    },
+    descriptionTextProperties: {
+      textColor: theme.colors.coreInverseSecondary
+    }
+  },
+  brand: {
+    titleTextProperties: {
+      textColor: theme.colors.coreNeutral
+    },
+    subtitleTextProperties: {
+      textColor: theme.colors.coreNeutral
+    },
+    descriptionTextProperties: {
+      textColor: theme.colors.coreNeutralSecondary
+    }
+  }
+});

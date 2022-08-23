@@ -13,8 +13,8 @@ export default {
   alphas,
   animations,
   colors,
-  componentStyles: {},
-  componentVariants: {},
+  componentStyle: {},
+  componentPalette: {},
   fonts,
   layout,
   radius,
@@ -23,7 +23,7 @@ export default {
   typography,
 
   // TODO: After modes refactor, Emily to move these to Base component and
-  // return `this._componentStyles.layout.focusScale`
+  // return `this.style.layout.focusScale`
   // so users can easily extend and overwrite scaling methods
   getFocusScale,
   getUnfocusScale

@@ -1,12 +1,13 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../.storybook/utils';
 import Distractor from '.';
 
 # Distractor
 
-Basic component that handles styling and functionality for a Distractor.
+Basic component that handles styling and functionality for a loader component.
 
 ## Usage
+
+`Distractor` can be used without passing in any additional values and simply toggling the animation via stop and start.
 
 ```js
 import { Distractor } from '@lightning/ui';
@@ -15,40 +16,43 @@ class Example extends lng.Component {
   static _template() {
     return {
       Distractor: {
-        type: Distractor,
-        title: 'Distractor'
+        type: Distractor
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
   <Story id="elements-distractor--basic" />
 </Canvas>
 
-
 ### Sizing
 
-`Distractor` widths dynamically adjust over the course of the animation.  You can set the 'initial' individual circle size via `circleSize`.
-
-### Color
-
-All buttons have the ability to be passed an icon. This will position the icon to the left of the title and center it horizontally and vertically.
+`Distractor` widths dynamically adjust over the course of the animation. You can set the 'initial' individual circle size via the style property `circleSize`.
 
 ## API
 
-### Properties
+### Style Properties
 
-name|type|readonly|default|description
---|--|--|--|--
-circleSize|number|false|100|minimum width of the button
-color|number|false|0|border color
+| name        | type   | description                                                         |
+| ----------- | ------ | ------------------------------------------------------------------- |
+| alpha1      | number | alpha value for the first circle's first keyframe of the animation  |
+| alpha2      | number | alpha value for the first circle's second keyframe of the animation |
+| alpha3      | number | alpha value for the first circle's third keyframe of the animation  |
+| circleColor | number | color to apply to all three circles                                 |
+| circleSize  | number | default size of the largest circle in the animation                 |
+| scale1      | number | scale value for the first circle's first keyframe of the animation  |
+| scale2      | number | scale value for the first circle's second keyframe of the animation |
+| scale3      | number | scale value for the first circle's third keyframe of the animation  |
+| smoothness  | number | smooth value to use in each animation of the circles                |
 
 ### Methods
 
-### Styles
+#### startAnimation(): void
 
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
+Start the animation of the circles.
 
-<Theme theme={Distractor.styles} />
+#### stopAnimation(): void
+
+Stops the circles animation. When in the stopped state, the component will fallback to all three circles stacked on top of each other.

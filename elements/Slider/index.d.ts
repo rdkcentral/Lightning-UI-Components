@@ -1,19 +1,20 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { ProgressBarStyles } from '../ProgressBar';
 
 export interface SliderStyles {
-  arrowAlphaDisabled?: number;
-  arrowAlphaValueLimit?: number;
   arrowAlphaValue?: number;
+  arrowAlphaValueLimit?: number;
   arrowColor?: string;
   arrowHeight?: number;
   arrowSpacing?: number;
   arrowWidth?: number;
   containerHeight?: number;
   innerCircleSize?: number;
+  minWidth?: number;
+  progressBarStyles?: ProgressBarStyles;
   sliderHeight?: number;
   strokeWidth?: number;
-  minWidth?: number;
 }
 
 declare const Slider_base: WithThemeStylesConstructor<

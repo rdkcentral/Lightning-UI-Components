@@ -78,14 +78,12 @@ React to changes to the `Slider` value using the `onChange` signal.
 | min   | number | false    | 0          | lower bound of `value` |
 | step  | number | false    | 1          | +/- value on change    |
 | value | number | false    | 0 or `min` | current value          |
-| w     | number | false    | 126        | width of the component |
 
 ### Style Properties
 
 | name                 | type   | description                                                                                       |
 | -------------------- | ------ | ------------------------------------------------------------------------------------------------- |
-| arrowAlphaDisabled   | number | alpha value of the arrows when slider is disabled                                                 |
-| arrowAlphaValue      | number | alpha value of the arrows when slider is not disabled and value is not equal to the min/max value |
+| arrowAlphaValue      | number | alpha value of the arrows if value is not equal to the min/max value                              |
 | arrowAlphaValueLimit | number | alpha value of the arrows when value is equal to the min/max value and slider is not disabled     |
 | arrowColor           | string | color of the arrows                                                                               |
 | arrowHeight          | number | height of the arrows                                                                              |

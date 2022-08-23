@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import InlineContent from '.';
 import mdx from './InlineContent.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
-import { getHexColor } from '../../Styles/Colors';
+import { getHexColor } from '../../utils';
 
 export default {
   title: 'Layout / InlineContent',

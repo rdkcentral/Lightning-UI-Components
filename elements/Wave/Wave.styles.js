@@ -1,12 +1,15 @@
-export default () => ({
-  strokeWidth: 0,
-  radius: 0,
-  repeat: -1,
-  width: 6,
-  height: 20,
+export const base = theme => ({
+  duration: 2,
+  keyframes: [0, 0.17, 0.58, 1],
   lockedRatio: 10 / 3,
   lockedPaddingRatio: 5 / 3,
-  duration: 2,
-  padding: 10,
-  color: '0xffffffff'
+  radius: theme.radius.none,
+  repeat: -1,
+  w: theme.spacer.sm
+});
+
+export const palette = theme => ({
+  neutral: { color: theme.colors.coreNeutral },
+  inverse: { color: theme.colors.coreInverse },
+  brand: { color: theme.colors.coreBrand }
 });

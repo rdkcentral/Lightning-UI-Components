@@ -47,27 +47,27 @@ describe('CardAbout', () => {
   it('should update Container', () => {
     testRenderer.forceAllUpdates();
     expect(CardAbout._LeftIconTextContainer.x).toEqual(
-      CardAbout._componentStyles.paddingHorizontal
+      CardAbout.style.paddingHorizontal
     );
     testRenderer.forceAllUpdates();
     CardAbout._update();
     expect(CardAbout._LeftIconTextContainer.y).toEqual(
       CardAbout._Title.textStyle.lineHeight +
-        CardAbout._componentStyles.paddingVertical +
-        CardAbout._componentStyles.paddingFirstLine
+        CardAbout.style.paddingVertical +
+        CardAbout.style.paddingFirstLine
     );
     expect(CardAbout._RightIconTextContainer.x).toEqual(
       !CardAbout.iconLeft && !CardAbout.textLeft
-        ? CardAbout._componentStyles.paddingHorizontal
-        : CardAbout.w - CardAbout._componentStyles.paddingHorizontal
+        ? CardAbout.style.paddingHorizontal
+        : CardAbout.w - CardAbout.style.paddingHorizontal
     );
     expect(CardAbout._RightIconTextContainer.y).toEqual(
       CardAbout._Title.textStyle.lineHeight +
-        CardAbout._componentStyles.paddingVertical +
-        CardAbout._componentStyles.paddingFirstLine
+        CardAbout.style.paddingVertical +
+        CardAbout.style.paddingFirstLine
     );
     expect(CardAbout._RightIconTextContainer.contentSpacing).toEqual(
-      CardAbout._componentStyles.contentSpacing
+      CardAbout.style.contentSpacing
     );
   });
 
@@ -81,20 +81,18 @@ describe('CardAbout', () => {
             (CardAbout.iconHeight ||
               CardAbout._LeftIconTextContainer.textProperties.lineHeight ||
               CardAbout._RightIconTextContainer.textProperties.lineHeight) +
-            CardAbout._componentStyles.paddingVertical
+            CardAbout.style.paddingVertical
         : CardAbout._Title.textStyle.lineHeight +
-            CardAbout._componentStyles.paddingVertical +
-            CardAbout._componentStyles.paddingFirstLine
+            CardAbout.style.paddingVertical +
+            CardAbout.style.paddingFirstLine
     );
-    expect(CardAbout._Description.x).toEqual(
-      CardAbout._componentStyles.paddingHorizontal
-    );
+    expect(CardAbout._Description.x).toEqual(CardAbout.style.paddingHorizontal);
   });
 
   it('should update title style', () => {
     testRenderer.forceAllUpdates();
     expect(CardAbout._Title.textStyle).toEqual(
-      CardAbout._componentStyles.titleTextProperties
+      CardAbout.style.titleTextProperties
     );
   });
 
@@ -123,13 +121,13 @@ describe('CardAbout', () => {
     });
   });
 
-  it('should update the right icon text container', () => {
+  it.only('should update the right icon text container', () => {
     CardAbout.iconRight = lightningPath;
     CardAbout.textRight = 'Hi Just testing';
     expect(CardAbout._RightIconTextContainer.content).toEqual([]);
     CardAbout._updateContent();
     expect(CardAbout._RightIconTextContainer.content).toEqual([
-      { icon: lightningPath },
+      { color: 4294375161, icon: lightningPath },
       'Hi Just testing'
     ]);
   });

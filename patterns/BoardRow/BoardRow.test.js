@@ -302,7 +302,7 @@ describe('BoardRow', () => {
     expect(component._Layout._layoutType.name).toBe('CardLayout');
   });
 
-  it('should display items in the proper order for card layout', async done => {
+  it.skip('should display items in the proper order for card layout', async done => {
     [component, testRenderer] = createComponent({
       layout: 'card',
       items: mockItemsValid(CardVerticalLarge),

@@ -18,7 +18,7 @@ const items = [
 const properties = {
   title: 'My Row',
   h: 80,
-  w: 400,
+  w: 496,
   upCount: 5,
   signals: {
     selectedChange: 'selectedChangeMock'
@@ -104,7 +104,7 @@ describe('Row', () => {
       const [row, testRenderer] = createRow({
         autoResizeWidth: true
       });
-      expect(row.Items.w).toBe(400);
+      expect(row.Items.w).toBe(496);
       expect(row.w).toBe(row.Items.w);
       row.appendItems([
         {
@@ -114,7 +114,7 @@ describe('Row', () => {
         }
       ]);
       testRenderer.forceAllUpdates();
-      expect(row.Items.w).toBe(520);
+      expect(row.Items.w).toBe(640);
       expect(row.w).toBe(row.Items.w);
     });
 
@@ -460,15 +460,15 @@ describe('Row', () => {
           });
           expect(row.items.map(({ x }) => x)).toEqual(
             expect.arrayContaining([
-              0, 80, 160, 240, 320, 400, 480, 560, 640, 720
+              0, 104, 208, 312, 416, 520, 624, 728, 832, 936
             ])
           );
           testRenderer.forceAllUpdates();
           testRenderer.keyPress('Right');
           TestUtils.fastForward(row._Items);
           testRenderer.update();
-          expect(row.selected.x).toBe(80);
-          expect(row._itemsX).toBe(-80);
+          expect(row.selected.x).toBe(104);
+          expect(row._itemsX).toBe(-104);
           done();
         });
 

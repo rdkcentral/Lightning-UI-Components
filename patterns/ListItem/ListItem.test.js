@@ -8,7 +8,7 @@ import ListItem, {
   ListItemPicker,
   ListItemPlan
 } from '.';
-import { getHexColor } from '../../Styles';
+import { getHexColor } from '../../utils';
 import TestUtils from '../../test/lightning-test-utils';
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');

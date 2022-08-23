@@ -1,15 +1,19 @@
 import lng from '@lightningjs/core';
-import { getValidColor } from '../../Styles/Colors';
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import { getValidColor } from '../../utils';
+import { withExtensions } from '../../mixins';
 import Base from '../../Base';
 import Gradient from '../Gradient';
-import styles from './Artwork.styles';
+import * as styles from './Artwork.styles';
 import context from '../../context';
 import { reduceFraction } from '../../utils';
 
 class Artwork extends Base {
   static get __componentName() {
     return 'Artwork';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
@@ -20,7 +24,7 @@ class Artwork extends Base {
       'foregroundSrc',
       'foregroundW',
       'gradient',
-      'mode',
+      'format',
       'src',
       'fill',
       'shouldScale',
@@ -56,8 +60,8 @@ class Artwork extends Base {
 
   get _hasCenterImage() {
     return (
-      -1 < ['circle', 'square'].indexOf(this._mode) ||
-      ('contain' === this._mode && !this._aspectRatioEqual)
+      -1 < ['circle', 'square'].indexOf(this.format) ||
+      ('contain' === this.format && !this._aspectRatioEqual)
     );
   }
 
@@ -66,9 +70,17 @@ class Artwork extends Base {
     this._componentSrc = this._generatePromise();
   }
 
+  get w() {
+    return super.w;
+  }
+
   set h(v) {
     super.h = v;
     this._componentSrc = this._generatePromise();
+  }
+
+  get h() {
+    return super.h;
   }
 
   get _actualAspectRatio() {
@@ -114,15 +126,13 @@ class Artwork extends Base {
   get _gradientPatch() {
     return {
       alpha: !this._Gradient && this._smooth ? 0.001 : 1,
-      gradientColor: getValidColor(this._componentStyles.gradientColor),
+      gradientColor: getValidColor(this.style.gradientColor),
       h: this.h + 4,
-      radius: this._componentStyles.radius,
       type: Gradient,
       w: this.w + 4,
       x: -2,
       y: -2,
-      zIndex:
-        this.core.findZContext().zIndex + this._componentStyles.zIndex.gradient
+      zIndex: this.core.findZContext().zIndex + this.style.zIndex.gradient
     };
   }
 
@@ -137,10 +147,7 @@ class Artwork extends Base {
   }
 
   _getFallbackSrc() {
-    return (
-      this._fallbackSrc ||
-      (this._componentStyles && this._componentStyles.fallbackSrc)
-    );
+    return this._fallbackSrc || (this.style && this.style.fallbackSrc);
   }
 
   _generatePromise() {
@@ -174,6 +181,7 @@ class Artwork extends Base {
         ).toFixed(2)
       : false;
     this._componentSrc.resolve && this._componentSrc.resolve();
+    this.signal('imageLoaded');
   }
 
   _rejectLoading(error) {
@@ -206,31 +214,31 @@ class Artwork extends Base {
   _updateScale() {
     if (this.shouldScale) {
       let imageScale;
-      switch (typeof this._componentStyles.imageScale) {
+      switch (typeof this.style.imageScale) {
         case 'function':
-          imageScale = this._componentStyles.imageScale(this.w);
+          imageScale = this.style.imageScale(this.w);
           break;
         case 'number':
-          imageScale = this._componentStyles.imageScale;
+          imageScale = this.style.imageScale;
           break;
         default:
           imageScale = 1;
       }
 
       this._Image.smooth = {
-        pivotX: this._componentStyles.imageScalePivotX,
-        pivotY: this._componentStyles.imageScalePivotY,
+        pivotX: this.style.imageScalePivotX,
+        pivotY: this.style.imageScalePivotY,
         scale: [
           imageScale,
           this._Image.scale < imageScale
-            ? this._componentStyles.animationImageScaleEntrance
-            : this._componentStyles.animationImageScaleExit
+            ? this.style.animationImageScaleEntrance
+            : this.style.animationImageScaleExit
         ]
       };
     } else {
       const scale = 1;
       this._Image.smooth = {
-        scale: [scale, this._componentStyles.animationImageScaleExit]
+        scale: [scale, this.style.animationImageScaleExit]
       };
     }
   }
@@ -244,7 +252,7 @@ class Artwork extends Base {
 
   _showComponent() {
     this.smooth = {
-      alpha: [1, this._componentStyles.animationComponentEntrance]
+      alpha: [1, this.style.animationComponentEntrance]
     };
   }
 
@@ -262,9 +270,7 @@ class Artwork extends Base {
       mount: 0.5,
       x: this.w / 2,
       y: this.h / 2,
-      zIndex:
-        this.core.findZContext().zIndex +
-        this._componentStyles.zIndex.foreground,
+      zIndex: this.core.findZContext().zIndex + this.style.zIndex.foreground,
       texture: {
         type: lng.textures.ImageTexture,
         src: this._foregroundSrc,
@@ -321,7 +327,7 @@ class Artwork extends Base {
           this.patch({ Blur: undefined });
         });
         this._Blur.smooth = {
-          alpha: [0, this._componentStyles.animationBlurExit]
+          alpha: [0, this.style.animationBlurExit]
         };
       } else {
         this.patch({
@@ -335,9 +341,8 @@ class Artwork extends Base {
       this.patch({
         Blur: {
           alpha: !this._Blur && this._smooth ? 0.001 : 1, // If the Blur element already exists there is no need to fade it in again
-          amount: this._componentStyles.blur,
-          zIndex:
-            this.core.findZContext().zIndex + this._componentStyles.zIndex.blur,
+          amount: this.style.blur,
+          zIndex: this.core.findZContext().zIndex + this.style.zIndex.blur,
           content: {
             Image: {
               h: this.h,
@@ -354,17 +359,17 @@ class Artwork extends Base {
 
       if (this._Blur.alpha < 1) {
         this._Blur.smooth = {
-          alpha: [1, this._componentStyles.animationBlurEntrance]
+          alpha: [1, this.style.animationBlurEntrance]
         };
       }
     }
   }
 
   _updateCenterImage() {
-    if (this.mode === 'contain') {
-      this._updateModeContain();
-    } else if (this.mode === 'circle' || this.mode === 'square') {
-      this._updateModeSquareCircle();
+    if (this.format === 'contain') {
+      this._updateFormatContain();
+    } else if (this.format === 'circle' || this.format === 'square') {
+      this._updateFormatSquareCircle();
     } else if (this._CenterImage) {
       // Remove the center image element if no longer required
       this.patch({
@@ -373,9 +378,9 @@ class Artwork extends Base {
     }
   }
 
-  _updateModeContain() {
+  _updateFormatContain() {
     if (
-      (this._CenterImage && this._CenterImage.mode !== this.mode) ||
+      (this._CenterImage && this._CenterImage.mode !== this.format) ||
       this.src === this.fallbackSrc ||
       this._aspectRatioEqual
     ) {
@@ -432,15 +437,13 @@ class Artwork extends Base {
 
     this.patch({
       CenterImage: {
-        mode: this.mode,
+        format: this.format,
         mount: 0.5,
         w: imageW,
         h: imageH,
         x: this.w / 2,
         y: this.h / 2,
-        zIndex:
-          this.core.findZContext().zIndex +
-          this._componentStyles.zIndex.centerImage,
+        zIndex: this.core.findZContext().zIndex + this.style.zIndex.centerImage,
         texture: {
           src: this._processedImageSrc,
           resizeMode: {
@@ -454,9 +457,9 @@ class Artwork extends Base {
     });
   }
 
-  _updateModeSquareCircle() {
+  _updateFormatSquareCircle() {
     if (
-      (this._CenterImage && this._CenterImage.mode !== this.mode) ||
+      (this._CenterImage && this._CenterImage.mode !== this.format) ||
       this.src === this.fallbackSrc
     ) {
       // Make sure previous mode is propertly cleaned up
@@ -465,23 +468,20 @@ class Artwork extends Base {
       });
       if (this.src === this.fallbackSrc) return;
     }
-    const imageSize =
-      Math.min(this.w, this.h) - this._componentStyles.padding * 2;
+    const imageSize = Math.min(this.w, this.h) - this.style.padding * 2;
     this.patch({
       CenterImage: {
-        mode: this.mode,
+        format: this.format,
         h: imageSize,
         shader: {
           radius:
-            'circle' === this._mode
+            'circle' === this.format
               ? imageSize / 2
-              : this._componentStyles.centerImageRadius,
+              : this.style.centerImageRadius,
           type: lng.shaders.RoundedRectangle
         },
         w: imageSize,
-        zIndex:
-          this.core.findZContext().zIndex +
-          this._componentStyles.zIndex.centerImage,
+        zIndex: this.core.findZContext().zIndex + this.style.zIndex.centerImage,
         Image: {
           h: imageSize,
           mount: 0.5,
@@ -515,8 +515,9 @@ class Artwork extends Base {
             if (!this.gradient && transition && transition.p === 1)
               this.patch({ Gradient: undefined });
           });
+          this._Gradient.patch(this._gradientPatch); // Make sure any mode updates are patched ex.radius changes when focused/unfocused
           this._Gradient.smooth = {
-            alpha: [0, this._componentStyles.animationGradientExit]
+            alpha: [0, this.style.animationGradientExit]
           };
         } else {
           this.patch({ Gradient: undefined });
@@ -534,7 +535,7 @@ class Artwork extends Base {
     });
     if (this._smooth) {
       this._Gradient.smooth = {
-        alpha: [1, this._componentStyles.animationGradientEntrance]
+        alpha: [1, this.style.animationGradientEntrance]
       };
     }
   }
@@ -561,8 +562,7 @@ class Artwork extends Base {
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,
-      zIndex:
-        this.core.findZContext().zIndex + this._componentStyles.zIndex.image
+      zIndex: this.core.findZContext().zIndex + this.style.zIndex.image
     });
   }
 
@@ -577,7 +577,7 @@ class Artwork extends Base {
           rect: true,
           w: this.w,
           h: this.h,
-          color: this._componentStyles.fillColor,
+          color: this.style.fillColor,
           zIndex: 5,
           alpha: 0.7
         }
@@ -588,11 +588,11 @@ class Artwork extends Base {
   _updateRadius() {
     // Add shader to all items in component if greater than 0, remove shader otherwise.
     this.patch(
-      this._componentStyles.radius
+      this.style.radius
         ? {
             shader: {
               type: lng.shaders.RoundedRectangle,
-              radius: this._componentStyles.radius
+              radius: this.style.radius
             }
           }
         : { shader: undefined }
@@ -600,4 +600,4 @@ class Artwork extends Base {
   }
 }
 
-export default withExtensions(withStyles(Artwork, styles));
+export default withExtensions(Artwork);

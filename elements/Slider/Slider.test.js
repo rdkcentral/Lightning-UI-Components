@@ -94,13 +94,13 @@ describe('Slider', () => {
     expect(slider._LeftArrow.alpha).toEqual(0.5);
   });
 
-  it('Alpha value of arrow when disabled is true', () => {
+  it('Alpha value of arrow when mode is set to disabled', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 1,
-      disabled: true
+      mode: 'disabled'
     });
 
     expect(slider._LeftArrow.alpha).toEqual(0);
@@ -114,8 +114,8 @@ describe('Slider', () => {
       value: 2,
       smooth: true
     });
-    slider._componentStyles.iconLeftSrc = undefined;
-    slider._componentStyles.iconRightSrc = undefined;
+    slider._componentStyle.iconLeftSrc = undefined;
+    slider._componentStyle.iconRightSrc = undefined;
     slider._updateArrows();
     expect(slider._LeftArrow.h).toEqual(0);
   });
@@ -130,8 +130,8 @@ describe('Slider', () => {
     });
     expect(slider._calculatedSliderWidth).toEqual(
       300 -
-        slider._componentStyles.arrowSpacing * 2 -
-        slider._componentStyles.arrowWidth * 2
+        slider._componentStyle.arrowSpacing * 2 -
+        slider._componentStyle.arrowWidth * 2
     );
   });
 
@@ -150,13 +150,13 @@ describe('Slider', () => {
     expect(slider.onLeft()).toEqual(false);
   });
 
-  it('handle left when disabled is true', () => {
+  it('handle left when mode is set to disabled', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 2,
-      disabled: true
+      mode: 'disabled'
     });
     expect(slider._handleLeft()).toEqual(false);
   });
@@ -176,13 +176,13 @@ describe('Slider', () => {
     expect(slider.onRight()).toEqual(false);
   });
 
-  it('handle right when disabled is true', () => {
+  it('handle right when mode is set to disabled', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 2,
-      disabled: true
+      mode: 'disabled'
     });
     expect(slider._handleRight()).toEqual(false);
   });

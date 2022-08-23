@@ -1,20 +1,17 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Tools } from '@lightningjs/core';
 
 export interface CheckboxStyles {
-  w?: number;
-  h?: number;
-  radius?: number;
-  strokeWidth?: number;
-  checkW?: number;
-  checkH?: number;
-  checkSrc?: string;
-  strokeColor?: string;
-  disabledStrokeColor?: string;
   checkColor?: string;
+  checkH?: number;
+  checkW?: number;
   checkedBackgroundColor?: string;
+  checkSrc?: string;
+  radius?: Tools.CornerRadius;
+  strokeColor?: string;
+  strokeWidth?: number;
   uncheckedBackgroundColor?: string;
-  disabledBackgroundColor?: string;
 }
 
 declare const Checkbox_base: WithThemeStylesConstructor<
@@ -24,6 +21,5 @@ declare const Checkbox_base: WithThemeStylesConstructor<
 
 export default class Checkbox extends Checkbox_base {
   checked?: boolean;
-  disabled?: boolean;
   toggle(): Checkbox;
 }

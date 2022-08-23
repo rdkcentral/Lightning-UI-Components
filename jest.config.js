@@ -127,7 +127,6 @@ module.exports = {
     '<rootDir>/utils',
     '<rootDir>/mixins',
     '<rootDir>/patterns',
-    '<rootDir>/suite',
     '<rootDir>/context'
   ],
 

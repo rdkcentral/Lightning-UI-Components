@@ -21,7 +21,7 @@ const styleData = require('../../tmp/component-styles.json');
 const updateComponentValue = (component, styleProp, value, updateGlobals) => {
   updateGlobalTheme(
     {
-      componentStyles: {
+      componentStyle: {
         [component]: { [styleProp]: value }
       }
     },
@@ -45,7 +45,7 @@ export default (params, api) => {
 
   const [listenersSet, updateListenersSet] = useState();
   const [themeVersion, updateThemeVersion] = useState(new Date().valueOf());
-  const [variant, updateVariantState] = useState();
+  const [palette, updatePaletteState] = useState();
   const [styleRows, updateStyleRows] = useState([]);
 
   useEffect(() => {
@@ -57,53 +57,73 @@ export default (params, api) => {
   });
 
   useEffect(() => {
-    // Check if the current component already has a variant set and update the state if so
-    if (theme?.componentVariants?.[component]) {
-      updateVariantState(theme.componentVariants[component]);
+    // Check if the current component already has a palette set and update the state if so
+    if (theme?.componentPalette?.[component]) {
+      updatePaletteState(theme.componentPalette[component]);
       return;
     }
-    // If you have switched stories to another component check to find it's default variant state
-    const variantDefault = styleData?.[component]?.variantDefault || 'neutral';
-    updateVariantState(variantDefault);
+    // If you have switched stories to another component check to find it's default palette state
+    const paletteDefault = styleData?.[component]?.paletteDefault || 'neutral';
+    updatePaletteState(paletteDefault);
   }, [component, LUITheme]);
 
   useEffect(() => {
-    // If the variant selector has been changed update the theme to reflect the change in the UI
+    // If the palette selector has been changed update the theme to reflect the change in the UI
     const context = globalContext();
     if (context) {
-      context.updateTheme({ componentVariants: { [component]: variant } });
+      context.updateTheme({ componentPalette: { [component]: palette } });
     }
-  }, [variant]);
+  }, [palette]);
 
-  useEffect(() => setFields(themeVersion), [themeVersion, variant, component]);
+  useEffect(() => setFields(themeVersion), [themeVersion, palette, component]);
 
   function setFields(version) {
-    if (styleData?.[component]?.[variant]) {
-      const selectedStyles = styleData[component][variant];
+    if (styleData?.[component]) {
+      const selectedStyles = styleData[component]?.palette?.[palette] || {};
       const styles = Object.keys(selectedStyles).map(prop => {
         const themeComponentOverrides =
-          theme?.componentStyles?.[component]?.[prop];
+          theme?.componentStyle?.[component]?.[prop];
 
         return {
           prop,
-          type: selectedStyles[prop].type,
+          type: selectedStyles?.[prop]?.type,
           defaultValue:
             themeComponentOverrides ||
-            getThemeValueFromString(selectedStyles[prop].stringValue)
+            getThemeValueFromString(selectedStyles?.[prop]?.stringValue)
         };
       });
 
-      const fields = styles.reduce((acc, curr, idx) => {
+      const selectedBaseStyles = styleData[component]?.baseValues || {};
+
+      const baseStyles = Object.keys(selectedBaseStyles).map(prop => {
+        const themeComponentOverrides =
+          theme?.componentStyle?.[component]?.[prop];
+
+        return {
+          prop,
+          type: selectedBaseStyles?.[prop]?.type,
+          defaultValue:
+            themeComponentOverrides ||
+            getThemeValueFromString(selectedBaseStyles?.[prop]?.stringValue)
+        };
+      });
+
+      const fields = [
+        ...baseStyles.filter(
+          baseStyle => !styles.some(style => style.prop === baseStyle.prop)
+        ),
+        ...styles
+      ].reduce((acc, curr, idx) => {
         switch (curr.type) {
           case 'color':
             acc.push(
               <TableRow
                 label={curr.prop}
                 key={idx}
-                scope={variant}
+                scope={palette}
                 control={
                   <ColorControl
-                    key={`Color-${curr.prop}-${variant}-${LUITheme}-${version}`}
+                    key={`Color-${curr.prop}-${palette}-${LUITheme}-${version}`}
                     name={curr.prop}
                     onChange={val =>
                       debouncedUpdateComponentValue.call(this, curr.prop, val)
@@ -119,10 +139,10 @@ export default (params, api) => {
               <TableRow
                 label={curr.prop}
                 key={idx}
-                scope={variant}
+                scope={palette}
                 control={
                   <NumberControl
-                    key={`Color-${curr.prop}-${variant}-${LUITheme}-${version}`}
+                    key={`Color-${curr.prop}-${palette}-${LUITheme}-${version}`}
                     name={curr.prop}
                     onChange={val =>
                       debouncedUpdateComponentValue.call(this, curr.prop, val)
@@ -145,7 +165,8 @@ export default (params, api) => {
   return (
     <div key="component-styles-tab" className="component-styles-panel-wrapper">
       {params.active ? (
-        styleData[component] ? (
+        styleData[component] &&
+        (styleRows.length || styleData[component].palette) ? (
           <>
             <h1>Current Theme: {capitalizeFirstLetter(LUITheme)}</h1>
             <div>
@@ -153,22 +174,22 @@ export default (params, api) => {
                 title="Component Level Theme Styles"
                 rows={[
                   <TableRow
-                    key="variant-row"
-                    label="variant"
+                    key="palette-row"
+                    label="palette"
                     control={
                       <OptionsControl
-                        name="variants"
+                        name="palettes"
                         type="inline-radio"
-                        value={variant}
+                        value={palette}
                         options={['neutral', 'inverse', 'brand']}
                         onChange={val => {
-                          updateVariantState(val);
+                          updatePaletteState(val);
                         }}
                       />
                     }
                   />,
                   ...styleRows
-                ]}
+                ].filter(Boolean)}
               />
             </div>
           </>

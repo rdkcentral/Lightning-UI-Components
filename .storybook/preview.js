@@ -12,8 +12,9 @@ import sky from '../themes/sky';
 import Pool from '../utils/pool';
 import Speech from '../mixins/withAnnouncer/Speech';
 import { withAnnouncer } from '../';
-import { getValidColor } from '../Styles';
+import { getValidColor } from '../utils';
 import GridOverlay from '../layout/GridOverlay';
+
 
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
@@ -157,6 +158,29 @@ addDecorator(
       app.childList.a({
         StoryComponent: {
           type: class extends StoryComponent() {
+            static _states() {
+              return [
+                class ModeUnfocusState extends this {
+                  _getFocused() {
+                    return this;
+                  }
+                },
+                class ModeFocusState extends this {
+                  _getFocused() {
+                    return this.childList.first;
+                  }
+                }
+              ]
+            }
+
+            _constructor() {
+              context.on('themeUpdate', () => {
+                this.patch({
+                  x: context.theme.layout.marginX,
+                  y: context.theme.layout.marginY
+                })
+              })
+            }
             _init() {
               super._init();
               this._refocus(); // Force Lightning to reset focus
@@ -169,10 +193,15 @@ addDecorator(
         }
       });
       app._refocus();
-    }
+    } 
+
+    // Make sure focus matches mode 
+    app.tag('StoryComponent')._setState( args.mode && args.mode === 'focused' ? 'ModeFocusState' : 'ModeUnfocusState')
+    
     if (!app.tag('GridOverlay')) {
       app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
     }
+    
     app.tag('GridOverlay').patch({
       // do not render this on top of the actual GridOverlay component's story
       alpha: id.includes('gridoverlay') ? 0 : parseFloat(globals['GridOverlay-alpha']),

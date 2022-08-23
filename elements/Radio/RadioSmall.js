@@ -1,12 +1,15 @@
 import Radio from '.';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import RadioSmallStyles from './RadioSmall.styles';
+import * as styles from './RadioSmall.styles';
 
 class RadioSmall extends Radio {
   static get __componentName() {
     return 'RadioSmall';
   }
+
+  static get __themeStyles() {
+    return styles;
+  }
 }
 
-export default withExtensions(withStyles(RadioSmall, RadioSmallStyles));
+export default withExtensions(RadioSmall);

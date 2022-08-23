@@ -3,6 +3,66 @@ export * from './layoutUtils';
 export * from './markupUtils';
 export * from './themeUtils';
 
+export function getAspectRatioW(h, ratio = '16:9', seperator = ':') {
+  const [ratioW, ratioH] = ratio.split(seperator);
+  return h * (ratioW / ratioH);
+}
+
+export function getAspectRatioH(w, ratio = '16:9', seperator = ':') {
+  const [ratioW, ratioH] = ratio.split(seperator);
+  return w / (ratioW / ratioH);
+}
+
+/**
+ * Combines rgb hex string and alpha into argb hexadecimal number
+ * @param {string|number} hex - 6 alphanumeric characters between 0-f or argb hexadecimal number
+ * @param {number} [alpha] - number between 0-100 (0 is invisible, 100 is opaque)
+ */
+export function getHexColor(hex, alpha = 100) {
+  if (!hex) {
+    return 0x00;
+  }
+
+  if (typeof hex === 'number') {
+    hex = hex.toString(16).slice(2);
+  }
+
+  hex = hex.replace('#', '');
+
+  const hexAlpha = Math.round((alpha / 100) * 255).toString(16);
+  const str = `0x${hexAlpha}${hex}`;
+  return Number(str);
+}
+
+/**
+ * Returns valid string of HEX color
+ *
+ * @param {string} color
+ * @param {boolean} fill
+ */
+export function getValidColor(color) {
+  if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
+    // User enters a valid 0x00000000 hex code
+    return Number(color);
+  } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
+    // User enters valid #000000 hex code
+    return getHexColor(color.substr(1, 6));
+  } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
+    return parseInt(color);
+  } else if (
+    typeof color === 'number' &&
+    /^[0-9]{8,10}/g.test(color.toString())
+  ) {
+    return color;
+  } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
+    return rgba2argb(color);
+  } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
+    const rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
+    return lng.StageUtils.getArgbNumber(rgba);
+  }
+  return null;
+}
+
 function simplifyFraction([numerator, denominator]) {
   for (let i = numerator; i > 0; i--) {
     if (!(numerator % i) && !(denominator % i)) {

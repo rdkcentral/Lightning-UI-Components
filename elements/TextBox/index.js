@@ -1,9 +1,10 @@
 import Base from '../../Base';
-import styles from './TextBox.styles';
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import * as styles from './TextBox.styles';
+import { withExtensions } from '../../mixins';
 import { InlineContent } from '../../layout';
 import { isMarkupString } from '../../utils';
-import { getValidColor } from '../../Styles';
+import { getValidColor } from '../../utils';
+import context from '../../context';
 
 class TextBox extends Base {
   static _template() {
@@ -17,6 +18,10 @@ class TextBox extends Base {
 
   static get __componentName() {
     return 'TextBox';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get tags() {
@@ -120,7 +125,7 @@ class TextBox extends Base {
 
   _setMaxLinesSuffix(maxLinesSuffix) {
     if ('string' !== typeof maxLinesSuffix) {
-      return this._componentStyles.maxLinesSuffix;
+      return this.style.maxLinesSuffix;
     }
     return maxLinesSuffix;
   }
@@ -167,25 +172,25 @@ class TextBox extends Base {
     }
 
     this.visible = true;
-    const textStyle = {
-      ...this._componentStyles.textStyle,
+    const fontStyle = {
+      ...(this.style.typography[this.style.defaultTextStyle] ||
+        this.style.typography.body1),
       ...(null !== this.textStyle &&
       'object' === typeof this.textStyle &&
       Object.keys(this.textStyle)
         ? this.textStyle
-        : this._componentStyles.typography[this.textStyle])
+        : this.style.typography[this.textStyle])
     };
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
         const key = 'content' === prop ? 'text' : prop;
-        textStyle[key] = this[`_${prop}`];
+        fontStyle[key] = this[`_${prop}`];
       }
     });
-
     this._Text.patch({
-      y: this._componentStyles.offsetY,
-      x: this._componentStyles.offsetX,
-      text: textStyle
+      y: this.style.offsetY,
+      x: this.style.offsetX,
+      text: fontStyle
     });
   }
 
@@ -198,11 +203,11 @@ class TextBox extends Base {
   }
 
   set smooth(v) {
-    console.warn(
+    context.warn(
       'warning: value smoothing is known to cause bugs with the TextBox - patch updated values instead.'
     );
     super.smooth = v;
   }
 }
 
-export default withExtensions(withStyles(TextBox, styles));
+export default withExtensions(TextBox);

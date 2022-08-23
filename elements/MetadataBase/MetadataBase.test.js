@@ -72,8 +72,7 @@ describe('MetadataBase', () => {
       component.logoPosition = 'left';
       await component.__updateSpyPromise;
       expect(component._Logo.x).toBe(0);
-      const secondLineX =
-        component.logoWidth + component._componentStyles.logoPadding;
+      const secondLineX = component.logoWidth + component.style.logoPadding;
       expect(component._Subtitle.x).toBe(secondLineX);
     }, 1);
   });

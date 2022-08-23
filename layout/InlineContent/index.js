@@ -1,11 +1,11 @@
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import { withExtensions } from '../../mixins';
 import Icon from '../../elements/Icon';
 import Badge from '../../elements/Badge';
 import { parseInlineContent, flatten } from '../../utils';
 import Base from '../../Base';
-import styles from './InlineContent.styles';
+import * as styles from './InlineContent.styles';
 
-class InlineContent extends withStyles(Base, styles) {
+class InlineContent extends Base {
   static get properties() {
     return [
       'content',
@@ -28,6 +28,10 @@ class InlineContent extends withStyles(Base, styles) {
     return 'InlineContent';
   }
 
+  static get __themeStyles() {
+    return styles;
+  }
+
   _construct() {
     super._construct();
   }
@@ -45,9 +49,7 @@ class InlineContent extends withStyles(Base, styles) {
           direction: 'row',
           wrap: !!this.contentWrap,
           justifyContent:
-            this.justify != undefined
-              ? this.justify
-              : this._componentStyles.justify
+            this.justify != undefined ? this.justify : this.style.justify
         }
       });
 
@@ -124,13 +126,13 @@ class InlineContent extends withStyles(Base, styles) {
     const y =
       (this.textHeight > this.textProperties.lineHeight
         ? this.textHeight
-        : this.textProperties.lineHeight) - this._componentStyles.iconH;
+        : this.textProperties.lineHeight) - this.style.iconH;
     const iconObj = {
       ...base,
       type: Icon,
       y: this.iconY !== undefined ? this.iconY : y,
-      w: this.iconW !== undefined ? this.iconW : this._componentStyles.iconW,
-      h: this.iconH !== undefined ? this.iconH : this._componentStyles.iconH,
+      w: this.iconW !== undefined ? this.iconW : this.style.iconW,
+      h: this.iconH !== undefined ? this.iconH : this.style.iconH,
       icon
     };
     if (color) {
@@ -144,7 +146,7 @@ class InlineContent extends withStyles(Base, styles) {
       typeof text.style === 'string' ? this.textStyles[text.style] : text.style;
     const textObj = {
       ...base,
-      y: this.textY !== undefined ? this.textY : this._componentStyles.textY,
+      y: this.textY !== undefined ? this.textY : this.style.textY,
       h: this.textHeight,
       text: {
         ...this.textProperties,
@@ -243,15 +245,15 @@ class InlineContent extends withStyles(Base, styles) {
     return this._textProperties != undefined
       ? this._textProperties
       : {
-          maxLines: this._componentStyles.maxLines,
-          ...this._componentStyles.textProperties
+          maxLines: this.style.maxLines,
+          ...this.style.textProperties
         };
   }
 
   _getContentSpacing() {
     return this._contentSpacing != undefined
       ? this._contentSpacing
-      : this._componentStyles.contentSpacing;
+      : this.style.contentSpacing;
   }
 
   get textHeight() {
@@ -265,8 +267,8 @@ class InlineContent extends withStyles(Base, styles) {
     if (this.contentProperties.marginBottom) {
       return this.contentProperties.marginBottom;
     }
-    if (this._componentStyles.marginBottom) {
-      return this._componentStyles.marginBottom;
+    if (this.style.marginBottom) {
+      return this.style.marginBottom;
     }
     return 0;
   }

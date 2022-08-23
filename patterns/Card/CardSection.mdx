@@ -1,0 +1,48 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import CardSection from '.';
+
+# CardSection
+
+Component shows title and icon to the right of the title.
+
+## Usage
+
+`CardSection` can display a title and an icon. If an icon is being passed in, iconWidth and iconHeight will also have to be passed in for the icon to render. Additionally, a title can be passed in.
+`CardSection` extends [Card](?path=/docs/patterns-card--base)
+
+```js
+import { CardSection } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      CardSection: {
+        type: CardSection,
+        title: 'Card Section'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="patterns-cardsection--section" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name       | type   | required | default | description                     |
+| ---------- | ------ | -------- | ------- | ------------------------------- |
+| iconHeight | number | false    | -       | height of the icon on the right |
+| iconSrc    | string | false    | -       | icon source                     |
+| iconWidth  | number | false    | -       | width of the icon on the right  |
+
+### Style Properties
+
+| name           | type   | description             |
+| -------------- | ------ | ----------------------- |
+| iconHeight     | number | stylized height of icon |
+| iconWidth      | number | stylized width of icon  |
+| titleTextStyle | string | style of Title text     |

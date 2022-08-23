@@ -1,7 +1,7 @@
 import React from 'react';
 import { flatten } from '../../utils';
 import baseTheme from '../../themes/base';
-import { getValidColor } from '../../Styles/Colors';
+import { getValidColor } from '../../utils';
 import debounce from 'debounce';
 import { THEMES } from '../constants';
 
@@ -270,12 +270,12 @@ export function nestedArgActions(componentName, argTypesObj = {}, targetProp, ig
 export function generateSubStory(componentName, BaseStory, SubStory, targetProperty, ignore = []) {
   BaseStory.args = {
     ...BaseStory.args,
-    ...nestedArgs(SubStory.args, targetProperty, ignore)
+    ...nestedArgs(SubStory.args, targetProperty, ['mode', ...ignore])
   };
 
   BaseStory.argTypes = {
     ...BaseStory.argTypes,
-    ...nestedArgTypes(SubStory.argTypes, targetProperty, ignore)
+    ...nestedArgTypes(SubStory.argTypes, targetProperty, ['mode', ...ignore])
   };
 
   if (!(BaseStory && BaseStory.parameters && BaseStory.parameters.argActions)) {
@@ -286,7 +286,7 @@ export function generateSubStory(componentName, BaseStory, SubStory, targetPrope
 
   BaseStory.parameters.argActions = {
     ...BaseStory.parameters.argActions,
-    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, ignore)
+    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, ['mode', ...ignore])
   };
 }
 

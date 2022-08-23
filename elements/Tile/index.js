@@ -6,7 +6,7 @@ import context from '../../context';
 import Label from '../Label';
 import MetadataTile from '../Metadata'; //TODO: Change this to MetadataTile once refactor is complete
 import ProgressBar from '../ProgressBar';
-import styles from './Tile.styles';
+import * as styles from './Tile.styles';
 import Surface from '../Surface';
 
 class Tile extends Surface {
@@ -24,6 +24,9 @@ class Tile extends Surface {
       Tile: {
         Artwork: {
           type: Artwork,
+          signals: {
+            imageLoaded: '_imageLoaded'
+          },
           mount: 0.5
         },
         Content: {
@@ -36,6 +39,7 @@ class Tile extends Surface {
   static get properties() {
     return [
       'artwork',
+      'circle',
       'badge',
       'checkbox',
       'metadata',
@@ -88,11 +92,11 @@ class Tile extends Surface {
 
   get _gradient() {
     if (this._isCircleLayout) return false;
-    return (
+    return Boolean(
       ('inset' === this._metadataLocation &&
         this._hasMetadata &&
         this._shouldShowMetadata) ||
-      (this.progressBar && this.progressBar.progress > 0)
+        (this.progressBar && this.progressBar.progress > 0)
     );
   }
 
@@ -107,9 +111,17 @@ class Tile extends Surface {
   }
 
   get _progressBarHeight() {
+    // Allow theme level overrides
+    const themeLevelH =
+      this._ProgressBar &&
+      this.style.progressBarStyles &&
+      this.style.progressBarStyles.h;
+
     return (
+      (themeLevelH ? themeLevelH + this.style.paddingY : 0) ||
       (this._ProgressBar &&
-        this._ProgressBar.h + this._componentStyles.paddingY) ||
+        this._ProgressBar._getTransition('h')._targetValue +
+          this.style.paddingY) ||
       0
     );
   }
@@ -128,24 +140,24 @@ class Tile extends Surface {
   get _topMetadataTransitions() {
     return {
       y: [
-        this._shouldShowMetadata ? this._componentStyles.paddingY : 0,
+        this._shouldShowMetadata ? this.style.paddingY : 0,
         this._shouldShowMetadata
-          ? this._componentStyles.animationEntrance
-          : this._componentStyles.animationExit
+          ? this.style.animationEntrance
+          : this.style.animationExit
       ],
       alpha: [
-        this._shouldShowMetadata ? 1 : 0,
+        this._shouldShowMetadata ? 1 : 0.001,
         this._shouldShowMetadata
-          ? this._componentStyles.animationEntrance
-          : this._componentStyles.animationExit
+          ? this.style.animationEntrance
+          : this.style.animationExit
       ]
     };
   }
 
   get _metadataY() {
     return 'inset' === this._metadataLocation
-      ? this._h - this._componentStyles.paddingY - this._progressBarHeight
-      : this._h + this._componentStyles.paddingY;
+      ? this._h - this.style.paddingY - this._progressBarHeight
+      : this._h + this.style.paddingY;
   }
 
   get _metadataTransitions() {
@@ -154,16 +166,14 @@ class Tile extends Surface {
         this._persistentMetadata ||
         ('inset' === this._metadataLocation && this._hasFocus)
           ? this._metadataY
-          : this._h + this._componentStyles.paddingY,
+          : this._h + this.style.paddingY,
         this._shouldShowMetadata
-          ? this._componentStyles.animationEntrance
-          : this._componentStyles.animationExit
+          ? this.style.animationEntrance
+          : this.style.animationExit
       ],
       alpha: [
         this._shouldShowMetadata ? 1 : 0.001,
-        this._hasFocus
-          ? this._componentStyles.animationEntrance
-          : this._componentStyles.animationExit
+        this._hasFocus ? this.style.animationEntrance : this.style.animationExit
       ]
     };
   }
@@ -182,12 +192,9 @@ class Tile extends Surface {
   }
 
   _updateTileColor() {
-    if (this._disabled) {
-      this._Tile.alpha = this._componentStyles.disabledAlpha;
-    } else {
-      this._Tile.alpha = 1;
-    }
+    this._Tile.alpha = this.style.alpha;
   }
+
   _updateContent() {
     const itemContainerPatch = {
       h: this._h,
@@ -202,8 +209,8 @@ class Tile extends Surface {
           acc[prop] = [
             itemContainerPatch[prop],
             this._hasFocus
-              ? this._componentStyles.animationEntrance
-              : this._componentStyles.animationExit
+              ? this.style.animationEntrance
+              : this.style.animationExit
           ];
           return acc;
         },
@@ -216,7 +223,7 @@ class Tile extends Surface {
 
   _updateArtwork() {
     this._Artwork.patch({
-      variant: this.variant,
+      palette: this.palette,
       ...(this.artwork || {}),
       gradient: this._gradient,
       h: this._h,
@@ -225,10 +232,14 @@ class Tile extends Surface {
       y: this._h / 2,
       shouldScale: this._hasFocus,
       style: {
-        radius: this._componentStyles.radius, // This can be overwritten by artworkStyles to support no rounding for performance
-        ...this._componentStyles.artworkStyles
+        radius: this.style.radius, // This can be overwritten by artworkStyles to support no rounding for performance
+        ...this.style.artworkStyles
       }
     });
+  }
+
+  _imageLoaded() {
+    this._Background.alpha = 0; // Since the image is loaded the surface does not need to be shown
   }
 
   _updateBadge() {
@@ -243,12 +254,12 @@ class Tile extends Surface {
     }
 
     const badgePatch = {
-      variant: this.variant,
+      palette: this.palette,
       ...this.badge,
-      x: this._componentStyles.paddingX,
-      y: this._componentStyles.paddingY,
+      x: this.style.paddingX,
+      y: this.style.paddingY,
       alpha: !this._persistentMetadata ? 0.001 : 1,
-      style: this._componentStyles.badgeStyles
+      style: this.style.badgeStyles
     };
     if (!this._Badge) {
       this._Content.patch({
@@ -282,12 +293,12 @@ class Tile extends Surface {
     }
 
     const labelPatch = {
-      variant: this.variant, // Allow variant to be overwritten
+      palette: this.palette, // Allow palette to be overwritten
       ...this.label,
-      x: this._w - this._componentStyles.paddingX,
-      y: this._componentStyles.paddingY,
+      x: this._w - this.style.paddingX,
+      y: this.style.paddingY,
       alpha: !this._persistentMetadata ? 0.001 : 1,
-      style: this._componentStyles.labelStyles
+      style: this.style.labelStyles
     };
 
     if (!this._Label) {
@@ -307,8 +318,8 @@ class Tile extends Surface {
         x: [
           labelPatch.x,
           this._shouldShowMetadata
-            ? this._componentStyles.animationEntrance
-            : this._componentStyles.animationExit
+            ? this.style.animationEntrance
+            : this.style.animationExit
         ],
         ...this._topMetadataTransitions // Badge and Label should animate in with the same values
       };
@@ -335,9 +346,9 @@ class Tile extends Surface {
 
     const checkboxPatch = {
       ...this.checkbox,
-      x: this._w - this._componentStyles.paddingX,
-      y: this._h - this._componentStyles.paddingY,
-      style: this._componentStyles.checkboxStyles
+      x: this._w - this.style.paddingX,
+      y: this._h - this.style.paddingY,
+      style: this.style.checkboxStyles
     };
 
     if (!this._Checkbox) {
@@ -386,12 +397,12 @@ class Tile extends Surface {
 
     if (this.progressBar.progress > 0) {
       const progressPatch = {
-        variant: this.variant,
+        palette: this.palette,
         ...this.progressBar,
-        w: this._w - this._componentStyles.paddingX * 2,
+        w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
-        y: this._h - this._componentStyles.paddingY,
-        style: this._componentStyles.progressBarStyles
+        y: this._h - this.style.paddingY,
+        style: this.style.progressBarStyles
       };
 
       if (!this._ProgressBar) {
@@ -410,7 +421,7 @@ class Tile extends Surface {
             alpha: [
               1,
               {
-                delay: this._componentStyles.animationEntrance.duration // Wait for metadata to animate in
+                delay: this.style.animationEntrance.duration // Wait for metadata to animate in
               }
             ]
           };
@@ -425,8 +436,8 @@ class Tile extends Surface {
             acc[prop] = [
               progressPatch[prop],
               this._hasFocus
-                ? this._componentStyles.animationEntrance
-                : this._componentStyles.animationExit
+                ? this.style.animationEntrance
+                : this.style.animationExit
             ];
             return acc;
           },
@@ -439,19 +450,20 @@ class Tile extends Surface {
   }
 
   _inactive() {
+    super._inactive();
     // Cleanup components and elements that may not be used again
     this._cleanupMetadata();
   }
 
   get _metadataPatch() {
     return {
-      variant: this.variant,
+      palette: this.palette,
       alpha: !this._persistentMetadata && this._hasMetadata ? 0.001 : 1,
       mountX: 0.5,
       mountY: 'inset' === this._metadataLocation ? 1 : 0,
-      w: this._w - this._componentStyles.paddingX * 2,
+      w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      style: this._componentStyles.metadataStyles,
+      style: this.style.metadataStyles,
       ...(this.metadata || {})
     };
   }
@@ -486,10 +498,10 @@ class Tile extends Surface {
           // Patch in as if it was already in unfocused stage so it will animate up the first time
           y: !('inset' === this._metadataLocation && this._hasFocus)
             ? this._metadataY
-            : this._h + this._componentStyles.paddingY
+            : this._h + this.style.paddingY
         }
       });
-      this._animateMetadata();
+
       return;
     }
 
@@ -508,13 +520,19 @@ class Tile extends Surface {
   }
 
   _cleanupMetadata() {
-    if (this._persistentMetadata || !this._Metadata) return;
+    if (
+      this._persistentMetadata ||
+      this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
+      !this._Metadata
+    )
+      return;
     this._Content.patch({
       Metadata: undefined
     });
   }
 
   _metadataLoaded() {
+    this._animateMetadata();
     if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
   }
 }

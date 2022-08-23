@@ -15,10 +15,6 @@ export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        x: 60,
-        y: 60,
-        w: 320,
-        h: 180,
         FocusRing: {
           type: FocusRing,
           itemLayout: {
@@ -29,26 +25,20 @@ export const Basic = () =>
         }
       };
     }
-    get _FocusRing() {
-      return this.tag('FocusRing');
-    }
   };
 
-Basic.args = {
-  focused: true
-};
-
 Basic.argTypes = {
-  focused: { control: 'boolean' }
+  startAnimation: { defaultValue: false, control: 'boolean' }
 };
 
 Basic.parameters = {
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('FocusRing')
-        : () => {};
-      component._refocus();
+    startAnimation: (start, component) => {
+      if (start) {
+        component.tag('FocusRing').startAnimation();
+      } else {
+        component.tag('FocusRing').stopAnimation();
+      }
     }
   }
 };

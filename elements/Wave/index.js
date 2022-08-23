@@ -1,52 +1,92 @@
 import lng from '@lightningjs/core';
-import styles from './Wave.styles';
-import Base from '../Base';
-import { withStyles } from '../../mixins';
+import Base from '../../Base';
+import { withExtensions } from '../../mixins';
+import * as styles from './Wave.styles';
 
-export default class Wave extends withStyles(Base, styles) {
-  static _template() {
-    return {
-      Left1: {},
-      Left2: {},
-      Middle: {},
-      Right1: {},
-      Right2: {}
-    };
+class Wave extends Base {
+  static get __componentName() {
+    return 'Wave';
   }
 
-  static get properties() {
-    return ['color', 'basicOptions', 'w', 'h', 'padding'];
+  static get __themeStyles() {
+    return styles;
+  }
+
+  static _template() {
+    const mountY = 0.5;
+    return {
+      Left1: { mountY },
+      Left2: { mountY },
+      Middle: { mountY },
+      Right1: { mountY },
+      Right2: { mountY }
+    };
   }
 
   static get tags() {
     return ['Left1', 'Left2', 'Middle', 'Right1', 'Right2'];
   }
 
-  _construct() {
-    super._construct();
-    this._w = this.styles.width;
-    this._h = this.styles.height;
-    this._padding = this.styles.padding;
-    this._color = this.styles.color;
+  _update() {
+    const currentlyPlaying =
+      this._hasAnimations() && this._isAnimationPlaying();
     this._basicOptions = {
-      repeat: this.styles.repeat,
-      duration: this.styles.duration
+      repeat: this.style.repeat,
+      duration: this.style.duration
     };
+
+    this.stopAnimation();
+
+    this._updateRectangleSize();
+    this._updateLines();
+    this._updateAnimations();
+
+    if (currentlyPlaying) {
+      this.startAnimation();
+    }
   }
 
-  _update() {
-    const currentlyPlaying = this._isAnimation() && this._isAnimationPlaying();
-    this.stopAnimation();
-    this._updateRectangleSize();
+  _updateRectangleSize() {
+    this._h = this.w * this.style.lockedRatio;
+    this._padding = this.w * this.style.lockedPaddingRatio;
+    this._left2H = this._right1H = this.h * 2;
+    this._middleH = this.h * 3;
+  }
+
+  _updateLines() {
     this._updateLeft1();
     this._updateLeft2();
     this._updateMiddle();
     this._updateRight1();
     this._updateRight2();
-    this._updateAnimations();
-    if (currentlyPlaying) {
-      this.startAnimation();
-    }
+  }
+
+  _updateLeft1() {
+    this._Left1.patch(this._generateLine(0, this.h));
+  }
+
+  _updateLeft2() {
+    this._Left2.patch(
+      this._generateLine(this._Left1.x + this._offset, this._left2H)
+    );
+  }
+
+  _updateMiddle() {
+    this._Middle.patch(
+      this._generateLine(this._Left2.x + this._offset, this._middleH)
+    );
+  }
+
+  _updateRight1() {
+    this._Right1.patch(
+      this._generateLine(this._Middle.x + this._offset, this._right1H)
+    );
+  }
+
+  _updateRight2() {
+    this._Right2.patch(
+      this._generateLine(this._Right1.x + this._offset, this.h)
+    );
   }
 
   _updateAnimations() {
@@ -58,219 +98,151 @@ export default class Wave extends withStyles(Base, styles) {
   }
 
   startAnimation() {
-    if (this._isAnimation()) {
-      this._Left1Animation.play();
-      this._Left2Animation.play();
-      this._MiddleAnimation.play();
-      this._Right1Animation.play();
-      this._Right2Animation.play();
+    if (this._hasAnimations()) {
+      this._left1Animation.play();
+      this._left2Animation.play();
+      this._middleAnimation.play();
+      this._right1Animation.play();
+      this._right2Animation.play();
     }
   }
 
   stopAnimation() {
-    if (this._isAnimation() && this._isAnimationPlaying()) {
-      this._Left1Animation.pause();
-      this._Left2Animation.pause();
-      this._MiddleAnimation.pause();
-      this._Right1Animation.pause();
-      this._Right2Animation.pause();
+    if (this._hasAnimations() && this._isAnimationPlaying()) {
+      this._left1Animation.pause();
+      this._left2Animation.pause();
+      this._middleAnimation.pause();
+      this._right1Animation.pause();
+      this._right2Animation.pause();
     }
   }
 
-  _updateRectangleSize() {
-    this._h = this.w * this.styles.lockedRatio;
-    this._padding = this.w * this.styles.lockedPaddingRatio;
-    this.Left2Height = this.Right1Height = this.h * 2;
-    this.MiddleHeight = this.h * 3;
+  _generateLine(xOffset, lineHeight) {
+    return {
+      x: xOffset,
+      y: this.h,
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        lineHeight,
+        this.style.radius,
+        0,
+        this.style.color,
+        true,
+        this.style.color
+      )
+    };
+  }
+
+  _generateAnimation(heights) {
+    return {
+      ...this._basicOptions,
+      actions: [
+        {
+          p: 'h',
+          v: this.style.keyframes.reduce((acc, curr, index) => {
+            acc[curr] = {
+              sm: 0,
+              v: Array.isArray(heights[index])
+                ? heights[index][0]
+                : heights[index]
+            };
+            if (Array.isArray(heights[index]) && heights[index][1]) {
+              acc[curr].sme = heights[index][1];
+            }
+            return acc;
+          }, {})
+        }
+      ]
+    };
   }
 
   _updateLeft1Animation() {
-    this._Left1Animation = this._Left1.animation({
-      ...this.basicOptions,
-      actions: [
-        {
-          p: 'h',
-          v: {
-            0: { v: this._h, sm: 0, sme: 0.3 },
-            0.17: { v: this._h * 2.5, sm: 0, sme: 0.3 },
-            0.58: { v: this._h / 2, sm: 0, sme: 0.3 },
-            1: { v: this._h, sm: 0, sme: 0.3 }
-          }
-        }
-      ]
-    });
-  }
-
-  _updateLeft1() {
-    this._Left1.patch({
-      x: 0,
-      y: this.h,
-      mountY: 0.5,
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
-        this.styles.radius,
-        this.strokeWidth,
-        this.color,
-        true,
-        this.color
-      )
-    });
+    const sme = 0.3;
+    const heights = [
+      [this._h, sme],
+      [this._h * 2.5, sme],
+      [this._h / 2, sme],
+      [this._h, sme]
+    ];
+    this._left1Animation = this._Left1.animation(
+      this._generateAnimation(heights)
+    );
   }
 
   _updateLeft2Animation() {
-    this._Left2Animation = this._Left2.animation({
-      ...this.basicOptions,
-      actions: [
-        {
-          p: 'h',
-          v: {
-            0: { v: this.Left2Height, sm: 0 },
-            0.17: { v: this.Left2Height / 8, sm: 0 },
-            0.58: { v: this.Left2Height * 1.5, sm: 0 },
-            1: { v: this.Left2Height, sm: 0 }
-          }
-        }
-      ]
-    });
-  }
-
-  _updateLeft2() {
-    this._Left2.patch({
-      x: this.padding + this._Left1.x + this.w,
-      y: this.h,
-      mountY: 0.5,
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.Left2Height,
-        this.styles.radius,
-        this.styles.strokeWidth,
-        this.color,
-        true,
-        this.color
-      )
-    });
+    const heights = [
+      this._left2H,
+      this._left2H / 8,
+      this._left2H * 1.5,
+      this._left2H
+    ];
+    this._left2Animation = this._Left2.animation(
+      this._generateAnimation(heights)
+    );
   }
 
   _updateMiddleAnimation() {
-    this._MiddleAnimation = this._Middle.animation({
-      ...this.basicOptions,
-      actions: [
-        {
-          p: 'h',
-          v: {
-            0: { v: this.MiddleHeight, sm: 0 },
-            0.17: { v: this.MiddleHeight / 2, sm: 0, sme: 0.5 },
-            0.58: { v: this.MiddleHeight / 3, sm: 0, sme: 0.5 },
-            1: { v: this.MiddleHeight, sm: 0 }
-          }
-        }
-      ]
-    });
-  }
-
-  _updateMiddle() {
-    this._Middle.patch({
-      x: this._Left2.x + this.padding + this.w,
-      y: this.h,
-      mountY: 0.5,
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.MiddleHeight,
-        this.styles.radius,
-        this.styles.strokeWidth,
-        this.color,
-        true,
-        this.color
-      )
-    });
+    const sme = 0.5;
+    const heights = [
+      this._middleH,
+      [this._middleH / 2, sme],
+      [this._middleH / 3, sme],
+      this._middleH
+    ];
+    this._middleAnimation = this._Middle.animation(
+      this._generateAnimation(heights)
+    );
   }
 
   _updateRight1Animation() {
-    this._Right1Animation = this._Right1.animation({
-      ...this.basicOptions,
-      actions: [
-        {
-          p: 'h',
-          v: {
-            0: { v: this.Right1Height, sm: 0 },
-            0.17: { v: this.Right1Height / 2, sm: 0, sme: 0.5 },
-            0.58: { v: this.Right1Height * 1.25, sm: 0, sme: 0.5 },
-            1: { v: this.Right1Height, sm: 0 }
-          }
-        }
-      ]
-    });
-  }
-
-  _updateRight1() {
-    this._Right1.patch({
-      x: this._Middle.x + this.padding + this.w,
-      y: this.h,
-      mountY: 0.5,
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.Right1Height,
-        this.styles.radius,
-        this.styles.strokeWidth,
-        this.color,
-        true,
-        this.color
-      )
-    });
+    const sme = 0.5;
+    const heights = [
+      this._right1H,
+      [this._right1H / 2, sme],
+      [this._right1H * 1.25, sme],
+      this._right1H
+    ];
+    this._right1Animation = this._Right1.animation(
+      this._generateAnimation(heights)
+    );
   }
 
   _updateRight2Animation() {
-    this._Right2Animation = this._Right2.animation({
-      ...this.basicOptions,
-      actions: [
-        {
-          p: 'h',
-          v: {
-            0: { v: this.h, sm: 0, sme: 0.3 },
-            0.17: { v: this.h * 3, sm: 0, sme: 0.3 },
-            0.58: { v: this.h * 1.5, sm: 0, sme: 0.3 },
-            1: { v: this.h, sm: 0, sme: 0.3 }
-          }
-        }
-      ]
-    });
+    const sme = 0.3;
+    const heights = [
+      [this.h, sme],
+      [this.h * 3, sme],
+      [this.h * 1.5, sme],
+      [this.h, sme]
+    ];
+    this._right2Animation = this._Right2.animation(
+      this._generateAnimation(heights)
+    );
   }
 
-  _updateRight2() {
-    this._Right2.patch({
-      x: this._Right1.x + this.padding + this.w,
-      y: this.h,
-      mountY: 0.5,
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
-        this.styles.radius,
-        this.styles.strokeWidth,
-        this.color,
-        true,
-        this.color
-      )
-    });
-  }
-
-  _isAnimation() {
+  _hasAnimations() {
     return (
-      this._Left1Animation &&
-      this._Left2Animation &&
-      this._MiddleAnimation &&
-      this._Right1Animation &&
-      this._Right2Animation
+      this._left1Animation &&
+      this._left2Animation &&
+      this._middleAnimation &&
+      this._right1Animation &&
+      this._right2Animation
     );
   }
 
   _isAnimationPlaying() {
     return (
-      this._Left1Animation.isPlaying() &&
-      this._Left2Animation.isPlaying() &&
-      this._MiddleAnimation.isPlaying() &&
-      this._Right1Animation.isPlaying() &&
-      this._Right2Animation.isPlaying()
+      this._left1Animation.isPlaying() &&
+      this._left2Animation.isPlaying() &&
+      this._middleAnimation.isPlaying() &&
+      this._right1Animation.isPlaying() &&
+      this._right2Animation.isPlaying()
     );
   }
+
+  get _offset() {
+    return this._padding + this.w;
+  }
 }
+
+export default withExtensions(Wave);

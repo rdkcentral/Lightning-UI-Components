@@ -6,7 +6,6 @@ import Base from '../Base';
 import { Tile } from '../elements';
 import { Row } from '../layout';
 import tileImage from '../assets/images/tile-image.png';
-import { withFocusAlways } from '../collections';
 
 export default {
   title: 'Collections/Theming Foundations'
@@ -392,7 +391,7 @@ export const TypographyAndColors = () => {
           x: 1200,
           Items: {
             TileWithFocus: {
-              type: withFocusAlways(Tile),
+              type: Tile,
               itemLayout: {
                 ratioX: 1,
                 ratioY: 1,
@@ -404,10 +403,9 @@ export const TypographyAndColors = () => {
               progressBar: { progress: 0.5 },
               metadataLocation: 'inset',
               metadata: { title: 'Example' },
-              extraItemSpacing: 48
+              extraItemSpacing: 48,
+              mode: 'focused'
             },
-            // ButtonWithFocus: {},
-            // ButtonWithoutFocus: {},
             Radius: {
               type: TextBox,
               content: 'Radius',

@@ -1,14 +1,13 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../.storybook/utils';
 import Gradient from '.';
 
 # Gradient
 
-A semitransparent Gradient
+A semitransparent Gradient to be used on top of any component, like Artwork.
 
 ## Usage
 
-Add a Gradient overlay to Tiles or other items
+Specify a width and height and overlay to Tiles or other items.
 
 ```js
 import { Gradient } from '@lightning/ui';
@@ -23,31 +22,19 @@ class Example extends lng.Component {
       }
     };
   }
-};
+}
 ```
-
-Include previews:
 
 <Canvas>
   <Story id="elements-gradient--basic" />
 </Canvas>
 
-The `id` for the preview comes from the url path generated for the story.
-
 ## API
 
-### Properties
+### Style Properties
 
-name|type|required|default|description
---|--|--|--|--
-h | number | true | - | gradient height
-w | number | true | - | gradient width
-radius | number | false | 8 | gradient corner radius
-gradientColor | color | false | Xfintity Theme palette.colors.grey[] | starting color for the gradient
-gradientTop | color | false | transparent | color the gradient fades to
-
-### Styles
-
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={Gradient.styles} />
+| name          | type   | description                             |
+| ------------- | ------ | --------------------------------------- |
+| gradientColor | number | default starting color for the gradient |
+| gradientTop   | number | default color the gradient fades to     |
+| radius        | number | default gradient corner radius          |

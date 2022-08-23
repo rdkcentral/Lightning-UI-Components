@@ -1,12 +1,23 @@
 import Base from '../../Base';
-import styles from './Knob.styles.js';
+import * as styles from './Knob.styles.js';
 import { withExtensions } from '../../mixins';
 import { Circle } from '../../textures';
 import lng from '@lightningjs/core';
-import { getValidColor } from '../../Styles';
-import withStyles from '../../mixins/withThemeStyles';
+import { getValidColor } from '../../utils';
 
 class Knob extends Base {
+  static get __componentName() {
+    return 'Knob';
+  }
+
+  static get __themeStyles() {
+    return styles;
+  }
+
+  static get tags() {
+    return ['Circle'];
+  }
+
   static _template() {
     return {
       mount: 0.5,
@@ -14,38 +25,28 @@ class Knob extends Base {
     };
   }
 
-  static get __componentName() {
-    return 'Knob';
-  }
-
-  static get tags() {
-    return ['Circle'];
-  }
-
   _getCircleTexture() {
     return {
       type: Circle,
-      radius: this._componentStyles.circleSize / 2,
-      color: lng.StageUtils.getRgbString(
-        getValidColor(this._componentStyles.circleColor)
-      ),
+      radius: this.style.circleSize / 2,
+      color: lng.StageUtils.getRgbString(getValidColor(this.style.circleColor)),
       stroke: false
     };
   }
 
   _update() {
-    this.w = this._componentStyles.circleSize;
-    this.h = this._componentStyles.circleSize;
+    this.w = this.style.circleSize;
+    this.h = this.style.circleSize;
     this._updateCircleLayout();
   }
 
   _updateCircleLayout() {
     this._Circle.patch({
       texture: this._getCircleTexture(),
-      color: this._componentStyles.circleColor,
+      color: this.style.circleColor,
       alpha: this.disabled ? 0 : 1
     });
   }
 }
 
-export default withExtensions(withStyles(Knob, styles));
+export default withExtensions(Knob);

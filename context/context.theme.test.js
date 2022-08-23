@@ -1,21 +1,8 @@
-import withThemeStyles from '../mixins/withThemeStyles';
-import Base from '../Base';
-import TestUtils from '../test/lightning-test-utils';
 import logger from './logger';
 
 jest.mock('./fonts');
 jest.mock('./logger');
 jest.mock('./events');
-
-class TestComponent extends withThemeStyles(Base, theme => ({
-  radius: theme.radius.medium
-})) {
-  static __componentName() {
-    return 'Test';
-  }
-}
-
-const createComponent = TestUtils.makeCreateComponent(TestComponent, {});
 
 describe('theme context', () => {
   let themeManager;
@@ -125,66 +112,6 @@ describe('theme context', () => {
       expect(logger.warn).toHaveBeenCalledWith(
         'Could not update subTheme MockTheme due to invalid value'
       );
-    });
-  });
-
-  describe('storage and caching', () => {
-    it('should have a cache', () => {
-      expect(themeManager._cache.constructor.name).toMatch('Map');
-    });
-    it('should setComponentInstantiationStyles to the cache', () => {
-      const [component] = createComponent();
-      const payload = { foo: 'bar' };
-      const response = themeManager.setComponentInstantiationStyles(
-        component,
-        payload
-      );
-      expect(themeManager._cache.get(component)).toEqual(payload);
-      expect(response).toBeUndefined();
-    });
-    it('should getComponentInstantiationStyles from the cache', () => {
-      const [component] = createComponent();
-      const payload = { foo: 'bar' };
-      expect(
-        themeManager.getComponentInstantiationStyles(component)
-      ).toBeUndefined();
-      themeManager.setComponentInstantiationStyles(component, payload);
-      expect(themeManager.getComponentInstantiationStyles(component)).toEqual(
-        payload
-      );
-    });
-    it('should reset component instantiation styles', () => {
-      const [component] = createComponent();
-      const payload = { foo: 'bar' };
-      themeManager.setComponentInstantiationStyles(component, payload);
-      expect(themeManager.getComponentInstantiationStyles(component)).toEqual(
-        payload
-      );
-      themeManager.resetComponentInstantiationStyles(component);
-      expect(
-        themeManager.getComponentInstantiationStyles(component)
-      ).toBeUndefined();
-    });
-    it('should setComponentLevelStyles to the cache', () => {
-      const payload = { foo: 'bar' };
-      const response = themeManager.setComponentLevelStyles(123, payload);
-      expect(themeManager._cache.get('componentStyle123')).toEqual(payload);
-      expect(response).toBeUndefined();
-    });
-    it('should getComponentLevelStyles to the cache', () => {
-      const payload = { foo: 'bar' };
-      expect(
-        themeManager.getComponentLevelStyles('componentStyle123')
-      ).toBeUndefined();
-      themeManager.setComponentLevelStyles(123, payload);
-      expect(themeManager.getComponentLevelStyles(123)).toEqual(payload);
-    });
-    it('should reset componentLevelStyles', () => {
-      const payload = { foo: 'bar' };
-      themeManager.setComponentLevelStyles(123, payload);
-      expect(themeManager._cache.get('componentStyle123')).toEqual(payload);
-      themeManager.resetComponentLevelStyles(123);
-      expect(themeManager._cache.has('componentStyle123')).toEqual(false);
     });
   });
 });

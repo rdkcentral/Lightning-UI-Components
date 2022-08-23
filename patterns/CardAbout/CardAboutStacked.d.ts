@@ -1,12 +1,12 @@
 import { __TextType } from '@lightningjs/core';
-import NewCard from '../NewCard/NewCard';
+import Card from '../Card/Card';
 
-export interface CardAboutStackedStyles extends NewCard {
+export interface CardAboutStackedStyles extends Card {
   descriptionTextProperties?: __TextType;
   titleTextProperties?: __TextType;
 }
 
-export class CardAboutStacked extends NewCard {
+export class CardAboutStacked extends Card {
   contentBottom?: object;
   descriptionBottom?: string;
   titleBottom?: string;

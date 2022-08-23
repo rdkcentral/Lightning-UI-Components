@@ -1,31 +1,25 @@
 import TestUtils from '../../test/lightning-test-utils';
 import ProgressBar from '.';
-import defaultThemeStyles, {
-  variantDefault,
-  base,
-  variants
-} from './ProgressBar.styles';
+import defaultThemeStyles, { base, palette } from './ProgressBar.styles';
 
 jest.mock('./ProgressBar.styles', () => {
   const originalDefaultModule = jest.requireActual(
     './ProgressBar.styles'
   ).default;
-  const originalVariantDefaultModule = jest.requireActual(
+  const originalPaletteDefaultModule = jest.requireActual(
     './ProgressBar.styles'
-  ).variantDefault;
+  ).paletteDefault;
   const originalBase = jest.requireActual('./ProgressBar.styles').base;
-  const originalVariants = jest.requireActual('./ProgressBar.styles').variants;
+  const originalPalette = jest.requireActual('./ProgressBar.styles').palette;
 
   return {
     __esModule: true, // This makes it all work
     default: jest
       .fn()
       .mockImplementation((...args) => originalDefaultModule(...args)),
-    variantDefault: originalVariantDefaultModule,
+    paletteDefault: originalPaletteDefaultModule,
     base: jest.fn().mockImplementation((...args) => originalBase(...args)),
-    variants: jest
-      .fn()
-      .mockImplementation((...args) => originalVariants(...args))
+    palette: jest.fn().mockImplementation((...args) => originalPalette(...args))
   };
 });
 
@@ -53,37 +47,24 @@ describe('ProgressBar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('has a default variant of neutral', () => {
-    expect(variantDefault).toBe('neutral');
-  });
-
   it('has a base theme', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
         h: expect.any(Number),
         radius: expect.any(Number),
-        animationDuration: expect.any(Number)
+        animation: expect.any(Object)
       })
     );
   });
 
-  it('has style variants', () => {
-    expect(typeof variants).toBe('function');
-    const variantStyles = variants(baseTheme);
-    expect(Object.keys(variantStyles).length).toBe(3);
-    expect(variantStyles.neutral).toBeDefined();
-    expect(variantStyles.brand).toBeDefined();
-    expect(variantStyles.inverse).toBeDefined();
-  });
-
-  it('expects the processThemeStyles function to be exported from styles by default', () => {
-    expect(typeof defaultThemeStyles).toBe('function');
-    expect(defaultThemeStyles).toHaveBeenCalledTimes(1);
-    expect(defaultThemeStyles).toHaveBeenLastCalledWith(
-      expect.any(Object),
-      undefined
-    );
+  it('has style palettes', () => {
+    expect(typeof palette).toBe('function');
+    const paletteStyles = palette(baseTheme);
+    expect(Object.keys(paletteStyles).length).toBe(3);
+    expect(paletteStyles.neutral).toBeDefined();
+    expect(paletteStyles.brand).toBeDefined();
+    expect(paletteStyles.inverse).toBeDefined();
   });
 
   it('renders the correct height', async done => {
@@ -121,9 +102,13 @@ describe('ProgressBar', () => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const duration = 3;
-    progressBar.style.animationDuration = duration;
+    progressBar.style = {
+      animation: {
+        duration
+      }
+    };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyles.animationDuration).toBe(duration);
+    expect(progressBar._componentStyle.animation.duration).toBe(duration);
     progressBar.progress = 1;
     await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').settings.duration).toBe(
@@ -132,13 +117,17 @@ describe('ProgressBar', () => {
     done();
   });
 
-  it('animates the progress with a giving timing function', async done => {
+  it('animates the progress with a givin timing function', async done => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const curve = 'linear';
-    progressBar.style.animationCurve = curve;
+    progressBar.style = {
+      animation: {
+        timingFunction: curve
+      }
+    };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyles.animationCurve).toBe(curve);
+    expect(progressBar._componentStyle.animation.timingFunction).toBe(curve);
     expect(progressBar._Progress.transition('w').settings.timingFunction).toBe(
       curve
     );
@@ -149,9 +138,13 @@ describe('ProgressBar', () => {
     progressBar.w = 400;
     progressBar.progress = 0.5;
     const delay = 2;
-    progressBar.style.animationDelay = delay;
+    progressBar.style = {
+      animation: {
+        delay
+      }
+    };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyles.animationDelay).toBe(delay);
+    expect(progressBar._componentStyle.animation.delay).toBe(delay);
     expect(progressBar._Progress.transition('w').settings.delay).toBe(delay);
     done();
   });
@@ -176,15 +169,6 @@ describe('ProgressBar', () => {
       0
     );
     expect(progressBar._Progress.transition('alpha').targetValue).toBe(1);
-  });
-
-  it.skip('should not set width and update if width is not changed', () => {
-    // TODO: This test broke with extensions update
-    progressBar.w = 300;
-    progressBar.progress = 1.5;
-    const updateSpy = jest.spyOn(progressBar, '_update');
-    progressBar.w = 300;
-    expect(updateSpy).not.toHaveBeenCalled();
   });
 
   it('should set bar color', () => {

@@ -2,9 +2,8 @@ import lng from '@lightningjs/core';
 import { Arrow } from '../../textures';
 import Base from '../../Base';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './Slider.styles';
-import { getValidColor } from '../../Styles/Colors';
+import * as styles from './Slider.styles';
+import { getValidColor } from '../../utils';
 import ProgressBar from '../ProgressBar';
 import Icon from '../Icon';
 import Knob from '../Knob';
@@ -12,6 +11,10 @@ import Knob from '../Knob';
 class Slider extends Base {
   static get __componentName() {
     return 'Slider';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -101,12 +104,12 @@ class Slider extends Base {
     this._Circle.patch({
       x: xCirclePosition,
       y: this._SliderBar.y,
-      alpha: this.hasFocus() && !this.disabled ? 1 : 0
+      alpha: this.mode === 'focused' ? 1 : 0
     });
   }
 
   _handleLeft() {
-    if (!this.disabled) {
+    if (this.mode !== 'disabled') {
       if (typeof this.onLeft === 'function') {
         return this.onLeft(this);
       }
@@ -119,7 +122,7 @@ class Slider extends Base {
   }
 
   _handleRight() {
-    if (!this.disabled) {
+    if (this.mode !== 'disabled') {
       if (typeof this.onRight === 'function') {
         return this.onRight(this);
       }
@@ -133,31 +136,31 @@ class Slider extends Base {
 
   _updateSliderLayout() {
     this._Container.patch({
-      h: this._componentStyles.containerHeight,
-      w: this.w || this._componentStyles.minWidth,
+      h: this.style.containerHeight,
+      w: this.w || this.style.minWidth,
       Bar: {
-        x:
-          this._componentStyles.arrowSpacing + this._componentStyles.arrowWidth,
+        x: this.style.arrowSpacing + this.style.arrowWidth,
         SliderBar: {
-          y: this._componentStyles.containerHeight / 2,
+          y: this.style.containerHeight / 2,
           w: this._calculatedSliderWidth,
-          variant: this.variant,
+          palette: this.palette,
           style: {
-            ...this._componentStyles.progressBarStyles,
+            ...this.style.progressBarStyles,
             animationDuration: 0
           }
         }
       }
     });
     this._Circle.patch({
-      w: this._componentStyles.innerCircleSize,
-      h: this._componentStyles.innerCircleSize,
-      color: this._componentStyles.circleColor,
-      variant: this.variant,
+      w: this.style.innerCircleSize,
+      h: this.style.innerCircleSize,
+      color: this.style.circleColor,
+      palette: this.palette,
+      mode: this.mode,
       style: {
-        radius: this._componentStyles.radius,
-        circleSize: this._componentStyles.innerCircleSize,
-        circleColor: this._componentStyles.circleColor
+        radius: this.style.radius,
+        circleSize: this.style.innerCircleSize,
+        circleColor: this.style.circleColor
       }
     });
   }
@@ -167,19 +170,14 @@ class Slider extends Base {
     // fade arrows at min/max
     let sliderArrowAlphaLeft;
     let sliderArrowAlphaRight;
-    if (this.value <= this.min) {
-      sliderArrowAlphaLeft = this._componentStyles.arrowAlphaValueLimit;
-      sliderArrowAlphaRight = this._componentStyles.arrowAlphaValue;
-    } else if (this.value >= this.max) {
-      sliderArrowAlphaLeft = this._componentStyles.arrowAlphaValue;
-      sliderArrowAlphaRight = this._componentStyles.arrowAlphaValueLimit;
+    if (this.mode !== 'disabled' && this.value <= this.min) {
+      sliderArrowAlphaLeft = this.style.arrowAlphaValueLimit;
+      sliderArrowAlphaRight = this.style.arrowAlphaValue;
+    } else if (this.mode !== 'disabled' && this.value >= this.max) {
+      sliderArrowAlphaLeft = this.style.arrowAlphaValue;
+      sliderArrowAlphaRight = this.style.arrowAlphaValueLimit;
     } else {
-      sliderArrowAlphaLeft = sliderArrowAlphaRight =
-        this._componentStyles.arrowAlphaValue;
-    }
-    if (this.disabled) {
-      sliderArrowAlphaLeft = sliderArrowAlphaRight =
-        this._componentStyles.arrowAlphaDisabled;
+      sliderArrowAlphaLeft = sliderArrowAlphaRight = this.style.arrowAlphaValue;
     }
     if (this._smooth) {
       this._LeftArrow.smooth = { alpha: sliderArrowAlphaLeft };
@@ -198,17 +196,12 @@ class Slider extends Base {
   }
 
   _updateArrows() {
-    if (
-      !this._componentStyles.iconLeftSrc &&
-      !this._componentStyles.iconRightSrc
-    ) {
+    if (!this.style.iconLeftSrc && !this.style.iconRightSrc) {
       const arrowTexture = {
         type: Arrow,
-        w: this._componentStyles.arrowWidth,
-        h: this._componentStyles.arrowHeight,
-        color: lng.StageUtils.getRgbString(
-          getValidColor(this._componentStyles.arrowColor)
-        )
+        w: this.style.arrowWidth,
+        h: this.style.arrowHeight,
+        color: lng.StageUtils.getRgbString(getValidColor(this.style.arrowColor))
       };
       this._LeftArrow.h = this._RightArrow.h = 0;
       this._LeftArrow.w = this._RightArrow.w = 0;
@@ -225,23 +218,21 @@ class Slider extends Base {
       const arrowProps = {
         texture: undefined,
         type: Icon,
-        w: this._componentStyles.arrowWidth,
-        h: this._componentStyles.arrowHeight
+        w: this.style.arrowWidth,
+        h: this.style.arrowHeight
       };
       this._LeftArrow.patch({
         ...arrowProps,
-        src: this._componentStyles.iconLeftSrc
+        src: this.style.iconLeftSrc
       });
       this._RightArrow.patch({
         ...arrowProps,
-        src: this._componentStyles.iconRightSrc
+        src: this.style.iconRightSrc
       });
     }
     const rightArrowX =
-      this._componentStyles.arrowSpacing +
-      this._calculatedSliderWidth +
-      this._Bar.x;
-    const color = this._componentStyles.arrowColor;
+      this.style.arrowSpacing + this._calculatedSliderWidth + this._Bar.x;
+    const color = this.style.arrowColor;
     if (this._smooth) {
       this._RightArrow.patch({
         smooth: {
@@ -261,11 +252,11 @@ class Slider extends Base {
 
   get _calculatedSliderWidth() {
     const totalArrowSize =
-      this._componentStyles.arrowSpacing * 2 +
-      this._componentStyles.arrowWidth * 2;
+      this.style.arrowSpacing * 2 + this.style.arrowWidth * 2;
     return this.w < totalArrowSize + this._Circle.w
-      ? this._componentStyles.minWidth - totalArrowSize
+      ? this.style.minWidth - totalArrowSize
       : this.w - totalArrowSize;
   }
 }
-export default withExtensions(withStyles(Slider, styles));
+
+export default withExtensions(Slider);

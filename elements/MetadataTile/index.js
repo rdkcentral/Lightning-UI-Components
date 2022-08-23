@@ -1,9 +1,6 @@
-import InlineContent from '../../layout/InlineContent';
-import Marquee from '../Marquee';
-import Base from '../Base';
-import { FadeShader } from '../../textures';
-import { withStyles } from '../../mixins';
-import styles from './MetadataTile.styles';
+import MetadataBase from '../MetadataBase';
+import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import * as styles from './MetadataTile.styles';
 
 export default class MetadataTile extends withStyles(Base, styles) {
   static _template() {
@@ -30,70 +27,15 @@ export default class MetadataTile extends withStyles(Base, styles) {
     };
   }
 
-  static get properties() {
-    return [
-      'firstLine',
-      'secondLine',
-      'justify',
-      'fadeWidth',
-      'marqueeProperties',
-      'firstLineTextProperties',
-      'secondLineTextProperties',
-      'focusScaleConst',
-      'unfocusScaleConst'
-    ];
+  static get __themeStyles() {
+    return styles;
   }
 
-  static get tags() {
-    return [
-      'Text',
-      'FirstLineWrapper',
-      'SecondLineWrapper',
-      { name: 'FirstLineMarquee', path: 'FirstLineWrapper.Marquee' },
-      { name: 'FirstLine', path: 'FirstLineWrapper.FirstLine' },
-      { name: 'SecondLine', path: 'SecondLineWrapper.SecondLine' }
-    ];
-  }
-
-  _construct() {
-    super._construct();
-    this._justify = this.styles.justify;
-    this._marqueeProperties = this.styles.marqueeProperties;
-    this._firstLineTextProperties = this.styles.firstLineTextProperties;
-    this._secondLineTextProperties = this.styles.secondLineTextProperties;
-    this._fadeWidth = this.styles.fadeWidth;
-    this._w = this.styles.w;
-  }
-
-  _init() {
-    if (this.focusScaleConst === undefined) {
-      this._focusScaleConst = this._getFocusScale(this.w, this.h);
-    }
-    if (this.unfocusScaleConst === undefined) {
-      this._unfocusScaleConst = this._getUnfocusScale(this.w, this.h);
-    }
-    super._init();
-  }
-
-  $loadedInlineContent(line) {
-    if (line.ref && this.tag(line.ref + 'Wrapper')) {
-      this.tag(line.ref + 'Wrapper').h = line.textHeight;
-      this.tag(line.ref + 'Wrapper').alpha = 1;
-    }
-    line.h = line.content ? line.textHeight : 0;
-    this._Text.h = this._FirstLine.h + this._SecondLine.h;
-    this.queueRequestUpdate();
-  }
-
-  _update() {
-    this._updateText();
-    this._updatePosX();
-    this._updateLines();
-  }
-
-  _updateText() {
-    if (this._smooth) {
-      this._Text.smooth = { w: this._textW };
+  _updateSubtitle() {
+    if (this.description) {
+      this._Subtitle.patch({ content: '' });
+      this._Subtitle.alpha = 0;
+      this._Subtitle.visible = false;
     } else {
       this._Text.w = this._textW;
     }
@@ -124,6 +66,7 @@ export default class MetadataTile extends withStyles(Base, styles) {
     } else {
       this._SubtitleWrapper.h = 0;
     }
+    this.signal('updateComponentDimensions');
   }
   set announce(announce) {
     super.announce = announce;

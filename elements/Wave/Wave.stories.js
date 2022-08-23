@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import Wave from '.';
 import mdx from './Wave.mdx';
-import { getValidColor } from '../../Styles';
 
 export default {
   title: 'Elements / Wave',
@@ -12,64 +11,39 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Wave: {
-          type: Wave,
-          w: args.size
+          type: Wave
         }
       };
-    }
-
-    get _Wave() {
-      return this.tag('Wave');
-    }
-
-    _getFocused() {
-      return this.tag('Wave');
     }
   };
 
 Basic.args = {
-  color: '0xffffffff',
-  size: 6,
-  shouldAnimate: false
+  'toggle animation': true
 };
 
 Basic.argTypes = {
-  color: { name: 'color', control: { type: 'color' } },
-  size: {
-    control: {
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 1
-    }
-  },
-  shouldAnimate: {
+  'toggle animation': {
+    defaultValue: true,
     control: {
       type: 'boolean'
-    }
+    },
+    description:
+      'utilize the startAnimation() and stopAnimation() methods to toggle state',
+    table: { defaultValue: { summary: false } }
   }
 };
 
 Basic.parameters = {
   argActions: {
-    shouldAnimate: (shouldAnimate, component) => {
+    'toggle animation': (shouldAnimate, component) => {
       shouldAnimate
         ? component.tag('Wave').startAnimation()
         : component.tag('Wave').stopAnimation();
-      component._refocus();
-    },
-    color: (color, component) => {
-      component.tag('Wave').color = getValidColor(color);
-      component._refocus();
-    },
-    size: (size, component) => {
-      component.tag('Wave')._w = size;
-      component.tag('Wave')._update();
       component._refocus();
     }
   }

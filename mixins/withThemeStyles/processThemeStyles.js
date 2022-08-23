@@ -1,6 +1,8 @@
 import { clone } from '../../utils';
 
 /**
+ *
+ * This method is deprecated and will be replaced - See withThemeStyles
  * Used by Component.style.js files to merge variants with base styles
  * @param {object} - Theme
  * @param {string} - Variant string - example: brand, neutral, inverse
@@ -20,18 +22,16 @@ export default function processThemeStyles(
   ) {
     variant = 'neutral';
   }
-  if (typeof theme !== 'object')
-    throw new Error('processThemeStyles theme parameter must be an object');
-  if (typeof base !== 'function')
-    throw new Error('processThemeStyles base parameter must be a function');
-  if (typeof variants !== 'function')
-    throw new Error('processThemeStyles variant parameter must be a function');
+
   const baseStyles = base(theme);
   const variantStyles = variants(theme);
   const selectedVariant =
     ('object' === typeof variantStyles && variantStyles[variant]) || {};
-  return clone(
+
+  const result = clone(
     ('object' === typeof baseStyles && baseStyles) || {},
     selectedVariant
   );
+
+  return result;
 }

@@ -1,11 +1,15 @@
 import Base from '../../Base';
 import lng from '@lightningjs/core';
-import styles from './Radio.styles.js';
-import withStyles from '../../mixins/withThemeStyles';
+import * as styles from './Radio.styles.js';
 import { withExtensions } from '../../mixins';
+
 class Radio extends Base {
   static get __componentName() {
     return 'Radio';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get tags() {
@@ -22,56 +26,54 @@ class Radio extends Base {
 
   _update() {
     this._updateLayout();
-    this._Knob.smooth = { alpha: this.checked && !this.isInactive ? 1 : 0 };
+    this._Knob.smooth = {
+      alpha: this.checked ? 1 : 0
+    };
   }
 
   _updateLayout() {
-    const strokeColor = this.isInactive
-      ? this._componentStyles.strokeColorInactive
-      : this._componentStyles.strokeColor;
-    let backgroundColor = this._componentStyles.backgroundColorOff;
-    if (this.isInactive) {
-      backgroundColor = this._componentStyles.backgroundColorInactive;
-    } else if (this.checked) {
-      backgroundColor = this._componentStyles.backgroundColor;
-    }
     this.patch({
-      w: this._componentStyles.w,
-      h: this._componentStyles.h,
+      w: this.style.w,
+      h: this.style.h,
       texture: lng.Tools.getRoundRect(
-        this._componentStyles.w,
-        this._componentStyles.h,
-        this._componentStyles.radius,
-        this._componentStyles.strokeWidth,
-        strokeColor,
+        this.style.w,
+        this.style.h,
+        this.style.radius,
+        this.style.strokeWidth,
+        this.style.strokeColor,
         true,
-        backgroundColor
+        this.checked
+          ? this.style.backgroundColorChecked
+          : this.style.backgroundColor
       ),
       Knob: {
-        w: this._componentStyles.knobWidth,
-        h: this._componentStyles.knobHeight,
+        w: this.style.knobWidth,
+        h: this.style.knobHeight,
         mount: 0.5,
-        x: this._componentStyles.w / 2,
-        y: this._componentStyles.h / 2,
+        x: this.style.w / 2,
+        y: this.style.h / 2,
         alpha: 0,
         texture: lng.Tools.getRoundRect(
-          this._componentStyles.knobWidth,
-          this._componentStyles.knobHeight,
-          this._componentStyles.knobWidth / 2,
+          this.style.knobWidth,
+          this.style.knobHeight,
+          this.style.knobWidth / 2,
           false,
           false,
           true,
-          this._componentStyles.knobColor
+          this.style.knobColor
         )
       }
     });
   }
 
+  _setChecked(checked) {
+    return this.mode !== 'disabled' ? checked : this.checked;
+  }
+
   toggle() {
     this.checked = !this.checked;
-    this._update();
     return this;
   }
 }
 
-export default withExtensions(withStyles(Radio, styles));
+export default withExtensions(Radio);

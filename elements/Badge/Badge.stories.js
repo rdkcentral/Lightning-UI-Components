@@ -23,10 +23,6 @@ export const Text = args =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Badge');
-    }
   };
 Text.args = {
   title: 'HD'

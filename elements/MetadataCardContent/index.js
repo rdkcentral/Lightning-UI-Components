@@ -1,13 +1,17 @@
 import MetadataBase from '../MetadataBase';
 import Provider from '../Provider';
 import TextBox from '../TextBox';
-import styles from './MetadataCardContent.styles.js';
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import * as styles from './MetadataCardContent.styles.js';
+import { withExtensions } from '../../mixins';
 import { FadeShader } from '../../textures';
 
 class MetadataCardContent extends MetadataBase {
-  static __componentName() {
+  static get __componentName() {
     return 'MetadataCardContent';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -83,7 +87,7 @@ class MetadataCardContent extends MetadataBase {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this._componentStyles.descriptionTextProperties,
+      textStyle: this.style.descriptionTextProperties,
       wordWrap: true,
       wordWrapWidth: this._Text.w
     });
@@ -93,19 +97,19 @@ class MetadataCardContent extends MetadataBase {
     const maxWidth = this._detailsMaxW();
     this._Details.patch({
       content: this.details,
-      textStyle: this._componentStyles.detailsTextProperties,
+      textStyle: this.style.detailsTextProperties,
       wordWrap: true,
       maxLines: 1,
-      wordWrapWidth: maxWidth + this._componentStyles.fadeWidth / 2,
+      wordWrapWidth: maxWidth + this.style.fadeWidth / 2,
       maxLinesSuffix: ''
     });
     if (this._Details.finalW > maxWidth) {
       this._DetailsFader.patch({
-        w: maxWidth + this._componentStyles.fadeWidth / 2,
+        w: maxWidth + this.style.fadeWidth / 2,
         shader: {
           type: FadeShader,
           positionLeft: 0,
-          positionRight: this._componentStyles.fadeWidth
+          positionRight: this.style.fadeWidth
         }
       });
     } else {
@@ -117,7 +121,7 @@ class MetadataCardContent extends MetadataBase {
     if (this.provider) {
       this._Provider.patch({
         ...this.provider,
-        style: this._componentStyles.providerStyle
+        style: this.style.providerStyle
       });
     }
   }
@@ -153,7 +157,7 @@ class MetadataCardContent extends MetadataBase {
   }
 
   _detailsMaxW() {
-    return this.w - this._providerW() - this._componentStyles.fadeWidth / 2;
+    return this.w - this._providerW() - this.style.fadeWidth / 2;
   }
 
   get announce() {
@@ -173,4 +177,4 @@ class MetadataCardContent extends MetadataBase {
   }
 }
 
-export default withExtensions(withStyles(MetadataCardContent, styles));
+export default withExtensions(MetadataCardContent);

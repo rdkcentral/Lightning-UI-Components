@@ -3,39 +3,30 @@ import Gradient from '.';
 import mdx from './Gradient.mdx';
 
 export default {
-  title: 'elements / Gradient',
+  title: 'Elements / Gradient',
   parameters: {
     docs: {
       page: mdx
     }
-  },
-  args: {
-    radius: 4,
-    color: 'rgba(8,111,107,1)'
-  },
-  argTypes: {
-    color: { name: 'Color', control: { type: 'color' } }
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Gradient: {
           type: Gradient,
-          w: 320,
-          h: 180,
-          radius: args.radius,
-          gradientColor: args.color
+          itemLayout: {
+            ratioX: 16,
+            ratioY: 9,
+            upCount: 3
+          }
         }
       };
     }
-
-    get _Gradient() {
-      return this.tag('Gradient');
-    }
   };
+
 Basic.args = {};
 Basic.argTypes = {};
 Basic.parameters = {

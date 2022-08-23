@@ -1,33 +1,24 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
+export const base = theme => ({
+  h: theme.spacer.md,
+  animation: {
+    timingFunction: theme.animations.functionalStandard,
+    delay: theme.animations.functionalStandardDelay,
+    duration: theme.animations.functionalStandardDuration
+  },
+  radius: theme.radius.xs
+});
 
-export const variantDefault = 'neutral';
-
-export function base(theme) {
-  return {
-    h: theme.spacer.md,
-    radius: theme.radius.xs,
-    animationCurve: theme.animations.functionalStandard,
-    animationDelay: theme.animations.functionalStandardDelay,
-    animationDuration: theme.animations.functionalStandardDuration
-  };
-}
-
-export function variants(theme) {
-  return {
-    neutral: {
-      progressColor: theme.colors.coreNeutral,
-      barColor: theme.colors.coreNeutralTertiary
-    },
-    inverse: {
-      progressColor: theme.colors.coreInverse,
-      barColor: theme.colors.coreInverseTertiary
-    },
-    brand: {
-      progressColor: theme.colors.coreBrand,
-      barColor: theme.colors.coreBrandTertiary
-    }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+export const palette = theme => ({
+  neutral: {
+    barColor: theme.colors.coreNeutralTertiary,
+    progressColor: theme.colors.coreNeutral
+  },
+  inverse: {
+    barColor: theme.colors.coreInverseTertiary,
+    progressColor: theme.colors.coreInverse
+  },
+  brand: {
+    barColor: theme.colors.coreBrandTertiary,
+    progressColor: theme.colors.coreBrand
+  }
+});

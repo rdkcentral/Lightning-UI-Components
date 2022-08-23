@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-import fallbackSrc from '../../assets/images/default_background.png';
 import Artwork from '.';
 import mdx from './Artwork.mdx';
 
@@ -22,10 +21,6 @@ export const Basic = () =>
             ratioX: 16,
             ratioY: 9,
             upCount: 3
-          },
-          fallbackSrc: fallbackSrc,
-          style: {
-            imageScale: 1.2
           }
         }
       };
@@ -36,14 +31,14 @@ Basic.args = {
   blur: false,
   foregroundSrc: false,
   gradient: false,
-  mode: 'default',
+  format: 'default',
   srcCallback: false,
   fill: false,
   shouldScale: false
 };
 
 Basic.argTypes = {
-  mode: {
+  format: {
     control: 'radio',
     options: ['default', 'circle', 'square', 'contain'],
     description: 'Updates the treatment of src image',

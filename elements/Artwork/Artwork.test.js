@@ -31,8 +31,8 @@ describe('Artwork', () => {
           '_updateBlur',
           '_showComponent',
           '_updateForegroundImage',
-          '_updateModeSquareCircle',
-          '_updateModeContain'
+          '_updateFormatSquareCircle',
+          '_updateFormatContain'
         ]
       }
     );
@@ -66,7 +66,7 @@ describe('Artwork', () => {
       'foregroundSrc',
       'foregroundW',
       'gradient',
-      'mode',
+      'format',
       'src',
       'fill',
       'shouldScale',
@@ -93,10 +93,10 @@ describe('Artwork', () => {
     await component.__updateSpyPromise;
     expect(component._shouldBlur).toBe(true);
     component.blur = false;
-    component.mode = 'circle';
+    component.format = 'circle';
     await component.__updateSpyPromise;
     expect(component._shouldBlur).toBe(true);
-    component.mode = 'square';
+    component.format = 'square';
     await component.__updateSpyPromise;
     expect(component._shouldBlur).toBe(true);
     // Need to add case where code checks if image dimensions are equal
@@ -105,13 +105,13 @@ describe('Artwork', () => {
 
   it('should return the proper values for _hasCenterImage', async done => {
     expect(component._hasCenterImage).toBe(false);
-    component.mode = 'circle';
+    component.format = 'circle';
     await component.__updateSpyPromise;
     expect(component._hasCenterImage).toBe(true);
-    component.mode = 'square';
+    component.format = 'square';
     await component.__updateSpyPromise;
     expect(component._hasCenterImage).toBe(true);
-    component.mode = 'contain';
+    component.format = 'contain';
     await component.__updateSpyPromise;
     expect(component._hasCenterImage).toBe(true);
     // TODO: Need to check aspect ratio
@@ -278,11 +278,15 @@ describe('Artwork', () => {
 
   it('will update fillColor if defined in componentStyles and remove the element if not required', async done => {
     component.fill = true;
-    component.style.fillColor = 0xfff663399;
+    component.style = {
+      fillColor: 0xfff663399
+    };
     await component.__updateSpyPromise;
     expect(component._FillColor).not.toBeUndefined();
     expect(component._FillColor.color).toBe(0xfff663399);
-    component.style.fillColor = undefined;
+    component.style = {
+      fillColor: undefined
+    };
     component.fill = false;
     await component.__updateSpyPromise;
     expect(component._FillColor).toBeUndefined();
@@ -425,21 +429,21 @@ describe('Artwork', () => {
   });
 
   it('should blur if mode is "circle"', async done => {
-    component.mode = 'circle';
+    component.format = 'circle';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
     done();
   });
 
   it('should blur if mode is "square"', async done => {
-    component.mode = 'square';
+    component.format = 'square';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
     done();
   });
 
   it('should blur if mode "contain" and the ratio is not equal to the Artwork ratio', async done => {
-    component.mode = 'contain';
+    component.format = 'contain';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
     component.patch({
@@ -495,32 +499,32 @@ describe('Artwork', () => {
   });
 
   it('_updateCenterImage should always remove the previous CenterImage element if exists and no longer required', async done => {
-    component.mode = 'circle';
+    component.format = 'circle';
     await component.__showComponentSpyPromise;
     expect(component._CenterImage).not.toBeUndefined();
-    component.mode = undefined;
+    component.format = undefined;
     await component.__showComponentSpyPromise;
     expect(component._CenterImage).toBeUndefined();
     done();
   });
 
-  it('_updateCenterImage should never call _updateModeSquareCircle or _updateModeContain if the src is equal to the fallbackSrc is true', async done => {
-    component._updateModeSquareCircle.mockClear();
-    component._updateModeContain.mockClear();
-    component.mode = 'circle';
+  it('_updateCenterImage should never call _updateFormatSquareCircle or _updateFormatContain if the src is equal to the fallbackSrc is true', async done => {
+    component._updateFormatSquareCircle.mockClear();
+    component._updateFormatContain.mockClear();
+    component.format = 'circle';
     component.src = undefined;
     component.fallbackSrc = fallbackSrc;
     await component.__showComponentSpyPromise;
-    expect(component._updateModeSquareCircle).toHaveBeenCalledTimes(0);
-    component.mode = 'contain';
+    expect(component._updateFormatSquareCircle).toHaveBeenCalledTimes(0);
+    component.format = 'contain';
     await component.__showComponentSpyPromise;
-    expect(component._updateModeContain).toHaveBeenCalledTimes(0);
+    expect(component._updateFormatContain).toHaveBeenCalledTimes(0);
     done();
   });
 
   it('should update the foregroundImage if mode is contain', async done => {
     component._updateForegroundImage.mockClear();
-    component.mode = 'contain';
+    component.format = 'contain';
     await component.__showComponentSpyPromise;
     expect(component._updateForegroundImage).toHaveBeenCalledTimes(1);
     expect(component._CenterImage).not.toBeUndefined();
@@ -529,7 +533,7 @@ describe('Artwork', () => {
 
   it('should accommodate portrait size images appropriately when in contain mode', async done => {
     component.src = sampleImg;
-    component.mode = 'contain';
+    component.format = 'contain';
     component.w = 400;
     component.h = 200;
     component._updateForegroundImage.mockRestore();
@@ -557,7 +561,7 @@ describe('Artwork', () => {
 
   it('should accommodate landscape size images appropriately when in contain mode', async done => {
     component.src = sampleImg;
-    component.mode = 'contain';
+    component.format = 'contain';
     component.w = 400;
     component.h = 200;
     component._updateForegroundImage.mockRestore();
@@ -585,7 +589,7 @@ describe('Artwork', () => {
 
   it('should remove the centerImage and return if in contain mode and the image fails', async done => {
     component.src = sampleImg;
-    component.mode = 'contain';
+    component.format = 'contain';
     component.w = 400;
     component.h = 200;
     component.fallbackSrc = 'fallbackSrcImage';
@@ -609,7 +613,7 @@ describe('Artwork', () => {
 
   it('should remove the centerImage and return if in square mode and the image fails', async done => {
     component.src = sampleImg;
-    component.mode = 'square';
+    component.format = 'square';
     component.w = 400;
     component.h = 200;
     component.fallbackSrc = 'fallbackSrcImage';
@@ -633,7 +637,7 @@ describe('Artwork', () => {
 
   it('should remove the centerImage and return if in circle mode and the image fails', async done => {
     component.src = sampleImg;
-    component.mode = 'circle';
+    component.format = 'circle';
     component.w = 400;
     component.h = 200;
     component.fallbackSrc = 'fallbackSrcImage';
@@ -656,7 +660,7 @@ describe('Artwork', () => {
   });
 
   it('should return a square image texture that has a total size that is equal to the total component height minus the style.padding * 2', async done => {
-    component.mode = 'square';
+    component.format = 'square';
     await component.__showComponentSpyPromise;
     expect(component._CenterImage.w).toBe(component._CenterImage.h);
     expect(component._CenterImage.w).toBe(
@@ -719,7 +723,9 @@ describe('Artwork', () => {
 
   it('should update the radius by patching RoundedRectangle shader if defined in style and greater than 0', async done => {
     expect(component.shader).toBeNull();
-    component.style.radius = 10;
+    component.style = {
+      radius: 10
+    };
     await component.__showComponentSpyPromise;
     expect(component.shader.constructor.name).toBe('RoundedRectangleShader');
     done();

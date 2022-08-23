@@ -2,6 +2,8 @@ import lng from '@lightningjs/core';
 
 import Slider from '.';
 import mdx from './Slider.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
+import TextBox from '../TextBox';
 
 export default {
   title: 'Elements / Slider',
@@ -12,60 +14,29 @@ export default {
   }
 };
 
-export const BasicSlider = args =>
+export const BasicSlider = () =>
   class BasicSlider extends lng.Component {
     static _template() {
       return {
         Slider: {
-          type: Slider,
-          min: args.min,
-          max: args.max,
-          value: args.value,
-          step: args.step,
-          focused: args.focused,
-          w: 328
+          type: Slider
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Slider');
-    }
   };
+
 BasicSlider.args = {
   min: 0,
   max: 100,
   value: 50,
-  step: 1,
-  focused: true,
-  disabled: false
+  step: 1
 };
 BasicSlider.argTypes = {
+  ...createModeControl(),
   min: { control: 'number', description: 'lower bound of value' },
   max: { control: 'number', description: 'upper bound of value' },
   value: { control: 'number', description: 'current value' },
-  step: { control: 'number', description: '+/- value on change' },
-  focused: {
-    control: 'boolean',
-    description: 'focused state of slider where knob is not shown'
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'disabled state where arrows are not shown'
-  }
-};
-BasicSlider.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Slider')
-        : () => {};
-      component._getFocused = isFocused
-        ? () => component.tag('Slider')._Circle
-        : () => {};
-      component._refocus();
-    }
-  }
+  step: { control: 'number', description: '+/- value on change' }
 };
 
 export const SignalHandling = () =>
@@ -73,9 +44,6 @@ export const SignalHandling = () =>
     static _template() {
       return {
         flex: { direction: 'column' },
-        Text: {
-          text: { text: 'Value: 0' }
-        },
         Slider: {
           type: Slider,
           step: 10,
@@ -84,15 +52,17 @@ export const SignalHandling = () =>
           signals: {
             onChange: true
           }
+        },
+        Text: {
+          y: 60,
+          type: TextBox
         }
       };
     }
 
     onChange(value) {
-      this.tag('Text').text = `Value: ${value}`;
-    }
-
-    _getFocused() {
-      return this.tag('Slider');
+      this.tag('Text').content = `Value: ${value}`;
     }
   };
+
+SignalHandling.argTypes = createModeControl();

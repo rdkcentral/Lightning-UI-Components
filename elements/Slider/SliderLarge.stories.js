@@ -1,6 +1,8 @@
 import lng from '@lightningjs/core';
 import Slider from './SliderLarge';
 import mdx from './Slider.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
+import TextBox from '../TextBox';
 
 export default {
   title: 'Elements / Slider',
@@ -11,24 +13,14 @@ export default {
   }
 };
 
-export const SliderLarge = args =>
+export const SliderLarge = () =>
   class SliderLarge extends lng.Component {
     static _template() {
       return {
         Slider: {
-          type: Slider,
-          min: args.min,
-          max: args.max,
-          value: args.value,
-          step: args.step,
-          focused: args.focused,
-          w: 328
+          type: Slider
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Slider');
     }
   };
 SliderLarge.args = {
@@ -40,6 +32,7 @@ SliderLarge.args = {
   disabled: false
 };
 SliderLarge.argTypes = {
+  ...createModeControl(),
   min: {
     control: 'number',
     description: 'lower bound of value'
@@ -65,29 +58,12 @@ SliderLarge.argTypes = {
     description: 'disabled state where arrows are not shown'
   }
 };
-SliderLarge.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Slider')
-        : () => {};
-      component._getFocused = isFocused
-        ? () => component.tag('Slider')._Circle
-        : () => {};
-      component._refocus();
-      component._refocus();
-    }
-  }
-};
 
 export const SignalHandlingLarge = () =>
   class SignalHandling extends lng.Component {
     static _template() {
       return {
         flex: { direction: 'column' },
-        Text: {
-          text: { text: 'Value: 0' }
-        },
         Slider: {
           type: Slider,
           y: 20,
@@ -97,15 +73,17 @@ export const SignalHandlingLarge = () =>
           signals: {
             onChange: true
           }
+        },
+        Text: {
+          y: 60,
+          type: TextBox
         }
       };
     }
 
     onChange(value) {
-      this.tag('Text').text = `Value: ${value}`;
-    }
-
-    _getFocused() {
-      return this.tag('Slider');
+      this.tag('Text').content = `Value: ${value}`;
     }
   };
+
+SignalHandlingLarge.argTypes = createModeControl();

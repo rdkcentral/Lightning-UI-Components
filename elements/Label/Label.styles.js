@@ -1,37 +1,26 @@
-import { processThemeStyles } from '../../mixins/withThemeStyles';
+export const base = theme => ({
+  radius: [
+    theme.radius.md,
+    theme.radius.md,
+    theme.radius.md,
+    theme.radius.none
+  ],
+  paddingX: theme.spacer.lg,
+  paddingY: theme.spacer.md,
+  textStyle: theme.typography.caption
+});
 
-export const variantDefault = 'neutral';
-
-export function base(theme) {
-  return {
-    radius: [
-      theme.radius.md,
-      theme.radius.md,
-      theme.radius.md,
-      theme.radius.none
-    ],
-    paddingX: theme.spacer.lg,
-    paddingY: theme.spacer.md,
-    textStyle: 'caption'
-  };
-}
-
-export function variants(theme) {
-  return {
-    neutral: {
-      titleColor: theme.colors.material,
-      backgroundColor: theme.colors.coreNeutral
-    },
-    inverse: {
-      titleColor: theme.colors.coreNeutral,
-      backgroundColor: theme.colors.coreInverse
-    },
-    brand: {
-      titleColor: theme.colors.coreNeutral,
-      backgroundColor: theme.colors.coreBrand
-    }
-  };
-}
-
-export default (theme, variant = variantDefault) =>
-  processThemeStyles(theme, variant, base, variants);
+export const palette = theme => ({
+  neutral: {
+    textStyle: { textColor: theme.colors.material },
+    backgroundColor: theme.colors.coreNeutral
+  },
+  inverse: {
+    textStyle: { textColor: theme.colors.coreNeutral },
+    backgroundColor: theme.colors.coreInverse
+  },
+  brand: {
+    textStyle: { textColor: theme.colors.coreNeutral },
+    backgroundColor: theme.colors.coreBrand
+  }
+});

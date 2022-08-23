@@ -1,8 +1,7 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import Column from '../../layout/Column';
-import { getAspectRatioH } from '../../Styles';
-import { getWidthByUpCount } from '../../utils';
+import { getWidthByUpCount, getAspectRatioH } from '../../utils';
 
 export default class HeroLayout extends BaseLayout {
   static get _cardWidth() {

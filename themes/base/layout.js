@@ -25,7 +25,7 @@ export const layout = {
 };
 
 // TODO: After modes refactor, Emily to move these to Base component and
-// return `this._componentStyles.layout.focusScale`
+// return `this.style.layout.focusScale`
 // so users can easily extend and overwrite scaling methods
 export function getFocusScale() {
   return context.theme.layout.focusScale;

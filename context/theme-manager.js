@@ -1,7 +1,7 @@
-import { clone, getValFromObjPath } from '../utils';
+import { clone, getValFromObjPath, getHexColor, getValidColor } from '../utils';
 import baseTheme from '../themes/base';
-import { getHexColor, getValidColor } from '../Styles/Colors';
 import logger from './logger';
+import events from './events';
 
 import { fontLoader, cleanupFonts } from './fonts';
 const merge = {
@@ -17,20 +17,29 @@ const isSubTheme = themeName => 'subTheme' === themeName.slice(0, 8);
 export class ThemeManager {
   constructor() {
     this._cache = new Map();
+    if (typeof window === 'undefined') return;
+    if (!window.LUI) {
+      window.LUI = {};
+    }
+    if (!window.LUI.themeManagerInstances) {
+      window.LUI.themeManagerInstances = [{ themeManager: this, events }];
+    } else {
+      window.LUI.themeManagerInstances.push({ themeManager: this, events });
+    }
   }
 
   // Handle separate instances of context accross the application and keep them in sync
   _setCache(key, payload) {
     if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
-      themeManager._cache.set(key, payload);
+      if (themeManager) themeManager._cache.set(key, payload);
     });
   }
 
   _deleteCache(key) {
     if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
-      themeManager._cache.delete(key);
+      if (themeManager) themeManager._cache.delete(key);
     });
   }
 
@@ -108,7 +117,8 @@ export class ThemeManager {
       original: value,
       result: subTheme
     });
-    if (triggerUpdate) this._emit(`updateTheme${subThemeName}`);
+
+    if (triggerUpdate) this._emit(`themeUpdate${subThemeName}`);
     return subTheme;
   }
 
@@ -206,7 +216,7 @@ export class ThemeManager {
       result: subTheme
     });
 
-    if (triggerUpdate) this._emit(`updateTheme${subThemeName}`);
+    if (triggerUpdate) this._emit(`themeUpdate${subThemeName}`);
 
     return subTheme;
   }
@@ -215,7 +225,7 @@ export class ThemeManager {
     if (this._cache.has(`subTheme${subThemeName}`)) {
       this._deleteCache(`subTheme${subThemeName}`);
     }
-    this._emit(`updateTheme${subThemeName}`);
+    this._emit(`themeUpdate${subThemeName}`);
   }
 
   _getComponentUUID(id) {
@@ -266,39 +276,6 @@ export class ThemeManager {
     });
 
     return { ...JSON.parse(themeString), ...themeFunctions, extensions };
-  }
-
-  setComponentInstantiationStyles(constructor, payload) {
-    this._setCache(constructor, payload);
-  }
-
-  getComponentInstantiationStyles(constructor) {
-    if (this._cache.has(constructor)) {
-      return this._cache.get(constructor);
-    }
-    return undefined;
-  }
-
-  resetComponentInstantiationStyles(constructor) {
-    this._deleteCache(constructor);
-  }
-
-  setComponentLevelStyles(id, payload) {
-    const uuid = this._getComponentUUID(id);
-    this._setCache(uuid, payload);
-  }
-
-  getComponentLevelStyles(id) {
-    const uuid = this._getComponentUUID(id);
-    if (this._cache.has(uuid)) {
-      return this._cache.get(uuid);
-    }
-    return undefined;
-  }
-
-  resetComponentLevelStyles(id) {
-    const uuid = this._getComponentUUID(id);
-    this._deleteCache(uuid);
   }
 }
 

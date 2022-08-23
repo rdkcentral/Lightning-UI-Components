@@ -1,12 +1,13 @@
 import lng from '@lightningjs/core';
 
 import Tile from '../../elements/Tile';
-import { CardLaunchpad } from '../../patterns/Card';
+import { CardLaunchpad } from '../../legacy/Card';
 import { withStyles } from '../../mixins';
-import ActionButtonXsmall from '../../elements/ActionButton';
+import ButtonSmall from '../../elements/Button/ButtonSmall';
 import ContentTray from '.';
 import mdx from './ContentTray.mdx';
 import viewAllIcon from '../../assets/images/view_all.png';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'patterns/ContentTray',
@@ -17,7 +18,7 @@ export default {
   }
 };
 
-class CustomActionButton extends withStyles(ActionButtonXsmall, theme => {
+class CustomButton extends withStyles(ButtonSmall, theme => {
   // use withStyles to customize how the component looks
   return {
     icon: {
@@ -68,7 +69,7 @@ export const Basic = args =>
           w: 1920 - 160,
           items: [
             {
-              type: CustomActionButton,
+              type: CustomButton,
               fixed: true,
               icon: viewAllIcon,
               centerInParent: true,
@@ -174,33 +175,15 @@ export const Basic = args =>
     $tabChanged(selectedTab) {
       args.tabChanged(selectedTab.title);
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('ContentTray');
-      }
-    }
   };
 
 Basic.args = {
-  focused: true,
   reset: false,
   collapse: false
 };
 
 Basic.argTypes = {
-  focused: { control: 'boolean' },
+  ...createModeControl(['focused']),
   reset: { control: 'boolean' },
   collapse: { control: 'boolean' }
-};
-
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('ContentTray')
-        : () => {};
-      component._refocus();
-    }
-  }
 };

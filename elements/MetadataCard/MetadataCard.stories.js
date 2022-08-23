@@ -1,4 +1,7 @@
 import lng from '@lightningjs/core';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
+import { getHexColor } from '../../utils';
 
 import MetadataCard from '.';
 import mdx from './MetadataCard.mdx';
@@ -19,38 +22,14 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         MetadataCard: {
-          type: MetadataCard,
-          w: 500,
-          firstLine:
-            'First line with marquee scrolling text that will truncate then scroll',
-          secondLine: args.secondLine
-            ? [
-                'Second line',
-                {
-                  icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-                  title: 'Rotten Tomatoes rating'
-                },
-                'that is very long and will truncate'
-              ]
-            : undefined,
-          thirdLine: args.thirdLine
-            ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
-            : undefined,
-          logo: args.logo ? logo : undefined,
-          logoW: 32
+          type: MetadataCard
         }
       };
-    }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('MetadataCard');
-      }
     }
   };
 Basic.args = {};

@@ -1,7 +1,8 @@
 import TestUtils from '../../test/lightning-test-utils';
 import TextBox from '.';
 import context from '../../context';
-import { TYPOGRAPHY, getValidColor } from '../../Styles';
+import { TYPOGRAPHY } from '../../Styles';
+import { getValidColor } from '../../utils';
 import XfinityTheme from '../../themes/xfinity';
 const createElement = TestUtils.makeCreateComponent(TextBox);
 
@@ -138,11 +139,11 @@ describe('TextBox', () => {
     done();
   });
 
-  it('should allow the default textStyle to be set with componentStyles in the theme', async done => {
+  it('should allow the default textStyle to be set with componentStyle in the theme', async done => {
     context.updateTheme({
-      componentStyles: {
+      componentStyle: {
         TextBox: {
-          textStyle: context.theme.typography.headline1
+          defaultTextStyle: 'headline1'
         }
       }
     });

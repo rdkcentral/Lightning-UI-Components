@@ -50,10 +50,6 @@ export const PNG = args =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Icon');
-    }
   };
 
 export const SVG = args =>
@@ -67,9 +63,5 @@ export const SVG = args =>
           icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Icon');
     }
   };

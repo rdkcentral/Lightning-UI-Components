@@ -1,9 +1,8 @@
 import { FadeShader } from '../../textures';
 import Base from '../../Base';
-import styles from './Marquee.styles';
+import * as styles from './Marquee.styles';
 import { withExtensions } from '../../mixins';
-import withStyles from '../../mixins/withThemeStyles';
-import { getValidColor } from '../../Styles';
+import { getValidColor } from '../../utils';
 
 class Marquee extends Base {
   static _template() {
@@ -20,6 +19,10 @@ class Marquee extends Base {
 
   static get __componentName() {
     return 'Marquee';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get tags() {
@@ -105,11 +108,11 @@ class Marquee extends Base {
 
   _updateShader() {
     this._ContentClipper.patch({
-      w: this.w > 0 ? this.w + this._componentStyles.fadeW / 2 : 0,
+      w: this.w > 0 ? this.w + this.style.fadeW / 2 : 0,
       shader: {
         type: FadeShader,
         positionLeft: 0,
-        positionRight: this._componentStyles.fadeW
+        positionRight: this.style.fadeW
       },
       rtt: true
     });
@@ -128,7 +131,7 @@ class Marquee extends Base {
           v: {
             sm: 0,
             0: { v: 0 },
-            0.5: { v: -(this._textRenderedW + this._componentStyles.offset) }
+            0.5: { v: -(this._textRenderedW + this.style.offset) }
           }
         },
         {
@@ -137,8 +140,8 @@ class Marquee extends Base {
           v: {
             sm: 0,
             0: { v: 0 },
-            0.1: { v: this._componentStyles.fadeW },
-            0.4: { v: this._componentStyles.fadeW },
+            0.1: { v: this.style.fadeW },
+            0.4: { v: this.style.fadeW },
             0.5: { v: 0 }
           }
         }
@@ -147,7 +150,7 @@ class Marquee extends Base {
   }
 
   _centerTexture() {
-    if (this._componentStyles.shouldSmooth) {
+    if (this.style.shouldSmooth) {
       this._ContentBox.smooth = {
         x: (this.w - this._textRenderedW) / 2
       };
@@ -166,8 +169,7 @@ class Marquee extends Base {
     }
     if (this._shouldClip) {
       this._scrolling = true;
-      this._ContentLoopTexture.x =
-        this._textRenderedW + this._componentStyles.offset;
+      this._ContentLoopTexture.x = this._textRenderedW + this.style.offset;
       this._ContentLoopTexture.texture = this._Content.getTexture();
       this._updateAnimation();
       this._scrollAnimation.start();
@@ -188,7 +190,7 @@ class Marquee extends Base {
   get _shouldClip() {
     // using fadeW / 4 so that if something like the last character is slightly opacitied out,
     // but still visible, we don't unnecessarily scroll
-    return this._textRenderedW > this.w - this._componentStyles.fadeW / 4;
+    return this._textRenderedW > this.w - this.style.fadeW / 4;
   }
 
   _shouldCenter() {
@@ -203,4 +205,4 @@ class Marquee extends Base {
   }
 }
 
-export default withExtensions(withStyles(Marquee, styles));
+export default withExtensions(Marquee);

@@ -1,12 +1,15 @@
 import FocusManager from '../FocusManager';
 import { getX, getH, delayForAnimation } from '../../utils';
-import withStyles from '../../mixins/withThemeStyles';
 import withExtensions from '../../mixins/withExtensions';
-import styles from './Row.styles';
+import * as styles from './Row.styles';
 
 class Row extends FocusManager {
   static get __componentName() {
     return 'Row';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -30,6 +33,11 @@ class Row extends FocusManager {
       'startLazyScrollIndex',
       'stopLazyScrollIndex'
     ];
+  }
+
+  // TODO: withUpdates will set the _itemSpacing property the first time the getter runs. Using accessor to ensure theme updates are applied. May need to update withUpdates to not modify the underscore property
+  get _calculatedItemSpacing() {
+    return this.itemSpacing || this.style.itemSpacing;
   }
 
   _construct() {
@@ -71,32 +79,26 @@ class Row extends FocusManager {
     this._updateLayout();
   }
 
-  _getItemSpacing() {
-    return this._itemSpacing !== undefined
-      ? this._itemSpacing
-      : this._componentStyles.itemSpacing;
-  }
-
   _getScrollIndex() {
     return this._scrollIndex !== undefined
       ? this._scrollIndex
-      : this._componentStyles.scrollIndex;
+      : this.style.scrollIndex;
   }
 
   _getAlwaysScroll() {
     return this._alwaysScroll !== undefined
       ? this._alwaysScroll
-      : this._componentStyles.alwaysScroll;
+      : this.style.alwaysScroll;
   }
 
   _getNeverScroll() {
     return this._neverScroll !== undefined
       ? this._neverScroll
-      : this._componentStyles.neverScroll;
+      : this.style.neverScroll;
   }
 
   get _itemTransition() {
-    return this._componentStyles.itemTransition;
+    return this.style.itemTransition;
   }
 
   _focus() {
@@ -219,7 +221,7 @@ class Row extends FocusManager {
       return (
         currItemsX +
         (this.prevSelected.w +
-          this.itemSpacing +
+          this._calculatedItemSpacing +
           (this.selected.extraItemSpacing || 0))
       );
     } else if (prev) {
@@ -311,7 +313,7 @@ class Row extends FocusManager {
       nextX += child.w;
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
-        nextX += this.itemSpacing + extraItemSpacing;
+        nextX += this._calculatedItemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {
@@ -414,7 +416,8 @@ class Row extends FocusManager {
         addIndex + itemIdx
       );
       const extraItemSpacing = item.extraItemSpacing || 0;
-      this._totalAddedWidth += item.w + this.itemSpacing + extraItemSpacing;
+      this._totalAddedWidth +=
+        item.w + this._calculatedItemSpacing + extraItemSpacing;
     });
 
     if (this.selectedIndex >= this._lastAppendedIdx) {
@@ -461,4 +464,4 @@ class Row extends FocusManager {
   transitionDone() {}
 }
 
-export default withExtensions(withStyles(Row, styles));
+export default withExtensions(Row);

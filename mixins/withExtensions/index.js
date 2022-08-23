@@ -11,6 +11,13 @@ export default function withExtensions(Base) {
       return Base.name;
     }
 
+    static get __componentName() {
+      if (super.__componentName) return super.__componentName;
+      throw new Error(
+        `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
+      );
+    }
+
     static get _withExtensionsApplied() {
       // Extensions should only be applied once per class. This prevents it running multiple times. Ex. Surface -> Tile
       return true;

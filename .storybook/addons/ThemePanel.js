@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import lng from '@lightningjs/core';
 import { THEMEPANEL_ID } from '../constants';
 import { ColorControl, NumberControl } from '@storybook/components';
-import { getValidColor, getHexColor } from '../../Styles/Colors';
+import { getValidColor, getHexColor } from '../../utils';
 import { useGlobals } from '@storybook/api';
 import {
   globalContext,

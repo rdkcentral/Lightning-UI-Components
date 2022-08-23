@@ -52,16 +52,15 @@ class Example extends lng.Component {
 | name                        | type               | description                                                                      |
 | --------------------------- | ------------------ | -------------------------------------------------------------------------------- |
 | animationBlurEntrance       | object             | animation values applied to blur on entrance                                     |
+| animationBlurExit           | object             | animation values applied to blur on exit                                         |
 | animationComponentEntrance  | object             | animation values applied to entire component after image has loaded              |
 | animationGradientEntrance   | object             | animation values applied to gradient on entrance                                 |
-| animationImageScaleEntrance | object             | animation values applied to image scale on entrance                              |
-| animationBlurExit           | object             | animation values applied to blur on exit                                         |
 | animationGradientExit       | object             | animation values applied to gradient on exit                                     |
+| animationImageScaleEntrance | object             | animation values applied to image scale on entrance                              |
 | animationImageScaleExit     | object             | animation values applied to image scale on exit                                  |
 | blur                        | number             | blur radius value applied when blur property is set to true                      |
 | centerImageRadius           | number             | radius applied to center square image when mode is set to square                 |
 | fallbackSrc                 | string             | default value for fallbackSrc, can be enabled at the theme level                 |
-| fillColor                   | hexadecimal        | Hue applied to artwork                                                           |
 | fillColor                   | hexidecimal number | color to be applied as an overlay to entire artwork                              |
 | gradientColor               | hexidecimal number | color to be applied as bas for mesh and default gradients                        |
 | imageScale                  | number or function | scale value will be applied when scale is set to true                            |
@@ -69,3 +68,4 @@ class Example extends lng.Component {
 | imageScalePivotY            | number             | number number between 0 and 1 to represent the PivotY point for imageScale       |
 | padding                     | number             | padding value used around center image when using a mode set to square or circle |
 | radius                      | number\|array      | radius to be applied to the entire component                                     |
+| zIndex                      | object             | specifies the offset for each layer of the component to add to the entire zIndex |

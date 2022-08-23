@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
-import { getHexColor } from '../../Styles/Colors';
+import { getHexColor } from '../../utils';
 
 import Metadata from '.';
 import mdx from './Metadata.mdx';
@@ -15,25 +15,14 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        Metadata: {
-          type: Metadata,
-          w: args.w,
-          title: args.title,
-          subtitle: args.subtitle,
-          description: args.description,
-          logo: args.logo !== 'none' ? circle : null,
-          logoTitle: args.logo !== 'none' ? args.logoTitle : null,
-          logoPosition: args.logoPosition
+        MetadataBase: {
+          type: MetadataBase
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Metadata');
     }
   };
 

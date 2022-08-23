@@ -25,10 +25,10 @@ describe('Knob', () => {
   });
 
   it('has the correct width', () => {
-    expect(component.w).toEqual(component._componentStyles.circleSize);
+    expect(component.w).toEqual(component._componentStyle.circleSize);
   });
 
   it('has the correct height', () => {
-    expect(component.h).toEqual(component._componentStyles.circleSize);
+    expect(component.h).toEqual(component._componentStyle.circleSize);
   });
 });

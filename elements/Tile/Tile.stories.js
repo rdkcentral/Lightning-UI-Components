@@ -9,6 +9,8 @@ import { Basic as ProgressBarStory } from '../ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../Badge/Badge.stories';
 import { Basic as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories';
 import { generateSubStory } from '../../.storybook/utils';
+import { createModeControl } from '../../.storybook/controls/argTypes';
+
 export default {
   title: 'Elements / Tile',
   parameters: {
@@ -42,27 +44,12 @@ export const Basic = () =>
   };
 
 Basic.args = {
-  focused: true,
-  disabled: false,
   metadataLocation: 'standard',
   persistentMetadata: false
 };
 
 Basic.argTypes = {
-  disabled: {
-    description: 'Disabled tile state',
-    table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean'
-  },
-  focused: {
-    description: 'Toggle focus',
-    table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean'
-  },
+  ...createModeControl(),
   persistentMetadata: {
     description: 'show metadata if exists regardless of focusState',
     table: {
@@ -78,17 +65,6 @@ Basic.argTypes = {
       defaultValue: { summary: 'standard' }
     },
     options: ['standard', 'inset']
-  }
-};
-
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('Tile')
-        : () => {};
-      component._refocus();
-    }
   }
 };
 

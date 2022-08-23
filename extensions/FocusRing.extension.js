@@ -43,9 +43,15 @@ export default function focusRingExtension(Base) {
     }
 
     _update() {
+      super._update();
       this._updateFocusRing();
       this._updateFocusRingStyles();
-      super._update();
+    }
+
+    // Make sure any calls to _updateLayout update the focusRing ex. Button
+    _updateLayout() {
+      super._updateLayout();
+      this._updateFocusRing();
     }
 
     _updateFocusRing() {
@@ -69,7 +75,7 @@ export default function focusRingExtension(Base) {
         });
 
         // Get values from FocusRing to set proper scale when unfocused so it animates in properly
-        const { borderWidth, spacing } = this._FocusRing._componentStyles;
+        const { borderWidth, spacing } = this._FocusRing._componentStyle;
 
         // adding 2 to account for rounded rectangle bug
         const focusRingScaleW =
@@ -100,13 +106,13 @@ export default function focusRingExtension(Base) {
     _updateFocusRingStyles() {
       // Update variant and styles
       let focusRingPatch = {
-        variant: this.variant,
+        palette: this.palette,
         style: {
-          radius: this._componentStyles.radius || 0
+          radius: this.style.radius || 0
         }
       };
 
-      if (this.hasFocus()) {
+      if (this.mode === 'focused') {
         if (this._smooth) {
           focusRingPatch.smooth = this._smoothFocusStyle;
         } else {

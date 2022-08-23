@@ -2,13 +2,16 @@ import Base from '../../Base';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
 import { FadeShader } from '../../textures';
-import withStyles from '../../mixins/withThemeStyles';
 import withExtensions from '../../mixins/withExtensions';
-import styles from './Metadata.styles';
+import * as styles from './MetadataBase.styles';
 
 class Metadata extends Base {
   static get __componentName() {
     return 'MetadataBase';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static _template() {
@@ -96,7 +99,7 @@ class Metadata extends Base {
   _getLogoWidth() {
     return this._logoWidth !== undefined
       ? this._logoWidth
-      : this._componentStyles.logoWidth;
+      : this.style.logoWidth;
   }
 
   _setLogoWidth(w) {
@@ -106,7 +109,7 @@ class Metadata extends Base {
   _getLogoHeight() {
     return this._logoHeight !== undefined
       ? this._logoHeight
-      : this._componentStyles.logoHeight;
+      : this.style.logoHeight;
   }
 
   _setLogoHeight(h) {
@@ -147,6 +150,7 @@ class Metadata extends Base {
     );
     this._updatePositions();
     this._updateLogo();
+    this.signal('updateComponentDimensions');
   }
 
   _updateLines() {
@@ -161,7 +165,7 @@ class Metadata extends Base {
     this.h = Math.max(this.logoHeight, this._Text.h);
     this._Text.x =
       this.logo && this.logoPosition === 'left'
-        ? this.logoWidth + this._componentStyles.logoPadding
+        ? this.logoWidth + this.style.logoPadding
         : 0;
     this._Text.y = (this.h - this._Text.h) / 2;
 
@@ -171,7 +175,7 @@ class Metadata extends Base {
   _updateTitle() {
     this._Title.patch({
       content: this.title,
-      textStyle: this._componentStyles.titleTextProperties,
+      textStyle: this.style.titleTextProperties,
       wordWrap: true,
       maxLines: 1,
       wordWrapWidth: this._Text.w
@@ -181,16 +185,16 @@ class Metadata extends Base {
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,
-      textProperties: this._componentStyles.subtitleTextProperties,
+      textProperties: this.style.subtitleTextProperties,
       justify: 'flex-start'
     });
     if (this._Subtitle.finalW > this._textW()) {
       this._SubtitleWrapper.patch({
-        w: this._textW() + this._componentStyles.fadeWidth / 2,
+        w: this._textW() + this.style.fadeWidth / 2,
         shader: {
           type: FadeShader,
           positionLeft: 0,
-          positionRight: this._componentStyles.fadeWidth
+          positionRight: this.style.fadeWidth
         },
         rtt: true
       });
@@ -203,7 +207,7 @@ class Metadata extends Base {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this._componentStyles.descriptionTextProperties,
+      textStyle: this.style.descriptionTextProperties,
       wordWrap: true,
       maxLines: 1,
       wordWrapWidth: this._Text.w
@@ -242,10 +246,7 @@ class Metadata extends Base {
   }
 
   _textW() {
-    return (
-      this.w -
-      (this.logo ? this.logoWidth + this._componentStyles.logoPadding : 0)
-    );
+    return this.w - (this.logo ? this.logoWidth + this.style.logoPadding : 0);
   }
 
   _textH() {
@@ -274,4 +275,4 @@ class Metadata extends Base {
   }
 }
 
-export default withExtensions(withStyles(Metadata, styles));
+export default withExtensions(MetadataBase);

@@ -98,13 +98,13 @@ describe('SliderLarge', () => {
     expect(sliderLarge._LeftArrow.alpha).toEqual(0.5);
   });
 
-  it('Alpha value of arrow when disabled is true', () => {
+  it('Alpha value of arrow when mode is set to disabled', () => {
     [sliderLarge, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 1,
-      disabled: true
+      mode: 'disabled'
     });
 
     expect(sliderLarge._LeftArrow.alpha).toEqual(0);
@@ -118,8 +118,8 @@ describe('SliderLarge', () => {
       value: 2,
       smooth: true
     });
-    sliderLarge._componentStyles.iconLeftSrc = undefined;
-    sliderLarge._componentStyles.iconRightSrc = undefined;
+    sliderLarge._componentStyle.iconLeftSrc = undefined;
+    sliderLarge._componentStyle.iconRightSrc = undefined;
     sliderLarge._updateArrows();
     expect(sliderLarge._LeftArrow.h).toEqual(0);
   });
@@ -134,8 +134,8 @@ describe('SliderLarge', () => {
     });
     expect(sliderLarge._calculatedSliderWidth).toEqual(
       300 -
-        sliderLarge._componentStyles.arrowSpacing * 2 -
-        sliderLarge._componentStyles.arrowWidth * 2
+        sliderLarge._componentStyle.arrowSpacing * 2 -
+        sliderLarge._componentStyle.arrowWidth * 2
     );
   });
 
@@ -154,13 +154,13 @@ describe('SliderLarge', () => {
     expect(sliderLarge.onLeft()).toEqual(false);
   });
 
-  it('handle left when disabled is true', () => {
+  it('handle left when mode is set to disabled', () => {
     [sliderLarge, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 2,
-      disabled: true
+      mode: 'disabled'
     });
     expect(sliderLarge._handleLeft()).toEqual(false);
   });
@@ -180,13 +180,13 @@ describe('SliderLarge', () => {
     expect(sliderLarge.onRight()).toEqual(false);
   });
 
-  it('handle right when disabled is true', () => {
+  it('handle right when mode is set to disabled', () => {
     [sliderLarge, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
       value: 2,
-      disabled: true
+      mode: 'disabled'
     });
     expect(sliderLarge._handleRight()).toEqual(false);
   });

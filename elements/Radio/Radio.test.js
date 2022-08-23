@@ -33,9 +33,9 @@ describe('Radio', () => {
       isInactive: false
     });
     const strokeColor = radio.isInactive
-      ? radio._componentStyles.strokeColorInactive
-      : radio._componentStyles.strokeColor;
-    expect(strokeColor).toBe(radio._componentStyles.strokeColor);
+      ? radio._componentStyle.strokeColorInactive
+      : radio._componentStyle.strokeColor;
+    expect(strokeColor).toBe(radio._componentStyle.strokeColor);
   });
 
   it('stroke color should change when inactive', () => {
@@ -43,8 +43,8 @@ describe('Radio', () => {
       isInactive: true
     });
     const strokeColor = radio.isInactive
-      ? radio._componentStyles.strokeColorInactive
-      : radio._componentStyles.strokeColor;
-    expect(strokeColor).toBe(radio._componentStyles.strokeColorInactive);
+      ? radio._componentStyle.strokeColorInactive
+      : radio._componentStyle.strokeColor;
+    expect(strokeColor).toBe(radio._componentStyle.strokeColorInactive);
   });
 });

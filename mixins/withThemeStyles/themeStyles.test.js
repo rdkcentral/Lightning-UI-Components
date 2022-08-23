@@ -1,223 +1,177 @@
 import TestUtils from '../../test/lightning-test-utils';
-import withThemeStyles, { processThemeStyles } from '.';
-import Base from '../../Base';
-import { context } from '../..';
-import themeManager from '../../context/theme-manager';
+import withThemeStyles from '.';
+import lng from '@lightningjs/core';
+import context from '../../context';
 import XfinityTheme from '../../themes/xfinity';
-const style = theme => {
-  return {
-    radius: theme.radius.md,
-    foo: 'bar',
-    color: theme.colors.coreNeutral
-  };
-};
 
-const extendedStyle = theme => {
-  return {
-    radius: theme.radius.lg
-  };
-};
-
-class TestComponent extends Base {
-  static get __componentName() {
-    return 'TestComponent';
+const styles = {
+  base: {
+    foo: 'bar'
+  },
+  palette: {
+    neutral: {
+      value1: 'neutralValue1'
+    },
+    inverse: {
+      value1: 'inverseValue1'
+    },
+    brand: {
+      value1: 'brandValue1'
+    }
   }
-}
+};
+// class TestComponent extends lng.Component {}
 
-class ExtendedTestComponent extends withThemeStyles(
-  TestComponent,
-  extendedStyle
-) {}
-
-const [withThemeStylesComponent, testRenderer] = TestUtils.makeCreateComponent(
-  withThemeStyles(TestComponent, style)
-)({}, { spyOnMethods: ['_update'] });
-
-beforeEach(async () => {
-  withThemeStylesComponent.style = {};
-  context.setTheme(XfinityTheme);
-  await withThemeStylesComponent.__updateSpyPromise;
-});
-
-afterEach(() => {});
-
-describe('withThemeStyles', () => {
-  it('should export processThemeStyles', () => {
-    expect(typeof processThemeStyles).toBe('function');
-  });
-  it('processThemeStyles should return a function', () => {
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 16
-    });
-    const base = theme => ({ foo: 'bar', radius: theme.radius });
-    const variant = theme => ({
-      inverse: { radius: theme.radius * 2 },
-      brand: { radius: theme.radius * 4 }
-    });
-    expect(
-      processThemeStyles({ radius: 10 }, 'inverse', undefined, variant)
-    ).toMatchObject({ radius: 20 });
-    expect(
-      processThemeStyles({ radius: 10 }, 'inverse', base, undefined)
-    ).toMatchObject({ foo: 'bar' });
-    expect(
-      processThemeStyles({ radius: 10 }, 'inverse', base, variant)
-    ).toMatchObject({ foo: 'bar', radius: 20 });
-    expect(
-      processThemeStyles({ radius: 10 }, 'brand', base, variant)
-    ).toMatchObject({ foo: 'bar', radius: 40 });
-  });
-  it('processThemeStyles should throw proper errors', () => {
-    const base = theme => ({ foo: 'bar', radius: theme.radius });
-    const variant = theme => ({
-      inverse: { radius: theme.radius * 2 },
-      brand: { radius: theme.radius * 4 }
-    });
-    expect(() =>
-      processThemeStyles('should throw', 'brand', base, variant)
-    ).toThrowError(
-      new Error('processThemeStyles theme parameter must be an object')
-    );
-    expect(() =>
-      processThemeStyles({ radius: 10 }, 'brand', 'should throw', variant)
-    ).toThrowError(
-      new Error('processThemeStyles base parameter must be a function')
-    );
-    expect(() =>
-      processThemeStyles({ radius: 10 }, 'brand', base, 'should throw')
-    ).toThrowError(
-      new Error('processThemeStyles variant parameter must be a function')
-    );
-  });
-
-  it('should properly merge instantiation styles', () => {
-    const [testComponent] = TestUtils.makeCreateComponent(
-      ExtendedTestComponent
-    )();
-    expect(testComponent._componentStyles).toMatchObject({ radius: 24 });
-  });
-
-  it("should create getters and setters for all keys in the component's style", async done => {
-    expect(
-      withThemeStylesComponent.style.__lookupGetter__('radius')
-    ).not.toBeUndefined();
-    expect(
-      withThemeStylesComponent.style.__lookupGetter__('foo')
-    ).not.toBeUndefined();
-    expect(
-      withThemeStylesComponent.style.__lookupSetter__('radius')
-    ).not.toBeUndefined();
-    expect(
-      withThemeStylesComponent.style.__lookupSetter__('foo')
-    ).not.toBeUndefined();
-    withThemeStylesComponent.style.radius = 20;
-    withThemeStylesComponent.style.foo = 'updated';
-    await withThemeStylesComponent.__updateSpyPromise;
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 20,
-      foo: 'updated'
-    });
-    done();
-  });
-});
-
-describe('component variants', () => {
-  it('should have a variant getter and setter', done => {
-    expect(withThemeStylesComponent.variant).toBeUndefined();
-    context.updateTheme({
-      componentVariants: {
-        TestComponent: 'inverse'
+let component;
+// let testRenderer;
+beforeEach(async done => {
+  [component] = TestUtils.makeCreateComponent(
+    class MyComponent extends withThemeStyles(lng.Component, styles) {
+      static get __componentName() {
+        return 'MyComponent';
       }
-    });
-    expect(withThemeStylesComponent.variant).toBe('inverse');
-    withThemeStylesComponent.variant = 'brand';
-    expect(withThemeStylesComponent.variant).toBe('brand');
-    done();
-  });
-});
 
-describe('withThemeStyles Hierarchy', () => {
-  it('should allow instantiation styles to be overwritten by componentStyles in the theme', async done => {
-    context.updateTheme({
-      componentStyles: {
-        TestComponent: {
-          radius: 30
-        }
-      }
-    });
-    await withThemeStylesComponent.__updateSpyPromise;
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 30
-    });
-    done();
-  });
-  it('should allow instantiation styles and componentStyles to be overwritten by component level styles', async done => {
-    context.updateTheme({
-      componentStyles: {
-        TestComponent: {
-          radius: 30
-        }
-      }
-    });
-    await withThemeStylesComponent.__updateSpyPromise;
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 30
-    });
-    withThemeStylesComponent.style.radius = 40;
-    await withThemeStylesComponent.__updateSpyPromise;
-    expect(withThemeStylesComponent._componentStyles).toMatchObject({
-      radius: 40
-    });
-    done();
-  });
-});
-
-it('should allow theme level styles to use a theme value representation as a string', async done => {
-  context.updateTheme({
-    componentStyles: {
-      TestComponent: {
-        color: 'theme.colors.notacolor'
+      _update() {
+        this.patch({
+          text: {
+            text: this.style.foo
+          }
+        });
       }
     }
-  });
-  // Will not trigger an update cycle since the color does not exist in the theme
-  expect(withThemeStylesComponent._componentStyles).toMatchObject({
-    color: 4294375161
-  });
-  context.updateTheme({
-    componentStyles: {
-      TestComponent: {
-        color: 'theme.colors.black'
-      }
-    }
-  });
-  await withThemeStylesComponent.__updateSpyPromise;
-  expect(withThemeStylesComponent._componentStyles).toMatchObject({
-    color: 4278190080
-  });
+  )({}, { spyOnMethods: ['_update'] });
+
+  await context.setTheme(XfinityTheme); // Reset theme each test
   done();
 });
 
-it('should allow component level styles to use a theme value representation as a string', async done => {
-  withThemeStylesComponent.style.color = 'theme.colors.notacolor';
-  // Will not trigger an update cycle since the color does not exist in the theme
-  expect(withThemeStylesComponent._componentStyles).toMatchObject({
-    color: 4294375161
+describe('withThemeStyles accessors', () => {
+  it('should return the correct class name', () => {
+    expect(component.constructor.name).toBe('MyComponent');
   });
-  withThemeStylesComponent.style.color = 'theme.colors.black';
-  await withThemeStylesComponent.__updateSpyPromise;
-  expect(withThemeStylesComponent._componentStyles).toMatchObject({
-    color: 4278190080
-  });
-  done();
-});
 
-describe('withThemeStyles cleanup', () => {
-  it('cleans up caches stored in the context when the component is detached', () => {
-    const spy = jest.spyOn(themeManager, 'resetComponentInstantiationStyles');
-    const spy2 = jest.spyOn(themeManager, 'resetComponentLevelStyles');
-    testRenderer.destroy();
-    expect(spy).toHaveBeenCalled();
-    expect(spy2).toHaveBeenCalled();
+  it('should return the __mixinStyle as the original style that was passed in to the mixin', () => {
+    expect(component.constructor.__mixinStyle).toMatchObject({
+      base: {
+        foo: 'bar'
+      }
+    });
   });
+
+  it('should return a theme', () => {
+    expect(component.theme).not.toBeUndefined();
+  });
+
+  // it.only("should setup everything once on the component's _construct lifecycle hook runs", async done => {
+  //   console.log('here', component.__constructSpyPromise)
+  //   await component.__constructSpyPromise;
+
+  //   expect(component._construct).toHaveBeenCalled();
+  //     done();
+  // });
+
+  it('should return palette style from the theme if set with theme.componentPalette', async done => {
+    expect(component._paletteStyle).toMatchObject({ value1: 'neutralValue1' });
+    await context.updateTheme({ componentPalette: { MyComponent: 'brand' } });
+    expect(component._paletteStyle).toMatchObject({ value1: 'brandValue1' });
+    done();
+  });
+
+  it('should allow a palette style to be set on the component directly', async done => {
+    expect(component._paletteStyle).toMatchObject({ value1: 'neutralValue1' });
+    component.palette = 'inverse';
+    expect(component._paletteStyle).toMatchObject({ value1: 'inverseValue1' });
+    component.palette = 'brand';
+    expect(component._paletteStyle).toMatchObject({ value1: 'brandValue1' });
+    await context.updateTheme({ componentPalette: { MyComponent: 'inverse' } });
+    expect(component._paletteStyle).toMatchObject({ value1: 'inverseValue1' });
+    done();
+  });
+
+  it('should return the proper themeLevel style if set with theme.componentStyle', async done => {
+    await context.updateTheme({
+      componentStyle: {
+        MyComponent: {
+          foo: 'from theme'
+        }
+      }
+    });
+    expect(component.style.foo).toBe('from theme');
+    done();
+  });
+
+  it('should return the proper componentLevel style if set with theme.style[prop]', done => {
+    expect(component.style.foo).toBe('bar');
+    component.style.foo = 'changed';
+    expect(component.style.foo).toBe('changed');
+    done();
+  });
+
+  // it.skip('should return a _componentStyle that represents all the proper style rules', done => {
+  //   done();
+  // });
+
+  it('_setupListeners should be called once per component no matter how many times the component is extended', done => {
+    [component] = TestUtils.makeCreateComponent(
+      class MyComponent extends withThemeStyles(
+        withThemeStyles(lng.Component, { baseComponentStyle: true }),
+        styles
+      ) {
+        static get __componentName() {
+          return 'MyComponent';
+        }
+      }
+    )({}, { spyOnMethods: ['_setupListeners'] });
+
+    expect(component._setupListeners).toHaveBeenCalledTimes(1);
+    done();
+  });
+
+  it.only('_clearComponentStyleCache should reset this._componentStyleCache to an empty object', async done => {
+    await component.__updateSpyPromise;
+    expect(component._componentStyleCache).toMatchObject({
+      focused: {
+        foo: 'bar',
+        value1: 'neutralValue1'
+      }
+    });
+    done();
+  });
+
+  // it.skip('_generateComponentStyleSource should return an object of all style values represented in the prototype chain', done => {
+
+  //   done();
+  // });
+
+  // it.skip('return a style that represents the _componentStyle', done => {
+  //   done();
+  // });
+
+  // it.skip('sets up mode accessors', done => {
+  //   done();
+  // });
+
+  // it.skip('sets up palette accessors', done => {
+  //   done();
+  // });
+
+  // it.skip('queueThemeUpdate calls adUpdateTheme in ThemeManager', done => {
+  //   done();
+  // });
+
+  // it.skip("_updateThemeComponent calls queueRequestUpdate or _update if doesn't exist. Makes sure updateItemLayout is called", done => {
+  //   done();
+  // });
+
+  // it.skip('sets the mode to focused if not disabled', done => {
+  //   done();
+  // });
+
+  // it.skip('sets the mode to unfocused if not disabled', done => {
+  //   done();
+  // });
+
+  // it.skip('clears the componentStyleCache when inactive to release memory', done => {
+  //   done();
+  // });
 });

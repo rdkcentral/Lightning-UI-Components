@@ -1,6 +1,5 @@
 import Base from '../../Base';
-import styles from './GridOverlay.styles.js';
-import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
+import { withExtensions } from '../../mixins';
 import context from '../../context';
 import Column from '../Column';
 import Row from '../Row';
@@ -8,7 +7,7 @@ import TextBox from '../../elements/TextBox';
 import { getWidthByColumnSpan } from '../../utils';
 
 class Spacer extends Base {
-  static __componentName() {
+  static get __componentName() {
     return 'Spacer';
   }
 
@@ -69,7 +68,7 @@ class Spacer extends Base {
 }
 
 class GridOverlay extends Base {
-  static __componentName() {
+  static get __componentName() {
     return 'GridOverlay';
   }
 
@@ -333,4 +332,4 @@ class GridOverlay extends Base {
   }
 }
 
-export default withExtensions(withStyles(GridOverlay, styles));
+export default withExtensions(GridOverlay);

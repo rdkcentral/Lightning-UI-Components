@@ -1,7 +1,7 @@
 import { ListItemImage } from '.';
 import Base from '../../elements/Base';
 import Column from '../../layout/Column';
-import DataItem from '../DataItem';
+import DataItem from '../../legacy/DataItem';
 import styles from './ListItemImageGroup.styles';
 import withStyles from '../../mixins/withStyles';
 export default class ListItemImageGroup extends withStyles(Base, styles) {

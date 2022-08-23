@@ -1,6 +1,6 @@
 import TestUtils from '../../test/lightning-test-utils';
 import Badge from '.';
-import { getHexColor } from '../../Styles';
+import { getHexColor } from '../../utils';
 
 const createBadge = TestUtils.makeCreateComponent(Badge);
 
@@ -138,7 +138,7 @@ describe('Badge', () => {
     expect(badge._Icon.x).toEqual(
       badge._BadgeText.x +
         badge._BadgeText.renderWidth +
-        badge._componentStyles.contentSpacing
+        badge._componentStyle.contentSpacing
     );
     done();
   });

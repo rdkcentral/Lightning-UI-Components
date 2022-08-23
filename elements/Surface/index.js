@@ -1,6 +1,5 @@
 import Base from '../../Base';
-import styles from './Surface.styles';
-import withStyles from '../../mixins/withThemeStyles';
+import * as styles from './Surface.styles';
 import { withExtensions } from '../../mixins';
 import lng from '@lightningjs/core';
 
@@ -15,30 +14,12 @@ class Surface extends Base {
     return 'Surface';
   }
 
+  static get __themeStyles() {
+    return styles;
+  }
+
   static get tags() {
     return ['Background'];
-  }
-
-  get _stateColor() {
-    if (this.hasFocus() && !this.disabled) {
-      return this._componentStyles.backgroundColorFocused;
-    } else if (!this.hasFocus() && !this.disabled) {
-      return this._componentStyles.backgroundColorUnfocused;
-    } else {
-      return this._componentStyles.backgroundColorDisabled;
-    }
-  }
-
-  get _surfaceScale() {
-    return this._hasFocus ? this._focusScale : this._unfocusScale;
-  }
-
-  get _focusScale() {
-    return this._componentStyles.getFocusScale(this._w, this._h);
-  }
-
-  get _unfocusScale() {
-    return this._componentStyles.getUnfocusScale(this._w, this._h);
   }
 
   get innerH() {
@@ -59,11 +40,11 @@ class Surface extends Base {
       texture: lng.Tools.getRoundRect(
         this.innerW - 2, // Reference the underscored values here in cause the h or w getters need to be overwritten for alignment - see Tile
         this.innerH - 2,
-        this._componentStyles.radius,
+        this.style.radius,
         0,
         null,
         true,
-        this._stateColor
+        this.style.backgroundColor
       )
     });
   }
@@ -71,17 +52,12 @@ class Surface extends Base {
   _updateScale() {
     if (this._smooth) {
       this.smooth = {
-        scale: [
-          this._surfaceScale,
-          this._hasFocus
-            ? this._componentStyles.animationEntrance
-            : this._componentStyles.animationExit
-        ]
+        scale: [this.style.scale(this.w, this.h), this.style.animation]
       };
     } else {
-      this.patch({ scale: this._surfaceScale });
+      this.patch({ scale: this.style.scale(this.w, this.h) });
     }
   }
 }
 
-export default withExtensions(withStyles(Surface, styles));
+export default withExtensions(Surface);

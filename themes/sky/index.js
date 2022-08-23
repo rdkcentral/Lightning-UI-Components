@@ -19,7 +19,7 @@ export default {
   spacer,
   stroke,
   typography,
-  componentStyles: {
+  componentStyle: {
     ProgressBar: {
       h: stroke.md,
       radius: stroke.md / 2
@@ -28,10 +28,15 @@ export default {
       paddingX: 20,
       paddingY: 14,
       metadataLocation: 'inset',
-      radius: radius.xs
+      radius: radius.xs,
+      mode: {
+        focused: {
+          radius: radius.lg
+        }
+      }
     }
   },
-  componentVariants: {
+  componentPalette: {
     ProgressBar: 'brand'
   }
 };

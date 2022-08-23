@@ -1,21 +1,17 @@
 import lng from '@lightningjs/core';
 import { withExtensions } from '../../mixins';
 import Base from '../../Base';
-import withStyles from '../../mixins/withThemeStyles';
-import styles from './Icon.styles';
+import * as styles from './Icon.styles';
 import context from '../../context';
-import { stringifyCompare } from '../../utils';
-import { getValidColor } from '../../Styles/Colors';
+import { stringifyCompare, getValidColor } from '../../utils';
 
 class Icon extends Base {
   static get __componentName() {
     return 'Icon';
   }
-  static _template() {
-    return {
-      w: 0,
-      h: 0
-    };
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
@@ -30,6 +26,7 @@ class Icon extends Base {
   _notify() {
     this.signal('itemChanged');
   }
+
   // eslint-disable-next-line no-unused-vars
   _handleTxtError(error) {
     context.error(`Unable to load icon ${this._icon}`);
@@ -52,13 +49,11 @@ class Icon extends Base {
       this.patch(template);
       if (!template.texture) {
         this.smooth = {
-          color:
-            getValidColor(this.color) ||
-            getValidColor(this._componentStyles.color)
+          color: getValidColor(this.color) || getValidColor(this.style.color)
         };
       }
     } else {
-      this.color = getValidColor(this._componentStyles.color);
+      this.color = getValidColor(this.style.color);
     }
   }
 }
@@ -93,4 +88,4 @@ function getIconTemplate(icon, w, h) {
   return template;
 }
 
-export default withExtensions(withStyles(Icon, styles));
+export default withExtensions(Icon);

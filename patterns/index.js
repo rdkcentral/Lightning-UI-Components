@@ -8,18 +8,9 @@ export {
   CardVertical,
   CardVerticalLarge,
   CardVerticalDynamic
-} from './Card';
-export {
-  default as CardAbout,
-  CardAboutLarge,
-  CardAboutStacked
-} from './CardAbout';
-export { default as CardPersonality } from './CardPersonality';
-export { default as NewCard, CardSection, CardTitle } from './NewCard'; // TODO: rename and replace regular Cards
+} from '../legacy/Card';
+
 export { default as ContentTray } from './ContentTray';
-export { default as DataItem } from './DataItem';
-export { default as GameStats } from './GameStats';
-export { default as Info } from './Info';
 export { default as Input } from './Input';
 export { default as Keyboard, KEYBOARD_FORMATS } from './Keyboard';
 export { default as KeyboardInput } from './Keyboard/KeyboardInput';
@@ -34,6 +25,3 @@ export {
   ListItemPlan
 } from './ListItem';
 export { default as Notification } from './Notification';
-export { default as OverlayDataItem } from './OverlayDataItem';
-export { default as TeamInfo } from './TeamInfo';
-export { default as TeamMatchup } from './TeamMatchup';
