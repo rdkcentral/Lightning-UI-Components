@@ -1,3 +1,4 @@
+import context from '../../context';
 import { updateManager } from '../../utils/GlobalUpdateManager';
 
 function capital(str) {
@@ -65,7 +66,7 @@ export default function withUpdates(Base) {
       this._readyForUpdates = true;
       this._whenEnabledResolver();
       updateManager.deleteRequestUpdate(this);
-      this._update();
+      this.requestUpdate();
       super._firstEnable && super._firstEnable();
     }
 
@@ -74,9 +75,28 @@ export default function withUpdates(Base) {
       updateManager.deleteRequestUpdate(this);
     }
 
-    _requestUpdate() {
-      if (this._readyForUpdates) {
-        this._update();
+    /**
+     * Request an immediate component update.
+     *
+     * @remarks
+     * Except for when calling `super._update()` from a `_update()`
+     * implementation, call this instead of calling `_update()` directly
+     *
+     * @param {boolean} force If set, bypasses the '_readyForUpdates' check
+     */
+    requestUpdate(force = false) {
+      if (this._readyForUpdates || force) {
+        const result = this._update();
+        if (typeof result === 'object' && result !== null && result.catch) {
+          // This is a promise, make sure to capture any errors
+          result.catch(e => {
+            context.error(
+              `asyncronous _update() error in '${this.constructor.__componentName}'`,
+              this,
+              e
+            );
+          });
+        }
       }
     }
 

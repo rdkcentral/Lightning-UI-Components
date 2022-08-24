@@ -60,7 +60,7 @@ export default class Info extends withStyles(Base, styles) {
     this._Title.on('txLoaded', () => this._onTextLoaded());
     this._Subtitle.on('txLoaded', () => this._onTextLoaded());
     this._Description.on('txLoaded', () => this._onTextLoaded());
-    this._update();
+    this.requestUpdate(true);
   }
 
   _update() {
@@ -84,13 +84,13 @@ export default class Info extends withStyles(Base, styles) {
     const nextH = contentHeight + this._paddingY * 2;
     this._DataItem.h = nextH;
     this._DataItem._Background.h = nextH;
-    this._update();
+    this.requestUpdate();
   }
 
   _updateFocusRing() {
     if (this._DataItem._FocusRing) {
       this._DataItem._FocusRing.h = this._DataItem.h;
-      this._DataItem._FocusRing._update();
+      this._DataItem._FocusRing.requestUpdate();
     }
   }
 

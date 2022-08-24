@@ -270,7 +270,7 @@ describe('Artwork', () => {
 
   it('will set smooth to true if was previously undefined after first _update cycle', async done => {
     component._smooth = undefined;
-    component._update();
+    component.requestUpdate(true);
     await component.__updateSpyPromise;
     expect(component._smooth).toBe(true);
     done();

@@ -59,49 +59,49 @@ describe('GlobalUpdateManager', () => {
   });
 
   describe('addRequestUpdate', () => {
-    it('calls _requestUpdate on next frame and only the next one', async () => {
+    it('calls requestUpdate on next frame and only the next one', async () => {
       const fakeComponent = {
-        _requestUpdate: jest.fn()
+        requestUpdate: jest.fn()
       };
       updateManager.addRequestUpdate(fakeComponent);
       await TestUtils.nextTick();
       await TestUtils.nextTick();
       await TestUtils.nextTick();
-      expect(fakeComponent._requestUpdate).toHaveBeenCalledTimes(1);
+      expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
     });
 
     it('deduplicates multiple calls on the same component', async () => {
       const fakeComponent = {
-        _requestUpdate: jest.fn()
+        requestUpdate: jest.fn()
       };
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
-      expect(fakeComponent._requestUpdate).not.toHaveBeenCalled();
+      expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
       await TestUtils.nextTick();
-      expect(fakeComponent._requestUpdate).toHaveBeenCalledTimes(1);
+      expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
       await TestUtils.nextTick();
       await TestUtils.nextTick();
-      expect(fakeComponent._requestUpdate).toHaveBeenCalledTimes(1);
+      expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('deleteRequestUpdate', () => {
-    it('when called once immediately after a component is added it prevents _requestUpdate from being called', async () => {
+    it('when called once immediately after a component is added it prevents requestUpdate from being called', async () => {
       const fakeComponent = {
-        _requestUpdate: jest.fn()
+        requestUpdate: jest.fn()
       };
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.deleteRequestUpdate(fakeComponent);
-      expect(fakeComponent._requestUpdate).not.toHaveBeenCalled();
+      expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
       await TestUtils.nextTick();
-      expect(fakeComponent._requestUpdate).not.toHaveBeenCalled();
+      expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
       await TestUtils.nextTick();
       await TestUtils.nextTick();
-      expect(fakeComponent._requestUpdate).not.toHaveBeenCalled();
+      expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
     });
 
     it('can be called even if component never added', () => {
@@ -117,11 +117,11 @@ describe('GlobalUpdateManager', () => {
     it('runs pending updates immediately', () => {
       const fakeComponent = {
         _updateThemeComponent: jest.fn(),
-        _requestUpdate: jest.fn()
+        requestUpdate: jest.fn()
       };
       const fakeComponent2 = {
         _updateThemeComponent: jest.fn(),
-        _requestUpdate: jest.fn()
+        requestUpdate: jest.fn()
       };
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addUpdateTheme(fakeComponent);
@@ -130,8 +130,8 @@ describe('GlobalUpdateManager', () => {
       updateManager.flush();
       expect(fakeComponent._updateThemeComponent).toHaveBeenCalledTimes(1);
       expect(fakeComponent._updateThemeComponent).toHaveBeenCalledTimes(1);
-      expect(fakeComponent2._requestUpdate).toHaveBeenCalledTimes(1);
-      expect(fakeComponent2._requestUpdate).toHaveBeenCalledTimes(1);
+      expect(fakeComponent2.requestUpdate).toHaveBeenCalledTimes(1);
+      expect(fakeComponent2.requestUpdate).toHaveBeenCalledTimes(1);
     });
 
     it('does nothing if there are no pending updates', () => {
@@ -142,14 +142,14 @@ describe('GlobalUpdateManager', () => {
     });
   });
 
-  it('always calls _updateThemeComponent before _requestUpdate', async () => {
+  it('always calls _updateThemeComponent before requestUpdate', async () => {
     const callLog = [];
     const fakeComponent = {
       _updateThemeComponent: () => {
         callLog.push('_updateThemeComponent');
       },
-      _requestUpdate: () => {
-        callLog.push('_requestUpdate');
+      requestUpdate: () => {
+        callLog.push('requestUpdate');
       }
     };
     const fakeComponent2 = { ...fakeComponent };
@@ -162,17 +162,17 @@ describe('GlobalUpdateManager', () => {
     expect(callLog).toEqual([
       '_updateThemeComponent',
       '_updateThemeComponent',
-      '_requestUpdate'
+      'requestUpdate'
     ]);
   });
 
-  it('logs errors thrown in _updateThemeComponent and _requestUpdate', async () => {
+  it('logs errors thrown in _updateThemeComponent and requestUpdate', async () => {
     jest.spyOn(context, 'error');
     const fakeComponent = {
       _updateThemeComponent: () => {
         throw 'Update Theme Error';
       },
-      _requestUpdate: () => {
+      requestUpdate: () => {
         throw 'Request Update Error';
       }
     };

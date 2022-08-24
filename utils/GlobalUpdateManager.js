@@ -21,7 +21,7 @@ class GlobalUpdateManager {
 
     this._requestUpdateSet.forEach(component => {
       try {
-        component._requestUpdate();
+        component.requestUpdate();
       } catch (e) {
         context.error('Error updating component', e);
       }

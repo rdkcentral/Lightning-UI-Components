@@ -272,7 +272,7 @@ export default class TabBar extends Base {
   }
 
   _firstActive() {
-    this._update();
+    this.requestUpdate();
   }
 
   _update() {
@@ -393,7 +393,7 @@ export default class TabBar extends Base {
         xPos += tab.w;
       });
       this._Container.selected.select();
-      this._update();
+      this.requestUpdate(true);
     });
   }
 
@@ -408,6 +408,6 @@ export default class TabBar extends Base {
   }
 
   $tabLoaded() {
-    this._update();
+    this.requestUpdate();
   }
 }

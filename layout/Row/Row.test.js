@@ -72,7 +72,7 @@ describe('Row', () => {
       const itemSpacing = 20;
       [row, testRenderer] = createRow({ itemSpacing });
       const item = row.items[1];
-      row._update();
+      row.requestUpdate(true);
       expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
 
@@ -80,7 +80,7 @@ describe('Row', () => {
       const itemSpacing = 100;
       const item = row.items[1];
       row.itemSpacing = itemSpacing;
-      row._update();
+      row.requestUpdate(true);
       expect(item.x).toBe(row.items[0].w + itemSpacing);
     });
 

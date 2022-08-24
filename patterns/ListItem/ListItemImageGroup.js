@@ -52,7 +52,7 @@ export default class ListItemImageGroup extends withStyles(Base, styles) {
     this._Column.items.forEach(item => {
       item.h = this.imageResize + this.styles.itemSpacing;
       item._Container.h = this.imageResize + this.styles.itemSpacing;
-      item._update();
+      item.requestUpdate(true);
     });
 
     this._setHeight();

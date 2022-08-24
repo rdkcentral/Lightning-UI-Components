@@ -325,7 +325,7 @@ describe('Tile', () => {
     await component.__updateCheckboxSpyPromise;
     expect(component._Checkbox).toBeUndefined();
     component.itemLayout = undefined;
-    component._update();
+    component.requestUpdate(true);
     await component.__updateCheckboxSpyPromise;
     expect(component._Checkbox).not.toBeUndefined();
     component.checkbox = {

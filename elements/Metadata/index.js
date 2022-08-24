@@ -47,7 +47,7 @@ class Metadata extends Base {
   }
 
   _init() {
-    this._update();
+    this.requestUpdate(true);
   }
 
   static get properties() {

@@ -3,13 +3,13 @@ module.exports = name => {
     import Base from '../../Base';
     import styles from './${name}.styles.js';
     import { withExtensions, withThemeStyles as withStyles } from '../../mixins';
-    
+
     class ${name} extends Base {
       static get __componentName() {
         return '${name}';
       }
 
-      static _template() { 
+      static _template() {
         return {};
       }
 
@@ -32,7 +32,7 @@ module.exports = name => {
          */
       }
     }
-    
+
     export default withExtensions(withStyles(${name}, styles));
   `;
 };

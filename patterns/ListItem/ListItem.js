@@ -59,7 +59,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
   _init() {
     super._init();
     !this.hasFocus() && this._unfocus();
-    this._update();
+    this.requestUpdate(true);
   }
 
   _update() {
