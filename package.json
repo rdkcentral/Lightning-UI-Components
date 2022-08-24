@@ -1,6 +1,6 @@
 {
   "name": "@lightning/ui",
-  "version": "5.0.0-next.77",
+  "version": "5.0.0-next.78",
   "sideEffects": false,
   "dependencies": {
     "csv-writer": "^1.6.0",
