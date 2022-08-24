@@ -1,12 +1,17 @@
 import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import withUpdates from '.';
+import context from '../../context';
 
 const updateMock = jest.fn();
 
 describe('withUpdates', () => {
   let WithUpdatesComponent;
   class Example extends lng.Component {
+    static get __componentName() {
+      return 'Example';
+    }
+
     static get properties() {
       return ['title', 'score'];
     }
@@ -67,5 +72,21 @@ describe('withUpdates', () => {
     };
     WithUpdatesComponent.title = 'Test';
     expect(WithUpdatesComponent.title).toEqual('Test Custom Getter');
+  });
+
+  it('requestUpdate logs error when asyncronous _update rejects', async () => {
+    const error = new Error('Error');
+    WithUpdatesComponent._update = async function () {
+      throw error;
+    };
+    const spy = jest.spyOn(context, 'error');
+    WithUpdatesComponent.requestUpdate(true);
+    await TestUtils.nextTick();
+    expect(spy).toHaveBeenCalledWith(
+      "asyncronous _update() error in 'Example'",
+      WithUpdatesComponent,
+      error
+    );
+    jest.clearAllMocks();
   });
 });

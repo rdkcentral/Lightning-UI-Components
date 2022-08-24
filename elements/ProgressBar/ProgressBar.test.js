@@ -164,7 +164,7 @@ describe('ProgressBar', () => {
   it('should alpha the progress on if there is valid progress', () => {
     [progressBar, testRenderer] = createProgressBar({ progress: 0, w: 400 });
     progressBar.progress = 0.5;
-    progressBar._update();
+    progressBar.requestUpdate(true);
     expect(progressBar._Progress.transition('w').targetValue).toBeGreaterThan(
       0
     );

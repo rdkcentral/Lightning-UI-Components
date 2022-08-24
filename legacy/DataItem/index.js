@@ -38,7 +38,7 @@ class DataItem extends Base {
   _init() {
     this._Content.w = this.w;
     this._Content.h = this.h;
-    this._update();
+    this.requestUpdate(true);
   }
 
   _update() {
@@ -60,7 +60,7 @@ class DataItem extends Base {
     if (this._content != content) {
       this._content = content;
       this._Content.patch(this._content, true);
-      this._update();
+      this.requestUpdate();
     }
   }
 

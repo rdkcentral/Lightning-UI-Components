@@ -27,7 +27,7 @@ export default function (Base, callback) {
       Object.keys(params).forEach(key => {
         this[key] = params[key];
       });
-      this._update();
+      this.requestUpdate();
     }
   };
 }

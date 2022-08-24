@@ -505,6 +505,9 @@ export default function withThemeStyles(Base, mixinStyle) {
      * Called by update Manager will trigger _update lifecycle
      */
     _updateThemeComponent() {
+      // It's OK to call `_update()` directly here since if queueRequestUpdate is undefined then
+      // the component does NOT have the withUpdates mixin, and hence `requestUpdate()` will not be defined either.
+      // This check exists to allow this mixin to work WITHOUT withUpdates.
       this.queueRequestUpdate
         ? this.queueRequestUpdate()
         : this._update && this._update();

@@ -69,7 +69,7 @@ export default class ListItemToggle extends ListItem {
 
   _setOnEnter(onEnter) {
     this._Toggle.onEnter = onEnter;
-    this._update();
+    this.requestUpdate();
     this.isChecked();
     return this._Toggle.onEnter;
   }

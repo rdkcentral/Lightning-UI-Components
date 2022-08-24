@@ -380,7 +380,7 @@ class Column extends FocusManager {
       this._selectedIndex += items.length;
     }
 
-    this._update();
+    this.requestUpdate();
     this._refocus();
   }
 
@@ -399,7 +399,7 @@ class Column extends FocusManager {
       this._selectedIndex--;
     }
 
-    this._update();
+    this.requestUpdate();
     this._refocus();
   }
 

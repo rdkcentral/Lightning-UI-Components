@@ -114,7 +114,7 @@ describe('Column', () => {
       const item = column.items[1];
 
       column.itemSpacing = spacing;
-      column._update();
+      column.requestUpdate(true);
       testRenderer.update();
       expect(item.y).toBe(spacing + item.h);
       done();
