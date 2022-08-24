@@ -1,13 +1,16 @@
 import lng from '@lightningjs/core';
 import Key from '.';
 import icon from '../../assets/images/ic_lightning_white_32.png';
-
-// TODO: add mdx
-// import mdx from './Key.mdx';
+import mdx from './Key.mdx';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / Key',
-  component: Key
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
 };
 
 export const Basic = () =>
@@ -21,8 +24,30 @@ export const Basic = () =>
     }
   };
 
+Basic.parameters = {};
 Basic.args = {
-  char: 'A'
+  title: 'A',
+  size: 'sm'
+};
+
+Basic.argTypes = {
+  ...createModeControl(),
+  title: {
+    defaultValue: 'A',
+    description: 'key character',
+    table: {
+      defaultValue: { summary: 'A' }
+    },
+    control: 'text'
+  },
+  size: {
+    description: 'width of the Key',
+    table: {
+      defaultValue: { summary: 'sm' }
+    },
+    control: 'radio',
+    options: ['sm', 'md', 'lg', 'xl']
+  }
 };
 
 export const Icon = () =>
@@ -30,12 +55,34 @@ export const Icon = () =>
     static _template() {
       return {
         Key: {
-          label: 'Label',
-          type: Key,
-          icon: {
-            src: icon
-          }
+          type: Key
         }
       };
     }
   };
+Icon.args = {
+  icon: icon,
+  size: 'sm'
+};
+
+Icon.argTypes = {
+  ...createModeControl(),
+  icon: {
+    description: 'Icon source',
+    table: {
+      defaultValue: { summary: 'none' }
+    },
+    control: 'radio',
+    options: [icon, 'none']
+  },
+  size: {
+    description: 'width of the Key',
+    table: {
+      defaultValue: { summary: 'sm' }
+    },
+    control: 'radio',
+    options: ['sm', 'md', 'lg', 'xl']
+  }
+};
+
+Icon.parameters = {};

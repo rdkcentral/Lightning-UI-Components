@@ -1,10 +1,11 @@
+import { withExtensions } from '../../mixins';
 import Button from '../Button';
-import withStyles from '../../mixins/withStyles';
-import keyStyles from './Key.styles';
+import * as styles from './Key.styles';
 
-export const KEY_DIMENSIONS = { h: 60, w: 60, padding: 0, fixed: true };
 const isUpperCase = string => /^[A-Z]$/.test(string);
 const isAlphaChar = string => /^[A-Za-z]$/.test(string);
+
+// TODO: Post theming when we address language/locale issues this could be a configurable object
 const alphaNato = {
   a: 'alpha',
   b: 'bravo',
@@ -34,52 +35,37 @@ const alphaNato = {
   z: 'zulu'
 };
 
-function getNato(char) {
-  if (isAlphaChar(char)) {
-    return `${char}, ${alphaNato[char.toLowerCase()]}`;
+function getNato(title) {
+  if (isAlphaChar(title)) {
+    return `${title}, ${alphaNato[title.toLowerCase()]}`;
   }
 
-  return char;
+  return title;
 }
 
-export default class Key extends withStyles(Button, keyStyles) {
-  static _template() {
-    return {
-      ...super._template(),
-      ...KEY_DIMENSIONS
-    };
+class Key extends Button {
+  static get __componentName() {
+    return 'Key';
+  }
+
+  static get __themeStyles() {
+    return styles;
   }
 
   static get properties() {
-    return [...super.properties, 'config', 'size', 'toggle'];
+    return [...super.properties, 'size', 'toggle'];
   }
 
-  _setIcon(icon) {
-    const mergedIcon = super._setIcon({ ...this.styles.icon, ...icon });
-    return mergedIcon.src ? mergedIcon : null;
+  _construct() {
+    super._construct();
+    this._size = 'sm';
+    this._fixed = true;
   }
 
-  _updateIcon() {
-    super._updateIcon();
-    this._Title.patch({
-      alpha: this.icon && this.icon.src ? 0 : 1
-    });
-  }
+  _update() {
+    this.w = this.style.sizes[this.size] || this.style.sizes.sm;
 
-  _setConfig(config) {
-    if (config) {
-      this.sizes = config.sizes;
-      return config;
-    }
-  }
-
-  _setSize(size) {
-    this.w = this._sizes[size] || this.h;
-    return size;
-  }
-
-  set char(char) {
-    this.title = char;
+    super._update();
   }
 
   set announce(announce) {
@@ -98,47 +84,18 @@ export default class Key extends withStyles(Button, keyStyles) {
     return getNato(this.title) + ', button';
   }
 
-  _setLabel(label) {
-    this.title = label;
-    return label;
-  }
-
-  get _sizes() {
-    return this.styles.sizes
-      ? { ...this.styles.sizes, ...this.sizes }
-      : { small: 50, medium: 110, large: 170, xlarge: 350, ...this.sizes };
-  }
-
-  _updateDropShadow() {
-    if (this.hasFocus() || this._DropShadow) {
-      if (this.w !== this.styles.w || !this._DropShadow) {
-        const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-        this.patch({ DropShadow: DropShadow });
-      }
-      const alpha = Number(this.hasFocus());
-      if (this._smooth) {
-        this._DropShadow.smooth = { alpha };
-      } else {
-        this._DropShadow.alpha = alpha;
-      }
-    }
-  }
-
-  _update() {
-    if (this._readyForUpdates) {
-      super._update();
-      this._updateDropShadow();
-    }
-  }
-
-  get _DropShadow() {
-    return this.tag('DropShadow');
-  }
-
   _handleEnter() {
-    if (this.toggle) {
-      this.fireAncestors('$toggleKeyboard', this.toggle);
+    if (typeof this.onEnter === 'function') {
+      return this.onEnter(this);
+    } else {
+      if (this.toggle) {
+        this.fireAncestors('$toggleKeyboard', this.toggle);
+      }
+      this.fireAncestors('$onSoftKey', { key: this.title });
     }
-    this.fireAncestors('$onSoftKey', { key: this.title });
+
+    return false;
   }
 }
+
+export default withExtensions(Key);

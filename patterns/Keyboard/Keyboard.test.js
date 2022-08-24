@@ -5,7 +5,7 @@ import KeyboardInput from './KeyboardInput';
 const createKeyboard = TestUtils.makeCreateComponent(Keyboard);
 const createKeyboardInput = TestUtils.makeCreateComponent(KeyboardInput);
 
-describe('Keyboard', () => {
+describe.skip('Keyboard', () => {
   let keyboard, testRenderer;
 
   beforeEach(() => {
@@ -191,7 +191,7 @@ describe('Keyboard', () => {
   });
 });
 
-describe('KeyboardInput', () => {
+describe.skip('KeyboardInput', () => {
   let keyboardInput, testRenderer;
 
   beforeEach(() => {
