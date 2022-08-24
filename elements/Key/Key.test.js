@@ -1,6 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
 import Key from '.';
-import { getHexColor } from '../../utils';
 
 const createKey = TestUtils.makeCreateComponent(Key);
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
@@ -22,54 +21,39 @@ describe('Key', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('sets sizes inside the config', () => {
-    key.config = { sizes: { small: 70, medium: 115 } };
-    expect(key._sizes).toEqual({
-      small: 70,
-      medium: 115,
-      large: 196,
-      xlarge: 400
-    });
-  });
-
-  it.skip('should patch in an icon if provided', () => {
+  it('should patch in an icon if provided', () => {
     [key, testRenderer] = createKey({ icon: { src: icon } });
     expect(key._Icon).toBeDefined();
   });
 
   it('should adjust its width if given a size', () => {
-    [key, testRenderer] = createKey({ size: 'medium' });
-    expect(key.w).toEqual(128);
+    [key, testRenderer] = createKey({ size: 'md' });
+    expect(key.w).toEqual(120);
   });
 
-  it('should make its width its height if given a size that doesnt exist', () => {
+  it('should make its width the default size given a size that doesnt exist', () => {
     [key, testRenderer] = createKey({ size: 'blue' });
-    expect(key.w).toEqual(60);
+    expect(key.w).toEqual(56);
   });
 
   it('should set its char as its title', () => {
-    [key, testRenderer] = createKey({ char: 'a' });
+    [key, testRenderer] = createKey({ title: 'a' });
     expect(key.title).toEqual('a');
-  });
-
-  it.skip('should set its label as its title', () => {
-    [key] = createKey({ label: 'done' });
-    expect(key.title).toEqual('done');
   });
 
   describe('#announce', () => {
     it('should set nato', () => {
-      [key, testRenderer] = createKey({ char: 'a' });
+      [key, testRenderer] = createKey({ title: 'a' });
       expect(key.announce).toEqual('a, alpha, button');
     });
 
     it('should add capital for capital characters', () => {
-      [key, testRenderer] = createKey({ char: 'Z' });
+      [key, testRenderer] = createKey({ title: 'Z' });
       expect(key.announce).toEqual('Capital Z, zulu, button');
     });
 
     it('should work for numeric', () => {
-      [key, testRenderer] = createKey({ char: '4' });
+      [key, testRenderer] = createKey({ title: '4' });
       expect(key.announce).toEqual('4, button');
     });
   });
@@ -88,17 +72,5 @@ describe('Key', () => {
       '$toggleKeyboard',
       'lowercase'
     );
-  });
-
-  it.skip('should update color on focus', () => {
-    key._smooth = false;
-
-    expect(key.color).not.toBe(getHexColor('ECECF2'));
-    expect(key._Title.color).not.toBe(4060086272);
-
-    testRenderer.focus();
-
-    expect(key.color).toBe(getHexColor('ECECF2'));
-    expect(key._Title.color).toBe(4060086272);
   });
 });

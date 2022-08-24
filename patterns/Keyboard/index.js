@@ -1,4 +1,4 @@
-import Key, { KEY_DIMENSIONS } from '../../elements/Key';
+import Key from '../../elements/Key'; // removed key dimensions
 import Row from '../../layout/Row';
 import Column from '../../layout/Column';
 import { Base } from '../../elements';
@@ -101,7 +101,7 @@ export default class Keyboard extends Base {
 
   _createRows(rows = []) {
     return rows.map(keys => {
-      const h = (this.keysConfig && this.keysConfig.h) || KEY_DIMENSIONS.h;
+      const h = (this.keysConfig && this.keysConfig.h) || 60; // removed key dimensions reference
       return {
         type: Row,
         h,
@@ -121,7 +121,7 @@ export default class Keyboard extends Base {
         config: this.keysConfig
       };
       if (!keyProps) {
-        return { ...KEY_DIMENSIONS, skipFocus: true };
+        return { skipFocus: true };
       } else if (typeof keyProps === 'object') {
         return { ...key, ...keyProps };
       }
