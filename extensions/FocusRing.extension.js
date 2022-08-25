@@ -1,6 +1,9 @@
 import FocusRing from '../elements/FocusRing';
 import context from '../context';
 import { getThemeAnimation } from '../utils';
+import Pool from '../utils/pool';
+
+context.on('themeUpdate', Pool.clear);
 
 export default function focusRingExtension(Base) {
   return class WithFocusRing extends Base {
@@ -18,10 +21,7 @@ export default function focusRingExtension(Base) {
     get _smoothFocusStyle() {
       return {
         alpha: 1,
-        scale: [
-          1,
-          getThemeAnimation('emphasizedEntrance', 'fast')
-        ]
+        scale: [1, getThemeAnimation('emphasizedEntrance', 'fast')]
       };
     }
 
@@ -60,18 +60,37 @@ export default function focusRingExtension(Base) {
       const calculatedH = this._h;
 
       // Only patch the FocusRing for the first time if item is focused
-      if (!this._FocusRing) {
+      if (!this._FocusRing && this.hasFocus()) {
+        const focusRingComp =
+          Pool.get('tile_focusring') ||
+          Pool.create({
+            name: 'tile_focusring',
+            component: {
+              type: FocusRing,
+              alpha: 0.001, // Hide when first loads
+              mount: 0.5,
+              w: calculatedW,
+              h: calculatedH,
+              x: calculatedW / 2,
+              y: calculatedH / 2,
+              zIndex: this.parent.core.findZContext().zIndex - 1
+            },
+            stage: this.stage
+          });
+
         this.patch({
-          FocusRing: {
-            type: FocusRing,
-            alpha: 0.001, // Hide when first loads
-            mount: 0.5,
-            w: calculatedW,
-            h: calculatedH,
-            x: calculatedW / 2,
-            y: calculatedH / 2,
-            zIndex: this.parent.core.findZContext().zIndex - 1
-          }
+          FocusRing: focusRingComp
+        });
+
+        this._FocusRing.patch({
+          w: calculatedW,
+          h: calculatedH,
+          x: calculatedW / 2,
+          y: calculatedH / 2,
+          variant: this.variant,
+          style: this._componentStyles.focusRingStyle,
+          alpha: 0,
+          scale: 1
         });
 
         // Get values from FocusRing to set proper scale when unfocused so it animates in properly
@@ -87,19 +106,6 @@ export default function focusRingExtension(Base) {
           focusRingScaleW,
           focusRingScaleH
         );
-      }
-
-      // Update width of the FocusRing if the component w/h is updated
-      if (
-        calculatedW !== this._FocusRing.w ||
-        calculatedH !== this._FocusRing.h
-      ) {
-        this._FocusRing.patch({
-          w: calculatedW,
-          h: calculatedH,
-          x: calculatedW / 2,
-          y: calculatedH / 2
-        });
       }
     }
 
@@ -118,17 +124,14 @@ export default function focusRingExtension(Base) {
         } else {
           focusRingPatch = { ...focusRingPatch, ...this._focusStyle };
         }
-        this._FocusRing.patch(focusRingPatch);
-        this._FocusRing.startAnimation();
       } else {
         if (this._smooth) {
           focusRingPatch.smooth = this._smoothUnfocusStyle;
         } else {
           focusRingPatch = { ...focusRingPatch, ...this._unfocusStyle };
         }
-        this._FocusRing.patch(focusRingPatch);
-        this._FocusRing.stopAnimation();
       }
+      this._FocusRing.patch(focusRingPatch);
     }
 
     _destroy() {

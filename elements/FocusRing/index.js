@@ -133,7 +133,7 @@ class FocusRing extends Base {
         }
       ]
     });
-    if (this._isAnimating) this._focusRingAnimation.start();
+    this.startAnimation();
   }
 
   startAnimation() {
