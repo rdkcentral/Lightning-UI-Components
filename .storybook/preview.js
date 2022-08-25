@@ -167,7 +167,7 @@ addDecorator(
                 },
                 class ModeFocusState extends this {
                   _getFocused() {
-                    return this.childList.first;
+                    return this.childList && this.childList.first && this.childList.first.constructor.name !== 'Element' ?  this.childList.first : this;
                   }
                 }
               ]
@@ -196,7 +196,9 @@ addDecorator(
     } 
 
     // Make sure focus matches mode 
-    app.tag('StoryComponent')._setState( args.mode && args.mode === 'focused' ? 'ModeFocusState' : 'ModeUnfocusState')
+    if (app.tag('StoryComponent')._getFocused() === app.tag('StoryComponent')) {
+      app.tag('StoryComponent')._setState( !args.mode || args.mode && args.mode === 'focused' ? 'ModeFocusState' : 'ModeUnfocusState')
+    }
     
     if (!app.tag('GridOverlay')) {
       app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
