@@ -14,7 +14,18 @@ export default function withLayout(Base) {
 
     set itemLayout(itemLayout) {
       if (!stringifyCompare(this._itemLayout, itemLayout)) {
-        this._itemLayout = itemLayout;
+        if (itemLayout && !itemLayout.upCount) {
+          this._originalW = this.w;
+          this._originalH = this.h;
+          this._itemLayout = {
+            w: this._originalW,
+            h: this._originalH,
+            ...itemLayout
+          };
+        } else {
+          this._itemLayout = itemLayout;
+        }
+
         this._updateItemLayout();
       }
     }

@@ -25,10 +25,6 @@ export const Basic = () => {
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Item');
-    }
   };
 };
 
@@ -51,8 +47,8 @@ Basic.parameters = {
     return {
       ...acc,
       [curr]: (val, component) => {
-        component._getFocused().itemLayout = {
-          ...component._getFocused().itemLayout,
+        component.tag('Item').itemLayout = {
+          ...component.tag('Item').itemLayout,
           [curr]: val
         };
       }
