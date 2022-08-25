@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import mdx from './Tile.mdx';
 import Tile from '.';
-import tileImage from '../../assets/images/tile-image.png';
 import { Basic as ArtworkStory } from '../Artwork/Artwork.stories';
 import { Basic as CheckboxStory } from '../Checkbox/Checkbox.stories';
 import { Basic as LabelStory } from '../Label/Label.stories';
@@ -10,6 +9,13 @@ import { Text as BadgeStory } from '../Badge/Badge.stories';
 import { Basic as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories';
 import { generateSubStory } from '../../.storybook/utils';
 import { createModeControl } from '../../.storybook/controls/argTypes';
+import Row from '../../layout/Row';
+import tileImage from '../../assets/images/tile-image.png';
+import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
+import parksFocus from '../../assets/images/Parks_and_Recreation_16x9_NoTitle.jpg';
+import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
+import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
+import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 
 export default {
   title: 'Elements / Tile',
@@ -79,3 +85,70 @@ generateSubStory('Tile', Basic, ArtworkStory, 'artwork', [
 ]);
 generateSubStory('Tile', Basic, ProgressBarStory, 'progressBar', ['w']);
 generateSubStory('Tile', Basic, CheckboxStory, 'checkbox');
+
+export const TileRow = args =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        Row: {
+          type: Row,
+          items: [
+            {
+              type: Tile,
+              artwork: {
+                src: trolls
+              },
+              itemLayout: {
+                ratioX: 16,
+                ratioY: 9,
+                upCount: 5
+              }
+            },
+            {
+              type: Tile,
+              artwork: {
+                src: parks
+              },
+              focusSrc: parksFocus,
+              w: 410,
+              h: 230
+            },
+            {
+              type: Tile,
+              artwork: {
+                src: jurassic
+              },
+              w: 410,
+              h: 230
+            },
+            {
+              type: Tile,
+              artwork: {
+                src: pets
+              },
+              w: args.width,
+              h: args.height
+            },
+            {
+              type: Tile,
+              itemLayout: {
+                ratioX: 16,
+                ratioY: 9,
+                upCount: 5
+              }
+            }
+          ]
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('Row');
+    }
+  };
+
+TileRow.args = {
+  width: 320,
+  height: 180,
+  radius: 16
+};
