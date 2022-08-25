@@ -110,6 +110,8 @@ export default function focusRingExtension(Base) {
     }
 
     _updateFocusRingStyles() {
+      if (!this._FocusRing) return;
+      
       // Update variant and styles
       let focusRingPatch = {
         palette: this.palette,
