@@ -1,8 +1,7 @@
 export { default as Artwork } from './Artwork';
 export { default as Badge } from './Badge';
 export { default as Base } from './Base';
-export { default as Button } from './Button';
-export { default as ButtonThemed, ButtonSmall } from './Button';
+export { default as Button, ButtonSmall } from './Button';
 export { default as Checkbox, CheckboxSmall } from './Checkbox';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing } from './FocusRing';
