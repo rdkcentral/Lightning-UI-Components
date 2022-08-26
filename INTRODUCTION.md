@@ -9,13 +9,13 @@ Storybook is a framework for building UI Component libraries. It allows us to de
 - layout
 - patterns
 
-Also included here are two more sections called Collections and Mixins. The Mixins section contains helpers for developing within the lightningJS framework, while Collections contains groups of similar components so they can be viewed side by side.
+Also included here are two more sections called Collections and Mixins. The Mixins section contains helpers for developing within the LightningJS framework, while Collections contains groups of similar components so they can be viewed side by side.
 
 When viewing a component, we're presented with two tabs - Canvas and Docs.
 
 In **The Canvas** we can see how the component stands in isolation as well as adjust various aspects of it via the `controls` panel. These controls allow us to change the parameters of the component and see how it will look in different states, such as either focused or unfocused.
 
-With **The Docs** panel, we can read through the use-case for the component, see how it is implemented in code, view some examples, and see a table of it's configurable properties and styles.
+With **The Docs** panel, we can read through the use case for the component, see how it is implemented in code, view some examples, and see a table of its configurable properties and styles.
 
 
-For information on leveraging `lightning-ui` in your application, checkout out the [README.md](../?path=/story/docs-read-me)
+For information on leveraging `lightning-ui` in your application, check out the [README.md](../?path=/story/docs-read-me).

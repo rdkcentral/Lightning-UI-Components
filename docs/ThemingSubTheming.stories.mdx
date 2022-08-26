@@ -33,7 +33,7 @@ For example, we can create a sub-theme of the main theme where we change the cor
 variations of blues and add that to an element like `ProgressBar`.
 In this example, the `ProgressBar`'s color would reflect the new blue values from the sub-theme.
 However, its radius values would still reflect those of the main theme.
-Additionally, `ProgressBars` used outside the context of this sub-theme will continue to use the brand colors of the main theme.
+Additionally, `ProgressBar` components used outside the context of this sub-theme will continue to use the brand colors of the main theme.
 
 Likewise, if there are multiple elements to a page, we can set a certain element to have a sub-theme (a contentTray with the Shark Week sub-theme)
 while the other elements (a display of tiles) have the main theme.
@@ -255,7 +255,7 @@ static _template() {
 }
 ```
 
-The above code will render two `ProgressBars`, each utilizing a different sub-theme, as shown below.
+The above code will render two `ProgressBar` components, each utilizing a different sub-theme, as shown below.
 
 <img src={MultiSubThemeProgressBars} alt="Two Progress Bars using the 4th of July sub-theme and Shark Week sub-theme, respectively" width="600" />
 
