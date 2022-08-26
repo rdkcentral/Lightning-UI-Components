@@ -1,26 +1,28 @@
-# Contributing to @lightning/ui
+# Contributing to `@lightning/ui`
 
 First off, thanks for taking the time to contribute!
 
-The following is a set of guidelines for contributing to @lightning/ui. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to `@lightning/ui`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
-#### Table Of Contents
-* [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
-* [How Can I Contribute?](#how-can-i-contribute)
-  * [Reporting Bugs](#reporting-bugs)
-  * [Suggesting Enhancements](#suggesting-enhancements)
-  * [Your First Code Contribution](#your-first-code-contribution)
-  * [Pull Requests](#pull-requests)
-* [Styleguides](#styleguides)
-  * [Git Commit Messages](#git-commit-messages)
-  * [JavaScript Styleguide](#javascript-styleguide)
-  * [Test Styleguide](#test-styleguide)
-  * [Documentation Styleguide](#documentation-styleguide)
-    * [Usage Documentation](#usage-documentation)
-    * [Storybook](#storybook)
-    * [API Documentation](#api-documentation)
-* [Additional Notes](#additional-notes)
-  * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
+
+## Table of Contents
+
+  - [I don't want to read this whole thing I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+  - [How Can I Contribute?](#how-can-i-contribute)
+    - [Reporting Bugs](#reporting-bugs)
+    - [Suggesting Enhancements](#suggesting-enhancements)
+    - [Your First Code Contribution](#your-first-code-contribution)
+    - [Pull Requests](#pull-requests)
+  - [Styleguides](#styleguides)
+    - [Git Commit Messages](#git-commit-messages)
+    - [JavaScript Styleguide](#javascript-styleguide)
+    - [Test Styleguide](#test-styleguide)
+    - [Documentation Styleguide](#documentation-styleguide)
+      - [Live Examples](#live-examples)
+      - [Storybook](#storybook)
+      - [Usage Documentation](#usage-documentation)
+      - [API Documentation](#api-documentation)
+
 
 ## I don't want to read this whole thing I just have a question!!!
 
@@ -30,7 +32,7 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
 
 **Documentation**
 
-* [See the README for setup help](../README.md)
+* [See the README for setup help](../?path=/story/docs-read-me--page)
 * [See Storybook for component docs with live examples](https://github.comcast.com/pages/Lightning/lightning-ui/)
 
 **Discuss on Slack**
@@ -42,7 +44,7 @@ The following is a set of guidelines for contributing to @lightning/ui. These ar
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for @lightning/ui. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
+This section guides you through submitting a bug report for `@lightning/ui`. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
 
 When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](../.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
 
@@ -54,7 +56,7 @@ Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for @lightning/ui, including new components, completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
+This section guides you through submitting an enhancement suggestion for `@lightning/ui`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
 
 Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](../.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
@@ -72,11 +74,11 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 * **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 * **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of Atom which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
-* **Explain why this enhancement would be useful** to most @lightning/ui users.
+* **Explain why this enhancement would be useful** to most `@lightning/ui` users.
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to @lightning/ui? You can start by looking through these `beginner` and `help-wanted` issues:
+Unsure where to begin contributing to `@lightning/ui`? You can start by looking through these `beginner` and `help-wanted` issues:
 
 * [Beginner issues][beginner] \- issues which should only require a few lines of code, and a test or two.
 * [Help wanted issues][help-wanted] \- issues which should be a bit more involved than `beginner` issues.
@@ -110,7 +112,7 @@ A component is considered "done" when the issue checklist is complete and the is
 
 **Development**
 
-If you are creating a new component, you can bootstrap the required file structure with
+If you are creating a new component, you can bootstrap the required file structure with:
 
 ```sh
 npm run create elements MyComponent
@@ -123,8 +125,10 @@ This will create the following files:
 └── elements
     └── MyComponent
         ├── index.js
+        ├── MyComponent.d.ts
         ├── MyComponent.mdx
         ├── MyComponent.stories.js
+        ├── MyComponent.styles.js
         └── MyComponent.test.js
 ```
 
@@ -132,10 +136,10 @@ This will create the following files:
 
 The process described here has several goals:
 
-- Maintain @lightning/ui's quality
+- Maintain `@lightning/ui`'s quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible @lightning/ui
-- Enable a sustainable system for @lightning/ui maintainers to review contributions
+- Engage the community in working toward the best possible `@lightning/ui`
+- Enable a sustainable system for `@lightning/ui` maintainers to review contributions
 
 Please follow these steps to have your contribution considered by the maintainers:
 
@@ -150,7 +154,7 @@ While the prerequisites above must be satisfied prior to having your pull reques
 
 ### Git Commit Messages
 
-**IMPORTANT**: @lightning/ui releases are automatically triggered on merge to the `main` branch (and possibly other release branches like `next`). The new version number is determined by  [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
+**IMPORTANT**: `@lightning/ui` releases are automatically triggered on merge to the `main` branch (and possibly other release branches like `next`). The new version number is determined by  [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
 
 This is the message template:
 
@@ -203,7 +207,7 @@ Example: `feat(Button): add key-down handler`
 
 ### JavaScript Styleguide
 
-@lightning/ui enforces [the Prettier styleguide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
+`@lightning/ui` enforces [the Prettier styleguide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
 
 To run the linter manually:
 
@@ -216,7 +220,7 @@ npm run lint -- --fix
 
 ### Test Styleguide
 
-@lightning/ui enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
+`@lightning/ui` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
 
 To run tests manually:
 
@@ -233,7 +237,7 @@ spyOnMethods is an optional array that may be passed to `makeCreateComponent` vi
 
 The most common usage of this is to await the completion of the `_update` method in a component being invoked after changes to a component.
 
-example.
+Example below:
 
 ```js
 it('should stop loading once title is set', async () => {
@@ -257,7 +261,7 @@ it('should stop loading once title is set', async () => {
 
 ### Documentation Styleguide
 
-Component documentation is covered through a combination of `.mdx` and `.stories.js` files within each component directory. This guide is intended to help you understand how to add [usage documentation](#usage-documentation), [API documentation](#api-documentation) and [live examples](#live-examples)
+Component documentation is covered through a combination of `.mdx` and `.stories.js` files within each component directory. This guide is intended to help you understand how to add [usage documentation](#usage-documentation), [API documentation](#api-documentation), and [live examples](#live-examples).
 
 **Live Examples**
 <a id="live-examples" />
@@ -285,7 +289,7 @@ Run Storybook to see your live examples:
 npm start
 ```
 
-Storybook will generate an ID for each story that follows the pattern `componentname--storyname`. You can use this ID to embed examples when [documenting usage](#usage-documentation)
+Storybook will generate an ID for each story that follows the pattern `componentname--storyname`. You can use this ID to embed examples when [documenting usage](#usage-documentation).
 
 **Storybook**
 <a id="storybook" />
@@ -350,7 +354,11 @@ Basic.argTypes = {
 };
 ```
 
-There are a few new concepts here: **args**, **argTypes**, **action**, and **control**. Let's break down **argTypes** first. Defining **argTypes** on the story function is how Storybook knows to controls and actions. `onEnter: { action: 'onEnter' }` tells Storybook to set `args.onEnter` as a function with the label `'onEnter'`. `title: { control: 'text' }` tells Storybook to create a text input **control** for `args.title`. Shifting focus to **args**, we can see that we have a definition for `'title'` but not for `'onEnter'`. Setting the **args** object on a story function tells Storybook what the _default values_ will be for controls defined in **argTypes**.
+There are a few new concepts here: **args**, **argTypes**, **action**, and **control**. 
+
+Let's break down **argTypes** first. Defining **argTypes** on the story function is how Storybook knows about controls and actions. `onEnter: { action: 'onEnter' }` tells Storybook to set `args.onEnter` as a function with the label `'onEnter'`. `title: { control: 'text' }` tells Storybook to create a text input **control** for `args.title`. 
+
+Shifting focus to **args**, we can see that we have a definition for `'title'` but not for `'onEnter'`. Setting the **args** object on a story function tells Storybook what the _default values_ will be for controls defined in **argTypes**.
 
 Check out the [args docs](https://storybook.js.org/docs/react/writing-stories/args) and [essential addons docs](https://storybook.js.org/docs/react/essentials/introduction) for additional details.
 
@@ -424,7 +432,7 @@ In summary, documenting usage is as follows:
 * [optional] implementation code block and/or
 * [optional] Storybook example
 
-Repeat this pattern for as many usage variations as you see fit
+Repeat this pattern for as many usage variations as you see fit.
 
 **API Documentation**
 <a id="api-documentation" />
