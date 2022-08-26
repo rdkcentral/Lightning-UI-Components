@@ -8,15 +8,17 @@ const typography = require('../themes/base/typography.js');
 const colors = require('../themes/base/colors.js');
 const LineReaderSync = require('line-reader-sync');
 
+const folderPath = 'bin/themePropertyTables';
+
 createDocumentation(); //This call starts the scripts to create the documentation
 /**
  * Creates documentation for the colors, typography, and radius that our components (both elements and patterns) use.
- * hypothetically if you replace the parameters with other values like (stroke, 'tmp?scriptingFiles/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value.
+ * hypothetically if you replace the parameters with other values like (stroke, 'tmp?themePropertyTables/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value.
  */
 export function createDocumentation() {
-  getStyleFiles('colors', 'bin/scriptingFiles/colors.md', colors);
-  getStyleFiles('typography', 'bin/scriptingFiles/typography.md', typography);
-  getStyleFiles('radius', 'bin/scriptingFiles/radius.md', radius);
+  getStyleFiles('colors', `${folderPath}/colors.md`, colors);
+  getStyleFiles('typography', `${folderPath}/typography.md`, typography);
+  getStyleFiles('radius', `${folderPath}/radius.md`, radius);
 }
 
 /**
@@ -97,7 +99,7 @@ export function findThemedComponents(styleFileArray, themeValueArray, themePrope
         break;
       }
       else if (themeValueArray.some(val => line.includes(val))){
-          //we split the line up by above characters to account for cases like theme.radius.md + theme.radius.small
+          //we split the line up by above characters to account for cases like theme.radius.md + theme.radius.sm
           line = line.split(/[-=/_+*]/);
           for (let i = 0; i < line.length; i++) {
             let foundIndex = 0;
@@ -188,7 +190,7 @@ export function cleanDictionaryValues(dict, updatedLine){
  * @returns {string} returns cleaned up line with no duplicate components
  */
 export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray) {
-  const roleFile = mdFile === ('bin/scriptingFiles/colors.md') || (mdFile === 'bin/scriptingFiles/typography.md');
+  const roleFile = mdFile === (`${folderPath}/colors.md`) || (mdFile === `${folderPath}/typography.md`);
   const content = roleFile? `${themeProperty} Value | Components | Role \n`:`${themeProperty} Value | Components \n`;
     //ensure folder exists
     fs.mkdir(mdFile.substring(0, mdFile.lastIndexOf('/')), { recursive: true }, (err) => {
@@ -260,10 +262,10 @@ export function alphabetizeContent(dict, key) {
  * @returns {string} extra information about the theme property
  */
 export function getPropertyRole(key, mdFile) {
-  if (mdFile === 'bin/scriptingFiles/colors.md') {
+  if (mdFile === `${folderPath}/colors.md`) {
       return `|${colorsJsonFile[key] || 'More info coming'}`;
   }
-  else if (mdFile === 'bin/scriptingFiles/typography.md') {
+  else if (mdFile === `${folderPath}/typography.md`) {
     return `|${typographyJsonFile[key] || 'More info coming'}`;
   }
 

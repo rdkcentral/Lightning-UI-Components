@@ -40,8 +40,7 @@ export const Basic = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
@@ -95,8 +94,7 @@ export const TestCase = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           scrollIndex: args.scrollIndex,
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
@@ -199,8 +197,7 @@ export const VaryingItemHeight = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
@@ -225,8 +222,7 @@ export const ExpandableHeightItems = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingButton,
@@ -252,8 +248,7 @@ export const ExpandableHeightRows = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           w: getWidthByUpCount(1),
           itemSpacing: args.itemSpacing,
           plinko: true,
@@ -285,8 +280,7 @@ export const SkipFocus = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
           items: [
@@ -342,8 +336,7 @@ export const OnScreenEffect = args =>
           h:
             context.theme.layout.screenH -
             2 *
-              (context.theme.layout.marginY +
-                context.theme.layout.gutterY.small),
+              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
               type: Button,
