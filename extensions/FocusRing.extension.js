@@ -60,11 +60,11 @@ export default function focusRingExtension(Base) {
       const calculatedH = this._h;
 
       // Only patch the FocusRing for the first time if item is focused
-      if (!this._FocusRing && this.hasFocus()) {
+      if (!this._FocusRing && this.mode === 'focused') {
         const focusRingComp =
-          Pool.get('tile_focusring') ||
+          Pool.get('focusring') ||
           Pool.create({
-            name: 'tile_focusring',
+            name: 'focusring',
             component: {
               type: FocusRing,
               alpha: 0.001, // Hide when first loads
