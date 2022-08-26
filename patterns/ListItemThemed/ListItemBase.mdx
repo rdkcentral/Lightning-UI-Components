@@ -1,0 +1,69 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ListItemBaseThemed from '.';
+import xfinityIcon from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+
+# ListItemThemed
+
+Component to represent a single item within a list.
+
+## Usage
+
+'ListItemBase' extends 'Button', and therefore utilizes much of the same functionality and properties. It can display an 'Icon' or 'Checkbox' before the text, a title and/or description in the center of the content, and an 'Icon' or 'Checkbox' in the Suffix after the text.
+
+```js
+import { ListItemBaseThemed } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      ListItemBaseThemed: {
+        type: ListItemBaseThemed,
+        title: 'Title',
+        description: 'Description',
+        icon: xfinityIcon
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="patterns-listitemthemed--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name        | type    | readonly | default  | description                                                                                |
+| ----------- | ------- | -------- | -------- | ------------------------------------------------------------------------------------------ |
+| checkbox    | object  | false    | -        | if defined, a checkbox will be rendered. contains the properties `checked` and `disabled`. |
+| description | string  | false    | -        | description text                                                                           |
+| disabled    | boolean | false    | false    | controls the disabled/enabled state of the button                                          |
+| fixed       | boolean | false    | false    | when true, `w` overrides dynamically calclulated width                                     |
+| icon        | string  | false    | -        | URI for the icon asset                                                                     |
+| justify     | string  | false    | 'center' | alignment of the button's content                                                          |
+| title       | string  | false    | -        | title text                                                                                 |
+| w           | number  | false    | -        | width of the button, if `fixed` is true                                                    |
+
+### Style Properties
+
+| name                      | type                          | description                                                                            |
+| ------------------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
+| descriptionColorDisabled  | string                        | color of the description text when the component is disabled                           |
+| descriptionColorFocused   | string                        | color of the description text when the component is focused                            |
+| descriptionColorUnfocused | string                        | color of the description text when the component is not focused                        |
+| descriptionStyle          | string                        | font properties to apply to the description                                            |
+| fontOffsetY               | number                        | used to vertically align the content in the container due to actual font sizing issues |
+| justify                   | 'center' \| 'left' \| 'right' | alignment of the button's content                                                      |
+| minWidth                  | number                        | used as a fallback width if no width is passed into the component and `fixed` is false |
+| paddingX                  | number                        | space between the button horizontal edge and the content                               |
+| paddingXIcon              | number                        | space between the button horizontal edge and the content if no title is provided       |
+| paddingY                  | number                        | space between the button vertical edge and the content                                 |
+| prefixMargin              | number                        | the space between the prefix and the button title                                      |
+| prefixStyle               | object                        | styles that will be applied to the prefix(icon or checkbox)                            |
+| radius                    | number                        | shape of component                                                                     |
+| titleColorDisabled        | string                        | color of the title text when the component is disabled                                 |
+| titleColorFocused         | string                        | color of the title text when the component is focused                                  |
+| titleColorUnfocused       | string                        | color of the title text when the component is not focused                              |
+| titleStyle                | string                        | font properties to apply to the title                                                  |
