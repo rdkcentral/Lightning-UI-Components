@@ -12,6 +12,7 @@ test-results.json
 /styleguide
 dist
 /tmp
+/bin/themePropertyTables/*
 
 # misc
 .DS_Store

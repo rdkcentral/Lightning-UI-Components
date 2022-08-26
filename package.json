@@ -85,7 +85,7 @@
     "gh-pages": "gh-pages -d dist",
     "create": "node bin/create.js",
     "start": "npm run generateStorybookData && start-storybook --no-manager-cache -p 8000",
-    "start:ci": "start-storybook --ci --smoke-test",
+    "start:ci": "npm run generateStorybookData && start-storybook --ci --smoke-test",
     "test": "jest --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:updateSnapshot": "jest --updateSnapshot",

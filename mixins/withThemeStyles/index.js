@@ -159,7 +159,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         this._updateDimensions(); // Notify lng that the dimensions have changed
       }
 
-      // Support theme strings example: theme.radius.medium
+      // Support theme strings example: theme.radius.md
       const processedStyle = JSON.stringify(v, (key, value) => {
         if ('string' === typeof value && value.startsWith('theme.')) {
           return getValFromObjPath(this, value); // If no theme value exists the property will be removed from the object
