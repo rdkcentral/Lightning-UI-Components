@@ -43,7 +43,7 @@ class Checkbox extends Base {
       w: this.style.checkW,
       h: this.style.checkH,
       icon: this.style.checkSrc,
-      color: this.style.checkColor
+      style: { color: this.style.checkColor }
     });
 
     const alphaPatch = {

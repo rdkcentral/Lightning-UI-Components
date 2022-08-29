@@ -24,7 +24,10 @@ class Icon extends Base {
   }
 
   _notify() {
+    this.w = this.finalW;
+    this.h = this.finalH;
     this.signal('itemChanged');
+    this.fireAncestors('$itemChanged');
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -49,7 +52,7 @@ class Icon extends Base {
       this.patch(template);
       if (!template.texture) {
         this.smooth = {
-          color: getValidColor(this.color) || getValidColor(this.style.color)
+          color: getValidColor(this.style.color)
         };
       }
     } else {

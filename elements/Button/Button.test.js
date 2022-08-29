@@ -1,7 +1,6 @@
 import Button from './Button';
 import TestUtils from '../../test/lightning-test-utils';
-
-const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
+import Icon from '../Icon';
 
 const createButton = TestUtils.makeCreateComponent(
   Button,
@@ -95,65 +94,76 @@ describe('Button', () => {
     });
   });
 
+  describe('updateContentPosition', () => {
+    it('If justify value is left, then mountX and X position should be', () => {
+      component.justify = 'left';
+      testRenderer.forceAllUpdates();
+      expect(component._Content.x).toEqual(component.style.paddingX);
+      expect(component._Content.mountX).toEqual(0);
+    });
+
+    it('If justify value is right, then mountX and X position should be', () => {
+      component.justify = 'right';
+      testRenderer.forceAllUpdates();
+      expect(component._Content.x).toEqual(
+        component.w - component.style.paddingX
+      );
+      expect(component._Content.mountX).toEqual(1);
+    });
+  });
+
   describe('prefix', () => {
-    it('should have a prefix if either an icon or checkbox is provided', () => {
+    it('should have a prefix if prefix array is passed to the component', () => {
       expect(component._Prefix).toBeUndefined();
 
-      component.patch({ icon });
-      testRenderer.forceAllUpdates();
-      expect(component._Prefix).toBeDefined();
-
-      component.patch({ icon: undefined });
-      testRenderer.forceAllUpdates();
-      expect(component._Prefix).toBeUndefined();
-
-      component.patch({ checkbox: true });
+      component.prefix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
       expect(component._Prefix).toBeDefined();
     });
 
-    it('should have an icon if provided', () => {
-      [component, testRenderer] = createButton({ icon });
-      expect(component._Icon).toBeDefined();
-    });
+    it('should have items populated on Prefix row if prefix is passed', () => {
+      expect(component._Prefix).toBeUndefined();
 
-    it('should apply a margin if both prefix and text exist', () => {
-      [component, testRenderer] = createButton({
-        icon,
-        title: 'Button'
-      });
-
-      const titleXOffset =
-        component.style.prefixMargin + component.style.prefixStyle.w;
-
-      expect(component._Title.x).toBe(titleXOffset);
-
-      component.patch({
-        icon: undefined,
-        checkbox: true,
-        title: 'Button'
-      });
-
+      component.prefix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-
-      expect(component._Title.x).toBe(titleXOffset);
+      expect(component._Prefix.items.length).toEqual(component.prefix.length);
     });
+  });
 
-    it('should use prefixStyles', async () => {
-      [component, testRenderer] = createButton({ checkbox: true });
+  describe('suffix', () => {
+    it('should have a Suffix if suffix array is passed to the component', () => {
+      expect(component._Suffix).toBeUndefined();
 
+      component.suffix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-
-      expect(component._Prefix.w).toBe(component.prefixStyle.w);
-      expect(component._Checkbox.w).toBe(component.prefixStyle.w);
+      expect(component._Suffix).toBeDefined();
     });
 
-    it('should should have a checkbox if provided', () => {
-      [component, testRenderer] = createButton({
-        checkbox: true,
-        title: 'Button'
-      });
-      expect(component._Checkbox).toBeDefined();
+    it('should have items populated on Prefix row if suffix is passed', () => {
+      expect(component._Suffix).toBeUndefined();
+
+      component.suffix = [{ type: Icon }];
+      testRenderer.forceAllUpdates();
+      expect(component._Suffix.items.length).toEqual(component.suffix.length);
+    });
+
+    it('Suffix should be positioned based on the title and prefix postion', () => {
+      expect(component._Prefix).toBeUndefined();
+
+      component.prefix = [{ type: Icon }];
+      component.title = '';
+      testRenderer.forceAllUpdates();
+      expect(component._hasTitle).toBeFalsy();
+      expect(component._suffixX).toEqual(
+        component._prefixW + component.style.prefixPadding + component._titleW
+      );
+    });
+
+    it('Suffix should be postioned horizontally at zero if title is empty', () => {
+      component.title = '';
+      testRenderer.forceAllUpdates();
+      expect(component._hasTitle).toBeFalsy();
+      expect(component._suffixX).toEqual(0);
     });
   });
 });
