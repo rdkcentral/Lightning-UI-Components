@@ -55,52 +55,49 @@ export default function focusRingExtension(Base) {
     }
 
     _updateFocusRing() {
-      // Reference the underscore value to support Tile with metadataLocation set to bottom
-      const calculatedW = this._w;
-      const calculatedH = this._h;
+      // support variable height, like Tile with metadataLocation set to bottom
+      const calculatedW = this.innerW || this.w;
+      const calculatedH = this.innerH || this.h;
 
       // Only patch the FocusRing for the first time if item is focused
-      if (!this._FocusRing && this.mode === 'focused') {
-        const focusRingComp =
-          Pool.get('focusring') ||
-          Pool.create({
-            name: 'focusring',
-            component: {
-              type: FocusRing,
-              alpha: 0.001, // Hide when first loads
-              mount: 0.5,
-              w: calculatedW,
-              h: calculatedH,
-              x: calculatedW / 2,
-              y: calculatedH / 2,
-              zIndex: this.parent.core.findZContext().zIndex - 1
-            },
-            stage: this.stage
-          });
+      if (this.mode === 'focused') {
+        if (!this._FocusRing) {
+          const focusRingComp =
+            Pool.get('focusring') ||
+            Pool.create({
+              name: 'focusring',
+              component: {
+                type: FocusRing,
+                alpha: 0.001, // Hide when first loads
+                mount: 0.5
+              },
+              stage: this.stage
+            });
 
-        this.patch({
-          FocusRing: focusRingComp
-        });
+          this.patch({
+            FocusRing: focusRingComp
+          });
+        }
 
         this._FocusRing.patch({
           w: calculatedW,
           h: calculatedH,
           x: calculatedW / 2,
           y: calculatedH / 2,
-          variant: this.variant,
-          style: this._componentStyles.focusRingStyle,
+          palette: this.palette,
+          style: this.style.focusRingStyle,
           alpha: 0,
-          scale: 1
+          scale: 1,
+          zIndex: this.parent.core.findZContext().zIndex - 1
         });
 
         // Get values from FocusRing to set proper scale when unfocused so it animates in properly
         const { borderWidth, spacing } = this._FocusRing._componentStyle;
 
         // adding 2 to account for rounded rectangle bug
-        const focusRingScaleW =
-          calculatedW / (calculatedW + borderWidth * 2 + spacing * 2 + 2);
-        const focusRingScaleH =
-          calculatedH / (calculatedH + borderWidth * 2 + spacing * 2 + 2);
+        const offset = borderWidth * 2 + spacing * 2 + 2;
+        const focusRingScaleW = calculatedW / (calculatedW + offset);
+        const focusRingScaleH = calculatedH / (calculatedH + offset);
 
         this._FocusRing.scale = this._unfocusedFocusRingScale = Math.min(
           focusRingScaleW,
@@ -111,7 +108,7 @@ export default function focusRingExtension(Base) {
 
     _updateFocusRingStyles() {
       if (!this._FocusRing) return;
-      
+
       // Update variant and styles
       let focusRingPatch = {
         palette: this.palette,

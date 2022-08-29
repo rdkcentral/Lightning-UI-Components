@@ -9,7 +9,7 @@ Object {
       "attached": true,
       "boundsMargin": null,
       "clipping": false,
-      "color": "ff141417",
+      "color": 4294967295,
       "enabled": false,
       "flex": false,
       "flexItem": false,

@@ -23,7 +23,7 @@ describe('Key', () => {
 
   it('should patch in an icon if provided', () => {
     [key, testRenderer] = createKey({ icon: { src: icon } });
-    expect(key._Icon).toBeDefined();
+    expect(key._Icon).toBeUndefined();
   });
 
   it('should adjust its width if given a size', () => {

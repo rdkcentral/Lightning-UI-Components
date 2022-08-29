@@ -4,6 +4,7 @@ export const base = theme => ({
   h: theme.spacer.md * 8,
   minWidth: getWidthByColumnSpan(1),
   paddingX: theme.spacer.xxl,
-  prefixSize: theme.spacer.xl + theme.spacer.xs,
+  prefixH: theme.spacer.xl,
+  suffixH: theme.spacer.xl,
   textStyle: theme.typography.button2
 });
