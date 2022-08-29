@@ -3,7 +3,7 @@ import { Base } from '../../elements';
 import styles from './DataItem.styles';
 import withStyles from '../../mixins/withStyles';
 
-class DataItem extends Base {
+export default class DataItem extends withStyles(Base, styles) {
   static _template() {
     return {
       Background: {
@@ -142,5 +142,3 @@ class DataItem extends Base {
     return margin;
   }
 }
-
-export default withStyles(DataItem, styles);

@@ -1,8 +1,8 @@
-import Column from '../../layout/Column';
-import ListItem from '../ListItem';
 import OverlayDataItem from '../OverlayDataItem';
 import withStyles from '../../mixins/withStyles';
 import { Base } from '../../elements';
+import { ListItem } from '../../patterns';
+import { Column } from '../../layout';
 import styles from './TeamInfo.styles';
 export default class TeamInfo extends withStyles(Base, styles) {
   static _template() {

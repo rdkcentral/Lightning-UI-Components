@@ -6,3 +6,5 @@ export * from './textures';
 export * from './utils';
 export { default as context } from './context';
 export * from './Base';
+// TODO: Remove after legacy folder is deleted
+export * from './legacy';
