@@ -1,4 +1,3 @@
-import lng from '@lightningjs/core';
 import Column from '../../layout/Column';
 import { getValidColor } from '../../utils';
 import DataItem from '../DataItem';
@@ -217,7 +216,7 @@ export class SingleStatLine extends withStyles(Base, baseStyles) {
   }
 }
 
-class Stats extends Base {
+export default class Stats extends withStyles(Base, styles) {
   static _template() {
     return {
       DataItem: {
@@ -294,5 +293,3 @@ class Stats extends Base {
     }
   }
 }
-
-export default withStyles(Stats, styles);
