@@ -203,7 +203,7 @@ class Button extends Surface {
       // if no title, ignore minWidth and use prefix/suffix width
       const w =
         !this._hasTitle && (this._hasPrefix || this._hasSuffix)
-          ? this._contentW + this._textStyle
+          ? this._contentW + this._paddingX
           : Math.max(this._contentW + this._paddingX, this.style.minWidth);
       this.w = w;
     }
