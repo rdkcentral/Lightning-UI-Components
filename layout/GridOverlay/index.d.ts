@@ -1,1 +1,1 @@
-export declare class GridOverlay {}
+export default class GridOverlay {}

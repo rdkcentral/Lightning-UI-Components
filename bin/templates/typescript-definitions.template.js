@@ -1,3 +1,3 @@
 module.exports = name => {
-  return `export declare class ${name} { }`
+  return `export default class ${name} { }`
 }

@@ -11,7 +11,7 @@ export interface MetadataCardContentStyles extends MetadataBaseStyles {
   providerStyle?: ProviderStyles;
 }
 
-export declare class MetadataCardContent extends MetadataBase {
+export default class MetadataCardContent extends MetadataBase {
   details?: string;
   provider?: Provider;
   style: MetadataCardContentStyles;
