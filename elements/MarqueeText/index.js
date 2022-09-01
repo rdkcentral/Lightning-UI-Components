@@ -35,21 +35,30 @@ export default class MarqueeText extends Base {
     this._autoStart = false;
     this._fadeW = 100;
     this._offset = 32;
+    // in case the texture changes length and the startScrolling method was already invoked
+    // i.e. An item has short text, is focused, it calls startScrolling,
+    // then its text is updated to long and is still focused--the scroll needs to be triggered again
+    this._shouldTryScrolling = false;
   }
 
   _init() {
-    super._init();
     this._Content.on('txLoaded', this._updateContentTexture.bind(this));
-    this._update();
+    super._init();
   }
+
   _detach() {
     this._Content.off('txLoaded', this._updateContentTexture.bind(this));
   }
+
   _updateContentTexture() {
-    if (this._contentTexture.h === undefined) {
+    const restartScrolling =
+      this.autoStart || this._scrolling || this._shouldTryScrolling;
+    this.stopScrolling();
+
+    if (!this._currentTexture.h) {
       this._ContentClipper.h =
-        this._contentTexture.text && this._contentTexture.text.lineHeight
-          ? this._contentTexture.text.lineHeight
+        this._currentTexture.text && this._currentTexture.text.lineHeight
+          ? this._currentTexture.text.lineHeight
           : this._Content.finalH;
     }
 
@@ -61,8 +70,9 @@ export default class MarqueeText extends Base {
       this._shouldCenter && this._centerTexture();
     }
 
-    (this.autoStart || this._scrolling) && this.startScrolling();
+    restartScrolling && this.startScrolling();
   }
+
   _update() {
     this._updateColor();
     this._updateTexture();
@@ -76,25 +86,33 @@ export default class MarqueeText extends Base {
     }
   }
 
+  get _currentTexture() {
+    return this._Content.text || this._Content.texture;
+  }
+
   _updateTexture() {
+    let content = {};
+    if (this.contentTexture) {
+      content = { texture: this.contentTexture };
+    } else if (this.title) {
+      content = { text: this.title };
+    }
+
     this.patch({
       ContentClipper: {
         w: this.w + 14,
         ContentBox: {
           Content: {
             rtt: true,
-            ...this._contentTexture
+            ...content
           },
           ContentLoopTexture: {}
         }
       }
     });
-    this._Content.loadTexture();
   }
 
   _updateShader() {
-    this.stage.update();
-    this._Content.loadTexture();
     this._ContentClipper.patch({
       w: this.w > 0 ? this.w + this._fadeW / 2 : 0,
       shader: { type: FadeShader, positionLeft: 0, positionRight: this._fadeW },
@@ -144,10 +162,12 @@ export default class MarqueeText extends Base {
   }
 
   startScrolling() {
+    this._Content.off('txLoaded', this.startScrolling.bind(this));
+
+    this._shouldTryScrolling = true;
     if (this._textRenderedW === 0) {
-      this._Content.on('txLoaded', () => {
-        this.startScrolling();
-      });
+      // can switch to .once in LUI5.0 requiring higher Lightning Core version
+      this._Content.on('txLoaded', this.startScrolling.bind(this));
     }
 
     if (this._shouldClip) {
@@ -162,6 +182,7 @@ export default class MarqueeText extends Base {
   }
 
   stopScrolling() {
+    this._shouldTryScrolling = false;
     this._scrolling = false;
     if (this._scrollAnimation) {
       this._scrollAnimation.stopNow();
@@ -180,17 +201,6 @@ export default class MarqueeText extends Base {
       this._centerAlign ||
       (this._Content.text && this._Content.text.textAlign === 'center')
     );
-  }
-
-  _setContentTexture(texture) {
-    this._contentTexture = { texture };
-    return this._contentTexture;
-  }
-
-  _setTitle(text) {
-    this._title = { text };
-    this._contentTexture = this._title;
-    return this._title.text.text;
   }
 
   get _textRenderedW() {

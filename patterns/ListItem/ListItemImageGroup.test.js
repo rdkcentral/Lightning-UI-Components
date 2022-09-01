@@ -44,8 +44,8 @@ describe('ListItemImageGroup', () => {
   it('set items', () => {
     expect(component._Column.items.length).toBe(listItems.length);
     component._Column.items.forEach((item, idx) => {
-      expect(item._Title.title).toBe(listItems[idx].title);
-      expect(item._Subtitle.title).toBe(listItems[idx].subtitle);
+      expect(item._Title.title.text).toBe(listItems[idx].title);
+      expect(item._Subtitle.title.text).toBe(listItems[idx].subtitle);
       expect(item._Image.texture.src).toBe(listItems[idx].src);
     });
   });

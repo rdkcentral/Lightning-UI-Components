@@ -74,14 +74,15 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       this._Left.patch({ Title: undefined });
       return;
     }
-
+    if (!this._Title) {
+      this._Left.patch({ Title: { type: MarqueeText } });
+    }
     this._Left.patch({
       w: this._textWidth,
       Title: {
         y: 2,
         h: this.styles.title.text.lineHeight + 4,
         w: this._textWidth,
-        type: MarqueeText,
         color: this.hasFocus()
           ? this.styles.focused.title.color
           : this.styles.title.color,
