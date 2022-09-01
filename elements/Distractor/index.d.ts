@@ -19,5 +19,5 @@ declare const Distractor_base: WithThemeStylesConstructor<
 >;
 
 export default class Distractor extends Distractor_base {
-  style?: DistractorStyles;
+  style: DistractorStyles;
 }

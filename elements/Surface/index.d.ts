@@ -21,5 +21,5 @@ declare const Surface_base: WithThemeStylesConstructor<
 >;
 
 export default class Surface extends Surface_base {
-  style?: SurfaceStyles;
+  style: SurfaceStyles;
 }

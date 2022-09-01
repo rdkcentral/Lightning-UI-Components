@@ -14,5 +14,5 @@ declare const Gradient_base: WithThemeStylesConstructor<
 >;
 
 export default class Gradient extends Gradient_base {
-  style?: GradientStyles;
+  style: GradientStyles;
 }

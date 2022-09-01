@@ -20,5 +20,5 @@ export default class Marquee extends Marquee_base {
   delay?: number;
   repeat?: number;
   title?: string;
-  style?: MarqueeStyles;
+  style: MarqueeStyles;
 }
