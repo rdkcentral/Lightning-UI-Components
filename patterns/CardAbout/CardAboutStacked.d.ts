@@ -10,5 +10,5 @@ export class CardAboutStacked extends Card {
   contentBottom?: object;
   descriptionBottom?: string;
   titleBottom?: string;
-  styles?: CardAboutStackedStyles;
+  style: CardAboutStackedStyles;
 }

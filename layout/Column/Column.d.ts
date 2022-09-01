@@ -7,7 +7,7 @@ type transitionObject = {
   timingFunction: string;
 };
 
-declare class ColumnStyles {
+export interface ColumnStyles {
   itemSpacing?: number;
   scrollIndex?: number;
   alwaysScroll?: boolean;
@@ -23,7 +23,7 @@ export declare class Column extends FocusManager {
   autoResizeWidth?: boolean;
   autoResizeHeight?: boolean;
   plinko?: boolean;
-  styles?: ColumnStyles;
+  style: ColumnStyles;
 
   get itemPosX(): number;
   set itemPosX(x: number);

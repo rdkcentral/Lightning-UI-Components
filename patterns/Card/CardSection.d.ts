@@ -9,5 +9,5 @@ export default class CardSection extends Card {
   iconHeight?: number;
   iconSrc?: number;
   iconWidth?: number;
-  styles?: CardSectionStyles;
+  style: CardSectionStyles;
 }

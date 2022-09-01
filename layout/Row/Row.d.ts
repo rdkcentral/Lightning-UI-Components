@@ -7,7 +7,7 @@ type transitionObject = {
   timingFunction: string;
 };
 
-declare class RowStyles {
+export interface RowStyles {
   itemSpacing?: number;
   scrollIndex?: number;
   alwaysScroll?: boolean;
@@ -23,7 +23,7 @@ export declare class Row extends FocusManager {
   lazyScroll?: boolean;
   autoResizeWidth?: boolean;
   autoResizeHeight?: boolean;
-  styles?: RowStyles;
+  style: RowStyles;
 
   get itemPosX(): number;
   set itemPosX(x: number);

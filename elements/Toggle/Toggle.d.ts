@@ -25,5 +25,5 @@ declare const Toggle_base: WithThemeStylesConstructor<
 
 export default class Toggle extends Base {
   checked?: boolean;
-  styles?: ToggleStyles;
+  style: ToggleStyles;
 }

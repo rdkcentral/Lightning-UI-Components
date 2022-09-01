@@ -7,6 +7,6 @@ export interface CardPersonalityStyles extends CardTitle {
 }
 
 export default class CardPersonality extends CardTitle {
-  styles?: CardPersonalityStyles;
+  style: CardPersonalityStyles;
   src?: string;
 }
