@@ -1,8 +1,12 @@
 import lng from '@lightningjs/core';
 import { SpeechType } from './mixins/withAnnouncer';
 import { WithLayoutConstructor } from './mixins/withLayout';
+import { WithThemeStylesConstructor } from './mixins/withThemeStyles';
 
-declare const Base_base: WithLayoutConstructor<typeof lng.Component>;
+declare const Base_base: WithThemeStylesConstructor<
+  WithLayoutConstructor<typeof lng.Component>,
+  Record<string, any>
+>;
 
 export default class Base extends Base_base {
   static get __componentName(): string;
