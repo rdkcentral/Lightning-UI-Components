@@ -13,6 +13,6 @@ export interface CardStyles extends Surface {
 }
 
 export default class Card extends Surface {
-  styles?: CardStyles;
+  style: CardStyles;
   title?: string;
 }

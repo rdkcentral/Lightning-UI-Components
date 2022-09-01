@@ -17,5 +17,5 @@ export default class CardAbout extends Card {
   iconWidth?: number;
   textLeft?: string;
   textRight?: string;
-  styles?: CardAboutStyles;
+  style: CardAboutStyles;
 }

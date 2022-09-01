@@ -19,5 +19,5 @@ export default class Badge extends Base {
   iconHeight?: number;
   icon?: string;
   iconAlign?: string;
-  styles?: BadgeStyles;
+  style: BadgeStyles;
 }

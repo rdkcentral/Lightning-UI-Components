@@ -21,5 +21,5 @@ export default function withThemeStyles<
   StyleType
 >(
   Base: BaseType,
-  styles: (theme: Record<string, any>) => StyleType
+  style: (theme: Record<string, any>) => StyleType
 ): WithThemeStylesConstructor<BaseType, StyleType>;
