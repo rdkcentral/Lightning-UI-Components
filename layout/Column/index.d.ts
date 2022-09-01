@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { FocusManager } from '../FocusManager';
+import FocusManager from '../FocusManager';
 
 type transitionObject = {
   delay: number;
@@ -15,7 +15,7 @@ export interface ColumnStyles {
   itemTransition?: transitionObject;
 }
 
-export declare class Column extends FocusManager {
+export default class Column extends FocusManager {
   itemSpacing?: number;
   scrollIndex?: number;
   alwaysScroll?: boolean;

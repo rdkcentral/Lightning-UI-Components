@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 
-export declare class FocusManager extends Base {
+export default class FocusManager extends Base {
   direction?: string;
 
   get items(): Array<lng.Component>;
