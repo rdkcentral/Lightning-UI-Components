@@ -13,5 +13,5 @@ export interface MetadataCardContentStyles {
 export declare class MetadataCardContent extends MetadataBase {
   details?: string;
   provider?: Provider;
-  style?: MetadataCardContentStyles;
+  style: MetadataCardContentStyles;
 }

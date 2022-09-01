@@ -14,5 +14,5 @@ declare const Label_base: WithThemeStylesConstructor<typeof Base, LabelStyles>;
 
 export default class Label extends Label_base {
   title: string;
-  style?: LabelStyles;
+  style: LabelStyles;
 }

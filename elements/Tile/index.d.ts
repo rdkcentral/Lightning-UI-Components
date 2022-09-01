@@ -34,5 +34,5 @@ export default class Tile extends Tile_base {
   metadata?: any; // TODO: Replace with TS from MetadataTile after completed
   persistentMetadata?: boolean;
   progressBar?: Omit<lng.__ComponentPatchObj<typeof ProgressBar>, 'type'>;
-  style?: TileStyles;
+  style: TileStyles;
 }

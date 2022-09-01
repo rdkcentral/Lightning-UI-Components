@@ -20,5 +20,5 @@ export default class Metadata extends Base {
   logoHeight?: number;
   logoTitle?: string;
   logoPosition?: string;
-  styles?: MetadataStyles;
+  style: MetadataBaseStyles;
 }

@@ -14,5 +14,5 @@ export default class Provider extends Base {
   counterText?: string;
   providers: Array<Record<string, unknown>>;
   visibleCount: number;
-  style?: ProviderStyles;
+  style: ProviderStyles;
 }

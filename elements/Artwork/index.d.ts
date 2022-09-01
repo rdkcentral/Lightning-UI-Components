@@ -54,5 +54,5 @@ export default class Artwork extends Base {
     h: number;
   }) => string;
   srcCallbackAspectRatios?: aspectRatio[];
-  style?: ArtworkStyles;
+  style: ArtworkStyles;
 }

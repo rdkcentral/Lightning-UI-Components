@@ -17,5 +17,5 @@ export interface WaveStyles {
 declare const Wave_base: WithThemeStylesConstructor<typeof Base, WaveStyles>;
 
 export default class Wave extends Wave_base {
-  style?: WaveStyles;
+  style: WaveStyles;
 }
