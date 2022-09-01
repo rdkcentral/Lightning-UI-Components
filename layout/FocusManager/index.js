@@ -5,7 +5,7 @@
  */
 import Base from '../../Base';
 import { getX, getY, isComponentOnScreen } from '../../utils';
-import withExtensions from '../../mixins/withExtensions';
+import { withExtensions } from '../../mixins';
 
 class FocusManager extends Base {
   static get __componentName() {

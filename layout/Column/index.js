@@ -1,6 +1,6 @@
 import FocusManager from '../FocusManager';
 import { getY, getW, delayForAnimation } from '../../utils';
-import withExtensions from '../../mixins/withExtensions';
+import { withExtensions } from '../../mixins';
 import * as styles from './Column.styles';
 
 class Column extends FocusManager {
