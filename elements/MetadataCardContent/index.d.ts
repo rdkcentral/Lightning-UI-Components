@@ -1,9 +1,10 @@
-import type MetadataBase from '../MetadataBase/MetadataBase';
-import type Provider from '../Provider/Provider';
-import { ProviderStyles } from '../Provider/Provider';
+import type MetadataBase from '../MetadataBase';
+import { MetadataBaseStyles } from '../MetadataBase';
+import type Provider from '../Provider';
+import { ProviderStyles } from '../Provider';
 import { __TextType } from '@lightningjs/core';
 
-export interface MetadataCardContentStyles {
+export interface MetadataCardContentStyles extends MetadataBaseStyles {
   titleTextProperties?: __TextType;
   descriptionProperties?: __TextType;
   detailsTextProperties?: __TextType;

@@ -1,6 +1,7 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+
 export interface ButtonStyles {
   justify: 'center' | 'left' | 'right';
   minWidth: number;

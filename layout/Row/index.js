@@ -1,6 +1,6 @@
 import FocusManager from '../FocusManager';
 import { getX, getH, delayForAnimation } from '../../utils';
-import withExtensions from '../../mixins/withExtensions';
+import { withExtensions } from '../../mixins';
 import * as styles from './Row.styles';
 
 class Row extends FocusManager {
