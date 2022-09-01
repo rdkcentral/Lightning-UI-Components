@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 
 import MarqueeText from '.';
 import InlineContent from '../../layout/InlineContent';
+import icon from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './MarqueeText.mdx';
 import { PALETTE, TYPOGRAPHY } from '../../Styles';
 
@@ -40,8 +41,8 @@ export const Basic = () =>
           content: [
             'This is a scrolling ',
             {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
+              icon,
+              title: 'Lightning bolt'
             },
             ' InlineContent component'
           ],

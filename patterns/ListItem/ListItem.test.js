@@ -124,7 +124,7 @@ describe('ListItem', () => {
     testRenderer.update();
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(listItem._Title.title).toEqual(listItem.title);
+    expect(listItem._Title.title.text).toEqual(listItem.title);
   });
 
   it('should render a subtitle', () => {
@@ -135,7 +135,7 @@ describe('ListItem', () => {
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
     expect(listItem._Subtitle).toBeDefined();
-    expect(listItem._Subtitle.title).toEqual('My Subtitle');
+    expect(listItem._Subtitle.title.text).toEqual('My Subtitle');
   });
 
   it('should render a title and subtitle together', () => {
@@ -154,7 +154,7 @@ describe('ListItem', () => {
     listItem.subtitle = 'Update Subtitle';
     testRenderer.forceAllUpdates();
     expect(listItem._Subtitle).toBeDefined();
-    expect(listItem._Subtitle.title).toEqual('Update Subtitle');
+    expect(listItem._Subtitle.title.text).toEqual('Update Subtitle');
   });
 
   it('should render an icon', () => {
@@ -560,7 +560,7 @@ describe('ListItemPicker', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
     expect(listItemPicker.selectedOption).toBe('op1');
-    expect(listItemPicker._Subtitle.title).toBe('op1');
+    expect(listItemPicker._Subtitle.title.text).toBe('op1');
   });
 
   it('renders with options', done => {
@@ -580,7 +580,7 @@ describe('ListItemPicker', () => {
       testRenderer.unfocus();
       tree = testRenderer.toJSON(2);
       expect(tree).toMatchSnapshot();
-      expect(listItemPicker._Subtitle.title).toBe('op2');
+      expect(listItemPicker._Subtitle.title.text).toBe('op2');
       done();
     });
   });

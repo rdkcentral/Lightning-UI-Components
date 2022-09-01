@@ -79,9 +79,9 @@ describe('MarqueeText', () => {
       }, 50);
     });
 
-    it('#startScrolling waits till rendered', done => {
+    it('#startScrolling waits until rendered', done => {
       const renderWMock = jest.fn();
-      renderWMock.mockReturnValueOnce(0).mockReturnValueOnce(500);
+      renderWMock.mockReturnValueOnce(0).mockReturnValue(500);
       Object.defineProperty(marquee, '_textRenderedW', {
         get: renderWMock
       });
@@ -126,7 +126,7 @@ describe('MarqueeText', () => {
         text: 'Hello There'
       };
       testRenderer.update();
-      expect(marquee.title).toEqual('Hello There');
+      expect(marquee.title.text).toEqual('Hello There');
     });
   });
 
@@ -145,9 +145,7 @@ describe('MarqueeText', () => {
     it('updates the texture', () => {
       marquee.contentTexture = marquee.getTexture();
       testRenderer.update();
-      expect(marquee.contentTexture.texture.constructor.name).toEqual(
-        'TextureSource'
-      );
+      expect(marquee.contentTexture.constructor.name).toEqual('TextureSource');
     });
   });
 
