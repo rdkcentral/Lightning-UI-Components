@@ -1,14 +1,10 @@
 export { default as BoardRow } from './BoardRow';
+export { default as Card, CardSection, CardTitle } from './Card';
 export {
-  default as Card,
-  CardBasic,
-  CardHero,
-  CardHorizontal,
-  CardHorizontalLarge,
-  CardVertical,
-  CardVerticalLarge,
-  CardVerticalDynamic
-} from '../legacy/Card';
+  default as CardAbout,
+  CardAboutStacked,
+  CardAboutLarge
+} from './CardAbout';
 
 export { default as ContentTray } from './ContentTray';
 export { default as Input } from './Input';
