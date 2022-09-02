@@ -23,12 +23,9 @@ export default class Row extends FocusManager {
   lazyScroll?: boolean;
   autoResizeWidth?: boolean;
   autoResizeHeight?: boolean;
+  itemPosX?: number;
+  itemPosY?: number;
   style: RowStyles;
-
-  get itemPosX(): number;
-  set itemPosX(x: number);
-  get itemPosY(): number;
-  set itemPosY(y: number);
 
   shouldScrollLeft(): boolean;
   shouldScrollRight(): boolean;
