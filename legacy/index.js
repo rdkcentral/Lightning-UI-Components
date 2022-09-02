@@ -1,5 +1,5 @@
 export {
-  default as Card,
+  default as LegacyCard,
   CardBasic,
   CardHero,
   CardHorizontal,
