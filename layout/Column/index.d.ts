@@ -23,12 +23,9 @@ export default class Column extends FocusManager {
   autoResizeWidth?: boolean;
   autoResizeHeight?: boolean;
   plinko?: boolean;
+  itemPosX?: number;
+  itemPosY?: number;
   style: ColumnStyles;
-
-  get itemPosX(): number;
-  set itemPosX(x: number);
-  get itemPosY(): number;
-  set itemPosY(y: number);
 
   shouldScrollUp(): boolean;
   shouldScrollDown(): boolean;

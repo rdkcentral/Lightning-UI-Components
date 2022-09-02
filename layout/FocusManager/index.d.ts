@@ -3,8 +3,8 @@ import Base from '../../Base';
 
 export default class FocusManager extends Base {
   direction?: string;
+  items?: Array<lng.Component>;
 
-  get items(): Array<lng.Component>;
   get selected(): lng.Component;
   get selectedIndex(): number;
   set selectedIndex(index: number);
