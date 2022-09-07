@@ -28,15 +28,15 @@ Distinct color palettes are used to reflect these special occasions but it's not
 always the case that we want to have completely new brand (new radius, spacing, etc) values for the pages reflecting these themes.
 This is where sub theming comes in.
 
-Sub theming allows us to target certain properities of a theme to change while still keeping the values of the other theme properties.
+Sub theming allows us to target certain properties of a theme to change while still keeping the values of the other theme properties.
 For example, we can create a sub-theme of the main theme where we change the core colors to reflect that of Shark Week with its
 variations of blues and add that to an element like `ProgressBar`.
 In this example, the `ProgressBar`'s color would reflect the new blue values from the sub-theme.
 However, its radius values would still reflect those of the main theme.
 Additionally, `ProgressBar` components used outside the context of this sub-theme will continue to use the brand colors of the main theme.
 
-Likewise, if there are multiple elements to a page, we can set a certain element to have a sub-theme (a contentTray with the Shark Week sub-theme)
-while the other elements (a display of tiles) have the main theme.
+Likewise, if there are multiple elements to a page, we can set a certain element to have a sub-theme (a `contentTray` with the Shark Week sub-theme)
+while the other elements (a display of `Tiles`) have the main theme.
 This allows the user to have two unique experiences living in the same visual space.
 
 ## Steps to Utilizing a Sub-Theme
@@ -144,7 +144,7 @@ still continues to reflect the radius value of the Base theme which is set to 0.
 > **Note:** Adding the `subTheme` getter method will apply the sub-theme globally to all the listed components inside the `_template` function
 > that do not have an assigned sub-theme.
 > As in, if another `ProgressBar` were to be added to the `_template` function, it would have the '4thOfJuly' sub-theme if the `subTheme` property was not applied to it.
-> Otherwise, if it does have a `subTheme` applied, ie 'sharkWeek', then the 'sharkWeek' sub-theme will overwrite the globally set '4thOfJuly' sub-theme.
+> Otherwise, if it does have a `subTheme` applied, eg 'sharkWeek', then the 'sharkWeek' sub-theme will overwrite the globally set '4thOfJuly' sub-theme.
 
 ## How Does it Work?
 
