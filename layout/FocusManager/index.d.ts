@@ -3,13 +3,15 @@ import Base from '../../Base';
 
 export default class FocusManager extends Base {
   protected _selectedChange(
-    selected: Array<lng.Component>,
-    prevSelected: Array<lng.Component>
+    selected: lng.Component | undefined,
+    prevSelected: lng.Component | undefined
   );
+  protected _selectedIndex: number;
 
   direction?: string;
   set items(items: Array<lng.__ComponentPatchObj> | Array<lng.Component>);
   get items(): Array<lng.Component>;
+  get Items(): lng.Element;
 
   get selected(): lng.Component;
   get selectedIndex(): number;
