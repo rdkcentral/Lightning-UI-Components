@@ -100,7 +100,7 @@ export default function withUpdates(Base) {
       }
     }
 
-    _logPropTable() {
+    logPropTable() {
       console.table(this._propTable);
     }
 

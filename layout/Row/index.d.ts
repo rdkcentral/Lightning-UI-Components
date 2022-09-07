@@ -25,15 +25,14 @@ export default class Row extends FocusManager {
   autoResizeHeight?: boolean;
   itemPosX?: number;
   itemPosY?: number;
+  startLazyScrollIndex?: number;
+  stopLazyScrollIndex?: number;
   style: RowStyles;
 
   shouldScrollLeft(): boolean;
   shouldScrollRight(): boolean;
   onScreenEffect(): void;
   transitionDone(): void;
-  appendItemsAt(items: lng.Component[], index: number): void;
-  prependItems(items: lng.Component[]): void;
-  removeItemAt(index: number): void;
 
   $itemChanged(): void;
 }

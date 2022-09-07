@@ -98,6 +98,48 @@ class FocusManager extends Base {
     this._refocus();
   }
 
+  appendItemsAt(items = [], idx) {
+    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
+    this._smooth = false;
+    this._lastAppendedIdx = addIndex;
+
+    items.forEach((item, itemIdx) => {
+      this.Items.childList.addAt(
+        {
+          ...item,
+          parentFocus: this.hasFocus()
+        },
+        addIndex + itemIdx
+      );
+    });
+
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedIndex += items.length;
+    }
+
+    this.requestUpdate();
+    this._refocus();
+  }
+
+  prependItems(items) {
+    this.appendItemsAt(items, 0);
+  }
+
+  removeItemAt(index) {
+    this._smooth = false;
+    this.Items.childList.removeAt(index);
+
+    if (
+      this.selectedIndex > index ||
+      this.selectedIndex === this.Items.children.length
+    ) {
+      this._selectedIndex--;
+    }
+
+    this.requestUpdate();
+    this._refocus();
+  }
+
   _checkSkipFocus() {
     // If the first item has skip focus when appended get the next focusable item
     const initialSelection = this.Items.children[this.selectedIndex];
