@@ -197,15 +197,19 @@ class Button extends Surface {
   }
 
   _updateSurfaceDimensions() {
+    let newWidth = this.w;
     if (this.fixed) {
-      this.w = this._w;
+      newWidth = this._w;
     } else {
       // if no title, ignore minWidth and use prefix/suffix width
-      const w =
+      newWidth =
         !this._hasTitle && (this._hasPrefix || this._hasSuffix)
           ? this._contentW + this._paddingX
           : Math.max(this._contentW + this._paddingX, this.style.minWidth);
-      this.w = w;
+    }
+    if (newWidth !== this.w) {
+      this.w = newWidth;
+      this.fireAncestors('$itemChanged');
     }
   }
 
