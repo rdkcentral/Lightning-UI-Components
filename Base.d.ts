@@ -21,7 +21,7 @@ export default class Base extends Base_base {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static get __themeStyles(): Record<string, any>;
   static get properties(): Array<string>;
-  static get tags(): Array<string>;
+  static get tags(): Array<string | { name: string; path: string }>;
 
   protected _whenEnabled: Promise<void>; //TODO move this to withUpdates mixin def
   protected _update(): void;
