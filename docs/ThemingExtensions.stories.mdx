@@ -1,9 +1,193 @@
-
 import { Meta, Description } from '@storybook/addon-docs';
+
+import ExtensionProgressBar from '../assets/images/ExtensionProgressBar.png';
+
+<style>{`
+.sbdocs.sbdocs-li {
+    color: white !important;
+  }
+`}</style>
 
 <Meta title="Docs / Theming/ Extensions" />
 
 # Extensions
 
-Documentation pending
+## What are Extensions?
 
+The component library cannot account for every design imaginable. That's where extensions come in.
+Extensions are exported functions that return a class.
+They allow users to add functionality to components without having to make the components from scratch themselves.
+
+For example, let's say a `Tile` element needs to have a certain feature.
+An extension containing that feature can be created and added to the `Tile` element without the developer having to make an entirely new component.
+
+Overall, extensions make LUI as flexible with [theming](../?path=/story/docs-theming-overview--page) as possible.
+
+### `withExtensions` Mixin
+
+Extensions follow a similar structure as mixins. Mixins return classes with added functionality without needing to create a new, standalone class that inherits from another.
+They make it so that functions that are often used can be quickly applied across components just by nesting the component in a mixin.
+In this way, mixins also simplify the amount of code in the component(s).
+
+The `withExtensions` mixin, specifically, contains functions that allow for the use of extensions in every component.
+In order to take advantage of the ability to use extensions, components must have the `withExtensions` mixin applied to it.
+
+> **Note:** All LUI components already have the `withExtensions` mixin applied.
+
+The example below shows how the `withExtensions` mixin is used on the `ProgressBar` component.
+
+```js
+export default withExtensions(ProgressBar)
+```
+
+> To reiterate, extensions are a way to modify any component at runtime using ES6 class inheritance patterns and apply that change easily across your entire application.
+
+## How to Apply an Extension
+
+### 1. Create the extension
+
+For instance:
+
+```js
+export default function textAdditionExtension(Base) {
+  return class extends Base {
+    _update() {
+      this.patch({
+        ExtensionAdded: {
+          type: TextBox,
+          content: 'Extension Applied!',
+          style: {
+            offsetY: 50
+          }
+        }
+      });
+      super._update();
+    }
+  };
+}
+```
+
+This example code extension will add a text box displaying 'Extension Applied!' to all the components the extension is applied to.
+
+### 2. Determine which theme(s) and component(s) to apply the extension to
+
+Now that we have the extension defined, we can apply the extension to components in our desired theme(s).
+We'll have to generate an array of objects containing the component(s) we want to add the extension to as well as the extension itself.
+
+Let's say we have a theme called 'customTheme' and we want to apply our newly created extension, `textAdditionExtension`, to the `ProgressBar` component.
+Our theme file where we define all our theme properties might look something like:
+
+##### ./customTheme/index.js
+```js
+import textAdditionExtension from '../../extensions/textAddition.extension';
+
+export default {
+  name: 'customTheme',
+  ...
+  extension: [
+    {
+      targetComponent: ['ProgressBar'],
+      extension: textAdditionExtension
+    }
+  ]
+};
+```
+
+> Note: Extensions can be written in a file on its own.
+> In doing so, you would just need to export the array and import the file into the theme rather than the specific extension displayed above.
+
+### 3. Make sure to call `context.setTheme()` or `context.updateTheme()`
+
+Although we've added the extension to our theme, it isn't truly applied until we set the theme that has our extension or call `updateTheme` on the extension property.
+
+That is, we must call:
+
+```js
+context.setTheme(customTheme);
+```
+
+or
+
+```js
+context.updateTheme({ extensions: textAdditionExtension });
+```
+
+After doing all three steps, for our example, we should see a `ProgressBar` with text below it saying 'Extension Applied!' as displayed below:
+
+<img src={ExtensionProgressBar} alt="Progress Bar with 'Extension Applied!' text below" width="600" />
+
+## Use Cases Outside of UI Enhancements
+
+There are many use cases for extensions since it's all about adding functionality to different components.
+This provides a fully customizable experience.
+
+Below are some specific examples that extensions can be used for:
+
+### Metrics
+
+Extensions can be used to toggle metrics collection.
+
+For example, let's say we want to collect how often users focus on certain movie `Tiles` to understand the general genre of interest among the audience.
+We can write all the functionality of detecting how many times the `Tile` elements are being put into focus state and apply that to the `Tile` components.
+As easy as we can apply the extension, we can just as easily remove the extension when we're done with metrics collection.
+
+### A/B Testing
+
+Another potential use of extensions is for A/B testing. If you're unfamiliar with A/B testing, it is also known as 'split testing.'
+It's a randomized experiment that explores how users view two or more variations of a component at the same time (often a control - the original and the variation).
+
+For our case, extensions can help us do A/B testing on, say, a new feature of `Tile` or a potential new look to `Tile`.
+For example, let's say we want to gauge if making the `Tile` components more vibrant in color would increase engagement.
+We can patch an update to the `Tile`'s colors in our extension.
+During testing, we can then apply the extension at theme level to random users and test to see if there are more interactions with the vibrant colored `Tile` components.
+
+If we find through A/B testing, the results are not in favor of the vibrant colored `Tile` components, we can easily discard our extension and move forward since we didn't have to touch the core code.
+
+## Things to Keep in Mind
+
+### `super._update()`
+
+If we consider extensions as the child of the existing component it builds off, the `super` keyword allows us to access the properties and methods in the existing/parent component.
+`_update` is an extremely important lifecycle event since it ensures everything is up to date.
+Together, `super._update()` grants us access to the entire `_update` lifecycle event of the parent component.
+
+For that reason, most often, we would want to include `super._update()` within our extension's `_update` lifecycle event.
+This way we ensure our extension functions are applying to the most up to date component.
+
+On the other hand, if we want to update the existing functions within the `_update` lifecycle event in the parent component, then that's when we wouldn't call `super._update()`.
+
+### `_destroy()`
+
+When creating extensions, one important lifecycle event to always include is `_destroy`.
+This way we make sure that all the components that use any extensions are able to clean up any unused elements or event listeners if the extension is removed during a theme change at runtime.
+
+An example is provided below, specifically for our `textAdditionExtension`:
+
+```js
+_destroy() {
+  this.patch({ ExtensionAdded: undefined });
+  super._destroy && super._destroy();
+}
+```
+
+### Order Matters!
+
+Extensions are applied top to bottom. That is, the first extension in the extensions array will be added first, then the second one, and so on.
+
+```js
+import focusRingExtension from '../../extensions/FocusRing.extension';
+import textAdditionExtension from '../../extensions/textAddition.extension';
+
+export default [
+  {
+    targetComponent: ['ProgressBar'],
+    extension: focusRingExtension
+  },
+  {
+    targetComponent: ['ProgressBar'],
+    extension: textAdditionExtension
+  }
+];
+```
+
+In this example, the `focusRingExtension` would be applied to the `ProgressBar` component first and then the `textAdditionExtension` would be applied.
