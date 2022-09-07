@@ -429,25 +429,6 @@ class Row extends FocusManager {
     this._refocus();
   }
 
-  prependItems(items) {
-    this.appendItemsAt(items, 0);
-  }
-
-  removeItemAt(index) {
-    this._smooth = false;
-    this.Items.childList.removeAt(index);
-
-    if (
-      this.selectedIndex > index ||
-      this.selectedIndex === this.Items.children.length
-    ) {
-      this._selectedIndex--;
-    }
-
-    this.requestUpdate();
-    this._refocus();
-  }
-
   $itemChanged() {
     this.queueRequestUpdate();
   }
