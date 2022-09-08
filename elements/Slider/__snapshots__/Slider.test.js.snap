@@ -87,7 +87,7 @@ Object {
               "visible": true,
               "w": 16,
               "x": 0,
-              "y": 10,
+              "y": 11,
               "zIndex": 5,
             },
             "SliderBar": Object {
@@ -437,7 +437,7 @@ Object {
               "visible": true,
               "w": 16,
               "x": 84.66666666666667,
-              "y": 10,
+              "y": 11,
               "zIndex": 5,
             },
             "SliderBar": Object {

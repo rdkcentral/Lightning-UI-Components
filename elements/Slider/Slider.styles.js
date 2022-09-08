@@ -13,7 +13,8 @@ export const base = theme => {
     minWidth: getWidthByColumnSpan(2),
     progressBarStyles: {},
     radius: size / 2,
-    sliderHeight: theme.spacer.md
+    sliderHeight: theme.spacer.md,
+    circleAnimation: {}
   };
 };
 
