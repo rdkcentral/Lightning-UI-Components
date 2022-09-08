@@ -9,7 +9,8 @@ import {
   parseInlineContent,
   isMarkupString,
   getDimension,
-  flatten
+  flatten,
+  degreesToRadians
 } from '.';
 
 describe('rgba2argb', () => {
@@ -283,5 +284,11 @@ describe('flatten', () => {
   it('should create a new array with all sub-array elements concatenated into it', () => {
     const arr = [0, 1, 2, [3, 4]];
     expect(flatten(arr)).toEqual([0, 1, 2, 3, 4]);
+  });
+});
+
+describe('degreesToRadians', () => {
+  it('should convert degrees to radians', () => {
+    expect(degreesToRadians(180)).toEqual(Math.PI);
   });
 });

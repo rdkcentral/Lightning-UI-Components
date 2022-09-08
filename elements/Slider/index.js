@@ -7,6 +7,7 @@ import { getValidColor } from '../../utils';
 import ProgressBar from '../ProgressBar';
 import Icon from '../Icon';
 import Knob from '../Knob';
+import { degreesToRadians } from '../../utils';
 
 class Slider extends Base {
   static get __componentName() {
@@ -46,7 +47,7 @@ class Slider extends Base {
   }
 
   static get properties() {
-    return ['max', 'min', 'step', 'value'];
+    return ['max', 'min', 'step', 'value', 'vertical'];
   }
 
   static get tags() {
@@ -72,10 +73,13 @@ class Slider extends Base {
     this._max = 100;
     this._step = 1;
     this._value = 0;
+    this._vertical = false;
   }
 
   _update() {
+    this._updateDirection();
     this._updateSliderLayout();
+    this._updateCirclePosition();
     this._updatePositions();
     this._updateArrows();
     this.signal('onChange', this.value, this);
@@ -102,42 +106,53 @@ class Slider extends Base {
       }
     }
     this._Circle.patch({
-      x: xCirclePosition,
-      y: this._SliderBar.y,
+      y: this._SliderBar.y + 1,
       alpha: this.mode === 'focused' ? 1 : 0
     });
+    if (Object.keys(this.style.circleAnimation).length) {
+      this._Circle.smooth = {
+        x: [xCirclePosition, this.style.circleAnimation]
+      };
+    } else {
+      this._Circle.x = xCirclePosition;
+    }
   }
 
   _handleLeft() {
-    if (this.mode !== 'disabled') {
-      if (typeof this.onLeft === 'function') {
-        return this.onLeft(this);
-      }
-      const value = this.value - this.step;
-      this.value = value >= this.min ? value : this.min;
-      this._updateCirclePosition();
-      return true;
+    if (this.mode === 'disabled') {
+      return false;
     }
-    return false;
+    this._decrementValue();
+    if (typeof this.onLeft === 'function') {
+      return this.onLeft(this);
+    }
+    return true;
   }
 
   _handleRight() {
-    if (this.mode !== 'disabled') {
-      if (typeof this.onRight === 'function') {
-        return this.onRight(this);
-      }
-      const value = this.value + this.step;
-      this.value = value <= this.max ? value : this.max;
-      this._updateCirclePosition();
-      return true;
+    if (this.mode === 'disabled') {
+      return false;
     }
-    return false;
+    this._incrementValue();
+    if (typeof this.onRight === 'function') {
+      return this.onRight(this);
+    }
+    return true;
+  }
+
+  _updateDirection() {
+    this.patch({
+      pivotX: 0,
+      rotation: this.vertical ? degreesToRadians(90) : 0,
+      mountY: this.vertical ? 0.5 : 0
+    });
   }
 
   _updateSliderLayout() {
+    const w = this.w || this.style.minWidth;
     this._Container.patch({
       h: this.style.containerHeight,
-      w: this.w || this.style.minWidth,
+      w,
       Bar: {
         x: this.style.arrowSpacing + this.style.arrowWidth,
         SliderBar: {
@@ -145,8 +160,8 @@ class Slider extends Base {
           w: this._calculatedSliderWidth,
           palette: this.palette,
           style: {
-            ...this.style.progressBarStyles,
-            animationDuration: 0
+            duration: 0,
+            ...this.style.progressBarStyles
           }
         }
       }
@@ -166,7 +181,6 @@ class Slider extends Base {
   }
 
   _updatePositions() {
-    this._updateCirclePosition();
     // fade arrows at min/max
     let sliderArrowAlphaLeft;
     let sliderArrowAlphaRight;
@@ -250,12 +264,73 @@ class Slider extends Base {
     }
   }
 
+  _decrementValue() {
+    const value = this.value - this.step;
+    this.value = value >= this.min ? value : this.min;
+    this._updateCirclePosition();
+  }
+
+  _incrementValue() {
+    const value = this.value + this.step;
+    this.value = value <= this.max ? value : this.max;
+    this._updateCirclePosition();
+  }
+
+  _handleUp() {
+    return false;
+  }
+
+  _handleDown() {
+    return false;
+  }
+
   get _calculatedSliderWidth() {
     const totalArrowSize =
       this.style.arrowSpacing * 2 + this.style.arrowWidth * 2;
     return this.w < totalArrowSize + this._Circle.w
       ? this.style.minWidth - totalArrowSize
       : this.w - totalArrowSize;
+  }
+
+  _setVertical(vertical) {
+    this._setState(vertical ? 'VerticalSlider' : '');
+    return vertical;
+  }
+
+  static _states() {
+    return [
+      class VerticalSlider extends this {
+        _handleLeft() {
+          return false;
+        }
+
+        _handleRight() {
+          return false;
+        }
+
+        _handleUp() {
+          if (this.mode === 'disabled') {
+            return false;
+          }
+          this._decrementValue();
+          if (typeof this.onUp === 'function') {
+            return this.onUp(this);
+          }
+          return true;
+        }
+
+        _handleDown() {
+          if (this.mode === 'disabled') {
+            return false;
+          }
+          this._incrementValue();
+          if (typeof this.onDown === 'function') {
+            return this.onDown(this);
+          }
+          return true;
+        }
+      }
+    ];
   }
 }
 

@@ -1,4 +1,5 @@
 import TestUtils from '../../test/lightning-test-utils';
+import { degreesToRadians } from '../../utils';
 import Slider from '.';
 
 const createSlider = TestUtils.makeCreateComponent(Slider);
@@ -225,26 +226,49 @@ describe('Slider', () => {
         const updatedWidth = testRenderer.getInstance()._SliderBar._Progress.w;
         expect(updatedWidth).toBeGreaterThan(0);
       });
+
+      it('should call onRight function if passed as a property to Slider', () => {
+        const onRightSpy = jest.fn();
+        slider.onRight = onRightSpy;
+        expect(onRightSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Right');
+
+        expect(onRightSpy).toHaveBeenCalled();
+      });
+
+      it('should ignore the key event if the slider is vertical', () => {
+        const onRightSpy = jest.fn();
+        slider.onRight = onRightSpy;
+        slider.vertical = true;
+
+        expect(onRightSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Right');
+
+        expect(onRightSpy).not.toHaveBeenCalled();
+      });
     });
 
-    describe('left', () => {
+    describe('up', () => {
       beforeEach(() => {
         [slider, testRenderer] = createSlider({
+          vertical: true,
           max: 2,
           value: 2
         });
       });
 
       it('decreases the value', () => {
-        slider._handleLeft();
+        testRenderer.keyPress('Up');
         expect(slider.value).toEqual(1);
       });
 
       it('stops decreasing at the min value', () => {
-        slider._handleLeft();
-        slider._handleLeft();
+        testRenderer.keyPress('Up');
+        testRenderer.keyPress('Up');
         expect(slider.value).toEqual(0);
-        slider._handleLeft();
+        testRenderer.keyPress('Up');
         expect(slider.value).toEqual(0);
       });
 
@@ -269,6 +293,73 @@ describe('Slider', () => {
         testRenderer.update();
         const updatedWidth = slider._SliderBar._Progress.w;
         expect(updatedWidth).toBeLessThan(initialWidth);
+      });
+
+      it('should call onUp function if passed as a property to Slider', () => {
+        const onUpSpy = jest.fn();
+        slider.onUp = onUpSpy;
+        expect(onUpSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Up');
+
+        expect(onUpSpy).toHaveBeenCalled();
+      });
+
+      it('should ignore the key event if the slider is not vertical', () => {
+        const onUpSpy = jest.fn();
+        slider.onUp = onUpSpy;
+        slider.vertical = false;
+
+        expect(onUpSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Up');
+
+        expect(onUpSpy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('down', () => {
+      beforeEach(() => {
+        [slider, testRenderer] = createSlider({
+          vertical: true,
+          max: 2,
+          value: 0
+        });
+      });
+
+      it('increases the value', () => {
+        testRenderer.keyPress('Down');
+        expect(slider.value).toEqual(1);
+      });
+
+      it('stops increasing at max value', () => {
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        expect(slider.value).toEqual(2);
+        testRenderer.keyPress('Down');
+        expect(slider.value).toEqual(2);
+      });
+
+      it('should call onDown function if passed as a property to Slider', () => {
+        const onDownSpy = jest.fn();
+        slider.onDown = onDownSpy;
+        expect(onDownSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Down');
+
+        expect(onDownSpy).toHaveBeenCalled();
+      });
+
+      it('should ignore the key event if the slider is vertical', () => {
+        const onDownSpy = jest.fn();
+        slider.onDown = onDownSpy;
+        slider.vertical = false;
+
+        expect(onDownSpy).not.toHaveBeenCalled();
+
+        testRenderer.keyPress('Down');
+
+        expect(onDownSpy).not.toHaveBeenCalled();
       });
     });
   });
@@ -305,6 +396,16 @@ describe('Slider', () => {
       slider._handleRight();
       await slider.__updateSpyPromise;
       expect(slider.signal).toBeCalledWith('onChange', 51, slider);
+    });
+  });
+
+  describe('when a vertical slider is rendered', () => {
+    beforeEach(() => {
+      [slider, testRenderer] = createSlider({ vertical: true });
+    });
+
+    it('should rotate the default slider by 90 degrees', () => {
+      expect(slider.rotation).toBe(degreesToRadians(90));
     });
   });
 });

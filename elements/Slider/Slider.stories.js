@@ -29,14 +29,19 @@ BasicSlider.args = {
   min: 0,
   max: 100,
   value: 50,
-  step: 1
+  step: 1,
+  vertical: false
 };
 BasicSlider.argTypes = {
   ...createModeControl(),
   min: { control: 'number', description: 'lower bound of value' },
   max: { control: 'number', description: 'upper bound of value' },
   value: { control: 'number', description: 'current value' },
-  step: { control: 'number', description: '+/- value on change' }
+  step: { control: 'number', description: '+/- value on change' },
+  vertical: {
+    control: 'boolean',
+    description: 'If true, the slider is displayed vertically'
+  }
 };
 
 export const SignalHandling = () =>

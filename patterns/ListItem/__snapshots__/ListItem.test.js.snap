@@ -11927,7 +11927,7 @@ Object {
                           "visible": true,
                           "w": 0,
                           "x": 1.6933333333333334,
-                          "y": 0,
+                          "y": 1,
                           "zIndex": 5,
                         },
                         "SliderBar": Object {
@@ -12612,7 +12612,7 @@ Object {
                           "visible": true,
                           "w": 0,
                           "x": 0,
-                          "y": 0,
+                          "y": 1,
                           "zIndex": 5,
                         },
                         "SliderBar": Object {

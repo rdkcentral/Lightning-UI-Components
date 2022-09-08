@@ -315,3 +315,5 @@ export function downloadFile(content, fileName, contentType) {
   dlAnchorElem.setAttribute('download', fileName);
   dlAnchorElem.click();
 }
+
+export const degreesToRadians = deg => deg * (Math.PI / 180);

@@ -2,70 +2,74 @@ import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import ScrollWrapper from '.';
 
+const createScrollWrapper = TestUtils.makeCreateComponent(ScrollWrapper, {
+  h: 100,
+  w: 100
+});
+
 const lorum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.';
-
-const createScrollWrapper = TestUtils.makeCreateComponent(ScrollWrapper);
 
 describe('ScrollWrapper', () => {
   let scrollWrapper, testRenderer;
 
   beforeEach(() => {
     [scrollWrapper, testRenderer] = createScrollWrapper({
-      h: 100,
-      w: 100,
       scrollDuration: 0,
       content: lorum
     });
     testRenderer.update();
   });
 
-  afterEach(() => {
-    scrollWrapper = null;
-    testRenderer = null;
-  });
-
-  it('renders a content string', () => {
+  it('renders a content string', async () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    expect(scrollWrapper._ScrollContainer.children[0].text.text).toBe(
+    expect(scrollWrapper._ScrollContainer.children[0].content).toBe(
       scrollWrapper.content
     );
-    expect(scrollWrapper._computedScrollContainerHeight).toBeGreaterThan(
+    expect(scrollWrapper._totalScrollContainerHeight).toBeGreaterThan(
       scrollWrapper.h
     );
   });
 
-  it('renders a content array', () => {
-    [scrollWrapper, testRenderer] = createScrollWrapper({
-      h: 100,
-      w: 100,
-      scrollDuration: 0,
-      content: [
-        {
-          text: 'Heading!',
-          style: {
-            fontFace: 'XfinityBrownBold',
-            alignContent: 'center'
+  it('renders a content array', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        scrollDuration: 0,
+        content: [
+          {
+            text: 'Heading!',
+            style: {
+              fontFace: 'XfinityBrownBold',
+              alignContent: 'center'
+            }
+          },
+          {
+            text: lorum,
+            style: {
+              alignContent: 'left',
+              fontSize: '30'
+            }
+          },
+          {
+            rect: true,
+            w: 100,
+            h: 100
           }
-        },
-        {
-          text: lorum,
-          style: {
-            alignContent: 'left',
-            fontSize: '30'
-          }
-        }
-      ]
-    });
+        ]
+      },
+      {
+        spyOnMethods: ['_update']
+      }
+    );
     testRenderer.update();
 
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
-    expect(scrollWrapper._ScrollContainer.children[0].text.text).toBe(
+    expect(scrollWrapper._ScrollContainer.children[0].content).toBe(
       scrollWrapper.content[0].text
     );
-    expect(scrollWrapper._ScrollContainer.children[1].text.text).toBe(
+    expect(scrollWrapper._ScrollContainer.children[1].content).toBe(
       scrollWrapper.content[1].text
     );
     expect(scrollWrapper._ScrollContainer.finalH).toBeGreaterThan(
@@ -75,8 +79,6 @@ describe('ScrollWrapper', () => {
 
   it('gracefully fails if no content is provided', () => {
     [scrollWrapper, testRenderer] = createScrollWrapper({
-      h: 100,
-      w: 100,
       scrollDuration: 0,
       content: undefined
     });
@@ -84,50 +86,132 @@ describe('ScrollWrapper', () => {
 
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+    expect(scrollWrapper._ScrollContainer.children.length).toBe(0);
   });
 
-  it('hides scroll bar on unfocus', () => {
+  it('should not display a scroll bar when unfocused', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        content: 'content',
+        showScrollBar: true
+      },
+      { focused: false }
+    );
+
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(0);
+
+    // trigger _update by updating content property
+    // scrollbar should remain hidden until ScrollWrapper is the focused element
+    scrollWrapper.content = 'new content';
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(0);
+  });
+
+  it('should display a scroll bar when focused', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper({
+      content: 'content',
+      showScrollBar: true
+    });
+
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(1);
+
+    // trigger _update by updating content property
+    scrollWrapper.content = 'new content';
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(1);
+  });
+
+  it('hides and shows the scroll bar related to focus', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        content: 'content',
+        showScrollBar: true
+      },
+      { focused: false }
+    );
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(0);
+
+    testRenderer.focus();
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(1);
+
     testRenderer.unfocus();
-    testRenderer.update();
-    expect(scrollWrapper._ScrollBarWrapper.alpha).toBe(0);
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(0);
+  });
+
+  it('should not display a scrollbar if showScrollBar property is false', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper({
+      content: 'content',
+      showScrollBar: false
+    });
+    await TestUtils.completeAnimation(scrollWrapper._Slider, 'alpha');
+    expect(scrollWrapper._Slider.alpha).toBe(0);
   });
 
   it('scrolls up and down', () => {
     expect(scrollWrapper._scrollContainerY).toBe(0);
-    expect(scrollWrapper._scrollBarY).toBe(0);
+    expect(scrollWrapper._Slider.value).toBe(0);
 
     testRenderer.keyPress('Down');
 
     expect(scrollWrapper._scrollContainerY).toBeLessThan(0);
-    expect(scrollWrapper._scrollBarY).toBeGreaterThan(0);
+    expect(scrollWrapper._Slider.value).toBeGreaterThan(0);
 
     testRenderer.keyPress('Up');
 
     expect(scrollWrapper._scrollContainerY).toBe(0);
-    expect(scrollWrapper._scrollBarY).toBe(0);
+    expect(scrollWrapper._Slider.value).toBe(0);
   });
 
-  it('does not scroll beyond boundaries', done => {
+  it('does not scroll beyond boundaries', async () => {
+    scrollWrapper.h = scrollWrapper._totalScrollContainerHeight - 3;
+    scrollWrapper.scrollStep = 2;
+
+    expect(scrollWrapper._ScrollContainer.y).toBe(0);
+
+    testRenderer.keyPress('Down');
+    testRenderer.update();
+
+    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
+
+    testRenderer.keyPress('Down');
+    testRenderer.update();
+
+    expect(scrollWrapper._ScrollContainer.y).toEqual(
+      scrollWrapper.renderHeight - scrollWrapper._totalScrollContainerHeight
+    );
+  });
+
+  it('should fire a singal when scrolling has reached the end of the scroll container', () => {
+    scrollWrapper.h = scrollWrapper._totalScrollContainerHeight - 1;
+    jest.spyOn(scrollWrapper, 'fireAncestors');
+    expect(scrollWrapper.fireAncestors).not.toHaveBeenCalled();
+
+    testRenderer.keyPress('Down');
+
+    expect(scrollWrapper.fireAncestors).toHaveBeenCalledWith(
+      '$scrollChanged',
+      'endDown',
+      scrollWrapper
+    );
+  });
+
+  it('should scroll up by the scroll step', () => {
+    scrollWrapper.scrollStep = 100;
+    testRenderer.keyPress('Down');
+
+    const initialY = scrollWrapper._ScrollContainer.y;
+    scrollWrapper.scrollStep = 1;
     testRenderer.keyPress('Up');
-    expect(scrollWrapper._scrollContainerY).toBe(0);
-    expect(scrollWrapper._scrollBarY).toBe(0);
 
-    scrollWrapper.autoScrollDelay = 0;
-    scrollWrapper.autoScrollSpeed = 0;
-    scrollWrapper.scrollStep = scrollWrapper._ScrollContainer.h;
-    scrollWrapper.autoScroll = true;
+    testRenderer.update();
 
-    setTimeout(() => {
-      testRenderer.update();
-      expect(scrollWrapper._ScrollContainer.y).toBe(
-        scrollWrapper.h - scrollWrapper.renderHeight
-      );
-      testRenderer.keyPress('Down');
-      expect(scrollWrapper._ScrollContainer.y).toBe(
-        scrollWrapper.h - scrollWrapper.renderHeight
-      );
-      done();
-    }, 1);
+    expect(scrollWrapper._ScrollContainer.y).not.toBe(0);
+    expect(scrollWrapper._ScrollContainer.y).toBeGreaterThan(initialY);
   });
 
   it('resets scroll', () => {
@@ -136,7 +220,7 @@ describe('ScrollWrapper', () => {
     scrollWrapper.resetScroll();
     testRenderer.update();
     expect(scrollWrapper._ScrollContainer.y).toBe(0);
-    expect(scrollWrapper._ScrollBar.y).toBe(0);
+    expect(scrollWrapper._Slider.value).toBe(0);
   });
 
   it('gets and sets scrollStep', () => {
@@ -145,16 +229,29 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper._scrollStep).toBe(5);
   });
 
-  it('autoScrolls', done => {
-    scrollWrapper.autoScrollDelay = 0;
-    scrollWrapper.autoScrollSpeed = 0;
-    scrollWrapper.scrollStep = 100;
-    scrollWrapper.autoScroll = true;
-    setTimeout(() => {
-      testRenderer.update();
-      expect(scrollWrapper._ScrollContainer.y).toBe(-100);
-      done();
-    }, 1);
+  it('autoScrolls', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        h: 50,
+        w: 100,
+        autoScrollDelay: 0,
+        autoScrollSpeed: 1,
+        scrollStep: 100,
+        autoScroll: true
+      },
+      { spyOnMethods: ['_performAutoScroll'] }
+    );
+
+    expect(scrollWrapper._ScrollContainer.y).toBe(0);
+
+    await scrollWrapper.__performAutoScrollSpyPromise;
+    testRenderer.update();
+
+    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
+
+    await scrollWrapper.__performAutoScrollSpyPromise;
+
+    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
   });
 
   it('should fade out scrollable content by default', async () => {
