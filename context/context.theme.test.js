@@ -57,7 +57,17 @@ describe('theme context', () => {
       expect(themeManager.getTheme().foo).toBe('bar');
       themeManager.setTheme({ colors: { primary: ['#ff0000', 100] } });
       expect(themeManager.getTheme().colors.primary).toBe(4294901760);
+
+      const processedThemeWithArray = themeManager._processTheme([
+        {
+          componentStyle: { Tile: { radius: [1, 2, 3, 4] } }
+        }
+      ]);
+      expect(processedThemeWithArray.componentStyle.Tile.radius).toEqual([
+        1, 2, 3, 4
+      ]);
     });
+
     // NOTE: This error is currently unreachable by public methods.
     // It is only used internally and is always called with an array
     it('should throw an error if attempting to process a non array theme update', () => {

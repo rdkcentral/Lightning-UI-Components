@@ -254,7 +254,9 @@ export class ThemeManager {
       } else if (
         'extensions' === key ||
         'function' === typeof value ||
-        ('object' === typeof value && 'Object' !== value.constructor.name)
+        ('object' === typeof value &&
+          'Object' !== value.constructor.name &&
+          !Array.isArray(value))
       ) {
         // Functions will not stringify. They will be merged after. Functions are only supported at the root theme level. ex. theme.getFocusScale(w). Also supports custom objects with getters and setters
         themeFunctions[key] = value;
