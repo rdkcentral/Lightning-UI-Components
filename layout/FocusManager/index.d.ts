@@ -10,7 +10,7 @@ export default class FocusManager extends Base {
 
   direction?: string;
   set items(items: Array<lng.__ComponentPatchObj> | Array<lng.Component>);
-  get items(): Array<lng.Component>;
+  get items(): Array<lng.__ComponentPatchObj> | Array<lng.Component>;
   get Items(): lng.Element;
 
   get selected(): lng.Component;
