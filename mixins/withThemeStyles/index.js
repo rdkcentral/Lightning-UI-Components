@@ -520,7 +520,7 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     _unfocus() {
-      if (this.mode !== 'disabled') this.mode = 'unfocused';
+      if (this.mode === 'focused') this.mode = 'unfocused';
       super._unfocus();
     }
 
