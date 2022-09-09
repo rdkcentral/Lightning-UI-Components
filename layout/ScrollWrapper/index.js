@@ -144,25 +144,35 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
 
   _updateScrollContainer() {
     this._waitForComponentLoad().then(() => {
+      // ScrollContainer uses flexbox, ensure a full stage layout so finalH is accurate
+      this.stage.update();
       this._setScrollContainerSize();
       this._updateFadeContainer();
       this._initScrollBar();
+      this._updateFadeContainer();
     });
-    this._updateFadeContainer();
   }
 
   _updateFadeContainer() {
-    if (this._shouldFadeContent) {
-      this._FadeContainer.patch({
-        h: this.h,
-        w: this._contentWidth,
-        rtt: true,
-        shader: {
-          type: lng.shaders.FadeOut,
-          bottom: this._fadeHeight
-        }
-      });
-    }
+    const hasContentToScrollTo = this._ScrollContainer.finalH > this.h;
+    const isLastContentVisible =
+      this._scrollContainerY + this._computedScrollContainerHeight <=
+      this.renderHeight;
+
+    const shouldFade =
+      this.fadeContent && hasContentToScrollTo && !isLastContentVisible;
+
+    this._FadeContainer.patch({
+      h: this.h,
+      w: this._contentWidth,
+      rtt: true,
+      shader: shouldFade
+        ? {
+            type: lng.shaders.FadeOut,
+            bottom: this._fadeHeight
+          }
+        : undefined
+    });
   }
 
   _initScrollableContent() {
@@ -303,6 +313,7 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
         this._scrollContainerY + this._computedScrollContainerHeight <=
         this.renderHeight
       ) {
+        this._updateFadeContainer();
         this._autoScrollComplete = true;
         this.fireAncestors('$scrollChanged', 'endDown', this);
       }
@@ -350,6 +361,9 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
       if (this._scrollContainerY >= 0) {
         this.fireAncestors('$scrollChanged', 'endUp', this);
       }
+      if (!this._FadeContainer.shader) {
+        this._updateFadeContainer();
+      }
     }
   }
 
@@ -372,7 +386,7 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
   }
 
   get _computedScrollContainerHeight() {
-    return this._ScrollContainer.finalH + this._fadeHeight;
+    return this._ScrollContainer.finalH;
   }
 
   _setAutoScroll(val) {
@@ -433,12 +447,5 @@ export default class ScrollWrapper extends withStyles(Base, styles) {
 
   $itemChanged() {
     this._updateScrollContainer();
-  }
-
-  _shouldFadeContent() {
-    return (
-      this._fadeContent &&
-      this._computedScrollContainerHeight - this._fadeHeight > this.h
-    );
   }
 }
