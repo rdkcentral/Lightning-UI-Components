@@ -3,6 +3,17 @@ import ScrollWrapper from '.';
 import { Card } from '../../patterns';
 import mdx from './ScrollWrapper.mdx';
 
+const terms =
+  'By activating, you agree that you want to enable cloud DVR technology to ' +
+  'your Xfinity TV subscription on additional supported devices like computers and ' +
+  'tablets, as well as the TV connected to your set-top DVR via Comcast’s network. If ' +
+  'subscribed to X1 DVR with cloud technology, your acceptance also confirms that when you ' +
+  'record programs on your set-top DVR you also want to save and store them automatically ' +
+  'in Comcast’s network in several formats to (1) enable you to play them back (and ' +
+  'navigate within them) on additional supported devices like computers and tablets, as ' +
+  'well as the TV connected to your set-top DVR, and (2) optimize the video and audio ' +
+  'quality of your viewing experience during playback.';
+
 export default {
   title: 'Layout / ScrollWrapper',
   parameters: {
@@ -22,6 +33,7 @@ export default {
     autoScroll: false,
     autoScrollDelay: 2000,
     autoScrollSpeed: 200,
+    content: terms,
     fadeContent: true,
     focused: true,
     scrollDuration: 0.2,
@@ -32,6 +44,7 @@ export default {
     autoScroll: { control: 'boolean' },
     autoScrollDelay: { control: 'number' },
     autoScrollSpeed: { control: 'number' },
+    content: { control: 'text' },
     focused: { control: 'boolean' },
     scrollChanged: { action: 'scrollChanged' },
     scrollDuration: { control: 'number' },
@@ -55,16 +68,7 @@ export const Basic = args =>
           showScrollBar: args.showScrollBar,
           autoScrollDelay: args.autoScrollDelay,
           autoScrollSpeed: args.autoScrollSpeed,
-          content:
-            'By activating, you agree that you want to enable cloud DVR technology to ' +
-            'your Xfinity TV subscription on additional supported devices like computers and ' +
-            'tablets, as well as the TV connected to your set-top DVR via Comcast’s network. If ' +
-            'subscribed to X1 DVR with cloud technology, your acceptance also confirms that when you ' +
-            'record programs on your set-top DVR you also want to save and store them automatically ' +
-            'in Comcast’s network in several formats to (1) enable you to play them back (and ' +
-            'navigate within them) on additional supported devices like computers and tablets, as ' +
-            'well as the TV connected to your set-top DVR, and (2) optimize the video and audio ' +
-            'quality of your viewing experience during playback.',
+          content: args.content,
           signals: {
             scrollChanged: true
           }

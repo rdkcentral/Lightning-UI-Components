@@ -1,5 +1,9 @@
+import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
 import ScrollWrapper from '.';
+
+const lorum =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.';
 
 const createScrollWrapper = TestUtils.makeCreateComponent(ScrollWrapper);
 
@@ -11,8 +15,7 @@ describe('ScrollWrapper', () => {
       h: 100,
       w: 100,
       scrollDuration: 0,
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.'
+      content: lorum
     });
     testRenderer.update();
   });
@@ -47,7 +50,7 @@ describe('ScrollWrapper', () => {
           }
         },
         {
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.',
+          text: lorum,
           style: {
             alignContent: 'left',
             fontSize: '30'
@@ -154,17 +157,62 @@ describe('ScrollWrapper', () => {
     }, 1);
   });
 
-  it('fades out scrollable content', () => {
-    scrollWrapper.content = 'my string';
-    scrollWrapper._update();
-    testRenderer.forceAllUpdates();
-    expect(scrollWrapper._shouldFadeContent()).toBe(false);
+  it('should fade out scrollable content by default', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        content: 'my string',
+        h: 100,
+        w: 80
+      },
+      {
+        spyOnMethods: ['_updateFadeContainer']
+      }
+    );
 
-    scrollWrapper.content =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu aliquam libero. Sed ipsum ligula, egestas et sollicitudin eget, pulvinar et neque. Curabitur commodo nisi sit amet ligula ultrices, a sodales ante consequat. Ut ullamcorper odio et erat sagittis volutpat. Cras consequat dolor in nisi sagittis, quis volutpat mi tempor. Praesent condimentum quis purus eget sodales. Praesent tempus suscipit felis, quis gravida massa tempor ut.';
+    await scrollWrapper.__updateFadeContainerSpyPromise;
+    testRenderer.update();
 
-    scrollWrapper._update();
-    testRenderer.forceAllUpdates();
-    expect(scrollWrapper._shouldFadeContent()).toBe(true);
+    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
+      lng.shaders.FadeOut
+    );
+
+    scrollWrapper.h = 10;
+    scrollWrapper.content = lorum;
+    await scrollWrapper.__updateFadeContainerSpyPromise;
+    testRenderer.update();
+
+    expect(scrollWrapper._FadeContainer.shader).toBeInstanceOf(
+      lng.shaders.FadeOut
+    );
+  });
+
+  it('should not fade out scrollable content when fadeContent property is false', async () => {
+    [scrollWrapper, testRenderer] = createScrollWrapper(
+      {
+        content: 'my string',
+        fadeContent: false,
+        h: 100,
+        w: 80
+      },
+      {
+        spyOnMethods: ['_updateFadeContainer']
+      }
+    );
+
+    await scrollWrapper.__updateFadeContainerSpyPromise;
+    testRenderer.update();
+
+    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
+      lng.shaders.FadeOut
+    );
+
+    scrollWrapper.h = 10;
+    scrollWrapper.content = lorum;
+    await scrollWrapper.__updateFadeContainerSpyPromise;
+    testRenderer.update();
+
+    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
+      lng.shaders.FadeOut
+    );
   });
 });
