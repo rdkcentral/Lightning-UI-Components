@@ -187,6 +187,10 @@ class TextBox extends Base {
         fontStyle[key] = this[`_${prop}`];
       }
     });
+    this._updateText(fontStyle);
+  }
+
+  _updateText(fontStyle) {
     this._Text.patch({
       y: this.style.offsetY,
       x: this.style.offsetX,
