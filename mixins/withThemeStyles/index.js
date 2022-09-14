@@ -370,7 +370,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * Allow for w to be overwritten by user if also in component's style file
      */
     get w() {
-      return this._w || this._componentStyle.w || 0;
+      return (this._wSetByUser && this._w) || this._componentStyle.w || 0;
     }
 
     set w(v) {
@@ -381,7 +381,7 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     get h() {
-      return this._h || this._componentStyle.h || 0; // Add getH to allow override
+      return (this._hSetByUser && this._h) || this._componentStyle.h || 0; // Add getH to allow override
     }
 
     set h(v) {
