@@ -9,8 +9,8 @@ export default class FocusManager extends Base {
   protected _selectedIndex: number;
 
   direction?: string;
-  set items(items: Array<lng.__ComponentPatchObj> | Array<lng.Component>);
-  get items(): Array<lng.__ComponentPatchObj> | Array<lng.Component>;
+  set items(items: Array<lng.__ComponentPatchObj | lng.Component>);
+  get items(): Array<lng.__ComponentPatchObj | lng.Component>;
   get Items(): lng.Element;
 
   get selected(): lng.Component;
