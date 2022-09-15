@@ -411,7 +411,7 @@ export default function withThemeStyles(Base, mixinStyle) {
       let proto;
       do {
         proto = !proto ? this : Object.getPrototypeOf(proto);
-        if (proto && proto.constructor.name !== this.constructor.name) {
+        if (proto && proto.constructor) {
           // Check if style was passed in as param into mixin withThemeStyles(MyComponent, {foo: 'bar'})
           if (
             proto.constructor.__mixinStyle &&
