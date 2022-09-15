@@ -47,7 +47,11 @@ class FocusRing extends Base {
     if (Array.isArray(this.style.radius)) {
       radius = new Array(4)
         .fill()
-        .map((_, index) => (this.style.radius[index] || 0) + focusRingPadding);
+        .map((_, index) =>
+          this.style.radius[index]
+            ? this.style.radius[index] + focusRingPadding
+            : 0
+        );
     } else {
       radius = this.style.radius ? this.style.radius + focusRingPadding : 0;
       radius = Math.max(0, radius); // Ensure number is always positive

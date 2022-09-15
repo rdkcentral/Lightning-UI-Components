@@ -67,9 +67,28 @@ describe('FocusRing', () => {
     done();
   });
 
+  it('should set radius to 0 and not add padding', done => {
+    [focusRing, testRenderer] = createFocusRing({ style: { radius: 0 } });
+    expect(
+      parseInt(focusRing.tag('Ring').texture._lookupId.split(',').pop())
+    ).toEqual(0);
+    done();
+  });
+
+  it('should set radius to 0 in an array and not add padding', done => {
+    [focusRing, testRenderer] = createFocusRing({
+      style: { radius: [0, 0, 0, 0] }
+    });
+    expect(
+      parseInt(focusRing.tag('Ring').texture._lookupId.split(',').pop())
+    ).toEqual(0);
+    done();
+  });
+
   it('should set the spacing', () => {
     const spacing = 50;
     [focusRing, testRenderer] = createFocusRing({ style: { spacing } });
+
     const rectSettings = focusRing
       .tag('Ring')
       .texture._lookupId.replace('rect', '')
