@@ -4,7 +4,7 @@ import Badge from '../Badge';
 import Checkbox from '../Checkbox';
 import context from '../../context';
 import Label from '../Label';
-import MetadataTile from '../Metadata'; //TODO: Change this to MetadataTile once refactor is complete
+import MetadataTile from '../MetadataTile';
 import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
 import Surface from '../Surface';

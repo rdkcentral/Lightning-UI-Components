@@ -4,14 +4,16 @@ import MetadataTile from '.';
 
 # MetadataTile
 
-Metadata to be displayed along with "Tiles" displaying a title and description.
+Metadata to be displayed along with `Tiles`.
 
 ## Usage
 
-The basic component requires just a `firstLine`, but further description can be added with `secondLine`:
+MetadataTile can be used with title (text), subtitle (inline content) or description (text), and/or a logo.
 
 ```js
 import { MetadataTile } from '@lightning/ui';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
 
 class Example extends lng.Component {
   static _template() {
@@ -19,8 +21,24 @@ class Example extends lng.Component {
       MetadataTile: {
         type: MetadataTile,
         w: 400,
-        firstLine: 'Title text',
-        secondLine: 'Subtitle text'
+        h: 300,
+        title: 'Title',
+        subtitle: [
+          '94%',
+          {
+            icon: lightningbolt,
+            color: getHexColor('00ff00'),
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            title: 'Rotten Tomatoes rating'
+          }
+        ],
+        logo: circle,
+        logoWidth: 32,
+        logoHeight: 32
       }
     };
   }
@@ -35,20 +53,25 @@ class Example extends lng.Component {
 
 ### Properties
 
-| name                     | type                                                                                | required | default    | description                                                                                                                              |
-| ------------------------ | ----------------------------------------------------------------------------------- | -------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| w                        | number                                                                              | true     | 410        | width of the entire component, and necessary to compute the focus width                                                                  |
-| firstLine                | string\|array                                                                       | false    | -          | used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the title line                     |
-| secondLine               | string\|array                                                                       | false    | -          | used as the "content" in an [InlineContent](?path=/docs/inlinecontent--basic) component and generates the subtitle line                  |
-| justify                  | 'flex-start'\|'flex-end'\|'center'\|'space-between'\|'space-around'\|'space-evenly' | false    | flex-start | alignment of first line flexbox content                                                                                                  |
-| marqueeProperties        | object                                                                              | false    | {}         | properties to update the first line marquee scrolling (see [Marquee](?path=/docs/marquee--basic) component for all available properties) |
-| firstLineTextProperties  | object                                                                              | false    | -          | font properties to apply to the first line                                                                                               |
-| secondLineTextProperties | object                                                                              | false    | -          | font properties to apply to the second line                                                                                              |
-| focusScaleConst          | number                                                                              | false    | 1.12       | adds a custom scale of the component's width on focus                                                                                    |
-| unfocusScaleConst        | number                                                                              | false    | 1          | adds a custom scale of the component's width on unfocus                                                                                  |
+| name         | type           | required             | default | description                                                             |
+| ------------ | -------------- | -------------------- | ------- | ----------------------------------------------------------------------- |
+| description  | string         | false                | -       | description text to place under title (hides subtitle)                  |
+| logo         | string         | false                | -       | logo to display at bottom of component                                  |
+| logoHeight   | number         | true (if using logo) | -       | height of logo                                                          |
+| logoPosition | string         | false                | 'right' | which side to place logo (`right` or `left`)                            |
+| logoTitle    | string         | true (if using logo) | -       | title of logo to use for announcer                                      |
+| logoWidth    | number         | true (if using logo) | -       | width of logo                                                           |
+| subtitle     | inline content | false                | -       | relevant content data in the middle (hidden if description is provided) |
+| title        | string         | false                | -       | first line or headline of the content                                   |
 
-### Styles
+### Styles Properties
 
-Styled components can be adjusted by composing using [withStyles](?path=/docs/mixins-withstyles--basic). Below is the default `styles` object
-
-<Theme theme={MetadataTile.styles} />
+| name                      | type   | description                                                     |
+| ------------------------- | ------ | --------------------------------------------------------------- |
+| descriptionTextProperties | object | text properties for description                                 |
+| fadeWidth                 | number | width of fade applied to second line if text encroaches on logo |
+| logoHeight                | number | height for logo                                                 |
+| logoPadding               | number | spacing between logo and secondLine                             |
+| logoWidth                 | number | width for logo                                                  |
+| subtitleTextProperties    | object | text properties for subtitle                                    |
+| titleTextProperties       | object | text properties for title                                       |

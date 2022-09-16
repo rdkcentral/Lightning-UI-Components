@@ -74,9 +74,7 @@ export default class ListItem extends withStyles(ListItemBase, styles) {
       this._Left.patch({ Title: undefined });
       return;
     }
-    if (!this._Title) {
-      this._Left.patch({ Title: { type: MarqueeText } });
-    }
+
     this._Left.patch({
       w: this._textWidth,
       Title: {

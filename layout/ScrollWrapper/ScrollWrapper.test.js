@@ -254,62 +254,38 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
   });
 
-  it('should fade out scrollable content by default', async () => {
-    [scrollWrapper, testRenderer] = createScrollWrapper(
-      {
-        content: 'my string',
-        h: 100,
-        w: 80
-      },
-      {
-        spyOnMethods: ['_updateFadeContainer']
-      }
-    );
+  it('should fade out scrollable content by default', () => {
+    scrollWrapper.content = 'my string';
+    scrollWrapper.requestUpdate(true);
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper._FadeContainer.shader).toBeNull();
 
-    await scrollWrapper.__updateFadeContainerSpyPromise;
-    testRenderer.update();
-
-    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
-      lng.shaders.FadeOut
-    );
-
-    scrollWrapper.h = 10;
     scrollWrapper.content = lorum;
-    await scrollWrapper.__updateFadeContainerSpyPromise;
-    testRenderer.update();
 
+    scrollWrapper._update();
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper._FadeContainer.shader).not.toBeNull();
     expect(scrollWrapper._FadeContainer.shader).toBeInstanceOf(
       lng.shaders.FadeOut
     );
   });
 
-  it('should not fade out scrollable content when fadeContent property is false', async () => {
-    [scrollWrapper, testRenderer] = createScrollWrapper(
-      {
-        content: 'my string',
-        fadeContent: false,
-        h: 100,
-        w: 80
-      },
-      {
-        spyOnMethods: ['_updateFadeContainer']
-      }
-    );
+  it('should not fade out scrollable content when fadeContent property is false', () => {
+    scrollWrapper.content = 'my string';
+    scrollWrapper.fadeContent = false;
+    scrollWrapper._update();
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper._FadeContainer.shader).toBeNull();
 
-    await scrollWrapper.__updateFadeContainerSpyPromise;
-    testRenderer.update();
-
-    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
-      lng.shaders.FadeOut
-    );
-
-    scrollWrapper.h = 10;
     scrollWrapper.content = lorum;
-    await scrollWrapper.__updateFadeContainerSpyPromise;
-    testRenderer.update();
 
-    expect(scrollWrapper._FadeContainer.shader).not.toBeInstanceOf(
-      lng.shaders.FadeOut
-    );
+    scrollWrapper.requestUpdate(true);
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper._FadeContainer.shader).toBeNull();
+  });
+
+  it('should default the scroll animation to what is set in the theme styles', () => {
+    scrollWrapper.scrollDuration = undefined;
+    expect(scrollWrapper._scrollAnimation).toEqual(scrollWrapper.style.scroll);
   });
 });

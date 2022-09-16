@@ -7,10 +7,7 @@ import MetadataTile from '.';
 import mdx from './MetadataTile.mdx';
 
 export default {
-  title: 'Elements / MetadataTile',
-  args: {
-    focused: false
-  },
+  title: 'Elements/MetadataTile',
   parameters: {
     docs: {
       page: mdx
@@ -24,43 +21,109 @@ export const Basic = args =>
       return {
         MetadataTile: {
           type: MetadataTile,
-          w: 500,
-          firstLine:
-            'First line with marquee scrolling text that will truncate then scroll',
-          secondLine: [
-            'Free',
-            {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
-            },
-            '75%',
-            {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=6830964634263316239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Audience rating'
-            },
-            '80%',
-            { badge: 'HD', title: 'HD' },
-            { badge: 'SD', title: 'SD' }
-          ]
+          w: args.w,
+          title: args.title,
+          subtitle: args.subtitle,
+          description: args.description,
+          logo: args.logo !== 'none' ? circle : null,
+          logoTitle: args.logo !== 'none' ? args.logoTitle : null,
+          logoPosition: args.logoPosition
         }
       };
     }
 
     _getFocused() {
-      return args.focused && this.tag('MetadataTile');
+      return this.tag('MetadataTile');
     }
   };
-Basic.args = {};
+
 Basic.argTypes = {
-  focused: { control: 'boolean' }
-};
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('MetadataTile')
-        : () => {};
-      component._refocus();
-    }
+  w: {
+    defaultValue: 400,
+    table: {
+      defaultValue: { summary: 400 }
+    },
+    control: 'number',
+    description: 'width of component'
+  },
+  title: {
+    defaultValue: 'Title',
+    table: {
+      defaultValue: { summary: 'Title' }
+    },
+    control: 'text',
+    description: 'title text'
+  },
+  subtitle: {
+    defaultValue: [
+      '94%',
+      {
+        icon: lightningbolt,
+        color: getHexColor('00ff00'),
+        title: 'Green Lightning Bolt'
+      },
+      '86%',
+      {
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+        title: 'Rotten Tomatoes rating'
+      }
+    ],
+    table: {
+      defaultValue: {
+        summary: [
+          '94%',
+          {
+            icon: lightningbolt,
+            color: getHexColor('00ff00'),
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            title: 'Rotten Tomatoes rating'
+          }
+        ]
+      }
+    },
+    control: 'text',
+    description: 'subtitle content'
+  },
+  description: {
+    defaultValue: '',
+    table: {
+      defaultValue: { summary: '' }
+    },
+    control: 'text',
+    description: 'description text'
+  },
+  logo: {
+    defaultValue: circle,
+    table: {
+      defaultValue: { summary: circle }
+    },
+    control: {
+      type: 'select',
+      options: ['none', circle]
+    },
+    description: 'image to use for logo'
+  },
+  logoTitle: {
+    defaultValue: 'Logo title',
+    table: {
+      defaultValue: { summary: 'Logo title' }
+    },
+    control: 'text',
+    description: 'title to use for logo in announcer'
+  },
+  logoPosition: {
+    defaultValue: 'right',
+    table: {
+      defaultValue: { summary: 'right' }
+    },
+    control: {
+      type: 'select',
+      options: ['right', 'left']
+    },
+    description: 'position logo on the left/right side'
   }
 };

@@ -1,4 +1,4 @@
-import Base from '../../Base.d.ts';
+import Base from '../../Base';
 import { __TextType } from '@lightningjs/core';
 
 export interface MetadataBaseStyles {
@@ -11,7 +11,7 @@ export interface MetadataBaseStyles {
   titleTextProperties?: __TextType;
 }
 
-export default class Metadata extends Base {
+export default class MetadataBase extends Base {
   title?: string;
   subtitle?: string;
   description?: string;
