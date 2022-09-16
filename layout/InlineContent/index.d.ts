@@ -48,7 +48,7 @@ export interface InlineContentStyles {
   iconH: number;
   contentSpacing: number;
   marginBottom: number;
-  textProperties: __TextType;
+  textStyle: __TextType;
   maxLines: number;
   justify: justifyContent;
 }
@@ -61,7 +61,7 @@ declare const InlineContent_base: WithThemeStylesConstructor<
 export default class InlineContent extends InlineContent_base {
   content?: TextContent[];
   contentProperties?: FlexItem;
-  textProperties?: __TextType;
+  textStyle?: __TextType;
   justify?: justifyContent;
   iconW?: number;
   iconH?: number;

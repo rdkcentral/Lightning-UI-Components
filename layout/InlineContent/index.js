@@ -10,7 +10,7 @@ class InlineContent extends Base {
     return [
       'content',
       'contentProperties',
-      'textProperties',
+      'textStyle',
       'justify',
       'iconW',
       'iconH',
@@ -124,9 +124,9 @@ class InlineContent extends Base {
 
   _createIcon(base, { icon, color }) {
     const y =
-      (this.textHeight > this.textProperties.lineHeight
+      (this.textHeight > this.textStyle.lineHeight
         ? this.textHeight
-        : this.textProperties.lineHeight) - this.style.iconH;
+        : this.textStyle.lineHeight) - this.style.iconH;
     const iconObj = {
       ...base,
       type: Icon,
@@ -149,7 +149,7 @@ class InlineContent extends Base {
       y: this.textY !== undefined ? this.textY : this.style.textY,
       h: this.textHeight,
       text: {
-        ...this.textProperties,
+        ...this.textStyle,
         ...textOverrideStyles,
         text: text.text || text
       }
@@ -170,9 +170,9 @@ class InlineContent extends Base {
   $loadedBadge(badge) {
     if (this.badgeY === undefined) {
       badge.y =
-        (this.textHeight > this.textProperties.lineHeight
+        (this.textHeight > this.textStyle.lineHeight
           ? this.textHeight
-          : this.textProperties.lineHeight) - badge.h;
+          : this.textStyle.lineHeight) - badge.h;
     }
   }
 
@@ -241,12 +241,12 @@ class InlineContent extends Base {
     return this._textStyles || {};
   }
 
-  _getTextProperties() {
-    return this._textProperties != undefined
-      ? this._textProperties
+  _getTextStyle() {
+    return this._textStyle != undefined
+      ? this._textStyle
       : {
           maxLines: this.style.maxLines,
-          ...this.style.textProperties
+          ...this.style.textStyle
         };
   }
 
@@ -258,9 +258,7 @@ class InlineContent extends Base {
 
   get textHeight() {
     const offset = this._marginBottom < 0 ? this._marginBottom : 0;
-    return (
-      (this.textProperties.lineHeight || this.textProperties.fontSize) - offset
-    );
+    return (this.textStyle.lineHeight || this.textStyle.fontSize) - offset;
   }
 
   get _marginBottom() {

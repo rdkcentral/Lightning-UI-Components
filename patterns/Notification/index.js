@@ -51,7 +51,7 @@ export default class Notification extends withStyles(Base, styles) {
             Description: {
               contentWrap: true,
               justify: 'flex-start',
-              textProperties: this.styles.description,
+              textStyle: this.styles.description,
               type: InlineContent,
               w:
                 this.styles.w -
@@ -77,7 +77,7 @@ export default class Notification extends withStyles(Base, styles) {
             Text: {
               contentWrap: true,
               justify: 'flex-start',
-              textProperties: this.styles.actionArea.text,
+              textStyle: this.styles.actionArea.text,
               type: InlineContent,
               y: -4,
               w: this.styles.w - this.styles.margin.x * 2
@@ -131,8 +131,7 @@ export default class Notification extends withStyles(Base, styles) {
       return (
         this._Title.h +
         this.styles.margin.y * 2 +
-        this._Description.textProperties.lineHeight *
-          descLineLayouter._lines.length
+        this._Description.textStyle.lineHeight * descLineLayouter._lines.length
       );
     } else {
       return (
@@ -151,8 +150,7 @@ export default class Notification extends withStyles(Base, styles) {
         this._ActionAreaText.flex._layout._lineLayouter._lines.length;
       if (actionAreaLinesLength) {
         const actionTextHeight =
-          this._ActionAreaText.textProperties.lineHeight *
-          actionAreaLinesLength;
+          this._ActionAreaText.textStyle.lineHeight * actionAreaLinesLength;
         const actionYMargins = this.styles.actionArea.margin.y * 2;
         return actionTextHeight + actionYMargins;
       }
