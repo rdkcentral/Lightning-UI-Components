@@ -4,7 +4,7 @@ export const base = theme => ({
   iconH: theme.spacer.xxl + theme.spacer.xs,
   contentSpacing: theme.spacer.md,
   marginBottom: theme.typography.body1.lineHeight / -10,
-  textProperties: theme.typography.body1,
+  textStyle: theme.typography.body1,
   maxLines: 1,
   justify: 'center'
 });

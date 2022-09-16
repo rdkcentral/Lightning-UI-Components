@@ -51,10 +51,10 @@ describe('InlineContent', () => {
 
   it('should update the text properties', () => {
     const color = getHexColor('ffffff', 25);
-    const textProperties = { color, textAlign: 'left' };
-    inlineContent.textProperties = textProperties;
-    expect(inlineContent.textProperties).toBe(textProperties);
-    expect(inlineContent.textProperties.color).toBe(textProperties.color);
+    const textStyle = { color, textAlign: 'left' };
+    inlineContent.textStyle = textStyle;
+    expect(inlineContent.textStyle).toBe(textStyle);
+    expect(inlineContent.textStyle.color).toBe(textStyle.color);
   });
 
   it('should update flexbox justification', () => {
@@ -117,7 +117,7 @@ describe('InlineContent', () => {
       {
         content,
         contentProperties: { marginBottom: -2 },
-        textProperties: { lineHeight: 150 }
+        textStyle: { lineHeight: 150 }
       },
       {
         spyOnMethods: ['$loadedBadge']
@@ -143,7 +143,7 @@ describe('InlineContent', () => {
       {
         content,
         contentProperties: { marginBottom: 20 },
-        textProperties: { lineHeight: 150 }
+        textStyle: { lineHeight: 150 }
       },
       {
         spyOnMethods: ['$loadedBadge']
