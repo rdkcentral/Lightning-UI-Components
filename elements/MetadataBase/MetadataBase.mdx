@@ -1,29 +1,29 @@
 import { Canvas, Story } from '@storybook/addon-docs';
 import { Theme } from '../../.storybook/utils';
-import Metadata from '.';
+import MetadataBase from '.';
 
-# Metadata
+# MetadataBase
 
 A component to quickly and easily lay out several pieces of content.
 
 ## Usage
 
-Metadata can be used with any combination of title, description, data (inline content), call-to-action (text), and/or a logo.
+MetadataBase can be used with any combination of title, description, data (inline content), call-to-action (text), and/or a logo.
 
 ```js
-import { Metadata } from '@lightning/ui';
+import { MetadataBase } from '@lightning/ui';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 
 class Example extends lng.Component {
   static _template() {
     return {
-      Metadata: {
-        type: Metadata,
+      MetadataBase: {
+        type: MetadataBase,
         w: 400,
         h: 300,
-        firstLine: 'Title',
-        secondLine: [
+        title: 'Title',
+        subtitle: [
           '94%',
           {
             icon: lightningbolt,
@@ -36,7 +36,7 @@ class Example extends lng.Component {
             title: 'Rotten Tomatoes rating'
           }
         ],
-        thirdLine: 'Description',
+        description: 'Description',
         logo: circle,
         logoWidth: 32,
         logoHeight: 32
@@ -47,7 +47,7 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="elements-metadata--basic" />
+  <Story id="elements-metadatabase--basic" />
 </Canvas>
 
 ## API
@@ -56,25 +56,23 @@ class Example extends lng.Component {
 
 | name         | type           | required             | default | description                                  |
 | ------------ | -------------- | -------------------- | ------- | -------------------------------------------- |
-| w            | number         | true                 | -       | width of component                           |
-| h            | number         | true                 | -       | height of component                          |
-| title        | string         | false                | -       | first line or headline of the content        |
-| subtitle     | inline content | false                | -       | relevant content data in the middle          |
 | description  | string         | false                | -       | third line or description of the content     |
 | logo         | string         | false                | -       | logo to display at bottom of component       |
-| logoWidth    | number         | true (if using logo) | -       | width of logo                                |
 | logoHeight   | number         | true (if using logo) | -       | height of logo                               |
-| logoTitle    | string         | true (if using logo) | -       | title of logo to use for announcer           |
 | logoPosition | string         | false                | 'right' | which side to place logo (`right` or `left`) |
+| logoTitle    | string         | true (if using logo) | -       | title of logo to use for announcer           |
+| logoWidth    | number         | true (if using logo) | -       | width of logo                                |
+| subtitle     | inline content | false                | -       | relevant content data in the middle          |
+| title        | string         | false                | -       | first line or headline of the content        |
 
 ### Styles Properties
 
 | name                      | type   | description                                                     |
 | ------------------------- | ------ | --------------------------------------------------------------- |
-| titleTextProperties       | object | text properties for title                                       |
-| subtitleTextProperties    | object | text properties for subtitle                                    |
 | descriptionTextProperties | object | text properties for description                                 |
-| logoWidth                 | number | width for logo                                                  |
+| fadeWidth                 | number | width of fade applied to second line if text encroaches on logo |
 | logoHeight                | number | height for logo                                                 |
 | logoPadding               | number | spacing between logo and secondLine                             |
-| fadeWidth                 | number | width of fade applied to second line if text encroaches on logo |
+| logoWidth                 | number | width for logo                                                  |
+| subtitleTextProperties    | object | text properties for subtitle                                    |
+| titleTextProperties       | object | text properties for title                                       |

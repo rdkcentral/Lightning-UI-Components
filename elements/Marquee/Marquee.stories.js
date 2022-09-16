@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import Marquee from '.';
 import InlineContent from '../../layout/InlineContent';
 import mdx from './Marquee.mdx';
-import { PALETTE, TYPOGRAPHY } from '../../Styles';
+import context from '../../context';
 
 export default {
   title: 'Elements / Marquee',
@@ -24,15 +24,9 @@ export const Basic = args =>
           h: 180,
           title: {
             text: args.title,
-            ...TYPOGRAPHY.headline2,
-            textColor: PALETTE.text.light.primary,
-            lineHeight: 44,
+            ...context.theme.typography.body1,
             maxLines: 1
-          },
-          autoStart: args.autoStart,
-          delay: args.delay,
-          color: args.color,
-          repeat: args.repeat
+          }
         }
       };
     }
@@ -75,25 +69,24 @@ Basic.argTypes = {
       'Will center the entire texture if the width of the content is less than the container'
   }
 };
+Basic.parameters = {
+  argActions: {}
+};
 
-export const CenteredText = args =>
+export const CenteredText = () =>
   class CenteredText extends lng.Component {
     static _template() {
       return {
         Marquee: {
           type: Marquee,
-          w: args.width,
+          w: 400,
           h: 50,
           title: {
             text: 'No scroll center',
-            ...TYPOGRAPHY.headline2,
-            textColor: PALETTE.text.light.primary,
-            maxLines: 1,
             textAlign: 'center'
           },
           autoStart: true,
-          delay: 1,
-          shouldSmooth: args.shouldSmooth
+          delay: 1
         },
         InlineContent: {
           type: InlineContent,
@@ -113,13 +106,12 @@ export const CenteredText = args =>
         MarqueeInlineContent: {
           type: Marquee,
           y: 100,
-          w: args.width,
+          w: 400,
           h: 180,
           centerAlign: true,
           alpha: 0,
           autoStart: true,
-          delay: 1,
-          shouldSmooth: args.shouldSmooth
+          delay: 1
         }
       };
     }
@@ -131,11 +123,8 @@ export const CenteredText = args =>
     }
   };
 
-CenteredText.args = { shouldSmooth: true, width: 450 };
-CenteredText.argTypes = {
-  width: { control: 'number', min: 0 },
-  shouldSmooth: { control: 'boolean' }
-};
+CenteredText.args = {};
+CenteredText.argTypes = {};
 CenteredText.parameters = {
   argActions: {}
 };

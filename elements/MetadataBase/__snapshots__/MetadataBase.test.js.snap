@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Metadata renders 1`] = `
+exports[`MetadataBase renders 1`] = `
 Object {
   "Component": Object {
     "Logo": Object {

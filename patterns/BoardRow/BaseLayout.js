@@ -135,7 +135,7 @@ export default class BaseType extends Base {
           updatedItem.type = item.type;
           updatedItem.metadataLocation = 'inset';
           updatedItem.Metadata = {
-            type: MetadataSmall,
+            type: MetadataTile,
             secondLine: item.description,
             progress: item.progress,
             logo: item.logo,

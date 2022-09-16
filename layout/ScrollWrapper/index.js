@@ -111,14 +111,8 @@ class ScrollWrapper extends Base {
   }
 
   _updateFadeContainer() {
-    const hasContentToScrollTo = this._ScrollContainer.finalH > this.h;
-    const isLastContentVisible =
-      this._scrollContainerY + this._computedScrollContainerHeight <=
-      this.renderHeight;
-
     const shouldFade =
-      this.fadeContent && hasContentToScrollTo && !isLastContentVisible;
-
+      this.fadeContent && this._ScrollContainer.finalH > this.h;
     this._FadeContainer.patch({
       h: this.h,
       w: this._contentWidth,
@@ -209,7 +203,6 @@ class ScrollWrapper extends Base {
         this._scrollContainerY + this._totalScrollContainerHeight <=
         this.renderHeight
       ) {
-        this._updateFadeContainer();
         this._autoScrollComplete = true;
         this.fireAncestors('$scrollChanged', 'endDown', this);
       }
@@ -237,9 +230,6 @@ class ScrollWrapper extends Base {
 
       if (this._scrollContainerY >= 0) {
         this.fireAncestors('$scrollChanged', 'endUp', this);
-      }
-      if (!this._FadeContainer.shader) {
-        this._updateFadeContainer();
       }
     }
   }

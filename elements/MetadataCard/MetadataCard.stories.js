@@ -5,16 +5,9 @@ import { getHexColor } from '../../utils';
 
 import MetadataCard from '.';
 import mdx from './MetadataCard.mdx';
-import logo from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'Elements / MetadataCard',
-  args: {
-    logo: true,
-    secondLine: true,
-    thirdLine: true,
-    focused: false
-  },
   parameters: {
     docs: {
       page: mdx
@@ -32,40 +25,94 @@ export const Basic = () =>
       };
     }
   };
-Basic.args = {};
+
 Basic.argTypes = {
-  focused: { control: 'boolean' },
-  secondLine: { control: 'boolean' },
-  thirdLine: { control: 'boolean' },
-  logo: { control: 'boolean' }
-};
-Basic.parameters = {
-  argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('MetadataCard')
-        : () => {};
-      component._refocus();
+  w: {
+    defaultValue: 400,
+    table: {
+      defaultValue: { summary: 400 }
     },
-    logo: (isLogo, component) => {
-      component.tag('MetadataCard').logo = isLogo ? logo : undefined;
+    control: 'number',
+    description: 'width of component'
+  },
+  title: {
+    defaultValue: 'Title',
+    table: {
+      defaultValue: { summary: 'Title' }
     },
-    secondLine: (isSecondLine, component) => {
-      component.tag('MetadataCard').secondLine = isSecondLine
-        ? [
-            'Second line',
-            {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-              title: 'Rotten Tomatoes rating'
-            },
-            'that is very long and will truncate'
-          ]
-        : undefined;
+    control: 'text',
+    description: 'title text'
+  },
+  subtitle: {
+    defaultValue: [
+      '94%',
+      {
+        icon: lightningbolt,
+        color: getHexColor('00ff00'),
+        title: 'Green Lightning Bolt'
+      },
+      '86%',
+      {
+        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+        title: 'Rotten Tomatoes rating'
+      }
+    ],
+    table: {
+      defaultValue: {
+        summary: [
+          '94%',
+          {
+            icon: lightningbolt,
+            color: getHexColor('00ff00'),
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            title: 'Rotten Tomatoes rating'
+          }
+        ]
+      }
     },
-    thirdLine: (isThirdLine, component) => {
-      component.tag('MetadataCard').thirdLine = isThirdLine
-        ? ['Third line with badging', { badge: '4HD' }, { badge: 'DVS' }]
-        : undefined;
-    }
+    control: 'text',
+    description: 'subtitle content'
+  },
+  description: {
+    defaultValue: 'Description',
+    table: {
+      defaultValue: { summary: 'Description' }
+    },
+    control: 'text',
+    description: 'description text'
+  },
+  logo: {
+    defaultValue: circle,
+    table: {
+      defaultValue: { summary: circle }
+    },
+    control: {
+      type: 'select',
+      options: ['none', circle]
+    },
+    description: 'image to use for logo'
+  },
+  logoTitle: {
+    defaultValue: 'Logo title',
+    table: {
+      defaultValue: { summary: 'Logo title' }
+    },
+    control: 'text',
+    description: 'title to use for logo in announcer'
+  },
+  logoPosition: {
+    defaultValue: 'right',
+    table: {
+      defaultValue: { summary: 'right' }
+    },
+    control: {
+      type: 'select',
+      options: ['right', 'left']
+    },
+    description: 'position logo on the left/right side'
   }
 };

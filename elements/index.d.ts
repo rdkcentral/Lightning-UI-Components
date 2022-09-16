@@ -1,10 +1,7 @@
 export { default as Artwork, ArtworkStyles } from './Artwork';
 export { default as Badge, BadgeStyles } from './Badge';
 export { default as Base } from './Base';
-export {
-  default as Button,
-  ButtonSmall
-} from './Button';
+export { default as Button, ButtonSmall } from './Button';
 export { default as Checkbox, CheckboxSmall, CheckboxStyles } from './Checkbox';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing, FocusRingStyles } from './FocusRing';
@@ -14,7 +11,7 @@ export { default as Key } from './Key';
 export { default as Knob, KnobStyles } from './Knob';
 export { default as Label, LabelStyles } from './Label';
 export { default as Marquee, MarqueeStyles } from './Marquee';
-export { default as Metadata } from './Metadata';
+export { default as MetadataBase } from './MetadataBase';
 export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataCardContent } from './MetadataCardContent';
 export { default as MetadataTile } from './MetadataTile';

@@ -11,7 +11,7 @@ export { default as Key } from './Key';
 export { default as Knob } from './Knob';
 export { default as Label } from './Label';
 export { default as Marquee } from './Marquee';
-export { default as Metadata } from './Metadata';
+export { default as MetadataBase } from './MetadataBase';
 export { default as MetadataCard } from './MetadataCard';
 export { default as MetadataCardContent } from './MetadataCardContent';
 export { default as MetadataTile } from './MetadataTile';

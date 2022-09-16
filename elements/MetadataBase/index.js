@@ -5,7 +5,7 @@ import { FadeShader } from '../../textures';
 import { withExtensions } from '../../mixins';
 import * as styles from './MetadataBase.styles';
 
-class Metadata extends Base {
+class MetadataBase extends Base {
   static get __componentName() {
     return 'MetadataBase';
   }
@@ -52,14 +52,14 @@ class Metadata extends Base {
 
   static get properties() {
     return [
-      'title',
-      'subtitle',
       'description',
       'logo',
-      'logoWidth',
       'logoHeight',
+      'logoPosition',
       'logoTitle',
-      'logoPosition'
+      'logoWidth',
+      'subtitle',
+      'title'
     ];
   }
 

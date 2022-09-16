@@ -1,15 +1,21 @@
 import TestUtils from '../../test/lightning-test-utils';
 import MetadataTile from '.';
 
-const createMetadataTile = TestUtils.makeCreateComponent(MetadataTile, {
-  w: 400
+const createComponent = TestUtils.makeCreateComponent(MetadataTile, {
+  w: 400,
+  h: 300
 });
 
 describe('MetadataTile', () => {
   let component, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createMetadataTile();
+    [component, testRenderer] = createComponent(
+      {},
+      {
+        spyOnMethods: ['_update']
+      }
+    );
   });
   afterEach(() => {
     component = null;

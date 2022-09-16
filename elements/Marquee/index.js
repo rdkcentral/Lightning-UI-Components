@@ -30,7 +30,15 @@ class Marquee extends Base {
   }
 
   static get properties() {
-    return ['autoStart', 'title', 'contentTexture', 'color', 'centerAlign'];
+    return [
+      'autoStart',
+      'title',
+      'contentTexture',
+      'color',
+      'centerAlign',
+      'delay',
+      'repeat'
+    ];
   }
 
   _construct() {
@@ -46,8 +54,7 @@ class Marquee extends Base {
   }
 
   _updateContentTexture() {
-    const restartScrolling =
-      this.autoStart || this._scrolling || this._shouldTryScrolling;
+    const restartScrolling = this._restartScrolling;
     this.stopScrolling();
 
     if (!this._currentTexture.h) {
@@ -71,7 +78,11 @@ class Marquee extends Base {
     this._updateColor();
     this._updateTexture();
     this._updateShader();
-    (this.autoStart || this._scrolling) && this.startScrolling();
+    this._restartScrolling && this.startScrolling();
+  }
+
+  get _restartScrolling() {
+    return this.autoStart || this._scrolling || this._shouldTryScrolling;
   }
 
   _updateColor() {
@@ -81,25 +92,22 @@ class Marquee extends Base {
   }
 
   get _currentTexture() {
-    return this._Content.text || this._Content.texture;
+    return this._Content.text || this._Content.texture || {};
   }
 
   _updateTexture() {
-    let content = {};
+    const content = { rtt: true };
     if (this.contentTexture) {
-      content = { texture: this.contentTexture };
+      content.texture = this.contentTexture;
     } else if (this.title) {
-      content = { text: this.title };
+      content.text = this.title;
     }
 
     this.patch({
       ContentClipper: {
         w: this.w + 14,
         ContentBox: {
-          Content: {
-            rtt: true,
-            ...content
-          },
+          Content: content,
           ContentLoopTexture: {}
         }
       }
@@ -150,12 +158,11 @@ class Marquee extends Base {
   }
 
   _centerTexture() {
+    const x = (this.w - this._textRenderedW) / 2;
     if (this.style.shouldSmooth) {
-      this._ContentBox.smooth = {
-        x: (this.w - this._textRenderedW) / 2
-      };
+      this._ContentBox.smooth = { x };
     } else {
-      this._ContentBox.x = (this.w - this._textRenderedW) / 2;
+      this._ContentBox.x = x;
     }
   }
 
@@ -198,6 +205,16 @@ class Marquee extends Base {
       this._centerAlign ||
       (this._Content.text && this._Content.text.textAlign === 'center')
     );
+  }
+
+  _setAutoStart(autoStart) {
+    // if the commponent is changed from  autoStarting to not,
+    // cancel the current scrolling behavior,
+    // otherwise the component can continue to scroll from its previous state
+    if (this.autoStart && !autoStart) {
+      this.stopScrolling();
+    }
+    return autoStart;
   }
 
   get _textRenderedW() {

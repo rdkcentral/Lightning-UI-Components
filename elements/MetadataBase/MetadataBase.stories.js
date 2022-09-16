@@ -3,11 +3,11 @@ import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
 
-import Metadata from '.';
-import mdx from './Metadata.mdx';
+import MetadataBase from '.';
+import mdx from './MetadataBase.mdx';
 
 export default {
-  title: 'Elements/Metadata',
+  title: 'Elements/MetadataBase',
   parameters: {
     docs: {
       page: mdx
