@@ -4,7 +4,12 @@
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
 import Base from '../../Base';
-import { getX, getY, isComponentOnScreen } from '../../utils';
+import {
+  getX,
+  getY,
+  isComponentOnScreen,
+  getEuclideanDistance
+} from '../../utils';
 import { withExtensions } from '../../mixins';
 
 class FocusManager extends Base {
@@ -256,25 +261,13 @@ class FocusManager extends Base {
   }
 
   _getIndexOfItemNear(selected, prev) {
-    // Euclidean distance
-    function distance(xA, yA, xB, yB) {
-      const xDiff = xA - xB;
-      const yDiff = yA - yB;
-      return Math.sqrt(Math.pow(xDiff, 2) + Math.sqrt(Math.pow(yDiff, 2)));
-    }
-
     const prevItem = prev.selected;
 
     if (!selected || !selected.items || !selected.items.length || !prevItem) {
       return 0;
     }
 
-    const prevOffsetX = prev.transition('x').targetValue || 0;
-    const prevOffsetY = prev.transition('y').targetValue || 0;
-    const [itemX, itemY] = prevItem.core.getAbsoluteCoords(
-      -prevOffsetX,
-      -prevOffsetY
-    );
+    const [itemX, itemY] = prevItem.core.getAbsoluteCoords(0, 0);
     const prevMiddle = [itemX + prevItem.w / 2, itemY + prevItem.h / 2];
 
     // Get all item center points from selected
@@ -287,7 +280,7 @@ class FocusManager extends Base {
         return {
           index,
           distance: !item.skipFocus
-            ? distance(
+            ? getEuclideanDistance(
                 prevMiddle[0],
                 prevMiddle[1],
                 x + item.w / 2,
@@ -303,7 +296,6 @@ class FocusManager extends Base {
       .sort(function (a, b) {
         return a.distance - b.distance;
       });
-
     return selectedCoordArray[0].index;
   }
 
