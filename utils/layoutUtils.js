@@ -1,5 +1,11 @@
 import context from '../context';
 
+export function getEuclideanDistance(xA, yA, xB, yB) {
+  const xDiff = xA - xB;
+  const yDiff = yA - yB;
+  return Math.sqrt(Math.pow(xDiff, 2) + Math.sqrt(Math.pow(yDiff, 2)));
+}
+
 export function isComponentOnScreen(component) {
   if (!component) return false;
 
