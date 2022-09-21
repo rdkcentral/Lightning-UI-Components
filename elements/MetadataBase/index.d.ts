@@ -1,14 +1,14 @@
 import Base from '../../Base';
-import { __TextType } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface MetadataBaseStyles {
-  descriptionTextProperties?: __TextType;
+  descriptionTextProperties?: lng.textures.TextTexture.Settings;
   fadeWidth?: number;
   logoWidth?: number;
   logoHeight: number;
   logoPadding?: number;
-  subtitleTextProperties?: __TextType;
-  titleTextProperties?: __TextType;
+  subtitleTextProperties?: lng.textures.TextTexture.Settings;
+  titleTextProperties?: lng.textures.TextTexture.Settings;
 }
 
 export default class MetadataBase extends Base {

@@ -6,7 +6,6 @@ import { default as Artwork, ArtworkStyles } from '../Artwork';
 import { default as Label, LabelStyles } from '../Label';
 import { default as ProgressBar, ProgressBarStyles } from '../ProgressBar';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import { Tools } from '@lightningjs/core';
 
 export interface TileStyles {
   animationEntrance?: object;
@@ -19,20 +18,25 @@ export interface TileStyles {
   paddingX?: number | string;
   paddingY?: number | string;
   progressBarStyles?: ProgressBarStyles;
-  radius?: Tools.CornerRadius | string;
+  radius?: lng.Tools.CornerRadius | string;
 }
 
 declare const Tile_base: WithThemeStylesConstructor<typeof Base, TileStyles>;
 
+// Utility type to get a PatchTemplate by Component constructor.
+// TODO: Replace this with an official version from Lightning when one exists
+type PatchTemplate<T extends lng.Element.Constructor> =
+  lng.Element.PatchTemplate<lng.Element.ExtractTemplateSpec<InstanceType<T>>>;
+
 export default class Tile extends Tile_base {
-  artwork?: Omit<lng.__ComponentPatchObj<typeof Artwork>, 'type'>;
-  badge?: Omit<lng.__ComponentPatchObj<typeof Badge>, 'type'>;
-  checkbox?: Omit<lng.__ComponentPatchObj<typeof Checkbox>, 'type'>;
-  label?: Omit<lng.__ComponentPatchObj<typeof Label>, 'type'>;
+  artwork?: PatchTemplate<typeof Artwork>;
+  badge?: PatchTemplate<typeof Badge>;
+  checkbox?: PatchTemplate<typeof Checkbox>;
+  label?: PatchTemplate<typeof Label>;
   metadataLocation?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: any; // TODO: Replace with TS from MetadataTile after completed
   persistentMetadata?: boolean;
-  progressBar?: Omit<lng.__ComponentPatchObj<typeof ProgressBar>, 'type'>;
+  progressBar?: PatchTemplate<typeof ProgressBar>;
   style: TileStyles;
 }

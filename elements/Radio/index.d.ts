@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface RadioStyles {
   backgroundColor?: string;
@@ -8,7 +8,7 @@ export interface RadioStyles {
   knobColor?: string;
   knobHeight?: number;
   knobWidth?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   strokeColor?: string;
   strokeWidth?: number;
 }

@@ -1,5 +1,5 @@
 import type Base from '../../Base';
-import type { Tools } from '@lightningjs/core';
+import type lng from '@lightningjs/core';
 
 export interface BadgeStyles {
   backgroundColor?: string;
@@ -7,7 +7,7 @@ export interface BadgeStyles {
   iconColor?: string;
   paddingX?: number;
   paddingY?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   textStyle?: string;
   textAlign?: string;
 }

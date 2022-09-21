@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface ToggleStyles {
   backgroundColor?: string;
@@ -8,13 +8,13 @@ export interface ToggleStyles {
   knobWidth?: number;
   knobHeight?: number;
   knobPadding?: number;
-  knobRadius?: Tools.CornerRadius;
+  knobRadius?: lng.Tools.CornerRadius;
   knobColor?: string;
   knobColorChecked?: string;
   knobX?: number;
   knobXChecked?: number;
   strokeColor?: string;
-  strokeRadius?: Tools.CornerRadius;
+  strokeRadius?: lng.Tools.CornerRadius;
   strokeWeight?: number;
 }
 

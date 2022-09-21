@@ -1,10 +1,9 @@
 import lng from '@lightningjs/core';
-import type { __TextType } from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
 export interface ScrollWrapperStyles {
-  text: __TextType;
+  text: lng.textures.TextTexture.Settings;
   scrollBarW: number;
   scrollBarH: number;
   fadeHeight: 100;

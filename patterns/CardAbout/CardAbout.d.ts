@@ -1,13 +1,13 @@
-import { __TextType } from '@lightningjs/core';
-import Card from '../Card/Card';
+import lng from '@lightningjs/core';
+import Card, { CardStyles } from '../Card/Card';
 
-export interface CardAboutStyles extends Card {
+export interface CardAboutStyles extends CardStyles {
   contentSpacing?: number;
-  descriptionTextProperties?: __TextType;
+  descriptionTextProperties?: lng.textures.TextTexture.Settings;
   paddingFirstLine?: number;
   paddingVertical?: number;
-  textContainerProperties?: __TextType;
-  titleTextProperties?: __TextType;
+  textContainerProperties?: lng.textures.TextTexture.Settings;
+  titleTextProperties?: lng.textures.TextTexture.Settings;
 }
 
 export default class CardAbout extends Card {

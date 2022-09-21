@@ -8,7 +8,7 @@ export interface WithThemeStyles<StyleType> {
 }
 
 export type WithThemeStylesConstructor<
-  BaseType extends typeof lng.Component,
+  BaseType extends lng.Component.Constructor,
   StyleType
 > = BaseType & {
   new (...args: any[]): BaseType & WithThemeStyles<StyleType>;
@@ -17,7 +17,7 @@ export type WithThemeStylesConstructor<
 };
 
 export default function withThemeStyles<
-  BaseType extends typeof lng.Component,
+  BaseType extends lng.Component.Constructor,
   StyleType
 >(
   Base: BaseType,

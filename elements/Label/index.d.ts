@@ -1,12 +1,12 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface LabelStyles {
   backgroundColor?: string;
   paddingX?: number;
   paddingY?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   textStyle?: string;
 }
 

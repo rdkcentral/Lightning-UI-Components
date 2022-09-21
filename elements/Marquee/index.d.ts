@@ -16,7 +16,7 @@ declare const Marquee_base: WithThemeStylesConstructor<
 export default class Marquee extends Marquee_base {
   autostart?: boolean;
   centerAlign?: boolean;
-  contentTexture?: lng.__ElementPatchObj;
+  contentTexture?: lng.Element.PatchTemplate;
   delay?: number;
   repeat?: number;
   title?: string;

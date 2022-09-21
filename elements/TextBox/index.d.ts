@@ -1,4 +1,4 @@
-import type { __TextType } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
@@ -6,8 +6,8 @@ export interface TextBoxStyles {
   maxLinesSuffix: string;
   offsetY: number;
   offsetX: number;
-  textStyle: __TextType;
-  typography: Record<string, __TextType>;
+  textStyle: lng.textures.TextTexture.Settings;
+  typography: Record<string, lng.textures.TextTexture.Settings>;
 }
 
 declare const TextBox_base: WithThemeStylesConstructor<
@@ -18,11 +18,11 @@ declare const TextBox_base: WithThemeStylesConstructor<
 export default class TextBox extends TextBox_base {
   content?: string;
   maxLines?: number;
-  maxLinesSuffix?: __TextType['maxLinesSuffix'];
-  textStyle?: __TextType | string;
-  textColor?: __TextType['textColor'];
-  textAlign?: __TextType['textAlign'];
-  verticalAlign?: __TextType['verticalAlign'];
-  wordWrap?: __TextType['wordWrap'];
-  wordWrapWidth?: __TextType['wordWrapWidth'];
+  maxLinesSuffix?: lng.textures.TextTexture.Settings['maxLinesSuffix'];
+  textStyle?: lng.textures.TextTexture.Settings | string;
+  textColor?: lng.textures.TextTexture.Settings['textColor'];
+  textAlign?: lng.textures.TextTexture.Settings['textAlign'];
+  verticalAlign?: lng.textures.TextTexture.Settings['verticalAlign'];
+  wordWrap?: lng.textures.TextTexture.Settings['wordWrap'];
+  wordWrapWidth?: lng.textures.TextTexture.Settings['wordWrapWidth'];
 }

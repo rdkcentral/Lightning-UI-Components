@@ -1,11 +1,11 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface GradientStyles {
   gradientTop?: string;
   gradientColor?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
 }
 
 declare const Gradient_base: WithThemeStylesConstructor<

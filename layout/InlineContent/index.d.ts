@@ -1,7 +1,7 @@
-import type { __TextType } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type Badge from '../../elements/Badge';
+import Badge from '../../elements/Badge';
 
 type justifyContent =
   | 'flex-start'
@@ -48,7 +48,7 @@ export interface InlineContentStyles {
   iconH: number;
   contentSpacing: number;
   marginBottom: number;
-  textStyle: __TextType;
+  textStyle: lng.textures.TextTexture.Settings;
   maxLines: number;
   justify: justifyContent;
 }
@@ -61,7 +61,7 @@ declare const InlineContent_base: WithThemeStylesConstructor<
 export default class InlineContent extends InlineContent_base {
   content?: TextContent[];
   contentProperties?: FlexItem;
-  textStyle?: __TextType;
+  textStyle?: lng.textures.TextTexture.Settings;
   justify?: justifyContent;
   iconW?: number;
   iconH?: number;

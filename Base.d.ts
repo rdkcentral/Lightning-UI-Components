@@ -16,7 +16,10 @@ declare const Base_base: WithLayoutConstructor<
   >
 >;
 
-export default class Base extends Base_base {
+export default class Base<
+  TemplateSpec extends lng.Component.TemplateSpecLoose = lng.Component.TemplateSpecLoose,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base_base<TemplateSpec, TypeConfig> {
   static get __componentName(): string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static get __themeStyles(): Record<string, any>;

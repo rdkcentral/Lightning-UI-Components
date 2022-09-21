@@ -9,8 +9,14 @@ export default class FocusManager extends Base {
   protected _selectedIndex: number;
 
   direction?: string;
-  set items(items: Array<lng.__ComponentPatchObj | lng.Component>);
-  get items(): Array<lng.__ComponentPatchObj | lng.Component>;
+  set items(
+    items: Array<
+      lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
+    >
+  );
+  get items(): Array<
+    lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
+  >;
   get Items(): lng.Element;
 
   get selected(): lng.Component;
@@ -18,9 +24,16 @@ export default class FocusManager extends Base {
   set selectedIndex(index: number);
   get fullyOnScreenItems(): Array<lng.Component>;
 
-  appendItems(items: Array<lng.__ComponentPatchObj>): void;
-  appendItemsAt(items: Array<lng.__ComponentPatchObj>, idx: number): void;
-  prependItems(items: Array<lng.__ComponentPatchObj>): void;
+  appendItems(
+    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>
+  ): void;
+  appendItemsAt(
+    items: Array<Array<lng.Component.NewPatchTemplate<typeof lng.Component>>>,
+    idx: number
+  ): void;
+  prependItems(
+    items: Array<Array<lng.Component.NewPatchTemplate<typeof lng.Component>>>
+  ): void;
   removeItemAt(idx: number): void;
   render(): void;
   selectPrevious(): void;

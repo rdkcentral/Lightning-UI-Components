@@ -1,6 +1,6 @@
-import Card from './Card';
+import Card, { CardStyles } from './Card';
 
-export interface CardSectionStyles extends Card {
+export interface CardSectionStyles extends CardStyles {
   iconHeight?: number;
   iconWidth?: number;
 }

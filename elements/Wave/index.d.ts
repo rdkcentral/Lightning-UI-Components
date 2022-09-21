@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface WaveStyles {
   color?: string;
@@ -9,7 +9,7 @@ export interface WaveStyles {
   keyframes?: [number, number, number, number];
   lockedRatio?: number;
   lockedPaddingRatio?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   repeat?: number;
   w?: number;
 }
