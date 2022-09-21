@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface CheckboxStyles {
   checkColor?: string;
@@ -8,7 +8,7 @@ export interface CheckboxStyles {
   checkW?: number;
   checkedBackgroundColor?: string;
   checkSrc?: string;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   strokeColor?: string;
   strokeWidth?: number;
   uncheckedBackgroundColor?: string;

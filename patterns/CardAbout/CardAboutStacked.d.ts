@@ -1,9 +1,9 @@
-import { __TextType } from '@lightningjs/core';
-import Card from '../Card/Card';
+import type lng from '@lightningjs/core';
+import Card, { CardStyles } from '../Card/Card';
 
-export interface CardAboutStackedStyles extends Card {
-  descriptionTextProperties?: __TextType;
-  titleTextProperties?: __TextType;
+export interface CardAboutStackedStyles extends CardStyles {
+  descriptionTextProperties?: lng.textures.TextTexture.Settings;
+  titleTextProperties?: lng.textures.TextTexture.Settings;
 }
 
 export class CardAboutStacked extends Card {

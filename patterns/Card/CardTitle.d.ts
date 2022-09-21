@@ -1,8 +1,8 @@
-import { __TextType } from '@lightningjs/core';
-import Card from './Card';
+import type lng from '@lightningjs/core';
+import Card, { CardStyles } from './Card';
 
-export interface CardTitleStyles extends Card {
-  descriptionTextProperties?: __TextType;
+export interface CardTitleStyles extends CardStyles {
+  descriptionTextProperties?: lng.textures.TextTexture.Settings;
 }
 
 export default class CardTitle extends Card {

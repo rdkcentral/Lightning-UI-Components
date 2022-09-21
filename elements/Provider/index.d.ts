@@ -1,12 +1,12 @@
 import type Base from '../../Base';
-import { __TextType, Tools } from '@lightningjs/core';
+import type lng from '@lightningjs/core';
 
 export interface ProviderStyles {
   counterBackgroundColor?: string;
-  counterTextProperties?: __TextType;
+  counterTextProperties?: lng.textures.TextTexture.Settings;
   itemSize?: number;
   itemSpacing?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
 }
 
 export default class Provider extends Base {

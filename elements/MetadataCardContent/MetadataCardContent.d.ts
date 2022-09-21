@@ -1,8 +1,7 @@
-import type MetadataBase from '../MetadataBase';
-import { MetadataBaseStyles } from '../MetadataBase';
-import type Provider from '../Provider';
+import MetadataBase, { MetadataBaseStyles } from '../MetadataBase';
+import Provider from '../Provider';
 import { ProviderStyles } from '../Provider';
-import type lng from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface MetadataCardContentStyles extends MetadataBaseStyles {
   titleTextProperties?: lng.textures.TextTexture.Settings;
@@ -11,7 +10,7 @@ export interface MetadataCardContentStyles extends MetadataBaseStyles {
   providerStyle?: ProviderStyles;
 }
 
-export default class MetadataCardContent extends MetadataBase {
+export declare class MetadataCardContent extends MetadataBase {
   details?: string;
   provider?: Provider;
   style: MetadataCardContentStyles;

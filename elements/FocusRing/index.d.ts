@@ -1,13 +1,13 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import type { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface FocusRingStyles {
   animationDuration?: number;
   borderWidth?: number;
   color?: number;
   colorTransitionAlpha?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   secondaryColor?: number;
   shouldAnimate?: boolean;
   spacing?: number;

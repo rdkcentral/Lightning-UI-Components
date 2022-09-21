@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 export interface ProgressBarStyles {
   animationCurve?: string;
@@ -8,7 +8,7 @@ export interface ProgressBarStyles {
   animationDuration?: number;
   barColor?: string;
   progressColor?: string;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
 }
 
 declare const ProgressBar_base: WithThemeStylesConstructor<

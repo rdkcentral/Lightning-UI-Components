@@ -1,7 +1,6 @@
 {
   "include": [
-    "**/*.d.ts",
-    "node_modules/@lightning/lng-typed/**/*",
+    "**/*.d.ts"
   ],
   "compilerOptions": {
     "outDir": "./types",

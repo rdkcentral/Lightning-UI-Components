@@ -1,5 +1,5 @@
 import type Base from '../../Base';
-import type { Tools } from '@lightningjs/core';
+import type lng from '@lightningjs/core';
 type aspectRatio = '16x9' | '3x4' | '4x3' | '2x1' | '1x1';
 
 type transitionObject = {
@@ -25,7 +25,7 @@ export interface ArtworkStyles {
   imageScalePivotX?: number;
   imageScalePivotY?: number;
   padding?: number;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   zIndex?: {
     image?: number;
     blur?: number;

@@ -1,6 +1,6 @@
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import { Tools } from '@lightningjs/core';
+import lng from '@lightningjs/core';
 
 type transitionObject = {
   delay: number;
@@ -11,7 +11,7 @@ type transitionObject = {
 export interface SurfaceStyles {
   animation?: transitionObject;
   backgroundColor?: string;
-  radius?: Tools.CornerRadius;
+  radius?: lng.Tools.CornerRadius;
   scale?: number;
 }
 
