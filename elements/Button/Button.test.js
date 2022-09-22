@@ -11,9 +11,10 @@ const createButton = TestUtils.makeCreateComponent(
 describe('Button', () => {
   let component, testRenderer;
   beforeEach(() => {
-    [component, testRenderer] = createButton({
-      title: 'Button'
-    });
+    [component, testRenderer] = createButton(
+      { title: 'Button' },
+      { spyOnMethods: ['_update'] }
+    );
     testRenderer.update();
   });
   afterEach(() => {

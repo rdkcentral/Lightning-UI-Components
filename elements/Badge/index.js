@@ -109,13 +109,15 @@ class Badge extends Base {
   }
 
   _updateText() {
-    this._BadgeText.patch({
-      textAlign: this.style.textAlign,
-      textStyle: this.style.textStyle,
-      content: this.title || '',
-      x: this.style.paddingX,
-      y: this._h / 2
-    });
+    if (this._BadgeText) {
+      this._BadgeText.patch({
+        textAlign: this.style.textAlign,
+        textStyle: this.style.textStyle,
+        content: this.title || '',
+        x: this.style.paddingX,
+        y: this._h / 2
+      });
+    }
   }
 
   _updateIcon() {
@@ -165,7 +167,9 @@ class Badge extends Base {
   _getIconHeight() {
     if (this.icon) {
       if (!this._Icon.finalH) {
-        return this._BadgeText._Text.text.lineHeight;
+        if (this._BadgeText._Text) {
+          return this._BadgeText._Text.text.lineHeight;
+        }
       } else {
         return this._Icon.finalH;
       }

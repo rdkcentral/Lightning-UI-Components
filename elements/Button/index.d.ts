@@ -1,4 +1,5 @@
 import lng from '@lightningjs/core';
+import type { __TextType } from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
@@ -12,7 +13,7 @@ export interface ButtonStyles {
   suffixPadding: number;
   prefixH: number;
   suffixH: number;
-  textStyle: string | Record<string, any>;
+  textStyle: __TextType | string;
   contentColor: string;
 }
 

@@ -43,10 +43,12 @@ class Tooltip extends Base {
   }
 
   _updateText() {
-    this._Text.patch({
-      content: this.title,
-      textStyle: this.style.textStyle
-    });
+    if (this._Text) {
+      this._Text.patch({
+        content: this.title,
+        textStyle: this.style.textStyle
+      });
+    }
   }
 
   _textLoaded() {
@@ -81,11 +83,13 @@ class Tooltip extends Base {
   }
 
   _updateTextPosition() {
-    this._Text.patch({
-      mount: 0.5,
-      x: this._Background.w / 2,
-      y: (this._Background.h - this.style.pointerH) / 2
-    });
+    if (this._Text) {
+      this._Text.patch({
+        mount: 0.5,
+        x: this._Background.w / 2,
+        y: (this._Background.h - this.style.pointerH) / 2
+      });
+    }
   }
 
   _clearTimers() {

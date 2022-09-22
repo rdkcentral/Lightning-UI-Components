@@ -33,7 +33,7 @@ describe('BoardRow', () => {
   let component, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [component, testRenderer] = createComponent({ spyOnMethods: ['_update'] });
   });
 
   afterEach(() => {

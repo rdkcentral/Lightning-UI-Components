@@ -136,25 +136,27 @@ class ListItemBase extends Button {
   }
 
   _updateTextDimensions() {
-    const textDimensionsPatch = {};
-    const h = this._textH;
-    const w = Math.max(
-      this._hasTitle ? this._measuredTitleW : 0,
-      this._hasDescription ? this._measuredDescriptionW : 0
-    );
+    if (this._Text) {
+      const textDimensionsPatch = {};
+      const h = this._textH;
+      const w = Math.max(
+        this._hasTitle ? this._measuredTitleW : 0,
+        this._hasDescription ? this._measuredDescriptionW : 0
+      );
 
-    if (this._Text.transition('w').targetValue !== w) {
-      textDimensionsPatch.w = w;
-    }
-    if (this._Text.transition('h').targetValue !== h) {
-      textDimensionsPatch.h = h;
-    }
+      if (this._Text.transition('w').targetValue !== w) {
+        textDimensionsPatch.w = w;
+      }
+      if (this._Text.transition('h').targetValue !== h) {
+        textDimensionsPatch.h = h;
+      }
 
-    if (Object.keys(textDimensionsPatch).length > 0) {
-      if (this._smooth) {
-        this._Text.smooth = textDimensionsPatch;
-      } else {
-        this._Text.patch(textDimensionsPatch);
+      if (Object.keys(textDimensionsPatch).length > 0) {
+        if (this._smooth) {
+          this._Text.smooth = textDimensionsPatch;
+        } else {
+          this._Text.patch(textDimensionsPatch);
+        }
       }
     }
   }
@@ -213,7 +215,9 @@ class ListItemBase extends Button {
   }
 
   _updateTextPosition() {
-    this._Text.patch({ x: this._prefixW });
+    if (this._Text) {
+      this._Text.patch({ x: this._prefixW });
+    }
   }
 
   get _titleColor() {
@@ -238,13 +242,22 @@ class ListItemBase extends Button {
   }
 
   get _measuredTextW() {
-    return Math.min(
-      Math.max(
-        measureTextWidth(this._Title._Text.text),
-        measureTextWidth(this._Description._Text.text)
-      ),
-      this._Title.wordWrapWidth
-    );
+    if (this._Title._Text) {
+      return Math.min(
+        Math.max(
+          measureTextWidth(this._Title._Text.text),
+          measureTextWidth(this._Description._Text.text)
+        ),
+        this._Title.wordWrapWidth
+      );
+    } else if (this._Description._Text) {
+      return Math.min(
+        measureTextWidth(this._Description._Text.text),
+        this._Title.wordWrapWidth
+      );
+    } else {
+      return this._Title.wordWrapWidth;
+    }
   }
 
   get _textH() {

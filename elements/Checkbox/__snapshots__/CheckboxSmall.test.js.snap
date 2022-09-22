@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxSmall renders 1`] = `
+Object {
+  "Component": Object {
+    "Check": Object {
+      "active": false,
+      "alpha": 0,
+      "attached": true,
+      "boundsMargin": null,
+      "clipping": false,
+      "color": 4294967295,
+      "enabled": false,
+      "flex": false,
+      "flexItem": false,
+      "h": 10,
+      "hasFinalFocus": false,
+      "hasFocus": false,
+      "isComponent": true,
+      "mount": 0.5,
+      "mountX": 0.5,
+      "mountY": 0.5,
+      "pivot": 0.5,
+      "pivotX": 0.5,
+      "pivotY": 0.5,
+      "ref": "Check",
+      "renderOfScreen": undefined,
+      "renderToTexture": false,
+      "scale": 1,
+      "scaleX": 1,
+      "scaleY": 1,
+      "state": "",
+      "tag": [Function],
+      "tags": Array [
+        "Check",
+      ],
+      "type": "Icon",
+      "visible": true,
+      "w": 8,
+      "x": [Function],
+      "y": [Function],
+      "zIndex": 0,
+    },
+  },
+}
+`;
