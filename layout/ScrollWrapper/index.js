@@ -111,8 +111,10 @@ class ScrollWrapper extends Base {
   }
 
   _updateFadeContainer() {
+    const isScrollable = this._ScrollContainer.finalH > this.h;
     const shouldFade =
-      this.fadeContent && this._ScrollContainer.finalH > this.h;
+      this.fadeContent && isScrollable && !this._isEndContentVisible;
+
     this._FadeContainer.patch({
       h: this.h,
       w: this._contentWidth,
@@ -181,55 +183,65 @@ class ScrollWrapper extends Base {
   }
 
   _scrollDown() {
-    if (
-      this._scrollContainerY + this._totalScrollContainerHeight >
-      this.renderHeight
-    ) {
+    const hasContentToScrollTo =
+      this._scrollContainerY + this._ScrollContainer.finalH > this.renderHeight;
+    if (hasContentToScrollTo) {
       const targetY = this._scrollContainerY - this.scrollStep;
-      const canScrollDown =
-        targetY + this._totalScrollContainerHeight > this.renderHeight;
+      const canScrollByStepLength =
+        targetY + this._ScrollContainer.finalH > this.renderHeight;
+      const scrollEndY =
+        this.renderHeight -
+        this._ScrollContainer.finalH -
+        this.style.contentMarginTop;
+
       this._ScrollContainer.patch({
         smooth: {
           y: [
-            canScrollDown
-              ? targetY
-              : this.renderHeight - this._totalScrollContainerHeight,
+            canScrollByStepLength ? targetY : scrollEndY,
             this._scrollAnimation
           ]
         }
       });
 
-      if (
-        this._scrollContainerY + this._totalScrollContainerHeight <=
-        this.renderHeight
-      ) {
+      const hasScrolledToEnd =
+        this._scrollContainerY + this._ScrollContainer.finalH <= this.h;
+
+      if (hasScrolledToEnd) {
+        this._isEndContentVisible = true;
         this._autoScrollComplete = true;
         this.fireAncestors('$scrollChanged', 'endDown', this);
+        this._updateFadeContainer();
       }
     }
   }
 
   _scrollUp() {
-    if (this._scrollContainerY < 0) {
+    const canScrollUp = this._scrollContainerY < 0;
+
+    if (canScrollUp) {
       const targetY = this._scrollContainerY + this.scrollStep;
+      const canScrollByStepLength = targetY < 0;
+
       this._ScrollContainer.patch({
         smooth: {
-          y: [
-            targetY >= 0 ? 0 : this._scrollContainerY + this.scrollStep,
-            this._scrollAnimation
-          ]
+          y: [canScrollByStepLength ? targetY : 0, this._scrollAnimation]
         }
       });
 
-      if (
-        this._scrollContainerY + this._totalScrollContainerHeight >
-        this.renderHeight
-      ) {
+      const isScrollable =
+        this._scrollContainerY + this._ScrollContainer.finalH >
+        this.renderHeight;
+      if (isScrollable) {
         this._autoScrollComplete = false;
       }
 
       if (this._scrollContainerY >= 0) {
         this.fireAncestors('$scrollChanged', 'endUp', this);
+      }
+
+      if (this._isEndContentVisible) {
+        this._isEndContentVisible = false;
+        this._updateFadeContainer();
       }
     }
   }
@@ -293,7 +305,7 @@ class ScrollWrapper extends Base {
 
   _updateSlider() {
     // height of off screen items that can be scrolled to
-    const scrollHeight = this._totalScrollContainerHeight - this.renderHeight;
+    const scrollHeight = this._ScrollContainer.finalH - this.renderHeight;
     // number of steps to scroll to bottom of ScrollContainer
     const contentScrollSteps = Math.ceil(scrollHeight / this.scrollStep);
     // max value of slider
@@ -335,10 +347,6 @@ class ScrollWrapper extends Base {
       ...this.style.scroll,
       duration
     };
-  }
-
-  get _totalScrollContainerHeight() {
-    return this._ScrollContainer.finalH + this.style.fadeHeight;
   }
 
   _getFocused() {

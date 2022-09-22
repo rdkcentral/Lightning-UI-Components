@@ -27,7 +27,7 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper._ScrollContainer.children[0].content).toBe(
       scrollWrapper.content
     );
-    expect(scrollWrapper._totalScrollContainerHeight).toBeGreaterThan(
+    expect(scrollWrapper._ScrollContainer.finalH).toBeGreaterThan(
       scrollWrapper.h
     );
   });
@@ -168,7 +168,7 @@ describe('ScrollWrapper', () => {
   });
 
   it('does not scroll beyond boundaries', async () => {
-    scrollWrapper.h = scrollWrapper._totalScrollContainerHeight - 3;
+    scrollWrapper.h = scrollWrapper._ScrollContainer.finalH - 3;
     scrollWrapper.scrollStep = 2;
 
     expect(scrollWrapper._ScrollContainer.y).toBe(0);
@@ -176,22 +176,25 @@ describe('ScrollWrapper', () => {
     testRenderer.keyPress('Down');
     testRenderer.update();
 
-    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
+    expect(scrollWrapper._ScrollContainer.y).toBe(-2);
 
     testRenderer.keyPress('Down');
     testRenderer.update();
 
-    expect(scrollWrapper._ScrollContainer.y).toEqual(
-      scrollWrapper.renderHeight - scrollWrapper._totalScrollContainerHeight
-    );
+    const scrollEndY =
+      scrollWrapper.renderHeight -
+      scrollWrapper._ScrollContainer.finalH -
+      scrollWrapper.style.contentMarginTop;
+    expect(scrollWrapper._ScrollContainer.y).toBe(scrollEndY);
   });
 
   it('should fire a singal when scrolling has reached the end of the scroll container', () => {
-    scrollWrapper.h = scrollWrapper._totalScrollContainerHeight - 1;
+    scrollWrapper.h = scrollWrapper._ScrollContainer.finalH - 1;
     jest.spyOn(scrollWrapper, 'fireAncestors');
     expect(scrollWrapper.fireAncestors).not.toHaveBeenCalled();
 
     testRenderer.keyPress('Down');
+    testRenderer.update();
 
     expect(scrollWrapper.fireAncestors).toHaveBeenCalledWith(
       '$scrollChanged',
@@ -230,28 +233,24 @@ describe('ScrollWrapper', () => {
   });
 
   it('autoScrolls', async () => {
-    [scrollWrapper, testRenderer] = createScrollWrapper(
-      {
-        h: 50,
-        w: 100,
-        autoScrollDelay: 0,
-        autoScrollSpeed: 1,
-        scrollStep: 100,
-        autoScroll: true
-      },
-      { spyOnMethods: ['_performAutoScroll'] }
-    );
+    [scrollWrapper, testRenderer] = createScrollWrapper({
+      scrollStep: 1,
+      scrollDuration: 0,
+      content: lorum
+    });
+
+    scrollWrapper.h = scrollWrapper._ScrollContainer.finalH - 2;
+    scrollWrapper.autoScroll = true;
 
     expect(scrollWrapper._ScrollContainer.y).toBe(0);
 
-    await scrollWrapper.__performAutoScrollSpyPromise;
-    testRenderer.update();
+    await TestUtils.completeAnimation(scrollWrapper._ScrollContainer, 'y');
 
-    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
+    expect(scrollWrapper._ScrollContainer.y).toBe(-1);
 
-    await scrollWrapper.__performAutoScrollSpyPromise;
+    await TestUtils.completeAnimation(scrollWrapper._ScrollContainer, 'y');
 
-    expect(scrollWrapper._ScrollContainer.y).toBeLessThan(0);
+    expect(scrollWrapper._ScrollContainer.y).toBe(-2);
   });
 
   it('should fade out scrollable content by default', () => {
