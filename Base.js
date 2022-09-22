@@ -29,12 +29,10 @@ class Base extends lng.Component {
 
   _focus() {
     if (this._smooth === undefined) this._smooth = true;
-    this._hasFocus = true; // Flag added as optimization. This should be more performant than calling this.hasFocus() repeatedly in component
     this.queueRequestUpdate();
   }
 
   _unfocus() {
-    this._hasFocus = false;
     this.queueRequestUpdate();
   }
 

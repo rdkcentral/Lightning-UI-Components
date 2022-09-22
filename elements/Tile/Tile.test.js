@@ -11,7 +11,7 @@ describe('Tile', () => {
 
   beforeEach(async done => {
     [component, testRenderer] = createComponent(
-      { w: 300, h: 169, src: sampleImage },
+      { w: 300, h: 169 },
       {
         spyOnMethods: [
           '_update',
@@ -21,7 +21,9 @@ describe('Tile', () => {
           '_updateContent',
           '_updateMetadata',
           '_updateProgressBar',
-          '_updateLabel'
+          '_updateLabel',
+          '_cleanupMetadata',
+          '_inactive'
         ]
       }
     );
@@ -85,6 +87,15 @@ describe('Tile', () => {
   });
 
   // Getters / Setters
+
+  it('should not add src when setting src on Tile', async done => {
+    expect(component.src).toBeUndefined();
+    component.src = 'testImage';
+    await component.__updateSpyPromise;
+    expect(component.src).toBeUndefined();
+    done();
+  });
+
   it('returns the proper value for gradient when has metadata and focus', async done => {
     expect(component._gradient).toBe(false);
     // Overwrite _hasMetadata to always be true for test
@@ -99,6 +110,7 @@ describe('Tile', () => {
     component.progressBar = {
       progress: 0.5
     };
+    await component.__updateSpyPromise;
     expect(component._gradient).toBe(true);
     component.progressBar = {
       progress: 0
@@ -112,8 +124,24 @@ describe('Tile', () => {
     await component.__updateSpyPromise;
     expect(component._gradient).toBe(false);
     component.metadataLocation = 'inset';
+    component.progressBar = {
+      progress: 0.7
+    };
+    testRenderer.focus();
     await component.__updateSpyPromise;
     expect(component._gradient).toBe(true);
+    done();
+  });
+
+  it('returns the proper value for default width of the foreground', async done => {
+    component.w = 300;
+    component.h = 180;
+    await component.__updateSpyPromise;
+    expect(component._foregroundDefaultWidth).toBe(component.innerW * 0.75);
+    component.w = 300;
+    component.h = 169;
+    await component.__updateSpyPromise;
+    expect(component._foregroundDefaultWidth).toBe(component.innerW * 0.5);
     done();
   });
 
@@ -146,22 +174,15 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('returns the proper value for gradient when has progres greater than 1', async done => {
+  it('returns the proper value for gradient when has progress greater than 1', async done => {
     expect(component._gradient).toBe(false);
-    component.progress = 0.5;
+    component.progressBar = {
+      progress: 0.5
+    };
     await component.__updateSpyPromise;
     expect(component._gradient).toBe(true);
     done();
   });
-
-  // Add test back in after Metadata refactor is complete
-  // it('returns the proper class for _MetadataType', async done => {
-  //   expect(component.metadataType.name).toBe('MetadataTile');
-  //   component.metadataType = TestMetadataType;
-  //   await component.__updateSpyPromise;
-  //   expect(component._MetadataType.name).toBe('TestMetadataType');
-  //   done();
-  // });
 
   it('returns the proper value for isCircleLayout', async done => {
     expect(component._isCircleLayout).toBe(false);
@@ -176,33 +197,22 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('returns the proper scale', async done => {
+  it('returns the proper scale', async done => {
     expect(component.scale).toBe(1);
     testRenderer.focus();
     await component.__updateSpyPromise;
     expect(component.scale).toBe(1);
-    component.style = { focusedGetScale: () => 2 };
-    expect(component.style.getScale()).toBe(2);
-    done();
-  });
-
-  it.skip('ensures the metadata is always an object', async done => {
-    expect(component._metadata).toMatchObject({});
-    component.metadata = { title: 'foo' };
-    await component.__updateSpyPromise;
-    expect(component.metadata).toMatchObject({ title: 'foo' });
-    component.metadata = 'foo';
-    expect(component.metadata).toMatchObject({ title: 'foo' });
-    component.metadata = 1;
-    expect(component.metadata).toMatchObject({ title: 'foo' });
     done();
   });
 
   // Methods
-  it.skip('updates artwork in default state', async done => {
+
+  it('updates artwork in default state', async done => {
+    component._Artwork._Image.src = sampleImage;
+    await component.__updateImageSpyPromise;
     expect(component._Artwork.constructor.name).toBe('Artwork');
-    expect(component._Artwork.src).toBe(sampleImage);
-    expect(component._Artwork.mode).toBeUndefined();
+    expect(component._Artwork._Image.src).toBe('sampleImage');
+    expect(component._Artwork.mode).toBe('unfocused');
     expect(component._Artwork.gradient).toBe(false);
     expect(component._Artwork.w).toBe(component._w);
     expect(component._Artwork.h).toBe(component._h);
@@ -222,23 +232,23 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('should add badge if required and remove element when no longer needed', async done => {
+  it('should add badge if required and remove element when no longer needed', async done => {
     component.badge = {
       title: 'test'
     };
     await component.__updateBadgeSpyPromise;
     expect(component._Badge).not.toBeUndefined();
+
     component.itemLayout = { circle: true };
     await component.__updateBadgeSpyPromise;
     expect(component._Badge).toBeUndefined();
     component.itemLayout = undefined;
-    await component.__updateBadgeSpyPromise;
-    expect(component._Badge).not.toBeUndefined();
     component.badge = {
       title: 'changed'
     };
     await component.__updateBadgeSpyPromise;
-    expect(component._Badge._transitions.title.targetValue).toBe('changed');
+    expect(component._Badge).not.toBeUndefined();
+
     component.badge = {
       title: 'changed again'
     };
@@ -307,7 +317,7 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('should add a checkbox if required and remove the element when no longer needed', async done => {
+  it('should add a checkbox if required and remove the element when no longer needed', async done => {
     expect(component._Checkbox).toBeUndefined();
     component.checkbox = {
       checked: true
@@ -345,7 +355,7 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('should add a ProgressBar when progress is greater than 0 and remove it if no longer needed', async done => {
+  it('should add a ProgressBar when progress is greater than 0 and remove it if no longer needed', async done => {
     expect(component._ProgressBar).toBeUndefined();
     component.progressBar = {
       progress: 0.9
@@ -358,8 +368,6 @@ describe('Tile', () => {
     testRenderer.update(); // Force redraw
     expect(component._ProgressBar).toBeUndefined();
     component.itemLayout = undefined;
-    await component.__updateProgressBarSpyPromise;
-    expect(component._ProgressBar).not.toBeUndefined();
     component._smooth = false;
     component.progressBar = {
       progress: 0.4
@@ -387,7 +395,7 @@ describe('Tile', () => {
     done();
   });
 
-  it.skip('should not patch progressBar if is in circle layout mode', async done => {
+  it('should not patch progressBar if is in circle layout mode', async done => {
     component.patch({
       progressBar: {
         progress: 0.5
@@ -398,25 +406,22 @@ describe('Tile', () => {
     });
     await component.__updateProgressBarSpyPromise;
     expect(component._ProgressBar).toBeUndefined();
-    component.itemLayout = undefined;
-    await component.__updateProgressBarSpyPromise;
-    expect(component._ProgressBar).not.toBeUndefined();
     done();
   });
 
-  it.skip('should update metadata and remove if no longer needed if metadataLocation is inset', async done => {
-    expect(component._Metadata).toBeUndefined();
+  it('should update metadata and remove if no longer needed if metadataLocation is inset', async done => {
+    expect(component.metadata).toBeUndefined();
     component.metadata = { title: 'test' };
     component.metadataLocation = 'inset';
     await component.__updateMetadataSpyPromise;
-    expect(component._Metadata).not.toBeUndefined();
-    component.metadata = { title: undefined };
+    expect(component.metadata).not.toBeUndefined();
+    component.metadata = undefined;
     await component.__updateMetadataSpyPromise;
-    expect(component._Metadata).toBeUndefined();
+    expect(component.metadata).toBeUndefined();
     component._smooth = false;
     component.metadata = { title: 'test2' };
     await component.__updateMetadataSpyPromise;
-    expect(component._Metadata).not.toBeUndefined();
+    expect(component.metadata).not.toBeUndefined();
     done();
   });
 });
