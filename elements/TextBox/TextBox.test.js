@@ -59,11 +59,21 @@ describe('TextBox', () => {
     done();
   });
 
-  it('should set content to an empty string if the content prop is invalid', async done => {
+  it('should set Text and InlineContent to undefined if the content prop is invalid', () => {
     element.content = null;
-    await element.__updateSpyPromise;
-    expect(element.tag('Text').text.text).toBe('');
-    done();
+    testRenderer.forceAllUpdates();
+    expect(element._Text).toBeUndefined();
+    expect(element._InlineContent).toBeUndefined();
+
+    expect(element.w).toBe(0);
+  });
+
+  it('should set width and height to 0 if the content prop is invalid', () => {
+    element.content = null;
+    testRenderer.forceAllUpdates();
+
+    expect(element.w).toBe(0);
+    expect(element.h).toBe(0);
   });
 
   it('renders with a title that matches the content prop', async done => {

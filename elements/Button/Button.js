@@ -39,25 +39,17 @@ class Button extends Surface {
       Content: {
         mount: 0.5,
         x: w => w / 2,
-        y: h => h / 2,
-        Title: {
-          type: TextBox,
-          mountY: 0.5,
-          y: h => h / 2,
-          signals: {
-            textBoxChanged: '_onTextBoxChanged'
-          }
-        }
+        y: h => h / 2
       }
     };
   }
 
   _update() {
-    this._updateTruncation();
     this._updatePrefix();
     this._updateTitle();
     this._updateSuffix();
     this._updateAllPositioning();
+    this._updateTruncation();
   }
 
   _updateAllPositioning() {
@@ -109,15 +101,29 @@ class Button extends Surface {
   }
 
   _updateTitle() {
-    const titlePatch = {
-      content: this.title,
-      textStyle: {
-        textColor: this.style.contentColor,
-        ...this.style.textStyle
-      },
-      maxLines: 1
-    };
-    this._Title.patch(titlePatch);
+    if (this._hasTitle) {
+      let titlePatch = {
+        content: this.title,
+        textStyle: {
+          textColor: this.style.contentColor,
+          ...this.style.textStyle
+        }
+      };
+      if (!this._Title) {
+        titlePatch = {
+          type: TextBox,
+          mountY: 0.5,
+          y: h => h / 2,
+          signals: {
+            textBoxChanged: '_onTextBoxChanged'
+          },
+          ...titlePatch
+        };
+      }
+      this._Content.patch({ Title: titlePatch });
+    } else {
+      this.patch({ Content: { Title: undefined } });
+    }
   }
 
   _updateSuffix() {
@@ -145,10 +151,12 @@ class Button extends Surface {
      * to sometimes truncate and then un-truncate(with no width change) when
      * toggling fixed after toggling focus
      */
-    this._Title.patch({
-      wordWrap: this.fixed,
-      wordWrapWidth: this.fixed ? this.w - this.style.paddingX * 2 : 0
-    });
+    if (this._Title) {
+      this._Title.patch({
+        wordWrap: this.fixed,
+        wordWrapWidth: this.fixed ? this.w - this._paddingX : 0
+      });
+    }
   }
 
   _updateContentDimensions() {
@@ -180,11 +188,11 @@ class Button extends Surface {
     switch (this.justify) {
       case 'left':
         mountX = 0;
-        x = this.style.paddingX;
+        x = this._paddingLeft;
         break;
       case 'right':
         mountX = 1;
-        x = this.w - this.style.paddingX;
+        x = this.w - this._paddingRight;
         break;
       case 'center':
       default:
@@ -227,16 +235,6 @@ class Button extends Surface {
     }));
   }
 
-  get w() {
-    return this._w;
-  }
-
-  set w(v) {
-    if (typeof v !== 'undefined') {
-      this._w = v;
-    }
-  }
-
   _getJustify() {
     return !!this._justify ? this._justify : this.style.justify;
   }
@@ -261,7 +259,12 @@ class Button extends Surface {
 
   get _titleW() {
     // get the pre-calculated text width of the title to solve some race condition bugs
-    if (this._hasTitle) {
+    if (
+      this._hasTitle &&
+      this._Title &&
+      this._Title._Text &&
+      this._Title.visible
+    ) {
       if (this.fixed) {
         return this._Title.w;
       } else {
@@ -297,7 +300,7 @@ class Button extends Surface {
   get _contentW() {
     if (this._hasSuffix) {
       return this._suffixX + this._suffixW;
-    } else if (this._hasTitle) {
+    } else if (this._hasTitle && this._Title.visible) {
       return this._titleX + this._titleW;
     } else if (this._hasPrefix) {
       return this._prefixX + this._prefixW;
@@ -329,9 +332,15 @@ class Button extends Surface {
   }
 
   get _paddingX() {
-    return this._hasTitle
-      ? this.style.paddingX * 2
-      : this.style.paddingXNoTitle * 2;
+    return this._paddingLeft + this._paddingRight;
+  }
+
+  get _paddingLeft() {
+    return this._hasTitle ? this.style.paddingX : this.style.paddingXNoTitle;
+  }
+
+  get _paddingRight() {
+    return this._hasTitle ? this.style.paddingX : this.style.paddingXNoTitle;
   }
 }
 

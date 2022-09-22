@@ -9,10 +9,7 @@ import context from '../../context';
 class TextBox extends Base {
   static _template() {
     return {
-      alpha: 0.001,
-      Text: {
-        text: { textBaseline: 'bottom' }
-      }
+      alpha: 0.001
     };
   }
 
@@ -43,10 +40,6 @@ class TextBox extends Base {
     ];
   }
 
-  _init() {
-    this._Text.on('txLoaded', this._setDimensions.bind(this));
-  }
-
   _setDimensions() {
     const width = this._Text.texture.getRenderWidth();
     const height = this._Text.texture.getRenderHeight();
@@ -54,7 +47,7 @@ class TextBox extends Base {
       this.h = height;
       this.w = width;
       // Position updates can produce flash of poorly positioned content, hide the element until measurements are made.
-      if (1 > this.alpha) {
+      if (this.alpha < 1) {
         this.patch({
           alpha: 1
         });
@@ -141,37 +134,44 @@ class TextBox extends Base {
 
   _update() {
     if (!this.content) {
-      // If content is not defined hide the component
-      this.visible = false;
+      // If content is not defined hide the component, but do NOT set visibility
+      // as a parent component may need to control that (i.e. Control Button)
+      this.patch({ Text: undefined, InlineContent: undefined });
+      this.w = this.h = 0;
       this._notifyAncestors(); // need to alert parents that the width and height are now 0
       return;
     }
-    if (this._isInlineContent) {
-      const inlineContentPatch = InlineContent.properties.reduce(
-        (acc, prop) => {
-          if (this[prop] != undefined) {
-            acc[prop] = this[prop];
-          }
-          return acc;
-        },
-        {}
-      );
-      this.patch({
-        alpha: 1,
-        visible: true,
-        InlineContent: {
-          w: this.w,
-          type: InlineContent,
-          ...inlineContentPatch,
-          signals: {
-            loadedInlineContent: '_notifyAncestors'
-          }
+    this._isInlineContent ? this._updateInlineContent() : this._updateText();
+  }
+
+  _updateInlineContent() {
+    this.patch({ Text: undefined });
+    const inlineContentPatch = InlineContent.properties.reduce((acc, prop) => {
+      if (this[prop] != undefined) {
+        acc[prop] = this[prop];
+      }
+      return acc;
+    }, {});
+    this.patch({
+      alpha: 1,
+      InlineContent: {
+        w: this.w,
+        type: InlineContent,
+        ...inlineContentPatch,
+        signals: {
+          loadedInlineContent: '_notifyAncestors'
         }
-      });
-      return;
+      }
+    });
+  }
+
+  _updateText() {
+    this.patch({ InlineContent: undefined });
+    if (!this._Text) {
+      this.patch({ Text: { text: { textBaseline: 'bottom' } } });
+      this._Text.on('txLoaded', this._setDimensions.bind(this));
     }
 
-    this.visible = true;
     const fontStyle = {
       ...(this.style.typography[this.style.defaultTextStyle] ||
         this.style.typography.body1),
@@ -187,15 +187,17 @@ class TextBox extends Base {
         fontStyle[key] = this[`_${prop}`];
       }
     });
-    this._updateText(fontStyle);
+    this._updateTextGivenStyle(fontStyle);
   }
 
-  _updateText(fontStyle) {
-    this._Text.patch({
-      y: this.style.offsetY,
-      x: this.style.offsetX,
-      text: fontStyle
-    });
+  _updateTextGivenStyle(fontStyle) {
+    if (this._Text) {
+      this._Text.patch({
+        y: this.style.offsetY,
+        x: this.style.offsetX,
+        text: fontStyle
+      });
+    }
   }
 
   get announce() {

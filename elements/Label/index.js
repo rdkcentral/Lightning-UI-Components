@@ -47,10 +47,12 @@ class Label extends Base {
   }
 
   _updateText() {
-    this._Text.patch({
-      content: this.title,
-      textStyle: this.style.textStyle
-    });
+    if (this._Text) {
+      this._Text.patch({
+        content: this.title,
+        textStyle: this.style.textStyle
+      });
+    }
   }
 
   _updateBackground() {

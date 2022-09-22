@@ -12,7 +12,7 @@ export const base = theme => ({
   suffixPadding: theme.spacer.lg,
   prefixH: theme.spacer.xxl,
   suffixH: theme.spacer.xxl,
-  textStyle: theme.typography.button1,
+  textStyle: { ...theme.typography.button1, maxLines: 1 },
   contentColor: theme.colors.coreNeutral
 });
 

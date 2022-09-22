@@ -9,7 +9,7 @@ Object {
       "attached": true,
       "boundsMargin": null,
       "children": Object {
-        "Element-14": Object {
+        "Element-10": Object {
           "active": false,
           "alpha": 1,
           "attached": true,
@@ -208,7 +208,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Element-19": Object {
+        "Element-13": Object {
           "active": false,
           "alpha": 1,
           "attached": true,
@@ -407,7 +407,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Element-24": Object {
+        "Element-16": Object {
           "active": false,
           "alpha": 1,
           "attached": true,
@@ -606,7 +606,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Element-29": Object {
+        "Element-19": Object {
           "active": false,
           "alpha": 1,
           "attached": true,
@@ -1004,7 +1004,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Element-9": Object {
+        "Element-7": Object {
           "active": false,
           "alpha": 1,
           "attached": true,

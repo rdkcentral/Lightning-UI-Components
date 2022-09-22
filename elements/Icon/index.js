@@ -50,13 +50,24 @@ class Icon extends Base {
       this.prevTemplateParams = { icon, w, h };
       const template = getIconTemplate(icon, w, h);
       this.patch(template);
-      if (!template.texture) {
+      // only update color if color style is defined in theme
+      if (!template.texture && this.style.color) {
         this.smooth = {
           color: getValidColor(this.style.color)
         };
       }
-    } else {
+    } else if (this.style.color) {
       this.color = getValidColor(this.style.color);
+    }
+
+    // setting the radius on the Icon component
+    if (this.radius || this.style.radius) {
+      this.shader = {
+        radius: this.radius || this.style.radius,
+        type: lng.shaders.RoundedRectangle
+      };
+    } else {
+      this.shader = undefined;
     }
   }
 }

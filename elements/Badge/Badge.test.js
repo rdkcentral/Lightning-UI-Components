@@ -4,10 +4,13 @@ import { getHexColor } from '../../utils';
 
 const createBadge = TestUtils.makeCreateComponent(Badge);
 
+const circleIcon = TestUtils.pathToDataURI('assets/images/circle.svg');
+const xfinityLogo = TestUtils.pathToDataURI(
+  'assets/images/Xfinity-Provider-Logo-Square.png'
+);
+
 describe('Badge', () => {
   let badge, testRenderer;
-  const lightningPath = 'assets/images/ic_lightning_white_32.png';
-  const circlePath = 'assets/images/circle.svg';
 
   beforeEach(() => {
     [badge, testRenderer] = createBadge();
@@ -26,7 +29,7 @@ describe('Badge', () => {
     // eslint-disable-next-line no-unused-vars
     const [_, testRenderer] = createBadge({
       title: 'HD',
-      icon: lightningPath
+      icon: circleIcon
     });
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
@@ -35,7 +38,7 @@ describe('Badge', () => {
   it('renders icon only', () => {
     // eslint-disable-next-line no-unused-vars
     const [_, testRenderer] = createBadge({
-      icon: lightningPath
+      icon: circleIcon
     });
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
@@ -74,7 +77,7 @@ describe('Badge', () => {
   it('should update the text style', async done => {
     const color = getHexColor('ffffff', 25);
     const title = 'HD';
-    const icon = circlePath;
+    const icon = xfinityLogo;
     const textProperties = { color, textAlign: 'left' };
 
     [badge, testRenderer] = createBadge(
@@ -106,10 +109,10 @@ describe('Badge', () => {
   });
 
   it('should update the icon', () => {
-    const icon = circlePath;
+    const icon = xfinityLogo;
     [badge, testRenderer] = createBadge({ icon });
     expect(badge.icon).toBe(icon);
-    const icon2 = lightningPath;
+    const icon2 = circleIcon;
     badge.icon = icon2;
     expect(badge.icon).toBe(icon2);
     expect(badge._Icon.color).toBe(badge._BadgeText.color);
@@ -117,7 +120,7 @@ describe('Badge', () => {
 
   it('should position the text and icon based on the iconAlign property', async done => {
     const title = 'HD';
-    const icon = circlePath;
+    const icon = xfinityLogo;
     [badge, testRenderer] = createBadge(
       {
         title,
@@ -135,17 +138,19 @@ describe('Badge', () => {
       badge._iconLoaded();
     }, 500);
     await badge.__updateBackgroundSpyPromise;
+
+    expect(badge._BadgeText.x).toEqual(badge.style.paddingX);
     expect(badge._Icon.x).toEqual(
       badge._BadgeText.x +
         badge._BadgeText.renderWidth +
-        badge._componentStyle.contentSpacing
+        badge.style.contentSpacing
     );
     done();
   });
 
   it('should position the text and icon based on the iconAlign property', async done => {
     const title = 'HD';
-    const icon = circlePath;
+    const icon = xfinityLogo;
     [badge, testRenderer] = createBadge(
       {
         title,
