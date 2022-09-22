@@ -133,8 +133,12 @@ class Tile extends Surface {
       : this.innerW * 0.75;
   }
 
+  get _isFocusedMode() {
+    return this.mode === 'focused';
+  }
+
   get _shouldShowMetadata() {
-    return this._persistentMetadata || this._hasFocus;
+    return this._persistentMetadata || this._isFocusedMode;
   }
 
   get _topMetadataTransitions() {
@@ -164,7 +168,7 @@ class Tile extends Surface {
     return {
       y: [
         this._persistentMetadata ||
-        ('inset' === this._metadataLocation && this._hasFocus)
+        ('inset' === this._metadataLocation && this._isFocusedMode)
           ? this._metadataY
           : this._h + this.style.paddingY,
         this._shouldShowMetadata
@@ -173,7 +177,9 @@ class Tile extends Surface {
       ],
       alpha: [
         this._shouldShowMetadata ? 1 : 0.001,
-        this._hasFocus ? this.style.animationEntrance : this.style.animationExit
+        this._isFocusedMode
+          ? this.style.animationEntrance
+          : this.style.animationExit
       ]
     };
   }
@@ -208,7 +214,7 @@ class Tile extends Surface {
         (acc, prop) => {
           acc[prop] = [
             itemContainerPatch[prop],
-            this._hasFocus
+            this._isFocusedMode
               ? this.style.animationEntrance
               : this.style.animationExit
           ];
@@ -230,7 +236,7 @@ class Tile extends Surface {
       w: this._w,
       x: this._w / 2,
       y: this._h / 2,
-      shouldScale: this._hasFocus,
+      shouldScale: this._isFocusedMode,
       style: {
         radius: this.style.radius, // This can be overwritten by artworkStyles to support no rounding for performance
         ...this.style.artworkStyles
@@ -435,7 +441,7 @@ class Tile extends Surface {
           (acc, prop) => {
             acc[prop] = [
               progressPatch[prop],
-              this._hasFocus
+              this._isFocusedMode
                 ? this.style.animationEntrance
                 : this.style.animationExit
             ];
@@ -480,7 +486,7 @@ class Tile extends Surface {
     if (
       !this._persistentMetadata &&
       this._metadataLocation === 'inset' &&
-      !this._hasFocus
+      !this._isFocusedMode
     ) {
       this._animateMetadata();
       return;
@@ -496,7 +502,7 @@ class Tile extends Surface {
           },
           ...this._metadataPatch,
           // Patch in as if it was already in unfocused stage so it will animate up the first time
-          y: !('inset' === this._metadataLocation && this._hasFocus)
+          y: !('inset' === this._metadataLocation && this._isFocusedMode)
             ? this._metadataY
             : this._h + this.style.paddingY
         }
