@@ -288,6 +288,8 @@ class Column extends FocusManager {
         if (childWidth < this.Items.innerW) {
           childrenToCenter.push({ childIdx: i, childWidth });
         }
+      } else {
+        child.x = 0;
       }
     }
 

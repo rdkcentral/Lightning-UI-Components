@@ -14,13 +14,13 @@ export default {
         '',
         '',
         {
-          label: '#@!',
-          size: 'large',
+          title: '#@!',
+          size: 'lg',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         },
-        { label: 'Space', size: 'large' },
-        { label: 'Delete', size: 'large' },
+        { title: 'Space', size: 'lg' },
+        { title: 'Delete', size: 'lg' },
         '',
         '',
         '',
@@ -72,13 +72,13 @@ export default {
         '',
         '',
         {
-          label: 'ABC',
-          size: 'large',
+          title: 'ABC',
+          size: 'lg',
           toggle: 'letters',
           announce: 'caps on, button'
         },
-        { label: 'Space', size: 'large' },
-        { label: 'Delete', size: 'large' },
+        { title: 'Space', size: 'lg' },
+        { title: 'Delete', size: 'lg' },
         '',
         '',
         '',
@@ -100,17 +100,17 @@ export default {
         '8',
         '9',
         '0',
-        { label: '!', announce: 'exclamation, button' },
+        { title: '!', announce: 'exclamation, button' },
         '@',
         '#',
         '$',
         '%',
-        { label: '^', announce: 'caret circumflex, button' },
+        { title: '^', announce: 'caret circumflex, button' },
         '&',
         '*',
-        { label: '(', announce: 'open parenthesis, button' },
-        { label: ')', announce: 'close parenthesis, button' },
-        { label: '`', announce: 'grave accent, button' },
+        { title: '(', announce: 'open parenthesis, button' },
+        { title: ')', announce: 'close parenthesis, button' },
+        { title: '`', announce: 'grave accent, button' },
         '~',
         '_',
         '.',
@@ -132,7 +132,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', size: 'medium' }
+        { title: 'Delete', size: 'md' }
       ],
       [
         'Q',
@@ -146,8 +146,8 @@ export default {
         'O',
         'P',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -164,8 +164,8 @@ export default {
         'L',
         '@',
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
@@ -178,20 +178,20 @@ export default {
         'B',
         'N',
         'M',
-        { label: '_', announce: 'underscore, button' },
-        { label: '.', announce: 'period, button' },
-        { label: '-', announce: 'dash, button' },
+        { title: '_', announce: 'underscore, button' },
+        { title: '.', announce: 'period, button' },
+        { title: '-', announce: 'dash, button' },
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     lowercase: [
@@ -206,7 +206,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', size: 'medium' }
+        { title: 'Delete', size: 'md' }
       ],
       [
         'q',
@@ -220,8 +220,8 @@ export default {
         'o',
         'p',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -238,8 +238,8 @@ export default {
         'l',
         '@',
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
@@ -252,20 +252,20 @@ export default {
         'b',
         'n',
         'm',
-        { label: '_', announce: 'underscore, button' },
-        { label: '.', announce: 'period, button' },
-        { label: '-', announce: 'dash, button' },
+        { title: '_', announce: 'underscore, button' },
+        { title: '.', announce: 'period, button' },
+        { title: '-', announce: 'dash, button' },
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'uppercase',
           announce: 'shift on, button'
         }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     accents: [
@@ -280,7 +280,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', size: 'medium' }
+        { title: 'Delete', size: 'md' }
       ],
       [
         'ä',
@@ -294,8 +294,8 @@ export default {
         'ì',
         'ò',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -312,8 +312,8 @@ export default {
         'ê',
         'î',
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
@@ -330,16 +330,16 @@ export default {
         '',
         '',
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'accentsUpper',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     accentsUpper: [
@@ -354,7 +354,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', size: 'medium' }
+        { title: 'Delete', size: 'md' }
       ],
       [
         'Ä',
@@ -368,8 +368,8 @@ export default {
         'Ì',
         'Ò',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -386,8 +386,8 @@ export default {
         'Ê',
         'Î',
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
@@ -404,16 +404,16 @@ export default {
         '',
         '',
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'accents',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     symbols: [
@@ -428,77 +428,72 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', size: 'medium' }
+        { title: 'Delete', size: 'md' }
       ],
       [
-        { label: '!', announce: 'exclamation, button' },
+        { title: '!', announce: 'exclamation, button' },
         '@',
         '#',
         '$',
         '%',
-        { label: '^', announce: 'caret circumflex, button' },
+        { title: '^', announce: 'caret circumflex, button' },
         '&',
         '*',
-        { label: '(', announce: 'open parenthesis, button' },
-        { label: ')', announce: 'close parenthesis, button' },
+        { title: '(', announce: 'open parenthesis, button' },
+        { title: ')', announce: 'close parenthesis, button' },
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
       ],
       [
-        { label: '{', announce: 'open brace, button' },
-        { label: '}', announce: 'close brace, button' },
-        { label: '[', announce: 'open bracket, button' },
-        { label: ']', announce: 'close bracket, button' },
-        { label: ';', announce: 'semicolon, button' },
-        { label: '"', announce: 'doublequote, button' },
-        { label: ',', announce: 'comma, button' },
-        { label: '|', announce: 'vertical bar, button' },
-        { label: '\\', announce: 'backslash, button' },
-        { label: '/', announce: 'forwardslash, button' },
+        { title: '{', announce: 'open brace, button' },
+        { title: '}', announce: 'close brace, button' },
+        { title: '[', announce: 'open bracket, button' },
+        { title: ']', announce: 'close bracket, button' },
+        { title: ';', announce: 'semicolon, button' },
+        { title: '"', announce: 'doublequote, button' },
+        { title: ',', announce: 'comma, button' },
+        { title: '|', announce: 'vertical bar, button' },
+        { title: '\\', announce: 'backslash, button' },
+        { title: '/', announce: 'forwardslash, button' },
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
       ],
       [
-        { label: '<', announce: 'less than, button' },
-        { label: '>', announce: 'greater than, button' },
-        { label: '?', announce: 'question mark, button' },
-        { label: '=', announce: 'equal sign, button' },
-        { label: '`', announce: 'grave accent, button' },
-        { label: '~', announce: 'tilde, button' },
-        { label: '_', announce: 'underscore, button' },
-        { label: ':', announce: 'colon, button' },
-        { label: '-', announce: 'dash, button' },
-        { label: '+', announce: 'plus sign, button' }
+        { title: '<', announce: 'less than, button' },
+        { title: '>', announce: 'greater than, button' },
+        { title: '?', announce: 'question mark, button' },
+        { title: '=', announce: 'equal sign, button' },
+        { title: '`', announce: 'grave accent, button' },
+        { title: '~', announce: 'tilde, button' },
+        { title: '_', announce: 'underscore, button' },
+        { title: ':', announce: 'colon, button' },
+        { title: '-', announce: 'dash, button' },
+        { title: '+', announce: 'plus sign, button' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ]
   },
   numbers: {
     numbers: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-    dialpad: [
-      ['1', '2', '3'],
-      ['4', '5', '6'],
-      ['7', '8', '9'],
-      ['', '0', '']
-    ],
+    dialpad: [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['0']],
     dialpadExtended: [
       ['1', '2', '3'],
       ['4', '5', '6'],
       ['7', '8', '9'],
-      ['', '0', ''],
-      [{ label: 'Delete', size: 'large' }]
+      ['0'],
+      [{ title: 'Delete', size: 'lg' }]
     ]
   },
   email: {
@@ -514,7 +509,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', icon: { src: backspace, size: 48 }, size: 'medium' }
+        { title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
       ],
       [
         'Q',
@@ -528,8 +523,8 @@ export default {
         'O',
         'P',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -546,8 +541,8 @@ export default {
         'L',
         '@',
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
@@ -560,28 +555,28 @@ export default {
         'B',
         'N',
         'M',
-        { label: '.', announce: 'period, button' },
-        { label: '-', announce: 'dash, button' },
-        { label: '_', announce: 'underscore, button' },
+        { title: '.', announce: 'period, button' },
+        { title: '-', announce: 'dash, button' },
+        { title: '_', announce: 'underscore, button' },
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: '.com', announce: 'dot, com', size: 'medium' },
-        { label: '.net', announce: 'dot, net', size: 'medium' },
-        { label: '.edu', announce: 'dot, edu', size: 'medium' },
-        { label: '.org', announce: 'dot, org', size: 'medium' },
-        { label: '.co', announce: 'dot, co', size: 'medium' },
-        { label: '.uk', announce: 'dot, uk', size: 'medium' }
+        { title: '.com', announce: 'dot, com', size: 'md' },
+        { title: '.net', announce: 'dot, net', size: 'md' },
+        { title: '.edu', announce: 'dot, edu', size: 'md' },
+        { title: '.org', announce: 'dot, org', size: 'md' },
+        { title: '.co', announce: 'dot, co', size: 'md' },
+        { title: '.uk', announce: 'dot, uk', size: 'md' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     lowercase: [
@@ -596,7 +591,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', icon: { src: backspace, size: 48 }, size: 'medium' }
+        { title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
       ],
       [
         'q',
@@ -610,8 +605,8 @@ export default {
         'o',
         'p',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -628,8 +623,8 @@ export default {
         'l',
         '@',
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
@@ -642,28 +637,28 @@ export default {
         'b',
         'n',
         'm',
-        { label: '_', announce: 'underscore, button' },
-        { label: '.', announce: 'period, button' },
-        { label: '-', announce: 'dash, button' },
+        { title: '_', announce: 'underscore, button' },
+        { title: '.', announce: 'period, button' },
+        { title: '-', announce: 'dash, button' },
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'uppercase',
           announce: 'shift on, button'
         }
       ],
       [
-        { label: '.com', announce: 'dot, com', size: 'medium' },
-        { label: '.net', announce: 'dot, net', size: 'medium' },
-        { label: '.edu', announce: 'dot, edu', size: 'medium' },
-        { label: '.org', announce: 'dot, org', size: 'medium' },
-        { label: '.co', announce: 'dot, co', size: 'medium' },
-        { label: '.uk', announce: 'dot, uk', size: 'medium' }
+        { title: '.com', announce: 'dot, com', size: 'md' },
+        { title: '.net', announce: 'dot, net', size: 'md' },
+        { title: '.edu', announce: 'dot, edu', size: 'md' },
+        { title: '.org', announce: 'dot, org', size: 'md' },
+        { title: '.co', announce: 'dot, co', size: 'md' },
+        { title: '.uk', announce: 'dot, uk', size: 'md' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     accents: [
@@ -678,7 +673,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', icon: { src: backspace, size: 48 }, size: 'medium' }
+        { title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
       ],
       [
         'ä',
@@ -692,8 +687,8 @@ export default {
         'ì',
         'ò',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -710,8 +705,8 @@ export default {
         'ê',
         'î',
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
@@ -728,24 +723,24 @@ export default {
         '',
         '',
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'accentsUpper',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: '.com', announce: 'dot, com', size: 'medium' },
-        { label: '.net', announce: 'dot, net', size: 'medium' },
-        { label: '.edu', announce: 'dot, edu', size: 'medium' },
-        { label: '.org', announce: 'dot, org', size: 'medium' },
-        { label: '.co', announce: 'dot, co', size: 'medium' },
-        { label: '.uk', announce: 'dot, uk', size: 'medium' }
+        { title: '.com', announce: 'dot, com', size: 'md' },
+        { title: '.net', announce: 'dot, net', size: 'md' },
+        { title: '.edu', announce: 'dot, edu', size: 'md' },
+        { title: '.org', announce: 'dot, org', size: 'md' },
+        { title: '.co', announce: 'dot, co', size: 'md' },
+        { title: '.uk', announce: 'dot, uk', size: 'md' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     accentsUpper: [
@@ -760,7 +755,7 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', icon: { src: backspace, size: 48 }, size: 'medium' }
+        { title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
       ],
       [
         'Ä',
@@ -774,8 +769,8 @@ export default {
         'Ì',
         'Ò',
         {
-          label: '#@!',
-          size: 'medium',
+          title: '#@!',
+          size: 'md',
           toggle: 'symbols',
           announce: 'symbol mode, button'
         }
@@ -792,8 +787,8 @@ export default {
         'Ê',
         'Î',
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
@@ -810,24 +805,24 @@ export default {
         '',
         '',
         {
-          label: 'shift',
-          size: 'medium',
+          title: 'shift',
+          size: 'md',
           toggle: 'accents',
           announce: 'shift off, button'
         }
       ],
       [
-        { label: '.com', announce: 'dot, com', size: 'medium' },
-        { label: '.net', announce: 'dot, net', size: 'medium' },
-        { label: '.edu', announce: 'dot, edu', size: 'medium' },
-        { label: '.org', announce: 'dot, org', size: 'medium' },
-        { label: '.co', announce: 'dot, co', size: 'medium' },
-        { label: '.uk', announce: 'dot, uk', size: 'medium' }
+        { title: '.com', announce: 'dot, com', size: 'md' },
+        { title: '.net', announce: 'dot, net', size: 'md' },
+        { title: '.edu', announce: 'dot, edu', size: 'md' },
+        { title: '.org', announce: 'dot, org', size: 'md' },
+        { title: '.co', announce: 'dot, co', size: 'md' },
+        { title: '.uk', announce: 'dot, uk', size: 'md' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ],
     symbols: [
@@ -842,68 +837,68 @@ export default {
         '8',
         '9',
         '0',
-        { label: 'Delete', icon: { src: backspace, size: 48 }, size: 'medium' }
+        { title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
       ],
       [
-        { label: '!', announce: 'exclamation, button' },
+        { title: '!', announce: 'exclamation, button' },
         '@',
         '#',
         '$',
         '%',
-        { label: '^', announce: 'caret circumflex, button' },
+        { title: '^', announce: 'caret circumflex, button' },
         '&',
         '*',
-        { label: '(', announce: 'open parenthesis, button' },
-        { label: ')', announce: 'close parenthesis, button' },
+        { title: '(', announce: 'open parenthesis, button' },
+        { title: ')', announce: 'close parenthesis, button' },
         {
-          label: 'abc',
-          size: 'medium',
+          title: 'abc',
+          size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
         }
       ],
       [
-        { label: '{', announce: 'open brace, button' },
-        { label: '}', announce: 'close brace, button' },
-        { label: '[', announce: 'open bracket, button' },
-        { label: ']', announce: 'close bracket, button' },
-        { label: ';', announce: 'semicolon, button' },
-        { label: '"', announce: 'doublequote, button' },
-        { label: ',', announce: 'comma, button' },
-        { label: '|', announce: 'vertical bar, button' },
-        { label: '\\', announce: 'backslash, button' },
-        { label: '/', announce: 'forwardslash, button' },
+        { title: '{', announce: 'open brace, button' },
+        { title: '}', announce: 'close brace, button' },
+        { title: '[', announce: 'open bracket, button' },
+        { title: ']', announce: 'close bracket, button' },
+        { title: ';', announce: 'semicolon, button' },
+        { title: '"', announce: 'doublequote, button' },
+        { title: ',', announce: 'comma, button' },
+        { title: '|', announce: 'vertical bar, button' },
+        { title: '\\', announce: 'backslash, button' },
+        { title: '/', announce: 'forwardslash, button' },
         {
-          label: 'áöû',
-          size: 'medium',
+          title: 'áöû',
+          size: 'md',
           toggle: 'accents',
           announce: 'accents, button'
         }
       ],
       [
-        { label: '<', announce: 'less than, button' },
-        { label: '>', announce: 'greater than, button' },
-        { label: '?', announce: 'question mark, button' },
-        { label: '=', announce: 'equal sign, button' },
-        { label: '`', announce: 'grave accent, button' },
-        { label: '~', announce: 'tilde, button' },
-        { label: '_', announce: 'underscore, button' },
-        { label: ':', announce: 'colon, button' },
-        { label: '-', announce: 'dash, button' },
-        { label: '+', announce: 'plus sign, button' }
+        { title: '<', announce: 'less than, button' },
+        { title: '>', announce: 'greater than, button' },
+        { title: '?', announce: 'question mark, button' },
+        { title: '=', announce: 'equal sign, button' },
+        { title: '`', announce: 'grave accent, button' },
+        { title: '~', announce: 'tilde, button' },
+        { title: '_', announce: 'underscore, button' },
+        { title: ':', announce: 'colon, button' },
+        { title: '-', announce: 'dash, button' },
+        { title: '+', announce: 'plus sign, button' }
       ],
       [
-        { label: '.com', announce: 'dot, com', size: 'medium' },
-        { label: '.net', announce: 'dot, net', size: 'medium' },
-        { label: '.edu', announce: 'dot, edu', size: 'medium' },
-        { label: '.org', announce: 'dot, org', size: 'medium' },
-        { label: '.co', announce: 'dot, co', size: 'medium' },
-        { label: '.uk', announce: 'dot, uk', size: 'medium' }
+        { title: '.com', announce: 'dot, com', size: 'md' },
+        { title: '.net', announce: 'dot, net', size: 'md' },
+        { title: '.edu', announce: 'dot, edu', size: 'md' },
+        { title: '.org', announce: 'dot, org', size: 'md' },
+        { title: '.co', announce: 'dot, co', size: 'md' },
+        { title: '.uk', announce: 'dot, uk', size: 'md' }
       ],
       [
-        { label: 'Clear', size: 'large' },
-        { label: 'Space', size: 'xlarge' },
-        { label: 'Done', size: 'large' }
+        { title: 'Clear', size: 'lg' },
+        { title: 'Space', size: 'xl' },
+        { title: 'Done', size: 'lg' }
       ]
     ]
   }

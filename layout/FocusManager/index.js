@@ -22,7 +22,7 @@ class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction'];
+    return ['direction', 'wrapSelected', 'centerInParent'];
   }
 
   _construct() {

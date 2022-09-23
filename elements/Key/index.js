@@ -64,7 +64,6 @@ class Key extends Button {
 
   _update() {
     this.w = this.style.sizes[this.size] || this.style.sizes.sm;
-
     super._update();
   }
 

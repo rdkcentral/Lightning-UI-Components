@@ -85,7 +85,7 @@ class Button extends Surface {
     if (this.prefix) {
       let prefixPatch = {
         h: this.style.prefixH,
-        itemSpacing: this.style.prefixPadding
+        itemSpacing: this.style.itemSpacing
       };
       if (!this._Prefix) {
         prefixPatch = {
@@ -130,7 +130,7 @@ class Button extends Surface {
     if (this.suffix) {
       let suffixPatch = {
         h: this.style.suffixH,
-        itemSpacing: this.style.suffixPadding
+        itemSpacing: this.style.itemSpacing
       };
       if (!this._Suffix) {
         suffixPatch = {
@@ -215,6 +215,7 @@ class Button extends Surface {
           ? this._contentW + this._paddingX
           : Math.max(this._contentW + this._paddingX, this.style.minWidth);
     }
+
     if (newWidth !== this.w) {
       this.w = newWidth;
       this.fireAncestors('$itemChanged');
@@ -292,7 +293,7 @@ class Button extends Surface {
     if (this._hasTitle) {
       return this._titleW + this._Title.x + this.style.titlePadding;
     } else if (this._hasPrefix) {
-      return this._prefixW + this.style.prefixPadding;
+      return this._prefixW + this.style.itemSpacing;
     }
     return 0;
   }

@@ -156,7 +156,7 @@ describe('Button', () => {
       testRenderer.forceAllUpdates();
       expect(component._hasTitle).toBeFalsy();
       expect(component._suffixX).toEqual(
-        component._prefixW + component.style.prefixPadding + component._titleW
+        component._prefixW + component.style.itemSpacing + component._titleW
       );
     });
 

@@ -1,68 +1,61 @@
 import lng from '@lightningjs/core';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
-import Key from '../../elements/Key';
 import KeyboardInput from './KeyboardInput';
-import Row from '../../layout/Row';
-
+import { createModeControl } from '../../.storybook/controls/argTypes';
 import mdx from './Keyboard.mdx';
+import context from '../../context';
 
 export default {
   title: 'Patterns / Keyboard',
-  component: Keyboard,
   parameters: {
     docs: {
       page: mdx
-    },
-    argActions: {
-      focused: (isFocused, component) => {
-        component._getFocused = isFocused
-          ? () => component.tag('Keyboard')
-          : () => {};
-      }
     }
-  },
-  args: {
-    centerAlign: false,
-    width: 900,
-    focused: true
-  },
-  argTypes: {
-    centerAlign: { control: 'boolean' },
-    width: { control: 'number', min: 0 },
-    focused: { control: 'boolean' }
   }
 };
 
-export const Basic = args =>
+const sharedArgTypes = {
+  ...createModeControl(),
+  centerAlign: {
+    defaultValue: false,
+    description: "center the keyboard within it's set width",
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
+  }
+};
+
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Keyboard: {
           type: Keyboard,
           defaultFormat: 'lowercase',
-          formats: KEYBOARD_FORMATS.qwerty,
-          w: args.width,
-          centerAlign: args.centerAlign
+          formats: KEYBOARD_FORMATS.qwerty
         }
       };
     }
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Keyboard');
-      }
+
+    $itemChanged() {
+      // example of centering the keyboard on the screen using the calculated width
+      this.tag('Keyboard').x =
+        (1920 - this.tag('Keyboard').w) / 2 - context.theme.layout.marginX;
     }
   };
 
-export const FullScreen = args =>
+Basic.argTypes = sharedArgTypes;
+Basic.parameters = {};
+
+export const FullScreen = () =>
   class FullScreen extends lng.Component {
     static _template() {
       return {
         Keyboard: {
           type: Keyboard,
           defaultFormat: 'letters',
-          formats: KEYBOARD_FORMATS.fullscreen,
-          w: args.width,
-          centerAlign: args.centerAlign
+          formats: KEYBOARD_FORMATS.fullscreen
         }
       };
     }
@@ -75,45 +68,38 @@ export const FullScreen = args =>
         });
       });
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Keyboard');
-      }
-    }
   };
 
-export const Dialpad = args =>
+FullScreen.parameters = {};
+
+FullScreen.argTypes = sharedArgTypes;
+
+export const Dialpad = () =>
   class Dialpad extends lng.Component {
     static _template() {
       return {
         Keyboard: {
           type: Keyboard,
-          defaultFormat: args.defaultFormat,
-          formats: KEYBOARD_FORMATS.numbers,
-          w: args.width,
-          centerAlign: args.centerAlign
+          defaultFormat: 'dialpad',
+          formats: KEYBOARD_FORMATS.numbers
         }
       };
     }
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('Keyboard');
-      }
-    }
   };
 
-Dialpad.args = {
-  defaultFormat: 'dialpad'
-};
 Dialpad.argTypes = {
+  ...sharedArgTypes,
   defaultFormat: {
-    control: {
-      type: 'radio',
-      options: ['dialpad', 'dialpadExtended']
+    defaultValue: 'dialpad',
+    description: 'Select the format of dialpad',
+    control: 'radio',
+    options: ['dialpad', 'dialpadExtended'],
+    table: {
+      defaultValue: { summary: 'dialpad' }
     }
   }
 };
+
 Dialpad.parameters = {
   argActions: {
     defaultFormat: (format, component) => {
@@ -123,125 +109,66 @@ Dialpad.parameters = {
   }
 };
 
-export const Keys = () =>
-  class Keys extends lng.Component {
-    static _template() {
-      return {
-        Keys: {
-          type: Row,
-          itemSpacing: 20,
-          items: [
-            {
-              type: Key,
-              title: 'a'
-            },
-            {
-              type: Key,
-              size: 'medium',
-              title: 'Shift'
-            },
-            {
-              type: Key,
-              size: 'large',
-              title: 'Done'
-            },
-            {
-              type: Key,
-              size: 'xlarge',
-              title: 'Space'
-            }
-          ]
-        }
-      };
+const sharedKeyInputArgTypes = {
+  ...sharedArgTypes,
+  password: {
+    defaultValue: false,
+    description: 'need description',
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
     }
-    _getFocused() {
-      return this.tag('Keys');
+  },
+  mask: {
+    defaultValue: '•',
+    description: 'need description',
+    control: 'text',
+    table: {
+      defaultValue: { summary: '•' }
     }
-  };
-
-export const KeyboardWithInput = args =>
+  }
+};
+export const KeyboardWithInput = () =>
   class KeyboardWithInput extends lng.Component {
     static _template() {
       return {
         KeyboardInput: {
           type: KeyboardInput,
-          inputPlaceholder: 'Search',
-          password: args.password,
-          mask: args.mask,
-          w: args.width,
-          centerAlign: args.centerAlign
+          inputPlaceholder: 'Search'
         }
       };
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('KeyboardInput');
-      }
-    }
   };
 
-KeyboardWithInput.args = {
-  password: false,
-  mask: '•'
-};
-KeyboardWithInput.argTypes = {
-  password: { control: 'boolean' },
-  mask: { control: 'text' }
-};
+KeyboardWithInput.argTypes = sharedKeyInputArgTypes;
+
 KeyboardWithInput.parameters = {
   tag: 'KeyboardInput',
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('KeyboardInput')
-        : () => {};
-    },
     password: (isPassword, component) => {
       component.tag('KeyboardInput').password = isPassword;
     }
   }
 };
 
-export const EmailWithInput = args =>
+export const EmailWithInput = () =>
   class EmailWithInput extends lng.Component {
     static _template() {
       return {
         EmailInput: {
           type: KeyboardInput,
           inputPlaceholder: 'Email address',
-          password: args.password,
-          mask: args.mask,
-          w: args.width,
-          centerAlign: args.centerAlign,
           keyboardFormats: KEYBOARD_FORMATS.email
         }
       };
     }
-
-    _getFocused() {
-      if (args.focused) {
-        return this.tag('EmailInput');
-      }
-    }
   };
 
-EmailWithInput.args = {
-  password: false,
-  mask: '•'
-};
-EmailWithInput.argTypes = {
-  password: { control: 'boolean' },
-  mask: { control: 'text' }
-};
+EmailWithInput.argTypes = sharedKeyInputArgTypes;
+
 EmailWithInput.parameters = {
   tag: 'EmailInput',
   argActions: {
-    focused: (isFocused, component) => {
-      component._getFocused = isFocused
-        ? () => component.tag('EmailInput')
-        : () => {};
-    },
     password: (isPassword, component) => {
       component.tag('EmailInput').password = isPassword;
     }
