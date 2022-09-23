@@ -50,7 +50,7 @@ describe('InlineContent', () => {
   });
 
   it('should update the text properties', () => {
-    const color = getHexColor('ffffff', 25);
+    const color = getHexColor('ffffff', 0.25);
     const textStyle = { color, textAlign: 'left' };
     inlineContent.textStyle = textStyle;
     expect(inlineContent.textStyle).toBe(textStyle);
@@ -94,7 +94,7 @@ describe('InlineContent', () => {
   });
 
   it('should update badge styling', () => {
-    const color = getHexColor('ffffff', 25);
+    const color = getHexColor('ffffff', 0.25);
     const badgeProperties = { background: { color } };
     const content = [{ badge: 'HD' }, { badge: 'CC' }];
     [inlineContent, testRenderer] = createInlineContent({
@@ -158,7 +158,7 @@ describe('InlineContent', () => {
   });
 
   it('should render text with custom properties', () => {
-    const color = getHexColor('ffffff', 25);
+    const color = getHexColor('ffffff', 0.25);
     const content = [
       {
         text: 'some test text',

@@ -70,7 +70,7 @@ Base.argTypes = {
     },
     defaultValue: 'body1',
     description:
-      'Style of text to be displayed. This value will take precedent over the `textStyle` style property. Avalilable values display1, display2, headline1, headline2, headline3, body1, body2, body3, button1, button2, callout1, caption. Alternatively an object can be passed in containing any [properties that the Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties).',
+      'Style of text to be displayed. This value will take precedent over the `textStyle` style property. Avalilable values display1, display2, headline1, headline2, headline3, body1, body2, body3, button1, button2, callout1, caption1. Alternatively an object can be passed in containing any [properties that the Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties).',
     type: 'string',
     table: {
       defaultValue: { summary: 'body1' }

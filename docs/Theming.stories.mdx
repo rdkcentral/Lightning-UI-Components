@@ -75,8 +75,8 @@ The `updateTheme` method merges the component styles you have updated with the c
 ```js
 context.updateTheme(
   colors: {
-    fillNeutralFocus: ['#c15a5a', 100],
-    surface: ['#680f0f', 100]
+    fillNeutralFocus: ['#c15a5a', 1],
+    surface: ['#680f0f', 1]
   }
 );
 ```
@@ -113,7 +113,7 @@ For example, `fillNeutralFocus` is used by `ProgressBar` and `FocusRing`. If you
 
 ``` js
 context.updateTheme({
-  colors: { fillNeutralFocus: [value, 100] }
+  colors: { fillNeutralFocus: [value, 1] }
 });
 
 ```
@@ -127,7 +127,7 @@ context.updateTheme({
   componentStyle: {
     ProgressBar: {
       progressColor: getHexColor(#32CD32)
-      //can also be written as progressColor: ['#32CD32', 100]
+      //can also be written as progressColor: ['#32CD32', 1]
     }
   }
 });

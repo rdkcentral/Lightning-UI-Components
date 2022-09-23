@@ -95,32 +95,32 @@ export const PALETTE = {
     float: 0x00,
     fill: GREY[70],
     focus: GREY[10],
-    ghost: getHexColor(GREY[70], 48),
+    ghost: getHexColor(GREY[70], 0.48),
     __isColor: true
   },
   text: {
     light: {
-      primary: getHexColor(GREY[0], 95),
-      secondary: getHexColor(GREY[0], 80),
-      tertiary: getHexColor(GREY[0], 60),
+      primary: getHexColor(GREY[0], 0.95),
+      secondary: getHexColor(GREY[0], 0.8),
+      tertiary: getHexColor(GREY[0], 0.6),
       __isColor: true
     },
     dark: {
-      primary: getHexColor(GREY[100], 95),
-      secondary: getHexColor(GREY[100], 80),
-      tertiary: getHexColor(GREY[100], 60),
+      primary: getHexColor(GREY[100], 0.95),
+      secondary: getHexColor(GREY[100], 0.8),
+      tertiary: getHexColor(GREY[100], 0.6),
       __isColor: true
     },
-    focus: getHexColor(GREY[100], 95),
+    focus: getHexColor(GREY[100], 0.95),
     __isColor: true
   },
   badge: {
-    default: getHexColor(GREY[70], 60),
+    default: getHexColor(GREY[70], 0.6),
     __isColor: true
   },
   focusRing: {
-    primary: getHexColor(GREY[10], 96),
-    secondary: getHexColor(GREY[0], 8),
+    primary: getHexColor(GREY[10], 0.96),
+    secondary: getHexColor(GREY[0], 0.08),
     __isColor: true
   }
 };

@@ -78,7 +78,7 @@ export default {
     lineHeight: 32,
     verticalAlign: 'middle'
   },
-  caption: {
+  caption1: {
     fontFace: 'Arial',
     fontSize: 15,
     fontWeight: 500,

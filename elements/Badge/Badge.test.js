@@ -69,13 +69,13 @@ describe('Badge', () => {
   });
 
   it('should update the background', () => {
-    const color = getHexColor('ffffff', 25);
+    const color = getHexColor('ffffff', 0.25);
     [badge] = createBadge({ background: { color }, icon: undefined });
     expect(badge.background.color).toBe(color);
   });
 
   it('should update the text style', async done => {
-    const color = getHexColor('ffffff', 25);
+    const color = getHexColor('ffffff', 0.25);
     const title = 'HD';
     const icon = xfinityLogo;
     const textProperties = { color, textAlign: 'left' };

@@ -87,7 +87,7 @@ export default {
     lineHeight: 32,
     verticalAlign: 'middle'
   },
-  caption: {
+  caption1: {
     fontFace: 'SkyText',
     fontSize: 20,
     fontWeight: 500,

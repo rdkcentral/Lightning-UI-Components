@@ -66,7 +66,7 @@ function luminance({
 function shadow({
   w,
   h,
-  color = getHexColor(PALETTE.grey[100], 60),
+  color = getHexColor(PALETTE.grey[100], 0.6),
   borderRadius = CORNER_RADIUS.small,
   blur = spacing(3)
 }) {
@@ -132,15 +132,15 @@ const gradientAnimation = {
     {
       p: 'colorUl',
       v: {
-        0: getHexColor(gradientColor, 72),
-        1: getHexColor(gradientColor, 56)
+        0: getHexColor(gradientColor, 0.72),
+        1: getHexColor(gradientColor, 0.56)
       }
     },
     {
       p: 'colorUr',
       v: {
-        0: getHexColor(gradientColor, 24),
-        1: getHexColor(gradientColor, 16)
+        0: getHexColor(gradientColor, 0.24),
+        1: getHexColor(gradientColor, 0.16)
       }
     },
     {
@@ -150,8 +150,8 @@ const gradientAnimation = {
     {
       p: 'colorBl',
       v: {
-        0: getHexColor(gradientColor, 24),
-        1: getHexColor(gradientColor, 16)
+        0: getHexColor(gradientColor, 0.24),
+        1: getHexColor(gradientColor, 0.16)
       }
     }
   ]

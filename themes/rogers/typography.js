@@ -76,7 +76,7 @@ export default {
     lineHeight: 32,
     verticalAlign: 'middle'
   },
-  caption: {
+  caption1: {
     fontFace: 'Ted Next',
     fontSize: 15,
     fontWeight: 400,

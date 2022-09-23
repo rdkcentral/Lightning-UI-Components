@@ -70,7 +70,7 @@ describe('context', () => {
       const { colors: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const colors = {};
-      colors[firstColorProp] = ['#663399', 100];
+      colors[firstColorProp] = ['#663399', 1];
       context.setTheme({ colors });
       expect(context.theme.colors[firstColorProp]).toBe(getHexColor('#663399'));
       context.setTheme({ foo: 'bar' });
@@ -85,7 +85,7 @@ describe('context', () => {
       const { colors: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const colors = {};
-      colors[firstColorProp] = ['#663399', 100];
+      colors[firstColorProp] = ['#663399', 1];
       context.updateTheme({ colors });
       expect(context.theme.colors[firstColorProp]).toBe(getHexColor('#663399'));
       context.updateTheme({ foo: 'bar' });

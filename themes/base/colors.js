@@ -56,7 +56,7 @@ export default {
   transparent: [COLOR_PALETTE.constants.white, ALPHAS.none],
   black: [COLOR_PALETTE.constants.black, ALPHAS.primary],
   white: [COLOR_PALETTE.constants.white, ALPHAS.primary],
-  gray: [COLOR_PALETTE.grey[40], ALPHAS.primary],
+  grey: [COLOR_PALETTE.grey[40], ALPHAS.primary],
   red: ['#E74C3C', ALPHAS.primary],
   orange: ['#DC7633', ALPHAS.primary],
   yellow: ['#F7DC6F', ALPHAS.primary],

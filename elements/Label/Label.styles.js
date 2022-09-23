@@ -7,7 +7,7 @@ export const base = theme => ({
   ],
   paddingX: theme.spacer.lg,
   paddingY: theme.spacer.md,
-  textStyle: theme.typography.caption
+  textStyle: theme.typography.caption1
 });
 
 export const palette = theme => ({
