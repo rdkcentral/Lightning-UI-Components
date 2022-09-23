@@ -1,0 +1,54 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../.storybook/utils';
+import { Tab } from '.';
+
+# Tab
+
+Tab component to be rendered in a [TabBar](/docs/elements-tabbar--basic).
+
+## Usage
+
+`Tab` is the recommended component to use when defining `tabs` in a [TabBar](/docs/elements-tabbar--basic) component.
+
+```js
+import { TabBar, Tab, Row } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Tab: {
+        Tab: {
+          type: Tab,
+          icon: iconPath,
+          title: 'Tab'
+        }
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-tab--basic" />
+</Canvas>
+
+### Properties
+
+| name  | type   | required | default | description                            |
+| ----- | ------ | -------- | ------- | -------------------------------------- |
+| icon  | string | false    | -       | path to icon to prepend tab title with |
+| title | string | false    | -       | text to display on tab                 |
+
+### Style Properties
+
+| name            | type                   | description                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| backgroundColor | string                 | background color of tab                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| contentColor    | string                 | color of icon and/or text                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| iconMarginRight | number                 | space between icon and text                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| iconSize        | number                 | width and height of icon                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| noTitlePaddingX | number                 | horizontal padding of tab when only an icon is rendered                                                                                                                                                                                                                                                                                                                                                                                             |
+| paddingX        | number                 | horizontal padding of tab                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| paddingY        | number                 | vertical padding of tab                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| radius          | number                 | border radius of tab                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| textStyle       | \_\_TextType \| string | Style of text to be displayed. This value will take precedent over the `textStyle` style property. Avalilable values display1, display2, headline1, headline2, headline3, body1, body2, body3, button1, button2, callout1, caption. Alternatively an object can be passed in containing any [properties that the Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties). |

@@ -6,7 +6,6 @@ export {
   CardAboutLarge
 } from './CardAbout';
 
-export { default as ContentTray } from './ContentTray';
 export { default as Input } from './Input';
 // export { default as Keyboard, KEYBOARD_FORMATS } from './Keyboard';
 // export { default as KeyboardInput } from './Keyboard/KeyboardInput';

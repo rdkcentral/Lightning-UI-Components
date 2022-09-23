@@ -20,7 +20,7 @@ export { default as Provider } from './Provider';
 export { default as Radio } from './Radio';
 export { default as Slider } from './Slider';
 export { default as Surface } from './Surface';
-export { default as TabBar, Tab } from './Tabs';
+export { default as TabBar, Tab } from './TabBar';
 export { default as TextBox } from './TextBox';
 export { default as Tile } from './Tile';
 export { default as Toggle } from './Toggle';
