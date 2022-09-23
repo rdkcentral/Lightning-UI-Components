@@ -112,7 +112,9 @@ export class ThemeManager {
     }
     const globalTheme = this.getTheme();
     const subTheme = this._processTheme.call(this, [globalTheme, value]);
-
+    if (subTheme.fonts && subTheme.fonts.length) {
+      await this._loadFonts(subTheme.fonts);
+    }
     this._setCache(`subTheme${subThemeName}`, {
       original: value,
       result: subTheme
@@ -211,6 +213,10 @@ export class ThemeManager {
       value
     ]);
 
+    if (subTheme.fonts && subTheme.fonts.length) {
+      await this._loadFonts(subTheme.fonts);
+    }
+
     this._setCache(`subTheme${subThemeName}`, {
       original: clone(currentTheme, value),
       result: subTheme
@@ -255,6 +261,7 @@ export class ThemeManager {
         'extensions' === key ||
         'function' === typeof value ||
         ('object' === typeof value &&
+          value !== null &&
           'Object' !== value.constructor.name &&
           !Array.isArray(value))
       ) {
