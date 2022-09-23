@@ -39,7 +39,7 @@ class Column extends FocusManager {
 
   _construct() {
     super._construct();
-    this._smooth = false;
+    this.shouldSmooth = false;
   }
 
   _init() {
@@ -107,7 +107,7 @@ class Column extends FocusManager {
   }
 
   selectNext() {
-    this._smooth = true;
+    this.shouldSmooth = true;
     if (this._lazyItems && this._lazyItems.length) {
       delayForAnimation(() => {
         this.appendItems(this._lazyItems.splice(0, 1));
@@ -117,7 +117,7 @@ class Column extends FocusManager {
   }
 
   selectPrevious() {
-    this._smooth = true;
+    this.shouldSmooth = true;
     return super.selectPrevious();
   }
 
@@ -220,10 +220,8 @@ class Column extends FocusManager {
 
   _performRender() {
     if (!this.Items.children.length) {
-      if (this._smooth) {
-        this.Items.smooth = { y: this.itemPosY };
-      } else {
-        this.Items.y = this.itemPosY;
+      this.applySmooth(this.Items, { y: this.itemPosY });
+      if (!this.shouldSmooth) {
         this._updateTransitionTarget(this.Items, 'y', this.itemPosY);
       }
     } else if (this._shouldScroll()) {
@@ -236,21 +234,23 @@ class Column extends FocusManager {
       }
       const scrollOffset = (this.Items.children[this.scrollIndex] || { y: 0 })
         .y;
-      if (this._smooth) {
-        const firstChild = this.Items.childList.first;
-        this.Items.smooth = {
-          y: [
-            -(scrollItem || firstChild).transition('y').targetValue +
-              (scrollItem === this.selected ? scrollOffset : 0),
-            this._itemTransition
-          ]
-        };
-      } else {
-        const scrollTarget =
-          -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
-        this.Items.patch({
+      const smoothObj = [
+        -(scrollItem || this.Items.childList.first).transition('y')
+          .targetValue + (scrollItem === this.selected ? scrollOffset : 0),
+        this._itemTransition
+      ];
+      const scrollTarget =
+        -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
+      this.applySmooth(
+        this.Items,
+        {
           y: scrollTarget
-        });
+        },
+        {
+          y: smoothObj
+        }
+      );
+      if (!this.shouldSmooth) {
         this._updateTransitionTarget(this.Items, 'y', scrollTarget);
       }
     }
@@ -268,10 +268,12 @@ class Column extends FocusManager {
       const child = this.Items.children[i];
       nextW = Math.max(nextW, getW(child));
       maxInnerW = Math.max(maxInnerW, child.innerW || 0);
-      if (this._smooth) {
-        child.smooth = { y: [nextY, this._itemTransition] };
-      } else {
-        child.patch({ y: nextY });
+      this.applySmooth(
+        child,
+        { y: nextY },
+        { y: [nextY, this._itemTransition] }
+      );
+      if (!this.shouldSmooth) {
         this._updateTransitionTarget(child, 'y', nextY);
       }
       nextY += child.h;
@@ -347,7 +349,7 @@ class Column extends FocusManager {
 
   appendItems(items = []) {
     const itemWidth = this.renderWidth;
-    this._smooth = false;
+    this.shouldSmooth = false;
 
     if (items.length > this.lazyUpCount + 2) {
       this._lazyItems = items.splice(this.lazyUpCount + 2);
@@ -381,7 +383,7 @@ class Column extends FocusManager {
   }
 
   _transitionListener() {
-    this._smooth = false;
+    this.shouldSmooth = false;
     this.transitionDone();
   }
 

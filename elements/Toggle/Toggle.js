@@ -78,11 +78,7 @@ class Toggle extends Base {
       knobXChecked || w - strokeWeight - knobPadding - knobWidth;
     const x = this.checked ? this._knobXChecked : this._knobX;
 
-    if (this._smooth) {
-      this._Knob.smooth = { x };
-    } else {
-      this._Knob.x = x;
-    }
+    this.applySmooth(this._Knob, { x });
   }
 
   _updateColors() {
@@ -98,17 +94,8 @@ class Toggle extends Base {
       ? backgroundColorChecked
       : backgroundColor;
 
-    if (this._smooth) {
-      this._Knob.smooth = {
-        color: currentKnobColor
-      };
-      this._Container.smooth = {
-        color: containerColor
-      };
-    } else {
-      this._Knob.color = currentKnobColor;
-      this._Container.color = containerColor;
-    }
+    this.applySmooth(this._Knob, { color: currentKnobColor });
+    this.applySmooth(this._Container, { color: containerColor });
   }
 
   _updateContainer() {

@@ -42,7 +42,7 @@ class Row extends FocusManager {
 
   _construct() {
     super._construct();
-    this._smooth = false;
+    this.shouldSmooth = false;
   }
 
   _init() {
@@ -110,7 +110,7 @@ class Row extends FocusManager {
   }
 
   selectNext() {
-    this._smooth = true;
+    this.shouldSmooth = true;
     if (this._lazyItems && this._lazyItems.length) {
       delayForAnimation(() => {
         this.appendItems(this._lazyItems.splice(0, 1));
@@ -120,7 +120,7 @@ class Row extends FocusManager {
   }
 
   selectPrevious() {
-    this._smooth = true;
+    this.shouldSmooth = true;
     return super.selectPrevious();
   }
 
@@ -281,12 +281,14 @@ class Row extends FocusManager {
           : this._getScrollX();
     }
     if (itemsContainerX !== undefined) {
-      if (this._smooth) {
-        this.Items.smooth = {
+      this.applySmooth(
+        this.Items,
+        { x: itemsContainerX },
+        {
           x: [itemsContainerX, this._itemTransition]
-        };
-      } else {
-        this.Items.x = itemsContainerX;
+        }
+      );
+      if (!this.shouldSmooth) {
         this._updateTransitionTarget(this.Items, 'x', itemsContainerX);
       }
     }
@@ -304,10 +306,12 @@ class Row extends FocusManager {
       const child = this.Items.children[i];
       nextH = Math.max(nextH, getH(child));
       maxInnerH = Math.max(maxInnerH, child.innerH || 0);
-      if (this._smooth) {
-        child.smooth = { x: [nextX, this._itemTransition] };
-      } else {
-        child.patch({ x: nextX });
+      this.applySmooth(
+        child,
+        { x: nextX },
+        { x: [nextX, this._itemTransition] }
+      );
+      if (!this.shouldSmooth) {
         this._updateTransitionTarget(child, 'x', nextX);
       }
       nextX += child.w;
@@ -386,7 +390,7 @@ class Row extends FocusManager {
 
   appendItems(items = []) {
     const itemHeight = this.renderHeight;
-    this._smooth = false;
+    this.shouldSmooth = false;
 
     if (items.length > this.lazyUpCount + 2) {
       this._lazyItems = items.splice(this.lazyUpCount + 2);
@@ -404,7 +408,7 @@ class Row extends FocusManager {
 
   appendItemsAt(items = [], idx) {
     const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
-    this._smooth = false;
+    this.shouldSmooth = false;
     this._lastAppendedIdx = addIndex;
     this._totalAddedWidth = 0;
 
@@ -436,7 +440,7 @@ class Row extends FocusManager {
   }
 
   _transitionListener() {
-    this._smooth = false;
+    this.shouldSmooth = false;
     this.transitionDone();
   }
 

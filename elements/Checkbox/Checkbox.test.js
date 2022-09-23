@@ -20,7 +20,7 @@ describe('Checkbox', () => {
       checked: false
     });
 
-    checkbox._smooth = false;
+    checkbox.shouldSmooth = false;
     expect(checkbox.checked).toBe(false);
     expect(checkbox._Check.alpha).toBe(0);
 

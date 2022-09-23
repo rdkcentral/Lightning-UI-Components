@@ -152,11 +152,7 @@ class ListItemBase extends Button {
       }
 
       if (Object.keys(textDimensionsPatch).length > 0) {
-        if (this._smooth) {
-          this._Text.smooth = textDimensionsPatch;
-        } else {
-          this._Text.patch(textDimensionsPatch);
-        }
+        this.applySmooth(this._Text, textDimensionsPatch);
       }
     }
   }
@@ -198,19 +194,11 @@ class ListItemBase extends Button {
     }
 
     if (Object.keys(contentDimensionsPatch).length > 0) {
-      if (this._smooth) {
-        this._Content.smooth = contentDimensionsPatch;
-      } else {
-        this._Content.patch(contentDimensionsPatch);
-      }
+      this.applySmooth(this._Content, { contentDimensionsPatch });
     }
 
     if (this._Prefix) {
-      if (this._smooth) {
-        this._Prefix.smooth = { y: h / 2 };
-      } else {
-        this._Prefix.y = h / 2;
-      }
+      this.applySmooth(this._Prefix, { y: h / 2 });
     }
   }
 

@@ -193,17 +193,10 @@ class Slider extends Base {
     } else {
       sliderArrowAlphaLeft = sliderArrowAlphaRight = this.style.arrowAlphaValue;
     }
-    if (this._smooth) {
-      this._LeftArrow.smooth = { alpha: sliderArrowAlphaLeft };
-      this._RightArrow.smooth = { alpha: sliderArrowAlphaRight };
-    } else {
-      this._LeftArrow.patch({
-        alpha: sliderArrowAlphaLeft
-      });
-      this._RightArrow.patch({
-        alpha: sliderArrowAlphaRight
-      });
-    }
+    this.applySmooth(this._LeftArrow, { alpha: sliderArrowAlphaLeft });
+    this.applySmooth(this._RightArrow, {
+      alpha: sliderArrowAlphaRight
+    });
     if (!this._LeftArrow.texture || !this._RightArrow.texture) {
       this._updateArrows();
     }
@@ -244,24 +237,13 @@ class Slider extends Base {
         src: this.style.iconRightSrc
       });
     }
-    const rightArrowX =
-      this.style.arrowSpacing + this._calculatedSliderWidth + this._Bar.x;
+
     const color = this.style.arrowColor;
-    if (this._smooth) {
-      this._RightArrow.patch({
-        smooth: {
-          color,
-          x: rightArrowX
-        }
-      });
-      this._LeftArrow.smooth = { color };
-    } else {
-      this._RightArrow.patch({
-        color,
-        x: rightArrowX
-      });
-      this._LeftArrow.patch({ color });
-    }
+    this.applySmooth(this._LeftArrow, { color });
+    this.applySmooth(this._RightArrow, {
+      color,
+      x: this.style.arrowSpacing + this._calculatedSliderWidth + this._Bar.x
+    });
   }
 
   _decrementValue() {

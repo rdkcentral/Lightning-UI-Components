@@ -28,12 +28,20 @@ class Base extends lng.Component {
   _update() {}
 
   _focus() {
-    if (this._smooth === undefined) this._smooth = true;
+    if (this.shouldSmooth === undefined) this.shouldSmooth = true;
     this.queueRequestUpdate();
   }
 
   _unfocus() {
     this.queueRequestUpdate();
+  }
+
+  applySmooth(ref, patch, smooth) {
+    if (this.shouldSmooth) {
+      ref.smooth = smooth || patch;
+    } else {
+      ref.patch(patch);
+    }
   }
 
   // keep announce methods out of the update lifecycle (do not put in properties array)
@@ -52,6 +60,14 @@ class Base extends lng.Component {
 
   set announceContext(announce) {
     this._announceContext = announce;
+  }
+
+  get shouldSmooth() {
+    return this._shouldSmooth;
+  }
+
+  set shouldSmooth(shouldSmooth) {
+    this._shouldSmooth = shouldSmooth;
   }
 
   isFullyOnScreen() {

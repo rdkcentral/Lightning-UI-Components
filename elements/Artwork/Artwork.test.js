@@ -275,10 +275,10 @@ describe('Artwork', () => {
   // Methods
 
   it('will set smooth to true if was previously undefined after first _update cycle', async done => {
-    component._smooth = undefined;
+    component.shouldSmooth = undefined;
     component.requestUpdate(true);
     await component.__updateSpyPromise;
-    expect(component._smooth).toBe(true);
+    expect(component.shouldSmooth).toBe(true);
     done();
   });
 
@@ -431,7 +431,7 @@ describe('Artwork', () => {
     component.blur = true;
     await component.__updateBlurSpyPromise;
     expect(component._Blur).not.toBeUndefined();
-    component._smooth = false;
+    component.shouldSmooth = false;
     component.blur = false;
     await component.__updateBlurSpyPromise;
     expect(component._Blur).toBeUndefined();
@@ -473,7 +473,7 @@ describe('Artwork', () => {
     TestUtils.fastForward([component._Blur]);
     testRenderer.update(); // Force redraw
     expect(component._Blur).toBeUndefined();
-    // Should remove with patch if _smooth is false
+    // Should remove with patch if shouldSmooth is false
     component.src = fallbackSrc;
     setTimeout(() => {
       component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
@@ -486,7 +486,7 @@ describe('Artwork', () => {
     }, 500);
     await component._componentSrc.complete;
     component._aspectRatioEqual = true; // Force this value to for test
-    component._smooth = false;
+    component.shouldSmooth = false;
     await component.__showComponentSpyPromise;
     expect(component._Blur).toBeUndefined();
     done();
@@ -706,7 +706,7 @@ describe('Artwork', () => {
     component.gradient = true;
     await component.__showComponentSpyPromise;
     expect(component._Gradient).not.toBeUndefined();
-    component._smooth = false;
+    component.shouldSmooth = false;
     component.gradient = false;
     await component.__showComponentSpyPromise;
     expect(component._Gradient).toBeUndefined();

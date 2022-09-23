@@ -29,7 +29,6 @@ export default class Base<
   protected _whenEnabled: Promise<void>; //TODO move this to withUpdates mixin def
   protected _update(): void;
   protected _resetLoadedPromise(): void;
-  protected _smooth?: boolean;
   protected _announce?: SpeechType;
   protected _announceContext?: SpeechType;
 
@@ -37,6 +36,8 @@ export default class Base<
   get announce(): SpeechType;
   set announceContext(announce: SpeechType);
   get announceContext(): SpeechType;
+  set shouldSmooth(shouldSmooth: boolean);
+  get shouldSmooth(): boolean;
 
   skipPlinko?: boolean;
   extraItemSpacing?: number;
