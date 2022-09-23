@@ -14,7 +14,7 @@ type validTextStrings = // this might need to just be string
     | 'button1'
     | 'button2'
     | 'callout1'
-    | 'caption';
+    | 'caption1';
 
 type __lngTextTextureType = Record<string, unknown>;
 

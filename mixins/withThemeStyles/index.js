@@ -164,7 +164,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         if ('string' === typeof value && value.startsWith('theme.')) {
           return getValFromObjPath(this, value); // If no theme value exists the property will be removed from the object
         } else if (Array.isArray(value) && 2 === value.length) {
-          // Process value as a color ['#663399', 100]
+          // Process value as a color ['#663399', 1]
           return getHexColor(value[0], value[1]);
         }
         return value;

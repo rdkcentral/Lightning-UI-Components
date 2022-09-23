@@ -1,7 +1,5 @@
 export default {
-  primary: 100,
-  secondary: 24,
-  inactive: 10,
-  tertiary: 8,
-  none: 0
+  inactive: 0.1,
+  secondary: 0.24,
+  tertiary: 0.8
 };

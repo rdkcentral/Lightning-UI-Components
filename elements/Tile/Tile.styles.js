@@ -17,6 +17,6 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    alpha: theme.alphas.inactive / 100
+    alpha: theme.alphas.inactive
   }
 });

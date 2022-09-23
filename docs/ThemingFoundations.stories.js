@@ -46,7 +46,7 @@ class ColorInfo extends Base {
       },
       Name: {
         type: TextBox,
-        textStyle: 'caption'
+        textStyle: 'caption1'
       }
     };
   }
@@ -87,7 +87,7 @@ class Radius extends Base {
       Text: {
         x: 34,
         type: TextBox,
-        textStyle: 'caption'
+        textStyle: 'caption1'
       }
     };
   }
@@ -133,7 +133,7 @@ class MiscProp extends Base {
     return {
       Text: {
         type: TextBox,
-        textStyle: 'caption'
+        textStyle: 'caption1'
       }
     };
   }
@@ -237,8 +237,8 @@ export const TypographyAndColors = () => {
             },
             Caption: {
               type: TextBox,
-              content: 'Caption',
-              textStyle: 'caption'
+              content: 'Caption 1',
+              textStyle: 'caption1'
             }
           }
         },
@@ -356,9 +356,9 @@ export const TypographyAndColors = () => {
               content: 'General',
               textStyle: 'callout1'
             },
-            Gray: {
+            Grey: {
               type: ColorInfo,
-              colorName: 'gray'
+              colorName: 'grey'
             },
             Red: {
               type: ColorInfo,

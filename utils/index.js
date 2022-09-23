@@ -16,9 +16,9 @@ export function getAspectRatioH(w, ratio = '16:9', seperator = ':') {
 /**
  * Combines rgb hex string and alpha into argb hexadecimal number
  * @param {string|number} hex - 6 alphanumeric characters between 0-f or argb hexadecimal number
- * @param {number} [alpha] - number between 0-100 (0 is invisible, 100 is opaque)
+ * @param {number} [alpha] - number between 0-1 (0 is invisible, 1 is opaque)
  */
-export function getHexColor(hex, alpha = 100) {
+export function getHexColor(hex, alpha = 1) {
   if (!hex) {
     return 0x00;
   }
@@ -29,7 +29,7 @@ export function getHexColor(hex, alpha = 100) {
 
   hex = hex.replace('#', '');
 
-  const hexAlpha = Math.round((alpha / 100) * 255).toString(16);
+  const hexAlpha = Math.round(alpha * 255).toString(16);
   const str = `0x${hexAlpha}${hex}`;
   return Number(str);
 }

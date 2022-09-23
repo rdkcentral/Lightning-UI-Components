@@ -4,7 +4,7 @@ export const base = theme => ({
   paddingY: theme.spacer.xs,
   radius: theme.radius.sm,
   textAlign: 'center',
-  textStyle: theme.typography.caption
+  textStyle: theme.typography.caption1
 });
 
 export const palette = theme => ({

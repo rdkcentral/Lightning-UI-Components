@@ -5,7 +5,7 @@ export const base = theme => ({
   pointerW: theme.spacer.xl,
   pointerH: theme.spacer.md + theme.spacer.xs,
   radius: theme.radius.md,
-  textStyle: theme.typography.caption,
+  textStyle: theme.typography.caption1,
   transition: {
     timingFunction: theme.animations.functionalStandard,
     delay: theme.animations.delayXFast,
