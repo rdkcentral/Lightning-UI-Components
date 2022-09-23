@@ -173,11 +173,7 @@ class Button extends Surface {
     }
 
     if (Object.keys(contentDimensionsPatch).length > 0) {
-      if (this._smooth) {
-        this._Content.smooth = contentDimensionsPatch;
-      } else {
-        this._Content.patch(contentDimensionsPatch);
-      }
+      this.applySmooth(this._Content, contentDimensionsPatch);
     }
   }
 

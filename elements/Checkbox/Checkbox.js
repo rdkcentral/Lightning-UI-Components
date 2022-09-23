@@ -50,11 +50,7 @@ class Checkbox extends Base {
       alpha: this.checked ? 1 : 0
     };
 
-    if (this._smooth) {
-      this._Check.smooth = alphaPatch;
-    } else {
-      this._Check.patch(alphaPatch);
-    }
+    this.applySmooth(this._Check, alphaPatch);
   }
 
   _updateColor() {

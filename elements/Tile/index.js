@@ -194,7 +194,6 @@ class Tile extends Surface {
     this._updateCheckbox();
     this._updateProgressBar();
     this._updateMetadata();
-    if (this._smooth === undefined) this._smooth = true;
   }
 
   _updateTileColor() {
@@ -208,23 +207,21 @@ class Tile extends Surface {
       x: this._w / 2,
       y: this._h / 2
     };
-    if (this._smooth) {
-      // Make sure container animates with same values as badge, label, and metadata
-      this._Content.smooth = Object.keys(itemContainerPatch).reduce(
-        (acc, prop) => {
-          acc[prop] = [
-            itemContainerPatch[prop],
-            this._isFocusedMode
-              ? this.style.animationEntrance
-              : this.style.animationExit
-          ];
-          return acc;
-        },
-        {}
-      );
-    } else {
-      this._Content.patch(itemContainerPatch);
-    }
+
+    // Make sure container animates with same values as badge, label, and metadata
+    this.applySmooth(
+      this._Content,
+      itemContainerPatch,
+      Object.keys(itemContainerPatch).reduce((acc, prop) => {
+        acc[prop] = [
+          itemContainerPatch[prop],
+          this._hasFocus
+            ? this.style.animationEntrance
+            : this.style.animationExit
+        ];
+        return acc;
+      }, {})
+    );
   }
 
   _updateArtwork() {
@@ -277,14 +274,10 @@ class Tile extends Surface {
       return;
     }
 
-    if (this._smooth) {
-      this._Badge.smooth = {
-        ...badgePatch,
-        ...this._topMetadataTransitions // Badge and Label should animate in with the same values
-      };
-    } else {
-      this._Badge.patch(badgePatch);
-    }
+    this.applySmooth(this._Badge, badgePatch, {
+      ...badgePatch,
+      ...this._topMetadataTransitions // Badge and Label should animate in with the same values
+    });
   }
 
   _updateLabel() {
@@ -318,20 +311,16 @@ class Tile extends Surface {
       return;
     }
 
-    if (this._smooth) {
-      this._Label.smooth = {
-        ...labelPatch,
-        x: [
-          labelPatch.x,
-          this._shouldShowMetadata
-            ? this.style.animationEntrance
-            : this.style.animationExit
-        ],
-        ...this._topMetadataTransitions // Badge and Label should animate in with the same values
-      };
-    } else {
-      this._Label.patch(labelPatch);
-    }
+    this.applySmooth(this._Label, labelPatch, {
+      ...labelPatch,
+      x: [
+        labelPatch.x,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ],
+      ...this._topMetadataTransitions // Badge and Label should animate in with the same values
+    });
   }
 
   _updateCheckbox() {
@@ -368,11 +357,7 @@ class Tile extends Surface {
       return;
     }
 
-    if (this._smooth) {
-      this._Checkbox.smooth = checkboxPatch;
-    } else {
-      this._Checkbox.patch(checkboxPatch);
-    }
+    this.applySmooth(this._Checkbox, checkboxPatch);
   }
 
   _removeProgressBar() {
@@ -389,7 +374,7 @@ class Tile extends Surface {
       this._isCircleLayout
     ) {
       if (this._ProgressBar) {
-        if (this._smooth) {
+        if (this.shouldSmooth) {
           this._ProgressBar._getTransition('alpha').once('finish', () => {
             this._removeProgressBar();
           });
@@ -418,17 +403,15 @@ class Tile extends Surface {
             type: ProgressBar,
             mountX: 0.5,
             mountY: 1,
-            alpha: this._hasMetadata && this._smooth ? 0.001 : 1
+            alpha: this._hasMetadata && this.shouldSmooth ? 0.001 : 1
           }
         });
 
-        if (this._smooth) {
+        if (this.shouldSmooth) {
           this._ProgressBar.smooth = {
             alpha: [
               1,
-              {
-                delay: this.style.animationEntrance.duration // Wait for metadata to animate in
-              }
+              { delay: this.style.animationEntrance.duration } // Wait for metadata to animate in
             ]
           };
         }
@@ -436,22 +419,19 @@ class Tile extends Surface {
       }
 
       // TODO: See if we need to add animation to every property individually or can set parent
-      if (this._smooth) {
-        this._ProgressBar.smooth = Object.keys(progressPatch).reduce(
-          (acc, prop) => {
-            acc[prop] = [
-              progressPatch[prop],
-              this._isFocusedMode
-                ? this.style.animationEntrance
-                : this.style.animationExit
-            ];
-            return acc;
-          },
-          {}
-        );
-      } else {
-        this._ProgressBar.patch(progressPatch);
-      }
+      this.applySmooth(
+        this._ProgressBar,
+        progressPatch,
+        Object.keys(progressPatch).reduce((acc, prop) => {
+          acc[prop] = [
+            progressPatch[prop],
+            this._isFocusedMode
+              ? this.style.animationEntrance
+              : this.style.animationExit
+          ];
+          return acc;
+        }, {})
+      );
     }
   }
 
@@ -518,11 +498,11 @@ class Tile extends Surface {
 
   _animateMetadata() {
     if (!this._Metadata) return;
-    if (this._smooth) {
-      this._Metadata.smooth = this._metadataTransitions;
-    } else {
-      this._Metadata.patch(this._metadataPatch);
-    }
+    this.applySmooth(
+      this._Metadata,
+      this._metadataPatch,
+      this._metadataTransitions
+    );
   }
 
   _cleanupMetadata() {

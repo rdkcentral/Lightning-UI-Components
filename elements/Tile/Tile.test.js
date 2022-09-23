@@ -256,7 +256,7 @@ describe('Tile', () => {
     expect(component._Badge._transitions.title.targetValue).toBe(
       'changed again'
     );
-    component._smooth = false;
+    component.shouldSmooth = false;
     component.badge = {
       title: 'no smooth'
     };
@@ -295,7 +295,7 @@ describe('Tile', () => {
     expect(component._Label._transitions.title.targetValue).toBe(
       'changed again'
     );
-    component._smooth = false;
+    component.shouldSmooth = false;
     component.label = {
       title: 'no smooth'
     };
@@ -328,7 +328,7 @@ describe('Tile', () => {
     await component.__updateCheckboxSpyPromise;
     expect(component._Checkbox._transitions.x.targetValue).toBe(76);
     component.w = 200;
-    component._smooth = false;
+    component.shouldSmooth = false;
     await component.__updateCheckboxSpyPromise;
     expect(component._Checkbox.x).toBe(176);
     component.itemLayout = { circle: true };
@@ -368,7 +368,7 @@ describe('Tile', () => {
     testRenderer.update(); // Force redraw
     expect(component._ProgressBar).toBeUndefined();
     component.itemLayout = undefined;
-    component._smooth = false;
+    component.shouldSmooth = false;
     component.progressBar = {
       progress: 0.4
     };
@@ -384,7 +384,7 @@ describe('Tile', () => {
     };
     await component.__updateProgressBarSpyPromise;
     expect(component._ProgressBar).not.toBeUndefined();
-    component._smooth = true;
+    component.shouldSmooth = true;
     component.progressBar = {
       progress: 0
     };
@@ -417,8 +417,8 @@ describe('Tile', () => {
     expect(component.metadata).not.toBeUndefined();
     component.metadata = undefined;
     await component.__updateMetadataSpyPromise;
-    expect(component.metadata).toBeUndefined();
-    component._smooth = false;
+    expect(component._Metadata).toBeUndefined();
+    component.shouldSmooth = false;
     component.metadata = { title: 'test2' };
     await component.__updateMetadataSpyPromise;
     expect(component.metadata).not.toBeUndefined();

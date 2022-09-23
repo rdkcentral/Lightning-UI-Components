@@ -126,7 +126,7 @@ class Artwork extends Base {
 
   get _gradientPatch() {
     return {
-      alpha: !this._Gradient && this._smooth ? 0.001 : 1,
+      alpha: !this._Gradient && this.shouldSmooth ? 0.001 : 1,
       gradientColor: getValidColor(this.style.gradientColor),
       h: this.h + 4,
       type: Gradient,
@@ -211,7 +211,7 @@ class Artwork extends Base {
     } catch (e) {
       this._handleImageLoadError();
     }
-    if (this._smooth === undefined) this._smooth = true;
+    if (this.shouldSmooth === undefined) this.shouldSmooth = true;
   }
 
   _updateScale() {
@@ -325,7 +325,7 @@ class Artwork extends Base {
       this._Blur
     ) {
       // Remove Blur element as it is not longer required
-      if (this._smooth) {
+      if (this.shouldSmooth) {
         this._Blur._getTransition('alpha').once('finish', () => {
           // Clean up gradient after animation is complete
           this.patch({ Blur: undefined });
@@ -344,7 +344,7 @@ class Artwork extends Base {
     if (!this._srcFailed && this._shouldBlur) {
       this.patch({
         Blur: {
-          alpha: !this._Blur && this._smooth ? 0.001 : 1, // If the Blur element already exists there is no need to fade it in again
+          alpha: !this._Blur && this.shouldSmooth ? 0.001 : 1, // If the Blur element already exists there is no need to fade it in again
           amount: this.style.blur,
           zIndex: this.core.findZContext().zIndex + this.style.zIndex.blur,
           content: {
@@ -513,7 +513,7 @@ class Artwork extends Base {
     if (!this.gradient) {
       if (this._Gradient) {
         // Cleanup previous gradient
-        if (this._smooth) {
+        if (this.shouldSmooth) {
           this._Gradient._getTransition('alpha').once('finish', () => {
             // Remove gradient if no longer required
             const transition =
@@ -539,10 +539,10 @@ class Artwork extends Base {
     this.patch({
       Gradient: this._gradientPatch // Allows for an easier way to extend and replace the gradient
     });
-    if (this._smooth) {
-      this._Gradient.smooth = {
+    if (this.shouldSmooth) {
+      this.applySmooth(this._Gradient, {
         alpha: [1, this.style.animationGradientEntrance]
-      };
+      });
     }
   }
 

@@ -110,7 +110,7 @@ export default function focusRingExtension(Base) {
       if (!this._FocusRing) return;
 
       // Update variant and styles
-      let focusRingPatch = {
+      const focusRingPatch = {
         palette: this.palette,
         style: {
           radius: this.style.radius || 0
@@ -118,19 +118,18 @@ export default function focusRingExtension(Base) {
       };
 
       if (this.mode === 'focused') {
-        if (this._smooth) {
-          focusRingPatch.smooth = this._smoothFocusStyle;
-        } else {
-          focusRingPatch = { ...focusRingPatch, ...this._focusStyle };
-        }
+        this.applySmooth(
+          this._FocusRing,
+          { ...focusRingPatch, ...this._focusStyle },
+          { ...focusRingPatch, ...this._smoothFocusStyle }
+        );
       } else {
-        if (this._smooth) {
-          focusRingPatch.smooth = this._smoothUnfocusStyle;
-        } else {
-          focusRingPatch = { ...focusRingPatch, ...this._unfocusStyle };
-        }
+        this.applySmooth(
+          this._FocusRing,
+          { ...focusRingPatch, ...this._unfocusStyle },
+          { ...focusRingPatch, ...this._smoothUnfocusStyle }
+        );
       }
-      this._FocusRing.patch(focusRingPatch);
     }
 
     _destroy() {

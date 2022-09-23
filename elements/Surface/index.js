@@ -50,13 +50,13 @@ class Surface extends Base {
   }
 
   _updateScale() {
-    if (this._smooth) {
-      this.smooth = {
+    this.applySmooth(
+      this,
+      { scale: this.style.scale(this.w, this.h) },
+      {
         scale: [this.style.scale(this.w, this.h), this.style.animation]
-      };
-    } else {
-      this.patch({ scale: this.style.scale(this.w, this.h) });
-    }
+      }
+    );
   }
 }
 

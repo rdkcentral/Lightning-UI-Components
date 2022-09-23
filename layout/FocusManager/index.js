@@ -105,7 +105,7 @@ class FocusManager extends Base {
 
   appendItemsAt(items = [], idx) {
     const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
-    this._smooth = false;
+    this.shouldSmooth = false;
     this._lastAppendedIdx = addIndex;
 
     items.forEach((item, itemIdx) => {
@@ -131,7 +131,7 @@ class FocusManager extends Base {
   }
 
   removeItemAt(index) {
-    this._smooth = false;
+    this.shouldSmooth = false;
     this.Items.childList.removeAt(index);
 
     if (
