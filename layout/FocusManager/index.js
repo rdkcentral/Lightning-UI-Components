@@ -8,7 +8,7 @@ import {
   getX,
   getY,
   isComponentOnScreen,
-  getEuclideanDistance
+  getShortestDistance
 } from '../../utils';
 import { withExtensions } from '../../mixins';
 
@@ -273,19 +273,10 @@ class FocusManager extends Base {
     // Get all item center points from selected
     const selectedCoordArray = selected.items
       .map((item, index) => {
-        let [x, y] = [0, 0];
-        if (item.core) {
-          [x, y] = item.core.getAbsoluteCoords(0, 0);
-        }
         return {
           index,
           distance: !item.skipFocus
-            ? getEuclideanDistance(
-                prevMiddle[0],
-                prevMiddle[1],
-                x + item.w / 2,
-                y + item.h / 2
-              )
+            ? getShortestDistance(prevMiddle, item)
             : null
         };
       })
