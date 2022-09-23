@@ -1,8 +1,6 @@
-import { getThemeAnimation } from '../../utils';
-
 export const base = theme => ({
-  animationEntrance: getThemeAnimation('emphasizedEntrance', 'fast'),
-  animationExit: getThemeAnimation('expressiveEntrance', 'fast'),
+  animationEntrance: theme.animations.standardEntrance,
+  animationExit: theme.animations.expressiveEntrance,
   artworkStyles: {},
   badgeStyles: {},
   checkboxStyles: {},

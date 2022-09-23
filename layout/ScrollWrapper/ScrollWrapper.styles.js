@@ -3,7 +3,7 @@ export const base = theme => ({
   fadeHeight: 100,
   scroll: {
     timingFunction: 'linear',
-    duration: theme.animations.durationXFast
+    duration: theme.animations.durations.xfast
   },
   contentMarginTop: theme.spacer.md,
   contentMarginLeft: theme.spacer.xl,

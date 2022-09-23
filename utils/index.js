@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 export * from './layoutUtils';
 export * from './markupUtils';
-export * from './themeUtils';
 
 export function getAspectRatioW(h, ratio = '16:9', seperator = ':') {
   const [ratioW, ratioH] = ratio.split(seperator);

@@ -36,16 +36,16 @@ export default {
       artworkStyles: {
         imageScale: 1.2,
         animationGradientEntrance: {
-          duration: 'theme.animations.durationXFast'
+          duration: 'theme.animations.durations.xfast'
         },
         animationGradientExit: {
-          duration: 'theme.animations.durationXFast'
+          duration: 'theme.animations.durations.xfast'
         },
         animationImageScaleEntrance: {
-          duration: 'theme.animations.durationFast'
+          duration: 'theme.animations.durations.fast'
         },
         animationImageScaleExit: {
-          duration: 'theme.animations.durationXFast'
+          duration: 'theme.animations.durations.xfast'
         }
       }
     },
