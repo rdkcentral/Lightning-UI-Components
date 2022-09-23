@@ -6,6 +6,34 @@ export function getEuclideanDistance(xA, yA, xB, yB) {
   return Math.sqrt(Math.pow(xDiff, 2) + Math.sqrt(Math.pow(yDiff, 2)));
 }
 
+/**
+ * Returns the shortest distance between a coordinate and a corner or center of an element.
+ * @param {[number, number]} coordinate
+ * @param {Element} element
+ *
+ * @return {number} shortest distance between a coordinate and a corner or center of an element.
+ */
+export function getShortestDistance(coordinate, element) {
+  const [xA, yA] = coordinate;
+  const [xB, yB] = element.core ? element.core.getAbsoluteCoords(0, 0) : [0, 0];
+
+  const distanceToStart = getEuclideanDistance(xA, yA, xB, yB);
+  const distanceToMiddle = getEuclideanDistance(
+    xA,
+    yA,
+    xB + element.w / 2,
+    yB + element.h / 2
+  );
+  const distanceToEnd = getEuclideanDistance(
+    xA,
+    yA,
+    xB + element.w,
+    yB + element.h
+  );
+
+  return Math.min(distanceToStart, distanceToMiddle, distanceToEnd);
+}
+
 export function isComponentOnScreen(component) {
   if (!component) return false;
 
