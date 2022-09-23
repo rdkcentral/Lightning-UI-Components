@@ -19,7 +19,7 @@ export { default as ProgressBar, ProgressBarStyles } from './ProgressBar';
 export { default as Radio, RadioSmall, RadioStyles } from './Radio';
 export { default as Slider, SliderStyles } from './Slider';
 export { default as Surface, SurfaceStyles } from './Surface';
-export { default as TabBar, Tab } from './Tabs';
+export { default as TabBar, Tab } from './TabBar';
 export { default as TextBox } from './TextBox';
 export { default as Tile, TileStyles } from './Tile';
 export { default as Toggle, ToggleSmall, ToggleStyles } from './Toggle';
