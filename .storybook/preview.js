@@ -69,7 +69,8 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     hideNoControlsWarning: true,
-    expanded: true
+    expanded: true,
+    sort: 'requiredFirst'
   },
   docs: {
     inlineStories: true,
@@ -193,17 +194,17 @@ addDecorator(
         }
       });
       app._refocus();
-    } 
+    }
 
-    // Make sure focus matches mode 
+    // Make sure focus matches mode
     if (app.tag('StoryComponent')._getFocused() === app.tag('StoryComponent')) {
       app.tag('StoryComponent')._setState( !args.mode || args.mode && args.mode === 'focused' ? 'ModeFocusState' : 'ModeUnfocusState')
     }
-    
+
     if (!app.tag('GridOverlay')) {
       app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
     }
-    
+
     app.tag('GridOverlay').patch({
       // do not render this on top of the actual GridOverlay component's story
       alpha: id.includes('gridoverlay') ? 0 : parseFloat(globals['GridOverlay-alpha']),

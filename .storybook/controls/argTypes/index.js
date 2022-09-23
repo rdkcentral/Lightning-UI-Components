@@ -10,7 +10,8 @@ export const createModeControl = (options, defaultValue) => {
       description: 'Sets the visual mode for the component',
       table: {
         defaultValue: { summary: defaultValue || 'unfocused' }
-      }
+      },
+      type: { name: 'mode', required: true }
     }
   };
 };
