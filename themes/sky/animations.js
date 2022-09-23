@@ -1,41 +1,67 @@
+const durations = {
+  none: 0,
+  xfast: 0.2,
+  fast: 0.4,
+  normal: 0.6,
+  slow: 0.8,
+  xslow: 1
+};
+
+const delays = {
+  none: 0,
+  xfast: 0.02,
+  fast: 0.04,
+  normal: 0.06,
+  slow: 0.08,
+  xslow: 0.1
+};
+
 export default {
-  durationNone: 0,
-  durationXFast: 0.2,
-  durationFast: 0.4,
-  durationNormal: 0.6,
-  durationSlow: 0.8,
-  durationXSlow: 1,
-  delayNone: 0,
-  delayXFast: 0.02,
-  delayFast: 0.04,
-  delayNormal: 0.06,
-  delaySlow: 0.08,
-  delayXSlow: 0.1,
-  emphasizedEntrance: 'cubic-bezier(0.1, 0.4, 0.16, 1.4)',
-  emphasizedEntranceDelay: 0,
-  emphasizedEntranceDuration: 0.3,
-  emphasizedExit: 'cubic-bezier(0.8, -0.4, 0.8, 0.4)',
-  emphasizedExitDelay: 0,
-  emphasizedExitDuration: 0.3,
-  emphasizedStandard: 'cubic-bezier(0.8, -0.4, 0.2, 1.4)',
-  emphasizedStandardDelay: 0,
-  emphasizedStandardDuration: 0.6,
-  expressiveEntrance: 'cubic-bezier(0, 0, 0.15, 1)',
-  expressiveEntranceDelay: 0,
-  expressiveEntranceDuration: 0.6,
-  expressiveExit: 'cubic-bezier(0.9, 0, 1, 1)',
-  expressiveExitDelay: 0,
-  expressiveExitDuration: 0.6,
-  expressiveStandard: 'cubic-bezier(0.6, 0, 0.1, 1)',
-  expressiveStandardDelay: 0,
-  expressiveStandardDuration: 0.6,
-  functionalEntrance: 'cubic-bezier(0, 0, 0.4, 1)',
-  functionalEntranceDelay: 0,
-  functionalEntranceDuration: 0.6,
-  functionalExit: 'cubic-bezier(0.4, 0, 1, 1)',
-  functionalExitDelay: 0,
-  functionalExitDuration: 0.6,
-  functionalStandard: 'cubic-bezier(0.4, 0.15, 0.1, 1)',
-  functionalStandardDelay: 0,
-  functionalStandardDuration: 0.6
+  durations,
+  delays,
+  expressive: {
+    timingFunction: 'cubic-bezier(0.6, 0, 0.1, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  expressiveEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 0.15, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  expressiveExit: {
+    timingFunction: 'cubic-bezier(0.9, 0, 1, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  standard: {
+    timingFunction: 'cubic-bezier(0.8, -0.4, 0.2, 1.4)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  standardEntrance: {
+    timingFunction: 'cubic-bezier(0.1, 0.4, 0.16, 1.4)',
+    delay: delays.none,
+    duration: 0.3
+  },
+  standardExit: {
+    timingFunction: 'cubic-bezier(0.8, -0.4, 0.2, 0.4)',
+    delay: delays.none,
+    duration: 0.3
+  },
+  utility: {
+    timingFunction: 'cubic-bezier(0.4, 0.15, 0.1, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  utilityEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 0.4, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  },
+  utilityExit: {
+    timingFunction: 'cubic-bezier(0.4, 0, 1, 1)',
+    delay: delays.none,
+    duration: durations.normal
+  }
 };

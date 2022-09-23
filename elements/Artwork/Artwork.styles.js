@@ -1,13 +1,11 @@
-import { getThemeAnimation } from '../../utils';
-
 export const base = theme => ({
-  animationBlurEntrance: getThemeAnimation('functionalEntrance'),
-  animationBlurExit: getThemeAnimation('functionalExit'),
-  animationComponentEntrance: getThemeAnimation('functionalEntrance'),
-  animationGradientEntrance: getThemeAnimation('functionalEntrance'),
-  animationGradientExit: getThemeAnimation('functionalExit'),
-  animationImageScaleEntrance: getThemeAnimation('emphasizedEntrance'),
-  animationImageScaleExit: getThemeAnimation('expressiveEntrance'),
+  animationBlurEntrance: theme.animations.utilityEntrance,
+  animationBlurExit: theme.animations.utilityExit,
+  animationComponentEntrance: theme.animations.utilityEntrance,
+  animationGradientEntrance: theme.animations.utilityEntrance,
+  animationGradientExit: theme.animations.utilityExit,
+  animationImageScaleEntrance: theme.animations.standardEntrance,
+  animationImageScaleExit: theme.animations.expressiveEntrance,
   blur: 4,
   centerImageRadius: theme.radius.md,
   fallbackSrc: undefined,

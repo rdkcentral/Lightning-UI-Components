@@ -3,9 +3,5 @@ export const base = theme => ({
   scrollIndex: 0,
   alwaysScroll: false,
   neverScroll: false,
-  itemTransition: {
-    timingFunction: theme.animations.functionalStandard,
-    delay: theme.animations.functionalStandardDelay,
-    duration: theme.animations.functionalStandardDuration
-  }
+  itemTransition: theme.animations.utility
 });

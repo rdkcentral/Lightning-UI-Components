@@ -1,10 +1,6 @@
 export const base = theme => ({
   h: theme.spacer.md,
-  animation: {
-    timingFunction: theme.animations.functionalStandard,
-    delay: theme.animations.functionalStandardDelay,
-    duration: theme.animations.functionalStandardDuration
-  },
+  animation: theme.animations.utility,
   radius: theme.radius.xs
 });
 

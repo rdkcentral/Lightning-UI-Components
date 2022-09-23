@@ -6,11 +6,7 @@ export const base = theme => ({
   pointerH: theme.spacer.md + theme.spacer.xs,
   radius: theme.radius.md,
   textStyle: theme.typography.caption1,
-  transition: {
-    timingFunction: theme.animations.functionalStandard,
-    delay: theme.animations.delayXFast,
-    duration: theme.animations.durationXFast
-  }
+  transition: theme.animations.utility // TODO: should delay and duration be xfast?
 });
 
 export const palette = theme => ({

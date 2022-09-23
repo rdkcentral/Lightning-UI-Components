@@ -1,5 +1,5 @@
 export const base = theme => ({
-  animationDuration: theme.animations.durationXSlow * 4,
+  animationDuration: theme.animations.durations.xslow * 4,
   borderWidth: theme.stroke.md,
   colorTransitionAlpha: theme.alphas.secondary,
   radius: theme.radius.md,
