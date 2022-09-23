@@ -201,7 +201,9 @@ describe('Artwork', () => {
       component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
-    expect(component._processedImageSrc).toBe('testSrc');
+    let src;
+    src = await component._processedImageSrc;
+    expect(src).toBe('testSrc');
     component.srcCallback = ({ closestAspectRatio, src, w, h }) => {
       return [closestAspectRatio, src, w, h].join('-');
     };
@@ -209,13 +211,15 @@ describe('Artwork', () => {
       component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
-    expect(component._processedImageSrc).toBe('2x1-testSrc-200-100');
+    src = await component._processedImageSrc;
+    expect(src).toBe('2x1-testSrc-200-100');
     component.srcCallbackAspectRatios = ['16x9'];
     setTimeout(() => {
       component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
-    expect(component._processedImageSrc).toBe('16x9-testSrc-200-100');
+    src = await component._processedImageSrc;
+    expect(src).toBe('16x9-testSrc-200-100');
     done();
   });
 
@@ -225,6 +229,7 @@ describe('Artwork', () => {
       w: 100,
       fallbackSrc
     });
+    await component._processedImageSrc;
     setTimeout(() => {
       component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
     }, 500);
@@ -245,6 +250,7 @@ describe('Artwork', () => {
         spyOnMethods: ['_generatePromise']
       }
     );
+    await component._processedImageSrc;
     expect(component._generatePromise).toHaveBeenCalledTimes(3);
     component._generatePromise.mockClear();
     component.src = sampleImg;
@@ -304,6 +310,7 @@ describe('Artwork', () => {
         spyOnMethods: ['_resolveLoading']
       }
     );
+    await component._processedImageSrc;
     component._Image.emit('txLoaded');
     await component.__resolveLoadingSpyPromise;
     expect(component._resolveLoading).toHaveBeenCalledTimes(1);
@@ -338,6 +345,7 @@ describe('Artwork', () => {
         spyOnMethods: ['_showComponent']
       }
     );
+    await component._processedImageSrc;
     expect(component.alpha).toBe(0.001);
     component._Image.emit('txLoaded');
     await component.__showComponentSpyPromise;
@@ -346,6 +354,7 @@ describe('Artwork', () => {
   });
 
   it('will update the foreground image if defined and remove from tree if no longer required', async done => {
+    await component._processedImageSrc;
     expect(component._ForegroundImage).toBeUndefined();
     component.foregroundSrc = sampleImg;
     await component.__updateSpyPromise;
@@ -357,6 +366,7 @@ describe('Artwork', () => {
   });
 
   it('will update the foregroundImage w/h if foregroundW & foregroundH is set on the component', async done => {
+    await component._processedImageSrc;
     component.patch({
       foregroundH: 100,
       foregroundSrc: sampleImg,
@@ -429,6 +439,7 @@ describe('Artwork', () => {
   });
 
   it('should blur if mode is "circle"', async done => {
+    await component._processedImageSrc;
     component.format = 'circle';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
@@ -436,6 +447,7 @@ describe('Artwork', () => {
   });
 
   it('should blur if mode is "square"', async done => {
+    await component._processedImageSrc;
     component.format = 'square';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
@@ -443,6 +455,7 @@ describe('Artwork', () => {
   });
 
   it('should blur if mode "contain" and the ratio is not equal to the Artwork ratio', async done => {
+    await component._processedImageSrc;
     component.format = 'contain';
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
@@ -490,6 +503,7 @@ describe('Artwork', () => {
         spyOnMethods: ['_updateCenterImage']
       }
     );
+    await component._processedImageSrc;
     setTimeout(() => {
       component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
     }, 500);
@@ -499,6 +513,7 @@ describe('Artwork', () => {
   });
 
   it('_updateCenterImage should always remove the previous CenterImage element if exists and no longer required', async done => {
+    await component._processedImageSrc;
     component.format = 'circle';
     await component.__showComponentSpyPromise;
     expect(component._CenterImage).not.toBeUndefined();
@@ -509,6 +524,7 @@ describe('Artwork', () => {
   });
 
   it('_updateCenterImage should never call _updateFormatSquareCircle or _updateFormatContain if the src is equal to the fallbackSrc is true', async done => {
+    await component._processedImageSrc;
     component._updateFormatSquareCircle.mockClear();
     component._updateFormatContain.mockClear();
     component.format = 'circle';
@@ -547,7 +563,8 @@ describe('Artwork', () => {
         _updateForegroundImage();
       });
     component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
-    await component.__updateImageSpyPromise;
+    await component.__updateFormatContainSpyPromise;
+    expect(1).toBe(1);
     expect(component._CenterImage.w).toBe(200 * (100 / 200));
     expect(component._CenterImage.h).toBe(component.h);
     component.w = 100;

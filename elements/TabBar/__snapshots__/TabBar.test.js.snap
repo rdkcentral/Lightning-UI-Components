@@ -73,7 +73,7 @@ Object {
                       "children": Object {
                         "Artwork": Object {
                           "active": true,
-                          "alpha": 0.07700859829276427,
+                          "alpha": 0.001,
                           "attached": true,
                           "boundsMargin": null,
                           "children": Object {
@@ -299,7 +299,7 @@ Object {
                       "children": Object {
                         "Artwork": Object {
                           "active": true,
-                          "alpha": 0.07700859829276427,
+                          "alpha": 0.001,
                           "attached": true,
                           "boundsMargin": null,
                           "children": Object {

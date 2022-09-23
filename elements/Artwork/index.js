@@ -120,7 +120,8 @@ class Artwork extends Base {
         h: this.h
       });
     }
-    return src;
+
+    return src && src.then ? src : Promise.resolve(src);
   }
 
   get _gradientPatch() {
@@ -191,7 +192,8 @@ class Artwork extends Base {
   async _update() {
     this._updateRadius();
     this._updateGradient();
-    this._updateImage();
+
+    await this._updateImage();
     this._updateFillColor();
     this._updateForegroundImage();
     if (!this.src) {
@@ -201,7 +203,7 @@ class Artwork extends Base {
     try {
       // These actions are dependent on the image loading so we wait for the process to complete
       await this._componentSrc.complete;
-      this._updateCenterImage();
+      await this._updateCenterImage();
       this._updateBlur();
       // After everything is setup fade in the Artwork component for the first time
       this._showComponent();
@@ -211,6 +213,7 @@ class Artwork extends Base {
     }
     if (this._smooth === undefined) this._smooth = true;
   }
+
   _updateScale() {
     if (this.shouldScale) {
       let imageScale;
@@ -242,6 +245,7 @@ class Artwork extends Base {
       };
     }
   }
+
   _handleImageLoadError() {
     if (this.src === this.fallbackSrc) return;
     context.error(`Image ${this._src} failed to load`);
@@ -378,7 +382,7 @@ class Artwork extends Base {
     }
   }
 
-  _updateFormatContain() {
+  async _updateFormatContain() {
     if (
       (this._CenterImage && this._CenterImage.mode !== this.format) ||
       this.src === this.fallbackSrc ||
@@ -435,6 +439,8 @@ class Artwork extends Base {
       imageH = imageW;
     }
 
+    const src = await this._processedImageSrc;
+
     this.patch({
       CenterImage: {
         format: this.format,
@@ -445,7 +451,7 @@ class Artwork extends Base {
         y: this.h / 2,
         zIndex: this.core.findZContext().zIndex + this.style.zIndex.centerImage,
         texture: {
-          src: this._processedImageSrc,
+          src,
           resizeMode: {
             h: imageH,
             type: 'cover',
@@ -540,7 +546,7 @@ class Artwork extends Base {
     }
   }
 
-  _updateImage() {
+  async _updateImage() {
     this._aspectRatioEqual = false; // Set this back to false since we will not know the aspect ratio until after the image has loaded
 
     if (!this._processedImageSrc) {
@@ -550,6 +556,8 @@ class Artwork extends Base {
       return;
     }
 
+    const src = await this._processedImageSrc;
+
     this._Image.patch({
       alpha:
         this.src !== this.fallbackSrc && (this._blur || this._hasCenterImage)
@@ -558,7 +566,7 @@ class Artwork extends Base {
       h: this.h,
       texture: {
         type: lng.textures.ImageTexture,
-        src: this._processedImageSrc,
+        src,
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,
