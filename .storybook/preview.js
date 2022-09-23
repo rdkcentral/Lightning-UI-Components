@@ -15,7 +15,7 @@ import { withAnnouncer } from '../';
 import { getValidColor } from '../utils';
 import GridOverlay from '../layout/GridOverlay';
 
-
+context.debug = true;
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
 });
@@ -146,110 +146,116 @@ function createApp(parameters) {
 }
 
 let previousID = null;
-addDecorator(
-  (StoryComponent, { id, args, parameters, globals, updateGlobals }) => {
-    const triggerUpdate = previousID !== id;
-    previousID = id;
-    const app = createApp(globals.LUITheme);
-    app.announcerEnabled = globals.announce;
-    app.debug = globals.announce;
-    // If an update is required patch in the new child element
-    if (triggerUpdate) {
-      app.childList.clear();
-      app.childList.a({
-        StoryComponent: {
-          type: class extends StoryComponent() {
-            static _states() {
-              return [
-                class ModeUnfocusState extends this {
-                  _getFocused() {
-                    return this;
-                  }
-                },
-                class ModeFocusState extends this {
-                  _getFocused() {
-                    return this.childList && this.childList.first && this.childList.first.constructor.name !== 'Element' ?  this.childList.first : this;
-                  }
+addDecorator((StoryComponent, { id, args, parameters, globals }) => {
+  const triggerUpdate = previousID !== id;
+  previousID = id;
+  const app = createApp(globals.LUITheme);
+  app.announcerEnabled = globals.announce;
+  app.debug = globals.announce;
+  // If an update is required patch in the new child element
+  if (triggerUpdate) {
+    app.childList.clear();
+    app.childList.a({
+      StoryComponent: {
+        type: class extends StoryComponent() {
+          static _states() {
+            return [
+              class ModeUnfocusState extends this {
+                _getFocused() {
+                  return this;
                 }
-              ]
-            }
-
-            _constructor() {
-              context.on('themeUpdate', () => {
-                this.patch({
-                  x: context.theme.layout.marginX,
-                  y: context.theme.layout.marginY
-                })
-              })
-            }
-            _init() {
-              super._init();
-              this._refocus(); // Force Lightning to reset focus
-            }
-          },
-          w: w => w,
-          h: h => h,
-          x: context.theme.layout.marginX,
-          y: context.theme.layout.marginY
-        }
-      });
-      app._refocus();
-    }
-
-    // Make sure focus matches mode
-    if (app.tag('StoryComponent')._getFocused() === app.tag('StoryComponent')) {
-      app.tag('StoryComponent')._setState( !args.mode || args.mode && args.mode === 'focused' ? 'ModeFocusState' : 'ModeUnfocusState')
-    }
-
-    if (!app.tag('GridOverlay')) {
-      app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
-    }
-
-    app.tag('GridOverlay').patch({
-      // do not render this on top of the actual GridOverlay component's story
-      alpha: id.includes('gridoverlay') ? 0 : parseFloat(globals['GridOverlay-alpha']),
-      showColumns: globals['GridOverlay-toggle-showColumns'] === 'true',
-      showMargins: globals['GridOverlay-toggle-showMargins'] === 'true',
-      showSafe: globals['GridOverlay-toggle-showSafe'] === 'true',
-      showGutters: globals['GridOverlay-toggle-showGutters'] === 'true',
-      showText: globals['GridOverlay-toggle-showText'] === 'true'
-    });
-
-    const LightningUIComponent = app.tag('StoryComponent').childList.first;
-    if (LightningUIComponent && Object.keys(args).length) {
-      for (const prop in args) {
-        // Apply arguments from controls
-        const propValue =
-          'undefined' !== typeof args[prop]
-            ? args[prop]
-            : parameters.argTypes[prop].defaultValue;
-        if (!parameters.argActions || !parameters.argActions[prop]) {
-          LightningUIComponent[prop] = propValue;
-        }
-      }
-    }
-
-    if (
-      LightningUIComponent &&
-      parameters.argActions &&
-      Object.keys(parameters.argActions).length
-    ) {
-      for (const prop in parameters.argActions) {
-        if ('function' === typeof parameters.argActions[prop]) {
-          try {
-            const propValue =
-              'undefined' !== typeof args[prop]
-                ? args[prop]
-                : parameters.argTypes[prop].defaultValue;
-            parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
-          } catch (err) {
-            console.error('unable to apply argAction for ' + prop);
+              },
+              class ModeFocusState extends this {
+                _getFocused() {
+                  return this.childList &&
+                    this.childList.first &&
+                    this.childList.first.constructor.name !== 'Element'
+                    ? this.childList.first
+                    : this;
+                }
+              }
+            ];
           }
+
+          _constructor() {
+            context.on('themeUpdate', () => {
+              this.patch({
+                x: context.theme.layout.marginX,
+                y: context.theme.layout.marginY
+              });
+            });
+          }
+          _init() {
+            super._init();
+            this._refocus(); // Force Lightning to reset focus
+          }
+        },
+        w: w => w,
+        h: h => h,
+        x: context.theme.layout.marginX,
+        y: context.theme.layout.marginY
+      }
+    });
+    app._refocus();
+  }
+
+  // Make sure focus matches mode
+  if (app.tag('StoryComponent')._getFocused() === app.tag('StoryComponent')) {
+    app
+      .tag('StoryComponent')
+      ._setState(
+        !args.mode || (args.mode && args.mode === 'focused')
+          ? 'ModeFocusState'
+          : 'ModeUnfocusState'
+      );
+  }
+
+  if (!app.tag('GridOverlay')) {
+    app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
+  }
+
+  app.tag('GridOverlay').patch({
+    // do not render this on top of the actual GridOverlay component's story
+    alpha: id.includes('gridoverlay')
+      ? 0
+      : parseFloat(globals['GridOverlay-alpha']),
+    showColumns: globals['GridOverlay-toggle-showColumns'] === 'true',
+    showMargins: globals['GridOverlay-toggle-showMargins'] === 'true',
+    showSafe: globals['GridOverlay-toggle-showSafe'] === 'true',
+    showGutters: globals['GridOverlay-toggle-showGutters'] === 'true',
+    showText: globals['GridOverlay-toggle-showText'] === 'true'
+  });
+
+  const LightningUIComponent = app.tag('StoryComponent').childList.first;
+  if (LightningUIComponent && Object.keys(args).length) {
+    for (const prop in args) {
+      // Apply arguments from controls
+      const propValue =
+        'undefined' !== typeof args[prop]
+          ? args[prop]
+          : parameters.argTypes[prop].defaultValue;
+      if (!parameters.argActions || !parameters.argActions[prop]) {
+        LightningUIComponent[prop] = propValue;
+      }
+    }
+  }
+
+  if (
+    LightningUIComponent &&
+    parameters.argActions &&
+    Object.keys(parameters.argActions).length
+  ) {
+    for (const prop in parameters.argActions) {
+      if ('function' === typeof parameters.argActions[prop]) {
+        try {
+          parameters.argActions[prop](args[prop], app.tag('StoryComponent'));
+        } catch (err) {
+          console.error('unable to apply argAction for ' + prop);
         }
       }
-      return app.getCanvas();
     }
-
-    return app.stage.getCanvas();
+    return app.getCanvas();
   }
-);
+
+  return app.stage.getCanvas();
+});

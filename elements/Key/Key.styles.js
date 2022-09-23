@@ -8,7 +8,8 @@ export const base = theme => {
       sm: theme.spacer.md * 7,
       md: theme.spacer.md * 15,
       lg: theme.spacer.md * 23,
-      xl: theme.spacer.md * 47
+      xl: theme.spacer.md * 47,
+      xxl: theme.spacer.md * 95
     }
   };
 };

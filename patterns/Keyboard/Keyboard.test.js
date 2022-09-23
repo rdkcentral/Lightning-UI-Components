@@ -5,7 +5,7 @@ import KeyboardInput from './KeyboardInput';
 const createKeyboard = TestUtils.makeCreateComponent(Keyboard);
 const createKeyboardInput = TestUtils.makeCreateComponent(KeyboardInput);
 
-describe.skip('Keyboard', () => {
+describe('Keyboard', () => {
   let keyboard, testRenderer;
 
   beforeEach(() => {
@@ -59,20 +59,6 @@ describe.skip('Keyboard', () => {
     });
     return keyboard._whenEnabled.then(() => {
       expect(keyboard.tag('Numbers').constructor.name).toEqual('Row');
-    });
-  });
-
-  it('should take in keysConfig to be passed as a config to the keys', () => {
-    [keyboard, testRenderer] = createKeyboard({
-      keysConfig: {
-        h: 60
-      },
-      defaultFormat: 'lowercase',
-      formats: KEYBOARD_FORMATS.qwerty
-    });
-
-    return keyboard._whenEnabled.then(() => {
-      expect(keyboard.tag('Lowercase').items[0].h).toEqual(60);
     });
   });
 
@@ -191,11 +177,15 @@ describe.skip('Keyboard', () => {
   });
 });
 
-describe.skip('KeyboardInput', () => {
+describe('KeyboardInput', () => {
   let keyboardInput, testRenderer;
 
-  beforeEach(() => {
-    [keyboardInput, testRenderer] = createKeyboardInput({ placeholder: '' });
+  beforeEach(async done => {
+    [keyboardInput, testRenderer] = createKeyboardInput(
+      { placeholder: '' },
+      { spyOnMethods: ['_update'] }
+    );
+    done();
   });
 
   afterEach(() => {
@@ -226,10 +216,21 @@ describe.skip('KeyboardInput', () => {
 
     keyboardInput.$onSoftKey({ key: 'Done' });
     expect(keyboardInput._Input.value).toEqual('');
+
+    keyboardInput.$onSoftKey({ key: 'shift' });
+    expect(keyboardInput._Input.value).toEqual('');
   });
 
   it('stops input from listening if the keyboard is unfocused', () => {
     keyboardInput.$keyboardFocused(false);
     expect(keyboardInput._Input._listening).toEqual(false);
+  });
+
+  it('should update mask', () => {
+    keyboardInput.mask = '*';
+    testRenderer.forceAllUpdates();
+
+    expect(keyboardInput._Input.mask).toEqual('*');
+    expect(keyboardInput.mask).toEqual('*');
   });
 });

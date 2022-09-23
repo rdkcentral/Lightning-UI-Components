@@ -324,6 +324,8 @@ class Row extends FocusManager {
         if (childHeight < this.Items.innerH) {
           childrenToCenter.push({ childIdx: i, childHeight });
         }
+      } else {
+        child.y = 0;
       }
     }
 

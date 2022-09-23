@@ -9,8 +9,6 @@ export interface ButtonStyles {
   paddingX: number;
   paddingXNoTitle: number;
   titlePadding: number;
-  prefixPadding: number;
-  suffixPadding: number;
   prefixH: number;
   suffixH: number;
   textStyle: __TextType | string;

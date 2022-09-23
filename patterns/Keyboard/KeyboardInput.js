@@ -1,9 +1,13 @@
 import Column from '../../layout/Column';
-import { Base } from '../../elements';
+import Base from '../../Base';
 import Input from '../Input';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
+import { withExtensions } from '../../mixins';
 
-export default class KeyboardInput extends Base {
+class KeyboardInput extends Base {
+  static get __componentName() {
+    return 'KeyboardInput';
+  }
   static get tags() {
     return [
       'Wrapper',
@@ -28,6 +32,7 @@ export default class KeyboardInput extends Base {
       Wrapper: {
         type: Column,
         itemSpacing: 88,
+        neverScroll: true,
         items: [
           {
             w: 816,
@@ -94,3 +99,4 @@ export default class KeyboardInput extends Base {
     return this._Wrapper || this;
   }
 }
+export default withExtensions(KeyboardInput);
