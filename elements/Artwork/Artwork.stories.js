@@ -99,10 +99,17 @@ Basic.parameters = {
     },
     srcCallback: (active, component) => {
       if (active) {
+        // Accepts a regular function or function that returns a promise
         component.tag('Artwork').patch({
           src: '8501866671289235112',
           srcCallback: ({ w, closestAspectRatio, src }) => {
-            return `https://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=${closestAspectRatio}&rule=noTitle`;
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve(
+                  `https://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=${closestAspectRatio}&rule=noTitle`
+                );
+              }, 500);
+            });
           }
         });
       } else {
