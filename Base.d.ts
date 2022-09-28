@@ -31,6 +31,9 @@ export default class Base<
   protected _resetLoadedPromise(): void;
   protected _announce?: SpeechType;
   protected _announceContext?: SpeechType;
+  protected _isDisabledMode(): boolean;
+  protected _isUnfocusedMode(): boolean;
+  protected _isFocusedMode(): boolean;
 
   set announce(announce: SpeechType);
   get announce(): SpeechType;
@@ -43,4 +46,6 @@ export default class Base<
   extraItemSpacing?: number;
 
   isFullyOnScreen(): boolean;
+  getFocusScale(): number;
+  getUnfocusScale(): number;
 }

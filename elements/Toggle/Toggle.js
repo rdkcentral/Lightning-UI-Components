@@ -50,7 +50,7 @@ class Toggle extends Base {
   }
 
   _setChecked(checked) {
-    return this.mode !== 'disabled' ? checked : this.checked;
+    return this._isDisabledMode ? this.checked : checked;
   }
 
   _handleEnter() {
