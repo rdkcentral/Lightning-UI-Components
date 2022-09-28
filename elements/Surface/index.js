@@ -50,13 +50,11 @@ class Surface extends Base {
   }
 
   _updateScale() {
-    this.applySmooth(
-      this,
-      { scale: this.style.scale(this.w, this.h) },
-      {
-        scale: [this.style.scale(this.w, this.h), this.style.animation]
-      }
-    );
+    const scale = this._isFocusedMode
+      ? this.getFocusScale(this.w, this.h)
+      : this.getUnfocusScale(this.w, this.h);
+
+    this.applySmooth(this, { scale }, { scale: [scale, this.style.animation] });
   }
 }
 

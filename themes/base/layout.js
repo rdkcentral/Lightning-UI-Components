@@ -1,6 +1,4 @@
-import context from '../../context';
-
-export const layout = {
+export default {
   screenW: 1920,
   screenH: 1080,
   columnCount: 10,
@@ -23,14 +21,3 @@ export const layout = {
   },
   focusScale: 1.2
 };
-
-// TODO: After modes refactor, Emily to move these to Base component and
-// return `this.style.layout.focusScale`
-// so users can easily extend and overwrite scaling methods
-export function getFocusScale() {
-  return context.theme.layout.focusScale;
-}
-
-export function getUnfocusScale() {
-  return 1;
-}

@@ -1,6 +1,6 @@
 import alphas from './alphas';
 import colors from './colors';
-import { layout, getFocusScale, getUnfocusScale } from './layout';
+import layout from './layout';
 import radius from './radius';
 import spacer from './spacer';
 import stroke from './stroke';
@@ -20,11 +20,5 @@ export default {
   radius,
   spacer,
   stroke,
-  typography,
-
-  // TODO: After modes refactor, Emily to move these to Base component and
-  // return `this.style.layout.focusScale`
-  // so users can easily extend and overwrite scaling methods
-  getFocusScale,
-  getUnfocusScale
+  typography
 };

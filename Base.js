@@ -1,4 +1,5 @@
 import lng from '@lightningjs/core';
+import context from './context';
 import {
   withUpdates,
   withTags,
@@ -70,8 +71,28 @@ class Base extends lng.Component {
     this._shouldSmooth = shouldSmooth;
   }
 
+  get _isDisabledMode() {
+    return this.mode === 'disabled';
+  }
+
+  get _isUnfocusedMode() {
+    return this.mode === 'unfocused';
+  }
+
+  get _isFocusedMode() {
+    return this.mode === 'focused';
+  }
+
   isFullyOnScreen() {
     return isComponentOnScreen(this);
+  }
+
+  getFocusScale() {
+    return context.theme.layout.focusScale;
+  }
+
+  getUnfocusScale() {
+    return 1;
   }
 }
 

@@ -133,10 +133,6 @@ class Tile extends Surface {
       : this.innerW * 0.75;
   }
 
-  get _isFocusedMode() {
-    return this.mode === 'focused';
-  }
-
   get _shouldShowMetadata() {
     return this._persistentMetadata || this._isFocusedMode;
   }

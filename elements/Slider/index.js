@@ -119,7 +119,7 @@ class Slider extends Base {
   }
 
   _handleLeft() {
-    if (this.mode === 'disabled') {
+    if (this._isDisabledMode) {
       return false;
     }
     this._decrementValue();
@@ -130,7 +130,7 @@ class Slider extends Base {
   }
 
   _handleRight() {
-    if (this.mode === 'disabled') {
+    if (this._isDisabledMode) {
       return false;
     }
     this._incrementValue();
@@ -184,10 +184,10 @@ class Slider extends Base {
     // fade arrows at min/max
     let sliderArrowAlphaLeft;
     let sliderArrowAlphaRight;
-    if (this.mode !== 'disabled' && this.value <= this.min) {
+    if (!this._isDisabledMode && this.value <= this.min) {
       sliderArrowAlphaLeft = this.style.arrowAlphaValueLimit;
       sliderArrowAlphaRight = this.style.arrowAlphaValue;
-    } else if (this.mode !== 'disabled' && this.value >= this.max) {
+    } else if (!this._isDisabledMode && this.value >= this.max) {
       sliderArrowAlphaLeft = this.style.arrowAlphaValue;
       sliderArrowAlphaRight = this.style.arrowAlphaValueLimit;
     } else {
@@ -291,7 +291,7 @@ class Slider extends Base {
         }
 
         _handleUp() {
-          if (this.mode === 'disabled') {
+          if (this._isDisabledMode) {
             return false;
           }
           this._decrementValue();
@@ -302,7 +302,7 @@ class Slider extends Base {
         }
 
         _handleDown() {
-          if (this.mode === 'disabled') {
+          if (this._isDisabledMode) {
             return false;
           }
           this._incrementValue();

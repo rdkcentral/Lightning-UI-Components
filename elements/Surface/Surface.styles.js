@@ -1,17 +1,12 @@
 export const base = theme => ({
   backgroundColor: theme.colors.coreInverseSecondary,
   radius: theme.radius.md,
-  scale: theme.getUnfocusScale,
   animation: {}
 });
 
 export const mode = theme => ({
   disabled: {
     backgroundColor: theme.colors.coreInverseDisabled
-  },
-  focused: {
-    scale: theme.getFocusScale,
-    animation: {}
   }
 });
 
