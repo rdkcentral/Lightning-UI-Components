@@ -51,14 +51,22 @@ class CardAboutStacked extends CardAbout {
 
   _updateBottomText() {
     let titleBottomObject = {};
+    let y = this.style.paddingFirstLine;
+    if (this.contentBottom) {
+      const lineHeight =
+        (this._LeftIconTextContainer.style.textStyle &&
+          this._LeftIconTextContainer.style.textStyle.lineHeight) ||
+        0;
+      y =
+        this._LeftIconTextContainer.y +
+        lineHeight +
+        this.style.paddingVertical * 2;
+    }
+
     titleBottomObject = {
       content: this.titleBottom && this.titleBottom.toUpperCase(),
       x: this.style.paddingHorizontal,
-      y: this.contentBottom
-        ? this._LeftIconTextContainer.y +
-          this._LeftIconTextContainer.textProperties.lineHeight +
-          this.style.paddingVertical * 2
-        : this.style.paddingFirstLine,
+      y,
       wordWrapWidth: this._calculateTextWidth(),
       textStyle: this.style.titleTextProperties
     };

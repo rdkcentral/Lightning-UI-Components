@@ -63,7 +63,7 @@ describe('CardAboutStacked', () => {
     testRenderer.forceAllUpdates();
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked._LeftIconTextContainer.y +
-        CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
+        CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
         CardAboutStacked.style.paddingVertical * 2
     );
     expect(CardAboutStacked._LeftIconTextContainer.x).toEqual(
@@ -92,7 +92,7 @@ describe('CardAboutStacked', () => {
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked.contentBottom
         ? CardAboutStacked._LeftIconTextContainer.y +
-            CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
+            CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
             CardAboutStacked.style.paddingVertical * 2
         : CardAboutStacked.style.paddingFirstLine
     );
@@ -112,7 +112,7 @@ describe('CardAboutStacked', () => {
     expect(CardAboutStacked._TitleBottom.y).toEqual(
       CardAboutStacked.contentBottom
         ? CardAboutStacked._LeftIconTextContainer.y +
-            CardAboutStacked._LeftIconTextContainer.textProperties.lineHeight +
+            CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
             CardAboutStacked.style.paddingVertical * 2
         : CardAboutStacked.style.paddingFirstLine
     );

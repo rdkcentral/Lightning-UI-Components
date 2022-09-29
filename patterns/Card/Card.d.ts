@@ -9,7 +9,6 @@ export interface CardStyles extends SurfaceStyles {
   paddingHorizontal?: number;
   paddingVertical?: number;
   radius?: lng.Tools.CornerRadius;
-  textColorDisabled?: string;
   titleTextProperties?: lng.textures.TextTexture.Settings;
 }
 

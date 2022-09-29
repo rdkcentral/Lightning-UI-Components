@@ -19,22 +19,34 @@ class MetadataCardContent extends MetadataBase {
       Text: {
         flex: { direction: 'column', justifyContent: 'flex-start' },
         Title: {
-          type: TextBox
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_resolveTitle'
+          }
         },
         Description: {
-          type: TextBox
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_resolveDescription'
+          }
         }
       },
       DetailsWrapper: {
         DetailsFader: {
           Details: {
             mountY: 0.5,
-            type: TextBox
+            type: TextBox,
+            signals: {
+              textBoxChanged: '_resolveDetails'
+            }
           }
         },
         Provider: {
           mount: 1,
-          type: Provider
+          type: Provider,
+          signals: {
+            providerChanged: '_resolveProvider'
+          }
         }
       }
     };
@@ -42,6 +54,28 @@ class MetadataCardContent extends MetadataBase {
 
   static get properties() {
     return ['description', 'details', 'provider', 'title'];
+  }
+
+  _setDetails(details) {
+    if (details) {
+      this._detailsPromise = new Promise(resolve => {
+        this._detailsPromiseResolver = resolve;
+      });
+    } else {
+      this._detailsPromise = undefined;
+    }
+    return details;
+  }
+
+  _setProvider(provider) {
+    if (provider) {
+      this._providerPromise = new Promise(resolve => {
+        this._providerPromiseResolver = resolve;
+      });
+    } else {
+      this._providerPromise = undefined;
+    }
+    return provider;
   }
 
   static get tags() {
@@ -71,9 +105,17 @@ class MetadataCardContent extends MetadataBase {
     ];
   }
 
-  _update() {
+  async _update() {
     this._updateLines();
     this._updateProvider();
+    await Promise.all(
+      [
+        this._titlePromise,
+        this._descriptionPromise,
+        this._detailsPromise,
+        this._providerPromise
+      ].filter(Boolean)
+    );
     this._updatePositions();
   }
 
@@ -94,7 +136,7 @@ class MetadataCardContent extends MetadataBase {
   }
 
   _updateDetails() {
-    const maxWidth = this._detailsMaxW();
+    const maxWidth = this._detailsMaxW;
     this._Details.patch({
       content: this.details,
       textStyle: this.style.detailsTextProperties,
@@ -117,6 +159,11 @@ class MetadataCardContent extends MetadataBase {
     }
   }
 
+  _resolveDetails() {
+    this._detailsPromiseResolver && this._detailsPromiseResolver();
+    this._updatePositions();
+  }
+
   _updateProvider() {
     if (this.provider) {
       this._Provider.patch({
@@ -126,38 +173,43 @@ class MetadataCardContent extends MetadataBase {
     }
   }
 
-  _updatePositions() {
-    this._Text.h = this._textH();
-    this._Text.w = this._textW();
+  _resolveProvider() {
+    this._providerPromiseResolver && this._providerPromiseResolver();
+    this._updatePositions();
+  }
 
-    this._DetailsWrapper.w = this._textW();
-    this._DetailsWrapper.h = this._providerH();
+  _updatePositions() {
+    this._Text.h = this._textH;
+    this._Text.w = this._textW;
+
+    this._DetailsWrapper.w = this._textW;
+    this._DetailsWrapper.h = Math.max(this._providerH, this._Details.h);
     this._DetailsWrapper.y = this.h - this._DetailsWrapper.h;
 
     this._Details.y = this._DetailsWrapper.h / 2;
 
-    this._Provider.x = this._DetailsWrapper.w - this._providerW();
-    this._Provider.y = this._DetailsWrapper.h - this._providerH();
+    this._Provider.x = this._DetailsWrapper.w - this._providerW;
+    this._Provider.y = this._DetailsWrapper.h - this._providerH;
   }
 
-  _textW() {
+  get _textW() {
     return this.w;
   }
 
-  _textH() {
-    return this.h - this._providerH();
+  get _textH() {
+    return this.h - this._providerH;
   }
 
-  _providerW() {
-    return this._Provider._Row._Items.w;
+  get _providerW() {
+    return this._Provider.w;
   }
 
-  _providerH() {
+  get _providerH() {
     return this._Provider._Row._Items.h;
   }
 
-  _detailsMaxW() {
-    return this.w - this._providerW() - this.style.fadeWidth / 2;
+  get _detailsMaxW() {
+    return this.w - this._providerW - this.style.fadeWidth / 2;
   }
 
   get announce() {

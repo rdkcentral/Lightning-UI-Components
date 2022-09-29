@@ -7,7 +7,7 @@ import MetadataBase from '.';
 import mdx from './MetadataBase.mdx';
 
 export default {
-  title: 'Elements/MetadataBase',
+  title: 'Elements/Metadata',
   parameters: {
     docs: {
       page: mdx

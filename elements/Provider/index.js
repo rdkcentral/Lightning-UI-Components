@@ -17,7 +17,8 @@ class Provider extends Base {
   static _template() {
     return {
       Row: {
-        type: Row
+        type: Row,
+        autoResizeWidth: true
       }
     };
   }
@@ -45,24 +46,12 @@ class Provider extends Base {
   }
 
   _updateProviders() {
-    // Create an object to apply a radius to be re-used for each provider.
-    const radiusPatch = this.disableRadius
-      ? {}
-      : {
-          clipping: true,
-          rect: true,
-          shader: {
-            type: lng.shaders.RoundedRectangle,
-            radius: this.style.radius
-          },
-          rtt: true
-        };
     const providerList = [];
     this.providers.slice(0, this.visibleCount).forEach(provider => {
       // Create a starting point for each provider icon.
       let patch = {
         centerInParent: true,
-        ...radiusPatch
+        radius: this.disableRadius ? 0 : this.style.radius
       };
       if (
         // If the provider is a pre-configured Icon, allow it to override the default behavior.
@@ -131,6 +120,14 @@ class Provider extends Base {
       };
       this._Row.appendItems([counter]);
     }
+  }
+
+  $itemChanged() {
+    this.signal('providerChanged');
+  }
+
+  get w() {
+    return this._Row.w;
   }
 }
 

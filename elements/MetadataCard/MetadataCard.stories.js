@@ -7,7 +7,7 @@ import MetadataCard from '.';
 import mdx from './MetadataCard.mdx';
 
 export default {
-  title: 'Elements / MetadataCard',
+  title: 'Elements / Metadata',
   parameters: {
     docs: {
       page: mdx
@@ -15,8 +15,8 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Card = () =>
+  class Card extends lng.Component {
     static _template() {
       return {
         MetadataCard: {
@@ -26,7 +26,7 @@ export const Basic = () =>
     }
   };
 
-Basic.argTypes = {
+Card.argTypes = {
   w: {
     defaultValue: 400,
     table: {

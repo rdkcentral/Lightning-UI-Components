@@ -4,7 +4,7 @@ import mdx from './MetadataCardContent.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 
 export default {
-  title: 'Elements / MetadataCardContent',
+  title: 'Elements / Metadata',
   parameters: {
     docs: {
       page: mdx
@@ -12,8 +12,8 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const CardContent = () =>
+  class CardContent extends lng.Component {
     static _template() {
       return {
         MetadataCardContent: {
@@ -22,7 +22,7 @@ export const Basic = () =>
       };
     }
   };
-Basic.argTypes = {
+CardContent.argTypes = {
   w: {
     defaultValue: 600,
     table: {
@@ -73,14 +73,12 @@ Basic.argTypes = {
   }
 };
 
-Basic.parameters = {
+CardContent.parameters = {
   argActions: {
     visibleCount(visibleCount, component) {
       component.tag('MetadataCardContent').provider = {
         visibleCount: visibleCount,
-        providers: Array.apply(null, { length: 10 }).map(
-          () => xfinityProviderLogoSquare
-        )
+        providers: Array(10).fill(xfinityProviderLogoSquare)
       };
     }
   }

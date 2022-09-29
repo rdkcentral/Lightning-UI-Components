@@ -49,9 +49,7 @@ export const Basic = () =>
       return {
         Provider: {
           type: Provider,
-          providers: Array.apply(null, { length: 10 }).map(
-            () => xfinityProviderLogoSquare
-          )
+          providers: Array(10).fill(xfinityProviderLogoSquare)
         }
       };
     }

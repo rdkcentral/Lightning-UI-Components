@@ -12,9 +12,7 @@ describe('MetadataCardContent', () => {
       {
         provider: {
           visibleCount: 3,
-          providers: Array.apply(null, { length: 10 }).map(
-            () => xfinityProviderLogoSquare
-          )
+          providers: Array(10).fill(xfinityProviderLogoSquare)
         }
       },
       {
