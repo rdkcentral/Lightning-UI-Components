@@ -7,7 +7,7 @@ import MetadataTile from '.';
 import mdx from './MetadataTile.mdx';
 
 export default {
-  title: 'Elements/MetadataTile',
+  title: 'Elements/Metadata',
   parameters: {
     docs: {
       page: mdx
@@ -15,8 +15,8 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const Tile = args =>
+  class Tile extends lng.Component {
     static _template() {
       return {
         MetadataTile: {
@@ -37,7 +37,7 @@ export const Basic = args =>
     }
   };
 
-Basic.argTypes = {
+Tile.argTypes = {
   w: {
     defaultValue: 400,
     table: {

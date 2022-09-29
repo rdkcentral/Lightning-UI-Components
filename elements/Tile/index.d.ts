@@ -17,6 +17,7 @@ export interface TileStyles {
   metadataStyles?: object; // TODO: Replace with TS from MetadataTile after completed
   paddingX?: number | string;
   paddingY?: number | string;
+  paddingYProgress?: number | string;
   progressBarStyles?: ProgressBarStyles;
   radius?: lng.Tools.CornerRadius | string;
 }

@@ -11,7 +11,7 @@ const iconRect = TestUtils.pathToDataURI(
 
 const properties = {
   visibleCount: 3,
-  providers: Array.apply(null, { length: 4 }).map(() => iconSquare)
+  providers: Array(4).fill(iconSquare)
 };
 
 const createComponent = TestUtils.makeCreateComponent(Provider, properties);
@@ -42,7 +42,7 @@ describe('Provider', () => {
 
   it('displays the correct counter', () => {
     [component, testRenderer] = createComponent({
-      providers: Array.apply(null, { length: 20 }).map(() => iconSquare)
+      providers: Array(20).fill(iconSquare)
     });
     expect(component._Row.items[3]).not.toBeInstanceOf(Icon);
     expect(component._Row.items[3].tag('Text').content).toBe('+17');
@@ -50,7 +50,7 @@ describe('Provider', () => {
 
   it('displays the correct counter with custom counterText', () => {
     [component, testRenderer] = createComponent({
-      providers: Array.apply(null, { length: 20 }).map(() => iconSquare),
+      providers: Array(20).fill(iconSquare),
       counterText: '...'
     });
     expect(component._Row.items[3].tag('Text').content).toBe('...');

@@ -388,7 +388,7 @@ class Tile extends Surface {
         ...this.progressBar,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
-        y: this._h - this.style.paddingY,
+        y: this._h - this.style.paddingYProgress,
         style: this.style.progressBarStyles
       };
 

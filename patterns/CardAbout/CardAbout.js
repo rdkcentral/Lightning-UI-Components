@@ -90,8 +90,8 @@ class CardAbout extends CardTitle {
       y: this._hasContent
         ? (this._RightIconTextContainer.y || this._LeftIconTextContainer.y) +
           (this.iconHeight ||
-            this._LeftIconTextContainer.textProperties.lineHeight ||
-            this._RightIconTextContainer.textProperties.lineHeight) +
+            this._LeftIconTextContainer.style.textStyle.lineHeight ||
+            this._RightIconTextContainer.style.textStyle.lineHeight) +
           this.style.paddingVertical
         : this._Title.textStyle.lineHeight +
           this.style.paddingVertical +
@@ -109,6 +109,13 @@ class CardAbout extends CardTitle {
   }
 
   _updateContent() {
+    const style = {
+      textStyle: {
+        ...this.style.textContainerProperties,
+        textColor: this.style.textColor
+      }
+    };
+
     const contentLeft = [];
     this.iconLeft &&
       contentLeft.push({
@@ -117,12 +124,8 @@ class CardAbout extends CardTitle {
       });
     this.textLeft && contentLeft.push(this.textLeft);
     this._LeftIconTextContainer.content = contentLeft;
-    this._LeftIconTextContainer.patch({
-      textProperties: {
-        ...this.style.textContainerProperties,
-        textColor: this.style.textColor
-      }
-    });
+    this._LeftIconTextContainer.style = style;
+
     const contentRight = [];
     this.iconRight &&
       contentRight.push({
@@ -131,10 +134,7 @@ class CardAbout extends CardTitle {
       });
     this.textRight && contentRight.push(this.textRight);
     this._RightIconTextContainer.content = contentRight;
-    this._RightIconTextContainer.textProperties = {
-      ...this.style.textContainerProperties,
-      textColor: this.style.textColor
-    };
+    this._RightIconTextContainer.style = style;
   }
 }
 

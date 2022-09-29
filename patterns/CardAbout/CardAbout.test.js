@@ -79,8 +79,8 @@ describe('CardAbout', () => {
         ? (CardAbout._RightIconTextContainer.y ||
             CardAbout._LeftIconTextContainer.y) +
             (CardAbout.iconHeight ||
-              CardAbout._LeftIconTextContainer.textProperties.lineHeight ||
-              CardAbout._RightIconTextContainer.textProperties.lineHeight) +
+              CardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
+              CardAbout._RightIconTextContainer.style.textStyle.lineHeight) +
             CardAbout.style.paddingVertical
         : CardAbout._Title.textStyle.lineHeight +
             CardAbout.style.paddingVertical +
