@@ -121,8 +121,9 @@ Object {
                 "Text",
               ],
               "texture": Object {
-                "fontFace": "DMSansRegular",
-                "fontSize": 32,
+                "fontFace": "XfinityBrownBold",
+                "fontSize": 28,
+                "letterSpacing": -0.2,
                 "lineHeight": 40,
                 "text": "Tab",
                 "textBaseline": "bottom",

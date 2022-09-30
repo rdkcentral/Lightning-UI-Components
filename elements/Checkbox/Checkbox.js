@@ -62,17 +62,17 @@ class Checkbox extends Base {
         this.style.strokeWidth,
         this.style.strokeColor,
         true,
-        this.style.backgroundColor
+        this.checked
+          ? this.style.backgroundColorChecked
+          : this.style.backgroundColor
       )
     });
   }
 
-  _setChecked(checked) {
-    return this._isDisabledMode ? this.checked : checked;
-  }
-
   toggle() {
-    this.checked = !this.checked;
+    if (!this._isDisabledMode) {
+      this.checked = !this.checked;
+    }
     return this;
   }
 

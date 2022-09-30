@@ -74,6 +74,7 @@ class CardContent extends Card {
       ...this.metadata,
       ...this._metadataPosition,
       ...this._metadataDimensions,
+      mode: this.mode,
       alpha: this._shouldShowMetadata ? 1 : 0
     };
 

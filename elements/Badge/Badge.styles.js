@@ -9,18 +9,18 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    backgroundColor: theme.color.coreInverseSecondary,
-    iconColor: theme.color.coreNeutral,
-    textStyle: { textColor: theme.color.coreNeutral }
+    backgroundColor: theme.color.fillInverseSecondary,
+    iconColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.fillNeutral }
   },
   inverse: {
-    backgroundColor: theme.color.coreNeutralSecondary,
-    iconColor: theme.color.coreInverse,
-    textStyle: { textColor: theme.color.coreInverse }
+    backgroundColor: theme.color.fillNeutralSecondary,
+    iconColor: theme.color.fillInverse,
+    textStyle: { textColor: theme.color.fillInverse }
   },
   brand: {
-    backgroundColor: theme.color.coreBrand,
-    iconColor: theme.color.coreNeutral,
-    textStyle: { textColor: theme.color.coreNeutral }
+    backgroundColor: theme.color.fillBrand,
+    iconColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.fillNeutral }
   }
 });

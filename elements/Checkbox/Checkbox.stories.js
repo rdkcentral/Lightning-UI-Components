@@ -29,7 +29,7 @@ Basic.args = {
 };
 
 Basic.argTypes = {
-  ...createModeControl(),
+  ...createModeControl(['disabled']),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',

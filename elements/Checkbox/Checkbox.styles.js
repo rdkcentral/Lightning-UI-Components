@@ -16,38 +16,38 @@ export const base = theme => {
 
 export const palette = theme => ({
   neutral: {
-    strokeColor: theme.color.coreInverse,
-    checkColor: theme.color.coreInverse,
-    checkedBackgroundColor: theme.color.coreNeutral,
-    uncheckedBackgroundColor: theme.color.coreNeutralDisabled,
+    strokeColor: theme.color.strokeInverse,
+    checkColor: theme.color.fillInverse,
+    backgroundColor: theme.color.fillNeutralDisabled,
+    backgroundColorChecked: theme.color.fillNeutral,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreNeutralDisabled,
-        strokeColor: theme.color.coreInverseDisable
+        backgroundColor: theme.color.fillNeutralDisabled,
+        strokeColor: theme.color.strokeInverseDisable
       }
     }
   },
   inverse: {
-    strokeColor: theme.color.coreNeutral,
-    checkColor: theme.color.coreNeutral,
-    checkedBackgroundColor: theme.color.coreInverse,
-    uncheckedBackgroundColor: theme.color.coreInverseDisabled,
+    strokeColor: theme.color.strokeNeutral,
+    checkColor: theme.color.fillNeutral,
+    backgroundColor: theme.color.fillInverseDisabled,
+    backgroundColorChecked: theme.color.fillInverse,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreInverseDisabled,
-        strokeColor: theme.color.coreNeutralDisabled
+        backgroundColor: theme.color.fillInverseDisabled,
+        strokeColor: theme.color.strokeNeutralDisabled
       }
     }
   },
   brand: {
-    strokeColor: theme.color.coreNeutral,
-    checkColor: theme.color.coreNeutral,
-    checkedBackgroundColor: theme.color.coreBrand,
-    uncheckedBackgroundColor: theme.color.coreInverseDisabled,
+    strokeColor: theme.color.strokeNeutral,
+    checkColor: theme.color.fillNeutral,
+    backgroundColor: theme.color.fillInverseDisabled,
+    backgroundColorChecked: theme.color.fillBrand,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreInverseDisabled,
-        strokeColor: theme.color.coreNeutralDisabled
+        backgroundColor: theme.color.fillInverseDisabled,
+        strokeColor: theme.color.strokeNeutralDisabled
       }
     }
   }

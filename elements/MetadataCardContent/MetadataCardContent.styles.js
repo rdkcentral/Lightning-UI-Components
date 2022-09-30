@@ -8,18 +8,27 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    detailsTextProperties: {
-      textColor: theme.color.coreNeutral
+    detailsTextProperties: { textColor: theme.color.textNeutral },
+    mode: {
+      disabled: {
+        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+      }
     }
   },
   inverse: {
-    detailsTextProperties: {
-      textColor: theme.color.coreInverse
+    detailsTextProperties: { textColor: theme.color.textInverse },
+    mode: {
+      disabled: {
+        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+      }
     }
   },
   brand: {
-    detailsTextProperties: {
-      textColor: theme.color.coreNeutral
+    detailsTextProperties: { textColor: theme.color.textNeutral },
+    mode: {
+      disabled: {
+        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+      }
     }
   }
 });

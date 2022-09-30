@@ -5,7 +5,7 @@ import mdx from './Checkbox.mdx';
 import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
-  title: 'Elements / CheckboxSmall',
+  title: 'Elements / Checkbox',
   parameters: {
     docs: {
       page: mdx
@@ -13,8 +13,8 @@ export default {
   }
 };
 
-export const Basic = () => {
-  return class Basic extends lng.Component {
+export const Small = () => {
+  return class Small extends lng.Component {
     static _template() {
       return {
         Checkbox: {
@@ -24,11 +24,11 @@ export const Basic = () => {
     }
   };
 };
-Basic.args = {
+Small.args = {
   checked: false
 };
-Basic.argTypes = {
-  ...createModeControl(),
+Small.argTypes = {
+  ...createModeControl(['disabled']),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',

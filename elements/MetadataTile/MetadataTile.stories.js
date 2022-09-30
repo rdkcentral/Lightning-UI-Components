@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 import MetadataTile from '.';
 import mdx from './MetadataTile.mdx';
@@ -38,6 +39,7 @@ export const Tile = args =>
   };
 
 Tile.argTypes = {
+  ...createModeControl(['disabled']),
   w: {
     defaultValue: 400,
     table: {

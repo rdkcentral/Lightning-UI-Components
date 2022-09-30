@@ -51,7 +51,9 @@ class Provider extends Base {
       // Create a starting point for each provider icon.
       let patch = {
         centerInParent: true,
-        radius: this.disableRadius ? 0 : this.style.radius
+        radius: this.disableRadius ? 0 : this.style.radius,
+        alpha: this.style.alpha,
+        style: provider.style
       };
       if (
         // If the provider is a pre-configured Icon, allow it to override the default behavior.
@@ -92,6 +94,7 @@ class Provider extends Base {
     if (this.providers.length > this.visibleCount) {
       const remaining = this.providersHidden;
       const counter = {
+        alpha: this.style.alpha,
         w: this.style.itemSize,
         h: this.style.itemSize,
         centerInParent: true,

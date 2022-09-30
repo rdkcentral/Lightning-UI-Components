@@ -43,13 +43,11 @@ class CardPersonality extends CardTitle {
     const tileObj = {
       w: imageSize,
       h: imageSize,
-      itemLayout: { w: imageSize, h: imageSize, circle: true }, // have to put itemLayout after width and height is set
+      // have to put itemLayout after width and height is set
+      itemLayout: { w: imageSize, h: imageSize, circle: true },
       x: this.style.paddingHorizontal,
       y: this.style.paddingVertical,
-      artwork: {
-        src: this.src
-      },
-      disabled: this._disabled
+      artwork: { src: this.src }
     };
 
     if (!this._Tile) {

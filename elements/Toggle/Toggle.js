@@ -44,24 +44,6 @@ class Toggle extends Base {
     this._checked = false;
   }
 
-  toggle() {
-    this.checked = !this.checked;
-    return this;
-  }
-
-  _setChecked(checked) {
-    return this._isDisabledMode ? this.checked : checked;
-  }
-
-  _handleEnter() {
-    if (typeof this.onEnter === 'function') {
-      return this.onEnter(this);
-    } else {
-      this.toggle();
-    }
-    return false;
-  }
-
   _update() {
     this._updateKnobPosition();
     this._updateColors();
@@ -179,6 +161,22 @@ class Toggle extends Base {
         false
       )
     });
+  }
+
+  toggle() {
+    if (!this._isDisabledMode) {
+      this.checked = !this.checked;
+    }
+    return this;
+  }
+
+  _handleEnter() {
+    if (typeof this.onEnter === 'function') {
+      return this.onEnter(this);
+    } else {
+      this.toggle();
+    }
+    return false;
   }
 }
 

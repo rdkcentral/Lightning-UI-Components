@@ -6,7 +6,7 @@ export const base = theme => {
   };
 };
 
-export const variants = theme => ({
+export const palette = theme => ({
   neutral: {
     circleColor: theme.color.interactiveNeutralFocus
   },
@@ -14,6 +14,6 @@ export const variants = theme => ({
     circleColor: theme.color.interactiveInverseFocus
   },
   brand: {
-    circleColor: theme.color.coreBrandFocus
+    circleColor: theme.color.interactiveBrandFocus
   }
 });

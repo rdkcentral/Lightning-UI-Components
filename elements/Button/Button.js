@@ -104,10 +104,7 @@ class Button extends Surface {
     if (this._hasTitle) {
       let titlePatch = {
         content: this.title,
-        textStyle: {
-          textColor: this.style.contentColor,
-          ...this.style.textStyle
-        }
+        textStyle: this.style.textStyle
       };
       if (!this._Title) {
         titlePatch = {
