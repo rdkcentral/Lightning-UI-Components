@@ -5,27 +5,28 @@ export const base = theme => ({
   noTitlePaddingX: theme.spacer.xl,
   iconSize: theme.spacer.xxxl,
   iconMarginRight: theme.spacer.md,
-  textStyle: theme.typography.headline3,
-  backgroundColor: theme.color.transparent,
-  contentColor: theme.color.coreNeutral
+  textStyle: {
+    ...theme.typography.headline3,
+    textColor: theme.color.textNeutral
+  },
+  backgroundColor: theme.color.fillTransparent,
+  contentColor: theme.color.fillNeutral
 });
 
 export const mode = theme => ({
   focused: {
     backgroundColor: theme.color.interactiveNeutralFocus,
-    contentColor: theme.color.coreInverse
-  },
-  pressed: {
-    backgroundColor: theme.color.interactiveNeutralFocusSoft,
-    contentColor: theme.color.coreNeutral
+    contentColor: theme.color.fillInverse,
+    textStyle: { textColor: theme.color.textInverse }
   },
   selected: {
     backgroundColor: theme.color.interactiveNeutralFocusSoft,
-    contentColor: theme.color.coreNeutral
+    contentColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.textNeutral }
   },
   disabled: {
-    backgroundColor: theme.color.transparent,
-    contentColor: theme.color.coreNeutralDisabled
+    backgroundColor: theme.color.fillTransparent,
+    contentColor: theme.color.fillNeutralDisabled
   }
 });
 
@@ -34,14 +35,16 @@ export const palette = theme => ({
   inverse: {
     mode: {
       focused: {
-        contentColor: theme.color.coreNeutral
+        contentColor: theme.color.fillNeutral,
+        textStyle: { textColor: theme.color.textNeutral }
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        contentColor: theme.color.coreNeutral
+        contentColor: theme.color.fillNeutral,
+        textStyle: { textColor: theme.color.textNeutral }
       }
     }
   }

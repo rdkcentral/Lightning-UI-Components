@@ -109,7 +109,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * 1. Palette - Responsible for color schemes `neutral`, `inverse`, `brand`
      * 2. Mode - unfocused (default), focused, selected, pressed
      * 3. Palette - Mode specific, any palette values can override modes if named in this format [modeName]Value (camelCase) ex. focusedBorderWidth: 10
-     * 4. ThemeLevel - styles specified in theme.componentStyles[MyComponent] = {}. Also supports mode overrides
+     * 4. ThemeLevel - styles specified in theme.componentStyle[MyComponent] = {}. Also supports mode overrides
      * 5. ComponentLevel - styles set on the component itself ex. MyComponent.style = {radius: 10}
      *
      * @return {object}
@@ -318,7 +318,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         });
       }
 
-      // Get list of all possible mode overrides. Used when generating componentStyles in tyle.js
+      // Get list of all possible mode overrides. Used when generating componentStyles in style.js
       const modeOverrideProps = Object.keys(v.mode || {}).reduce(
         (acc, mode) => {
           const keys = new Set();

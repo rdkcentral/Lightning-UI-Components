@@ -175,10 +175,11 @@ class MiscProp extends Base {
 export const TypographyAndColors = () => {
   class Basic extends lng.Component {
     static _template() {
+      const itemSpacing = 10;
       return {
-        y: -50,
         Typography: {
           type: Column,
+          itemSpacing,
           Items: {
             Display1: {
               type: TextBox,
@@ -245,7 +246,49 @@ export const TypographyAndColors = () => {
         Colors1: {
           type: Column,
           x: 450,
+          itemSpacing,
           Items: {
+            General: {
+              type: TextBox,
+              content: 'General',
+              textStyle: 'callout1'
+            },
+            White: {
+              type: ColorInfo,
+              colorName: 'white'
+            },
+            Grey: {
+              type: ColorInfo,
+              colorName: 'grey'
+            },
+            Black: {
+              type: ColorInfo,
+              colorName: 'black'
+            },
+            Red: {
+              type: ColorInfo,
+              colorName: 'red'
+            },
+            Orange: {
+              type: ColorInfo,
+              colorName: 'orange'
+            },
+            Yellow: {
+              type: ColorInfo,
+              colorName: 'yellow'
+            },
+            Green: {
+              type: ColorInfo,
+              colorName: 'green'
+            },
+            Blue: {
+              type: ColorInfo,
+              colorName: 'blue'
+            },
+            Purple: {
+              type: ColorInfo,
+              colorName: 'purple'
+            },
             Material: {
               type: TextBox,
               content: 'Material',
@@ -259,69 +302,196 @@ export const TypographyAndColors = () => {
               type: ColorInfo,
               colorName: 'material-brand'
             },
-            Core: {
+            Overlay: {
+              type: ColorInfo,
+              colorName: 'overlay'
+            },
+            Shadow: {
               type: TextBox,
-              content: 'Core',
+              content: 'Shadow',
               textStyle: 'callout1'
             },
-            CoreNeutralSwatch: {
+            ShadowNeutralFocusSwatch: {
               type: ColorInfo,
-              colorName: 'core-neutral'
+              colorName: 'shadow-neutral-focus'
             },
-            CoreNeutralSecondarySwatch: {
+            ShadowNeutralFocusSoftSwatch: {
               type: ColorInfo,
-              colorName: 'core-neutral-secondary'
+              colorName: 'shadow-neutral-focus-soft'
             },
-            CoreNeutralTertiarySwatch: {
+            ShadowInverseFocusSwatch: {
               type: ColorInfo,
-              colorName: 'core-neutral-tertiary'
+              colorName: 'shadow-inverse-focus'
             },
-            CoreNeutralDisabledSwatch: {
+            ShadowInverseFocusSoftSwatch: {
               type: ColorInfo,
-              colorName: 'core-neutral-disabled'
+              colorName: 'shadow-inverse-focus-soft'
             },
-            CoreInverseSwatch: {
+            ShadowBrandFocusSwatch: {
               type: ColorInfo,
-              colorName: 'core-inverse'
+              colorName: 'shadow-brand-focus'
             },
-            CoreInverseSecondarySwatch: {
+            ShadowBrandFocusSoftSwatch: {
               type: ColorInfo,
-              colorName: 'core-inverse-secondary'
+              colorName: 'shadow-brand-focus-soft'
             },
-            CoreInverseTertiarySwatch: {
-              type: ColorInfo,
-              colorName: 'core-inverse-tertiary'
-            },
-            CoreInverseDisabledSwatch: {
-              type: ColorInfo,
-              colorName: 'core-inverse-disabled'
-            },
-            CoreBrandSwatch: {
-              type: ColorInfo,
-              colorName: 'core-brand'
-            },
-            CoreBrandSecondarySwatch: {
-              type: ColorInfo,
-              colorName: 'core-brand-secondary'
-            },
-            CoreBrandTertiarySwatch: {
-              type: ColorInfo,
-              colorName: 'core-brand-tertiary'
-            },
-            CoreBrandDisabledSwatch: {
-              type: ColorInfo,
-              colorName: 'core-brand-disabled'
-            },
-            CoreOverlaySwatch: {
-              type: ColorInfo,
-              colorName: 'core-overlay'
-            }
           }
         },
         Colors2: {
           type: Column,
           x: 800,
+          itemSpacing,
           Items: {
+            Text: {
+              type: TextBox,
+              content: 'Text',
+              textStyle: 'callout1'
+            },
+            TextNeutralSwatch: {
+              type: ColorInfo,
+              colorName: 'text-neutral'
+            },
+            TextNeutralSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'text-neutral-secondary'
+            },
+            TextNeutralTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'text-neutral-tertiary'
+            },
+            TextNeutralDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'text-neutral-disabled'
+            },
+            TextInverseSwatch: {
+              type: ColorInfo,
+              colorName: 'text-inverse'
+            },
+            TextInverseSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'text-inverse-secondary'
+            },
+            TextInverseTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'text-inverse-tertiary'
+            },
+            TextInverseDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'text-inverse-disabled'
+            },
+            Fill: {
+              type: TextBox,
+              content: 'Fill',
+              textStyle: 'callout1'
+            },
+            FillNeutralSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-neutral'
+            },
+            FillNeutralSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-neutral-secondary'
+            },
+            FillNeutralTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-neutral-tertiary'
+            },
+            FillNeutralDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-neutral-disabled'
+            },
+            FillInverseSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-inverse'
+            },
+            FillInverseSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-inverse-secondary'
+            },
+            FillInverseTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-inverse-tertiary'
+            },
+            FillInverseDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-inverse-disabled'
+            },
+            FillBrandSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-brand'
+            },
+            FillBrandSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-brand-secondary'
+            },
+            FillBrandTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'fill-brand-tertiary'
+            },
+            FillBrandDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'fill-brand-disabled'
+            }
+          }
+        },
+        Colors3: {
+          type: Column,
+          x: 1150,
+          itemSpacing,
+          Items: {
+            Stroke: {
+              type: TextBox,
+              content: 'Stroke',
+              textStyle: 'callout1'
+            },
+            StrokeNeutralSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-neutral'
+            },
+            StrokeNeutralSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-neutral-secondary'
+            },
+            StrokeNeutralTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-neutral-tertiary'
+            },
+            StrokeNeutralDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-neutral-disabled'
+            },
+            StrokeInverseSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-inverse'
+            },
+            StrokeInverseSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-inverse-secondary'
+            },
+            StrokeInverseTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-inverse-tertiary'
+            },
+            StrokeInverseDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-inverse-disabled'
+            },
+            StrokeBrandSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-brand'
+            },
+            StrokeBrandSecondarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-brand-secondary'
+            },
+            StrokeBrandTertiarySwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-brand-tertiary'
+            },
+            StrokeBrandDisabledSwatch: {
+              type: ColorInfo,
+              colorName: 'stroke-brand-disabled'
+            },
             Interactive: {
               type: TextBox,
               content: 'Interactive',
@@ -350,45 +520,13 @@ export const TypographyAndColors = () => {
             InteractiveBrandFocusSoftSwatch: {
               type: ColorInfo,
               colorName: 'interactive-brand-focus-soft'
-            },
-            General: {
-              type: TextBox,
-              content: 'General',
-              textStyle: 'callout1'
-            },
-            Grey: {
-              type: ColorInfo,
-              colorName: 'grey'
-            },
-            Red: {
-              type: ColorInfo,
-              colorName: 'red'
-            },
-            Orange: {
-              type: ColorInfo,
-              colorName: 'orange'
-            },
-            Yellow: {
-              type: ColorInfo,
-              colorName: 'yellow'
-            },
-            Green: {
-              type: ColorInfo,
-              colorName: 'green'
-            },
-            Blue: {
-              type: ColorInfo,
-              colorName: 'blue'
-            },
-            Purple: {
-              type: ColorInfo,
-              colorName: 'purple'
             }
           }
         },
         Elements: {
           type: Column,
-          x: 1200,
+          x: 1500,
+          itemSpacing: itemSpacing * 4,
           Items: {
             TileWithFocus: {
               type: Tile,
@@ -412,45 +550,34 @@ export const TypographyAndColors = () => {
               textStyle: 'callout1'
             },
             RadiusGrid: {
-              type: Row,
+              type: Column,
+              itemSpacing,
+              w: 150,
               autoResizeHeight: true,
               Items: {
-                Left: {
-                  type: Column,
-                  w: 150,
-                  autoResizeHeight: true,
-                  Items: {
-                    RadiusNone: {
-                      type: Radius,
-                      radiusName: 'none'
-                    },
-                    RadiusXSmall: {
-                      type: Radius,
-                      radiusName: 'xs'
-                    },
-                    RadiusSmall: {
-                      type: Radius,
-                      radiusName: 'sm'
-                    }
-                  }
+                RadiusNone: {
+                  type: Radius,
+                  radiusName: 'none'
                 },
-                Right: {
-                  type: Column,
-                  autoResizeHeight: true,
-                  Items: {
-                    RadiusMedium: {
-                      type: Radius,
-                      radiusName: 'md'
-                    },
-                    RadiusLarge: {
-                      type: Radius,
-                      radiusName: 'lg'
-                    },
-                    RadiusXLarge: {
-                      type: Radius,
-                      radiusName: 'xl'
-                    }
-                  }
+                RadiusXSmall: {
+                  type: Radius,
+                  radiusName: 'xs'
+                },
+                RadiusSmall: {
+                  type: Radius,
+                  radiusName: 'sm'
+                },
+                RadiusMedium: {
+                  type: Radius,
+                  radiusName: 'md'
+                },
+                RadiusLarge: {
+                  type: Radius,
+                  radiusName: 'lg'
+                },
+                RadiusXLarge: {
+                  type: Radius,
+                  radiusName: 'xl'
                 }
               }
             },

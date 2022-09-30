@@ -97,8 +97,8 @@ export const Basic = args =>
             'Text',
             {
               icon: lightningbolt,
-              color: getHexColor('00ff00'),
-              title: 'Green Lightning Bolt'
+              title: 'Green Lightning Bolt',
+              style: { color: getHexColor('00ff00') }
             },
             'Wrapping Text',
             {

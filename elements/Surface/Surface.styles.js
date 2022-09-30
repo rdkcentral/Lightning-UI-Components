@@ -1,12 +1,12 @@
 export const base = theme => ({
-  backgroundColor: theme.color.coreInverseSecondary,
+  backgroundColor: theme.color.fillInverseSecondary,
   radius: theme.radius.md,
   animation: {}
 });
 
 export const mode = theme => ({
   disabled: {
-    backgroundColor: theme.color.coreInverseDisabled
+    backgroundColor: theme.color.fillInverseDisabled
   }
 });
 

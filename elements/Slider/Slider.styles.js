@@ -26,15 +26,15 @@ export const mode = () => ({
 
 export const palette = theme => ({
   neutral: {
-    arrowColor: theme.color.coreNeutral,
+    arrowColor: theme.color.fillNeutral,
     circleColor: theme.color.interactiveNeutralFocus
   },
   inverse: {
-    arrowColor: theme.color.coreInverse,
+    arrowColor: theme.color.fillInverse,
     circleColor: theme.color.interactiveInverseFocus
   },
   brand: {
-    arrowColor: theme.color.coreNeutral,
+    arrowColor: theme.color.fillNeutral,
     circleColor: theme.color.interactiveNeutralFocus
   }
 });

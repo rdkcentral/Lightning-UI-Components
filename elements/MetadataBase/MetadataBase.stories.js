@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 import MetadataBase from '.';
 import mdx from './MetadataBase.mdx';
@@ -20,13 +21,15 @@ export const Basic = () =>
     static _template() {
       return {
         MetadataBase: {
-          type: MetadataBase
+          type: MetadataBase,
+          mode: 'disabled'
         }
       };
     }
   };
 
 Basic.argTypes = {
+  ...createModeControl(['disabled']),
   w: {
     defaultValue: 400,
     table: {

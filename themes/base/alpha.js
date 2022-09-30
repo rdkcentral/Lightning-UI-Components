@@ -9,9 +9,9 @@ const alpha = {
 };
 
 export default {
-  inactive: alpha.alpha3,
   primary: alpha.full,
   secondary: alpha.alpha4,
   tertiary: alpha.alpha1,
+  inactive: alpha.alpha3,
   ...alpha
 };

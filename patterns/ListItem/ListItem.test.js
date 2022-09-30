@@ -368,6 +368,7 @@ describe('ListItemRadio', () => {
   });
 
   it('toggles on enter', () => {
+    listItemRadio._handleEnter();
     testRenderer.keyPress('Enter');
     testRenderer.update();
 

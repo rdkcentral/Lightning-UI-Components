@@ -6,15 +6,15 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    barColor: theme.color.coreNeutralTertiary,
-    progressColor: theme.color.coreNeutral
+    barColor: theme.color.fillNeutralTertiary,
+    progressColor: theme.color.fillNeutral
   },
   inverse: {
-    barColor: theme.color.coreInverseTertiary,
-    progressColor: theme.color.coreInverse
+    barColor: theme.color.fillInverseTertiary,
+    progressColor: theme.color.fillInverse
   },
   brand: {
-    barColor: theme.color.coreBrandTertiary,
-    progressColor: theme.color.coreBrand
+    barColor: theme.color.fillBrandTertiary,
+    progressColor: theme.color.fillBrand
   }
 });

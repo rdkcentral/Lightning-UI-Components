@@ -42,7 +42,9 @@ describe('Card', () => {
     Card._update();
     testRenderer.forceAllUpdates();
     expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.textStyle.textColor).toEqual(Card.style.textColor);
+    expect(Card._Title.textStyle.textColor).toEqual(
+      Card.style.titleTextProperties.textColor
+    );
   });
 
   it('should calculate textwidth', () => {

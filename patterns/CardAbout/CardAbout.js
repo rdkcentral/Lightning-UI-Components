@@ -109,32 +109,20 @@ class CardAbout extends CardTitle {
   }
 
   _updateContent() {
-    const style = {
-      textStyle: {
-        ...this.style.textContainerProperties,
-        textColor: this.style.textColor
-      }
-    };
+    const textStyle = { textStyle: this.style.textContainerProperties };
+    const iconStyle = { alpha: this.style.alpha };
 
     const contentLeft = [];
-    this.iconLeft &&
-      contentLeft.push({
-        icon: this.iconLeft,
-        color: this.style.textColor
-      });
+    this.iconLeft && contentLeft.push({ icon: this.iconLeft, ...iconStyle });
     this.textLeft && contentLeft.push(this.textLeft);
     this._LeftIconTextContainer.content = contentLeft;
-    this._LeftIconTextContainer.style = style;
+    this._LeftIconTextContainer.style = textStyle;
 
     const contentRight = [];
-    this.iconRight &&
-      contentRight.push({
-        icon: this.iconRight,
-        color: this.style.textColor
-      });
+    this.iconRight && contentRight.push({ icon: this.iconRight, ...iconStyle });
     this.textRight && contentRight.push(this.textRight);
     this._RightIconTextContainer.content = contentRight;
-    this._RightIconTextContainer.style = style;
+    this._RightIconTextContainer.style = textStyle;
   }
 }
 

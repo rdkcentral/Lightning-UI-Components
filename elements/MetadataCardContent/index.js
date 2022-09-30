@@ -167,6 +167,7 @@ class MetadataCardContent extends MetadataBase {
   _updateProvider() {
     if (this.provider) {
       this._Provider.patch({
+        mode: this.mode,
         ...this.provider,
         style: this.style.providerStyle
       });

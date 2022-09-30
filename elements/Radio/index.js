@@ -19,11 +19,6 @@ class Radio extends Base {
     return ['checked', 'isInactive'];
   }
 
-  _handleEnter() {
-    this.toggle();
-    return true;
-  }
-
   _update() {
     this._updateLayout();
     this._Knob.smooth = {
@@ -66,13 +61,20 @@ class Radio extends Base {
     });
   }
 
-  _setChecked(checked) {
-    return this._isDisabledMode ? this.checked : checked;
+  toggle() {
+    if (!this._isDisabledMode) {
+      this.checked = !this.checked;
+    }
+    return this;
   }
 
-  toggle() {
-    this.checked = !this.checked;
-    return this;
+  _handleEnter() {
+    if (typeof this.onEnter === 'function') {
+      return this.onEnter(this);
+    } else {
+      this.toggle();
+    }
+    return false;
   }
 }
 

@@ -5,21 +5,24 @@ export const base = theme => ({
   pointerW: theme.spacer.xl,
   pointerH: theme.spacer.md + theme.spacer.xs,
   radius: theme.radius.md,
-  textStyle: theme.typography.caption1,
+  textStyle: {
+    ...theme.typography.caption1,
+    textColor: theme.color.textInverse
+  },
   transition: theme.animation.utility // TODO: should delay and duration be xfast?
 });
 
 export const palette = theme => ({
   neutral: {
-    backgroundColor: theme.color.coreNeutral,
-    textStyle: { textColor: theme.color.coreInverse }
+    backgroundColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.textInverse }
   },
   inverse: {
-    backgroundColor: theme.color.coreInverse,
-    textStyle: { textColor: theme.color.coreNeutral }
+    backgroundColor: theme.color.fillInverse,
+    textStyle: { textColor: theme.color.textNeutral }
   },
   brand: {
-    backgroundColor: theme.color.coreBrand,
-    textStyle: { textColor: theme.color.coreNeutral }
+    backgroundColor: theme.color.fillBrand,
+    textStyle: { textColor: theme.color.textNeutral }
   }
 });

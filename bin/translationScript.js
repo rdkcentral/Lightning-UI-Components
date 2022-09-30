@@ -25,7 +25,7 @@ export function createDocumentation() {
  * Combines all the necessary files and theme values
  * @param {string} themeProperty - what theme property we are looking for ie). color, radius, typography
  * @param {string} mdFile - the markdown file the contents will be written to
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.coreBrand, or theme.radius.xs
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.fillBrand, or theme.radius.xs
  */
 export function getStyleFiles(themeProperty, mdFile, themeFiles) {
   const fileOutput = fs.readdirSync('./elements');
@@ -58,7 +58,7 @@ export function getComponentFiles(fileList, componentType) {
 
 /**
  * Grabs all the values for theme properties. For example radius: xmall, color: coreBrand, etc.
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.coreBrand, or theme.radius.xs
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.fillBrand, or theme.radius.xs
  * @param {string} componentType - type of component (element or pattern)
  * @returns {array} array with all the components style files
  */

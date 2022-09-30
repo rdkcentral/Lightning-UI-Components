@@ -11,12 +11,12 @@ export const base = theme => ({
 
 export const mode = theme => ({
   unfocused: {
-    titleColor: theme.color.coreNeutral,
-    descriptionColor: theme.color.coreNeutral
+    titleColor: theme.color.fillNeutral,
+    descriptionColor: theme.color.fillNeutral
   },
   disabled: {
-    titleColor: theme.color.coreNeutralDisabled,
-    descriptionColor: theme.color.coreNeutralDisabled
+    titleColor: theme.color.fillNeutralDisabled,
+    descriptionColor: theme.color.fillNeutralDisabled
   }
 });
 
@@ -24,24 +24,24 @@ export const palette = theme => ({
   neutral: {
     mode: {
       focused: {
-        titleColor: theme.color.coreInverse,
-        descriptionColor: theme.color.coreInverse
+        titleColor: theme.color.fillInverse,
+        descriptionColor: theme.color.fillInverse
       }
     }
   },
   inverse: {
     mode: {
       focused: {
-        titleColor: theme.color.coreNeutral,
-        descriptionColor: theme.color.coreNeutral
+        titleColor: theme.color.fillNeutral,
+        descriptionColor: theme.color.fillNeutral
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        titleColor: theme.color.coreNeutral,
-        descriptionColor: theme.color.coreNeutral
+        titleColor: theme.color.fillNeutral,
+        descriptionColor: theme.color.fillNeutral
       }
     }
   }

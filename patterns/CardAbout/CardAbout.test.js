@@ -127,7 +127,7 @@ describe('CardAbout', () => {
     expect(CardAbout._RightIconTextContainer.content).toEqual([]);
     CardAbout._updateContent();
     expect(CardAbout._RightIconTextContainer.content).toEqual([
-      { color: 4294375161, icon: lightningPath },
+      { icon: lightningPath, alpha: 1 },
       'Hi Just testing'
     ]);
   });

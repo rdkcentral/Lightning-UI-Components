@@ -53,5 +53,8 @@ export default {
       fallbackSrc: './images/default_background.png'
     }
   },
+  componentPalette: {
+    Label: 'brand'
+  },
   extensions
 };

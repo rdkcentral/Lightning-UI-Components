@@ -4,7 +4,7 @@ export const base = theme => ({
   contentSpacing: theme.spacer.md,
   descriptionTextProperties: {
     ...theme.typography.body2,
-    textColor: theme.color.coreNeutral,
+    textColor: theme.color.textNeutral,
     wordWrap: true,
     maxLines: 3
   },
@@ -12,14 +12,24 @@ export const base = theme => ({
   paddingVertical: theme.spacer.lg,
   textContainerProperties: {
     ...theme.typography.display2,
-    textColor: theme.color.coreNeutral
+    textColor: theme.color.textNeutral
   },
   titleTextProperties: {
     ...theme.typography.callout1,
-    textColor: theme.color.coreNeutralSecondary,
+    textColor: theme.color.textNeutralSecondary,
     maxLines: 1,
     wordWrap: true
   },
   w: getWidthByUpCount(3),
-  h: getDimensions({ ratioX: 16, ratioY: 9, upCount: 3 }).h
+  h: getDimensions({ ratioX: 16, ratioY: 9, upCount: 3 }).h,
+  alpha: 1
+});
+
+export const mode = theme => ({
+  disabled: {
+    titleTextProperties: { textColor: theme.color.textNeutralDisabled },
+    descriptionTextProperties: { textColor: theme.color.textNeutralDisabled },
+    textContainerProperties: { textColor: theme.color.textNeutralDisabled },
+    alpha: theme.alpha.inactive
+  }
 });

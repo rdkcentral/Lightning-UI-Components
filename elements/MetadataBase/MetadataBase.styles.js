@@ -10,36 +10,45 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    titleTextProperties: {
-      textColor: theme.color.coreNeutral
-    },
-    subtitleTextProperties: {
-      textColor: theme.color.coreNeutral
-    },
-    descriptionTextProperties: {
-      textColor: theme.color.coreNeutralSecondary
+    titleTextProperties: { textColor: theme.color.textNeutral },
+    subtitleTextProperties: { textColor: theme.color.textNeutral },
+    descriptionTextProperties: { textColor: theme.color.textNeutralSecondary },
+    mode: {
+      disabled: {
+        titleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextProperties: {
+          textColor: theme.color.textNeutralDisabled
+        }
+      }
     }
   },
   inverse: {
-    titleTextProperties: {
-      textColor: theme.color.coreInverse
-    },
-    subtitleTextProperties: {
-      textColor: theme.color.coreInverse
-    },
-    descriptionTextProperties: {
-      textColor: theme.color.coreInverseSecondary
+    titleTextProperties: { textColor: theme.color.textInverse },
+    subtitleTextProperties: { textColor: theme.color.textInverse },
+    descriptionTextProperties: { textColor: theme.color.textInverseSecondary },
+    mode: {
+      disabled: {
+        titleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextProperties: {
+          textColor: theme.color.textNeutralDisabled
+        }
+      }
     }
   },
   brand: {
-    titleTextProperties: {
-      textColor: theme.color.coreNeutral
-    },
-    subtitleTextProperties: {
-      textColor: theme.color.coreNeutral
-    },
-    descriptionTextProperties: {
-      textColor: theme.color.coreNeutralSecondary
+    titleTextProperties: { textColor: theme.color.textNeutral },
+    subtitleTextProperties: { textColor: theme.color.textNeutral },
+    descriptionTextProperties: { textColor: theme.color.textNeutralSecondary },
+    mode: {
+      disabled: {
+        titleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextProperties: {
+          textColor: theme.color.textNeutralDisabled
+        }
+      }
     }
   }
 });

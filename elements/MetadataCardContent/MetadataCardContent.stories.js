@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 import MetadataCardContent from '.';
 import mdx from './MetadataCardContent.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+import { createModeControl } from '../../.storybook/controls/argTypes';
 
 export default {
   title: 'Elements / Metadata',
@@ -23,6 +24,7 @@ export const CardContent = () =>
     }
   };
 CardContent.argTypes = {
+  ...createModeControl(['disabled']),
   w: {
     defaultValue: 600,
     table: {

@@ -122,23 +122,19 @@ class InlineContent extends Base {
     }
   }
 
-  _createIcon(base, { icon, color }) {
+  _createIcon(base, iconProps) {
     const y =
       (this.textHeight > this.textStyle.lineHeight
         ? this.textHeight
         : this.textStyle.lineHeight) - this.style.iconH;
-    const iconObj = {
+    return {
       ...base,
       type: Icon,
       y: this.iconY !== undefined ? this.iconY : y,
       w: this.iconW !== undefined ? this.iconW : this.style.iconW,
       h: this.iconH !== undefined ? this.iconH : this.style.iconH,
-      icon
+      ...iconProps
     };
-    if (color) {
-      iconObj.color = color;
-    }
-    return iconObj;
   }
 
   _createText(base, text) {

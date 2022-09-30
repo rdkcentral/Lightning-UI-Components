@@ -8,19 +8,15 @@ export const base = theme => ({
     ...theme.typography.headline1,
     wordWrapTrue: true,
     maxLines: 2,
-    textColor: theme.color.coreNeutral
+    textColor: theme.color.textNeutral
   },
-  textColor: theme.color.coreNeutral,
   w: getWidthByUpCount(6)
 });
 
 export const mode = theme => ({
   disabled: {
-    backgroundColor: theme.color.coreInverseDisabled,
-    titleTextProperties: {
-      textColor: theme.color.coreNeutralDisabled
-    },
-    textColor: theme.color.coreNeutralDisabled
+    backgroundColor: theme.color.fillInverseDisabled,
+    titleTextProperties: { textColor: theme.color.textNeutralDisabled }
   }
 });
 

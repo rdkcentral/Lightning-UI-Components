@@ -12,38 +12,38 @@ export const base = theme => {
 
 export const palette = theme => ({
   neutral: {
-    backgroundColor: theme.color.coreNeutralDisabled,
-    backgroundColorChecked: theme.color.coreNeutral,
-    knobColor: theme.color.coreInverse,
-    strokeColor: theme.color.coreInverse,
+    backgroundColor: theme.color.fillNeutralDisabled,
+    backgroundColorChecked: theme.color.fillNeutral,
+    knobColor: theme.color.fillInverse,
+    strokeColor: theme.color.fillInverse,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreNeutralDisabled,
-        strokeColor: theme.color.coreInverseDisabled
+        backgroundColor: theme.color.fillNeutralDisabled,
+        strokeColor: theme.color.fillInverseDisabled
       }
     }
   },
   inverse: {
-    backgroundColor: theme.color.coreInverse,
-    backgroundColorChecked: theme.color.coreInverse,
-    knobColor: theme.color.coreNeutral,
-    strokeColor: theme.color.coreNeutral,
+    backgroundColor: theme.color.fillInverse,
+    backgroundColorChecked: theme.color.fillInverse,
+    knobColor: theme.color.fillNeutral,
+    strokeColor: theme.color.fillNeutral,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreNeutralDisabled,
-        strokeColor: theme.color.coreInverseDisabled
+        backgroundColor: theme.color.fillNeutralDisabled,
+        strokeColor: theme.color.fillInverseDisabled
       }
     }
   },
   brand: {
-    backgroundColor: theme.color.coreInverseDisabled,
-    backgroundColorChecked: theme.color.coreBrand,
-    knobColor: theme.color.coreNeutral,
-    strokeColor: theme.color.coreNeutral,
+    backgroundColor: theme.color.fillInverseDisabled,
+    backgroundColorChecked: theme.color.fillBrand,
+    knobColor: theme.color.fillNeutral,
+    strokeColor: theme.color.fillNeutral,
     mode: {
       disabled: {
-        backgroundColor: theme.color.coreInverseDisabled,
-        strokeColor: theme.color.coreNeutralDisabled
+        backgroundColor: theme.color.fillInverseDisabled,
+        strokeColor: theme.color.fillNeutralDisabled
       }
     }
   }

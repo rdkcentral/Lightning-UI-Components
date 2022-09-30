@@ -9,18 +9,18 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    color: theme.color.coreNeutral,
+    color: theme.color.interactiveNeutralFocus,
     transitionColor: null,
-    secondaryColor: theme.color.coreNeutralTertiary
+    secondaryColor: theme.color.interactiveNeutralFocusSoft
   },
   inverse: {
-    color: theme.color.coreInverse,
+    color: theme.color.interactiveInverseFocus,
     transitionColor: null,
-    secondaryColor: theme.color.coreInverseTertiary
+    secondaryColor: theme.color.interactiveInverseFocusSoft
   },
   brand: {
-    color: theme.color.coreBrand,
+    color: theme.color.interactiveBrandFocus,
     transitionColor: null,
-    secondaryColor: theme.color.coreBrandTertiary
+    secondaryColor: theme.color.interactiveBrandFocusSoft
   }
 });
