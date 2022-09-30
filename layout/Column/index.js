@@ -8,7 +8,7 @@ class Column extends FocusManager {
     return 'Column';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

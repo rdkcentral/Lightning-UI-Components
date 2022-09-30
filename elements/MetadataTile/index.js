@@ -7,7 +7,7 @@ class MetadataTile extends MetadataBase {
     return 'MetadataTile';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

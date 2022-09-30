@@ -20,7 +20,7 @@ export default function focusRingExtension(Base) {
     get _smoothFocusStyle() {
       return {
         alpha: 1,
-        scale: [1, context.theme.animations.standardEntrance]
+        scale: [1, context.theme.animation.standardEntrance]
       };
     }
 
@@ -36,7 +36,7 @@ export default function focusRingExtension(Base) {
         alpha: 0,
         scale: [
           this._unfocusedFocusRingScale,
-          context.theme.animations.expressiveEntrance // TODO: shoud this be xfast?
+          context.theme.animation.expressiveEntrance // TODO: shoud this be xfast?
         ]
       };
     }

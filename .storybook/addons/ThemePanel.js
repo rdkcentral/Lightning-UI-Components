@@ -15,7 +15,7 @@ import { Table, TableRow } from './components';
 function Colors() {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const theme = getPanelsTheme();
-  const colors = theme.colors;
+  const colors = theme.color;
   const rows = Object.keys(colors).map(c => {
     // if using the base theme JSON, this might be an array of color and hex values,
     // otherwise, if using the context, this may be the already formatted color

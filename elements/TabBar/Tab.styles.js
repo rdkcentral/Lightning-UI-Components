@@ -6,26 +6,26 @@ export const base = theme => ({
   iconSize: theme.spacer.xxxl,
   iconMarginRight: theme.spacer.md,
   textStyle: theme.typography.headline3,
-  backgroundColor: theme.colors.transparent,
-  contentColor: theme.colors.coreNeutral
+  backgroundColor: theme.color.transparent,
+  contentColor: theme.color.coreNeutral
 });
 
 export const mode = theme => ({
   focused: {
-    backgroundColor: theme.colors.interactiveNeutralFocus,
-    contentColor: theme.colors.coreInverse
+    backgroundColor: theme.color.interactiveNeutralFocus,
+    contentColor: theme.color.coreInverse
   },
   pressed: {
-    backgroundColor: theme.colors.interactiveNeutralFocusSoft,
-    contentColor: theme.colors.coreNeutral
+    backgroundColor: theme.color.interactiveNeutralFocusSoft,
+    contentColor: theme.color.coreNeutral
   },
   selected: {
-    backgroundColor: theme.colors.interactiveNeutralFocusSoft,
-    contentColor: theme.colors.coreNeutral
+    backgroundColor: theme.color.interactiveNeutralFocusSoft,
+    contentColor: theme.color.coreNeutral
   },
   disabled: {
-    backgroundColor: theme.colors.transparent,
-    contentColor: theme.colors.coreNeutralDisabled
+    backgroundColor: theme.color.transparent,
+    contentColor: theme.color.coreNeutralDisabled
   }
 });
 
@@ -34,14 +34,14 @@ export const palette = theme => ({
   inverse: {
     mode: {
       focused: {
-        contentColor: theme.colors.coreNeutral
+        contentColor: theme.color.coreNeutral
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        contentColor: theme.colors.coreNeutral
+        contentColor: theme.color.coreNeutral
       }
     }
   }

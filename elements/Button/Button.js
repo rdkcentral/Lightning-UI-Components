@@ -15,7 +15,7 @@ class Button extends Surface {
     return 'Button';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

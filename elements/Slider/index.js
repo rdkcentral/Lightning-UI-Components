@@ -14,7 +14,7 @@ class Slider extends Base {
     return 'Slider';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

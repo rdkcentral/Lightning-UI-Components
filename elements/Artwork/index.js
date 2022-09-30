@@ -12,7 +12,7 @@ class Artwork extends Base {
     return 'Artwork';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

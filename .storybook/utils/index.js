@@ -203,7 +203,7 @@ export const getThemeValueFromString = function (stringValue) {
 
 const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   updateGlobalTheme(
-    { colors: { [name]: getValidColor(value) } },
+    { color: { [name]: getValidColor(value) } },
     updateGlobals
   );
 }, 500);

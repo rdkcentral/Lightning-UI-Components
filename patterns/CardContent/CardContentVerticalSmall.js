@@ -7,7 +7,7 @@ class CardContentVerticalSmall extends CardContentVertical {
     return 'CardContentVerticalSmall';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

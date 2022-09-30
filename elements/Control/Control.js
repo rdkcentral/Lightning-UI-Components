@@ -8,7 +8,7 @@ class Control extends ButtonSmall {
     return 'Control';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

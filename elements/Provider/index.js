@@ -10,7 +10,7 @@ class Provider extends Base {
     return 'Provider';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

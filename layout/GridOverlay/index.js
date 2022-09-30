@@ -204,7 +204,7 @@ class GridOverlay extends Base {
   }
 
   _updateGlobalThemeProps() {
-    const { layout, colors } = context.theme;
+    const { layout, color } = context.theme;
     const {
       screenW,
       screenH,
@@ -225,10 +225,10 @@ class GridOverlay extends Base {
     this._gutterX = gutterX.xs;
     this._gutterY = gutterY.xs;
 
-    this._columnColor = colors.interactiveNeutralFocusSoft;
-    this._marginColor = colors.green;
-    this._safeColor = colors.red;
-    this._gutterColor = colors.blue;
+    this._columnColor = color.interactiveNeutralFocusSoft;
+    this._marginColor = color.green;
+    this._safeColor = color.red;
+    this._gutterColor = color.blue;
   }
 
   _updateMargins() {

@@ -55,7 +55,7 @@ describe('context fonts', () => {
   });
 
   it('should load fonts', async done => {
-    const fontArray = require('../themes/xfinity/fonts').default;
+    const fontArray = require('../themes/xfinity/font').default;
     const fontLoader = fonts.fontLoader;
     await fontLoader([
       ...fontArray,

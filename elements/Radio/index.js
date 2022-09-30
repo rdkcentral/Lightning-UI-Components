@@ -8,7 +8,7 @@ class Radio extends Base {
     return 'Radio';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

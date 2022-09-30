@@ -12,15 +12,15 @@ export const base = theme => ({
   prefixH: theme.spacer.xxl,
   suffixH: theme.spacer.xxl,
   textStyle: { ...theme.typography.button1, maxLines: 1 },
-  contentColor: theme.colors.coreNeutral
+  contentColor: theme.color.coreNeutral
 });
 
 export const mode = theme => ({
   focused: {
-    contentColor: theme.colors.coreInverse
+    contentColor: theme.color.coreInverse
   },
   disabled: {
-    contentColor: theme.colors.coreNeutralDisabled
+    contentColor: theme.color.coreNeutralDisabled
   }
 });
 
@@ -29,14 +29,14 @@ export const palette = theme => ({
   inverse: {
     mode: {
       focused: {
-        contentColor: theme.colors.coreNeutral
+        contentColor: theme.color.coreNeutral
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        contentColor: theme.colors.coreNeutral
+        contentColor: theme.color.coreNeutral
       }
     }
   }

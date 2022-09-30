@@ -7,7 +7,7 @@ class CardAboutLarge extends CardAbout {
     return 'CardAboutLarge';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

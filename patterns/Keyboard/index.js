@@ -12,7 +12,7 @@ class Keyboard extends Base {
     return 'Keyboard';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

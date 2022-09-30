@@ -1,4 +1,4 @@
-const durations = {
+const duration = {
   none: 0,
   xfast: 0.1,
   fast: 0.25,
@@ -7,7 +7,7 @@ const durations = {
   xslow: 0.9
 };
 
-const delays = {
+const delay = {
   none: 0,
   xfast: 0.01,
   fast: 0.025,
@@ -17,51 +17,51 @@ const delays = {
 };
 
 export default {
-  durations,
-  delays,
+  duration,
+  delay,
   expressive: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   expressiveEntrance: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   expressiveExit: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   standard: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   standardEntrance: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   standardExit: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   utility: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   utilityEntrance: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   },
   utilityExit: {
     timingFunction: 'cubic-bezier(0, 0, 1, 1)',
-    delay: delays.none,
-    duration: durations.fast
+    delay: delay.none,
+    duration: duration.fast
   }
 };

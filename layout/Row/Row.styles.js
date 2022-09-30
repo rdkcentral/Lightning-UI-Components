@@ -3,5 +3,5 @@ export const base = theme => ({
   scrollIndex: 0,
   alwaysScroll: false,
   neverScroll: false,
-  itemTransition: theme.animations.utility
+  itemTransition: theme.animation.utility
 });

@@ -1,20 +1,20 @@
 export const base = theme => ({
   h: theme.spacer.md,
-  animation: theme.animations.utility,
+  animation: theme.animation.utility,
   radius: theme.radius.xs
 });
 
 export const palette = theme => ({
   neutral: {
-    barColor: theme.colors.coreNeutralTertiary,
-    progressColor: theme.colors.coreNeutral
+    barColor: theme.color.coreNeutralTertiary,
+    progressColor: theme.color.coreNeutral
   },
   inverse: {
-    barColor: theme.colors.coreInverseTertiary,
-    progressColor: theme.colors.coreInverse
+    barColor: theme.color.coreInverseTertiary,
+    progressColor: theme.color.coreInverse
   },
   brand: {
-    barColor: theme.colors.coreBrandTertiary,
-    progressColor: theme.colors.coreBrand
+    barColor: theme.color.coreBrandTertiary,
+    progressColor: theme.color.coreBrand
   }
 });

@@ -21,7 +21,7 @@ class BoardRow extends Base {
     return 'BoardRow';
   }
 
-  // static get __themeStyles() {
+  // static get __themeStyle() {
   //   return styles;
   // }
 

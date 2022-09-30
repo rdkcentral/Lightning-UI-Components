@@ -7,7 +7,7 @@ class ToggleSmall extends Toggle {
     return 'ToggleSmall';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

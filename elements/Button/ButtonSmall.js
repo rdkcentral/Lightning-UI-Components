@@ -7,7 +7,7 @@ class ButtonSmall extends Button {
     return 'ButtonSmall';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

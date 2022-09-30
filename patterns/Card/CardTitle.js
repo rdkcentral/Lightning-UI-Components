@@ -8,7 +8,7 @@ class CardTitle extends Card {
     return 'CardTitle';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

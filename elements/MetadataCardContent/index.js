@@ -10,7 +10,7 @@ class MetadataCardContent extends MetadataBase {
     return 'MetadataCardContent';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

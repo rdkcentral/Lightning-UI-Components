@@ -1,7 +1,7 @@
 export const base = theme => ({
   descriptionTextProperties: {
     ...theme.typography.body3,
-    textColor: theme.colors.coreNeutralSecondary,
+    textColor: theme.color.coreNeutralSecondary,
     wordWrap: true,
     maxLines: 1
   },
@@ -9,6 +9,6 @@ export const base = theme => ({
     ...theme.typography.headline3,
     wordWrapTrue: true,
     maxLines: 1,
-    textColor: theme.colors.coreNeutral
+    textColor: theme.color.coreNeutral
   }
 });

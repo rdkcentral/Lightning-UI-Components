@@ -394,7 +394,7 @@ export default function withThemeStyles(Base, mixinStyle) {
     /**
      * Styles can be added two ways using withThemeStyles.
      *
-     * 1. Adding static get __themeStyles() { return [YOUR STYLE OBJECT OR FUNCTION]}
+     * 1. Adding static get __themeStyle() { return [YOUR STYLE OBJECT OR FUNCTION]}
      * 2. Wrapping your component in withTheme ex. withThemeStyles(MyComponent, MyComponentStyles)
      * 3. ComponentStyles can be an object containing styles, and object containing any or all of the following properties: base: (theme) => {},  mode: (theme) => {}, palette: (theme) => {}
      *
@@ -428,16 +428,16 @@ export default function withThemeStyles(Base, mixinStyle) {
           }
           // Check if has __themeStyle set
           if (
-            proto.constructor.__themeStyles &&
-            !styleSet.has(proto.constructor.__themeStyles)
+            proto.constructor.__themeStyle &&
+            !styleSet.has(proto.constructor.__themeStyle)
           ) {
             if (
-              typeof proto.constructor.__themeStyles === 'object' &&
-              Object.keys(proto.constructor.__themeStyles).length
+              typeof proto.constructor.__themeStyle === 'object' &&
+              Object.keys(proto.constructor.__themeStyle).length
             ) {
-              styleSet.add(proto.constructor.__themeStyles);
-            } else if (typeof proto.constructor.__themeStyles === 'function') {
-              styleSet.add(proto.constructor.__themeStyles);
+              styleSet.add(proto.constructor.__themeStyle);
+            } else if (typeof proto.constructor.__themeStyle === 'function') {
+              styleSet.add(proto.constructor.__themeStyle);
             }
           }
         }

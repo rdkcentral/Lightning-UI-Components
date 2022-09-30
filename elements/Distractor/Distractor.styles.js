@@ -10,7 +10,7 @@ export const base = () => ({
 });
 
 export const palette = theme => ({
-  neutral: { circleColor: theme.colors.coreNeutral },
-  inverse: { circleColor: theme.colors.coreInverse },
-  brand: { circleColor: theme.colors.coreBrand }
+  neutral: { circleColor: theme.color.coreNeutral },
+  inverse: { circleColor: theme.color.coreInverse },
+  brand: { circleColor: theme.color.coreBrand }
 });

@@ -9,7 +9,7 @@ class Checkbox extends Base {
     return 'Checkbox';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

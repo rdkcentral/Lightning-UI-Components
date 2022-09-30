@@ -7,7 +7,7 @@ class RadioSmall extends Radio {
     return 'RadioSmall';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

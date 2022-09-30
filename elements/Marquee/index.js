@@ -21,7 +21,7 @@ class Marquee extends Base {
     return 'Marquee';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

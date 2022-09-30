@@ -4,7 +4,7 @@ export const base = theme => ({
   contentSpacing: theme.spacer.md,
   descriptionTextProperties: {
     ...theme.typography.body2,
-    textColor: theme.colors.coreNeutral,
+    textColor: theme.color.coreNeutral,
     wordWrap: true,
     maxLines: 3
   },
@@ -12,11 +12,11 @@ export const base = theme => ({
   paddingVertical: theme.spacer.lg,
   textContainerProperties: {
     ...theme.typography.display2,
-    textColor: theme.colors.coreNeutral
+    textColor: theme.color.coreNeutral
   },
   titleTextProperties: {
     ...theme.typography.callout1,
-    textColor: theme.colors.coreNeutralSecondary,
+    textColor: theme.color.coreNeutralSecondary,
     maxLines: 1,
     wordWrap: true
   },

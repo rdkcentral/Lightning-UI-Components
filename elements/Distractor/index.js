@@ -23,7 +23,7 @@ class Distractor extends Base {
     return 'Distractor';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

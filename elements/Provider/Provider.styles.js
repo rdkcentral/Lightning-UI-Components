@@ -9,12 +9,12 @@ export function base(theme) {
 
 export const palette = theme => ({
   neutral: {
-    counterBackgroundColor: theme.colors.coreInverseSecondary
+    counterBackgroundColor: theme.color.coreInverseSecondary
   },
   inverse: {
-    counterBackgroundColor: theme.colors.coreNeutralSecondary
+    counterBackgroundColor: theme.color.coreNeutralSecondary
   },
   brand: {
-    counterBackgroundColor: theme.colors.coreInverseSecondary
+    counterBackgroundColor: theme.color.coreInverseSecondary
   }
 });

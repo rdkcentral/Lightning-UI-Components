@@ -48,7 +48,7 @@ class Key extends Button {
     return 'Key';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

@@ -9,7 +9,7 @@ class Tooltip extends Base {
     return 'Tooltip';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 
