@@ -8,7 +8,7 @@ class Row extends FocusManager {
     return 'Row';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

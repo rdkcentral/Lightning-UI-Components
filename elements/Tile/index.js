@@ -14,7 +14,7 @@ class Tile extends Surface {
     return 'Tile';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

@@ -8,12 +8,12 @@ export const base = theme => {
 
 export const variants = theme => ({
   neutral: {
-    circleColor: theme.colors.interactiveNeutralFocus
+    circleColor: theme.color.interactiveNeutralFocus
   },
   inverse: {
-    circleColor: theme.colors.interactiveInverseFocus
+    circleColor: theme.color.interactiveInverseFocus
   },
   brand: {
-    circleColor: theme.colors.coreBrandFocus
+    circleColor: theme.color.coreBrandFocus
   }
 });

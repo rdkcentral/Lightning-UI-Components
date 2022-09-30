@@ -6,20 +6,20 @@ export const base = theme => ({
   pointerH: theme.spacer.md + theme.spacer.xs,
   radius: theme.radius.md,
   textStyle: theme.typography.caption1,
-  transition: theme.animations.utility // TODO: should delay and duration be xfast?
+  transition: theme.animation.utility // TODO: should delay and duration be xfast?
 });
 
 export const palette = theme => ({
   neutral: {
-    backgroundColor: theme.colors.coreNeutral,
-    textStyle: { textColor: theme.colors.coreInverse }
+    backgroundColor: theme.color.coreNeutral,
+    textStyle: { textColor: theme.color.coreInverse }
   },
   inverse: {
-    backgroundColor: theme.colors.coreInverse,
-    textStyle: { textColor: theme.colors.coreNeutral }
+    backgroundColor: theme.color.coreInverse,
+    textStyle: { textColor: theme.color.coreNeutral }
   },
   brand: {
-    backgroundColor: theme.colors.coreBrand,
-    textStyle: { textColor: theme.colors.coreNeutral }
+    backgroundColor: theme.color.coreBrand,
+    textStyle: { textColor: theme.color.coreNeutral }
   }
 });

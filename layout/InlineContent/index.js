@@ -28,7 +28,7 @@ class InlineContent extends Base {
     return 'InlineContent';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

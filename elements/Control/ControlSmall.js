@@ -7,7 +7,7 @@ class ControlSmall extends Control {
     return 'ControlSmall';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

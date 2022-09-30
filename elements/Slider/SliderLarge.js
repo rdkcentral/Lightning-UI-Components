@@ -7,7 +7,7 @@ class SliderLarge extends Slider {
     return 'SliderLarge';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 }

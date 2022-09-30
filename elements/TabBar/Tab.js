@@ -24,7 +24,7 @@ class Tab extends Surface {
     };
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

@@ -11,7 +11,7 @@ class ProgressBar extends Base {
     };
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

@@ -1,14 +1,14 @@
 import xfinity from '../xfinity';
-import colors from './colors';
+import color from './color';
 import radius from './radius';
 import typography from './typography';
-import fonts from './fonts';
+import font from './font';
 
 export default {
   ...xfinity,
   name: 'Rogers',
-  colors,
-  fonts,
+  color,
+  font,
   radius,
   typography,
   componentPalette: {

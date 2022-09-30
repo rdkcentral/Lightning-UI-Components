@@ -1,7 +1,7 @@
 export const base = theme => ({
-  animationDuration: theme.animations.durations.xslow * 4,
+  animationDuration: theme.animation.duration.xslow * 4,
   borderWidth: theme.stroke.md,
-  colorTransitionAlpha: theme.alphas.secondary,
+  colorTransitionAlpha: theme.alpha.secondary,
   radius: theme.radius.md,
   spacing: theme.spacer.xs,
   shouldAnimate: true
@@ -9,18 +9,18 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    color: theme.colors.coreNeutral,
+    color: theme.color.coreNeutral,
     transitionColor: null,
-    secondaryColor: theme.colors.coreNeutralTertiary
+    secondaryColor: theme.color.coreNeutralTertiary
   },
   inverse: {
-    color: theme.colors.coreInverse,
+    color: theme.color.coreInverse,
     transitionColor: null,
-    secondaryColor: theme.colors.coreInverseTertiary
+    secondaryColor: theme.color.coreInverseTertiary
   },
   brand: {
-    color: theme.colors.coreBrand,
+    color: theme.color.coreBrand,
     transitionColor: null,
-    secondaryColor: theme.colors.coreBrandTertiary
+    secondaryColor: theme.color.coreBrandTertiary
   }
 });

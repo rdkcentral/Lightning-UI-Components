@@ -8,7 +8,7 @@ class CardSection extends Card {
     return 'CardSection';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

@@ -17,7 +17,7 @@ class CardPersonality extends CardTitle {
     return 'CardPersonality';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

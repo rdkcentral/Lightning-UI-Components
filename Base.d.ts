@@ -22,7 +22,7 @@ export default class Base<
 > extends Base_base<TemplateSpec, TypeConfig> {
   static get __componentName(): string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static get __themeStyles(): Record<string, any>;
+  static get __themeStyle(): Record<string, any>;
   static get properties(): Array<string>;
   static get tags(): Array<string | { name: string; path: string }>;
 

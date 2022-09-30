@@ -1,22 +1,22 @@
-import alphas from './alphas';
-import colors from './colors';
+import alpha from './alpha';
+import color from './color';
 import layout from './layout';
 import radius from './radius';
 import spacer from './spacer';
 import stroke from './stroke';
 import typography from './typography';
-import animations from './animations';
-import fonts from './fonts';
+import animation from './animation';
+import font from './font';
 import iconLeftArrow from './assets/ic_sort_left_fill_inverse_64';
 import iconRightArrow from './assets/ic_sort_right_fill_inverse_64';
-import extensions from './extensions';
+import extensions from './extension';
 
 export default {
   name: 'Xfinity',
-  alphas,
-  animations,
-  colors,
-  fonts,
+  alpha,
+  animation,
+  color,
+  font,
   layout,
   radius,
   spacer,
@@ -36,16 +36,16 @@ export default {
       artworkStyles: {
         imageScale: 1.2,
         animationGradientEntrance: {
-          duration: 'theme.animations.durations.xfast'
+          duration: 'theme.animation.duration.xfast'
         },
         animationGradientExit: {
-          duration: 'theme.animations.durations.xfast'
+          duration: 'theme.animation.duration.xfast'
         },
         animationImageScaleEntrance: {
-          duration: 'theme.animations.durations.fast'
+          duration: 'theme.animation.duration.fast'
         },
         animationImageScaleExit: {
-          duration: 'theme.animations.durations.xfast'
+          duration: 'theme.animation.duration.xfast'
         }
       }
     },

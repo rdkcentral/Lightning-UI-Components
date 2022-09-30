@@ -10,7 +10,7 @@ class MetadataBase extends Base {
     return 'MetadataBase';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

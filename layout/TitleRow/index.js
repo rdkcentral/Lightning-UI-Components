@@ -9,7 +9,7 @@ class TitleRow extends Row {
     return 'TitleRow';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

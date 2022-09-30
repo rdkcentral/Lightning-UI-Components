@@ -55,8 +55,8 @@ describe('theme context', () => {
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
       themeManager.setTheme({ foo: 'bar' });
       expect(themeManager.getTheme().foo).toBe('bar');
-      themeManager.setTheme({ colors: { primary: ['#ff0000', 1] } });
-      expect(themeManager.getTheme().colors.primary).toBe(4294901760);
+      themeManager.setTheme({ color: { primary: ['#ff0000', 1] } });
+      expect(themeManager.getTheme().color.primary).toBe(4294901760);
 
       const processedThemeWithArray = themeManager._processTheme([
         {

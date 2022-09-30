@@ -1,19 +1,19 @@
-import alphas from './alphas';
-import colors from './colors';
+import alpha from './alpha';
+import color from './color';
 import layout from './layout';
 import radius from './radius';
 import spacer from './spacer';
 import stroke from './stroke';
 import typography from './typography';
-import animations from './animations';
-import fonts from './fonts';
+import animation from './animation';
+import font from './font';
 
 export default {
   name: 'Sky',
-  alphas,
-  animations,
-  colors,
-  fonts,
+  alpha,
+  animation,
+  color,
+  font,
   layout,
   radius,
   spacer,

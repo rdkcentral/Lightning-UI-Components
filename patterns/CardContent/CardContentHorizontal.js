@@ -7,7 +7,7 @@ class CardContentHorizontal extends CardContent {
     return 'CardContentHorizontal';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

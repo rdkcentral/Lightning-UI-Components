@@ -12,38 +12,38 @@ export const base = theme => {
 
 export const palette = theme => ({
   neutral: {
-    backgroundColor: theme.colors.coreNeutralDisabled,
-    backgroundColorChecked: theme.colors.coreNeutral,
-    knobColor: theme.colors.coreInverse,
-    strokeColor: theme.colors.coreInverse,
+    backgroundColor: theme.color.coreNeutralDisabled,
+    backgroundColorChecked: theme.color.coreNeutral,
+    knobColor: theme.color.coreInverse,
+    strokeColor: theme.color.coreInverse,
     mode: {
       disabled: {
-        backgroundColor: theme.colors.coreNeutralDisabled,
-        strokeColor: theme.colors.coreInverseDisabled
+        backgroundColor: theme.color.coreNeutralDisabled,
+        strokeColor: theme.color.coreInverseDisabled
       }
     }
   },
   inverse: {
-    backgroundColor: theme.colors.coreInverse,
-    backgroundColorChecked: theme.colors.coreInverse,
-    knobColor: theme.colors.coreNeutral,
-    strokeColor: theme.colors.coreNeutral,
+    backgroundColor: theme.color.coreInverse,
+    backgroundColorChecked: theme.color.coreInverse,
+    knobColor: theme.color.coreNeutral,
+    strokeColor: theme.color.coreNeutral,
     mode: {
       disabled: {
-        backgroundColor: theme.colors.coreNeutralDisabled,
-        strokeColor: theme.colors.coreInverseDisabled
+        backgroundColor: theme.color.coreNeutralDisabled,
+        strokeColor: theme.color.coreInverseDisabled
       }
     }
   },
   brand: {
-    backgroundColor: theme.colors.coreInverseDisabled,
-    backgroundColorChecked: theme.colors.coreBrand,
-    knobColor: theme.colors.coreNeutral,
-    strokeColor: theme.colors.coreNeutral,
+    backgroundColor: theme.color.coreInverseDisabled,
+    backgroundColorChecked: theme.color.coreBrand,
+    knobColor: theme.color.coreNeutral,
+    strokeColor: theme.color.coreNeutral,
     mode: {
       disabled: {
-        backgroundColor: theme.colors.coreInverseDisabled,
-        strokeColor: theme.colors.coreNeutralDisabled
+        backgroundColor: theme.color.coreInverseDisabled,
+        strokeColor: theme.color.coreNeutralDisabled
       }
     }
   }

@@ -184,11 +184,11 @@ class CustomTile extends Tile {
   }
 
   _updateSoftFocus() {
-    const { colors, spacer } = context.theme;
+    const { color, spacer } = context.theme;
     if (this.mode === 'selected') {
       this.tag('SoftFocus').patch({
         rect: true,
-        color: colors.interactiveNeutralFocus,
+        color: color.interactiveNeutralFocus,
         h: spacer.xs,
         w: spacer.xxxl + spacer.xxl + spacer.xs,
         mountX: 0.5,

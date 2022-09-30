@@ -12,15 +12,15 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    textStyle: { textColor: theme.colors.material },
-    backgroundColor: theme.colors.coreNeutral
+    textStyle: { textColor: theme.color.material },
+    backgroundColor: theme.color.coreNeutral
   },
   inverse: {
-    textStyle: { textColor: theme.colors.coreNeutral },
-    backgroundColor: theme.colors.coreInverse
+    textStyle: { textColor: theme.color.coreNeutral },
+    backgroundColor: theme.color.coreInverse
   },
   brand: {
-    textStyle: { textColor: theme.colors.coreNeutral },
-    backgroundColor: theme.colors.coreBrand
+    textStyle: { textColor: theme.color.coreNeutral },
+    backgroundColor: theme.color.coreBrand
   }
 });

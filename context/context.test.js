@@ -67,12 +67,12 @@ describe('context', () => {
 
     it('should remove previous theme and deep merge theme properties with the original baseTheme when using context.set', () => {
       const themeManager = require('./theme-manager').default;
-      const { colors: baseColors } = themeManager._processTheme();
+      const { color: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
-      const colors = {};
-      colors[firstColorProp] = ['#663399', 1];
-      context.setTheme({ colors });
-      expect(context.theme.colors[firstColorProp]).toBe(getHexColor('#663399'));
+      const color = {};
+      color[firstColorProp] = ['#663399', 1];
+      context.setTheme({ color });
+      expect(context.theme.color[firstColorProp]).toBe(getHexColor('#663399'));
       context.setTheme({ foo: 'bar' });
       expect(context.theme.foo).toBe('bar');
       context.setTheme({ foo2: 'bar' });
@@ -82,12 +82,12 @@ describe('context', () => {
 
     it('should merge previous theme properties context.update', () => {
       const themeManager = require('./theme-manager').default;
-      const { colors: baseColors } = themeManager._processTheme();
+      const { color: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
-      const colors = {};
-      colors[firstColorProp] = ['#663399', 1];
-      context.updateTheme({ colors });
-      expect(context.theme.colors[firstColorProp]).toBe(getHexColor('#663399'));
+      const color = {};
+      color[firstColorProp] = ['#663399', 1];
+      context.updateTheme({ color });
+      expect(context.theme.color[firstColorProp]).toBe(getHexColor('#663399'));
       context.updateTheme({ foo: 'bar' });
       expect(context.theme.foo).toBe('bar');
       context.updateTheme({ foo2: 'bar' });

@@ -9,17 +9,17 @@ export const base = theme => ({
 export const palette = theme => ({
   neutral: {
     detailsTextProperties: {
-      textColor: theme.colors.coreNeutral
+      textColor: theme.color.coreNeutral
     }
   },
   inverse: {
     detailsTextProperties: {
-      textColor: theme.colors.coreInverse
+      textColor: theme.color.coreInverse
     }
   },
   brand: {
     detailsTextProperties: {
-      textColor: theme.colors.coreNeutral
+      textColor: theme.color.coreNeutral
     }
   }
 });

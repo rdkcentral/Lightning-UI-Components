@@ -1,4 +1,4 @@
-import ALPHAS from './alphas';
+import ALPHAS from './alpha';
 
 const COLOR_PALETTE = {
   constants: {
@@ -6,16 +6,16 @@ const COLOR_PALETTE = {
     black: '#000000'
   },
   grey: {
-    5: '#f1f1f1',
-    10: '#d8d8d8',
-    20: '#c0c0c0',
-    30: '#a7a7a7',
-    40: '#8f8f8f',
-    50: '#767676',
-    60: '#5e5e5e',
-    70: '#454545',
-    80: '#2d2d2d',
-    90: '#141414'
+    5: '#F6F6F9',
+    10: '#ECECF2',
+    20: '#CECEDA',
+    30: '#B1B1BD',
+    40: '#8B8B97',
+    50: '#62626C',
+    60: '#484851',
+    70: '#35353B',
+    80: '#232328',
+    90: '#141417'
   },
   red: {
     5: '#F2D9E1',
@@ -66,34 +66,34 @@ const COLOR_PALETTE = {
     90: '#0E2A21'
   },
   blue: {
-    5: '#dbefff',
-    10: '#b3d6ff',
-    20: '#8cb6ff',
-    30: '#6a94ff',
-    40: '#4e75ff',
-    50: '#395bfb',
-    60: '#2846ee',
-    70: '#1a32c9',
-    80: '#0d1d7f',
-    90: '#030324'
+    5: '#D9E1F2',
+    10: '#8BAFF9',
+    20: '#4784FF',
+    30: '#3376FF',
+    40: '#2970FF',
+    50: '#1F69FF',
+    60: '#0051D0',
+    70: '#0040A3',
+    80: '#003485',
+    90: '#131E34'
   },
-  blue2: {
-    5: '#e0fffd',
-    10: '#9ff4f8',
-    20: '#63dcf1',
-    30: '#2ebfea',
-    40: '#1e9bcd',
-    50: '#157db0',
-    60: '#116494',
-    70: '#0f4f77',
-    80: '#0d3c5a',
-    90: '#0b293d'
+  purple: {
+    5: '#E3E0F4',
+    10: '#BAA8FA',
+    20: '#9378F8',
+    30: '#805FF6',
+    40: '#704BF7',
+    50: '#6138F5',
+    60: '#4D00BD',
+    70: '#3A0092',
+    80: '#28006A',
+    90: '#1C1538'
   }
 };
 
 export default {
-  material: [COLOR_PALETTE.blue[90], ALPHAS.primary],
-  materialBrand: [COLOR_PALETTE.blue[80], ALPHAS.primary],
+  material: [COLOR_PALETTE.grey[90], ALPHAS.primary],
+  materialBrand: [COLOR_PALETTE.purple[90], ALPHAS.primary],
   coreNeutral: [COLOR_PALETTE.grey[5], ALPHAS.primary],
   coreNeutralSecondary: [COLOR_PALETTE.grey[5], ALPHAS.secondary],
   coreNeutralTertiary: [COLOR_PALETTE.grey[5], ALPHAS.tertiary],
@@ -102,22 +102,22 @@ export default {
   coreInverseSecondary: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
   coreInverseTertiary: [COLOR_PALETTE.grey[90], ALPHAS.tertiary],
   coreInverseDisabled: [COLOR_PALETTE.grey[90], ALPHAS.inactive],
-  coreBrand: [COLOR_PALETTE.blue2[30], ALPHAS.primary],
-  coreBrandSecondary: [COLOR_PALETTE.blue2[30], ALPHAS.secondary],
-  coreBrandTertiary: [COLOR_PALETTE.blue2[30], ALPHAS.tertiary],
-  coreBrandDisabled: [COLOR_PALETTE.blue2[30], ALPHAS.inactive],
-  coreOverlay: [COLOR_PALETTE.constants.black, ALPHAS.secondary],
-  interactiveNeutralFocus: [COLOR_PALETTE.grey[5], ALPHAS.secondary],
-  interactiveNeutralFocusSoft: [COLOR_PALETTE.grey[5], ALPHAS.tertiary],
+  coreBrand: [COLOR_PALETTE.purple[40], ALPHAS.primary],
+  coreBrandSecondary: [COLOR_PALETTE.purple[40], ALPHAS.secondary],
+  coreBrandTertiary: [COLOR_PALETTE.purple[40], ALPHAS.tertiary],
+  coreBrandDisabled: [COLOR_PALETTE.purple[40], ALPHAS.inactive],
+  coreOverlay: [COLOR_PALETTE.grey[90], ALPHAS.secondary],
+  interactiveNeutralFocus: [COLOR_PALETTE.constants.white, ALPHAS.primary],
+  interactiveNeutralFocusSoft: [COLOR_PALETTE.constants.white, ALPHAS.tertiary],
   interactiveInverseFocus: [COLOR_PALETTE.grey[70], ALPHAS.primary],
   interactiveInverseFocusSoft: [COLOR_PALETTE.grey[70], ALPHAS.tertiary],
-  interactiveBrandFocus: [COLOR_PALETTE.grey[5], ALPHAS.secondary],
-  interactiveBrandFocusSoft: [COLOR_PALETTE.grey[5], ALPHAS.tertiary],
+  interactiveBrandFocus: [COLOR_PALETTE.purple[20], ALPHAS.primary],
+  interactiveBrandFocusSoft: [COLOR_PALETTE.purple[20], ALPHAS.tertiary],
   grey: [COLOR_PALETTE.grey[40], ALPHAS.primary],
   red: [COLOR_PALETTE.red[40], ALPHAS.primary],
   orange: [COLOR_PALETTE.orange[40], ALPHAS.primary],
   yellow: [COLOR_PALETTE.yellow[40], ALPHAS.primary],
   green: [COLOR_PALETTE.green[40], ALPHAS.primary],
   blue: [COLOR_PALETTE.blue[40], ALPHAS.primary],
-  purple: [COLOR_PALETTE.blue2[40], ALPHAS.primary]
+  purple: [COLOR_PALETTE.purple[40], ALPHAS.primary]
 };

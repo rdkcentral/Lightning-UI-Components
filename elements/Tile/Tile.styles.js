@@ -1,6 +1,6 @@
 export const base = theme => ({
-  animationEntrance: theme.animations.standardEntrance,
-  animationExit: theme.animations.expressiveEntrance,
+  animationEntrance: theme.animation.standardEntrance,
+  animationExit: theme.animation.expressiveEntrance,
   artworkStyles: {},
   badgeStyles: {},
   checkboxStyles: {},
@@ -16,6 +16,6 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    alpha: theme.alphas.inactive
+    alpha: theme.alpha.inactive
   }
 });

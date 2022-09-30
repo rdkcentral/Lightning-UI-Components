@@ -6,7 +6,7 @@ import TextBox from '../../elements/TextBox';
 import ScrollSlider from './ScrollSlider';
 
 class ScrollWrapper extends Base {
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

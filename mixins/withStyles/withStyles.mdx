@@ -52,16 +52,19 @@ const styles = {
   color: 0
 };
 
-class Box extends withStyles(class extends lng.Component {
-  static _template() {
-    return {
-      w: this.styles.w,
-      h: this.styles.h,
-      color: this.styles.color,
-      rect: true
-    };
-  }
-}, styles) {};
+class Box extends withStyles(
+  class extends lng.Component {
+    static _template() {
+      return {
+        w: this.styles.w,
+        h: this.styles.h,
+        color: this.styles.color,
+        rect: true
+      };
+    }
+  },
+  styles
+) {}
 ```
 
 Now we are starting to lock down the API. My `Box` component is expecting a `w`, `h`, and `color`, which are set via the `styles` object. `withStyles` creates a getter for the `styles` object at both the instance _and_ static level, which is why we can call `this.styles` from `static _template()`.
@@ -73,7 +76,7 @@ Now we are starting to lock down the API. My `Box` component is expecting a `w`,
 Composing a `BlueBox` becomes much simpler now:
 
 ```js
-const blueStyles = { color: 0xff0000ff }
+const blueStyles = { color: 0xff0000ff };
 class BlueBox extends withStyles(Box, blueStyles) {}
 ```
 
@@ -94,7 +97,7 @@ class Example extends lng.Component {
         h: 50,
         color: 0xff00ff00
       }
-    }
+    };
   }
 }
 ```
@@ -109,15 +112,15 @@ So far, we have seen `withStyles` implementations using a `styles` object as an 
 
 ```js
 const theme = {
-  colors: {
+  color: {
     background: 0xff000000,
     text: 0xffffffff
   }
 };
 
 const styles = theme => {
-  color: theme.colors.background,
-  textColor: theme.colors.text
+  color: theme.color.background,
+  textColor: theme.color.text
 };
 
 class Box extends withStyles(class extends lng.Component {
@@ -143,4 +146,3 @@ class Text extends withStyles(class extends lng.Component {
 ```
 
 In this arbitrary example, we can see that both `Box` and `Text` are pulling from the same `styles` and using the same `theme`. We can imagine exporting a `theme` object that allows setting stylistic values at a global level, while `styles` objects could be set separately at a component level. In fact, that is exactly what we are doing in @lightning/ui!
-

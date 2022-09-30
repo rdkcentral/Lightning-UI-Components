@@ -17,7 +17,7 @@ class TextBox extends Base {
     return 'TextBox';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

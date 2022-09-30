@@ -76,9 +76,9 @@ export class ThemeManager {
     this._clearCache();
     const theme = this._processTheme.call(this, [value], value.extensions);
     this._setCache('theme', theme);
-    await cleanupFonts(theme.fonts);
-    if (theme.fonts && theme.fonts.length) {
-      await this._loadFonts(theme.fonts);
+    await cleanupFonts(theme.font);
+    if (theme.font && theme.font.length) {
+      await this._loadFonts(theme.font);
     }
     this._refreshSubThemes();
     this._emit('themeExtensionsUpdate');
@@ -112,8 +112,8 @@ export class ThemeManager {
     }
     const globalTheme = this.getTheme();
     const subTheme = this._processTheme.call(this, [globalTheme, value]);
-    if (subTheme.fonts && subTheme.fonts.length) {
-      await this._loadFonts(subTheme.fonts);
+    if (subTheme.font && subTheme.font.length) {
+      await this._loadFonts(subTheme.font);
     }
     this._setCache(`subTheme${subThemeName}`, {
       original: value,
@@ -165,8 +165,8 @@ export class ThemeManager {
       value.extensions || currentTheme.extensions
     );
     this._setCache('theme', theme);
-    if (theme.fonts && theme.fonts.length) {
-      await this._loadFonts(theme.fonts);
+    if (theme.font && theme.font.length) {
+      await this._loadFonts(theme.font);
     }
     this._refreshSubThemes();
     if (value.extensions) this._emit('themeExtensionsUpdate');
@@ -213,8 +213,8 @@ export class ThemeManager {
       value
     ]);
 
-    if (subTheme.fonts && subTheme.fonts.length) {
-      await this._loadFonts(subTheme.fonts);
+    if (subTheme.font && subTheme.font.length) {
+      await this._loadFonts(subTheme.font);
     }
 
     this._setCache(`subTheme${subThemeName}`, {

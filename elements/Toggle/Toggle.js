@@ -8,7 +8,7 @@ class Toggle extends Base {
     return 'Toggle';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

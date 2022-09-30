@@ -9,7 +9,7 @@ class FocusRing extends Base {
     return 'FocusRing';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

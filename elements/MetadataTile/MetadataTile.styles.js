@@ -6,26 +6,26 @@ export const base = theme => ({
 export const palette = theme => ({
   neutral: {
     subtitleTextProperties: {
-      textColor: theme.colors.coreNeutralSecondary
+      textColor: theme.color.coreNeutralSecondary
     },
     descriptionTextProperties: {
-      textColor: theme.colors.coreNeutral
+      textColor: theme.color.coreNeutral
     }
   },
   inverse: {
     subtitleTextProperties: {
-      textColor: theme.colors.coreInverseSecondary
+      textColor: theme.color.coreInverseSecondary
     },
     descriptionTextProperties: {
-      textColor: theme.colors.coreInverse
+      textColor: theme.color.coreInverse
     }
   },
   brand: {
     subtitleTextProperties: {
-      textColor: theme.colors.coreNeutralSecondary
+      textColor: theme.color.coreNeutralSecondary
     },
     descriptionTextProperties: {
-      textColor: theme.colors.coreNeutral
+      textColor: theme.color.coreNeutral
     }
   }
 });

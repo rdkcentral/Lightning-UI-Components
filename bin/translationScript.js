@@ -1,31 +1,31 @@
 const fs = require('fs');
 import { getStorybookLinks } from './getStorybookLinks.js';
-import colorsJsonFile from './colorsRole.json';
+import colorJsonFile from './colorRole.json';
 import typographyJsonFile from './typographyRole.json';
 //You could change the path and get the values for different themes
 const radius = require('../themes/base/radius.js');
 const typography = require('../themes/base/typography.js');
-const colors = require('../themes/base/colors.js');
+const color = require('../themes/base/color.js');
 const LineReaderSync = require('line-reader-sync');
 
 const folderPath = 'bin/themePropertyTables';
 
 createDocumentation(); //This call starts the scripts to create the documentation
 /**
- * Creates documentation for the colors, typography, and radius that our components (both elements and patterns) use.
+ * Creates documentation for the color, typography, and radius that our components (both elements and patterns) use.
  * hypothetically if you replace the parameters with other values like (stroke, 'tmp?themePropertyTables/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value.
  */
 export function createDocumentation() {
-  getStyleFiles('colors', `${folderPath}/colors.md`, colors);
+  getStyleFiles('color', `${folderPath}/color.md`, color);
   getStyleFiles('typography', `${folderPath}/typography.md`, typography);
   getStyleFiles('radius', `${folderPath}/radius.md`, radius);
 }
 
 /**
  * Combines all the necessary files and theme values
- * @param {string} themeProperty - what theme property we are looking for ie). colors, radius, typography
+ * @param {string} themeProperty - what theme property we are looking for ie). color, radius, typography
  * @param {string} mdFile - the markdown file the contents will be written to
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xs
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.coreBrand, or theme.radius.xs
  */
 export function getStyleFiles(themeProperty, mdFile, themeFiles) {
   const fileOutput = fs.readdirSync('./elements');
@@ -58,7 +58,7 @@ export function getComponentFiles(fileList, componentType) {
 
 /**
  * Grabs all the values for theme properties. For example radius: xmall, color: coreBrand, etc.
- * @param {string} themeFiles - files that hold the possible theming values ie). theme.colors.fillBrand, or theme.radius.xs
+ * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.coreBrand, or theme.radius.xs
  * @param {string} componentType - type of component (element or pattern)
  * @returns {array} array with all the components style files
  */
@@ -79,7 +79,7 @@ export function getThemeProperties(themeFiles, themeProperty) {
  * Finds all the elements and patterns and what style value they are using
  * @param {array} styleFileArray - array that holds all the component's style files
  * @param {array} themeValueArray - array that holds all the possible themeing values for each theme property
- * @param {string} themeProperty - what theme property we are looking for ie). colors, radius, typography
+ * @param {string} themeProperty - what theme property we are looking for ie). color, radius, typography
  * @param {string} mdFile - the markdown file the contents will be written to
  */
 export function findThemedComponents(styleFileArray, themeValueArray, themeProperty, mdFile) {
@@ -190,7 +190,7 @@ export function cleanDictionaryValues(dict, updatedLine){
  * @returns {string} returns cleaned up line with no duplicate components
  */
 export function writeMarkdownFiles(themeProperty, mdFile, dict, themeValueArray) {
-  const roleFile = mdFile === (`${folderPath}/colors.md`) || (mdFile === `${folderPath}/typography.md`);
+  const roleFile = mdFile === (`${folderPath}/color.md`) || (mdFile === `${folderPath}/typography.md`);
   const content = roleFile? `${themeProperty} Value | Components | Role \n`:`${themeProperty} Value | Components \n`;
     //ensure folder exists
     fs.mkdir(mdFile.substring(0, mdFile.lastIndexOf('/')), { recursive: true }, (err) => {
@@ -262,8 +262,8 @@ export function alphabetizeContent(dict, key) {
  * @returns {string} extra information about the theme property
  */
 export function getPropertyRole(key, mdFile) {
-  if (mdFile === `${folderPath}/colors.md`) {
-      return `|${colorsJsonFile[key] || 'More info coming'}`;
+  if (mdFile === `${folderPath}/color.md`) {
+      return `|${colorJsonFile[key] || 'More info coming'}`;
   }
   else if (mdFile === `${folderPath}/typography.md`) {
     return `|${typographyJsonFile[key] || 'More info coming'}`;

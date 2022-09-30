@@ -9,7 +9,7 @@ class ListItemBase extends Button {
     return 'ListItemBase';
   }
 
-  static get __themeStyles() {
+  static get __themeStyle() {
     return styles;
   }
 

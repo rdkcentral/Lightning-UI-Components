@@ -1,12 +1,12 @@
 export const base = theme => ({
-  backgroundColor: theme.colors.coreInverseSecondary,
+  backgroundColor: theme.color.coreInverseSecondary,
   radius: theme.radius.md,
   animation: {}
 });
 
 export const mode = theme => ({
   disabled: {
-    backgroundColor: theme.colors.coreInverseDisabled
+    backgroundColor: theme.color.coreInverseDisabled
   }
 });
 
@@ -14,21 +14,21 @@ export const palette = theme => ({
   neutral: {
     mode: {
       focused: {
-        backgroundColor: theme.colors.interactiveNeutralFocus
+        backgroundColor: theme.color.interactiveNeutralFocus
       }
     }
   },
   inverse: {
     mode: {
       focused: {
-        backgroundColor: theme.colors.interactiveInverseFocus
+        backgroundColor: theme.color.interactiveInverseFocus
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        backgroundColor: theme.colors.interactiveBrandFocus
+        backgroundColor: theme.color.interactiveBrandFocus
       }
     }
   }

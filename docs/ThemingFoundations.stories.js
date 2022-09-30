@@ -32,7 +32,7 @@ class Swatch extends Base {
 
   _update() {
     if (this.themeColor) {
-      this.color = context.theme.colors[this.themeColor];
+      this.color = context.theme.color[this.themeColor];
     }
   }
 }
