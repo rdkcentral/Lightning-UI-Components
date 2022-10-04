@@ -27,7 +27,8 @@ class Button extends Surface {
     return [
       ...super.tags,
       'Content',
-      { name: 'Title', path: 'Content.Title' },
+      { name: 'TitleWrapper', path: 'Content.TitleWrapper' },
+      { name: 'Title', path: 'Content.TitleWrapper.Title' },
       { name: 'Prefix', path: 'Content.Prefix' },
       { name: 'Suffix', path: 'Content.Suffix' }
     ];
@@ -74,7 +75,7 @@ class Button extends Surface {
       this._Prefix.x = this._prefixX;
     }
     if (this._hasTitle) {
-      this._Title.x = this._titleX;
+      this._TitleWrapper.x = this._titleX;
     }
     if (this._hasSuffix) {
       this._Suffix.x = this._suffixX;
@@ -117,9 +118,20 @@ class Button extends Surface {
           ...titlePatch
         };
       }
-      this._Content.patch({ Title: titlePatch });
+      this._Content.patch({
+        TitleWrapper: {
+          mountY: 0.5,
+          Title: titlePatch
+        }
+      });
     } else {
-      this.patch({ Content: { Title: undefined } });
+      this.patch({
+        Content: {
+          TitleWrapper: {
+            Title: undefined
+          }
+        }
+      });
     }
   }
 
@@ -284,7 +296,7 @@ class Button extends Surface {
 
   get _suffixX() {
     if (this._hasTitle) {
-      return this._titleW + this._Title.x + this.style.titlePadding;
+      return this._titleW + this._TitleWrapper.x + this.style.titlePadding;
     } else if (this._hasPrefix) {
       return this._prefixW + this.style.itemSpacing;
     }

@@ -1,339 +1,94 @@
-import lng from '@lightningjs/core';
-import withStyles from '../../mixins/withStyles';
-import { Base, Icon } from '../../elements';
-import InlineContent from '../../layout/InlineContent';
-import styles from './index.styles';
+import { withExtensions } from '../../mixins';
+import * as styles from './Input.styles';
+import Button from '../../elements/Button';
+import TextBox from '../../elements/TextBox';
 
-export default class Input extends withStyles(Base, styles) {
+class Input extends Button {
+  static get __componentName() {
+    return 'Input';
+  }
+  static get __themeStyle() {
+    return styles;
+  }
   static _template() {
     return {
-      w: this.styles.w,
-      h: this.styles.h,
-      background: this.styles.background,
-      placeholder: '',
-      position: 0,
-      radius: this.styles.radius,
-      value: '',
-      Label: {
-        text: {
-          ...this.styles.label,
-          text: 'LABEL'
-        }
+      ...super._template(),
+      justify: 'left',
+      fixed: true,
+      Eyebrow: {
+        type: TextBox
       },
-      Container: {
-        y: this.styles.label.lineHeight + 16,
-        color: this.styles.background,
-        zIndex: 2,
-        texture: lng.Tools.getRoundRect(
-          this.styles.w,
-          this.styles.h,
-          this.styles.radius
-        ),
-        ContentWrapper: {
-          clipping: true,
-          x: this.styles.padding.left,
-          y: 8,
-          w: w => w,
-          h: this.styles.text.lineHeight + 12,
-          // TODO: need design input on cursor
-          Cursor: {
-            w: this.styles.cursor.width,
-            h: this.styles.text.lineHeight,
-            y: 8,
-            color: this.styles.cursor.color,
-            rect: true,
-            alpha: 0.0001,
-            zIndex: 1
-          },
-          Content: {
-            text: {
-              ...this.styles.text,
-              text: '',
-              zIndex: 1
-            }
-          },
-          /**
-           * Hidden value is used for measuring where the cursor should
-           * be positioned when a user changes the cursor position. Since
-           * the text is one texture we don't know the exact position of each
-           * individual character, so we render a substring version of the text
-           * to determine the renderwidth and position the cursor based on that number
-           */
-          HiddenContent: {
-            alpha: 0.00001,
-            text: {
-              ...this.styles.text,
-              text: '',
-              textColor: 0xffffffff
-            }
-          }
-        }
-      },
-      Icon: {
-        type: Icon,
-        y: this.styles.label.lineHeight + 32,
-        zIndex: 2
-      },
-      Underline: {
-        color: this.styles.underline.color,
-        y: this.styles.label.lineHeight + 16 + this.styles.text.lineHeight + 24
-      },
-      Caption: {
-        type: InlineContent,
-        textProperties: this.styles.caption,
-        x: this.styles.padding.left,
-        y:
-          this.styles.label.lineHeight +
-          16 +
-          this.styles.text.lineHeight +
-          24 +
-          this.styles.underline.weight +
-          16,
-        iconH: this.styles.captionIcon.height,
-        iconW: this.styles.captionIcon.width
-      },
-      DropShadow: {
-        alpha: 0,
-        ...this.styles.shadow({
-          w: this.styles.w,
-          h: this.styles.h
-        })
+      HelpText: {
+        type: TextBox
       }
     };
   }
 
-  static get tags() {
+  static get properties() {
     return [
-      'Label',
-      'Container',
-      { name: 'ContentWrapper', path: 'Container.ContentWrapper' },
-      { name: 'Cursor', path: 'Container.Cursor' },
-      { name: 'Content', path: 'Container.Content' },
-      { name: 'HiddenContent', path: 'Container.HiddenContent' },
-      'Icon',
-      'Underline',
-      'Caption',
-      'DropShadow'
+      ...super.properties,
+      'cursor',
+      'eyebrow',
+      'helpText',
+      'listening',
+      'position'
     ];
   }
 
-  static get properties() {
+  static get tags() {
     return [
-      'icon',
-      'iconColor',
-      'iconFocusColor',
-      'label',
-      'caption',
-      'radius',
-      'position',
-      'value',
-      'mask',
-      'password',
-      'listening'
+      ...super.tags,
+      'Eyebrow',
+      'HelpText',
+      { name: 'Cursor', path: 'Content.Cursor' },
+      { name: 'HiddenContent', path: 'Content.HiddenContent' }
     ];
   }
 
   _construct() {
     super._construct();
-    this._value = '';
-    this._position = 0;
-    this.w = this.styles.w;
-    this.h = this.styles.h;
-    this._radius = this.styles.radius;
-    this._mask = '•';
-    this._password = false;
-    this._listening = false;
-    this._iconHeight = this.styles.iconProperties.height;
-    this._iconWidth = this.styles.iconProperties.width;
-    this._iconColor = this.styles.iconProperties.color;
-    this._iconFocusColor = this.styles.iconProperties.focusColor;
+    this.title = '';
+    this.position = this.title ? this.title.length : 0;
+    this._w = this.style.minWidth;
   }
 
-  _init() {
-    if (this.styles.cursor && this.styles.cursor.blink) {
-      this._cursorBlink = this._Cursor.animation({
-        duration: 1.5,
-        repeat: -1,
-        actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
-      });
-    }
-    super._init();
+  $itemChanged() {
+    this._updateCursorPosition();
+  }
+
+  _onHiddenContentChanged() {
+    this._updateCursorPosition();
   }
 
   clear() {
-    if (this.listening) {
-      this.value = '';
+    if (this.isCursorActive) {
+      this.title = '';
       this.position = 0;
     }
   }
 
-  insert(value) {
-    if (this.listening) {
-      this.value =
-        this.value.slice(0, this.position) +
-        value +
-        this.value.slice(this.position);
-      this.position += value.length;
+  insert(content) {
+    if (this.isCursorActive) {
+      this.title =
+        this.title.slice(0, this.position) +
+        content +
+        this.title.slice(this.position);
+      this.position += content.length;
     }
   }
 
   backspace() {
-    if (this.listening && this.position > 0) {
-      this.value =
-        this.value.slice(0, this.position - 1) +
-        this.value.slice(this.position);
+    if (this.isCursorActive && this.position > 0) {
+      this.title =
+        this.title.slice(0, this.position - 1) +
+        this.title.slice(this.position);
       this.position--;
-    }
-  }
-
-  _update() {
-    this._whenEnabled.then(() => {
-      this._updateIcon();
-      this._updateContainer();
-      this._updateTextPosition();
-      this._updateUnderline();
-      this._updateState();
-      this._updateDropShadow();
-    });
-  }
-
-  _updateIcon() {
-    const alpha = this.icon ? 0.64 : 0;
-    this._Icon.patch({
-      x: this.w - (this._iconWidth + this.styles.padding.left),
-      h: this._iconHeight,
-      w: this._iconWidth,
-      icon: this.icon,
-      color: this.hasFocus() ? this.iconFocusColor : this.iconColor
-    });
-    if (this._smooth) {
-      this._Icon.smooth = { alpha };
-    } else {
-      this._Icon.alpha = alpha;
-    }
-
-    this._ContentWrapper.w =
-      (this.icon ? this._Icon.x : this.w) - this.styles.padding.left * 2;
-  }
-
-  _updateUnderline() {
-    if (this._Underline) {
-      this._Underline.patch({
-        texture: lng.Tools.getRoundRect(
-          this.w,
-          this.styles.underline.weight,
-          this.styles.underline.weight / 2
-        )
-      });
-      this._Underline.w = this.w;
-    }
-  }
-
-  _updateContainer() {
-    if (this._Container) {
-      const text =
-        (this.password ? this.mask.repeat(this.value.length) : this.value) ||
-        this.placeholder;
-      this._Container.patch({
-        texture: lng.Tools.getRoundRect(this.w, this.h, this.radius),
-        ContentWrapper: {
-          Content: {
-            text: { text }
-          }
-        }
-      });
-    }
-  }
-
-  _updateTextPosition() {
-    const { value, position, password, mask } = this;
-    const textBeforeCursor = password
-      ? mask.repeat(value.length).substring(0, position)
-      : value.substring(0, position);
-
-    // update hidden value and calc width
-    this._HiddenContent.text.text = textBeforeCursor;
-    this._HiddenContent.loadTexture();
-
-    // TODO: consider adding a property to control if text is center aligned instead of through styles
-    const centerAlign = 'center' === this.styles.text.textAlign;
-    let contentPatch = {
-      mountX: centerAlign ? 0.5 : 0,
-      x: centerAlign ? this._w / 2 : 0
-    };
-    let cursorX = this._HiddenContent.renderWidth;
-
-    // width of input value exceeds width of input, requires "scrolling" on further input
-    const isOverflow = this._HiddenContent.renderWidth > this._ContentWrapper.w;
-
-    if (isOverflow) {
-      contentPatch = {
-        mountX: 0,
-        x:
-          this._ContentWrapper.w -
-          this._HiddenContent.renderWidth -
-          this._Cursor.w
-      };
-      cursorX = this._ContentWrapper.w - this._Cursor.w;
-    }
-    this._Content.patch(contentPatch);
-    this._HiddenContent.patch(contentPatch);
-    this._Cursor.patch({
-      x: cursorX,
-      // TODO: cursor is not currently supported when center aligned. add support at later date
-      visible: !centerAlign
-    });
-  }
-
-  _updateState() {
-    if (this.hasFocus()) {
-      if (this._cursorBlink && !this._cursorBlink.isPlaying())
-        this._cursorBlink.start();
-      this._Label.smooth = { alpha: 1 };
-      this._Container.smooth = {
-        alpha: 1,
-        color: this.styles.focused.background.color
-      };
-      this._Content.smooth = { color: this.styles.focused.text.color };
-      this._Underline.smooth = { alpha: 0 };
-      this._Cursor.smooth = {
-        alpha: 1,
-        color: this.styles.focused.cursor.color
-      };
-    } else {
-      this._Label.smooth = { alpha: 0.64 };
-      this._Container.smooth = {
-        alpha: this.listening ? 1 : 0.64,
-        color: this.styles.background
-      };
-      this._Content.smooth = { color: this.styles.text.textColor };
-      this._Underline.smooth = { alpha: this.listening ? 1 : 0.64 };
-      this._Cursor.smooth = {
-        alpha: this.listening ? 1 : 0,
-        color: this.styles.cursor.color
-      };
-      if (this._cursorBlink)
-        this.listening ? this._cursorBlink.start() : this._cursorBlink.stop();
-    }
-  }
-
-  _updateDropShadow() {
-    if (this.w !== this.styles.w) {
-      const DropShadow = this.styles.shadow({ w: this.w, h: this.h });
-      this._DropShadow.patch(DropShadow);
-      this._DropShadow.y = 92;
-    }
-    const alpha = Number(this.hasFocus());
-    if (this._smooth) {
-      this._DropShadow.smooth = { alpha };
-    } else {
-      this._DropShadow.alpha = alpha;
     }
   }
 
   _handleLeft() {
     const { position } = this;
-    if (position > 0) {
+    if (position >= 0) {
       this.position--;
       return true;
     }
@@ -341,41 +96,213 @@ export default class Input extends withStyles(Base, styles) {
   }
 
   _handleRight() {
-    const { position, value } = this;
-    if (position < value.length) {
+    const { position, title } = this;
+    if (position < title.length) {
       this.position++;
       return true;
     }
     return false;
   }
 
-  _setLabel(label) {
-    const upcaseLabel = label.toUpperCase();
-    this._Label.text = upcaseLabel;
-    return upcaseLabel;
+  _update() {
+    super._update();
+    this._updateCursor();
+    this._updateEyebrow();
+    this._updateState();
+    this._updateHiddenContent();
+    this._updateCursorBlink();
+    this._updateHelpText();
+    this._updateSuffixPosition();
+    this._updateCursorPosition();
   }
 
-  get announce() {
-    if (this._announce) {
-      return this._announce;
+  _onTextBoxChanged() {
+    this._updateHiddenContent();
+  }
+
+  _updateCursor() {
+    if (this.style.cursorStyles && this.style.cursorStyles.blink) {
+      this._Content.patch({
+        Cursor: {}
+      });
+      /**
+       * Hidden value is used for measuring where the cursor should
+       * be positioned when a user changes the cursor position. Since
+       * the text is one texture we don't know the exact position of each
+       * individual character, so we render a substring version of the text
+       * to determine the renderwidth and position the cursor based on that number
+       */
+      this._Content.patch({
+        HiddenContent: {
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_onHiddenContentChanged'
+          }
+        }
+      });
+      if (this.isCursorActive) {
+        this._Cursor.patch({
+          mountY: 0.5,
+          w: this.style.cursorStyles.w,
+          h: this.style.cursorStyles.h,
+          color: this.style.cursorStyles.color,
+          rect: true
+        });
+        this.cursorBlink = this._Cursor.animation({
+          duration: 1.5,
+          repeat: -1,
+          actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
+        });
+      }
     }
-    return this.password ? 'Input hidden' : this.value || this.placeholder;
-  }
-  set announce(announce) {
-    super.announce = announce;
   }
 
-  _setCaption(caption) {
-    this._Caption.content = caption;
+  _updateEyebrow() {
+    this._Eyebrow.patch({
+      content: this.eyebrow,
+      textStyle: this.style.supportTextStyle,
+      textColor: this.style.eyebrowColor,
+      mountY: 0,
+      x: this.style.paddingX,
+      y: this.y - this.h / 2 - this.style.paddingY
+    });
   }
 
-  _setPosition(position) {
-    if (position >= 0 && position <= this.value.length) {
-      return position;
+  _updateCursorBlink() {
+    if (this.cursorBlink) {
+      if (this.isCursorActive) {
+        this.cursorBlink.start();
+      } else {
+        this.cursorBlink.stop();
+        this._Cursor.patch({
+          alpha: 0.001
+        });
+      }
     }
   }
 
-  _setMask(mask) {
-    return mask.substring(0, 1);
+  _updateState() {
+    if (this.mode === 'focused') {
+      if (this.cursorBlink && !this.cursorBlink.isPlaying()) {
+        this.cursorBlink.start();
+      }
+      this._Cursor.smooth = {
+        alpha: 0,
+        color: this.style.cursorStyles.color
+      };
+    } else {
+      this._Cursor.smooth = {
+        alpha: this.listening ? 1 : 0,
+        color: this.style.cursorStyles.color
+      };
+      if (this.cursorBlink)
+        this.isCursorActive
+          ? this.cursorBlink.start()
+          : this.cursorBlink.stop();
+    }
+  }
+
+  _updateTruncation() {
+    // do not add word wrap
+  }
+
+  _updateCursorPosition() {
+    let textPatch = {};
+    if (this._isOverflow) {
+      this._TitleWrapper.patch({
+        w: this._visibleContentWidth,
+        h: this._Title.h,
+        clipping: true
+      });
+      textPatch = {
+        mountX: 0,
+        x: this._visibleContentWidth - this._HiddenContent.renderWidth
+      };
+      this._Cursor.patch({
+        x: this._titleX + this._TitleWrapper.w
+      });
+      this._Title.patch({
+        ...textPatch
+      });
+    } else {
+      this._Cursor.patch({
+        x: this._titleX + this._HiddenContent.w
+      });
+      this._TitleWrapper.x = this._titleX;
+    }
+    this._HiddenContent.patch(textPatch);
+  }
+
+  _updateHiddenContent() {
+    const { title: value = '', position } = this;
+    const textBeforeCursor = value.substring(0, position);
+    this._HiddenContent.patch({
+      textStyle: this.style.textStyle,
+      content: textBeforeCursor,
+      x: this._titleX
+    });
+    // TODO: TextBox is not sending a w of 0 when content is an empty string. manually set to 0 when no content
+    if (!textBeforeCursor.length) {
+      this._HiddenContent.w = 0;
+    }
+    if (this._HiddenContent._Text) {
+      this._HiddenContent._Text.patch({
+        alpha: 0.001
+      });
+    }
+  }
+
+  _updateSuffixPosition() {
+    if (this._hasSuffix) {
+      this._Suffix.patch({
+        mountX: 1,
+        x: this.w - 2 * this.style.paddingX
+      });
+    }
+  }
+
+  _updateHelpText() {
+    this._HelpText.patch({
+      content: this.helpText,
+      textStyle: this.style.supportTextStyle,
+      textColor: this.style.helpTextColor,
+      x: this.style.paddingX,
+      y: this.y + this.h + 2 * this.style.paddingY
+    });
+  }
+
+  get isCursorActive() {
+    return this.listening && this.mode === 'focused';
+  }
+
+  get _isOverflow() {
+    const isOverflow = this._HiddenContent.w > this._visibleContentWidth;
+    return isOverflow;
+  }
+
+  get _visibleContentWidth() {
+    const suffixW = this._hasSuffix
+      ? this._suffixW + this.style.titlePadding
+      : 0;
+    const visibleContentWidth =
+      this.w -
+      this._titleX -
+      suffixW -
+      this.style.suffixPadding -
+      this.style.paddingX -
+      this.style.titleWrapperX;
+    return visibleContentWidth;
+  }
+
+  get w() {
+    return this._w;
+  }
+
+  set w(v) {
+    if (typeof v !== 'undefined') {
+      this._w = v;
+    }
   }
 }
+
+export default withExtensions(Input);
