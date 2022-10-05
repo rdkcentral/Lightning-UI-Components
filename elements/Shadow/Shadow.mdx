@@ -1,0 +1,54 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Shadow from '.';
+
+# Shadow
+
+A shadow component generally used to apply dropshadows to other components.
+
+## Usage
+
+Can be applied manaully or at the theme via the DropShadow.extension.
+The `maskShadow` property is available to cut out the shape of the component
+from the shadow, but requires an additional draw call.
+
+```js
+import { Shadow } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Shadow: {
+        type: Shadow,
+        w: this.w,
+        h: this.h
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-shadow--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name       | type    | required | default | description                                                     |
+| ---------- | ------- | -------- | ------- | --------------------------------------------------------------- |
+| maskShadow | boolean | false    | false   | if true, uses holepunch shader to mask out base component shape |
+
+### Style Properties
+
+The shadow style properties are designed to match the output values from Figma.
+
+| name    | type                | description                               |
+| ------- | ------------------- | ----------------------------------------- |
+| offsetX | number              | horizontal offset from component position |
+| offsetY | number              | vertical offset from component position   |
+| blur    | number              | blur amount applied to shadow             |
+| spread  | number              | spread value added to shadow size         |
+| alpha   | number              | shadow opacity                            |
+| radius  | number\|array       | radius to be applied to shadow            |
+| color   | hexadecimal\|string | color of the shadow                       |
