@@ -17,6 +17,7 @@ export { default as MetadataCardContent } from './MetadataCardContent';
 export { default as MetadataTile } from './MetadataTile';
 export { default as ProgressBar, ProgressBarStyles } from './ProgressBar';
 export { default as Radio, RadioSmall, RadioStyles } from './Radio';
+export { default as Shadow, ShadowStyles } from './Shadow';
 export { default as Slider, SliderStyles } from './Slider';
 export { default as Surface, SurfaceStyles } from './Surface';
 export { default as TabBar, Tab } from './TabBar';
