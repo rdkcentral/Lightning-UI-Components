@@ -5,14 +5,19 @@ export default [
   },
   {
     family: 'DMSansRegular',
-    url: 'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-regular.woff2'
+    urls: [
+      // Allow for fallbacks
+      'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-regular.woff2',
+      './fonts/Xfinity/dmsans-regular.woff2',
+      'local(Arial)'
+    ]
   },
   {
     family: 'DMSansBold',
-    url: 'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-bold.woff2'
+    urls: [
+      'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-bold.woff2'
+    ]
   },
-
-  // TODO: Remove XfinityStandard after the other components (like Metadata) have been properly updated
   {
     family: 'XfinityStandardBold',
     url: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff'

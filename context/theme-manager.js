@@ -253,7 +253,8 @@ export class ThemeManager {
       if (
         Array.isArray(value) &&
         2 === value.length &&
-        !value[0].targetComponent
+        !value[0].targetComponent &&
+        value[0].substr(0, 1) === '#'
       ) {
         // Better check to filter out extensions?
         return getHexColor(value[0], value[1]);
