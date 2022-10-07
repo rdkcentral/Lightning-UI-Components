@@ -59,7 +59,7 @@ describe('context fonts', () => {
     const fontLoader = fonts.fontLoader;
     await fontLoader([
       ...fontArray,
-      { family: 'fontArray', urls: ['url1', 'url2'] },
+      { family: 'fontArray', urls: ['url1', 'url2', 'local(Arial)'] },
       { family: 'invalid', url: 'invalid' }
     ]);
 
@@ -71,6 +71,10 @@ describe('context fonts', () => {
       'XfinityStandardMedium',
       'fontArray'
     ]);
+
+    expect(
+      document.fonts.values().find(({ family }) => family === 'fontArray').src
+    ).toBe('url(url1),url(url2),local(Arial)');
 
     expect(logger.log.mock.calls).toContainEqual([
       'Fonts loaded: XfinityBrownBold, DMSansRegular, DMSansBold, XfinityStandardBold, XfinityStandardMedium, fontArray'
