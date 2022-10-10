@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import Button from './Button';
 import TestUtils from '../../test/lightning-test-utils';
 import Icon from '../Icon';
@@ -165,6 +166,36 @@ describe('Button', () => {
       testRenderer.forceAllUpdates();
       expect(component._hasTitle).toBeFalsy();
       expect(component._suffixX).toEqual(0);
+    });
+  });
+
+  describe('truncation for Buttons with fixed width', () => {
+    beforeEach(() => {
+      const title = 'long text ';
+      component.title = title.repeat(10);
+      component.fixed = true;
+      component.w = 500;
+    });
+
+    it('should truncate overflowing text', async () => {
+      await component.__updateSpyPromise;
+      testRenderer.update();
+      const wA = component._fixedWordWrapWidth;
+      expect(component._Title.wordWrapWidth).toBe(wA);
+
+      component.prefix = [{ type: lng.Component, w: 20, h: 20 }];
+      await component.__updateSpyPromise;
+      testRenderer.update();
+      const wB = component._fixedWordWrapWidth;
+      expect(component._Title.wordWrapWidth).toBe(wB);
+      expect(wB).toBeLessThan(wA);
+
+      component.suffix = [{ type: lng.Component, w: 20, h: 20 }];
+      await component.__updateSpyPromise;
+      testRenderer.update();
+      const wC = component._fixedWordWrapWidth;
+      expect(component._Title.wordWrapWidth).toBe(wC);
+      expect(wC).toBeLessThan(wB);
     });
   });
 });
