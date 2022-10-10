@@ -84,7 +84,7 @@ Base.argTypes = {
     },
     defaultValue: 3,
     description: 'Maximum number of lines to display before truncation',
-    type: 'string',
+    type: 'number',
     table: {
       defaultValue: { summary: 0 }
     }

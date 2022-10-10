@@ -64,6 +64,7 @@ class Button extends Surface {
 
   $itemChanged() {
     this._updateAllPositioning();
+    this._updateTruncation();
   }
 
   _onTextBoxChanged() {
@@ -163,7 +164,7 @@ class Button extends Surface {
     if (this._Title) {
       this._Title.patch({
         wordWrap: this.fixed,
-        wordWrapWidth: this.fixed ? this.w - this._paddingX : 0
+        wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : 0
       });
     }
   }
@@ -320,6 +321,29 @@ class Button extends Surface {
       mountY: 0.5,
       autoResizeWidth: true
     };
+  }
+
+  get _totalTitlePaddingX() {
+    let totalTitlePadding = 0;
+    if (this._hasPrefix) {
+      totalTitlePadding += this.style.titlePadding;
+    }
+    if (this._hasSuffix) {
+      totalTitlePadding += this.style.titlePadding;
+    }
+    return totalTitlePadding;
+  }
+
+  /**
+   * Button w must be >= nonTextSpace + smallest possible width of truncated
+   * text(width of the first set of characters before a space + width of TextBox.maxLinesSuffix).
+   * Disregarding this results in the contents of the button being a greater width than the
+   * fixed w of the Button(w/o decreasing _paddingX or _totalTitlePadding).
+   */
+  get _fixedWordWrapWidth() {
+    const { w, _paddingX, _prefixW, _suffixW, _totalTitlePaddingX } = this;
+    const nonTextSpace = _paddingX + _prefixW + _suffixW + _totalTitlePaddingX;
+    return w - nonTextSpace;
   }
 
   set announce(announce) {
