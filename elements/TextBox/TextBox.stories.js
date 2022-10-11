@@ -89,18 +89,6 @@ Base.argTypes = {
       defaultValue: { summary: 0 }
     }
   },
-  maxLinesSuffix: {
-    control: {
-      type: 'text'
-    },
-    defaultValue: '...',
-    description:
-      'string to be displayed at the end of the line when truncation is used',
-    type: 'string',
-    table: {
-      defaultValue: { summary: '...' }
-    }
-  },
   verticalAlign: {
     control: {
       type: 'select',

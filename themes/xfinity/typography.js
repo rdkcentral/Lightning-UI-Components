@@ -1,4 +1,4 @@
-export default {
+const typography = {
   display1: {
     fontFace: 'XfinityBrownBold',
     fontSize: 56,
@@ -96,3 +96,12 @@ export default {
     verticalAlign: 'middle'
   }
 };
+
+export default Object.keys(typography).reduce((acc, curr) => {
+  acc[curr] = {
+    ...typography[curr],
+    textOverflow: 'ellipsis',
+    maxLinesSuffix: '...'
+  };
+  return acc;
+}, {});
