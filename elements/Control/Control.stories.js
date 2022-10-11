@@ -84,6 +84,16 @@ const sharedArgTypes = {
     table: {
       defaultValue: { summary: 'false' }
     }
+  },
+  justify: {
+    control: 'radio',
+    defaultValue: 'center',
+    description:
+      'Justification of control content; only applies to the title when prefix and title are both defined',
+    options: ['left', 'center', 'right'],
+    table: {
+      defaultValue: { summary: 'center' }
+    }
   }
 };
 

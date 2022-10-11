@@ -89,12 +89,11 @@ describe('Control', () => {
 
   describe('logo', () => {
     describe('provided', () => {
-      it('justify should be left and prefix should display logo', () => {
+      it('prefix should display logo', () => {
         checkPrefixTag();
 
         component.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
-        expect(component.justify).toEqual('left');
         expect(component._prefix.icon).toEqual(xfinityLogo);
       });
     });
@@ -116,12 +115,11 @@ describe('Control', () => {
 
   describe('icon', () => {
     describe('provided', () => {
-      it('justify should be center and prefix should display icon', () => {
+      it('prefix should display icon', () => {
         checkPrefixTag();
 
         component.icon = lightningIcon;
         testRenderer.forceAllUpdates();
-        expect(component.justify).toEqual('center');
         expect(component._prefix.icon).toEqual(lightningIcon);
       });
 
@@ -144,11 +142,6 @@ describe('Control', () => {
         expect(component._prefix).toBeNull();
       });
     });
-  });
-
-  it('If no prefix (logo or icon) is provided, justify should be center', () => {
-    expect(component._Prefix).toBeUndefined();
-    expect(component.justify).toEqual('center');
   });
 
   describe('_setPrefix', () => {
@@ -193,6 +186,143 @@ describe('Control', () => {
       component.logo = xfinityLogo;
       component.title = null;
       expect(component._paddingRight).toEqual(component.style.paddingXNoTitle);
+    });
+  });
+
+  describe('_updateContentPosition', () => {
+    describe('justify LEFT', () => {
+      it('Title x should be 0 if just icon displayed', () => {
+        component.justify = 'left';
+        component.icon = lightningIcon;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(0);
+        expect(component._Title.mountX).toEqual(0);
+      });
+
+      it('Title x should be 0 if logo is displayed', () => {
+        component.justify = 'left';
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(0);
+        expect(component._Title.mountX).toEqual(0);
+      });
+
+      it('Title x should be 0 if both logo and icon are defined', () => {
+        component.justify = 'left';
+        component.icon = lightningIcon;
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(0);
+        expect(component._Title.mountX).toEqual(0);
+      });
+    });
+
+    describe('justify RIGHT', () => {
+      it('should set Title x and mountX to 0 if the fixed component width is less than content width', () => {
+        component.w = 20;
+        component.fixed = true;
+        component.justify = 'right';
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(0);
+        expect(component._Title.mountX).toEqual(0);
+      });
+
+      it('should patch the title position to the right if the fixed width is much greater than the content width', () => {
+        component.w = 500;
+        component.fixed = true;
+        component.justify = 'right';
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(
+          component.w -
+            (component._paddingLeft +
+              component._paddingRight +
+              component._Prefix.w +
+              component.style.titlePadding)
+        );
+        expect(component._Title.mountX).toEqual(1);
+      });
+    });
+
+    describe('justify CENTER', () => {
+      it('should set Title x and mountX to 0 if fixed and the component width is less than content width', () => {
+        component.justify = 'center';
+        component.fixed = true;
+        component.w = 20;
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(0);
+        expect(component._Title.mountX).toEqual(0);
+      });
+
+      it('should find the middle when icon is defined and fixed width is greater than content width', () => {
+        component.justify = 'center';
+        component.fixed = true;
+        component.w = 500;
+        component.icon = lightningIcon;
+        component.logo = null;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(
+          (component.w -
+            (component._paddingLeft + component._Prefix.w) -
+            component._paddingRight) /
+            2
+        );
+        expect(component._Title.mountX).toEqual(0.5);
+      });
+
+      it('should find the middle when logo is defined and fixed width is greater than content width', () => {
+        component.justify = 'center';
+        component.fixed = true;
+        component.w = 500;
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(
+          (component.w -
+            (component._paddingLeft + component._Prefix.w) -
+            component._paddingRight) /
+            2
+        );
+        expect(component._Title.mountX).toEqual(0.5);
+      });
+
+      it('should have a different calculation when fixed is false', () => {
+        component.justify = 'center';
+        component.fixed = false;
+        component.w = 500;
+        component.logo = xfinityLogo;
+        testRenderer.forceAllUpdates();
+
+        expect(component._Title.x).toEqual(
+          (component.w -
+            (component._paddingLeft +
+              component._Prefix.w +
+              component.style.titlePadding) -
+            component._paddingRight) /
+            2
+        );
+        expect(component._Title.mountX).toEqual(0.5);
+      });
+    });
+
+    it('should run through Button getContentX if Control width is greater than content width', () => {
+      component.title = null;
+      component.logo = xfinityLogo;
+      component.w = 200;
+      component.fixed = true;
+      testRenderer.forceAllUpdates();
+
+      expect(component._Content.x).toBe(component.w / 2);
+      expect(component._Content.mountX).toBe(0.5);
     });
   });
 });

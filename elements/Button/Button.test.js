@@ -149,7 +149,7 @@ describe('Button', () => {
       expect(component._Suffix.items.length).toEqual(component.suffix.length);
     });
 
-    it('Suffix should be positioned based on the title and prefix postion', () => {
+    it('Suffix should be positioned based on the title and prefix position', () => {
       expect(component._Prefix).toBeUndefined();
 
       component.prefix = [{ type: Icon }];
@@ -161,7 +161,7 @@ describe('Button', () => {
       );
     });
 
-    it('Suffix should be postioned horizontally at zero if title is empty', () => {
+    it('Suffix should be positioned horizontally at zero if title is empty', () => {
       component.title = '';
       testRenderer.forceAllUpdates();
       expect(component._hasTitle).toBeFalsy();
