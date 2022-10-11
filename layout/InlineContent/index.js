@@ -10,17 +10,11 @@ class InlineContent extends Base {
     return [
       'content',
       'contentProperties',
-      'textStyle',
-      'justify',
-      'iconW',
-      'iconH',
-      'iconY',
-      'textY',
       'badgeY',
-      'contentSpacing',
       'badgeProperties',
+      'justify',
       'contentWrap',
-      'textStyles'
+      'customStyleMappings'
     ];
   }
 
@@ -58,10 +52,10 @@ class InlineContent extends Base {
         const base = {
           flexItem: {
             ...this.contentProperties,
-            marginBottom: isLast ? 0 : this._marginBottom,
+            marginBottom: isLast ? 0 : this.style.marginBottom,
             marginRight: isLast
               ? 0
-              : this.contentSpacing || this.contentProperties.marginRight
+              : this.style.contentSpacing || this.contentProperties.marginRight
           }
         };
         if (typeof item === 'string' || item.text) {
@@ -124,33 +118,35 @@ class InlineContent extends Base {
 
   _createIcon(base, iconProps) {
     const y =
-      (this.textHeight > this.textStyle.lineHeight
+      (this.textHeight > this.style.textStyle.lineHeight
         ? this.textHeight
-        : this.textStyle.lineHeight) - this.style.iconH;
+        : this.style.textStyle.lineHeight) - this.style.iconH;
     return {
       ...base,
       type: Icon,
-      y: this.iconY !== undefined ? this.iconY : y,
-      w: this.iconW !== undefined ? this.iconW : this.style.iconW,
-      h: this.iconH !== undefined ? this.iconH : this.style.iconH,
+      y: y,
+      w: this.style.iconW,
+      h: this.style.iconH,
       ...iconProps
     };
   }
 
   _createText(base, text) {
     const textOverrideStyles =
-      typeof text.style === 'string' ? this.textStyles[text.style] : text.style;
-    const textObj = {
+      typeof text.style === 'string'
+        ? this.customStyleMappings[text.style]
+        : text.style;
+
+    return {
       ...base,
       y: this.textY !== undefined ? this.textY : this.style.textY,
       h: this.textHeight,
       text: {
-        ...this.textStyle,
+        ...this.style.textStyle,
         ...textOverrideStyles,
         text: text.text || text
       }
     };
-    return textObj;
   }
 
   _createBadge(base, badge) {
@@ -166,9 +162,9 @@ class InlineContent extends Base {
   $loadedBadge(badge) {
     if (this.badgeY === undefined) {
       badge.y =
-        (this.textHeight > this.textStyle.lineHeight
+        (this.textHeight > this.style.textStyle.lineHeight
           ? this.textHeight
-          : this.textStyle.lineHeight) - badge.h;
+          : this.style.textStyle.lineHeight) - badge.h;
     }
   }
 
@@ -202,6 +198,7 @@ class InlineContent extends Base {
       if (content && !Array.isArray(content)) {
         parsedContent = parseInlineContent(content);
       }
+
       this._parsedContent = this._formatSpaces(parsedContent);
     }
     return content;
@@ -227,34 +224,22 @@ class InlineContent extends Base {
     return this._contentProperties || {};
   }
 
-  _setTextStyles(textStyles) {
-    if (typeof textStyles === 'object') {
-      return textStyles;
+  _setCustomStyleMappings(customStyleMappings) {
+    if (typeof customStyleMappings === 'object') {
+      return customStyleMappings;
     }
   }
 
-  _getTextStyles() {
-    return this._textStyles || {};
-  }
-
-  _getTextStyle() {
-    return this._textStyle != undefined
-      ? this._textStyle
-      : {
-          maxLines: this.style.maxLines,
-          ...this.style.textStyle
-        };
-  }
-
-  _getContentSpacing() {
-    return this._contentSpacing != undefined
-      ? this._contentSpacing
-      : this.style.contentSpacing;
+  _getCustomStyleMappings() {
+    return this._customStyleMappings || {};
   }
 
   get textHeight() {
     const offset = this._marginBottom < 0 ? this._marginBottom : 0;
-    return (this.textStyle.lineHeight || this.textStyle.fontSize) - offset;
+    return (
+      (this.style.textStyle.lineHeight || this.style.textStyle.fontSize) -
+      offset
+    );
   }
 
   get _marginBottom() {

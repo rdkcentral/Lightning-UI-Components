@@ -172,7 +172,7 @@ export const WithInlineContentString = () =>
           w: 400,
           content:
             'This is an example of using custom markup {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.',
-          textStyles: {
+          customStyleMappings: {
             italic: {
               fontStyle: 'italic',
               textColor: getHexColor('FF6194')
