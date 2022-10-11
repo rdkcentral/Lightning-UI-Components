@@ -12,9 +12,7 @@ export default theme => ({
     text: {
       ...theme.typography.button1,
       verticalAlign: 'top',
-      wordWrap: false,
-      textOverflow: 'ellipsis',
-      maxLinesSuffix: '...'
+      wordWrap: false
     }
   },
 
@@ -23,9 +21,7 @@ export default theme => ({
     text: {
       ...theme.typography.body3,
       verticalAlign: 'top',
-      wordWrap: false,
-      textOverflow: 'ellipsis',
-      maxLinesSuffix: '...'
+      wordWrap: false
     }
   },
   focused: {
