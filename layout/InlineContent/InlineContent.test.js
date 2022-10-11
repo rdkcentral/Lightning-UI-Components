@@ -1,6 +1,24 @@
 import TestUtils from '../../test/lightning-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
+import defaultThemeStyles, { base } from './InlineContent.styles';
+import baseTheme from '../../themes/base';
+import xfinityTheme from '../../themes/xfinity';
+
+jest.mock('./InlineContent.styles', () => {
+  const originalDefaultModule = jest.requireActual(
+    './InlineContent.styles'
+  ).default;
+  const originalBase = jest.requireActual('./InlineContent.styles').base;
+
+  return {
+    __esModule: true,
+    default: jest
+      .fn()
+      .mockImplementation((...args) => originalDefaultModule(...args)),
+    base: jest.fn().mockImplementation((...args) => originalBase(...args))
+  };
+});
 
 const createInlineContent = TestUtils.makeCreateComponent(InlineContent);
 
@@ -8,8 +26,13 @@ describe('InlineContent', () => {
   let inlineContent, testRenderer;
 
   beforeEach(() => {
-    [inlineContent, testRenderer] = createInlineContent();
+    defaultThemeStyles.mockClear();
+    [inlineContent, testRenderer] = createInlineContent(
+      {},
+      { spyOnMethods: ['_update'] }
+    );
   });
+
   afterEach(() => {
     inlineContent = null;
     testRenderer = null;
@@ -18,6 +41,30 @@ describe('InlineContent', () => {
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+  });
+
+  it('has a base theme', () => {
+    expect(typeof base).toBe('function');
+    expect(base(baseTheme)).toEqual(
+      expect.objectContaining({
+        textY: expect.any(Number),
+        iconW: expect.any(Number),
+        iconH: expect.any(Number),
+        contentSpacing: expect.any(Number),
+        marginBottom: expect.any(Number),
+        textStyle: expect.any(Object),
+        maxLines: expect.any(Number),
+        justify: expect.any(String)
+      })
+    );
+  });
+
+  it('updates to Xfinity theme text', () => {
+    inlineContent.base = xfinityTheme;
+    inlineContent.content = 'This should be in Xfinity font.';
+    expect(inlineContent.style.textStyle).toEqual(
+      xfinityTheme.typography.body1
+    );
   });
 
   it('should update the content array', () => {
@@ -261,14 +308,14 @@ describe('InlineContent', () => {
     expect(newline.h).toBe(0);
   });
 
-  it('should use user entered textStyles when specified for a text object', async () => {
+  it('should use user entered textStyleOptions when specified for a text object', async () => {
     const color = getHexColor('ff0000');
-    inlineContent.textStyles = { red: { textColor: color } };
+    inlineContent.textStyleOptions = { red: { textColor: color } };
     inlineContent.content = [{ text: 'red text', style: 'red' }];
 
     [inlineContent, testRenderer] = createInlineContent(
       {
-        textStyles: { red: { textColor: color } },
+        customStyleMappings: { red: { textColor: color } },
         content: [{ text: 'red text', style: 'red' }]
       },
       { spyOnMethods: ['_update'] }

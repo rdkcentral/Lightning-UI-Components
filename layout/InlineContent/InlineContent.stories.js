@@ -8,7 +8,6 @@ import { getHexColor } from '../../utils';
 export default {
   title: 'Layout / InlineContent',
   args: {
-    contentSpacing: 8,
     contentWrap: false,
     justify: 'center',
     contentProperties: { marginBottom: -4 }
@@ -18,19 +17,7 @@ export default {
       action: 'Inline Content textures loaded',
       description: 'action fired when $loadedInlineContent has been called'
     },
-    contentSpacing: {
-      control: {
-        type: 'number',
-        min: 0,
-        step: 1
-      },
-      defaultValue: 8,
-      description: 'padding between all content items',
-      type: 'string',
-      table: {
-        defaultValue: { summary: 8 }
-      }
-    },
+
     contentProperties: {
       control: {
         type: 'object'
@@ -89,10 +76,15 @@ export const Basic = args =>
           type: InlineContent,
           x: 200,
           w: 200,
-          contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
           justify: args.justify,
+          customStyleMappings: {
+            italic: {
+              fontStyle: 'italic',
+              textColor: getHexColor('00ff00')
+            }
+          },
           content: [
             'Text',
             {
@@ -112,7 +104,11 @@ export const Basic = args =>
             },
             'for fun',
             { badge: 'HD', title: 'HD' },
-            { badge: 'SD', title: 'SD' }
+            { badge: 'SD', title: 'SD' },
+            {
+              text: 'make some text italic',
+              style: 'italic'
+            }
           ]
         }
       };
@@ -135,25 +131,24 @@ export const WithNewLines = args =>
           type: InlineContent,
           x: 200,
           w: 400,
-          contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
           justify: args.justify,
           content: [
-            'Example with',
+            'Example with multiple lines',
             {
               icon: lightningbolt,
               color: getHexColor('00ff00'),
               title: 'Green Lightning Bolt'
             },
             { newline: true },
-            'line breaks ({ newline: true})',
+            'this line should break here',
             { newline: true },
             {
               icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
               title: 'Rotten Tomatoes rating'
             },
-            'placed throughout',
+            'another line break here',
             { newline: true },
             { badge: 'HD', title: 'HD' },
             { newline: true },
@@ -180,11 +175,10 @@ export const WithParsing = args =>
           type: InlineContent,
           x: 200,
           w: 400,
-          contentSpacing: args.contentSpacing,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
           justify: args.justify,
-          textStyles: {
+          customStyleMappings: {
             italic: {
               fontStyle: 'italic',
               textColor: getHexColor('FF6194')

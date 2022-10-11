@@ -71,5 +71,5 @@ export default class InlineContent extends InlineContent_base {
   contentSpacing?: number;
   badgeProperties?: Partial<Badge>;
   contentWrap?: boolean;
-  textStyles?: Record<string, unknown>;
+  textStyleOptions?: Record<string, unknown>;
 }
