@@ -17,9 +17,10 @@ class Control extends ButtonSmall {
   }
 
   _update() {
-    this._updateCollapseStatus();
+    // ordering this way to make sure that this._Title is defined so the title visibility can be set properly when _updateCollapseStatus is called
     this._updatePrefixStyle();
     super._update();
+    this._updateCollapseStatus();
   }
 
   _updateCollapseStatus() {
@@ -33,16 +34,79 @@ class Control extends ButtonSmall {
     if (this._prefix) {
       // checking logo first since it takes precedence
       if (this.logo) {
-        this.justify = 'left';
         this._updatePrefixObj(this.logo, {
           style: { color: undefined, ...this.style.logoStyles }
         });
       } else if (this.icon) {
-        this.justify = 'center';
         this._updatePrefixObj(this.icon, { style: this.style.iconStyles });
       }
+    }
+  }
+
+  // optimization
+  // sets Title's x and mountX values
+  _patchTitle(x, mountX) {
+    this._Title.patch({
+      x,
+      mountX
+    });
+  }
+
+  _updateContentPosition() {
+    if (this._prefix && this._Title) {
+      // placing prefix always to the left if title is present
+      // justification should only apply to title in this case
+      this._Content.patch({
+        mountX: 0,
+        x: this._paddingLeft
+      });
+
+      switch (this._justify) {
+        case 'left':
+          this._patchTitle(0, 0);
+          break;
+        case 'right':
+          if (this.w < this._Prefix.w + this._Title.w) {
+            this._patchTitle(0, 0);
+          } else {
+            const leftOverSpace =
+              this.w -
+              (this._paddingLeft +
+                this._paddingRight +
+                this._Prefix.w +
+                this.style.titlePadding);
+
+            this._patchTitle(leftOverSpace, 1);
+          }
+          break;
+        case 'center':
+        default:
+          if (this.fixed) {
+            // if the component width is less than the prefix and title then we go to the default padding on left and right of title
+            if (this.w < this._Prefix.w + this._Title.w) {
+              this._patchTitle(0, 0);
+            } else {
+              const middle =
+                (this.w -
+                  (this._paddingLeft + this._Prefix.w + this._paddingRight)) /
+                2;
+              this._patchTitle(middle, 0.5);
+            }
+          } else {
+            const middle =
+              (this.w -
+                (this._paddingLeft +
+                  this._Prefix.w +
+                  this.style.titlePadding +
+                  this._paddingRight)) /
+              2;
+            this._patchTitle(middle, 0.5);
+          }
+          break;
+      }
     } else {
-      this.justify = 'center';
+      super._updateContentPosition();
+      this._Title && this._patchTitle(0, 0); // RESET Title back to original position
     }
   }
 

@@ -188,26 +188,7 @@ class Button extends Surface {
   }
 
   _updateContentPosition() {
-    let mountX;
-    let x;
-
-    switch (this.justify) {
-      case 'left':
-        mountX = 0;
-        x = this._paddingLeft;
-        break;
-      case 'right':
-        mountX = 1;
-        x = this.w - this._paddingRight;
-        break;
-      case 'center':
-      default:
-        mountX = 0.5;
-        x = this.w / 2;
-        break;
-    }
-
-    this._Content.patch({ mountX, x });
+    this._Content.patch(this._contentProps);
   }
 
   _updateSurfaceDimensions() {
@@ -216,8 +197,12 @@ class Button extends Surface {
       newWidth = this._w;
     } else {
       // if no title, ignore minWidth and use prefix/suffix width
+      // when the title is collapsed, width should be the same as if there is no title
       newWidth =
-        !this._hasTitle && (this._hasPrefix || this._hasSuffix)
+        (!this._hasTitle && (this._hasPrefix || this._hasSuffix)) ||
+        (this._Title &&
+          !this._Title.visible &&
+          (this._hasPrefix || this._hasSuffix))
           ? this._contentW + this._paddingX
           : Math.max(this._contentW + this._paddingX, this.style.minWidth);
     }
@@ -244,6 +229,28 @@ class Button extends Surface {
 
   _getJustify() {
     return !!this._justify ? this._justify : this.style.justify;
+  }
+
+  get _contentProps() {
+    let mountX;
+    let x;
+
+    switch (this.justify) {
+      case 'left':
+        mountX = 0;
+        x = this._paddingLeft;
+        break;
+      case 'right':
+        mountX = 1;
+        x = this.w - this._paddingRight;
+        break;
+      case 'center':
+      default:
+        mountX = 0.5;
+        x = this.w / 2;
+        break;
+    }
+    return { mountX, x };
   }
 
   get _hasPrefix() {
