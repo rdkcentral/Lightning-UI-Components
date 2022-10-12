@@ -42,12 +42,9 @@ The default progress bar width is 410.
 
 ### Style Properties
 
-| name | type | description |
-| ---- | ---- | ----------- |
-
-| animationCurve | string | sets the transition timing function the change in progress animation should use |
-| animationDelay | number | sets the amount of time to wait before animating the progress change |
-| animationDuration | number | sets the amount of time the change in progress should take |
-| barColor | number,string | bar background, 'barColor' overrides default, formats(#000000 | 0x0000000 | 12345678) |
-| progressColor | number,string | progress fill, 'progressColor' overrides default, formats(#000000 | 0x0000000 | 12345678) |
-| radius | number\|array | radius of the bar corners, 'radius' overrides default |
+| name          | type           | description                                                      |
+| ------------- | -------------- | ---------------------------------------------------------------- |
+| animation     | object         | sets the properties to use on the animation of a progress change |
+| barColor      | number\|string | color of the background "bar" color                              |
+| progressColor | number\|string | color of the foreground "progress"                               |
+| radius        | number\|array  | radius to apply to the bar and progress corners                  |
