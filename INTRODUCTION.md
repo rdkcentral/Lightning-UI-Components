@@ -4,14 +4,9 @@ The components in this UI Library are built on [LightningJS](https://github.com/
 
 ## Using Storybook
 
-Storybook is a framework for building UI Component libraries. It allows us to develop, test, and review components in an isolated environment, and share these components with consuming teams. Each component is listed along the left hand menu, broken down into three types:
-- elements
-- layout
-- patterns
+[Storybook](https://storybook.js.org/) is an open-source framework for sharing UI Component libraries. It allows us to develop, test, and review components in an isolated environment. It acts as living documentation, both for the designers and the engineers utilizing the components in their applications.
 
-Also included here are two more sections called Collections and Mixins. The Mixins section contains helpers for developing within the LightningJS framework, while Collections contains groups of similar components so they can be viewed side by side.
-
-When viewing a component, we're presented with two tabs - Canvas and Docs.
+Each component is listed along the left hand menu. When viewing a component, we're presented with two tabs - Canvas and Docs.
 
 In **The Canvas** we can see how the component stands in isolation as well as adjust various aspects of it via the `controls` panel. These controls allow us to change the parameters of the component and see how it will look in different states, such as either focused or unfocused.
 
