@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import TestUtils from '../../test/lightning-test-utils';
+import Tile from '../../elements/Tile';
 import Row from '.';
 
 const baseItem = {
@@ -212,6 +213,23 @@ describe('Row', () => {
     it('should not add items when none are passed to the method', () => {
       row.appendItemsAt();
       expect(row.items.length).toBe(initialLength);
+    });
+    it('should default itemW to 0 when w and innerW do not exist on the item to prevent _totalAddedWidth being set to NaN', () => {
+      row.appendItemsAt(
+        [
+          {
+            type: Tile,
+            itemLayout: {
+              ratioX: 16,
+              ratioY: 9,
+              upCount: 4
+            }
+          }
+        ],
+        0
+      );
+
+      expect(row._totalAddedWidth).toBe(row._calculatedItemSpacing);
     });
   });
 
