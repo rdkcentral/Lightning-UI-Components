@@ -19,11 +19,11 @@ const COLORS = {
   black: '#000000',
   grey: GREY['grey-40'],
   red: '#e74c3c',
-  orange: 'dc7633',
-  yellow: 'f7dc6f',
-  green: '2Ecc71',
+  orange: '#dc7633',
+  yellow: '#f7dc6f',
+  green: '#2Ecc71',
   blue: BLUE['blue-40'],
-  purple: '663399'
+  purple: '#663399'
 };
 
 export default {
