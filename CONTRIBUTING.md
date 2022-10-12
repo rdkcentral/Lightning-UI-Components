@@ -13,11 +13,11 @@ The following is a set of guidelines for contributing to `@lightning/ui`. These 
     - [Suggesting Enhancements](#suggesting-enhancements)
     - [Your First Code Contribution](#your-first-code-contribution)
     - [Pull Requests](#pull-requests)
-  - [Styleguides](#styleguides)
+  - [Style Guides](#style-guides)
     - [Git Commit Messages](#git-commit-messages)
-    - [JavaScript Styleguide](#javascript-styleguide)
-    - [Test Styleguide](#test-styleguide)
-    - [Documentation Styleguide](#documentation-styleguide)
+    - [JavaScript Style Guide](#javascript-style-guide)
+    - [Test Style Guide](#test-style-guide)
+    - [Documentation Style Guide](#documentation-style-guide)
       - [Live Examples](#live-examples)
       - [Storybook](#storybook)
       - [Usage Documentation](#usage-documentation)
@@ -37,28 +37,31 @@ The following is a set of guidelines for contributing to `@lightning/ui`. These 
 
 **Discuss on Slack**
 
-* <a href="https://slack.com/app_redirect?team=T024VU91V&channel=C016PQ0G4HY" target="_blank">@lightning/ui support channel</a>
+* <a href="https://slack.com/app_redirect?team=T024VU91V&channel=C016PQ0G4HY" target="_blank">@lightning/ui version 4 (without theming) support channel</a>
+
+* <a href="https://cim.slack.com/archives/C030K2PPQAY"> @lightning/ui version 5 with theming support channel </a>
+
 * <a href="https://slack.com/app_redirect?team=T024VU91V&channel=CLGQ2MFU4" target="_blank">General Lightning support channel</a>
 
 ## How Can I Contribute?
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for `@lightning/ui`. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
+This section guides you through submitting a bug report for `@lightning/ui`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
-When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](../.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
+When you are creating a bug report please check the version of LUI that you are using. In the bug report include as many details as possible. Then post it to the appropriate slack channel. If you are on version 4 post it to the [lightning-ui-support-4-0](https://cim.slack.com/archives/C016PQ0G4HY) channel otherwise if you are on version 5 post it to the [lightning-ui-support-5-0-theming](https://cim.slack.com/archives/C030K2PPQAY) channel. 
+
+
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
 #### How Do I Submit A (Good) Bug Report?
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information by filling in [the template](../.github/ISSUE_TEMPLATE/bug_report.md).
+Bugs are tracked on Slack specifically in the lightning ui support channel.
 
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion for `@lightning/ui`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
-
-Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](../.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -73,8 +76,9 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 * **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
 * **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
-* **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of Atom which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
+* **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of Atom which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) on Linux.
 * **Explain why this enhancement would be useful** to most `@lightning/ui` users.
+* **Include any additional information** that might be helpful 
 
 ### Your First Code Contribution
 
@@ -103,12 +107,11 @@ Follow the instructions below to get started with local development:
 
 **Requirements**
 
-Before a new component will be reviewed, it must meet the following prerequisites:
+Before a new component will be reviewed, it must meet the following prerequisite:
 
 * Component concept has been approved by @Lightning/lightning-team
-* Component [issue](ISSUE_TEMPLATE/new-component.md) is created to track development
 
-A component is considered "done" when the issue checklist is complete and the issue is closed. Development on a component may be broken up in separate PRs or done all at once, use your best judgement when breaking up work.
+> **Note:** Development on a component may be broken up in separate PRs or done all at once, use your best judgement when breaking up work.
 
 **Development**
 
@@ -143,18 +146,18 @@ The process described here has several goals:
 
 Please follow these steps to have your contribution considered by the maintainers:
 
-1. Follow all instructions in [the template](PULL_REQUEST_TEMPLATE.md)
-1. Follow the [styleguides](#styleguides)
-1. Follow the [new component guide](#new-component) if you are submitting a new component
-1. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What if the status checks are failing?</summary>If a status check is failing, and you believe that the failure is unrelated to your change, please leave a comment on the pull request explaining why you believe the failure is unrelated. A maintainer will re-run the status check for you. If we conclude that the failure was a false positive, then we will open an issue to track that problem with our status check suite.</details>
+1. When creating a pull request, fill out the default template. Include as much detail as possible, the changes made in the pull request and how to best approach testing the changes 
+2. Follow the [style guides](#style-guides)
+3. Follow the [new component guide](#new-component) if you are submitting a new component
+4. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What if the status checks are failing?</summary>If a status check is failing, and you believe that the failure is unrelated to your change, please leave a comment on the pull request explaining why you believe the failure is unrelated. A maintainer will re-run the status check for you. If we conclude that the failure was a false positive, then we will open an issue to track that problem with our status check suite.</details>
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
 
-## Styleguides
+## Style Guides
 
 ### Git Commit Messages
 
-**IMPORTANT**: `@lightning/ui` releases are automatically triggered on merge to the `main` branch (and possibly other release branches like `next`). The new version number is determined by  [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
+**IMPORTANT**: `@lightning/ui` releases are automatically triggered on merge to the `release` branch (and possibly other release branches like `next`). The new version number is determined by  [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
 
 This is the message template:
 
@@ -200,14 +203,14 @@ Example: `feat(Button): add key-down handler`
 
 * Start description with lower-case letter ("do something" not "Do something")
 * Use the present tense ("add feature" not "added feature")
-* Use the imperative mood ("move cursor to..." not "move cursor to...")
+* Use the imperative mood ("move cursor to..." not "the cursor was moved to...")
 * Limit the first line to 72 characters or less
 * Reference issues and pull requests liberally in the body
 * When only changing documentation, include `[ci skip]` in the commit title
 
-### JavaScript Styleguide
+### JavaScript Style Guide
 
-`@lightning/ui` enforces [the Prettier styleguide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
+`@lightning/ui` enforces [the Prettier style guide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
 
 To run the linter manually:
 
@@ -218,7 +221,7 @@ npm run lint
 npm run lint -- --fix
 ```
 
-### Test Styleguide
+### Test Style Guide
 
 `@lightning/ui` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
 
@@ -259,7 +262,7 @@ it('should stop loading once title is set', async () => {
 });
 ```
 
-### Documentation Styleguide
+### Documentation Style Guide
 
 Component documentation is covered through a combination of `.mdx` and `.stories.js` files within each component directory. This guide is intended to help you understand how to add [usage documentation](#usage-documentation), [API documentation](#api-documentation), and [live examples](#live-examples).
 
@@ -356,7 +359,7 @@ Basic.argTypes = {
 
 There are a few new concepts here: **args**, **argTypes**, **action**, and **control**. 
 
-Let's break down **argTypes** first. Defining **argTypes** on the story function is how Storybook knows about controls and actions. `onEnter: { action: 'onEnter' }` tells Storybook to set `args.onEnter` as a function with the label `'onEnter'`. `title: { control: 'text' }` tells Storybook to create a text input **control** for `args.title`. 
+Let's break down **argTypes** first. Defining **argTypes** on the story function is how Storybook knows the controls and actions. `onEnter: { action: 'onEnter' }` tells Storybook to set `args.onEnter` as a function with the label `'onEnter'`. `title: { control: 'text' }` tells Storybook to create a text input **control** for `args.title`. 
 
 Shifting focus to **args**, we can see that we have a definition for `'title'` but not for `'onEnter'`. Setting the **args** object on a story function tells Storybook what the _default values_ will be for controls defined in **argTypes**.
 
@@ -383,7 +386,7 @@ The callback accepts three arguments:
 
   - `argValue: any` - current value of the given arg key 
   - `storyComponent: lng.Component` - instance of returned class in the story
-  - `args: Object<any>` - complete args object passed into the storyFn
+  - `args: Object<any>` - complete args object passed into the Story function (the exported anonymous function all of the stories contain)
 
 The render logic for story previews lives in `./.storybook/preview.js`
 
@@ -394,16 +397,17 @@ Usage documentation lives in `<Type>/<Component>/<Component>.mdx`. [MDX](https:/
 
 If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
-<pre>
+``` js
 import { Canvas, Story } from '@storybook/addon-docs';
+import <Component> from '.';
 
-// title, description, etc.
+// title, description, etc. (eg # <Component>)
 
 ## Usage
 
 Implementation description here
 
-```js
+
 // example implementation
 import lng from '@lightningjs/core';
 import { MyComponent } from '@lightning/ui';
@@ -415,10 +419,7 @@ class Example extends lng.Component {
     };
   }
 }
-```
-</pre>
 
-```
 // Embed live example from Storybook
 <Canvas>
   <Story id="mycomponent--basic" />
@@ -462,6 +463,3 @@ name|type|required|default|description
 -|-|-|-|-
 -|-|-|-|-
 ```
-
-[beginner]:https://github.comcast.com/Lightning/lightning-ui/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3A%22beginner%22
-[help-wanted]:https://github.comcast.com/Lightning/lightning-ui/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
