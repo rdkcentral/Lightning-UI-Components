@@ -421,9 +421,10 @@ class Row extends FocusManager {
         },
         addIndex + itemIdx
       );
+      const itemW = item.w || item.innerW || 0;
       const extraItemSpacing = item.extraItemSpacing || 0;
       this._totalAddedWidth +=
-        item.w + this._calculatedItemSpacing + extraItemSpacing;
+        itemW + this._calculatedItemSpacing + extraItemSpacing;
     });
 
     if (this.selectedIndex >= this._lastAppendedIdx) {
