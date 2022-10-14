@@ -59,8 +59,8 @@ describe('context fonts', () => {
     const fontLoader = fonts.fontLoader;
     await fontLoader([
       ...fontArray,
-      { family: 'fontArray', urls: ['url1', 'url2', 'local(Arial)'] },
-      { family: 'invalid', url: 'invalid' }
+      { family: 'fontArray', src: ['url1', 'url2', 'local(Arial)'] },
+      { family: 'invalid', src: 'invalid' }
     ]);
 
     expect(document.fonts.values().map(({ family }) => family)).toEqual([
