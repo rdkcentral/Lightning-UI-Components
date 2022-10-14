@@ -17,17 +17,20 @@ export const fontLoader = fonts => {
   const promises = [];
   // Loop through all fonts in the array and attempt to load them using the FontFace Web API
   for (let i = 0; i < fonts.length; i++) {
-    const { family, url, urls, descriptors } = fonts[i];
+    const { family, src, descriptors } = fonts[i];
     // If url(s) are specified format them according to the spec https://developer.mozilla.org/en-US/docs/Web/API/FontFace
-    const src =
-      urls && Array.isArray(urls) && urls.length
-        ? urls
+    const fontSrc =
+      src && Array.isArray(src) && src.length
+        ? // loop through each string and format it in a way that's readable for the FontFace API
+          src
             .map(url => {
+              // if the url is a local font then the src is just the string provided in the array
+              // otherwise, format the url string like url(<urlString>)
               return url.substr(0, 5) === 'local' ? url : `url(${url})`; // Local system fonts are supported by passing a string starting with local. ex local(Impact)
             })
             .join(',')
-        : 'url(' + url + ')';
-    const fontFace = new FontFace(family, src, descriptors || {});
+        : 'url(' + src + ')';
+    const fontFace = new FontFace(family, fontSrc, descriptors || {});
     logger.info('Loading font', family);
     document.fonts.add(fontFace);
     // Push all pending promises into an array, theme manager will wait on everything to resolve before triggering another update cycle

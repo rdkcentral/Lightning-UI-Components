@@ -1,11 +1,11 @@
 export default [
   {
     family: 'XfinityBrownBold',
-    url: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff'
+    src: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff'
   },
   {
     family: 'DMSansRegular',
-    urls: [
+    src: [
       // Allow for fallbacks
       'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-regular.woff2',
       './fonts/Xfinity/dmsans-regular.woff2',
@@ -14,16 +14,16 @@ export default [
   },
   {
     family: 'DMSansBold',
-    urls: [
+    src: [
       'https://static.cimcontent.net/common-web-assets/fonts/dm-sans/dmsans-bold.woff2'
     ]
   },
   {
     family: 'XfinityStandardBold',
-    url: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff'
+    src: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff'
   },
   {
     family: 'XfinityStandardMedium',
-    url: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-medium.woff'
+    src: 'https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-medium.woff'
   }
 ];
