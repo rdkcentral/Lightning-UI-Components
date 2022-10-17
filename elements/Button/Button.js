@@ -209,8 +209,9 @@ class Button extends Surface {
 
     if (newWidth !== this.w) {
       this.w = newWidth;
-      this.fireAncestors('$itemChanged');
     }
+    // TODO breaks row resizing if this is wrapped in the above conditional
+    this.fireAncestors('$itemChanged');
   }
 
   _addButtonProps(arr) {
