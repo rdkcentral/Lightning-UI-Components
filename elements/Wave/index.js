@@ -47,7 +47,7 @@ class Wave extends Base {
   }
 
   _updateRectangleSize() {
-    this._h = this.w * this.style.lockedRatio;
+    this.h = this.w * this.style.lockedRatio;
     this._padding = this.w * this.style.lockedPaddingRatio;
     this._left2H = this._right1H = this.h * 2;
     this._middleH = this.h * 3;
