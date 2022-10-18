@@ -29,3 +29,7 @@ pipeline-experiment.yml
 
 # IntelliJ
 .idea
+
+#cypress
+/cypress/reports
+/cypress/videos
