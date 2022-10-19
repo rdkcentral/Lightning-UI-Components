@@ -4,6 +4,7 @@ import { getHexColor } from '../../utils';
 import defaultThemeStyles, { base } from './InlineContent.styles';
 import baseTheme from '../../themes/base';
 import xfinityTheme from '../../themes/xfinity';
+import context from '../../context';
 
 jest.mock('./InlineContent.styles', () => {
   const originalDefaultModule = jest.requireActual(
@@ -26,6 +27,7 @@ describe('InlineContent', () => {
   let inlineContent, testRenderer;
 
   beforeEach(() => {
+    context.setTheme(baseTheme);
     defaultThemeStyles.mockClear();
     [inlineContent, testRenderer] = createInlineContent(
       {},
@@ -59,11 +61,13 @@ describe('InlineContent', () => {
     );
   });
 
-  it('updates to Xfinity theme text', () => {
-    inlineContent.base = xfinityTheme;
+  it.only('updates to Xfinity theme text', async () => {
+    context.setTheme(xfinityTheme);
+    inlineContent.base = context.theme;
     inlineContent.content = 'This should be in Xfinity font.';
+    await inlineContent.__updateSpyPromise;
     expect(inlineContent.style.textStyle).toEqual(
-      xfinityTheme.typography.body1
+      context.theme.typography.body1
     );
   });
 

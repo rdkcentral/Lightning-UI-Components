@@ -76,6 +76,15 @@ Base.argTypes = {
       defaultValue: { summary: 'body1' }
     }
   },
+  marquee: {
+    control: 'boolean',
+    defaultValue: false,
+    description:
+      "Scrolls text when a single line of text is longer than the textbox's width",
+    table: {
+      defaultValue: { summary: 'false' }
+    }
+  },
   maxLines: {
     control: {
       type: 'number',

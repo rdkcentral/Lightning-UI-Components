@@ -2,9 +2,9 @@ import Base from '../../Base';
 import * as styles from './TextBox.styles';
 import { withExtensions } from '../../mixins';
 import { InlineContent } from '../../layout';
-import { isMarkupString } from '../../utils';
-import { getValidColor } from '../../utils';
+import { isMarkupString, getValidColor } from '../../utils';
 import context from '../../context';
+import Marquee from '../Marquee';
 
 class TextBox extends Base {
   static _template() {
@@ -22,7 +22,7 @@ class TextBox extends Base {
   }
 
   static get tags() {
-    return ['TextBox', 'Text', 'InlineContent'];
+    return ['InlineContent', 'Marquee', 'Text'];
   }
 
   static get properties() {
@@ -31,6 +31,7 @@ class TextBox extends Base {
       'textAlign',
       'textColor',
       'textStyle',
+      'marquee',
       'maxLines',
       'maxLinesSuffix',
       'verticalAlign',
@@ -97,7 +98,7 @@ class TextBox extends Base {
 
   _setMaxLines(maxLines) {
     if ('number' !== typeof maxLines || 0 > maxLines) {
-      return undefined;
+      return 0;
     }
     return maxLines;
   }
@@ -111,7 +112,7 @@ class TextBox extends Base {
 
   _setWordWrapWidth(wordWrapWidth) {
     if ('number' !== typeof wordWrapWidth || 0 > wordWrapWidth) {
-      return undefined;
+      return 0;
     }
     return wordWrapWidth;
   }
@@ -142,6 +143,7 @@ class TextBox extends Base {
       return;
     }
     this._isInlineContent ? this._updateInlineContent() : this._updateText();
+    this._updateMarquee();
   }
 
   _updateInlineContent() {
@@ -152,12 +154,16 @@ class TextBox extends Base {
       }
       return acc;
     }, {});
+    if (this.wordWrapWidth > 0) {
+      inlineContentPatch.w = this.wordWrapWidth;
+      inlineContentPatch.rtt = true;
+    }
     this.patch({
       alpha: 1,
       InlineContent: {
-        w: this.w,
         type: InlineContent,
         ...inlineContentPatch,
+        justify: 'flex-start',
         signals: {
           loadedInlineContent: '_notifyAncestors'
         }
@@ -168,10 +174,58 @@ class TextBox extends Base {
   _updateText() {
     this.patch({ InlineContent: undefined });
     if (!this._Text) {
-      this.patch({ Text: { text: { textBaseline: 'bottom' } } });
+      this.patch({ Text: {} });
       this._Text.on('txLoaded', this._setDimensions.bind(this));
     }
+    const fontStyle = this._textStyleSet;
+    if (this._Text) {
+      this._Text.patch({
+        y: this.style.offsetY,
+        x: this.style.offsetX,
+        text: {
+          ...fontStyle,
+          wordWrapWidth: fontStyle.wordWrapWidth,
+          maxLines: fontStyle.maxLines
+        }
+      });
+    }
+  }
 
+  _updateMarquee() {
+    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
+    if (this._Marquee && !this.marquee) {
+      this._toggleMarquee(contentTag);
+    }
+    if (this.marquee) {
+      const marqueePatch = {
+        w: this.wordWrapWidth,
+        h: this.h,
+        y: this.style.offsetY,
+        x: this.style.offsetX
+      };
+      if (!this._Marquee) {
+        marqueePatch.type = Marquee;
+      }
+      if (this._isInlineContent) {
+        this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
+        marqueePatch.contentTexture = contentTag.getTexture();
+        marqueePatch.w = this.wordWrapWidth;
+      } else {
+        marqueePatch.title = {
+          text: contentTag.text.text,
+          ...this._textStyleSet,
+          wordWrapWidth: 0,
+          maxLines: 1
+        };
+      }
+      this.patch({
+        Marquee: marqueePatch
+      });
+      this._toggleMarquee(contentTag);
+    }
+  }
+
+  get _textStyleSet() {
     const fontStyle = {
       ...(this.style.typography[this.style.defaultTextStyle] ||
         this.style.typography.body1),
@@ -187,16 +241,18 @@ class TextBox extends Base {
         fontStyle[key] = this[`_${prop}`];
       }
     });
-    this._updateTextGivenStyle(fontStyle);
+    return fontStyle;
   }
 
-  _updateTextGivenStyle(fontStyle) {
-    if (this._Text) {
-      this._Text.patch({
-        y: this.style.offsetY,
-        x: this.style.offsetX,
-        text: fontStyle
-      });
+  _toggleMarquee(contentTag) {
+    if (this.marquee) {
+      contentTag.alpha = 0.001;
+      this._Marquee.alpha = 1;
+      this._Marquee.startScrolling();
+    } else {
+      contentTag.alpha = 1;
+      this._Marquee.alpha = 0.001;
+      this._Marquee.stopScrolling();
     }
   }
 

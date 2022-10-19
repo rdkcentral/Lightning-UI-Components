@@ -11,7 +11,7 @@ type justifyContent =
   | 'space-around'
   | 'space-evenly';
 
-type TextContent =
+export type TextContent =
   | string
   | { text: string; style: string | Record<string, unknown> };
 

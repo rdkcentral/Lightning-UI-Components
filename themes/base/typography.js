@@ -1,4 +1,4 @@
-export default {
+const typography = {
   display1: {
     fontFace: 'Arial',
     fontSize: 75,
@@ -86,3 +86,11 @@ export default {
     verticalAlign: 'middle'
   }
 };
+
+export default Object.keys(typography).reduce((acc, curr) => {
+  acc[curr] = {
+    ...typography[curr],
+    textBaseline: 'bottom'
+  };
+  return acc;
+}, {});
