@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextBox renders 1`] = `
+exports[`TextBox basic renders 1`] = `
 Object {
   "Component": Object {
     "active": false,

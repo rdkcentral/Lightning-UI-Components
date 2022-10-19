@@ -1,5 +1,12 @@
 const MARKUP_STRING_PATTERN = /({ICON.*?}|{BADGE:.*?}|{NEWLINE}|{TEXT:.*?})/g;
 
+/**
+ * accepts a value as a parameter and returns true if the
+ * value is both a string and matches the MARKUP_STRING_PATTERN regex
+ *
+ * @param {*} str value to be tested
+ * @returns boolean
+ */
 export function isMarkupString(str = '') {
   if (typeof str !== 'string') {
     return false;

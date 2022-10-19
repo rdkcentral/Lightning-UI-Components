@@ -1,6 +1,7 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
 import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import { TextContent } from '../../layout/InlineContent';
 
 export interface TextBoxStyles {
   maxLinesSuffix: string;
@@ -16,7 +17,7 @@ declare const TextBox_base: WithThemeStylesConstructor<
 >;
 
 export default class TextBox extends TextBox_base {
-  content?: string;
+  content?: string | TextContent[];
   maxLines?: number;
   maxLinesSuffix?: lng.textures.TextTexture.Settings['maxLinesSuffix'];
   textStyle?: lng.textures.TextTexture.Settings | string;
