@@ -27,18 +27,57 @@ class Basic extends lng.Component {
   <Story id="elements-tile--basic" />
 </Canvas>
 
+### Metadata
+
+Tile uses MetadataTile for text formatting by default. The 'metadata' property takes an object with the same properties of MetadataTile and passes them to the MetadataTile.
+
+```js
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile,
+        metadata: {
+          title: 'Title',
+          description: 'Description'
+        }
+      }
+    };
+  }
+}
+```
+
+However, you can override which Metadata component is used by adding a 'type' to the 'metadata' object and then using that component's properties instead.
+
+```js
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile,
+        metadata: {
+          type: MetadataCard
+          title: 'Title',
+          subtitle: 'Subtitle'
+        }
+      }
+    };
+  }
+}
+```
+
 ### Properties
 
-| name               | type    | required | default   | description                                                                                                          |
-| ------------------ | ------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------------- |
-| artwork            | object  | false    | undefined | Object containing all properties supported in the [Artwork component](?path=/docs/elements-artwork--basic)           |
-| badge              | object  | false    | undefined | Object containing all properties supported in the [Badge component](?path=/docs/elements-badge--basic)               |
-| checkbox           | object  | false    | undefined | Object containing all properties supported in the [Checkbox component](?path=/docs/elements-checkbox--basic)         |
-| label              | object  | false    | undefined | Object containing all properties supported in the [Label component](?path=/docs/elements-label--basic)               |
-| metadataLocation   | string  | false    | 'bottom'  | Controls where there metadata is displayed in relation to the Tile. Available values are 'bottom' and 'inset'        |
-| persistentMetadata | boolean | false    | false     | Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus              |
-| progressBar        | object  | false    | undefined | Object containing all properties supported in the [ProgressBar component](?path=/docs/elements-progressbar--basic)   |
-| metadata           | object  | false    | undefined | Object containing all properties supported in the [MetadataTile component](?path=/docs/elements-metadatatile--basic) |
+| name               | type    | required | default   | description                                                                                                                                                                                                                   |
+| ------------------ | ------- | -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| artwork            | object  | false    | undefined | Object containing all properties supported in the [Artwork component](?path=/docs/elements-artwork--basic)                                                                                                                    |
+| badge              | object  | false    | undefined | Object containing all properties supported in the [Badge component](?path=/docs/elements-badge--basic)                                                                                                                        |
+| checkbox           | object  | false    | undefined | Object containing all properties supported in the [Checkbox component](?path=/docs/elements-checkbox--basic)                                                                                                                  |
+| label              | object  | false    | undefined | Object containing all properties supported in the [Label component](?path=/docs/elements-label--basic)                                                                                                                        |
+| metadata           | object  | false    | undefined | Object containing all properties supported in the [MetadataTile component](?path=/docs/elements-metadatatile--basic)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties |
+| metadataLocation   | string  | false    | 'bottom'  | Controls where there metadata is displayed in relation to the Tile. Available values are 'bottom' and 'inset'                                                                                                                 |
+| persistentMetadata | boolean | false    | false     | Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus                                                                                                                       |
+| progressBar        | object  | false    | undefined | Object containing all properties supported in the [ProgressBar component](?path=/docs/elements-progressbar--basic)                                                                                                            |
 
 ### Style Properties
 
