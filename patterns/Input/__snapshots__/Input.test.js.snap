@@ -120,7 +120,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "TitleWrapper": Object {
+        "TextWrapper": Object {
           "active": false,
           "alpha": 1,
           "attached": true,
@@ -138,7 +138,7 @@ Object {
           "pivot": 0.5,
           "pivotX": 0.5,
           "pivotY": 0.5,
-          "ref": "TitleWrapper",
+          "ref": "TextWrapper",
           "renderOfScreen": undefined,
           "renderToTexture": false,
           "scale": 1,
@@ -147,7 +147,7 @@ Object {
           "state": undefined,
           "tag": [Function],
           "tags": Array [
-            "TitleWrapper",
+            "TextWrapper",
           ],
           "visible": true,
           "w": 0,

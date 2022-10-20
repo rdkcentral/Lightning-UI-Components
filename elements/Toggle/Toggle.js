@@ -50,6 +50,7 @@ class Toggle extends Base {
     this._updateContainer();
     this._updateStroke();
     this._updateKnob();
+    this._updateTotalHeight();
   }
 
   _updateKnobPosition() {
@@ -115,6 +116,10 @@ class Toggle extends Base {
         false
       )
     });
+  }
+  _updateTotalHeight() {
+    this.h = this._Container.h;
+    this.fireAncestors('$itemChanged');
   }
 
   _updateStroke() {

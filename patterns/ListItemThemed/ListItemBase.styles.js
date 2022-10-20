@@ -1,47 +1,47 @@
+import { getWidthByColumnSpan } from '../../utils';
 export const base = theme => ({
-  w: theme.spacer.xxl * 12,
+  alpha: 1,
+  descriptionTextStyle: {
+    ...theme.typography.body3,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
+  },
   h: theme.spacer.xxl * 3,
-  titleStyle: theme.typography.headline3,
-  descriptionStyle: theme.typography.body3,
-  prefixStyle: {
-    w: theme.spacer.xxl,
-    h: theme.spacer.xxl
-  }
+  logoStyles: {
+    w: theme.spacer.xxl * 2,
+    h: theme.spacer.xxl * 2,
+    radius: theme.radius.sm
+  },
+  paddingX: theme.spacer.xl,
+  prefixH: theme.spacer.xxxl + theme.spacer.xl,
+  suffixH: theme.spacer.xxxl + theme.spacer.xl,
+  titlePadding: theme.spacer.lg,
+  titleTextStyle: {
+    ...theme.typography.headline3,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
+  },
+  w: getWidthByColumnSpan(3)
 });
 
 export const mode = theme => ({
-  unfocused: {
-    titleColor: theme.color.fillNeutral,
-    descriptionColor: theme.color.fillNeutral
-  },
   disabled: {
-    titleColor: theme.color.fillNeutralDisabled,
-    descriptionColor: theme.color.fillNeutralDisabled
+    alpha: theme.alpha.inactive,
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
+    titleTextStyle: { textColor: theme.color.textNeutralDisabled }
+  },
+  focused: {
+    descriptionTextStyle: { textColor: theme.color.fillInverse },
+    titleTextStyle: { textColor: theme.color.fillInverse }
   }
 });
 
 export const palette = theme => ({
-  neutral: {
-    mode: {
-      focused: {
-        titleColor: theme.color.fillInverse,
-        descriptionColor: theme.color.fillInverse
-      }
-    }
-  },
   inverse: {
     mode: {
       focused: {
-        titleColor: theme.color.fillNeutral,
-        descriptionColor: theme.color.fillNeutral
-      }
-    }
-  },
-  brand: {
-    mode: {
-      focused: {
-        titleColor: theme.color.fillNeutral,
-        descriptionColor: theme.color.fillNeutral
+        descriptionTextStyle: { textColor: theme.color.textInverseDisabled },
+        titleTextStyle: { textColor: theme.color.textNeutralDisabled }
       }
     }
   }

@@ -209,7 +209,7 @@ class Input extends Button {
   _updateCursorPosition() {
     let textPatch = {};
     if (this._isOverflow) {
-      this._TitleWrapper.patch({
+      this._TextWrapper.patch({
         w: this._visibleContentWidth,
         h: this._Title.h,
         clipping: true
@@ -219,7 +219,7 @@ class Input extends Button {
         x: this._visibleContentWidth - this._HiddenContent.renderWidth
       };
       this._Cursor.patch({
-        x: this._titleX + this._TitleWrapper.w
+        x: this._titleX + this._TextWrapper.w
       });
       this._Title.patch({
         ...textPatch
@@ -228,7 +228,7 @@ class Input extends Button {
       this._Cursor.patch({
         x: this._titleX + this._HiddenContent.w
       });
-      this._TitleWrapper.x = this._titleX;
+      this._TextWrapper.x = this._titleX;
     }
     this._HiddenContent.patch(textPatch);
   }

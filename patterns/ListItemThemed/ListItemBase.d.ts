@@ -1,37 +1,29 @@
+import lng from '@lightningjs/core';
 import Button, { ButtonStyles } from '../../elements/Button';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 
-type validTextStrings = // this might need to just be string
+type logoStylesObject = {
+  radius?: lng.Tools.CornerRadius;
+  h?: number;
+  w?: number;
+};
 
-    | 'display1'
-    | 'display2'
-    | 'headline1'
-    | 'headline2'
-    | 'headline3'
-    | 'body1'
-    | 'body2'
-    | 'body3'
-    | 'button1'
-    | 'button2'
-    | 'callout1'
-    | 'caption1';
+export type ListItemBaseStyles = ButtonStyles & {
+  alpha?: number;
+  descriptionTextStyle?: lng.textures.TextTexture.Settings;
+  h?: number;
+  logoStyles?: logoStylesObject;
+  paddingX: number;
+  prefixH: number;
+  suffixH: number;
+  titlePadding: number;
+  titleTextStyle?: lng.textures.TextTexture.Settings;
+};
 
-type __lngTextTextureType = Record<string, unknown>;
-
-type TextStyleType = validTextStrings | __lngTextTextureType;
-
-export interface ListItemBaseStyles extends ButtonStyles {
-  descriptionColor: number;
-  descriptionStyle?: TextStyleType;
-  titleColor: number;
-  titleStyle?: TextStyleType;
-}
-
-declare const ListItem_base: WithThemeStylesConstructor<
-  typeof Button,
-  ListItemBaseStyles
->;
-
-export default class ListItemBaseThemed extends ListItem_base {
+export default class ListItemBaseThemed extends Button {
   description?: string;
+  prefixLogo?: string;
+  shouldCollapse?: boolean;
+  suffixLogo?: string;
+  static get __themeStyle(): ListItemBaseStyles;
+  style: ListItemBaseStyles;
 }
