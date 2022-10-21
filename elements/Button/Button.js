@@ -67,7 +67,7 @@ class Button extends Surface {
     this._updateTruncation();
   }
 
-  _onTextBoxChanged() {
+  _onTitleTextBoxChanged() {
     this._updateAllPositioning();
   }
 
@@ -114,7 +114,7 @@ class Button extends Surface {
           mountY: 0.5,
           y: h => h / 2,
           signals: {
-            textBoxChanged: '_onTextBoxChanged'
+            textBoxChanged: '_onTitleTextBoxChanged'
           },
           ...titlePatch
         };
@@ -126,13 +126,7 @@ class Button extends Surface {
         }
       });
     } else {
-      this.patch({
-        Content: {
-          TextWrapper: {
-            Title: undefined
-          }
-        }
-      });
+      this._Content.patch({ TextWrapper: { Title: undefined } });
     }
   }
 

@@ -97,28 +97,43 @@ this.tag('Input').position; //=> 0
 
 The cursor position stays within the bounds of the current `value`, so it is always >= 0 and <= `value.length`
 
+### Password
+
+Inputs commonly mask the value of passwords and other secure values. To enable input masking, set password to true.
+
+```js
+this.tag('Input').password = true;
+The character used to mask input can be changed as well.
+
+this.tag('Input').mask = '•';
+To reveal the input, simply set password back to false.
+
+this.tag('Input').password = false;
+When password is true, the Announcer will say "Input hidden" when the Input is focused.
+```
+
 ## API
 
 ### Properties
 
-| name      | type    | required | default | description                                                                                                                                                    |
-| --------- | ------- | -------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| cursor    | number  | false    | -       | index of current cursor position                                                                                                                               |
-| eyebrow   | string  | false    | -       | Eyebrow of input container                                                                                                                                     |
-| listening | boolean | false    | -       | when true, input will accept changes from clear, insert, and backspace methods. When false, effects of those methods will be ignored and not affect the input. |
-| helpText  | string  | false    | -       | HelpText of input container                                                                                                                                    |
-| position  | number  | false    | -       | index of current cursor position                                                                                                                               |
+| name        | type    | required | default | description                                                                                                                                                    |
+| ----------- | ------- | -------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| actualTitle | string  | false    | -       | actualTitle is a proxy element for title which is used to store actual value typed when password is enabled                                                    |
+| cursor      | string  | false    | -       | cursor lets us know the current insert or delete position of title.                                                                                            |
+| eyebrow     | string  | false    | -       | Eyebrow of input container                                                                                                                                     |
+| helpText    | string  | false    | -       | HelpText of input container                                                                                                                                    |
+| listening   | boolean | false    | -       | when true, input will accept changes from clear, insert, and backspace methods. When false, effects of those methods will be ignored and not affect the input. |
+| mask        | string  | false    | -       | character to use as a mask when password is true                                                                                                               |
+| password    | boolean | false    | -       | determines whether input should be masked                                                                                                                      |
+| position    | number  | false    | -       | index of current cursor position                                                                                                                               |
 
 ### Style Properties
 
 | name             | type   | description                                                                            |
 | ---------------- | ------ | -------------------------------------------------------------------------------------- |
 | cursorStyles     | object | styles of the cursor                                                                   |
-| eyebrowColor     | string | color applied to eyebrow                                                               |
-| helpTextColor    | string | color applied to helpText                                                              |
+| eyebrowTextStyle | object | font properties to apply to the eyebrow                                                |
+| helpTextStyle    | object | font properties to apply to the helpText                                               |
 | minWidth         | number | used as a fallback width if no width is passed into the component and `fixed` is false |
 | paddingX         | number | space between the button horizontal edge and the content                               |
 | paddingY         | number | space between the button vertical edge and the content                                 |
-| suffixPadding    | number | padding between title and suffix                                                       |
-| supportTextStyle | string | font property applied to the eyebrow and help text                                     |
-| titleWrapperX    | number | space between the title and suffix                                                     |
