@@ -13,25 +13,23 @@ class Input extends Button {
   static _template() {
     return {
       ...super._template(),
-      justify: 'left',
-      fixed: true,
-      Eyebrow: {
-        type: TextBox
-      },
-      HelpText: {
-        type: TextBox
-      }
+      Eyebrow: { type: TextBox },
+      HelpText: { type: TextBox }
     };
   }
 
   static get properties() {
     return [
       ...super.properties,
+      'actualTitle',
       'cursor',
       'eyebrow',
       'helpText',
       'listening',
+      'mask',
+      'password',
       'position'
+      // TODO: should maybe remove "fixed" as an editable prop to make sure this is never dynamic
     ];
   }
 
@@ -47,106 +45,130 @@ class Input extends Button {
 
   _construct() {
     super._construct();
-    this.title = '';
+    this._title = '';
+    this.actualTitle = '';
     this.position = this.title ? this.title.length : 0;
-    this._w = this.style.minWidth;
+    this._justify = 'left';
+    this._fixed = true;
+    this.w = this.style.minWidth;
   }
 
   $itemChanged() {
     this._updateCursorPosition();
   }
 
-  _onHiddenContentChanged() {
+  _onTitleTextBoxChanged() {
+    super._onTitleTextBoxChanged();
+    this._updateHiddenContent();
+  }
+
+  _onHiddenTextBoxChanged() {
     this._updateCursorPosition();
-  }
-
-  clear() {
-    if (this.isCursorActive) {
-      this.title = '';
-      this.position = 0;
-    }
-  }
-
-  insert(content) {
-    if (this.isCursorActive) {
-      this.title =
-        this.title.slice(0, this.position) +
-        content +
-        this.title.slice(this.position);
-      this.position += content.length;
-    }
-  }
-
-  backspace() {
-    if (this.isCursorActive && this.position > 0) {
-      this.title =
-        this.title.slice(0, this.position - 1) +
-        this.title.slice(this.position);
-      this.position--;
-    }
-  }
-
-  _handleLeft() {
-    const { position } = this;
-    if (position >= 0) {
-      this.position--;
-      return true;
-    }
-    return false;
-  }
-
-  _handleRight() {
-    const { position, title } = this;
-    if (position < title.length) {
-      this.position++;
-      return true;
-    }
-    return false;
+    this._updateTitleScrollPosition();
   }
 
   _update() {
+    this._updatePassword(); // need to update title masking before rendering the new title
     super._update();
-    this._updateCursor();
+
     this._updateEyebrow();
-    this._updateState();
-    this._updateHiddenContent();
-    this._updateCursorBlink();
     this._updateHelpText();
-    this._updateSuffixPosition();
+
+    this._updateTextWrapper();
+    this._updateHiddenContent();
+
+    this._updateCursor();
+    this._updateCursorListening();
+    this._updateCursorBlink();
     this._updateCursorPosition();
+
+    this._updateTitleScrollPosition();
   }
 
-  _onTextBoxChanged() {
-    this._updateHiddenContent();
+  _updatePassword() {
+    this.title = this.password
+      ? this.mask.repeat(this.actualTitle.length)
+      : this.actualTitle;
+  }
+
+  _updateTruncation() {
+    // do not add word wrap
+    if (this._Title) {
+      this._Title.patch({ wordWrap: false });
+    }
+  }
+
+  _updateEyebrow() {
+    this._Eyebrow.patch({
+      content: this.eyebrow,
+      textStyle: this.style.eyebrowTextStyle,
+      mountY: 1,
+      x: this.style.paddingX,
+      y: this.y - this.style.paddingY
+    });
+  }
+
+  _updateHelpText() {
+    this._HelpText.patch({
+      content: this.helpText,
+      textStyle: this.style.helpTextStyle,
+      x: this.style.paddingX,
+      y: this.y + this.innerH + this.style.paddingY
+    });
+  }
+
+  _updateTextWrapper() {
+    this._TextWrapper.clipping = true;
+    this._TextWrapper.w = this._visibleContentWidth;
+    if (this._Title) {
+      this._TextWrapper.h = this._Title.h;
+    }
+  }
+
+  _updateHiddenContent() {
+    /**
+     * Hidden value is used for measuring where the cursor should
+     * be positioned when a user changes the cursor position. Since
+     * the text is one texture we don't know the exact position of each
+     * individual character, so we render a substring version of the text
+     * to determine the renderwidth and position the cursor based on that number
+     */
+    if (!this._HiddenContent) {
+      this._Content.patch({
+        HiddenContent: {
+          type: TextBox,
+          mountY: 0.5,
+          y: h => h / 2,
+          signals: {
+            textBoxChanged: '_onHiddenTextBoxChanged'
+          }
+        }
+      });
+    }
+
+    const { title: value = '', position, password, mask } = this;
+
+    const textBeforeCursor = password
+      ? mask.repeat(value.length).substring(0, position)
+      : value.substring(0, position);
+
+    this._HiddenContent.patch({
+      textStyle: this.style.textStyle,
+      content: textBeforeCursor
+    });
+
+    this._HiddenContent._Text &&
+      this._HiddenContent._Text.patch({ alpha: 0.001 });
   }
 
   _updateCursor() {
     if (this.style.cursorStyles && this.style.cursorStyles.blink) {
-      this._Content.patch({
-        Cursor: {}
-      });
-      /**
-       * Hidden value is used for measuring where the cursor should
-       * be positioned when a user changes the cursor position. Since
-       * the text is one texture we don't know the exact position of each
-       * individual character, so we render a substring version of the text
-       * to determine the renderwidth and position the cursor based on that number
-       */
-      this._Content.patch({
-        HiddenContent: {
-          type: TextBox,
-          signals: {
-            textBoxChanged: '_onHiddenContentChanged'
+      if (!this._Cursor) {
+        this._Content.patch({
+          Cursor: {
+            rect: true,
+            mountY: 0.5
           }
-        }
-      });
-      if (this.isCursorActive) {
-        this._Cursor.patch({
-          mountY: 0.5,
-          w: this.style.cursorStyles.w,
-          h: this.style.cursorStyles.h,
-          color: this.style.cursorStyles.color,
-          rect: true
         });
         this.cursorBlink = this._Cursor.animation({
           duration: 1.5,
@@ -154,46 +176,23 @@ class Input extends Button {
           actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
         });
       }
+      this._Cursor.patch(this.style.cursorStyles);
     }
   }
 
-  _updateEyebrow() {
-    this._Eyebrow.patch({
-      content: this.eyebrow,
-      textStyle: this.style.supportTextStyle,
-      textColor: this.style.eyebrowColor,
-      mountY: 0,
-      x: this.style.paddingX,
-      y: this.y - this.h / 2 - this.style.paddingY
-    });
-  }
-
-  _updateCursorBlink() {
-    if (this.cursorBlink) {
-      if (this.isCursorActive) {
-        this.cursorBlink.start();
-      } else {
-        this.cursorBlink.stop();
-        this._Cursor.patch({
-          alpha: 0.001
-        });
-      }
-    }
-  }
-
-  _updateState() {
-    if (this.mode === 'focused') {
+  _updateCursorListening() {
+    if (this._isFocusedMode && this._isUnfocusedMode) {
       if (this.cursorBlink && !this.cursorBlink.isPlaying()) {
         this.cursorBlink.start();
       }
       this._Cursor.smooth = {
         alpha: 0,
-        color: this.style.cursorStyles.color
+        color: this.style.cursorStyles.textColor
       };
     } else {
       this._Cursor.smooth = {
         alpha: this.listening ? 1 : 0,
-        color: this.style.cursorStyles.color
+        color: this.style.cursorStyles.textColor
       };
       if (this.cursorBlink)
         this.isCursorActive
@@ -202,107 +201,138 @@ class Input extends Button {
     }
   }
 
-  _updateTruncation() {
-    // do not add word wrap
+  _updateCursorBlink() {
+    if (this.cursorBlink) {
+      if (this.isCursorActive) {
+        this.cursorBlink.start();
+      } else {
+        this.cursorBlink.stop();
+        this._Cursor.patch({ alpha: 0.001 });
+      }
+    }
   }
 
   _updateCursorPosition() {
-    let textPatch = {};
-    if (this._isOverflow) {
-      this._TextWrapper.patch({
-        w: this._visibleContentWidth,
-        h: this._Title.h,
-        clipping: true
-      });
-      textPatch = {
-        mountX: 0,
-        x: this._visibleContentWidth - this._HiddenContent.renderWidth
-      };
-      this._Cursor.patch({
-        x: this._titleX + this._TextWrapper.w
-      });
-      this._Title.patch({
-        ...textPatch
-      });
+    this._Cursor.x =
+      this._titleX +
+      (this._isOverflow ? this._TextWrapper.w : this._HiddenContent.w);
+  }
+
+  _updateTitleScrollPosition() {
+    if (this._Title) {
+      this._Title.x = this._isOverflow
+        ? this._visibleContentWidth - this._HiddenContent.w
+        : 0;
+      if (this._HiddenContent && this._TextWrapper) {
+        this._HiddenContent.x = this._TextWrapper.x + this._Title.x;
+      }
+    }
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    // TODO - Localization?
+    // Do we need a locale file with
+    // component translations?
+    // need to check with Accessibility on what order this should read out in
+    if (this.password) {
+      return [this.eyebrow, this.helpText];
     } else {
-      this._Cursor.patch({
-        x: this._titleX + this._HiddenContent.w
-      });
-      this._TextWrapper.x = this._titleX;
-    }
-    this._HiddenContent.patch(textPatch);
-  }
-
-  _updateHiddenContent() {
-    const { title: value = '', position } = this;
-    const textBeforeCursor = value.substring(0, position);
-    this._HiddenContent.patch({
-      textStyle: this.style.textStyle,
-      content: textBeforeCursor,
-      x: this._titleX
-    });
-    // TODO: TextBox is not sending a w of 0 when content is an empty string. manually set to 0 when no content
-    if (!textBeforeCursor.length) {
-      this._HiddenContent.w = 0;
-    }
-    if (this._HiddenContent._Text) {
-      this._HiddenContent._Text.patch({
-        alpha: 0.001
-      });
+      return [this.eyebrow, 'Input: ' + this.title, this.helpText];
     }
   }
 
-  _updateSuffixPosition() {
-    if (this._hasSuffix) {
-      this._Suffix.patch({
-        mountX: 1,
-        x: this.w - 2 * this.style.paddingX
-      });
-    }
-  }
-
-  _updateHelpText() {
-    this._HelpText.patch({
-      content: this.helpText,
-      textStyle: this.style.supportTextStyle,
-      textColor: this.style.helpTextColor,
-      x: this.style.paddingX,
-      y: this.y + this.h + 2 * this.style.paddingY
-    });
+  get _suffixX() {
+    const suffixX =
+      this.w - this._paddingRight - this._suffixW - this.style.paddingX;
+    return suffixX > 0 ? suffixX : 0;
   }
 
   get isCursorActive() {
-    return this.listening && this.mode === 'focused';
+    return this.listening && (this._isFocusedMode || this._isUnfocusedMode);
   }
 
   get _isOverflow() {
-    const isOverflow = this._HiddenContent.w > this._visibleContentWidth;
-    return isOverflow;
+    return this._HiddenContent.w > this._visibleContentWidth;
   }
 
   get _visibleContentWidth() {
-    const suffixW = this._hasSuffix
-      ? this._suffixW + this.style.titlePadding
-      : 0;
-    const visibleContentWidth =
-      this.w -
-      this._titleX -
-      suffixW -
-      this.style.suffixPadding -
-      this.style.paddingX -
-      this.style.titleWrapperX;
-    return visibleContentWidth;
+    return this._fixedWordWrapWidth;
   }
 
-  get w() {
-    return this._w;
-  }
-
-  set w(v) {
-    if (typeof v !== 'undefined') {
-      this._w = v;
+  clear() {
+    if (this.isCursorActive) {
+      this.title = this.actualTitle = '';
+      this.position = 0;
     }
   }
-}
 
+  insert(content) {
+    if (this.isCursorActive) {
+      this.actualTitle =
+        this.actualTitle.slice(0, this.position) +
+        content +
+        this.actualTitle.slice(this.position);
+      this._updatePassword();
+      this.position += content.length;
+    }
+  }
+
+  backspace() {
+    if (this.isCursorActive && this.position > 0) {
+      this.actualTitle =
+        this.actualTitle.slice(0, this.position - 1) +
+        this.actualTitle.slice(this.position);
+      this._updatePassword();
+      this.position--;
+    }
+  }
+
+  _handleLeft() {
+    if (this._isDisabledMode) {
+      return false;
+    }
+    this.moveLeft();
+    if (typeof this.onLeft === 'function') {
+      return this.onLeft(this);
+    }
+    return true;
+  }
+
+  _handleRight() {
+    if (this._isDisabledMode) {
+      return false;
+    }
+    this.moveRight();
+    if (typeof this.onRight === 'function') {
+      return this.onRight(this);
+    }
+    return true;
+  }
+
+  moveLeft() {
+    const { position } = this;
+    if (position >= 0) {
+      this.position--;
+      return true;
+    }
+    return false;
+  }
+
+  moveRight() {
+    const { position, title } = this;
+    if (position < title.length) {
+      this.position++;
+      return true;
+    }
+    return false;
+  }
+}
 export default withExtensions(Input);

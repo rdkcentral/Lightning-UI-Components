@@ -27,60 +27,96 @@ describe('Input', () => {
     expect(input._Eyebrow.content).toEqual('Description');
     expect(input._Eyebrow.textColor).toEqual(input.style.eyebrowColor);
   });
+
   describe('cursor movement', () => {
-    it('when cursor moves left and right ', () => {
+    it('when cursor handles left movement ', () => {
       [input, testRenderer] = createInput();
       input.title = '';
+      input.mode = 'focused';
       testRenderer.forceAllUpdates();
       input._handleLeft();
       expect(input.position).toBe(-1);
-      input._handleRight();
+    });
+
+    it('when cursor handles left movement ', () => {
+      [input, testRenderer] = createInput();
+      input.title = '';
+      input.mode = 'disabled';
+      testRenderer.forceAllUpdates();
+      input._handleLeft();
       expect(input.position).toBe(0);
     });
-    it('when cursor moves left and right ', () => {
+
+    it('when cursor handles left movement ', () => {
       [input, testRenderer] = createInput();
-      input.position = -1;
+      input.mode = 'focused';
+      input.listening = true;
+      input.insert('h');
+      input.insert('e');
+      input.insert('l');
       testRenderer.forceAllUpdates();
       input._handleLeft();
-      expect(input.position).toBe(-1);
-      input.position = 100;
-      input.title = 'Hello';
-      input._handleRight();
-      expect(input.position).toBe(100);
+      expect(input.position).toBe(2);
     });
+
+    it('handle left when mode is set to disabled', () => {
+      [input, testRenderer] = createInput({
+        mode: 'disabled'
+      });
+      expect(input._handleLeft()).toEqual(false);
+    });
+    it('when cursor handles right movement ', () => {
+      [input, testRenderer] = createInput();
+      input.mode = 'focused';
+      input.listening = true;
+      input.insert('h');
+      input.insert('e');
+      input.insert('l');
+      testRenderer.forceAllUpdates();
+      input._handleRight();
+      expect(input.position).toBe(3);
+    });
+
+    it('handle right when mode is set to disabled', () => {
+      [input, testRenderer] = createInput({
+        mode: 'disabled'
+      });
+      expect(input._handleRight()).toEqual(false);
+    });
+
     it('inputs titles will update if listening', () => {
       [input, testRenderer] = createInput({});
       input.listening = true;
       input.mode = 'focused';
-      input.title = 'x';
+      input.actualTitle = 'x';
       input.insert('x');
-      expect(input.title).toEqual('xx');
+      expect(input.actualTitle).toEqual('xx');
     });
 
     it('inputs titles will update if not listening', () => {
       [input, testRenderer] = createInput({});
       input.listening = false;
       input.mode === 'disabled';
-      input.title = 'x';
+      input.actualTitle = 'x';
       input.insert('x');
-      expect(input.title).toEqual('x');
+      expect(input.actualTitle).toEqual('x');
     });
 
     it('clears titles if listening', () => {
       [input, testRenderer] = createInput({});
       input.listening = true;
       input.mode = 'focused';
-      input.title = 'xxx';
+      input.actualTitle = 'xxx';
       input.clear();
-      expect(input.title).toEqual('');
+      expect(input.actualTitle).toEqual('');
     });
 
     it('should not clear titles if not listening', () => {
       [input, testRenderer] = createInput({});
       input.listening = false;
-      input.title = 'xxx';
+      input.actualTitle = 'xxx';
       input.clear();
-      expect(input.title).toEqual('xxx');
+      expect(input.actualTitle).toEqual('xxx');
     });
 
     it('cursor position should when no prefix and content', () => {
@@ -139,6 +175,22 @@ describe('Input', () => {
     });
   });
 
+  it('masks password input', () => {
+    input.actualTitle = 'Hello';
+    input.mask = '•';
+    input.password = true;
+    testRenderer.forceAllUpdates();
+    expect(input.title).toBe('•••••');
+  });
+
+  it('supports custom mask types', () => {
+    input.actualTitle = 'Hello';
+    input.mask = '*';
+    input.password = true;
+    testRenderer.forceAllUpdates();
+    expect(input.title).toBe('*****');
+  });
+
   it('should update HelpText', () => {
     input.helpText = 'Test Description';
     testRenderer.forceAllUpdates();
@@ -182,6 +234,31 @@ describe('Input', () => {
 
       const newContentX = testRenderer.getInstance()._Content.x;
       expect(newContentX).toEqual(initialContentX);
+    });
+  });
+
+  describe('announcer', () => {
+    it('should announce the eyebrow and helptext as the default announce string if password is true', () => {
+      input.password = true;
+      input.eyebrow = 'eyebrow';
+      input.helpText = 'helpText';
+      expect(input.announce).toEqual(['eyebrow', 'helpText']);
+    });
+
+    it('should append helptext to end of announce context', () => {
+      input.password = false;
+      input.eyebrow = 'eyebrow';
+      input.helpText = 'helpText';
+      input.title = 'title';
+      expect(input.announce).toEqual(['eyebrow', 'Input: title', 'helpText']);
+    });
+
+    it('should prefer the announce prop over the default announce', () => {
+      const overrideString = 'override announcer string';
+
+      input._announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(input.announce).toEqual(overrideString);
     });
   });
 });
