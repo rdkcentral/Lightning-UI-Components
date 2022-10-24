@@ -14,6 +14,13 @@ class CardContent extends Card {
     return styles;
   }
 
+  static _template() {
+    return {
+      ...super._template(),
+      Tile: { type: Tile }
+    };
+  }
+
   static get properties() {
     return [
       ...super.properties,
@@ -28,14 +35,6 @@ class CardContent extends Card {
 
   static get tags() {
     return [...super.tags, 'Metadata', 'Tile'];
-  }
-
-  static _template() {
-    return {
-      ...super._template(),
-      Title: undefined,
-      Tile: { type: Tile }
-    };
   }
 
   _update() {
@@ -82,9 +81,9 @@ class CardContent extends Card {
       ...this._metadataPosition,
       ...this._metadataDimensions,
       mode: this.mode,
-      alpha: this._shouldShowMetadata ? 1 : 0
+      alpha: this._shouldShowMetadata ? 1 : 0,
+      style: this.style.metadataStyles
     };
-
     if (!this._Metadata) {
       metadataPatch.type = MetadataCardContent;
     }

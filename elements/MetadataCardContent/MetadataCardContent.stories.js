@@ -23,6 +23,11 @@ export const CardContent = () =>
       };
     }
   };
+
+// used to show example of longer text in description
+const descriptionSample =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
 CardContent.argTypes = {
   ...createModeControl(),
   w: {
@@ -50,7 +55,7 @@ CardContent.argTypes = {
     description: 'title text'
   },
   description: {
-    defaultValue: 'Description',
+    defaultValue: descriptionSample,
     table: {
       defaultValue: { summary: 'Description' }
     },

@@ -177,7 +177,6 @@ class MetadataBase extends Base {
       content: this.title,
       textStyle: this.style.titleTextProperties,
       wordWrap: true,
-      maxLines: 1,
       wordWrapWidth: this._Text.w
     });
   }

@@ -5,6 +5,7 @@ export const base = () => {
   return {
     expandedW: getWidthByColumnSpan(9),
     expandedH: h,
-    imageSize: { w, h }
+    imageSize: { w, h },
+    metadataStyles: { descriptionTextProperties: { maxLines: 3 } }
   };
 };

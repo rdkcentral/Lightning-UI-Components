@@ -8,5 +8,6 @@ export const base = theme => ({
   imageSize: {
     w: getDimensions({ ratioX: 16, ratioY: 9, upCount: 4 }).w,
     h: getDimensions({ ratioX: 16, ratioY: 9, upCount: 4 }).h
-  }
+  },
+  metadataStyles: { descriptionTextProperties: { maxLines: 2 } }
 });
