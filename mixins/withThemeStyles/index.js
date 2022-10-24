@@ -515,12 +515,12 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     _focus() {
-      if (this.mode !== 'disabled') this.mode = 'focused';
+      if (!this._isDisabledMode) this.mode = 'focused';
       super._focus();
     }
 
     _unfocus() {
-      if (this.mode === 'focused') this.mode = 'unfocused';
+      if (this._isFocusedMode) this.mode = 'unfocused';
       super._unfocus();
     }
 

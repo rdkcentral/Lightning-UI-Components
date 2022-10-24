@@ -21,6 +21,28 @@ describe('ScrollWrapper', () => {
     testRenderer.update();
   });
 
+  it('sets the announce string to the content text or object', () => {
+    const content = 'This is a sentence';
+    scrollWrapper.content = content;
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper.announce).toBe(content);
+
+    const contentArray = [
+      { text: 'This is a sentence' },
+      { text: 'so is this' }
+    ];
+    scrollWrapper.content = contentArray;
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper.announce).toEqual(contentArray.map(item => item.text));
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    scrollWrapper.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(scrollWrapper.announce).toBe(overrideString);
+  });
+
   it('renders a content string', async () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();

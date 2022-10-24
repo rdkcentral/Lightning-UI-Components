@@ -21,15 +21,14 @@ export const Basic = () =>
     static _template() {
       return {
         MetadataBase: {
-          type: MetadataBase,
-          mode: 'disabled'
+          type: MetadataBase
         }
       };
     }
   };
 
 Basic.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   w: {
     defaultValue: 400,
     table: {
@@ -51,7 +50,7 @@ Basic.argTypes = {
       '94%',
       {
         icon: lightningbolt,
-        color: getHexColor('00ff00'),
+        style: { color: getHexColor('00ff00') },
         title: 'Green Lightning Bolt'
       },
       '86%',
@@ -66,7 +65,7 @@ Basic.argTypes = {
           '94%',
           {
             icon: lightningbolt,
-            color: getHexColor('00ff00'),
+            style: { color: getHexColor('00ff00') },
             title: 'Green Lightning Bolt'
           },
           '86%',

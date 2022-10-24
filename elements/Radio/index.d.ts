@@ -17,7 +17,6 @@ declare const Radio_base: WithThemeStylesConstructor<typeof Base, RadioStyles>;
 
 export default class Radio extends Radio_base {
   checked?: boolean;
-  isInactive?: boolean;
 }
 
 export class RadioSmall extends Radio {}

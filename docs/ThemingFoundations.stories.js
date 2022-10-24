@@ -3,13 +3,18 @@ import context from '../context';
 import TextBox from '../elements/TextBox';
 import Column from '../layout/Column';
 import Base from '../Base';
-import { Tile } from '../elements';
-import { Row } from '../layout';
+import { Tile, Button } from '../elements';
 import tileImage from '../assets/images/tile-image.png';
 
 export default {
   title: 'Collections/Theming Foundations'
 };
+
+class Explanation extends Base {
+  static get __componentName() {
+    return 'Explanation';
+  }
+}
 
 class Swatch extends Base {
   static _template() {
@@ -177,6 +182,10 @@ export const TypographyAndColors = () => {
     static _template() {
       const itemSpacing = 10;
       return {
+        DummyElement: {
+          type: Explanation,
+          announce: 'Displays theming tokens and their values, which update on a theme change'
+        },
         Typography: {
           type: Column,
           itemSpacing,
@@ -526,23 +535,31 @@ export const TypographyAndColors = () => {
         Elements: {
           type: Column,
           x: 1500,
-          itemSpacing: itemSpacing * 4,
+          itemSpacing,
           Items: {
             TileWithFocus: {
               type: Tile,
-              itemLayout: {
-                ratioX: 1,
-                ratioY: 1,
-                upCount: 6
-              },
-              artwork: {
-                src: tileImage
-              },
+              itemLayout: { ratioX: 1, ratioY: 1, upCount: 6 },
+              artwork: { src: tileImage },
               progressBar: { progress: 0.5 },
               metadataLocation: 'inset',
               metadata: { title: 'Example' },
-              extraItemSpacing: 48,
+              // TODO: Fix metadata not displaying in focused mode w/ out persistentMetadata flag
+              // persistentMetadata: true,
+              extraItemSpacing: itemSpacing * 4,
               mode: 'focused'
+            },
+            ButtonWithFocus: {
+              type: Button,
+              title: 'Example',
+              style: { minWidth: 0 },
+              extraItemSpacing: itemSpacing * 2,
+              mode: 'focused'
+            },
+            ButtonWitoutFocus: {
+              type: Button,
+              title: 'Example',
+              style: { minWidth: 0 }
             },
             Radius: {
               type: TextBox,
@@ -554,6 +571,7 @@ export const TypographyAndColors = () => {
               itemSpacing,
               w: 150,
               autoResizeHeight: true,
+              extraItemSpacing: itemSpacing * 4,
               Items: {
                 RadiusNone: {
                   type: Radius,
@@ -584,7 +602,7 @@ export const TypographyAndColors = () => {
             Misc: {
               type: TextBox,
               content: 'Misc',
-              textStyle: 'callout1'
+              textStyle: 'callout1',
             },
             SpacingBase: {
               type: MiscProp,
@@ -599,6 +617,10 @@ export const TypographyAndColors = () => {
           }
         }
       };
+    }
+
+    _getFocused() {
+      return this.tag('DummyElement');
     }
   }
 

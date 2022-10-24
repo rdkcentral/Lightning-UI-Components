@@ -28,7 +28,7 @@ Small.args = {
   checked: false
 };
 Small.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',

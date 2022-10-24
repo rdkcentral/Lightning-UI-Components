@@ -212,6 +212,10 @@ class Keyboard extends Base {
     else return 11; // TODO: Remove this hard-coded number?
   }
 
+  set announce(announce) {
+    super.announce = announce;
+  }
+
   get announce() {
     if (this._announce) {
       return this._announce;
@@ -219,8 +223,8 @@ class Keyboard extends Base {
     return 'Keyboard' + (this.title ? `, ${this.title}` : '');
   }
 
-  set announce(announce) {
-    super.announce = announce;
+  set announceContext(announceContext) {
+    super.announceContext = announceContext;
   }
 
   get announceContext() {
@@ -230,10 +234,6 @@ class Keyboard extends Base {
         'Use arrow keys to choose characters, press center to select'
       ]
     );
-  }
-
-  set announceContext(announceContext) {
-    super.announceContext = announceContext;
   }
 }
 

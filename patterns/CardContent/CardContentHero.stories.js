@@ -9,6 +9,7 @@ import { generateSubStory } from '../../.storybook/utils';
 import { createModeControl } from '../../.storybook/controls/argTypes';
 import CardContentHero from './CardContentHero';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+import { Basic } from './CardContent.stories';
 
 export default {
   title: 'Patterns / CardContent',
@@ -40,7 +41,8 @@ export const Hero = args =>
   };
 Hero.args = {
   shouldCollapse: false,
-  collapseToMetadata: false
+  collapseToMetadata: false,
+  ...Basic.tileProps.args
 };
 Hero.argTypes = {
   ...createModeControl(),
@@ -59,7 +61,11 @@ Hero.argTypes = {
     },
     control: 'boolean',
     description: 'determines if collapse state shows image or metadata'
-  }
+  },
+  ...Basic.tileProps.argTypes
+};
+Hero.parameters = {
+  argActions: Basic.tileProps.argActions('CardContentHero')
 };
 generateSubStory('CardContentHero', Hero, BadgeStory, 'badge');
 generateSubStory('CardContentHero', Hero, LabelStory, 'label');

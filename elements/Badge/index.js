@@ -177,6 +177,14 @@ class Badge extends Base {
       return 0;
     }
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this._BadgeText && this._BadgeText.announce);
+  }
 }
 
 export default withExtensions(Badge);

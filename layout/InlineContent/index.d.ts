@@ -11,9 +11,14 @@ type justifyContent =
   | 'space-around'
   | 'space-evenly';
 
+type contentBase = {
+  title?: string;
+  announce?: string;
+  style?: string | Record<string, unknown>;
+};
 export type TextContent =
   | string
-  | { text: string; style: string | Record<string, unknown> };
+  | (contentBase & ({ text: string } | { icon: string } | { badge: string }));
 
 type FlexItem = {
   grow?: number;
@@ -59,7 +64,7 @@ declare const InlineContent_base: WithThemeStylesConstructor<
 >;
 
 export default class InlineContent extends InlineContent_base {
-  content?: TextContent[];
+  content?: Content[];
   contentProperties?: FlexItem;
   textStyle?: lng.textures.TextTexture.Settings;
   justify?: justifyContent;

@@ -9,13 +9,29 @@ describe('Card', () => {
   beforeEach(() => {
     [Card, testRenderer] = createCardComponent();
   });
+
   afterEach(() => {
     Card = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+  });
+
+  it('sets the announce string to the card title', () => {
+    const title = 'Title';
+    Card.title = title;
+    testRenderer.forceAllUpdates();
+    expect(Card.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    Card.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(Card.announce).toBe(overrideString);
   });
 
   it('has the correct static props getter', () => {

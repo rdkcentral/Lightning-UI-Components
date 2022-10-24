@@ -67,6 +67,7 @@ class Provider extends Base {
         patch = {
           type: Icon,
           icon: provider.icon,
+          ...provider,
           w: this.style.itemSize * ratio,
           h: this.style.itemSize,
           ...patch
@@ -75,11 +76,15 @@ class Provider extends Base {
         // If the provider is just a string, create the rest of the Icon.
         patch = {
           type: Icon,
-          icon: provider,
           w: this.style.itemSize,
           h: this.style.itemSize,
           ...patch
         };
+        if (typeof provider === 'object') {
+          patch = { ...patch, ...provider };
+        } else {
+          patch.icon = provider;
+        }
       }
       providerList.push(patch);
     });
@@ -94,6 +99,7 @@ class Provider extends Base {
     if (this.providers.length > this.visibleCount) {
       const remaining = this.providersHidden;
       const counter = {
+        announce: `+${remaining}`,
         alpha: this.style.alpha,
         w: this.style.itemSize,
         h: this.style.itemSize,
@@ -131,6 +137,19 @@ class Provider extends Base {
 
   get w() {
     return this._Row.w;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce ||
+      (this._Row.items &&
+        this._Row.items.length &&
+        this._Row.items.map(item => item.announce))
+    );
   }
 }
 

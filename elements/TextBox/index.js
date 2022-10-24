@@ -257,7 +257,12 @@ class TextBox extends Base {
   }
 
   get announce() {
-    return this._announce || this.content;
+    return (
+      this._announce ||
+      (this._isInlineContent && this._InlineContent
+        ? this._InlineContent.announce
+        : this.content)
+    );
   }
 
   set announce(announce) {

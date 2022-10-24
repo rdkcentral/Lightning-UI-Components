@@ -15,8 +15,6 @@ class CardAbout extends CardTitle {
   static get properties() {
     return [
       ...super.properties,
-      'iconWidth',
-      'iconHeight',
       'iconRight',
       'textRight',
       'iconLeft',
@@ -49,13 +47,12 @@ class CardAbout extends CardTitle {
 
   _updateContainer() {
     const iconTextContainerObject = {
-      iconW: this.iconWidth,
-      iconH: this.iconHeight,
       contentSpacing: this.style.contentSpacing,
       y:
         this._Title.textStyle.lineHeight +
         this.style.paddingVertical +
-        this.style.paddingFirstLine
+        this.style.paddingFirstLine,
+      style: this.style.inlineContentStyle
     };
     this.patch({
       LeftIconTextContainer: {
@@ -109,20 +106,44 @@ class CardAbout extends CardTitle {
   }
 
   _updateContent() {
-    const textStyle = { textStyle: this.style.textContainerProperties };
     const iconStyle = { alpha: this.style.alpha };
 
     const contentLeft = [];
-    this.iconLeft && contentLeft.push({ icon: this.iconLeft, ...iconStyle });
+    if (this.iconLeft) {
+      if (typeof this.iconLeft === 'string') {
+        contentLeft.push({ icon: this.iconLeft, ...iconStyle });
+      } else {
+        contentLeft.push(this.iconLeft);
+      }
+    }
     this.textLeft && contentLeft.push(this.textLeft);
     this._LeftIconTextContainer.content = contentLeft;
-    this._LeftIconTextContainer.style = textStyle;
 
     const contentRight = [];
-    this.iconRight && contentRight.push({ icon: this.iconRight, ...iconStyle });
+    if (this.iconRight) {
+      if (typeof this.iconRight === 'string') {
+        contentRight.push({ icon: this.iconRight, ...iconStyle });
+      } else {
+        contentRight.push(this.iconRight);
+      }
+    }
     this.textRight && contentRight.push(this.textRight);
     this._RightIconTextContainer.content = contentRight;
-    this._RightIconTextContainer.style = textStyle;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        this._LeftIconTextContainer && this._LeftIconTextContainer.announce,
+        this._RightIconTextContainer && this._RightIconTextContainer.announce,
+        this._Description && this._Description.announce
+      ]
+    );
   }
 }
 

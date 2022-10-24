@@ -14,7 +14,7 @@ export const Basic = () =>
   };
 Basic.args = { checked: false };
 Basic.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off'

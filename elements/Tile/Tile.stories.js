@@ -98,6 +98,8 @@ export const TileRow = args =>
               artwork: {
                 src: trolls
               },
+              announce: 'Trolls',
+              announceContext: '1 of 5',
               itemLayout: {
                 ratioX: 16,
                 ratioY: 9,
@@ -109,6 +111,8 @@ export const TileRow = args =>
               artwork: {
                 src: parks
               },
+              announce: 'Parks and Recreation',
+              announceContext: '2 of 5',
               focusSrc: parksFocus,
               w: 410,
               h: 230
@@ -118,6 +122,8 @@ export const TileRow = args =>
               artwork: {
                 src: jurassic
               },
+              announce: 'Jurassic World',
+              announceContext: '3 of 5',
               w: 410,
               h: 230
             },
@@ -126,11 +132,15 @@ export const TileRow = args =>
               artwork: {
                 src: pets
               },
+              announce: 'Secret Life of Pets',
+              announceContext: '4 of 5',
               w: args.width,
               h: args.height
             },
             {
               type: Tile,
+              announce: 'Default',
+              announceContext: '5 of 5',
               itemLayout: {
                 ratioX: 16,
                 ratioY: 9,

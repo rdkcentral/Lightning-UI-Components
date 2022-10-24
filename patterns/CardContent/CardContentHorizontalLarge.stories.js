@@ -10,6 +10,7 @@ import { createModeControl } from '../../.storybook/controls/argTypes';
 import CardContentHorizontalLarge from './CardContentHorizontalLarge';
 import { Icon } from '../../elements';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
+import { Basic } from './CardContent.stories';
 
 export default {
   title: 'Patterns / CardContent',
@@ -48,7 +49,8 @@ export const HorizontalLarge = args =>
   };
 HorizontalLarge.args = {
   shouldCollapse: false,
-  collapseToMetadata: false
+  collapseToMetadata: false,
+  ...Basic.tileProps.args
 };
 HorizontalLarge.argTypes = {
   ...createModeControl(),
@@ -67,7 +69,11 @@ HorizontalLarge.argTypes = {
     },
     control: 'boolean',
     description: 'determines if collapsed state shows image or metadata'
-  }
+  },
+  ...Basic.tileProps.argTypes
+};
+HorizontalLarge.parameters = {
+  argActions: Basic.tileProps.argActions('CardContentHorizontalLarge')
 };
 generateSubStory(
   'CardContentHorizontalLarge',

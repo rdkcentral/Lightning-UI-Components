@@ -4,138 +4,159 @@ import CardAboutStacked from './CardAboutStacked';
 const createCardAboutStackedComponent =
   TestUtils.makeCreateComponent(CardAboutStacked);
 
-describe('CardAboutStacked', () => {
-  let CardAboutStacked, testRenderer;
+describe('cardAboutStacked', () => {
+  let cardAboutStacked, testRenderer;
 
   beforeEach(() => {
-    [CardAboutStacked, testRenderer] = createCardAboutStackedComponent({
+    [cardAboutStacked, testRenderer] = createCardAboutStackedComponent({
       title: 'someString',
       titleBottom: 'some string'
     });
   });
+
   afterEach(() => {
-    CardAboutStacked = null;
+    cardAboutStacked = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the title, description, and bottom title and bottle description text', () => {
+    const title = 'Title';
+    const description = 'Description';
+    const titleBottom = 'Title Bottom';
+    const descriptionBottom = 'Description Bottom';
+    cardAboutStacked.patch({
+      title,
+      description,
+      titleBottom,
+      descriptionBottom
+    });
+    testRenderer.forceAllUpdates();
+    expect(cardAboutStacked.announce).toEqual([
+      title.toUpperCase(),
+      description,
+      titleBottom.toUpperCase(),
+      descriptionBottom
+    ]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    cardAboutStacked.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(cardAboutStacked.announce).toBe(overrideString);
+  });
+
   it('has the correct static props getter', () => {
-    expect(CardAboutStacked.constructor.properties).toMatchObject([
+    expect(cardAboutStacked.constructor.properties).toMatchObject([
       'title',
       'description',
-      'iconWidth',
-      'iconHeight',
-      'iconRight',
-      'textRight',
-      'iconLeft',
-      'textLeft',
       'titleBottom',
-      'contentBottom',
       'descriptionBottom'
     ]);
   });
 
   it('has the correct static tags getter', () => {
-    expect(CardAboutStacked.constructor.tags).toMatchObject([
+    expect(cardAboutStacked.constructor.tags).toMatchObject([
       'Background',
       'Title',
       'Description',
-      'LeftIconTextContainer',
-      'RightIconTextContainer',
-      'TitleBottom'
+      'TitleBottom',
+      'DescriptionBottom'
     ]);
   });
 
   // TODO: Should Stacked Be still using LeftIconTextContainer if there is not an icon?
   it.skip('should update Container', () => {
-    CardAboutStacked.contentBottom = [
+    cardAboutStacked.description = [
       { badge: 'badge' },
       { badge: 'badge' },
       { badge: 'badge' },
       { badge: 'badge' },
       { badge: 'badge' }
     ];
-    CardAboutStacked.descriptionBottom = 'testing';
-    CardAboutStacked.titleBottom = 'testing card';
+    cardAboutStacked.descriptionBottom = 'testing';
+    cardAboutStacked.titleBottom = 'testing card';
     testRenderer.forceAllUpdates();
-    expect(CardAboutStacked._TitleBottom.y).toEqual(
-      CardAboutStacked._LeftIconTextContainer.y +
-        CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
-        CardAboutStacked.style.paddingVertical * 2
+    expect(cardAboutStacked._TitleBottom.y).toEqual(
+      cardAboutStacked._Description.y +
+        cardAboutStacked._Description.style.textStyle.lineHeight +
+        cardAboutStacked.style.paddingVertical * 2
     );
-    expect(CardAboutStacked._LeftIconTextContainer.x).toEqual(
-      CardAboutStacked.style.paddingHorizontal
+    expect(cardAboutStacked._Description.x).toEqual(
+      cardAboutStacked.style.paddingHorizontal
     );
-    expect(CardAboutStacked._LeftIconTextContainer.y).toEqual(
-      CardAboutStacked._Title.y +
-        CardAboutStacked._Title.textStyle.lineHeight +
-        CardAboutStacked.style.paddingVertical * 1.5
+    expect(cardAboutStacked._Description.y).toEqual(
+      cardAboutStacked._Title.y +
+        cardAboutStacked._Title.textStyle.lineHeight +
+        cardAboutStacked.style.paddingVertical * 1.5
     );
-    expect(CardAboutStacked._Description.y).toEqual(
-      CardAboutStacked._TitleBottom.textStyle.lineHeight +
-        CardAboutStacked._TitleBottom.y +
-        CardAboutStacked.style.paddingVertical
+    expect(cardAboutStacked._DescriptionBottom.y).toEqual(
+      cardAboutStacked._TitleBottom.textStyle.lineHeight +
+        cardAboutStacked._TitleBottom.y +
+        cardAboutStacked.style.paddingVertical
     );
   });
 
   it('should update Bottom text', () => {
-    CardAboutStacked.titleBottom = 'Languages';
+    cardAboutStacked.titleBottom = 'Languages';
 
     testRenderer.forceAllUpdates();
-    expect(CardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
-    expect(CardAboutStacked._TitleBottom.x).toEqual(
-      CardAboutStacked.style.paddingHorizontal
+    expect(cardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
+    expect(cardAboutStacked._TitleBottom.x).toEqual(
+      cardAboutStacked.style.paddingHorizontal
     );
-    expect(CardAboutStacked._TitleBottom.y).toEqual(
-      CardAboutStacked.contentBottom
-        ? CardAboutStacked._LeftIconTextContainer.y +
-            CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
-            CardAboutStacked.style.paddingVertical * 2
-        : CardAboutStacked.style.paddingFirstLine
+    expect(cardAboutStacked._TitleBottom.y).toEqual(
+      cardAboutStacked.description
+        ? cardAboutStacked._Description.y +
+            cardAboutStacked._Description.style.textStyle.lineHeight +
+            cardAboutStacked.style.paddingVertical * 2
+        : cardAboutStacked.style.paddingFirstLine
     );
-    expect(CardAboutStacked._TitleBottom.textStyle).toEqual(
-      CardAboutStacked.style.titleTextProperties
+    expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
+      cardAboutStacked.style.titleTextProperties
     );
   });
 
   it('should update Bottom text', () => {
-    CardAboutStacked.titleBottom = 'Languages';
+    cardAboutStacked.titleBottom = 'Languages';
 
     testRenderer.forceAllUpdates();
-    expect(CardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
-    expect(CardAboutStacked._TitleBottom.x).toEqual(
-      CardAboutStacked.style.paddingHorizontal
+    expect(cardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
+    expect(cardAboutStacked._TitleBottom.x).toEqual(
+      cardAboutStacked.style.paddingHorizontal
     );
-    expect(CardAboutStacked._TitleBottom.y).toEqual(
-      CardAboutStacked.contentBottom
-        ? CardAboutStacked._LeftIconTextContainer.y +
-            CardAboutStacked._LeftIconTextContainer.style.textStyle.lineHeight +
-            CardAboutStacked.style.paddingVertical * 2
-        : CardAboutStacked.style.paddingFirstLine
+    expect(cardAboutStacked._TitleBottom.y).toEqual(
+      cardAboutStacked.description
+        ? cardAboutStacked._Description.y +
+            cardAboutStacked._Description.style.textStyle.lineHeight +
+            cardAboutStacked.style.paddingVertical * 2
+        : cardAboutStacked.style.paddingFirstLine
     );
-    expect(CardAboutStacked._TitleBottom.textStyle).toEqual(
-      CardAboutStacked.style.titleTextProperties
+    expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
+      cardAboutStacked.style.titleTextProperties
     );
   });
   it('should update position of Description', () => {
-    CardAboutStacked.descriptionBottom = 'Description';
-    CardAboutStacked.titleBottom = 'Languages';
+    cardAboutStacked.descriptionBottom = 'Description';
+    cardAboutStacked.titleBottom = 'Languages';
     testRenderer.forceAllUpdates();
-    expect(CardAboutStacked._Description.x).toEqual(
-      CardAboutStacked.style.paddingHorizontal
+    expect(cardAboutStacked._DescriptionBottom.x).toEqual(
+      cardAboutStacked.style.paddingHorizontal
     );
-    expect(CardAboutStacked._Description.y).toEqual(
-      CardAboutStacked.contentBottom
-        ? CardAboutStacked._TitleBottom.y +
-            CardAboutStacked.style.paddingVertical * 2
-        : CardAboutStacked._TitleBottom.y +
-            CardAboutStacked.style.paddingVertical * 3
+    expect(cardAboutStacked._DescriptionBottom.y).toEqual(
+      cardAboutStacked.description
+        ? cardAboutStacked._TitleBottom.y +
+            cardAboutStacked.style.paddingVertical * 2
+        : cardAboutStacked._TitleBottom.y +
+            cardAboutStacked.style.paddingVertical * 3
     );
-    expect(CardAboutStacked._Description.textStyle).toEqual(
-      CardAboutStacked.style.descriptionTextProperties
+    expect(cardAboutStacked._DescriptionBottom.textStyle).toEqual(
+      cardAboutStacked.style.descriptionTextProperties
     );
   });
 });

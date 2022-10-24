@@ -33,6 +33,20 @@ describe('Tab', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the title string', () => {
+    const title = 'Tab 1';
+    component.title = title;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   it('should render a tab with just an icon', async () => {
     expect(component._Icon).not.toBeDefined();
 

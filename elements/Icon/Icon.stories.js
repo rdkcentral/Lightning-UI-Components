@@ -46,7 +46,8 @@ export const PNG = args =>
           type: Icon,
           w: args.width,
           h: args.height,
-          icon: lightning
+          icon: lightning,
+          announce: 'Lightning bolt'
         }
       };
     }
@@ -60,7 +61,8 @@ export const SVG = args =>
           type: Icon,
           w: args.width,
           h: args.height,
-          icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>',
+          announce: 'Red circle'
         }
       };
     }

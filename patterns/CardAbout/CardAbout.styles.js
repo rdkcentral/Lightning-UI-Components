@@ -10,9 +10,13 @@ export const base = theme => ({
   },
   paddingFirstLine: theme.spacer.lg + theme.spacer.xs,
   paddingVertical: theme.spacer.lg,
-  textContainerProperties: {
-    ...theme.typography.display2,
-    textColor: theme.color.textNeutral
+  inlineContentStyle: {
+    iconW: theme.spacer.xxl * 2,
+    iconH: theme.spacer.xxl * 2,
+    textStyle: {
+      ...theme.typography.display2,
+      textColor: theme.color.textNeutral
+    }
   },
   titleTextProperties: {
     ...theme.typography.callout1,
@@ -29,7 +33,9 @@ export const mode = theme => ({
   disabled: {
     titleTextProperties: { textColor: theme.color.textNeutralDisabled },
     descriptionTextProperties: { textColor: theme.color.textNeutralDisabled },
-    textContainerProperties: { textColor: theme.color.textNeutralDisabled },
+    inlineContentStyle: {
+      textStyle: { textColor: theme.color.textNeutralDisabled }
+    },
     alpha: theme.alpha.inactive
   }
 });

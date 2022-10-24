@@ -35,6 +35,10 @@ class ProgressBar extends Base {
   _update() {
     this._updateTextures();
     this._updateProgress();
+    if (this._progressChanged) {
+      this.fireAncestors('$announce', this.announce);
+      this._progressChanged = false;
+    }
   }
 
   _updateTextures() {
@@ -67,6 +71,29 @@ class ProgressBar extends Base {
       w: [w, this.style.animation],
       alpha: Number(w > 0)
     };
+  }
+
+  _setProgress(progress) {
+    this._progressChanged = progress !== this._progress;
+    return progress;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    let progress = this.progress;
+    if (progress > 1) {
+      progress = 1;
+    } else if (progress < 0) {
+      progress = 0;
+    }
+    return `${progress * 100}%`;
   }
 }
 

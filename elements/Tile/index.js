@@ -2,11 +2,11 @@ import { withExtensions } from '../../mixins';
 import Artwork from '../Artwork';
 import Badge from '../Badge';
 import Checkbox from '../Checkbox';
-import context from '../../context';
 import Label from '../Label';
 import MetadataTile from '../MetadataTile';
 import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
+import { clone } from '../../utils';
 import Surface from '../Surface';
 
 class Tile extends Surface {
@@ -46,7 +46,8 @@ class Tile extends Surface {
       'metadataLocation',
       'persistentMetadata',
       'progressBar',
-      'label'
+      'label',
+      'src'
     ];
   }
 
@@ -81,13 +82,6 @@ class Tile extends Surface {
 
   get innerH() {
     return this._h; // Ensure that surface respects the correct height when metadata is displayed below
-  }
-
-  // Disable the ability to set src directly on the base component
-  set src(v) {
-    context.error(
-      'src cannot be set on Tile. Please pass value in artwork property'
-    );
   }
 
   get _gradient() {
@@ -211,7 +205,7 @@ class Tile extends Surface {
       Object.keys(itemContainerPatch).reduce((acc, prop) => {
         acc[prop] = [
           itemContainerPatch[prop],
-          this._hasFocus
+          this._isFocusedMode
             ? this.style.animationEntrance
             : this.style.animationExit
         ];
@@ -221,9 +215,17 @@ class Tile extends Surface {
   }
 
   _updateArtwork() {
+    // ensure a nested artwork src takes precedence over the class's src setter,
+    // but that if src is undefined in both the setter and artwork object,
+    // we don't incorrectly pass "src: undefined" to the Artwork component
+    let artwork = this.artwork;
+    if (this.src) {
+      artwork = clone({ src: this.src }, this.artwork);
+    }
+
     this._Artwork.patch({
       palette: this.palette,
-      ...(this.artwork || {}),
+      ...artwork,
       gradient: this._gradient,
       h: this._h,
       w: this._w,
@@ -516,6 +518,25 @@ class Tile extends Surface {
   _metadataLoaded() {
     this._animateMetadata();
     if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
+  }
+
+  _getSrc() {
+    return (this.artwork && this.artwork.src) || this._src;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Metadata && this._Metadata.announce,
+        this._Badge && this._Badge.announce,
+        this._Label && this._Label.announce,
+        this._ProgressBar && this._ProgressBar.announce
+      ]
+    );
   }
 }
 

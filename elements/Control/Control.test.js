@@ -325,4 +325,20 @@ describe('Control', () => {
       expect(component._Content.mountX).toBe(0.5);
     });
   });
+
+  describe('announcer', () => {
+    it('sets the announce string to the title', () => {
+      const title = 'title';
+      component.title = title;
+      testRenderer.forceAllUpdates();
+      expect(component.announce).toEqual([title, 'Control']);
+    });
+
+    it('should prefer the announce prop over the default announce', () => {
+      const overrideString = 'override announcer string';
+      component.announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(component.announce).toEqual(overrideString);
+    });
+  });
 });

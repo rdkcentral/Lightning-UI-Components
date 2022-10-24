@@ -47,6 +47,19 @@ class CardTitle extends Card {
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y = this.style.paddingVertical + this._Title.h;
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        this._Description && this._Description.announce
+      ]
+    );
+  }
 }
 
 export default withExtensions(CardTitle);

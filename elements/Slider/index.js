@@ -83,6 +83,10 @@ class Slider extends Base {
     this._updatePositions();
     this._updateArrows();
     this.signal('onChange', this.value, this);
+    if (this._valueChanged) {
+      this.fireAncestors('$announce', this.announce);
+      this._valueChanged = false;
+    }
   }
 
   _updateCirclePosition() {
@@ -107,7 +111,7 @@ class Slider extends Base {
     }
     this._Circle.patch({
       y: this._SliderBar.y + 1,
-      alpha: this.mode === 'focused' ? 1 : 0
+      alpha: this._isFocusedMode ? 1 : 0
     });
     if (Object.keys(this.style.circleAnimation).length) {
       this._Circle.smooth = {
@@ -277,6 +281,21 @@ class Slider extends Base {
   _setVertical(vertical) {
     this._setState(vertical ? 'VerticalSlider' : '');
     return vertical;
+  }
+
+  _setValue(value) {
+    this._valueChanged = value !== this._value;
+    return value;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || (this.value !== undefined && this.value.toString())
+    );
   }
 
   static _states() {

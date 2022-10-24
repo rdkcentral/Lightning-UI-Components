@@ -61,7 +61,7 @@ describe('InlineContent', () => {
     );
   });
 
-  it.only('updates to Xfinity theme text', async () => {
+  it('updates to Xfinity theme text', async () => {
     context.setTheme(xfinityTheme);
     inlineContent.base = context.theme;
     inlineContent.content = 'This should be in Xfinity font.';

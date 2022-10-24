@@ -258,20 +258,19 @@ class MetadataBase extends Base {
     return titleH + subtitleH + descriptionH;
   }
 
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-    return [
-      this.title,
-      this._Subtitle.announce,
-      this.description,
-      this.logoTitle
-    ];
-  }
-
   set announce(announce) {
     super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        this._Subtitle && this._Subtitle.announce,
+        this._Description && this._Description.announce,
+        this.logoTitle
+      ]
+    );
   }
 }
 

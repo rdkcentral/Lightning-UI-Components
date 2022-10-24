@@ -19,7 +19,7 @@ export const Stacked = () =>
       return {
         Card: {
           type: CardAboutStacked,
-          contentBottom: [
+          description: [
             { badge: 'Badge' },
             { badge: 'Badge' },
             { badge: 'Badge' },

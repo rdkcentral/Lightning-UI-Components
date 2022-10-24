@@ -60,6 +60,28 @@ describe('TextBox', () => {
       expect(element._Text.text.text).toBe('Hello world');
     });
 
+    it('sets the announce string to the content or InlineContent announce', () => {
+      const content = 'Hello world';
+      element.content = content;
+      testRenderer.forceAllUpdates();
+      expect(element.announce).toBe(content);
+
+      const inlineContent = [
+        'Hello world',
+        { icon: 'test.png', announce: 'this is an icon' }
+      ];
+      element.content = inlineContent;
+      testRenderer.forceAllUpdates();
+      expect(element.announce).toBe('Hello world this is an icon');
+    });
+
+    it('overrides the announce string', () => {
+      const overrideString = 'Custom announce string';
+      element.announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(element.announce).toBe(overrideString);
+    });
+
     it('should set Text and InlineContent to undefined if the content prop is invalid', () => {
       element.content = null;
       testRenderer.forceAllUpdates();

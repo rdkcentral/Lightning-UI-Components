@@ -220,6 +220,14 @@ class Marquee extends Base {
   get _textRenderedW() {
     return this._Content.renderWidth;
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this.title && this.title.text);
+  }
 }
 
 export default withExtensions(Marquee);

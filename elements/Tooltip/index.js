@@ -139,6 +139,14 @@ class Tooltip extends Base {
     this._clearTimers();
     this._transitionOut();
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this._Text && this._Text.announce);
+  }
 }
 
 export default withExtensions(Tooltip);

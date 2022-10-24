@@ -4,14 +4,14 @@ import { Card } from '../../patterns';
 import mdx from './ScrollWrapper.mdx';
 import { createModeControl } from '../../.storybook/controls/argTypes';
 
-const terms = `By activating, you agree that you want to enable cloud DVR technology to 
-'your Xfinity TV subscription on additional supported devices like computers and 
-'tablets, as well as the TV connected to your set-top DVR via Comcast's network. If 
-'subscribed to X1 DVR with cloud technology, your acceptance also confirms that when you 
-'record programs on your set-top DVR you also want to save and store them automatically 
-'in Comcast's network in several formats to (1) enable you to play them back (and 
-'navigate within them) on additional supported devices like computers and tablets, as 
-'well as the TV connected to your set-top DVR, and (2) optimize the video and audio 
+const terms = `By activating, you agree that you want to enable cloud DVR technology to
+'your Xfinity TV subscription on additional supported devices like computers and
+'tablets, as well as the TV connected to your set-top DVR via Comcast's network. If
+'subscribed to X1 DVR with cloud technology, your acceptance also confirms that when you
+'record programs on your set-top DVR you also want to save and store them automatically
+'in Comcast's network in several formats to (1) enable you to play them back (and
+'navigate within them) on additional supported devices like computers and tablets, as
+'well as the TV connected to your set-top DVR, and (2) optimize the video and audio
 'quality of your viewing experience during playback.`;
 
 const modes = createModeControl(['unfocused', 'focused'], 'focused');

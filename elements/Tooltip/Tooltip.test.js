@@ -40,6 +40,22 @@ describe('Tooltip', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it("sets the announce string to the tooltip's title", () => {
+    const title = 'Helper text';
+    tooltip.title = title;
+    // need to focus to make the component render in, otherwise there is no TextBox rendered
+    tooltip._focus();
+    testRenderer.forceAllUpdates();
+    expect(tooltip.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    tooltip.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(tooltip.announce).toBe(overrideString);
+  });
+
   describe('visibility', () => {
     it('should be visible when focused', async () => {
       expect(tooltip.alpha).toEqual(0);

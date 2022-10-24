@@ -42,6 +42,32 @@ describe('Tile', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the appropriate metadata announce strings', () => {
+    const metadata = {
+      title: 'Title',
+      description: 'Description',
+      logoTitle: 'Peacock'
+    };
+    const badge = { title: 'HD' };
+    const label = { title: 'Live' };
+    const progressBar = { progress: 0.5 };
+    component.patch({ metadata, badge, label, progressBar });
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual([
+      [metadata.title, metadata.description, metadata.logoTitle],
+      badge.title,
+      label.title,
+      `${progressBar.progress * 100}%`
+    ]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   // Template
   it('should return the proper structure initially', () => {
     const templateObj = Tile._template();
@@ -88,12 +114,29 @@ describe('Tile', () => {
 
   // Getters / Setters
 
-  it('should not add src when setting src on Tile', async done => {
+  it('should accept src as getter at the root component level or nested inside artwork object', () => {
     expect(component.src).toBeUndefined();
-    component.src = 'testImage';
-    await component.__updateSpyPromise;
-    expect(component.src).toBeUndefined();
-    done();
+
+    const imageUrl1 = 'test.png';
+    component.src = imageUrl1;
+    testRenderer.forceAllUpdates();
+    expect(component.src).toBe(imageUrl1);
+    expect(component.artwork).toBeUndefined();
+    expect(component._Artwork.src).toBe(imageUrl1);
+
+    const imageUrl2 = 'test.png';
+    component.artwork = { src: imageUrl2 };
+    testRenderer.forceAllUpdates();
+    expect(component.src).toBe(imageUrl2);
+    expect(component.artwork.src).toBe(imageUrl2);
+    expect(component._Artwork.src).toBe(imageUrl2);
+
+    component.src = undefined;
+    component.artwork = { src: imageUrl2 };
+    testRenderer.forceAllUpdates();
+    expect(component.src).toBe(imageUrl2);
+    expect(component.artwork.src).toBe(imageUrl2);
+    expect(component._Artwork.src).toBe(imageUrl2);
   });
 
   it('returns the proper value for gradient when has metadata and focus', async done => {

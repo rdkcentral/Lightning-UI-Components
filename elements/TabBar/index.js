@@ -84,10 +84,9 @@ class TabBar extends Base {
     this._Tabs.wrapSelected = this.wrapSelected;
     this._Tabs.items.forEach(tab => {
       const isSelectedTab = tab === this._Tabs.selected;
-      if (this.mode === 'unfocused') {
+      if (this._isUnfocusedMode) {
         tab.mode = 'unfocused';
-      }
-      if (this.mode === 'focused') {
+      } else if (this._isFocusedMode) {
         if (this._isTabsFocused) {
           tab.mode = isSelectedTab ? 'focused' : 'unfocused';
         } else {
@@ -117,8 +116,7 @@ class TabBar extends Base {
     this._TabContent.patch({
       y: this._Tabs.h + margin,
       contentItems: this._tabContent,
-      selectedIndex:
-        this.mode === 'focused' ? this._Tabs.selectedIndex : undefined
+      selectedIndex: this._isFocusedMode ? this._Tabs.selectedIndex : undefined
     });
   }
 
@@ -126,7 +124,7 @@ class TabBar extends Base {
     let h;
     if (this.collapse) {
       h =
-        this.mode === 'focused' &&
+        this._isFocusedMode &&
         this._tabContent.filter(content => Object.keys(content).length).length
           ? this._expandedHeight
           : this._collapsedHeight;
@@ -134,7 +132,7 @@ class TabBar extends Base {
       h = this._expandedHeight;
     }
     this._TabContent.smooth = {
-      alpha: !this.collapse || this.mode === 'focused' ? 1 : 0.001
+      alpha: !this.collapse || this._isFocusedMode ? 1 : 0.001
     };
     if (this.h !== h) {
       this.h = h;

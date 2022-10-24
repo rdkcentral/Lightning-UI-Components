@@ -49,7 +49,10 @@ export const Basic = () =>
       return {
         Provider: {
           type: Provider,
-          providers: Array(10).fill(xfinityProviderLogoSquare)
+          providers: Array(10).fill({
+            icon: xfinityProviderLogoSquare,
+            announce: 'XFinity Logo'
+          })
         }
       };
     }
@@ -62,16 +65,18 @@ export const With2x1 = () =>
         Provider: {
           type: Provider,
           providers: [
-            xfinityProviderLogoSquare,
+            { icon: xfinityProviderLogoSquare, announce: 'XFinity Logo' },
             {
               type: Icon,
               w: 96,
               h: 48,
-              icon: xfinityLogo
+              icon: xfinityLogo,
+              announce: 'XFinity Logo Wide'
             },
-            ...Array.apply(null, { length: 8 }).map(
-              () => xfinityProviderLogoSquare
-            )
+            ...Array.apply(null, { length: 8 }).map(() => ({
+              icon: xfinityProviderLogoSquare,
+              announce: 'XFinity Logo'
+            }))
           ]
         }
       };

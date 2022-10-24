@@ -14,7 +14,7 @@ export const RadioSmall = () =>
   };
 RadioSmall.args = { checked: false };
 RadioSmall.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off'

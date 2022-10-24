@@ -8,6 +8,7 @@ import { CardContent as MetadataStory } from '../../elements/MetadataCardContent
 import { generateSubStory } from '../../.storybook/utils';
 import { createModeControl } from '../../.storybook/controls/argTypes';
 import CardContentVerticalSmall from './CardContentVerticalSmall';
+import { Basic } from './CardContent.stories';
 
 export default {
   title: 'Patterns / CardContent',
@@ -31,7 +32,8 @@ export const VerticalSmall = args =>
     }
   };
 VerticalSmall.args = {
-  shouldCollapse: false
+  shouldCollapse: false,
+  ...Basic.tileProps.args
 };
 VerticalSmall.argTypes = {
   ...createModeControl(),
@@ -42,7 +44,11 @@ VerticalSmall.argTypes = {
     },
     control: 'boolean',
     description: 'should the Card collapse?'
-  }
+  },
+  ...Basic.tileProps.argTypes
+};
+VerticalSmall.parameters = {
+  argActions: Basic.tileProps.argActions('CardContentVerticalSmall')
 };
 generateSubStory(
   'CardContentVerticalSmall',

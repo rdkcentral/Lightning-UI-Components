@@ -3,30 +3,61 @@ import CardAbout from './CardAbout';
 
 const createCardAboutComponent = TestUtils.makeCreateComponent(CardAbout);
 
-describe('CardAbout', () => {
-  let CardAbout, testRenderer;
+describe('cardAbout', () => {
+  let cardAbout, testRenderer;
   const lightningPath = 'assets/images/ic_lightning_white_32.png';
 
   beforeEach(() => {
-    [CardAbout, testRenderer] = createCardAboutComponent({
+    [cardAbout, testRenderer] = createCardAboutComponent({
       title: 'some string'
     });
   });
+
   afterEach(() => {
-    CardAbout = null;
+    cardAbout = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the title, middle, and description text', () => {
+    const title = 'Title';
+    const description = 'Description';
+    const iconLeft = { icon: 'left.png', title: 'left' };
+    const iconRight = { icon: 'right.png', title: 'right' };
+    const textLeft = '00%';
+    const textRight = '00%';
+    cardAbout.patch({
+      title,
+      description,
+      iconLeft,
+      iconRight,
+      textLeft,
+      textRight
+    });
+    testRenderer.forceAllUpdates();
+    expect(cardAbout.announce).toEqual([
+      title.toUpperCase(),
+      `${iconLeft.title} ${textLeft}`,
+      `${iconRight.title} ${textRight}`,
+      description
+    ]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    cardAbout.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(cardAbout.announce).toBe(overrideString);
+  });
+
   it('has the correct static props getter', () => {
-    expect(CardAbout.constructor.properties).toMatchObject([
+    expect(cardAbout.constructor.properties).toMatchObject([
       'title',
       'description',
-      'iconWidth',
-      'iconHeight',
       'iconRight',
       'textRight',
       'iconLeft',
@@ -35,7 +66,7 @@ describe('CardAbout', () => {
   });
 
   it('has the correct static tags getter', () => {
-    expect(CardAbout.constructor.tags).toMatchObject([
+    expect(cardAbout.constructor.tags).toMatchObject([
       'Background',
       'Title',
       'Description',
@@ -46,87 +77,87 @@ describe('CardAbout', () => {
 
   it('should update Container', () => {
     testRenderer.forceAllUpdates();
-    expect(CardAbout._LeftIconTextContainer.x).toEqual(
-      CardAbout.style.paddingHorizontal
+    expect(cardAbout._LeftIconTextContainer.x).toEqual(
+      cardAbout.style.paddingHorizontal
     );
     testRenderer.forceAllUpdates();
-    CardAbout._update();
-    expect(CardAbout._LeftIconTextContainer.y).toEqual(
-      CardAbout._Title.textStyle.lineHeight +
-        CardAbout.style.paddingVertical +
-        CardAbout.style.paddingFirstLine
+    cardAbout._update();
+    expect(cardAbout._LeftIconTextContainer.y).toEqual(
+      cardAbout._Title.textStyle.lineHeight +
+        cardAbout.style.paddingVertical +
+        cardAbout.style.paddingFirstLine
     );
-    expect(CardAbout._RightIconTextContainer.x).toEqual(
-      !CardAbout.iconLeft && !CardAbout.textLeft
-        ? CardAbout.style.paddingHorizontal
-        : CardAbout.w - CardAbout.style.paddingHorizontal
+    expect(cardAbout._RightIconTextContainer.x).toEqual(
+      !cardAbout.iconLeft && !cardAbout.textLeft
+        ? cardAbout.style.paddingHorizontal
+        : cardAbout.w - cardAbout.style.paddingHorizontal
     );
-    expect(CardAbout._RightIconTextContainer.y).toEqual(
-      CardAbout._Title.textStyle.lineHeight +
-        CardAbout.style.paddingVertical +
-        CardAbout.style.paddingFirstLine
+    expect(cardAbout._RightIconTextContainer.y).toEqual(
+      cardAbout._Title.textStyle.lineHeight +
+        cardAbout.style.paddingVertical +
+        cardAbout.style.paddingFirstLine
     );
-    expect(CardAbout._RightIconTextContainer.contentSpacing).toEqual(
-      CardAbout.style.contentSpacing
+    expect(cardAbout._RightIconTextContainer.contentSpacing).toEqual(
+      cardAbout.style.contentSpacing
     );
   });
 
   it('should set description position', () => {
     testRenderer.forceAllUpdates();
-    CardAbout._update();
-    expect(CardAbout._Description.y).toEqual(
-      CardAbout._hasContent
-        ? (CardAbout._RightIconTextContainer.y ||
-            CardAbout._LeftIconTextContainer.y) +
-            (CardAbout.iconHeight ||
-              CardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
-              CardAbout._RightIconTextContainer.style.textStyle.lineHeight) +
-            CardAbout.style.paddingVertical
-        : CardAbout._Title.textStyle.lineHeight +
-            CardAbout.style.paddingVertical +
-            CardAbout.style.paddingFirstLine
+    cardAbout._update();
+    expect(cardAbout._Description.y).toEqual(
+      cardAbout._hasContent
+        ? (cardAbout._RightIconTextContainer.y ||
+            cardAbout._LeftIconTextContainer.y) +
+            (cardAbout.iconHeight ||
+              cardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
+              cardAbout._RightIconTextContainer.style.textStyle.lineHeight) +
+            cardAbout.style.paddingVertical
+        : cardAbout._Title.textStyle.lineHeight +
+            cardAbout.style.paddingVertical +
+            cardAbout.style.paddingFirstLine
     );
-    expect(CardAbout._Description.x).toEqual(CardAbout.style.paddingHorizontal);
+    expect(cardAbout._Description.x).toEqual(cardAbout.style.paddingHorizontal);
   });
 
   it('should update title style', () => {
     testRenderer.forceAllUpdates();
-    expect(CardAbout._Title.textStyle).toEqual(
-      CardAbout.style.titleTextProperties
+    expect(cardAbout._Title.textStyle).toEqual(
+      cardAbout.style.titleTextProperties
     );
   });
 
   it('should check for content', () => {
     testRenderer.forceAllUpdates();
-    expect(CardAbout._hasContent).toBe(
+    expect(cardAbout._hasContent).toBe(
       Boolean(
-        CardAbout.iconLeft ||
-          CardAbout.iconRight ||
-          CardAbout.textLeft ||
-          CardAbout.textRight
+        cardAbout.iconLeft ||
+          cardAbout.iconRight ||
+          cardAbout.textLeft ||
+          cardAbout.textRight
       )
     );
   });
   describe('updating content', () => {
     it('should update the left icon text container', () => {
-      CardAbout.iconLeft = lightningPath;
-      CardAbout.textLeft = 'About Card Icon';
-      expect(CardAbout._LeftIconTextContainer.content).toEqual([]);
-      CardAbout._updateContent();
+      cardAbout.iconLeft = lightningPath;
+      cardAbout.textLeft = 'About Card Icon';
+      expect(cardAbout._LeftIconTextContainer.content).toEqual([]);
+      cardAbout._updateContent();
       testRenderer.forceAllUpdates();
-      expect(CardAbout._LeftIconTextContainer.content).toEqual([
-        { icon: lightningPath },
+      expect(cardAbout._LeftIconTextContainer.content).toEqual([
+        { icon: lightningPath, alpha: 1 },
         'About Card Icon'
       ]);
     });
   });
 
-  it.only('should update the right icon text container', () => {
-    CardAbout.iconRight = lightningPath;
-    CardAbout.textRight = 'Hi Just testing';
-    expect(CardAbout._RightIconTextContainer.content).toEqual([]);
-    CardAbout._updateContent();
-    expect(CardAbout._RightIconTextContainer.content).toEqual([
+  it('should update the right icon text container', () => {
+    cardAbout.iconRight = lightningPath;
+    cardAbout.textRight = 'Hi Just testing';
+    expect(cardAbout._RightIconTextContainer.content).toEqual([]);
+    cardAbout._updateContent();
+    expect(cardAbout._RightIconTextContainer.content).toEqual([
       { icon: lightningPath, alpha: 1 },
       'Hi Just testing'
     ]);

@@ -33,7 +33,7 @@ Basic.args = {
   checked: false
 };
 Basic.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   checked: {
     control: 'boolean',
     description: 'the state of the toggle being checked'

@@ -145,6 +145,14 @@ class Tab extends Surface {
   get _paddingX() {
     return this.title ? this.style.paddingX : this.style.noTitlePaddingX;
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this._Text && this._Text.announce);
+  }
 }
 
 export default withExtensions(Tab);

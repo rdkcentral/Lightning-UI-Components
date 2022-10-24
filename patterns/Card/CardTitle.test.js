@@ -6,16 +6,35 @@ const createCardTitleComponent = TestUtils.makeCreateComponent(CardTitle);
 
 describe('CardTitle', () => {
   let cardTitle, testRenderer;
+
   beforeEach(() => {
     [cardTitle, testRenderer] = createCardTitleComponent();
   });
+
   afterEach(() => {
     cardTitle = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+  });
+
+  it('sets the announce string to the card title', () => {
+    const title = 'Title';
+    const description = 'Description';
+    cardTitle.title = title;
+    cardTitle.description = description;
+    testRenderer.forceAllUpdates();
+    expect(cardTitle.announce).toEqual([title, description]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    cardTitle.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(cardTitle.announce).toBe(overrideString);
   });
 
   it('has the correct static props getter', () => {
