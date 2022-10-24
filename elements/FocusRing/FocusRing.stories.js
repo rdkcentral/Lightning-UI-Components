@@ -28,7 +28,7 @@ export const Basic = () =>
   };
 
 Basic.argTypes = {
-  startAnimation: { defaultValue: false, control: 'boolean' }
+  startAnimation: { defaultValue: true, control: 'boolean' }
 };
 
 Basic.parameters = {
