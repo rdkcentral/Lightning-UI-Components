@@ -19,9 +19,7 @@ export const Basic = () =>
     static _template() {
       return {
         Card: {
-          type: CardAbout,
-          iconHeight: 64,
-          iconWidth: 64
+          type: CardAbout
         }
       };
     }

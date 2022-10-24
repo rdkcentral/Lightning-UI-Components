@@ -13,7 +13,7 @@ class Card extends Surface {
   }
 
   static get properties() {
-    return ['title'];
+    return [...super.properties, 'title'];
   }
 
   static get tags() {
@@ -53,6 +53,14 @@ class Card extends Surface {
   _updateTitlePosition() {
     this._Title.x = this.style.paddingHorizontal;
     this._Title.y = this.style.paddingVertical;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this._Title && this._Title.announce);
   }
 }
 

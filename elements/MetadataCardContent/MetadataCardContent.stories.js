@@ -24,7 +24,7 @@ export const CardContent = () =>
     }
   };
 CardContent.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   w: {
     defaultValue: 600,
     table: {
@@ -80,7 +80,10 @@ CardContent.parameters = {
     visibleCount(visibleCount, component) {
       component.tag('MetadataCardContent').provider = {
         visibleCount: visibleCount,
-        providers: Array(10).fill(xfinityProviderLogoSquare)
+        providers: Array(10).fill({
+          icon: xfinityProviderLogoSquare,
+          announce: 'xFinity'
+        })
       };
     }
   }

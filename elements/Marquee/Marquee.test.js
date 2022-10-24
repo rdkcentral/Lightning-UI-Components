@@ -29,6 +29,13 @@ describe('Marquee', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the label text', () => {
+    const text = 'Scrolling Text';
+    marquee.title = { text };
+    testRenderer.forceAllUpdates();
+    expect(marquee.announce).toBe(text);
+  });
+
   describe('scrolling', () => {
     it('does not scroll when width is big enough', () => {
       [marquee, testRenderer] = createMarquee({

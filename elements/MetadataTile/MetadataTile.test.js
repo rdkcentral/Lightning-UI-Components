@@ -27,6 +27,26 @@ describe('MetadataTile', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the appropriate text content status', () => {
+    const title = 'Title';
+    const subtitle = 'Subtitle';
+    const description = 'Description';
+    const logoTitle = 'Logo Title';
+    component.patch({ title, subtitle, logoTitle });
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual([title, subtitle, logoTitle]);
+    component.patch({ title, subtitle: undefined, description, logoTitle });
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual([title, description, logoTitle]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   it('hides subtitle if description is provided', async () => {
     component.subtitle = 'subtitle';
     await component.__updateSpyPromise;

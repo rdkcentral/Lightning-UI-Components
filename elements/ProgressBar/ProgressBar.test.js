@@ -47,6 +47,26 @@ describe('ProgressBar', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the progress percentage', () => {
+    progressBar.progress = 0.5;
+    testRenderer.forceAllUpdates();
+    expect(progressBar.announce).toBe('50%');
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    progressBar.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(progressBar.announce).toBe(overrideString);
+  });
+
+  it('reannounces on progress change', () => {
+    progressBar.fireAncestors = jest.fn();
+    progressBar.progress = 0.2;
+    testRenderer.forceAllUpdates();
+    expect(progressBar.fireAncestors).toHaveBeenCalledWith('$announce', '20%');
+  });
+
   it('has a base theme', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(

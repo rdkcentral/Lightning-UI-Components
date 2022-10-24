@@ -56,6 +56,13 @@ describe('Key', () => {
       [key, testRenderer] = createKey({ title: '4' });
       expect(key.announce).toEqual('4, button');
     });
+
+    it('overrides the announce string', () => {
+      const overrideString = 'Custom announce string';
+      key.announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(key.announce).toBe(overrideString);
+    });
   });
 
   it('should fire $onSoftKey events on enter press', () => {

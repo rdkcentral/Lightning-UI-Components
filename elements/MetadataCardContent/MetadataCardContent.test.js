@@ -30,6 +30,23 @@ describe('MetadataCardContent', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the appropriate text content status', () => {
+    const title = 'Title';
+    const description = 'Description';
+    const details = 'Details';
+    const provider = { providers: [{ icon: 'test.png', announce: 'test' }] };
+    component.patch({ title, description, details, provider });
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual([title, description, details, ['test']]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   it('updates the title', async () => {
     const title = 'title text';
     expect(component.title).toBe(undefined);

@@ -28,7 +28,7 @@ export const Card = () =>
   };
 
 Card.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   w: {
     defaultValue: 400,
     table: {
@@ -50,7 +50,7 @@ Card.argTypes = {
       '94%',
       {
         icon: lightningbolt,
-        color: getHexColor('00ff00'),
+        style: { color: getHexColor('00ff00') },
         title: 'Green Lightning Bolt'
       },
       '86%',
@@ -65,7 +65,7 @@ Card.argTypes = {
           '94%',
           {
             icon: lightningbolt,
-            color: getHexColor('00ff00'),
+            style: { color: getHexColor('00ff00') },
             title: 'Green Lightning Bolt'
           },
           '86%',

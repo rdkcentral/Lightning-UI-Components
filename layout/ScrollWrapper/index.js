@@ -24,7 +24,8 @@ class ScrollWrapper extends Base {
         vertical: true,
         signals: {
           onChange: '_updateScrollContainerSize'
-        }
+        },
+        announce: ' '
       }
     };
   }
@@ -79,8 +80,16 @@ class ScrollWrapper extends Base {
     this._updateAlpha();
   }
 
+  _resetFlexContainer() {
+    this._FadeContainer.patch({ ScrollContainer: undefined });
+    this._FadeContainer.patch({
+      ScrollContainer: { w: w => w, wordWrap: true }
+    });
+  }
+
   _update() {
     if (this._contentChanged) {
+      this._resetFlexContainer();
       this._updateAutoScroll();
     }
     this._updateScrollContainer();
@@ -105,7 +114,7 @@ class ScrollWrapper extends Base {
   _updateAlpha() {
     this._Slider.patch({
       smooth: {
-        alpha: this.showScrollBar && this.mode === 'focused' ? 1 : 0
+        alpha: this.showScrollBar && this._isFocusedMode ? 1 : 0
       }
     });
   }
@@ -351,6 +360,29 @@ class ScrollWrapper extends Base {
 
   _getFocused() {
     return this._Slider;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    if (Array.isArray(this.content)) {
+      if (
+        this._ScrollContainer &&
+        this._ScrollContainer.children &&
+        this._ScrollContainer.children.length
+      ) {
+        return this._ScrollContainer.children.map(item => item.announce);
+      } else {
+        return this.content.map(item => item.announce || item.text);
+      }
+    }
+    return this.content;
   }
 }
 

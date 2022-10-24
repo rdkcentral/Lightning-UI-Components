@@ -2,6 +2,7 @@ import lng from '@lightningjs/core';
 import Button from './Button';
 import TestUtils from '../../test/lightning-test-utils';
 import Icon from '../Icon';
+import Checkbox from '../Checkbox';
 
 const createButton = TestUtils.makeCreateComponent(
   Button,
@@ -10,16 +11,16 @@ const createButton = TestUtils.makeCreateComponent(
 );
 
 describe('Button', () => {
-  let component, testRenderer;
+  let button, testRenderer;
   beforeEach(() => {
-    [component, testRenderer] = createButton(
+    [button, testRenderer] = createButton(
       { title: 'Button' },
       { spyOnMethods: ['_update'] }
     );
     testRenderer.update();
   });
   afterEach(() => {
-    component = null;
+    button = null;
     testRenderer = null;
   });
 
@@ -30,171 +31,173 @@ describe('Button', () => {
 
   describe('dimensions', () => {
     it('should grow width dynamically', () => {
-      component.patch({
+      button.patch({
         title:
           'This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title'
       });
 
       testRenderer.forceAllUpdates();
 
-      expect(component.w).toBeGreaterThan(component.style.minWidth);
+      expect(button.w).toBeGreaterThan(button.style.minWidth);
     });
 
     it('should not grow width dynamically if static width is set', () => {
       const expectedW = 400;
-      component.patch({
+      button.patch({
         w: expectedW,
         fixed: true,
         title:
           'This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title This is a button with a really long title'
       });
-      expect(component.w).toBe(expectedW);
-      expect(component._Title.renderWidth).toBeLessThan(expectedW);
+      expect(button.w).toBe(expectedW);
+      expect(button._Title.renderWidth).toBeLessThan(expectedW);
     });
   });
 
   describe('announcer', () => {
-    it('should use the title as the default announce string', () => {
-      expect(component.announce).toEqual('Button, Button');
-    });
+    it('sets the announce string to the title and relevant prefix/suffix strings', () => {
+      const title = 'title';
+      button.title = title;
+      testRenderer.forceAllUpdates();
+      expect(button.announce).toEqual([title, 'Button']);
 
-    it('should append Button to end of announce context', () => {
-      expect(component.announce).toEqual('Button, Button');
+      const prefix = [{ type: Icon, icon: 'test.png', announce: 'test' }];
+      const suffix = [{ type: Checkbox, checked: true }];
+      button.patch({ prefix, suffix });
+      testRenderer.forceAllUpdates();
+      expect(button.announce).toEqual([title, 'Button', 'test', 'Checked']);
     });
 
     it('should prefer the announce prop over the default announce', () => {
       const overrideString = 'override announcer string';
-
-      component._announce = overrideString;
+      button.announce = overrideString;
       testRenderer.forceAllUpdates();
-      expect(component.announce).toEqual(overrideString);
+      expect(button.announce).toEqual(overrideString);
     });
   });
 
   describe('focus', () => {
     it('has a default unfocus text color', () => {
-      expect(component._Title.textColor).toBe(component.style.textColor);
+      expect(button._Title.textColor).toBe(button.style.textColor);
     });
     it('has a focus text color', () => {
-      expect(component._Title.textColor).toBe(component.style.textColor);
+      expect(button._Title.textColor).toBe(button.style.textColor);
 
       testRenderer.focus();
       testRenderer.forceAllUpdates();
 
-      expect(component._Title.textColor).toBe(component.style.textColor);
+      expect(button._Title.textColor).toBe(button.style.textColor);
     });
     it('should reset text color on unfocus', () => {
       testRenderer.focus();
       testRenderer.forceAllUpdates();
 
-      expect(component._Title.textColor).toBe(component.style.textColor);
+      expect(button._Title.textColor).toBe(button.style.textColor);
 
       testRenderer.unfocus();
       testRenderer.forceAllUpdates();
 
-      expect(component._Title.textColor).toBe(component.style.textColor);
+      expect(button._Title.textColor).toBe(button.style.textColor);
     });
   });
 
   describe('updateContentPosition', () => {
     it('If justify value is left, then mountX and X position should be', () => {
-      component.justify = 'left';
+      button.justify = 'left';
       testRenderer.forceAllUpdates();
-      expect(component._Content.x).toEqual(component.style.paddingX);
-      expect(component._Content.mountX).toEqual(0);
+      expect(button._Content.x).toEqual(button.style.paddingX);
+      expect(button._Content.mountX).toEqual(0);
     });
 
     it('If justify value is right, then mountX and X position should be', () => {
-      component.justify = 'right';
+      button.justify = 'right';
       testRenderer.forceAllUpdates();
-      expect(component._Content.x).toEqual(
-        component.w - component.style.paddingX
-      );
-      expect(component._Content.mountX).toEqual(1);
+      expect(button._Content.x).toEqual(button.w - button.style.paddingX);
+      expect(button._Content.mountX).toEqual(1);
     });
   });
 
   describe('prefix', () => {
-    it('should have a prefix if prefix array is passed to the component', () => {
-      expect(component._Prefix).toBeUndefined();
+    it('should have a prefix if prefix array is passed to the button', () => {
+      expect(button._Prefix).toBeUndefined();
 
-      component.prefix = [{ type: Icon }];
+      button.prefix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-      expect(component._Prefix).toBeDefined();
+      expect(button._Prefix).toBeDefined();
     });
 
     it('should have items populated on Prefix row if prefix is passed', () => {
-      expect(component._Prefix).toBeUndefined();
+      expect(button._Prefix).toBeUndefined();
 
-      component.prefix = [{ type: Icon }];
+      button.prefix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-      expect(component._Prefix.items.length).toEqual(component.prefix.length);
+      expect(button._Prefix.items.length).toEqual(button.prefix.length);
     });
   });
 
   describe('suffix', () => {
-    it('should have a Suffix if suffix array is passed to the component', () => {
-      expect(component._Suffix).toBeUndefined();
+    it('should have a Suffix if suffix array is passed to the button', () => {
+      expect(button._Suffix).toBeUndefined();
 
-      component.suffix = [{ type: Icon }];
+      button.suffix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-      expect(component._Suffix).toBeDefined();
+      expect(button._Suffix).toBeDefined();
     });
 
     it('should have items populated on Prefix row if suffix is passed', () => {
-      expect(component._Suffix).toBeUndefined();
+      expect(button._Suffix).toBeUndefined();
 
-      component.suffix = [{ type: Icon }];
+      button.suffix = [{ type: Icon }];
       testRenderer.forceAllUpdates();
-      expect(component._Suffix.items.length).toEqual(component.suffix.length);
+      expect(button._Suffix.items.length).toEqual(button.suffix.length);
     });
 
     it('Suffix should be positioned based on the title and prefix position', () => {
-      expect(component._Prefix).toBeUndefined();
+      expect(button._Prefix).toBeUndefined();
 
-      component.prefix = [{ type: Icon }];
-      component.title = '';
+      button.prefix = [{ type: Icon }];
+      button.title = '';
       testRenderer.forceAllUpdates();
-      expect(component._hasTitle).toBeFalsy();
-      expect(component._suffixX).toEqual(
-        component._prefixW + component.style.itemSpacing + component._titleW
+      expect(button._hasTitle).toBeFalsy();
+      expect(button._suffixX).toEqual(
+        button._prefixW + button.style.itemSpacing + button._titleW
       );
     });
 
     it('Suffix should be positioned horizontally at zero if title is empty', () => {
-      component.title = '';
+      button.title = '';
       testRenderer.forceAllUpdates();
-      expect(component._hasTitle).toBeFalsy();
-      expect(component._suffixX).toEqual(0);
+      expect(button._hasTitle).toBeFalsy();
+      expect(button._suffixX).toEqual(0);
     });
   });
 
   describe('truncation for Buttons with fixed width', () => {
     beforeEach(() => {
       const title = 'long text ';
-      component.title = title.repeat(10);
-      component.fixed = true;
-      component.w = 500;
+      button.title = title.repeat(10);
+      button.fixed = true;
+      button.w = 500;
     });
 
     it('should truncate overflowing text', async () => {
-      await component.__updateSpyPromise;
+      await button.__updateSpyPromise;
       testRenderer.update();
-      const wA = component._fixedWordWrapWidth;
-      expect(component._Title.wordWrapWidth).toBe(wA);
+      const wA = button._fixedWordWrapWidth;
+      expect(button._Title.wordWrapWidth).toBe(wA);
 
-      component.prefix = [{ type: lng.Component, w: 20, h: 20 }];
-      await component.__updateSpyPromise;
+      button.prefix = [{ type: lng.Component, w: 20, h: 20 }];
+      await button.__updateSpyPromise;
       testRenderer.update();
-      const wB = component._fixedWordWrapWidth;
-      expect(component._Title.wordWrapWidth).toBe(wB);
+      const wB = button._fixedWordWrapWidth;
+      expect(button._Title.wordWrapWidth).toBe(wB);
       expect(wB).toBeLessThan(wA);
 
-      component.suffix = [{ type: lng.Component, w: 20, h: 20 }];
-      await component.__updateSpyPromise;
+      button.suffix = [{ type: lng.Component, w: 20, h: 20 }];
+      await button.__updateSpyPromise;
       testRenderer.update();
-      const wC = component._fixedWordWrapWidth;
-      expect(component._Title.wordWrapWidth).toBe(wC);
+      const wC = button._fixedWordWrapWidth;
+      expect(button._Title.wordWrapWidth).toBe(wC);
       expect(wC).toBeLessThan(wB);
     });
   });

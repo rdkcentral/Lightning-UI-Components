@@ -25,6 +25,20 @@ describe('Badge', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the badge text', () => {
+    const title = 'HD';
+    badge.title = title;
+    testRenderer.forceAllUpdates();
+    expect(badge.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    badge.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(badge.announce).toBe(overrideString);
+  });
+
   it('renders icon and text side by side', () => {
     // eslint-disable-next-line no-unused-vars
     const [_, testRenderer] = createBadge({

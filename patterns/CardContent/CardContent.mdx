@@ -37,7 +37,8 @@ class Basic extends lng.Component {
 | metadata           | object                     | true     | -            | object with all of the properties for [MetadataCardContent](?path=/story/elements-metadatacardcontent--basic)                        |
 | orientation        | ['horizontal', 'vertical'] | false    | 'horizontal' | orientation of card's layout                                                                                                         |
 | shouldCollapse     | boolean                    | false    | false        | will collapse the Card when the Card is not focused                                                                                  |
-| src                | string                     | true     | -            | path to artwork image                                                                                                                |
+| src                | string                     | false    | -            | path to artwork image (can also be set via `{ tile: { artwork: { src } } }`)                                                         |
+| tile               | object                     | false    | -            | Object containing all properties supported in the [Tile component](?path=/docs/elements-tile--basic)                                 |
 
 ### Style Properties
 

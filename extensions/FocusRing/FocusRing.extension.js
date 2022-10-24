@@ -60,7 +60,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         const calculatedH = this.innerH || this.h;
 
         // Only patch the FocusRing for the first time if item is focused
-        if (this.mode === 'focused') {
+        if (this._isFocusedMode) {
           if (!this._FocusRing) {
             const focusRingComp =
               Pool.get('focusring') ||
@@ -117,7 +117,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
           }
         };
 
-        if (this.mode === 'focused') {
+        if (this._isFocusedMode) {
           this.applySmooth(
             this._FocusRing,
             { ...focusRingPatch, ...this._focusStyle },

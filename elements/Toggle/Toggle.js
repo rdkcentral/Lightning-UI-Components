@@ -51,6 +51,10 @@ class Toggle extends Base {
     this._updateStroke();
     this._updateKnob();
     this._updateTotalHeight();
+    if (this._checkedChanged) {
+      this.fireAncestors('$announce', this.announce);
+      this._checkedChanged = false;
+    }
   }
 
   _updateKnobPosition() {
@@ -168,6 +172,11 @@ class Toggle extends Base {
     });
   }
 
+  _setChecked(checked) {
+    this._checkedChanged = checked !== this._checked;
+    return checked;
+  }
+
   toggle() {
     if (!this._isDisabledMode) {
       this.checked = !this.checked;
@@ -182,6 +191,14 @@ class Toggle extends Base {
       this.toggle();
     }
     return false;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this.checked ? 'Checked' : 'Unchecked');
   }
 }
 

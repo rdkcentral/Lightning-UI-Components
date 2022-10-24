@@ -32,6 +32,29 @@ describe('Provider', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the appropriate image alt text and hidden amount', () => {
+    const announce = 'test';
+    component.visibleCount = 5;
+    component.providers = [{ icon: 'test.png', announce }];
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual(['test']);
+    component.providers = Array(10).fill({
+      icon: 'test.png',
+      announce: 'test'
+    });
+    testRenderer.forceAllUpdates();
+    const providerAnnounce = Array(5).fill(announce);
+    providerAnnounce.push('+5');
+    expect(component.announce).toEqual(providerAnnounce);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   it('displays the correct number of providers as Icons', () => {
     expect(component._Row.items.length).toBe(4);
     expect(component._Row.items[0]).toBeInstanceOf(Icon);

@@ -16,7 +16,7 @@ class Radio extends Base {
     return ['Knob'];
   }
   static get properties() {
-    return ['checked', 'isInactive'];
+    return ['checked'];
   }
 
   _update() {
@@ -24,6 +24,10 @@ class Radio extends Base {
     this._Knob.smooth = {
       alpha: this.checked ? 1 : 0
     };
+    if (this._checkedChanged) {
+      this.fireAncestors('$announce', this.announce);
+      this._checkedChanged = false;
+    }
   }
 
   _updateLayout() {
@@ -61,6 +65,11 @@ class Radio extends Base {
     });
   }
 
+  _setChecked(checked) {
+    this._checkedChanged = checked !== this._checked;
+    return checked;
+  }
+
   toggle() {
     if (!this._isDisabledMode) {
       this.checked = !this.checked;
@@ -75,6 +84,14 @@ class Radio extends Base {
       this.toggle();
     }
     return false;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this.checked ? 'Checked' : 'Unchecked');
   }
 }
 

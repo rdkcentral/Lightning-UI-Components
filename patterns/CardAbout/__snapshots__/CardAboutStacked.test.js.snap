@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CardAboutStacked renders 1`] = `
+exports[`cardAboutStacked renders 1`] = `
 Object {
   "Component": Object {
     "Background": Object {

@@ -26,13 +26,15 @@ export default {
 };
 
 const createItems = length => {
-  return Array.from({ length }).map(() => ({
+  return Array.from({ length }).map((_, index) => ({
     type: Tile,
     itemLayout: {
       ratioX: 16,
       ratioY: 9,
       upCount: 4
-    }
+    },
+    announce: 'Tile',
+    announceContext: `${index + 1} of ${length}`
   }));
 };
 

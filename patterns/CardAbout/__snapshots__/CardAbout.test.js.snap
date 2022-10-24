@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CardAbout renders 1`] = `
+exports[`cardAbout renders 1`] = `
 Object {
   "Component": Object {
     "Background": Object {
@@ -82,9 +82,11 @@ Object {
             "letterSpacing": 2,
             "lineHeight": 32,
             "maxLines": 1,
+            "maxLinesSuffix": "...",
             "text": "SOME STRING",
             "textBaseline": "bottom",
             "textColor": 2583099129,
+            "textOverflow": "ellipsis",
             "type": "TextTexture",
             "verticalAlign": "middle",
             "wordWrapWidth": 474.66666666666663,

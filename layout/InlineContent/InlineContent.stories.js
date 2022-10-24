@@ -138,7 +138,7 @@ export const WithNewLines = args =>
             'Example with multiple lines',
             {
               icon: lightningbolt,
-              color: getHexColor('00ff00'),
+              style: { color: getHexColor('00ff00') },
               title: 'Green Lightning Bolt'
             },
             { newline: true },

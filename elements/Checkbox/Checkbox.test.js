@@ -15,6 +15,29 @@ describe('Checkbox', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the checked status', () => {
+    checkbox.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(checkbox.announce).toBe('Checked');
+    checkbox.checked = false;
+    testRenderer.forceAllUpdates();
+    expect(checkbox.announce).toBe('Unchecked');
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    checkbox.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(checkbox.announce).toBe(overrideString);
+  });
+
+  it('reannounces on checked status change', () => {
+    checkbox.fireAncestors = jest.fn();
+    checkbox.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(checkbox.fireAncestors).toHaveBeenCalledWith('$announce', 'Checked');
+  });
+
   it('should toggle the checkbox', () => {
     [checkbox, testRenderer] = createCheckbox({
       checked: false

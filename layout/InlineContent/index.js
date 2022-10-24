@@ -265,6 +265,8 @@ class InlineContent extends Base {
       this._parsedContent.reduce((announce, item) => {
         if (typeof item === 'string') {
           announce += item;
+        } else if (item.announce) {
+          announce += item.announce;
         } else if (item.text) {
           announce += item.text;
         } else if (item.title) {

@@ -366,7 +366,23 @@ class Button extends Surface {
     // TODO - Localization?
     // Do we need a locale file with
     // component translations?
-    return this.title + ', Button';
+    const announce = [];
+    if (this.title) {
+      announce.push(this.title);
+    }
+    announce.push(this._announceComponentName);
+    if (this._hasPrefix && this._Prefix.items.length) {
+      announce.push(...this._Prefix.items.map(item => item.announce));
+    }
+    if (this._hasSuffix && this._Suffix.items.length) {
+      announce.push(...this._Suffix.items.map(item => item.announce));
+    }
+
+    return announce;
+  }
+
+  get _announceComponentName() {
+    return Button.__componentName;
   }
 
   get _paddingX() {

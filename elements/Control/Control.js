@@ -167,7 +167,11 @@ class Control extends ButtonSmall {
   }
 
   get _collapse() {
-    return this.shouldCollapse && this.mode !== 'focused';
+    return this.shouldCollapse && !this._isFocusedMode;
+  }
+
+  get _announceComponentName() {
+    return Control.__componentName;
   }
 }
 

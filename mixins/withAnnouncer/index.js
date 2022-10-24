@@ -136,8 +136,6 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
           acc.push([elmName(elm), 'Announce', elm.announce]);
         } else if (elm.title) {
           acc.push([elmName(elm), 'Title', elm.title || '']);
-        } else {
-          acc.push([elmName(elm), 'Label', elm.label || '']);
         }
         return acc;
       }, []);

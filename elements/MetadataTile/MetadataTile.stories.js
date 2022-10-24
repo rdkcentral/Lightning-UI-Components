@@ -39,7 +39,7 @@ export const Tile = args =>
   };
 
 Tile.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl(),
   w: {
     defaultValue: 400,
     table: {
@@ -61,7 +61,7 @@ Tile.argTypes = {
       '94%',
       {
         icon: lightningbolt,
-        color: getHexColor('00ff00'),
+        style: { color: getHexColor('00ff00') },
         title: 'Green Lightning Bolt'
       },
       '86%',
@@ -76,7 +76,7 @@ Tile.argTypes = {
           '94%',
           {
             icon: lightningbolt,
-            color: getHexColor('00ff00'),
+            style: { color: getHexColor('00ff00') },
             title: 'Green Lightning Bolt'
           },
           '86%',

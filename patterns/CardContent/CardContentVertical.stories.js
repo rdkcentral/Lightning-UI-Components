@@ -10,6 +10,7 @@ import { createModeControl } from '../../.storybook/controls/argTypes';
 import CardContentVertical from './CardContentVertical';
 import { Icon } from '../../elements';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
+import { Basic } from './CardContent.stories';
 
 export default {
   title: 'Patterns / CardContent',
@@ -45,7 +46,8 @@ export const Vertical = args =>
     }
   };
 Vertical.args = {
-  shouldCollapse: false
+  shouldCollapse: false,
+  ...Basic.tileProps.args
 };
 Vertical.argTypes = {
   ...createModeControl(),
@@ -56,7 +58,11 @@ Vertical.argTypes = {
     },
     control: 'boolean',
     description: 'should the Card collapse?'
-  }
+  },
+  ...Basic.tileProps.argTypes
+};
+Vertical.parameters = {
+  argActions: Basic.tileProps.argActions('CardContentVertical')
 };
 generateSubStory('CardContentVertical', Vertical, BadgeStory, 'badge');
 generateSubStory('CardContentVertical', Vertical, LabelStory, 'label');

@@ -21,6 +21,20 @@ describe('Label', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the label text', () => {
+    const title = 'Live';
+    label.title = title;
+    testRenderer.forceAllUpdates();
+    expect(label.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    label.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(label.announce).toBe(overrideString);
+  });
+
   it('changes title text and updates total width to match', done => {
     expect(label.w).toBe(0);
     label.title = 'Really really really really really long title';

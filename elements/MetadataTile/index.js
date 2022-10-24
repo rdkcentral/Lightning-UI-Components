@@ -34,16 +34,19 @@ class MetadataTile extends MetadataBase {
     this.signal('updateComponentDimensions');
   }
 
+  set announce(announce) {
+    super.announce = announce;
+  }
+
   get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-    return [
-      this.title,
-      !this.description && this._Subtitle.announce,
-      !this.subtitle && this.description,
-      this.logoTitle
-    ];
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        (this._Subtitle && this._Subtitle.announce) ||
+          (this._Description && this._Description.announce),
+        this.logoTitle
+      ]
+    );
   }
 
   _textH() {

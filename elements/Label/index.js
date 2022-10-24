@@ -75,6 +75,14 @@ class Label extends Base {
       )
     });
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return this._announce || (this._Text && this._Text.announce);
+  }
 }
 
 export default withExtensions(withStyles(Label, styles));

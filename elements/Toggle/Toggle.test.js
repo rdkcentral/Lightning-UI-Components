@@ -36,6 +36,29 @@ describe('Toggle', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the checked status', () => {
+    toggle.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(toggle.announce).toBe('Checked');
+    toggle.checked = false;
+    testRenderer.forceAllUpdates();
+    expect(toggle.announce).toBe('Unchecked');
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    toggle.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(toggle.announce).toBe(overrideString);
+  });
+
+  it('reannounces on checked status change', () => {
+    toggle.fireAncestors = jest.fn();
+    toggle.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(toggle.fireAncestors).toHaveBeenCalledWith('$announce', 'Checked');
+  });
+
   describe('#toggle', () => {
     it('changes checked state', () => {
       expect(toggle.checked).toEqual(false);

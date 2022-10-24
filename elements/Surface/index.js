@@ -18,6 +18,10 @@ class Surface extends Base {
     return styles;
   }
 
+  static get properties() {
+    return [];
+  }
+
   static get tags() {
     return ['Background'];
   }

@@ -20,7 +20,7 @@ export const Section = () =>
       return {
         Card: {
           type: CardSection,
-          iconHeight: 28,
+          iconHeight: 33,
           iconWidth: 33,
           w: 386
         }

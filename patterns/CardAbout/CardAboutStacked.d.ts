@@ -7,7 +7,6 @@ export interface CardAboutStackedStyles extends CardStyles {
 }
 
 export class CardAboutStacked extends Card {
-  contentBottom?: object;
   descriptionBottom?: string;
   titleBottom?: string;
   style: CardAboutStackedStyles;

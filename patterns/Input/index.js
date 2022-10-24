@@ -181,7 +181,7 @@ class Input extends Button {
   }
 
   _updateCursorListening() {
-    if (this._isFocusedMode && this._isUnfocusedMode) {
+    if (!this._isDisabledMode) {
       if (this.cursorBlink && !this.cursorBlink.isPlaying()) {
         this.cursorBlink.start();
       }

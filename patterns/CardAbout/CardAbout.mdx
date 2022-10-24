@@ -35,14 +35,12 @@ class Basic extends lng.Component {
 
 ### Properties
 
-| name       | type   | required | default | description                        |
-| ---------- | ------ | -------- | ------- | ---------------------------------- |
-| iconHeight | string | false    | -       | height of the icon on the right    |
-| iconLeft   | string | false    | -       | icon left source                   |
-| iconRight  | string | false    | -       | icon right source                  |
-| iconWidth  | number | false    | -       | width of the icon on the right     |
-| textLeft   | string | false    | -       | text on the left side of the card  |
-| textRight  | string | false    | -       | text on the right side of the card |
+| name      | type             | required | default | description                                                                |
+| --------- | ---------------- | -------- | ------- | -------------------------------------------------------------------------- |
+| iconLeft  | string \| object | false    | -       | icon left source to be passed to InlineContent component                   |
+| iconRight | string \| object | false    | -       | icon right source to be passed to InlineContent component                  |
+| textLeft  | string \| object | false    | -       | text on the left side of the card to be passed to InlineContent component  |
+| textRight | string \| object | false    | -       | text on the right side of the card to be passed to InlineContent component |
 
 ### Style Properties
 
@@ -52,5 +50,5 @@ class Basic extends lng.Component {
 | descriptionTextProperties | object | textProperties of the description                      |
 | paddingFirstLine          | number | padding between the top of the card and the first line |
 | paddingVertical           | number | padding vertically between lines                       |
-| textContainerProperties   | object | text properties of the middle text container content   |
+| inlineContentStyle        | object | properties of the middle InlineContent container       |
 | titleTextProperties       | object | text properties of the title                           |

@@ -2,7 +2,9 @@ import Card from '../Card/Card';
 import Tile from '../../elements/Tile';
 import MetadataCardContent from '../../elements/MetadataCardContent';
 import * as styles from './CardContent.styles';
+import { clone } from '../../utils';
 import { withExtensions } from '../../mixins';
+
 class CardContent extends Card {
   static get __componentName() {
     return 'CardContent';
@@ -15,6 +17,7 @@ class CardContent extends Card {
   static get properties() {
     return [
       ...super.properties,
+      'tile',
       'metadata',
       'orientation',
       'collapseToMetadata',
@@ -55,18 +58,22 @@ class CardContent extends Card {
       h = this.style.imageSize.h;
     }
 
-    const tilePatch = {
+    // ensure a nested tile artwork src takes precedence over the class's src setter,
+    // but that if src is undefined in both the setter and tile artwork object,
+    // we don't incorrectly pass "src: undefined" to the Tile component (and in turn, Artwork)
+    let tile = this.tile;
+    if (this.src) {
+      tile = clone({ src: this.src }, this.tile);
+    }
+
+    this._Tile.patch({
       w,
       h,
-      artwork: { src: this.src },
+      palette: this.palette,
+      ...tile,
       persistentMetadata: true,
-      badge: this.badge,
-      label: this.label,
-      progressBar: this.progressBar,
       alpha: this._shouldShowTile ? 1 : 0
-    };
-
-    this._Tile.patch(tilePatch);
+    });
   }
 
   _updateMetadata() {
@@ -114,6 +121,14 @@ class CardContent extends Card {
     }
 
     this._Tile.patch({ style: { radius: tileRadius } });
+  }
+
+  _getSrc() {
+    return (
+      (this.tile &&
+        ((this.tile.artwork && this.tile.artwork.src) || this.tile.src)) ||
+      this._src
+    );
   }
 
   get _metadataDimensions() {
@@ -167,6 +182,19 @@ class CardContent extends Card {
     return this.collapseToMetadata
       ? this.style.expandedH - this.style.imageSize.h
       : this.style.imageSize.h;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Metadata && this._Metadata.announce,
+        this._Tile && this._Tile.announce
+      ]
+    );
   }
 }
 

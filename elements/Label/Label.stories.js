@@ -30,6 +30,6 @@ Basic.argTypes = {
     control: {
       type: 'text'
     },
-    description: 'Text to display in tag'
+    description: 'Text to display in the foreground of the label'
   }
 };

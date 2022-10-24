@@ -213,20 +213,19 @@ class MetadataCardContent extends MetadataBase {
     return this.w - this._providerW - this.style.fadeWidth / 2;
   }
 
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-    return [
-      this.title,
-      this.description,
-      this.details,
-      this._Provider.announce
-    ];
-  }
-
   set announce(announce) {
     super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        this._Description && this._Description.announce,
+        this._Details && this._Details.announce,
+        this._Provider && this._Provider.announce
+      ]
+    );
   }
 }
 

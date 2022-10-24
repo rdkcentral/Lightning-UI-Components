@@ -39,7 +39,7 @@ export default {
 };
 
 const createItems = (length, src) => {
-  return Array.from({ length }).map(() => ({
+  return Array.from({ length }).map((_, index) => ({
     type: Tile,
     artwork: {
       src
@@ -48,7 +48,9 @@ const createItems = (length, src) => {
       ratioX: 16,
       ratioY: 9,
       upCount: 4
-    }
+    },
+    announce: 'Tile',
+    announceContext: `${index + 1} of ${length}`
   }));
 };
 const createControls = (length, icon = lightningIcon) => {

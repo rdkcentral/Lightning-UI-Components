@@ -19,6 +19,29 @@ describe('Radio', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the checked status', () => {
+    radio.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(radio.announce).toBe('Checked');
+    radio.checked = false;
+    testRenderer.forceAllUpdates();
+    expect(radio.announce).toBe('Unchecked');
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    radio.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(radio.announce).toBe(overrideString);
+  });
+
+  it('reannounces on checked status change', () => {
+    radio.fireAncestors = jest.fn();
+    radio.checked = true;
+    testRenderer.forceAllUpdates();
+    expect(radio.fireAncestors).toHaveBeenCalledWith('$announce', 'Checked');
+  });
+
   it('toggles checked state on enter', () => {
     [radio, testRenderer] = createRadio({ checked: false });
     expect(radio.checked).toEqual(false);
@@ -28,23 +51,14 @@ describe('Radio', () => {
     expect(radio.checked).toEqual(false);
   });
 
-  it('stroke color should change when active', () => {
-    [radio, testRenderer] = createRadio({
-      isInactive: false
-    });
-    const strokeColor = radio.isInactive
-      ? radio._componentStyle.strokeColorInactive
-      : radio._componentStyle.strokeColor;
-    expect(strokeColor).toBe(radio._componentStyle.strokeColor);
-  });
-
-  it('stroke color should change when inactive', () => {
-    [radio, testRenderer] = createRadio({
-      isInactive: true
-    });
-    const strokeColor = radio.isInactive
-      ? radio._componentStyle.strokeColorInactive
-      : radio._componentStyle.strokeColor;
-    expect(strokeColor).toBe(radio._componentStyle.strokeColorInactive);
+  it('should not toggle the radio when in disabled mode', () => {
+    // NOTE: The checked status can be set before the mode is changed
+    [radio, testRenderer] = createRadio({ checked: false, mode: 'disabled' });
+    expect(radio.checked).toBe(false);
+    expect(radio._Knob.alpha).toBe(0);
+    testRenderer.forceAllUpdates();
+    testRenderer.keyPress('Enter');
+    expect(radio.checked).toBe(false);
+    expect(radio._Knob.alpha).toBe(0);
   });
 });

@@ -28,6 +28,28 @@ describe('MetadataBase', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the appropriate text content status', () => {
+    const title = 'Title';
+    const subtitle = 'Subtitle';
+    const description = 'Description';
+    const logoTitle = 'Logo Title';
+    component.patch({ title, subtitle, description, logoTitle });
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toEqual([
+      title,
+      subtitle,
+      description,
+      logoTitle
+    ]);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   it('updates the title', async () => {
     const title = 'title text';
     expect(component.title).toBe(undefined);

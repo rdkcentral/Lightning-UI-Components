@@ -30,6 +30,20 @@ describe('TitleRow', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('sets the announce string to the row title text', () => {
+    const title = 'Row Title';
+    component.title = title;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(title);
+  });
+
+  it('overrides the announce string', () => {
+    const overrideString = 'Custom announce string';
+    component.announce = overrideString;
+    testRenderer.forceAllUpdates();
+    expect(component.announce).toBe(overrideString);
+  });
+
   describe('updating the title', () => {
     it('should add and update a title', () => {
       const titleA = 'Title';
