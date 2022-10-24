@@ -141,9 +141,8 @@ class MetadataCardContent extends MetadataBase {
       content: this.details,
       textStyle: this.style.detailsTextProperties,
       wordWrap: true,
-      maxLines: 1,
-      wordWrapWidth: maxWidth + this.style.fadeWidth / 2,
-      maxLinesSuffix: ''
+      maxLines: 1, // sets default for details
+      wordWrapWidth: maxWidth + this.style.fadeWidth / 2
     });
     if (this._Details.finalW > maxWidth) {
       this._DetailsFader.patch({

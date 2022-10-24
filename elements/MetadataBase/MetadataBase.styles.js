@@ -10,7 +10,7 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    titleTextProperties: { textColor: theme.color.textNeutral },
+    titleTextProperties: { textColor: theme.color.textNeutral, maxLines: 1 },
     subtitleTextProperties: { textColor: theme.color.textNeutral },
     descriptionTextProperties: { textColor: theme.color.textNeutralSecondary },
     mode: {

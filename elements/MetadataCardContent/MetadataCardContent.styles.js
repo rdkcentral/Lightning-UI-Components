@@ -1,5 +1,6 @@
 export const base = theme => ({
   detailsTextProperties: theme.typography.body3,
+  descriptionTextProperties: { maxLines: 3 },
   providerStyle: {
     fadeWidth: theme.spacer.md * theme.spacer.md,
     itemSize: theme.spacer.xxxl + theme.spacer.md

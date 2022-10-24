@@ -6,5 +6,6 @@ export const base = theme => ({
     getDimensions({ ratioX: 16, ratioY: 9, upCount: 4 }).h +
     theme.spacer.xxxl * 7 +
     theme.spacer.lg +
-    theme.spacer.xxs
+    theme.spacer.xxs,
+  metadataStyles: { descriptionTextProperties: { maxLines: 3 } }
 });
