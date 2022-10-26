@@ -351,7 +351,7 @@ class Button extends Surface {
   get _fixedWordWrapWidth() {
     const { w, _paddingX, _prefixW, _suffixW, _totalTitlePaddingX } = this;
     const nonTextSpace = _paddingX + _prefixW + _suffixW + _totalTitlePaddingX;
-    return w - nonTextSpace;
+    return Math.max(1, w - nonTextSpace);
   }
 
   set announce(announce) {
