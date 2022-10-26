@@ -197,10 +197,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
       }
     });
     app._refocus();
-  }
-
-  // Make sure focus matches mode
-  if (app.tag('StoryComponent')._getFocused() === app.tag('StoryComponent')) {
+  } else {
     app
       .tag('StoryComponent')
       ._setState(
