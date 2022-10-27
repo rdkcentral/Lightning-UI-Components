@@ -1,5 +1,6 @@
 import Icon from '../pageObjects/elements/icon.element';
 import Badge from '../pageObjects/elements/badge.element';
+import Card from '../pageObjects/patterns/card.patterns';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/elements/label.element';
 
@@ -12,6 +13,8 @@ function getPageObject(pageName) {
     pageObject = Icon;
   } else if (pageName === 'badge') {
     pageObject = Badge;
+  } else if (pageName === 'card') {
+    pageObject = Card;
   } else if (pageName === 'checkbox') {
     pageObject = CheckBox;
   } else if (pageName === 'label') {
@@ -68,6 +71,22 @@ export default function () {
     const page = componentName.toLowerCase();
     const pageObject = getPageObject(page);
     pageObject._getElementByName(componentName).should('be.visible');
+  });
+
+  /**
+   * @module Common
+   * @function I verify that the {String} {String} component is displayed
+   * @description Cucumber statement to verify that the component is displayed
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example I verify that the 'Card' 'Personality' component is displayed
+   */
+  Then(
+    'I verify that the {string} {string} component is displayed',
+    (pageName, componentName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      pageObject._getElementByName(componentName).should('be.visible');
   });
 
   /**
@@ -138,6 +157,83 @@ export default function () {
         ._getElementByName(page)
         .should('have.attr', 'style')
         .should('contain', `${property}: ${value}`);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {String} of {String} {String} component is {String}
+   * @description Cucumber statement to verify the property of a component
+   * @example I verify that the 'height' of 'Card' 'Personality' component is '85px'
+   */
+  Then(
+    'I verify that the {string} of {string} {string} component is {string}',
+    (property, pageName, componentName, value) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      pageObject
+        ._getElementByName(componentName)
+        .should('have.attr', 'style')
+        .should('contain', `${property}: ${value}`);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that {String} {String} {String} has text {String}
+   * @description Cucumber statement to verify the the text of a component
+   * @example I verify that 'Card' 'Personality' 'Title' has text 'LUI Test'
+   */
+  Then(
+    'I verify that {string} {string} {string} has text {string}',
+    (pageName, componentName, elementName, expectedText) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const element = componentName + elementName;
+
+      pageObject
+        ._getElementByName(element)
+        .should('have.attr', 'texture-text', expectedText);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify the {String} is {String} for {String} {String}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} control
+   * @param {String} value
+   * @param {String} pageName
+   * @param {String} component
+   * @example Then I verify the 'mode' is 'focused' for 'Card' 'Personality'
+   */
+  Then(
+    'I verify the {string} is {string} for {string} {string}',
+    (control, value, pageName, component) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      switch(control) {
+        case 'mode':
+          switch(value) {
+            case 'focused':
+              pageObject._getElementByName(component)
+              .should('have.attr', 'scalex', '1.2');
+              break;
+            case 'unfocused':
+              pageObject._getElementByName(component)
+              .should('not.have.attr', 'scalex');
+              break;
+            case 'disabled':
+              pageObject._getElementByName(component)
+              .should('be.disabled');
+            default:
+              break;
+          }
+        default:
+          break;
+      }
     }
   );
 }
