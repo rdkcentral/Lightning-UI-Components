@@ -197,15 +197,15 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
       }
     });
     app._refocus();
-  } else {
-    app
-      .tag('StoryComponent')
-      ._setState(
-        !args.mode || (args.mode && args.mode === 'focused')
-          ? 'ModeFocusState'
-          : 'ModeUnfocusState'
-      );
   }
+
+  app
+    .tag('StoryComponent')
+    ._setState(
+      !args.mode || (args.mode && args.mode === 'focused')
+        ? 'ModeFocusState'
+        : 'ModeUnfocusState'
+    );
 
   if (!app.tag('GridOverlay')) {
     app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
