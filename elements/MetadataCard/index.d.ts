@@ -1,3 +1,3 @@
-import MetadataBase from '../MetadataBase';
+import MetadataCard from './MetadataCard';
 
-export default class MetadataCard extends MetadataBase {}
+export { MetadataCard as default };

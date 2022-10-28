@@ -41,7 +41,7 @@ class Card extends Surface {
   _updateTitle() {
     this._Title.patch({
       content: this.title,
-      textStyle: this.style.titleTextProperties,
+      textStyle: this.style.titleTextStyle,
       wordWrapWidth: this._calculateTextWidth()
     });
   }

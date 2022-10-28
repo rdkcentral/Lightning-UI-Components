@@ -1,11 +1,13 @@
-import type lng from '@lightningjs/core';
 import Card, { CardStyles } from './Card';
+import type { StylePartial } from '../../types/lui';
+import type { TextBoxStyles } from '../../elements/TextBox';
 
-export interface CardTitleStyles extends CardStyles {
-  descriptionTextProperties?: lng.textures.TextTexture.Settings;
-}
+export type CardTitleStyles = CardStyles & {
+  descriptionTextStyle: TextBoxStyles;
+};
 
 export default class CardTitle extends Card {
-  style: CardTitleStyles;
   description?: string;
+  get style(): CardTitleStyles;
+  set style(v: StylePartial<CardTitleStyles>);
 }

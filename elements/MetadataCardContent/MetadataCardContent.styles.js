@@ -1,6 +1,6 @@
 export const base = theme => ({
-  detailsTextProperties: theme.typography.body3,
-  descriptionTextProperties: { maxLines: 3 },
+  detailsTextStyle: theme.typography.body3,
+  descriptionTextStyle: { maxLines: 3 },
   providerStyle: {
     fadeWidth: theme.spacer.md * theme.spacer.md,
     itemSize: theme.spacer.xxxl + theme.spacer.md
@@ -9,26 +9,26 @@ export const base = theme => ({
 
 export const palette = theme => ({
   neutral: {
-    detailsTextProperties: { textColor: theme.color.textNeutral },
+    detailsTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled }
       }
     }
   },
   inverse: {
-    detailsTextProperties: { textColor: theme.color.textInverse },
+    detailsTextStyle: { textColor: theme.color.textInverse },
     mode: {
       disabled: {
-        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled }
       }
     }
   },
   brand: {
-    detailsTextProperties: { textColor: theme.color.textNeutral },
+    detailsTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled }
       }
     }
   }

@@ -1,28 +1,25 @@
-import { MetadataCardContent } from '../../elements';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 import type Card from '../Card/Card';
 import { CardStyles } from '../Card/Card';
+import { MetadataCardContent } from '../../elements';
+import type { StylePartial } from '../../types/lui';
 
-export interface ImageSize {
-  w?: number;
-  h?: number;
-}
+type ImageSize = {
+  w: number;
+  h: number;
+};
 
-export interface CardContentStyles extends CardStyles {
-  expandedW?: number;
-  expandedH?: number;
-  imageSize?: ImageSize;
-}
+export type CardContentStyles = CardStyles & {
+  expandedW: number;
+  expandedH: number;
+  imageSize: ImageSize;
+};
 
-declare const CardContent_base: WithThemeStylesConstructor<
-  typeof Card,
-  CardContentStyles
->;
-
-export default class CardContent extends CardContent_base {
+export default class CardContent extends Card {
   collapseToMetadata?: boolean;
   metadata: MetadataCardContent;
   orientation?: string;
   shouldCollapse?: boolean;
   src: string;
+  get style(): CardContentStyles;
+  set style(v: StylePartial<CardContentStyles>);
 }

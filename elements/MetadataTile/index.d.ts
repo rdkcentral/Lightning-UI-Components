@@ -1,3 +1,3 @@
-import MetadataBase from '../MetadataBase';
+import MetadataTile from './MetadataTile';
 
-export default class MetadataTile extends MetadataBase {}
+export { MetadataTile as default };

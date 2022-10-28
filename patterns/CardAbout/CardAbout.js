@@ -75,7 +75,7 @@ class CardAbout extends CardTitle {
   _updateTitleStyle() {
     if (typeof this.title === 'string') {
       this._Title.patch({
-        textStyle: this.style.titleTextProperties,
+        textStyle: this.style.titleTextStyle,
         y: this.style.paddingFirstLine,
         content: this.title.toUpperCase()
       });
@@ -86,14 +86,13 @@ class CardAbout extends CardTitle {
     this._Description.patch({
       y: this._hasContent
         ? (this._RightIconTextContainer.y || this._LeftIconTextContainer.y) +
-          (this.iconHeight ||
-            this._LeftIconTextContainer.style.textStyle.lineHeight ||
+          (this._LeftIconTextContainer.style.textStyle.lineHeight ||
             this._RightIconTextContainer.style.textStyle.lineHeight) +
           this.style.paddingVertical
         : this._Title.textStyle.lineHeight +
           this.style.paddingVertical +
           this.style.paddingFirstLine,
-      textStyle: this.style.descriptionTextProperties,
+      textStyle: this.style.descriptionTextStyle,
       maxLines: this._hasContent ? 3 : 5,
       x: this.style.paddingHorizontal
     });

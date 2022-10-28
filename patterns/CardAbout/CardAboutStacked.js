@@ -51,7 +51,7 @@ class CardAboutStacked extends CardAbout {
       y:
         this._Title.y + this._Title.textStyle &&
         this._Title.textStyle.lineHeight + this.style.paddingVertical * 1.5,
-      textStyle: this.style.descriptionTextProperties
+      textStyle: this.style.descriptionTextStyle
     });
   }
 
@@ -71,7 +71,7 @@ class CardAboutStacked extends CardAbout {
       x: this.style.paddingHorizontal,
       y,
       wordWrapWidth: this._calculateTextWidth(),
-      textStyle: this.style.titleTextProperties
+      textStyle: this.style.titleTextStyle
     };
     if (!this._TitleBottom) {
       titleBottomObject.type = TextBox;
@@ -90,7 +90,7 @@ class CardAboutStacked extends CardAbout {
           this._TitleBottom.y +
           this.style.paddingVertical,
         wordWrapWidth: this._calculateTextWidth(),
-        textStyle: this.style.descriptionTextProperties
+        textStyle: this.style.descriptionTextStyle
       });
     }
   }

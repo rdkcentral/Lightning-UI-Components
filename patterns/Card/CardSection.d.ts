@@ -1,13 +1,15 @@
 import Card, { CardStyles } from './Card';
+import type { StylePartial } from '../../types/lui';
 
-export interface CardSectionStyles extends CardStyles {
-  iconHeight?: number;
-  iconWidth?: number;
-}
+export type CardSectionStyles = CardStyles & {
+  iconHeight: number;
+  iconWidth: number;
+};
 
 export default class CardSection extends Card {
   iconHeight?: number;
   iconSrc?: number;
   iconWidth?: number;
-  style: CardSectionStyles;
+  get style(): CardSectionStyles;
+  set style(v: StylePartial<CardSectionStyles>);
 }

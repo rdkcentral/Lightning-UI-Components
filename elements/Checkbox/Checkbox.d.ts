@@ -1,25 +1,22 @@
-import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 import lng from '@lightningjs/core';
+import Base from '../../Base';
+import type { Color, StylePartial } from '../../types/lui';
 
-export interface CheckboxStyles {
-  checkColor?: string;
-  checkH?: number;
-  checkW?: number;
-  checkedBackgroundColor?: string;
-  checkSrc?: string;
-  radius?: lng.Tools.CornerRadius;
-  strokeColor?: string;
-  strokeWidth?: number;
-  uncheckedBackgroundColor?: string;
-}
+export type CheckboxStyles = {
+  checkColor: Color;
+  checkH: number;
+  checkW: number;
+  checkedBackgroundColor: Color;
+  checkSrc: string;
+  radius: lng.Tools.CornerRadius;
+  strokeColor: Color;
+  strokeWidth: number;
+  uncheckedBackgroundColor: Color;
+};
 
-declare const Checkbox_base: WithThemeStylesConstructor<
-  typeof Base,
-  CheckboxStyles
->;
-
-export default class Checkbox extends Checkbox_base {
+export default class Checkbox extends Base {
   checked?: boolean;
   toggle(): Checkbox;
+  get style(): CheckboxStyles;
+  set style(v: StylePartial<CheckboxStyles>);
 }

@@ -109,8 +109,7 @@ describe('cardAbout', () => {
       cardAbout._hasContent
         ? (cardAbout._RightIconTextContainer.y ||
             cardAbout._LeftIconTextContainer.y) +
-            (cardAbout.iconHeight ||
-              cardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
+            (cardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
               cardAbout._RightIconTextContainer.style.textStyle.lineHeight) +
             cardAbout.style.paddingVertical
         : cardAbout._Title.textStyle.lineHeight +
@@ -122,9 +121,7 @@ describe('cardAbout', () => {
 
   it('should update title style', () => {
     testRenderer.forceAllUpdates();
-    expect(cardAbout._Title.textStyle).toEqual(
-      cardAbout.style.titleTextProperties
-    );
+    expect(cardAbout._Title.textStyle).toEqual(cardAbout.style.titleTextStyle);
   });
 
   it('should check for content', () => {

@@ -118,7 +118,7 @@ describe('cardAboutStacked', () => {
         : cardAboutStacked.style.paddingFirstLine
     );
     expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
-      cardAboutStacked.style.titleTextProperties
+      cardAboutStacked.style.titleTextStyle
     );
   });
 
@@ -138,7 +138,7 @@ describe('cardAboutStacked', () => {
         : cardAboutStacked.style.paddingFirstLine
     );
     expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
-      cardAboutStacked.style.titleTextProperties
+      cardAboutStacked.style.titleTextStyle
     );
   });
   it('should update position of Description', () => {
@@ -156,7 +156,7 @@ describe('cardAboutStacked', () => {
             cardAboutStacked.style.paddingVertical * 3
     );
     expect(cardAboutStacked._DescriptionBottom.textStyle).toEqual(
-      cardAboutStacked.style.descriptionTextProperties
+      cardAboutStacked.style.descriptionTextStyle
     );
   });
 });

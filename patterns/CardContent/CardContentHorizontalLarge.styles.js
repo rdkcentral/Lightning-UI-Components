@@ -6,6 +6,6 @@ export const base = () => {
     expandedW: getWidthByColumnSpan(8),
     expandedH: h,
     imageSize: { w, h },
-    metadataStyles: { descriptionTextProperties: { maxLines: 3 } }
+    metadataStyles: { descriptionTextStyle: { maxLines: 3 } }
   };
 };

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import lng from '@lightningjs/core';
 
-export interface WithDropShadow {
+export type WithDropShadow = {
   _updateDropShadow(): void;
-}
+};
 
 export type WithDropShadowConstructor<BaseType extends typeof lng.Component> =
   BaseType & {

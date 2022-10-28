@@ -3,6 +3,7 @@ export { default as Badge } from './Badge';
 export { default as Base } from './Base';
 export { default as Button, ButtonSmall } from './Button';
 export { default as Checkbox, CheckboxSmall } from './Checkbox';
+export { default as Control, ControlSmall } from './Control';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing } from './FocusRing';
 export { default as Gradient } from './Gradient';

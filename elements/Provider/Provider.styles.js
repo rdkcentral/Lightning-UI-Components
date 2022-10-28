@@ -1,6 +1,6 @@
 export function base(theme) {
   return {
-    counterTextProperties: theme.typography.headline3,
+    counterTextStyle: theme.typography.headline3,
     itemSize: theme.layout.gutterX.sm,
     itemSpacing: theme.spacer.md,
     radius: theme.radius.sm,

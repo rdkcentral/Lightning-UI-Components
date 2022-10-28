@@ -25,7 +25,7 @@ describe('CardPersonality', () => {
     testRenderer.forceAllUpdates();
     expect(cardPersonality._Title.content).toEqual('Title');
     expect(cardPersonality._Title.textStyle).toEqual(
-      cardPersonality.style.titleTextProperties
+      cardPersonality.style.titleTextStyle
     );
     expect(cardPersonality._Title.x).toEqual(
       cardPersonality.style.paddingHorizontal

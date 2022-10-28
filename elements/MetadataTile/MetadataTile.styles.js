@@ -1,40 +1,40 @@
 export const base = theme => ({
-  titleTextProperties: theme.typography.headline3,
-  descriptionTextProperties: theme.typography.body3
+  titleTextStyle: theme.typography.headline3,
+  descriptionTextStyle: theme.typography.body3
 });
 
 export const palette = theme => ({
   neutral: {
-    subtitleTextProperties: { textColor: theme.color.textNeutralSecondary },
-    descriptionTextProperties: { textColor: theme.color.textNeutral },
+    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
+    descriptionTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
-        descriptionTextProperties: {
+        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }
       }
     }
   },
   inverse: {
-    subtitleTextProperties: { textColor: theme.color.textInverseSecondary },
-    descriptionTextProperties: { textColor: theme.color.textInverse },
+    subtitleTextStyle: { textColor: theme.color.textInverseSecondary },
+    descriptionTextStyle: { textColor: theme.color.textInverse },
     mode: {
       disabled: {
-        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
-        descriptionTextProperties: {
+        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }
       }
     }
   },
   brand: {
-    subtitleTextProperties: { textColor: theme.color.textNeutralSecondary },
-    descriptionTextProperties: { textColor: theme.color.textNeutral },
+    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
+    descriptionTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        subtitleTextProperties: { textColor: theme.color.textNeutralDisabled },
-        descriptionTextProperties: {
+        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }
       }

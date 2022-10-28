@@ -1,29 +1,25 @@
-import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
 import lng from '@lightningjs/core';
+import Base from '../../Base';
+import type { Color, StylePartial } from '../../types/lui';
 
-export interface ToggleStyles {
-  backgroundColor?: string;
-  backgroundColorChecked?: string;
-  knobWidth?: number;
-  knobHeight?: number;
-  knobPadding?: number;
-  knobRadius?: lng.Tools.CornerRadius;
-  knobColor?: string;
-  knobColorChecked?: string;
-  knobX?: number;
-  knobXChecked?: number;
-  strokeColor?: string;
-  strokeRadius?: lng.Tools.CornerRadius;
-  strokeWeight?: number;
-}
-
-declare const Toggle_base: WithThemeStylesConstructor<
-  typeof Base,
-  ToggleStyles
->;
+export type ToggleStyles = {
+  backgroundColor: Color;
+  backgroundColorChecked: Color;
+  knobWidth: number;
+  knobHeight: number;
+  knobPadding: number;
+  knobRadius: lng.Tools.CornerRadius;
+  knobColor: Color;
+  knobColorChecked: Color;
+  knobX: number;
+  knobXChecked: number;
+  strokeColor: Color;
+  strokeRadius: lng.Tools.CornerRadius;
+  strokeWeight: number;
+};
 
 export default class Toggle extends Base {
   checked?: boolean;
-  style: ToggleStyles;
+  get style(): ToggleStyles;
+  set style(v: StylePartial<ToggleStyles>);
 }
