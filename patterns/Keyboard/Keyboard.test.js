@@ -198,27 +198,27 @@ describe('KeyboardInput', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it.skip('handles soft key events', () => {
+  it('handles soft key events', () => {
     keyboardInput.$onSoftKey({ key: 'a' });
-    expect(keyboardInput._Input.value).toEqual('a');
+    expect(keyboardInput._Input.title).toEqual('a');
 
     keyboardInput.$onSoftKey({ key: 'Space' });
-    expect(keyboardInput._Input.value).toEqual('a ');
+    expect(keyboardInput._Input.title).toEqual('a ');
 
     keyboardInput.$onSoftKey({ key: 'b' });
-    expect(keyboardInput._Input.value).toEqual('a b');
+    expect(keyboardInput._Input.title).toEqual('a b');
 
     keyboardInput.$onSoftKey({ key: 'Delete' });
-    expect(keyboardInput._Input.value).toEqual('a ');
+    expect(keyboardInput._Input.title).toEqual('a ');
 
     keyboardInput.$onSoftKey({ key: 'Clear' });
-    expect(keyboardInput._Input.value).toEqual('');
+    expect(keyboardInput._Input.title).toEqual('');
 
     keyboardInput.$onSoftKey({ key: 'Done' });
-    expect(keyboardInput._Input.value).toEqual('');
+    expect(keyboardInput._Input.title).toEqual('');
 
     keyboardInput.$onSoftKey({ key: 'shift' });
-    expect(keyboardInput._Input.value).toEqual('');
+    expect(keyboardInput._Input.title).toEqual('');
   });
 
   it('stops input from listening if the keyboard is unfocused', () => {
@@ -227,10 +227,16 @@ describe('KeyboardInput', () => {
   });
 
   it('should update mask', () => {
-    keyboardInput.mask = '*';
+    keyboardInput._Input.mask = '*';
     testRenderer.forceAllUpdates();
-
     expect(keyboardInput._Input.mask).toEqual('*');
-    expect(keyboardInput.mask).toEqual('*');
+  });
+
+  it('should update password to match mask', () => {
+    keyboardInput._Input.mask = '?';
+    keyboardInput._Input.password = true;
+    testRenderer.forceAllUpdates();
+    keyboardInput.$onSoftKey({ key: 'a' });
+    expect(keyboardInput._Input.title).toEqual('?');
   });
 });

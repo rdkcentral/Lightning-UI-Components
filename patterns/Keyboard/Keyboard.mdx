@@ -78,12 +78,14 @@ To create your own formats, you can pass an object of arrays to represent each f
 | centerAlign   | bool          | false    | false   | center the keyboard within it's set width (must set the w property of Keyboard)                                                               |
 | keyComponent  | lng.Component | false    | Key     | component to display for each key                                                                                                             |
 | title         | string        | false    | -       | title announcement text for screen readers                                                                                                    |
+| input         | object        | true     | -       | object with all of the properties for [Input](?path=/story/patterns-Input--basic)                                                             |
 
 ### Style Properties
 
-| name    | type   | required | default | description               |
-| ------- | ------ | -------- | ------- | ------------------------- |
-| spacing | number | false    | 6       | space in px between items |
+| name        | type   | description               |
+| ----------- | ------ | ------------------------- |
+| spacing     | number | space in px between items |
+| inputStyles | object | styles of input           |
 
 ### Methods
 

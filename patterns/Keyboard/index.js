@@ -78,6 +78,7 @@ class Keyboard extends Base {
           items: rows,
           itemSpacing: this.style.spacing,
           autoResizeWidth: true,
+          autoResizeHeight: true,
           neverScroll: true
         }
       });
@@ -178,6 +179,7 @@ class Keyboard extends Base {
   $itemChanged() {
     this.w = this._currentKeyboard.w;
     this.fireAncestors('$itemChanged');
+    this.signal('keyboardWidthChanged');
   }
 
   _setFormats(formats = {}) {

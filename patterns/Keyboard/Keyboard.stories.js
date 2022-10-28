@@ -1,6 +1,8 @@
 import lng from '@lightningjs/core';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
 import KeyboardInput from './KeyboardInput';
+import { Basic as InputStory } from '../Input/Input.stories';
+import { generateSubStory } from '../../.storybook/utils';
 import { createModeControl } from '../../.storybook/controls/argTypes';
 import mdx from './Keyboard.mdx';
 import context from '../../context';
@@ -109,47 +111,45 @@ Dialpad.parameters = {
   }
 };
 
-const sharedKeyInputArgTypes = {
-  ...sharedArgTypes,
-  password: {
-    defaultValue: false,
-    description: 'need description',
-    control: 'boolean',
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
-  mask: {
-    defaultValue: '•',
-    description: 'need description',
-    control: 'text',
-    table: {
-      defaultValue: { summary: '•' }
-    }
-  }
+// creates shared arg types for Keyboard Input stories
+const sharedKeyboardArgTypes = {
+  ...createModeControl(['focused'], 'focused')
 };
+
 export const KeyboardWithInput = () =>
   class KeyboardWithInput extends lng.Component {
     static _template() {
       return {
         KeyboardInput: {
           type: KeyboardInput,
-          inputPlaceholder: 'Search'
+          input: {
+            eyebrow: 'Search',
+            helpText: 'Main'
+          }
         }
       };
     }
+
+    // example of center align of KeyboardInput
+    $itemChanged() {
+      this.tag('KeyboardInput').x =
+        (1920 - this.tag('KeyboardInput').w) / 2 - context.theme.layout.marginX;
+    }
   };
 
-KeyboardWithInput.argTypes = sharedKeyInputArgTypes;
+KeyboardWithInput.argTypes = {
+  ...sharedKeyboardArgTypes
+};
 
 KeyboardWithInput.parameters = {
-  tag: 'KeyboardInput',
-  argActions: {
-    password: (isPassword, component) => {
-      component.tag('KeyboardInput').password = isPassword;
-    }
-  }
+  tag: 'KeyboardInput'
 };
+
+generateSubStory('KeyboardInput', KeyboardWithInput, InputStory, 'input', [
+  'eyebrow',
+  'helpText',
+  'listening' // removes control option from Story
+]);
 
 export const EmailWithInput = () =>
   class EmailWithInput extends lng.Component {
@@ -157,20 +157,23 @@ export const EmailWithInput = () =>
       return {
         EmailInput: {
           type: KeyboardInput,
-          inputPlaceholder: 'Email address',
-          keyboardFormats: KEYBOARD_FORMATS.email
+          keyboardFormats: KEYBOARD_FORMATS.email,
+          input: {
+            eyebrow: 'Email Address',
+            helpText: 'Help Text'
+          }
         }
       };
     }
   };
 
-EmailWithInput.argTypes = sharedKeyInputArgTypes;
+EmailWithInput.argTypes = { ...sharedKeyboardArgTypes };
 
 EmailWithInput.parameters = {
-  tag: 'EmailInput',
-  argActions: {
-    password: (isPassword, component) => {
-      component.tag('EmailInput').password = isPassword;
-    }
-  }
+  tag: 'EmailInput'
 };
+generateSubStory('EmailInput', EmailWithInput, InputStory, 'input', [
+  'eyebrow',
+  'helpText',
+  'listening'
+]);
