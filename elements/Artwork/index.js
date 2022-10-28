@@ -127,7 +127,9 @@ class Artwork extends Base {
   get _gradientPatch() {
     return {
       alpha: !this._Gradient && this.shouldSmooth ? 0.001 : 1,
-      gradientColor: getValidColor(this.style.gradientColor),
+      style: {
+        gradientColor: getValidColor(this.style.gradientColor)
+      },
       h: this.h + 4,
       type: Gradient,
       w: this.w + 4,
