@@ -1,4 +1,4 @@
-import { Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Canvas, Story } from '@storybook/addon-docs';
 
 # withHandleKey
 
@@ -18,7 +18,7 @@ https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/sr
 
 ## Usage
 
-Out of the box, `withHandleKey` adds a generic _handleKey & _handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & $on${Key}Release event.
+Out of the box, `withHandleKey` adds a generic \_handleKey & \_handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & $on${Key}Release event.
 
 Additionally, if a `metricsPayload` is defined, the global `keyMetricsCallbackHandler` in Context will be invoked with
 the given `metricsPayload`.
@@ -40,7 +40,7 @@ class Example extends lng.Component {
           uniqueId: 'unique-123'
         }
       }
-    }
+    };
   }
 
   $onEnter(item, keyEvent) {
@@ -53,5 +53,3 @@ In this example, Tile extends `withHandleKey` and allows dynamically adding on${
 
 Example below - an metricPayload is provided, which will be invoked when any key is handled, with the payload
 `metricsPayload: { buttonName: 'arrowUp', uniqueId: 'unique-123' }`
-
-
