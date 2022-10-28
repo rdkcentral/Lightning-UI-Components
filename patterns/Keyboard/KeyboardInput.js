@@ -2,11 +2,54 @@ import Column from '../../layout/Column';
 import Base from '../../Base';
 import Input from '../Input';
 import Keyboard, { KEYBOARD_FORMATS } from '.';
+import * as styles from './Keyboard.styles';
 import { withExtensions } from '../../mixins';
 
 class KeyboardInput extends Base {
   static get __componentName() {
     return 'KeyboardInput';
+  }
+
+  static get properties() {
+    return [
+      'centerAlign',
+      'defaultFormat',
+      'input',
+      'keyboardFormats',
+      'mask',
+      'password'
+    ];
+  }
+
+  static get __themeStyle() {
+    return styles;
+  }
+
+  static _template() {
+    return {
+      Wrapper: {
+        type: Column,
+        neverScroll: true,
+        w: this.w,
+        items: [
+          {
+            type: Input,
+            ref: 'Input'
+          },
+          {
+            type: Keyboard,
+            ref: 'Keyboard',
+            passSignals: {
+              keyboardWidthChanged: true
+            }
+          }
+        ],
+        selectedIndex: 1,
+        signals: {
+          keyboardWidthChanged: '_updateWidth'
+        }
+      }
+    };
   }
   static get tags() {
     return [
@@ -16,52 +59,36 @@ class KeyboardInput extends Base {
     ];
   }
 
-  static get properties() {
-    return [
-      'inputPlaceholder',
-      'centerAlign',
-      'defaultFormat',
-      'keyboardFormats',
-      'mask',
-      'password'
-    ];
+  _update() {
+    this._Wrapper.itemSpacing = this.style.itemSpacing;
+    this._updateInput();
+    this._updateKeyboard();
   }
 
-  _init() {
-    this.patch({
-      Wrapper: {
-        type: Column,
-        itemSpacing: 88,
-        neverScroll: true,
-        items: [
-          {
-            w: 816,
-            type: Input,
-            placeholder: this.inputPlaceholder || 'Placeholder',
-            ref: 'Input',
-            x: this.centerAlign ? this.w / 2 : 0,
-            mountX: this.centerAlign ? 0.5 : 0
-          },
-          {
-            type: Keyboard,
-            title: this.inputPlaceholder || 'Placeholder',
-            defaultFormat: this.defaultFormat || 'lowercase',
-            formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
-            ref: 'Keyboard',
-            centerAlign: this.centerAlign,
-            w: this.w
-          }
-        ],
-        selectedIndex: 1
-      }
+  _updateInput() {
+    this._Input.patch({
+      ...this.input,
+      centerInParent: this.centerAlign,
+      w: this._Keyboard.w,
+      style: { ...this.style.inputStyles }, // allows overriding of input styles
+      listening: this._isFocusedMode,
+      palette: this.palette
     });
   }
 
-  _update() {
-    if (this.mask) {
-      this._Input.mask = this.mask;
-    }
-    this._Input.password = this.password;
+  _updateKeyboard() {
+    this._Keyboard.patch({
+      defaultFormat: this.defaultFormat || 'lowercase',
+      formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
+      centerAlign: this.centerAlign,
+      palette: this.palette
+    });
+  }
+
+  // updates width of Wrapper and Input to match keyboard width
+  _updateWidth() {
+    this._Input.w = this.w = this._Keyboard.w;
+    this.fireAncestors('$itemChanged');
   }
 
   $onSoftKey({ key }) {
