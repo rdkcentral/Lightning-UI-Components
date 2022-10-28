@@ -54,17 +54,19 @@ class Input extends Button {
   }
 
   $itemChanged() {
+    super.$itemChanged();
+    this._updateTextWrapper();
+    this._updateHiddenContent();
     this._updateCursorPosition();
+    this._updateTitleScrollPosition();
   }
 
   _onTitleTextBoxChanged() {
-    super._onTitleTextBoxChanged();
     this._updateHiddenContent();
   }
 
   _onHiddenTextBoxChanged() {
     this._updateCursorPosition();
-    this._updateTitleScrollPosition();
   }
 
   _update() {
@@ -229,29 +231,10 @@ class Input extends Button {
     }
   }
 
-  set announce(announce) {
-    super.announce = announce;
-  }
-
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-
-    // TODO - Localization?
-    // Do we need a locale file with
-    // component translations?
-    // need to check with Accessibility on what order this should read out in
-    if (this.password) {
-      return [this.eyebrow, this.helpText];
-    } else {
-      return [this.eyebrow, 'Input: ' + this.title, this.helpText];
-    }
-  }
-
   get _suffixX() {
-    const suffixX =
-      this.w - this._paddingRight - this._suffixW - this.style.paddingX;
+    const suffixX = this._hasPrefix
+      ? this.w - this._paddingLeft - this._paddingRight - this._prefixW
+      : this.w - this._paddingLeft - this._paddingRight - this.style.paddingX;
     return suffixX > 0 ? suffixX : 0;
   }
 
@@ -334,5 +317,26 @@ class Input extends Button {
     }
     return false;
   }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    if (this._announce) {
+      return this._announce;
+    }
+
+    // TODO - Localization?
+    // Do we need a locale file with
+    // component translations?
+    // need to check with Accessibility on what order this should read out in
+    if (this.password) {
+      return [this.eyebrow, this.helpText];
+    } else {
+      return [this.eyebrow, 'Input: ' + this.title, this.helpText];
+    }
+  }
 }
+
 export default withExtensions(Input);

@@ -202,7 +202,7 @@ describe('Input', () => {
     [input, testRenderer] = createInput({ listening: true });
     input.suffix = [{ type: Icon }];
     testRenderer.forceAllUpdates();
-    expect(input._Suffix.x).toBe(input.w - 2 * input.style.paddingX);
+    expect(input._Suffix.x).toBe(input._suffixX);
   });
 
   it('HiddenContent should be always on the hidden', () => {
