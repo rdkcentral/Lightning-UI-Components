@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import Base from '../../Base';
 import * as styles from './TextBox.styles';
 import { withExtensions } from '../../mixins';
@@ -5,6 +6,23 @@ import { InlineContent } from '../../layout';
 import { isMarkupString, getValidColor } from '../../utils';
 import context from '../../context';
 import Marquee from '../Marquee';
+
+/**
+ *
+ * Get defaults directly from @lightningjs/core to ensure correct fallback values
+ *
+ */
+const lightningTextDefaults = Object.entries(
+  Object.getOwnPropertyDescriptors(lng.textures.TextTexture.prototype)
+).reduce((acc, [prop]) => {
+  const value = lng.textures.TextTexture.prototype[prop];
+  if (prop.startsWith('_') || ['undefined', 'function'].includes(typeof value))
+    return acc;
+  return {
+    [prop]: value,
+    ...acc
+  };
+}, {});
 
 class TextBox extends Base {
   static _template() {
@@ -183,6 +201,7 @@ class TextBox extends Base {
         y: this.style.offsetY,
         x: this.style.offsetX,
         text: {
+          ...lightningTextDefaults, // order matters this should always be first
           ...fontStyle,
           wordWrapWidth: fontStyle.wordWrapWidth,
           maxLines: fontStyle.maxLines

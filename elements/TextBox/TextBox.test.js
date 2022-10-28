@@ -4,15 +4,16 @@ import context from '../../context';
 import { TYPOGRAPHY } from '../../Styles';
 import { getValidColor } from '../../utils';
 import XfinityTheme from '../../themes/xfinity';
+import Base from '../../themes/base';
 
-const createElement = TestUtils.makeCreateComponent(TextBox);
+const createtextBox = TestUtils.makeCreateComponent(TextBox);
 
-const testOptions = async (element, optionProp, optionsValues, match) => {
+const testOptions = async (textBox, optionProp, optionsValues, match) => {
   for (const option of optionsValues) {
     await (() => {
       return new Promise(resolve => {
-        element.content = 'Hello world';
-        element[optionProp] = option;
+        textBox.content = 'Hello world';
+        textBox[optionProp] = option;
         setTimeout(() => {
           let expects;
           switch (typeof match) {
@@ -25,7 +26,7 @@ const testOptions = async (element, optionProp, optionsValues, match) => {
             default:
               expects = match;
           }
-          expect(element.tag('Text').text[optionProp]).toBe(expects);
+          expect(textBox.tag('Text').text[optionProp]).toBe(expects);
           resolve();
         });
       });
@@ -35,16 +36,16 @@ const testOptions = async (element, optionProp, optionsValues, match) => {
 };
 
 describe('TextBox', () => {
-  let element, testRenderer;
+  let textBox, testRenderer;
 
   beforeEach(async () => {
     context.setTheme(XfinityTheme);
-    [element, testRenderer] = createElement({}, { spyOnMethods: ['_update'] });
-    await element.__updateSpyPromise;
+    [textBox, testRenderer] = createtextBox({}, { spyOnMethods: ['_update'] });
+    await textBox.__updateSpyPromise;
   });
 
   afterEach(() => {
-    element = null;
+    textBox = null;
     testRenderer = null;
   });
 
@@ -55,70 +56,70 @@ describe('TextBox', () => {
     });
 
     it('renders with content prop', async () => {
-      element.content = 'Hello world';
-      await element.__updateSpyPromise;
-      expect(element._Text.text.text).toBe('Hello world');
+      textBox.content = 'Hello world';
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text.text.text).toBe('Hello world');
     });
 
     it('sets the announce string to the content or InlineContent announce', () => {
       const content = 'Hello world';
-      element.content = content;
+      textBox.content = content;
       testRenderer.forceAllUpdates();
-      expect(element.announce).toBe(content);
+      expect(textBox.announce).toBe(content);
 
       const inlineContent = [
         'Hello world',
         { icon: 'test.png', announce: 'this is an icon' }
       ];
-      element.content = inlineContent;
+      textBox.content = inlineContent;
       testRenderer.forceAllUpdates();
-      expect(element.announce).toBe('Hello world this is an icon');
+      expect(textBox.announce).toBe('Hello world this is an icon');
     });
 
     it('overrides the announce string', () => {
       const overrideString = 'Custom announce string';
-      element.announce = overrideString;
+      textBox.announce = overrideString;
       testRenderer.forceAllUpdates();
-      expect(element.announce).toBe(overrideString);
+      expect(textBox.announce).toBe(overrideString);
     });
 
     it('should set Text and InlineContent to undefined if the content prop is invalid', () => {
-      element.content = null;
+      textBox.content = null;
       testRenderer.forceAllUpdates();
-      expect(element._Text).toBeUndefined();
-      expect(element._InlineContent).toBeUndefined();
+      expect(textBox._Text).toBeUndefined();
+      expect(textBox._InlineContent).toBeUndefined();
 
-      expect(element.w).toBe(0);
+      expect(textBox.w).toBe(0);
     });
 
     it('should set width and height to 0 if the content prop is invalid', () => {
-      element.content = null;
+      textBox.content = null;
       testRenderer.forceAllUpdates();
 
-      expect(element.w).toBe(0);
-      expect(element.h).toBe(0);
+      expect(textBox.w).toBe(0);
+      expect(textBox.h).toBe(0);
     });
 
     it('renders with a title that matches the content prop', async () => {
-      element.content = 'Hello world';
-      await element.__updateSpyPromise;
-      expect(element.title).toBe('Hello world');
+      textBox.content = 'Hello world';
+      await textBox.__updateSpyPromise;
+      expect(textBox.title).toBe('Hello world');
     });
 
     it('should log a warning if the user attempts to smooth any values to the TextBox', async () => {
       const warnMock = jest.fn();
       context.warn = warnMock;
-      element.smooth = { w: 100 };
+      textBox.smooth = { w: 100 };
       expect(warnMock.mock.calls.length).toBe(1);
     });
   });
 
   describe('styling', () => {
     it('should fallback to "body1" object if the style prop is an invalid string', async () => {
-      element.content = 'Hello world';
-      element.textStyle = 'invalidstyle';
-      await element.__updateSpyPromise;
-      expect(element._Text).toEqual(
+      textBox.content = 'Hello world';
+      textBox.textStyle = 'invalidstyle';
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text).toEqual(
         expect.objectContaining({
           text: expect.objectContaining(XfinityTheme.typography.body1)
         })
@@ -126,10 +127,10 @@ describe('TextBox', () => {
     });
 
     it('should set style to "body1" object if the style prop is null', async () => {
-      element.content = 'Hello World';
-      element.textStyle = null;
-      await element.__updateSpyPromise;
-      expect(element._Text).toEqual(
+      textBox.content = 'Hello World';
+      textBox.textStyle = null;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text).toEqual(
         expect.objectContaining({
           text: expect.objectContaining(XfinityTheme.typography.body1)
         })
@@ -137,10 +138,10 @@ describe('TextBox', () => {
     });
 
     it('should set style to "body1" object if the style prop is not a string or object', async () => {
-      element.content = 'Hello World';
-      element.textStyle = () => {};
-      await element.__updateSpyPromise;
-      expect(element._Text).toEqual(
+      textBox.content = 'Hello World';
+      textBox.textStyle = () => {};
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text).toEqual(
         expect.objectContaining({
           text: expect.objectContaining(XfinityTheme.typography.body1)
         })
@@ -155,10 +156,10 @@ describe('TextBox', () => {
           }
         }
       });
-      await element.__updateSpyPromise;
-      element.content = 'Hello world';
-      await element.__updateSpyPromise;
-      expect(element._Text.text.fontSize).toBe(36);
+      await textBox.__updateSpyPromise;
+      textBox.content = 'Hello world';
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text.text.fontSize).toBe(36);
     });
 
     it('should accept a hex color for the textColor prop', async () => {
@@ -174,7 +175,7 @@ describe('TextBox', () => {
         '#D32F2F',
         '#C62828'
       ];
-      await testOptions(element, 'textColor', validColors, getValidColor);
+      await testOptions(textBox, 'textColor', validColors, getValidColor);
     });
 
     it('should set textColor to white if the prop is invalid', async () => {
@@ -188,25 +189,33 @@ describe('TextBox', () => {
         'red'
       ];
       await testOptions(
-        element,
+        textBox,
         'textColor',
         invalidColors,
         getValidColor('#ffffff')
       );
     });
+
+    it('should get TextDefaults when switching themes', async () => {
+      context.setTheme(Base);
+      textBox.base = context.theme;
+      textBox.content = 'Hello Text Defaults';
+      await textBox.__updateSpyPromise;
+      expect(textBox._Text.text.maxLinesSuffix).toBe('..');
+    });
   });
 
   describe('alignment and formatting', () => {
     it('should accept left, right, & center as options for textAlign', async () => {
-      [element, testRenderer] = createElement({
+      [textBox, testRenderer] = createtextBox({
         style: Object.keys(TYPOGRAPHY)[0]
       });
-      await testOptions(element, 'textAlign', ['right', 'center', 'left']);
+      await testOptions(textBox, 'textAlign', ['right', 'center', 'left']);
     });
 
     it('should fallback to default for textAlign if options are not supported in the text texture', async () => {
       await testOptions(
-        element,
+        textBox,
         'textAlign',
         ['justify', 100, -100, 0, 1, true, false],
         'left'
@@ -214,13 +223,13 @@ describe('TextBox', () => {
     });
 
     it('should accept top, middle, & bottom as options for verticalAlign', async () => {
-      await testOptions(element, 'verticalAlign', ['bottom', 'middle', 'top']);
+      await testOptions(textBox, 'verticalAlign', ['bottom', 'middle', 'top']);
     });
 
     it('should fallback to the default for verticalAlign if options are not supported in the text texture', async () => {
       const { verticalAlign: defaultVerticalAlign } = TYPOGRAPHY.body1;
       await testOptions(
-        element,
+        textBox,
         'verticalAlign',
         ['center', true, false, 0, 1, () => {}],
         defaultVerticalAlign
@@ -228,12 +237,12 @@ describe('TextBox', () => {
     });
 
     it('should accept boolean value for wordWrap option', async () => {
-      await testOptions(element, 'wordWrap', [false, true]);
+      await testOptions(textBox, 'wordWrap', [false, true]);
     });
 
     it('should set default wordWrap value to true if boolean not passed as option', async () => {
       await testOptions(
-        element,
+        textBox,
         'wordWrap',
         [0, 1, 'true', () => {}, null, undefined],
         true
@@ -242,7 +251,7 @@ describe('TextBox', () => {
 
     it('should accept maxLines option', async () => {
       await testOptions(
-        element,
+        textBox,
         'maxLines',
         new Array(10).fill().map((v, i) => i + 1)
       );
@@ -250,7 +259,7 @@ describe('TextBox', () => {
 
     it('should only accept maxLines option values that are positive numbers where n > 0', async () => {
       await testOptions(
-        element,
+        textBox,
         'maxLines',
         [-1, true, false, null, undefined, () => {}],
         0
@@ -259,7 +268,7 @@ describe('TextBox', () => {
 
     it('should accept wordWrapWidth option', async () => {
       await testOptions(
-        element,
+        textBox,
         'wordWrapWidth',
         Array(10)
           .fill()
@@ -269,7 +278,7 @@ describe('TextBox', () => {
 
     it('should only accept wordWrapWidth option values that are positive numbers where n > 0', async () => {
       await testOptions(
-        element,
+        textBox,
         'wordWrapWidth',
         [-1, true, false, null, undefined, () => {}],
         0
@@ -277,12 +286,12 @@ describe('TextBox', () => {
     });
 
     it('should accept maxLinesSuffix option of a string', async () => {
-      await testOptions(element, 'maxLinesSuffix', ['...', '>>>', '???']);
+      await testOptions(textBox, 'maxLinesSuffix', ['...', '>>>', '???']);
     });
 
     it('should fallback to default for maxLinesSuffix if prop is anything other than a string', async () => {
       await testOptions(
-        element,
+        textBox,
         'maxLinesSuffix',
         [-1, true, false, null, undefined, () => {}],
         '...'
@@ -301,43 +310,43 @@ describe('TextBox', () => {
         { badge: 'HD', title: 'HD' },
         { badge: 'SD', title: 'SD' }
       ];
-      [element, testRenderer] = createElement(
+      [textBox, testRenderer] = createtextBox(
         { content },
         { spyOnMethods: ['_update'] }
       );
-      await element.__updateSpyPromise;
-      expect(element._isInlineContent).toBe(true);
-      expect(element._InlineContent.content).toBe(content);
+      await textBox.__updateSpyPromise;
+      expect(textBox._isInlineContent).toBe(true);
+      expect(textBox._InlineContent.content).toBe(content);
     });
 
     it('should parse a string with markup and render as InlineContent', async () => {
       const content =
         'Example {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes {TEXT:styled text|italic}.';
-      [element, testRenderer] = createElement(
+      [textBox, testRenderer] = createtextBox(
         { content },
         { spyOnMethods: ['_update'] }
       );
-      await element.__updateSpyPromise;
-      expect(element._isInlineContent).toBe(true);
-      expect(element._InlineContent.content).toBe(content);
+      await textBox.__updateSpyPromise;
+      expect(textBox._isInlineContent).toBe(true);
+      expect(textBox._InlineContent.content).toBe(content);
     });
 
     it('should announce its content', async () => {
       const content = 'Hello world';
-      [element, testRenderer] = createElement({ content });
-      expect(element.announce).toBe(content);
+      [textBox, testRenderer] = createtextBox({ content });
+      expect(textBox.announce).toBe(content);
     });
   });
 
   describe('marquee', () => {
-    it('should create a Marquee element when marquee is true and content longer than wordWrapWidth', async () => {
-      element.content = 'hello world';
-      element.wordWrapWidth = 20;
-      element.marquee = true;
-      await element.__updateSpyPromise;
-      expect(element._Marquee).toBeDefined();
+    it('should create a Marquee textBox when marquee is true and content longer than wordWrapWidth', async () => {
+      textBox.content = 'hello world';
+      textBox.wordWrapWidth = 20;
+      textBox.marquee = true;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee).toBeDefined();
 
-      [element, testRenderer] = createElement(
+      [textBox, testRenderer] = createtextBox(
         {
           content: [
             'Text',
@@ -353,36 +362,36 @@ describe('TextBox', () => {
         },
         { spyOnMethods: ['_update'] }
       );
-      await element.__updateSpyPromise;
-      expect(element._Marquee).toBeDefined();
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee).toBeDefined();
     });
 
     it('should toggle alpha values of Marquee and Text components based on the marquee property', async () => {
-      element.content = 'hello world';
-      element.wordWrapWidth = 20;
-      element.marquee = false;
-      await element.__updateSpyPromise;
-      expect(element._Marquee).toBe(undefined);
-      expect(element._Text.alpha).toBe(1);
+      textBox.content = 'hello world';
+      textBox.wordWrapWidth = 20;
+      textBox.marquee = false;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee).toBe(undefined);
+      expect(textBox._Text.alpha).toBe(1);
 
-      element.marquee = true;
-      await element.__updateSpyPromise;
-      expect(element._Marquee.alpha).toBe(1);
-      expect(element._Text.alpha).toBe(0.001);
+      textBox.marquee = true;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee.alpha).toBe(1);
+      expect(textBox._Text.alpha).toBe(0.001);
 
-      element.marquee = false;
-      await element.__updateSpyPromise;
-      expect(element._Marquee.alpha).toBe(0.001);
-      expect(element._Text.alpha).toBe(1);
+      textBox.marquee = false;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee.alpha).toBe(0.001);
+      expect(textBox._Text.alpha).toBe(1);
     });
 
     it('marquee component should only ever have maxLines of 1', async () => {
-      element.content = 'hello world';
-      element.maxLines = 3;
-      element.wordWrapWidth = 20;
-      element.marquee = true;
-      await element.__updateSpyPromise;
-      expect(element._Marquee.title.maxLines).toBe(1);
+      textBox.content = 'hello world';
+      textBox.maxLines = 3;
+      textBox.wordWrapWidth = 20;
+      textBox.marquee = true;
+      await textBox.__updateSpyPromise;
+      expect(textBox._Marquee.title.maxLines).toBe(1);
     });
   });
 });
