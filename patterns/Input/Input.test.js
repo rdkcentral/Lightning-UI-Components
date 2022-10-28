@@ -25,7 +25,7 @@ describe('Input', () => {
     input.eyebrow = 'Description';
     testRenderer.forceAllUpdates();
     expect(input._Eyebrow.content).toEqual('Description');
-    expect(input._Eyebrow.textColor).toEqual(input.style.eyebrowColor);
+    expect(input._Eyebrow.textStyle).toEqual(input.style.eyebrowTextStyle);
   });
 
   describe('cursor movement', () => {
@@ -195,7 +195,7 @@ describe('Input', () => {
     input.helpText = 'Test Description';
     testRenderer.forceAllUpdates();
     expect(input._HelpText.content).toEqual('Test Description');
-    expect(input._HelpText.textColor).toEqual(input.style.helpTextColor);
+    expect(input._HelpText.textStyle).toEqual(input.style.helpTextStyle);
   });
 
   it('suffix should be always on the right', () => {

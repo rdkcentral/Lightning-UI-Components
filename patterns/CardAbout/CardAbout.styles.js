@@ -2,7 +2,7 @@ import { getWidthByUpCount, getDimensions } from '../../utils';
 
 export const base = theme => ({
   contentSpacing: theme.spacer.md,
-  descriptionTextProperties: {
+  descriptionTextStyle: {
     ...theme.typography.body2,
     textColor: theme.color.textNeutral,
     wordWrap: true,
@@ -18,7 +18,7 @@ export const base = theme => ({
       textColor: theme.color.textNeutral
     }
   },
-  titleTextProperties: {
+  titleTextStyle: {
     ...theme.typography.callout1,
     textColor: theme.color.textNeutralSecondary,
     maxLines: 1,
@@ -31,8 +31,8 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    titleTextProperties: { textColor: theme.color.textNeutralDisabled },
-    descriptionTextProperties: { textColor: theme.color.textNeutralDisabled },
+    titleTextStyle: { textColor: theme.color.textNeutralDisabled },
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
     inlineContentStyle: {
       textStyle: { textColor: theme.color.textNeutralDisabled }
     },

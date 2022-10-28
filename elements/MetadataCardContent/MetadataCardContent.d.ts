@@ -1,17 +1,17 @@
 import MetadataBase, { MetadataBaseStyles } from '../MetadataBase';
-import Provider from '../Provider';
-import { ProviderStyles } from '../Provider';
-import lng from '@lightningjs/core';
+import Provider, { ProviderStyles } from '../Provider';
+import type { StylePartial } from '../../types/lui';
+import type { TextBoxStyles } from '../TextBox';
 
-export interface MetadataCardContentStyles extends MetadataBaseStyles {
-  titleTextProperties?: lng.textures.TextTexture.Settings;
-  descriptionProperties?: lng.textures.TextTexture.Settings;
-  detailsTextProperties?: lng.textures.TextTexture.Settings;
-  providerStyle?: ProviderStyles;
-}
+export type MetadataCardContentStyles = MetadataBaseStyles & {
+  titleTextStyle: TextBoxStyles;
+  detailsTextStyle: TextBoxStyles;
+  providerStyle: ProviderStyles;
+};
 
 export declare class MetadataCardContent extends MetadataBase {
   details?: string;
   provider?: Provider;
-  style: MetadataCardContentStyles;
+  get style(): MetadataCardContentStyles;
+  set style(v: StylePartial<MetadataCardContentStyles>);
 }

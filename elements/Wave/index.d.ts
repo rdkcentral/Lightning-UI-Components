@@ -1,21 +1,3 @@
-import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
-import lng from '@lightningjs/core';
+import Wave, { WaveStyles } from './Wave';
 
-export interface WaveStyles {
-  color?: string;
-  duration?: number;
-  height?: number;
-  keyframes?: [number, number, number, number];
-  lockedRatio?: number;
-  lockedPaddingRatio?: number;
-  radius?: lng.Tools.CornerRadius;
-  repeat?: number;
-  w?: number;
-}
-
-declare const Wave_base: WithThemeStylesConstructor<typeof Base, WaveStyles>;
-
-export default class Wave extends Wave_base {
-  style: WaveStyles;
-}
+export { Wave as default, WaveStyles };

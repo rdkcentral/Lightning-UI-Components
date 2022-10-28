@@ -49,10 +49,10 @@ describe('CardTitle', () => {
     testRenderer.forceAllUpdates();
     expect(cardTitle._Description.content).toEqual('Description');
     expect(cardTitle._Description.textStyle).toEqual(
-      cardTitle.style.descriptionTextProperties
+      cardTitle.style.descriptionTextStyle
     );
     expect(cardTitle._Description.textStyle.textColor).toEqual(
-      cardTitle.style.descriptionTextProperties.textColor
+      cardTitle.style.descriptionTextStyle.textColor
     );
   });
 

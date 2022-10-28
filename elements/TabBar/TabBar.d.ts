@@ -1,22 +1,22 @@
 import lng from '@lightningjs/core';
 import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { StylePartial } from '../../types/lui';
 
-export interface TabBarStyles {
-  tabsMarginBottom?: number;
-  tabSpacing?: number;
-}
+export type TabBarStyles = {
+  tabsMarginBottom: number;
+  tabSpacing: number;
+};
 
-declare const TabBar_base: WithThemeStylesConstructor<
-  typeof Base,
-  TabBarStyles
->;
+type ResolvedTab =
+  | lng.Component.NewPatchTemplate<typeof lng.Component>
+  | lng.Component;
 
-type resolvedTab = lng.__ComponentPatchObj | lng.Component;
-export default class TabBar extends TabBar_base {
+export default class TabBar extends Base {
   alphaSelectedTab?: boolean;
   collapse?: boolean;
   reset?: boolean;
-  tabs?: Array<resolvedTab | Promise<resolvedTab>>;
+  tabs?: Array<ResolvedTab | Promise<ResolvedTab>>;
   wrapSelected?: boolean;
+  get style(): TabBarStyles;
+  set style(v: StylePartial<TabBarStyles>);
 }

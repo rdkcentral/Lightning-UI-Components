@@ -175,7 +175,7 @@ class MetadataBase extends Base {
   _updateTitle() {
     this._Title.patch({
       content: this.title,
-      textStyle: this.style.titleTextProperties,
+      textStyle: this.style.titleTextStyle,
       wordWrap: true,
       wordWrapWidth: this._Text.w
     });
@@ -184,7 +184,7 @@ class MetadataBase extends Base {
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,
-      textStyle: this.style.subtitleTextProperties,
+      textStyle: this.style.subtitleTextStyle,
       justify: 'flex-start'
     });
     if (this._Subtitle.finalW > this._textW()) {
@@ -206,9 +206,8 @@ class MetadataBase extends Base {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this.style.descriptionTextProperties,
+      textStyle: this.style.descriptionTextStyle,
       wordWrap: true,
-      maxLines: 1,
       wordWrapWidth: this._Text.w
     });
   }

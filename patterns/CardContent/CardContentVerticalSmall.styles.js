@@ -5,5 +5,5 @@ export const base = theme => ({
   expandedH:
     getDimensions({ ratioX: 16, ratioY: 9, upCount: 4 }).h +
     theme.spacer.md * 14,
-  metadataStyles: { descriptionTextProperties: { maxLines: 1 } }
+  metadataStyles: { descriptionTextStyle: { maxLines: 1 } }
 });

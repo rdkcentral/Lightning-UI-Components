@@ -4,7 +4,7 @@ export const base = theme => ({
   paddingHorizontal: theme.spacer.xl,
   paddingVertical: theme.spacer.xl,
   radius: theme.radius.md,
-  titleTextProperties: {
+  titleTextStyle: {
     ...theme.typography.headline1,
     wordWrapTrue: true,
     maxLines: 2,
@@ -16,7 +16,7 @@ export const base = theme => ({
 export const mode = theme => ({
   disabled: {
     backgroundColor: theme.color.fillInverseDisabled,
-    titleTextProperties: { textColor: theme.color.textNeutralDisabled }
+    titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
 

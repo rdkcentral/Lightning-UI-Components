@@ -59,7 +59,7 @@ class CardPersonality extends CardTitle {
   _updateTitlePosition() {
     this._Title.patch({
       x: this.style.paddingHorizontal,
-      y: this._Description.y - this.style.descriptionTextProperties.lineHeight,
+      y: this._Description.y - this.style.descriptionTextStyle.lineHeight,
       mountY: 1
     });
   }

@@ -1,22 +1,23 @@
-import type { __TextType } from '@lightningjs/core';
-import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import type { Color, StylePartial } from '../../types/lui';
+import Surface, { SurfaceStyles } from '../Surface';
+// text should be using our own version of TextBox
+import { TextBoxStyles } from '../TextBox';
 
-export interface TabStyles {
-  backgroundColor?: string;
-  contentColor?: string;
-  iconMarginRight?: number;
-  iconSize?: number;
-  noTitlePaddingX?: number;
-  paddingX?: number;
-  paddingY?: number;
-  radius?: number;
-  textStyle?: __TextType | string;
-}
+export type TabStyles = SurfaceStyles & {
+  backgroundColor: Color;
+  contentColor: Color;
+  iconMarginRight: number;
+  iconSize: number;
+  noTitlePaddingX: number;
+  paddingX: number;
+  paddingY: number;
+  radius: number;
+  textStyle: TextBoxStyles;
+};
 
-declare const Tab_base: WithThemeStylesConstructor<typeof Base, TabStyles>;
-
-export default class Tab extends Tab_base {
+export default class Tab extends Surface {
   icon?: string;
   title?: string;
+  get style(): TabStyles;
+  set style(v: StylePartial<TabStyles>);
 }

@@ -1,7 +1,8 @@
-export { default as Column } from './Column';
+export { default as Column, ColumnStyles } from './Column';
+export { default as ControlRow, ControlRowStyles } from './ControlRow';
 export { default as FocusManager } from './FocusManager';
-export { default as InlineContent } from './InlineContent';
-export { default as Row } from './Row';
-export { default as TitleRow } from './TitleRow';
-export { default as ControlRow } from './ControlRow';
-export { default as ScrollWrapper } from './ScrollWrapper';
+export { default as GridOverlay } from './GridOverlay';
+export { default as InlineContent, InlineContentStyles } from './InlineContent';
+export { default as Row, RowStyles } from './Row';
+export { default as ScrollWrapper, ScrollWrapperStyles } from './ScrollWrapper';
+export { default as TitleRow, TitleRowStyles } from './TitleRow';

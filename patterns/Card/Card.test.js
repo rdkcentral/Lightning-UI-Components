@@ -46,9 +46,9 @@ describe('Card', () => {
     Card.title = 'Title';
     testRenderer.forceAllUpdates();
     expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.textStyle).toEqual(Card.style.titleTextProperties);
+    expect(Card._Title.textStyle).toEqual(Card.style.titleTextStyle);
     expect(Card._Title.textStyle.textColor).toEqual(
-      Card.style.titleTextProperties.textColor
+      Card.style.titleTextStyle.textColor
     );
   });
 
@@ -59,7 +59,7 @@ describe('Card', () => {
     testRenderer.forceAllUpdates();
     expect(Card._Title.content).toEqual('Title');
     expect(Card._Title.textStyle.textColor).toEqual(
-      Card.style.titleTextProperties.textColor
+      Card.style.titleTextStyle.textColor
     );
   });
 

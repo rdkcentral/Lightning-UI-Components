@@ -124,7 +124,7 @@ class Provider extends Base {
           x: this.style.itemSize / 2,
           y: this.style.itemSize / 2,
           content: this.counterText || `+${remaining}`,
-          textStyle: this.style.counterTextProperties
+          textStyle: this.style.counterTextStyle
         }
       };
       this._Row.appendItems([counter]);

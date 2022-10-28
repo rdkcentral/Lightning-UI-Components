@@ -3,8 +3,8 @@ import { SpeechType } from './mixins/withAnnouncer';
 import { WithHandleKeyConstructor } from './mixins/withHandleKey';
 import { WithLayoutConstructor } from './mixins/withLayout';
 import { WithTagsConstructor } from './mixins/withTags';
-import { WithUpdatesConstructor } from './mixins/withUpdates';
 import { WithThemeStylesConstructor } from './mixins/withThemeStyles';
+import { WithUpdatesConstructor } from './mixins/withUpdates';
 
 declare const Base_base: WithLayoutConstructor<
   WithThemeStylesConstructor<

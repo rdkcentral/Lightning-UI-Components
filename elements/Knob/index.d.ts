@@ -1,11 +1,3 @@
-import Base from '../../Base';
-import { WithThemeStylesConstructor } from '../../mixins/withThemeStyles';
+import Knob, { KnobStyles } from './Knob';
 
-export interface KnobStyles {
-  circleColor?: string;
-  circleSize?: number;
-}
-
-declare const Knob_base: WithThemeStylesConstructor<typeof Base, KnobStyles>;
-
-export default class Knob extends Knob_base {}
+export { Knob as default, KnobStyles };

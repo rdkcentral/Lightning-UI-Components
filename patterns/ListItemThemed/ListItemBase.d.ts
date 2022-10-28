@@ -1,22 +1,24 @@
 import lng from '@lightningjs/core';
 import Button, { ButtonStyles } from '../../elements/Button';
+import type { StylePartial } from '../../types/lui';
+import { TextBoxStyles } from '../../elements/TextBox';
 
-type logoStylesObject = {
-  radius?: lng.Tools.CornerRadius;
-  h?: number;
-  w?: number;
+type LogoStylesObject = {
+  radius: lng.Tools.CornerRadius;
+  h: number;
+  w: number;
 };
 
 export type ListItemBaseStyles = ButtonStyles & {
-  alpha?: number;
-  descriptionTextStyle?: lng.textures.TextTexture.Settings;
-  h?: number;
-  logoStyles?: logoStylesObject;
+  alpha: number;
+  descriptionTextStyle: TextBoxStyles;
+  h: number;
+  logoStyles: LogoStylesObject;
   paddingX: number;
   prefixH: number;
   suffixH: number;
   titlePadding: number;
-  titleTextStyle?: lng.textures.TextTexture.Settings;
+  titleTextStyle: TextBoxStyles;
 };
 
 export default class ListItemBaseThemed extends Button {
@@ -24,6 +26,6 @@ export default class ListItemBaseThemed extends Button {
   prefixLogo?: string;
   shouldCollapse?: boolean;
   suffixLogo?: string;
-  static get __themeStyle(): ListItemBaseStyles;
-  style: ListItemBaseStyles;
+  get style(): ListItemBaseStyles;
+  set style(v: StylePartial<ListItemBaseStyles>);
 }

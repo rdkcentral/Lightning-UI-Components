@@ -1,5 +1,5 @@
 export const base = theme => ({
-  descriptionTextProperties: {
+  descriptionTextStyle: {
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
@@ -9,6 +9,6 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    descriptionTextProperties: { textColor: theme.color.textNeutralDisabled }
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
