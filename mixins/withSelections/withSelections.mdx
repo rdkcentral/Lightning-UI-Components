@@ -10,6 +10,10 @@ The `withSelections` mixin can be wrapped around a parent component that holds a
 
 Take a look at the preview above. The row of modified [Buttons](?path=/docs/button--basic) has navigation managed by the [FocusManager](?path=/docs/focusmanager--rows) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/button--basic). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
 
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/withSelections/withSelections.js
+
 ## Usage
 
 Out of the box, `withSelections` adds properties and methods to the wrapped parent component that allows it to manage the "selected" status of a direct list of components. All of the method and property names are customizable. In order to ensure that `withSelections` work correctly, we need to understand what this mixin **requires** and what **additions** it brings to the base class.

@@ -12,6 +12,10 @@ global `keyMetricsCallbackHandler` in the lightning UI Context.
 Take a look at the preview above. Tile component is using the withHandleKey mixin.
 If you press enter on the first tile, you should see it print a metrics payload in the console (inspector view)
 
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/withHandleKey/withHandleKey.js
+
 ## Usage
 
 Out of the box, `withHandleKey` adds a generic _handleKey & _handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & $on${Key}Release event.
