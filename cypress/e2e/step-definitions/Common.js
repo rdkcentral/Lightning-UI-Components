@@ -3,6 +3,7 @@ import Badge from '../pageObjects/elements/badge.element';
 import Card from '../pageObjects/patterns/card.patterns';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/elements/label.element';
+import ProgressBar from '../pageObjects/elements/progressbar.element';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -19,6 +20,8 @@ function getPageObject(pageName) {
     pageObject = CheckBox;
   } else if (pageName === 'label') {
     pageObject = Label;
+  } else if (pageName === 'progressbar') {
+    pageObject = ProgressBar;
   } else {
     throw new Error(
       `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
@@ -87,7 +90,8 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       pageObject._getElementByName(componentName).should('be.visible');
-  });
+    }
+  );
 
   /**
    * @module Common
@@ -153,10 +157,21 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      pageObject
-        ._getElementByName(page)
-        .should('have.attr', 'style')
-        .should('contain', `${property}: ${value}`);
+      if (property === 'progress') {
+        cy.wait(300); // wait for the progress bar to render
+        ProgressBar.progressBarValue.then(progressBarValue => {
+          ProgressBar.progressValue.then(progressValue => {
+            const actualPercentage =
+              Number(progressValue) / Number(progressBarValue);
+            expect(actualPercentage).to.eq(parseFloat(value));
+          });
+        });
+      } else {
+        pageObject
+          ._getElementByName(pageName)
+          .should('have.attr', 'style')
+          .should('contain', `${property}: ${value}`);
+      }
     }
   );
 
@@ -214,23 +229,26 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      switch(control) {
+      switch (control) {
         case 'mode':
-          switch(value) {
+          switch (value) {
             case 'focused':
-              pageObject._getElementByName(component)
-              .should('have.attr', 'scalex', '1.2');
+              pageObject
+                ._getElementByName(component)
+                .should('have.attr', 'scalex', '1.2');
               break;
             case 'unfocused':
-              pageObject._getElementByName(component)
-              .should('not.have.attr', 'scalex');
+              pageObject
+                ._getElementByName(component)
+                .should('not.have.attr', 'scalex');
               break;
             case 'disabled':
-              pageObject._getElementByName(component)
-              .should('be.disabled');
+              pageObject._getElementByName(component).should('be.disabled');
+              break;
             default:
               break;
           }
+          break;
         default:
           break;
       }

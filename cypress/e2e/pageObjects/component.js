@@ -9,7 +9,7 @@ class LUIComponent {
    * @param {Object} properties - The properties to be set to determine the URL to be used for the component page.
    * @param {String} [properties.type] - The type of the component. ('elements', 'layout', 'patterns', or 'mixins')
    * @param {String} [properties.componentName]- The name of the component. (examples: 'browse', 'entity', 'hero')
-   * @example 
+   * @example
    */
   constructor({ type = 'elements', componentName }) {
     // Get the base param for the component that extends this base component.
@@ -19,7 +19,7 @@ class LUIComponent {
 
   /**
    * Format the name of the story to be used in the URL and return it.
-   * @param {String} story 
+   * @param {String} story
    * @returns the formatted story name
    */
   formatStoryName(story) {
