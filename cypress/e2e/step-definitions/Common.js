@@ -4,8 +4,9 @@ import Card from '../pageObjects/patterns/card.patterns';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/elements/label.element';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
+import Row from '../pageObjects/layouts/row.layout';
 
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
   let pageObject = null;
@@ -22,6 +23,8 @@ function getPageObject(pageName) {
     pageObject = Label;
   } else if (pageName === 'progressbar') {
     pageObject = ProgressBar;
+  } else if (pageName === 'row') {
+    pageObject = Row;
   } else {
     throw new Error(
       `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
@@ -196,6 +199,75 @@ export default function () {
 
   /**
    * @module Common
+   * @function I press {String} key
+   * @description Cucumber statement to send key
+   * @param {String} key - Key values can DOWN,UP,ENTER,BACK etc
+   * @example I press 'DOWN' key
+   *
+   */
+  Given('I press {string} key', key => {
+    cy.action(key);
+  });
+
+  /**
+   * @module Common
+   * @function Given I press {string} key {int} times
+   * @description Cucumber statement to send key n times
+   * @param {String} key Key values can DOWN,UP,ENTER,BACK etc
+   * @param {int} key Key values can 2,5,6 etc
+   * @example
+   * Given I press 'DOWN' key 4 times
+   *
+   */
+  Given(/I press '(.+)' key (.+) times$/, (key, n) => {
+    for (let i = 0; i < n; i++) {
+      cy.action(key);
+    }
+  });
+
+  /**
+   * @module Common
+   * @function I verify if {String} page {String} has loaded
+   * @description Cucumber statement to validate if the page's data has loaded
+   * @param {String} pageName
+   * @example I verify if 'Row' page data has loaded
+   */
+  Then(
+    'I verify if {string} page data has loaded',
+    (pageName) => {
+      const page = pageName.toLowerCase();
+      if (page.includes('row')) {
+        cy.wait(1000).get(Row.button1Label).should('be.visible');
+      } else {
+        throw new Error(
+          `${page} page not found! \nPlease check the page object name or implement the missing case.`
+        );
+      }
+    });
+
+  /**
+   * @module Common
+   * @function I verify there are {Integer} assets per row on the {String} page
+   * @description Cucumber statement to verify the number of assets per row
+   * @param {Integer} no_of_assets
+   * @param {String} pageName
+   * @example I verify there are 4 assets per row on the 'Row' page
+   */
+  Then(
+    'I verify there are {int} assets per row on the {string} page',
+    (no_of_assets, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      cy.get(pageObject.row)
+        .first()
+        .children()
+        .should('have.length', no_of_assets);
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify that {String} {String} {String} has text {String}
    * @description Cucumber statement to verify the the text of a component
    * @example I verify that 'Card' 'Personality' 'Title' has text 'LUI Test'
@@ -209,6 +281,49 @@ export default function () {
 
       pageObject
         ._getElementByName(element)
+        .should('have.attr', 'texture-text', expectedText);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify each element has width of {Float} and height of {Float} on {String} page
+   * @description Cucumber statement to verify the sizing of elements on a particular page
+   * @param {Float} width
+   * @param {Float} height
+   * @param {String} pageName
+   * @example I verify each tile has width of 150.0 and height of 40.0 on 'Row' page
+   */
+  Then(
+    'I verify each element has width of {float} and height of {float} on {string} page',
+    (width, height, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      cy.get(pageObject.rowElements)
+        .should('have.attr', 'w', width)
+        .and('have.attr', 'h', height);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {String} component on the {String} page has text {String}
+   * @description Cucumber statement to verify the display text of a component
+   * @param {String} componentName
+   * @param {String} pageName
+   * @param {String} expectedText
+   * @example I verify that the 'Button' component on the 'Row' page has text 'Button 1'
+   */
+  Then(
+    'I verify that the {string} component on the {string} page has text {string}',
+    (componentName, pageName, expectedText) => {
+      const page = pageName.toLowerCase();
+      const component = componentName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      pageObject
+        ._getElementByName(component, 2000)
         .should('have.attr', 'texture-text', expectedText);
     }
   );
@@ -252,6 +367,200 @@ export default function () {
         default:
           break;
       }
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {String} component on the {String} page is in focus
+   * @description Cucumber statement to verify displayed element is in focus
+   * @param {String} componentName
+   * @param {String} pageName
+   * @example I verify that the 'Button1' component on the 'Row' page is in focus
+   */
+  Then(
+    'I verify that the {string} component on the {string} page is in focus',
+    (componentName, pageName) => {
+      const page = pageName.toLowerCase();
+      const component = componentName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      pageObject._getElementByName(component).should('have.attr', 'focused', 'true');
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that I am able to navigate to the {string} element of the {string} {string} row
+   * @description Cucumber statement to verify that user is able to navigate to the start or end of the specified row
+   * @param {String} position
+   * @param {String} pageName
+   * @param {String} rowName
+   * @example I verify that I am able to navigate to the 'last' element of the 'Row' 'First' row
+   */
+  Then(
+    'I verify that I am able to navigate to the {string} element of the {string} {string} row',
+    (position, pageName, rowName) => {
+      const page = pageName.toLowerCase();
+      const row = rowName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const key = position === 'last' ? 'RIGHT' : 'LEFT';
+
+      pageObject._getElementByName(row).then($elements => {
+        let i = position === 'last' ? 0 : $elements.length - 1;
+
+        while (i !== (position === 'last' ? $elements.length : -1)) {
+          cy.action(key);
+
+          if (position === 'last') {
+            i++;
+          } else {
+            i--;
+          }
+        }
+        pageObject
+          ._getElementByName(row)
+          .eq(position === 'last' ? $elements.length - 1 : 0)
+          .should('have.attr', 'focused')
+          .and('eq', 'true');
+      });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that elements are horizontally evenly spaced for {String} component
+   * @description Cucumber statement to verify the specified page elements are evenly spaced horizontally
+   * @param {String} pageName
+   * @example I verify that elements are horizontally evenly spaced for 'Row' component
+   */
+  Then(
+    'I verify that elements are horizontally evenly spaced for {string} component',
+    pageName => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const elements = [];
+      cy.wait(500)
+        .get(pageObject.row)
+        .each($row => {
+          const rowId = $row.attr('id');
+          cy.get($row)
+            .children()
+            .each(($element, $index) => {
+              // the spacing of the first tile is different
+              if ($index !== 0) {
+                // keep track of the tiles in the row for later use
+                const elementInfo = {
+                  id: $element.attr('id'),
+                  rowId
+                };
+                // push the tile info to the tiles array
+                cy.getOffsetRect($element).then(data => {
+                  elements.push({...elementInfo, ...data});
+                });
+              }
+            });
+        })
+        .then(() => {
+          const spaces = [];
+          elements.forEach((element, index, arr) => {
+            if (index !== 0) {
+              const prevElement = arr[index - 1];
+              const space = element.left - prevElement.right;
+              spaces.push(space);
+            }
+          });
+          // assert that the spaces are evenly spaced
+          const averageSpace = Math.round(
+            spaces.reduce((a, b) => a + b, 0) / spaces.length
+          );
+          const space = Math.round(spaces[1]);
+          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
+        });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the spacing between elements of {String} component is {String}
+   * @description Cucumber statement to verify the spacing of a component
+   * @param {String} pageName
+   * @param {String} spaceValue
+   * @example I verify that the spacing between elements of 'Row' component is '17'
+   */
+  Then(
+    'I verify that the spacing between elements of {string} component is {string}',
+    (pageName, expectedSpaceValue) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const spacing = expectedSpaceValue.toLowerCase();
+      const elements = [];
+      cy.wait(500)
+        .get(pageObject.row)
+        .each($row => {
+          const rowId = $row.attr('id');
+          cy.get($row)
+            .children()
+            .each(($element, $index) => {
+              // the spacing of the first tile is different
+              if ($index !== 0) {
+                // keep track of the tiles in the row for later use
+                const elementInfo = {
+                  id: $element.attr('id'),
+                  rowId
+                };
+                // push the tile info to the tiles array
+                cy.getOffsetRect($element).then(data => {
+                  elements.push({...elementInfo, ...data});
+                });
+              }
+            });
+        })
+        .then(() => {
+          const spaces = [];
+          elements.forEach((element, index, arr) => {
+            if (index !== 0) {
+              const prevElement = arr[index - 1];
+              const space = element.left - prevElement.right;
+              spaces.push(space);
+            }
+          });
+          const space = Math.round(spaces[1]);
+          expect(Math.ceil(spacing)).equal(Math.ceil(space));
+        });
+    }
+  );
+
+  /**
+   * @function I verify there are {int} fully visible assets on the {String} page
+   * @description Cucumber statement to verify the fully visible assets on the defined page
+   * @param {int} no_of_assets
+   * @param {String} pageName
+   * @example I verify there are 10 fully visible assets on the 'Row' page
+   */
+  Then(
+    'I verify there are {int} fully visible assets on the {string} page',
+    (no_of_assets, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      let visibleTiles = 0;
+
+      cy.wait(500)
+        .get(pageObject.row)
+        .should('be.visible')
+        .first()
+        .should('be.visible')
+        .children()
+        .each($tile => {
+          // count the visible tiles based on where they are positioned on screen using the x attribute
+          if (parseInt($tile.attr('x')) < 1638) {
+            visibleTiles++;
+          }
+        })
+        .then(() => {
+          // add 1 since the first tile has no x attribute
+          expect(visibleTiles + 1).equal(no_of_assets);
+        });
     }
   );
 }
