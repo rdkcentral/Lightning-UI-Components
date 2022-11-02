@@ -1,0 +1,91 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../../storybook/index.js';
+import Toggle from './index.js';
+
+# Toggle
+
+A checkbox component with toggle slider behavior
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/Toggle/Toggle.js
+
+## Usage
+
+The toggle state is determined by the `checked` property, which defaults to `false`
+
+```js
+import { Toggle } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Toggle: {
+        type: Toggle
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-toggle--basic" />
+</Canvas>
+
+The `checked` state can be programmatically changed with `toggle()`.
+
+```js
+this.tag('Toggle').toggle();
+```
+
+The `toggle()` method is chainable. Let's say your `Toggle` component has `checked=false`
+
+```js
+console.log(this.tag('Toggle').checked); //=> true
+```
+
+By default, the `onEnter()` method executes `toggle()`. To add or change functionality, override this method:
+
+```js
+this.tag('Toggle').onEnter = toggle => {
+  // do stuff
+  toggle.toggle();
+};
+```
+
+## API
+
+### Properties
+
+| name     | type    | readonly | description                                    |
+| -------- | ------- | -------- | ---------------------------------------------- |
+| checked  | boolean | true     | toggle state                                   |
+| disabled | boolean | false    | should the component be unavailable to toggle? |
+
+### Style Properties
+
+| name                   | type          | description                        |
+| ---------------------- | ------------- | ---------------------------------- |
+| backgroundColor        | string        | color of background when unchecked |
+| backgroundColorChecked | string        | color of background when checked   |
+| knobHeight             | number        | height of Toggle knob              |
+| knobPadding            | number        | padding to apply around knob       |
+| knobRadius             | number        | radius of Toggle knob              |
+| knobWidth              | number        | width of Toggle knob               |
+| knobX                  | number        | X position of knob when unchecked  |
+| knobXChecked           | number        | X position of knob when checked    |
+| knobColor              | string        | color of knob when unchecked       |
+| knobColorChecked       | string        | color of knob when checked         |
+| strokeColor            | string        | color of stroke                    |
+| strokeRadius           | number\|array | radius of Toggle                   |
+| strokeWeight           | number        | thickness of stroke                |
+
+### Methods
+
+#### toggle(): void
+
+Toggles `checked` state and updates UI accordingly
+
+#### onEnter(thisArg): void
+
+Callback to be executed on <kbd>Enter</kbd> key down event. Calls `toggle()` by default.

@@ -1,28 +1,21 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+/.yarn/*
+!/.yarn/releases
+!/.yarn/plugins
+!/.yarn/sdks
 
-# dependencies
-node_modules
-
-# testing
+# Swap the comments on the following lines if you don't wish to use zero-installs
+# Documentation here: https://yarnpkg.com/features/zero-installs
+!/.yarn/cache
+#/.pnp.*
+*-bak.json
+dist/
+storybook-static/
 coverage/
-test-results.json
-
-# production
-/build
-/styleguide
-dist
-/tmp
-/bin/themePropertyTables/*
-
-# misc
+node_modules/
+tmp/
+original/
 .DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-pipeline-experiment.yml
 .vscode
-
 # publish
 *.tgz
 *.env
@@ -33,3 +26,11 @@ pipeline-experiment.yml
 #cypress
 /cypress/reports
 /cypress/videos
+
+.yarn/cache/
+
+# Using change log for release notes so still need to talk to team how we want to maintain this
+CHANGELOG.md 
+
+bin/themePropertyTables
+ci-files

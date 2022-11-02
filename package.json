@@ -1,130 +1,51 @@
 {
-  "name": "@lightning/ui",
-  "version": "5.0.0-next.159",
-  "sideEffects": false,
-  "dependencies": {
-    "csv-writer": "^1.6.0",
-    "debounce": "^1.2.1",
-    "fast-csv": "^4.3.6"
-  },
-  "peerDependencies": {
-    "@lightningjs/core": "^2.7.1"
-  },
-  "browser": "index.js",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "bin": {
-    "bootstrap": "bin/bootstrap.sh"
-  },
-  "files": [
-    "index.js",
-    "Styles.js",
-    "Base.js",
-    "Base.d.ts",
-    "GlobalUpdateManager.js",
-    "{bin,elements,extensions,layout,mixins,patterns,legacy,Styles,textures,utils,themes,context}/**/*",
-    "!{elements,extensions,layout,mixins,patterns,legacy,Styles}/**/*.stories.js",
-    "!{elements,extensions,layout,mixins,patterns,legacy,textures,utils}/**/*.test.js",
-    "test/lightning-test-renderer.js",
-    "test/lightning-test-utils.js",
-    "!public/"
+  "name": "@lightning/monorepo",
+  "version": "1.0.0",
+  "packageManager": "yarn@3.2.3",
+  "private": true,
+  "workspaces": [
+    "packages/@lightning/ui",
+    "packages/@lightning/ui-core",
+    "packages/@lightning/test-utils",
+    "packages/@lightning/ui-extensions",
+    "packages/apps/**/*"
   ],
-  "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-react": "^7.12.10",
-    "@badeball/cypress-cucumber-preprocessor": "^13.0.2",
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
-    "@cypress/browserify-preprocessor": "^3.0.2",
-    "@lightningjs/core": "^2.7.1",
-    "@semantic-release/git": "^10.0.1",
-    "@storybook/addon-docs": "^6.5.3",
-    "@storybook/addon-essentials": "^6.5.3",
-    "@storybook/addon-storysource": "^6.5.3",
-    "@storybook/html": "^6.5.3",
-    "@typescript-eslint/eslint-plugin": "^5.35.1",
-    "@typescript-eslint/parser": "^5.10.0",
-    "@visual-regression-tracker/agent-cypress": "^5.5.0",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "cypress": "^10.8.0",
-    "cypress-log-to-output": "^1.1.2",
-    "cypress-mochawesome-reporter": "^3.2.2",
-    "dotenv": "^16.0.2",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-jest": "^24.3.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "esm": "^3.2.25",
-    "fast-glob": "^3.2.7",
-    "gh-pages": "^4.0.0",
-    "glob": "^7.2.0",
-    "husky": "^8.0.1",
-    "jest": "^26.6.1",
-    "jest-webgl-canvas-mock": "^0.2.3",
-    "line-reader-sync": "^0.1.0",
-    "lint-staged": "^12.1.2",
-    "prettier": "^2.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "semantic-release": "^19.0.2",
-    "typescript": "^4.4.4"
-  },
-  "lint-staged": {
-    "./{collections,elements,layout,mixins,patterns,legacy,Styles,textures,utils,themes,context}/**/*.js": [
-      "npm run lint"
-    ]
-  },
-  "repository": {
-    "url": "https://github.comcast.com/Lightning/lightning-ui"
-  },
   "scripts": {
-    "generateStorybookData": "node ./bin/generate && npm run styleDocs",
-    "build": "npm run generateStorybookData && build-storybook -c .storybook -o dist && node -r esm bin/translationScript.js",
-    "styleDocs": "node -r esm bin/translationScript.js",
-    "lint": "eslint './{collections,elements,layout,mixins,patterns,legacy,Styles,styles,textures,utils,themes,context}/**/*.js'",
-    "lint:fix": "eslint --fix './{collections,elements,layout,mixins,patterns,legacy,Styles,styles,textures,utils,themes,context}/**/*.js'",
-    "gh-pages": "gh-pages -d dist",
-    "create": "node bin/create.js",
-    "start": "npm run generateStorybookData && start-storybook --no-manager-cache -p 8000",
-    "start:ci": "npm run generateStorybookData && start-storybook --ci --smoke-test",
-    "test": "jest --coverage",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:updateSnapshot": "jest --updateSnapshot",
-    "test:watch": "jest --no-coverage --watch",
-    "cy:open": "cypress open",
-    "cy:open:vrt": "cypress open --env testType=vrt",
-    "cy:run": "cypress run --env testType=vrt --browser chrome",
-    "cy:info": "cypress info",
-    "cy:verify": "cypress verify",
-    "cy:tags": "cypress run --headed --browser chrome",
-    "cy:vrt": "npm run cy:tags -- --env testType=vrt,TAGS=@sanity-vrt,ON_CI=true",
-    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
+    "start": "yarn workspace lightning-ui-docs start",
     "prepare": "husky install",
-    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
-    "update:beta": "git fetch origin && git checkout beta && git pull origin beta && git pull origin develop && git push origin beta",
-    "update:next": "git fetch origin && git checkout next && git pull origin next && git pull origin develop && git push origin next"
+    "build": "echo build docs",
+    "release": "yarn node ./ci/release/run",
+    "updateReleaseLog": "yarn node ./ci/release/updateReleaseLog.js",
+    "lint": "eslint './packages/**/src/**/*.js'",
+    "lint:fix": "eslint --fix './packages/**/src/**/*.js'",
+    "test": "yarn workspace @lightning/ui-core test && yarn workspace @lightning/ui test --passWithNoTests",
+    "clean": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp && yarn exec rm -rf node_modules && find ./packages -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "postinstall": "node ./scripts/post-install.js"
   },
-  "publishConfig": {
-    "registry": "https://artifactory.comcast.com/artifactory/api/npm/Lightning-npm-releases/"
-  },
-  "description": "A collection of Comcast-branded UI components for the [Lightning](https://rdkcentral.github.io/Lightning/) framework.",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
-  "author": "",
-  "license": "ISC",
-  "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": false,
-    "stepDefinitions": [
-      "cypress/e2e/step-definitions/*.{js,ts}"
-    ],
-    "filterSpecs": true
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@rollup/plugin-babel": "^6.0.2",
+    "@rollup/plugin-image": "^3.0.1",
+    "@rollup/plugin-json": "^5.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "latest",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^27.0.4",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-promise": "^6.0.0",
+    "generate-changelog": "^1.8.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "rollup": "^3.2.5",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.8.4"
   }
 }
