@@ -1,6 +1,6 @@
 ---
 defaults: &defaults
-  path: ../dist
+  path: ../packages/apps/lightning-ui-docs/storybook-static
   buildpacks:
     - staticfile_buildpack
   stack: cflinuxfs3

@@ -2,6 +2,10 @@
 
 This is a shared scratchpad where we can track notes on configs, weirdness, etc. things that can't be easily tagged in a comment.
 
+## Monorepo
+
+As to not modify the ci commands there are postinstall commands to copy a bin file to mock npx semantic-release
+
 ## Semantic Release
 
 When working off of the `next` branch, in order to get the latest code from the `develop` branch, we have been `rebasing`. This allows all of the next commmits to be stacked on top of the develop commits.

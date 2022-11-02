@@ -1,7 +1,5 @@
 
-# @lightning/ui
-
-A collection of Comcast-branded UI components for the [Lightning](https://rdkcentral.github.io/Lightning/) framework.
+# Lightning Monorepo
 
 ## Peer dependencies
 
@@ -53,5 +51,6 @@ See our Storybook for [detailed documentation](https://github.comcast.com/pages/
 ## Questions???
 
 [Join us on Slack](https://slack.com/app_redirect?team=T024VU91V&channel=C016PQ0G4HY)
+
 
 

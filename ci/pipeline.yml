@@ -21,6 +21,29 @@ pullRequestNotificationFailure: &pullRequestNotificationFailure
     path: source-repo-pr
     status: failure
 
+pullRequestNotificationSuccessNext: &pullRequestNotificationSuccessNext
+  put: source-repo-pr-next
+  params:
+    path: source-repo-pr-next
+    status: success
+
+pullRequestNotificationFailureNext: &pullRequestNotificationFailureNext
+  put: source-repo-pr-next
+  params:
+    path: source-repo-pr-next
+    status: failure
+
+slack_params: &slack_params
+  username: "LUIBOT"
+
+task-config: &task-config
+  platform: linux
+  image_resource:
+    type: docker-image
+    source:
+      repository: node
+      tag: 16.9.1
+
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Resource Types: https://concourse-ci.org/resource-types.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -30,17 +53,50 @@ resource_types:
     source:
       repository: teliaoss/github-pr-resource
 
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: latest
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Resource: https://concourse-ci.org/resources.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 resources:
+  - name: source-repo-monorepo
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      branch: next
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
+  
+  - name: lui-slack-notification
+    type: slack-notification
+    source:
+      url: ((automation.lightning-ui-slack-webhook-url))
+  
+  - name: source-repo-pr-next
+    type: pull-request
+    icon: source-pull
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      base_branch: next # 5.0
+      repository: ((ghe-org-name))/((ghe-repo-name))
+      disable_forks: false
+      access_token: ((ghe-token))
+      v3_endpoint: https://github.comcast.com/api/v3/
+      v4_endpoint: https://github.comcast.com/api/graphql
+
   - name: source-repo-pr
     type: pull-request
     icon: source-pull
     webhook_token: ((webhook-token))
     check_every: 168h
     source:
+      base_branch: develop # 4.0
       repository: ((ghe-org-name))/((ghe-repo-name))
       disable_forks: false
       access_token: ((ghe-token))
@@ -65,15 +121,6 @@ resources:
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
 
-  - name: source-repo-next
-    type: git
-    webhook_token: ((webhook-token))
-    check_every: 168h
-    source:
-      branch: next
-      private_key: ((github-enterprise.private-key))
-      uri: ((ghe-source-repo))
-
   - name: source-repo-beta
     type: git
     webhook_token: ((webhook-token))
@@ -81,15 +128,6 @@ resources:
     tags: [aws]
     source:
       branch: beta
-      private_key: ((github-enterprise.private-key))
-      uri: ((ghe-source-repo))
-
-  - name: source-repo-develop
-    type: git
-    webhook_token: ((webhook-token))
-    check_every: 168h
-    source:
-      branch: develop
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
 
@@ -102,7 +140,6 @@ resources:
       organization: xd-prototype
       space: lui
 
-
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -111,191 +148,234 @@ groups:
   - name: overview
     jobs:
       - pull-requests
+      - pull-request-next
       - docs
-      - docs-next
       - publish
       - publish-release
-      - publish-develop
-      - publish-next
       - publish-beta
+      - publish-next
   - name: pull-requests
     jobs:
       - pull-requests
+      - pull-request-next
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Jobs: https://concourse-ci.org/jobs.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 
 jobs:
-- name: pull-requests
-  public: true
-  build_logs_to_retain: 50
-  serial: true
-  on_success:
-    do:
-      - <<: *pullRequestNotificationSuccess
-  on_abort:
-    do:
-      - <<: *pullRequestNotificationFailure
-  on_failure:
-    do:
-      - <<: *pullRequestNotificationFailure
-  on_error:
-    do:
-      - <<: *pullRequestNotificationFailure
-  plan:
-    - get: source-repo-pr
-      trigger: true
-    - put: source-repo-pr
-      params:
-        path: source-repo-pr
-        status: pending
-    - task: pr-verify
-      file: source-repo-pr/ci/tasks/detect_commit_and_pr_ids.yml
-      input_mapping:
-        source-repo: source-repo-pr
-    - task: npm-install
-      file: source-repo-pr/ci/tasks/install.yml
-      input_mapping:
-        source-repo: source-repo-pr
-    - in_parallel:
-        - task: code-quality
-          file: source-repo-pr/ci/tasks/quality.yml
-          input_mapping:
-            source-repo: source-repo-pr
-        - task: unit-tests
-          file: source-repo-pr/ci/tasks/unit-tests.yml
-          input_mapping:
-            source-repo: source-repo-pr
-    - task: build-storybook-and-components
-      file: source-repo-pr/ci/tasks/build.yml
-      params:
-        BUILD_PATH: "packages/core/storybook-static/*"
-      input_mapping:
-        source-repo: source-repo-pr
+  # LUI 5.0 Release
+  - name: pull-request-next
+    public: true
+    build_logs_to_retain: 50
+    serial: true
+    on_success:
+      do:
+        - <<: *pullRequestNotificationSuccessNext
+    on_abort:
+      do:
+        - <<: *pullRequestNotificationFailureNext
+    on_failure:
+      do:
+        - <<: *pullRequestNotificationFailureNext
+    on_error:
+      do:
+        - <<: *pullRequestNotificationFailureNext
+    plan:
+      - get: source-repo-pr-next
+        trigger: true
+      - put: source-repo-pr-next
+        params:
+          path: source-repo-pr-next
+          status: pending
+      - task: pr-verify
+        file: source-repo-pr-next/ci/tasks/detect_commit_and_pr_ids.yml
+        input_mapping:
+          source-repo: source-repo-pr-next
+      - task: install
+        file: source-repo-pr-next/ci/tasks-monorepo/install.yml
+        input_mapping:
+          source-repo: source-repo-pr-next
+      - in_parallel:
+          - task: test-monorepo
+            file: source-repo-pr-next/ci/tasks-monorepo/test.yml
+            input_mapping:
+              source-repo: code
+          - task: code-quality-monorepo
+            file: source-repo-pr-next/ci/tasks-monorepo/lint.yml
+            input_mapping:
+              source-repo: code
+          
+  - name: publish-next
+    public: true
+    build_logs_to_retain: 50
+    serial: true
+    plan:
+      - get: source-repo-monorepo
+        trigger: true
+      - task: install
+        file: source-repo-monorepo/ci/tasks-monorepo/install.yml
+        input_mapping:
+          source-repo: source-repo-monorepo
+      - in_parallel:
+          - task: test-monorepo
+            file: source-repo-monorepo/ci/tasks-monorepo/test.yml
+            input_mapping:
+              source-repo: code
+          - task: code-quality-monorepo
+            file: source-repo-monorepo/ci/tasks-monorepo/lint.yml
+            input_mapping:
+              source-repo: code
+      - task: publish-monorepo
+        file: source-repo-monorepo/ci/tasks-monorepo/release.yml
+        input_mapping:
+          source-repo: code
+      - task: build-lui-storybook-monorepo
+        file: source-repo-monorepo/ci/tasks-monorepo/build-lui-storybook.yml
+        input_mapping:
+          source-repo: code
+      - put: docs-cf-app
+        params:
+          manifest: source-repo-monorepo/cloudfoundry/manifest.yml
+          path: build-lui-dist
+      - task: send-release-notes
+        input_mapping:
+          ci-files: ci-files
+        config: 
+          << : *task-config
+          inputs:
+            - name: ci-files
+          run:
+            path: cat
+            args: ["ci-files/lui-slack-notification.json"]
+        on_success:
+          do:
+            - put: lui-slack-notification
+              params:
+                <<: *slack_params
+                text: |
+                  *New Lightning UI Releases Available*
+                attachments_file: ci-files/lui-slack-notification.json
+  
+  # LUI 4.0 Legacy 
+  - name: pull-requests
+    public: true
+    build_logs_to_retain: 50
+    serial: true
+    on_success:
+      do:
+        - <<: *pullRequestNotificationSuccess
+    on_abort:
+      do:
+        - <<: *pullRequestNotificationFailure
+    on_failure:
+      do:
+        - <<: *pullRequestNotificationFailure
+    on_error:
+      do:
+        - <<: *pullRequestNotificationFailure
+    plan:
+      - get: source-repo-pr
+        trigger: true
+      - put: source-repo-pr
+        params:
+          path: source-repo-pr
+          status: pending
+      - task: pr-verify
+        file: source-repo-pr/ci/tasks/detect_commit_and_pr_ids.yml
+        input_mapping:
+          source-repo: source-repo-pr
+      - task: npm-install
+        file: source-repo-pr/ci/tasks/install.yml
+        input_mapping:
+          source-repo: source-repo-pr
+      - in_parallel:
+          - task: code-quality
+            file: source-repo-pr/ci/tasks/quality.yml
+            input_mapping:
+              source-repo: source-repo-pr
+          - task: unit-tests
+            file: source-repo-pr/ci/tasks/unit-tests.yml
+            input_mapping:
+              source-repo: source-repo-pr
+      - task: build-storybook-and-components
+        file: source-repo-pr/ci/tasks/build.yml
+        params:
+          BUILD_PATH: "packages/core/storybook-static/*"
+        input_mapping:
+          source-repo: source-repo-pr
 
-- name: docs
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-release
-      trigger: true
-    - task: build-docs
-      file: source-repo-release/ci/tasks/build-docs.yml
-      input_mapping:
-        source-repo: source-repo-release
-      output_mapping:
-        source-repo/dist: build-output
-    - task: publish-docs
-      file: source-repo-release/ci/tasks/gh-pages.yml
-      input_mapping:
-        source-repo: source-repo-release
-        source-repo/dist: build-output
-      params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        EMAIL: ((service-account.email))
+  - name: docs
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo-release
+        trigger: true
+      - task: build-docs
+        file: source-repo-release/ci/tasks/build-docs.yml
+        input_mapping:
+          source-repo: source-repo-release
+        output_mapping:
+          source-repo/dist: build-output
+      - task: publish-docs
+        file: source-repo-release/ci/tasks/gh-pages.yml
+        input_mapping:
+          source-repo: source-repo-release
+          source-repo/dist: build-output
+        params:
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          EMAIL: ((service-account.email))
 
-- name: docs-next
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-next
-      trigger: true
-    - task: build-docs
-      file: source-repo-next/ci/tasks/build-docs.yml
-      input_mapping:
-        source-repo: source-repo-next
-      output_mapping:
-        source-repo/dist: build-output
-    - put: docs-cf-app
-      params:
-        manifest: source-repo-next/cloudfoundry/manifest.yml
-        path: build-output
+  - name: publish
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo
+        trigger: true
+      - task: version-and-publish
+        file: source-repo/ci/tasks/publish.yml
+        input_mapping:
+          source-repo: source-repo
+        params:
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          NPM_USERNAME: ((service-account.artifactory-username))
+          NPM_EMAIL: ((service-account.email))
+          NPM_PASSWORD: ((service-account.artifactory-api-key))
 
-- name: publish
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo
-      trigger: true
-    - task: version-and-publish
-      file: source-repo/ci/tasks/publish.yml
-      input_mapping:
-        source-repo: source-repo
-      params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        NPM_USERNAME: ((service-account.artifactory-username))
-        NPM_EMAIL: ((service-account.email))
-        NPM_PASSWORD: ((service-account.artifactory-api-key))
+  - name: publish-release
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo-release
+        trigger: true
+      - task: version-and-publish
+        file: source-repo-release/ci/tasks/publish.yml
+        input_mapping:
+          source-repo: source-repo-release
+        params:
+          CI_NAME: "codeship" # Force env-ci (used in sematic-release package) to use codeship configuration in order to bypass failing branch env var check
+          CI_BRANCH: "release"
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          NPM_USERNAME: ((service-account.artifactory-username))
+          NPM_EMAIL: ((service-account.email))
+          NPM_PASSWORD: ((service-account.artifactory-api-key))
 
-
-- name: publish-release
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-release
-      trigger: true
-    - task: version-and-publish
-      file: source-repo-release/ci/tasks/publish.yml
-      input_mapping:
-        source-repo: source-repo-release
-      params:
-        CI_NAME: 'codeship' # Force env-ci (used in sematic-release package) to use codeship configuration in order to bypass failing branch env var check
-        CI_BRANCH: 'release'
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        NPM_USERNAME: ((service-account.artifactory-username))
-        NPM_EMAIL: ((service-account.email))
-        NPM_PASSWORD: ((service-account.artifactory-api-key))
-
-- name: publish-develop
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-develop
-      trigger: true
-    - task: version-and-publish
-      file: source-repo-develop/ci/tasks/publish.yml
-      input_mapping:
-        source-repo: source-repo-develop
-      params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        NPM_USERNAME: ((service-account.artifactory-username))
-        NPM_EMAIL: ((service-account.email))
-        NPM_PASSWORD: ((service-account.artifactory-api-key))
-
-- name: publish-next
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-next
-      trigger: true
-    - task: version-and-publish
-      file: source-repo-next/ci/tasks/publish.yml
-      input_mapping:
-        source-repo: source-repo-next
-      params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        NPM_USERNAME: ((service-account.artifactory-username))
-        NPM_EMAIL: ((service-account.email))
-        NPM_PASSWORD: ((service-account.artifactory-api-key))
-
-- name: publish-beta
-  build_logs_to_retain: 50
-  plan:
-    - get: source-repo-beta
-      trigger: true
-    - task: version-and-publish
-      file: source-repo-beta/ci/tasks/publish.yml
-      input_mapping:
-        source-repo: source-repo-beta
-      params:
-        HOST: ((github-enterprise.host))
-        PRIVATE_KEY: ((github-enterprise.private-key))
-        USERNAME: ((service-account.username))
-        NPM_USERNAME: ((service-account.artifactory-username))
-        NPM_EMAIL: ((service-account.email))
-        NPM_PASSWORD: ((service-account.artifactory-api-key))
+  - name: publish-beta
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo-beta
+        trigger: true
+      - task: version-and-publish
+        file: source-repo-beta/ci/tasks/publish.yml
+        input_mapping:
+          source-repo: source-repo-beta
+        params:
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          NPM_USERNAME: ((service-account.artifactory-username))
+          NPM_EMAIL: ((service-account.email))
+          NPM_PASSWORD: ((service-account.artifactory-api-key))

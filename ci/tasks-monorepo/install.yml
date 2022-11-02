@@ -1,0 +1,15 @@
+---
+platform: linux
+inputs:
+  - name: source-repo
+outputs:
+  - name: code
+    path: source-repo
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: 16.0.0
+run:
+  path: ./ci/tasks-monorepo/install.sh
+  dir: ./source-repo

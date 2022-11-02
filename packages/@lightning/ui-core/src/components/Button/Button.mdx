@@ -1,0 +1,72 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Theme } from '../../../storybook/index.js';
+import Button from './index.js';
+
+# Button
+
+Basic component that handles styling and functionality for a button.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/Button/Button.js
+
+## Usage
+
+## Usage
+
+Used to convey an interactable portion of the interface, a button can present text, an icon, a checkbox, or both text and an icon or checkbox.It has support in all the modes.
+
+```js
+import { Button } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Button: {
+        type: Button,
+        title: 'Button'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-button--basic" />
+</Canvas>
+
+### Sizing
+
+By default, `Button` widths dynamically adjust to account for `title` and `icon` widths and `padding`, with a minimum width defined by `minWidth`.
+
+If you want a specific `Button` width no matter what the size of content, set the `fixed` property to `true`. The `minWidth` here will still be honored.
+
+If you want a `Button` that is fully dynamic, set `minWidth` to `1`.
+
+If you'd like to have a fixed button with a width smaller than the `minWidth`, you'll need to set the `minWidth` to a value less than or equal to the provided width.
+
+## API
+
+### Properties
+
+| name    | type            | readonly | default  | description                                                 |
+| ------- | --------------- | -------- | -------- | ----------------------------------------------------------- |
+| fixed   | boolean         | false    | false    | when true, `w` overrides dynamically calclulated width      |
+| justify | string          | false    | 'center' | alignment of the button's content                           |
+| prefix  | object \| array | -        | -        | Lightning components to be placed to the left of the title  |
+| suffix  | object \| array | -        | -        | Lightning components to be placed to the right of the title |
+| title   | string          | false    | -        | button text                                                 |
+
+### Style Properties
+
+| name            | type                          | description                                                                            |
+| --------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
+| contentColor    | string                        | color of the title text                                                                |
+| justify         | 'center' \| 'left' \| 'right' | alignment of the button's content                                                      |
+| minWidth        | number                        | used as a fallback width if no width is passed into the component and `fixed` is false |
+| paddingX        | number                        | space between the button horizontal edge and the content                               |
+| paddingXNoTitle | number                        | space between the button horizontal edge and the content if no title is provided       |
+| prefixH         | number                        | height of prefix                                                                       |
+| suffixH         | number                        | height of suffix                                                                       |
+| textStyle       | string \| object              | text style to apply to the title                                                       |
+| titlePadding    | number                        | padding between title and prefix                                                       |

@@ -1,0 +1,22 @@
+{
+  "name": "@lightning/ui-extensions",
+  "version": "1.0.0",
+  "description": "",
+  "peerDependencies": {
+    "@lightning/ui": "^5.0.0",
+    "@lightningjs/core": "^2.7.1"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf ./dist && npx rollup --config ../../../rollup/rollup.config.js --name lightning-ui-extensions",
+    "test": "echo \"Error: no test specified ui-extensions\" && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "dist/*"
+  ],
+  "devDependencies": {
+    "rollup": "^3.2.5"
+  }
+}

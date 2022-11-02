@@ -1,0 +1,44 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Gradient from './index.js';
+
+# Gradient
+
+A semitransparent Gradient to be used on top of any component, like Artwork.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/Gradient/Gradient.js
+
+## Usage
+
+Specify a width and height and overlay to Tiles or other items.
+
+```js
+import { Gradient } from '@lightning/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Gradient: {
+        type: Gradient,
+        w: 320,
+        h: 180
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="elements-gradient--basic" />
+</Canvas>
+
+## API
+
+### Style Properties
+
+| name          | type   | description                             |
+| ------------- | ------ | --------------------------------------- |
+| gradientColor | number | default starting color for the gradient |
+| gradientTop   | number | default color the gradient fades to     |
+| radius        | number | default gradient corner radius          |
