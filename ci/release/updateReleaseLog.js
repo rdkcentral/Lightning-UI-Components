@@ -18,7 +18,7 @@ exec('git rev-parse HEAD', (err, hash) => {
       exec(
         `git add ./ci/.release.json && git commit -m 'ci: update release log'`,
         (err, output) => {
-          if (err) reject(err.message)
+          if (err) throw err;
           console.log('git changes complete')
         },
       )
