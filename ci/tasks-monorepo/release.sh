@@ -4,7 +4,7 @@
 mkdir ~/.ssh
 ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
 eval $(ssh-agent -s)
-ssh-add <(echo "$PRIVATE_KEY")
+echo "$PRIVATE_KEY" | ssh-add -
 
 git config user.name $USERNAME 
 git config user.email $NPM_EMAIL
