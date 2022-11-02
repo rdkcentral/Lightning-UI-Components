@@ -230,6 +230,13 @@ jobs:
         file: source-repo-monorepo/ci/tasks-monorepo/release.yml
         input_mapping:
           source-repo: code
+        params:
+          HOST: ((github-enterprise.host))
+          PRIVATE_KEY: ((github-enterprise.private-key))
+          USERNAME: ((service-account.username))
+          NPM_USERNAME: ((service-account.artifactory-username))
+          NPM_EMAIL: ((service-account.email))
+          NPM_PASSWORD: ((service-account.artifactory-api-key))
       - task: build-lui-storybook-monorepo
         file: source-repo-monorepo/ci/tasks-monorepo/build-lui-storybook.yml
         input_mapping:
