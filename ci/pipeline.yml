@@ -72,10 +72,10 @@ resources:
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
   
-  - name: lui-slack-notification
-    type: slack-notification
-    source:
-      url: ((automation.lightning-ui-slack-webhook-url))
+  # - name: lui-slack-notification
+  #   type: slack-notification
+  #   source:
+  #     url: ((automation.lightning-ui-slack-webhook-url))
   
   - name: source-repo-pr-next
     type: pull-request
@@ -217,52 +217,54 @@ jobs:
         file: source-repo-monorepo/ci/tasks-monorepo/install.yml
         input_mapping:
           source-repo: source-repo-monorepo
-      - in_parallel:
-          - task: test-monorepo
-            file: source-repo-monorepo/ci/tasks-monorepo/test.yml
-            input_mapping:
-              source-repo: code
-          - task: code-quality-monorepo
-            file: source-repo-monorepo/ci/tasks-monorepo/lint.yml
-            input_mapping:
-              source-repo: code
-      - task: publish-monorepo
-        file: source-repo-monorepo/ci/tasks-monorepo/release.yml
-        input_mapping:
-          source-repo: code
-        params:
-          HOST: ((github-enterprise.host))
-          PRIVATE_KEY: ((github-enterprise.private-key))
-          USERNAME: ((service-account.username))
-          NPM_USERNAME: ((service-account.artifactory-username))
-          NPM_EMAIL: ((service-account.email))
-          NPM_PASSWORD: ((service-account.artifactory-api-key))
+      # - in_parallel:
+      #     - task: test-monorepo
+      #       file: source-repo-monorepo/ci/tasks-monorepo/test.yml
+      #       input_mapping:
+      #         source-repo: code
+      #     - task: code-quality-monorepo
+      #       file: source-repo-monorepo/ci/tasks-monorepo/lint.yml
+      #       input_mapping:
+      #         source-repo: code
+      # - task: publish-monorepo
+      #   file: source-repo-monorepo/ci/tasks-monorepo/release.yml
+      #   input_mapping:
+      #     source-repo: code
+      #   params:
+      #     HOST: ((github-enterprise.host))
+      #     PRIVATE_KEY: ((github-enterprise.private-key))
+      #     USERNAME: ((service-account.username))
+      #     NPM_USERNAME: ((service-account.artifactory-username))
+      #     NPM_EMAIL: ((service-account.email))
+      #     NPM_PASSWORD: ((service-account.artifactory-api-key))
       - task: build-lui-storybook-monorepo
         file: source-repo-monorepo/ci/tasks-monorepo/build-lui-storybook.yml
         input_mapping:
           source-repo: code
+        output_mapping:
+          source-repo/dist: build-output
       - put: docs-cf-app
         params:
           manifest: source-repo-monorepo/cloudfoundry/manifest.yml
-          path: build-lui-dist
-      - task: send-release-notes
-        input_mapping:
-          ci-files: ci-files
-        config: 
-          << : *task-config
-          inputs:
-            - name: ci-files
-          run:
-            path: cat
-            args: ["ci-files/lui-slack-notification.json"]
-        on_success:
-          do:
-            - put: lui-slack-notification
-              params:
-                <<: *slack_params
-                text: |
-                  *New Lightning UI Releases Available*
-                attachments_file: ci-files/lui-slack-notification.json
+          path: build-output
+      # - task: send-release-notes
+      #   input_mapping:
+      #     ci-files: ci-files
+      #   config: 
+      #     << : *task-config
+      #     inputs:
+      #       - name: ci-files
+      #     run:
+      #       path: cat
+      #       args: ["ci-files/lui-slack-notification.json"]
+      #   on_success:
+      #     do:
+      #       - put: lui-slack-notification
+      #         params:
+      #           <<: *slack_params
+      #           text: |
+      #             *New Lightning UI Releases Available*
+      #           attachments_file: ci-files/lui-slack-notification.json
   
   # LUI 4.0 Legacy 
   - name: pull-requests
