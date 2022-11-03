@@ -7,7 +7,7 @@
     "storybook": "start-storybook -p 6006",
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
-    "generateStorybookData": "node ./scripts/generate-style-data.mjs",
+    "generateStorybookData": "node ./scripts/generate-style-data.mjs && node --experimental-json-modules ./scripts/generate-theme-props-table.mjs",
     "styleDocs": "node bin/translationScript.js"
   },
   "exports": {
@@ -39,6 +39,7 @@
     "babel-jest": "^29.0.3",
     "babel-loader": "^8.2.5",
     "encoding": "^0.1.13",
+    "line-reader-sync": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^6.5.12",
