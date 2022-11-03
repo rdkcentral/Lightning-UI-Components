@@ -4,7 +4,7 @@ inputs:
   - name: source-repo
 outputs:
   - name: build-output
-    path: source-repo/apps/lightning-ui-docs/storybook-static
+    path: source-repo/packages/apps/lightning-ui-docs/storybook-static
 image_resource:
   type: docker-image
   source:
