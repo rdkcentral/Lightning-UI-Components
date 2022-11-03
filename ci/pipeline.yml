@@ -236,7 +236,7 @@ jobs:
           USERNAME: ((service-account.username))
           NPM_USERNAME: ((service-account.artifactory-username))
           NPM_EMAIL: ((service-account.email))
-          NPM_PUBLISH_KEY: ((service-account.artifactory-api-key))
+          NPM_PUBLISH_KEY: ((service-account.artifactory-token))
       - task: build-lui-storybook-monorepo
         file: source-repo-monorepo/ci/tasks-monorepo/build-lui-storybook.yml
         input_mapping:
