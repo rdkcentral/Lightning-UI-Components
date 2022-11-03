@@ -15,6 +15,4 @@ yarn release
 
 git add -A
 git commit -m 'ci: release' || echo 0;
-yarn updateReleaseLog
-git add ./ci/release/.release.json 
-git commit -m 'ci: update .release.json' || echo 0;
+yarn updateReleaseLog || echo 0;
