@@ -1,10 +1,7 @@
 import lng from '@lightningjs/core';
-import context from '../context';
-import TextBox from '../elements/TextBox';
-import Column from '..//Column';
-import Base from '../Base';
-import { Tile, Button } from '../elements';
-import tileImage from '../assets/images/tile-image.png';
+import context from '../src/globals/context';
+import { Base, Column, TextBox, Tile, Button } from '../src/components';
+import tileImage from '../src/assets/images/tile-image.png';
 
 export default {
   title: 'Collections/Theming Foundations'

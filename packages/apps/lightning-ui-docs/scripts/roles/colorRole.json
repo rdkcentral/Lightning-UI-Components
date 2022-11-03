@@ -1,0 +1,16 @@
+{
+  "material": "Default page background",
+  "materialBrand": "Branded page background",
+  "coreNeutral": "Primary text <br> Primary icons",
+  "coreNeutralSecondary": "Secondary text <br> Secondary icons <br> Unfocused states",
+  "coreNeutralTertiary": "Tertiary text <br> Tertiary icons",
+  "coreNeutralDisabled": "Disabled text <br> Disabled icons <br> Disabled states",
+  "coreInverse": "Primary text <br> Primary icons",
+  "coreInverseSecondary": "Secondary text <br> Secondary icons <br> Unfocused states",
+  "coreInverseTertiary": "Tertiary text <br> Tertiary icons",
+  "coreInverseDisabled": "Disabled text <br> Disabled icons <br> Disabled states",
+  "coreBrand": "Primary brand accent",
+  "coreBrandSecondary": "Unfocused states",
+  "coreBrandDisabled": "Disabled states",
+  "coreOverlay": "Overlay dim"
+}

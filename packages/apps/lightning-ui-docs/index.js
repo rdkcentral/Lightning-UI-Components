@@ -9,5 +9,6 @@ export const CATEGORIES = {
   128: 'Tiles & Cards',
   256: 'Text',
   512: 'Utilities',
-  1024: 'Docs'
+  1024: 'Docs',
+  2048: 'Collections'
 };
