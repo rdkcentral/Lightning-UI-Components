@@ -212,7 +212,7 @@ jobs:
     serial: true
     plan:
       - get: source-repo-monorepo
-        trigger: true
+        # trigger: true
       - task: install
         file: source-repo-monorepo/ci/tasks-monorepo/install.yml
         input_mapping:
@@ -237,6 +237,9 @@ jobs:
           NPM_USERNAME: ((service-account.artifactory-username))
           NPM_EMAIL: ((service-account.email))
           NPM_PUBLISH_KEY: ((service-account.artifactory-token))
+      - put: source-repo-monorepo # Push git commit and tags to original branch
+        params:
+          repository: updated-branch
       - task: build-lui-storybook-monorepo
         file: source-repo-monorepo/ci/tasks-monorepo/build-lui-storybook.yml
         input_mapping:
@@ -357,7 +360,7 @@ jobs:
     build_logs_to_retain: 50
     plan:
       - get: source-repo-release
-        trigger: true
+        # trigger: true
       - task: version-and-publish
         file: source-repo-release/ci/tasks/publish.yml
         input_mapping:
