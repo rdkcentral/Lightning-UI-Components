@@ -5,6 +5,7 @@ import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/elements/label.element';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
 import Row from '../pageObjects/layouts/row.layout';
+import FocusManager from '../pageObjects/layouts/focusmanager.layout';
 
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
@@ -25,6 +26,8 @@ function getPageObject(pageName) {
     pageObject = ProgressBar;
   } else if (pageName === 'row') {
     pageObject = Row;
+  } else if (pageName === 'focusmanager') {
+    pageObject = FocusManager;
   } else {
     throw new Error(
       `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
