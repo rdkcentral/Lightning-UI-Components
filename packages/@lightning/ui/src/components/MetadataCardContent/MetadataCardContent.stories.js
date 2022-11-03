@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import MetadataCardContent from '.';
+import { default as MetadataCardContentComponent } from '.';
 import mdx from './MetadataCardContent.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
@@ -14,22 +14,24 @@ export default {
   }
 };
 
-export const CardContent = () =>
-  class CardContent extends lng.Component {
+export const MetadataCardContent = () =>
+  class MetadataCardContent extends lng.Component {
     static _template() {
       return {
         MetadataCardContent: {
-          type: MetadataCardContent
+          type: MetadataCardContentComponent
         }
       };
     }
   };
 
+MetadataCardContent.storyName = 'MetadataCardContent';
+
 // used to show example of longer text in description
 const descriptionSample =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-CardContent.argTypes = {
+MetadataCardContent.argTypes = {
   ...createModeControl(),
   w: {
     defaultValue: 600,
@@ -81,7 +83,7 @@ CardContent.argTypes = {
   }
 };
 
-CardContent.parameters = {
+MetadataCardContent.parameters = {
   argActions: {
     visibleCount(visibleCount, component) {
       component.tag('MetadataCardContent').provider = {

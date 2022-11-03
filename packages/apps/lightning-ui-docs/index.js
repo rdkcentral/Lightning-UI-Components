@@ -8,5 +8,6 @@ export const CATEGORIES = {
   64: 'Navigation',
   128: 'Tiles & Cards',
   256: 'Text',
-  512: 'Utilities'
+  512: 'Utilities',
+  1024: 'Docs'
 };
