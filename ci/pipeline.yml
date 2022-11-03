@@ -72,10 +72,10 @@ resources:
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
   
-  # - name: lui-slack-notification
-  #   type: slack-notification
-  #   source:
-  #     url: ((automation.lightning-ui-slack-webhook-url))
+  - name: lui-slack-notification
+    type: slack-notification
+    source:
+      url: ((automation.lightning-ui-slack-webhook-url))
   
   - name: source-repo-pr-next
     type: pull-request
