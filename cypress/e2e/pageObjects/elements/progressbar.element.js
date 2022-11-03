@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class ProgressBar extends LUIComponent {
   constructor() {
-    super({ componentName: 'progressbar' });
+    super({ type: 'utilities', componentName: 'progressbar' });
   }
 
   get progressBar() {
