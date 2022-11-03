@@ -58,7 +58,7 @@ function execPromise(command) {
   return new Promise((resolve, reject) => {
     exec(command, (err, output) => {
       if (err) {
-        console.log(err.message)
+        console.error(`exec error: ${err}`, output);
         reject(err.message);
       }
       resolve(output);
