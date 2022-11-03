@@ -8,10 +8,9 @@ import theme from './theme';
 import xfinity from '@suite-themes/xfinity-lightning-tv';
 import rogers from '@suite-themes/rogers-lightning-tv';
 import { withAnnouncer, GridOverlay, Speech, pool, context, utils } from '@lightning/ui-core';
-import {
-  focusRingExtension,
-  dropShadowExtension
-} from '@lightning/ui-extensions';
+import { focusRingExtension, dropShadowExtension } from '@lightning/ui-extensions';
+import { CATEGORIES } from '../../lightning-ui-docs/';
+
 context.debug = true;
 context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
@@ -81,6 +80,11 @@ export const parameters = {
   docs: {
     inlineStories: true,
     theme
+  },
+  options: {
+    storySort: {
+      order: [CATEGORIES[1024], CATEGORIES[0], CATEGORIES[4], CATEGORIES[512], CATEGORIES[64], CATEGORIES[16], CATEGORIES[2], CATEGORIES[8], CATEGORIES[256], CATEGORIES[32], CATEGORIES[128]]
+    }
   }
 };
 

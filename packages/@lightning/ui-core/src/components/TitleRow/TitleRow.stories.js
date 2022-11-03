@@ -54,3 +54,5 @@ export const TitleRow = () =>
       return this.tag('TitleRow');
     }
   };
+
+TitleRow.storyName = 'TitleRow';

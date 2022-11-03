@@ -28,6 +28,8 @@ export const MetadataBase = () =>
     }
   };
 
+MetadataBase.storyName = 'MetadataBase';
+
 MetadataBase.argTypes = {
   ...createModeControl(),
   w: {
