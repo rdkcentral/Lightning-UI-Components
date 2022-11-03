@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import Wave from '.';
+import { default as WaveComponent } from './index.js';
 import mdx from './Wave.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -12,22 +12,22 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Wave = () =>
+  class Wave extends lng.Component {
     static _template() {
       return {
         Wave: {
-          type: Wave
+          type: WaveComponent
         }
       };
     }
   };
 
-Basic.args = {
+Wave.args = {
   'toggle animation': true
 };
 
-Basic.argTypes = {
+Wave.argTypes = {
   'toggle animation': {
     defaultValue: true,
     control: {
@@ -39,7 +39,7 @@ Basic.argTypes = {
   }
 };
 
-Basic.parameters = {
+Wave.parameters = {
   argActions: {
     'toggle animation': (shouldAnimate, component) => {
       shouldAnimate

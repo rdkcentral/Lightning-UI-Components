@@ -8,7 +8,7 @@ import mdx from './MetadataCard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[32]}/MetadataMetadataCard`,
+  title: `${CATEGORIES[32]}/MetadataCard`,
   parameters: {
     docs: {
       page: mdx
@@ -27,6 +27,7 @@ export const MetadataCard = () =>
     }
   };
 
+MetadataCard.storyName = 'MetadataCard';
 MetadataCard.argTypes = {
   ...createModeControl(),
   w: {

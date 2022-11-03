@@ -39,6 +39,8 @@ export const MetadataTile = args =>
     }
   };
 
+MetadataTile.storyName = 'MetadataTile';
+
 MetadataTile.argTypes = {
   ...createModeControl(),
   w: {

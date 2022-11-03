@@ -26,6 +26,8 @@ export const ListItemBase = () =>
     }
   };
 
+ListItemBase.storyName = 'ListItemBase';
+
 const sharedArgTypes = {
   ...createModeControl(),
   title: {
