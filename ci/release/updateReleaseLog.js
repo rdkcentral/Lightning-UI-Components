@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 exec('git rev-parse HEAD', (err, hash) => {
+  console.log(path.resolve(__dirname, '.release.json'))
   const releaseFile = require(path.resolve(__dirname, '.release.json'))
   releaseFile.lastRelease = hash.replace(/\r?\n|\r/, '') // Remove line breaks
   // Update the release commit reference
@@ -16,9 +17,12 @@ exec('git rev-parse HEAD', (err, hash) => {
       }
       console.log('Release log updated')
       exec(
-        `git add ./ci/.release.json && git commit -m 'ci: update release log'`,
+        `git add ./ci/release/.release.json && git commit -m 'ci: update release log'`,
         (err, output) => {
-          if (err) throw err;
+          if (err) {
+            console.error(output);
+            throw err;
+          }
           console.log('git changes complete')
         },
       )
