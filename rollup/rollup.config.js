@@ -48,7 +48,7 @@ export default cliArgs => [
       image(),
       json(),
       babel({ babelHelpers: 'bundled', exclude: ['node_modules/**'] }),
-      terser()
+      terser({ keep_classnames: true, keep_fnames: true })
     ]
   }
 ];
