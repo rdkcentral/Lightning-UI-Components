@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import CardContentComponent from '.';
 import mdx from './CardContent.mdx';
-import { CardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
+import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
