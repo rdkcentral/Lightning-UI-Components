@@ -1,13 +1,14 @@
 import fs from 'fs';
-import { getStorybookLinks } from './get-storybook-links.mjs';
-import colorJsonFile from './roles/colorRole.json';
-import typographyJsonFile from './roles/typographyRole.json';
-
-// You could change the path and get the values for different themes
-import base from '@suite-themes/base-lightning-tv';
-const { radius, typography, color } = base;
-
 import LineReaderSync from 'line-reader-sync';
+import { getStorybookLinks } from './get-storybook-links.mjs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+const colorJsonFile = require('./roles/colorRole.json');
+const typographyJsonFile = require('./roles/typographyRole.json');
+
+const base = require('@suite-themes/base-lightning-tv');
+const { radius, typography, color } = base;
 
 const folderPath = 'scripts/themePropertyTables';
 

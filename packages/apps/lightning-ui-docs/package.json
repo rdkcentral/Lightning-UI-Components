@@ -7,7 +7,7 @@
     "storybook": "start-storybook -p 6006",
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
-    "generateStorybookData": "node ./scripts/generate-style-data.mjs && node --experimental-json-modules ./scripts/generate-theme-props-table.mjs",
+    "generateStorybookData": "node ./scripts/generate-style-data.mjs && node ./scripts/generate-theme-props-table.mjs",
     "styleDocs": "node bin/translationScript.js"
   },
   "exports": {
