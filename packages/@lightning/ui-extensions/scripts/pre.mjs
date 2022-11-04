@@ -10,6 +10,7 @@ const newPackageJSON = {
   ...properties,
   exports: {
     ...properties.exports,
+    main: './dist/lightning-ui-extensions.min.js',
     '.': {
       import: {
         types: './dist/lightning-ui-extensions.d.ts',
