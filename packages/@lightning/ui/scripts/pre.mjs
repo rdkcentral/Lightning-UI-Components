@@ -8,9 +8,9 @@ const require = createRequire(import.meta.url);
 const { devDependencies, scripts, ...properties } = require('../package.json');
 const newPackageJSON = {
   ...properties,
+  main: './dist/lightning-ui.min.js',
   exports: {
     ...properties.exports,
-    main: './dist/lightning-ui.min.js',
     '.': {
       import: {
         types: './dist/lightning-ui.d.ts',
