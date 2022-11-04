@@ -13,7 +13,7 @@ describe('MetadataTile', () => {
     [component, testRenderer] = createComponent(
       {},
       {
-        spyOnMethods: ['_update']
+        spyOnMethods: ['_update', '_subtitleLoaded']
       }
     );
   });
@@ -63,7 +63,7 @@ describe('MetadataTile', () => {
     const subtitle = 'subtitle text';
     expect(component._SubtitleWrapper.h).toBe(0);
     component.subtitle = subtitle;
-    await component.__updateSpyPromise;
+    await component.__subtitleLoadedSpyPromise;
     expect(component._Subtitle.content).toBe(subtitle);
     expect(component._SubtitleWrapper.h).toBeGreaterThan(0);
     expect(component._SubtitleWrapper.alpha).toBe(1);

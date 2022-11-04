@@ -87,7 +87,7 @@ class Tile extends Surface {
   get _gradient() {
     if (this._isCircleLayout) return false;
     return Boolean(
-      ('inset' === this._metadataLocation &&
+      (this._isInsetMetadata &&
         this._hasMetadata &&
         this._shouldShowMetadata) ||
         (this.progressBar && this.progressBar.progress > 0)
@@ -149,7 +149,7 @@ class Tile extends Surface {
   }
 
   get _metadataY() {
-    return 'inset' === this._metadataLocation
+    return this._isInsetMetadata
       ? this._h - this.style.paddingY - this._progressBarHeight
       : this._h + this.style.paddingY;
   }
@@ -158,7 +158,7 @@ class Tile extends Surface {
     return {
       y: [
         this._persistentMetadata ||
-        ('inset' === this._metadataLocation && this._isFocusedMode)
+        (this._isInsetMetadata && this._isFocusedMode)
           ? this._metadataY
           : this._h + this.style.paddingY,
         this._shouldShowMetadata
@@ -172,6 +172,10 @@ class Tile extends Surface {
           : this.style.animationExit
       ]
     };
+  }
+
+  get _isInsetMetadata() {
+    return this._metadataLocation === 'inset';
   }
 
   _update() {
@@ -442,12 +446,17 @@ class Tile extends Surface {
   get _metadataPatch() {
     return {
       palette: this.palette,
-      alpha: !this._persistentMetadata && this._hasMetadata ? 0.001 : 1,
+      alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
       mountX: 0.5,
-      mountY: 'inset' === this._metadataLocation ? 1 : 0,
+      mountY: this._isInsetMetadata ? 1 : 0,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
       style: this.style.metadataStyles,
+      y:
+        this._persistentMetadata ||
+        (this._isInsetMetadata && this._isFocusedMode)
+          ? this._metadataY
+          : this._h + this.style.paddingY,
       ...(this.metadata || {})
     };
   }
@@ -480,7 +489,7 @@ class Tile extends Surface {
           },
           ...this._metadataPatch,
           // Patch in as if it was already in unfocused stage so it will animate up the first time
-          y: !('inset' === this._metadataLocation && this._isFocusedMode)
+          y: !(this._isInsetMetadata && this._isFocusedMode)
             ? this._metadataY
             : this._h + this.style.paddingY
         }
@@ -508,8 +517,9 @@ class Tile extends Surface {
       this._persistentMetadata ||
       this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
       !this._Metadata
-    )
+    ) {
       return;
+    }
     this._Content.patch({
       Metadata: undefined
     });

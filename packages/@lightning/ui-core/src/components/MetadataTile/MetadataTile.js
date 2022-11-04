@@ -26,15 +26,13 @@ class MetadataTile extends MetadataBase {
     }
   }
 
-  _resolveSubtitle({ h }) {
-    this._subtitlePromiseResolver && this._subtitlePromiseResolver();
+  _updateSubtitleLayout({ h }) {
     if (this.subtitle && !this.description) {
       this._SubtitleWrapper.h = h;
       this._SubtitleWrapper.alpha = 1;
     } else {
       this._SubtitleWrapper.h = 0;
     }
-    this.signal('updateComponentDimensions');
   }
 
   set announce(announce) {
