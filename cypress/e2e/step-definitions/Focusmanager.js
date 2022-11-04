@@ -1,4 +1,4 @@
-import FocusManager from '../pageObjects/layouts/focusmanager.layout';
+import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {

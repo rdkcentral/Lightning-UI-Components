@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class FocusManager extends LUIComponent {
   constructor() {
-    super({ type: 'layout', componentName: 'focusmanager' });
+    super({ type: 'navigation', componentName: 'focusmanager' });
   }
 
   get focusManager() {
