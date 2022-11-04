@@ -4,8 +4,8 @@ import Card from '../pageObjects/patterns/card.patterns';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/elements/label.element';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
-import Row from '../pageObjects/layouts/row.layout';
-import FocusManager from '../pageObjects/layouts/focusmanager.layout';
+import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
+import Row from '../pageObjects/navigation/row.navigation';
 
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 

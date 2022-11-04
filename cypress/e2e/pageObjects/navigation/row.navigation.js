@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Row extends LUIComponent {
   constructor() {
-    super({ type: 'layout', componentName: 'row' });
+    super({ type: 'navigation', componentName: 'row' });
   }
 
   get row() {
@@ -10,7 +10,7 @@ class Row extends LUIComponent {
   }
 
   get rowElements() {
-    return `${this.row} > div[type="Button"]`;
+    return `${this.row} > div[type*="Button"]`;
   }
 
   get button1() {

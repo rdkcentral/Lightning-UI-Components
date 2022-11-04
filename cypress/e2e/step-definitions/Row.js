@@ -1,4 +1,4 @@
-import Row from '../pageObjects/layouts/row.layout';
+import Row from '../pageObjects/navigation/row.navigation';
 
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
@@ -6,7 +6,7 @@ import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 export default function () {
 
   /**
-   * @module Common
+   * @module Row
    * @function I verify the {String} is {String} for {String} component
    * @description Cucumber statement to verify the settings of a module
    * @param {String} control
@@ -141,4 +141,35 @@ export default function () {
     }
   );
 
+  /**
+   * @module Row
+   * @function I verify focused element has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}
+   * @description Cucumber statement to verify the sizing of elements
+   * @param {Float} widthFocused
+   * @param {Float} heightFocused
+   * @param {Float} widthNonFocused
+   * @param {Float} heightNonFocused
+   * @example I verify focused element has width of 150.0 and height of 150.0 and non-focused elements have width of 150.0 and height of 75.0
+   */
+  Then(
+    'I verify focused element has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}',
+    (widthFocused, heightFocused, widthNonFocused, heightNonFocused) => {
+      cy.get(Row.rowElements).each(($elements) => {
+        for (let i = 0; i < $elements.length; i++) {
+          cy.action('RIGHT');
+        }
+        cy.wait(1000).get(Row.rowElements).each(($el) => {
+          const elementWidth = parseFloat($el.attr('w'));
+          const elementHeight = parseFloat($el.attr('h'));
+          if ($el.attr('focused') === undefined) {
+            expect(elementWidth).equal(widthNonFocused);
+            expect(elementHeight).equal(heightNonFocused);
+          } else {
+            expect(elementWidth).equal(widthFocused);
+            expect(elementHeight).equal(heightFocused);
+          }
+        })
+      })
+    }
+  );
 }
