@@ -21,21 +21,21 @@ class MetadataBase extends Base {
         Title: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_resolveTitle'
+            textBoxChanged: '_titleLoaded'
           }
         },
         SubtitleWrapper: {
           Subtitle: {
             type: TextBox,
             signals: {
-              textBoxChanged: '_resolveSubtitle'
+              textBoxChanged: '_subtitleLoaded'
             }
           }
         },
         Description: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_resolveDescription'
+            textBoxChanged: '_descriptionLoaded'
           }
         }
       },
@@ -61,39 +61,6 @@ class MetadataBase extends Base {
       'subtitle',
       'title'
     ];
-  }
-
-  _setTitle(title) {
-    if (title) {
-      this._titlePromise = new Promise(resolve => {
-        this._titlePromiseResolver = resolve;
-      });
-    } else {
-      this._titlePromise = undefined;
-    }
-    return title;
-  }
-
-  _setSubtitle(subtitle) {
-    if (subtitle) {
-      this._subtitlePromise = new Promise(resolve => {
-        this._subtitlePromiseResolver = resolve;
-      });
-    } else {
-      this._subtitlePromise = undefined;
-    }
-    return subtitle;
-  }
-
-  _setDescription(description) {
-    if (description) {
-      this._descriptionPromise = new Promise(resolve => {
-        this._descriptionPromiseResolver = resolve;
-      });
-    } else {
-      this._descriptionPromise = undefined;
-    }
-    return description;
   }
 
   _getLogoWidth() {
@@ -139,18 +106,27 @@ class MetadataBase extends Base {
     ];
   }
 
-  async _update() {
+  _titleLoaded() {
+    this._updateLayout();
+  }
+
+  _subtitleLoaded({ w, h }) {
+    this._updateSubtitleLayout({ w, h });
+    this._updateLayout();
+  }
+
+  _descriptionLoaded() {
+    this._updateLayout();
+  }
+
+  _updateSubtitleLayout({ w, h }) {
+    this._SubtitleWrapper.w = w;
+    this._SubtitleWrapper.h = h;
+  }
+
+  _update() {
     this._updateLines();
-    await Promise.all(
-      [
-        this._titlePromise,
-        this._subtitlePromise,
-        this._descriptionPromise
-      ].filter(Boolean)
-    );
-    this._updatePositions();
-    this._updateLogo();
-    this.signal('updateComponentDimensions');
+    this._updateLayout();
   }
 
   _updateLines() {
@@ -160,16 +136,27 @@ class MetadataBase extends Base {
     this._updateDescription();
   }
 
+  _updateLayout() {
+    this._updatePositions();
+    this._updateMetadataHeight();
+    this._updateLogo();
+  }
+
   _updatePositions() {
     this._Text.h = this._textH();
-    this.h = Math.max(this.logoHeight, this._Text.h);
     this._Text.x =
       this.logo && this.logoPosition === 'left'
         ? this.logoWidth + this.style.logoPadding
         : 0;
     this._Text.y = (this.h - this._Text.h) / 2;
+  }
 
-    this.signal('updateComponentDimensions');
+  _updateMetadataHeight() {
+    const newH = Math.max(this.logoHeight, this._Text.h);
+    if (this.h !== newH) {
+      this.h = newH;
+      this.signal('updateComponentDimensions');
+    }
   }
 
   _updateTitle() {
@@ -210,24 +197,6 @@ class MetadataBase extends Base {
       wordWrap: true,
       wordWrapWidth: this._Text.w
     });
-  }
-
-  _resolveTitle() {
-    this._titlePromiseResolver && this._titlePromiseResolver();
-  }
-
-  _resolveSubtitle({ h }) {
-    this._subtitlePromiseResolver && this._subtitlePromiseResolver();
-    if (this.subtitle) {
-      this._SubtitleWrapper.h = h;
-      this._SubtitleWrapper.alpha = 1;
-    } else {
-      this._SubtitleWrapper.h = 0;
-    }
-  }
-
-  _resolveDescription() {
-    this._descriptionPromiseResolver && this._descriptionPromiseResolver();
   }
 
   _updateLogo() {
