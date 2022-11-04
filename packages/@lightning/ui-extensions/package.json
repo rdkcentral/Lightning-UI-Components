@@ -1,6 +1,6 @@
 {
   "name": "@lightning/ui-extensions",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "peerDependencies": {
     "@lightning/ui": "^5.0.0",
