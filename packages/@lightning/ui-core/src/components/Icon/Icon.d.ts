@@ -7,6 +7,7 @@ export type IconStyles = {
 
 export default class Icon extends Base {
   icon: string;
+  fixed?: boolean;
   get style(): IconStyles;
   set style(v: StylePartial<IconStyles>);
 }

@@ -9,7 +9,7 @@ export default {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: ['<rootDir>/src/*.js'],
-  
+
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
 
@@ -28,7 +28,21 @@ export default {
   },
 
   // TODO: Need to fix these tests after monorepo refactor
-  modulePathIgnorePatterns: ["<rootDir>/src/components/Card", "<rootDir>/src/components/CardAbout", "<rootDir>/src/components/CardContent", "<rootDir>/src/components/Distractor", "<rootDir>/src/components/FocusRing", "<rootDir>/src/components/Input", "<rootDir>/src/components/Keyboard", "ListItem", "MetadataCard", "MetadataCardContent", "Provider", "Wave"],
+  modulePathIgnorePatterns: [
+    '<rootDir>/src/components/Card',
+    '<rootDir>/src/components/CardAbout',
+    '<rootDir>/src/components/CardContent',
+    '<rootDir>/src/components/Distractor',
+    '<rootDir>/src/components/FocusRing',
+    '<rootDir>/src/components/Input',
+    '<rootDir>/src/components/Keyboard',
+    '<rootDir>/src/components/Notification',
+    'ListItem',
+    'MetadataCard',
+    'MetadataCardContent',
+    'Provider',
+    'Wave'
+  ],
 
   // The root directory that Jest should scan for tests and modules within
   rootDir: '.',

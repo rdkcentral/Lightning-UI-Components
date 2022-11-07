@@ -15,11 +15,15 @@ class Icon extends Base {
   }
 
   static get properties() {
-    return ['icon'];
+    return ['icon', 'fixed'];
   }
 
   _init() {
-    this.on('txLoaded', this._notify.bind(this));
+    this.on('txLoaded', () => {
+      if (!this.fixed) {
+        this._notify.bind(this)();
+      }
+    });
     this.on('txError', this._handleTxtError.bind(this));
   }
 
