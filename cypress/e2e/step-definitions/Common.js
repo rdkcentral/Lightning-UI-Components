@@ -2,7 +2,7 @@ import Icon from '../pageObjects/elements/icon.element';
 import Badge from '../pageObjects/elements/badge.element';
 import Card from '../pageObjects/patterns/card.patterns';
 import CheckBox from '../pageObjects/elements/checkbox.element';
-import Label from '../pageObjects/elements/label.element';
+import Label from '../pageObjects/text/label.text';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Row from '../pageObjects/navigation/row.navigation';
