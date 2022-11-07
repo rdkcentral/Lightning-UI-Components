@@ -6,8 +6,9 @@ import Label from '../pageObjects/elements/label.element';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Row from '../pageObjects/navigation/row.navigation';
+import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
 
-import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
   let pageObject = null;
@@ -26,6 +27,8 @@ function getPageObject(pageName) {
     pageObject = ProgressBar;
   } else if (pageName === 'row') {
     pageObject = Row;
+  } else if (pageName === 'tile') {
+    pageObject = Tile;
   } else if (pageName === 'focusmanager') {
     pageObject = FocusManager;
   } else {
@@ -114,9 +117,8 @@ export default function () {
     (elementName, storyName) => {
       const page = elementName.toLowerCase();
       const pageObject = getPageObject(page);
-      const viewPort = `${Cypress.config().viewportWidth}x${
-        Cypress.config().viewportHeight
-      }`;
+      const viewPort = `${Cypress.config().viewportWidth}x${Cypress.config().viewportHeight
+        }`;
 
       cy.hidePadding()
         .wait(1000)
@@ -459,7 +461,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });
@@ -514,7 +516,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });
