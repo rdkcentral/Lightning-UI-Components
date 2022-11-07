@@ -8,6 +8,12 @@ const createIcon = makeCreateComponent(Icon, {
   h: 50
 });
 
+const emitTxLoaded = icon => {
+  // fileMock.js changes all files to empty string, so txLoaded will never be called
+  // this emits the txLoaded event directly from the Icon class
+  icon._eventFunction.txLoaded();
+};
+
 describe('Icon', () => {
   it('renders an icon path', () => {
     // eslint-disable-next-line no-unused-vars
@@ -52,6 +58,55 @@ describe('Icon', () => {
       h: h
     });
     expect(icon.h).toBe(h);
+  });
+
+  it('should update an icon size to its finalW and finalH', () => {
+    const size = 90;
+    const finalSize = 100;
+    const [icon] = createIcon({
+      icon: 'assets/images/ic_lightning_white_32.png',
+      w: size,
+      h: size
+    });
+    jest.spyOn(icon, 'finalW', 'get').mockReturnValue(finalSize);
+    jest.spyOn(icon, 'finalH', 'get').mockReturnValue(finalSize);
+    jest.spyOn(icon, 'signal');
+    jest.spyOn(icon, 'fireAncestors');
+
+    expect(icon.signal).not.toHaveBeenCalledWith('itemChanged');
+    expect(icon.fireAncestors).not.toHaveBeenCalledWith('$itemChanged');
+
+    emitTxLoaded(icon);
+
+    expect(icon.h).toBe(finalSize);
+    expect(icon.h).toBe(finalSize);
+    expect(icon.signal).toHaveBeenCalledWith('itemChanged');
+    expect(icon.fireAncestors).toHaveBeenCalledWith('$itemChanged');
+  });
+
+  it('should not update an icon size to its finalW and finalH when fixed', () => {
+    const size = 90;
+    const finalSize = 100;
+    const [icon] = createIcon({
+      icon: 'assets/images/ic_lightning_white_32.png',
+      w: size,
+      h: size,
+      fixed: true
+    });
+    jest.spyOn(icon, 'finalW', 'get').mockReturnValue(finalSize);
+    jest.spyOn(icon, 'finalH', 'get').mockReturnValue(finalSize);
+    jest.spyOn(icon, 'signal');
+    jest.spyOn(icon, 'fireAncestors');
+
+    expect(icon.signal).not.toHaveBeenCalledWith('itemChanged');
+    expect(icon.fireAncestors).not.toHaveBeenCalledWith('$itemChanged');
+
+    emitTxLoaded(icon);
+
+    expect(icon.h).toBe(size);
+    expect(icon.h).toBe(size);
+    expect(icon.signal).not.toHaveBeenCalledWith('itemChanged');
+    expect(icon.fireAncestors).not.toHaveBeenCalledWith('$itemChanged');
   });
 
   describe('handleTxtError', () => {
