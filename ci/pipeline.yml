@@ -212,7 +212,7 @@ jobs:
     serial: true
     plan:
       - get: source-repo-monorepo
-        # trigger: true
+        trigger: true
       - task: install
         file: source-repo-monorepo/ci/tasks-monorepo/install.yml
         input_mapping:
