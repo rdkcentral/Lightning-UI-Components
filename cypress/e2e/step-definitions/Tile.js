@@ -1,9 +1,8 @@
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
 
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
-
   /**
    * @module Tile
    * @function I verify that the {string} is {string} for {string} component
@@ -16,40 +15,39 @@ export default function () {
   Then(
     'I verify that the {string} is {string} for {string} component',
     (prop, value, component) => {
-
       switch (prop) {
-        case "persistentMetadata":
-          if (value === "true") {
+        case 'persistentMetadata':
+          if (value === 'true') {
             cy.get(Tile.metadata).should('not.have.attr', 'alpha');
           } else {
             cy.get(Tile.metadata).should('have.attr', 'alpha');
           }
           break;
-        case "blur":
-          if (value === "true") {
+        case 'blur':
+          if (value === 'true') {
             cy.get(Tile.blur).should('have.attr', 'alpha');
           } else {
             cy.get(Tile.blur).should('not.have.attr', 'alpha');
           }
           break;
-        case "fill":
-          if (value === "true") {
+        case 'fill':
+          if (value === 'true') {
             cy.get(Tile.fill).should('be.visible');
           } else {
             cy.get(Tile.fill).should('not.exist');
           }
           break;
-        case "checked":
-          if (value === "true") {
+        case 'checked':
+          if (value === 'true') {
             cy.get(Tile.checked).should('be.visible');
           } else {
             cy.get(Tile.checked).should('not.exist');
           }
           break;
-        case "standard":
+        case 'standard':
           cy.get(Tile.metadata).should('not.have.attr', 'mounty');
           break;
-        case "inset":
+        case 'inset':
           cy.get(Tile.metadata).should('have.attr', 'mounty');
           break;
         case 'default':
@@ -67,5 +65,6 @@ export default function () {
         default:
           break;
       }
-    });
+    }
+  );
 }

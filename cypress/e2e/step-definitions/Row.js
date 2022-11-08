@@ -1,10 +1,8 @@
 import Row from '../pageObjects/navigation/row.navigation';
 
-import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
-
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
-
   /**
    * @module Row
    * @function I verify the {String} is {String} for {String} component
@@ -17,16 +15,13 @@ export default function () {
   Then(
     'I verify the {string} is {string} for {string} component',
     (control, value, component) => {
-
       switch (control) {
         case 'scrollIndex':
           switch (value) {
             case '0':
               //clicking the right key to get to the end of the row
               // and check if attribute x has a specific value
-              for (let i = 0; i < 11; i++) {
-                cy.action('RIGHT');
-              }
+              cy.repeatAction('RIGHT', 11);
               cy.get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
@@ -35,9 +30,7 @@ export default function () {
               });
               break;
             case '10':
-              for (let i = 0; i < 11; i++) {
-                cy.action('RIGHT');
-              }
+              cy.repeatAction('RIGHT', 11);
               cy.get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
@@ -47,7 +40,7 @@ export default function () {
               break;
             default:
               throw new Error(
-                `Please check the page value name or implement the missing case.`
+                'Please check the page value name or implement the missing case.'
               );
           }
           break;
@@ -56,8 +49,7 @@ export default function () {
             case 'true':
               //clicking the right key to check if attribute x is not displayed
               cy.action('RIGHT');
-              Row._getElementByName(component)
-                .should('not.have.attr', 'x');
+              Row._getElementByName(component).should('not.have.attr', 'x');
               break;
             case 'false':
               cy.action('RIGHT');
@@ -70,7 +62,7 @@ export default function () {
               break;
             default:
               throw new Error(
-                `Please check the page value name or implement the missing case.`
+                'Please check the page value name or implement the missing case.'
               );
           }
           break;
@@ -78,9 +70,7 @@ export default function () {
           switch (value) {
             case 'true':
               //clicking the right key to check if attribute x is not displayed
-              for (let i = 0; i < 7; i++) {
-                cy.action('RIGHT');
-              }
+              cy.repeatAction('RIGHT', 7);
               cy.get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
@@ -89,9 +79,7 @@ export default function () {
               });
               break;
             case 'false':
-              for (let i = 0; i < 7; i++) {
-                cy.action('RIGHT');
-              }
+              cy.repeatAction('RIGHT', 7);
               cy.get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
@@ -101,7 +89,7 @@ export default function () {
               break;
             default:
               throw new Error(
-                `Please check the page value name or implement the missing case.`
+                'Please check the page value name or implement the missing case.'
               );
           }
           break;
@@ -109,11 +97,8 @@ export default function () {
           switch (value) {
             case 'true':
               //clicking right key 8 times and making sure that scrolling is not happening
-              for (let i = 0; i < 8; i++) {
-                cy.action('RIGHT');
-              }
-              Row._getElementByName(component)
-                .should('not.have.attr', 'x');
+              cy.repeatAction('RIGHT', 8);
+              Row._getElementByName(component).should('not.have.attr', 'x');
               //clicking right one more time to activate the scrolling
               cy.action('RIGHT');
               cy.get(Row.row).then(component => {
@@ -134,7 +119,7 @@ export default function () {
               break;
             default:
               throw new Error(
-                `Please check the page value name or implement the missing case.`
+                'Please check the page value name or implement the missing case.'
               );
           }
       }
@@ -154,22 +139,23 @@ export default function () {
   Then(
     'I verify focused element has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}',
     (widthFocused, heightFocused, widthNonFocused, heightNonFocused) => {
-      cy.get(Row.rowElements).each(($elements) => {
-        for (let i = 0; i < $elements.length; i++) {
-          cy.action('RIGHT');
-        }
-        cy.wait(1000).get(Row.rowElements).each(($el) => {
-          const elementWidth = parseFloat($el.attr('w'));
-          const elementHeight = parseFloat($el.attr('h'));
-          if ($el.attr('focused') === undefined) {
-            expect(elementWidth).equal(widthNonFocused);
-            expect(elementHeight).equal(heightNonFocused);
-          } else {
-            expect(elementWidth).equal(widthFocused);
-            expect(elementHeight).equal(heightFocused);
-          }
-        })
-      })
+      cy.get(Row.rowElements).each($elements => {
+        //wait is necessary for the row with Focus Height change to render
+        cy.wait(1000)
+          .get(Row.rowElements)
+          .each($el => {
+            const elementWidth = parseFloat($el.attr('w'));
+            const elementHeight = parseFloat($el.attr('h'));
+            if ($el.attr('focused') === undefined) {
+              expect(elementWidth).equal(widthNonFocused);
+              expect(elementHeight).equal(heightNonFocused);
+            } else {
+              expect(elementWidth).equal(widthFocused);
+              expect(elementHeight).equal(heightFocused);
+            }
+          });
+        cy.repeatAction('RIGHT', $elements.length);
+      });
     }
   );
 }

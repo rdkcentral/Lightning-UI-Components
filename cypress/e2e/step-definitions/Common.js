@@ -6,47 +6,38 @@ import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards'
 import CardTitle from '../pageObjects/tilesAndCards/cardtitle.tilesandcards';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/text/label.text';
-import ProgressBar from '../pageObjects/elements/progressbar.element';
+import ProgressBar from '../pageObjects/utilities/progressbar.utilities';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Row from '../pageObjects/navigation/row.navigation';
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
+import TextBox from '../pageObjects/text/textbox.text';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
-  let pageObject = null;
+  const pageObjects = {
+    icon: Icon,
+    badge: Badge,
+    card: Card,
+    cardpersonality: CardPersonality,
+    cardsection: CardSection,
+    cardtitle: CardTitle,
+    checkbox: CheckBox,
+    label: Label,
+    progressbar: ProgressBar,
+    row: Row,
+    textbox: TextBox,
+    focusmanager: FocusManager,
+    tile: Tile
+  };
 
-  if (pageName === 'icon') {
-    pageObject = Icon;
-  } else if (pageName === 'badge') {
-    pageObject = Badge;
-  } else if (pageName === 'card') {
-    pageObject = Card;
-  } else if (pageName === 'cardpersonality') {
-    pageObject = CardPersonality;
-  } else if (pageName === 'cardsection') {
-    pageObject = CardSection;
-  } else if (pageName === 'cardtitle') {
-    pageObject = CardTitle;
-  } else if (pageName === 'checkbox') {
-    pageObject = CheckBox;
-  } else if (pageName === 'label') {
-    pageObject = Label;
-  } else if (pageName === 'progressbar') {
-    pageObject = ProgressBar;
-  } else if (pageName === 'row') {
-    pageObject = Row;
-  } else if (pageName === 'tile') {
-    pageObject = Tile;
-  } else if (pageName === 'focusmanager') {
-    pageObject = FocusManager;
+  if (pageName in pageObjects) {
+    return pageObjects[pageName];
   } else {
     throw new Error(
       `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
     );
   }
-
-  return pageObject;
 }
 
 export default function () {
@@ -126,8 +117,9 @@ export default function () {
     (elementName, storyName) => {
       const page = elementName.toLowerCase();
       const pageObject = getPageObject(page);
-      const viewPort = `${Cypress.config().viewportWidth}x${Cypress.config().viewportHeight
-        }`;
+      const viewPort = `${Cypress.config().viewportWidth}x${
+        Cypress.config().viewportHeight
+      }`;
 
       cy.hidePadding()
         .wait(1000)
@@ -234,9 +226,7 @@ export default function () {
    *
    */
   Given(/I press '(.+)' key (.+) times$/, (key, n) => {
-    for (let i = 0; i < n; i++) {
-      cy.action(key);
-    }
+    cy.repeatAction(key, n);
   });
 
   /**
@@ -246,18 +236,16 @@ export default function () {
    * @param {String} pageName
    * @example I verify if 'Row' page data has loaded
    */
-  Then(
-    'I verify if {string} page data has loaded',
-    (pageName) => {
-      const page = pageName.toLowerCase();
-      if (page.includes('row')) {
-        cy.wait(1000).get(Row.button1Label).should('be.visible');
-      } else {
-        throw new Error(
-          `${page} page not found! \nPlease check the page object name or implement the missing case.`
-        );
-      }
-    });
+  Then('I verify if {string} page data has loaded', pageName => {
+    const page = pageName.toLowerCase();
+    if (page.includes('row')) {
+      cy.get(Row.button1Label).should('be.visible');
+    } else {
+      throw new Error(
+        `${page} page not found! \nPlease check the page object name or implement the missing case.`
+      );
+    }
+  });
 
   /**
    * @module Common
@@ -296,6 +284,68 @@ export default function () {
       pageObject
         ._getElementByName(element)
         .should('have.attr', 'texture-text', expectedText);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that {String} {String} {String} has textColor {String}
+   * @description Cucumber statement to verify the textColor of the text in a component
+   * @param {String} pageName
+   * @param {String} componentName
+   * @param {String} elementName
+   * @param {String} color
+   * @example I verify that 'TextBox' 'Base' 'Text' has textColor '4294967040'
+   */
+  Then(
+    'I verify that {string} {string} {string} has textColor {string}',
+    (pageName, componentName, elementName, color) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const element = componentName + elementName;
+
+      pageObject
+        ._getElementByName(element)
+        .should('have.attr', 'texture-text_color', color);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that {String} {String} {String} has property:value {String}
+   * @description Cucumber statement to verify the textColor of the text in a component
+   * @param {String} pageName
+   * @param {String} componentName
+   * @param {String} elementName
+   * @param {String} property:value
+   * @example   I verify that 'TextBox' 'Base' 'Text' has property:value 'verticalAlign:top'
+   */
+  Then(
+    'I verify that {string} {string} {string} has property:value {string}',
+    (pageName, componentName, elementName, property) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const element = componentName + elementName;
+
+      const prop = property.split(':')[0];
+      const value = property.split(':')[1];
+
+      const attributes = {
+        verticalAlign: 'texture-vertical_align'
+      };
+
+      let attribute;
+      if (prop in attributes) {
+        attribute = attributes[prop];
+      } else {
+        throw new Error(
+          `${pageName} Attribute not found! \nPlease check the attribute name of the element or implement the missing case.`
+        );
+      }
+
+      pageObject
+        ._getElementByName(element)
+        .should('have.attr', attribute, value);
     }
   );
 
@@ -399,7 +449,9 @@ export default function () {
       const component = componentName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      pageObject._getElementByName(component).should('have.attr', 'focused', 'true');
+      pageObject
+        ._getElementByName(component)
+        .should('have.attr', 'focused', 'true');
     }
   );
 
@@ -420,24 +472,28 @@ export default function () {
       const pageObject = getPageObject(page);
       const key = position === 'last' ? 'RIGHT' : 'LEFT';
 
-      pageObject._getElementByName(row).then($elements => {
-        let i = position === 'last' ? 0 : $elements.length - 1;
-
-        while (i !== (position === 'last' ? $elements.length : -1)) {
-          cy.action(key);
-
-          if (position === 'last') {
-            i++;
-          } else {
-            i--;
-          }
-        }
+      if (position === 'last') {
         pageObject
           ._getElementByName(row)
-          .eq(position === 'last' ? $elements.length - 1 : 0)
-          .should('have.attr', 'focused')
-          .and('eq', 'true');
-      });
+          .should('have.attr', 'focused', 'true')
+          .nextAll()
+          .each(el => {
+            cy.action(key);
+            cy.wrap(el).should('have.attr', 'focused', 'true');
+          });
+      } else {
+        pageObject
+          ._getElementByName(row)
+          .parent()
+          .children()
+          .last()
+          .should('have.attr', 'focused', 'true')
+          .prevAll()
+          .each(el => {
+            cy.action(key);
+            cy.wrap(el).should('have.attr', 'focused', 'true');
+          });
+      }
     }
   );
 
@@ -454,8 +510,7 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const elements = [];
-      cy.wait(500)
-        .get(pageObject.row)
+      cy.get(pageObject.row)
         .each($row => {
           const rowId = $row.attr('id');
           cy.get($row)
@@ -509,8 +564,7 @@ export default function () {
       const pageObject = getPageObject(page);
       const spacing = expectedSpaceValue.toLowerCase();
       const elements = [];
-      cy.wait(500)
-        .get(pageObject.row)
+      cy.get(pageObject.row)
         .each($row => {
           const rowId = $row.attr('id');
           cy.get($row)
@@ -559,8 +613,7 @@ export default function () {
       const pageObject = getPageObject(page);
       let visibleTiles = 0;
 
-      cy.wait(500)
-        .get(pageObject.row)
+      cy.get(pageObject.row)
         .should('be.visible')
         .first()
         .should('be.visible')
