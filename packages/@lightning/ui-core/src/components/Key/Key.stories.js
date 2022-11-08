@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Key from './index.js';
-import icon from '../../assets/images/ic_lightning_white_32.png';
+import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Key.mdx';
 import { createModeControl } from '../../../storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
@@ -25,7 +25,6 @@ export const Basic = () =>
     }
   };
 
-Basic.parameters = {};
 Basic.args = {
   title: 'A',
   size: 'sm'
@@ -33,14 +32,6 @@ Basic.args = {
 
 Basic.argTypes = {
   ...createModeControl(),
-  title: {
-    defaultValue: 'A',
-    description: 'key character',
-    table: {
-      defaultValue: { summary: 'A' }
-    },
-    control: 'text'
-  },
   size: {
     description: 'width of the Key',
     table: {
@@ -48,11 +39,21 @@ Basic.argTypes = {
     },
     control: 'radio',
     options: ['sm', 'md', 'lg', 'xl']
+  },
+  title: {
+    defaultValue: 'A',
+    description: 'key character',
+    table: {
+      defaultValue: { summary: 'A' }
+    },
+    control: 'text'
   }
 };
 
-export const Icon = () =>
-  class Icon extends lng.Component {
+Basic.parameters = {};
+
+export const KeyIcon = () =>
+  class KeyIcon extends lng.Component {
     static _template() {
       return {
         Key: {
@@ -61,21 +62,18 @@ export const Icon = () =>
       };
     }
   };
-Icon.args = {
-  icon: icon,
+KeyIcon.args = {
+  icon: lightning,
   size: 'sm'
 };
 
-Icon.argTypes = {
+const iconSet = {
+  lightning: lightning,
+  none: null
+};
+
+KeyIcon.argTypes = {
   ...createModeControl(),
-  icon: {
-    description: 'Icon source',
-    table: {
-      defaultValue: { summary: 'none' }
-    },
-    control: 'radio',
-    options: [icon, 'none']
-  },
   size: {
     description: 'width of the Key',
     table: {
@@ -83,7 +81,22 @@ Icon.argTypes = {
     },
     control: 'radio',
     options: ['sm', 'md', 'lg', 'xl']
+  },
+  icon: {
+    control: 'radio',
+    defaultValue: 'lightning',
+    options: ['none', 'lightning'],
+    description: 'Icon source',
+    table: {
+      defaultValue: { summary: 'none' }
+    }
   }
 };
 
-Icon.parameters = {};
+KeyIcon.parameters = {
+  argActions: {
+    icon: (iconName, component) => {
+      component.tag('Key').icon = iconSet[iconName];
+    }
+  }
+};

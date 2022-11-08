@@ -15,6 +15,7 @@ export type KeyStyles = ButtonStyles & {
 };
 
 export default class Key extends Button {
+  icon?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   toggle: string;
   get style(): KeyStyles;

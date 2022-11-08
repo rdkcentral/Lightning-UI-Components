@@ -11,8 +11,12 @@ const icon = pathToDataURI('src/assets/images/ic_lightning_white_32.png');
 describe('Key', () => {
   let key, testRenderer;
 
-  beforeEach(() => {
-    [key, testRenderer] = createKey({ title: 'a' });
+  beforeEach(async () => {
+    [key, testRenderer] = createKey(
+      { title: 'a' },
+      { spyOnMethods: ['_update'] }
+    );
+    await key.__updateSpyPromise;
   });
 
   afterEach(() => {
@@ -20,7 +24,7 @@ describe('Key', () => {
     testRenderer = null;
   });
 
-  it('renders', () => {
+  it('should render', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
@@ -30,22 +34,41 @@ describe('Key', () => {
     expect(key._Icon).toBeUndefined();
   });
 
-  it('should adjust its width if given a size', () => {
-    [key, testRenderer] = createKey({ size: 'md' });
+  it('should adjust its width if given a size', async () => {
+    key.size = 'md';
+    await key.__updateSpyPromise;
     expect(key.w).toEqual(120);
   });
 
-  it('should make its width the default size given a size that doesnt exist', () => {
-    [key, testRenderer] = createKey({ size: 'blue' });
+  it('should make its width the default size given a size that doesnt exist', async () => {
+    key.size = 'blue';
+    await key.__updateSpyPromise;
     expect(key.w).toEqual(56);
   });
 
   it('should set its char as its title', () => {
-    [key, testRenderer] = createKey({ title: 'a' });
-    expect(key.title).toEqual('a');
+    key.title = 'B';
+    expect(key.title).toEqual('B');
   });
 
-  describe('#announce', () => {
+  it('should fire $onSoftKey events on enter press', () => {
+    key.fireAncestors = jest.fn();
+    key._handleEnter();
+    expect(key.fireAncestors).toHaveBeenCalledWith('$onSoftKey', { key: 'a' });
+  });
+
+  it('should fire $toggleKeyboard events on enter press if a toggle is present', () => {
+    [key, testRenderer] = createKey({ toggle: 'lowercase' });
+    key.fireAncestors = jest.fn();
+    key._handleEnter();
+    expect(key.fireAncestors).toHaveBeenCalledWith(
+      '$toggleKeyboard',
+      'lowercase'
+    );
+  });
+
+  // announcer specific tests
+  describe('announcer', () => {
     it('should set nato', () => {
       [key, testRenderer] = createKey({ title: 'a' });
       expect(key.announce).toEqual('a, alpha, button');
@@ -67,21 +90,5 @@ describe('Key', () => {
       testRenderer.forceAllUpdates();
       expect(key.announce).toBe(overrideString);
     });
-  });
-
-  it('should fire $onSoftKey events on enter press', () => {
-    key.fireAncestors = jest.fn();
-    key._handleEnter();
-    expect(key.fireAncestors).toHaveBeenCalledWith('$onSoftKey', { key: 'a' });
-  });
-
-  it('should fire $toggleKeyboard events on enter press if a toggle is present', () => {
-    [key, testRenderer] = createKey({ toggle: 'lowercase' });
-    key.fireAncestors = jest.fn();
-    key._handleEnter();
-    expect(key.fireAncestors).toHaveBeenCalledWith(
-      '$toggleKeyboard',
-      'lowercase'
-    );
   });
 });
