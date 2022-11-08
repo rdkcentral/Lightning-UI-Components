@@ -20,7 +20,7 @@ export default {
 };
 
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   centerAlign: {
     defaultValue: false,
     description: "center the keyboard within it's set width",
@@ -116,7 +116,7 @@ Dialpad.parameters = {
 
 // creates shared arg types for Keyboard Input stories
 const sharedKeyboardArgTypes = {
-  ...createModeControl(['focused'], 'focused')
+  ...createModeControl({ options: ['focused'], defaultValue: 'focused' })
 };
 
 export const KeyboardWithInput = () =>

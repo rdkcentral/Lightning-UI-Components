@@ -34,7 +34,7 @@ ListItemSlider.args = {
 };
 
 ListItemSlider.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Title',
     table: {

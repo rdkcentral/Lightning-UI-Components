@@ -11,7 +11,10 @@ import { CATEGORIES } from 'lightning-ui-docs';
 export default {
   title: `${CATEGORIES[16]}/Tab`,
   argTypes: {
-    ...createModeControl(['focused', 'selected', 'disabled']),
+    ...createModeControl({
+      options: ['focused', 'selected', 'disabled'],
+      defaultValue: 'focused'
+    }),
     icon: {
       control: 'boolean',
       type: 'boolean',

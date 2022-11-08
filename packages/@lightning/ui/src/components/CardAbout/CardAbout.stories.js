@@ -36,7 +36,7 @@ CardAbout.args = {
 };
 
 CardAbout.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: { content: 'text', description: 'Title' },
   description: { control: 'text', description: 'Description' },
   iconLeft: {

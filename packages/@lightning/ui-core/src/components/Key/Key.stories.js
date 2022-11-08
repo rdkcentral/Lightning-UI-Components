@@ -31,7 +31,7 @@ Basic.args = {
 };
 
 Basic.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   size: {
     description: 'width of the Key',
     table: {
@@ -73,7 +73,7 @@ const iconSet = {
 };
 
 KeyIcon.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   size: {
     description: 'width of the Key',
     table: {

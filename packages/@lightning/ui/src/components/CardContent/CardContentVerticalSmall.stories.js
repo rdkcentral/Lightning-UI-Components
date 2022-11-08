@@ -37,7 +37,7 @@ VerticalSmall.args = {
   ...CardContent.tileProps.args
 };
 VerticalSmall.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
     table: {

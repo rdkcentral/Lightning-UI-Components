@@ -34,7 +34,7 @@ CardPersonality.args = {
 };
 
 CardPersonality.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   description: { control: 'text', description: 'Description' },
   title: { control: 'text', description: 'title' }
 };

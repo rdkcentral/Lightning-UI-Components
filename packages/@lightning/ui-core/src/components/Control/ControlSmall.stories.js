@@ -33,7 +33,7 @@ const sharedArgs = {
 };
 
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     control: 'text',
     defaultValue: 'Control',

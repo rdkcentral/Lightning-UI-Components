@@ -49,7 +49,7 @@ Hero.args = {
 };
 
 Hero.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
     table: {

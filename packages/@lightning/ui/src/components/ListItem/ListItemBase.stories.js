@@ -29,7 +29,7 @@ export const ListItemBase = () =>
 ListItemBase.storyName = 'ListItemBase';
 
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Title',
     table: {

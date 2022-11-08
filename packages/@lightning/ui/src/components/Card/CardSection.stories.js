@@ -35,7 +35,7 @@ CardSection.args = {
 };
 
 CardSection.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   iconSrc: {
     defaultValue: sectionIcon,
     control: 'select',

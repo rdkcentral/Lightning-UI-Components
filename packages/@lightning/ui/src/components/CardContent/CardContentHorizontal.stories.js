@@ -53,7 +53,7 @@ CardContentHorizontal.args = {
   ...CardContent.tileProps.args
 };
 CardContentHorizontal.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
     table: {
