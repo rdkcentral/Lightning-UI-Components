@@ -1,0 +1,46 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ListItemSlider from '.';
+
+# ListItemSlider
+
+A ListItem component with slider functionality
+
+## Usage
+
+The `ListItemSlider` can display a `title` and `value`
+
+```js
+import { ListItemSlider } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      ListItemSlider: {
+        type: ListItemSlider,
+        title: 'List Item',
+        value: 50
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="patterns-listitemslider--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name   | type   | required | default   | description                                                                                              |
+| ------ | ------ | -------- | --------- | -------------------------------------------------------------------------------------------------------- |
+| slider | object | false    | undefined | object containing all properties supported in the [Slider component](?path=/docs/elements-slider--basic) |
+| value  | string | false    | -         | current value of slider                                                                                  |
+
+### Style Properties
+
+| name         | type   | description                      |
+| ------------ | ------ | -------------------------------- |
+| paddingY     | number | space above and below the slider |
+| sliderStyles | object | overwrite any styles in slider   |

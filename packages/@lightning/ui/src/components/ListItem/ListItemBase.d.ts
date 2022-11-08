@@ -1,5 +1,10 @@
 import lng from '@lightningjs/core';
-import { TextBoxStyles, StylePartial, ButtonStyles, Button } from '@lightning/ui-core';
+import {
+  TextBoxStyles,
+  StylePartial,
+  ButtonStyles,
+  Button
+} from '@lightning/ui-core';
 
 type LogoStylesObject = {
   radius: lng.Tools.CornerRadius;
@@ -19,7 +24,7 @@ export type ListItemBaseStyles = ButtonStyles & {
   titleTextStyle: TextBoxStyles;
 };
 
-export default class ListItemBaseThemed extends Button {
+export default class ListItemBase extends Button {
   description?: string;
   prefixLogo?: string;
   shouldCollapse?: boolean;

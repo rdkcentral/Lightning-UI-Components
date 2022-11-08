@@ -1,5 +1,5 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import ListItemBaseThemed from '.';
+import ListItemBase from '.';
 
 # ListItemThemed
 
@@ -14,14 +14,14 @@ https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/sr
 'ListItemBase' extends 'Button', and therefore utilizes much of the same functionality and properties. It can display an 'Icon' or 'Checkbox' before the text, a title and/or description in the center of the content, and an 'Icon' or 'Checkbox' in the Suffix after the text.
 
 ```js
-import { ListItemBaseThemed } from '@lightning/ui';
+import { ListItemBase } from '@lightning/ui';
 
 class Basic extends lng.Component {
   static _template() {
     return {
-      ListItemBaseThemed: {
-        type: ListItemBaseThemed,
-        title: 'Title',
+      ListItemBase: {
+        type: ListItemBase,
+        title: 'List Item',
         description: 'Description',
         prefix: [{ type: Icon, icon: pathToIcon }]
       }
@@ -31,7 +31,7 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="patterns-listitemthemed--basic" />
+  <Story id="patterns-listitem--basic" />
 </Canvas>
 
 ## API
