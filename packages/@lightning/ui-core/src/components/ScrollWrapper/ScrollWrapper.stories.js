@@ -15,7 +15,10 @@ const terms = `By activating, you agree that you want to enable cloud DVR techno
 'well as the TV connected to your set-top DVR, and (2) optimize the video and audio
 'quality of your viewing experience during playback.`;
 
-const modes = createModeControl(['unfocused', 'focused'], 'focused');
+const modes = createModeControl({
+  options: ['unfocused', 'focused'],
+  defaultValue: 'focused'
+});
 
 export default {
   title: `${CATEGORIES[16]}/ScrollWrapper`,

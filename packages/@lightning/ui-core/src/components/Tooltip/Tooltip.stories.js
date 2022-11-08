@@ -13,7 +13,7 @@ export default {
     timeVisible: 0
   },
   argTypes: {
-    ...createModeControl(['focused'], 'focused'),
+    ...createModeControl({ options: ['focused'], defaultValue: 'focused' }),
     title: { control: 'text' },
     delayVisible: { control: 'number' },
     timeVisible: { control: 'number' }

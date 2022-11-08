@@ -27,7 +27,7 @@ export const Basic = () =>
   };
 
 const sharedArgs = {
-  ...createModeControl({}, 'focused'),
+  ...createModeControl({ defaultValue: 'focused' }),
   maskShadow: {
     control: 'boolean',
     defaultValue: false,

@@ -33,7 +33,7 @@ SliderLarge.args = {
   disabled: false
 };
 SliderLarge.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   min: {
     control: 'number',
     description: 'lower bound of value'
@@ -87,4 +87,4 @@ export const SignalHandlingLarge = () =>
     }
   };
 
-SignalHandlingLarge.argTypes = createModeControl();
+SignalHandlingLarge.argTypes = createModeControl({ defaultValue: 'focused' });

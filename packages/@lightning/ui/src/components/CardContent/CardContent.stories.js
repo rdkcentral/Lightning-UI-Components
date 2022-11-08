@@ -93,7 +93,7 @@ CardContent.args = {
   ...CardContent.tileProps.args
 };
 CardContent.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
     table: {

@@ -28,7 +28,7 @@ export default {
     wrapSelected: false
   },
   argTypes: {
-    ...createModeControl(['focused']),
+    ...createModeControl({ options: ['focused'], defaultValue: 'focused' }),
     alphaSelectedTab: {
       control: 'boolean',
       defaultValue: false,

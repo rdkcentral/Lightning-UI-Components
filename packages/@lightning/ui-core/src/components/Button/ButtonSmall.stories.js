@@ -35,7 +35,7 @@ function getCommponentArray(comps) {
 }
 
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Button',
     table: {

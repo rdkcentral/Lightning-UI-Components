@@ -34,7 +34,7 @@ BasicSlider.args = {
   vertical: false
 };
 BasicSlider.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   min: { control: 'number', description: 'lower bound of value' },
   max: { control: 'number', description: 'upper bound of value' },
   value: { control: 'number', description: 'current value' },
@@ -71,4 +71,4 @@ export const SignalHandling = () =>
     }
   };
 
-SignalHandling.argTypes = createModeControl();
+SignalHandling.argTypes = createModeControl({ defaultValue: 'focused' });

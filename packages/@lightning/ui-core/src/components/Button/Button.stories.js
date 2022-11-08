@@ -46,7 +46,7 @@ export const Button = () =>
   };
 
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Button',
     table: {

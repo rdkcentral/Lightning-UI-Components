@@ -40,7 +40,7 @@ Stacked.args = {
 };
 
 Stacked.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   descriptionBottom: {
     content: 'text',
     description: 'Description for bottom description text'

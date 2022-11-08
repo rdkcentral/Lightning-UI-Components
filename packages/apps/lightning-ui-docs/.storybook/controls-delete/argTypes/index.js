@@ -1,4 +1,4 @@
-export const createModeControl = (options, defaultValue) => {
+export const createModeControl = ({ options, defaultValue } = {}) => {
   return {
     mode: {
       defaultValue: defaultValue || 'unfocused',

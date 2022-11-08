@@ -62,7 +62,7 @@ const sharedArgs = {
   mask: '•'
 };
 const sharedArgTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   eyebrow: { control: 'text', description: 'Text on the top of the button ' },
   helpText: {
     control: 'text',
