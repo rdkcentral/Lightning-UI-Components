@@ -50,6 +50,7 @@ export default function focusRingExtension(Base) {
     _updateLayout() {
       super._updateLayout();
       this._updateFocusRing();
+      this._updateFocusRingStyles();
     }
 
     _updateFocusRing() {
