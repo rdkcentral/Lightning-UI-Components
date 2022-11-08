@@ -1,6 +1,9 @@
 import Icon from '../pageObjects/elements/icon.element';
 import Badge from '../pageObjects/elements/badge.element';
-import Card from '../pageObjects/patterns/card.patterns';
+import Card from '../pageObjects/tilesAndCards/card.tilesandcards';
+import CardPersonality from '../pageObjects/tilesAndCards/cardpersonality.tilesandcards';
+import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards';
+import CardTitle from '../pageObjects/tilesAndCards/cardtitle.tilesandcards';
 import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/text/label.text';
 import ProgressBar from '../pageObjects/elements/progressbar.element';
@@ -19,6 +22,12 @@ function getPageObject(pageName) {
     pageObject = Badge;
   } else if (pageName === 'card') {
     pageObject = Card;
+  } else if (pageName === 'cardpersonality') {
+    pageObject = CardPersonality;
+  } else if (pageName === 'cardsection') {
+    pageObject = CardSection;
+  } else if (pageName === 'cardtitle') {
+    pageObject = CardTitle;
   } else if (pageName === 'checkbox') {
     pageObject = CheckBox;
   } else if (pageName === 'label') {
