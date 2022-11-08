@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Icon extends LUIComponent {
   constructor() {
-    super({ componentName: 'icon' });
+    super({ type: 'foundations', componentName: 'icon' });
   }
 
   get icon() {

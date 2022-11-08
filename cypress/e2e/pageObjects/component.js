@@ -104,7 +104,7 @@ class LUIComponent {
   _getElementByName(name, timeout) {
     const elementName = convertToCamelCase(name);
     try {
-      return cy.get(this[elementName], { timeout: timeout }); // access the getter for the element
+      return cy.get(this[elementName], { timeout: timeout }).first(); // access the getter for the element
     } catch (error) {
       throw new Error(`Element ${name} not found for ${this.constructor.name}`);
     }
