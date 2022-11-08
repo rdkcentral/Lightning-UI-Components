@@ -1,6 +1,7 @@
 import { withExtensions } from '../../mixins/index.js';
 import Button from '../Button/index.js';
 import * as styles from './Key.styles.js';
+import Icon from '../Icon/index.js';
 
 const isUpperCase = string => /^[A-Z]$/.test(string);
 const isAlphaChar = string => /^[A-Za-z]$/.test(string);
@@ -53,7 +54,7 @@ class Key extends Button {
   }
 
   static get properties() {
-    return [...super.properties, 'size', 'toggle'];
+    return [...super.properties, 'icon', 'size', 'toggle'];
   }
 
   _construct() {
@@ -64,7 +65,32 @@ class Key extends Button {
 
   _update() {
     this.w = this.style.sizes[this.size] || this.style.sizes.sm;
+    this._updatePrefixStyle();
     super._update();
+  }
+
+  _updatePrefixStyle() {
+    if (this._prefix && this.icon) {
+      this._updatePrefixObj(this.icon, { style: this.style.iconStyles });
+    }
+  }
+
+  _updatePrefixObj(icon, props = {}) {
+    this._prefix = {
+      type: Icon,
+      icon,
+      ...props
+    };
+  }
+
+  _setIcon(icon) {
+    if (icon) {
+      this._updatePrefixObj(icon, { style: this.style.iconStyles });
+    } else {
+      this._prefix = icon;
+    }
+
+    return icon;
   }
 
   set announce(announce) {
