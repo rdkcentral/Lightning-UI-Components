@@ -7,13 +7,15 @@ interactiveNeutralFocusSoft | [Card](undefined)<br>[FocusRing](undefined)<br>[Ta
 interactiveInverseFocusSoft | [Card](undefined)<br>[FocusRing](undefined)|More info coming
 interactiveBrandFocusSoft | [Card](undefined)<br>[FocusRing](undefined)|More info coming
 textNeutralSecondary | [CardAbout](undefined)<br>[CardPersonality](undefined)<br>[CardTitle](undefined)<br>[Input](undefined)<br>[MetadataBase](undefined)<br>[MetadataTile](undefined)|More info coming
-fillNeutral | [Badge](undefined)<br>[Button](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Gradient](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Slider](undefined)<br>[Tab](undefined)<br>[TitleRow](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
-fillInverse | [Badge](undefined)<br>[Button](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[ListItemBase](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Slider](undefined)<br>[Tab](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
-fillBrand | [Badge](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Gradient](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
+fillNeutral | [Badge](undefined)<br>[Button](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Gradient](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[NestedSlider](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Slider](undefined)<br>[Tab](undefined)<br>[TitleRow](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
+fillInverse | [Badge](undefined)<br>[Button](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[ListItemBase](undefined)<br>[NestedSlider](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Slider](undefined)<br>[Tab](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
+fillBrand | [Badge](undefined)<br>[Checkbox](undefined)<br>[Distractor](undefined)<br>[Gradient](undefined)<br>[Icon](undefined)<br>[Label](undefined)<br>[NestedSlider](undefined)<br>[ProgressBar](undefined)<br>[Radio](undefined)<br>[Toggle](undefined)<br>[Tooltip](undefined)<br>[Wave](undefined)|More info coming
 interactiveNeutralFocus | [FocusRing](undefined)<br>[Knob](undefined)<br>[Slider](undefined)<br>[Surface](undefined)<br>[Tab](undefined)|More info coming
 interactiveInverseFocus | [FocusRing](undefined)<br>[Knob](undefined)<br>[Slider](undefined)<br>[Surface](undefined)|More info coming
 interactiveBrandFocus | [FocusRing](undefined)<br>[Knob](undefined)<br>[Surface](undefined)|More info coming
 textInverseDisabled | [Input](undefined)<br>[ListItemBase](undefined)|More info coming
+fillInverseTertiary | [NestedSlider](undefined)<br>[ProgressBar](undefined)|More info coming
+fillBrandTertiary | [NestedSlider](undefined)<br>[ProgressBar](undefined)|More info coming
 textInverse | [Button](undefined)<br>[Input](undefined)<br>[Label](undefined)<br>[MetadataBase](undefined)<br>[MetadataCardContent](undefined)<br>[MetadataTile](undefined)<br>[Tab](undefined)<br>[Tooltip](undefined)|More info coming
 fillInverseSecondary | [Badge](undefined)<br>[Provider](undefined)<br>[Surface](undefined)|More info coming
 fillNeutralSecondary | [Badge](undefined)<br>[Provider](undefined)|More info coming
@@ -25,8 +27,6 @@ strokeNeutralDisabled | [Checkbox](undefined)|More info coming
 fillTransparent | [Gradient](undefined)<br>[Tab](undefined)|More info coming
 textInverseSecondary | [MetadataBase](undefined)<br>[MetadataTile](undefined)|More info coming
 fillNeutralTertiary | [ProgressBar](undefined)|More info coming
-fillInverseTertiary | [ProgressBar](undefined)|More info coming
-fillBrandTertiary | [ProgressBar](undefined)|More info coming
 shadowNeutralFocus | [Shadow](undefined)|More info coming
 shadowInverseFocus | [Shadow](undefined)|More info coming
 shadowBrandFocus | [Shadow](undefined)|More info coming
