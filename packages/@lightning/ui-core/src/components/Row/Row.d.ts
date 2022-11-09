@@ -1,6 +1,5 @@
 import FocusManager from '../FocusManager';
 import type { StylePartial } from '../../types/lui';
-import Row, { RowStyles } from './Row';
 
 type TransitionObject = {
   delay: number;
@@ -17,7 +16,6 @@ export type RowStyles = {
 };
 
 export default class Row extends FocusManager {
-  itemSpacing?: number;
   scrollIndex?: number;
   alwaysScroll?: boolean;
   neverScroll?: boolean;

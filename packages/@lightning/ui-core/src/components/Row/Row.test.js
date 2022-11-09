@@ -29,8 +29,7 @@ const properties = {
     selectedChange: 'selectedChangeMock'
   },
   debounceDelay: 0,
-  items,
-  itemSpacing: 0
+  items
 };
 
 const createRow = makeCreateComponent(Row, properties);
@@ -72,36 +71,16 @@ describe('Row', () => {
     expect(row.items[1].hasFocus()).toBe(true);
   });
 
-  describe('itemSpacing', () => {
-    it('should initialize spacing between items', () => {
-      const itemSpacing = 20;
-      [row, testRenderer] = createRow({ itemSpacing });
-      const item = row.items[1];
-      row.requestUpdate(true);
-      expect(item.x).toBe(row.items[0].w + itemSpacing);
-    });
+  it('should support adding additional spacing to an item', () => {
+    const extraItemSpacing = 50;
+    row.items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
+    testRenderer.forceAllUpdates();
 
-    it('should set spacing', () => {
-      const itemSpacing = 100;
-      const item = row.items[1];
-      row.itemSpacing = itemSpacing;
-      row.requestUpdate(true);
-      expect(item.x).toBe(row.items[0].w + itemSpacing);
-    });
-
-    it('should support adding additional spacing to an item', () => {
-      const itemSpacing = 100;
-      const extraItemSpacing = 50;
-      row.itemSpacing = itemSpacing;
-      row.items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
-      testRenderer.forceAllUpdates();
-
-      const itemW = row.items[0].w;
-      expect(row.items[1].x).toBe(itemW + itemSpacing);
-      expect(row.items[2].x).toBe(
-        itemW * 2 + itemSpacing * 2 + extraItemSpacing
-      );
-    });
+    const itemW = row.items[0].w;
+    expect(row.items[1].x).toBe(itemW + row.style.itemSpacing);
+    expect(row.items[2].x).toBe(
+      itemW * 2 + row.style.itemSpacing * 2 + extraItemSpacing
+    );
   });
 
   describe('autoResize', () => {
@@ -233,7 +212,7 @@ describe('Row', () => {
         0
       );
 
-      expect(row._totalAddedWidth).toBe(row._calculatedItemSpacing);
+      expect(row._totalAddedWidth).toBe(row.style.itemSpacing);
     });
   });
 
@@ -307,14 +286,12 @@ describe('Row', () => {
       { ...baseItem, testId: 'B' },
       { ...baseItem, testId: 'C' }
     ];
-    const itemSpacing = 20;
 
     beforeEach(async () => {
       [row, testRenderer] = createRow(
         {
           items,
-          selectedIndex: 2,
-          itemSpacing
+          selectedIndex: 2
         },
         {
           spyOnMethods: ['_updateLayout']
@@ -326,7 +303,7 @@ describe('Row', () => {
 
     it('should maintain the x position of the current selected item relative to the row by shifting the row', async () => {
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - itemSpacing;
+      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
@@ -337,7 +314,7 @@ describe('Row', () => {
     it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
       row.lazyScroll = true;
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - itemSpacing;
+      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
@@ -546,7 +523,6 @@ describe('Row', () => {
           _getLazyScrollX = jest.spyOn(row, '_getLazyScrollX');
           _getScrollX = jest.spyOn(row, '_getScrollX');
           row.items = Array.from({ length: 6 }).map(() => baseItem);
-          row.itemSpacing = 0;
           row.w = baseItem.w * 2;
           row.scrollTransition = { duration: 0 };
           row.startLazyScrollIndex = 1;

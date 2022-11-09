@@ -19,7 +19,6 @@ export default {
  * Shared Args and Arg Types for Stories
  */
 const sharedArgs = {
-  itemSpacing: 20,
   alwaysScroll: false,
   lazyScroll: false,
   neverScroll: false,
@@ -28,12 +27,6 @@ const sharedArgs = {
 
 const sharedArgTypes = {
   ...createModeControl(['focused'], 'focused'),
-  itemSpacing: {
-    defaultValue: 20,
-    control: { type: 'range', min: 0, max: 100, step: 5 },
-    description: 'px between items',
-    table: { defaultValue: { summary: 20 } }
-  },
   scrollIndex: {
     defaultValue: 0,
     control: { type: 'number', min: 0 },
@@ -195,8 +188,7 @@ export const FocusHeightChange = () =>
             buttonText: 'Button',
             w: 150,
             h: 75
-          })),
-          itemSpacing: 20
+          }))
         }
       };
     }
@@ -213,7 +205,6 @@ export const VaryingItemWidth = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: 20,
           items: createItems(Button, 10, 40, isVariedWidth)
         }
       };
@@ -231,7 +222,6 @@ export const ExpandableWidth = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: 20,
           items: createItems(ExpandingButton, 6)
         }
       };
@@ -251,9 +241,8 @@ export const CenteredInParent = () =>
       return {
         Row: {
           type: RowComponent,
-          itemSpacing,
           w: getWidthByUpCount(context.theme, 1),
-          h: buttonH * 3 + itemSpacing * 2,
+          h: buttonH * 3 + 40,
           items: [
             {
               type: Column,
@@ -288,7 +277,6 @@ export const Plinko = () => {
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: 20,
           plinko: true,
           items: [
             {
@@ -368,12 +356,6 @@ export const SkipFocus = args =>
   };
 
 SkipFocus.argTypes = {
-  itemSpacing: {
-    defaultValue: 200,
-    control: { type: 'range', min: 200, max: 400, step: 5 },
-    description: 'px between items',
-    table: { defaultValue: { summary: 200 } }
-  },
   wrapSelected: {
     defaultValue: false,
     control: { type: 'boolean' },

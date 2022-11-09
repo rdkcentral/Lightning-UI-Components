@@ -22,7 +22,6 @@ class Row extends FocusManager {
   static get properties() {
     return [
       ...super.properties,
-      'itemSpacing',
       'scrollIndex',
       'alwaysScroll',
       'neverScroll',
@@ -33,11 +32,6 @@ class Row extends FocusManager {
       'startLazyScrollIndex',
       'stopLazyScrollIndex'
     ];
-  }
-
-  // TODO: withUpdates will set the _itemSpacing property the first time the getter runs. Using accessor to ensure theme updates are applied. May need to update withUpdates to not modify the underscore property
-  get _calculatedItemSpacing() {
-    return this.itemSpacing || this.style.itemSpacing;
   }
 
   _construct() {
@@ -221,7 +215,7 @@ class Row extends FocusManager {
       return (
         currItemsX +
         (this.prevSelected.w +
-          this._calculatedItemSpacing +
+          this.style.itemSpacing +
           (this.selected.extraItemSpacing || 0))
       );
     } else if (prev) {
@@ -317,7 +311,7 @@ class Row extends FocusManager {
       nextX += child.w;
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
-        nextX += this._calculatedItemSpacing + extraItemSpacing;
+        nextX += this.style.itemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {
@@ -424,7 +418,7 @@ class Row extends FocusManager {
       const itemW = item.w || item.innerW || 0;
       const extraItemSpacing = item.extraItemSpacing || 0;
       this._totalAddedWidth +=
-        itemW + this._calculatedItemSpacing + extraItemSpacing;
+        itemW + this.style.itemSpacing + extraItemSpacing;
     });
 
     if (this.selectedIndex >= this._lastAppendedIdx) {

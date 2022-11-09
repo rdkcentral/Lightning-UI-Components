@@ -9,7 +9,7 @@ import {
   getThemeValueFromString,
   updateGlobalTheme
 } from '../utils';
-import { Table, TableRow } from './components';
+import { Table, TableRow, NumberRow } from './components';
 import {
   OptionsControl,
   ColorControl,
@@ -136,21 +136,14 @@ export default (params, api) => {
             break;
           case 'number':
             acc.push(
-              <TableRow
-                label={curr.prop}
+              <NumberRow
                 key={idx}
+                label={curr.prop}
+                defaultValue={curr.defaultValue}
                 scope={palette}
-                control={
-                  <NumberControl
-                    key={`Color-${curr.prop}-${palette}-${LUITheme}-${version}`}
-                    name={curr.prop}
-                    onChange={val =>
-                      debouncedUpdateComponentValue.call(this, curr.prop, val)
-                    }
-                    value={curr.defaultValue}
-                    min={0} // may need to revisit this if there are ever valid negative values
-                  />
-                }
+                onChange={val => {
+                  debouncedUpdateComponentValue(curr.prop, val);
+                }}
               />
             );
             break;

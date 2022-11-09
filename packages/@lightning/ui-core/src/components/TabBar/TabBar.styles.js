@@ -1,4 +1,4 @@
-export const base = ({ spacer }) => ({
-  tabSpacing: spacer.lg,
-  tabsMarginBottom: spacer.xxl
+export const base = theme => ({
+  tabSpacing: theme.spacer.lg,
+  tabsMarginBottom: theme.spacer.xxl
 });

@@ -165,7 +165,9 @@ export default class BaseType extends Base {
   _updateLayout() {
     this._Row.patch({
       h: this.h,
-      itemSpacing: this.itemSpacing,
+      style: {
+        itemSpacing: this.itemSpacing
+      },
       scrollIndex: this.scrollIndex || 0,
       alwaysScroll: this.alwaysScroll || false,
       neverScroll: this.neverScroll || false,
