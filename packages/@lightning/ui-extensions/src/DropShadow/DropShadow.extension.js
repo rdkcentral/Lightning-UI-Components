@@ -26,9 +26,10 @@ export function dropShadowExtensionGenerator({
       }
 
       _updateDropShadow() {
-        const shouldMask = componentsToMask.includes(
-          this.constructor.__componentName
+        const shouldMask = componentsToMask.some(comp =>
+          this._prototypeChain.has(comp)
         );
+
         const shadowPatch = {
           maskShadow: shouldMask,
           // support variable height, like Tile with metadataLocation set to bottom
