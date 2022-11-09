@@ -185,7 +185,7 @@ export const TypographyAndColors = () => {
         },
         Typography: {
           type: Column,
-          itemSpacing,
+          style: { itemSpacing },
           Items: {
             Display1: {
               type: TextBox,
@@ -252,7 +252,7 @@ export const TypographyAndColors = () => {
         Colors1: {
           type: Column,
           x: 450,
-          itemSpacing,
+          style: { itemSpacing },
           Items: {
             General: {
               type: TextBox,
@@ -346,7 +346,7 @@ export const TypographyAndColors = () => {
         Colors2: {
           type: Column,
           x: 800,
-          itemSpacing,
+          style: { itemSpacing },
           Items: {
             Text: {
               type: TextBox,
@@ -443,7 +443,7 @@ export const TypographyAndColors = () => {
         Colors3: {
           type: Column,
           x: 1150,
-          itemSpacing,
+          style: { itemSpacing },
           Items: {
             Stroke: {
               type: TextBox,
@@ -532,7 +532,7 @@ export const TypographyAndColors = () => {
         Elements: {
           type: Column,
           x: 1500,
-          itemSpacing,
+          style: { itemSpacing },
           Items: {
             TileWithFocus: {
               type: Tile,
@@ -565,7 +565,7 @@ export const TypographyAndColors = () => {
             },
             RadiusGrid: {
               type: Column,
-              itemSpacing,
+              style: { itemSpacing },
               w: 150,
               autoResizeHeight: true,
               extraItemSpacing: itemSpacing * 4,

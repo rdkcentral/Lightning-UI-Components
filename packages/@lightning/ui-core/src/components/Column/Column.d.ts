@@ -2,8 +2,6 @@ import lng from '@lightningjs/core';
 import FocusManager from '../FocusManager';
 import type { StylePartial } from '../../types/lui';
 
-import Column, { ColumnStyles } from './Column';
-
 type TransitionObject = {
   delay: number;
   duration: number;
@@ -19,7 +17,6 @@ export type ColumnStyles = {
 };
 
 export default class Column extends FocusManager {
-  itemSpacing?: number;
   scrollIndex?: number;
   alwaysScroll?: boolean;
   neverScroll?: boolean;

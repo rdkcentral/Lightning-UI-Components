@@ -271,7 +271,9 @@ class GridOverlay extends Base {
       w: this._screenW,
       h: this._screenH,
       x: this._marginX,
-      itemSpacing: this._gutterX,
+      style: {
+        itemSpacing: this._gutterX
+      },
       items: this._columnRects
     });
   }

@@ -60,7 +60,7 @@ class KeyboardInput extends Base {
   }
 
   _update() {
-    this._Wrapper.itemSpacing = this.style.itemSpacing;
+    this._Wrapper.style.itemSpacing = this.style.itemSpacing;
     this._updateInput();
     this._updateKeyboard();
   }

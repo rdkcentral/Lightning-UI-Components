@@ -259,14 +259,14 @@ export const CenteredInParent = () =>
               type: Column,
               w: buttonW,
               h: buttonH * 3 + itemSpacing * 2,
-              itemSpacing,
+              style: { itemSpacing },
               items: createItems(Button, 3)
             },
             {
               type: Column,
               w: buttonW,
               h: buttonH,
-              itemSpacing,
+              style: { itemSpacing },
               centerInParent: true,
               items: createItems(Button, 1)
             }
@@ -283,6 +283,7 @@ export const CenteredInParent = () =>
 export const Plinko = () => {
   return class Plinko extends lng.Component {
     static _template() {
+      const colItemSpacing = 20;
       return {
         Row: {
           type: RowComponent,
@@ -293,13 +294,13 @@ export const Plinko = () => {
             {
               w: 150,
               type: Column,
-              itemSpacing: 20,
+              style: { itemSpacing: colItemSpacing },
               items: createItems(Button, 3)
             },
             {
               w: 150,
               type: Column,
-              itemSpacing: 20,
+              style: { itemSpacing: colItemSpacing },
               items: new Array(3).fill().map((item, index) => ({
                 type: Button,
                 buttonText: 1 !== index ? 'Button' : 'Skip focus',
@@ -310,13 +311,13 @@ export const Plinko = () => {
             {
               w: 150,
               type: Column,
-              itemSpacing: 20,
+              style: { itemSpacing: colItemSpacing },
               items: createItems(Button, 3)
             },
             {
               w: 150,
               type: Column,
-              itemSpacing: 20,
+              style: { itemSpacing: colItemSpacing },
               items: createItems(Button, 3)
             }
           ]
@@ -337,7 +338,7 @@ export const SkipFocus = args =>
         Column: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: args.itemSpacing,
+          style: { itemSpacing: 200 },
           wrapSelected: args.wrapSelected,
           items: [
             ...Array.apply(null, { length: 13 }).map((_, i) => {

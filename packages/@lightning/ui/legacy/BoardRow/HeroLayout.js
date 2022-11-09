@@ -48,7 +48,9 @@ export default class HeroLayout extends BaseLayout {
               : component.w * 2 + this.itemSpacing,
           h: HeroLayout._cardHeight * 2 + this._itemSpacing,
           type: Column,
-          itemSpacing: this._itemSpacing,
+          style: {
+            itemSpacing: this._itemSpacing
+          },
           items: [
             {
               ...component,

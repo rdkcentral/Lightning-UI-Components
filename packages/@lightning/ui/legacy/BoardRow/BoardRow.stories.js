@@ -165,7 +165,9 @@ export const Basic = args =>
       return {
         Column: {
           type: Column,
-          itemSpacing: 100,
+          style: {
+            itemSpacing: 100
+          },
           items: [boardRow, boardRow]
         }
       };

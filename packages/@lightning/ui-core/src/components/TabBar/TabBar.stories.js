@@ -97,7 +97,7 @@ const createColumn = titles => {
     h: 300,
     w: 410,
     y: 50,
-    itemSpacing: 16,
+    style: { itemSpacing: 16 },
     neverScroll: true,
     items: titles.map(title => ({
       w: 410,
