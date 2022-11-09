@@ -4,7 +4,7 @@ Feature: LUI Tile Basic component
 
   Background:
     Given I launch the LUI app
-    When I navigate to 'Tile' 'Tile' with 'Base' theme
+    And I navigate to 'Tile' 'Tile' with 'Base' theme
 
   Scenario: Verify that Tile Basic is displayed
     Then I verify that the 'Tile' 'Tile' component is displayed
@@ -38,7 +38,7 @@ Feature: LUI Tile Basic component
     When I set the 'itemLayout_circle' to 'true' for 'Tile' component
     Then I verify that the 'width' of 'Tile' 'Tile' component is '296px'
     And I set the 'itemLayout_circle' to 'false' for 'Tile' component
-    Then I verify that the 'width' of 'Tile' 'Tile' component is '527px'
+    And I verify that the 'width' of 'Tile' 'Tile' component is '527px'
 
   Scenario: Verify the Tile Basic badge Title Control
     When I set the 'badge_title' to 'LUI Test' for 'Tile' component
@@ -51,8 +51,8 @@ Feature: LUI Tile Basic component
   Scenario: Verify the Tile Basic blur control
     When I set the 'artwork_blur' to 'false' for 'Tile' component
     Then I verify that the 'blur' is 'false' for 'Tile' component
-    When I set the 'artwork_blur' to 'true' for 'Tile' component
-    Then I verify that the 'blur' is 'true' for 'Tile' component
+    And I set the 'artwork_blur' to 'true' for 'Tile' component
+    And I verify that the 'blur' is 'true' for 'Tile' component
 
   Scenario: Verify the Tile Basic fill control
     When I set the 'artwork_fill' to 'true' for 'Tile' component

@@ -1,3 +1,4 @@
+import Button from './Button';
 import Common from './Common';
 import Tile from './Tile';
 import Row from './Row';
@@ -7,3 +8,4 @@ Common();
 Tile();
 Row();
 FocusManager();
+Button();

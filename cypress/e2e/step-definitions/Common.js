@@ -10,6 +10,7 @@ import ProgressBar from '../pageObjects/utilities/progressbar.utilities';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Row from '../pageObjects/navigation/row.navigation';
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
+import Button from '../pageObjects/controls/button.controls';
 import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
@@ -31,6 +32,7 @@ function getPageObject(pageName) {
     textbox: TextBox,
     focusmanager: FocusManager,
     tile: Tile,
+    button: Button,
     toggle: Toggle,
     togglesmall: ToggleSmall
   };
