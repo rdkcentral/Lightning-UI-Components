@@ -26,7 +26,7 @@ const extensions = [
   {
     targetComponent: ['Surface'],
     extension: dropShadowExtensionGenerator({
-      componentsToMask: ['Button'],
+      componentsToMask: ['Button', 'Card'],
       zOffset: -1
     })
   }
