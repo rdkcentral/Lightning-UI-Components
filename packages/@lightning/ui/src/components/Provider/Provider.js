@@ -86,7 +86,9 @@ class Provider extends Base {
       providerList.push(patch);
     });
     this._Row.patch({
-      itemSpacing: this.style.itemSpacing,
+      style: {
+        itemSpacing: this.style.itemSpacing
+      },
       items: providerList,
       h: this.style.itemSize
     });

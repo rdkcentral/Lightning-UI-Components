@@ -221,14 +221,9 @@ describe('TabBar', () => {
     );
   });
 
-  it('should allow customizing the tabs row styles with all supported Row properties', async () => {
+  it('should set the tab item spacing', async () => {
     await component.__updateSpyPromise;
-    expect(component._Tabs.itemSpacing).toBe(component.style.tabSpacing);
-
-    component.itemSpacing = 50;
-    await component.__updateSpyPromise;
-
-    expect(component._Tabs.itemSpacing).toBe(50);
+    expect(component._Tabs.style.itemSpacing).toBe(component.style.tabSpacing);
   });
 
   describe('the reset property', () => {

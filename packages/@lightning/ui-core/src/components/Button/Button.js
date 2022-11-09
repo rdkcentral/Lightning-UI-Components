@@ -87,7 +87,9 @@ class Button extends Surface {
     if (this.prefix) {
       let prefixPatch = {
         h: this.style.prefixH,
-        itemSpacing: this.style.itemSpacing
+        style: {
+          itemSpacing: this.style.itemSpacing
+        }
       };
       if (!this._Prefix) {
         prefixPatch = {
@@ -134,7 +136,9 @@ class Button extends Surface {
     if (this.suffix) {
       let suffixPatch = {
         h: this.style.suffixH,
-        itemSpacing: this.style.itemSpacing
+        style: {
+          itemSpacing: this.style.itemSpacing
+        }
       };
       if (!this._Suffix) {
         suffixPatch = {

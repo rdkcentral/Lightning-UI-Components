@@ -68,7 +68,9 @@ class TabBar extends Base {
 
   _updateTabsLayout() {
     const defaultLayout = {
-      itemSpacing: this.style.tabSpacing
+      style: {
+        itemSpacing: this.style.tabSpacing
+      }
     };
     const tabsRowPatch = Row.properties.reduce((patchObj, prop) => {
       if (this[prop] != undefined) {

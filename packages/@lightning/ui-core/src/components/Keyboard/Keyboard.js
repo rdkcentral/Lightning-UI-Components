@@ -50,7 +50,9 @@ class Keyboard extends Base {
           });
           element.items.forEach(row => {
             row.patch({
-              itemSpacing: this.style.spacing,
+              style: {
+                itemSpacing: this.style.spacing
+              },
               centerInParent: this.centerAlign,
               wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
             });
@@ -100,7 +102,9 @@ class Keyboard extends Base {
         centerInParent: this.centerAlign,
         neverScroll: true,
         wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true,
-        itemSpacing: this.style.spacing,
+        style: {
+          itemSpacing: this.style.spacing
+        },
         items: this._createKeys(keys)
       };
     });
