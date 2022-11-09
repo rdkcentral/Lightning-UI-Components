@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Card extends LUIComponent {
   constructor() {
-    super({type: 'patterns', componentName: 'card' });
+    super({ type: 'patterns', componentName: 'card' });
   }
 
   get base() {

@@ -14,6 +14,7 @@ import Button from '../pageObjects/controls/button.controls';
 import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
+import Distractor from '../pageObjects/utilities/distractor.utilities';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -34,7 +35,8 @@ function getPageObject(pageName) {
     tile: Tile,
     button: Button,
     toggle: Toggle,
-    togglesmall: ToggleSmall
+    togglesmall: ToggleSmall,
+    distractor: Distractor
   };
 
   if (pageName in pageObjects) {
@@ -633,6 +635,43 @@ export default function () {
         .then(() => {
           // add 1 since the first tile has no x attribute
           expect(visibleTiles + 1).equal(no_of_assets);
+        });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {String} {String} component is animating
+   * @description Cucumber statement to verify if a component is anitmating
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example I verify that the 'Distractor' 'Circle1' component is animating
+   */
+  Then(
+    'I verify that the {string} {string} component is animating',
+    (pageName, componentName) => {
+      const page = pageName.toLowerCase();
+      const component = componentName.toLowerCase();
+      const pageObject = getPageObject(page);
+      let initialScalex, finalScalex;
+
+      pageObject
+        ._getElementByName(component)
+        .should('have.attr', 'scalex')
+        .then(scalex => {
+          initialScalex = parseFloat(scalex);
+        })
+        .then(() => {
+          cy.wait(1000);
+          pageObject
+            ._getElementByName(component)
+            .should('have.attr', 'scalex')
+            .then(scalex => {
+              finalScalex = parseFloat(scalex);
+              expect(initialScalex).not.equal(finalScalex);
+              expect(initialScalex).to.be.within(0, 1.05);
+              expect(finalScalex).to.be.within(0, 1.05);
+            });
         });
     }
   );

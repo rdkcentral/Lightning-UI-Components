@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class CardPersonality extends LUIComponent {
   constructor() {
-    super({type: 'tiles-cards', componentName: 'cardpersonality' });
+    super({ type: 'tiles-cards', componentName: 'cardpersonality' });
   }
 
   get card() {

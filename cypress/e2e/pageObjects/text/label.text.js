@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Label extends LUIComponent {
   constructor() {
-    super({type: 'text', componentName: 'label' });
+    super({ type: 'text', componentName: 'label' });
   }
 
   get label() {

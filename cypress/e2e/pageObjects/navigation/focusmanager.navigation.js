@@ -16,7 +16,7 @@ class FocusManager extends LUIComponent {
   get rowElements() {
     return `${this.row} > div[type="Button"]`;
   }
-  
+
   get button1() {
     return `${this.row} > div:nth-of-type(1)`;
   }
@@ -24,7 +24,7 @@ class FocusManager extends LUIComponent {
   get button2() {
     return `${this.row} > div:nth-of-type(2)`;
   }
-  
+
   get button3() {
     return `${this.row} > div:nth-of-type(3)`;
   }

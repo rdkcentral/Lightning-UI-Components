@@ -24,7 +24,6 @@ class Button extends LUIComponent {
   get buttonTitle() {
     return 'div[type=textbox]>div:nth-of-type(1)';
   }
-
 }
 
 module.exports = new Button();
