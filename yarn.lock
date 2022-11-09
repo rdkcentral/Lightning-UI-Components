@@ -4607,10 +4607,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@suite-themes/sky-lightning-tv@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@suite-themes/sky-lightning-tv@npm:1.1.1::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fsky-lightning-tv%2F-%2F%40suite-themes%2Fsky-lightning-tv-1.1.1.tgz"
+  dependencies:
+    "@suite-themes/base-lightning-tv": ^1.3.1
+    "@suite-themes/utils": ^1.0.2
+  checksum: 8882528e4939d9bd9a4624bd1c50fcf0ca2a4f04e55db5b2412906fec589888a2c0a6b4757fda4becbf58468850ef152a4421dcec20374614f21a47908c2da7d
+  languageName: node
+  linkType: hard
+
 "@suite-themes/utils@npm:^1.0.2":
   version: 1.0.2
   resolution: "@suite-themes/utils@npm:1.0.2::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Futils%2F-%2F%40suite-themes%2Futils-1.0.2.tgz"
   checksum: ce10eb14242680bbc6d6c6ad0fbf84c1a1c3f9a412355bfab6628e0069d1dd050fd961e845e77631d1e94b6be8756fecb9f88e13627790a567b9452cefea5532
+  languageName: node
+  linkType: hard
+
+"@suite-themes/xfinity-games-lightning-tv@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@suite-themes/xfinity-games-lightning-tv@npm:1.0.1::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-games-lightning-tv%2F-%2F%40suite-themes%2Fxfinity-games-lightning-tv-1.0.1.tgz"
+  dependencies:
+    "@suite-themes/xfinity-lightning-tv": ^1.4.1
+  checksum: 6e59ef00560d14096c99a43fa257d488d49f43b83326b8e04a458cbcce24dc848c111277773ee917a2919d1de639a4a91d06247466f344db39d280dc4d9ef03f
   languageName: node
   linkType: hard
 
@@ -14333,6 +14352,8 @@ __metadata:
     "@storybook/manager-webpack5": ^6.5.12
     "@storybook/testing-library": ^0.0.13
     "@suite-themes/rogers-lightning-tv": ^1.3.1
+    "@suite-themes/sky-lightning-tv": ^1.1.1
+    "@suite-themes/xfinity-games-lightning-tv": ^1.0.1
     "@suite-themes/xfinity-lightning-tv": ^1.4.1
     "@yarnpkg/pnpify": ^4.0.0-rc.21
     babel-jest: ^29.0.3

@@ -7,8 +7,10 @@ import { addDecorator } from '@storybook/html';
 import theme from './theme';
 import xfinity from '@suite-themes/xfinity-lightning-tv';
 import rogers from '@suite-themes/rogers-lightning-tv';
+import sky from '@suite-themes/sky-lightning-tv';
+import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
 import { withAnnouncer, GridOverlay, Speech, pool, context, utils } from '@lightning/ui-core';
-import { focusRingExtension, dropShadowExtension } from '@lightning/ui-extensions';
+import { focusRingExtension, dropShadowExtensionGenerator } from '@lightning/ui-extensions';
 import { CATEGORIES } from '../../lightning-ui-docs/';
 
 context.debug = true;
@@ -16,26 +18,43 @@ context.on('themeUpdate', () => {
   window.parent.postMessage('themeSet', '*');
 });
 
+const extensions = [
+  {
+    targetComponent: ['Surface', 'Knob'],
+    extension: focusRingExtension
+  },
+  {
+    targetComponent: ['Surface'],
+    extension: dropShadowExtensionGenerator({
+      componentsToMask: ['Button'],
+      zOffset: -1
+    })
+  }
+];
+
 window.addEventListener('message', themeSelect, false);
 function themeSelect(event) {
   if (!event.data.theme) return;
   switch (event.data.theme) {
     case 'rogers':
-      context.setTheme(rogers);
+      context.setTheme({
+        ...rogers,
+        extensions
+      });
       break;
     case 'xfinity':
       context.setTheme({
         ...xfinity,
-        extensions: [
-          {
-            targetComponent: ['Surface', 'Knob'],
-            extension: focusRingExtension
-          },
-          {
-            targetComponent: ['Surface'],
-            extension: dropShadowExtension
-          }
-        ]
+        extensions
+      });
+      break;
+    case 'sky':
+      context.setTheme(sky);
+      break;
+    case 'xfinitygames':
+      context.setTheme({
+        ...xfinityGames,
+        extensions
       });
       break;
     default:
@@ -163,6 +182,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
   // If an update is required patch in the new child element
+
   if (triggerUpdate) {
     app.childList.clear();
     app.childList.a({
@@ -187,14 +207,6 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
             ];
           }
 
-          _constructor() {
-            context.on('themeUpdate', () => {
-              this.patch({
-                x: context.theme.layout.marginX,
-                y: context.theme.layout.marginY
-              });
-            });
-          }
           _init() {
             super._init();
             this._refocus(); // Force Lightning to reset focus
@@ -216,6 +228,14 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
         ? 'ModeFocusState'
         : 'ModeUnfocusState'
     );
+
+  // forces position update on theme change instead of just when triggerUpdate is true
+  context.on('themeUpdate', () => {
+    app.tag('StoryComponent') && app.tag('StoryComponent').patch({
+      x: context.theme.layout.marginX,
+      y: context.theme.layout.marginY
+    });
+  });
 
   if (!app.tag('GridOverlay')) {
     app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
