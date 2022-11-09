@@ -34,7 +34,9 @@ export default class StandardLayout extends BaseLayout {
           w: StandardLayout._cardWidth,
           h: StandardLayout._calcTotalHeight(this.itemSpacing),
           type: Column,
-          itemSpacing: this.itemSpacing,
+          style: {
+            itemSpacing: this.itemSpacing
+          },
           items: []
         });
         acc[targetColumnIndex - 1].items.push(component);

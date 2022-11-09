@@ -49,9 +49,9 @@ const rows = [
 
 const properties = {
   h: 600,
-  itemSpacing: 20,
   items: rows,
-  debounceDelay: 1
+  debounceDelay: 1,
+  style: { itemSpacing: 20 }
 };
 
 const Component = {
@@ -112,24 +112,12 @@ describe('Column', () => {
   });
 
   describe('itemSpacing', () => {
-    it('should set spacing', () => {
-      const spacing = 100;
-      const item = column.items[1];
-
-      column.itemSpacing = spacing;
-      column.requestUpdate(true);
-      testRenderer.update();
-      expect(item.y).toBe(spacing + item.h);
-    });
-
     it('should support adding additional spacing to an item', async () => {
-      const itemSpacing = 100;
       const extraItemSpacing = 50;
       const items = [baseItem, { ...baseItem, extraItemSpacing }, baseItem];
       const [column] = createColumn(
         {
           h: 600,
-          itemSpacing,
           items
         },
         {
@@ -139,9 +127,9 @@ describe('Column', () => {
 
       await column.__updateSpyPromise;
       const itemH = column.items[0].h;
-      expect(column.items[1].y).toBe(itemH + itemSpacing);
+      expect(column.items[1].y).toBe(itemH + column.style.itemSpacing);
       expect(column.items[2].y).toBe(
-        itemH * 2 + itemSpacing * 2 + extraItemSpacing
+        itemH * 2 + column.style.itemSpacing * 2 + extraItemSpacing
       );
     });
   });

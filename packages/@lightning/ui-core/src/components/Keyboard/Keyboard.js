@@ -44,7 +44,9 @@ class Keyboard extends Base {
         const element = this.tag(capitalize(key));
         if (element) {
           element.patch({
-            itemSpacing: this.style.spacing
+            style: {
+              itemSpacing: this.style.spacing
+            }
           });
           element.items.forEach(row => {
             row.patch({
@@ -78,7 +80,9 @@ class Keyboard extends Base {
           type: Column,
           plinko: true,
           items: rows,
-          itemSpacing: this.style.spacing,
+          style: {
+            itemSpacing: this.style.spacing
+          },
           autoResizeWidth: true,
           autoResizeHeight: true,
           neverScroll: true

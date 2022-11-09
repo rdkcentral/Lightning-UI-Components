@@ -22,7 +22,6 @@ class Column extends FocusManager {
   static get properties() {
     return [
       ...super.properties,
-      'itemSpacing',
       'scrollIndex',
       'alwaysScroll',
       'lazyUpCount',
@@ -30,11 +29,6 @@ class Column extends FocusManager {
       'autoResizeWidth',
       'autoResizeHeight'
     ];
-  }
-
-  // TODO: withUpdates will set the _itemSpacing property the first time the getter runs. Using accessor to ensure theme updates are applied. May need to update withUpdates to not modify the underscore property
-  get _calculatedItemSpacing() {
-    return this.itemSpacing || this.style.itemSpacing;
   }
 
   _construct() {
@@ -279,7 +273,7 @@ class Column extends FocusManager {
       nextY += child.h;
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
-        nextY += this._calculatedItemSpacing + extraItemSpacing;
+        nextY += this.style.itemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {

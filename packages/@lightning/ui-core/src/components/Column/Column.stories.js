@@ -19,14 +19,6 @@ import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
   title: `${CATEGORIES[64]}/Column`,
-  argTypes: {
-    itemSpacing: {
-      defaultValue: 20,
-      control: { type: 'range', min: 0, max: 100, step: 5 },
-      description: 'px between items',
-      table: { defaultValue: { summary: 20 } }
-    }
-  },
   parameters: {
     docs: {
       page: mdx
@@ -44,7 +36,6 @@ export const Column = args =>
             context.theme.layout.screenH -
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
@@ -99,7 +90,6 @@ export const TestCase = args =>
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           scrollIndex: args.scrollIndex,
-          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
             type: Button,
             h: 80,
@@ -150,20 +140,18 @@ MultiColumn.argTypes = {
   }
 };
 
-export const Plinko = args =>
+export const Plinko = () =>
   class Plinko extends lng.Component {
     static _template() {
       return {
         Column: {
           type: ColumnComponent,
-          itemSpacing: args.itemSpacing,
           plinko: true,
           items: [
             {
               type: Row,
               h: 40,
               w: getWidthByUpCount(context.theme, 1),
-              itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',
@@ -174,7 +162,6 @@ export const Plinko = args =>
               type: Row,
               h: 40,
               w: getWidthByUpCount(context.theme, 1),
-              itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => ({
                 type: Button,
                 buttonText: 'Button',
@@ -191,7 +178,7 @@ export const Plinko = args =>
     }
   };
 
-export const VaryingItemHeight = args =>
+export const VaryingItemHeight = () =>
   class VaryingItemHeight extends lng.Component {
     static _template() {
       return {
@@ -201,7 +188,6 @@ export const VaryingItemHeight = args =>
             context.theme.layout.screenH -
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 10 }).map(() => ({
             type: Button,
             buttonText: 'Button',
@@ -216,7 +202,7 @@ export const VaryingItemHeight = args =>
     }
   };
 
-export const ExpandableHeightItems = args =>
+export const ExpandableHeightItems = () =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
@@ -226,7 +212,6 @@ export const ExpandableHeightItems = args =>
             context.theme.layout.screenH -
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          itemSpacing: args.itemSpacing,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingButton,
             h: 40,
@@ -242,7 +227,7 @@ export const ExpandableHeightItems = args =>
     }
   };
 
-export const ExpandableHeightRows = args =>
+export const ExpandableHeightRows = () =>
   class ExpandableHeightItems extends lng.Component {
     static _template() {
       return {
@@ -253,7 +238,6 @@ export const ExpandableHeightRows = args =>
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: args.itemSpacing,
           plinko: true,
           items: Array.apply(null, { length: 15 }).map((_, i) => ({
             type: ExpandingRow,
@@ -284,7 +268,6 @@ export const SkipFocus = args =>
             context.theme.layout.screenH -
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
           items: [
             ...Array.apply(null, { length: 49 }).map((_, i) => {
@@ -313,12 +296,6 @@ export const SkipFocus = args =>
     }
   };
 SkipFocus.argTypes = {
-  itemSpacing: {
-    defaultValue: 30,
-    control: { type: 'range', min: 0, max: 100, step: 5 },
-    description: 'px between items',
-    table: { defaultValue: { summary: 30 } }
-  },
   wrapSelected: {
     defaultValue: false,
     control: { type: 'boolean' },
@@ -328,13 +305,12 @@ SkipFocus.argTypes = {
   }
 };
 
-export const OnScreenEffect = args =>
+export const OnScreenEffect = () =>
   class OnScreenEffect extends lng.Component {
     static _template() {
       return {
         Column: {
           type: ColumnComponent,
-          itemSpacing: args.itemSpacing,
           scrollIndex: 2,
           h:
             context.theme.layout.screenH -
@@ -371,16 +347,8 @@ export const OnScreenEffect = args =>
       return this.tag('Column');
     }
   };
-OnScreenEffect.argTypes = {
-  itemSpacing: {
-    defaultValue: 60,
-    control: { type: 'range', min: 0, max: 100, step: 5 },
-    description: 'px between items',
-    table: { defaultValue: { summary: 60 } }
-  }
-};
 
-export const StickyTitle = args => {
+export const StickyTitle = () => {
   const items = flatten(
     Array.apply(null, { length: 5 }).map((_, i) => {
       const headerText = `Sticky Header ${i}`;
@@ -420,7 +388,6 @@ export const StickyTitle = args => {
           w: 300,
           h: 400,
           clipping: true,
-          itemSpacing: args.itemSpacing,
           type: ColumnComponent,
           items,
           signals: {
@@ -439,16 +406,8 @@ export const StickyTitle = args => {
     }
   };
 };
-StickyTitle.argTypes = {
-  itemSpacing: {
-    defaultValue: 50,
-    control: { type: 'range', min: 0, max: 100, step: 5 },
-    description: 'px between items',
-    table: { defaultValue: { summary: 50 } }
-  }
-};
 
-export const CenteredInParent = args =>
+export const CenteredInParent = () =>
   class CenteredInParent extends lng.Component {
     static _template() {
       const buttonW = 150;
@@ -457,22 +416,20 @@ export const CenteredInParent = args =>
         buttonText: 'Button',
         w: buttonW
       };
+      const itemSpacing = context.theme.layout.gutterY.xs;
       return {
         Column: {
           type: ColumnComponent,
-          itemSpacing: args.itemSpacing,
-          w: buttonW * 3 + args.itemSpacing * 2,
+          w: buttonW * 3 + itemSpacing * 2,
           items: [
             {
               type: Row,
               h: 40,
-              itemSpacing: args.itemSpacing,
               items: Array.apply(null, { length: 3 }).map(() => button)
             },
             {
               type: Row,
               h: 40,
-              itemSpacing: args.itemSpacing,
               centerInParent: true,
               items: Array.apply(null, { length: 1 }).map(() => button)
             }
@@ -589,13 +546,17 @@ export const SkipPlinko = () =>
         Column: {
           type: ColumnComponent,
           w: getWidthByUpCount(context.theme, 1),
-          itemSpacing: 32,
+          style: {
+            itemSpacing: 32
+          },
           plinko: true,
           items: [
             {
               type: Row,
               h: 200,
-              itemSpacing: 50,
+              style: {
+                itemSpacing: 50
+              },
               items: [
                 {
                   type: Tile,
@@ -643,7 +604,9 @@ export const SkipPlinko = () =>
             },
             {
               type: Row,
-              itemSpacing: 50,
+              style: {
+                itemSpacing: 50
+              },
               h: 180,
               items: [
                 {
@@ -689,7 +652,6 @@ export const LazyUpCount = args =>
         Column: {
           type: ColumnComponent,
           h: 500,
-          itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           lazyUpCount: args.lazyUpCount,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
@@ -735,7 +697,6 @@ export const AddingItems = args =>
         Column: {
           type: ColumnComponent,
           h: 500,
-          itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
@@ -792,13 +753,9 @@ export const AddingItems = args =>
     }
   };
 AddingItems.args = {
-  itemSpacing: 20,
   scrollIndex: 0
 };
 AddingItems.argTypes = {
-  itemSpacing: {
-    control: { type: 'range', min: 0, max: 100, step: 5 }
-  },
   scrollIndex: {
     control: 'number'
   }
@@ -811,7 +768,6 @@ export const RemovingItems = args =>
         Column: {
           type: ColumnComponent,
           h: 500,
-          itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
             type: Button,
@@ -833,13 +789,9 @@ export const RemovingItems = args =>
     }
   };
 RemovingItems.args = {
-  itemSpacing: 20,
   scrollIndex: 0
 };
 RemovingItems.argTypes = {
-  itemSpacing: {
-    control: { type: 'range', min: 0, max: 100, step: 5 }
-  },
   scrollIndex: {
     control: 'number'
   }

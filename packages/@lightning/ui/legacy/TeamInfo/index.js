@@ -17,7 +17,9 @@ export default class TeamInfo extends withStyles(Base, styles) {
           },
           Column: {
             type: Column,
-            itemSpacing: 0,
+            style: {
+              itemSpacing: 0
+            },
             items: []
           }
         }

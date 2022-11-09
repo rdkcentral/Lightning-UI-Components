@@ -32,7 +32,9 @@ export default class SquareSmallLayout extends BaseLayout {
           w: SquareSmallLayout._cardWidth,
           h: SquareSmallLayout._cardHeight * 2 + this._itemSpacing,
           type: Column,
-          itemSpacing: this._itemSpacing,
+          style: {
+            itemSpacing: this._itemSpacing
+          },
           items: []
         });
         acc[targetColumnIndex - 1].items.push(component);
