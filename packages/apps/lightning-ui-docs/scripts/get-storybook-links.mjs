@@ -10,17 +10,17 @@ import fs from 'fs';
  */
 export function getStorybookLinks(component, path, name) {
   // get mdx paths
-  const originalPath = `./${path}/${component}.mdx`;
+  const originalPath = `../${path}/${component}.mdx`;
   let modifiedPath = originalPath;
   if (component != name) {
     // this is incase there are multiple elements nested inside of one folder
-    modifiedPath = `./${path}/${name}.mdx`;
+    modifiedPath = `../../${path}/${name}.mdx`;
     if (!fs.existsSync(modifiedPath)) {
       modifiedPath = originalPath; // this is in case there are multiple elements nested inside of one folder but not all of them have .mdx files
     }
   }
   if (!fs.existsSync(modifiedPath)) {
-    // this is if even after all the checks a file is formated weird or does not exist
+    // this is if even after all the checks a file is formatted weird or does not exist
     return;
   }
   const lrs = new LineReaderSync(modifiedPath);

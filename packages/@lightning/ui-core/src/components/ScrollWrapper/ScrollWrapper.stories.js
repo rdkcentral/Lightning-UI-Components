@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import ScrollWrapper from './index.js';
+import ScrollWrapperComponent from './index.js';
 import Tile from '../Tile/index.js';
 import mdx from './ScrollWrapper.mdx';
 import { createModeControl } from '../../../storybook/index.js';
@@ -114,12 +114,12 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const ScrollWrapper = args =>
+  class ScrollWrapper extends lng.Component {
     static _template() {
       return {
         ScrollWrapper: {
-          type: ScrollWrapper,
+          type: ScrollWrapperComponent,
           h: 448,
           w: 796,
           scrollStep: args.scrollStep,
@@ -147,7 +147,7 @@ export const TextArray = args =>
     static _template() {
       return {
         ScrollWrapper: {
-          type: ScrollWrapper,
+          type: ScrollWrapperComponent,
           h: 450,
           w: 600,
           wordWrap: true,
@@ -190,7 +190,7 @@ export const ObjectArray = args =>
     static _template() {
       return {
         ScrollWrapper: {
-          type: ScrollWrapper,
+          type: ScrollWrapperComponent,
           h: 764,
           w: 1200,
           shouldWrap: true, // determines if items should wrap around ScrollContainer

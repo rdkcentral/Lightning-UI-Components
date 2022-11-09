@@ -31,7 +31,7 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="elements-control--basic" />
+  <Story id="controls-control--control" />
 </Canvas>
 
 All `Control` components support two types of prefixes (Lightning components placed to the left of the title text): an icon or a logo (image/png/jpg).
@@ -55,19 +55,19 @@ Optional flag for the `Control` element to collapse (hide the title) when `Contr
 
 `Control` has the same properties as the ones listed in [Button](?path=/docs/elements-button--basic) in addition to a couple listed below:
 
-| name            | type    | required | default      | description                                                                                       |
-| --------        | ------- | -------- | --------     | ------------------------------------------------------------------------------------------        |
-| icon            | string  | false    | -            | URL for the icon asset                                                                            |
-| logo            | string  | false    | -            | URL for the image asset                                                                           |
-| shouldCollapse  | boolean | false    | false        | flag that if `true`, hides the title when `Control` is in unfocused or disabled mode              |
+| name           | type    | required | default | description                                                                          |
+| -------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------ |
+| icon           | string  | false    | -       | URL for the icon asset                                                               |
+| logo           | string  | false    | -       | URL for the image asset                                                              |
+| shouldCollapse | boolean | false    | false   | flag that if `true`, hides the title when `Control` is in unfocused or disabled mode |
 
 ### Style Properties
 
 `Control` contains the same style properties as [Button](?path=/docs/elements-button--basic) in additional to a couple other style properties listed below:
 
-| name            | type                          | description                                                                            |
-| --------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
-| h               | number                        | height of the Control                                                                  |
-| iconStyles      | object                        | custom styling for the icon element                                                    |
-| logoStyles      | object                        | custom styling for the logo element                                                    |
-| radius          | number                        | border radius of the Control                                                           |
+| name       | type   | description                         |
+| ---------- | ------ | ----------------------------------- |
+| h          | number | height of the Control               |
+| iconStyles | object | custom styling for the icon element |
+| logoStyles | object | custom styling for the logo element |
+| radius     | number | border radius of the Control        |

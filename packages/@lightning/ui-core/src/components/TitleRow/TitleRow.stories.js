@@ -1,12 +1,12 @@
 import lng from '@lightningjs/core';
-import { Basic as RowBasic } from '../Row/Row.stories.js';
+import { Row as RowBasic } from '../Row/Row.stories.js';
 import { Tile } from '../index.js';
 import mdx from './TitleRow.mdx';
 import { default as TitleRowComponent } from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[16]}/TitleRow`,
+  title: `${CATEGORIES[64]}/TitleRow`,
   parameters: {
     docs: {
       page: mdx

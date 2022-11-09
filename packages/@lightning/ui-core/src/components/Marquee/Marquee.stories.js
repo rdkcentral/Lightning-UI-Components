@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-import Marquee from '.';
+import MarqueeComponent from '.';
 import InlineContent from '../InlineContent/index.js';
 import mdx from './Marquee.mdx';
 import { context } from '../../globals/index.js';
@@ -15,12 +15,12 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const Marquee = args =>
+  class Marquee extends lng.Component {
     static _template() {
       return {
         Marquee: {
-          type: Marquee,
+          type: MarqueeComponent,
           w: 350,
           h: 180,
           title: {
@@ -35,14 +35,14 @@ export const Basic = args =>
       return this.tag('Marquee');
     }
   };
-Basic.args = {
+Marquee.args = {
   title: 'This is a scrolling Marquee component for long text',
   autoStart: true,
   centerAlign: false,
   repeat: -1,
   delay: 1.5
 };
-Basic.argTypes = {
+Marquee.argTypes = {
   title: {
     control: 'text',
     description: 'An object matching Lightning text object'
@@ -70,7 +70,7 @@ Basic.argTypes = {
       'Will center the entire texture if the width of the content is less than the container'
   }
 };
-Basic.parameters = {
+Marquee.parameters = {
   argActions: {}
 };
 
@@ -79,7 +79,7 @@ export const CenteredText = () =>
     static _template() {
       return {
         Marquee: {
-          type: Marquee,
+          type: MarqueeComponent,
           w: 400,
           h: 50,
           title: {
@@ -105,7 +105,7 @@ export const CenteredText = () =>
           rtt: true
         },
         MarqueeInlineContent: {
-          type: Marquee,
+          type: MarqueeComponent,
           y: 100,
           w: 400,
           h: 180,

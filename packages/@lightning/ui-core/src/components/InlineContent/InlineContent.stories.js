@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-import InlineContent from './InlineContent.js';
+import InlineContentComponent from './InlineContent.js';
 import mdx from './InlineContent.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils/index.js';
@@ -69,12 +69,12 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const InlineContent = args =>
+  class InlineContent extends lng.Component {
     static _template() {
       return {
         InlineContent: {
-          type: InlineContent,
+          type: InlineContentComponent,
           x: 200,
           w: 200,
           contentWrap: args.contentWrap,
@@ -125,11 +125,11 @@ export const Basic = args =>
   };
 
 export const WithNewLines = args =>
-  class Basic extends lng.Component {
+  class WithNewLines extends lng.Component {
     static _template() {
       return {
         InlineContent: {
-          type: InlineContent,
+          type: InlineContentComponent,
           x: 200,
           w: 400,
           contentWrap: args.contentWrap,
@@ -169,11 +169,11 @@ export const WithNewLines = args =>
   };
 
 export const WithParsing = args =>
-  class Basic extends lng.Component {
+  class WithParsing extends lng.Component {
     static _template() {
       return {
         InlineContent: {
-          type: InlineContent,
+          type: InlineContentComponent,
           x: 200,
           w: 400,
           contentWrap: args.contentWrap,

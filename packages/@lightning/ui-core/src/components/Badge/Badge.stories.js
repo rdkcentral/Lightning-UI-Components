@@ -6,7 +6,7 @@ import circle from '../../assets/images/circle.svg';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[256]}/Badge`,
+  title: `${CATEGORIES[32]}/Badge`,
   parameters: {
     docs: {
       page: mdx

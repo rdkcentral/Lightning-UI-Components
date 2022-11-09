@@ -4,9 +4,10 @@ import Notification from '.';
 import mdx from './Notification.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: 'Patterns/Notification',
+  title: `${CATEGORIES[4]}/Notification`,
   parameters: {
     docs: {
       page: mdx

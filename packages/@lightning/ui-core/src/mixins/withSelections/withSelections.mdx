@@ -5,7 +5,7 @@ import { Canvas, Story } from '@storybook/addon-docs';
 The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time.
 
 <Canvas>
-  <Story id="mixins-withselections--basic" />
+  <Story id="utilities-withselections--base" />
 </Canvas>
 
 Take a look at the preview above. The row of modified [Buttons](?path=/docs/button--basic) has navigation managed by the [FocusManager](?path=/docs/focusmanager--rows) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/button--basic). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
@@ -31,7 +31,7 @@ class Example extends lng.Component {
         direction: 'row',
         items: [{ type: UnderlineButton }]
       }
-    }
+    };
   }
 }
 ```
@@ -79,9 +79,9 @@ const defaultOpts = {
     currentSelectedIndex: 'currentSelectedIndex',
     isSelected: 'isSelected',
     items: 'items',
-    setSelected: 'setSelected',
-  },
-}
+    setSelected: 'setSelected'
+  }
+};
 ```
 
 #### captureKey
@@ -90,7 +90,7 @@ Default value: `'Enter'`. Defines key name(s) to capture in order to set the sel
 
 ```js
 withSelections(FocusManager, { captureKey: 'OK' });
-withSelections(FocusManager, { captureKey: ['Enter', 'OK']})
+withSelections(FocusManager, { captureKey: ['Enter', 'OK'] });
 ```
 
 #### defaultIndex
@@ -98,7 +98,7 @@ withSelections(FocusManager, { captureKey: ['Enter', 'OK']})
 Default value: `0`. Defines the index of the component that should be `selected` on load.
 
 ```js
-withSelections(FocusManager, { defaultIndex: 1 })
+withSelections(FocusManager, { defaultIndex: 1 });
 ```
 
 #### eventName

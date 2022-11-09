@@ -61,7 +61,7 @@ export function getComponentFiles(fileList, path) {
 }
 
 /**
- * Grabs all the values for theme properties. For example radius: xmall, color: coreBrand, etc.
+ * Grabs all the values for theme properties. For example radius: small, color: coreBrand, etc.
  * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.fillBrand, or theme.radius.xs
  * @param {string} componentType - type of component (element or pattern)
  * @returns {array} array with all the components style files
@@ -98,9 +98,9 @@ export function findThemedComponents(
     const updateFileName = styleFileArray[i].split('/');
     const name = updateFileName[updateFileName.length - 1].split('.')[0];
     let componentName = updateFileName;
-    componentName = componentName.splice(1, 2);
+    componentName = componentName.splice(1, 6);
     const linkString = componentName.join('/');
-    const docUrl = getStorybookLinks(componentName[1], linkString, name);
+    const docUrl = getStorybookLinks(componentName[5], linkString, name);
     const lrs = new LineReaderSync(styleFileArray[i]);
     while (true) {
       //start searching for the storybook url line
@@ -138,7 +138,7 @@ export function findThemedComponents(
 /**
  * Finds all the elements and patterns and what style value they are using
  * @param {string} newLine - string that needs to be cleaned and checked for possible theme value
- * @param {array} themeValueArray - array that holds all the possible themeing values for each theme property
+ * @param {array} themeValueArray - array that holds all the possible theming values for each theme property
  * @returns {number} returns index where theme value is found
  */
 export function cleanLine(newLine, themeValueArray) {

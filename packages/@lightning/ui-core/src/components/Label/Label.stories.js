@@ -5,7 +5,7 @@ import mdx from './Label.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[256]}/Label`,
+  title: `${CATEGORIES[32]}/Label`,
   parameters: {
     docs: {
       page: mdx

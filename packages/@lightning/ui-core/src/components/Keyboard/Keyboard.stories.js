@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import Keyboard, { KEYBOARD_FORMATS } from '.';
+import KeyboardComponent, { KEYBOARD_FORMATS } from '.';
 import KeyboardInput from './KeyboardInput';
 import { Input as InputStory } from '../Input/Input.stories';
 import {
@@ -31,12 +31,12 @@ const sharedArgTypes = {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Keyboard = () =>
+  class Keyboard extends lng.Component {
     static _template() {
       return {
         Keyboard: {
-          type: Keyboard,
+          type: KeyboardComponent,
           defaultFormat: 'lowercase',
           formats: KEYBOARD_FORMATS.qwerty
         }
@@ -50,15 +50,15 @@ export const Basic = () =>
     }
   };
 
-Basic.argTypes = sharedArgTypes;
-Basic.parameters = {};
+Keyboard.argTypes = sharedArgTypes;
+Keyboard.parameters = {};
 
 export const FullScreen = () =>
   class FullScreen extends lng.Component {
     static _template() {
       return {
         Keyboard: {
-          type: Keyboard,
+          type: KeyboardComponent,
           defaultFormat: 'letters',
           formats: KEYBOARD_FORMATS.fullscreen
         }
@@ -84,7 +84,7 @@ export const Dialpad = () =>
     static _template() {
       return {
         Keyboard: {
-          type: Keyboard,
+          type: KeyboardComponent,
           defaultFormat: 'dialpad',
           formats: KEYBOARD_FORMATS.numbers
         }

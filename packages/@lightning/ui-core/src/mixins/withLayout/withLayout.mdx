@@ -70,7 +70,7 @@ class Basic extends lng.Component {
         src: parks,
         itemLayout: {
           h: 320,
-          upCount: 4,
+          upCount: 4
         }
       }
     };
@@ -91,21 +91,21 @@ If the mixin is unable to calculate the height OR width from the passed paramete
 If the mixin is unable to calculate height AND width from the passed parameters. No autosize will occur.
 
 <Canvas>
-  <Story id="mixins-withlayout--basic" />
+  <Story id="utilities-withlayout--base" />
 </Canvas>
 
 ### Properties
 
-name|type|required|default|description
---|--|--|--|--
-itemLayout|object|true|-|the auto sizing properties that will override explicitly set h/w for an item
+| name       | type   | required | default | description                                                                  |
+| ---------- | ------ | -------- | ------- | ---------------------------------------------------------------------------- |
+| itemLayout | object | true     | -       | the auto sizing properties that will override explicitly set h/w for an item |
 
 ### itemLayout
 
-name|type|required|default|description
---|--|--|--|--
-w|number|false|-|explicitly set the width of an item
-h|number|false|-|explicitly set the height of an item
-ratioX|number|false|-|units of x resolution relative to the screen height
-ratioY|number|false|-|units of y resolution relative to the screen width
-upCount|number|false|-|the number of items that should be displayed within screen bounds. Additional items will run off-screen or outside of specified row width
+| name    | type   | required | default | description                                                                                                                               |
+| ------- | ------ | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| w       | number | false    | -       | explicitly set the width of an item                                                                                                       |
+| h       | number | false    | -       | explicitly set the height of an item                                                                                                      |
+| ratioX  | number | false    | -       | units of x resolution relative to the screen height                                                                                       |
+| ratioY  | number | false    | -       | units of y resolution relative to the screen width                                                                                        |
+| upCount | number | false    | -       | the number of items that should be displayed within screen bounds. Additional items will run off-screen or outside of specified row width |

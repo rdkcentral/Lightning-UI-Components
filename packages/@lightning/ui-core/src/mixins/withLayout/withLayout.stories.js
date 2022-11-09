@@ -13,8 +13,8 @@ export default {
   }
 };
 
-export const Basic = () => {
-  return class Basic extends lng.Component {
+export const Base = () => {
+  return class Base extends lng.Component {
     static _template() {
       return {
         Item: {
@@ -29,22 +29,22 @@ export const Basic = () => {
   };
 };
 
-Basic.args = {
+Base.args = {
   ratioX: 16,
   ratioY: 9,
   upCount: 3,
   circle: false
 };
 
-Basic.argTypes = {
+Base.argTypes = {
   ratioX: { control: 'number' },
   ratioY: { control: 'number' },
   upCount: { control: 'number' },
   circle: { control: 'boolean' }
 };
 
-Basic.parameters = {
-  argActions: Object.keys(Basic.args).reduce((acc, curr) => {
+Base.parameters = {
+  argActions: Object.keys(Base.args).reduce((acc, curr) => {
     return {
       ...acc,
       [curr]: (val, component) => {

@@ -32,5 +32,5 @@ original/
 # Using change log for release notes so still need to talk to team how we want to maintain this
 CHANGELOG.md 
 
-bin/themePropertyTables
+/packages/apps/lightning-ui-docs/scripts/themePropertyTables
 ci-files

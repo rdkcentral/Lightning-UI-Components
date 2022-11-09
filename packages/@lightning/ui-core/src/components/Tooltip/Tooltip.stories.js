@@ -2,11 +2,11 @@ import lng from '@lightningjs/core';
 import Button from '../Button/index.js';
 import { createModeControl } from '../../../storybook/index.js';
 import mdx from './Tooltip.mdx';
-import Tooltip from './index.js';
+import TooltipComponent from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[16]}/Tooltip`,
+  title: `${CATEGORIES[512]}/Tooltip`,
   args: {
     title: 'Tooltip',
     delayVisible: 0,
@@ -25,18 +25,18 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Tooltip = () =>
+  class Tooltip extends lng.Component {
     static _template() {
       return {
         Tooltip: {
-          type: Tooltip
+          type: TooltipComponent
         }
       };
     }
   };
 
-export const LongTitle = Basic.bind({});
+export const LongTitle = Tooltip.bind({});
 LongTitle.args = {
   x: 1280 / 2,
   title:
@@ -58,7 +58,7 @@ export const WithButton = args =>
           title: 'Button',
           backgroundType: 'stroke',
           Tooltip: {
-            type: Tooltip,
+            type: TooltipComponent,
             title: args.title,
             delayVisible: args.delayVisible,
             timeVisible: args.timeVisible

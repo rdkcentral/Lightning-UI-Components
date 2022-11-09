@@ -1,10 +1,16 @@
 import lng from '@lightningjs/core';
 import { default as RadioComponent } from './index.js';
+import mdx from './Radio.mdx';
 import { createModeControl } from '../../../storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[512]}/Radio`
+  title: `${CATEGORIES[512]}/Radio`,
+  parameters: {
+    docs: {
+      page: mdx
+    }
+  }
 };
 
 export const Radio = () =>

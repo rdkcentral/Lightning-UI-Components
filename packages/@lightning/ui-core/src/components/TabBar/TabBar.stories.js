@@ -16,7 +16,7 @@ import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
 import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 import { context } from '../../globals/index.js';
 import Tab from './Tab.js';
-import TabBar from './index.js';
+import TabBarComponent from './index.js';
 import mdx from './TabBar.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -127,12 +127,12 @@ const colPromise = () => {
   });
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const TabBar = () =>
+  class TabBar extends lng.Component {
     static _template() {
       return {
         TabBar: {
-          type: TabBar,
+          type: TabBarComponent,
           w: 1920 - 160,
           tabs: [
             {
@@ -214,7 +214,7 @@ export const CustomTabs = () =>
     static _template() {
       return {
         TabBar: {
-          type: TabBar,
+          type: TabBarComponent,
           w: 1920 - 160,
           tabs: [
             {

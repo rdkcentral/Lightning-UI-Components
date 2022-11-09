@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import Provider from '.';
+import ProviderComponent from '.';
 import { Icon } from '@lightning/ui-core';
 import mdx from './Provider.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
@@ -44,12 +44,12 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Provider = () =>
+  class Provider extends lng.Component {
     static _template() {
       return {
         Provider: {
-          type: Provider,
+          type: ProviderComponent,
           providers: Array(10).fill({
             icon: xfinityProviderLogoSquare,
             announce: 'XFinity Logo'
@@ -60,11 +60,11 @@ export const Basic = () =>
   };
 
 export const With2x1 = () =>
-  class Basic extends lng.Component {
+  class With2x1 extends lng.Component {
     static _template() {
       return {
         Provider: {
-          type: Provider,
+          type: ProviderComponent,
           providers: [
             { icon: xfinityProviderLogoSquare, announce: 'XFinity Logo' },
             {

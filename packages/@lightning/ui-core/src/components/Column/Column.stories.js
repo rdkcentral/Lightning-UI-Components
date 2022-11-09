@@ -1,7 +1,12 @@
 import lng from '@lightningjs/core';
 import { context } from '../../globals/index.js';
 import { flatten, getWidthByUpCount } from '../../utils/index.js';
-import { FocusManager, Row, Column, Tile } from '../index.js';
+import {
+  FocusManager,
+  Row,
+  Column as ColumnComponent,
+  Tile
+} from '../index.js';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import mdx from './Column.mdx';
 import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
@@ -29,12 +34,12 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends lng.Component {
+export const Column = args =>
+  class Column extends lng.Component {
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -53,7 +58,7 @@ export const Basic = args =>
       return this.tag('Column');
     }
   };
-Basic.argTypes = {
+Column.argTypes = {
   scroll: {
     defaultValue: 1,
     control: { type: 'select', options: [1, 5, 15, 20] },
@@ -75,7 +80,7 @@ Basic.argTypes = {
     table: { defaultValue: { summary: false } }
   }
 };
-Basic.parameters = {
+Column.parameters = {
   argActions: {
     scroll: function (index, component) {
       component.tag('Column').scrollTo(index - 1);
@@ -88,7 +93,7 @@ export const TestCase = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -125,7 +130,7 @@ export const MultiColumn = args =>
         FocusManager: {
           type: FocusManager,
           direction: 'row',
-          items: [{ type: Basic(args) }, { type: Basic(args), x: 180 }]
+          items: [{ type: Column(args) }, { type: Column(args), x: 180 }]
         }
       };
     }
@@ -150,7 +155,7 @@ export const Plinko = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           itemSpacing: args.itemSpacing,
           plinko: true,
           items: [
@@ -191,7 +196,7 @@ export const VaryingItemHeight = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -216,7 +221,7 @@ export const ExpandableHeightItems = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -242,7 +247,7 @@ export const ExpandableHeightRows = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -274,7 +279,7 @@ export const SkipFocus = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h:
             context.theme.layout.screenH -
             2 *
@@ -328,7 +333,7 @@ export const OnScreenEffect = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           itemSpacing: args.itemSpacing,
           scrollIndex: 2,
           h:
@@ -416,7 +421,7 @@ export const StickyTitle = args => {
           h: 400,
           clipping: true,
           itemSpacing: args.itemSpacing,
-          type: Column,
+          type: ColumnComponent,
           items,
           signals: {
             selectedChange: '_updateHeader'
@@ -454,7 +459,7 @@ export const CenteredInParent = args =>
       };
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           itemSpacing: args.itemSpacing,
           w: buttonW * 3 + args.itemSpacing * 2,
           items: [
@@ -582,7 +587,7 @@ export const SkipPlinko = () =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           w: getWidthByUpCount(context.theme, 1),
           itemSpacing: 32,
           plinko: true,
@@ -682,7 +687,7 @@ export const LazyUpCount = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h: 500,
           itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
@@ -728,7 +733,7 @@ export const AddingItems = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h: 500,
           itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
@@ -804,7 +809,7 @@ export const RemovingItems = args =>
     static _template() {
       return {
         Column: {
-          type: Column,
+          type: ColumnComponent,
           h: 500,
           itemSpacing: args.itemSpacing,
           scrollIndex: args.scrollIndex,
