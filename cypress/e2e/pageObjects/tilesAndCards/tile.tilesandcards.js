@@ -14,23 +14,23 @@ class Tile extends LUIComponent {
   }
 
   get badgeTitle() {
-    return 'div[type=badge]>div'
+    return 'div[type=badge]>div';
   }
 
   get labelTitle() {
-    return 'div[type=label]>div[type=element]:nth-child(2)'
+    return 'div[type=label]>div[type=element]:nth-child(2)';
   }
 
   get label() {
-    return 'div[type=Label]'
+    return 'div[type=Label]';
   }
 
   get blur() {
-    return 'div[type=artwork]>div[type=element]'
+    return 'div[type=artwork]>div[type=element]';
   }
 
   get fill() {
-    return 'div[type=Artwork]>div[ref=FillColor]'
+    return 'div[type=Artwork]>div[ref=FillColor]';
   }
 
   get checked() {
@@ -40,6 +40,5 @@ class Tile extends LUIComponent {
   get format() {
     return 'div[type=artwork]>div[type=element]';
   }
-
 }
 module.exports = new Tile();

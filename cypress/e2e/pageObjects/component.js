@@ -101,6 +101,7 @@ class LUIComponent {
    * @returns {String} - The selector for the element.
    * @example _getElementByName('Progress Bar') => currentComponent['progressBar']
    */
+  // eslint-disable-next-line no-dupe-class-members
   _getElementByName(name, timeout) {
     const elementName = convertToCamelCase(name);
     try {
