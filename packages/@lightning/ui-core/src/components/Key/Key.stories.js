@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import Key from './index.js';
+import KeyComponent from './index.js';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Key.mdx';
 import { createModeControl } from '../../../storybook/index.js';
@@ -14,23 +14,24 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Key = () =>
+  class Key extends lng.Component {
     static _template() {
       return {
         Key: {
-          type: Key
+          type: KeyComponent
         }
       };
     }
   };
 
-Basic.args = {
+Key.parameters = {};
+Key.args = {
   title: 'A',
   size: 'sm'
 };
 
-Basic.argTypes = {
+Key.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   size: {
     description: 'width of the Key',
@@ -50,14 +51,12 @@ Basic.argTypes = {
   }
 };
 
-Basic.parameters = {};
-
 export const KeyIcon = () =>
   class KeyIcon extends lng.Component {
     static _template() {
       return {
         Key: {
-          type: Key
+          type: KeyComponent
         }
       };
     }

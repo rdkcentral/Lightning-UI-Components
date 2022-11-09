@@ -1,5 +1,9 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { DocsLink, GenericType, ObjectFormat } from '../../../storybook/index.js';
+import {
+  DocsLink,
+  GenericType,
+  ObjectFormat
+} from '../../../storybook/index.js';
 
 # Row
 
@@ -31,16 +35,12 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="layout-row--basic" />
+  <Story id="navigation-row--row" />
 </Canvas>
 
 ### Scrolling
 
 By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width).
-
-<Canvas>
-  <Story id="layout-row--side-scrolling" />
-</Canvas>
 
 The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
 

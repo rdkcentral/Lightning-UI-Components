@@ -5,7 +5,7 @@ import mdx from './GridOverlay.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[64]}/GridOverlay`,
+  title: `${CATEGORIES[4]}/GridOverlay`,
   parameters: {
     docs: {
       page: mdx

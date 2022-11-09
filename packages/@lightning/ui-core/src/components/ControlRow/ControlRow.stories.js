@@ -5,11 +5,12 @@ import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import playIcon from '../../assets/images/ic_play_white_32.png';
 import { default as TitleRowStory } from '../TitleRow/TitleRow.stories';
-import ControlRow from '.';
+import ControlRowComponent from '.';
 import mdx from './ControlRow.mdx';
+import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: 'Layout / ControlRow',
+  title: `${CATEGORIES[64]}/ContentRow`,
   parameters: {
     docs: {
       page: mdx
@@ -63,12 +64,12 @@ const createControls = (length, icon = lightningIcon) => {
   }));
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const ControlRow = () =>
+  class ControlRow extends lng.Component {
     static _template() {
       return {
         ControlRow: {
-          type: ControlRow,
+          type: ControlRowComponent,
           leftControls: createControls(3),
           contentItems: createItems(5),
           rightControls: createControls(3)
@@ -82,11 +83,11 @@ export const Basic = () =>
   };
 
 export const LazyLoading = () =>
-  class Basic extends lng.Component {
+  class LazyLoading extends lng.Component {
     static _template() {
       return {
         ControlRow: {
-          type: ControlRow,
+          type: ControlRowComponent,
           leftControls: createControls(3),
           contentItems: createItems(5),
           rightControls: createControls(3),
@@ -121,11 +122,11 @@ export const LazyLoading = () =>
 LazyLoading.args = { lazyLoadBuffer: 1 };
 
 export const AddingAndRemoving = () =>
-  class Basic extends lng.Component {
+  class AddingAndRemoving extends lng.Component {
     static _template() {
       return {
         ControlRow: {
-          type: ControlRow,
+          type: ControlRowComponent,
           leftControls: createControls(1),
           contentItems: createItems(2),
           rightControls: createControls(1)

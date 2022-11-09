@@ -13,7 +13,7 @@ export default {
   }
 };
 
-export const Basic = () => {
+export const Base = () => {
   class UnderlineButton extends Button {
     get isSelected() {
       return this._isSelected;

@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import { getWidthByUpCount } from '../../utils/index.js';
-import { Row, Column } from '../index.js';
+import { Row as RowComponent, Column } from '../index.js';
 import mdx from './Row.mdx';
 import { context } from '../../globals/index.js';
 import { createModeControl } from '../../../storybook/index.js';
@@ -163,12 +163,12 @@ class Title extends lng.Component {
  * Stories for various versions of the component
  */
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Row = () =>
+  class Row extends lng.Component {
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           items: createItems(Button, 12)
         }
@@ -180,15 +180,15 @@ export const Basic = () =>
     }
   };
 
-Basic.args = { ...sharedArgs };
-Basic.argTypes = { ...sharedArgTypes };
+Row.args = { ...sharedArgs };
+Row.argTypes = { ...sharedArgTypes };
 
 export const FocusHeightChange = () =>
   class FocusHeightChange extends lng.Component {
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           items: Array.apply(null, { length: 5 }).map(() => ({
             type: ExpandingHeightButton,
@@ -211,7 +211,7 @@ export const VaryingItemWidth = () =>
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           itemSpacing: 20,
           items: createItems(Button, 10, 40, isVariedWidth)
@@ -229,7 +229,7 @@ export const ExpandableWidth = () =>
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           itemSpacing: 20,
           items: createItems(ExpandingButton, 6)
@@ -250,7 +250,7 @@ export const CenteredInParent = () =>
       const buttonH = 40;
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           itemSpacing,
           w: getWidthByUpCount(context.theme, 1),
           h: buttonH * 3 + itemSpacing * 2,
@@ -285,7 +285,7 @@ export const Plinko = () => {
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           itemSpacing: 20,
           plinko: true,
@@ -335,7 +335,7 @@ export const SkipFocus = args =>
     static _template() {
       return {
         Column: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           itemSpacing: args.itemSpacing,
           wrapSelected: args.wrapSelected,
@@ -390,7 +390,7 @@ export const LazyScrollIndexes = ({
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           items: Array.apply(null, { length: 12 }).map((_, i) => ({
             type: Button,
@@ -429,7 +429,7 @@ export const AddingItems = () =>
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
           items: createItems(Button, 12)
         }
@@ -497,7 +497,7 @@ export const LazyUpCount = args =>
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
           items: createItems(Button, 12)
@@ -530,7 +530,7 @@ export const RemovingItems = () =>
     static _template() {
       return {
         Row: {
-          type: Row,
+          type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
           items: createItems(Button, 5)
         }
