@@ -11,6 +11,8 @@ import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Row from '../pageObjects/navigation/row.navigation';
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
 import TextBox from '../pageObjects/text/textbox.text';
+import Toggle from '../pageObjects/utilities/toggle.utilities';
+import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -28,7 +30,9 @@ function getPageObject(pageName) {
     row: Row,
     textbox: TextBox,
     focusmanager: FocusManager,
-    tile: Tile
+    tile: Tile,
+    toggle: Toggle,
+    togglesmall: ToggleSmall
   };
 
   if (pageName in pageObjects) {
