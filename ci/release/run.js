@@ -7,6 +7,7 @@ const slackNotification = {
   color: '#3CB371',
   blocks: []
 };
+const releaseVersions = [];
 
 /**
  * Determine what the hightest SemVer is
@@ -17,9 +18,10 @@ const slackNotification = {
 function getHighestConventionalCommit(currentType = '', newType = '') {
   const currentLowerCase = currentType.toLowerCase();
   const newTypeLowerCase = newType.toLowerCase();
+
   if (
     ['major'].includes(currentLowerCase) ||
-    ['!'].includes(newTypeLowerCase)
+    ['major'].includes(newTypeLowerCase)
   ) {
     return 'major';
   } else if (
@@ -81,12 +83,12 @@ async function fetchCommits() {
     .map(commit => {
       const hash = commit.split(/\s/)[0];
       const commitMessage = commit.replace(/^\S+\s/, '');
-      const [_, type = 'minor', scope = ''] = commitMessage
+      const [_, type = 'minor', scope = '', breaking] = commitMessage
         ? conventionalCommitRegExp.exec(commitMessage) || []
         : [];
       return {
         hash,
-        type,
+        type: breaking ? 'major' : type,
         message: commitMessage.split(':').pop().trim(),
         scope: scope.replace(/\(|\)/g, '')
       };
@@ -98,20 +100,9 @@ async function fetchCommits() {
  * @return {promise} - Promise that resolves when the version has been incremented and the release has been triggered
  */
 async function updateWorkspaceSemVer(workspace, info) {
-  if (workspace === '@lightning/ui') {
-    // Remove this if/else when final release to 5.0
-    await execPromise(
-      `yarn workspace ${workspace} exec npm version prerelease --no-git-tag-version --preid=next`
-    ).then(response =>
-      console.log(`[${workspace}: update version] ${response}`)
-    );
-  } else {
-    await execPromise(
-      `yarn workspace ${workspace} exec npm version ${info.type}`
-    ).then(response =>
-      console.log(`[${workspace}: update version] ${response}`)
-    );
-  }
+  await execPromise(
+    `yarn workspace ${workspace} exec npm version ${info.type} --no-git-tag-version`
+  ).then(response => console.log(`[${workspace}: update version] ${response}`));
 }
 
 /**
@@ -124,15 +115,9 @@ async function releaseWorkspace(workspace, info) {
   await execPromise(
     `yarn workspace ${workspace} exec yarn node ./scripts/pre.mjs || true`
   ).then(response => console.log(`[${workspace}: run pre script] ${response}`)); // Some builds may need additional steps ex. For @lightning/ui we will remove "type": "module"
-  if (workspace === '@lightning/ui') {
-    await execPromise(
-      `yarn workspace ${workspace} exec yarn npm publish --tolerate-republish --tag next`
-    ).then(response => console.log(`[${workspace}: publish] ${response}`)); // Replace with yarn npm publish when ready to actually release
-  } else {
-    await execPromise(
-      `yarn workspace ${workspace} exec yarn npm publish --tolerate-republish`
-    ).then(response => console.log(`[${workspace}: publish] ${response}`)); // Replace with yarn npm publish when ready to actually release
-  }
+  await execPromise(
+    `yarn workspace ${workspace} exec yarn npm publish --tolerate-republish`
+  ).then(response => console.log(`[${workspace}: publish] ${response}`)); // Replace with yarn npm publish when ready to actually release
   await execPromise(
     `yarn workspace ${workspace} exec yarn node ./scripts/post.mjs || true`
   ).then(response =>
@@ -145,13 +130,14 @@ async function releaseWorkspace(workspace, info) {
   const { name, version } = require('../../packages/' +
     workspace +
     '/package.json');
-  console.log(name, version);
+
   await generateTag(name, version, info.commitList);
   await generateSlackChangelog(name, version, info.commitList);
 }
 
 async function generateTag(name, version, commits) {
   console.log(`git tag ${name}@${version}`);
+  releaseVersions.push(`${name}@${version}`);
   await execPromise(`git tag ${name}@${version}`);
 }
 
@@ -315,4 +301,6 @@ async function release() {
   }
 }
 
-release();
+release().then(() => {
+  console.log(releaseVersions.join(', ').trim());
+});
