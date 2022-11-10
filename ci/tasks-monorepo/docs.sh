@@ -11,4 +11,4 @@ yarn workspace lightning-ui-docs exec find ./storybook-static
 
 git config user.name $USERNAME
 git config user.email $EMAIL
-yarn gh-pages -d /packages/apps/lightning-ui-docs/storybook-static
+yarn gh-pages -d ./packages/apps/lightning-ui-docs/storybook-static
