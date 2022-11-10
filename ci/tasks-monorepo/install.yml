@@ -3,7 +3,7 @@ platform: linux
 inputs:
   - name: source-repo
 outputs:
-  - name: code
+  - name: source-repo-ready
     path: source-repo
 image_resource:
   type: docker-image
