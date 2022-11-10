@@ -17,7 +17,7 @@ exec('git rev-parse HEAD', (err, hash) => {
       }
       console.log('Release log updated')
       exec(
-        `git add ./ci/release/.release.json && git commit -m 'ci: update release log [ci skip]'`, // Make sure this commit does not retrigger the release pipeline
+        `git add ./ci/release/.release.json && git commit -m 'ci: update release log [skip deploy]'`, // Make sure this commit does not retrigger the release pipeline
         (err, output) => {
           if (err) {
             console.error(output);
