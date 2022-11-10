@@ -1,12 +1,16 @@
 module.exports = name => {
   return `
     import Base from '../Base';
-    import styles from './${name}.styles.js';
-    import { withExtensions, withThemeStyles as withStyles } from '@lightning/ui-core';
+    import * as styles from './${name}.styles.js';
+    import { withExtensions} from '@lightning/ui-core';
 
     class ${name} extends Base {
       static get __componentName() {
         return '${name}';
+      }
+
+      static get __themeStyle() {
+        return styles;
       }
 
       static _template() {
@@ -33,6 +37,6 @@ module.exports = name => {
       }
     }
 
-    export default withExtensions(withStyles(${name}, styles));
+    export default withExtensions(${name});
   `;
 };

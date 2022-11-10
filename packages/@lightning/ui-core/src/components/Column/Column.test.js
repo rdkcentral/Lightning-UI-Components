@@ -3,7 +3,7 @@ import Row from '../Row/index.js';
 import TestRenderer from '../../../test/lightning-test-renderer.js';
 import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
 import lng from '@lightningjs/core';
-import withThemeStyles from '../../mixins/withThemeStyles/index.js';
+import { withThemeStyles } from '../../mixins/';
 import {
   completeAnimation,
   nextTick

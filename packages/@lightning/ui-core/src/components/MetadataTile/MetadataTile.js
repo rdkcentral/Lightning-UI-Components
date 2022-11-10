@@ -1,8 +1,5 @@
 import MetadataBase from '../MetadataBase/index.js';
-import {
-  withExtensions,
-  withThemeStyles as withStyles
-} from '../../mixins/index.js';
+import { withExtensions } from '../../mixins/index.js';
 import * as styles from './MetadataTile.styles.js';
 
 class MetadataTile extends MetadataBase {
@@ -64,4 +61,4 @@ class MetadataTile extends MetadataBase {
   }
 }
 
-export default withExtensions(withStyles(MetadataTile, styles));
+export default withExtensions(MetadataTile);

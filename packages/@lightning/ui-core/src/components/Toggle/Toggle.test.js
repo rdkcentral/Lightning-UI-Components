@@ -1,6 +1,6 @@
 import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
 import Toggle from './index.js';
-import withStyles from '../../mixins/withThemeStyles/index.js';
+import { withThemeStyles } from '../../mixins/';
 import { expect, jest } from '@jest/globals';
 
 const createToggle = makeCreateComponent(Toggle);
@@ -14,7 +14,7 @@ const styles = {
   knobRadius: 16,
   knobPadding: 2
 };
-const createStyledToggle = makeCreateComponent(withStyles(Toggle, styles));
+const createStyledToggle = makeCreateComponent(withThemeStyles(Toggle, styles));
 
 describe('Toggle', () => {
   let toggle, styledToggle, testRenderer;
