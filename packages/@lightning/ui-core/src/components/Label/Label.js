@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
 import { withExtensions } from '../../mixins/index.js';
-import withStyles from '../../mixins/withThemeStyles/index.js';
 import * as styles from './Label.styles.js';
 
 class Label extends Base {
@@ -85,4 +84,4 @@ class Label extends Base {
   }
 }
 
-export default withExtensions(withStyles(Label, styles));
+export default withExtensions(Label);
