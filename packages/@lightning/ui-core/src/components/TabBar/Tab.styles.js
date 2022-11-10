@@ -26,7 +26,8 @@ export const mode = theme => ({
   },
   disabled: {
     backgroundColor: theme.color.fillTransparent,
-    contentColor: theme.color.fillNeutralDisabled
+    contentColor: theme.color.fillNeutralDisabled,
+    textStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
 
