@@ -323,7 +323,7 @@ jobs:
           source-repo: source-repo-4x
         params:
           CI_NAME: "codeship" # Force env-ci (used in sematic-release package) to use codeship configuration in order to bypass failing branch env var check
-          CI_BRANCH: "release"
+          CI_BRANCH: "4.x"
           HOST: ((github-enterprise.host))
           PRIVATE_KEY: ((github-enterprise.private-key))
           USERNAME: ((service-account.username))
