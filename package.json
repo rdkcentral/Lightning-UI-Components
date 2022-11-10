@@ -1,6 +1,6 @@
 {
   "name": "@lightning/monorepo",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "packageManager": "yarn@3.2.3",
   "private": true,
   "workspaces": [
