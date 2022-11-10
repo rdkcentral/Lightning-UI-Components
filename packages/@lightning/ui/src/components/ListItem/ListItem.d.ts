@@ -12,7 +12,7 @@ type LogoStylesObject = {
   w: number;
 };
 
-export type ListItemBaseStyles = ButtonStyles & {
+export type ListItemStyles = ButtonStyles & {
   alpha: number;
   descriptionTextStyle: TextBoxStyles;
   h: number;
@@ -24,11 +24,11 @@ export type ListItemBaseStyles = ButtonStyles & {
   titleTextStyle: TextBoxStyles;
 };
 
-export default class ListItemBase extends Button {
+export default class ListItem extends Button {
   description?: string;
   prefixLogo?: string;
   shouldCollapse?: boolean;
   suffixLogo?: string;
-  get style(): ListItemBaseStyles;
-  set style(v: StylePartial<ListItemBaseStyles>);
+  get style(): ListItemStyles;
+  set style(v: StylePartial<ListItemStyles>);
 }

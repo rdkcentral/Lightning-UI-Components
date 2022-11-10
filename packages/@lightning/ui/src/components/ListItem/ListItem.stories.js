@@ -1,13 +1,13 @@
 import lng from '@lightningjs/core';
-import ListItemBaseComponent from './ListItemBase';
-import mdx from './ListItemBase.mdx';
+import ListItemComponent from './ListItem';
+import mdx from './ListItem.mdx';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { Checkbox, Radio, Toggle } from '@lightning/ui-core';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: `${CATEGORIES[2]}/ListItemBase`,
+  title: `${CATEGORIES[2]}/ListItem`,
   parameters: {
     docs: {
       page: mdx
@@ -15,18 +15,18 @@ export default {
   }
 };
 
-export const ListItemBase = () =>
-  class ListItemBase extends lng.Component {
+export const ListItem = () =>
+  class ListItem extends lng.Component {
     static _template() {
       return {
-        ListItemBase: {
-          type: ListItemBaseComponent
+        ListItem: {
+          type: ListItemComponent
         }
       };
     }
   };
 
-ListItemBase.storyName = 'ListItemBase';
+ListItem.storyName = 'ListItem';
 
 const sharedArgTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
@@ -116,30 +116,30 @@ const elementSet = {
 const sharedArgActions = {
   prefix: (prefix, component) => {
     if (prefix == null) {
-      component.tag('ListItemBase').prefix = [];
+      component.tag('ListItem').prefix = [];
     } else {
-      component.tag('ListItemBase').prefix = elementSet[prefix];
+      component.tag('ListItem').prefix = elementSet[prefix];
     }
   },
   prefixLogo: (prefixLogo, component) => {
-    component.tag('ListItemBase').prefixLogo = logoSet[prefixLogo];
+    component.tag('ListItem').prefixLogo = logoSet[prefixLogo];
   },
   suffixLogo: (suffixLogo, component) => {
-    component.tag('ListItemBase').suffixLogo = logoSet[suffixLogo];
+    component.tag('ListItem').suffixLogo = logoSet[suffixLogo];
   },
   suffix: (suffix, component) => {
     if (suffix == null) {
-      component.tag('ListItemBase').suffix = [];
+      component.tag('ListItem').suffix = [];
     } else {
-      component.tag('ListItemBase').suffix = elementSet[suffix];
+      component.tag('ListItem').suffix = elementSet[suffix];
     }
   }
 };
 
-ListItemBase.args = {
+ListItem.args = {
   title: 'List Item',
   description: 'Description'
 };
 
-ListItemBase.argTypes = sharedArgTypes;
-ListItemBase.parameters = { argActions: sharedArgActions };
+ListItem.argTypes = sharedArgTypes;
+ListItem.parameters = { argActions: sharedArgActions };

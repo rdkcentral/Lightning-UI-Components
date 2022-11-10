@@ -1,4 +1,4 @@
-import ListItemBase from './ListItemBase';
+import ListItem from './ListItem';
 import ListItemSlider from './ListItemSlider';
 
-export { ListItemBase as default, ListItemSlider };
+export { ListItem as default, ListItemSlider };

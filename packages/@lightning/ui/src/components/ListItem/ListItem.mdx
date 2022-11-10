@@ -1,30 +1,29 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../.storybook/utils';
 import ListItem from '.';
 
 # ListItem
 
-Component to be displayed in a list
+Component to represent a single item within a list.
 
 ## Source
 
-https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/listItems/listItems.js
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/ListItem/ListItem.js
 
 ## Usage
 
-`ListItem` can display a `title`, `subtitle`, and `icon`:
+'ListItem' extends 'Button', and therefore utilizes much of the same functionality and properties. It can display an 'Icon' or 'Checkbox' before the text, a title and/or description in the center of the content, and an 'Icon' or 'Checkbox' in the Suffix after the text.
 
 ```js
 import { ListItem } from '@lightning/ui';
 
-class Example extends lng.Component {
+class Basic extends lng.Component {
   static _template() {
     return {
       ListItem: {
         type: ListItem,
         title: 'List Item',
-        subtitle: 'List item metadata',
-        icon: 'path/to/icon.png'
+        description: 'Description',
+        prefix: [{ type: Icon, icon: pathToIcon }]
       }
     };
   }
@@ -32,70 +31,32 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="controls-listitem--basic" />
+  <Story id="controls-listitem--list-item" />
 </Canvas>
-
-The expected icon size is 40x40.
-
-### Background
-
-For a transparent background, set `backgroundType: 'float'`. The default value is `fill`.
-
-### Sizing
-
-There are five sizing options, `xsmall`, `small`, `medium`, `large`, and any positive integer. The default value is `large`. All the options, except for `xsmall` affect only the width, while keeping the height fixed at 96px. `xsmall` sets the height to to 80px.
-
-### Focus
-
-When focused, the background/foreground colors are inverted.
-
-### Icons
-
-Adding icons to a `ListItem` is optional, and they can be added one of two ways:
-
-**Pass a url path**
-
-```js
-{
-  type: ListItem,
-  icon: 'path/to/icon.png'
-}
-```
-
-**Pass a list of paths**
-
-```js
-{
-  type: ListItem,
-  icon: ['path/to/icon.png', 'path/to/other/icon.png']
-}
-```
-
-If multiple icons are passed, they will be laid out horizontally in order.
-
-<Canvas>
-  <Story id="listitem--multiple-icons" />
-</Canvas>
-
-Any common image extension can be passed as `icon`, or an inline `SVG`. The expected icon dimension is 40x40.
 
 ## API
 
 ### Properties
 
-| name           | type                                         | readonly | description                                                                           |
-| -------------- | -------------------------------------------- | -------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
-| backgroundType | 'fill'\|'float'\|'ghost'                     | false    | color of `ListItem` container                                                         |
-| icon           | string\|string[]                             | false    | path to icon image (or list of paths). See <a href="?path=/docs/icon--basic">Icon</a> |
-| size           | 'xsmall'\|'small'\|'medium'\|'large'\|number | false    | width of the `ListItem` container                                                     |
-| subtitle       | string                                       | false    | item metadata info goes here                                                          |
-| title          | string                                       | false    | main item info goes here                                                              |
-| collapse       | bool                                         | false    | set to true to hide subtitle when ListItem is not in focus                            |
-| announce       | string                                       | true     | label or title                                                                        | announcement text for screen readers |
-| collapseIcon   | boolean                                      | false    | hide the list item icon(s) on focus                                                   |
+`ListItem` has the same properties as the ones listed in [Button](?path=/docs/elements-button--basic) in addition to a couple listed below:
 
-### Methods
+| name           | type    | default | description                                                                           |
+| -------------- | ------- | ------- | ------------------------------------------------------------------------------------- |
+| description    | string  | -       | description text                                                                      |
+| prefixLogo     | string  | -       | Logo to be placed to the left of the title and description                            |
+| shouldCollapse | boolean | false   | flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode |
+| suffixLogo     | string  | -       | Logo to be placed to the right of the title and description                           |
 
-#### onEnter(thisArg): void
+### Style Properties
 
-Callback to be executed on <kbd>Enter</kbd> key down event
+| name                 | type   | description                                  |
+| -------------------- | ------ | -------------------------------------------- |
+| alpha                | number | transparency of prefix and suffix components |
+| descriptionTextStyle | object | text style to apply to the description       |
+| h                    | number | height of ListItem                           |
+| logoStyles           | object | custom styling for the logo element          |
+| paddingX             | number | padding on left and right sides of text      |
+| prefixH              | number | height of prefix                             |
+| suffixH              | number | height of suffix                             |
+| titlePadding         | number | padding between title and prefix             |
+| titleTextStyle       | object | text style to apply to the title             |

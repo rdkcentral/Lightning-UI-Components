@@ -1,43 +1,48 @@
-export default theme => ({
-  icon: {
-    width: 40,
-    height: 40,
-    color: theme.palette.text.light.primary,
-    spacing: theme.spacing(2)
+import { utils } from '@lightning/ui-core';
+export const base = theme => ({
+  alpha: 1,
+  descriptionTextStyle: {
+    ...theme.typography.body3,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
   },
-  iconVariantFocus: 'inverse', // these can change with additional listItem refactoring
-  iconVariantUnfocus: 'neutral',
-  title: {
-    color: theme.palette.text.light.primary,
-    text: {
-      ...theme.typography.button1,
-      verticalAlign: 'top',
-      wordWrap: false
-    }
+  h: theme.spacer.xxl * 3,
+  logoStyles: {
+    w: theme.spacer.xxl * 2,
+    h: theme.spacer.xxl * 2,
+    radius: theme.radius.sm
   },
+  paddingX: theme.spacer.xl,
+  prefixH: theme.spacer.xxxl + theme.spacer.xl,
+  suffixH: theme.spacer.xxxl + theme.spacer.xl,
+  titlePadding: theme.spacer.lg,
+  titleTextStyle: {
+    ...theme.typography.headline3,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
+  },
+  w: utils.getWidthByColumnSpan(theme, 3)
+});
 
-  subtitle: {
-    color: theme.palette.text.light.secondary,
-    text: {
-      ...theme.typography.body3,
-      verticalAlign: 'top',
-      wordWrap: false
-    }
+export const mode = theme => ({
+  disabled: {
+    alpha: theme.alpha.inactive,
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
+    titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   },
   focused: {
-    icon: {
-      color: theme.palette.text.dark.primary
-    },
-    title: {
-      color: theme.palette.text.dark.primary
-    },
-    subtitle: {
-      color: theme.palette.text.dark.secondary
+    descriptionTextStyle: { textColor: theme.color.fillInverse },
+    titleTextStyle: { textColor: theme.color.fillInverse }
+  }
+});
+
+export const palette = theme => ({
+  inverse: {
+    mode: {
+      focused: {
+        descriptionTextStyle: { textColor: theme.color.textInverseDisabled },
+        titleTextStyle: { textColor: theme.color.textNeutralDisabled }
+      }
     }
-  },
-  fixedText: {
-    wordWrap: false,
-    textOverflow: 'ellipsis',
-    maxLinesSuffix: '...'
   }
 });
