@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # setup ssh for GHE
 mkdir ~/.ssh
