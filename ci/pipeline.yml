@@ -71,6 +71,8 @@ resources:
       branch: next
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
+      commit_filter:
+        exclude: ["\\[skip deploy\\]", "\\[deploy skip\\]"]
   
   - name: lui-slack-notification
     type: slack-notification

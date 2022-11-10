@@ -14,5 +14,5 @@ git config user.email $NPM_EMAIL
 yarn release
 
 git add -A
-git commit -m 'ci: release [ci skip]' || echo 0;
+git commit -m 'ci: release [skip deploy]' || echo 0;
 yarn updateReleaseLog || echo 0;
