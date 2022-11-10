@@ -24,24 +24,24 @@ export const Wave = () =>
   };
 
 Wave.args = {
-  'toggle animation': true
+  toggleAnimation: true
 };
 
 Wave.argTypes = {
-  'toggle animation': {
+  toggleAnimation: {
+    control: 'boolean',
     defaultValue: true,
-    control: {
-      type: 'boolean'
-    },
     description:
       'utilize the startAnimation() and stopAnimation() methods to toggle state',
-    table: { defaultValue: { summary: false } }
+    table: {
+      defaultValue: { summary: 'true' }
+    }
   }
 };
 
 Wave.parameters = {
   argActions: {
-    'toggle animation': (shouldAnimate, component) => {
+    toggleAnimation: (shouldAnimate, component) => {
       shouldAnimate
         ? component.tag('Wave').startAnimation()
         : component.tag('Wave').stopAnimation();
