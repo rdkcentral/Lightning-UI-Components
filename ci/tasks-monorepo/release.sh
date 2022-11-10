@@ -16,4 +16,3 @@ yarn release
 git add -A
 git commit -m 'ci: release [ci skip]' || echo 0;
 yarn updateReleaseLog || echo 0;
-git push origin next
