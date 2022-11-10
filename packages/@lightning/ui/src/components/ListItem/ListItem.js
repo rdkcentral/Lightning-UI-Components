@@ -1,9 +1,9 @@
-import * as styles from './ListItemBase.styles.js';
+import * as styles from './ListItem.styles.js';
 import { Button, TextBox, Icon, withExtensions } from '@lightning/ui-core';
 
-class ListItemBase extends Button {
+class ListItem extends Button {
   static get __componentName() {
-    return 'ListItemBase';
+    return 'ListItem';
   }
 
   static get __themeStyle() {
@@ -185,4 +185,4 @@ class ListItemBase extends Button {
   }
 }
 
-export default withExtensions(ListItemBase);
+export default withExtensions(ListItem);

@@ -1,19 +1,19 @@
 import TestUtils from '@lightning/ui-core/test';
-import ListItemBase from './ListItemBase';
-import Icon from '..//Icon';
+import ListItem from './ListItem';
+import Icon from '../Icon';
 
 const logoPath = '../../assets/images/Xfinity-Provider-Logo-Square.png';
 
-const createComponent = TestUtils.makeCreateComponent(ListItemBase);
+const createComponent = TestUtils.makeCreateComponent(ListItem);
 
 const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
 
-describe('ListItemBase', () => {
+describe('ListItem', () => {
   let component, testRenderer;
 
   beforeEach(() => {
     [component, testRenderer] = createComponent({
-      title: 'ListItemBase',
+      title: 'ListItem',
       description: 'Description'
     });
   });
@@ -138,11 +138,11 @@ describe('ListItemBase', () => {
 
   describe('announcer', () => {
     it('should use the title and description as the default announce string', () => {
-      expect(component.announce).toEqual('ListItemBaseDescription, List Item');
+      expect(component.announce).toEqual('ListItemDescription, List Item');
     });
 
     it('should append List Item to end of announce context', () => {
-      expect(component.announce).toEqual('ListItemBaseDescription, List Item');
+      expect(component.announce).toEqual('ListItemDescription, List Item');
     });
 
     it('should prefer the announce prop over the default announce', () => {

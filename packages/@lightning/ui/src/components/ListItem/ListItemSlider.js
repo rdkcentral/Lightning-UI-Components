@@ -1,9 +1,9 @@
 import NestedSlider from './NestedSlider';
-import ListItemBase from './ListItemBase';
+import ListItem from './ListItem';
 import * as styles from './ListItemSlider.styles.js';
 import { withExtensions, TextBox } from '@lightning/ui-core';
 
-class ListItemSlider extends ListItemBase {
+class ListItemSlider extends ListItem {
   static get __componentName() {
     return 'ListItemSlider';
   }

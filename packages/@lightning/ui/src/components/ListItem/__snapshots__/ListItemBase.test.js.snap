@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ListItemBase renders 1`] = `
+exports[`ListItem renders 1`] = `
 Object {
   "Component": Object {
     "Background": Object {
@@ -184,7 +184,7 @@ Object {
                     "lineHeight": 40,
                     "maxLines": 1,
                     "maxLinesSuffix": "...",
-                    "text": "ListItemBase",
+                    "text": "ListItem",
                     "textBaseline": "bottom",
                     "textColor": 4294375161,
                     "textOverflow": "ellipsis",
