@@ -2992,7 +2992,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.42.0
     "@typescript-eslint/parser": ^5.42.0
     "@visual-regression-tracker/agent-cypress": ^5.5.0
-    "@yarnpkg/plugin-version": ^4.0.0-rc.27
     cypress: ^10.11.0
     cypress-mochawesome-reporter: ^3.2.2
     eslint: ^8.0.1
@@ -5252,13 +5251,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yoga-layout@npm:1.9.2":
-  version: 1.9.2
-  resolution: "@types/yoga-layout@npm:1.9.2"
-  checksum: dbc3d6ab997d50fe1fcca5dd6822982c8fe586145ab648e0e97c3bc4ebc93d0b40c9edd75febaba374d61f60c1379b639f6be652965c776a901bf1068f2eac87
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/eslint-plugin@npm:^5.42.0":
   version: 5.42.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.42.0"
@@ -5865,27 +5857,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.27":
-  version: 3.0.0-rc.27
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.27"
-  dependencies:
-    tslib: ^2.4.0
-  checksum: 7d8ef1376cbc0a9a966cccd675c018403c7679049c5bc05446bec74e3b2b8e99b17af2feed165db725fb8477ffcc04d1e158dac805e0e938d3653e9bd2310622
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/libui@npm:^3.0.0-rc.27":
-  version: 3.0.0-rc.27
-  resolution: "@yarnpkg/libui@npm:3.0.0-rc.27"
-  dependencies:
-    tslib: ^2.4.0
-  peerDependencies:
-    ink: ^3.0.8
-    react: ^16.8.4
-  checksum: 2b339c34c60a2a462ce6ce382e65383561eb31a71458549a3123f1350a4439b8660b75a73838808e851824670c9afc14cf31d90c9cec0026927ccf391732142f
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/libzip@npm:^3.0.0-rc.25":
   version: 3.0.0-rc.25
   resolution: "@yarnpkg/libzip@npm:3.0.0-rc.25"
@@ -5916,37 +5887,6 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: c76ff37072814db2258f0d695db267b3eb3133fec6fe963db831e5288cc8fba2ece3db0732abbe52391da643c2c49522897ae0ccd0136e5cbf14428572d7ec15
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/parsers@npm:^3.0.0-rc.27":
-  version: 3.0.0-rc.27
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.27"
-  dependencies:
-    js-yaml: ^3.10.0
-    tslib: ^2.4.0
-  checksum: c7299fc135c859c35032bc6bcc2977aa7c61c4d81568b145c0eb4e5857de78a9ab112a073a445cfb7811b4f2ff4aa07db5850475e55ca09101267a3c6bb87cc0
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-version@npm:^4.0.0-rc.27":
-  version: 4.0.0-rc.27
-  resolution: "@yarnpkg/plugin-version@npm:4.0.0-rc.27"
-  dependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.27
-    "@yarnpkg/libui": ^3.0.0-rc.27
-    "@yarnpkg/parsers": ^3.0.0-rc.27
-    clipanion: ^3.2.0-rc.10
-    ink: ^3.0.8
-    lodash: ^4.17.15
-    react: ^16.13.1
-    semver: ^7.1.2
-    tslib: ^2.4.0
-  peerDependencies:
-    "@yarnpkg/cli": ^4.0.0-rc.27
-    "@yarnpkg/core": ^4.0.0-rc.27
-    "@yarnpkg/plugin-git": ^3.0.0-rc.27
-  checksum: 5be120847bb1550f73fe0b2e7ed4fe5a486eb67fad3c6a13874ef090b958a06cd6b310d9ef117eb5af44e0412308e497ffd247be05ba0141f4a8299bad34707d
   languageName: node
   linkType: hard
 
@@ -6675,13 +6615,6 @@ __metadata:
   bin:
     atob: bin/atob.js
   checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
-  languageName: node
-  linkType: hard
-
-"auto-bind@npm:4.0.0":
-  version: 4.0.0
-  resolution: "auto-bind@npm:4.0.0"
-  checksum: 00cad71cce5742faccb7dd65c1b55ebc4f45add4b0c9a1547b10b05bab22813230133b0c892c67ba3eb969a4524710c5e43cc45c72898ec84e56f3a596e7a04f
   languageName: node
   linkType: hard
 
@@ -7980,7 +7913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-boxes@npm:^2.2.0, cli-boxes@npm:^2.2.1":
+"cli-boxes@npm:^2.2.1":
   version: 2.2.1
   resolution: "cli-boxes@npm:2.2.1"
   checksum: be79f8ec23a558b49e01311b39a1ea01243ecee30539c880cf14bf518a12e223ef40c57ead0cb44f509bffdffc5c129c746cd50d863ab879385370112af4f585
@@ -8099,15 +8032,6 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 5210d9223010eb95b29df06a91116f2cf7c8e0748a9013ed853b53f362ea0e822f1e5bb054fb3cefc645239a4cf966af1f6133a3b43f40d591f3b68ed6cf0510
-  languageName: node
-  linkType: hard
-
-"code-excerpt@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "code-excerpt@npm:3.0.0"
-  dependencies:
-    convert-to-spaces: ^1.0.1
-  checksum: fa3a8ed15967076a43a4093b0c824cf0ada15d9aab12ea3c028851b72a69b56495aac1eadf18c3b6ae4baf0a95bb1e1faa9dbeeb0a2b2b5ae058da23328e9dd8
   languageName: node
   linkType: hard
 
@@ -8479,13 +8403,6 @@ __metadata:
   version: 1.1.3
   resolution: "convert-source-map@npm:1.1.3"
   checksum: 0ed6bdecd330fd05941b417b63ebc9001b438f6d6681cd9a068617c3d4b649794dc35c95ba239d0a01f0b9499912b9e0d0d1b7c612e3669c57c65ce4bbc8fdd8
-  languageName: node
-  linkType: hard
-
-"convert-to-spaces@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "convert-to-spaces@npm:1.0.2"
-  checksum: e73f2ae39eb2b184f0796138eaab9c088b03b94937377d31be5b2282aef6a6ccce6b46f51bd99b3b7dfc70f516e2a6b16c0dd911883bfadf8d1073f462480224
   languageName: node
   linkType: hard
 
@@ -12649,43 +12566,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:^3.0.8":
-  version: 3.2.0
-  resolution: "ink@npm:3.2.0"
-  dependencies:
-    ansi-escapes: ^4.2.1
-    auto-bind: 4.0.0
-    chalk: ^4.1.0
-    cli-boxes: ^2.2.0
-    cli-cursor: ^3.1.0
-    cli-truncate: ^2.1.0
-    code-excerpt: ^3.0.0
-    indent-string: ^4.0.0
-    is-ci: ^2.0.0
-    lodash: ^4.17.20
-    patch-console: ^1.0.0
-    react-devtools-core: ^4.19.1
-    react-reconciler: ^0.26.2
-    scheduler: ^0.20.2
-    signal-exit: ^3.0.2
-    slice-ansi: ^3.0.0
-    stack-utils: ^2.0.2
-    string-width: ^4.2.2
-    type-fest: ^0.12.0
-    widest-line: ^3.1.0
-    wrap-ansi: ^6.2.0
-    ws: ^7.5.5
-    yoga-layout-prebuilt: ^1.9.6
-  peerDependencies:
-    "@types/react": ">=16.8.0"
-    react: ">=16.8.0"
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 35f1b733b94bf12cc0bf7acb4d3fcba9d961ede15cee9c64a7325606b74cee78e1009eaffbac127f4d7d28e758d8259dea8d0850bfacb991b8d93632f41d3fa2
-  languageName: node
-  linkType: hard
-
 "inline-source-map@npm:~0.6.0":
   version: 0.6.2
   resolution: "inline-source-map@npm:0.6.2"
@@ -16454,13 +16334,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"patch-console@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "patch-console@npm:1.0.0"
-  checksum: 8cd738aa470f2e9463fca35da6a19403384ac555004f698ddd3dfdb69135ab60fe9bd2edd1dbdd8c09d92c0a2190fd0f7337fe48123013baf8ffec8532885a3a
-  languageName: node
-  linkType: hard
-
 "path-browserify@npm:0.0.1, path-browserify@npm:~0.0.0":
   version: 0.0.1
   resolution: "path-browserify@npm:0.0.1"
@@ -17351,16 +17224,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-devtools-core@npm:^4.19.1":
-  version: 4.26.1
-  resolution: "react-devtools-core@npm:4.26.1"
-  dependencies:
-    shell-quote: ^1.6.1
-    ws: ^7
-  checksum: 98d1899fc77d981804ad1f8aea842b168186acbf6af539dfd408a086b0cfa8d3db65d9009a5f5bfa1e337c760720f0a9a398145ac69c5c856cf426d5c84546ba
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:16.14.0":
   version: 16.14.0
   resolution: "react-dom@npm:16.14.0"
@@ -17428,19 +17291,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-reconciler@npm:^0.26.2":
-  version: 0.26.2
-  resolution: "react-reconciler@npm:0.26.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.2
-  peerDependencies:
-    react: ^17.0.2
-  checksum: 2ebceace56f547f51eaf142becefef9cca980eae4f42d90ee5a966f54a375f5082d78b71b00c40bbd9bca69e0e0f698c7d4e81cc7373437caa19831fddc1d01b
-  languageName: node
-  linkType: hard
-
 "react-syntax-highlighter@npm:^15.4.5":
   version: 15.5.0
   resolution: "react-syntax-highlighter@npm:15.5.0"
@@ -17456,7 +17306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:16.14.0, react@npm:^16.13.1":
+"react@npm:16.14.0":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
   dependencies:
@@ -18314,16 +18164,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.20.2":
-  version: 0.20.2
-  resolution: "scheduler@npm:0.20.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
-  languageName: node
-  linkType: hard
-
 "scheduler@npm:^0.23.0":
   version: 0.23.0
   resolution: "scheduler@npm:0.23.0"
@@ -19012,15 +18852,6 @@ __metadata:
   version: 0.1.8
   resolution: "stable@npm:0.1.8"
   checksum: 2ff482bb100285d16dd75cd8f7c60ab652570e8952c0bfa91828a2b5f646a0ff533f14596ea4eabd48bb7f4aeea408dce8f8515812b975d958a4cc4fa6b9dfeb
-  languageName: node
-  linkType: hard
-
-"stack-utils@npm:^2.0.2":
-  version: 2.0.6
-  resolution: "stack-utils@npm:2.0.6"
-  dependencies:
-    escape-string-regexp: ^2.0.0
-  checksum: 052bf4d25bbf5f78e06c1d5e67de2e088b06871fa04107ca8d3f0e9d9263326e2942c8bedee3545795fc77d787d443a538345eef74db2f8e35db3558c6f91ff7
   languageName: node
   linkType: hard
 
@@ -20059,13 +19890,6 @@ __metadata:
   version: 4.0.8
   resolution: "type-detect@npm:4.0.8"
   checksum: 62b5628bff67c0eb0b66afa371bd73e230399a8d2ad30d852716efcc4656a7516904570cd8631a49a3ce57c10225adf5d0cbdcb47f6b0255fe6557c453925a15
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "type-fest@npm:0.12.0"
-  checksum: 407d6c1a6fcc907f6124c37e977ba4966205014787a32a27579da6e47c3b1bd210b68cc1c7764d904c8aa55fb4efa6945586f9b4fae742c63ed026a4559da07d
   languageName: node
   linkType: hard
 
@@ -21234,21 +21058,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^7, ws@npm:^7.5.5":
-  version: 7.5.9
-  resolution: "ws@npm:7.5.9"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ^5.0.2
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: c3c100a181b731f40b7f2fddf004aa023f79d64f489706a28bc23ff88e87f6a64b3c6651fbec3a84a53960b75159574d7a7385709847a62ddb7ad6af76f49138
-  languageName: node
-  linkType: hard
-
 "ws@npm:^8.2.3":
   version: 8.9.0
   resolution: "ws@npm:8.9.0"
@@ -21450,15 +21259,6 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
-  languageName: node
-  linkType: hard
-
-"yoga-layout-prebuilt@npm:^1.9.6":
-  version: 1.10.0
-  resolution: "yoga-layout-prebuilt@npm:1.10.0"
-  dependencies:
-    "@types/yoga-layout": 1.9.2
-  checksum: 6954c7c7b04c585a1c974391bea4734611adb85702b5e9131549a1d3dc5b94e69bcfea34121cdaeb5e702663bf290fcce5374910128e54d1031503a57c062865
   languageName: node
   linkType: hard
 
