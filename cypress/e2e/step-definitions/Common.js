@@ -15,6 +15,7 @@ import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
 import Distractor from '../pageObjects/utilities/distractor.utilities';
+import Wave from '../pageObjects/utilities/wave.utilities';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -36,7 +37,8 @@ function getPageObject(pageName) {
     button: Button,
     toggle: Toggle,
     togglesmall: ToggleSmall,
-    distractor: Distractor
+    distractor: Distractor,
+    wave: Wave
   };
 
   if (pageName in pageObjects) {
@@ -653,24 +655,40 @@ export default function () {
       const page = pageName.toLowerCase();
       const component = componentName.toLowerCase();
       const pageObject = getPageObject(page);
-      let initialScalex, finalScalex;
+      let initialValue, finalValue;
+      const attribute = {
+        distractor: 'scalex',
+        wave: 'h'
+      };
 
       pageObject
         ._getElementByName(component)
-        .should('have.attr', 'scalex')
-        .then(scalex => {
-          initialScalex = parseFloat(scalex);
+        .should('have.attr', attribute[page])
+        .then(value => {
+          initialValue = parseFloat(value);
         })
         .then(() => {
           cy.wait(1000);
           pageObject
             ._getElementByName(component)
-            .should('have.attr', 'scalex')
-            .then(scalex => {
-              finalScalex = parseFloat(scalex);
-              expect(initialScalex).not.equal(finalScalex);
-              expect(initialScalex).to.be.within(0, 1.05);
-              expect(finalScalex).to.be.within(0, 1.05);
+            .should('have.attr', attribute[page])
+            .then(value => {
+              finalValue = parseFloat(value);
+              expect(initialValue).not.equal(finalValue);
+              switch (page) {
+                case 'distractor':
+                  expect(initialValue).to.be.within(0, 1.05);
+                  expect(finalValue).to.be.within(0, 1.05);
+                  break;
+                case 'wave':
+                  expect(initialValue).to.be.within(10, 82);
+                  expect(finalValue).to.be.within(10, 82);
+                  break;
+                default:
+                  throw new Error(
+                    `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
+                  );
+              }
             });
         });
     }
