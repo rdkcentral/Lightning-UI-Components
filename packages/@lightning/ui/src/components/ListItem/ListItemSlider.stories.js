@@ -3,7 +3,7 @@ import { default as ListItemSliderComponent } from './ListItemSlider';
 import mdx from './ListItemSlider.mdx';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
 import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
-import { BasicSlider as SliderStory } from '../../../../ui-core/src/components/Slider/Slider.stories';
+import { Basic as SliderStory } from '../../../../ui-core/src/components/Slider/Slider.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

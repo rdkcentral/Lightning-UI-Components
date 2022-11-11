@@ -3,7 +3,7 @@ import { Tile, Row } from '../../components/index.js';
 import { context } from '../../globals/index.js';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 import mdx from './withHandleKey.mdx';
-import withHandleKey from './index.js';
+import withHandleKeyMixin from '.';
 
 context.config({
   // Inspect console to see - should only be called when pressing enter on first tile.
@@ -24,8 +24,8 @@ export default {
   }
 };
 
-export const Base = args => {
-  class BaseInternal extends lng.Component {
+export const withHandleKey = args => {
+  class withHandleKey extends lng.Component {
     static _template() {
       return {
         x: 60,
@@ -80,16 +80,18 @@ export const Base = args => {
       return this.tag('Row');
     }
   }
-  return withHandleKey(BaseInternal);
+  return withHandleKeyMixin(withHandleKey);
 };
 
-Base.args = {
+withHandleKey.storyName = 'withHandleKey';
+
+withHandleKey.args = {
   metricsPayload: (name, id) => ({
     buttonName: `${name} button`,
     uniqueId: id
   })
 };
 
-Base.argTypes = {
+withHandleKey.argTypes = {
   onEnter: { action: 'You hit Enter' }
 };

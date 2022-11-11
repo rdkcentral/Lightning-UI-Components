@@ -14,8 +14,8 @@ export default {
   }
 };
 
-export const SliderLarge = () =>
-  class SliderLarge extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
@@ -24,7 +24,7 @@ export const SliderLarge = () =>
       };
     }
   };
-SliderLarge.args = {
+Basic.args = {
   min: 0,
   max: 100,
   value: 50,
@@ -32,7 +32,7 @@ SliderLarge.args = {
   focused: true,
   disabled: false
 };
-SliderLarge.argTypes = {
+Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   min: {
     control: 'number',

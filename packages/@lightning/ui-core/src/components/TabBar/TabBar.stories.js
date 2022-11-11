@@ -127,8 +127,8 @@ const colPromise = () => {
   });
 };
 
-export const TabBar = () =>
-  class TabBar extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         TabBar: {

@@ -4,7 +4,7 @@ import { Base, Column, TextBox, Tile, Button } from '../src/components';
 import tileImage from '../src/assets/images/tile-image.png';
 
 export default {
-  title: 'Collections/Theming Foundations'
+  title: 'Collections/Theming Tokens'
 };
 
 class Explanation extends Base {
@@ -174,7 +174,7 @@ class MiscProp extends Base {
   }
 }
 
-export const TypographyAndColors = () => {
+export const ThemingTokens = () => {
   class Basic extends lng.Component {
     static _template() {
       const itemSpacing = 10;
@@ -614,10 +614,6 @@ export const TypographyAndColors = () => {
           }
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('DummyElement');
     }
   }
 

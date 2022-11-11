@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import mdx from './withUpdates.mdx';
-import withUpdates from './index.js';
+import withUpdatesMixin from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
@@ -12,8 +12,8 @@ export default {
   }
 };
 
-export const Basic = args =>
-  class Basic extends withUpdates(lng.Component) {
+export const withUpdates = args =>
+  class withUpdates extends withUpdatesMixin(lng.Component) {
     static get properties() {
       return ['title'];
     }
@@ -40,10 +40,12 @@ export const Basic = args =>
     }
   };
 
-Basic.args = {
+withUpdates.storyName = 'withUpdates';
+
+withUpdates.args = {
   title: 'Default Title Value'
 };
 
-Basic.argTypes = {
+withUpdates.argTypes = {
   title: { control: 'text' }
 };

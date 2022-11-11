@@ -50,10 +50,6 @@ export const IconSVG = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Badge');
-    }
   };
 IconSVG.args = {
   iconAlign: 'left'
@@ -78,10 +74,6 @@ export const IconPNG = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Badge');
-    }
   };
 
 export const TextWithIcon = args =>
@@ -94,10 +86,6 @@ export const TextWithIcon = args =>
           icon: lightning
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Badge');
     }
   };
 TextWithIcon.args = {

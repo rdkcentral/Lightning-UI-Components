@@ -6,7 +6,7 @@ import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories.js';
 import { Label as LabelStory } from '../Label/Label.stories.js';
 import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
-import { Base as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories.js';
+import { withLayout as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories.js';
 import { generateSubStory } from '../../../storybook/index.js';
 import { createModeControl } from '../../../storybook/index.js';
 import tileImage from '../../assets/images/tile-image.png';

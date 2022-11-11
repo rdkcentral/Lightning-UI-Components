@@ -114,8 +114,8 @@ export default {
   }
 };
 
-export const ScrollWrapper = args =>
-  class ScrollWrapper extends lng.Component {
+export const Basic = args =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         ScrollWrapper: {

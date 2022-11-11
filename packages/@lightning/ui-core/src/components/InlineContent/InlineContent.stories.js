@@ -69,8 +69,8 @@ export default {
   }
 };
 
-export const InlineContent = args =>
-  class InlineContent extends lng.Component {
+export const Basic = args =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         InlineContent: {
@@ -118,10 +118,6 @@ export const InlineContent = args =>
     $loadedInlineContent() {
       args.loaded();
     }
-
-    _getFocused() {
-      return this.tag('InlineContent');
-    }
   };
 
 export const WithNewLines = args =>
@@ -162,10 +158,6 @@ export const WithNewLines = args =>
     $loadedInlineContent() {
       args.loaded();
     }
-
-    _getFocused() {
-      return this.tag('InlineContent');
-    }
   };
 
 export const WithParsing = args =>
@@ -193,9 +185,5 @@ export const WithParsing = args =>
 
     $loadedInlineContent() {
       args.loaded();
-    }
-
-    _getFocused() {
-      return this.tag('InlineContent');
     }
   };

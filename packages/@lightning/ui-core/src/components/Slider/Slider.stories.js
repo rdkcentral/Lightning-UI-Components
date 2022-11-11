@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../../storybook/index.js';
 import TextBox from '../TextBox/index.js';
 import mdx from './Slider.mdx';
-import Slider from './index.js';
+import Slider from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
@@ -15,8 +15,8 @@ export default {
   }
 };
 
-export const BasicSlider = () =>
-  class BasicSlider extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
@@ -26,14 +26,14 @@ export const BasicSlider = () =>
     }
   };
 
-BasicSlider.args = {
+Basic.args = {
   min: 0,
   max: 100,
   value: 50,
   step: 1,
   vertical: false
 };
-BasicSlider.argTypes = {
+Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   min: { control: 'number', description: 'lower bound of value' },
   max: { control: 'number', description: 'upper bound of value' },

@@ -25,8 +25,8 @@ export default {
   }
 };
 
-export const Tooltip = () =>
-  class Tooltip extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Tooltip: {
@@ -36,7 +36,7 @@ export const Tooltip = () =>
     }
   };
 
-export const LongTitle = Tooltip.bind({});
+export const LongTitle = Basic.bind({});
 LongTitle.args = {
   x: 1280 / 2,
   title:

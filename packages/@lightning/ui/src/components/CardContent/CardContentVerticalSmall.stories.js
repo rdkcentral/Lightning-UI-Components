@@ -7,7 +7,7 @@ import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Bad
 import { MetadataCardContent as MetadataStory } from '..//MetadataCardContent/MetadataCardContent.stories';
 import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
-import CardContentVerticalSmall from './CardContentVerticalSmall';
+import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -20,23 +20,26 @@ export default {
   }
 };
 
-export const VerticalSmall = args =>
-  class VerticalSmall extends lng.Component {
+export const CardContentVerticalSmall = args =>
+  class CardContentVerticalSmall extends lng.Component {
     static _template() {
       return {
         CardContentVerticalSmall: {
-          type: CardContentVerticalSmall,
+          type: CardContentVerticalSmallComponent,
           src: tileImage,
           shouldCollapse: args.shouldCollapse
         }
       };
     }
   };
-VerticalSmall.args = {
+
+CardContentVerticalSmall.storyName = 'CardContentVerticalSmall';
+
+CardContentVerticalSmall.args = {
   shouldCollapse: false,
   ...CardContent.tileProps.args
 };
-VerticalSmall.argTypes = {
+CardContentVerticalSmall.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
@@ -48,31 +51,31 @@ VerticalSmall.argTypes = {
   },
   ...CardContent.tileProps.argTypes
 };
-VerticalSmall.parameters = {
+CardContentVerticalSmall.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVerticalSmall')
 };
 generateSubStory(
   'CardContentVerticalSmall',
-  VerticalSmall,
+  CardContentVerticalSmall,
   BadgeStory,
   'badge'
 );
 generateSubStory(
   'CardContentVerticalSmall',
-  VerticalSmall,
+  CardContentVerticalSmall,
   LabelStory,
   'label'
 );
 generateSubStory(
   'CardContentVerticalSmall',
-  VerticalSmall,
+  CardContentVerticalSmall,
   ProgressBarStory,
   'progressBar',
   ['w']
 );
 generateSubStory(
   'CardContentVerticalSmall',
-  VerticalSmall,
+  CardContentVerticalSmall,
   MetadataStory,
   'metadata',
   ['w', 'h', 'details', 'visibleCount']

@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 
-import Notification from '.';
+import NotificationComponent from '.';
 import mdx from './Notification.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
@@ -25,12 +25,12 @@ const logoSet = {
   xfinity: xfinity
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Notification = () =>
+  class Notification extends lng.Component {
     static _template() {
       return {
         Notification: {
-          type: Notification,
+          type: NotificationComponent,
           onEnter() {
             this.dismiss();
           }
@@ -57,8 +57,8 @@ const defaultValues = {
   icon: 'none',
   logo: 'none'
 };
-Basic.args = defaultValues;
-Basic.argTypes = {
+Notification.args = defaultValues;
+Notification.argTypes = {
   title: {
     control: 'text',
     defaultValue: defaultValues.title,
@@ -111,7 +111,7 @@ Basic.argTypes = {
     }
   }
 };
-Basic.parameters = {
+Notification.parameters = {
   argActions: {
     state: (state, component) => {
       const func = state.split('(')[0];
