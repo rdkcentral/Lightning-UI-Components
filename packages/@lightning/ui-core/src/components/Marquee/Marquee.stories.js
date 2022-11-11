@@ -31,10 +31,8 @@ export const Marquee = args =>
         }
       };
     }
-    _getFocused() {
-      return this.tag('Marquee');
-    }
   };
+
 Marquee.args = {
   title: 'This is a scrolling Marquee component for long text',
   autoStart: true,
@@ -42,6 +40,7 @@ Marquee.args = {
   repeat: -1,
   delay: 1.5
 };
+
 Marquee.argTypes = {
   title: {
     control: 'text',
@@ -70,6 +69,7 @@ Marquee.argTypes = {
       'Will center the entire texture if the width of the content is less than the container'
   }
 };
+
 Marquee.parameters = {
   argActions: {}
 };

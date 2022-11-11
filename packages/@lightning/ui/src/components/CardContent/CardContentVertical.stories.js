@@ -7,7 +7,7 @@ import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Bad
 import { MetadataCardContent as MetadataStory } from '..//MetadataCardContent/MetadataCardContent.stories';
 import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
-import CardContentVertical from './CardContentVertical';
+import CardContentVerticalComponent from './CardContentVertical';
 import { Icon } from '@lightning/ui-core';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
@@ -22,12 +22,12 @@ export default {
   }
 };
 
-export const Vertical = args =>
-  class Vertical extends lng.Component {
+export const CardContentVertical = args =>
+  class CardContentVertical extends lng.Component {
     static _template() {
       return {
         CardContentVertical: {
-          type: CardContentVertical,
+          type: CardContentVerticalComponent,
           src: tileImage,
           shouldCollapse: args.shouldCollapse,
           metadata: {
@@ -46,11 +46,11 @@ export const Vertical = args =>
       };
     }
   };
-Vertical.args = {
+CardContentVertical.args = {
   shouldCollapse: false,
   ...CardContent.tileProps.args
 };
-Vertical.argTypes = {
+CardContentVertical.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   shouldCollapse: {
     defaultValue: false,
@@ -62,20 +62,34 @@ Vertical.argTypes = {
   },
   ...CardContent.tileProps.argTypes
 };
-Vertical.parameters = {
+
+CardContentVertical.storyName = 'CardContentVertical';
+CardContentVertical.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVertical')
 };
-generateSubStory('CardContentVertical', Vertical, BadgeStory, 'badge');
-generateSubStory('CardContentVertical', Vertical, LabelStory, 'label');
 generateSubStory(
   'CardContentVertical',
-  Vertical,
+  CardContentVertical,
+  BadgeStory,
+  'badge'
+);
+generateSubStory(
+  'CardContentVertical',
+  CardContentVertical,
+  LabelStory,
+  'label'
+);
+generateSubStory(
+  'CardContentVertical',
+  CardContentVertical,
   ProgressBarStory,
   'progressBar',
   ['w']
 );
-generateSubStory('CardContentVertical', Vertical, MetadataStory, 'metadata', [
-  'w',
-  'h',
-  'visibleCount'
-]);
+generateSubStory(
+  'CardContentVertical',
+  CardContentVertical,
+  MetadataStory,
+  'metadata',
+  ['w', 'h', 'visibleCount']
+);

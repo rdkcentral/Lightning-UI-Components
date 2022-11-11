@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import { FocusManager, Button } from '../../components/index.js';
-import withSelections from './index.js';
+import withSelectionsMixin from './index.js';
 import mdx from './withSelections.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -13,7 +13,7 @@ export default {
   }
 };
 
-export const Base = () => {
+export const withSelections = () => {
   class UnderlineButton extends Button {
     get isSelected() {
       return this._isSelected;
@@ -43,14 +43,11 @@ export const Base = () => {
     }
   }
 
-  return class Example extends lng.Component {
+  return class withSelections extends lng.Component {
     static _template() {
       return {
-        Title: {
-          text: {}
-        },
         Items: {
-          type: withSelections(FocusManager),
+          type: withSelectionsMixin(FocusManager),
           y: 100,
           direction: 'row',
           items: [
@@ -69,19 +66,23 @@ export const Base = () => {
               x: 312
             }
           ]
+        },
+        Title: {
+          text: {}
         }
       };
     }
+
     _firstEnable() {
       this.tag('Title').text.text =
         'Selected: ' + this.tag('Items').currentSelected.title;
     }
-    _getFocused() {
-      return this.tag('Items');
-    }
+
     $onSelect() {
       this.tag('Title').text.text =
         'Selected: ' + this.tag('Items').currentSelected.title;
     }
   };
 };
+
+withSelections.storyName = 'withSelections';

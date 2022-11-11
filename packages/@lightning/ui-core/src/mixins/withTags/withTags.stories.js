@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import mdx from './withTags.mdx';
-import withTags from './index.js';
+import withTagsMixin from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
@@ -12,8 +12,8 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends withTags(lng.Component) {
+export const withTags = () =>
+  class withTags extends withTagsMixin(lng.Component) {
     static get tags() {
       return ['Text'];
     }
@@ -23,11 +23,14 @@ export const Basic = () =>
         x: 50,
         y: 50,
         Text: {
-          text: 'This has a tag'
+          text: {
+            text: 'This has a tag'
+          }
         }
       };
     }
   };
 
-Basic.args = {};
-Basic.argTypes = {};
+withTags.storyName = 'withTags';
+withTags.args = {};
+withTags.argTypes = {};

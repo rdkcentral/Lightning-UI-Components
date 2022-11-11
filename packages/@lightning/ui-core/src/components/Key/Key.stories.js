@@ -14,8 +14,8 @@ export default {
   }
 };
 
-export const Key = () =>
-  class Key extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Key: {
@@ -25,13 +25,13 @@ export const Key = () =>
     }
   };
 
-Key.parameters = {};
-Key.args = {
+Basic.parameters = {};
+Basic.args = {
   title: 'A',
   size: 'sm'
 };
 
-Key.argTypes = {
+Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   size: {
     description: 'width of the Key',

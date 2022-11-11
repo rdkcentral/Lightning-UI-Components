@@ -8,9 +8,10 @@ import { default as TitleRowStory } from '../TitleRow/TitleRow.stories';
 import ControlRowComponent from '.';
 import mdx from './ControlRow.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../../storybook/index.js';
 
 export default {
-  title: `${CATEGORIES[64]}/ContentRow`,
+  title: `${CATEGORIES[64]}/ControlRow`,
   parameters: {
     docs: {
       page: mdx
@@ -23,6 +24,7 @@ export default {
   },
   argTypes: {
     ...TitleRowStory.argTypes,
+    ...createModeControl({ defaultValue: 'focused' }),
     lazyLoadBuffer: {
       control: { type: 'number' },
       defaultValue: 0,
@@ -64,8 +66,8 @@ const createControls = (length, icon = lightningIcon) => {
   }));
 };
 
-export const ControlRow = () =>
-  class ControlRow extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         ControlRow: {

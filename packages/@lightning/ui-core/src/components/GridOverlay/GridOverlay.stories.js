@@ -30,10 +30,6 @@ export const GridOverlay = args =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('GridOverlay');
-    }
   };
 GridOverlay.storyName = 'GridOverlay';
 GridOverlay.args = {

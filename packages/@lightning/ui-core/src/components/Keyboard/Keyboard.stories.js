@@ -31,8 +31,8 @@ const sharedArgTypes = {
   }
 };
 
-export const Keyboard = () =>
-  class Keyboard extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         Keyboard: {
@@ -50,8 +50,8 @@ export const Keyboard = () =>
     }
   };
 
-Keyboard.argTypes = sharedArgTypes;
-Keyboard.parameters = {};
+Basic.argTypes = sharedArgTypes;
+Basic.parameters = {};
 
 export const FullScreen = () =>
   class FullScreen extends lng.Component {

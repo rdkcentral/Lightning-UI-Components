@@ -13,8 +13,8 @@ export default {
   }
 };
 
-export const Base = () => {
-  return class Base extends lng.Component {
+export const withLayout = () => {
+  return class withLayout extends lng.Component {
     static _template() {
       return {
         Item: {
@@ -29,22 +29,24 @@ export const Base = () => {
   };
 };
 
-Base.args = {
+withLayout.storyName = 'withLayout';
+
+withLayout.args = {
   ratioX: 16,
   ratioY: 9,
   upCount: 3,
   circle: false
 };
 
-Base.argTypes = {
+withLayout.argTypes = {
   ratioX: { control: 'number' },
   ratioY: { control: 'number' },
   upCount: { control: 'number' },
   circle: { control: 'boolean' }
 };
 
-Base.parameters = {
-  argActions: Object.keys(Base.args).reduce((acc, curr) => {
+withLayout.parameters = {
+  argActions: Object.keys(withLayout.args).reduce((acc, curr) => {
     return {
       ...acc,
       [curr]: (val, component) => {
