@@ -8,6 +8,8 @@ import CheckBox from '../pageObjects/elements/checkbox.element';
 import Label from '../pageObjects/text/label.text';
 import ProgressBar from '../pageObjects/utilities/progressbar.utilities';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
+import Radio from '../pageObjects/utilities/radio.utilities';
+import RadioSmall from '../pageObjects/utilities/radiosmall.utilities';
 import Row from '../pageObjects/navigation/row.navigation';
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
 import Button from '../pageObjects/controls/button.controls';
@@ -30,6 +32,8 @@ function getPageObject(pageName) {
     checkbox: CheckBox,
     label: Label,
     progressbar: ProgressBar,
+    radio: Radio,
+    radiosmall: RadioSmall,
     row: Row,
     textbox: TextBox,
     focusmanager: FocusManager,
