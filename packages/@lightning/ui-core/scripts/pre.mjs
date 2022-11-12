@@ -9,6 +9,7 @@ const { devDependencies, scripts, ...properties } = require('../package.json');
 const newPackageJSON = {
   ...properties,
   main: './dist/lightning-ui-core.min.js',
+  types: './dist/lightning-ui-core.d.ts',
   exports: {
     ...properties.exports,
     '.': {
