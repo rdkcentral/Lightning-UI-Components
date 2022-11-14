@@ -14,6 +14,7 @@ The following is a set of guidelines for contributing to `@lightning/ui`. These 
     - [Your First Code Contribution](#your-first-code-contribution)
     - [Pull Requests](#pull-requests)
   - [Style Guides](#style-guides)
+    - [TypeScript](#typescript)
     - [Git Commit Messages](#git-commit-messages)
     - [JavaScript Style Guide](#javascript-style-guide)
     - [Test Style Guide](#test-style-guide)
@@ -154,6 +155,15 @@ Please follow these steps to have your contribution considered by the maintainer
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
 
 ## Style Guides
+
+### TypeScript 
+
+As of version 2.7.0, Lightning Core comes bundled with type definitions and in-code documentation which allow you to build Lightning apps in [TypeScript](https://www.typescriptlang.org/). The following [documentation](https://lightningjs.io/docs/#/lightning-core-reference/TypeScript/index) assumes that you are already familiar with the basics of writing a Lightning app in JavaScript. Even if you have no Lightning experience, the tips below, the Lightning CLI lng create boilerplate (coming soon), and the types documentation available now in your IDE will be enough to get started.
+
+TypeScript compilation is supported out of the box by Lightning CLI as of version v2.8.0. 
+
+Per TypeScript standards all types should be in PascalCase, similar to our class definitions
+
 
 ### Git Commit Messages
 
