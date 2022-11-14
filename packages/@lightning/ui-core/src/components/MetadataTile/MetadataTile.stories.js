@@ -94,7 +94,7 @@ MetadataTile.argTypes = {
     description: 'subtitle content'
   },
   description: {
-    defaultValue: '',
+    defaultValue: 'Description',
     table: {
       defaultValue: { summary: '' }
     },
