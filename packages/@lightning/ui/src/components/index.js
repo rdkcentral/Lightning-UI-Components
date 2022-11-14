@@ -1,6 +1,6 @@
 export { default as Card } from './Card';
 export { default as CardAbout } from './CardAbout';
-// export { default as CardContent } from './CardContent';
+export { default as CardContent } from './CardContent';
 export { default as Distractor } from './Distractor';
 export { default as FocusRing } from './FocusRing';
 export { default as ListItem } from './ListItem';
