@@ -9,7 +9,7 @@ class Button extends LUIComponent {
     return 'div[type=button]';
   }
 
-  get justify() {
+  get buttonJustify() {
     return 'div[type=button]>div:nth-of-type(2)';
   }
 

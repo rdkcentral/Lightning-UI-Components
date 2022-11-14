@@ -17,6 +17,7 @@ import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
 import Distractor from '../pageObjects/utilities/distractor.utilities';
+import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
 import Wave from '../pageObjects/utilities/wave.utilities';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
@@ -42,6 +43,7 @@ function getPageObject(pageName) {
     toggle: Toggle,
     togglesmall: ToggleSmall,
     distractor: Distractor,
+    buttonsmall: ButtonSmall,
     wave: Wave
   };
 
@@ -695,6 +697,48 @@ export default function () {
               }
             });
         });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {string} {string}  state is {string}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} component
+   * @param {String} prop
+   * @param {String} values
+   * @example I verify that the 'Button' 'justify' state is 'left'
+   */
+   Then(
+    'I verify that the {string} {string} state is {string}',
+    (component, prop, value) => {
+      const element = component + prop;
+      switch (prop) {
+        case 'justify':
+          if (value === 'left') {
+            pageObject._getElementByName(element).should('not.have.attr', 'mountx');
+          } else if (value === 'center') {
+            pageObject._getElementByName(element).should('have.attr', 'mountx', '0.5');
+          } else if (value === 'right') {
+            pageObject._getElementByName(element).should('have.attr', 'mountx', '1');
+          }
+          break;
+        case ('prefix', 'suffix'):
+          if (value === 'null') {
+            cy.get(Button.icon).should('not.exist');
+            cy.get(Button.checkbox).should('not.exist');
+          } else if (value === 'icon') {
+            cy.get(Button.icon).should('be.visible');
+          } else if (value === 'checkbox') {
+            cy.get(Button.checkbox).should('be.visible');
+          } else if (value === 'combo') {
+            cy.get(Button.icon).should('be.visible');
+            cy.get(Button.checkbox).should('be.visible');
+          }
+          break;
+        default:
+          break;
+      }
     }
   );
 }
