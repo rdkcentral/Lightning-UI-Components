@@ -1,5 +1,5 @@
 import Icon from '../pageObjects/elements/icon.element';
-import Badge from '../pageObjects/elements/badge.element';
+import Badge from '../pageObjects/metadata/badge.metadata';
 import Card from '../pageObjects/tilesAndCards/card.tilesandcards';
 import CardPersonality from '../pageObjects/tilesAndCards/cardpersonality.tilesandcards';
 import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards';
