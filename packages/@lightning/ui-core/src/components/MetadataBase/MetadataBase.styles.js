@@ -5,7 +5,8 @@ export const base = theme => ({
   logoHeight: theme.typography.body3.lineHeight,
   logoPadding: theme.spacer.lg,
   subtitleTextStyle: theme.typography.body3,
-  titleTextStyle: { ...theme.typography.headline1, maxLines: 1 }
+  titleTextStyle: { ...theme.typography.headline1, maxLines: 1 },
+  marqueeSync: true
 });
 
 export const palette = theme => ({
