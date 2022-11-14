@@ -37,14 +37,6 @@ export async function setupNodeEvents(on, config) {
     }
   });
 
-  /*
-Run "npm install --save-dev cypress-log-to-output" to install the plugin to your local env.
-This Cypress plugin sends all console logs that occur in the browser to stdout in the terminal.
-Enable this import to make the plugin active.
- */
-
-  //require('cypress-log-to-output').install(on);
-
   return config;
 }
 

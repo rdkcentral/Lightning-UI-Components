@@ -20,7 +20,7 @@ import Distractor from '../pageObjects/utilities/distractor.utilities';
 import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
 import Wave from '../pageObjects/utilities/wave.utilities';
 
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
   const pageObjects = {
@@ -228,7 +228,7 @@ export default function () {
    *
    */
   Given('I press {string} key', key => {
-    cy.action(key);
+    cy.wait(100).action(key);
   });
 
   /**
@@ -410,6 +410,33 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify that all {string} of the {string} page have text {string}
+   * @description Cucumber statement to verify the displayed text of multiple components if the text is
+   * the same on different components
+   * @param {String} componentName
+   * @param {String} pageName
+   * @param {String} expectedText
+   * @example I verify that all 'Buttons labels' of the 'Row' page have text 'Button'
+   */
+  Then(
+    'I verify that all {string} of the {string} page have text {string}',
+    (componentName, pageName, expectedText) => {
+      const component = componentName.toLowerCase();
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      switch (component) {
+        case 'buttons labels':
+          pageObject._getElementByName(component)
+            .getAttributes('texture-text')
+            .each(elements => {
+              expect(elements).equal(expectedText)
+            });
+      }
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify the {String} is {String} for {String} {String}
    * @description Cucumber statement to verify the settings of a module
    * @param {String} control
@@ -541,7 +568,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });
@@ -595,7 +622,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });

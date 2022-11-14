@@ -10,11 +10,51 @@ class Row extends LUIComponent {
   }
 
   get rowElements() {
-    return `${this.row} > div[type*="Button"]`;
+    return `${this.row} div[type*="Button"]`;
+  }
+
+  get rowElementsCenteredInParent() {
+    return `${this.row} > div:nth-of-type(1) > div > div[type='Button']`;
+  }
+
+  get button1CenteredInParent() {
+    return `${this.row} > div:nth-of-type(1) > div > div:nth-of-type(1)`;
+  }
+
+  get button2CenteredInParent() {
+    return `${this.row} > div:nth-of-type(1) > div > div:nth-of-type(2)`;
+  }
+
+  get button3CenteredInParent() {
+    return `${this.row} > div:nth-of-type(1) > div > div:nth-of-type(3)`;
+  }
+
+  get buttonRightCenteredInParent() {
+    return 'div:nth-of-type(2)  div[type="Button"]';
+  }
+
+  get button1LabelCenteredInParent() {
+    return `${this.button1CenteredInParent} div`;
+  }
+
+  get button2LabelCenteredInParent() {
+    return `${this.button2CenteredInParent} div`;
+  }
+
+  get button3LabelCenteredInParent() {
+    return `${this.button3CenteredInParent} div`;
+  }
+
+  get buttonRightLabelCenteredInParent() {
+    return `${this.buttonRightCenteredInParent} div`;
   }
 
   get button1() {
     return `${this.row} > div:nth-of-type(1)`;
+  }
+
+  get buttonsLabels() {
+    return 'div[ref="Label"]';
   }
 
   get button1Label() {

@@ -19,13 +19,13 @@ Feature: LUI Row Expandable width component
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>'
     Examples:
-      | element         | text    |
-      | Button 1 Label  | Button  |
-      | Button 2 Label  | Button  |
-      | Button 3 Label  | Button  |
-      | Button 4 Label  | Button  |
-      | Button 5 Label  | Button  |
-      | Button 6 Label  | Button  |
+      | element         | text      |
+      | Button 1 Label  | Button 1  |
+      | Button 2 Label  | Button 2  |
+      | Button 3 Label  | Button 3  |
+      | Button 4 Label  | Button 4  |
+      | Button 5 Label  | Button 5  |
+      | Button 6 Label  | Button 6  |
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'Button 1' component on the 'Row' page is in focus

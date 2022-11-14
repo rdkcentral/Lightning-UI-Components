@@ -80,13 +80,15 @@ class LUIComponent {
    * It will first convert the name to camel case and then try to access
    * it on the page object.
    * @param {String} name - The human readable name of the element.
+   * @param {Int} timeout - The amount of time that Cypress should retry before timing out
    * @returns {String} - The selector for the element.
    * @example _getElementByName('Progress Bar') => currentComponent['progressBar']
    */
-  _getElementByName(name) {
+  // eslint-disable-next-line no-dupe-class-members
+  _getElementByName(name, timeout) {
     const elementName = convertToCamelCase(name);
     try {
-      return cy.get(this[elementName]); // access the getter for the element
+      return cy.get(this[elementName], { timeout: timeout }).first(); // access the getter for the element
     } catch (error) {
       throw new Error(`Element ${name} not found for ${this.constructor.name}`);
     }
@@ -97,15 +99,13 @@ class LUIComponent {
    * It will first convert the name to camel case and then try to access
    * it on the page object.
    * @param {String} name - The human readable name of the element.
-   * @param {Int} timeout - The amount of time that Cypress should retry before timing out
    * @returns {String} - The selector for the element.
    * @example _getElementByName('Progress Bar') => currentComponent['progressBar']
    */
-  // eslint-disable-next-line no-dupe-class-members
-  _getElementByName(name, timeout) {
+  _getElementByName(name) {
     const elementName = convertToCamelCase(name);
     try {
-      return cy.get(this[elementName], { timeout: timeout }).first(); // access the getter for the element
+      return cy.get(this[elementName]); // access the getter for the element
     } catch (error) {
       throw new Error(`Element ${name} not found for ${this.constructor.name}`);
     }
