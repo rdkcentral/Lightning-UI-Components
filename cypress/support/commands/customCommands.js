@@ -173,3 +173,28 @@ Cypress.Commands.add(
     });
   }
 );
+
+/**
+ * Custom command to verify the specific attributes for the given elements.
+ * @param {string} subject - selector.
+ * @param {string} attr - the attribute name.
+ * @example cy.getAttributes(attribute).then(elements => {expect(elements[0]).equal(expectedText)});
+ */
+Cypress.Commands.add(
+  'getAttributes',
+  {
+    prevSubject: true,
+  },
+  (subject, attr) => {
+    const attrList = [];
+    cy.wrap(subject).each($el => {
+      cy.wrap($el)
+        .invoke('attr', attr)
+        .then(elements => {
+          attrList.push(elements);
+        });
+    });
+    return cy.wrap(attrList);
+  }
+);
+
