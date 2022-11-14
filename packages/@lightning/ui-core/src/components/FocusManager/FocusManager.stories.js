@@ -3,6 +3,7 @@ import FocusManager from './index.js';
 import mdx from './FocusManager.mdx';
 import { withSelections } from '../../mixins/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
+import Button from '../Button';
 
 export default {
   title: `${CATEGORIES[64]}/FocusManager`,
@@ -21,16 +22,12 @@ export const Rows = () =>
           type: withSelections(FocusManager),
           direction: 'row',
           items: [
-            { type: Button, buttonText: 'Left' },
-            { type: Button, buttonText: 'Center', x: 200 },
-            { type: Button, buttonText: 'Right', x: 400 }
+            { type: ButtonFixedWidth, title: 'Left' },
+            { type: ButtonFixedWidth, title: 'Center', x: 250 },
+            { type: ButtonFixedWidth, title: 'Right', x: 500 }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -38,28 +35,25 @@ export const WrapSelected = () =>
   class WrapSelectedExample extends lng.Component {
     static _template() {
       return {
-        Text: {
-          y: 0,
-          text: {
-            fontSize: 20,
-            text: 'Key in one direction a bunch of times'
-          }
-        },
         Row: {
           y: 50,
           type: FocusManager,
           direction: 'row',
           wrapSelected: true, // allows cycling through items
           items: [
-            { type: Button, buttonText: 'Left' },
-            { type: Button, buttonText: 'Center', x: 200 },
-            { type: Button, buttonText: 'Right', x: 400 }
+            { type: ButtonFixedWidth, title: 'Left' },
+            { type: ButtonFixedWidth, title: 'Center', x: 250 },
+            { type: ButtonFixedWidth, title: 'Right', x: 500 }
           ]
+        },
+        Text: {
+          y: 0,
+          text: {
+            fontSize: 20,
+            text: 'Key in one direction a bunch of times'
+          }
         }
       };
-    }
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -71,16 +65,12 @@ export const Columns = () =>
           type: FocusManager,
           direction: 'column',
           items: [
-            { type: Button, buttonText: 'Top' },
-            { type: Button, buttonText: 'Middle', y: 100 },
-            { type: Button, buttonText: 'Bottom', y: 200 }
+            { type: ButtonFixedWidth, title: 'Top' },
+            { type: ButtonFixedWidth, title: 'Middle', y: 150 },
+            { type: ButtonFixedWidth, title: 'Bottom', y: 300 }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -89,12 +79,9 @@ export const ColumnWithRows = () =>
     static _template() {
       return {
         Column: Column({
-          items: [Row(), Row({ y: 100 }), Row({ y: 200 })]
+          items: [Row(), Row({ y: 150 }), Row({ y: 300 })]
         })
       };
-    }
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -131,16 +118,12 @@ export const ExtendedComponent = () =>
           type: FancyFocus,
           direction: 'row',
           items: [
-            { type: Button, buttonText: 'Left' },
-            { type: Button, buttonText: 'Center', x: 200 },
-            { type: Button, buttonText: 'Right', x: 400 }
+            { type: ButtonFixedWidth, title: 'Left' },
+            { type: ButtonFixedWidth, title: 'Center', x: 250 },
+            { type: ButtonFixedWidth, title: 'Right', x: 500 }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -150,9 +133,9 @@ function Row({ y = 0 } = {}) {
     direction: 'row',
     y,
     items: [
-      { type: Button, buttonText: 'Left' },
-      { x: 200, type: Button, buttonText: 'Center' },
-      { x: 400, type: Button, buttonText: 'Right' }
+      { type: ButtonFixedWidth, title: 'Left' },
+      { type: ButtonFixedWidth, title: 'Center', x: 250 },
+      { type: ButtonFixedWidth, title: 'Right', x: 500 }
     ]
   };
 }
@@ -165,49 +148,14 @@ function Column({ items }) {
   };
 }
 
-class Button extends lng.Component {
-  static _template() {
-    return {
-      color: 0xff1f1f1f,
-      texture: lng.Tools.getRoundRect(150, 40, 4),
-      Label: {
-        x: 75,
-        y: 22,
-        mount: 0.5,
-        color: 0xffffffff,
-        text: { fontSize: 20 }
-      }
-    };
+class ButtonFixedWidth extends Button {
+  static get __componentName() {
+    return 'ButtonSmall';
   }
 
   _init() {
-    this.tag('Label').text = this.buttonText;
-  }
-  _focus() {
-    this.color = 0xffffffff;
-    this.tag('Label').color = 0xff1f1f1f;
-  }
-  _unfocus() {
-    if (this.selected) {
-      this.color = 0xfff1f1f1;
-      this.tag('Label').color = 0xff1f1f1f;
-    } else {
-      this.color = 0xff1f1f1f;
-      this.tag('Label').color = 0xffffffff;
-    }
-  }
-
-  get selected() {
-    return this._selected;
-  }
-
-  set selected(v) {
-    if (v !== this._selected) {
-      this._selected = v;
-      if (!v) {
-        this.color = 0xff1f1f1f;
-        this.tag('Label').color = 0xffffffff;
-      }
-    }
+    this.fixed = true;
+    this.w = 200;
+    super._init();
   }
 }

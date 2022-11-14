@@ -5,6 +5,7 @@ import mdx from './Row.mdx';
 import { context } from '../../globals/index.js';
 import { createModeControl } from '../../../storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
+import Button from '../Button';
 
 export default {
   title: `${CATEGORIES[64]}/Row`,
@@ -68,43 +69,21 @@ const isVariedWidth = true;
 const createItems = (buttonType, length, height, isVariedWidth) => {
   return Array.from({ length }).map((_, i) => ({
     type: buttonType,
-    buttonText: `Button ${i + 1}`,
+    title: `Button ${i + 1}`,
     w: isVariedWidth ? 120 + Math.floor(Math.random() * 80) : 150,
     h: height || 40
   }));
 };
 
-/**
- * TODO: these should be importing from components
- * not creating a new instances directly from Lightning
- *
- */
+class ButtonFixedWidth extends Button {
+  static get __componentName() {
+    return 'ButtonSmall';
+  }
 
-class Button extends lng.Component {
-  static _template() {
-    return {
-      color: 0xff1f1f1f,
-      texture: lng.Tools.getRoundRect(150, 40, 4),
-      h: 40,
-      Label: {
-        x: w => w / 2,
-        y: y => y / 2,
-        mount: 0.5,
-        color: 0xffffffff,
-        text: { fontSize: 20 }
-      }
-    };
-  }
   _init() {
-    this.tag('Label').text = this.buttonText;
-  }
-  _focus() {
-    this.color = 0xffffffff;
-    this.tag('Label').color = 0xff1f1f1f;
-  }
-  _unfocus() {
-    this.color = 0xff1f1f1f;
-    this.tag('Label').color = 0xffffffff;
+    this.fixed = true;
+    this.w = 250;
+    super._init();
   }
 }
 
@@ -163,7 +142,7 @@ export const Row = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          items: createItems(Button, 12)
+          items: createItems(ButtonFixedWidth, 12, 50)
         }
       };
     }
@@ -185,16 +164,12 @@ export const FocusHeightChange = () =>
           w: getWidthByUpCount(context.theme, 1),
           items: Array.apply(null, { length: 5 }).map(() => ({
             type: ExpandingHeightButton,
-            buttonText: 'Button',
+            title: 'Button',
             w: 150,
             h: 75
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -205,13 +180,9 @@ export const VaryingItemWidth = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          items: createItems(Button, 10, 40, isVariedWidth)
+          items: createItems(ButtonFixedWidth, 10, 40, isVariedWidth)
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -225,10 +196,6 @@ export const ExpandableWidth = () =>
           items: createItems(ExpandingButton, 6)
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -249,7 +216,7 @@ export const CenteredInParent = () =>
               w: buttonW,
               h: buttonH * 3 + itemSpacing * 2,
               style: { itemSpacing },
-              items: createItems(Button, 3)
+              items: createItems(ButtonFixedWidth, 3)
             },
             {
               type: Column,
@@ -257,15 +224,11 @@ export const CenteredInParent = () =>
               h: buttonH,
               style: { itemSpacing },
               centerInParent: true,
-              items: createItems(Button, 1)
+              items: createItems(ButtonFixedWidth, 1)
             }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 
@@ -283,15 +246,15 @@ export const Plinko = () => {
               w: 150,
               type: Column,
               style: { itemSpacing: colItemSpacing },
-              items: createItems(Button, 3)
+              items: createItems(ButtonFixedWidth, 3)
             },
             {
               w: 150,
               type: Column,
               style: { itemSpacing: colItemSpacing },
               items: new Array(3).fill().map((item, index) => ({
-                type: Button,
-                buttonText: 1 !== index ? 'Button' : 'Skip focus',
+                type: ButtonFixedWidth,
+                title: 1 !== index ? 'Button' : 'Skip focus',
                 w: 150,
                 skipFocus: 1 === index
               }))
@@ -300,21 +263,17 @@ export const Plinko = () => {
               w: 150,
               type: Column,
               style: { itemSpacing: colItemSpacing },
-              items: createItems(Button, 3)
+              items: createItems(ButtonFixedWidth, 3)
             },
             {
               w: 150,
               type: Column,
               style: { itemSpacing: colItemSpacing },
-              items: createItems(Button, 3)
+              items: createItems(ButtonFixedWidth, 3)
             }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 };
@@ -337,7 +296,7 @@ export const SkipFocus = args =>
                   h: 30,
                   skipFocus: true
                 };
-              return { type: Button, buttonText: 'Button' };
+              return { type: ButtonFixedWidth, title: 'Button' };
             }),
             {
               type: Title,
@@ -348,10 +307,6 @@ export const SkipFocus = args =>
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -376,8 +331,8 @@ export const LazyScrollIndexes = ({
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
           items: Array.apply(null, { length: 12 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1} ${
+            type: ButtonFixedWidth,
+            title: `Button ${i + 1} ${
               i === startLazyScrollIndex ? '(start lazy scroll)' : ''
             } ${i === stopLazyScrollIndex ? '(stop lazy scroll)' : ''}`,
             w: 250
@@ -386,10 +341,6 @@ export const LazyScrollIndexes = ({
           stopLazyScrollIndex
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 LazyScrollIndexes.args = {
@@ -414,7 +365,7 @@ export const AddingItems = () =>
         Row: {
           type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
-          items: createItems(Button, 12)
+          items: createItems(ButtonFixedWidth, 12)
         }
       };
     }
@@ -425,18 +376,18 @@ export const AddingItems = () =>
         this.tag('Row').appendItemsAt(
           [
             {
-              type: Button,
-              buttonText: 'New Button 0',
+              type: ButtonFixedWidth,
+              title: 'New Button 0',
               w: 150
             },
             {
-              type: Button,
-              buttonText: 'New Button 1',
+              type: ButtonFixedWidth,
+              title: 'New Button 1',
               w: 150
             },
             {
-              type: Button,
-              buttonText: 'New Button 2',
+              type: ButtonFixedWidth,
+              title: 'New Button 2',
               w: 150
             }
           ],
@@ -446,26 +397,22 @@ export const AddingItems = () =>
       setTimeout(() => {
         this.tag('Row').prependItems([
           {
-            type: Button,
-            buttonText: 'New Button 3',
+            type: ButtonFixedWidth,
+            title: 'New Button 3',
             w: 150
           },
           {
-            type: Button,
-            buttonText: 'New Button 4',
+            type: ButtonFixedWidth,
+            title: 'New Button 4',
             w: 150
           },
           {
-            type: Button,
-            buttonText: 'New Button 5',
+            type: ButtonFixedWidth,
+            title: 'New Button 5',
             w: 150
           }
         ]);
       }, 3750);
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 AddingItems.args = {
@@ -483,13 +430,9 @@ export const LazyUpCount = args =>
           type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
-          items: createItems(Button, 12)
+          items: createItems(ButtonFixedWidth, 12)
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 LazyUpCount.args = {
@@ -515,7 +458,7 @@ export const RemovingItems = () =>
         Row: {
           type: RowComponent,
           w: 1920 - 160, // x offset from preview.js * 2
-          items: createItems(Button, 5)
+          items: createItems(ButtonFixedWidth, 5)
         }
       };
     }
@@ -525,10 +468,6 @@ export const RemovingItems = () =>
       setTimeout(() => {
         this.tag('Row').removeItemAt(1);
       }, 3000);
-    }
-
-    _getFocused() {
-      return this.tag('Row');
     }
   };
 RemovingItems.args = {
