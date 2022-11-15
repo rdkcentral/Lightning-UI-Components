@@ -67,7 +67,7 @@ export const globalTypes = {
   LUITheme: {
     name: 'Theme',
     description: 'Theme select',
-    defaultValue: 'base'
+    defaultValue: 'xfinity'
   },
   'GridOverlay-alpha': {
     defaultValue: '0'
