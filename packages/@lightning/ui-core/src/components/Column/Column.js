@@ -48,9 +48,9 @@ class Column extends FocusManager {
       ) {
         this.h = this.parent.parent.h;
       } else {
-        let parent = this.p;
+        let parent = this.parent;
         while (parent && !parent.h) {
-          parent = parent.p;
+          parent = parent.parent;
         }
         this.h =
           (parent && parent.h) ||

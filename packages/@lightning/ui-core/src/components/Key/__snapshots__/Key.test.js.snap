@@ -203,7 +203,7 @@ exports[`Key should render 1`] = `
       "w": 0,
       "x": 28,
       "y": 36,
-      "zIndex": 0,
+      "zIndex": 2,
     },
   },
 }
