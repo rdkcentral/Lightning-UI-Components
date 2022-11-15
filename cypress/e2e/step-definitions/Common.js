@@ -1,5 +1,5 @@
 import Icon from '../pageObjects/elements/icon.element';
-import Badge from '../pageObjects/elements/badge.element';
+import Badge from '../pageObjects/metadata/badge.metadata';
 import Card from '../pageObjects/tilesAndCards/card.tilesandcards';
 import CardPersonality from '../pageObjects/tilesAndCards/cardpersonality.tilesandcards';
 import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards';
@@ -17,9 +17,10 @@ import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
 import Distractor from '../pageObjects/utilities/distractor.utilities';
+import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
 import Wave from '../pageObjects/utilities/wave.utilities';
 
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
   const pageObjects = {
@@ -42,6 +43,7 @@ function getPageObject(pageName) {
     toggle: Toggle,
     togglesmall: ToggleSmall,
     distractor: Distractor,
+    buttonsmall: ButtonSmall,
     wave: Wave
   };
 
@@ -226,7 +228,7 @@ export default function () {
    *
    */
   Given('I press {string} key', key => {
-    cy.action(key);
+    cy.wait(100).action(key);
   });
 
   /**
@@ -408,6 +410,33 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify that all {string} of the {string} page have text {string}
+   * @description Cucumber statement to verify the displayed text of multiple components if the text is
+   * the same on different components
+   * @param {String} componentName
+   * @param {String} pageName
+   * @param {String} expectedText
+   * @example I verify that all 'Buttons labels' of the 'Row' page have text 'Button'
+   */
+  Then(
+    'I verify that all {string} of the {string} page have text {string}',
+    (componentName, pageName, expectedText) => {
+      const component = componentName.toLowerCase();
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      switch (component) {
+        case 'buttons labels':
+          pageObject._getElementByName(component)
+            .getAttributes('texture-text')
+            .each(elements => {
+              expect(elements).equal(expectedText)
+            });
+      }
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify the {String} is {String} for {String} {String}
    * @description Cucumber statement to verify the settings of a module
    * @param {String} control
@@ -539,7 +568,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });
@@ -593,7 +622,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });
@@ -695,6 +724,48 @@ export default function () {
               }
             });
         });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {string} {string}  state is {string}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} component
+   * @param {String} prop
+   * @param {String} values
+   * @example I verify that the 'Button' 'justify' state is 'left'
+   */
+   Then(
+    'I verify that the {string} {string} state is {string}',
+    (component, prop, value) => {
+      const element = component + prop;
+      switch (prop) {
+        case 'justify':
+          if (value === 'left') {
+            pageObject._getElementByName(element).should('not.have.attr', 'mountx');
+          } else if (value === 'center') {
+            pageObject._getElementByName(element).should('have.attr', 'mountx', '0.5');
+          } else if (value === 'right') {
+            pageObject._getElementByName(element).should('have.attr', 'mountx', '1');
+          }
+          break;
+        case ('prefix', 'suffix'):
+          if (value === 'null') {
+            cy.get(Button.icon).should('not.exist');
+            cy.get(Button.checkbox).should('not.exist');
+          } else if (value === 'icon') {
+            cy.get(Button.icon).should('be.visible');
+          } else if (value === 'checkbox') {
+            cy.get(Button.checkbox).should('be.visible');
+          } else if (value === 'combo') {
+            cy.get(Button.icon).should('be.visible');
+            cy.get(Button.checkbox).should('be.visible');
+          }
+          break;
+        default:
+          break;
+      }
     }
   );
 }

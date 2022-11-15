@@ -5,7 +5,8 @@ import {
   FocusManager,
   Row,
   Column as ColumnComponent,
-  Tile
+  Tile,
+  Button
 } from '../index.js';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import mdx from './Column.mdx';
@@ -38,15 +39,11 @@ export const Column = args =>
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
+            type: ButtonFixedWidth,
+            title: `Button ${i + 1}`
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 Column.argTypes = {
@@ -91,16 +88,12 @@ export const TestCase = args =>
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 10 }).map((_, i) => ({
-            type: Button,
+            type: ButtonFixedWidth,
             h: 80,
-            buttonText: `Button ${i + 1}`
+            title: `Button ${i + 1}`
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 TestCase.argTypes = {
@@ -123,10 +116,6 @@ export const MultiColumn = args =>
           items: [{ type: Column(args) }, { type: Column(args), x: 180 }]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('FocusManager');
     }
   };
 MultiColumn.parameters = { tag: 'FocusManager' };
@@ -153,8 +142,8 @@ export const Plinko = () =>
               h: 40,
               w: getWidthByUpCount(context.theme, 1),
               items: Array.apply(null, { length: 3 }).map(() => ({
-                type: Button,
-                buttonText: 'Button',
+                type: ButtonFixedWidth,
+                title: 'Button',
                 w: 150
               }))
             },
@@ -163,18 +152,14 @@ export const Plinko = () =>
               h: 40,
               w: getWidthByUpCount(context.theme, 1),
               items: Array.apply(null, { length: 3 }).map(() => ({
-                type: Button,
-                buttonText: 'Button',
+                type: ButtonFixedWidth,
+                title: 'Button',
                 w: 150
               }))
             }
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -189,16 +174,12 @@ export const VaryingItemHeight = () =>
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           items: Array.apply(null, { length: 10 }).map(() => ({
-            type: Button,
-            buttonText: 'Button',
+            type: ButtonFixedWidth,
+            title: 'Button',
             h: 40 + Math.floor(Math.random() * 100)
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -216,14 +197,10 @@ export const ExpandableHeightItems = () =>
             type: ExpandingButton,
             h: 40,
             w: 150,
-            buttonText: `Button ${i}`
+            title: `Button ${i}`
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -244,17 +221,13 @@ export const ExpandableHeightRows = () =>
             w: getWidthByUpCount(context.theme, 1),
             h: 40,
             items: [
-              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 },
-              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 },
-              { type: ExpandingButton, buttonText: `Button ${i}`, w: 150 }
+              { type: ExpandingButton, title: `Button ${i}`, w: 150 },
+              { type: ExpandingButton, title: `Button ${i}`, w: 150 },
+              { type: ExpandingButton, title: `Button ${i}`, w: 150 }
             ]
           }))
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -278,7 +251,7 @@ export const SkipFocus = args =>
                   h: 30,
                   skipFocus: true
                 };
-              return { type: Button, buttonText: 'Button' };
+              return { type: ButtonFixedWidth, title: 'Button' };
             }),
             {
               type: Title,
@@ -289,10 +262,6 @@ export const SkipFocus = args =>
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 SkipFocus.argTypes = {
@@ -318,8 +287,8 @@ export const OnScreenEffect = () =>
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           items: Array.apply(null, { length: 10 }).map((_, i) => {
             return {
-              type: Button,
-              buttonText: `Button ${i}`
+              type: ButtonFixedWidth,
+              title: `Button ${i}`
             };
           })
         }
@@ -342,10 +311,6 @@ export const OnScreenEffect = () =>
         });
       };
     }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
   };
 
 export const StickyTitle = () => {
@@ -354,8 +319,8 @@ export const StickyTitle = () => {
       const headerText = `Sticky Header ${i}`;
       const items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
-          type: Button,
-          buttonText: `Button ${i + 1}`,
+          type: ButtonFixedWidth,
+          title: `Button ${i + 1}`,
           w: 200,
           headerText
         };
@@ -400,10 +365,6 @@ export const StickyTitle = () => {
     _updateHeader(selected) {
       this.tag('ColumnHeader').headerText = selected.headerText || '';
     }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
   };
 };
 
@@ -412,8 +373,8 @@ export const CenteredInParent = () =>
     static _template() {
       const buttonW = 150;
       const button = {
-        type: Button,
-        buttonText: 'Button',
+        type: ButtonFixedWidth,
+        title: 'Button',
         w: buttonW
       };
       const itemSpacing = context.theme.layout.gutterY.xs;
@@ -436,10 +397,6 @@ export const CenteredInParent = () =>
           ]
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 
@@ -485,31 +442,15 @@ class Title extends lng.Component {
   }
 }
 
-class Button extends lng.Component {
-  static _template() {
-    return {
-      color: 0xff1f1f1f,
-      texture: lng.Tools.getRoundRect(150, 40, 4),
-      h: 40,
-      Label: {
-        x: w => w / 2,
-        y: y => y / 2,
-        mount: 0.5,
-        color: 0xffffffff,
-        text: { fontSize: 20 }
-      }
-    };
+class ButtonFixedWidth extends Button {
+  static get __componentName() {
+    return 'ButtonSmall';
   }
+
   _init() {
-    this.tag('Label').text = this.buttonText;
-  }
-  _focus() {
-    this.color = 0xffffffff;
-    this.tag('Label').color = 0xff1f1f1f;
-  }
-  _unfocus() {
-    this.color = 0xff1f1f1f;
-    this.tag('Label').color = 0xffffffff;
+    this.fixed = true;
+    this.w = 200;
+    super._init();
   }
 }
 
@@ -639,10 +580,6 @@ export const SkipPlinko = () =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
   };
 
 export const LazyUpCount = args =>
@@ -655,16 +592,12 @@ export const LazyUpCount = args =>
           scrollIndex: args.scrollIndex,
           lazyUpCount: args.lazyUpCount,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
+            type: ButtonFixedWidth,
+            title: `Button ${i + 1}`
           })),
           alwaysScroll: args.alwaysScroll
         }
       };
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 LazyUpCount.args = {
@@ -699,8 +632,8 @@ export const AddingItems = args =>
           h: 500,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
+            type: ButtonFixedWidth,
+            title: `Button ${i + 1}`
           }))
         }
       };
@@ -712,16 +645,16 @@ export const AddingItems = args =>
         this.tag('Column').appendItemsAt(
           [
             {
-              type: Button,
-              buttonText: 'New Button 0'
+              type: ButtonFixedWidth,
+              title: 'New Button 0'
             },
             {
-              type: Button,
-              buttonText: 'New Button 1'
+              type: ButtonFixedWidth,
+              title: 'New Button 1'
             },
             {
-              type: Button,
-              buttonText: 'New Button 2'
+              type: ButtonFixedWidth,
+              title: 'New Button 2'
             }
           ],
           3
@@ -730,26 +663,22 @@ export const AddingItems = args =>
       setTimeout(() => {
         this.tag('Column').prependItems([
           {
-            type: Button,
-            buttonText: 'New Button 3',
+            type: ButtonFixedWidth,
+            title: 'New Button 3',
             w: 150
           },
           {
-            type: Button,
-            buttonText: 'New Button 4',
+            type: ButtonFixedWidth,
+            title: 'New Button 4',
             w: 150
           },
           {
-            type: Button,
-            buttonText: 'New Button 5',
+            type: ButtonFixedWidth,
+            title: 'New Button 5',
             w: 150
           }
         ]);
       }, 3750);
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 AddingItems.args = {
@@ -770,8 +699,8 @@ export const RemovingItems = args =>
           h: 500,
           scrollIndex: args.scrollIndex,
           items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: Button,
-            buttonText: `Button ${i + 1}`
+            type: ButtonFixedWidth,
+            title: `Button ${i + 1}`
           }))
         }
       };
@@ -782,10 +711,6 @@ export const RemovingItems = args =>
       setTimeout(() => {
         this.tag('Column').removeItemAt(1);
       }, 3000);
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   };
 RemovingItems.args = {

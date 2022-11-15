@@ -1,3 +1,4 @@
 export {
-  default as focusRingExtension //focusRingExtensionGenerator
+  default as focusRingExtension,
+  focusRingExtensionGenerator
 } from './FocusRing.extension';

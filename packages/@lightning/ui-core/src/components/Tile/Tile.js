@@ -65,6 +65,8 @@ class Tile extends Surface {
     ];
   }
 
+  //#region accessors
+
   /**
    * When metadata is displayed below the Tile we need a way to tell the containing columns that it exists
    * in order for it to layout properly. This approach will not however show up in the DOM inspector
@@ -173,6 +175,7 @@ class Tile extends Surface {
       ]
     };
   }
+  //#endregion accessors
 
   get _isInsetMetadata() {
     return this._metadataLocation === 'inset';
@@ -449,6 +452,7 @@ class Tile extends Surface {
       alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
+      marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
       style: this.style.metadataStyles,
@@ -470,11 +474,7 @@ class Tile extends Surface {
       return;
     }
 
-    if (
-      !this._persistentMetadata &&
-      this._metadataLocation === 'inset' &&
-      !this._isFocusedMode
-    ) {
+    if (!this._persistentMetadata && !this._isFocusedMode) {
       this._animateMetadata();
       return;
     }

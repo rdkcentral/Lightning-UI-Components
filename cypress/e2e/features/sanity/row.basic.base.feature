@@ -1,10 +1,10 @@
-@sanity @row @basic @2112198
+@sanity @row1 @basic @2112198
 
 Feature: Row Basic component validation
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Row' 'Basic' with 'Base' theme
+    And I navigate to 'Row' 'Row' with 'Base' theme
 
   Scenario: Verify that Row Basic Element is visible
     Then I verify that the 'Row' component is displayed

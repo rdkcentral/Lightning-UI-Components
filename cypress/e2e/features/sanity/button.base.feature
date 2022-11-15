@@ -25,11 +25,11 @@ Feature: LUI Button component
 
   Scenario: Verify the Button justify control
     When I set the 'justify' to 'left' for 'Button' component
-    Then I verify that the 'Button' 'justify' state is 'left'
+    Then I verify that the 'Button' 'Justify' state is 'left'
     And I set the 'justify' to 'center' for 'Button' component
-    And I verify that the 'Button' 'justify' state is 'center'
+    And I verify that the 'Button' 'Justify' state is 'center'
     And I set the 'justify' to 'right' for 'Button' component
-    And I verify that the 'Button' 'justify' state is 'right'
+    And I verify that the 'Button' 'Justify' state is 'right'
 
   Scenario: Verify the Button prefix control
     When I set the 'prefix' to 'null' for 'Button' component

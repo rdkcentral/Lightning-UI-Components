@@ -54,6 +54,7 @@ describe('Tile', () => {
     const label = { title: 'Live' };
     const progressBar = { progress: 0.5 };
     component.patch({ metadata, badge, label, progressBar });
+    component.mode = 'focused';
     testRenderer.forceAllUpdates();
     expect(component.announce).toEqual([
       [metadata.title, metadata.description, metadata.logoTitle],

@@ -1,5 +1,5 @@
 import React from 'react';
-import baseTheme from '@suite-themes/base-lightning-tv'
+import baseTheme from '@suite-themes/base-lightning-tv';
 import utils from '../src/utils/index.js';
 import debounce from 'debounce';
 // import { THEMES } from '../constants';
@@ -34,7 +34,6 @@ export const createModeControl = ({ options, defaultValue } = {}) => {
     }
   };
 };
-
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -178,9 +177,9 @@ export const getPanelsTheme = () => globalTheme() || baseTheme;
 
 export function setGlobalTheme(theme, updateGlobals) {
   document &&
-  document.querySelector('iframe') &&
-  document.querySelector('iframe').contentWindow &&
-  document.querySelector('iframe').contentWindow.postMessage({theme})
+    document.querySelector('iframe') &&
+    document.querySelector('iframe').contentWindow &&
+    document.querySelector('iframe').contentWindow.postMessage({ theme });
   //globalContext().setTheme(THEMES[theme] || {}); // If no theme is found it means that the base theme should be set
   if (updateGlobals) updateGlobals({ LUITheme: theme });
 }
@@ -203,8 +202,7 @@ export const updateGlobalTheme = (
       }, {});
       globalContext().storybookCustomTheme = {
         ...JSON.parse(JSON.stringify(globalTheme())),
-        ...functions,
-
+        ...functions
       };
       updateGlobals({ LUITheme: 'custom' });
     }
@@ -273,7 +271,12 @@ export function nestedArgTypes(argTypesObj = {}, targetProp, ignore = []) {
 
 export const prevValues = {};
 
-export function nestedArgActions(componentName, argTypesObj = {}, targetProp, ignore = []) {
+export function nestedArgActions(
+  componentName,
+  argTypesObj = {},
+  targetProp,
+  ignore = []
+) {
   return Object.keys(argTypesObj).reduce((acc, curr) => {
     if (ignore.includes(curr)) return acc;
     return {
@@ -298,7 +301,21 @@ export function nestedArgActions(componentName, argTypesObj = {}, targetProp, ig
   }, {});
 }
 
-export function generateSubStory(componentName, BaseStory, SubStory, targetProperty, ignore = []) {
+/**
+ * @param {string} componentName story component ref string
+ * @param {object} BaseStory target story
+ * @param {*} SubStory story args to apply to BaseStory
+ * @param {*} targetProperty property to apply values to on referenced component
+ * @param {*} ignore list of args to skip when applying SubStory
+ */
+export function generateSubStory(
+  componentName,
+  BaseStory,
+  SubStory,
+  targetProperty,
+  ignore = [],
+  options
+) {
   BaseStory.args = {
     ...BaseStory.args,
     ...nestedArgs(SubStory.args, targetProperty, ['mode', ...ignore])
@@ -317,7 +334,10 @@ export function generateSubStory(componentName, BaseStory, SubStory, targetPrope
 
   BaseStory.parameters.argActions = {
     ...BaseStory.parameters.argActions,
-    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, ['mode', ...ignore])
+    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, [
+      'mode',
+      ...ignore
+    ])
   };
 }
 
@@ -339,7 +359,7 @@ export function getRgbaString(color) {
   const b = color % 256;
   const a = ((color / 16777216) | 0) / 255;
   return [r, g, b, a.toFixed(2)];
-};
+}
 
 export function componentToHex(c) {
   const hex = c.toString(16);

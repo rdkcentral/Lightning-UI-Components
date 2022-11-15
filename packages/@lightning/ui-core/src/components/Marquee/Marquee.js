@@ -37,7 +37,8 @@ class Marquee extends Base {
       'color',
       'centerAlign',
       'delay',
-      'repeat'
+      'repeat',
+      'overrideLoopX'
     ];
   }
 
@@ -129,7 +130,7 @@ class Marquee extends Base {
   _updateAnimation() {
     this._scrollAnimation && this._scrollAnimation.stopNow();
     this._scrollAnimation = this.animation({
-      duration: this._textRenderedW / 50,
+      duration: this._loopWidth / 50,
       delay: isNaN(this.delay) ? 1.5 : this.delay,
       repeat: isNaN(this.repeat) ? -1 : this.repeat,
       actions: [
@@ -139,7 +140,7 @@ class Marquee extends Base {
           v: {
             sm: 0,
             0: { v: 0 },
-            0.5: { v: -(this._textRenderedW + this.style.offset) }
+            0.5: { v: -(this._loopWidth + this.style.offset) }
           }
         },
         {
@@ -176,7 +177,7 @@ class Marquee extends Base {
     }
     if (this._shouldClip) {
       this._scrolling = true;
-      this._ContentLoopTexture.x = this._textRenderedW + this.style.offset;
+      this._ContentLoopTexture.x = this._loopWidth + this.style.offset;
       this._ContentLoopTexture.texture = this._Content.getTexture();
       this._updateAnimation();
       this._scrollAnimation.start();
@@ -195,8 +196,8 @@ class Marquee extends Base {
   }
 
   get _shouldClip() {
-    // using fadeW / 4 so that if something like the last character is slightly opacitied out,
-    // but still visible, we don't unnecessarily scroll
+    // using fadeW / 4 so that if something like the last character is slightly
+    // faded out but still visible, we don't unnecessarily scroll
     return this._textRenderedW > this.w - this.style.fadeW / 4;
   }
 
@@ -208,13 +209,17 @@ class Marquee extends Base {
   }
 
   _setAutoStart(autoStart) {
-    // if the commponent is changed from  autoStarting to not,
+    // if the component is changed from  autoStarting to not,
     // cancel the current scrolling behavior,
     // otherwise the component can continue to scroll from its previous state
     if (this.autoStart && !autoStart) {
       this.stopScrolling();
     }
     return autoStart;
+  }
+
+  get _loopWidth() {
+    return this.overrideLoopX || this._textRenderedW;
   }
 
   get _textRenderedW() {

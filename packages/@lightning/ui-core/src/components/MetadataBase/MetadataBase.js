@@ -1,9 +1,9 @@
-import Base from '../Base/index.js';
-import Icon from '../Icon/index.js';
-import TextBox from '../TextBox/index.js';
+import Base from '../Base';
+import Icon from '../Icon';
+import TextBox from '../TextBox';
 // import { FadeShader } from '../../textures';
-import { withExtensions } from '../../mixins/index.js';
-import * as styles from './MetadataBase.styles.js';
+import { withExtensions, withMarqueeSync } from '../../mixins';
+import * as styles from './MetadataBase.styles';
 
 class MetadataBase extends Base {
   static get __componentName() {
@@ -21,7 +21,7 @@ class MetadataBase extends Base {
         Title: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_titleLoaded'
+            textBoxChanged: '_resolveTitle'
           }
         },
         SubtitleWrapper: {
@@ -35,7 +35,7 @@ class MetadataBase extends Base {
         Description: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_descriptionLoaded'
+            textBoxChanged: '_resolveDescription'
           }
         }
       },
@@ -59,7 +59,8 @@ class MetadataBase extends Base {
       'logoTitle',
       'logoWidth',
       'subtitle',
-      'title'
+      'title',
+      'marquee'
     ];
   }
 
@@ -164,7 +165,9 @@ class MetadataBase extends Base {
       content: this.title,
       textStyle: this.style.titleTextStyle,
       wordWrap: true,
-      wordWrapWidth: this._Text.w
+      maxLines: 1,
+      wordWrapWidth: this._Text.w,
+      marquee: this.marquee
     });
   }
 
@@ -195,6 +198,8 @@ class MetadataBase extends Base {
       content: this.description,
       textStyle: this.style.descriptionTextStyle,
       wordWrap: true,
+      maxLines: 1,
+      marquee: this.marquee,
       wordWrapWidth: this._Text.w
     });
   }
@@ -225,6 +230,14 @@ class MetadataBase extends Base {
     return titleH + subtitleH + descriptionH;
   }
 
+  get syncArray() {
+    return [
+      ...(this.title ? [this._Title] : []),
+      ...(this.description ? [this._Description] : []),
+      ...(this.subtitle ? [this._Subtitle] : [])
+    ];
+  }
+
   set announce(announce) {
     super.announce = announce;
   }
@@ -241,4 +254,4 @@ class MetadataBase extends Base {
   }
 }
 
-export default withExtensions(MetadataBase);
+export default withExtensions(withMarqueeSync(MetadataBase));
