@@ -37,6 +37,15 @@ class Base extends lng.Component {
     this.queueRequestUpdate();
   }
 
+  /**
+   * This method accepts a target component, patch object, and optional smooth object.
+   * If the component is visible, it will smooth in the smooth object, or fall back to
+   * the patch object, if not it will apply the patch.
+   *
+   * @param {component reference} ref tag ref of target component
+   * @param {object} patch object of properties to patch to target
+   * @param {object} smooth object of properties to smooth to target
+   */
   applySmooth(ref, patch, smooth) {
     if (this.shouldSmooth) {
       ref.smooth = smooth || patch;

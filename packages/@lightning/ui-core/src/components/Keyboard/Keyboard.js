@@ -4,7 +4,7 @@ import Row from '../Row/index.js';
 import Column from '../Column/index.js';
 import { withExtensions } from '../../mixins/index.js';
 
-export { default as KEYBOARD_FORMATS } from './keyboardFormats.js';
+export { default as KEYBOARD_FORMATS } from './KeyboardFormats.js';
 import * as styles from './Keyboard.styles.js';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);

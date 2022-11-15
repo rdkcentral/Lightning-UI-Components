@@ -7,6 +7,7 @@ export { default as Speech } from './withAnnouncer/Speech.js';
 export { default as withClassCache } from './withClassCache/index.js';
 export { default as withHandleKey } from './withHandleKey/index.js';
 export { default as withLayout } from './withLayout/index.js';
+export { default as withMarqueeSync } from './withMarqueeSync/index.js';
 export { default as withSelections } from './withSelections/index.js';
 export { default as withThemeStyles } from './withThemeStyles/index.js';
 export { processThemeStyles } from './withThemeStyles/index.js';

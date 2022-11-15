@@ -54,8 +54,8 @@ class TextBox extends Base {
       'maxLinesSuffix',
       'verticalAlign',
       'wordWrap',
-      'wordWrapWidth'
-      //...InlineContent.properties
+      'wordWrapWidth',
+      ...InlineContent.properties
     ];
   }
 
@@ -151,6 +151,13 @@ class TextBox extends Base {
     this.signal('textBoxChanged', { w, h });
   }
 
+  _construct() {
+    super._construct();
+    this._marqueeContentListenerAttached = false;
+    this._marqueeOverrideLoopX = undefined;
+    this._resetMarqueePromise();
+  }
+
   _update() {
     if (!this.content) {
       // If content is not defined hide the component, but do NOT set visibility
@@ -182,7 +189,6 @@ class TextBox extends Base {
       InlineContent: {
         type: InlineContent,
         ...inlineContentPatch,
-        justify: 'flex-start',
         signals: {
           loadedInlineContent: '_notifyAncestors'
         }
@@ -211,12 +217,31 @@ class TextBox extends Base {
     }
   }
 
+  // keep this out of the update lifecycle
+  set marqueeOverrideLoopX(v) {
+    this._marqueeOverrideLoopX = v;
+    if (this._Marquee) this._Marquee.overrideLoopX = this._marqueeOverrideLoopX;
+    this._resolveAwaitMarqueeOverrideX();
+  }
+
+  get marqueeOverrideLoopX() {
+    return this._marqueeOverrideLoopX;
+  }
+
+  _resetMarqueePromise() {
+    this._awaitMarqueeOverrideX = new Promise((resolve, reject) => {
+      this._resolveAwaitMarqueeOverrideX = resolve;
+      this._rejectAwaitMarqueeOverrideX = reject;
+    });
+  }
+
   _updateMarquee() {
     const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
     if (this._Marquee && !this.marquee) {
       this._toggleMarquee(contentTag);
     }
     if (this.marquee) {
+      this._resetMarqueePromise();
       const marqueePatch = {
         w: this.wordWrapWidth,
         h: this.h,
@@ -241,7 +266,19 @@ class TextBox extends Base {
       this.patch({
         Marquee: marqueePatch
       });
-      this._toggleMarquee(contentTag);
+      if (!this._marqueeContentListenerAttached) {
+        this._marqueeContentListenerAttached = true;
+        this._Marquee._Content.on('txLoaded', () => {
+          this.signal('willMarquee', this._Marquee);
+        });
+      }
+      if ('undefined' !== typeof this._marqueeOverrideLoopX) {
+        this._awaitMarqueeOverrideX.then(() => {
+          this._toggleMarquee(contentTag);
+        });
+      } else {
+        this._toggleMarquee(contentTag);
+      }
     }
   }
 

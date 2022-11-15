@@ -1,5 +1,10 @@
 import Provider, { ProviderStyles } from '../Provider';
-import { MetadataBase, MetadataBaseStyles, TextBoxStyles, StylePartial } from '@lightning/ui-core';
+import {
+  MetadataBase,
+  MetadataBaseStyles,
+  TextBoxStyles,
+  StylePartial
+} from '@lightning/ui-core';
 
 export type MetadataCardContentStyles = MetadataBaseStyles & {
   titleTextStyle: TextBoxStyles;

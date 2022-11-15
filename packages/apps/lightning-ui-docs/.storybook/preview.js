@@ -10,7 +10,7 @@ import rogers from '@suite-themes/rogers-lightning-tv';
 import sky from '@suite-themes/sky-lightning-tv';
 import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
 import { withAnnouncer, GridOverlay, Speech, pool, context, utils } from '@lightning/ui-core';
-import { focusRingExtension, dropShadowExtensionGenerator } from '@lightning/ui-extensions';
+import { focusRingExtensionGenerator, dropShadowExtensionGenerator } from '@lightning/ui-extensions';
 import { CATEGORIES } from '../../lightning-ui-docs/';
 
 context.debug = true;
@@ -21,7 +21,7 @@ context.on('themeUpdate', () => {
 const extensions = [
   {
     targetComponent: ['Surface', 'Knob'],
-    extension: focusRingExtension
+    extension: focusRingExtensionGenerator({ zOffset: -2 })
   },
   {
     targetComponent: ['Surface'],
