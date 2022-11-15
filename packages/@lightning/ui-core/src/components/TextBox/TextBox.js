@@ -54,8 +54,8 @@ class TextBox extends Base {
       'maxLinesSuffix',
       'verticalAlign',
       'wordWrap',
-      'wordWrapWidth'
-      //...InlineContent.properties
+      'wordWrapWidth',
+      ...InlineContent.properties
     ];
   }
 
@@ -189,7 +189,6 @@ class TextBox extends Base {
       InlineContent: {
         type: InlineContent,
         ...inlineContentPatch,
-        justify: 'flex-start',
         signals: {
           loadedInlineContent: '_notifyAncestors'
         }
