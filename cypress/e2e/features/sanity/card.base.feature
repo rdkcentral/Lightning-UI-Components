@@ -1,4 +1,4 @@
-@sanity @card @base @2104454
+@sanity @card @basic @2104454
 
 Feature: LUI Card Base Component
 

@@ -11,6 +11,8 @@ import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Radio from '../pageObjects/utilities/radio.utilities';
 import RadioSmall from '../pageObjects/utilities/radiosmall.utilities';
 import Row from '../pageObjects/navigation/row.navigation';
+import Slider from '../pageObjects/utilities/slider.utilities';
+import SliderLarge from '../pageObjects/utilities/sliderlarge.utilities';
 import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
 import Button from '../pageObjects/controls/button.controls';
 import TextBox from '../pageObjects/text/textbox.text';
@@ -36,6 +38,8 @@ function getPageObject(pageName) {
     radio: Radio,
     radiosmall: RadioSmall,
     row: Row,
+    slider: Slider,
+    sliderlarge: SliderLarge,
     textbox: TextBox,
     focusmanager: FocusManager,
     tile: Tile,
@@ -471,6 +475,17 @@ export default function () {
               break;
           }
           break;
+        case 'vertical':
+          if (value === 'true') {
+            pageObject
+                ._getElementByName(component)
+                .should('have.attr', 'state', 'VerticalSlider');
+          } else {
+            pageObject
+                ._getElementByName(component)
+                .should('not.have.attr', 'state', 'VerticalSlider');
+          }
+          break;
         default:
           break;
       }
@@ -766,6 +781,30 @@ export default function () {
         default:
           break;
       }
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {string} Progress Bar is set to {float}
+   * @description Cucumber statement to verify that the Progress Bar is set to expected percentage value
+   * @param {Float} expectedPercentage
+   * @param {String} pageName
+   * @example I verify that the 'Slider' Progress Bar is set to 0.20
+   */
+   Then(
+    'I verify that the {string} Progress Bar is set to {float}',
+    (pageName, expectedPercentage) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      cy.wait(300); // wait for the progress bar to render
+      pageObject.progressBarValue.then(progressBarValue => {
+        pageObject.progressValue.then(progressValue => {
+          const actualPercentage = Number(progressValue) / Number(progressBarValue);
+          expect(actualPercentage).to.eq(expectedPercentage);
+        });
+      });
     }
   );
 }

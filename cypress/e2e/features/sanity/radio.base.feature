@@ -1,4 +1,4 @@
-@sanity @radio @base @2113395
+@sanity @radio @basic @2113395
 
 Feature: LUI Radio Basic component
 
