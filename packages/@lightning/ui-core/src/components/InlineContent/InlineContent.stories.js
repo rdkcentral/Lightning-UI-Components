@@ -14,11 +14,6 @@ export default {
     contentProperties: { marginBottom: -4 }
   },
   argTypes: {
-    loaded: {
-      action: 'Inline Content textures loaded',
-      description: 'action fired when $loadedInlineContent has been called'
-    },
-
     contentProperties: {
       control: {
         type: 'object'
@@ -43,17 +38,15 @@ export default {
       }
     },
     justify: {
-      control: {
-        type: 'radio',
-        options: [
-          'flex-start',
-          'flex-end',
-          'center',
-          'space-between',
-          'space-around',
-          'space-evenly'
-        ]
-      },
+      control: 'radio',
+      options: [
+        'flex-start',
+        'flex-end',
+        'center',
+        'space-between',
+        'space-around',
+        'space-evenly'
+      ],
       defaultValue: 'center',
       description: 'alignment of first line flexbox content',
       type: 'string',
