@@ -4,7 +4,7 @@ import image from '@rollup/plugin-image';
 import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
 
 export default cliArgs => [
   {
@@ -13,14 +13,17 @@ export default cliArgs => [
     plugins: [
       dts({
         compilerOptions: {
+          lib: ['ES2018', 'DOM'],
+          outDir: 'types',
           sourceMap: true,
-          module: 'es6',
+          module: 'Node16',
           target: 'ES2020',
           moduleResolution: 'node',
           allowJs: true,
           esModuleInterop: true,
           allowSyntheticDefaultImports: true,
-          strict: false,
+          strict: true,
+          noImplicitOverride: true,
           resolveJsonModule: true,
           declaration: true,
           declarationMap: true,
@@ -32,7 +35,7 @@ export default cliArgs => [
   {
     input: './index.js',
     output: {
-      sourcemap: true, 
+      sourcemap: true,
       file: cliArgs.name
         ? `./dist/${cliArgs.name}.min.js`
         : './dist/bundle.min.js',

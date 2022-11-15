@@ -1,7 +1,7 @@
 import type Row from '../Row';
 import type { RowStyles } from '../Row';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../../elements/TextBox';
+import type { TextBoxStyles } from '../TextBox';
 
 export type TitleRowStyles = RowStyles & {
   w: number;
