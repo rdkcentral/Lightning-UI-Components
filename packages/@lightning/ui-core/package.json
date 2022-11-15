@@ -21,6 +21,8 @@
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
     "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-core",
+    "lint": "eslint './src/**/*.js'",
+    "lint:fix": "eslint --fix './src/**/*.js'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose",
     "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
@@ -39,7 +41,9 @@
   },
   "dependencies": {
     "@suite-themes/base-lightning-tv": "^1.3.1",
-    "debounce": "^1.2.1"
+    "debounce": "^1.2.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3"
   },
   "files": [
     "dist/*"
