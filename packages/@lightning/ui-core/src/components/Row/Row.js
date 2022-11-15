@@ -51,9 +51,9 @@ class Row extends FocusManager {
       ) {
         this.w = this.parent.parent.w;
       } else {
-        let parent = this.p;
+        let parent = this.parent;
         while (parent && !parent.w) {
-          parent = parent.p;
+          parent = parent.parent;
         }
         this.w =
           (parent && parent.w) ||

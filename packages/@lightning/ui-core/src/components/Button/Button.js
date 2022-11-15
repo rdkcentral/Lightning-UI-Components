@@ -40,7 +40,8 @@ class Button extends Surface {
       Content: {
         mount: 0.5,
         x: w => w / 2,
-        y: h => h / 2
+        y: h => h / 2,
+        zIndex: 2 // ensure content (title) is rendered above Surface Background
       }
     };
   }

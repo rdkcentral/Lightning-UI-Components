@@ -187,7 +187,7 @@ exports[`Input renders 1`] = `
       "w": 0,
       "x": 24,
       "y": 40,
-      "zIndex": 0,
+      "zIndex": 2,
     },
   },
 }
