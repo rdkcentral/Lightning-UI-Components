@@ -1,4 +1,4 @@
-@sanity @radiosmall @base @2105949
+@sanity @radiosmall @basic @2105949
 
 Feature: LUI RadioSmall Basic component
 
