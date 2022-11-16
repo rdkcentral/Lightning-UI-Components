@@ -66,9 +66,10 @@ describe('InlineContent', () => {
     inlineContent.base = context.theme;
     inlineContent.content = 'This should be in Xfinity font.';
     await inlineContent.__updateSpyPromise;
-    expect(inlineContent.style.textStyle).toEqual(
-      context.theme.typography.body1
-    );
+    expect(inlineContent.style.textStyle).toEqual({
+      ...context.theme.typography.body1,
+      verticalAlign: 'bottom'
+    });
   });
 
   it('should update the content array', () => {
@@ -156,7 +157,7 @@ describe('InlineContent', () => {
     expect(inlineContent.childList.getAt(0).background.color).toBe(color);
   });
 
-  it('should vertically center a badge once it has loaded based on textHeight', async () => {
+  it('should vertically center a badge once it has loaded based on lineHeight', async () => {
     const content = [
       'This is a badge: ',
       {
@@ -174,34 +175,8 @@ describe('InlineContent', () => {
         spyOnMethods: ['$loadedBadge']
       }
     );
-    expect(inlineContent.childList.last.y).toBe(0);
     testRenderer.forceAllUpdates();
-    await inlineContent._$loadedBadge;
-    await TestUtils.nextTick();
-    expect(inlineContent.childList.last.y).toBeGreaterThan(0);
-  });
-
-  it('should vertically center a badge once it has loaded based on lineHeight', async () => {
-    const content = [
-      'This is a badge: ',
-      {
-        badge: 'HD',
-        title: 'HD'
-      }
-    ];
-    [inlineContent, testRenderer] = createInlineContent(
-      {
-        content,
-        contentProperties: { marginBottom: 20 },
-        textStyle: { lineHeight: 150 }
-      },
-      {
-        spyOnMethods: ['$loadedBadge']
-      }
-    );
-    expect(inlineContent.childList.last.y).toBe(0);
-    testRenderer.forceAllUpdates();
-    await inlineContent._$loadedBadge;
+    await inlineContent._$loadedBadgeSpyPromise;
     await TestUtils.nextTick();
     expect(inlineContent.childList.last.y).toBeGreaterThan(0);
   });

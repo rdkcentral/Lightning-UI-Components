@@ -105,7 +105,9 @@ class InlineContent extends Base {
           this.flex._layout._lineLayouter._lines
         ) {
           this.multiLineHeight =
-            this.finalH * this.flex._layout._lineLayouter._lines.length;
+            this.style.textStyle.lineHeight *
+            this.flex._layout._lineLayouter._lines.length;
+          this.h = this.multiLineHeight;
           this._notifyAncestors();
         } else {
           this._contentLoaded();
@@ -127,6 +129,9 @@ class InlineContent extends Base {
       y: y,
       w: this.style.iconW,
       h: this.style.iconH,
+      signals: {
+        itemChanged: '_updateIconPosition'
+      },
       ...iconProps
     };
   }
@@ -152,7 +157,6 @@ class InlineContent extends Base {
   _createBadge(base, badge) {
     return {
       ...base,
-      mountY: 0.5,
       y: this.badgeY || 0,
       ...this.badgeProperties,
       type: Badge,
@@ -160,12 +164,13 @@ class InlineContent extends Base {
     };
   }
 
+  _updateIconPosition(icon) {
+    icon.y = this.style.textStyle.lineHeight - icon.h;
+  }
+
   $loadedBadge(badge) {
     if (this.badgeY === undefined) {
-      badge.y =
-        (this.textHeight > this.style.textStyle.lineHeight
-          ? this.textHeight
-          : this.style.textStyle.lineHeight) - badge.h;
+      badge.y = this.style.textStyle.lineHeight - badge.h;
     }
   }
 

@@ -30,7 +30,7 @@ class Icon extends Base {
   _notify() {
     this.w = this.finalW;
     this.h = this.finalH;
-    this.signal('itemChanged');
+    this.signal('itemChanged', this);
     this.fireAncestors('$itemChanged');
   }
 

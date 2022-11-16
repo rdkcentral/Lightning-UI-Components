@@ -32,19 +32,36 @@ export const Stacked = () =>
     }
   };
 
-Stacked.storyName = 'CardAboutStacked';
-Stacked.args = {
+const defaultProps = {
   descriptionBottom: 'English, Spanish, French',
   title: 'Audio',
   titleBottom: 'Languages'
 };
 
+Stacked.storyName = 'CardAboutStacked';
+Stacked.args = defaultProps;
+
 Stacked.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   descriptionBottom: {
-    content: 'text',
-    description: 'Description for bottom description text'
+    control: 'text',
+    description: 'Description for bottom description text',
+    table: {
+      defaultValue: { summary: defaultProps.descriptionBottom }
+    }
   },
-  title: { content: 'text', description: 'Title' },
-  titleBottom: { content: 'text', description: 'Title for bottom text' }
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: defaultProps.title }
+    }
+  },
+  titleBottom: {
+    control: 'text',
+    description: 'Title for bottom text',
+    table: {
+      defaultValue: { summary: defaultProps.titleBottom }
+    }
+  }
 };
