@@ -80,7 +80,7 @@ describe('Icon', () => {
 
     expect(icon.h).toBe(finalSize);
     expect(icon.h).toBe(finalSize);
-    expect(icon.signal).toHaveBeenCalledWith('itemChanged');
+    expect(icon.signal).toHaveBeenCalledWith('itemChanged', icon);
     expect(icon.fireAncestors).toHaveBeenCalledWith('$itemChanged');
   });
 

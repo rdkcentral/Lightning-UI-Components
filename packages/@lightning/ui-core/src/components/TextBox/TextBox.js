@@ -59,9 +59,13 @@ class TextBox extends Base {
     ];
   }
 
-  _setDimensions() {
-    const width = this._Text.texture.getRenderWidth();
-    const height = this._Text.texture.getRenderHeight();
+  _setDimensions(w, h) {
+    let width = w;
+    let height = h;
+    if (!this._isInlineContent) {
+      width = this._Text.texture.getRenderWidth();
+      height = this._Text.texture.getRenderHeight();
+    }
     if (width && height) {
       this.h = height;
       this.w = width;
@@ -190,7 +194,7 @@ class TextBox extends Base {
         type: InlineContent,
         ...inlineContentPatch,
         signals: {
-          loadedInlineContent: '_notifyAncestors'
+          loadedInlineContent: '_setDimensions'
         }
       }
     });

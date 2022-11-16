@@ -29,13 +29,11 @@ export default {
 
   // TODO: Need to fix these tests after monorepo refactor
   modulePathIgnorePatterns: [
-    '<rootDir>/src/components/TextBox',
     '<rootDir>/src/mixins/withExtensions',
     '<rootDir>/src/components/Tooltip',
     '<rootDir>/src/mixins/withHandleKey',
     '<rootDir>/src/mixins/withLayout',
-    '<rootDir>/src/globals/context',
-    '<rootDir>/src/components/InlineContent'
+    '<rootDir>/src/globals/context'
   ],
 
   // The root directory that Jest should scan for tests and modules within

@@ -50,7 +50,8 @@ class CardAboutStacked extends CardAbout {
       y:
         this._Title.y + this._Title.textStyle &&
         this._Title.textStyle.lineHeight + this.style.paddingVertical * 1.5,
-      textStyle: this.style.descriptionTextStyle
+      textStyle: this.style.descriptionTextStyle,
+      justify: 'flex-start'
     });
   }
 
