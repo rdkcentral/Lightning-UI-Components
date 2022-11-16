@@ -70,7 +70,7 @@ resources:
       branch: release
       private_key: ((github-enterprise.private-key))
       uri: ((ghe-source-repo))
-  
+
   - name: source-repo-pr
     type: pull-request
     icon: source-pull
@@ -83,6 +83,15 @@ resources:
       access_token: ((ghe-token))
       v3_endpoint: https://github.comcast.com/api/v3/
       v4_endpoint: https://github.comcast.com/api/graphql
+
+  - name: source-repo-develop
+    type: git
+    webhook_token: ((webhook-token))
+    check_every: 168h
+    source:
+      branch: develop
+      private_key: ((github-enterprise.private-key))
+      uri: ((ghe-source-repo))
 
   # 4.x
 
@@ -132,6 +141,7 @@ groups:
     jobs:
       - pull-request
       - publish
+      - docs-staging
       - pull-request-4x
       - docs-4x
       - publish-4x
@@ -221,7 +231,7 @@ jobs:
         params:
           repository: updated-branch # From publish-monorepo-step
       - task: docs
-        file: source-repo/ci/tasks-monorepo/docs.yml
+        file: source-repo/ci/tasks-monorepo/docs-gh-pages.yml
         input_mapping:
           source-repo: source-repo-ready
         params:
@@ -247,6 +257,21 @@ jobs:
                 text: |
                   *New Lightning UI Releases Available*
                 attachments_file: ci-files/lui-slack-notification.json
+
+  - name: docs-staging
+    build_logs_to_retain: 50
+    plan:
+      - get: source-repo-develop
+        trigger: true
+      - task: build-docs
+        file: source-repo-develop/ci/tasks-monorepo/docs-cf.yml
+        input_mapping:
+          source-repo: source-repo-develop
+      - put: docs-cf-app
+        params:
+          manifest: source-repo-develop/cloudfoundry/manifest-staging.yml
+          path: storybook
+
 
   # 4x
   - name: pull-request-4x
@@ -309,7 +334,7 @@ jobs:
           source-repo/dist: build-output
       - put: docs-cf-app
         params:
-          manifest: source-repo-4x/cloudfoundry/manifest.yml
+          manifest: source-repo-4x/cloudfoundry/manifest-4x.yml
           path: build-output
 
   - name: publish-4x

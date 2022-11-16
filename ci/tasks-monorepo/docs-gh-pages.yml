@@ -9,5 +9,5 @@ image_resource:
     tag: 16.0.0
 run:
   path: bash
-  args: [ ./ci/tasks-monorepo/docs.sh ]
+  args: [ ./ci/tasks-monorepo/docs-gh-pages.sh ]
   dir: ./source-repo
