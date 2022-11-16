@@ -6,7 +6,15 @@ export const base = theme => ({
   logoPadding: theme.spacer.lg,
   subtitleTextStyle: theme.typography.body3,
   titleTextStyle: { ...theme.typography.headline1, maxLines: 1 },
-  marqueeSync: true
+  marqueeSync: true,
+  alpha: theme.alpha.primary
+});
+
+export const mode = theme => ({
+  disabled: {
+    subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+    alpha: theme.alpha.inactive
+  }
 });
 
 export const palette = theme => ({
