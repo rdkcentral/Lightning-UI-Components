@@ -26,7 +26,7 @@ class MetadataTile extends MetadataBase {
   _updateSubtitleLayout({ h }) {
     if (this.subtitle && !this.description) {
       this._SubtitleWrapper.h = h;
-      this._SubtitleWrapper.alpha = 1;
+      this._SubtitleWrapper.alpha = this.style.alpha;
     } else {
       this._SubtitleWrapper.h = 0;
     }

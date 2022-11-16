@@ -121,6 +121,7 @@ class MetadataBase extends Base {
   }
 
   _updateSubtitleLayout({ w, h }) {
+    this._SubtitleWrapper.alpha = this.style.alpha;
     this._SubtitleWrapper.w = w;
     this._SubtitleWrapper.h = h;
   }
@@ -210,7 +211,8 @@ class MetadataBase extends Base {
       type: Icon,
       w: this.logoWidth,
       h: this.logoHeight,
-      icon: this.logo
+      icon: this.logo,
+      alpha: this.style.alpha
     });
 
     this._Logo.x = this.logoPosition === 'left' ? 0 : this.w - this._Logo.w;
