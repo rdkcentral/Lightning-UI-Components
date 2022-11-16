@@ -1,0 +1,16 @@
+---
+platform: linux
+inputs:
+  - name: source-repo
+outputs:
+  - name: storybook
+    path: source-repo/packages/apps/lightning-ui-docs/storybook-static
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: 16.0.0
+run:
+  path: bash
+  args: [ ./ci/tasks-monorepo/docs-cf.sh ]
+  dir: ./source-repo
