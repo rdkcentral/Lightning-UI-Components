@@ -12,6 +12,7 @@ Feature: LUI ProgressBar Basic component
   Scenario: Verify the dimensions of the ProgressBar Basic Element
     Then I verify that the 'width' of 'ProgressBar' component is '410px'
     And I verify that the 'height' of 'ProgressBar' component is '10px'
+    And I verify that the 'progress' of 'ProgressBar' component is '0.50'
 
   Scenario: Validate the ProgressBar progress control
   	When I set the 'progress' to '<progressValue>' for 'ProgressBar' component

@@ -40,6 +40,11 @@ task-config: &task-config
       repository: node
       tag: 16.9.1
 
+slack_params_feature: &slack_params_feature
+  channel: "#lui-automation-reports"
+  username: "Concourse_LUI_Sanity_Results"
+  icon_emoji: ":concourse:"
+
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Resource Types: https://concourse-ci.org/resource-types.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -132,6 +137,20 @@ resources:
     source:
       url: ((automation.lightning-ui-slack-webhook-url))
 
+  - name: automation-slack-notification
+    type: slack-notification
+    source:
+      url: ((lui-automation.slack-webhook-url))
+
+  - name: once-every-weekday
+    type: time
+    check_every: 1h
+    source:
+      start: 7:30 AM
+      stop: 8:30 AM
+      days: [Monday, Tuesday, Wednesday, Thursday, Friday]
+      location: America/New_York
+
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -149,6 +168,9 @@ groups:
     jobs:
       - pull-request
       - pull-request-4x
+  - name: cypress-sanity-tests 
+    jobs:
+      - run-cypress-sanity-vrt-tests
 
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
   # Jobs: https://concourse-ci.org/jobs.html
@@ -355,3 +377,35 @@ jobs:
           NPM_USERNAME: ((service-account.artifactory-username))
           NPM_EMAIL: ((service-account.email))
           NPM_PASSWORD: ((service-account.artifactory-api-key))
+
+  - name: run-cypress-sanity-vrt-tests
+    plan:
+      - get: once-every-weekday
+        trigger: true
+      - get: source-repo
+      - task: run-cypress-tests
+        file: source-repo/ci/tasks-monorepo/run-cypress-tests.yml
+        input_mapping:
+          source-repo: source-repo
+        params:
+          AWS_ACCESS_KEY_ID: ((aws.access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((aws.secret-access-key))
+          S3_BUCKET: ((aws-s3-bucket-name))
+          VRT_APIKEY: ((lui-automation.vrtApiKey))
+          VRT_PROJECT: ((lui-automation.vrtProject))
+        on_success:
+          do:
+            - put: automation-slack-notification
+              params:
+                <<: *slack_params_feature
+                text: |
+                  :white_check_mark: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Sanity and VRT Sanity Tests Run Job - Passed (Build #$BUILD_ID)>*
+                attachments_file: source-repo/tests-slack-notification.json
+        on_failure:
+          do:
+            - put: automation-slack-notification
+              params:
+                <<: *slack_params_feature
+                text: |
+                  :red_cr4: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Sanity and VRT Sanity Tests Run Job - Failed (Build #$BUILD_ID)>*
+                attachments_file: source-repo/tests-slack-notification.json

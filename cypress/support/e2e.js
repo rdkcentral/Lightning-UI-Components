@@ -42,9 +42,9 @@ Cypress.on('test:after:run', (test, runnable) => {
     let subfolder = '';
     if (Cypress.env('TAGS').includes(' or ')) {
       subfolder = Cypress.spec.relative.match(
-        /cypress\/e2e\/features\/(.*\/).*feature/
+        /cypress\/e2e\/features\/sanity\/(.*\/).*feature/
       );
-      subfolder = subfolder[1];
+      subfolder = subfolder === null ? '' : subfolder[1];
     }
     if (Cypress.env('ON_CI')) {
       addContext(

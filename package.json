@@ -28,7 +28,10 @@
     "cy:info": "cypress info",
     "cy:verify": "cypress verify",
     "cy:tags": "cypress run --headed --browser chrome",
-    "cy:vrt": "yarn run cy:tags --env testType=vrt,TAGS=@sanity-vrt,ON_CI=true"
+    "cy:vrt": "yarn run cy:tags --env testType=vrt,TAGS=@sanity-vrt,ON_CI=true",
+    "cy:sanityVrt": "yarn run cy:tags --env testType=vrt,TAGS='@sanity or @sanity-vrt',ON_CI=true",
+    "cy:launchAppAndRunSanityVrtTests": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityVrt'",
+    "report:add:video": "node cypress/support/helpers/update-report-include-video.js"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^13.0.2",
@@ -61,6 +64,7 @@
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
+    "start-server-and-test": "1.14.0",
     "typescript": "^4.8.4"
   },
   "cypress-cucumber-preprocessor": {
