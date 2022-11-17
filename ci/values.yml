@@ -7,3 +7,4 @@
   ghe-release-branch: "main"
   webhook-token: ((github-enterprise.webhook-token))
   ghe-token: ((github-enterprise.access-token))
+  aws-s3-bucket-name: "lui-test-reports"
