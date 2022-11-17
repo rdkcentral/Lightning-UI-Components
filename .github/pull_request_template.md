@@ -16,8 +16,8 @@
 
 ## Checklist
 
-[] all commented code has been removed
-[] any new console issues have been resolved
-[] code linter and formatter has been run
-[] test coverage meets repo requirements
-[] PR name matches the expected semantic-commit syntax
+- [ ] all commented code has been removed
+- [ ] any new console issues have been resolved
+- [ ] code linter and formatter has been run
+- [ ] test coverage meets repo requirements
+- [ ] PR name matches the expected semantic-commit syntax
