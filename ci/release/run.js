@@ -83,14 +83,15 @@ async function fetchCommits() {
     .map(commit => {
       const hash = commit.split(/\s/)[0];
       const commitMessage = commit.replace(/^\S+\s/, '');
-      const [_, type = 'minor', scope = '', breaking] = commitMessage
+      const [_, type = 'minor', scope = '', breaking, space, prNum = ''] = commitMessage
         ? conventionalCommitRegExp.exec(commitMessage) || []
         : [];
       return {
         hash,
         type: breaking ? 'major' : type,
-        message: commitMessage.split(':').pop().trim(),
-        scope: scope.replace(/\(|\)/g, '')
+        message: commitMessage.split(':').pop().trim().replace(` ${prNum}`, ''),
+        scope: scope.replace(/\(|\)/g, ''),
+        prNum: prNum.replace(/\(|\)|#/g, ''),
       };
     });
 }
@@ -136,9 +137,88 @@ async function releaseWorkspace(workspace, info) {
 }
 
 async function generateTag(name, version, commits) {
-  console.log(`git tag ${name}@${version}`);
-  releaseVersions.push(`${name}@${version}`);
-  await execPromise(`git tag ${name}@${version}`);
+  const tagName = `${name}@${version}`;
+  releaseVersions.push(`${tagName}`);
+  generateReleaseNotes(tagName, commits);
+  await execPromise(`git tag -a ${tagName} -m '${generateReleaseNotes(tagName, commits)}'`);
+}
+
+function getDate() {
+  let dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1; // months from 1-12
+  let day = dateObj.getUTCDate();
+  let year = dateObj.getUTCFullYear();
+
+  return `${year}-${month}-${day < 10 ? '0' + day : day}`;
+}
+
+function generateReleaseNotes(tagName, commits) {
+  const features = commits
+    .filter(commit => commit.type === 'feat')
+    .map(commit => formatGitHubCommitMessage(commit));
+
+  const fixes = commits
+    .filter(commit => commit.type === 'fix')
+    .map(commit => formatGitHubCommitMessage(commit));
+
+  // The awkard spacing and indentation is intenional here as passing in the "\n" character for a
+  // new line will actually print our in the tag message as "\n" instead of making a new line
+  let str = `Release
+# [${tagName}](https://github.comcast.com/Lightning/lightning-ui/compare/${lastRelease}...${tagName}) (${getDate()})`;
+  if (features.length) {
+    str += `
+
+###Features
+
+`;
+    features.forEach(commit => str += `
+${commit}`);
+  }
+  if (fixes.length) {
+    str += `
+
+###Bug Fixes
+
+`;
+    fixes.forEach(commit => str += `
+${commit}`);
+  }
+
+  return str;
+}
+
+function formatGitHubCommitMessage({ scope, message, prNum, hash }) {
+  let str = '*';
+  if (scope) {
+    str += ` **${scope}:**`;
+  }
+  if (message) {
+    str += ` ${message}`;
+  }
+  if (prNum) {
+    str += ` ([#${prNum}](https://github.comcast.com/Lightning/lightning-ui/issues/${prNum}))`;
+  }
+  if (hash) {
+    str += ` ([${hash.slice(0, 7)}](https://github.comcast.com/Lightning/lightning-ui/commit/${hash}))`;
+  }
+  return str;
+}
+
+function formatSlackCommitMessage({ scope, message, prNum, hash }) {
+  let str = '•';
+  if (scope) {
+    str += ` *${scope}:*`;
+  }
+  if (message) {
+    str += ` ${message}`;
+  }
+  if (prNum) {
+    str += ` (<https://github.comcast.com/Lightning/lightning-ui/issues/${prNum}|#${prNum}>)`;
+  }
+  if (hash) {
+    str += ` (<https://github.comcast.com/Lightning/lightning-ui/commit/${hash}|${hash.slice(0, 7)}>)`;
+  }
+  return str;
 }
 
 /**
@@ -153,11 +233,11 @@ async function generateSlackChangelog(name, version, commits) {
 
   const features = commits
     .filter(commit => commit.type === 'feat')
-    .map(({ message }) => '• ' + message);
+    .map(commit => formatSlackCommitMessage(commit));
 
   const fixes = commits
     .filter(commit => commit.type === 'fix')
-    .map(({ message }) => '• ' + message);
+    .map(commit => formatSlackCommitMessage(commit));
 
   const header = {
     type: 'header',
