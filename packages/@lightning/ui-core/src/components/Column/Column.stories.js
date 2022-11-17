@@ -1,13 +1,7 @@
 import lng from '@lightningjs/core';
 import { context } from '../../globals/index.js';
 import { flatten, getWidthByUpCount } from '../../utils/index.js';
-import {
-  FocusManager,
-  Row,
-  Column as ColumnComponent,
-  Tile,
-  Button
-} from '../index.js';
+import { Row, Column as ColumnComponent, Tile, Button } from '../index.js';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import mdx from './Column.mdx';
 import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
@@ -27,6 +21,28 @@ export default {
   }
 };
 
+const columnHeight =
+  context.theme.layout.screenH -
+  2 * (context.theme.layout.marginY + context.theme.layout.gutterY.sm);
+
+// creates an array of buttons to be used in Stories
+const createItems = (buttonType, length, isVariedHeight, isDynamicWidth) => {
+  return Array.from({ length }).map((_, i) => {
+    const button = {
+      type: buttonType,
+      title: `Button ${i + 1}`
+    };
+    if (!isDynamicWidth) {
+      button.fixed = true;
+      button.w = 250;
+    }
+    if (isVariedHeight) {
+      button.h = 40 + Math.floor(Math.random() * 100);
+    }
+    return button;
+  });
+};
+
 export const Column = args =>
   class Column extends lng.Component {
     static _template() {
@@ -38,10 +54,7 @@ export const Column = args =>
             2 *
               (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
           scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: ButtonFixedWidth,
-            title: `Button ${i + 1}`
-          }))
+          items: createItems(Button, 20)
         }
       };
     }
@@ -76,58 +89,30 @@ Column.parameters = {
   }
 };
 
-export const TestCase = args =>
-  class TestCase extends lng.Component {
-    static _template() {
-      return {
-        Column: {
-          type: ColumnComponent,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 10 }).map((_, i) => ({
-            type: ButtonFixedWidth,
-            h: 80,
-            title: `Button ${i + 1}`
-          }))
-        }
-      };
-    }
-  };
-TestCase.argTypes = {
-  scrollIndex: {
-    defaultValue: 3,
-    control: { type: 'range', min: 0, max: 4, step: 1 },
-    description:
-      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
-    table: { defaultValue: { summary: 3 } }
-  }
-};
-
-export const MultiColumn = args =>
+export const MultiColumn = () =>
   class MultiColumn extends lng.Component {
     static _template() {
       return {
-        FocusManager: {
-          type: FocusManager,
-          direction: 'row',
-          items: [{ type: Column(args) }, { type: Column(args), x: 180 }]
+        Row: {
+          type: Row,
+          items: [
+            {
+              type: ColumnComponent,
+              h: columnHeight,
+              autoResizeWidth: true,
+              items: createItems(Button, 20)
+            },
+            {
+              type: ColumnComponent,
+              h: columnHeight,
+              autoResizeWidth: true,
+              items: createItems(Button, 20)
+            }
+          ]
         }
       };
     }
   };
-MultiColumn.parameters = { tag: 'FocusManager' };
-MultiColumn.argTypes = {
-  scrollIndex: {
-    defaultValue: 0,
-    control: { type: 'range', min: 0, max: 4, step: 1 },
-    description:
-      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
-    table: { defaultValue: { summary: 0 } }
-  }
-};
 
 export const Plinko = () =>
   class Plinko extends lng.Component {
@@ -139,23 +124,15 @@ export const Plinko = () =>
           items: [
             {
               type: Row,
-              h: 40,
-              w: getWidthByUpCount(context.theme, 1),
-              items: Array.apply(null, { length: 3 }).map(() => ({
-                type: ButtonFixedWidth,
-                title: 'Button',
-                w: 150
-              }))
+              autoResizeHeight: true,
+              autoResizeWidth: true,
+              items: createItems(Button, 3)
             },
             {
               type: Row,
-              h: 40,
-              w: getWidthByUpCount(context.theme, 1),
-              items: Array.apply(null, { length: 3 }).map(() => ({
-                type: ButtonFixedWidth,
-                title: 'Button',
-                w: 150
-              }))
+              autoResizeHeight: true,
+              autoResizeWidth: true,
+              items: createItems(Button, 3)
             }
           ]
         }
@@ -169,15 +146,8 @@ export const VaryingItemHeight = () =>
       return {
         Column: {
           type: ColumnComponent,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          items: Array.apply(null, { length: 10 }).map(() => ({
-            type: ButtonFixedWidth,
-            title: 'Button',
-            h: 40 + Math.floor(Math.random() * 100)
-          }))
+          h: columnHeight,
+          items: createItems(Button, 10, true)
         }
       };
     }
@@ -189,16 +159,8 @@ export const ExpandableHeightItems = () =>
       return {
         Column: {
           type: ColumnComponent,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          items: Array.apply(null, { length: 15 }).map((_, i) => ({
-            type: ExpandingButton,
-            h: 40,
-            w: 150,
-            title: `Button ${i}`
-          }))
+          h: columnHeight,
+          items: createItems(ExpandingButton, 15)
         }
       };
     }
@@ -210,21 +172,13 @@ export const ExpandableHeightRows = () =>
       return {
         Column: {
           type: ColumnComponent,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          w: getWidthByUpCount(context.theme, 1),
+          h: columnHeight,
           plinko: true,
-          items: Array.apply(null, { length: 15 }).map((_, i) => ({
-            type: ExpandingRow,
+          items: Array.apply(null, { length: 15 }).map(() => ({
+            type: Row,
+            autoResizeHeight: true,
             w: getWidthByUpCount(context.theme, 1),
-            h: 40,
-            items: [
-              { type: ExpandingButton, title: `Button ${i}`, w: 150 },
-              { type: ExpandingButton, title: `Button ${i}`, w: 150 },
-              { type: ExpandingButton, title: `Button ${i}`, w: 150 }
-            ]
+            items: createItems(ExpandingButton, 3)
           }))
         }
       };
@@ -237,10 +191,7 @@ export const SkipFocus = args =>
       return {
         Column: {
           type: ColumnComponent,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
+          h: columnHeight,
           wrapSelected: args.wrapSelected,
           items: [
             ...Array.apply(null, { length: 49 }).map((_, i) => {
@@ -251,7 +202,7 @@ export const SkipFocus = args =>
                   h: 30,
                   skipFocus: true
                 };
-              return { type: ButtonFixedWidth, title: 'Button' };
+              return { type: Button, title: 'Button' };
             }),
             {
               type: Title,
@@ -281,16 +232,8 @@ export const OnScreenEffect = () =>
         Column: {
           type: ColumnComponent,
           scrollIndex: 2,
-          h:
-            context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
-          items: Array.apply(null, { length: 10 }).map((_, i) => {
-            return {
-              type: ButtonFixedWidth,
-              title: `Button ${i}`
-            };
-          })
+          h: columnHeight,
+          items: createItems(Button, 10)
         }
       };
     }
@@ -319,9 +262,10 @@ export const StickyTitle = () => {
       const headerText = `Sticky Header ${i}`;
       const items = Array.apply(null, { length: 8 }).map((_, i) => {
         return {
-          type: ButtonFixedWidth,
+          type: Button,
           title: `Button ${i + 1}`,
-          w: 200,
+          fixed: true,
+          w: 250,
           headerText
         };
       });
@@ -330,6 +274,7 @@ export const StickyTitle = () => {
         {
           type: ColumnHeader,
           headerText,
+          h: 40,
           skipFocus: true
         },
         ...items
@@ -341,23 +286,21 @@ export const StickyTitle = () => {
   return class ColumnExample extends lng.Component {
     static _template() {
       return {
-        h: 450,
-        w: 200,
-        ColumnHeader: {
-          type: ColumnHeader,
-          headerText: 'Sticky Header 0',
-          h: 40
-        },
         Column: {
           y: 50,
-          w: 300,
           h: 400,
+          autoResizeWidth: true,
           clipping: true,
           type: ColumnComponent,
           items,
           signals: {
             selectedChange: '_updateHeader'
           }
+        },
+        ColumnHeader: {
+          type: ColumnHeader,
+          headerText: 'Sticky Header 0',
+          h: 40
         }
       };
     }
@@ -371,28 +314,23 @@ export const StickyTitle = () => {
 export const CenteredInParent = () =>
   class CenteredInParent extends lng.Component {
     static _template() {
-      const buttonW = 150;
-      const button = {
-        type: ButtonFixedWidth,
-        title: 'Button',
-        w: buttonW
-      };
-      const itemSpacing = context.theme.layout.gutterY.xs;
       return {
         Column: {
           type: ColumnComponent,
-          w: buttonW * 3 + itemSpacing * 2,
+          autoResizeWidth: true,
           items: [
             {
               type: Row,
-              h: 40,
-              items: Array.apply(null, { length: 3 }).map(() => button)
+              autoResizeWidth: true,
+              autoResizeHeight: true,
+              items: createItems(Button, 3)
             },
             {
               type: Row,
-              h: 40,
+              autoResizeWidth: true,
+              autoResizeHeight: true,
               centerInParent: true,
-              items: Array.apply(null, { length: 1 }).map(() => button)
+              items: createItems(Button, 1)
             }
           ]
         }
@@ -407,7 +345,6 @@ class ColumnHeader extends lng.Component {
         x: 5,
         y: 10,
         text: {
-          text: 'Sticky Header',
           fontSize: 24,
           textColor: 0xffffffff
         },
@@ -421,6 +358,10 @@ class ColumnHeader extends lng.Component {
         h: 3
       }
     };
+  }
+
+  set headerText(text) {
+    this.tag('Label').text.text = text;
   }
 }
 
@@ -442,41 +383,23 @@ class Title extends lng.Component {
   }
 }
 
-class ButtonFixedWidth extends Button {
-  static get __componentName() {
-    return 'ButtonSmall';
-  }
-
-  _init() {
-    this.fixed = true;
-    this.w = 200;
-    super._init();
-  }
-}
-
 class ExpandingButton extends Button {
+  _init() {
+    this.h = 80;
+    super._init();
+    this.fireAncestors('$itemChanged');
+  }
+
   _focus() {
     super._focus();
-    this.patch({ h: 100 });
+    this.smooth = { h: 120 };
     this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {
     super._unfocus();
-    this.patch({ h: 40 });
-  }
-}
-
-class ExpandingRow extends Row {
-  _focus() {
-    super._focus();
-    this.patch({ h: 100 });
+    this.smooth = { h: 80 };
     this.fireAncestors('$itemChanged');
-  }
-
-  _unfocus() {
-    super._unfocus();
-    this.patch({ h: 40 });
   }
 }
 
@@ -487,92 +410,85 @@ export const SkipPlinko = () =>
         Column: {
           type: ColumnComponent,
           w: getWidthByUpCount(context.theme, 1),
-          style: {
-            itemSpacing: 32
-          },
           plinko: true,
           items: [
             {
               type: Row,
-              h: 200,
-              style: {
-                itemSpacing: 50
-              },
+              autoResizeHeight: true,
               items: [
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: parks
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: parks }
                 },
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: person
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: person }
                 },
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: trolls
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: trolls }
+                },
+                {
+                  type: Tile,
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: parks }
+                },
+                {
+                  type: Tile,
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: person }
                 }
               ]
             },
             {
               type: Row,
-              h: 340,
+              autoResizeHeight: true,
               skipPlinko: true,
               items: [
                 {
                   type: Tile,
-                  w: 1060,
-                  h: 300,
+                  itemLayout: { ratioX: 4, ratioY: 1, upCount: 1 },
                   artwork: {
                     src: pets
                   },
                   metadata: {
-                    firstLine: 'Row with skipPlinko set to true'
-                  }
+                    title: 'Row with skipPlinko set to true'
+                  },
+                  persistentMetadata: true
                 }
               ]
             },
             {
               type: Row,
-              style: {
-                itemSpacing: 50
-              },
-              h: 180,
+              autoResizeHeight: true,
               items: [
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: person2
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: person2 }
                 },
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: jurassic
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: jurassic }
                 },
                 {
                   type: Tile,
-                  w: 320,
-                  h: 180,
-                  artwork: {
-                    src: person1
-                  }
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: person1 }
+                },
+                {
+                  type: Tile,
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: person2 }
+                },
+                {
+                  type: Tile,
+                  itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
+                  artwork: { src: jurassic }
                 }
               ]
             }
@@ -591,10 +507,7 @@ export const LazyUpCount = args =>
           h: 500,
           scrollIndex: args.scrollIndex,
           lazyUpCount: args.lazyUpCount,
-          items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: ButtonFixedWidth,
-            title: `Button ${i + 1}`
-          })),
+          items: createItems(Button, 20),
           alwaysScroll: args.alwaysScroll
         }
       };
@@ -631,51 +544,47 @@ export const AddingItems = args =>
           type: ColumnComponent,
           h: 500,
           scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: ButtonFixedWidth,
-            title: `Button ${i + 1}`
-          }))
+          items: createItems(Button, 20, false, true)
         }
       };
     }
 
     _init() {
       super._init();
+
       setTimeout(() => {
         this.tag('Column').appendItemsAt(
           [
             {
-              type: ButtonFixedWidth,
+              type: Button,
               title: 'New Button 0'
             },
             {
-              type: ButtonFixedWidth,
+              type: Button,
               title: 'New Button 1'
             },
             {
-              type: ButtonFixedWidth,
+              type: Button,
               title: 'New Button 2'
             }
           ],
           3
         );
       }, 3000);
+
       setTimeout(() => {
         this.tag('Column').prependItems([
           {
-            type: ButtonFixedWidth,
-            title: 'New Button 3',
-            w: 150
+            type: Button,
+            title: 'New Button 3'
           },
           {
-            type: ButtonFixedWidth,
-            title: 'New Button 4',
-            w: 150
+            type: Button,
+            title: 'New Button 4'
           },
           {
-            type: ButtonFixedWidth,
-            title: 'New Button 5',
-            w: 150
+            type: Button,
+            title: 'New Button 5'
           }
         ]);
       }, 3750);
@@ -698,16 +607,14 @@ export const RemovingItems = args =>
           type: ColumnComponent,
           h: 500,
           scrollIndex: args.scrollIndex,
-          items: Array.apply(null, { length: 20 }).map((_, i) => ({
-            type: ButtonFixedWidth,
-            title: `Button ${i + 1}`
-          }))
+          items: createItems(Button, 20, false, true)
         }
       };
     }
 
     _init() {
       super._init();
+      this.tag('Column').items[1].title = 'To Be Removed';
       setTimeout(() => {
         this.tag('Column').removeItemAt(1);
       }, 3000);
