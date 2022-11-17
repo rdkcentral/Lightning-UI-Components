@@ -25,6 +25,7 @@ export const CardTitle = () =>
       };
     }
   };
+
 CardTitle.args = {
   description: 'Description',
   title: 'Title'
@@ -32,8 +33,20 @@ CardTitle.args = {
 
 CardTitle.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  description: { control: 'text', description: 'Description' },
-  title: { control: 'text', description: 'title' }
+  description: {
+    control: 'text',
+    description: 'Description',
+    table: {
+      defaultValue: { summary: CardTitle.args.description }
+    }
+  },
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: CardTitle.args.title }
+    }
+  }
 };
 
 CardTitle.storyName = 'CardTitle';

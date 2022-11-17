@@ -40,9 +40,18 @@ CardSection.argTypes = {
     defaultValue: sectionIcon,
     control: 'select',
     options: [sectionIcon, 'null'],
-    description: 'Icon source'
+    description: 'Icon source',
+    table: {
+      defaultValue: { summary: CardSection.args.iconSrc }
+    }
   },
-  title: { content: 'text', description: 'Title' }
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: CardSection.args.title }
+    }
+  }
 };
 
 CardSection.storyName = 'CardSection';
