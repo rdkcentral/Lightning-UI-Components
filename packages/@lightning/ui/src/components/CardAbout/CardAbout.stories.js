@@ -25,6 +25,7 @@ export const CardAbout = () =>
       };
     }
   };
+
 CardAbout.args = {
   title: 'Rotten Tomatoes',
   description:
@@ -37,27 +38,51 @@ CardAbout.args = {
 
 CardAbout.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  title: { content: 'text', description: 'Title' },
-  description: { control: 'text', description: 'Description' },
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: CardAbout.args.title }
+    }
+  },
+  description: {
+    control: 'text',
+    description: 'Description',
+    table: {
+      defaultValue: { summary: CardAbout.args.description }
+    }
+  },
   iconLeft: {
     defaultValue: CardAboutIcon,
     control: 'select',
     options: [CardAboutIcon, null],
-    description: 'Icon source for icon on the left side'
+    description: 'Icon source for icon on the left side',
+    table: {
+      defaultValue: { summary: CardAbout.args.iconLeft }
+    }
   },
   iconRight: {
     defaultValue: RatingsIcon,
     control: 'select',
     options: [RatingsIcon, null],
-    description: 'Icon source for icon on the right side'
+    description: 'Icon source for icon on the right side',
+    table: {
+      defaultValue: { summary: CardAbout.args.iconRight }
+    }
   },
   textLeft: {
-    content: 'text',
-    description: 'Text on the left side of the card and icon '
+    control: 'text',
+    description: 'Text on the left side of the card and icon ',
+    table: {
+      defaultValue: { summary: CardAbout.args.textLeft }
+    }
   },
   textRight: {
-    content: 'text',
-    description: 'Text on the right side of the card and icon'
+    control: 'text',
+    description: 'Text on the right side of the card and icon',
+    table: {
+      defaultValue: { summary: CardAbout.args.textRight }
+    }
   }
 };
 

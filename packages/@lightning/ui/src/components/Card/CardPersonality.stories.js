@@ -19,7 +19,7 @@ export const CardPersonality = () =>
   class CardPersonality extends lng.Component {
     static _template() {
       return {
-        Card: {
+        CardPersonality: {
           type: CardPersonalityComponent,
           h: 332,
           w: 249,
@@ -28,6 +28,7 @@ export const CardPersonality = () =>
       };
     }
   };
+
 CardPersonality.args = {
   description: 'Description',
   title: 'Title'
@@ -35,8 +36,20 @@ CardPersonality.args = {
 
 CardPersonality.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  description: { control: 'text', description: 'Description' },
-  title: { control: 'text', description: 'title' }
+  description: {
+    control: 'text',
+    description: 'Description',
+    table: {
+      defaultValue: { summary: CardPersonality.args.description }
+    }
+  },
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: CardPersonality.args.title }
+    }
+  }
 };
 
 CardPersonality.storyName = 'CardPersonality';

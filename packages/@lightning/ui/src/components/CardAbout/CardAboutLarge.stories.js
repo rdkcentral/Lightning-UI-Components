@@ -32,8 +32,20 @@ CardAboutLarge.args = {
 
 CardAboutLarge.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  title: { content: 'text', description: 'Title' },
-  description: { control: 'text', description: 'Description' }
+  title: {
+    control: 'text',
+    description: 'Title',
+    table: {
+      defaultValue: { summary: CardAboutLarge.args.title }
+    }
+  },
+  description: {
+    control: 'text',
+    description: 'Description',
+    table: {
+      defaultValue: { summary: CardAboutLarge.args.description }
+    }
+  }
 };
 
 CardAboutLarge.storyName = 'CardAboutLarge';

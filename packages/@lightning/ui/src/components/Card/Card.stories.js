@@ -26,11 +26,18 @@ export const Card = args =>
       };
     }
   };
+
 Card.args = {
   title: 'Title'
 };
 
 Card.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  title: { control: 'text', description: 'title' }
+  title: {
+    control: 'text',
+    description: 'title text',
+    table: {
+      defaultValue: { summary: Card.args.title }
+    }
+  }
 };
