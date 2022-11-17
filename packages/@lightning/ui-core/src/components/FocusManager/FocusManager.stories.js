@@ -85,48 +85,6 @@ export const ColumnWithRows = () =>
     }
   };
 
-class FancyFocus extends FocusManager {
-  _init() {
-    super._init();
-    this.patch({
-      Items: {
-        x: 50
-      }
-    });
-  }
-
-  render() {
-    this.selected.patch({
-      texture: lng.Tools.getRoundRect(
-        150,
-        40,
-        4,
-        3,
-        0xffff00ff,
-        true,
-        0xff00ffff
-      )
-    });
-  }
-}
-
-export const ExtendedComponent = () =>
-  class ExtendedComponentExample extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: FancyFocus,
-          direction: 'row',
-          items: [
-            { type: ButtonFixedWidth, title: 'Left' },
-            { type: ButtonFixedWidth, title: 'Center', x: 250 },
-            { type: ButtonFixedWidth, title: 'Right', x: 500 }
-          ]
-        }
-      };
-    }
-  };
-
 function Row({ y = 0 } = {}) {
   return {
     type: FocusManager,
