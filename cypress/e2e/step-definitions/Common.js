@@ -99,7 +99,7 @@ export default function () {
    * @param {String} componentName
    * @example I verify that the 'Icon' component is displayed
    */
-  Then('I verify that the {string} component is displayed', componentName => {
+  Then('I verify that the {string} component is displayed', (componentName) => {
     const page = componentName.toLowerCase();
     const pageObject = getPageObject(page);
     pageObject._getElementByName(componentName).should('be.visible');
@@ -259,7 +259,7 @@ export default function () {
   Then('I verify if {string} page data has loaded', pageName => {
     const page = pageName.toLowerCase();
     if (page.includes('row')) {
-      cy.get(Row.button1Label).should('be.visible');
+      cy.get(Row.button1).should('be.visible');
     } else {
       throw new Error(
         `${page} page not found! \nPlease check the page object name or implement the missing case.`
@@ -407,7 +407,7 @@ export default function () {
       const pageObject = getPageObject(page);
 
       pageObject
-        ._getElementByName(component, 2000)
+        ._getElementByNameWithTimeout(component, 2000)
         .should('have.attr', 'texture-text', expectedText);
     }
   );
@@ -428,17 +428,17 @@ export default function () {
       const component = componentName.toLowerCase();
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-      switch (component) {
-        case 'buttons labels':
-          pageObject
-            ._getElementByName(component)
-            .getAttributes('texture-text')
-            .each(elements => {
-              expect(elements).equal(expectedText);
-            });
-      }
-    }
-  );
+
+      pageObject._getElementByName(component)
+        .each(() => {
+          cy.action('RIGHT');
+        });
+      pageObject._getElementByName(component)
+        .getAttributes('texture-text')
+        .each(elements => {
+          expect(elements).contains(expectedText)
+        });
+    });
 
   /**
    * @module Common
@@ -565,7 +565,7 @@ export default function () {
    */
   Then(
     'I verify that elements are horizontally evenly spaced for {string} component',
-    pageName => {
+    (pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const elements = [];

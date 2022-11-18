@@ -26,7 +26,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -500, 50);
+                  .should('be.closeTo', -1600, 100);
               });
               break;
             case '10':
@@ -35,7 +35,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -50, 10);
+                  .should('be.closeTo', -70, 20);
               });
               break;
             default:
@@ -75,7 +75,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -800, 50);
+                  .should('be.closeTo', -1300, 200);
               });
               break;
             case 'false':
@@ -84,7 +84,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -500, 50);
+                  .should('be.closeTo', -1400, 200);
               });
               break;
             default:
@@ -96,8 +96,8 @@ export default function () {
         case 'lazyScroll':
           switch (value) {
             case 'true':
-              //clicking right key 8 times and making sure that scrolling is not happening
-              cy.repeatAction('RIGHT', 8);
+              //clicking right key n times and making sure that scrolling is not happening
+              cy.repeatAction('RIGHT', 5);
               Row._getElementByName(component).should('not.have.attr', 'x');
               //clicking right one more time to activate the scrolling
               cy.action('RIGHT');
@@ -105,7 +105,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.lessThan', -15);
+                  .should('be.lessThan', -50);
               });
               break;
             case 'false':
@@ -114,7 +114,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.lessThan', -15);
+                  .should('be.lessThan', -50);
               });
               break;
             default:
@@ -169,13 +169,14 @@ export default function () {
   Then(
     'I verify that elements are vertically evenly spaced for Row centered in parent component',
     () => {
+
       const tileRows = [];
       cy.wait(500)
         .get(Row.rowElementsCenteredInParent)
         .each($row => {
           // push the row info to the tileRows array
           cy.getOffsetRect($row).then(data => {
-            tileRows.push({ ...data });
+            tileRows.push({...data});
           });
         })
         .then(() => {
