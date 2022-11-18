@@ -34,19 +34,19 @@ class Row extends LUIComponent {
   }
 
   get button1LabelCenteredInParent() {
-    return `${this.button1CenteredInParent} div`;
+    return `${this.button1CenteredInParent} div[ref="Text"]`;
   }
 
   get button2LabelCenteredInParent() {
-    return `${this.button2CenteredInParent} div`;
+    return `${this.button2CenteredInParent} div[ref="Text"]`;
   }
 
   get button3LabelCenteredInParent() {
-    return `${this.button3CenteredInParent} div`;
+    return `${this.button3CenteredInParent} div[ref="Text"]`;
   }
 
   get buttonRightLabelCenteredInParent() {
-    return `${this.buttonRightCenteredInParent} div`;
+    return `${this.buttonRightCenteredInParent} div[ref="Text"]`;
   }
 
   get button1() {
@@ -54,55 +54,7 @@ class Row extends LUIComponent {
   }
 
   get buttonsLabels() {
-    return 'div[ref="Label"]';
-  }
-
-  get button1Label() {
-    return `${this.row} > div:nth-of-type(1) > div[type="Element"]`;
-  }
-
-  get button2Label() {
-    return `${this.row} > div:nth-of-type(2) > div[type="Element"]`;
-  }
-
-  get button3Label() {
-    return `${this.row} > div:nth-of-type(3) > div[type="Element"]`;
-  }
-
-  get button4Label() {
-    return `${this.row} > div:nth-of-type(4) > div[type="Element"]`;
-  }
-
-  get button5Label() {
-    return `${this.row} > div:nth-of-type(5) > div[type="Element"]`;
-  }
-
-  get button6Label() {
-    return `${this.row} > div:nth-of-type(6) > div[type="Element"]`;
-  }
-
-  get button7Label() {
-    return `${this.row} > div:nth-of-type(7) > div[type="Element"]`;
-  }
-
-  get button8Label() {
-    return `${this.row} > div:nth-of-type(8) > div[type="Element"]`;
-  }
-
-  get button9Label() {
-    return `${this.row} > div:nth-of-type(9) > div[type="Element"]`;
-  }
-
-  get button10Label() {
-    return `${this.row} > div:nth-of-type(10) > div[type="Element"]`;
-  }
-
-  get button11Label() {
-    return `${this.row} > div:nth-of-type(11) > div[type="Element"]`;
-  }
-
-  get button12Label() {
-    return `${this.row} > div:nth-of-type(12) > div[type="Element"]`;
+    return 'div[type*="Button"]  div[type="TextBox"] > div[type="Element"]';
   }
 }
 

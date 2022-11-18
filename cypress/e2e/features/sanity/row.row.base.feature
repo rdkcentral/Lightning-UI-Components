@@ -1,4 +1,4 @@
-@sanity @row1 @basic @2112198
+@sanity @row @2112198
 
 Feature: Row Basic component validation
 
@@ -11,28 +11,13 @@ Feature: Row Basic component validation
 
   Scenario: Verify the dimensions and count of the Row Basic Elements
     Then I verify there are 12 assets per row on the 'Row' page
-    And I verify each element has width of 150.0 and height of 40.0 on 'Row' page
+    And I verify each element has width of 250.0 and height of 100.0 on 'Row' page
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component
 
-  Scenario Outline: Validate displayed text of buttons
-    When I press 'RIGHT' key
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>'
-    Examples:
-      | element         | text      |
-      | Button 1 Label  | Button 1  |
-      | Button 2 Label  | Button 2  |
-      | Button 3 Label  | Button 3  |
-      | Button 4 Label  | Button 4  |
-      | Button 5 Label  | Button 5  |
-      | Button 6 Label  | Button 6  |
-      | Button 7 Label  | Button 7  |
-      | Button 8 Label  | Button 8  |
-      | Button 9 Label  | Button 9  |
-      | Button 10 Label | Button 10 |
-      | Button 11 Label | Button 11 |
-      | Button 12 Label | Button 12 |
+  Scenario: Validate displayed text of buttons
+    Then I verify that all 'Buttons labels' of the 'Row' page have text 'Button'
 
   Scenario: Validate navigating the buttons
     Then I verify if 'Row' page data has loaded
@@ -42,7 +27,16 @@ Feature: Row Basic component validation
 
   Scenario: Verify that the row spacing of the Row Basic Element can be changed
     When I set the 'itemSpacing' to '25' for 'Row' component
-    And I verify that the spacing between elements of 'Row' component is '17'
+    And I verify that the spacing between elements of 'Row' component is '13'
+
+  #Disabled until 'mode' control functionality is fixed
+#   Scenario: Verify the Row component modes
+#     When I set the 'mode' to 'unfocused' for 'Row' component
+#     Then I verify the 'mode' is 'unfocused' for 'Row' 'Row elements'
+#     And I set the 'mode' to 'focused' for 'Row' component
+#     And I verify the 'mode' is 'focused' for 'Row' 'Row elements'
+#     And I set the 'mode' to 'disabled' for 'Row' component
+#     And I verify the 'mode' is 'disabled' for 'Row' 'Row elements'
 
   Scenario: Verify that the scroll index of the Row Basic Element can be changed
     Then I verify the 'scrollIndex' is '0' for 'Row' component

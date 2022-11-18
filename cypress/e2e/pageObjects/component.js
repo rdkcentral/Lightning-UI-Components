@@ -85,7 +85,7 @@ class LUIComponent {
    * @example _getElementByName('Progress Bar') => currentComponent['progressBar']
    */
   // eslint-disable-next-line no-dupe-class-members
-  _getElementByName(name, timeout) {
+  _getElementByNameWithTimeout(name, timeout) {
     const elementName = convertToCamelCase(name);
     try {
       return cy.get(this[elementName], { timeout: timeout }).first(); // access the getter for the element
