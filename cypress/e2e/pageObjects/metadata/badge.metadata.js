@@ -13,6 +13,10 @@ class Badge extends LUIComponent {
     return 'div[type = icon]';
   }
 
+  get badgeTitle() {
+    return `${this.badge} > div[type=Element]`;
+  }
+
   get text() {
     return `${this.badge} > div[type=TextBox] > div[type=Element]`;
   }
