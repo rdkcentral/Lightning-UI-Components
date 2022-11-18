@@ -105,7 +105,7 @@ class LUIComponent {
   _getElementByName(name) {
     const elementName = convertToCamelCase(name);
     try {
-      return cy.get(this[elementName]); // access the getter for the element
+      return cy.get(this[elementName]).first(); // access the getter for the element
     } catch (error) {
       throw new Error(`Element ${name} not found for ${this.constructor.name}`);
     }

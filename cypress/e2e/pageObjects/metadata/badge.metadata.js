@@ -2,14 +2,14 @@ import LUIComponent from '../component';
 
 class Badge extends LUIComponent {
   constructor() {
-    super({type: 'metadata', componentName: 'badge' });
+    super({ type: 'metadata', componentName: 'badge' });
   }
 
   get badge() {
     return 'div[type=Badge]';
   }
 
-  get icon(){
+  get icon() {
     return 'div[type = icon]';
   }
 

@@ -10,12 +10,12 @@ export default function () {
    * @param {String} value - value for validation
    * @example I verify that 'Badge' 'iconAlign' state is 'right'
    */
-   Then(
+  Then(
     'I verify that {string} {string} state is {string}',
     (componentName, prop, value) => {
-      if(value === 'right'){
-      cy.get(Badge.icon).should('have.attr', 'x', '40.5');
-      }else{
+      if (value === 'right') {
+        cy.get(Badge.icon).should('have.attr', 'x', '40.5');
+      } else {
         cy.get(Badge.icon).should('have.attr', 'x', '10');
       }
     }

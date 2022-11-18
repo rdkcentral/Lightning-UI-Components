@@ -5,12 +5,12 @@ class TextBox extends LUIComponent {
     super({ type: 'text', componentName: 'textbox' });
   }
 
-  get base() {
+  get basic() {
     return 'div[type=TextBox]';
   }
 
-  get baseText() {
-    return `${this.base}>div[ref=Text]`;
+  get basicText() {
+    return `${this.basic}>div[ref=Text]`;
   }
 
   get withInlineContentString() {
