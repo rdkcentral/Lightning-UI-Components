@@ -22,7 +22,7 @@ import Distractor from '../pageObjects/utilities/distractor.utilities';
 import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
 import Wave from '../pageObjects/utilities/wave.utilities';
 
-import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
   const pageObjects = {
@@ -430,10 +430,11 @@ export default function () {
       const pageObject = getPageObject(page);
       switch (component) {
         case 'buttons labels':
-          pageObject._getElementByName(component)
+          pageObject
+            ._getElementByName(component)
             .getAttributes('texture-text')
             .each(elements => {
-              expect(elements).equal(expectedText)
+              expect(elements).equal(expectedText);
             });
       }
     }
@@ -478,12 +479,12 @@ export default function () {
         case 'vertical':
           if (value === 'true') {
             pageObject
-                ._getElementByName(component)
-                .should('have.attr', 'state', 'VerticalSlider');
+              ._getElementByName(component)
+              .should('have.attr', 'state', 'VerticalSlider');
           } else {
             pageObject
-                ._getElementByName(component)
-                .should('not.have.attr', 'state', 'VerticalSlider');
+              ._getElementByName(component)
+              .should('not.have.attr', 'state', 'VerticalSlider');
           }
           break;
         default:
@@ -583,7 +584,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });
@@ -637,7 +638,7 @@ export default function () {
                 };
                 // push the tile info to the tiles array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });
@@ -751,18 +752,26 @@ export default function () {
    * @param {String} values
    * @example I verify that the 'Button' 'justify' state is 'left'
    */
-   Then(
+  Then(
     'I verify that the {string} {string} state is {string}',
-    (component, prop, value) => {
-      const element = component + prop;
+    (pageName, prop, value) => {
+      const element = pageName + prop;
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
       switch (prop) {
-        case 'justify':
+        case 'Justify':
           if (value === 'left') {
-            pageObject._getElementByName(element).should('not.have.attr', 'mountx');
+            pageObject
+              ._getElementByName(element)
+              .should('not.have.attr', 'mountx');
           } else if (value === 'center') {
-            pageObject._getElementByName(element).should('have.attr', 'mountx', '0.5');
+            pageObject
+              ._getElementByName(element)
+              .should('have.attr', 'mountx', '0.5');
           } else if (value === 'right') {
-            pageObject._getElementByName(element).should('have.attr', 'mountx', '1');
+            pageObject
+              ._getElementByName(element)
+              .should('have.attr', 'mountx', '1');
           }
           break;
         case ('prefix', 'suffix'):
@@ -792,7 +801,7 @@ export default function () {
    * @param {String} pageName
    * @example I verify that the 'Slider' Progress Bar is set to 0.20
    */
-   Then(
+  Then(
     'I verify that the {string} Progress Bar is set to {float}',
     (pageName, expectedPercentage) => {
       const page = pageName.toLowerCase();
@@ -801,7 +810,8 @@ export default function () {
       cy.wait(300); // wait for the progress bar to render
       pageObject.progressBarValue.then(progressBarValue => {
         pageObject.progressValue.then(progressValue => {
-          const actualPercentage = Number(progressValue) / Number(progressBarValue);
+          const actualPercentage =
+            Number(progressValue) / Number(progressBarValue);
           expect(actualPercentage).to.eq(expectedPercentage);
         });
       });

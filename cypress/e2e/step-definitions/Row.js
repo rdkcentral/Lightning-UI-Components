@@ -169,14 +169,13 @@ export default function () {
   Then(
     'I verify that elements are vertically evenly spaced for Row centered in parent component',
     () => {
-
       const tileRows = [];
       cy.wait(500)
         .get(Row.rowElementsCenteredInParent)
         .each($row => {
           // push the row info to the tileRows array
           cy.getOffsetRect($row).then(data => {
-            tileRows.push({...data});
+            tileRows.push({ ...data });
           });
         })
         .then(() => {

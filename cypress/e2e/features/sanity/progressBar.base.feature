@@ -14,8 +14,8 @@ Feature: LUI ProgressBar Basic component
     And I verify that the 'height' of 'ProgressBar' component is '10px'
     And I verify that the 'progress' of 'ProgressBar' component is '0.50'
 
-  Scenario: Validate the ProgressBar progress control
-  	When I set the 'progress' to '<progressValue>' for 'ProgressBar' component
+  Scenario Outline: Validate the ProgressBar progress control
+    When I set the 'progress' to '<progressValue>' for 'ProgressBar' component
     Then I verify that the 'progress' of 'ProgressBar' component is '<progressValue>'
     Examples:
       | progressValue |
@@ -24,8 +24,8 @@ Feature: LUI ProgressBar Basic component
       |     0.75      |
       |     1.00      |
 
-  Scenario: Validate the ProgressBar width control
-  	When I set the 'w' to '<progressBarWidth>' for 'ProgressBar' component
+  Scenario Outline: Validate the ProgressBar width control
+    When I set the 'w' to '<progressBarWidth>' for 'ProgressBar' component
     Then I verify that the 'width' of 'ProgressBar' component is '<progressBarWidth>px'
     And I verify that the 'progress' of 'ProgressBar' component is '0.50'
     Examples:

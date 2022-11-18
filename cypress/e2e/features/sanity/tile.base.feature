@@ -76,7 +76,7 @@ Feature: LUI Tile Basic component
     And I set the 'checkbox_checked' to 'false' for 'Tile' component
     And I verify that the 'checked' is 'false' for 'Tile' component
 
-  Scenario: Validate the Tile Basic progress control
+  Scenario Outline: Validate the Tile Basic progress control
     When I set the 'progressBar_progress' to '<progressValue>' for 'Tile' component
     Then I verify that the 'progress' of 'Tile' component is '<progressValue>'
     Examples:

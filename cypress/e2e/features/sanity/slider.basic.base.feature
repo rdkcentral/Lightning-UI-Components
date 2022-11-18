@@ -26,7 +26,7 @@ Feature: LUI Slider Basic component
   #   And I set the 'mode' to 'disabled' for 'Slider' component
   #   And I verify the 'mode' is 'disabled' for 'Slider' 'Basic'
 
-  Scenario: Verify the Slider Basic max boundary
+  Scenario Outline: Verify the Slider Basic max boundary
     When I set the 'max' to '<maxValue>' for 'Slider' component
     Then I verify that the 'Slider' Progress Bar is set to <progressValue>
     Examples:
@@ -35,7 +35,7 @@ Feature: LUI Slider Basic component
       |    80    |     0.625     |
       |    100   |     0.50      |
 
-  Scenario: Verify the Slider Basic min boundary
+  Scenario Outline: Verify the Slider Basic min boundary
     When I set the 'min' to '<minValue>' for 'Slider' component
     Then I verify that the 'Slider' Progress Bar is set to <progressValue>
     Examples:
@@ -44,7 +44,7 @@ Feature: LUI Slider Basic component
       |    75    |     0.75      |
       |    90    |     0.90      |
 
-  Scenario: Verify the Slider Basic current value can be set
+  Scenario Outline: Verify the Slider Basic current value can be set
     When I set the 'value' to '<expected>' for 'Slider' component
     Then I verify that the 'Slider' Progress Bar is set to <progressValue>
     Examples:
