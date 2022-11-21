@@ -5,7 +5,7 @@ import CardPersonality from '../pageObjects/tilesAndCards/cardpersonality.tilesa
 import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards';
 import CardTitle from '../pageObjects/tilesAndCards/cardtitle.tilesandcards';
 import CheckBox from '../pageObjects/elements/checkbox.element';
-import Label from '../pageObjects/text/label.text';
+import Label from '../pageObjects/metadata/label.metadata';
 import ProgressBar from '../pageObjects/utilities/progressbar.utilities';
 import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
 import Radio from '../pageObjects/utilities/radio.utilities';

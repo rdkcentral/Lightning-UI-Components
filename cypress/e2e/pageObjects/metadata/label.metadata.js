@@ -2,14 +2,14 @@ import LUIComponent from '../component';
 
 class Label extends LUIComponent {
   constructor() {
-    super({ type: 'text', componentName: 'label' });
+    super({ type: 'metadata', componentName: 'label' });
   }
 
   get label() {
     return 'div[type=Label]';
   }
 
-  get labelTitle() {
+  get title() {
     return `${this.label}>div[ref=Text]`;
   }
 }
