@@ -382,11 +382,11 @@ jobs:
     plan:
       - get: once-every-weekday
         trigger: true
-      - get: source-repo
+      - get: source-repo-develop
       - task: run-cypress-tests
-        file: source-repo/ci/tasks-monorepo/run-cypress-tests.yml
+        file: source-repo-develop/ci/tasks-monorepo/run-cypress-tests.yml
         input_mapping:
-          source-repo: source-repo
+          source-repo: source-repo-develop
         params:
           AWS_ACCESS_KEY_ID: ((aws.access-key-id))
           AWS_SECRET_ACCESS_KEY: ((aws.secret-access-key))
