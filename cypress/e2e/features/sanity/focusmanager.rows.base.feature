@@ -11,9 +11,10 @@ Feature: LUI Focus Manager Rows component
 
   Scenario: Verify the dimensions and count of the FocusManager Rows Elements
     Then I verify there are 3 assets per row on the 'FocusManager' pagestyle
-    And I verify each element has width of 152.0 and height of 42.0 on 'FocusManager' pagestyle
+    And I verify each element has width of 200.0 and height of 100.0 on 'FocusManager' pagestyle
     
   Scenario: Verify row layout and spacing
+    When I press 'RIGHT' key
     Then I verify that elements are horizontally and evenly spaced for 'FocusManager' component
 
   Scenario Outline: Validate displayed text of buttons

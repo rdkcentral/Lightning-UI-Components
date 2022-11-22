@@ -10,9 +10,10 @@ Feature: LUI Focus Manager Columns component
     Then I verify that the 'FocusManager' component is displayed
     And I verify that the assets are alligned to left on the 'FocusManager' page
     And I verify there are 3 content rows on the 'FocusManager' page
-    And I verify each element has width of 152.0 and height of 42.0 on 'FocusManager' pagestyle
+    And I verify each element has width of 200.0 and height of 100.0 on 'FocusManager' pagestyle
     
   Scenario: Verify row layout and spacing
+    When I press 'DOWN' key
     Then I verify that elements are vertically evenly spaced for 'FocusManager' component
   
   Scenario Outline: Validate displayed text of buttons

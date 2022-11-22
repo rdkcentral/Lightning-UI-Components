@@ -84,7 +84,9 @@ export default function () {
     'I verify that elements are vertically evenly spaced for {string} component',
     pageName => {
       const tileRows = [];
-      cy.get(FocusManager.rowElements)
+      // need wait time as it's taking time to load
+      cy.wait(1000)
+        .get(FocusManager.rowElements)
         .each($row => {
           // push the row info to the tileRows array
           cy.getOffsetRect($row).then(data => {
@@ -101,7 +103,6 @@ export default function () {
               spaces.push(Math.round(space));
             }
           });
-
           // assert that the spaces are evenly spaced
           const averageSpace = Math.round(
             spaces.reduce((a, b) => a + b, 0) / spaces.length
@@ -119,35 +120,48 @@ export default function () {
    * @param {String} pageName
    * @example I verify that elements are horizontally and evenly spaced for 'FocusManager' component
    */
-  Then(
-    'I verify that elements are horizontally and evenly spaced for {string} component',
-    pageName => {
-      const tileRows = [];
-      cy.get(FocusManager.rowElements)
-        .each($row => {
-          // push the row info to the tileRows array
-          cy.getOffsetRect($row).then(data => {
-            tileRows.push({ ...data });
-          });
-        })
-        .then(() => {
-          const spaces = [];
-          // get the spaces between each row
-          tileRows.forEach((row, index) => {
-            if (index !== 0) {
-              const prevRow = tileRows[index - 1];
-              const space = row.left - prevRow.right;
-              spaces.push(Math.round(space));
-            }
-          });
-
-          // assert that the spaces are evenly spaced
-          const averageSpace = Math.round(
-            spaces.reduce((a, b) => a + b, 0) / spaces.length
-          );
-          const space = spaces[0];
-          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
-        });
-    }
-  );
+    Then(
+      'I verify that elements are horizontally and evenly spaced for {string} component',
+        pageName => {
+          const elements = [];
+          // need wait time as it's taking time to load
+          cy.wait(1000)
+            .get(FocusManager.row)
+            .each($row => {
+              const rowId = $row.attr('id');
+              cy.get($row)
+                .children()
+                .each(($element, $index) => {
+                  // keep track of the tiles in the row for later use
+                  const elementInfo = {
+                    id: $element.attr('id'),
+                    rowId
+                  };
+                  // push the tile info to the tiles array
+                  cy.getOffsetRect($element).then(data => {
+                    elements.push({...elementInfo, ...data});
+                  });
+                });
+            })
+            .then(() => {
+              const spaces = [];
+              elements.forEach((element, index, arr) => {
+                if (index !== 0) {
+                  const prevElement = arr[index - 1];
+                  const space = element.left - prevElement.right;
+                  spaces.push(space);
+                }
+              });
+              // assert that the spaces are evenly spaced
+              const averageSpace = Math.round(
+                spaces.reduce((a, b) => a + b, 0) / spaces.length
+              );
+              const space = Math.round(spaces[1]);
+              for (let i = 0; i < spaces.length; i++) {
+                console.log("spaces" + i + "=" + spaces[i])
+              }
+              expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
+            });
+           }
+         );    
 }

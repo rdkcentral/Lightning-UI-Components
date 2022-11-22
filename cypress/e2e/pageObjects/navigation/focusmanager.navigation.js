@@ -6,7 +6,7 @@ class FocusManager extends LUIComponent {
   }
 
   get focusManager() {
-    return 'div[type="type"] > div[type="FocusManager"] > div[type="Element"] > div[type="Button"]';
+    return 'div[type="type"] > div[type="FocusManager"] > div[type="Element"] > div[type="ButtonFixedWidth"]';
   }
 
   get row() {
@@ -14,7 +14,7 @@ class FocusManager extends LUIComponent {
   }
 
   get rowElements() {
-    return `${this.row} > div[type="Button"]`;
+    return `${this.row} > div[type="ButtonFixedWidth"]`;
   }
 
   get button1() {
@@ -30,16 +30,15 @@ class FocusManager extends LUIComponent {
   }
 
   get button1Label() {
-    return `${this.row} > div:nth-of-type(1) > div[type="Element"]`;
+    return `${this.row} > div:nth-of-type(1) > div>div>div>div[type="Element"]`;
   }
 
   get button2Label() {
-    return `${this.row} > div:nth-of-type(2) > div[type="Element"]`;
+    return `${this.row} > div:nth-of-type(2) > div>div>div>div[type="Element"]`;
   }
 
   get button3Label() {
-    return `${this.row} > div:nth-of-type(3) > div[type="Element"]`;
+    return `${this.row} > div:nth-of-type(3) > div>div>div>div[type="Element"]`;
   }
 }
-
 module.exports = new FocusManager();
