@@ -9,8 +9,18 @@ import xfinity from '@suite-themes/xfinity-lightning-tv';
 import rogers from '@suite-themes/rogers-lightning-tv';
 import sky from '@suite-themes/sky-lightning-tv';
 import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
-import { withAnnouncer, GridOverlay, Speech, pool, context, utils } from '@lightning/ui-core';
-import { focusRingExtensionGenerator, dropShadowExtensionGenerator } from '@lightning/ui-extensions';
+import {
+  withAnnouncer,
+  GridOverlay,
+  Speech,
+  pool,
+  context,
+  utils
+} from '@lightning/ui-core';
+import {
+  focusRingExtensionGenerator,
+  dropShadowExtensionGenerator
+} from '@lightning/ui-extensions';
 import { CATEGORIES } from '../../lightning-ui-docs/';
 
 context.debug = true;
@@ -103,7 +113,20 @@ export const parameters = {
   options: {
     storySort: {
       method: 'alphabetical',
-      order: [CATEGORIES[1024], ['Introduction', 'Read Me', 'Contributing', 'Lightning Resources', 'Theming', ['Overview', 'Theme Properties', 'Use in Storybook', 'Mode', 'Palette', 'Extensions', 'Sub Theming', '*']], CATEGORIES[2048], CATEGORIES[0], CATEGORIES[4], CATEGORIES[512], CATEGORIES[64], CATEGORIES[16], CATEGORIES[2], CATEGORIES[8], CATEGORIES[256], CATEGORIES[32], CATEGORIES[128]]
+      order: [
+        CATEGORIES[1024],
+        CATEGORIES[2048],
+        CATEGORIES[0],
+        CATEGORIES[4],
+        CATEGORIES[512],
+        CATEGORIES[64],
+        CATEGORIES[16],
+        CATEGORIES[2],
+        CATEGORIES[8],
+        CATEGORIES[256],
+        CATEGORIES[32],
+        CATEGORIES[128]
+      ]
     }
   }
 };
@@ -175,11 +198,30 @@ function createApp(parameters) {
   return window.APP;
 }
 
+function clearInspector() {
+  // Clear any lightning inspector info
+  if (document.querySelectorAll('[type=StoryApp]').length > 1) {
+    let div = document.querySelector('[type=StoryApp]');
+    div && div.parentNode.remove();
+  }
+
+  // Move lightning inspector out of the foreground
+  if (window.top.location.search.indexOf('path=/docs/') > -1) {
+    document.body.classList.remove('canvas');
+    let div = document.querySelector('[type=StoryApp]');
+    div && (div.parentNode.style.zIndex = -1);
+  } else {
+    document.body.classList.add('canvas');
+  }
+}
+
 let previousID = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   const triggerUpdate = previousID !== id;
   previousID = id;
   const app = createApp(globals.LUITheme);
+  clearInspector();
+
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
   // If an update is required patch in the new child element
@@ -232,10 +274,11 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
 
   // forces position update on theme change instead of just when triggerUpdate is true
   context.on('themeUpdate', () => {
-    app.tag('StoryComponent') && app.tag('StoryComponent').patch({
-      x: context.theme.layout.marginX,
-      y: context.theme.layout.marginY
-    });
+    app.tag('StoryComponent') &&
+      app.tag('StoryComponent').patch({
+        x: context.theme.layout.marginX,
+        y: context.theme.layout.marginY
+      });
   });
 
   if (!app.tag('GridOverlay')) {

@@ -4,15 +4,9 @@ import { Canvas, Story } from '@storybook/addon-docs';
 
 The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time.
 
-<Canvas>
-  <Story id="utilities-withselections--base" />
-</Canvas>
-
-Take a look at the preview above. The row of modified [Buttons](?path=/docs/button--basic) has navigation managed by the [FocusManager](?path=/docs/focusmanager--rows) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/button--basic). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
-
 ## Source
 
-https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/withSelections/withSelections.js
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightning/ui-core/src/mixins/withSelections/index.js
 
 ## Usage
 
@@ -35,6 +29,12 @@ class Example extends lng.Component {
   }
 }
 ```
+
+<Canvas>
+  <Story id="utilities-withselections--base" />
+</Canvas>
+
+Take a look at the preview above. The row of modified [Buttons](?path=/docs/button--button) has navigation managed by the [FocusManager](?path=/docs/focusmanager--rows) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/button--button). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
 
 In this example, `withSelections` is expecting the `FocusManager` component to have a property called `items` which contains components that can handle an `isSelected` property. Fortunately, this describes the `FocusManager` and `UnderlineButton` components perfectly! If your components are working with different property names, they can be customized with the options property. See the [Customization](#customization) section for options.
 

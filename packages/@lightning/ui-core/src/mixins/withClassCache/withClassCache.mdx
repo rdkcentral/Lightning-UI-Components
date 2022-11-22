@@ -6,16 +6,12 @@ The `withClassCache` mixin can be wrapped around a class to memoize class creati
 
 ## Source
 
-https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/withClassCache/withClassCache.js
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightning/ui-core/src/mixins/withClassCache/index.js
 
 ## Usage
 
 ```js
-withClassCache(
-  (base) =>
-    class Example extends base {
-  }
-)
+withClassCache(base => class Example extends base {});
 ```
 
 Returns a new function which takes a base class, and if the class is already created, returns the cached version.
@@ -35,4 +31,3 @@ type: withMetadata(BaseComp)
 
 The first two will reuse the class that you've created, the last will cause the browser to create a new class each
 time the component is created.
-

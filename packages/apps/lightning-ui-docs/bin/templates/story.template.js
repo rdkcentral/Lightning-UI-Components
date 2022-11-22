@@ -24,10 +24,6 @@ export const Basic = args =>
         }
       };
     }
-
-    _getFocused() {
-      return this.tag('${name}');
-    }
   };
 Basic.args = {
   // argName: undefined
