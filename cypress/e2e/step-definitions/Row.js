@@ -161,13 +161,13 @@ export default function () {
 
   /**
    * @module Row
-   * @function I verify that elements are vertically evenly spaced for Row centered in parent component
+   * @function I verify that elements are vertically evenly spaced for Row component
    * @description Cucumber statement to verify the specified page rows are evenly spaced vertically
    * @param {String} pageName
-   * @example I verify that elements are vertically evenly spaced for Row centered in parent component
+   * @example I verify that elements are vertically evenly spaced for Row component
    */
   Then(
-    'I verify that elements are vertically evenly spaced for Row centered in parent component',
+    'I verify that elements are vertically evenly spaced for Row component',
     () => {
 
       const tileRows = [];
@@ -196,6 +196,79 @@ export default function () {
           const space = spaces[0];
           expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
         });
+    }
+  );
+
+  /**
+   * @module Row
+   * @function I verify there are {Integer} assets per column
+   * @description Cucumber statement to verify the number of assets per column
+   * @param {Integer} no_of_assets
+   * @example I verify there are 4 assets per column
+   */
+  Then(
+    'I verify there are {int} assets per column',
+    (no_of_assets) => {
+
+      cy.get(Row.row).first().children().each(() => {
+        cy.get(Row.rowElementsPerColumn)
+          .should('have.length', no_of_assets);
+      })
+    }
+  );
+
+  /**
+   * @module Row
+   * @function I verify there are {int} columns
+   * @description Cucumber statement to verify the number of columns
+   * @param {Integer} no_of_assets
+   * @example I verify there are 3 columns
+   */
+  Then(
+    'I verify there are {int} columns',
+    (no_of_assets) => {
+
+      cy.get(Row.row)
+        .first()
+        .children()
+        .should('have.length', no_of_assets);
+    }
+  );
+
+  /**
+   * @module Row
+   * @function I verify that I am able to navigate to the {string} element of the {string} column
+   * @description Cucumber statement to verify that user is able to navigate to the start or end of the specified column
+   * @param {String} position
+   * @param {String} columnName
+   * @example I verify that I am able to navigate to the 'last' element of the 'First' column
+   */
+  Then(
+    'I verify that I am able to navigate to the {string} element of the {string} column',
+    (position, columnName) => {
+      const column = columnName.toLowerCase();
+      const key = position === 'last' ? 'DOWN' : 'UP';
+
+      if (position === 'last') {
+        Row._getElementByName(column)
+          .should('have.attr', 'focused', 'true')
+          .nextAll()
+          .each(el => {
+            cy.action(key);
+            cy.wrap(el).should('have.attr', 'focused', 'true');
+          });
+      } else {
+        Row._getElementByName(column)
+          .parent()
+          .children()
+          .last()
+          .should('have.attr', 'focused', 'true')
+          .prevAll()
+          .each(el => {
+            cy.action(key);
+            cy.wrap(el).should('have.attr', 'focused', 'true');
+          });
+      }
     }
   );
 }

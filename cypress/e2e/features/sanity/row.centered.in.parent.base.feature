@@ -14,7 +14,7 @@ Feature: LUI Row Centered in parent component
 
   Scenario: Verify row layout and spacing
     And I press 'DOWN' key
-    Then I verify that elements are vertically evenly spaced for Row centered in parent component
+    Then I verify that elements are vertically evenly spaced for Row component
 
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>'
