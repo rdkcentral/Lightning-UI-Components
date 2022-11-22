@@ -75,10 +75,6 @@ export const withHandleKey = args => {
     $onEnter(keyEvent, tile) {
       args.onEnter();
     }
-
-    _getFocused() {
-      return this.tag('Row');
-    }
   }
   return withHandleKeyMixin(withHandleKey);
 };
