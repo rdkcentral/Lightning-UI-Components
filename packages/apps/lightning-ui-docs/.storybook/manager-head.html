@@ -1,26 +1,34 @@
 <div id="disclaimer">
-  <b>Important:</b> This documentation covers LUI 5.0 (Theming). For the legacy LUI 4.0 documentation, see
-    <b>
-      <a href="https://lui-4.ame1-g2.cf.comcast.net/">
-        lui&#8209;4.ame1&#8209;g2.cf.comcast.net/
-      </a>
-    </b>
+  <b>Important:</b> This documentation covers LUI 5.0 (Theming). For the legacy
+  LUI 4.0 documentation, see
+  <b>
+    <a href="https://lui-4.ame1-g2.cf.comcast.net/">
+      lui&#8209;4.ame1&#8209;g2.cf.comcast.net/
+    </a>
+  </b>
 </div>
 
 <style>
+  /* overrides Storybook style to allow controls to scroll completely */
+  #panel-tab-content > div:first-child {
+    position: relative !important;
+  }
+
   #disclaimer {
     text-align: center;
     padding: 10px;
-    background-color: #2E506F;
+    background-color: #2e506f;
     font-weight: 500;
   }
 
-  #disclaimer a, a:link, a:visited {
+  #disclaimer a,
+  a:link,
+  a:visited {
     color: #ffffff;
   }
 
   #disclaimer a:hover {
-    color: #37D5D3;
+    color: #37d5d3;
   }
 
   .grid-overlay-panel-wrapper,
@@ -44,7 +52,7 @@
   .grid-overlay-panel-wrapper table,
   .component-styles-panel-wrapper table,
   .theme-panel-wrapper table {
-    border: 1px solid rgb(74,74,74);
+    border: 1px solid rgb(74, 74, 74);
     border-collapse: collapse;
     width: 600px;
     table-layout: fixed;
@@ -53,7 +61,7 @@
   .grid-overlay-panel-wrapper thead,
   .component-styles-panel-wrapper thead,
   .theme-panel-wrapper thead {
-    background: rgb(38,40,45);
+    background: rgb(38, 40, 45);
   }
 
   .grid-overlay-panel-wrapper th,
@@ -65,7 +73,7 @@
   .theme-panel-wrapper th,
   .theme-panel-wrapper td,
   .theme-panel-wrapper tr {
-    border: 1px solid rgb(74,74,74);
+    border: 1px solid rgb(74, 74, 74);
     padding: 10px 20px;
   }
 </style>
