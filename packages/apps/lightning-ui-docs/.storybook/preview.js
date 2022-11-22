@@ -103,7 +103,7 @@ export const parameters = {
   options: {
     storySort: {
       method: 'alphabetical',
-      order: [CATEGORIES[1024], CATEGORIES[2048], CATEGORIES[0], CATEGORIES[4], CATEGORIES[512], CATEGORIES[64], CATEGORIES[16], CATEGORIES[2], CATEGORIES[8], CATEGORIES[256], CATEGORIES[32], CATEGORIES[128]]
+      order: [CATEGORIES[1024], ['Introduction', 'Read Me', 'Contributing', 'Lightning Resources', 'Theming', ['Overview', 'Theme Properties', 'Use in Storybook', 'Mode', 'Palette', 'Extensions', 'Sub Theming', '*']], CATEGORIES[2048], CATEGORIES[0], CATEGORIES[4], CATEGORIES[512], CATEGORIES[64], CATEGORIES[16], CATEGORIES[2], CATEGORIES[8], CATEGORIES[256], CATEGORIES[32], CATEGORIES[128]]
     }
   }
 };
