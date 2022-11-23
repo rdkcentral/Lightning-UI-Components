@@ -26,7 +26,7 @@ echo "PR ID: $(cat pull-request-id/id)"
 echo "title: $(cat pull-request-title/title)"
 echo "https://github.comcast.com/Lightning/lightning-ui/pull/$(cat pull-request-id/id)"
 
-if [ $(cat pull-request-title/title | grep -Eoc '^(feat|fix|chore|docs|test)(\([a-z,A-Z]+\))?: .{1,100}+$') -eq 0 ]; then # https://regex101.com/r/swQ454/1
+if [ $(cat pull-request-title/title | grep -Eoc '^(feat|fix|chore|docs|test|build)(\([a-z,A-Z]+\))?: .{1,100}+$') -eq 0 ]; then # https://regex101.com/r/swQ454/1
   echo "PR title does not comply with conventional commits"
   echo "PR title does not comply with conventional commits: $(cat pull-request-title/title)" > comment/comment
   exit 1
