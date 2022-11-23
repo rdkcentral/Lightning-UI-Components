@@ -2,6 +2,7 @@ import xfinity from '@suite-themes/xfinity-lightning-tv';
 import rogers from '@suite-themes/rogers-lightning-tv';
 import sky from '@suite-themes/sky-lightning-tv';
 import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
+import xumo from '@suite-themes/xumo-lightning-tv';
 
 export const ADDON_ID = 'lui-addons';
 export const DOWNLOAD_ID = `${ADDON_ID}/downloadbutton`;
@@ -14,5 +15,6 @@ export const THEMES = {
   xfinity,
   rogers,
   sky,
-  xfinityGames
+  xfinityGames,
+  xumo
 };

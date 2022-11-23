@@ -9,6 +9,7 @@ import xfinity from '@suite-themes/xfinity-lightning-tv';
 import rogers from '@suite-themes/rogers-lightning-tv';
 import sky from '@suite-themes/sky-lightning-tv';
 import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
+import xumo from '@suite-themes/xumo-lightning-tv';
 import {
   withAnnouncer,
   GridOverlay,
@@ -64,6 +65,12 @@ function themeSelect(event) {
     case 'xfinitygames':
       context.setTheme({
         ...xfinityGames,
+        extensions
+      });
+      break;
+    case 'xumo':
+      context.setTheme({
+        ...xumo,
         extensions
       });
       break;
