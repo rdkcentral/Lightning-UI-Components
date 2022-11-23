@@ -258,8 +258,9 @@ export default function () {
    */
   Then('I verify if {string} page data has loaded', pageName => {
     const page = pageName.toLowerCase();
+    const pageObject = getPageObject(page);
     if (page.includes('row')) {
-      cy.get(Row.button1).should('be.visible');
+      cy.get(pageObject.button1).should('be.visible');
     } else {
       throw new Error(
         `${page} page not found! \nPlease check the page object name or implement the missing case.`

@@ -151,6 +151,85 @@ class Row extends LUIComponent {
     return `${this.row} > div:nth-of-type(4) div[type*="Button"]`;
   }
   //=============== Plinko ===============
+
+  //=============== Skip focus ===============
+
+  get button2() {
+    return `${this.row} > div:nth-of-type(2)`;
+  }
+
+  get button6() {
+    return `${this.row} > div:nth-of-type(6)`;
+  }
+
+  get button8() {
+    return `${this.row} > div:nth-of-type(8)`;
+  }
+
+  get button10() {
+    return `${this.row} > div:nth-of-type(10) `;
+  }
+
+  get button12() {
+    return `${this.row} > div:nth-of-type(12)`;
+  }
+
+  get button1label() {
+    return `${this.row} > div:nth-of-type(1) > div[type='Element']`;
+  }
+
+  get button2label() {
+    return `${this.row} > div:nth-of-type(2) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button3label() {
+    return `${this.row} > div:nth-of-type(3) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button4label() {
+    return `${this.row} > div:nth-of-type(4) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button5label() {
+    return `${this.row} > div:nth-of-type(5) > div[type='Element']`;
+  }
+
+  get button6label() {
+    return `${this.row} > div:nth-of-type(6) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button7label() {
+    return `${this.row} > div:nth-of-type(7) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button8label() {
+    return `${this.row} > div:nth-of-type(8) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button9label() {
+    return `${this.row} > div:nth-of-type(9) > div[type='Element']`;
+  }
+
+  get button10label() {
+    return `${this.row} > div:nth-of-type(10) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button11label() {
+    return `${this.row} > div:nth-of-type(11) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button12label() {
+    return `${this.row} > div:nth-of-type(12) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button13label() {
+    return `${this.row} > div:nth-of-type(13) > div[type='Element']`;
+  }
+
+  get button14label() {
+    return `${this.row} > div:nth-of-type(14) > div[type='Element']`;
+  }
+  //=============== Skip focus ===============
 }
 
 module.exports = new Row();
