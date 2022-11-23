@@ -808,13 +808,17 @@ export default function () {
       const pageObject = getPageObject(page);
 
       cy.wait(300); // wait for the progress bar to render
-      pageObject.progressBarValue.then(progressBarValue => {
-        pageObject.progressValue.then(progressValue => {
-          const actualPercentage =
-            Number(progressValue) / Number(progressBarValue);
-          expect(actualPercentage).to.eq(expectedPercentage);
+      if (expectedPercentage === 0) {
+        cy.get(pageObject.progressBar).should('not.have.attr', 'w');
+      } else {
+        pageObject.progressBarValue.then(progressBarValue => {
+          pageObject.progressValue.then(progressValue => {
+            const actualPercentage =
+              Number(progressValue) / Number(progressBarValue);
+            expect(actualPercentage).to.eq(expectedPercentage);
+          });
         });
-      });
+      }
     }
   );
 }

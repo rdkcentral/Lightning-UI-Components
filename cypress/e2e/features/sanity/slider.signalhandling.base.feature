@@ -27,3 +27,14 @@ Feature: LUI Slider Signal Handling component
 
   Scenario: Verify the Slider Signal Handling text
     Then I verify that 'Slider' 'Signal Handling' 'Text' has text 'Value: 0'
+
+  Scenario: Verify Slider Signal Handling arrow key navigation
+    When I press 'RIGHT' key 5 times
+    Then I verify that the 'Slider' Progress Bar is set to 0.5
+    And I verify that 'Slider' 'Signal Handling' 'Text' has text 'Value: 50'
+    And I press 'RIGHT' key 5 times
+    And I verify that the 'Slider' Progress Bar is set to 1
+    And I verify that 'Slider' 'Signal Handling' 'Text' has text 'Value: 100'
+    And I press 'LEFT' key 10 times
+    And I verify that the 'Slider' Progress Bar is set to 0
+    And I verify that 'Slider' 'Signal Handling' 'Text' has text 'Value: 0'
