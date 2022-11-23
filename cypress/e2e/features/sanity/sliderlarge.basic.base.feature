@@ -49,8 +49,25 @@ Feature: LUI SliderLarge Basic component
     Then I verify that the 'SliderLarge' Progress Bar is set to <progressValue>
     Examples:
       | expected | progressValue |
-      |    1     |     0.01      |
+      |    0     |     0.00      |
       |    25    |     0.25      |
       |    50    |     0.50      |
       |    75    |     0.75      |
       |    100   |     1.00      |
+
+  Scenario: Verify SliderLarge Basic arrow key navigation with default step size
+    When I press 'LEFT' key 5 times
+    Then I verify that the 'SliderLarge' Progress Bar is set to 0.45
+    And I press 'RIGHT' key 10 times
+    And I verify that the 'SliderLarge' Progress Bar is set to 0.55
+    And I press 'LEFT' key 5 times
+    And I verify that the 'SliderLarge' Progress Bar is set to 0.5
+
+  Scenario: Verify SliderLarge Basic arrow key navigation with modified step size
+    When I set the 'step' to '10' for 'SliderLarge' component
+    Then I press 'LEFT' key 5 times
+    And I verify that the 'SliderLarge' Progress Bar is set to 0
+    And I press 'RIGHT' key 10 times
+    And I verify that the 'SliderLarge' Progress Bar is set to 1
+    And I press 'LEFT' key 5 times
+    And I verify that the 'SliderLarge' Progress Bar is set to 0.5
