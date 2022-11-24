@@ -10,11 +10,11 @@ class ButtonSmall extends LUIComponent {
   }
 
   get buttonSmallJustify() {
-    return 'div[type=ButtonSmall]>div:nth-of-type(2)';
+    return 'div[type=ButtonSmall] > div:nth-of-type(2)';
   }
 
   get buttonSmallTitle() {
-    return 'div[type=textbox]>div:nth-of-type(1)';
+    return 'div[ref=TextWrapper] > div[type=TextBox] > div[ref=Text]';
   }
 }
 

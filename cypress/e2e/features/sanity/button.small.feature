@@ -55,5 +55,7 @@ Feature: LUI Button Small component
     And I verify that the 'ButtonSmall' 'suffix' state is 'combo'
 
   Scenario: Verify the Button Small title text can be set
-    When I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
-    Then I verify that 'ButtonSmall' 'ButtonSmall' 'Title' has text 'LUI TEST'
+    Then I verify that the 'ButtonSmall' 'ButtonSmall' component is displayed
+    And I verify that 'ButtonSmall' 'ButtonSmall' 'Title' has text 'Button'
+    And I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
+    And I verify that 'ButtonSmall' 'ButtonSmall' 'Title' has text 'LUI TEST'

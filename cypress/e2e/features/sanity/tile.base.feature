@@ -28,11 +28,12 @@ Feature: LUI Tile Basic component
     And I set the 'metadataLocation' to 'inset' for 'Tile' component
     And I verify that the 'inset' is 'true' for 'Tile' component
 
-  Scenario: Verify the Tile Basic persistentMetadata control
-    When I set the 'persistentMetadata' to 'true' for 'Tile' component
-    Then I verify that the 'persistentMetadata' is 'true' for 'Tile' component
-    And I set the 'persistentMetadata' to 'false' for 'Tile' component
-    And I verify that the 'persistentMetadata' is 'false' for 'Tile' component
+  # Commenting the below scenario due to Bug LUI-598
+  # Scenario: Verify the Tile Basic persistentMetadata control
+  #   When I set the 'persistentMetadata' to 'true' for 'Tile' component
+  #   Then I verify that the 'persistentMetadata' is 'true' for 'Tile' component
+  #   And I set the 'persistentMetadata' to 'false' for 'Tile' component
+  #   And I verify that the 'persistentMetadata' is 'false' for 'Tile' component
 
   Scenario: Verify the Tile Basic circle control
     When I set the 'itemLayout_circle' to 'true' for 'Tile' component

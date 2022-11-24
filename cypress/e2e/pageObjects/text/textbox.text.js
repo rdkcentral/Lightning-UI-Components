@@ -6,15 +6,15 @@ class TextBox extends LUIComponent {
   }
 
   get basic() {
-    return 'div[type=TextBox]';
+    return 'div[ref=StoryComponent] > div[type=TextBox]';
   }
 
   get basicText() {
-    return `${this.basic}>div[ref=Text]`;
+    return `${this.basic} > div[ref=Text]`;
   }
 
   get withInlineContentString() {
-    return 'div[type=TextBox]>div[type=InlineContent]';
+    return `${this.basic} > div[type=InlineContent]`;
   }
 }
 
