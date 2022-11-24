@@ -52,5 +52,7 @@ Feature: LUI Button component
     And I verify that the 'Button' 'suffix' state is 'combo'
 
   Scenario: Verify the Button title control
-    When I set the 'title' to 'LUI TEST' for 'Button' component
-    Then I verify that 'Button' 'Button' 'Title' has text 'LUI TEST'
+    Then I verify that the 'Button' 'Button' component is displayed
+    And I verify that 'Button' 'Button' 'Title' has text 'Button'
+    And I set the 'title' to 'LUI TEST' for 'Button' component
+    And I verify that 'Button' 'Button' 'Title' has text 'LUI TEST'

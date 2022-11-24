@@ -169,14 +169,13 @@ export default function () {
   Then(
     'I verify that elements are vertically evenly spaced for Row component',
     () => {
-
       const tileRows = [];
       cy.wait(500)
         .get(Row.rowElementsCenteredInParent)
         .each($row => {
           // push the row info to the tileRows array
           cy.getOffsetRect($row).then(data => {
-            tileRows.push({...data});
+            tileRows.push({ ...data });
           });
         })
         .then(() => {
@@ -206,16 +205,14 @@ export default function () {
    * @param {Integer} no_of_assets
    * @example I verify there are 4 assets per column
    */
-  Then(
-    'I verify there are {int} assets per column',
-    (no_of_assets) => {
-
-      cy.get(Row.row).first().children().each(() => {
-        cy.get(Row.rowElementsPerColumn)
-          .should('have.length', no_of_assets);
-      })
-    }
-  );
+  Then('I verify there are {int} assets per column', no_of_assets => {
+    cy.get(Row.row)
+      .first()
+      .children()
+      .each(() => {
+        cy.get(Row.rowElementsPerColumn).should('have.length', no_of_assets);
+      });
+  });
 
   /**
    * @module Row
@@ -224,16 +221,9 @@ export default function () {
    * @param {Integer} no_of_assets
    * @example I verify there are 3 columns
    */
-  Then(
-    'I verify there are {int} columns',
-    (no_of_assets) => {
-
-      cy.get(Row.row)
-        .first()
-        .children()
-        .should('have.length', no_of_assets);
-    }
-  );
+  Then('I verify there are {int} columns', no_of_assets => {
+    cy.get(Row.row).first().children().should('have.length', no_of_assets);
+  });
 
   /**
    * @module Row

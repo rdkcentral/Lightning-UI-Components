@@ -99,7 +99,7 @@ export default function () {
    * @param {String} componentName
    * @example I verify that the 'Icon' component is displayed
    */
-  Then('I verify that the {string} component is displayed', (componentName) => {
+  Then('I verify that the {string} component is displayed', componentName => {
     const page = componentName.toLowerCase();
     const pageObject = getPageObject(page);
     pageObject._getElementByName(componentName).should('be.visible');
@@ -141,17 +141,16 @@ export default function () {
         Cypress.config().viewportHeight
       }`;
 
-      cy.hidePadding()
-        .wait(1000)
-        .then(() => {
-          pageObject
-            ._getElementByName(elementName)
-            .vrtTrack(`${elementName} (${storyName})`, {
-              keepScreenshot: true,
-              viewport: `${viewPort}`,
-              retryLimit: 1
-            });
-        });
+      // wait 1s to render the component before taking screenshot
+      cy.wait(1000).then(() => {
+        pageObject
+          ._getElementByName(elementName)
+          .vrtTrack(`${elementName} (${storyName})`, {
+            keepScreenshot: true,
+            viewport: `${viewPort}`,
+            retryLimit: 1
+          });
+      });
     }
   );
 
@@ -430,16 +429,17 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      pageObject._getElementByName(component)
-        .each(() => {
-          cy.action('RIGHT');
-        });
-      pageObject._getElementByName(component)
+      pageObject._getElementByName(component).each(() => {
+        cy.action('RIGHT');
+      });
+      pageObject
+        ._getElementByName(component)
         .getAttributes('texture-text')
         .each(elements => {
-          expect(elements).contains(expectedText)
+          expect(elements).contains(expectedText);
         });
-    });
+    }
+  );
 
   /**
    * @module Common
@@ -566,7 +566,7 @@ export default function () {
    */
   Then(
     'I verify that elements are horizontally evenly spaced for {string} component',
-    (pageName) => {
+    pageName => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const elements = [];
@@ -718,7 +718,7 @@ export default function () {
           initialValue = parseFloat(value);
         })
         .then(() => {
-          cy.wait(1000);
+          cy.wait(1000); // wait for the values to change over a second
           pageObject
             ._getElementByName(component)
             .should('have.attr', attribute[page])
@@ -775,7 +775,8 @@ export default function () {
               .should('have.attr', 'mountx', '1');
           }
           break;
-        case ('prefix', 'suffix'):
+        case 'prefix':
+        case 'suffix':
           if (value === 'null') {
             cy.get(Button.icon).should('not.exist');
             cy.get(Button.checkbox).should('not.exist');

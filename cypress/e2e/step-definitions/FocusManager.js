@@ -120,48 +120,48 @@ export default function () {
    * @param {String} pageName
    * @example I verify that elements are horizontally and evenly spaced for 'FocusManager' component
    */
-    Then(
-      'I verify that elements are horizontally and evenly spaced for {string} component',
-        pageName => {
-          const elements = [];
-          // need wait time as it's taking time to load
-          cy.wait(1000)
-            .get(FocusManager.row)
-            .each($row => {
-              const rowId = $row.attr('id');
-              cy.get($row)
-                .children()
-                .each(($element, $index) => {
-                  // keep track of the tiles in the row for later use
-                  const elementInfo = {
-                    id: $element.attr('id'),
-                    rowId
-                  };
-                  // push the tile info to the tiles array
-                  cy.getOffsetRect($element).then(data => {
-                    elements.push({...elementInfo, ...data});
-                  });
-                });
-            })
-            .then(() => {
-              const spaces = [];
-              elements.forEach((element, index, arr) => {
-                if (index !== 0) {
-                  const prevElement = arr[index - 1];
-                  const space = element.left - prevElement.right;
-                  spaces.push(space);
-                }
+  Then(
+    'I verify that elements are horizontally and evenly spaced for {string} component',
+    pageName => {
+      const elements = [];
+      // need wait time as it's taking time to load
+      cy.wait(1000)
+        .get(FocusManager.row)
+        .each($row => {
+          const rowId = $row.attr('id');
+          cy.get($row)
+            .children()
+            .each(($element, $index) => {
+              // keep track of the tiles in the row for later use
+              const elementInfo = {
+                id: $element.attr('id'),
+                rowId
+              };
+              // push the tile info to the tiles array
+              cy.getOffsetRect($element).then(data => {
+                elements.push({ ...elementInfo, ...data });
               });
-              // assert that the spaces are evenly spaced
-              const averageSpace = Math.round(
-                spaces.reduce((a, b) => a + b, 0) / spaces.length
-              );
-              const space = Math.round(spaces[1]);
-              for (let i = 0; i < spaces.length; i++) {
-                console.log("spaces" + i + "=" + spaces[i])
-              }
-              expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
             });
-           }
-         );    
+        })
+        .then(() => {
+          const spaces = [];
+          elements.forEach((element, index, arr) => {
+            if (index !== 0) {
+              const prevElement = arr[index - 1];
+              const space = element.left - prevElement.right;
+              spaces.push(space);
+            }
+          });
+          // assert that the spaces are evenly spaced
+          const averageSpace = Math.round(
+            spaces.reduce((a, b) => a + b, 0) / spaces.length
+          );
+          const space = Math.round(spaces[1]);
+          for (let i = 0; i < spaces.length; i++) {
+            console.log('spaces' + i + '=' + spaces[i]);
+          }
+          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
+        });
+    }
+  );
 }
