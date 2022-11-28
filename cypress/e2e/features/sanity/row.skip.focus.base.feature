@@ -31,25 +31,22 @@ Feature: LUI Row Skip Focus component
       | Button13Label | Skip Focus Text  |
       | Button14Label | Skip Focus Text  |
 
-  Scenario: Verify row layout and spacing
-    Then I verify that elements are horizontally evenly spaced for 'Row' component
-
   Scenario: Validate navigating the buttons with Skip Focus
-    Then I verify that the 'Button2' component on the 'Row' page is in focus
+    Then I verify that the 'Button2SkipFocus' component on the 'Row' page is in focus
     And I press 'RIGHT' key 3 times
-    And I verify that the 'Button6' component on the 'Row' page is in focus
+    And I verify that the 'Button6SkipFocus' component on the 'Row' page is in focus
     And I press 'RIGHT' key 3 times
-    And I verify that the 'Button10' component on the 'Row' page is in focus
+    And I verify that the 'Button10SkipFocus' component on the 'Row' page is in focus
     And I press 'RIGHT' key 3 times
-    And I verify that the 'Button12' component on the 'Row' page is in focus
+    And I verify that the 'Button12SkipFocus' component on the 'Row' page is in focus
     And I press 'LEFT' key 3 times
-    And I verify that the 'Button8' component on the 'Row' page is in focus
+    And I verify that the 'Button8SkipFocus' component on the 'Row' page is in focus
 
   Scenario: Verify the Row Skip Focus 'Wrap Selected' toggle
     Then I verify that the 'Row' 'wrapSelected' state is 'false'
     And I set the 'wrapSelected' to 'true' for 'Row' component
-    And I verify that the 'Button2' component on the 'Row' page is in focus
+    And I verify that the 'Button2SkipFocus' component on the 'Row' page is in focus
     And I press 'LEFT' key
-    And I verify that the 'Button12' component on the 'Row' page is in focus
+    And I verify that the 'Button12SkipFocus' component on the 'Row' page is in focus
     And I press 'RIGHT' key
-    And I verify that the 'Button2' component on the 'Row' page is in focus
+    And I verify that the 'Button2SkipFocus' component on the 'Row' page is in focus

@@ -17,6 +17,30 @@ class Row extends LUIComponent {
     return `${this.row} > div:nth-of-type(1)`;
   }
 
+  get button2() {
+    return `${this.row} > div:nth-of-type(2)`;
+  }
+
+  get button3() {
+    return `${this.row} > div:nth-of-type(3)`;
+  }
+
+  get button5() {
+    return `${this.row} > div:nth-of-type(5)`;
+  }
+
+  get button6() {
+    return `${this.row} > div:nth-of-type(6)`;
+  }
+
+  get button10() {
+    return `${this.row} > div:nth-of-type(10)`;
+  }
+
+  get button12() {
+    return `${this.row} > div:nth-of-type(12)`;
+  }
+
   get buttonsLabels() {
     return 'div[type*="Button"]  div[type="TextBox"] > div[type="Element"]';
   }
@@ -154,23 +178,23 @@ class Row extends LUIComponent {
 
   //=============== Skip focus ===============
 
-  get button2() {
+  get button2SkipFocus() {
     return `${this.row} > div:nth-of-type(2)`;
   }
 
-  get button6() {
+  get button6SkipFocus() {
     return `${this.row} > div:nth-of-type(6)`;
   }
 
-  get button8() {
+  get button8SkipFocus() {
     return `${this.row} > div:nth-of-type(8)`;
   }
 
-  get button10() {
+  get button10SkipFocus() {
     return `${this.row} > div:nth-of-type(10) `;
   }
 
-  get button12() {
+  get button12SkipFocus() {
     return `${this.row} > div:nth-of-type(12)`;
   }
 
