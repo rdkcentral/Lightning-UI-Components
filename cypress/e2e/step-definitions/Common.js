@@ -124,6 +124,40 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify that the {String} {String} component is not displayed
+   * @description Cucumber statement to verify that the component is not displayed
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example I verify that the 'Row' 'Button1' component is not displayed
+   */
+  Then(
+    'I verify that the {string} {string} component is not displayed',
+    (pageName, componentName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      pageObject._getElementByName(componentName).should('not.be.visible');
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {String} {String} component does not exist in DOM
+   * @description Cucumber statement to verify that the component does not exist in DOM
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example I verify that the 'Row' 'Button3' component does not exist in DOM
+   */
+  Then(
+    'I verify that the {string} {string} component does not exist in DOM',
+    (pageName, componentName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      pageObject._getElementByName(componentName).should('not.exist');
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify the {String} {String} component with visual regression
    * @description Cucumber statement to verify the visual regression of an element on a particular page
    * Note: This step does not do any navigation, instead it assumes
