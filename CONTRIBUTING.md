@@ -99,9 +99,9 @@ Follow the instructions below to get started with local development:
   # enter project directory
   cd lightning-ui
   # install packages
-  npm install
+  yarn
   # Start local Storybook server
-  npm start
+  yarn start
   ```
 
 #### New component
@@ -119,21 +119,32 @@ Before a new component will be reviewed, it must meet the following prerequisite
 If you are creating a new component, you can bootstrap the required file structure with:
 
 ```sh
-npm run create elements MyComponent
+yarn createComponent <packageName> <componentName>
+```
+- `packageName`: name of which package the component will be published to (`@lightning/ui` or `@lightning/ui-core`) 
+- `componentName`: name of component to be added
+
+Example: add a new component, `MyComponent`, to the `@lightning/ui` package
+```sh
+yarn createComponent @lightning/ui MyComponent
 ```
 
 This will create the following files:
 
 ```
 /
-└── elements
-    └── MyComponent
-        ├── index.js
-        ├── MyComponent.d.ts
-        ├── MyComponent.mdx
-        ├── MyComponent.stories.js
-        ├── MyComponent.styles.js
-        └── MyComponent.test.js
+└── packages
+    └── @lightning
+      └── ui
+        └── src
+          └── components
+            └── MyComponent
+              ├── index.js
+              ├── MyComponent.d.ts
+              ├── MyComponent.mdx
+              ├── MyComponent.stories.js
+              ├── MyComponent.styles.js
+              └── MyComponent.test.js
 ```
 
 ### Pull Requests
@@ -279,7 +290,7 @@ Component documentation is covered through a combination of `.mdx` and `.stories
 **Live Examples**
 <a id="live-examples" />
 
-Live examples are driven by [Storybook](https://storybook.js.org/) stories, and live in `<Type>/<Component>/<Component>.stories.js`. If you generated a new component with `npm run create`, a template layout should exist for your component.
+Live examples are driven by [Storybook](https://storybook.js.org/) stories, and live in `<Type>/<Component>/<Component>.stories.js`. If you generated a new component with `yarn createComponent`, a template layout should exist for your component.
 
 If you are contributing to an existing component, follow the patterns established there. Adding a story looks like this:
 
@@ -405,7 +416,7 @@ The render logic for story previews lives in `./.storybook/preview.js`
 
 Usage documentation lives in `<Type>/<Component>/<Component>.mdx`. [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
 
-If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
+If you generated a new component with `yarn createComponent`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
 ``` js
 import { Canvas, Story } from '@storybook/addon-docs';
@@ -450,7 +461,7 @@ Repeat this pattern for as many usage variations as you see fit.
 
 API documentation lives in `<Type>/<Component>/<Component>.mdx`, below [usage documentation](#usage-documentation). [MDX](https://mdxjs.com/) allows you to combine [markdown](https://daringfireball.net/projects/markdown/syntax) and [React JSX](https://reactjs.org/docs/introducing-jsx.html) syntax within the same file!
 
-If you generated a new component with `npm run create`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding API documentation should follow this pattern:
+If you generated a new component with `yarn createComponent`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding API documentation should follow this pattern:
 
 ```
 ## API
