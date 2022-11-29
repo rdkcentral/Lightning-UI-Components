@@ -108,6 +108,13 @@ export const globalTypes = {
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  backgrounds: {
+    default: 'dark',
+    values: [
+      { name: 'light', value: '#cccccc' },
+      { name: 'dark', value: '#21232A' }
+    ]
+  },
   controls: {
     hideNoControlsWarning: true,
     expanded: true,
@@ -176,7 +183,6 @@ function createApp(parameters) {
       w: 1280,
       h: 720,
       precision: 2 / 3,
-      clearColor: utils.getValidColor('#232328'),
       canvas2d: false,
       useImageWorker: false,
       inspector: false,
@@ -223,8 +229,10 @@ function clearInspector() {
 }
 
 let previousID = null;
+let previousBackground = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
-  const triggerUpdate = previousID !== id;
+  const triggerUpdate =
+    previousID !== id || previousBackground !== globals.backgrounds.value;
   previousID = id;
   const app = createApp(globals.LUITheme);
   clearInspector();
