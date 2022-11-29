@@ -13,25 +13,25 @@ const {
   typescriptDefinitionsTemplate,
 } = require('./templates');
 
-const compDir = './';
-const validDirs = [ 'elements', 'patterns', 'layout'];
+const compDir = './packages/';
+const validDirs = ['@lightning/ui', '@lightning/ui-core'];
 
 const [componentDir, componentName] = process.argv.slice(2);
 
 if (!componentDir || !componentName) {
   throw new Error(`Missing component name or type.
-Try again with something like: \`npm run create templates MyTemplate\`
-  `)
+Try again with something like: \`yarn createComponent @lightning/ui MyTemplate\`
+  `);
 }
 
 if (!validDirs.includes(componentDir)) {
   throw new Error(`
-Invalid component directory "${componentDir}".
+Invalid package name "${componentDir}".
 Use one of the following: ${validDirs.join(', ')}
-  `)
+  `);
 }
 
-const workingDir = `./${compDir}/${componentDir}/${componentName}`;
+const workingDir = `./${compDir}/${componentDir}/src/components/${componentName}`;
 
 if (fs.existsSync(workingDir)) {
   const message = `${componentName} already exists at ${workingDir}`;
