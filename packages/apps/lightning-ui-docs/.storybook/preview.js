@@ -129,6 +129,23 @@ export const parameters = {
       method: 'alphabetical',
       order: [
         CATEGORIES[1024],
+        [
+          'Introduction',
+          'Read Me',
+          'Contributing',
+          'Lightning Resources',
+          'Theming',
+          [
+            'Overview',
+            'Theme Properties',
+            'Use in Storybook',
+            'Mode',
+            'Palette',
+            'Extensions',
+            'Sub Theming',
+            '*'
+          ]
+        ],
         CATEGORIES[2048],
         CATEGORIES[0],
         CATEGORIES[4],
