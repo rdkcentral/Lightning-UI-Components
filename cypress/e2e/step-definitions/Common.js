@@ -1,65 +1,7 @@
-import Icon from '../pageObjects/elements/icon.element';
-import Badge from '../pageObjects/metadata/badge.metadata';
-import Card from '../pageObjects/tilesAndCards/card.tilesandcards';
-import CardPersonality from '../pageObjects/tilesAndCards/cardpersonality.tilesandcards';
-import CardSection from '../pageObjects/tilesAndCards/cardsection.tilesandcards';
-import CardTitle from '../pageObjects/tilesAndCards/cardtitle.tilesandcards';
-import CheckBox from '../pageObjects/elements/checkbox.element';
-import Label from '../pageObjects/metadata/label.metadata';
-import ProgressBar from '../pageObjects/utilities/progressbar.utilities';
-import FocusManager from '../pageObjects/navigation/focusmanager.navigation';
-import Radio from '../pageObjects/utilities/radio.utilities';
-import RadioSmall from '../pageObjects/utilities/radiosmall.utilities';
-import Row from '../pageObjects/navigation/row.navigation';
-import Slider from '../pageObjects/utilities/slider.utilities';
-import SliderLarge from '../pageObjects/utilities/sliderlarge.utilities';
-import Tile from '../pageObjects/tilesAndCards/tile.tilesandcards';
-import Button from '../pageObjects/controls/button.controls';
-import TextBox from '../pageObjects/text/textbox.text';
-import Toggle from '../pageObjects/utilities/toggle.utilities';
-import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
-import Distractor from '../pageObjects/utilities/distractor.utilities';
-import Column from '../pageObjects/navigation/column.navigation';
-import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
-import Wave from '../pageObjects/utilities/wave.utilities';
+import getPageObject from '../pageObjects';
+import Button from '../pageObjects/controls/button.controls'; //TODO Remove import when
+
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-
-function getPageObject(pageName) {
-  const pageObjects = {
-    icon: Icon,
-    badge: Badge,
-    card: Card,
-    cardpersonality: CardPersonality,
-    cardsection: CardSection,
-    cardtitle: CardTitle,
-    checkbox: CheckBox,
-    label: Label,
-    progressbar: ProgressBar,
-    radio: Radio,
-    radiosmall: RadioSmall,
-    row: Row,
-    slider: Slider,
-    sliderlarge: SliderLarge,
-    textbox: TextBox,
-    focusmanager: FocusManager,
-    tile: Tile,
-    button: Button,
-    toggle: Toggle,
-    togglesmall: ToggleSmall,
-    distractor: Distractor,
-    column: Column,
-    buttonsmall: ButtonSmall,
-    wave: Wave
-  };
-
-  if (pageName in pageObjects) {
-    return pageObjects[pageName];
-  } else {
-    throw new Error(
-      `${pageName} page not found! \nPlease check the page object name or implement the missing case.`
-    );
-  }
-}
 
 export default function () {
   /**
@@ -220,21 +162,10 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      if (property === 'progress') {
-        cy.wait(300); // wait for the progress bar to render
-        ProgressBar.progressBarValue.then(progressBarValue => {
-          ProgressBar.progressValue.then(progressValue => {
-            const actualPercentage =
-              Number(progressValue) / Number(progressBarValue);
-            expect(actualPercentage).to.eq(parseFloat(value));
-          });
-        });
-      } else {
-        pageObject
-          ._getElementByName(pageName)
-          .should('have.attr', 'style')
-          .should('contain', `${property}: ${value}`);
-      }
+      pageObject
+        ._getElementByName(pageName)
+        .should('have.attr', 'style')
+        .should('contain', `${property}: ${value}`);
     }
   );
 
@@ -834,6 +765,8 @@ export default function () {
       const element = pageName + prop;
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
+
+      // TODO: Move tests for prefix and suffix to the Button step definitions file
       switch (prop) {
         case 'Justify':
           if (value === 'left') {
@@ -851,6 +784,8 @@ export default function () {
           }
           break;
         case 'prefix':
+          // TODO: add test for prefix
+          break;
         case 'suffix':
           if (value === 'null') {
             cy.get(Button.icon).should('not.exist');
@@ -872,14 +807,14 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that the {string} Progress Bar is set to {float}
-   * @description Cucumber statement to verify that the Progress Bar is set to expected percentage value
+   * @function I verify that the {string} progress is set to {float}
+   * @description Cucumber statement to verify that the progress is set to expected percentage value
    * @param {Float} expectedPercentage
    * @param {String} pageName
-   * @example I verify that the 'Slider' Progress Bar is set to 0.20
+   * @example I verify that the 'Slider' progress is set to 0.20
    */
   Then(
-    'I verify that the {string} Progress Bar is set to {float}',
+    'I verify that the {string} progress is set to {float}',
     (pageName, expectedPercentage) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);

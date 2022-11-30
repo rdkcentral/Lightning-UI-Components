@@ -28,7 +28,7 @@ Feature: LUI Slider Basic component
 
   Scenario Outline: Verify the Slider Basic max boundary
     When I set the 'max' to '<maxValue>' for 'Slider' component
-    Then I verify that the 'Slider' Progress Bar is set to <progressValue>
+    Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | maxValue | progressValue |
       |    50    |     1.00      |
@@ -37,7 +37,7 @@ Feature: LUI Slider Basic component
 
   Scenario Outline: Verify the Slider Basic min boundary
     When I set the 'min' to '<minValue>' for 'Slider' component
-    Then I verify that the 'Slider' Progress Bar is set to <progressValue>
+    Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | minValue | progressValue |
       |    50    |     0.5       |
@@ -46,7 +46,7 @@ Feature: LUI Slider Basic component
 
   Scenario Outline: Verify the Slider Basic current value can be set
     When I set the 'value' to '<expected>' for 'Slider' component
-    Then I verify that the 'Slider' Progress Bar is set to <progressValue>
+    Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | expected | progressValue |
       |    0     |     0.00      |
@@ -65,29 +65,29 @@ Feature: LUI Slider Basic component
     When I set the 'vertical' to 'true' for 'Slider' component
     Then I verify the 'vertical' is 'true' for 'Slider' 'Basic'
     And I set the 'value' to '1' for 'Slider' component
-    And I verify that the 'Slider' Progress Bar is set to 0.01
+    And I verify that the 'Slider' progress is set to 0.01
     And I set the 'min' to '20' for 'Slider' component
-    And I verify that the 'Slider' Progress Bar is set to 0.20
+    And I verify that the 'Slider' progress is set to 0.20
     And I set the 'value' to '100' for 'Slider' component
-    And I verify that the 'Slider' Progress Bar is set to 1
+    And I verify that the 'Slider' progress is set to 1
     And I set the 'max' to '80' for 'Slider' component
-    And I verify that the 'Slider' Progress Bar is set to 1
+    And I verify that the 'Slider' progress is set to 1
     And I set the 'value' to '50' for 'Slider' component
-    And I verify that the 'Slider' Progress Bar is set to 0.625
+    And I verify that the 'Slider' progress is set to 0.625
 
   Scenario: Verify Slider Basic arrow key navigation with default step size
     When I press 'LEFT' key 5 times
-    Then I verify that the 'Slider' Progress Bar is set to 0.45
+    Then I verify that the 'Slider' progress is set to 0.45
     And I press 'RIGHT' key 10 times
-    And I verify that the 'Slider' Progress Bar is set to 0.55
+    And I verify that the 'Slider' progress is set to 0.55
     And I press 'LEFT' key 5 times
-    And I verify that the 'Slider' Progress Bar is set to 0.5
+    And I verify that the 'Slider' progress is set to 0.5
 
   Scenario: Verify Slider Basic arrow key navigation with modified step size
     When I set the 'step' to '10' for 'Slider' component
     Then I press 'LEFT' key 5 times
-    And I verify that the 'Slider' Progress Bar is set to 0
+    And I verify that the 'Slider' progress is set to 0
     And I press 'RIGHT' key 10 times
-    And I verify that the 'Slider' Progress Bar is set to 1
+    And I verify that the 'Slider' progress is set to 1
     And I press 'LEFT' key 5 times
-    And I verify that the 'Slider' Progress Bar is set to 0.5
+    And I verify that the 'Slider' progress is set to 0.5

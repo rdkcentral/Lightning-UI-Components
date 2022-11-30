@@ -10,8 +10,8 @@ Feature: LUI Toggle Basic component
     Then I verify that the 'Toggle' 'Toggle' component is displayed
 
   Scenario: Verify the dimensions of the Toggle Basic Element
-    Then I verify that the 'width' of 'Toggle' 'Toggle' component is '80px'
-    And I verify that the 'height' of 'Toggle' 'Toggle' component is '34px'
+    Then I verify that the 'width' of 'Toggle' component is '80px'
+    And I verify that the 'height' of 'Toggle' component is '34px'
 
 # Disabled until 'mode' control functionality is fixed
   # Scenario: Verify the Toggle Basic modes

@@ -10,8 +10,8 @@ Feature: LUI Tile Basic component
     Then I verify that the 'Tile' 'Tile' component is displayed
 
   Scenario: Verify the dimensions of the Tile Basic Element
-    Then I verify that the 'width' of 'Tile' 'Tile' component is '527px'
-    And I verify that the 'height' of 'Tile' 'Tile' component is '296px'
+    Then I verify that the 'width' of 'Tile' component is '527px'
+    And I verify that the 'height' of 'Tile' component is '296px'
 
   # There is a bug for this functionality so this scenario can be automated once that is resolved only.
   #  Scenario: Verify that Tile Basic modes
@@ -37,9 +37,9 @@ Feature: LUI Tile Basic component
 
   Scenario: Verify the Tile Basic circle control
     When I set the 'itemLayout_circle' to 'true' for 'Tile' component
-    Then I verify that the 'width' of 'Tile' 'Tile' component is '296px'
+    Then I verify that the 'width' of 'Tile' component is '296px'
     And I set the 'itemLayout_circle' to 'false' for 'Tile' component
-    And I verify that the 'width' of 'Tile' 'Tile' component is '527px'
+    And I verify that the 'width' of 'Tile' component is '527px'
 
   Scenario: Verify the Tile Basic badge Title Control
     When I set the 'badge_title' to 'LUI Test' for 'Tile' component
@@ -79,7 +79,7 @@ Feature: LUI Tile Basic component
 
   Scenario Outline: Validate the Tile Basic progress control
     When I set the 'progressBar_progress' to '<progressValue>' for 'Tile' component
-    Then I verify that the 'progress' of 'Tile' component is '<progressValue>'
+    Then I verify that the 'Tile' progress is set to <progressValue>
     Examples:
       | progressValue |
       | 0.20          |
@@ -89,15 +89,15 @@ Feature: LUI Tile Basic component
 
   Scenario: Verify the Tile Basic ratioX control
     When I set the 'itemLayout_ratioX' to '20' for 'Tile' component
-    And I verify that the 'height' of 'Tile' 'Tile' component is '237px'
-    And I verify that the 'width' of 'Tile' 'Tile' component is '527px'
+    Then I verify that the 'height' of 'Tile' component is '237px'
+    And I verify that the 'width' of 'Tile' component is '527px'
 
   Scenario: Verify the Tile Basic ratioY control
     When I set the 'itemLayout_ratioY' to '20' for 'Tile' component
-    And I verify that the 'height' of 'Tile' 'Tile' component is '659px'
-    And I verify that the 'width' of 'Tile' 'Tile' component is '527px'
+    Then I verify that the 'height' of 'Tile' component is '659px'
+    And I verify that the 'width' of 'Tile' component is '527px'
 
   Scenario: Verify the Tile Basic upCount control
     When I set the 'itemLayout_upCount' to '7' for 'Tile' component
-    And I verify that the 'height' of 'Tile' 'Tile' component is '120px'
-    And I verify that the 'width' of 'Tile' 'Tile' component is '214px'
+    Then I verify that the 'height' of 'Tile' component is '120px'
+    And I verify that the 'width' of 'Tile' component is '214px'

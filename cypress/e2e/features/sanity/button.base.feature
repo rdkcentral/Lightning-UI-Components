@@ -19,9 +19,9 @@ Feature: LUI Button component
   #     And I verify the 'mode' is 'disabled' for 'Button' 'Basic'
 
   Scenario: Verify the Button fixed state
-    Then I verify that the 'width' of 'Button' 'Button' component is '472px'
+    Then I verify that the 'width' of 'Button' component is '472px'
     And I set the 'fixed' to 'true' for 'Button' component
-    And I verify that the 'width' of 'Button' 'Button' component is '200px'
+    And I verify that the 'width' of 'Button' component is '200px'
 
   Scenario: Verify the Button justify control
     When I set the 'justify' to 'left' for 'Button' component
