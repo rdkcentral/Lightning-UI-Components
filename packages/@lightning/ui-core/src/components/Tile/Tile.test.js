@@ -1,7 +1,4 @@
-import {
-  makeCreateComponent,
-  fastForward
-} from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, fastForward } from '@lightning/ui-test-utils';
 import Tile from './index.js';
 import Artwork from '../Artwork/index.js';
 

@@ -1,4 +1,4 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import GridOverlay from '.';
 import { getWidthByColumnSpan } from '../../utils/index.js';
 

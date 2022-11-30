@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Distractor renders 1`] = `
-Object {
-  "Component": Object {
-    "Circle1": Object {
+{
+  "Component": {
+    "Circle1": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -29,10 +29,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Circle1",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
@@ -41,7 +41,7 @@ Object {
       "y": 0,
       "zIndex": 0,
     },
-    "Circle2": Object {
+    "Circle2": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -67,10 +67,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Circle2",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,

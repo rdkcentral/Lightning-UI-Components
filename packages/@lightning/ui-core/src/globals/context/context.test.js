@@ -1,9 +1,18 @@
 import { getHexColor } from '../../utils/index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
+import themeManager from './theme-manager';
+import logger from './logger';
+import events from './events';
+import metrics from './metrics';
+import { Context } from '.';
+
+jest.spyOn(logger, 'info').mockImplementation(() => {});
+jest.spyOn(logger, 'log').mockImplementation(() => {});
+jest.spyOn(logger, 'warn').mockImplementation(() => {});
+jest.spyOn(logger, 'error').mockImplementation(() => {});
 
 describe('context', () => {
   let context;
-  let logger;
 
   beforeAll(() => {
     global.console.info = jest.fn().mockImplementation(() => {});
@@ -12,19 +21,7 @@ describe('context', () => {
 
   beforeEach(async () => {
     jest.resetModules();
-    // context = require('./index').default;
-    // logger = require('./logger');
-    // const { default: contextImport } = await import('./index');
-    // context = contextImport;
-    // const { default: loggerImport } = await import('./logger');
-    // logger = loggerImport;
-    jest.mock('./logger', () => ({
-      info: jest.fn().mockImplementation(() => {}),
-      log: jest.fn().mockImplementation(() => {}),
-      warn: jest.fn().mockImplementation(() => {}),
-      error: jest.fn().mockImplementation(() => {}),
-      debug: false
-    }));
+    context = new Context();
   });
 
   afterEach(() => {
@@ -33,7 +30,6 @@ describe('context', () => {
 
   describe('context api', () => {
     it('should get the base theme by default', () => {
-      const themeManager = require('./theme-manager').default;
       const processedBaseTheme = themeManager._processTheme();
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
@@ -51,15 +47,13 @@ describe('context', () => {
       );
     });
 
-    it('should have a on and emit method', () => {
-      const events = require('./events').default;
+    it('should have an on and emit method', () => {
       expect(events.constructor.name).toBe('EventEmitter');
       expect(typeof context.on).toBe('function');
       expect(typeof context.emit).toBe('function');
     });
 
     it('should not allow context.theme to be set directly', () => {
-      const themeManager = require('./theme-manager').default;
       const processedBaseTheme = themeManager._processTheme();
       context.theme = { foo: 'bar' };
       expect(context.theme).toMatchObject(processedBaseTheme);
@@ -71,7 +65,6 @@ describe('context', () => {
     });
 
     it('should remove previous theme and deep merge theme properties with the original baseTheme when using context.set', () => {
-      const themeManager = require('./theme-manager').default;
       const { color: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const color = {};
@@ -86,7 +79,6 @@ describe('context', () => {
     });
 
     it('should merge previous theme properties context.update', () => {
-      const themeManager = require('./theme-manager').default;
       const { color: baseColors } = themeManager._processTheme();
       const firstColorProp = Object.keys(baseColors).unshift();
       const color = {};
@@ -108,22 +100,20 @@ describe('context', () => {
       expect(subTheme).toMatchObject(baseTheme);
     });
 
-    it('should only accept a string as the first argument for setSubTheme', async done => {
+    it('should only accept a string as the first argument for setSubTheme', async () => {
       const subTheme = await context.setSubTheme({ foo: 'bar' });
       expect(logger.warn.mock.calls).toContainEqual([
         'Sub theme name must be a string. Received an object'
       ]);
       expect(subTheme).toBeUndefined();
-      done();
     });
 
-    it('should only accept an object as the second argument for setSubTheme', async done => {
+    it('should only accept an object as the second argument for setSubTheme', async () => {
       const subTheme = await context.setSubTheme('shouldFail', 50);
       expect(logger.warn.mock.calls).toContainEqual([
         'Could not set subTheme shouldFail, value should be an object with properties. Received an number'
       ]);
       expect(subTheme).toBeUndefined();
-      done();
     });
 
     it('should update an existing subTheme when using updateSubTheme', () => {
@@ -167,21 +157,20 @@ describe('context', () => {
     });
 
     it('should be able to set keyMetricsCallback using setKeyMetricsCallback', () => {
-      const metrics = require('./metrics').default;
       const keyMetricsCallback = () => {};
       context.setKeyMetricsCallback(keyMetricsCallback);
       expect(metrics.keyMetricsCallback).toEqual(keyMetricsCallback);
     });
 
     it('should only allow keyMetricsCallback to be a function using setKeyMetricsCallback', () => {
-      const metrics = require('./metrics').default;
       const keyMetricsCallback = 'invalid';
       context.setKeyMetricsCallback(keyMetricsCallback);
-      expect(metrics.keyMetricsCallback).toBeUndefined();
+      expect(logger.warn).toHaveBeenLastCalledWith(
+        'context keyMetricsCallback expected a function. Received string'
+      );
     });
 
     it('should set multiple subThemes', () => {
-      const themeManager = require('./theme-manager').default;
       themeManager.setSubTheme = jest.fn().mockImplementation(() => {});
       context.setSubThemes({
         one: { foo: 'bar' },
@@ -197,7 +186,6 @@ describe('context', () => {
     });
 
     it('should send warn to logger if setSubThemes payload is not an object', () => {
-      logger.warn = jest.fn().mockImplementation(() => {});
       context.setSubThemes('invalid');
       expect(logger.warn).toHaveBeenCalledTimes(1);
       expect(logger.warn).toHaveBeenCalledWith('subThemes must be an object');
@@ -216,8 +204,6 @@ describe('context', () => {
     });
 
     it('should allow theme, keyMetricsCallback, logCallback to be set with context.config', () => {
-      const metrics = require('./metrics').default;
-      const themeManager = require('./theme-manager').default;
       const themeSetting = { foo: 'bar' };
       const keyMetricsCallback = () => {};
       const logCallback = () => {};
@@ -232,7 +218,6 @@ describe('context', () => {
     });
 
     it('should pass events to the context event emitter when calling context.emit', () => {
-      const events = require('./events').default;
       events.emit = jest.fn().mockImplementation(() => {});
       context.emit('myEvent', { payload: 'myEventPayload' });
       expect(events.emit).toHaveBeenCalledTimes(1);

@@ -1,9 +1,6 @@
 import Control from './Control.js';
 import Icon from '../Icon/index.js';
-import {
-  makeCreateComponent,
-  pathToDataURI
-} from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, pathToDataURI } from '@lightning/ui-test-utils';
 
 const lightningIcon = pathToDataURI(
   'src/assets/images/ic_lightning_white_32.png'

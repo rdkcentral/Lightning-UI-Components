@@ -1,4 +1,4 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from './index.js';
 import KeyboardInput from './KeyboardInput.js';
 

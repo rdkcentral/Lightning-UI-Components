@@ -1,14 +1,10 @@
 import Column from '.';
 import Row from '../Row/index.js';
-import TestRenderer from '../../../test/lightning-test-renderer.js';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { TestRenderer, makeCreateComponent } from '@lightning/ui-test-utils';
 import lng from '@lightningjs/core';
 import { withThemeStyles } from '../../mixins/';
-import {
-  completeAnimation,
-  nextTick
-} from '../../../test/lightning-test-utils.js';
-import { expect, jest } from '@jest/globals';
+import { completeAnimation, nextTick } from '@lightning/ui-test-utils';
+import { jest } from '@jest/globals';
 
 const baseItem = {
   type: lng.Component,

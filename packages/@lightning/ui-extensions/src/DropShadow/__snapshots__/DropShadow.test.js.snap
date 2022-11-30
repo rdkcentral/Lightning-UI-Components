@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropShadow Extension renders 1`] = `
-Object {
-  "Component": Object {
-    "DropShadow": Object {
+{
+  "Component": {
+    "DropShadow": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "Frame": Object {
+      "children": {
+        "Frame": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Shadow": Object {
+          "children": {
+            "Shadow": {
               "active": false,
               "alpha": 0,
               "attached": true,
@@ -41,10 +41,10 @@ Object {
               "scaleY": 1,
               "state": undefined,
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Shadow",
               ],
-              "texture": Object {
+              "texture": {
                 "type": "StaticCanvasTexture",
               },
               "visible": true,
@@ -75,7 +75,7 @@ Object {
           "scaleY": 1,
           "state": undefined,
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Frame",
           ],
           "visible": true,
@@ -108,7 +108,7 @@ Object {
       "scaleY": 1,
       "state": "",
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "DropShadow",
       ],
       "type": "Shadow",
@@ -123,21 +123,21 @@ Object {
 `;
 
 exports[`DropShadow Extension renders with generator 1`] = `
-Object {
-  "Component": Object {
-    "DropShadow": Object {
+{
+  "Component": {
+    "DropShadow": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "Frame": Object {
+      "children": {
+        "Frame": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Shadow": Object {
+          "children": {
+            "Shadow": {
               "active": false,
               "alpha": 0,
               "attached": true,
@@ -163,10 +163,10 @@ Object {
               "scaleY": 1,
               "state": undefined,
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Shadow",
               ],
-              "texture": Object {
+              "texture": {
                 "type": "StaticCanvasTexture",
               },
               "visible": true,
@@ -197,7 +197,7 @@ Object {
           "scaleY": 1,
           "state": undefined,
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Frame",
           ],
           "visible": true,
@@ -230,7 +230,7 @@ Object {
       "scaleY": 1,
       "state": "",
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "DropShadow",
       ],
       "type": "Shadow",

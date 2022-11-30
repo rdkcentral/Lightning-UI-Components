@@ -1,12 +1,10 @@
-import TestUtils from '@lightning/ui-core/test';
+import { pathToDataURI, makeCreateComponent } from '@lightning/ui-test-utils';
 import CardContent from './CardContent';
-import Tile from '@lightning/ui-core/src/components/Tile';
+import { Tile } from '@lightning/ui-core';
 
-const icon = TestUtils.pathToDataURI(
-  './src/assets/images/ic_lightning_white_32.png'
-);
+const icon = pathToDataURI('./src/assets/images/ic_lightning_white_32.png');
 
-const createComponent = TestUtils.makeCreateComponent(CardContent);
+const createComponent = makeCreateComponent(CardContent);
 
 describe('CardContent', () => {
   // eslint-disable-next-line no-unused-vars

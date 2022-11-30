@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CardTitle renders 1`] = `
-Object {
-  "Component": Object {
-    "Background": Object {
+{
+  "Component": {
+    "Background": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -29,10 +29,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Background",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
@@ -41,7 +41,7 @@ Object {
       "y": 0,
       "zIndex": 0,
     },
-    "Title": Object {
+    "Title": {
       "active": false,
       "alpha": 0.001,
       "attached": true,
@@ -69,7 +69,7 @@ Object {
       "scaleY": 1,
       "state": "",
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Title",
       ],
       "type": "TextBox",

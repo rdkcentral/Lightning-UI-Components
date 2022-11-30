@@ -1,9 +1,9 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent, fastForward } from '@lightning/ui-test-utils';
 import defaultIcon from '../../assets/images/notification_64.png';
 import { jest } from '@jest/globals';
 import Notification from '.';
 
-const createNotification = TestUtils.makeCreateComponent(Notification);
+const createNotification = makeCreateComponent(Notification);
 
 describe('Notification', () => {
   let notification, testRenderer;
@@ -36,7 +36,7 @@ describe('Notification', () => {
     );
 
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -111,7 +111,7 @@ describe('Notification', () => {
     );
 
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -142,7 +142,7 @@ describe('Notification', () => {
 
     await notification.__updateSpyPromise;
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -177,7 +177,7 @@ describe('Notification', () => {
     );
 
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -208,7 +208,7 @@ describe('Notification', () => {
     );
 
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -228,7 +228,7 @@ describe('Notification', () => {
   it('should call enter() and complete transitions', async () => {
     await notification.enter();
 
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -257,7 +257,7 @@ describe('Notification', () => {
       notification.style;
 
     await notification._enterSpyPromise;
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -274,7 +274,7 @@ describe('Notification', () => {
     );
 
     await notification.dismiss();
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -299,7 +299,7 @@ describe('Notification', () => {
     expect(notification.fireAncestors).not.toHaveBeenCalled();
 
     await notification.dismiss();
-    TestUtils.fastForward([
+    fastForward([
       notification._Container,
       notification._Icon,
       notification._Text
@@ -325,7 +325,7 @@ describe('Notification', () => {
     });
 
     it('should call enter() and complete transitions', async () => {
-      TestUtils.fastForward([
+      fastForward([
         notification._Container,
         notification._Icon,
         notification._Text

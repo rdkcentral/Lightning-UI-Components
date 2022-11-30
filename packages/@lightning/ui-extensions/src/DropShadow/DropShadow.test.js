@@ -1,15 +1,11 @@
-import TestUtils from '../../test/lightning-test-utils';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import dropShadowExtension, {
   dropShadowExtensionGenerator
 } from './DropShadow.extension';
-import Base from '../Base';
-import { base as baseStyles } from '..//Shadow/Shadow.styles';
-import XfinityTheme from '../../themes/xfinity';
+import { Base, withExtensions } from '@lightning/ui-core';
 
 const width = 100;
 const height = 150;
-
-const baseStyleVals = baseStyles(XfinityTheme);
 
 const generatedExtension = dropShadowExtensionGenerator({
   componentsToMask: ['ToMaskExample']
@@ -41,16 +37,16 @@ class ToMaskExample extends Base {
   }
 }
 
-const createComponent = TestUtils.makeCreateComponent(
-  dropShadowExtension(Example)
+const createComponent = makeCreateComponent(
+  dropShadowExtension(withExtensions(Example))
 );
 
-const createComponentGeneratedNoMask = TestUtils.makeCreateComponent(
-  generatedExtension(Example)
+const createComponentGeneratedNoMask = makeCreateComponent(
+  generatedExtension(withExtensions(Example))
 );
 
-const createComponentGeneratedWithMask = TestUtils.makeCreateComponent(
-  generatedExtension(ToMaskExample)
+const createComponentGeneratedWithMask = makeCreateComponent(
+  generatedExtension(withExtensions(ToMaskExample))
 );
 
 describe('DropShadow Extension', () => {
@@ -84,15 +80,6 @@ describe('DropShadow Extension', () => {
   it('Does not affect the size of the base component', () => {
     expect(component.w).toEqual(width);
     expect(component.h).toEqual(height);
-  });
-
-  it('Sizes the underlying shadow to the base component size', () => {
-    expect(component._DropShadow._Frame.w).toEqual(
-      component.w + 2 * (baseStyleVals.spread + baseStyleVals.blur * 2)
-    );
-    expect(component._DropShadow._Frame.h).toEqual(
-      component.h + 2 * (baseStyleVals.spread + baseStyleVals.blur * 2)
-    );
   });
 
   it('Applies Masked shadow to the specified component', () => {

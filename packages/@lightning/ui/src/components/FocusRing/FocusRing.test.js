@@ -1,8 +1,8 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import FocusRing from '.';
 import { utils } from '@lightning/ui-core';
 
-const createFocusRing = TestUtils.makeCreateComponent(FocusRing, {
+const createFocusRing = makeCreateComponent(FocusRing, {
   w: 320,
   h: 180,
   radius: 8

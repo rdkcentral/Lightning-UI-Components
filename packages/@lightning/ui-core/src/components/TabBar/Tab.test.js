@@ -1,4 +1,4 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Tab from './Tab.js';
 
 const iconPath = '../../assets/images/ic_lightning_white_32.png';

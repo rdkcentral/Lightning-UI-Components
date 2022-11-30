@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ListItemSliderThemed renders 1`] = `
-Object {
-  "Component": Object {
-    "Background": Object {
+exports[`ListItemSlider renders 1`] = `
+{
+  "Component": {
+    "Background": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -29,10 +29,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Background",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
@@ -41,37 +41,37 @@ Object {
       "y": 0,
       "zIndex": 0,
     },
-    "Content": Object {
+    "Content": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "Slider": Object {
+      "children": {
+        "Slider": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Container": Object {
+          "children": {
+            "Container": {
               "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Bar": Object {
+              "children": {
+                "Bar": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
-                  "children": Object {
-                    "Circle": Object {
+                  "children": {
+                    "Circle": {
                       "active": false,
                       "alpha": 0,
                       "attached": true,
                       "boundsMargin": null,
-                      "children": Object {
-                        "Circle": Object {
+                      "children": {
+                        "Circle": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -97,7 +97,7 @@ Object {
                           "scaleY": 1,
                           "state": undefined,
                           "tag": [Function],
-                          "tags": Array [
+                          "tags": [
                             "Circle",
                           ],
                           "visible": true,
@@ -130,7 +130,7 @@ Object {
                       "scaleY": 1,
                       "state": "",
                       "tag": [Function],
-                      "tags": Array [
+                      "tags": [
                         "Circle",
                       ],
                       "type": "Knob",
@@ -140,13 +140,13 @@ Object {
                       "y": 11,
                       "zIndex": 5,
                     },
-                    "SliderBar": Object {
+                    "SliderBar": {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
-                      "children": Object {
-                        "Bar": Object {
+                      "children": {
+                        "Bar": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -172,10 +172,10 @@ Object {
                           "scaleY": 1,
                           "state": undefined,
                           "tag": [Function],
-                          "tags": Array [
+                          "tags": [
                             "Bar",
                           ],
-                          "texture": Object {
+                          "texture": {
                             "type": "StaticCanvasTexture",
                           },
                           "visible": true,
@@ -184,7 +184,7 @@ Object {
                           "y": 0,
                           "zIndex": 1,
                         },
-                        "Progress": Object {
+                        "Progress": {
                           "active": false,
                           "alpha": 0,
                           "attached": true,
@@ -210,10 +210,10 @@ Object {
                           "scaleY": 1,
                           "state": undefined,
                           "tag": [Function],
-                          "tags": Array [
+                          "tags": [
                             "Progress",
                           ],
-                          "texture": Object {
+                          "texture": {
                             "type": "StaticCanvasTexture",
                           },
                           "visible": true,
@@ -246,7 +246,7 @@ Object {
                       "scaleY": 1,
                       "state": "",
                       "tag": [Function],
-                      "tags": Array [
+                      "tags": [
                         "SliderBar",
                       ],
                       "type": "ProgressBar",
@@ -278,7 +278,7 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Bar",
                   ],
                   "visible": true,
@@ -287,7 +287,7 @@ Object {
                   "y": 0,
                   "zIndex": 0,
                 },
-                "LeftArrow": Object {
+                "LeftArrow": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -313,10 +313,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "LeftArrow",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAGKADAAQAAAABAAAAGAAAAADiNXWtAAAAi0lEQVRIDWNgGAWjIfD//38JID5Fk5AAGqwKxPeA+D/VLQCaaQLEr0CGgwBVLQCa5wbEn0EGwwDVLAAaGA3Ev2AGw2iqWAA0rBiI/8EMRaYptgBoWDeygehsci1gIlcjWfqArqZdEMFcBLSEdpGMZAntkimSJbTLaEiW0K6oQLKEdoUdzJJRemiHAAD4n+yzPWCs7QAAAABJRU5ErkJggg==",
                     "type": "ImageTexture",
                   },
@@ -326,7 +326,7 @@ Object {
                   "y": [Function],
                   "zIndex": 0,
                 },
-                "RightArrow": Object {
+                "RightArrow": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -352,10 +352,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "RightArrow",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAGKADAAQAAAABAAAAGAAAAADiNXWtAAAAg0lEQVRIDWNgGAWjIYArBP7//38KiCVwyVMsDjQcBO4BsSrFhmEzAGw8hHgFpEywqaFIDMkCEPMzELtRZCC6ZjQLQNxfQByNro5sPhYLQEL/gLiYbEORNeKwACbcDVPLBGMMOhrmVDSapkFE00imaTKlaUajaVFB28Ju0CXrUQfhDAEAEgHss6NhpLQAAAAASUVORK5CYII=",
                     "type": "ImageTexture",
                   },
@@ -387,7 +387,7 @@ Object {
               "scaleY": 1,
               "state": undefined,
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Container",
               ],
               "visible": true,
@@ -420,7 +420,7 @@ Object {
           "scaleY": 1,
           "state": "",
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Slider",
           ],
           "type": "NestedSlider",
@@ -430,19 +430,19 @@ Object {
           "y": 24,
           "zIndex": 0,
         },
-        "TextWrapper": Object {
+        "TextWrapper": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Title": Object {
+          "children": {
+            "Title": {
               "active": false,
               "alpha": 0.001,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Text": Object {
+              "children": {
+                "Text": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -468,10 +468,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Text",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "fontFace": "XfinityBrownBold",
                     "fontSize": 28,
                     "letterSpacing": -0.2,
@@ -516,7 +516,7 @@ Object {
               "scaleY": 1,
               "state": "",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Title",
               ],
               "type": "TextBox",
@@ -526,13 +526,13 @@ Object {
               "y": 0,
               "zIndex": 0,
             },
-            "Value": Object {
+            "Value": {
               "active": false,
               "alpha": 0.001,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Text": Object {
+              "children": {
+                "Text": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -558,10 +558,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Text",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "fontFace": "XfinityBrownBold",
                     "fontSize": 28,
                     "letterSpacing": -0.2,
@@ -606,7 +606,7 @@ Object {
               "scaleY": 1,
               "state": "",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Value",
               ],
               "type": "TextBox",
@@ -638,7 +638,7 @@ Object {
           "scaleY": 1,
           "state": undefined,
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "TextWrapper",
           ],
           "visible": true,
@@ -669,7 +669,7 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Content",
       ],
       "visible": true,

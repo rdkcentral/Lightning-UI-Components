@@ -1,7 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import CardContentHero from './CardContentHero';
 
-const createComponent = TestUtils.makeCreateComponent(CardContentHero);
+const createComponent = makeCreateComponent(CardContentHero);
 
 describe('CardContentHero', () => {
   // eslint-disable-next-line no-unused-vars

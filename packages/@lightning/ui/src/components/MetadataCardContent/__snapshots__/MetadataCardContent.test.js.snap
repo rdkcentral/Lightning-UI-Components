@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MetadataCardContent renders 1`] = `
-Object {
-  "Component": Object {
-    "DetailsWrapper": Object {
+{
+  "Component": {
+    "DetailsWrapper": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "DetailsFader": Object {
+      "children": {
+        "DetailsFader": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Details": Object {
+          "children": {
+            "Details": {
               "active": false,
               "alpha": 0.001,
               "attached": true,
@@ -43,7 +43,7 @@ Object {
               "scaleY": 1,
               "state": "",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Details",
               ],
               "type": "TextBox",
@@ -75,7 +75,7 @@ Object {
           "scaleY": 1,
           "state": undefined,
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "DetailsFader",
           ],
           "visible": true,
@@ -84,25 +84,25 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Provider": Object {
+        "Provider": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Row": Object {
+          "children": {
+            "Row": {
               "active": false,
               "alpha": 1,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Items": Object {
+              "children": {
+                "Items": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
                   "boundsMargin": null,
-                  "children": Object {
-                    "Element-12": Object {
+                  "children": {
+                    "Element-12": {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -137,7 +137,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-13": Object {
+                    "Element-13": {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -172,7 +172,7 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-14": Object {
+                    "Element-14": {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
@@ -207,13 +207,13 @@ Object {
                       "y": 0,
                       "zIndex": 0,
                     },
-                    "Element-15": Object {
+                    "Element-15": {
                       "active": false,
                       "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
-                      "children": Object {
-                        "Background": Object {
+                      "children": {
+                        "Background": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -239,10 +239,10 @@ Object {
                           "scaleY": 1,
                           "state": undefined,
                           "tag": [Function],
-                          "tags": Array [
+                          "tags": [
                             "Background",
                           ],
-                          "texture": Object {
+                          "texture": {
                             "type": "StaticCanvasTexture",
                           },
                           "visible": true,
@@ -251,13 +251,13 @@ Object {
                           "y": 0,
                           "zIndex": 0,
                         },
-                        "Text": Object {
+                        "Text": {
                           "active": false,
                           "alpha": 0.001,
                           "attached": true,
                           "boundsMargin": null,
-                          "children": Object {
-                            "Text": Object {
+                          "children": {
+                            "Text": {
                               "active": false,
                               "alpha": 1,
                               "attached": true,
@@ -283,10 +283,10 @@ Object {
                               "scaleY": 1,
                               "state": undefined,
                               "tag": [Function],
-                              "tags": Array [
+                              "tags": [
                                 "Text",
                               ],
-                              "texture": Object {
+                              "texture": {
                                 "fontFace": "XfinityBrownBold",
                                 "fontSize": 28,
                                 "letterSpacing": -0.2,
@@ -330,7 +330,7 @@ Object {
                           "scaleY": 1,
                           "state": "",
                           "tag": [Function],
-                          "tags": Array [
+                          "tags": [
                             "Text",
                           ],
                           "type": "TextBox",
@@ -390,7 +390,7 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Items",
                   ],
                   "visible": true,
@@ -423,7 +423,7 @@ Object {
               "scaleY": 1,
               "state": "Row",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Row",
               ],
               "type": "Row",
@@ -457,7 +457,7 @@ Object {
           "scaleY": 1,
           "state": "",
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Provider",
           ],
           "type": "Provider",
@@ -489,7 +489,7 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "DetailsWrapper",
       ],
       "visible": true,
@@ -498,13 +498,13 @@ Object {
       "y": -48,
       "zIndex": 0,
     },
-    "Text": Object {
+    "Text": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "Description": Object {
+      "children": {
+        "Description": {
           "active": false,
           "alpha": 0.001,
           "attached": true,
@@ -532,7 +532,7 @@ Object {
           "scaleY": 1,
           "state": "",
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Description",
           ],
           "type": "TextBox",
@@ -542,7 +542,7 @@ Object {
           "y": 0,
           "zIndex": 0,
         },
-        "Title": Object {
+        "Title": {
           "active": false,
           "alpha": 0.001,
           "attached": true,
@@ -570,7 +570,7 @@ Object {
           "scaleY": 1,
           "state": "",
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "Title",
           ],
           "type": "TextBox",
@@ -602,7 +602,7 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Text",
       ],
       "visible": true,

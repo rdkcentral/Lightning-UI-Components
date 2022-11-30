@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
-import { expect, jest } from '@jest/globals';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
+import { jest } from '@jest/globals';
 import withSelections from './index.js';
 
 const duplicate = (object, quantity) =>

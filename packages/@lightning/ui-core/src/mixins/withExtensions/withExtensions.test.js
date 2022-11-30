@@ -1,8 +1,8 @@
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import withExtensions from './index.js';
 import { context } from '../../globals/index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const extensionMock = jest.fn();
 
@@ -47,8 +47,8 @@ class Example3 extends lng.Component {
 const extensions = [
   {
     targetComponent: ['Example', 'Example2'],
-    extension: Base =>
-      class AppliedFirst extends Base {
+    extension: function (Base) {
+      return class AppliedFirst extends Base {
         get testGetter() {
           return this._testGetter || 'extension layer + test getter';
         }
@@ -61,27 +61,30 @@ const extensions = [
           extensionMock('extension 1');
           super._update();
         }
-      }
+      };
+    }
   },
   {
     targetComponent: ['Example'],
-    extension: Base =>
-      class AppliedSecond extends Base {
+    extension: function (Base) {
+      return class AppliedSecond extends Base {
         _update() {
           extensionMock('extension 2');
           super._update();
         }
-      }
+      };
+    }
   },
   {
     targetComponent: ['/^Example.*$/'],
-    extension: Base =>
-      class AppliedThird extends Base {
+    extension: function (Base) {
+      return class AppliedThird extends Base {
         _update() {
           extensionMock('extension 3');
           super._update();
         }
-      }
+      };
+    }
   }
 ];
 
@@ -157,13 +160,14 @@ describe('withExtensions', () => {
       extensions: [
         {
           targetComponent: 'Example',
-          extension: Base =>
-            class WithString extends Base {
+          extension: function (Base) {
+            return class WithString extends Base {
               _update() {
                 extensionMock('from string');
                 super._update();
               }
-            }
+            };
+          }
         }
       ]
     });

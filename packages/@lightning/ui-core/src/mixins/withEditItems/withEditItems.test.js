@@ -1,7 +1,7 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import withEditItems from './index.js';
 import { Button } from '../../components/index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 import { Row } from '../../components/index.js';
 
 const createComponent = makeCreateComponent(

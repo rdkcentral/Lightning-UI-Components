@@ -1,5 +1,5 @@
 import FocusManager from '.';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
 

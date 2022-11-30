@@ -1,5 +1,5 @@
 import ControlSmall from './ControlSmall';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 
 import { base } from './ControlSmall.styles.js';
 import baseTheme from '@suite-themes/base-lightning-tv/index.js';

@@ -1,0 +1,21 @@
+{
+  "name": "@lightning/ui-test-utils",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": "./index.js",
+  "files": [
+    "src/*"
+  ],
+  "peerDependencies": {
+    "@lightningjs/core": "^2.7.1"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "jest-webgl-canvas-mock": "^0.2.3"
+  },
+  "dependencies": {
+    "@lightning/ui-core": "workspace:^",
+    "@lightningjs/core": "^2.7.1"
+  }
+}

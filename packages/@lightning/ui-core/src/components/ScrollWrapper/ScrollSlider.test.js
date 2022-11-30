@@ -1,7 +1,7 @@
 import {
   makeCreateComponent,
   completeAnimation
-} from '../../../test/lightning-test-utils.js';
+} from '@lightning/ui-test-utils';
 import ScrollSlider from './ScrollSlider.js';
 
 const createScrollSlider = makeCreateComponent(ScrollSlider);

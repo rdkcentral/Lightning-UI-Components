@@ -1,13 +1,14 @@
+import { jest } from '@jest/globals';
+import metrics from './metrics';
+
 describe('metrics', () => {
   beforeEach(() => {
     jest.resetModules();
   });
   it('should return undefined for keyMetricsCallback if not yet set', () => {
-    const metrics = require('./metrics').default;
     expect(metrics.keyMetricsCallback).toBeUndefined();
   });
   it('should set the keyMetricsCallback only if is a function', () => {
-    const metrics = require('./metrics').default;
     metrics.keyMetricsCallback = 'invalid';
     expect(metrics.keyMetricsCallback).toBeUndefined();
     metrics.keyMetricsCallback = {};

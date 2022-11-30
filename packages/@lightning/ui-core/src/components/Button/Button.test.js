@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Button from './Button';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Icon from '../Icon/index.js';
 import Checkbox from '../Checkbox';
 const createButton = makeCreateComponent(Button, {}, { focused: false });

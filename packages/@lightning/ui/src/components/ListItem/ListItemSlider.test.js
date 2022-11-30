@@ -1,7 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import ListItemSlider from './ListItemSlider';
 
-const createComponent = TestUtils.makeCreateComponent(ListItemSlider);
+const createComponent = makeCreateComponent(ListItemSlider);
 
 describe('ListItemSlider', () => {
   let component, testRenderer;

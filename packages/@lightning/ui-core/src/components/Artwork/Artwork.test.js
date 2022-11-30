@@ -2,7 +2,7 @@ import {
   makeCreateComponent,
   fastForward,
   pathToDataURI
-} from '../../../test/lightning-test-utils.js';
+} from '@lightning/ui-test-utils';
 import { jest } from '@jest/globals';
 import Artwork from './index.js';
 const sampleImg = 'sampleImg';

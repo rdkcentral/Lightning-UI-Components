@@ -6,7 +6,7 @@
   "workspaces": [
     "packages/@lightning/ui",
     "packages/@lightning/ui-core",
-    "packages/@lightning/test-utils",
+    "packages/@lightning/ui-test-utils",
     "packages/@lightning/ui-extensions",
     "packages/apps/**/*"
   ],
@@ -19,7 +19,8 @@
     "updateReleaseLog": "yarn node ./ci/release/updateReleaseLog.js",
     "lint": "yarn workspaces foreach run lint",
     "lint:fix": "yarn workspaces foreach run lint:fix",
-    "test": "yarn workspace @lightning/ui-core test && yarn workspace @lightning/ui test --passWithNoTests",
+    "test": "yarn workspaces foreach -v run test",
+    "test:updateSnapshot": "yarn workspaces foreach -v run test:updateSnapshot",
     "clean": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp && yarn exec rm -rf node_modules && find ./packages -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "postinstall": "node ./scripts/post-install.js",
     "createComponent": "node bin/create.js",
@@ -60,6 +61,7 @@
     "generate-changelog": "^1.8.0",
     "gh-pages": "^4.0.0",
     "husky": "^8.0.1",
+    "jest-watch-typeahead": "^2.2.1",
     "prettier": "^2.7.1",
     "rollup": "^3.2.5",
     "rollup-plugin-dts": "^5.0.0",

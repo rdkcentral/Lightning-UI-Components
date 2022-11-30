@@ -1,7 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import CardPersonality from './CardPersonality';
 import tileImage from '../../assets/images/tile-image.png';
-const createCardPersonality = TestUtils.makeCreateComponent(CardPersonality);
+const createCardPersonality = makeCreateComponent(CardPersonality);
 
 describe('CardPersonality', () => {
   let cardPersonality, testRenderer;

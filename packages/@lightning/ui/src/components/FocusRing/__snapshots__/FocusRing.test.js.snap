@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FocusRing should render 1`] = `
-Object {
-  "Component": Object {
-    "Ring": Object {
+{
+  "Component": {
+    "Ring": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -32,10 +32,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Ring",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
