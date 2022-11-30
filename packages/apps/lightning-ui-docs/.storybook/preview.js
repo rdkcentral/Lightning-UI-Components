@@ -232,8 +232,9 @@ let previousID = null;
 let previousBackground = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   const triggerUpdate =
-    previousID !== id || previousBackground !== globals.backgrounds.value;
+    previousID !== id || previousBackground !== parameters.backgrounds.value;
   previousID = id;
+
   const app = createApp(globals.LUITheme);
   clearInspector();
 
