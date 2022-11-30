@@ -28,7 +28,7 @@ Feature: LUI SliderLarge Basic component
 
   Scenario Outline: Verify the SliderLarge Basic max boundary
     When I set the 'max' to '<maxValue>' for 'SliderLarge' component
-    Then I verify that the 'SliderLarge' Progress Bar is set to <progressValue>
+    Then I verify that the 'SliderLarge' progress is set to <progressValue>
     Examples:
       | maxValue | progressValue |
       |    50    |     1.00      |
@@ -37,7 +37,7 @@ Feature: LUI SliderLarge Basic component
 
   Scenario Outline: Verify the SliderLarge Basic min boundary
     When I set the 'min' to '<minValue>' for 'SliderLarge' component
-    Then I verify that the 'SliderLarge' Progress Bar is set to <progressValue>
+    Then I verify that the 'SliderLarge' progress is set to <progressValue>
     Examples:
       | minValue | progressValue |
       |    50    |     0.5       |
@@ -46,7 +46,7 @@ Feature: LUI SliderLarge Basic component
 
   Scenario Outline: Verify the SliderLarge Basic current value can be set
     When I set the 'value' to '<expected>' for 'SliderLarge' component
-    Then I verify that the 'SliderLarge' Progress Bar is set to <progressValue>
+    Then I verify that the 'SliderLarge' progress is set to <progressValue>
     Examples:
       | expected | progressValue |
       |    0     |     0.00      |
@@ -57,17 +57,17 @@ Feature: LUI SliderLarge Basic component
 
   Scenario: Verify SliderLarge Basic arrow key navigation with default step size
     When I press 'LEFT' key 5 times
-    Then I verify that the 'SliderLarge' Progress Bar is set to 0.45
+    Then I verify that the 'SliderLarge' progress is set to 0.45
     And I press 'RIGHT' key 10 times
-    And I verify that the 'SliderLarge' Progress Bar is set to 0.55
+    And I verify that the 'SliderLarge' progress is set to 0.55
     And I press 'LEFT' key 5 times
-    And I verify that the 'SliderLarge' Progress Bar is set to 0.5
+    And I verify that the 'SliderLarge' progress is set to 0.5
 
   Scenario: Verify SliderLarge Basic arrow key navigation with modified step size
     When I set the 'step' to '10' for 'SliderLarge' component
     Then I press 'LEFT' key 5 times
-    And I verify that the 'SliderLarge' Progress Bar is set to 0
+    And I verify that the 'SliderLarge' progress is set to 0
     And I press 'RIGHT' key 10 times
-    And I verify that the 'SliderLarge' Progress Bar is set to 1
+    And I verify that the 'SliderLarge' progress is set to 1
     And I press 'LEFT' key 5 times
-    And I verify that the 'SliderLarge' Progress Bar is set to 0.5
+    And I verify that the 'SliderLarge' progress is set to 0.5

@@ -19,9 +19,9 @@ Feature: LUI Button Small component
   #     Then I verify the 'mode' is 'disabled' for 'Button' 'Samll'
 
   Scenario: Verify the Button Small fixed state
-    When I verify that the 'width' of 'ButtonSmall' 'ButtonSmall' component is '144px'
+    When I verify that the 'width' of 'ButtonSmall' component is '144px'
     And I set the 'fixed' to 'true' for 'ButtonSmall' component
-    And I verify that the 'width' of 'ButtonSmall' 'ButtonSmall' component is '200px'
+    And I verify that the 'width' of 'ButtonSmall' component is '200px'
 
   Scenario: Verify the Button Small justify content
     Then I verify that the 'ButtonSmall' 'Justify' state is 'center'

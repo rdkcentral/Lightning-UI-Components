@@ -10,8 +10,8 @@ Feature: LUI Card Base Component
     Then I verify that the 'Card' 'Card' component is displayed
 
    Scenario: Verify the dimensions of the Card Base Element
-    Then I verify that the 'width' of 'Card' 'Card' component is '253.333px'
-    And I verify that the 'height' of 'Card' 'Card' component is '386px'
+    Then I verify that the 'width' of 'Card' component is '253.333px'
+    And I verify that the 'height' of 'Card' component is '386px'
 
 # Disabled until 'mode' control functionality is fixed
   #  Scenario: Verify the Card Base mode control
