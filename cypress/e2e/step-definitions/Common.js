@@ -19,9 +19,9 @@ import TextBox from '../pageObjects/text/textbox.text';
 import Toggle from '../pageObjects/utilities/toggle.utilities';
 import ToggleSmall from '../pageObjects/utilities/togglesmall.utilities';
 import Distractor from '../pageObjects/utilities/distractor.utilities';
+import Column from '../pageObjects/navigation/column.navigation';
 import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
 import Wave from '../pageObjects/utilities/wave.utilities';
-
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 function getPageObject(pageName) {
@@ -47,6 +47,7 @@ function getPageObject(pageName) {
     toggle: Toggle,
     togglesmall: ToggleSmall,
     distractor: Distractor,
+    column: Column,
     buttonsmall: ButtonSmall,
     wave: Wave
   };
@@ -300,6 +301,46 @@ export default function () {
       );
     }
   });
+
+  /**
+
+   @module Common
+   @function I verify there are {Integer} assets per {String} on the {String} page
+   @description Cucumber statement to verify the number of assets per row
+   @param {Integer} no_of_assets
+   @param {String} pageName
+   @example I verify there are 4 assets per 'Row1' on the 'Row' page
+   */
+  Then(
+    'I verify there are {int} assets per {string} on the {string} page',
+    (no_of_assets, element, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      pageObject._getElementByName(element)
+        .first()
+        .children()
+        .should('have.length', no_of_assets);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that there are {Integer} content rows on the {String} page
+   * @description Cucumber statement to verify the number of rows on page
+   * @param {Integer} no_of_rows
+   * @param {String} pageName
+   * @example I verify that there are 6 content rows on the 'Column' page
+   */
+  Then(
+    'I verify that there are {int} content rows on the {string} page',
+    (no_of_rows, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      cy.get(pageObject.rows).should('have.length', no_of_rows);
+    }
+  );
 
   /**
    * @module Common
