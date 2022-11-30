@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ListItem renders 1`] = `
-Object {
-  "Component": Object {
-    "Background": Object {
+{
+  "Component": {
+    "Background": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -29,10 +29,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Background",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
@@ -41,25 +41,25 @@ Object {
       "y": 0,
       "zIndex": 0,
     },
-    "Content": Object {
+    "Content": {
       "active": false,
       "alpha": 1,
       "attached": true,
       "boundsMargin": null,
-      "children": Object {
-        "TextWrapper": Object {
+      "children": {
+        "TextWrapper": {
           "active": false,
           "alpha": 1,
           "attached": true,
           "boundsMargin": null,
-          "children": Object {
-            "Description": Object {
+          "children": {
+            "Description": {
               "active": false,
               "alpha": 0.001,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Text": Object {
+              "children": {
+                "Text": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -85,10 +85,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Text",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "fontFace": "DMSansRegular",
                     "fontSize": 24,
                     "lineHeight": 32,
@@ -132,7 +132,7 @@ Object {
               "scaleY": 1,
               "state": "",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Description",
               ],
               "type": "TextBox",
@@ -142,13 +142,13 @@ Object {
               "y": 0,
               "zIndex": 0,
             },
-            "Title": Object {
+            "Title": {
               "active": false,
               "alpha": 0.001,
               "attached": true,
               "boundsMargin": null,
-              "children": Object {
-                "Text": Object {
+              "children": {
+                "Text": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -174,10 +174,10 @@ Object {
                   "scaleY": 1,
                   "state": undefined,
                   "tag": [Function],
-                  "tags": Array [
+                  "tags": [
                     "Text",
                   ],
-                  "texture": Object {
+                  "texture": {
                     "fontFace": "XfinityBrownBold",
                     "fontSize": 28,
                     "letterSpacing": -0.2,
@@ -222,7 +222,7 @@ Object {
               "scaleY": 1,
               "state": "",
               "tag": [Function],
-              "tags": Array [
+              "tags": [
                 "Title",
               ],
               "type": "TextBox",
@@ -254,7 +254,7 @@ Object {
           "scaleY": 1,
           "state": undefined,
           "tag": [Function],
-          "tags": Array [
+          "tags": [
             "TextWrapper",
           ],
           "visible": true,
@@ -285,7 +285,7 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Content",
       ],
       "visible": true,

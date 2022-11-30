@@ -1,7 +1,4 @@
-import {
-  makeCreateComponent,
-  pathToDataURI
-} from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, pathToDataURI } from '@lightning/ui-test-utils';
 import Badge from './index.js';
 import { getHexColor } from '../../utils/index.js';
 

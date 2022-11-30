@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
-import { updateManager } from '../src/globals/global-update-manager/GlobalUpdateManager.js';
-import context from '../src/globals/context/index.js';
+import { updateManager, context } from '@lightning/ui-core';
 import jest from 'jest-mock';
 import XfinityTheme from '@suite-themes/xfinity-lightning-tv';
 

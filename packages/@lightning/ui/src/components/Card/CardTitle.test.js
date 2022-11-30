@@ -1,8 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import CardTitle from './CardTitle';
 
-//const circle = TestUtils.pathToDataURI('./src/assets/images/circle.svg');
-const createCardTitleComponent = TestUtils.makeCreateComponent(CardTitle);
+const createCardTitleComponent = makeCreateComponent(CardTitle);
 
 describe('CardTitle', () => {
   let cardTitle, testRenderer;

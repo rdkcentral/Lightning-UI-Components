@@ -1,18 +1,15 @@
+import { jest } from '@jest/globals';
 import logger from './logger';
-import { expect, jest } from '@jest/globals';
+import themeManager from './theme-manager';
 
 jest.mock('./fonts');
 jest.mock('./logger');
 jest.mock('./events');
+jest.spyOn(logger, 'warn');
 
 describe('theme context', () => {
-  let themeManager;
-
   beforeEach(() => {
-    // create a new instance of theme module for each test
-    jest.isolateModules(() => {
-      themeManager = require('./theme-manager').default; // TODO: How to handle with es modules
-    });
+    jest.resetModules();
     themeManager._clearCache();
     jest.clearAllMocks();
   });

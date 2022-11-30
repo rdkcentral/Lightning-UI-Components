@@ -1,7 +1,7 @@
 import context from '../context/index.js';
 import { updateManager } from './GlobalUpdateManager.js';
-import { nextTick } from '../../../test/lightning-test-utils.js';
-import { expect, jest } from '@jest/globals';
+import { nextTick } from '@lightning/ui-test-utils';
+import { jest } from '@jest/globals';
 
 describe('GlobalUpdateManager', () => {
   describe('addUpdateTheme', () => {

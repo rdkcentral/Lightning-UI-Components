@@ -1,7 +1,7 @@
 /* global SpeechSynthesisErrorEvent */
 
 import Speech from './Speech.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 let speakError;
 

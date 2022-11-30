@@ -1,8 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import CardAboutStacked from './CardAboutStacked';
 
-const createCardAboutStackedComponent =
-  TestUtils.makeCreateComponent(CardAboutStacked);
+const createCardAboutStackedComponent = makeCreateComponent(CardAboutStacked);
 
 describe('cardAboutStacked', () => {
   let cardAboutStacked, testRenderer;

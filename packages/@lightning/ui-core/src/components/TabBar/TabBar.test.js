@@ -1,7 +1,7 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 
 import { Row, Tile } from '../index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 import TabBar from './TabBar';
 import Tab from './Tab';
 

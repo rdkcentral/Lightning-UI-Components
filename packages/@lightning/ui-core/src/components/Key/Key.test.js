@@ -1,9 +1,6 @@
-import {
-  makeCreateComponent,
-  pathToDataURI
-} from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, pathToDataURI } from '@lightning/ui-test-utils';
 import Key from './index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const createKey = makeCreateComponent(Key);
 const icon = pathToDataURI('src/assets/images/ic_lightning_white_32.png');

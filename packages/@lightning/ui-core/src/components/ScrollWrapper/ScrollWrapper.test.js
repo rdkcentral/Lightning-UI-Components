@@ -2,9 +2,9 @@ import lng from '@lightningjs/core';
 import {
   makeCreateComponent,
   completeAnimation
-} from '../../../test/lightning-test-utils.js';
+} from '@lightning/ui-test-utils';
 import ScrollWrapper from './index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const createScrollWrapper = makeCreateComponent(ScrollWrapper, {
   h: 100,

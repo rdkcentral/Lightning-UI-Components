@@ -1,7 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Distractor from '.';
 
-const createDistractor = TestUtils.makeCreateComponent(Distractor);
+const createDistractor = makeCreateComponent(Distractor);
 
 describe('Distractor', () => {
   let distractor, testRenderer;

@@ -1,8 +1,8 @@
 import withAnnouncer, { generateAbbrevConfig } from '.';
 import FocusManager from '../../components/FocusManager/index.js';
-import TestRenderer from '../../../test/lightning-test-renderer.js';
+import { TestRenderer } from '@lightning/ui-test-utils';
 import lng from '@lightningjs/core';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const speak = jest.fn();
 const speakAppend = jest.fn();

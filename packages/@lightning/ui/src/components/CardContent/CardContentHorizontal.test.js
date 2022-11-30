@@ -1,7 +1,7 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import CardContentHorizontal from './CardContentHorizontal';
 
-const createComponent = TestUtils.makeCreateComponent(CardContentHorizontal);
+const createComponent = makeCreateComponent(CardContentHorizontal);
 
 describe('CardContentHorizontal', () => {
   // eslint-disable-next-line no-unused-vars

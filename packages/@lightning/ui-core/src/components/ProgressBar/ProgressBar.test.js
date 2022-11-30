@@ -1,6 +1,6 @@
 import { base, palette } from './ProgressBar.styles.js';
-import { expect, jest } from '@jest/globals';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { jest } from '@jest/globals';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import baseTheme from '@suite-themes/base-lightning-tv/index.js';
 import ProgressBar from './index.js';
 

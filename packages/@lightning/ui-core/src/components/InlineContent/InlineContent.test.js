@@ -1,11 +1,11 @@
-import TestUtils from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, nextTick } from '@lightning/ui-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
 import baseTheme from '@suite-themes/base-lightning-tv/index.js';
 import xfinityTheme from '@suite-themes/xfinity-lightning-tv/index.js';
 import { context } from '../../globals/index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 jest.mock('./InlineContent.styles', () => {
   const originalDefaultModule = jest.requireActual(
@@ -22,7 +22,7 @@ jest.mock('./InlineContent.styles', () => {
   };
 });
 
-const createInlineContent = TestUtils.makeCreateComponent(InlineContent);
+const createInlineContent = makeCreateComponent(InlineContent);
 
 describe('InlineContent', () => {
   let inlineContent, testRenderer;
@@ -177,7 +177,7 @@ describe('InlineContent', () => {
     );
     testRenderer.forceAllUpdates();
     await inlineContent._$loadedBadgeSpyPromise;
-    await TestUtils.nextTick();
+    await nextTick();
     expect(inlineContent.childList.last.y).toBeGreaterThan(0);
   });
 
@@ -317,7 +317,7 @@ describe('InlineContent', () => {
     testRenderer.forceAllUpdates();
     testRenderer.update();
 
-    await TestUtils.nextTick(20);
+    await nextTick(20);
     await inlineContent.__notifyAncestorsPromiseSpy;
 
     expect(inlineContent.finalW).toBeGreaterThan(0);

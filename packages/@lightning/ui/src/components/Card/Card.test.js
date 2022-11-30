@@ -1,7 +1,7 @@
 import Card from './Card';
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 
-const createCardComponent = TestUtils.makeCreateComponent(Card);
+const createCardComponent = makeCreateComponent(Card);
 
 describe('Card', () => {
   let Card, testRenderer;

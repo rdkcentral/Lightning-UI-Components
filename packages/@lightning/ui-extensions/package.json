@@ -2,6 +2,7 @@
   "name": "@lightning/ui-extensions",
   "version": "1.2.2",
   "description": "",
+  "type": "module",
   "peerDependencies": {
     "@lightning/ui": "^5.0.0",
     "@lightningjs/core": "^2.7.1"
@@ -11,7 +12,9 @@
     "build": "rm -rf ./dist && npx rollup --config ../../../rollup/rollup.config.js --name lightning-ui-extensions",
     "lint": "eslint './src/**/*.js'",
     "lint:fix": "eslint --fix './src/**/*.js'",
-    "test": "echo \"Error: no test specified ui-extensions\" && exit 0"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors",
+    "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +22,10 @@
     "dist/*"
   ],
   "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@lightning/ui-test-utils": "workspace:^",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
     "rollup": "^3.2.5"
   }
 }

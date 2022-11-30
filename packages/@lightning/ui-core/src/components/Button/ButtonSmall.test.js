@@ -1,5 +1,5 @@
 import { ButtonSmall } from '.';
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 
 const createButtonSmall = makeCreateComponent(
   ButtonSmall,

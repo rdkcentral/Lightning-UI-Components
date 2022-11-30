@@ -1,9 +1,6 @@
-import {
-  makeCreateComponent,
-  fastForward
-} from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent, fastForward } from '@lightning/ui-test-utils';
 import SliderLarge from '../Slider/SliderLarge.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const createSlider = makeCreateComponent(SliderLarge);
 

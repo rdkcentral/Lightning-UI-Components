@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import TestUtils from '../../../test/lightning-test-utils';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import withMarqueeSync from './withMarqueeSync';
 import TextBox from '../../components/TextBox';
 import Base from '../../components/Base';
@@ -66,9 +66,7 @@ describe('withMarqueeSync', () => {
   }
 
   beforeEach(() => {
-    [component, testRenderer] = TestUtils.makeCreateComponent(
-      withMarqueeSync(Example)
-    )();
+    [component, testRenderer] = makeCreateComponent(withMarqueeSync(Example))();
     willMarqueeSpy = jest.spyOn(component, '_willMarquee');
     updateSignalsSpy = jest.spyOn(component, '_updateSignals');
     cleanupSpy = jest.spyOn(component, '_cleanupSyncValues');

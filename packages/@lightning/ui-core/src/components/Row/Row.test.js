@@ -1,9 +1,6 @@
 import lng from '@lightningjs/core';
-import {
-  fastForward,
-  makeCreateComponent
-} from '../../../test/lightning-test-utils.js';
-import { expect, jest } from '@jest/globals';
+import { fastForward, makeCreateComponent } from '@lightning/ui-test-utils';
+import { jest } from '@jest/globals';
 import Tile from '../Tile';
 import Row from '.';
 

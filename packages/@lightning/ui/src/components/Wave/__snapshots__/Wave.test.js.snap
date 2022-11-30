@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`wave renders 1`] = `
-Object {
-  "Component": Object {
-    "Left1": Object {
+{
+  "Component": {
+    "Left1": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -29,10 +29,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Left1",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,
@@ -41,7 +41,7 @@ Object {
       "y": 20,
       "zIndex": 0,
     },
-    "Left2": Object {
+    "Left2": {
       "active": false,
       "alpha": 1,
       "attached": true,
@@ -67,10 +67,10 @@ Object {
       "scaleY": 1,
       "state": undefined,
       "tag": [Function],
-      "tags": Array [
+      "tags": [
         "Left2",
       ],
-      "texture": Object {
+      "texture": {
         "type": "StaticCanvasTexture",
       },
       "visible": true,

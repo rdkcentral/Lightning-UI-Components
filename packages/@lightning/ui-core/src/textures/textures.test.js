@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import { Arrow, Circle } from '.';
 
 const createTexture = makeCreateComponent(lng.Component);

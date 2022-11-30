@@ -5,8 +5,6 @@
     "start": "yarn run generateStorybookData && start-storybook --no-manager-cache -p 8000",
     "build": "yarn run generateStorybookData && build-storybook",
     "storybook": "start-storybook -p 6006",
-    "test": "jest --coverage --verbose",
-    "test:watch": "jest --watch",
     "generateStorybookData": "node ./scripts/generate-style-data.mjs && node ./scripts/generate-theme-props-table.mjs",
     "styleDocs": "node bin/translationScript.js"
   },

@@ -1,5 +1,5 @@
 import Pool from './index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 let counter = 0;
 const stage = {

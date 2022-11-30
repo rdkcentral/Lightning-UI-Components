@@ -1,27 +1,11 @@
-import { makeCreateComponent } from '../../../test/lightning-test-utils.js';
+import {
+  makeCreateComponent,
+  completeAnimation
+} from '@lightning/ui-test-utils';
 import Tooltip from './index.js';
-import { expect, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 const createTooltip = makeCreateComponent(Tooltip, {}, { focused: false });
-
-const completeAnimation = (element, transitionProperties = []) => {
-  const props = Array.isArray(transitionProperties)
-    ? transitionProperties
-    : [transitionProperties];
-
-  const transitions = props.map(prop => {
-    return new Promise(resolve => {
-      element._getTransition(prop).once('finish', () => {
-        resolve();
-      });
-    });
-  });
-
-  return Promise.all(transitions);
-};
-
-jest.useFakeTimers();
-jest.spyOn(global, 'setTimeout');
 
 describe('Tooltip', () => {
   let tooltip, testRenderer;
@@ -83,6 +67,9 @@ describe('Tooltip', () => {
     });
 
     it('should show after delay if delayVisible is set', async () => {
+      jest.useFakeTimers();
+      jest.spyOn(global, 'setTimeout');
+
       const delayVisible = 5000;
       [tooltip, testRenderer] = createTooltip({ delayVisible });
 
@@ -106,53 +93,59 @@ describe('Tooltip', () => {
       );
 
       jest.advanceTimersByTime(delayVisible);
-      await completeAnimation(tooltip, ['alpha', 'scale']);
+      testRenderer.update();
 
       // should show after timer runs
-      expect(tooltip.alpha).toEqual(1);
-      expect(tooltip.scale).toEqual(1);
+      expect(tooltip.transition('alpha').targetValue).toEqual(1);
+      expect(tooltip.transition('scale').targetValue).toEqual(1);
     });
 
     it('should hide after timer ends if timeVisible is set', async () => {
+      jest.useFakeTimers();
+      jest.spyOn(global, 'setTimeout');
+
       const timeVisible = 5000;
       expect(tooltip._hideTimer).toBeUndefined();
 
       tooltip._focus();
-      await completeAnimation(tooltip, ['alpha', 'scale']);
+      testRenderer.update();
 
       expect(setTimeout).not.toHaveBeenCalled();
       expect(tooltip._hideTimer).toBeUndefined();
-      expect(tooltip.alpha).toEqual(1);
-      expect(tooltip.scale).toEqual(1);
+      expect(tooltip.transition('alpha').targetValue).toEqual(1);
+      expect(tooltip.transition('scale').targetValue).toEqual(1);
 
       tooltip.timeVisible = timeVisible;
 
       expect(tooltip._hideTimer).toBeUndefined();
 
       tooltip._focus();
-      await completeAnimation(tooltip, ['alpha', 'scale']);
+      testRenderer.update();
 
       expect(setTimeout).toHaveBeenCalledWith(
         expect.any(Function),
         timeVisible
       );
       expect(tooltip._hideTimer).not.toBeUndefined();
-      expect(tooltip.alpha).toEqual(1);
-      expect(tooltip.scale).toEqual(1);
+      expect(tooltip.transition('alpha').targetValue).toEqual(1);
+      expect(tooltip.transition('scale').targetValue).toEqual(1);
 
       // timer started on focus and hide after timer is called
       jest.advanceTimersByTime(timeVisible);
-      await completeAnimation(tooltip, ['alpha', 'scale']);
+      testRenderer.update();
 
-      expect(tooltip.alpha).toEqual(0);
-      expect(tooltip.scale).toBe(0.5);
+      expect(tooltip.transition('alpha').targetValue).toEqual(0);
+      expect(tooltip.transition('scale').targetValue).toEqual(0.5);
     });
   });
 
   describe('dimensions', () => {
     beforeEach(async () => {
+      jest.useFakeTimers();
+      jest.spyOn(global, 'setTimeout');
+
       tooltip._focus();
-      await completeAnimation(tooltip, ['alpha', 'scale']);
+      testRenderer.update();
     });
 
     it('should give the tooltip a margin bottom', () => {
@@ -162,8 +155,11 @@ describe('Tooltip', () => {
     it('should grow in width for longer text', () => {
       const initialW = tooltip._Background.w;
       tooltip.title = 'Longer Tooltip';
+
+      testRenderer.forceAllUpdates();
       jest.runAllTimers();
       testRenderer.update();
+
       expect(tooltip._Background.w).toBeGreaterThan(initialW);
     });
   });

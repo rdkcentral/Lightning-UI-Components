@@ -1,9 +1,6 @@
 import lng from '@lightningjs/core';
-import {
-  makeCreateComponent,
-  nextTick
-} from '../../../test/lightning-test-utils.js';
-import { expect, jest } from '@jest/globals';
+import { makeCreateComponent, nextTick } from '@lightning/ui-test-utils';
+import { jest } from '@jest/globals';
 import withUpdates from './index.js';
 import { context } from '../../globals/index.js';
 const updateMock = jest.fn();

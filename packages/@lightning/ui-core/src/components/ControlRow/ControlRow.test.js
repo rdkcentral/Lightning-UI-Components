@@ -1,4 +1,4 @@
-import TestUtils from '../../../test/lightning-test-utils.js';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Tile from '../Tile';
 import lightningLogo from '../../assets/images/ic_lightning_white_32.png';
 import ControlRow from '.';
@@ -31,7 +31,7 @@ const leftControls = createControls(2);
 const rightControls = createControls(2);
 const items = createItems(2);
 
-const createComponent = TestUtils.makeCreateComponent(ControlRow);
+const createComponent = makeCreateComponent(ControlRow);
 
 describe('ControlRow', () => {
   let component, testRenderer;

@@ -1,12 +1,14 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
+import { Icon } from '@lightning/ui-core';
 import ListItem from './ListItem';
-import Icon from '../Icon';
 
 const logoPath = '../../assets/images/Xfinity-Provider-Logo-Square.png';
+const iconPath = '../../assets/images/ic_lightning_white_32.png';
 
-const createComponent = TestUtils.makeCreateComponent(ListItem);
+const createComponent = makeCreateComponent(ListItem);
 
-const icon = TestUtils.pathToDataURI('assets/images/ic_lightning_white_32.png');
+// TODO: pathToDataURI not yet supported with monorepo. See note in @lightning/ui-test-utils/.../lightning-test-utils.js
+// const icon = pathToDataURI('../../assets/images/ic_lightning_white_32.png');
 
 describe('ListItem', () => {
   let component, testRenderer;
@@ -61,7 +63,7 @@ describe('ListItem', () => {
   it('should update suffix', () => {
     component.suffix = {
       type: Icon,
-      icon: icon
+      icon: iconPath
     };
     testRenderer.forceAllUpdates();
     expect(component._hasSuffix).toBeTruthy();
@@ -70,7 +72,7 @@ describe('ListItem', () => {
   it('should update prefix', () => {
     component.prefix = {
       type: Icon,
-      icon: icon
+      icon: iconPath
     };
     testRenderer.forceAllUpdates();
     expect(component._hasPrefix).toBeTruthy();

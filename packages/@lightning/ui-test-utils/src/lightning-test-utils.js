@@ -1,20 +1,17 @@
 import { readFileSync } from 'fs';
 import { jest } from '@jest/globals';
+import { context } from '@lightning/ui-core';
 import TestRenderer from './lightning-test-renderer.js';
-import { fileURLToPath } from 'url';
-import path from 'path';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { context } from '../src/globals';
 
 export default {
   fastForward,
   makeCreateComponent,
   pathToDataURI,
   nextTick,
-  completeAnimation,
+  completeAnimation
 };
 
-export { TestRenderer }
+export { TestRenderer };
 
 export function nextTick(wait = 0) {
   return new Promise(resolve => {
@@ -90,11 +87,21 @@ export function fastForward(elements) {
   if (elements && elements._transitions) _fastForward(elements);
 }
 
+/**
+ * // TODO: this doesn't currently work with monorepo.
+ * The path passed in won't lead to anything unless that same asset
+ * is in both @lightning/tests-utils as well as the package from where
+ * the test is called from.
+ */
 export function pathToDataURI(path) {
   return `data:image/jpg;base64, ${readFileSync(path).toString('base64')}`;
 }
 
-export function makeCreateComponent(type, defaultConfig = {}, defaultOptions = {}) {
+export function makeCreateComponent(
+  type,
+  defaultConfig = {},
+  defaultOptions = {}
+) {
   return (config = {}, options = {}) => {
     const testRenderer = TestRenderer.create(
       {
@@ -138,23 +145,20 @@ export function completeAnimation(element, transitionProperties = []) {
   return Promise.all(transitions);
 }
 
-
-
 /**
  * This function will set up context for the test suite
  * Should be used when testing the context is required.
  * @param mockKeyMetricsHandler a user provided mock handler
  * @return {{keyMetricsCallback: jest.Mock}}
  */
-const mockContext = (mockKeyMetricsHandler = jest.fn()) => {
-  jest.mock('../src/global/context');
+const mockContext = (context, mockKeyMetricsHandler = jest.fn()) => {
   context.config({
     keyMetricsCallback: mockKeyMetricsHandler
   });
 
-  return {
-    keyMetricsCallback: mockKeyMetricsHandler
-  };
+  jest.spyOn(context, 'keyMetricsCallback');
+
+  return context;
 };
 
 const resetContext = () => {

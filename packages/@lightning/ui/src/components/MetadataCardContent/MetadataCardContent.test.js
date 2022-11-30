@@ -1,8 +1,8 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import MetadataCardContent from '.';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 
-const createComponent = TestUtils.makeCreateComponent(MetadataCardContent);
+const createComponent = makeCreateComponent(MetadataCardContent);
 
 describe('MetadataCardContent', () => {
   let component, testRenderer;

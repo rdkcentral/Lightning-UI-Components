@@ -1,8 +1,5 @@
 import lng from '@lightningjs/core';
-import {
-  makeCreateComponent,
-  TestRenderer
-} from '../../test/lightning-test-utils.js';
+import { makeCreateComponent, TestRenderer } from '@lightning/ui-test-utils';
 import {
   rgba2argb,
   RoundRect,

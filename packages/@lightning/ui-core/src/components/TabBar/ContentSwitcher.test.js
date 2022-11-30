@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import {
   makeCreateComponent,
   completeAnimation
-} from '../../../test/lightning-test-utils.js';
+} from '@lightning/ui-test-utils';
 import { Row, Tile } from '../index.js';
 import ContentSwitcher from './ContentSwitcher.js';
 

@@ -1,10 +1,11 @@
 import lng from '@lightningjs/core';
+import { jest } from '@jest/globals';
 import {
   makeCreateComponent,
   mockContext,
   resetContext
-} from '../../../test/lightning-test-utils.js';
-
+} from '@lightning/ui-test-utils';
+import context from '../../globals/context';
 import withHandleKey from './index.js';
 
 describe('withHandleKey', () => {
@@ -12,7 +13,7 @@ describe('withHandleKey', () => {
   class Example extends lng.Component {}
 
   beforeAll(() => {
-    mockedContext = mockContext();
+    mockedContext = mockContext(context);
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import TestUtils from '@lightning/ui-core/test';
+import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Wave from '.';
-const createWave = TestUtils.makeCreateComponent(Wave, {
+const createWave = makeCreateComponent(Wave, {
   color: 'rgba(256, 256, 256, 1)',
   h: 20
 });
