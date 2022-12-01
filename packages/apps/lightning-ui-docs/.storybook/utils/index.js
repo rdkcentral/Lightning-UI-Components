@@ -131,6 +131,12 @@ export const Theme = ({ theme = {}, isColor = false }) => {
   );
 };
 
+export const globalApp = () =>
+  document &&
+  document.querySelector('iframe') &&
+  document.querySelector('iframe').contentWindow &&
+  document.querySelector('iframe').contentWindow.APP;
+
 export const globalContext = () =>
   document &&
   document.querySelector('iframe') &&
@@ -176,27 +182,6 @@ export const updateGlobalTheme = (
       };
       updateGlobals({ LUITheme: 'custom' });
     }
-  }
-};
-
-export const getThemeValueFromString = function (stringValue) {
-  if (!stringValue) {
-    return;
-  }
-
-  let theme = { ...globalTheme() };
-  const stringValueArray = stringValue.split('.');
-  let success = false;
-  for (let i = 0; i < stringValueArray.length; i++) {
-    if ('undefined' !== typeof theme[stringValueArray[i]]) {
-      theme = theme[stringValueArray[i]];
-      if (i === stringValueArray.length - 1) {
-        success = true;
-      }
-    }
-  }
-  if (success) {
-    return theme;
   }
 };
 
