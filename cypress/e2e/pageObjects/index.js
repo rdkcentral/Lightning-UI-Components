@@ -1,4 +1,5 @@
 import Icon from './elements/icon.element';
+import Artwork from './foundations/artwork.foundations';
 import Badge from './metadata/badge.metadata';
 import Card from './tilesAndCards/card.tilesandcards';
 import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
@@ -26,6 +27,7 @@ import Column from './navigation/column.navigation';
 export default function getPageObject(pageName) {
   const pageObjects = {
     icon: Icon,
+    artwork: Artwork,
     badge: Badge,
     card: Card,
     cardpersonality: CardPersonality,
