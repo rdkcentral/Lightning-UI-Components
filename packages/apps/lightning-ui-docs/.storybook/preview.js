@@ -220,6 +220,10 @@ function createApp(parameters) {
       this.announcerTimeout = 15 * 1000;
     }
 
+    $storyChanged() {
+      this.emit('storyChanged');
+    }
+
     _getFocused() {
       return ((this.childList.first || {}).childList || {}).first || this;
     }
@@ -273,19 +277,38 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
               },
               class ModeFocusState extends this {
                 _getFocused() {
-                  return this.childList &&
-                    this.childList.first &&
-                    this.childList.first.constructor.name !== 'Element'
-                    ? this.childList.first
-                    : this;
+                  return this.componentTarget;
                 }
               }
             ];
           }
 
+          get componentTarget() {
+            return this.childList &&
+              this.childList.first &&
+              this.childList.first.constructor.name !== 'Element'
+              ? this.childList.first
+              : this;
+          }
+
           _init() {
+            if (this.componentTarget) {
+              // Notify application every time the style is updated. Used for componentStyles panel
+              this.componentTarget.on('styleUpdated', () => {
+                setTimeout(() => {
+                  this.fireAncestors('$storyChanged');
+                })
+              });
+            }
+
             super._init();
             this._refocus(); // Force Lightning to reset focus
+          }
+
+          _setup() {
+            setTimeout(() => {
+              this.fireAncestors('$storyChanged');
+            })
           }
         },
         w: w => w,
@@ -294,6 +317,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
         y: context.theme.layout.marginY
       }
     });
+
     app._refocus();
   }
 

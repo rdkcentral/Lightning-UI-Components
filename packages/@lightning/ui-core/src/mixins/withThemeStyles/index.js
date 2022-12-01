@@ -173,7 +173,7 @@ export default function withThemeStyles(Base, mixinStyle) {
 
       // Set cache so deep merge is only run once
       this._componentStyleCache[this.mode] = v;
-
+      this.emit('styleUpdated', v);
       return v;
     }
 
