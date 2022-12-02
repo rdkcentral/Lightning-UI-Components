@@ -130,8 +130,8 @@ export default function withExtensions(Base) {
     }
 
     _resetComponent() {
-      this._extensionInstance._destroy &&
-        this._extensionInstance._destroy.call(this);
+      this._extensionInstance._extensionCleanup &&
+        this._extensionInstance._extensionCleanup.call(this);
 
       (Object.keys(this._extendedList) || []).forEach(prop => {
         const descriptor = Object.getOwnPropertyDescriptor(this, prop + SUFFIX);

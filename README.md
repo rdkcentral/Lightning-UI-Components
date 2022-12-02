@@ -45,7 +45,6 @@ npm install -S @lightning/ui @lightningjs/core
 ## Usage
 
 You should import components using ES6 named imports, like so:
-
 ```js
 // App.js
 import lng from '@lightningjs/core';
@@ -53,11 +52,11 @@ import { Button } from '@lightning/ui';
 ```
 
 You should NOT use path imports like this:
-
 ```js
 // Do not use
 import Button from '@lightning/ui/components/Button';
 ```
+Since packages are now bundled with rollup this allows proper tree shaking behavior. For more information on tree shaking the `@material/ui` documentation has a great guide on [development bundle size](https://material-ui.com/guides/minimizing-bundle-size/) (**note**: this is external documentation otherwise unrelated to this project!).
 
 Since packages are now bundled with rollup this allows proper tree shaking behavior. For more information on tree shaking the `@material/ui` documentation has a great guide on [development bundle size](https://material-ui.com/guides/minimizing-bundle-size/) (**note**: this is external documentation otherwise unrelated to this project!).
 

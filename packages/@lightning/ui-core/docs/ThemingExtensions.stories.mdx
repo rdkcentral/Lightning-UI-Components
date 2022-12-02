@@ -156,17 +156,16 @@ This way we ensure our extension functions are applying to the most up to date c
 
 On the other hand, if we want to update the existing functions within the `_update` lifecycle event in the parent component, then that's when we wouldn't call `super._update()`.
 
-### `_destroy()`
+### `_extensionCleanup()`
 
-When creating extensions, one important lifecycle event to always include is `_destroy`.
-This way we make sure that all the components that use any extensions are able to clean up any unused elements or event listeners if the extension is removed during a theme change at runtime.
+The `_extensionCleanup` method is used to remove extension-specific logic when swapping themes or changing extensions at runtime. This method is automatically called by the `withExtensions` mixin when "resetting" a component.
 
 An example is provided below, specifically for our `textAdditionExtension`:
 
 ```js
-_destroy() {
+_extensionCleanup() {
   this.patch({ ExtensionAdded: undefined });
-  super._destroy && super._destroy();
+  super._extensionCleanup && super._extensionCleanup();
 }
 ```
 

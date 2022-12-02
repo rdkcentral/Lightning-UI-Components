@@ -49,9 +49,9 @@ export function dropShadowExtensionGenerator({
         this.patch({ DropShadow: shadowPatch });
       }
 
-      _destroy() {
+      _extensionCleanup() {
         this.patch({ DropShadow: undefined });
-        super._destroy && super._destroy();
+        super._extensionCleanup && super._extensionCleanup();
       }
     };
   };
