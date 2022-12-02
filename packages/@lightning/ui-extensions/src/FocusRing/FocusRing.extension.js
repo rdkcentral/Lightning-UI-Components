@@ -130,9 +130,9 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         }
       }
 
-      _destroy() {
+      _extensionCleanup() {
         this.patch({ FocusRing: undefined });
-        super._destroy && super._destroy();
+        super._extensionCleanup && super._extensionCleanup();
       }
     };
   };
