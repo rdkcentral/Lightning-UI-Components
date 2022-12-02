@@ -8,4 +8,3 @@ Feature: Badge - Icon SVG Element Validation
   
   Scenario: Verify Badge - Icon SVG Element with Visual Regression
     Then I verify the 'Badge' 'Icon SVG' component with visual regression
-    

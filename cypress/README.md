@@ -1,10 +1,10 @@
 # LUI Test Automation
 
 ## Setting up
-1. Install dependencies before you start the server: `npm i`
-2. Start the server: `npm start`
+1. Install dependencies before you start the server: `yarn install`
+2. Start the server: `yarn start`
 ```shell
-npm start
+yarn start
 # This page should be opened in your browser on port 8000.
 # If you are getting a message "Port 8000 is not available. Would you like to run Storybook on port 8001 instead?" 
 # You should stop running the server that is running on port 8000 and try starting the server again
@@ -14,15 +14,15 @@ npm start
 
 1. Using the Cypress UI
 ```shell
-npm run cy:open
+yarn run cy:open
 ```
 2. Run all tests in console
 ```shell
-npm run cy:run
+yarn run cy:run
 ```
 3. Run tests in console based on tag
 ```shell
-npm run cy:tags -- -e TAGS=@sanity
+yarn run cy:tags -e TAGS=@sanity
 ```
 
 More options are available. Please see "scripts" section of the main package.json file
@@ -41,11 +41,11 @@ VRT_ENABLESOFTASSERT=false
 
 ### Running VRT Tests
 ```sh
-npm run cy:vrt #short command
+yarn run cy:vrt #short command
 ```
 
 ```sh
-npm run cy:tags -- --env testType=vrt,TAGS=@sanity-vrt #detailed command
+yarn run cy:tags --env testType=vrt,TAGS=@sanity-vrt #detailed command
 ```
 
 > Note that a testing type is specified as a Cypress env, this is used to fully setup VRT
@@ -58,7 +58,7 @@ Feature: Icon PNG Element Validation
 
   Background: 
     Given I launch the LUI app 
-    When I navigate to 'Icon' 'PNG' with 'Base' theme
+    And I navigate to 'Icon' 'PNG' with 'Base' theme
   
   Scenario: Verify Icon PNG Element with Visual Regression
     Then I verify the 'Icon' 'PNG' component with visual regression

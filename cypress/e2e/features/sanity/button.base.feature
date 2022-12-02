@@ -9,14 +9,16 @@ Feature: LUI Button component
   Scenario: Verify that Button component is displayed
     Then I verify that the 'Button' 'Button' component is displayed
 
-  # There is a bug for this functionality so this scenario can be automated once that is resolved only.
-  #   Scenario: Verify the Button Basic modes
-  #     When I set the 'mode' to 'unfocused' for 'Button' component
-  #     Then I verify the 'mode' is 'unfocused' for 'Button' 'Basic'
-  #     And I set the 'mode' to 'focused' for 'Button' component
-  #     And I verify the 'mode' is 'focused' for 'Button' 'Basic'
-  #     And I set the 'mode' to 'disabled' for 'Button' component
-  #     And I verify the 'mode' is 'disabled' for 'Button' 'Basic'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the Button Basic modes
+    When I set the 'mode' to 'unfocused' for 'Button' component
+    Then I verify the 'mode' is 'unfocused' for 'Button' 'Basic'
+    And I set the 'mode' to 'focused' for 'Button' component
+    And I verify the 'mode' is 'focused' for 'Button' 'Basic'
+    And I set the 'mode' to 'disabled' for 'Button' component
+    And I verify the 'mode' is 'disabled' for 'Button' 'Basic'
 
   Scenario: Verify the Button fixed state
     Then I verify that the 'width' of 'Button' component is '472px'

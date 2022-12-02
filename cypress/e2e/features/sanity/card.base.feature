@@ -13,14 +13,16 @@ Feature: LUI Card Base Component
     Then I verify that the 'width' of 'Card' component is '253.333px'
     And I verify that the 'height' of 'Card' component is '386px'
 
-# Disabled until 'mode' control functionality is fixed
-  #  Scenario: Verify the Card Base mode control
-  # 	When I set the 'mode' to 'unfocused' for 'Card' component
-  #   Then I verify the 'mode' is 'unfocused' for 'Card' 'Card'
-  #   And I set the 'mode' to 'focused' for 'Card' component
-  #   And I verify the 'mode' is 'focused' for 'Card' 'Card'
-  #   And I set the 'mode' to 'disabled' for 'Card' component
-  #   And I verify the 'mode' is 'disabled' for 'Card' 'Card'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the Card Base mode control
+    When I set the 'mode' to 'unfocused' for 'Card' component
+    Then I verify the 'mode' is 'unfocused' for 'Card' 'Card'
+    And I set the 'mode' to 'focused' for 'Card' component
+    And I verify the 'mode' is 'focused' for 'Card' 'Card'
+    And I set the 'mode' to 'disabled' for 'Card' component
+    And I verify the 'mode' is 'disabled' for 'Card' 'Card'
 
   Scenario: Verify that Card Base title can be set
     When I set the 'title' to 'LUI Test' for 'Card' component

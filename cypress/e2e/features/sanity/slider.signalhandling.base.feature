@@ -16,14 +16,16 @@ Feature: LUI Slider Signal Handling component
     Then I verify that the 'width' of 'Slider' 'Container' component is '328px'
     And I verify that the 'height' of 'Slider' 'Container' component is '24px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify the Slider Signal Handling modes
-  #   When I set the 'mode' to 'unfocused' for 'Slider' component
-  #   Then I verify the 'mode' is 'unfocused' for 'Slider' 'Signal Handling'
-  #   And I set the 'mode' to 'focused' for 'Slider' component
-  #   And I verify the 'mode' is 'focused' for 'Slider' 'Signal Handling'
-  #   And I set the 'mode' to 'disabled' for 'Slider' component
-  #   And I verify the 'mode' is 'disabled' for 'Slider' 'Signal Handling'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the Slider Signal Handling modes
+    When I set the 'mode' to 'unfocused' for 'Slider' component
+    Then I verify the 'mode' is 'unfocused' for 'Slider' 'Signal Handling'
+    And I set the 'mode' to 'focused' for 'Slider' component
+    And I verify the 'mode' is 'focused' for 'Slider' 'Signal Handling'
+    And I set the 'mode' to 'disabled' for 'Slider' component
+    And I verify the 'mode' is 'disabled' for 'Slider' 'Signal Handling'
 
   Scenario: Verify the Slider Signal Handling text
     Then I verify that 'Slider' 'Signal Handling' 'Text' has text 'Value: 0'

@@ -4,6 +4,11 @@ const { execSync } = require('child_process');
 
 const start_time = process.argv[2].split(':')[1];
 const report = process.argv[3].split(':').slice(1).join(':');
+// default test type is non-parallel unless an argument is sent with type parallel
+let testType = 'non-parallel';
+if (process.argv.length === 5) {
+  testType = process.argv[4].split(':')[1];
+}
 
 const slackBlocks = (timestamp, branch, duration, result) => {
   timestamp = timestamp.replaceAll('-', ':');
@@ -35,7 +40,7 @@ const slackBlocks = (timestamp, branch, duration, result) => {
             {
               // total tests and duration
               type: 'mrkdwn',
-              text: `*Total Tests:*\n${result.totalScenarios}\n*Duration:*\n${duration}s`
+              text: `*Total Tests Executed:*\n${result.totalScenariosExecuted}\n*Duration:*\n${duration}s`
             },
             {
               // summary
@@ -139,14 +144,36 @@ const slackBlocks = (timestamp, branch, duration, result) => {
 };
 
 // Read report json data
-const data = JSON.parse(fs.readFileSync('cypress/reports/index.json'));
+const data = JSON.parse(fs.readFileSync('cypress/reports/output.json'));
 
 const stats = data.stats;
 const totalFeatures = stats.suites;
 const totalScenarios = stats.tests;
 const totalPassedScenarios = stats.passes;
 const totalFailedScenarios = stats.failures;
-const msec = stats.duration;
+const totalPendingScenarios = stats.pending;
+const totalScenariosExecuted = totalScenarios - totalPendingScenarios;
+let msec;
+const durationList = [];
+
+// calculation to find out the execution time when tests run in parallel
+if (testType === 'parallel') {
+  const files = fs
+    .readdirSync('cypress/reports')
+    .filter(fn => fn.startsWith('results'));
+  console.info(files);
+  for (const f of files) {
+    const report = JSON.parse(
+      fs.readFileSync('cypress/reports/' + f + '/index.json')
+    );
+    console.info(report.stats.duration);
+    durationList.push(report.stats.duration);
+  }
+  msec = Math.max(...durationList);
+} else {
+  msec = stats.duration;
+}
+
 let failedScenarioNames = '';
 
 const results = data.results;
@@ -154,7 +181,7 @@ const results = data.results;
 for (const test of results) {
   const suites = test.suites[0].tests;
   for (const suite of suites) {
-    if (suite.pass === false) {
+    if (suite.pass === false && suite.fail === true) {
       failedScenarioNames += `${
         path.parse(test.fullFile).base
       } - ${suite.title.replace(/#/g, '# ')}\n`;
@@ -164,9 +191,11 @@ for (const test of results) {
 
 console.info('\n================================================');
 console.info('\nTotal Features Executed - ' + totalFeatures);
-console.info('\nTotal Scenarios Executed - ' + totalScenarios);
+console.info('\nTotal Scenarios - ' + totalScenarios);
+console.info('\nTotal Scenarios Executed - ' + totalScenariosExecuted);
 console.info('\nTotal Scenarios Passed - ' + totalPassedScenarios);
 console.info('\nTotal Scenarios Failed - ' + totalFailedScenarios);
+console.info('\nTotal Scenarios Pending - ' + totalPendingScenarios);
 console.info('\n================================================');
 
 const failedScenariosList =
@@ -184,7 +213,7 @@ const duration = Math.ceil(msec / 1000);
 const branch = execSync('ls .git/refs/heads');
 
 const result = {};
-result.totalScenarios = totalScenarios;
+result.totalScenariosExecuted = totalScenariosExecuted;
 result.totalPassedScenarios = totalPassedScenarios;
 result.totalFailedScenarios = totalFailedScenarios;
 result.failedScenarioNames = failedScenarioNames;

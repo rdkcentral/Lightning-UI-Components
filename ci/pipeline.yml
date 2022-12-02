@@ -42,7 +42,7 @@ task-config: &task-config
 
 slack_params_feature: &slack_params_feature
   channel: "#lui-automation-reports"
-  username: "Concourse_LUI_Sanity_Results"
+  username: "Concourse_LUI_Sanity_VRT_Parallel_Results"
   icon_emoji: ":concourse:"
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
