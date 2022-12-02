@@ -23,6 +23,7 @@ import Distractor from './utilities/distractor.utilities';
 import ButtonSmall from './controls/buttonsmall.controls';
 import Wave from './utilities/wave.utilities';
 import Column from './navigation/column.navigation';
+import ListItem from './controls/listitem.controls';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -50,7 +51,8 @@ export default function getPageObject(pageName) {
     distractor: Distractor,
     buttonsmall: ButtonSmall,
     wave: Wave,
-    column: Column
+    column: Column,
+    listitem: ListItem
   };
 
   if (pageName in pageObjects) {
