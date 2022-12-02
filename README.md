@@ -63,4 +63,4 @@ Since packages are now bundled with rollup this allows proper tree shaking behav
 
 ## Questions???
 
-[Join us on Slack](https://slack.com/app_redirect?team=T024VU91V&channel=C016PQ0G4HY)
+[Join us on Slack](https://slack.com/app_redirect?team=T024VU91V&channel=C030K2PPQAY)
