@@ -33,6 +33,10 @@ class Row extends LUIComponent {
     return `${this.row} > div:nth-of-type(6)`;
   }
 
+  get button7() {
+    return `${this.row} > div:nth-of-type(7)`;
+  }
+
   get button10() {
     return `${this.row} > div:nth-of-type(10)`;
   }
@@ -178,82 +182,134 @@ class Row extends LUIComponent {
 
   //=============== Skip focus ===============
 
-  get button2SkipFocus() {
+  get button2skipfocus() {
     return `${this.row} > div:nth-of-type(2)`;
   }
 
-  get button6SkipFocus() {
+  get button6skipfocus() {
     return `${this.row} > div:nth-of-type(6)`;
   }
 
-  get button8SkipFocus() {
+  get button8skipfocus() {
     return `${this.row} > div:nth-of-type(8)`;
   }
 
-  get button10SkipFocus() {
+  get button10skipfocus() {
     return `${this.row} > div:nth-of-type(10) `;
   }
 
-  get button12SkipFocus() {
+  get button12skipfocus() {
     return `${this.row} > div:nth-of-type(12)`;
   }
 
-  get button1label() {
+  get button1labelskipfocus() {
     return `${this.row} > div:nth-of-type(1) > div[type='Element']`;
   }
 
-  get button2label() {
+  get button2labelskipfocus() {
     return `${this.row} > div:nth-of-type(2) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button3label() {
+  get button3labelskipfocus() {
     return `${this.row} > div:nth-of-type(3) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button4label() {
+  get button4labelskipfocus() {
     return `${this.row} > div:nth-of-type(4) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button5label() {
+  get button5labelskipfocus() {
     return `${this.row} > div:nth-of-type(5) > div[type='Element']`;
   }
 
-  get button6label() {
+  get button6labelskipfocus() {
     return `${this.row} > div:nth-of-type(6) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button7label() {
+  get button7labelskipfocus() {
     return `${this.row} > div:nth-of-type(7) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button8label() {
+  get button8labelskipfocus() {
     return `${this.row} > div:nth-of-type(8) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button9label() {
+  get button9labelskipfocus() {
     return `${this.row} > div:nth-of-type(9) > div[type='Element']`;
   }
 
-  get button10label() {
+  get button10labelskipfocus() {
     return `${this.row} > div:nth-of-type(10) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button11label() {
+  get button11labelskipfocus() {
     return `${this.row} > div:nth-of-type(11) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button12label() {
+  get button12labelskipfocus() {
     return `${this.row} > div:nth-of-type(12) div[type='TextBox'] > div[type='Element']`;
   }
 
-  get button13label() {
+  get button13labelskipfocus() {
     return `${this.row} > div:nth-of-type(13) > div[type='Element']`;
   }
 
-  get button14label() {
+  get button14labelskipfocus() {
     return `${this.row} > div:nth-of-type(14) > div[type='Element']`;
   }
   //=============== Skip focus ===============
+
+  //=============== Lazy Scroll Indexes ===============
+
+  get button1labellazyscroll () {
+    return `${this.row} > div:nth-of-type(1) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button2labellazyscroll() {
+    return `${this.row} > div:nth-of-type(2) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button3labellazyscroll() {
+    return `${this.row} > div:nth-of-type(3) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button4labellazyscroll() {
+    return `${this.row} > div:nth-of-type(4) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button5labellazyscroll() {
+    return `${this.row} > div:nth-of-type(5) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button6labellazyscroll() {
+    return `${this.row} > div:nth-of-type(6) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button7labellazyscroll() {
+    return `${this.row} > div:nth-of-type(7) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button8labellazyscroll() {
+    return `${this.row} > div:nth-of-type(8) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button9labellazyscroll() {
+    return `${this.row} > div:nth-of-type(9) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button10labellazyscroll() {
+    return `${this.row} > div:nth-of-type(10) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button11labellazyscroll() {
+    return `${this.row} > div:nth-of-type(11) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button12labellazyscroll() {
+    return `${this.row} > div:nth-of-type(12) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  //=============== Lazy Scroll Indexes ===============
 }
 
 module.exports = new Row();
