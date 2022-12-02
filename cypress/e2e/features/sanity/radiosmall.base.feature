@@ -13,13 +13,15 @@ Feature: LUI RadioSmall Basic component
     Then I verify that the 'width' of 'RadioSmall' 'Radio' component is '30px'
     And I verify that the 'height' of 'RadioSmall' 'Radio' component is '30px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify that RadioSmall Basic modes
-  #   When I set the 'mode' to 'unfocused' for 'RadioSmall' component
-  #   Then I verify the 'mode' is 'unfocused' for 'RadioSmall' 'Radio'
-  #   And I set the 'mode' to 'disabled' for 'Radio' component
-  #   And I verify the 'mode' is 'disabled' for 'RadioSmall' 'Radio'
-    
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify that RadioSmall Basic modes
+    When I set the 'mode' to 'unfocused' for 'RadioSmall' component
+    Then I verify the 'mode' is 'unfocused' for 'RadioSmall' 'Radio'
+    And I set the 'mode' to 'disabled' for 'Radio' component
+    And I verify the 'mode' is 'disabled' for 'RadioSmall' 'Radio'
+
   Scenario: Verify that RadioSmall Basic checked state
     When I set the 'checked' to 'true' for 'RadioSmall' component
     Then I verify that the 'opacity' of 'RadioSmall' 'Knob' component is '1'

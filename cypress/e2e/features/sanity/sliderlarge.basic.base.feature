@@ -17,14 +17,16 @@ Feature: LUI SliderLarge Basic component
     Then I verify that the 'width' of 'SliderLarge' 'Container' component is '308px'
     And I verify that the 'height' of 'SliderLarge' 'Container' component is '24px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify the SliderLarge Basic modes
-  #   When I set the 'mode' to 'unfocused' for 'SliderLarge' component
-  #   Then I verify the 'mode' is 'unfocused' for 'SliderLarge' 'Basic Slider'
-  #   And I set the 'mode' to 'focused' for 'SliderLarge' component
-  #   And I verify the 'mode' is 'focused' for 'SliderLarge' 'Basic Slider'
-  #   And I set the 'mode' to 'disabled' for 'SliderLarge' component
-  #   And I verify the 'mode' is 'disabled' for 'SliderLarge' 'Basic Slider'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the SliderLarge Basic modes
+    When I set the 'mode' to 'unfocused' for 'SliderLarge' component
+    Then I verify the 'mode' is 'unfocused' for 'SliderLarge' 'Basic Slider'
+    And I set the 'mode' to 'focused' for 'SliderLarge' component
+    And I verify the 'mode' is 'focused' for 'SliderLarge' 'Basic Slider'
+    And I set the 'mode' to 'disabled' for 'SliderLarge' component
+    And I verify the 'mode' is 'disabled' for 'SliderLarge' 'Basic Slider'
 
   Scenario Outline: Verify the SliderLarge Basic max boundary
     When I set the 'max' to '<maxValue>' for 'SliderLarge' component

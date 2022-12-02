@@ -13,14 +13,16 @@ Feature: LUI ToggleSmall Basic component
     Then I verify that the 'width' of 'ToggleSmall' 'Toggle' component is '40px'
     And I verify that the 'height' of 'ToggleSmall' 'Toggle' component is '28px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify the ToggleSmall Basic modes
-  #   When I set the 'mode' to 'unfocused' for 'ToggleSmall' component
-  #   Then I verify the 'mode' is 'unfocused' for 'ToggleSmall' 'Toggle'
-  #   And I set the 'mode' to 'focused' for 'ToggleSmall' component
-  #   And I verify the 'mode' is 'focused' for 'ToggleSmall' 'Toggle'
-  #   And I set the 'mode' to 'disabled' for 'ToggleSmall' component
-  #   And I verify the 'mode' is 'disabled' for 'ToggleSmall' 'Toggle'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the ToggleSmall Basic modes
+    When I set the 'mode' to 'unfocused' for 'ToggleSmall' component
+    Then I verify the 'mode' is 'unfocused' for 'ToggleSmall' 'Toggle'
+    And I set the 'mode' to 'focused' for 'ToggleSmall' component
+    And I verify the 'mode' is 'focused' for 'ToggleSmall' 'Toggle'
+    And I set the 'mode' to 'disabled' for 'ToggleSmall' component
+    And I verify the 'mode' is 'disabled' for 'ToggleSmall' 'Toggle'
 
   Scenario: Verify the ToggleSmall Basic checked state
     When I set the 'checked' to 'true' for 'ToggleSmall' component

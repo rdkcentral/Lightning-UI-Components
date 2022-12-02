@@ -248,7 +248,8 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      pageObject._getElementByName(element)
+      pageObject
+        ._getElementByName(element)
         .first()
         .children()
         .should('have.length', no_of_assets);

@@ -40,6 +40,13 @@ export async function setupNodeEvents(on, config) {
   return config;
 }
 
+const getReportDir = function () {
+  return (
+    'cypress/reports/results' +
+    Math.floor(Math.random() * (Math.random() * 1000) + 1)
+  );
+};
+
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8000/iframe.html?&viewMode=story',
@@ -57,8 +64,8 @@ export default defineConfig({
     experimentalFetchPolyfill: true,
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
-      reportDir: 'cypress/reports',
-      overwrite: true,
+      reportDir: getReportDir(),
+      overwrite: false,
       html: false,
       json: true,
       inlineAssets: true,

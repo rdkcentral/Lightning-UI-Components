@@ -17,14 +17,16 @@ Feature: LUI Slider Basic component
     Then I verify that the 'width' of 'Slider' 'Container' component is '308px'
     And I verify that the 'height' of 'Slider' 'Container' component is '24px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify the Slider Basic modes
-  #   When I set the 'mode' to 'unfocused' for 'Slider' component
-  #   Then I verify the 'mode' is 'unfocused' for 'Slider' 'Basic'
-  #   And I set the 'mode' to 'focused' for 'Slider' component
-  #   And I verify the 'mode' is 'focused' for 'Slider' 'Basic'
-  #   And I set the 'mode' to 'disabled' for 'Slider' component
-  #   And I verify the 'mode' is 'disabled' for 'Slider' 'Basic'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify the Slider Basic modes
+    When I set the 'mode' to 'unfocused' for 'Slider' component
+    Then I verify the 'mode' is 'unfocused' for 'Slider' 'Basic'
+    And I set the 'mode' to 'focused' for 'Slider' component
+    And I verify the 'mode' is 'focused' for 'Slider' 'Basic'
+    And I set the 'mode' to 'disabled' for 'Slider' component
+    And I verify the 'mode' is 'disabled' for 'Slider' 'Basic'
 
   Scenario Outline: Verify the Slider Basic max boundary
     When I set the 'max' to '<maxValue>' for 'Slider' component

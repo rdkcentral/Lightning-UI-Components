@@ -34,3 +34,4 @@ CHANGELOG.md
 
 /packages/apps/lightning-ui-docs/scripts/themePropertyTables
 ci-files
+multi-reporter-config.json

@@ -1,4 +1,4 @@
-#@sanity @textBox @2113158
+# @sanity @textBox @2113158
 
 # There will be changes to this test after LUI-536 is completed
 
@@ -12,19 +12,19 @@ Feature: LUI TextBox Basic component
     Then I verify that the 'TextBox' 'Basic' component is displayed
 
   Scenario: Verify the dimensions of the TextBox Basic Element
-    Then I verify that the 'TextBox' 'Basic' component is displayed
-    And I verify that the 'width' of 'TextBox' 'Basic' component is '564px'
-    And I verify that the 'height' of 'TextBox' 'Basic' component is '120px'
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
+    And I verify that the 'width' of 'TextBox' 'BasicText' component is '564px'
+    And I verify that the 'height' of 'TextBox' 'BasicText' component is '120px'
 
   Scenario: Verify the TextBox Basic content control
     When I set the 'content' to 'LUI Test' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
     And I verify that 'TextBox' 'Basic' 'Text' has text 'LUI Test'
 
   Scenario Outline: Verify the TextBox Basic maxLines control
     When I set the 'maxLines' to '<maxLines>' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
-    And I verify that the 'height' of 'TextBox' 'Basic' component is '<textBoxheight>px'
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
+    And I verify that the 'height' of 'TextBox' 'BasicText' component is '<textBoxheight>px'
     Examples:
       | maxLines | textBoxheight |
       |     1    |      40.5     |
@@ -35,7 +35,7 @@ Feature: LUI TextBox Basic component
 
   Scenario Outline: Verify the TextBox Basic textColor control
     When I set the 'textColor' to '<hexValue>' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
     And I verify that 'TextBox' 'Basic' 'Text' has textColor '<color>'
     Examples:
       |   hexValue   |    color     |
@@ -49,7 +49,7 @@ Feature: LUI TextBox Basic component
 
   Scenario Outline: Verify the TextBox Basic verticalAlign control
     When I set the 'verticalAlign' to '<position>' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
     And I verify that 'TextBox' 'Basic' 'Text' has property:value 'verticalAlign:<position>'
     Examples:
       |  position  |
@@ -59,9 +59,9 @@ Feature: LUI TextBox Basic component
 
   Scenario Outline: Verify the TextBox Basic wordWrap control
     When I set the 'wordWrap' to '<wordWrap>' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
-    And I verify that the 'width' of 'TextBox' 'Basic' component is '<width>px'
-    And I verify that the 'height' of 'TextBox' 'Basic' component is '<height>px'
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
+    And I verify that the 'width' of 'TextBox' 'BasicText' component is '<width>px'
+    And I verify that the 'height' of 'TextBox' 'BasicText' component is '<height>px'
     Examples:
       | wordWrap | width | height |
       |   true   | 564   |  120   |
@@ -69,9 +69,9 @@ Feature: LUI TextBox Basic component
 
   Scenario Outline: Verify the TextBox Basic wordWrapWidth control
     When I set the 'wordWrapWidth' to '<wordWrapWidth>' for 'TextBox' component
-    Then I verify that the 'TextBox' 'Basic' component is displayed
-    And I verify that the 'width' of 'TextBox' 'Basic' component is '<width>px'
-    And I verify that the 'height' of 'TextBox' 'Basic' component is '120px'
+    Then I verify that the 'TextBox' 'BasicText' component is displayed
+    And I verify that the 'width' of 'TextBox' 'BasicText' component is '<width>px'
+    And I verify that the 'height' of 'TextBox' 'BasicText' component is '120px'
     Examples:
       | wordWrapWidth | width |
       |      300      |  240  |

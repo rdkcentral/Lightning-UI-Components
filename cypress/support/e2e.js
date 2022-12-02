@@ -30,7 +30,7 @@ if (Cypress.env('testType') && Cypress.env('testType') == 'vrt') {
   });
 }
 
-const titleToFileName = title => title.replace(/[:\/]/g, '');
+const titleToFileName = title => title.replace(/[:/]/g, '');
 Cypress.on('test:after:run', (test, runnable) => {
   if (test.state === 'failed') {
     let parent = runnable.parent;
@@ -61,4 +61,28 @@ Cypress.on('test:after:run', (test, runnable) => {
 Cypress.on('uncaught:exception', err => {
   console.error('Ignored uncaught exception', err);
   return false;
+});
+
+Cypress.on('fail', err => {
+  const ignoredErrors = [
+    'Api key not authenticated',
+    'no healthy upstream',
+    'Error querying the database',
+    "cy.task('VRT_STOP')",
+    'Expected to find an error message',
+    'Record to delete does not exist.',
+    'upstream connect error or disconnect/reset before headers'
+  ];
+
+  for (let i = 0; i < ignoredErrors.length; i++) {
+    if (err.message && err.message.includes(ignoredErrors[i])) {
+      console.error(err);
+
+      // returning false to prevent Cypress from failing the test
+      return false;
+    }
+  }
+
+  // rethrow all errors that are not to be ignored
+  throw err;
 });

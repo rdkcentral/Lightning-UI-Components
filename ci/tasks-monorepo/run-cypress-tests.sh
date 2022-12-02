@@ -26,6 +26,11 @@ FAILING_TESTS=0
 git config --global url."https://github".insteadOf git://github
 yarn install
 
+# Workaround for a bug in cypress-parallel
+sed -e '/cleanResultsPath();/s/^/  \/\//g' node_modules/cypress-parallel/cli.js > tmpfile
+mv tmpfile node_modules/cypress-parallel/cli.js
+rm -f runner-results/.gitkeep
+
 # Start Xvfb in background
 Xvfb -screen 0 2560x1440x24 :99 &
 export DISPLAY=:99
@@ -41,7 +46,9 @@ echo "Kickstarting the Automation Execution"
 start_time=$(date +"%b %d %Y, %a %H-%M-%S %Z")
 
 echo "Execution starts : $start_time"
-yarn run cy:launchAppAndRunSanityVrtTests || FAILING_TESTS=$?
+yarn run cy:preSanityTestsExec
+yarn run cy:launchAppAndRunSanityVrtTestsParallel || FAILING_TESTS=$?
+yarn run cy:postSanityTestsExec
 
 FILE=cypress/reports/index.html
 if [ -f "$FILE" ]; then
@@ -96,6 +103,6 @@ echo "Reports copied to S3 Bucket !!!"
 REPORT_LINK="https://lui-tests.devplat.comcast.com/${date}/index.html"
 echo "Test Execution Reports are available at: ${REPORT_LINK}"
 
-node cypress/support/parseResults.js time:"${start_time}" report:"${REPORT_LINK}"
+node cypress/support/parseResults.js time:"${start_time}" report:"${REPORT_LINK}" type:"parallel"
 
 exit $FAILING_TESTS

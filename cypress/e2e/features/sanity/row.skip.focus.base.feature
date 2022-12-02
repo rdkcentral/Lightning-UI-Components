@@ -1,4 +1,4 @@
-@sanity @row @skipFocus @2112689
+# @sanity @row @skipFocus @2112689
 
 Feature: LUI Row Skip Focus component
 

@@ -13,12 +13,14 @@ Feature: LUI Radio Basic component
     Then I verify that the 'width' of 'Radio' component is '40px'
     And I verify that the 'height' of 'Radio' component is '40px'
 
-# Disabled until 'mode' control functionality is fixed
-  # Scenario: Verify that Radio Basic modes
-  #   When I set the 'mode' to 'unfocused' for 'Radio' component
-  #   Then I verify the 'mode' is 'unfocused' for 'Radio' 'Radio'
-  #   And I set the 'mode' to 'disabled' for 'Radio' component
-  #   And I verify the 'mode' is 'disabled' for 'Radio' 'Radio'
+  # https://ccp.sys.comcast.net/browse/LUI-598
+  # Skipping the test because of the bug
+  @skip
+  Scenario: Verify that Radio Basic modes
+    When I set the 'mode' to 'unfocused' for 'Radio' component
+    Then I verify the 'mode' is 'unfocused' for 'Radio' 'Radio'
+    And I set the 'mode' to 'disabled' for 'Radio' component
+    And I verify the 'mode' is 'disabled' for 'Radio' 'Radio'
     
   Scenario: Verify the Radio Basic checked state
     When I set the 'checked' to 'true' for 'Radio' component
