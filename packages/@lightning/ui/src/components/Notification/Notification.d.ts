@@ -1,6 +1,10 @@
 import type lng from '@lightningjs/core';
-import { Base } from '@lightning/ui';
-import type { Color, StylePartial } from '@lightning/ui-core';
+import type {
+  Base,
+  Color,
+  StylePartial,
+  TextBoxStyles
+} from '@lightning/ui-core';
 
 type Animation = {
   duration?: number;
@@ -24,10 +28,10 @@ export type NotificationStyles = {
   iconSize: number;
   iconMarginRight: number;
   iconMarginTop: number;
-  titleTextStyle: lng.textures.TextTexture.Settings;
-  descriptionTextStyle: lng.textures.TextTexture.Settings;
+  titleTextStyle: TextBoxStyles;
+  descriptionTextStyle: TextBoxStyles;
   actionAreaMarginTop: number;
-  actionAreaTextStyle: lng.textures.TextTexture.Settings;
+  actionAreaTextStyle: TextBoxStyles;
   enterAlpha: number;
   enterScale: number;
   dismissAlpha: number;

@@ -1,5 +1,9 @@
 import CardTitle, { CardTitleStyles } from '../Card/CardTitle';
-import { InlineContentStyles, StylePartial, TextBoxStyles, TextContent} from '@lightning/ui-core'
+import {
+  InlineContentStyles,
+  TextContent
+} from '@lightning/ui-core/src/components/InlineContent/InlineContent';
+import type { StylePartial, TextBoxStyles } from '@lightning/ui-core';
 
 export type CardAboutStyles = CardTitleStyles & {
   contentSpacing: number;

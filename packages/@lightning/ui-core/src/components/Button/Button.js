@@ -109,7 +109,7 @@ class Button extends Surface {
     if (this._hasTitle) {
       let titlePatch = {
         content: this.title,
-        textStyle: this.style.textStyle
+        style: { textStyle: this.style.textStyle }
       };
       if (!this._Title) {
         titlePatch = {
@@ -162,8 +162,13 @@ class Button extends Surface {
      */
     if (this._Title) {
       this._Title.patch({
-        wordWrap: this.fixed,
-        wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : 0
+        style: {
+          textStyle: {
+            ...this.style.textStyle,
+            wordWrap: this.fixed,
+            wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : 0
+          }
+        }
       });
     }
   }

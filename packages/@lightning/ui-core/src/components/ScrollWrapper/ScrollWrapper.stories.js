@@ -4,6 +4,7 @@ import Tile from '../Tile/index.js';
 import mdx from './ScrollWrapper.mdx';
 import { createModeControl } from '../../../storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
+import TextBox from '../TextBox/TextBox.js';
 
 const terms = `By activating, you agree that you want to enable cloud DVR technology to
 'your Xfinity TV subscription on additional supported devices like computers and
@@ -215,16 +216,26 @@ export const ObjectArray = args =>
               margin: 24
             },
             Text: {
+              type: TextBox,
               x: 20,
               y: 10,
-              text: {
-                fontSize: 28,
-                textAlign: 'left',
-                text:
-                  'By activating, you agree that you want to enable cloud DVR technology to ' +
-                  'your Xfinity TV subscription on additional supported devices like computers and ' +
-                  'tablets, as well as the TV connected to your set-top DVR via Comcast’s network.',
-                wordWrapWidth: 280
+              content:
+                'By activating, you agree that you want to enable cloud DVR technology to ' +
+                'your Xfinity TV subscription on additional supported devices like computers and ' +
+                "tablets, as well as the TV connected to your set-top DVR via Comcast's network.",
+              style: {
+                textStyle: {
+                  fontSize: 27,
+                  lineHeight: null,
+                  maxLines: 0,
+                  textAlign: 'left',
+                  verticalAlign: 'middle',
+                  wordWrapWidth: 270
+                }
+              },
+              shader: {
+                type: lng.shaders.RoundedRectangle,
+                radius: 0
               }
             }
           })),

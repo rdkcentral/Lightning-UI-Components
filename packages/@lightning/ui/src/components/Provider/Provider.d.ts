@@ -1,6 +1,10 @@
 import type lng from '@lightningjs/core';
-import type { Color, StylePartial } from '@lightning/ui-core';
-import type { TextBoxStyles, Base } from '@lightning/ui'
+import type {
+  Base,
+  Color,
+  StylePartial,
+  TextBoxStyles
+} from '@lightning/ui-core';
 
 export type ProviderStyles = {
   counterBackgroundColor: Color;

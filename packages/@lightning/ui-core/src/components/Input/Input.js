@@ -96,14 +96,16 @@ class Input extends Button {
   _updateTruncation() {
     // do not add word wrap
     if (this._Title) {
-      this._Title.patch({ wordWrap: false });
+      this._Title.patch({
+        style: { textStyle: { ...this.style.textStyle, wordWrap: false } }
+      });
     }
   }
 
   _updateEyebrow() {
     this._Eyebrow.patch({
       content: this.eyebrow,
-      textStyle: this.style.eyebrowTextStyle,
+      style: { textStyle: this.style.eyebrowTextStyle },
       mountY: 1,
       x: this.style.paddingX,
       y: this.y - this.style.paddingY
@@ -113,7 +115,7 @@ class Input extends Button {
   _updateHelpText() {
     this._HelpText.patch({
       content: this.helpText,
-      textStyle: this.style.helpTextStyle,
+      style: { textStyle: this.style.helpTextStyle },
       x: this.style.paddingX,
       y: this.y + this.innerH + this.style.paddingY
     });
@@ -133,7 +135,7 @@ class Input extends Button {
      * be positioned when a user changes the cursor position. Since
      * the text is one texture we don't know the exact position of each
      * individual character, so we render a substring version of the text
-     * to determine the renderwidth and position the cursor based on that number
+     * to determine the render width and position the cursor based on that number
      */
     if (!this._HiddenContent) {
       this._Content.patch({
@@ -155,7 +157,7 @@ class Input extends Button {
       : value.substring(0, position);
 
     this._HiddenContent.patch({
-      textStyle: this.style.textStyle,
+      style: { textStyle: this.style.textStyle },
       content: textBeforeCursor
     });
 

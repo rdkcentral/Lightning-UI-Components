@@ -39,14 +39,12 @@ class Notification extends Base {
             flex: { direction: 'column' },
             Title: {
               type: TextBox,
-              wordWrap: true,
               passSignals: {
                 textBoxChanged: '_titleChanged'
               }
             },
             Description: {
               type: TextBox,
-              wordWrap: true,
               passSignals: {
                 textBoxChanged: '_descriptionChanged'
               }
@@ -57,8 +55,6 @@ class Notification extends Base {
           alpha: 0.001,
           Text: {
             type: TextBox,
-            wordWrap: true,
-            maxLines: 1,
             passSignals: {
               textBoxChanged: '_actionAreaTextChanged'
             }
@@ -263,8 +259,13 @@ class Notification extends Base {
     if (this._title) {
       this._Title.patch({
         content: this._title,
-        textStyle: this.style.titleTextStyle,
-        wordWrapWidth: this._contentWordWrapWidth
+        style: {
+          textStyle: {
+            ...this.style.titleTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._contentWordWrapWidth
+          }
+        }
       });
     } else {
       this._Title.content = undefined;
@@ -276,8 +277,13 @@ class Notification extends Base {
     if (this._description) {
       this._Description.patch({
         content: this._description,
-        textStyle: this.style.descriptionTextStyle,
-        wordWrapWidth: this._contentWordWrapWidth
+        style: {
+          textStyle: {
+            ...this.style.descriptionTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._contentWordWrapWidth
+          }
+        }
       });
     } else {
       this._Description.content = undefined;
@@ -299,8 +305,14 @@ class Notification extends Base {
       const textWidth = this.style.w - this._totalExpandedMarginX;
       this._ActionAreaText.patch({
         content: this.actionArea,
-        textStyle: this.style.actionAreaTextStyle,
-        wordWrapWidth: textWidth
+        style: {
+          textStyle: {
+            ...this.style.actionAreaTextStyle,
+            maxLines: 1,
+            wordWrap: true,
+            wordWrapWidth: textWidth
+          }
+        }
       });
     } else {
       this._ActionAreaText.patch({

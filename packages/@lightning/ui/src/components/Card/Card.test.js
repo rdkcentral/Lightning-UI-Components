@@ -46,8 +46,13 @@ describe('Card', () => {
     Card.title = 'Title';
     testRenderer.forceAllUpdates();
     expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.textStyle).toEqual(Card.style.titleTextStyle);
-    expect(Card._Title.textStyle.textColor).toEqual(
+    expect(Card._Title.style.textStyle).toMatchObject(
+      Card.style.titleTextStyle
+    );
+    expect(Card._Title.style.textStyle.wordWrapWidth).toEqual(
+      Card._calculateTextWidth()
+    );
+    expect(Card._Title.style.textStyle.textColor).toEqual(
       Card.style.titleTextStyle.textColor
     );
   });
@@ -58,12 +63,12 @@ describe('Card', () => {
     Card._update();
     testRenderer.forceAllUpdates();
     expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.textStyle.textColor).toEqual(
+    expect(Card._Title.style.textStyle.textColor).toEqual(
       Card.style.titleTextStyle.textColor
     );
   });
 
-  it('should calculate textwidth', () => {
+  it('should calculate text width', () => {
     testRenderer.forceAllUpdates();
     expect(Card._calculateTextWidth()).toEqual(
       Card.w - Card.style.paddingHorizontal * 2

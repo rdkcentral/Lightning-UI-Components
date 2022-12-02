@@ -46,7 +46,7 @@ class Tooltip extends Base {
     if (this._Text) {
       this._Text.patch({
         content: this.title,
-        textStyle: this.style.textStyle
+        style: { textStyle: this.style.textStyle }
       });
     }
   }

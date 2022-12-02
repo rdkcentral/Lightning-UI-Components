@@ -96,7 +96,7 @@ class Tab extends Surface {
   _updateText() {
     const textPatch = {
       content: this.title,
-      textStyle: this.style.textStyle,
+      style: { textStyle: this.style.textStyle },
       y: this._Content.h / 2
     };
     if (this.icon) {

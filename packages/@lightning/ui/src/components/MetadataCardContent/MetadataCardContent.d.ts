@@ -7,7 +7,6 @@ import {
 } from '@lightning/ui-core';
 
 export type MetadataCardContentStyles = MetadataBaseStyles & {
-  titleTextStyle: TextBoxStyles;
   detailsTextStyle: TextBoxStyles;
   providerStyle: ProviderStyles;
 };

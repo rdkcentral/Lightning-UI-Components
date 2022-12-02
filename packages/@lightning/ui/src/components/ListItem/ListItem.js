@@ -70,7 +70,7 @@ class ListItem extends Button {
       TextWrapper: {
         Title: {
           content: this.title,
-          textStyle: this.style.titleTextStyle
+          style: { textStyle: this.style.titleTextStyle }
         }
       }
     });
@@ -80,7 +80,7 @@ class ListItem extends Button {
     if (this._hasDescription) {
       let descriptionPatch = {
         content: this.description,
-        textStyle: this.style.descriptionTextStyle,
+        style: { textStyle: this.style.descriptionTextStyle },
         visible: !this._collapse
       };
       if (!this._Description) {
@@ -112,8 +112,13 @@ class ListItem extends Button {
     super._updateTruncation();
     if (this._Description) {
       this._Description.patch({
-        wordWrap: true,
-        wordWrapWidth: this._fixedWordWrapWidth
+        style: {
+          textStyle: {
+            ...this.style.descriptionTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._fixedWordWrapWidth
+          }
+        }
       });
     }
   }

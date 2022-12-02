@@ -50,7 +50,7 @@ class ListItemSlider extends ListItem {
     if (this._hasValue) {
       let valuePatch = {
         content: this.value.toString(),
-        textStyle: this.style.textStyle,
+        style: { textStyle: this.style.textStyle },
         mount: 1,
         x: this.w - this._paddingX
       };

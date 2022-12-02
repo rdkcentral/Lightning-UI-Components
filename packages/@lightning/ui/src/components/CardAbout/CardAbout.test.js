@@ -83,7 +83,7 @@ describe('cardAbout', () => {
     testRenderer.forceAllUpdates();
     cardAbout._update();
     expect(cardAbout._LeftIconTextContainer.y).toEqual(
-      cardAbout._Title.textStyle.lineHeight +
+      cardAbout._Title.style.textStyle.lineHeight +
         cardAbout.style.paddingVertical +
         cardAbout.style.paddingFirstLine
     );
@@ -93,7 +93,7 @@ describe('cardAbout', () => {
         : cardAbout.w - cardAbout.style.paddingHorizontal
     );
     expect(cardAbout._RightIconTextContainer.y).toEqual(
-      cardAbout._Title.textStyle.lineHeight +
+      cardAbout._Title.style.textStyle.lineHeight +
         cardAbout.style.paddingVertical +
         cardAbout.style.paddingFirstLine
     );
@@ -112,7 +112,7 @@ describe('cardAbout', () => {
             (cardAbout._LeftIconTextContainer.style.textStyle.lineHeight ||
               cardAbout._RightIconTextContainer.style.textStyle.lineHeight) +
             cardAbout.style.paddingVertical
-        : cardAbout._Title.textStyle.lineHeight +
+        : cardAbout._Title.style.textStyle.lineHeight +
             cardAbout.style.paddingVertical +
             cardAbout.style.paddingFirstLine
     );
@@ -121,7 +121,9 @@ describe('cardAbout', () => {
 
   it('should update title style', () => {
     testRenderer.forceAllUpdates();
-    expect(cardAbout._Title.textStyle).toEqual(cardAbout.style.titleTextStyle);
+    expect(cardAbout._Title.style.textStyle).toEqual(
+      cardAbout.style.titleTextStyle
+    );
   });
 
   it('should check for content', () => {

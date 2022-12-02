@@ -24,8 +24,11 @@ describe('CardPersonality', () => {
     cardPersonality.title = 'Title';
     testRenderer.forceAllUpdates();
     expect(cardPersonality._Title.content).toEqual('Title');
-    expect(cardPersonality._Title.textStyle).toEqual(
+    expect(cardPersonality._Title.style.textStyle).toMatchObject(
       cardPersonality.style.titleTextStyle
+    );
+    expect(cardPersonality._Title.style.textStyle.wordWrapWidth).toEqual(
+      cardPersonality._calculateTextWidth()
     );
     expect(cardPersonality._Title.x).toEqual(
       cardPersonality.style.paddingHorizontal
@@ -36,6 +39,12 @@ describe('CardPersonality', () => {
     cardPersonality.description = 'Subtitle';
     testRenderer.forceAllUpdates();
     expect(cardPersonality._Description.content).toEqual('Subtitle');
+    expect(cardPersonality._Description.style.textStyle).toMatchObject(
+      cardPersonality.style.descriptionTextStyle
+    );
+    expect(cardPersonality._Description.style.textStyle.wordWrapWidth).toEqual(
+      cardPersonality._calculateTextWidth()
+    );
     expect(cardPersonality._Description.x).toEqual(
       cardPersonality.style.paddingHorizontal
     );

@@ -2,10 +2,9 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyles } from '../TextBox';
-import ScrollWrapper, { ScrollWrapperStyles } from './ScrollWrapper';
 
 export type ScrollWrapperStyles = {
-  text: TextBoxStyles;
+  textStyle: TextBoxStyles;
   scrollBarW: number;
   scrollBarH: number;
   fadeHeight: 100;

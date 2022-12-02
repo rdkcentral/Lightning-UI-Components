@@ -179,20 +179,20 @@ describe('Button', () => {
       await button.__updateSpyPromise;
       testRenderer.update();
       const wA = button._fixedWordWrapWidth;
-      expect(button._Title.wordWrapWidth).toBe(wA);
+      expect(button._Title.style.textStyle.wordWrapWidth).toBe(wA);
 
       button.prefix = [{ type: lng.Component, w: 20, h: 20 }];
       await button.__updateSpyPromise;
       testRenderer.update();
       const wB = button._fixedWordWrapWidth;
-      expect(button._Title.wordWrapWidth).toBe(wB);
+      expect(button._Title.style.textStyle.wordWrapWidth).toBe(wB);
       expect(wB).toBeLessThan(wA);
 
       button.suffix = [{ type: lng.Component, w: 20, h: 20 }];
       await button.__updateSpyPromise;
       testRenderer.update();
       const wC = button._fixedWordWrapWidth;
-      expect(button._Title.wordWrapWidth).toBe(wC);
+      expect(button._Title.style.textStyle.wordWrapWidth).toBe(wC);
       expect(wC).toBeLessThan(wB);
     });
   });

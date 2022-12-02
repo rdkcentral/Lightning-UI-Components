@@ -1,4 +1,5 @@
-import type { StylePartial, Card, CardStyles } from '@lightning/ui';
+import Card, { CardStyles } from './Card';
+import type { StylePartial } from '@lightning/ui-core';
 
 export type CardSectionStyles = CardStyles & {
   iconHeight: number;

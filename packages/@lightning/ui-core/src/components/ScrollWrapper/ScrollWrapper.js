@@ -155,9 +155,13 @@ class ScrollWrapper extends Base {
           w: this._contentWidth,
           type: TextBox,
           content: this.content,
-          wordWrap: true,
-          wordWrapWidth: this._contentWidth,
-          textStyle: this.style.text,
+          style: {
+            textStyle: {
+              ...this.style.textStyle,
+              wordWrap: true,
+              wordWrapWidth: this._contentWidth
+            }
+          },
           signals: {
             textBoxChanged: '_scrollContainerLoaded'
           }
@@ -175,11 +179,13 @@ class ScrollWrapper extends Base {
           content[id] = {
             type: TextBox,
             content: item.text,
-            wordWrap: true,
-            wordWrapWidth: this._contentWidth,
-            textStyle: {
-              ...this.style.text,
-              ...item.style
+            style: {
+              textStyle: {
+                ...this.style.textStyle,
+                ...item.style,
+                wordWrap: true,
+                wordWrapWidth: this._contentWidth
+              }
             }
           };
         }

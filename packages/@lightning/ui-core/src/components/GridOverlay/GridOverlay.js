@@ -5,6 +5,7 @@ import Column from '../Column/index.js';
 import Row from '../Row/index.js';
 import TextBox from '../TextBox/index.js';
 import { getWidthByColumnSpan } from '../../utils/index.js';
+import * as styles from './GridOverlay.styles';
 
 class Spacer extends Base {
   static get __componentName() {
@@ -72,18 +73,20 @@ class GridOverlay extends Base {
     return 'GridOverlay';
   }
 
+  static get __themeStyle() {
+    return styles;
+  }
+
   static _template() {
     const textRow = {
       type: Row,
       autoResizeHeight: true,
       Items: {
         Property: {
-          type: TextBox,
-          textStyle: 'headline1'
+          type: TextBox
         },
         Value: {
           type: TextBox,
-          textStyle: 'body1',
           centerInParent: true
         }
       }
@@ -298,6 +301,21 @@ class GridOverlay extends Base {
     });
   }
 
+  _updatePropertyTextStyle(textPanelName, color) {
+    // clone the object so as not to mutate it
+    const style = { textStyle: { ...this.style.propertyTextStyle } };
+    if (color) {
+      style.textStyle.textColor = color;
+    }
+    textPanelName.Items.tag('Property').style = style;
+  }
+
+  _updateValueTextStyle(textPanelName) {
+    textPanelName.Items.tag('Value').style = {
+      textStyle: this.style.valueTextStyle
+    };
+  }
+
   _updateText() {
     const prop = 'Property';
     const val = 'Value';
@@ -308,30 +326,40 @@ class GridOverlay extends Base {
 
     this._TextScreenW.Items.tag(prop).content = 'Screen Width';
     this._TextScreenW.Items.tag(val).content = `${this._screenW}px`;
+    this._updatePropertyTextStyle(this._TextScreenW);
+    this._updateValueTextStyle(this._TextScreenW);
 
     this._TextScreenH.Items.tag(prop).content = 'Screen Height';
     this._TextScreenH.Items.tag(val).content = `${this._screenH}px`;
+    this._updatePropertyTextStyle(this._TextScreenH);
+    this._updateValueTextStyle(this._TextScreenH);
 
     this._TextColumnCount.Items.tag(prop).content = 'Columns';
     this._TextColumnCount.Items.tag(val).content = `${
       this._columnCount
     }, ${Math.round(getWidthByColumnSpan(this.theme, 1))}px each`;
+    this._updatePropertyTextStyle(this._TextColumnCount);
+    this._updateValueTextStyle(this._TextColumnCount);
 
     this._TextMarginX.Items.tag(prop).content = 'Margin-X';
-    this._TextMarginX.Items.tag(prop).textColor = this._marginColor;
     this._TextMarginX.Items.tag(val).content = `${this._marginX}px`;
+    this._updatePropertyTextStyle(this._TextMarginX, this._marginColor);
+    this._updateValueTextStyle(this._TextMarginX);
 
     this._TextMarginY.Items.tag(prop).content = 'Margin-Y';
-    this._TextMarginY.Items.tag(prop).textColor = this._marginColor;
     this._TextMarginY.Items.tag(val).content = `${this._marginY}px`;
+    this._updatePropertyTextStyle(this._TextMarginY, this._marginColor);
+    this._updateValueTextStyle(this._TextMarginY);
 
     this._TextGutterY.Items.tag(prop).content = 'Gutter-Y';
-    this._TextGutterY.Items.tag(prop).textColor = this._gutterColor;
     this._TextGutterY.Items.tag(val).content = `XSmall, ${this._gutterY}px`;
+    this._updatePropertyTextStyle(this._TextGutterY, this._gutterColor);
+    this._updateValueTextStyle(this._TextGutterY);
 
     this._TextSafe.Items.tag(prop).content = 'Safe';
-    this._TextSafe.Items.tag(prop).textColor = this._safeColor;
     this._TextSafe.Items.tag(val).content = `${this._safe}px`;
+    this._updatePropertyTextStyle(this._TextSafe, this._safeColor);
+    this._updateValueTextStyle(this._TextSafe);
   }
 }
 

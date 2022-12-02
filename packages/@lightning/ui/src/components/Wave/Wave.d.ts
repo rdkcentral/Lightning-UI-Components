@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
-import type { Color, StylePartial } from '@lightning/ui-core';
-import { Base } from '@lightning/ui-core';
+import type { Base, Color, StylePartial } from '@lightning/ui-core';
 
 export type WaveStyles = {
   color: Color;

@@ -1,7 +1,6 @@
 import type lng from '@lightningjs/core';
 import type Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
 
 export type BadgeStyles = {
   backgroundColor: Color;
@@ -10,7 +9,7 @@ export type BadgeStyles = {
   paddingX: number;
   paddingY: number;
   radius: lng.Tools.CornerRadius;
-  textStyle: TextBoxStyles;
+  textStyle: lng.textures.TextTexture.Settings;
   textAlign: string;
 };
 

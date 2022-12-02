@@ -58,14 +58,14 @@ requirements
 
 ### Properties
 
-| name        | type           | required | default | description                                                                            |
-| ----------- | -------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| actionArea  | string\|array  | false    | false   | text to be displayed as action area                                                    |
-| description | string\|array  | false    | -       | text to be displayed as description                                                    |
-| entered     | boolean        | false    | false   | if true, enter animation will be triggered immediately                                 |
-| icon        | string         | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
-| logo        | string         | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
-| title       | string\|string | true     | -       | text to be displayed as title                                                          |
+| name        | type             | required | default | description                                                                            |
+| ----------- | ---------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
+| actionArea  | string \| array  | false    | false   | text to be displayed as action area                                                    |
+| description | string \| array  | false    | -       | text to be displayed as description                                                    |
+| entered     | boolean          | false    | false   | if true, enter animation will be triggered immediately                                 |
+| icon        | string           | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
+| logo        | string           | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
+| title       | string \| string | true     | -       | text to be displayed as title                                                          |
 
 ### Methods
 
@@ -79,28 +79,28 @@ Triggers dismiss animation. Slides notification back to the right and alpha's al
 
 ### Style Properties
 
-| name                    | type   | description                                                         |
-| ----------------------- | ------ | ------------------------------------------------------------------- |
-| actionAreaMarginTop     | number | space between content text and action area                          |
-| actionAreaTextStyle     | object | font properties to apply to action area                             |
-| backgroundColor         | number | background color of Notification                                    |
-| descriptionTextStyle    | object | font properties to apply to description                             |
-| dismissAlpha            | number | alpha of dismissed Notification                                     |
-| dismissScale            | number | scale of dismissed Notification                                     |
-| enterAlpha              | number | alpha of entered Notification                                       |
-| enterScale              | number | scale of entered Notification                                       |
-| iconMarginRight         | number | space between icon and content text                                 |
-| iconMarginTop           | number | space above icon in addition to marginY                             |
-| iconOnlyMarginX         | number | space to left and right of icon before step 2 enter animation runs  |
-| iconSize                | number | w and height of icon                                                |
-| iconStyles              | object | custom styles to be applied to icon                                 |
-| logoStyles              | object | custom styles to be applied to                                      |
-| marginX                 | number | space to left and right of content in entered Notification          |
-| marginY                 | number | space above and below of content in entered Notification            |
-| step1Animation          | object | duration and delay to be applied to step 1 animation                |
-| step2Animation          | object | duration and delay to be applied to step 2 animation                |
-| step2TextEnterAnimation | object | duration and delay of text animation in step 2 of enter animation   |
-| step2TextExitAnimation  | object | duration and delay of text animation in step 2 of dismiss animation |
-| step3Animation          | object | duration and delay to be applied to step 3 animation                |
-| titleTextStyle          | object | font properties to apply to title                                   |
-| w                       | number | widht of Notification                                               |
+| name                    | type             | description                                                         |
+| ----------------------- | ---------------- | ------------------------------------------------------------------- |
+| actionAreaMarginTop     | number           | space between content text and action area                          |
+| actionAreaTextStyle     | string \| object | font properties to apply to action area                             |
+| backgroundColor         | number           | background color of Notification                                    |
+| descriptionTextStyle    | string \| object | font properties to apply to description                             |
+| dismissAlpha            | number           | alpha of dismissed Notification                                     |
+| dismissScale            | number           | scale of dismissed Notification                                     |
+| enterAlpha              | number           | alpha of entered Notification                                       |
+| enterScale              | number           | scale of entered Notification                                       |
+| iconMarginRight         | number           | space between icon and content text                                 |
+| iconMarginTop           | number           | space above icon in addition to marginY                             |
+| iconOnlyMarginX         | number           | space to left and right of icon before step 2 enter animation runs  |
+| iconSize                | number           | w and height of icon                                                |
+| iconStyles              | object           | custom styles to be applied to icon                                 |
+| logoStyles              | object           | custom styles to be applied to                                      |
+| marginX                 | number           | space to left and right of content in entered Notification          |
+| marginY                 | number           | space above and below of content in entered Notification            |
+| step1Animation          | object           | duration and delay to be applied to step 1 animation                |
+| step2Animation          | object           | duration and delay to be applied to step 2 animation                |
+| step2TextEnterAnimation | object           | duration and delay of text animation in step 2 of enter animation   |
+| step2TextExitAnimation  | object           | duration and delay of text animation in step 2 of dismiss animation |
+| step3Animation          | object           | duration and delay to be applied to step 3 animation                |
+| titleTextStyle          | string \| object | font properties to apply to title                                   |
+| w                       | number           | widht of Notification                                               |

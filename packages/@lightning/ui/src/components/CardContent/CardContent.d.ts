@@ -1,6 +1,6 @@
 import type Card from '../Card/Card';
 import { CardStyles } from '../Card/Card';
-import { MetadataCardContent } from '../MetadataCardContent/MetadataCardContent'
+import { MetadataCardContent } from '../MetadataCardContent/MetadataCardContent';
 import type { StylePartial } from '@lightning/ui-core';
 
 type ImageSize = {
