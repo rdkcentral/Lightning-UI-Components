@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import TextBox from './index.js';
 import mdx from './TextBox.mdx';
-import { context } from '../../globals/index.js';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils/index.js';
 import inlineContentStory from '../InlineContent/InlineContent.stories';
@@ -27,7 +26,8 @@ export const Basic = () =>
     static _template() {
       return {
         TextBox: {
-          type: TextBox
+          type: TextBox,
+          style: { textStyle: { wordWrapWidth: 600, maxLines: 3 } }
         }
       };
     }
@@ -43,40 +43,6 @@ Basic.argTypes = {
       defaultValue: { summary: '' }
     }
   },
-  textAlign: {
-    control: {
-      type: 'select',
-      options: ['left', 'center', 'right']
-    },
-    defaultValue: 'left',
-    description: 'the horizontal alignment of TextBox content',
-    type: 'string',
-    table: {
-      defaultValue: { summary: 'left' }
-    }
-  },
-  textColor: {
-    control: 'color',
-    defaultValue: '#ffffff',
-    description: 'Desired color of rendered text.',
-    type: 'string',
-    table: {
-      defaultValue: { summary: '#ffffff' }
-    }
-  },
-  textStyle: {
-    control: {
-      type: 'select',
-      options: Object.keys(context.theme.typography)
-    },
-    defaultValue: 'body1',
-    description:
-      'Style of text to be displayed. This value will take precedent over the `textStyle` style property. Avalilable values display1, display2, headline1, headline2, headline3, body1, body2, body3, button1, button2, callout1, caption1. Alternatively an object can be passed in containing any [properties that the Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties).',
-    type: 'string',
-    table: {
-      defaultValue: { summary: 'body1' }
-    }
-  },
   marquee: {
     control: 'boolean',
     defaultValue: false,
@@ -84,54 +50,6 @@ Basic.argTypes = {
       "Scrolls text when a single line of text is longer than the textbox's width",
     table: {
       defaultValue: { summary: 'false' }
-    }
-  },
-  maxLines: {
-    control: {
-      type: 'number',
-      min: 0,
-      max: 100
-    },
-    defaultValue: 3,
-    description: 'Maximum number of lines to display before truncation',
-    type: 'number',
-    table: {
-      defaultValue: { summary: 0 }
-    }
-  },
-  verticalAlign: {
-    control: {
-      type: 'select',
-      options: ['top', 'middle', 'bottom']
-    },
-    defaultValue: 'middle',
-    description: 'The vertical alignment of TextBox content.',
-    type: 'string',
-    table: {
-      defaultValue: { summary: 'middle' }
-    }
-  },
-  wordWrap: {
-    control: 'boolean',
-    defaultValue: true,
-    description:
-      'Allows long sentences to be broken into new lines when the width of TextBox content exceeds the wordWrapWidth',
-    type: 'boolean',
-    table: {
-      defaultValue: { summary: true }
-    }
-  },
-  wordWrapWidth: {
-    control: {
-      type: 'number',
-      min: 0,
-      max: 2000
-    },
-    defaultValue: 600,
-    description: 'Width set to start wrapping to next line',
-    type: 'number',
-    table: {
-      defaultValue: { summary: 0 }
     }
   }
 };

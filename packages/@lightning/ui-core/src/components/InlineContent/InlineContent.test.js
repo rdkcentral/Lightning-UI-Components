@@ -285,9 +285,9 @@ describe('InlineContent', () => {
     expect(newline.h).toBe(0);
   });
 
-  it('should use user entered textStyleOptions when specified for a text object', async () => {
+  it('should use user entered customStyleMappings when specified for a text object', async () => {
     const color = getHexColor('ff0000');
-    inlineContent.textStyleOptions = { red: { textColor: color } };
+    inlineContent.customStyleMappings = { red: { textColor: color } };
     inlineContent.content = [{ text: 'red text', style: 'red' }];
 
     [inlineContent, testRenderer] = createInlineContent(

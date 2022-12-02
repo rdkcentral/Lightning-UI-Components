@@ -37,8 +37,12 @@ class CardTitle extends Card {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this.style.descriptionTextStyle,
-      wordWrapWidth: this._calculateTextWidth()
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
+          wordWrapWidth: this._calculateTextWidth()
+        }
+      }
     });
   }
 

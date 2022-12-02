@@ -1,4 +1,5 @@
-import type { TextBoxStyles, StylePartial, Card, CardStyles } from '@lightning/ui-core';
+import Card, { CardStyles } from './Card';
+import type { TextBoxStyles, StylePartial } from '@lightning/ui-core';
 
 export type CardTitleStyles = CardStyles & {
   descriptionTextStyle: TextBoxStyles;

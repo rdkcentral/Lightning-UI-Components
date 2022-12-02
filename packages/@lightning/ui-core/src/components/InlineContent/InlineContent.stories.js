@@ -68,7 +68,7 @@ export const Basic = args =>
       return {
         InlineContent: {
           type: InlineContentComponent,
-          x: 200,
+          x: 500,
           w: 200,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
@@ -119,7 +119,7 @@ export const WithNewLines = args =>
       return {
         InlineContent: {
           type: InlineContentComponent,
-          x: 200,
+          x: 500,
           w: 400,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
@@ -159,7 +159,7 @@ export const WithParsing = args =>
       return {
         InlineContent: {
           type: InlineContentComponent,
-          x: 200,
+          x: 550,
           w: 400,
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,

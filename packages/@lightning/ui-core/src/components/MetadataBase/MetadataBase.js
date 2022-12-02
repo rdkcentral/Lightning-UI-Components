@@ -164,18 +164,22 @@ class MetadataBase extends Base {
   _updateTitle() {
     this._Title.patch({
       content: this.title,
-      textStyle: this.style.titleTextStyle,
-      wordWrap: true,
-      maxLines: 1,
-      wordWrapWidth: this._Text.w,
-      marquee: this.marquee
+      style: {
+        textStyle: {
+          ...this.style.titleTextStyle,
+          maxLines: 1,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        },
+        marquee: this.marquee
+      }
     });
   }
 
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,
-      textStyle: this.style.subtitleTextStyle,
+      style: { textStyle: this.style.subtitleTextStyle },
       justify: 'flex-start'
     });
     if (this._Subtitle.finalW > this._textW()) {
@@ -197,11 +201,15 @@ class MetadataBase extends Base {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this.style.descriptionTextStyle,
-      wordWrap: true,
-      maxLines: 1,
-      marquee: this.marquee,
-      wordWrapWidth: this._Text.w
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
+          maxLines: 1,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        },
+        marquee: this.marquee
+      }
     });
   }
 

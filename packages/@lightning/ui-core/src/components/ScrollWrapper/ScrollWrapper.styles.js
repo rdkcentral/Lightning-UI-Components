@@ -1,5 +1,5 @@
 export const base = theme => ({
-  text: theme.typography.body2,
+  textStyle: theme.typography.body2,
   fadeHeight: 100,
   scroll: {
     timingFunction: 'linear',

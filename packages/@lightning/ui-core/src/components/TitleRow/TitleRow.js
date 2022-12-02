@@ -49,7 +49,7 @@ class TitleRow extends Row {
       this._Title.patch({
         x: this.style.titleMarginLeft,
         content: this.title,
-        textStyle: this.style.titleTextStyle
+        style: { textStyle: this.style.titleTextStyle }
       });
     } else if (this._Title) {
       this._Title.patch({

@@ -7,7 +7,7 @@ export const base = theme => ({
   },
   titleTextStyle: {
     ...theme.typography.headline3,
-    wordWrapTrue: true,
+    wordWrap: true,
     maxLines: 1,
     textColor: theme.color.textNeutral
   }

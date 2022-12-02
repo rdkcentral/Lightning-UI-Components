@@ -46,7 +46,8 @@ describe('CardSection', () => {
         cardSection.style.paddingHorizontal
     );
     expect(cardSection._Icon.y).toEqual(
-      (cardSection._Title._textStyle.lineHeight - cardSection.iconWidth) / 2 +
+      (cardSection._Title.style.textStyle.lineHeight - cardSection.iconWidth) /
+        2 +
         cardSection.style.paddingVertical
     );
   });

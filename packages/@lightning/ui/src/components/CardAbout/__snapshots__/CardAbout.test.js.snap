@@ -89,7 +89,6 @@ exports[`cardAbout renders 1`] = `
             "textOverflow": "ellipsis",
             "type": "TextTexture",
             "verticalAlign": "middle",
-            "wordWrapWidth": 474.66666666666663,
           },
           "visible": true,
           "w": 0,

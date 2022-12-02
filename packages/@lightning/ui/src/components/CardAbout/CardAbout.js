@@ -48,7 +48,7 @@ class CardAbout extends CardTitle {
     const iconTextContainerObject = {
       contentSpacing: this.style.contentSpacing,
       y:
-        this._Title.textStyle.lineHeight +
+        this._Title.style.textStyle.lineHeight +
         this.style.paddingVertical +
         this.style.paddingFirstLine,
       style: this.style.inlineContentStyle
@@ -74,7 +74,7 @@ class CardAbout extends CardTitle {
   _updateTitleStyle() {
     if (typeof this.title === 'string') {
       this._Title.patch({
-        textStyle: this.style.titleTextStyle,
+        style: { textStyle: this.style.titleTextStyle },
         y: this.style.paddingFirstLine,
         content: this.title.toUpperCase()
       });
@@ -88,11 +88,16 @@ class CardAbout extends CardTitle {
           (this._LeftIconTextContainer.style.textStyle.lineHeight ||
             this._RightIconTextContainer.style.textStyle.lineHeight) +
           this.style.paddingVertical
-        : this._Title.textStyle.lineHeight +
+        : this._Title.style.textStyle.lineHeight +
           this.style.paddingVertical +
           this.style.paddingFirstLine,
-      textStyle: this.style.descriptionTextStyle,
-      maxLines: this._hasContent ? 3 : 5,
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
+          wordWrapWidth: this._calculateTextWidth(),
+          maxLines: this._hasContent ? 3 : 5
+        }
+      },
       x: this.style.paddingHorizontal
     });
   }

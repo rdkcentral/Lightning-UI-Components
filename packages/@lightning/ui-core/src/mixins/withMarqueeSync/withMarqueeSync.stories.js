@@ -24,8 +24,7 @@ export const Basic = () => {
           Title: {
             type: TextBox,
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-            wordWrapWidth: 250,
-            maxLines: 1,
+            style: { textStyle: { wordWrapWidth: 250, maxLines: 1 } },
             marquee: true
           },
           Subtitle: {
@@ -33,8 +32,7 @@ export const Basic = () => {
             content:
               'Morbi vehicula rhoncus aliquam. Cras eget vulputate lectus. Aenean egestas mi at scelerisque cursus.',
             y: 30,
-            wordWrapWidth: 250,
-            maxLines: 1,
+            style: { textStyle: { wordWrapWidth: 250, maxLines: 1 } },
             marquee: true
           }
         }

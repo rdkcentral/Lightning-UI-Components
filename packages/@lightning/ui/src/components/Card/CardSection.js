@@ -31,7 +31,7 @@ class CardSection extends Card {
       icon: this.iconSrc,
       x: this.w - this.iconWidth - this.style.paddingHorizontal,
       y:
-        (this._Title._textStyle.lineHeight - this.iconHeight) / 2 +
+        (this._Title.style.textStyle.lineHeight - this.iconHeight) / 2 +
         this.style.paddingVertical
     };
     if (!this._Icon) {

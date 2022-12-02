@@ -574,7 +574,6 @@ exports[`ListItemSlider renders 1`] = `
                     "textOverflow": "ellipsis",
                     "type": "TextTexture",
                     "verticalAlign": "middle",
-                    "wordWrapWidth": undefined,
                   },
                   "visible": true,
                   "w": 0,

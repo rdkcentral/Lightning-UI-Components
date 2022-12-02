@@ -131,9 +131,13 @@ class MetadataCardContent extends MetadataBase {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
-      textStyle: this.style.descriptionTextStyle,
-      wordWrap: true,
-      wordWrapWidth: this._Text.w
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        }
+      }
     });
   }
 
@@ -141,10 +145,14 @@ class MetadataCardContent extends MetadataBase {
     const maxWidth = this._detailsMaxW;
     this._Details.patch({
       content: this.details,
-      textStyle: this.style.detailsTextStyle,
-      wordWrap: true,
-      maxLines: 1, // sets default for details
-      wordWrapWidth: maxWidth + this.style.fadeWidth / 2
+      style: {
+        textStyle: {
+          ...this.style.detailsTextStyle,
+          wordWrap: true,
+          maxLines: 1, // sets default for details
+          wordWrapWidth: maxWidth + this.style.fadeWidth / 2
+        }
+      }
     });
     if (this._Details.finalW > maxWidth) {
       this._DetailsFader.patch({

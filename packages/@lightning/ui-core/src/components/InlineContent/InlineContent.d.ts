@@ -2,7 +2,6 @@ import lng from '@lightningjs/core';
 import Badge from '../Badge';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
-import InlineContent, { InlineContentStyles } from './InlineContent';
 
 type JustifyContent =
   | 'flex-start'
@@ -63,17 +62,11 @@ export type InlineContentStyles = {
 export default class InlineContent extends Base {
   content?: TextContent[];
   contentProperties?: FlexItem;
-  textStyle?: lng.textures.TextTexture.Settings;
-  justify?: JustifyContent;
-  iconW?: number;
-  iconH?: number;
-  iconY?: number;
-  textY?: number;
   badgeY?: number;
-  contentSpacing?: number;
   badgeProperties?: Partial<Badge>;
+  justify?: JustifyContent;
   contentWrap?: boolean;
-  textStyleOptions?: Record<string, unknown>;
+  customStyleMappings?: Record<string, unknown>;
   get style(): InlineContentStyles;
   set style(v: StylePartial<InlineContentStyles>);
 }

@@ -6,7 +6,7 @@ export const base = theme => ({
   radius: theme.radius.md,
   titleTextStyle: {
     ...theme.typography.headline1,
-    wordWrapTrue: true,
+    wordWrap: true,
     maxLines: 2,
     textColor: theme.color.textNeutral
   },

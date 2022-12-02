@@ -91,11 +91,11 @@ describe('cardAboutStacked', () => {
     );
     expect(cardAboutStacked._Description.y).toEqual(
       cardAboutStacked._Title.y +
-        cardAboutStacked._Title.textStyle.lineHeight +
+        cardAboutStacked._Title.style.textStyle.lineHeight +
         cardAboutStacked.style.paddingVertical * 1.5
     );
     expect(cardAboutStacked._DescriptionBottom.y).toEqual(
-      cardAboutStacked._TitleBottom.textStyle.lineHeight +
+      cardAboutStacked._TitleBottom.style.textStyle.lineHeight +
         cardAboutStacked._TitleBottom.y +
         cardAboutStacked.style.paddingVertical
     );
@@ -116,30 +116,14 @@ describe('cardAboutStacked', () => {
             cardAboutStacked.style.paddingVertical * 2
         : cardAboutStacked.style.paddingFirstLine
     );
-    expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
+    expect(cardAboutStacked._TitleBottom.style.textStyle).toMatchObject(
       cardAboutStacked.style.titleTextStyle
+    );
+    expect(cardAboutStacked._TitleBottom.style.textStyle.wordWrapWidth).toEqual(
+      cardAboutStacked._calculateTextWidth()
     );
   });
 
-  it('should update Bottom text', () => {
-    cardAboutStacked.titleBottom = 'Languages';
-
-    testRenderer.forceAllUpdates();
-    expect(cardAboutStacked._TitleBottom.content).toEqual('LANGUAGES');
-    expect(cardAboutStacked._TitleBottom.x).toEqual(
-      cardAboutStacked.style.paddingHorizontal
-    );
-    expect(cardAboutStacked._TitleBottom.y).toEqual(
-      cardAboutStacked.description
-        ? cardAboutStacked._Description.y +
-            cardAboutStacked._Description.style.textStyle.lineHeight +
-            cardAboutStacked.style.paddingVertical * 2
-        : cardAboutStacked.style.paddingFirstLine
-    );
-    expect(cardAboutStacked._TitleBottom.textStyle).toEqual(
-      cardAboutStacked.style.titleTextStyle
-    );
-  });
   it('should update position of Description', () => {
     cardAboutStacked.descriptionBottom = 'Description';
     cardAboutStacked.titleBottom = 'Languages';
@@ -154,8 +138,11 @@ describe('cardAboutStacked', () => {
         : cardAboutStacked._TitleBottom.y +
             cardAboutStacked.style.paddingVertical * 3
     );
-    expect(cardAboutStacked._DescriptionBottom.textStyle).toEqual(
+    expect(cardAboutStacked._DescriptionBottom.style.textStyle).toMatchObject(
       cardAboutStacked.style.descriptionTextStyle
     );
+    expect(
+      cardAboutStacked._DescriptionBottom.style.textStyle.wordWrapWidth
+    ).toEqual(cardAboutStacked._calculateTextWidth());
   });
 });

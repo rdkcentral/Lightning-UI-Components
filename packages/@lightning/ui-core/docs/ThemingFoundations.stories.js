@@ -48,7 +48,7 @@ class ColorInfo extends Base {
       },
       Name: {
         type: TextBox,
-        textStyle: 'caption1'
+        style: { textStyle: 'caption1' }
       }
     };
   }
@@ -89,7 +89,7 @@ class Radius extends Base {
       Text: {
         x: 34,
         type: TextBox,
-        textStyle: 'caption1'
+        style: { textStyle: 'caption1' }
       }
     };
   }
@@ -135,7 +135,7 @@ class MiscProp extends Base {
     return {
       Text: {
         type: TextBox,
-        textStyle: 'caption1'
+        style: { textStyle: 'caption1' }
       }
     };
   }
@@ -190,62 +190,62 @@ export const ThemingTokens = () => {
             Display1: {
               type: TextBox,
               content: 'Display 1',
-              textStyle: 'display1'
+              style: { textStyle: 'display1' }
             },
             Display2: {
               type: TextBox,
               content: 'Display 2',
-              textStyle: 'display2'
+              style: { textStyle: 'display2' }
             },
             Headline1: {
               type: TextBox,
               content: 'Headline 1',
-              textStyle: 'headline1'
+              style: { textStyle: 'headline1' }
             },
             Headline2: {
               type: TextBox,
               content: 'Headline 2',
-              textStyle: 'headline2'
+              style: { textStyle: 'headline2' }
             },
             Headline3: {
               type: TextBox,
               content: 'Headline 3',
-              textStyle: 'headline3'
+              style: { textStyle: 'headline3' }
             },
             Body1: {
               type: TextBox,
               content: 'Body 1',
-              textStyle: 'body1'
+              style: { textStyle: 'body1' }
             },
             Body2: {
               type: TextBox,
               content: 'Body 2',
-              textStyle: 'body2'
+              style: { textStyle: 'body2' }
             },
             Body3: {
               type: TextBox,
               content: 'Body 3',
-              textStyle: 'body3'
+              style: { textStyle: 'body3' }
             },
             Button1: {
               type: TextBox,
               content: 'Button 1',
-              textStyle: 'button1'
+              style: { textStyle: 'button1' }
             },
             Button2: {
               type: TextBox,
               content: 'Button 2',
-              textStyle: 'button2'
+              style: { textStyle: 'button2' }
             },
             Callout1: {
               type: TextBox,
               content: 'CALLOUT 1',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             Caption: {
               type: TextBox,
               content: 'Caption 1',
-              textStyle: 'caption1'
+              style: { textStyle: 'caption1' }
             }
           }
         },
@@ -257,7 +257,7 @@ export const ThemingTokens = () => {
             General: {
               type: TextBox,
               content: 'General',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             White: {
               type: ColorInfo,
@@ -298,7 +298,7 @@ export const ThemingTokens = () => {
             Material: {
               type: TextBox,
               content: 'Material',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             MaterialSwatch: {
               type: ColorInfo,
@@ -315,7 +315,7 @@ export const ThemingTokens = () => {
             Shadow: {
               type: TextBox,
               content: 'Shadow',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             ShadowNeutralFocusSwatch: {
               type: ColorInfo,
@@ -351,7 +351,7 @@ export const ThemingTokens = () => {
             Text: {
               type: TextBox,
               content: 'Text',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             TextNeutralSwatch: {
               type: ColorInfo,
@@ -388,7 +388,7 @@ export const ThemingTokens = () => {
             Fill: {
               type: TextBox,
               content: 'Fill',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             FillNeutralSwatch: {
               type: ColorInfo,
@@ -448,7 +448,7 @@ export const ThemingTokens = () => {
             Stroke: {
               type: TextBox,
               content: 'Stroke',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             StrokeNeutralSwatch: {
               type: ColorInfo,
@@ -501,7 +501,7 @@ export const ThemingTokens = () => {
             Interactive: {
               type: TextBox,
               content: 'Interactive',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             InteractiveNeutralFocusSwatch: {
               type: ColorInfo,
@@ -553,7 +553,7 @@ export const ThemingTokens = () => {
               extraItemSpacing: itemSpacing * 2,
               mode: 'focused'
             },
-            ButtonWitoutFocus: {
+            ButtonWithoutFocus: {
               type: Button,
               title: 'Example',
               style: { minWidth: 0 }
@@ -561,7 +561,7 @@ export const ThemingTokens = () => {
             Radius: {
               type: TextBox,
               content: 'Radius',
-              textStyle: 'callout1'
+              style: { textStyle: 'callout1' }
             },
             RadiusGrid: {
               type: Column,
@@ -599,7 +599,7 @@ export const ThemingTokens = () => {
             Misc: {
               type: TextBox,
               content: 'Misc',
-              textStyle: 'callout1',
+              style: { textStyle: 'callout1' },
             },
             SpacingBase: {
               type: MiscProp,

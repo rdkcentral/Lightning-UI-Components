@@ -55,7 +55,7 @@ describe('ListItem', () => {
   it('should truncate description text', () => {
     component.description = 'Description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.wordWrapWidth).toEqual(
+    expect(component._Description.style.textStyle.wordWrapWidth).toEqual(
       component._fixedWordWrapWidth
     );
   });

@@ -2,7 +2,6 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { TextBoxStyles } from '../TextBox';
-import Tooltip, { TooltipStyles } from './Tooltip';
 
 type TransitionObject = {
   delay: number;

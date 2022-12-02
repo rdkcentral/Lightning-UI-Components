@@ -44,19 +44,7 @@ class TextBox extends Base {
   }
 
   static get properties() {
-    return [
-      'content',
-      'textAlign',
-      'textColor',
-      'textStyle',
-      'marquee',
-      'maxLines',
-      'maxLinesSuffix',
-      'verticalAlign',
-      'wordWrap',
-      'wordWrapWidth',
-      ...InlineContent.properties
-    ];
+    return ['content', 'marquee', ...InlineContent.properties];
   }
 
   _setDimensions(w, h) {
@@ -91,61 +79,6 @@ class TextBox extends Base {
     return content;
   }
 
-  _setTextColor(textColor) {
-    const color = utils.getValidColor(textColor);
-    if (null === color) {
-      return undefined;
-    }
-    return color;
-  }
-
-  _setTextAlign(textAlign) {
-    const options = ['left', 'center', 'right'];
-    if ('string' !== typeof textAlign || -1 === options.indexOf(textAlign)) {
-      return undefined;
-    }
-    return textAlign;
-  }
-
-  _setVerticalAlign(verticalAlign) {
-    const options = ['top', 'middle', 'bottom'];
-    if (
-      'string' !== typeof verticalAlign ||
-      -1 === options.indexOf(verticalAlign)
-    ) {
-      return undefined;
-    }
-    return verticalAlign;
-  }
-
-  _setMaxLines(maxLines) {
-    if ('number' !== typeof maxLines || 0 > maxLines) {
-      return 0;
-    }
-    return maxLines;
-  }
-
-  _setWordWrap(wordWrap) {
-    if ('boolean' !== typeof wordWrap) {
-      return undefined;
-    }
-    return wordWrap;
-  }
-
-  _setWordWrapWidth(wordWrapWidth) {
-    if ('number' !== typeof wordWrapWidth || 0 > wordWrapWidth) {
-      return 0;
-    }
-    return wordWrapWidth;
-  }
-
-  _setMaxLinesSuffix(maxLinesSuffix) {
-    if ('string' !== typeof maxLinesSuffix) {
-      return this.style.maxLinesSuffix;
-    }
-    return maxLinesSuffix;
-  }
-
   get title() {
     return this._content;
   }
@@ -178,16 +111,19 @@ class TextBox extends Base {
 
   _updateInlineContent() {
     this.patch({ Text: undefined });
+
     const inlineContentPatch = InlineContent.properties.reduce((acc, prop) => {
       if (this[prop] != undefined) {
         acc[prop] = this[prop];
       }
       return acc;
     }, {});
-    if (this.wordWrapWidth > 0) {
-      inlineContentPatch.w = this.wordWrapWidth;
+
+    if (this.style.textStyle.wordWrapWidth > 0) {
+      inlineContentPatch.w = this.style.textStyle.wordWrapWidth;
       inlineContentPatch.rtt = true;
     }
+
     this.patch({
       alpha: 1,
       InlineContent: {
@@ -202,20 +138,21 @@ class TextBox extends Base {
 
   _updateText() {
     this.patch({ InlineContent: undefined });
+
     if (!this._Text) {
       this.patch({ Text: {} });
       this._Text.on('txLoaded', this._setDimensions.bind(this));
     }
+
     const fontStyle = this._textStyleSet;
+
     if (this._Text) {
       this._Text.patch({
         y: this.style.offsetY,
         x: this.style.offsetX,
         text: {
           ...lightningTextDefaults, // order matters this should always be first
-          ...fontStyle,
-          wordWrapWidth: fontStyle.wordWrapWidth,
-          maxLines: fontStyle.maxLines
+          ...fontStyle
         }
       });
     }
@@ -241,24 +178,28 @@ class TextBox extends Base {
 
   _updateMarquee() {
     const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
+
     if (this._Marquee && !this.marquee) {
       this._toggleMarquee(contentTag);
     }
+
     if (this.marquee) {
       this._resetMarqueePromise();
       const marqueePatch = {
-        w: this.wordWrapWidth,
+        w: this.style.textStyle.wordWrapWidth || this.w,
         h: this.h,
         y: this.style.offsetY,
         x: this.style.offsetX
       };
+
       if (!this._Marquee) {
         marqueePatch.type = Marquee;
       }
+
       if (this._isInlineContent) {
         this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
         marqueePatch.contentTexture = contentTag.getTexture();
-        marqueePatch.w = this.wordWrapWidth;
+        marqueePatch.w = this.style.textStyle.wordWrapWidth || this.w;
       } else {
         marqueePatch.title = {
           text: contentTag.text.text,
@@ -267,6 +208,7 @@ class TextBox extends Base {
           maxLines: 1
         };
       }
+
       this.patch({
         Marquee: marqueePatch
       });
@@ -290,12 +232,13 @@ class TextBox extends Base {
     const fontStyle = {
       ...(this.style.typography[this.style.defaultTextStyle] ||
         this.style.typography.body1),
-      ...(null !== this.textStyle &&
-      'object' === typeof this.textStyle &&
-      Object.keys(this.textStyle)
-        ? this.textStyle
-        : this.style.typography[this.textStyle])
+      ...(null !== this.style.textStyle &&
+      'object' === typeof this.style.textStyle &&
+      Object.keys(this.style.textStyle)
+        ? this.style.textStyle
+        : this.style.typography[this.style.textStyle])
     };
+
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
         const key = 'content' === prop ? 'text' : prop;

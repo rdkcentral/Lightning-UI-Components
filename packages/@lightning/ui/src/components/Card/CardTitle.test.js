@@ -47,10 +47,15 @@ describe('CardTitle', () => {
     cardTitle.description = 'Description';
     testRenderer.forceAllUpdates();
     expect(cardTitle._Description.content).toEqual('Description');
-    expect(cardTitle._Description.textStyle).toEqual(
+    // textStyle has wordWrapWidth defined when the component generates rather than in the descriptionTextStyle
+    // thus the expect method cannot pass with "toEqual" hence the switch to "toMatchObject"
+    expect(cardTitle._Description.style.textStyle).toMatchObject(
       cardTitle.style.descriptionTextStyle
     );
-    expect(cardTitle._Description.textStyle.textColor).toEqual(
+    expect(cardTitle._Description.style.textStyle.wordWrapWidth).toEqual(
+      cardTitle._calculateTextWidth()
+    );
+    expect(cardTitle._Description.style.textStyle.textColor).toEqual(
       cardTitle.style.descriptionTextStyle.textColor
     );
   });
