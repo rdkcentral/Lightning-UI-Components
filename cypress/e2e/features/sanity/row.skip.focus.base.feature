@@ -15,21 +15,21 @@ Feature: LUI Row Skip Focus component
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>'
     Examples:
-      | element       | text             |
-      | Button1Label  | Skip Focus Text  |
-      | Button2Label  | Button           |
-      | Button3Label  | Button           |
-      | Button4Label  | Button           |
-      | Button5Label  | Skip Focus Text  |
-      | Button6Label  | Button           |
-      | Button7Label  | Button           |
-      | Button8Label  | Button           |
-      | Button9Label  | Skip Focus Text  |
-      | Button10Label | Button           |
-      | Button11Label | Button           |
-      | Button12Label | Button           |
-      | Button13Label | Skip Focus Text  |
-      | Button14Label | Skip Focus Text  |
+      | element                | text             |
+      | Button1LabelSkipFocus  | Skip Focus Text  |
+      | Button2LabelSkipFocus  | Button           |
+      | Button3LabelSkipFocus  | Button           |
+      | Button4LabelSkipFocus  | Button           |
+      | Button5LabelSkipFocus  | Skip Focus Text  |
+      | Button6LabelSkipFocus  | Button           |
+      | Button7LabelSkipFocus  | Button           |
+      | Button8LabelSkipFocus  | Button           |
+      | Button9LabelSkipFocus  | Skip Focus Text  |
+      | Button10LabelSkipFocus | Button           |
+      | Button11LabelSkipFocus | Button           |
+      | Button12LabelSkipFocus | Button           |
+      | Button13LabelSkipFocus | Skip Focus Text  |
+      | Button14LabelSkipFocus | Skip Focus Text  |
 
   Scenario: Validate navigating the buttons with Skip Focus
     Then I verify that the 'Button2SkipFocus' component on the 'Row' page is in focus

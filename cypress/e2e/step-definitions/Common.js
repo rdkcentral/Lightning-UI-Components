@@ -834,4 +834,15 @@ export default function () {
       }
     }
   );
+
+  /**
+   * @module Common
+   * @function I wait {float} seconds for the page to load
+   * @description Cucumber statement to wait a set amount of time
+   * @param {Float} waitTime
+   * @example I wait 2 seconds for the page to load
+   */
+  Then('I wait {float} seconds for the page to load', waitTime => {
+    cy.wait(waitTime * 1000);
+  });
 }
