@@ -28,9 +28,7 @@ Basic.args = {
   min: 0,
   max: 100,
   value: 50,
-  step: 1,
-  focused: true,
-  disabled: false
+  step: 1
 };
 Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
@@ -49,14 +47,6 @@ Basic.argTypes = {
   step: {
     control: 'number',
     description: '+/- value on change'
-  },
-  focused: {
-    control: 'boolean',
-    description: 'focused state of slider where knob is not shown'
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'disabled state where arrows are not shown'
   }
 };
 

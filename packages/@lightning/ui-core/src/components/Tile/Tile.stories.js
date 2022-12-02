@@ -7,7 +7,6 @@ import {
 } from '../../../storybook/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 import tileImage from '../../assets/images/tile-image.png';
-
 import { Artwork as ArtworkStory } from '../Artwork/Artwork.stories.js';
 import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories.js';
 import { MetadataTile as MetadataTileStory } from '../MetadataTile/MetadataTile.stories';

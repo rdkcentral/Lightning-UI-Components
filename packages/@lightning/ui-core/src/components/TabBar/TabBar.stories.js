@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-
 import Tile from '../Tile/index.js';
 import ButtonSmall from '../Button/ButtonSmall.js';
 import Icon from '../Icon/index.js';

@@ -54,7 +54,8 @@ const sharedArgTypes = {
   w: {
     control: 'number',
     defaultValue: 200,
-    description: 'Width of component',
+    description:
+      'Width of component can be changed only when fixed is set to true',
     table: {
       defaultValue: { summary: 0 }
     }
