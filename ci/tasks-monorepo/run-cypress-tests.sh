@@ -47,16 +47,20 @@ start_time=$(date +"%b %d %Y, %a %H-%M-%S %Z")
 
 echo "Execution starts : $start_time"
 yarn run cy:preSanityTestsExec
-yarn run cy:launchAppAndRunSanityVrtTestsParallel || FAILING_TESTS=$?
+yarn run cy:launchAppAndRunSanityVrtTestsParallel
 yarn run cy:postSanityTestsExec
 
 FILE=cypress/reports/index.html
-if [ -f "$FILE" ]; then
-  echo "Report generated at $FILE."
+JSON=cypress/reports/output.json
+
+if [[ -f "$FILE" && -f "$JSON" ]]; then
+  echo "Report html and json are generated at cypress/reports"
 else
-  echo "Report does not exist at $FILE."
+  echo "Report html and json does not exist at cypress/reports"
   exit 1
 fi
+
+FAILING_TESTS=$(jq '.stats.failures' cypress/reports/output.json)
 
 echo "Automation Execution and Report Generation Completed. Posting Test Results"
 
