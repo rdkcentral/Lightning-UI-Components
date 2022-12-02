@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-
 import { default as CheckboxComponent } from './index.js';
 import mdx from './Checkbox.mdx';
 import { createModeControl } from '../../../storybook/index.js';

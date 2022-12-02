@@ -1,5 +1,4 @@
 import lng from '@lightningjs/core';
-
 import withAnnouncer, { defaultAbbrevConfig } from './index.js';
 import { Column, Row, Button } from '../../components/index.js';
 import mdx from './withAnnouncer.mdx';

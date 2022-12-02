@@ -4,6 +4,7 @@ import { context } from '../../globals/index.js';
 import kabob from '../../assets/images/kabob_320x180.jpg';
 import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';
+import { CATEGORIES } from 'lightning-ui-docs';
 
 context.config({
   // Inspect console to see - should only be called when pressing enter on first tile.
@@ -12,8 +13,6 @@ context.config({
     console.log('Metrics payload received', key, p);
   }
 });
-
-import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
   title: `${CATEGORIES[512]}/withHandleKey`,
@@ -70,7 +69,6 @@ export const withHandleKey = args => {
         }
       };
     }
-
     // eslint-disable-next-line no-unused-vars
     $onEnter(keyEvent, tile) {
       args.onEnter();

@@ -40,6 +40,11 @@ class ListItemSlider extends ListItem {
     ];
   }
 
+  _construct() {
+    super._construct();
+    this.value = 50;
+  }
+
   _update() {
     super._update();
     this._updateSliderPosition();

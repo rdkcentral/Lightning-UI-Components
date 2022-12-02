@@ -59,7 +59,7 @@ const sharedArgTypes = {
     control: 'boolean',
     defaultValue: false,
     description:
-      'stops the width from beingg calculated dynamically based on content and will instead use the`w` property',
+      'Stops the width from being calculated dynamically based on content and will instead use the`w` property',
     table: {
       defaultValue: { summary: 'false' }
     }
@@ -70,7 +70,8 @@ const sharedArgTypes = {
       defaultValue: { summary: 0 }
     },
     control: 'number',
-    description: 'width of component'
+    description:
+      'Width of component can be changed only when fixed is set to true'
   },
   justify: {
     control: 'radio',
