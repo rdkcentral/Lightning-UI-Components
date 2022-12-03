@@ -1,0 +1,56 @@
+import { Preview, Story } from '@storybook/addon-docs';
+
+# MarqueeImage
+
+Scroll image
+
+## Usage
+
+MarqueeImage works just like Marquee on the web
+
+```js
+import { MarqueeImage } from '@lightningjs/ui-components';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MarqueeImage: {
+        type: MarqueeImage,
+        w: 250,
+        title: {
+          h: 170
+          lineHeight: 170
+          src: 'path/to/image.png'
+        },
+        autoStart: true,
+        delay: 2
+      }
+    };
+  }
+};
+```
+
+<Preview>
+  <Story id="elements-marqueeimage--basic" />
+</Preview>
+
+## API
+
+### Properties
+
+name|type|required|default|description
+--|--|--|--|--
+autoStart|boolean|false|false|Start scrolling on initiation
+delay|number|false|1.5|Delay before scrolling starts
+repeat|number|false|-1|Number of times to repeat scrolling
+title|object|true||An object matching Lightning image object
+
+### Methods
+
+#### startScrolling(finalW):void
+
+Start scrolling
+
+#### stopScrolling():void
+
+Stops scrolling
