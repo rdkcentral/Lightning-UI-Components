@@ -9,8 +9,8 @@ class Button extends LUIComponent {
     return 'div[type=button]';
   }
 
-  get buttonJustify() {
-    return 'div[type=button]>div:nth-of-type(2)';
+  get justify() {
+    return 'div[type=button]>div[ref=Content]';
   }
 
   get checkbox() {
@@ -21,7 +21,7 @@ class Button extends LUIComponent {
     return 'div[type=icon]';
   }
 
-  get buttonTitle() {
+  get title() {
     return 'div[ref=TextWrapper] > div[type=TextBox] > div[ref=Text]';
   }
 }

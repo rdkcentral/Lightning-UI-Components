@@ -9,11 +9,19 @@ class ButtonSmall extends LUIComponent {
     return 'div[type=ButtonSmall]';
   }
 
-  get buttonSmallJustify() {
-    return 'div[type=ButtonSmall] > div:nth-of-type(2)';
+  get justify() {
+    return 'div[type=ButtonSmall]>div[ref=Content]';
   }
 
-  get buttonSmallTitle() {
+  get checkbox() {
+    return 'div[type=Checkbox]';
+  }
+
+  get icon() {
+    return 'div[type=icon]';
+  }
+
+  get title() {
     return 'div[ref=TextWrapper] > div[type=TextBox] > div[ref=Text]';
   }
 }

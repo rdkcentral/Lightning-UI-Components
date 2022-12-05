@@ -7,7 +7,7 @@ Feature: LUI Button component
     And I navigate to 'Button' 'Button' with 'Base' theme
 
   Scenario: Verify that Button component is displayed
-    Then I verify that the 'Button' 'Button' component is displayed
+    Then I verify that the 'Button' component is displayed
 
   # https://ccp.sys.comcast.net/browse/LUI-598
   # Skipping the test because of the bug
@@ -27,34 +27,32 @@ Feature: LUI Button component
 
   Scenario: Verify the Button justify control
     When I set the 'justify' to 'left' for 'Button' component
-    Then I verify that the 'Button' 'Justify' state is 'left'
+    Then I verify that 'Button' justify control is 'left'
     And I set the 'justify' to 'center' for 'Button' component
-    And I verify that the 'Button' 'Justify' state is 'center'
+    And I verify that 'Button' justify control is 'center'
     And I set the 'justify' to 'right' for 'Button' component
-    And I verify that the 'Button' 'Justify' state is 'right'
+    And I verify that 'Button' justify control is 'right'
 
   Scenario: Verify the Button prefix control
     When I set the 'prefix' to 'null' for 'Button' component
-    Then I verify that the 'Button' 'prefix' state is 'null'
+    Then I verify that 'Button' prefix control is 'null'
     And I set the 'prefix' to 'icon' for 'Button' component
-    And I verify that the 'Button' 'prefix' state is 'icon'
+    And I verify that 'Button' prefix control is 'icon'
     And I set the 'prefix' to 'checkbox' for 'Button' component
-    And I verify that the 'Button' 'prefix' state is 'checkbox'
+    And I verify that 'Button' prefix control is 'checkbox'
     And I set the 'prefix' to 'combo' for 'Button' component
-    And I verify that the 'Button' 'prefix' state is 'combo'
+    And I verify that 'Button' prefix control is 'combo'
 
   Scenario: Verify the Button suffix control
     When I set the 'suffix' to 'null' for 'Button' component
-    Then I verify that the 'Button' 'suffix' state is 'null'
+    Then I verify that 'Button' suffix control is 'null'
     And I set the 'suffix' to 'icon' for 'Button' component
-    And I verify that the 'Button' 'suffix' state is 'icon'
+    And I verify that 'Button' suffix control is 'icon'
     And I set the 'suffix' to 'checkbox' for 'Button' component
-    And I verify that the 'Button' 'suffix' state is 'checkbox'
+    And I verify that 'Button' suffix control is 'checkbox'
     And I set the 'suffix' to 'combo' for 'Button' component
-    And I verify that the 'Button' 'suffix' state is 'combo'
+    And I verify that 'Button' suffix control is 'combo'
 
   Scenario: Verify the Button title control
-    Then I verify that the 'Button' 'Button' component is displayed
-    And I verify that 'Button' 'Button' 'Title' has text 'Button'
-    And I set the 'title' to 'LUI TEST' for 'Button' component
-    And I verify that 'Button' 'Button' 'Title' has text 'LUI TEST'
+    When I set the 'title' to 'LUI TEST' for 'Button' component
+    Then I verify that the 'Title' component on the 'Button' page has text 'LUI TEST'
