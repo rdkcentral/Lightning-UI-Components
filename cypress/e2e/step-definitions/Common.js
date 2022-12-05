@@ -1,5 +1,4 @@
 import getPageObject from '../pageObjects';
-import Button from '../pageObjects/controls/button.controls'; //TODO Remove import when
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -114,9 +113,8 @@ export default function () {
     (elementName, storyName) => {
       const page = elementName.toLowerCase();
       const pageObject = getPageObject(page);
-      const viewPort = `${Cypress.config().viewportWidth}x${
-        Cypress.config().viewportHeight
-      }`;
+      const viewPort = `${Cypress.config().viewportWidth}x${Cypress.config().viewportHeight
+        }`;
 
       // wait 1s to render the component before taking screenshot
       cy.wait(1000).then(() => {
@@ -748,61 +746,6 @@ export default function () {
               }
             });
         });
-    }
-  );
-
-  /**
-   * @module Common
-   * @function I verify that the {string} {string}  state is {string}
-   * @description Cucumber statement to verify the settings of a module
-   * @param {String} component
-   * @param {String} prop
-   * @param {String} values
-   * @example I verify that the 'Button' 'justify' state is 'left'
-   */
-  Then(
-    'I verify that the {string} {string} state is {string}',
-    (pageName, prop, value) => {
-      const element = pageName + prop;
-      const page = pageName.toLowerCase();
-      const pageObject = getPageObject(page);
-
-      // TODO: Move tests for prefix and suffix to the Button step definitions file
-      switch (prop) {
-        case 'Justify':
-          if (value === 'left') {
-            pageObject
-              ._getElementByName(element)
-              .should('not.have.attr', 'mountx');
-          } else if (value === 'center') {
-            pageObject
-              ._getElementByName(element)
-              .should('have.attr', 'mountx', '0.5');
-          } else if (value === 'right') {
-            pageObject
-              ._getElementByName(element)
-              .should('have.attr', 'mountx', '1');
-          }
-          break;
-        case 'prefix':
-          // TODO: add test for prefix
-          break;
-        case 'suffix':
-          if (value === 'null') {
-            cy.get(Button.icon).should('not.exist');
-            cy.get(Button.checkbox).should('not.exist');
-          } else if (value === 'icon') {
-            cy.get(Button.icon).should('be.visible');
-          } else if (value === 'checkbox') {
-            cy.get(Button.checkbox).should('be.visible');
-          } else if (value === 'combo') {
-            cy.get(Button.icon).should('be.visible');
-            cy.get(Button.checkbox).should('be.visible');
-          }
-          break;
-        default:
-          break;
-      }
     }
   );
 

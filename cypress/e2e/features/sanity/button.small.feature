@@ -7,7 +7,7 @@ Feature: LUI Button Small component
     And I navigate to 'ButtonSmall' 'Button-Small' with 'Base' theme
 
   Scenario: Verify that Button Small is displayed
-    Then I verify that the 'ButtonSmall' 'ButtonSmall' component is displayed
+    Then I verify that the 'ButtonSmall' component is displayed
 
   # https://ccp.sys.comcast.net/browse/LUI-598
   # Skipping the test because of the bug
@@ -26,38 +26,36 @@ Feature: LUI Button Small component
     And I verify that the 'width' of 'ButtonSmall' component is '200px'
 
   Scenario: Verify the Button Small justify content
-    Then I verify that the 'ButtonSmall' 'Justify' state is 'center'
+    Then I verify that 'ButtonSmall' justify control is 'center'
     And I set the 'justify' to 'left' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'Justify' state is 'left'
+    And I verify that 'ButtonSmall' justify control is 'left'
     And I set the 'justify' to 'center' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'Justify' state is 'center'
+    And I verify that 'ButtonSmall' justify control is 'center'
     And I set the 'justify' to 'right' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'Justify' state is 'right'
+    And I verify that 'ButtonSmall' justify control is 'right'
 
   Scenario: Verify the Button Small prefix state
-    Then I verify that the 'ButtonSmall' 'prefix' state is 'null'
+    Then I verify that 'ButtonSmall' prefix control is 'null'
     And I set the 'prefix' to 'checkbox' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'prefix' state is 'checkbox'
+    And I verify that 'ButtonSmall' prefix control is 'checkbox'
     And I set the 'prefix' to 'null' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'prefix' state is 'null'
+    And I verify that 'ButtonSmall' prefix control is 'null'
     And I set the 'prefix' to 'icon' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'prefix' state is 'icon' 
+    And I verify that 'ButtonSmall' prefix control is 'icon'
     And I set the 'prefix' to 'combo' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'prefix' state is 'combo'
+    And I verify that 'ButtonSmall' prefix control is 'combo'
 
   Scenario: Verify the Button Small suffix state
-    Then I verify that the 'ButtonSmall' 'suffix' state is 'null'
+    Then I verify that 'ButtonSmall' suffix control is 'null'
     And I set the 'suffix' to 'checkbox' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'suffix' state is 'checkbox'
+    And I verify that 'ButtonSmall' suffix control is 'checkbox'
     And I set the 'suffix' to 'null' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'suffix' state is 'null'
+    And I verify that 'ButtonSmall' suffix control is 'null'
     And I set the 'suffix' to 'icon' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'suffix' state is 'icon'
+    And I verify that 'ButtonSmall' suffix control is 'icon'
     And I set the 'suffix' to 'combo' for 'ButtonSmall' component
-    And I verify that the 'ButtonSmall' 'suffix' state is 'combo'
+    And I verify that 'ButtonSmall' suffix control is 'combo'
 
   Scenario: Verify the Button Small title text can be set
-    Then I verify that the 'ButtonSmall' 'ButtonSmall' component is displayed
-    And I verify that 'ButtonSmall' 'ButtonSmall' 'Title' has text 'Button'
-    And I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' 'ButtonSmall' 'Title' has text 'LUI TEST'
+    When I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
+    Then I verify that the 'Title' component on the 'ButtonSmall' page has text 'LUI TEST'

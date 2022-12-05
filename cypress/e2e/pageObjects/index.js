@@ -24,6 +24,7 @@ import ButtonSmall from './controls/buttonsmall.controls';
 import Wave from './utilities/wave.utilities';
 import Column from './navigation/column.navigation';
 import ListItem from './controls/listitem.controls';
+import Control from './controls/control.controls';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -52,7 +53,8 @@ export default function getPageObject(pageName) {
     buttonsmall: ButtonSmall,
     wave: Wave,
     column: Column,
-    listitem: ListItem
+    listitem: ListItem,
+    control: Control
   };
 
   if (pageName in pageObjects) {
