@@ -788,4 +788,47 @@ export default function () {
   Then('I wait {float} seconds for the page to load', waitTime => {
     cy.wait(waitTime * 1000);
   });
+
+  /**
+   * @module Common
+   * @function I verify that {string} are evenly spaced vertically for {string} component
+   * @description Cucumber statement to verify the specified elements are evenly spaced vertically
+   * @param {String} elementName
+   * @param {String} pageName
+   * @example I verify that 'First Column Buttons' are evenly spaced vertically for 'Column' component
+   */
+   Then(
+    'I verify that {string} are evenly spaced vertically for {string} component',
+    (elementName, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const element = elementName.toLowerCase();
+      const elementRows = [];
+      
+      pageObject._getElementByName(element)
+        .each($row => {
+          // push the row info to the elementRows array
+          cy.getOffsetRect($row).then(data => {
+            elementRows.push({ ...data });
+          });
+        })
+        .then(() => {
+          const spaces = [];
+          // get the spaces between each row
+          elementRows.forEach((row, index) => {
+            if (index !== 0) {
+              const prevRow = elementRows[index - 1];
+              const space = row.top - prevRow.bottom;
+              spaces.push(Math.round(space));
+            }
+          });
+          // assert that the spaces are evenly spaced
+          const averageSpace = Math.round(
+            spaces.reduce((a, b) => a + b, 0) / spaces.length
+          );
+          const space = spaces[1];
+          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
+        });
+    }
+  );
 }
