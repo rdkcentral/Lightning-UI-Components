@@ -56,6 +56,46 @@ class Column extends LUIComponent {
   get button4Label() {
     return 'div[type="Element"] > div:nth-of-type(2) > div[type="Element"] > div[type="Button"]>div>div>div[type="TextBox"]>div[type="Element"]';
   }
+
+  //=============== Multi Column ===============
+
+  get multiColumn() {
+    return 'div[type=type] > div[type=Row]';
+  }
+
+  get columns() {
+    return `${this.multiColumn} > div[type=Element]`;
+  }
+
+  get firstColumn() {
+    return `${this.multiColumn} > div[ref=Items] > div[type=Column]:nth-of-type(1) > div[ref=Items]`;
+  }
+
+  get secondColumn() {
+    return `${this.multiColumn} > div[ref=Items] > div[type=Column]:nth-of-type(2) > div[ref=Items]`;
+  }
+
+  get firstColumnButtons() {
+    return `${this.firstColumn} > div[type=Button]`;
+  }
+
+  get secondColumnButtons() {
+    return `${this.secondColumn} > div[type=Button]`;
+  }
+
+  get button2Column1() {
+    return `${this.firstColumn} > div[type=Button]:nth-of-type(2)`;
+  }
+
+  get button1Column2() {
+    return `${this.secondColumn} > div[type=Button]:nth-of-type(1)`;
+  }
+
+  get button3Column2() {
+    return `${this.secondColumn} > div[type=Button]:nth-of-type(3)`;
+  }
+
+  //=============== Multi Column ===============
 }
 
 module.exports = new Column();
