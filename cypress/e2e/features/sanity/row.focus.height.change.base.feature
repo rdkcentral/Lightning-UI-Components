@@ -21,5 +21,5 @@ Feature: LUI Row Focus Height Change component
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'Button 1' component on the 'Row' page is in focus
-    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements' row
-    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements' row
+    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
+    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'

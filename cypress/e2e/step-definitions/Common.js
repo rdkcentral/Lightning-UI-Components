@@ -435,7 +435,11 @@ export default function () {
       const pageObject = getPageObject(page);
 
       pageObject._getElementByName(component).each(() => {
-        cy.action('RIGHT');
+        if (page === 'column') {
+          cy.action('DOWN');
+        } else {
+          cy.action('RIGHT');
+        }
       });
       pageObject
         ._getElementByName(component)
@@ -522,21 +526,26 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that I am able to navigate to the {string} element of the {string} {string} row
-   * @description Cucumber statement to verify that user is able to navigate to the start or end of the specified row
+   * @function I verify that I am able to navigate to the {string} element of the {string} {string}
+   * @description Cucumber statement to verify that user is able to navigate to the start or end of the specified row/column
    * @param {String} position
    * @param {String} pageName
    * @param {String} rowName
-   * @example I verify that I am able to navigate to the 'last' element of the 'Row' 'First' row
+   * @example I verify that I am able to navigate to the 'last' element of the 'Row' 'First'
    */
   Then(
-    'I verify that I am able to navigate to the {string} element of the {string} {string} row',
+    'I verify that I am able to navigate to the {string} element of the {string} {string}',
     (position, pageName, rowName) => {
       const page = pageName.toLowerCase();
       const row = rowName.toLowerCase();
       const pageObject = getPageObject(page);
-      const key = position === 'last' ? 'RIGHT' : 'LEFT';
 
+      let key = "";
+      if (page === 'column') {
+         key = position === 'last' ? 'DOWN' : 'UP';
+      } else {
+         key = position === 'last' ? 'RIGHT' : 'LEFT';
+      }
       if (position === 'last') {
         pageObject
           ._getElementByName(row)

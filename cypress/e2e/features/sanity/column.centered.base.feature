@@ -37,11 +37,5 @@ Feature: Column - Centered in Parent Layout Validation
     And I press 'LEFT' key
     And I verify that the 'Button1' component on the 'Column' page is in focus
 
-  Scenario Outline: Validate displayed text of buttons
-    Then I verify that the '<element>' component on the 'Column' page has text '<text>'
-    Examples:
-      | element         | text     |
-      | Button 1 Label  | Button 1 |
-      | Button 2 Label  | Button 2 |
-      | Button 3 Label  | Button 3 |
-      | Button 4 Label  | Button 1 |
+  Scenario: Validate displayed text of buttons
+    Then I verify that all 'buttonslabels' of the 'Column' page have text 'Button'

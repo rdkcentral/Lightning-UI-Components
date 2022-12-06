@@ -40,8 +40,8 @@ Feature: LUI Row Removing items component
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'Button 1' component on the 'Row' page is in focus
-    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements' row
-    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements' row
+    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
+    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
   Scenario: Verify that Row Removing items always scroll toggle
     And I press 'RIGHT' key 3 times

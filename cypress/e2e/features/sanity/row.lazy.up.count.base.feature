@@ -25,8 +25,8 @@ Feature: LUI Row Lazy up count component
     Then I verify that the 'Button 1' component on the 'Row' page is in focus
     And I press 'RIGHT' key 6 times
     And I press 'LEFT' key 6 times
-    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements' row
-    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements' row
+    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
+    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
   Scenario: Verify the the scroll index of the Row Lazy Up count element can be changed
     And I press 'RIGHT' key 6 times

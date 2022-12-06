@@ -15,8 +15,8 @@ Feature: LUI Row Lazy Scroll Indexes component
   Scenario: Validate navigating the buttons
     Then I verify if 'Row' page data has loaded
     And I verify that the 'Button 1' component on the 'Row' page is in focus
-    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements' row
-    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements' row
+    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
+    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>  '

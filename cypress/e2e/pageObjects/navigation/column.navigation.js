@@ -2,11 +2,15 @@ import LUIComponent from '../component';
 
 class Column extends LUIComponent {
   constructor() {
-    super({ type: 'navigation', componentName: 'column' });
+    super({type: 'navigation', componentName: 'column'});
   }
 
   get column() {
-    return 'div[type=type]>div[type=column]>div>div[type=row]:nth-of-type(1)';
+    return 'div[type=type]>div[type=column]>div[type=Element]';
+  }
+
+  get columnElements() {
+    return `${this.column} div[type*="Button"]`;
   }
 
   get rows() {
@@ -25,8 +29,12 @@ class Column extends LUIComponent {
     return 'div[type="type"] > div[type="Column"] > div[type="Element"] > div:nth-of-type(2) > div[type="Element"]';
   }
 
+  get column1() {
+    return 'div[type="Button"]';
+  }
+
   get button1() {
-    return 'div[type=row]>div>div[type="Button"]:nth-of-type(1):not(:only-child)';
+    return 'div[type="Button"]:nth-of-type(1):not(:only-child)';
   }
 
   get button2() {
@@ -41,20 +49,8 @@ class Column extends LUIComponent {
     return 'div[type="Element"] > div:nth-of-type(2) > div[type="Element"] > div[type="Button"]';
   }
 
-  get button1Label() {
-    return 'div[type="Button"]:nth-of-type(1):not(:only-child)> div[type="Element"]>div>div[type="TextBox"]>div[type="Element"]';
-  }
-
-  get button2Label() {
-    return 'div[type="Button"]:nth-of-type(2):not(:only-child)> div[type="Element"]>div>div[type="TextBox"]>div[type="Element"]';
-  }
-
-  get button3Label() {
-    return 'div[type="Button"]:nth-of-type(3):not(:only-child)> div[type="Element"]>div>div[type="TextBox"]>div[type="Element"]';
-  }
-
-  get button4Label() {
-    return 'div[type="Element"] > div:nth-of-type(2) > div[type="Element"] > div[type="Button"]>div>div>div[type="TextBox"]>div[type="Element"]';
+  get buttonslabels() {
+    return 'div[type*="Button"]  div[type="TextBox"] > div[type="Element"]';
   }
 
   //=============== Multi Column ===============
