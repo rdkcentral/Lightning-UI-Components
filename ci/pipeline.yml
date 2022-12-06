@@ -252,6 +252,10 @@ jobs:
       - put: source-repo # Push git commit and tags to original branch
         params:
           repository: updated-branch # From publish-monorepo-step
+      - get: source-repo-develop # Merge release branch back with develop
+      - put: source-repo-develop
+        params:
+          repository: updated-branch # From publish-monorepo-step
       - task: docs
         file: source-repo/ci/tasks-monorepo/docs-gh-pages.yml
         input_mapping:
