@@ -1,3 +1,4 @@
+export { default as BoardRow } from './BoardRow';
 export {
   default as Card,
   CardPersonality,

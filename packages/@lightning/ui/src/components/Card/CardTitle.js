@@ -12,11 +12,11 @@ class CardTitle extends Card {
   }
 
   static get tags() {
-    return [...super.tags, 'Description'];
+    return [...super.tags, 'Description', 'Details'];
   }
 
   static get properties() {
-    return [...super.properties, 'description'];
+    return [...super.properties, 'description', 'details'];
   }
 
   static _template() {
@@ -24,6 +24,10 @@ class CardTitle extends Card {
       ...super._template(),
       Description: {
         type: TextBox
+      },
+      Details: {
+        type: TextBox,
+        mountY: 1
       }
     };
   }
@@ -32,6 +36,8 @@ class CardTitle extends Card {
     super._update();
     this._updateDescription();
     this._updateDescriptionPosition();
+    this._updateDetails();
+    this._updateDetailsPosition();
   }
 
   _updateDescription() {
@@ -51,6 +57,19 @@ class CardTitle extends Card {
     this._Description.y = this.style.paddingVertical + this._Title.h;
   }
 
+  _updateDetails() {
+    this._Details.patch({
+      content: this.details,
+      textStyle: this.style.detailsTextProperties,
+      wordWrapWidth: this._calculateTextWidth()
+    });
+  }
+
+  _updateDetailsPosition() {
+    this._Details.x = this.style.paddingHorizontal;
+    this._Details.y = this.h - this.style.paddingVertical;
+  }
+
   set announce(announce) {
     super.announce = announce;
   }
@@ -59,7 +78,8 @@ class CardTitle extends Card {
     return (
       this._announce || [
         this._Title && this._Title.announce,
-        this._Description && this._Description.announce
+        this._Description && this._Description.announce,
+        this._Details && this._Details.announce
       ]
     );
   }

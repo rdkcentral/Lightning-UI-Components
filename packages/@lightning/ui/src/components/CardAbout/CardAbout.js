@@ -12,22 +12,39 @@ class CardAbout extends CardTitle {
   }
 
   static get properties() {
-    return [
+    const properties = [
       ...super.properties,
       'iconRight',
       'textRight',
       'iconLeft',
       'textLeft'
     ];
+    // Remove the 'details' property inherited from CardTitle
+    const detailsIndex = properties.indexOf('details');
+    if (detailsIndex > -1) {
+      properties.splice(detailsIndex, 1);
+    }
+    return properties;
   }
 
   static get tags() {
-    return [...super.tags, 'LeftIconTextContainer', 'RightIconTextContainer'];
+    const tags = [
+      ...super.tags,
+      'LeftIconTextContainer',
+      'RightIconTextContainer'
+    ];
+    //Remove the 'Details' tag inherited from CardTitle
+    const detailsIndex = tags.indexOf('Details');
+    if (detailsIndex > -1) {
+      tags.splice(detailsIndex, 1);
+    }
+    return tags;
   }
 
   static _template() {
     return {
       ...super._template(),
+      Details: undefined,
       LeftIconTextContainer: {
         type: InlineContent
       },
@@ -43,6 +60,10 @@ class CardAbout extends CardTitle {
     this._updateContainer();
     this._updateContent();
   }
+
+  _updateDetails() {}
+
+  _updateDetailsPosition() {}
 
   _updateContainer() {
     const iconTextContainerObject = {

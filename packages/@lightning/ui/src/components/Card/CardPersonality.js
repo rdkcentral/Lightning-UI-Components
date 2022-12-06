@@ -6,6 +6,7 @@ class CardPersonality extends CardTitle {
   static _template() {
     return {
       ...super._template(),
+      Details: undefined,
       Tile: {
         type: Tile
       }
@@ -21,11 +22,23 @@ class CardPersonality extends CardTitle {
   }
 
   static get tags() {
-    return [...super.tags, 'Tile'];
+    const tags = [...super.tags, 'Tile'];
+    //Remove the 'Details' tag inherited from CardTitle
+    const detailsIndex = tags.indexOf('Details');
+    if (detailsIndex > -1) {
+      tags.splice(detailsIndex, 1);
+    }
+    return tags;
   }
 
   static get properties() {
-    return [...super.properties, 'src'];
+    const properties = [...super.properties, 'src'];
+    //Remove the 'details' property inherited from CardTitle
+    const detailsIndex = properties.indexOf('details');
+    if (detailsIndex > -1) {
+      properties.splice(detailsIndex, 1);
+    }
+    return properties;
   }
 
   _update() {
@@ -36,6 +49,10 @@ class CardPersonality extends CardTitle {
     this._updateDescriptionPosition();
     this._updateTitlePosition();
   }
+
+  _updateDetails() {}
+
+  _updateDetailsPosition() {}
 
   _updateTile() {
     const imageSize = this.w - this.style.paddingHorizontal * 2;

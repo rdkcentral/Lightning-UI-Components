@@ -389,7 +389,6 @@ class Row extends FocusManager {
     if (items.length > this.lazyUpCount + 2) {
       this._lazyItems = items.splice(this.lazyUpCount + 2);
     }
-
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
