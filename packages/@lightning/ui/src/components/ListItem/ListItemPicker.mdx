@@ -1,0 +1,55 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ListItemPicker from '.';
+
+# ListItemPicker
+
+ListItem component with the ability to let a user pick from a list of options.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/packages/@lightning/ui-core/src/components/ListItemPicker/ListItemPicker.js
+
+## Usage
+
+ListItemPicker requires a title and a list of options
+
+```js
+import { ListItemPicker } from '@lightning/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      ListItemPicker: {
+        type: ListItemPicker,
+        title: 'Title',
+        description: 'Description'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="controls-listitempicker--listitempicker" />
+</Canvas>
+
+## API
+
+### Properties
+
+`ListItemPicker` has the same properties as the ones listed in [ListItem](?path=/docs/lightning/ui-listitem--listitem) in addition to a couple listed below:
+
+| name                | type   | default | description                      |
+| ------------------- | ------ | ------- | -------------------------------- |
+| options             | any[]  | -       | list of selectable options       |
+| selectedOptionIndex | number | -       | index of current selected option |
+
+### Style Properties
+
+| name                 | type   | description                                                          |
+| -------------------- | ------ | -------------------------------------------------------------------- |
+| arrowAlphaValue      | number | alpha value of the arrows if value is not equal to the min/max value |
+| arrowAlphaValueLimit | number | alpha value of the arrows when value is equal to the min/max value   |
+| arrowWidth           | number | width of the arrows                                                  |
+| arrowHeight          | object | height of the arrows                                                 |
+| paddingY             | object | padding on top and bottom sides of text                              |

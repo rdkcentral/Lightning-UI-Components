@@ -92,19 +92,9 @@ class ListItem extends Button {
           ...descriptionPatch
         };
       }
-      this._Content.patch({
-        TextWrapper: {
-          Description: descriptionPatch
-        }
-      });
+      this._TextWrapper.patch({ Description: descriptionPatch });
     } else {
-      this.patch({
-        Content: {
-          TextWrapper: {
-            Description: undefined
-          }
-        }
-      });
+      this._TextWrapper.patch({ Description: undefined });
     }
   }
 

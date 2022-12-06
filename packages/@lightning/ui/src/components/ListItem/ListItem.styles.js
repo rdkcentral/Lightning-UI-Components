@@ -31,8 +31,8 @@ export const mode = theme => ({
     titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   },
   focused: {
-    descriptionTextStyle: { textColor: theme.color.fillInverse },
-    titleTextStyle: { textColor: theme.color.fillInverse }
+    descriptionTextStyle: { textColor: theme.color.textInverse },
+    titleTextStyle: { textColor: theme.color.textInverse }
   }
 });
 
@@ -40,8 +40,8 @@ export const palette = theme => ({
   inverse: {
     mode: {
       focused: {
-        descriptionTextStyle: { textColor: theme.color.textInverseDisabled },
-        titleTextStyle: { textColor: theme.color.textNeutralDisabled }
+        descriptionTextStyle: { textColor: theme.color.textNeutral },
+        titleTextStyle: { textColor: theme.color.textNeutral }
       }
     }
   }

@@ -30,7 +30,7 @@ export const mode = theme => ({
   focused: {
     cursorStyles: { textColor: theme.color.textInverse },
     eyebrowTextStyle: { textColor: theme.color.textNeutral },
-    helpTextStyle: { textColor: theme.color.textNeutral }
+    helpTextStyle: { textColor: theme.color.textNeutralSecondary }
   }
 });
 
@@ -38,8 +38,8 @@ export const palette = theme => ({
   inverse: {
     mode: {
       focused: {
-        eyebrowTextStyle: { textColor: theme.color.textInverseDisabled },
-        helpTextStyle: { textColor: theme.color.textInverseDisabled }
+        eyebrowTextStyle: { textColor: theme.color.textNeutral },
+        helpTextStyle: { textColor: theme.color.textNeutral }
       }
     }
   }
