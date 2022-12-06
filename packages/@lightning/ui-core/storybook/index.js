@@ -30,7 +30,7 @@ export const createModeControl = ({ options, defaultValue } = {}) => {
       table: {
         defaultValue: { summary: defaultValue || 'unfocused' }
       },
-      type: { name: 'mode', required: true }
+      type: { name: 'string', required: true }
     }
   };
 };

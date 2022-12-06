@@ -43,10 +43,15 @@ const extensions = [
   }
 ];
 
-window.addEventListener('message', themeSelect, false);
-function themeSelect(event) {
-  if (!event.data.theme) return;
-  switch (event.data.theme) {
+window.addEventListener('message', themeSelectFromMessageEvent, false);
+
+function themeSelectFromMessageEvent(event) {
+  themeSelect(event.data.theme);
+}
+
+function themeSelect(theme) {
+  if (!theme) return;
+  switch (theme) {
     case 'rogers':
       context.setTheme({
         ...rogers,
@@ -229,6 +234,9 @@ function createApp(parameters) {
     }
   })(appParams);
   document.body.appendChild(window.APP.stage.getCanvas());
+  if (parameters.theme) {
+    themeSelect(parameters.theme);
+  }
   return window.APP;
 }
 
@@ -256,7 +264,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
     previousID !== id || previousBackground !== parameters.backgrounds.value;
   previousID = id;
 
-  const app = createApp(globals.LUITheme);
+  const app = createApp({ theme: globals.LUITheme });
   clearInspector();
 
   app.announcerEnabled = globals.announce;
