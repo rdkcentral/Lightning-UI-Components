@@ -49,6 +49,26 @@ class Row extends LUIComponent {
     return 'div[type*="Button"]  div[type="TextBox"] > div[type="Element"]';
   }
 
+  get button1label() {
+    return `${this.row} > div:nth-of-type(1) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button2label() {
+    return `${this.row} > div:nth-of-type(2) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button3label() {
+    return `${this.row} > div:nth-of-type(3) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button4label() {
+    return `${this.row} > div:nth-of-type(4) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button5label() {
+    return `${this.row} > div:nth-of-type(5) div[type='TextBox'] > div[type='Element']`;
+  }
+
   //=============== Centered in parent ===============
 
   get rowElementsPerColumn() {
