@@ -23,10 +23,12 @@ describe('CardTitle', () => {
   it('sets the announce string to the card title', () => {
     const title = 'Title';
     const description = 'Description';
+    const details = 'Details';
     cardTitle.title = title;
     cardTitle.description = description;
+    cardTitle.details = details;
     testRenderer.forceAllUpdates();
-    expect(cardTitle.announce).toEqual([title, description]);
+    expect(cardTitle.announce).toEqual([title, description, details]);
   });
 
   it('overrides the announce string', () => {
@@ -39,7 +41,8 @@ describe('CardTitle', () => {
   it('has the correct static props getter', () => {
     expect(cardTitle.constructor.properties).toMatchObject([
       'title',
-      'description'
+      'description',
+      'details'
     ]);
   });
 
@@ -60,11 +63,31 @@ describe('CardTitle', () => {
     );
   });
 
-  it('move Description', () => {
+  it('moves Description', () => {
     testRenderer.forceAllUpdates();
     expect(cardTitle._Description.x).toEqual(cardTitle.style.paddingHorizontal);
     expect(cardTitle._Description.y).toEqual(
       cardTitle.style.paddingVertical + cardTitle._Title.h
+    );
+  });
+
+  it('should update Details', () => {
+    cardTitle.details = 'Details';
+    testRenderer.forceAllUpdates();
+    expect(cardTitle._Details.content).toEqual('Details');
+    expect(cardTitle._Details.textStyle).toEqual(
+      cardTitle.style.detailsTextProperties
+    );
+    expect(cardTitle._Details.textStyle.textColor).toEqual(
+      cardTitle.style.detailsTextProperties.textColor
+    );
+  });
+
+  it('moves Details', () => {
+    testRenderer.forceAllUpdates();
+    expect(cardTitle._Details.x).toEqual(cardTitle.style.paddingHorizontal);
+    expect(cardTitle._Details.y).toEqual(
+      cardTitle.h - cardTitle.style.paddingVertical
     );
   });
 });

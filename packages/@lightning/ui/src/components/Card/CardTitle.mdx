@@ -23,7 +23,8 @@ class Basic extends lng.Component {
       Card: {
         type: CardTitle,
         title: 'CardTitle',
-        description: 'Description for the Card Title'
+        description: 'Description for the Card Title',
+        details: 'Details'
       }
     };
   }
@@ -41,9 +42,11 @@ class Basic extends lng.Component {
 | name        | type   | required | default | description |
 | ----------- | ------ | -------- | ------- | ----------- |
 | description | string | false    | -       | description |
+| details     | string | false    | -       | details     |
 
 ### Style Properties
 
-| name                 | type             | description                         |
-| -------------------- | ---------------- | ----------------------------------- |
-| descriptionTextStyle | string \| object | text style for the description text |
+| name                      | type            | description                        |
+| ------------------------- | --------------- | ---------------------------------- |
+| descriptionTextProperties | string \|object | text style of the description text |
+| detailsTextProperties     | string \|object | text style of the details text     |

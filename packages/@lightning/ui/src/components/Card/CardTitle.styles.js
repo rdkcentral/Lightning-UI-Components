@@ -4,11 +4,18 @@ export const base = theme => ({
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
     maxLines: 3
+  },
+  detailsTextProperties: {
+    ...theme.typography.body3,
+    textColor: theme.color.textNeutral,
+    wordWrap: true,
+    maxLines: 1
   }
 });
 
 export const mode = theme => ({
   disabled: {
-    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
+    descriptionTextProperties: { textColor: theme.color.textNeutralDisabled },
+    detailsTextProperties: { textColor: theme.color.textNeutralDisabled }
   }
 });

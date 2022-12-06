@@ -21,7 +21,7 @@ class MetadataBase extends Base {
         Title: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_resolveTitle'
+            textBoxChanged: '_titleLoaded'
           }
         },
         SubtitleWrapper: {
@@ -35,7 +35,7 @@ class MetadataBase extends Base {
         Description: {
           type: TextBox,
           signals: {
-            textBoxChanged: '_resolveDescription'
+            textBoxChanged: '_descriptionLoaded'
           }
         }
       },
