@@ -22,8 +22,8 @@ Feature: Row Basic component validation
   Scenario: Validate navigating the buttons
     Then I verify if 'Row' page data has loaded
     And I verify that the 'Button 1' component on the 'Row' page is in focus
-    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements' row
-    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements' row
+    And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
+    And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
   Scenario: Verify that the row spacing of the Row Basic Element can be changed
     When I set the 'itemSpacing' to '25' for 'Row' component
