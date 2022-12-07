@@ -25,6 +25,7 @@ import Wave from './utilities/wave.utilities';
 import Column from './navigation/column.navigation';
 import ListItem from './controls/listitem.controls';
 import Control from './controls/control.controls';
+import ControlSmall from './controls/controlsmall.controls';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -54,7 +55,8 @@ export default function getPageObject(pageName) {
     wave: Wave,
     column: Column,
     listitem: ListItem,
-    control: Control
+    control: Control,
+    controlsmall: ControlSmall
   };
 
   if (pageName in pageObjects) {
