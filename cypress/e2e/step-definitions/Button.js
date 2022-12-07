@@ -65,7 +65,7 @@ export default function () {
   * @description Cucumber statement to verify the settings of a module
   * @param {String} pageName
   * @param {String} value
-  * @example I verify that the Button 'justify' state is 'left'
+  * @example I verify that 'Button' justify control is 'left'
   */
   Then(
     'I verify that {string} suffix control is {string}',
