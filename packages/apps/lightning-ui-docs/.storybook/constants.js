@@ -18,3 +18,4 @@ export const THEMES = {
   xfinityGames,
   xumo
 };
+export const STAGECOLOR_ID = `${ADDON_ID}/stagecolortoggle`;
