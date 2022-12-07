@@ -8,9 +8,9 @@ export const Announce = () => {
 
   const toggleMyTool = useCallback(
     () =>
-    updateGlobals({
-      announce: !announce,
-    }),
+      updateGlobals({
+        announce: !announce
+      }),
     [announce]
   );
 

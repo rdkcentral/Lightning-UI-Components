@@ -7,6 +7,7 @@ import { Announce } from './Announce';
 import GridOverlayPanel from './GridOverlayPanel';
 import ThemePanel from './ThemePanel';
 import ComponentStylesPanel from './ComponentStylesPanel';
+import { StageColor } from './StageColor';
 
 addons.register(ids.ANNOUNCE_ID, () => {
   addons.add(ids.ANNOUNCE_ID, {
@@ -32,26 +33,34 @@ addons.register(ids.DOWNLOAD_ID, () => {
   });
 });
 
-addons.register(ids.GRIDOVERLAY_ID, () => {
-  addons.add(ids.GRIDOVERLAY_ID, {
-    title: 'Grid Layout Overlay',
-    type: types.PANEL,
-    render: (params) => GridOverlayPanel(params)
+addons.register(ids.STAGECOLOR_ID, () => {
+  addons.add(ids.STAGECOLOR_ID, {
+    type: types.TOOL,
+    title: 'Stage Color',
+    render: StageColor
   });
 });
 
-addons.register(ids.COMPONENTSTYLES_ID, (api) => {
-  addons.add(ids.COMPONENTSTYLES_ID, {
-    title: 'Component Style Theme Values',
+addons.register(ids.GRIDOVERLAY_ID, () => {
+  addons.add(ids.GRIDOVERLAY_ID, {
     type: types.PANEL,
-    render: (params) => ComponentStylesPanel(params, api)
+    title: 'Grid Layout Overlay',
+    render: params => GridOverlayPanel(params)
+  });
+});
+
+addons.register(ids.COMPONENTSTYLES_ID, api => {
+  addons.add(ids.COMPONENTSTYLES_ID, {
+    type: types.PANEL,
+    title: 'Component Style Theme Values',
+    render: params => ComponentStylesPanel(params, api)
   });
 });
 
 addons.register(ids.THEMEPANEL_ID, () => {
   addons.add(ids.THEMEPANEL_ID, {
-    title: 'Global Theme Values',
     type: types.PANEL,
-    render: (params) => ThemePanel(params)
+    title: 'Global Theme Values',
+    render: params => ThemePanel(params)
   });
 });

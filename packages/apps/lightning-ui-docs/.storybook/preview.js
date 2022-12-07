@@ -114,11 +114,7 @@ export const globalTypes = {
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   backgrounds: {
-    default: 'dark',
-    values: [
-      { name: 'light', value: '#cccccc' },
-      { name: 'dark', value: '#21232A' }
-    ]
+    disable: true
   },
   controls: {
     hideNoControlsWarning: true,
@@ -190,6 +186,7 @@ window.CONTEXT = context.config({
 });
 context.storybookCustomTheme = JSON.parse(JSON.stringify(context.theme));
 
+// create Lightning App
 function createApp(parameters) {
   // Make sure app is only created once
   if (window.APP) return window.APP;
@@ -216,6 +213,7 @@ function createApp(parameters) {
     },
     debug: true
   };
+
   window.APP = new (class LightningUIApp extends withAnnouncer(
     lng.Application,
     Speech,
@@ -257,18 +255,24 @@ function clearInspector() {
   }
 }
 
+// used in addDecorator for triggerUpdate
 let previousID = null;
-let previousBackground = null;
+
+// adds Storybook decorator
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
-  const triggerUpdate =
-    previousID !== id || previousBackground !== parameters.backgrounds.value;
+  const triggerUpdate = previousID !== id;
   previousID = id;
 
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
-
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
+
+  // toggle stage color
+  !globals.stageColor
+    ? app.stage.setClearColor(utils.getValidColor('#21232A'))
+    : app.stage.setClearColor(utils.getValidColor('#cccccc'));
+
   // If an update is required patch in the new child element
 
   if (triggerUpdate) {
@@ -305,7 +309,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
               this.componentTarget.on('styleUpdated', () => {
                 setTimeout(() => {
                   this.fireAncestors('$storyChanged');
-                })
+                });
               });
             }
 
@@ -316,7 +320,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
           _setup() {
             setTimeout(() => {
               this.fireAncestors('$storyChanged');
-            })
+            });
           }
         },
         w: w => w,
@@ -328,7 +332,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
 
     app._refocus();
   }
-
+  // sets mode to focused
   app
     .tag('StoryComponent')
     ._setState(
@@ -375,7 +379,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
       }
     }
   }
-
+  // applying argActions
   if (
     LightningUIComponent &&
     parameters.argActions &&

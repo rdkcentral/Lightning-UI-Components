@@ -1,6 +1,6 @@
 color Value | Components | Role 
 --------|--------|--------
-textNeutral | [Button](../?path=/docs/controls-button--button)<br>[CardAbout](../?path=/docs/tiles-cards-cardabout--card-about)<br>[CardPersonality](../?path=/docs/tiles-cards--card--card)<br>[Card](../?path=/docs/tiles-cards--card--card)<br>[Input](../?path=/docs/keyboard-input--input)<br>[Label](../?path=/docs/metadata-label--label)<br>[ListItem](../?path=/docs/controls-listitem--list-item)<br>[MetadataBase](../?path=/docs/metadata-metadatabase--metadata-base)<br>[MetadataCardContent](../?path=/docs/metadata-metadatacardcontent--metadata-card-content)<br>[MetadataTile](../?path=/docs/metadata-metadatatile--metadata-tile)<br>[Notification](../?path=/docs/foundations-notification--basic)<br>[Tab](../?path=/docs/layout-tabbar--tab-bar)<br>[Tooltip](../?path=/docs/utilities-tooltip--tooltip)|More info coming
+textNeutral | [Button](../?path=/docs/controls-button--button)<br>[CardAbout](../?path=/docs/tiles-cards-cardabout--card-about)<br>[CardPersonality](../?path=/docs/tiles-cards--card--card)<br>[CardTitle](../?path=/docs/tiles-cards--card--card)<br>[Card](../?path=/docs/tiles-cards--card--card)<br>[Input](../?path=/docs/keyboard-input--input)<br>[Label](../?path=/docs/metadata-label--label)<br>[ListItem](../?path=/docs/controls-listitem--list-item)<br>[MetadataBase](../?path=/docs/metadata-metadatabase--metadata-base)<br>[MetadataCardContent](../?path=/docs/metadata-metadatacardcontent--metadata-card-content)<br>[MetadataTile](../?path=/docs/metadata-metadatatile--metadata-tile)<br>[Notification](../?path=/docs/foundations-notification--basic)<br>[Tab](../?path=/docs/layout-tabbar--tab-bar)<br>[Tooltip](../?path=/docs/utilities-tooltip--tooltip)|More info coming
 fillInverseDisabled | [Card](../?path=/docs/tiles-cards--card--card)<br>[Checkbox](../?path=/docs/utilities-checkbox--checkbox)<br>[ListItemPicker](../?path=/docs/controls-listitem--list-item)<br>[Radio](../?path=/docs/utilities-radio--radio)<br>[Surface](../?path=/docs/foundations-surface--surface)<br>[Toggle](../?path=/docs/utilities-toggle--toggle)|More info coming
 textNeutralDisabled | [Button](../?path=/docs/controls-button--button)<br>[CardAbout](../?path=/docs/tiles-cards-cardabout--card-about)<br>[CardPersonality](../?path=/docs/tiles-cards--card--card)<br>[CardTitle](../?path=/docs/tiles-cards--card--card)<br>[Card](../?path=/docs/tiles-cards--card--card)<br>[Input](../?path=/docs/keyboard-input--input)<br>[ListItem](../?path=/docs/controls-listitem--list-item)<br>[MetadataBase](../?path=/docs/metadata-metadatabase--metadata-base)<br>[MetadataCardContent](../?path=/docs/metadata-metadatacardcontent--metadata-card-content)<br>[MetadataTile](../?path=/docs/metadata-metadatatile--metadata-tile)<br>[Tab](../?path=/docs/layout-tabbar--tab-bar)|More info coming
 interactiveNeutralFocusSoft | [Card](../?path=/docs/tiles-cards--card--card)<br>[FocusRing](../?path=/docs/foundations-focusring--focus-ring)<br>[Tab](../?path=/docs/layout-tabbar--tab-bar)|More info coming
@@ -24,13 +24,12 @@ strokeInverse | [Checkbox](../?path=/docs/utilities-checkbox--checkbox)|More inf
 strokeNeutral | [Checkbox](../?path=/docs/utilities-checkbox--checkbox)|More info coming
 strokeNeutralDisabled | [Checkbox](../?path=/docs/utilities-checkbox--checkbox)|More info coming
 fillTransparent | [Gradient](../?path=/docs/foundations-gradient--gradient)<br>[Tab](../?path=/docs/layout-tabbar--tab-bar)|More info coming
-textInverseDisabled | [Input](../?path=/docs/keyboard-input--input)|More info coming
+white | [GridOverlay](../?path=/docs/foundations-gridoverlay--grid-overlay)|More info coming
 textInverseSecondary | [MetadataBase](../?path=/docs/metadata-metadatabase--metadata-base)<br>[MetadataTile](../?path=/docs/metadata-metadatatile--metadata-tile)|More info coming
 fillNeutralTertiary | [ProgressBar](../?path=/docs/utilities-progressbar--progress-bar)|More info coming
 shadowNeutralFocus | [Shadow](../?path=/docs/foundations-shadow--shadow)|More info coming
 shadowInverseFocus | [Shadow](../?path=/docs/foundations-shadow--shadow)|More info coming
 shadowBrandFocus | [Shadow](../?path=/docs/foundations-shadow--shadow)|More info coming
-white | No components are using this value |More info coming
 grey | No components are using this value |More info coming
 black | No components are using this value |More info coming
 red | No components are using this value |More info coming
@@ -50,6 +49,7 @@ materialBrand | No components are using this value |Branded page background
 overlay | No components are using this value |More info coming
 textNeutralTertiary | No components are using this value |More info coming
 textInverseTertiary | No components are using this value |More info coming
+textInverseDisabled | No components are using this value |More info coming
 fillBrandSecondary | No components are using this value |More info coming
 fillBrandDisabled | No components are using this value |More info coming
 strokeNeutralSecondary | No components are using this value |More info coming
