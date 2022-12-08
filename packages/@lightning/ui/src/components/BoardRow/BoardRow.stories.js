@@ -4,7 +4,7 @@ import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './BoardRow.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context, utils, Tile } from '@lightning/ui-core';
-import CardContent, { CardContentVertical, Column } from '@lightning/ui';
+import { CardContent, CardContentVertical, Column } from '@lightning/ui';
 
 export default {
   title: `${CATEGORIES[64]}/BoardRow`,
