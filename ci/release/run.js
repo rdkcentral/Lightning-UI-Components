@@ -140,7 +140,7 @@ async function generateTag(name, version, commits) {
   const tagName = `${name}@${version}`;
   releaseVersions.push(`${tagName}`);
   generateReleaseNotes(tagName, commits);
-  await execPromise(`git tag -a ${tagName} -m '${generateReleaseNotes(tagName, commits)}'`);
+  await execPromise(`git tag -a ${tagName} ${generateReleaseNotes(tagName, commits)}`);
 }
 
 function getDate() {
@@ -153,35 +153,30 @@ function getDate() {
 }
 
 function generateReleaseNotes(tagName, commits) {
+  let str = `-m "Release"`;
+  str =+ `-m " # [${tagName}](https://github.comcast.com/Lightning/lightning-ui/compare/${lastRelease}...${tagName}) (${getDate()})"`;
+
+  // The awkard spacing and indentation is intentional here as passing in the "\n" character for a
+  // new line will actually print out in the tag message as "\n" instead of making a new line
+
+  const fixes = commits
+  .filter(commit => commit.type === 'fix')
+  .map(commit => formatGitHubCommitMessage(commit));
+  if (fixes.length) {
+    str += `-m " ### Bug Fixes"`;
+    str += `-m "${fixes.reduce((acc, curr, index) => { return index > 0 ? curr : `${acc}
+${curr}`; // indentation is intentional left off (see above)
+    }, "")}"`;
+  }
+
   const features = commits
     .filter(commit => commit.type === 'feat')
     .map(commit => formatGitHubCommitMessage(commit));
-
-  const fixes = commits
-    .filter(commit => commit.type === 'fix')
-    .map(commit => formatGitHubCommitMessage(commit));
-
-  // The awkard spacing and indentation is intenional here as passing in the "\n" character for a
-  // new line will actually print our in the tag message as "\n" instead of making a new line
-  let str = `Release
-# [${tagName}](https://github.comcast.com/Lightning/lightning-ui/compare/${lastRelease}...${tagName}) (${getDate()})`;
   if (features.length) {
-    str += `
-
-###Features
-
-`;
-    features.forEach(commit => str += `
-${commit}`);
-  }
-  if (fixes.length) {
-    str += `
-
-###Bug Fixes
-
-`;
-    fixes.forEach(commit => str += `
-${commit}`);
+    str += `-m " ### Features"`;
+    str += `-m "${features.reduce((acc, curr, index) => { return index > 0 ? curr : `${acc}
+${curr}`; // indentation is intentional left off (see above)
+    }, "")}"`;
   }
 
   return str;
@@ -330,7 +325,8 @@ async function release() {
       const filesChanged = await fetchFileChanges(commit.hash);
       filesChanged.forEach(file => {
         package.workspaces.forEach(workspace => {
-          if (file.startsWith(workspace)) {
+          // need to make sure `ui` doesn't match with files in `ui-core`
+          if (file.startsWith(workspace + '/')) {
             // File that changed is in a workspace
             const previous = workspaceChanges.get(
               workspace.replace('packages/', '')
