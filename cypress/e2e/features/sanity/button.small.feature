@@ -9,16 +9,13 @@ Feature: LUI Button Small component
   Scenario: Verify that Button Small is displayed
     Then I verify that the 'ButtonSmall' component is displayed
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
   Scenario: Verify the Button Small modes
-    When I set the 'mode' to 'unfocused' for 'Button' component
-    Then I verify the 'mode' is 'unfocused' for 'Button' 'Small'
-    When I set the 'mode' to 'focused' for 'Button' component
-    Then I verify the 'mode' is 'focused' for 'Button' 'Samll'
-    When I set the 'mode' to 'disabled' for 'Button' component
-    Then I verify the 'mode' is 'disabled' for 'Button' 'Samll'
+    When I set the 'mode' to 'unfocused' for 'ButtonSmall' component
+    Then I verify the 'mode' is 'unfocused' for 'ButtonSmall' 'ButtonSmall'
+    And I set the 'mode' to 'focused' for 'ButtonSmall' component
+    And I verify the 'mode' is 'focused' for 'ButtonSmall' 'ButtonSmall'
+    And I set the 'mode' to 'disabled' for 'ButtonSmall' component
+    And I verify the 'mode' is 'disabled' for 'ButtonSmall' 'ButtonSmall'
 
   Scenario: Verify the Button Small fixed state
     When I verify that the 'width' of 'ButtonSmall' component is '144px'

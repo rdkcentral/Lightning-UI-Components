@@ -9,16 +9,13 @@ Feature: LUI Control component
   Scenario: Verify that Control Basic is displayed
     Then I verify that the 'Control' component is displayed
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Control Basic modes
+  Scenario: Verify the Control modes
     When I set the 'mode' to 'unfocused' for 'Control' component
-    Then I verify the 'mode' is 'unfocused' for 'Control' 'Basic'
+    Then I verify the 'mode' is 'unfocused' for 'Control' 'Control'
     And I set the 'mode' to 'focused' for 'Control' component
-    And I verify the 'mode' is 'focused' for 'Control' 'Basic'
+    And I verify the 'mode' is 'focused' for 'Control' 'Control'
     And I set the 'mode' to 'disabled' for 'Control' component
-    And I verify the 'mode' is 'disabled' for 'Control' 'Basic'
+    And I verify the 'mode' is 'disabled' for 'Control' 'Control'
 
   Scenario: Verify the Control Basic fixed state
     When I verify that the 'width' of 'Control' component is '104px'
@@ -37,20 +34,17 @@ Feature: LUI Control component
     And I set the 'logo' to 'xfinity' for 'Control' component
     And I verify that the 'Control' logo state is 'xfinity'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
   Scenario: Verify the Control shouldCollapse state
     When I set the 'mode' to 'unfocused' for 'Control' component
     And I set the 'shouldCollapse' to 'true' for 'Control' component
-    And I verify that the 'width' of 'Control' 'Control' component is '90px'
+    And I verify that the 'width' of 'Control' component is '90px'
     And I set the 'shouldCollapse' to 'false' for 'Control' component
-    And I verify that the 'width' of 'Control' 'Control' component is '104px'
+    And I verify that the 'width' of 'Control' component is '104px'
     And I set the 'mode' to 'disabled' for 'Control' component
     And I set the 'shouldCollapse' to 'true' for 'Control' component
-    And I verify that the 'width' of 'Control' 'Control' component is '90px'
+    And I verify that the 'width' of 'Control' component is '90px'
     And I set the 'shouldCollapse' to 'false' for 'Control' component
-    And I verify that the 'width' of 'Control' 'Control' component is '104px'
+    And I verify that the 'width' of 'Control' component is '104px'
 
   Scenario: Verify the Control title text can be set
     When I set the 'title' to 'LUI TEST' for 'Control' component

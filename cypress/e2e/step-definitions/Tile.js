@@ -18,9 +18,9 @@ export default function () {
       switch (prop) {
         case 'persistentMetadata':
           if (value === 'true') {
-            cy.get(Tile.metadata).should('not.have.attr', 'alpha');
+            cy.get(Tile.metadata).should('be.visible');
           } else {
-            cy.get(Tile.metadata).should('have.attr', 'alpha');
+            cy.get(Tile.metadata).should('not.exist');
           }
           break;
         case 'blur':
