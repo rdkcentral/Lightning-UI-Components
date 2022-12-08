@@ -279,17 +279,14 @@ describe('TextBox', () => {
 
     it('should update the textbox dimensions after rendering', async () => {
       [textBox, testRenderer] = createTextBox(
-        {},
+        { content: undefined },
         { spyOnMethods: ['_notifyAncestors'] }
       );
       jest.spyOn(textBox, 'signal');
       testRenderer.forceAllUpdates();
-      await textBox.__notifyAncestorsSpyPromise;
 
-      expect(textBox.signal).toHaveBeenCalledWith('textBoxChanged', {
-        w: 0,
-        h: 0
-      });
+      // since content is undefined and Text is not defined notifyAncestors should not be called
+      expect(textBox.signal).not.toHaveBeenCalled();
 
       textBox.signal.mockClear();
       textBox.content = ['inline', { badge: 'content' }];
@@ -299,6 +296,14 @@ describe('TextBox', () => {
       expect(textBox.signal).toHaveBeenCalledWith('textBoxChanged', {
         w: textBox._InlineContent.finalW,
         h: textBox._InlineContent.multiLineHeight
+      });
+
+      textBox.content = undefined;
+      testRenderer.forceAllUpdates();
+      await textBox.__notifyAncestorsSpyPromise;
+      expect(textBox.signal).toHaveBeenCalledWith('textBoxChanged', {
+        w: 0,
+        h: 0
       });
     });
   });
