@@ -480,7 +480,9 @@ export default function () {
                 .should('not.have.attr', 'scalex');
               break;
             case 'disabled':
-              pageObject._getElementByName(component).should('be.disabled');
+              pageObject
+                ._getElementByName(component)
+                .should('not.have.attr', 'scalex');
               break;
             default:
               break;

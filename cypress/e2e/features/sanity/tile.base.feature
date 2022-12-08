@@ -13,16 +13,13 @@ Feature: LUI Tile Basic component
     Then I verify that the 'width' of 'Tile' component is '527px'
     And I verify that the 'height' of 'Tile' component is '296px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify that Tile Basic modes
+  Scenario: Verify that Tile modes
     When I set the 'mode' to 'unfocused' for 'Tile' component
-    Then I verify the 'mode' is 'unfocused' for 'Tile' 'Basic'
-    When I set the 'mode' to 'focused' for 'Tile' component
-    Then I verify the 'mode' is 'focused' for 'Tile' 'Basic'
-    When I set the 'mode' to 'disabled' for 'Tile' component
-    Then I verify the 'mode' is 'disabled' for 'Tile' 'Basic'
+    Then I verify the 'mode' is 'unfocused' for 'Tile' 'Tile'
+    And I set the 'mode' to 'focused' for 'Tile' component
+    And I verify the 'mode' is 'focused' for 'Tile' 'Tile'
+    And I set the 'mode' to 'disabled' for 'Tile' component
+    And I verify the 'mode' is 'disabled' for 'Tile' 'Tile'
 
   Scenario: Verify the Tile Basic metadataLocation control
     When I set the 'metadataLocation' to 'standard' for 'Tile' component
@@ -30,12 +27,18 @@ Feature: LUI Tile Basic component
     And I set the 'metadataLocation' to 'inset' for 'Tile' component
     And I verify that the 'inset' is 'true' for 'Tile' component
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
   Scenario: Verify the Tile Basic persistentMetadata control
-    When I set the 'persistentMetadata' to 'true' for 'Tile' component
+    When I set the 'mode' to 'unfocused' for 'Tile' component
+    And I set the 'persistentMetadata' to 'true' for 'Tile' component
     Then I verify that the 'persistentMetadata' is 'true' for 'Tile' component
+    And I set the 'persistentMetadata' to 'false' for 'Tile' component
+    And I verify that the 'persistentMetadata' is 'false' for 'Tile' component
+    And I set the 'mode' to 'focused' for 'Tile' component
+    And I set the 'persistentMetadata' to 'true' for 'Tile' component
+    And I verify that the 'persistentMetadata' is 'true' for 'Tile' component
+    And I set the 'mode' to 'disabled' for 'Tile' component
+    And I set the 'persistentMetadata' to 'true' for 'Tile' component
+    And I verify that the 'persistentMetadata' is 'true' for 'Tile' component
     And I set the 'persistentMetadata' to 'false' for 'Tile' component
     And I verify that the 'persistentMetadata' is 'false' for 'Tile' component
 
