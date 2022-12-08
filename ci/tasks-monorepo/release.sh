@@ -31,6 +31,12 @@ PACKAGE_VERSION_UI_EXTENSIONS=$(cat ./packages/@lightning/ui-extensions/package.
   awk -F: '{ print $2 }' |
   sed 's/[",]//g')
 
+PACKAGE_VERSION_UI_TEST_UTILS=$(cat ./packages/@lightning/ui-test-utils/package.json |
+  grep version |
+  head -1 |
+  awk -F: '{ print $2 }' |
+  sed 's/[",]//g')
+
 git add -A
-git commit -m "chore(release): @lightning/ui@${PACKAGE_VERSION_UI}, @lightning/ui-core@${PACKAGE_VERSION_UI_CORE}, @lightning/ui-extensions@${PACKAGE_VERSION_UI_EXTENSIONS} [skip ci]" || echo 0
+git commit -m "chore(release): @lightning/ui@${PACKAGE_VERSION_UI}, @lightning/ui-core@${PACKAGE_VERSION_UI_CORE}, @lightning/ui-extensions@${PACKAGE_VERSION_UI_EXTENSIONS}, @lightning/ui-test-utils@${PACKAGE_VERSION_UI_TEST_UTILS} [skip ci]" || echo 0
 yarn updateReleaseLog || echo 0
