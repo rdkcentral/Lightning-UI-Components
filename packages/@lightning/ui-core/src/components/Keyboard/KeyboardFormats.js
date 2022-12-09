@@ -509,8 +509,8 @@ export default {
         '7',
         '8',
         '9',
-        '0'
-        //{ title: 'Delete', icon: { src: 'backspace', size: 48 }, size: 'md' }
+        '0',
+        { title: 'Delete', /* icon: { src: backspace, size: 48 },*/ size: 'md' }
       ],
       [
         'Q',
@@ -591,8 +591,8 @@ export default {
         '7',
         '8',
         '9',
-        '0'
-        //{ title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
+        '0',
+        { title: 'Delete', /* icon: { src: backspace, size: 48 },*/ size: 'md' }
       ],
       [
         'q',
@@ -673,8 +673,8 @@ export default {
         '7',
         '8',
         '9',
-        '0'
-        //{ title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
+        '0',
+        { title: 'Delete', /* icon: { src: backspace, size: 48 },*/ size: 'md' }
       ],
       [
         'ä',
@@ -755,8 +755,8 @@ export default {
         '7',
         '8',
         '9',
-        '0'
-        //{ title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
+        '0',
+        { title: 'Delete', /* icon: { src: backspace, size: 48 },*/ size: 'md' }
       ],
       [
         'Ä',
@@ -837,8 +837,8 @@ export default {
         '7',
         '8',
         '9',
-        '0'
-        //{ title: 'Delete', icon: { src: backspace, size: 48 }, size: 'md' }
+        '0',
+        { title: 'Delete', /* icon: { src: backspace, size: 48 },*/ size: 'md' }
       ],
       [
         { title: '!', announce: 'exclamation, button' },

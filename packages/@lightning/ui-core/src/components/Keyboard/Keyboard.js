@@ -19,7 +19,7 @@ class Keyboard extends Base {
   }
 
   static get properties() {
-    return ['formats', 'centerAlign', 'rowWrap'];
+    return ['formats', 'centerKeyboard', 'rowWrap', 'centerKeys'];
   }
 
   _focus() {
@@ -34,6 +34,11 @@ class Keyboard extends Base {
   _update() {
     if (!this._currentFormat) {
       this._currentFormat = this.defaultFormat;
+    }
+    if (this.centerKeyboard) {
+      this.x = (this.style.screenW - this.w) / 2 - this.style.marginX;
+    } else {
+      this.x = 0;
     }
     if (this._formatsChanged) {
       this._createFormat(this._currentFormat);
@@ -53,11 +58,11 @@ class Keyboard extends Base {
               style: {
                 itemSpacing: this.style.spacing
               },
-              centerInParent: this.centerAlign,
+              centerInParent: this.centerKeys,
               wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
             });
           });
-          // force Column to recalculate rows from the centerAlign toggle
+          // force Column to recalculate rows from the centerKeyboard toggle
           element.queueRequestUpdate();
         }
       });
@@ -99,7 +104,7 @@ class Keyboard extends Base {
         type: Row,
         autoResizeHeight: true,
         autoResizeWidth: true,
-        centerInParent: this.centerAlign,
+        centerInParent: this.centerKeyboard,
         neverScroll: true,
         wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true,
         style: {

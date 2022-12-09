@@ -12,12 +12,10 @@ class KeyboardInput extends Base {
 
   static get properties() {
     return [
-      'centerAlign',
+      'centerKeyboard',
       'defaultFormat',
-      'input',
-      'keyboardFormats',
-      'mask',
-      'password'
+      'input', // this should hold all the props passed from Input
+      'keyboardFormats'
     ];
   }
 
@@ -63,12 +61,13 @@ class KeyboardInput extends Base {
     this._Wrapper.style.itemSpacing = this.style.itemSpacing;
     this._updateInput();
     this._updateKeyboard();
+    this._updateCenterKeyboard();
   }
 
   _updateInput() {
     this._Input.patch({
       ...this.input,
-      centerInParent: this.centerAlign,
+      centerInParent: this.centerKeyboard,
       w: this._Keyboard.w,
       style: { ...this.style.inputStyles }, // allows overriding of input styles
       listening: this._isFocusedMode,
@@ -80,7 +79,7 @@ class KeyboardInput extends Base {
     this._Keyboard.patch({
       defaultFormat: this.defaultFormat || 'lowercase',
       formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
-      centerAlign: this.centerAlign,
+      centerKeyboard: this.centerKeyboard,
       palette: this.palette
     });
   }
@@ -89,6 +88,14 @@ class KeyboardInput extends Base {
   _updateWidth() {
     this._Input.w = this.w = this._Keyboard.w;
     this.fireAncestors('$itemChanged');
+  }
+
+  _updateCenterKeyboard() {
+    if (this.centerKeyboard) {
+      this.x = (this.style.screenW - this.w) / 2 - this.style.marginX;
+    } else {
+      this.x = 0;
+    }
   }
 
   $onSoftKey({ key }) {
