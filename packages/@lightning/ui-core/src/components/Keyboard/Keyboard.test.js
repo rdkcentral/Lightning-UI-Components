@@ -1,7 +1,6 @@
 import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Keyboard, { KEYBOARD_FORMATS } from './index.js';
 import KeyboardInput from './KeyboardInput.js';
-
 const createKeyboard = makeCreateComponent(Keyboard);
 const createKeyboardInput = makeCreateComponent(KeyboardInput);
 
@@ -33,6 +32,19 @@ describe('Keyboard', () => {
   it('should allow announce to be overriden', () => {
     keyboard.announce = 'Qwerty Keyboard';
     expect(keyboard.announce).toEqual('Qwerty Keyboard');
+  });
+
+  it('should not center the keyboard when centerKeyboard is false', () => {
+    keyboard.centerKeyboard = false;
+    expect(keyboard.x).toEqual(0);
+  });
+
+  it.skip('should center the keyboard when centerAlign is true', () => {
+    keyboard.centerAlign = true;
+    testRenderer.forceAllUpdates();
+    expect(keyboard.x).toEqual(
+      (keyboard.style.screenW - keyboard.w) / 2 - keyboard.style.marginX
+    );
   });
 
   it('should have an announceContext', () => {

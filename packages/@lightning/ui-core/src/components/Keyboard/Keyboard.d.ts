@@ -7,7 +7,8 @@ export type KeyboardStyles = {
 };
 
 export default class Keyboard extends Base {
-  centerAlign?: boolean;
+  centerKeyboard?: boolean;
+  centerKeys?: boolean;
   formats?: lng.Component | Array<lng.Component>;
   rowWrap?: boolean;
   get style(): KeyboardStyles;

@@ -2,13 +2,33 @@ import lng from '@lightningjs/core';
 import KeyboardComponent, { KEYBOARD_FORMATS } from '.';
 import KeyboardInput from './KeyboardInput';
 import { Input as InputStory } from '../Input/Input.stories';
+import { Icon } from '../index.js';
 import {
   createModeControl,
   generateSubStory
 } from '../../../storybook/index.js';
 import mdx from './Keyboard.mdx';
-import { context } from '../../globals/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
+import lightning from '../../assets/images/ic_lightning_white_32.png';
+import eye from '../../assets/images/ic_eye_white_48.png';
+import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
+import { context, utils } from '@lightning/ui-core';
+
+function getCommponentArray(comps) {
+  let arr = [];
+  switch (comps) {
+    case 'icon':
+      arr = [{ type: Icon, icon: lightning }];
+      break;
+    case 'eye':
+      arr = [{ type: Icon, icon: eye, w: 30, h: 30 }];
+      break;
+    case 'eyeHide':
+      arr = [{ type: Icon, icon: eyeHide, w: 30, h: 30 }];
+      break;
+  }
+  return arr;
+}
 
 export default {
   title: `${CATEGORIES[8]}/Keyboard`,
@@ -21,7 +41,7 @@ export default {
 
 const sharedArgTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
-  centerAlign: {
+  centerKeyboard: {
     defaultValue: false,
     description: "center the keyboard within it's set width",
     control: 'boolean',
@@ -39,14 +59,9 @@ export const Basic = () =>
           type: KeyboardComponent,
           defaultFormat: 'lowercase',
           formats: KEYBOARD_FORMATS.qwerty
-        }
+        },
+        w: utils.getWidthByUpCount(context.theme, 1)
       };
-    }
-
-    $itemChanged() {
-      // example of centering the keyboard on the screen using the calculated width
-      this.tag('Keyboard').x =
-        (1920 - this.tag('Keyboard').w) / 2 - context.theme.layout.marginX;
     }
   };
 
@@ -61,7 +76,8 @@ export const FullScreen = () =>
           type: KeyboardComponent,
           defaultFormat: 'letters',
           formats: KEYBOARD_FORMATS.fullscreen
-        }
+        },
+        w: utils.getWidthByUpCount(context.theme, 1)
       };
     }
 
@@ -77,7 +93,17 @@ export const FullScreen = () =>
 
 FullScreen.parameters = {};
 
-FullScreen.argTypes = sharedArgTypes;
+FullScreen.argTypes = {
+  ...sharedArgTypes,
+  centerKeys: {
+    defaultValue: false,
+    description: "center the keys within it's set width of keyboard",
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
+  }
+};
 
 export const Dialpad = () =>
   class Dialpad extends lng.Component {
@@ -87,7 +113,8 @@ export const Dialpad = () =>
           type: KeyboardComponent,
           defaultFormat: 'dialpad',
           formats: KEYBOARD_FORMATS.numbers
-        }
+        },
+        w: utils.getWidthByUpCount(context.theme, 1)
       };
     }
   };
@@ -101,6 +128,14 @@ Dialpad.argTypes = {
     options: ['dialpad', 'dialpadExtended'],
     table: {
       defaultValue: { summary: 'dialpad' }
+    }
+  },
+  centerKeys: {
+    defaultValue: false,
+    description: "center the keys within it's set width of keyboard",
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
     }
   }
 };
@@ -129,28 +164,61 @@ export const KeyboardWithInput = () =>
             eyebrow: 'Search',
             helpText: 'Main'
           }
-        }
+        },
+        w: utils.getWidthByUpCount(context.theme, 1)
       };
     }
-
-    // example of center align of KeyboardInput
-    $itemChanged() {
-      this.tag('KeyboardInput').x =
-        (1920 - this.tag('KeyboardInput').w) / 2 - context.theme.layout.marginX;
-    }
   };
-
+const sharedInputArgTypes = {
+  prefix: {
+    control: 'radio',
+    defaultValue: null,
+    options: [null, 'icon'],
+    description: 'Lightning components to be placed to the left of the title',
+    table: {
+      defaultValue: { summary: 'null' }
+    }
+  },
+  suffix: {
+    control: 'radio',
+    defaultValue: null,
+    options: [null, 'icon', 'eye', 'eyeHide'],
+    description: 'Lightning components to be placed to the right of the title',
+    table: {
+      defaultValue: { summary: 'null' }
+    }
+  }
+};
 KeyboardWithInput.argTypes = {
-  ...sharedKeyboardArgTypes
+  ...sharedArgTypes,
+  ...sharedKeyboardArgTypes,
+  ...sharedInputArgTypes
 };
 
 KeyboardWithInput.parameters = {
   tag: 'KeyboardInput'
 };
 
+KeyboardWithInput.parameters.argActions = {
+  prefix: (prefix, component) => {
+    if (prefix == null) {
+      component.tag('KeyboardInput')._Input.prefix = [];
+    } else {
+      component.tag('KeyboardInput')._Input.prefix = getCommponentArray(prefix);
+    }
+  },
+  suffix: (suffix, component) => {
+    if (suffix == null) {
+      component.tag('KeyboardInput')._Input.suffix = [];
+    } else {
+      component.tag('KeyboardInput')._Input.suffix = getCommponentArray(suffix);
+    }
+  }
+};
+
 generateSubStory('KeyboardInput', KeyboardWithInput, InputStory, 'input', [
-  'eyebrow',
-  'helpText',
+  'prefix',
+  'suffix',
   'listening' // removes control option from Story
 ]);
 
@@ -165,18 +233,41 @@ export const EmailWithInput = () =>
             eyebrow: 'Email Address',
             helpText: 'Help Text'
           }
-        }
+        },
+        w: utils.getWidthByUpCount(context.theme, 1)
       };
     }
   };
 
-EmailWithInput.argTypes = { ...sharedKeyboardArgTypes };
+EmailWithInput.argTypes = {
+  ...sharedArgTypes,
+  ...sharedKeyboardArgTypes,
+  ...sharedInputArgTypes
+};
 
 EmailWithInput.parameters = {
   tag: 'EmailInput'
 };
+
+EmailWithInput.parameters.argActions = {
+  prefix: (prefix, component) => {
+    if (prefix == null) {
+      component.tag('EmailInput')._Input.prefix = [];
+    } else {
+      component.tag('EmailInput')._Input.prefix = getCommponentArray(prefix);
+    }
+  },
+  suffix: (suffix, component) => {
+    if (suffix == null) {
+      component.tag('EmailInput')._Input.suffix = [];
+    } else {
+      component.tag('EmailInput')._Input.suffix = getCommponentArray(suffix);
+    }
+  }
+};
+
 generateSubStory('EmailInput', EmailWithInput, InputStory, 'input', [
-  'eyebrow',
-  'helpText',
+  'prefix',
+  'suffix',
   'listening'
 ]);
