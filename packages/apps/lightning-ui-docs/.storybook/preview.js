@@ -295,10 +295,12 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
             ];
           }
 
+          // TODO: Assess what config.optimization.minimize is doing different in production vs develop
+          // string to see if it includes Element in the name string
           get componentTarget() {
             return this.childList &&
               this.childList.first &&
-              this.childList.first.constructor.name !== 'Element'
+              !this.childList.first.constructor.name.includes('Element')
               ? this.childList.first
               : this;
           }
