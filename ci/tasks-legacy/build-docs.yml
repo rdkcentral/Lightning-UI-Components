@@ -2,14 +2,16 @@
 platform: linux
 inputs:
   - name: source-repo
-  - name: node_modules
 outputs:
-  - name: reports
+  - name: source-repo/dist
+caches:
+  - path: source-repo/node_modules
 image_resource:
   type: docker-image
   source:
     repository: node
     tag: 16.9.1
 run:
-  path: ./ci/tasks/quality.sh
+  path: bash
+  args: [ ./ci/tasks-legacy/build-docs.sh ]
   dir: ./source-repo

@@ -3,15 +3,14 @@ platform: linux
 inputs:
   - name: source-repo
 outputs:
-  - name: source-repo/dist
-caches:
-  - path: source-repo/node_modules
+  - name: storybook
+    path: source-repo/packages/apps/lightning-ui-docs/storybook-static
 image_resource:
   type: docker-image
   source:
     repository: node
-    tag: 16.9.1
+    tag: 16.0.0
 run:
   path: bash
-  args: [ ./ci/tasks/build-docs.sh ]
+  args: [ ./ci/tasks/docs-cf.sh ]
   dir: ./source-repo

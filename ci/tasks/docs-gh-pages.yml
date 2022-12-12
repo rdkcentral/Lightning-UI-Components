@@ -8,5 +8,6 @@ image_resource:
     repository: node
     tag: 16.0.0
 run:
-  path: ./ci/tasks-monorepo/lint.sh
+  path: bash
+  args: [ ./ci/tasks/docs-gh-pages.sh ]
   dir: ./source-repo

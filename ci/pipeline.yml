@@ -206,16 +206,16 @@ jobs:
         input_mapping:
           source-repo: source-repo-pr
       - task: install
-        file: source-repo-pr/ci/tasks-monorepo/install.yml
+        file: source-repo-pr/ci/tasks/install.yml
         input_mapping:
           source-repo: source-repo-pr
       - in_parallel:
           - task: test-monorepo
-            file: source-repo-pr/ci/tasks-monorepo/test.yml
+            file: source-repo-pr/ci/tasks/unit-test.yml
             input_mapping:
               source-repo: source-repo-ready
           - task: code-quality-monorepo
-            file: source-repo-pr/ci/tasks-monorepo/lint.yml
+            file: source-repo-pr/ci/tasks/lint.yml
             input_mapping:
               source-repo: source-repo-ready
 
@@ -226,20 +226,20 @@ jobs:
     plan:
       - get: source-repo
       - task: install
-        file: source-repo/ci/tasks-monorepo/install.yml
+        file: source-repo/ci/tasks/install.yml
         input_mapping:
           source-repo: source-repo
       - in_parallel:
           - task: test-monorepo
-            file: source-repo/ci/tasks-monorepo/test.yml
+            file: source-repo/ci/tasks/unit-test.yml
             input_mapping:
               source-repo: source-repo-ready
           - task: code-quality-monorepo
-            file: source-repo/ci/tasks-monorepo/lint.yml
+            file: source-repo/ci/tasks/lint.yml
             input_mapping:
               source-repo: source-repo-ready
       - task: publish-monorepo
-        file: source-repo/ci/tasks-monorepo/release.yml
+        file: source-repo/ci/tasks/release.yml
         input_mapping:
           source-repo: source-repo-ready
         params:
@@ -257,7 +257,7 @@ jobs:
         params:
           repository: updated-branch # From publish-monorepo-step
       - task: docs
-        file: source-repo/ci/tasks-monorepo/docs-gh-pages.yml
+        file: source-repo/ci/tasks/docs-gh-pages.yml
         input_mapping:
           source-repo: source-repo-ready
         params:
@@ -290,7 +290,7 @@ jobs:
       - get: source-repo-develop
         trigger: true
       - task: build-docs
-        file: source-repo-develop/ci/tasks-monorepo/docs-cf.yml
+        file: source-repo-develop/ci/tasks/docs-cf.yml
         input_mapping:
           source-repo: source-repo-develop
       - put: docs-cf-app
@@ -328,20 +328,20 @@ jobs:
         input_mapping:
           source-repo: source-repo-4x-pr
       - task: npm-install
-        file: source-repo-4x-pr/ci/tasks/install.yml
+        file: source-repo-4x-pr/ci/tasks-legacy/install.yml
         input_mapping:
           source-repo: source-repo-4x-pr
       - in_parallel:
           - task: code-quality
-            file: source-repo-4x-pr/ci/tasks/quality.yml
+            file: source-repo-4x-pr/ci/tasks-legacy/quality.yml
             input_mapping:
               source-repo: source-repo-4x-pr
           - task: unit-tests
-            file: source-repo-4x-pr/ci/tasks/unit-tests.yml
+            file: source-repo-4x-pr/ci/tasks-legacy/unit-test.yml
             input_mapping:
               source-repo: source-repo-4x-pr
       - task: build-storybook-and-components
-        file: source-repo-4x-pr/ci/tasks/build.yml
+        file: source-repo-4x-pr/ci/tasks-legacy/build.yml
         params:
           BUILD_PATH: "packages/core/storybook-static/*"
         input_mapping:
@@ -353,7 +353,7 @@ jobs:
       - get: source-repo-4x
         trigger: true
       - task: build-docs
-        file: source-repo-4x/ci/tasks/build-docs.yml
+        file: source-repo-4x/ci/tasks-legacy/build-docs.yml
         input_mapping:
           source-repo: source-repo-4x
         output_mapping:
@@ -369,7 +369,7 @@ jobs:
       - get: source-repo-4x
         trigger: true
       - task: version-and-publish
-        file: source-repo-4x/ci/tasks/publish.yml
+        file: source-repo-4x/ci/tasks-legacy/publish.yml
         input_mapping:
           source-repo: source-repo-4x
         params:
@@ -388,7 +388,7 @@ jobs:
         trigger: true
       - get: source-repo-develop
       - task: run-cypress-tests
-        file: source-repo-develop/ci/tasks-monorepo/run-cypress-tests.yml
+        file: source-repo-develop/ci/tasks/run-cypress-tests.yml
         input_mapping:
           source-repo: source-repo-develop
         params:

@@ -22,4 +22,4 @@ params:
       TZ: US/Eastern
 
 run:
-  path: source-repo/ci/tasks-monorepo/run-cypress-tests.sh
+  path: source-repo/ci/tasks/run-cypress-tests.sh
