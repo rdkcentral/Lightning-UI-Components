@@ -26,6 +26,7 @@ import Column from './navigation/column.navigation';
 import ListItem from './controls/listitem.controls';
 import Control from './controls/control.controls';
 import ControlSmall from './controls/controlsmall.controls';
+import Checkbox from './utilities/checkbox.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -56,7 +57,8 @@ export default function getPageObject(pageName) {
     column: Column,
     listitem: ListItem,
     control: Control,
-    controlsmall: ControlSmall
+    controlsmall: ControlSmall,
+    checkbox: Checkbox
   };
 
   if (pageName in pageObjects) {

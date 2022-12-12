@@ -7,6 +7,7 @@ import FocusManager from './FocusManager';
 import Button from './Button';
 import Control from './Control';
 import ListItem from './ListItem';
+import Checkbox from './Checkbox';
 
 Common();
 Artwork();
@@ -17,3 +18,4 @@ FocusManager();
 Button();
 Control();
 ListItem();
+Checkbox();
