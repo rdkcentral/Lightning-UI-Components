@@ -1,12 +1,12 @@
 ---
 platform: linux
 inputs:
-  - name: slack-payload
+  - name: source-repo
 image_resource:
   type: docker-image
   source:
     repository: node
     tag: 16.0.0
 run:
-  path: echo
-  args: ["Notify Slack"]
+  path: ./ci/tasks/lint.sh
+  dir: ./source-repo

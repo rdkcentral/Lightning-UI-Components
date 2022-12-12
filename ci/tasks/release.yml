@@ -13,5 +13,5 @@ image_resource:
     repository: node
     tag: 16.0.0
 run:
-  path: ./ci/tasks-monorepo/release.sh
+  path: ./ci/tasks/release.sh
   dir: ./source-repo
