@@ -56,20 +56,13 @@ export const KeyIcon = () =>
     static _template() {
       return {
         Key: {
-          type: KeyComponent
+          type: KeyComponent,
+          icon: lightning
         }
       };
     }
   };
-KeyIcon.args = {
-  icon: lightning,
-  size: 'sm'
-};
-
-const iconSet = {
-  lightning: lightning,
-  none: null
-};
+KeyIcon.args = {};
 
 KeyIcon.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
@@ -80,22 +73,7 @@ KeyIcon.argTypes = {
     },
     control: 'radio',
     options: ['sm', 'md', 'lg', 'xl']
-  },
-  icon: {
-    control: 'radio',
-    defaultValue: 'lightning',
-    options: ['none', 'lightning'],
-    description: 'Icon source',
-    table: {
-      defaultValue: { summary: 'none' }
-    }
   }
 };
 
-KeyIcon.parameters = {
-  argActions: {
-    icon: (iconName, component) => {
-      component.tag('Key').icon = iconSet[iconName];
-    }
-  }
-};
+KeyIcon.parameters = {};

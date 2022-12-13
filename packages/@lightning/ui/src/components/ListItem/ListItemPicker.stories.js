@@ -33,7 +33,7 @@ ListItemPicker.args = {
 };
 
 ListItemPicker.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Title',
     table: {
