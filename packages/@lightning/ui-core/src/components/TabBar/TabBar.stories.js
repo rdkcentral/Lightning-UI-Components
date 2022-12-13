@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
 import Tile from '../Tile/index.js';
+import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
 import Icon from '../Icon/index.js';
 import viewAllIcon from '../../assets/images/view_all.png';
@@ -7,7 +8,6 @@ import { createModeControl } from '../../../storybook/index.js';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';
-import cast from '../../assets/images/cast.png';
 import belair from '../../assets/images/tile-image.png';
 import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
@@ -95,16 +95,12 @@ const createColumn = titles => {
     type: Column,
     h: 300,
     w: 410,
-    y: 50,
     style: { itemSpacing: 16 },
     neverScroll: true,
     items: titles.map(title => ({
       w: 410,
-      type: Tile,
-      title: `${title} Item 1`,
-      subtitle: `${title} Subtitle 1`,
-      size: 'small',
-      image: cast
+      type: Button,
+      title
     }))
   };
 };
