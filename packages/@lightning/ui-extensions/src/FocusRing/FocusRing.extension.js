@@ -83,10 +83,14 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
             x: calculatedW / 2,
             y: calculatedH / 2,
             palette: this.palette,
-            style: this.style.focusRingStyle,
             alpha: 0,
             scale: 1,
-            zIndex: this.parent.core.findZContext().zIndex + zOffset
+            zIndex: this.parent.core.findZContext().zIndex + zOffset,
+            style: {
+              ...this.style.focusRingStyle,
+              // allow overriding radius in focusRingStyles
+              radius: this.style?.focusRingStyle?.radius ?? this.style.radius
+            }
           });
 
           // Get values from FocusRing to set proper scale when unfocused so it animates in properly
@@ -109,10 +113,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
 
         // Update variant and styles
         const focusRingPatch = {
-          palette: this.palette,
-          style: {
-            radius: this.style.radius || 0
-          }
+          palette: this.palette
         };
 
         if (this._isFocusedMode) {
