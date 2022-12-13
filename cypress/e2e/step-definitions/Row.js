@@ -1,6 +1,7 @@
 import Row from '../pageObjects/navigation/row.navigation';
 
-import { Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Then} from '@badeball/cypress-cucumber-preprocessor';
+import getPageObject from "../pageObjects";
 
 export default function () {
   /**
@@ -175,7 +176,7 @@ export default function () {
         .each($row => {
           // push the row info to the tileRows array
           cy.getOffsetRect($row).then(data => {
-            tileRows.push({ ...data });
+            tileRows.push({...data});
           });
         })
         .then(() => {
@@ -259,6 +260,27 @@ export default function () {
             cy.wrap(el).should('have.attr', 'focused', 'true');
           });
       }
+    }
+  );
+
+  /**
+   * @module Row
+   * @function I verify {string} have different {string}
+   * @description Cucumber statement to verify that components have different values
+   * @param {String} componentName
+   * @param {String} propertyName
+   * @example I verify 'Row elements' have different 'width'
+   */
+  Then(
+    'I verify {string} have different {string}',
+    (componentName, propertyName) => {
+      const component = componentName.toLowerCase();
+      const property = propertyName.toLowerCase();
+      Row._getElementByName(component).getAttributes(property).then((element) => {
+        for (let i = 0; i < element.length - 1; i++) {
+          expect(element[i]).not.equals(element[i + 1]);
+        }
+      })
     }
   );
 }
