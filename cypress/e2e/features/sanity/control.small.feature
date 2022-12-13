@@ -9,13 +9,14 @@ Feature: LUI Control Small component
   Scenario: Verify that Control Small is displayed
     Then I verify that the 'ControlSmall' component is displayed
 
-  Scenario: Verify the ControlSmall modes
-    When I set the 'mode' to 'unfocused' for 'ControlSmall' component
-    Then I verify the 'mode' is 'unfocused' for 'ControlSmall' 'ControlSmall'
-    And I set the 'mode' to 'focused' for 'ControlSmall' component
-    And I verify the 'mode' is 'focused' for 'ControlSmall' 'ControlSmall'
-    And I set the 'mode' to 'disabled' for 'ControlSmall' component
-    And I verify the 'mode' is 'disabled' for 'ControlSmall' 'ControlSmall'
+  Scenario Outline: Verify that Control Small modes
+    When I set the 'mode' to 'modeValue' for 'ControlSmall' component
+    Then I verify the 'mode' is 'modeValue' for 'ControlSmall' 'ControlSmall'
+  Examples:
+    | modeValue |
+    | unfocused |
+    | focused   |
+    | disabled  |
 
   Scenario: Verify the ControlSmall fixed state
     When I verify that the 'width' of 'ControlSmall' component is '104px'

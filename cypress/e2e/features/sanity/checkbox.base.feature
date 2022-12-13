@@ -16,13 +16,14 @@ Feature: LUI Checkbox Basic component
   #https://ccp.sys.comcast.net/browse/LUI-555
   #This is skipped because of the bug
   @skip
-  Scenario: Verify that Checkbox Basic modes
-    When I set the 'mode' to 'unfocused' for 'Checkbox' component
-    Then I verify the 'mode' is 'unfocused' for 'Checkbox' 'Checkbox'
-    And I set the 'mode' to 'focused' for 'Control' component
-    And I verify the 'mode' is 'focused' for 'Checkbox' 'Checkbox'
-    And I set the 'mode' to 'disabled' for 'Checkbox' component
-    And I verify the 'mode' is 'disabled' for 'Checkbox' 'Checkbox'
+  Scenario Outline: Verify that Checkbox Basic modes
+    When I set the 'mode' to 'modeValue' for 'Checkbox' component
+    Then I verify the 'mode' is 'modeValue' for 'Checkbox' 'Checkbox'
+  Examples:
+    | modeValue |
+    | unfocused |
+    | focused   |
+    | disabled  |
 
   Scenario: Verify that Checkbox Basic checked state
     When I set the 'checked' to 'true' for 'Checkbox' component

@@ -9,13 +9,14 @@ Feature: LUI Control component
   Scenario: Verify that Control Basic is displayed
     Then I verify that the 'Control' component is displayed
 
-  Scenario: Verify the Control modes
-    When I set the 'mode' to 'unfocused' for 'Control' component
-    Then I verify the 'mode' is 'unfocused' for 'Control' 'Control'
-    And I set the 'mode' to 'focused' for 'Control' component
-    And I verify the 'mode' is 'focused' for 'Control' 'Control'
-    And I set the 'mode' to 'disabled' for 'Control' component
-    And I verify the 'mode' is 'disabled' for 'Control' 'Control'
+  Scenario Outline: Verify that Control Basic modes
+    When I set the 'mode' to 'modeValue' for 'Control' component
+    Then I verify the 'mode' is 'modeValue' for 'Control' 'Control'
+  Examples:
+    | modeValue |
+    | unfocused |
+    | focused   |
+    | disabled  |
 
   Scenario: Verify the Control Basic fixed state
     When I verify that the 'width' of 'Control' component is '104px'
