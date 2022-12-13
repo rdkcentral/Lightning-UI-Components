@@ -289,7 +289,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
               },
               class ModeFocusState extends this {
                 _getFocused() {
-                  return this.componentTarget;
+                  return this.componentTarget; // Text Element
                 }
               }
             ];
@@ -300,7 +300,7 @@ addDecorator((StoryComponent, { id, args, parameters, globals }) => {
           get componentTarget() {
             return this.childList &&
               this.childList.first &&
-              !this.childList.first.constructor.name.includes('Element')
+              this.childList.first.constructor.name !== 'Element'
               ? this.childList.first
               : this;
           }

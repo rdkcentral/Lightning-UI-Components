@@ -1,5 +1,5 @@
 import { makeCreateComponent, fastForward } from '@lightning/ui-test-utils';
-import SliderLarge from '../Slider/SliderLarge.js';
+import SliderLarge from './SliderLarge.js';
 import { jest } from '@jest/globals';
 
 const createSlider = makeCreateComponent(SliderLarge);

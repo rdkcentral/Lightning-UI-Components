@@ -9,6 +9,7 @@ module.exports = {
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
+    "import/no-useless-path-segments": "error", // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
     'no-console': 'off',
     'no-restricted-syntax': [
       'error',
@@ -79,7 +80,7 @@ module.exports = {
         'no-redeclare': 'off',
         '@typescript-eslint/no-redeclare': [1, { ignoreDeclarationMerge: true }]
       },
-      plugins: ['@typescript-eslint']
+      plugins: ['@typescript-eslint', 'eslint-plugin-import']
     }
   ]
 };
