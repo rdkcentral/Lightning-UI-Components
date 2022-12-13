@@ -1,4 +1,3 @@
-export { default as processThemeStyles } from './processThemeStyles.js';
 import { context, updateManager } from '../../globals/index.js';
 import { getValFromObjPath, clone, getHexColor } from '../../utils/index.js';
 
@@ -232,12 +231,7 @@ export default function withThemeStyles(Base, mixinStyle) {
       let v = {};
 
       this._themeStyleChain.forEach(({ style }) => {
-        if (typeof style === 'function') {
-          /**
-           * Legacy support - Can be removed after refactor is complete along with processThemeStyles.js
-           */
-          v = clone(v, { base: style(this.theme, this.palette) });
-        } else if (
+        if (
           typeof style === 'object' &&
           !style.base &&
           !style.mode &&
@@ -246,7 +240,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         ) {
           v = clone(v, { base: style }); // Allows components to be wrapped by withThemeStyles
         } else {
-          const { base, mode, palette, variants } = style;
+          const { base, mode, palette } = style;
           if (base && typeof base === 'function') {
             v = clone(v, {
               base: base(this.theme) || {}
@@ -274,17 +268,6 @@ export default function withThemeStyles(Base, mixinStyle) {
           } else if (palette && typeof palette === 'object') {
             v = clone(v, {
               palette
-            });
-          }
-
-          // Legacy support
-          if (variants && typeof variants === 'function') {
-            v = clone(v, {
-              palette: variants(this.theme) || {}
-            });
-          } else if (variants && typeof variants === 'object') {
-            v = clone(v, {
-              palette: variants
             });
           }
         }

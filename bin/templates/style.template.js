@@ -1,30 +1,31 @@
 module.exports = () => {
   return `
-    import { processThemeStyles } from '@lightning/ui-core';
+  export const base = theme => ({   
+  
+  });
+  
+  export const mode = theme => ({
+    unfocused: {
+    
+    }, 
+    focused: {
 
-    export const variantDefault = 'neutral';
-
-    export function base(theme) {
-      return {
-        
-      };
+    },
+    disabled: {
+    
     }
+  });
+  
+  export const palette = theme => ({
+    neutral: {
 
-    export function variants(theme) {
-      return {
-        neutral: {
-          
-        },
-        inverse: {
+    },
+    inverse: {
+      
+    },
+    brand: {
         
-        },
-        brand: {
-          
-        }
-      };
     }
-
-    export default (theme, variant = variantDefault) =>
-      processThemeStyles(theme, variant, base, variants);
+  });
   `
 }
