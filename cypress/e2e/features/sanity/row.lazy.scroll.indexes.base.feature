@@ -18,20 +18,8 @@ Feature: LUI Row Lazy Scroll Indexes component
     And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
     And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
-  Scenario Outline: Validate displayed text of buttons
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>  '
-    Examples:
-      | element                 | text      |
-      | Button1LabelLazyScroll  | Button 1  |
-      | button3LabelLazyScroll  | Button 3  |
-      | button4LabelLazyScroll  | Button 4  |
-      | button5LabelLazyScroll  | Button 5  |
-      | button6LabelLazyScroll  | Button 6  |
-      | button7LabelLazyScroll  | Button 7  |
-      | button8LabelLazyScroll  | Button 8  |
-      | button9LabelLazyScroll  | Button 9  |
-      | button10LabelLazyScroll | Button 10 |
-      | button12LabelLazyScroll | Button 12 |
+  Scenario: Validate displayed text of buttons
+    Then I verify that all 'Buttons labels' of the 'Row' page have text 'Button'
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component
@@ -82,10 +70,10 @@ Feature: LUI Row Lazy Scroll Indexes component
     And I verify that the 'Row' 'Button 12' component is not displayed
 
   Scenario: Verify that the Start and Stop Lazy Scroll Index of the Row Lazy Scroll Indexes elements can be changed
-    Then I verify that the 'button2labelLazyScroll' component on the 'Row' page has text 'Button 2 (start lazy scroll) '
+    Then I verify that the 'button2label' component on the 'Row' page has text 'Button 2 (start lazy scroll) '
     And I press 'RIGHT' key 7 times
-    And I verify that the 'button11labelLazyScroll' component on the 'Row' page has text 'Button 11  (stop lazy scroll)'
+    And I verify that the 'button11label' component on the 'Row' page has text 'Button 11  (stop lazy scroll)'
     And I set the 'startLazyScrollIndex' to '2' for 'Row' component
     And I set the 'stopLazyScrollIndex' to '3' for 'Row' component
-    And I verify that the 'button3labelLazyScroll' component on the 'Row' page has text 'Button 3 (start lazy scroll) '
-    And I verify that the 'button4labelLazyScroll' component on the 'Row' page has text 'Button 4  (stop lazy scroll)'
+    And I verify that the 'button3label' component on the 'Row' page has text 'Button 3 (start lazy scroll) '
+    And I verify that the 'button4label' component on the 'Row' page has text 'Button 4  (stop lazy scroll)'

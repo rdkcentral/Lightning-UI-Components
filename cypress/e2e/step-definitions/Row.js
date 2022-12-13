@@ -36,7 +36,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -70, 20);
+                  .should('be.closeTo', -85, 25);
               });
               break;
             default:

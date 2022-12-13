@@ -43,7 +43,6 @@ Feature: LUI Row Skip Focus component
     And I verify that the 'Button8SkipFocus' component on the 'Row' page is in focus
 
   Scenario: Verify the Row Skip Focus 'Wrap Selected' toggle
-    Then I verify that the 'Row' 'wrapSelected' state is 'false'
     And I set the 'wrapSelected' to 'true' for 'Row' component
     And I verify that the 'Button2SkipFocus' component on the 'Row' page is in focus
     And I press 'LEFT' key

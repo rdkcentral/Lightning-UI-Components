@@ -37,12 +37,24 @@ class Row extends LUIComponent {
     return `${this.row} > div:nth-of-type(7)`;
   }
 
+  get button8() {
+    return `${this.row} > div:nth-of-type(8)`;
+  }
+
   get button10() {
     return `${this.row} > div:nth-of-type(10)`;
   }
 
   get button12() {
     return `${this.row} > div:nth-of-type(12)`;
+  }
+
+  get button16() {
+    return `${this.row} > div:nth-of-type(16)`;
+  }
+
+  get button18() {
+    return `${this.row} > div:nth-of-type(18)`;
   }
 
   get buttonsLabels() {
@@ -67,6 +79,46 @@ class Row extends LUIComponent {
 
   get button5label() {
     return `${this.row} > div:nth-of-type(5) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button6label() {
+    return `${this.row} > div:nth-of-type(6) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button7label() {
+    return `${this.row} > div:nth-of-type(7) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button8label() {
+    return `${this.row} > div:nth-of-type(8) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button9label() {
+    return `${this.row} > div:nth-of-type(9) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button10label() {
+    return `${this.row} > div:nth-of-type(10) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button11label() {
+    return `${this.row} > div:nth-of-type(11) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button12label() {
+    return `${this.row} > div:nth-of-type(12) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button14label() {
+    return `${this.row} > div:nth-of-type(14) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button16label() {
+    return `${this.row} > div:nth-of-type(16) div[type='TextBox'] > div[type='Element']`;
+  }
+
+  get button18label() {
+    return `${this.row} > div:nth-of-type(18) div[type='TextBox'] > div[type='Element']`;
   }
 
   //=============== Centered in parent ===============
@@ -278,58 +330,6 @@ class Row extends LUIComponent {
     return `${this.row} > div:nth-of-type(14) > div[type='Element']`;
   }
   //=============== Skip focus ===============
-
-  //=============== Lazy Scroll Indexes ===============
-
-  get button1labellazyscroll () {
-    return `${this.row} > div:nth-of-type(1) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button2labellazyscroll() {
-    return `${this.row} > div:nth-of-type(2) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button3labellazyscroll() {
-    return `${this.row} > div:nth-of-type(3) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button4labellazyscroll() {
-    return `${this.row} > div:nth-of-type(4) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button5labellazyscroll() {
-    return `${this.row} > div:nth-of-type(5) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button6labellazyscroll() {
-    return `${this.row} > div:nth-of-type(6) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button7labellazyscroll() {
-    return `${this.row} > div:nth-of-type(7) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button8labellazyscroll() {
-    return `${this.row} > div:nth-of-type(8) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button9labellazyscroll() {
-    return `${this.row} > div:nth-of-type(9) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button10labellazyscroll() {
-    return `${this.row} > div:nth-of-type(10) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button11labellazyscroll() {
-    return `${this.row} > div:nth-of-type(11) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  get button12labellazyscroll() {
-    return `${this.row} > div:nth-of-type(12) div[type='TextBox'] > div[type='Element']`;
-  }
-
-  //=============== Lazy Scroll Indexes ===============
 }
 
 module.exports = new Row();
