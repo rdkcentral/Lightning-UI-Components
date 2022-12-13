@@ -11,6 +11,7 @@ export default function (Base) {
 
     _swapItemArrayPos(array, current, previous) {
       [array[current], array[previous]] = [array[previous], array[current]];
+      super.selectedIndex = current;
     }
 
     _unfocus() {
@@ -49,26 +50,32 @@ export default function (Base) {
         ? nextItem.transition('y').targetValue
         : nextItem.y;
 
-      currentItem.smooth = { x: newPosX, y: newPosY };
-      nextItem.smooth = { x: oldPosX, y: oldPosY };
       this._swapItemArrayPos(this.items, index, previousIndex);
 
-      if (
-        !this.Items.children.length ||
-        !this.Items.children[index] ||
-        !this.Items.children[index].skipFocus
-      ) {
-        if (index !== this._selectedIndex) {
-          this._selectedIndex = index;
+      // self invoking async function that waits for setSmooth calls to complete before triggering
+      // render and signaling selected changed event.
+      // This allows time for items to be in their final position before the row component check world context
+      // to identify items off screen to trigger scrolling
+      (async () => {
+        await currentItem.setSmooth('x', newPosX);
+        await currentItem.setSmooth('y', newPosY);
+        await nextItem.setSmooth('x', oldPosX);
+        await nextItem.setSmooth('y', oldPosY);
+        if (
+          !this.Items.children.length ||
+          !this.Items.children[index] ||
+          !this.Items.children[index].skipFocus
+        ) {
+          if (this.selected) {
+            this._selectedIndex = index;
+            this.render(this.selected, this.prevSelected);
+            this.signal('selectedChange', this.selected, this.prevSelected);
+          }
+          // Don't call refocus until after a new render in case of a situation like Plinko nav
+          // where we don't want to focus the previously selected item and need to get the new one first
+          this._refocus();
         }
-        if (this.selected) {
-          this.render(this.selected, this.prevSelected);
-          this.signal('selectedChange', this.selected, this.prevSelected);
-        }
-        // Don't call refocus until after a new render in case of a situation like Plinko nav
-        // where we don't want to focus the previously selected item and need to get the new one first
-        this._refocus();
-      }
+      })();
     }
   };
 }

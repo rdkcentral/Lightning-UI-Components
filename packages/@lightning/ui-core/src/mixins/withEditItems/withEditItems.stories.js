@@ -4,7 +4,10 @@ import { Button, TextBox, Row } from '../../components/index.js';
 import mdx from './withEditItems.mdx';
 import { default as withEditItemsMixin } from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
-
+/**
+ * Shared Args and Arg Types from Row
+ */
+import * as RowProps from '../../components/Row/Row.stories.js';
 export default {
   title: `${CATEGORIES[512]}/withEditItems`,
   parameters: {
@@ -21,7 +24,6 @@ export const withEditItems = () =>
         RowComponent: {
           type: withEditItemsMixin(Row),
           y: 300,
-          neverScroll: true,
           items: Array.apply(null, { length: 6 }).map((_, i) => ({
             type: Button,
             title: `Button ${i + 1}`,
@@ -40,5 +42,7 @@ export const withEditItems = () =>
       this.tag('RowComponent').toggleEdit();
     }
   };
+withEditItems.args = RowProps.Row.args;
+withEditItems.argTypes = RowProps.Row.argTypes;
 
 withEditItems.storyName = 'withEditItems';
