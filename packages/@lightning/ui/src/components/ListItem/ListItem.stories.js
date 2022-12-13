@@ -28,7 +28,7 @@ export const ListItem = () =>
 
 ListItem.storyName = 'ListItem';
 
-const sharedArgTypes = {
+ListItem.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   title: {
     defaultValue: 'Title',
@@ -52,7 +52,7 @@ const sharedArgTypes = {
     description:
       'If true will collapse the Title when in unfocused or disabled mode',
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   },
   prefix: {
@@ -138,8 +138,8 @@ const sharedArgActions = {
 
 ListItem.args = {
   title: 'List Item',
+  shouldCollapse: false,
   description: 'Description'
 };
 
-ListItem.argTypes = sharedArgTypes;
 ListItem.parameters = { argActions: sharedArgActions };
