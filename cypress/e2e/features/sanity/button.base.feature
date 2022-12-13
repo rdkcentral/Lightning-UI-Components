@@ -9,13 +9,14 @@ Feature: LUI Button component
   Scenario: Verify that Button component is displayed
     Then I verify that the 'Button' component is displayed
 
-  Scenario: Verify the Button Basic modes
-    When I set the 'mode' to 'unfocused' for 'Button' component
-    Then I verify the 'mode' is 'unfocused' for 'Button' 'Button'
-    And I set the 'mode' to 'focused' for 'Button' component
-    And I verify the 'mode' is 'focused' for 'Button' 'Button'
-    And I set the 'mode' to 'disabled' for 'Button' component
-    And I verify the 'mode' is 'disabled' for 'Button' 'Button'
+  Scenario Outline: Verify that Button modes
+    When I set the 'mode' to 'modeValue' for 'Button' component
+    Then I verify the 'mode' is 'modeValue' for 'Button' 'Button'
+  Examples:
+    | modeValue |
+    | unfocused |
+    | focused   |
+    | disabled  |
 
   Scenario: Verify the Button fixed state
     Then I verify that the 'width' of 'Button' component is '472px'

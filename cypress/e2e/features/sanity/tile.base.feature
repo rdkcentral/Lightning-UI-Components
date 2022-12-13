@@ -7,19 +7,20 @@ Feature: LUI Tile Basic component
     And I navigate to 'Tile' 'Tile' with 'Base' theme
 
   Scenario: Verify that Tile Basic is displayed
-    Then I verify that the 'Tile' 'Tile' component is displayed
+    Then I verify that the 'Tile' component is displayed
 
   Scenario: Verify the dimensions of the Tile Basic Element
     Then I verify that the 'width' of 'Tile' component is '527px'
     And I verify that the 'height' of 'Tile' component is '296px'
 
-  Scenario: Verify that Tile modes
-    When I set the 'mode' to 'unfocused' for 'Tile' component
-    Then I verify the 'mode' is 'unfocused' for 'Tile' 'Tile'
-    And I set the 'mode' to 'focused' for 'Tile' component
-    And I verify the 'mode' is 'focused' for 'Tile' 'Tile'
-    And I set the 'mode' to 'disabled' for 'Tile' component
-    And I verify the 'mode' is 'disabled' for 'Tile' 'Tile'
+ Scenario Outline: Verify that Tile Basic modes
+    When I set the 'mode' to 'modeValue' for 'Tile' component
+    Then I verify the 'mode' is 'modeValue' for 'Tile' 'Tile'
+  Examples:
+    | modeValue |
+    | unfocused |
+    | focused   |
+    | disabled  |
 
   Scenario: Verify the Tile Basic metadataLocation control
     When I set the 'metadataLocation' to 'standard' for 'Tile' component

@@ -27,6 +27,7 @@ import ListItem from './controls/listitem.controls';
 import Control from './controls/control.controls';
 import ControlSmall from './controls/controlsmall.controls';
 import Checkbox from './utilities/checkbox.utilities';
+import CardAboutStacked from './tilesAndCards/cardaboutstacked.tilesandcards';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -58,7 +59,8 @@ export default function getPageObject(pageName) {
     listitem: ListItem,
     control: Control,
     controlsmall: ControlSmall,
-    checkbox: Checkbox
+    checkbox: Checkbox,
+    cardaboutstacked: CardAboutStacked
   };
 
   if (pageName in pageObjects) {
