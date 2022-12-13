@@ -195,7 +195,6 @@ class Row extends FocusManager {
 
   _getLazyScrollX(prev) {
     const prevIndex = this.Items.childList.getIndex(this.prevSelected);
-
     if (this._selectedPastAdded) {
       return this._getPrependedOffset();
     }
@@ -222,14 +221,17 @@ class Row extends FocusManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
+      const selectedX = this.selected.transition('x')
+        ? this.selected.transition('x').targetValue
+        : this.selected.x;
       if (prevIndex === -1) {
         // No matches found in childList, start set x to 0
         return;
       }
       if (prevIndex > this.selectedIndex) {
-        itemsContainerX = -this.selected.x;
+        itemsContainerX = -selectedX;
       } else if (prevIndex < this.selectedIndex) {
-        itemsContainerX = this.w - this.selected.x - this.selected.w;
+        itemsContainerX = this.w - selectedX - this.selected.w;
       }
 
       return itemsContainerX;
