@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import lng from '@lightningjs/core';
-export { default as processThemeStyles } from './processThemeStyles';
 
 export interface WithThemeStyles<StyleType> {
   _componentStyle: StyleType; // TODO: Remove when legacy code is also removed

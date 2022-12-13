@@ -10,7 +10,6 @@ export { default as withLayout } from './withLayout/index.js';
 export { default as withMarqueeSync } from './withMarqueeSync/index.js';
 export { default as withSelections } from './withSelections/index.js';
 export { default as withThemeStyles } from './withThemeStyles/index.js';
-export { processThemeStyles } from './withThemeStyles/index.js';
 export { default as withTags } from './withTags/index.js';
 export { default as withUpdates } from './withUpdates/index.js';
 export { default as withEditItems } from './withEditItems/index.js';
