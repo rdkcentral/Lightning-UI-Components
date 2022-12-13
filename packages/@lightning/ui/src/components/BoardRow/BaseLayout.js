@@ -1,6 +1,6 @@
 import { FocusManager, Row, Base, Tile } from '@lightning/ui-core';
 import { CardContent, CardContentVertical, CardTitle } from '@lightning/ui';
-import { withExtensions } from '@lightning/ui-core/';
+import { withExtensions } from '@lightning/ui-core';
 
 function warningMessage(item) {
   console.warn(

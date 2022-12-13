@@ -1,5 +1,5 @@
 import { withExtensions } from '../../mixins';
-import TextBox from '..//TextBox';
+import TextBox from '../TextBox';
 import Row from '../Row';
 
 import * as styles from './TitleRow.styles.js';

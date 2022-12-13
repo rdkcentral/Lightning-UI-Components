@@ -2,7 +2,7 @@ import Column from '.';
 import Row from '../Row/index.js';
 import { TestRenderer, makeCreateComponent } from '@lightning/ui-test-utils';
 import lng from '@lightningjs/core';
-import { withThemeStyles } from '../../mixins/';
+import { withThemeStyles } from '../../mixins';
 import { completeAnimation, nextTick } from '@lightning/ui-test-utils';
 import { jest } from '@jest/globals';
 

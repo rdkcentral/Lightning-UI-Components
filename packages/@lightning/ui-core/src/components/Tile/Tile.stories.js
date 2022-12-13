@@ -12,7 +12,7 @@ import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories.js';
 import { MetadataTile as MetadataTileStory } from '../MetadataTile/MetadataTile.stories';
 import { withLayout as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories.js';
 import { Label as LabelStory } from '../Label/Label.stories.js';
-import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
+import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 
 export default {

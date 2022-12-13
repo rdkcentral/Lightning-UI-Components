@@ -4,7 +4,7 @@ import mdx from './CardContent.mdx';
 import { Label as LabelStory } from '../../../../ui-core/src/components/Label/Label.stories';
 import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
-import { MetadataCardContent as MetadataStory } from '..//MetadataCardContent/MetadataCardContent.stories';
+import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
 import { createModeControl } from '@lightning/ui-core/storybook/index.js';
 import CardContentVerticalComponent from './CardContentVertical';

@@ -83,5 +83,8 @@
       "cypress/e2e/step-definitions/*.{js,ts}"
     ],
     "filterSpecs": true
+  },
+  "resolutions": {
+    "eslint-plugin-import@2.25.2": "patch:eslint-plugin-import@npm%3A2.25.2#./.yarn/patches/eslint-plugin-import-npm-2.25.2-98db0f107a.patch"
   }
 }
