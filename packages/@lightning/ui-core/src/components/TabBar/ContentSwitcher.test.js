@@ -1,4 +1,5 @@
 import lng from '@lightningjs/core';
+import { jest } from '@jest/globals';
 import {
   makeCreateComponent,
   completeAnimation
@@ -102,5 +103,67 @@ describe('TabBar', () => {
 
     expect(component.tag('Content0').alpha).toBe(0);
     expect(component.tag('Content1').alpha).toBe(1);
+  });
+
+  describe('updating height', () => {
+    const noContent = {};
+    let smallTile, bigTile;
+    beforeEach(() => {
+      smallTile = { ...tileComp, h: 50 };
+      bigTile = { ...tileComp, h: 100 };
+      [component, testRenderer] = createComponent(
+        {
+          contentItems: [noContent, smallTile, bigTile]
+        },
+        { spyOnMethods: ['_updateSelected'] }
+      );
+      jest.spyOn(component, 'signal');
+    });
+
+    it('should not update height when selected index has not changed', async () => {
+      expect(component.signal).not.toHaveBeenCalled();
+
+      component.selectedIndex = 1;
+      await component.__updateSelectedSpyPromise;
+      testRenderer.update();
+
+      expect(component.signal).toHaveBeenCalledWith(
+        'contentHeightChange',
+        smallTile.h
+      );
+      expect(component.h).toBe(smallTile.h);
+
+      component.signal.mockClear();
+      component.selectedIndex = 1;
+      await component.__updateSelectedSpyPromise;
+      testRenderer.update();
+
+      expect(component.signal).not.toHaveBeenCalled();
+      expect(component.h).toBe(smallTile.h);
+    });
+
+    it('should update the height when the selected index has changed', async () => {
+      expect(component.selectedIndex).toBe(0);
+      expect(component.signal).not.toHaveBeenCalled();
+      expect(component.h).toBe(0);
+
+      component.selectedIndex = 1;
+      await component.__updateSelectedSpyPromise;
+      testRenderer.update();
+
+      expect(component.signal).toHaveBeenCalledWith(
+        'contentHeightChange',
+        smallTile.h
+      );
+      expect(component.h).toBe(smallTile.h);
+
+      component.signal.mockClear();
+      component.selectedIndex = 0;
+      await component.__updateSelectedSpyPromise;
+      testRenderer.update();
+
+      expect(component.signal).toHaveBeenCalledWith('contentHeightChange', 0);
+      expect(component.h).toBe(0);
+    });
   });
 });

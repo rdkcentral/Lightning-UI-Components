@@ -31,6 +31,8 @@ class ContentSwitcher extends Base {
           prevContent._getTransition('alpha').once('finish', () => {
             this._fadeInContent();
           });
+        } else if (this.selectedIndex !== undefined) {
+          this._fadeInContent();
         }
       } else if (this._hasContent) {
         this._fadeInContent();
