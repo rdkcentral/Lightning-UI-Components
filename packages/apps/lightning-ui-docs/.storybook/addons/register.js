@@ -61,6 +61,6 @@ addons.register(ids.THEMEPANEL_ID, () => {
   addons.add(ids.THEMEPANEL_ID, {
     type: types.PANEL,
     title: 'Global Theme Values',
-    render: params => ThemePanel(params)
+    render: ({ key, active }) => <ThemePanel key={key} active={active} />
   });
 });
