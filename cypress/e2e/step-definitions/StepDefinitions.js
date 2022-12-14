@@ -1,5 +1,6 @@
 import Common from './Common';
 import Artwork from './Artwork';
+import Column from './Column';
 import Tile from './Tile';
 import Row from './Row';
 import Badge from './Badge';
@@ -11,6 +12,7 @@ import Checkbox from './Checkbox';
 
 Common();
 Artwork();
+Column();
 Tile();
 Row();
 Badge();
