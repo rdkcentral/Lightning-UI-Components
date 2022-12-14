@@ -4,7 +4,7 @@ Feature: LUI ListItem Component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'ListItem' 'List-Item' with 'Base' theme
+    And I navigate to 'ListItem' with 'Base' theme
 
   Scenario: Verify that ListItem component is displayed
     Then I verify that the 'ListItem' component is displayed
@@ -25,11 +25,11 @@ Feature: LUI ListItem Component
   @skip
   Scenario: Verify the ListItem mode control
     When I set the 'mode' to 'unfocused' for 'ListItem' component
-    Then I verify the 'mode' is 'unfocused' for 'ListItem' 'Base'
+    Then I verify the mode is 'unfocused' for 'ListItem'
     And I set the 'mode' to 'focused' for 'ListItem' component
-    And I verify the 'mode' is 'focused' for 'ListItem' 'Base'
+    And I verify the mode is 'focused' for 'ListItem'
     And I set the 'mode' to 'disabled' for 'ListItem' component
-    And I verify the 'mode' is 'disabled' for 'ListItem' 'Base'
+    And I verify the mode is 'disabled' for 'ListItem'
 
   Scenario: Verify that ListItem description can be set
     When I set the 'description' to 'LUI Test' for 'ListItem' component
@@ -51,7 +51,7 @@ Feature: LUI ListItem Component
   @skip
   Scenario: Verify the ListItem shouldCollapse control
     When I set the 'mode' to 'unfocused' for 'ListItem' component
-    Then I verify the 'mode' is 'unfocused' for 'ListItem' 'Base'
+    Then I verify the mode is 'unfocused' for 'ListItem'
     And I set the 'shouldCollapse' to 'true' for 'ListItem' component
     And I verify that the 'ListItem' 'Description' component does not exist in DOM
     And I set the 'shouldCollapse' to 'false' for 'ListItem' component

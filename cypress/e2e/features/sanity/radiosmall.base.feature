@@ -4,7 +4,7 @@ Feature: LUI RadioSmall Basic component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'RadioSmall' 'Radio' with 'Base' theme
+    And I navigate to 'RadioSmall' with 'Base' theme
 
   Scenario: Verify that RadioSmall Basic is displayed
     Then I verify that the 'RadioSmall' 'Radio' component is displayed
@@ -18,9 +18,9 @@ Feature: LUI RadioSmall Basic component
   @skip
   Scenario: Verify that RadioSmall Basic modes
     When I set the 'mode' to 'unfocused' for 'RadioSmall' component
-    Then I verify the 'mode' is 'unfocused' for 'RadioSmall' 'Radio'
+    Then I verify the mode is 'unfocused' for 'RadioSmall'
     And I set the 'mode' to 'disabled' for 'Radio' component
-    And I verify the 'mode' is 'disabled' for 'RadioSmall' 'Radio'
+    And I verify the mode is 'disabled' for 'RadioSmall'
 
   Scenario: Verify that RadioSmall Basic checked state
     When I set the 'checked' to 'true' for 'RadioSmall' component

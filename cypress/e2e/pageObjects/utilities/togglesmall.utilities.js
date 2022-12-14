@@ -5,7 +5,12 @@ class ToggleSmall extends LUIComponent {
     super({ type: 'utilities', componentName: 'togglesmall' });
   }
 
+  // TODO: Merge getters when components are grouped together
   get toggle() {
+    return 'div[type=ToggleSmall]';
+  }
+
+  get toggleSmall() {
     return 'div[type=ToggleSmall]';
   }
 

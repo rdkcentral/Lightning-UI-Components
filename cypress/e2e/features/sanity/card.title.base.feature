@@ -4,7 +4,7 @@ Feature: LUI Card Title Component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'CardTitle' 'Card' with 'Base' theme
+    And I navigate to 'CardTitle' with 'Base' theme
 
   Scenario: Verify that Card Title is displayed
     Then I verify that the 'CardTitle' 'Card' component is displayed
@@ -18,18 +18,18 @@ Feature: LUI Card Title Component
   @skip
   Scenario: Verify the Card Title mode control
   	When I set the 'mode' to 'unfocused' for 'CardTitle' component
-    Then I verify the 'mode' is 'unfocused' for 'CardTitle' 'Card'
+    Then I verify the mode is 'unfocused' for 'CardTitle'
     And I set the 'mode' to 'focused' for 'CardTitle' component
-    And I verify the 'mode' is 'focused' for 'CardTitle' 'Card'
+    And I verify the mode is 'focused' for 'CardTitle'
     And I set the 'mode' to 'disabled' for 'CardTitle' component
-    And I verify the 'mode' is 'disabled' for 'CardTitle' 'Card'
+    And I verify the mode is 'disabled' for 'CardTitle'
 
   Scenario: Verify that Card Title title can be set
     When I set the 'title' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
-    And I verify that 'CardTitle' 'Card' 'Title' has text 'LUI Test'
+    And I verify that 'CardTitle' 'Title' has text 'LUI Test'
     
   Scenario: Verify that Card Title description can be set
     When I set the 'description' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
-    And I verify that 'CardTitle' 'Card' 'Description' has text 'LUI Test'
+    And I verify that 'CardTitle' 'Description' has text 'LUI Test'

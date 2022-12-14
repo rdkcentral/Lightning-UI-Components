@@ -19,7 +19,7 @@ Feature: LUI TextBox Basic component
   Scenario: Verify the TextBox Basic content control
     When I set the 'content' to 'LUI Test' for 'TextBox' component
     Then I verify that the 'TextBox' 'BasicText' component is displayed
-    And I verify that 'TextBox' 'Basic' 'Text' has text 'LUI Test'
+    And I verify that 'TextBox' 'Basic Text' has text 'LUI Test'
 
   Scenario Outline: Verify the TextBox Basic maxLines control
     When I set the 'maxLines' to '<maxLines>' for 'TextBox' component

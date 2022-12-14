@@ -22,14 +22,14 @@ Feature: LUI Badge Text With Icon component
   Scenario: Verify that Badge Text With Icon can be set
     When I set the 'title' to 'LUI Test' for 'Badge' component
     Then I verify that the 'Badge' component is displayed
-    And I verify that 'Badge' 'Badge' 'Title' has text 'LUI Test'     
+    And I verify that 'Badge' 'Badge Title' has text 'LUI Test'     
 
   Scenario: Verify that Badge Text With Icon alignment can be set while text is set
     When I set the 'iconAlign' to 'right' for 'Badge' component
     Then I verify that 'Badge' 'iconAlign' state is 'right'
     And I set the 'title' to 'LUI Test Right' for 'Badge' component
-    And I verify that 'Badge' 'Badge' 'Title' has text 'LUI Test Right'   
+    And I verify that 'Badge' 'Badge Title' has text 'LUI Test Right'   
     And I set the 'iconAlign' to 'left' for 'Badge' component
     And I verify that 'Badge' 'iconAlign' state is 'left'
     And I set the 'title' to 'LUI Test Left' for 'Badge' component
-    And I verify that 'Badge' 'Badge' 'Title' has text 'LUI Test Left'
+    And I verify that 'Badge' 'Badge Title' has text 'LUI Test Left'

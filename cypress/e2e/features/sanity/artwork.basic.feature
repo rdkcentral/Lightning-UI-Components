@@ -4,7 +4,7 @@ Feature: LUI Artwork component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Artwork' 'Artwork' with 'Base' theme
+    And I navigate to 'Artwork' with 'Base' theme
     
   Scenario: Verify that Artwork component is displayed
     Then I verify that the 'Artwork' component is displayed

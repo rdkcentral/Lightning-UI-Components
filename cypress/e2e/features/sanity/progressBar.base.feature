@@ -4,7 +4,7 @@ Feature: LUI ProgressBar Basic component
 
   Background:
 	  Given I launch the LUI app
-    And I navigate to 'ProgressBar' 'Progress-Bar' with 'Base' theme
+    And I navigate to 'ProgressBar' with 'Base' theme
 
   Scenario: Verify that ProgressBar Basic component is displayed
 	  Then I verify that the 'ProgressBar' component is displayed

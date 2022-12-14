@@ -4,7 +4,7 @@ Feature: LUI Card Personality Component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'CardPersonality' 'Card-Personality' with 'Base' theme
+    And I navigate to 'CardPersonality' with 'Base' theme
 
   Scenario: Verify that Card Personality is displayed
     Then I verify that the 'CardPersonality' 'Card' component is displayed
@@ -18,18 +18,18 @@ Feature: LUI Card Personality Component
   @skip
   Scenario: Verify the Card Personality mode control
     When I set the 'mode' to 'unfocused' for 'CardPersonality' component
-    Then I verify the 'mode' is 'unfocused' for 'CardPersonality' 'Card'
+    Then I verify the mode is 'unfocused' for 'CardPersonality'
     And I set the 'mode' to 'focused' for 'CardPersonality' component
-    And I verify the 'mode' is 'focused' for 'CardPersonality' 'Card'
+    And I verify the mode is 'focused' for 'CardPersonality'
     And I set the 'mode' to 'disabled' for 'CardPersonality' component
-    And I verify the 'mode' is 'disabled' for 'CardPersonality' 'Card'
+    And I verify the mode is 'disabled' for 'CardPersonality'
 
   Scenario: Verify that Card Personality title can be set
     When I set the 'title' to 'LUI Test' for 'CardPersonality' component
     Then I verify that the 'CardPersonality' 'Card' component is displayed
-    And I verify that 'CardPersonality' 'Card' 'Title' has text 'LUI Test'
+    And I verify that 'CardPersonality' 'Title' has text 'LUI Test'
     
   Scenario: Verify that Card Personality description can be set
     When I set the 'description' to 'LUI Test' for 'CardPersonality' component
     Then I verify that the 'CardPersonality' 'Card' component is displayed
-    And I verify that 'CardPersonality' 'Card' 'Description' has text 'LUI Test'
+    And I verify that 'CardPersonality' 'Description' has text 'LUI Test'

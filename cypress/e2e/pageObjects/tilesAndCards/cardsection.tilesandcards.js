@@ -5,15 +5,20 @@ class CardSection extends LUIComponent {
     super({ type: 'tiles-cards', componentName: 'cardsection' });
   }
 
+  // TODO: Merge getters when components are grouped together
   get card() {
     return 'div[type=CardSection]';
   }
 
-  get cardTitle() {
+  get cardSection() {
+    return 'div[type=CardSection]';
+  }
+
+  get title() {
     return `${this.card}>div[ref=Title]>div[ref=Text]`;
   }
 
-  get cardDescription() {
+  get description() {
     return `${this.card}>div[ref=Description]>div[ref=Text]`;
   }
 }

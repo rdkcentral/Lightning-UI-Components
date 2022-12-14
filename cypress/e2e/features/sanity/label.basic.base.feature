@@ -4,7 +4,7 @@ Feature: LUI Label component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Label' 'Label' with 'Base' theme
+    And I navigate to 'Label' with 'Base' theme
 
   Scenario: Verify that the Label Base is displayed
     Then I verify that the 'Label' component is displayed

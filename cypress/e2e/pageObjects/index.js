@@ -5,7 +5,6 @@ import Card from './tilesAndCards/card.tilesandcards';
 import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
 import CardSection from './tilesAndCards/cardsection.tilesandcards';
 import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
-import CheckBox from './elements/checkbox.element';
 import Label from './metadata/label.metadata';
 import ProgressBar from './utilities/progressbar.utilities';
 import FocusManager from './navigation/focusmanager.navigation';
@@ -38,7 +37,7 @@ export default function getPageObject(pageName) {
     cardpersonality: CardPersonality,
     cardsection: CardSection,
     cardtitle: CardTitle,
-    checkbox: CheckBox,
+    checkbox: Checkbox,
     label: Label,
     progressbar: ProgressBar,
     radio: Radio,
@@ -59,7 +58,6 @@ export default function getPageObject(pageName) {
     listitem: ListItem,
     control: Control,
     controlsmall: ControlSmall,
-    checkbox: Checkbox,
     cardaboutstacked: CardAboutStacked
   };
 
