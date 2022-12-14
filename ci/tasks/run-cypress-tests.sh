@@ -26,11 +26,6 @@ FAILING_TESTS=0
 git config --global url."https://github".insteadOf git://github
 yarn install
 
-# Workaround for a bug in cypress-parallel
-sed -e '/cleanResultsPath();/s/^/  \/\//g' node_modules/cypress-parallel/cli.js > tmpfile
-mv tmpfile node_modules/cypress-parallel/cli.js
-rm -f runner-results/.gitkeep
-
 # Start Xvfb in background
 Xvfb -screen 0 2560x1440x24 :99 &
 export DISPLAY=:99
