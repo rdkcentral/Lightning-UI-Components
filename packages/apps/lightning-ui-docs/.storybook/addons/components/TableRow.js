@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function TableRow({ label, scope = '', control }) {
+export default function TableRow({ label, control }) {
   return (
-    <tr key={label + scope}>
+    <tr>
       <td>{label}</td>
       <td>{control}</td>
     </tr>

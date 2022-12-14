@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import lng from '@lightningjs/core';
-import { THEMEPANEL_ID } from '../constants';
 import { ColorControl, NumberControl } from '@storybook/components';
 import { utils } from '@lightning/ui-core';
 import { useGlobals } from '@storybook/api';
-import {
-  globalContext,
-  colorUpdate,
-  getPanelsTheme,
-  updateGlobalTheme
-} from '../utils';
+import { colorUpdate, getPanelsTheme, updateGlobalTheme } from '../utils';
 import { Table, TableRow } from './components';
 
 function Colors() {
@@ -26,11 +20,10 @@ function Colors() {
     const rgbaColor = lng.StageUtils.getRgbaString(color);
     return (
       <TableRow
-        key={c + LUITheme}
+        key={c}
         label={c}
         control={
           <ColorControl
-            key={`${LUITheme}-Color-${c}`}
             name={c}
             onChange={val => colorUpdate(c, val, updateGlobals)}
             value={rgbaColor}
@@ -53,11 +46,10 @@ function Radius() {
   const rows = Object.keys(radius).map(r => {
     return (
       <TableRow
-        key={r + LUITheme}
+        key={r}
         label={r}
         control={
           <NumberControl
-            key={`${LUITheme}-Radius-${r}`}
             name={r}
             onChange={val => radiusUpdate(r, val, updateGlobals)}
             value={parseInt(radius[r])}
@@ -71,33 +63,15 @@ function Radius() {
 }
 
 const ThemePanel = ({ active }) => {
-  const [listenersSet, updateListenersSet] = useState();
-  const [themeVersion, updateThemeVersion] = useState(new Date().valueOf());
-  useEffect(() => {
-    const context = globalContext();
-    if (context && !listenersSet) {
-      context.on('themeUpdate', () => updateThemeVersion(new Date().valueOf()));
-      updateListenersSet(true); // Make sure this is only run once
-    }
-  });
-
   return (
     <div
       className="theme-panel-wrapper"
       style={active ? {} : { display: 'none' }}
     >
-      <div key={THEMEPANEL_ID} className="theme-panel-controls">
+      <div className="theme-panel-controls">
         <h1>Current Theme: {getPanelsTheme().name}</h1>
-        <Table
-          title="Global Theme Color Values"
-          key={'color' + themeVersion}
-          rows={<Colors />}
-        />
-        <Table
-          title="Global Theme Radius Values"
-          key={'radius' + themeVersion}
-          rows={<Radius />}
-        />
+        <Table title="Global Theme Color Values" rows={<Colors />} />
+        <Table title="Global Theme Radius Values" rows={<Radius />} />
       </div>
     </div>
   );
