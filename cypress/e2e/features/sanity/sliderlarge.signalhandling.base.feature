@@ -21,22 +21,22 @@ Feature: LUI SliderLarge Signal Handling component
   @skip
   Scenario: Verify the Slider Signal Handling modes
     When I set the 'mode' to 'unfocused' for 'SliderLarge' component
-    Then I verify the 'mode' is 'unfocused' for 'SliderLarge' 'Signal Handling'
+    Then I verify the mode is 'unfocused' for 'SliderLarge' 'Signal Handling'
     And I set the 'mode' to 'focused' for 'SliderLarge' component
-    And I verify the 'mode' is 'focused' for 'SliderLarge' 'Signal Handling'
+    And I verify the mode is 'focused' for 'SliderLarge' 'Signal Handling'
     And I set the 'mode' to 'disabled' for 'SliderLarge' component
-    And I verify the 'mode' is 'disabled' for 'SliderLarge' 'Signal Handling'
+    And I verify the mode is 'disabled' for 'SliderLarge' 'Signal Handling'
 
   Scenario: Verify the SliderLarge Signal Handling text
-    Then I verify that 'SliderLarge' 'Signal Handling' 'Text' has text 'Value: 30'
+    Then I verify that 'SliderLarge' 'Signal Handling Text' has text 'Value: 30'
 
   Scenario: Verify SliderLarge Signal Handling arrow key navigation
     When I press 'RIGHT' key 2 times
     Then I verify that the 'SliderLarge' progress is set to 0.5
-    And I verify that 'SliderLarge' 'Signal Handling' 'Text' has text 'Value: 50'
+    And I verify that 'SliderLarge' 'Signal Handling Text' has text 'Value: 50'
     And I press 'RIGHT' key 5 times
     And I verify that the 'SliderLarge' progress is set to 1
-    And I verify that 'SliderLarge' 'Signal Handling' 'Text' has text 'Value: 100'
+    And I verify that 'SliderLarge' 'Signal Handling Text' has text 'Value: 100'
     And I press 'LEFT' key 10 times
     And I verify that the 'SliderLarge' progress is set to 0
-    And I verify that 'SliderLarge' 'Signal Handling' 'Text' has text 'Value: 0'
+    And I verify that 'SliderLarge' 'Signal Handling Text' has text 'Value: 0'

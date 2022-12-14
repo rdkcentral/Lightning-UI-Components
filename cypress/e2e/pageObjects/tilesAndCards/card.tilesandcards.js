@@ -9,7 +9,7 @@ class Card extends LUIComponent {
     return 'div[type=Card]';
   }
 
-  get cardTitle() {
+  get title() {
     return `${this.card}>div[ref=Title]>div[ref=Text]`;
   }
 }

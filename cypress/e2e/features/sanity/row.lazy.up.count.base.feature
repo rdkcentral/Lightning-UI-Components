@@ -28,7 +28,7 @@ Feature: LUI Row Lazy up count component
     And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
     And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
-  Scenario: Verify the the scroll index of the Row Lazy Up count element can be changed
+  Scenario: Verify the scroll index of the Row Lazy Up count element can be changed
     And I press 'RIGHT' key 6 times
     Then I verify that the 'Row' 'Button 1' component is not displayed
     And I verify that the 'Row' 'Button 12' component is displayed
@@ -58,7 +58,7 @@ Feature: LUI Row Lazy up count component
     And I press 'RIGHT' key 5 times
     And I verify that the 'Row' 'Button 10' component is not displayed
 
-  Scenario: Verify the the lazy up count of the Row Lazy up count Element can be changed
+  Scenario: Verify the lazy up count of the Row Lazy up count Element can be changed
     Then I verify that the 'Row' 'Button 6' component is displayed
     And I set the 'lazyUpCount' to '0' for 'Row' component
     And I verify that the 'Row' 'Button 3' component does not exist in DOM

@@ -4,7 +4,7 @@ Feature: LUI Card Section Component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'CardSection' 'Card-Section' with 'Base' theme
+    And I navigate to 'CardSection' with 'Base' theme
 
   Scenario: Verify that Card Section is displayed
     Then I verify that the 'CardSection' 'Card' component is displayed
@@ -18,13 +18,13 @@ Feature: LUI Card Section Component
   @skip
   Scenario: Verify the Card Section mode control
   	When I set the 'mode' to 'unfocused' for 'CardSection' component
-    Then I verify the 'mode' is 'unfocused' for 'CardSection' 'Card'
+    Then I verify the mode is 'unfocused' for 'CardSection'
     And I set the 'mode' to 'focused' for 'CardSection' component
-    And I verify the 'mode' is 'focused' for 'CardSection' 'Card'
+    And I verify the mode is 'focused' for 'CardSection'
     And I set the 'mode' to 'disabled' for 'CardSection' component
-    And I verify the 'mode' is 'disabled' for 'CardSection' 'Card'
+    And I verify the mode is 'disabled' for 'CardSection'
 
   Scenario: Verify that Card Section title can be set
     When I set the 'title' to 'LUI Test' for 'CardSection' component
     Then I verify that the 'CardSection' 'Card' component is displayed
-    And I verify that 'CardSection' 'Card' 'Title' has text 'LUI Test'
+    And I verify that 'CardSection' 'Title' has text 'LUI Test'

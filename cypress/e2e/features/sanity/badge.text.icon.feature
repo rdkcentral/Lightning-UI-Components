@@ -16,4 +16,4 @@ Feature: LUI Badge Text component
   Scenario: Verify that Badge Text can be set
     When I set the 'title' to 'LUI Test' for 'Badge' component
     Then I verify that the 'Badge' component is displayed
-    And I verify that 'Badge' 'Badge' 'Title' has text 'LUI Test'
+    And I verify that 'Badge' 'Badge Title' has text 'LUI Test'

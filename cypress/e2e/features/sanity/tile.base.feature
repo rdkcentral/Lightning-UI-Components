@@ -4,7 +4,7 @@ Feature: LUI Tile Basic component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Tile' 'Tile' with 'Base' theme
+    And I navigate to 'Tile' with 'Base' theme
 
   Scenario: Verify that Tile Basic is displayed
     Then I verify that the 'Tile' component is displayed
@@ -13,14 +13,14 @@ Feature: LUI Tile Basic component
     Then I verify that the 'width' of 'Tile' component is '527px'
     And I verify that the 'height' of 'Tile' component is '296px'
 
- Scenario Outline: Verify that Tile Basic modes
-    When I set the 'mode' to 'modeValue' for 'Tile' component
-    Then I verify the 'mode' is 'modeValue' for 'Tile' 'Tile'
-  Examples:
-    | modeValue |
-    | unfocused |
-    | focused   |
-    | disabled  |
+  Scenario Outline: Verify that Tile can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'Tile' component
+    Then I verify the mode is '<modeValue>' for 'Tile'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify the Tile Basic metadataLocation control
     When I set the 'metadataLocation' to 'standard' for 'Tile' component
@@ -51,11 +51,11 @@ Feature: LUI Tile Basic component
 
   Scenario: Verify the Tile Basic badge Title Control
     When I set the 'badge_title' to 'LUI Test' for 'Tile' component
-    Then I verify that 'Tile' 'Badge' 'Title' has text 'LUI Test'
+    Then I verify that 'Tile' 'Badge Title' has text 'LUI Test'
 
   Scenario: Verify the Tile Basic label Title Control
     When I set the 'label_title' to 'LUI Test' for 'Tile' component
-    Then I verify that 'Tile' 'label' 'Title' has text 'LUI Test'
+    Then I verify that 'Tile' 'Label Title' has text 'LUI Test'
 
   Scenario: Verify the Tile Basic blur control
     When I set the 'artwork_blur' to 'false' for 'Tile' component

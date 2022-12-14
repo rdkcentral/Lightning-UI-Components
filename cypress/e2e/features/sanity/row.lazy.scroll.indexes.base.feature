@@ -29,11 +29,11 @@ Feature: LUI Row Lazy Scroll Indexes component
   @skip
   Scenario: Verify the Row component modes
     When I set the 'mode' to 'unfocused' for 'Row' component
-    Then I verify the 'mode' is 'unfocused' for 'Row' 'Row elements'
+    Then I verify the mode is 'unfocused' for 'Row' 'Row elements'
     And I set the 'mode' to 'focused' for 'Row' component
-    And I verify the 'mode' is 'focused' for 'Row' 'Row elements'
+    And I verify the mode is 'focused' for 'Row' 'Row elements'
     And I set the 'mode' to 'disabled' for 'Row' component
-    And I verify the 'mode' is 'disabled' for 'Row' 'Row elements'
+    And I verify the mode is 'disabled' for 'Row' 'Row elements'
 
   Scenario: Verify the Row Lazy Scroll Indexes always scroll toggle
     And I press 'RIGHT' key 11 times
@@ -60,7 +60,7 @@ Feature: LUI Row Lazy Scroll Indexes component
     And I wait 1 seconds for the page to load
     And I verify that the 'Row' 'Button 5' component is not displayed
 
-  Scenario: Verify the the scroll index of the Row Lazy Scroll Indexes element can be changed
+  Scenario: Verify the scroll index of the Row Lazy Scroll Indexes element can be changed
     And I press 'RIGHT' key 8 times
     And I wait 1 seconds for the page to load
     Then I verify that the 'Row' 'Button 12' component is displayed

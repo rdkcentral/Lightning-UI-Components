@@ -9,6 +9,7 @@ import Button from './Button';
 import Control from './Control';
 import ListItem from './ListItem';
 import Checkbox from './Checkbox';
+import Slider from './Slider';
 
 Common();
 Artwork();
@@ -21,3 +22,4 @@ Button();
 Control();
 ListItem();
 Checkbox();
+Slider();

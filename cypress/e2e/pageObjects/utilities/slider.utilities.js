@@ -5,7 +5,12 @@ class Slider extends LUIComponent {
     super({ type: 'utilities', componentName: 'slider' });
   }
 
+  // TODO: Merge getters when components are grouped together
   get basic() {
+    return 'div[type=Slider]';
+  }
+
+  get slider() {
     return 'div[type=Slider]';
   }
 

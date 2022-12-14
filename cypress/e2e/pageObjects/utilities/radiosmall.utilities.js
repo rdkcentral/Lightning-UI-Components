@@ -5,7 +5,12 @@ class RadioSmall extends LUIComponent {
     super({ type: 'utilities', componentName: 'radiosmall' });
   }
 
+  // TODO: Merge getters when components are grouped together
   get radio() {
+    return 'div[type=RadioSmall]';
+  }
+
+  get radioSmall() {
     return 'div[type=RadioSmall]';
   }
 

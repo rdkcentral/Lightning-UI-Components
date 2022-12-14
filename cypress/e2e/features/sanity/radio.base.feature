@@ -4,7 +4,7 @@ Feature: LUI Radio Basic component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Radio' 'Radio' with 'Base' theme
+    And I navigate to 'Radio' with 'Base' theme
 
   Scenario: Verify that Radio Basic is displayed
     Then I verify that the 'Radio' component is displayed
@@ -18,9 +18,9 @@ Feature: LUI Radio Basic component
   @skip
   Scenario: Verify that Radio Basic modes
     When I set the 'mode' to 'unfocused' for 'Radio' component
-    Then I verify the 'mode' is 'unfocused' for 'Radio' 'Radio'
+    Then I verify the mode is 'unfocused' for 'Radio'
     And I set the 'mode' to 'disabled' for 'Radio' component
-    And I verify the 'mode' is 'disabled' for 'Radio' 'Radio'
+    And I verify the mode is 'disabled' for 'Radio'
     
   Scenario: Verify the Radio Basic checked state
     When I set the 'checked' to 'true' for 'Radio' component

@@ -22,11 +22,11 @@ Feature: LUI Slider Basic component
   @skip
   Scenario: Verify the Slider Basic modes
     When I set the 'mode' to 'unfocused' for 'Slider' component
-    Then I verify the 'mode' is 'unfocused' for 'Slider' 'Basic'
+    Then I verify the mode is 'unfocused' for 'Slider'
     And I set the 'mode' to 'focused' for 'Slider' component
-    And I verify the 'mode' is 'focused' for 'Slider' 'Basic'
+    And I verify the mode is 'focused' for 'Slider'
     And I set the 'mode' to 'disabled' for 'Slider' component
-    And I verify the 'mode' is 'disabled' for 'Slider' 'Basic'
+    And I verify the mode is 'disabled' for 'Slider'
 
   Scenario Outline: Verify the Slider Basic max boundary
     When I set the 'max' to '<maxValue>' for 'Slider' component
@@ -59,13 +59,13 @@ Feature: LUI Slider Basic component
 
   Scenario: Verify the Slider Basic vertical setting
     When I set the 'vertical' to 'true' for 'Slider' component
-    Then I verify the 'vertical' is 'true' for 'Slider' 'Basic'
+    Then I verify the vertical control is 'true' for 'Slider'
     And I set the 'vertical' to 'false' for 'Slider' component
-    And I verify the 'vertical' is 'false' for 'Slider' 'Basic'
+    And I verify the vertical control is 'false' for 'Slider'
 
   Scenario: Verify Slider Basic vertical setting with modified boundaries and progress
     When I set the 'vertical' to 'true' for 'Slider' component
-    Then I verify the 'vertical' is 'true' for 'Slider' 'Basic'
+    Then I verify the vertical control is 'true' for 'Slider'
     And I set the 'value' to '1' for 'Slider' component
     And I verify that the 'Slider' progress is set to 0.01
     And I set the 'min' to '20' for 'Slider' component

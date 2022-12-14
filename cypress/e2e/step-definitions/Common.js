@@ -1,4 +1,5 @@
 import getPageObject from '../pageObjects';
+import { getStoryName } from '../../support/helpers';
 
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
@@ -33,6 +34,23 @@ export default function () {
       pageObject.navigate(story, theme);
     }
   );
+
+  /**
+   * @module Common
+   * @function I navigate to {String} with {String} theme
+   * @description Cucumber statement to navigate to the specified page with the specified story and theme
+   * @param {String} pageName - the page to be used
+   * @param {String} themeName - the theme to be used
+   * @example I navigate to 'Button' with 'Base' theme
+   */
+  When('I navigate to {string} with {string} theme', (pageName, themeName) => {
+    const page = pageName.toLowerCase();
+    const story = getStoryName(pageName).toLowerCase();
+    const theme = themeName.toLowerCase();
+    const pageObject = getPageObject(page);
+
+    pageObject.navigate(story, theme);
+  });
 
   /**
    * @module Common
@@ -113,14 +131,46 @@ export default function () {
     (elementName, storyName) => {
       const page = elementName.toLowerCase();
       const pageObject = getPageObject(page);
-      const viewPort = `${Cypress.config().viewportWidth}x${Cypress.config().viewportHeight
-        }`;
+      const viewPort = `${Cypress.config().viewportWidth}x${
+        Cypress.config().viewportHeight
+      }`;
 
       // wait 1s to render the component before taking screenshot
       cy.wait(1000).then(() => {
         pageObject
           ._getElementByName(elementName)
           .vrtTrack(`${elementName} (${storyName})`, {
+            keepScreenshot: true,
+            viewport: `${viewPort}`,
+            retryLimit: 1
+          });
+      });
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify the {String} component with visual regression
+   * @description Cucumber statement to verify the visual regression of an element on a particular page
+   * Note: This step does not do any navigation, instead it assumes
+   * that you are already on the page you want to verify the element on.
+   * @param {String} elementName - The name of the element to verify, this map to the name of the element in the page object.
+   * @example I verify the 'Label' component with visual regression
+   */
+  Then(
+    'I verify the {string} component with visual regression',
+    elementName => {
+      const page = elementName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const viewPort = `${Cypress.config().viewportWidth}x${
+        Cypress.config().viewportHeight
+      }`;
+
+      // wait 1s to render the component before taking screenshot
+      cy.wait(1000).then(() => {
+        pageObject
+          ._getElementByName(elementName)
+          .vrtTrack(`${elementName} (${elementName})`, {
             keepScreenshot: true,
             viewport: `${viewPort}`,
             retryLimit: 1
@@ -300,14 +350,13 @@ export default function () {
    * @example I verify that 'Card' 'Personality' 'Title' has text 'LUI Test'
    */
   Then(
-    'I verify that {string} {string} {string} has text {string}',
-    (pageName, componentName, elementName, expectedText) => {
+    'I verify that {string} {string} has text {string}',
+    (pageName, elementName, expectedText) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-      const element = componentName + elementName;
 
       pageObject
-        ._getElementByName(element)
+        ._getElementByName(elementName)
         .should('have.attr', 'texture-text', expectedText);
     }
   );
@@ -452,52 +501,67 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify the {String} is {String} for {String} {String}
-   * @description Cucumber statement to verify the settings of a module
-   * @param {String} control
+   * @function I verify the mode is {String} for {String}
+   * @description Cucumber statement to verify the mode of a module that has the same name as a component
    * @param {String} value
    * @param {String} pageName
-   * @param {String} component
-   * @example Then I verify the 'mode' is 'focused' for 'Card' 'Personality'
+   * @example Then I verify the mode is 'focused' for 'Radio'
+   */
+  Then('I verify the mode is {string} for {string}', (value, pageName) => {
+    const page = pageName.toLowerCase();
+    const pageObject = getPageObject(page);
+
+    switch (value) {
+      case 'focused':
+        pageObject
+          ._getElementByName(pageName)
+          .should('have.attr', 'scalex', '1.2');
+        break;
+      case 'unfocused':
+        pageObject
+          ._getElementByName(pageName)
+          .should('not.have.attr', 'scalex');
+        break;
+      case 'disabled':
+        pageObject
+          ._getElementByName(pageName)
+          .should('not.have.attr', 'scalex');
+        break;
+      default:
+        break;
+    }
+  });
+
+  /**
+   * @module Common
+   * @function I verify the mode is {String} for {String} {String}
+   * @description Cucumber statement to verify the mode of a component
+   * @param {String} value
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example Then I verify the mode is 'focused' for 'Row' 'Row elements'
    */
   Then(
-    'I verify the {string} is {string} for {string} {string}',
-    (control, value, pageName, component) => {
+    'I verify the mode is {string} for {string} {string}',
+    (value, pageName, componentName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      switch (control) {
-        case 'mode':
-          switch (value) {
-            case 'focused':
-              pageObject
-                ._getElementByName(component)
-                .should('have.attr', 'scalex', '1.2');
-              break;
-            case 'unfocused':
-              pageObject
-                ._getElementByName(component)
-                .should('not.have.attr', 'scalex');
-              break;
-            case 'disabled':
-              pageObject
-                ._getElementByName(component)
-                .should('not.have.attr', 'scalex');
-              break;
-            default:
-              break;
-          }
+      switch (value) {
+        case 'focused':
+          pageObject
+            ._getElementByName(componentName)
+            .should('have.attr', 'scalex', '1.2');
           break;
-        case 'vertical':
-          if (value === 'true') {
-            pageObject
-              ._getElementByName(component)
-              .should('have.attr', 'state', 'VerticalSlider');
-          } else {
-            pageObject
-              ._getElementByName(component)
-              .should('not.have.attr', 'state', 'VerticalSlider');
-          }
+        case 'unfocused':
+          pageObject
+            ._getElementByName(componentName)
+            .should('not.have.attr', 'scalex');
+          break;
+        case 'disabled':
+          pageObject
+            ._getElementByName(componentName)
+            .should('not.have.attr', 'scalex');
           break;
         default:
           break;
@@ -542,11 +606,11 @@ export default function () {
       const row = rowName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      let key = "";
+      let key = '';
       if (page === 'column') {
-         key = position === 'last' ? 'DOWN' : 'UP';
+        key = position === 'last' ? 'DOWN' : 'UP';
       } else {
-         key = position === 'last' ? 'RIGHT' : 'LEFT';
+        key = position === 'last' ? 'RIGHT' : 'LEFT';
       }
       if (position === 'last') {
         pageObject
@@ -808,15 +872,16 @@ export default function () {
    * @param {String} pageName
    * @example I verify that 'First Column Buttons' are evenly spaced vertically for 'Column' component
    */
-   Then(
+  Then(
     'I verify that {string} are evenly spaced vertically for {string} component',
     (elementName, pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const element = elementName.toLowerCase();
       const elementRows = [];
-      
-      pageObject._getElementByName(element)
+
+      pageObject
+        ._getElementByName(element)
         .each($row => {
           // push the row info to the elementRows array
           cy.getOffsetRect($row).then(data => {

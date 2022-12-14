@@ -4,7 +4,7 @@ Feature: Row Basic component validation
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Row' 'Row' with 'Base' theme
+    And I navigate to 'Row' with 'Base' theme
 
   Scenario: Verify that Row Basic Element is visible
     Then I verify that the 'Row' component is displayed
@@ -34,11 +34,11 @@ Feature: Row Basic component validation
   @skip
   Scenario: Verify the Row component modes
     When I set the 'mode' to 'unfocused' for 'Row' component
-    Then I verify the 'mode' is 'unfocused' for 'Row' 'Row elements'
+    Then I verify the mode is 'unfocused' for 'Row' 'Row elements'
     And I set the 'mode' to 'focused' for 'Row' component
-    And I verify the 'mode' is 'focused' for 'Row' 'Row elements'
+    And I verify the mode is 'focused' for 'Row' 'Row elements'
     And I set the 'mode' to 'disabled' for 'Row' component
-    And I verify the 'mode' is 'disabled' for 'Row' 'Row elements'
+    And I verify the mode is 'disabled' for 'Row' 'Row elements'
 
   Scenario: Verify that the scroll index of the Row Basic Element can be changed
     Then I verify the 'scrollIndex' is '0' for 'Row' component

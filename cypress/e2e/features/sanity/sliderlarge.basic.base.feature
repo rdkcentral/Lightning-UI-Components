@@ -22,11 +22,11 @@ Feature: LUI SliderLarge Basic component
   @skip
   Scenario: Verify the SliderLarge Basic modes
     When I set the 'mode' to 'unfocused' for 'SliderLarge' component
-    Then I verify the 'mode' is 'unfocused' for 'SliderLarge' 'Basic Slider'
+    Then I verify the mode is 'unfocused' for 'SliderLarge' 'Basic Slider'
     And I set the 'mode' to 'focused' for 'SliderLarge' component
-    And I verify the 'mode' is 'focused' for 'SliderLarge' 'Basic Slider'
+    And I verify the mode is 'focused' for 'SliderLarge' 'Basic Slider'
     And I set the 'mode' to 'disabled' for 'SliderLarge' component
-    And I verify the 'mode' is 'disabled' for 'SliderLarge' 'Basic Slider'
+    And I verify the mode is 'disabled' for 'SliderLarge' 'Basic Slider'
 
   Scenario Outline: Verify the SliderLarge Basic max boundary
     When I set the 'max' to '<maxValue>' for 'SliderLarge' component

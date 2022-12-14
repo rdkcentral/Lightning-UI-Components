@@ -4,7 +4,7 @@ Feature: LUI Wave Base component
 
   Background:
     Given I launch the LUI app 
-    When I navigate to 'Wave' 'Wave' with 'Base' theme
+    And I navigate to 'Wave' with 'Base' theme
     
   Scenario: Verify that Wave Element is visible
     Then I verify that the 'Wave' component is displayed

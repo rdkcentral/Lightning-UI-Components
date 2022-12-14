@@ -4,7 +4,7 @@ Feature: LUI Distractor Basic Component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Distractor' 'Distractor' with 'Base' theme
+    And I navigate to 'Distractor' with 'Base' theme
 
   Scenario: Verify that Distractor component is displayed
     Then I verify that the 'Distractor' 'Circle1' component is displayed

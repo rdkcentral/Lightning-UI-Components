@@ -13,6 +13,7 @@ export default function () {
    Then(
     'I verify the {string} is {string} for Artwork component',
     (control, value) => {
+      // TODO: Create separate steps for blur, fill, foregroundSrc, format, gradient, srcCallback. This step is too long
       switch (control) {
         case 'blur':
           switch (value) {
