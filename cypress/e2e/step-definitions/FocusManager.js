@@ -81,7 +81,7 @@ export default function () {
    * @example I verify that elements are vertically evenly spaced for 'FocusManager' component
    */
   Then(
-    'I verify that elements are vertically evenly spaced for {string} component',
+    'I verify that elements are vertically and evenly spaced for {string} component',
     pageName => {
       const tileRows = [];
       // need wait time as it's taking time to load

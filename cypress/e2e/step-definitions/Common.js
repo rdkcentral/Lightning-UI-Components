@@ -650,20 +650,21 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const elements = [];
+
       cy.get(pageObject.row)
         .each($row => {
           const rowId = $row.attr('id');
           cy.get($row)
             .children()
             .each(($element, $index) => {
-              // the spacing of the first tile is different
+              // the spacing of the first element is different
               if ($index !== 0) {
-                // keep track of the tiles in the row for later use
+                // keep track of the elements in the row for later use
                 const elementInfo = {
                   id: $element.attr('id'),
                   rowId
                 };
-                // push the tile info to the tiles array
+                // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
                   elements.push({ ...elementInfo, ...data });
                 });
@@ -672,23 +673,83 @@ export default function () {
         })
         .then(() => {
           const spaces = [];
-          elements.forEach((element, index, arr) => {
-            if (index !== 0) {
-              const prevElement = arr[index - 1];
-              const space = element.left - prevElement.right;
-              spaces.push(space);
-            }
+
+          // create two dimensional array of the elements and rows
+          const rowsWithElementsMatrix = Object.values(
+            // group the elements by row
+            elements.reduce((groupedElements, currentElement) => {
+              if (!groupedElements[currentElement.rowId]) {
+                groupedElements[currentElement.rowId] = [];
+              }
+              groupedElements[currentElement.rowId].push(currentElement);
+              return groupedElements;
+            }, {})
+          );
+
+          // get the spaces between each element in each row
+          rowsWithElementsMatrix.forEach(rowWithElements => {
+            rowWithElements.forEach((element, index, arr) => {
+              if (index !== 0) {
+                const prevElement = arr[index - 1];
+                const space = element.left - prevElement.right;
+                spaces.push(space);
+              }
+            });
           });
+
           // assert that the spaces are evenly spaced
           const averageSpace = Math.round(
             spaces.reduce((a, b) => a + b, 0) / spaces.length
           );
+
           const space = Math.round(spaces[1]);
           expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
         });
     }
   );
 
+  /**
+   * @module Common
+   * @function I verify that elements are vertically evenly spaced for {String} component
+   * @description Cucumber statement to verify the specified page rows are evenly spaced vertically
+   * @param {String} pageName
+   * @example I verify that elements are vertically evenly spaced for 'Column' component
+   */
+  Then(
+    'I verify that elements are vertically evenly spaced for {string} component',
+    pageName => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      const elementRows = [];
+      cy.get(pageObject.rows)
+        .each($row => {
+          // push the row info to the elementRows array
+          cy.getOffsetRect($row).then(data => {
+            elementRows.push({ ...data });
+          });
+        })
+        .then(() => {
+          const spaces = [];
+          // get the spaces between each row
+          elementRows.forEach((row, index) => {
+            if (index !== 0) {
+              const prevRow = elementRows[index - 1];
+              const space = row.top - prevRow.bottom;
+              spaces.push(Math.round(space));
+            }
+          });
+
+          // assert that the spaces are evenly spaced
+          const averageSpace = Math.round(
+            spaces.reduce((a, b) => a + b, 0) / spaces.length
+          );
+          const space = spaces[0];
+          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
+        });
+    }
+  );
+  
   /**
    * @module Common
    * @function I verify that the spacing between elements of {String} component is {String}
@@ -710,14 +771,14 @@ export default function () {
           cy.get($row)
             .children()
             .each(($element, $index) => {
-              // the spacing of the first tile is different
+              // the spacing of the first element is different
               if ($index !== 0) {
-                // keep track of the tiles in the row for later use
+                // keep track of the elements in the row for later use
                 const elementInfo = {
                   id: $element.attr('id'),
                   rowId
                 };
-                // push the tile info to the tiles array
+                // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
                   elements.push({ ...elementInfo, ...data });
                 });

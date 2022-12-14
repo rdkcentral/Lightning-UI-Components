@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Column extends LUIComponent {
   constructor() {
-    super({type: 'navigation', componentName: 'column'});
+    super({ type: 'navigation', componentName: 'column' });
   }
 
   get column() {
@@ -19,6 +19,10 @@ class Column extends LUIComponent {
 
   get rowElements() {
     return 'div[type=type]>div[type=column]>div>div[type=row]>div>div[type="Button"]';
+  }
+
+  get row() {
+    return 'div[type="Type"] > div[type="Column"] > div[type="Element"] > div[type="Row"] > div[type="Element"]';
   }
 
   get row1() {
@@ -67,12 +71,24 @@ class Column extends LUIComponent {
     return `${this.multiColumn} > div[ref=Items] > div[type=Column]:nth-of-type(1) > div[ref=Items]`;
   }
 
-  get secondColumn() {
-    return `${this.multiColumn} > div[ref=Items] > div[type=Column]:nth-of-type(2) > div[ref=Items]`;
-  }
-
   get firstColumnButtons() {
     return `${this.firstColumn} > div[type=Button]`;
+  }
+
+  get row2button1() {
+    return 'div[type="Element"] :nth-of-type(2) >div>div[type="Button"]:nth-of-type(1)';
+  }
+
+  get row2button2() {
+    return 'div[type="Element"] :nth-of-type(2) >div>div[type="Button"]:nth-of-type(2)';
+  }
+
+  get row2button3() {
+    return 'div[type="Element"] :nth-of-type(2) >div>div[type="Button"]:nth-of-type(3)';
+  }
+
+  get secondColumn() {
+    return `${this.multiColumn} > div[ref=Items] > div[type=Column]:nth-of-type(2) > div[ref=Items]`;
   }
 
   get secondColumnButtons() {
