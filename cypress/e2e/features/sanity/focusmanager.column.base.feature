@@ -14,7 +14,7 @@ Feature: LUI Focus Manager Columns component
     
   Scenario: Verify row layout and spacing
     When I press 'DOWN' key
-    Then I verify that elements are vertically evenly spaced for 'FocusManager' component
+    Then I verify that elements are vertically and evenly spaced for 'FocusManager' component
   
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'FocusManager' page has text '<text>'
