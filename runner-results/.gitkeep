@@ -1,3 +1,0 @@
-# This empty directory is needed as a workaround for a bug in cypress-parallel package.
-# Please do not delete this directory 'runner-results'
-# https://github.com/tnicola/cypress-parallel/issues/56

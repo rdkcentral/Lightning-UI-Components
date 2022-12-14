@@ -54,7 +54,7 @@
     "chai-spies": "^1.0.0",
     "cypress": "^10.11.0",
     "cypress-mochawesome-reporter": "^3.2.2",
-    "cypress-parallel": "^0.9.1",
+    "cypress-parallel": "^0.10.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard-with-typescript": "latest",
