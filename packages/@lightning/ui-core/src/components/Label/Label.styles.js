@@ -11,7 +11,7 @@ export const base = theme => ({
   textStyle: theme.typography.caption1
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     textStyle: { textColor: theme.color.textInverse },
     backgroundColor: theme.color.fillNeutral

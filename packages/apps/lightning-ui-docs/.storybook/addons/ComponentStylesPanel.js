@@ -56,7 +56,7 @@ let component;
 export default params => {
   const APP = globalApp();
   const [{ LUITheme }, updateGlobals] = useGlobals();
-  const [palette, updatePaletteState] = useState();
+  const [tone, updateToneState] = useState();
   const [styleRows, updateStyleRows] = useState([]);
 
   if (APP && !storybookInit) {
@@ -68,32 +68,32 @@ export default params => {
   }
 
   useEffect(() => {
-    // If the palette selector has been changed update the theme to reflect the change in the UI
+    // If the tone selector has been changed update the theme to reflect the change in the UI
     const context = globalContext();
     if (context) {
       context.updateTheme({
-        componentPalette: { [component.constructor.__componentName]: palette }
+        componentTone: { [component.constructor.__componentName]: tone }
       });
     }
-  }, [palette]);
+  }, [tone]);
 
   function updatePanel() {
-    updatePalette();
+    updateTone();
     setFields();
   }
 
   /**
-   * Update palette to to match default for component or componentPalette in theme
+   * Update tone to to match default for component or componentTone in theme
    */
-  function updatePalette() {
+  function updateTone() {
     const theme = globalTheme();
-    // Check if the current component already has a palette set and update the state if so
-    if (theme?.componentPalette?.[component.constructor.__componentName]) {
-      updatePaletteState(
-        theme.componentPalette[component.constructor.__componentName]
+    // Check if the current component already has a tone set and update the state if so
+    if (theme?.componentTone?.[component.constructor.__componentName]) {
+      updateToneState(
+        theme.componentTone[component.constructor.__componentName]
       );
     } else {
-      updatePaletteState('neutral');
+      updateToneState('neutral');
     }
   }
 
@@ -112,7 +112,7 @@ export default params => {
             <TableRow
               label={prop}
               key={`${prop}`}
-              scope={palette}
+              scope={tone}
               control={
                 <ColorControl
                   key={`Color-${componentName}-${prop}-${version}`}
@@ -137,7 +137,7 @@ export default params => {
               key={`Number-${componentName}-${prop}-${version}`}
               label={prop}
               defaultValue={defaultValue}
-              scope={palette}
+              scope={tone}
               onChange={val => {
                 debouncedUpdateComponentValue(
                   component.constructor.__componentName,
@@ -166,16 +166,16 @@ export default params => {
                 title="Component Level Theme Styles"
                 rows={[
                   <TableRow
-                    label="palette"
+                    label="tone"
                     key={`Row-${version}`}
                     control={
                       <OptionsControl
-                        name="palettes"
+                        name="tones"
                         type="inline-radio"
-                        value={palette}
+                        value={tone}
                         options={['neutral', 'inverse', 'brand']}
                         onChange={val => {
-                          updatePaletteState(val);
+                          updateToneState(val);
                         }}
                       />
                     }

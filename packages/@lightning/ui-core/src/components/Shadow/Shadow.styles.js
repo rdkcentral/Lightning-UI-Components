@@ -19,7 +19,7 @@ export const mode = theme => ({
   }
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     color: theme.color.shadowNeutralFocus
   },

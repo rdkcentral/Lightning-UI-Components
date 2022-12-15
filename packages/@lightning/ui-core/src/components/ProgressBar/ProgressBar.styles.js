@@ -4,7 +4,7 @@ export const base = theme => ({
   radius: theme.radius.xs
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     barColor: theme.color.fillNeutralTertiary,
     progressColor: theme.color.fillNeutral

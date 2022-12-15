@@ -11,7 +11,7 @@ export const base = theme => {
   };
 };
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     backgroundColor: theme.color.fillNeutralDisabled,
     backgroundColorChecked: theme.color.fillNeutral,

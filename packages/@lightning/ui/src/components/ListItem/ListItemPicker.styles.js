@@ -7,7 +7,7 @@ export const base = theme => ({
   arrowColor: theme.color.fillNeutral
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     mode: {
       focused: {

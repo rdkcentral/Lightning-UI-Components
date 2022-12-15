@@ -142,7 +142,7 @@ export const parameters = {
             'Theme Properties',
             'Use in Storybook',
             'Mode',
-            'Palette',
+            'Tone',
             'Extensions',
             'Sub Theming',
             '*'

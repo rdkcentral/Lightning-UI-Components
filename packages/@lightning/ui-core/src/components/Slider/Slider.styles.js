@@ -24,7 +24,7 @@ export const mode = () => ({
   }
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     arrowColor: theme.color.fillNeutral,
     circleColor: theme.color.interactiveNeutralFocus

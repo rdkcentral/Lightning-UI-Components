@@ -9,7 +9,7 @@ const styles = {
   base: {
     foo: 'bar'
   },
-  palette: {
+  tone: {
     neutral: {
       value1: 'neutralValue1'
     },
@@ -70,20 +70,20 @@ describe('withThemeStyles accessors', () => {
   //     done();
   // });
 
-  it('should return palette style from the theme if set with theme.componentPalette', async () => {
-    expect(component._paletteStyle).toMatchObject({ value1: 'neutralValue1' });
-    await context.updateTheme({ componentPalette: { MyComponent: 'brand' } });
-    expect(component._paletteStyle).toMatchObject({ value1: 'brandValue1' });
+  it('should return tone style from the theme if set with theme.componentTone', async () => {
+    expect(component._toneStyle).toMatchObject({ value1: 'neutralValue1' });
+    await context.updateTheme({ componentTone: { MyComponent: 'brand' } });
+    expect(component._toneStyle).toMatchObject({ value1: 'brandValue1' });
   });
 
-  it('should allow a palette style to be set on the component directly', async () => {
-    expect(component._paletteStyle).toMatchObject({ value1: 'neutralValue1' });
-    component.palette = 'inverse';
-    expect(component._paletteStyle).toMatchObject({ value1: 'inverseValue1' });
-    component.palette = 'brand';
-    expect(component._paletteStyle).toMatchObject({ value1: 'brandValue1' });
-    await context.updateTheme({ componentPalette: { MyComponent: 'inverse' } });
-    expect(component._paletteStyle).toMatchObject({ value1: 'inverseValue1' });
+  it('should allow a tone style to be set on the component directly', async () => {
+    expect(component._toneStyle).toMatchObject({ value1: 'neutralValue1' });
+    component.tone = 'inverse';
+    expect(component._toneStyle).toMatchObject({ value1: 'inverseValue1' });
+    component.tone = 'brand';
+    expect(component._toneStyle).toMatchObject({ value1: 'brandValue1' });
+    await context.updateTheme({ componentTone: { MyComponent: 'inverse' } });
+    expect(component._toneStyle).toMatchObject({ value1: 'inverseValue1' });
   });
 
   it('should return the proper themeLevel style if set with theme.componentStyle', async () => {
@@ -145,7 +145,7 @@ describe('withThemeStyles accessors', () => {
   //
   // });
 
-  // it.skip('sets up palette accessors', done => {
+  // it.skip('sets up tone accessors', done => {
   //
   // });
 

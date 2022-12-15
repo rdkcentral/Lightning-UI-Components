@@ -82,7 +82,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
             h: calculatedH,
             x: calculatedW / 2,
             y: calculatedH / 2,
-            palette: this.palette,
+            tone: this.tone,
             alpha: 0,
             scale: 1,
             zIndex: this.parent.core.findZContext().zIndex + zOffset,
@@ -113,7 +113,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
 
         // Update variant and styles
         const focusRingPatch = {
-          palette: this.palette
+          tone: this.tone
         };
 
         if (this._isFocusedMode) {

@@ -330,7 +330,7 @@ class ScrollWrapper extends Base {
 
     // This is a vertical slider, so w is actually controlling the height
     this._Slider.patch({
-      palette: this.palette,
+      tone: this.tone,
       x: this.w - this._sliderWidth,
       w: sliderMax,
       min: 0,

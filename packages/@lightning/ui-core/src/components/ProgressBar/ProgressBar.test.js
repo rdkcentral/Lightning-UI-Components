@@ -1,4 +1,4 @@
-import { base, palette } from './ProgressBar.styles.js';
+import { base, tone } from './ProgressBar.styles.js';
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightning/ui-test-utils';
 import baseTheme from '@suite-themes/base-lightning-tv/index.js';
@@ -8,20 +8,20 @@ jest.mock('./ProgressBar.styles', () => {
   const originalDefaultModule = jest.requireActual(
     './ProgressBar.styles'
   ).default;
-  const originalPaletteDefaultModule = jest.requireActual(
+  const originalToneDefaultModule = jest.requireActual(
     './ProgressBar.styles'
-  ).paletteDefault;
+  ).toneDefault;
   const originalBase = jest.requireActual('./ProgressBar.styles').base;
-  const originalPalette = jest.requireActual('./ProgressBar.styles').palette;
+  const originalTone = jest.requireActual('./ProgressBar.styles').tone;
 
   return {
     __esModule: true, // This makes it all work
     default: jest
       .fn()
       .mockImplementation((...args) => originalDefaultModule(...args)),
-    paletteDefault: originalPaletteDefaultModule,
+    toneDefault: originalToneDefaultModule,
     base: jest.fn().mockImplementation((...args) => originalBase(...args)),
-    palette: jest.fn().mockImplementation((...args) => originalPalette(...args))
+    tone: jest.fn().mockImplementation((...args) => originalTone(...args))
   };
 });
 
@@ -78,13 +78,13 @@ describe('ProgressBar', () => {
     );
   });
 
-  it('has style palettes', () => {
-    expect(typeof palette).toBe('function');
-    const paletteStyles = palette(baseTheme);
-    expect(Object.keys(paletteStyles).length).toBe(3);
-    expect(paletteStyles.neutral).toBeDefined();
-    expect(paletteStyles.brand).toBeDefined();
-    expect(paletteStyles.inverse).toBeDefined();
+  it('has style tones', () => {
+    expect(typeof tone).toBe('function');
+    const toneStyles = tone(baseTheme);
+    expect(Object.keys(toneStyles).length).toBe(3);
+    expect(toneStyles.neutral).toBeDefined();
+    expect(toneStyles.brand).toBeDefined();
+    expect(toneStyles.inverse).toBeDefined();
   });
 
   it('renders the correct height', async () => {
