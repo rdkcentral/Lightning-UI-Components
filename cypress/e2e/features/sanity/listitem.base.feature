@@ -1,4 +1,4 @@
-@sanity @listItem @2136894
+@sanity @regression @listItem @2136894
 
 Feature: LUI ListItem Component
 
@@ -20,16 +20,14 @@ Feature: LUI ListItem Component
     And I verify that 'no' 'suffix' is added to 'ListItem'
     And I verify that 'no' 'suffixLogo' is added to 'ListItem'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the ListItem mode control
-    When I set the 'mode' to 'unfocused' for 'ListItem' component
-    Then I verify the mode is 'unfocused' for 'ListItem'
-    And I set the 'mode' to 'focused' for 'ListItem' component
-    And I verify the mode is 'focused' for 'ListItem'
-    And I set the 'mode' to 'disabled' for 'ListItem' component
-    And I verify the mode is 'disabled' for 'ListItem'
+  Scenario Outline: Verify that ListItem can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'ListItem' component
+    Then I verify the mode is '<modeValue>' for 'ListItem'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify that ListItem description can be set
     When I set the 'description' to 'LUI Test' for 'ListItem' component
@@ -46,9 +44,6 @@ Feature: LUI ListItem Component
     And I set the 'prefix' to 'checkbox' for 'ListItem' component
     And I verify that 'checkbox' 'prefix' is added to 'ListItem'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
   Scenario: Verify the ListItem shouldCollapse control
     When I set the 'mode' to 'unfocused' for 'ListItem' component
     Then I verify the mode is 'unfocused' for 'ListItem'

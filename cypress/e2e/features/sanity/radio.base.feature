@@ -1,4 +1,4 @@
-@sanity @radio @basic @2113395
+@sanity @regression @radio @basic @2113395
 
 Feature: LUI Radio Basic component
 
@@ -8,20 +8,20 @@ Feature: LUI Radio Basic component
 
   Scenario: Verify that Radio Basic is displayed
     Then I verify that the 'Radio' component is displayed
-    
+
   Scenario: Verify the dimensions of the Radio Basic Element
     Then I verify that the 'width' of 'Radio' component is '40px'
     And I verify that the 'height' of 'Radio' component is '40px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify that Radio Basic modes
-    When I set the 'mode' to 'unfocused' for 'Radio' component
-    Then I verify the mode is 'unfocused' for 'Radio'
-    And I set the 'mode' to 'disabled' for 'Radio' component
-    And I verify the mode is 'disabled' for 'Radio'
-    
+  Scenario Outline: Verify that Radio can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'Radio' component
+    Then I verify the mode is '<modeValue>' for 'Radio'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
+
   Scenario: Verify the Radio Basic checked state
     When I set the 'checked' to 'true' for 'Radio' component
     Then I verify that the 'opacity' of 'Radio' 'Knob' component is '1'

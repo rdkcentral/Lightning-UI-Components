@@ -1,4 +1,4 @@
-@sanity @distractor @2110308
+@sanity @regression @distractor @2110308
 
 Feature: LUI Distractor Basic Component
 

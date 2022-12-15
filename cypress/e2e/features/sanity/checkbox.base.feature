@@ -1,4 +1,4 @@
-@sanity @checkbox @2102475
+@sanity @regression @checkbox @2102475
 
 Feature: LUI Checkbox Basic component
 
@@ -13,9 +13,6 @@ Feature: LUI Checkbox Basic component
     Then I verify that the 'width' of 'Checkbox' component is '40px'
     And I verify that the 'height' of 'Checkbox' component is '40px'
 
-  #https://ccp.sys.comcast.net/browse/LUI-555
-  #This is skipped because of the bug
-  @skip
   Scenario Outline: Verify that Checkbox can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'Checkbox' component
     Then I verify the mode is '<modeValue>' for 'Checkbox'
@@ -32,5 +29,5 @@ Feature: LUI Checkbox Basic component
     And I verify that the 'Checkbox' 'checked' state is 'false'
 
   Scenario: Verify that Checkbox Basic default values
-   Then I verify that the 'Checkbox' 'checked' state is 'false'
+    Then I verify that the 'Checkbox' 'checked' state is 'false'
    #A step needs to be added for verifying dafault value for mode control once the bug LUI-555 is resolved

@@ -1,4 +1,4 @@
-@sanity @label @basic @2104361
+@sanity @regression @label @basic @2104361
 
 Feature: LUI Label component
 

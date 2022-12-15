@@ -1,4 +1,4 @@
-@sanity @row @2112198
+@sanity @regression @row @2112198
 
 Feature: Row Basic component validation
 
@@ -29,16 +29,14 @@ Feature: Row Basic component validation
     When I set the 'itemSpacing' to '25' for 'Row' component
     And I verify that the spacing between elements of 'Row' component is '13'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Row component modes
-    When I set the 'mode' to 'unfocused' for 'Row' component
-    Then I verify the mode is 'unfocused' for 'Row' 'Row elements'
-    And I set the 'mode' to 'focused' for 'Row' component
-    And I verify the mode is 'focused' for 'Row' 'Row elements'
-    And I set the 'mode' to 'disabled' for 'Row' component
-    And I verify the mode is 'disabled' for 'Row' 'Row elements'
+  Scenario Outline: Verify that Row can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'Row' component
+    Then I verify the mode is '<modeValue>' for 'Row' 'Row Elements'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify that the scroll index of the Row Basic Element can be changed
     Then I verify the 'scrollIndex' is '0' for 'Row' component

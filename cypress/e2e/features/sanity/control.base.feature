@@ -1,4 +1,4 @@
-@sanity @control @2111324
+@sanity @regression @control @2111324
 
 Feature: LUI Control component
 
