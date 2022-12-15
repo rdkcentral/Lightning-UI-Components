@@ -12,57 +12,96 @@ class Radio extends Base {
     return styles;
   }
 
+  static _template() {
+    const center = { mount: 0.5, x: w => w / 2, y: h => h / 2 };
+    return {
+      Body: {
+        rtt: true, // ensures the background color doesn't bleed into the knob when disabled
+        ...center,
+        Knob: {
+          ...center,
+          alpha: 0
+        }
+      },
+      Stroke: center
+    };
+  }
+
   static get tags() {
-    return ['Knob'];
+    return ['Knob', 'Body', 'Stroke'];
   }
   static get properties() {
     return ['checked'];
   }
 
   _update() {
-    this._updateLayout();
-    this._Knob.smooth = {
-      alpha: this.checked ? 1 : 0
-    };
+    this._updateBody();
+    this._updateStroke();
+    this._updateKnob();
     if (this._checkedChanged) {
       this.fireAncestors('$announce', this.announce);
       this._checkedChanged = false;
     }
+    this._updateOpacity();
   }
 
-  _updateLayout() {
-    this.patch({
-      w: this.style.w,
-      h: this.style.h,
+  _updateBody() {
+    const bodyColor = this.checked
+      ? this.style.backgroundColorChecked
+      : this.style.backgroundColor;
+
+    // if the inner body should be square, a rounded corner radius can still be applied to the stroke
+    const radius =
+      this.style.radius >= this.w / 2
+        ? (this.w - this.style.strokeWidth) / 2
+        : 0;
+
+    this._Body.patch({
       texture: lng.Tools.getRoundRect(
-        this.style.w,
-        this.style.h,
+        this.w - this.style.strokeWidth,
+        this.h - this.style.strokeWidth,
+        radius,
+        null,
+        null,
+        true,
+        bodyColor
+      )
+    });
+  }
+
+  _updateStroke() {
+    this._Stroke.patch({
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        this.h,
         this.style.radius,
         this.style.strokeWidth,
         this.style.strokeColor,
-        true,
-        this.checked
-          ? this.style.backgroundColorChecked
-          : this.style.backgroundColor
-      ),
-      Knob: {
-        w: this.style.knobWidth,
-        h: this.style.knobHeight,
-        mount: 0.5,
-        x: this.style.w / 2,
-        y: this.style.h / 2,
-        alpha: 0,
-        texture: lng.Tools.getRoundRect(
-          this.style.knobWidth,
-          this.style.knobHeight,
-          this.style.knobWidth / 2,
-          false,
-          false,
-          true,
-          this.style.knobColor
-        )
-      }
+        false
+      )
     });
+  }
+
+  _updateKnob() {
+    this._Knob.patch({
+      texture: lng.Tools.getRoundRect(
+        this.style.knobWidth,
+        this.style.knobHeight,
+        this.style.knobWidth / 2,
+        null,
+        null,
+        true,
+        this.style.knobColor
+      )
+    });
+
+    this.applySmooth(this._Knob, {
+      alpha: this.checked ? 1 : 0
+    });
+  }
+
+  _updateOpacity() {
+    this.applySmooth(this, { alpha: this.style.alpha });
   }
 
   _setChecked(checked) {
