@@ -231,7 +231,7 @@ class Tile extends Surface {
     }
 
     this._Artwork.patch({
-      palette: this.palette,
+      tone: this.tone,
       ...artwork,
       gradient: this._gradient,
       h: this._h,
@@ -262,7 +262,7 @@ class Tile extends Surface {
     }
 
     const badgePatch = {
-      palette: this.palette,
+      tone: this.tone,
       ...this.badge,
       x: this.style.paddingX,
       y: this.style.paddingY,
@@ -297,7 +297,7 @@ class Tile extends Surface {
     }
 
     const labelPatch = {
-      palette: this.palette, // Allow palette to be overwritten
+      tone: this.tone, // Allow tone to be overwritten
       ...this.label,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
@@ -393,7 +393,7 @@ class Tile extends Surface {
 
     if (this.progressBar.progress > 0) {
       const progressPatch = {
-        palette: this.palette,
+        tone: this.tone,
         ...this.progressBar,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
@@ -448,7 +448,7 @@ class Tile extends Surface {
 
   get _metadataPatch() {
     return {
-      palette: this.palette,
+      tone: this.tone,
       alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,

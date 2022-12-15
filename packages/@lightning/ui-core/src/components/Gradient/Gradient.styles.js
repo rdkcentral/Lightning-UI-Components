@@ -3,7 +3,7 @@ export const base = theme => ({
   radius: theme.radius.none
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: { gradientColor: theme.color.material },
   inverse: { gradientColor: theme.color.fillNeutral },
   brand: { gradientColor: theme.color.fillBrand }

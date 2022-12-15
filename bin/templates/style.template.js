@@ -16,7 +16,7 @@ module.exports = () => {
     }
   });
   
-  export const palette = theme => ({
+  export const tone = theme => ({
     neutral: {
 
     },

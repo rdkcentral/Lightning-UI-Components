@@ -9,7 +9,7 @@ export const base = () => ({
   smoothness: 0.8
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: { circleColor: theme.color.fillNeutral },
   inverse: { circleColor: theme.color.fillInverse },
   brand: { circleColor: theme.color.fillBrand }

@@ -3,7 +3,7 @@ export const base = theme => ({
   descriptionTextStyle: theme.typography.body3
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
     descriptionTextStyle: { textColor: theme.color.textNeutral },

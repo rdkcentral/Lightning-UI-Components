@@ -162,7 +162,7 @@ class Slider extends Base {
         SliderBar: {
           y: this.style.containerHeight / 2,
           w: this._calculatedSliderWidth,
-          palette: this.palette,
+          tone: this.tone,
           style: {
             duration: 0,
             ...this.style.progressBarStyles
@@ -174,7 +174,7 @@ class Slider extends Base {
       w: this.style.innerCircleSize,
       h: this.style.innerCircleSize,
       color: this.style.circleColor,
-      palette: this.palette,
+      tone: this.tone,
       mode: this.mode,
       style: {
         radius: this.style.radius,

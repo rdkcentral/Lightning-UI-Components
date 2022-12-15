@@ -4,7 +4,7 @@ export const base = () => {
   };
 };
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     mode: {
       focused: {

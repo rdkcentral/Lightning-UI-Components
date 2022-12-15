@@ -14,7 +14,7 @@ export const base = theme => {
   };
 };
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     strokeColor: theme.color.strokeInverse,
     checkColor: theme.color.fillInverse,

@@ -70,10 +70,10 @@ export default function withThemeStyles(Base, mixinStyle) {
       return (parent && parent.subTheme) || undefined;
     }
 
-    get _paletteStyle() {
-      const paletteStyle =
-        (this._componentStyleSource.palette || {})[this.palette] || {};
-      return paletteStyle || {};
+    get _toneStyle() {
+      const toneStyle =
+        (this._componentStyleSource.tone || {})[this.tone] || {};
+      return toneStyle || {};
     }
 
     /**
@@ -104,9 +104,9 @@ export default function withThemeStyles(Base, mixinStyle) {
      *
      * Objects are deep merged in this order
      *
-     * 1. Palette - Responsible for color schemes `neutral`, `inverse`, `brand`
-     * 2. Mode - unfocused (default), focused, selected, pressed
-     * 3. Palette - Mode specific, any palette values can override modes if named in this format [modeName]Value (camelCase) ex. focusedBorderWidth: 10
+     * 1. Tone - Responsible for color schemes `neutral`, `inverse`, `brand`
+     * 2. Mode - unfocused (default), focused, disabled, selected
+     * 3. Tone - Mode specific, any tone values can override modes if named in this format [modeName]Value (camelCase) ex. focusedBorderWidth: 10
      * 4. ThemeLevel - styles specified in theme.componentStyle[MyComponent] = {}. Also supports mode overrides
      * 5. ComponentLevel - styles set on the component itself ex. MyComponent.style = {radius: 10}
      *
@@ -122,9 +122,9 @@ export default function withThemeStyles(Base, mixinStyle) {
       // Mode style
       v = clone(v, (this._componentStyleSource.mode || {})[this.mode] || {});
 
-      // Palette style
-      if (this._paletteStyle) {
-        v = clone(v, this._paletteStyle);
+      // Tone style
+      if (this._toneStyle) {
+        v = clone(v, this._toneStyle);
       }
 
       // Theme Level style example: this.theme.componentStyle.foo = 'bar'
@@ -239,8 +239,8 @@ export default function withThemeStyles(Base, mixinStyle) {
      * Rules
      *
      * 1. Styles can be a function that returns an object
-     * 2. Styles can be an object. If object contains any of the following properties (base, mode, palette) it will be treated as a standard style setup and all other properties will be discarded
-     * 3. Styles can be an object with any of the following properties (base, mode, palette). These must be functions that return an object. Any other properties will be discarded
+     * 2. Styles can be an object. If object contains any of the following properties (base, mode, tone) it will be treated as a standard style setup and all other properties will be discarded
+     * 3. Styles can be an object with any of the following properties (base, mode, tone). These must be functions that return an object. Any other properties will be discarded
      */
     _generateComponentStyleSource() {
       let v = {};
@@ -250,12 +250,12 @@ export default function withThemeStyles(Base, mixinStyle) {
           typeof style === 'object' &&
           !style.base &&
           !style.mode &&
-          !style.palette &&
+          !style.tone &&
           !style.default
         ) {
           v = clone(v, { base: style }); // Allows components to be wrapped by withThemeStyles
         } else {
-          const { base, mode, palette } = style;
+          const { base, mode, tone } = style;
           if (base && typeof base === 'function') {
             v = clone(v, {
               base: base(this.theme) || {}
@@ -276,13 +276,13 @@ export default function withThemeStyles(Base, mixinStyle) {
             });
           }
 
-          if (palette && typeof palette === 'function') {
+          if (tone && typeof tone === 'function') {
             v = clone(v, {
-              palette: palette(this.theme) || {}
+              tone: tone(this.theme) || {}
             });
-          } else if (palette && typeof palette === 'object') {
+          } else if (tone && typeof tone === 'object') {
             v = clone(v, {
-              palette
+              tone
             });
           }
         }
@@ -301,11 +301,11 @@ export default function withThemeStyles(Base, mixinStyle) {
           }
         });
       }
-      // Add palette props
-      if (v.palette && typeof v.palette === 'object') {
-        Object.keys(v.palette).forEach(prop => {
-          if (typeof v.palette[prop] === 'object') {
-            Object.keys(v.palette[prop]).forEach(prop => {
+      // Add tone props
+      if (v.tone && typeof v.tone === 'object') {
+        Object.keys(v.tone).forEach(prop => {
+          if (typeof v.tone[prop] === 'object') {
+            Object.keys(v.tone[prop]).forEach(prop => {
               styleProps.add(prop);
             });
           }
@@ -390,7 +390,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      *
      * 1. Adding static get __themeStyle() { return [YOUR STYLE OBJECT OR FUNCTION]}
      * 2. Wrapping your component in withTheme ex. withThemeStyles(MyComponent, MyComponentStyles)
-     * 3. ComponentStyles can be an object containing styles, and object containing any or all of the following properties: base: (theme) => {},  mode: (theme) => {}, palette: (theme) => {}
+     * 3. ComponentStyles can be an object containing styles, and object containing any or all of the following properties: base: (theme) => {},  mode: (theme) => {}, tone: (theme) => {}
      *
      * @return {object}
      */
@@ -461,28 +461,28 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     /**
-     * Palette controls what property in the palette export of the style file is selected when generating the final _componentStyle object
+     * Tone controls what property in the tone export of the style file is selected when generating the final _componentStyle object
      * @return {string}
      */
-    get palette() {
+    get tone() {
       if (
-        this.theme.componentPalette &&
-        'object' === typeof this.theme.componentPalette &&
+        this.theme.componentTone &&
+        'object' === typeof this.theme.componentTone &&
         Object.prototype.hasOwnProperty.call(
-          this.theme.componentPalette,
+          this.theme.componentTone,
           this.constructor.__componentName
         ) &&
         'string' ===
-          typeof this.theme.componentPalette[this.constructor.__componentName]
+          typeof this.theme.componentTone[this.constructor.__componentName]
       ) {
-        return this.theme.componentPalette[this.constructor.__componentName];
+        return this.theme.componentTone[this.constructor.__componentName];
       }
-      return this._palette || 'neutral';
+      return this._tone || 'neutral';
     }
 
-    set palette(value) {
-      if (value === this._palette) return;
-      this._palette = value;
+    set tone(value) {
+      if (value === this._tone) return;
+      this._tone = value;
       this._clearComponentStyleCache();
       this.queueThemeUpdate(); // Update component again since the styles may have changed
     }

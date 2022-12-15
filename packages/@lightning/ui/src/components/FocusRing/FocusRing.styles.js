@@ -7,7 +7,7 @@ export const base = theme => ({
   shouldAnimate: true
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     color: theme.color.interactiveNeutralFocus,
     transitionColor: null,

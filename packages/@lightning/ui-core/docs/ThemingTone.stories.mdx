@@ -1,0 +1,55 @@
+
+import { Meta, Description } from '@storybook/addon-docs';
+
+<Meta title="Docs / Theming / Tone" />
+
+# Tone
+Each Lightning-UI component can be displayed in one of three visual modes that are referred to as a tone.
+All components have three tone options by default: **neutral**, **brand**, and **inverse**.
+Some of our components also utilize status colors, like **positive**, **negative**, **caution**, and **info**.
+It is also possible to add other custom tones. Each component has a default tone.
+For example, Base theme `Buttons` and `ListItems` default to the neutral tone.
+A component's tone can be set at the theme or component level.
+
+### Theme level
+Each theme may contain a property `componentTone`. This property can hold one or more properties which correspond to each LUI component's `__componentName`.
+You may change the default tone across all LUI components by setting this value in your themes file.
+If you want to use a neutral tone on all `ProgressBar` components in the Base or your custom theme you would do this:
+
+```js
+componentTone: {
+  ProgressBar: 'neutral'
+}
+```
+The resulting theme object would look like this:
+
+```js
+// Inside of themes/base/index.js
+export default {
+  color,
+  layout,
+  spacing,
+  radius,
+  typography,
+  animation,
+  componentStyle: {},
+  componentTone: {
+    ProgressBar: 'neutral'
+  }
+};
+```
+
+In this example, **all** `ProgressBar` components will be using the neutral tone.
+
+### Component level
+
+You may also update this value on a per component basis by setting its tone property. For example:
+
+```js
+MyComponent: {
+  type: ProgressBar,
+  tone: 'inverse'
+}
+```
+In this example, **only** MyComponent's `ProgressBar` will use the inverse tone.
+

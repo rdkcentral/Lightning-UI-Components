@@ -7,7 +7,7 @@ export const base = theme => ({
   }
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     detailsTextStyle: { textColor: theme.color.textNeutral },
     mode: {

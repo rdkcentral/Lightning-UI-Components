@@ -10,7 +10,7 @@ export const base = theme => ({
   strokeWeight: theme.stroke.sm
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     strokeColor: theme.color.fillInverse,
     backgroundColor: theme.color.fillNeutralDisabled,

@@ -12,7 +12,7 @@ export const base = theme => ({
   transition: theme.animation.utility // TODO: should delay and duration be xfast?
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     backgroundColor: theme.color.fillNeutral,
     textStyle: { textColor: theme.color.textInverse }

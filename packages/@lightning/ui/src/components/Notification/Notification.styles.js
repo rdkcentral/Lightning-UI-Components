@@ -60,7 +60,7 @@ export const mode = theme => ({
   }
 });
 
-export const palette = theme => ({
+export const tone = theme => ({
   neutral: {
     mode: {
       focused: {
