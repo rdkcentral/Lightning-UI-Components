@@ -122,8 +122,9 @@ export const parameters = {
     sort: 'requiredFirst'
   },
   docs: {
-    inlineStories: true,
-    theme
+    inlineStories: false, // sets docs to use iframes
+    theme, // needed to set overall theme in Docs
+    iframeHeight: 300 // sets height for examples in docs
   },
   options: {
     storySort: {
@@ -188,8 +189,11 @@ context.storybookCustomTheme = JSON.parse(JSON.stringify(context.theme));
 
 // create Lightning App
 function createApp(parameters) {
-  // Make sure app is only created once
-  if (window.APP) return window.APP;
+  // Make sure app is only created once if path=/story
+  if (window.top.location.search.indexOf('path=/docs/') <= -1) {
+    if (window.APP) return window.APP;
+  }
+
   pool.clear();
 
   const announcerOptions = {
@@ -262,7 +266,6 @@ let previousID = null;
 addDecorator((StoryComponent, { id, args, parameters, globals }) => {
   const triggerUpdate = previousID !== id;
   previousID = id;
-
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
