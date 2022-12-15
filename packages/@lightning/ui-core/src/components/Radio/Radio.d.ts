@@ -3,6 +3,7 @@ import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
 export type RadioStyles = {
+  alpha: number;
   backgroundColor: Color;
   backgroundColorChecked: Color;
   knobColor: Color;
