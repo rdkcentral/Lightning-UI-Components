@@ -83,6 +83,17 @@ describe('MetadataBase', () => {
     expect(component._Description.content).toBe(description);
   });
 
+  it('should allow marquee-ing title and description text', async () => {
+    expect(component._Title.marquee).toBeUndefined();
+    expect(component._Description.marquee).toBeUndefined();
+
+    component.marquee = true;
+    await component.__updateSpyPromise;
+
+    expect(component._Title.marquee).toBe(true);
+    expect(component._Description.marquee).toBe(true);
+  });
+
   it('updates the Logo and its position', async () => {
     const logoPath = './path-to-logo';
     [component, testRenderer] = createComponent(

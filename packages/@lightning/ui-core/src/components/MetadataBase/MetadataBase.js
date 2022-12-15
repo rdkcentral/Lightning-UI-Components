@@ -164,14 +164,14 @@ class MetadataBase extends Base {
   _updateTitle() {
     this._Title.patch({
       content: this.title,
+      marquee: this.marquee,
       style: {
         textStyle: {
           ...this.style.titleTextStyle,
           maxLines: 1,
           wordWrap: true,
           wordWrapWidth: this._Text.w
-        },
-        marquee: this.marquee
+        }
       }
     });
   }
@@ -201,14 +201,14 @@ class MetadataBase extends Base {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
+      marquee: this.marquee,
       style: {
         textStyle: {
           ...this.style.descriptionTextStyle,
           maxLines: 1,
           wordWrap: true,
           wordWrapWidth: this._Text.w
-        },
-        marquee: this.marquee
+        }
       }
     });
   }
