@@ -101,7 +101,11 @@ class Marquee extends Base {
     if (this.contentTexture) {
       content.texture = this.contentTexture;
     } else if (this.title) {
-      content.text = this.title;
+      content.text = {
+        ...this.style.textStyle,
+        ...this.title,
+        text: this.textContent
+      };
     }
 
     this.patch({
@@ -216,6 +220,10 @@ class Marquee extends Base {
       this.stopScrolling();
     }
     return autoStart;
+  }
+
+  get textContent() {
+    return this.title && this.title.text ? this.title.text : this.title;
   }
 
   get _loopWidth() {
