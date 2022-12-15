@@ -1,11 +1,11 @@
-@sanity @column @plinko @2112800
+@sanity @regression @column @plinko @2112800
 
 Feature: Column - Plinko Layout Validation
 
-  Background: 
-    Given I launch the LUI app 
+  Background:
+    Given I launch the LUI app
     And I navigate to 'Column' 'Plinko' with 'Base' theme
-  
+
   Scenario: Verify that Column Plinko Layout is visible
     Then I verify that the 'Column' component is displayed
     And I verify that there are 2 content rows on the 'Column' page

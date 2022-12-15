@@ -1,4 +1,4 @@
-@sanity @slider @basic @2113584
+@sanity @regression @slider @basic @2113584
 
 Feature: LUI Slider Basic component
 
@@ -13,49 +13,47 @@ Feature: LUI Slider Basic component
     And I verify that the 'Slider' 'Left Arrow' component is displayed
     And I verify that the 'Slider' 'Right Arrow' component is displayed
 
-  Scenario: Verify the dimensions of the Slider Basic Element
+  Scenario: Verify the dimensions of th Slider Basic Element
     Then I verify that the 'width' of 'Slider' 'Container' component is '308px'
     And I verify that the 'height' of 'Slider' 'Container' component is '24px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Slider Basic modes
-    When I set the 'mode' to 'unfocused' for 'Slider' component
-    Then I verify the mode is 'unfocused' for 'Slider'
-    And I set the 'mode' to 'focused' for 'Slider' component
-    And I verify the mode is 'focused' for 'Slider'
-    And I set the 'mode' to 'disabled' for 'Slider' component
-    And I verify the mode is 'disabled' for 'Slider'
+  Scenario Outline: Verify that Slider can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'Slider' component
+    Then I verify the mode is '<modeValue>' for 'Slider'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario Outline: Verify the Slider Basic max boundary
     When I set the 'max' to '<maxValue>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | maxValue | progressValue |
-      |    50    |     1.00      |
-      |    80    |     0.625     |
-      |    100   |     0.50      |
+      | 50       | 1.00          |
+      | 80       | 0.625         |
+      | 100      | 0.50          |
 
   Scenario Outline: Verify the Slider Basic min boundary
     When I set the 'min' to '<minValue>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | minValue | progressValue |
-      |    50    |     0.5       |
-      |    75    |     0.75      |
-      |    90    |     0.90      |
+      | 50       | 0.5           |
+      | 75       | 0.75          |
+      | 90       | 0.90          |
 
   Scenario Outline: Verify the Slider Basic current value can be set
     When I set the 'value' to '<expected>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
     Examples:
       | expected | progressValue |
-      |    0     |     0.00      |
-      |    25    |     0.25      |
-      |    50    |     0.50      |
-      |    75    |     0.75      |
-      |    100   |     1.00      |
+      | 0        | 0.00          |
+      | 25       | 0.25          |
+      | 50       | 0.50          |
+      | 75       | 0.75          |
+      | 100      | 1.00          |
 
   Scenario: Verify the Slider Basic vertical setting
     When I set the 'vertical' to 'true' for 'Slider' component

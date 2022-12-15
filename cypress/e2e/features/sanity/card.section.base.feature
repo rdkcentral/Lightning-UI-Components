@@ -1,4 +1,4 @@
-@sanity @card @section @2105533
+@sanity @regression @card @section @2105533
 
 Feature: LUI Card Section Component
 
@@ -13,16 +13,14 @@ Feature: LUI Card Section Component
     Then I verify that the 'width' of 'CardSection' 'Card' component is '386px'
     And I verify that the 'height' of 'CardSection' 'Card' component is '200px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Card Section mode control
-  	When I set the 'mode' to 'unfocused' for 'CardSection' component
-    Then I verify the mode is 'unfocused' for 'CardSection'
-    And I set the 'mode' to 'focused' for 'CardSection' component
-    And I verify the mode is 'focused' for 'CardSection'
-    And I set the 'mode' to 'disabled' for 'CardSection' component
-    And I verify the mode is 'disabled' for 'CardSection'
+  Scenario Outline: Verify that CardSection can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'CardSection' component
+    Then I verify the mode is '<modeValue>' for 'CardSection'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify that Card Section title can be set
     When I set the 'title' to 'LUI Test' for 'CardSection' component

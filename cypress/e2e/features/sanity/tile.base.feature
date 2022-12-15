@@ -1,4 +1,4 @@
-@sanity @tileBasic @2104360
+@sanity @regression @tileBasic @2104360
 
 Feature: LUI Tile Basic component
 

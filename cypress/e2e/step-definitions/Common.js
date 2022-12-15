@@ -515,17 +515,17 @@ export default function () {
       case 'focused':
         pageObject
           ._getElementByName(pageName)
-          .should('have.attr', 'scalex', '1.2');
+          .should('have.attr', 'focused', 'true');
         break;
       case 'unfocused':
         pageObject
           ._getElementByName(pageName)
-          .should('not.have.attr', 'scalex');
+          .should('not.have.attr', 'focused');
         break;
       case 'disabled':
         pageObject
           ._getElementByName(pageName)
-          .should('not.have.attr', 'scalex');
+          .should('not.have.attr', 'focused');
         break;
       default:
         break;
@@ -551,17 +551,17 @@ export default function () {
         case 'focused':
           pageObject
             ._getElementByName(componentName)
-            .should('have.attr', 'scalex', '1.2');
+            .should('have.attr', 'focused', 'true');
           break;
         case 'unfocused':
           pageObject
             ._getElementByName(componentName)
-            .should('not.have.attr', 'scalex');
+            .should('not.have.attr', 'focused');
           break;
         case 'disabled':
           pageObject
             ._getElementByName(componentName)
-            .should('not.have.attr', 'scalex');
+            .should('not.have.attr', 'focused');
           break;
         default:
           break;

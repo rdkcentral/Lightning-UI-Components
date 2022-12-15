@@ -1,4 +1,4 @@
-@sanity @card @title @2111101
+@sanity @regression @card @title @2111101
 
 Feature: LUI Card Title Component
 
@@ -13,22 +13,20 @@ Feature: LUI Card Title Component
     Then I verify that the 'width' of 'CardTitle' 'Card' component is '253.333px'
     And I verify that the 'height' of 'CardTitle' 'Card' component is '386px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Card Title mode control
-  	When I set the 'mode' to 'unfocused' for 'CardTitle' component
-    Then I verify the mode is 'unfocused' for 'CardTitle'
-    And I set the 'mode' to 'focused' for 'CardTitle' component
-    And I verify the mode is 'focused' for 'CardTitle'
-    And I set the 'mode' to 'disabled' for 'CardTitle' component
-    And I verify the mode is 'disabled' for 'CardTitle'
+  Scenario Outline: Verify that CardTitle can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'CardTitle' component
+    Then I verify the mode is '<modeValue>' for 'CardTitle'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify that Card Title title can be set
     When I set the 'title' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
     And I verify that 'CardTitle' 'Title' has text 'LUI Test'
-    
+
   Scenario: Verify that Card Title description can be set
     When I set the 'description' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed

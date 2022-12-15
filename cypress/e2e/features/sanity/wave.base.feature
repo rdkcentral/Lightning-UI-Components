@@ -1,11 +1,11 @@
-@sanity @wave @2110407
+@sanity @regression @wave @2110407
 
 Feature: LUI Wave Base component
 
   Background:
-    Given I launch the LUI app 
+    Given I launch the LUI app
     And I navigate to 'Wave' with 'Base' theme
-    
+
   Scenario: Verify that Wave Element is visible
     Then I verify that the 'Wave' component is displayed
     And I verify that the 'width' of 'Wave' component is '8px'

@@ -1,4 +1,4 @@
-@sanity @artwork @basic @2150078
+@sanity @regression @artwork @basic @2150078
 
 Feature: LUI Artwork component
 

@@ -1,4 +1,4 @@
-@sanity @button @2104461
+@sanity @regression @button @2104461
 
 Feature: LUI Button component
 
@@ -54,4 +54,3 @@ Feature: LUI Button component
   Scenario: Verify the Button title control
     When I set the 'title' to 'LUI TEST' for 'Button' component
     Then I verify that the 'Title' component on the 'Button' page has text 'LUI TEST'
-    

@@ -1,4 +1,4 @@
-@sanity @toggle @basic @2108215
+@sanity @regression @toggle @basic @2108215
 
 Feature: LUI Toggle Basic component
 
@@ -13,16 +13,14 @@ Feature: LUI Toggle Basic component
     Then I verify that the 'width' of 'Toggle' component is '80px'
     And I verify that the 'height' of 'Toggle' component is '34px'
 
-  # https://ccp.sys.comcast.net/browse/LUI-598
-  # Skipping the test because of the bug
-  @skip
-  Scenario: Verify the Toggle Basic modes
-    When I set the 'mode' to 'unfocused' for 'Toggle' component
-    Then I verify the mode is 'unfocused' for 'Toggle'
-    And I set the 'mode' to 'focused' for 'Toggle' component
-    And I verify the mode is 'focused' for 'Toggle'
-    And I set the 'mode' to 'disabled' for 'Toggle' component
-    And I verify the mode is 'disabled' for 'Toggle'
+  Scenario Outline: Verify that Toggle can be set to <modeValue> mode
+    When I set the 'mode' to '<modeValue>' for 'Toggle' component
+    Then I verify the mode is '<modeValue>' for 'Toggle'
+    Examples:
+      | modeValue |
+      | unfocused |
+      | focused   |
+      | disabled  |
 
   Scenario: Verify the Toggle Basic checked state
     When I set the 'checked' to 'true' for 'Toggle' component
