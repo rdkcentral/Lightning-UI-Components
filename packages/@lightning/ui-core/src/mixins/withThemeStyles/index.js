@@ -18,13 +18,13 @@ export default function withThemeStyles(Base, mixinStyle) {
         `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
       );
     }
-
     _construct() {
       if (this._withThemeStylesSetupComplete) {
         // Make sure this runs ony once if being used on a component that extends another component that is utilizing withThemeStyles
         super._construct();
         return;
       }
+      this._updateThemeBound = this._updateTheme.bind(this);
       this._setupListeners();
       // Set default values
       this._mode = 'unfocused';
@@ -198,23 +198,38 @@ export default function withThemeStyles(Base, mixinStyle) {
      */
     _setupListeners() {
       // Listen for global theme updates
-      context.on('themeUpdate', () => {
-        this._clearComponentStyleCache();
-        this._generateComponentStyleSource();
-        this.queueThemeUpdate.call(this);
-      });
+      context.on('themeUpdate', this._updateThemeBound);
       // Listen for child theme updates
       if (this._targetSubTheme) {
-        context.on(`themeUpdate${this._targetSubTheme}`, () => {
-          this._clearComponentStyleCache();
-          this._generateComponentStyleSource();
-          this.queueThemeUpdate.call(this);
-        });
+        context.on(
+          `themeUpdate${this._targetSubTheme}`,
+          this._updateThemeBound
+        );
       }
+    }
+
+    _updateTheme() {
+      this._clearComponentStyleCache();
+      this._generateComponentStyleSource();
+      this.queueThemeUpdate();
     }
 
     _clearComponentStyleCache() {
       this._componentStyleCache = {};
+    }
+
+    _clearListeners() {
+      context.off('themeUpdate', this._updateTheme);
+      if (this._targetSubTheme) {
+        context.off('themeUpdate', this._updateTheme);
+      }
+    }
+
+    /**
+     * Detach the event listeners attached to prevent memory leaks.
+     */
+    _detach() {
+      this._clearListeners();
     }
 
     /**
