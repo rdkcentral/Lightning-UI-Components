@@ -14,19 +14,23 @@ class Checkbox extends Base {
   }
 
   static _template() {
+    const center = { mount: 0.5, x: w => w / 2, y: h => h / 2 };
     return {
-      Check: {
-        type: Icon,
-        mount: 0.5,
-        x: w => w / 2,
-        y: h => h / 2,
-        alpha: 0
-      }
+      Body: {
+        rtt: true, // ensures the background color doesn't bleed into the checkbox icon when disabled
+        ...center,
+        Check: {
+          type: Icon,
+          ...center,
+          alpha: 0
+        }
+      },
+      Stroke: center
     };
   }
 
   static get tags() {
-    return ['Check'];
+    return ['Check', 'Body', 'Stroke'];
   }
 
   static get properties() {
@@ -34,12 +38,14 @@ class Checkbox extends Base {
   }
 
   _update() {
+    this._updateBody();
+    this._updateStroke();
     this._updateCheck();
-    this._updateColor();
     if (this._checkedChanged) {
       this.fireAncestors('$announce', this.announce);
       this._checkedChanged = false;
     }
+    this._updateOpacity();
   }
 
   _updateCheck() {
@@ -57,20 +63,45 @@ class Checkbox extends Base {
     this.applySmooth(this._Check, alphaPatch);
   }
 
-  _updateColor() {
-    this.patch({
+  _updateBody() {
+    const bodyColor = this.checked
+      ? this.style.backgroundColorChecked
+      : this.style.backgroundColor;
+
+    // if the inner checkbox should be square, a rounded corner radius can still be applied to the stroke
+    const radius =
+      this.style.radius >= this.w / 2
+        ? (this.w - this.style.strokeWidth) / 2
+        : 0;
+
+    this._Body.patch({
       texture: lng.Tools.getRoundRect(
-        this.style.w,
-        this.style.h,
+        this.w - this.style.strokeWidth,
+        this.h - this.style.strokeWidth,
+        radius,
+        0,
+        null,
+        true,
+        bodyColor
+      )
+    });
+  }
+
+  _updateStroke() {
+    this._Stroke.patch({
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        this.h,
         this.style.radius,
         this.style.strokeWidth,
         this.style.strokeColor,
-        true,
-        this.checked
-          ? this.style.backgroundColorChecked
-          : this.style.backgroundColor
+        false
       )
     });
+  }
+
+  _updateOpacity() {
+    this.applySmooth(this, { alpha: this.style.alpha });
   }
 
   _setChecked(checked) {
