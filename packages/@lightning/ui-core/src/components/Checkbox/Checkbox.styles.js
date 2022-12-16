@@ -4,6 +4,7 @@ export const base = theme => {
   const strokeWidth = theme.stroke.sm;
   const size = theme.spacer.xxl - strokeWidth * 2;
   return {
+    alpha: 1,
     w: size,
     h: size,
     checkW: theme.spacer.lg,
@@ -17,38 +18,24 @@ export const base = theme => {
 export const tone = theme => ({
   neutral: {
     strokeColor: theme.color.strokeInverse,
-    checkColor: theme.color.fillInverse,
+    checkColor: theme.color.textInverse,
     backgroundColor: theme.color.fillNeutralDisabled,
-    backgroundColorChecked: theme.color.fillNeutral,
-    mode: {
-      disabled: {
-        backgroundColor: theme.color.fillNeutralDisabled,
-        strokeColor: theme.color.strokeInverseDisable
-      }
-    }
+    backgroundColorChecked: theme.color.fillNeutral
   },
   inverse: {
     strokeColor: theme.color.strokeNeutral,
-    checkColor: theme.color.fillNeutral,
+    checkColor: theme.color.textNeutral,
     backgroundColor: theme.color.fillInverseDisabled,
-    backgroundColorChecked: theme.color.fillInverse,
-    mode: {
-      disabled: {
-        backgroundColor: theme.color.fillInverseDisabled,
-        strokeColor: theme.color.strokeNeutralDisabled
-      }
-    }
+    backgroundColorChecked: theme.color.fillInverse
   },
   brand: {
     strokeColor: theme.color.strokeNeutral,
-    checkColor: theme.color.fillNeutral,
+    checkColor: theme.color.textNeutral,
     backgroundColor: theme.color.fillInverseDisabled,
-    backgroundColorChecked: theme.color.fillBrand,
-    mode: {
-      disabled: {
-        backgroundColor: theme.color.fillInverseDisabled,
-        strokeColor: theme.color.strokeNeutralDisabled
-      }
-    }
+    backgroundColorChecked: theme.color.fillBrand
   }
+});
+
+export const mode = theme => ({
+  disabled: { alpha: theme.alpha.inactive }
 });
