@@ -10,7 +10,7 @@ class Checkbox extends LUIComponent {
   }
 
   get checked(){
-    return 'div[type=checkbox]>div[type=icon]'
+    return 'div[type=checkbox] div[type=icon]'
   }
 }
 
