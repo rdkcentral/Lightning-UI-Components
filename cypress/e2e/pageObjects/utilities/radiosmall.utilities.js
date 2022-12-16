@@ -15,7 +15,7 @@ class RadioSmall extends LUIComponent {
   }
 
   get knob() {
-    return `${this.radio}>div[ref=Knob]`;
+    return `${this.radio} div[ref=Knob]`;
   }
 }
 

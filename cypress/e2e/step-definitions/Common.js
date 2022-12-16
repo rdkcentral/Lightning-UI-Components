@@ -748,7 +748,7 @@ export default function () {
         });
     }
   );
-  
+
   /**
    * @module Common
    * @function I verify that the spacing between elements of {String} component is {String}
@@ -834,7 +834,7 @@ export default function () {
   /**
    * @module Common
    * @function I verify that the {String} {String} component is animating
-   * @description Cucumber statement to verify if a component is anitmating
+   * @description Cucumber statement to verify if a component is animating
    * @param {String} pageName
    * @param {String} componentName
    * @example I verify that the 'Distractor' 'Circle1' component is animating
@@ -848,14 +848,19 @@ export default function () {
       let initialValue, finalValue;
       const attribute = {
         distractor: 'scalex',
-        wave: 'h'
+        wave: 'h',
+        focusring: 'colorbl'
       };
 
       pageObject
         ._getElementByName(component)
         .should('have.attr', attribute[page])
         .then(value => {
-          initialValue = parseFloat(value);
+          if (page === 'focusring') {
+            initialValue = value;
+          } else {
+            initialValue = parseFloat(value);
+          }
         })
         .then(() => {
           cy.wait(1000); // wait for the values to change over a second
@@ -863,8 +868,12 @@ export default function () {
             ._getElementByName(component)
             .should('have.attr', attribute[page])
             .then(value => {
-              finalValue = parseFloat(value);
-              expect(initialValue).not.equal(finalValue);
+              if (page === 'focusring') {
+                finalValue = value;
+              } else {
+                finalValue = parseFloat(value);
+                expect(initialValue).not.equal(finalValue);
+              }
               switch (page) {
                 case 'distractor':
                   expect(initialValue).to.be.within(0, 1.05);
@@ -873,6 +882,9 @@ export default function () {
                 case 'wave':
                   expect(initialValue).to.be.within(10, 82);
                   expect(finalValue).to.be.within(10, 82);
+                  break;
+                case 'focusring':
+                  expect(finalValue).not.equal(initialValue);
                   break;
                 default:
                   throw new Error(

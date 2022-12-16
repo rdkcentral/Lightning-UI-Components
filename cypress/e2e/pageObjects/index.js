@@ -8,6 +8,7 @@ import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
 import Label from './metadata/label.metadata';
 import ProgressBar from './utilities/progressbar.utilities';
 import FocusManager from './navigation/focusmanager.navigation';
+import FocusRing from './foundations/focusring.foundations';
 import Radio from './utilities/radio.utilities';
 import RadioSmall from './utilities/radiosmall.utilities';
 import Row from './navigation/row.navigation';
@@ -47,6 +48,7 @@ export default function getPageObject(pageName) {
     sliderlarge: SliderLarge,
     textbox: TextBox,
     focusmanager: FocusManager,
+    focusring: FocusRing,
     tile: Tile,
     button: Button,
     toggle: Toggle,

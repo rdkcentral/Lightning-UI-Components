@@ -11,7 +11,7 @@ Feature: LUI ToggleSmall Basic component
 
   Scenario: Verify the dimensions of the ToggleSmall Basic Element
     Then I verify that the 'width' of 'ToggleSmall' 'Toggle' component is '40px'
-    And I verify that the 'height' of 'ToggleSmall' 'Toggle' component is '28px'
+    And I verify that the 'height' of 'ToggleSmall' 'Toggle' component is '32px'
 
   Scenario Outline: Verify that ToggleSmall can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'ToggleSmall' component
