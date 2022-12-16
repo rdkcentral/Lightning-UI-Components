@@ -1,6 +1,5 @@
 import getPageObject from '../pageObjects';
 import { getStoryName } from '../../support/helpers';
-
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
@@ -899,7 +898,7 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      cy.wait(300); // wait for the progress bar to render
+      cy.wait(500); // wait for the progress bar to render
       if (expectedPercentage === 0) {
         cy.get(pageObject.progressBar).should('not.have.attr', 'w');
       } else {

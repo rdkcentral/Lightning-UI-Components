@@ -21,7 +21,7 @@ Feature: LUI CardAbout Stacked component
       | unfocused |
       | focused   |
       | disabled  |
-
+    
   Scenario: Verify the CardAboutStacked title text can be set
     When I set the 'title' to 'LUI TEST' for 'cardaboutstacked' component
     Then I verify that the 'Title' component on the 'cardaboutstacked' page has text 'LUI TEST'

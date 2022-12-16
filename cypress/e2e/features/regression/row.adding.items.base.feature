@@ -46,7 +46,7 @@ Feature: LUI Row Adding items component
     And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
     And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
 
-  Scenario Outline: Verify that RadioSmall can be set to <modeValue> mode
+  Scenario Outline: Verify that Row can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'Row' component
     Then I verify the mode is '<modeValue>' for 'Row' 'Row elements'
     Examples:

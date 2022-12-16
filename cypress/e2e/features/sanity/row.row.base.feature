@@ -40,20 +40,20 @@ Feature: Row Basic component validation
 
   Scenario: Verify that the scroll index of the Row Basic Element can be changed
     Then I verify the 'scrollIndex' is '0' for 'Row' component
-    When I set the 'scrollIndex' to '10' for 'Row' component
+    And I set the 'scrollIndex' to '10' for 'Row' component
     And I verify the 'scrollIndex' is '10' for 'Row' component
 
   Scenario: Verify the Row Basic always scroll toggle
     Then I verify the 'alwaysScroll' is 'false' for 'Row' component
-    When I set the 'alwaysScroll' to 'true' for 'Row' component
-    Then I verify the 'alwaysScroll' is 'true' for 'Row' component
+    And I set the 'alwaysScroll' to 'true' for 'Row' component
+    And I verify the 'alwaysScroll' is 'true' for 'Row' component
 
   Scenario: Verify the Row Basic never scroll toggle
     Then I verify the 'neverScroll' is 'false' for 'Row' component
-    When I set the 'neverScroll' to 'true' for 'Row' component
-    Then I verify the 'neverScroll' is 'true' for 'Row' component
+    And I set the 'neverScroll' to 'true' for 'Row' component
+    And I verify the 'neverScroll' is 'true' for 'Row' component
 
   Scenario: Verify the Row Basic lazy scroll toggle
     Then I verify the 'lazyScroll' is 'false' for 'Row' component
-    When I set the 'lazyScroll' to 'true' for 'Row' component
-    Then I verify the 'lazyScroll' is 'true' for 'Row' component
+    And I set the 'lazyScroll' to 'true' for 'Row' component
+    And I verify the 'lazyScroll' is 'true' for 'Row' component
