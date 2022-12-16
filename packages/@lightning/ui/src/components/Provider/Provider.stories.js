@@ -53,7 +53,8 @@ export const Provider = () =>
           providers: Array(10).fill({
             icon: xfinityProviderLogoSquare,
             announce: 'XFinity Logo'
-          })
+          }),
+          visibleCount: 3
         }
       };
     }
@@ -78,7 +79,8 @@ export const With2x1 = () =>
               icon: xfinityProviderLogoSquare,
               announce: 'XFinity Logo'
             }))
-          ]
+          ],
+          visibleCount: 3
         }
       };
     }
