@@ -1,5 +1,4 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-import { Theme } from '../../../storybook/index.js';
 import Tile from './index.js';
 
 # TextBox
@@ -31,18 +30,18 @@ TextBox: {
 
 ### Properties
 
-| name           | type          | required | default                | description                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| -------------- | ------------- | -------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| content        | string        | true     | -                      | Text to be displayed in element                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| marquee        | boolean       | false    | false                  | Allows text to be scrollable                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| name    | type    | required | default | description                     |
+| ------- | ------- | -------- | ------- | ------------------------------- |
+| content | string  | true     | -       | Text to be displayed in element |
+| marquee | boolean | false    | false   | Allows text to be scrollable    |
 
 TextBox also supports rendering as an InlineContent component. See [InlineContent documentation](/?path=/docs/layout-inlinecontent--basic) for table of supported properties.
 
 ### Style Properties
 
-| name           | type             | description                                                                                                                                                                                                                                             |
-| -------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| offsetX        | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
-| offsetY        | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
-| textStyle      | string \| object | Default style of text to be displayed. Object should come from the current theme or contain any properties that the [Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties). |
-| typography     | object           | The typography object set on the current theme. Pass the key as string to `textStyle` to use the associated text style on the typography object.                                                                                                        |
+| name       | type             | description                                                                                                                                                                                                                                             |
+| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| offsetX    | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
+| offsetY    | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
+| textStyle  | string \| object | Default style of text to be displayed. Object should come from the current theme or contain any properties that the [Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties). |
+| typography | object           | The typography object set on the current theme. Pass the key as string to `textStyle` to use the associated text style on the typography object.                                                                                                        |

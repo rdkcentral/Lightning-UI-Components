@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import { default as CardSectionComponent } from './CardSection.js';
 import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.png';
 import mdx from './CardSection.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

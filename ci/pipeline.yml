@@ -342,8 +342,6 @@ jobs:
               source-repo: source-repo-4x-pr
       - task: build-storybook-and-components
         file: source-repo-4x-pr/ci/tasks-legacy/build.yml
-        params:
-          BUILD_PATH: "packages/core/storybook-static/*"
         input_mapping:
           source-repo: source-repo-4x-pr
 

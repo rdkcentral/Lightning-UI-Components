@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import ScrollWrapperComponent from './index.js';
 import Tile from '../Tile/index.js';
 import mdx from './ScrollWrapper.mdx';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import TextBox from '../TextBox/TextBox.js';
 

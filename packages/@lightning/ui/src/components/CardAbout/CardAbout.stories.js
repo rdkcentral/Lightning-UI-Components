@@ -3,7 +3,7 @@ import { default as CardAboutComponent } from './CardAbout.js';
 import CardAboutIcon from '../../assets/images/rt-tomatometer-fresh.png';
 import RatingsIcon from '../../assets/images/rt-audience-score-fill.png';
 import mdx from './CardAbout.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

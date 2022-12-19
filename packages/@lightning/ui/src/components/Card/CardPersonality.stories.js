@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import { default as CardPersonalityComponent } from './CardPersonality.js';
 import mdx from './CardPersonality.mdx';
 import tileImage from '../../assets/images/tile-image.png';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

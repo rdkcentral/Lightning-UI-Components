@@ -3,7 +3,7 @@ import { ButtonSmall as ButtonSmallComponent } from './index.js';
 import { Icon, Checkbox } from '../index.js';
 import mdx from './Button.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

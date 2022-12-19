@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { default as CardAboutLargeComponent } from './CardAboutLarge.js';
 import mdx from './CardAbout.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

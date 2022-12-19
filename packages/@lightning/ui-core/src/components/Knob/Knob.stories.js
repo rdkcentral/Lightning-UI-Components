@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 
 import { default as KnobComponent } from './index.js';
 import mdx from './Knob.mdx';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

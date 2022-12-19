@@ -8,7 +8,7 @@ import { default as TitleRowStory } from '../TitleRow/TitleRow.stories';
 import ControlRowComponent from '.';
 import mdx from './ControlRow.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 
 export default {
   title: `${CATEGORIES[64]}/ControlRow`,

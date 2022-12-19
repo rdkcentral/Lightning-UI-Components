@@ -5,8 +5,10 @@ import { Label as LabelStory } from '../../../../ui-core/src/components/Label/La
 import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import {
+  createModeControl,
+  generateSubStory
+} from 'lightning-ui-docs/.storybook/utils';
 import CardContentHero from './CardContentHero';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { CardContent } from './CardContent.stories';
@@ -71,13 +73,31 @@ Hero.argTypes = {
 Hero.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHero')
 };
-generateSubStory('CardContentHero', Hero, BadgeStory, 'badge');
-generateSubStory('CardContentHero', Hero, LabelStory, 'label');
-generateSubStory('CardContentHero', Hero, ProgressBarStory, 'progressBar', [
-  'w'
-]);
-generateSubStory('CardContentHero', Hero, MetadataStory, 'metadata', [
-  'w',
-  'h',
-  'visibleCount'
-]);
+generateSubStory({
+  componentName: 'CardContentHero',
+  baseStory: Hero,
+  subStory: BadgeStory,
+  targetProperty: 'badge',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentHero',
+  baseStory: Hero,
+  subStory: LabelStory,
+  targetProperty: 'label',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentHero',
+  baseStory: Hero,
+  subStory: ProgressBarStory,
+  targetProperty: 'progressBar',
+  include: ['progress']
+});
+generateSubStory({
+  componentName: 'CardContentHero',
+  baseStory: Hero,
+  subStory: MetadataStory,
+  targetProperty: 'metadata',
+  include: ['title', 'description', 'details']
+});

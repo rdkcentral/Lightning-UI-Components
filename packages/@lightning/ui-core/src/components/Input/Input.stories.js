@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { default as InputComponent } from './Input.js';
 import { Icon } from '../index.js';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Input.mdx';
 import eye from '../../assets/images/ic_eye_white_48.png';
@@ -17,7 +17,7 @@ export default {
   }
 };
 
-function getCommponentArray(comps) {
+function getComponentArray(comps) {
   let arr = [];
   switch (comps) {
     case 'icon':
@@ -112,14 +112,14 @@ const sharedArgActions = {
     if (prefix == null) {
       component.tag('Input').prefix = [];
     } else {
-      component.tag('Input').prefix = getCommponentArray(prefix);
+      component.tag('Input').prefix = getComponentArray(prefix);
     }
   },
   suffix: (suffix, component) => {
     if (suffix == null) {
       component.tag('Input').suffix = [];
     } else {
-      component.tag('Input').suffix = getCommponentArray(suffix);
+      component.tag('Input').suffix = getComponentArray(suffix);
     }
   }
 };

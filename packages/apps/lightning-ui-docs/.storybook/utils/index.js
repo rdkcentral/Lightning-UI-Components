@@ -2,7 +2,24 @@ import React from 'react';
 import baseTheme from '@suite-themes/base-lightning-tv';
 import { utils } from '@lightning/ui-core';
 import debounce from 'debounce';
-import { THEMES } from '../constants';
+
+export const createModeControl = ({ options, defaultValue } = {}) => {
+  return {
+    mode: {
+      defaultValue: defaultValue || 'unfocused',
+      control: 'radio',
+      options:
+        options && Array.isArray(options)
+          ? ['unfocused', ...options]
+          : ['unfocused', 'focused', 'disabled'],
+      description: 'Sets the visual mode for the component',
+      table: {
+        defaultValue: { summary: defaultValue || 'unfocused' }
+      },
+      type: { name: 'string', required: true }
+    }
+  };
+};
 
 export const DocsLink = ({ children, id }) => {
   const docsmap = {
@@ -170,7 +187,7 @@ export const updateGlobalTheme = (
     if (customTheme) {
       const theme = globalTheme();
       const functions = Object.keys(theme).reduce((acc, key) => {
-        if ('function' === typeof theme[key]) {
+        if (typeof theme[key] === 'function') {
           acc[key] = theme[key];
         }
         return acc;
@@ -195,27 +212,38 @@ export function colorUpdate() {
   debouncedColorUpdate(...arguments);
 }
 
-export function nestedArgs(argsObj = {}, targetProp, ignore = []) {
+/**
+ * @param {object} config Parameters for generating nested args: { argsObj, targetProp, include, overrides }
+ */
+export function nestedArgs(config) {
+  const { argsObj, targetProp, include, overrides } = config;
   return Object.keys(argsObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
+    if (!include.includes(curr)) return acc;
     return {
       ...acc,
-      [targetProp + '_' + curr]: argsObj[curr]
+      [targetProp + '_' + curr]:
+        (overrides.args && overrides.args[curr]) || argsObj[curr]
     };
   }, {});
 }
 
-export function nestedArgTypes(argTypesObj = {}, targetProp, ignore = []) {
+/**
+ * @param {object} config Parameters for generating nested arg types: { argsObj, targetProp, include, overrides }
+ */
+export function nestedArgTypes(config) {
+  const { argTypesObj, targetProp, include, overrides } = config;
   return Object.keys(argTypesObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
+    if (!include.includes(curr)) return acc;
     return {
       ...acc,
       [targetProp + '_' + curr]: {
         // Namespaced to avoid conflicts
         name: curr,
         ...argTypesObj[curr],
+        ...overrides[curr],
         table: {
           ...(argTypesObj[curr].table || {}),
+          ...(overrides[curr] && overrides[curr].table),
           category: targetProp
         }
       }
@@ -225,14 +253,13 @@ export function nestedArgTypes(argTypesObj = {}, targetProp, ignore = []) {
 
 export const prevValues = {};
 
-export function nestedArgActions(
-  componentName,
-  argTypesObj = {},
-  targetProp,
-  ignore = []
-) {
+/**
+ * @param {object} config Parameters for generating nested arg actions: { componentName, argsTypeObj, targetProp, include, overrides }
+ */
+export function nestedArgActions(config) {
+  const { componentName, argTypesObj, targetProp, include, overrides } = config;
   return Object.keys(argTypesObj).reduce((acc, curr) => {
-    if (ignore.includes(curr)) return acc;
+    if (!include.includes(curr)) return acc;
     return {
       ...acc,
       [targetProp + '_' + curr]: (value, component) => {
@@ -240,7 +267,9 @@ export function nestedArgActions(
           [targetProp]: {
             ...prevValues[targetProp],
             [curr.replace(targetProp + '_', '')]:
-              'none' === value ? undefined : value // There are issues with merging objects here
+              value === 'none'
+                ? undefined
+                : (overrides && overrides[curr]) || value // There are issues with merging objects here
           }
         });
         // Allow patching to work with nested objects
@@ -248,42 +277,60 @@ export function nestedArgActions(
           prevValues[targetProp] = {};
         }
         prevValues[targetProp][curr.replace(targetProp + '_', '')] =
-          'none' === value ? undefined : value;
+          value === 'none'
+            ? undefined
+            : (overrides && overrides[curr]) || value;
         component.tag(componentName)._update(); // Update does not trigger is replacing individual properties
       }
     };
   }, {});
 }
 
-export function generateSubStory(
-  componentName,
-  BaseStory,
-  SubStory,
-  targetProperty,
-  ignore = []
-) {
-  BaseStory.args = {
-    ...BaseStory.args,
-    ...nestedArgs(SubStory.args, targetProperty, ['mode', ...ignore])
+/**
+ * @param {object} config Parameters for generating story: { componentName, baseStory, subStory, targetProperty, include, options }
+ */
+export function generateSubStory(config) {
+  config.baseStory.args = {
+    ...config.baseStory.args,
+    ...nestedArgs({
+      argsObj: config.subStory.args || {},
+      targetProp: config.targetProperty,
+      include: config.include,
+      overrides: (config.overrides && config.overrides.args) || {}
+    })
   };
 
-  BaseStory.argTypes = {
-    ...BaseStory.argTypes,
-    ...nestedArgTypes(SubStory.argTypes, targetProperty, ['mode', ...ignore])
+  config.baseStory.argTypes = {
+    ...config.baseStory.argTypes,
+    ...nestedArgTypes({
+      argTypesObj: config.subStory.argTypes || {},
+      targetProp: config.targetProperty,
+      include: config.include,
+      overrides: (config.overrides && config.overrides.argTypes) || {}
+    })
   };
 
-  if (!(BaseStory && BaseStory.parameters && BaseStory.parameters.argActions)) {
-    BaseStory.parameters = {
+  if (
+    !(
+      config.baseStory &&
+      config.baseStory.parameters &&
+      config.baseStory.parameters.argActions
+    )
+  ) {
+    config.baseStory.parameters = {
       argActions: {}
     };
   }
 
-  BaseStory.parameters.argActions = {
-    ...BaseStory.parameters.argActions,
-    ...nestedArgActions(componentName, SubStory.argTypes, targetProperty, [
-      'mode',
-      ...ignore
-    ])
+  config.baseStory.parameters.argActions = {
+    ...config.baseStory.parameters.argActions,
+    ...nestedArgActions({
+      componentName: config.componentName,
+      argTypesObj: config.subStory.argTypes || {},
+      targetProp: config.targetProperty,
+      include: config.include,
+      overrides: (config.overrides && config.overrides.argActions) || {}
+    })
   };
 }
 

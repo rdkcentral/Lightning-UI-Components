@@ -6,7 +6,7 @@ import { Icon } from '../index.js';
 import {
   createModeControl,
   generateSubStory
-} from '../../../storybook/index.js';
+} from 'lightning-ui-docs/.storybook/utils';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
@@ -216,11 +216,13 @@ KeyboardWithInput.parameters.argActions = {
   }
 };
 
-generateSubStory('KeyboardInput', KeyboardWithInput, InputStory, 'input', [
-  'prefix',
-  'suffix',
-  'listening' // removes control option from Story
-]);
+generateSubStory({
+  componentName: 'KeyboardInput',
+  baseStory: KeyboardWithInput,
+  subStory: InputStory,
+  targetProperty: 'input',
+  include: ['password', 'mask']
+});
 
 export const EmailWithInput = () =>
   class EmailWithInput extends lng.Component {
@@ -266,8 +268,10 @@ EmailWithInput.parameters.argActions = {
   }
 };
 
-generateSubStory('EmailInput', EmailWithInput, InputStory, 'input', [
-  'prefix',
-  'suffix',
-  'listening'
-]);
+generateSubStory({
+  componentName: 'EmailInput',
+  baseStory: EmailWithInput,
+  subStory: InputStory,
+  targetProperty: 'input',
+  include: ['password', 'mask']
+});
