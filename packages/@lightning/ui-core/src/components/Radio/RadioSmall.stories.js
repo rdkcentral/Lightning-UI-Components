@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Radio from './RadioSmall.js';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

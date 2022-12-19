@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import ListItemComponent from './ListItem';
 import mdx from './ListItem.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { Checkbox, Radio, Toggle } from '@lightning/ui-core';
 import { CATEGORIES } from 'lightning-ui-docs';

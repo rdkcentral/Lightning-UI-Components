@@ -3,7 +3,7 @@ import { getWidthByUpCount } from '../../utils/index.js';
 import { Row as RowComponent, Column } from '../index.js';
 import mdx from './Row.mdx';
 import { context } from '../../globals/index.js';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import Button from '../Button';
 

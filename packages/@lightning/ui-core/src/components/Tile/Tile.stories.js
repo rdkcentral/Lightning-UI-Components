@@ -4,7 +4,7 @@ import { default as TileComponent } from './index.js';
 import {
   createModeControl,
   generateSubStory
-} from '../../../storybook/index.js';
+} from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import tileImage from '../../assets/images/tile-image.png';
 import { Artwork as ArtworkStory } from '../Artwork/Artwork.stories.js';
@@ -68,21 +68,52 @@ Tile.argTypes = {
   }
 };
 
-generateSubStory('Tile', Tile, MetadataTileStory, 'metadata', [
-  'w',
-  'logo',
-  'logoPosition',
-  'logoTitle',
-  'subtitle'
-]);
-generateSubStory('Tile', Tile, ItemLayoutStory, 'itemLayout');
-generateSubStory('Tile', Tile, BadgeStory, 'badge');
-generateSubStory('Tile', Tile, LabelStory, 'label');
-generateSubStory('Tile', Tile, ArtworkStory, 'artwork', [
-  'gradient',
-  'itemLayout',
-  'srcCallback',
-  'shouldScale'
-]);
-generateSubStory('Tile', Tile, ProgressBarStory, 'progressBar', ['w']);
-generateSubStory('Tile', Tile, CheckboxStory, 'checkbox');
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: MetadataTileStory,
+  targetProperty: 'metadata',
+  include: ['title', 'description']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: ItemLayoutStory,
+  targetProperty: 'itemLayout',
+  include: ['ratioX', 'ratioY', 'upCount', 'circle']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: BadgeStory,
+  targetProperty: 'badge',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: LabelStory,
+  targetProperty: 'label',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: ArtworkStory,
+  targetProperty: 'artwork',
+  include: ['blur', 'foregroundSrc', 'format', 'fill']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: ProgressBarStory,
+  targetProperty: 'progressBar',
+  include: ['progress']
+});
+generateSubStory({
+  componentName: 'Tile',
+  baseStory: Tile,
+  subStory: CheckboxStory,
+  targetProperty: 'checkbox',
+  include: ['checked']
+});

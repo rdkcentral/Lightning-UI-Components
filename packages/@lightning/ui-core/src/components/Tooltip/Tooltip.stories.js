@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import Button from '../Button/index.js';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import mdx from './Tooltip.mdx';
 import TooltipComponent from './index.js';
 import { CATEGORIES } from 'lightning-ui-docs';

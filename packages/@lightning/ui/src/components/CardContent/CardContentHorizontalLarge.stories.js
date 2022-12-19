@@ -5,8 +5,10 @@ import { Label as LabelStory } from '@lightning/ui-core/src/components/Label/Lab
 import { ProgressBar as ProgressBarStory } from '@lightning/ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '@lightning/ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import {
+  createModeControl,
+  generateSubStory
+} from 'lightning-ui-docs/.storybook/utils';
 import { default as CardContentHorizontalLargeComponent } from './CardContentHorizontalLarge';
 import { Icon } from '@lightning/ui-core';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
@@ -76,31 +78,33 @@ CardContentHorizontalLarge.argTypes = {
 CardContentHorizontalLarge.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHorizontalLarge')
 };
-generateSubStory(
-  'CardContentHorizontalLarge',
-  CardContentHorizontalLarge,
-  BadgeStory,
-  'badge'
-);
-generateSubStory(
-  'CardContentHorizontalLarge',
-  CardContentHorizontalLarge,
-  LabelStory,
-  'label'
-);
-generateSubStory(
-  'CardContentHorizontalLarge',
-  CardContentHorizontalLarge,
-  ProgressBarStory,
-  'progressBar',
-  ['w']
-);
-generateSubStory(
-  'CardContentHorizontalLarge',
-  CardContentHorizontalLarge,
-  MetadataStory,
-  'metadata',
-  ['w', 'h', 'visibleCount']
-);
+generateSubStory({
+  componentName: 'CardContentHorizontalLarge',
+  baseStory: CardContentHorizontalLarge,
+  subStory: BadgeStory,
+  targetProperty: 'badge',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentHorizontalLarge',
+  baseStory: CardContentHorizontalLarge,
+  subStory: LabelStory,
+  targetProperty: 'label',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentHorizontalLarge',
+  baseStory: CardContentHorizontalLarge,
+  subStory: ProgressBarStory,
+  targetProperty: 'progressBar',
+  include: ['progress']
+});
+generateSubStory({
+  componentName: 'CardContentHorizontalLarge',
+  baseStory: CardContentHorizontalLarge,
+  subStory: MetadataStory,
+  targetProperty: 'metadata',
+  include: ['title', 'description', 'details']
+});
 
 CardContentHorizontalLarge.storyName = 'CardContentHorizontalLarge';

@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import CardAboutStacked from './CardAboutStacked';
 import mdx from './CardAboutStacked.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

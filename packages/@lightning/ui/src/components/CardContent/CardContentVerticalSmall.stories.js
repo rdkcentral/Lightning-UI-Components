@@ -5,8 +5,10 @@ import { Label as LabelStory } from '../../../../ui-core/src/components/Label/La
 import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import {
+  createModeControl,
+  generateSubStory
+} from 'lightning-ui-docs/.storybook/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
@@ -54,29 +56,31 @@ CardContentVerticalSmall.argTypes = {
 CardContentVerticalSmall.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVerticalSmall')
 };
-generateSubStory(
-  'CardContentVerticalSmall',
-  CardContentVerticalSmall,
-  BadgeStory,
-  'badge'
-);
-generateSubStory(
-  'CardContentVerticalSmall',
-  CardContentVerticalSmall,
-  LabelStory,
-  'label'
-);
-generateSubStory(
-  'CardContentVerticalSmall',
-  CardContentVerticalSmall,
-  ProgressBarStory,
-  'progressBar',
-  ['w']
-);
-generateSubStory(
-  'CardContentVerticalSmall',
-  CardContentVerticalSmall,
-  MetadataStory,
-  'metadata',
-  ['w', 'h', 'details', 'visibleCount']
-);
+generateSubStory({
+  componentName: 'CardContentVerticalSmall',
+  baseStory: CardContentVerticalSmall,
+  subStory: BadgeStory,
+  targetProperty: 'badge',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentVerticalSmall',
+  baseStory: CardContentVerticalSmall,
+  subStory: LabelStory,
+  targetProperty: 'label',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentVerticalSmall',
+  baseStory: CardContentVerticalSmall,
+  subStory: ProgressBarStory,
+  targetProperty: 'progressBar',
+  include: ['progress']
+});
+generateSubStory({
+  componentName: 'CardContentVerticalSmall',
+  baseStory: CardContentVerticalSmall,
+  subStory: MetadataStory,
+  targetProperty: 'metadata',
+  include: ['title', 'description']
+});

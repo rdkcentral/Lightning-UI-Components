@@ -4,7 +4,7 @@ import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
 import Icon from '../Icon/index.js';
 import viewAllIcon from '../../assets/images/view_all.png';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';

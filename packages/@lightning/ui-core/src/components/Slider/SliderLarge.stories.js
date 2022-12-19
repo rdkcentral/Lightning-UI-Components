@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import Slider from './SliderLarge.js';
 import mdx from './Slider.mdx';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import TextBox from '../TextBox/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 

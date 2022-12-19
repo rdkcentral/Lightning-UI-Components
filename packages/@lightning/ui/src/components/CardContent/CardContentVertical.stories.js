@@ -5,8 +5,10 @@ import { Label as LabelStory } from '../../../../ui-core/src/components/Label/La
 import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
+import {
+  createModeControl,
+  generateSubStory
+} from 'lightning-ui-docs/.storybook/utils';
 import CardContentVerticalComponent from './CardContentVertical';
 import { Icon } from '@lightning/ui-core';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
@@ -67,29 +69,31 @@ CardContentVertical.storyName = 'CardContentVertical';
 CardContentVertical.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVertical')
 };
-generateSubStory(
-  'CardContentVertical',
-  CardContentVertical,
-  BadgeStory,
-  'badge'
-);
-generateSubStory(
-  'CardContentVertical',
-  CardContentVertical,
-  LabelStory,
-  'label'
-);
-generateSubStory(
-  'CardContentVertical',
-  CardContentVertical,
-  ProgressBarStory,
-  'progressBar',
-  ['w']
-);
-generateSubStory(
-  'CardContentVertical',
-  CardContentVertical,
-  MetadataStory,
-  'metadata',
-  ['w', 'h', 'visibleCount']
-);
+generateSubStory({
+  componentName: 'CardContentVertical',
+  baseStory: CardContentVertical,
+  subStory: BadgeStory,
+  targetProperty: 'badge',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentVertical',
+  baseStory: CardContentVertical,
+  subStory: LabelStory,
+  targetProperty: 'label',
+  include: ['title']
+});
+generateSubStory({
+  componentName: 'CardContentVertical',
+  baseStory: CardContentVertical,
+  subStory: ProgressBarStory,
+  targetProperty: 'progressBar',
+  include: ['progress']
+});
+generateSubStory({
+  componentName: 'CardContentVertical',
+  baseStory: CardContentVertical,
+  subStory: MetadataStory,
+  targetProperty: 'metadata',
+  include: ['title', 'description', 'details']
+});

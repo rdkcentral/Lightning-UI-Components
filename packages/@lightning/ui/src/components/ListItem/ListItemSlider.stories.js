@@ -1,8 +1,10 @@
 import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
 import mdx from './ListItemSlider.mdx';
-import { createModeControl } from '@lightning/ui-core/storybook/index.js';
-import { generateSubStory } from '@lightning/ui-core/storybook/index.js';
+import {
+  createModeControl,
+  generateSubStory
+} from 'lightning-ui-docs/.storybook/utils';
 import { Basic as SliderStory } from '../../../../ui-core/src/components/Slider/Slider.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -53,7 +55,10 @@ ListItemSlider.argTypes = {
   }
 };
 
-generateSubStory('ListItemSlider', ListItemSlider, SliderStory, 'slider', [
-  'value',
-  'vertical'
-]);
+generateSubStory({
+  componentName: 'ListItemSlider',
+  baseStory: ListItemSlider,
+  subStory: SliderStory,
+  targetProperty: 'slider',
+  include: ['min', 'max', 'step']
+});

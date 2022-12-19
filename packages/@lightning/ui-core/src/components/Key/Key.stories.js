@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import KeyComponent from './index.js';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Key.mdx';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

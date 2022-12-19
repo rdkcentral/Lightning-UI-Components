@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { default as CheckboxSmallComponent } from './CheckboxSmall.js';
 import mdx from './Checkbox.mdx';
-import { createModeControl } from '../../../storybook/index.js';
+import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
