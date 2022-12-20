@@ -526,6 +526,11 @@ export default function () {
           ._getElementByName(pageName)
           .should('not.have.attr', 'focused');
         break;
+      case 'selected':
+        pageObject
+          ._getElementByName(pageName)
+          .should('not.have.attr', 'focused');
+        break;   
       default:
         break;
     }
