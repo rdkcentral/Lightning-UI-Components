@@ -134,6 +134,7 @@ export const parameters = {
         [
           'Introduction',
           'Read Me',
+          'Base',
           'Contributing',
           'Lightning Resources',
           'Theming',
