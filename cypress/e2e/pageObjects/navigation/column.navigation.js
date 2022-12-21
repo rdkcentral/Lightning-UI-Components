@@ -14,7 +14,7 @@ class Column extends LUIComponent {
   }
 
   get rows() {
-    return 'div[type=type]>div[type=column]>div>div[type=row]>div[type=Element]';
+    return 'div[type=column]>div[type=Element]';
   }
 
   get rowElements() {
@@ -22,7 +22,7 @@ class Column extends LUIComponent {
   }
 
   get row() {
-    return 'div[type="Type"] > div[type="Column"] > div[type="Element"] > div[type="Row"] > div[type="Element"]';
+    return 'div[type="Column"] > div[type="Element"] > div[type="Row"] > div[type="Element"]';
   }
 
   get row1() {
