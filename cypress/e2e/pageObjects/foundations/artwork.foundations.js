@@ -36,6 +36,14 @@ class Artwork extends LUIComponent {
   get gradient() {
     return `${this.artwork}>div[ref=Gradient]`;
   }
+
+  get foregroundSrc() {
+    return "select[id='control-foregroundSrc']";
+  }
+
+  get imageURL() {
+    return 'http://myriad.merlin.comcast.com/select/logo?entityId=8501866671289235112&width=300&height=200&rule=Stations%20-%20white';
+  }
 }
 
 module.exports = new Artwork();

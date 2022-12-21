@@ -43,17 +43,6 @@ export default function () {
               );
             }
           break;
-        case 'foregroundSrc':
-          switch (value) {
-            case 'none':
-              cy.get(Artwork.foregroundImage).should('not.exist');
-              break;
-            default:
-              throw new Error(
-                'Please check the page value name or implement the missing case.'
-              );
-            }
-          break;
         case 'format':
           switch (value) {
             case 'default':

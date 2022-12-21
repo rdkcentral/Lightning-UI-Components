@@ -13,8 +13,8 @@ class LUIComponent {
    */
   constructor({ type = 'elements', componentName }) {
     // Get the base param for the component that extends this base component.
-    // ex: &id=elements-icon
-    this.baseParam = `&id=${type}-${componentName}`;
+    // ex: &elements-icon
+    this.baseParam = `${type}-${componentName}`;
   }
 
   /**
@@ -34,7 +34,21 @@ class LUIComponent {
    */
   navigate(story = 'basic', theme = 'base') {
     // ex: &id=elements-button--basic&globals=LUITheme:base
-    this.url = `${Cypress.config().baseUrl}${
+    this.url = `${Cypress.config().baseUrl}&id=${
+      this.baseParam
+    }--${this.formatStoryName(story)}&globals=LUITheme:${theme}`;
+    cy.visit(this.url);
+  }
+
+  /**
+   * Navigate to the page with the base params for the component in Storybook.
+   * There is also the option for setting the story and the theme to navigate to.
+   * @param {String} [story='basic'] - The story to navigate to (examples: 'basic')
+   * @param {String} [theme='base'] - The theme to navigate to (examples: 'base', 'xfinity')
+   */
+   navigateToStorybook(story = 'basic', theme = 'base') {
+    // ex: &id=elements-button--basic&globals=LUITheme:base
+    this.url = `http://localhost:8000/?path=/story/${
       this.baseParam
     }--${this.formatStoryName(story)}&globals=LUITheme:${theme}`;
     cy.visit(this.url);
@@ -109,6 +123,19 @@ class LUIComponent {
     } catch (error) {
       throw new Error(`Element ${name} not found for ${this.constructor.name}`);
     }
+  }
+
+  /**
+   * Helper function to get a component element by it's human readable name.
+   * It will first convert the name to camel case and then try to access
+   * it on the page object.
+   * @param {String} name - The human readable name of the element.
+   * @returns {String} - The selector for the element.
+   * @example _returnElementByName('Progress Bar') => currentComponent['progressBar']
+   */
+   _returnElementByName(name) {
+    const elementName = convertToCamelCase(name);
+    return this[elementName];
   }
 
   /**

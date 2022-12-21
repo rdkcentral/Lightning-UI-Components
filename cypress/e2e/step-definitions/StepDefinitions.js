@@ -1,4 +1,5 @@
 import Common from './Common';
+import Storybook from './Storybook';
 import Artwork from './Artwork';
 import Column from './Column';
 import Tile from './Tile';
@@ -12,6 +13,7 @@ import Checkbox from './Checkbox';
 import Slider from './Slider';
 
 Common();
+Storybook();
 Artwork();
 Column();
 Tile();

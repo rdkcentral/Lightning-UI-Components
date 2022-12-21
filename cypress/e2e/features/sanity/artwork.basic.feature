@@ -24,13 +24,7 @@ Feature: LUI Artwork component
     Then I verify the 'fill' is 'true' for Artwork component
     And I set the 'fill' to 'false' for 'Artwork' component
     And I verify the 'fill' is 'false' for Artwork component
-    
-  Scenario: Verify the Artwork foregroundSrc control
-    When I set the 'foregroundSrc' to 'none' for 'Artwork' component
-    Then I verify the 'foregroundSrc' is 'none' for Artwork component
-    # And I set the 'foregroundSrc' to 'url1' for 'Artwork' component #Known issue preventing passing urls as values
-    # And I verify the 'foregroundSrc' is 'url1' for Artwork component
-    
+  
   Scenario: Verify the Artwork format control
     When I set the 'format' to 'square' for 'Artwork' component
     Then I verify the 'format' is 'square' for Artwork component
