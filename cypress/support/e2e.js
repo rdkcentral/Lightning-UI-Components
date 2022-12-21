@@ -40,7 +40,7 @@ Cypress.on('test:after:run', (test, runnable) => {
       parent = parent.parent;
     }
     let subfolder = '';
-    if (Cypress.env('TAGS').includes(' or ')) {
+    if (Cypress.env('TAGS') && Cypress.env('TAGS').includes(' or ')) {
       subfolder = Cypress.spec.relative.match(
         /cypress\/e2e\/features\/sanity\/(.*\/).*feature/
       );
