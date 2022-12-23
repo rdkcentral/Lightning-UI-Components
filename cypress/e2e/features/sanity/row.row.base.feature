@@ -27,7 +27,7 @@ Feature: Row Basic component validation
 
   Scenario: Verify that the row spacing of the Row Basic Element can be changed
     When I set the 'itemSpacing' to '25' for 'Row' component
-    And I verify that the spacing between elements of 'Row' component is '13'
+    And I verify that the spacing between the 'row' elements of 'Row' component is '13'
 
   Scenario Outline: Verify that Row can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'Row' component
