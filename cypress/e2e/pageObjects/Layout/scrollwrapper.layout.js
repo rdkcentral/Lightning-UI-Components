@@ -9,6 +9,10 @@ class ScrollWrapper extends LUIComponent {
     return 'div[type=scrollwrapper]';
   }
 
+  get basic() {
+    return 'div[type=scrollwrapper]';
+  }
+
   get scrollprogressbar() {
     return 'div[type=progressbar]>div[ref=Progress]';
   }

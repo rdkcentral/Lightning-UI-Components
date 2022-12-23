@@ -5,17 +5,6 @@ import { Then } from '@badeball/cypress-cucumber-preprocessor';
 export default function () {
   /**
    * @module ScrollWrapper
-   * @function I wait for autoscroll to scroll for {string} component
-   * @description Cucumber statement to verify the settings of a module
-   * @param {String} pageName
-   * @example I wait for autoscroll to scroll for 'scrollwrapper' component
-   */
-  Then('I wait for autoscroll to scroll for {string} component', pageName => {
-    cy.wait(3000);
-  });
-
-  /**
-   * @module ScrollWrapper
    * @function I verify that scrollDuration of {string} {string} component is {string}
    * @description Cucumber statement to verify the settings of a module
    * @param {String} scrollDuration
@@ -84,14 +73,24 @@ export default function () {
    * @function I verify that it takes {int} seconds for the ScrollWrapper to finish scrolling
    * @description Cucumber statement to verify that scrolling is completed within a specific timeframe
    * @param {int} seconds - number of seconds to wait for scroll to finish
-   * @example I verify that it takes 10 seconds for the ScrollWrapper to finish scrolling
+   * @example I verify that it takes 10 seconds for the ScrollWrapper 'Basic' to finish scrolling
    */
   Then(
-    'I verify that it takes {int} seconds for the ScrollWrapper to finish scrolling',
-    seconds => {
+    'I verify that it takes {int} seconds for the ScrollWrapper {string} to finish scrolling',
+    (seconds, storyName) => {
+      let endPosition = null;
+
+      if (storyName === 'Basic') {
+        endPosition = '-75'; // This value is different in Cypress and Storybook
+      } else if (storyName === 'Text Array') {
+        endPosition = '-394';
+      } else if (storyName === 'Object Array') {
+        endPosition = '-142';
+      }
+
       cy.get(ScrollWrapper.scrollcontainer, { timeout: seconds * 1000 })
         .should('have.attr', 'y')
-        .and('equal', '-394');
+        .and('equal', endPosition);
     }
   );
 }
