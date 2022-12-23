@@ -10,8 +10,8 @@ Feature: LUI Checkbox Basic component
     Then I verify that the 'Checkbox' component is displayed
 
   Scenario: Verify the dimensions of the Checkbox Basic Element
-    Then I verify that the 'width' of 'Checkbox' component is '36px'
-    And I verify that the 'height' of 'Checkbox' component is '36px'
+    Then I verify that the 'width' of 'Checkbox' component is '40px'
+    And I verify that the 'height' of 'Checkbox' component is '40px'
 
   Scenario Outline: Verify that Checkbox can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'Checkbox' component
@@ -31,3 +31,4 @@ Feature: LUI Checkbox Basic component
   Scenario: Verify that Checkbox Basic default values
     Then I verify that the 'Checkbox' 'checked' state is 'false'
    #A step needs to be added for verifying dafault value for mode control once the bug LUI-555 is resolved
+   

@@ -70,3 +70,4 @@ Feature: LUI Control Small component
     Then I verify that 'ControlSmall' justify control is 'center'
     And I verify that the 'ControlSmall' logo state is 'none'
     And I verify that the 'Title' component on the 'ControlSmall' page has text 'Control'
+    

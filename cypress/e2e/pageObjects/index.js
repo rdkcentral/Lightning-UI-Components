@@ -27,6 +27,7 @@ import ListItem from './controls/listitem.controls';
 import Control from './controls/control.controls';
 import ControlSmall from './controls/controlsmall.controls';
 import Checkbox from './utilities/checkbox.utilities';
+import ScrollWrapper from './layout/scrollwrapper.layout';
 import Tab from './layout/tab.layout';
 import CardAboutStacked from './tilesAndCards/cardaboutstacked.tilesandcards';
 
@@ -61,6 +62,9 @@ export default function getPageObject(pageName) {
     listitem: ListItem,
     control: Control,
     controlsmall: ControlSmall,
+    checkbox: Checkbox,
+    cardaboutstacked: CardAboutStacked,
+    scrollwrapper: ScrollWrapper,
     tab: Tab,
     checkbox: Checkbox,
     cardaboutstacked: CardAboutStacked

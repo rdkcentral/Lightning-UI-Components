@@ -221,3 +221,32 @@ Cypress.Commands.add('getIframeBody', () => {
       .then(cy.wrap)
   );
 });
+
+/**
+ * Custom command to get an object of the list of parameters in the style attribute.
+ * @param {string} subject - object selected.
+ * @example
+ * cy.get(<selector>).getStyleAttribute().then(style => { height = style['height']; };
+ */
+Cypress.Commands.add(
+  'getStyleAttribute',
+  {
+    prevSubject: true
+  },
+  subject => {
+    const attrList = [];
+    cy.wrap(subject).then($element => {
+      const style = $element.attr('style');
+      const styleList = style.split(';');
+
+      styleList.forEach(param => {
+        if (param.length > 0) {
+          param = param.trim();
+          const attributes = param.split(': ');
+          attrList[attributes[0]] = attributes[1];
+        }
+      });
+    });
+    return cy.wrap(attrList);
+  }
+);

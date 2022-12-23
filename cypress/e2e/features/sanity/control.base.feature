@@ -55,3 +55,4 @@ Feature: LUI Control component
     When I set the 'fixed' to 'true' for 'Control' component
     Then I set the 'w' to '400' for 'Control' component
     And I verify that the 'width' of 'Control' component is '400px'
+    
