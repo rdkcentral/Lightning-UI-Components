@@ -1,19 +1,19 @@
-@regression @scrollwrapper @textarray @2149179
+@sanity @scrollwrapper @basic @2150168
 
-Feature: LUI ScrollWrapper TextArray component
+Feature: LUI ScrollWrapper Basic component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'scrollwrapper' 'text-array' with 'Base' theme
+    And I navigate to 'scrollwrapper' 'basic' with 'Base' theme
 
-  Scenario: Verify that ScrollWrapper TextArray is displayed
-    Then I verify that the 'scrollwrapper' 'textarray' component is displayed
+  Scenario: Verify that ScrollWrapper basic is displayed
+    Then I verify that the 'scrollwrapper' 'basic' component is displayed
 
-  Scenario: Verify the dimensions of the ScrollWrapper TextArray Element
-    Then I verify that the 'width' of 'scrollwrapper' 'textarray' component is '600px'
-    And I verify that the 'height' of 'scrollwrapper' 'textarray' component is '450px'
+  Scenario: Verify the dimensions of the ScrollWrapper basic Element
+    Then I verify that the 'width' of 'scrollwrapper' 'basic' component is '796px'
+    And I verify that the 'height' of 'scrollwrapper' 'basic' component is '448px'
 
-  Scenario Outline: Verify that ScrollWrapper TextArray modes
+  Scenario Outline: Verify that ScrollWrapper basic modes
     When I set the 'mode' to '<modeValue>' for 'scrollwrapper' component
     Then I verify the mode is '<modeValue>' for 'scrollwrapper' 'showScrollBar'
     Examples:
@@ -21,7 +21,7 @@ Feature: LUI ScrollWrapper TextArray component
       | unfocused |
       | focused   |
 
-  Scenario Outline: Verify the ScrollWrapper TextArray autoScroll control
+  Scenario Outline: Verify the ScrollWrapper basic autoscroll control
     Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '0px'
     And I set the 'autoScrollDelay' to '<autoScrollDelay>' for 'scrollwrapper' component
     And I set the 'autoScrollSpeed' to '<autoScrollSpeed>' for 'scrollwrapper' component
@@ -29,7 +29,7 @@ Feature: LUI ScrollWrapper TextArray component
     And I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     And I wait for autoScroll to scroll with <scrollsteps>, <autoScrollSpeed> and <autoScrollDelay>
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '410px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '408px'
     Examples:
       | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration |
       | 10          | 200             | 2000            | 0.1            |
@@ -37,30 +37,31 @@ Feature: LUI ScrollWrapper TextArray component
 
   @skip
   #TODO: Have to add this scenario in the VRT
-  Scenario: Verify the ScrollWrapper TextArray fadeContent control
-    When I set the 'fadeContent' to 'true' for 'textarray' component
-    Then I verify that the 'fadeContent' is 'True' for 'textarray' component
-    And I set the 'fadeContent' to 'False' for 'textarray' component
-    And I verify that the 'fadeContent' is 'False' for 'textarray' component
+  Scenario: Verify the ScrollWrapper basic fadeContent control
+    When I set the 'fadeContent' to 'true' for 'basic' component
+    Then I verify that the 'fadeContent' is 'True' for 'basic' component
+    And I set the 'fadeContent' to 'False' for 'basic' component
+    And I verify that the 'fadeContent' is 'False' for 'basic' component
 
-  Scenario: Verify the ScrollWrapper TextArray scrollStep control
+  Scenario: Verify the ScrollWrapper basic scrollStep control
     When I press 'DOWN' key
-    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '10.5128px'
+    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '58.2857px'
     And I set the 'scrollStep' to '30' for 'scrollwrapper' component
     And I press 'DOWN' key
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '31.5385px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '136px'
 
-  Scenario: Verify the ScrollWrapper TextArray showScrollBar control
+  Scenario: Verify the ScrollWrapper basic showScrollBar control
     When I set the 'showScrollBar' to 'true' for 'scrollwrapper' component
     Then I verify that the 'scrollwrapper' 'showScrollBar' component is displayed
     And I set the 'showScrollBar' to 'false' for 'scrollwrapper' component
     And I verify that the 'scrollwrapper' 'showScrollBar' component is not displayed
   
-  Scenario: Verify the ScrollWrapper TextArray scrollDuration control
+  Scenario Outline: Verify the ScrollWrapper basic scrollDuration control
     When I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
-    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Text Array' to finish scrolling
+    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Basic' to finish scrolling
     Examples: 
-    | scrollDuration  | timeTaken  |
-    | 0.1             | 10         |
-    | 5               | 15         |
+    | scrollDuration  | timeTaken |
+    | 0.1             | 4         |
+    | 5               | 10        |
+    
