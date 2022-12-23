@@ -27,6 +27,8 @@ export const getStoryName = pageName => {
     ToggleSmall: 'Toggle',
     CardTitle: 'Card-Title',
     Checkbox: 'Checkbox',
+    Wave: 'Wave',
+    ScrollWrapper: 'scrollwrapper',
     Tab: 'Tab',
     Wave: 'Wave'
   };

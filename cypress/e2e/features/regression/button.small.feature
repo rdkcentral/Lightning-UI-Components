@@ -57,3 +57,4 @@ Feature: LUI Button Small component
   Scenario: Verify the Button Small title text can be set
     When I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
     Then I verify that the 'Title' component on the 'ButtonSmall' page has text 'LUI TEST'
+    
