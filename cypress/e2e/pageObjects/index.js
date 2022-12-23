@@ -14,6 +14,7 @@ import RadioSmall from './utilities/radiosmall.utilities';
 import Row from './navigation/row.navigation';
 import Slider from './utilities/slider.utilities';
 import SliderLarge from './utilities/sliderlarge.utilities';
+import TabBar from './layout/tabbar.layout';
 import Tile from './tilesAndCards/tile.tilesandcards';
 import Button from './controls/button.controls';
 import TextBox from './text/textbox.text';
@@ -48,6 +49,7 @@ export default function getPageObject(pageName) {
     row: Row,
     slider: Slider,
     sliderlarge: SliderLarge,
+    tabbar: TabBar,
     textbox: TextBox,
     focusmanager: FocusManager,
     focusring: FocusRing,

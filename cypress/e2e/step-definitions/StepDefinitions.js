@@ -12,6 +12,7 @@ import ListItem from './ListItem';
 import Checkbox from './Checkbox';
 import ScrollWrapper from './ScrollWrapper';
 import Slider from './Slider';
+import TabBar from './TabBar';
 
 Common();
 Storybook();
@@ -27,3 +28,4 @@ ListItem();
 Checkbox();
 ScrollWrapper();
 Slider();
+TabBar();

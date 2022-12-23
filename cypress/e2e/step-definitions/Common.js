@@ -483,7 +483,7 @@ export default function () {
       const pageObject = getPageObject(page);
 
       pageObject._getElementByName(component).each(() => {
-        if (page === 'column') {
+        if (page === 'column' || component.includes('column')) {
           cy.action('DOWN');
         } else {
           cy.action('RIGHT');
@@ -611,7 +611,7 @@ export default function () {
       const pageObject = getPageObject(page);
 
       let key = '';
-      if (page === 'column') {
+      if (page === 'column' || row.includes('column')) {
         key = position === 'last' ? 'DOWN' : 'UP';
       } else {
         key = position === 'last' ? 'RIGHT' : 'LEFT';
@@ -756,20 +756,21 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that the spacing between elements of {String} component is {String}
-   * @description Cucumber statement to verify the spacing of a component
+   * @function I verify that the spacing between the {String} elements of {String} component is {String}
+   * @description Cucumber statement to verify the spacing between specified elements of a component
+   * @param {String} componentName
    * @param {String} pageName
    * @param {String} spaceValue
-   * @example I verify that the spacing between elements of 'Row' component is '17'
+   * @example I verify that the spacing between the 'row' elements of 'Row' component is '17'
    */
   Then(
-    'I verify that the spacing between elements of {string} component is {string}',
-    (pageName, expectedSpaceValue) => {
+    'I verify that the spacing between the {string} elements of {string} component is {string}',
+    (componentName, pageName, expectedSpaceValue) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
       const spacing = expectedSpaceValue.toLowerCase();
       const elements = [];
-      cy.get(pageObject.row)
+      pageObject._getElementByName(componentName)
         .each($row => {
           const rowId = $row.attr('id');
           cy.get($row)
