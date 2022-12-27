@@ -2,6 +2,8 @@ import Icon from './elements/icon.element';
 import Artwork from './foundations/artwork.foundations';
 import Badge from './metadata/badge.metadata';
 import Card from './tilesAndCards/card.tilesandcards';
+import CardAbout from './tilesAndCards/cardabout.tilesandcards';
+import CardAboutLarge from './tilesAndCards/cardaboutlarge.tilesandcards';
 import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
 import CardSection from './tilesAndCards/cardsection.tilesandcards';
 import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
@@ -38,6 +40,8 @@ export default function getPageObject(pageName) {
     artwork: Artwork,
     badge: Badge,
     card: Card,
+    cardabout: CardAbout,
+    cardaboutlarge: CardAboutLarge,
     cardpersonality: CardPersonality,
     cardsection: CardSection,
     cardtitle: CardTitle,

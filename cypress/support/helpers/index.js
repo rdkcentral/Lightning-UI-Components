@@ -10,6 +10,8 @@ export const getStoryName = pageName => {
     Artwork: 'Artwork',
     Button: 'Button',
     Card: 'Card',
+    CardAbout: 'Card-About',
+    CardAboutLarge: 'Card-About',
     Control: 'Control',
     Distractor: 'Distractor',
     Label: 'Label',
