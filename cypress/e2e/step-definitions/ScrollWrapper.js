@@ -70,7 +70,7 @@ export default function () {
 
   /**
    * @module ScrollWrapper
-   * @function I verify that it takes {int} seconds for the ScrollWrapper to finish scrolling
+   * @function I verify that it takes {int} seconds for the ScrollWrapper {String} to finish scrolling
    * @description Cucumber statement to verify that scrolling is completed within a specific timeframe
    * @param {int} seconds - number of seconds to wait for scroll to finish
    * @example I verify that it takes 10 seconds for the ScrollWrapper 'Basic' to finish scrolling
