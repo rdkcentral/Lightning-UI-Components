@@ -280,7 +280,6 @@ export function nestedArgActions(config) {
           value === 'none'
             ? undefined
             : (overrides && overrides[curr]) || value;
-        component.tag(componentName)._update(); // Update does not trigger is replacing individual properties
       }
     };
   }, {});
