@@ -33,6 +33,7 @@ import Checkbox from './utilities/checkbox.utilities';
 import ScrollWrapper from './layout/scrollwrapper.layout';
 import Tab from './layout/tab.layout';
 import CardAboutStacked from './tilesAndCards/cardaboutstacked.tilesandcards';
+import CardContent from './tilesAndCards/cardcontent.tilesandcards';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -73,7 +74,8 @@ export default function getPageObject(pageName) {
     scrollwrapper: ScrollWrapper,
     tab: Tab,
     checkbox: Checkbox,
-    cardaboutstacked: CardAboutStacked
+    cardaboutstacked: CardAboutStacked,
+    cardcontent: CardContent
   };
 
   if (pageName in pageObjects) {
