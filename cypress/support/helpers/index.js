@@ -32,7 +32,8 @@ export const getStoryName = pageName => {
     Wave: 'Wave',
     ScrollWrapper: 'scrollwrapper',
     Tab: 'Tab',
-    Wave: 'Wave'
+    Wave: 'Wave',
+    CardContent: 'Card-Content'
   };
 
   if (pageName in names) {

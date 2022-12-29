@@ -13,6 +13,7 @@ import Checkbox from './Checkbox';
 import ScrollWrapper from './ScrollWrapper';
 import Slider from './Slider';
 import TabBar from './TabBar';
+import CardContent from './CardContent';
 
 Common();
 Storybook();
@@ -29,3 +30,4 @@ Checkbox();
 ScrollWrapper();
 Slider();
 TabBar();
+CardContent();
