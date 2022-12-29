@@ -35,12 +35,11 @@ class TabBar extends Base {
 
   static get properties() {
     return [
-      'tabs',
+      'alphaSelectedTab',
       'collapse',
       'reset',
-      'alphaSelectedTab',
+      'tabs',
       'wrapSelected',
-      'contentSpacing',
       ...Row.properties
     ];
   }
@@ -114,7 +113,7 @@ class TabBar extends Base {
   }
 
   _updateTabContent() {
-    const margin = this.contentSpacing || this.style.tabsMarginBottom;
+    const margin = this.style.tabsMarginBottom;
     this._TabContent.patch({
       y: this._Tabs.h + margin,
       contentItems: this._tabContent,

@@ -250,40 +250,6 @@ export const CustomTabs = () =>
     }
   };
 CustomTabs.args = {
-  alphaSelectedTab: true,
-  contentSpacing:
-    context.theme.spacer.xxxl +
-    context.theme.spacer.lg +
-    context.theme.spacer.xs,
-  itemSpacing: context.theme.spacer.xl
+  alphaSelectedTab: false
 };
-CustomTabs.argTypes = {
-  contentSpacing: {
-    control: 'number',
-    defaultValue:
-      context.theme.spacer.xxxl +
-      context.theme.spacer.lg +
-      context.theme.spacer.xs,
-    table: {
-      defaultValue: {
-        summary:
-          context.theme.spacer.xxxl +
-          context.theme.spacer.lg +
-          context.theme.spacer.xs
-      }
-    },
-    description: 'pixels between tabs and tab content',
-    type: 'number'
-  },
-  itemSpacing: {
-    control: 'number',
-    defaultValue: context.theme.spacer.xl,
-    table: {
-      defaultValue: {
-        summary: context.theme.spacer.xl
-      }
-    },
-    description: 'pixels between tab components (Row property)',
-    type: 'number'
-  }
-};
+CustomTabs.argTypes = {};
