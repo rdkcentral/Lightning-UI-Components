@@ -212,13 +212,6 @@ describe('TabBar', () => {
     expect(component._TabContent.y).toBe(
       component._Tabs.h + component.style.tabsMarginBottom
     );
-
-    component.contentSpacing = 40;
-    await component.__updateSpyPromise;
-    testRenderer.update();
-    expect(component._TabContent.y).toBe(
-      component._Tabs.h + component.contentSpacing
-    );
   });
 
   it('should set the tab item spacing', async () => {
