@@ -86,6 +86,7 @@ class ListItemSlider extends ListItem {
 
   _updateSliderPosition() {
     this._Slider.patch({
+      ...this.slider,
       mountY: 0.5,
       w: this.w - this._paddingLeft - this._paddingRight,
       y: this._TextWrapper.h + this.style.paddingY,
