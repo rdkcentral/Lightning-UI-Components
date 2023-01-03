@@ -69,12 +69,9 @@ export default function getPageObject(pageName) {
     listitem: ListItem,
     control: Control,
     controlsmall: ControlSmall,
-    checkbox: Checkbox,
     cardaboutstacked: CardAboutStacked,
     scrollwrapper: ScrollWrapper,
     tab: Tab,
-    checkbox: Checkbox,
-    cardaboutstacked: CardAboutStacked,
     cardcontent: CardContent
   };
 
