@@ -944,6 +944,42 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify focused element in {string} has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}
+   * @description Cucumber statement to verify the sizing of elements
+   * @param {string} pageName
+   * @param {Float} widthFocused
+   * @param {Float} heightFocused
+   * @param {Float} widthNonFocused
+   * @param {Float} heightNonFocused
+   * @example I verify focused element in 'Column' has width of 250.0 and height of 120.0 and non-focused elements have width of 250.0 and height of 80.0
+   */
+    Then(
+      'I verify focused element in {string} has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}',
+      (pageName, widthFocused, heightFocused, widthNonFocused, heightNonFocused) => {
+        const page = pageName.toLowerCase();
+        const pageObject = getPageObject(page);
+        cy.get(pageObject.columnElements).each($elements => {
+          //wait is necessary for the row with Focus Height change to render
+          cy.wait(1000)
+            .get(pageObject.columnElements)
+            .each($el => {
+              const elementWidth = parseFloat($el.attr('w'));
+              const elementHeight = parseFloat($el.attr('h'));
+              if ($el.attr('focused') === undefined) {
+                expect(elementWidth).equal(widthNonFocused);
+                expect(elementHeight).equal(heightNonFocused);
+              } else {
+                expect(elementWidth).equal(widthFocused);
+                expect(elementHeight).equal(heightFocused);
+              }
+            });
+          cy.repeatAction('RIGHT', $elements.length);
+        });
+      }
+    );
+  
+  /**
+   * @module Common
    * @function I verify that {string} are evenly spaced vertically for {string} component
    * @description Cucumber statement to verify the specified elements are evenly spaced vertically
    * @param {String} elementName
