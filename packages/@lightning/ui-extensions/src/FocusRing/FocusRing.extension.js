@@ -45,6 +45,13 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         super._update();
         this._updateFocusRing();
         this._updateFocusRingStyles();
+
+        // Make sure the actual FocusRing updates run this frame, not next frame
+        // B/C the rounded rectangle texture in FocusRing needs to render with
+        // the updated width/height of this component
+        if (this._FocusRing) {
+          this._FocusRing._update();
+        }
       }
 
       // Make sure any calls to _updateLayout update the focusRing ex. Button
@@ -52,6 +59,11 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         super._updateLayout();
         this._updateFocusRing();
         this._updateFocusRingStyles();
+
+        // See note in _update()
+        if (this._FocusRing) {
+          this._FocusRing._update();
+        }
       }
 
       _updateFocusRing() {
