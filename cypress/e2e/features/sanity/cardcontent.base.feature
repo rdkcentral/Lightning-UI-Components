@@ -25,10 +25,10 @@ Feature: LUI CardContent component
   Scenario: Verify that CardContent shouldCollapse state
     When I set the 'mode' to '<modeValue>' for 'cardcontent' component
     Then I set the 'shouldCollapse' to 'true' for 'cardcontent' component
-    And I verify that 'cardcontent' shouldCollapse state is 'true'
+    And I verify that 'cardcontent' 'shouldCollapse' state is 'true'
     And I set the 'mode' to '<modeValue>' for 'cardcontent' component
     And I set the 'shouldCollapse' to 'false' for 'cardcontent' component
-    And I verify that 'cardcontent' shouldCollapse state is 'false'
+    And I verify that 'cardcontent' 'shouldCollapse' state is 'false'
     Examples:
       | modeValue |
       | unfocused |
