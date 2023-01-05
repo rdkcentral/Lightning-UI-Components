@@ -12,6 +12,7 @@ export const getStoryName = pageName => {
     Card: 'Card',
     CardAbout: 'Card-About',
     CardAboutLarge: 'Card-About',
+    CardContentHorizontalLarge: 'Card-Content-Horizontal-Large',
     Control: 'Control',
     Distractor: 'Distractor',
     Label: 'Label',
