@@ -7,6 +7,7 @@ import CardAboutLarge from './tilesAndCards/cardaboutlarge.tilesandcards';
 import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
 import CardSection from './tilesAndCards/cardsection.tilesandcards';
 import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
+import CardContentHorizontalLarge from './tilesAndCards/cardcontenthorizontallarge.tilesandcards';
 import Label from './metadata/label.metadata';
 import ProgressBar from './utilities/progressbar.utilities';
 import FocusManager from './navigation/focusmanager.navigation';
@@ -47,6 +48,7 @@ export default function getPageObject(pageName) {
     cardpersonality: CardPersonality,
     cardsection: CardSection,
     cardtitle: CardTitle,
+    cardcontenthorizontallarge: CardContentHorizontalLarge,
     checkbox: Checkbox,
     label: Label,
     progressbar: ProgressBar,
