@@ -304,6 +304,23 @@ class Column extends LUIComponent {
   }
 
   //=============== Removing Items =============
-}
 
+  //=============== Skipfocus =============
+  get skipFocus() {
+    return 'div[type=type] > div[type=Column]';
+  }
+
+  get skipFocusColumn() {
+    return `${this.skipFocus} > div[type=Element]`;
+  }
+
+  get firstcolumnbutton() {
+    return 'div[type=button]:nth-of-type(2)';
+  }
+
+  get lastcolumnbutton() {
+    return 'div[type=button]:nth-of-type(48)';
+  }
+  //=============== Skipfocus =============
+}
 module.exports = new Column();
