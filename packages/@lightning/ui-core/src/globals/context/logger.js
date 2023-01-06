@@ -1,4 +1,4 @@
-export class Logger {
+class Logger {
   constructor() {
     this._logCallback = undefined;
     this._prefix = 'LightningUI';
@@ -66,4 +66,6 @@ export class Logger {
   }
 }
 
-export default new Logger();
+const loggerInstance = new Logger();
+
+export { loggerInstance as default, Logger };

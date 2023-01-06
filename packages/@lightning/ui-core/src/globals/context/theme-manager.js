@@ -19,7 +19,7 @@ const merge = {
   }
 };
 const isSubTheme = themeName => 'subTheme' === themeName.slice(0, 8);
-export class ThemeManager {
+class ThemeManager {
   constructor() {
     this._cache = new Map();
     if (typeof window === 'undefined') return;
@@ -294,4 +294,6 @@ export class ThemeManager {
   }
 }
 
-export default new ThemeManager();
+const themeManagerInstance = new ThemeManager();
+
+export { themeManagerInstance as default, ThemeManager };

@@ -5,7 +5,7 @@ export default class FocusManager extends Base {
   protected _selectedChange(
     selected: lng.Component | undefined,
     prevSelected: lng.Component | undefined
-  );
+  ): void;
   protected _selectedIndex: number;
 
   direction?: string;
@@ -28,11 +28,11 @@ export default class FocusManager extends Base {
     items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>
   ): void;
   appendItemsAt(
-    items: Array<Array<lng.Component.NewPatchTemplate<typeof lng.Component>>>,
+    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>,
     idx: number
   ): void;
   prependItems(
-    items: Array<Array<lng.Component.NewPatchTemplate<typeof lng.Component>>>
+    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>
   ): void;
   removeItemAt(idx: number): void;
   render(): void;

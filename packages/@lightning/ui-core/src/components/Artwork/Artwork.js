@@ -134,7 +134,7 @@ class Artwork extends Base {
       w: this.w + 4,
       x: -2,
       y: -2,
-      zIndex: this.core.findZContext().zIndex + this.style.zIndex.gradient
+      zIndex: this.core.findZContext().zIndex + this.style.zIndexSet.gradient
     };
   }
 
@@ -275,7 +275,7 @@ class Artwork extends Base {
       mount: 0.5,
       x: this.w / 2,
       y: this.h / 2,
-      zIndex: this.core.findZContext().zIndex + this.style.zIndex.foreground,
+      zIndex: this.core.findZContext().zIndex + this.style.zIndexSet.foreground,
       texture: {
         type: lng.textures.ImageTexture,
         src: this._foregroundSrc,
@@ -347,7 +347,7 @@ class Artwork extends Base {
         Blur: {
           alpha: !this._Blur && this.shouldSmooth ? 0.001 : 1, // If the Blur element already exists there is no need to fade it in again
           amount: this.style.blur,
-          zIndex: this.core.findZContext().zIndex + this.style.zIndex.blur,
+          zIndex: this.core.findZContext().zIndex + this.style.zIndexSet.blur,
           content: {
             Image: {
               h: this.h,
@@ -450,7 +450,8 @@ class Artwork extends Base {
         h: imageH,
         x: this.w / 2,
         y: this.h / 2,
-        zIndex: this.core.findZContext().zIndex + this.style.zIndex.centerImage,
+        zIndex:
+          this.core.findZContext().zIndex + this.style.zIndexSet.centerImage,
         texture: {
           src,
           resizeMode: {
@@ -488,7 +489,8 @@ class Artwork extends Base {
           type: lng.shaders.RoundedRectangle
         },
         w: imageSize,
-        zIndex: this.core.findZContext().zIndex + this.style.zIndex.centerImage,
+        zIndex:
+          this.core.findZContext().zIndex + this.style.zIndexSet.centerImage,
         Image: {
           h: imageSize,
           mount: 0.5,
@@ -571,7 +573,7 @@ class Artwork extends Base {
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,
-      zIndex: this.core.findZContext().zIndex + this.style.zIndex.image
+      zIndex: this.core.findZContext().zIndex + this.style.zIndexSet.image
     });
   }
 
