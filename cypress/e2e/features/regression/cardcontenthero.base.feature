@@ -39,10 +39,10 @@ Feature: LUI CardContentHero component
   Scenario Outline: Verify the CardContentHero shouldCollapse state
     When I set the 'mode' to '<modeValue>' for 'cardcontenthero' component
     Then I set the 'shouldCollapse' to 'true' for 'cardcontenthero' component
-    And I verify that 'cardcontenthero' 'shouldCollapse' state is 'true'
+    And I verify that the 'cardcontenthero' 'shouldCollapse' state is 'true'
     And I set the 'mode' to '<modeValue>' for 'cardcontenthero' component
     And I set the 'shouldCollapse' to 'false' for 'cardcontenthero' component
-    And I verify that 'cardcontenthero' 'shouldCollapse' state is 'false'
+    And I verify that the 'cardcontenthero' 'shouldCollapse' state is 'false'
     Examples:
       | modeValue |
       | unfocused |
@@ -81,7 +81,7 @@ Feature: LUI CardContentHero component
   Scenario: Verify the default values
     Then I verify the mode is 'focused' for 'cardcontenthero'
     And I verify that the 'cardcontenthero' 'collapseToMetadata' state is 'false'
-    And I verify that 'cardcontenthero' 'shouldCollapse' state is 'false'
+    And I verify that the 'cardcontenthero' 'shouldCollapse' state is 'false'
     And I verify that 'cardcontenthero' 'Badge Title' has text 'HD'
     And I verify that 'cardcontenthero' 'label Title' has text 'Live'
     And I verify that 'cardcontenthero' 'metadata details' has text 'Details'

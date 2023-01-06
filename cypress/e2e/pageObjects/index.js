@@ -36,6 +36,7 @@ import Tab from './layout/tab.layout';
 import CardAboutStacked from './tilesAndCards/cardaboutstacked.tilesandcards';
 import CardContent from './tilesAndCards/cardcontent.tilesandcards';
 import CardContentHero from './tilesAndCards/cardcontenthero.tilesandcards';
+import CardContentHorizontal from './tilesAndCards/cardcontenthorizontal.tilesandcards';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -76,7 +77,8 @@ export default function getPageObject(pageName) {
     scrollwrapper: ScrollWrapper,
     tab: Tab,
     cardcontent: CardContent,
-    cardcontenthero: CardContentHero
+    cardcontenthero: CardContentHero,
+    cardcontenthorizontal: CardContentHorizontal
   };
 
   if (pageName in pageObjects) {
