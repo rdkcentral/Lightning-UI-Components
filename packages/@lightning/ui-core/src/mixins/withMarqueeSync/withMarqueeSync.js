@@ -19,7 +19,6 @@ export default function withMarqueeSync(Base) {
       super._init();
       if (this._shouldSync) {
         this._updateSignals();
-        this._longestMarqueeWidth = 0;
       }
     }
 
@@ -56,8 +55,8 @@ export default function withMarqueeSync(Base) {
     _willMarquee(compRef) {
       if (this._shouldSync) {
         this._longestMarqueeWidth = Math.max(
-          compRef._textRenderedW,
-          this._longestMarqueeWidth
+          compRef._textRenderedW || 0,
+          this._longestMarqueeWidth || 0
         );
         this.syncArray.map(component => {
           component.marqueeOverrideLoopX = this._longestMarqueeWidth;

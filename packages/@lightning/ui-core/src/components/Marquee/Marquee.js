@@ -73,6 +73,7 @@ class Marquee extends Base {
     }
 
     restartScrolling && this.startScrolling();
+    this.signal('marqueeContentLoaded');
   }
 
   _update() {
@@ -117,6 +118,7 @@ class Marquee extends Base {
         }
       }
     });
+    this.signal('marqueeContentLoaded'); // TODO: Check if this extra signal is needed since the txLoaded event should emit it already?
   }
 
   _updateShader() {
