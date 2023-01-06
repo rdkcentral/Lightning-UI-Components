@@ -1,8 +1,28 @@
+diff --git a/index.js b/index.js
+index 9eef6e8d0bb0899c055b0b538eaf33e017ac8a0d..af9731478164d9090dbf97f2c41e8d6cb7cc42f3 100644
+--- a/index.js
++++ b/index.js
+@@ -65,7 +65,7 @@ async function prepare(pluginConfig, context) {
+     throw new AggregateError(errors);
+   }
+ 
+-  await prepareNpm(npmrc, pluginConfig, context);
++  await prepareNpm(npmrc, pluginConfig, context, pkg.name);
+   prepared = true;
+ }
+ 
 diff --git a/lib/prepare.js b/lib/prepare.js
-index d232eb2134ab2f1f8081d3b72305caa20bf41513..1b97569f2c0c0fb190db0f8d7c0ec7201b3aba94 100644
+index d232eb2134ab2f1f8081d3b72305caa20bf41513..f084391e2841453ff0e0e0c0a0f15372d2dc5100 100644
 --- a/lib/prepare.js
 +++ b/lib/prepare.js
-@@ -8,13 +8,9 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
+@@ -2,19 +2,15 @@ const path = require('path');
+ const {move} = require('fs-extra');
+ const execa = require('execa');
+ 
+-module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr, nextRelease: {version}, logger}) => {
++module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr, nextRelease: {version}, logger}, pkgName) => {
+   const basePath = pkgRoot ? path.resolve(cwd, pkgRoot) : cwd;
+ 
    logger.log('Write version %s to package.json in %s', version, basePath);
  
    const versionResult = execa(
@@ -14,7 +34,7 @@ index d232eb2134ab2f1f8081d3b72305caa20bf41513..1b97569f2c0c0fb190db0f8d7c0ec720
 -      preferLocal: true,
 -    }
 +    'yarn',
-+    ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
++    ['workspace', pkgName, 'npm', 'publish', '--tag', distTag],
 +    {cwd, env, preferLocal: true}
    );
    versionResult.stdout.pipe(stdout, {end: false});

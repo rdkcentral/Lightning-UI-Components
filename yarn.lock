@@ -3838,7 +3838,7 @@ __metadata:
 
 "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::locator=%40lightning%2Fmonorepo%40workspace%3A.":
   version: 9.0.1
-  resolution: "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::version=9.0.1&hash=a90836&locator=%40lightning%2Fmonorepo%40workspace%3A."
+  resolution: "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::version=9.0.1&hash=e09d64&locator=%40lightning%2Fmonorepo%40workspace%3A."
   dependencies:
     "@semantic-release/error": ^3.0.0
     aggregate-error: ^3.0.0
@@ -3855,7 +3855,7 @@ __metadata:
     tempy: ^1.0.0
   peerDependencies:
     semantic-release: ">=19.0.0"
-  checksum: 67f0041e113b0334398c2ff2b09c94b0258d66470a46c6773a9aa25fee2e2f663281033b17f7afaf28d7c2c061f008126c34b6ffb49ad6e92eef078d3940f716
+  checksum: 5c55b9998d747251c55c736b8a348a5249148aba4dbe20d06142f48dc33f1237c9cfbe12b2945cc845a2fe392d3a02c2445982ea95527e307a50e709226f7c68
   languageName: node
   linkType: hard
 
