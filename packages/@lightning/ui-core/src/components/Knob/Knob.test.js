@@ -20,15 +20,11 @@ describe('Knob', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('has the correct static tags getter', () => {
-    expect(component.constructor.tags).toMatchObject(['Circle']);
-  });
-
   it('has the correct width', () => {
-    expect(component.w).toEqual(component._componentStyle.circleSize);
+    expect(component.w).toEqual(component._componentStyle.w);
   });
 
   it('has the correct height', () => {
-    expect(component.h).toEqual(component._componentStyle.circleSize);
+    expect(component.h).toEqual(component._componentStyle.h);
   });
 });

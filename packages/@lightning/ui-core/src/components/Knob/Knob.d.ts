@@ -1,9 +1,10 @@
+import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
 export type KnobStyles = {
   circleColor: Color;
-  circleSize: number;
+  radius: lng.Tools.CornerRadius;
 };
 
 export default class Knob extends Base {

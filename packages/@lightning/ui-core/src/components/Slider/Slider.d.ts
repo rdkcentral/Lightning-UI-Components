@@ -10,11 +10,9 @@ export type SliderStyles = {
   arrowSpacing: number;
   arrowWidth: number;
   containerHeight: number;
-  innerCircleSize: number;
   minWidth: number;
   progressBarStyles: ProgressBarStyles;
   sliderHeight: number;
-  strokeWidth: number;
   circleAnimation: {
     timingFunction: string;
     duration: number;
