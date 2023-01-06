@@ -33,7 +33,9 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-webgl-canvas-mock": "^0.2.3",
     "lightning-ui-docs": "workspace:^",
-    "rollup": "^3.2.5"
+    "rollup": "^3.2.5",
+    "semantic-release": "^19.0.5",
+    "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
     "@suite-themes/base-lightning-tv": "^1.5.0",

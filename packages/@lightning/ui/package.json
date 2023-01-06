@@ -17,7 +17,7 @@
   },
   "types": ".dist/lightning-ui.d.ts",
   "scripts": {
-    "build": "yarn workspace @lightning/ui-core build && rm -rf ./dist && npx rollup --config ../../../rollup/rollup.config.js --name lightning-ui",
+    "build": "yarn workspace @lightning/ui-core build && rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui",
     "lint": "eslint './src/**/*.js'",
     "lint:fix": "eslint --fix './src/**/*.js'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose --colors",
@@ -36,7 +36,9 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-webgl-canvas-mock": "^0.2.3",
     "lightning-ui-docs": "workspace:^",
-    "rollup": "^3.2.5"
+    "rollup": "^3.2.5",
+    "semantic-release": "^19.0.5",
+    "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
     "@lightning/ui-core": "workspace:^",
