@@ -3813,7 +3813,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semantic-release/npm@npm:9.0.1":
+"@semantic-release/npm@npm:^9.0.0, @semantic-release/npm@npm:^9.0.1":
   version: 9.0.1
   resolution: "@semantic-release/npm@npm:9.0.1"
   dependencies:
@@ -3833,29 +3833,6 @@ __metadata:
   peerDependencies:
     semantic-release: ">=19.0.0"
   checksum: cd18eab713521566ba9aacaa63c2cf76ba1796d00e3f94579c56a591b21e050340a9021127685d10d55419a6eb0b545842a7a3b785ad10a94449ea32d588ee10
-  languageName: node
-  linkType: hard
-
-"@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::locator=%40lightning%2Fmonorepo%40workspace%3A.":
-  version: 9.0.1
-  resolution: "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::version=9.0.1&hash=a16306&locator=%40lightning%2Fmonorepo%40workspace%3A."
-  dependencies:
-    "@semantic-release/error": ^3.0.0
-    aggregate-error: ^3.0.0
-    execa: ^5.0.0
-    fs-extra: ^10.0.0
-    lodash: ^4.17.15
-    nerf-dart: ^1.0.0
-    normalize-url: ^6.0.0
-    npm: ^8.3.0
-    rc: ^1.2.8
-    read-pkg: ^5.0.0
-    registry-auth-token: ^4.0.0
-    semver: ^7.1.2
-    tempy: ^1.0.0
-  peerDependencies:
-    semantic-release: ">=19.0.0"
-  checksum: 423fee464fa25f6ca73165473c10373a2e4a460930df9cd5284b0b7291360e85a4331a3c96f5a12e8a5a3ffebe47bbf26f337d7495b23fa1b43ba0364937dae1
   languageName: node
   linkType: hard
 
