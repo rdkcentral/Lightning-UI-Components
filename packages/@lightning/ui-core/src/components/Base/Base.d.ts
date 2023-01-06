@@ -1,6 +1,10 @@
 import lng from '@lightningjs/core';
+import { SpeechType } from '../../mixins/withAnnouncer';
 
 export default class Base extends lng.Component {
+  skipPlinko: boolean;
+  centerInParent: boolean;
+  _announce: SpeechType;
   _whenEnabled: Promise<void>;
   _getFocusScale(): number;
   _getUnfocusScale(): number;
@@ -9,6 +13,6 @@ export default class Base extends lng.Component {
   _unfocus(): void;
   _smooth?: boolean;
 
-  set announce(announce: string);
-  get announce(): string;
+  set announce(announce: SpeechType);
+  get announce(): SpeechType;
 }

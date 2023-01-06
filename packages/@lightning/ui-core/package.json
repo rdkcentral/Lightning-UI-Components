@@ -12,6 +12,7 @@
       "default": "./index.js"
     }
   },
+  "types": "./dist/lightning-ui-core.d.ts",
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
     "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-core",

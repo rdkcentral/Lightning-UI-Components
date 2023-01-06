@@ -16,7 +16,7 @@ export const base = theme => ({
   imageScalePivotY: 0.5,
   padding: theme.spacer.md,
   radius: 0,
-  zIndex: {
+  zIndexSet: {
     image: 1,
     blur: 2,
     centerImage: 3,

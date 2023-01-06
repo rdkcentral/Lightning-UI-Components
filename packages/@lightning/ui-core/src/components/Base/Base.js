@@ -12,7 +12,9 @@ import { isComponentOnScreen } from '../../utils/index.js';
 class Base extends lng.Component {
   _construct() {
     this.constructor.__componentName; // Check that __componentName is set
-    if (!this.loaded) this.loaded = Promise.resolve(); // By default this is a resolved promise. Components can use _resetLoadedPromise if they requre the functionality
+    this.skipPlinko = false;
+    this.centerInParent = false;
+    if (!this.loaded) this.loaded = Promise.resolve(); // By default this is a resolved promise. Components can use _resetLoadedPromise if they require the functionality
   }
 
   _init() {

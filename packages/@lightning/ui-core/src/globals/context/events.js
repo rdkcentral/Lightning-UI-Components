@@ -1,3 +1,5 @@
 import lng from '@lightningjs/core';
 
-export default new lng.EventEmitter();
+const eventEmitterInstance = new lng.EventEmitter();
+
+export default eventEmitterInstance;

@@ -19,4 +19,6 @@ class Metrics {
   }
 }
 
-export default new Metrics();
+const metricsInstance = new Metrics();
+
+export { metricsInstance as default, Metrics };

@@ -7,9 +7,14 @@ import themeManager from './theme-manager.js';
 /**
  * Class to create a context object. Context is a singleton that will hold settings and logic to be used across all Lightning UI components.
  */
-export class Context {
+
+/**
+ * @typedef ThemeObject
+ * @type {any}
+ */
+class Context {
   /**
-   * @type {object}
+   * @type {ThemeObject}
    */
   get theme() {
     return themeManager.getTheme();
@@ -23,7 +28,7 @@ export class Context {
     );
   }
   /**
-   * @type {object}
+   * @type {Object}
    */
   get keyMetricsCallback() {
     return metrics.keyMetricsCallback;
@@ -97,29 +102,29 @@ export class Context {
     logger.error(args);
   }
   /**
-   * @property {object|array}
-   * @return {object}
+   * @property {Object|array}
+   * @return {Object}
    */
   setTheme(value) {
     return themeManager.setTheme(value);
   }
   /**
-   * @property {object|array}}
-   * @return {object}
+   * @property {Object|array}}
+   * @return {Object}
    */
   updateTheme(value) {
     return themeManager.updateTheme(value);
   }
   /**
    * @property {string}
-   * @return {object}
+   * @return {Object}
    */
   getSubTheme(subThemeName) {
     return themeManager.getSubTheme(subThemeName);
   }
   /**
    * Expects an object where properties are child theme names. Values will be merged with the global themeManager.
-   * @property {object}
+   * @property {Object}
    */
   setSubThemes(subThemesObj) {
     if ('object' !== typeof subThemesObj) {
@@ -132,14 +137,14 @@ export class Context {
   }
   /**
    * @property {string}
-   * @return {object}
+   * @return {Object}
    */
   setSubTheme(subThemeName, value) {
     return themeManager.setSubTheme(subThemeName, value);
   }
   /**
    * @property {string}
-   * @return {object}
+   * @return {Object}
    */
   updateSubTheme(subThemeName, value) {
     return themeManager.updateSubTheme(subThemeName, value);
@@ -167,7 +172,7 @@ export class Context {
   }
   /**
    * @property {function}
-   * @return {object}
+   * @return {Object}
    */
   config(config = {}) {
     const configKeys = Object.keys(config);
@@ -181,4 +186,6 @@ export class Context {
   }
 }
 
-export default new Context();
+const contextInstance = new Context();
+
+export { contextInstance as default, Context };

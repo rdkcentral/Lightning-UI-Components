@@ -4,20 +4,14 @@ import type { Color, StylePartial } from '../../types/lui';
 
 type AspectRatio = '16x9' | '3x4' | '4x3' | '2x1' | '1x1';
 
-type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
-
 export type ArtworkStyles = {
-  animationBlurEntrance: TransitionObject;
-  animationBlurExit: TransitionObject;
-  animationComponentEntrance: TransitionObject;
-  animationGradientEntrance: TransitionObject;
-  animationGradientExit: TransitionObject;
-  animationImageScaleEntrance: TransitionObject;
-  animationImageScaleExit: TransitionObject;
+  animationBlurEntrance: lng.types.TransitionSettings.Literal;
+  animationBlurExit: lng.types.TransitionSettings.Literal;
+  animationComponentEntrance: lng.types.TransitionSettings.Literal;
+  animationGradientEntrance: lng.types.TransitionSettings.Literal;
+  animationGradientExit: lng.types.TransitionSettings.Literal;
+  animationImageScaleEntrance: lng.types.TransitionSettings.Literal;
+  animationImageScaleExit: lng.types.TransitionSettings.Literal;
   blur: number;
   centerImageRadius: number;
   fallbackSrc: string;
@@ -28,7 +22,7 @@ export type ArtworkStyles = {
   imageScalePivotY: number;
   padding: number;
   radius: lng.Tools.CornerRadius;
-  zIndex: {
+  zIndexSet: {
     image: number;
     blur: number;
     centerImage: number;
