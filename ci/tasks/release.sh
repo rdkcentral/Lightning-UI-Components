@@ -11,4 +11,4 @@ git config user.email $NPM_EMAIL
 
 [ ! -d "node_modules" ] && yarn install
 
-yarn workspaces foreach --exclude lightning-ui-docs run build && yarn workspaces foreach run semantic-release -e semantic-release-monorepo || echo 0 # Always pass step just in case a semantic release plugin fails (ex. slack notification). That way things will always be in sync.
+yarn workspaces foreach --exclude lightning-ui-docs run build && yarn workspaces foreach run semantic-release --no-ci -e semantic-release-monorepo || echo 0 # Always pass step just in case a semantic release plugin fails (ex. slack notification). That way things will always be in sync.
