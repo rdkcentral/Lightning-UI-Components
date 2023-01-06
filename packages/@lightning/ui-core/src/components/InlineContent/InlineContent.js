@@ -52,12 +52,16 @@ class InlineContent extends Base {
         const base = {
           flexItem: {
             ...this.contentProperties,
-            marginBottom: isLast ? 0 : this.style.marginBottom,
+            // apply contentProperties object props first if those are defined
+            // otherwise will use the style props
+            marginBottom: isLast ? 0 : this._marginBottom,
             marginRight: isLast
               ? 0
-              : this.style.contentSpacing || this.contentProperties.marginRight
+              : this.contentProperties.marginRight || this.style.contentSpacing
           }
         };
+
+        // text not separated by icons/badges are grouped together
         if (typeof item === 'string' || item.text) {
           if (typeof this._parsedContent[index + 1] === 'string') {
             base.flexItem.marginRight = 0;
@@ -93,7 +97,8 @@ class InlineContent extends Base {
   }
 
   _contentLoaded() {
-    // TODO: FIX
+    // TODO: FIX --figure out an alternative to using setTimeout
+    // perhaps have to wait until Lightning Flexboxes can emit a signal (like textures) when they've finished loading
     if (this.children.length) {
       this.stage.update();
       setTimeout(() => {
@@ -241,15 +246,11 @@ class InlineContent extends Base {
   }
 
   get textHeight() {
-    const offset = this._marginBottom < 0 ? this._marginBottom : 0;
-    return (
-      (this.style.textStyle.lineHeight || this.style.textStyle.fontSize) -
-      offset
-    );
+    return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
   }
 
   get _marginBottom() {
-    if (this.contentProperties.marginBottom) {
+    if (this.contentProperties.marginBottom !== undefined) {
       return this.contentProperties.marginBottom;
     }
     if (this.style.marginBottom) {

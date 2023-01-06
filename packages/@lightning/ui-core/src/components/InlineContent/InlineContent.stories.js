@@ -107,10 +107,6 @@ export const Basic = args =>
         }
       };
     }
-
-    $loadedInlineContent() {
-      args.loaded();
-    }
   };
 
 export const WithNewLines = args =>
@@ -147,10 +143,6 @@ export const WithNewLines = args =>
         }
       };
     }
-
-    $loadedInlineContent() {
-      args.loaded();
-    }
   };
 
 export const WithParsing = args =>
@@ -174,9 +166,5 @@ export const WithParsing = args =>
             'This is an example of using custom markup {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.'
         }
       };
-    }
-
-    $loadedInlineContent() {
-      args.loaded();
     }
   };
