@@ -1,5 +1,4 @@
-import { context, pool } from '@lightning/ui-core';
-import { FocusRing } from '@lightning/ui';
+import { FocusRing, context, pool } from '@lightning/ui';
 
 context.on('themeUpdate', pool.clear);
 

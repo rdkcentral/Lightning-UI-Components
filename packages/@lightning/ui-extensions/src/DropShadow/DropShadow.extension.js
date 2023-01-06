@@ -1,4 +1,4 @@
-import { Shadow } from '@lightning/ui-core';
+import { Shadow } from '@lightning/ui';
 
 // An Extension Generator returns an extension/mixin function, but takes arguments to
 // provide configurable behavior
