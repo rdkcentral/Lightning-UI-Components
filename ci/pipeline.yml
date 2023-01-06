@@ -221,6 +221,7 @@ jobs:
     serial: true
     plan:
       - get: source-repo
+        trigger: true
       - task: install
         file: source-repo/ci/tasks/install.yml
         input_mapping:

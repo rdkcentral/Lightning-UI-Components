@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
     "releaseCi": "yarn node ./ci/release/run",
-    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release && fly -t ci trigger-job --job lightning-ui/publish",
+    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "updateReleaseLog": "yarn node ./ci/release/updateReleaseLog.js",
     "lint": "yarn workspaces foreach run lint",
     "lint:fix": "yarn workspaces foreach run lint:fix",
