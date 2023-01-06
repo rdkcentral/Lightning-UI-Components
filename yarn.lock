@@ -3104,7 +3104,7 @@ __metadata:
     cypress-parallel: ^0.10.0
     eslint: ^7.22.0
     eslint-config-prettier: ^7.2.0
-    eslint-config-standard-with-typescript: latest
+    eslint-config-standard-with-typescript: ^26.0.0
     eslint-plugin-cypress: ^2.12.1
     eslint-plugin-import: ^2.25.2
     eslint-plugin-jest: ^24.3.2
@@ -11294,9 +11294,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-standard-with-typescript@npm:latest":
-  version: 23.0.0
-  resolution: "eslint-config-standard-with-typescript@npm:23.0.0"
+"eslint-config-standard-with-typescript@npm:^26.0.0":
+  version: 26.0.0
+  resolution: "eslint-config-standard-with-typescript@npm:26.0.0"
   dependencies:
     "@typescript-eslint/parser": ^5.0.0
     eslint-config-standard: 17.0.0
@@ -11307,7 +11307,7 @@ __metadata:
     eslint-plugin-n: ^15.0.0
     eslint-plugin-promise: ^6.0.0
     typescript: "*"
-  checksum: a6bc6758e3e203721cfa38a6e5e1437b38016aa72bf2e2855581fa65c0cf96531a3433a3625703a3740c10e9d654c08a8d8b6cc6688b3e8b48259a9390a2fcd7
+  checksum: a364a819b714cfb16bf081a52f5cfea1fca118f7c5e2391e13200c6d0d3febf5b4c5b6c63682705d484918b6ccf8cfc5c2075b3d9f0f4dd6034468d17f346bce
   languageName: node
   linkType: hard
 
