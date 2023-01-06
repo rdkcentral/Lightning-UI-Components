@@ -1,16 +1,35 @@
+diff --git a/lib/prepare.js b/lib/prepare.js
+index d232eb2134ab2f1f8081d3b72305caa20bf41513..b9a761e2ebfdba5f26ae696e55efd9b9d1d3d790 100644
+--- a/lib/prepare.js
++++ b/lib/prepare.js
+@@ -8,14 +8,16 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
+   logger.log('Write version %s to package.json in %s', version, basePath);
+ 
+   const versionResult = execa(
+-    'npm',
+-    ['version', version, '--userconfig', npmrc, '--no-git-tag-version', '--allow-same-version'],
++    'yarn',
++    ['version', version],
+     {
+       cwd: basePath,
+       env,
+       preferLocal: true,
+     }
+   );
++
++  
+   versionResult.stdout.pipe(stdout, {end: false});
+   versionResult.stderr.pipe(stderr, {end: false});
+ 
 diff --git a/lib/publish.js b/lib/publish.js
-index ff3af00789942572806e52627b5e22c8ac25d1b1..6e06e87687c93fc1d30a37f5d13740db645dc685 100644
+index ff3af00789942572806e52627b5e22c8ac25d1b1..77d9e04582d89b900dc187a95b14e767b316d0be 100644
 --- a/lib/publish.js
 +++ b/lib/publish.js
-@@ -20,9 +20,14 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
+@@ -20,9 +20,10 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
      const distTag = getChannel(channel);
  
      logger.log(`Publishing version ${version} to npm registry on dist-tag ${distTag}`);
-+    // const result = execa(
-+    //   'npm',
-+    //   ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
-+    //   {cwd, env, preferLocal: true}
-+    // );
++
      const result = execa(
 -      'npm',
 -      ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
