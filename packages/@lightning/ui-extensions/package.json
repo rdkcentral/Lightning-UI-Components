@@ -9,7 +9,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "rm -rf ./dist && npx rollup --config ../../../rollup/rollup.config.js --name lightning-ui-extensions",
+    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-extensions",
     "lint": "eslint './src/**/*.js'",
     "lint:fix": "eslint --fix './src/**/*.js'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
@@ -26,6 +26,8 @@
     "@lightning/ui-test-utils": "workspace:^",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
-    "rollup": "^3.2.5"
+    "rollup": "^3.2.5",
+    "semantic-release": "^19.0.5",
+    "semantic-release-monorepo": "^7.0.5"
   }
 }

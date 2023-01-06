@@ -1,0 +1,15 @@
+diff --git a/lib/publish.js b/lib/publish.js
+index ff3af00789942572806e52627b5e22c8ac25d1b1..028a0cc68c237fa1c2f6fbca6d69f097c67a8290 100644
+--- a/lib/publish.js
++++ b/lib/publish.js
+@@ -21,8 +21,8 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
+ 
+     logger.log(`Publishing version ${version} to npm registry on dist-tag ${distTag}`);
+     const result = execa(
+-      'npm',
+-      ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
++      'yarn',
++      ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
+       {cwd, env, preferLocal: true}
+     );
+     result.stdout.pipe(stdout, {end: false});

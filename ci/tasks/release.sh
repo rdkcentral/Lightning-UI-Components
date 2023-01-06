@@ -11,32 +11,4 @@ git config user.email $NPM_EMAIL
 
 [ ! -d "node_modules" ] && yarn install
 
-yarn releaseCi
-
-PACKAGE_VERSION_UI=$(cat ./packages/@lightning/ui/package.json |
-  grep version |
-  head -1 |
-  awk -F: '{ print $2 }' |
-  sed 's/[",]//g')
-
-PACKAGE_VERSION_UI_CORE=$(cat ./packages/@lightning/ui-core/package.json |
-  grep version |
-  head -1 |
-  awk -F: '{ print $2 }' |
-  sed 's/[",]//g')
-
-PACKAGE_VERSION_UI_EXTENSIONS=$(cat ./packages/@lightning/ui-extensions/package.json |
-  grep version |
-  head -1 |
-  awk -F: '{ print $2 }' |
-  sed 's/[",]//g')
-
-PACKAGE_VERSION_UI_TEST_UTILS=$(cat ./packages/@lightning/ui-test-utils/package.json |
-  grep version |
-  head -1 |
-  awk -F: '{ print $2 }' |
-  sed 's/[",]//g')
-
-git add -A
-git commit -m "chore(release): @lightning/ui@${PACKAGE_VERSION_UI}, @lightning/ui-core@${PACKAGE_VERSION_UI_CORE}, @lightning/ui-extensions@${PACKAGE_VERSION_UI_EXTENSIONS}, @lightning/ui-test-utils@${PACKAGE_VERSION_UI_TEST_UTILS} [skip ci]" || echo 0
-yarn updateReleaseLog || echo 0
+yarn workspaces foreach --exclude lightning-ui-docs run build && yarn workspaces foreach run semantic-release -e semantic-release-monorepo || echo 0 # Always pass step just in case a semantic release plugin fails (ex. slack notification). That way things will always be in sync.

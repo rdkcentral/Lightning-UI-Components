@@ -2,7 +2,7 @@
 !/.yarn/releases
 !/.yarn/plugins
 !/.yarn/sdks
-
+!/.yarn/patches
 # Swap the comments on the following lines if you don't wish to use zero-installs
 # Documentation here: https://yarnpkg.com/features/zero-installs
 !/.yarn/cache
@@ -33,5 +33,4 @@ original/
 CHANGELOG.md 
 
 /packages/apps/lightning-ui-docs/scripts/themePropertyTables
-ci-files
 multi-reporter-config.json

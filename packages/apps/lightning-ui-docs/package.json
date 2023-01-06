@@ -1,6 +1,7 @@
 {
   "name": "lightning-ui-docs",
   "sideEffects": false,
+  "private": true,
   "scripts": {
     "start": "yarn run generateStorybookData && start-storybook --no-manager-cache -p 8000",
     "build": "yarn run generateStorybookData && build-storybook",

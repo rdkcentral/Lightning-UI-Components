@@ -1,0 +1,35 @@
+{
+  "branches": [
+    "release",
+    { "name": "next", "channel": "next", "prerelease": true },
+    { "name": "beta", "channel": "beta", "prerelease": true }
+  ],
+  "extends": "semantic-release-monorepo",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    ["@semantic-release/github", {
+      "githubUrl": "https://github.comcast.com",
+      "githubApiPathPrefix": "/api/v3",
+      "assets": [
+        {"path": "dist/**/*.{js,css}", "label": "JS distribution"}
+      ]
+    }],
+    [
+      "semantic-release-slack-bot",
+      {
+        "notifyOnSuccess": false,
+        "notifyOnFail": false,
+        "markdownReleaseNotes": true,
+        "branchesConfig": [
+          {
+            "pattern": "release",
+            "notifyOnSuccess": true,
+            "notifyOnFail": true
+          }
+        ]
+      }
+    ]
+  ]
+}
