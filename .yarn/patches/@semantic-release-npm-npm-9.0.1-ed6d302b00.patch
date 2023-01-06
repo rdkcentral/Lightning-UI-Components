@@ -1,15 +1,21 @@
-diff --git a/lib/publish.js b/lib/publish.js
-index ff3af00789942572806e52627b5e22c8ac25d1b1..028a0cc68c237fa1c2f6fbca6d69f097c67a8290 100644
---- a/lib/publish.js
-+++ b/lib/publish.js
-@@ -21,8 +21,8 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
+diff --git a/lib/prepare.js b/lib/prepare.js
+index d232eb2134ab2f1f8081d3b72305caa20bf41513..1b97569f2c0c0fb190db0f8d7c0ec7201b3aba94 100644
+--- a/lib/prepare.js
++++ b/lib/prepare.js
+@@ -8,13 +8,9 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
+   logger.log('Write version %s to package.json in %s', version, basePath);
  
-     logger.log(`Publishing version ${version} to npm registry on dist-tag ${distTag}`);
-     const result = execa(
--      'npm',
--      ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
-+      'yarn',
-+      ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
-       {cwd, env, preferLocal: true}
-     );
-     result.stdout.pipe(stdout, {end: false});
+   const versionResult = execa(
+-    'npm',
+-    ['version', version, '--userconfig', npmrc, '--no-git-tag-version', '--allow-same-version'],
+-    {
+-      cwd: basePath,
+-      env,
+-      preferLocal: true,
+-    }
++    'yarn',
++    ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
++    {cwd, env, preferLocal: true}
+   );
+   versionResult.stdout.pipe(stdout, {end: false});
+   versionResult.stderr.pipe(stderr, {end: false});
