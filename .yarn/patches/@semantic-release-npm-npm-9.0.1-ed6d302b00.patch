@@ -1,54 +1,21 @@
-diff --git a/index.js b/index.js
-index 9eef6e8d0bb0899c055b0b538eaf33e017ac8a0d..9d89399aecb4db3c01244d9741128eb31842a687 100644
---- a/index.js
-+++ b/index.js
-@@ -50,10 +50,10 @@ async function prepare(pluginConfig, context) {
-   const errors = verified ? [] : verifyNpmConfig(pluginConfig);
+diff --git a/lib/publish.js b/lib/publish.js
+index ff3af00789942572806e52627b5e22c8ac25d1b1..6e06e87687c93fc1d30a37f5d13740db645dc685 100644
+--- a/lib/publish.js
++++ b/lib/publish.js
+@@ -20,9 +20,14 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
+     const distTag = getChannel(channel);
  
-   setLegacyToken(context);
--
-+  let pkg = {}
-   try {
-     // Reload package.json in case a previous external step updated it
--    const pkg = await getPkg(pluginConfig, context);
-+    pkg = await getPkg(pluginConfig, context);
-     if (!verified && pluginConfig.npmPublish !== false && pkg.private !== true) {
-       await verifyNpmAuth(npmrc, pkg, context);
-     }
-@@ -65,7 +65,7 @@ async function prepare(pluginConfig, context) {
-     throw new AggregateError(errors);
-   }
- 
--  await prepareNpm(npmrc, pluginConfig, context);
-+  await prepareNpm(npmrc, pluginConfig, context, pkg.name);
-   prepared = true;
- }
- 
-diff --git a/lib/prepare.js b/lib/prepare.js
-index d232eb2134ab2f1f8081d3b72305caa20bf41513..f084391e2841453ff0e0e0c0a0f15372d2dc5100 100644
---- a/lib/prepare.js
-+++ b/lib/prepare.js
-@@ -2,19 +2,15 @@ const path = require('path');
- const {move} = require('fs-extra');
- const execa = require('execa');
- 
--module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr, nextRelease: {version}, logger}) => {
-+module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr, nextRelease: {version}, logger}, pkgName) => {
-   const basePath = pkgRoot ? path.resolve(cwd, pkgRoot) : cwd;
- 
-   logger.log('Write version %s to package.json in %s', version, basePath);
- 
-   const versionResult = execa(
--    'npm',
--    ['version', version, '--userconfig', npmrc, '--no-git-tag-version', '--allow-same-version'],
--    {
--      cwd: basePath,
--      env,
--      preferLocal: true,
--    }
-+    'yarn',
-+    ['workspace', pkgName, 'npm', 'publish', '--tag', distTag],
-+    {cwd, env, preferLocal: true}
-   );
-   versionResult.stdout.pipe(stdout, {end: false});
-   versionResult.stderr.pipe(stderr, {end: false});
+     logger.log(`Publishing version ${version} to npm registry on dist-tag ${distTag}`);
++    // const result = execa(
++    //   'npm',
++    //   ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
++    //   {cwd, env, preferLocal: true}
++    // );
+     const result = execa(
+-      'npm',
+-      ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
++      'yarn',
++      ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
+       {cwd, env, preferLocal: true}
+     );
+     result.stdout.pipe(stdout, {end: false});
