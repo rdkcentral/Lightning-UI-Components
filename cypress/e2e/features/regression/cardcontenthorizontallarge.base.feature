@@ -86,3 +86,4 @@ Feature: LUI CardContent With Horizontal Large component
     When I set the 'metadata_title' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
     And I verify that 'CardContentHorizontalLarge' 'title' has text 'LUI Test'
+    
