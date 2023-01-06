@@ -182,6 +182,10 @@ class TextBox extends Base {
     });
   }
 
+  _loadedMarqueeContent() {
+    this.signal('willMarquee', this._Marquee);
+  }
+
   _updateMarquee() {
     const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
 
@@ -195,7 +199,10 @@ class TextBox extends Base {
         w: this.style.textStyle.wordWrapWidth || this.w,
         h: this.h,
         y: this.style.offsetY,
-        x: this.style.offsetX
+        x: this.style.offsetX,
+        signals: {
+          marqueeContentLoaded: '_loadedMarqueeContent'
+        }
       };
 
       if (!this._Marquee) {
@@ -220,9 +227,6 @@ class TextBox extends Base {
       });
       if (!this._marqueeContentListenerAttached) {
         this._marqueeContentListenerAttached = true;
-        this._Marquee._Content.on('txLoaded', () => {
-          this.signal('willMarquee', this._Marquee);
-        });
       }
       if ('undefined' !== typeof this._marqueeOverrideLoopX) {
         this._awaitMarqueeOverrideX.then(() => {
