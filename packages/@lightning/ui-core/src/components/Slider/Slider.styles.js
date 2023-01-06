@@ -9,9 +9,10 @@ export const base = theme => {
     arrowSpacing: theme.spacer.md,
     arrowWidth: theme.spacer.md,
     containerHeight: theme.spacer.lg + theme.spacer.xs,
-    innerCircleSize: size,
     minWidth: getWidthByColumnSpan(theme, 2),
     progressBarStyles: {},
+    w: size,
+    h: size,
     radius: size / 2,
     sliderHeight: theme.spacer.md,
     circleAnimation: {}

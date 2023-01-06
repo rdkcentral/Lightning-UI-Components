@@ -109,16 +109,26 @@ class Slider extends Base {
         xCirclePosition = (this.value / this.max) * this._calculatedSliderWidth;
       }
     }
-    this._Circle.patch({
-      y: this._SliderBar.y + 1,
-      alpha: this._isFocusedMode ? 1 : 0
-    });
-    if (Object.keys(this.style.circleAnimation).length) {
-      this._Circle.smooth = {
-        x: [xCirclePosition, this.style.circleAnimation]
-      };
-    } else {
-      this._Circle.x = xCirclePosition;
+    if (this._Circle) {
+      this._Circle.patch({
+        tone: this.tone,
+        mode: this.mode,
+        style: {
+          radius: this.style.radius,
+          w: this.style.w,
+          h: this.style.h,
+          circleColor: this.style.circleColor
+        },
+        y: this._SliderBar.y + 1,
+        alpha: this._isFocusedMode ? 1 : 0
+      });
+      if (Object.keys(this.style.circleAnimation).length) {
+        this._Circle.smooth = {
+          x: [xCirclePosition, this.style.circleAnimation]
+        };
+      } else {
+        this._Circle.x = xCirclePosition;
+      }
     }
   }
 
@@ -168,18 +178,6 @@ class Slider extends Base {
             ...this.style.progressBarStyles
           }
         }
-      }
-    });
-    this._Circle.patch({
-      w: this.style.innerCircleSize,
-      h: this.style.innerCircleSize,
-      color: this.style.circleColor,
-      tone: this.tone,
-      mode: this.mode,
-      style: {
-        radius: this.style.radius,
-        circleSize: this.style.innerCircleSize,
-        circleColor: this.style.circleColor
       }
     });
   }
@@ -273,9 +271,13 @@ class Slider extends Base {
   get _calculatedSliderWidth() {
     const totalArrowSize =
       this.style.arrowSpacing * 2 + this.style.arrowWidth * 2;
-    return this.w < totalArrowSize + this._Circle.w
+    return this.w < totalArrowSize + this._circleW
       ? this.style.minWidth - totalArrowSize
       : this.w - totalArrowSize;
+  }
+
+  get _circleW() {
+    return this._Circle ? this._Circle.w : 0;
   }
 
   _setVertical(vertical) {

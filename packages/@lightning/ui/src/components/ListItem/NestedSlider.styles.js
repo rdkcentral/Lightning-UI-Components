@@ -1,9 +1,3 @@
-export const base = () => {
-  return {
-    innerCircleSize: 0
-  };
-};
-
 export const tone = theme => ({
   neutral: {
     mode: {

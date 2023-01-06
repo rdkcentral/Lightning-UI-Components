@@ -1,7 +1,8 @@
 export const base = theme => {
   const size = theme.spacer.xxl;
   return {
-    innerCircleSize: size,
+    w: size,
+    h: size,
     radius: size / 2
   };
 };
