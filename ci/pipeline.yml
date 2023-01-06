@@ -247,7 +247,7 @@ jobs:
           NPM_EMAIL: ((service-account.email))
           NPM_PASSWORD: ((service-account.artifactory-api-key))
           GH_TOKEN: ((github-enterprise.gh-token))
-          SLACK_WEBHOOK: ((github-enterprise.slack-webhook-release)) 
+          SLACK_WEBHOOK: ((slack-webhook-release)) 
       - put: source-repo # Push git commit and tags to original branch
         params:
           repository: updated-branch # From publish-monorepo-step
