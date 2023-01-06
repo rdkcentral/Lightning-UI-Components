@@ -1,7 +1,20 @@
 diff --git a/index.js b/index.js
-index 9eef6e8d0bb0899c055b0b538eaf33e017ac8a0d..af9731478164d9090dbf97f2c41e8d6cb7cc42f3 100644
+index 9eef6e8d0bb0899c055b0b538eaf33e017ac8a0d..9d89399aecb4db3c01244d9741128eb31842a687 100644
 --- a/index.js
 +++ b/index.js
+@@ -50,10 +50,10 @@ async function prepare(pluginConfig, context) {
+   const errors = verified ? [] : verifyNpmConfig(pluginConfig);
+ 
+   setLegacyToken(context);
+-
++  let pkg = {}
+   try {
+     // Reload package.json in case a previous external step updated it
+-    const pkg = await getPkg(pluginConfig, context);
++    pkg = await getPkg(pluginConfig, context);
+     if (!verified && pluginConfig.npmPublish !== false && pkg.private !== true) {
+       await verifyNpmAuth(npmrc, pkg, context);
+     }
 @@ -65,7 +65,7 @@ async function prepare(pluginConfig, context) {
      throw new AggregateError(errors);
    }
