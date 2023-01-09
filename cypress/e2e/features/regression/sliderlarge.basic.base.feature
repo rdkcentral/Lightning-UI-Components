@@ -7,15 +7,14 @@ Feature: LUI SliderLarge Basic component
     And I navigate to 'SliderLarge' 'Basic' with 'Base' theme
 
   Scenario: Verify that the SliderLarge Basic is displayed
-    Then I verify that the 'SliderLarge' 'Container' component is displayed
-    And I verify that the 'SliderLarge' 'Progress Bar' component is displayed
+    Then I verify that the 'SliderLarge' 'Progress Bar' component is displayed
     And I verify that the 'SliderLarge' 'Knob' component is displayed
     And I verify that the 'SliderLarge' 'Left Arrow' component is displayed
     And I verify that the 'SliderLarge' 'Right Arrow' component is displayed
 
   Scenario: Verify the dimensions of the SliderLarge Basic Element
-    Then I verify that the 'width' of 'SliderLarge' 'Container' component is '308px'
-    And I verify that the 'height' of 'SliderLarge' 'Container' component is '24px'
+    Then I verify that the 'width' of 'SliderLarge' 'Slider Bar' component is '268px'
+    And I verify that the 'height' of 'SliderLarge' 'Slider Bar' component is '10px'
 
   Scenario Outline: Verify that SliderLarge can be set to <modeValue> mode
     When I set the 'mode' to '<modeValue>' for 'SliderLarge' component
