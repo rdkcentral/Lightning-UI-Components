@@ -1,4 +1,4 @@
-@sanity @regression @column @plinko @2112800
+@regression @column @plinko @2112800
 
 Feature: Column - Plinko Layout Validation
 
@@ -13,7 +13,7 @@ Feature: Column - Plinko Layout Validation
     And I verify there are 3 assets per 'Row2' on the 'Column' page
 
   Scenario: Verify the dimensions and count of the column Rows Elements
-    Then I verify each element has width of 250 and height of 100 on 'column' page
+    Then I verify each 'Row Elements' has width of 250 and height of 100 on 'column' page
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'Button1' component on the 'Column' page is in focus
@@ -35,4 +35,4 @@ Feature: Column - Plinko Layout Validation
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Column' component
-    And I verify that elements are vertically evenly spaced for 'Column' component
+    And I verify that 'Rows' are vertically evenly spaced for 'Column' component

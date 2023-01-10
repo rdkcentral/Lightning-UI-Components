@@ -16,8 +16,8 @@ Feature: LUI Column Multi Column Layout component
     And I verify there are 20 assets per 'Second Column' on the 'Column' page
 
   Scenario: Verify that the buttons in each column are evenly spaced vertically
-    Then I verify that 'First Column Buttons' are evenly spaced vertically for 'Column' component
-    And I verify that 'Second Column Buttons' are evenly spaced vertically for 'Column' component
+    Then I verify that 'First Column Buttons' are vertically evenly spaced for 'Column' component
+    And I verify that 'Second Column Buttons' are vertically evenly spaced for 'Column' component
 
   Scenario: Verify navigating between multiple columns
     When I press 'DOWN' key 1 times

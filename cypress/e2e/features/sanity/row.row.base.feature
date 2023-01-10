@@ -11,7 +11,7 @@ Feature: Row Basic component validation
 
   Scenario: Verify the dimensions and count of the Row Basic Elements
     Then I verify there are 12 assets per row on the 'Row' page
-    And I verify each element has width of 250.0 and height of 100.0 on 'Row' page
+    And I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component

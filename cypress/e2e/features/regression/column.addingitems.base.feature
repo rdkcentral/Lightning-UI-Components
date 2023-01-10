@@ -16,7 +16,7 @@ Feature: LUI Column Adding Items component
     And I verify each 'Adding Items Button' has width of 472.0 and height of 100.0 on 'Column' page
 
   Scenario: Verify the Column Adding Items layout and spacing
-    Then I verify that 'Adding Items Button' are evenly spaced vertically for 'Column' component
+    Then I verify that 'Adding Items Button' are vertically evenly spaced for 'Column' component
 
   Scenario: Validate displayed text of the Column Adding Items buttons before adding new items
     Then I verify that all 'Adding Items Button Labels' of the 'Column' page have text 'Button'

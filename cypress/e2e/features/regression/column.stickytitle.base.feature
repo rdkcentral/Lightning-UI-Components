@@ -16,7 +16,7 @@ Feature: LUI Column Sticky Title component
     And I verify each 'Sticky Title Button' has width of 250.0 and height of 100.0 on 'Column' page
 
   Scenario: Verify row layout and spacing
-    Then I verify that 'Sticky Title Row' are evenly spaced vertically for 'Column' component
+    Then I verify that 'Sticky Title Row' are vertically evenly spaced for 'Column' component
 
   Scenario: Validate displayed text of buttons and titles
     Then I verify that all 'Sticky Title Button Labels' of the 'Column' page have text 'Button'

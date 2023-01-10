@@ -12,7 +12,7 @@ Feature: Column - Centered in Parent Layout Validation
     And I verify there are 1 assets per 'Row2' on the 'Column' page
 
   Scenario: Verify the dimensions and count of the column Rows Elements
-    Then I verify each element has width of 250.0 and height of 100.0 on 'column' page
+    Then I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'column' page
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'Button1' component on the 'Column' page is in focus

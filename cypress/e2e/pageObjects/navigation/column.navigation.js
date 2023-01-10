@@ -108,7 +108,7 @@ class Column extends LUIComponent {
   }
 
   //=============== Multi Column ===============
-  
+
   //=============== Sticky Title ===============
 
   get stickyTitle() {
@@ -323,4 +323,5 @@ class Column extends LUIComponent {
   }
   //=============== Skipfocus =============
 }
+
 module.exports = new Column();

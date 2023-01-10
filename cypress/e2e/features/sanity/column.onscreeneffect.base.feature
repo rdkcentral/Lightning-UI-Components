@@ -10,7 +10,7 @@ Feature: Column - On Screen Effect Layout Validation
     And I verify there are 10 assets per 'Column' on the 'Column' page
   
   Scenario: Verify row layout and spacing
-    Then I verify that elements are vertically evenly spaced for 'Column' component
+    Then I verify that 'Rows' are vertically evenly spaced for 'Column' component
 
   Scenario: Validate navigating the buttons
     Then I verify that the 'button1' component on the 'Column' page is in focus
