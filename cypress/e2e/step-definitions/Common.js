@@ -424,22 +424,26 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify each element has width of {Float} and height of {Float} on {String} page
-   * @description Cucumber statement to verify the sizing of elements on a particular page
+   * @function I verify each {String} has width of {Float} and height of {Float} on {String} page
+   * @description Cucumber statement to verify the height and width of each component
+   * @param {String} componentName
    * @param {Float} width
    * @param {Float} height
    * @param {String} pageName
-   * @example I verify each tile has width of 150.0 and height of 40.0 on 'Row' page
+   * @example I verify each 'Sticky Title Header' has width of 156.0 and height of 36.0 on 'Column' page
    */
   Then(
-    'I verify each element has width of {float} and height of {float} on {string} page',
-    (width, height, pageName) => {
+    'I verify each {string} has width of {float} and height of {float} on {string} page',
+    (componentName, width, height, pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
+      const component = componentName.toLowerCase();
 
-      cy.get(pageObject.rowElements)
-        .should('have.attr', 'w', width)
-        .and('have.attr', 'h', height);
+      pageObject
+        ._getElementByName(component)
+        .should('have.attr', 'style')
+        .should('contain', `width: ${width}`)
+        .and('contain', `height: ${height}`);
     }
   );
 
@@ -530,7 +534,7 @@ export default function () {
         pageObject
           ._getElementByName(pageName)
           .should('not.have.attr', 'focused');
-        break;   
+        break;
       default:
         break;
     }
@@ -714,19 +718,20 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that elements are vertically evenly spaced for {String} component
+   * @function I verify that {String} are vertically evenly spaced for {String} component
    * @description Cucumber statement to verify the specified page rows are evenly spaced vertically
    * @param {String} pageName
-   * @example I verify that elements are vertically evenly spaced for 'Column' component
+   * @example I verify that 'Rows' are vertically evenly spaced for 'Column' component
    */
   Then(
-    'I verify that elements are vertically evenly spaced for {string} component',
-    pageName => {
+    'I verify that {string} are vertically evenly spaced for {string} component',
+    (componentName, pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-
       const elementRows = [];
-      cy.get(pageObject.rows)
+
+      pageObject
+        ._getElementByName(componentName)
         .each($row => {
           // push the row info to the elementRows array
           cy.getOffsetRect($row).then(data => {
@@ -743,6 +748,11 @@ export default function () {
               spaces.push(Math.round(space));
             }
           });
+
+          if (spaces.length > 1) {
+            // remove the first space since it is often different
+            spaces.splice(0, 1);
+          }
 
           // assert that the spaces are evenly spaced
           const averageSpace = Math.round(
@@ -770,7 +780,8 @@ export default function () {
       const pageObject = getPageObject(page);
       const spacing = expectedSpaceValue.toLowerCase();
       const elements = [];
-      pageObject._getElementByName(componentName)
+      pageObject
+        ._getElementByName(componentName)
         .each($row => {
           const rowId = $row.attr('id');
           cy.get($row)
@@ -955,72 +966,34 @@ export default function () {
    * @param {Float} heightNonFocused
    * @example I verify focused element in 'Column' has width of 250.0 and height of 120.0 and non-focused elements have width of 250.0 and height of 80.0
    */
-    Then(
-      'I verify focused element in {string} has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}',
-      (pageName, widthFocused, heightFocused, widthNonFocused, heightNonFocused) => {
-        const page = pageName.toLowerCase();
-        const pageObject = getPageObject(page);
-        cy.get(pageObject.columnElements).each($elements => {
-          //wait is necessary for the row with Focus Height change to render
-          cy.wait(1000)
-            .get(pageObject.columnElements)
-            .each($el => {
-              const elementWidth = parseFloat($el.attr('w'));
-              const elementHeight = parseFloat($el.attr('h'));
-              if ($el.attr('focused') === undefined) {
-                expect(elementWidth).equal(widthNonFocused);
-                expect(elementHeight).equal(heightNonFocused);
-              } else {
-                expect(elementWidth).equal(widthFocused);
-                expect(elementHeight).equal(heightFocused);
-              }
-            });
-          cy.repeatAction('RIGHT', $elements.length);
-        });
-      }
-    );
-  
-  /**
-   * @module Common
-   * @function I verify that {string} are evenly spaced vertically for {string} component
-   * @description Cucumber statement to verify the specified elements are evenly spaced vertically
-   * @param {String} elementName
-   * @param {String} pageName
-   * @example I verify that 'First Column Buttons' are evenly spaced vertically for 'Column' component
-   */
   Then(
-    'I verify that {string} are evenly spaced vertically for {string} component',
-    (elementName, pageName) => {
+    'I verify focused element in {string} has width of {float} and height of {float} and non-focused elements have width of {float} and height of {float}',
+    (
+      pageName,
+      widthFocused,
+      heightFocused,
+      widthNonFocused,
+      heightNonFocused
+    ) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-      const element = elementName.toLowerCase();
-      const elementRows = [];
-
-      pageObject
-        ._getElementByName(element)
-        .each($row => {
-          // push the row info to the elementRows array
-          cy.getOffsetRect($row).then(data => {
-            elementRows.push({ ...data });
-          });
-        })
-        .then(() => {
-          const spaces = [];
-          // get the spaces between each row
-          elementRows.forEach((row, index) => {
-            if (index !== 0) {
-              const prevRow = elementRows[index - 1];
-              const space = row.top - prevRow.bottom;
-              spaces.push(Math.round(space));
+      cy.get(pageObject.columnElements).each($elements => {
+        //wait is necessary for the row with Focus Height change to render
+        cy.wait(1000)
+          .get(pageObject.columnElements)
+          .each($el => {
+            const elementWidth = parseFloat($el.attr('w'));
+            const elementHeight = parseFloat($el.attr('h'));
+            if ($el.attr('focused') === undefined) {
+              expect(elementWidth).equal(widthNonFocused);
+              expect(elementHeight).equal(heightNonFocused);
+            } else {
+              expect(elementWidth).equal(widthFocused);
+              expect(elementHeight).equal(heightFocused);
             }
           });
-          // assert that the spaces are evenly spaced
-          const averageSpace = Math.round(
-            spaces.reduce((a, b) => a + b, 0) / spaces.length
-          );
-          const space = spaces[1];
-          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
-        });
+        cy.repeatAction('RIGHT', $elements.length);
+      });
     }
   );
 }

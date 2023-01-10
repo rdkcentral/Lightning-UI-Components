@@ -10,7 +10,7 @@ Feature: Column - Expandable Height Items Layout Validation
     And I verify there are 15 assets per 'Column' on the 'Column' page
 
   Scenario: Verify row layout and spacing
-    Then I verify that elements are vertically evenly spaced for 'Column' component
+    Then I verify that 'Rows' are vertically evenly spaced for 'Column' component
 
   Scenario: Validate navigating the buttons
     And I verify that I am able to navigate to the 'last' element of the 'Column' 'Column Elements'

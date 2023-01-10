@@ -13,7 +13,7 @@ Feature: LUI Row Plinko component
     Then I verify there are 4 assets per row on the 'Row' page
     And I verify there are 4 columns
     And I verify there are 3 assets per column
-    And I verify each element has width of 250.0 and height of 100.0 on 'Row' page
+    And I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
 
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>'
@@ -35,7 +35,7 @@ Feature: LUI Row Plinko component
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component
     When I press 'DOWN' key
-    And I verify that elements are vertically evenly spaced for Row component
+    And I verify that 'Row Elements Centered In Parent' are vertically evenly spaced for 'Row' component
 
   Scenario: Validate navigating the buttons without skip focus
     Then I verify that the 'Button 1 plinko' component on the 'Row' page is in focus

@@ -1,7 +1,5 @@
 import Row from '../pageObjects/navigation/row.navigation';
-
-import {Then} from '@badeball/cypress-cucumber-preprocessor';
-import getPageObject from "../pageObjects";
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
@@ -157,45 +155,6 @@ export default function () {
           });
         cy.repeatAction('RIGHT', $elements.length);
       });
-    }
-  );
-
-  /**
-   * @module Row
-   * @function I verify that elements are vertically evenly spaced for Row component
-   * @description Cucumber statement to verify the specified page rows are evenly spaced vertically
-   * @param {String} pageName
-   * @example I verify that elements are vertically evenly spaced for Row component
-   */
-  Then(
-    'I verify that elements are vertically evenly spaced for Row component',
-    () => {
-      const tileRows = [];
-      cy.wait(500)
-        .get(Row.rowElementsCenteredInParent)
-        .each($row => {
-          // push the row info to the tileRows array
-          cy.getOffsetRect($row).then(data => {
-            tileRows.push({...data});
-          });
-        })
-        .then(() => {
-          const spaces = [];
-          // get the spaces between each row
-          tileRows.forEach((row, index) => {
-            if (index !== 0) {
-              const prevRow = tileRows[index - 1];
-              const space = row.top - prevRow.bottom;
-              spaces.push(Math.round(space));
-            }
-          });
-          // assert that the spaces are evenly spaced
-          const averageSpace = Math.round(
-            spaces.reduce((a, b) => a + b, 0) / spaces.length
-          );
-          const space = spaces[0];
-          expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
-        });
     }
   );
 

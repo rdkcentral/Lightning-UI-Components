@@ -16,7 +16,7 @@ Feature: LUI Column Removing Items component
     And I verify each 'Removing Items Button' has width of 472.0 and height of 100.0 on 'Column' page
 
   Scenario: Verify Column Removing Items layout and spacing
-    Then I verify that 'Removing Items Button' are evenly spaced vertically for 'Column' component
+    Then I verify that 'Removing Items Button' are vertically evenly spaced for 'Column' component
 
   Scenario Outline: Validate displayed text of the Column Removing Items buttons before removing items
     Then I verify that the '<element>' component on the 'Column' page has text '<text>'

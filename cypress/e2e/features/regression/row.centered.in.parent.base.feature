@@ -4,17 +4,17 @@ Feature: LUI Row Centered in parent component
 
   Background:
     Given I launch the LUI app
-    When I navigate to 'Row' 'Centered in parent' with 'Base' theme
+    And I navigate to 'Row' 'Centered in parent' with 'Base' theme
 
   Scenario: Verify that Row Centered in parent Element is visible
     Then I verify that the 'Row' component is displayed
 
   Scenario: Verify the dimensions of the Row Centered in parent Elements
-    Then I verify each element has width of 250.0 and height of 100.0 on 'Row' page
+    Then I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
 
   Scenario: Verify row layout and spacing
-    And I press 'DOWN' key
-    Then I verify that elements are vertically evenly spaced for Row component
+    Then I press 'DOWN' key
+    And I verify that 'Row Elements Centered In Parent' are vertically evenly spaced for 'Row' component
 
   Scenario Outline: Validate displayed text of buttons
     Then I verify that the '<element>' component on the 'Row' page has text '<text>'

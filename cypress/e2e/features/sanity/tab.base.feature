@@ -9,7 +9,7 @@ Feature: LUI Tab Basic component
     Then I verify that the 'Tab' component is displayed
     
   Scenario: Verify the dimensions of the Tab Basic Element
-    Then I verify each element has width of 154.5 and height of 64 on 'Tab' page
+    Then I verify each 'Row Elements' has width of 154.5 and height of 64 on 'Tab' page
 
   Scenario Outline: Verify that Tab Basic modes
     When I set the 'mode' to '<modeValue>' for 'Tab' component
