@@ -916,7 +916,7 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      cy.wait(500); // wait for the progress bar to render
+      cy.wait(1000); // wait for the progress bar to render
       if (expectedPercentage === 0 && pageName.includes('CardContent')) {
         cy.get(pageObject.progressBar).should('not.exist');
       } else if (expectedPercentage === 0) {
