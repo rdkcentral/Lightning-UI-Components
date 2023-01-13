@@ -91,7 +91,6 @@ class ListItemSlider extends ListItem {
       w: this.w - this._paddingLeft - this._paddingRight,
       y: this._TextWrapper.h + this.style.paddingY,
       mode: this.mode,
-      tone: this.tone,
       value: this.value
     });
   }

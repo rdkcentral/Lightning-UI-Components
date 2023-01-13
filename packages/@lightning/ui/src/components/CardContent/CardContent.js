@@ -67,7 +67,6 @@ class CardContent extends Card {
     this._Tile.patch({
       w,
       h,
-      tone: this.tone,
       ...tile,
       persistentMetadata: true,
       alpha: this._shouldShowTile ? 1 : 0

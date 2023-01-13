@@ -111,7 +111,6 @@ class Slider extends Base {
     }
     if (this._Circle) {
       this._Circle.patch({
-        tone: this.tone,
         mode: this.mode,
         style: {
           radius: this.style.radius,
@@ -172,7 +171,6 @@ class Slider extends Base {
         SliderBar: {
           y: this.style.containerHeight / 2,
           w: this._calculatedSliderWidth,
-          tone: this.tone,
           style: {
             duration: 0,
             ...this.style.progressBarStyles
