@@ -259,7 +259,6 @@ class Button extends Surface {
   get _buttonProps() {
     return {
       centerInParent: true,
-      tone: this.tone,
       mode: this.mode
     };
   }

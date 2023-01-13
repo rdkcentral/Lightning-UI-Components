@@ -70,8 +70,7 @@ class KeyboardInput extends Base {
       centerInParent: this.centerKeyboard,
       w: this._Keyboard.w,
       style: { ...this.style.inputStyles }, // allows overriding of input styles
-      listening: this._isFocusedMode,
-      tone: this.tone
+      listening: this._isFocusedMode
     });
   }
 
@@ -79,8 +78,7 @@ class KeyboardInput extends Base {
     this._Keyboard.patch({
       defaultFormat: this.defaultFormat || 'lowercase',
       formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
-      centerKeyboard: this.centerKeyboard,
-      tone: this.tone
+      centerKeyboard: this.centerKeyboard
     });
   }
 
