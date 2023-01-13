@@ -41,9 +41,9 @@ task-config: &task-config
       tag: 16.9.1
 
 slack_params_feature: &slack_params_feature
-  channel: "#lui-automation-reports"
+  channel: "#suite-lightning-automation"
   username: "Concourse_LUI_Sanity_VRT_Parallel_Results"
-  icon_emoji: ":concourse:"
+  icon_emoji: ":concourse-started:"
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Resource Types: https://concourse-ci.org/resource-types.html
