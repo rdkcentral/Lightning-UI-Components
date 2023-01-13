@@ -7,7 +7,7 @@ Feature: Column - Centered in Parent Layout Validation
 
   Scenario: Verify that Column On Screen Effect Layout is visible
     Then I verify that the 'Column' component is displayed
-    And I verify that there are 2 content rows on the 'Column' page
+    And I verify that there are 2 'rows' on the 'Column' page
     And I verify there are 3 assets per 'Row1' on the 'Column' page
     And I verify there are 1 assets per 'Row2' on the 'Column' page
 
