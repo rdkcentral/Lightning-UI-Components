@@ -305,19 +305,20 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that there are {Integer} content rows on the {String} page
+   * @function I verify that there are {int} {string} on the {string} page
    * @description Cucumber statement to verify the number of rows on page
    * @param {Integer} no_of_rows
+   * @param {String} element
    * @param {String} pageName
-   * @example I verify that there are 6 content rows on the 'Column' page
+   * @example I verify that there are 6 'rows' on the 'Column' page
    */
   Then(
-    'I verify that there are {int} content rows on the {string} page',
-    (no_of_rows, pageName) => {
+    'I verify that there are {int} {string} on the {string} page',
+    (no_of_rows, element, pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-
-      cy.get(pageObject.rows).should('have.length', no_of_rows);
+      pageObject
+        ._getElementByName(element).should('have.length', no_of_rows);
     }
   );
 
