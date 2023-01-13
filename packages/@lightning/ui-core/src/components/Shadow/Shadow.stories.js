@@ -26,41 +26,15 @@ export const Shadow = () =>
     }
   };
 
-const sharedArgs = {
+Shadow.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   maskShadow: {
     control: 'boolean',
     defaultValue: false,
     description:
       'Enables a holepunch shader to mask out the component shape. Useful for transparent button states that should not show the shadow behind the element. However, requires an additional draw call for rtt.',
-    type: 'boolean',
     table: {
       defaultValue: { summary: false }
     }
-  }
-};
-
-Shadow.argTypes = sharedArgs;
-
-export const Masked = () =>
-  class Masked extends lng.Component {
-    static _template() {
-      return {
-        Shadow: {
-          type: ShadowComponent,
-          w: 200,
-          h: 200
-        }
-      };
-    }
-  };
-
-const shadowParams = { ...sharedArgs.maskShadow };
-
-Masked.argTypes = {
-  ...sharedArgs,
-  maskShadow: {
-    ...shadowParams,
-    defaultValue: true
   }
 };
