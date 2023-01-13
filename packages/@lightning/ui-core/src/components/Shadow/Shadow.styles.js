@@ -1,12 +1,12 @@
 export const base = theme => ({
+  alpha: 0,
+  animation: theme.animation.expressiveEntrance,
+  blur: theme.spacer.xxl,
+  color: theme.color.shadowNeutralFocus,
   offsetX: 0,
   offsetY: theme.spacer.lg,
-  blur: theme.spacer.xxl,
-  spread: theme.spacer.md * -1,
-  alpha: 0,
   radius: theme.radius.md,
-  color: theme.color.shadowNeutralFocus,
-  animation: theme.animation.expressiveEntrance
+  spread: theme.spacer.md * -1
 });
 
 export const mode = theme => ({

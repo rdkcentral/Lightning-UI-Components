@@ -3,13 +3,13 @@ import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
 export type ShadowStyles = {
+  alpha: number;
+  blur: number;
+  color: Color;
   offsetX: number;
   offsetY: number;
-  blur: number;
-  spread: number;
-  alpha: number;
   radius: lng.Tools.CornerRadius;
-  color: Color;
+  spread: number;
 };
 
 export default class Shadow extends Base {
