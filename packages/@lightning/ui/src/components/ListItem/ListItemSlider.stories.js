@@ -51,7 +51,7 @@ ListItemSlider.argTypes = {
       defaultValue: { summary: 'slider value' }
     },
     control: 'number',
-    description: 'slider value'
+    description: 'Current slider value'
   }
 };
 

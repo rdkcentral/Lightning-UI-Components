@@ -42,7 +42,7 @@ export default {
     autoScroll: {
       control: 'boolean',
       defaulValue: false,
-      description: 'whether or not to auto scroll the content',
+      description: 'Whether or not to auto scroll the content',
       type: 'boolean',
       table: {
         defaultValue: { summary: false }
@@ -51,7 +51,7 @@ export default {
     autoScrollDelay: {
       control: 'number',
       defaulValue: 2000,
-      description: 'delay, in ms, before auto scroll starts',
+      description: 'Delay, in ms, before auto scroll starts',
       type: 'number',
       table: {
         defaultValue: { summary: 2000 }
@@ -60,7 +60,7 @@ export default {
     autoScrollSpeed: {
       control: 'number',
       defaulValue: 200,
-      description: 'time delay, in ms, before each scroll step',
+      description: 'Time delay, in ms, before each scroll step',
       type: 'number',
       table: {
         defaultValue: { summary: 200 }
@@ -69,7 +69,7 @@ export default {
     fadeContent: {
       control: 'boolean',
       defaulValue: true,
-      description: 'fade out content at the bottom of the ScrollWrapper',
+      description: 'Fade out content at the bottom of the ScrollWrapper',
       type: 'boolean',
       table: {
         defaultValue: { summary: true }
@@ -88,7 +88,7 @@ export default {
     scrollDuration: {
       control: 'number',
       defaulValue: 0.2,
-      description: 'animation duration for the scroll',
+      description: 'Animation duration for the scroll',
       type: 'number',
       table: {
         defaultValue: { summary: 0.2 }
@@ -97,7 +97,7 @@ export default {
     scrollStep: {
       control: 'number',
       defaulValue: 10,
-      description: 'how many pixels to scroll by on every up/down keypress',
+      description: 'How many pixels to scroll by on every up/down keypress',
       type: 'number',
       table: {
         defaultValue: { summary: 10 }
@@ -106,7 +106,7 @@ export default {
     showScrollBar: {
       control: 'boolean',
       defaulValue: true,
-      description: 'show the scroll bar when focused ',
+      description: 'Show the scroll bar when focused ',
       type: 'boolean',
       table: {
         defaultValue: { summary: true }

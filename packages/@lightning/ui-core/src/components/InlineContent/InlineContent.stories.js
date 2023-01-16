@@ -19,7 +19,7 @@ export default {
         type: 'object'
       },
       defaultValue: { marginBottom: -4 },
-      description: 'object setting flexItem props on all content items',
+      description: 'Object setting flexItem props on all content items',
       type: 'object',
       table: {
         defaultValue: {
@@ -31,7 +31,7 @@ export default {
       control: 'boolean',
       defaultValue: false,
       description:
-        'determines whether the containing flexbox should wrap the content onto the next line',
+        'Determines whether the containing flexbox should wrap the content onto the next line',
       type: 'boolean',
       table: {
         defaultValue: { summary: false }
@@ -48,7 +48,7 @@ export default {
         'space-evenly'
       ],
       defaultValue: 'center',
-      description: 'alignment of first line flexbox content',
+      description: 'Alignment of first line flexbox content',
       type: 'string',
       table: {
         defaultValue: { summary: 'center' }

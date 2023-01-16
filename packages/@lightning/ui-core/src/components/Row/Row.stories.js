@@ -39,21 +39,21 @@ const sharedArgTypes = {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'determines whether the row will stop scrolling as it nears the right to prevent white space',
+      'Determines whether the row will stop scrolling as it nears the right to prevent white space',
     table: { defaultValue: { summary: false } }
   },
   neverScroll: {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
+      'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
     table: { defaultValue: { summary: false } }
   },
   lazyScroll: {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+      'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: { defaultValue: { summary: false } }
   }
 };
@@ -286,7 +286,7 @@ SkipFocus.argTypes = {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
+      'Enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
     table: { defaultValue: { summary: false } }
   }
 };
@@ -414,7 +414,7 @@ LazyUpCount.argTypes = {
   lazyUpCount: {
     control: 'number',
     defaultValue: 4,
-    description: 'some description',
+    description: 'Some description',
     table: {
       defaultValue: { summary: 4 }
     }

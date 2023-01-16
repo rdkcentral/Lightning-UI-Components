@@ -36,7 +36,7 @@ ProgressBar.argTypes = {
       max: 1,
       step: 0.01
     },
-    description: 'percentage of the current progress from 0 to 1',
+    description: 'Percentage of the current progress from 0 to 1',
     table: { defaultValue: { summary: 0 } }
   },
   w: {
@@ -47,6 +47,6 @@ ProgressBar.argTypes = {
       max: 600,
       step: 0.01
     },
-    description: 'width of the entire bar'
+    description: 'Width of the entire bar'
   }
 };

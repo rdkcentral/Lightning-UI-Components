@@ -46,7 +46,7 @@ ListItemPicker.argTypes = {
     control: 'boolean',
     defaultValue: false,
     description:
-      'If true will collapse the Title when in unfocused or disabled mode',
+      'When in unfocused or disabled mode,if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
       defaultValue: { summary: 'false' }
     }

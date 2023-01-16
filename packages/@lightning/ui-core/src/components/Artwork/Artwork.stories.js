@@ -84,11 +84,12 @@ Artwork.argTypes = {
   },
   fill: {
     control: 'boolean',
-    description: 'show/hide fill'
+    description: 'When true it will apply opacity on the image'
   },
   shouldScale: {
     control: 'boolean',
-    description: 'show/hide scale'
+    description:
+      'When true it will scale the image to the value specified by the imageScale property'
   }
 };
 

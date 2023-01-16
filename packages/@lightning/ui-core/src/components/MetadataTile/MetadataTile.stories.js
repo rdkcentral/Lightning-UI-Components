@@ -49,7 +49,7 @@ MetadataTile.argTypes = {
       defaultValue: { summary: 400 }
     },
     control: 'number',
-    description: 'width of component'
+    description: 'Width of component'
   },
   title: {
     defaultValue: 'Title',
@@ -57,7 +57,7 @@ MetadataTile.argTypes = {
       defaultValue: { summary: 'Title' }
     },
     control: 'text',
-    description: 'title text'
+    description: 'Title text'
   },
   subtitle: {
     defaultValue: [
@@ -91,15 +91,15 @@ MetadataTile.argTypes = {
       }
     },
     control: 'text',
-    description: 'subtitle content'
+    description: 'Subtitle content'
   },
   description: {
     defaultValue: 'Description',
     table: {
-      defaultValue: { summary: '' }
+      defaultValue: { summary: 'Description' }
     },
     control: 'text',
-    description: 'description text'
+    description: 'Description text'
   },
   logo: {
     defaultValue: circle,
@@ -110,7 +110,7 @@ MetadataTile.argTypes = {
       type: 'select',
       options: ['none', circle]
     },
-    description: 'image to use for logo'
+    description: 'Image to use for logo'
   },
   logoTitle: {
     defaultValue: 'Logo title',
@@ -118,7 +118,7 @@ MetadataTile.argTypes = {
       defaultValue: { summary: 'Logo title' }
     },
     control: 'text',
-    description: 'title to use for logo in announcer'
+    description: 'Title to use for logo in announcer'
   },
   logoPosition: {
     defaultValue: 'right',
@@ -129,6 +129,6 @@ MetadataTile.argTypes = {
       type: 'select',
       options: ['right', 'left']
     },
-    description: 'position logo on the left/right side'
+    description: 'Position logo on the left/right side'
   }
 };

@@ -70,16 +70,16 @@ const sharedArgTypes = {
   },
   password: {
     control: 'boolean',
-    description: 'when true the content will be masked to the user'
+    description: 'When true the content will be masked to the user'
   },
   mask: {
     control: 'text',
-    description: 'character to use as a mask when password is true'
+    description: 'Character to use as a mask when password is true'
   },
   listening: {
     control: 'boolean',
     description:
-      ' when true cursor will be visible only in focused and unfocused mode and can edit the canvas'
+      'When true cursor will be visible only in focused and unfocused mode and can edit the canvas'
   },
   prefix: {
     control: 'radio',

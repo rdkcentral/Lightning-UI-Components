@@ -34,15 +34,15 @@ Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   min: {
     control: 'number',
-    description: 'lower bound of value'
+    description: 'Lower bound of value'
   },
   max: {
     control: 'number',
-    description: 'upper bound of value'
+    description: 'Upper bound of value'
   },
   value: {
     control: 'number',
-    description: 'current value'
+    description: 'Current value'
   },
   step: {
     control: 'number',

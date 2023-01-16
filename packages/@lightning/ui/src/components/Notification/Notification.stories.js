@@ -105,7 +105,8 @@ Notification.argTypes = {
     control: 'radio',
     defaultValue: 'none',
     options: ['none', 'xfinity'],
-    description: 'Logo to the left of title',
+    description:
+      'Logo to be placed to the left of the title. If icon and logo are both set, logo will take precedence for what is rendered and icon will be ignored',
     table: {
       defaultValue: { summary: 'none' }
     }

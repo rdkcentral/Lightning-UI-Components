@@ -5,6 +5,7 @@ import mdx from './Button.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../../../ui/src/StorybookConstants.js';
 
 export default {
   title: `${CATEGORIES[2]}/Button`,
@@ -58,8 +59,7 @@ const sharedArgTypes = {
   fixed: {
     control: 'boolean',
     defaultValue: false,
-    description:
-      'Stops the width from being calculated dynamically based on content and will instead use the`w` property',
+    description: controlDescriptions.fixed,
     table: {
       defaultValue: { summary: 'false' }
     }
@@ -71,13 +71,13 @@ const sharedArgTypes = {
     },
     control: 'number',
     description:
-      'Width of component can be changed only when fixed is set to true'
+      'When the fixed property is true, this will set the width of the component'
   },
   justify: {
     control: 'radio',
     defaultValue: 'center',
     options: ['left', 'center', 'right'],
-    description: 'justification of button content',
+    description: 'Justification of button content',
     table: {
       defaultValue: { summary: 'center' }
     }

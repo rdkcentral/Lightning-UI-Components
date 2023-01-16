@@ -36,7 +36,7 @@ export default {
     defaultValue: true,
     control: { type: 'boolean' },
     description:
-      'will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+      'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: { defaultValue: { summary: true } }
   }
 };

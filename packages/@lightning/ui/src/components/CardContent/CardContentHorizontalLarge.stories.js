@@ -1,9 +1,6 @@
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import mdx from './CardContent.mdx';
-import { Label as LabelStory } from '@lightning/ui-core/src/components/Label/Label.stories';
-import { ProgressBar as ProgressBarStory } from '@lightning/ui-core/src/components/ProgressBar/ProgressBar.stories';
-import { Text as BadgeStory } from '@lightning/ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import {
   createModeControl,
@@ -14,6 +11,7 @@ import { Icon } from '@lightning/ui-core';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../StorybookConstants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentHorizontalLarge`,
@@ -63,7 +61,7 @@ CardContentHorizontalLarge.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'should the Card collapse?'
+    description: controlDescriptions.shouldCollapse
   },
   collapseToMetadata: {
     defaultValue: false,
@@ -71,34 +69,14 @@ CardContentHorizontalLarge.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'determines if collapsed state shows image or metadata'
+    description: controlDescriptions.collapseToMetadata
   },
   ...CardContent.tileProps.argTypes
 };
 CardContentHorizontalLarge.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHorizontalLarge')
 };
-generateSubStory({
-  componentName: 'CardContentHorizontalLarge',
-  baseStory: CardContentHorizontalLarge,
-  subStory: BadgeStory,
-  targetProperty: 'badge',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentHorizontalLarge',
-  baseStory: CardContentHorizontalLarge,
-  subStory: LabelStory,
-  targetProperty: 'label',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentHorizontalLarge',
-  baseStory: CardContentHorizontalLarge,
-  subStory: ProgressBarStory,
-  targetProperty: 'progressBar',
-  include: ['progress']
-});
+
 generateSubStory({
   componentName: 'CardContentHorizontalLarge',
   baseStory: CardContentHorizontalLarge,

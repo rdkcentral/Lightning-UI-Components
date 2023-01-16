@@ -43,7 +43,7 @@ const sharedArgTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   centerKeyboard: {
     defaultValue: false,
-    description: "center the keyboard within it's set width",
+    description: "Center the keyboard within it's set width",
     control: 'boolean',
     table: {
       defaultValue: { summary: false }
@@ -97,7 +97,7 @@ FullScreen.argTypes = {
   ...sharedArgTypes,
   centerKeys: {
     defaultValue: false,
-    description: "center the keys within it's set width of keyboard",
+    description: "Center the keys within it's set width of keyboard",
     control: 'boolean',
     table: {
       defaultValue: { summary: false }
@@ -132,7 +132,7 @@ Dialpad.argTypes = {
   },
   centerKeys: {
     defaultValue: false,
-    description: "center the keys within it's set width of keyboard",
+    description: "Center the keys within it's set width of keyboard",
     control: 'boolean',
     table: {
       defaultValue: { summary: false }

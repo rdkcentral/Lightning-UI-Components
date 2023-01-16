@@ -244,7 +244,7 @@ export const Basic = args =>
 Basic.argTypes = {
   layout: {
     defaultValue: 'standard',
-    description: 'layout of BoardRow items',
+    description: 'Layout of BoardRow items',
     table: {
       defaultValue: { summary: 'standard' }
     },
@@ -265,7 +265,7 @@ Basic.argTypes = {
   alwaysScroll: {
     defaultValue: false,
     description:
-      'determines whether the row will stop scrolling as it nears the right to prevent white space',
+      'Determines whether the row will stop scrolling as it nears the right to prevent white space',
     table: {
       defaultValue: { summary: false }
     },
@@ -274,7 +274,7 @@ Basic.argTypes = {
   neverScroll: {
     defaultValue: false,
     description:
-      'if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
+      'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
     table: {
       defaultValue: { summary: false }
     },
@@ -283,7 +283,7 @@ Basic.argTypes = {
   lazyScroll: {
     defaultValue: false,
     description:
-      'will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+      'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: {
       defaultValue: { summary: false }
     },
@@ -292,7 +292,7 @@ Basic.argTypes = {
   viewAll: {
     defaultValue: 'true',
     description:
-      'determines if another MenuCard will be added at the end of the BoardRow',
+      'Determines if another MenuCard will be added at the end of the BoardRow',
     table: {
       defaultValue: { summary: true }
     },
