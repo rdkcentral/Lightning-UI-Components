@@ -34,7 +34,7 @@ Basic.args = {
 Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   size: {
-    description: 'width of the Key',
+    description: 'Width of the Key',
     table: {
       defaultValue: { summary: 'sm' }
     },
@@ -43,7 +43,7 @@ Basic.argTypes = {
   },
   title: {
     defaultValue: 'A',
-    description: 'key character',
+    description: 'Key character',
     table: {
       defaultValue: { summary: 'A' }
     },
@@ -67,7 +67,7 @@ KeyIcon.args = {};
 KeyIcon.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   size: {
-    description: 'width of the Key',
+    description: 'Width of the Key',
     table: {
       defaultValue: { summary: 'sm' }
     },

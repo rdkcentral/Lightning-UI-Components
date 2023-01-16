@@ -50,7 +50,7 @@ ListItem.argTypes = {
     control: 'boolean',
     defaultValue: false,
     description:
-      'If true will collapse the Title when in unfocused or disabled mode',
+      'When in unfocused or disabled mode, if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
       defaultValue: { summary: false }
     }
@@ -68,7 +68,8 @@ ListItem.argTypes = {
     control: 'radio',
     defaultValue: 'none',
     options: ['none', 'xfinity'],
-    description: 'Logo to the right of title',
+    description:
+      'Logo to be placed to the left of the title. If prefix and prefixLogo are both set, prefixLogo will take precedence for what is rendered and prefix will be ignored',
     table: {
       defaultValue: { summary: 'undefined' }
     }
@@ -86,7 +87,8 @@ ListItem.argTypes = {
     control: 'radio',
     defaultValue: 'none',
     options: ['none', 'xfinity'],
-    description: 'Logo to the left of title',
+    description:
+      'Logo to be placed to the right of the title. If suffix and suffixLogo are both set, suffixLogo will take precedence for what is rendered and suffix will be ignored',
     table: {
       defaultValue: { summary: 'undefined' }
     }

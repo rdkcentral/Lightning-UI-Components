@@ -37,6 +37,6 @@ Toggle.argTypes = {
   ...createModeControl(),
   checked: {
     control: 'boolean',
-    description: 'the state of the toggle being checked'
+    description: 'The state of the toggle being checked'
   }
 };

@@ -14,9 +14,20 @@ export default {
   },
   argTypes: {
     ...createModeControl({ options: ['focused'], defaultValue: 'focused' }),
-    title: { control: 'text' },
-    delayVisible: { control: 'number' },
-    timeVisible: { control: 'number' }
+    title: {
+      control: 'text',
+      description: 'Text content of tooltip'
+    },
+    delayVisible: {
+      control: 'number',
+      description:
+        'Start with unfocused mode and set the delay value in milliseconds, now change the mode to focused to see the required changes'
+    },
+    timeVisible: {
+      control: 'number',
+      description:
+        'Start with unfocused mode and set the time value in milliseconds, now change the mode to focused to see the required changes'
+    }
   },
   parameters: {
     docs: {
@@ -30,7 +41,8 @@ export const Basic = () =>
     static _template() {
       return {
         Tooltip: {
-          type: TooltipComponent
+          type: TooltipComponent,
+          x: 1280 / 2
         }
       };
     }
@@ -38,7 +50,6 @@ export const Basic = () =>
 
 export const LongTitle = Basic.bind({});
 LongTitle.args = {
-  x: 1280 / 2,
   title:
     'This is a long message. Text will remain on a single line and does not have a maximum width'
 };
@@ -68,9 +79,7 @@ export const WithButton = args =>
     }
   };
 
-WithButton.args = {
-  bottomMargin: 24
-};
+WithButton.args = {};
 
 WithButton.parameters = {
   argActions: {

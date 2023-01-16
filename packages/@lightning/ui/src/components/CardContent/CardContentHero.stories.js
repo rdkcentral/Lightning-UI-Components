@@ -1,9 +1,6 @@
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import mdx from './CardContent.mdx';
-import { Label as LabelStory } from '../../../../ui-core/src/components/Label/Label.stories';
-import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
-import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import {
   createModeControl,
@@ -13,6 +10,7 @@ import CardContentHero from './CardContentHero';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../StorybookConstants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentHero`,
@@ -58,7 +56,7 @@ Hero.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'determines if collapse state shows image or metadata'
+    description: controlDescriptions.shouldCollapse
   },
   collapseToMetadata: {
     defaultValue: false,
@@ -66,34 +64,14 @@ Hero.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'determines if collapse state shows image or metadata'
+    description: controlDescriptions.collapseToMetadata
   },
   ...CardContent.tileProps.argTypes
 };
 Hero.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHero')
 };
-generateSubStory({
-  componentName: 'CardContentHero',
-  baseStory: Hero,
-  subStory: BadgeStory,
-  targetProperty: 'badge',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentHero',
-  baseStory: Hero,
-  subStory: LabelStory,
-  targetProperty: 'label',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentHero',
-  baseStory: Hero,
-  subStory: ProgressBarStory,
-  targetProperty: 'progressBar',
-  include: ['progress']
-});
+
 generateSubStory({
   componentName: 'CardContentHero',
   baseStory: Hero,

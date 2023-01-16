@@ -40,14 +40,14 @@ CardAbout.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   title: {
     control: 'text',
-    description: 'title text',
+    description: 'Title text',
     table: {
       defaultValue: { summary: CardAbout.args.title }
     }
   },
   description: {
     control: 'text',
-    description: 'Description',
+    description: 'Description text',
     table: {
       defaultValue: { summary: CardAbout.args.description }
     }

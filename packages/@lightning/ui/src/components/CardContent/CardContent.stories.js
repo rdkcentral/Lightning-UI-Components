@@ -8,6 +8,7 @@ import {
   generateSubStory
 } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../StorybookConstants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContent`,
@@ -60,7 +61,7 @@ CardContent.tileProps = {
         max: 1,
         step: 0.01
       },
-      description: 'percentage of the current progress from 0 to 1',
+      description: 'Percentage of the current progress from 0 to 1',
       table: {
         category: tileCategory,
         subcategory: 'ProgressBar',
@@ -102,7 +103,7 @@ CardContent.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'should the card collapse?'
+    description: controlDescriptions.shouldCollapse
   },
   ...CardContent.tileProps.argTypes
 };

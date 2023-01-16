@@ -39,7 +39,10 @@ export const withHandleKey = args => {
               w: 320,
               h: 180,
               onEnter: args.onEnter,
-              metricsPayload: args.metricsPayload('enter', 1)
+              metricsPayload: {
+                buttonName: 'enter button',
+                uniqueId: 1
+              }
             },
             {
               type: Tile,
@@ -47,7 +50,10 @@ export const withHandleKey = args => {
               w: 320,
               h: 180,
               onArrowDown: args.onArrowDown,
-              metricsPayload: args.metricsPayload('arrow down', 2)
+              metricsPayload: {
+                buttonName: 'arrow down button',
+                uniqueId: 2
+              }
             },
             {
               type: Tile,
@@ -55,7 +61,10 @@ export const withHandleKey = args => {
               w: 320,
               h: 180,
               onArrowUp: args.onArrowUp,
-              metricsPayload: args.metricsPayload('arrow up', 3)
+              metricsPayload: {
+                buttonName: 'arrow up button',
+                uniqueId: 3
+              }
             },
             {
               type: Tile,
@@ -63,7 +72,10 @@ export const withHandleKey = args => {
               w: 320,
               h: 180,
               onArrowRight: args.onArrowRight,
-              metricsPayload: args.metricsPayload('arrow right', 4)
+              metricsPayload: {
+                buttonName: 'arrow right button',
+                uniqueId: 4
+              }
             }
           ]
         }
@@ -79,13 +91,6 @@ export const withHandleKey = args => {
 
 withHandleKey.storyName = 'withHandleKey';
 
-withHandleKey.args = {
-  metricsPayload: (name, id) => ({
-    buttonName: `${name} button`,
-    uniqueId: id
-  })
-};
+withHandleKey.args = {};
 
-withHandleKey.argTypes = {
-  onEnter: { action: 'You hit Enter' }
-};
+withHandleKey.argTypes = {};

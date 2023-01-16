@@ -34,7 +34,7 @@ Tab.argTypes = {
     control: 'boolean',
     type: 'boolean',
     defaultValue: false,
-    description: 'whether or not an icon should be displayed',
+    description: 'If true icon will be displayed',
     table: {
       defaultValue: { summary: 'false' }
     }
@@ -43,7 +43,7 @@ Tab.argTypes = {
     control: 'text',
     type: 'string',
     defaultValue: 'Tab',
-    description: 'text content of tab',
+    description: 'Text content of tab',
     table: {
       defaultValue: { summary: 'Tab' }
     }

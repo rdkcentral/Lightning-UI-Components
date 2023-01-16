@@ -51,7 +51,7 @@ Tile.args = {
 Tile.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   persistentMetadata: {
-    description: 'show metadata if exists regardless of focusState',
+    description: 'Show metadata if exists regardless of focusState',
     table: {
       defaultValue: { summary: false }
     },

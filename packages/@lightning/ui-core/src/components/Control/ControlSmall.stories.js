@@ -5,6 +5,7 @@ import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../../../ui/src/StorybookConstants.js';
 
 export default {
   title: `${CATEGORIES[2]}/ControlSmall`,
@@ -45,8 +46,7 @@ const sharedArgTypes = {
   fixed: {
     control: 'boolean',
     defaultValue: false,
-    description:
-      'Stops the width from being calculated dynamically based on content and will instead use the `w` property',
+    description: controlDescriptions.fixed,
     table: {
       defaultValue: { summary: 'false' }
     }
@@ -54,7 +54,8 @@ const sharedArgTypes = {
   w: {
     control: 'number',
     defaultValue: 200,
-    description: 'Width of component',
+    description:
+      'When the fixed property is true, this will set the width of the component',
     table: {
       defaultValue: { summary: 0 }
     }
@@ -72,7 +73,8 @@ const sharedArgTypes = {
     control: 'radio',
     defaultValue: 'none',
     options: ['none', 'xfinity'],
-    description: 'Logo to the left of title',
+    description:
+      'Logo to be placed to the left of title. If icon and logo are both set, logo will take precedence for what is rendered and icon will be ignored',
     table: {
       defaultValue: { summary: 'undefined' }
     }
@@ -81,7 +83,7 @@ const sharedArgTypes = {
     control: 'boolean',
     defaultValue: false,
     description:
-      'If true will collapse the Title when in unfocused or disabled mode',
+      'When in unfocused or disabled mode, if this flag is true the title will collapse (when focused, it will always be expanded)',
     table: {
       defaultValue: { summary: 'false' }
     }
@@ -90,7 +92,7 @@ const sharedArgTypes = {
     control: 'radio',
     defaultValue: 'center',
     description:
-      'Justification of control content; only applies to the title when prefix and title are both defined',
+      'Justification of control content only applies to the title when prefix and title are both defined',
     options: ['left', 'center', 'right'],
     table: {
       defaultValue: { summary: 'center' }

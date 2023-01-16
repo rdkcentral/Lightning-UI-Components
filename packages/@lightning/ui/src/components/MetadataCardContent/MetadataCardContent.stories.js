@@ -39,7 +39,7 @@ MetadataCardContent.argTypes = {
       defaultValue: { summary: 600 }
     },
     control: 'number',
-    description: 'width of component'
+    description: 'Width of component'
   },
   h: {
     defaultValue: 250,
@@ -47,7 +47,7 @@ MetadataCardContent.argTypes = {
       defaultValue: { summary: 250 }
     },
     control: 'number',
-    description: 'height of component'
+    description: 'Height of component'
   },
   title: {
     defaultValue: 'Title',
@@ -55,7 +55,7 @@ MetadataCardContent.argTypes = {
       defaultValue: { summary: 'Title' }
     },
     control: 'text',
-    description: 'title text'
+    description: 'Title text'
   },
   description: {
     defaultValue: descriptionSample,
@@ -63,7 +63,7 @@ MetadataCardContent.argTypes = {
       defaultValue: { summary: 'Description' }
     },
     control: 'text',
-    description: 'description text'
+    description: 'Description text'
   },
   details: {
     defaultValue: 'Details',
@@ -71,12 +71,12 @@ MetadataCardContent.argTypes = {
       defaultValue: { summary: 'Details' }
     },
     control: 'text',
-    description: 'details text'
+    description: 'Details text'
   },
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
     defaultValue: 3,
-    description: 'number of visible providers',
+    description: 'Number of visible providers',
     table: {
       defaultValue: { summary: 3 }
     }

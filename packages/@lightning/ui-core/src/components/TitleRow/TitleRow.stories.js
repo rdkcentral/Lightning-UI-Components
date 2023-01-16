@@ -18,7 +18,7 @@ export default {
   },
   argTypes: {
     title: {
-      description: 'title text to be displayed above the row',
+      description: 'Title text to be displayed above the row',
       defaultValue: 'Row Title',
       control: 'text'
     },

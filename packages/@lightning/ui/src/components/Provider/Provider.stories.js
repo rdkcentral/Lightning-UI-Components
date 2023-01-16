@@ -17,7 +17,7 @@ export default {
     visibleCount: {
       control: { type: 'range', min: 1, max: 10, step: 1 },
       defaultValue: 3,
-      description: 'number of visible providers',
+      description: 'Number of visible providers',
       table: {
         defaultValue: { summary: 3 }
       }
@@ -28,7 +28,7 @@ export default {
         options: [null, '...']
       },
       defaultValue: null,
-      description: 'text to display in counter (overrides default behavior)',
+      description: 'Text to display in counter (overrides default behavior)',
       table: {
         defaultValue: { summary: null }
       }
@@ -36,7 +36,7 @@ export default {
     disableRadius: {
       control: 'boolean',
       defaultValue: false,
-      description: 'disable applying radius to icons',
+      description: 'Disable applying radius to icons',
       table: {
         defaultValue: { summary: false }
       }

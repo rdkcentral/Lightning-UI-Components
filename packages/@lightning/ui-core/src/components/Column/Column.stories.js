@@ -63,7 +63,7 @@ Column.argTypes = {
   scroll: {
     defaultValue: 1,
     control: { type: 'select', options: [1, 5, 15, 20] },
-    description: 'scroll to selected index',
+    description: 'Scroll to selected index',
     table: { defaultValue: { summary: 1 } }
   },
   scrollIndex: {
@@ -77,7 +77,7 @@ Column.argTypes = {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'determines whether the column will stop scrolling as it nears the bottom to prevent white space',
+      'Determines whether the column will stop scrolling as it nears the bottom to prevent white space',
     table: { defaultValue: { summary: false } }
   }
 };
@@ -220,7 +220,7 @@ SkipFocus.argTypes = {
     defaultValue: false,
     control: { type: 'boolean' },
     description:
-      'enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
+      'Enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
     table: { defaultValue: { summary: false } }
   }
 };

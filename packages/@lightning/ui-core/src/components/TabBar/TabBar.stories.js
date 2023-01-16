@@ -33,7 +33,7 @@ export default {
       defaultValue: false,
       table: { defaultValue: { summary: false } },
       description:
-        'when true, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content',
+        'When true, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content',
       type: 'boolean'
     },
     collapse: {
@@ -41,7 +41,7 @@ export default {
       defaultValue: false,
       table: { defaultValue: { summary: false } },
       description:
-        'when true, the height of the TabBar will only reflect the height of the Tabs when unfocused or no tab content is available',
+        'When true, the height of the TabBar will only reflect the height of the Tabs when unfocused or no tab content is available',
       type: 'boolean'
     },
     wrapSelected: {
@@ -49,7 +49,7 @@ export default {
       defaultValue: false,
       table: { defaultValue: { summary: false } },
       description:
-        'enables wrapping behavior, so selectNext selects the first item if the current item is the last on the list and vice versa',
+        'Enables wrapping behavior, so selectNext selects the first item if the current item is the last on the list and vice versa',
       type: 'boolean'
     }
   },

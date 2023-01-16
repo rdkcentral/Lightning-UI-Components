@@ -1,9 +1,6 @@
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import mdx from './CardContent.mdx';
-import { Label as LabelStory } from '../../../../ui-core/src/components/Label/Label.stories';
-import { ProgressBar as ProgressBarStory } from '../../../../ui-core/src/components/ProgressBar/ProgressBar.stories';
-import { Text as BadgeStory } from '../../../../ui-core/src/components/Badge/Badge.stories';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import {
   createModeControl,
@@ -12,6 +9,7 @@ import {
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { controlDescriptions } from '../../StorybookConstants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentVerticalSmall`,
@@ -49,34 +47,14 @@ CardContentVerticalSmall.argTypes = {
       defaultValue: { summary: false }
     },
     control: 'boolean',
-    description: 'should the Card collapse?'
+    description: controlDescriptions.shouldCollapse
   },
   ...CardContent.tileProps.argTypes
 };
 CardContentVerticalSmall.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVerticalSmall')
 };
-generateSubStory({
-  componentName: 'CardContentVerticalSmall',
-  baseStory: CardContentVerticalSmall,
-  subStory: BadgeStory,
-  targetProperty: 'badge',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentVerticalSmall',
-  baseStory: CardContentVerticalSmall,
-  subStory: LabelStory,
-  targetProperty: 'label',
-  include: ['title']
-});
-generateSubStory({
-  componentName: 'CardContentVerticalSmall',
-  baseStory: CardContentVerticalSmall,
-  subStory: ProgressBarStory,
-  targetProperty: 'progressBar',
-  include: ['progress']
-});
+
 generateSubStory({
   componentName: 'CardContentVerticalSmall',
   baseStory: CardContentVerticalSmall,

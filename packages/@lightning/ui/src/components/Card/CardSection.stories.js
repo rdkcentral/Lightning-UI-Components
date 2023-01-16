@@ -37,8 +37,8 @@ CardSection.args = {
 CardSection.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   iconSrc: {
+    control: 'radio',
     defaultValue: sectionIcon,
-    control: 'select',
     options: [sectionIcon, 'null'],
     description: 'Icon source',
     table: {
@@ -47,7 +47,7 @@ CardSection.argTypes = {
   },
   title: {
     control: 'text',
-    description: 'title text',
+    description: 'Title text',
     table: {
       defaultValue: { summary: CardSection.args.title }
     }

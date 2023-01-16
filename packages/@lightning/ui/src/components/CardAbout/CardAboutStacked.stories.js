@@ -51,7 +51,7 @@ Stacked.argTypes = {
   },
   title: {
     control: 'text',
-    description: 'Title',
+    description: 'Title text',
     table: {
       defaultValue: { summary: Stacked.args.title }
     }
