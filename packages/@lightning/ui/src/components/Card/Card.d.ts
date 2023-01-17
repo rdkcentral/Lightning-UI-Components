@@ -21,4 +21,7 @@ export default class Card extends Surface {
   title?: string;
   get style(): CardStyles;
   set style(v: StylePartial<CardStyles>);
+
+  // tags
+  get _Title(): lng.Component;
 }

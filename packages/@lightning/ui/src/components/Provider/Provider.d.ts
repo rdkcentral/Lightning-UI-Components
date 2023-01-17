@@ -21,4 +21,7 @@ export default class Provider extends Base {
   visibleCount: number;
   get style(): ProviderStyles;
   set style(v: StylePartial<ProviderStyles>);
+
+  // tags
+  get _Row(): lng.Component;
 }

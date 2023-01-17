@@ -15,4 +15,8 @@ export default class ProgressBar extends Base {
   progress: string;
   get style(): ProgressBarStyles;
   set style(v: StylePartial<ProgressBarStyles>);
+
+  // tags
+  get _Bar(): lng.Component;
+  get _Progress(): lng.Component;
 }

@@ -52,4 +52,13 @@ export default class Artwork extends Base {
   srcCallbackAspectRatios?: AspectRatio[];
   get style(): ArtworkStyles;
   set style(v: StylePartial<ArtworkStyles>);
+
+  // tags
+  get _Blur(): lng.Component;
+  get _CenterImage(): lng.Component;
+  get _FillColor(): lng.Component;
+  get _ForegroundImage(): lng.Component;
+  get _Gradient(): lng.Component;
+  get _Image(): lng.Component;
+  get _Item(): lng.Component;
 }

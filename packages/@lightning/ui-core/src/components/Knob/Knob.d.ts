@@ -10,4 +10,7 @@ export type KnobStyles = {
 export default class Knob extends Base {
   get style(): KnobStyles;
   set style(v: StylePartial<KnobStyles>);
+
+  // tags
+  get _Circle(): lng.Component;
 }

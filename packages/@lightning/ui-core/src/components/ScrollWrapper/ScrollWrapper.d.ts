@@ -30,4 +30,10 @@ export default class ScrollWrapper extends Base {
   flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
   get style(): ScrollWrapperStyles;
   set style(v: StylePartial<ScrollWrapperStyles>);
+
+  // tags
+  get _FadeContainer(): lng.Component;
+  get _Slider(): lng.Component;
+  get _ScrollContainer(): lng.Component;
+  get _ScrollableText(): lng.Component;
 }

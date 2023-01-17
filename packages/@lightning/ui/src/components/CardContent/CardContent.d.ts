@@ -1,7 +1,7 @@
-import type Card from '../Card/Card';
-import { CardStyles } from '../Card/Card';
+import lng from '@lightningjs/core';
+import { StylePartial } from '@lightning/ui-core';
+import Card, { CardStyles } from '../Card/Card';
 import { MetadataCardContent } from '../MetadataCardContent/MetadataCardContent';
-import type { StylePartial } from '@lightning/ui-core';
 
 type ImageSize = {
   w: number;
@@ -22,4 +22,8 @@ export default class CardContent extends Card {
   src: string;
   get style(): CardContentStyles;
   set style(v: StylePartial<CardContentStyles>);
+
+  // tags
+  get _Metadata(): lng.Component;
+  get _Tile(): lng.Component;
 }

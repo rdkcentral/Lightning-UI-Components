@@ -16,6 +16,11 @@ export type SurfaceStyles = {
 };
 
 export default class Surface extends Base {
+  get innerH(): number;
+  get innerW(): number;
   get style(): SurfaceStyles;
   set style(v: StylePartial<SurfaceStyles>);
+
+  // tags
+  get _Background(): lng.Component;
 }

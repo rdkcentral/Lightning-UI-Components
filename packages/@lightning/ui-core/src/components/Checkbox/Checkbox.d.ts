@@ -20,4 +20,9 @@ export default class Checkbox extends Base {
   toggle(): Checkbox;
   get style(): CheckboxStyles;
   set style(v: StylePartial<CheckboxStyles>);
+
+  // tags
+  get _Check(): lng.Component;
+  get _Body(): lng.Component;
+  get _Stroke(): lng.Component;
 }

@@ -9,7 +9,7 @@ module.exports = {
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
-    "import/no-useless-path-segments": "error", // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
+    'import/no-useless-path-segments': 'error', // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
     'no-console': 'off',
     'no-restricted-syntax': [
       'error',
@@ -24,10 +24,11 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        trailingComma: 'none',
+        printWidth: 80,
         singleQuote: true,
-        tabWidth: 2,
-        printWidth: 80
+        trailingComma: 'none',
+        arrowParens: 'avoid',
+        tabWidth: 2
       }
     ],
     'space-before-function-paren': [

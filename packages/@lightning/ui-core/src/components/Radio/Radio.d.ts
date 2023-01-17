@@ -18,4 +18,9 @@ export default class Radio extends Base {
   checked?: boolean;
   get style(): RadioStyles;
   set style(v: StylePartial<RadioStyles>);
+
+  // tags
+  get _Knob(): lng.Component;
+  get _Body(): lng.Component;
+  get _Stroke(): lng.Component;
 }

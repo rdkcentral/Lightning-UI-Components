@@ -26,4 +26,7 @@ export default class BoardRow extends Base {
   get fullyOnScreenItems(): Array<lng.Component>;
   get style(): BoardRowStyles;
   set style(v: StylePartial<BoardRowStyles>);
+
+  // tags
+  get _Layout(): lng.Component;
 }

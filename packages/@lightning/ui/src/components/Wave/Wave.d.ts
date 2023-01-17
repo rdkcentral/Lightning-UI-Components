@@ -16,4 +16,11 @@ export type WaveStyles = {
 export default class Wave extends Base {
   get style(): WaveStyles;
   set style(v: StylePartial<WaveStyles>);
+
+  // tags
+  get _Left1(): lng.Component;
+  get _Left2(): lng.Component;
+  get _Middle(): lng.Component;
+  get _Right1(): lng.Component;
+  get _Right2(): lng.Component;
 }

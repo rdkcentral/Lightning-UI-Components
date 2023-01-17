@@ -31,4 +31,7 @@ export default class ListItem extends Button {
   suffixLogo?: string;
   get style(): ListItemStyles;
   set style(v: StylePartial<ListItemStyles>);
+
+  // tags
+  get _Description(): lng.Component;
 }

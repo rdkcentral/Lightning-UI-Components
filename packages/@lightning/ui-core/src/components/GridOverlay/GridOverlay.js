@@ -7,6 +7,7 @@ import TextBox from '../TextBox/index.js';
 import { getWidthByColumnSpan } from '../../utils/index.js';
 import * as styles from './GridOverlay.styles';
 
+// TODO do we need a d.ts for this?
 class Spacer extends Base {
   static get __componentName() {
     return 'Spacer';

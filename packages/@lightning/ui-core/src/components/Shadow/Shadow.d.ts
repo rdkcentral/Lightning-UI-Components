@@ -16,4 +16,8 @@ export default class Shadow extends Base {
   maskShadow?: boolean;
   get style(): ShadowStyles;
   set style(v: StylePartial<ShadowStyles>);
+
+  // tags
+  get _Frame(): lng.Component;
+  get _Shadow(): lng.Component;
 }

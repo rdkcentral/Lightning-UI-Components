@@ -20,7 +20,6 @@ class CardPersonality extends CardTitle {
   static get __themeStyle() {
     return styles;
   }
-
   static get tags() {
     const tags = [...super.tags, 'Tile'];
     //Remove the 'Details' tag inherited from CardTitle
