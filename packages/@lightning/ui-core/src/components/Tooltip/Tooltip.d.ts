@@ -27,4 +27,8 @@ export default class Tooltip extends Base {
   timeVisible?: number;
   get style(): TooltipStyles;
   set style(v: StylePartial<TooltipStyles>);
+
+  // tags
+  get _Background(): lng.Component;
+  get _Text(): lng.Component;
 }

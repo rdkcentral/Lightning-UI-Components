@@ -14,4 +14,8 @@ export default class Label extends Base {
   title: string;
   get style(): LabelStyles;
   set style(v: StylePartial<LabelStyles>);
+
+  // tags
+  get _Background(): lng.Component;
+  get _Text(): lng.Component;
 }

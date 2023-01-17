@@ -20,6 +20,12 @@ export type ToggleStyles = {
 
 export default class Toggle extends Base {
   checked?: boolean;
+  toggle(): this; // TODO is this valid?
   get style(): ToggleStyles;
   set style(v: StylePartial<ToggleStyles>);
+
+  // tags
+  get _Container(): lng.Component;
+  get _Knob(): lng.Component;
+  get _Stroke(): lng.Component;
 }

@@ -1,5 +1,6 @@
-import type { StylePartial } from '../../types/lui';
-import type { ButtonStyles, Button, TextBoxStyles } from '@lightning/ui-core';
+import lng from '@lightningjs/core';
+import { ButtonStyles, Button, TextBoxStyles } from '@lightning/ui-core';
+import { StylePartial } from '../../types/lui';
 
 export type InputStyles = ButtonStyles & {
   cursorStyles: object;
@@ -21,4 +22,10 @@ export default class Input extends Button {
   position?: number;
   get style(): InputStyles;
   set style(v: StylePartial<InputStyles>);
+
+  // tags
+  get _Eyebrow(): lng.Component;
+  get _HelpText(): lng.Component;
+  get _Cursor(): lng.Component;
+  get _HiddenContent(): lng.Component;
 }

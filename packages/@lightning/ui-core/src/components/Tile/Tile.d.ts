@@ -38,6 +38,17 @@ export default class Tile extends Surface {
   metadata?: MetadataBaseStyles;
   persistentMetadata?: boolean;
   progressBar?: Record<string, unknown>;
+  get innerH(): number;
   get style(): TileStyles;
   set style(v: StylePartial<TileStyles>);
+
+  // tags
+  get _Artwork(): lng.Component;
+  get _Content(): lng.Component;
+  get _Tile(): lng.Component;
+  get _Badge(): lng.Component;
+  get _Checkbox(): lng.Component;
+  get _Metadata(): lng.Component;
+  get _ProgressBar(): lng.Component;
+  get _Label(): lng.Component;
 }

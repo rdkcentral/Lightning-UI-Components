@@ -17,4 +17,10 @@ export default class Marquee extends Base {
   title?: string;
   get style(): MarqueeStyles;
   set style(v: StylePartial<MarqueeStyles>);
+
+  // tags
+  get _ContentClipper(): lng.Component;
+  get _ContentBox(): lng.Component;
+  get _Content(): lng.Component;
+  get _ContentLoopTexture(): lng.Component;
 }

@@ -1,5 +1,6 @@
-import ListItem, { ListItemStyles } from '.';
+import lng from '@lightningjs/core';
 import { SliderStyles, StylePartial } from '@lightning/ui-core';
+import ListItem, { ListItemStyles } from '.';
 
 export type ListItemSliderStyles = ListItemStyles & {
   paddingY: number;
@@ -10,4 +11,8 @@ export default class ListItemSlider extends ListItem {
   value?: string;
   get style(): ListItemSliderStyles;
   set style(v: StylePartial<ListItemSliderStyles>);
+
+  // tags
+  get _Slider(): lng.Component;
+  get _Value(): lng.Component;
 }

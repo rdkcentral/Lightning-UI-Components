@@ -38,4 +38,7 @@ export default class FocusManager extends Base {
   render(): void;
   selectPrevious(): void;
   selectNext(): void;
+
+  // tags
+  get _Items(): lng.Component;
 }

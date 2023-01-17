@@ -24,4 +24,10 @@ export default class Button extends Surface {
   title?: string;
   get style(): ButtonStyles;
   set style(v: StylePartial<ButtonStyles>);
+
+  // tags
+  get _TextWrapper(): lng.Component;
+  get _Title(): lng.Component;
+  get _Prefix(): lng.Component;
+  get _Suffix(): lng.Component;
 }

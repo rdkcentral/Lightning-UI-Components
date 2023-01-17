@@ -13,6 +13,13 @@ export type TextBoxStyles = {
 export default class TextBox extends Base {
   content?: string | TextContent[];
   marquee?: boolean;
+  get marqueeOverrideLoopX(): number;
+  set marqueeOverrideLoopX(v: number);
   get style(): TextBoxStyles;
   set style(v: StylePartial<TextBoxStyles>);
+
+  // tags
+  get _InlineContent(): lng.Component;
+  get _Marquee(): lng.Component;
+  get _Text(): lng.Component;
 }

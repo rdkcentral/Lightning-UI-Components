@@ -22,4 +22,8 @@ export default class Badge extends Base {
   iconAlign?: string;
   get style(): BadgeStyles;
   set style(v: StylePartial<BadgeStyles>);
+
+  // tags
+  get _Text(): lng.Component;
+  get _Icon(): lng.Component;
 }

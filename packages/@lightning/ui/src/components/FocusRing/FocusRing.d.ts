@@ -19,4 +19,7 @@ export default class FocusRing extends Base {
   stopAnimation(): void;
   get style(): FocusRingStyles;
   set style(v: StylePartial<FocusRingStyles>);
+
+  // tags
+  get _Ring(): lng.Component;
 }

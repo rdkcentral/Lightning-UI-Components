@@ -52,4 +52,14 @@ export default class Notification extends Base {
   entered?: boolean;
   get style(): NotificationStyles;
   set style(v: StylePartial<NotificationStyles>);
+
+  // tags
+  get _Container(): lng.Component;
+  get _Content(): lng.Component;
+  get _Icon(): lng.Component;
+  get _Text(): lng.Component;
+  get _Title(): lng.Component;
+  get _Description(): lng.Component;
+  get _ActionArea(): lng.Component;
+  get _ActionAreaText(): lng.Component;
 }

@@ -1,3 +1,4 @@
+import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { ProgressBarStyles } from '../ProgressBar';
@@ -27,4 +28,12 @@ export default class Slider extends Base {
   value?: number;
   get style(): SliderStyles;
   set style(v: StylePartial<SliderStyles>);
+
+  // tags
+  get _Container(): lng.Component;
+  get _SliderBar(): lng.Component;
+  get _Bar(): lng.Component;
+  get _Circle(): lng.Component;
+  get _LeftArrow(): lng.Component;
+  get _RightArrow(): lng.Component;
 }

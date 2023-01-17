@@ -1,5 +1,4 @@
-import {
-  MetadataCardContent,
+import MetadataCardContent, {
   MetadataCardContentStyles
 } from './MetadataCardContent';
 

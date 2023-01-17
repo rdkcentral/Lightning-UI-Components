@@ -1,5 +1,5 @@
-import { Base } from '@lightning/ui';
-import type { Color, StylePartial } from '@lightning/ui-core';
+import lng from '@lightningjs/core';
+import { Base, Color, StylePartial } from '@lightning/ui-core';
 
 export type DistractorStyles = {
   alpha1: number;
@@ -14,6 +14,13 @@ export type DistractorStyles = {
 };
 
 export default class Distractor extends Base {
+  startAnimation(): void;
+  stopAnimation(): void;
   get style(): DistractorStyles;
   set style(v: StylePartial<DistractorStyles>);
+
+  // tags
+  get _Circle1(): lng.Component;
+  get _Circle2(): lng.Component;
+  get _Circle3(): lng.Component;
 }
