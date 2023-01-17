@@ -37,6 +37,7 @@ export const getStoryName = pageName => {
     Wave: 'Wave',
     CardContent: 'Card-Content',
     CardContentHorizontal: 'Card-Content-Horizontal',
+    CardContentVertical: 'Card-Content-Vertical'
   };
 
   if (pageName in names) {
