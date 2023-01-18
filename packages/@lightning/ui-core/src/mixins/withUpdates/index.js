@@ -1,4 +1,5 @@
 import { context, updateManager } from '../../globals/index.js';
+import { clone } from '../../utils/index.js';
 
 function capital(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -21,7 +22,7 @@ function getPropertyDescriptor(name, key) {
         if (changeHandler && typeof changeHandler === 'function') {
           value = changeHandler.call(this, value);
         }
-        this[key] = value;
+        this[key] = key === 'style' ? clone(this[key], value) : value;
         this.queueRequestUpdate();
       }
     },

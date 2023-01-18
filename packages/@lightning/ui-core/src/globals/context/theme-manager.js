@@ -7,8 +7,9 @@ import {
 import baseTheme from '@suite-themes/base-lightning-tv/index.js';
 import logger from './logger.js';
 import events from './events.js';
-
 import { fontLoader, cleanupFonts } from './fonts.js';
+import { THEME_KEY_REPLACER } from './constants';
+
 const merge = {
   all: objArray => {
     let result = {};
@@ -160,6 +161,7 @@ class ThemeManager {
     }
 
     let currentTheme = {};
+
     if (this._cache.has('theme')) {
       currentTheme = this._cache.get('theme');
     }
@@ -254,11 +256,23 @@ class ThemeManager {
 
     // Parse all colors in theme
     const themeFunctions = {};
-    const themeString = JSON.stringify(theme, (key, value) => {
+    const themeString = JSON.stringify(theme, (key, originalValue) => {
+      let value = originalValue;
+      // Replacer
+      if (value && typeof value === 'object') {
+        const replacement = originalValue;
+        for (var k in value) {
+          if (Object.hasOwnProperty.call(value, k) && THEME_KEY_REPLACER[k]) {
+            replacement[k && THEME_KEY_REPLACER[k]] = value[k];
+          }
+        }
+        value = replacement;
+      }
       if (
         Array.isArray(value) &&
         2 === value.length &&
         !value[0].targetComponent &&
+        value[0].length &&
         value[0].substr(0, 1) === '#'
       ) {
         // Better check to filter out extensions?

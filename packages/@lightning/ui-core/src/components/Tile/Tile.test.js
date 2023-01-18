@@ -121,7 +121,7 @@ describe('Tile', () => {
     component.src = imageUrl1;
     testRenderer.forceAllUpdates();
     expect(component.src).toBe(imageUrl1);
-    expect(component.artwork).toBeUndefined();
+    expect(component.artwork.src).toBeUndefined();
     expect(component._Artwork.src).toBe(imageUrl1);
 
     const imageUrl2 = 'test.png';
@@ -261,10 +261,9 @@ describe('Tile', () => {
   it('updates artwork scale on focus', async () => {
     testRenderer.focus();
     expect(component._Artwork.style.imageScale).toBe(1.2);
-    component.style.artworkStyles = { imageScale: 2 };
+    component.artwork.style = { imageScale: 2 };
     await component.__updateArtworkSpyPromise;
     expect(component._Artwork.style.imageScale).toBe(2);
-    // component.style.artworkStyles = { imageScale: undefined };
   });
 
   it('should add badge if required and remove element when no longer needed', async () => {

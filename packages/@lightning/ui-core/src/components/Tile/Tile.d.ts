@@ -1,25 +1,14 @@
 import lng from '@lightningjs/core';
-import { ArtworkStyles } from '../Artwork/Artwork';
-import { BadgeStyles } from '../Badge/Badge';
-import { CheckboxStyles } from '../Checkbox/Checkbox';
-import { LabelStyles } from '../Label/Label';
 import { MetadataBaseStyles } from '../MetadataBase/MetadataBase';
-import { ProgressBarStyles } from '../ProgressBar/ProgressBar';
 import type { StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyles } from '../Surface/Surface';
 
 export type TileStyles = SurfaceStyles & {
   animationEntrance: Record<string, unknown>;
   animationExit: Record<string, unknown>;
-  artworkStyles: ArtworkStyles;
-  badgeStyles: BadgeStyles;
-  checkboxStyles: CheckboxStyles;
-  labelStyles: LabelStyles;
-  metadataStyles: MetadataBaseStyles;
   paddingX: number | string;
   paddingY: number | string;
   paddingYProgress: number | string;
-  progressBarStyles: ProgressBarStyles;
   radius: lng.Tools.CornerRadius | string;
 };
 

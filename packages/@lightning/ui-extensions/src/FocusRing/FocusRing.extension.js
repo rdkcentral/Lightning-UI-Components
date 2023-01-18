@@ -123,9 +123,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         if (!this._FocusRing) return;
 
         // Update variant and styles
-        const focusRingPatch = {
-          tone: this.tone
-        };
+        const focusRingPatch = {};
 
         if (this._isFocusedMode) {
           this.applySmooth(
