@@ -18,6 +18,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
       );
     }
+
     _construct() {
       if (this._withThemeStylesSetupComplete) {
         // Make sure this runs ony once if being used on a component that extends another component that is utilizing withThemeStyles
@@ -32,15 +33,42 @@ export default function withThemeStyles(Base, mixinStyle) {
       this._componentLevelStyleSource = {};
       this._withThemeStylesSetupComplete = true;
       // Create an object of all possible values and cache it
+      this._createThemeDefaults();
       this._generateComponentStyleSource();
       super._construct();
     }
 
-    get _componentStyles() {
-      console.warn(
-        'LUI: Using componentStyles will soon be deprecated. Please use this.style instead'
-      );
-      return this._componentStyle;
+    _createThemeDefaults() {
+      (this.constructor?.properties || []).forEach(prop => {
+        if (this._componentConfig?.[prop] && !this[`_${prop}`]) {
+          this[`_${prop}`] = this._componentConfig[prop];
+        }
+      });
+    }
+
+    /*
+     *
+     * Theme configuration for overrides and defaults
+     */
+    get _componentConfig() {
+      // TODO: Add caching optimization
+      if (!this.__prototypeChain)
+        return (
+          this.theme?.componentConfig?.[this.constructor.__componentName] || {}
+        );
+      return Array.from(this.__prototypeChain)
+        .reverse()
+        .reduce((acc, curr) => {
+          return clone(acc, this.theme?.componentConfig?.[curr] || {});
+        }, {});
+    }
+
+    /**
+     *
+     * Allows themes to override component values
+     */
+    get _styleOverrides() {
+      return clone(this.styleConfig || {}, this._componentConfig?.styleConfig);
     }
 
     /**
@@ -70,10 +98,12 @@ export default function withThemeStyles(Base, mixinStyle) {
       return (parent && parent.subTheme) || undefined;
     }
 
+    get _modeStyle() {
+      return this._componentStyleSource?.mode?.[this.mode] || {};
+    }
+
     get _toneStyle() {
-      const toneStyle =
-        (this._componentStyleSource.tone || {})[this.tone] || {};
-      return toneStyle || {};
+      return this._componentStyleSource?.tone?.[this.tone] || {};
     }
 
     /**
@@ -81,13 +111,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {object}
      */
     get _themeLevelStyle() {
-      const themeLevelStyle = ((this.theme || {}).componentStyle || {})[
-        this.constructor.__componentName
-      ];
-
-      if (!themeLevelStyle) return {};
-
-      return themeLevelStyle || {};
+      return this._componentConfig?.style || {};
     }
 
     /**
@@ -120,7 +144,9 @@ export default function withThemeStyles(Base, mixinStyle) {
       let v = this._componentStyleSource.base || {};
 
       // Mode style
-      v = clone(v, (this._componentStyleSource.mode || {})[this.mode] || {});
+      if (this._modeStyle) {
+        v = clone(v, this._modeStyle);
+      }
 
       // Tone style
       if (this._toneStyle) {
@@ -181,7 +207,6 @@ export default function withThemeStyles(Base, mixinStyle) {
      * Adds support to override modes with mode: {focused: {radius: 100}}
      * @return {object}
      */
-
     _processModeOverrides(styleObject) {
       const modeOverrides =
         styleObject.mode &&
@@ -286,7 +311,10 @@ export default function withThemeStyles(Base, mixinStyle) {
             });
           }
         }
+
+        v = clone(v, this._styleOverrides);
       });
+
       this._componentStyleSource = v;
 
       // Update list of properties in componentSource
@@ -451,7 +479,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {string}
      */
     get mode() {
-      return this._mode;
+      return this._mode || this._componentConfig.mode;
     }
 
     set mode(v) {
@@ -465,19 +493,10 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {string}
      */
     get tone() {
-      if (
-        this.theme.componentTone &&
-        'object' === typeof this.theme.componentTone &&
-        Object.prototype.hasOwnProperty.call(
-          this.theme.componentTone,
-          this.constructor.__componentName
-        ) &&
-        'string' ===
-          typeof this.theme.componentTone[this.constructor.__componentName]
-      ) {
-        return this.theme.componentTone[this.constructor.__componentName];
-      }
-      return this._tone || 'neutral';
+      const tone = this._tone || this._componentConfig.tone;
+      return tone && Object.keys(this._componentStyleSource.tone).includes(tone)
+        ? tone
+        : 'neutral';
     }
 
     set tone(value) {

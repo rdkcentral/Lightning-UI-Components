@@ -6,7 +6,6 @@ import Label from '../Label';
 import MetadataTile from '../MetadataTile';
 import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
-import { clone } from '../../utils';
 import Surface from '../Surface';
 
 class Tile extends Surface {
@@ -224,24 +223,20 @@ class Tile extends Surface {
   _updateArtwork() {
     // ensure a nested artwork src takes precedence over the class's src setter,
     // but that if src is undefined in both the setter and artwork object,
-    // we don't incorrectly pass "src: undefined" to the Artwork component
-    let artwork = this.artwork;
-    if (this.src) {
-      artwork = clone({ src: this.src }, this.artwork);
-    }
-
+    // we don't incorrectly pass "src: undefined" to the Artwork component)
     this._Artwork.patch({
-      ...artwork,
-      gradient: this._gradient,
       h: this._h,
       w: this._w,
       x: this._w / 2,
       y: this._h / 2,
-      shouldScale: this._isFocusedMode,
+      src: this.src,
+      ...(this.artwork || {}),
       style: {
-        radius: this.style.radius, // This can be overwritten by artworkStyles to support no rounding for performance
-        ...this.style.artworkStyles
-      }
+        radius: this.style?.radius,
+        ...this.artwork?.style
+      },
+      gradient: this._gradient,
+      shouldScale: this._isFocusedMode
     });
   }
 
@@ -251,7 +246,7 @@ class Tile extends Surface {
 
   _updateBadge() {
     // Remove Badge if no longer required
-    if (!this.badge || typeof this.badge !== 'object' || this._isCircleLayout) {
+    if (!this.badge?.title || this._isCircleLayout) {
       if (this._Badge) {
         this._Content.patch({
           Badge: undefined
@@ -264,8 +259,7 @@ class Tile extends Surface {
       ...this.badge,
       x: this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1,
-      style: this.style.badgeStyles
+      alpha: !this._persistentMetadata ? 0.001 : 1
     };
     if (!this._Badge) {
       this._Content.patch({
@@ -285,7 +279,7 @@ class Tile extends Surface {
 
   _updateLabel() {
     // Remove Label if no longer required
-    if (!this.label || typeof this.label !== 'object' || this._isCircleLayout) {
+    if (!this.label?.title || this._isCircleLayout) {
       if (this._Label) {
         this._Content.patch({
           Label: undefined
@@ -298,8 +292,7 @@ class Tile extends Surface {
       ...this.label,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1,
-      style: this.style.labelStyles
+      alpha: !this._persistentMetadata ? 0.001 : 1
     };
 
     if (!this._Label) {
@@ -328,9 +321,7 @@ class Tile extends Surface {
   _updateCheckbox() {
     // Remove Checkbox if no longer required
     if (
-      !this.checkbox ||
-      typeof this.checkbox !== 'object' ||
-      !this.checkbox.checked ||
+      !(typeof this.checkbox?.checked === 'boolean' && this.checkbox.checked) ||
       this._isCircleLayout
     ) {
       if (this._Checkbox) {
@@ -370,9 +361,10 @@ class Tile extends Surface {
   _updateProgressBar() {
     // Remove ProgressBar if no longer required
     if (
-      !this.progressBar ||
-      typeof this.progressBar !== 'object' ||
-      !this.progressBar.progress ||
+      !(
+        typeof this.progressBar?.progress === 'number' &&
+        this.progressBar.progress
+      ) ||
       this._isCircleLayout
     ) {
       if (this._ProgressBar) {
@@ -393,8 +385,7 @@ class Tile extends Surface {
         ...this.progressBar,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
-        y: this._h - this.style.paddingYProgress,
-        style: this.style.progressBarStyles
+        y: this._h - this.style.paddingYProgress
       };
 
       if (!this._ProgressBar) {

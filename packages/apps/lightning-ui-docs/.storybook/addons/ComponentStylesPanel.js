@@ -32,8 +32,10 @@ const updateComponentValue = (
 ) => {
   updateGlobalTheme(
     {
-      componentStyle: {
-        [componentName]: { [styleProp]: value }
+      componentConfig: {
+        [componentName]: {
+          style: { [styleProp]: value }
+        }
       }
     },
     updateGlobals
@@ -72,7 +74,11 @@ export default params => {
     const context = globalContext();
     if (context) {
       context.updateTheme({
-        componentTone: { [component.constructor.__componentName]: tone }
+        componentConfig: {
+          [component.constructor.__componentName]: {
+            tone
+          }
+        }
       });
     }
   }, [tone]);
@@ -88,9 +94,9 @@ export default params => {
   function updateTone() {
     const theme = globalTheme();
     // Check if the current component already has a tone set and update the state if so
-    if (theme?.componentTone?.[component.constructor.__componentName]) {
+    if (theme?.componentConfig?.[component.constructor.__componentName]?.tone) {
       updateToneState(
-        theme.componentTone[component.constructor.__componentName]
+        theme.componentConfig[component.constructor.__componentName].tone
       );
     } else {
       updateToneState('neutral');
