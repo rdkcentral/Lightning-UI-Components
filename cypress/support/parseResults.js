@@ -120,7 +120,8 @@ const slackBlocks = (timestamp, branch, duration, result) => {
       fields: [
         {
           type: 'mrkdwn',
-          text: '<@U03MXPE82H2> / <@U035JQ60G0P>\nPlease check the failure !'
+          // Tag Sabrina and Sergi when failures occur
+          text: '<@U03K7DVLCMU> / <@U035JQ60G0P>\nPlease check the failure !'
         }
       ]
     }
