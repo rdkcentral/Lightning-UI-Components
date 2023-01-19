@@ -10,7 +10,7 @@ export default function () {
    * @param {String} value
    * @example Then I verify the 'blur' is 'true' for Artwork component
    */
-   Then(
+  Then(
     'I verify the {string} is {string} for Artwork component',
     (control, value) => {
       // TODO: Create separate steps for blur, fill, foregroundSrc, format, gradient, srcCallback. This step is too long
@@ -18,7 +18,7 @@ export default function () {
         case 'blur':
           switch (value) {
             case 'true':
-              cy.get(Artwork.blur).should('exist');
+              cy.get(Artwork.blur).should('exist').and('be.visible');
               break;
             case 'false':
               cy.get(Artwork.blur).should('not.exist');
@@ -27,12 +27,12 @@ export default function () {
               throw new Error(
                 'Please check the page value name or implement the missing case.'
               );
-            }
+          }
           break;
         case 'fill':
           switch (value) {
             case 'true':
-              cy.get(Artwork.fill).should('exist');
+              cy.get(Artwork.fill).should('exist').and('be.visible');
               break;
             case 'false':
               cy.get(Artwork.fill).should('not.exist');
@@ -41,32 +41,37 @@ export default function () {
               throw new Error(
                 'Please check the page value name or implement the missing case.'
               );
-            }
+          }
           break;
         case 'format':
           switch (value) {
             case 'default':
+              cy.get(Artwork.image).should('exist').and('be.visible');
               cy.get(Artwork.blur).should('not.exist');
               cy.get(Artwork.centerImage).should('not.exist');
               cy.get(Artwork.centerImageContainedImage).should('not.exist');
               break;
             case 'circle':
-              // Blocked due to use of global values
-              // Prevenvting check to verify this is a circle vs square
-              throw new Error(
-                'The \'circle\' case does not yet have a proper implementation.'
-              );
-              // cy.get(Artwork.blur).should('exist');
-              // cy.get(Artwork.centerImage).should('exist');
-              // cy.get(Artwork.centerImageContainedImage).should('exist');
-              // break;
-            case 'square':
+              // There is no difference in DOM for circle and square
+              // Add check to ensure it's a circle
+              cy.get(Artwork.image).should('exist').and('be.visible');
               cy.get(Artwork.blur).should('exist');
               cy.get(Artwork.centerImage).should('exist');
-              cy.get(Artwork.centerImageContainedImage).should('exist');
+              cy.get(Artwork.centerImageContainedImage)
+                .should('exist')
+                .and('be.visible');
+              break;
+            case 'square':
+              cy.get(Artwork.image).should('exist').and('be.visible');
+              cy.get(Artwork.blur).should('exist');
+              cy.get(Artwork.centerImage).should('exist');
+              cy.get(Artwork.centerImageContainedImage)
+                .should('exist')
+                .and('be.visible');
               // Add check to ensure it's a square
               break;
             case 'contain':
+              cy.get(Artwork.image).should('exist').and('be.visible');
               cy.get(Artwork.blur).should('exist');
               cy.get(Artwork.centerImage).should('exist');
               cy.get(Artwork.centerImageContainedImage).should('not.exist');
@@ -75,12 +80,12 @@ export default function () {
               throw new Error(
                 'Please check the page value name or implement the missing case.'
               );
-            }
+          }
           break;
         case 'gradient':
           switch (value) {
             case 'true':
-              cy.get(Artwork.gradient).should('exist');
+              cy.get(Artwork.gradient).should('exist').and('be.visible');
               break;
             case 'false':
               cy.wait(500).get(Artwork.gradient).should('not.exist');
@@ -89,31 +94,33 @@ export default function () {
               throw new Error(
                 'Please check the page value name or implement the missing case.'
               );
-            }
+          }
           break;
         case 'srcCallback':
           switch (value) {
             case 'true':
               cy.get(Artwork.image)
-              .should('have.attr', 'src')
-              .should('contain', 'ratio=16x9');
+                .should('be.visible')
+                .should('have.attr', 'src')
+                .should('contain', 'ratio=16x9');
               break;
             case 'false':
               cy.get(Artwork.image)
-              .should('have.attr', 'src')
-              .should('contain', 'ratio=3x4');
+                .should('be.visible')
+                .should('have.attr', 'src')
+                .should('contain', 'ratio=3x4');
               break;
             default:
               throw new Error(
                 'Please check the page value name or implement the missing case.'
               );
-            }
+          }
           break;
         default:
           throw new Error(
             'Please check the page value name or implement the missing case.'
           );
-        }
       }
+    }
   );
 }
