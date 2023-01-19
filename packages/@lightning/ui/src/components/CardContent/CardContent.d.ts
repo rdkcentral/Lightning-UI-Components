@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { StylePartial } from '@lightning/ui-core';
 import Card, { CardStyles } from '../Card/Card';
-import { MetadataCardContent } from '../MetadataCardContent/MetadataCardContent';
+import { default as MetadataCardContent } from '../MetadataCardContent/MetadataCardContent';
 
 type ImageSize = {
   w: number;

@@ -8,10 +8,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "default": "./index.js"
+      "import": {
+        "types": "./dist/lightning-ui-core.d.ts",
+        "default": "./dist/lightning-ui-core.min.js"
+      }
     }
   },
+  "main": "./dist/lightning-ui-core.min.js",
   "types": "./dist/lightning-ui-core.d.ts",
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
