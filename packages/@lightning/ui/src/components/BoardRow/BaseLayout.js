@@ -1,5 +1,7 @@
 import { FocusManager, Row, Base, Tile } from '@lightning/ui-core';
-import { CardContent, CardContentVertical, CardTitle } from '@lightning/ui';
+import CardContent from '../CardContent/CardContent';
+import CardContentVertical from '../CardContent/CardContentVertical';
+import CardTitle from '../Card/CardTitle';
 import { withExtensions } from '@lightning/ui-core';
 
 function warningMessage(item) {

@@ -3,6 +3,16 @@
   "version": "1.4.0",
   "description": "",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/lightning-ui-extensions.d.ts",
+        "default": "./dist/lightning-ui-extensions.min.js"
+      }
+    }
+  },
+  "main": "./dist/lightning-ui-extensions.min.js",
+  "types": "./dist/lightning-ui-extensions.d.ts",
   "peerDependencies": {
     "@lightning/ui": "^5.0.0",
     "@lightningjs/core": "^2.7.1"

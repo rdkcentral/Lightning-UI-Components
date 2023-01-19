@@ -10,11 +10,12 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./index.d.ts",
-        "default": "./index.js"
+        "types": "./dist/lightning-ui.d.ts",
+        "default": "./dist/lightning-ui.min.js"
       }
     }
   },
+  "main": "./dist/lightning-ui.min.js",
   "types": ".dist/lightning-ui.d.ts",
   "scripts": {
     "build": "yarn workspace @lightning/ui-core build && rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui",
