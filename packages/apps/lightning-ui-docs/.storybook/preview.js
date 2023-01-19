@@ -25,9 +25,6 @@ import {
 import { CATEGORIES } from '../../lightning-ui-docs/';
 
 context.debug = true;
-context.on('themeUpdate', () => {
-  window.parent.postMessage('themeSet', '*');
-});
 
 const extensions = [
   {
@@ -43,7 +40,6 @@ const extensions = [
   }
 ];
 
-window.addEventListener('message', themeSelectFromMessageEvent, false);
 
 function themeSelectFromMessageEvent(event) {
   themeSelect(event.data.theme);
@@ -53,35 +49,30 @@ function themeSelect(theme) {
   if (!theme) return;
   switch (theme) {
     case 'rogers':
-      context.setTheme({
+      return context.setTheme({
         ...rogers,
         extensions
       });
-      break;
+    
     case 'xfinity':
-      context.setTheme({
+      return context.setTheme({
         ...xfinity,
         extensions
       });
-      break;
     case 'sky':
-      context.setTheme(sky);
-      break;
+      return context.setTheme(sky);
     case 'xfinitygames':
-      context.setTheme({
+      return context.setTheme({
         ...xfinityGames,
         extensions
       });
-      break;
     case 'xumo':
-      context.setTheme({
+      return context.setTheme({
         ...xumo,
         extensions
       });
-      break;
     default:
-      context.setTheme({});
-      break;
+      return context.setTheme({});
   }
 }
 
@@ -180,12 +171,6 @@ window.addEventListener(
   false
 );
 
-// Setup Lightning UI Theme
-window.CONTEXT = context.config({
-  keyMetricsCallback() {
-    console.log('key metrics callback');
-  }
-});
 context.storybookCustomTheme = JSON.parse(JSON.stringify(context.theme));
 
 // create Lightning App
@@ -228,6 +213,18 @@ function createApp(parameters) {
       this.announcerTimeout = 15 * 1000;
     }
 
+    _attach() {
+      setTimeout(() => {
+        if (parameters.theme) {
+          themeSelect(parameters.theme).then(() => {
+            window.addEventListener('message', themeSelectFromMessageEvent, false);
+          })
+        } else {
+          window.addEventListener('message', themeSelectFromMessageEvent, false);
+        }
+      })
+    }
+
     $storyChanged() {
       this.emit('storyChanged');
     }
@@ -237,9 +234,6 @@ function createApp(parameters) {
     }
   })(appParams);
   document.body.appendChild(window.APP.stage.getCanvas());
-  if (parameters.theme) {
-    themeSelect(parameters.theme);
-  }
   return window.APP;
 }
 
