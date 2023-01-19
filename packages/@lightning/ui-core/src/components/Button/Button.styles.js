@@ -43,7 +43,6 @@ export const tone = theme => ({
   brand: {
     mode: {
       focused: {
-        textStyle: { textColor: theme.color.textNeutral },
         contentColor: theme.color.fillNeutral
       }
     }
