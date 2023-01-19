@@ -20,7 +20,7 @@ function Colors() {
     const rgbaColor = lng.StageUtils.getRgbaString(color);
     return (
       <TableRow
-        key={c}
+      key={LUITheme ? `${LUITheme}-${c}` : c}
         label={c}
         control={
           <ColorControl
@@ -46,7 +46,7 @@ function Radius() {
   const rows = Object.keys(radius).map(r => {
     return (
       <TableRow
-        key={r}
+      key={LUITheme ? `${LUITheme}-${r}` : r}
         label={r}
         control={
           <NumberControl
