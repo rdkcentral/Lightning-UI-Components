@@ -362,4 +362,54 @@ describe('TextBox', () => {
       expect(textBox._Marquee.title.maxLines).toBe(1);
     });
   });
+
+  describe('updates to the component dimensions', () => {
+    beforeEach(async () => {
+      [textBox, testRenderer] = createTextBox(
+        { content: 'abc' },
+        { spyOnMethods: ['_setDimensions'] }
+      );
+      jest.spyOn(textBox, '_setDimensions');
+      jest.spyOn(textBox, 'fireAncestors');
+      jest.spyOn(textBox, 'signal');
+
+      await textBox.__setDimensionsSpyPromise;
+    });
+
+    const expectSignalsFired = textBox => {
+      expect(textBox._setDimensions).toHaveBeenCalled();
+      expect(textBox.fireAncestors).toHaveBeenCalledWith('$itemChanged');
+      expect(textBox.signal).toHaveBeenCalledWith('textBoxChanged', {
+        w: textBox.w,
+        h: textBox.h
+      });
+    };
+    const expectSignalsNotFired = textBox => {
+      expect(textBox._setDimensions).not.toHaveBeenCalled();
+      expect(textBox.fireAncestors).not.toHaveBeenCalled();
+      expect(textBox.signal).not.toHaveBeenCalled();
+    };
+
+    it('should emit signals when the width or height change', async () => {
+      expectSignalsFired(textBox);
+
+      jest.clearAllMocks();
+      expectSignalsNotFired(textBox);
+
+      textBox.content = 'abc def';
+      await textBox.__setDimensionsSpyPromise;
+
+      expectSignalsFired(textBox);
+    });
+    it('should not emit signals when a property that is not width or height changes', async () => {
+      expectSignalsFired(textBox);
+
+      jest.clearAllMocks();
+      expectSignalsNotFired(textBox);
+
+      textBox.marquee = true;
+
+      expectSignalsNotFired(textBox);
+    });
+  });
 });

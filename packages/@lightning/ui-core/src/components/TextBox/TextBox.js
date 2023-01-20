@@ -54,7 +54,10 @@ class TextBox extends Base {
       width = this._Text.texture.getRenderWidth();
       height = this._Text.texture.getRenderHeight();
     }
-    if (width && height) {
+
+    const sizeChanged = this.w !== width || this.h !== height;
+
+    if (width && height && sizeChanged) {
       this.h = height;
       this.w = width;
       // Position updates can produce flash of poorly positioned content, hide the element until measurements are made.
@@ -110,8 +113,9 @@ class TextBox extends Base {
 
       return;
     }
-    this._updateText();
+
     this._isInlineContent ? this._updateInlineContent() : this._updateText();
+
     this._updateMarquee();
   }
 
