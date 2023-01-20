@@ -2,14 +2,7 @@ import lng from '@lightningjs/core';
 import { context } from '../../globals/index.js';
 import { flatten, getWidthByUpCount } from '../../utils/index.js';
 import { Row, Column as ColumnComponent, Tile, Button } from '../index.js';
-import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
 import mdx from './Column.mdx';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
-import person from '../../assets/images/cast.png';
-import person1 from '../../assets/images/cast1.png';
-import person2 from '../../assets/images/cast2.png';
-import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
-import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
@@ -419,27 +412,37 @@ export const SkipPlinko = () =>
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: parks }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: person }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: trolls }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/sQBS8MYXN9CZWV3gEDcL95G1KpA.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: parks }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: person }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/yY76zq9XSuJ4nWyPDuwkdV7Wt0c.jpg'
+                  }
                 }
               ]
             },
@@ -452,7 +455,7 @@ export const SkipPlinko = () =>
                   type: Tile,
                   itemLayout: { ratioX: 4, ratioY: 1, upCount: 1 },
                   artwork: {
-                    src: pets
+                    src: 'https://image.tmdb.org/t/p/w500/m0iEEib19yHzyD8hLh09qkIWbwz.jpg'
                   },
                   metadata: {
                     title: 'Row with skipPlinko set to true'
@@ -468,27 +471,37 @@ export const SkipPlinko = () =>
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: person2 }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/yY76zq9XSuJ4nWyPDuwkdV7Wt0c.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: jurassic }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/jauI01vUIkPA0xVsamGj0Gs1nNL.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: person1 }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: person2 }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/yY76zq9XSuJ4nWyPDuwkdV7Wt0c.jpg'
+                  }
                 },
                 {
                   type: Tile,
                   itemLayout: { ratioX: 16, ratioY: 9, upCount: 5 },
-                  artwork: { src: jurassic }
+                  artwork: {
+                    src: 'https://image.tmdb.org/t/p/w500/jauI01vUIkPA0xVsamGj0Gs1nNL.jpg'
+                  }
                 }
               ]
             }

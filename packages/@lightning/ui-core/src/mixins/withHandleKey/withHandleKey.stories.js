@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import { Tile, Row } from '../../components/index.js';
 import { context } from '../../globals/index.js';
-import kabob from '../../assets/images/kabob_320x180.jpg';
 import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
@@ -35,7 +34,7 @@ export const withHandleKey = args => {
           items: [
             {
               type: Tile,
-              src: kabob,
+              src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
               w: 320,
               h: 180,
               onEnter: args.onEnter,
@@ -46,7 +45,7 @@ export const withHandleKey = args => {
             },
             {
               type: Tile,
-              src: kabob,
+              src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
               w: 320,
               h: 180,
               onArrowDown: args.onArrowDown,
@@ -57,7 +56,7 @@ export const withHandleKey = args => {
             },
             {
               type: Tile,
-              src: kabob,
+              src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
               w: 320,
               h: 180,
               onArrowUp: args.onArrowUp,
@@ -68,7 +67,7 @@ export const withHandleKey = args => {
             },
             {
               type: Tile,
-              src: kabob,
+              src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
               w: 320,
               h: 180,
               onArrowRight: args.onArrowRight,

@@ -241,7 +241,7 @@ describe('TextBox', () => {
       const content = [
         'Text',
         {
-          icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+          icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
           title: 'Rotten Tomatoes rating'
         },
         { badge: 'HD', title: 'HD' },
@@ -258,7 +258,7 @@ describe('TextBox', () => {
 
     it('should parse a string with markup and render as InlineContent', async () => {
       const content =
-        'Example {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes {TEXT:styled text|italic}.';
+        'Example {ICON:settings|https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png} with a linebreak{NEWLINE}{BADGE:HD} that includes {TEXT:styled text|italic}.';
       [textBox, testRenderer] = createTextBox(
         { content },
         { spyOnMethods: ['_update'] }
@@ -318,7 +318,7 @@ describe('TextBox', () => {
           content: [
             'Text',
             {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
               title: 'Rotten Tomatoes rating'
             },
             { badge: 'HD', title: 'HD' },

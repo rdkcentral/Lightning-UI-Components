@@ -1,6 +1,5 @@
 import lng from '@lightningjs/core';
 import mdx from './withLayout.mdx';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import { Tile } from '../../components/index.js';
 import { CATEGORIES } from 'lightning-ui-docs';
 
@@ -20,7 +19,7 @@ export const withLayout = () => {
         Item: {
           type: Tile,
           artwork: {
-            src: parks,
+            src: 'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg',
             mode: 'contain'
           }
         }

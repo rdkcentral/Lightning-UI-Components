@@ -2,8 +2,7 @@ import lng from '@lightningjs/core';
 import ProviderComponent from '.';
 import { Icon } from '@lightning/ui-core';
 import mdx from './Provider.mdx';
-import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
-import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
+import xfinityLogo from '../../../../ui-core/src/assets/images/XfinityLogo16x9.png';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
@@ -51,8 +50,8 @@ export const Provider = () =>
         Provider: {
           type: ProviderComponent,
           providers: Array(10).fill({
-            icon: xfinityProviderLogoSquare,
-            announce: 'XFinity Logo'
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+            announce: 'Tomato'
           }),
           visibleCount: 3
         }
@@ -60,24 +59,28 @@ export const Provider = () =>
     }
   };
 
-export const With2x1 = () =>
-  class With2x1 extends lng.Component {
+export const WithCustomIconSize = () =>
+  class WithCustomIconSize extends lng.Component {
     static _template() {
       return {
         Provider: {
           type: ProviderComponent,
           providers: [
-            { icon: xfinityProviderLogoSquare, announce: 'XFinity Logo' },
+            {
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+              announce: 'tomato'
+            },
             {
               type: Icon,
-              w: 96,
+              w: 85,
               h: 48,
+              // Xfinity icon is from the Xfinity Brand Press Materials from https://corporate.comcast.com/press/kit
               icon: xfinityLogo,
               announce: 'XFinity Logo Wide'
             },
             ...Array.apply(null, { length: 8 }).map(() => ({
-              icon: xfinityProviderLogoSquare,
-              announce: 'XFinity Logo'
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+              announce: 'tomato'
             }))
           ],
           visibleCount: 3

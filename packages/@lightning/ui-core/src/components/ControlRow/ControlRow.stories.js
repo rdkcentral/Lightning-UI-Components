@@ -1,7 +1,6 @@
 import lng from '@lightningjs/core';
 import Tile from '../Tile';
 import ControlSmall from '../Control/ControlSmall';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import playIcon from '../../assets/images/ic_play_white_32.png';
 import { default as TitleRowStory } from '../TitleRow/TitleRow.stories';
@@ -107,7 +106,12 @@ export const LazyLoading = () =>
 
     _loadMore() {
       if (this._counter < 2) {
-        this._ControlRow.addContentItems(createItems(3, parks));
+        this._ControlRow.addContentItems(
+          createItems(
+            3,
+            'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+          )
+        );
         this._counter++;
       }
     }
@@ -142,7 +146,13 @@ export const AddingAndRemoving = () =>
         this._ControlRow.addLeftControlsAt(createControls(1, playIcon), 0);
       }, 1500);
       setTimeout(() => {
-        this._ControlRow.addContentItemsAt(createItems(2, parks), 1);
+        this._ControlRow.addContentItemsAt(
+          createItems(
+            2,
+            'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+          ),
+          1
+        );
       }, 3000);
       setTimeout(() => {
         this._ControlRow.addRightControls(createControls(3, playIcon));
