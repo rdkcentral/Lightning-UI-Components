@@ -27,8 +27,7 @@ describe('Provider', () => {
     testRenderer = null;
   });
 
-  // TODO: skipping snapshot test until test:watch or updateSnapshot script has been re-added
-  xit('renders', () => {
+  it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
