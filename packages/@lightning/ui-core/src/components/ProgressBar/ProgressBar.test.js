@@ -1,7 +1,7 @@
 import { base, tone } from './ProgressBar.styles.js';
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightning/ui-test-utils';
-import baseTheme from '@suite-themes/base-lightning-tv/index.js';
+import baseTheme from '@suite-themes/base-lightning-tv';
 import ProgressBar from './index.js';
 
 jest.mock('./ProgressBar.styles', () => {

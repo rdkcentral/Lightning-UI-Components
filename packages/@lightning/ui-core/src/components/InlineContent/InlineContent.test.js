@@ -2,8 +2,8 @@ import { makeCreateComponent, nextTick } from '@lightning/ui-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
-import baseTheme from '@suite-themes/base-lightning-tv/index.js';
-import xfinityTheme from '@suite-themes/xfinity-lightning-tv/index.js';
+import baseTheme from '@suite-themes/base-lightning-tv';
+import xfinityTheme from '@suite-themes/xfinity-lightning-tv';
 import { context } from '../../globals/index.js';
 import { jest } from '@jest/globals';
 

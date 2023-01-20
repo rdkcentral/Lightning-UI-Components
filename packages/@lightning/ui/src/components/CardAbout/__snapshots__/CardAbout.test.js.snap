@@ -77,7 +77,7 @@ exports[`cardAbout renders 1`] = `
             "Text",
           ],
           "texture": {
-            "fontFace": "DMSansRegular",
+            "fontFace": "DMSansMedium",
             "fontSize": 24,
             "letterSpacing": 2,
             "lineHeight": 32,
