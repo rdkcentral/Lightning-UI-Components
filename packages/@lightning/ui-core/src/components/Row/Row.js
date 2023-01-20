@@ -156,8 +156,18 @@ class Row extends FocusManager {
   // At a later time, we should investigate this further.
   _isOnScreenForScrolling(child) {
     if (!child) return false;
-    const itemX = child.core.renderContext.px;
+    let itemX = child.core.renderContext.px;
     const rowX = this.core.renderContext.px;
+    let xModifier;
+
+    // This section here takes the difference between a possible target value
+    // and subtracts it from the current child x. That value then is subtracted from the initial
+    // itemX valu calculated on the cor rendercontext px value to more accurately
+    // calculate the item's location on screen when it's own x value will be updating.
+    if (child.transition('x')) {
+      xModifier = child.x - child.transition('x').targetValue;
+      itemX = itemX - xModifier;
+    }
     return itemX >= rowX && itemX + child.w <= rowX + this.w;
   }
 
