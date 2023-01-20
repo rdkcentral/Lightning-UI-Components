@@ -3,7 +3,7 @@ import { makeCreateComponent } from '@lightning/ui-test-utils';
 import withThemeStyles from './index.js';
 import lng from '@lightningjs/core';
 import { context } from '../../globals/index.js';
-import XfinityTheme from '@suite-themes/xfinity-lightning-tv/index.js';
+import XfinityTheme from '@suite-themes/xfinity-lightning-tv';
 
 const styles = {
   base: {

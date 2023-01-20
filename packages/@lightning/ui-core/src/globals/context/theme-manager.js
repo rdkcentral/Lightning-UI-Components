@@ -264,8 +264,10 @@ class ThemeManager {
         for (var k in value) {
           if (Object.hasOwnProperty.call(value, k) && THEME_KEY_REPLACER[k]) {
             replacement[k && THEME_KEY_REPLACER[k]] = value[k];
+            delete replacement[k]; // Removes the original key that was replaced. example: fontFamily is replaced by fontFace so fontFamily is removed from the theme
           }
         }
+
         value = replacement;
       }
       if (

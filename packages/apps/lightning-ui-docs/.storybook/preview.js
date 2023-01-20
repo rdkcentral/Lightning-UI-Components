@@ -204,6 +204,8 @@ function createApp(parameters) {
     debug: true
   };
 
+  window.CONTEXT = context; // Used by addons
+
   window.APP = new (class LightningUIApp extends withAnnouncer(
     lng.Application,
     Speech,

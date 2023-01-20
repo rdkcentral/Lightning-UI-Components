@@ -4,7 +4,6 @@ import TextBox from '.';
 import { context } from '../../globals';
 
 import { getValidColor } from '../../utils';
-import XfinityTheme from '@suite-themes/xfinity-lightning-tv/index.js';
 
 it('should run', () => {
   expect(true).toBe(true);
@@ -16,7 +15,6 @@ describe('TextBox', () => {
   let textBox, testRenderer;
 
   beforeEach(async () => {
-    context.setTheme(XfinityTheme);
     [textBox, testRenderer] = createTextBox({}, { spyOnMethods: ['_update'] });
     await textBox.__updateSpyPromise;
   });
@@ -100,7 +98,7 @@ describe('TextBox', () => {
       await textBox.__updateSpyPromise;
       expect(textBox._Text).toEqual(
         expect.objectContaining({
-          text: expect.objectContaining(XfinityTheme.typography.body1)
+          text: expect.objectContaining(textBox.theme.typography.body1)
         })
       );
     });
@@ -111,7 +109,7 @@ describe('TextBox', () => {
       await textBox.__updateSpyPromise;
       expect(textBox._Text).toEqual(
         expect.objectContaining({
-          text: expect.objectContaining(XfinityTheme.typography.body1)
+          text: expect.objectContaining(textBox.theme.typography.body1)
         })
       );
     });
@@ -122,7 +120,7 @@ describe('TextBox', () => {
       await textBox.__updateSpyPromise;
       expect(textBox._Text).toEqual(
         expect.objectContaining({
-          text: expect.objectContaining(XfinityTheme.typography.body1)
+          text: expect.objectContaining(textBox.theme.typography.body1)
         })
       );
     });
