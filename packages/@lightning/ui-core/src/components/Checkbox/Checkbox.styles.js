@@ -1,5 +1,3 @@
-import check from './check-icon.png';
-
 export const base = theme => {
   const strokeWidth = theme.stroke.sm;
   const size = theme.spacer.xxl - strokeWidth * 2;
@@ -9,7 +7,6 @@ export const base = theme => {
     h: size,
     checkW: theme.spacer.lg,
     checkH: theme.spacer.md + theme.spacer.xs,
-    checkSrc: check,
     radius: size / 2,
     strokeWidth
   };

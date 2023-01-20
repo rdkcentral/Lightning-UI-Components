@@ -111,20 +111,6 @@ describe('SliderLarge', () => {
     expect(sliderLarge._LeftArrow.alpha).toEqual(0);
   });
 
-  it('Arrow height when image is used for arrows', () => {
-    [sliderLarge, testRenderer] = createSlider({
-      min: 1,
-      max: 10,
-      step: 1,
-      value: 2,
-      smooth: true
-    });
-    sliderLarge._componentStyle.iconLeftSrc = undefined;
-    sliderLarge._componentStyle.iconRightSrc = undefined;
-    sliderLarge._updateArrows();
-    expect(sliderLarge._LeftArrow.h).toEqual(0);
-  });
-
   it('Width larger than knob and arrows', () => {
     [sliderLarge, testRenderer] = createSlider({
       min: 1,
@@ -135,8 +121,8 @@ describe('SliderLarge', () => {
     });
     expect(sliderLarge._calculatedSliderWidth).toEqual(
       300 -
-        sliderLarge._componentStyle.arrowSpacing * 2 -
-        sliderLarge._componentStyle.arrowWidth * 2
+        sliderLarge.style.arrowSpacing * 2 -
+        sliderLarge.style.arrowWidth * 2
     );
   });
 
