@@ -116,7 +116,10 @@ class Key extends Button {
       if (this.toggle) {
         this.fireAncestors('$toggleKeyboard', this.toggle);
       }
-      this.fireAncestors('$onSoftKey', { key: this.title });
+      this.fireAncestors('$onSoftKey', {
+        key: this.title,
+        toggle: this.toggle
+      });
     }
 
     return false;

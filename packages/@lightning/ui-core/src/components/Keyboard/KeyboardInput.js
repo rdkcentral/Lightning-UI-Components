@@ -96,7 +96,11 @@ class KeyboardInput extends Base {
     }
   }
 
-  $onSoftKey({ key }) {
+  $onSoftKey({ key, toggle }) {
+    if (toggle) {
+      return;
+    }
+
     switch (key) {
       case 'Delete':
         this._Input.backspace();
@@ -109,10 +113,6 @@ class KeyboardInput extends Base {
         break;
       case 'Clear':
         this._Input.clear();
-        break;
-      case 'shift':
-      case '&123':
-      case 'abc':
         break;
       default:
         this._Input.insert(key);
