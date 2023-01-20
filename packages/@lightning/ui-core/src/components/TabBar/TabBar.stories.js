@@ -8,11 +8,6 @@ import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';
-import belair from '../../assets/images/tile-image.png';
-import parks from '../../assets/images/Parks_and_Recreation_16x9.jpg';
-import jurassic from '../../assets/images/Jurassic_World_16x9.jpg';
-import trolls from '../../assets/images/Trolls_World_Tour_16x9.jpg';
-import pets from '../../assets/images/The_Secret_Life_of_Pets_16x9.jpg';
 import { context } from '../../globals/index.js';
 import Tab from './Tab.js';
 import TabBarComponent from './index.js';
@@ -87,7 +82,13 @@ const createTiles = imgSrcs => {
     artwork: { src }
   }));
 };
-const tilesA = createTiles([belair, parks, jurassic, trolls, pets]);
+const tilesA = createTiles([
+  'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
+  'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg',
+  'https://image.tmdb.org/t/p/w500/jauI01vUIkPA0xVsamGj0Gs1nNL.jpg',
+  'https://image.tmdb.org/t/p/w500/sQBS8MYXN9CZWV3gEDcL95G1KpA.jpg',
+  'https://image.tmdb.org/t/p/w500/m0iEEib19yHzyD8hLh09qkIWbwz.jpg'
+]);
 const tilesB = tilesA.slice().reverse();
 
 const createColumn = titles => {

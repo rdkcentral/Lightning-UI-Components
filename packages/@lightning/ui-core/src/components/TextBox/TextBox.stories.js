@@ -71,7 +71,7 @@ export const WithInlineContentArray = () =>
             },
             'Wrapping Text',
             {
-              icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
               title: 'Rotten Tomatoes rating'
             },
             'and more text',
@@ -99,7 +99,7 @@ export const WithInlineContentString = () =>
           type: TextBox,
           w: 400,
           content:
-            'This is an example of using custom markup {ICON:settings|http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.',
+            'This is an example of using custom markup {ICON:settings|https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.',
           customStyleMappings: {
             italic: {
               fontStyle: 'italic',

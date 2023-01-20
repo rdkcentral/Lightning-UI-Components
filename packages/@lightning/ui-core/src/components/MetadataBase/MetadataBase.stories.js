@@ -57,7 +57,7 @@ MetadataBase.argTypes = {
       },
       '86%',
       {
-        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
         title: 'Rotten Tomatoes rating'
       }
     ],
@@ -72,7 +72,7 @@ MetadataBase.argTypes = {
           },
           '86%',
           {
-            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
             title: 'Rotten Tomatoes rating'
           }
         ]

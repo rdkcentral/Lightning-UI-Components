@@ -18,6 +18,7 @@ export const Artwork = () =>
       return {
         Artwork: {
           type: ArtworkComponent,
+          src: 'https://image.tmdb.org/t/p/w500/rQWoKq52opggnJsNWoLw7cHX2ew.jpg',
           itemLayout: {
             ratioX: 16,
             ratioY: 9,
@@ -67,19 +68,11 @@ Artwork.argTypes = {
     },
     options: [
       'none',
-      'http://myriad.merlin.comcast.com/select/logo?entityId=8501866671289235112&width=300&height=200&rule=Stations%20-%20white'
+      'https://image.tmdb.org/t/p/w500/uBZlZ8yN3zScGIsbIRnyWg14JeM.png'
     ],
     description: 'Image to be displayed on top of artwork',
     table: {
       defaultValue: { summary: 'default' }
-    }
-  },
-  srcCallback: {
-    control: 'boolean',
-    description:
-      'This property can be supplied with your own custom callback function to generate the src value. The values passed back into the srcCallback can help you make the proper request from a service for the image that will best fit your artwork space.',
-    table: {
-      defaultValue: { summary: undefined }
     }
   },
   fill: {
@@ -90,36 +83,5 @@ Artwork.argTypes = {
     control: 'boolean',
     description:
       'When true it will scale the image to the value specified by the imageScale property'
-  }
-};
-
-Artwork.parameters = {
-  argActions: {
-    foregroundSrc: (foregroundSrc, component) => {
-      component.tag('Artwork').foregroundSrc =
-        'none' !== foregroundSrc ? foregroundSrc : undefined;
-    },
-    srcCallback: (active, component) => {
-      if (active) {
-        // Accepts a regular function or function that returns a promise
-        component.tag('Artwork').patch({
-          src: '8501866671289235112',
-          srcCallback: ({ w, closestAspectRatio, src }) => {
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve(
-                  `https://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=${closestAspectRatio}&rule=noTitle`
-                );
-              }, 500);
-            });
-          }
-        });
-      } else {
-        component.tag('Artwork').patch({
-          src: 'https://myriad.merlin.comcast.com/select/image?entityId=8501866671289235112&width=400&ratio=3x4&rule=noTitle',
-          srcCallback: undefined
-        });
-      }
-    }
   }
 };

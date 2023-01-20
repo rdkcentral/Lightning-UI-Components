@@ -12,5 +12,6 @@ In **The Canvas** we can see how the component stands in isolation as well as ad
 
 With **The Docs** panel, we can read through the use case for the component, see how it is implemented in code, view some examples, and see a table of its configurable properties and styles.
 
-
 For information on leveraging `lightning-ui` in your application, check out the [README.md](../?path=/story/docs-read-me).
+
+NOTE: Most images used within these stories are pulled from [The Movie Database](https://www.themoviedb.org/).
