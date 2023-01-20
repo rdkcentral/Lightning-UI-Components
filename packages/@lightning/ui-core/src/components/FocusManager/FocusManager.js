@@ -8,6 +8,7 @@ import {
   getX,
   getY,
   isComponentOnScreen,
+  delayForAnimation,
   getShortestDistance
 } from '../../utils/index.js';
 import { withExtensions } from '../../mixins/index.js';
@@ -217,6 +218,7 @@ class FocusManager extends Base {
   }
 
   selectPrevious() {
+    this.shouldSmooth = true;
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if ((this.selectedIndex === 0 && !this.wrapSelected) || !hasFocusable) {
       return false;
@@ -237,6 +239,12 @@ class FocusManager extends Base {
   }
 
   selectNext() {
+    this.shouldSmooth = true;
+    if (this._lazyItems && this._lazyItems.length) {
+      delayForAnimation(() => {
+        this.appendItems(this._lazyItems.splice(0, 1));
+      });
+    }
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (
       (this.selectedIndex === this.Items.children.length - 1 &&
@@ -297,8 +305,12 @@ class FocusManager extends Base {
    *    need to confirm this applies to InlineContnet and ScrollWrapper??
    * Element/Pattern Components (Tile, Badge, etc.) would extend "BaseComponent" that does have focus/unfocus overrides
    */
-  _focus() {}
-  _unfocus() {}
+  _focus() {
+    this.items.forEach(item => (item.parentFocus = true));
+  }
+  _unfocus() {
+    this.items.forEach(item => (item.parentFocus = false));
+  }
 
   _getFocused() {
     const { selected } = this;

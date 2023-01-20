@@ -9,7 +9,8 @@ import {
   isMarkupString,
   getDimension,
   flatten,
-  degreesToRadians
+  degreesToRadians,
+  max
 } from '.';
 
 describe('rgba2argb', () => {
@@ -289,5 +290,20 @@ describe('flatten', () => {
 describe('degreesToRadians', () => {
   it('should convert degrees to radians', () => {
     expect(degreesToRadians(180)).toEqual(Math.PI);
+  });
+});
+
+describe('max', () => {
+  it('should return undefined if no valid agruments are passed in', () => {
+    expect(max()).toBe(undefined);
+    expect(max(NaN, undefined, null)).toBe(undefined);
+  });
+  it('should return the greatest number passed in', () => {
+    expect(max(8, 6, 0)).toBe(8);
+    expect(max(2, 1, 5)).toBe(5);
+  });
+  it('should ignore NaN, null, and undefined', () => {
+    expect(max(NaN, 8, undefined, 6, null, 0)).toBe(8);
+    expect(max(NaN, 2, undefined, 1, null, 5)).toBe(5);
   });
 });

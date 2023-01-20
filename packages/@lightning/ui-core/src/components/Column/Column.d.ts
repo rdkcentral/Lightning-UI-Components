@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import FocusManager from '../FocusManager';
+import NavigationManager from '../NavigationManager';
 import type { StylePartial } from '../../types/lui';
 
 type TransitionObject = {
@@ -16,24 +16,15 @@ export type ColumnStyles = {
   itemTransition: TransitionObject;
 };
 
-export default class Column extends FocusManager {
-  scrollIndex?: number;
-  alwaysScroll?: boolean;
-  neverScroll?: boolean;
-  autoResizeWidth?: boolean;
-  autoResizeHeight?: boolean;
+export default class Column extends NavigationManager {
   plinko?: boolean;
   itemPosX?: number;
   itemPosY?: number;
   get style(): ColumnStyles;
   set style(v: StylePartial<ColumnStyles>);
 
-  shouldScrollUp(): boolean;
-  shouldScrollDown(): boolean;
   checkSkipPlinko(prev: lng.Component, next: lng.Component): lng.Component;
-  scrollTo(index: number, duration: number): void;
   onScreenEffect(): void;
-  transitionDone(): void;
 
   $removeItem(item: lng.Component): void;
   $columnChanged(): void;

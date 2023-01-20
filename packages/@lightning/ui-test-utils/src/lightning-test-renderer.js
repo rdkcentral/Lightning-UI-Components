@@ -61,7 +61,11 @@ function forceAllUpdates(app) {
 }
 
 function create(Component, options = {}) {
-  const defaultOpts = { focused: true };
+  const defaultOpts = {
+    focused: true,
+    applicationW: 1920,
+    applicationH: 1080
+  };
   const opts = {
     ...defaultOpts,
     ...options
@@ -69,8 +73,8 @@ function create(Component, options = {}) {
   class TestApp extends lng.Application {
     static _template() {
       return {
-        w: 1920,
-        h: 1080,
+        w: opts.applicationW,
+        h: opts.applicationH,
         rect: true,
         color: 0x00000000
       };

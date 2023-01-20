@@ -1,0 +1,117 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import NavigationManager from './index.js';
+
+# NavigationManager
+
+NavigationManager is a is a subclass of [FocusManager](?path=/docs/elements-row--basic),
+and parent class of [Row](?path=/docs/elements-row--basic) and [Column](?path=/docs/elements-column--basic).
+It contains shared properties and methods primarily concerned with scrolling and layout.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightning/ui-core/src/components/NavigationManager/NavigationManager.js
+
+## Usage
+
+NavigationManager can be extended to create components that require scrolling logic.
+
+```js
+import { NavigationManager } from '@lightning/ui';
+
+class CustomRow extends NavigationManager {}
+```
+
+<Canvas>
+  <Story id="controls-navigationmanager--rows" />
+</Canvas>
+
+### Scrolling
+
+The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
+
+### directionProps
+
+NavigationManager uses a constant, `directionPropNames`, to map property names from the  
+`direction` propety set in [FocusManager](?path=/docs/elements-focusmanager--row). The properties it maps to are as follows:
+
+```js
+const directionPropNames = {
+  row: {
+    axis: 'x',
+    crossAxis: 'y',
+    lengthDimension: 'w',
+    crossDimension: 'h',
+    innerCrossDimension: 'innerH'
+  },
+  column: {
+    axis: 'y',
+    crossAxis: 'x',
+    lengthDimension: 'h',
+    crossDimension: 'w',
+    innerCrossDimension: 'innerW'
+  }
+};
+```
+
+## API
+
+### Properties
+
+| name             | type    | required | default | description                                                                                                                                 |
+| ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| alwaysScroll     | boolean | false    | false   | determines whether the component will stop scrolling as it nears the end to prevent white space                                             |
+| autoResizeHeight | boolean | false    | false   | automatically sets the height of the row to be the same as the Items container inside                                                       |
+| autoResizeWidth  | boolean | false    | false   | automatically sets the width of the row to be the same as the Items container inside (this will prevent scrolling)                          |
+| neverScroll      | boolean | false    | false   | if true, the component will never scroll, unless alwaysScroll is set to true, and if false, the component will apply normal scrolling logic |
+| scrollIndex      | number  | false    | 0       | Item index at which scrolling begins, provided the sum of item widths is greater than the width of the `Row`                                |
+
+### Style Properties
+
+| name           | type                             | description                                 |
+| -------------- | -------------------------------- | ------------------------------------------- |
+| alwaysScroll   | boolean                          | [See Properties section above](#properties) |
+| neverScroll    | boolean                          | [See Properties section above](#properties) |
+| scrollIndex    | number                           | [See Properties section above](#properties) |
+| itemSpacing    | number                           | [See Properties section above](#properties) |
+| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render      |
+
+### Methods
+
+#### scrollTo(index: number, duration: number): void
+
+scrolls to child at `index` at a rate of `duration` in ms \* (`this.selectedIndex` - `index`)
+
+#### transitionDone(): void
+
+This method is not set by default and can be overwritten. The method will be invoked upon
+any transitions to the component's axis property finishing (ex. 'x' for Row, 'y' for Column).
+
+#### shouldScrollDown(): bool
+
+Returns a boolean for whether or not the component should scroll down, based off if the
+component's `direction` property is `'column'`, the selected item's index is past the `scrollIndex`,
+and that content that is out of view can be scrolled to.
+
+#### shouldScrollLeft(): bool
+
+Returns a boolean for whether or not the component should scroll left, based off if the
+component's `direction` property is `'row'`, the selected item's index is past the `scrollIndex`,
+and that content that is out of view can be scrolled to.
+
+#### shouldScrollRight(): bool
+
+Returns a boolean for whether or not the component should scroll right, based off if the
+component's `direction` property is `'row'`, the selected item's index is past the `scrollIndex`,
+and that content that is out of view can be scrolled to.
+
+#### shouldScrollUp(): bool
+
+Returns a boolean for whether or not the component should scroll up, based off if the
+component's `direction` property is `'column'`, the selected item's index is past the `scrollIndex`,
+and that content that is out of view can be scrolled to.
+
+#### updatePositionOnAxis(item: lng.Component, position: number): void;
+
+Updates the position of a component along the main axis of the NavigationManager component.
+For components where `direction` is `'row'`, it will update the `x` property on the passed in component(`item`) to the passed in value(`position`).
+For components where `direction` is `'column'`, it will update the `y` property on the passed in component(`item`) to the passed in value(`position`)
