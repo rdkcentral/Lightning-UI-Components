@@ -35,11 +35,12 @@ class Basic extends lng.Component {
 
 ### Properties
 
-| name   | type    | required | default | description                      |
-| ------ | ------- | -------- | ------- | -------------------------------- |
-| icon   | string  | false    | null    | url for icon                     |
-| size   | string  | false    | sm      | width of the Key                 |
-| toggle | boolean | false    | -       | used to toggle `$toggleKeyboard` |
+| name    | type     | required | default | description                                                                                                                                                                                                     |
+| ------- | -------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| icon    | string   | false    | null    | url for icon                                                                                                                                                                                                    |
+| onEnter | function | false    | -       | if defined, will be invoked when enter is pressed while focused on the `Key` component. When defined, the `$onSoftKey` and `$toggleKeyboard` events will not be emitted from the key (see Events section below) |
+| size    | string   | false    | sm      | width of the Key                                                                                                                                                                                                |
+| toggle  | boolean  | false    | -       | used to toggle `$toggleKeyboard`                                                                                                                                                                                |
 
 ### Style Properties
 
@@ -49,3 +50,18 @@ class Basic extends lng.Component {
 | paddingX  | number           | space between the button horizontal edge and the content                               |
 | sizes     | object           | used to determine the width of key, contains the properties `sm`, `md`, `lg`, `xl`     |
 | textStyle | string \| object | text style to apply to the title                                                       |
+
+### Events
+
+## $onSoftKey({ key: string, toggle: boolean })
+
+Fired when the enter key is pressed while focused on a `Key` component. An event will be emitted
+via Lightning's `fireAncestors` with an object of the `Key`'s `title` and `toggle` property values.
+If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
+`$onSoftKey` event will not be emitted.
+
+## $toggleKeyboard({ key: string, toggle: boolean })
+
+Fired when the enter key is pressed while focused on a `Key` component with its `toggle` property
+set to `true`. If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
+`$toggleKeyboard` event will not be emitted.

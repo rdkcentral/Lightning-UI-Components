@@ -50,8 +50,20 @@ describe('Key', () => {
 
   it('should fire $onSoftKey events on enter press', () => {
     key.fireAncestors = jest.fn();
+
     key._handleEnter();
+
     expect(key.fireAncestors).toHaveBeenCalledWith('$onSoftKey', { key: 'a' });
+
+    key.title = 'shift';
+    key.toggle = true;
+
+    key._handleEnter();
+
+    expect(key.fireAncestors).toHaveBeenCalledWith('$onSoftKey', {
+      key: 'shift',
+      toggle: true
+    });
   });
 
   it('should fire $toggleKeyboard events on enter press if a toggle is present', () => {

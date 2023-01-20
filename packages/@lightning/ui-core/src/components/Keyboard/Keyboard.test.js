@@ -228,7 +228,7 @@ describe('KeyboardInput', () => {
     keyboardInput.$onSoftKey({ key: 'Done' });
     expect(keyboardInput._Input.title).toEqual('');
 
-    keyboardInput.$onSoftKey({ key: 'shift' });
+    keyboardInput.$onSoftKey({ key: 'shift', toggle: 'uppercase' });
     expect(keyboardInput._Input.title).toEqual('');
   });
 
