@@ -687,6 +687,27 @@ export function parseInlineContent(str = '') {
   return content;
 }
 
+/**
+ * Given any number of arguments, returns the greatest number passed to the function.
+ * If no valid numbers are passed in (ex. NaN, undefined, null), `undefined` will be returned.
+ * @param {...*} arguments Any number of arguments may be passed into the function.
+ *
+ * @return {number|undefined} The greatest number passed in as an argument or `undefined` if no valid number was passed in.
+ */
+export function max() {
+  if (!arguments) {
+    return;
+  }
+
+  const args = Array.from(arguments).filter(arg => !isNaN(arg) && arg != null);
+
+  if (!args.length) {
+    return;
+  }
+
+  return Math.max(...args);
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
