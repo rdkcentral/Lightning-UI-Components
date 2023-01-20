@@ -1,9 +1,6 @@
-import lng from '@lightningjs/core';
-import { Arrow } from '../../textures/index.js';
 import Base from '../Base/index.js';
 import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Slider.styles.js';
-import { getValidColor } from '../../utils/index.js';
 import ProgressBar from '../ProgressBar/index.js';
 import Icon from '../Icon/index.js';
 import Knob from '../Knob/index.js';
@@ -203,40 +200,19 @@ class Slider extends Base {
   }
 
   _updateArrows() {
-    if (!this.style.iconLeftSrc && !this.style.iconRightSrc) {
-      const arrowTexture = {
-        type: Arrow,
-        w: this.style.arrowWidth,
-        h: this.style.arrowHeight,
-        color: lng.StageUtils.getRgbString(getValidColor(this.style.arrowColor))
-      };
-      this._LeftArrow.h = this._RightArrow.h = 0;
-      this._LeftArrow.w = this._RightArrow.w = 0;
-      this._LeftArrow.texture = {
-        ...arrowTexture,
-        direction: 'left'
-      };
-
-      this._RightArrow.texture = {
-        ...arrowTexture,
-        direction: 'right'
-      };
-    } else {
-      const arrowProps = {
-        texture: undefined,
-        type: Icon,
-        w: this.style.arrowWidth,
-        h: this.style.arrowHeight
-      };
-      this._LeftArrow.patch({
-        ...arrowProps,
-        src: this.style.iconLeftSrc
-      });
-      this._RightArrow.patch({
-        ...arrowProps,
-        src: this.style.iconRightSrc
-      });
-    }
+    const arrowProps = {
+      type: Icon,
+      w: this.style.arrowWidth,
+      h: this.style.arrowHeight
+    };
+    this._LeftArrow.patch({
+      ...arrowProps,
+      src: this.style.iconLeftSrc
+    });
+    this._RightArrow.patch({
+      ...arrowProps,
+      src: this.style.iconRightSrc
+    });
 
     const color = this.style.arrowColor;
     this.applySmooth(this._LeftArrow, { color });
