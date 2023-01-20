@@ -25,9 +25,9 @@ describe('TextBox', () => {
   });
 
   describe('basic', () => {
-    // TODO: test fails after not ignoring TextBox tests, resolve when support for all package scripts are added back
-    xit('renders', () => {
+    it('renders', async () => {
       const tree = testRenderer.toJSON(2);
+      await textBox.__updateSpyPromise;
       expect(tree).toMatchSnapshot();
     });
 
@@ -37,8 +37,7 @@ describe('TextBox', () => {
       expect(textBox._Text.text.text).toBe('Hello world');
     });
 
-    // TODO: test fails after not ignoring TextBox tests, resolve when support for all package scripts are added back
-    xit('sets the announce string to the content or InlineContent announce', () => {
+    it('sets the announce string to the content or InlineContent announce', () => {
       const content = 'Hello world';
       textBox.content = content;
       testRenderer.forceAllUpdates();
