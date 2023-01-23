@@ -1,16 +1,23 @@
 import { makeCreateComponent } from '@lightning/ui-test-utils';
-import Keyboard, { KEYBOARD_FORMATS } from './index.js';
+import Keyboard from './index.js';
 import KeyboardInput from './KeyboardInput.js';
+import KeyboardQwerty from './KeyboardQwerty.js';
+import KeyboardNumbers from './KeyboardNumbers.js';
+import KeyboardFullscreen from './KeyboardFullscreen.js';
+import KeyboardEmail from './KeyboardEmail.js';
 const createKeyboard = makeCreateComponent(Keyboard);
 const createKeyboardInput = makeCreateComponent(KeyboardInput);
+const createKeyboardQwerty = makeCreateComponent(KeyboardQwerty);
+const createKeyboardNumbers = makeCreateComponent(KeyboardNumbers);
+const createKeyboardFullscreen = makeCreateComponent(KeyboardFullscreen);
+const createKeyboardEmail = makeCreateComponent(KeyboardEmail);
 
 describe('Keyboard', () => {
   let keyboard, testRenderer;
 
   beforeEach(() => {
-    [keyboard, testRenderer] = createKeyboard({
-      defaultFormat: 'lowercase',
-      formats: KEYBOARD_FORMATS.qwerty
+    [keyboard, testRenderer] = createKeyboardQwerty({
+      defaultFormat: 'lowercase'
     });
     return keyboard._whenEnabled;
   });
@@ -29,7 +36,7 @@ describe('Keyboard', () => {
     expect(keyboard.announce).toEqual('Keyboard, Search');
   });
 
-  it('should allow announce to be overriden', () => {
+  it('should allow announce to be overridden', () => {
     keyboard.announce = 'Qwerty Keyboard';
     expect(keyboard.announce).toEqual('Qwerty Keyboard');
   });
@@ -39,9 +46,11 @@ describe('Keyboard', () => {
     expect(keyboard.x).toEqual(0);
   });
 
-  it.skip('should center the keyboard when centerAlign is true', () => {
-    keyboard.centerAlign = true;
+  it('should center the keyboard when centerKeyboard is true', () => {
+    keyboard.centerKeyboard = true;
     testRenderer.forceAllUpdates();
+    keyboard.$itemChanged();
+    keyboard._update();
     expect(keyboard.x).toEqual(
       (keyboard.style.screenW - keyboard.w) / 2 - keyboard.style.marginX
     );
@@ -54,7 +63,7 @@ describe('Keyboard', () => {
     ]);
   });
 
-  it('should allow announceContext to be overriden', () => {
+  it('should allow announceContext to be overridden', () => {
     keyboard.announceContext = 'Context';
     expect(keyboard.announceContext).toEqual('Context');
   });
@@ -64,9 +73,8 @@ describe('Keyboard', () => {
   });
 
   it('should take in a single line format', () => {
-    [keyboard, testRenderer] = createKeyboard({
+    [keyboard, testRenderer] = createKeyboardNumbers({
       inline: true,
-      formats: KEYBOARD_FORMATS.numbers,
       defaultFormat: 'numbers'
     });
     return keyboard._whenEnabled.then(() => {
@@ -136,7 +144,7 @@ describe('Keyboard', () => {
     expect(keyboard.tag('Symbols').alpha).toEqual(1);
   });
 
-  it('should toggle to a different format of an inline keyboards', () => {
+  it('should toggle to a different format of an inline keyboard', () => {
     [keyboard, testRenderer] = createKeyboard({
       inline: true,
       formats: {
@@ -151,11 +159,10 @@ describe('Keyboard', () => {
     });
   });
 
-  it('should not scroll child rows if a width prop smaller than the auto calulated row is passed', done => {
-    [keyboard, testRenderer] = createKeyboard({
+  it('should not scroll child rows if a width prop smaller than the auto calculated row is passed', done => {
+    [keyboard, testRenderer] = createKeyboardQwerty({
       w: 10,
-      defaultFormat: 'lowercase',
-      formats: KEYBOARD_FORMATS.qwerty
+      defaultFormat: 'lowercase'
     });
     keyboard._whenEnabled.then(() => {
       const firstRow = keyboard.tag('Lowercase').items[0];
@@ -187,6 +194,44 @@ describe('Keyboard', () => {
       });
     });
   });
+
+  it('should create a KeyboardQwerty format keyboard which has 5 formats', () => {
+    [keyboard, testRenderer] = createKeyboardQwerty({
+      defaultFormat: 'lowercase'
+    });
+    keyboard._whenEnabled.then(() => {
+      expect(Object.keys(keyboard.formats)).toHaveLength(5);
+    });
+  });
+
+  it('should create a KeyboardNumbers format keyboard which has 3 formats', () => {
+    [keyboard, testRenderer] = createKeyboardNumbers({
+      defaultFormat: 'numbers'
+    });
+    keyboard._whenEnabled.then(() => {
+      expect(Object.keys(keyboard.formats)).toHaveLength(3);
+    });
+  });
+
+  it('should create a KeyboardFullscreen format keyboard which has 2 formats', () => {
+    [keyboard, testRenderer] = createKeyboardFullscreen({
+      defaultFormat: 'letters'
+    });
+    keyboard._whenEnabled.then(() => {
+      expect(Object.keys(keyboard.formats)).toHaveLength(2);
+      expect(Object.keys(keyboard.formats)).toContain('letters');
+      expect(Object.keys(keyboard.formats)).toContain('symbols');
+    });
+  });
+
+  it('should create a KeyboardEmail format keyboard which has 5 formats', () => {
+    [keyboard, testRenderer] = createKeyboardEmail({
+      defaultFormat: 'lowercase'
+    });
+    keyboard._whenEnabled.then(() => {
+      expect(Object.keys(keyboard.formats)).toHaveLength(5);
+    });
+  });
 });
 
 describe('KeyboardInput', () => {
@@ -194,7 +239,7 @@ describe('KeyboardInput', () => {
 
   beforeEach(async () => {
     [keyboardInput, testRenderer] = createKeyboardInput(
-      { placeholder: '' },
+      { placeholder: '', keyboardType: KeyboardQwerty },
       { spyOnMethods: ['_update'] }
     );
   });

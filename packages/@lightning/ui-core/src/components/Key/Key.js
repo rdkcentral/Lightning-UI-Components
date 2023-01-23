@@ -79,6 +79,8 @@ class Key extends Button {
     this._prefix = {
       type: Icon,
       icon,
+      w: this.style.iconW,
+      h: this.style.iconH,
       ...props
     };
   }
@@ -117,7 +119,7 @@ class Key extends Button {
         this.fireAncestors('$toggleKeyboard', this.toggle);
       }
       this.fireAncestors('$onSoftKey', {
-        key: this.title,
+        key: this.keyId || this.title,
         toggle: this.toggle
       });
     }

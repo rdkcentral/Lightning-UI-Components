@@ -1,10 +1,9 @@
+import { context } from '@lightning/ui-core';
 import Base from '../Base/index.js';
 import Key from '../Key/index.js';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';
 import { withExtensions } from '../../mixins/index.js';
-
-export { default as KEYBOARD_FORMATS } from './KeyboardFormats.js';
 import * as styles from './Keyboard.styles.js';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
@@ -19,7 +18,26 @@ class Keyboard extends Base {
   }
 
   static get properties() {
-    return ['formats', 'centerKeyboard', 'rowWrap', 'centerKeys'];
+    return [
+      'formats',
+      'centerKeyboard',
+      'rowWrap',
+      'centerKeys',
+      'keyComponent'
+    ];
+  }
+
+  _init() {
+    context.on('themeUpdate', this._setShouldUpdateTheme.bind(this));
+    super._init();
+  }
+
+  _setShouldUpdateTheme() {
+    this.shouldUpdateTheme = true;
+  }
+
+  _detach() {
+    context.off('themeUpdate', this._setShouldUpdateTheme.bind(this));
   }
 
   _focus() {
@@ -40,32 +58,13 @@ class Keyboard extends Base {
     } else {
       this.x = 0;
     }
-    if (this._formatsChanged) {
+    if (this._formatsChanged || this.shouldUpdateTheme) {
       this._createFormat(this._currentFormat);
       this._refocus();
       this._formatsChanged = false;
+      this.shouldUpdateTheme = false;
     } else {
-      Object.keys(this.formats).forEach(key => {
-        const element = this.tag(capitalize(key));
-        if (element) {
-          element.patch({
-            style: {
-              itemSpacing: this.style.spacing
-            }
-          });
-          element.items.forEach(row => {
-            row.patch({
-              style: {
-                itemSpacing: this.style.spacing
-              },
-              centerInParent: this.centerKeys,
-              wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
-            });
-          });
-          // force Column to recalculate rows from the centerKeyboard toggle
-          element.queueRequestUpdate();
-        }
-      });
+      this._formatKeys();
     }
   }
 
@@ -73,7 +72,7 @@ class Keyboard extends Base {
     const format = this.formats[keyboard];
     if (format) {
       const keyboardData = this._formatKeyboardData(format);
-      this._createKeyboard(keyboard, this._createRows(keyboardData));
+      this._createKeyboard(keyboard, this._createRows(keyboardData, keyboard));
     }
   }
 
@@ -88,7 +87,7 @@ class Keyboard extends Base {
           plinko: true,
           items: rows,
           style: {
-            itemSpacing: this.style.spacing
+            itemSpacing: this.style.keySpacing
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
@@ -98,7 +97,7 @@ class Keyboard extends Base {
     }
   }
 
-  _createRows(rows = []) {
+  _createRows(rows = [], keyboard) {
     return rows.map(keys => {
       return {
         type: Row,
@@ -108,22 +107,43 @@ class Keyboard extends Base {
         neverScroll: true,
         wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true,
         style: {
-          itemSpacing: this.style.spacing
+          itemSpacing: this.style.keySpacing
         },
-        items: this._createKeys(keys)
+        items: this._createKeys(keys, keyboard)
       };
     });
   }
 
-  _createKeys(keys = []) {
+  _createKeys(keys = [], keyboard) {
     return keys.map(keyProps => {
       if (!keyProps) {
         return { skipFocus: true };
       }
+
       const key = {
-        type: this.keyComponent || Key // TODO: Maybe remove this?
+        type: this.keyComponent || Key // allows use of a custom Key component if specified
       };
+
       if (typeof keyProps === 'object') {
+        // keyId is used to account for localization
+        const iconName = keyProps.keyId || keyProps.title;
+        const keyIcon =
+          this.style.keyProps?.[keyboard]?.[iconName] ||
+          this.style.keyProps?.[iconName];
+
+        if (keyIcon && keyIcon.icon) {
+          return {
+            type: this.keyComponent || Key,
+            ...keyProps,
+            ...this.style.keyProps?.[iconName],
+            style: {
+              iconStyle: {
+                ...keyIcon.iconStyle
+              }
+            },
+            size: keyIcon.size || keyProps.size
+          };
+        }
         return { ...key, ...keyProps };
       }
       return { ...key, title: keyProps };
@@ -150,18 +170,40 @@ class Keyboard extends Base {
     }
   }
 
-  $toggleKeyboard(to) {
-    const toKeyboard = capitalize(to);
-    if (toKeyboard !== this._currentFormat) {
-      let toKeyboardTag = this.tag(toKeyboard);
-      if (!toKeyboardTag) {
-        this._createFormat(to);
-        toKeyboardTag = this.tag(toKeyboard);
+  _formatKeys() {
+    Object.keys(this.formats).forEach(format => {
+      const element = this.tag(capitalize(format));
+      if (element) {
+        element.patch({
+          style: {
+            itemSpacing: this.style.keySpacing
+          }
+        });
+        element.items.forEach(row => {
+          row.patch({
+            style: {
+              itemSpacing: this.style.keySpacing
+            },
+            centerInParent: this.centerKeys,
+            wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
+          });
+        });
+        // force Column to recalculate rows from the centerKeyboard toggle
+        element.queueRequestUpdate();
       }
-      this.selectKeyOn(toKeyboardTag);
+    });
+  }
+
+  $toggleKeyboard(next) {
+    const nextKeyboard = capitalize(next);
+    if (next !== this._currentFormat) {
+      this._createFormat(next);
+      const nextKeyboardTag = this.tag(nextKeyboard);
+
+      this.selectKeyOn(nextKeyboardTag);
       this._currentKeyboard.alpha = 0;
-      toKeyboardTag.alpha = 1;
-      this._currentFormat = toKeyboard;
+      nextKeyboardTag.alpha = 1;
+      this._currentFormat = next;
     }
   }
 

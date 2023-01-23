@@ -20,7 +20,15 @@ export {
 } from './InlineContent/index.js';
 export { default as Input, InputStyle } from './Input/index.js';
 export { default as Key, KeyStyle } from './Key/index.js';
-export { default as Keyboard, KeyboardStyle } from './Keyboard/index.js';
+export {
+  default as Keyboard,
+  KeyboardStyle,
+  KeyboardEmail,
+  KeyboardFullscreen,
+  KeyboardNumbers,
+  KeyboardQwerty,
+  KeyboardInput
+} from './Keyboard/index.js';
 export { default as Knob, KnobStyle } from './Knob/index.js';
 export { default as Label, LabelStyle } from './Label/index.js';
 export { default as Marquee, MarqueeStyle } from './Marquee/index.js';
