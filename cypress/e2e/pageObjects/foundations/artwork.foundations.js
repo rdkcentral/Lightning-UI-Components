@@ -42,7 +42,7 @@ class Artwork extends LUIComponent {
   }
 
   get imageURL() {
-    return 'http://myriad.merlin.comcast.com/select/logo?entityId=8501866671289235112&width=300&height=200&rule=Stations%20-%20white';
+    return 'https://image.tmdb.org/t/p/w500/uBZlZ8yN3zScGIsbIRnyWg14JeM.png';
   }
 }
 

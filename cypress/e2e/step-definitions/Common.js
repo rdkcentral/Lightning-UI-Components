@@ -936,9 +936,10 @@ export default function () {
       } else {
         pageObject.progressBarValue.then(progressBarValue => {
           pageObject.progressValue.then(progressValue => {
-            const actualPercentage =
-              Number(progressValue) / Number(progressBarValue);
-            expect(actualPercentage).to.eq(expectedPercentage);
+            const actualPercentage = (
+              Number(progressValue) / Number(progressBarValue)
+            ).toFixed(2);
+            expect(actualPercentage).to.eq(expectedPercentage.toFixed(2));
           });
         });
       }

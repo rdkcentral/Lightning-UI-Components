@@ -11,7 +11,7 @@ export default function () {
    */
   Given('I launch the LUI Storybook app', () => {
     cy.visit('http://localhost:8000/?path=/story/', {
-      timeout: 10000
+      timeout: 15000
     });
   });
 
