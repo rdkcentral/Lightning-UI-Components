@@ -129,7 +129,7 @@ class ListItem extends Button {
     return {
       type: Icon,
       icon,
-      style: { color: undefined, ...this.style.logoStyles }
+      style: { color: undefined, ...this.style.logoStyle }
     };
   }
 

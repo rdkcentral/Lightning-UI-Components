@@ -1,17 +1,17 @@
 import type lng from '@lightningjs/core';
-import { ButtonSmall, ButtonStyles } from '../Button';
+import { ButtonSmall, ButtonStyle } from '../Button';
 import type { StylePartial } from '../../types/lui';
 
-type LogoStylesObject = {
+type LogoStyleObject = {
   radius: lng.Tools.CornerRadius;
   h: number;
   w: number;
 };
 
-export type ControlStyles = ButtonStyles & {
+export type ControlStyle = ButtonStyle & {
   h: number;
-  iconStyles: Record<string, unknown>;
-  logoStyles: LogoStylesObject;
+  iconStyle: Record<string, unknown>;
+  logoStyle: LogoStyleObject;
   radius: lng.Tools.CornerRadius;
 };
 
@@ -19,6 +19,6 @@ export default class Control extends ButtonSmall {
   icon?: string;
   logo?: string;
   shouldCollapse?: boolean;
-  get style(): ControlStyles;
-  set style(v: StylePartial<ControlStyles>);
+  get style(): ControlStyle;
+  set style(v: StylePartial<ControlStyle>);
 }

@@ -1,3 +1,3 @@
-import Tooltip, { TooltipStyles } from './Tooltip';
+import Tooltip, { TooltipStyle } from './Tooltip';
 
-export { Tooltip as default, TooltipStyles };
+export { Tooltip as default, TooltipStyle };

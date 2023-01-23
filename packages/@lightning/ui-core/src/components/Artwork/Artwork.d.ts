@@ -4,7 +4,7 @@ import type { Color, StylePartial } from '../../types/lui';
 
 type AspectRatio = '16x9' | '3x4' | '4x3' | '2x1' | '1x1';
 
-export type ArtworkStyles = {
+export type ArtworkStyle = {
   animationBlurEntrance: lng.types.TransitionSettings.Literal;
   animationBlurExit: lng.types.TransitionSettings.Literal;
   animationComponentEntrance: lng.types.TransitionSettings.Literal;
@@ -50,8 +50,8 @@ export default class Artwork extends Base {
     h: number;
   }) => string;
   srcCallbackAspectRatios?: AspectRatio[];
-  get style(): ArtworkStyles;
-  set style(v: StylePartial<ArtworkStyles>);
+  get style(): ArtworkStyle;
+  set style(v: StylePartial<ArtworkStyle>);
 
   // tags
   get _Blur(): lng.Component;

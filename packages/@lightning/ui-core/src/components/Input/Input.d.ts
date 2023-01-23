@@ -1,11 +1,11 @@
 import lng from '@lightningjs/core';
-import { ButtonStyles, Button, TextBoxStyles } from '@lightning/ui-core';
+import { ButtonStyle, Button, TextBoxStyle } from '@lightning/ui-core';
 import { StylePartial } from '../../types/lui';
 
-export type InputStyles = ButtonStyles & {
-  cursorStyles: object;
-  eyebrowTextStyle: TextBoxStyles;
-  helpTextStyle: TextBoxStyles;
+export type InputStyle = ButtonStyle & {
+  cursorStyle: object;
+  eyebrowTextStyle: TextBoxStyle;
+  helpTextStyle: TextBoxStyle;
   minWidth: number;
   paddingX: number;
   paddingY: number;
@@ -20,8 +20,8 @@ export default class Input extends Button {
   mask?: string;
   password?: boolean;
   position?: number;
-  get style(): InputStyles;
-  set style(v: StylePartial<InputStyles>);
+  get style(): InputStyle;
+  set style(v: StylePartial<InputStyle>);
 
   // tags
   get _Eyebrow(): lng.Component;

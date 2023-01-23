@@ -1,4 +1,4 @@
-import Control, { ControlStyles } from './Control';
+import Control, { ControlStyle } from './Control';
 import ControlSmall from './ControlSmall';
 
-export { Control as default, ControlSmall, ControlStyles };
+export { Control as default, ControlSmall, ControlStyle };

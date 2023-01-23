@@ -1,9 +1,9 @@
 import lng from '@lightningjs/core';
-import { MetadataBaseStyles } from '../MetadataBase/MetadataBase';
+import { MetadataBaseStyle } from '../MetadataBase/MetadataBase';
 import type { StylePartial } from '../../types/lui';
-import Surface, { SurfaceStyles } from '../Surface/Surface';
+import Surface, { SurfaceStyle } from '../Surface/Surface';
 
-export type TileStyles = SurfaceStyles & {
+export type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
   animationExit: Record<string, unknown>;
   paddingX: number | string;
@@ -24,12 +24,12 @@ export default class Tile extends Surface {
   checkbox?: Record<string, unknown>;
   label?: Record<string, unknown>;
   metadataLocation?: string;
-  metadata?: MetadataBaseStyles;
+  metadata?: MetadataBaseStyle;
   persistentMetadata?: boolean;
   progressBar?: Record<string, unknown>;
   get innerH(): number;
-  get style(): TileStyles;
-  set style(v: StylePartial<TileStyles>);
+  get style(): TileStyle;
+  set style(v: StylePartial<TileStyle>);
 
   // tags
   get _Artwork(): lng.Component;

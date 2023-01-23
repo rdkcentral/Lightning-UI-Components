@@ -80,7 +80,7 @@ class CardContent extends Card {
       ...this._metadataDimensions,
       mode: this.mode,
       alpha: this._shouldShowMetadata ? 1 : 0,
-      style: this.style.metadataStyles
+      style: this.style.metadataStyle
     };
     if (!this._Metadata) {
       metadataPatch.type = MetadataCardContent;

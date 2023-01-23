@@ -2,7 +2,7 @@ import type lng from '@lightningjs/core';
 import type Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type BadgeStyles = {
+export type BadgeStyle = {
   backgroundColor: Color;
   contentSpacing: number;
   iconColor: Color;
@@ -20,8 +20,8 @@ export default class Badge extends Base {
   iconHeight?: number;
   icon?: string;
   iconAlign?: string;
-  get style(): BadgeStyles;
-  set style(v: StylePartial<BadgeStyles>);
+  get style(): BadgeStyle;
+  set style(v: StylePartial<BadgeStyle>);
 
   // tags
   get _Text(): lng.Component;

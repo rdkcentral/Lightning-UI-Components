@@ -1,3 +1,3 @@
-import InlineContent, { InlineContentStyles } from './InlineContent';
+import InlineContent, { InlineContentStyle } from './InlineContent';
 
-export { InlineContent as default, InlineContentStyles };
+export { InlineContent as default, InlineContentStyle };

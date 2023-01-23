@@ -1,54 +1,50 @@
-export { default as Artwork, ArtworkStyles } from './Artwork/index.js';
-export { default as Badge, BadgeStyles } from './Badge/index.js';
+export { default as Artwork, ArtworkStyle } from './Artwork/index.js';
+export { default as Badge, BadgeStyle } from './Badge/index.js';
 export { default as Base } from './Base/index.js';
-export {
-  default as Button,
-  ButtonSmall,
-  ButtonStyles
-} from './Button/index.js';
-export { default as Checkbox, CheckboxStyles } from './Checkbox/index.js';
-export { default as Column, ColumnStyles } from './Column/index.js';
+export { default as Button, ButtonSmall, ButtonStyle } from './Button/index.js';
+export { default as Checkbox, CheckboxStyle } from './Checkbox/index.js';
+export { default as Column, ColumnStyle } from './Column/index.js';
 export {
   default as Control,
   ControlSmall,
-  ControlStyles
+  ControlStyle
 } from './Control/index.js';
-export { default as ControlRow, ControlRowStyles } from './ControlRow/index.js';
+export { default as ControlRow, ControlRowStyle } from './ControlRow/index.js';
 export { default as FocusManager } from './FocusManager/index.js';
-export { default as Gradient, GradientStyles } from './Gradient/index.js';
+export { default as Gradient, GradientStyle } from './Gradient/index.js';
 export { default as GridOverlay } from './GridOverlay/index.js';
-export { default as Icon, IconStyles } from './Icon/index.js';
+export { default as Icon, IconStyle } from './Icon/index.js';
 export {
   default as InlineContent,
-  InlineContentStyles
+  InlineContentStyle
 } from './InlineContent/index.js';
-export { default as Input, InputStyles } from './Input/index.js';
-export { default as Key, KeyStyles } from './Key/index.js';
-export { default as Keyboard, KeyboardStyles } from './Keyboard/index.js';
-export { default as Knob, KnobStyles } from './Knob/index.js';
-export { default as Label, LabelStyles } from './Label/index.js';
-export { default as Marquee, MarqueeStyles } from './Marquee/index.js';
+export { default as Input, InputStyle } from './Input/index.js';
+export { default as Key, KeyStyle } from './Key/index.js';
+export { default as Keyboard, KeyboardStyle } from './Keyboard/index.js';
+export { default as Knob, KnobStyle } from './Knob/index.js';
+export { default as Label, LabelStyle } from './Label/index.js';
+export { default as Marquee, MarqueeStyle } from './Marquee/index.js';
 export {
   default as MetadataBase,
-  MetadataBaseStyles
+  MetadataBaseStyle
 } from './MetadataBase/index.js';
-export { default as MetadataTile } from './MetadataTile/index.js'; // TODO: Add MetadataTileStyles
+export { default as MetadataTile } from './MetadataTile/index.js'; // TODO: Add MetadataTileStyle
 export {
   default as ProgressBar,
-  ProgressBarStyles
+  ProgressBarStyle
 } from './ProgressBar/index.js';
-export { default as Radio, RadioStyles } from './Radio/index.js';
-export { default as Row, RowStyles } from './Row/index.js';
+export { default as Radio, RadioStyle } from './Radio/index.js';
+export { default as Row, RowStyle } from './Row/index.js';
 export {
   default as ScrollWrapper,
-  ScrollWrapperStyles
+  ScrollWrapperStyle
 } from './ScrollWrapper/index.js';
-export { default as Shadow, ShadowStyles } from './Shadow/index.js';
-export { default as Slider, SliderStyles } from './Slider/index.js';
-export { default as Surface, SurfaceStyles } from './Surface/index.js';
-export { default as TabBar, TabBarStyles } from './TabBar/index.js';
-export { default as TextBox, TextBoxStyles } from './TextBox/index.js';
-export { default as Tile, TileStyles } from './Tile/index.js';
-export { default as TitleRow, TitleRowStyles } from './TitleRow/index.js';
-export { default as Toggle, ToggleStyles } from './Toggle/index.js';
-export { default as Tooltip, TooltipStyles } from './Tooltip/index.js';
+export { default as Shadow, ShadowStyle } from './Shadow/index.js';
+export { default as Slider, SliderStyle } from './Slider/index.js';
+export { default as Surface, SurfaceStyle } from './Surface/index.js';
+export { default as TabBar, TabBarStyle } from './TabBar/index.js';
+export { default as TextBox, TextBoxStyle } from './TextBox/index.js';
+export { default as Tile, TileStyle } from './Tile/index.js';
+export { default as TitleRow, TitleRowStyle } from './TitleRow/index.js';
+export { default as Toggle, ToggleStyle } from './Toggle/index.js';
+export { default as Tooltip, TooltipStyle } from './Tooltip/index.js';

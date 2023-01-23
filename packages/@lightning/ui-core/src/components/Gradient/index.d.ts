@@ -1,3 +1,3 @@
-import Gradient, { GradientStyles } from './Gradient';
+import Gradient, { GradientStyle } from './Gradient';
 
-export { Gradient as default, GradientStyles };
+export { Gradient as default, GradientStyle };

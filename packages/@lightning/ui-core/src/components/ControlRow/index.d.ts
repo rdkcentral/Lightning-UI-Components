@@ -1,3 +1,3 @@
-import ControlRow, { ControlRowStyles } from './ControlRow';
+import ControlRow, { ControlRowStyle } from './ControlRow';
 
-export { ControlRow as default, ControlRowStyles };
+export { ControlRow as default, ControlRowStyle };

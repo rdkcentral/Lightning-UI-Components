@@ -1,4 +1,4 @@
-import CardContent, { CardContentStyles } from './CardContent';
+import CardContent, { CardContentStyle } from './CardContent';
 import CardContentHero from './CardContentHero';
 import CardContentHorizontal from './CardContentHorizontal';
 import CardContentHorizontalLarge from './CardContentHorizontalLarge';
@@ -12,5 +12,5 @@ export {
   CardContentHorizontalLarge,
   CardContentVertical,
   CardContentVerticalSmall,
-  CardContentStyles
+  CardContentStyle
 };

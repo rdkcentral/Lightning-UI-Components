@@ -1,3 +1,3 @@
-import FocusRing, { FocusRingStyles } from './FocusRing';
+import FocusRing, { FocusRingStyle } from './FocusRing';
 
-export { FocusRing as default, FocusRingStyles };
+export { FocusRing as default, FocusRingStyle };

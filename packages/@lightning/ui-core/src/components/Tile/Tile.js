@@ -106,14 +106,7 @@ class Tile extends Surface {
   }
 
   get _progressBarHeight() {
-    // Allow theme level overrides
-    const themeLevelH =
-      this._ProgressBar &&
-      this.style.progressBarStyles &&
-      this.style.progressBarStyles.h;
-
     return (
-      (themeLevelH ? themeLevelH + this.style.paddingY : 0) ||
       (this._ProgressBar &&
         this._ProgressBar._getTransition('h')._targetValue +
           this.style.paddingY) ||
@@ -335,8 +328,7 @@ class Tile extends Surface {
     const checkboxPatch = {
       ...this.checkbox,
       x: this._w - this.style.paddingX,
-      y: this._h - this.style.paddingY,
-      style: this.style.checkboxStyles
+      y: this._h - this.style.paddingY
     };
 
     if (!this._Checkbox) {
@@ -441,7 +433,6 @@ class Tile extends Surface {
       marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      style: this.style.metadataStyles,
       y:
         this._persistentMetadata ||
         (this._isInsetMetadata && this._isFocusedMode)

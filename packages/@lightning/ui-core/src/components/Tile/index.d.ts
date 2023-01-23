@@ -1,3 +1,3 @@
-import Tile, { TileStyles } from './Tile';
+import Tile, { TileStyle } from './Tile';
 
-export { Tile as default, TileStyles };
+export { Tile as default, TileStyle };

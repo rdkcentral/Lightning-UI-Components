@@ -166,7 +166,7 @@ class Input extends Button {
   }
 
   _updateCursor() {
-    if (this.style.cursorStyles && this.style.cursorStyles.blink) {
+    if (this.style.cursorStyle && this.style.cursorStyle.blink) {
       if (!this._Cursor) {
         this._Content.patch({
           Cursor: {
@@ -180,7 +180,7 @@ class Input extends Button {
           actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
         });
       }
-      this._Cursor.patch(this.style.cursorStyles);
+      this._Cursor.patch(this.style.cursorStyle);
     }
   }
 
@@ -191,12 +191,12 @@ class Input extends Button {
       }
       this._Cursor.smooth = {
         alpha: 0,
-        color: this.style.cursorStyles.textColor
+        color: this.style.cursorStyle.textColor
       };
     } else {
       this._Cursor.smooth = {
         alpha: this.listening ? 1 : 0,
-        color: this.style.cursorStyles.textColor
+        color: this.style.cursorStyle.textColor
       };
       if (this.cursorBlink)
         this.isCursorActive

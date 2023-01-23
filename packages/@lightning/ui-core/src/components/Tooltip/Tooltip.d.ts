@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
 type TransitionObject = {
   delay: number;
@@ -9,7 +9,7 @@ type TransitionObject = {
   timingFunction: string;
 };
 
-export type TooltipStyles = {
+export type TooltipStyle = {
   backgroundColor: Color;
   marginBottom: number;
   paddingX: number;
@@ -17,7 +17,7 @@ export type TooltipStyles = {
   pointerW: number;
   pointerH: number;
   radius: lng.Tools.CornerRadius;
-  textStyle: TextBoxStyles;
+  textStyle: TextBoxStyle;
   transition: TransitionObject;
 };
 
@@ -25,8 +25,8 @@ export default class Tooltip extends Base {
   title?: string;
   delayVisible?: number;
   timeVisible?: number;
-  get style(): TooltipStyles;
-  set style(v: StylePartial<TooltipStyles>);
+  get style(): TooltipStyle;
+  set style(v: StylePartial<TooltipStyle>);
 
   // tags
   get _Background(): lng.Component;

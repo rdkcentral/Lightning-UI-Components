@@ -10,6 +10,6 @@ export const base = theme => {
     expandedW: utils.getWidthByColumnSpan(theme, 8),
     expandedH: h,
     imageSize: { w, h },
-    metadataStyles: { descriptionTextStyle: { maxLines: 3 } }
+    metadataStyle: { descriptionTextStyle: { maxLines: 3 } }
   };
 };

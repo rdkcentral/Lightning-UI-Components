@@ -1,5 +1,5 @@
 import MetadataCardContent, {
-  MetadataCardContentStyles
+  MetadataCardContentStyle
 } from './MetadataCardContent';
 
-export { MetadataCardContent as default, MetadataCardContentStyles };
+export { MetadataCardContent as default, MetadataCardContentStyle };

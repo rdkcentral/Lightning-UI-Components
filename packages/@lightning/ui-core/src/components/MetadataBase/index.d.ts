@@ -1,3 +1,3 @@
-import MetadataBase, { MetadataBaseStyles } from './MetadataBase';
+import MetadataBase, { MetadataBaseStyle } from './MetadataBase';
 
-export { MetadataBase as default, MetadataBaseStyles };
+export { MetadataBase as default, MetadataBaseStyle };

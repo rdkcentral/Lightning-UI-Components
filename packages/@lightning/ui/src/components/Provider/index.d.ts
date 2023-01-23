@@ -1,3 +1,3 @@
-import Provider, { ProviderStyles } from './Provider';
+import Provider, { ProviderStyle } from './Provider';
 
-export { Provider as default, ProviderStyles };
+export { Provider as default, ProviderStyle };

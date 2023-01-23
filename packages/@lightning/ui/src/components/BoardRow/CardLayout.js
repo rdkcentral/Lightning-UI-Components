@@ -1,7 +1,7 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import { utils, context } from '@lightning/ui-core';
-import * as CardContentVerticalStyles from '../CardContent/CardContentVertical.styles';
+import * as CardContentVerticalStyle from '../CardContent/CardContentVertical.styles';
 
 export default class CardLayout extends BaseLayout {
   static get _cardWidth() {
@@ -11,7 +11,7 @@ export default class CardLayout extends BaseLayout {
   static get _cardHeight() {
     // Matching the formula used for the height of CardContentVertical,
     // to make sure the MenuCard matches the items in the row.
-    return CardContentVerticalStyles.base(context.theme).expandedH;
+    return CardContentVerticalStyle.base(context.theme).expandedH;
   }
 
   static _calcTotalHeight() {

@@ -1,3 +1,3 @@
-import ProgressBar, { ProgressBarStyles } from './ProgressBar';
+import ProgressBar, { ProgressBarStyle } from './ProgressBar';
 
-export { ProgressBar as default, ProgressBarStyles };
+export { ProgressBar as default, ProgressBarStyle };

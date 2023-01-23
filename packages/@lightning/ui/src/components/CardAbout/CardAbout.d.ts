@@ -1,18 +1,18 @@
 import lng from '@lightningjs/core';
-import { StylePartial, TextBoxStyles } from '@lightning/ui-core';
+import { StylePartial, TextBoxStyle} from '@lightning/ui-core';
 import {
-  InlineContentStyles,
+  InlineContentStyle,
   TextContent
 } from '@lightning/ui-core/src/components/InlineContent/InlineContent';
-import CardTitle, { CardTitleStyles } from '../Card/CardTitle';
+import CardTitle, { CardTitleStyle } from '../Card/CardTitle';
 
-export type CardAboutStyles = CardTitleStyles & {
+export type CardAboutStyle = CardTitleStyle {
   contentSpacing: number;
-  descriptionTextStyle: TextBoxStyles;
+  descriptionTextStyle: TextBoxStyle;
   paddingFirstLine: number;
   paddingVertical: number;
-  inlineContentStyle: InlineContentStyles;
-  titleTextStyle: TextBoxStyles;
+  inlineContentStyle: InlineContentStyle;
+  titleTextStyle: TextBoxStyle;
 };
 
 export default class CardAbout extends CardTitle {
@@ -20,8 +20,8 @@ export default class CardAbout extends CardTitle {
   iconRight?: TextContent;
   textLeft?: TextContent;
   textRight?: TextContent;
-  get style(): CardAboutStyles;
-  set style(v: StylePartial<CardAboutStyles>);
+  get style(): CardAboutStyle;
+  set style(v: StylePartial<CardAboutStyle>);
 
   // tags
   /**

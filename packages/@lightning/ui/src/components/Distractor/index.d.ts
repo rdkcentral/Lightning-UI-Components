@@ -1,3 +1,3 @@
-import Distractor, { DistractorStyles } from './Distractor';
+import Distractor, { DistractorStyle } from './Distractor';
 
-export { Distractor as default, DistractorStyles };
+export { Distractor as default, DistractorStyle };

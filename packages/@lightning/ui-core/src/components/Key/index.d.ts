@@ -1,3 +1,3 @@
-import Key, { KeyStyles } from './Key';
+import Key, { KeyStyle } from './Key';
 
-export { Key as default, KeyStyles };
+export { Key as default, KeyStyle };

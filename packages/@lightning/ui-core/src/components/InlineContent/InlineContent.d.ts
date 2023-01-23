@@ -48,7 +48,7 @@ type FlexItem = {
   marginBottom?: number;
 };
 
-export type InlineContentStyles = {
+export type InlineContentStyle = {
   textY: number;
   iconW: number;
   iconH: number;
@@ -67,6 +67,6 @@ export default class InlineContent extends Base {
   justify?: JustifyContent;
   contentWrap?: boolean;
   customStyleMappings?: Record<string, unknown>;
-  get style(): InlineContentStyles;
-  set style(v: StylePartial<InlineContentStyles>);
+  get style(): InlineContentStyle;
+  set style(v: StylePartial<InlineContentStyle>);
 }

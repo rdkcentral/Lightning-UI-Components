@@ -3,8 +3,8 @@ import { utils } from '@lightning/ui-core';
 export const base = theme => ({
   w: utils.getWidthByColumnSpan(theme, 4),
   backgroundColor: theme.color.material,
-  iconStyles: {},
-  logoStyles: {
+  iconStyle: {},
+  logoStyle: {
     radius: theme.spacer.md,
     w: theme.spacer.xxl * 2,
     h: theme.spacer.xxl * 2

@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
 
-export type TabBarStyles = {
+export type TabBarStyle = {
   tabsMarginBottom: number;
   tabSpacing: number;
 };
@@ -17,6 +17,6 @@ export default class TabBar extends Base {
   reset?: boolean;
   tabs?: Array<ResolvedTab | Promise<ResolvedTab>>;
   wrapSelected?: boolean;
-  get style(): TabBarStyles;
-  set style(v: StylePartial<TabBarStyles>);
+  get style(): TabBarStyle;
+  set style(v: StylePartial<TabBarStyle>);
 }
