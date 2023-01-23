@@ -1,3 +1,3 @@
-import Label, { LabelStyles } from './Label';
+import Label, { LabelStyle } from './Label';
 
-export { Label as default, LabelStyles };
+export { Label as default, LabelStyle };

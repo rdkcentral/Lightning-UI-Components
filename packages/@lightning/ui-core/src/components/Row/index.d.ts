@@ -1,3 +1,3 @@
-import Row, { RowStyles } from './Row';
+import Row, { RowStyle } from './Row';
 
-export { Row as default, RowStyles };
+export { Row as default, RowStyle };

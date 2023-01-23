@@ -7,7 +7,7 @@ type TransitionObject = {
   timingFunction: string;
 };
 
-export type RowStyles = {
+export type RowStyle = {
   itemSpacing: number;
   scrollIndex: number;
   alwaysScroll: boolean;
@@ -21,8 +21,8 @@ export default class Row extends NavigationManager {
   itemPosY?: number;
   startLazyScrollIndex?: number;
   stopLazyScrollIndex?: number;
-  get style(): RowStyles;
-  set style(v: StylePartial<RowStyles>);
+  get style(): RowStyle;
+  set style(v: StylePartial<RowStyle>);
 
   onScreenEffect(): void;
 }

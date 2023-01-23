@@ -1,3 +1,3 @@
-import Keyboard, { KeyboardStyles } from './Keyboard';
+import Keyboard, { KeyboardStyle } from './Keyboard';
 
-export { Keyboard as default, KeyboardStyles };
+export { Keyboard as default, KeyboardStyle };

@@ -1,27 +1,27 @@
 import lng from '@lightningjs/core';
 import {
-  TextBoxStyles,
+  TextBoxStyle,
   StylePartial,
-  ButtonStyles,
+  ButtonStyle,
   Button
 } from '@lightning/ui-core';
 
-type LogoStylesObject = {
+type LogoStyleObject = {
   radius: lng.Tools.CornerRadius;
   h: number;
   w: number;
 };
 
-export type ListItemStyles = ButtonStyles & {
+export type ListItemStyle = ButtonStyle & {
   alpha: number;
-  descriptionTextStyle: TextBoxStyles;
+  descriptionTextStyle: TextBoxStyle;
   h: number;
-  logoStyles: LogoStylesObject;
+  logoStyle: LogoStyleObject;
   paddingX: number;
   prefixH: number;
   suffixH: number;
   titlePadding: number;
-  titleTextStyle: TextBoxStyles;
+  titleTextStyle: TextBoxStyle;
 };
 
 export default class ListItem extends Button {
@@ -29,8 +29,8 @@ export default class ListItem extends Button {
   prefixLogo?: string;
   shouldCollapse?: boolean;
   suffixLogo?: string;
-  get style(): ListItemStyles;
-  set style(v: StylePartial<ListItemStyles>);
+  get style(): ListItemStyle;
+  set style(v: StylePartial<ListItemStyle>);
 
   // tags
   get _Description(): lng.Component;

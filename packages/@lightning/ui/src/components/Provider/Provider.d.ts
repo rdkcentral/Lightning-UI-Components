@@ -3,12 +3,12 @@ import type {
   Base,
   Color,
   StylePartial,
-  TextBoxStyles
+  TextBoxStyle
 } from '@lightning/ui-core';
 
-export type ProviderStyles = {
+export type ProviderStyle = {
   counterBackgroundColor: Color;
-  counterTextStyle: TextBoxStyles;
+  counterTextStyle: TextBoxStyle;
   itemSize: number;
   itemSpacing: number;
   radius: lng.Tools.CornerRadius;
@@ -19,8 +19,8 @@ export default class Provider extends Base {
   counterText?: string;
   providers: Array<Record<string, unknown>>;
   visibleCount: number;
-  get style(): ProviderStyles;
-  set style(v: StylePartial<ProviderStyles>);
+  get style(): ProviderStyle;
+  set style(v: StylePartial<ProviderStyle>);
 
   // tags
   get _Row(): lng.Component;

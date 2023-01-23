@@ -1,3 +1,3 @@
-import Knob, { KnobStyles } from './Knob';
+import Knob, { KnobStyle } from './Knob';
 
-export { Knob as default, KnobStyles };
+export { Knob as default, KnobStyle };

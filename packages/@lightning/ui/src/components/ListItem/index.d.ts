@@ -1,5 +1,5 @@
-import ListItem, { ListItemStyles } from './ListItem';
+import ListItem, { ListItemStyle } from './ListItem';
 import ListItemSlider from './ListItemSlider';
 import ListItemPicker from './ListItemPicker';
 
-export { ListItem as default, ListItemSlider, ListItemPicker, ListItemStyles };
+export { ListItem as default, ListItemSlider, ListItemPicker, ListItemStyle };

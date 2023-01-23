@@ -71,7 +71,7 @@ class Key extends Button {
 
   _updatePrefixStyle() {
     if (this._prefix && this.icon) {
-      this._updatePrefixObj(this.icon, { style: this.style.iconStyles });
+      this._updatePrefixObj(this.icon, { style: this.style.iconStyle });
     }
   }
 
@@ -85,7 +85,7 @@ class Key extends Button {
 
   _setIcon(icon) {
     if (icon) {
-      this._updatePrefixObj(icon, { style: this.style.iconStyles });
+      this._updatePrefixObj(icon, { style: this.style.iconStyle });
     } else {
       this._prefix = icon;
     }

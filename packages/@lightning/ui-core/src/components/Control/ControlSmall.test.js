@@ -32,7 +32,7 @@ describe('ControlSmall', () => {
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
         h: expect.any(Number),
-        logoStyles: expect.any(Object),
+        logoStyle: expect.any(Object),
         prefixH: expect.any(Number),
         radius: expect.any(Number),
         textStyle: expect.any(Object),
@@ -53,6 +53,6 @@ describe('ControlSmall', () => {
 
   it('renders the correct logo radius', async () => {
     // parent Control paddingX = 16
-    expect(component.style.logoStyles.radius).toBe(20);
+    expect(component.style.logoStyle.radius).toBe(20);
   });
 });

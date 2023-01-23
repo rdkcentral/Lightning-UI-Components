@@ -1,3 +1,3 @@
-import Marquee, { MarqueeStyles } from './Marquee';
+import Marquee, { MarqueeStyle } from './Marquee';
 
-export { Marquee as default, MarqueeStyles };
+export { Marquee as default, MarqueeStyle };

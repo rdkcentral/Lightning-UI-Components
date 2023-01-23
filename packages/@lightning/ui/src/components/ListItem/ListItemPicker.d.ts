@@ -1,8 +1,8 @@
 import lng from '@lightningjs/core';
 import { StylePartial } from '@lightning/ui-core';
-import ListItem, { ListItemStyles } from '.';
+import ListItem, { ListItemStyle } from '.';
 
-export type ListItemPickerStyles = ListItemStyles & {
+export type ListItemPickerStyle = ListItemStyle & {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowWidth: number;
@@ -15,8 +15,8 @@ export default class ListItemPicker extends ListItem {
   selectedOptionIndex?: string;
   get selectedOption(): Record<string, unknown>; // TODO is this correct?
   get selectedIndex(): number;
-  get style(): ListItemPickerStyles;
-  set style(v: StylePartial<ListItemPickerStyles>);
+  get style(): ListItemPickerStyle;
+  set style(v: StylePartial<ListItemPickerStyle>);
 
   // tags
   get _LeftArrow(): lng.Component;

@@ -1,3 +1,3 @@
-import TitleRow, { TitleRowStyles } from './TitleRow';
+import TitleRow, { TitleRowStyle } from './TitleRow';
 
-export { TitleRow as default, TitleRowStyles };
+export { TitleRow as default, TitleRowStyle };

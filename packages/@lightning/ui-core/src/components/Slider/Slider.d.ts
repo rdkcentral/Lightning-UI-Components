@@ -1,9 +1,9 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
-import type { ProgressBarStyles } from '../ProgressBar';
+import type { ProgressBarStyle } from '../ProgressBar';
 
-export type SliderStyles = {
+export type SliderStyle = {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowColor: Color;
@@ -12,7 +12,7 @@ export type SliderStyles = {
   arrowWidth: number;
   containerHeight: number;
   minWidth: number;
-  progressBarStyles: ProgressBarStyles;
+  progressBarStyle: ProgressBarStyle;
   sliderHeight: number;
   circleAnimation: {
     timingFunction: string;
@@ -26,8 +26,8 @@ export default class Slider extends Base {
   min?: number;
   step?: number;
   value?: number;
-  get style(): SliderStyles;
-  set style(v: StylePartial<SliderStyles>);
+  get style(): SliderStyle;
+  set style(v: StylePartial<SliderStyle>);
 
   // tags
   get _Container(): lng.Component;

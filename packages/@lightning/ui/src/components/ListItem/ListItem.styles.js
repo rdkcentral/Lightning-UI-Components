@@ -7,7 +7,7 @@ export const base = theme => ({
     textColor: theme.color.textNeutral
   },
   h: theme.spacer.xxl * 3,
-  logoStyles: {
+  logoStyle: {
     w: theme.spacer.xxl * 2,
     h: theme.spacer.xxl * 2,
     radius: theme.radius.sm

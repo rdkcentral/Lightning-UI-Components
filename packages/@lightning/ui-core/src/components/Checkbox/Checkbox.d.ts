@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type CheckboxStyles = {
+export type CheckboxStyle = {
   alpha: number;
   backgroundColor: Color;
   backgroundColorChecked: Color;
@@ -18,8 +18,8 @@ export type CheckboxStyles = {
 export default class Checkbox extends Base {
   checked?: boolean;
   toggle(): Checkbox;
-  get style(): CheckboxStyles;
-  set style(v: StylePartial<CheckboxStyles>);
+  get style(): CheckboxStyle;
+  set style(v: StylePartial<CheckboxStyle>);
 
   // tags
   get _Check(): lng.Component;

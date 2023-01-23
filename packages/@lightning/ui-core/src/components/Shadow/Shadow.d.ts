@@ -2,7 +2,7 @@ import type lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type ShadowStyles = {
+export type ShadowStyle = {
   alpha: number;
   blur: number;
   color: Color;
@@ -14,8 +14,8 @@ export type ShadowStyles = {
 
 export default class Shadow extends Base {
   maskShadow?: boolean;
-  get style(): ShadowStyles;
-  set style(v: StylePartial<ShadowStyles>);
+  get style(): ShadowStyle;
+  set style(v: StylePartial<ShadowStyle>);
 
   // tags
   get _Frame(): lng.Component;

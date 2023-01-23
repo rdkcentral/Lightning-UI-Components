@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
-export type ScrollWrapperStyles = {
-  textStyle: TextBoxStyles;
+export type ScrollWrapperStyle = {
+  textStyle: TextBoxStyle;
   scrollBarW: number;
   scrollBarH: number;
   fadeHeight: 100;
@@ -28,8 +28,8 @@ export default class ScrollWrapper extends Base {
   showScrollBar?: boolean;
   shouldWrap?: boolean;
   flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
-  get style(): ScrollWrapperStyles;
-  set style(v: StylePartial<ScrollWrapperStyles>);
+  get style(): ScrollWrapperStyle;
+  set style(v: StylePartial<ScrollWrapperStyle>);
 
   // tags
   get _FadeContainer(): lng.Component;

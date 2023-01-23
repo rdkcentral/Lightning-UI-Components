@@ -1,4 +1,4 @@
-import CardAbout, { CardAboutStyles } from './CardAbout';
+import CardAbout, { CardAboutStyle } from './CardAbout';
 import { CardAboutLarge } from './CardAboutLarge';
 import { CardAboutStacked } from './CardAboutStacked';
 
@@ -6,5 +6,5 @@ export {
   CardAbout as default,
   CardAboutLarge,
   CardAboutStacked,
-  CardAboutStyles
+  CardAboutStyle
 };

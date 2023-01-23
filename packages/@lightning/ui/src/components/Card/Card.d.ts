@@ -1,26 +1,26 @@
 import type lng from '@lightningjs/core';
 import type {
   Surface,
-  SurfaceStyles,
-  TextBoxStyles,
+  SurfaceStyle,
+  TextBoxStyle,
   Color,
   StylePartial
 } from '@lightning/ui-core';
 
-export type CardStyles = SurfaceStyles & {
+export type CardStyle = SurfaceStyle & {
   backgroundColorDisabled: Color;
   backgroundColorFocused: Color;
   backgroundColorUnfocused: Color;
   paddingHorizontal: number;
   paddingVertical: number;
   radius: lng.Tools.CornerRadius;
-  titleTextStyle: TextBoxStyles;
+  titleTextStyle: TextBoxStyle;
 };
 
 export default class Card extends Surface {
   title?: string;
-  get style(): CardStyles;
-  set style(v: StylePartial<CardStyles>);
+  get style(): CardStyle;
+  set style(v: StylePartial<CardStyle>);
 
   // tags
   get _Title(): lng.Component;

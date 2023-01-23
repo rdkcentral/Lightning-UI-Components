@@ -10,7 +10,7 @@ export const base = theme => {
     arrowWidth: theme.spacer.md,
     containerHeight: theme.spacer.lg + theme.spacer.xs,
     minWidth: getWidthByColumnSpan(theme, 2),
-    progressBarStyles: {},
+    progressBarStyle: {},
     w: size,
     h: size,
     radius: size / 2,

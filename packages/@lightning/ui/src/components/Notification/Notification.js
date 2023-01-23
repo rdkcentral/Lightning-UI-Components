@@ -247,10 +247,10 @@ class Notification extends Base {
 
     if (this.logo) {
       iconPatch.icon = this.logo;
-      iconPatch.style = { color: undefined, ...this.style.logoStyles };
+      iconPatch.style = { color: undefined, ...this.style.logoStyle };
     } else {
       iconPatch.icon = this.icon || defaultIcon;
-      iconPatch.style = this.style.iconStyles;
+      iconPatch.style = this.style.iconStyle;
     }
     this._Icon.patch(iconPatch);
   }

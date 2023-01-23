@@ -1,15 +1,15 @@
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
-export type MetadataBaseStyles = {
-  descriptionTextStyle: TextBoxStyles;
+export type MetadataBaseStyle = {
+  descriptionTextStyle: TextBoxStyle;
   fadeWidth: number;
   logoWidth: number;
   logoHeight: number;
   logoPadding: number;
-  subtitleTextStyle: TextBoxStyles;
-  titleTextStyle: TextBoxStyles;
+  subtitleTextStyle: TextBoxStyle;
+  titleTextStyle: TextBoxStyle;
 };
 
 export default class MetadataBase extends Base {
@@ -21,6 +21,6 @@ export default class MetadataBase extends Base {
   logoHeight?: number;
   logoTitle?: string;
   logoPosition?: string;
-  get style(): MetadataBaseStyles;
-  set style(v: StylePartial<MetadataBaseStyles>);
+  get style(): MetadataBaseStyle;
+  set style(v: StylePartial<MetadataBaseStyle>);
 }

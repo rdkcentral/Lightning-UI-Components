@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import type { Base, Color, StylePartial } from '@lightning/ui-core';
 
-export type WaveStyles = {
+export type WaveStyle = {
   color: Color;
   duration: number;
   height: number;
@@ -14,8 +14,8 @@ export type WaveStyles = {
 };
 
 export default class Wave extends Base {
-  get style(): WaveStyles;
-  set style(v: StylePartial<WaveStyles>);
+  get style(): WaveStyle;
+  set style(v: StylePartial<WaveStyle>);
 
   // tags
   get _Left1(): lng.Component;

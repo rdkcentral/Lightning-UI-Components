@@ -1,11 +1,11 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
-export type GridOverlayStyles = {
-  propertyTextStyle: TextBoxStyles;
-  valueTextStyle: TextBoxStyles;
+export type GridOverlayStyle = {
+  propertyTextStyle: TextBoxStyle;
+  valueTextStyle: TextBoxStyle;
 };
 
 export default class GridOverlay extends Base {
@@ -14,8 +14,8 @@ export default class GridOverlay extends Base {
   showMargins?: boolean;
   showSafe?: boolean;
   showText?: boolean;
-  get style(): GridOverlayStyles;
-  set style(v: StylePartial<GridOverlayStyles>);
+  get style(): GridOverlayStyle;
+  set style(v: StylePartial<GridOverlayStyle>);
 
   // tags
   get _Columns(): lng.Component;

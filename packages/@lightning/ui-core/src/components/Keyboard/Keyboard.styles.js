@@ -4,6 +4,6 @@ export const base = theme => {
     screenW: theme.layout.screenW,
     marginX: theme.layout.marginX,
     itemSpacing: theme.spacer.md * 10 + theme.spacer.md,
-    inputStyles: { radius: theme.radius.md }
+    inputStyle: { radius: theme.radius.md }
   };
 };

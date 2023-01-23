@@ -1,4 +1,4 @@
-import TabBar, { TabBarStyles } from './TabBar';
-import Tab, { TabStyles } from './Tab';
+import TabBar, { TabBarStyle } from './TabBar';
+import Tab, { TabStyle } from './Tab';
 
-export { TabBar as default, Tab, TabBarStyles, TabStyles };
+export { TabBar as default, Tab, TabBarStyle, TabStyle };

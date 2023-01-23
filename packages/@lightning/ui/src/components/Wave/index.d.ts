@@ -1,3 +1,3 @@
-import Wave, { WaveStyles } from './Wave';
+import Wave, { WaveStyle } from './Wave';
 
-export { Wave as default, WaveStyles };
+export { Wave as default, WaveStyle };

@@ -1,15 +1,15 @@
 import lng from '@lightningjs/core';
-import type { TextBoxStyles, StylePartial } from '@lightning/ui-core';
-import Card, { CardStyles } from './Card';
+import type { TextBoxStyle, StylePartial } from '@lightning/ui-core';
+import Card, { CardStyle } from './Card';
 
-export type CardTitleStyles = CardStyles & {
-  descriptionTextStyle: TextBoxStyles;
+export type CardTitleStyle= CardStyle & {
+  descriptionTextStyle: TextBoxStyle;
 };
 
 export default class CardTitle extends Card {
   description?: string;
-  get style(): CardTitleStyles;
-  set style(v: StylePartial<CardTitleStyles>);
+  get style(): CardTitleStyle;
+  set style(v: StylePartial<CardTitleStyle>);
 
   // tags
   get _Description(): lng.Component;

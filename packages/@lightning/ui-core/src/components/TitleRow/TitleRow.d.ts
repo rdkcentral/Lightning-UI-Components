@@ -1,20 +1,20 @@
 import lng from '@lightningjs/core';
 import type Row from '../Row';
-import type { RowStyles } from '../Row';
+import type { RowStyle } from '../Row';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
-export type TitleRowStyles = RowStyles & {
+export type TitleRowStyle = RowStyle & {
   w: number;
   titleMarginLeft: number;
-  titleTextStyle: TextBoxStyles;
+  titleTextStyle: TextBoxStyle;
   rowMarginTop: number;
 };
 
 export default class TitleRow extends Row {
   title?: string;
-  get style(): TitleRowStyles;
-  set style(v: StylePartial<TitleRowStyles>);
+  get style(): TitleRowStyle;
+  set style(v: StylePartial<TitleRowStyle>);
 
   // tags
   get _Title(): lng.Component;

@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 import type { Color, StylePartial } from '../../types/lui';
-import Surface, { SurfaceStyles } from '../Surface';
+import Surface, { SurfaceStyle } from '../Surface';
 // text should be using our own version of TextBox
-import { TextBoxStyles } from '../TextBox';
+import { TextBoxStyle } from '../TextBox';
 
-export type TabStyles = SurfaceStyles & {
+export type TabStyle = SurfaceStyle & {
   backgroundColor: Color;
   contentColor: Color;
   iconMarginRight: number;
@@ -13,7 +13,7 @@ export type TabStyles = SurfaceStyles & {
   paddingX: number;
   paddingY: number;
   radius: number;
-  textStyle: TextBoxStyles;
+  textStyle: TextBoxStyle;
 };
 
 export default class Tab extends Surface {
@@ -23,8 +23,8 @@ export default class Tab extends Surface {
   get _iconW(): number;
   get _iconH(): number;
   get _paddingX(): number;
-  get style(): TabStyles;
-  set style(v: StylePartial<TabStyles>);
+  get style(): TabStyle;
+  set style(v: StylePartial<TabStyle>);
 
   // tags
   get _Content(): lng.Component;

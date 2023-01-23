@@ -1,3 +1,3 @@
-import Shadow, { ShadowStyles } from './Shadow';
+import Shadow, { ShadowStyle } from './Shadow';
 
-export { Shadow as default, ShadowStyles };
+export { Shadow as default, ShadowStyle };

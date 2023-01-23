@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 import type { Color, StylePartial } from '../../types/lui';
-import Surface, { SurfaceStyles } from '../Surface';
+import Surface, { SurfaceStyle } from '../Surface';
 // text in Button is all using our own version of TextBox
-import type { TextBoxStyles } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox';
 
-export type ButtonStyles = SurfaceStyles & {
+export type ButtonStyle = SurfaceStyle & {
   justify: 'center' | 'left' | 'right';
   minWidth: number;
   paddingX: number;
@@ -12,7 +12,7 @@ export type ButtonStyles = SurfaceStyles & {
   titlePadding: number;
   prefixH: number;
   suffixH: number;
-  textStyle: TextBoxStyles;
+  textStyle: TextBoxStyle;
   contentColor: Color;
 };
 
@@ -22,8 +22,8 @@ export default class Button extends Surface {
   prefix?: lng.Component | Array<lng.Component>;
   suffix?: lng.Component | Array<lng.Component>;
   title?: string;
-  get style(): ButtonStyles;
-  set style(v: StylePartial<ButtonStyles>);
+  get style(): ButtonStyle;
+  set style(v: StylePartial<ButtonStyle>);
 
   // tags
   get _TextWrapper(): lng.Component;

@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type LabelStyles = {
+export type LabelStyle = {
   backgroundColor: Color;
   paddingX: number;
   paddingY: number;
@@ -12,8 +12,8 @@ export type LabelStyles = {
 
 export default class Label extends Base {
   title: string;
-  get style(): LabelStyles;
-  set style(v: StylePartial<LabelStyles>);
+  get style(): LabelStyle;
+  set style(v: StylePartial<LabelStyle>);
 
   // tags
   get _Background(): lng.Component;

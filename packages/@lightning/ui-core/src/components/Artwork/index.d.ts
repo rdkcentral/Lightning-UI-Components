@@ -1,3 +1,3 @@
-import Artwork, { ArtworkStyles } from './Artwork';
+import Artwork, { ArtworkStyle } from './Artwork';
 
-export { Artwork as default, ArtworkStyles };
+export { Artwork as default, ArtworkStyle };

@@ -69,7 +69,7 @@ class KeyboardInput extends Base {
       ...this.input,
       centerInParent: this.centerKeyboard,
       w: this._Keyboard.w,
-      style: { ...this.style.inputStyles }, // allows overriding of input styles
+      style: { ...this.style.inputStyle }, // allows overriding of input styles
       listening: this._isFocusedMode
     });
   }

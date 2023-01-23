@@ -1,3 +1,3 @@
-import Badge, { BadgeStyles } from './Badge';
+import Badge, { BadgeStyle } from './Badge';
 
-export { Badge as default, BadgeStyles };
+export { Badge as default, BadgeStyle };

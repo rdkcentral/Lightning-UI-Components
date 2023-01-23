@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
 import { Base, StylePartial } from '@lightning/ui-core';
 
-export type BoardRowStyles = {
+export type BoardRowStyle = {
   itemSpacing: number;
 };
 
@@ -24,8 +24,8 @@ export default class BoardRow extends Base {
   viewAll?: boolean;
 
   get fullyOnScreenItems(): Array<lng.Component>;
-  get style(): BoardRowStyles;
-  set style(v: StylePartial<BoardRowStyles>);
+  get style(): BoardRowStyle;
+  set style(v: StylePartial<BoardRowStyle>);
 
   // tags
   get _Layout(): lng.Component;

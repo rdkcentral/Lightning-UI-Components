@@ -3,7 +3,7 @@ import type {
   Base,
   Color,
   StylePartial,
-  TextBoxStyles
+  TextBoxStyle
 } from '@lightning/ui-core';
 
 type Animation = {
@@ -11,27 +11,27 @@ type Animation = {
   delay?: number;
 };
 
-type LogoStylesObject = {
+type LogoStyleObject = {
   radius: lng.Tools.CornerRadius;
   h: number;
   w: number;
 };
 
-export type NotificationStyles = {
+export type NotificationStyle = {
   w: number;
   backgroundColor: Color;
-  iconStyles: Record<string, unknown>;
-  logoStyles: LogoStylesObject;
+  iconStyle: Record<string, unknown>;
+  logoStyle: LogoStyleObject;
   iconOnlyMarginX: number;
   marginX: number;
   marginY: number;
   iconSize: number;
   iconMarginRight: number;
   iconMarginTop: number;
-  titleTextStyle: TextBoxStyles;
-  descriptionTextStyle: TextBoxStyles;
+  titleTextStyle: TextBoxStyle;
+  descriptionTextStyle: TextBoxStyle;
   actionAreaMarginTop: number;
-  actionAreaTextStyle: TextBoxStyles;
+  actionAreaTextStyle: TextBoxStyle;
   enterAlpha: number;
   enterScale: number;
   dismissAlpha: number;
@@ -50,8 +50,8 @@ export default class Notification extends Base {
   description?: string;
   actionArea?: string;
   entered?: boolean;
-  get style(): NotificationStyles;
-  set style(v: StylePartial<NotificationStyles>);
+  get style(): NotificationStyle;
+  set style(v: StylePartial<NotificationStyle>);
 
   // tags
   get _Container(): lng.Component;

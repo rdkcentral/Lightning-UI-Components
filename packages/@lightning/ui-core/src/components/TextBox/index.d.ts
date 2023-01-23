@@ -1,3 +1,3 @@
-import TextBox, { TextBoxStyles } from './TextBox';
+import TextBox, { TextBoxStyle } from './TextBox';
 
-export { TextBox as default, TextBoxStyles };
+export { TextBox as default, TextBoxStyle };

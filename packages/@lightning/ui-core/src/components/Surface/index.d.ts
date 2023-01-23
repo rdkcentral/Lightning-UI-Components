@@ -1,3 +1,3 @@
-import Surface, { SurfaceStyles } from './Surface';
+import Surface, { SurfaceStyle } from './Surface';
 
-export { Surface as default, SurfaceStyles };
+export { Surface as default, SurfaceStyle };

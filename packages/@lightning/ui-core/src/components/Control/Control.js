@@ -35,10 +35,10 @@ class Control extends ButtonSmall {
       // checking logo first since it takes precedence
       if (this.logo) {
         this._updatePrefixObj(this.logo, {
-          style: { color: undefined, ...this.style.logoStyles }
+          style: { color: undefined, ...this.style.logoStyle }
         });
       } else if (this.icon) {
-        this._updatePrefixObj(this.icon, { style: this.style.iconStyles });
+        this._updatePrefixObj(this.icon, { style: this.style.iconStyle });
       }
     }
   }
@@ -134,7 +134,7 @@ class Control extends ButtonSmall {
     if (!this.logo) {
       // if icon is defined then set it otherwise set prefix to be undefined
       if (icon) {
-        this._updatePrefixObj(icon, { style: this.style.iconStyles });
+        this._updatePrefixObj(icon, { style: this.style.iconStyle });
       } else {
         this._prefix = icon;
       }
@@ -145,7 +145,7 @@ class Control extends ButtonSmall {
   _setLogo(logo) {
     if (logo) {
       this._updatePrefixObj(logo, {
-        style: { color: undefined, ...this.style.logoStyles }
+        style: { color: undefined, ...this.style.logoStyle }
       });
       // if logo is set to undefined but an icon is provided, display the icon
     } else if (this.icon) {

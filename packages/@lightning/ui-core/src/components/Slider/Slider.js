@@ -170,7 +170,7 @@ class Slider extends Base {
           w: this._calculatedSliderWidth,
           style: {
             duration: 0,
-            ...this.style.progressBarStyles
+            ...this.style.progressBarStyle
           }
         }
       }

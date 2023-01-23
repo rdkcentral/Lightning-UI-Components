@@ -1,12 +1,12 @@
 import { Slider } from '@lightning/ui-core';
-import { SliderStyles, StylePartial } from '@lightning/ui-core';
+import { SliderStyle, StylePartial } from '@lightning/ui-core';
 
 // TODO make sure this is right
-export type NestedSliderStyles = SliderStyles & {
+export type NestedSliderStyle = SliderStyle & {
   innerCircleSize: number;
 };
 
 export default class NestedSlider extends Slider {
-  get style(): NestedSliderStyles;
-  set style(v: StylePartial<NestedSliderStyles>);
+  get style(): NestedSliderStyle;
+  set style(v: StylePartial<NestedSliderStyle>);
 }

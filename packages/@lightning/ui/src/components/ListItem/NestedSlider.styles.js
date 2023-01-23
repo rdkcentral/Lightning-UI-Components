@@ -3,7 +3,7 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillInverse,
-        progressBarStyles: {
+        progressBarStyle: {
           barColor: theme.color.fillInverseTertiary,
           progressColor: theme.color.fillInverse
         }
@@ -14,7 +14,7 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillInverse,
-        progressBarStyles: {
+        progressBarStyle: {
           barColor: theme.color.fillInverseTertiary,
           progressColor: theme.color.fillInverse
         }
@@ -25,7 +25,7 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillNeutral,
-        progressBarStyles: {
+        progressBarStyle: {
           barColor: theme.color.fillBrandTertiary,
           progressColor: theme.color.fillBrand
         }

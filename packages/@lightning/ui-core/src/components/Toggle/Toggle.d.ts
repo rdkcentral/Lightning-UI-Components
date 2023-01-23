@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type ToggleStyles = {
+export type ToggleStyle = {
   backgroundColor: Color;
   backgroundColorChecked: Color;
   knobWidth: number;
@@ -21,8 +21,8 @@ export type ToggleStyles = {
 export default class Toggle extends Base {
   checked?: boolean;
   toggle(): this; // TODO is this valid?
-  get style(): ToggleStyles;
-  set style(v: StylePartial<ToggleStyles>);
+  get style(): ToggleStyle;
+  set style(v: StylePartial<ToggleStyle>);
 
   // tags
   get _Container(): lng.Component;

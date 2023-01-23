@@ -1,3 +1,3 @@
-import ScrollWrapper, { ScrollWrapperStyles } from './ScrollWrapper';
+import ScrollWrapper, { ScrollWrapperStyle } from './ScrollWrapper';
 
-export { ScrollWrapper as default, ScrollWrapperStyles };
+export { ScrollWrapper as default, ScrollWrapperStyle };

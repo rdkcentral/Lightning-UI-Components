@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type RadioStyles = {
+export type RadioStyle = {
   alpha: number;
   backgroundColor: Color;
   backgroundColorChecked: Color;
@@ -16,11 +16,11 @@ export type RadioStyles = {
 
 export default class Radio extends Base {
   checked?: boolean;
-  get style(): RadioStyles;
-  set style(v: StylePartial<RadioStyles>);
+  get style(): RadioStyle;
+  set style(v: StylePartial<RadioStyle>);
 
-  // tags
-  get _Knob(): lng.Component;
+  // tags 
+  get _Knob(): lng.Component; 
   get _Body(): lng.Component;
   get _Stroke(): lng.Component;
 }

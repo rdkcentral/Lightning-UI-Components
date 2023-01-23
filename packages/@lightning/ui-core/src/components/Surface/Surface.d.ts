@@ -8,7 +8,7 @@ type TransitionObject = {
   timingFunction: string;
 };
 
-export type SurfaceStyles = {
+export type SurfaceStyle = {
   animation: TransitionObject;
   backgroundColor: Color;
   radius: lng.Tools.CornerRadius;
@@ -18,8 +18,8 @@ export type SurfaceStyles = {
 export default class Surface extends Base {
   get innerH(): number;
   get innerW(): number;
-  get style(): SurfaceStyles;
-  set style(v: StylePartial<SurfaceStyles>);
+  get style(): SurfaceStyle;
+  set style(v: StylePartial<SurfaceStyle>);
 
   // tags
   get _Background(): lng.Component;

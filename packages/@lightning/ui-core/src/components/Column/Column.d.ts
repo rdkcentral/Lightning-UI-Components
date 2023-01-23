@@ -8,7 +8,7 @@ type TransitionObject = {
   timingFunction: string;
 };
 
-export type ColumnStyles = {
+export type ColumnStyle = {
   itemSpacing: number;
   scrollIndex: number;
   alwaysScroll: boolean;
@@ -20,8 +20,8 @@ export default class Column extends NavigationManager {
   plinko?: boolean;
   itemPosX?: number;
   itemPosY?: number;
-  get style(): ColumnStyles;
-  set style(v: StylePartial<ColumnStyles>);
+  get style(): ColumnStyle;
+  set style(v: StylePartial<ColumnStyle>);
 
   checkSkipPlinko(prev: lng.Component, next: lng.Component): lng.Component;
   onScreenEffect(): void;

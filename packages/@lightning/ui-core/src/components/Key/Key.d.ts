@@ -1,4 +1,4 @@
-import Button, { ButtonStyles } from '../Button';
+import Button, { ButtonStyle } from '../Button';
 import type { StylePartial } from '../../types/lui';
 
 type SizeObject = {
@@ -9,7 +9,7 @@ type SizeObject = {
   xxl: number;
 };
 
-export type KeyStyles = ButtonStyles & {
+export type KeyStyle = ButtonStyle & {
   h: number;
   sizes: SizeObject;
 };
@@ -18,6 +18,6 @@ export default class Key extends Button {
   icon?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   toggle: string;
-  get style(): KeyStyles;
-  set style(v: StylePartial<KeyStyles>);
+  get style(): KeyStyle;
+  set style(v: StylePartial<KeyStyle>);
 }

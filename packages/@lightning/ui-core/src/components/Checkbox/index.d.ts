@@ -1,4 +1,4 @@
-import Checkbox, { CheckboxStyles } from './Checkbox';
+import Checkbox, { CheckboxStyle } from './Checkbox';
 import CheckboxSmall from './CheckboxSmall';
 
-export { Checkbox as default, CheckboxSmall, CheckboxStyles };
+export { Checkbox as default, CheckboxSmall, CheckboxStyle };

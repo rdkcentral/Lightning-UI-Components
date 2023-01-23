@@ -1,3 +1,3 @@
-import Column, { ColumnStyles } from './Column';
+import Column, { ColumnStyle } from './Column';
 
-export { Column as default, ColumnStyles };
+export { Column as default, ColumnStyle };

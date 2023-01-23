@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
 
-export type MarqueeStyles = {
+export type MarqueeStyle = {
   fadeW: number;
   offset: number;
   shouldSmooth: boolean;
@@ -15,8 +15,8 @@ export default class Marquee extends Base {
   delay?: number;
   repeat?: number;
   title?: string;
-  get style(): MarqueeStyles;
-  set style(v: StylePartial<MarqueeStyles>);
+  get style(): MarqueeStyle;
+  set style(v: StylePartial<MarqueeStyle>);
 
   // tags
   get _ContentClipper(): lng.Component;

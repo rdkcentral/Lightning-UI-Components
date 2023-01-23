@@ -10,5 +10,5 @@ export const base = theme => ({
     w: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).w,
     h: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).h
   },
-  metadataStyles: { descriptionTextStyle: { maxLines: 2 } }
+  metadataStyle: { descriptionTextStyle: { maxLines: 2 } }
 });

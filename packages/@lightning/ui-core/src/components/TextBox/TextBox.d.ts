@@ -3,7 +3,7 @@ import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
 import type { TextContent } from '../InlineContent/InlineContent';
 
-export type TextBoxStyles = {
+export type TextBoxStyle = {
   offsetY: number;
   offsetX: number;
   textStyle: lng.textures.TextTexture.Settings | string;
@@ -15,8 +15,8 @@ export default class TextBox extends Base {
   marquee?: boolean;
   get marqueeOverrideLoopX(): number;
   set marqueeOverrideLoopX(v: number);
-  get style(): TextBoxStyles;
-  set style(v: StylePartial<TextBoxStyles>);
+  get style(): TextBoxStyle;
+  set style(v: StylePartial<TextBoxStyle>);
 
   // tags
   get _InlineContent(): lng.Component;

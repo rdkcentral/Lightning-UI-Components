@@ -1,4 +1,4 @@
-import Button, { ButtonStyles } from './Button';
+import Button, { ButtonStyle } from './Button';
 import ButtonSmall from './ButtonSmall';
 
-export { Button as default, ButtonSmall, ButtonStyles };
+export { Button as default, ButtonSmall, ButtonStyle };

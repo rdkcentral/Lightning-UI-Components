@@ -1,8 +1,8 @@
 import type lng from '@lightningjs/core';
 import type { StylePartial } from '../../types/lui';
-import TitleRow, { TitleRowStyles } from '../TitleRow';
+import TitleRow, { TitleRowStyle } from '../TitleRow';
 
-export type ControlRowStyles = TitleRowStyles & {
+export type ControlRowStyle = TitleRowStyle & {
   extraItemSpacing: number;
 };
 
@@ -15,8 +15,8 @@ export default class ControlRow extends TitleRow {
   contentItems?: ControlRowItem;
   rightControls?: ControlRowItem;
   extraItemSpacing?: number;
-  get style(): ControlRowStyles;
-  set style(v: StylePartial<ControlRowStyles>);
+  get style(): ControlRowStyle;
+  set style(v: StylePartial<ControlRowStyle>);
 
   loadMoreItems(): void;
   addContentItems(items: ControlRowItem[]);
