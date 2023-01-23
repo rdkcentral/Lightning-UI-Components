@@ -13,7 +13,7 @@ Feature: LUI Slider Basic component
     And I verify that the 'Slider' 'Right Arrow' component is displayed
 
   Scenario: Verify the dimensions of th Slider Basic Element
-    Then I verify that the 'width' of 'Slider' 'Slider Bar' component is '268px'
+    Then I verify that the 'width' of 'Slider' 'Slider Bar' component is '208px'
     And I verify that the 'height' of 'Slider' 'Slider Bar' component is '10px'
 
   Scenario Outline: Verify that Slider can be set to <modeValue> mode

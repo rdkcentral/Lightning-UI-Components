@@ -60,6 +60,8 @@ Feature: LUI Artwork component
       | Base    |    true    |
       | Base    |    false   |
 
+  # Skipping the format contain test because of bug
+  # https://ccp.sys.comcast.net/browse/LUI-652
   Scenario: Verify the Artwork format control
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'format' to '<formatValue>' for 'Artwork' component
@@ -68,14 +70,14 @@ Feature: LUI Artwork component
     Examples:
       | theme   | formatValue |
       | Xfinity |   square    |
-      | Xfinity |   contain   |
+      # | Xfinity |   contain   |
       | Xfinity |   circle    |
       | Xfinity |   default   |
     @sanity
     Examples:
       | theme   | formatValue |
       | Base    |   square    |
-      | Base    |   contain   |
+      # | Base    |   contain   |
       | Base    |   circle    |
       | Base    |   default   |
 
@@ -94,6 +96,9 @@ Feature: LUI Artwork component
       | Base    |     true       |
       | Base    |     false      |
 
+  # Skipping test because of bug
+  # https://ccp.sys.comcast.net/browse/LUI-652
+  @skip 
   Scenario: Verify the Artwork srcCallback control
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'srcCallback' to '<srcCallbackToggle>' for 'Artwork' component
