@@ -11,7 +11,7 @@ export type KeyboardInputStyle = {
   screenW: number;
   marginX: number;
   inputSpacing: number;
-  inputStyles: inputStyleObject;
+  inputStyle: inputStyleObject;
 };
 
 export default class KeyboardInput extends Base {
