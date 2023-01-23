@@ -11754,7 +11754,7 @@ exports[`KeyboardInput renders 1`] = `
                   "children": {
                     "Cursor": {
                       "active": false,
-                      "alpha": 0.001,
+                      "alpha": 1,
                       "attached": true,
                       "boundsMargin": null,
                       "clipping": false,
@@ -11891,7 +11891,7 @@ exports[`KeyboardInput renders 1`] = `
                   "visible": true,
                   "w": 0,
                   "x": 24,
-                  "y": 40,
+                  "y": [Function],
                   "zIndex": 2,
                 },
                 "Eyebrow": {
@@ -11977,8 +11977,8 @@ exports[`KeyboardInput renders 1`] = `
               "flex": false,
               "flexItem": false,
               "h": 80,
-              "hasFinalFocus": false,
-              "hasFocus": false,
+              "hasFinalFocus": true,
+              "hasFocus": true,
               "isComponent": true,
               "mount": 0,
               "mountX": 0,
@@ -12022,7 +12022,7 @@ exports[`KeyboardInput renders 1`] = `
                       "attached": true,
                       "boundsMargin": null,
                       "children": {
-                        "Element-6126": {
+                        "Element-8506": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -12034,7 +12034,7 @@ exports[`KeyboardInput renders 1`] = `
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-6128": {
+                                "Element-8508": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12134,7 +12134,7 @@ exports[`KeyboardInput renders 1`] = `
                                                     "maxLinesSuffix": "...",
                                                     "text": "1",
                                                     "textBaseline": "bottom",
-                                                    "textColor": 4279505943,
+                                                    "textColor": 4294375161,
                                                     "textOverflow": "ellipsis",
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
@@ -12239,7 +12239,7 @@ exports[`KeyboardInput renders 1`] = `
                                       "visible": true,
                                       "w": 0,
                                       "x": 28,
-                                      "y": [Function],
+                                      "y": 36,
                                       "zIndex": 2,
                                     },
                                   },
@@ -12249,8 +12249,8 @@ exports[`KeyboardInput renders 1`] = `
                                   "flex": false,
                                   "flexItem": false,
                                   "h": 72,
-                                  "hasFinalFocus": true,
-                                  "hasFocus": true,
+                                  "hasFinalFocus": false,
+                                  "hasFocus": false,
                                   "isComponent": true,
                                   "mount": 0,
                                   "mountX": 0,
@@ -12273,7 +12273,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6131": {
+                                "Element-8511": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12512,7 +12512,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6134": {
+                                "Element-8514": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12751,7 +12751,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6137": {
+                                "Element-8517": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12990,7 +12990,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6140": {
+                                "Element-8520": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13229,7 +13229,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6143": {
+                                "Element-8523": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13468,7 +13468,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6146": {
+                                "Element-8526": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13707,7 +13707,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6149": {
+                                "Element-8529": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13946,7 +13946,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6152": {
+                                "Element-8532": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14185,7 +14185,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6155": {
+                                "Element-8535": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14424,7 +14424,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6158": {
+                                "Element-8538": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14702,7 +14702,7 @@ exports[`KeyboardInput renders 1`] = `
                           "flexItem": false,
                           "h": 72,
                           "hasFinalFocus": false,
-                          "hasFocus": true,
+                          "hasFocus": false,
                           "isComponent": true,
                           "mount": 0,
                           "mountX": 0,
@@ -14725,7 +14725,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 0,
                           "zIndex": 0,
                         },
-                        "Element-6161": {
+                        "Element-8541": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -14737,7 +14737,7 @@ exports[`KeyboardInput renders 1`] = `
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-6163": {
+                                "Element-8543": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14976,7 +14976,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6166": {
+                                "Element-8546": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15215,7 +15215,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6169": {
+                                "Element-8549": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15454,7 +15454,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6172": {
+                                "Element-8552": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15693,7 +15693,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6175": {
+                                "Element-8555": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15932,7 +15932,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6178": {
+                                "Element-8558": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16171,7 +16171,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6181": {
+                                "Element-8561": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16410,7 +16410,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6184": {
+                                "Element-8564": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16649,7 +16649,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6187": {
+                                "Element-8567": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16888,7 +16888,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6190": {
+                                "Element-8570": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17127,7 +17127,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6193": {
+                                "Element-8573": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17428,7 +17428,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 8,
                           "zIndex": 0,
                         },
-                        "Element-6196": {
+                        "Element-8576": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -17440,7 +17440,7 @@ exports[`KeyboardInput renders 1`] = `
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-6198": {
+                                "Element-8578": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17679,7 +17679,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6201": {
+                                "Element-8581": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17918,7 +17918,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6204": {
+                                "Element-8584": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18157,7 +18157,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6207": {
+                                "Element-8587": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18396,7 +18396,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6210": {
+                                "Element-8590": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18635,7 +18635,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6213": {
+                                "Element-8593": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18874,7 +18874,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6216": {
+                                "Element-8596": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19113,7 +19113,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6219": {
+                                "Element-8599": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19352,7 +19352,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6222": {
+                                "Element-8602": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19591,7 +19591,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6225": {
+                                "Element-8605": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19830,7 +19830,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6228": {
+                                "Element-8608": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20131,7 +20131,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 16,
                           "zIndex": 0,
                         },
-                        "Element-6231": {
+                        "Element-8611": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -20143,7 +20143,7 @@ exports[`KeyboardInput renders 1`] = `
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-6233": {
+                                "Element-8613": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20382,7 +20382,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6236": {
+                                "Element-8616": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20621,7 +20621,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6239": {
+                                "Element-8619": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20860,7 +20860,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6242": {
+                                "Element-8622": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21099,7 +21099,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6245": {
+                                "Element-8625": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21338,7 +21338,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6248": {
+                                "Element-8628": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21577,7 +21577,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6251": {
+                                "Element-8631": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21816,7 +21816,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6254": {
+                                "Element-8634": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22055,7 +22055,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6257": {
+                                "Element-8637": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22294,7 +22294,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6260": {
+                                "Element-8640": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22533,7 +22533,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6263": {
+                                "Element-8643": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22834,7 +22834,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 24,
                           "zIndex": 0,
                         },
-                        "Element-6266": {
+                        "Element-8646": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -22846,7 +22846,7 @@ exports[`KeyboardInput renders 1`] = `
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-6268": {
+                                "Element-8648": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -23085,7 +23085,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6271": {
+                                "Element-8651": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -23324,7 +23324,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-6274": {
+                                "Element-8654": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -23664,7 +23664,7 @@ exports[`KeyboardInput renders 1`] = `
                   "flexItem": false,
                   "h": 32,
                   "hasFinalFocus": false,
-                  "hasFocus": true,
+                  "hasFocus": false,
                   "isComponent": true,
                   "mount": 0,
                   "mountX": 0,
@@ -23698,7 +23698,7 @@ exports[`KeyboardInput renders 1`] = `
               "flexItem": false,
               "h": 0,
               "hasFinalFocus": false,
-              "hasFocus": true,
+              "hasFocus": false,
               "isComponent": true,
               "mount": 0,
               "mountX": 0,
@@ -23717,7 +23717,7 @@ exports[`KeyboardInput renders 1`] = `
               "tags": [
                 "Keyboard",
               ],
-              "type": "Keyboard",
+              "type": "KeyboardQwerty",
               "visible": true,
               "w": 1920,
               "x": 0,

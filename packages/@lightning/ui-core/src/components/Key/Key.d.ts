@@ -12,6 +12,8 @@ type SizeObject = {
 export type KeyStyle = ButtonStyle & {
   h: number;
   sizes: SizeObject;
+  iconW: number;
+  iconH: number;
 };
 
 export default class Key extends Button {

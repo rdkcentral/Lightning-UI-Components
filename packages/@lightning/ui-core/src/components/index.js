@@ -16,8 +16,14 @@ export { default as Icon } from './Icon/Icon.js';
 export { default as InlineContent } from './InlineContent/InlineContent.js';
 export { default as Input } from './Input/Input.js';
 export { default as Key } from './Key/Key.js';
-export { default as Keyboard } from './Keyboard/Keyboard.js';
-export { default as KEYBOARD_FORMATS } from './Keyboard/KeyboardFormats.js';
+export {
+  default as Keyboard,
+  KeyboardEmail,
+  KeyboardFullscreen,
+  KeyboardNumbers,
+  KeyboardQwerty,
+  KeyboardInput
+} from './Keyboard';
 export { default as Knob } from './Knob/Knob.js';
 export { default as Label } from './Label/Label.js';
 export { default as Marquee } from './Marquee/Marquee.js';

@@ -1,4 +1,4 @@
-import Keyboard, { KEYBOARD_FORMATS } from './index.js';
+import Keyboard from './index.js';
 import Input from '../Input/index.js';
 import { withExtensions } from '../../mixins/index.js';
 import Base from '../Base/index.js';
@@ -15,7 +15,7 @@ class KeyboardInput extends Base {
       'centerKeyboard',
       'defaultFormat',
       'input', // this should hold all the props passed from Input
-      'keyboardFormats'
+      'keyboardType'
     ];
   }
 
@@ -49,6 +49,7 @@ class KeyboardInput extends Base {
       }
     };
   }
+
   static get tags() {
     return [
       'Wrapper',
@@ -58,10 +59,30 @@ class KeyboardInput extends Base {
   }
 
   _update() {
-    this._Wrapper.style.itemSpacing = this.style.itemSpacing;
+    this._Wrapper.style.itemSpacing = this.style.inputSpacing;
+    this._updateKeyboardType();
     this._updateInput();
     this._updateKeyboard();
     this._updateCenterKeyboard();
+  }
+
+  _updateKeyboardType() {
+    if (this._Keyboard.constructor !== this.keyboardType) {
+      this._Wrapper._resetItems();
+      this._Wrapper.items = [
+        {
+          type: Input,
+          ref: 'Input'
+        },
+        {
+          type: this.keyboardType,
+          ref: 'Keyboard',
+          passSignals: {
+            keyboardWidthChanged: true
+          }
+        }
+      ];
+    }
   }
 
   _updateInput() {
@@ -77,7 +98,6 @@ class KeyboardInput extends Base {
   _updateKeyboard() {
     this._Keyboard.patch({
       defaultFormat: this.defaultFormat || 'lowercase',
-      formats: this.keyboardFormats || KEYBOARD_FORMATS.qwerty,
       centerKeyboard: this.centerKeyboard
     });
   }
@@ -96,22 +116,21 @@ class KeyboardInput extends Base {
     }
   }
 
-  $onSoftKey({ key, toggle }) {
+  $onSoftKey({ key = '', toggle }) {
     if (toggle) {
       return;
     }
 
-    switch (key) {
-      case 'Delete':
+    switch (key.toLowerCase()) {
+      case 'delete':
         this._Input.backspace();
         break;
-      case 'Done':
-        // done handler
+      case 'done':
         break;
-      case 'Space':
+      case 'space':
         this._Input.insert(' ');
         break;
-      case 'Clear':
+      case 'clear':
         this._Input.clear();
         break;
       default:
@@ -131,4 +150,5 @@ class KeyboardInput extends Base {
     return this._Wrapper || this;
   }
 }
+
 export default withExtensions(KeyboardInput);

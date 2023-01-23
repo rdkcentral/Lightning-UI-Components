@@ -10,8 +10,6 @@ export type ButtonStyle = SurfaceStyle & {
   paddingX: number;
   paddingXNoTitle: number;
   titlePadding: number;
-  prefixH: number;
-  suffixH: number;
   textStyle: TextBoxStyle;
   contentColor: Color;
 };

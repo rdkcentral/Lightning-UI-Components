@@ -9,8 +9,6 @@ export const base = theme => ({
   paddingXNoTitle: theme.spacer.xl,
   titlePadding: theme.spacer.md,
   itemSpacing: theme.spacer.md,
-  prefixH: theme.spacer.xxl,
-  suffixH: theme.spacer.xxl,
   textStyle: {
     ...theme.typography.button1,
     maxLines: 1,

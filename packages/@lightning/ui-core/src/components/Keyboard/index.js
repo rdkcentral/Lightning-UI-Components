@@ -1,2 +1,15 @@
-export { default } from './Keyboard.js';
-export { default as KEYBOARD_FORMATS } from './KeyboardFormats.js';
+import Keyboard from './Keyboard';
+import KeyboardEmail from './KeyboardEmail';
+import KeyboardFullscreen from './KeyboardFullscreen';
+import KeyboardNumbers from './KeyboardNumbers';
+import KeyboardQwerty from './KeyboardQwerty';
+import KeyboardInput from './KeyboardInput';
+
+export {
+  Keyboard as default,
+  KeyboardEmail,
+  KeyboardFullscreen,
+  KeyboardNumbers,
+  KeyboardQwerty,
+  KeyboardInput
+};
