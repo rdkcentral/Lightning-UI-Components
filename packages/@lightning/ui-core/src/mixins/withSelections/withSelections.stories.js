@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { FocusManager, Button } from '../../components/index.js';
+import { Button, Row } from '../../components/index.js';
 import withSelectionsMixin from './index.js';
 import mdx from './withSelections.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
@@ -47,9 +47,8 @@ export const withSelections = () => {
     static _template() {
       return {
         Items: {
-          type: withSelectionsMixin(FocusManager),
+          type: withSelectionsMixin(Row),
           y: 100,
-          direction: 'row',
           items: [
             {
               type: UnderlineButton,
