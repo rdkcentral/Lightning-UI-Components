@@ -21,6 +21,11 @@ class CardTitle extends LUIComponent {
   get description() {
     return `${this.card}>div[ref=Description]>div[ref=Text]`;
   }
+
+  get details() {
+    return `${this.card}>div[ref=Details]>div[ref=Text]`;
+  }
+
 }
 
 module.exports = new CardTitle();
