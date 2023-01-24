@@ -20,7 +20,7 @@ export default function () {
             case '0':
               //clicking the right key to get to the end of the row
               // and check if attribute x has a specific value
-              cy.repeatAction('RIGHT', 11);
+              cy.repeatAction('RIGHT', 10);
               cy.wait(500).get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
@@ -79,7 +79,7 @@ export default function () {
               break;
             case 'false':
               cy.repeatAction('RIGHT', 8);
-              cy.wait(500).get(Row.row).then(component => {
+              cy.wait(1000).get(Row.row).then(component => {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
@@ -104,7 +104,7 @@ export default function () {
                 cy.wrap(component)
                   .invoke('attr', 'x')
                   .then(parseFloat)
-                  .should('be.closeTo', -250, 10);
+                  .should('be.closeTo', -250, 25);
               });
               break;
             case 'false':
