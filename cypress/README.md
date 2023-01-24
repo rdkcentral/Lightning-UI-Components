@@ -64,7 +64,6 @@ Feature: Icon PNG Element Validation
     Then I verify the 'Icon' 'PNG' component with visual regression
 ```
 
-
 ## Creating Cypress Tests
 ### Creating Page Objects
 1. Create Page Object file for the component to be tested
@@ -75,3 +74,4 @@ Feature: Icon PNG Element Validation
 1. If the step definition is common across multiple pages, then add it to the `Common.js` file.
 2. If you find yourself needing to import additional page objects into the `Common.js` file, add a specific Step Definitions file for the page that will use the step.
 3. As a general rule, the following list of items should be parameterized: page name (except in step used only for a specific page), component names (except in steps used only for a specific component)
+
