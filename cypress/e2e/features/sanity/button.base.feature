@@ -1,57 +1,151 @@
-@sanity @regression @button @2104461
+@regression @button @2104461
 
 Feature: LUI Button component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'Button' with 'Base' theme
 
-  Scenario: Verify that Button component is displayed
+  Scenario Outline: Verify that Button is displayed (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
     Then I verify that the 'Button' component is displayed
-
-  Scenario Outline: Verify that Button can be set to <modeValue> mode
-    When I set the 'mode' to '<modeValue>' for 'Button' component
-    Then I verify the mode is '<modeValue>' for 'Button'
+    @sanity_temp
     Examples:
-      | modeValue |
-      | unfocused |
-      | focused   |
-      | disabled  |
+      | theme   |
+      | Xfinity |
+    @sanity
+    Examples:
+      | theme   |
+      | Base    |
 
-  Scenario: Verify the Button fixed state
-    Then I verify that the 'width' of 'Button' component is '472px'
+  Scenario Outline: Verify that Button can be set to <modeValue> mode (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'mode' to '<modeValue>' for 'Button' component
+    Then I verify the mode is '<modeValue>' for 'Button'
+    @sanity_temp
+    Examples:
+      | theme   | modeValue |
+      | Xfinity | unfocused |
+      | Xfinity | focused   |
+      | Xfinity | disabled  |
+    @sanity
+    Examples:
+      | theme   | modeValue |
+      | Base    | unfocused |
+      | Base    | focused   |
+      | Base    | disabled  |
+
+  Scenario Outline: Verify the Button fixed state (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    Then I verify that the 'width' of 'Button' component is '<defaultWidth>'
     And I set the 'fixed' to 'true' for 'Button' component
     And I verify that the 'width' of 'Button' component is '200px'
+    @sanity_temp
+    Examples:
+      | theme   | defaultWidth  |
+      | Xfinity | 386px         |
+    @sanity
+    Examples:
+      | theme   | defaultWidth  |
+      | Base    | 472px         |
 
-  Scenario: Verify the Button justify control
-    When I set the 'justify' to 'left' for 'Button' component
-    Then I verify that 'Button' justify control is 'left'
-    And I set the 'justify' to 'center' for 'Button' component
-    And I verify that 'Button' justify control is 'center'
-    And I set the 'justify' to 'right' for 'Button' component
-    And I verify that 'Button' justify control is 'right'
+  Scenario Outline: Verify the Button justify control (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'justify' to '<justifyValue>' for 'Button' component
+    Then I verify that 'Button' justify control is '<justifyValue>'
+    @sanity_temp
+    Examples:
+      | theme   | justifyValue |
+      | Xfinity | left         |
+      | Xfinity | center       |
+      | Xfinity | right        |
+    @sanity
+    Examples:
+      | theme   | justifyValue |
+      | Base    | left         |
+      | Base    | center       |
+      | Base    | right        |
 
-  Scenario: Verify the Button prefix control
-    When I set the 'prefix' to 'null' for 'Button' component
-    Then I verify that 'Button' prefix control is 'null'
-    And I set the 'prefix' to 'icon' for 'Button' component
-    And I verify that 'Button' prefix control is 'icon'
-    And I set the 'prefix' to 'checkbox' for 'Button' component
-    And I verify that 'Button' prefix control is 'checkbox'
-    And I set the 'prefix' to 'combo' for 'Button' component
-    And I verify that 'Button' prefix control is 'combo'
+  Scenario Outline: Verify the Button prefix control (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'prefix' to '<prefixValue>' for 'Button' component
+    Then I verify that 'Button' prefix control is '<prefixValue>'
+    @sanity_temp
+    Examples:
+      | theme   | prefixValue |
+      | Xfinity | null        |
+      | Xfinity | icon        |
+      | Xfinity | checkbox    |
+      | Xfinity | combo       |
+    @sanity
+    Examples:
+      | theme   | prefixValue |
+      | Base    | null        |
+      | Base    | icon        |
+      | Base    | checkbox    |
+      | Base    | combo       |
 
-  Scenario: Verify the Button suffix control
-    When I set the 'suffix' to 'null' for 'Button' component
-    Then I verify that 'Button' suffix control is 'null'
-    And I set the 'suffix' to 'icon' for 'Button' component
-    And I verify that 'Button' suffix control is 'icon'
-    And I set the 'suffix' to 'checkbox' for 'Button' component
-    And I verify that 'Button' suffix control is 'checkbox'
-    And I set the 'suffix' to 'combo' for 'Button' component
-    And I verify that 'Button' suffix control is 'combo'
+  Scenario Outline: Verify the Button suffix control (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'suffix' to '<suffixValue>' for 'Button' component
+    Then I verify that 'Button' suffix control is '<suffixValue>'
+    @sanity_temp
+    Examples:
+      | theme   | suffixValue |
+      | Xfinity | null        |
+      | Xfinity | icon        |
+      | Xfinity | checkbox    |
+      | Xfinity | combo       |
+    @sanity
+    Examples:
+      | theme   | suffixValue |
+      | Base    | null        |
+      | Base    | icon        |
+      | Base    | checkbox    |
+      | Base    | combo       |
 
-  Scenario: Verify the Button title control
-    When I set the 'title' to 'LUI TEST' for 'Button' component
+  Scenario Outline: Verify the Button title control (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'title' to 'LUI TEST' for 'Button' component
     Then I verify that the 'Title' component on the 'Button' page has text 'LUI TEST'
+    @sanity_temp
+    Examples:
+      | theme   |
+      | Xfinity |
+    @sanity
+    Examples:
+      | theme   |
+      | Base    |
+
+  Scenario Outline: Verify the Button W value (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    And I set the 'fixed' to 'true' for 'Button' component
+    And I set the 'w' to '<width>' for 'Button' component
+    Then I verify that the 'width' of 'Button' component is '<width>'
+    @sanity_temp 
+    Examples:
+      | theme   | width  |
+      | Xfinity | 300    |
+      | Xfinity | 400    |
+      | Xfinity | 405    |
+    @sanity
+    Examples:
+      | theme   | width  |
+      | Base    | 300    |
+      | Base    | 309    |
+      | Base    | 508    |
     
+  Scenario: Verify that Button default values (<theme> theme)
+    When I navigate to 'Button' with '<theme>' theme
+    Then I verify the mode is 'focused' for 'Button'
+    And I verify that 'Button' justify control is 'center'
+    And I verify that 'Button' prefix control is 'null'
+    And I verify that 'Button' suffix control is 'null'
+    And I verify that the 'Title' component on the 'Button' page has text 'Button'
+    @sanity_temp
+    Examples:
+      | theme   |
+      | Xfinity |
+    @sanity
+    Examples:
+      | theme   |
+      | Base    |
