@@ -322,8 +322,28 @@ class Column extends LUIComponent {
     return 'div[type=button]:nth-of-type(48)';
   }
   //=============== Skipfocus =============
+  //=============== Expandableheightrow =============
+  get expandableheightrow() {
+    return 'div[type="Type"] > div[type="Column"] > div[type="Element"]';
+  }
 
-  //=============== Skipplinko =============
+  get expandableheightrow1button1() {
+    return `${this.expandableheightrow} > div[type=row]:nth-of-type(1)>div[type=element]>div[type=expandingbutton]:nth-of-type(1)`;
+  }
+
+  get expandableheightrow1button3() {
+    return `${this.expandableheightrow} > div[type=row]:nth-of-type(1)>div[type=element]>div[type=expandingbutton]:nth-of-type(3)`;
+  }
+
+  get expandableheightrow15button3() {
+    return `${this.expandableheightrow} > div[type=row]:nth-of-type(15)>div[type=element]>div[type=expandingbutton]:nth-of-type(3)`;
+  }
+
+  get expandableheightrow15button1() {
+    return `${this.expandableheightrow} > div[type=row]:nth-of-type(15)>div[type=element]>div[type=expandingbutton]:nth-of-type(1)`;
+  }
+  //=============== Expandableheightrow =============
+  //=============== Skipplinko ====================
   get skipplinkorows() {
     return 'div[type=Element] > div[type=type] > div[type=Column] > div[type=Element] > div[type=row]';
   }
@@ -371,8 +391,7 @@ class Column extends LUIComponent {
   get skipplinkobutton1last() {
     return `${this.skipplinkorow1} > div[type=Tile]:nth-child(5)`;
   }
-  //=============== Skipplinko =============
-  
+  //=============== Skipplinko =============  
 }
 
 module.exports = new Column();
