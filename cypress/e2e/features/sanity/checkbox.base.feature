@@ -22,12 +22,11 @@ Feature: LUI Checkbox Basic component
       | focused   |
       | disabled  |
 
-  Scenario: Verify that Checkbox Basic checked state
-    When I set the 'checked' to 'true' for 'Checkbox' component
-    Then I verify that the 'checked' state for 'Checkbox' is 'true'
-    And I set the 'checked' to 'false' for 'Checkbox' component
-    And I verify that the 'checked' state for 'Checkbox' is 'false'
-
-  Scenario: Verify that Checkbox Basic default values
+  Scenario Outline: Verify that Checkbox Basic checked state
     Then I verify that the 'checked' state for 'Checkbox' is 'false'
-   #A step needs to be added for verifying dafault value for mode control once the bug LUI-555 is resolved
+    And I set the 'checked' to '<checkedState>' for 'Checkbox' component
+    And I verify that the 'checked' state for 'Checkbox' is '<checkedState>'
+    Examples:
+      | checkedState |
+      | true         |
+      | false        |

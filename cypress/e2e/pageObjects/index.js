@@ -1,88 +1,90 @@
-import Icon from './elements/icon.element';
 import Artwork from './foundations/artwork.foundations';
 import Badge from './metadata/badge.metadata';
+import Button from './controls/button.controls';
+import ButtonSmall from './controls/buttonsmall.controls';
 import Card from './tilesAndCards/card.tilesandcards';
 import CardAbout from './tilesAndCards/cardabout.tilesandcards';
 import CardAboutLarge from './tilesAndCards/cardaboutlarge.tilesandcards';
-import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
-import CardSection from './tilesAndCards/cardsection.tilesandcards';
-import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
-import CardContentHorizontalLarge from './tilesAndCards/cardcontenthorizontallarge.tilesandcards';
-import Label from './metadata/label.metadata';
-import ProgressBar from './utilities/progressbar.utilities';
-import FocusManager from './navigation/focusmanager.navigation';
-import FocusRing from './foundations/focusring.foundations';
-import Radio from './utilities/radio.utilities';
-import RadioSmall from './utilities/radiosmall.utilities';
-import Row from './navigation/row.navigation';
-import Slider from './utilities/slider.utilities';
-import SliderLarge from './utilities/sliderlarge.utilities';
-import TabBar from './layout/tabbar.layout';
-import Tile from './tilesAndCards/tile.tilesandcards';
-import Button from './controls/button.controls';
-import TextBox from './text/textbox.text';
-import Toggle from './utilities/toggle.utilities';
-import ToggleSmall from './utilities/togglesmall.utilities';
-import Distractor from './utilities/distractor.utilities';
-import ButtonSmall from './controls/buttonsmall.controls';
-import Wave from './utilities/wave.utilities';
-import Column from './navigation/column.navigation';
-import ListItem from './controls/listitem.controls';
-import Control from './controls/control.controls';
-import ControlSmall from './controls/controlsmall.controls';
-import Checkbox from './utilities/checkbox.utilities';
-import ScrollWrapper from './layout/scrollwrapper.layout';
-import Tab from './layout/tab.layout';
 import CardAboutStacked from './tilesAndCards/cardaboutstacked.tilesandcards';
 import CardContent from './tilesAndCards/cardcontent.tilesandcards';
 import CardContentHero from './tilesAndCards/cardcontenthero.tilesandcards';
 import CardContentHorizontal from './tilesAndCards/cardcontenthorizontal.tilesandcards';
+import CardContentHorizontalLarge from './tilesAndCards/cardcontenthorizontallarge.tilesandcards';
 import CardContentVertical from './tilesAndCards/cardcontentvertical.tilesandcards';
 import CardContentVerticalSmall from './tilesAndCards/cardcontentverticalsmall.tilesandcards';
+import CardPersonality from './tilesAndCards/cardpersonality.tilesandcards';
+import CardSection from './tilesAndCards/cardsection.tilesandcards';
+import CardTitle from './tilesAndCards/cardtitle.tilesandcards';
+import Checkbox from './utilities/checkbox.utilities';
+import CheckboxSmall from './utilities/checkboxsmall.utilities';
+import Column from './navigation/column.navigation';
+import Control from './controls/control.controls';
+import ControlSmall from './controls/controlsmall.controls';
+import Distractor from './utilities/distractor.utilities';
+import FocusManager from './navigation/focusmanager.navigation';
+import FocusRing from './foundations/focusring.foundations';
+import Icon from './elements/icon.element';
+import Label from './metadata/label.metadata';
+import ListItem from './controls/listitem.controls';
+import ProgressBar from './utilities/progressbar.utilities';
+import Radio from './utilities/radio.utilities';
+import RadioSmall from './utilities/radiosmall.utilities';
+import Row from './navigation/row.navigation';
+import ScrollWrapper from './layout/scrollwrapper.layout';
+import Slider from './utilities/slider.utilities';
+import SliderLarge from './utilities/sliderlarge.utilities';
+import Tab from './layout/tab.layout';
+import TabBar from './layout/tabbar.layout';
+import TextBox from './text/textbox.text';
+import Tile from './tilesAndCards/tile.tilesandcards';
+import Toggle from './utilities/toggle.utilities';
+import ToggleSmall from './utilities/togglesmall.utilities';
+import Wave from './utilities/wave.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
-    icon: Icon,
     artwork: Artwork,
     badge: Badge,
+    button: Button,
+    buttonsmall: ButtonSmall,
     card: Card,
     cardabout: CardAbout,
     cardaboutlarge: CardAboutLarge,
+    cardaboutstacked: CardAboutStacked,
+    cardcontent: CardContent,
+    cardcontenthero: CardContentHero,
+    cardcontenthorizontal: CardContentHorizontal,
+    cardcontenthorizontallarge: CardContentHorizontalLarge,
+    cardcontentvertical: CardContentVertical,
+    cardcontentverticalsmall: CardContentVerticalSmall,
     cardpersonality: CardPersonality,
     cardsection: CardSection,
     cardtitle: CardTitle,
-    cardcontenthorizontallarge: CardContentHorizontalLarge,
     checkbox: Checkbox,
+    checkboxsmall: CheckboxSmall,
+    column: Column,
+    control: Control,
+    controlsmall: ControlSmall,
+    distractor: Distractor,
+    focusmanager: FocusManager,
+    focusring: FocusRing,
     label: Label,
+    listitem: ListItem,
     progressbar: ProgressBar,
     radio: Radio,
     radiosmall: RadioSmall,
     row: Row,
+    scrollwrapper: ScrollWrapper,
     slider: Slider,
     sliderlarge: SliderLarge,
+    tab: Tab,
     tabbar: TabBar,
     textbox: TextBox,
-    focusmanager: FocusManager,
-    focusring: FocusRing,
     tile: Tile,
-    button: Button,
     toggle: Toggle,
     togglesmall: ToggleSmall,
-    distractor: Distractor,
-    buttonsmall: ButtonSmall,
     wave: Wave,
-    column: Column,
-    listitem: ListItem,
-    control: Control,
-    controlsmall: ControlSmall,
-    cardaboutstacked: CardAboutStacked,
-    scrollwrapper: ScrollWrapper,
-    tab: Tab,
-    cardcontent: CardContent,
-    cardcontenthero: CardContentHero,
-    cardcontenthorizontal: CardContentHorizontal,
-    cardcontentvertical: CardContentVertical,
-    cardcontentverticalsmall: CardContentVerticalSmall
+    icon: Icon
   };
 
   if (pageName in pageObjects) {
