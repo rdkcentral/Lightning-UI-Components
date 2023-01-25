@@ -1,7 +1,8 @@
 import lng from '@lightningjs/core';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { context, utils } from '@lightning/ui-core';
+import { context } from '../../globals';
+import { utils } from '../../utils';
 import { KeyboardEmail as KeyboardEmailComponent } from '@lightning/ui';
 import { Keyboard } from './Keyboard.stories';
 

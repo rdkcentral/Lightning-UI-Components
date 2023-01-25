@@ -1,5 +1,6 @@
 import lng from '@lightningjs/core';
-import { ButtonStyle, Button, TextBoxStyle } from '@lightning/ui-core';
+import Button, { ButtonStyle } from '../Button';
+import { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
 
 export type InputStyle = ButtonStyle & {

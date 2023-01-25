@@ -1,4 +1,4 @@
-import { context } from '@lightning/ui-core';
+import { context } from '../../globals';
 import Base from '../Base/index.js';
 import Key from '../Key/index.js';
 import Row from '../Row/index.js';
