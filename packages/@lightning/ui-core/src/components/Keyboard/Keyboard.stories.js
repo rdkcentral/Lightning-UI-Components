@@ -3,7 +3,7 @@ import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import mdx from './Keyboard.mdx';
-import { utils } from '../../utils';
+import utils from '../../utils';
 
 import { Keyboard as KeyboardComponent } from '@lightning/ui';
 
