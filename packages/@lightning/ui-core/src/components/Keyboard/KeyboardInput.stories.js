@@ -5,7 +5,8 @@ import {
 } from 'lightning-ui-docs/.storybook/utils';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { context, utils } from '@lightning/ui-core';
+import { context } from '../../globals';
+import { utils } from '../../utils';
 import {
   Icon,
   KeyboardInput as KeyboardInputComponent,

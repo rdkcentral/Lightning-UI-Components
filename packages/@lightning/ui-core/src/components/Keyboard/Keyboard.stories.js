@@ -1,8 +1,9 @@
 import lng from '@lightningjs/core';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { context, utils } from '@lightning/ui-core';
+import { context } from '../../globals';
+import mdx from './Keyboard.mdx';
+import { utils } from '../../utils';
 
 import { Keyboard as KeyboardComponent } from '@lightning/ui';
 
