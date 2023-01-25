@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
-import { utils } from '../../utils';
+import utils from '../../utils';
 import { KeyboardQwerty as KeyboardQwertyComponent } from '@lightning/ui';
 import { Keyboard } from './Keyboard.stories';
 
