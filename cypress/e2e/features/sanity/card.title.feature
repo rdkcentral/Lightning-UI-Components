@@ -24,11 +24,11 @@ Feature: LUI Card Title Component
     @sanity_temp
     Examples:
       | theme   | defaultWidth  | defaultHeight |
-      | Xfinity | 249.333px         | 386px         |
+      | Xfinity | 253.333px     | 386px         |
     @sanity
     Examples:
       | theme   | defaultWidth  | defaultHeight |
-      | Base    |  253.333px        |386px       |
+      | Base    |  253.333px    |386px          |
 
   Scenario Outline: Verify that CardTitle modes (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
