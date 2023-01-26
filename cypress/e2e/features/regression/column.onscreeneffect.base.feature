@@ -1,4 +1,4 @@
-@sanity @regression @column @onscreeneffect @2122312
+@regression @column @onscreeneffect @2122312
 Feature: Column - On Screen Effect Layout Validation
 
   Background: 
