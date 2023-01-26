@@ -55,7 +55,7 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | -832px    | -936px    | -1456px   | 0.8      |
+      | Xfinity | -832px    | -936px    | -1456px   | 1        |
     @sanity
     Examples:
       | theme | topValue1 | topValue2 | topValue3 | waitTime |
@@ -74,7 +74,7 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | topValue1 | topValue2 | waitTime |
-      | Xfinity | -936px    | -1976px   | 0.8      |
+      | Xfinity | -936px    | -1976px   | 1        |
     @sanity
     Examples:
       | theme | topValue1 | topValue2 | waitTime |
@@ -129,8 +129,8 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 0.8      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 0.8      |
+      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 1        |
+      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 1        |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
@@ -152,8 +152,8 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 0.8      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 0.8      |
+      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 1        |
+      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 1        |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
