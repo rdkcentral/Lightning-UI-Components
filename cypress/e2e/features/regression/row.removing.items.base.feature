@@ -19,7 +19,7 @@ Feature: LUI Row Removing items component
     Then I verify that elements are horizontally evenly spaced for 'Row' component
 
   Scenario Outline: Validate displayed text of buttons before removing items
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>'
+    Then I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element      | text     |
       | Button1label | Button 1 |
@@ -30,7 +30,7 @@ Feature: LUI Row Removing items component
 
   Scenario Outline: Validate displayed text of buttons after removing items
     And I wait 3 seconds for the page to load
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>'
+    Then I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element      | text     |
       | Button1label | Button 1 |

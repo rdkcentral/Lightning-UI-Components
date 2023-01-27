@@ -106,7 +106,7 @@ Feature: LUI Button component
   Scenario Outline: Verify the Button title control (<theme> theme)
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'title' to 'LUI TEST' for 'Button' component
-    Then I verify that the 'Title' component on the 'Button' page has text 'LUI TEST'
+    Then I verify that 'Button' 'Title' has 'text' 'LUI TEST'
     @sanity_temp
     Examples:
       | theme   |
@@ -134,13 +134,13 @@ Feature: LUI Button component
       | Base    | 309    |
       | Base    | 508    |
     
-  Scenario: Verify that Button default values (<theme> theme)
+  Scenario Outline Verify that Button default values (<theme> theme)
     When I navigate to 'Button' with '<theme>' theme
     Then I verify the mode is 'focused' for 'Button'
     And I verify that 'Button' justify control is 'center'
     And I verify that 'Button' prefix control is 'null'
     And I verify that 'Button' suffix control is 'null'
-    And I verify that the 'Title' component on the 'Button' page has text 'Button'
+    And I verify that 'Button' 'Title' has 'text' 'Button'
     @sanity_temp
     Examples:
       | theme   |

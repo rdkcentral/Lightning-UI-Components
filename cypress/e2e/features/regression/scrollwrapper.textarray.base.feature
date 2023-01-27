@@ -29,7 +29,7 @@ Feature: LUI ScrollWrapper TextArray component
     And I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     And I wait for autoScroll to scroll with <scrollsteps>, <autoScrollSpeed> and <autoScrollDelay>
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '410px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '350px'
     Examples:
       | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration |
       | 10          | 200             | 2000            | 0.1            |
@@ -45,10 +45,10 @@ Feature: LUI ScrollWrapper TextArray component
 
   Scenario: Verify the ScrollWrapper TextArray scrollStep control
     When I press 'DOWN' key
-    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '10.5128px'
+    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '8.97436px'
     And I set the 'scrollStep' to '30' for 'scrollwrapper' component
     And I press 'DOWN' key
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '31.5385px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '26.9231px'
 
   Scenario: Verify the ScrollWrapper TextArray showScrollBar control
     When I set the 'showScrollBar' to 'true' for 'scrollwrapper' component
@@ -56,7 +56,7 @@ Feature: LUI ScrollWrapper TextArray component
     And I set the 'showScrollBar' to 'false' for 'scrollwrapper' component
     And I verify that the 'scrollwrapper' 'showScrollBar' component is not displayed
   
-  Scenario: Verify the ScrollWrapper TextArray scrollDuration control
+  Scenario Outline: Verify the ScrollWrapper TextArray scrollDuration control
     When I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Text Array' to finish scrolling

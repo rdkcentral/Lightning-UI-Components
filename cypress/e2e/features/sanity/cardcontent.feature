@@ -52,7 +52,7 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent title can be set for Badge (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'badge' to 'LUI Test' for 'cardcontent' component
-    Then I verify that 'cardcontent' 'Badge Title' has text 'LUI Test'
+    Then I verify that 'cardcontent' 'Badge Title' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -65,7 +65,7 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent title can be set for Label (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'label' to 'LUI Test' for 'cardcontent' component
-    Then I verify that 'cardcontent' 'label Title' has text 'LUI Test'
+    Then I verify that 'cardcontent' 'label Title' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -78,7 +78,7 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent Metadata description textcan be set (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_description' to 'LUI Test' for 'cardcontent' component
-    Then I verify that 'cardcontent' 'metadata description' has text 'LUI Test'
+    Then I verify that 'cardcontent' 'metadata description' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -91,7 +91,7 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent Metadata details text can be set (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_details' to 'LUI Test' for 'cardcontent' component
-    Then I verify that 'cardcontent' 'metadata details' has text 'LUI Test'
+    Then I verify that 'cardcontent' 'metadata details' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -104,7 +104,7 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent Metadata title text can be set (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_title' to 'LUI Test' for 'cardcontent' component
-    Then I verify that 'cardcontent' 'metadata title' has text 'LUI Test'
+    Then I verify that 'cardcontent' 'metadata title' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -137,10 +137,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     Then I verify the mode is 'focused' for 'cardcontent'
     And I verify that the 'cardcontent' 'shouldCollapse' state is 'false'
-    And I verify that 'cardcontent' 'Badge Title' has text 'HD'
-    And I verify that 'cardcontent' 'label Title' has text 'Live'
-    And I verify that 'cardcontent' 'metadata details' has text 'Details'
-    And I verify that 'cardcontent' 'metadata title' has text 'Title'
+    And I verify that 'cardcontent' 'Badge Title' has 'text' 'HD'
+    And I verify that 'cardcontent' 'label Title' has 'text' 'Live'
+    And I verify that 'cardcontent' 'metadata details' has 'text' 'Details'
+    And I verify that 'cardcontent' 'metadata title' has 'text' 'Title'
     And I verify that the 'cardcontent' progress is set to 0.50
     @sanity_temp
     Examples:

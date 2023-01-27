@@ -16,21 +16,21 @@ Feature: LUI Row Plinko component
     And I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
 
   Scenario Outline: Validate displayed text of buttons
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>'
+    And I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element             | text       |
-      | Button1Column1Label | Button 1   |
-      | Button2Column1Label | Button 2   |
-      | Button3Column1Label | Button 3   |
-      | Button1Column2Label | Button 1   |
-      | Button2Column2Label | Skip Focus |
-      | Button3Column2Label | Button 3   |
-      | Button1Column3Label | Button 1   |
-      | Button2Column3Label | Button 2   |
-      | Button3Column3Label | Button 3   |
-      | Button1Column4Label | Button 1   |
-      | Button2Column4Label | Button 2   |
-      | Button3Column4Label | Button 3   |
+      | Button1column1label | Button 1   |
+      | Button2column1label | Button 2   |
+      | Button3column1label | Button 3   |
+      | Button1column2label | Button 1   |
+      | Button2column2label | Skip Focus |
+      | Button3column2label | Button 3   |
+      | Button1column3label | Button 1   |
+      | Button2column3label | Button 2   |
+      | Button3column3label | Button 3   |
+      | Button1column4label | Button 1   |
+      | Button2column4label | Button 2   |
+      | Button3column4label | Button 3   |
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component

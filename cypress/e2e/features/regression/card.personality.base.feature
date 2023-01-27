@@ -25,9 +25,9 @@ Feature: LUI Card Personality Component
   Scenario: Verify that Card Personality title can be set
     When I set the 'title' to 'LUI Test' for 'CardPersonality' component
     Then I verify that the 'CardPersonality' 'Card' component is displayed
-    And I verify that 'CardPersonality' 'Title' has text 'LUI Test'
+    And I verify that 'CardPersonality' 'Title' has 'text' 'LUI Test'
 
   Scenario: Verify that Card Personality description can be set
     When I set the 'description' to 'LUI Test' for 'CardPersonality' component
     Then I verify that the 'CardPersonality' 'Card' component is displayed
-    And I verify that 'CardPersonality' 'Description' has text 'LUI Test'
+    And I verify that 'CardPersonality' 'Description' has 'text' 'LUI Test'

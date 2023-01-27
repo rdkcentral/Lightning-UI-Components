@@ -25,9 +25,9 @@ Feature: LUI CardAboutLarge component
   Scenario: Verify that CardAboutLarge title can be set
     When I set the 'title' to 'LUI TEST' for 'CardAboutLarge' component
     Then I verify that the 'CardAboutLarge' component is displayed
-    And I verify that 'CardAboutLarge' 'title' has text 'LUI TEST'
+    And I verify that 'CardAboutLarge' 'title' has 'text' 'LUI TEST'
 
   Scenario: Verify that CardAboutLarge description can be set
     When I set the 'description' to 'LUI Test' for 'CardAboutLarge' component
     Then I verify that the 'CardAboutLarge' component is displayed
-    And I verify that 'CardAboutLarge' 'description' has text 'LUI Test'
+    And I verify that 'CardAboutLarge' 'description' has 'text' 'LUI Test'

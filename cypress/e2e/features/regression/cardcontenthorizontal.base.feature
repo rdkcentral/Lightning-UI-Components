@@ -54,12 +54,12 @@ Feature: LUI CardContentHorizontal component
   Scenario: Verify that CardContentHorizontal title can be set for Badge
     When I set the 'badge' to 'LUI Test' for 'CardContentHorizontal' component
     Then I verify that the 'CardContentHorizontal' component is displayed
-    And I verify that 'CardContentHorizontal' 'badge' has text 'LUI Test'
+    And I verify that 'CardContentHorizontal' 'badge' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContentHorizontal title can be set for Label
     When I set the 'label' to 'LUI Test' for 'CardContentHorizontal' component
     Then I verify that the 'CardContentHorizontal' component is displayed
-    And I verify that 'CardContentHorizontal' 'label' has text 'LUI Test'
+    And I verify that 'CardContentHorizontal' 'label' has 'text' 'LUI Test'
 
   Scenario Outline: Verify the CardContentHorizontal progress bar current value can be set
     When I set the 'progress' to '<progressValue>' for 'CardContentHorizontal' component
@@ -74,23 +74,22 @@ Feature: LUI CardContentHorizontal component
   Scenario: Verify that CardContentHorizontal description can be set for Metadata
     When I set the 'metadata_description' to 'LUI Test' for 'CardContentHorizontal' component
     Then I verify that the 'CardContentHorizontal' component is displayed
-    And I verify that 'CardContentHorizontal' 'description' has text 'LUI Test'
+    And I verify that 'CardContentHorizontal' 'description' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContentHorizontal Details can be set for Metadata
     When I set the 'metadata_details' to 'LUI Test' for 'CardContentHorizontal' component
     Then I verify that the 'CardContentHorizontal' component is displayed
-    And I verify that 'CardContentHorizontal' 'details' has text 'LUI Test'
+    And I verify that 'CardContentHorizontal' 'details' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContentHorizontal title can be set for Metadata
     When I set the 'metadata_title' to 'LUI Test' for 'CardContentHorizontal' component
     Then I verify that the 'CardContentHorizontal' component is displayed
-    And I verify that 'CardContentHorizontal' 'title' has text 'LUI Test'
+    And I verify that 'CardContentHorizontal' 'title' has 'text' 'LUI Test'
 
   Scenario: Verify the default values
     Then I verify the mode is 'focused' for 'CardContentHorizontal'
-    And I verify that 'CardContentHorizontal' 'badge' has text 'HD'
-    And I verify that 'CardContentHorizontal' 'label' has text 'Live'
-    And I verify that 'CardContentHorizontal' 'details' has text 'Details'
-    And I verify that 'CardContentHorizontal' 'title' has text 'Title'
+    And I verify that 'CardContentHorizontal' 'badge' has 'text' 'HD'
+    And I verify that 'CardContentHorizontal' 'label' has 'text' 'Live'
+    And I verify that 'CardContentHorizontal' 'details' has 'text' 'Details'
+    And I verify that 'CardContentHorizontal' 'title' has 'text' 'Title'
     And I verify that the 'CardContentHorizontal' progress is set to 0.50
-    

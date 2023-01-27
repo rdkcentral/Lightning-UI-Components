@@ -25,4 +25,4 @@ Feature: LUI Card Base Component
   Scenario: Verify that Card Base title can be set
     When I set the 'title' to 'LUI Test' for 'Card' component
     Then I verify that the 'Card' component is displayed
-    And I verify that 'Card' 'Title' has text 'LUI Test'
+    And I verify that 'Card' 'Title' has 'text' 'LUI Test'

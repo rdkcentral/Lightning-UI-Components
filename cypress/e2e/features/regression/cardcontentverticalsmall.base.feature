@@ -38,12 +38,12 @@ Feature: LUI CardContentVerticalSmall component
   Scenario: Verify that CardContentVerticalSmall title can be set for Badge
     When I set the 'badge' to 'LUI Test' for 'CardContentVerticalSmall' component
     Then I verify that the 'CardContentVerticalSmall' component is displayed
-    And I verify that 'CardContentVerticalSmall' 'badge' has text 'LUI Test'
+    And I verify that 'CardContentVerticalSmall' 'badge' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentVerticalSmall title can be set for Label
     When I set the 'label' to 'LUI Test' for 'CardContentVerticalSmall' component
     Then I verify that the 'CardContentVerticalSmall' component is displayed
-    And I verify that 'CardContentVerticalSmall' 'label' has text 'LUI Test'
+    And I verify that 'CardContentVerticalSmall' 'label' has 'text' 'LUI Test'
 
   Scenario Outline: Verify the CardContentVerticalSmall progress bar current value can be set
     When I set the 'progress' to '<progressValue>' for 'CardContentVerticalSmall' component
@@ -58,16 +58,16 @@ Feature: LUI CardContentVerticalSmall component
   Scenario: Verify that CardContentVerticalSmall description can be set for Metadata
     When I set the 'metadata_description' to 'LUI Test' for 'CardContentVerticalSmall' component
     Then I verify that the 'CardContentVerticalSmall' component is displayed
-    And I verify that 'CardContentVerticalSmall' 'description' has text 'LUI Test'
+    And I verify that 'CardContentVerticalSmall' 'description' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentVerticalSmall title can be set for Metadata
     When I set the 'metadata_title' to 'LUI Test' for 'CardContentVerticalSmall' component
     Then I verify that the 'CardContentVerticalSmall' component is displayed
-    And I verify that 'CardContentVerticalSmall' 'title' has text 'LUI Test'
+    And I verify that 'CardContentVerticalSmall' 'title' has 'text' 'LUI Test'
 
   Scenario: Verify the default values
     Then I verify the mode is 'focused' for 'CardContentVerticalSmall'
-    And I verify that 'CardContentVerticalSmall' 'badge' has text 'HD'
-    And I verify that 'CardContentVerticalSmall' 'label' has text 'Live'
-    And I verify that 'CardContentVerticalSmall' 'title' has text 'Title'
+    And I verify that 'CardContentVerticalSmall' 'badge' has 'text' 'HD'
+    And I verify that 'CardContentVerticalSmall' 'label' has 'text' 'Live'
+    And I verify that 'CardContentVerticalSmall' 'title' has 'text' 'Title'
     And I verify that the 'CardContentVerticalSmall' progress is set to 0.50

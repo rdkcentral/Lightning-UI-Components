@@ -50,11 +50,11 @@ Feature: LUI CardContentHero component
 
   Scenario: Verify that CardContentHero title can be set for Badge
     When I set the 'badge' to 'LUI Test' for 'cardcontenthero' component
-    Then I verify that 'cardcontenthero' 'Badge Title' has text 'LUI Test'
+    Then I verify that 'cardcontenthero' 'Badge Title' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentHero title can be set for Label
     When I set the 'label' to 'LUI Test' for 'cardcontenthero' component
-    Then I verify that 'cardcontenthero' 'label Title' has text 'LUI Test'
+    Then I verify that 'cardcontenthero' 'label Title' has 'text' 'LUI Test'
 
   Scenario Outline: Verify that CardContentHero progress displayed on the progress bar can be changed
     When I set the 'progress' to '<progressValue>' for 'cardcontenthero' component
@@ -68,22 +68,22 @@ Feature: LUI CardContentHero component
 
   Scenario: Verify that CardContentHero Metadata description textcan be set
     When I set the 'metadata_description' to 'LUI Test' for 'cardcontenthero' component
-    Then I verify that 'cardcontenthero' 'metadata description' has text 'LUI Test'
+    Then I verify that 'cardcontenthero' 'metadata description' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentHero Metadata details text can be set
     When I set the 'metadata_details' to 'LUI Test' for 'cardcontenthero' component
-    Then I verify that 'cardcontenthero' 'metadata details' has text 'LUI Test'
+    Then I verify that 'cardcontenthero' 'metadata details' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentHero Metadata title text can be set
     When I set the 'metadata_title' to 'LUI Test' for 'cardcontenthero' component
-    Then I verify that 'cardcontenthero' 'metadata title' has text 'LUI Test'
+    Then I verify that 'cardcontenthero' 'metadata title' has 'text' 'LUI Test'
 
   Scenario: Verify the default values
     Then I verify the mode is 'focused' for 'cardcontenthero'
     And I verify that the 'cardcontenthero' 'collapseToMetadata' state is 'false'
     And I verify that the 'cardcontenthero' 'shouldCollapse' state is 'false'
-    And I verify that 'cardcontenthero' 'Badge Title' has text 'HD'
-    And I verify that 'cardcontenthero' 'label Title' has text 'Live'
-    And I verify that 'cardcontenthero' 'metadata details' has text 'Details'
-    And I verify that 'cardcontenthero' 'metadata title' has text 'Title'
+    And I verify that 'cardcontenthero' 'Badge Title' has 'text' 'HD'
+    And I verify that 'cardcontenthero' 'label Title' has 'text' 'Live'
+    And I verify that 'cardcontenthero' 'metadata details' has 'text' 'Details'
+    And I verify that 'cardcontenthero' 'metadata title' has 'text' 'Title'
     And I verify that the 'cardcontenthero' progress is set to 0.50

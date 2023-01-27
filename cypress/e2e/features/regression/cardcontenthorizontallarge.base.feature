@@ -54,12 +54,12 @@ Feature: LUI CardContent With Horizontal Large component
   Scenario: Verify that CardContent Horizontal Large title can be set for Badge
     When I set the 'badge' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
-    And I verify that 'CardContentHorizontalLarge' 'badge' has text 'LUI Test'
+    And I verify that 'CardContentHorizontalLarge' 'badge' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContent Horizontal Large title can be set for Label
     When I set the 'label' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
-    And I verify that 'CardContentHorizontalLarge' 'label' has text 'LUI Test'
+    And I verify that 'CardContentHorizontalLarge' 'label' has 'text' 'LUI Test'
 
   Scenario Outline: Verify the CardContent Horizontal Large progress bar current value can be set
     When I set the 'progress' to '<progressValue>' for 'CardContentHorizontalLarge' component
@@ -75,15 +75,14 @@ Feature: LUI CardContent With Horizontal Large component
   Scenario: Verify that CardContent Horizontal Large description can be set for Metadata
     When I set the 'metadata_description' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
-    And I verify that 'CardContentHorizontalLarge' 'description' has text 'LUI Test'
+    And I verify that 'CardContentHorizontalLarge' 'description' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContent Horizontal Large Details can be set for Metadata
     When I set the 'metadata_details' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
-    And I verify that 'CardContentHorizontalLarge' 'details' has text 'LUI Test'
+    And I verify that 'CardContentHorizontalLarge' 'details' has 'text' 'LUI Test'
     
   Scenario: Verify that CardContent Horizontal Large title can be set for Metadata
     When I set the 'metadata_title' to 'LUI Test' for 'CardContentHorizontalLarge' component
     Then I verify that the 'CardContentHorizontalLarge' component is displayed
-    And I verify that 'CardContentHorizontalLarge' 'title' has text 'LUI Test'
-    
+    And I verify that 'CardContentHorizontalLarge' 'title' has 'text' 'LUI Test'

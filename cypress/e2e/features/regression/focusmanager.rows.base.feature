@@ -18,7 +18,7 @@ Feature: LUI Focus Manager Rows component
     Then I verify that elements are horizontally and evenly spaced for 'FocusManager' component
 
   Scenario Outline: Validate displayed text of buttons
-    Then I verify that the '<element>' component on the 'FocusManager' page has text '<text>'
+    Then I verify that 'FocusManager' '<element>' has 'text' '<text>'
     Examples:
       | element        | text   |
       | Button 1 Label | Left   |

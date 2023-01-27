@@ -51,7 +51,7 @@ Feature: LUI Card Title Component
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'title' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
-    And I verify that 'CardTitle' 'Title' has text 'LUI Test'
+    And I verify that 'CardTitle' 'Title' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -65,7 +65,7 @@ Feature: LUI Card Title Component
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'description' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
-    And I verify that 'CardTitle' 'Description' has text 'LUI Test'
+    And I verify that 'CardTitle' 'Description' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -79,7 +79,7 @@ Feature: LUI Card Title Component
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'details' to 'LUI Test' for 'CardTitle' component
     Then I verify that the 'CardTitle' 'Card' component is displayed
-    And I verify that 'CardTitle' 'Details' has text 'LUI Test'
+    And I verify that 'CardTitle' 'Details' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
       | theme   |
@@ -92,9 +92,9 @@ Feature: LUI Card Title Component
   Scenario Outline: Verify the default values (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
     Then I verify the mode is 'focused' for 'CardTitle'
-    And I verify that 'CardTitle' 'Description' has text 'Description'
-    And I verify that 'CardTitle' 'Details' has text 'Details'
-    And I verify that 'CardTitle' 'Title' has text 'Title'
+    And I verify that 'CardTitle' 'Description' has 'text' 'Description'
+    And I verify that 'CardTitle' 'Details' has 'text' 'Details'
+    And I verify that 'CardTitle' 'Title' has 'text' 'Title'
     @sanity_temp
     Examples:
       | theme   |

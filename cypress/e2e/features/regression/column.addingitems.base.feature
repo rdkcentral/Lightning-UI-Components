@@ -24,15 +24,15 @@ Feature: LUI Column Adding Items component
   Scenario: Validate displayed text of the Column Adding Items buttons after adding new items
     When I wait 4 seconds for the page to load
     And I press 'UP' key 3 times
-    Then I verify that the 'Button 1 Adding Items' component on the 'Column' page has text 'New Button 3'
-    And I verify that the 'Button 2 Adding Items' component on the 'Column' page has text 'New Button 4'
-    And I verify that the 'Button 3 Adding Items' component on the 'Column' page has text 'New Button 5'
-    And I verify that the 'Button 4 Adding Items' component on the 'Column' page has text 'Button 1'
-    And I verify that the 'Button 5 Adding Items' component on the 'Column' page has text 'Button 2'
-    And I verify that the 'Button 6 Adding Items' component on the 'Column' page has text 'Button 3'
-    And I verify that the 'Button 7 Adding Items' component on the 'Column' page has text 'New Button 0'
-    And I verify that the 'Button 8 Adding Items' component on the 'Column' page has text 'New Button 1'
-    And I verify that the 'Button 9 Adding Items' component on the 'Column' page has text 'New Button 2'
+    Then I verify that 'Column' 'Button 1 Adding Items' has 'text' 'New Button 3'
+    And I verify that 'Column' 'Button 2 Adding Items' has 'text' 'New Button 4'
+    And I verify that 'Column' 'Button 3 Adding Items' has 'text' 'New Button 5'
+    And I verify that 'Column' 'Button 4 Adding Items' has 'text' 'Button 1'
+    And I verify that 'Column' 'Button 5 Adding Items' has 'text' 'Button 2'
+    And I verify that 'Column' 'Button 6 Adding Items' has 'text' 'Button 3'
+    And I verify that 'Column' 'Button 7 Adding Items' has 'text' 'New Button 0'
+    And I verify that 'Column' 'Button 8 Adding Items' has 'text' 'New Button 1'
+    And I verify that 'Column' 'Button 9 Adding Items' has 'text' 'New Button 2'
 
   Scenario: Validate navigating the Column Adding Items buttons
     When I wait 4 seconds for the page to load

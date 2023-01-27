@@ -29,7 +29,7 @@ Feature: LUI ScrollWrapper Object Array component
     And I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     And I wait for autoScroll to scroll with <scrollsteps>, <autoScrollSpeed> and <autoScrollDelay>
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '724px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '664px'
     Examples:
       | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration |
       | 10          | 200             | 2000            | 0.1            |
@@ -45,10 +45,10 @@ Feature: LUI ScrollWrapper Object Array component
 
   Scenario: Verify the ScrollWrapper ObjectArray scrollStep control
     When I press 'DOWN' key
-    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '51.7143px'
+    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '47.4286px'
     And I set the 'scrollStep' to '30' for 'scrollwrapper' component
     And I press 'DOWN' key
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '144.8px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '132.8px'
 
   Scenario: Verify the ScrollWrapper ObjectArray showScrollBar control
     When I set the 'showScrollBar' to 'true' for 'scrollwrapper' component
@@ -56,7 +56,7 @@ Feature: LUI ScrollWrapper Object Array component
     And I set the 'showScrollBar' to 'false' for 'scrollwrapper' component
     And I verify that the 'scrollwrapper' 'showScrollBar' component is not displayed
   
-  Scenario: Verify the Object Array scrollDuration control
+  Scenario Outline: Verify the Object Array scrollDuration control
     When I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Object Array' to finish scrolling
@@ -64,4 +64,3 @@ Feature: LUI ScrollWrapper Object Array component
     | scrollDuration  | timeTaken |
     | 0.1             | 5         |
     | 5               | 10        |
-  

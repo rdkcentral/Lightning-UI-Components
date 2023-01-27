@@ -17,7 +17,7 @@ Feature: LUI Row Centered in parent component
     And I verify that 'Row Elements Centered In Parent' are vertically evenly spaced for 'Row' component
 
   Scenario Outline: Validate displayed text of buttons
-    Then I verify that the '<element>' component on the 'Row' page has text '<text>'
+    Then I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element                               | text     |
       | Button 1 Label Centered In Parent     | Button 1 |

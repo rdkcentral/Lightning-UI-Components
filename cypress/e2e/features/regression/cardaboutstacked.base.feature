@@ -47,11 +47,10 @@ Feature: LUI CardAbout Stacked component
       | Base    | focused   |
       | Base    | disabled  |
 
-    
   Scenario Outline: Verify the CardAboutStacked title text can be set (<theme> theme)
     When I navigate to 'cardaboutstacked' 'stacked' with '<theme>' theme
     And I set the 'title' to 'LUI TEST' for 'cardaboutstacked' component
-    Then I verify that the 'Title' component on the 'cardaboutstacked' page has text 'LUI TEST'
+    Then I verify that 'cardaboutstacked' 'title' has 'text' 'LUI TEST'
     @sanity_temp
     Examples:
       | theme   |
@@ -64,7 +63,7 @@ Feature: LUI CardAbout Stacked component
   Scenario Outline: Verify the CardAboutStacked titleBottom text can be set (<theme> theme)
     When I navigate to 'cardaboutstacked' 'stacked' with '<theme>' theme
     And I set the 'titleBottom' to 'LUI TEST' for 'cardaboutstacked' component
-    Then I verify that the 'titleBottom' component on the 'cardaboutstacked' page has text 'LUI TEST'
+    Then I verify that 'cardaboutstacked' 'titlebottom' has 'text' 'LUI TEST'
     @sanity_temp
     Examples:
       | theme   |
@@ -77,7 +76,7 @@ Feature: LUI CardAbout Stacked component
   Scenario Outline: Verify the CardAboutStacked descriptionBottom text can be set (<theme> theme)
     When I navigate to 'cardaboutstacked' 'stacked' with '<theme>' theme
     And I set the 'descriptionBottom' to 'LUI TEST' for 'cardaboutstacked' component
-    Then I verify that the 'descriptionBottom' component on the 'cardaboutstacked' page has text 'LUI TEST'
+    Then I verify that 'cardaboutstacked' 'descriptionbottom' has 'text' 'LUI TEST'
     @sanity_temp
     Examples:
       | theme   |
@@ -89,9 +88,9 @@ Feature: LUI CardAbout Stacked component
 
   Scenario Outline: Verify the default values (<theme> theme)
     When I navigate to 'cardaboutstacked' 'stacked' with '<theme>' theme
-    Then I verify that the 'Title' component on the 'cardaboutstacked' page has text 'AUDIO'
-    And I verify that the 'titleBottom' component on the 'cardaboutstacked' page has text 'LANGUAGES'
-    And I verify that the 'descriptionBottom' component on the 'cardaboutstacked' page has text 'English, Spanish, French'
+    Then I verify that 'cardaboutstacked' 'title' has 'text' 'AUDIO'
+    Then I verify that 'cardaboutstacked' 'titlebottom' has 'text' 'LANGUAGES'
+    Then I verify that 'cardaboutstacked' 'descriptionbottom' has 'text' 'English, Spanish, French'
     And I verify the mode is 'focused' for 'cardaboutstacked'
     @sanity_temp
     Examples:
