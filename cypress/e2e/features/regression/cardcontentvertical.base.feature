@@ -38,12 +38,12 @@ Feature: LUI CardContentVertical component
   Scenario: Verify that CardContentVertical title can be set for Badge
     When I set the 'badge' to 'LUI Test' for 'CardContentVertical' component
     Then I verify that the 'CardContentVertical' component is displayed
-    And I verify that 'CardContentVertical' 'badge' has text 'LUI Test'
+    And I verify that 'CardContentVertical' 'badge' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentVertical title can be set for Label
     When I set the 'label' to 'LUI Test' for 'CardContentVertical' component
     Then I verify that the 'CardContentVertical' component is displayed
-    And I verify that 'CardContentVertical' 'label' has text 'LUI Test'
+    And I verify that 'CardContentVertical' 'label' has 'text' 'LUI Test'
 
   Scenario Outline: Verify the CardContentVertical progress bar current value can be set
     When I set the 'progress' to '<progressValue>' for 'CardContentVertical' component
@@ -58,22 +58,22 @@ Feature: LUI CardContentVertical component
   Scenario: Verify that CardContentVertical description can be set for Metadata
     When I set the 'metadata_description' to 'LUI Test' for 'CardContentVertical' component
     Then I verify that the 'CardContentVertical' component is displayed
-    And I verify that 'CardContentVertical' 'description' has text 'LUI Test'
+    And I verify that 'CardContentVertical' 'description' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentVertical Details can be set for Metadata
     When I set the 'metadata_details' to 'LUI Test' for 'CardContentVertical' component
     Then I verify that the 'CardContentVertical' component is displayed
-    And I verify that 'CardContentVertical' 'details' has text 'LUI Test'
+    And I verify that 'CardContentVertical' 'details' has 'text' 'LUI Test'
 
   Scenario: Verify that CardContentVertical title can be set for Metadata
     When I set the 'metadata_title' to 'LUI Test' for 'CardContentVertical' component
     Then I verify that the 'CardContentVertical' component is displayed
-    And I verify that 'CardContentVertical' 'title' has text 'LUI Test'
+    And I verify that 'CardContentVertical' 'title' has 'text' 'LUI Test'
 
   Scenario: Verify the default values
     Then I verify the mode is 'focused' for 'CardContentVertical'
-    And I verify that 'CardContentVertical' 'badge' has text 'HD'
-    And I verify that 'CardContentVertical' 'label' has text 'Live'
-    And I verify that 'CardContentVertical' 'details' has text 'Details'
-    And I verify that 'CardContentVertical' 'title' has text 'Title'
+    And I verify that 'CardContentVertical' 'badge' has 'text' 'HD'
+    And I verify that 'CardContentVertical' 'label' has 'text' 'Live'
+    And I verify that 'CardContentVertical' 'details' has 'text' 'Details'
+    And I verify that 'CardContentVertical' 'title' has 'text' 'Title'
     And I verify that the 'CardContentVertical' progress is set to 0.50

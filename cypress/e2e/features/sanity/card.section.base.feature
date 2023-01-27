@@ -25,4 +25,4 @@ Feature: LUI Card Section Component
   Scenario: Verify that Card Section title can be set
     When I set the 'title' to 'LUI Test' for 'CardSection' component
     Then I verify that the 'CardSection' 'Card' component is displayed
-    And I verify that 'CardSection' 'Title' has text 'LUI Test'
+    And I verify that 'CardSection' 'Title' has 'text' 'LUI Test'

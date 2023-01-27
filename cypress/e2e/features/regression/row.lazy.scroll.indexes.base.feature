@@ -68,10 +68,10 @@ Feature: LUI Row Lazy Scroll Indexes component
     And I verify that the 'Row' 'Button 12' component is not displayed
 
   Scenario: Verify that the Start and Stop Lazy Scroll Index of the Row Lazy Scroll Indexes elements can be changed
-    Then I verify that the 'button2label' component on the 'Row' page has text 'Button 2 (start lazy scroll) '
+    Then I verify that 'Row' 'button2label' has 'text' 'Button 2 (start lazy scroll) '
     And I press 'RIGHT' key 7 times
-    And I verify that the 'button11label' component on the 'Row' page has text 'Button 11  (stop lazy scroll)'
+    And I verify that 'Row' 'button11label' has 'text' 'Button 11  (stop lazy scroll)'
     And I set the 'startLazyScrollIndex' to '2' for 'Row' component
     And I set the 'stopLazyScrollIndex' to '3' for 'Row' component
-    And I verify that the 'button3label' component on the 'Row' page has text 'Button 3 (start lazy scroll) '
-    And I verify that the 'button4label' component on the 'Row' page has text 'Button 4  (stop lazy scroll)'
+    And I verify that 'Row' 'button3label' has 'text' 'Button 3 (start lazy scroll) '
+    And I verify that 'Row' 'button4label' has 'text' 'Button 4  (stop lazy scroll)'

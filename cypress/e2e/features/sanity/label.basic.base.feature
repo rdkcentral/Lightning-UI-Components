@@ -16,4 +16,4 @@ Feature: LUI Label component
   Scenario: Verify that Label Basic text can be set
     When I set the 'title' to 'LUI Test' for 'Label' component
     Then I verify that the 'Label' component is displayed
-    And I verify that the 'title' component on the 'Label' page has text 'LUI Test'
+    And I verify that 'Label' 'title' has 'text' 'LUI Test'

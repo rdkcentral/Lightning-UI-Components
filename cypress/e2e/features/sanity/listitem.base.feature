@@ -14,8 +14,8 @@ Feature: LUI ListItem Component
     And I verify that the 'height' of 'ListItem' component is '120px'
 
   Scenario: Verify default values of ListItem controls
-    Then I verify that the 'Title' component on the 'ListItem' page has text 'List Item'
-    And I verify that the 'Description' component on the 'ListItem' page has text 'Description'
+    Then I verify that 'ListItem' 'Title' has 'text' 'List Item'
+    And I verify that 'ListItem' 'Description' has 'text' 'Description'
     And I verify that 'no' 'prefix' is added to 'ListItem'
     And I verify that 'no' 'suffix' is added to 'ListItem'
     And I verify that 'no' 'suffixLogo' is added to 'ListItem'
@@ -32,7 +32,7 @@ Feature: LUI ListItem Component
   Scenario: Verify that ListItem description can be set
     When I set the 'description' to 'LUI Test' for 'ListItem' component
     Then I verify that the 'ListItem' component is displayed
-    And I verify that the 'Description' component on the 'ListItem' page has text 'LUI Test'
+    And I verify that 'ListItem' 'Description' has 'text' 'LUI Test'
 
   Scenario: Verify the ListItem prefix control
     When I set the 'prefix' to 'null' for 'ListItem' component
@@ -51,7 +51,7 @@ Feature: LUI ListItem Component
     And I verify that the 'ListItem' 'Description' component does not exist in DOM
     And I set the 'shouldCollapse' to 'false' for 'ListItem' component
     And I verify that the 'ListItem' 'Description' component is displayed
-    And I verify that the 'Description' component on the 'ListItem' page has text 'Description'
+    And I verify that 'ListItem' 'Description' has 'text' 'Description'
 
   Scenario: Verify the ListItem suffix control
     When I set the 'suffix' to 'null' for 'ListItem' component
@@ -72,4 +72,4 @@ Feature: LUI ListItem Component
   Scenario: Verify that ListItem title can be set
     When I set the 'title' to 'LUI Test' for 'ListItem' component
     Then I verify that the 'ListItem' component is displayed
-    And I verify that the 'Title' component on the 'ListItem' page has text 'LUI Test'
+    And I verify that 'ListItem' 'Title' has 'text' 'LUI Test'

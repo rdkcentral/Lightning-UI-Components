@@ -51,11 +51,11 @@ Feature: LUI Tile Basic component
 
   Scenario: Verify the Tile Basic badge Title Control
     When I set the 'badge_title' to 'LUI Test' for 'Tile' component
-    Then I verify that 'Tile' 'Badge Title' has text 'LUI Test'
+    Then I verify that 'Tile' 'Badge Title' has 'text' 'LUI Test'
 
   Scenario: Verify the Tile Basic label Title Control
     When I set the 'label_title' to 'LUI Test' for 'Tile' component
-    Then I verify that 'Tile' 'Label Title' has text 'LUI Test'
+    Then I verify that 'Tile' 'Label Title' has 'text' 'LUI Test'
 
   Scenario: Verify the Tile Basic blur control
     When I set the 'artwork_blur' to 'false' for 'Tile' component
@@ -109,4 +109,3 @@ Feature: LUI Tile Basic component
     When I set the 'itemLayout_upCount' to '7' for 'Tile' component
     Then I verify that the 'height' of 'Tile' component is '120px'
     And I verify that the 'width' of 'Tile' component is '214px'
-    

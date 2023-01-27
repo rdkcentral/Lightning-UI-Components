@@ -19,7 +19,7 @@ Feature: LUI TextBox Basic component
   Scenario: Verify the TextBox Basic content control
     When I set the 'content' to 'LUI Test' for 'TextBox' component
     Then I verify that the 'TextBox' 'BasicText' component is displayed
-    And I verify that 'TextBox' 'Basic Text' has text 'LUI Test'
+    And I verify that 'TextBox' 'Basic Text' has 'text' 'LUI Test'
 
   Scenario Outline: Verify the TextBox Basic maxLines control
     When I set the 'maxLines' to '<maxLines>' for 'TextBox' component
@@ -36,7 +36,7 @@ Feature: LUI TextBox Basic component
   Scenario Outline: Verify the TextBox Basic textColor control
     When I set the 'textColor' to '<hexValue>' for 'TextBox' component
     Then I verify that the 'TextBox' 'BasicText' component is displayed
-    And I verify that 'TextBox' 'Basic' 'Text' has textColor '<color>'
+    And I verify that 'TextBox' 'BasicText' has 'textColor' '<color>'
     Examples:
       | hexValue     | color      |
       | !hex(ffff00) | 4294967040 |

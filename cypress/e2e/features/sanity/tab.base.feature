@@ -29,4 +29,4 @@ Feature: LUI Tab Basic component
     
   Scenario: Verify that Tab Title can be set
     When I set the 'title' to 'LUI TEST' for 'Tab' component
-    Then I verify that the 'Title' component on the 'Tab' page has text 'LUI TEST'
+    Then I verify that 'Tab' 'Title' has 'text' 'LUI TEST'

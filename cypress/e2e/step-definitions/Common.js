@@ -345,42 +345,29 @@ export default function () {
 
   /**
    * @module Common
-   * @function I verify that {String} {String} {String} has text {String}
-   * @description Cucumber statement to verify the the text of a component
-   * @example I verify that 'Card' 'Personality' 'Title' has text 'LUI Test'
+   * @function I verify that {String} {String} has {String} {String}
+   * @description Cucumber statement to verify the attribute's value of a component
+   * @example I verify that 'Card' 'Title' has 'text' 'LUI Test'
    */
   Then(
-    'I verify that {string} {string} has text {string}',
-    (pageName, elementName, expectedText) => {
+    'I verify that {string} {string} has {string} {string}',
+    (pageName, elementName, attributeName, expectedValue) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
+      const attribute = attributeName.toLowerCase();
 
-      pageObject
-        ._getElementByName(elementName)
-        .should('have.attr', 'texture-text', expectedText);
-    }
-  );
-
-  /**
-   * @module Common
-   * @function I verify that {String} {String} {String} has textColor {String}
-   * @description Cucumber statement to verify the textColor of the text in a component
-   * @param {String} pageName
-   * @param {String} componentName
-   * @param {String} elementName
-   * @param {String} color
-   * @example I verify that 'TextBox' 'Base' 'Text' has textColor '4294967040'
-   */
-  Then(
-    'I verify that {string} {string} {string} has textColor {string}',
-    (pageName, componentName, elementName, color) => {
-      const page = pageName.toLowerCase();
-      const pageObject = getPageObject(page);
-      const element = componentName + elementName;
-
-      pageObject
-        ._getElementByName(element)
-        .should('have.attr', 'texture-text_color', color);
+      switch (attribute) {
+        case 'text':
+          pageObject
+            ._getElementByName(elementName)
+            .should('have.attr', 'texture-text', expectedValue);
+          break;
+        case 'textColor':
+          pageObject
+            ._getElementByName(elementName)
+            .should('have.attr', 'texture-text_color', expectedValue);
+          break;
+      }
     }
   );
 
@@ -445,28 +432,6 @@ export default function () {
         .should('have.attr', 'style')
         .should('contain', `width: ${width}`)
         .and('contain', `height: ${height}`);
-    }
-  );
-
-  /**
-   * @module Common
-   * @function I verify that the {String} component on the {String} page has text {String}
-   * @description Cucumber statement to verify the display text of a component
-   * @param {String} componentName
-   * @param {String} pageName
-   * @param {String} expectedText
-   * @example I verify that the 'Button' component on the 'Row' page has text 'Button 1'
-   */
-  Then(
-    'I verify that the {string} component on the {string} page has text {string}',
-    (componentName, pageName, expectedText) => {
-      const page = pageName.toLowerCase();
-      const component = componentName.toLowerCase();
-      const pageObject = getPageObject(page);
-
-      pageObject
-        ._getElementByNameWithTimeout(component, 2000)
-        .should('have.attr', 'texture-text', expectedText);
     }
   );
 

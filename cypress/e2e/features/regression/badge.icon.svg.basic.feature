@@ -15,6 +15,6 @@ Feature: LUI Badge Icon SVG component
 
   Scenario: Verify that Badge Icon SVG alignment can be set
     When I set the 'iconAlign' to 'right' for 'Badge' component
-    Then I verify that 'Badge' 'iconAlign' state is 'right'
+    Then I verify that 'Badge' 'iconAlign' state is 'right' for 'Base' theme
     And I set the 'iconAlign' to 'left' for 'Badge' component
-    And I verify that 'Badge' 'iconAlign' state is 'left'
+    And I verify that 'Badge' 'iconAlign' state is 'left' for 'Base' theme

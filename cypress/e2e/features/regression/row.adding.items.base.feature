@@ -23,7 +23,7 @@ Feature: LUI Row Adding items component
   Scenario Outline: Validate displayed text of buttons after adding new items to the left hand side
     And I wait 4 seconds for the page to load
     And I press 'LEFT' key 3 times
-    And I verify that the '<element>' component on the 'Row' page has text '<text>'
+    And I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element      | text         |
       | button1label | New Button 3 |
@@ -33,7 +33,7 @@ Feature: LUI Row Adding items component
   Scenario Outline: Validate displayed text of buttons after adding new items to the right hand side
     And I wait 4 seconds for the page to load
     And I press 'RIGHT' key 8 times
-    And I verify that the '<element>' component on the 'Row' page has text '<text>'
+    And I verify that 'Row' '<element>' has 'text' '<text>'
     Examples:
       | element      | text         |
       | button7label | New Button 0 |

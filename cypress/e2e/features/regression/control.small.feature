@@ -59,7 +59,7 @@ Feature: LUI Control Small component
 
   Scenario: Verify the ControlSmall title text can be set
     When I set the 'title' to 'LUI TEST' for 'ControlSmall' component
-    Then I verify that the 'Title' component on the 'ControlSmall' page has text 'LUI TEST'
+    Then I verify that 'ControlSmall' 'Title' has 'text' 'LUI TEST'
 
   Scenario: Verify the dimensions of the ControlSmall Element
     When I set the 'fixed' to 'true' for 'ControlSmall' component
@@ -69,5 +69,4 @@ Feature: LUI Control Small component
   Scenario: Verify the default values
     Then I verify that 'ControlSmall' justify control is 'center'
     And I verify that the 'ControlSmall' logo state is 'none'
-    And I verify that the 'Title' component on the 'ControlSmall' page has text 'Control'
-    
+    And I verify that 'ControlSmall' 'Title' has 'text' 'Control'

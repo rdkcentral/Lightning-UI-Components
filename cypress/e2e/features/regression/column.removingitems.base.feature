@@ -19,7 +19,7 @@ Feature: LUI Column Removing Items component
     Then I verify that 'Removing Items Button' are vertically evenly spaced for 'Column' component
 
   Scenario Outline: Validate displayed text of the Column Removing Items buttons before removing items
-    Then I verify that the '<element>' component on the 'Column' page has text '<text>'
+    Then I verify that 'Column' '<element>' has 'text' '<text>'
     Examples:
       | element                 | text          |
       | Button 1 Removing Items | Button 1      |

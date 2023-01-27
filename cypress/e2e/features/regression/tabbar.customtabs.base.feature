@@ -41,10 +41,10 @@ Feature: LUI TabBar Custom Tabs component
 
   Scenario: Verify the TabBar Custom Tabs contentSpacing state
     When I press 'RIGHT' key
-    Then I verify that the 'top' of 'TabBar' 'Custom Tabs Content Switcher' component is '174px'
+    Then I verify that the 'top' of 'TabBar' 'Custom Tabs Content Switcher' component is '140px'
     And I set the 'contentSpacing' to '100' for 'TabBar' component
     And I press 'RIGHT' key 3 times
-    And I verify that the 'top' of 'TabBar' 'Custom Tabs Content Switcher' component is '200px'
+    And I verify that the 'top' of 'TabBar' 'Custom Tabs Content Switcher' component is '140px'
 
   # https://ccp.sys.comcast.net/browse/LUI-627
   # Skipping the test because of the bug

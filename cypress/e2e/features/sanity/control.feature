@@ -99,7 +99,7 @@ Feature: LUI Control component
   Scenario Outline: Verify the Control title text can be set (<theme> theme)
     When I navigate to 'Control' with '<theme>' theme
     And I set the 'title' to 'LUI TEST' for 'Control' component
-    Then I verify that the 'Title' component on the 'Control' page has text 'LUI TEST'
+    Then I verify that 'Control' 'Title' has 'text' 'LUI TEST'
     @sanity_temp
     Examples:
       | theme   |
@@ -122,4 +122,3 @@ Feature: LUI Control component
     Examples:
       | theme   |
       | Base    |
-    

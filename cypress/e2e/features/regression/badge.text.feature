@@ -26,10 +26,10 @@ Feature: LUI Badge Text component
 
   Scenario: Verify that Badge Text can be set (<theme> theme)
     When I navigate to 'Badge' 'Text' with '<theme>' theme
-    Then I verify that 'Badge' 'Badge Title' has text 'HD'
+    Then I verify that 'Badge' 'Badge Title' has 'text' 'HD'
     And I set the 'title' to 'LUI Test' for 'Badge' component
     And I verify that the 'Badge' component is displayed
-    And I verify that 'Badge' 'Badge Title' has text 'LUI Test'
+    And I verify that 'Badge' 'Badge Title' has 'text' 'LUI Test'
     Examples:
         |  theme  |
         |  Base   |

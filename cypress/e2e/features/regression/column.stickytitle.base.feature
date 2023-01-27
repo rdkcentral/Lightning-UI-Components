@@ -29,14 +29,14 @@ Feature: LUI Column Sticky Title component
     And I verify that the 'Sticky Button 1' component on the 'Column' page is in focus
 
   Scenario Outline: Validate sticky header stickiness
-    Then I verify that the 'Sticky Title Sticky Header' component on the 'Column' page has text 'Sticky Header 0'
+    Then I verify that 'Column' 'Sticky Title Sticky Header' has 'text' 'Sticky Header 0'
     And I verify that the 'Sticky Button 1' component on the 'Column' page is in focus
     And I press 'DOWN' key <keyPresses> times
     And I verify that the '<focusedButton>' component on the 'Column' page is in focus
     And I verify that the 'Column' '<nextHeader>' component is displayed
-    And I verify that the 'Sticky Title Sticky Header' component on the 'Column' page has text '<currentHeader>'
+    And I verify that 'Column' 'Sticky Title Sticky Header' has 'text' '<currentHeader>'
     And I press 'DOWN' key
-    And I verify that the 'Sticky Title Sticky Header' component on the 'Column' page has text '<nextHeader>'
+    And I verify that 'Column' 'Sticky Title Sticky Header' has 'text' '<nextHeader>'
     Examples:
       | keyPresses | focusedButton    | currentHeader   | nextHeader      |
       | 7          | Sticky Button 8  | Sticky Header 0 | Sticky Header 1 |
