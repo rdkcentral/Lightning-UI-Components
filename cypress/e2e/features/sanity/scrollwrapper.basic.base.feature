@@ -29,7 +29,7 @@ Feature: LUI ScrollWrapper Basic component
     And I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     And I wait for autoScroll to scroll with <scrollsteps>, <autoScrollSpeed> and <autoScrollDelay>
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '408px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '348px'
     Examples:
       | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration |
       | 10          | 200             | 2000            | 0.1            |
@@ -45,10 +45,10 @@ Feature: LUI ScrollWrapper Basic component
 
   Scenario: Verify the ScrollWrapper basic scrollStep control
     When I press 'DOWN' key
-    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '58.2857px'
+    Then I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '49.7143px'
     And I set the 'scrollStep' to '30' for 'scrollwrapper' component
     And I press 'DOWN' key
-    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '136px'
+    And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '116px'
 
   Scenario: Verify the ScrollWrapper basic showScrollBar control
     When I set the 'showScrollBar' to 'true' for 'scrollwrapper' component
@@ -64,4 +64,3 @@ Feature: LUI ScrollWrapper Basic component
     | scrollDuration  | timeTaken |
     | 0.1             | 4         |
     | 5               | 10        |
-    
