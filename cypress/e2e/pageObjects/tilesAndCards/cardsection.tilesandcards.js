@@ -21,6 +21,10 @@ class CardSection extends LUIComponent {
   get description() {
     return `${this.card}>div[ref=Description]>div[ref=Text]`;
   }
+
+  get iconSrc() {
+    return `${this.card}>div[ref=Icon]`;
+  }
 }
 
 module.exports = new CardSection();
