@@ -46,11 +46,21 @@ describe('Keyboard', () => {
     expect(keyboard.x).toEqual(0);
   });
 
-  it('should center the keyboard when centerKeyboard is true', () => {
-    keyboard.centerKeyboard = true;
+  it('should center the keyboard when centerKeyboard is true', async () => {
+    [keyboard, testRenderer] = createKeyboardQwerty(
+      {
+        defaultFormat: 'lowercase',
+        centerKeyboard: true
+      },
+      {
+        spyOnMethods: ['$itemChanged', '_update']
+      }
+    );
+
     testRenderer.forceAllUpdates();
-    keyboard.$itemChanged();
-    keyboard._update();
+    await keyboard._$itemChangedSpyPromise;
+    await keyboard.__updateSpyPromise;
+
     expect(keyboard.x).toEqual(
       (keyboard.style.screenW - keyboard.w) / 2 - keyboard.style.marginX
     );
