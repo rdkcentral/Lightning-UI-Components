@@ -7,7 +7,7 @@ Feature: LUI Card Title Component
     
   Scenario Outline: Verify that CardTitle is displayed (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
-    Then I verify that the 'CardTitle' 'Card' component is displayed
+    Then I verify that the 'CardTitle' component is displayed
     @sanity_temp
     Examples:
       | theme   |
@@ -18,17 +18,18 @@ Feature: LUI Card Title Component
       | Base    |
 
   Scenario Outline: Verify dimensions of the CardTitle Element (<theme> theme)
-    When I navigate to 'CardTitle' 'Card' with '<theme>' theme
-    Then I verify that the 'width' of 'cardtitle' 'card' component is '<defaultWidth>'
-    And I verify that the 'height' of 'cardtitle' 'card' component is '<defaultHeight>'
+    When I navigate to 'CardTitle' with '<theme>' theme
+    Then I verify that the 'CardTitle' component is displayed
+    And I verify that the 'width' of 'CardTitle' component is '253.333px'
+    And I verify that the 'height' of 'CardTitle' component is '386px'
     @sanity_temp
     Examples:
-      | theme   | defaultWidth  | defaultHeight |
-      | Xfinity | 253.333px     | 386px         |
+      | theme   |
+      | Xfinity |
     @sanity
     Examples:
-      | theme   | defaultWidth  | defaultHeight |
-      | Base    |  253.333px    |386px          |
+      | theme   |
+      | Base    |
 
   Scenario Outline: Verify that CardTitle modes (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
@@ -38,19 +39,19 @@ Feature: LUI Card Title Component
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
-      | Xfinity | focused |
+      | Xfinity | focused   |
       | Xfinity | disabled  |
     @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
-      | Xfinity | focused  |
+      | Base    | focused   |
       | Base    | disabled  |
 
   Scenario Outline: Verify that Card Title title can be set for Title (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'title' to 'LUI Test' for 'CardTitle' component
-    Then I verify that the 'CardTitle' 'Card' component is displayed
+    Then I verify that the 'CardTitle' component is displayed
     And I verify that 'CardTitle' 'Title' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
@@ -64,7 +65,7 @@ Feature: LUI Card Title Component
   Scenario Outline: Verify that Card Title description can be set (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'description' to 'LUI Test' for 'CardTitle' component
-    Then I verify that the 'CardTitle' 'Card' component is displayed
+    Then I verify that the 'CardTitle' component is displayed
     And I verify that 'CardTitle' 'Description' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
@@ -78,7 +79,7 @@ Feature: LUI Card Title Component
   Scenario Outline: Verify that Card Title details can be set (<theme> theme)
     When I navigate to 'CardTitle' with '<theme>' theme
     And I set the 'details' to 'LUI Test' for 'CardTitle' component
-    Then I verify that the 'CardTitle' 'Card' component is displayed
+    Then I verify that the 'CardTitle' component is displayed
     And I verify that 'CardTitle' 'Details' has 'text' 'LUI Test'
     @sanity_temp
     Examples:
