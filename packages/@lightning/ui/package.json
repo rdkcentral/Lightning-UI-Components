@@ -16,7 +16,7 @@
     }
   },
   "main": "./dist/lightning-ui.min.js",
-  "types": ".dist/lightning-ui.d.ts",
+  "types": "./dist/lightning-ui.d.ts",
   "scripts": {
     "build": "yarn workspace @lightning/ui-core build && rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui",
     "lint": "eslint './src/**/*.js'",
