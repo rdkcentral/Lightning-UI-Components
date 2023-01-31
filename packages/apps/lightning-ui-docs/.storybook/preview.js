@@ -53,7 +53,7 @@ function themeSelect(theme) {
         ...rogers,
         extensions
       });
-    
+
     case 'xfinity':
       return context.setTheme({
         ...xfinity,
@@ -136,6 +136,7 @@ export const parameters = {
             'Mode',
             'Tone',
             'Extensions',
+            'Hierarchy',
             'Sub Theming',
             '*'
           ]
