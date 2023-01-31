@@ -2,7 +2,7 @@ import lng from '@lightningjs/core';
 import type { TextBoxStyle, StylePartial } from '@lightning/ui-core';
 import Card, { CardStyle } from './Card';
 
-export type CardTitleStyle= CardStyle & {
+export type CardTitleStyle = CardStyle & {
   descriptionTextStyle: TextBoxStyle;
 };
 

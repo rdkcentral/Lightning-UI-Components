@@ -19,8 +19,8 @@ export default class Radio extends Base {
   get style(): RadioStyle;
   set style(v: StylePartial<RadioStyle>);
 
-  // tags 
-  get _Knob(): lng.Component; 
+  // tags
+  get _Knob(): lng.Component;
   get _Body(): lng.Component;
   get _Stroke(): lng.Component;
 }
