@@ -5,5 +5,12 @@ import KeyboardNumbers from './KeyboardNumbers';
 import KeyboardQwerty from './KeyboardQwerty';
 import KeyboardInput from './KeyboardInput';
 
-export { Keyboard as default, KeyboardStyle, KeyboardEmail, KeyboardFullscreen, KeyboardNumbers, KeyboardQwerty, KeyboardInput };
-
+export {
+  Keyboard as default,
+  KeyboardStyle,
+  KeyboardEmail,
+  KeyboardFullscreen,
+  KeyboardNumbers,
+  KeyboardQwerty,
+  KeyboardInput
+};

@@ -19,8 +19,8 @@
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
     "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-core",
-    "lint": "eslint './src/**/*.js'",
-    "lint:fix": "eslint --fix './src/**/*.js'",
+    "lint": "eslint './src/**/*.js' && eslint . --ext .ts",
+    "lint:fix": "eslint --fix './src/**/*.js' && eslint . --fix --ext .ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
     "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"

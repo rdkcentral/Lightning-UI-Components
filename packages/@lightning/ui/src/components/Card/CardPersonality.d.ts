@@ -1,8 +1,8 @@
 import lng from '@lightningjs/core';
-import CardTitle, { CardTitleStyle} from './CardTitle';
+import CardTitle, { CardTitleStyle } from './CardTitle';
 import type { StylePartial, TextBoxStyle } from '@lightning/ui-core';
 
-export type CardPersonalityStyle = CardTitleStyle& {
+export type CardPersonalityStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
 };
 
