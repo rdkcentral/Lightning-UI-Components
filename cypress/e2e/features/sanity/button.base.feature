@@ -134,7 +134,7 @@ Feature: LUI Button component
       | Base    | 309    |
       | Base    | 508    |
     
-  Scenario Outline Verify that Button default values (<theme> theme)
+  Scenario Outline: Verify that Button default values (<theme> theme)
     When I navigate to 'Button' with '<theme>' theme
     Then I verify the mode is 'focused' for 'Button'
     And I verify that 'Button' justify control is 'center'
