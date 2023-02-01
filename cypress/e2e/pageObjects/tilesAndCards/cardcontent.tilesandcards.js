@@ -10,17 +10,17 @@ class CardContent extends LUIComponent {
   }
 
   get shouldcollapse() {
-    return 'div[type=MetadataCardContent]'
+    return 'div[type=MetadataCardContent]';
   }
-  
+
   get badgeTitle() {
-    return 'div[type=Badge]>div[ref=Text]'
+    return 'div[type=Badge]>div[ref=Text]';
   }
 
   get labelTitle() {
-    return 'div[type=Label]>div[ref=Text]'
+    return 'div[type=Label]>div[ref=Text]';
   }
-  
+
   get progressBar() {
     return 'div[type=ProgressBar]';
   }
@@ -34,16 +34,15 @@ class CardContent extends LUIComponent {
   }
 
   get metadataDescription() {
-    return 'div[type=MetadataCardContent]>div[ref=Text]>div[ref=Description]>div[ref=Text]'
+    return 'div[type=MetadataCardContent]>div[ref=Text]>div[ref=Description]>div[ref=Text]';
   }
-  
+
   get metadataDetails() {
-    return 'div[type=MetadataCardContent]>div[ref=DetailsWrapper]>div[ref=DetailsFader]>div[ref=Details]>div[ref=Text]'
+    return 'div[type=MetadataCardContent]>div[ref=DetailsWrapper]>div[ref=DetailsFader]>div[ref=Details]>div[ref=Text]';
   }
- 
+
   get metadataTitle() {
-    return 'div[type=MetadataCardContent]>div[ref=Text]>div[ref=Title]>div[ref=Text]'
+    return 'div[type=MetadataCardContent]>div[ref=Text]>div[ref=Title]>div[ref=Text]';
   }
-  
 }
 module.exports = new CardContent();

@@ -1,19 +1,17 @@
-import Button from '../pageObjects/controls/button.controls';
-import ButtonSmall from '../pageObjects/controls/buttonsmall.controls';
+// Used for both Button and ButtonSmall components
 import getPageObject from '../pageObjects';
 
 import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
-
   /**
-     * @module Button
-     * @function I verify that {string} justify control is {string}
-     * @description Cucumber statement to verify the settings of a module
-     * @param {String} pageName
-     * @param {String} value
-     * @example I verify that 'Button' justify control is 'left'
-     */
+   * @module Button
+   * @function I verify that {string} justify control is {string}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} pageName
+   * @param {String} value
+   * @example I verify that 'Button' justify control is 'left'
+   */
   Then(
     'I verify that {string} justify control is {string}',
     (pageName, value) => {
@@ -31,13 +29,13 @@ export default function () {
   );
 
   /**
-    * @module Button
-    * @function I verify that {string} prefix control is {string}
-    * @description Cucumber statement to verify the settings of a module
-    * @param {String} pageName
-    * @param {String} value
-    * @example I verify that 'Button' prefix control is 'null'
-    */
+   * @module Button
+   * @function I verify that {string} prefix control is {string}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} pageName
+   * @param {String} value
+   * @example I verify that 'Button' prefix control is 'null'
+   */
   Then(
     'I verify that {string} prefix control is {string}',
     (pageName, value) => {
@@ -58,15 +56,14 @@ export default function () {
     }
   );
 
-
   /**
-  * @module Button
-  * @function I verify that the Buuton {string} state is {string}
-  * @description Cucumber statement to verify the settings of a module
-  * @param {String} pageName
-  * @param {String} value
-  * @example I verify that 'Button' justify control is 'left'
-  */
+   * @module Button
+   * @function I verify that the Buuton {string} state is {string}
+   * @description Cucumber statement to verify the settings of a module
+   * @param {String} pageName
+   * @param {String} value
+   * @example I verify that 'Button' justify control is 'left'
+   */
   Then(
     'I verify that {string} suffix control is {string}',
     (pageName, value) => {

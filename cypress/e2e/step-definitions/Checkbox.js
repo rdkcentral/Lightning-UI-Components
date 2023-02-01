@@ -1,5 +1,5 @@
-import {Then} from '@badeball/cypress-cucumber-preprocessor';
-import getPageObject from "../pageObjects";
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
+import getPageObject from '../pageObjects';
 
 export default function () {
   /**

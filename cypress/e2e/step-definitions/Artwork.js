@@ -1,5 +1,5 @@
 import Artwork from '../pageObjects/foundations/artwork.foundations';
-import {Then} from '@badeball/cypress-cucumber-preprocessor';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
@@ -101,14 +101,16 @@ export default function () {
             case 'true':
               if (theme === 'Xfinity') {
                 cy.get(Artwork.image)
-                  .should('be.visible').wait(1500)
+                  .should('be.visible')
+                  .wait(1500)
                   .invoke('attr', 'texture-x')
                   .then(parseFloat)
                   .should('be.closeTo', 0.065, 0.005);
                 break;
               } else {
                 cy.get(Artwork.image)
-                  .should('be.visible').wait(1500)
+                  .should('be.visible')
+                  .wait(1500)
                   .invoke('attr', 'texture-y')
                   .then(parseFloat)
                   .should('be.closeTo', 0.087, 0.005);
@@ -116,7 +118,8 @@ export default function () {
               }
             case 'false':
               cy.get(Artwork.image)
-                .should('be.visible').wait(1500)
+                .should('be.visible')
+                .wait(1500)
                 .invoke('attr', 'texture-y')
                 .then(parseFloat)
                 .should('be.closeTo', 245.0, 10);

@@ -21,21 +21,25 @@ export default function () {
               //clicking the right key to get to the end of the row
               // and check if attribute x has a specific value
               cy.repeatAction('RIGHT', 10);
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -1620, 50);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -1620, 50);
+                });
               break;
             case '10':
               cy.repeatAction('RIGHT', 11);
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -270, 10);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -270, 10);
+                });
               break;
             default:
               throw new Error(
@@ -52,12 +56,14 @@ export default function () {
               break;
             case 'false':
               cy.action('RIGHT');
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -270, 10);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -270, 10);
+                });
               break;
             default:
               throw new Error(
@@ -70,21 +76,25 @@ export default function () {
             case 'true':
               //clicking the right key to check if attribute x is not displayed
               cy.repeatAction('RIGHT', 8);
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -2160, 50);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -2160, 50);
+                });
               break;
             case 'false':
               cy.repeatAction('RIGHT', 8);
-              cy.wait(1000).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -1620, 50);
-              });
+              cy.wait(1000)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -1620, 50);
+                });
               break;
             default:
               throw new Error(
@@ -100,21 +110,25 @@ export default function () {
               Row._getElementByName(component).should('not.have.attr', 'x');
               //clicking right one more time to activate the scrolling
               cy.action('RIGHT');
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -250, 25);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -250, 25);
+                });
               break;
             case 'false':
               cy.action('RIGHT');
-              cy.wait(500).get(Row.row).then(component => {
-                cy.wrap(component)
-                  .invoke('attr', 'x')
-                  .then(parseFloat)
-                  .should('be.closeTo', -270, 10);
-              });
+              cy.wait(500)
+                .get(Row.row)
+                .then(component => {
+                  cy.wrap(component)
+                    .invoke('attr', 'x')
+                    .then(parseFloat)
+                    .should('be.closeTo', -270, 10);
+                });
               break;
             default:
               throw new Error(
@@ -235,11 +249,13 @@ export default function () {
     (componentName, propertyName) => {
       const component = componentName.toLowerCase();
       const property = propertyName.toLowerCase();
-      Row._getElementByName(component).getAttributes(property).then((element) => {
-        for (let i = 0; i < element.length - 1; i++) {
-          expect(element[i]).not.equals(element[i + 1]);
-        }
-      })
+      Row._getElementByName(component)
+        .getAttributes(property)
+        .then(element => {
+          for (let i = 0; i < element.length - 1; i++) {
+            expect(element[i]).not.equals(element[i + 1]);
+          }
+        });
     }
   );
 }

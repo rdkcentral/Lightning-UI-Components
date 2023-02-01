@@ -70,18 +70,29 @@ export default function () {
 
   /**
    * @module ScrollWrapper
-   * @function I verify that it takes {int} seconds for the ScrollWrapper {String} to finish scrolling
+   * @function I verify that it takes {float} seconds for the ScrollWrapper {String} to finish scrolling for {String} theme
    * @description Cucumber statement to verify that scrolling is completed within a specific timeframe
-   * @param {int} seconds - number of seconds to wait for scroll to finish
-   * @example I verify that it takes 10 seconds for the ScrollWrapper 'Basic' to finish scrolling
+   * @param {float} seconds - number of seconds to wait for scroll to finish
+   * @example I verify that it takes 10 seconds for the ScrollWrapper 'Basic' to finish scrolling for 'Base' theme
    */
   Then(
-    'I verify that it takes {int} seconds for the ScrollWrapper {string} to finish scrolling',
-    (seconds, storyName) => {
+    'I verify that it takes {float} seconds for the ScrollWrapper {string} to finish scrolling for {string} theme',
+    (seconds, storyName, theme) => {
       let endPosition = null;
 
       if (storyName === 'Basic') {
-        endPosition = '-75'; // This value is different in Cypress and Storybook
+        switch (theme) {
+          case 'Base':
+            endPosition = '-75'; // This value is different in Cypress and Storybook
+            break;
+          case 'Xfinity':
+            endPosition = '-241';
+            break;
+          default:
+            throw new Error(
+              'Please check the theme value or implement the missing case.'
+            );
+        }
       } else if (storyName === 'Text Array') {
         endPosition = '-394';
       } else if (storyName === 'Object Array') {

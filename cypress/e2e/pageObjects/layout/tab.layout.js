@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class Tab extends LUIComponent {
   constructor() {
-    super({type: 'layout', componentName: 'tab'});
+    super({ type: 'layout', componentName: 'tab' });
   }
 
   get tab() {

@@ -12,7 +12,7 @@ class CardContentHorizontalLarge extends LUIComponent {
   get contentTile() {
     return `${this.cardContentHorizontalLarge} > div[ref=Tile]`;
   }
-  
+
   get badge() {
     return `${this.contentTile} > div[ref=Tile] > div[ref=Content] > div[type=Badge] > div[ref=Text]`;
   }
@@ -30,7 +30,9 @@ class CardContentHorizontalLarge extends LUIComponent {
   }
 
   get progressValue() {
-    return cy.get(`${this.progressBar} > div[ref=Progress]`).invoke('attr', 'w');
+    return cy
+      .get(`${this.progressBar} > div[ref=Progress]`)
+      .invoke('attr', 'w');
   }
 
   get metadata() {

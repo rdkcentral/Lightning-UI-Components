@@ -9,16 +9,13 @@ export default function () {
    * @param {String} tileNum
    * @example I navigate to tile 1 content
    */
-   Then(
-    'I navigate to tile {int} content',
-    (tileNum) => {
-      for (let i = 0; i < tileNum; i++) {
-        cy.wait(100).action('RIGHT');
-      }
-
-      cy.wait(100).action('DOWN');
+  Then('I navigate to tile {int} content', tileNum => {
+    for (let i = 0; i < tileNum; i++) {
+      cy.wait(100).action('RIGHT');
     }
-  );
+
+    cy.wait(100).action('DOWN');
+  });
 
   /**
    * @module TabBar
@@ -27,26 +24,24 @@ export default function () {
    * @param {String} direction
    * @example I navigate to the 'next' tile content
    */
-   Then(
-    'I navigate to the {string} tile content',
-    (direction) => {
-      switch (direction) {
-        case 'next':
-          cy.wait(100).action('UP');
-          cy.wait(100).action('RIGHT');
-          cy.wait(100).action('DOWN');
-          break;
-        case 'previous':
-          cy.wait(100).action('UP');
-          cy.wait(100).action('LEFT');
-          cy.wait(100).action('DOWN');
-        default:
-          throw new Error(
-            `${direction} direction case not found! \nPlease check the direction value or implement the missing case.`
-          );
-      }
+  Then('I navigate to the {string} tile content', direction => {
+    switch (direction) {
+      case 'next':
+        cy.wait(100).action('UP');
+        cy.wait(100).action('RIGHT');
+        cy.wait(100).action('DOWN');
+        break;
+      case 'previous':
+        cy.wait(100).action('UP');
+        cy.wait(100).action('LEFT');
+        cy.wait(100).action('DOWN');
+        break;
+      default:
+        throw new Error(
+          `${direction} direction case not found! \nPlease check the direction value or implement the missing case.`
+        );
     }
-  );
+  });
 
   /**
    * @module TabBar
@@ -56,13 +51,12 @@ export default function () {
    * @param {String} alphaState
    * @example I verify each tile besides tile 1 have a 'normal' alpha
    */
-   Then(
+  Then(
     'I verify each tile besides tile {int} have a {string} alpha',
     (selectedTile, alphaState) => {
-
       switch (alphaState) {
         case 'normal':
-          cy.get(TabBar.customTabsTiles).each(($tile) => {
+          cy.get(TabBar.customTabsTiles).each($tile => {
             cy.get($tile).should('not.have.attr', 'alpha');
           });
           break;

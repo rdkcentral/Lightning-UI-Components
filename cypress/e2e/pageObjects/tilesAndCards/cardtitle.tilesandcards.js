@@ -25,7 +25,6 @@ class CardTitle extends LUIComponent {
   get details() {
     return `${this.card}>div[ref=Details]>div[ref=Text]`;
   }
-
 }
 
 module.exports = new CardTitle();

@@ -34,7 +34,9 @@ class CardContentVertical extends LUIComponent {
   }
 
   get progressValue() {
-    return cy.get(`${this.progressBar} > div[ref=Progress]`).invoke('attr', 'w');
+    return cy
+      .get(`${this.progressBar} > div[ref=Progress]`)
+      .invoke('attr', 'w');
   }
 
   get description() {
