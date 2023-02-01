@@ -12,14 +12,13 @@ class CardAboutStacked extends LUIComponent {
   get title() {
     return 'div[type=CardAboutStacked]>div[ref=Title]>div[ref=Text]';
   }
-  
+
   get titlebottom() {
-    return'div[type=CardAboutStacked]>div[ref=TitleBottom]>div[ref=Text]';
-}
+    return 'div[type=CardAboutStacked]>div[ref=TitleBottom]>div[ref=Text]';
+  }
 
-get descriptionbottom() {
+  get descriptionbottom() {
     return 'div[type=CardAboutStacked]>div[ref=DescriptionBottom]>div[ref=Text]';
-}
-
+  }
 }
 module.exports = new CardAboutStacked();

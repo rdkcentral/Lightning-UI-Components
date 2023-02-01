@@ -2,7 +2,7 @@ import LUIComponent from '../component';
 
 class CheckboxSmall extends LUIComponent {
   constructor() {
-    super({type: 'utilities', componentName: 'checkboxsmall'});
+    super({ type: 'utilities', componentName: 'checkboxsmall' });
   }
 
   get checkboxSmall() {
@@ -10,7 +10,7 @@ class CheckboxSmall extends LUIComponent {
   }
 
   get checked() {
-    return `${this.checkboxSmall} div[type=icon]`
+    return `${this.checkboxSmall} div[type=icon]`;
   }
 }
 

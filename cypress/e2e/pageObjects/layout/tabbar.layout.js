@@ -8,7 +8,7 @@ class TabBar extends LUIComponent {
   get tabBar() {
     return 'div[type=type] > div[type=TabBar]';
   }
-  
+
   get row() {
     return `${this.tabBar} > div[type=Row] > div[ref=Items]`;
   }

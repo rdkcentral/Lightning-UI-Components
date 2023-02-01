@@ -13,7 +13,7 @@ class ControlSmall extends LUIComponent {
     return 'div[type=controlsmall]>div[ref=Content]';
   }
 
-  get justify(){
+  get justify() {
     return `${this.icon}`;
   }
 

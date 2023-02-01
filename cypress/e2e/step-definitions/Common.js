@@ -317,8 +317,7 @@ export default function () {
     (no_of_rows, element, pageName) => {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
-      pageObject
-        ._getElementByName(element).should('have.length', no_of_rows);
+      pageObject._getElementByName(element).should('have.length', no_of_rows);
     }
   );
 

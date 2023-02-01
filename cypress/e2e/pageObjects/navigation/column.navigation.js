@@ -391,7 +391,7 @@ class Column extends LUIComponent {
   get skipplinkobutton1last() {
     return `${this.skipplinkorow1} > div[type=Tile]:nth-child(5)`;
   }
-  //=============== Skipplinko =============  
+  //=============== Skipplinko =============
 }
 
 module.exports = new Column();
