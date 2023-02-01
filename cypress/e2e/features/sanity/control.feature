@@ -8,11 +8,10 @@ Feature: LUI Control component
   Scenario Outline: Verify that Control Basic is displayed (<theme> theme)
     When I navigate to 'Control' with '<theme>' theme
     Then I verify that the 'Control' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,13 +20,12 @@ Feature: LUI Control component
     When I navigate to 'Control' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Control' component
     Then I verify the mode is '<modeValue>' for 'Control'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -39,11 +37,10 @@ Feature: LUI Control component
     Then I verify that the 'width' of 'Control' component is '<defaultWidth>'
     And I set the 'fixed' to 'true' for 'Control' component
     And I verify that the 'width' of 'Control' component is '200px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | defaultWidth  |
       | Xfinity | 119px         |
-    @sanity
     Examples:
       | theme   | defaultWidth  |
       | Base    | 104px         |
@@ -54,11 +51,10 @@ Feature: LUI Control component
     Then I verify that the 'Control' icon state is 'none'
     And I set the 'icon' to 'lightning' for 'Control' component
     And I verify that the 'Control' icon state is 'lightning'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -69,11 +65,10 @@ Feature: LUI Control component
     Then I verify that the 'Control' logo state is 'none'
     And I set the 'logo' to 'xfinity' for 'Control' component
     And I verify that the 'Control' logo state is 'xfinity'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -85,12 +80,11 @@ Feature: LUI Control component
     Then I verify that the 'width' of 'Control' component is '<collapsedWidth>'
     And I set the 'shouldCollapse' to 'false' for 'Control' component
     And I verify that the 'width' of 'Control' component is '<width>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | selectedMode  | collapsedWidth  | width |
       | Xfinity | unfocused     | 72px            | 119px |
       | Xfinity | disabled      | 72px            | 119px |
-    @sanity
     Examples:
       | theme   | selectedMode  | collapsedWidth  | width |
       | Base    | unfocused     | 90px            | 104px |
@@ -100,11 +94,10 @@ Feature: LUI Control component
     When I navigate to 'Control' with '<theme>' theme
     And I set the 'title' to 'LUI TEST' for 'Control' component
     Then I verify that 'Control' 'Title' has 'text' 'LUI TEST'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -114,11 +107,10 @@ Feature: LUI Control component
     And I set the 'fixed' to 'true' for 'Control' component
     And I set the 'w' to '400' for 'Control' component
     Then I verify that the 'width' of 'Control' component is '400px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |

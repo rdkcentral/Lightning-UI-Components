@@ -8,11 +8,10 @@ Feature: LUI Badge Text With Icon component
   Scenario Outline: Verify that Badge Text With Icon is displayed (<theme> theme)
     When I navigate to 'Badge' 'Text With Icon' with '<theme>' theme
     Then I verify that the 'Badge' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Badge Text With Icon component
     When I navigate to 'Badge' 'Text With Icon' with '<theme>' theme
     Then I verify that the 'width' of 'Badge' component is '82.5px'
     And I verify that the 'height' of 'Badge' component is '32px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -35,12 +33,11 @@ Feature: LUI Badge Text With Icon component
     Then I verify that 'Badge' 'iconAlign' state is 'left' for '<theme>' theme
     And I set the 'iconAlign' to '<align>' for 'Badge' component
     And I verify that 'Badge' 'iconAlign' state is '<align>' for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | align |
       | Xfinity | right |
       | Xfinity | left  |
-    @sanity
     Examples:
       | theme   | align |
       | Base    | right |
@@ -52,11 +49,10 @@ Feature: LUI Badge Text With Icon component
     And I set the 'title' to 'LUI Test' for 'Badge' component
     And I verify that the 'Badge' component is displayed
     And I verify that 'Badge' 'Badge Title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -71,11 +67,10 @@ Feature: LUI Badge Text With Icon component
     And I verify that 'Badge' 'iconAlign' state is 'left' for '<theme>' theme
     And I set the 'title' to 'LUI Test Left' for 'Badge' component
     And I verify that 'Badge' 'Badge Title' has 'text' 'LUI Test Left'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |

@@ -8,11 +8,10 @@ Feature: LUI CardContent component
   Scenario Outline: Verify that CardContent is displayed (<theme> theme)
     When I navigate to 'CardContent' with '<theme>' theme
     Then I verify that the 'cardcontent' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     Then I verify that the 'width' of 'cardcontent' component is '<defaultWidth>'
     And I verify that the 'height' of 'cardcontent' component is '<defaultHeight>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | defaultWidth  | defaultHeight |
       | Xfinity | 796px         | 217px         |
-    @sanity
     Examples:
       | theme   | defaultWidth  | defaultHeight |
       | Base    | 800px         | 219px         |
@@ -38,12 +36,11 @@ Feature: LUI CardContent component
     And I set the 'mode' to '<modeValue>' for 'cardcontent' component
     And I set the 'shouldCollapse' to 'false' for 'cardcontent' component
     And I verify that the 'cardcontent' 'shouldCollapse' state is 'false'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -53,11 +50,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'badge' to 'LUI Test' for 'cardcontent' component
     Then I verify that 'cardcontent' 'Badge Title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -66,11 +62,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'label' to 'LUI Test' for 'cardcontent' component
     Then I verify that 'cardcontent' 'label Title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -79,11 +74,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_description' to 'LUI Test' for 'cardcontent' component
     Then I verify that 'cardcontent' 'metadata description' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -92,11 +86,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_details' to 'LUI Test' for 'cardcontent' component
     Then I verify that 'cardcontent' 'metadata details' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -105,11 +98,10 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'metadata_title' to 'LUI Test' for 'cardcontent' component
     Then I verify that 'cardcontent' 'metadata title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -118,14 +110,13 @@ Feature: LUI CardContent component
     When I navigate to 'CardContent' with '<theme>' theme
     And I set the 'progress' to '<progressValue>' for 'cardcontent' component
     Then I verify that the 'cardcontent' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme      | progressValue |
       | Xfinity    | 0.30          |
       | Xfinity    | 0.50          |
       | Xfinity    | 0.75          |
       | Xfinity    | 1.00          |
-    @sanity
     Examples:
       | theme   | progressValue |
       | Base    | 0.30          |
@@ -142,11 +133,10 @@ Feature: LUI CardContent component
     And I verify that 'cardcontent' 'metadata details' has 'text' 'Details'
     And I verify that 'cardcontent' 'metadata title' has 'text' 'Title'
     And I verify that the 'cardcontent' progress is set to 0.50
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
