@@ -93,6 +93,26 @@ describe('ListItemSlider', () => {
     expect(component.value).toEqual(1);
   });
 
+  it('slider should be visible if in focused mode', () => {
+    component.shouldCollapse = false;
+    component.mode = 'focused';
+    expect(component._Slider.visible).toEqual(true);
+  });
+
+  it('slider should NOT be visible if in unfocused mode', () => {
+    component.shouldCollapse = true;
+    component.mode = 'unfocused';
+    testRenderer.forceAllUpdates();
+    expect(component._Slider.visible).toEqual(false);
+  });
+
+  it('slider should NOT be visible if in disabled mode', () => {
+    component.shouldCollapse = true;
+    component.mode = 'disabled';
+    testRenderer.forceAllUpdates();
+    expect(component._Slider.visible).toEqual(false);
+  });
+
   describe('announcer', () => {
     it('should return true announce string, when announce property is true', () => {
       component.title = 'Title';
