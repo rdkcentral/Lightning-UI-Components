@@ -67,17 +67,11 @@ export default class TextBox extends Base {
   _setDimensions(w, h) {
     let width = w;
     let height = h;
-    // console.log('w', this.w);
-    // console.log('width', width);
     if (!this._isInlineContent) {
       width = this.w || this._Text.texture.getRenderWidth();
       height = this._Text.texture.getRenderHeight();
-
-      if (!this.style.textStyle.wordWrapWidth) {
-        this.style.textStyle.wordWrapWidth = this.w;
-      }
     }
-    // console.log(width);
+
     const sizeChanged = this.w !== width || this.h !== height;
 
     if (width && height && sizeChanged) {
@@ -178,7 +172,7 @@ export default class TextBox extends Base {
     }
 
     const fontStyle = this._textStyleSet;
-    // console.log('w=', this.w);
+
     if (this._Text) {
       this._Text.patch({
         y: this.style.offsetY,
@@ -265,16 +259,32 @@ export default class TextBox extends Base {
     }
   }
 
+  get _textStyleFromString() {
+    return (
+      this.style.typography[
+        typeof this.style.textStyle === 'string'
+          ? this.style.textStyle
+          : this.style.defaultTextStyle
+      ] || this.style.typography.body1
+    );
+  }
+
   get _textStyleSet() {
     const fontStyle = {
-      ...(this.style.typography[this.style.defaultTextStyle] ||
-        this.style.typography.body1),
+      ...this._textStyleFromString,
       ...(null !== this.style.textStyle &&
       'object' === typeof this.style.textStyle &&
       Object.keys(this.style.textStyle)
         ? this.style.textStyle
         : this.style.typography[this.style.textStyle])
     };
+
+    // make sure TextBox is actually applying/adhering to the width if only w is defined
+    if (!this._isInlineContent) {
+      if (!fontStyle.wordWrapWidth) {
+        fontStyle.wordWrapWidth = this.w;
+      }
+    }
 
     this.constructor.properties.forEach(prop => {
       if ('fontStyle' !== prop && 'undefined' !== typeof this[`_${prop}`]) {
