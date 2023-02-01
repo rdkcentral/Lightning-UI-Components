@@ -17,7 +17,7 @@
 -->
 
 import { Canvas, Story } from '@storybook/addon-docs';
-import Tile from './index.js';
+import TextBox from './index.js';
 
 # TextBox
 
@@ -37,8 +37,10 @@ import { TextBox } from '@lightningjs/ui-components';
 TextBox: {
   type: TextBox,
   content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  style: 'headline1',
-  w: 600,
+  style: {
+    textStyle: 'headline1'
+  },
+  w: 600
 }
 ```
 

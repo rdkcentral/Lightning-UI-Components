@@ -67,11 +67,17 @@ export default class TextBox extends Base {
   _setDimensions(w, h) {
     let width = w;
     let height = h;
+    // console.log('w', this.w);
+    // console.log('width', width);
     if (!this._isInlineContent) {
-      width = this._Text.texture.getRenderWidth();
+      width = this.w || this._Text.texture.getRenderWidth();
       height = this._Text.texture.getRenderHeight();
-    }
 
+      if (!this.style.textStyle.wordWrapWidth) {
+        this.style.textStyle.wordWrapWidth = this.w;
+      }
+    }
+    // console.log(width);
     const sizeChanged = this.w !== width || this.h !== height;
 
     if (width && height && sizeChanged) {
@@ -172,7 +178,7 @@ export default class TextBox extends Base {
     }
 
     const fontStyle = this._textStyleSet;
-
+    // console.log('w=', this.w);
     if (this._Text) {
       this._Text.patch({
         y: this.style.offsetY,
