@@ -10,6 +10,7 @@ import {
   getDimension,
   flatten,
   degreesToRadians,
+  createConditionalZContext,
   max
 } from '.';
 
@@ -305,5 +306,30 @@ describe('max', () => {
   it('should ignore NaN, null, and undefined', () => {
     expect(max(NaN, 8, undefined, 6, null, 0)).toBe(8);
     expect(max(NaN, 2, undefined, 1, null, 5)).toBe(5);
+  });
+});
+
+describe('createConditionalZContext', () => {
+  it('forces Z Conext if a component does not have a pre-existing zIndex and desired zOffset is not 0', () => {
+    const component = {};
+    const zOffset = -2;
+    createConditionalZContext(component, zOffset);
+
+    expect(component.forceZIndexContext).toBe(true);
+  });
+
+  it('does not force Z Context if a component does have a pre-existing zIndex', () => {
+    const component = { zIndex: 1 };
+    const zOffset = -2;
+    createConditionalZContext(component, zOffset);
+
+    expect(component.forceZIndexContext).toBe(undefined);
+  });
+
+  it('does not force Z Context if the zOffset value is 0', () => {
+    const component = {};
+    const zOffset = 0;
+    createConditionalZContext(component, zOffset);
+    expect(component.forceZIndexContext).toBe(undefined);
   });
 });

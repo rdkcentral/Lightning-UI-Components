@@ -708,6 +708,19 @@ export function max() {
   return Math.max(...args);
 }
 
+/**
+ * Abstracts logic for conditionally forcing a zIndex Context on a component so that
+ * any child components with zIndex are relative to it, and not the global zIndex context.
+ * @param {lng.Component} component
+ * @param {number} zOffset
+ */
+export function createConditionalZContext(component, zOffset) {
+  if (!component.zIndex && typeof zOffset !== 'undefined' && zOffset !== 0) {
+    component.forceZIndexContext = true;
+    component.zIndex = 0;
+  }
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -732,7 +745,8 @@ const utils = {
   getAspectRatioW,
   getWidthByUpCount,
   getDimensions,
-  getWidthByColumnSpan
+  getWidthByColumnSpan,
+  createConditionalZContext
 };
 
 export default utils;

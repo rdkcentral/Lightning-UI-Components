@@ -1,4 +1,4 @@
-import { FocusRing, context, pool } from '@lightning/ui';
+import { FocusRing, context, pool, utils } from '@lightning/ui';
 
 context.on('themeUpdate', pool.clear);
 
@@ -53,6 +53,11 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         }
       }
 
+      _updateZContext() {
+        // ensure zIndex Context for extension z offset settings
+        utils.createConditionalZContext(this, zOffset);
+      }
+
       // Make sure any calls to _updateLayout update the focusRing ex. Button
       _updateLayout() {
         super._updateLayout();
@@ -96,7 +101,7 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
             tone: this.tone,
             alpha: 0,
             scale: 1,
-            zIndex: this.parent.core.findZContext().zIndex + zOffset,
+            zIndex: zOffset,
             style: {
               ...this.style.focusRingStyle,
               // allow overriding radius in focusRingStyles
