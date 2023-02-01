@@ -27,6 +27,7 @@ export const getStoryName = pageName => {
     Control: 'Control',
     ControlSmall: 'Control-Small',
     Distractor: 'Distractor',
+    FocusRing: 'Focus-Ring',
     Label: 'Label',
     ListItem: 'List-Item',
     ProgressBar: 'Progress-Bar',

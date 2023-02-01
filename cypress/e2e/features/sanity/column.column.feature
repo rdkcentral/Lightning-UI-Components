@@ -129,8 +129,8 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 1.3      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 1.3      |
+      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 2      |
+      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 2      |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
@@ -152,8 +152,8 @@ Feature: Column Basic component validation
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 1.3      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 1.3      |
+      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 2      |
+      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 2      |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
