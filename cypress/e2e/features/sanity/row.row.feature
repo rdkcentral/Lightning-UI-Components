@@ -8,11 +8,10 @@ Feature: Row Basic component validation
   Scenario Outline: Verify that Row element is visible (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
     Then I verify that the 'Row' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: Row Basic component validation
     When I navigate to 'Row' with '<theme>' theme
     Then I verify there are 12 assets per row on the 'Row' page
     And I verify each 'Row Elements' has width of <width> and height of <height> on 'Row' page
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 250.0 | 80.0   |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 250.0 | 100.0  |
@@ -33,11 +31,10 @@ Feature: Row Basic component validation
   Scenario Outline: Verify row layout and spacing (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
     Then I verify that elements are horizontally evenly spaced for 'Row' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -45,11 +42,10 @@ Feature: Row Basic component validation
   Scenario Outline: Validate displayed text of buttons (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
     Then I verify that all 'Buttons labels' of the 'Row' page have text 'Button'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -60,11 +56,10 @@ Feature: Row Basic component validation
     And I verify that the 'Button 1' component on the 'Row' page is in focus
     And I verify that I am able to navigate to the 'last' element of the 'Row' 'Row Elements'
     And I verify that I am able to navigate to the 'first' element of the 'Row' 'Row Elements'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -74,11 +69,10 @@ Feature: Row Basic component validation
     And I set the 'itemSpacing' to '25' for 'Row' component
     And I wait 0.5 seconds for the page to load
     Then I verify that the spacing between the 'row' elements of 'Row' component is '<spacing>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | spacing |
       | Xfinity | 16      |
-    @sanity
     Examples:
       | theme | spacing |
       | Base  | 13      |
@@ -87,13 +81,12 @@ Feature: Row Basic component validation
     When I navigate to 'Row' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Row' component
     Then I verify the mode is '<modeValue>' for 'Row' 'Row Elements'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -105,11 +98,10 @@ Feature: Row Basic component validation
     Then I verify the 'alwaysScroll' is 'false' for 'Row' component
     And I set the 'alwaysScroll' to 'true' for 'Row' component
     And I verify the 'alwaysScroll' is 'true' for 'Row' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -119,11 +111,10 @@ Feature: Row Basic component validation
     Then I verify the 'lazyScroll' is 'false' for 'Row' component
     And I set the 'lazyScroll' to 'true' for 'Row' component
     And I verify the 'lazyScroll' is 'true' for 'Row' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -133,11 +124,10 @@ Feature: Row Basic component validation
     Then I verify the 'neverScroll' is 'false' for 'Row' component
     And I set the 'neverScroll' to 'true' for 'Row' component
     And I verify the 'neverScroll' is 'true' for 'Row' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -147,11 +137,10 @@ Feature: Row Basic component validation
     Then I verify the 'scrollIndex' is '0' for 'Row' component
     And I set the 'scrollIndex' to '10' for 'Row' component
     And I verify the 'scrollIndex' is '10' for 'Row' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
