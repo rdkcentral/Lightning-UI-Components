@@ -1,18 +1,18 @@
 import Artwork from '../pageObjects/foundations/artwork.foundations';
-import { Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Then} from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
    * @module Artwork
-   * @function I verify the {String} is {String} for Artwork component
+   * @function I verify the {String} is {String} for Artwork component for Xfinity theme
    * @description Cucumber statement to verify the settings of Artwork component
    * @param {String} control
    * @param {String} value
-   * @example Then I verify the 'blur' is 'true' for Artwork component
+   * @example Then I verify the 'blur' is 'true' for Artwork component for Xfinity theme
    */
   Then(
-    'I verify the {string} is {string} for Artwork component',
-    (control, value) => {
+    'I verify the {string} is {string} for Artwork component for {string} theme',
+    (control, value, theme) => {
       // TODO: Create separate steps for blur, fill, foregroundSrc, format, gradient, srcCallback. This step is too long
       switch (control) {
         case 'blur':
@@ -99,16 +99,27 @@ export default function () {
         case 'srcCallback':
           switch (value) {
             case 'true':
-              cy.get(Artwork.image)
-                .should('be.visible')
-                .should('have.attr', 'src')
-                .should('contain', 'ratio=16x9');
-              break;
+              if (theme === 'Xfinity') {
+                cy.get(Artwork.image)
+                  .should('be.visible').wait(1500)
+                  .invoke('attr', 'texture-x')
+                  .then(parseFloat)
+                  .should('be.closeTo', 0.065, 0.005);
+                break;
+              } else {
+                cy.get(Artwork.image)
+                  .should('be.visible').wait(1500)
+                  .invoke('attr', 'texture-y')
+                  .then(parseFloat)
+                  .should('be.closeTo', 0.087, 0.005);
+                break;
+              }
             case 'false':
               cy.get(Artwork.image)
-                .should('be.visible')
-                .should('have.attr', 'src')
-                .should('contain', 'ratio=3x4');
+                .should('be.visible').wait(1500)
+                .invoke('attr', 'texture-y')
+                .then(parseFloat)
+                .should('be.closeTo', 245.0, 10);
               break;
             default:
               throw new Error(
