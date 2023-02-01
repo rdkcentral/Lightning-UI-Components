@@ -32,7 +32,8 @@ ListItemSlider.storyName = 'ListItemSlider';
 
 ListItemSlider.args = {
   title: 'List Item',
-  value: 50
+  value: 50,
+  shouldCollapse: false
 };
 
 ListItemSlider.argTypes = {
@@ -52,6 +53,21 @@ ListItemSlider.argTypes = {
     },
     control: 'number',
     description: 'Current slider value'
+  },
+  shouldCollapse: {
+    control: 'boolean',
+    defaultValue: false,
+    description:
+      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',
+    table: {
+      defaultValue: { summary: 'false' }
+    }
+  }
+};
+
+ListItemSlider.argActions = {
+  shouldCollapse: (shouldCollapse, component) => {
+    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;
   }
 };
 

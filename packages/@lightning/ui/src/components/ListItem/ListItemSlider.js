@@ -51,12 +51,26 @@ class ListItemSlider extends ListItem {
     this._updateValue();
   }
 
+  _updateTextWrapper() {
+    if (this._hasTitle || this._hasValue) {
+      if (this._collapse) {
+        this._TextWrapper.patch({
+          y: -(this.style.paddingVertical / 2)
+        });
+      } else {
+        this._TextWrapper.patch({
+          y: this.h / 2 - 2 * this.style.paddingVertical
+        });
+      }
+    }
+  }
+
   _updateValue() {
     if (this._hasValue) {
       let valuePatch = {
         content: this.value.toString(),
-        style: { textStyle: this.style.textStyle },
-        mount: 1,
+        style: { textStyle: { ...this.style.valueTextStyle } },
+        mountX: 1,
         x: this.w - this._paddingX
       };
       if (!this._Value) {
@@ -86,13 +100,30 @@ class ListItemSlider extends ListItem {
 
   _updateSliderPosition() {
     this._Slider.patch({
+      ...this._getSliderProps()
+    });
+  }
+
+  _getSliderProps() {
+    let sliderProps = {
       ...this.slider,
-      mountY: 0.5,
-      w: this.w - this._paddingLeft - this._paddingRight,
+      visible: !this._collapse,
+      alpha: this.style.alpha,
       y: this._TextWrapper.h + this.style.paddingY,
+      w: this.w - this._paddingLeft - this._paddingRight,
+      x: this.w / 2 - this.style.paddingY,
       mode: this.mode,
       value: this.value
-    });
+    };
+    if (this._isDisabledMode || this._isUnfocusedMode) {
+      sliderProps = {
+        ...sliderProps,
+        mountX: 0.5,
+        w: this.w + this.style.paddingY,
+        x: this.w / 2 - this.style.paddingY
+      };
+    }
+    return sliderProps;
   }
 
   get _hasValue() {
