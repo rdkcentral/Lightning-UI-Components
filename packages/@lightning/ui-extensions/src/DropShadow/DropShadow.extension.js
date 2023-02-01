@@ -1,4 +1,4 @@
-import { Shadow } from '@lightning/ui';
+import { Shadow, utils } from '@lightning/ui';
 
 // An Extension Generator returns an extension/mixin function, but takes arguments to
 // provide configurable behavior
@@ -14,11 +14,15 @@ export function dropShadowExtensionGenerator({
 
       _update() {
         super._update();
+        this._updateZContext();
         if (!super._updateLayout) {
           this._updateDropShadow();
         }
       }
 
+      _updateZContext() {
+        utils.createConditionalZContext(this, zOffset);
+      }
       // Make sure any calls to _updateLayout update the shadow ex. Button
       _updateLayout() {
         super._updateLayout();
@@ -29,7 +33,6 @@ export function dropShadowExtensionGenerator({
         const shouldMask = componentsToMask.some(comp =>
           this._prototypeChain.has(comp)
         );
-
         const shadowPatch = {
           maskShadow: shouldMask,
           // support variable height, like Tile with metadataLocation set to bottom
@@ -40,7 +43,7 @@ export function dropShadowExtensionGenerator({
             // pass in radius value from base
             radius: this.style.radius || 0
           },
-          zIndex: this.parent.core.findZContext().zIndex + zOffset
+          zIndex: zOffset
         };
 
         if (!this._DropShadow) {
