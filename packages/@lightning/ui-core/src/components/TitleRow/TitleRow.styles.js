@@ -5,7 +5,7 @@ export const base = theme => ({
   titleMarginLeft: theme.layout.gutterX.xs,
   titleTextStyle: {
     ...theme.typography.headline1,
-    textColor: theme.color.fillNeutral
+    textColor: theme.color.textNeutral
   },
   rowMarginTop: theme.layout.gutterY.xs
 });
