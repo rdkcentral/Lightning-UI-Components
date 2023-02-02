@@ -24,6 +24,10 @@ class MynewComponent extends Base {}
 
 ### Methods
 
+#### static get __componentName(): string
+
+Any component which extends the Base component and uses the `withThemeStyles` mixin requires this static accessor, which returns the name of the component. This name is used by the theme file in order to map component overrides and extensions.
+
 #### applySmooth(ref: lng.Component[], patch: object, smooth: object): void
 
 This method accepts a target component, patch object, and optional smooth object. If the component is visible, it will smooth in the smooth object, or fall back to
