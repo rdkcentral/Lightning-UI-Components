@@ -12,16 +12,16 @@ export const tone = theme => ({
   neutral: {
     backgroundColor: theme.color.fillInverseSecondary,
     iconColor: theme.color.fillNeutral,
-    textStyle: { textColor: theme.color.fillNeutral }
+    textStyle: { textColor: theme.color.textNeutral }
   },
   inverse: {
     backgroundColor: theme.color.fillNeutralSecondary,
     iconColor: theme.color.fillInverse,
-    textStyle: { textColor: theme.color.fillInverse }
+    textStyle: { textColor: theme.color.textInverse }
   },
   brand: {
     backgroundColor: theme.color.fillBrand,
     iconColor: theme.color.fillNeutral,
-    textStyle: { textColor: theme.color.fillNeutral }
+    textStyle: { textColor: theme.color.textNeutral }
   }
 });
