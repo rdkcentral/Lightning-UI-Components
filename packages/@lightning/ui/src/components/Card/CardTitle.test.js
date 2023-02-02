@@ -75,11 +75,11 @@ describe('CardTitle', () => {
     cardTitle.details = 'Details';
     testRenderer.forceAllUpdates();
     expect(cardTitle._Details.content).toEqual('Details');
-    expect(cardTitle._Details.textStyle).toEqual(
-      cardTitle.style.detailsTextProperties
+    expect(cardTitle._Details.style.textStyle).toEqual(
+      expect.objectContaining(cardTitle.style.detailsTextStyle)
     );
-    expect(cardTitle._Details.textStyle.textColor).toEqual(
-      cardTitle.style.detailsTextProperties.textColor
+    expect(cardTitle._Details.style.textStyle.textColor).toEqual(
+      cardTitle.style.detailsTextStyle.textColor
     );
   });
 

@@ -122,7 +122,7 @@ describe('cardAbout', () => {
   it('should update title style', () => {
     testRenderer.forceAllUpdates();
     expect(cardAbout._Title.style.textStyle).toEqual(
-      cardAbout.style.titleTextStyle
+      expect.objectContaining(cardAbout.style.titleTextStyle)
     );
   });
 

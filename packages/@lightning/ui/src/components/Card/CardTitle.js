@@ -60,8 +60,12 @@ class CardTitle extends Card {
   _updateDetails() {
     this._Details.patch({
       content: this.details,
-      textStyle: this.style.detailsTextProperties,
-      wordWrapWidth: this._calculateTextWidth()
+      style: {
+        textStyle: {
+          ...this.style.detailsTextStyle,
+          wordWrapWidth: this._calculateTextWidth()
+        }
+      }
     });
   }
 
