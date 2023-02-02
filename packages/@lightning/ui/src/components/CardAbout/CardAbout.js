@@ -95,7 +95,12 @@ class CardAbout extends CardTitle {
   _updateTitleStyle() {
     if (typeof this.title === 'string') {
       this._Title.patch({
-        style: { textStyle: this.style.titleTextStyle },
+        style: {
+          textStyle: {
+            ...this.style.titleTextStyle,
+            wordWrapWidth: this._calculateTextWidth()
+          }
+        },
         y: this.style.paddingFirstLine,
         content: this.title.toUpperCase()
       });
