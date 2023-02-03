@@ -30,7 +30,7 @@ export const withSelections = () => {
                 color: 0xffffffff,
                 w: w => w,
                 h: 4,
-                y: 50
+                y: 65
               }
             });
           } else {
