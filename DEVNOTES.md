@@ -167,3 +167,101 @@ Take aways:
 | `.storybook/manager-head.html`           | grid overlay styles                                                                                                                                                         |                                                                                                                                                               |
 | `.storybook/manager.js`                  | Config for Storybook theme                                                                                                                                                  | controls the behavior of the Storybook UI, the place to set UI options and configure the Storybook theme                                                      |
 | `.storybook/preview-head.html`           | docs style overrides                                                                                                                                                        | add extra elements to the head of the preview iframe, for instance, to load static stylesheets, font files                                                    | `.storybook/preview.js` | has a custom decorator function so Lightning and Storybook work together , case logic for which theme is loaded when the ThemePicker is used. NOTE: `argActions` (LUI specific) used to define functions to execute on changes to an arg. See `Contributing.md` for more detail | config to render components in Canvas (preview iframe). The JavaScript build configuration of the preview is controlled by a webpack config |
+
+
+## Rewriting Git History to Change Committers from GHE name/email to Public GitHub name/email
+
+This was done as we were getting ready to release version 2.x of the open-sourced version of LUI, [Lightning-UI-Components](https://github.com/rdkcentral/Lightning-UI-Components).
+
+### Steps:
+
+1. Get public GitHub emails of all contributors. We compiled this in an excel sheet, ask someone on the team where to access that.
+2. From the data in the excel sheet create an object for each person containing the following fields. Export this object as `users` from a file called `users.js`:
+   | name | description |
+   | ------- | --------------- |
+   | first | first name of committer |
+   | last | last name of committer |
+   | email | email name of committer |
+   | user | GitHub username name of committer (This field is optional. GitHub will look up the user by their email. This allows you to verify that emails matched the correct accounts.) |
+   | ccEmail | array of email addresses that should be replaced by value set on `email` field |
+   ```js
+   // users.js
+   exports.users = {
+     JohnDoe: {
+       first: 'John',
+       last: 'Doe',
+       email: 'johndoe@gmail.com',
+       user: 'johndoedev',
+       ccEmails: ['john_doe@comcast.com', 'jdoe_1234@comcast.com']
+     }
+     // ...more users following the above format
+   };
+   ```
+3. Save the following code in a file adjacent to `users.js`
+
+```js
+// create-users-filter.js
+/**
+ * Execute this file to generate the git filter-branch command to run.
+ * The command will be written to a file called author-filter.sh
+ *
+ */
+const fs = require('fs');
+const { users } = require('./users');
+
+const createScript = ({ ccEmail, email: pubEmail, first, last }) => {
+  const fullName = `${first} ${last}`;
+  return `
+if [ "$GIT_COMMITTER_EMAIL" = "${ccEmail}" ]
+then
+    export GIT_COMMITTER_NAME="${fullName}"
+    export GIT_COMMITTER_EMAIL="${pubEmail}"
+    export GIT_AUTHOR_NAME="${fullName}"
+    export GIT_AUTHOR_EMAIL="${pubEmail}"
+    export EMAIL="${pubEmail}"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "${ccEmail}" ]
+then
+    export GIT_COMMITTER_NAME="${fullName}"
+    export GIT_COMMITTER_EMAIL="${pubEmail}"
+    export GIT_AUTHOR_NAME="${fullName}"
+    export GIT_AUTHOR_EMAIL="${pubEmail}"
+    export EMAIL="${pubEmail}"
+fi
+    `;
+};
+
+const contentArr = Object.entries(users).map(([_, data]) => {
+  const { ccEmails, email, first, last } = data;
+
+  const scripts = ccEmails.map(ccEmail =>
+    createScript({ ccEmail, email, first, last })
+  );
+
+  return scripts.join(`
+`);
+});
+
+const content = contentArr.join(`
+`);
+
+const filterScriptCommand = `git filter-branch -f --env-filter '
+${content}
+' --tag-name-filter cat -- --branches --tags`;
+
+fs.writeFile('authors-filter-branch.sh', filterScriptCommand, err => {});
+```
+
+4. Run the file you just created. This will create a file, `authors-filter-branch.sh`.
+
+```sh
+node create-users-filter.js
+```
+
+5. Run the command that was output to `authors-filter-branch.sh`. This will rewrite git history, changing committers according the the users map created in step 2.
+
+### Sources:
+
+- [How can I change the author name / email of a commit?](https://www.git-tower.com/learn/git/faq/change-author-name-email)
+- [Understanding Git Filter-branch and the Git Storage Model](https://manishearth.github.io/blog/2017/03/05/understanding-git-filter-branch/)
+- [git filter-branch documentation](https://git-scm.com/docs/git-filter-branch)
