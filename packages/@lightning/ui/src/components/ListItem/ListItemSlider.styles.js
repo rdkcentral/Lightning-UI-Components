@@ -1,6 +1,5 @@
 export const base = theme => ({
-  paddingY: theme.spacer.xl,
-  paddingVertical: theme.spacer.xxxl,
+  paddingY: theme.spacer.md + theme.spacer.xs,
   sliderStyles: {},
   valueTextStyle: {
     ...theme.typography.headline3,

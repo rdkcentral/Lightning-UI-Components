@@ -18,6 +18,12 @@ class ListItemSlider extends ListItem {
       ...template(),
       Content: {
         ...template().Content,
+        flex: { direction: 'column' },
+        TextWrapper: {
+          ...template().Content.TextWrapper,
+          mountY: 0,
+          flex: undefined
+        },
         Slider: {
           type: NestedSlider,
           signals: {
@@ -51,18 +57,12 @@ class ListItemSlider extends ListItem {
     this._updateValue();
   }
 
-  _updateTextWrapper() {
-    if (this._hasTitle || this._hasValue) {
-      if (this._collapse) {
-        this._TextWrapper.patch({
-          y: -(this.style.paddingVertical / 2)
-        });
-      } else {
-        this._TextWrapper.patch({
-          y: this.h / 2 - 2 * this.style.paddingVertical
-        });
-      }
-    }
+  _onTextBoxChanged() {
+    super._onTextBoxChanged();
+    this._TextWrapper.h = Math.max(
+      this._Title ? this._Title.h : 0,
+      this._Value ? this._Value.h : 0
+    );
   }
 
   _updateValue() {
@@ -82,48 +82,33 @@ class ListItemSlider extends ListItem {
           ...valuePatch
         };
       }
-      this._Content.patch({
-        TextWrapper: {
-          Value: valuePatch
-        }
-      });
+      this._TextWrapper.patch({ Value: valuePatch });
     } else {
-      this.patch({
-        Content: {
-          TextWrapper: {
-            Value: undefined
-          }
-        }
-      });
+      this._TextWrapper.patch({ Value: undefined });
     }
   }
 
   _updateSliderPosition() {
-    this._Slider.patch({
-      ...this._getSliderProps()
-    });
-  }
-
-  _getSliderProps() {
+    const w = this.w - this._paddingLeft - this._paddingRight;
     let sliderProps = {
-      ...this.slider,
+      mode: this.mode,
+      tone: this.tone,
+      w,
+      x: w / 2,
       visible: !this._collapse,
       alpha: this.style.alpha,
-      y: this._TextWrapper.h + this.style.paddingY,
-      w: this.w - this._paddingLeft - this._paddingRight,
-      x: this.w / 2 - this.style.paddingY,
-      mode: this.mode,
+      ...this.slider,
       value: this.value
     };
+
     if (this._isDisabledMode || this._isUnfocusedMode) {
       sliderProps = {
         ...sliderProps,
-        mountX: 0.5,
-        w: this.w + this.style.paddingY,
-        x: this.w / 2 - this.style.paddingY
+        mountX: 0.5
       };
     }
-    return sliderProps;
+
+    this._Slider.patch(sliderProps);
   }
 
   get _hasValue() {

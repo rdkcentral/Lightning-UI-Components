@@ -104,15 +104,35 @@ describe('Slider', () => {
     );
   });
 
+  it('Circle is only alpha-ed on if Slider is focused and showKnob is true', () => {
+    testRenderer.unfocus();
+    testRenderer.forceAllUpdates();
+    expect(slider._Circle.alpha).toEqual(0);
+
+    [slider, testRenderer] = createSlider({
+      style: { showKnob: true }
+    });
+    testRenderer.focus();
+    testRenderer.forceAllUpdates();
+    expect(slider.style.showKnob).toBe(true);
+    expect(slider._Circle.alpha).toEqual(1);
+
+    [slider, testRenderer] = createSlider({
+      style: { showKnob: false }
+    });
+    testRenderer.forceAllUpdates();
+    expect(slider.style.showKnob).toBe(false);
+    expect(slider._Circle.alpha).toEqual(0);
+  });
+
   it('Alpha value of arrow when value is equal to max value', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
       max: 10,
       step: 1,
-      value: 1,
-      disabled: false
+      value: 1
     });
-
+    testRenderer.forceAllUpdates();
     expect(slider._LeftArrow.alpha).toEqual(0.5);
   });
 
@@ -124,7 +144,7 @@ describe('Slider', () => {
       value: 1,
       mode: 'disabled'
     });
-
+    testRenderer.forceAllUpdates();
     expect(slider._LeftArrow.alpha).toEqual(0);
   });
 
@@ -190,6 +210,7 @@ describe('Slider', () => {
       value: 2,
       mode: 'disabled'
     });
+    testRenderer.forceAllUpdates();
     expect(slider._handleRight()).toEqual(false);
   });
 
@@ -215,7 +236,7 @@ describe('Slider', () => {
         expect(slider.value).toEqual(2);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', async () => {
+      it('updates the Bar and Circle textures with smoothing', async () => {
         [slider, testRenderer] = createSlider(
           { max: 2, value: 1 },
           { spyOnMethods: ['_update'] }
@@ -277,7 +298,7 @@ describe('Slider', () => {
         expect(slider.value).toEqual(0);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', async () => {
+      it('updates the Bar and Circle textures with smoothing', async () => {
         [slider, testRenderer] = createSlider(
           {
             max: 2,

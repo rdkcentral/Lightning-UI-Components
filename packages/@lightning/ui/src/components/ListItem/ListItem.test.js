@@ -95,7 +95,7 @@ describe('ListItem', () => {
 
   it('should create a flexbox when title or description exists', () => {
     [component, testRenderer] = createComponent({});
-    expect(component._TextWrapper.flex).toBeNull();
+    expect(component._TextWrapper.flex).toBeTruthy();
 
     component.title = 'title';
     testRenderer.forceAllUpdates();

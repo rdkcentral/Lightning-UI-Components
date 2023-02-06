@@ -19,6 +19,7 @@ class Slider extends Base {
     return {
       Container: {
         mountY: 0.5,
+        y: h => h / 2,
         Bar: {
           mountY: 0.5,
           SliderBar: {
@@ -32,10 +33,12 @@ class Slider extends Base {
           }
         },
         LeftArrow: {
+          type: Icon,
           mountY: 0.5,
           y: h => h / 2
         },
         RightArrow: {
+          type: Icon,
           mountY: 0.5,
           y: h => h / 2
         }
@@ -50,9 +53,18 @@ class Slider extends Base {
   static get tags() {
     return [
       'Container',
-      'SliderBar',
-      'Bar',
-      'Circle',
+      {
+        name: 'Bar',
+        path: 'Container.Bar'
+      },
+      {
+        name: 'SliderBar',
+        path: 'Container.Bar.SliderBar'
+      },
+      {
+        name: 'Circle',
+        path: 'Container.Bar.Circle'
+      },
       {
         name: 'LeftArrow',
         path: 'Container.LeftArrow'
@@ -76,55 +88,13 @@ class Slider extends Base {
   _update() {
     this._updateDirection();
     this._updateSliderLayout();
-    this._updateCirclePosition();
     this._updatePositions();
+    this._updateArrowAlpha();
     this._updateArrows();
     this.signal('onChange', this.value, this);
     if (this._valueChanged) {
       this.fireAncestors('$announce', this.announce);
       this._valueChanged = false;
-    }
-  }
-
-  _updateCirclePosition() {
-    this._SliderBar.progress =
-      this.value < this.min ? this.min / this.max : this.value / this.max;
-    let xCirclePosition;
-    if (this.value < this.min || this.value + this.step < this.min) {
-      xCirclePosition = (this.min / this.max) * this._calculatedSliderWidth;
-    } else if (this.value > this.max || this.value - this.step > this.max) {
-      xCirclePosition = this._calculatedSliderWidth;
-      this._SliderBar.progress = this._calculatedSliderWidth;
-    } else {
-      if (this.min < 0 || this.max < 0) {
-        xCirclePosition =
-          ((this.value - this.min) / (this.max - this.min)) *
-          this._calculatedSliderWidth;
-        this._SliderBar.progress =
-          (this.value - this.min) / (this.max - this.min);
-      } else {
-        xCirclePosition = (this.value / this.max) * this._calculatedSliderWidth;
-      }
-    }
-    if (this._Circle) {
-      this._Circle.patch({
-        mode: this.mode,
-        style: {
-          radius: this.style.radius,
-          w: this.style.w,
-          h: this.style.h,
-          circleColor: this.style.circleColor
-        },
-        y: this._SliderBar.y + 1,
-        alpha: this._isFocusedMode ? 1 : 0
-      });
-      if (Object.keys(this.style.circleAnimation).length) {
-        this._Circle.smooth = {
-          x: [xCirclePosition, this.style.circleAnimation]
-        };
-      } else {
-        this._Circle.x = xCirclePosition;
-      }
     }
   }
 
@@ -164,7 +134,7 @@ class Slider extends Base {
       h: this.style.containerHeight,
       w,
       Bar: {
-        x: this.style.arrowSpacing + this.style.arrowWidth,
+        x: this._calculatedSliderX,
         SliderBar: {
           y: this.style.containerHeight / 2,
           w: this._calculatedSliderWidth,
@@ -175,63 +145,121 @@ class Slider extends Base {
         }
       }
     });
+    this.h = Math.max(this.style.containerHeight, this.style.arrowHeight);
   }
 
   _updatePositions() {
-    // fade arrows at min/max
-    let sliderArrowAlphaLeft;
-    let sliderArrowAlphaRight;
-    if (!this._isDisabledMode && this.value <= this.min) {
-      sliderArrowAlphaLeft = this.style.arrowAlphaValueLimit;
-      sliderArrowAlphaRight = this.style.arrowAlphaValue;
-    } else if (!this._isDisabledMode && this.value >= this.max) {
-      sliderArrowAlphaLeft = this.style.arrowAlphaValue;
-      sliderArrowAlphaRight = this.style.arrowAlphaValueLimit;
+    this._updateSliderProgess();
+    this._updateCirclePosition();
+  }
+
+  _updateSliderProgess() {
+    let progress =
+      this.value < this.min ? this.min / this.max : this.value / this.max;
+
+    if (this.value > this.max || this.value - this.step > this.max) {
+      progress = this._calculatedSliderWidth;
+    } else if (this.min < 0 || this.max < 0) {
+      progress = (this.value - this.min) / (this.max - this.min);
+    }
+
+    this._SliderBar.progress = progress;
+  }
+
+  _updateCirclePosition() {
+    let xCirclePosition;
+    if (this.value < this.min || this.value + this.step < this.min) {
+      xCirclePosition = (this.min / this.max) * this._calculatedSliderWidth;
+    } else if (this.value > this.max || this.value - this.step > this.max) {
+      xCirclePosition = this._calculatedSliderWidth;
     } else {
-      sliderArrowAlphaLeft = sliderArrowAlphaRight = this.style.arrowAlphaValue;
+      if (this.min < 0 || this.max < 0) {
+        xCirclePosition =
+          ((this.value - this.min) / (this.max - this.min)) *
+          this._calculatedSliderWidth;
+      } else {
+        xCirclePosition = (this.value / this.max) * this._calculatedSliderWidth;
+      }
     }
-    this.applySmooth(this._LeftArrow, { alpha: sliderArrowAlphaLeft });
-    this.applySmooth(this._RightArrow, {
-      alpha: sliderArrowAlphaRight
-    });
-    if (!this._LeftArrow.texture || !this._RightArrow.texture) {
-      this._updateArrows();
+
+    if (this._Circle) {
+      this._Circle.patch({
+        mode: this.mode,
+        style: {
+          radius: this.style.radius,
+          w: this.style.w,
+          h: this.style.h,
+          circleColor: this.style.circleColor
+        },
+        y: this._SliderBar.y + 1,
+        alpha: this._isFocusedMode && this.style.showKnob ? 1 : 0
+      });
+
+      if (Object.keys(this.style.circleAnimation).length) {
+        this._Circle.smooth = {
+          x: [xCirclePosition, this.style.circleAnimation]
+        };
+      } else {
+        this._Circle.x = xCirclePosition;
+      }
     }
+  }
+
+  _updateArrowAlpha() {
+    // fade arrows at min/max
+    let leftAlpha;
+    let rightAlpha;
+
+    // ensure arrows are always rendered, otherwise color changes might not apply right away
+    const offAlpha = 0.001;
+    const alpha = this.style.showArrows ? this.style.arrowAlphaValue : offAlpha;
+    const alphaLimit = this.style.showArrows
+      ? this.style.arrowAlphaValueLimit
+      : offAlpha;
+
+    leftAlpha = rightAlpha = alpha;
+    if (!this._isDisabledMode && this.value <= this.min) {
+      leftAlpha = alphaLimit;
+      rightAlpha = alpha;
+    } else if (!this._isDisabledMode && this.value >= this.max) {
+      leftAlpha = alpha;
+      rightAlpha = alphaLimit;
+    }
+
+    this._LeftArrow.smooth = { alpha: leftAlpha };
+    this._RightArrow.smooth = { alpha: rightAlpha };
   }
 
   _updateArrows() {
     const arrowProps = {
-      type: Icon,
       w: this.style.arrowWidth,
-      h: this.style.arrowHeight
+      h: this.style.arrowHeight,
+      color: this.style.arrowColor
     };
     this._LeftArrow.patch({
       ...arrowProps,
-      src: this.style.iconLeftSrc
+      icon: this.style.iconLeftSrc
     });
     this._RightArrow.patch({
       ...arrowProps,
-      src: this.style.iconRightSrc
+      icon: this.style.iconRightSrc
     });
 
-    const color = this.style.arrowColor;
-    this.applySmooth(this._LeftArrow, { color });
-    this.applySmooth(this._RightArrow, {
-      color,
+    this._RightArrow.smooth = {
       x: this.style.arrowSpacing + this._calculatedSliderWidth + this._Bar.x
-    });
+    };
   }
 
   _decrementValue() {
     const value = this.value - this.step;
     this.value = value >= this.min ? value : this.min;
-    this._updateCirclePosition();
+    this._updatePositions();
   }
 
   _incrementValue() {
     const value = this.value + this.step;
     this.value = value <= this.max ? value : this.max;
-    this._updateCirclePosition();
+    this._updatePositions();
   }
 
   _handleUp() {
@@ -242,9 +270,16 @@ class Slider extends Base {
     return false;
   }
 
+  get _calculatedSliderX() {
+    return this.style.showArrows
+      ? this.style.arrowSpacing + this.style.arrowWidth
+      : 0;
+  }
+
   get _calculatedSliderWidth() {
-    const totalArrowSize =
-      this.style.arrowSpacing * 2 + this.style.arrowWidth * 2;
+    const totalArrowSize = this.style.showArrows
+      ? this.style.arrowSpacing * 2 + this.style.arrowWidth * 2
+      : 0;
     return this.w < totalArrowSize + this._circleW
       ? this.style.minWidth - totalArrowSize
       : this.w - totalArrowSize;

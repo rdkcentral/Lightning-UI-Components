@@ -16,7 +16,10 @@ class ListItem extends Button {
       justify: 'left',
       fixed: true,
       Content: {
+        ...super._template().Content,
         TextWrapper: {
+          mountY: 0.5,
+          flex: { direction: 'column' },
           Title: {
             type: TextBox,
             signals: {
@@ -52,26 +55,14 @@ class ListItem extends Button {
     this._updatePrefixLogo();
     this._updateSuffixLogo();
     super._update();
-    this._updateTextWrapper();
     this._updateDescription();
   }
 
-  _updateTextWrapper() {
-    if (this._hasTitle || this._hasDescription) {
-      this._TextWrapper.patch({
-        mountY: 0.5,
-        flex: { direction: 'column' }
-      });
-    }
-  }
-
   _updateTitle() {
-    this._Content.patch({
-      TextWrapper: {
-        Title: {
-          content: this.title,
-          style: { textStyle: this.style.titleTextStyle }
-        }
+    this._TextWrapper.patch({
+      Title: {
+        content: this.title,
+        style: { textStyle: this.style.titleTextStyle }
       }
     });
   }

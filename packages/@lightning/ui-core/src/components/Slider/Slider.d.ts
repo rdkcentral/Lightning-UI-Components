@@ -13,6 +13,8 @@ export type SliderStyle = {
   containerHeight: number;
   minWidth: number;
   progressBarStyle: ProgressBarStyle;
+  showArrows: boolean;
+  showKnob: boolean;
   sliderHeight: number;
   circleAnimation: {
     timingFunction: string;
@@ -26,6 +28,7 @@ export default class Slider extends Base {
   min?: number;
   step?: number;
   value?: number;
+  vertical?: boolean;
   get style(): SliderStyle;
   set style(v: StylePartial<SliderStyle>);
 

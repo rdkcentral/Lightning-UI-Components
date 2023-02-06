@@ -40,7 +40,7 @@ describe('SliderLarge', () => {
       step: 1,
       value: 5
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._SliderBar.w).toBeGreaterThan(0);
   });
 
@@ -51,7 +51,7 @@ describe('SliderLarge', () => {
       step: 1,
       value: 15
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._Circle.x).toEqual(sliderLarge._calculatedSliderWidth);
   });
 
@@ -62,7 +62,7 @@ describe('SliderLarge', () => {
       step: 1,
       value: 0
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._Circle.x).toEqual(
       (1 / 10) * sliderLarge._calculatedSliderWidth
     );
@@ -75,7 +75,7 @@ describe('SliderLarge', () => {
       step: 1,
       value: 3
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._Circle.x).toEqual(
       ((sliderLarge.value - sliderLarge.min) /
         (sliderLarge.max - sliderLarge.min)) *
@@ -95,7 +95,7 @@ describe('SliderLarge', () => {
       value: 1,
       disabled: false
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._LeftArrow.alpha).toEqual(0.5);
   });
 
@@ -107,7 +107,7 @@ describe('SliderLarge', () => {
       value: 1,
       mode: 'disabled'
     });
-
+    testRenderer.forceAllUpdates();
     expect(sliderLarge._LeftArrow.alpha).toEqual(0);
   });
 
@@ -200,7 +200,7 @@ describe('SliderLarge', () => {
         expect(sliderLarge.value).toEqual(2);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', async () => {
+      it('updates the Bar and Circle textures with smoothing', async () => {
         [sliderLarge, testRenderer] = createSlider(
           { max: 2, value: 1 },
           { spyOnMethods: ['_update'] }
@@ -239,7 +239,7 @@ describe('SliderLarge', () => {
         expect(sliderLarge.value).toEqual(0);
       });
 
-      it('updates the LeftBar and Circle textures with smoothing', async () => {
+      it('updates the Bar and Circle textures with smoothing', async () => {
         [sliderLarge, testRenderer] = createSlider(
           {
             max: 2,
