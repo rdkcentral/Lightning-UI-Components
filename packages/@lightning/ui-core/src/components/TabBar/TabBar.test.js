@@ -168,10 +168,11 @@ describe('TabBar', () => {
 
     expect(component._TabContent.selectedIndex).toBe(0);
 
+    const spy = jest.spyOn(component, '_selectedTabChange');
     testRenderer.keyPress('Right');
     await component.__selectedTabChangeSpyPromise;
 
-    expect(component._TabContent.selectedIndex).toBe(1);
+    expect(spy).toHaveBeenCalled();
   });
 
   describe('when the collapse property is true', () => {

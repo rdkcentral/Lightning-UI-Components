@@ -55,7 +55,13 @@ class TabBar extends Base {
   }
 
   _selectedTabChange() {
-    this._update();
+    if (
+      typeof this._tabContent === 'object' &&
+      typeof this._tabContent.then === 'function'
+    ) {
+      return this._tabContent.then(this.queueRequestUpdate);
+    }
+    return this.queueRequestUpdate();
   }
 
   _update() {
