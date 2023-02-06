@@ -68,7 +68,7 @@ export default class TextBox extends Base {
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
-      width = this.w || this._Text.texture.getRenderWidth();
+      width = this._Text.texture.getRenderWidth();
       height = this._Text.texture.getRenderHeight();
     }
 

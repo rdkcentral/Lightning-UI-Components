@@ -63,7 +63,13 @@ export default class Tooltip extends Base {
     if (this._Text) {
       this._Text.patch({
         content: this.title,
-        style: { textStyle: this.style.textStyle }
+        style: {
+          textStyle: {
+            ...this.style.textStyle,
+            wordWrapWidth:
+              this.style.textStyle.wordWrapWidth || this._Background.w * 2
+          }
+        }
       });
     }
   }
