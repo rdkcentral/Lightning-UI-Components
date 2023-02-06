@@ -15,7 +15,7 @@ export default class TabBar extends Base {
   alphaSelectedTab?: boolean;
   collapse?: boolean;
   reset?: boolean;
-  tabs?: Array<ResolvedTab | Promise<ResolvedTab>>;
+  tabs?: Array<ResolvedTab | Promise<ResolvedTab> | (() => ResolvedTab)>;
   wrapSelected?: boolean;
   get style(): TabBarStyle;
   set style(v: StylePartial<TabBarStyle>);
