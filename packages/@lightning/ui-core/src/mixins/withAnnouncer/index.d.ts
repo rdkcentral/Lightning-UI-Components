@@ -14,7 +14,7 @@ export type SpeakFunction = (toSpeak: SpeechType) => any;
 
 export interface WithAnnouncerOptions {
   voiceOutDelay?: number;
-  //abbreviationsConfig?: AbbreviationConfig;
+  abbreviationsConfig?: AbbreviationConfig;
 }
 
 export interface AnnounceOptions {

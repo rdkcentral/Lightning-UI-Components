@@ -7,7 +7,6 @@ export type ListItemPickerStyle = ListItemStyle & {
   arrowAlphaValueLimit: number;
   arrowWidth: number;
   arrowHeight: number;
-  paddingY: number;
 };
 
 export default class ListItemPicker extends ListItem {

@@ -15,6 +15,8 @@ export const base = theme => {
     h: size,
     radius: size / 2,
     sliderHeight: theme.spacer.md,
+    showArrows: true,
+    showKnob: true,
     circleAnimation: {}
   };
 };

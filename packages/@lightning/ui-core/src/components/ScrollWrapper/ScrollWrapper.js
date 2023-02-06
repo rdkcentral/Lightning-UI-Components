@@ -112,11 +112,9 @@ class ScrollWrapper extends Base {
   }
 
   _updateAlpha() {
-    this._Slider.patch({
-      smooth: {
-        alpha: this.showScrollBar && this._isFocusedMode ? 1 : 0
-      }
-    });
+    this._Slider.smooth = {
+      alpha: this.showScrollBar && this._isFocusedMode ? 1 : 0
+    };
   }
 
   _updateFadeContainer() {
@@ -262,8 +260,8 @@ class ScrollWrapper extends Base {
   }
 
   resetScroll() {
-    this._ScrollContainer.patch({ y: 0 });
-    this._Slider.patch({ value: 0 });
+    this._ScrollContainer.y = 0;
+    this._Slider.value = 0;
     this._ScrollContainer.transition('y').finish();
     delete this._ScrollContainer._transitions;
     this._autoScrollComplete = false;
@@ -287,11 +285,6 @@ class ScrollWrapper extends Base {
         isNaN(this.autoScrollDelay) ? 2000 : this.autoScrollDelay
       );
     }
-  }
-
-  _setShowScrollBar(val) {
-    this._Slider.smooth = { alpha: val ? 1 : 0 };
-    return val;
   }
 
   _performAutoScroll() {

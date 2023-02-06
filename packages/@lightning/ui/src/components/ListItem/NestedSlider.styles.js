@@ -1,12 +1,13 @@
 export const base = () => {
   return {
-    arrowAlphaValue: 0
+    showArrows: false,
+    showKnob: false
   };
 };
 
 export const mode = () => ({
   focused: {
-    arrowAlphaValue: 1
+    showArrows: true
   }
 });
 
@@ -22,11 +23,10 @@ export const tone = theme => ({
       }
     }
   },
-
   inverse: {
     mode: {
       focused: {
-        arrowColor: theme.color.fillInverse,
+        arrowColor: theme.color.fillNeutral,
         progressBarStyles: {
           barColor: theme.color.fillNeutralTertiary,
           progressColor: theme.color.fillNeutral
@@ -37,7 +37,7 @@ export const tone = theme => ({
   brand: {
     mode: {
       focused: {
-        arrowColor: theme.color.fillNeutral,
+        arrowColor: theme.color.fillInverse,
         progressBarStyle: {
           barColor: theme.color.fillBrandTertiary,
           progressColor: theme.color.fillBrand

@@ -3,7 +3,6 @@ export const base = theme => ({
   arrowAlphaValueLimit: theme.alpha.secondary,
   arrowWidth: theme.spacer.md,
   arrowHeight: theme.spacer.lg,
-  paddingY: theme.spacer.xxxl + theme.spacer.sm,
   arrowColor: theme.color.fillNeutral
 });
 

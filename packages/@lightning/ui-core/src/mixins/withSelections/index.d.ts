@@ -19,8 +19,9 @@ export interface WithSelectionsOptions {
 }
 
 export interface WithSelections {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get [currentSelected](): any;
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [setSelected](selected: any, val: any): void;
 }
 

@@ -4,7 +4,7 @@ export const base = theme => ({
   descriptionTextStyle: {
     ...theme.typography.body3,
     maxLines: 1,
-    textColor: theme.color.textNeutral
+    textColor: theme.color.textNeutralSecondary
   },
   h: theme.spacer.xxl * 3,
   logoStyle: {
@@ -31,7 +31,7 @@ export const mode = theme => ({
     titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   },
   focused: {
-    descriptionTextStyle: { textColor: theme.color.textInverse },
+    descriptionTextStyle: { textColor: theme.color.textInverseSecondary },
     titleTextStyle: { textColor: theme.color.textInverse }
   }
 });
