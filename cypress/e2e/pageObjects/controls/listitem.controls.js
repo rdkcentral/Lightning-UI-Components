@@ -52,6 +52,10 @@ class ListItem extends LUIComponent {
   get suffixLogo() {
     return 'div[ref=Suffix] > div[ref=Items] > div[type=Icon]';
   }
+
+  get prefixLogo() {
+    return 'div[ref=Prefix] > div[ref=Items] > div[type=Icon]';
+  }
 }
 
 module.exports = new ListItem();

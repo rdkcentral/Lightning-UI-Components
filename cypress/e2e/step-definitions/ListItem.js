@@ -16,7 +16,7 @@ export default function () {
       switch (prop) {
         case 'prefix':
           switch (value) {
-            case 'no':
+            case 'null':
               cy.get(ListItem.prefix).children().should('not.exist');
               cy.get(ListItem.prefixToggle).should('not.exist');
               cy.get(ListItem.prefixRadio).should('not.exist');
@@ -50,7 +50,7 @@ export default function () {
           break;
         case 'suffix':
           switch (value) {
-            case 'no':
+            case 'null':
               cy.get(ListItem.suffix).children().should('not.exist');
               cy.get(ListItem.suffixToggle).should('not.exist');
               cy.get(ListItem.suffixRadio).should('not.exist');
@@ -84,7 +84,7 @@ export default function () {
           break;
         case 'suffixLogo':
           switch (value) {
-            case 'no':
+            case 'none':
               cy.get(ListItem.suffix).children().should('not.exist');
               cy.get(ListItem.suffixToggle).should('not.exist');
               cy.get(ListItem.suffixRadio).should('not.exist');
@@ -100,6 +100,29 @@ export default function () {
               cy.get(ListItem.suffixToggle).should('not.exist');
               cy.get(ListItem.suffixRadio).should('not.exist');
               cy.get(ListItem.suffixCheckbox).should('not.exist');
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'prefixLogo':
+          switch (value) {
+            case 'none':
+              cy.get(ListItem.prefix).children().should('not.exist');
+              cy.get(ListItem.prefixToggle).should('not.exist');
+              cy.get(ListItem.prefixRadio).should('not.exist');
+              cy.get(ListItem.prefixCheckbox).should('not.exist');
+              break;
+            case 'xfinity':
+              cy.get(ListItem.prefix).children().its('length').should('eq', 1);
+              cy.get(ListItem.prefixLogo)
+                .should('exist')
+                .should('be.visible')
+                .should('have.attr', 'texture-src')
+                .and('include', 'Xfinity-Provider-Logo-Square.png');
+              cy.get(ListItem.prefixToggle).should('not.exist');
+              cy.get(ListItem.prefixRadio).should('not.exist');
+              cy.get(ListItem.prefixCheckbox).should('not.exist');
               break;
             default:
               break;
