@@ -8,11 +8,10 @@ Feature: LUI Focus Ring component
   Scenario Outline: Verify that Focus Ring Basic Element is visible (<theme> theme)
     When I navigate to 'FocusRing' with '<theme>' theme
     Then I verify that the 'FocusRing' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI Focus Ring component
     When I navigate to 'FocusRing' with '<theme>' theme
     Then I verify that the 'width' of 'FocusRing' component is '<width>'
     And I verify that the 'height' of 'FocusRing' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 304   | 171    |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 308   | 173    |
@@ -33,11 +31,10 @@ Feature: LUI Focus Ring component
   Scenario Outline: Verify that the Focus Ring components are animating (<theme> theme)
     When I navigate to 'FocusRing' with '<theme>' theme
     Then I verify that the 'FocusRing' 'FocusRingAnimate' component is animating
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |

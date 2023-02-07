@@ -8,11 +8,10 @@ Feature: LUI Label component
   Scenario Outline: Verify that the Label Base is displayed (<theme> theme)
     When I navigate to 'Label' with '<theme>' theme
     Then I verify that the 'Label' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI Label component
     When I navigate to 'Label' with '<theme>' theme
     Then I verify that the 'width' of 'Label' component is '<width>'
     And I verify that the 'height' of 'Label' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 86    | 40     |
-    @sanity
     Examples:
       | theme | width  | height |
       | Base  | 77.5px | 44px   |
@@ -35,11 +33,10 @@ Feature: LUI Label component
     And I set the 'title' to 'LUI Test' for 'Label' component
     Then I verify that the 'Label' component is displayed
     And I verify that 'Label' 'title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
