@@ -43,7 +43,7 @@ Feature: LUI Wave component
       | Base  | Right1    | 10px         | 55px          |
       | Base  | Right2    | 10px         | 28px          |
 
-  Scenario: Verify the Wave toggleAnimation control (<theme> theme)
+  Scenario Outline: Verify the Wave toggleAnimation control (<theme> theme)
     When I navigate to 'Wave' with '<theme>' theme
     Then I verify that the 'Wave' '<waveValue>' component is animating
     @sanity_temp
