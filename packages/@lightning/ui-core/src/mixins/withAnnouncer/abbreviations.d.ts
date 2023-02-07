@@ -2,7 +2,7 @@ type AbbreviationReplacer =
   | string
   | ((match: string, ...groups: string[]) => string);
 
-type AbbreviationConfig = {
+export type AbbreviationConfig = {
   abbreviationsPattern: RegExp;
   stringPatternMap: Record<string, { replacer: AbbreviationReplacer }>;
   regExpPatternMap: Record<
