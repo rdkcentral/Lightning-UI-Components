@@ -81,6 +81,23 @@ class Notification extends Base {
     ];
   }
 
+  _construct() {
+    super._construct();
+    this._animating = false; // Track if animation is still being processed
+    this._icon = defaultIcon;
+    this._notificationActivated = false; // Toggled when enter() is called
+    this._notificationOpen = false; // Animation has completed
+    this._titleLoaded = () => {};
+    this._descriptionLoaded = () => {};
+    this._actionAreaTextLoaded = () => {};
+  }
+  _init() {
+    // Open notification as soon as attached for the first time
+    if (this._entered) {
+      this.enter();
+    }
+  }
+
   get announce() {
     return [
       this.title,
@@ -150,24 +167,6 @@ class Notification extends Base {
       this._actionAreaTextLoaded = resolve;
     });
     return actionArea;
-  }
-
-  _construct() {
-    super._construct();
-    this._animating = false; // Track if animation is still being processed
-    this._icon = defaultIcon;
-    this._notificationActivated = false; // Toggled when enter() is called
-    this._notificationOpen = false; // Animation has completed
-    this._titleLoaded = () => {};
-    this._descriptionLoaded = () => {};
-    this._actionAreaTextLoaded = () => {};
-  }
-
-  _init() {
-    // Open notification as soon as attached for the first time
-    if (this._entered) {
-      this.enter();
-    }
   }
 
   _titleChanged({ w, h }) {

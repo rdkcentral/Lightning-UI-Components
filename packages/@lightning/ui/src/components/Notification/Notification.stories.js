@@ -53,7 +53,7 @@ const defaultValues = {
   title: 'Banner headline',
   description: 'Description',
   actionArea: 'Details',
-  state: 'enter()',
+  toggleState: 'enter()',
   icon: 'none',
   logo: 'none'
 };
@@ -61,7 +61,6 @@ Notification.args = defaultValues;
 Notification.argTypes = {
   title: {
     control: 'text',
-    defaultValue: defaultValues.title,
     description: 'Text to be as title',
     type: 'string',
     table: {
@@ -70,7 +69,6 @@ Notification.argTypes = {
   },
   description: {
     control: 'text',
-    defaultValue: defaultValues.description,
     description: 'Text to be as description',
     type: 'string',
     table: {
@@ -79,17 +77,19 @@ Notification.argTypes = {
   },
   actionArea: {
     control: 'text',
-    defaultValue: defaultValues.actionArea,
     description: 'Text to be as action area',
     type: 'string',
     table: {
       defaultValue: { summary: defaultValues.actionArea }
     }
   },
-  state: {
-    control: {
-      type: 'radio',
-      options: ['enter()', 'dismiss()']
+  toggleState: {
+    control: 'radio',
+    options: ['enter()', 'dismiss()'],
+    description:
+      'Triggers notification animations. Selecting enter() will expand notification, dismiss() will trigger animation to collapse notification',
+    table: {
+      defaultValue: { summary: defaultValues.state }
     }
   },
   icon: {
@@ -112,9 +112,10 @@ Notification.argTypes = {
     }
   }
 };
+
 Notification.parameters = {
   argActions: {
-    state: (state, component) => {
+    toggleState: (state, component) => {
       const func = state.split('(')[0];
       component.tag('Notification')[func]();
     },

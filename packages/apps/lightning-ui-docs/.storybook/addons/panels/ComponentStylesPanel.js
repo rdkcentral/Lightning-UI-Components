@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobals } from '@storybook/api';
 import { OptionsControl, ColorControl } from '@storybook/components';
-import { Table, TableRow, NumberRow } from './components';
+import { Table, TableRow, NumberRow } from '../components';
 import { utils } from '@lightning/ui-core';
 import debounce from 'debounce';
 
@@ -10,7 +10,7 @@ import {
   globalContext,
   globalTheme,
   updateGlobalTheme
-} from '../utils';
+} from '../../utils/themeUtils';
 
 function getControlType(value) {
   try {

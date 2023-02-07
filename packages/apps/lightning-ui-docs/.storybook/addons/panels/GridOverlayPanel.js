@@ -1,8 +1,8 @@
 import React from 'react';
-import { GRIDOVERLAY_ID } from '../constants';
+import { GRIDOVERLAY_ID } from '../../constants';
 import { BooleanControl, RangeControl } from '@storybook/components';
 import { useGlobals } from '@storybook/api';
-import { Table, TableRow } from './components';
+import { Table, TableRow } from '../components';
 
 function Controls() {
   const [globalProps, updateGlobals] = useGlobals();

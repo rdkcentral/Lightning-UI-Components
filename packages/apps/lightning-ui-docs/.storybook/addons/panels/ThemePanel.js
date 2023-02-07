@@ -3,8 +3,8 @@ import lng from '@lightningjs/core';
 import { ColorControl, NumberControl } from '@storybook/components';
 import { utils } from '@lightning/ui-core';
 import { useGlobals } from '@storybook/api';
-import { colorUpdate, getPanelsTheme, updateGlobalTheme } from '../utils';
-import { Table, TableRow } from './components';
+import { colorUpdate, getPanelsTheme, updateGlobalTheme } from '../../utils/themeUtils';
+import { Table, TableRow } from '../components';
 
 function Colors() {
   const [{ LUITheme }, updateGlobals] = useGlobals();
