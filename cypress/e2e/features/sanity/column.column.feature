@@ -119,43 +119,39 @@ Feature: Column Basic component validation
     And I set the 'scrollIndex' to '<scrollIndex>' for 'Column' component
     And I set the 'alwaysScroll' to 'false' for 'Column' component
     And I press 'DOWN' key <scrollIndex> times
-    And I wait <waitTime> seconds for the page to load
-    Then I verify that the 'top' of 'Column' component is '<topValue1>'
+    Then I verify that the 'top' of Column component is <topValue1>, wait <waitTime> ms
     And I press 'DOWN' key 1 times
-    And I verify that the 'top' of 'Column' component is '<topValue2>'
+    And I verify that the 'top' of Column component is <topValue2>, wait <waitTime> ms
     And I press 'DOWN' key <numScroll> times
-    And I wait <waitTime> seconds for the page to load
-    And I verify that the 'top' of 'Column' component is '<topValue3>'
+    And I verify that the 'top' of Column component is <topValue3>, wait <waitTime> ms
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 3      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 3      |
+      | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
+      | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Base  | 4           | 14        | 0px       | -120px    | -1800px   | 0.5      |
-      | Base  | 9           | 9         | 0px       | -120px    | -1200px   | 0.5      |
+      | Base  | 4           | 14        | 0         | -120      | -1800     | 500      |
+      | Base  | 9           | 9         | 0         | -120      | -1200     | 500      |
 
   Scenario Outline: Verify scrolling the elements in a column when 'scrollIndex' is set to '<scrollIndex>' and 'alwaysScroll' is true (<theme> theme)
     When I navigate to 'Column' with '<theme>' theme
     And I set the 'scrollIndex' to '<scrollIndex>' for 'Column' component
     And I set the 'alwaysScroll' to 'true' for 'Column' component
     And I press 'DOWN' key <scrollIndex> times
-    And I wait <waitTime> seconds for the page to load
-    Then I verify that the 'top' of 'Column' component is '<topValue1>'
+    Then I verify that the 'top' of Column component is <topValue1>, wait <waitTime> ms
     And I press 'DOWN' key 1 times
-    And I verify that the 'top' of 'Column' component is '<topValue2>'
+    And I verify that the 'top' of Column component is <topValue2>, wait <waitTime> ms
     And I press 'DOWN' key <numScroll> times
-    And I wait <waitTime> seconds for the page to load
-    And I verify that the 'top' of 'Column' component is '<topValue3>'
+    And I verify that the 'top' of Column component is <topValue3>, wait <waitTime> ms
     @sanity_temp
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0px       | -104px    | -1560px   | 3      |
-      | Xfinity | 9           | 9         | 0px       | -104px    | -1040px   | 3      |
+      | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
+      | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Base  | 4           | 14        | 0px       | -120px    | -1800px   | 0.5      |
-      | Base  | 9           | 9         | 0px       | -120px    | -1200px   | 0.5      |
+      | Base  | 4           | 14        | 0         | -120      | -1800     | 500      |
+      | Base  | 9           | 9         | 0         | -120      | -1200     | 500      |
