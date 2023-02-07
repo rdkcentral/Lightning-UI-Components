@@ -5,7 +5,7 @@ export const base = theme => ({
   animationGradientEntrance: theme.animation.utilityEntrance,
   animationGradientExit: theme.animation.utilityExit,
   animationImageScaleEntrance: theme.animation.standardEntrance,
-  animationImageScaleExit: theme.animation.expressiveEntrance,
+  animationImageScaleExit: theme.animation.standardEntrance,
   blur: 4,
   centerImageRadius: theme.radius.md,
   fallbackSrc: undefined,

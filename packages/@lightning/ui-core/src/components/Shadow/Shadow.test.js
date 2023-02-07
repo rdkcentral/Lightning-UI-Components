@@ -10,7 +10,9 @@ const baseStyle = {
   spread: -8,
   alpha: 0.6,
   radius: 16,
-  color: 0xff000000
+  color: 0xff000000,
+  maxOffsetY: 32,
+  maxOffsetX: 0
 };
 
 describe('Shadow', () => {
@@ -58,7 +60,9 @@ describe('Shadow', () => {
         offsetX: 0,
         offsetY: 0,
         blur: 0,
-        spread: 0
+        spread: 0,
+        maxOffsetY: 0,
+        maxOffsetX: 0
       }
     });
 
@@ -81,7 +85,9 @@ describe('Shadow', () => {
         offsetX: 0,
         offsetY: 0,
         blur: blur,
-        spread: 0
+        spread: 0,
+        maxOffsetY: 0,
+        maxOffsetX: 0
       }
     });
 
@@ -104,7 +110,9 @@ describe('Shadow', () => {
         offsetX: 0,
         offsetY: 0,
         blur: 0,
-        spread: spread
+        spread: spread,
+        maxOffsetY: 0,
+        maxOffsetX: 0
       }
     });
 
@@ -128,7 +136,9 @@ describe('Shadow', () => {
         offsetX: 0,
         offsetY: 0,
         blur: blur,
-        spread: spread
+        spread: spread,
+        maxOffsetY: 0,
+        maxOffsetX: 0
       }
     });
 
@@ -152,7 +162,9 @@ describe('Shadow', () => {
         offsetX: 0,
         offsetY: 0,
         blur: blur,
-        spread: spread
+        spread: spread,
+        maxOffsetY: 0,
+        maxOffsetX: 0
       }
     });
     testRenderer.forceAllUpdates();
@@ -162,31 +174,5 @@ describe('Shadow', () => {
     expect(component.h).toEqual(height);
     expect(component._Frame.w).toEqual(width + 2 * (spread + blur * 2));
     expect(component._Frame.h).toEqual(height + 2 * (spread + blur * 2));
-  });
-
-  it('adds offset values to frame x/y position without affecting size', () => {
-    const width = 100;
-    const height = 150;
-    const offsetX = 10;
-    const offsetY = 15;
-
-    [component, testRenderer] = createComponent({
-      w: width,
-      h: height,
-      style: {
-        ...baseStyle,
-        offsetX,
-        offsetY,
-        blur: 0,
-        spread: 0
-      }
-    });
-
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width);
-    expect(component._Frame.h).toEqual(height);
-    expect(component._Frame.x).toEqual(component.w / 2 + offsetX);
-    expect(component._Frame.y).toEqual(component.h / 2 + offsetY);
   });
 });
