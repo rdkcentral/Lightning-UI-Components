@@ -11,11 +11,11 @@ export default class FocusManager extends Base {
   direction?: string;
   set items(
     items: Array<
-      lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
+      lng.Component.NewPatchTemplate<lng.Component.Constructor> | lng.Component
     >
   );
   get items(): Array<
-    lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
+    lng.Component.NewPatchTemplate<lng.Component.Constructor> | lng.Component
   >;
   get Items(): lng.Element;
 
@@ -25,14 +25,14 @@ export default class FocusManager extends Base {
   get fullyOnScreenItems(): Array<lng.Component>;
 
   appendItems(
-    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>
+    items: Array<lng.Component.NewPatchTemplate<lng.Component.Constructor>>
   ): void;
   appendItemsAt(
-    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>,
+    items: Array<lng.Component.NewPatchTemplate<lng.Component.Constructor>>,
     idx: number
   ): void;
   prependItems(
-    items: Array<lng.Component.NewPatchTemplate<typeof lng.Component>>
+    items: Array<lng.Component.NewPatchTemplate<lng.Component.Constructor>>
   ): void;
   removeItemAt(idx: number): void;
   render(): void;

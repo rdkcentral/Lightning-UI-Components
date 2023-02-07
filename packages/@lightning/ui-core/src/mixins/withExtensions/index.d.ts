@@ -23,6 +23,6 @@ export interface WithExtensionsConstructor {
   new (...args: any[]): WithExtensions;
 }
 
-export default function withExtensions<BaseType extends typeof lng.Component>(
-  base: BaseType
-): BaseType & WithExtensionsConstructor;
+export default function withExtensions<
+  BaseType extends lng.Component.Constructor // use this instead of lng.Component for BaseType in mixins
+>(base: BaseType): BaseType & WithExtensionsConstructor;

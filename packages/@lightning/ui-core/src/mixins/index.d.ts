@@ -6,7 +6,10 @@ export {
 } from './withAnnouncer';
 export { default as withClassCache } from './withClassCache';
 export { default as WithEditItems } from './withEditItems';
-export { default as withExtensions } from './withExtensions';
+export {
+  default as withExtensions,
+  WithExtensionsConstructor
+} from './withExtensions';
 export { default as withHandleKey } from './withHandleKey';
 export { default as withLayout, LayoutOptions } from './withLayout';
 export { default as withMarqueeSync } from './withMarqueeSync';
