@@ -176,6 +176,17 @@ class MetadataBase extends Base {
     });
   }
 
+  resetMarquee() {
+    if (this.marquee) {
+      if (this.title) {
+        this._Title.toggleMarquee();
+      }
+      if (this.description) {
+        this._Description.toggleMarquee();
+      }
+    }
+  }
+
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,

@@ -1,6 +1,7 @@
 import { makeCreateComponent, fastForward } from '@lightning/ui-test-utils';
 import Tile from './index.js';
 import Artwork from '../Artwork/index.js';
+import { jest } from '@jest/globals';
 
 const sampleImage = 'sampleImage';
 
@@ -448,5 +449,42 @@ describe('Tile', () => {
     component.metadata = { title: 'test2' };
     await component.__updateMetadataSpyPromise;
     expect(component.metadata).not.toBeUndefined();
+  });
+
+  it('should reset the marquee animation when unfocused', async () => {
+    const mockResetMarquee = jest.fn();
+    jest.mock('../MetadataTile', () => {
+      jest.fn().mockImplementationOnce(() => {
+        return {
+          ...jest.requireActual('../MetadataTile'),
+          resetMarquee: mockResetMarquee
+        };
+      });
+    });
+    const [tile, testRenderer] = createComponent(
+      {
+        metadata: {
+          title: 'long text'.repeat(30),
+          description: 'long text'.repeat(30)
+        }
+      },
+      {
+        focused: false,
+        spyOnMethods: ['_updateMetadata']
+      }
+    );
+
+    await tile.__updateMetadataSpyPromise;
+
+    expect(mockResetMarquee).not.toHaveBeenCalled();
+
+    testRenderer.focus();
+    await tile.__updateMetadataSpyPromise;
+
+    expect(mockResetMarquee).not.toHaveBeenCalled();
+
+    testRenderer.unfocus();
+
+    expect(mockResetMarquee).not.toHaveBeenCalled();
   });
 });

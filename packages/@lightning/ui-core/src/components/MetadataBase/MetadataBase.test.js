@@ -127,6 +127,53 @@ describe('MetadataBase', () => {
     expect(component._Text.x).toBe(secondLineX);
   });
 
+  describe('resetMarquee', () => {
+    beforeEach(() => {
+      jest.spyOn(component._Title, 'toggleMarquee');
+      jest.spyOn(component._Description, 'toggleMarquee');
+    });
+    it('should toggle the marquee animation for title', async () => {
+      component.title = 'title';
+      component.marquee = true;
+      await component.__updateSpyPromise;
+
+      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+
+      component.resetMarquee();
+
+      expect(component._Title.toggleMarquee).toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+    });
+    it('should toggle the marquee animation for description', async () => {
+      component.description = 'description';
+      component.marquee = true;
+      await component.__updateSpyPromise;
+
+      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+
+      component.resetMarquee();
+
+      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).toHaveBeenCalled();
+    });
+    it('should toggle the marquee animation if marquee is not enabled', async () => {
+      component.title = 'title';
+      component.description = 'description';
+      component.marquee = false;
+      await component.__updateSpyPromise;
+
+      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+
+      component.resetMarquee();
+
+      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+    });
+  });
+
   // TODO test is timing out
   it.skip('should signal dimension updates when the height is changed', async () => {
     [component, testRenderer] = createComponent(

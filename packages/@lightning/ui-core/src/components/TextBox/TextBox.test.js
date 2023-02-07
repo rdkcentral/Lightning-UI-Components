@@ -352,6 +352,20 @@ describe('TextBox', () => {
       expect(textBox._Text.alpha).toBe(1);
     });
 
+    it('should provde a public method to toggle Marquee display and animations', async () => {
+      textBox.content = 'hello world'.repeat(30);
+      textBox.wordWrapWidth = 20;
+      textBox.marquee = true;
+      await textBox.__updateSpyPromise;
+
+      jest.spyOn(textBox._Marquee, 'startScrolling');
+      expect(textBox._Marquee.alpha).toBe(1);
+      expect(textBox._Marquee.startScrolling).not.toHaveBeenCalled();
+
+      textBox.toggleMarquee();
+      expect(textBox._Marquee.startScrolling).toHaveBeenCalled();
+    });
+
     it('marquee component should only ever have maxLines of 1', async () => {
       textBox.content = 'hello world';
       textBox.maxLines = 3;
