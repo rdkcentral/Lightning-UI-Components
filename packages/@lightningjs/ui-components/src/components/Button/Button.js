@@ -141,8 +141,7 @@ export default class Button extends Surface {
       this._Content.patch({
         TextWrapper: {
           mountY: 0.5,
-          Title: titlePatch,
-          w: this._titleW
+          Title: titlePatch
         }
       });
     } else {
@@ -181,6 +180,7 @@ export default class Button extends Surface {
         style: {
           textStyle: {
             ...this.style.textStyle,
+            wordWrap: this.fixed,
             wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : this.w
           }
         }
