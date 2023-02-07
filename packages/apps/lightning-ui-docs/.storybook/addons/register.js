@@ -1,13 +1,8 @@
 import React from 'react';
 import { addons, types } from '@storybook/addons';
 import * as ids from '../constants';
-import { ThemeDownload } from './ThemeDownload';
-import ThemePicker from './ThemePicker';
-import { Announce } from './Announce';
-import GridOverlayPanel from './GridOverlayPanel';
-import ThemePanel from './ThemePanel';
-import ComponentStylesPanel from './ComponentStylesPanel';
-import { StageColor } from './StageColor';
+import { Announce, StageColor, ThemeDownload, ThemePicker } from './toolbars';
+import { ComponentStylesPanel, GridOverlayPanel, ThemePanel } from './panels';
 
 addons.register(ids.ANNOUNCE_ID, () => {
   addons.add(ids.ANNOUNCE_ID, {
