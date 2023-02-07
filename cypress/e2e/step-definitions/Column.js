@@ -1,5 +1,7 @@
 import Column from '../pageObjects/navigation/column.navigation';
-import { Then } from '@badeball/cypress-cucumber-preprocessor';
+import {Then} from '@badeball/cypress-cucumber-preprocessor';
+import getPageObject from "../pageObjects";
+import ScrollWrapper from "../pageObjects/layout/scrollwrapper.layout";
 
 export default function () {
   /**
@@ -15,6 +17,27 @@ export default function () {
       cy.get(Column.columnElements)
         .eq(focusedIndex - 1)
         .should('have.attr', 'focused', 'true');
+    }
+  );
+
+  /**
+   * @module Column
+   * @function I verify that the {String} of Column component is {String}, wait {int} ms
+   * @description Cucumber statement to verify the property of a component
+   * @example I verify that the 'top' of Column component is '0', wait 2000 ms
+   */
+  Then(
+    'I verify that the {string} of Column component is {int}, wait {int} ms',
+    (property, value, waitTime) => {
+      let topValue = null;
+      cy.wait(waitTime).get(Column.column)
+        .getStyleAttribute()
+        .then(style => {
+          topValue = Number(style[property].replace('px', ''));
+          cy.wrap(topValue)
+            .then(parseFloat)
+            .should('be.closeTo', value, 3);
+        });
     }
   );
 }
