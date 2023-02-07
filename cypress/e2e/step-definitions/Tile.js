@@ -50,17 +50,16 @@ export default function () {
         case 'inset':
           cy.get(Tile.metadata).should('have.attr', 'mounty');
           break;
-        case 'default':
-          cy.get(Tile.format).should('not.have.attr', 'alpha');
-          break;
-        case 'circle':
+        case 'format':
+          if (value === 'default') {
+            cy.get(Tile.format).should('not.have.attr', 'alpha');
+        } else if (value === 'circle'){
           cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
-          break;
-        case 'square':
+        } else if (value === 'square'){
           cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
-          break;
-        case 'contain':
+        } else {
           cy.get(Tile.format).should('not.have.attr', 'alpha');
+        }
           break;
         default:
           break;
