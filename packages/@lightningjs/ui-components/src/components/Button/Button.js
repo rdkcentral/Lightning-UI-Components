@@ -181,7 +181,7 @@ export default class Button extends Surface {
         style: {
           textStyle: {
             ...this.style.textStyle,
-            wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : this._titleW
+            wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : this.w
           }
         }
       });
