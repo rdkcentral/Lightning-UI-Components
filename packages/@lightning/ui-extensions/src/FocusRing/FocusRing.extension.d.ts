@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 
 export type WithFocusRing = {
   _updateFocusRing(): void;
-  _updateFocusRingStyle(): void;
+  _updateFocusStyle(): void;
 };
 
 export type WithFocusRingConstructor<BaseType extends typeof lng.Component> =

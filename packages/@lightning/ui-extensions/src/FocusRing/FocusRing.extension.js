@@ -18,32 +18,26 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
 
       get _smoothFocusStyle() {
         return {
-          alpha: 1,
+          alpha: [1, context.theme.animation.standardEntrance],
           scale: [1, context.theme.animation.standardEntrance]
         };
       }
 
       get _unfocusStyle() {
         return {
-          alpha: 0,
-          scale: this._unfocusedFocusRingScale
+          alpha: 0
         };
       }
 
       get _smoothUnfocusStyle() {
         return {
-          alpha: 0,
-          scale: [
-            this._unfocusedFocusRingScale,
-            context.theme.animation.expressiveEntrance // TODO: shoud this be xfast?
-          ]
+          alpha: [0, { duration: context.theme.animation.duration.none }]
         };
       }
 
       _update() {
         super._update();
         this._updateFocusRing();
-        this._updateFocusRingStyle();
 
         // Make sure the actual FocusRing updates run this frame, not next frame
         // B/C the rounded rectangle texture in FocusRing needs to render with
@@ -51,6 +45,17 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         if (this._FocusRing) {
           this._FocusRing._update();
         }
+      }
+
+      // Focus transitions are fired once by focus/unfocus.
+      _focus() {
+        super._focus();
+        this._updateFocusStyle();
+      }
+
+      _unfocus() {
+        super._unfocus();
+        this._updateFocusStyle();
       }
 
       _updateZContext() {
@@ -62,7 +67,6 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
       _updateLayout() {
         super._updateLayout();
         this._updateFocusRing();
-        this._updateFocusRingStyle();
 
         // See note in _update()
         if (this._FocusRing) {
@@ -91,16 +95,25 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
               });
 
             this.patch({ FocusRing: focusRingComp });
-          }
 
+            // if you didn't have ring, need to update focus style after creating it.
+            // You would expect not to need this b/c updateFocusStyle is called in the  _focus method
+            // after super_focus(), however, the _update flow happens on the following frame
+            // due to queueRequestUpdate.
+            this._updateFocusStyle();
+          }
+        }
+
+        // allow sizing to be update even if not focused (for size changes on unfocus)
+        if (this._FocusRing) {
+          // if the Base component is in the middle of of a w/h transition, we can still
+          // patch the size update b/c the update flow happens for each frame
           this._FocusRing.patch({
             w: calculatedW,
             h: calculatedH,
             x: calculatedW / 2,
             y: calculatedH / 2,
             tone: this.tone,
-            alpha: 0,
-            scale: 1,
             zIndex: zOffset,
             style: {
               ...this.style.focusRingStyle,
@@ -108,39 +121,46 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
               radius: this.style?.focusRingStyle?.radius ?? this.style.radius
             }
           });
-
-          // Get values from FocusRing to set proper scale when unfocused so it animates in properly
-          const { borderWidth, spacing } = this._FocusRing._componentStyle;
-
-          // adding 2 to account for rounded rectangle bug
-          const offset = (borderWidth + spacing) * 2 + 2;
-          const focusRingScaleW = calculatedW / (calculatedW + offset);
-          const focusRingScaleH = calculatedH / (calculatedH + offset);
-
-          this._FocusRing.scale = this._unfocusedFocusRingScale = Math.min(
-            focusRingScaleW,
-            focusRingScaleH
-          );
         }
       }
 
-      _updateFocusRingStyle() {
+      // moved this calc to helper method
+      _getUnfocusScale() {
+        // support variable height, like Tile with metadataLocation set to bottom
+        const calculatedW = this.innerW || this.w;
+        const calculatedH = this.innerH || this.h;
+        // this is really just a pre-focus style so it starts scaled down
+
+        // Get values from FocusRing to set proper scale when unfocused so it animates in properly
+        // This works by patching the scale to the "before" size on focus before it's smoothed to
+        // scale = 1 in _updateFocusStyle
+        const { borderWidth, spacing } = this._FocusRing._componentStyle;
+        const offset = (borderWidth + spacing) * 2;
+        const focusRingScaleW = calculatedW / (calculatedW + offset);
+        const focusRingScaleH = calculatedH / (calculatedH + offset);
+        return Math.min(focusRingScaleW, focusRingScaleH);
+      }
+
+      _updateFocusStyle() {
         if (!this._FocusRing) return;
 
-        // Update variant and styles
-        const focusRingPatch = {};
-
         if (this._isFocusedMode) {
+          // arguably could plan an animation from the scaled down size to larger scale, but
+          // using this legacy style of patching down and then transitioning up for now.
+          this._FocusRing.patch({
+            scale: this._getUnfocusScale()
+          });
+
           this.applySmooth(
             this._FocusRing,
-            { ...focusRingPatch, ...this._focusStyle },
-            { ...focusRingPatch, ...this._smoothFocusStyle }
+            this._focusStyle,
+            this._smoothFocusStyle
           );
         } else {
           this.applySmooth(
             this._FocusRing,
-            { ...focusRingPatch, ...this._unfocusStyle },
-            { ...focusRingPatch, ...this._smoothUnfocusStyle }
+            this._unfocusStyle,
+            this._smoothUnfocusStyle
           );
         }
       }

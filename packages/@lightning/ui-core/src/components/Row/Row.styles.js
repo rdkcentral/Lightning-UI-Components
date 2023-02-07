@@ -3,5 +3,8 @@ export const base = theme => ({
   scrollIndex: 0,
   alwaysScroll: false,
   neverScroll: false,
-  itemTransition: theme.animation.utility
+  itemTransition: {
+    ...theme.animation.standardEntrance,
+    duration: theme.animation.duration.fast
+  }
 });

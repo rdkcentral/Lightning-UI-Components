@@ -10,6 +10,8 @@ export type ShadowStyle = {
   offsetY: number;
   radius: lng.Tools.CornerRadius;
   spread: number;
+  maxOffsetX: number;
+  maxOffsetY: number;
 };
 
 export default class Shadow extends Base {
