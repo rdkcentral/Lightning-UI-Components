@@ -8,11 +8,10 @@ Feature: LUI Radio Basic component
   Scenario Outline: Verify that Radio Basic is displayed (<theme> theme)
     When I navigate to 'Radio' with '<theme>' theme
     Then I verify that the 'Radio' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Radio Basic component
     When I navigate to 'Radio' with '<theme>' theme
     Then I verify that the 'width' of 'Radio' component is '<width>'
     And I verify that the 'height' of 'Radio' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity |  32px |  32px  |
-    @sanity
     Examples:
       | theme   | width | height |
       | Base    |  40px |  40px  |
@@ -34,13 +32,12 @@ Feature: LUI Radio Basic component
     When I navigate to 'Radio' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Radio' component
     Then I verify the mode is '<modeValue>' for 'Radio'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -55,11 +52,10 @@ Feature: LUI Radio Basic component
     And I set the 'checked' to 'false' for 'Radio' component
     And I verify that the 'opacity' of 'Radio' 'Knob' component is '0'
     And I verify that the 'display' of 'Radio' 'Knob' component is 'none'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |

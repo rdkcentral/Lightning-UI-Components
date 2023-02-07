@@ -8,11 +8,10 @@ Feature: LUI Card Section Component
   Scenario Outline: Verify that Card Section is displayed (<theme> theme)
     When I navigate to 'CardSection' with '<theme>' theme
     Then I verify that the 'CardSection' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Card Section Component
     When I navigate to 'CardSection' with '<theme>' theme
     Then I verify that the 'width' of 'CardSection' component is '<width>'
     And I verify that the 'height' of 'CardSection' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 386px | 160px  |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 386px | 200px  |
@@ -34,13 +32,12 @@ Feature: LUI Card Section Component
     When I navigate to 'CardSection' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'CardSection' component
     Then I verify the mode is '<modeValue>' for 'CardSection'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -52,11 +49,10 @@ Feature: LUI Card Section Component
     Then I verify that the 'CardSection' 'iconSrc' displays icon
     And I set the 'iconSrc' to 'null' for 'CardSection' component
     And I verify that the 'CardSection' 'iconSrc' does not display icon
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -66,11 +62,10 @@ Feature: LUI Card Section Component
     And I set the 'title' to 'LUI Test' for 'CardSection' component
     Then I verify that the 'CardSection' component is displayed
     And I verify that 'CardSection' 'Title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -80,11 +75,10 @@ Feature: LUI Card Section Component
     Then I verify the mode is 'focused' for 'CardSection'
     And I verify that the 'CardSection' 'iconSrc' displays icon
     And I verify that 'CardSection' 'Title' has 'text' 'Section'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |

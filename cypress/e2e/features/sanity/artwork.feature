@@ -8,11 +8,10 @@ Feature: LUI Artwork component
   Scenario Outline: Verify that Artwork component is displayed (<theme> theme)
     When I navigate to 'Artwork' with '<theme>' theme
     Then I verify that the 'Artwork' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     Then I verify that the 'width' of 'Artwork' component is '<width>'
     And I verify that the 'height' of 'Artwork' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 523px | 294px  |
-    @sanity
     Examples:
       | theme   | width | height |
       | Base    | 527px | 296px  |
@@ -34,12 +32,11 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'blur' to '<blurToggle>' for 'Artwork' component
     Then I verify the 'blur' is '<blurToggle>' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | blurToggle |
       | Xfinity |    true    |
       | Xfinity |    false   |
-    @sanity
     Examples:
       | theme   | blurToggle |
       | Base    |    true    |
@@ -49,12 +46,11 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'fill' to '<fillToggle>' for 'Artwork' component
     Then I verify the 'fill' is '<fillToggle>' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | fillToggle |
       | Xfinity |    true    |
       | Xfinity |    false   |
-    @sanity
     Examples:
       | theme   | fillToggle |
       | Base    |    true    |
@@ -64,14 +60,13 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'format' to '<formatValue>' for 'Artwork' component
     Then I verify the 'format' is '<formatValue>' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | formatValue |
       | Xfinity |   square    |
       | Xfinity |   contain   |
       | Xfinity |   circle    |
       | Xfinity |   default   |
-    @sanity
     Examples:
       | theme   | formatValue |
       | Base    |   square    |
@@ -83,12 +78,11 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'gradient' to '<gradientToggle>' for 'Artwork' component
     Then I verify the 'gradient' is '<gradientToggle>' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | gradientToggle |
       | Xfinity |     true       |
       | Xfinity |     false      |
-    @sanity
     Examples:
       | theme   | gradientToggle |
       | Base    |     true       |
@@ -98,12 +92,11 @@ Feature: LUI Artwork component
     When I navigate to 'Artwork' with '<theme>' theme
     And I set the 'srcCallback' to '<srcCallbackToggle>' for 'Artwork' component
     Then I verify the 'srcCallback' is '<srcCallbackToggle>' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | srcCallbackToggle |
       | Xfinity | true              |
       | Xfinity | false             |
-    @sanity
     Examples:
       | theme | srcCallbackToggle |
       | Base  | true              |
@@ -116,12 +109,11 @@ Feature: LUI Artwork component
     And I verify the 'format' is 'default' for Artwork component for '<theme>' theme
     And I verify the 'gradient' is 'false' for Artwork component for '<theme>' theme
     And I verify the 'srcCallback' is 'false' for Artwork component for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |

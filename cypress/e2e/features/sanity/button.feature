@@ -8,11 +8,10 @@ Feature: LUI Button component
   Scenario Outline: Verify that Button is displayed (<theme> theme)
     When I navigate to 'Button' with '<theme>' theme
     Then I verify that the 'Button' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,13 +20,12 @@ Feature: LUI Button component
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Button' component
     Then I verify the mode is '<modeValue>' for 'Button'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -39,11 +37,10 @@ Feature: LUI Button component
     Then I verify that the 'width' of 'Button' component is '<defaultWidth>'
     And I set the 'fixed' to 'true' for 'Button' component
     And I verify that the 'width' of 'Button' component is '200px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | defaultWidth  |
       | Xfinity | 386px         |
-    @sanity
     Examples:
       | theme   | defaultWidth  |
       | Base    | 472px         |
@@ -52,13 +49,12 @@ Feature: LUI Button component
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'justify' to '<justifyValue>' for 'Button' component
     Then I verify that 'Button' justify control is '<justifyValue>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | justifyValue |
       | Xfinity | left         |
       | Xfinity | center       |
       | Xfinity | right        |
-    @sanity
     Examples:
       | theme   | justifyValue |
       | Base    | left         |
@@ -69,14 +65,13 @@ Feature: LUI Button component
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'prefix' to '<prefixValue>' for 'Button' component
     Then I verify that 'Button' prefix control is '<prefixValue>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | prefixValue |
       | Xfinity | null        |
       | Xfinity | icon        |
       | Xfinity | checkbox    |
       | Xfinity | combo       |
-    @sanity
     Examples:
       | theme   | prefixValue |
       | Base    | null        |
@@ -88,14 +83,13 @@ Feature: LUI Button component
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'suffix' to '<suffixValue>' for 'Button' component
     Then I verify that 'Button' suffix control is '<suffixValue>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | suffixValue |
       | Xfinity | null        |
       | Xfinity | icon        |
       | Xfinity | checkbox    |
       | Xfinity | combo       |
-    @sanity
     Examples:
       | theme   | suffixValue |
       | Base    | null        |
@@ -107,11 +101,10 @@ Feature: LUI Button component
     When I navigate to 'Button' with '<theme>' theme
     And I set the 'title' to 'LUI TEST' for 'Button' component
     Then I verify that 'Button' 'Title' has 'text' 'LUI TEST'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -121,13 +114,12 @@ Feature: LUI Button component
     And I set the 'fixed' to 'true' for 'Button' component
     And I set the 'w' to '<width>' for 'Button' component
     Then I verify that the 'width' of 'Button' component is '<width>'
-    @sanity_temp 
+    @sanity
     Examples:
       | theme   | width  |
       | Xfinity | 300    |
       | Xfinity | 400    |
       | Xfinity | 405    |
-    @sanity
     Examples:
       | theme   | width  |
       | Base    | 300    |
@@ -141,11 +133,10 @@ Feature: LUI Button component
     And I verify that 'Button' prefix control is 'null'
     And I verify that 'Button' suffix control is 'null'
     And I verify that 'Button' 'Title' has 'text' 'Button'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
