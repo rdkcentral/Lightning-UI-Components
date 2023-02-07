@@ -487,6 +487,10 @@ class Tile extends Surface {
       this._metadataPatch,
       this._metadataTransitions
     );
+
+    if (!this._isFocusedMode) {
+      this._resetMarqueeAnimation();
+    }
   }
 
   _cleanupMetadata() {
@@ -500,6 +504,17 @@ class Tile extends Surface {
     this._Content.patch({
       Metadata: undefined
     });
+  }
+
+  _resetMarqueeAnimation() {
+    const alphaTransition = this._Metadata._getTransition('alpha');
+    if (alphaTransition) {
+      alphaTransition.on('finish', () => {
+        this._Metadata.resetMarquee();
+      });
+    } else {
+      this._Metadata.resetMarquee();
+    }
   }
 
   _metadataLoaded() {

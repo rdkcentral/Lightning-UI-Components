@@ -274,6 +274,11 @@ class TextBox extends Base {
     }
   }
 
+  toggleMarquee() {
+    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
+    this._toggleMarquee(contentTag);
+  }
+
   get announce() {
     return (
       this._announce ||
