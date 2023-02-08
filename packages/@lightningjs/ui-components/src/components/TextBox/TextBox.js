@@ -64,12 +64,29 @@ export default class TextBox extends Base {
     return ['content', 'marquee', ...InlineContent.properties];
   }
 
+  _init() {
+    super._init();
+    this.firstSetDimensionsCall = true;
+    this.userSetWidth = false;
+  }
+
   _setDimensions(w, h) {
     let width = w;
     let height = h;
+
     if (!this._isInlineContent) {
-      width = this._Text.texture.getRenderWidth();
       height = this._Text.texture.getRenderHeight();
+      if (this.firstSetDimensionsCall) {
+        this.firstSetDimensionsCall = false;
+        if (this.w != 0) {
+          this.userSetWidth = true;
+        }
+      }
+      if (this.userSetWidth) {
+        width = this.w;
+      } else {
+        width = this._Text.texture.getRenderWidth();
+      }
     }
 
     const sizeChanged = this.w !== width || this.h !== height;
@@ -281,7 +298,7 @@ export default class TextBox extends Base {
 
     // make sure TextBox is actually applying/adhering to the width if only w is defined
     if (!this._isInlineContent) {
-      if (!fontStyle.wordWrapWidth) {
+      if (!fontStyle.wordWrapWidth && this.userSetWidth) {
         fontStyle.wordWrapWidth = this.w;
       }
     }
