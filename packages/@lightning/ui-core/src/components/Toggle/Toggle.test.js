@@ -97,19 +97,8 @@ describe('Toggle', () => {
     });
 
     it('calculates correct stroke height', () => {
-      const height =
-        toggle._componentStyle.knobHeight +
-        2 *
-          (toggle._componentStyle.knobPadding +
-            toggle._componentStyle.strokeWeight);
-      const styledHeight =
-        styledToggle._componentStyle.knobHeight +
-        2 *
-          (styledToggle._componentStyle.knobPadding +
-            styledToggle._componentStyle.strokeWeight);
-
-      expect(toggle._Stroke.h).toBe(height);
-      expect(styledToggle._Stroke.h).toBe(styledHeight);
+      expect(toggle._Stroke.h).toBe(toggle.style.h);
+      expect(styledToggle._Stroke.h).toBe(styledToggle.style.h);
     });
   });
 

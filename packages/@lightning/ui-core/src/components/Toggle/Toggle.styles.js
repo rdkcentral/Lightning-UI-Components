@@ -1,5 +1,5 @@
 export const base = theme => ({
-  w: theme.spacer.md * 8,
+  h: theme.spacer.xxl,
   knobWidth: theme.spacer.xl,
   knobHeight: theme.spacer.xl,
   knobRadius: theme.radius.sm + theme.radius.xs,
@@ -7,7 +7,8 @@ export const base = theme => ({
   knobX: theme.spacer.xs,
   knobXChecked: theme.spacer.xxl + theme.spacer.xs,
   strokeRadius: theme.radius.md,
-  strokeWeight: theme.stroke.sm
+  strokeWeight: theme.stroke.sm,
+  w: theme.spacer.xxl * 2
 });
 
 export const tone = theme => ({

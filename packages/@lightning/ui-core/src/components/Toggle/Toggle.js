@@ -58,11 +58,11 @@ class Toggle extends Base {
   }
 
   _updateKnobPosition() {
-    const { w, knobXChecked, knobX, knobPadding, knobWidth, strokeWeight } =
+    const { knobXChecked, knobX, knobPadding, knobWidth, strokeWeight } =
       this.style;
     this._knobX = knobX || strokeWeight + knobPadding;
     this._knobXChecked =
-      knobXChecked || w - strokeWeight - knobPadding - knobWidth;
+      knobXChecked || this.w - strokeWeight - knobPadding - knobWidth;
     const x = this.checked ? this._knobXChecked : this._knobX;
 
     this.applySmooth(this._Knob, { x });
@@ -86,15 +86,7 @@ class Toggle extends Base {
   }
 
   _updateContainer() {
-    const {
-      w,
-      knobHeight,
-      knobRadius,
-      knobPadding,
-      strokeRadius,
-      strokeWeight
-    } = this.style;
-    const h = knobHeight + 2 * knobPadding + 2 * strokeWeight;
+    const { knobRadius, knobPadding, strokeRadius, strokeWeight } = this.style;
 
     let radius;
     if (strokeRadius !== undefined) {
@@ -108,11 +100,11 @@ class Toggle extends Base {
     }
 
     this._Container.patch({
-      w,
-      h,
+      w: this.w,
+      h: this.h,
       texture: lng.Tools.getRoundRect(
-        w - 2 * strokeWeight,
-        h - 2 * (knobPadding + strokeWeight),
+        this.w - 2 * strokeWeight,
+        this.h - 2 * strokeWeight,
         radius,
         strokeWeight,
         0,
@@ -127,22 +119,15 @@ class Toggle extends Base {
   }
 
   _updateStroke() {
-    const {
-      w,
-      knobHeight,
-      knobRadius,
-      knobPadding,
-      strokeColor,
-      strokeRadius,
-      strokeWeight
-    } = this.style;
-    const h = knobHeight + 2 * knobPadding + 2 * strokeWeight;
+    const { knobRadius, knobPadding, strokeColor, strokeRadius, strokeWeight } =
+      this.style;
+
     this._Stroke.patch({
-      w,
-      h,
+      w: this.w,
+      h: this.h,
       texture: lng.Tools.getRoundRect(
-        w,
-        h,
+        this.w,
+        this.h,
         strokeRadius !== undefined
           ? strokeRadius
           : knobRadius + knobPadding + strokeWeight,
@@ -155,11 +140,10 @@ class Toggle extends Base {
   }
 
   _updateKnob() {
-    const { knobHeight, knobWidth, knobRadius, knobPadding, strokeWeight } =
-      this.style;
+    const { knobHeight, knobWidth, knobRadius } = this.style;
     this._Knob.patch({
       zIndex: 2,
-      y: strokeWeight + knobPadding,
+      y: (this.h - knobHeight) / 2,
       texture: lng.Tools.getRoundRect(
         knobWidth - 2,
         knobHeight - 2,
