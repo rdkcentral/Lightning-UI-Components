@@ -3137,7 +3137,7 @@ __metadata:
     "@babel/core": ^7.19.3
     "@lightning/ui-test-utils": "workspace:^"
     "@mdx-js/react": ^1.6.22
-    "@suite-themes/base-lightning-tv": ^1.9.0
+    "@suite-themes/base-lightning-tv": ^1.10.0
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
     debounce: ^1.2.1
@@ -5217,22 +5217,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@suite-themes/base-lightning-tv@npm:^1.9.0":
-  version: 1.9.0
-  resolution: "@suite-themes/base-lightning-tv@npm:1.9.0::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fbase-lightning-tv%2F-%2F%40suite-themes%2Fbase-lightning-tv-1.9.0.tgz"
+"@suite-themes/base-lightning-tv@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "@suite-themes/base-lightning-tv@npm:1.10.0::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fbase-lightning-tv%2F-%2F%40suite-themes%2Fbase-lightning-tv-1.10.0.tgz"
   dependencies:
     "@suite-themes/utils": ^1.2.0
-  checksum: 421fed5c1e562728b073664ced42f3f532fd84a83177bb5519cf680f5781b068b12aad91d4bc7db8aa8c95269d8242fe938264b7eef38e3da6eb907d560c5073
+  checksum: 901c1878246868682d4696ff6ac9a60f3b485516e699804988c51d0fd6d69639f562bf4fbbce6ee2e1f75a04d1fa7eca5fa1d73c7dd17ff2ef56b3fbe63389c4
   languageName: node
   linkType: hard
 
-"@suite-themes/rogers-lightning-tv@npm:^1.6.5":
-  version: 1.6.5
-  resolution: "@suite-themes/rogers-lightning-tv@npm:1.6.5::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Frogers-lightning-tv%2F-%2F%40suite-themes%2Frogers-lightning-tv-1.6.5.tgz"
+"@suite-themes/rogers-lightning-tv@npm:^1.6.7":
+  version: 1.6.7
+  resolution: "@suite-themes/rogers-lightning-tv@npm:1.6.7::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Frogers-lightning-tv%2F-%2F%40suite-themes%2Frogers-lightning-tv-1.6.7.tgz"
   dependencies:
-    "@suite-themes/base-lightning-tv": ^1.9.0
+    "@suite-themes/base-lightning-tv": ^1.10.0
     "@suite-themes/utils": ^1.2.0
-  checksum: a9b7917fefa4e108f2ad03f1531755789907e16f04d1a4e5db501baf5e9cdaa1e3ec22c8fa55f1a1acd98a7c7354c4c6b4c218a9481f0e2aa9081db345d2b7c8
+  checksum: 523f16b6378a5a16e68bbbffd2e8fecbc97ec02a380ca51ceaf5eb2d0dbf89fb7f10c7cd32c97ea1c3e56d9a648ac1a5a8f8babb1ddc48af91252c9a7c81e9b1
   languageName: node
   linkType: hard
 
@@ -5254,33 +5254,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@suite-themes/xfinity-core@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "@suite-themes/xfinity-core@npm:1.2.3::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-core%2F-%2F%40suite-themes%2Fxfinity-core-1.2.3.tgz"
+"@suite-themes/xfinity-core@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@suite-themes/xfinity-core@npm:1.3.0::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-core%2F-%2F%40suite-themes%2Fxfinity-core-1.3.0.tgz"
   dependencies:
     "@suite-themes/utils": ^1.2.0
     "@xds/dark-tv-tokens-json": ^7.12.0
-  checksum: d84cba175f081fbb4d122c1323a57265542a5faec523bbf302ec97281fa915701e300c7a2feffc569af8903aee17f5a0cb960a64bed2e82e4b41ac6901a96b47
+  checksum: 0ebf80d6270fc5d4f92bc4f0bd992738b84cc298063f2dcb6f6333faaab12fb03686949ef06777e71acd7902d4647ca99c4771fb7a10942a585a98f136476975
   languageName: node
   linkType: hard
 
-"@suite-themes/xfinity-games-lightning-tv@npm:^1.4.7":
-  version: 1.4.7
-  resolution: "@suite-themes/xfinity-games-lightning-tv@npm:1.4.7::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-games-lightning-tv%2F-%2F%40suite-themes%2Fxfinity-games-lightning-tv-1.4.7.tgz"
+"@suite-themes/xfinity-games-lightning-tv@npm:^1.4.8":
+  version: 1.4.8
+  resolution: "@suite-themes/xfinity-games-lightning-tv@npm:1.4.8::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-games-lightning-tv%2F-%2F%40suite-themes%2Fxfinity-games-lightning-tv-1.4.8.tgz"
   dependencies:
-    "@suite-themes/xfinity-core": ^1.2.3
-    "@suite-themes/xfinity-lightning-tv": ^1.10.3
-  checksum: b9a1c19503a56cc59b2c68343153eabbcd74be2dd0f0f7c072fc4069fe7cfd6311e1bac048225214572282b734d2d4dc56571304955dfe19b1d6a3998dc927b0
+    "@suite-themes/xfinity-core": ^1.3.0
+    "@suite-themes/xfinity-lightning-tv": ^1.11.0
+  checksum: 61258fb655e8938888225682cd0929fd9338fdc767111eb1cccb25d5efe6e683626dd0143904c579c99b01decb13aa4cb3041b1c0d48d9303da14e649f2a2044
   languageName: node
   linkType: hard
 
-"@suite-themes/xfinity-lightning-tv@npm:^1.10.3":
-  version: 1.10.3
-  resolution: "@suite-themes/xfinity-lightning-tv@npm:1.10.3::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-lightning-tv%2F-%2F%40suite-themes%2Fxfinity-lightning-tv-1.10.3.tgz"
+"@suite-themes/xfinity-lightning-tv@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "@suite-themes/xfinity-lightning-tv@npm:1.11.0::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fxfinity-lightning-tv%2F-%2F%40suite-themes%2Fxfinity-lightning-tv-1.11.0.tgz"
   dependencies:
     "@suite-themes/utils": ^1.2.0
-    "@suite-themes/xfinity-core": ^1.2.3
-  checksum: 2f518deab1a555235d90cf922a0af0cb444527e0a176287097f7f364efbeedc0b24998f44c26ae1e8777e0deadf506091854d44f62fa05fd82239d1c55764fb8
+    "@suite-themes/xfinity-core": ^1.3.0
+  checksum: a1fde7ae23f759a33cd9bce9c91a4f629f6fe12d7af62765a0c7e992883d65d8bc4a93e8f090fef3e0d62645459c44d3b2394c24b1c1d12e4c15defb53ae7d4b
   languageName: node
   linkType: hard
 
@@ -16158,11 +16158,11 @@ __metadata:
     "@storybook/manager-webpack4": ^6.5.12
     "@storybook/manager-webpack5": ^6.5.12
     "@storybook/testing-library": ^0.0.13
-    "@suite-themes/base-lightning-tv": ^1.9.0
-    "@suite-themes/rogers-lightning-tv": ^1.6.5
+    "@suite-themes/base-lightning-tv": ^1.10.0
+    "@suite-themes/rogers-lightning-tv": ^1.6.7
     "@suite-themes/sky-lightning-tv": ^1.5.3
-    "@suite-themes/xfinity-games-lightning-tv": ^1.4.7
-    "@suite-themes/xfinity-lightning-tv": ^1.10.3
+    "@suite-themes/xfinity-games-lightning-tv": ^1.4.8
+    "@suite-themes/xfinity-lightning-tv": ^1.11.0
     "@suite-themes/xumo-lightning-tv": ^1.4.2
     "@yarnpkg/pnpify": ^4.0.0-rc.21
     babel-jest: ^29.0.3
