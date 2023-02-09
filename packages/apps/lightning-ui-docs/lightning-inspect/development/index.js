@@ -1,5 +1,5 @@
-import '@lightningjs/core/devtools/lightning-inspect'
+import '@lightningjs/core/devtools/lightning-inspect';
 
 export default () => {
-  console.log('attach inspector')
-}
+  console.log('attach inspector');
+};
