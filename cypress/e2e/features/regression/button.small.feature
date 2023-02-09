@@ -4,56 +4,89 @@ Feature: LUI Button Small component
 
   Background:
     Given I launch the LUI app
-    And I navigate to 'ButtonSmall' with 'Base' theme
 
-  Scenario: Verify that Button Small is displayed
+  Scenario Outline: Verify that Button Small is displayed (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
     Then I verify that the 'ButtonSmall' component is displayed
+    Examples:
+      | theme   |
+      | Xfinity |
+      | Base    |
 
-  Scenario Outline: Verify that Button Small can be set to <modeValue> mode
-    When I set the 'mode' to '<modeValue>' for 'ButtonSmall' component
+  Scenario Outline: Verify that Button Small can be set to <modeValue> mode (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
+    And I set the 'mode' to '<modeValue>' for 'ButtonSmall' component
     Then I verify the mode is '<modeValue>' for 'ButtonSmall'
     Examples:
-      | modeValue |
-      | unfocused |
-      | focused   |
-      | disabled  |
+      | theme   | modeValue |
+      | Xfinity | unfocused |
+      | Xfinity | focused   |
+      | Xfinity | disabled  |
+      | Base    | unfocused |
+      | Base    | focused   |
+      | Base    | disabled  |
 
-  Scenario: Verify the Button Small fixed state
-    When I verify that the 'width' of 'ButtonSmall' component is '144px'
+  Scenario Outline: Verify the Button Small fixed state (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
+    And I verify that the 'width' of 'ButtonSmall' component is '<width>'
     And I set the 'fixed' to 'true' for 'ButtonSmall' component
-    And I verify that the 'width' of 'ButtonSmall' component is '200px'
-
-  Scenario: Verify the Button Small justify content
+    And I verify that the 'width' of 'ButtonSmall' component is '<fixedWidth>'
+     Examples:
+      | theme   |  width   | fixedWidth | 
+      | Xfinity |  144px   | 200px      |
+      | Base    |  144px   | 200px      |
+    
+  Scenario Outline: Verify the Button Small justify content (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
     Then I verify that 'ButtonSmall' justify control is 'center'
-    And I set the 'justify' to 'left' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' justify control is 'left'
-    And I set the 'justify' to 'center' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' justify control is 'center'
-    And I set the 'justify' to 'right' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' justify control is 'right'
+    And I set the 'justify' to '<controlPosition>' for 'ButtonSmall' component
+    And I verify that 'ButtonSmall' justify control is '<controlPosition>'
+    Examples:
+      | theme   |  controlPosition | 
+      | Xfinity |  left            | 
+      | Xfinity |  center          | 
+      | Xfinity |  right           | 
+      | Base    |  left            | 
+      | Base    |  center          | 
+      | Base    |  right           | 
 
-  Scenario: Verify the Button Small prefix state
-    Then I verify that 'ButtonSmall' prefix control is 'null'
-    And I set the 'prefix' to 'checkbox' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' prefix control is 'checkbox'
-    And I set the 'prefix' to 'null' for 'ButtonSmall' component
+  Scenario Outline: Verify the Button Small prefix state (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
     And I verify that 'ButtonSmall' prefix control is 'null'
-    And I set the 'prefix' to 'icon' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' prefix control is 'icon'
-    And I set the 'prefix' to 'combo' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' prefix control is 'combo'
+    And I set the 'prefix' to '<prefixChoice>' for 'ButtonSmall' component
+    And I verify that 'ButtonSmall' prefix control is '<prefixChoice>'
+     Examples:
+      | theme   |  prefixChoice | 
+      | Xfinity |  checkbox     |
+      | Xfinity |  null         |
+      | Xfinity |  icon         |
+      | Xfinity |  combo        |
+      | Base    |  checkbox     |
+      | Base    |  null         |
+      | Base    |  icon         |
+      | Base    |  combo        |
 
-  Scenario: Verify the Button Small suffix state
+  Scenario Outline: Verify the Button Small suffix state (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
     Then I verify that 'ButtonSmall' suffix control is 'null'
-    And I set the 'suffix' to 'checkbox' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' suffix control is 'checkbox'
-    And I set the 'suffix' to 'null' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' suffix control is 'null'
-    And I set the 'suffix' to 'icon' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' suffix control is 'icon'
-    And I set the 'suffix' to 'combo' for 'ButtonSmall' component
-    And I verify that 'ButtonSmall' suffix control is 'combo'
+    And I set the 'suffix' to '<suffixChoice>' for 'ButtonSmall' component
+    And I verify that 'ButtonSmall' suffix control is '<suffixChoice>'
+    Examples:
+      | theme   |  suffixChoice | 
+      | Xfinity |  checkbox     |
+      | Xfinity |  null         |
+      | Xfinity |  icon         |
+      | Xfinity |  combo        |
+      | Base    |  checkbox     |
+      | Base    |  null         |
+      | Base    |  icon         |
+      | Base    |  combo        |
 
-  Scenario: Verify the Button Small title text can be set
-    When I set the 'title' to 'LUI TEST' for 'ButtonSmall' component
-    Then I verify that 'ButtonSmall' 'Title' has 'text' 'LUI TEST'
+  Scenario Outline: Verify the Button Small title text can be set (<theme> theme)
+    When I navigate to 'ButtonSmall' with '<theme>' theme
+    And I set the 'title' to '<exampleText>' for 'ButtonSmall' component
+    Then I verify that 'ButtonSmall' 'Title' has 'text' '<exampleText>'
+    Examples:
+      | theme   |  exampleText | 
+      | Xfinity |  LUI TEST    |
+      | Base    |  LUI TEST    |
