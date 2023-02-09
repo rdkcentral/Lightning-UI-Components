@@ -258,7 +258,10 @@ class Tile extends Surface {
       this._Content.patch({
         Badge: {
           type: Badge,
-          ...badgePatch
+          ...badgePatch,
+          signals: {
+            loadedBadge: '_updateBadge'
+          }
         }
       });
       return;
@@ -293,7 +296,10 @@ class Tile extends Surface {
         Label: {
           type: Label,
           mountX: 1,
-          ...labelPatch
+          ...labelPatch,
+          signals: {
+            loadedLabel: '_updateLabel'
+          }
         }
       });
       return;

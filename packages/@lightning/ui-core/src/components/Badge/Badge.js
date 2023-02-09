@@ -130,8 +130,7 @@ class Badge extends Base {
     }
 
     this._Text.y = this._h / 2 + this.style.offsetY;
-
-    this.fireAncestors('$loadedBadge', this);
+    this.signal('loadedBadge', this);
   }
 
   _getIconHeight() {

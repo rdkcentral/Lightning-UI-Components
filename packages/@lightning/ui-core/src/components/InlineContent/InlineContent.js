@@ -165,7 +165,10 @@ class InlineContent extends Base {
       y: this.badgeY || 0,
       ...this.badgeProperties,
       type: Badge,
-      title: badge
+      title: badge,
+      signals: {
+        loadedBadge: '_loadedBadge'
+      }
     };
   }
 
@@ -173,7 +176,7 @@ class InlineContent extends Base {
     icon.y = this.style.textStyle.lineHeight - icon.h;
   }
 
-  $loadedBadge(badge) {
+  _loadedBadge(badge) {
     if (this.badgeY === undefined) {
       badge.y = this.style.textStyle.lineHeight - badge.h;
     }
