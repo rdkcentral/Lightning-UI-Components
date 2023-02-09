@@ -172,11 +172,11 @@ describe('InlineContent', () => {
         textStyle: { lineHeight: 150 }
       },
       {
-        spyOnMethods: ['$loadedBadge']
+        spyOnMethods: ['_loadedBadge']
       }
     );
     testRenderer.forceAllUpdates();
-    await inlineContent._$loadedBadgeSpyPromise;
+    await inlineContent._loadedBadgeSpyPromise;
     await nextTick();
     expect(inlineContent.childList.last.y).toBeGreaterThan(0);
   });

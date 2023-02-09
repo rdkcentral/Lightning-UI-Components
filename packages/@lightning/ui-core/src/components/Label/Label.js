@@ -73,6 +73,7 @@ class Label extends Base {
         this.style.backgroundColor
       )
     });
+    this.signal('loadedLabel', this);
   }
 
   set announce(announce) {
