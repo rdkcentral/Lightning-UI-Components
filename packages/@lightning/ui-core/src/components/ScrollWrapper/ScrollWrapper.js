@@ -73,11 +73,15 @@ class ScrollWrapper extends Base {
     this._sliderWidth = 0;
   }
 
-  $itemChanged() {
-    // ScrollContainer uses flexbox, ensure a full stage layout so finalH is accurate
-    this.stage.update();
-    this._updateScrollWrapperLayout();
-    this._updateAlpha();
+  _afterTextBoxUpdate(textBox) {
+    // NOTE: this does get called every time ScrollWrapper updates (ex. on each scroll change)
+    if (this._prevW !== textBox.w) {
+      this._prevW = textBox.w;
+      // ScrollContainer uses flexbox, ensure a full stage layout so finalH is accurate
+      this.stage.update();
+      this._updateScrollWrapperLayout();
+      this._updateAlpha();
+    }
   }
 
   _resetFlexContainer() {
@@ -162,7 +166,8 @@ class ScrollWrapper extends Base {
           },
           signals: {
             textBoxChanged: '_scrollContainerLoaded'
-          }
+          },
+          onAfterUpdate: this._afterTextBoxUpdate.bind(this)
         }
       });
     } else if (Array.isArray(this.content)) {
@@ -184,7 +189,8 @@ class ScrollWrapper extends Base {
                 wordWrap: true,
                 wordWrapWidth: this._contentWidth
               }
-            }
+            },
+            onAfterUpdate: this._afterTextBoxUpdate.bind(this)
           };
         }
       });

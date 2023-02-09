@@ -235,12 +235,29 @@ class NavigationManager extends FocusManager {
     this.transitionDone();
   }
 
+  _withAfterUpdate(component) {
+    component.onAfterUpdate = function (element) {
+      let hasChanged = false;
+      const watchProps = ['w', 'h', 'x', 'y', 'innerW', 'innerH'];
+
+      watchProps.forEach(prop => {
+        const prevValueKey = `_navItemPrev${prop}`;
+        if (!hasChanged && element[prop] !== element[prevValueKey]) {
+          element[prevValueKey] = element[prop];
+          hasChanged = true;
+        }
+      });
+
+      if (hasChanged) {
+        this.queueRequestUpdate();
+      }
+    }.bind(this);
+
+    return component;
+  }
+
   // can be overwritten
   _performRender() {}
-
-  $itemChanged() {
-    this.queueRequestUpdate();
-  }
 
   updatePositionOnAxis(item, position) {
     const { axis } = this._directionPropNames;

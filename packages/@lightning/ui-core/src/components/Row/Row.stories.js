@@ -59,20 +59,28 @@ const sharedArgTypes = {
 };
 
 // creates an array of buttons to be used in Stories
-const createItems = (buttonType, length, isVariedWidth) => {
+const createItems = (buttonType, length, isVariedWidth = false) => {
   return Array.from({ length }).map((_, i) => ({
     type: buttonType,
     title: `Button ${i + 1}`,
-    fixed: true,
-    w: isVariedWidth ? 200 + Math.floor(Math.random() * 100) : 250
+    ...(isVariedWidth
+      ? {
+          fixed: true,
+          w: 200 + Math.floor(Math.random() * 100)
+        }
+      : {})
   }));
 };
 
 class ExpandingButton extends Button {
+  _construct() {
+    super._construct();
+    this.fixed = true;
+    this.w = 250;
+  }
   _focus() {
     super._focus();
     this.smooth = { w: 350 };
-    this.fireAncestors('$itemChanged');
   }
 
   _unfocus() {
@@ -165,7 +173,10 @@ export const VaryingItemWidth = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          items: createItems(Button, 10, true)
+          items: createItems(Button, 10, {
+            fixed: true,
+            w: 200 + Math.floor(Math.random() * 100)
+          })
         }
       };
     }

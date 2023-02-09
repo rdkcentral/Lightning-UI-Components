@@ -194,6 +194,7 @@ class Row extends NavigationManager {
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
       item.h = item.h || itemHeight;
+      item = this._withAfterUpdate(item);
     });
     this.stage.update();
     this.queueRequestUpdate();
@@ -209,7 +210,7 @@ class Row extends NavigationManager {
     items.forEach((item, itemIdx) => {
       this.Items.childList.addAt(
         {
-          ...item,
+          ...this._withAfterUpdate(item),
           parentFocus: this.hasFocus(),
           h: item.h || this.Items.h
         },
