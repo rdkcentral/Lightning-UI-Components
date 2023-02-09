@@ -11,6 +11,8 @@ export type SliderStyle = {
   arrowSpacing: number;
   arrowWidth: number;
   containerHeight: number;
+  iconLeftSrc: string;
+  iconRightSrc: string;
   minWidth: number;
   progressBarStyle: ProgressBarStyle;
   showArrows: boolean;

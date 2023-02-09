@@ -7,6 +7,7 @@ export const base = theme => {
     h: size,
     checkW: theme.spacer.lg,
     checkH: theme.spacer.md + theme.spacer.xs,
+    checkSrc: theme.asset.check,
     radius: size / 2,
     strokeWidth
   };
