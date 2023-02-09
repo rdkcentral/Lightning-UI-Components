@@ -1,4 +1,5 @@
 import lng from '@lightningjs/core';
+import inspectInit from '@lightning-inspect';
 import { withAnnouncer, Speech, pool, context } from '@lightning/ui-core';
 import {
   themeSelect,
@@ -93,7 +94,7 @@ export const createApp = parameters => {
   document.body.appendChild(window.APP.stage.getCanvas());
   return window.APP;
 };
-
+inspectInit();
 export const clearInspector = () => {
   // Clear any lightning inspector info
   if (document.querySelectorAll('[type=StoryApp]').length > 1) {
