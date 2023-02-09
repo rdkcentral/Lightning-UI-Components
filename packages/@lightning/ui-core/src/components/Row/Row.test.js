@@ -355,7 +355,6 @@ describe('Row', () => {
       const item1X = row.items[1].x;
       row.scrollTransition = { duration: 0 };
       row.items[0].w += 200;
-      row.$itemChanged();
       testRenderer.forceAllUpdates();
       expect(row.items[1].x).toBe(item1X + 200);
     });

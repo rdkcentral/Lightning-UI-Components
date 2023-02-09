@@ -25,6 +25,11 @@ describe('ScrollWrapper', () => {
     testRenderer.update();
   });
 
+  it('renders', () => {
+    const tree = testRenderer.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it('sets the announce string to the content text or object', () => {
     const content = 'This is a sentence';
     scrollWrapper.content = content;

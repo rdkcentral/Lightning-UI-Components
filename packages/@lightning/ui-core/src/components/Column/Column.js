@@ -147,6 +147,7 @@ class Column extends NavigationManager {
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
       item.w = getW(item) || itemWidth;
+      item = this._withAfterUpdate(item);
     });
     this.stage.update();
     this.queueRequestUpdate();
