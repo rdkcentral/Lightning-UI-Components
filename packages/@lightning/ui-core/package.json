@@ -1,6 +1,6 @@
 {
   "name": "@lightning/ui-core",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "peerDependencies": {
     "@lightningjs/core": "^2.7.1"
   },
