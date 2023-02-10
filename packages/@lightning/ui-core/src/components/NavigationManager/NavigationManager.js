@@ -259,6 +259,10 @@ class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
+  $itemChanged() {
+    this.queueRequestUpdate();
+  }
+
   updatePositionOnAxis(item, position) {
     const { axis } = this._directionPropNames;
     this.applySmooth(
