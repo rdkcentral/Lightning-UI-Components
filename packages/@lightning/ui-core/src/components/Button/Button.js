@@ -322,7 +322,7 @@ class Button extends Surface {
   get _contentW() {
     if (this._hasSuffix) {
       return this._suffixX + this._suffixW;
-    } else if (this._hasTitle && this._Title.visible) {
+    } else if (this._hasTitle && this._Title && this._Title.visible) {
       return this._titleX + this._titleW;
     } else if (this._hasPrefix) {
       return this._prefixX + this._prefixW;
