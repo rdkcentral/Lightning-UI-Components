@@ -516,7 +516,9 @@ class Tile extends Surface {
     const alphaTransition = this._Metadata._getTransition('alpha');
     if (alphaTransition) {
       alphaTransition.on('finish', () => {
-        this._Metadata.resetMarquee();
+        if (this._Metadata) {
+          this._Metadata.resetMarquee();
+        }
       });
     } else {
       this._Metadata.resetMarquee();
