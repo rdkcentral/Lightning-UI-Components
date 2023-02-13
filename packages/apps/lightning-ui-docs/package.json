@@ -37,7 +37,7 @@
     "@suite-themes/sky-lightning-tv": "^1.5.3",
     "@suite-themes/xfinity-games-lightning-tv": "^1.4.8",
     "@suite-themes/xfinity-lightning-tv": "^1.11.0",
-    "@suite-themes/xumo-lightning-tv": "^1.4.2",
+    "@suite-themes/xumo-lightning-tv": "^1.5.0",
     "@yarnpkg/pnpify": "^4.0.0-rc.21",
     "babel-jest": "^29.0.3",
     "babel-loader": "^8.2.5",
