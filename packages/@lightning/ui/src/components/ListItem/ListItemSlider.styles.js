@@ -1,6 +1,5 @@
 export const base = theme => ({
   paddingY: theme.spacer.md + theme.spacer.xs,
-  sliderStyles: {},
   valueTextStyle: {
     ...theme.typography.headline3,
     maxLines: 1,

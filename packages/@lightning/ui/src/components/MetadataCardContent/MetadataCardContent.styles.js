@@ -1,7 +1,7 @@
 export const base = theme => ({
   detailsTextStyle: theme.typography.body3,
   descriptionTextStyle: { maxLines: 3 },
-  providerStyle: {
+  provider: {
     fadeWidth: theme.spacer.md * theme.spacer.md,
     itemSize: theme.spacer.xxxl + theme.spacer.md
   }

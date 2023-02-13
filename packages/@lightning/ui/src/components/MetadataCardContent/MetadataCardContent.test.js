@@ -74,7 +74,7 @@ describe('MetadataCardContent', () => {
   it('creates provider', () => {
     expect(component._Provider._Row.items[3].tag('Text').content).toBe('+7');
     expect(component._Provider._Row._Items.h).toBe(
-      component.style.providerStyle.itemSize
+      component.style.provider.itemSize
     );
   });
 });

@@ -12,7 +12,7 @@ export const base = theme => {
     iconLeftSrc: theme.asset.arrowLeft,
     iconRightSrc: theme.asset.arrowRight,
     minWidth: getWidthByColumnSpan(theme, 2),
-    progressBarStyle: {},
+    progressBar: {},
     w: size,
     h: size,
     radius: size / 2,

@@ -140,7 +140,7 @@ class Slider extends Base {
           w: this._calculatedSliderWidth,
           style: {
             duration: 0,
-            ...this.style.progressBarStyle
+            ...this.style.progressBar
           }
         }
       }
@@ -149,11 +149,11 @@ class Slider extends Base {
   }
 
   _updatePositions() {
-    this._updateSliderProgess();
+    this._updateSliderProgress();
     this._updateCirclePosition();
   }
 
-  _updateSliderProgess() {
+  _updateSliderProgress() {
     let progress =
       this.value < this.min ? this.min / this.max : this.value / this.max;
 
