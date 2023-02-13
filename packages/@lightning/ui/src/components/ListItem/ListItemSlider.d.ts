@@ -1,10 +1,9 @@
 import lng from '@lightningjs/core';
-import { TextBoxStyle, SliderStyle, StylePartial } from '@lightning/ui-core';
+import { TextBoxStyle, StylePartial } from '@lightning/ui-core';
 import ListItem, { ListItemStyle } from '.';
 
 export type ListItemSliderStyle = ListItemStyle & {
   paddingY: number;
-  sliderStyles: SliderStyle;
   valueTextStyle: TextBoxStyle;
 };
 export default class ListItemSlider extends ListItem {
