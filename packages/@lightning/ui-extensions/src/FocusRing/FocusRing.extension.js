@@ -113,7 +113,6 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
             h: calculatedH,
             x: calculatedW / 2,
             y: calculatedH / 2,
-            tone: this.tone,
             zIndex: zOffset,
             style: {
               ...this.style.focusRingStyle,
