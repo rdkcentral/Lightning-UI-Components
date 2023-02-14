@@ -1,13 +1,14 @@
-module.exports = (name, type) => {
-  const upperCaseType = type.charAt(0).toUpperCase() + type.slice(1);
+module.exports = (name) => {
 
   return `import lng from '@lightningjs/core';
 
 import ${name} from '.';
 import mdx from './${name}.mdx';
+import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {
-  title: '${upperCaseType} / ${name}',
+  // TODO: replace categoryIndex with key for which category this component's story should be nested in. See CATEGORIES object in packages/apps/lightning-ui-docs/index.js
+  title: 'CATEGORIES[categoryIndex]/${name}',
   parameters: {
     docs: {
       page: mdx
@@ -15,7 +16,7 @@ export default {
   }
 };
 
-export const Basic = args =>
+export const Basic = () =>
   class Basic extends lng.Component {
     static _template() {
       return {

@@ -1,42 +1,39 @@
 module.exports = name => {
-  return `
-    import Base from '../Base';
-    import * as styles from './${name}.styles.js';
-    import { withExtensions} from '@lightning/ui-core';
+  return `import Base from '@lightning/ui-core';
 
-    class ${name} extends Base {
-      static get __componentName() {
-        return '${name}';
-      }
+import * as styles from './${name}.styles.js';
 
-      static get __themeStyle() {
-        return styles;
-      }
+export default class ${name} extends Base {
+  static get __componentName() {
+    return '${name}';
+  }
 
-      static _template() {
-        return {};
-      }
+  static get __themeStyle() {
+    return styles;
+  }
 
-      static get properties() {
-        // See documentation on withUpdates mixin
-        return [];
-      }
+  static _template() {
+    return {};
+  }
 
-      static get tags() {
-        /**
-         * See documentation on withTags mixin
-         */
-        return [];
-      }
+  static get properties() {
+    // See documentation on withUpdates mixin
+    return [];
+  }
 
-      _update() {
-        /**
-         * All Logic to update component should go here.
-         * Styles can be accessed by this.style.myStyle
-         */
-      }
-    }
+  static get tags() {
+    /**
+     * See documentation on withTags mixin
+     */
+    return [];
+  }
 
-    export default withExtensions(${name});
-  `;
+  _update() {
+    /**
+     * All Logic to update component should go here.
+     * Styles can be accessed by this.style.myStyle
+     */
+  }
+}`;
 };
+  
