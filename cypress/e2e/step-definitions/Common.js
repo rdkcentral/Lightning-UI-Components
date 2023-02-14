@@ -962,4 +962,36 @@ export default function () {
       });
     }
   );
+
+  /**
+   * @module Common
+   * @function I verify that the {string} of {string} component is {int} when {string} state is {string}
+   * @param {String} propertyName
+   * @param {String} pageName
+   * @param {String} value - value for validation
+   * @param {Integer} elementName
+   * @param {String} state
+   * @example I verify that the 'left' of 'Keyboard' component is '0px' when 'Center Keys' state is 'true'
+   */
+  Then(
+    'I verify that the {string} of {string} component is {int} when {string} state is {string}',
+    (propertyName, pageName, value, componentName, stateName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const property = propertyName.toLowerCase();
+      const component = componentName.toLowerCase();
+
+      let leftValue = null;
+      cy.wait(500).then(() => {
+        pageObject._getElementByName(component)
+          .getStyleAttribute()
+          .then(style => {
+            leftValue = Number(style[property].replace('px', ''));
+            cy.wrap(leftValue)
+              .then(parseFloat)
+              .should('be.closeTo', value, 1);
+          })
+      })
+    }
+  );
 }

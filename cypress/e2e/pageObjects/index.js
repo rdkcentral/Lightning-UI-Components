@@ -24,6 +24,8 @@ import Distractor from './utilities/distractor.utilities';
 import FocusManager from './navigation/focusmanager.navigation';
 import FocusRing from './foundations/focusring.foundations';
 import Icon from './elements/icon.element';
+import Keyboard from './keyboard/keyboard.keyboard';
+import Knob from './utilities/knob.utilities';
 import Label from './metadata/label.metadata';
 import ListItem from './controls/listitem.controls';
 import ProgressBar from './utilities/progressbar.utilities';
@@ -41,7 +43,6 @@ import Tile from './tilesAndCards/tile.tilesandcards';
 import Toggle from './utilities/toggle.utilities';
 import ToggleSmall from './utilities/togglesmall.utilities';
 import Wave from './utilities/wave.utilities';
-import Knob from './utilities/knob.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -70,6 +71,9 @@ export default function getPageObject(pageName) {
     distractor: Distractor,
     focusmanager: FocusManager,
     focusring: FocusRing,
+    icon: Icon,
+    keyboard: Keyboard,
+    knob: Knob,
     label: Label,
     listitem: ListItem,
     progressbar: ProgressBar,
@@ -86,9 +90,7 @@ export default function getPageObject(pageName) {
     tile: Tile,
     toggle: Toggle,
     togglesmall: ToggleSmall,
-    wave: Wave,
-    icon: Icon,
-    knob: Knob
+    wave: Wave
   };
 
   if (pageName in pageObjects) {
