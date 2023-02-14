@@ -8,6 +8,7 @@ export const base = theme => {
     arrowHeight: theme.spacer.xxl,
     arrowSpacing: theme.spacer.md,
     arrowWidth: theme.spacer.xxl,
+    arrowColor: theme.color.fillNeutral,
     containerHeight: theme.spacer.lg + theme.spacer.xs,
     iconLeftSrc: theme.asset.arrowLeft,
     iconRightSrc: theme.asset.arrowRight,

@@ -234,7 +234,9 @@ class Slider extends Base {
     const arrowProps = {
       w: this.style.arrowWidth,
       h: this.style.arrowHeight,
-      color: this.style.arrowColor
+      style: {
+        color: this.style.arrowColor
+      }
     };
     this._LeftArrow.patch({
       ...arrowProps,
