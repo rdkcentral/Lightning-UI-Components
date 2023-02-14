@@ -33,6 +33,7 @@ import Row from './navigation/row.navigation';
 import ScrollWrapper from './layout/scrollwrapper.layout';
 import Slider from './utilities/slider.utilities';
 import SliderLarge from './utilities/sliderlarge.utilities';
+import Surface from './foundations/surface.foundations';
 import Tab from './layout/tab.layout';
 import TabBar from './layout/tabbar.layout';
 import TextBox from './text/textbox.text';
@@ -77,6 +78,7 @@ export default function getPageObject(pageName) {
     scrollwrapper: ScrollWrapper,
     slider: Slider,
     sliderlarge: SliderLarge,
+    surface: Surface,
     tab: Tab,
     tabbar: TabBar,
     textbox: TextBox,
