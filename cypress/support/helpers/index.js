@@ -40,7 +40,8 @@ export const getStoryName = pageName => {
     Tile: 'Tile',
     Toggle: 'Toggle',
     ToggleSmall: 'Toggle',
-    Wave: 'Wave'
+    Wave: 'Wave',
+    Knob: 'Knob'
   };
 
   if (pageName in names) {
