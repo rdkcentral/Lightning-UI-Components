@@ -28,6 +28,8 @@ export const getStoryName = pageName => {
     ControlSmall: 'Control-Small',
     Distractor: 'Distractor',
     FocusRing: 'Focus-Ring',
+    Keyboard: 'Keyboard',
+    Knob: 'Knob',
     Label: 'Label',
     ListItem: 'List-Item',
     ProgressBar: 'Progress-Bar',
@@ -40,8 +42,7 @@ export const getStoryName = pageName => {
     Tile: 'Tile',
     Toggle: 'Toggle',
     ToggleSmall: 'Toggle',
-    Wave: 'Wave',
-    Knob: 'Knob'
+    Wave: 'Wave'
   };
 
   if (pageName in names) {

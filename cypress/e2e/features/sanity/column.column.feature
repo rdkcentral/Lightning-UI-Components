@@ -132,8 +132,8 @@ Feature: Column Basic component validation
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Base  | 4           | 14        | 0         | -120      | -1800     | 500      |
-      | Base  | 9           | 9         | 0         | -120      | -1200     | 500      |
+      | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
+      | Base  | 9           | 9         | 0         | -120      | -1200     | 1000      |
 
   Scenario Outline: Verify scrolling the elements in a column when 'scrollIndex' is set to '<scrollIndex>' and 'alwaysScroll' is true (<theme> theme)
     When I navigate to 'Column' with '<theme>' theme
@@ -153,5 +153,5 @@ Feature: Column Basic component validation
     @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Base  | 4           | 14        | 0         | -120      | -1800     | 500      |
-      | Base  | 9           | 9         | 0         | -120      | -1200     | 500      |
+      | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
+      | Base  | 9           | 9         | 0         | -120      | -1200     | 1000      |
