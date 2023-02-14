@@ -41,6 +41,7 @@ import Tile from './tilesAndCards/tile.tilesandcards';
 import Toggle from './utilities/toggle.utilities';
 import ToggleSmall from './utilities/togglesmall.utilities';
 import Wave from './utilities/wave.utilities';
+import Knob from './utilities/knob.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -86,7 +87,8 @@ export default function getPageObject(pageName) {
     toggle: Toggle,
     togglesmall: ToggleSmall,
     wave: Wave,
-    icon: Icon
+    icon: Icon,
+    knob: Knob
   };
 
   if (pageName in pageObjects) {
