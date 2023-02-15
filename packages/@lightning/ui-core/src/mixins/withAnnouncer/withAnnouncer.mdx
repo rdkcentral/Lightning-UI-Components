@@ -1,8 +1,6 @@
 import { Canvas, Story } from '@storybook/addon-docs';
-// uncomment the line below and edit the path to point to your component
-// import * as stories from './Announcer.stories';
 
-# withAnnouncer Mixin
+# withAnnouncer
 
 Extend your app with the `withAnnouncer` class, that when enabled, allows for relevant information to be voiced along the focus path of the application. On Focus Change events, the `withAnnouncer` class traverses the `_focusPath` property collecting strings or promises of strings to announce to the user. The array of information is passed to a speak function which is responsible for converting the text to speech. We include a default speak function
 which uses the [speechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), but you can replace this with your own implementation by passing a speak function as the second argument to `withAnnouncer`.
@@ -130,6 +128,10 @@ const CustomComp = withAnnouncer(lng.Component, customSpeechImpl, {
   abbreviationsConfig: customAbbrevConfig
 });
 ```
+
+<Canvas>
+  <Story id="accessibility-withannouncer--basic" />
+</Canvas>
 
 ## API
 
