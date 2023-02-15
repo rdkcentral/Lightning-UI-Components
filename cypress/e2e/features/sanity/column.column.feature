@@ -9,11 +9,10 @@ Feature: Column Basic component validation
     When I navigate to 'Column' with '<theme>' theme
     Then I verify that the 'Column' component is displayed
     And I verify there are 20 assets per 'column' on the 'Column' page
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: Column Basic component validation
   Scenario Outline: Verify the dimensions and count of the Column Basic elements (<theme> theme)
     When I navigate to 'Column' with '<theme>' theme
     Then I verify each 'Column Elements' has width of <width> and height of <height> on 'Column' page
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 250   | 80     |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 250   | 100    |
@@ -33,11 +31,10 @@ Feature: Column Basic component validation
   Scenario Outline: Verify row layout and spacing (<theme> theme)
     When I navigate to 'Column' with '<theme>' theme
     Then I verify that 'Column Elements' are vertically evenly spaced for 'Column' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -52,11 +49,10 @@ Feature: Column Basic component validation
     And I press 'DOWN' key 10 times
     And I wait <waitTime> seconds for the page to load
     And I verify that the 'top' of 'Column' component is '<topValue3>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | topValue1 | topValue2 | topValue3 | waitTime |
       | Xfinity | -832px    | -936px    | -1456px   | 1        |
-    @sanity
     Examples:
       | theme | topValue1 | topValue2 | topValue3 | waitTime |
       | Base  | -960px    | -1080px   | -1800px   | 0.5      |
@@ -71,11 +67,10 @@ Feature: Column Basic component validation
     And I press 'DOWN' key 10 times
     And I wait <waitTime> seconds for the page to load
     And I verify that the 'top' of 'Column' 'Column' component is '<topValue2>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | topValue1 | topValue2 | waitTime |
       | Xfinity | -936px    | -1976px   | 1        |
-    @sanity
     Examples:
       | theme | topValue1 | topValue2 | waitTime |
       | Base  | -1080px   | -2280px   | 0.5      |
@@ -84,14 +79,13 @@ Feature: Column Basic component validation
     When I navigate to 'Column' with '<theme>' theme
     And I set the 'scroll' to '<scrolledIndex>' for 'Column' component
     Then I verify that Column Button - <focusedIndex> component is focused
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | scrolledIndex | focusedIndex |
       | Xfinity | 1             | 1            |
       | Xfinity | 5             | 5            |
       | Xfinity | 10            | 10           |
       | Xfinity | 20            | 20           |
-    @sanity
     Examples:
       | theme | scrolledIndex | focusedIndex |
       | Base  | 1             | 1            |
@@ -103,12 +97,11 @@ Feature: Column Basic component validation
     When I navigate to 'Column' with '<theme>' theme
     And I set the 'scroll' to '<scrolledIndex>' for 'Column' component
     Then I verify that Column Button - <focusedIndex> component is focused
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | scrolledIndex | focusedIndex |
       | Xfinity | 0             | 1            |
       | Xfinity | 25            | 20           |
-    @sanity
     Examples:
       | theme | scrolledIndex | focusedIndex |
       | Base  | 0             | 1            |
@@ -124,12 +117,11 @@ Feature: Column Basic component validation
     And I verify that the 'top' of Column component is <topValue2>, wait <waitTime> ms
     And I press 'DOWN' key <numScroll> times
     And I verify that the 'top' of Column component is <topValue3>, wait <waitTime> ms
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
       | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
       | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
-    @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
       | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
@@ -145,12 +137,11 @@ Feature: Column Basic component validation
     And I verify that the 'top' of Column component is <topValue2>, wait <waitTime> ms
     And I press 'DOWN' key <numScroll> times
     And I verify that the 'top' of Column component is <topValue3>, wait <waitTime> ms
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
       | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
       | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
-    @sanity
     Examples:
       | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
       | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
