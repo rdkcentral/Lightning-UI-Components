@@ -8,13 +8,12 @@ Feature: LUI Distractor Basic Component
   Scenario Outline: Verify that Distractor component is displayed (<theme> theme)
     When I navigate to 'Distractor' with '<theme>' theme
     Then I verify that the 'Distractor' '<circleValue>' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | circleValue |
       | Xfinity | Circle1     |
       | Xfinity | Circle2     |
       | Xfinity | Circle3     |
-    @sanity
     Examples:
       | theme   | circleValue |
       | Base    | Circle1     |
@@ -24,13 +23,12 @@ Feature: LUI Distractor Basic Component
   Scenario Outline: Verify that the Distractor components are animating (<theme> theme)
     When I navigate to 'Distractor' with '<theme>' theme
     Then I verify that the 'Distractor' '<circleValue>' component is animating
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | circleValue |
       | Xfinity | Circle1     |
       | Xfinity | Circle2     |
       | Xfinity | Circle3     |
-    @sanity
     Examples:
       | theme   | circleValue |
       | Base    | Circle1     |
