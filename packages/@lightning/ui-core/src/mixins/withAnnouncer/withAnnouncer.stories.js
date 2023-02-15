@@ -101,10 +101,6 @@ export const Basic = () =>
               press CENTER to select`
       ];
     }
-
-    _getFocused() {
-      return this.tag('Column');
-    }
   };
 
 const createRow = items => ({
@@ -164,10 +160,6 @@ export const WithDefaultAbbreviations = () => {
               press UP or DOWN to review categories,
               press CENTER to select`
       ];
-    }
-
-    _getFocused() {
-      return this.tag('Column');
     }
   }
   return WithAbbreviations;
