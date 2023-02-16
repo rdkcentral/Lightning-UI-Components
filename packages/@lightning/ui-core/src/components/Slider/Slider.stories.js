@@ -4,6 +4,7 @@ import TextBox from '../TextBox/index.js';
 import mdx from './Slider.mdx';
 import Slider from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
+import { useArgs } from '@storybook/client-api';
 
 export default {
   title: `${CATEGORIES[512]}/Slider`,
@@ -14,16 +15,26 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Basic = () => {
+  const [{ value }, updateArgs] = useArgs();
+  return class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
-          type: Slider
+          type: Slider,
+          value: value,
+          signals: {
+            onChange: true
+          }
         }
       };
     }
+    // update arg control when value changes
+    onChange(value) {
+      updateArgs({ value });
+    }
   };
+};
 
 Basic.args = {
   min: 0,
@@ -32,6 +43,7 @@ Basic.args = {
   step: 1,
   vertical: false
 };
+
 Basic.argTypes = {
   ...createModeControl({ defaultValue: 'focused' }),
   min: { control: 'number', description: 'Lower bound of value' },
