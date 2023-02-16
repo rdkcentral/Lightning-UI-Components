@@ -2,9 +2,6 @@
   "name": "@lightning/ui",
   "description": "Lightning UI Components",
   "version": "5.6.1",
-  "peerDependencies": {
-    "@lightningjs/core": "^2.7.1"
-  },
   "sideEffects": false,
   "type": "module",
   "exports": {
@@ -25,6 +22,9 @@
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors",
     "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot  --colors"
   },
+  "peerDependencies": {
+    "@lightningjs/core": "^2.9.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@lightning/ui-test-utils": "workspace:^",
@@ -42,8 +42,7 @@
     "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
-    "@lightning/ui-core": "workspace:^",
-    "@lightningjs/core": "^2.7.1"
+    "@lightning/ui-core": "workspace:^"
   },
   "files": [
     "dist/*"

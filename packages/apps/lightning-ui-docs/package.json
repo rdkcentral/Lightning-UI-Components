@@ -19,7 +19,7 @@
     "@babel/plugin-transform-runtime": "^7.19.1",
     "@babel/preset-env": "^7.19.3",
     "@lightning/ui-core": "workspace:^",
-    "@lightningjs/core": "^2.8.1",
+    "@lightningjs/core": "^2.9.0",
     "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-docs": "^6.5.12",

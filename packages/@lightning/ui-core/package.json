@@ -1,9 +1,6 @@
 {
   "name": "@lightning/ui-core",
   "version": "1.8.1",
-  "peerDependencies": {
-    "@lightningjs/core": "^2.7.1"
-  },
   "sideEffects": false,
   "type": "module",
   "exports": {
@@ -24,6 +21,9 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
     "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"
+  },
+  "peerDependencies": {
+    "@lightningjs/core": "^2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

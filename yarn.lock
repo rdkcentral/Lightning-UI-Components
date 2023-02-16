@@ -3152,7 +3152,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": ^2.7.1
+    "@lightningjs/core": ^2.9.0
   languageName: unknown
   linkType: soft
 
@@ -3169,7 +3169,7 @@ __metadata:
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
     "@lightning/ui": ^5.0.0
-    "@lightningjs/core": ^2.7.1
+    "@lightningjs/core": ^2.9.0
   languageName: unknown
   linkType: soft
 
@@ -3178,14 +3178,13 @@ __metadata:
   resolution: "@lightning/ui-test-utils@workspace:packages/@lightning/ui-test-utils"
   dependencies:
     "@lightning/ui-core": "workspace:^"
-    "@lightningjs/core": ^2.7.1
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
     jest-webgl-canvas-mock: ^0.2.3
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": ^2.7.1
+    "@lightningjs/core": ^2.9.0
   languageName: unknown
   linkType: soft
 
@@ -3196,7 +3195,6 @@ __metadata:
     "@babel/core": ^7.19.3
     "@lightning/ui-core": "workspace:^"
     "@lightning/ui-test-utils": "workspace:^"
-    "@lightningjs/core": ^2.7.1
     "@mdx-js/react": ^1.6.22
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
@@ -3210,21 +3208,14 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": ^2.7.1
+    "@lightningjs/core": ^2.9.0
   languageName: unknown
   linkType: soft
 
-"@lightningjs/core@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "@lightningjs/core@npm:2.7.1"
-  checksum: 0f3b8aefdc63afd9d0d65b5fc4d85865d101c4ee73e2b99743bf4ced5c02a75e98f98813de70fdce02834d01fd81e52b457c1dacc33d2d9c37de4e55a7fc45b0
-  languageName: node
-  linkType: hard
-
-"@lightningjs/core@npm:^2.8.1":
-  version: 2.8.1
-  resolution: "@lightningjs/core@npm:2.8.1"
-  checksum: 4b21faffa40643728c88d19fcb85051c02c35076b68947def3641339b38a96360c0c73ff80e2ec56bf7df684b3b3c79b1087856ebcb128566930d4b0152802bb
+"@lightningjs/core@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "@lightningjs/core@npm:2.9.0"
+  checksum: a101a1eee5dd7a0f006e471a34858c6bb9d50d5ab4db1ecbc2a40a64ca43b1598803fe208b3cd871bb043101ab84992dd1b6d54d794fcf1a4081f503a1d5c740
   languageName: node
   linkType: hard
 
@@ -16175,7 +16166,7 @@ __metadata:
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
     "@lightning/ui-core": "workspace:^"
-    "@lightningjs/core": ^2.8.1
+    "@lightningjs/core": ^2.9.0
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
     "@storybook/addon-docs": ^6.5.12

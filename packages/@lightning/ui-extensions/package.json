@@ -15,7 +15,7 @@
   "types": "./dist/lightning-ui-extensions.d.ts",
   "peerDependencies": {
     "@lightning/ui": "^5.0.0",
-    "@lightningjs/core": "^2.7.1"
+    "@lightningjs/core": "^2.9.0"
   },
   "sideEffects": false,
   "scripts": {

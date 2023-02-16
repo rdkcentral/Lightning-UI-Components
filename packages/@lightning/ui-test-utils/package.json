@@ -7,7 +7,7 @@
     "src/*"
   ],
   "peerDependencies": {
-    "@lightningjs/core": "^2.7.1"
+    "@lightningjs/core": "^2.9.0"
   },
   "devDependencies": {
     "jest": "^29.3.1",
@@ -17,7 +17,6 @@
     "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
-    "@lightning/ui-core": "workspace:^",
-    "@lightningjs/core": "^2.7.1"
+    "@lightning/ui-core": "workspace:^"
   }
 }
