@@ -16,7 +16,7 @@ export default {
   }
 };
 
-function getCommponentArray(comps) {
+function getComponentArray(comps) {
   let arr = [];
   switch (comps) {
     case 'icon':
@@ -103,10 +103,10 @@ const sharedArgTypes = {
 };
 const sharedArgActions = {
   prefix: (prefix, component) => {
-    component.tag('Button').prefix = getCommponentArray(prefix);
+    component.tag('Button').prefix = getComponentArray(prefix);
   },
   suffix: (suffix, component) => {
-    component.tag('Button').suffix = getCommponentArray(suffix);
+    component.tag('Button').suffix = getComponentArray(suffix);
   }
 };
 
