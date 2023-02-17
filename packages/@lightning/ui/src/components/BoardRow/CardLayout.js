@@ -22,8 +22,8 @@ export default class CardLayout extends BaseLayout {
     return ['CardContentVertical'];
   }
 
-  _updateItems() {
-    const formattedItems = this.items.map(item => {
+  _updateItems(items) {
+    const formattedItems = items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(

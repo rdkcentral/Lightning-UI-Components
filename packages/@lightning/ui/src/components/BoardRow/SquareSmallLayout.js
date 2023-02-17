@@ -14,9 +14,9 @@ export default class SquareSmallLayout extends BaseLayout {
     return SquareSmallLayout._cardHeight * 2 + itemSpacing;
   }
 
-  _updateItems() {
+  _updateItems(items) {
     // Create two arrays
-    const formattedItems = this.items.reduce((acc, curr) => {
+    const formattedItems = items.reduce((acc, curr) => {
       const component = {
         ...curr,
         type: BoardRowComponent(curr.type, this.srcCallback),

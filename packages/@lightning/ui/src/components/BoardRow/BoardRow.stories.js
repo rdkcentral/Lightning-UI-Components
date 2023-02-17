@@ -3,8 +3,8 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './BoardRow.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { Column, context, Tile, utils } from '@lightning/ui-core';
-import { CardContent, CardContentVertical } from '../CardContent';
+import { context, utils } from '@lightning/ui-core';
+import { CardContentVertical, Column } from '@lightning/ui';
 
 export default {
   title: `${CATEGORIES[64]}/BoardRow`,
@@ -22,109 +22,102 @@ const cardData = {
   details: 'Details'
 };
 
-const getItems = type => {
-  return [
-    {
-      src: '7245349740136736112',
-      metadata: {
-        title: 'Tenet',
-        description:
-          'Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
-        ...cardData
-      },
-      onEnter: () => {
-        alert('Tenet card onEnter');
-      }
+const boardRowItems = [
+  {
+    src: '7245349740136736112',
+    metadata: {
+      title: 'Tenet',
+      description:
+        'Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
+      ...cardData
     },
-    {
-      src: '7615274088441709112',
-      metadata: {
-        title: 'Antebellum',
-        description:
-          "Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.",
-        ...cardData
-      }
-    },
-    {
-      src: '4787646614985090112',
-      metadata: {
-        title: 'Bill & Ted Face the Music',
-        logo: lightningbolt,
-        description:
-          "Once told they'd save the universe during a time-traveling adventure, 2 would-be rockers from San Dimas, California find themselves as middle-aged dads still trying to crank out a hit song and fulfill their destiny.",
-        ...cardData
-      }
-    },
-    {
-      src: '6366577040434117112',
-      metadata: {
-        title: 'Onward',
-        description:
-          'Two elven brothers embark on a quest to bring their father back for one day.',
-        ...cardData
-      }
-    },
-    {
-      src: '5879798181352259112',
-      metadata: {
-        title: 'Fear The Walking Dead',
-        description:
-          'A Walking Dead spinoff set in Los Angeles, California. Follows two families who must band together to survive the undead apocalypse.',
-        ...cardData
-      }
-    },
-    {
-      src: '6702815185485076112',
-      metadata: {
-        title: 'The New Mutants',
-        description:
-          'Five young mutants, just discovering their abilities while held in a secret facility against their will, fight to escape their past sins and save themselves.',
-        ...cardData
-      }
-    },
-    {
-      src: '7762245375893944112',
-      metadata: {
-        title: 'Wonder Woman 1984',
-        description:
-          'Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.',
-        ...cardData
-      }
-    },
-    {
-      src: '5369987084856006112',
-      metadata: {
-        title: 'Vikings',
-        description:
-          'Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.',
-        ...cardData
-      }
-    },
-    {
-      src: '7108813814104030112',
-      metadata: {
-        title: 'The Invisible Man',
-        description:
-          "When Cecilia's abusive ex takes his own life and leaves her his fortune, she suspects his death was a hoax. As a series of coincidences turn lethal, Cecilia works to prove that she is being hunted by someone nobody can see.",
-        ...cardData
-      }
-    },
-    {
-      src: '6030648778584858112',
-      metadata: {
-        title: 'Birds Of Prey',
-        description:
-          'After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.',
-        ...cardData
-      }
+    onEnter: () => {
+      alert('Tenet card onEnter');
     }
-  ].map(item => {
-    return {
-      ...item,
-      type
-    };
-  });
-};
+  },
+  {
+    src: '7615274088441709112',
+    metadata: {
+      title: 'Antebellum',
+      description:
+        "Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.",
+      ...cardData
+    }
+  },
+  {
+    src: '4787646614985090112',
+    metadata: {
+      title: 'Bill & Ted Face the Music',
+      logo: lightningbolt,
+      description:
+        "Once told they'd save the universe during a time-traveling adventure, 2 would-be rockers from San Dimas, California find themselves as middle-aged dads still trying to crank out a hit song and fulfill their destiny.",
+      ...cardData
+    }
+  },
+  {
+    src: '6366577040434117112',
+    metadata: {
+      title: 'Onward',
+      description:
+        'Two elven brothers embark on a quest to bring their father back for one day.',
+      ...cardData
+    }
+  },
+  {
+    src: '5879798181352259112',
+    metadata: {
+      title: 'Fear The Walking Dead',
+      description:
+        'A Walking Dead spinoff set in Los Angeles, California. Follows two families who must band together to survive the undead apocalypse.',
+      ...cardData
+    }
+  },
+  {
+    src: '6702815185485076112',
+    metadata: {
+      title: 'The New Mutants',
+      description:
+        'Five young mutants, just discovering their abilities while held in a secret facility against their will, fight to escape their past sins and save themselves.',
+      ...cardData
+    }
+  },
+  {
+    src: '7762245375893944112',
+    metadata: {
+      title: 'Wonder Woman 1984',
+      description:
+        'Diana must contend with a work colleague and businessman, whose desire for extreme wealth sends the world down a path of destruction, after an ancient artifact that grants wishes goes missing.',
+      ...cardData
+    }
+  },
+  {
+    src: '5369987084856006112',
+    metadata: {
+      title: 'Vikings',
+      description:
+        'Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.',
+      ...cardData
+    }
+  },
+  {
+    src: '7108813814104030112',
+    metadata: {
+      title: 'The Invisible Man',
+      description:
+        "When Cecilia's abusive ex takes his own life and leaves her his fortune, she suspects his death was a hoax. As a series of coincidences turn lethal, Cecilia works to prove that she is being hunted by someone nobody can see.",
+      ...cardData
+    }
+  },
+  {
+    src: '6030648778584858112',
+    metadata: {
+      title: 'Birds Of Prey',
+      description:
+        'After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.',
+      ...cardData
+    }
+  }
+];
 
 // Example of asynchronous callback
 function srcCallback({ type, src, w, h }) {
@@ -195,28 +188,10 @@ export const Basic = args =>
         neverScroll: args.neverScroll,
         lazyScroll: args.lazyScroll,
         scrollIndex: args.scrollIndex,
-        // Board Row item content
-        items: (() => {
-          let items;
-          switch (args.layout) {
-            case 'card':
-              items = getItems(CardContentVertical);
-              break;
-            default:
-              items = getItems(Tile);
-          }
-          return [
-            {
-              title: 'Horizontal Card',
-              type: CardContent
-            },
-            ...items
-          ];
-        })(),
-        // Layout will default to standard if not specified
         layout: args.layout,
-        // Boolean to show view all tile at end of board rows. Will not show if onEnter is not specified
         viewAll: args.viewAll,
+        items: boardRowItems,
+
         // sync or async function that will generate a final src if specified
         srcCallback
       };
@@ -232,72 +207,107 @@ export const Basic = args =>
       };
     }
 
-    set args(args) {
-      this.tag('Column').items.foreach(boardRow => boardRow.patch(args));
-    }
-
     _getFocused() {
       return this.tag('Column');
     }
   };
 
+Basic.args = {
+  layout: 'standard',
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  lazyScroll: false,
+  viewAll: true
+};
+
 Basic.argTypes = {
   layout: {
-    defaultValue: 'standard',
+    control: 'select',
+    options: ['standard', 'hero', 'poster', 'card', 'square', 'squareSmall'],
     description: 'Layout of BoardRow items',
     table: {
-      defaultValue: { summary: 'standard' }
-    },
-    control: {
-      type: 'select',
-      options: ['standard', 'hero', 'poster', 'card', 'square', 'squareSmall']
+      defaultValue: { summary: Basic.args.layout }
     }
   },
   scrollIndex: {
-    defaultValue: 0,
+    control: 'number',
     description:
       'Item index at which scrolling begins, provided the sum of item widths is greater than the width of the BoardRow',
     table: {
-      defaultValue: { summary: 0 }
-    },
-    control: 'number'
+      defaultValue: { summary: Basic.args.scrollIndex }
+    }
   },
   alwaysScroll: {
-    defaultValue: false,
+    control: 'boolean',
     description:
       'Determines whether the row will stop scrolling as it nears the right to prevent white space',
     table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean'
+      defaultValue: { summary: Basic.args.alwaysScroll }
+    }
   },
   neverScroll: {
-    defaultValue: false,
+    control: 'boolean',
     description:
       'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
     table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean'
+      defaultValue: { summary: Basic.args.neverScroll }
+    }
   },
   lazyScroll: {
-    defaultValue: false,
+    control: 'boolean',
     description:
       'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean'
+      defaultValue: { summary: Basic.args.lazyScroll }
+    }
   },
   viewAll: {
-    defaultValue: 'true',
+    control: 'boolean',
     description:
       'Determines if another MenuCard will be added at the end of the BoardRow',
     table: {
-      defaultValue: { summary: true }
-    },
-    control: 'boolean'
+      defaultValue: { summary: Basic.args.viewAll }
+    }
   }
 };
 
-Basic.parameters = {};
+Basic.parameters = {
+  argActions: {
+    layout: (layout, component) => {
+      // updates menucard title
+      component.tag('Column').items.forEach(boardrow => {
+        boardrow.menuCard.title = `${
+          layout ? capitalizeFirstLetter(layout) : 'Standard'
+        } Layout`;
+        // updates layout
+        boardrow.layout = layout;
+      });
+    },
+    alwaysScroll: (alwaysScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.alwaysScroll = alwaysScroll));
+    },
+    scrollIndex: (scrollIndex, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.scrollIndex = scrollIndex));
+    },
+    lazyScroll: (lazyScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.lazyScroll = lazyScroll));
+    },
+    neverScroll: (neverScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.neverScroll = neverScroll));
+    },
+    viewAll: (viewAll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.viewAll = viewAll));
+    }
+  }
+};

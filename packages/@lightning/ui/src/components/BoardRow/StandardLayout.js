@@ -16,8 +16,8 @@ export default class StandardLayout extends BaseLayout {
     return StandardLayout._cardHeight * 2 + itemSpacing;
   }
 
-  _updateItems() {
-    const formattedItems = this.items.reduce((acc, curr) => {
+  _updateItems(items) {
+    const formattedItems = items.reduce((acc, curr) => {
       const Component = BoardRowComponent(curr.type, this.srcCallback);
       const component = {
         ...curr,

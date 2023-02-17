@@ -15,8 +15,8 @@ export default class SquareLayout extends BaseLayout {
     return SquareLayout._cardHeight;
   }
 
-  _updateItems() {
-    const formattedItems = this.items.map(item => {
+  _updateItems(items) {
+    const formattedItems = items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(item.type, this.srcCallback),

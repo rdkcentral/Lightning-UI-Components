@@ -63,10 +63,18 @@ class BoardRow extends Base {
   _unfocus() {}
 
   _init() {
+    this._renderLayout();
     super._init();
+  }
+
+  _renderLayout() {
+    // removes Layout if exists and replaces with new Layout
+    if (this._Layout) {
+      this.patch({ Layout: undefined });
+    }
     const normalizeTypeName =
-      typeof this.layout === 'string' ? this.layout.toLowerCase() : null;
-    this.layout = LAYOUTS[normalizeTypeName] ? normalizeTypeName : 'standard';
+      typeof this._layout === 'string' ? this._layout.toLowerCase() : null;
+    this._layout = LAYOUTS[normalizeTypeName] ? normalizeTypeName : 'standard';
     this._createLayout();
   }
 
@@ -75,6 +83,18 @@ class BoardRow extends Base {
       this._Layout.patch(this._layoutProperties);
       this._calculateHeight(this.style.itemSpacing);
     }
+  }
+
+  set layout(layout) {
+    if (layout !== this._layout) {
+      this._layout = layout;
+      this._renderLayout();
+      this.queueRequestUpdate();
+    }
+  }
+
+  get layout() {
+    return this._layoutProperties;
   }
 
   get _layoutProperties() {
@@ -86,14 +106,15 @@ class BoardRow extends Base {
       acc[curr] = this[curr];
       return acc;
     }, {});
+
     return { ...props, itemSpacing: this.style.itemSpacing };
   }
 
   _calculateHeight() {
     // Get the correct height from the current selected layout
     this.h =
-      this.layout && LAYOUTS[this.layout]
-        ? LAYOUTS[this.layout]._calcTotalHeight(this.style.itemSpacing)
+      this._layout && LAYOUTS[this._layout]
+        ? LAYOUTS[this._layout]._calcTotalHeight(this.style.itemSpacing)
         : LAYOUTS['standard']._calcTotalHeight(this.style.itemSpacing);
   }
 
@@ -114,11 +135,10 @@ class BoardRow extends Base {
   }
 
   _createLayout() {
-    const layout = this.layout;
+    const layout = this._layout;
     // do not include items in the update lifecycle
     const layoutProps = BoardRow.properties;
     layoutProps.splice(BoardRow.properties.indexOf('items'), 1);
-
     this.patch({
       Layout: {
         type: class extends LAYOUTS[layout] {
@@ -131,7 +151,6 @@ class BoardRow extends Base {
             return LAYOUTS[layout];
           }
         },
-
         w: this.w
       }
     });

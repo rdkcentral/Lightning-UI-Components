@@ -86,15 +86,13 @@ class BaseLayout extends Base {
       h: this._layoutType._calcTotalHeight(this.itemSpacing),
       type: CardTitle
     };
-
     return card;
   }
 
   set items(items) {
     // need to wait for other properties to load, like the itemSpacing, srcCallbacks, etc.
     this._whenEnabled.then(() => {
-      this._items = this._processItems(items);
-      this._updateItems();
+      this._updateItems(this._processItems(items));
     });
   }
 
@@ -109,41 +107,38 @@ class BaseLayout extends Base {
       CardContent
     };
 
-    return items
-      .filter(item => {
-        const isForbiddenType = this._invalidItemTypes.find(
-          type =>
-            (item.type && item.type === types[type]) ||
-            types[type].isPrototypeOf(item.type)
-        );
-        if (isForbiddenType) {
-          warningMessage.call(this, item);
-          return false;
-        }
-        const valid = this._validItemTypes.find(
-          type =>
-            (item.type && item.type === types[type]) ||
-            types[type].isPrototypeOf(item.type)
-        );
-        if (!valid) {
-          warningMessage.call(this, item);
-        }
-        return !!valid;
-      })
-      .map(item => {
-        const updatedItem = {
-          ...item
-        };
-        if (
-          (item.type && item.type === Tile) ||
-          Tile.isPrototypeOf(item.type)
-        ) {
-          updatedItem.type = item.type;
-          updatedItem.metadataLocation = 'inset';
-          updatedItem.title = undefined;
-        }
-        return updatedItem;
-      });
+    return items.map(item => {
+      const isForbiddenType = this._invalidItemTypes.find(
+        type =>
+          (item.type && item.type === types[type]) ||
+          types[type].isPrototypeOf(item.type)
+      );
+
+      if (isForbiddenType) {
+        warningMessage.call(this, item);
+        return false;
+      }
+
+      const valid = this._validItemTypes.find(
+        type =>
+          (item.type && item.type === types[type]) ||
+          types[type].isPrototypeOf(item.type)
+      );
+      // if invalid assign previous valid type
+      if (!valid) {
+        warningMessage.call(this, item);
+        item.type = types[this._validItemTypes[0]];
+      }
+      const updatedItem = {
+        ...item
+      };
+      if ((item.type && item.type === Tile) || Tile.isPrototypeOf(item.type)) {
+        updatedItem.type = item.type;
+        updatedItem.metadataLocation = 'inset';
+        updatedItem.title = undefined;
+      }
+      return updatedItem;
+    });
   }
 
   _updateItems(formattedItems) {
