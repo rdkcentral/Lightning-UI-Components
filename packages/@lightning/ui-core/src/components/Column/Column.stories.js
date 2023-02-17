@@ -540,20 +540,20 @@ LazyUpCount.args = {
   scrollIndex: 0,
   lazyUpCount: 5,
   itemTransition: 0.4,
-  alwaysScroll: false
+  alwaysScroll: false,
+  scroll: 1
 };
 
 LazyUpCount.argTypes = {
   itemTransition: {
-    control: { type: 'number', min: 0, step: 0.1 },
-    description: 'Transition to apply to items on render ',
-    table: { defaultValue: { summary: 0 } }
+    table: {
+      disable: true // removes control from story
+    }
   },
   scroll: {
-    control: 'select',
-    options: [1, 5, 15, 20],
-    description: 'Scroll to selected index',
-    table: { defaultValue: { summary: 1 } }
+    table: {
+      disable: true // removes control from story
+    }
   },
   scrollIndex: {
     control: { type: 'number', min: 0 },

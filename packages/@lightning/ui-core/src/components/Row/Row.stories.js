@@ -424,13 +424,14 @@ export const LazyUpCount = args =>
   };
 LazyUpCount.args = {
   ...sharedArgs,
-  lazyUpCount: 4
+  lazyUpCount: 5
 };
 LazyUpCount.argTypes = {
   ...sharedArgTypes,
   lazyUpCount: {
     control: 'number',
-    description: 'Some description',
+    description:
+      'Number of items to create on screen and new items will be created as user presses right on row.',
     table: {
       defaultValue: { summary: 'undefined' }
     }

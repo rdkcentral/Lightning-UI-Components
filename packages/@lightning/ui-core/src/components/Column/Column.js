@@ -140,6 +140,8 @@ class Column extends NavigationManager {
     this.shouldSmooth = false;
 
     if (items.length > this.lazyUpCount + 2) {
+      // +2 is a buffer added for fast scrolling
+      // TODO: add bufferCount as a property
       this._lazyItems = items.splice(this.lazyUpCount + 2);
     }
 
