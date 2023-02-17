@@ -111,6 +111,7 @@ describe('Icon', () => {
 
   describe('handleTxtError', () => {
     let icon;
+
     beforeEach(() => {
       jest.clearAllMocks();
       Icon.prototype._handleTxtError = jest.fn();

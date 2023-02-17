@@ -33,14 +33,14 @@ const mockItemsValid = type => {
 const createComponent = makeCreateComponent(BoardRow);
 
 describe('BoardRow', () => {
-  let component, testRenderer;
+  let boardRow, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({ spyOnMethods: ['_update'] });
+    [boardRow, testRenderer] = createComponent({ spyOnMethods: ['_update'] });
   });
 
   afterEach(() => {
-    component = null;
+    boardRow = null;
     testRenderer = null;
   });
 
@@ -51,64 +51,64 @@ describe('BoardRow', () => {
 
   it('should have a height if layout is not defined', () => {
     // layout should default to standard if none is provided
-    expect(component.layout).toEqual('standard');
-    expect(component.h).toEqual(
-      StandardLayout._calcTotalHeight(component.style.itemSpacing)
+    expect(boardRow.layout).toEqual('standard');
+    expect(boardRow.h).toEqual(
+      StandardLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for default layout', () => {
-    const component = createComponent({ layout: 'standard' })[0];
-    expect(component.h).toEqual(
-      StandardLayout._calcTotalHeight(component.style.itemSpacing)
+    const boardRow = createComponent({ layout: 'standard' })[0];
+    expect(boardRow.h).toEqual(
+      StandardLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for hero layout', () => {
-    const component = createComponent({ layout: 'hero' })[0];
-    expect(component.h).toEqual(
-      HeroLayout._calcTotalHeight(component.style.itemSpacing)
+    const boardRow = createComponent({ layout: 'hero' })[0];
+    expect(boardRow.h).toEqual(
+      HeroLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for poster layout', () => {
-    const component = createComponent({ layout: 'poster' })[0];
-    expect(component.h).toEqual(
-      PosterLayout._calcTotalHeight(component.style.itemSpacing)
+    const boardRow = createComponent({ layout: 'poster' })[0];
+    expect(boardRow.h).toEqual(
+      PosterLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for card layout', () => {
-    const component = createComponent({ layout: 'card' })[0];
-    const roundedHeight = Math.round(component.h * 100) / 100;
+    const boardRow = createComponent({ layout: 'card' })[0];
+    const roundedHeight = Math.round(boardRow.h * 100) / 100;
     expect(roundedHeight).toEqual(
-      CardLayout._calcTotalHeight(component.style.itemSpacing)
+      CardLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for square layout', () => {
-    const component = createComponent({ layout: 'square' })[0];
-    expect(component.h).toEqual(
-      SquareLayout._calcTotalHeight(component.style.itemSpacing)
+    const boardRow = createComponent({ layout: 'square' })[0];
+    expect(boardRow.h).toEqual(
+      SquareLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should deliver the correct height for square small layout', () => {
-    const component = createComponent({ layout: 'squareSmall' })[0];
-    expect(component.h).toEqual(
-      SquareSmallLayout._calcTotalHeight(component.style.itemSpacing)
+    const boardRow = createComponent({ layout: 'squareSmall' })[0];
+    expect(boardRow.h).toEqual(
+      SquareSmallLayout._calcTotalHeight(boardRow.style.itemSpacing)
     );
   });
 
   it('should accept all properties for menuCard', () => {
-    [component] = createComponent({ menuCard });
+    [boardRow] = createComponent({ menuCard });
     expect(
-      component._Layout.constructor.properties.includes('menuCard')
+      boardRow._Layout.constructor.properties.includes('menuCard')
     ).toEqual(true);
-    expect(component._Layout.MenuCard.title).toEqual('Test title');
-    expect(component._Layout.MenuCard.description).toEqual('Test description');
-    expect(typeof component._Layout.MenuCard.onEnter).toBe('function');
-    expect(typeof component._Layout.MenuCard.onInfo).toBe('function');
+    expect(boardRow._Layout.MenuCard.title).toEqual('Test title');
+    expect(boardRow._Layout.MenuCard.description).toEqual('Test description');
+    expect(typeof boardRow._Layout.MenuCard.onEnter).toBe('function');
+    expect(typeof boardRow._Layout.MenuCard.onInfo).toBe('function');
   });
 
   it('should accept all valid row props', () => {
@@ -126,35 +126,35 @@ describe('BoardRow', () => {
 
     expect(
       rowProps.every(prop =>
-        component._Layout.constructor.properties.includes(prop)
+        boardRow._Layout.constructor.properties.includes(prop)
       )
     ).toBe(true);
   });
 
   it('should execute function if enter is pressed while focused on the first vertical card', async () => {
-    [component, testRenderer] = createComponent(
+    [boardRow, testRenderer] = createComponent(
       {
         menuCard,
         items: mockItemsValid(Tile)
       },
       { spyOnMethods: ['_update'] }
     );
-    await component.__updatePromiseSpy;
+    await boardRow.__updatePromiseSpy;
 
-    const spy = jest.spyOn(component._Layout._Row.items[0], 'onEnter');
+    const spy = jest.spyOn(boardRow._Layout._Row.items[0], 'onEnter');
     testRenderer.keyPress('Enter');
     expect(spy).toBeCalled();
   });
 
   it('should accept viewAll prop', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       viewAll: true
     });
-    expect(component.viewAll).toBe(true);
+    expect(boardRow.viewAll).toBe(true);
   });
 
   it('should show a duplicate the verticalCard dynamic at the end of the row if viewAll is equal to true', async () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       viewAll: true,
       menuCard
     });
@@ -175,20 +175,20 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
 
     expect(
-      component._Layout._Row.items[component._Layout._Row.items.length - 1]
+      boardRow._Layout._Row.items[boardRow._Layout._Row.items.length - 1]
         .constructor.name
-    ).toEqual(component._Layout._Row.items[0].constructor.name);
+    ).toEqual(boardRow._Layout._Row.items[0].constructor.name);
   });
 
   it('should show standard layout update', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'standard'
     });
-    expect(component._Layout._layoutType.name).toBe('StandardLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it.skip('should display items in the proper order for standard layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'standard',
       items: mockItemsValid(Tile),
       menuCard
@@ -210,7 +210,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().firstLine).toBe('Item 1');
@@ -227,14 +227,14 @@ describe('BoardRow', () => {
   });
 
   it('should show hero layout', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'hero'
     });
-    expect(component._Layout._layoutType.name).toBe('HeroLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('HeroLayout');
   });
 
   it.skip('should display items in the proper order for hero layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'hero',
       items: mockItemsValid(Tile),
       menuCard
@@ -255,7 +255,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().firstLine).toBe('Item 1');
@@ -272,14 +272,14 @@ describe('BoardRow', () => {
   });
 
   it('should show poster layout', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'poster'
     });
-    expect(component._Layout._layoutType.name).toBe('PosterLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('PosterLayout');
   });
 
   it.skip('should display items in the proper order for poster layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'poster',
       items: mockItemsValid(Tile),
       menuCard
@@ -300,7 +300,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().firstLine).toBe('Item 1');
@@ -317,14 +317,14 @@ describe('BoardRow', () => {
   });
 
   it('should show card layout', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'card'
     });
-    expect(component._Layout._layoutType.name).toBe('CardLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('CardLayout');
   });
 
   it.skip('should display items in the proper order for card layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'card',
       items: mockItemsValid(CardContentVertical),
       menuCard
@@ -345,7 +345,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().title).toBe('Item 1');
@@ -362,14 +362,14 @@ describe('BoardRow', () => {
   });
 
   it('should show square layout', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'square'
     });
-    expect(component._Layout._layoutType.name).toBe('SquareLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('SquareLayout');
   });
 
   it.skip('should display items in the proper order for square layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'square',
       items: mockItemsValid(Tile),
       menuCard
@@ -390,7 +390,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().firstLine).toBe('Item 1');
@@ -407,14 +407,14 @@ describe('BoardRow', () => {
   });
 
   it('should show squareSmall layout', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'squareSmall'
     });
-    expect(component._Layout._layoutType.name).toBe('SquareSmallLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('SquareSmallLayout');
   });
 
   it.skip('should display items in the proper order for squareSmall layout', async done => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'squareSmall',
       items: mockItemsValid(Tile),
       menuCard
@@ -435,7 +435,7 @@ describe('BoardRow', () => {
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
       testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
-    await component._whenEnabled;
+    await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().firstLine).toBe('Item 1');
@@ -452,16 +452,16 @@ describe('BoardRow', () => {
   });
 
   it('should fallback to the standard layout if none specified', () => {
-    expect(component._Layout._layoutType.name).toBe('StandardLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it('should fallback to the standard layout if wrong value is specified', () => {
-    [component, testRenderer] = createComponent({
+    [boardRow, testRenderer] = createComponent({
       layout: 'foobar',
       items: mockItemsValid(Tile)
     });
 
-    expect(component._Layout._layoutType.name).toBe('StandardLayout');
+    expect(boardRow._Layout._layoutType.name).toBe('StandardLayout');
   });
 
   it('should return each item in items as a BoardRowComponent that extends the item type', () => {
@@ -475,7 +475,7 @@ describe('BoardRow', () => {
       BoardRowComponent(Tile, mock)
     );
 
-    [component, testRenderer] = createTileComponent({
+    [boardRow, testRenderer] = createTileComponent({
       srcCached: jurassic
     });
 

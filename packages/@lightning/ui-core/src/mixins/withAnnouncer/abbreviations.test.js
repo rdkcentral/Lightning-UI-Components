@@ -27,6 +27,7 @@ describe('generateAbbrevConfig', () => {
       }
     });
   });
+
   it('should extend the default abbreviation config to generate an abbreviation translation config for announcer', () => {
     const config = generateAbbrevConfig(customAbbreviations, true);
 
@@ -62,10 +63,12 @@ describe('translateAbbrev', () => {
       'Show Season 12 Episode 4 (Closed Captions available) Available in English and Spanish Rated TV-14, High Definition available - Rotten Tomatoes 100%';
     expect(translateAbbrev(phrase, defaultAbbrevConfig)).toEqual(translated);
   });
+
   it('should not match and replace substrings', () => {
     const phrase = 'ART vaCCum ADvertisements';
     expect(translateAbbrev(phrase, defaultAbbrevConfig)).toEqual(phrase);
   });
+
   it('should replace abbreviations defined in a custom configuration', () => {
     const phrase = 'PB+J on TV Ep4 (CC)';
     const config = generateAbbrevConfig(customAbbreviations, true);

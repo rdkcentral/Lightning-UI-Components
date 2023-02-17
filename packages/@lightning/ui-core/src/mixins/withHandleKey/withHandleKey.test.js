@@ -9,7 +9,7 @@ import context from '../../globals/context';
 import withHandleKey from './index.js';
 
 describe('withHandleKey', () => {
-  let HandleKeyComponent, testRenderer, mockedContext;
+  let handleKeyComponent, testRenderer, mockedContext;
   class Example extends lng.Component {}
 
   beforeAll(() => {
@@ -17,7 +17,7 @@ describe('withHandleKey', () => {
   });
 
   beforeEach(() => {
-    [HandleKeyComponent, testRenderer] = makeCreateComponent(
+    [handleKeyComponent, testRenderer] = makeCreateComponent(
       withHandleKey(Example),
       {},
       {
@@ -29,7 +29,7 @@ describe('withHandleKey', () => {
   });
 
   afterEach(() => {
-    HandleKeyComponent = null;
+    handleKeyComponent = null;
   });
 
   afterAll(() => {
@@ -37,20 +37,20 @@ describe('withHandleKey', () => {
   });
 
   it('extends the base class', () => {
-    expect(HandleKeyComponent.constructor.name).toBe('Example');
+    expect(handleKeyComponent.constructor.name).toBe('Example');
   });
 
   it('calls onEnter on key press down', () => {
-    HandleKeyComponent.onDown = jest.fn();
+    handleKeyComponent.onDown = jest.fn();
     testRenderer.keyPress('Down');
-    expect(HandleKeyComponent.onDown).toHaveBeenCalled();
+    expect(handleKeyComponent.onDown).toHaveBeenCalled();
   });
 
   it('calls keyMeyricsCallback with metricsPayload on key press down', () => {
-    HandleKeyComponent.onDown = jest.fn();
-    HandleKeyComponent.metricsPayload = { id: 123, saved: true };
+    handleKeyComponent.onDown = jest.fn();
+    handleKeyComponent.metricsPayload = { id: 123, saved: true };
     testRenderer.keyPress('Down');
-    expect(HandleKeyComponent.onDown).toHaveBeenCalled();
+    expect(handleKeyComponent.onDown).toHaveBeenCalled();
     expect(mockedContext.keyMetricsCallback).toHaveBeenCalledTimes(1);
     expect(mockedContext.keyMetricsCallback).toHaveBeenNthCalledWith(
       1,
@@ -63,26 +63,26 @@ describe('withHandleKey', () => {
   });
 
   it('does not call onEnter on key down up', () => {
-    HandleKeyComponent.onDown = jest.fn();
+    handleKeyComponent.onDown = jest.fn();
     testRenderer.keyRelease('Down');
-    expect(HandleKeyComponent.onDown).not.toHaveBeenCalled();
+    expect(handleKeyComponent.onDown).not.toHaveBeenCalled();
   });
 
   it('call onEnterRelease on key enter up', () => {
-    HandleKeyComponent.onEnterRelease = jest.fn();
+    handleKeyComponent.onEnterRelease = jest.fn();
     testRenderer.keyRelease('Enter');
-    expect(HandleKeyComponent.onEnterRelease).toHaveBeenCalled();
+    expect(handleKeyComponent.onEnterRelease).toHaveBeenCalled();
   });
 
   it('does not call onEnterRelease on key enter down', () => {
-    HandleKeyComponent.onEnterRelease = jest.fn();
+    handleKeyComponent.onEnterRelease = jest.fn();
     testRenderer.keyPress('Enter');
-    expect(HandleKeyComponent.onEnterRelease).not.toHaveBeenCalled();
+    expect(handleKeyComponent.onEnterRelease).not.toHaveBeenCalled();
   });
 
   it('fallback to keymap key resolution', () => {
-    HandleKeyComponent.onSideways = jest.fn();
+    handleKeyComponent.onSideways = jest.fn();
     testRenderer.keyPress({ key: '', keyCode: 777 });
-    expect(HandleKeyComponent.onSideways).toHaveBeenCalled();
+    expect(handleKeyComponent.onSideways).toHaveBeenCalled();
   });
 });

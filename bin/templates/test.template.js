@@ -1,16 +1,19 @@
-module.exports = name => `import TestUtils from '../../../test/lightning-test-utils';
+module.exports = name => {
+  const camelCaseName = name.charAt(0).toLowerCase() + name.slice(1);;
+  return `import { makeCreateComponent } from '@lightning/ui-test-utils';
 import ${name} from '.';
 
-const createComponent = TestUtils.makeCreateComponent(${name});
+const createComponent = makeCreateComponent(${name});
 
 describe('${name}', () => {
-  let component, testRenderer;
+  let ${camelCaseName}, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [${camelCaseName}, testRenderer] = createComponent();
   });
+  
   afterEach(() => {
-    component = null;
+    ${camelCaseName} = null;
     testRenderer = null;
   });
 
@@ -20,3 +23,4 @@ describe('${name}', () => {
   });
 });
 `;
+};

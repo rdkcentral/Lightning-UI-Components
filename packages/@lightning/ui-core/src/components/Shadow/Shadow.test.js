@@ -16,11 +16,10 @@ const baseStyle = {
 };
 
 describe('Shadow', () => {
-  let component;
-  let testRenderer;
+  let shadow, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: 200,
       h: 200,
       style: {
@@ -30,7 +29,7 @@ describe('Shadow', () => {
   });
 
   afterEach(() => {
-    component = null;
+    shadow = null;
     testRenderer = null;
   });
 
@@ -40,7 +39,7 @@ describe('Shadow', () => {
   });
 
   it('renders with masked shadow', () => {
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: 200,
       h: 200,
       maskShadow: true
@@ -49,10 +48,10 @@ describe('Shadow', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('Starts the shadow at the component base size', () => {
+  it('starts the shadow at the component base size', () => {
     const width = 100;
     const height = 150;
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: width,
       h: height,
       style: {
@@ -66,10 +65,10 @@ describe('Shadow', () => {
       }
     });
 
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width);
-    expect(component._Frame.h).toEqual(height);
+    expect(shadow.w).toEqual(width);
+    expect(shadow.h).toEqual(height);
+    expect(shadow._Frame.w).toEqual(width);
+    expect(shadow._Frame.h).toEqual(height);
   });
 
   it('adds the blur style value to shadow frame size', () => {
@@ -77,7 +76,7 @@ describe('Shadow', () => {
     const height = 150;
     const blur = 10;
 
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: width,
       h: height,
       style: {
@@ -91,10 +90,10 @@ describe('Shadow', () => {
       }
     });
 
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width + blur * 4);
-    expect(component._Frame.h).toEqual(height + blur * 4);
+    expect(shadow.w).toEqual(width);
+    expect(shadow.h).toEqual(height);
+    expect(shadow._Frame.w).toEqual(width + blur * 4);
+    expect(shadow._Frame.h).toEqual(height + blur * 4);
   });
 
   it('adds the spread style value to shadow frame size', () => {
@@ -102,7 +101,7 @@ describe('Shadow', () => {
     const height = 150;
     const spread = 10;
 
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: width,
       h: height,
       style: {
@@ -116,10 +115,10 @@ describe('Shadow', () => {
       }
     });
 
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width + spread * 2);
-    expect(component._Frame.h).toEqual(height + spread * 2);
+    expect(shadow.w).toEqual(width);
+    expect(shadow.h).toEqual(height);
+    expect(shadow._Frame.w).toEqual(width + spread * 2);
+    expect(shadow._Frame.h).toEqual(height + spread * 2);
   });
 
   it('adds all sizing values to the shadow frame size ', () => {
@@ -128,7 +127,7 @@ describe('Shadow', () => {
     const spread = 10;
     const blur = 15;
 
-    [component, testRenderer] = createComponent({
+    [shadow, testRenderer] = createComponent({
       w: width,
       h: height,
       style: {
@@ -142,10 +141,10 @@ describe('Shadow', () => {
       }
     });
 
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width + 2 * (spread + blur * 2));
-    expect(component._Frame.h).toEqual(height + 2 * (spread + blur * 2));
+    expect(shadow.w).toEqual(width);
+    expect(shadow.h).toEqual(height);
+    expect(shadow._Frame.w).toEqual(width + 2 * (spread + blur * 2));
+    expect(shadow._Frame.h).toEqual(height + 2 * (spread + blur * 2));
   });
 
   it('updates the shadow size', () => {
@@ -154,7 +153,7 @@ describe('Shadow', () => {
     const spread = 10;
     const blur = 15;
 
-    component.patch({
+    shadow.patch({
       w: width,
       h: height,
       style: {
@@ -170,9 +169,9 @@ describe('Shadow', () => {
     testRenderer.forceAllUpdates();
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
-    expect(component._Frame.w).toEqual(width + 2 * (spread + blur * 2));
-    expect(component._Frame.h).toEqual(height + 2 * (spread + blur * 2));
+    expect(shadow.w).toEqual(width);
+    expect(shadow.h).toEqual(height);
+    expect(shadow._Frame.w).toEqual(width + 2 * (spread + blur * 2));
+    expect(shadow._Frame.h).toEqual(height + 2 * (spread + blur * 2));
   });
 });

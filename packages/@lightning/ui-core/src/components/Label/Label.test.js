@@ -11,6 +11,7 @@ describe('Label', () => {
       spyOnMethods: ['_init', '_update']
     });
   });
+
   afterEach(() => {
     label = null;
     testRenderer = null;

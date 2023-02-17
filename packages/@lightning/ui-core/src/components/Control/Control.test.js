@@ -12,10 +12,10 @@ const xfinityLogo = pathToDataURI(
 const createControl = makeCreateComponent(Control);
 
 describe('Control', () => {
-  let component, testRenderer;
+  let control, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createControl(
+    [control, testRenderer] = createControl(
       { title: 'Control', shouldCollapse: false },
       { spyOnMethods: ['_update'] }
     );
@@ -23,7 +23,7 @@ describe('Control', () => {
   });
 
   afterEach(() => {
-    component = null;
+    control = null;
     testRenderer = null;
   });
 
@@ -33,57 +33,57 @@ describe('Control', () => {
   });
 
   function checkPrefixTag() {
-    expect(component._Prefix).toBeUndefined();
+    expect(control._Prefix).toBeUndefined();
 
-    component._prefix = { type: Icon };
+    control._prefix = { type: Icon };
     testRenderer.forceAllUpdates();
-    expect(component._Prefix).toBeDefined();
+    expect(control._Prefix).toBeDefined();
   }
 
   describe('title visibility', () => {
     describe('shouldCollapse is false', () => {
       it('should be visible if in focused mode', () => {
-        component.mode = 'focused';
-        expect(component._Title.visible).toEqual(true);
+        control.mode = 'focused';
+        expect(control._Title.visible).toEqual(true);
       });
 
       it('should be visible if in unfocused mode', () => {
-        component.mode = 'unfocused';
-        expect(component._Title.visible).toEqual(true);
+        control.mode = 'unfocused';
+        expect(control._Title.visible).toEqual(true);
       });
 
       it('should be visible if in disabled mode', () => {
-        component.mode = 'disabled';
-        expect(component._Title.visible).toEqual(true);
+        control.mode = 'disabled';
+        expect(control._Title.visible).toEqual(true);
       });
     });
 
     describe('shouldCollapse is true', () => {
       it('should be visible if in focused mode', () => {
-        component.shouldCollapse = true;
-        component.mode = 'focused';
-        expect(component._Title.visible).toEqual(true);
+        control.shouldCollapse = true;
+        control.mode = 'focused';
+        expect(control._Title.visible).toEqual(true);
       });
 
       it('should NOT be visible if in unfocused mode', () => {
-        component.shouldCollapse = true;
-        component.mode = 'unfocused';
+        control.shouldCollapse = true;
+        control.mode = 'unfocused';
         testRenderer.forceAllUpdates();
-        expect(component._Title.visible).toEqual(false);
+        expect(control._Title.visible).toEqual(false);
       });
 
       it('should NOT be visible if in disabled mode', () => {
-        component.shouldCollapse = true;
-        component.mode = 'disabled';
+        control.shouldCollapse = true;
+        control.mode = 'disabled';
         testRenderer.forceAllUpdates();
-        expect(component._Title.visible).toEqual(false);
+        expect(control._Title.visible).toEqual(false);
       });
     });
 
     it('should be undefined if there is no title element at all', () => {
-      component.title = undefined;
+      control.title = undefined;
       testRenderer.forceAllUpdates();
-      expect(component._Title).toBeUndefined();
+      expect(control._Title).toBeUndefined();
     });
   });
 
@@ -92,23 +92,23 @@ describe('Control', () => {
       it('prefix should display logo', () => {
         checkPrefixTag();
 
-        component.logo = xfinityLogo;
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
-        expect(component._prefix.icon).toEqual(xfinityLogo);
+        expect(control._prefix.icon).toEqual(xfinityLogo);
       });
     });
 
     describe('not provided', () => {
       it('prefix should display icon if no logo is set', () => {
-        component.icon = lightningIcon;
-        component.logo = null;
-        expect(component._prefix.icon).toEqual(lightningIcon);
+        control.icon = lightningIcon;
+        control.logo = null;
+        expect(control._prefix.icon).toEqual(lightningIcon);
       });
 
       it('prefix should be null if no logo or icon is set', () => {
-        component.logo = null;
-        component.icon = null;
-        expect(component._prefix).toBeNull();
+        control.logo = null;
+        control.icon = null;
+        expect(control._prefix).toBeNull();
       });
     });
   });
@@ -118,17 +118,17 @@ describe('Control', () => {
       it('prefix should display icon', () => {
         checkPrefixTag();
 
-        component.icon = lightningIcon;
+        control.icon = lightningIcon;
         testRenderer.forceAllUpdates();
-        expect(component._prefix.icon).toEqual(lightningIcon);
+        expect(control._prefix.icon).toEqual(lightningIcon);
       });
 
       it('prefix should display logo if both icon and logo are set', () => {
         checkPrefixTag();
 
-        component.logo = xfinityLogo;
-        component.icon = lightningIcon;
-        expect(component._prefix.icon).toEqual(xfinityLogo);
+        control.logo = xfinityLogo;
+        control.icon = lightningIcon;
+        expect(control._prefix.icon).toEqual(xfinityLogo);
       });
     });
 
@@ -136,209 +136,209 @@ describe('Control', () => {
       it('prefix should be null if no icon or logo is set', () => {
         checkPrefixTag();
 
-        component.logo = null;
-        component.icon = null;
+        control.logo = null;
+        control.icon = null;
         testRenderer.forceAllUpdates();
-        expect(component._prefix).toBeNull();
+        expect(control._prefix).toBeNull();
       });
     });
   });
 
   describe('_setPrefix', () => {
     it('should do nothing if a prefix property is passed into Control', () => {
-      component.prefix = { type: Icon };
+      control.prefix = { type: Icon };
       testRenderer.forceAllUpdates();
 
-      expect(component.prefix).toBeUndefined();
+      expect(control.prefix).toBeUndefined();
     });
   });
 
   describe('_setSuffix', () => {
     it('should do nothing if a suffix property is passed into Control', () => {
-      component.suffix = { type: Icon };
+      control.suffix = { type: Icon };
       testRenderer.forceAllUpdates();
 
-      expect(component.suffix).toBeUndefined();
+      expect(control.suffix).toBeUndefined();
     });
   });
 
   describe('_paddingLeft', () => {
     it('should have less padding if a logo is set', () => {
       checkPrefixTag();
-      component.logo = xfinityLogo;
-      expect(component._paddingLeft).toEqual(component.style.paddingXNoTitle);
+      control.logo = xfinityLogo;
+      expect(control._paddingLeft).toEqual(control.style.paddingXNoTitle);
     });
 
     it('should have more padding if no logo is set', () => {
       checkPrefixTag();
-      component.logo = null;
-      expect(component._paddingLeft).toEqual(component.style.paddingX);
+      control.logo = null;
+      expect(control._paddingLeft).toEqual(control.style.paddingX);
     });
   });
 
   describe('_paddingRight', () => {
     it('should have more padding if there is a title and a logo', () => {
-      component.logo = xfinityLogo;
-      expect(component._paddingRight).toEqual(component.style.paddingX);
+      control.logo = xfinityLogo;
+      expect(control._paddingRight).toEqual(control.style.paddingX);
     });
 
     it('should have less padding if there is just a logo and no title', () => {
-      component.logo = xfinityLogo;
-      component.title = null;
-      expect(component._paddingRight).toEqual(component.style.paddingXNoTitle);
+      control.logo = xfinityLogo;
+      control.title = null;
+      expect(control._paddingRight).toEqual(control.style.paddingXNoTitle);
     });
   });
 
   describe('_updateContentPosition', () => {
     describe('justify LEFT', () => {
       it('Title x should be 0 if just icon displayed', () => {
-        component.justify = 'left';
-        component.icon = lightningIcon;
+        control.justify = 'left';
+        control.icon = lightningIcon;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(0);
-        expect(component._Title.mountX).toEqual(0);
+        expect(control._Title.x).toEqual(0);
+        expect(control._Title.mountX).toEqual(0);
       });
 
       it('Title x should be 0 if logo is displayed', () => {
-        component.justify = 'left';
-        component.logo = xfinityLogo;
+        control.justify = 'left';
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(0);
-        expect(component._Title.mountX).toEqual(0);
+        expect(control._Title.x).toEqual(0);
+        expect(control._Title.mountX).toEqual(0);
       });
 
       it('Title x should be 0 if both logo and icon are defined', () => {
-        component.justify = 'left';
-        component.icon = lightningIcon;
-        component.logo = xfinityLogo;
+        control.justify = 'left';
+        control.icon = lightningIcon;
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(0);
-        expect(component._Title.mountX).toEqual(0);
+        expect(control._Title.x).toEqual(0);
+        expect(control._Title.mountX).toEqual(0);
       });
     });
 
     describe('justify RIGHT', () => {
       it('should set Title x and mountX to 0 if the fixed component width is less than content width', () => {
-        component.w = 20;
-        component.fixed = true;
-        component.justify = 'right';
-        component.logo = xfinityLogo;
+        control.w = 20;
+        control.fixed = true;
+        control.justify = 'right';
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(0);
-        expect(component._Title.mountX).toEqual(0);
+        expect(control._Title.x).toEqual(0);
+        expect(control._Title.mountX).toEqual(0);
       });
 
       it('should patch the title position to the right if the fixed width is much greater than the content width', () => {
-        component.w = 500;
-        component.fixed = true;
-        component.justify = 'right';
-        component.logo = xfinityLogo;
+        control.w = 500;
+        control.fixed = true;
+        control.justify = 'right';
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(
-          component.w -
-            (component._paddingLeft +
-              component._paddingRight +
-              component._Prefix.w +
-              component.style.titlePadding)
+        expect(control._Title.x).toEqual(
+          control.w -
+            (control._paddingLeft +
+              control._paddingRight +
+              control._Prefix.w +
+              control.style.titlePadding)
         );
-        expect(component._Title.mountX).toEqual(1);
+        expect(control._Title.mountX).toEqual(1);
       });
     });
 
     describe('justify CENTER', () => {
       it('should set Title x and mountX to 0 if fixed and the component width is less than content width', () => {
-        component.justify = 'center';
-        component.fixed = true;
-        component.w = 20;
-        component.logo = xfinityLogo;
+        control.justify = 'center';
+        control.fixed = true;
+        control.w = 20;
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(0);
-        expect(component._Title.mountX).toEqual(0);
+        expect(control._Title.x).toEqual(0);
+        expect(control._Title.mountX).toEqual(0);
       });
 
       it('should find the middle when icon is defined and fixed width is greater than content width', () => {
-        component.justify = 'center';
-        component.fixed = true;
-        component.w = 500;
-        component.icon = lightningIcon;
-        component.logo = null;
+        control.justify = 'center';
+        control.fixed = true;
+        control.w = 500;
+        control.icon = lightningIcon;
+        control.logo = null;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(
-          (component.w -
-            (component._paddingLeft + component._Prefix.w) -
-            component._paddingRight) /
+        expect(control._Title.x).toEqual(
+          (control.w -
+            (control._paddingLeft + control._Prefix.w) -
+            control._paddingRight) /
             2
         );
-        expect(component._Title.mountX).toEqual(0.5);
+        expect(control._Title.mountX).toEqual(0.5);
       });
 
       it('should find the middle when logo is defined and fixed width is greater than content width', () => {
-        component.justify = 'center';
-        component.fixed = true;
-        component.w = 500;
-        component.logo = xfinityLogo;
+        control.justify = 'center';
+        control.fixed = true;
+        control.w = 500;
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(
-          (component.w -
-            (component._paddingLeft + component._Prefix.w) -
-            component._paddingRight) /
+        expect(control._Title.x).toEqual(
+          (control.w -
+            (control._paddingLeft + control._Prefix.w) -
+            control._paddingRight) /
             2
         );
-        expect(component._Title.mountX).toEqual(0.5);
+        expect(control._Title.mountX).toEqual(0.5);
       });
 
       it('should have a different calculation when fixed is false', () => {
-        component.justify = 'center';
-        component.fixed = false;
-        component.w = 500;
-        component.logo = xfinityLogo;
+        control.justify = 'center';
+        control.fixed = false;
+        control.w = 500;
+        control.logo = xfinityLogo;
         testRenderer.forceAllUpdates();
 
-        expect(component._Title.x).toEqual(
-          (component.w -
-            (component._paddingLeft +
-              component._Prefix.w +
-              component.style.titlePadding) -
-            component._paddingRight) /
+        expect(control._Title.x).toEqual(
+          (control.w -
+            (control._paddingLeft +
+              control._Prefix.w +
+              control.style.titlePadding) -
+            control._paddingRight) /
             2
         );
-        expect(component._Title.mountX).toEqual(0.5);
+        expect(control._Title.mountX).toEqual(0.5);
       });
     });
 
     it('should run through Button getContentX if Control width is greater than content width', () => {
-      component.title = null;
-      component.logo = xfinityLogo;
-      component.w = 200;
-      component.fixed = true;
+      control.title = null;
+      control.logo = xfinityLogo;
+      control.w = 200;
+      control.fixed = true;
       testRenderer.forceAllUpdates();
 
-      expect(component._Content.x).toBe(component.w / 2);
-      expect(component._Content.mountX).toBe(0.5);
+      expect(control._Content.x).toBe(control.w / 2);
+      expect(control._Content.mountX).toBe(0.5);
     });
   });
 
   describe('announcer', () => {
     it('sets the announce string to the title', () => {
       const title = 'title';
-      component.title = title;
+      control.title = title;
       testRenderer.forceAllUpdates();
-      expect(component.announce).toEqual([title, 'Control']);
+      expect(control.announce).toEqual([title, 'Control']);
     });
 
     it('should prefer the announce prop over the default announce', () => {
       const overrideString = 'override announcer string';
-      component.announce = overrideString;
+      control.announce = overrideString;
       testRenderer.forceAllUpdates();
-      expect(component.announce).toEqual(overrideString);
+      expect(control.announce).toEqual(overrideString);
     });
   });
 });

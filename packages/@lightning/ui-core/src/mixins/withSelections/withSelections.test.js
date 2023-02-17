@@ -7,7 +7,7 @@ const duplicate = (object, quantity) =>
   Array.apply(null, { length: quantity }).map(() => Object.assign({}, object));
 
 describe('selectionManager', () => {
-  let WithSelections, testRenderer;
+  let withSelectionsComponent, testRenderer;
   class Example extends lng.Component {
     static _template() {
       return {
@@ -59,27 +59,27 @@ describe('selectionManager', () => {
   }
 
   beforeEach(() => {
-    [WithSelections, testRenderer] = makeCreateComponent(
+    [withSelectionsComponent, testRenderer] = makeCreateComponent(
       withSelections(Example)
     )();
   });
 
   afterEach(() => {
-    WithSelections = null;
+    withSelectionsComponent = null;
   });
 
   it('extends the base class', () => {
-    expect(WithSelections.constructor.name).toBe('Example');
+    expect(withSelectionsComponent.constructor.name).toBe('Example');
   });
 
   it('manages selected state for components', () => {
-    const [c1, c2, c3] = WithSelections.items;
+    const [c1, c2, c3] = withSelectionsComponent.items;
     expect(c1.isSelected).toBe(true);
     testRenderer.keyPress('Right');
-    expect(WithSelections._getFocused()).toBe(c2);
-    expect(WithSelections.currentSelected).toBe(c1);
+    expect(withSelectionsComponent._getFocused()).toBe(c2);
+    expect(withSelectionsComponent.currentSelected).toBe(c1);
     testRenderer.keyPress('Enter');
-    expect(WithSelections.currentFocused).toBe(c2);
+    expect(withSelectionsComponent.currentFocused).toBe(c2);
     expect(c1.isSelected).toBe(false);
     expect(c2.isSelected).toBe(true);
 
@@ -88,14 +88,14 @@ describe('selectionManager', () => {
   });
 
   it('fires an event when a selected value changes', () => {
-    jest.spyOn(WithSelections, 'fireAncestors');
-    WithSelections.setSelected(WithSelections.items[0], true);
-    expect(WithSelections.fireAncestors).not.toBeCalled();
+    jest.spyOn(withSelectionsComponent, 'fireAncestors');
+    withSelectionsComponent.setSelected(withSelectionsComponent.items[0], true);
+    expect(withSelectionsComponent.fireAncestors).not.toBeCalled();
 
-    WithSelections.setSelected(WithSelections.items[1], true);
-    expect(WithSelections.fireAncestors).toBeCalledWith(
+    withSelectionsComponent.setSelected(withSelectionsComponent.items[1], true);
+    expect(withSelectionsComponent.fireAncestors).toBeCalledWith(
       '$onSelect',
-      WithSelections.items[1],
+      withSelectionsComponent.items[1],
       true
     );
   });
@@ -108,7 +108,7 @@ describe('selectionManager', () => {
         };
       }
     }
-    [WithSelections, testRenderer] = makeCreateComponent(
+    [withSelectionsComponent, testRenderer] = makeCreateComponent(
       withSelections(Custom, {
         keys: {
           currentSelected: 'current',
@@ -121,19 +121,24 @@ describe('selectionManager', () => {
         eventName: 'select'
       })
     )();
-    expect(WithSelections.currentIndex).toBe(0);
-    expect(WithSelections.current).toBe(WithSelections.childs[0]);
-    expect(WithSelections.current.selected).toBe(true);
-    expect(typeof WithSelections.toggleSelected).toBe('function');
-    jest.spyOn(WithSelections, 'fireAncestors');
-    WithSelections.toggleSelected(WithSelections.current, false);
-    expect(WithSelections.fireAncestors).toBeCalledWith(
+    expect(withSelectionsComponent.currentIndex).toBe(0);
+    expect(withSelectionsComponent.current).toBe(
+      withSelectionsComponent.childs[0]
+    );
+    expect(withSelectionsComponent.current.selected).toBe(true);
+    expect(typeof withSelectionsComponent.toggleSelected).toBe('function');
+    jest.spyOn(withSelectionsComponent, 'fireAncestors');
+    withSelectionsComponent.toggleSelected(
+      withSelectionsComponent.current,
+      false
+    );
+    expect(withSelectionsComponent.fireAncestors).toBeCalledWith(
       '$select',
-      WithSelections.current,
+      withSelectionsComponent.current,
       false
     );
     testRenderer.keyPress('1');
-    expect(WithSelections.fireAncestors).toBeCalledTimes(2);
+    expect(withSelectionsComponent.fireAncestors).toBeCalledTimes(2);
   });
 
   it('preserves callbacks', () => {
@@ -147,14 +152,14 @@ describe('selectionManager', () => {
         };
       }
     }
-    [WithSelections, testRenderer] = makeCreateComponent(
+    [withSelectionsComponent, testRenderer] = makeCreateComponent(
       withSelections(Callbacks)
     )();
 
-    WithSelections.items[0].addSelected();
+    withSelectionsComponent.items[0].addSelected();
     expect(addSelected).toBeCalled();
 
-    WithSelections.items[0].removeSelected();
+    withSelectionsComponent.items[0].removeSelected();
     expect(addSelected).toBeCalled();
   });
 
@@ -166,9 +171,9 @@ describe('selectionManager', () => {
         };
       }
     }
-    [WithSelections, testRenderer] = makeCreateComponent(
+    [withSelectionsComponent, testRenderer] = makeCreateComponent(
       withSelections(InitialValue)
     )();
-    expect(WithSelections.items[0].selected).toBe(true);
+    expect(withSelectionsComponent.items[0].selected).toBe(true);
   });
 });

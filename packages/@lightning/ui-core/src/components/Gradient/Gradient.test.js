@@ -5,13 +5,13 @@ const createComponent = makeCreateComponent(Gradient);
 
 describe('Gradient', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let gradient, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [gradient, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null; // eslint-disable-line no-unused-vars
+    gradient = null; // eslint-disable-line no-unused-vars
     testRenderer = null;
   });
 

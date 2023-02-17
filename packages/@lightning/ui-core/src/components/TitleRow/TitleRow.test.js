@@ -11,16 +11,16 @@ const items = Array.from({ length: 7 }).map(() => ({
 const createComponent = makeCreateComponent(TitleRow);
 
 describe('TitleRow', () => {
-  let component, testRenderer;
+  let titleRow, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({
+    [titleRow, testRenderer] = createComponent({
       items
     });
   });
 
   it('renders', () => {
-    [component, testRenderer] = createComponent({
+    [titleRow, testRenderer] = createComponent({
       title: 'Title',
       items
     });
@@ -32,16 +32,16 @@ describe('TitleRow', () => {
 
   it('sets the announce string to the row title text', () => {
     const title = 'Row Title';
-    component.title = title;
+    titleRow.title = title;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(title);
+    expect(titleRow.announce).toBe(title);
   });
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    component.announce = overrideString;
+    titleRow.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(overrideString);
+    expect(titleRow.announce).toBe(overrideString);
   });
 
   describe('updating the title', () => {
@@ -49,33 +49,33 @@ describe('TitleRow', () => {
       const titleA = 'Title';
       const titleB = 'New Title';
 
-      expect(component._Title.content).toBe('');
+      expect(titleRow._Title.content).toBe('');
 
-      component.title = titleA;
+      titleRow.title = titleA;
 
       testRenderer.forceAllUpdates();
 
-      expect(component._Title.content).toBe(titleA);
+      expect(titleRow._Title.content).toBe(titleA);
 
-      component.title = titleB;
+      titleRow.title = titleB;
       testRenderer.forceAllUpdates();
 
-      expect(component._Title.content).toBe(titleB);
+      expect(titleRow._Title.content).toBe(titleB);
     });
     it('should remove a title', () => {
       const title = 'Title';
-      component.title = title;
+      titleRow.title = title;
       testRenderer.forceAllUpdates();
-      expect(component._Title.content).toBe(title);
-      component.title = undefined;
+      expect(titleRow._Title.content).toBe(title);
+      titleRow.title = undefined;
       testRenderer.forceAllUpdates();
-      expect(component._Title).toMatchObject({
+      expect(titleRow._Title).toMatchObject({
         h: 0,
         content: ''
       });
     });
     it('should update the row placement after the title has loaded', async () => {
-      [component, testRenderer] = createComponent(
+      [titleRow, testRenderer] = createComponent(
         {
           title: 'Title',
           items
@@ -84,12 +84,12 @@ describe('TitleRow', () => {
           spyOnMethods: ['_titleLoaded']
         }
       );
-      expect(component._Items.y).toBe(component.style.rowMarginTop);
+      expect(titleRow._Items.y).toBe(titleRow.style.rowMarginTop);
 
-      await component.__titleLoadedSpyPromise;
+      await titleRow.__titleLoadedSpyPromise;
 
-      expect(component._Items.y).toBe(
-        component._Title.finalH + component.style.rowMarginTop
+      expect(titleRow._Items.y).toBe(
+        titleRow._Title.finalH + titleRow.style.rowMarginTop
       );
     });
   });

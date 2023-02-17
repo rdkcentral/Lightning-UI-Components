@@ -219,7 +219,7 @@ describe('ScrollWrapper', () => {
     expect(scrollWrapper._ScrollContainer.y).toBe(scrollEndY);
   });
 
-  it('should fire a singal when scrolling has reached the end of the scroll container', () => {
+  it('should fire a signal when scrolling has reached the end of the scroll container', () => {
     scrollWrapper.h = scrollWrapper._ScrollContainer.finalH - 1;
     jest.spyOn(scrollWrapper, 'fireAncestors');
     expect(scrollWrapper.fireAncestors).not.toHaveBeenCalled();

@@ -34,21 +34,21 @@ const tabs = [
 const createComponent = makeCreateComponent(TabBar);
 
 describe('TabBar', () => {
-  let component, testRenderer;
+  let tabBar, testRenderer;
 
   beforeEach(async () => {
-    [component, testRenderer] = createComponent(
+    [tabBar, testRenderer] = createComponent(
       { tabs },
       { spyOnMethods: ['_update'] }
     );
-    await component.__updateSpyPromise;
-    component.mode = 'focused';
-    await component.__updateSpyPromise;
+    await tabBar.__updateSpyPromise;
+    tabBar.mode = 'focused';
+    await tabBar.__updateSpyPromise;
     testRenderer.update();
   });
 
   afterEach(() => {
-    component = null;
+    tabBar = null;
     testRenderer = null;
   });
 
@@ -58,42 +58,42 @@ describe('TabBar', () => {
   });
 
   it('should focus on the selected tab', () => {
-    expect(component._Tabs.items[0].mode).toBe('focused');
-    expect(component._Tabs.items[1].mode).toBe('unfocused');
+    expect(tabBar._Tabs.items[0].mode).toBe('focused');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
   it('should display which tab is selected when focused on the tab content', async () => {
-    await component.__updateSpyPromise;
+    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
-    expect(component._Tabs.items[0].mode).toBe('selected');
-    expect(component._Tabs.items[1].mode).toBe('unfocused');
+    expect(tabBar._Tabs.items[0].mode).toBe('selected');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
   it('should transfer focus back to the tabs on up', async () => {
-    await component.__updateSpyPromise;
+    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
-    expect(component._Tabs.items[0].mode).toBe('selected');
-    expect(component._Tabs.items[1].mode).toBe('unfocused');
+    expect(tabBar._Tabs.items[0].mode).toBe('selected');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
 
     testRenderer.keyPress('Up');
 
-    expect(component._Tabs.items[0].mode).toBe('focused');
-    expect(component._Tabs.items[1].mode).toBe('unfocused');
+    expect(tabBar._Tabs.items[0].mode).toBe('focused');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
   it('should not repeatedly selecte the tabs when already selected', async () => {
-    await component.__updateSpyPromise;
-    jest.spyOn(component, '_updateTabs');
-    expect(component._updateTabs).not.toHaveBeenCalled();
+    await tabBar.__updateSpyPromise;
+    jest.spyOn(tabBar, '_updateTabs');
+    expect(tabBar._updateTabs).not.toHaveBeenCalled();
 
-    component.selectTabs();
-    expect(component._updateTabs).not.toHaveBeenCalled();
+    tabBar.selectTabs();
+    expect(tabBar._updateTabs).not.toHaveBeenCalled();
   });
 
   it('should optionally alpha down all unselected tabs', async () => {
-    [component, testRenderer] = createComponent(
+    [tabBar, testRenderer] = createComponent(
       {
         tabs,
         alphaSelectedTab: true
@@ -101,29 +101,29 @@ describe('TabBar', () => {
       { spyOnMethods: ['_update', '_updateTabAlphas'] }
     );
 
-    await component.__updateSpyPromise;
-    await component.__updateTabAlphasSpyPromise;
+    await tabBar.__updateSpyPromise;
+    await tabBar.__updateTabAlphasSpyPromise;
 
     testRenderer.update();
     testRenderer.keyPress('Down');
-    await component.__updateTabAlphasSpyPromise;
+    await tabBar.__updateTabAlphasSpyPromise;
 
-    expect(component._Tabs.items[0].alpha).toBe(1);
-    expect(component._Tabs.items[1].alpha).toBe(0.3);
+    expect(tabBar._Tabs.items[0].alpha).toBe(1);
+    expect(tabBar._Tabs.items[1].alpha).toBe(0.3);
   });
 
   it('should not handle down presses when content is already selected', () => {
     testRenderer.keyPress('Down');
-    expect(component._isTabsFocused).toBe(false);
-    jest.spyOn(component, '_updateTabs');
-    expect(component._updateTabs).not.toHaveBeenCalled();
+    expect(tabBar._isTabsFocused).toBe(false);
+    jest.spyOn(tabBar, '_updateTabs');
+    expect(tabBar._updateTabs).not.toHaveBeenCalled();
 
     testRenderer.keyPress('Down');
-    expect(component._updateTabs).not.toHaveBeenCalled();
+    expect(tabBar._updateTabs).not.toHaveBeenCalled();
   });
 
   it('should not handle down presses when the selected tab does not have content', async () => {
-    [component, testRenderer] = createComponent(
+    [tabBar, testRenderer] = createComponent(
       {
         tabs: [
           {
@@ -136,61 +136,61 @@ describe('TabBar', () => {
         spyOnMethods: ['_update']
       }
     );
-    await component.__updateSpyPromise;
-    component.mode = 'focused';
-    await component.__updateSpyPromise;
+    await tabBar.__updateSpyPromise;
+    tabBar.mode = 'focused';
+    await tabBar.__updateSpyPromise;
 
-    jest.spyOn(component, '_updateTabs');
+    jest.spyOn(tabBar, '_updateTabs');
 
     testRenderer.keyPress('Down');
 
-    expect(component._isTabsFocused).toBe(true);
-    expect(component._updateTabs).not.toHaveBeenCalled();
+    expect(tabBar._isTabsFocused).toBe(true);
+    expect(tabBar._updateTabs).not.toHaveBeenCalled();
   });
 
   it('should delegate focus between tabs and tab content', () => {
-    expect(component._getFocused()).toBe(component._Tabs);
+    expect(tabBar._getFocused()).toBe(tabBar._Tabs);
 
     testRenderer.keyPress('Down');
     testRenderer.update();
 
-    expect(component._getFocused()).toBe(component._TabContent);
+    expect(tabBar._getFocused()).toBe(tabBar._TabContent);
   });
 
   it('should update what content is displayed when the selected tab is changed', async () => {
-    [component, testRenderer] = createComponent(
+    [tabBar, testRenderer] = createComponent(
       { tabs },
       { spyOnMethods: ['_update', '_selectedTabChange'] }
     );
-    await component.__updateSpyPromise;
-    component.mode = 'focused';
-    await component.__updateSpyPromise;
+    await tabBar.__updateSpyPromise;
+    tabBar.mode = 'focused';
+    await tabBar.__updateSpyPromise;
 
-    expect(component._TabContent.selectedIndex).toBe(0);
+    expect(tabBar._TabContent.selectedIndex).toBe(0);
 
-    const spy = jest.spyOn(component, '_selectedTabChange');
+    const spy = jest.spyOn(tabBar, '_selectedTabChange');
     testRenderer.keyPress('Right');
-    await component.__selectedTabChangeSpyPromise;
+    await tabBar.__selectedTabChangeSpyPromise;
 
     expect(spy).toHaveBeenCalled();
   });
 
   describe('when the collapse property is true', () => {
     beforeEach(() => {
-      component.collapse = true;
+      tabBar.collapse = true;
       testRenderer.forceAllUpdates();
-      expect(component.h).toBe(component._expandedHeight);
+      expect(tabBar.h).toBe(tabBar._expandedHeight);
     });
 
     it('should set the height to just the tabs when unfocused', () => {
-      component.mode = 'unfocused';
+      tabBar.mode = 'unfocused';
       testRenderer.forceAllUpdates();
 
-      expect(component.h).toBe(component._collapsedHeight);
+      expect(tabBar.h).toBe(tabBar._collapsedHeight);
     });
 
     it('should set the height to just the tabs if there is no tab content to display', () => {
-      component.tabs = [
+      tabBar.tabs = [
         {
           type: Tab,
           title: 'No Content Tab'
@@ -204,44 +204,44 @@ describe('TabBar', () => {
       testRenderer.forceAllUpdates();
       testRenderer.update();
 
-      expect(component.h).toBe(component._collapsedHeight);
+      expect(tabBar.h).toBe(tabBar._collapsedHeight);
     });
   });
 
   it('should allow overwriting the margin between tabs and tab content', async () => {
-    await component.__updateSpyPromise;
-    expect(component._TabContent.y).toBe(
-      component._Tabs.h + component.style.tabsMarginBottom
+    await tabBar.__updateSpyPromise;
+    expect(tabBar._TabContent.y).toBe(
+      tabBar._Tabs.h + tabBar.style.tabsMarginBottom
     );
   });
 
   it('should set the tab item spacing', async () => {
-    await component.__updateSpyPromise;
-    expect(component._Tabs.style.itemSpacing).toBe(component.style.tabSpacing);
+    await tabBar.__updateSpyPromise;
+    expect(tabBar._Tabs.style.itemSpacing).toBe(tabBar.style.tabSpacing);
   });
 
   describe('the reset property', () => {
     it('should reselect the first item on unfocus when reset is true', () => {
-      component.__updateSpyPromise;
-      component.reset = true;
+      tabBar.__updateSpyPromise;
+      tabBar.reset = true;
 
       testRenderer.keyPress('Right');
 
-      expect(component._Tabs.selectedIndex).toBe(1);
+      expect(tabBar._Tabs.selectedIndex).toBe(1);
 
       testRenderer.unfocus();
 
-      expect(component._Tabs.selectedIndex).toBe(0);
+      expect(tabBar._Tabs.selectedIndex).toBe(0);
     });
     it('should maintain the current selection on unfocus when reset is false', () => {
-      component.__updateSpyPromise;
+      tabBar.__updateSpyPromise;
       testRenderer.keyPress('Right');
 
-      expect(component._Tabs.selectedIndex).toBe(1);
+      expect(tabBar._Tabs.selectedIndex).toBe(1);
 
       testRenderer.unfocus();
 
-      expect(component._Tabs.selectedIndex).toBe(1);
+      expect(tabBar._Tabs.selectedIndex).toBe(1);
     });
   });
 });

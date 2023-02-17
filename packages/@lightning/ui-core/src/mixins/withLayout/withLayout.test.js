@@ -17,6 +17,7 @@ describe('withLayout', () => {
   beforeEach(() => {
     [tileWithLayout, testRenderer] = createTileWithLayout();
   });
+
   afterEach(() => {
     tileWithLayout = null;
     testRenderer = null;

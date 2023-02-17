@@ -5,13 +5,13 @@ const createComponent = makeCreateComponent(CardContentHero);
 
 describe('CardContentHero', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let cardContentHero, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [cardContentHero, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    cardContentHero = null;
     testRenderer = null;
   });
 

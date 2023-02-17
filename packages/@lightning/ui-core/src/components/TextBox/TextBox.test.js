@@ -418,6 +418,7 @@ describe('TextBox', () => {
 
       expectSignalsFired(textBox);
     });
+
     it('should not emit signals when a property that is not width or height changes', async () => {
       expectSignalsFired(textBox);
 

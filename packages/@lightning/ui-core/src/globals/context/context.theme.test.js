@@ -19,11 +19,13 @@ describe('theme context', () => {
       const processedBaseTheme = themeManager._processTheme();
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
+
     it('should deep merge object with existing theme when theme is set', () => {
       const processedBaseTheme = themeManager._processTheme([{ foo: 'bar' }]);
       themeManager.setTheme({ foo: 'bar' });
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
+
     it('should not attempt to set any value for theme that is not an object', () => {
       const processedBaseTheme = themeManager._processTheme();
       themeManager.setTheme('string');
@@ -45,9 +47,11 @@ describe('theme context', () => {
         ['context theme expected an object. Received object']
       );
     });
+
     it('should return a _getComponentUUID', () => {
       expect(themeManager._getComponentUUID(100)).toMatch('componentStyle100');
     });
+
     it('should process the theme correctly', () => {
       const processedBaseTheme = themeManager._processTheme();
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
@@ -83,6 +87,7 @@ describe('theme context', () => {
 
       expect(logger.warn).toHaveBeenCalled();
     });
+
     it('should persist a sub theme after theme changes', async () => {
       const subThemeName = 'MyTheme';
       const subTheme = { foo: 'bar' };
@@ -102,11 +107,13 @@ describe('theme context', () => {
       expect(cachedSubTheme.original).toEqual(subTheme);
       expect(cachedSubTheme.result.foo).toEqual('bar');
     });
+
     it('should log a warning if no subTheme name is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
       themeManager.updateSubTheme();
       expect(logger.warn).toHaveBeenCalledWith('Sub theme name not specified');
     });
+
     it('should log a warning if a non-object subTheme value is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
       themeManager.updateSubTheme('MockTheme', 'makeItPop');
@@ -114,6 +121,7 @@ describe('theme context', () => {
         'Could not update subTheme MockTheme due to invalid value'
       );
     });
+
     it('should log a warning if an empty object subTheme value is provided', () => {
       expect(logger.warn).not.toHaveBeenCalled();
       themeManager.updateSubTheme('MockTheme', {});

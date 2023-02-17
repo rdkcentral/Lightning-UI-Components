@@ -1,5 +1,5 @@
 module.exports = name => {
-  return `import Base from '@lightning/ui-core';
+  return `import Base from '../Base';
 
 import * as styles from './${name}.styles.js';
 

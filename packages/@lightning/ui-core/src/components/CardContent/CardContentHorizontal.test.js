@@ -5,13 +5,13 @@ const createComponent = makeCreateComponent(CardContentHorizontal);
 
 describe('CardContentHorizontal', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let cardContentHorizontal, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [cardContentHorizontal, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    cardContentHorizontal = null;
     testRenderer = null;
   });
 
@@ -21,34 +21,39 @@ describe('CardContentHorizontal', () => {
   });
 
   it('sizes Metadata in standard layout', () => {
-    component.shouldCollapse = false;
+    cardContentHorizontal.shouldCollapse = false;
     testRenderer.forceAllUpdates();
     const w =
-      component.style.expandedW -
-      2 * component.style.paddingHorizontal -
-      component.style.imageSize.w;
-    const h = component.style.expandedH - 2 * component.style.paddingVertical;
-    expect(component._Metadata.w).toBe(w);
-    expect(component._Metadata.h).toBe(h);
+      cardContentHorizontal.style.expandedW -
+      2 * cardContentHorizontal.style.paddingHorizontal -
+      cardContentHorizontal.style.imageSize.w;
+    const h =
+      cardContentHorizontal.style.expandedH -
+      2 * cardContentHorizontal.style.paddingVertical;
+    expect(cardContentHorizontal._Metadata.w).toBe(w);
+    expect(cardContentHorizontal._Metadata.h).toBe(h);
   });
 
   it('resizes based on collapse status', () => {
-    component.mode = 'unfocused';
+    cardContentHorizontal.mode = 'unfocused';
 
-    component.shouldCollapse = false;
-    component.collapseToMetadata = false;
+    cardContentHorizontal.shouldCollapse = false;
+    cardContentHorizontal.collapseToMetadata = false;
     testRenderer.forceAllUpdates();
-    expect(component.w).toBe(component.style.expandedW);
+    expect(cardContentHorizontal.w).toBe(cardContentHorizontal.style.expandedW);
 
-    component.shouldCollapse = true;
-    component.collapseToMetadata = false;
+    cardContentHorizontal.shouldCollapse = true;
+    cardContentHorizontal.collapseToMetadata = false;
     testRenderer.forceAllUpdates();
-    expect(component.w).toBe(component.style.imageSize.w);
+    expect(cardContentHorizontal.w).toBe(
+      cardContentHorizontal.style.imageSize.w
+    );
 
-    component.collapseToMetadata = true;
+    cardContentHorizontal.collapseToMetadata = true;
     testRenderer.forceAllUpdates();
-    expect(component.w).toBe(
-      component.style.expandedW - component.style.imageSize.w
+    expect(cardContentHorizontal.w).toBe(
+      cardContentHorizontal.style.expandedW -
+        cardContentHorizontal.style.imageSize.w
     );
   });
 });

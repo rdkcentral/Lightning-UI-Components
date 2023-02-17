@@ -48,15 +48,15 @@ const createComponentGeneratedWithMask = makeCreateComponent(
 );
 
 describe('DropShadow Extension', () => {
-  let component;
+  let dropShadow;
   let testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [dropShadow, testRenderer] = createComponent();
   });
 
   afterEach(() => {
-    component = null;
+    dropShadow = null;
     testRenderer = null;
   });
 
@@ -66,27 +66,27 @@ describe('DropShadow Extension', () => {
   });
 
   it('renders with generator', () => {
-    [component, testRenderer] = createComponentGeneratedNoMask();
+    [dropShadow, testRenderer] = createComponentGeneratedNoMask();
     const tree = testRenderer.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('adds adds a DropShadow element to the component', () => {
-    expect(component._DropShadow).toBeDefined();
+    expect(dropShadow._DropShadow).toBeDefined();
   });
 
-  it('Does not affect the size of the base component', () => {
-    expect(component.w).toEqual(width);
-    expect(component.h).toEqual(height);
+  it('does not affect the size of the base component', () => {
+    expect(dropShadow.w).toEqual(width);
+    expect(dropShadow.h).toEqual(height);
   });
 
-  it('Applies Masked shadow to the specified component', () => {
-    [component, testRenderer] = createComponentGeneratedWithMask();
-    expect(component._DropShadow.maskShadow).toBe(true);
+  it('applies Masked shadow to the specified component', () => {
+    [dropShadow, testRenderer] = createComponentGeneratedWithMask();
+    expect(dropShadow._DropShadow.maskShadow).toBe(true);
   });
 
-  it('Does not apply a mask to the unspecified component', () => {
-    [component, testRenderer] = createComponentGeneratedNoMask();
-    expect(component._DropShadow.maskShadow).toBeFalsy();
+  it('does not apply a mask to the unspecified component', () => {
+    [dropShadow, testRenderer] = createComponentGeneratedNoMask();
+    expect(dropShadow._DropShadow.maskShadow).toBeFalsy();
   });
 });

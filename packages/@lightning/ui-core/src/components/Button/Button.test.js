@@ -7,6 +7,7 @@ const createButton = makeCreateComponent(Button, {}, { focused: false });
 
 describe('Button', () => {
   let button, testRenderer;
+
   beforeEach(() => {
     [button, testRenderer] = createButton(
       { title: 'Button' },
@@ -14,6 +15,7 @@ describe('Button', () => {
     );
     testRenderer.update();
   });
+
   afterEach(() => {
     button = null;
     testRenderer = null;
@@ -75,6 +77,7 @@ describe('Button', () => {
     it('has a default unfocus text color', () => {
       expect(button._Title.textColor).toBe(button.style.textColor);
     });
+
     it('has a focus text color', () => {
       expect(button._Title.textColor).toBe(button.style.textColor);
 
@@ -83,6 +86,7 @@ describe('Button', () => {
 
       expect(button._Title.textColor).toBe(button.style.textColor);
     });
+
     it('should reset text color on unfocus', () => {
       testRenderer.focus();
       testRenderer.forceAllUpdates();

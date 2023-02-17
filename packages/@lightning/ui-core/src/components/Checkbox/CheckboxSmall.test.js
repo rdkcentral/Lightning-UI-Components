@@ -4,10 +4,10 @@ import CheckboxSmall from './CheckboxSmall.js';
 const createCheckboxSmall = makeCreateComponent(CheckboxSmall);
 
 describe('CheckboxSmall', () => {
-  let checkbox, testRenderer;
+  let checkboxSmall, testRenderer;
 
   beforeEach(() => {
-    [checkbox, testRenderer] = createCheckboxSmall({ checked: false });
+    [checkboxSmall, testRenderer] = createCheckboxSmall({ checked: false });
   });
 
   it('renders', () => {
@@ -16,10 +16,10 @@ describe('CheckboxSmall', () => {
   });
 
   it('renders the correct height', () => {
-    expect(checkbox.h).toBe(checkbox.style.h);
+    expect(checkboxSmall.h).toBe(checkboxSmall.style.h);
   });
 
   it('renders the correct weight', () => {
-    expect(checkbox.w).toBe(checkbox.style.w);
+    expect(checkboxSmall.w).toBe(checkboxSmall.style.w);
   });
 });

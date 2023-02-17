@@ -4,14 +4,14 @@ import Knob from './index.js';
 const createComponent = makeCreateComponent(Knob);
 
 describe('Knob', () => {
-  let component, testRenderer;
+  let knob, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [knob, testRenderer] = createComponent();
   });
 
   afterEach(() => {
-    component = null;
+    knob = null;
     testRenderer = null;
   });
 
@@ -21,10 +21,10 @@ describe('Knob', () => {
   });
 
   it('has the correct width', () => {
-    expect(component.w).toEqual(component._componentStyle.w);
+    expect(knob.w).toEqual(knob._componentStyle.w);
   });
 
   it('has the correct height', () => {
-    expect(component.h).toEqual(component._componentStyle.h);
+    expect(knob.h).toEqual(knob._componentStyle.h);
   });
 });

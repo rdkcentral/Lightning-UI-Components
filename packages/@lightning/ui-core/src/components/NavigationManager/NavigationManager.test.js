@@ -33,6 +33,7 @@ describe('NavigationManager', () => {
       expect(navigationManager.w).toBe(w);
       expect(navigationManager.Items.children[0].w).toBe(w);
     });
+
     it('should set the length dimension property to that of closest parent with that propety defined', () => {
       const w = 500;
       class CompWithWidth extends lng.Component {
@@ -46,13 +47,14 @@ describe('NavigationManager', () => {
           };
         }
       }
-      const [component] = makeCreateComponent(CompWithWidth)();
-      const nestedNavigationManager = component.tag('Nested');
+      const [navigationManager] = makeCreateComponent(CompWithWidth)();
+      const nestedNavigationManager = navigationManager.tag('Nested');
       const navigationManagerItem = nestedNavigationManager.Items.children[0];
 
       expect(nestedNavigationManager.w).toBe(w);
       expect(navigationManagerItem.w).toBe(w);
     });
+
     it('should set the lengthDimension from the stage h and renderPrecision when not parent has the property defined', () => {
       class NoComponentsHaveWidth extends lng.Component {
         static _template() {
@@ -64,7 +66,7 @@ describe('NavigationManager', () => {
           };
         }
       }
-      const [component, testRenderer] = makeCreateComponent(
+      const [navigationManager, testRenderer] = makeCreateComponent(
         NoComponentsHaveWidth,
         {},
         { applicationW: null }
@@ -72,8 +74,8 @@ describe('NavigationManager', () => {
 
       testRenderer.update();
 
-      expect(component.tag('Comp').w).toBe(
-        component.stage.h / component.stage.getRenderPrecision()
+      expect(navigationManager.tag('Comp').w).toBe(
+        navigationManager.stage.h / navigationManager.stage.getRenderPrecision()
       );
     });
   });
@@ -92,6 +94,7 @@ describe('NavigationManager', () => {
         expect(navigationManager.Items.h).toBe(100);
         expect(navigationManager.Items.innerH).toBe(90);
       });
+
       it('should set the Items length dimension value equal to the length dimension value of all items and spacing combined', () => {
         const itemW = 10;
         const extraItemSpacing = 10;
@@ -110,6 +113,7 @@ describe('NavigationManager', () => {
         );
       });
     });
+
     describe("updating each item's position along the main axis", () => {
       it('it should update the position when extraItemSpacing exists on the item', () => {
         const itemW = 10;
@@ -128,6 +132,7 @@ describe('NavigationManager', () => {
           firstItem.x + firstItem.w + itemSpacing + extraItemSpacing
         );
       });
+
       it('it should update the position when extraItemSpacing does not exist on the item', () => {
         const itemW = 10;
         [navigationManager] = createNavigationManager({
@@ -145,6 +150,7 @@ describe('NavigationManager', () => {
         );
       });
     });
+
     describe('centering items on the cross axis', () => {
       it('should center items that have the centerInParent property set on them', () => {
         [navigationManager] = createNavigationManager({
@@ -159,6 +165,7 @@ describe('NavigationManager', () => {
         expect(navigationManager.Items.children[1].y).toBe((400 - 300) / 2);
       });
     });
+
     describe('autoresizing NavigationManager to match the dimensions of the Items component', () => {
       it('should autoresize the width of NavigationManager', () => {
         const itemW = 10;
@@ -175,6 +182,7 @@ describe('NavigationManager', () => {
         expect(navigationManager.Items.w).toBe(itemsW);
         expect(navigationManager.w).toBe(itemsW);
       });
+
       it('should autoresize the height of NavigationManager', () => {
         const itemH = 10;
         [navigationManager] = createNavigationManager({
@@ -192,6 +200,7 @@ describe('NavigationManager', () => {
         expect(navigationManager.h).toBe(itemsH);
       });
     });
+
     describe('updating the index at which scrolling should stop (lastScrollIndex)', () => {
       it('should set the index to that of the last item when alwaysScroll is enabled', () => {
         [navigationManager] = createNavigationManager({
@@ -201,9 +210,11 @@ describe('NavigationManager', () => {
 
         expect(navigationManager._lastScrollIndex).toBe(2);
       });
+
       // TODO: see note for if (this._lastScrollIndex > this.items.length) conditional
       xit('should prevent setting an index greater than that of the last item', () => {});
     });
+
     describe('emitting an $itemChanged signal to all ancestors', () => {
       it('should emit the signal when the Items cross dimension size has changed', async () => {
         const itemW = 10;
@@ -231,6 +242,7 @@ describe('NavigationManager', () => {
 
         expect(navigationManager.fireAncestors).toHaveBeenCalled();
       });
+
       it('should emit the signal when the Items length dimension size has changed', async () => {
         const itemH = 10;
         [navigationManager, testRenderer] = createNavigationManager(
@@ -258,6 +270,7 @@ describe('NavigationManager', () => {
         expect(navigationManager.fireAncestors).toHaveBeenCalled();
       });
     });
+
     it('should invoke an overridable _performRender method', () => {
       const performRenderSpy = jest.fn();
       class ExtendedNavManager extends NavigationManager {
@@ -294,6 +307,7 @@ describe('NavigationManager', () => {
 
       expect(navigationManager.selectedIndex).toBe(0);
     });
+
     it('should immediately patch index as the new selected index when duration is not defined', () => {
       expect(navigationManager.selectedIndex).toBe(0);
 
@@ -301,6 +315,7 @@ describe('NavigationManager', () => {
 
       expect(navigationManager.selectedIndex).toBe(1);
     });
+
     it('should update the selected index to a previous item after a defined duration', () => {
       jest.useFakeTimers();
       const duration = 3000;
@@ -315,6 +330,7 @@ describe('NavigationManager', () => {
 
       expect(navigationManager.selectedIndex).toBe(1);
     });
+
     it('should update the selected index to a next item after a defined duration', () => {
       jest.useFakeTimers();
       const duration = 3000;

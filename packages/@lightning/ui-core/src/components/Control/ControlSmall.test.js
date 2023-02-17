@@ -7,10 +7,10 @@ import baseTheme from '@suite-themes/base-lightning-tv';
 const createControlSmall = makeCreateComponent(ControlSmall);
 
 describe('ControlSmall', () => {
-  let control, testRenderer;
+  let controlSmall, testRenderer;
 
   beforeEach(() => {
-    [control, testRenderer] = createControlSmall(
+    [controlSmall, testRenderer] = createControlSmall(
       { title: 'ControlSmall' },
       { spyOnMethods: ['_update'] }
     );
@@ -18,7 +18,7 @@ describe('ControlSmall', () => {
   });
 
   afterEach(() => {
-    control = null;
+    controlSmall = null;
     testRenderer = null;
   });
 
@@ -42,22 +42,22 @@ describe('ControlSmall', () => {
   });
 
   it('renders the correct height', async () => {
-    expect(control.h).toBe(control.style.h);
+    expect(controlSmall.h).toBe(controlSmall.style.h);
   });
 
   it('renders the correct radius', async () => {
-    expect(control.style.radius).toBe(
+    expect(controlSmall.style.radius).toBe(
       Math.max(
-        control.theme.radius.xl -
-          (control.theme.spacer.md * 8 - control.style.h) / 2,
+        controlSmall.theme.radius.xl -
+          (controlSmall.theme.spacer.md * 8 - controlSmall.style.h) / 2,
         0
       )
     );
   });
 
   it('renders the correct logo radius', async () => {
-    expect(control.style.logoStyle.radius).toBe(
-      Math.max(control.style.radius - control.theme.spacer.xl / 2, 0)
+    expect(controlSmall.style.logoStyle.radius).toBe(
+      Math.max(controlSmall.style.radius - controlSmall.theme.spacer.xl / 2, 0)
     );
   });
 });

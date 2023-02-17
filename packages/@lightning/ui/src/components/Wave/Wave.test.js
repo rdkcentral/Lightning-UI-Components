@@ -12,6 +12,7 @@ describe('wave', () => {
   beforeEach(() => {
     [wave, testRenderer] = createWave();
   });
+
   afterEach(() => {
     testRenderer = null;
   });

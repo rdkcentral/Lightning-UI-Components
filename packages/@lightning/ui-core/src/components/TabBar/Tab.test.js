@@ -6,18 +6,15 @@ const iconPath = '../../assets/images/ic_lightning_white_32.png';
 const createComponent = makeCreateComponent(Tab);
 
 describe('Tab', () => {
-  let component, testRenderer;
+  let tab, testRenderer;
 
   beforeEach(async () => {
-    [component, testRenderer] = createComponent(
-      {},
-      { spyOnMethods: ['_update'] }
-    );
-    await component.__updateSpyPromise;
+    [tab, testRenderer] = createComponent({}, { spyOnMethods: ['_update'] });
+    await tab.__updateSpyPromise;
   });
 
   it('renders', async () => {
-    [component, testRenderer] = createComponent(
+    [tab, testRenderer] = createComponent(
       {
         title: 'Tab',
         icon: iconPath
@@ -27,7 +24,7 @@ describe('Tab', () => {
       }
     );
 
-    await component.__updateSpyPromise;
+    await tab.__updateSpyPromise;
 
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
@@ -35,69 +32,69 @@ describe('Tab', () => {
 
   it('sets the announce string to the title string', () => {
     const title = 'Tab 1';
-    component.title = title;
+    tab.title = title;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(title);
+    expect(tab.announce).toBe(title);
   });
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    component.announce = overrideString;
+    tab.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(overrideString);
+    expect(tab.announce).toBe(overrideString);
   });
 
   it('should render a tab with just an icon', async () => {
-    expect(component._Icon).not.toBeDefined();
+    expect(tab._Icon).not.toBeDefined();
 
-    component.icon = iconPath;
-    await component.__updateSpyPromise;
+    tab.icon = iconPath;
+    await tab.__updateSpyPromise;
 
-    expect(component._Icon).toBeDefined();
+    expect(tab._Icon).toBeDefined();
   });
 
   it('should render a tab with just text', async () => {
     const title = 'Tab';
-    expect(component._Text.content).toBeUndefined();
+    expect(tab._Text.content).toBeUndefined();
 
-    component.title = title;
-    await component.__updateSpyPromise;
+    tab.title = title;
+    await tab.__updateSpyPromise;
 
-    expect(component._Text.content).toBe(title);
-    expect(component._Text.mountX).toBe(0.5);
+    expect(tab._Text.content).toBe(title);
+    expect(tab._Text.mountX).toBe(0.5);
   });
 
   it('should render a tab with an icon and text', async () => {
     const title = 'Tab';
 
-    component.icon = iconPath;
-    component.title = title;
-    await component.__updateSpyPromise;
+    tab.icon = iconPath;
+    tab.title = title;
+    await tab.__updateSpyPromise;
 
-    expect(component._Icon).toBeDefined();
-    expect(component._Text.content).toBe(title);
-    expect(component._Text.mountX).toBe(0);
+    expect(tab._Icon).toBeDefined();
+    expect(tab._Text.content).toBe(title);
+    expect(tab._Text.mountX).toBe(0);
   });
 
   it('should remove icon and text from a tab when not defined', async () => {
     const title = 'Tab';
 
-    component.icon = iconPath;
-    component.title = title;
-    await component.__updateSpyPromise;
+    tab.icon = iconPath;
+    tab.title = title;
+    await tab.__updateSpyPromise;
 
-    expect(component._Icon).toBeDefined();
-    expect(component._Text.content).toBe(title);
-    expect(component.w).toBeGreaterThan(0);
-    expect(component.h).toBeGreaterThan(0);
+    expect(tab._Icon).toBeDefined();
+    expect(tab._Text.content).toBe(title);
+    expect(tab.w).toBeGreaterThan(0);
+    expect(tab.h).toBeGreaterThan(0);
 
-    component.icon = undefined;
-    component.title = undefined;
-    await component.__updateSpyPromise;
+    tab.icon = undefined;
+    tab.title = undefined;
+    await tab.__updateSpyPromise;
 
-    expect(component._Icon).toBeUndefined();
-    expect(component._Text.content).toBe('');
-    expect(component.w).toBe(0);
-    expect(component.h).toBe(0);
+    expect(tab._Icon).toBeUndefined();
+    expect(tab._Text.content).toBe('');
+    expect(tab.w).toBe(0);
+    expect(tab.h).toBe(0);
   });
 });

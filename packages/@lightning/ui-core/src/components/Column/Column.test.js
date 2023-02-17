@@ -68,7 +68,7 @@ const createStyledColumn = makeCreateComponent(
 );
 
 describe('Column', () => {
-  let testRenderer, column;
+  let column, testRenderer;
 
   beforeEach(async () => {
     [column, testRenderer] = createColumn();
@@ -197,6 +197,7 @@ describe('Column', () => {
         testId: 'B'
       }
     ];
+
     beforeEach(() => {
       initialLength = column.items.length;
     });
@@ -208,6 +209,7 @@ describe('Column', () => {
       expect(column.items[1].testId).toBe(items[0].testId);
       expect(column.items[2].testId).toBe(items[1].testId);
     });
+
     it('should append items to the end of the column if an index is not specified', () => {
       column.appendItemsAt(items);
 
@@ -219,6 +221,7 @@ describe('Column', () => {
         items[1].testId
       );
     });
+
     it('should not add items when none are passed to the method', () => {
       column.appendItemsAt();
       expect(column.items.length).toBe(initialLength);
@@ -268,6 +271,7 @@ describe('Column', () => {
       column.removeItemAt(1);
       expect(column.items.length).toBe(2);
     });
+
     it('should maintain which item is selected after removing an item', () => {
       column.selectedIndex = 2;
       expect(column.selected.testId).toBe('C');
@@ -275,6 +279,7 @@ describe('Column', () => {
       expect(column.selectedIndex).toBe(1);
       expect(column.selected.testId).toBe('C');
     });
+
     it('should select the next item after a selected item has been removed', () => {
       column.selectedIndex = 1;
       column.removeItemAt(1);
@@ -434,6 +439,7 @@ describe('Column', () => {
       const waitForSmooth = column => {
         return completeAnimation(column.Items, 'y');
       };
+
       beforeEach(() => {
         column.h = 400;
         expect(column._Items.y).toBe(0);
