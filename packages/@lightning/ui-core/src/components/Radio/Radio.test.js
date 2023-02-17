@@ -10,6 +10,7 @@ describe('Radio', () => {
   beforeEach(() => {
     [radio, testRenderer] = createRadio();
   });
+
   afterEach(() => {
     radio = null;
     testRenderer = null;

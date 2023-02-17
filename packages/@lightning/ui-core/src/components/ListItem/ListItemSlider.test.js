@@ -4,17 +4,17 @@ import ListItemSlider from './ListItemSlider';
 const createComponent = makeCreateComponent(ListItemSlider);
 
 describe('ListItemSlider', () => {
-  let component, testRenderer;
+  let listItemSlider, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({
+    [listItemSlider, testRenderer] = createComponent({
       title: 'ListItemSlider',
       value: 50
     });
   });
 
   afterEach(() => {
-    component = null;
+    listItemSlider = null;
     testRenderer = null;
   });
 
@@ -24,108 +24,108 @@ describe('ListItemSlider', () => {
   });
 
   it('should render Value', () => {
-    component.value = 50;
+    listItemSlider.value = 50;
     testRenderer.forceAllUpdates();
-    expect(component._Value).toBeDefined();
+    expect(listItemSlider._Value).toBeDefined();
   });
 
   it('should update Value', () => {
-    component.value = 50;
+    listItemSlider.value = 50;
     testRenderer.forceAllUpdates();
-    expect(component._Value.content).toEqual('50');
+    expect(listItemSlider._Value.content).toEqual('50');
   });
 
   it('should return default onLeft function', () => {
-    component.onLeft = () => ({});
-    component.value = 10;
+    listItemSlider.onLeft = () => ({});
+    listItemSlider.value = 10;
     testRenderer.forceAllUpdates();
-    component._handleLeft();
-    expect(component._Slider.value).toEqual(10);
+    listItemSlider._handleLeft();
+    expect(listItemSlider._Slider.value).toEqual(10);
   });
 
   it('should return default onRight function', () => {
-    component.onRight = () => ({});
-    component.value = 10;
+    listItemSlider.onRight = () => ({});
+    listItemSlider.value = 10;
     testRenderer.forceAllUpdates();
-    component._handleRight();
-    expect(component._Slider.value).toEqual(10);
+    listItemSlider._handleRight();
+    expect(listItemSlider._Slider.value).toEqual(10);
   });
   it('should reduce value when handleLeft is clicked', () => {
-    component.value = 10;
+    listItemSlider.value = 10;
     testRenderer.forceAllUpdates();
-    component._handleLeft();
-    expect(component._Slider.value).toEqual(9);
+    listItemSlider._handleLeft();
+    expect(listItemSlider._Slider.value).toEqual(9);
   });
   it('should increase value when handleRight is clicked', () => {
-    component.value = 10;
+    listItemSlider.value = 10;
     testRenderer.forceAllUpdates();
-    component._handleRight();
-    expect(component._Slider.value).toEqual(11);
+    listItemSlider._handleRight();
+    expect(listItemSlider._Slider.value).toEqual(11);
   });
 
   it('should not exceed slider max value when handleRight is clicked', () => {
-    component.value = 10;
-    component._Slider.max = 10;
+    listItemSlider.value = 10;
+    listItemSlider._Slider.max = 10;
     testRenderer.forceAllUpdates();
-    component._handleRight();
-    expect(component._Slider.value).toEqual(10);
+    listItemSlider._handleRight();
+    expect(listItemSlider._Slider.value).toEqual(10);
   });
 
   it('should not exist Value if value not exist', () => {
-    component.value = null;
+    listItemSlider.value = null;
     testRenderer.forceAllUpdates();
-    expect(component._Value).toBeUndefined();
+    expect(listItemSlider._Value).toBeUndefined();
   });
 
   it('should do nothing when handleLeft is clicked in disabledMode', () => {
-    component.value = 1;
-    component.mode = 'disabled';
+    listItemSlider.value = 1;
+    listItemSlider.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    component._handleLeft();
-    expect(component._Slider.value).toEqual(1);
+    listItemSlider._handleLeft();
+    expect(listItemSlider._Slider.value).toEqual(1);
   });
 
   it('should do nothing when handleRight is clicked in disabledMode', () => {
-    component.value = 1;
-    component.mode = 'disabled';
+    listItemSlider.value = 1;
+    listItemSlider.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    component._handleRight();
-    expect(component.value).toEqual(1);
+    listItemSlider._handleRight();
+    expect(listItemSlider.value).toEqual(1);
   });
 
   it('slider should be visible if in focused mode', () => {
-    component.shouldCollapse = false;
-    component.mode = 'focused';
-    expect(component._Slider.visible).toEqual(true);
+    listItemSlider.shouldCollapse = false;
+    listItemSlider.mode = 'focused';
+    expect(listItemSlider._Slider.visible).toEqual(true);
   });
 
   it('slider should NOT be visible if in unfocused mode', () => {
-    component.shouldCollapse = true;
-    component.mode = 'unfocused';
+    listItemSlider.shouldCollapse = true;
+    listItemSlider.mode = 'unfocused';
     testRenderer.forceAllUpdates();
-    expect(component._Slider.visible).toEqual(false);
+    expect(listItemSlider._Slider.visible).toEqual(false);
   });
 
   it('slider should NOT be visible if in disabled mode', () => {
-    component.shouldCollapse = true;
-    component.mode = 'disabled';
+    listItemSlider.shouldCollapse = true;
+    listItemSlider.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    expect(component._Slider.visible).toEqual(false);
+    expect(listItemSlider._Slider.visible).toEqual(false);
   });
 
   describe('announcer', () => {
     it('should return true announce string, when announce property is true', () => {
-      component.title = 'Title';
-      component.value = 50;
-      component._announce = true;
-      expect(component.announce).toEqual(true);
+      listItemSlider.title = 'Title';
+      listItemSlider.value = 50;
+      listItemSlider._announce = true;
+      expect(listItemSlider.announce).toEqual(true);
     });
 
     it('should use the title and value as the default announce string', () => {
-      component.title = 'Title';
-      component.value = 50;
-      component._announce = false;
-      expect(component.announce).toEqual('Title50, List Item Slider');
+      listItemSlider.title = 'Title';
+      listItemSlider.value = 50;
+      listItemSlider._announce = false;
+      expect(listItemSlider.announce).toEqual('Title50, List Item Slider');
     });
   });
 });

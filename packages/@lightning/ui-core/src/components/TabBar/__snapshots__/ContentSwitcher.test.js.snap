@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TabBar renders 1`] = `
+exports[`ContentSwitcher renders 1`] = `
 {
   "Component": {
     "active": false,

@@ -137,6 +137,7 @@ describe('cardAbout', () => {
       )
     );
   });
+
   describe('updating content', () => {
     it('should update the left icon text container', () => {
       cardAbout.iconLeft = lightningPath;

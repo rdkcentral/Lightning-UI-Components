@@ -11,6 +11,7 @@ describe('Input', () => {
   beforeEach(() => {
     [input, testRenderer] = createInput();
   });
+
   afterEach(() => {
     input = null;
     testRenderer = null;
@@ -68,6 +69,7 @@ describe('Input', () => {
       });
       expect(input._handleLeft()).toEqual(false);
     });
+
     it('when cursor handles right movement ', () => {
       [input, testRenderer] = createInput();
       input.mode = 'focused';
@@ -128,6 +130,7 @@ describe('Input', () => {
       testRenderer.forceAllUpdates();
       expect(input._Cursor.x).toBe(input._titleX);
     });
+
     it('cursor position should change based on prefix', () => {
       [input, testRenderer] = createInput();
       expect(input._Cursor.x).toBe(input._titleX);
@@ -241,14 +244,14 @@ describe('Input', () => {
   });
 
   describe('announcer', () => {
-    it('should announce the eyebrow and helptext as the default announce string if password is true', () => {
+    it('should announce the eyebrow and helpText as the default announce string if password is true', () => {
       input.password = true;
       input.eyebrow = 'eyebrow';
       input.helpText = 'helpText';
       expect(input.announce).toEqual(['eyebrow', 'helpText']);
     });
 
-    it('should append helptext to end of announce context', () => {
+    it('should append helpText to end of announce context', () => {
       input.password = false;
       input.eyebrow = 'eyebrow';
       input.helpText = 'helpText';

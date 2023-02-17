@@ -1,15 +1,20 @@
 import { makeCreateComponent } from '@lightning/ui-test-utils';
 import Surface from './index.js';
+
 const createSurface = makeCreateComponent(Surface);
+
 describe('Surface', () => {
   let surface, testRenderer;
+
   beforeEach(() => {
     [surface, testRenderer] = createSurface();
   });
+
   afterEach(() => {
     surface = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
@@ -27,6 +32,7 @@ describe('Surface', () => {
       surface._componentStyle.backgroundColorFocused
     );
   });
+
   it('should update stateColor ', () => {
     surface.disabled = false;
     surface._unfocus();
@@ -35,6 +41,7 @@ describe('Surface', () => {
       surface._componentStyle.backgroundColorUnfocused
     );
   });
+
   it('should update stateColor ', () => {
     surface.disabled = true;
     testRenderer.forceAllUpdates();

@@ -6,13 +6,16 @@ const createCardSectionComponent = makeCreateComponent(CardSection);
 
 describe('CardSection', () => {
   let cardSection, testRenderer;
+
   beforeEach(() => {
     [cardSection, testRenderer] = createCardSectionComponent();
   });
+
   afterEach(() => {
     cardSection = null;
     testRenderer = null;
   });
+
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
@@ -34,6 +37,7 @@ describe('CardSection', () => {
       'Icon'
     ]);
   });
+
   it('should update Metadata', () => {
     expect(cardSection.icon).toBe(undefined);
     cardSection.icon = circle;

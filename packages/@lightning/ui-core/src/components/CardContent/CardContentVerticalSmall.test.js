@@ -5,13 +5,13 @@ const createComponent = makeCreateComponent(CardContentVerticalSmall);
 
 describe('CardContentVerticalSmall', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let cardContentVerticalSmall, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [cardContentVerticalSmall, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    cardContentVerticalSmall = null;
     testRenderer = null;
   });
 
@@ -21,13 +21,13 @@ describe('CardContentVerticalSmall', () => {
   });
 
   it('does not use details or provider in metadata', () => {
-    component.metadata = {
+    cardContentVerticalSmall.metadata = {
       title: 'Title',
       description: 'Description',
       details: 'Details',
       provider: ['image1', 'image2']
     };
-    expect(component.metadata.details).toBeUndefined();
-    expect(component.metadata.provider).toBeUndefined();
+    expect(cardContentVerticalSmall.metadata.details).toBeUndefined();
+    expect(cardContentVerticalSmall.metadata.provider).toBeUndefined();
   });
 });

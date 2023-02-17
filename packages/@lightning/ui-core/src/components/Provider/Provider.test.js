@@ -17,13 +17,13 @@ const properties = {
 const createComponent = makeCreateComponent(Provider, properties);
 
 describe('Provider', () => {
-  let component, testRenderer;
+  let provider, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [provider, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    provider = null;
     testRenderer = null;
   });
 
@@ -34,53 +34,53 @@ describe('Provider', () => {
 
   it('sets the announce string to the appropriate image alt text and hidden amount', () => {
     const announce = 'test';
-    component.visibleCount = 5;
-    component.providers = [{ icon: 'test.png', announce }];
+    provider.visibleCount = 5;
+    provider.providers = [{ icon: 'test.png', announce }];
     testRenderer.forceAllUpdates();
-    expect(component.announce).toEqual(['test']);
-    component.providers = Array(10).fill({
+    expect(provider.announce).toEqual(['test']);
+    provider.providers = Array(10).fill({
       icon: 'test.png',
       announce: 'test'
     });
     testRenderer.forceAllUpdates();
     const providerAnnounce = Array(5).fill(announce);
     providerAnnounce.push('+5');
-    expect(component.announce).toEqual(providerAnnounce);
+    expect(provider.announce).toEqual(providerAnnounce);
   });
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    component.announce = overrideString;
+    provider.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(overrideString);
+    expect(provider.announce).toBe(overrideString);
   });
 
   it('displays the correct number of providers as Icons', () => {
-    expect(component._Row.items.length).toBe(4);
-    expect(component._Row.items[0]).toBeInstanceOf(Icon);
-    expect(component._Row.items[1]).toBeInstanceOf(Icon);
-    expect(component._Row.items[2]).toBeInstanceOf(Icon);
-    expect(component._Row.items[3]).not.toBeInstanceOf(Icon);
+    expect(provider._Row.items.length).toBe(4);
+    expect(provider._Row.items[0]).toBeInstanceOf(Icon);
+    expect(provider._Row.items[1]).toBeInstanceOf(Icon);
+    expect(provider._Row.items[2]).toBeInstanceOf(Icon);
+    expect(provider._Row.items[3]).not.toBeInstanceOf(Icon);
   });
 
   it('displays the correct counter', () => {
-    [component, testRenderer] = createComponent({
+    [provider, testRenderer] = createComponent({
       providers: Array(20).fill(iconSquare)
     });
-    expect(component._Row.items[3]).not.toBeInstanceOf(Icon);
-    expect(component._Row.items[3].tag('Text').content).toBe('+17');
+    expect(provider._Row.items[3]).not.toBeInstanceOf(Icon);
+    expect(provider._Row.items[3].tag('Text').content).toBe('+17');
   });
 
   it('displays the correct counter with custom counterText', () => {
-    [component, testRenderer] = createComponent({
+    [provider, testRenderer] = createComponent({
       providers: Array(20).fill(iconSquare),
       counterText: '...'
     });
-    expect(component._Row.items[3].tag('Text').content).toBe('...');
+    expect(provider._Row.items[3].tag('Text').content).toBe('...');
   });
 
   it('scales a non-square icon to the correct dimensions', () => {
-    [component, testRenderer] = createComponent({
+    [provider, testRenderer] = createComponent({
       providers: [
         iconSquare,
         {
@@ -93,11 +93,11 @@ describe('Provider', () => {
       ]
     });
     // Second provider should maintain its 2:1 ratio and have a height of 40 (itemSize from the styles file)
-    const { w, h } = component._Row.items[1];
+    const { w, h } = provider._Row.items[1];
     const ratio = 2 / 1;
     expect({ w, h }).toMatchObject({
-      w: component.style.itemSize * ratio,
-      h: component.style.itemSize
+      w: provider.style.itemSize * ratio,
+      h: provider.style.itemSize
     });
   });
 });

@@ -13,6 +13,7 @@ describe('GridOverlay', () => {
       { spyOnMethods: ['_update'] }
     );
   });
+
   afterEach(() => {
     gridOverlay = null;
     testRenderer = null;

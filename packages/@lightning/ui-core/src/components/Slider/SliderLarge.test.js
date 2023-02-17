@@ -11,6 +11,7 @@ describe('SliderLarge', () => {
     [sliderLarge, testRenderer] = createSlider();
     testRenderer.update();
   });
+
   afterEach(() => {
     sliderLarge = null;
     testRenderer = null;
@@ -33,7 +34,7 @@ describe('SliderLarge', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('sets the inital LeftBar and Circle textures without smoothing', () => {
+  it('sets the initial LeftBar and Circle textures without smoothing', () => {
     [sliderLarge, testRenderer] = createSlider({
       min: 1,
       max: 10,

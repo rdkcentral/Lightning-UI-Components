@@ -8,10 +8,10 @@ const createButtonSmall = makeCreateComponent(
 );
 
 describe('ButtonSmall', () => {
-  let button, testRenderer;
+  let buttonSmall, testRenderer;
 
   beforeEach(() => {
-    [button, testRenderer] = createButtonSmall(
+    [buttonSmall, testRenderer] = createButtonSmall(
       { title: 'ButtonSmall' },
       { spyOnMethods: ['_update'] }
     );
@@ -19,7 +19,7 @@ describe('ButtonSmall', () => {
   });
 
   afterEach(() => {
-    button = null;
+    buttonSmall = null;
     testRenderer = null;
   });
 
@@ -29,12 +29,15 @@ describe('ButtonSmall', () => {
   });
 
   it('renders the correct height', () => {
-    expect(button.h).toBe(button.style.h);
+    expect(buttonSmall.h).toBe(buttonSmall.style.h);
   });
 
   it('renders the correct width', () => {
-    expect(button.w).toBe(
-      Math.max(button._contentW + button._paddingX, button.style.minWidth)
+    expect(buttonSmall.w).toBe(
+      Math.max(
+        buttonSmall._contentW + buttonSmall._paddingX,
+        buttonSmall.style.minWidth
+      )
     );
   });
 });

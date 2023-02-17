@@ -4,14 +4,14 @@ import { makeCreateComponent } from '@lightning/ui-test-utils';
 const createCardComponent = makeCreateComponent(Card);
 
 describe('Card', () => {
-  let Card, testRenderer;
+  let card, testRenderer;
 
   beforeEach(() => {
-    [Card, testRenderer] = createCardComponent();
+    [card, testRenderer] = createCardComponent();
   });
 
   afterEach(() => {
-    Card = null;
+    card = null;
     testRenderer = null;
   });
 
@@ -22,62 +22,62 @@ describe('Card', () => {
 
   it('sets the announce string to the card title', () => {
     const title = 'Title';
-    Card.title = title;
+    card.title = title;
     testRenderer.forceAllUpdates();
-    expect(Card.announce).toBe(title);
+    expect(card.announce).toBe(title);
   });
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    Card.announce = overrideString;
+    card.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(Card.announce).toBe(overrideString);
+    expect(card.announce).toBe(overrideString);
   });
 
   it('has the correct static props getter', () => {
-    expect(Card.constructor.properties).toMatchObject(['title']);
+    expect(card.constructor.properties).toMatchObject(['title']);
   });
 
   it('has the correct static tags getter', () => {
-    expect(Card.constructor.tags).toMatchObject(['Background', 'Title']);
+    expect(card.constructor.tags).toMatchObject(['Background', 'Title']);
   });
 
   it('should update Title', () => {
-    Card.title = 'Title';
+    card.title = 'Title';
     testRenderer.forceAllUpdates();
-    expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.style.textStyle).toMatchObject(
-      Card.style.titleTextStyle
+    expect(card._Title.content).toEqual('Title');
+    expect(card._Title.style.textStyle).toMatchObject(
+      card.style.titleTextStyle
     );
-    expect(Card._Title.style.textStyle.wordWrapWidth).toEqual(
-      Card._calculateTextWidth()
+    expect(card._Title.style.textStyle.wordWrapWidth).toEqual(
+      card._calculateTextWidth()
     );
-    expect(Card._Title.style.textStyle.textColor).toEqual(
-      Card.style.titleTextStyle.textColor
+    expect(card._Title.style.textStyle.textColor).toEqual(
+      card.style.titleTextStyle.textColor
     );
   });
 
   it('should update Title when disabled', () => {
-    Card.title = 'Title';
-    Card.disabled = true;
-    Card._update();
+    card.title = 'Title';
+    card.disabled = true;
+    card._update();
     testRenderer.forceAllUpdates();
-    expect(Card._Title.content).toEqual('Title');
-    expect(Card._Title.style.textStyle.textColor).toEqual(
-      Card.style.titleTextStyle.textColor
+    expect(card._Title.content).toEqual('Title');
+    expect(card._Title.style.textStyle.textColor).toEqual(
+      card.style.titleTextStyle.textColor
     );
   });
 
   it('should calculate text width', () => {
     testRenderer.forceAllUpdates();
-    expect(Card._calculateTextWidth()).toEqual(
-      Card.w - Card.style.paddingHorizontal * 2
+    expect(card._calculateTextWidth()).toEqual(
+      card.w - card.style.paddingHorizontal * 2
     );
   });
 
   it('move Title', () => {
     testRenderer.forceAllUpdates();
-    expect(Card._Title.x).toEqual(Card.style.paddingHorizontal);
-    expect(Card._Title.y).toEqual(Card.style.paddingVertical);
+    expect(card._Title.x).toEqual(card.style.paddingHorizontal);
+    expect(card._Title.y).toEqual(card.style.paddingVertical);
   });
 });

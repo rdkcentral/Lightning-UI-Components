@@ -6,16 +6,16 @@ const logoPath = '../../assets/images/Xfinity-Provider-Logo-Square.png';
 const createComponent = makeCreateComponent(ListItem);
 
 describe('ListItem', () => {
-  let component, testRenderer;
+  let listItem, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({
+    [listItem, testRenderer] = createComponent({
       title: 'ListItem',
       description: 'Description'
     });
   });
   afterEach(() => {
-    component = null;
+    listItem = null;
     testRenderer = null;
   });
 
@@ -25,127 +25,127 @@ describe('ListItem', () => {
   });
 
   it('should update Title', () => {
-    component.title = 'Title';
+    listItem.title = 'Title';
     testRenderer.forceAllUpdates();
-    expect(component._Title.content).toEqual('Title');
+    expect(listItem._Title.content).toEqual('Title');
   });
 
   it('should update Title', () => {
-    component.title = '';
+    listItem.title = '';
     testRenderer.forceAllUpdates();
-    expect(component._Title.content).toEqual('');
+    expect(listItem._Title.content).toEqual('');
   });
 
   it('should update Description', () => {
-    component.description = 'Description';
+    listItem.description = 'Description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.content).toEqual('Description');
+    expect(listItem._Description.content).toEqual('Description');
   });
   it('should update Description', () => {
-    component.description = undefined;
+    listItem.description = undefined;
     testRenderer.forceAllUpdates();
-    expect(component._Description).toBeUndefined();
+    expect(listItem._Description).toBeUndefined();
   });
 
   it('should truncate description text', () => {
-    component.description = 'Description';
+    listItem.description = 'Description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.style.textStyle.wordWrapWidth).toEqual(
-      component._fixedWordWrapWidth
+    expect(listItem._Description.style.textStyle.wordWrapWidth).toEqual(
+      listItem._fixedWordWrapWidth
     );
   });
 
   it('should update suffix', () => {
-    component.suffix = {
+    listItem.suffix = {
       icon: logoPath
     };
     testRenderer.forceAllUpdates();
-    expect(component._hasSuffix).toBeTruthy();
+    expect(listItem._hasSuffix).toBeTruthy();
   });
 
   it('should update prefix', () => {
-    component.prefix = {
+    listItem.prefix = {
       icon: logoPath
     };
     testRenderer.forceAllUpdates();
-    expect(component._hasPrefix).toBeTruthy();
+    expect(listItem._hasPrefix).toBeTruthy();
   });
 
   it('should render a logo as a prefix', () => {
-    expect(component._hasPrefixLogo).toBeFalsy();
-    expect(component._Prefix).toBeUndefined();
+    expect(listItem._hasPrefixLogo).toBeFalsy();
+    expect(listItem._Prefix).toBeUndefined();
 
-    component.prefixLogo = logoPath;
+    listItem.prefixLogo = logoPath;
     testRenderer.forceAllUpdates();
 
-    expect(component._hasPrefixLogo).toBeTruthy();
-    expect(component._Prefix.items[0].icon).toBe(logoPath);
+    expect(listItem._hasPrefixLogo).toBeTruthy();
+    expect(listItem._Prefix.items[0].icon).toBe(logoPath);
   });
 
   it('should render a logo as a suffix', () => {
-    expect(component._hasSuffixLogo).toBeFalsy();
-    expect(component._Suffix).toBeUndefined();
+    expect(listItem._hasSuffixLogo).toBeFalsy();
+    expect(listItem._Suffix).toBeUndefined();
 
-    component.suffixLogo = logoPath;
+    listItem.suffixLogo = logoPath;
     testRenderer.forceAllUpdates();
 
-    expect(component._hasSuffixLogo).toBeTruthy();
-    expect(component._Suffix.items[0].icon).toBe(logoPath);
+    expect(listItem._hasSuffixLogo).toBeTruthy();
+    expect(listItem._Suffix.items[0].icon).toBe(logoPath);
   });
 
   it('should create a flexbox when title or description exists', () => {
-    [component, testRenderer] = createComponent({});
-    expect(component._TextWrapper.flex).toBeTruthy();
+    [listItem, testRenderer] = createComponent({});
+    expect(listItem._TextWrapper.flex).toBeTruthy();
 
-    component.title = 'title';
+    listItem.title = 'title';
     testRenderer.forceAllUpdates();
-    expect(component._TextWrapper.flex.direction).toBe('column');
+    expect(listItem._TextWrapper.flex.direction).toBe('column');
 
-    component.title = undefined;
-    component.description = 'description';
+    listItem.title = undefined;
+    listItem.description = 'description';
     testRenderer.forceAllUpdates();
-    expect(component._TextWrapper.flex.direction).toBe('column');
+    expect(listItem._TextWrapper.flex.direction).toBe('column');
   });
 
   it('should collapse description in unfocused mode when shouldCollapse flag is true', () => {
-    component.shouldCollapse = true;
-    component.mode = 'unfocused';
-    component.description = 'description';
+    listItem.shouldCollapse = true;
+    listItem.mode = 'unfocused';
+    listItem.description = 'description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.visible).toEqual(false);
+    expect(listItem._Description.visible).toEqual(false);
   });
 
   it('should collapse description in disabled mode when shouldCollapse flag is true', () => {
-    component.shouldCollapse = true;
-    component.mode = 'disabled';
-    component.description = 'description';
+    listItem.shouldCollapse = true;
+    listItem.mode = 'disabled';
+    listItem.description = 'description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.visible).toEqual(false);
+    expect(listItem._Description.visible).toEqual(false);
   });
 
   it('should not collapse description in focused mode when shouldCollapse flag is true', () => {
-    component.shouldCollapse = true;
-    component.mode = 'focused';
-    component.description = 'description';
+    listItem.shouldCollapse = true;
+    listItem.mode = 'focused';
+    listItem.description = 'description';
     testRenderer.forceAllUpdates();
-    expect(component._Description.visible).toEqual(true);
+    expect(listItem._Description.visible).toEqual(true);
   });
 
   describe('announcer', () => {
     it('should use the title and description as the default announce string', () => {
-      expect(component.announce).toEqual('ListItemDescription, List Item');
+      expect(listItem.announce).toEqual('ListItemDescription, List Item');
     });
 
     it('should append List Item to end of announce context', () => {
-      expect(component.announce).toEqual('ListItemDescription, List Item');
+      expect(listItem.announce).toEqual('ListItemDescription, List Item');
     });
 
     it('should prefer the announce prop over the default announce', () => {
       const overrideString = 'override announcer string';
 
-      component._announce = overrideString;
+      listItem._announce = overrideString;
       testRenderer.forceAllUpdates();
-      expect(component.announce).toEqual(overrideString);
+      expect(listItem.announce).toEqual(overrideString);
     });
   });
 });

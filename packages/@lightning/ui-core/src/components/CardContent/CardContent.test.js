@@ -8,13 +8,13 @@ const createComponent = makeCreateComponent(CardContent);
 
 describe('CardContent', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let cardContent, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [cardContent, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    cardContent = null;
     testRenderer = null;
   });
 
@@ -35,7 +35,7 @@ describe('CardContent', () => {
     const badge = { title: 'HD' };
     const label = { title: 'Live' };
     const progressBar = { progress: 0.5 };
-    component.patch({
+    cardContent.patch({
       metadata: {
         title,
         description,
@@ -49,7 +49,7 @@ describe('CardContent', () => {
       }
     });
     testRenderer.forceAllUpdates();
-    expect(component.announce).toEqual([
+    expect(cardContent.announce).toEqual([
       [title, description, details, [...Array(3).fill(logoAnnounce), '+2']],
       [undefined, badge.title, label.title, `${progressBar.progress * 100}%`]
     ]);
@@ -57,124 +57,124 @@ describe('CardContent', () => {
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    component.announce = overrideString;
+    cardContent.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(overrideString);
+    expect(cardContent.announce).toBe(overrideString);
   });
 
   it('creates Tile', () => {
-    [component, testRenderer] = createComponent({ src: icon });
-    expect(component._Tile.type).toBe(Tile);
+    [cardContent, testRenderer] = createComponent({ src: icon });
+    expect(cardContent._Tile.type).toBe(Tile);
   });
 
   it('shows Tile and Metadata when shouldCollapse is false', () => {
-    component.shouldCollapse = false;
+    cardContent.shouldCollapse = false;
 
-    component.collapseToMetadata = false;
-    component.mode = 'unfocused';
+    cardContent.collapseToMetadata = false;
+    cardContent.mode = 'unfocused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'disabled';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'focused';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'focused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
 
-    component.collapseToMetadata = true;
-    component.mode = 'unfocused';
+    cardContent.collapseToMetadata = true;
+    cardContent.mode = 'unfocused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'disabled';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'focused';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'focused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
   });
 
   it('hides Metadata and shows Tile when shouldCollapse is true', () => {
-    component.shouldCollapse = true;
-    component.collapseToMetadata = false;
+    cardContent.shouldCollapse = true;
+    cardContent.collapseToMetadata = false;
 
-    component.mode = 'unfocused';
+    cardContent.mode = 'unfocused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(0);
-    component.mode = 'disabled';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(0);
+    cardContent.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(0);
-    component.mode = 'focused';
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(0);
+    cardContent.mode = 'focused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
   });
 
   it('hides Tile and shows Metadata when shouldCollapse and collapseToMetadata are true', () => {
-    component.shouldCollapse = true;
-    component.collapseToMetadata = true;
+    cardContent.shouldCollapse = true;
+    cardContent.collapseToMetadata = true;
 
-    component.mode = 'unfocused';
+    cardContent.mode = 'unfocused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(0);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'disabled';
+    expect(cardContent._Tile.alpha).toBe(0);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'disabled';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(0);
-    expect(component._Metadata.alpha).toBe(1);
-    component.mode = 'focused';
+    expect(cardContent._Tile.alpha).toBe(0);
+    expect(cardContent._Metadata.alpha).toBe(1);
+    cardContent.mode = 'focused';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.alpha).toBe(1);
-    expect(component._Metadata.alpha).toBe(1);
+    expect(cardContent._Tile.alpha).toBe(1);
+    expect(cardContent._Metadata.alpha).toBe(1);
   });
 
   it('uses the custom radius values for individual corners', () => {
-    component.style = { radius: [1, 2, 3, 4] };
+    cardContent.style = { radius: [1, 2, 3, 4] };
 
-    component.orientation = 'horizontal';
+    cardContent.orientation = 'horizontal';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.style.radius).toEqual([1, 0, 0, 4]);
+    expect(cardContent._Tile.style.radius).toEqual([1, 0, 0, 4]);
 
-    component.orientation = 'vertical';
+    cardContent.orientation = 'vertical';
     testRenderer.forceAllUpdates();
-    expect(component._Tile.style.radius).toEqual([1, 2, 0, 0]);
+    expect(cardContent._Tile.style.radius).toEqual([1, 2, 0, 0]);
   });
 
   it('should accept src as getter at the root component level or nested inside artwork object', () => {
-    expect(component.src).toBeUndefined();
+    expect(cardContent.src).toBeUndefined();
 
     const imageUrl1 = 'test.png';
-    component.src = imageUrl1;
+    cardContent.src = imageUrl1;
     testRenderer.forceAllUpdates();
-    expect(component.src).toBe(imageUrl1);
-    expect(component.tile).toBeUndefined();
-    expect(component._Tile.src).toBe(imageUrl1);
+    expect(cardContent.src).toBe(imageUrl1);
+    expect(cardContent.tile).toBeUndefined();
+    expect(cardContent._Tile.src).toBe(imageUrl1);
 
     const imageUrl2 = 'test.png';
-    component.tile = { src: imageUrl2 };
+    cardContent.tile = { src: imageUrl2 };
     testRenderer.forceAllUpdates();
-    expect(component.src).toBe(imageUrl2);
-    expect(component.tile.src).toBe(imageUrl2);
-    expect(component._Tile.src).toBe(imageUrl2);
+    expect(cardContent.src).toBe(imageUrl2);
+    expect(cardContent.tile.src).toBe(imageUrl2);
+    expect(cardContent._Tile.src).toBe(imageUrl2);
 
-    component.src = undefined;
-    component.tile = { src: imageUrl2 };
+    cardContent.src = undefined;
+    cardContent.tile = { src: imageUrl2 };
     testRenderer.forceAllUpdates();
-    expect(component.src).toBe(imageUrl2);
-    expect(component.tile.src).toBe(imageUrl2);
-    expect(component._Tile.src).toBe(imageUrl2);
+    expect(cardContent.src).toBe(imageUrl2);
+    expect(cardContent.tile.src).toBe(imageUrl2);
+    expect(cardContent._Tile.src).toBe(imageUrl2);
   });
 
   describe('horizontal layout', () => {
     beforeEach(() => {
-      [component, testRenderer] = createComponent({
+      [cardContent, testRenderer] = createComponent({
         src: icon,
         orientation: 'horizontal',
         badge: 'Badge',
@@ -193,16 +193,16 @@ describe('CardContent', () => {
     });
 
     it('positions Metadata', () => {
-      expect(component._Metadata.x).toBe(
-        component.style.imageSize.w + component.style.paddingHorizontal
+      expect(cardContent._Metadata.x).toBe(
+        cardContent.style.imageSize.w + cardContent.style.paddingHorizontal
       );
-      expect(component._Metadata.y).toBe(component.style.paddingVertical);
+      expect(cardContent._Metadata.y).toBe(cardContent.style.paddingVertical);
     });
   });
 
   describe('vertical layout', () => {
     beforeEach(() => {
-      [component, testRenderer] = createComponent({
+      [cardContent, testRenderer] = createComponent({
         src: icon,
         orientation: 'vertical',
         badge: 'Badge',
@@ -221,9 +221,9 @@ describe('CardContent', () => {
     });
 
     it('positions Metadata', () => {
-      expect(component._Metadata.x).toBe(component.style.paddingHorizontal);
-      expect(component._Metadata.y).toBe(
-        component.style.imageSize.h + component.style.paddingVertical
+      expect(cardContent._Metadata.x).toBe(cardContent.style.paddingHorizontal);
+      expect(cardContent._Metadata.y).toBe(
+        cardContent.style.imageSize.h + cardContent.style.paddingVertical
       );
     });
   });

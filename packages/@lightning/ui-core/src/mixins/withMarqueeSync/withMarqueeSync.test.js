@@ -5,11 +5,8 @@ import TextBox from '../../components/TextBox';
 import Base from '../../components/Base';
 
 describe('withMarqueeSync', () => {
-  let component;
-  let testRenderer;
-  let willMarqueeSpy;
-  let updateSignalsSpy;
-  let cleanupSpy;
+  let withMarqueeSyncComponent, testRenderer;
+  let willMarqueeSpy, updateSignalsSpy, cleanupSpy;
   class Example extends Base {
     static get __componentName() {
       return 'Example';
@@ -66,68 +63,70 @@ describe('withMarqueeSync', () => {
   }
 
   beforeEach(() => {
-    [component, testRenderer] = makeCreateComponent(withMarqueeSync(Example))();
-    willMarqueeSpy = jest.spyOn(component, '_willMarquee');
-    updateSignalsSpy = jest.spyOn(component, '_updateSignals');
-    cleanupSpy = jest.spyOn(component, '_cleanupSyncValues');
+    [withMarqueeSyncComponent, testRenderer] = makeCreateComponent(
+      withMarqueeSync(Example)
+    )();
+    willMarqueeSpy = jest.spyOn(withMarqueeSyncComponent, '_willMarquee');
+    updateSignalsSpy = jest.spyOn(withMarqueeSyncComponent, '_updateSignals');
+    cleanupSpy = jest.spyOn(withMarqueeSyncComponent, '_cleanupSyncValues');
   });
 
   afterEach(() => {
-    component = null;
+    withMarqueeSyncComponent = null;
   });
 
   it('extends the base class', () => {
-    expect(component.constructor.name).toBe('Example');
+    expect(withMarqueeSyncComponent.constructor.name).toBe('Example');
   });
 
   it('should apply signals to child components', () => {
-    expect(component.TextOne.signals).toStrictEqual({
+    expect(withMarqueeSyncComponent.TextOne.signals).toStrictEqual({
       willMarquee: '_willMarquee'
     });
-    expect(component.TextTwo.signals).toStrictEqual({
+    expect(withMarqueeSyncComponent.TextTwo.signals).toStrictEqual({
       willMarquee: '_willMarquee'
     });
   });
 
   it('should have matching overrideX values across components', () => {
-    component.style.marqueeSync = true;
-    component._enableMarquee();
+    withMarqueeSyncComponent.style.marqueeSync = true;
+    withMarqueeSyncComponent._enableMarquee();
     testRenderer.forceAllUpdates();
-    expect(component.TextOne._Marquee.overrideLoopX).toBe(
-      component.TextTwo._Marquee.overrideLoopX
+    expect(withMarqueeSyncComponent.TextOne._Marquee.overrideLoopX).toBe(
+      withMarqueeSyncComponent.TextTwo._Marquee.overrideLoopX
     );
     expect(willMarqueeSpy).toHaveBeenCalled();
     expect(updateSignalsSpy).toHaveBeenCalled();
   });
 
   it("shouldn't sync marquee values if sync is disabled in the component style", () => {
-    component.style.marqueeSync = false;
+    withMarqueeSyncComponent.style.marqueeSync = false;
     jest.clearAllMocks();
 
-    component._enableMarquee();
+    withMarqueeSyncComponent._enableMarquee();
     testRenderer.forceAllUpdates();
 
-    expect(component._shouldSync).toBe(false);
+    expect(withMarqueeSyncComponent._shouldSync).toBe(false);
     expect(willMarqueeSpy).not.toHaveBeenCalled();
     expect(updateSignalsSpy).not.toHaveBeenCalled();
     expect(cleanupSpy).toHaveBeenCalled();
   });
 
   it("shouldn't sync if syncArray value is invalid", () => {
-    component.syncArray = null;
+    withMarqueeSyncComponent.syncArray = null;
     testRenderer.forceAllUpdates();
-    expect(component._shouldSync).toBe(false);
+    expect(withMarqueeSyncComponent._shouldSync).toBe(false);
 
-    component.syncArray = [];
+    withMarqueeSyncComponent.syncArray = [];
     testRenderer.forceAllUpdates();
-    expect(component._shouldSync).toBe(false);
+    expect(withMarqueeSyncComponent._shouldSync).toBe(false);
 
-    component.syncArray = [component.TextTwo];
+    withMarqueeSyncComponent.syncArray = [withMarqueeSyncComponent.TextTwo];
     testRenderer.forceAllUpdates();
-    expect(component._shouldSync).toBe(false);
+    expect(withMarqueeSyncComponent._shouldSync).toBe(false);
 
-    component.syncArray = {};
+    withMarqueeSyncComponent.syncArray = {};
     testRenderer.forceAllUpdates();
-    expect(component._shouldSync).toBe(false);
+    expect(withMarqueeSyncComponent._shouldSync).toBe(false);
   });
 });

@@ -34,16 +34,16 @@ const items = createItems(2);
 const createComponent = makeCreateComponent(ControlRow);
 
 describe('ControlRow', () => {
-  let component, testRenderer;
+  let controlRow, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent({
+    [controlRow, testRenderer] = createComponent({
       contentItems: items
     });
   });
 
   it('renders', () => {
-    [component, testRenderer] = createComponent({
+    [controlRow, testRenderer] = createComponent({
       title: 'Title',
       leftControls,
       contentItems: items,
@@ -56,149 +56,153 @@ describe('ControlRow', () => {
 
   describe('updating the content in a row', () => {
     it('should add controls and items to the row', () => {
-      [component, testRenderer] = createComponent({ leftControls });
+      [controlRow, testRenderer] = createComponent({ leftControls });
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(leftControls.length);
-      expect(component._getLeftControlItems().length).toBe(leftControls.length);
+      expect(controlRow.items.length).toBe(leftControls.length);
+      expect(controlRow._getLeftControlItems().length).toBe(
+        leftControls.length
+      );
 
-      component.contentItems = items;
+      controlRow.contentItems = items;
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(leftControls.length + items.length);
-      expect(component._getContentItemItems().length).toBe(items.length);
+      expect(controlRow.items.length).toBe(leftControls.length + items.length);
+      expect(controlRow._getContentItemItems().length).toBe(items.length);
 
-      component.rightControls = rightControls;
+      controlRow.rightControls = rightControls;
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(
+      expect(controlRow.items.length).toBe(
         leftControls.length + items.length + rightControls.length
       );
-      expect(component._getRightControlItems().length).toBe(
+      expect(controlRow._getRightControlItems().length).toBe(
         rightControls.length
       );
     });
 
     it('should add controls and items to the row via the ComponentList setter', () => {
-      [component, testRenderer] = createComponent({});
+      [controlRow, testRenderer] = createComponent({});
 
-      component.leftControls = leftControls;
+      controlRow.leftControls = leftControls;
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(leftControls.length);
-      expect(component._getLeftControlItems().length).toBe(leftControls.length);
+      expect(controlRow.items.length).toBe(leftControls.length);
+      expect(controlRow._getLeftControlItems().length).toBe(
+        leftControls.length
+      );
 
-      component.contentItems = items;
+      controlRow.contentItems = items;
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(leftControls.length + items.length);
-      expect(component._getContentItemItems().length).toBe(items.length);
+      expect(controlRow.items.length).toBe(leftControls.length + items.length);
+      expect(controlRow._getContentItemItems().length).toBe(items.length);
 
-      component.rightControls = rightControls;
+      controlRow.rightControls = rightControls;
       testRenderer.forceAllUpdates();
-      expect(component.items.length).toBe(
+      expect(controlRow.items.length).toBe(
         leftControls.length + items.length + rightControls.length
       );
-      expect(component._getRightControlItems().length).toBe(
+      expect(controlRow._getRightControlItems().length).toBe(
         rightControls.length
       );
     });
 
     it('should add extra space between controls and and items', () => {
-      component.leftControls = leftControls;
-      component.contentItems = items;
-      component.rightControls = rightControls;
+      controlRow.leftControls = leftControls;
+      controlRow.contentItems = items;
+      controlRow.rightControls = rightControls;
       testRenderer.forceAllUpdates();
-      const spacing = component.style.extraItemSpacing;
-      expect(component.items[0].extraItemSpacing).toBeUndefined();
-      expect(component.items[1].extraItemSpacing).toBe(spacing);
-      expect(component.items[2].extraItemSpacing).toBeUndefined();
-      expect(component.items[3].extraItemSpacing).toBe(spacing);
-      expect(component.items[4].extraItemSpacing).toBeUndefined();
-      expect(component.items[5].extraItemSpacing).toBeUndefined();
+      const spacing = controlRow.style.extraItemSpacing;
+      expect(controlRow.items[0].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[1].extraItemSpacing).toBe(spacing);
+      expect(controlRow.items[2].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[3].extraItemSpacing).toBe(spacing);
+      expect(controlRow.items[4].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[5].extraItemSpacing).toBeUndefined();
     });
 
     it('should allow overwriting extra item spacing space between controls and and items', () => {
       const spacing = 3;
-      component.extraItemSpacing = spacing;
-      component.leftControls = leftControls;
-      component.contentItems = items;
-      component.rightControls = rightControls;
+      controlRow.extraItemSpacing = spacing;
+      controlRow.leftControls = leftControls;
+      controlRow.contentItems = items;
+      controlRow.rightControls = rightControls;
       testRenderer.forceAllUpdates();
-      expect(component.items[0].extraItemSpacing).toBeUndefined();
-      expect(component.items[1].extraItemSpacing).toBe(spacing);
-      expect(component.items[2].extraItemSpacing).toBeUndefined();
-      expect(component.items[3].extraItemSpacing).toBe(spacing);
-      expect(component.items[4].extraItemSpacing).toBeUndefined();
-      expect(component.items[5].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[0].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[1].extraItemSpacing).toBe(spacing);
+      expect(controlRow.items[2].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[3].extraItemSpacing).toBe(spacing);
+      expect(controlRow.items[4].extraItemSpacing).toBeUndefined();
+      expect(controlRow.items[5].extraItemSpacing).toBeUndefined();
     });
 
     it('should default the selected item to the first item', () => {
-      component.leftControls = leftControls;
-      component.contentItems = items;
-      component.rightControls = rightControls;
+      controlRow.leftControls = leftControls;
+      controlRow.contentItems = items;
+      controlRow.rightControls = rightControls;
       testRenderer.forceAllUpdates();
-      expect(component.selectedIndex).toBe(component.leftControls.length);
+      expect(controlRow.selectedIndex).toBe(controlRow.leftControls.length);
     });
 
     it('should allow setting the selected index', () => {
-      component.leftControls = leftControls;
-      component.contentItems = items;
-      component.rightControls = rightControls;
-      component.selectedIndex = 0;
+      controlRow.leftControls = leftControls;
+      controlRow.contentItems = items;
+      controlRow.rightControls = rightControls;
+      controlRow.selectedIndex = 0;
       testRenderer.forceAllUpdates();
-      expect(component.selectedIndex).toBe(0);
+      expect(controlRow.selectedIndex).toBe(0);
     });
   });
 
   describe('add - adding to ControlRow', () => {
     beforeEach(() => {
-      component.leftControls = leftControls;
-      component.contentItems = items;
-      component.rightControls = rightControls;
+      controlRow.leftControls = leftControls;
+      controlRow.contentItems = items;
+      controlRow.rightControls = rightControls;
 
       testRenderer.forceAllUpdates();
-      expect(component.selectedIndex).toBe(2);
+      expect(controlRow.selectedIndex).toBe(2);
     });
 
     describe('left controls', () => {
       it('should persist the selected item when an item is added before the selected item index', () => {
-        component.addLeftControls(leftControls);
-        expect(component.selectedIndex).toBe(4);
+        controlRow.addLeftControls(leftControls);
+        expect(controlRow.selectedIndex).toBe(4);
       });
       it('should persist the selected item when an item is added at the selected item index', () => {
-        component.selectedIndex = 1;
-        component.addLeftControls(leftControls);
-        expect(component.selectedIndex).toBe(1);
+        controlRow.selectedIndex = 1;
+        controlRow.addLeftControls(leftControls);
+        expect(controlRow.selectedIndex).toBe(1);
       });
       it('should persist the selected item when an item is added after the selected item index', () => {
-        component.selectedIndex = 0;
+        controlRow.selectedIndex = 0;
         testRenderer.forceAllUpdates();
-        component.addLeftControls(leftControls);
-        expect(component.selectedIndex).toBe(0);
+        controlRow.addLeftControls(leftControls);
+        expect(controlRow.selectedIndex).toBe(0);
       });
     });
 
     describe('right controls', () => {
       it('should persist the selected item when an item is added before the selected item index', () => {
-        component.addRightControls(rightControls);
-        expect(component.selectedIndex).toBe(2);
+        controlRow.addRightControls(rightControls);
+        expect(controlRow.selectedIndex).toBe(2);
       });
     });
 
     describe('content items', () => {
       it('should persist the selected item when an item is added at selected item index', () => {
-        component.addContentItems(items);
-        expect(component.selectedIndex).toBe(2);
+        controlRow.addContentItems(items);
+        expect(controlRow.selectedIndex).toBe(2);
       });
       it('should persist the selected item when an item is added after the selected item index', () => {
-        component.selectedIndex = 1;
-        component.addContentItems(items);
-        expect(component.selectedIndex).toBe(1);
+        controlRow.selectedIndex = 1;
+        controlRow.addContentItems(items);
+        expect(controlRow.selectedIndex).toBe(1);
       });
     });
   });
 
   describe('addAt - adding at a specified index to ControlRow', () => {
     beforeEach(() => {
-      component.leftControls = createControls(3);
-      component.contentItems = createItems(3);
-      component.rightControls = createControls(3);
+      controlRow.leftControls = createControls(3);
+      controlRow.contentItems = createItems(3);
+      controlRow.rightControls = createControls(3);
       testRenderer.forceAllUpdates();
     });
 
@@ -209,69 +213,69 @@ describe('ControlRow', () => {
 
     describe('left controls', () => {
       it('should add a control to the end of the left controls', () => {
-        component.addLeftControlsAt([newControl], 3);
-        expect(component.items[3].testId).toBe(controlId);
-        expect(component.leftControls.length).toBe(4);
+        controlRow.addLeftControlsAt([newControl], 3);
+        expect(controlRow.items[3].testId).toBe(controlId);
+        expect(controlRow.leftControls.length).toBe(4);
       });
       it('should add a control at a specific index', () => {
-        component.addLeftControlsAt([newControl], 2);
-        expect(component.items[2].testId).toBe(controlId);
-        expect(component.leftControls.length).toBe(4);
+        controlRow.addLeftControlsAt([newControl], 2);
+        expect(controlRow.items[2].testId).toBe(controlId);
+        expect(controlRow.leftControls.length).toBe(4);
       });
     });
 
     describe('right controls', () => {
       it('should add a control to the end of the right controls', () => {
-        component.addRightControlsAt([newControl], 3);
-        expect(component.items[9].testId).toBe(controlId);
-        expect(component.rightControls.length).toBe(4);
+        controlRow.addRightControlsAt([newControl], 3);
+        expect(controlRow.items[9].testId).toBe(controlId);
+        expect(controlRow.rightControls.length).toBe(4);
       });
       it('should add a control at a specific index', () => {
-        component.addRightControlsAt([newControl], 2);
-        expect(component.items[8].testId).toBe(controlId);
-        expect(component.rightControls.length).toBe(4);
+        controlRow.addRightControlsAt([newControl], 2);
+        expect(controlRow.items[8].testId).toBe(controlId);
+        expect(controlRow.rightControls.length).toBe(4);
       });
     });
 
     describe('content items', () => {
       let initialRowItemsLength;
       beforeEach(() => {
-        initialRowItemsLength = component.items.length;
+        initialRowItemsLength = controlRow.items.length;
       });
       it('should add an item to the end of the items', () => {
-        component.addContentItemsAt([newItem], 3);
-        expect(component.items[6].testId).toBe(itemId);
-        expect(component.contentItems.length).toBe(4);
-        expect(component.items.length).toBe(initialRowItemsLength + 1);
+        controlRow.addContentItemsAt([newItem], 3);
+        expect(controlRow.items[6].testId).toBe(itemId);
+        expect(controlRow.contentItems.length).toBe(4);
+        expect(controlRow.items.length).toBe(initialRowItemsLength + 1);
       });
       it('should add an item at a specific index', () => {
-        component.addContentItemsAt([newItem], 2);
-        expect(component.items[5].testId).toBe(itemId);
-        expect(component.contentItems.length).toBe(4);
-        expect(component.items.length).toBe(initialRowItemsLength + 1);
+        controlRow.addContentItemsAt([newItem], 2);
+        expect(controlRow.items[5].testId).toBe(itemId);
+        expect(controlRow.contentItems.length).toBe(4);
+        expect(controlRow.items.length).toBe(initialRowItemsLength + 1);
       });
     });
   });
 
   describe('removeAt - removing an item or control from ControlRow', () => {
     beforeEach(() => {
-      component.leftControls = createControls(3);
-      component.contentItems = createItems(3);
-      component.rightControls = createControls(3);
+      controlRow.leftControls = createControls(3);
+      controlRow.contentItems = createItems(3);
+      controlRow.rightControls = createControls(3);
       testRenderer.forceAllUpdates();
     });
 
     describe('left controls', () => {
       it('should remove a control', () => {
-        component.removeLeftControlAt(2);
-        expect(component.leftControls.length).toBe(2);
+        controlRow.removeLeftControlAt(2);
+        expect(controlRow.leftControls.length).toBe(2);
       });
     });
 
     describe('right controls', () => {
       it('should remove a control', () => {
-        component.removeRightControlAt(2);
-        expect(component.rightControls.length).toBe(2);
+        controlRow.removeRightControlAt(2);
+        expect(controlRow.rightControls.length).toBe(2);
       });
     });
 
@@ -279,15 +283,15 @@ describe('ControlRow', () => {
       let initialRowItemsLength;
       let initialContentItemsLength;
       beforeEach(() => {
-        initialRowItemsLength = component.items.length;
-        initialContentItemsLength = component._getContentItemItems().length;
+        initialRowItemsLength = controlRow.items.length;
+        initialContentItemsLength = controlRow._getContentItemItems().length;
       });
       it('should remove an item', () => {
-        component.removeContentItemAt(2);
-        expect(component._getContentItemItems().length).toBe(
+        controlRow.removeContentItemAt(2);
+        expect(controlRow._getContentItemItems().length).toBe(
           initialContentItemsLength - 1
         );
-        expect(component.items.length).toBe(initialRowItemsLength - 1);
+        expect(controlRow.items.length).toBe(initialRowItemsLength - 1);
       });
     });
   });
@@ -296,44 +300,44 @@ describe('ControlRow', () => {
     let signalSpy;
     beforeEach(() => {
       jest.clearAllMocks();
-      signalSpy = jest.spyOn(component, 'signal');
-      component.contentItems = createItems(6);
-      component.lazyLoadBuffer = 2;
+      signalSpy = jest.spyOn(controlRow, 'signal');
+      controlRow.contentItems = createItems(6);
+      controlRow.lazyLoadBuffer = 2;
     });
     it('should signal if an item is selected at or after the load more index', () => {
-      component.selectedIndex = 1;
+      controlRow.selectedIndex = 1;
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
 
-      component.selectNext();
+      controlRow.selectNext();
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
 
-      component.selectNext();
+      controlRow.selectNext();
       expect(signalSpy).toHaveBeenCalledWith('loadMoreItems');
       signalSpy.mockClear();
 
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
-      component.selectNext();
+      controlRow.selectNext();
       expect(signalSpy).toHaveBeenCalledWith('loadMoreItems');
     });
 
     it('should not signal when a control is selected', () => {
-      component.selectedIndex = 0;
+      controlRow.selectedIndex = 0;
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
 
-      component.selectPrevious();
+      controlRow.selectPrevious();
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
 
-      component.selectedIndex = 6;
-      component.selectNext();
+      controlRow.selectedIndex = 6;
+      controlRow.selectNext();
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
     });
 
     it('should not signal when a lazy scroll buffer has not been set', () => {
-      component.lazyLoadBuffer = undefined;
-      component.selectedIndex = 3;
+      controlRow.lazyLoadBuffer = undefined;
+      controlRow.selectedIndex = 3;
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
 
-      component.selectNext();
+      controlRow.selectNext();
       expect(signalSpy).not.toHaveBeenCalledWith('loadMoreItems');
     });
   });

@@ -22,7 +22,7 @@ const createComponent = makeCreateComponent(
   { spyOnMethods: ['swapItemArrayPos'] }
 );
 
-describe('withEdititems', () => {
+describe('withEditItems', () => {
   let withEditItemsRow, testRenderer;
 
   beforeEach(() => {

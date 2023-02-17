@@ -189,8 +189,7 @@ const Component = {
   }
 };
 
-let testRenderer;
-let announcer;
+let announcer, testRenderer;
 describe('AppAnnouncer', () => {
   beforeEach(done => {
     jest.clearAllMocks();
@@ -476,6 +475,7 @@ describe('AppAnnouncer', () => {
       announcer.$announce('CT');
       expect(speak).toHaveBeenCalledWith('Connecticut', language);
     });
+
     it('should not pass phrases to an abbreviation translation function when abbreviations have not been provided', () => {
       announcer = createComp();
 

@@ -5,13 +5,13 @@ const createComponent = makeCreateComponent(CardContentHorizontalLarge);
 
 describe('CardContentHorizontalLarge', () => {
   // eslint-disable-next-line no-unused-vars
-  let component, testRenderer;
+  let cardContentHorizontalLarge, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent();
+    [cardContentHorizontalLarge, testRenderer] = createComponent();
   });
   afterEach(() => {
-    component = null;
+    cardContentHorizontalLarge = null;
     testRenderer = null;
   });
 

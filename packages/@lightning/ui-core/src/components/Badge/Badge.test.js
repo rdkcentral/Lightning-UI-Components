@@ -15,6 +15,7 @@ describe('Badge', () => {
   beforeEach(() => {
     [badge, testRenderer] = createBadge();
   });
+
   afterEach(() => {
     badge = null;
     testRenderer = null;

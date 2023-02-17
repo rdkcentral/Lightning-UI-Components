@@ -8,18 +8,19 @@ const createComponent = makeCreateComponent(MetadataBase, {
 });
 
 describe('MetadataBase', () => {
-  let component, testRenderer;
+  let metadataBase, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createComponent(
+    [metadataBase, testRenderer] = createComponent(
       {},
       {
         spyOnMethods: ['_update']
       }
     );
   });
+
   afterEach(() => {
-    component = null;
+    metadataBase = null;
     testRenderer = null;
   });
 
@@ -33,9 +34,9 @@ describe('MetadataBase', () => {
     const subtitle = 'Subtitle';
     const description = 'Description';
     const logoTitle = 'Logo Title';
-    component.patch({ title, subtitle, description, logoTitle });
+    metadataBase.patch({ title, subtitle, description, logoTitle });
     testRenderer.forceAllUpdates();
-    expect(component.announce).toEqual([
+    expect(metadataBase.announce).toEqual([
       title,
       subtitle,
       description,
@@ -45,138 +46,137 @@ describe('MetadataBase', () => {
 
   it('overrides the announce string', () => {
     const overrideString = 'Custom announce string';
-    component.announce = overrideString;
+    metadataBase.announce = overrideString;
     testRenderer.forceAllUpdates();
-    expect(component.announce).toBe(overrideString);
+    expect(metadataBase.announce).toBe(overrideString);
   });
 
   it('updates the title', async () => {
     const title = 'title text';
-    expect(component.title).toBe(undefined);
-    component.title = title;
-    await component.__updateSpyPromise;
-    expect(component._Title.content).toBe(title);
+    expect(metadataBase.title).toBe(undefined);
+    metadataBase.title = title;
+    await metadataBase.__updateSpyPromise;
+    expect(metadataBase._Title.content).toBe(title);
   });
 
   it('updates the subtitle', async () => {
     const subtitle = 'subtitle text';
-    expect(component.subtitle).toBe(undefined);
-    expect(component._SubtitleWrapper.h).toBe(0);
+    expect(metadataBase.subtitle).toBe(undefined);
+    expect(metadataBase._SubtitleWrapper.h).toBe(0);
 
-    component.subtitle = subtitle;
-    await component.__updateSpyPromise;
+    metadataBase.subtitle = subtitle;
+    await metadataBase.__updateSpyPromise;
     testRenderer.update();
 
-    expect(component._Subtitle.content).toBe(subtitle);
-    expect(component._Subtitle.h).toBeGreaterThan(0);
-    expect(component._SubtitleWrapper).toMatchObject({
-      h: component._Subtitle.h,
+    expect(metadataBase._Subtitle.content).toBe(subtitle);
+    expect(metadataBase._Subtitle.h).toBeGreaterThan(0);
+    expect(metadataBase._SubtitleWrapper).toMatchObject({
+      h: metadataBase._Subtitle.h,
       alpha: 1
     });
   });
 
   it('updates the description', async () => {
     const description = 'description text';
-    expect(component.description).toBe(undefined);
-    component.description = description;
-    await component.__updateSpyPromise;
-    expect(component._Description.content).toBe(description);
+    expect(metadataBase.description).toBe(undefined);
+    metadataBase.description = description;
+    await metadataBase.__updateSpyPromise;
+    expect(metadataBase._Description.content).toBe(description);
   });
 
   it('should allow marquee-ing title and description text', async () => {
-    expect(component._Title.marquee).toBeUndefined();
-    expect(component._Description.marquee).toBeUndefined();
+    expect(metadataBase._Title.marquee).toBeUndefined();
+    expect(metadataBase._Description.marquee).toBeUndefined();
 
-    component.marquee = true;
-    await component.__updateSpyPromise;
+    metadataBase.marquee = true;
+    await metadataBase.__updateSpyPromise;
 
-    expect(component._Title.marquee).toBe(true);
-    expect(component._Description.marquee).toBe(true);
+    expect(metadataBase._Title.marquee).toBe(true);
+    expect(metadataBase._Description.marquee).toBe(true);
   });
 
   it('updates the Logo and its position', async () => {
     const logoPath = './path-to-logo';
-    [component, testRenderer] = createComponent(
+    [metadataBase, testRenderer] = createComponent(
       {},
       {
         spyOnMethods: ['_update', '_subtitleLoaded']
       }
     );
 
-    expect(component.logo).toBe(undefined);
+    expect(metadataBase.logo).toBe(undefined);
 
-    component.logo = logoPath;
-    await component.__updateSpyPromise;
-
-    expect(component.logo).toBe(logoPath);
+    metadataBase.logo = logoPath;
+    await metadataBase.__updateSpyPromise;
+    expect(metadataBase.logo).toBe(logoPath);
 
     const subtitle = 'secondLine text';
-    component.subtitle = subtitle;
-    await component.__updateSpyPromise;
-    await component.__subtitleLoadedSpyPromise;
+    metadataBase.subtitle = subtitle;
+    await metadataBase.__updateSpyPromise;
+    await metadataBase.__subtitleLoadedSpyPromise;
 
-    const logoX = component.w - component.logoWidth;
-    expect(component._Logo.x).toBe(logoX);
+    const logoX = metadataBase.w - metadataBase.logoWidth;
+    expect(metadataBase._Logo.x).toBe(logoX);
 
-    component.logoPosition = 'left';
-    await component.__updateSpyPromise;
+    metadataBase.logoPosition = 'left';
+    await metadataBase.__updateSpyPromise;
     testRenderer.update();
+    expect(metadataBase._Logo.x).toBe(0);
 
-    expect(component._Logo.x).toBe(0);
-    const secondLineX = component.logoWidth + component.style.logoPadding;
-    expect(component._Text.x).toBe(secondLineX);
+    const secondLineX = metadataBase.logoWidth + metadataBase.style.logoPadding;
+    expect(metadataBase._Text.x).toBe(secondLineX);
   });
 
   describe('resetMarquee', () => {
     beforeEach(() => {
-      jest.spyOn(component._Title, 'toggleMarquee');
-      jest.spyOn(component._Description, 'toggleMarquee');
+      jest.spyOn(metadataBase._Title, 'toggleMarquee');
+      jest.spyOn(metadataBase._Description, 'toggleMarquee');
     });
     it('should toggle the marquee animation for title', async () => {
-      component.title = 'title';
-      component.marquee = true;
-      await component.__updateSpyPromise;
+      metadataBase.title = 'title';
+      metadataBase.marquee = true;
+      await metadataBase.__updateSpyPromise;
 
-      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
 
-      component.resetMarquee();
+      metadataBase.resetMarquee();
 
-      expect(component._Title.toggleMarquee).toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
     });
     it('should toggle the marquee animation for description', async () => {
-      component.description = 'description';
-      component.marquee = true;
-      await component.__updateSpyPromise;
+      metadataBase.description = 'description';
+      metadataBase.marquee = true;
+      await metadataBase.__updateSpyPromise;
 
-      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
 
-      component.resetMarquee();
+      metadataBase.resetMarquee();
 
-      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).toHaveBeenCalled();
     });
     it('should toggle the marquee animation if marquee is not enabled', async () => {
-      component.title = 'title';
-      component.description = 'description';
-      component.marquee = false;
-      await component.__updateSpyPromise;
+      metadataBase.title = 'title';
+      metadataBase.description = 'description';
+      metadataBase.marquee = false;
+      await metadataBase.__updateSpyPromise;
 
-      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
 
-      component.resetMarquee();
+      metadataBase.resetMarquee();
 
-      expect(component._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(component._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
     });
   });
 
   // TODO test is timing out
   it.skip('should signal dimension updates when the height is changed', async () => {
-    [component, testRenderer] = createComponent(
+    [metadataBase, testRenderer] = createComponent(
       {
         w: 400,
         h: 0,
@@ -186,25 +186,27 @@ describe('MetadataBase', () => {
         spyOnMethods: ['_titleLoaded']
       }
     );
-    jest.spyOn(component, 'signal');
-    await component.__titleLoadedSpyPromise;
+    jest.spyOn(metadataBase, 'signal');
+    await metadataBase.__titleLoadedSpyPromise;
 
-    const initialH = component.h;
-    expect(component.signal).not.toHaveBeenCalled();
-    expect(component.h).toBe(initialH);
+    const initialH = metadataBase.h;
+    expect(metadataBase.signal).not.toHaveBeenCalled();
+    expect(metadataBase.h).toBe(initialH);
 
-    component.title = 'text';
+    metadataBase.title = 'text';
 
-    await component.__titleLoadedSpyPromise;
+    await metadataBase.__titleLoadedSpyPromise;
 
-    const updatedH = component.h;
-    expect(component.signal).toHaveBeenCalledWith('updateComponentDimensions');
+    const updatedH = metadataBase.h;
+    expect(metadataBase.signal).toHaveBeenCalledWith(
+      'updateComponentDimensions'
+    );
     expect(updatedH).toBeGreaterThan(initialH);
   });
 
   // TODO test is timing out
   it.skip('should not signal dimension updates when the height is not changed', async () => {
-    [component, testRenderer] = createComponent(
+    [metadataBase, testRenderer] = createComponent(
       {
         w: 400,
         h: 0,
@@ -215,19 +217,19 @@ describe('MetadataBase', () => {
         spyOnMethods: ['_titleLoaded']
       }
     );
-    await component.__titleLoadedSpyPromise;
-    jest.spyOn(component, 'signal');
+    await metadataBase.__titleLoadedSpyPromise;
+    jest.spyOn(metadataBase, 'signal');
 
-    const initialH = component.h;
-    expect(component.signal).not.toHaveBeenCalled();
-    expect(component.h).toBe(initialH);
+    const initialH = metadataBase.h;
+    expect(metadataBase.signal).not.toHaveBeenCalled();
+    expect(metadataBase.h).toBe(initialH);
 
     // updated title ('text' backwards) that should be the same height as the initial title
-    component.title = 'txet';
+    metadataBase.title = 'txet';
 
-    await component.__titleLoadedSpyPromise;
+    await metadataBase.__titleLoadedSpyPromise;
 
-    expect(component.signal).not.toHaveBeenCalled();
-    expect(component.h).toBe(initialH);
+    expect(metadataBase.signal).not.toHaveBeenCalled();
+    expect(metadataBase.h).toBe(initialH);
   });
 });

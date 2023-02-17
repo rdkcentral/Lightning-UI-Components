@@ -1,5 +1,6 @@
 describe('context fonts', () => {
   let logger, fonts;
+
   beforeAll(() => {
     logger = require('./logger').default;
     fonts = require('./fonts');
@@ -49,6 +50,7 @@ describe('context fonts', () => {
       }
     };
   });
+
   beforeEach(() => {
     logger.log.mockClear();
     logger.error.mockClear();

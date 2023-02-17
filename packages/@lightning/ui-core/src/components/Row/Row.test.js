@@ -32,7 +32,7 @@ const properties = {
 const createRow = makeCreateComponent(Row, properties);
 
 describe('Row', () => {
-  let testRenderer, row;
+  let row, testRenderer;
 
   beforeEach(() => {
     [row, testRenderer] = createRow();
@@ -173,6 +173,7 @@ describe('Row', () => {
         testId: 'B'
       }
     ];
+
     beforeEach(() => {
       initialLength = row.items.length;
     });
@@ -184,6 +185,7 @@ describe('Row', () => {
       expect(row.items[1].testId).toBe(items[0].testId);
       expect(row.items[2].testId).toBe(items[1].testId);
     });
+
     it('should append items to the end of the row if an index is not specified', () => {
       row.appendItemsAt(items);
 
@@ -191,10 +193,12 @@ describe('Row', () => {
       expect(row.items[row.items.length - 2].testId).toBe(items[0].testId);
       expect(row.items[row.items.length - 1].testId).toBe(items[1].testId);
     });
+
     it('should not add items when none are passed to the method', () => {
       row.appendItemsAt();
       expect(row.items.length).toBe(initialLength);
     });
+
     it('should default itemW to 0 when w and innerW do not exist on the item to prevent _totalAddedWidth being set to NaN', () => {
       row.appendItemsAt(
         [
@@ -257,6 +261,7 @@ describe('Row', () => {
       row.removeItemAt(1);
       expect(row.items.length).toBe(2);
     });
+
     it('should maintain which item is selected after removing an item', () => {
       row.selectedIndex = 2;
       expect(row.selected.testId).toBe('C');
@@ -264,6 +269,7 @@ describe('Row', () => {
       expect(row.selectedIndex).toBe(1);
       expect(row.selected.testId).toBe('C');
     });
+
     it('should select the next item after a selected item has been removed', () => {
       row.selectedIndex = 1;
       row.removeItemAt(1);
@@ -309,6 +315,7 @@ describe('Row', () => {
 
       expect(row.Items.x).toBe(exepctedX);
     });
+
     it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
       row.lazyScroll = true;
       const initialX = row.Items.x;
@@ -320,6 +327,7 @@ describe('Row', () => {
 
       expect(row.Items.x).toBe(exepctedX);
     });
+
     it('should persist which item is selected', async () => {
       expect(row.selected.testId).toBe('C');
 

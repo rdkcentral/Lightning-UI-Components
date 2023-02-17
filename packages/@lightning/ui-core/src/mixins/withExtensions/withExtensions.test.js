@@ -89,21 +89,21 @@ const extensions = [
 ];
 
 describe('withExtensions', () => {
-  let WithExtensionsComponent,
-    WithExtensionsComponent2,
-    WithExtensionsComponent3;
+  let withExtensionsComponent,
+    withExtensionsComponent2,
+    withExtensionsComponent3;
 
   beforeEach(() => {
     context.setTheme({ extensions: extensions });
-    [WithExtensionsComponent] = makeCreateComponent(
+    [withExtensionsComponent] = makeCreateComponent(
       withExtensions(Example),
       {}
     )();
-    [WithExtensionsComponent2] = makeCreateComponent(
+    [withExtensionsComponent2] = makeCreateComponent(
       withExtensions(Example2),
       {}
     )();
-    [WithExtensionsComponent3] = makeCreateComponent(
+    [withExtensionsComponent3] = makeCreateComponent(
       withExtensions(Example3),
       {}
     )();
@@ -114,44 +114,44 @@ describe('withExtensions', () => {
   });
 
   it('returns true for _withExtensionsApplied to ensure prototypes are only modified once', () => {
-    expect(WithExtensionsComponent.constructor._withExtensionsApplied).toBe(
+    expect(withExtensionsComponent.constructor._withExtensionsApplied).toBe(
       true
     );
   });
 
   it('returns the proper extensions for component1', () => {
-    WithExtensionsComponent._update();
+    withExtensionsComponent._update();
     expect(extensionMock.mock.calls[0][0]).toBe('extension 1');
     expect(extensionMock.mock.calls[1][0]).toBe('extension 2');
     expect(extensionMock.mock.calls[2][0]).toBe('extension 3');
     expect(extensionMock.mock.calls[3][0]).toBe('base component');
-    expect(WithExtensionsComponent.testGetter).toBe(
+    expect(withExtensionsComponent.testGetter).toBe(
       'extension layer + test getter'
     );
   });
 
   it('returns the proper extensions for components2', () => {
-    WithExtensionsComponent2._update();
+    withExtensionsComponent2._update();
     expect(extensionMock.mock.calls[0][0]).toBe('extension 1');
     expect(extensionMock.mock.calls[1][0]).toBe('extension 3');
     expect(extensionMock.mock.calls[2][0]).toBe('base component 2');
   });
 
   it('allows extensions to be applied via RegExp', () => {
-    WithExtensionsComponent._update();
+    withExtensionsComponent._update();
     expect(extensionMock).toHaveBeenCalledWith('extension 3');
     extensionMock.mockClear();
-    WithExtensionsComponent2._update();
+    withExtensionsComponent2._update();
     expect(extensionMock).toHaveBeenCalledWith('extension 3');
     extensionMock.mockClear();
-    WithExtensionsComponent3._update();
+    withExtensionsComponent3._update();
     expect(extensionMock).toHaveBeenCalledWith('extension 3');
   });
 
   it('allows extensions to be applied via a string', done => {
     context.on('themeUpdate', () => {
       setTimeout(() => {
-        WithExtensionsComponent._update();
+        withExtensionsComponent._update();
         expect(extensionMock).toHaveBeenCalledWith('from string');
         done();
       }, 0);
@@ -174,7 +174,7 @@ describe('withExtensions', () => {
   });
 
   it('allows getters and setters to be overwritten at the extension level', () => {
-    WithExtensionsComponent.testGetter = 'test';
-    expect(WithExtensionsComponent.testGetter).toBe('test from setter');
+    withExtensionsComponent.testGetter = 'test';
+    expect(withExtensionsComponent.testGetter).toBe('test from setter');
   });
 });
