@@ -87,20 +87,18 @@ You can also hide the scrollBar by setting `showScrollBar` to `false`.
 
 ### Properties
 
-| name            | type          | required | default   | description                                                                                                                                 |
-| --------------- | ------------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| autoScroll      | boolean       | false    | false     | whether or not to auto scroll the content                                                                                                   |
-| autoScrollDelay | number        | false    | 2000      | delay, in ms, before auto scroll starts                                                                                                     |
-| autoScrollSpeed | number        | false    | 200       | time delay, in ms, before each scroll step                                                                                                  |
-| content         | string\|array | true     | undefined | Content is items that are viewable in the container. It can be an array of strings or an array of lightning elements that can be patched in |
-| fadeContent     | boolean       | false    | true      | fade out content at the bottom of the ScrollWrapper                                                                                         |
-| flexDirection   | string        | false    | column    | determines the direction items are placed in flexContainer                                                                                  |
-| h               | number        | true     | 0         | height of viewable container                                                                                                                |
-| scrollDuration  | number        | false    | 0.2       | animation duration for the scroll                                                                                                           |
-| scrollStep      | number        | false    | 10        | how many pixels to scroll by on every up/down keypress                                                                                      |
-| shouldWrap      | boolean       | false    | false     | determines if items should wrap around ScrollContainer                                                                                      |
-| showScrollBar   | boolean       | false    | true      | show the scroll bar when focused                                                                                                            |
-| w               | number        | true     | 0         | width of viewable container                                                                                                                 |
+| name            | type          | required | default | description                                                                                                                                 |
+| --------------- | ------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| autoScroll      | boolean       | false    | false   | whether or not to auto scroll the content                                                                                                   |
+| autoScrollDelay | number        | false    | 2000    | delay, in ms, before auto scroll starts                                                                                                     |
+| autoScrollSpeed | number        | false    | 200     | time delay, in ms, before each scroll step                                                                                                  |
+| content         | string\|array | true     | -       | Content is items that are viewable in the container. It can be an array of strings or an array of lightning elements that can be patched in |
+| fadeContent     | boolean       | false    | true    | fade out content at the bottom of the ScrollWrapper                                                                                         |
+| flexDirection   | string        | false    | column  | determines the direction items are placed in flexContainer                                                                                  |
+| scrollDuration  | number        | false    | 0.2     | animation duration for the scroll                                                                                                           |
+| scrollStep      | number        | false    | 10      | how many pixels to scroll by on every up/down keypress                                                                                      |
+| shouldWrap      | boolean       | false    | false   | determines if items should wrap around ScrollContainer                                                                                      |
+| showScrollBar   | boolean       | false    | true    | show the scroll bar when focused                                                                                                            |
 
 ### Style Properties
 
