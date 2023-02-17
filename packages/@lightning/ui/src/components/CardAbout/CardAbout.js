@@ -144,8 +144,21 @@ export default class CardAbout extends CardTitle {
         contentLeft.push(this.iconLeft);
       }
     }
-    this.textLeft && contentLeft.push(this.textLeft);
-    this._LeftIconTextContainer.content = contentLeft;
+    // content for left icon
+    if (this.textLeft || this.textLeft === 0) {
+      // type check for number 1 to 100
+      if (
+        typeof this.textLeft === 'number' &&
+        this.textLeft >= 0 &&
+        this.textLeft <= 100
+      ) {
+        contentLeft.push(`${this.textLeft}%`);
+      } else {
+        // return warning if number is outside of range
+        console.warn('textLeft must be a number between 0 and 100');
+      }
+      this._LeftIconTextContainer.content = contentLeft;
+    }
 
     const contentRight = [];
     if (this.iconRight) {
@@ -155,7 +168,20 @@ export default class CardAbout extends CardTitle {
         contentRight.push(this.iconRight);
       }
     }
-    this.textRight && contentRight.push(this.textRight);
+    // content for right icon
+    if (this.textRight || this.textRight === 0) {
+      // type check for number 1 to 100
+      if (
+        typeof this.textRight === 'number' &&
+        this.textRight >= 0 &&
+        this.textRight <= 100
+      ) {
+        contentRight.push(`${this.textRight}%`);
+      } else {
+        // return warning if number is outside of range
+        console.warn('textRight must be a number between 0 and 100');
+      }
+    }
     this._RightIconTextContainer.content = contentRight;
   }
 
