@@ -1,7 +1,7 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
 import { utils, context } from '@lightning/ui-core';
-import * as CardContentVerticalStyle from '../CardContent/CardContentVertical.styles';
+import * as CardContentVerticalStyle from '../../../../ui-core/src/components/CardContent/CardContentVertical.styles';
 
 export default class CardLayout extends BaseLayout {
   static get _cardWidth() {

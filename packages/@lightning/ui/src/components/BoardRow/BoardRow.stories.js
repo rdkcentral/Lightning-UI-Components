@@ -3,8 +3,12 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './BoardRow.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { context, utils } from '@lightning/ui-core';
-import { CardContentVertical, Column } from '@lightning/ui';
+import {
+  Column,
+  context,
+  CardContentVertical,
+  utils
+} from '@lightning/ui-core';
 
 export default {
   title: `${CATEGORIES[64]}/BoardRow`,

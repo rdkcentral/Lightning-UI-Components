@@ -1,8 +1,7 @@
 import { pathToDataURI, makeCreateComponent } from '@lightning/ui-test-utils';
 import BoardRow from '.';
-import { Tile } from '@lightning/ui-core';
+import { Tile, CardContentVertical } from '@lightning/ui-core';
 import BoardRowComponent from './BoardRowComponent';
-import CardContentVertical from '../CardContent/CardContentVertical';
 import { jest } from '@jest/globals';
 
 const jurassic = pathToDataURI('./src/assets/images/Jurassic_World_16x9.jpg');
