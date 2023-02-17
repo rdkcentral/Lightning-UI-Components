@@ -1,3 +1,5 @@
-import MetadataTile from './MetadataTile';
+import MetadataBase, { MetadataBaseStyle } from '../MetadataBase';
 
-export { MetadataTile as default };
+export type MetadataTileStyle = MetadataBaseStyle;
+
+export default class MetadataTile extends MetadataBase {}

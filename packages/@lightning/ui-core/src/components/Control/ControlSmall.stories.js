@@ -5,7 +5,7 @@ import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
-import { controlDescriptions } from '../../../../ui/src/StorybookConstants.js';
+import { controlDescriptions } from '../../../../../apps/lightning-ui-docs/.storybook/utils/constants';
 
 export default {
   title: `${CATEGORIES[2]}/ControlSmall`,

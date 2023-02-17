@@ -1,7 +1,7 @@
 import lng from '@lightningjs/core';
-import { MetadataBaseStyle } from '../MetadataBase/MetadataBase';
+import { MetadataBaseStyle } from '../MetadataBase';
 import type { StylePartial } from '../../types/lui';
-import Surface, { SurfaceStyle } from '../Surface/Surface';
+import Surface, { SurfaceStyle } from '../Surface';
 
 export type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;

@@ -1,6 +1,5 @@
 import BaseLayout from './BaseLayout';
 import BoardRowComponent from './BoardRowComponent';
-
 import { Column, utils, context } from '@lightning/ui-core';
 
 export default class StandardLayout extends BaseLayout {

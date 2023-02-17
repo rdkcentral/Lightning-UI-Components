@@ -1,6 +1,5 @@
-import CardTitle from '../Card/CardTitle';
 import * as styles from './CardAbout.styles';
-import { withExtensions, InlineContent } from '@lightning/ui-core';
+import { CardTitle, withExtensions, InlineContent } from '@lightning/ui-core';
 
 class CardAbout extends CardTitle {
   static get __componentName() {
