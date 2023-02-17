@@ -3,7 +3,6 @@ import { makeCreateComponent } from '@lightning/ui-test-utils';
 import withThemeStyles from './index.js';
 import lng from '@lightningjs/core';
 import { context } from '../../globals/index.js';
-import XfinityTheme from '@suite-themes/xfinity-lightning-tv';
 
 const styles = {
   base: {
@@ -42,7 +41,7 @@ beforeEach(async () => {
     }
   )({}, { spyOnMethods: ['_update'] });
 
-  await context.setTheme(XfinityTheme); // Reset theme each test
+  await context.setTheme(component.theme); // Reset theme each test
 });
 
 describe('withThemeStyles accessors', () => {

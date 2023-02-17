@@ -168,7 +168,6 @@ Take aways:
 | `.storybook/manager.js`                  | Config for Storybook theme                                                                                                                                                  | controls the behavior of the Storybook UI, the place to set UI options and configure the Storybook theme                                                      |
 | `.storybook/preview-head.html`           | docs style overrides                                                                                                                                                        | add extra elements to the head of the preview iframe, for instance, to load static stylesheets, font files                                                    | `.storybook/preview.js` | has a custom decorator function so Lightning and Storybook work together , case logic for which theme is loaded when the ThemePicker is used. NOTE: `argActions` (LUI specific) used to define functions to execute on changes to an arg. See `Contributing.md` for more detail | config to render components in Canvas (preview iframe). The JavaScript build configuration of the preview is controlled by a webpack config |
 
-
 ## Rewriting Git History to Change Committers from GHE name/email to Public GitHub name/email
 
 This was done as we were getting ready to release version 2.x of the open-sourced version of LUI, [Lightning-UI-Components](https://github.com/rdkcentral/Lightning-UI-Components).
@@ -265,3 +264,12 @@ node create-users-filter.js
 - [How can I change the author name / email of a commit?](https://www.git-tower.com/learn/git/faq/change-author-name-email)
 - [Understanding Git Filter-branch and the Git Storage Model](https://manishearth.github.io/blog/2017/03/05/understanding-git-filter-branch/)
 - [git filter-branch documentation](https://git-scm.com/docs/git-filter-branch)
+
+## Are your snapshots different from another team member/Concourse?
+
+First run the `test:updateSnapshot` scripts (`yarn test:updateSnapshot`) in case the snapshots haven't been updated. 
+
+If the snapshots are still failing:
+
+- Try running `yarn clean` followed by `yarn install` to see if that fixes the issue
+- Try deleting the node_modules folder followed by `yarn install`

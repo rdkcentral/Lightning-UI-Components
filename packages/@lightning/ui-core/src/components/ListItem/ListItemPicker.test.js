@@ -51,22 +51,49 @@ describe('ListItemPicker', () => {
     expect(component._Picker.items.length).toEqual(component.options.length);
   });
 
-  it.skip('Alpha value of arrow when value is equal to min value', () => {
+  it('should lower left arrow alpha when selecting the first available option', () => {
     component.options = ['Description1', 'Description2', 'Description3'];
     testRenderer.forceAllUpdates();
-    component._Picker.selectedIndex = 1;
-    expect(component._LeftArrow.alpha).toEqual(1);
+    component._Picker.selectedIndex = 1; // selecting middle element
+    expect(component._LeftArrow.alpha).toEqual(component.style.arrowAlphaValue);
     component._handleLeft();
-    expect(component._LeftArrow.alpha).toEqual(0.6);
+    expect(component._LeftArrow.alpha).toEqual(
+      component.style.arrowAlphaValueLimit
+    );
   });
 
-  it('Alpha value of arrow when value is equal to max value', () => {
+  it('should have full alpha for both arrows when selecting a middle option', () => {
+    component.options = [
+      'Description1',
+      'Description2',
+      'Description3',
+      'Description4'
+    ];
+    testRenderer.forceAllUpdates();
+    component._Picker.selectedIndex = 1;
+    expect(component._LeftArrow.alpha).toEqual(component.style.arrowAlphaValue);
+    expect(component._RightArrow.alpha).toEqual(
+      component.style.arrowAlphaValue
+    );
+
+    component._handleRight();
+    expect(component._LeftArrow.alpha).toEqual(component.style.arrowAlphaValue);
+    expect(component._RightArrow.alpha).toEqual(
+      component.style.arrowAlphaValue
+    );
+  });
+
+  it('should lower right arrow alpha when selecting the last available option', () => {
     component.options = ['Description1', 'Description2', 'Description3'];
     testRenderer.forceAllUpdates();
     component._Picker.selectedIndex = 1;
-    expect(component._RightArrow.alpha).toEqual(1);
+    expect(component._RightArrow.alpha).toEqual(
+      component.style.arrowAlphaValue
+    );
     component._handleRight();
-    expect(component._RightArrow.alpha).toEqual(0.6);
+    expect(component._RightArrow.alpha).toEqual(
+      component.style.arrowAlphaValueLimit
+    );
   });
 
   describe('Check HandleLeft & HandleRight', () => {
@@ -77,6 +104,7 @@ describe('ListItemPicker', () => {
       component._handleLeft();
       expect(component.selectedIndex).toEqual(1);
     });
+
     it('should increase selectedIndex when handleRight is clicked', () => {
       component.options = ['Description1', 'Description2', 'Description3'];
       testRenderer.forceAllUpdates();
@@ -84,6 +112,7 @@ describe('ListItemPicker', () => {
       component._handleRight();
       expect(component.selectedIndex).toEqual(2);
     });
+
     describe('announcer', () => {
       it('should use the title and description as the default announce string', () => {
         component.options = ['Description1', 'Description2', 'Description3'];

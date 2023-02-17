@@ -132,11 +132,9 @@ describe('cardAboutStacked', () => {
       cardAboutStacked.style.paddingHorizontal
     );
     expect(cardAboutStacked._DescriptionBottom.y).toEqual(
-      cardAboutStacked.description
-        ? cardAboutStacked._TitleBottom.y +
-            cardAboutStacked.style.paddingVertical * 2
-        : cardAboutStacked._TitleBottom.y +
-            cardAboutStacked.style.paddingVertical * 3
+      cardAboutStacked._TitleBottom.style.textStyle.lineHeight +
+        cardAboutStacked._TitleBottom.y +
+        cardAboutStacked.style.paddingVertical
     );
     expect(cardAboutStacked._DescriptionBottom.style.textStyle).toMatchObject(
       cardAboutStacked.style.descriptionTextStyle

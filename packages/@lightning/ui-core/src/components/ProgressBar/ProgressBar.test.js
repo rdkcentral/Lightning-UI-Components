@@ -88,7 +88,7 @@ describe('ProgressBar', () => {
   });
 
   it('renders the correct height', async () => {
-    expect(progressBar.h).toBe(8);
+    expect(progressBar.h).toBe(progressBar.style.h);
   });
 
   it('renders the progress bar at the correct length', () => {

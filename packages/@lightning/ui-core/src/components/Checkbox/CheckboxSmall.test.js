@@ -16,10 +16,10 @@ describe('CheckboxSmall', () => {
   });
 
   it('renders the correct height', () => {
-    expect(checkbox.h).toBe(20);
+    expect(checkbox.h).toBe(checkbox.style.h);
   });
 
   it('renders the correct weight', () => {
-    expect(checkbox.w).toBe(20);
+    expect(checkbox.w).toBe(checkbox.style.w);
   });
 });

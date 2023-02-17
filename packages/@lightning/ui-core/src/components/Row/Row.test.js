@@ -85,8 +85,9 @@ describe('Row', () => {
       const [row, testRenderer] = createRow({
         autoResizeWidth: true
       });
-      expect(row.Items.w).toBe(496);
+      expect(row.Items.w).toBe(row.renderWidth);
       expect(row.w).toBe(row.Items.w);
+
       row.appendItems([
         {
           type: lng.Component,
@@ -95,17 +96,17 @@ describe('Row', () => {
         }
       ]);
       testRenderer.forceAllUpdates();
-      expect(row.Items.w).toBe(640);
+      expect(row.Items.w).toBe(row.renderWidth);
       expect(row.w).toBe(row.Items.w);
     });
 
     it('resizes height', () => {
       const [row, testRenderer] = createRow({
-        autoResizeHeight: true,
-        h: 80
+        autoResizeHeight: true
       });
-      expect(row.Items.h).toBe(80);
+      expect(row.Items.h).toBe(row.renderHeight);
       expect(row.h).toBe(row.Items.h);
+
       row.appendItems([
         {
           type: lng.Component,
@@ -453,17 +454,17 @@ describe('Row', () => {
             items: [...items, ...items],
             scrollMount: 0.5
           });
-          expect(row.items.map(({ x }) => x)).toEqual(
-            expect.arrayContaining([
-              0, 104, 208, 312, 416, 520, 624, 728, 832, 936
-            ])
-          );
+          const expectedArray = [
+            0, 100, 200, 300, 400, 500, 600, 700, 800, 900
+          ];
+          expect(row.items.map(({ x }) => x)).toEqual(expectedArray);
+
           testRenderer.forceAllUpdates();
           testRenderer.keyPress('Right');
           fastForward(row._Items);
           testRenderer.update();
-          expect(row.selected.x).toBe(104);
-          expect(row._itemsX).toBe(-104);
+          expect(row.selected.x).toBe(expectedArray[1]);
+          expect(row._itemsX).toBe(row.Items.x);
           done();
         });
 

@@ -92,11 +92,12 @@ describe('Provider', () => {
         ...Array.apply(null, { length: 18 }).map(() => iconSquare)
       ]
     });
-    // Second provider should maintain its 2:1 ratio and have a height of 48 (from styles)
+    // Second provider should maintain its 2:1 ratio and have a height of 40 (itemSize from the styles file)
     const { w, h } = component._Row.items[1];
+    const ratio = 2 / 1;
     expect({ w, h }).toMatchObject({
-      w: 96,
-      h: 48
+      w: component.style.itemSize * ratio,
+      h: component.style.itemSize
     });
   });
 });

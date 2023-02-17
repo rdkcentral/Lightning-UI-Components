@@ -41,8 +41,10 @@ describe('Label', () => {
 
     testRenderer.forceAllUpdates();
     expect(label.w).not.toEqual(60);
-    expect(label._Text.renderWidth + 32).toBeGreaterThan(60);
-    expect(label.w).toEqual(label._Text.renderWidth + 32);
+    expect(label._Text.renderWidth + 2 * label.style.paddingX).toBeGreaterThan(
+      60
+    );
+    expect(label.w).toEqual(label._Text.renderWidth + 2 * label.style.paddingX);
     done();
   });
 

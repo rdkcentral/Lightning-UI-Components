@@ -34,13 +34,13 @@ describe('Key', () => {
   it('should adjust its width if given a size', async () => {
     key.size = 'md';
     await key.__updateSpyPromise;
-    expect(key.w).toEqual(120);
+    expect(key.w).toEqual(key.style.sizes.md);
   });
 
-  it('should make its width the default size given a size that doesnt exist', async () => {
+  it('should make its width the default size given a size that does not exist', async () => {
     key.size = 'blue';
     await key.__updateSpyPromise;
-    expect(key.w).toEqual(56);
+    expect(key.w).toEqual(key.style.sizes.sm);
   });
 
   it('should set its char as its title', () => {

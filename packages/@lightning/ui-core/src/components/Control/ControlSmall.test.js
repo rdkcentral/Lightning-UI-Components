@@ -7,10 +7,10 @@ import baseTheme from '@suite-themes/base-lightning-tv';
 const createControlSmall = makeCreateComponent(ControlSmall);
 
 describe('ControlSmall', () => {
-  let component, testRenderer;
+  let control, testRenderer;
 
   beforeEach(() => {
-    [component, testRenderer] = createControlSmall(
+    [control, testRenderer] = createControlSmall(
       { title: 'ControlSmall' },
       { spyOnMethods: ['_update'] }
     );
@@ -18,7 +18,7 @@ describe('ControlSmall', () => {
   });
 
   afterEach(() => {
-    component = null;
+    control = null;
     testRenderer = null;
   });
 
@@ -42,17 +42,22 @@ describe('ControlSmall', () => {
   });
 
   it('renders the correct height', async () => {
-    expect(component.h).toBe(56);
+    expect(control.h).toBe(control.style.h);
   });
 
   it('renders the correct radius', async () => {
-    // parent/surface radius is 32
-    // offset calculation should return 4
-    expect(component.style.radius).toBe(28);
+    expect(control.style.radius).toBe(
+      Math.max(
+        control.theme.radius.xl -
+          (control.theme.spacer.md * 8 - control.style.h) / 2,
+        0
+      )
+    );
   });
 
   it('renders the correct logo radius', async () => {
-    // parent Control paddingX = 16
-    expect(component.style.logoStyle.radius).toBe(20);
+    expect(control.style.logoStyle.radius).toBe(
+      Math.max(control.style.radius - control.theme.spacer.xl / 2, 0)
+    );
   });
 });

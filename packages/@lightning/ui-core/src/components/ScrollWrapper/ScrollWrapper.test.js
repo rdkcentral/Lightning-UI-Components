@@ -71,7 +71,7 @@ describe('ScrollWrapper', () => {
           {
             text: 'Heading!',
             style: {
-              fontFace: 'XfinityBrownBold',
+              fontFace: 'Arial',
               alignContent: 'center'
             }
           },

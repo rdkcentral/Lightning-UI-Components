@@ -70,7 +70,12 @@ describe('Badge', () => {
     await badge.__updateBackgroundSpyPromise;
     testRenderer.forceAllUpdates();
     expect(badge.title).toBe(title);
-    expect(badge.w).toBe(18);
+    expect(badge.w).toBe(
+      badge._Text.renderWidth +
+        badge.style.paddingX * 2 +
+        (badge._Icon.finalW || 0)
+    );
+
     const title2 = 'longer title';
     badge.title = title2;
     testRenderer.forceAllUpdates();
@@ -79,8 +84,15 @@ describe('Badge', () => {
     }, 500);
     await badge.__updateBackgroundSpyPromise;
     expect(badge.title).toBe(title2);
-    expect(badge.w).toBe(28);
-    expect(badge.h).toBe(32);
+    expect(badge.w).toBe(
+      badge._Text.renderWidth +
+        badge.style.paddingX * 2 +
+        (badge._Icon.finalW || 0)
+    );
+    expect(badge.h).toBe(
+      Math.max(badge._Text.renderHeight, badge._Icon.h) +
+        badge.style.paddingY * 2
+    );
   });
 
   it('should update the background', () => {
@@ -131,7 +143,7 @@ describe('Badge', () => {
     expect(badge._Icon.color).toBe(badge._Text.color);
   });
 
-  it('should position the text and icon based on the iconAlign property', async () => {
+  it('should position the text and icon based on the iconAlign property (right)', async () => {
     const title = 'HD';
     const icon = xfinityLogo;
     [badge, testRenderer] = createBadge(
@@ -158,7 +170,7 @@ describe('Badge', () => {
     );
   });
 
-  it('should position the text and icon based on the iconAlign property', async () => {
+  it('should position the text and icon based on the iconAlign property (left)', async () => {
     const title = 'HD';
     const icon = xfinityLogo;
     [badge, testRenderer] = createBadge(
@@ -178,6 +190,9 @@ describe('Badge', () => {
       badge._iconLoaded();
     }, 500);
     await badge.__updateBackgroundSpyPromise;
-    expect(badge._Icon.x).toEqual(8);
+    expect(badge._Text.x).toEqual(
+      badge._Icon.x + badge._Icon.finalW + badge.style.contentSpacing
+    );
+    expect(badge._Icon.x).toEqual(badge.style.paddingX);
   });
 });
