@@ -47,15 +47,16 @@ export function focusRingExtensionGenerator({ zOffset = -2 } = {}) {
         }
       }
 
-      // Focus transitions are fired once by focus/unfocus.
-      _focus() {
-        super._focus();
-        this._updateFocusStyle();
+      // Focus transitions are fired once on mode change
+      get mode() {
+        return super.mode;
       }
-
-      _unfocus() {
-        super._unfocus();
-        this._updateFocusStyle();
+      set mode(v) {
+        const shouldUpdateStyle = v !== this.mode;
+        super.mode = v;
+        if (shouldUpdateStyle) {
+          this._updateFocusStyle();
+        }
       }
 
       _updateZContext() {

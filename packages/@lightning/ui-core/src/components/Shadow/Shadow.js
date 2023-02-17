@@ -22,7 +22,7 @@ class Shadow extends Base {
     return super.mode;
   }
   set mode(v) {
-    const shouldUpdateStyle = v !== this._mode;
+    const shouldUpdateStyle = v !== this.mode;
     super.mode = v;
     if (shouldUpdateStyle) {
       this._updateFocusStyle();
