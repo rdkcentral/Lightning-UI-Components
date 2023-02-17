@@ -1,8 +1,7 @@
 import Control from './Control.js';
 import * as styles from './ControlSmall.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class ControlSmall extends Control {
+export default class ControlSmall extends Control {
   static get __componentName() {
     return 'ControlSmall';
   }
@@ -11,5 +10,3 @@ class ControlSmall extends Control {
     return styles;
   }
 }
-
-export default withExtensions(ControlSmall);

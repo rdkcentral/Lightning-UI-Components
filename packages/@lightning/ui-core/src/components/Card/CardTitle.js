@@ -1,9 +1,8 @@
 import Card from './Card.js';
 import TextBox from '../TextBox';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './CardTitle.styles';
 
-class CardTitle extends Card {
+export default class CardTitle extends Card {
   static get __componentName() {
     return 'CardTitle';
   }
@@ -89,5 +88,3 @@ class CardTitle extends Card {
     );
   }
 }
-
-export default withExtensions(CardTitle);

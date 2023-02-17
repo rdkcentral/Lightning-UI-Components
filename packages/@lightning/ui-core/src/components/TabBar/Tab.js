@@ -1,11 +1,9 @@
 import Surface from '../Surface/index.js';
 import Icon from '../Icon/index.js';
 import TextBox from '../TextBox/index.js';
-import { withExtensions } from '../../mixins/index.js';
-
 import * as styles from './Tab.styles.js';
 
-class Tab extends Surface {
+export default class Tab extends Surface {
   static _template() {
     return {
       ...super._template(),
@@ -154,5 +152,3 @@ class Tab extends Surface {
     return this._announce || (this._Text && this._Text.announce);
   }
 }
-
-export default withExtensions(Tab);

@@ -2,7 +2,7 @@ import Base from '../Base';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
 // import { FadeShader } from '../../textures';
-import { withExtensions, withMarqueeSync } from '../../mixins';
+import { withMarqueeSync } from '../../mixins';
 import * as styles from './MetadataBase.styles';
 
 class MetadataBase extends Base {
@@ -275,4 +275,4 @@ class MetadataBase extends Base {
   }
 }
 
-export default withExtensions(withMarqueeSync(MetadataBase));
+export default withMarqueeSync(MetadataBase);

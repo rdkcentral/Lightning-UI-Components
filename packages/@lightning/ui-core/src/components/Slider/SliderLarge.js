@@ -1,8 +1,7 @@
 import Slider from './index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './SliderLarge.styles.js';
 
-class SliderLarge extends Slider {
+export default class SliderLarge extends Slider {
   static get __componentName() {
     return 'SliderLarge';
   }
@@ -11,5 +10,3 @@ class SliderLarge extends Slider {
     return styles;
   }
 }
-
-export default withExtensions(SliderLarge);

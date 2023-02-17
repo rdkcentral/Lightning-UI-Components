@@ -5,9 +5,8 @@ import Marquee from '../Marquee';
 import Row from '../Row';
 import { Arrow } from '../../textures';
 import utils from '../../utils';
-import { withExtensions } from '../../mixins/index.js';
 
-class ListItemPicker extends ListItem {
+export default class ListItemPicker extends ListItem {
   static get __componentName() {
     return 'ListItemPicker';
   }
@@ -187,5 +186,3 @@ class ListItemPicker extends ListItem {
     return this.title + this.options[this.selectedIndex] + ', List Item';
   }
 }
-
-export default withExtensions(ListItemPicker);

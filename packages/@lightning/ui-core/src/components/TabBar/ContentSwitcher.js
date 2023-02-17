@@ -1,8 +1,7 @@
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import { stringifyCompare } from '../../utils/index.js';
 
-class ContentSwitcher extends Base {
+export default class ContentSwitcher extends Base {
   static get __componentName() {
     return 'ContentSwitcher';
   }
@@ -110,5 +109,3 @@ class ContentSwitcher extends Base {
     }
   }
 }
-
-export default withExtensions(ContentSwitcher);

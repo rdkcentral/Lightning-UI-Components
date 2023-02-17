@@ -1,9 +1,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './ProgressBar.styles.js';
 
-class ProgressBar extends Base {
+export default class ProgressBar extends Base {
   static _template() {
     return {
       Bar: { zIndex: 1 },
@@ -96,5 +95,3 @@ class ProgressBar extends Base {
     return `${progress * 100}%`;
   }
 }
-
-export default withExtensions(ProgressBar);

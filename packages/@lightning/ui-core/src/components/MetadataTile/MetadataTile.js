@@ -1,8 +1,7 @@
 import MetadataBase from '../MetadataBase/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './MetadataTile.styles.js';
 
-class MetadataTile extends MetadataBase {
+export default class MetadataTile extends MetadataBase {
   static get __componentName() {
     return 'MetadataTile';
   }
@@ -60,5 +59,3 @@ class MetadataTile extends MetadataBase {
     return titleH + subtitleH + descriptionH;
   }
 }
-
-export default withExtensions(MetadataTile);

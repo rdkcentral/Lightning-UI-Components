@@ -1,9 +1,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Toggle.styles.js';
 
-class Toggle extends Base {
+export default class Toggle extends Base {
   static get __componentName() {
     return 'Toggle';
   }
@@ -185,5 +184,3 @@ class Toggle extends Base {
     return this._announce || (this.checked ? 'Checked' : 'Unchecked');
   }
 }
-
-export default withExtensions(Toggle);

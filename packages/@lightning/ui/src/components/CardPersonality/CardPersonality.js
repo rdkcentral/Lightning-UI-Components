@@ -1,7 +1,7 @@
 import * as styles from './CardPersonality.styles';
-import { Tile, CardTitle, withExtensions } from '@lightning/ui-core';
+import { Tile, CardTitle } from '@lightning/ui-core';
 
-class CardPersonality extends CardTitle {
+export default class CardPersonality extends CardTitle {
   static _template() {
     return {
       ...super._template(),
@@ -86,4 +86,3 @@ class CardPersonality extends CardTitle {
     });
   }
 }
-export default withExtensions(CardPersonality);

@@ -1,12 +1,11 @@
 import lng from '@lightningjs/core';
 import { getValidColor, reduceFraction } from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import Base from '../Base/index.js';
 import Gradient from '../Gradient/index.js';
 import * as styles from './Artwork.styles.js';
 import { context } from '../../globals/index.js';
 
-class Artwork extends Base {
+export default class Artwork extends Base {
   static get __componentName() {
     return 'Artwork';
   }
@@ -610,5 +609,3 @@ class Artwork extends Base {
     );
   }
 }
-
-export default withExtensions(Artwork);

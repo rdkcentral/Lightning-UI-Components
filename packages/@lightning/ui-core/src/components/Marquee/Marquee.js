@@ -1,10 +1,9 @@
 import * as styles from './Marquee.styles.js';
 import { FadeShader } from '../../shaders/index.js';
 import utils from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import Base from '../Base/index.js';
 
-class Marquee extends Base {
+export default class Marquee extends Base {
   static _template() {
     return {
       ContentClipper: {
@@ -244,5 +243,3 @@ class Marquee extends Base {
     return this._announce || (this.title && this.title.text);
   }
 }
-
-export default withExtensions(Marquee);

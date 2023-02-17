@@ -1,11 +1,10 @@
 import lng from '@lightningjs/core';
-import { withExtensions } from '../../mixins/index.js';
 import Base from '../Base/index.js';
 import * as styles from './Icon.styles.js';
 import { context } from '../../globals/index.js';
 import { stringifyCompare, getValidColor } from '../../utils/index.js';
 
-class Icon extends Base {
+export default class Icon extends Base {
   static get __componentName() {
     return 'Icon';
   }
@@ -105,5 +104,3 @@ function getIconTemplate(icon, w, h) {
   }
   return template;
 }
-
-export default withExtensions(Icon);

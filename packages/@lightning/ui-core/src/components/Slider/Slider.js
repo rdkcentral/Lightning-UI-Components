@@ -1,12 +1,11 @@
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Slider.styles.js';
 import ProgressBar from '../ProgressBar/index.js';
 import Icon from '../Icon/index.js';
 import Knob from '../Knob/index.js';
 import { degreesToRadians } from '../../utils/index.js';
 
-class Slider extends Base {
+export default class Slider extends Base {
   static get __componentName() {
     return 'Slider';
   }
@@ -347,5 +346,3 @@ class Slider extends Base {
     ];
   }
 }
-
-export default withExtensions(Slider);

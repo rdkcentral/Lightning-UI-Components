@@ -1,7 +1,7 @@
 import * as styles from './CardAbout.styles';
-import { CardTitle, withExtensions, InlineContent } from '@lightning/ui-core';
+import { CardTitle, InlineContent } from '@lightning/ui-core';
 
-class CardAbout extends CardTitle {
+export default class CardAbout extends CardTitle {
   static get __componentName() {
     return 'CardAbout';
   }
@@ -174,5 +174,3 @@ class CardAbout extends CardTitle {
     );
   }
 }
-
-export default withExtensions(CardAbout);

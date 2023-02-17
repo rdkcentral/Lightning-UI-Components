@@ -1,11 +1,10 @@
 import Base from '../Base/index.js';
 import Icon from '../Icon/index.js';
 import { getHexColor } from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Badge.styles.js';
 import lng from '@lightningjs/core';
 
-class Badge extends Base {
+export default class Badge extends Base {
   static _template() {
     return {
       rect: true,
@@ -150,5 +149,3 @@ class Badge extends Base {
     return this._announce || (this._Text && this._Text.text.text);
   }
 }
-
-export default withExtensions(Badge);

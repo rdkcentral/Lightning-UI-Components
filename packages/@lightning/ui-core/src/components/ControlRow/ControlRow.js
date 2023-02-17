@@ -1,9 +1,8 @@
-import { withExtensions } from '../../mixins';
 import TitleRow from '../TitleRow';
 
 import * as styles from './ControlRow.styles';
 
-class ControlRow extends TitleRow {
+export default class ControlRow extends TitleRow {
   static get __componentName() {
     return 'ControlRow';
   }
@@ -343,5 +342,3 @@ class ControlRow extends TitleRow {
     return this._lazyLoadBuffer;
   }
 }
-
-export default withExtensions(ControlRow);

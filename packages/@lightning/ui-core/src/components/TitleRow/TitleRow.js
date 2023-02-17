@@ -1,10 +1,9 @@
-import { withExtensions } from '../../mixins';
 import TextBox from '../TextBox';
 import Row from '../Row';
 
 import * as styles from './TitleRow.styles.js';
 
-class TitleRow extends Row {
+export default class TitleRow extends Row {
   static get __componentName() {
     return 'TitleRow';
   }
@@ -77,5 +76,3 @@ class TitleRow extends Row {
     return this._announce || (this._Title && this._Title.announce);
   }
 }
-
-export default withExtensions(TitleRow);

@@ -1,4 +1,3 @@
-import { withExtensions } from '../../mixins/index.js';
 import Button from '../Button/index.js';
 import * as styles from './Key.styles.js';
 import Icon from '../Icon/index.js';
@@ -44,7 +43,7 @@ function getNato(title) {
   return title;
 }
 
-class Key extends Button {
+export default class Key extends Button {
   static get __componentName() {
     return 'Key';
   }
@@ -127,5 +126,3 @@ class Key extends Button {
     return false;
   }
 }
-
-export default withExtensions(Key);

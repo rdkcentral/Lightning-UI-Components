@@ -1,11 +1,10 @@
 import Card from '../Card/Card';
 import utils from '../../utils';
-import { withExtensions } from '../../mixins/index.js';
 import Tile from '../Tile';
 import MetadataCardContent from '../MetadataCardContent';
 import * as styles from './CardContent.styles';
 
-class CardContent extends Card {
+export default class CardContent extends Card {
   static get __componentName() {
     return 'CardContent';
   }
@@ -195,5 +194,3 @@ class CardContent extends Card {
     );
   }
 }
-
-export default withExtensions(CardContent);

@@ -2,9 +2,8 @@ import * as styles from './ListItem.styles.js';
 import Button from '../Button';
 import TextBox from '../TextBox';
 import Icon from '../Icon';
-import { withExtensions } from '../../mixins/index.js';
 
-class ListItem extends Button {
+export default class ListItem extends Button {
   static get __componentName() {
     return 'ListItem';
   }
@@ -173,5 +172,3 @@ class ListItem extends Button {
     return this.title + this.description + ', List Item';
   }
 }
-
-export default withExtensions(ListItem);

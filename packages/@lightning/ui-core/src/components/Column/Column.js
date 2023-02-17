@@ -1,9 +1,8 @@
 import NavigationManager from '../NavigationManager/index.js';
 import { getY, getW } from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Column.styles.js';
 
-class Column extends NavigationManager {
+export default class Column extends NavigationManager {
   static get __componentName() {
     return 'Column';
   }
@@ -186,5 +185,3 @@ class Column extends NavigationManager {
   // can be overridden
   onScreenEffect() {}
 }
-
-export default withExtensions(Column);

@@ -1,9 +1,8 @@
 import Card from './Card';
 import Icon from '../Icon';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './CardSection.styles';
 
-class CardSection extends Card {
+export default class CardSection extends Card {
   static get __componentName() {
     return 'CardSection';
   }
@@ -46,5 +45,3 @@ class CardSection extends Card {
     return this.iconSrc ? textWidth - this.iconWidth : textWidth;
   }
 }
-
-export default withExtensions(CardSection);

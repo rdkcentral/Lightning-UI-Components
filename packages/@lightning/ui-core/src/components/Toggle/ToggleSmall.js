@@ -1,8 +1,7 @@
 import Toggle from './Toggle.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './ToggleSmall.styles.js';
 
-class ToggleSmall extends Toggle {
+export default class ToggleSmall extends Toggle {
   static get __componentName() {
     return 'ToggleSmall';
   }
@@ -11,5 +10,3 @@ class ToggleSmall extends Toggle {
     return styles;
   }
 }
-
-export default withExtensions(ToggleSmall);

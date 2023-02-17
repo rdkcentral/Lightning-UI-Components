@@ -1,9 +1,8 @@
 import * as styles from './Input.styles.js';
 import Button from '../Button/index.js';
 import TextBox from '../TextBox/index.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class Input extends Button {
+export default class Input extends Button {
   static get __componentName() {
     return 'Input';
   }
@@ -340,5 +339,3 @@ class Input extends Button {
     }
   }
 }
-
-export default withExtensions(Input);

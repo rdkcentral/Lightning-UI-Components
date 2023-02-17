@@ -1,8 +1,8 @@
 import * as styles from './CardAboutStacked.styles';
 import CardAbout from './CardAbout';
-import { TextBox, withExtensions } from '@lightning/ui-core';
+import { TextBox } from '@lightning/ui-core';
 
-class CardAboutStacked extends CardAbout {
+export default class CardAboutStacked extends CardAbout {
   static get __componentName() {
     return 'CardAboutStacked';
   }
@@ -125,5 +125,3 @@ class CardAboutStacked extends CardAbout {
     );
   }
 }
-
-export default withExtensions(CardAboutStacked);

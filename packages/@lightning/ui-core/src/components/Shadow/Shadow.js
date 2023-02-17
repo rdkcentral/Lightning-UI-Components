@@ -1,9 +1,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
 import * as styles from './Shadow.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class Shadow extends Base {
+export default class Shadow extends Base {
   static get __componentName() {
     return 'Shadow';
   }
@@ -93,5 +92,3 @@ class Shadow extends Base {
     }
   }
 }
-
-export default withExtensions(Shadow);

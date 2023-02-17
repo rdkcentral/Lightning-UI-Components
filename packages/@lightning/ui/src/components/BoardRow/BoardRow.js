@@ -4,7 +4,7 @@ import PosterLayout from './PosterLayout';
 import SquareLayout from './SquareLayout';
 import SquareSmallLayout from './SquareSmallLayout';
 import StandardLayout from './StandardLayout';
-import { Base, withExtensions } from '@lightning/ui-core';
+import { Base } from '@lightning/ui-core';
 import * as styles from './BoardRow.styles';
 
 const LAYOUTS = {
@@ -16,7 +16,7 @@ const LAYOUTS = {
   standard: StandardLayout
 };
 
-class BoardRow extends Base {
+export default class BoardRow extends Base {
   static get __componentName() {
     return 'BoardRow';
   }
@@ -166,5 +166,3 @@ class BoardRow extends Base {
     return this._Layout._Row.fullyOnScreenItems;
   }
 }
-
-export default withExtensions(BoardRow);

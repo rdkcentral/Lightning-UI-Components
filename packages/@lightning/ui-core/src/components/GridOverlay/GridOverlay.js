@@ -1,5 +1,4 @@
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import { context } from '../../globals/index.js';
 import Column from '../Column/index.js';
 import Row from '../Row/index.js';
@@ -69,7 +68,7 @@ class Spacer extends Base {
   }
 }
 
-class GridOverlay extends Base {
+export default class GridOverlay extends Base {
   static get __componentName() {
     return 'GridOverlay';
   }
@@ -363,5 +362,3 @@ class GridOverlay extends Base {
     this._updateValueTextStyle(this._TextSafe);
   }
 }
-
-export default withExtensions(GridOverlay);

@@ -2,10 +2,9 @@ import MetadataBase from '../MetadataBase';
 import TextBox from '../TextBox';
 import Provider from '../Provider';
 import { FadeShader } from '../../shaders';
-import { withExtensions } from '../../mixins';
 import * as styles from './MetadataCardContent.styles.js';
 
-class MetadataCardContent extends MetadataBase {
+export default class MetadataCardContent extends MetadataBase {
   static get __componentName() {
     return 'MetadataCardContent';
   }
@@ -235,5 +234,3 @@ class MetadataCardContent extends MetadataBase {
     );
   }
 }
-
-export default withExtensions(MetadataCardContent);

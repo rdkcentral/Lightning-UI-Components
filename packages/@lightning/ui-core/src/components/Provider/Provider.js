@@ -3,10 +3,9 @@ import Base from '../Base';
 import Row from '../Row';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Provider.styles.js';
 
-class Provider extends Base {
+export default class Provider extends Base {
   static get __componentName() {
     return 'Provider';
   }
@@ -155,5 +154,3 @@ class Provider extends Base {
     );
   }
 }
-
-export default withExtensions(Provider);

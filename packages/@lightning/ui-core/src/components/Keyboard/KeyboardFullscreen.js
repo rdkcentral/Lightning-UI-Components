@@ -1,8 +1,7 @@
 import Keyboard from './Keyboard';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Keyboard.styles.js';
 
-class KeyboardFullScreen extends Keyboard {
+export default class KeyboardFullScreen extends Keyboard {
   static get __componentName() {
     return 'KeyboardFullScreen';
   }
@@ -158,5 +157,3 @@ class KeyboardFullScreen extends Keyboard {
     };
   }
 }
-
-export default withExtensions(KeyboardFullScreen);
