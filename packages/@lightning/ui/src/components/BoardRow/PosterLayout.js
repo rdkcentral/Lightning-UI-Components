@@ -15,8 +15,8 @@ export default class PosterLayout extends BaseLayout {
     return PosterLayout._cardHeight;
   }
 
-  _updateItems() {
-    const formattedItems = this.items.map(item => {
+  _updateItems(items) {
+    const formattedItems = items.map(item => {
       return {
         ...item,
         type: BoardRowComponent(item.type, this.srcCallback),
