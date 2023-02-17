@@ -47,11 +47,11 @@ export default function () {
         .should(
           'have.attr',
           'texture-src',
-          'static/media/_/_/@lightning/ui/src/assets/images/ic_check_circle_outline_inverse_24.png'
+          'static/media/_/_/@lightning/ui-core/src/assets/images/ic_check_circle_outline_inverse_24.png'
         )
         .and(
           'not.have.attr',
-          'static/media/_/_/@lightning/ui/src/assets/images/ic_check_circle_outline_inverse_24.png'
+          'static/media/_/_/@lightning/ui-core/src/assets/images/ic_check_circle_outline_inverse_24.png'
         );
     }
   );
