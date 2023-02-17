@@ -44,26 +44,27 @@ export const Tile = () =>
 
 Tile.args = {
   metadataLocation: 'standard',
-  persistentMetadata: false
+  persistentMetadata: false,
+  mode: 'focused'
 };
 
 Tile.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({}),
   persistentMetadata: {
+    control: 'boolean',
     description: 'Show metadata if exists regardless of focusState',
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean'
+    }
   },
   metadataLocation: {
     control: 'radio',
+    options: ['standard', 'inset'],
     description:
       'Controls where metadata is positioned in relationship to the Tile',
     table: {
-      defaultValue: { summary: 'standard' }
-    },
-    options: ['standard', 'inset']
+      defaultValue: { summary: 'bottom' }
+    }
   }
 };
 

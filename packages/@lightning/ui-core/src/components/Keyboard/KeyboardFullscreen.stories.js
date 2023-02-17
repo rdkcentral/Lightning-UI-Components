@@ -38,5 +38,10 @@ export const KeyboardFullscreen = () =>
   };
 
 KeyboardFullscreen.storyName = 'KeyboardFullscreen';
+KeyboardFullscreen.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  mode: 'focused'
+};
 KeyboardFullscreen.parameters = {};
 KeyboardFullscreen.argTypes = Keyboard.sharedArgTypes;

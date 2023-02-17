@@ -27,23 +27,24 @@ export const CardAboutLarge = () =>
 CardAboutLarge.args = {
   title: 'Overview',
   description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.'
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.',
+  mode: 'focused'
 };
 
 CardAboutLarge.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: CardAboutLarge.args.title }
+      defaultValue: { summary: 'undefined' }
     }
   },
   description: {
     control: 'text',
     description: 'Description text',
     table: {
-      defaultValue: { summary: CardAboutLarge.args.description }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

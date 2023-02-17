@@ -59,44 +59,63 @@ const sharedArgs = {
   helpText: 'Help Text',
   listening: false,
   password: false,
-  mask: '•'
+  mask: '•',
+  prefix: null,
+  suffix: null,
+  mode: 'focused'
 };
 const sharedArgTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
-  eyebrow: { control: 'text', description: 'Text on the top of the button ' },
+  ...createModeControl({ summaryValue: sharedArgs.mode }),
+  eyebrow: {
+    control: 'text',
+    description: 'Text on the top of the button ',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
   helpText: {
     control: 'text',
-    description: 'Text on the bottom of the button '
+    description: 'Text on the bottom of the button ',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   password: {
     control: 'boolean',
-    description: 'When true the content will be masked to the user'
+    description: 'When true the content will be masked to the user',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   mask: {
     control: 'text',
-    description: 'Character to use as a mask when password is true'
+    description: 'Character to use as a mask when password is true',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   listening: {
     control: 'boolean',
     description:
-      'When true cursor will be visible only in focused and unfocused mode and can edit the canvas'
+      'When true cursor will be visible only in focused and unfocused mode and can edit the canvas',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   prefix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon'],
     description: 'Lightning components to be placed to the left of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   suffix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon', 'eye', 'eyeHide'],
     description: 'Lightning components to be placed to the right of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

@@ -54,19 +54,18 @@ Optional flag for the `Control` element to collapse (hide the title) when `Contr
 
 `Control` has the same properties as the ones listed in [Button](?path=/docs/lightning/ui-core-button--button) in addition to a couple listed below:
 
-| name           | type    | required | default | description                                                                          |
-| -------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------ |
-| icon           | string  | false    | -       | URL for the icon asset                                                               |
-| logo           | string  | false    | -       | URL for the image asset                                                              |
-| shouldCollapse | boolean | false    | false   | flag that if `true`, hides the title when `Control` is in unfocused or disabled mode |
+| name           | type    | required | default   | description                                                                          |
+| -------------- | ------- | -------- | --------- | ------------------------------------------------------------------------------------ |
+| icon           | string  | false    | undefined | URL for the icon asset                                                               |
+| logo           | string  | false    | undefined | URL for the image asset                                                              |
+| shouldCollapse | boolean | false    | false     | flag that if `true`, hides the title when `Control` is in unfocused or disabled mode |
 
 ### Style Properties
 
 `Control` contains the same style properties as [Button](?path=/docs/elements-button--basic) in additional to a couple other style properties listed below:
 
-| name       | type   | description                         |
-| ---------- | ------ | ----------------------------------- |
-| h          | number | height of the Control               |
+| name      | type   | description                         |
+| --------- | ------ | ----------------------------------- |
 | iconStyle | object | custom styling for the icon element |
 | logoStyle | object | custom styling for the logo element |
-| radius     | number | border radius of the Control        |
+| radius    | number | border radius of the Control        |

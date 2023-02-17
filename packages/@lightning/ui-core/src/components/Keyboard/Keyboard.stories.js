@@ -73,10 +73,15 @@ export const Keyboard = () =>
     }
   };
 
+Keyboard.args = {
+  centerKeys: true,
+  centerKeyboard: false,
+  mode: 'focused'
+};
+
 Keyboard.sharedArgTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   centerKeyboard: {
-    defaultValue: false,
     description: "Center the keyboard within it's set width",
     control: 'boolean',
     table: {
@@ -84,7 +89,6 @@ Keyboard.sharedArgTypes = {
     }
   },
   centerKeys: {
-    defaultValue: true,
     description: "Center the keys within it's set width of keyboard",
     control: 'boolean',
     table: {

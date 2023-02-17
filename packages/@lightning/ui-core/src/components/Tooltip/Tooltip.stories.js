@@ -10,23 +10,27 @@ export default {
   args: {
     title: 'Tooltip',
     delayVisible: 0,
-    timeVisible: 0
+    timeVisible: 0,
+    mode: 'focused'
   },
   argTypes: {
-    ...createModeControl({ options: ['focused'], defaultValue: 'focused' }),
+    ...createModeControl({ options: ['focused'], summaryValue: 'focused' }),
     title: {
       control: 'text',
-      description: 'Text content of tooltip'
+      description: 'Text content of tooltip',
+      table: { defaultValue: { summary: 'undefined' } }
     },
     delayVisible: {
       control: 'number',
       description:
-        'Start with unfocused mode and set the delay value in milliseconds, now change the mode to focused to see the required changes'
+        'Start with unfocused mode and set the delay value in milliseconds, now change the mode to focused to see the required changes',
+      table: { defaultValue: { summary: 'undefined' } }
     },
     timeVisible: {
       control: 'number',
       description:
-        'Start with unfocused mode and set the time value in milliseconds, now change the mode to focused to see the required changes'
+        'Start with unfocused mode and set the time value in milliseconds, now change the mode to focused to see the required changes',
+      table: { defaultValue: { summary: 'undefined' } }
     }
   },
   parameters: {

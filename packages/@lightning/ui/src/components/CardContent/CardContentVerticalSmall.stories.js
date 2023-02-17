@@ -36,20 +36,19 @@ export const CardContentVerticalSmall = args =>
 CardContentVerticalSmall.storyName = 'CardContentVerticalSmall';
 
 CardContentVerticalSmall.args = {
-  shouldCollapse: false,
-  ...CardContent.tileProps.args
+  mode: 'focused',
+  ...CardContent.args
 };
 CardContentVerticalSmall.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardContentVerticalSmall.args.mode }),
   shouldCollapse: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.shouldCollapse,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
+    }
   },
-  ...CardContent.tileProps.argTypes
+  ...CardContent.argTypes
 };
 CardContentVerticalSmall.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVerticalSmall')

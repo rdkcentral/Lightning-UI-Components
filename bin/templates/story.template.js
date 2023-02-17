@@ -32,7 +32,6 @@ Basic.args = {
 Basic.argTypes = {
   // argName: {
   //   control: '',
-  //   defaultValue: undefined,
   //   description: '',
   //   table: {
   //     defaultValue: { summary: undefined }

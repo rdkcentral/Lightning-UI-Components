@@ -37,30 +37,31 @@ Stacked.storyName = 'CardAboutStacked';
 Stacked.args = {
   descriptionBottom: 'English, Spanish, French',
   title: 'Audio',
-  titleBottom: 'Languages'
+  titleBottom: 'Languages',
+  mode: 'focused'
 };
 
 Stacked.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   descriptionBottom: {
     control: 'text',
     description: 'Description for bottom description text',
     table: {
-      defaultValue: { summary: Stacked.args.descriptionBottom }
+      defaultValue: { summary: 'undefined' }
     }
   },
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: Stacked.args.title }
+      defaultValue: { summary: 'undefined' }
     }
   },
   titleBottom: {
     control: 'text',
     description: 'Title for bottom text',
     table: {
-      defaultValue: { summary: Stacked.args.titleBottom }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

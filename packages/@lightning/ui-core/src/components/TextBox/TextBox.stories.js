@@ -33,23 +33,25 @@ export const Basic = () =>
     }
   };
 
+Basic.args = {
+  content: lorum,
+  marquee: false
+};
+
 Basic.argTypes = {
   content: {
     control: 'text',
-    defaultValue: lorum,
     description: 'Text to be displayed in element',
-    type: 'string',
     table: {
-      defaultValue: { summary: '' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   marquee: {
     control: 'boolean',
-    defaultValue: false,
     description:
       "Scrolls text when a single line of text is longer than the textbox's width",
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   }
 };

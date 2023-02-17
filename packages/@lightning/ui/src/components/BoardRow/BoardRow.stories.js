@@ -213,21 +213,21 @@ export const Basic = args =>
   };
 
 Basic.args = {
-  layout: 'standard',
-  scrollIndex: 0,
-  alwaysScroll: false,
-  neverScroll: false,
+  viewAll: 'true',
   lazyScroll: false,
-  viewAll: true
+  neverScroll: false,
+  alwaysScroll: false,
+  scrollIndex: 0,
+  layout: 'standard'
 };
 
 Basic.argTypes = {
   layout: {
     control: 'select',
     options: ['standard', 'hero', 'poster', 'card', 'square', 'squareSmall'],
-    description: 'Layout of BoardRow items',
+    description: 'layout of BoardRow items',
     table: {
-      defaultValue: { summary: Basic.args.layout }
+      defaultValue: { summary: 'standard' }
     }
   },
   scrollIndex: {
@@ -235,79 +235,41 @@ Basic.argTypes = {
     description:
       'Item index at which scrolling begins, provided the sum of item widths is greater than the width of the BoardRow',
     table: {
-      defaultValue: { summary: Basic.args.scrollIndex }
+      defaultValue: { summary: '0' }
     }
   },
   alwaysScroll: {
     control: 'boolean',
     description:
-      'Determines whether the row will stop scrolling as it nears the right to prevent white space',
+      'determines whether the row will stop scrolling as it nears the right to prevent white space',
     table: {
-      defaultValue: { summary: Basic.args.alwaysScroll }
+      defaultValue: { summary: false }
     }
   },
   neverScroll: {
     control: 'boolean',
     description:
-      'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
+      'if true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
     table: {
-      defaultValue: { summary: Basic.args.neverScroll }
+      defaultValue: { summary: false }
     }
   },
   lazyScroll: {
     control: 'boolean',
     description:
-      'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+      'will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: {
-      defaultValue: { summary: Basic.args.lazyScroll }
+      defaultValue: { summary: false }
     }
   },
   viewAll: {
     control: 'boolean',
     description:
-      'Determines if another MenuCard will be added at the end of the BoardRow',
+      'determines if another MenuCard will be added at the end of the BoardRow',
     table: {
-      defaultValue: { summary: Basic.args.viewAll }
+      defaultValue: { summary: false }
     }
   }
 };
 
-Basic.parameters = {
-  argActions: {
-    layout: (layout, component) => {
-      // updates menucard title
-      component.tag('Column').items.forEach(boardrow => {
-        boardrow.menuCard.title = `${
-          layout ? capitalizeFirstLetter(layout) : 'Standard'
-        } Layout`;
-        // updates layout
-        boardrow.layout = layout;
-      });
-    },
-    alwaysScroll: (alwaysScroll, component) => {
-      component
-        .tag('Column')
-        .items.forEach(boardrow => (boardrow.alwaysScroll = alwaysScroll));
-    },
-    scrollIndex: (scrollIndex, component) => {
-      component
-        .tag('Column')
-        .items.forEach(boardrow => (boardrow.scrollIndex = scrollIndex));
-    },
-    lazyScroll: (lazyScroll, component) => {
-      component
-        .tag('Column')
-        .items.forEach(boardrow => (boardrow.lazyScroll = lazyScroll));
-    },
-    neverScroll: (neverScroll, component) => {
-      component
-        .tag('Column')
-        .items.forEach(boardrow => (boardrow.neverScroll = neverScroll));
-    },
-    viewAll: (viewAll, component) => {
-      component
-        .tag('Column')
-        .items.forEach(boardrow => (boardrow.viewAll = viewAll));
-    }
-  }
-};
+Basic.parameters = {};

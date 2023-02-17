@@ -31,9 +31,9 @@ Text.args = {
 Text.argTypes = {
   title: {
     description: 'Badge text',
-    control: {
-      type: 'text',
-      defaultValue: 'HD'
+    control: 'text',
+    table: {
+      defaultValue: { summary: 'undefined' }
     }
   }
 };
@@ -57,11 +57,12 @@ IconSVG.args = {
 
 IconSVG.argTypes = {
   iconAlign: {
-    control: {
-      type: 'select',
-      options: ['left', 'right']
-    },
-    description: 'Side of the text the icon will appear on'
+    control: 'select',
+    options: ['left', 'right'],
+    description: 'Side of the text the icon will appear on',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   }
 };
 export const IconPNG = () =>
@@ -76,31 +77,36 @@ export const IconPNG = () =>
     }
   };
 
-export const TextWithIcon = args =>
+export const TextWithIcon = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Badge: {
-          type: Badge,
-          title: args.title,
-          icon: lightning
+          type: Badge
         }
       };
     }
   };
+
 TextWithIcon.args = {
   title: 'HD',
   iconAlign: 'left'
 };
+
 TextWithIcon.argTypes = {
   iconAlign: {
-    control: {
-      type: 'select',
-      options: ['left', 'right']
-    },
-    description: 'Side of the text the icon will appear on'
+    control: 'select',
+    options: ['left', 'right'],
+    description: 'Side of the text the icon will appear on',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   title: {
-    description: 'Badge text'
+    control: 'text',
+    description: 'Badge text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   }
 };

@@ -29,4 +29,6 @@ export const Surface = () =>
     }
   };
 
-Surface.argTypes = createModeControl({ defaultValue: 'focused' });
+Surface.args = { mode: 'focused' };
+
+Surface.argTypes = createModeControl({ summaryValue: 'focused' });

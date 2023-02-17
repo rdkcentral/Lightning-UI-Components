@@ -33,55 +33,54 @@ CardAbout.args = {
   iconLeft: CardAboutIcon,
   iconRight: RatingsIcon,
   textLeft: '00%',
-  textRight: '00%'
+  textRight: '00%',
+  mode: 'focused'
 };
 
 CardAbout.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardAbout.args.mode }),
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: CardAbout.args.title }
+      defaultValue: { summary: 'undefined' }
     }
   },
   description: {
     control: 'text',
     description: 'Description text',
     table: {
-      defaultValue: { summary: CardAbout.args.description }
+      defaultValue: { summary: 'undefined' }
     }
   },
   iconLeft: {
-    defaultValue: CardAboutIcon,
     control: 'select',
     options: [CardAboutIcon, null],
     description: 'Icon source for icon on the left side',
     table: {
-      defaultValue: { summary: CardAbout.args.iconLeft }
+      defaultValue: { summary: 'undefined' }
     }
   },
   iconRight: {
-    defaultValue: RatingsIcon,
     control: 'select',
     options: [RatingsIcon, null],
     description: 'Icon source for icon on the right side',
     table: {
-      defaultValue: { summary: CardAbout.args.iconRight }
+      defaultValue: { summary: 'undefined' }
     }
   },
   textLeft: {
     control: 'text',
     description: 'Text on the left side of the card and icon ',
     table: {
-      defaultValue: { summary: CardAbout.args.textLeft }
+      defaultValue: { summary: 'undefined' }
     }
   },
   textRight: {
     control: 'text',
     description: 'Text on the right side of the card and icon',
     table: {
-      defaultValue: { summary: CardAbout.args.textRight }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

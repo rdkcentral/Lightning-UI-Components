@@ -28,32 +28,33 @@ export const Control = () =>
   };
 
 const sharedArgs = {
+  title: 'Control',
+  fixed: false,
+  w: 200,
   icon: 'none',
   logo: 'none',
-  shouldCollapse: false
+  shouldCollapse: false,
+  mode: 'focused'
 };
 
 const sharedArgTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: sharedArgs.mode }),
   title: {
     control: 'text',
-    defaultValue: 'Control',
     description: 'Title text',
     table: {
-      defaultValue: { summary: '' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   fixed: {
     control: 'boolean',
-    defaultValue: false,
     description: controlDescriptions.fixed,
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   },
   w: {
     control: 'number',
-    defaultValue: 200,
     description:
       'When the fixed property is true, this will set the width of the component',
     table: {
@@ -62,7 +63,6 @@ const sharedArgTypes = {
   },
   icon: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'lightning'],
     description: 'Icon to the left of title',
     table: {
@@ -71,7 +71,6 @@ const sharedArgTypes = {
   },
   logo: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'xfinity'],
     description:
       'Logo to be placed to the left of title. If icon and logo are both set, logo will take precedence for what is rendered and icon will be ignored',
@@ -81,11 +80,10 @@ const sharedArgTypes = {
   },
   shouldCollapse: {
     control: 'boolean',
-    defaultValue: false,
     description:
       'When in unfocused or disabled mode, if this flag is true the title will collapse (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   }
 };

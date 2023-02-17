@@ -29,26 +29,31 @@ ListItemPicker.storyName = 'ListItemPicker';
 
 ListItemPicker.args = {
   title: 'List Item',
-  options: ['Description1', 'Description2', 'Description3']
+  options: ['Description1', 'Description2', 'Description3'],
+  shouldCollapse: false,
+  mode: 'focused'
 };
 
 ListItemPicker.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: ListItemPicker.args.mode }),
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   shouldCollapse: {
     control: 'boolean',
-    defaultValue: false,
     description:
       'When in unfocused or disabled mode,if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
+  },
+  options: {
+    control: 'object',
+    description: 'List of selectable options',
+    table: { defaultValue: { summary: 'undefined' } }
   }
 };

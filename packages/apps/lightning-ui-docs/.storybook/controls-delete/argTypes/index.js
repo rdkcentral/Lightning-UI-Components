@@ -1,7 +1,6 @@
-export const createModeControl = ({ options, defaultValue } = {}) => {
+export const createModeControl = ({ options, summaryValue } = {}) => {
   return {
     mode: {
-      defaultValue: defaultValue || 'unfocused',
       control: 'radio',
       options:
         options && Array.isArray(options)
@@ -9,7 +8,7 @@ export const createModeControl = ({ options, defaultValue } = {}) => {
           : ['unfocused', 'focused', 'disabled'],
       description: 'Sets the visual mode for the component',
       table: {
-        defaultValue: { summary: defaultValue || 'unfocused' }
+        defaultValue: { summary: summaryValue } // need to figure out how to add default value per story, maybe the args?
       },
       type: { name: 'mode', required: true }
     }

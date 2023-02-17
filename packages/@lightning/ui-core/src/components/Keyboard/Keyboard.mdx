@@ -73,29 +73,29 @@ All of the following examples will yield the same result.
 
 ### Properties
 
-| name          | type          | required | default | description                                                                                                                                   |
-| ------------- | ------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| columnCount   | number        | false    | 11      | number of columns across the keyboard if passing a flat array                                                                                 |
-| centeKeyboard | bool          | false    | false   | center the keyboard within it's set width (must set the w property of Keyboard)                                                               |
-| centerKeys    | bool          | false    | false   | center the keys within it's set width (must set the w property of Keyboard)                                                                   |
-| defaultFormat | string        | true     | -       | default format of the keyboard to be shown. should be a key of `formats`.                                                                     |
-| formats       | object        | true     | -       | object containing arrays that represent different formats that the keyboard can be presented in. These arrays can contain strings or objects. |
-| inline        | boolean       | false    | false   | if the keyboard is an inline keyboard and can ignore row/column count requirements                                                            |
-| input         | object        | true     | -       | object with all of the properties for [Input](?path=/story/patterns-Input--basic)                                                             |
-| keyComponent  | lng.Component | false    | Key     | component to display for each key                                                                                                             |
-| rowCount      | number        | false    | -       | number of rows down the keyboard if passing a flat array                                                                                      |
-| rowWrap       | boolean       | false    | true    | wrap keyboard rows when navigating left and right                                                                                             |
-| title         | string        | false    | -       | title announcement text for screen readers                                                                                                    |
+| name          | type          | required | default   | description                                                                                                                                   |
+| ------------- | ------------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| columnCount   | number        | false    | 11        | number of columns across the keyboard if passing a flat array                                                                                 |
+| centeKeyboard | bool          | false    | false     | center the keyboard within it's set width (must set the w property of Keyboard)                                                               |
+| centerKeys    | bool          | false    | false     | center the keys within it's set width (must set the w property of Keyboard)                                                                   |
+| defaultFormat | string        | true     | undefined | default format of the keyboard to be shown. should be a key of `formats`.                                                                     |
+| formats       | object        | true     | undefined | object containing arrays that represent different formats that the keyboard can be presented in. These arrays can contain strings or objects. |
+| inline        | boolean       | false    | false     | if the keyboard is an inline keyboard and can ignore row/column count requirements                                                            |
+| input         | object        | true     | undefined | object with all of the properties for [Input](?path=/story/patterns-Input--basic)                                                             |
+| keyComponent  | lng.Component | false    | Key       | component to display for each key                                                                                                             |
+| rowCount      | number        | false    | undefined | number of rows down the keyboard if passing a flat array                                                                                      |
+| rowWrap       | boolean       | false    | true      | wrap keyboard rows when navigating left and right                                                                                             |
+| title         | string        | false    | undefined | title announcement text for screen readers                                                                                                    |
 
 ### Style Properties
 
-| name        | type   | description                                                                        |
-| ----------- | ------ | ---------------------------------------------------------------------------------- |
-| inputStyle | object | styles of input                                                                    |
-| inputSpacing | number | space in px between `Input` component and `Keyboard` component in `KeyboardInput`  |
-| marginX     | number | space to the left and right of keyboard content; used for centering `Keyboard`     |
-| screenW     | number | width of display screen                                                            |
-| keySpacing     | number | space in px between each key                                                       |
+| name         | type   | description                                                                       |
+| ------------ | ------ | --------------------------------------------------------------------------------- |
+| inputStyle   | object | styles of input                                                                   |
+| inputSpacing | number | space in px between `Input` component and `Keyboard` component in `KeyboardInput` |
+| marginX      | number | space to the left and right of keyboard content; used for centering `Keyboard`    |
+| screenW      | number | width of display screen                                                           |
+| keySpacing   | number | space in px between each key                                                      |
 
 ### Methods
 

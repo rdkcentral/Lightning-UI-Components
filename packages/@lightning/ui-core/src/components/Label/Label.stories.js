@@ -28,9 +28,10 @@ Label.args = {
 };
 Label.argTypes = {
   title: {
-    control: {
-      type: 'text'
-    },
-    description: 'Text to display in the foreground of the label'
+    control: 'text',
+    description: 'Text to display in the foreground of the label',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   }
 };

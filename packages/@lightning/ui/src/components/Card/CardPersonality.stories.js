@@ -31,23 +31,24 @@ export const CardPersonality = () =>
 
 CardPersonality.args = {
   description: 'Description',
-  title: 'Title'
+  title: 'Title',
+  mode: 'focused'
 };
 
 CardPersonality.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   description: {
     control: 'text',
     description: 'Description text',
     table: {
-      defaultValue: { summary: CardPersonality.args.description }
+      defaultValue: { summary: 'undefined' }
     }
   },
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: CardPersonality.args.title }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

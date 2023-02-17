@@ -25,27 +25,31 @@ export const Tab = () =>
     }
   };
 
+Tab.args = {
+  icon: false,
+  title: 'Tab',
+  mode: 'focused'
+};
+
 Tab.argTypes = {
   ...createModeControl({
     options: ['focused', 'selected', 'disabled'],
-    defaultValue: 'focused'
+    summaryValue: Tab.args.mode
   }),
   icon: {
     control: 'boolean',
     type: 'boolean',
-    defaultValue: false,
     description: 'If true icon will be displayed',
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   title: {
     control: 'text',
     type: 'string',
-    defaultValue: 'Tab',
     description: 'Text content of tab',
     table: {
-      defaultValue: { summary: 'Tab' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

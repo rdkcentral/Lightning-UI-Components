@@ -31,54 +31,58 @@ MetadataCardContent.storyName = 'MetadataCardContent';
 const descriptionSample =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
+MetadataCardContent.args = {
+  w: 600,
+  h: 250,
+  title: 'Title',
+  description: descriptionSample,
+  details: 'Details',
+  visibleCount: 3,
+  mode: 'unfocused'
+};
+
 MetadataCardContent.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: MetadataCardContent.args.mode }),
   w: {
-    defaultValue: 600,
-    table: {
-      defaultValue: { summary: 600 }
-    },
     control: 'number',
-    description: 'Width of component'
+    description: 'Width of component',
+    table: {
+      defaultValue: { summary: 0 }
+    }
   },
   h: {
-    defaultValue: 250,
-    table: {
-      defaultValue: { summary: 250 }
-    },
     control: 'number',
-    description: 'Height of component'
+    description: 'Height of component',
+    table: {
+      defaultValue: { summary: 0 }
+    }
   },
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   description: {
-    defaultValue: descriptionSample,
-    table: {
-      defaultValue: { summary: 'Description' }
-    },
     control: 'text',
-    description: 'Description text'
+    description: 'Description text directly below title',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   details: {
-    defaultValue: 'Details',
-    table: {
-      defaultValue: { summary: 'Details' }
-    },
     control: 'text',
-    description: 'Details text'
+    description: 'Details text at bottom left of componentDetails text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
-    defaultValue: 3,
     description: 'Number of visible providers',
     table: {
-      defaultValue: { summary: 3 }
+      defaultValue: { summary: 1 }
     }
   }
 };
@@ -90,7 +94,8 @@ MetadataCardContent.parameters = {
         visibleCount: visibleCount,
         providers: Array(10).fill({
           icon: xfinityProviderLogoSquare,
-          announce: 'xFinity'
+          announce: 'xFinity',
+          visibleCount: 3
         })
       };
     }

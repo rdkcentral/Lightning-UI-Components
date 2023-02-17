@@ -27,7 +27,11 @@ export const KeyboardEmail = () =>
       };
     }
   };
-
+KeyboardEmail.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  mode: 'focused'
+};
 KeyboardEmail.storyName = 'KeyboardEmail';
 KeyboardEmail.argTypes = Keyboard.sharedArgTypes;
 KeyboardEmail.parameters = {};

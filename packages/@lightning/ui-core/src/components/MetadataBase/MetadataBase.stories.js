@@ -29,94 +29,80 @@ export const MetadataBase = () =>
 
 MetadataBase.storyName = 'MetadataBase';
 
-MetadataBase.argTypes = {
-  ...createModeControl(),
-  w: {
-    defaultValue: 400,
-    table: {
-      defaultValue: { summary: 400 }
+MetadataBase.args = {
+  w: 400,
+  title: 'Title',
+  subtitle: [
+    '94%',
+    {
+      icon: lightningbolt,
+      style: { color: getHexColor('00ff00') },
+      title: 'Green Lightning Bolt'
     },
+    '86%',
+    {
+      icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+      title: 'Rotten Tomatoes rating'
+    }
+  ],
+  description: 'Description',
+  logo: circle,
+  logoTitle: 'Logo title',
+  logoPosition: 'right',
+  mode: 'unfocused'
+};
+
+MetadataBase.argTypes = {
+  ...createModeControl({ summaryValue: MetadataBase.args.mode }),
+  w: {
     control: 'number',
-    description: 'Width of component'
+    description: 'width of component',
+    table: {
+      defaultValue: { summary: 0 }
+    }
   },
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   subtitle: {
-    defaultValue: [
-      '94%',
-      {
-        icon: lightningbolt,
-        style: { color: getHexColor('00ff00') },
-        title: 'Green Lightning Bolt'
-      },
-      '86%',
-      {
-        icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
-        title: 'Rotten Tomatoes rating'
-      }
-    ],
+    control: 'object',
+    description: 'subtitle content',
     table: {
-      defaultValue: {
-        summary: [
-          '94%',
-          {
-            icon: lightningbolt,
-            style: { color: getHexColor('00ff00') },
-            title: 'Green Lightning Bolt'
-          },
-          '86%',
-          {
-            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
-            title: 'Rotten Tomatoes rating'
-          }
-        ]
-      }
-    },
-    control: 'text',
-    description: 'Subtitle content'
+      defaultValue: { summary: 'undefined' }
+    }
   },
   description: {
-    defaultValue: 'Description text',
-    table: {
-      defaultValue: { summary: 'Description' }
-    },
     control: 'text',
-    description: 'Description text'
+    description: 'description text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   logo: {
-    defaultValue: circle,
+    control: 'select',
+    options: ['none', circle],
+    description: 'Image to use for logo',
     table: {
-      defaultValue: { summary: circle }
-    },
-    control: {
-      type: 'select',
-      options: ['none', circle]
-    },
-    description: 'Image to use for logo'
+      defaultValue: { summary: 'undefined' }
+    }
   },
   logoTitle: {
-    defaultValue: 'Logo title',
-    table: {
-      defaultValue: { summary: 'Logo title' }
-    },
     control: 'text',
-    description: 'Title to use for logo in announcer'
+    description: 'Title to use for logo in announcer',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   logoPosition: {
-    defaultValue: 'right',
+    control: 'select',
+    options: ['right', 'left'],
+    description: 'Position logo on the left/right side',
     table: {
       defaultValue: { summary: 'right' }
-    },
-    control: {
-      type: 'select',
-      options: ['right', 'left']
-    },
-    description: 'Position logo on the left/right side'
+    }
   }
 };

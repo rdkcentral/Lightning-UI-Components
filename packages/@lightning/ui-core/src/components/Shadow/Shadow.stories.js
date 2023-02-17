@@ -25,12 +25,14 @@ export const Shadow = () =>
       };
     }
   };
-
+Shadow.args = {
+  maskShadow: false,
+  mode: 'focused'
+};
 Shadow.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   maskShadow: {
     control: 'boolean',
-    defaultValue: false,
     description:
       'Enables a holepunch shader to mask out the component shape. Useful for transparent button states that should not show the shadow behind the element. However, requires an additional draw call for rtt.',
     table: {

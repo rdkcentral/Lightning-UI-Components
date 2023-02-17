@@ -47,20 +47,19 @@ export const CardContentVertical = args =>
     }
   };
 CardContentVertical.args = {
-  shouldCollapse: false,
-  ...CardContent.tileProps.args
+  mode: 'focused',
+  ...CardContent.args
 };
 CardContentVertical.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   shouldCollapse: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.shouldCollapse,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
+    }
   },
-  ...CardContent.tileProps.argTypes
+  ...CardContent.argTypes
 };
 
 CardContentVertical.storyName = 'CardContentVertical';

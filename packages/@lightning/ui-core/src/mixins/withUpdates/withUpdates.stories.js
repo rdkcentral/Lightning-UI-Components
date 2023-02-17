@@ -47,5 +47,9 @@ withUpdates.args = {
 };
 
 withUpdates.argTypes = {
-  title: { control: 'text' }
+  title: {
+    control: 'text',
+    description: 'Title text',
+    table: { defaultValue: { summary: 'undefined' } }
+  }
 };

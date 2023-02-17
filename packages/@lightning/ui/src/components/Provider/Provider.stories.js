@@ -11,34 +11,34 @@ export default {
     docs: {
       page: mdx
     }
+  }
+};
+
+const sharedArgs = {
+  counterText: null,
+  disableRadius: false
+};
+const sharedArgTypes = {
+  visibleCount: {
+    control: { type: 'range', min: 1, max: 10, step: 1 },
+    description: 'number of visible providers',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
-  argTypes: {
-    visibleCount: {
-      control: { type: 'range', min: 1, max: 10, step: 1 },
-      defaultValue: 3,
-      description: 'Number of visible providers',
-      table: {
-        defaultValue: { summary: 3 }
-      }
-    },
-    counterText: {
-      control: {
-        type: 'select',
-        options: [null, '...']
-      },
-      defaultValue: null,
-      description: 'Text to display in counter (overrides default behavior)',
-      table: {
-        defaultValue: { summary: null }
-      }
-    },
-    disableRadius: {
-      control: 'boolean',
-      defaultValue: false,
-      description: 'Disable applying radius to icons',
-      table: {
-        defaultValue: { summary: false }
-      }
+  counterText: {
+    control: 'select',
+    options: [null, '...'],
+    description: 'Text to display in counter (overrides default behavior)',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  disableRadius: {
+    control: 'boolean',
+    description: 'Disable applying radius to icons',
+    table: {
+      defaultValue: { summary: false }
     }
   }
 };
@@ -58,6 +58,9 @@ export const Provider = () =>
       };
     }
   };
+
+Provider.args = sharedArgs;
+Provider.argTypes = sharedArgTypes;
 
 export const WithCustomIconSize = () =>
   class WithCustomIconSize extends lng.Component {
@@ -88,3 +91,6 @@ export const WithCustomIconSize = () =>
       };
     }
   };
+
+WithCustomIconSize.args = sharedArgs;
+WithCustomIconSize.argTypes = sharedArgTypes;

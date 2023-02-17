@@ -24,5 +24,5 @@ export const Knob = () =>
       };
     }
   };
-
-Knob.argTypes = createModeControl();
+Knob.args = { mode: 'focused' };
+Knob.argTypes = createModeControl({ summaryValue: 'focused' });

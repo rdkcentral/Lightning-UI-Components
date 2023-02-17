@@ -49,7 +49,7 @@ export const Notification = () =>
     }
   };
 
-const defaultValues = {
+Notification.args = {
   title: 'Banner headline',
   description: 'Description',
   actionArea: 'Details',
@@ -57,30 +57,26 @@ const defaultValues = {
   icon: 'none',
   logo: 'none'
 };
-Notification.args = defaultValues;
 Notification.argTypes = {
   title: {
     control: 'text',
     description: 'Text to be as title',
-    type: 'string',
     table: {
-      defaultValue: { summary: defaultValues.title }
+      defaultValue: { summary: 'undefined' }
     }
   },
   description: {
     control: 'text',
     description: 'Text to be as description',
-    type: 'string',
     table: {
-      defaultValue: { summary: defaultValues.description }
+      defaultValue: { summary: 'undefined' }
     }
   },
   actionArea: {
     control: 'text',
     description: 'Text to be as action area',
-    type: 'string',
     table: {
-      defaultValue: { summary: defaultValues.actionArea }
+      defaultValue: { summary: 'undefined' }
     }
   },
   toggleState: {
@@ -89,26 +85,24 @@ Notification.argTypes = {
     description:
       'Triggers notification animations. Selecting enter() will expand notification, dismiss() will trigger animation to collapse notification',
     table: {
-      defaultValue: { summary: defaultValues.state }
+      defaultValue: { summary: Notification.args.toggleState }
     }
   },
   icon: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'lightning'],
     description: 'Icon to the left of title',
     table: {
-      defaultValue: { summary: 'none' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   logo: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'xfinity'],
     description:
       'Logo to be placed to the left of the title. If icon and logo are both set, logo will take precedence for what is rendered and icon will be ignored',
     table: {
-      defaultValue: { summary: 'none' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

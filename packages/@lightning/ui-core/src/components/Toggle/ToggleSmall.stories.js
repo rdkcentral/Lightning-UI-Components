@@ -32,12 +32,16 @@ export const ToggleSmall = () =>
   };
 ToggleSmall.storyName = 'ToggleSmall';
 ToggleSmall.args = {
-  checked: false
+  checked: false,
+  mode: 'focused'
 };
 ToggleSmall.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: 'focused' }),
   checked: {
     control: 'boolean',
-    description: 'The state of the toggle being checked'
+    description: 'The state of the toggle being checked',
+    table: {
+      defaultValue: { summary: true }
+    }
   }
 };

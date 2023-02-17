@@ -52,28 +52,34 @@ export const Column = args =>
       };
     }
   };
+
+Column.args = {
+  scroll: 1,
+  scrollIndex: 0,
+  alwaysScroll: false
+};
+
 Column.argTypes = {
   scroll: {
-    defaultValue: 1,
-    control: { type: 'select', options: [1, 5, 15, 20] },
+    control: 'select',
+    options: [1, 5, 15, 20],
     description: 'Scroll to selected index',
-    table: { defaultValue: { summary: 1 } }
+    table: { defaultValue: { summary: 'undefined' } }
   },
   scrollIndex: {
-    defaultValue: 0,
     control: { type: 'number', min: 0 },
     description:
       'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
     table: { defaultValue: { summary: 0 } }
   },
   alwaysScroll: {
-    defaultValue: false,
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
       'Determines whether the column will stop scrolling as it nears the bottom to prevent white space',
     table: { defaultValue: { summary: false } }
   }
 };
+
 Column.parameters = {
   argActions: {
     scroll: function (index, component) {
@@ -208,9 +214,13 @@ export const SkipFocus = args =>
       };
     }
   };
+
+SkipFocus.args = {
+  wrapSelected: false
+};
+
 SkipFocus.argTypes = {
   wrapSelected: {
-    defaultValue: false,
     control: { type: 'boolean' },
     description:
       'Enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
@@ -529,23 +539,39 @@ export const LazyUpCount = args =>
 LazyUpCount.args = {
   scrollIndex: 0,
   lazyUpCount: 5,
-  itemTransition: 0.4
+  itemTransition: 0.4,
+  alwaysScroll: false
 };
+
 LazyUpCount.argTypes = {
   itemTransition: {
-    control: { type: 'number', min: 0, step: 0.1 }
+    control: { type: 'number', min: 0, step: 0.1 },
+    description: 'Transition to apply to items on render ',
+    table: { defaultValue: { summary: 0 } }
   },
   scroll: {
-    control: { type: 'select', options: [1, 5, 15, 20] }
+    control: 'select',
+    options: [1, 5, 15, 20],
+    description: 'Scroll to selected index',
+    table: { defaultValue: { summary: 1 } }
   },
   scrollIndex: {
-    control: { type: 'number', min: 0 }
+    control: { type: 'number', min: 0 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 0 } }
   },
   lazyUpCount: {
-    control: { type: 'number', min: 0 }
+    control: { type: 'number', min: 0 },
+    description:
+      'Number of items to create on screen and new items will be created as user presses right on row.',
+    table: { defaultValue: { summary: 'undefined' } }
   },
   alwaysScroll: {
-    control: { type: 'boolean' }
+    control: { type: 'boolean' },
+    description:
+      'Determines whether the column will stop scrolling as it nears the bottom to prevent white space',
+    table: { defaultValue: { summary: false } }
   }
 };
 
@@ -608,7 +634,10 @@ AddingItems.args = {
 };
 AddingItems.argTypes = {
   scrollIndex: {
-    control: 'number'
+    control: { type: 'number', min: 0 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 0 } }
   }
 };
 
@@ -638,6 +667,9 @@ RemovingItems.args = {
 };
 RemovingItems.argTypes = {
   scrollIndex: {
-    control: 'number'
+    control: { type: 'number', min: 0 },
+    description:
+      'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
+    table: { defaultValue: { summary: 0 } }
   }
 };

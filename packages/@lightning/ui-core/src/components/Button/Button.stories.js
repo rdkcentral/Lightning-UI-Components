@@ -46,36 +46,42 @@ export const Button = () =>
     }
   };
 
+Button.args = {
+  title: 'Button',
+  fixed: false,
+  w: 200,
+  justify: 'center',
+  prefix: null,
+  suffix: null,
+  mode: 'focused'
+};
+
 const sharedArgTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: Button.args.mode }),
   title: {
-    defaultValue: 'Button',
-    table: {
-      defaultValue: { summary: '' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   fixed: {
     control: 'boolean',
-    defaultValue: false,
     description: controlDescriptions.fixed,
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   },
   w: {
-    defaultValue: 200,
-    table: {
-      defaultValue: { summary: 0 }
-    },
     control: 'number',
     description:
-      'When the fixed property is true, this will set the width of the component'
+      'When the fixed property is true, this will set the width of the component',
+    table: {
+      defaultValue: { summary: 0 }
+    }
   },
   justify: {
     control: 'radio',
-    defaultValue: 'center',
     options: ['left', 'center', 'right'],
     description: 'Justification of button content',
     table: {
@@ -84,20 +90,18 @@ const sharedArgTypes = {
   },
   prefix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon', 'checkbox', 'combo'],
     description: 'Lightning components to be placed to the left of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   suffix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon', 'checkbox', 'combo'],
     description: 'Lightning components to be placed to the right of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

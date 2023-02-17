@@ -44,29 +44,35 @@ Marquee.args = {
 Marquee.argTypes = {
   title: {
     control: 'text',
-    description: 'An object matching Lightning text object'
+    description: 'An object matching Lightning text object',
+    table: { defaultValue: { summary: 'undefined' } }
   },
   autoStart: {
-    control: { type: 'boolean' },
-    description: 'Start scrolling on initiation'
+    control: 'boolean',
+    description: 'Start scrolling on initiation',
+    table: { defaultValue: { summary: false } }
   },
   color: {
     name: 'color',
-    control: { type: 'color' },
-    description: 'Set color of text'
+    control: 'color',
+    description: 'Set color of text',
+    table: { defaultValue: { summary: 'theme.color.fillNeutral' } }
   },
   repeat: {
     control: { type: 'number', min: -1 },
-    description: 'Number of times to repeat scrolling'
+    description: 'Number of times to repeat scrolling',
+    table: { defaultValue: { summary: -1 } }
   },
   delay: {
     control: { type: 'number', min: 1.5 },
-    description: 'Delay before scrolling starts'
+    description: 'Delay before scrolling starts',
+    table: { defaultValue: { summary: 1.5 } }
   },
   centerAlign: {
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
-      'Will center the entire texture if the width of the content is less than the container'
+      'Will center the entire texture if the width of the content is less than the container',
+    table: { defaultValue: { summary: false } }
   }
 };
 

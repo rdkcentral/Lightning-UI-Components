@@ -31,25 +31,25 @@ export const CardSection = () =>
 
 CardSection.args = {
   iconSrc: sectionIcon,
-  title: 'Section'
+  title: 'Section',
+  mode: 'focused'
 };
 
 CardSection.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardSection.args.mode }),
   iconSrc: {
-    control: 'radio',
-    defaultValue: sectionIcon,
+    control: 'select',
     options: [sectionIcon, 'null'],
     description: 'Icon source',
     table: {
-      defaultValue: { summary: CardSection.args.iconSrc }
+      defaultValue: { summary: 'undefined' }
     }
   },
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: CardSection.args.title }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

@@ -30,7 +30,6 @@ Wave.args = {
 Wave.argTypes = {
   toggleAnimation: {
     control: 'boolean',
-    defaultValue: true,
     description:
       'Utilize the startAnimation() and stopAnimation() methods to toggle state',
     table: {

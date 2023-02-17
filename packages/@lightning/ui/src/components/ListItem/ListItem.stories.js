@@ -28,27 +28,35 @@ export const ListItem = () =>
 
 ListItem.storyName = 'ListItem';
 
+ListItem.args = {
+  title: 'List Item',
+  shouldCollapse: false,
+  description: 'Description',
+  prefix: null,
+  prefixLogo: 'none',
+  suffix: null,
+  suffixLogo: 'none',
+  mode: 'focused'
+};
+
 ListItem.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: ListItem.args.mode }),
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   description: {
-    defaultValue: 'Description',
-    table: {
-      defaultValue: { summary: 'Description' }
-    },
     control: 'text',
-    description: 'Description text'
+    description: 'Description text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   shouldCollapse: {
     control: 'boolean',
-    defaultValue: false,
     description:
       'When in unfocused or disabled mode, if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
@@ -57,16 +65,14 @@ ListItem.argTypes = {
   },
   prefix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'toggle', 'radio', 'checkbox'],
     description: 'Lightning components to be placed to the left of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   prefixLogo: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'xfinity'],
     description:
       'Logo to be placed to the left of the title. If prefix and prefixLogo are both set, prefixLogo will take precedence for what is rendered and prefix will be ignored',
@@ -76,16 +82,14 @@ ListItem.argTypes = {
   },
   suffix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'toggle', 'radio', 'checkbox'],
     description: 'Lightning components to be placed to the right of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   suffixLogo: {
     control: 'radio',
-    defaultValue: 'none',
     options: ['none', 'xfinity'],
     description:
       'Logo to be placed to the right of the title. If suffix and suffixLogo are both set, suffixLogo will take precedence for what is rendered and suffix will be ignored',
@@ -136,12 +140,6 @@ const sharedArgActions = {
       component.tag('ListItem').suffix = elementSet[suffix];
     }
   }
-};
-
-ListItem.args = {
-  title: 'List Item',
-  shouldCollapse: false,
-  description: 'Description'
 };
 
 ListItem.parameters = { argActions: sharedArgActions };
