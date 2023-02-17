@@ -21,6 +21,7 @@ import Column from './navigation/column.navigation';
 import Control from './controls/control.controls';
 import ControlSmall from './controls/controlsmall.controls';
 import Distractor from './utilities/distractor.utilities';
+import Gradient from './foundations/gradient.foundations';
 import FocusManager from './navigation/focusmanager.navigation';
 import FocusRing from './foundations/focusring.foundations';
 import Icon from './elements/icon.element';
@@ -28,6 +29,7 @@ import Keyboard from './keyboard/keyboard.keyboard';
 import Knob from './utilities/knob.utilities';
 import Label from './metadata/label.metadata';
 import ListItem from './controls/listitem.controls';
+import Notification from './foundations/notification.foundations';
 import ProgressBar from './utilities/progressbar.utilities';
 import Radio from './utilities/radio.utilities';
 import RadioSmall from './utilities/radiosmall.utilities';
@@ -69,6 +71,7 @@ export default function getPageObject(pageName) {
     control: Control,
     controlsmall: ControlSmall,
     distractor: Distractor,
+    gradient: Gradient,
     focusmanager: FocusManager,
     focusring: FocusRing,
     icon: Icon,
@@ -76,6 +79,7 @@ export default function getPageObject(pageName) {
     knob: Knob,
     label: Label,
     listitem: ListItem,
+    notification: Notification,
     progressbar: ProgressBar,
     radio: Radio,
     radiosmall: RadioSmall,

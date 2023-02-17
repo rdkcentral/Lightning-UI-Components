@@ -1,6 +1,6 @@
 import getPageObject from '../pageObjects';
-import { getStoryName } from '../../support/helpers';
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import {getStoryName} from '../../support/helpers';
+import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
@@ -639,7 +639,7 @@ export default function () {
                 };
                 // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });
@@ -700,7 +700,7 @@ export default function () {
         .each($row => {
           // push the row info to the elementRows array
           cy.getOffsetRect($row).then(data => {
-            elementRows.push({ ...data });
+            elementRows.push({...data});
           });
         })
         .then(() => {
@@ -761,7 +761,7 @@ export default function () {
                 };
                 // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({ ...elementInfo, ...data });
+                  elements.push({...elementInfo, ...data});
                 });
               }
             });
@@ -992,6 +992,31 @@ export default function () {
               .should('be.closeTo', value, 1);
           })
       })
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the {string} attribute of {string} {string} contains {string}
+   * @description Cucumber statement to verify that component has attribute with a particular value
+   * @param {String} pageName
+   * @param {String} componentName
+   * @param {String} attributeName
+   * @param {String} value
+   * @example I verify that the 'src' attribute of 'Notification' 'Icon' contains 'notification_64'
+   */
+  Then(
+    'I verify that the {string} attribute of {string} {string} contains {string}',
+    (attributeName, pageName, componentName, value) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const attribute = attributeName.toLowerCase();
+      const component = componentName.toLowerCase();
+
+      pageObject
+        ._getElementByName(component)
+        .should('have.attr', attribute)
+        .should('contain', value);
     }
   );
 }
