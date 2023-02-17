@@ -32,9 +32,8 @@ CardAbout.args = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Tempus imperdiet nulla malesuada pellentesque elit eget gravida.',
   iconLeft: CardAboutIcon,
   iconRight: RatingsIcon,
-  textLeft: '00%',
-  textRight: '00%',
-  mode: 'focused'
+  textLeft: 0,
+  textRight: 0
 };
 
 CardAbout.argTypes = {
@@ -70,14 +69,14 @@ CardAbout.argTypes = {
     }
   },
   textLeft: {
-    control: 'text',
+    control: { type: 'number', min: 0, max: 100, step: 1 },
     description: 'Text on the left side of the card and icon ',
     table: {
       defaultValue: { summary: 'undefined' }
     }
   },
   textRight: {
-    control: 'text',
+    control: { type: 'number', min: 0, max: 100, step: 1 },
     description: 'Text on the right side of the card and icon',
     table: {
       defaultValue: { summary: 'undefined' }

@@ -28,8 +28,8 @@ describe('cardAbout', () => {
     const description = 'Description';
     const iconLeft = { icon: 'left.png', title: 'left' };
     const iconRight = { icon: 'right.png', title: 'right' };
-    const textLeft = '00%';
-    const textRight = '00%';
+    const textLeft = 10;
+    const textRight = 12;
     cardAbout.patch({
       title,
       description,
@@ -41,8 +41,8 @@ describe('cardAbout', () => {
     testRenderer.forceAllUpdates();
     expect(cardAbout.announce).toEqual([
       title.toUpperCase(),
-      `${iconLeft.title} ${textLeft}`,
-      `${iconRight.title} ${textRight}`,
+      `${iconLeft.title} ${textLeft}%`,
+      `${iconRight.title} ${textRight}%`,
       description
     ]);
   });
@@ -140,25 +140,26 @@ describe('cardAbout', () => {
   describe('updating content', () => {
     it('should update the left icon text container', () => {
       cardAbout.iconLeft = lightningPath;
-      cardAbout.textLeft = 'About Card Icon';
-      expect(cardAbout._LeftIconTextContainer.content).toEqual([]);
+      cardAbout.textLeft = 12;
+      expect(cardAbout._LeftIconTextContainer.content).toEqual(undefined);
       cardAbout._updateContent();
+
       testRenderer.forceAllUpdates();
       expect(cardAbout._LeftIconTextContainer.content).toEqual([
         { icon: lightningPath, alpha: 1 },
-        'About Card Icon'
+        '12%'
       ]);
     });
-  });
 
-  it('should update the right icon text container', () => {
-    cardAbout.iconRight = lightningPath;
-    cardAbout.textRight = 'Hi Just testing';
-    expect(cardAbout._RightIconTextContainer.content).toEqual([]);
-    cardAbout._updateContent();
-    expect(cardAbout._RightIconTextContainer.content).toEqual([
-      { icon: lightningPath, alpha: 1 },
-      'Hi Just testing'
-    ]);
+    it('should update the right icon text container', () => {
+      cardAbout.iconRight = lightningPath;
+      cardAbout.textRight = 12;
+      expect(cardAbout._RightIconTextContainer.content).toEqual([]);
+      cardAbout._updateContent();
+      expect(cardAbout._RightIconTextContainer.content).toEqual([
+        { icon: lightningPath, alpha: 1 },
+        '12%'
+      ]);
+    });
   });
 });

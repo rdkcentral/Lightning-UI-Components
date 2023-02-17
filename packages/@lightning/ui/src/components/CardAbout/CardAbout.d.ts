@@ -22,8 +22,8 @@ export type CardAboutStyle = CardTitleStyle & {
 export default class CardAbout extends CardTitle {
   iconLeft?: TextContent;
   iconRight?: TextContent;
-  textLeft?: TextContent;
-  textRight?: TextContent;
+  textLeft?: number; // must be in range of 1 to 100
+  textRight?: number; // must be in range of 1 to 100
   get style(): CardAboutStyle;
   set style(v: StylePartial<CardAboutStyle>);
 
