@@ -1,8 +1,7 @@
 import * as styles from './CardContent.styles.js';
 import CardContent from './CardContent';
-import { withExtensions } from '../../mixins/index.js';
 
-class CardContentHorizontal extends CardContent {
+export default class CardContentHorizontal extends CardContent {
   static get __componentName() {
     return 'CardContentHorizontal';
   }
@@ -16,5 +15,3 @@ class CardContentHorizontal extends CardContent {
     super._init();
   }
 }
-
-export default withExtensions(CardContentHorizontal);

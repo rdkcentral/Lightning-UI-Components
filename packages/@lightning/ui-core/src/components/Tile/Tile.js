@@ -1,4 +1,3 @@
-import { withExtensions } from '../../mixins';
 import Artwork from '../Artwork';
 import Badge from '../Badge';
 import Checkbox from '../Checkbox';
@@ -8,7 +7,7 @@ import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
 import Surface from '../Surface';
 
-class Tile extends Surface {
+export default class Tile extends Surface {
   static get __componentName() {
     return 'Tile';
   }
@@ -549,5 +548,3 @@ class Tile extends Surface {
     );
   }
 }
-
-export default withExtensions(Tile);

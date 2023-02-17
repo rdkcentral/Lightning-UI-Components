@@ -1,9 +1,8 @@
 import Base from '../Base/index.js';
 import * as styles from './Knob.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 import lng from '@lightningjs/core';
 
-class Knob extends Base {
+export default class Knob extends Base {
   static get __componentName() {
     return 'Knob';
   }
@@ -36,5 +35,3 @@ class Knob extends Base {
     });
   }
 }
-
-export default withExtensions(Knob);

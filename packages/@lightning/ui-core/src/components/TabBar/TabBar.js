@@ -1,12 +1,10 @@
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import Row from '../Row/index.js';
 import ContentSwitcher from './ContentSwitcher.js';
 import * as styles from './TabBar.styles.js';
-
 export { default as Tab } from './Tab.js';
 
-class TabBar extends Base {
+export default class TabBar extends Base {
   static _template() {
     return {
       Tabs: {
@@ -197,5 +195,3 @@ class TabBar extends Base {
     }
   }
 }
-
-export default withExtensions(TabBar);

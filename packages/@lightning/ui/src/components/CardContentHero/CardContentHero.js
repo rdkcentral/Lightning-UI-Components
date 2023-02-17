@@ -1,7 +1,7 @@
 import * as styles from './CardContentHero.styles';
-import { CardContentHorizontal, withExtensions } from '@lightning/ui-core';
+import { CardContentHorizontal } from '@lightning/ui-core';
 
-class CardContentHero extends CardContentHorizontal {
+export default class CardContentHero extends CardContentHorizontal {
   static get __componentName() {
     return 'CardContentHero';
   }
@@ -10,5 +10,3 @@ class CardContentHero extends CardContentHorizontal {
     return styles;
   }
 }
-
-export default withExtensions(CardContentHero);

@@ -2,7 +2,7 @@ import { makeCreateComponent } from '@lightning/ui-test-utils';
 import dropShadowExtension, {
   dropShadowExtensionGenerator
 } from './DropShadow.extension';
-import { Base, withExtensions } from '@lightning/ui-core';
+import { Base } from '@lightning/ui-core';
 
 const width = 100;
 const height = 150;
@@ -37,16 +37,14 @@ class ToMaskExample extends Base {
   }
 }
 
-const createComponent = makeCreateComponent(
-  dropShadowExtension(withExtensions(Example))
-);
+const createComponent = makeCreateComponent(dropShadowExtension(Example));
 
 const createComponentGeneratedNoMask = makeCreateComponent(
-  generatedExtension(withExtensions(Example))
+  generatedExtension(Example)
 );
 
 const createComponentGeneratedWithMask = makeCreateComponent(
-  generatedExtension(withExtensions(ToMaskExample))
+  generatedExtension(ToMaskExample)
 );
 
 describe('DropShadow Extension', () => {

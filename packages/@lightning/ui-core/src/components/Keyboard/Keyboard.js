@@ -3,12 +3,11 @@ import Base from '../Base/index.js';
 import Key from '../Key/index.js';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Keyboard.styles.js';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
-class Keyboard extends Base {
+export default class Keyboard extends Base {
   static get __componentName() {
     return 'Keyboard';
   }
@@ -295,5 +294,3 @@ class Keyboard extends Base {
     );
   }
 }
-
-export default withExtensions(Keyboard);

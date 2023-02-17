@@ -1,9 +1,8 @@
 import ButtonSmall from '../Button/ButtonSmall.js';
 import Icon from '../Icon/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Control.styles.js';
 
-class Control extends ButtonSmall {
+export default class Control extends ButtonSmall {
   static get __componentName() {
     return 'Control';
   }
@@ -174,5 +173,3 @@ class Control extends ButtonSmall {
     return Control.__componentName;
   }
 }
-
-export default withExtensions(Control);

@@ -1,8 +1,7 @@
 import Keyboard from './Keyboard';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Keyboard.styles.js';
 
-class KeyboardNumbers extends Keyboard {
+export default class KeyboardNumbers extends Keyboard {
   static get __componentName() {
     return 'KeyboardNumbers';
   }
@@ -37,5 +36,3 @@ class KeyboardNumbers extends Keyboard {
     };
   }
 }
-
-export default withExtensions(KeyboardNumbers);

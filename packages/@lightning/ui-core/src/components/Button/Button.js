@@ -1,5 +1,4 @@
 import { measureTextWidth } from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Button.styles.js';
 import Row from '../Row/index.js';
 import Surface from '../Surface/index.js';
@@ -10,7 +9,7 @@ import TextBox from '../TextBox/index.js'; // There seams to be some issue with 
  *
  * Generic Button Component that handles setting text icon and checkbox
  */
-class Button extends Surface {
+export default class Button extends Surface {
   static get __componentName() {
     return 'Button';
   }
@@ -405,5 +404,3 @@ class Button extends Surface {
     return this._hasTitle ? this.style.paddingX : this.style.paddingXNoTitle;
   }
 }
-
-export default withExtensions(Button);

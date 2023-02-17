@@ -1,14 +1,8 @@
-import {
-  Base,
-  Icon,
-  TextBox,
-  Surface,
-  withExtensions
-} from '@lightning/ui-core';
+import { Base, Icon, TextBox, Surface } from '@lightning/ui-core';
 import defaultIcon from '../../assets/images/notification_64.png';
 import * as styles from './Notification.styles';
 
-class Notification extends Base {
+export default class Notification extends Base {
   static get __componentName() {
     return 'Notification';
   }
@@ -661,5 +655,3 @@ class Notification extends Base {
     });
   }
 }
-
-export default withExtensions(Notification);

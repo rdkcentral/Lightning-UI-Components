@@ -1,8 +1,8 @@
 import lng from '@lightningjs/core';
-import { Base, withExtensions } from '@lightning/ui-core';
+import { Base } from '@lightning/ui-core';
 import * as styles from './Wave.styles';
 
-class Wave extends Base {
+export default class Wave extends Base {
   static get __componentName() {
     return 'Wave';
   }
@@ -243,5 +243,3 @@ class Wave extends Base {
     return this._padding + this.w;
   }
 }
-
-export default withExtensions(Wave);

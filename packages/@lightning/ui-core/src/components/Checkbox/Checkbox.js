@@ -1,10 +1,9 @@
 import lng from '@lightningjs/core';
-import { withExtensions } from '../../mixins/index.js';
 import Icon from '../Icon/index.js';
 import Base from '../Base/index.js';
 import * as styles from './Checkbox.styles.js';
 
-class Checkbox extends Base {
+export default class Checkbox extends Base {
   static get __componentName() {
     return 'Checkbox';
   }
@@ -133,5 +132,3 @@ class Checkbox extends Base {
     return this._announce || (this.checked ? 'Checked' : 'Unchecked');
   }
 }
-
-export default withExtensions(Checkbox);

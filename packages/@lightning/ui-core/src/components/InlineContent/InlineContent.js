@@ -1,11 +1,10 @@
-import { withExtensions } from '../../mixins/index.js';
 import Icon from '../Icon/index.js';
 import Badge from '../Badge/index.js';
 import { parseInlineContent, flatten } from '../../utils/index.js';
 import Base from '../Base/index.js';
 import * as styles from './InlineContent.styles.js';
 
-class InlineContent extends Base {
+export default class InlineContent extends Base {
   static get properties() {
     return [
       'content',
@@ -289,5 +288,3 @@ class InlineContent extends Base {
     return announce ? announce.replace(/\s+(?=\s)|\s$/g, '') : '';
   }
 }
-
-export default withExtensions(InlineContent);

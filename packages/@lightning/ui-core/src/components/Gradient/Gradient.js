@@ -1,9 +1,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
 import * as styles from './Gradient.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class Gradient extends Base {
+export default class Gradient extends Base {
   static get __componentName() {
     return 'Gradient';
   }
@@ -22,5 +21,3 @@ class Gradient extends Base {
     });
   }
 }
-
-export default withExtensions(Gradient);

@@ -1,11 +1,10 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './ScrollWrapper.styles.js';
 import TextBox from '../TextBox/index.js';
 import ScrollSlider from './ScrollSlider.js';
 
-class ScrollWrapper extends Base {
+export default class ScrollWrapper extends Base {
   static get __themeStyle() {
     return styles;
   }
@@ -389,5 +388,3 @@ class ScrollWrapper extends Base {
     return this.content;
   }
 }
-
-export default withExtensions(ScrollWrapper);

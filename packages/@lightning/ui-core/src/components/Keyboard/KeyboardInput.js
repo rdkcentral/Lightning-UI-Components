@@ -1,11 +1,10 @@
 import Keyboard from './index.js';
 import Input from '../Input/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import Base from '../Base/index.js';
 import Column from '../Column/index.js';
 import * as styles from './Keyboard.styles.js';
 
-class KeyboardInput extends Base {
+export default class KeyboardInput extends Base {
   static get __componentName() {
     return 'KeyboardInput';
   }
@@ -150,5 +149,3 @@ class KeyboardInput extends Base {
     return this._Wrapper || this;
   }
 }
-
-export default withExtensions(KeyboardInput);

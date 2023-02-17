@@ -1,9 +1,8 @@
 import Base from '../Base/index.js';
 import * as styles from './Surface.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 import lng from '@lightningjs/core';
 
-class Surface extends Base {
+export default class Surface extends Base {
   static _template() {
     return {
       Background: {}
@@ -61,5 +60,3 @@ class Surface extends Base {
     this.applySmooth(this, { scale }, { scale: [scale, this.style.animation] });
   }
 }
-
-export default withExtensions(Surface);

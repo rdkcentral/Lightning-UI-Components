@@ -5,7 +5,8 @@ import {
   withTags,
   withHandleKey,
   withLayout,
-  withThemeStyles
+  withThemeStyles,
+  withExtensions
 } from '../../mixins/index.js';
 import { isComponentOnScreen } from '../../utils/index.js';
 
@@ -108,8 +109,10 @@ class Base extends lng.Component {
 }
 
 function withMixins(baseComponent) {
-  return withLayout(
-    withThemeStyles(withUpdates(withTags(withHandleKey(baseComponent))))
+  return withExtensions(
+    withLayout(
+      withThemeStyles(withUpdates(withTags(withHandleKey(baseComponent))))
+    )
   );
 }
 

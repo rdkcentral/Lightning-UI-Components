@@ -5,7 +5,6 @@ import InlineContent from '../InlineContent';
 import Marquee from '../Marquee';
 import { context } from '../../globals';
 import utils from '../../utils';
-import { withExtensions } from '../../mixins';
 
 /**
  *
@@ -24,7 +23,7 @@ const lightningTextDefaults = Object.entries(
   };
 }, {});
 
-class TextBox extends Base {
+export default class TextBox extends Base {
   static _template() {
     return {
       alpha: 0.001
@@ -299,5 +298,3 @@ class TextBox extends Base {
     super.smooth = v;
   }
 }
-
-export default withExtensions(TextBox);

@@ -1,9 +1,8 @@
 import * as styles from './Card.styles.js';
 import TextBox from '../TextBox';
 import Surface from '../Surface';
-import { withExtensions } from '../../mixins/index.js';
 
-class Card extends Surface {
+export default class Card extends Surface {
   static get __componentName() {
     return 'Card';
   }
@@ -67,5 +66,3 @@ class Card extends Surface {
     return this._announce || (this._Title && this._Title.announce);
   }
 }
-
-export default withExtensions(Card);

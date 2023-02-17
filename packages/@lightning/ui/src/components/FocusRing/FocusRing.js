@@ -1,7 +1,8 @@
 import lng from '@lightningjs/core';
 import * as styles from './FocusRing.styles';
-import { Base, withExtensions, utils } from '@lightning/ui-core';
-class FocusRing extends Base {
+import { Base, utils } from '@lightning/ui-core';
+
+export default class FocusRing extends Base {
   static get __componentName() {
     return 'FocusRing';
   }
@@ -164,5 +165,3 @@ class FocusRing extends Base {
     this._focusRingAnimation.stop();
   }
 }
-
-export default withExtensions(FocusRing);

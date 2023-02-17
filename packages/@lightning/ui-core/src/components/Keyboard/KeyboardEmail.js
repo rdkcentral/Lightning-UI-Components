@@ -1,8 +1,7 @@
 import Keyboard from './Keyboard';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Keyboard.styles.js';
 
-class KeyboardEmail extends Keyboard {
+export default class KeyboardEmail extends Keyboard {
   static get __componentName() {
     return 'KeyboardEmail';
   }
@@ -536,5 +535,3 @@ class KeyboardEmail extends Keyboard {
     };
   }
 }
-
-export default withExtensions(KeyboardEmail);

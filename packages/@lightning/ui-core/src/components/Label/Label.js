@@ -1,9 +1,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Label.styles.js';
 
-class Label extends Base {
+export default class Label extends Base {
   static _template() {
     return {
       Background: {},
@@ -84,5 +83,3 @@ class Label extends Base {
     return this._announce || (this._Text && this._Text.text.text);
   }
 }
-
-export default withExtensions(Label);

@@ -11,9 +11,8 @@ import {
   delayForAnimation,
   getShortestDistance
 } from '../../utils/index.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class FocusManager extends Base {
+export default class FocusManager extends Base {
   static get __componentName() {
     return 'FocusManager';
   }
@@ -481,5 +480,3 @@ class FocusManager extends Base {
     ];
   }
 }
-
-export default withExtensions(FocusManager);

@@ -5,8 +5,7 @@ import {
   Tile,
   CardTitle,
   CardContent,
-  CardContentVertical,
-  withExtensions
+  CardContentVertical
 } from '@lightning/ui-core';
 
 function warningMessage(item) {
@@ -18,7 +17,7 @@ function warningMessage(item) {
     }`
   );
 }
-class BaseLayout extends Base {
+export default class BaseLayout extends Base {
   static get __componentName() {
     return 'BaseLayout';
   }
@@ -175,5 +174,3 @@ class BaseLayout extends Base {
     return this._Row;
   }
 }
-
-export default withExtensions(BaseLayout);

@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { withExtensions, Base } from '@lightning/ui-core';
+import { Base } from '@lightning/ui-core';
 import * as styles from './Distractor.styles';
 
 /*
@@ -17,7 +17,7 @@ import * as styles from './Distractor.styles';
   3_____2
 */
 
-class Distractor extends Base {
+export default class Distractor extends Base {
   static get __componentName() {
     return 'Distractor';
   }
@@ -137,5 +137,3 @@ class Distractor extends Base {
     this.circle3Animation && this.circle3Animation.stop();
   }
 }
-
-export default withExtensions(Distractor);

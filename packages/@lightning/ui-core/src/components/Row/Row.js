@@ -1,8 +1,7 @@
 import NavigationManager from '../NavigationManager/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './Row.styles.js';
 
-class Row extends NavigationManager {
+export default class Row extends NavigationManager {
   static get __componentName() {
     return 'Row';
   }
@@ -234,5 +233,3 @@ class Row extends NavigationManager {
   // can be overridden
   onScreenEffect() {}
 }
-
-export default withExtensions(Row);

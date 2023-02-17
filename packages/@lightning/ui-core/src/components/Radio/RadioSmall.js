@@ -1,8 +1,7 @@
 import Radio from './Radio.js';
-import { withExtensions } from '../../mixins/index.js';
 import * as styles from './RadioSmall.styles.js';
 
-class RadioSmall extends Radio {
+export default class RadioSmall extends Radio {
   static get __componentName() {
     return 'RadioSmall';
   }
@@ -11,5 +10,3 @@ class RadioSmall extends Radio {
     return styles;
   }
 }
-
-export default withExtensions(RadioSmall);

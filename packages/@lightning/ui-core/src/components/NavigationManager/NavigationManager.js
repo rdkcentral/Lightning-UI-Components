@@ -1,5 +1,4 @@
 import FocusManager from '../FocusManager/index.js';
-import { withExtensions } from '../../mixins/index.js';
 import { getX, getY, getH, getW, max } from '../../utils/index.js';
 import * as styles from './NavigationManager.styles';
 
@@ -20,7 +19,7 @@ const directionPropNames = {
   }
 };
 
-class NavigationManager extends FocusManager {
+export default class NavigationManager extends FocusManager {
   static get __componentName() {
     return 'NavigationManager';
   }
@@ -384,5 +383,3 @@ class NavigationManager extends FocusManager {
       : this.style.scrollIndex;
   }
 }
-
-export default withExtensions(NavigationManager);

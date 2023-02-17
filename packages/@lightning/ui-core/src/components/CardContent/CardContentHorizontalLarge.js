@@ -1,8 +1,7 @@
 import * as styles from './CardContentHorizontalLarge.styles';
-import { withExtensions } from '../../mixins/index.js';
 import CardContentHorizontal from './CardContentHorizontal';
 
-class CardContentHorizontalLarge extends CardContentHorizontal {
+export default class CardContentHorizontalLarge extends CardContentHorizontal {
   static get __componentName() {
     return 'CardContentHorizontalLarge';
   }
@@ -11,5 +10,3 @@ class CardContentHorizontalLarge extends CardContentHorizontal {
     return styles;
   }
 }
-
-export default withExtensions(CardContentHorizontalLarge);

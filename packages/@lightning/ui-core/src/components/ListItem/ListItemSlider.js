@@ -2,9 +2,8 @@ import NestedSlider from './NestedSlider';
 import ListItem from './ListItem';
 import * as styles from './ListItemSlider.styles.js';
 import TextBox from '../TextBox';
-import { withExtensions } from '../../mixins/index.js';
 
-class ListItemSlider extends ListItem {
+export default class ListItemSlider extends ListItem {
   static get __componentName() {
     return 'ListItemSlider';
   }
@@ -162,5 +161,3 @@ class ListItemSlider extends ListItem {
     return this.title + this.value + ', List Item Slider';
   }
 }
-
-export default withExtensions(ListItemSlider);

@@ -1,10 +1,9 @@
-import { withExtensions } from '../../mixins/index.js';
 import { Bubble } from '../../textures/index.js';
 import TextBox from '../TextBox/index.js';
 import Base from '../Base/index.js';
 import * as styles from './Tooltip.styles.js';
 
-class Tooltip extends Base {
+export default class Tooltip extends Base {
   static get __componentName() {
     return 'Tooltip';
   }
@@ -148,5 +147,3 @@ class Tooltip extends Base {
     return this._announce || (this._Text && this._Text.announce);
   }
 }
-
-export default withExtensions(Tooltip);

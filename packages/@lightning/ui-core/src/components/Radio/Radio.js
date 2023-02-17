@@ -1,9 +1,8 @@
 import Base from '../Base/index.js';
 import lng from '@lightningjs/core';
 import * as styles from './Radio.styles.js';
-import { withExtensions } from '../../mixins/index.js';
 
-class Radio extends Base {
+export default class Radio extends Base {
   static get __componentName() {
     return 'Radio';
   }
@@ -133,5 +132,3 @@ class Radio extends Base {
     return this._announce || (this.checked ? 'Checked' : 'Unchecked');
   }
 }
-
-export default withExtensions(Radio);
