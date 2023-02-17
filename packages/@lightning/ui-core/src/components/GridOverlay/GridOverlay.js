@@ -6,7 +6,6 @@ import TextBox from '../TextBox/index.js';
 import { getWidthByColumnSpan } from '../../utils/index.js';
 import * as styles from './GridOverlay.styles';
 
-// TODO do we need a d.ts for this?
 class Spacer extends Base {
   static get __componentName() {
     return 'Spacer';
@@ -65,6 +64,7 @@ class Spacer extends Base {
     }
 
     this.rotation = this.vertical ? Math.PI / 2 : 0;
+    this.signal('spacerLoaded');
   }
 }
 
@@ -83,10 +83,16 @@ export default class GridOverlay extends Base {
       autoResizeHeight: true,
       Items: {
         Property: {
-          type: TextBox
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_update'
+          }
         },
         Value: {
           type: TextBox,
+          signals: {
+            textBoxChanged: '_update'
+          },
           centerInParent: true
         }
       }
@@ -100,8 +106,18 @@ export default class GridOverlay extends Base {
       Margins: {
         alpha: 0.001,
         Horizontal: {
-          Left: { type: Spacer },
-          Right: { type: Spacer }
+          Left: {
+            type: Spacer,
+            signals: {
+              spacerLoaded: '_update'
+            }
+          },
+          Right: {
+            type: Spacer,
+            signals: {
+              spacerLoaded: '_update'
+            }
+          }
         },
         Vertical: {
           Top: { type: Spacer, vertical: true }
@@ -110,8 +126,18 @@ export default class GridOverlay extends Base {
       Safe: {
         alpha: 0.001,
         Horizontal: {
-          Left: { type: Spacer },
-          Right: { type: Spacer }
+          Left: {
+            type: Spacer,
+            signals: {
+              spacerLoaded: '_update'
+            }
+          },
+          Right: {
+            type: Spacer,
+            signals: {
+              spacerLoaded: '_update'
+            }
+          }
         },
         Vertical: {
           Top: { type: Spacer, vertical: true },
@@ -120,7 +146,12 @@ export default class GridOverlay extends Base {
       },
       Gutters: {
         alpha: 0.001,
-        Horizontal: { type: Spacer }
+        Horizontal: {
+          type: Spacer,
+          signals: {
+            spacerLoaded: '_update'
+          }
+        }
       },
       TextPanel: {
         alpha: 0.001,
