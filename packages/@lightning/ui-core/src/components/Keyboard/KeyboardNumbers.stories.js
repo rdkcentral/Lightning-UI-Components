@@ -30,15 +30,21 @@ export const KeyboardNumbers = () =>
 
 KeyboardNumbers.storyName = 'KeyboardNumbers';
 
+KeyboardNumbers.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  defaultFormat: 'dialpad',
+  mode: 'focused'
+};
+
 KeyboardNumbers.argTypes = {
   ...Keyboard.sharedArgTypes,
   defaultFormat: {
-    defaultValue: 'dialpad',
     description: 'Select the format of dialpad',
     control: 'radio',
     options: ['dialpad', 'dialpadExtended'],
     table: {
-      defaultValue: { summary: 'dialpad' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

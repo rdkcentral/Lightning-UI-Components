@@ -35,40 +35,6 @@ export const CardContent = args =>
 
 const tileCategory = 'Tile';
 CardContent.tileProps = {
-  args: {
-    badge: 'HD',
-    label: 'Live',
-    progress: 0.5
-  },
-  argTypes: {
-    badge: {
-      name: 'title',
-      table: { category: tileCategory, subcategory: 'Badge' },
-      control: { type: 'text' },
-      description: 'Badge text'
-    },
-    label: {
-      name: 'title',
-      table: { category: tileCategory, subcategory: 'Label' },
-      control: { type: 'text' },
-      description: 'Text to display in the foreground of the label'
-    },
-    progress: {
-      defaultValue: 0.5,
-      control: {
-        type: 'range',
-        min: 0,
-        max: 1,
-        step: 0.01
-      },
-      description: 'Percentage of the current progress from 0 to 1',
-      table: {
-        category: tileCategory,
-        subcategory: 'ProgressBar',
-        defaultValue: { summary: 0 }
-      }
-    }
-  },
   argActions: tagName => ({
     badge: (badgeTitle, component) => {
       component.tag(tagName).tile = {
@@ -79,7 +45,10 @@ CardContent.tileProps = {
     label: (labelTitle, component) => {
       component.tag(tagName).tile = {
         ...component.tag(tagName).tile,
-        label: { title: labelTitle }
+        label: {
+          title: labelTitle,
+          table: { defaultValue: { summary: 'undefined' } }
+        }
       };
     },
     progress: (progress, component) => {
@@ -91,22 +60,60 @@ CardContent.tileProps = {
   })
 };
 CardContent.storyName = 'CardContent';
+
 CardContent.args = {
   shouldCollapse: false,
-  ...CardContent.tileProps.args
+  badge: 'HD',
+  label: 'Live',
+  progress: 0.5,
+  mode: 'focused'
 };
+
 CardContent.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardContent.args.mode }),
   shouldCollapse: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.shouldCollapse,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
+    }
   },
-  ...CardContent.tileProps.argTypes
+  badge: {
+    name: 'title',
+    control: 'text',
+    description: 'Badge text',
+    table: {
+      category: tileCategory,
+      subcategory: 'Badge',
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  label: {
+    name: 'title',
+    control: 'text',
+    description: 'Text to display in the foreground of the label',
+    table: {
+      category: tileCategory,
+      subcategory: 'Label',
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  progress: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.01
+    },
+    description: 'percentage of the current progress from 0 to 1',
+    table: {
+      category: tileCategory,
+      subcategory: 'ProgressBar',
+      defaultValue: { summary: 0 }
+    }
+  }
 };
+
 CardContent.parameters = {
   argActions: CardContent.tileProps.argActions('CardContent')
 };

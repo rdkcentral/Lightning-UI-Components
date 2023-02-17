@@ -43,30 +43,21 @@ export const Hero = args =>
 
 Hero.storyName = 'CardContentHero';
 Hero.args = {
-  shouldCollapse: false,
   collapseToMetadata: false,
-  ...CardContent.tileProps.args
+  mode: 'focused',
+  ...CardContent.args
 };
 
 Hero.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
-  shouldCollapse: {
-    defaultValue: false,
-    table: {
-      defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
-  },
+  ...createModeControl({ summaryValue: Hero.args.mode }),
   collapseToMetadata: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.collapseToMetadata,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.collapseToMetadata
+    }
   },
-  ...CardContent.tileProps.argTypes
+  ...CardContent.argTypes
 };
 Hero.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHero')

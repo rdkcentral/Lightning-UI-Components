@@ -119,22 +119,22 @@ When password is true, the Announcer will say "Input hidden" when the Input is f
 
 ### Properties
 
-| name        | type    | required | default | description                                                                                                                                                    |
-| ----------- | ------- | -------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| actualTitle | string  | false    | -       | actualTitle is a proxy element for title which is used to store actual value typed when password is enabled                                                    |
-| cursor      | string  | false    | -       | cursor lets us know the current insert or delete position of title.                                                                                            |
-| eyebrow     | string  | false    | -       | Eyebrow of input container                                                                                                                                     |
-| helpText    | string  | false    | -       | HelpText of input container                                                                                                                                    |
-| listening   | boolean | false    | -       | when true, input will accept changes from clear, insert, and backspace methods. When false, effects of those methods will be ignored and not affect the input. |
-| mask        | string  | false    | -       | character to use as a mask when password is true                                                                                                               |
-| password    | boolean | false    | -       | determines whether input should be masked                                                                                                                      |
-| position    | number  | false    | -       | index of current cursor position                                                                                                                               |
+| name        | type    | required | default   | description                                                                                                                                                    |
+| ----------- | ------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| actualTitle | string  | false    | undefined | actualTitle is a proxy element for title which is used to store actual value typed when password is enabled                                                    |
+| cursor      | string  | false    | undefined | cursor lets us know the current insert or delete position of title.                                                                                            |
+| eyebrow     | string  | false    | undefined | Eyebrow of input container                                                                                                                                     |
+| helpText    | string  | false    | undefined | HelpText of input container                                                                                                                                    |
+| listening   | boolean | false    | undefined | when true, input will accept changes from clear, insert, and backspace methods. When false, effects of those methods will be ignored and not affect the input. |
+| mask        | string  | false    | undefined | character to use as a mask when password is true                                                                                                               |
+| password    | boolean | false    | undefined | determines whether input should be masked                                                                                                                      |
+| position    | number  | false    | undefined | index of current cursor position                                                                                                                               |
 
 ### Style Properties
 
 | name             | type             | description                                                                            |
 | ---------------- | ---------------- | -------------------------------------------------------------------------------------- |
-| cursorStyle     | object           | styles of the cursor                                                                   |
+| cursorStyle      | object           | styles of the cursor                                                                   |
 | eyebrowTextStyle | string \| object | text style to apply to the eyebrow                                                     |
 | helpTextStyle    | string \| object | text style to apply to the helpText                                                    |
 | minWidth         | number           | used as a fallback width if no width is passed into the component and `fixed` is false |

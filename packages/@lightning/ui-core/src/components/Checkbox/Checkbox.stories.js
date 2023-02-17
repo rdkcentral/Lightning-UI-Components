@@ -25,11 +25,12 @@ export const Checkbox = () =>
   };
 
 Checkbox.args = {
-  checked: false
+  checked: false,
+  mode: 'focused'
 };
 
 Checkbox.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: 'focused' }),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',

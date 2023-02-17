@@ -41,18 +41,36 @@ Basic.args = {
   max: 100,
   value: 50,
   step: 1,
-  vertical: false
+  vertical: false,
+  mode: 'focused'
 };
 
 Basic.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
-  min: { control: 'number', description: 'Lower bound of value' },
-  max: { control: 'number', description: 'Upper bound of value' },
-  value: { control: 'number', description: 'Current value' },
-  step: { control: 'number', description: '+/- value on change' },
+  ...createModeControl({ summaryValue: 'focused' }),
+  min: {
+    control: 'number',
+    description: 'Lower bound of value',
+    table: { defaultValue: { summary: 0 } }
+  },
+  max: {
+    control: 'number',
+    description: 'Upper bound of value',
+    table: { defaultValue: { summary: 100 } }
+  },
+  value: {
+    control: 'number',
+    description: 'Current value',
+    table: { defaultValue: { summary: '0 or min' } }
+  },
+  step: {
+    control: 'number',
+    description: '+/- value on change',
+    table: { defaultValue: { summary: 1 } }
+  },
   vertical: {
     control: 'boolean',
-    description: 'If true, the slider is displayed vertically'
+    description: 'If true, the slider is displayed vertically',
+    table: { defaultValue: { summary: false } }
   }
 };
 
@@ -81,5 +99,8 @@ export const SignalHandling = () =>
       this.tag('Text').content = `Value: ${value}`;
     }
   };
+SignalHandling.args = {
+  mode: 'focused'
+};
 
-SignalHandling.argTypes = createModeControl({ defaultValue: 'focused' });
+SignalHandling.argTypes = createModeControl({ summaryValue: 'focused' });

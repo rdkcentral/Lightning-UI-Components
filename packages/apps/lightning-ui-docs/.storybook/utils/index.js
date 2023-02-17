@@ -1,8 +1,7 @@
 // creates Mode control on stories
-export const createModeControl = ({ options, defaultValue } = {}) => {
+export const createModeControl = ({ options, summaryValue } = {}) => {
   return {
     mode: {
-      defaultValue: defaultValue || 'unfocused',
       control: 'radio',
       options:
         options && Array.isArray(options)
@@ -10,7 +9,7 @@ export const createModeControl = ({ options, defaultValue } = {}) => {
           : ['unfocused', 'focused', 'disabled'],
       description: 'Sets the visual mode for the component',
       table: {
-        defaultValue: { summary: defaultValue || 'unfocused' }
+        defaultValue: { summary: summaryValue }
       },
       type: { name: 'string', required: true }
     }

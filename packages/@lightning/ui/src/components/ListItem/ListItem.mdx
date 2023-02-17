@@ -40,12 +40,12 @@ class Basic extends lng.Component {
 
 `ListItem` has the same properties as the ones listed in [Button](?path=/docs/elements-button--basic) in addition to a couple listed below:
 
-| name           | type    | default | description                                                                           |
-| -------------- | ------- | ------- | ------------------------------------------------------------------------------------- |
-| description    | string  | -       | description text                                                                      |
-| prefixLogo     | string  | -       | Logo to be placed to the left of the title and description                            |
-| shouldCollapse | boolean | false   | flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode |
-| suffixLogo     | string  | -       | Logo to be placed to the right of the title and description                           |
+| name           | type    | default   | description                                                                           |
+| -------------- | ------- | --------- | ------------------------------------------------------------------------------------- |
+| description    | string  | undefined | description text                                                                      |
+| prefixLogo     | string  | undefined | Logo to be placed to the left of the title and description                            |
+| shouldCollapse | boolean | false     | flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode |
+| suffixLogo     | string  | undefined | Logo to be placed to the right of the title and description                           |
 
 ### Style Properties
 
@@ -54,7 +54,7 @@ class Basic extends lng.Component {
 | alpha                | number | transparency of prefix and suffix components |
 | descriptionTextStyle | object | text style to apply to the description       |
 | h                    | number | height of ListItem                           |
-| logoStyle           | object | custom styling for the logo element          |
+| logoStyle            | object | custom styling for the logo element          |
 | paddingX             | number | padding on left and right sides of text      |
 | prefixH              | number | height of prefix                             |
 | suffixH              | number | height of suffix                             |

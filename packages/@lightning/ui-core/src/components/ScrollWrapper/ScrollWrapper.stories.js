@@ -16,101 +16,85 @@ const terms = `By activating, you agree that you want to enable cloud DVR techno
 'well as the TV connected to your set-top DVR, and (2) optimize the video and audio
 'quality of your viewing experience during playback.`;
 
-const modes = createModeControl({
-  options: ['unfocused', 'focused'],
-  defaultValue: 'focused'
-});
-
 export default {
   title: `${CATEGORIES[16]}/ScrollWrapper`,
   parameters: {
     docs: {
       page: mdx
     }
+  }
+};
+
+const sharedArgs = {
+  autoScroll: false,
+  autoScrollDelay: 2000,
+  autoScrollSpeed: 200,
+  fadeContent: true,
+  scrollDuration: 0.2,
+  scrollStep: 10,
+  showScrollBar: true,
+  mode: 'focused'
+};
+
+const sharedArgTypes = {
+  ...createModeControl({
+    options: ['unfocused', 'focused'],
+    summaryValue: false
+  }),
+  autoScroll: {
+    control: 'boolean',
+    description: 'Whether or not to auto scroll the content',
+    type: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
   },
-  args: {
-    autoScroll: false,
-    autoScrollDelay: 2000,
-    autoScrollSpeed: 200,
-    fadeContent: true,
-    scrollDuration: 0.2,
-    scrollStep: 10,
-    showScrollBar: true
+  autoScrollDelay: {
+    control: 'number',
+    description: 'Delay, in ms, before auto scroll starts',
+    type: 'number',
+    table: {
+      defaultValue: { summary: 2000 }
+    }
   },
-  argTypes: {
-    ...modes,
-    autoScroll: {
-      control: 'boolean',
-      defaulValue: false,
-      description: 'Whether or not to auto scroll the content',
-      type: 'boolean',
-      table: {
-        defaultValue: { summary: false }
-      }
-    },
-    autoScrollDelay: {
-      control: 'number',
-      defaulValue: 2000,
-      description: 'Delay, in ms, before auto scroll starts',
-      type: 'number',
-      table: {
-        defaultValue: { summary: 2000 }
-      }
-    },
-    autoScrollSpeed: {
-      control: 'number',
-      defaulValue: 200,
-      description: 'Time delay, in ms, before each scroll step',
-      type: 'number',
-      table: {
-        defaultValue: { summary: 200 }
-      }
-    },
-    fadeContent: {
-      control: 'boolean',
-      defaulValue: true,
-      description: 'Fade out content at the bottom of the ScrollWrapper',
-      type: 'boolean',
-      table: {
-        defaultValue: { summary: true }
-      }
-    },
-    scrollChanged: {
-      action: 'scrollChanged',
-      defaulValue: '',
-      description:
-        'Event fired via `fireAncestors`, is triggered when scroll reaches the top or bottom of the scroll boundaries.',
-      type: 'function',
-      table: {
-        defaultValue: { summary: '' }
-      }
-    },
-    scrollDuration: {
-      control: 'number',
-      defaulValue: 0.2,
-      description: 'Animation duration for the scroll',
-      type: 'number',
-      table: {
-        defaultValue: { summary: 0.2 }
-      }
-    },
-    scrollStep: {
-      control: 'number',
-      defaulValue: 10,
-      description: 'How many pixels to scroll by on every up/down keypress',
-      type: 'number',
-      table: {
-        defaultValue: { summary: 10 }
-      }
-    },
-    showScrollBar: {
-      control: 'boolean',
-      defaulValue: true,
-      description: 'Show the scroll bar when focused ',
-      type: 'boolean',
-      table: {
-        defaultValue: { summary: true }
-      }
+  autoScrollSpeed: {
+    control: 'number',
+    description: 'Time delay, in ms, before each scroll step',
+    type: 'number',
+    table: {
+      defaultValue: { summary: 2000 }
+    }
+  },
+  fadeContent: {
+    control: 'boolean',
+    description: 'Fade out content at the bottom of the ScrollWrapper',
+    type: 'boolean',
+    table: {
+      defaultValue: { summary: true }
+    }
+  },
+  scrollDuration: {
+    control: 'number',
+    description: 'Animation duration for the scroll',
+    type: 'number',
+    table: {
+      defaultValue: { summary: 0.2 }
+    }
+  },
+  scrollStep: {
+    control: 'number',
+    description: 'How many pixels to scroll by on every up/down keypress',
+    type: 'number',
+    table: {
+      defaultValue: { summary: 10 }
+    }
+  },
+  showScrollBar: {
+    control: 'boolean',
+    description: 'Show the scroll bar when focused ',
+    type: 'boolean',
+    table: {
+      defaultValue: { summary: true }
     }
   }
 };
@@ -123,13 +107,6 @@ export const Basic = args =>
           type: ScrollWrapperComponent,
           h: 448,
           w: 796,
-          scrollStep: args.scrollStep,
-          autoScroll: args.autoScroll,
-          fadeContent: args.fadeContent,
-          scrollDuration: args.scrollDuration,
-          showScrollBar: args.showScrollBar,
-          autoScrollDelay: args.autoScrollDelay,
-          autoScrollSpeed: args.autoScrollSpeed,
           content: terms,
           signals: {
             scrollChanged: true
@@ -143,6 +120,9 @@ export const Basic = args =>
     }
   };
 
+Basic.args = sharedArgs;
+Basic.argTypes = sharedArgTypes;
+
 export const TextArray = args =>
   class TextArray extends lng.Component {
     static _template() {
@@ -152,12 +132,6 @@ export const TextArray = args =>
           h: 450,
           w: 600,
           wordWrap: true,
-          scrollStep: args.scrollStep,
-          autoScroll: args.autoScroll,
-          scrollDuration: args.scrollDuration,
-          showScrollBar: args.showScrollBar,
-          autoScrollDelay: args.autoScrollDelay,
-          autoScrollSpeed: args.autoScrollSpeed,
           content: [
             {
               text: 'Text Heading',
@@ -186,6 +160,9 @@ export const TextArray = args =>
     }
   };
 
+TextArray.args = sharedArgs;
+TextArray.argTypes = sharedArgTypes;
+
 export const ObjectArray = args =>
   class ObjectArray extends lng.Component {
     static _template() {
@@ -196,12 +173,6 @@ export const ObjectArray = args =>
           w: 1200,
           shouldWrap: true, // determines if items should wrap around ScrollContainer
           flexDirection: 'row', //determines the direction items are placed in flexContainer
-          scrollStep: args.scrollStep,
-          autoScroll: args.autoScroll,
-          scrollDuration: args.scrollDuration,
-          showScrollBar: args.showScrollBar,
-          autoScrollDelay: args.autoScrollDelay,
-          autoScrollSpeed: args.autoScrollSpeed,
           content: Array.from(Array(6)).map(() => ({
             shader: {
               type: lng.shaders.RoundedRectangle,
@@ -250,3 +221,6 @@ export const ObjectArray = args =>
       args.scrollChanged(type);
     }
   };
+
+ObjectArray.args = sharedArgs;
+ObjectArray.argTypes = sharedArgTypes;

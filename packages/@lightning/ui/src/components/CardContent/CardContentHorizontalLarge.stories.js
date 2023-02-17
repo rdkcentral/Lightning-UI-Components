@@ -49,29 +49,27 @@ export const CardContentHorizontalLarge = args =>
     }
   };
 CardContentHorizontalLarge.args = {
-  shouldCollapse: false,
   collapseToMetadata: false,
-  ...CardContent.tileProps.args
+  mode: 'focused',
+  ...CardContent.args
 };
 CardContentHorizontalLarge.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardContentHorizontalLarge.args.mode }),
   shouldCollapse: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.shouldCollapse,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
+    }
   },
   collapseToMetadata: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.collapseToMetadata,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.collapseToMetadata
+    }
   },
-  ...CardContent.tileProps.argTypes
+  ...CardContent.argTypes
 };
 CardContentHorizontalLarge.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHorizontalLarge')

@@ -29,5 +29,12 @@ export const KeyboardQwerty = () =>
   };
 
 KeyboardQwerty.storyName = 'KeyboardQwerty';
+
+KeyboardQwerty.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  mode: 'focused'
+};
+
 KeyboardQwerty.argTypes = Keyboard.sharedArgTypes;
 KeyboardQwerty.parameters = {};

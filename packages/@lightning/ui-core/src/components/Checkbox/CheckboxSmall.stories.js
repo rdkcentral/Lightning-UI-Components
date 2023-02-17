@@ -26,10 +26,11 @@ export const CheckboxSmall = () => {
 };
 CheckboxSmall.storyName = 'CheckboxSmall';
 CheckboxSmall.args = {
-  checked: false
+  checked: false,
+  mode: 'focused'
 };
 CheckboxSmall.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: 'focused' }),
   checked: {
     control: 'boolean',
     description: 'Toggles checked between on and off',

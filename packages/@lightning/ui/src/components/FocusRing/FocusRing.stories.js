@@ -28,11 +28,17 @@ export const FocusRing = () =>
     }
   };
 
+FocusRing.args = {
+  startAnimation: true
+};
+
 FocusRing.argTypes = {
   startAnimation: {
-    defaultValue: true,
     control: 'boolean',
-    description: 'When true it animates the FocusRing'
+    description: 'When true it animates the FocusRing',
+    table: {
+      defaultValue: { summary: false }
+    }
   }
 };
 

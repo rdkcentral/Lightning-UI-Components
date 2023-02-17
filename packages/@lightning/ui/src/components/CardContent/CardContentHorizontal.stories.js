@@ -22,15 +22,13 @@ export default {
   }
 };
 
-export const CardContentHorizontal = args =>
+export const CardContentHorizontal = () =>
   class CardContentHorizontal extends lng.Component {
     static _template() {
       return {
         CardContentHorizontal: {
           type: CardContentHorizontalComponent,
           src: tileImage,
-          shouldCollapse: args.shouldCollapse,
-          collapseToMetadata: args.collapseToMetadata,
           metadata: {
             provider: {
               providers: [
@@ -48,29 +46,27 @@ export const CardContentHorizontal = args =>
     }
   };
 CardContentHorizontal.args = {
-  shouldCollapse: false,
   collapseToMetadata: false,
-  ...CardContent.tileProps.args
+  mode: 'focused',
+  ...CardContent.args
 };
 CardContentHorizontal.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   shouldCollapse: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.shouldCollapse,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse
+    }
   },
   collapseToMetadata: {
-    defaultValue: false,
+    control: 'boolean',
+    description: controlDescriptions.collapseToMetadata,
     table: {
       defaultValue: { summary: false }
-    },
-    control: 'boolean',
-    description: controlDescriptions.collapseToMetadata
+    }
   },
-  ...CardContent.tileProps.argTypes
+  ...CardContent.argTypes
 };
 CardContentHorizontal.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentHorizontal')

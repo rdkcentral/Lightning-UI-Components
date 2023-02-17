@@ -17,12 +17,13 @@ export const RadioSmall = () =>
       };
     }
   };
-RadioSmall.args = { checked: false };
+RadioSmall.args = { checked: false, mode: 'unfocused' };
 RadioSmall.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: RadioSmall.args.mode }),
   checked: {
     control: 'boolean',
-    description: 'Toggles checked between on and off'
+    description: 'Toggles checked between on and off',
+    table: { defaultValue: { summary: false } }
   }
 };
 

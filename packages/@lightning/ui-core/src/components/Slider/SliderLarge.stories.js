@@ -24,29 +24,36 @@ export const Basic = () =>
       };
     }
   };
+
 Basic.args = {
   min: 0,
   max: 100,
   value: 50,
-  step: 1
+  step: 1,
+  mode: 'focused'
 };
+
 Basic.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   min: {
     control: 'number',
-    description: 'Lower bound of value'
+    description: 'Lower bound of value',
+    table: { defaultValue: { summary: 0 } }
   },
   max: {
     control: 'number',
-    description: 'Upper bound of value'
+    description: 'Upper bound of value',
+    table: { defaultValue: { summary: 100 } }
   },
   value: {
     control: 'number',
-    description: 'Current value'
+    description: 'Current value',
+    table: { defaultValue: { summary: '0 or min' } }
   },
   step: {
     control: 'number',
-    description: '+/- value on change'
+    description: '+/- value on change',
+    table: { defaultValue: { summary: 1 } }
   }
 };
 
@@ -77,4 +84,8 @@ export const SignalHandlingLarge = () =>
     }
   };
 
-SignalHandlingLarge.argTypes = createModeControl({ defaultValue: 'focused' });
+SignalHandlingLarge.args = {
+  mode: 'focused'
+};
+
+SignalHandlingLarge.argTypes = createModeControl({ summaryValue: 'focused' });

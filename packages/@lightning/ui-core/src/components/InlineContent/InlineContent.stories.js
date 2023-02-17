@@ -15,21 +15,15 @@ export default {
   },
   argTypes: {
     contentProperties: {
-      control: {
-        type: 'object'
-      },
-      defaultValue: { marginBottom: -4 },
+      control: 'object',
       description: 'Object setting flexItem props on all content items',
       type: 'object',
       table: {
-        defaultValue: {
-          summary: '{ marginBottom: -4 }'
-        }
+        defaultValue: { summary: '{}' }
       }
     },
     contentWrap: {
       control: 'boolean',
-      defaultValue: false,
       description:
         'Determines whether the containing flexbox should wrap the content onto the next line',
       type: 'boolean',
@@ -47,7 +41,6 @@ export default {
         'space-around',
         'space-evenly'
       ],
-      defaultValue: 'center',
       description: 'Alignment of first line flexbox content',
       type: 'string',
       table: {

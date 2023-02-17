@@ -47,13 +47,48 @@ GridOverlay.argTypes = {
       min: 0,
       max: 1,
       step: 0.01
+    },
+    description:
+      'Adjusts the opacity, parameter should be a value between 0 and 1',
+    table: { defaultValue: { summary: 'undefined' } }
+  },
+  showColumns: {
+    control: 'boolean',
+    description: 'When true, displays the column span rectangles',
+    table: {
+      defaultValue: { summary: true }
     }
   },
-  showColumns: { control: 'boolean' },
-  showMargins: { control: 'boolean' },
-  showSafe: { control: 'boolean' },
-  showGutters: { control: 'boolean' },
-  showText: { control: 'boolean' }
+  showMargins: {
+    control: 'boolean',
+    description: 'When true, displays the X and Y margin rulers',
+    table: {
+      defaultValue: { summary: true }
+    }
+  },
+  showSafe: {
+    control: 'boolean',
+    description:
+      'When true, displays the X and Y "safe" zone rulers (this is the area that content should not be rendered in to avoid screen clipping on a device)',
+    table: {
+      defaultValue: { summary: true }
+    }
+  },
+  showGutters: {
+    control: 'boolean',
+    description: 'When true, displays the rulers for spacing between columns',
+    table: {
+      defaultValue: { summary: true }
+    }
+  },
+  showText: {
+    control: 'boolean',
+    description:
+      'When true, displays the textbox containing the exact numbers associated with the screen, margin, safe, and gutter sizes',
+    table: {
+      defaultValue: { summary: true }
+    }
+  }
 };
 GridOverlay.parameters = {
   argActions: {}

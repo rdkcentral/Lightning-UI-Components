@@ -28,26 +28,26 @@ export const Basic = () =>
 Basic.parameters = {};
 Basic.args = {
   title: 'A',
-  size: 'sm'
+  size: 'sm',
+  mode: 'focused'
 };
 
 Basic.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   size: {
+    control: 'select',
+    options: ['sm', 'md', 'lg', 'xl'],
     description: 'Width of the Key',
     table: {
       defaultValue: { summary: 'sm' }
-    },
-    control: 'radio',
-    options: ['sm', 'md', 'lg', 'xl']
+    }
   },
   title: {
-    defaultValue: 'A',
+    control: 'text',
     description: 'Key character',
     table: {
-      defaultValue: { summary: 'A' }
-    },
-    control: 'text'
+      defaultValue: { summary: 'undefined' }
+    }
   }
 };
 
@@ -62,17 +62,20 @@ export const KeyIcon = () =>
       };
     }
   };
-KeyIcon.args = {};
+KeyIcon.args = {
+  size: 'sm',
+  mode: 'focused'
+};
 
 KeyIcon.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   size: {
+    control: 'select',
+    options: ['sm', 'md', 'lg', 'xl'],
     description: 'Width of the Key',
     table: {
       defaultValue: { summary: 'sm' }
-    },
-    control: 'radio',
-    options: ['sm', 'md', 'lg', 'xl']
+    }
   }
 };
 

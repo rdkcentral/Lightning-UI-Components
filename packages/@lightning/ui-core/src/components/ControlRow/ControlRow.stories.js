@@ -19,24 +19,24 @@ export default {
   args: {
     ...TitleRowStory.args,
     lazyLoadBuffer: 0,
-    lazyScroll: true
+    lazyScroll: true,
+    mode: 'focused'
   },
   argTypes: {
     ...TitleRowStory.argTypes,
-    ...createModeControl({ defaultValue: 'focused' }),
+    ...createModeControl({ summaryValue: 'focused' }),
     lazyLoadBuffer: {
-      control: { type: 'number' },
-      defaultValue: 0,
+      control: 'number',
       description:
-        'Number of content items prior to last content items where a "loadMoreItems" signal is emitted. Go to the "Actions" pannel to see when signal is fired.'
+        'Number of content items prior to last content items where a "loadMoreItems" signal is emitted. Go to the "Actions" pannel to see when signal is fired.',
+      table: { defaultValue: { summary: 0 } }
+    },
+    lazyScroll: {
+      control: 'boolean',
+      description:
+        'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+      table: { defaultValue: { summary: true } }
     }
-  },
-  lazyScroll: {
-    defaultValue: true,
-    control: { type: 'boolean' },
-    description:
-      'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
-    table: { defaultValue: { summary: true } }
   }
 };
 

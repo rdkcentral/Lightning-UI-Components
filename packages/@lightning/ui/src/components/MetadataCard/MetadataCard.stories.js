@@ -28,94 +28,82 @@ export const MetadataCard = () =>
   };
 
 MetadataCard.storyName = 'MetadataCard';
+MetadataCard.args = {
+  w: 400,
+  title: 'Title',
+  subtitle: [
+    '94%',
+    {
+      icon: lightningbolt,
+      style: { color: utils.getHexColor('00ff00') },
+      title: 'Green Lightning Bolt'
+    },
+    '86%',
+    {
+      icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
+      title: 'Rotten Tomatoes rating'
+    }
+  ],
+  description: 'Description',
+  logo: circle,
+  logoTitle: 'Logo title',
+  logoPosition: 'right',
+  mode: 'unfocused'
+};
+
 MetadataCard.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: MetadataCard.args.mode }),
   w: {
-    defaultValue: 400,
+    control: 'number',
+    description: 'Width of component',
     table: {
       defaultValue: { summary: 400 }
-    },
-    control: 'number',
-    description: 'Width of component'
+    }
   },
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   subtitle: {
-    defaultValue: [
-      '94%',
-      {
-        icon: lightningbolt,
-        style: { color: utils.getHexColor('00ff00') },
-        title: 'Green Lightning Bolt'
-      },
-      '86%',
-      {
-        icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-        title: 'Rotten Tomatoes rating'
-      }
-    ],
+    control: 'text',
+    description: 'Subtitle content',
     table: {
       defaultValue: {
-        summary: [
-          '94%',
-          {
-            icon: lightningbolt,
-            style: { color: utils.getHexColor('00ff00') },
-            title: 'Green Lightning Bolt'
-          },
-          '86%',
-          {
-            icon: 'http://myriad.merlin.comcast.com/select/logo?entityId=8527084350383982239&width=32&height=&ratio=1x1&trim=false',
-            title: 'Rotten Tomatoes rating'
-          }
-        ]
+        summary: 'undefined'
       }
-    },
-    control: 'text',
-    description: 'Subtitle content'
+    }
   },
   description: {
-    defaultValue: 'Description text',
-    table: {
-      defaultValue: { summary: 'Description' }
-    },
     control: 'text',
-    description: 'Description text'
+    description: 'Description text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   logo: {
-    defaultValue: circle,
+    options: ['none', circle],
+    control: 'select',
+    description: 'Image to use for logo',
     table: {
-      defaultValue: { summary: circle }
-    },
-    control: {
-      type: 'select',
-      options: ['none', circle]
-    },
-    description: 'Image to use for logo'
+      defaultValue: { summary: 'none' }
+    }
   },
   logoTitle: {
-    defaultValue: 'Logo title',
-    table: {
-      defaultValue: { summary: 'Logo title' }
-    },
     control: 'text',
-    description: 'Title to use for logo in announcer'
+    description: 'Title to use for logo in announcer',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   logoPosition: {
-    defaultValue: 'right',
+    options: ['right', 'left'],
+    control: 'select',
+    description: 'Position logo on the left/right side',
     table: {
       defaultValue: { summary: 'right' }
-    },
-    control: {
-      type: 'select',
-      options: ['right', 'left']
-    },
-    description: 'Position logo on the left/right side'
+    }
   }
 };

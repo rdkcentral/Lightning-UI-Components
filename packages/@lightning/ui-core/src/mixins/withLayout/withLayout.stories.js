@@ -38,10 +38,27 @@ withLayout.args = {
 };
 
 withLayout.argTypes = {
-  ratioX: { control: 'number' },
-  ratioY: { control: 'number' },
-  upCount: { control: 'number' },
-  circle: { control: 'boolean' }
+  ratioX: {
+    control: 'number',
+    description: 'The units of x resolution relative to the screen height',
+    table: { defaultValue: { summary: 0 } }
+  },
+  ratioY: {
+    control: 'number',
+    description: 'The units of y resolution relative to the screen width',
+    table: { defaultValue: { summary: 0 } }
+  },
+  upCount: {
+    control: 'number',
+    description:
+      'The number of items that should be displayed within screen bounds',
+    table: { defaultValue: { summary: 0 } }
+  },
+  circle: {
+    control: 'boolean',
+    description: 'Boolean changing format to circle if true',
+    table: { defaultValue: { summary: false } }
+  }
 };
 
 withLayout.parameters = {

@@ -30,13 +30,17 @@ export const Toggle = () =>
     }
   };
 Toggle.args = {
-  checked: false
+  checked: false,
+  mode: 'focused'
 };
 
 Toggle.argTypes = {
-  ...createModeControl(),
+  ...createModeControl({ summaryValue: 'focused' }),
   checked: {
     control: 'boolean',
-    description: 'The state of the toggle being checked'
+    description: 'The state of the toggle being checked',
+    table: {
+      defaultValue: { summary: true }
+    }
   }
 };

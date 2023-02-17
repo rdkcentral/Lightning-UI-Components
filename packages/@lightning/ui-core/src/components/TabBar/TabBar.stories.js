@@ -19,33 +19,28 @@ export default {
   args: {
     collapse: false,
     alphaSelectedTab: false,
-    wrapSelected: false
+    wrapSelected: false,
+    mode: 'focused'
   },
   argTypes: {
-    ...createModeControl({ options: ['focused'], defaultValue: 'focused' }),
+    ...createModeControl({ options: ['focused'] }),
     alphaSelectedTab: {
       control: 'boolean',
-      defaultValue: false,
-      table: { defaultValue: { summary: false } },
       description:
         'When true, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content',
-      type: 'boolean'
+      table: { defaultValue: { summary: false } }
     },
     collapse: {
       control: 'boolean',
-      defaultValue: false,
-      table: { defaultValue: { summary: false } },
       description:
         'When true, the height of the TabBar will only reflect the height of the Tabs when unfocused or no tab content is available',
-      type: 'boolean'
+      table: { defaultValue: { summary: false } }
     },
     wrapSelected: {
       control: 'boolean',
-      defaultValue: false,
-      table: { defaultValue: { summary: false } },
       description:
         'Enables wrapping behavior, so selectNext selects the first item if the current item is the last on the list and vice versa',
-      type: 'boolean'
+      table: { defaultValue: { summary: false } }
     }
   },
   parameters: {

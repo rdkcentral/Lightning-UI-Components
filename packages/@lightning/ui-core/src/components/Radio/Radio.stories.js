@@ -23,11 +23,12 @@ export const Radio = () =>
       };
     }
   };
-Radio.args = { checked: false };
+Radio.args = { checked: false, mode: 'unfocused' };
 Radio.argTypes = {
-  ...createModeControl(['disabled']),
+  ...createModeControl({ summaryValue: 'unfocused' }),
   checked: {
     control: 'boolean',
-    description: 'Toggles checked between on and off'
+    description: 'Toggles checked between on and off',
+    table: { defaultValue: { summary: false } }
   }
 };

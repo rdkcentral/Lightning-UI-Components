@@ -23,35 +23,32 @@ const sharedArgs = {
   alwaysScroll: false,
   lazyScroll: false,
   neverScroll: false,
-  scrollIndex: 0
+  scrollIndex: 0,
+  mode: 'focused'
 };
 
 const sharedArgTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: 'focused' }),
   scrollIndex: {
-    defaultValue: 0,
     control: { type: 'number', min: 0 },
     description:
       'Item index at which scrolling begins, provided the sum of item widths is greater than the width of the Row',
     table: { defaultValue: { summary: 0 } }
   },
   alwaysScroll: {
-    defaultValue: false,
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
       'Determines whether the row will stop scrolling as it nears the right to prevent white space',
     table: { defaultValue: { summary: false } }
   },
   neverScroll: {
-    defaultValue: false,
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
       'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
     table: { defaultValue: { summary: false } }
   },
   lazyScroll: {
-    defaultValue: false,
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
       'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
     table: { defaultValue: { summary: false } }
@@ -292,10 +289,13 @@ export const SkipFocus = args =>
     }
   };
 
+SkipFocus.args = {
+  wrapSelected: false
+};
+
 SkipFocus.argTypes = {
   wrapSelected: {
-    defaultValue: false,
-    control: { type: 'boolean' },
+    control: 'boolean',
     description:
       'Enables wrapping behavior, so selectNext() selects the first item if the current item is the last on the list and vice versa',
     table: { defaultValue: { summary: false } }
@@ -332,10 +332,16 @@ LazyScrollIndexes.args = {
 LazyScrollIndexes.argTypes = {
   ...sharedArgTypes,
   startLazyScrollIndex: {
-    control: 'number'
+    control: 'number',
+    description:
+      'Index of item in items, and items thereafter, at which lazy scrolling should occur at',
+    table: { defaultValue: { summary: 0 } }
   },
   stopLazyScrollIndex: {
-    control: 'number'
+    control: 'number',
+    description:
+      'Index of item in items, and items preceding, at which lazy scrolling should occur',
+    table: { defaultValue: { summary: 0 } }
   }
 };
 
@@ -424,10 +430,9 @@ LazyUpCount.argTypes = {
   ...sharedArgTypes,
   lazyUpCount: {
     control: 'number',
-    defaultValue: 4,
     description: 'Some description',
     table: {
-      defaultValue: { summary: 4 }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };

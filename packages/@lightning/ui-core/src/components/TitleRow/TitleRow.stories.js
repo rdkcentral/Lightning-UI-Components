@@ -18,9 +18,11 @@ export default {
   },
   argTypes: {
     title: {
-      description: 'Title text to be displayed above the row',
-      defaultValue: 'Row Title',
-      control: 'text'
+      control: 'text',
+      description: 'title text to be displayed above the row',
+      table: {
+        defaultValue: { summary: 'undefined' }
+      }
     },
     ...RowBasic.argTypes
   }

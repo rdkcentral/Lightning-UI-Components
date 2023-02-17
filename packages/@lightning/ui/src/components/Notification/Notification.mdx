@@ -57,14 +57,14 @@ requirements
 
 ### Properties
 
-| name        | type             | required | default | description                                                                            |
-| ----------- | ---------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| actionArea  | string \| array  | false    | false   | text to be displayed as action area                                                    |
-| description | string \| array  | false    | -       | text to be displayed as description                                                    |
-| entered     | boolean          | false    | false   | if true, enter animation will be triggered immediately                                 |
-| icon        | string           | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
-| logo        | string           | true     | -       | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
-| title       | string \| string | true     | -       | text to be displayed as title                                                          |
+| name        | type             | required | default   | description                                                                            |
+| ----------- | ---------------- | -------- | --------- | -------------------------------------------------------------------------------------- |
+| actionArea  | string \| array  | false    | false     | text to be displayed as action area                                                    |
+| description | string \| array  | false    | undefined | text to be displayed as description                                                    |
+| entered     | boolean          | false    | false     | if true, enter animation will be triggered immediately                                 |
+| icon        | string           | true     | undefined | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
+| logo        | string           | true     | undefined | URL for the icon asset. If both icon and logo are provided, only the logo will render. |
+| title       | string \| string | true     | undefined | text to be displayed as title                                                          |
 
 ### Methods
 
@@ -92,8 +92,8 @@ Triggers dismiss animation. Slides notification back to the right and alpha's al
 | iconMarginTop           | number           | space above icon in addition to marginY                             |
 | iconOnlyMarginX         | number           | space to left and right of icon before step 2 enter animation runs  |
 | iconSize                | number           | w and height of icon                                                |
-| iconStyle              | object           | custom styles to be applied to icon                                 |
-| logoStyle              | object           | custom styles to be applied to                                      |
+| iconStyle               | object           | custom styles to be applied to icon                                 |
+| logoStyle               | object           | custom styles to be applied to                                      |
 | marginX                 | number           | space to left and right of content in entered Notification          |
 | marginY                 | number           | space above and below of content in entered Notification            |
 | step1Animation          | object           | duration and delay to be applied to step 1 animation                |

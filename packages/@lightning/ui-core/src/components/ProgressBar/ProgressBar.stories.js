@@ -27,9 +27,12 @@ export const ProgressBar = () =>
     }
   };
 ProgressBar.storyName = 'ProgressBar';
+ProgressBar.args = {
+  progress: 0.5,
+  w: 410
+};
 ProgressBar.argTypes = {
   progress: {
-    defaultValue: 0.5,
     control: {
       type: 'range',
       min: 0,
@@ -40,13 +43,13 @@ ProgressBar.argTypes = {
     table: { defaultValue: { summary: 0 } }
   },
   w: {
-    defaultValue: 410,
     control: {
       type: 'range',
       min: 0,
       max: 600,
       step: 0.01
     },
-    description: 'Width of the entire bar'
+    description: 'width of the entire bar',
+    table: { defaultValue: { summary: 0 } }
   }
 };

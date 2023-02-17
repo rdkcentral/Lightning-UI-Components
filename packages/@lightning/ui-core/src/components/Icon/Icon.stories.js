@@ -11,42 +11,50 @@ export default {
       page: mdx
     },
     argActions: {
-      width: (width, component) => {
-        component.tag('Icon').w = width;
+      w: (w, component) => {
+        component.tag('Icon').w = w;
         component._refocus();
       },
-      height: (height, component) => {
-        component.tag('Icon').h = height;
+      h: (h, component) => {
+        component.tag('Icon').h = h;
         component._refocus();
       }
-    }
-  },
-  argTypes: {
-    width: {
-      defaultValue: 50,
-      control: {
-        type: 'range',
-        min: 1,
-        max: 96
-      },
-      description: 'Width of the icon'
-    },
-    height: {
-      defaultValue: 50,
-      control: { type: 'range', min: 1, max: 96 },
-      description: 'Height of the icon'
     }
   }
 };
 
-export const PNG = args =>
+const sharedArgs = {
+  w: 50,
+  h: 50
+};
+
+const sharedArgTypes = {
+  w: {
+    control: {
+      type: 'range',
+      min: 1,
+      max: 96
+    },
+    description: 'Width of the icon',
+    table: {
+      defaultValue: { summary: 0 }
+    }
+  },
+  h: {
+    control: { type: 'range', min: 1, max: 96 },
+    description: 'Height of the icon',
+    table: {
+      defaultValue: { summary: 0 }
+    }
+  }
+};
+
+export const PNG = () =>
   class PNG extends lng.Component {
     static _template() {
       return {
         Icon: {
           type: Icon,
-          w: args.width,
-          h: args.height,
           icon: lightning,
           announce: 'Lightning bolt'
         }
@@ -54,17 +62,23 @@ export const PNG = args =>
     }
   };
 
-export const SVG = args =>
+PNG.args = sharedArgs;
+
+PNG.argTypes = sharedArgTypes;
+
+export const SVG = () =>
   class SVG extends lng.Component {
     static _template() {
       return {
         Icon: {
           type: Icon,
-          w: args.width,
-          h: args.height,
           icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>',
           announce: 'Red circle'
         }
       };
     }
   };
+
+SVG.args = sharedArgs;
+
+SVG.argTypes = sharedArgTypes;

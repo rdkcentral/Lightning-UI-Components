@@ -33,34 +33,32 @@ ListItemSlider.storyName = 'ListItemSlider';
 ListItemSlider.args = {
   title: 'List Item',
   value: 50,
-  shouldCollapse: false
+  shouldCollapse: false,
+  mode: 'focused'
 };
 
 ListItemSlider.argTypes = {
-  ...createModeControl({ defaultValue: 'focused' }),
+  ...createModeControl({ summaryValue: ListItemSlider.args.mode }),
   title: {
-    defaultValue: 'Title',
-    table: {
-      defaultValue: { summary: 'Title' }
-    },
     control: 'text',
-    description: 'Title text'
+    description: 'Title text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   value: {
-    defaultValue: 'slider value',
-    table: {
-      defaultValue: { summary: 'slider value' }
-    },
     control: 'number',
-    description: 'Current slider value'
+    description: 'Current slider value',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
   },
   shouldCollapse: {
     control: 'boolean',
-    defaultValue: false,
     description:
       'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: 'false' }
+      defaultValue: { summary: false }
     }
   }
 };

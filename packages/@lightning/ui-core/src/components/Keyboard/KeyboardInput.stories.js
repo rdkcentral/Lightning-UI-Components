@@ -47,7 +47,7 @@ function getCommponentArray(comps) {
 // creates shared arg types for Keyboard Input stories
 const sharedKeyboardArgTypes = createModeControl({
   options: ['focused'],
-  defaultValue: 'focused'
+  summaryValue: 'focused'
 });
 
 export const InputWithQwerty = () =>
@@ -69,23 +69,30 @@ export const InputWithQwerty = () =>
 const sharedInputArgTypes = {
   prefix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon'],
     description: 'Lightning components to be placed to the left of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   suffix: {
     control: 'radio',
-    defaultValue: null,
     options: [null, 'icon', 'eye', 'eyeHide'],
     description: 'Lightning components to be placed to the right of the title',
     table: {
-      defaultValue: { summary: 'null' }
+      defaultValue: { summary: 'undefined' }
     }
   }
 };
+
+InputWithQwerty.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  prefix: null,
+  suffix: null,
+  mode: 'focused'
+};
+
 InputWithQwerty.argTypes = {
   ...Keyboard.sharedArgTypes,
   ...sharedKeyboardArgTypes,
@@ -139,6 +146,14 @@ export const InputWithEmail = () =>
       };
     }
   };
+
+InputWithEmail.args = {
+  centerKeyboard: false,
+  centerKeys: false,
+  prefix: null,
+  suffix: null,
+  mode: 'focused'
+};
 
 InputWithEmail.argTypes = {
   ...Keyboard.sharedArgTypes,
