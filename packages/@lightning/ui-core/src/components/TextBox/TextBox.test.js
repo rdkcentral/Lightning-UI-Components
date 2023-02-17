@@ -124,13 +124,17 @@ describe('TextBox', () => {
       );
     });
 
-    it('should set text styles to the defaultTextStyle if textStyle is not provided', () => {
+    it('should set text styles to the defaultTextStyle if textStyle is not provided', async () => {
       textBox.content = 'Hello world';
       textBox.style.defaultTextStyle = 'headline1';
       textBox.style.textStyle = null;
       testRenderer.forceAllUpdates();
-      expect(textBox._Text.text.fontSize).toBe(36);
-      expect(textBox._Text.text.fontWeight).toBe(700);
+      expect(textBox._Text.text.fontSize).toBe(
+        textBox.style.typography[textBox.style.defaultTextStyle].fontSize
+      );
+      expect(textBox._Text.text.fontWeight).toBe(
+        textBox.style.typography[textBox.style.defaultTextStyle].fontWeight
+      );
     });
 
     it('should set textColor to the default white if no textColor is provided', () => {
@@ -225,7 +229,7 @@ describe('TextBox', () => {
     it('should fallback to default for maxLinesSuffix if value is not provided', async () => {
       textBox.content = 'Hello World!';
       testRenderer.forceAllUpdates();
-      expect(textBox._Text.text.maxLinesSuffix).toBe('...');
+      expect(textBox._Text.text.maxLinesSuffix).toBe('..');
     });
 
     it('should set maxLinesSuffix to the provided value if defined', () => {

@@ -37,7 +37,7 @@ describe('Artwork', () => {
       }
     );
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
   });
@@ -121,7 +121,7 @@ describe('Artwork', () => {
       h: 100
     });
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     expect(component._actualAspectRatio).toBe('2x1');
@@ -130,7 +130,7 @@ describe('Artwork', () => {
       h: 100
     });
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     expect(component._actualAspectRatio).toBe('1x1');
@@ -139,7 +139,7 @@ describe('Artwork', () => {
       h: 1080
     });
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     expect(component._actualAspectRatio).toBe('16x9');
@@ -194,7 +194,7 @@ describe('Artwork', () => {
       src: 'testSrc'
     });
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     let src;
@@ -204,14 +204,14 @@ describe('Artwork', () => {
       return [closestAspectRatio, src, w, h].join('-');
     };
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     src = await component._processedImageSrc;
     expect(src).toBe('2x1-testSrc-200-100');
     component.srcCallbackAspectRatios = ['16x9'];
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateSpyPromise;
     src = await component._processedImageSrc;
@@ -226,7 +226,7 @@ describe('Artwork', () => {
     });
     await component._processedImageSrc;
     setTimeout(() => {
-      component._resolveLoading(); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     expect(component._Image.texture.src).toBe(fallbackSrc);
     component.src = sampleImg;
@@ -363,7 +363,7 @@ describe('Artwork', () => {
     expect(component._ForegroundImage.h).toBe(100);
   });
 
-  it('will update the forgroundImage with the correct aspect ratio if only foregroundW or foregroundH is set', async () => {
+  it('will update the foregroundImage with the correct aspect ratio if only foregroundW or foregroundH is set', async () => {
     component.patch({
       foregroundSrc: sampleImg,
       foregroundW: 200
@@ -396,7 +396,7 @@ describe('Artwork', () => {
       }
     );
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     expect(component._Blur).toBeUndefined();
     component.blur = true;
@@ -446,7 +446,7 @@ describe('Artwork', () => {
       src: sampleImg
     });
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component._componentSrc.complete;
     component._aspectRatioEqual = true; // Force this value to for test
@@ -457,13 +457,13 @@ describe('Artwork', () => {
     // Should remove with patch if shouldSmooth is false
     component.src = fallbackSrc;
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__showComponentSpyPromise;
     expect(component._Blur).not.toBeUndefined();
     component.src = sampleImg;
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component._componentSrc.complete;
     component._aspectRatioEqual = true; // Force this value to for test
@@ -485,7 +485,7 @@ describe('Artwork', () => {
     );
     await component._processedImageSrc;
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 500);
     await component.__updateCenterImageSpyPromise;
     expect(component._updateCenterImage).toHaveBeenCalled();
@@ -538,14 +538,14 @@ describe('Artwork', () => {
         component._Image.texture.source.h = 200;
         _updateForegroundImage();
       });
-    component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+    component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     await component.__updateFormatContainSpyPromise;
     expect(1).toBe(1);
     expect(component._CenterImage.w).toBe(200 * (100 / 200));
     expect(component._CenterImage.h).toBe(component.h);
     component.w = 100;
     component.h = 200;
-    component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+    component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     await component.__updateImageSpyPromise;
     expect(component._CenterImage.w).toBe(100);
     expect(component._CenterImage.h).toBe(100 * (200 / 100));
@@ -566,7 +566,7 @@ describe('Artwork', () => {
         component._Image.texture.source.w = 200;
         _updateForegroundImage();
       });
-    component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+    component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     await component.__updateCenterImageSpyPromise;
     expect(component._CenterImage.w).toBe(400);
     expect(component._CenterImage.h).toBe(200);
@@ -590,12 +590,12 @@ describe('Artwork', () => {
     expect(component._CenterImage).not.toBeUndefined();
     component.src = 'brokenImage';
     setTimeout(() => {
-      component._Image.emit('txError'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
     }, 0);
     await component.__updateSpyPromise;
     expect(component.src).toBe('fallbackSrcImage');
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 0);
     await component.__updateCenterImageSpyPromise;
     expect(component._CenterImage).toBeUndefined();
@@ -613,12 +613,12 @@ describe('Artwork', () => {
     expect(component._CenterImage).not.toBeUndefined();
     component.src = 'brokenImage';
     setTimeout(() => {
-      component._Image.emit('txError'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
     }, 0);
     await component.__updateSpyPromise;
     expect(component.src).toBe('fallbackSrcImage');
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 0);
     await component.__updateCenterImageSpyPromise;
     expect(component._CenterImage).toBeUndefined();
@@ -636,12 +636,12 @@ describe('Artwork', () => {
     expect(component._CenterImage).not.toBeUndefined();
     component.src = 'brokenImage';
     setTimeout(() => {
-      component._Image.emit('txError'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
     }, 0);
     await component.__updateSpyPromise;
     expect(component.src).toBe('fallbackSrcImage');
     setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
+      component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     }, 0);
     await component.__updateCenterImageSpyPromise;
     expect(component._CenterImage).toBeUndefined();
@@ -685,7 +685,7 @@ describe('Artwork', () => {
     expect(component._Gradient).not.toBeUndefined();
   });
 
-  // TODO: Need to figure out why this test fails. Something with Jest and image loading. Right now its falling back to the xfinity fallback image
+  // TODO: Need to figure out why this test fails. Something with Jest and image loading. Right now, received is undefined.
   it.skip('should update the Image element with the value of src, and remove the texture if no longer required', async () => {
     expect(component._Image.texture).not.toBeNull();
     component.src = undefined;
@@ -726,13 +726,10 @@ describe('Artwork', () => {
         spyOnMethods: ['_showComponent', '_handleImageLoadError']
       }
     );
-    setTimeout(() => {
-      component._Image.emit('txError'); // TODO: Simulate image loading with emiting txLoaded on the image
-    }, 500);
+
+    component._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
     await component.__handleImageLoadErrorSpyPromise;
-    setTimeout(() => {
-      component._Image.emit('txLoaded'); // TODO: Simulate image loading with emiting txLoaded on the image
-    }, 500);
+    component._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
     await component.__showComponentSpyPromise;
     expect(component._Image.texture.src).toBe(fallbackSrc);
   });

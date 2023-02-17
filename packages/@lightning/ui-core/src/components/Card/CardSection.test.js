@@ -52,7 +52,7 @@ describe('CardSection', () => {
     );
   });
 
-  it('should calculate textwidth', () => {
+  it('should calculate text width', () => {
     testRenderer.forceAllUpdates();
     cardSection.iconSrc = circle;
     expect(cardSection._calculateTextWidth()).toEqual(

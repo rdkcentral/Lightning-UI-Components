@@ -94,7 +94,7 @@ class BoardRow extends Base {
   }
 
   get layout() {
-    return this._layoutProperties;
+    return this._layout;
   }
 
   get _layoutProperties() {

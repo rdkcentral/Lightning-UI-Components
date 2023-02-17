@@ -1,10 +1,10 @@
 import lng from '@lightningjs/core';
 import { updateManager, context } from '@lightning/ui-core';
 import jest from 'jest-mock';
-import XfinityTheme from '@suite-themes/xfinity-lightning-tv';
+import BaseTheme from '@suite-themes/base-lightning-tv';
 
 context.setTheme({
-  ...XfinityTheme,
+  ...BaseTheme,
   extensions: [] // Disable extensions for tests
 });
 

@@ -84,6 +84,7 @@ describe('context fonts', () => {
     ]);
     done();
   });
+
   it.skip('should remove fonts that are no longer required', async done => {
     fonts.cleanupFonts([document.fonts.values()[0]]);
     expect(fonts.getCustomFontFaces().length).toBe(1);

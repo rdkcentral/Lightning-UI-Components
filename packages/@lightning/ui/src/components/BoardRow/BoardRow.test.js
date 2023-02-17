@@ -4,6 +4,13 @@ import { Tile, CardContentVertical } from '@lightning/ui-core';
 import BoardRowComponent from './BoardRowComponent';
 import { jest } from '@jest/globals';
 
+import CardLayout from './CardLayout';
+import HeroLayout from './HeroLayout';
+import PosterLayout from './PosterLayout';
+import SquareLayout from './SquareLayout';
+import SquareSmallLayout from './SquareSmallLayout';
+import StandardLayout from './StandardLayout';
+
 const jurassic = pathToDataURI('./src/assets/images/Jurassic_World_16x9.jpg');
 
 const menuCard = {
@@ -43,38 +50,54 @@ describe('BoardRow', () => {
   });
 
   it('should have a height if layout is not defined', () => {
-    expect(component.h).toEqual(482.25);
+    // layout should default to standard if none is provided
+    expect(component.layout).toEqual('standard');
+    expect(component.h).toEqual(
+      StandardLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for default layout', () => {
     const component = createComponent({ layout: 'standard' })[0];
-    expect(component.h).toEqual(482.25);
+    expect(component.h).toEqual(
+      StandardLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for hero layout', () => {
     const component = createComponent({ layout: 'hero' })[0];
-    expect(component.h).toEqual(482.25);
+    expect(component.h).toEqual(
+      HeroLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for poster layout', () => {
     const component = createComponent({ layout: 'poster' })[0];
-    expect(component.h).toEqual(514.6666666666666);
+    expect(component.h).toEqual(
+      PosterLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for card layout', () => {
     const component = createComponent({ layout: 'card' })[0];
     const roundedHeight = Math.round(component.h * 100) / 100;
-    expect(roundedHeight).toEqual(515);
+    expect(roundedHeight).toEqual(
+      CardLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for square layout', () => {
     const component = createComponent({ layout: 'square' })[0];
-    expect(component.h).toEqual(386);
+    expect(component.h).toEqual(
+      SquareLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should deliver the correct height for square small layout', () => {
     const component = createComponent({ layout: 'squareSmall' })[0];
-    expect(component.h).toEqual(410);
+    expect(component.h).toEqual(
+      SquareSmallLayout._calcTotalHeight(component.style.itemSpacing)
+    );
   });
 
   it('should accept all properties for menuCard', () => {

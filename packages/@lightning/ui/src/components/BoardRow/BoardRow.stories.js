@@ -276,4 +276,42 @@ Basic.argTypes = {
   }
 };
 
-Basic.parameters = {};
+Basic.parameters = {
+  argActions: {
+    layout: (layout, component) => {
+      // updates menucard title
+      component.tag('Column').items.forEach(boardrow => {
+        boardrow.menuCard.title = `${
+          layout ? capitalizeFirstLetter(layout) : 'Standard'
+        } Layout`;
+        // updates layout
+        boardrow.layout = layout;
+      });
+    },
+    alwaysScroll: (alwaysScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.alwaysScroll = alwaysScroll));
+    },
+    scrollIndex: (scrollIndex, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.scrollIndex = scrollIndex));
+    },
+    lazyScroll: (lazyScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.lazyScroll = lazyScroll));
+    },
+    neverScroll: (neverScroll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.neverScroll = neverScroll));
+    },
+    viewAll: (viewAll, component) => {
+      component
+        .tag('Column')
+        .items.forEach(boardrow => (boardrow.viewAll = viewAll));
+    }
+  }
+};

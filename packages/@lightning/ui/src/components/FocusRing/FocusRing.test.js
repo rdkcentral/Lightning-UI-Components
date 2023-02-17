@@ -41,11 +41,11 @@ describe('FocusRing', () => {
   it('should set primary color transition from color', () => {
     const testColor = utils.getHexColor(
       utils.getHexColor('#663399', 0.96),
-      0.6
+      0.7
     );
     [focusRing, testRenderer] = createFocusRing({
       style: {
-        color: utils.getHexColor(utils.getHexColor('#663399', 0.96), 0.6)
+        color: utils.getHexColor(utils.getHexColor('#663399', 0.96), 0.7)
       }
     });
     const { transition } = focusRing._ringColors;

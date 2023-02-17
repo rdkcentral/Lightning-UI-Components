@@ -27,7 +27,7 @@ describe('CardContent', () => {
     const title = 'Title';
     const description = 'Description';
     const details = 'Details';
-    const logoAnnounce = 'xFinity';
+    const logoAnnounce = 'Lightning';
     const providers = Array(5).fill({
       icon: 'test.png',
       announce: logoAnnounce

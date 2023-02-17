@@ -3,9 +3,30 @@ import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
 import baseTheme from '@suite-themes/base-lightning-tv';
-import xfinityTheme from '@suite-themes/xfinity-lightning-tv';
 import { context } from '../../globals/index.js';
 import { jest } from '@jest/globals';
+
+const testTheme = {
+  name: 'Test',
+  typography: {
+    display1: {
+      fontFace: 'TestFont1',
+      fontSize: 35,
+      fontWeight: 500,
+      letterSpacing: 1,
+      lineHeight: 100,
+      verticalAlign: 'middle'
+    },
+    body1: {
+      fontFace: 'TestFont2',
+      fontSize: 15,
+      fontWeight: 250,
+      letterSpacing: 0,
+      lineHeight: 50,
+      verticalAlign: 'middle'
+    }
+  }
+};
 
 jest.mock('./InlineContent.styles', () => {
   const originalDefaultModule = jest.requireActual(
@@ -61,11 +82,12 @@ describe('InlineContent', () => {
     );
   });
 
-  it('updates to Xfinity theme text', async () => {
-    context.setTheme(xfinityTheme);
+  it('updates to test theme text', async () => {
+    context.setTheme(testTheme);
     inlineContent.base = context.theme;
-    inlineContent.content = 'This should be in Xfinity font.';
+    inlineContent.content = 'This should be in testTheme font.';
     await inlineContent.__updateSpyPromise;
+    expect(context.theme.name).toBe('Test');
     expect(inlineContent.style.textStyle).toEqual({
       ...context.theme.typography.body1,
       verticalAlign: 'bottom'
