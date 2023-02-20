@@ -1,9 +1,10 @@
 export const base = theme => ({
   arrowAlphaValue: theme.alpha.primary,
   arrowAlphaValueLimit: theme.alpha.secondary,
-  arrowWidth: theme.spacer.md,
-  arrowHeight: theme.spacer.lg,
-  arrowColor: theme.color.fillNeutral
+  arrowWidth: theme.spacer.xxl,
+  arrowHeight: theme.spacer.xxl,
+  iconLeftSrc: theme.asset.arrowLeft,
+  iconRightSrc: theme.asset.arrowRight
 });
 
 export const tone = theme => ({
@@ -11,9 +12,6 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillInverse
-      },
-      disabled: {
-        arrowColor: theme.color.fillNeutralDisabled
       }
     }
   },
@@ -21,9 +19,6 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillNeutral
-      },
-      disabled: {
-        arrowColor: theme.color.fillInverseDisabled
       }
     }
   },
@@ -31,9 +26,6 @@ export const tone = theme => ({
     mode: {
       focused: {
         arrowColor: theme.color.fillInverse
-      },
-      disabled: {
-        arrowColor: theme.color.fillNeutralDisabled
       }
     }
   }

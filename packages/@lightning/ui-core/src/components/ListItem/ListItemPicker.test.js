@@ -34,12 +34,6 @@ describe('ListItemPicker', () => {
     expect(listItemPicker._Title.content).toEqual('');
   });
 
-  it('should update Arrows', () => {
-    testRenderer.forceAllUpdates();
-    expect(listItemPicker._LeftArrow.texture.direction).toEqual('left');
-    expect(listItemPicker._RightArrow.texture.direction).toEqual('right');
-  });
-
   it('should update Picker', () => {
     testRenderer.forceAllUpdates();
     expect(listItemPicker._Picker).toBeDefined();
@@ -102,6 +96,41 @@ describe('ListItemPicker', () => {
     expect(listItemPicker._RightArrow.alpha).toEqual(
       listItemPicker.style.arrowAlphaValueLimit
     );
+  });
+
+  it('should update the value of alpha in focused mode', () => {
+    listItemPicker.mode = 'focused';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._LeftArrow.alpha).toEqual(
+      listItemPicker.style.arrowAlphaValueLimit
+    );
+    expect(listItemPicker._RightArrow.alpha).toEqual(
+      listItemPicker.style.arrowAlphaValue
+    );
+  });
+
+  it('should collapse description in unfocused mode when shouldCollapse flag is true', () => {
+    listItemPicker.shouldCollapse = true;
+    listItemPicker.mode = 'unfocused';
+    listItemPicker.description = 'description';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._Picker.visible).toEqual(false);
+  });
+
+  it('should collapse description in disabled mode when shouldCollapse flag is true', () => {
+    listItemPicker.shouldCollapse = true;
+    listItemPicker.mode = 'disabled';
+    listItemPicker.description = 'description';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._Picker.visible).toEqual(false);
+  });
+
+  it('should not collapse description in focused mode when shouldCollapse flag is true', () => {
+    listItemPicker.shouldCollapse = true;
+    listItemPicker.mode = 'focused';
+    listItemPicker.description = 'description';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._Picker.visible).toEqual(true);
   });
 
   describe('Check HandleLeft & HandleRight', () => {

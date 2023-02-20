@@ -1,10 +1,8 @@
 import ListItem from './ListItem';
-import lng from '@lightningjs/core';
 import * as styles from './ListItemPicker.styles.js';
 import Marquee from '../Marquee';
+import Icon from '../Icon/index.js';
 import Row from '../Row';
-import { Arrow } from '../../textures';
-import utils from '../../utils';
 
 export default class ListItemPicker extends ListItem {
   static get __componentName() {
@@ -15,24 +13,8 @@ export default class ListItemPicker extends ListItem {
     return styles;
   }
 
-  static _template() {
-    return {
-      ...super._template(),
-      justify: 'center',
-      LeftArrow: {
-        mountY: 0.5,
-        y: h => h / 2
-      },
-      RightArrow: {
-        mountY: 0.5,
-        mountX: 1,
-        y: h => h / 2
-      }
-    };
-  }
-
   static get properties() {
-    return [...super.properties, 'options', 'selectedOptionIndex'];
+    return [...super.properties, 'options', 'selectedIndex'];
   }
 
   static get tags() {
@@ -44,49 +26,88 @@ export default class ListItemPicker extends ListItem {
     ];
   }
 
-  _init() {
+  _onTextBoxChanged() {
+    super._onTextBoxChanged();
+    this._alignPicker();
+  }
+
+  _construct() {
+    super._construct();
     this._options = [];
-    this._selectedOptionIndex = 0;
+    this._selectedIndex = 0;
   }
 
   _update() {
     super._update();
-    this._updateArrows();
     this._updatePicker();
+    this._updateArrows();
+    this._updateArrowsAlpha();
+    this._updateAlignment();
+  }
+
+  _updateAlignment() {
+    if (this._isFocusedMode) {
+      this.patch({ justify: 'center' });
+    } else {
+      this.patch({ justify: 'left' });
+    }
   }
 
   _updateArrows() {
-    this._updateLeftArrow();
-    this._updateRightArrow();
-  }
-
-  _updateLeftArrow() {
-    this._LeftArrow.texture = {
-      ...this._arrowTexture,
-      direction: 'left'
-    };
-    this.applySmooth(this._LeftArrow, {
-      color: this.style.arrowColor,
-      x: this.style.paddingX
-    });
-  }
-
-  _updateRightArrow() {
-    this._RightArrow.texture = {
-      ...this._arrowTexture,
-      direction: 'right'
-    };
-    this.applySmooth(this._RightArrow, {
-      color: this.style.arrowColor,
-      x: this.w - this.style.paddingX
-    });
-  }
-
-  _onTextBoxChanged() {
-    super._onTextBoxChanged();
-    if (this._Picker) {
-      this._Picker.x = (this._Picker.w - this._Title.w) / -2;
+    if (!this._isFocusedMode) {
+      const offAlpha = 0.001;
+      if (this._LeftArrow) {
+        this._LeftArrow.alpha = offAlpha;
+      }
+      if (this._RightArrow) {
+        this._RightArrow.alpha = offAlpha;
+      }
+      return;
     }
+
+    const arrowProps = {
+      w: this.style.arrowWidth,
+      h: this.style.arrowHeight,
+      style: {
+        color: this.style.arrowColor
+      },
+      alpha: this.style.arrowAlphaValue
+    };
+    if (!this._LeftArrow) {
+      this.patch({
+        LeftArrow: {
+          type: Icon,
+          mountY: 0.5,
+          y: h => h / 2
+        }
+      });
+    }
+    this._LeftArrow.patch({
+      ...arrowProps,
+      icon: this.style.iconLeftSrc
+    });
+    this._LeftArrow.smooth = {
+      x: this.style.paddingX
+    };
+
+    if (!this._RightArrow) {
+      this.patch({
+        RightArrow: {
+          type: Icon,
+          mountY: 0.5,
+          mountX: 1,
+          y: h => h / 2
+        }
+      });
+    }
+    this._RightArrow.patch({
+      ...arrowProps,
+      icon: this.style.iconRightSrc
+    });
+
+    this._RightArrow.smooth = {
+      x: this.w - this.style.paddingX
+    };
   }
 
   _updatePicker() {
@@ -99,7 +120,7 @@ export default class ListItemPicker extends ListItem {
           clipping: true,
           alwaysScroll: true,
           signals: {
-            selectedChange: '_onSelectedChange'
+            selectedChange: '_updateArrowsAlpha'
           }
         }
       });
@@ -108,43 +129,52 @@ export default class ListItemPicker extends ListItem {
       visible: !this._collapse,
       h: this.style.descriptionTextStyle.lineHeight,
       w,
-      x: (w - this._Title.w) / -2,
       items: this.options.map(option => ({
         type: Marquee,
         h: this.style.descriptionTextStyle.lineHeight,
         w,
+        centerAlign: this._isFocusedMode,
         title: {
           ...this.style.descriptionTextStyle,
-          textAlign: 'center',
           text: option
         }
       }))
     });
+    this._alignPicker();
   }
 
-  _onSelectedChange() {
-    if (this.selectedIndex === this.options.length - 1) {
-      this._RightArrow.alpha = this.style.arrowAlphaValueLimit;
-    } else {
-      this._RightArrow.alpha = this.style.arrowAlphaValue;
+  _alignPicker() {
+    this._Picker.patch({
+      mountX: this._isFocusedMode ? 0.5 : 0,
+      x: this._isFocusedMode ? this._Title.w / 2 : 0
+    });
+  }
+
+  _updateArrowsAlpha() {
+    if (this._Picker) {
+      this._selectedIndex = this._Picker.selectedIndex;
     }
-    if (this.selectedIndex === 0) {
-      this._LeftArrow.alpha = this.style.arrowAlphaValueLimit;
-    } else {
-      this._LeftArrow.alpha = this.style.arrowAlphaValue;
+    const alpha = this._isFocusedMode ? this.style.arrowAlphaValue : 0;
+    if (this._RightArrow) {
+      this._RightArrow.alpha =
+        this.selectedIndex === this.options.length - 1
+          ? this.style.arrowAlphaValueLimit
+          : alpha;
+    }
+    if (this._LeftArrow) {
+      this._LeftArrow.alpha =
+        this.selectedIndex === 0 ? this.style.arrowAlphaValueLimit : alpha;
     }
     this.fireAncestors('$announce', this.announce);
   }
 
-  get _arrowTexture() {
-    return {
-      type: Arrow,
-      w: this.style.arrowWidth,
-      h: this.style.arrowHeight,
-      color: lng.StageUtils.getRgbString(
-        utils.getValidColor(this.style.arrowColor)
-      )
-    };
+  get _fixedWordWrapWidth() {
+    const titleWrapWidth =
+      this.w -
+      this._paddingX -
+      this.style.arrowWidth * 2 -
+      2 * this.style.titlePadding;
+    return titleWrapWidth;
   }
 
   get _collapse() {
@@ -153,10 +183,6 @@ export default class ListItemPicker extends ListItem {
 
   get selectedOption() {
     return this._Picker.selected;
-  }
-
-  get selectedIndex() {
-    return this._Picker.selectedIndex;
   }
 
   _handleLeft() {
