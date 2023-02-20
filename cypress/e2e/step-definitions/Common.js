@@ -426,11 +426,12 @@ export default function () {
       const pageObject = getPageObject(page);
       const component = componentName.toLowerCase();
 
-      pageObject
-        ._getElementByName(component)
-        .should('have.attr', 'style')
-        .should('contain', `width: ${width}`)
-        .and('contain', `height: ${height}`);
+      pageObject._getElementByName(component).each($element => {
+        cy.wrap($element)
+          .should('have.attr', 'style')
+          .should('contain', `width: ${width}`)
+          .and('contain', `height: ${height}`);
+      });
     }
   );
 
@@ -983,15 +984,14 @@ export default function () {
 
       let leftValue = null;
       cy.wait(500).then(() => {
-        pageObject._getElementByName(component)
+        pageObject
+          ._getElementByName(component)
           .getStyleAttribute()
           .then(style => {
             leftValue = Number(style[property].replace('px', ''));
-            cy.wrap(leftValue)
-              .then(parseFloat)
-              .should('be.closeTo', value, 1);
-          })
-      })
+            cy.wrap(leftValue).then(parseFloat).should('be.closeTo', value, 1);
+          });
+      });
     }
   );
 

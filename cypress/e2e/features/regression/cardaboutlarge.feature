@@ -53,4 +53,4 @@ Feature: LUI CardAboutLarge component
     Examples:
       | theme   |  exampleDescription   | 
       | Xfinity |  LUI TEST DESCRIPTION |
-      | Base    |  LUI TEST DESCRIPTION | 
+      | Base    |  LUI TEST DESCRIPTION |

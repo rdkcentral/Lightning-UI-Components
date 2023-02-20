@@ -1,7 +1,5 @@
 import Column from '../pageObjects/navigation/column.navigation';
-import {Then} from '@badeball/cypress-cucumber-preprocessor';
-import getPageObject from "../pageObjects";
-import ScrollWrapper from "../pageObjects/layout/scrollwrapper.layout";
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
@@ -30,13 +28,12 @@ export default function () {
     'I verify that the {string} of Column component is {int}, wait {int} ms',
     (property, value, waitTime) => {
       let topValue = null;
-      cy.wait(waitTime).get(Column.column)
+      cy.wait(waitTime)
+        .get(Column.column)
         .getStyleAttribute()
         .then(style => {
           topValue = Number(style[property].replace('px', ''));
-          cy.wrap(topValue)
-            .then(parseFloat)
-            .should('be.closeTo', value, 3);
+          cy.wrap(topValue).then(parseFloat).should('be.closeTo', value, 3);
         });
     }
   );

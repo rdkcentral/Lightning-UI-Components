@@ -53,13 +53,13 @@ export default function () {
         case 'format':
           if (value === 'default') {
             cy.get(Tile.format).should('not.have.attr', 'alpha');
-        } else if (value === 'circle'){
-          cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
-        } else if (value === 'square'){
-          cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
-        } else {
-          cy.get(Tile.format).should('not.have.attr', 'alpha');
-        }
+          } else if (value === 'circle') {
+            cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
+          } else if (value === 'square') {
+            cy.get(Tile.format).should('have.attr', 'alpha', '0.001');
+          } else {
+            cy.get(Tile.format).should('not.have.attr', 'alpha');
+          }
           break;
         default:
           break;

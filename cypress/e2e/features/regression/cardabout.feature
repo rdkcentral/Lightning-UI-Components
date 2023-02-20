@@ -80,4 +80,4 @@ Feature: LUI CardAbout component
       | Xfinity | textLeft      |     00%     |      99     |
       | Xfinity | textRight     |     00%     |      99     | 
       | Base    | textLeft      |     00%     |      99     |
-      | Base    | textRight     |     00%     |      99     | 
+      | Base    | textRight     |     00%     |      99     |

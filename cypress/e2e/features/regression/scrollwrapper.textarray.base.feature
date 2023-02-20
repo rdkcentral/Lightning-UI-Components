@@ -59,7 +59,7 @@ Feature: LUI ScrollWrapper TextArray component
   Scenario Outline: Verify the ScrollWrapper TextArray scrollDuration control
     When I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
-    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Text Array' to finish scrolling
+    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Text Array' to finish scrolling for 'Base' theme
     Examples: 
     | scrollDuration  | timeTaken  |
     | 0.1             | 10         |

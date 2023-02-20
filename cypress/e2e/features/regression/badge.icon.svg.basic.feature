@@ -31,4 +31,4 @@ Feature: LUI Badge Icon SVG component
     | Xfinity | right    | 
     | Xfinity | left     |
     | Base    | right    |
-    | Base    | left     | 
+    | Base    | left     |

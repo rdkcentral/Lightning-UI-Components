@@ -8,7 +8,6 @@ class Surface extends LUIComponent {
   get surface() {
     return 'div[type=Surface]';
   }
-
 }
 
 module.exports = new Surface();
