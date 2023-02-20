@@ -82,7 +82,8 @@ export const TextWithIcon = () =>
     static _template() {
       return {
         Badge: {
-          type: Badge
+          type: Badge,
+          icon: lightning
         }
       };
     }
