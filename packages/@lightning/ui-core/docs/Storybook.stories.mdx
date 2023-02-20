@@ -4,3 +4,22 @@ import StorybookStructure from '../../../../STORYBOOK.md';
 <Meta title="Docs / Storybook" />
 
 <Description>{StorybookStructure}</Description>
+
+### useArgs
+
+`useArgs` is a hook that is a part of the Storybook API that allows **args** to be read or updated.
+
+Specifically, `useArgs` has a method called `updateArgs` that can be used to update an arg when it changes value.
+
+Below is an example of how to use `updateArgs` along with the value property:
+
+```js
+import { useArgs } from '@storybook/client-api';
+
+const [{ value }, updateArgs] = useArgs();
+
+// update arg control when value changes
+onChange(value) {
+  updateArgs({ value });
+}
+```
