@@ -26,6 +26,7 @@ export default class ListItemSlider extends ListItem {
         },
         Slider: {
           type: NestedSlider,
+          mountX: 0.5,
           signals: {
             onChange: '_onSliderChanged'
           }
@@ -90,7 +91,7 @@ export default class ListItemSlider extends ListItem {
 
   _updateSliderPosition() {
     const w = this.w - this._paddingLeft - this._paddingRight;
-    let sliderProps = {
+    const sliderProps = {
       mode: this.mode,
       tone: this.tone,
       w,
@@ -100,13 +101,6 @@ export default class ListItemSlider extends ListItem {
       ...this.slider,
       value: this.value
     };
-
-    if (this._isDisabledMode || this._isUnfocusedMode) {
-      sliderProps = {
-        ...sliderProps,
-        mountX: 0.5
-      };
-    }
 
     this._Slider.patch(sliderProps);
   }
