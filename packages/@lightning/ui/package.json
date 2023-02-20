@@ -6,13 +6,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/lightning-ui.d.ts",
-        "default": "./dist/lightning-ui.min.js"
-      }
-    }
+      "import": "./dist/lightning-ui.min.mjs",
+      "require": "./dist/lightning-ui.min.cjs",
+      "types": "./dist/lightning-ui.d.ts"
+    },
+    "./src": "./index.js"
   },
-  "main": "./dist/lightning-ui.min.js",
+  "main": "./dist/lightning-ui.min.mjs",
   "types": "./dist/lightning-ui.d.ts",
   "scripts": {
     "build": "yarn workspace @lightning/ui-core build && rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui",
@@ -45,6 +45,7 @@
     "@lightning/ui-core": "workspace:^"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "src/*"
   ]
 }
