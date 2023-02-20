@@ -5,13 +5,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/lightning-ui-core.d.ts",
-        "default": "./dist/lightning-ui-core.min.js"
-      }
-    }
+      "import": "./dist/lightning-ui-core.min.mjs",
+      "require": "./dist/lightning-ui-core.min.cjs",
+      "types": "./dist/lightning-ui-core.d.ts"
+    },
+    "./src": "./index.js"
   },
-  "main": "./dist/lightning-ui-core.min.js",
+  "main": "./dist/lightning-ui-core.min.mjs",
   "types": "./dist/lightning-ui-core.d.ts",
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
@@ -47,6 +47,7 @@
     "lint-staged": "^13.0.3"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "src/*"
   ]
 }

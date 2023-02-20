@@ -5,13 +5,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/lightning-ui-extensions.d.ts",
-        "default": "./dist/lightning-ui-extensions.min.js"
-      }
-    }
+      "import": "./dist/lightning-ui-extensions.d.ts",
+      "require": "./dist/lightning-ui-extensions.min.cjs",
+      "types": "./dist/lightning-ui-extensions.d.ts"
+    },
+    "./src": "./index.js"
   },
-  "main": "./dist/lightning-ui-extensions.min.js",
+  "main": "./dist/lightning-ui-extensions.min.mjs",
   "types": "./dist/lightning-ui-extensions.d.ts",
   "peerDependencies": {
     "@lightning/ui": "^5.0.0",
@@ -29,7 +29,8 @@
   "author": "",
   "license": "ISC",
   "files": [
-    "dist/*"
+    "dist/*",
+    "src/*"
   ],
   "devDependencies": {
     "@babel/core": "^7.19.3",
