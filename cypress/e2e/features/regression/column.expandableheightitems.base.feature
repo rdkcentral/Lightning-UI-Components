@@ -21,4 +21,3 @@ Feature: Column - Expandable Height Items Layout Validation
 
   Scenario: Verify that the expandable buttons in a column expands when in focus
     And I verify focused element in 'Column' has width of 250.0 and height of 120.0 and non-focused elements have width of 250.0 and height of 80.0
-  

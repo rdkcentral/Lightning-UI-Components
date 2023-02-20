@@ -117,9 +117,7 @@ export default function () {
             spaces.reduce((a, b) => a + b, 0) / spaces.length
           );
           const space = Math.round(spaces[1]);
-          for (let i = 0; i < spaces.length; i++) {
-            console.log('spaces' + i + '=' + spaces[i]);
-          }
+
           expect(Math.ceil(averageSpace)).equal(Math.ceil(space));
         });
     }

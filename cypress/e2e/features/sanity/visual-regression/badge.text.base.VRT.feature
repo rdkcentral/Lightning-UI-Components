@@ -8,4 +8,3 @@ Feature: Badge - Text Element Validation
   
   Scenario: Verify Badge - Text Element with Visual Regression
     Then I verify the 'Badge' 'Text' component with visual regression
-    

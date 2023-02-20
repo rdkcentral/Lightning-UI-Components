@@ -16,9 +16,3 @@ Feature: Column - Varying Item Height Layout Validation
 
   Scenario: Validate displayed text of buttons
     Then I verify that all 'buttonslabels' of the 'Column' page have text 'Button'
-
-
-
-
-
-

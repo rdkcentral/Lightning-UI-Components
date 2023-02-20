@@ -59,7 +59,7 @@ Feature: LUI ScrollWrapper Object Array component
   Scenario Outline: Verify the Object Array scrollDuration control
     When I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
-    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Object Array' to finish scrolling
+    Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Object Array' to finish scrolling for 'Base' theme
     Examples:
     | scrollDuration  | timeTaken |
     | 0.1             | 5         |

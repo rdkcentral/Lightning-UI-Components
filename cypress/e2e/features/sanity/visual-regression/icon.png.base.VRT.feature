@@ -8,4 +8,3 @@ Feature: Icon - PNG Element Validation
   
   Scenario: Verify Icon PNG Element with Visual Regression
     Then I verify the 'Icon' 'PNG' component with visual regression
-    

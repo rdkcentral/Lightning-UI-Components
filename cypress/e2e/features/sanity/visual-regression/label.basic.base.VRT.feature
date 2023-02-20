@@ -8,4 +8,3 @@ Feature: Label - Basic Element Validation
   
   Scenario: Verify Label - Basic Element with Visual Regression
     Then I verify the 'Label' component with visual regression
-    

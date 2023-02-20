@@ -25,7 +25,7 @@ Feature: LUI Slider Basic component
       | Base    | Knob          |
       | Base    | Left Arrow    |
       | Base    | Right Arrow   |
-     
+
   Scenario Outline: Verify the dimensions of the Slider Basic Element (<theme> theme)
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     Then I verify that the 'width' of 'Slider' 'Slider Bar' component is '<width>'
@@ -38,7 +38,7 @@ Feature: LUI Slider Basic component
     Examples:
       | theme   | width   | height |
       | Base    | 208px   | 10px   |
-    
+
   Scenario Outline: Verify that Slider can be set to <modeValue> mode (<theme> theme)
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Slider' component
@@ -183,4 +183,4 @@ Feature: LUI Slider Basic component
     Examples:
       | theme | keyInput |  inputQuantity  | progressValue | 
       | Base  | LEFT     |     5           |      0        | 
-      | Base  | RIGHT    |     10          |      1        | 
+      | Base  | RIGHT    |     10          |      1        |
