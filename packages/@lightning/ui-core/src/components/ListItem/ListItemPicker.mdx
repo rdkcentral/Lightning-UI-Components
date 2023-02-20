@@ -39,10 +39,10 @@ class Basic extends lng.Component {
 
 `ListItemPicker` has the same properties as the ones listed in [ListItem](?path=/docs/lightning/ui-listitem--listitem) in addition to a couple listed below:
 
-| name                | type   | default   | description                      |
-| ------------------- | ------ | --------- | -------------------------------- |
-| options             | any[]  | undefined | list of selectable options       |
-| selectedOptionIndex | number | undefined | index of current selected option |
+| name          | type     | default   | description                      |
+| ------------- | -------- | --------- | -------------------------------- |
+| options       | string[] | undefined | list of selectable options       |
+| selectedIndex | number   | undefined | index of current selected option |
 
 ### Style Properties
 
@@ -52,3 +52,6 @@ class Basic extends lng.Component {
 | arrowAlphaValueLimit | number | alpha value of the arrows when value is equal to the min/max value   |
 | arrowWidth           | number | width of the arrows                                                  |
 | arrowHeight          | object | height of the arrows                                                 |
+| arrowColor           | string | color of the arrows                                                  |
+| iconLeftSrc          | string | path of the icon to use for the left arrow                           |
+| iconRightSrc         | string | path of the icon to use for the right arrow                          |
