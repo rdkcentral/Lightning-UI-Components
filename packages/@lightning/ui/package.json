@@ -1,7 +1,7 @@
 {
   "name": "@lightning/ui",
   "description": "Lightning UI Components",
-  "version": "5.6.1",
+  "version": "5.7.0",
   "sideEffects": false,
   "type": "module",
   "exports": {
