@@ -78,7 +78,7 @@ export default class TextBox extends Base {
       height = this._Text.texture.getRenderHeight();
       if (this.firstSetDimensionsCall) {
         this.firstSetDimensionsCall = false;
-        if (this.w != 0) {
+        if (this.w !== 0) {
           this.userSetWidth = true;
         }
       }
