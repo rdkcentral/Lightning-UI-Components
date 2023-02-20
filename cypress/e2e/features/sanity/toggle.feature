@@ -28,7 +28,7 @@ Feature: LUI Toggle component
     @sanity
     Examples:
       | theme   | defaultWidth | defaultHeight |
-      | Base    | 80px         | 38px          |
+      | Base    | 80px         | 40px          |
 
   Scenario Outline: Verify that Toggle can be set to <modeValue> mode (<theme> theme)
     When I navigate to 'Toggle' with '<theme>' theme

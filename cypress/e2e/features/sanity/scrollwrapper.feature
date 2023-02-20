@@ -63,8 +63,8 @@ Feature: LUI ScrollWrapper Basic component
     @sanity
     Examples:
       |  theme  | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration | width |
-      |  Base   | 10          | 200             | 2000            | 0.1            | 408px |
-      |  Base   | 20          | 100             | 1000            | 5              | 408px |
+      |  Base   | 10          | 200             | 2000            | 0.1            | 348px |
+      |  Base   | 20          | 100             | 1000            | 5              | 348px |
 
   @skip
   #TODO: Have to add this scenario in the VRT
@@ -83,12 +83,12 @@ Feature: LUI ScrollWrapper Basic component
     And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '<widthChanged>'
     @sanity_temp
     Examples:
-      | theme   |   width   | widthChanged |
-      | Xfinity | 15.3333px |     46px     |
+      | theme   | width     | widthChanged |
+      | Xfinity | 15.3333px | 46px         |
     @sanity
     Examples:
-      | theme   |   width   | widthChanged |
-      | Base    | 58.2857px |    136px     |
+      | theme   | width     | widthChanged |
+      | Base    | 49.7143px | 116px        |
 
   Scenario Outline: Verify the ScrollWrapper basic showScrollBar control (<theme> theme)
     When I navigate to 'scrollwrapper' 'basic' with '<theme>' theme

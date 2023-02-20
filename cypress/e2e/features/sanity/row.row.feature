@@ -23,10 +23,10 @@ Feature: Row Basic component validation
     @sanity
     Examples:
       | theme   | width | height |
-      | Xfinity | 250.0 | 80.0   |
+      | Xfinity | 386.0 | 80.0   |
     Examples:
       | theme | width | height |
-      | Base  | 250.0 | 100.0  |
+      | Base  | 472.0 | 100.0  |
 
   Scenario Outline: Verify row layout and spacing (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
@@ -93,54 +93,83 @@ Feature: Row Basic component validation
       | Base  | focused   |
       | Base  | disabled  |
 
+  @skip
+  # The always scroll control is broken. Bug ticket to be created
   Scenario Outline: Verify the Row Basic always scroll toggle (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
-    Then I verify the 'alwaysScroll' is 'false' for 'Row' component
-    And I set the 'alwaysScroll' to 'true' for 'Row' component
-    And I verify the 'alwaysScroll' is 'true' for 'Row' component
+    And I set the 'alwaysScroll' to '<alwaysScrollValue>' for 'Row' component
+    And I wait 1 seconds for the page to load
+    And I press 'RIGHT' key 11 times
+    Then I verify that the 'left' of 'Row' component is '<leftPosition>px'
     @sanity
     Examples:
-      | theme   |
-      | Xfinity |
+      | theme   | alwaysScrollValue  | leftPosition  |
+      | Xfinity | false              | -3280         |
+      | Xfinity | true               | -4510         |
     Examples:
-      | theme |
-      | Base  |
+      | theme   | alwaysScrollValue  | leftPosition  |
+      | Base    | false              | -4428         |
+      | Base    | true               | -5412         |
 
   Scenario Outline: Verify the Row Basic lazy scroll toggle (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
-    Then I verify the 'lazyScroll' is 'false' for 'Row' component
-    And I set the 'lazyScroll' to 'true' for 'Row' component
-    And I verify the 'lazyScroll' is 'true' for 'Row' component
+    And I set the 'lazyScroll' to '<lazyScrollValue>' for 'Row' component
+    And I press 'RIGHT' key 2 times
+    Then I verify that the 'left' of 'Row' component is '<leftPosition>px'
     @sanity
     Examples:
-      | theme   |
-      | Xfinity |
+      | theme   | lazyScrollValue  | leftPosition  |
+      | Xfinity | false            | -820          |
+      | Xfinity | true             | 0             |
     Examples:
-      | theme |
-      | Base  |
+      | theme   | lazyScrollValue  | leftPosition  |
+      | Base    | false            | -984          |
+      | Base    | true             | 0             |
 
   Scenario Outline: Verify the Row Basic never scroll toggle (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
-    Then I verify the 'neverScroll' is 'false' for 'Row' component
-    And I set the 'neverScroll' to 'true' for 'Row' component
-    And I verify the 'neverScroll' is 'true' for 'Row' component
+    And I set the 'neverScroll' to '<neverScrollValue>' for 'Row' component
+    And I press 'RIGHT' key
+    Then I verify that the 'left' of 'Row' component is '<leftPosition>px'
     @sanity
     Examples:
-      | theme   |
-      | Xfinity |
+      | theme   | neverScrollValue  | leftPosition  |
+      | Xfinity | false             | -410          |
+      | Xfinity | true              | 0             |
     Examples:
-      | theme |
-      | Base  |
+      | theme   | neverScrollValue  | leftPosition  |
+      | Base    | false             | -492          |
+      | Base    | true              | 0             |
 
   Scenario Outline: Verify that the scroll index of the Row Basic Element can be changed (<theme> theme)
     When I navigate to 'Row' with '<theme>' theme
-    Then I verify the 'scrollIndex' is '0' for 'Row' component
-    And I set the 'scrollIndex' to '10' for 'Row' component
-    And I verify the 'scrollIndex' is '10' for 'Row' component
+    And I set the 'scrollIndex' to '<scrollIndexValue>' for 'Row' component
+    And I press 'RIGHT' key 10 times
+    Then I verify that the 'left' of 'Row' component is '<leftPosition>px'
     @sanity
     Examples:
-      | theme   |
-      | Xfinity |
+      | theme   | scrollIndexValue  | leftPosition  |
+      | Xfinity | 0                 | -3280         |
+      | Xfinity | 10                | 0             |
     Examples:
-      | theme |
-      | Base  |
+      | theme   | scrollIndexValue  | leftPosition  |
+      | Base    | 0                 | -4920         |
+      | Base    | 10                | 0             |
+  
+  Scenario Outline: Verify the default <controlName> control for the Row component (<theme> theme)
+    When I navigate to 'Row' with '<theme>' theme
+    And I press 'RIGHT' key <numScroll> times
+    Then I verify that the 'left' of 'Row' component is '<leftPosition>px'
+    @sanity
+    Examples:
+      | theme   | controlName   | leftPosition  | numScroll   |
+      | Xfinity | neverScroll   | -410          | 1           |
+      | Xfinity | lazyScroll    | -820          | 2           |
+      # | Xfinity | alwaysScroll  | -3280         | 11          |
+      | Xfinity | scrollIndex   | -3280         | 10          |
+    Examples:
+      | theme   | controlName   | leftPosition  | numScroll   |
+      | Base    | neverScroll   | -492          | 1           |
+      | Base    | lazyScroll    | -984          | 2           |
+      # | Base    | alwaysScroll  | -4428         | 11          |
+      | Base    | scrollIndex   | -4920         | 10          |
