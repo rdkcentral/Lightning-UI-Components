@@ -145,9 +145,10 @@ export default class NavigationManager extends FocusManager {
     this._autoResize();
     this._updateLastScrollIndex();
 
-    itemChanged && this.fireAncestors('$itemChanged');
-
-    this._performRender();
+    if (itemChanged) {
+      this._performRender();
+      this.fireAncestors('$itemChanged');
+    }
   }
 
   _centerItemsInParent(items) {
