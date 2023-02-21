@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/lightning-ui-extensions.d.ts",
+      "import": "./dist/lightning-ui-extensions.min.mjs",
       "require": "./dist/lightning-ui-extensions.min.cjs",
       "types": "./dist/lightning-ui-extensions.d.ts"
     },
