@@ -205,10 +205,17 @@ describe('TextBox', () => {
       expect(textBox._Text.text.verticalAlign).toBe('top');
     });
 
-    it('should fallback to default for wordWrap if no wordWrap style value is provided', async () => {
+    it('should fallback to default for wordWrap if no wordWrap style value is provided and width is set', async () => {
       textBox.content = 'Hello World!';
+      textBox.style.textStyle.wordWrapWidth = 600;
       testRenderer.forceAllUpdates();
       expect(textBox._Text.text.wordWrap).toBe(true);
+    });
+
+    it('should set wordWrap to false if value and width are not provided', async () => {
+      textBox.content = 'Hello World!';
+      testRenderer.forceAllUpdates();
+      expect(textBox._Text.text.wordWrap).toBe(false);
     });
 
     it('should set wordWrap to the provided value if defined', () => {

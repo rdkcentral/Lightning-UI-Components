@@ -527,7 +527,7 @@ exports[`ScrollWrapper renders 1`] = `
               ],
               "type": "TextBox",
               "visible": true,
-              "w": 47,
+              "w": 38,
               "x": 0,
               "y": 0,
               "zIndex": 0,

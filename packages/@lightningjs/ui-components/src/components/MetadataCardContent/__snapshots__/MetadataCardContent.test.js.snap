@@ -294,6 +294,7 @@ exports[`MetadataCardContent renders 1`] = `
                                 "textBaseline": "bottom",
                                 "type": "TextTexture",
                                 "verticalAlign": "middle",
+                                "wordWrap": false,
                               },
                               "visible": true,
                               "w": 0,

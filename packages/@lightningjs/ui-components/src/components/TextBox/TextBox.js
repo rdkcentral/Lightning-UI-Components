@@ -76,12 +76,24 @@ export default class TextBox extends Base {
 
     if (!this._isInlineContent) {
       height = this._Text.texture.getRenderHeight();
+      // width = this.w || this._Text.texture.getRenderWidth();
+
+      //console.log('this.w', this.w);
+      //console.log('renderWidth', this._Text.texture.getRenderWidth());
+
       if (this.firstSetDimensionsCall) {
         this.firstSetDimensionsCall = false;
         if (this.w !== 0) {
           this.userSetWidth = true;
         }
       }
+      // // else {
+      // //   // equals mean that user has not set width
+      // //   if (this.w !== this._Text.texture.getRenderWidth()) {
+      // //     this.userSetWidth = true;
+      // //   }
+      // // }
+      // //console.log('userSetWidth', this.userSetWidth);
       if (this.userSetWidth) {
         width = this.w;
       } else {
@@ -199,6 +211,15 @@ export default class TextBox extends Base {
           ...fontStyle
         }
       });
+
+      // make sure text continues on 1 line with Lightning default values for wordWrap, wordWrapWidth, and maxLines
+      if (
+        this._Text.text.wordWrap &&
+        !this._Text.text.wordWrapWidth &&
+        !this._Text.text.maxLines
+      ) {
+        this._Text.text.wordWrap = false;
+      }
     }
   }
 
@@ -298,8 +319,10 @@ export default class TextBox extends Base {
 
     // make sure TextBox is actually applying/adhering to the width if only w is defined
     if (!this._isInlineContent) {
+      const wordWrapWidth = fontStyle.wordWrapWidth || this.w;
+
       if (!fontStyle.wordWrapWidth && this.userSetWidth) {
-        fontStyle.wordWrapWidth = this.w;
+        fontStyle.wordWrapWidth = wordWrapWidth;
       }
     }
 

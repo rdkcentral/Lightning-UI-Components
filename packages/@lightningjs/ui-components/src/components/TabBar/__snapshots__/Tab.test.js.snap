@@ -129,6 +129,7 @@ exports[`Tab renders 1`] = `
                 "textColor": 4294506490,
                 "type": "TextTexture",
                 "verticalAlign": "middle",
+                "wordWrap": false,
               },
               "visible": true,
               "w": 0,
