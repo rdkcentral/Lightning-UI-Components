@@ -39,6 +39,7 @@ export const getStoryName = pageName => {
     RadioSmall: 'Radio',
     Row: 'Row',
     ScrollWrapper: 'scrollwrapper',
+    Shadow: 'Shadow',
     Surface: 'Surface',
     Tab: 'Tab',
     Tile: 'Tile',
