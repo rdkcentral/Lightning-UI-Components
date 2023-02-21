@@ -84,13 +84,13 @@ Feature: Column Basic component validation
       | theme   | scrolledIndex | focusedIndex |
       | Xfinity | 1             | 1            |
       | Xfinity | 5             | 5            |
-      | Xfinity | 10            | 10           |
+      | Xfinity | 15            | 15           |
       | Xfinity | 20            | 20           |
     Examples:
       | theme | scrolledIndex | focusedIndex |
       | Base  | 1             | 1            |
       | Base  | 5             | 5            |
-      | Base  | 10            | 10           |
+      | Base  | 15            | 15           |
       | Base  | 20            | 20           |
 
   Scenario Outline: Verify that the correct element is focused when scroll is set to invalid index (<theme> theme)
@@ -101,11 +101,11 @@ Feature: Column Basic component validation
     Examples:
       | theme   | scrolledIndex | focusedIndex |
       | Xfinity | 0             | 1            |
-      | Xfinity | 25            | 20           |
+      | Xfinity | 25            | 1            |
     Examples:
       | theme | scrolledIndex | focusedIndex |
       | Base  | 0             | 1            |
-      | Base  | 25            | 20           |
+      | Base  | 25            | 1            |
 
   Scenario Outline: Verify scrolling the elements in a column when 'scrollIndex' is set to '<scrollIndex>' and 'alwaysScroll' is false (<theme> theme)
     When I navigate to 'Column' with '<theme>' theme
@@ -120,10 +120,10 @@ Feature: Column Basic component validation
     @sanity
     Examples:
       | theme   | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
-      | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
+      | Xfinity | 4           | 14        | 0         | -104      | -1456     | 2000     |
       | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
     Examples:
-      | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
+      | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime  |
       | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
       | Base  | 9           | 9         | 0         | -120      | -1200     | 1000      |
 
@@ -143,6 +143,6 @@ Feature: Column Basic component validation
       | Xfinity | 4           | 14        | 0         | -104      | -1560     | 2000     |
       | Xfinity | 9           | 9         | 0         | -104      | -1040     | 2000     |
     Examples:
-      | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime |
+      | theme | scrollIndex | numScroll | topValue1 | topValue2 | topValue3 | waitTime  |
       | Base  | 4           | 14        | 0         | -120      | -1800     | 1000      |
       | Base  | 9           | 9         | 0         | -120      | -1200     | 1000      |
