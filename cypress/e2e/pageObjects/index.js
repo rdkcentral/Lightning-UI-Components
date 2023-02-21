@@ -45,6 +45,7 @@ import TextBox from './text/textbox.text';
 import Tile from './tilesAndCards/tile.tilesandcards';
 import Toggle from './utilities/toggle.utilities';
 import ToggleSmall from './utilities/togglesmall.utilities';
+import TooltipBasic from './utilities/tooltipbasic.utilities';
 import Wave from './utilities/wave.utilities';
 import WithAnnouncerBasic from './accessibility/withAnnouncerBasic.accessibility';
 
@@ -97,6 +98,7 @@ export default function getPageObject(pageName) {
     tile: Tile,
     toggle: Toggle,
     togglesmall: ToggleSmall,
+    tooltip: TooltipBasic,
     wave: Wave,
     withannouncer: WithAnnouncerBasic
   };

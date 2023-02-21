@@ -66,6 +66,22 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify that the {String} component is not displayed
+   * @description Cucumber statement to verify that the component is not displayed
+   * @param {String} componentName
+   * @example I verify that the 'Tooltip' component is not displayed
+   */
+  Then(
+    'I verify that the {string} component is not displayed',
+    (componentName) => {
+      const page = componentName.toLowerCase();
+      const pageObject = getPageObject(page);
+      pageObject._getElementByName(componentName).should('not.be.visible');
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify that the {String} {String} component is displayed
    * @description Cucumber statement to verify that the component is displayed
    * @param {String} pageName
