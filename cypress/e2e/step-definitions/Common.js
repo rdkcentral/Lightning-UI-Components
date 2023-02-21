@@ -1,6 +1,6 @@
 import getPageObject from '../pageObjects';
-import {getStoryName} from '../../support/helpers';
-import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
+import { getStoryName } from '../../support/helpers';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 export default function () {
   /**
@@ -656,7 +656,7 @@ export default function () {
                 };
                 // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });
@@ -717,7 +717,7 @@ export default function () {
         .each($row => {
           // push the row info to the elementRows array
           cy.getOffsetRect($row).then(data => {
-            elementRows.push({...data});
+            elementRows.push({ ...data });
           });
         })
         .then(() => {
@@ -778,7 +778,7 @@ export default function () {
                 };
                 // push the element info to the elements array
                 cy.getOffsetRect($element).then(data => {
-                  elements.push({...elementInfo, ...data});
+                  elements.push({ ...elementInfo, ...data });
                 });
               }
             });

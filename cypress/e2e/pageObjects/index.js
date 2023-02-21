@@ -48,6 +48,7 @@ import ToggleSmall from './utilities/togglesmall.utilities';
 import TooltipBasic from './utilities/tooltipbasic.utilities';
 import Wave from './utilities/wave.utilities';
 import WithAnnouncerBasic from './accessibility/withAnnouncerBasic.accessibility';
+import WithHandleKey from './utilities/withHandleKey.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -100,7 +101,8 @@ export default function getPageObject(pageName) {
     togglesmall: ToggleSmall,
     tooltip: TooltipBasic,
     wave: Wave,
-    withannouncer: WithAnnouncerBasic
+    withannouncer: WithAnnouncerBasic,
+    withhandlekey: WithHandleKey
   };
 
   if (pageName in pageObjects) {
