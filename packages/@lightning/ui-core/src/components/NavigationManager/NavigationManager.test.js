@@ -271,7 +271,8 @@ describe('NavigationManager', () => {
       });
     });
 
-    it('should invoke an overridable _performRender method', () => {
+    it('should invoke an overridable _performRender method when the height or width of the Items element changes', async () => {
+      const item = { ...baseItem, w: 50 };
       const performRenderSpy = jest.fn();
       class ExtendedNavManager extends NavigationManager {
         _performRender() {
@@ -279,8 +280,21 @@ describe('NavigationManager', () => {
         }
       }
 
-      makeCreateComponent(ExtendedNavManager)();
+      const [navigationManager] = makeCreateComponent(ExtendedNavManager)(
+        {},
+        { spyOnMethods: ['_updateLayout'] }
+      );
 
+      await navigationManager.__updateLayoutSpyPromise;
+
+      expect(navigationManager.Items.w).toBe(0);
+      expect(performRenderSpy).not.toHaveBeenCalled();
+
+      navigationManager.items = [item, item, item];
+
+      await navigationManager.__updateLayoutSpyPromise;
+
+      expect(navigationManager.Items.w).toBeGreaterThan(0);
       expect(performRenderSpy).toHaveBeenCalled();
     });
   });

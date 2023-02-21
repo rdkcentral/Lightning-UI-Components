@@ -326,6 +326,7 @@ export const LazyScrollIndexes = ({
   };
 LazyScrollIndexes.args = {
   ...sharedArgs,
+  lazyScroll: true,
   startLazyScrollIndex: 1,
   stopLazyScrollIndex: 10
 };
