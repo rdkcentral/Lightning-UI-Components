@@ -35,6 +35,7 @@ import Radio from './utilities/radio.utilities';
 import RadioSmall from './utilities/radiosmall.utilities';
 import Row from './navigation/row.navigation';
 import ScrollWrapper from './layout/scrollwrapper.layout';
+import Shadow from './foundations/shadow.foundations';
 import Slider from './utilities/slider.utilities';
 import SliderLarge from './utilities/sliderlarge.utilities';
 import Surface from './foundations/surface.foundations';
@@ -86,6 +87,7 @@ export default function getPageObject(pageName) {
     radiosmall: RadioSmall,
     row: Row,
     scrollwrapper: ScrollWrapper,
+    shadow: Shadow,
     slider: Slider,
     sliderlarge: SliderLarge,
     surface: Surface,
