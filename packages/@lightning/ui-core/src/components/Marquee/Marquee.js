@@ -25,7 +25,21 @@ export default class Marquee extends Base {
   }
 
   static get tags() {
-    return ['ContentClipper', 'ContentBox', 'Content', 'ContentLoopTexture'];
+    return [
+      'ContentClipper',
+      {
+        name: 'ContentBox',
+        path: 'ContentClipper.ContentBox'
+      },
+      {
+        name: 'Content',
+        path: 'ContentClipper.ContentBox.Content'
+      },
+      {
+        name: 'ContentLoopTexture',
+        path: 'ContentClipper.ContentBox.ContentLoopTexture'
+      }
+    ];
   }
 
   static get properties() {
@@ -68,7 +82,7 @@ export default class Marquee extends Base {
       this._updateShader();
     } else {
       this._ContentClipper.shader = null;
-      this._shouldCenter() && this._centerTexture();
+      this._positionTexture();
     }
 
     restartScrolling && this.startScrolling();
@@ -163,8 +177,8 @@ export default class Marquee extends Base {
     });
   }
 
-  _centerTexture() {
-    const x = (this.w - this._textRenderedW) / 2;
+  _positionTexture() {
+    const x = this._shouldCenter() ? (this.w - this._textRenderedW) / 2 : 0;
     if (this.style.shouldSmooth) {
       this._ContentBox.smooth = { x };
     } else {
@@ -218,9 +232,20 @@ export default class Marquee extends Base {
     // cancel the current scrolling behavior,
     // otherwise the component can continue to scroll from its previous state
     if (this.autoStart && !autoStart) {
-      this.stopScrolling();
+      // Calling this ensures that the animation is stopped, and the texture
+      // is properly positioned if it needs to be centered. Otherwise, if it
+      // is un-clipped text, it is positioned at 0.
+      this._updateContentTexture();
     }
     return autoStart;
+  }
+
+  _setCenterAlign(center) {
+    // The Content texture needs to be updated if centerAlign
+    // is changed, but we need the new value first.
+    this._centerAlign = center;
+    this._updateContentTexture();
+    return center;
   }
 
   get textContent() {
