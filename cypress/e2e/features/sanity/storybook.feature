@@ -11,11 +11,10 @@ Feature: LUI Storybook Tests (Without Iframe)
     Then I verify that the 'Artwork' 'Foreground Image' component does not exist in Storybook
     And I select 'Image URL' for the 'foregroundSrc' control for the 'Artwork' component in Storybook
     And I verify that the 'Artwork' 'Foreground Image' component is displayed in Storybook Iframe
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |

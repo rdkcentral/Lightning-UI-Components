@@ -8,11 +8,10 @@ Feature: LUI ListItem Component
   Scenario Outline: Verify that ListItem component is displayed (<theme> theme)
     When I navigate to 'ListItem' with '<theme>' theme
     Then I verify that the 'ListItem' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     Then I verify that the 'width' of 'ListItem' component is '<width>'
     And I verify that the 'height' of 'ListItem' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 386px | 96px   |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 472px | 120px  |
@@ -38,11 +36,10 @@ Feature: LUI ListItem Component
     And I verify that 'null' 'suffix' is added to 'ListItem'
     And I verify that 'null' 'suffixLogo' is added to 'ListItem'
     And I verify that 'ListItem' 'Title' has 'text' 'List Item'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -51,13 +48,12 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'ListItem' component
     Then I verify the mode is '<modeValue>' for 'ListItem'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -69,11 +65,10 @@ Feature: LUI ListItem Component
     And I set the 'description' to 'LUI Test' for 'ListItem' component
     Then I verify that the 'ListItem' component is displayed
     And I verify that 'ListItem' 'Description' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -82,14 +77,13 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'prefix' to '<prefixValue>' for 'ListItem' component
     Then I verify that '<prefixValue>' 'prefix' is added to 'ListItem'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | prefixValue |
       | Xfinity | toggle      |
       | Xfinity | radio       |
       | Xfinity | checkbox    |
       | Xfinity | null        |
-    @sanity
     Examples:
       | theme | prefixValue |
       | Base  | toggle      |
@@ -101,12 +95,11 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'prefixLogo' to '<prefixLogo>' for 'ListItem' component
     Then I verify that '<prefixLogo>' 'prefixLogo' is added to 'ListItem'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | prefixLogo |
       | Xfinity | xfinity    |
       | Xfinity | none       |
-    @sanity
     Examples:
       | theme | prefixLogo |
       | Base  | xfinity    |
@@ -120,11 +113,10 @@ Feature: LUI ListItem Component
     And I set the 'shouldCollapse' to 'false' for 'ListItem' component
     And I verify that the 'ListItem' 'Description' component is displayed
     And I verify that 'ListItem' 'Description' has 'text' 'Description'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -133,14 +125,13 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'suffix' to '<suffixValue>' for 'ListItem' component
     Then I verify that '<suffixValue>' 'suffix' is added to 'ListItem'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | suffixValue |
       | Xfinity | toggle      |
       | Xfinity | radio       |
       | Xfinity | checkbox    |
       | Xfinity | null        |
-    @sanity
     Examples:
       | theme | suffixValue |
       | Base  | toggle      |
@@ -152,12 +143,11 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'suffixLogo' to '<suffixLogo>' for 'ListItem' component
     Then I verify that '<suffixLogo>' 'suffixLogo' is added to 'ListItem'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | suffixLogo |
       | Xfinity | xfinity    |
       | Xfinity | none       |
-    @sanity
     Examples:
       | theme | suffixLogo |
       | Base  | xfinity    |
@@ -167,11 +157,10 @@ Feature: LUI ListItem Component
     When I navigate to 'ListItem' with '<theme>' theme
     And I set the 'title' to 'LUI Test' for 'ListItem' component
     Then I verify that 'ListItem' 'Title' has 'text' 'LUI Test'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
