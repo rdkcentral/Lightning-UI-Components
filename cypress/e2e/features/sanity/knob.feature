@@ -8,11 +8,10 @@ Feature: LUI Knob component
   Scenario Outline: Verify that Knob is displayed (<theme> theme)
     When I navigate to 'Knob' with '<theme>' theme
     Then I verify that the 'Knob' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Knob component
     When I navigate to 'Knob' with '<theme>' theme
     Then I verify that the 'width' of 'Knob' component is '<width>'
     And I verify that the 'height' of 'Knob' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |  width  | height |
       | Xfinity |  16px   | 16px   |
-    @sanity
     Examples:
       | theme |   width  | height |
       | Base  |   20px   | 20px   |
@@ -34,13 +32,12 @@ Feature: LUI Knob component
     When I navigate to 'Knob' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Knob' component
     Then I verify the mode is '<modeValue>' for 'Knob'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |

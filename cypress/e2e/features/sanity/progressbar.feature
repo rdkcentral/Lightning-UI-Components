@@ -8,11 +8,10 @@ Feature: LUI ProgressBar Basic component
   Scenario Outline: Verify that ProgressBar Basic component is displayed (<theme> theme)
     When I navigate to 'ProgressBar' with '<theme>' theme
     Then I verify that the 'ProgressBar' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -22,11 +21,10 @@ Feature: LUI ProgressBar Basic component
     Then I verify that the 'width' of 'ProgressBar' component is '<width>'
     And I verify that the 'height' of 'ProgressBar' component is '<height>'
     And I verify that the 'ProgressBar' progress is set to 0.50
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 410px | 8px    |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 410px | 10px   |
@@ -35,14 +33,13 @@ Feature: LUI ProgressBar Basic component
     When I navigate to 'ProgressBar' with '<theme>' theme
     And I set the 'progress' to '<progressValue>' for 'ProgressBar' component
     Then I verify that the 'ProgressBar' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | progressValue |
       | Xfinity | 0.20          |
       | Xfinity | 0.50          |
       | Xfinity | 0.75          |
       | Xfinity | 1.00          |
-    @sanity
     Examples:
       | theme | progressValue |
       | Base  | 0.20          |
@@ -55,14 +52,13 @@ Feature: LUI ProgressBar Basic component
     And I set the 'w' to '<progressBarWidth>' for 'ProgressBar' component
     Then I verify that the 'width' of 'ProgressBar' component is '<progressBarWidth>px'
     And I verify that the 'ProgressBar' progress is set to 0.50
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | progressBarWidth |
       | Xfinity | 100              |
       | Xfinity | 250              |
       | Xfinity | 400              |
       | Xfinity | 600              |
-    @sanity
     Examples:
       | theme | progressBarWidth |
       | Base  | 100              |
