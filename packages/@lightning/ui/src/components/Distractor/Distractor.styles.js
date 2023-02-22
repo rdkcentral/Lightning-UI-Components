@@ -1,12 +1,12 @@
-export const base = () => ({
-  alpha1: 0.2,
-  alpha2: 1,
-  alpha3: 0.6,
-  circleSize: 100,
-  scale1: 0.4,
+export const base = theme => ({
+  alpha1: theme.alpha.tertiary,
+  alpha2: theme.alpha.primary,
+  alpha3: theme.alpha.secondary,
+  circleSize: theme.spacer.xxl,
+  scale1: 0.25,
   scale2: 1,
-  scale3: 0.7,
-  smoothness: 0.8
+  scale3: 0.5,
+  smoothness: theme.animation.duration.slow
 });
 
 export const tone = theme => ({
