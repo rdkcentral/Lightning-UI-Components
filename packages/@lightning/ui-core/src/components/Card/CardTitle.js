@@ -23,7 +23,10 @@ export default class CardTitle extends Card {
     return {
       ...super._template(),
       Description: {
-        type: TextBox
+        type: TextBox,
+        signals: {
+          textBoxChanged: '_updateDescriptionPosition'
+        }
       },
       Details: {
         type: TextBox,
