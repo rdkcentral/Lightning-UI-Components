@@ -134,20 +134,8 @@ export default function withExtensions(Base) {
         this._extensionInstance._extensionCleanup.call(this);
 
       (Object.keys(this._extendedList) || []).forEach(prop => {
-        const descriptor = Object.getOwnPropertyDescriptor(this, prop + SUFFIX);
-        if (descriptor && descriptor.value) {
-          Object.defineProperty(this, prop, {
-            value: descriptor.value
-          });
-        } else if (descriptor && (descriptor.get || descriptor.set)) {
-          Object.defineProperty(this, prop, {
-            get: descriptor.get,
-            set: descriptor.set
-          });
-        } else {
-          delete this[prop];
-        }
-        if (this[prop + SUFFIX]) delete this[prop + SUFFIX];
+        delete this[prop];
+        delete this[prop + SUFFIX];
       });
 
       this._extensionInstance = {};
