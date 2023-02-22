@@ -62,7 +62,7 @@ Feature: LUI Checkbox Basic component
   Scenario Outline: Verify that Checkbox Basic default values (<theme> theme)
     When I navigate to 'Checkbox' with '<theme>' theme
     Then I verify that the 'checked' state for 'Checkbox' is 'false'
-    And I verify the mode is 'unfocused' for 'Checkbox'
+    And I verify the mode is 'focused' for 'Checkbox'
     @sanity
     Examples:
       | theme   |
