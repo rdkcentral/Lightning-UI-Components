@@ -34,14 +34,7 @@ export default class Badge extends Base {
   }
 
   static get properties() {
-    return [
-      'icon',
-      'title',
-      'iconWidth',
-      'iconColor',
-      'iconHeight',
-      'iconAlign'
-    ];
+    return ['title', 'icon', 'iconAlign', 'iconWidth', 'iconHeight'];
   }
 
   static get tags() {
