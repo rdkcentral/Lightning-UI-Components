@@ -43,6 +43,7 @@ export const getStoryName = pageName => {
     Surface: 'Surface',
     Tab: 'Tab',
     Tile: 'Tile',
+    TitleRow: 'Title-Row',
     Toggle: 'Toggle',
     ToggleSmall: 'Toggle',
     Wave: 'Wave',

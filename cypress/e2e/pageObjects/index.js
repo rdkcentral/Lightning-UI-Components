@@ -43,6 +43,7 @@ import Tab from './layout/tab.layout';
 import TabBar from './layout/tabbar.layout';
 import TextBox from './text/textbox.text';
 import Tile from './tilesAndCards/tile.tilesandcards';
+import TitleRow from './navigation/titlerow.navigation';
 import Toggle from './utilities/toggle.utilities';
 import ToggleSmall from './utilities/togglesmall.utilities';
 import TooltipBasic from './utilities/tooltipbasic.utilities';
@@ -97,6 +98,7 @@ export default function getPageObject(pageName) {
     tabbar: TabBar,
     textbox: TextBox,
     tile: Tile,
+    titlerow: TitleRow,
     toggle: Toggle,
     togglesmall: ToggleSmall,
     tooltip: TooltipBasic,
