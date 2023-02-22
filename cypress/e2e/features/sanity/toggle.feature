@@ -64,7 +64,7 @@ Feature: LUI Toggle component
 
   Scenario Outline: Verify that Toggle default values (<theme> theme)
     When I navigate to 'Toggle' with '<theme>' theme
-    Then I verify the mode is 'unfocused' for 'Toggle'
+    Then I verify the mode is 'focused' for 'Toggle'
     @sanity_temp
     Examples:
       | theme   |
