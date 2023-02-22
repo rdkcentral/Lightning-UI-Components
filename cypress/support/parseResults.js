@@ -178,14 +178,26 @@ if (testType === 'parallel') {
 let failedScenarioNames = '';
 
 const results = data.results;
+let suites;
 
 for (const test of results) {
-  const suites = test.suites[0].tests;
-  for (const suite of suites) {
-    if (suite.pass === false && suite.fail === true) {
-      failedScenarioNames += `${
-        path.parse(test.fullFile).base
-      } - ${suite.title.replace(/#/g, '# ')}\n`;
+  if (test.suites.length) {
+    suites = test.suites[0].tests;
+    for (const suite of suites) {
+      if (suite.pass === false && suite.fail === true) {
+        failedScenarioNames += `${
+          path.parse(test.fullFile).base
+        } - ${suite.title.replace(/#/g, '# ')}\n`;
+      }
+    }
+  } else if (test.tests.length) {
+    suites = test.tests;
+    for (const suite of suites) {
+      if (suite.pass === false && suite.fail === true) {
+        failedScenarioNames += `${
+          path.parse(test.fullFile).base
+        } - ${suite.title.replace(/#/g, '# ')}\n`;
+      }
     }
   }
 }
@@ -210,6 +222,7 @@ const failedScenariosList =
 console.info(failedScenariosList);
 
 const duration = Math.ceil(msec / 1000);
+console.info('Duration - ' + duration);
 
 const branch = execSync('ls .git/refs/heads');
 
