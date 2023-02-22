@@ -9,17 +9,16 @@ export type BadgeStyle = {
   paddingX: number;
   paddingY: number;
   radius: lng.Tools.CornerRadius;
-  textStyle: lng.textures.TextTexture.Settings;
   textAlign: string;
+  textStyle: lng.textures.TextTexture.Settings;
 };
 
 export default class Badge extends Base {
   title?: string;
-  iconWidth?: number;
-  iconColor?: Color;
-  iconHeight?: number;
   icon?: string;
   iconAlign?: string;
+  iconHeight?: number;
+  iconWidth?: number;
   get style(): BadgeStyle;
   set style(v: StylePartial<BadgeStyle>);
 
