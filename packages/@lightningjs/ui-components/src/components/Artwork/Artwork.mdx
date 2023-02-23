@@ -1,0 +1,74 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Artwork from './index.js';
+
+# Artwork
+
+Artwork has been architected to be the easiest way to use images in your lightning application.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Artwork/Artwork.js
+
+## Usage
+
+Built to be flexible and resilient you can easily add blur, fallback image, multiple gradient types, logo images, and more with the simple to use api listed below.
+
+```js
+import { Artwork } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Artwork: {
+        type: Artwork
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="foundations-artwork--artwork" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name                    | type     | required | default                              | description                                                                                                                                                                                                                                                             |
+| ----------------------- | -------- | -------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| blur                    | boolean  | false    | false                                | When true, a blur will be applied to the image this will default to true if circleImage is true                                                                                                                                                                         |
+| fill                    | boolean  | false    | false                                | When true, a fill will be applied over the image this will default to false                                                                                                                                                                                             |
+| fallbackSrc             | string   | false    | undefined                            | Sets the fallback image that will be shown in if the src request fails                                                                                                                                                                                                  |
+| foregroundH             | number   | false    | undefined                            | Height value for the foregroundSrc if defined                                                                                                                                                                                                                           |
+| foregroundSrc           | string   | false    | undefined                            | Image location for item that should be placed on top of the artwork above all other layers                                                                                                                                                                              |
+| foregroundW             | number   | false    | undefined                            | Width value for the foregroundSrc if defined                                                                                                                                                                                                                            |
+| gradient                | boolean  | false    | false                                | When true, a gradient will be added over all other elements                                                                                                                                                                                                             |
+| format                  | string   | false    | 'default'                            | Selction of image display modes. 'default', 'circle', 'square', 'contain'                                                                                                                                                                                               |
+| src                     | string   | true     | undefined                            | Which image will be displayed                                                                                                                                                                                                                                           |
+| shouldScale             | boolean  | false    | false                                | When true, scale will be applied over the image and this will default to false                                                                                                                                                                                          |
+| srcCallback             | function | false    | undefined                            | optional callback that can be used to generate custom strings to request an image. The callback will be passed an object containing the following parameters: aspectRatio, src, w, h. Be default aspect ratio will match the closest value from srcCallbackAspectRatios |
+| srcCallbackAspectRatios | array    | false    | ['16x9', '3x4', '4x3', '2x1', '1x1'] | srcCallback will recieve an aspectRatio parameter when called, this array is used to find the closest value for your use case.                                                                                                                                          |
+
+### Style Properties
+
+| name                        | type               | description                                                                      |
+| --------------------------- | ------------------ | -------------------------------------------------------------------------------- |
+| animationBlurEntrance       | object             | animation values applied to blur on entrance                                     |
+| animationBlurExit           | object             | animation values applied to blur on exit                                         |
+| animationComponentEntrance  | object             | animation values applied to entire component after image has loaded              |
+| animationGradientEntrance   | object             | animation values applied to gradient on entrance                                 |
+| animationGradientExit       | object             | animation values applied to gradient on exit                                     |
+| animationImageScaleEntrance | object             | animation values applied to image scale on entrance                              |
+| animationImageScaleExit     | object             | animation values applied to image scale on exit                                  |
+| blur                        | number             | blur radius value applied when blur property is set to true                      |
+| centerImageRadius           | number             | radius applied to center square image when mode is set to square                 |
+| fallbackSrc                 | string             | default value for fallbackSrc, can be enabled at the theme level                 |
+| fillColor                   | hexidecimal number | color to be applied as an overlay to entire artwork                              |
+| gradientColor               | hexidecimal number | color to be applied as bas for mesh and default gradients                        |
+| imageScale                  | number or function | scale value will be applied when scale is set to true                            |
+| imageScalePivotX            | number             | number number between 0 and 1 to represent the pivotX point for imageScale       |
+| imageScalePivotY            | number             | number number between 0 and 1 to represent the PivotY point for imageScale       |
+| padding                     | number             | padding value used around center image when using a mode set to square or circle |
+| radius                      | number\|array      | radius to be applied to the entire component                                     |
+| zIndexSet                   | object             | specifies the offset for each layer of the component to add to the entire zIndex |

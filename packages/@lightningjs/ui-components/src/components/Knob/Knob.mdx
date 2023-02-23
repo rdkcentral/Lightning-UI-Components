@@ -1,0 +1,39 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Knob from './index.js';
+
+# Knob
+
+Knob is a circle component that can be added on to other components
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Knob/Knob.js
+
+## Usage
+
+```js
+import { Knob } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Knob: {
+        type: Knob
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="utilities-knob--knob" />
+</Canvas>
+
+## API
+
+### Style Properties
+
+| name        | type   | description       |
+| ----------- | ------ | ----------------- |
+| circleColor | string | color of the knob |
+| radius      | number | border radius     |

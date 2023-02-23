@@ -1,0 +1,37 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# withUpdates
+
+The `withUpdates` mixin can be wrapped around a parent component to have properties which call an `_update` function.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/mixins/withUpdates/index.js
+
+## Usage
+
+`withUpdates` looks for a `static get properties` which returns an array of properties to add getters and setters for.
+You can add a `_get${PropName}(value)` function to override the default return value from the getter. Likewise, you
+can add a `_set${PropName}(value)` function which returns a processed value for storing. The setter automatically calls
+`requestUpdate` which in turn calls `_update` in components to render. Additionally, a private property `_${propName}`
+is created to store the value, which can be utilized to set initial values.
+
+Important to note that you can not override properties which exist on the component, ie w or h.
+
+```js
+class Example extends withUpdates(lng.Component) {
+  static get properties() {
+    return ['title'];
+  }
+
+  _init() {
+    this._title = 'Default Title Value';
+  }
+
+  _update() {
+    this.text = {
+      text: this.title
+    };
+  }
+}
+```

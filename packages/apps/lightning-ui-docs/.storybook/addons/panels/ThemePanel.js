@@ -1,7 +1,7 @@
 import React from 'react';
 import lng from '@lightningjs/core';
 import { ColorControl, NumberControl } from '@storybook/components';
-import { utils } from '@lightningjs/ui-core';
+import { utils } from '@lightningjs/ui-components';
 import { useGlobals } from '@storybook/api';
 import { colorUpdate, getPanelsTheme, updateGlobalTheme } from '../../utils/themeUtils';
 import { Table, TableRow } from '../components';

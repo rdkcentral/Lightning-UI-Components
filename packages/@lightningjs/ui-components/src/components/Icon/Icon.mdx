@@ -1,0 +1,59 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# Icon
+
+Renders icon paths and inline svgs
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Icon/Icon.js
+
+## Usage
+
+`Icon` requires three properties, `icon`, `w` and `h`
+
+```js
+import { Icon } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Icon: {
+        type: Icon,
+        w: 50,
+        h: 50,
+        icon: 'path/to/icon.png'
+      }
+    };
+  }
+}
+```
+
+A valid `icon` value can be any path to any [common image type](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types) or an inline SVG.
+
+With an image path:
+
+<Canvas>
+  <Story id="foundations-icon--png" />
+</Canvas>
+
+With an inline svg:
+
+<Canvas>
+  <Story id="foundations-icon--svg" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name  | type    | required | default   | description                                                                                                            |
+| ----- | ------- | -------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| fixed | boolean | false    | false     | when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties |
+| icon  | string  | true     | undefined | path to image or inline SVG XML                                                                                        |
+
+### Style Properties
+
+| name  | type   | description                                   |
+| ----- | ------ | --------------------------------------------- |
+| color | string | icon color (can only be applied on png icons) |

@@ -16,7 +16,7 @@ const {
 } = require('./templates');
 
 const compDir = './packages/';
-const validDirs = [/* '@lightningjs/ui', */ '@lightningjs/ui-core'];
+const validDirs = [/* '@lightningjs/ui', */ '@lightningjs/ui-components'];
 
 const [componentDir, componentName] = process.argv.slice(2);
 

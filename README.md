@@ -7,7 +7,7 @@ In order to facilitate the development process for our theming architecture we h
 Four packages are currently maintained and released from this project.
 
 - @lightningjs/ui
-- @lightningjs/ui-core
+- @lightningjs/ui-components
 - @lightningjs/ui-extensions
 - @lightningjs/ui-test-utils
 

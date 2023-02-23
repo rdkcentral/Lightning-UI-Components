@@ -1,0 +1,108 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import {
+  DocsLink,
+  GenericType,
+  ObjectFormat
+} from 'lightning-ui-docs/.storybook/utils/docsUtils';
+
+# Row
+
+Focus management and smooth scrolling for a horizontally-oriented list of items.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Row/Row.js
+
+## Usage
+
+`Row` expects a list of `items` which will be laid out side-by-side. By default, the height of `Row`'s Item container is the same as the height of the tallest item, and the width is the width passed in, the width of the wrapping FocusManager if available, or the width of the stage by default. You can change the `w` and `h` attributes to manage `width` and `height`, respectively.
+
+```js
+import { Row } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Row: {
+        type: Row,
+        items: [
+          // list of items
+        ]
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="navigation-row--row" />
+</Canvas>
+
+### Scrolling
+
+By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width).
+
+## API
+
+### Properties
+
+| name                 | type                                                    | required | default   | description                                                                                                                                                                                                                          |
+| -------------------- | ------------------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| items                | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []        | components to list in the row                                                                                                                                                                                                        |
+| lazyUpCount          | number                                                  | false    | undefined | number of items to create on screen and new items will be created as user presses right on row. If you have a lot of items in a row and most are off screen, set this to the number of items that are displayed on screen by default |
+| lazyScroll           | boolean                                                 | false    | false     | will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false                                                                                                                                   |
+| selected             | <DocsLink id="lng.Component" />                         | true     | -         | selected item                                                                                                                                                                                                                        |
+| selectedIndex        | number                                                  | false    | 0         | index of selected item                                                                                                                                                                                                               |
+| startLazyScrollIndex | number                                                  | false    | undefined | when `lazyScroll` is `true`, index of item in `items`, and items thereafter, at which lazy scrolling should occur at (alwasy scroll functionality will take place before this index)                                                 |
+| stopLazyScrollIndex  | number                                                  | false    | undefined | when `lazyScroll` is `true`, index of item in `items`, and items preceding, at which lazy scrolling should occur (alwasy scroll functionality will take place after this index)                                                      |
+
+### Style Properties
+
+| name           | type                             | description                                 |
+| -------------- | -------------------------------- | ------------------------------------------- |
+| alwaysScroll   | boolean                          | [See Properties section above](#properties) |
+| neverScroll    | boolean                          | [See Properties section above](#properties) |
+| scrollIndex    | number                           | [See Properties section above](#properties) |
+| itemSpacing    | number                           | [See Properties section above](#properties) |
+| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render      |
+
+### Child Item Properties
+
+The `Row` component will utilize the following properties on each individual element in its `items` array:
+
+| name             | type    | required | default | description                                                                                         |
+| ---------------- | ------- | -------- | ------- | --------------------------------------------------------------------------------------------------- |
+| centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will vertically center the child |
+| extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                            |
+
+### Methods
+
+#### onScreenEffect(onScreenItems: lng.Component[]): void
+
+A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
+
+#### appendItems(items: lng.Component[]): void
+
+Adds items to the end of the child list
+
+#### appendItemsAt(items: lng.Component[], index: number): void
+
+Adds items at a specified index of the child list
+
+#### prependItems(items: lng.Component[]): void
+
+Adds items to the start of the child list
+
+#### removeItemAt(index: number): void
+
+Removes an item (by index) from the row
+
+##### Arguments
+
+| name  | type                                                    | required | default | description             |
+| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
+
+#### render(): void
+
+Called when item focus changes. Render is responsible for the scroll behavior

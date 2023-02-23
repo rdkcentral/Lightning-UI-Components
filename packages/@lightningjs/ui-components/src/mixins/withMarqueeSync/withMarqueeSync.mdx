@@ -1,0 +1,50 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# withMarqueeSync
+
+Use `withMarqueeSync` to synchronize the marquee starting point and timing across multiple TextBoxes.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/mixins/withMarqueeSync/withMarqueeSync.js
+
+## Usage
+
+Let's use an example to see how we can use `withMarqueeSync`. The `withMarqueeSync` mixin will use the array returned by `this.syncArray` to tell which TextBoxes to synchronize and apply the required logic:
+
+```js
+import { Base, TextBox, withMarqueeSync } from '@lightningjs/ui';
+
+class Basic extends withMarqueeSync(Base) {
+  static _template() {
+    return {
+      Example: {
+        Title: {
+          type: TextBox,
+          content: 'Title Text',
+          marquee: true
+        },
+        Description: {
+          type: TextBox,
+          content: 'Description text, longer than the title',
+          marquee: true
+        }
+      }
+    };
+  }
+
+  get syncArray() {
+    return [this.tag('Title'), this.tag('Description')];
+  }
+}
+```
+
+<Canvas>
+  <Story id="utilities-withmarqueesync--basic" />
+</Canvas>
+
+### Properties
+
+| name      | type  | required | default | description                                  |
+| --------- | ----- | -------- | ------- | -------------------------------------------- |
+| syncArray | array | true     | -       | the items this mixin should be synchronizing |

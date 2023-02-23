@@ -1,0 +1,112 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Badge from './index.js';
+
+# Badge
+
+This component is used to display small keywords of metadata, like video or audio quality (ie HD or CC).
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Badge/Badge.js
+
+## Usage
+
+The basic component just requires a title:
+
+```js
+import { Badge } from '@lightningjs/ui';
+import circle from 'src/assets/images/circle.svg';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        title: 'HD'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="metadata-badge--text" />
+</Canvas>
+
+Or an icon:
+
+```js
+import { Badge } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        icon: circle,
+        iconWidth: 50,
+        iconHeight: 50
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="metadata-badge--icon-png" />
+</Canvas>
+
+A title and an icon can also be used together:
+
+```js
+import { Badge } from '@lightningjs/ui';
+import lightning from 'src/assets/images/lightning.png';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Badge: {
+        type: Badge,
+        title: 'HD',
+        icon: lightning
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="metadata-badge--text-with-icon" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name      | type   | required | default   | description                                                          |
+| --------- | ------ | -------- | --------- | -------------------------------------------------------------------- |
+| title     | string | false    | undefined | text to render                                                       |
+| icon      | string | false    | undefined | path to image or inline SVG XML                                      |
+| padding   | number | false    | undefined | padding to add on the left and right between the text and background |
+| iconWidth | string | false    | undefined | icon width (required for SVG icons)                                  |
+| iconAlign | string | false    | undefined | side of the text the icon will appear on (`left` or `right`)         |
+
+### Style Properties
+
+| name            | type             | description                                                          |
+| --------------- | ---------------- | -------------------------------------------------------------------- | --------- | ----------------------------------------------------------------- |
+| backgroundColor | string           | background style properties such as shader and color                 |
+| contentSpacing  | number           | padding to add between the icon and the text                         |
+| iconColor       | string           | false                                                                | undefined | color to be applied to the icon (only works with pure white PNGs) |
+| paddingX        | number           | padding to add on the left and right between the text and background |
+| paddingY        | number           | padding to add on the top and bottom between the text and background |
+| offsetY         | number           | Used to ensure text is positioned correctly                          |
+| radius          | number \| array  | shape of component                                                   |
+| textAlign       | string           | side of the component the text will appear on (`left` or `right`)    |
+| textStyle       | string \| object | text style to apply to the title                                     |
+
+### Events
+
+#### $loadedBadge():void
+
+Fires when the contents of the badge have finished loading and the background has been appropriately sized based on the text input.

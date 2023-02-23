@@ -31,7 +31,7 @@ export function createDocumentation() {
  */
 export function getStyleFiles(themeProperty, mdFile, themeFiles) {
   // const uiPath = '../../@lightningjs/ui/src/components';
-  const uiCorePath = '../../@lightningjs/ui-core/src/components';
+  const uiCorePath = '../../@lightningjs/ui-components/src/components';
   // const uiFileOutput = fs.readdirSync(uiPath);
   const uiCoreFileOutput = fs.readdirSync(uiCorePath);
   // const uiStyleFiles = getComponentFiles(uiFileOutput, uiPath);

@@ -1,5 +1,5 @@
 import baseTheme from '@suite-themes/base-lightning-tv';
-import { utils } from '@lightningjs/ui-core';
+import { utils } from '@lightningjs/ui-components';
 import debounce from 'debounce';
 
 // Component Styles Panel

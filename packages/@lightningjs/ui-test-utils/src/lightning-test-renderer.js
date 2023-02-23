@@ -1,5 +1,5 @@
 import lng from '@lightningjs/core';
-import { updateManager, context } from '@lightningjs/ui-core';
+import { updateManager, context } from '@lightningjs/ui-components';
 import jest from 'jest-mock';
 import BaseTheme from '@suite-themes/base-lightning-tv';
 

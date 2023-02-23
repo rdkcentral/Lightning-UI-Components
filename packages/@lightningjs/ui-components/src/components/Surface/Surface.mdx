@@ -1,0 +1,41 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Surface from './index.js';
+
+# Surface
+
+Surface allows for the background of components such as listItems, cards, and tiles to change dependent on the state of the component.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Surface/Surface.js
+
+## Usage
+
+```js
+import { Surface } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Surface: {
+        type: Surface
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="foundations-surface--surface" />
+</Canvas>
+
+## API
+
+### Style Properties
+
+| name            | type          | description                               |
+| --------------- | ------------- | ----------------------------------------- |
+| animation       | object        | animation style to apply to surface scale |
+| backgroundColor | string        | color of the background                   |
+| radius          | number\|array | set rounded corner radius                 |
+| scale           | number        | percentage to scale by on focus           |

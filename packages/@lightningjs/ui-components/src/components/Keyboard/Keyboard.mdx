@@ -1,0 +1,122 @@
+import { Preview, Story } from '@storybook/addon-docs';
+
+# Keyboard
+
+Pattern created out of multiple elements to represent a keyboard.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Keyboard/Keyboard.js
+
+## Usage
+
+You can import and use the Keyboard format components (eg `KeyboardFullscreen`, `KeyboardNumbers`) to get pre-formatted and sized keyboards out of the box, or you can pass a custom `formats` object.
+The keyboard is made up of `Column` and `Row` layouts, `Key` component, and in some cases `Input` pattern.
+
+```js
+import { Keyboard } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Keyboard: {
+        type: KeyboardQwerty
+      }
+    };
+  }
+}
+```
+
+<Preview>
+  <Story id="keyboard-keyboard--basic" />
+</Preview>
+
+To create your own formats, you can pass an object of arrays to represent each format.
+The array can be flat or two dimensional. If the keyboard is passed other params like `columnCount` or `rowCount`, both will auto layout the keyboard.
+The variables in the array can be a single string or an object that defines the same properties as a `Button`.
+All of the following examples will yield the same result.
+
+```js
+      Keyboard: {
+        ...
+        formats: {
+          qwerty: [
+            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+            ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';'],
+            ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+          ]
+        }
+      }
+```
+
+```js
+      Keyboard: {
+        ...
+        columnCount: 10,
+        formats: {
+          qwerty: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';','z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        }
+      }
+```
+
+```js
+      Keyboard: {
+        ...
+        rowCount: 3,
+        formats: {
+          qwerty: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';','z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        }
+      }
+```
+
+## API
+
+### Properties
+
+| name          | type          | required | default   | description                                                                                                                                   |
+| ------------- | ------------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| columnCount   | number        | false    | 11        | number of columns across the keyboard if passing a flat array                                                                                 |
+| centeKeyboard | bool          | false    | false     | center the keyboard within it's set width (must set the w property of Keyboard)                                                               |
+| centerKeys    | bool          | false    | false     | center the keys within it's set width (must set the w property of Keyboard)                                                                   |
+| defaultFormat | string        | true     | undefined | default format of the keyboard to be shown. should be a key of `formats`.                                                                     |
+| formats       | object        | true     | undefined | object containing arrays that represent different formats that the keyboard can be presented in. These arrays can contain strings or objects. |
+| inline        | boolean       | false    | false     | if the keyboard is an inline keyboard and can ignore row/column count requirements                                                            |
+| input         | object        | true     | undefined | object with all of the properties for [Input](?path=/story/patterns-Input--basic)                                                             |
+| keyComponent  | lng.Component | false    | Key       | component to display for each key                                                                                                             |
+| rowCount      | number        | false    | undefined | number of rows down the keyboard if passing a flat array                                                                                      |
+| rowWrap       | boolean       | false    | true      | wrap keyboard rows when navigating left and right                                                                                             |
+| title         | string        | false    | undefined | title announcement text for screen readers                                                                                                    |
+
+### Style Properties
+
+| name         | type   | description                                                                       |
+| ------------ | ------ | --------------------------------------------------------------------------------- |
+| inputStyle   | object | styles of input                                                                   |
+| inputSpacing | number | space in px between `Input` component and `Keyboard` component in `KeyboardInput` |
+| marginX      | number | space to the left and right of keyboard content; used for centering `Keyboard`    |
+| screenW      | number | width of display screen                                                           |
+| keySpacing   | number | space in px between each key                                                      |
+
+### Methods
+
+#### getSelectedKey(): { row:number, column:number }
+
+Returns an object containing the currently selected row and column of the currently focused keyboard.
+
+#### selectKeyOn(keyboard, { row:number, column:number })
+
+Takes in a keyboard format and a specified row and column and changes focus on the keyboard to that key.
+
+### Events
+
+#### $onSoftKey: { key:string, toggle:boolean }
+
+Fired when a key is Entered
+
+#### $keyboardFocused: bool
+
+Fired when keyboard is focused or unfocused. Can be listened to by an input to know if the input should be listening for softkey events
+
+### $toggleKeyboard: { key:string }
+
+Fired when defaultFormat is toggled between Dialpad and Dialpad extended

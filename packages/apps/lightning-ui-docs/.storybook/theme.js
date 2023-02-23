@@ -1,6 +1,6 @@
 import { create } from '@storybook/theming/create';
 import brand from './brand.png';
-import { version } from '@lightningjs/ui-core/package.json';
+import { version } from '@lightningjs/ui-components/package.json';
 
 export default create({
   base: 'dark',

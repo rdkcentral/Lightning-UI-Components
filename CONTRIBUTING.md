@@ -129,7 +129,7 @@ yarn install
 yarn start
 ```
 
-Running this command will start storybook which is located in packages/apps/lightning-ui-docs. All changes made in packages/@lightningjs/ui & packages/@lightningjs/ui-core will be reflected in the storybook instance at http://localhost:8000
+Running this command will start storybook which is located in packages/apps/lightning-ui-docs. All changes made in packages/@lightningjs/ui & packages/@lightningjs/ui-components will be reflected in the storybook instance at http://localhost:8000
 
 ## New component
 
@@ -149,7 +149,7 @@ If you are creating a new component, you can bootstrap the required file structu
 yarn createComponent <packageName> <componentName>
 ```
 
-- `packageName`: name of which package the component will be published to (`@lightningjs/ui` or `@lightningjs/ui-core`)
+- `packageName`: name of which package the component will be published to (`@lightningjs/ui` or `@lightningjs/ui-components`)
 - `componentName`: name of component to be added
 
 Example: add a new component, `MyComponent`, to the `@lightningjs/ui` package
@@ -281,7 +281,7 @@ To run tests manually:
 yarn test
 
 # to run in watch mode
-yarn workspace @lightningjs/ui-core test --watch
+yarn workspace @lightningjs/ui-components test --watch
 ```
 
 ## `spyOnMethods`

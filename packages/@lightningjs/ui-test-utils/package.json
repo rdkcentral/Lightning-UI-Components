@@ -17,6 +17,6 @@
     "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
-    "@lightningjs/ui-core": "workspace:^"
+    "@lightningjs/ui-components": "workspace:^"
   }
 }

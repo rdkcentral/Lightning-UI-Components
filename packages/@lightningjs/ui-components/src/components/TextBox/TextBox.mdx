@@ -1,0 +1,47 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Tile from './index.js';
+
+# TextBox
+
+General purpose TextBox component
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/TextBox/TextBox.js
+
+## Usage
+
+Set a content property with your text and specify a property style as a string.
+
+```js
+import { TextBox } from '@lightningjs/ui';
+
+TextBox: {
+  type: TextBox,
+  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  style: 'headline1',
+  w: 600,
+}
+```
+
+<Canvas>
+  <Story id="text-textbox--basic" />
+</Canvas>
+
+### Properties
+
+| name    | type    | required | default   | description                     |
+| ------- | ------- | -------- | --------- | ------------------------------- |
+| content | string  | true     | undefined | Text to be displayed in element |
+| marquee | boolean | false    | false     | Allows text to be scrollable    |
+
+TextBox also supports rendering as an InlineContent component. See [InlineContent documentation](/?path=/docs/layout-inlinecontent--basic) for table of supported properties.
+
+### Style Properties
+
+| name       | type             | description                                                                                                                                                                                                                                             |
+| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| offsetX    | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
+| offsetY    | number           | Used to ensure text is positioned correctly                                                                                                                                                                                                             |
+| textStyle  | string \| object | Default style of text to be displayed. Object should come from the current theme or contain any properties that the [Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties). |
+| typography | object           | The typography object set on the current theme. Pass the key as string to `textStyle` to use the associated text style on the typography object.                                                                                                        |

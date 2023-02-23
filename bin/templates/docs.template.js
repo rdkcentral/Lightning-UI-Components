@@ -1,4 +1,4 @@
-const urlBase = 'https://github.comcast.com/Lightning/lightning-ui/packages/@lightningjs/ui-core/src/components/';
+const urlBase = 'https://github.comcast.com/Lightning/lightning-ui/packages/@lightningjs/ui-components/src/components/';
 
 module.exports = (name, dir) => `
 import { Canvas, Story } from '@storybook/addon-docs';

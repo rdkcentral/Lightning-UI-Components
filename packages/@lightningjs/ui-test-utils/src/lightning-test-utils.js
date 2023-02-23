@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { jest } from '@jest/globals';
-import { context } from '@lightningjs/ui-core';
+import { context } from '@lightningjs/ui-components';
 import TestRenderer from './lightning-test-renderer.js';
 
 export default {

@@ -1,0 +1,81 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import MetadataBase from './index.js';
+
+# MetadataBase
+
+A component to quickly and easily lay out several pieces of content.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/MetadataBase/MetadataBase.js
+
+## Usage
+
+MetadataBase can be used with any combination of title, description, data (inline content), call-to-action (text), and/or a logo.
+
+```js
+import { MetadataBase } from '@lightningjs/ui';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
+import circle from '../../assets/images/circle.svg';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MetadataBase: {
+        type: MetadataBase,
+        w: 400,
+        h: 300,
+        title: 'Title',
+        subtitle: [
+          '94%',
+          {
+            icon: lightningbolt,
+            style: { color: getHexColor('00ff00') },
+            title: 'Green Lightning Bolt'
+          },
+          '86%',
+          {
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+            title: 'Rotten Tomatoes rating'
+          }
+        ],
+        description: 'Description',
+        logo: circle,
+        logoWidth: 32,
+        logoHeight: 32
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="metadata-metadatabase--metadata-base" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name         | type           | required             | default   | description                                  |
+| ------------ | -------------- | -------------------- | --------- | -------------------------------------------- |
+| description  | string         | false                | undefined | third line or description of the content     |
+| logo         | string         | false                | undefined | logo to display at bottom of component       |
+| logoHeight   | number         | true (if using logo) | undefined | height of logo                               |
+| logoPosition | string         | false                | 'right'   | which side to place logo (`right` or `left`) |
+| logoTitle    | string         | true (if using logo) | undefined | title of logo to use for announcer           |
+| logoWidth    | number         | true (if using logo) | undefined | width of logo                                |
+| subtitle     | inline content | false                | undefined | relevant content data in the middle          |
+| title        | string         | false                | undefined | first line or headline of the content        |
+
+### Style Properties
+
+| name                 | type             | description                                                     |
+| -------------------- | ---------------- | --------------------------------------------------------------- |
+| descriptionTextStyle | string \| object | text style for description                                      |
+| fadeWidth            | number           | width of fade applied to second line if text encroaches on logo |
+| logoHeight           | number           | height for logo                                                 |
+| logoPadding          | number           | spacing between logo and secondLine                             |
+| logoWidth            | number           | width for logo                                                  |
+| subtitleTextStyle    | string \| object | text style for subtitle                                         |
+| titleTextStyle       | string \| object | text style for title                                            |

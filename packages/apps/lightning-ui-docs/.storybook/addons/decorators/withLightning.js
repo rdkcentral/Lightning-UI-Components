@@ -1,4 +1,4 @@
-import { GridOverlay, context, utils } from '@lightningjs/ui-core';
+import { GridOverlay, context, utils } from '@lightningjs/ui-components';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;

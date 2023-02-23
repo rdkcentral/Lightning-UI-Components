@@ -2752,9 +2752,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lightningjs/ui-core@workspace:^, @lightningjs/ui-core@workspace:packages/@lightningjs/ui-core":
+"@lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
   version: 0.0.0-use.local
-  resolution: "@lightningjs/ui-core@workspace:packages/@lightningjs/ui-core"
+  resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
     "@lightningjs/ui-test-utils": "workspace:^"
@@ -2782,7 +2782,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-test-utils@workspace:packages/@lightningjs/ui-test-utils"
   dependencies:
-    "@lightningjs/ui-core": "workspace:^"
+    "@lightningjs/ui-components": "workspace:^"
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
     jest-webgl-canvas-mock: ^0.2.3
@@ -15332,7 +15332,7 @@ __metadata:
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
     "@lightningjs/core": ^2.9.0
-    "@lightningjs/ui-core": "workspace:^"
+    "@lightningjs/ui-components": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
     "@storybook/addon-docs": ^6.5.12

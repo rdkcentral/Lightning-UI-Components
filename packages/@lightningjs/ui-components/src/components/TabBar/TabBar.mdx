@@ -1,0 +1,97 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import { Tab } from './index.js';
+
+# TabBar
+
+Tab navigation between groups of content.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/TabBar/TabBar.js
+
+## Usage
+
+`TabBar` renders a row of tabs and displays the contents for each tab when it is selected. The recommended component
+to render for each tab is the [Tab](/docs/elements-tab--basic) component, however custom implementations of tab components is also supported.
+The component rendered as content for each tab is set via a `tabContent` property on each tab.
+
+```js
+import { TabBar, Tab, Row } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      TabBar: {
+        type: TabBar,
+        tabs: [
+          // tab with no tabContent
+          {
+            type: Tab,
+            title: 'Tab Item 1'
+          },
+          // set tabContent via a component
+          {
+            type: Tab,
+            title: 'Tab Item 2',
+            tabContent: {
+              type: Row,
+              items: rowItemsForTab2
+            }
+          },
+          // set tabContent via a function which returns a component
+          {
+            type: Tab,
+            title: 'Tab Item 3',
+            tabContent: () => {
+              return {
+                type: Row,
+                items: rowItemsForTab3
+              };
+            }
+          },
+          // set tabContent via an asynchronous function which returns a component
+          {
+            type: Tab,
+            title: 'Tab Item 4',
+            tabContent: () => {
+              return new Promise(resolve => {
+                resolve({
+                  type: Row,
+                  items: rowItemsForTab2
+                });
+              });
+            }
+          }
+        ]
+      }
+    };
+  }
+
+  $tabChanged(selectedTab) {
+    console.log(selectedTab.title);
+  }
+}
+```
+
+<Canvas>
+  <Story id="layout-tabbar--basic" />
+</Canvas>
+
+### Properties
+
+| name             | type                                                    | required | default | description                                                                                                                                                                                                                                                                                                                   |
+| ---------------- | ------------------------------------------------------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| alphaSelectedTab | boolean                                                 | false    | false   | when `true`, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content                                                                                                                                                                                                                      |
+| collapse         | boolean                                                 | false    | false   | when `true`, the height of the `TabBar` will only reflect the height of the `Tabs` when unfocused or no tab content is available                                                                                                                                                                                              |
+| reset            | boolean                                                 | false    | false   | when `true`, the selected tab index will be reset when the `TabBar` component is unfocused                                                                                                                                                                                                                                    |
+| tabs             | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | true     | -       | The content displayed when a tab is selected is configured via a tabContent property on each tab in the tabs array. If tabContent is undefined on a tab, nothing will be displayed when that tab is selected. TabContent accepts a component, a function which returns a component, or a promise that resolves to a component |
+| wrapSelected     | boolean                                                 | false    | false   | enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa                                                                                                                                                                                                  |
+
+\* `TabBar` also accepts all properties supported by the [Row](/docs/layout-row--basic) component. These properties will be applied to the Row which renders the Tabs
+
+### Style Properties
+
+| name             | type   | description                                  |
+| ---------------- | ------ | -------------------------------------------- |
+| tabsMarginBottom | number | vertical margin between tabs and tab content |
+| tabSpacing       | number | pixels between each tab component            |

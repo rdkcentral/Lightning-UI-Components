@@ -1,0 +1,71 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Control from './index.js';
+
+# Control
+
+`Control` is a specific type of `Button` which is used to display video controls (play/pause) that expand with text on focus.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Control/Control.js
+
+## Usage
+
+Used to convey an interactable portion of the interface, a `Control` can present text (title), an icon, a logo, or both text and an icon or logo.
+It has support for focused, unfocused, and disabled states.
+
+```js
+import { Control } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Control: {
+        type: Control,
+        title: 'Control'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="controls-control--control" />
+</Canvas>
+
+All `Control` components support two types of prefixes (Lightning components placed to the left of the title text): an icon or a logo (image/png/jpg).
+
+### Icon
+
+If the `Control` is provided an `icon`, it will be positioned to the left of the title and centered horizontally and vertically.
+
+### Logo
+
+If the `Control` is provided a logo/image, the radius of the image reflects the radius of the Surface component.
+That is, if the corner radius of the Surface is 0 then the corner radius of the image is also 0.
+
+### Collapsed Flag
+
+Optional flag for the `Control` element to collapse (hide the title) when `Control` is not in focused mode.
+
+## API
+
+### Properties
+
+`Control` has the same properties as the ones listed in [Button](?path=/docs/lightning/ui-core-button--button) in addition to a couple listed below:
+
+| name           | type    | required | default   | description                                                                          |
+| -------------- | ------- | -------- | --------- | ------------------------------------------------------------------------------------ |
+| icon           | string  | false    | undefined | URL for the icon asset                                                               |
+| logo           | string  | false    | undefined | URL for the image asset                                                              |
+| shouldCollapse | boolean | false    | false     | flag that if `true`, hides the title when `Control` is in unfocused or disabled mode |
+
+### Style Properties
+
+`Control` contains the same style properties as [Button](?path=/docs/elements-button--basic) in additional to a couple other style properties listed below:
+
+| name      | type   | description                         |
+| --------- | ------ | ----------------------------------- |
+| iconStyle | object | custom styling for the icon element |
+| logoStyle | object | custom styling for the logo element |
+| radius    | number | border radius of the Control        |
