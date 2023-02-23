@@ -1,6 +1,6 @@
 # Branching Strategy
 
-This file defines the branching strategy used by the 'lightning-ui' repo.
+This file defines the branching strategy used by the 'lightning-ui-components' repo.
 
 ## Branches
 
@@ -8,7 +8,7 @@ This file defines the branching strategy used by the 'lightning-ui' repo.
   - our "source of truth" branch
   - new branches are checked out off and PR'd against it
   - when a PR is merged the pipeline will publish a prerelease package
-- `release` 
+- `release`
   - tracks our latest stable release
   - publishes a new package when changes are pushed to this branch
 - `feature`/`fix`/`chore`/`test`
@@ -20,4 +20,4 @@ All development should be done in feature branches (named with the appropriate p
 
 **Why don't we have a `main` branch?**
 
-It feels like unnecessary extra work to worry about merging things back and into `main` after publishing to `release` when really, `develop` is our source of truth and `release` tracks our code out in the wild. `develop` could be called `main`, however we decided to "call it what it is" and felt `develop` more accurately reflects the purpose of this branch. 
+It feels like unnecessary extra work to worry about merging things back and into `main` after publishing to `release` when really, `develop` is our source of truth and `release` tracks our code out in the wild. `develop` could be called `main`, however we decided to "call it what it is" and felt `develop` more accurately reflects the purpose of this branch.
