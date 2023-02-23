@@ -1,0 +1,95 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Tile from '.';
+
+# Tile
+
+A flexible solution for displaying artwork and meta information. Used to render entity posters for browsing.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/Tile/Tile.js
+
+## Usage
+
+Allows objects to be passed in that reflect all properties available in Artwork, Badge, Checkbox, Label, ProgressBar, and Metadata. Additionally, metadataLocation and persistentMetadata are available to configure Metadata placement and visibility.
+
+```js
+import { Tile } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="tiles-cards-tile--tile" />
+</Canvas>
+
+### Metadata
+
+Tile uses MetadataTile for text formatting by default. The 'metadata' property takes an object with the same properties of MetadataTile and passes them to the MetadataTile.
+
+```js
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile,
+        metadata: {
+          title: 'Title',
+          description: 'Description'
+        }
+      }
+    };
+  }
+}
+```
+
+However, you can override which Metadata component is used by adding a 'type' to the 'metadata' object and then using that component's properties instead.
+
+```js
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Tile: {
+        type: Tile,
+        metadata: {
+          type: MetadataCard
+          title: 'Title',
+          subtitle: 'Subtitle'
+        }
+      }
+    };
+  }
+}
+```
+
+### Properties
+
+| name               | type    | required | default   | description                                                                                                                                                                                                                   |
+| ------------------ | ------- | -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| artwork            | object  | false    | undefined | Object containing all properties supported in the [Artwork component](?path=/docs/elements-artwork--basic)                                                                                                                    |
+| badge              | object  | false    | undefined | Object containing all properties supported in the [Badge component](?path=/docs/elements-badge--basic)                                                                                                                        |
+| checkbox           | object  | false    | undefined | Object containing all properties supported in the [Checkbox component](?path=/docs/elements-checkbox--basic)                                                                                                                  |
+| label              | object  | false    | undefined | Object containing all properties supported in the [Label component](?path=/docs/elements-label--basic)                                                                                                                        |
+| metadata           | object  | false    | undefined | Object containing all properties supported in the [MetadataTile component](?path=/docs/elements-metadatatile--basic)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties |
+| metadataLocation   | string  | false    | 'bottom'  | Controls where there metadata is displayed in relation to the Tile. Available values are 'bottom' and 'inset'                                                                                                                 |
+| persistentMetadata | boolean | false    | false     | Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus                                                                                                                       |
+| progressBar        | object  | false    | undefined | Object containing all properties supported in the [ProgressBar component](?path=/docs/elements-progressbar--basic)                                                                                                            |
+
+### Style Properties
+
+| name              | type          | description                                                                        |
+| ----------------- | ------------- | ---------------------------------------------------------------------------------- |
+| animationEntrance | object        | Animation values applied on entrance                                               |
+| animationExit     | object        | Animation values applied on exit                                                   |
+| paddingX          | number        | Padding applied to the inside of the left and right of component                   |
+| paddingY          | number        | Padding applied to the inside of the top and bottom of component                   |
+| paddingYProgress  | number        | Padding applied between the bottom of the component and bottom of the progress bar |
+| radius            | number\|array | Outer radius of component                                                          |

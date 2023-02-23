@@ -1,5 +1,5 @@
 import baseTheme from '@suite-themes/base-lightning-tv';
-import { utils } from '@lightning/ui-core';
+import { utils } from '@lightningjs/ui-core';
 import debounce from 'debounce';
 
 // Component Styles Panel
@@ -68,7 +68,7 @@ const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
       updateGlobals
     );
   }, 500);
-  
+
   // Theme Panel
   export function colorUpdate() {
     debouncedColorUpdate(...arguments);

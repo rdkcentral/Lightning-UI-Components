@@ -1,4 +1,4 @@
-import { context } from '@lightning/ui-core';
+import { context } from '@lightningjs/ui-core';
 
 // creates an array of extensions
 // added to the theme by setTheme in themeSelect

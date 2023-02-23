@@ -1,0 +1,97 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# withSelections
+
+The `withSelections` mixin can be wrapped around a parent component that holds a list of components with a "selected" state where only one child component may have `isSelected=true` at a time.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/mixins/withSelections/index.js
+
+## Usage
+
+Out of the box, `withSelections` adds properties and methods to the wrapped parent component that allows it to manage the "selected" status of a direct list of components. All of the method and property names are customizable. In order to ensure that `withSelections` work correctly, we need to understand what this mixin **requires** and what **additions** it brings to the base class.
+
+### Required properties
+
+Let's look at a pseudo-code of the below example:
+
+```js
+class UnderlineButton extends Button {
+  set isSelected(isSelected) {
+    // if isSelected is true render a line through the button
+    // else do not render a line through the button
+  }
+}
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Items: {
+        type: withSelections(Row),
+        items: [
+          { type: UnderlineButton, title: 'Left' },
+          { type: UnderlineButton, title: 'Center' },
+          { type: UnderlineButton, title: 'Right' }
+        ]
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="utilities-withselections--with-selections" />
+</Canvas>
+
+Take a look at the preview above. The row of modified [Buttons](?path=/docs/controls-button--button) has navigation managed by the [Row](?path=/docs/navigation-row--row) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/controls-button--button). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
+
+In this example, `withSelections` is expecting the `Row` component to have a property called `items` which contains components that can handle an `isSelected` property. Fortunately, this describes the `Row` and `UnderlineButton` components perfectly! If your components are working with different property names, they can be customized with the `options` property. See the [Customization](#customization) section for options.
+
+### Added properties and methods
+
+Now that it is wrapped with `withSelections`, the `Row` component has access to a few new properties and methods. The `currentSelected` and `currentSelectedIndex` properties point to the child component that is _currently selected_ and the index of that component in the `items` array.
+
+```js
+// ex. rendering text of the currently selected item's title
+_firstEnable() {
+  const selectedItem = this.tag('Items').currentSelected;
+  this.tag('Title').text.text = 'Selected: ' + selectedItem.title;
+}
+```
+
+The core of the management functionality lives in the added `setSelected` method, which will set the `isSelected` value on the given component, then fire the `$onSelect` event via [fireAncestors](https://lightningjs.io/docs/#/lightning-core-reference/Communication/FireAncestors?id=fire-ancestors).
+A `_captureKey` method is also added, which calls `setSelected` in response to an `Enter` key event by default. All of these values can be customized; see the [Customization](#customization) section for options.
+
+```js
+// this will be called after setting the isSelected property on an item
+$onSelect() {/* respond to changes to the selected component */}
+```
+
+Lastly, a `fireAncestors` handler is added, in case you need to programmatically trigger the `setSelected` method via a child component.
+By default the method that handles this is named `$setSelected`, but can be changed to another value by the `options`.
+
+```js
+// trigger the $setSelected method in a parent component that has been passed to withSelections
+class ChildComponent extends lng.Component {
+  _focus() {
+    super._focus();
+    this.fireAncestors('$setSelected', this, true);
+  }
+}
+```
+
+### Customization
+
+This section addresses all of the optional properties that can be passed as the second argument to `withSelections`
+
+| name                      | type               | default                | description                                                                                                                                                                                                                                 |
+| ------------------------- | ------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| captureKey                | string \| string[] | 'Enter'                | key name(s) to capture in order to set the selected status of the currently focused child component                                                                                                                                         |
+| defaultIndex              | number             | 0                      | the index of the component that should be `selected` on load.                                                                                                                                                                               |
+| eventName                 | string             | 'onSelect'             | name of the event fired via `fireAncestors` by the wrapped component when a `selected` property is changed. **NOTE**: The event fired will prepend a "$" to the event name.                                                                 |
+| keys.currentSelected      | string             | 'currentSelected'      | name of the property applied to the wrapped component that refers to the **current selected component**                                                                                                                                     |
+| keys.currentSelectedIndex | string             | 'currentSelectedIndex' | name of the property applied to the wrapped component that refers to the **index of the current selected component**                                                                                                                        |
+| keys.isSelected           | string             | 'isSelected'           | name of the property applied to the child components in `items`                                                                                                                                                                             |
+| keys.items                | string             | 'items'                | name of the property applied to the wrapped component that refers to the **list of managed child components**                                                                                                                               |
+| keys.setSelected          | string             | 'setSelected'          | name of the method applied to the wrapped component that manages `isSelected` values for child components in `items`. **NOTE**: Lightning has a `select` method on it's `Element` class, so avoid setting `keys.setSelected` to `'select'`. |

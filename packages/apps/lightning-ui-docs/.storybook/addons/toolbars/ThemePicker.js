@@ -3,7 +3,7 @@ import { TabButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import { THEMEPICKER_ID, THEMES } from '../constants';
 import { useGlobals } from '@storybook/api';
 import React, { useState, useEffect } from 'react';
-import { utils } from '@lightning/ui-core';
+import { utils } from '@lightningjs/ui-core';
 
 export default () => {
   const [{ LUITheme }, updateGlobals] = useGlobals();

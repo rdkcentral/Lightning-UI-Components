@@ -1,0 +1,69 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Key from './index.js';
+
+# Key
+
+An extension of the Button component that represents an individual key on a keyboard
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/Key/Key.js
+
+## Usage
+
+The Key component takes in a title or icon which can be automatically pushed to the Keyboard component's input field.
+
+```js
+import { Key } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Key: {
+        type: Key
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="keyboard-key--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name    | type     | required | default   | description                                                                                                                                                                                                     |
+| ------- | -------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| icon    | string   | false    | null      | url for icon                                                                                                                                                                                                    |
+| onEnter | function | false    | undefined | if defined, will be invoked when enter is pressed while focused on the `Key` component. When defined, the `$onSoftKey` and `$toggleKeyboard` events will not be emitted from the key (see Events section below) |
+| size    | string   | false    | sm        | width of the Key                                                                                                                                                                                                |
+| toggle  | boolean  | false    | -         | used to toggle `$toggleKeyboard`                                                                                                                                                                                |
+
+### Style Properties
+
+| name      | type             | description                                                                            |
+| --------- | ---------------- | -------------------------------------------------------------------------------------- |
+| iconW     | number           | width set to all icons                                                                 |
+| iconH     | number           | height set to all icons                                                                |
+| minWidth  | number           | used as a fallback width if no width is passed into the component and `fixed` is false |
+| paddingX  | number           | space between the button horizontal edge and the content                               |
+| sizes     | object           | used to determine the width of key, contains the properties `sm`, `md`, `lg`, `xl`     |
+| textStyle | string \| object | text style to apply to the title                                                       |
+
+### Events
+
+## $onSoftKey({ key: string, toggle: boolean })
+
+Fired when the enter key is pressed while focused on a `Key` component. An event will be emitted
+via Lightning's `fireAncestors` with an object of the `Key`'s `title` and `toggle` property values.
+If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
+`$onSoftKey` event will not be emitted.
+
+## $toggleKeyboard({ key: string, toggle: boolean })
+
+Fired when the enter key is pressed while focused on a `Key` component with its `toggle` property
+set to `true`. If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
+`$toggleKeyboard` event will not be emitted.

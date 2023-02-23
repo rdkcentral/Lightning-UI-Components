@@ -4,14 +4,14 @@ This component acts as the foundation for all the Lightning components which inj
 
 ## Source
 
-https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightning/ui-core/src/components/Base/Base.js
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/Base/Base.js
 
 ## Usage
 
 Base component is used to provide a solid starting point for component development.
 
 ```js
-import { Base } from '@lightning/ui-core';
+import { Base } from '@lightningjs/ui-core';
 
 class MynewComponent extends Base {}
 ```

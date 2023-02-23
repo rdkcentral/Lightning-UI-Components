@@ -1,8 +1,8 @@
-# Contributing to `@lightning/ui`
+# Contributing to `@lightningjs/ui`
 
 First off, thanks for taking the time to contribute!
 
-The following is a set of guidelines for contributing to `@lightning/ui`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to `@lightningjs/ui`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Table of Contents
 
@@ -36,9 +36,9 @@ The following is a set of guidelines for contributing to `@lightning/ui`. These 
 
 **Discuss on Slack**
 
-- <a href="https://slack.com/app_redirect?team=T024VU91V&channel=C030K2PPQAY" target="_blank">@lightning/ui version 5 (with theming) support channel</a>
+- <a href="https://slack.com/app_redirect?team=T024VU91V&channel=C030K2PPQAY" target="_blank">@lightningjs/ui version 5 (with theming) support channel</a>
 
-- <a href="https://cim.slack.com/archives/C016PQ0G4HY"> @lightning/ui version 4 (without theming) support channel </a>
+- <a href="https://cim.slack.com/archives/C016PQ0G4HY"> @lightningjs/ui version 4 (without theming) support channel </a>
 
 - <a href="https://slack.com/app_redirect?team=T024VU91V&channel=CLGQ2MFU4" target="_blank">General Lightning support channel</a>
 
@@ -46,7 +46,7 @@ The following is a set of guidelines for contributing to `@lightning/ui`. These 
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for `@lightning/ui`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
+This section guides you through submitting a bug report for `@lightningjs/ui`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
 When you are creating a bug report please check the version of LUI that you are using. Include as many details as possible, and post either as an issue [here](https://github.comcast.com/Lightning/lightning-ui/issues) on GitHub, or to the appropriate Slack channel. If you are using version 4, please post to [lightning-ui-support-4-0](https://cim.slack.com/archives/C016PQ0G4HY), and if you are using version 5, please post to [lightning-ui-support-5-0](https://cim.slack.com/archives/C030K2PPQAY).
 
@@ -64,7 +64,7 @@ Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for `@lightning/ui`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
+This section guides you through submitting an enhancement suggestion for `@lightningjs/ui`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -80,12 +80,12 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 - **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 - **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) on Linux.
-- **Explain why this enhancement would be useful** to most `@lightning/ui` users.
+- **Explain why this enhancement would be useful** to most `@lightningjs/ui` users.
 - **Include any additional information** that might be helpful
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to `@lightning/ui`? You can start by looking through these `beginner` and `help-wanted` issues:
+Unsure where to begin contributing to `@lightningjs/ui`? You can start by looking through these `beginner` and `help-wanted` issues:
 
 - [Beginner issues][beginner] \- issues which should only require a few lines of code, and a test or two.
 - [Help wanted issues][help-wanted] \- issues which should be a bit more involved than `beginner` issues.
@@ -129,7 +129,7 @@ yarn install
 yarn start
 ```
 
-Running this command will start storybook which is located in packages/apps/lightning-ui-docs. All changes made in packages/@lightning/ui & packages/@lightning/ui-core will be reflected in the storybook instance at http://localhost:8000
+Running this command will start storybook which is located in packages/apps/lightning-ui-docs. All changes made in packages/@lightningjs/ui & packages/@lightningjs/ui-core will be reflected in the storybook instance at http://localhost:8000
 
 ## New component
 
@@ -149,13 +149,13 @@ If you are creating a new component, you can bootstrap the required file structu
 yarn createComponent <packageName> <componentName>
 ```
 
-- `packageName`: name of which package the component will be published to (`@lightning/ui` or `@lightning/ui-core`)
+- `packageName`: name of which package the component will be published to (`@lightningjs/ui` or `@lightningjs/ui-core`)
 - `componentName`: name of component to be added
 
-Example: add a new component, `MyComponent`, to the `@lightning/ui` package
+Example: add a new component, `MyComponent`, to the `@lightningjs/ui` package
 
 ```sh
-yarn createComponent @lightning/ui MyComponent
+yarn createComponent @lightningjs/ui MyComponent
 ```
 
 This will create the following files:
@@ -180,10 +180,10 @@ This will create the following files:
 
 The process described here has several goals:
 
-- Maintain `@lightning/ui`'s quality
+- Maintain `@lightningjs/ui`'s quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible `@lightning/ui`
-- Enable a sustainable system for `@lightning/ui` maintainers to review contributions
+- Engage the community in working toward the best possible `@lightningjs/ui`
+- Enable a sustainable system for `@lightningjs/ui` maintainers to review contributions
 
 Please follow these steps to have your contribution considered by the maintainers:
 
@@ -206,7 +206,7 @@ Per TypeScript standards all types should be in PascalCase, similar to our class
 
 ### Git Commit Messages
 
-**IMPORTANT**: `@lightning/ui` releases are automatically triggered on merge to the `release` branch (and possibly other release branches like `next`). The new version number is determined by [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
+**IMPORTANT**: `@lightningjs/ui` releases are automatically triggered on merge to the `release` branch (and possibly other release branches like `next`). The new version number is determined by [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
 
 This is the message template:
 
@@ -259,7 +259,7 @@ Example: `feat(Button): add key-down handler`
 
 ### JavaScript Style Guide
 
-`@lightning/ui` enforces [the Prettier style guide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
+`@lightningjs/ui` enforces [the Prettier style guide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
 
 To run the linter manually:
 
@@ -272,7 +272,7 @@ yarn lint:fix
 
 ### Test Style Guide
 
-`@lightning/ui` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
+`@lightningjs/ui` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
 
 To run tests manually:
 
@@ -281,7 +281,7 @@ To run tests manually:
 yarn test
 
 # to run in watch mode
-yarn workspace @lightning/ui-core test --watch
+yarn workspace @lightningjs/ui-core test --watch
 ```
 
 ## `spyOnMethods`
@@ -457,7 +457,7 @@ Implementation description here
 
 // example implementation
 import lng from '@lightningjs/core';
-import { MyComponent } from '@lightning/ui';
+import { MyComponent } from '@lightningjs/ui';
 
 class Example extends lng.Component {
   static _template() {

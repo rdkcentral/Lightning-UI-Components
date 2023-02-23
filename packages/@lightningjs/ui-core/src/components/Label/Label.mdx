@@ -1,0 +1,56 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Label from './index.js';
+
+# Label
+
+This component is used to convey the status of a program in Tile ex. "Live" or "On Now".
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/Label/Label.js
+
+## Usage
+
+Labels simply require a background color, a title, and a title color. The Label will automatically adjust based on the rendered width of its text.
+
+```js
+import { Label } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Label: {
+        type: Label,
+        title: 'Label',
+        style: {
+          backgroundColor: '#f6a50a',
+          titleColor: '#ffffff'
+        }
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="metadata-label--label" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name  | type   | required | default   | description              |
+| ----- | ------ | -------- | --------- | ------------------------ |
+| title | string | true     | undefined | text to display in label |
+
+### Style Properties
+
+| name            | type             | description                                      |
+| --------------- | ---------------- | ------------------------------------------------ |
+| backgroundColor | string           | color of the label's background                  |
+| paddingX        | number           | padding between left and right of text and label |
+| paddingY        | number           | padding between top and bottom of text and label |
+| offsetY         | number           | Used to ensure text is positioned correctly      |
+| radius          | number \| array  | size of the corner radius                        |
+| textStyle       | string \| object | text style for label title                       |

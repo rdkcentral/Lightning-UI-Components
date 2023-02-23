@@ -1,0 +1,176 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# withAnnouncer
+
+Extend your app with the `withAnnouncer` class, that when enabled, allows for relevant information to be voiced along the focus path of the application. On Focus Change events, the `withAnnouncer` class traverses the `_focusPath` property collecting strings or promises of strings to announce to the user. The array of information is passed to a speak function which is responsible for converting the text to speech. We include a default speak function
+which uses the [speechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), but you can replace this with your own implementation by passing a speak function as the second argument to `withAnnouncer`.
+
+Note: The speechSynth api has some known problems:
+https://stackoverflow.com/questions/39391502/js-speechsynthesis-problems-with-the-cancel-method
+https://stackoverflow.com/questions/23483990/speechsynthesis-api-onend-callback-not-working
+
+This class does its best to work around these issues, but speech synth api can randomly fail.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/mixins/withAnnouncer/index.js
+
+## Usage
+
+Extend your application with `withAnnouncer` before boot:
+
+```js
+import { withAnnouncer } from '@lightningjs/ui'
+const Base = withAnnouncer(lng.Application, window.Speech, { language: 'en-US'} )
+export default class App extends Base {
+```
+
+Set `announcerEnabled` to true in your app and optionally `debug` to true to see console tables of the output as shown below.
+
+| Index | Component    | Property   | Value                                            |
+| ----- | ------------ | ---------- | ------------------------------------------------ |
+| 0     | BrowsePage-1 | Title      | Free to Me                                       |
+| 1     | Grid         | Title      |                                                  |
+| 2     | Rows         | Title      |                                                  |
+| 3     | Row          | Title      | Popular Movies - Free to Me                      |
+| 4     | Items        | Title      |                                                  |
+| 5     | TileItem     | Title      | Teenage Mutant Ninja Turtles: Out of the Shadows |
+| 6     | Metadata     | Announce   | Promise                                          |
+| 7     | Metadata     | No Context |                                                  |
+| 8     | TileItem     | Context    | 1 of 5                                           |
+| 9     | Items        | No Context |                                                  |
+| 10    | Row          | No Context |                                                  |
+| 11    | Rows         | No Context |                                                  |
+| 12    | Grid         | No Context |                                                  |
+| 13    | BrowsePage-1 | Context    | PAUSE-2 Press LEFT or RIGHT to                   |
+
+The `withAnnouncer` will travel through the `_focusPath` looking for `component.announce` then `component.title` properties. After collecting those properties it reverses the `_focusPath` looking for `component.announceContext` properties.
+
+### SpeechType
+
+All of the properties may return values compatible with the following recursive type definition:
+
+```
+SpeechType = string | Array<SpeechType> | Promise<SpeechType> | () => SpeechType
+```
+
+At its simplest, you may return a string or an array of strings. Promises and functions that return SpeechType values may be used as necessary for advanced/asyncronous use cases.
+
+#### Examples
+
+```js
+  get announce() {
+    return [
+      'Despicable Me',
+      Promise.resolve([
+        ['2020', 'Rated PG'],
+        Promise.resolve('Steve Carell, Miranda Cosgrove, Kristen Wiig, Pierre Coffin'),
+        () => 'A description of the movie'
+      ])
+    ];
+  }
+
+  get announceContext() {
+    return 'Press LEFT or RIGHT to review items';
+  }
+```
+
+## Inserting a pause
+
+You may also use `PAUSE-#` to pause speech for # seconds before saying the next string.
+
+```js
+  get announceContext() {
+    return ['PAUSE-2.5', 'Hello there!'];
+  }
+```
+
+## Translating Abbreviations
+
+Abbreviations in text may be "translated" to their associated phrase via passing an abbreviation configuration object (**abbrevConfig**)
+to the options parameter with a key of `abbreviationsConfig`. A default configuration with some common abbreviations is
+exported as `defaultAbbrevConfig`.
+
+#### Generating an abbrevaiation configuration object (abbrevConfig)
+
+Pass an array of objects, each with a **pattern** and **replacer** key to the exported function `generateAbbrevConfig`.
+The fields in each object in the array passed to `generateAbbrevConfig` are as follows:
+**• pattern** - a string or RegExp pattern to match an abbreviation. RegExp patterns must not include any flags and not be wrapped with word boundries (\b).
+Within `generateAbbrevConfig` all patterns will be wrapped in word boundaries and use the RegExp global flag.
+**• replacer** - a string or RegExp replacer function to replace the matched abbreviation with.
+Below is the array used to generate `defaultAbbrevConfig`.
+
+```js
+const defaultAbbreviations = [
+  { pattern: 'TV-14', replacer: 'Rated TV-14' },
+  { pattern: 'CC', replacer: 'Closed Captions available' },
+  { pattern: 'HD', replacer: 'High Definition available' },
+  { pattern: /ENG(?!\+)/, replacer: 'English Available' },
+  { pattern: /ENG\+ES/, replacer: 'Available in English and Spanish' },
+  { pattern: 'AD', replacer: 'Audio Description available' },
+  { pattern: 'RT', replacer: 'Rotten Tomatoes' },
+  {
+    pattern: /(S)+(\d+)+(E)+(\d+)+/,
+    replacer: (match, p1, p2, p3, p4) => `Season ${p2} Episode ${p4}`
+  }
+];
+const defaultAbbrevConfig = generateAbbrevConfig(defaultAbbreviations);
+```
+
+To extend the `defaultAbbrevConfig` with custom configurations, pass `true` as the second parameter to `generateAbbrevConfig`
+
+```js
+const customAbbreviations = [{ pattern: 'PA', replacer: 'Pennsylvania' }];
+const customAbbrevConfig = generateAbbrevConfig(customAbbreviations, true);
+
+// usage with withAnnouncer
+const CustomComp = withAnnouncer(lng.Component, customSpeechImpl, {
+  abbreviationsConfig: customAbbrevConfig
+});
+```
+
+<Canvas>
+  <Story id="accessibility-withannouncer--basic" />
+</Canvas>
+
+## API
+
+### Options
+
+| name                | type    | readonly | default                                                                                                                         | description                                                                                         |
+| ------------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| voiceOutDelay       | integer | false    | time in ms to determine when voice out is read.                                                                                 |                                                                                                     |
+| language            | string  | false    | [BCP 47 Language Code](https://appmakers.dev/bcp-47-language-codes-list/) the SpeechSynthesisAPI should read out the strings in |                                                                                                     |
+| abbreviationsConfig | object  | false    | {}                                                                                                                              | configuration object generated by `generateAbbrevConfig` used to translate abbreviations into words |
+
+### Properties
+
+| name             | type    | readonly | description                                                                                                                                                                                                                                        |
+| ---------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| announcerEnabled | boolean | false    | flag to turn on or off Announcer                                                                                                                                                                                                                   |
+| announcerTimeout | number  | false    | By default the announcer only gets information about what changed between focus paths. The announcerTimeout resets the cache to announce the full focus path when the user has been inactive a certain amount of time. Default value is 5 minutes. |
+
+### Signals
+
+| name              | args           | description                                                                                                                                                                                                               |
+| ----------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $announce         |                | Performs a manual announce                                                                                                                                                                                                |
+| &nbsp;            | `announcement` | See _SpeechType_ above                                                                                                                                                                                                    |
+| &nbsp;            | `options`      | Object containing one or more boolean flags: <br/><ul><li>append - Appends announcement to the currently announcing series.</li><li>notification - Speaks out notification and then performs $announcerRefresh.</li></ul> |
+| $announcerRefresh | depth          | Performs an announce using the focusPath - depth can trim known focusPath                                                                                                                                                 |
+| $announcerCancel  | none           | Cancels current speaking                                                                                                                                                                                                  |
+
+### Hooks
+
+| name          | args  | description                               |
+| ------------- | ----- | ----------------------------------------- |
+| focusDiffHook | array | Array of elements that have changed focus |
+
+### Events
+
+These stage level events can be listened to using the syntax `this.stage.on('EVENT_NAME', callback);`
+
+| name                | args | description                                                                                                                   |
+| ------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------- |
+| announceEnded       | -    | emitted when all contents of the announce array have finished being read out                                                  |
+| announceTimoutEnded | -    | emitted after the amount of time of announded word count \* 500ms, used to account for the known speechSynth api issues above |

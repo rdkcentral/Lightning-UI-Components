@@ -1,0 +1,49 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+
+# withEditItems
+
+The `withEditItems` mixin can be wrapped around any component that is or extends a FocusManager to enable rearranging the position of items with an animation
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/mixins/withEditItems/index.js
+
+## Usage
+
+```js
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      TileRow: {
+        type: withEditItems(Row),
+        items: [
+            {
+                title: 'item-1'
+            },{
+                title: 'item-2'
+            }, {
+                ...
+            }... ]
+      }
+    };
+  }
+
+  //Some trigger, in this case a keypress handler to trigger the Tile Row's ability to swap an items position
+  _handleEnter() {
+      this.tag('TileRow').toggleEdit();
+  }
+}
+```
+
+## API
+
+### Methods
+
+#### toggleEdit(): void
+
+Called from parent of extended Row/Column to trigger the flow of editing the order of items in the item array
+
+#### \_swapItemArrayPos(): void
+
+Called each time on the update of the selectedIndex value when both editMode is true and isEditing is set to true on Enter press.
+returns the original items array with an updated order, swaping the positions of the selecte item and the next or previous item depending on the direction of the swap

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGlobals } from '@storybook/api';
 import { OptionsControl, ColorControl } from '@storybook/components';
 import { Table, TableRow, NumberRow } from '../components';
-import { utils } from '@lightning/ui-core';
+import { utils } from '@lightningjs/ui-core';
 import debounce from 'debounce';
 
 import {

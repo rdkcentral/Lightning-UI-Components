@@ -1,0 +1,61 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ListItem from '.';
+
+# ListItem
+
+Component to represent a single item within a list.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui/src/components/ListItem/ListItem.js
+
+## Usage
+
+'ListItem' extends 'Button', and therefore utilizes much of the same functionality and properties. It can display an 'Icon' or 'Checkbox' before the text, a title and/or description in the center of the content, and an 'Icon' or 'Checkbox' in the Suffix after the text.
+
+```js
+import { ListItem } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      ListItem: {
+        type: ListItem,
+        title: 'List Item',
+        description: 'Description',
+        prefix: [{ type: Icon, icon: pathToIcon }]
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="controls-listitem--list-item" />
+</Canvas>
+
+## API
+
+### Properties
+
+`ListItem` has the same properties as the ones listed in [Button](?path=/docs/elements-button--basic) in addition to a couple listed below:
+
+| name           | type    | default   | description                                                                           |
+| -------------- | ------- | --------- | ------------------------------------------------------------------------------------- |
+| description    | string  | undefined | description text                                                                      |
+| prefixLogo     | string  | undefined | Logo to be placed to the left of the title and description                            |
+| shouldCollapse | boolean | false     | flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode |
+| suffixLogo     | string  | undefined | Logo to be placed to the right of the title and description                           |
+
+### Style Properties
+
+| name                 | type   | description                                  |
+| -------------------- | ------ | -------------------------------------------- |
+| alpha                | number | transparency of prefix and suffix components |
+| descriptionTextStyle | object | text style to apply to the description       |
+| logoStyle            | object | custom styling for the logo element          |
+| paddingX             | number | padding on left and right sides of text      |
+| prefixH              | number | height of prefix                             |
+| suffixH              | number | height of suffix                             |
+| titlePadding         | number | padding between title and prefix             |
+| titleTextStyle       | object | text style to apply to the title             |

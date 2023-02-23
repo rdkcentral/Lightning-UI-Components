@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icons, IconButton } from '@storybook/components';
 import { convertNumToHexAlphaArray } from '../../utils/helpers';
-import { utils } from '@lightning/ui-core';
+import { utils } from '@lightningjs/ui-core';
 import { DOWNLOAD_ID } from '../constants';
 
 export default () => {

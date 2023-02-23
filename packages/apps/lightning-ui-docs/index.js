@@ -1,6 +1,6 @@
 import lng from '@lightningjs/core';
 import inspectInit from '@lightning-inspect';
-import { withAnnouncer, Speech, pool, context } from '@lightning/ui-core';
+import { withAnnouncer, Speech, pool, context } from '@lightningjs/ui-core';
 import {
   themeSelect,
   themeSelectFromMessageEvent

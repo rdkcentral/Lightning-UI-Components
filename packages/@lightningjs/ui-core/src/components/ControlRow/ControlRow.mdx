@@ -1,0 +1,104 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ControlRow from '.';
+
+# ControlRow
+
+The `ControlRow` component renders a
+[TitleRow](/docs/layout-titlerow--basic) component with optional left controls content items, and right controls
+which are rendered as row items in that order.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/ControlRow/ControlRow.js
+
+## Usage
+
+`ControlRow` accepts all [properties supported by TitleRow](/docs/layout-titlerow--basic#properties)
+as well as optional `leftControls`, `contentItems`, and `rightControls` properties.
+
+```js
+import { ControlRow } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ControlRow: {
+        type: ControlRow,
+        leftControls: [
+          // list of components to display as left controls
+        ],
+        contentItems: [
+          // list of components to display as content items
+        ],
+        rightControls: [
+          // list of components to display as right controls
+        ]
+      }
+    };
+  }
+  _getFocused() {
+    return this.tag('ControlRow');
+  }
+}
+```
+
+<Canvas>
+  <Story id="navigation-controlrow--basic" />
+</Canvas>
+
+## API
+
+### Properties
+
+**`ControlRow` is a subclass of the [`TitleRow`](/docs/layout-titlerow--basic)**,
+so allows setting all properties that are available on `TitleRow`.
+
+| name             | type          | required | default         | description                                                                                   |
+| ---------------- | ------------- | -------- | --------------- | --------------------------------------------------------------------------------------------- |
+| leftControls     | `Component[]` | false    | []              | Controls displayed at left of row of items.                                                   |
+| contentItems     | `Component[]` | false    | []              | Items displayed in row. Array of patch objects.                                               |
+| rightControls    | `Component[]` | false    | []              | Controls displayed at right of row of items.                                                  |
+| extraItemSpacing | number        | false    | theme.spacer.lg | additional space to be added between controls and content items                               |
+| lazyLoadBuffer   | number        | false    | 0               | Number of content items prior to last content items where a "loadMoreItems" signal is emitted |
+
+## Methods
+
+#### loadMoreItems
+
+By default fires a signal, `'loadMoreItems'`, when an item is selected after an index determined by lazyLoadBuffer property
+
+#### addContentItems(items: Component[])
+
+Adds items to the end of the row
+
+#### addContentItemsAt(items: Component[], index: number)
+
+Adds items at a specified index of the row
+
+#### removeContentItemAt(index: number)
+
+Removes an item at the specified index
+
+#### addLeftControls(controls: Component[] || `ComponentPatchObj<ControlSmall>[]`)
+
+Adds controls to the end of the left controls
+
+#### addLeftControlsAt(controls: Component[] || `ComponentPatchObj<ControlSmall>[]`, index: number)
+
+Adds controls at a specified index of the left controls
+
+#### removeLeftControlAt(index: number)
+
+Removes a left control at the specified index
+
+#### addRightControls(controls: Component[] || `ComponentPatchObj<ControlSmall>[]`)
+
+Adds controls to the end of the right controls
+
+#### addRightControlsAt(controls: Component[] || `ComponentPatchObj<ControlSmall>[]`, index: number)
+
+Adds controls at a specified index of the right controls
+
+#### removeRightControlAt(index: number)
+
+Removes a right control at the specified index

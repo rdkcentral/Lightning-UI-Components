@@ -16,13 +16,13 @@ const {
 } = require('./templates');
 
 const compDir = './packages/';
-const validDirs = [/* '@lightning/ui', */ '@lightning/ui-core'];
+const validDirs = [/* '@lightningjs/ui', */ '@lightningjs/ui-core'];
 
 const [componentDir, componentName] = process.argv.slice(2);
 
 if (!componentDir || !componentName) {
   throw new Error(`Missing component name or type.
-Try again with something like: \`yarn createComponent @lightning/ui MyTemplate\`
+Try again with something like: \`yarn createComponent @lightningjs/ui MyTemplate\`
   `);
 }
 

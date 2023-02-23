@@ -1,0 +1,124 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import ScrollWrapper from './index.js';
+
+# ScrollWrapper
+
+A scrollable container for text content.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/ScrollWrapper/ScrollWrapper.js
+
+## Usage
+
+`ScrollWrapper` requires both `w` and `h` to be set.
+
+```js
+import { ScrollWrapper } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ScrollWrapper: {
+        type: ScrollWrapper,
+        h: 450,
+        w: 600,
+        content: 'Text content long enough to scroll vertically'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="layout-scrollwrapper--basic" />
+</Canvas>
+
+Alternatively, an array of components and `style` keys may be provided as `content`.
+Styles provided here will override those set by the theme for it's section of text:
+
+```js
+import { ScrollWrapper } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ScrollWrapper: {
+        type: ScrollWrapper,
+        h: 450,
+        w: 600,
+        content: [
+          {
+            text: 'Text Heading',
+            style: {
+              fontStyle: 'italic',
+              alignContent: 'center'
+            }
+          },
+          {
+            text: 'Text content long enough to scroll vertically'
+          }
+        ]
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="layout-scrollwrapper--object-array" />
+</Canvas>
+
+The `h` and `w` properties will determine the viewable box for `ScrollWrapper`.
+When focused, `ScrollWrapper` will display a scroll bar to the right of the content
+and up/down scrolling will be handled.
+
+The amount of scrolling per keypress is determined via the `scrollStep` property.
+Change it to allow smaller or larger scroll steps per keypress.
+
+If the array of items contains rows/columns with different heights and/or widths set
+autoResizeWidth and autoResizeHeight to true so that the scroll bar is of the appropriate height.
+
+Additionally, `ScrollWrapper` supports `autoScroll` flag, which will auto scroll the content.
+The delay to start is set via `autoScrollDelay` and speed via `autoScrollSpeed` both in ms.
+You can also hide the scrollBar by setting `showScrollBar` to `false`.
+
+## API
+
+### Properties
+
+| name            | type          | required | default | description                                                                                                                                 |
+| --------------- | ------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| autoScroll      | boolean       | false    | false   | whether or not to auto scroll the content                                                                                                   |
+| autoScrollDelay | number        | false    | 2000    | delay, in ms, before auto scroll starts                                                                                                     |
+| autoScrollSpeed | number        | false    | 200     | time delay, in ms, before each scroll step                                                                                                  |
+| content         | string\|array | true     | -       | Content is items that are viewable in the container. It can be an array of strings or an array of lightning elements that can be patched in |
+| fadeContent     | boolean       | false    | true    | fade out content at the bottom of the ScrollWrapper                                                                                         |
+| flexDirection   | string        | false    | column  | determines the direction items are placed in flexContainer                                                                                  |
+| scrollDuration  | number        | false    | 0.2     | animation duration for the scroll                                                                                                           |
+| scrollStep      | number        | false    | 10      | how many pixels to scroll by on every up/down keypress                                                                                      |
+| shouldWrap      | boolean       | false    | false   | determines if items should wrap around ScrollContainer                                                                                      |
+| showScrollBar   | boolean       | false    | true    | show the scroll bar when focused                                                                                                            |
+
+### Style Properties
+
+| name              | type                             | description                                                                                                                                                                                                                                             |
+| ----------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| contentMarginLeft | number                           | spacing to the left of the scrollable content                                                                                                                                                                                                           |
+| contentMarginTop  | number                           | spacing above the scrollable content                                                                                                                                                                                                                    |
+| fadeHeight        | number                           | height of FadeOut shader displayed at bottom of scroll wrapper (when `fadeContent` property is `true`)                                                                                                                                                  |
+| scroll            | <DocsLink id="lng.Transition" /> | transition to apply when scrolling                                                                                                                                                                                                                      |
+| sliderMarginLeft  | number                           | spacing to the left of the scroll slider                                                                                                                                                                                                                |
+| textStyle         | object                           | Default style of text to be displayed. Object should come from the current theme or contain any properties that the [Lightning text texture supports](https://lightningjs.io/docs/#/lightning-core-reference/RenderEngine/Textures/Text?id=properties). |
+
+### Methods
+
+#### resetScroll(): void
+
+Resets the `y` value of both the content and the scroll bar.
+
+### Events
+
+#### $scrollChanged('endUp'|'endDown', this)
+
+Event fired via `fireAncestors`, is triggered when scroll reaches the top or bottom of the scroll boundaries.

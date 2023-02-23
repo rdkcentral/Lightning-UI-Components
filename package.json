@@ -1,5 +1,5 @@
 {
-  "name": "@lightning/monorepo",
+  "name": "@lightningjs/monorepo",
   "version": "1.0.21",
   "packageManager": "yarn@3.2.3",
   "private": true,

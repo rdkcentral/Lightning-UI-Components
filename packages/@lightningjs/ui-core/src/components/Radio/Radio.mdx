@@ -1,0 +1,59 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import Radio from './index.js';
+
+# Radio
+
+A radio has 2 states: "on" or "off". When used in a group, it should let a user select only one of the choices at a time. This can be managed with the withSelections mixin
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/Radio/Radio.js
+
+## Usage
+
+Simple component that just needs a type.
+
+```js
+import { Radio } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      Radio: {
+        type: Radio
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="utilities-radio--radio" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name    | type    | required | default | description  |
+| ------- | ------- | -------- | ------- | ------------ |
+| checked | boolean | false    | false   | toggle state |
+
+### Style Properties
+
+| name                   | type   | description                            |
+| ---------------------- | ------ | -------------------------------------- |
+| backgroundColor        | string | background color of the Radio          |
+| backgroundColorChecked | string | color of Radio background when checked |
+| knobColor              | string | color of the Radio knob                |
+| knobHeight             | number | height of knob                         |
+| knobWidth              | number | width of knob                          |
+| radius                 | number | border radius                          |
+| strokeColor            | string | color of the Radio border              |
+| strokeWidth            | number | border width                           |
+
+### Methods
+
+#### toggle(): void
+
+Toggles `checked` state and updates UI accordingly

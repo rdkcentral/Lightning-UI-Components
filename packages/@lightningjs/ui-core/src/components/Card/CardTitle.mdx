@@ -1,0 +1,52 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+import CardTitle from './CardTitle.js';
+
+# CardTitle
+
+Component shows title and description within a card.
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui/src/components/Card/CardTitle.js
+
+## Usage
+
+`CardTitle` can display both a title and a description if a title and description are passed in.
+`CardTitle` extends [Card](?path=/docs/patterns-card--base)
+
+```js
+import { CardTitle } from '@lightningjs/ui';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      Card: {
+        type: CardTitle,
+        title: 'CardTitle',
+        description: 'Description for the Card Title',
+        details: 'Details'
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="tiles-cards-cardtitle--card-title" />
+</Canvas>
+
+## API
+
+### Properties
+
+| name        | type   | required | default   | description |
+| ----------- | ------ | -------- | --------- | ----------- |
+| description | string | false    | undefined | description |
+| details     | string | false    | undefined | details     |
+
+### Style Properties
+
+| name                      | type            | description                        |
+| ------------------------- | --------------- | ---------------------------------- |
+| descriptionTextProperties | string \|object | text style of the description text |
+| detailsTextProperties     | string \|object | text style of the details text     |

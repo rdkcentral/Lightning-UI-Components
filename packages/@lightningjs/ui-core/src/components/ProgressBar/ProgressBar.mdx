@@ -1,0 +1,54 @@
+import { Canvas, Story } from '@storybook/addon-docs';
+// uncomment the line below and edit the path to point to your component
+// import * as stories from './ProgressBar.stories';
+
+# ProgressBar
+
+Component that shows current progress in a range
+
+## Source
+
+https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-core/src/components/ProgressBar/ProgressBar.js
+
+## Usage
+
+`ProgressBar` can display `progress` as a perctange of the total `w`:
+
+```js
+import { ProgressBar } from '@lightningjs/ui';
+
+class Example extends lng.Component {
+  static _template() {
+    return {
+      ProgressBar: {
+        type: ProgressBar,
+        w: 410,
+        progress: 0.5
+      }
+    };
+  }
+}
+```
+
+<Canvas>
+  <Story id="utilities-progressbar--progress-bar" />
+</Canvas>
+
+The default progress bar width is 410.
+
+## API
+
+### Properties
+
+| name     | type   | required | default | description                                    |
+| -------- | ------ | -------- | ------- | ---------------------------------------------- |
+| progress | number | false    | 0       | percentage of the current progress from 0 to 1 |
+
+### Style Properties
+
+| name          | type           | description                                                      |
+| ------------- | -------------- | ---------------------------------------------------------------- |
+| animation     | object         | sets the properties to use on the animation of a progress change |
+| barColor      | number\|string | color of the background "bar" color                              |
+| progressColor | number\|string | color of the foreground "progress"                               |
+| radius        | number\|array  | radius to apply to the bar and progress corners                  |
