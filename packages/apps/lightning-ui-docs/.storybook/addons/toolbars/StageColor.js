@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useGlobals } from '@storybook/api';
 import { Icons, IconButton } from '@storybook/components';
-import { STAGECOLOR_ID } from '../../constants';
+import { STAGECOLOR_ID } from '../constants';
 
 export default () => {
   const [{ stageColor }, updateGlobals] = useGlobals();
