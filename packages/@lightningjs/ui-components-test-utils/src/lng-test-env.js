@@ -30,17 +30,30 @@ export default class LightningUIEnvironment extends JSDOMEnvironment {
             // console.log(
             //   typeof this.onload === 'function' && !this.src.endsWith('Error')
             // );
+            //console.log('this.src', this.src);
             if (
+              typeof this.onerror === 'function' &&
+              this.src === 'brokenImage'
+            ) {
+              this.onerror();
+              // this.cancel();
+            } else if (
               typeof this.onload === 'function' &&
               !this.src.endsWith('Error')
             ) {
               this.onload();
-            } else if (
-              typeof this.onerror === 'function' &&
-              (this.src.endsWith('Error') || this.src === 'brokenImage')
-            ) {
-              this.onerror();
             }
+            // if (
+            //   typeof this.onload === 'function' &&
+            //   !this.src.endsWith('Error')
+            // ) {
+            //   this.onload();
+            // } else if (
+            //   typeof this.onerror === 'function' &&
+            //   (this.src.endsWith('Error') || this.src === 'brokenImage')
+            // ) {
+            //   this.onerror();
+            // }
           }
         }, 500);
       }
