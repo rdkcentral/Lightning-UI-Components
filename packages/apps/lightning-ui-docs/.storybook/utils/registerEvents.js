@@ -1,29 +1,8 @@
 import { context } from '@lightning/ui-core';
-import xfinity from '@suite-themes/xfinity-lightning-tv';
-import rogers from '@suite-themes/rogers-lightning-tv';
-import sky from '@suite-themes/sky-lightning-tv';
-import xfinityGames from '@suite-themes/xfinity-games-lightning-tv';
-import xumo from '@suite-themes/xumo-lightning-tv';
-import {
-  focusRingExtensionGenerator,
-  dropShadowExtensionGenerator
-} from '@lightning/ui-extensions';
 
 // creates an array of extensions
 // added to the theme by setTheme in themeSelect
-const extensions = [
-  {
-    targetComponent: ['Surface', 'Knob'],
-    extension: focusRingExtensionGenerator({ zOffset: -2 })
-  },
-  {
-    targetComponent: ['Surface'],
-    extension: dropShadowExtensionGenerator({
-      componentsToMask: ['Button', 'Card'],
-      zOffset: -1
-    })
-  }
-];
+// const extensions = [];
 
 export const themeSelectFromMessageEvent = event => {
   themeSelect(event.data.theme);
@@ -34,34 +13,8 @@ export const themeSelect = theme => {
   if (!theme) return;
   let targetTheme;
   switch (theme) {
-    case 'rogers':
-      targetTheme = {
-        ...rogers,
-        extensions
-      };
-      break;
-    case 'xfinity':
-      targetTheme = {
-        ...xfinity,
-        extensions
-      };
-      break;
-    case 'sky':
-      targetTheme = sky;
-
-      break;
-    case 'xfinitygames':
-      targetTheme = {
-        ...xfinityGames,
-        extensions
-      };
-      break;
-    case 'xumo':
-      targetTheme = {
-        ...xumo,
-        extensions
-      };
-      break;
+    // Insert other themes to swap to here
+    // Can also utilize the "extensions" array above to add to the theme
     default:
       targetTheme = {};
       break;
