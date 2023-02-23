@@ -1,6 +1,6 @@
 {
   "name": "@lightningjs/monorepo",
-  "version": "1.0.21",
+  "version": "0.0.0",
   "packageManager": "yarn@3.2.3",
   "private": true,
   "workspaces": [
@@ -9,10 +9,7 @@
   "scripts": {
     "start": "yarn workspace lightning-ui-docs start",
     "prepare": "husky install",
-    "kick-concourse": "git commit --no-verify --allow-empty -m 'Trigger Concourse' && git push origin",
-    "releaseCi": "yarn node ./ci/release/run",
     "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
-    "updateReleaseLog": "yarn node ./ci/release/updateReleaseLog.js",
     "lint": "yarn workspaces foreach run lint",
     "lint:fix": "yarn workspaces foreach run lint:fix",
     "test": "yarn workspaces foreach -v run test",
@@ -21,30 +18,11 @@
     "clean:dist": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp",
     "clean": "yarn clean:dist && yarn exec rm -rf node_modules && find ./packages -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "postinstall": "node ./scripts/post-install.js",
-    "createComponent": "node bin/create.js",
-    "cy:open": "cypress open",
-    "cy:open:vrt": "cypress open --env testType=vrt",
-    "cy:run": "cypress run --env testType=vrt --browser chrome",
-    "cy:info": "cypress info",
-    "cy:verify": "cypress verify",
-    "cy:tags": "cypress run --headed --browser chrome",
-    "cy:vrt": "yarn run cy:tags --env testType=vrt,TAGS=@sanity-vrt,ON_CI=true",
-    "cy:sanityVrt": "yarn run cy:tags --env testType=vrt,TAGS='@sanity or @sanity-vrt and not @skip',ON_CI=true",
-    "cy:launchAppAndRunSanityVrtTests": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityVrt'",
-    "cy:preSanityTestsExec": "rm -rf cypress/reports && rm -rf cypress/videos",
-    "cy:launchAppAndRunSanityVrtTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:parallel'",
-    "cy:parallel": "cypress-parallel -s cy:sanityVrt -t 4 -d cypress/e2e/features/sanity -m false",
-    "cy:postSanityTestsExec": "bash cypress/postSanityTests.sh",
-    "cy:sanityTemp": "yarn run cy:tags --env testType=vrt,TAGS='@sanity_temp and not @skip',ON_CI=true",
-    "cy:sanityTempParallel": "cypress-parallel -s cy:sanityTemp -t 2 -d cypress/e2e/features/sanity -m false",
-    "cy:launchAppAndRunSanityTempTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityTempParallel'",
-    "report:add:video": "node cypress/support/helpers/update-report-include-video.js"
+    "createComponent": "node bin/create.js"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^13.0.2",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "@cypress/browserify-preprocessor": "^3.0.2",
     "@rollup/plugin-babel": "^6.0.2",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-json": "^5.0.1",
@@ -56,11 +34,6 @@
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "@visual-regression-tracker/agent-cypress": "^5.5.0",
-    "chai-spies": "^1.0.0",
-    "cypress": "^10.11.0",
-    "cypress-mochawesome-reporter": "^3.2.2",
-    "cypress-parallel": "^0.10.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard-with-typescript": "^26.0.0",
@@ -85,13 +58,6 @@
     "semantic-release-slack-bot": "^3.5.3",
     "start-server-and-test": "1.14.0",
     "typescript": "^4.8.4"
-  },
-  "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": false,
-    "stepDefinitions": [
-      "cypress/e2e/step-definitions/*.{js,ts}"
-    ],
-    "filterSpecs": true
   },
   "resolutions": {
     "@semantic-release/npm@^9.0.0": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch",
