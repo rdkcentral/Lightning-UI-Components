@@ -1,21 +1,21 @@
 {
   "name": "@lightningjs/ui-components",
-  "version": "1.9.1",
+  "version": "2.0",
   "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/lightning-ui-core.min.mjs",
-      "require": "./dist/lightning-ui-core.min.cjs",
-      "types": "./dist/lightning-ui-core.d.ts"
+      "import": "./dist/lightning-ui-components.min.mjs",
+      "require": "./dist/lightning-ui-components.min.cjs",
+      "types": "./dist/lightning-ui-components.d.ts"
     },
     "./src": "./index.js"
   },
-  "main": "./dist/lightning-ui-core.min.mjs",
-  "types": "./dist/lightning-ui-core.d.ts",
+  "main": "./dist/lightning-ui-components.min.mjs",
+  "types": "./dist/lightning-ui-components.d.ts",
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
-    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-core",
+    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components",
     "lint": "eslint './src/**/*.js' && eslint . --ext .ts",
     "lint:fix": "eslint --fix './src/**/*.js' && eslint . --fix --ext .ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",

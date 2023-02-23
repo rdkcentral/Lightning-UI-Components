@@ -32,7 +32,7 @@ The following is a set of guidelines for contributing to `@lightningjs/ui`. Thes
 **Documentation**
 
 - [See the README for setup help](../?path=/story/docs-read-me--page)
-- [See Storybook for component docs with live examples](https://github.comcast.com/pages/Lightning/lightning-ui/)
+- [See Storybook for component docs with live examples](https://rdkcentral.github.io/Lightning-UI-Components/)
 
 **Discuss on Slack**
 
@@ -46,9 +46,9 @@ The following is a set of guidelines for contributing to `@lightningjs/ui`. Thes
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for `@lightningjs/ui`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
+This section guides you through submitting a bug report for `@lightningjs/ui-components`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
-When you are creating a bug report please check the version of LUI that you are using. Include as many details as possible, and post either as an issue [here](https://github.com/rdkcentral/Lightning-UI-Components/issues) on GitHub, or to the appropriate Slack channel. If you are using version 4, please post to [lightning-ui-support-4-0](https://cim.slack.com/archives/C016PQ0G4HY), and if you are using version 5, please post to [lightning-ui-support-5-0](https://cim.slack.com/archives/C030K2PPQAY).
+When you are creating a bug report please check the version of LUI that you are using. Include as many details as possible, and post either as an issue [here](https://github.com/rdkcentral/Lightning-UI-Components/issues) on GitHub.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
@@ -98,7 +98,7 @@ In your local terminal, follow these steps:
 
 ```bash
 # enter project directory
-cd lightning-ui
+cd packages/@lightningjs/ui-components
 ```
 
 ## Installation

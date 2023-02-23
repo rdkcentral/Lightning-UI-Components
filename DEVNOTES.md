@@ -107,11 +107,9 @@ Lastly, push up the rebased version of `next`. NOTE: You may need to update the 
 git push origin -f next
 ```
 
-**NOTE:** If a new Concourse job does not automatically run after, simply hit the "Trigger Build" icon in the upper right corner (Plus Sign) on the [`publish-next` job](https://ci-alpha.delivery.comcast.net/teams/lightning/pipelines/lightning-ui/jobs/publish-next/).
-
 ## Jest and Nested Dependencies
 
-We should prefer to import component dependencies directly from the dependency's directory instead of using the nearest `index.js`. Due to the way jest's runtime loads modules, importing from the `index.js` can lead to situations where nested dependencies aren't loaded in the correct order, breaking the test suite and resulting in a lot of errors that look like this:
+We prefer to import component dependencies directly from the dependency's directory instead of using the nearest `index.js`. Due to the way jest's runtime loads modules, importing from the `index.js` can lead to situations where nested dependencies aren't loaded in the correct order, breaking the test suite and resulting in a lot of errors that look like this:
 
 ```sh
  FAIL  patterns/Card/CardProgram.test.js
@@ -147,8 +145,8 @@ Take aways:
 - We are doing a lot of custom configs for panels, more of an observation than a critique.
 - For the most part the standard Storybook config files look to be in order except `preview.js`
 - We should refactor the code in `main.js`. The stories glob could probably be simplified, to keep things DRY
-- `preview.js` and `argActions` is where we should dedicate our refactoring and research time. 
-- further research needs to be done decorators and figuring out how to rewrite the custom one we have in `preview.js` 
+- `preview.js` and `argActions` is where we should dedicate our refactoring and research time.
+- further research needs to be done decorators and figuring out how to rewrite the custom one we have in `preview.js`
 
 
 | File                                     | Description                                                                                                                                                                 | Storybook Description                                                                                                                                         |
@@ -267,7 +265,7 @@ node create-users-filter.js
 
 ## Are your snapshots different from another team member/Concourse?
 
-First run the `test:updateSnapshot` scripts (`yarn test:updateSnapshot`) in case the snapshots haven't been updated. 
+First run the `test:updateSnapshot` scripts (`yarn test:updateSnapshot`) in case the snapshots haven't been updated.
 
 If the snapshots are still failing:
 
