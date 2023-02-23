@@ -7,12 +7,10 @@ import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import utils from '../../utils';
-import {
-  Icon,
-  KeyboardInput as KeyboardInputComponent,
-  KeyboardQwerty as KeyboardQwertyComponent,
-  KeyboardEmail as KeyboardEmailComponent
-} from '@lightning/ui';
+import Icon from '../Icon';
+import { default as KeyboardInputComponent } from './KeyboardInput';
+import { default as KeyboardQwertyComponent } from './KeyboardQwerty';
+import { default as KeyboardEmailComponent } from './KeyboardEmail';
 import { Keyboard } from './Keyboard.stories';
 import { Input as InputStory } from '../Input/Input.stories';
 import lightning from '../../assets/images/ic_lightning_white_32.png';

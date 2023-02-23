@@ -3,7 +3,7 @@ import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import utils from '../../utils';
-import { KeyboardFullscreen as KeyboardFullscreenComponent } from '@lightning/ui';
+import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
 import { Keyboard } from './Keyboard.stories';
 
 export default {

@@ -3,7 +3,7 @@ import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import utils from '../../utils';
-import { KeyboardNumbers as KeyboardNumbersComponent } from '@lightning/ui';
+import { default as KeyboardNumbersComponent } from './KeyboardNumbers';
 import { Keyboard } from './Keyboard.stories';
 
 export default {

@@ -4,8 +4,7 @@ import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import mdx from './Keyboard.mdx';
 import utils from '../../utils';
-
-import { Keyboard as KeyboardComponent } from '@lightning/ui';
+import { default as KeyboardComponent } from './Keyboard';
 
 export default {
   title: `${CATEGORIES[8]}/Keyboard`,

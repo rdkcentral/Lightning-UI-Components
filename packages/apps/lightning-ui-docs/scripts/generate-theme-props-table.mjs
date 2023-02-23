@@ -30,14 +30,14 @@ export function createDocumentation() {
  * @param {string} themeFiles - files that hold the possible theming values ie). theme.color.fillBrand, or theme.radius.xs
  */
 export function getStyleFiles(themeProperty, mdFile, themeFiles) {
-  const uiPath = '../../@lightning/ui/src/components';
+  // const uiPath = '../../@lightning/ui/src/components';
   const uiCorePath = '../../@lightning/ui-core/src/components';
-  const uiFileOutput = fs.readdirSync(uiPath);
+  // const uiFileOutput = fs.readdirSync(uiPath);
   const uiCoreFileOutput = fs.readdirSync(uiCorePath);
-  const uiStyleFiles = getComponentFiles(uiFileOutput, uiPath);
+  // const uiStyleFiles = getComponentFiles(uiFileOutput, uiPath);
   const uiCoreStyleFiles = getComponentFiles(uiCoreFileOutput, uiCorePath);
 
-  const styleFileArray = [...uiStyleFiles, ...uiCoreStyleFiles];
+  const styleFileArray = [/* ...uiStyleFiles, */ ...uiCoreStyleFiles];
 
   const themeValueArray = getThemeProperties(themeFiles, themeProperty);
   findThemedComponents(styleFileArray, themeValueArray, themeProperty, mdFile);

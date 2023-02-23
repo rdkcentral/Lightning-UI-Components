@@ -11,12 +11,12 @@ const {
   testTemplate,
   styleTemplate,
   typescriptDefinitionsTemplate,
-  exportTemplate, 
+  exportTemplate,
   exportTypeScriptDefinitionsTemplate,
 } = require('./templates');
 
 const compDir = './packages/';
-const validDirs = ['@lightning/ui', '@lightning/ui-core'];
+const validDirs = [/* '@lightning/ui', */ '@lightning/ui-core'];
 
 const [componentDir, componentName] = process.argv.slice(2);
 

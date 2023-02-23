@@ -3,7 +3,7 @@ import mdx from './Keyboard.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 import { context } from '../../globals';
 import utils from '../../utils';
-import { KeyboardEmail as KeyboardEmailComponent } from '@lightning/ui';
+import { default as KeyboardEmailComponent } from './KeyboardEmail';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
