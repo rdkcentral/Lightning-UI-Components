@@ -51,14 +51,14 @@ describe('Artwork', () => {
           '_showComponent',
           '_updateForegroundImage',
           '_updateFormatSquareCircle',
-          '_updateFormatContain'
+          '_updateFormatContain',
+          '_resolveLoading',
+          '_rejectLoading'
         ]
       }
     );
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork._processedImageSrc;
+    await artwork.__resolveLoadingSpyPromise;
   });
 
   afterEach(() => {
@@ -139,28 +139,19 @@ describe('Artwork', () => {
       w: 200,
       h: 100
     });
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._actualAspectRatio).toBe('2x1');
     artwork.patch({
       w: 100,
       h: 100
     });
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._actualAspectRatio).toBe('1x1');
     artwork.patch({
       w: 1920,
       h: 1080
     });
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._actualAspectRatio).toBe('16x9');
   });
 
@@ -212,27 +203,21 @@ describe('Artwork', () => {
       h: 100,
       src: 'testSrc'
     });
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
+
     let src;
     src = await artwork._processedImageSrc;
     expect(src).toBe('testSrc');
+
     artwork.srcCallback = ({ closestAspectRatio, src, w, h }) => {
       return [closestAspectRatio, src, w, h].join('-');
     };
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     src = await artwork._processedImageSrc;
     expect(src).toBe('2x1-testSrc-200-100');
+
     artwork.srcCallbackAspectRatios = ['16x9'];
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     src = await artwork._processedImageSrc;
     expect(src).toBe('16x9-testSrc-200-100');
   });
@@ -244,9 +229,7 @@ describe('Artwork', () => {
       fallbackSrc
     });
     await artwork._processedImageSrc;
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._Image.texture.src).toBe(fallbackSrc);
     artwork.src = sampleImg;
     await artwork.__updateSpyPromise;
@@ -320,7 +303,6 @@ describe('Artwork', () => {
       }
     );
     await artwork._processedImageSrc;
-    artwork._Image.emit('txLoaded');
     await artwork.__resolveLoadingSpyPromise;
     expect(artwork._resolveLoading).toHaveBeenCalledTimes(1);
   });
@@ -330,13 +312,13 @@ describe('Artwork', () => {
       {
         h: 100,
         w: 100,
-        src: sampleImg
+        src: 'brokenImageError'
       },
       {
         spyOnMethods: ['_rejectLoading']
       }
     );
-    artwork._Image.emit('txError');
+    // artwork._Image.emit('txError');
     await artwork.__rejectLoadingSpyPromise;
     expect(artwork._rejectLoading).toHaveBeenCalledTimes(1);
   });
@@ -354,7 +336,8 @@ describe('Artwork', () => {
     );
     await artwork._processedImageSrc;
     expect(artwork.alpha).toBe(0.001);
-    artwork._Image.emit('txLoaded');
+    // artwork._Image.emit('txLoaded');
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__showComponentSpyPromise;
     expect(artwork._transitions.alpha.targetValue).toBe(1); //TODO: How to use fastforward utility
   });
@@ -414,9 +397,10 @@ describe('Artwork', () => {
         spyOnMethods: ['_updateBlur']
       }
     );
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
+    // setTimeout(() => {
+    //   artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // }, 500);
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._Blur).toBeUndefined();
     artwork.blur = true;
     await artwork.__updateBlurSpyPromise;
@@ -459,15 +443,13 @@ describe('Artwork', () => {
     artwork.format = 'contain';
     await artwork.__showComponentSpyPromise;
     expect(artwork._Blur).not.toBeUndefined();
+
     artwork.patch({
       w: 640,
       h: 360,
       src: sampleImg
     });
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork._componentSrc.complete;
+    await artwork.__resolveLoadingSpyPromise;
     artwork._aspectRatioEqual = true; // Force this value to for test
     await artwork.__showComponentSpyPromise;
     fastForward([artwork._Blur]);
@@ -475,16 +457,12 @@ describe('Artwork', () => {
     expect(artwork._Blur).toBeUndefined();
     // Should remove with patch if shouldSmooth is false
     artwork.src = fallbackSrc;
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__showComponentSpyPromise;
     expect(artwork._Blur).not.toBeUndefined();
+
     artwork.src = sampleImg;
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
-    await artwork._componentSrc.complete;
+    await artwork.__resolveLoadingSpyPromise;
     artwork._aspectRatioEqual = true; // Force this value to for test
     artwork.shouldSmooth = false;
     await artwork.__showComponentSpyPromise;
@@ -503,9 +481,7 @@ describe('Artwork', () => {
       }
     );
     await artwork._processedImageSrc;
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 500);
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._updateCenterImage).toHaveBeenCalled();
   });
@@ -515,6 +491,7 @@ describe('Artwork', () => {
     artwork.format = 'circle';
     await artwork.__showComponentSpyPromise;
     expect(artwork._CenterImage).not.toBeUndefined();
+
     artwork.format = undefined;
     await artwork.__showComponentSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
@@ -554,14 +531,18 @@ describe('Artwork', () => {
       artwork._Image.texture.source.h = 200;
       _updateForegroundImage();
     });
-    artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    await artwork._processedImageSrc;
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateFormatContainSpyPromise;
     expect(1).toBe(1);
     expect(artwork._CenterImage.w).toBe(200 * (100 / 200));
     expect(artwork._CenterImage.h).toBe(artwork.h);
     artwork.w = 100;
     artwork.h = 200;
-    artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // await artwork._processedImageSrc;
+    // await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateImageSpyPromise;
     expect(artwork._CenterImage.w).toBe(100);
     expect(artwork._CenterImage.h).toBe(100 * (200 / 100));
@@ -579,13 +560,15 @@ describe('Artwork', () => {
       artwork._Image.texture.source.w = 200;
       _updateForegroundImage();
     });
-    artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage.w).toBe(400);
     expect(artwork._CenterImage.h).toBe(200);
     artwork.w = 100;
     artwork.h = 200;
-    artwork._Image.emit('txLoaded');
+    // artwork._Image.emit('txLoaded');
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage.w).toBe(100);
     expect(artwork._CenterImage.h).toBe(50);
@@ -597,19 +580,24 @@ describe('Artwork', () => {
     artwork.w = 400;
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
-    artwork._Image.emit('txLoaded');
-    await artwork.__updateSpyPromise;
+    // artwork._Image.emit('txLoaded');
+    await artwork._processedImageSrc;
+    await artwork.__resolveLoadingSpyPromise;
+    // await artwork.__updateCenterImageSpyPromise;
     expect(artwork._src).toBe(sampleImg);
     expect(artwork._CenterImage).not.toBeUndefined();
-    artwork.src = 'brokenImage';
-    setTimeout(() => {
-      artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
-    }, 0);
-    await artwork.__updateSpyPromise;
+
+    artwork.src = 'brokenImageError';
+    // setTimeout(() => {
+    //   artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
+    // }, 0);
+    await artwork.__rejectLoadingSpyPromise;
+    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 0);
+    // setTimeout(() => {
+    //   artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // }, 0);
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -620,19 +608,21 @@ describe('Artwork', () => {
     artwork.w = 400;
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
-    artwork._Image.emit('txLoaded');
-    await artwork.__updateSpyPromise;
+    // artwork._Image.emit('txLoaded');
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._src).toBe(sampleImg);
     expect(artwork._CenterImage).not.toBeUndefined();
-    artwork.src = 'brokenImage';
-    setTimeout(() => {
-      artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
-    }, 0);
-    await artwork.__updateSpyPromise;
+    artwork.src = 'brokenImageError';
+    // setTimeout(() => {
+    //   artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
+    // }, 0);
+    await artwork.__rejectLoadingSpyPromise;
+    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 0);
+    // setTimeout(() => {
+    //   artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // }, 0);
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -643,19 +633,21 @@ describe('Artwork', () => {
     artwork.w = 400;
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
-    artwork._Image.emit('txLoaded');
-    await artwork.__updateSpyPromise;
+    // artwork._Image.emit('txLoaded');
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._src).toBe(sampleImg);
     expect(artwork._CenterImage).not.toBeUndefined();
-    artwork.src = 'brokenImage';
-    setTimeout(() => {
-      artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
-    }, 0);
-    await artwork.__updateSpyPromise;
+    artwork.src = 'brokenImageError';
+    // setTimeout(() => {
+    //   artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
+    // }, 0);
+    await artwork.__rejectLoadingSpyPromise;
+    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
-    setTimeout(() => {
-      artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
-    }, 0);
+    // setTimeout(() => {
+    //   artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // }, 0);
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -730,7 +722,7 @@ describe('Artwork', () => {
       {
         h: 100,
         w: 100,
-        src: sampleImg,
+        src: 'brokenImageError',
         fallbackSrc
       },
       {
@@ -738,9 +730,11 @@ describe('Artwork', () => {
       }
     );
 
-    artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
+    // artwork._Image.emit('txError'); // Simulate image not loading with emitting txError on the image
+    await artwork.__rejectLoadingSpyPromise;
     await artwork.__handleImageLoadErrorSpyPromise;
-    artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    // artwork._Image.emit('txLoaded'); // Simulate image loading with emitting txLoaded on the image
+    await artwork.__resolveLoadingSpyPromise;
     await artwork.__showComponentSpyPromise;
     expect(artwork._Image.texture.src).toBe(fallbackSrc);
   });

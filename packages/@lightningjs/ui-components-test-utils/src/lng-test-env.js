@@ -22,6 +22,30 @@ export default class LightningUIEnvironment extends JSDOMEnvironment {
   async setup() {
     super.setup();
     // Mock up apis that are not supported in jsdom
+    this.global.Image = class {
+      constructor() {
+        setTimeout(() => {
+          //console.log(this.src);
+          if (this.src) {
+            // console.log(
+            //   typeof this.onload === 'function' && !this.src.endsWith('Error')
+            // );
+            if (
+              typeof this.onload === 'function' &&
+              !this.src.endsWith('Error')
+            ) {
+              this.onload();
+            } else if (
+              typeof this.onerror === 'function' &&
+              (this.src.endsWith('Error') || this.src === 'brokenImage')
+            ) {
+              this.onerror();
+            }
+          }
+        }, 500);
+      }
+    };
+
     this.global.window.FontFace = function () {
       this.load = () => Promise.resolve();
     };

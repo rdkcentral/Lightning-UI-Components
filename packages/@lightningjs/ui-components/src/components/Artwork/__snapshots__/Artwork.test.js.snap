@@ -33,8 +33,13 @@ exports[`Artwork renders 1`] = `
         "Image",
       ],
       "texture": {
+        "h": NaN,
+        "precision": 0,
         "src": "sampleImg",
         "type": "ImageTexture",
+        "w": NaN,
+        "x": NaN,
+        "y": NaN,
       },
       "visible": true,
       "w": 100,
