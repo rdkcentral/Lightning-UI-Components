@@ -48,7 +48,7 @@ The following is a set of guidelines for contributing to `@lightningjs/ui`. Thes
 
 This section guides you through submitting a bug report for `@lightningjs/ui`. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
-When you are creating a bug report please check the version of LUI that you are using. Include as many details as possible, and post either as an issue [here](https://github.comcast.com/Lightning/lightning-ui/issues) on GitHub, or to the appropriate Slack channel. If you are using version 4, please post to [lightning-ui-support-4-0](https://cim.slack.com/archives/C016PQ0G4HY), and if you are using version 5, please post to [lightning-ui-support-5-0](https://cim.slack.com/archives/C030K2PPQAY).
+When you are creating a bug report please check the version of LUI that you are using. Include as many details as possible, and post either as an issue [here](https://github.com/rdkcentral/Lightning-UI-Components/issues) on GitHub, or to the appropriate Slack channel. If you are using version 4, please post to [lightning-ui-support-4-0](https://cim.slack.com/archives/C016PQ0G4HY), and if you are using version 5, please post to [lightning-ui-support-5-0](https://cim.slack.com/archives/C030K2PPQAY).
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
@@ -69,7 +69,7 @@ This section guides you through submitting an enhancement suggestion for `@light
 #### Before Submitting An Enhancement Suggestion
 
 - **Check if there's already a component which provides that enhancement.**
-- **Perform a [cursory search](https://github.comcast.com/Lightning/lightning-ui/issues)** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
+- **Perform a [cursory search](https://github.com/rdkcentral/Lightning-UI-Components/issues)** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Enhancement Suggestion?
 
@@ -92,7 +92,7 @@ Unsure where to begin contributing to `@lightningjs/ui`? You can start by lookin
 
 Follow the instructions below to get started with local development:
 
-Fork and clone the project from here: https://github.comcast.com/Lightning/lightning-ui
+Fork and clone the project from here: https://github.com/rdkcentral/Lightning-UI-Components
 
 In your local terminal, follow these steps:
 

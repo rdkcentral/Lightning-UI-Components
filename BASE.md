@@ -4,7 +4,7 @@ This component acts as the foundation for all the Lightning components which inj
 
 ## Source
 
-https://github.comcast.com/Lightning/lightning-ui/blob/develop/packages/@lightningjs/ui-components/src/components/Base/Base.js
+https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lightningjs/ui-components/src/components/Base/Base.js
 
 ## Usage
 

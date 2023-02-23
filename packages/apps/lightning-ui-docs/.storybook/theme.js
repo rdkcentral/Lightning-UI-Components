@@ -7,6 +7,6 @@ export default create({
   appBg: 'rgba(33, 35, 43, 1)',
   textColor: 'white',
   brandTitle: `Lightning UI Components v${version}`,
-  brandUrl: 'https://github.comcast.com/Lightning/lightning-ui',
+  brandUrl: 'https://github.com/rdkcentral/Lightning-UI-Components',
   brandImage: brand
 });
