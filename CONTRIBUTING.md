@@ -1,8 +1,8 @@
-# Contributing to `@lightningjs/ui`
+# Contributing to `@lightningjs/ui-components`
 
 First off, thanks for taking the time to contribute!
 
-The following is a set of guidelines for contributing to `@lightningjs/ui`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to `@lightningjs/ui-components`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Table of Contents
 
@@ -36,11 +36,7 @@ The following is a set of guidelines for contributing to `@lightningjs/ui`. Thes
 
 **Discuss on Slack**
 
-- <a href="https://slack.com/app_redirect?team=T024VU91V&channel=C030K2PPQAY" target="_blank">@lightningjs/ui version 5 (with theming) support channel</a>
-
-- <a href="https://cim.slack.com/archives/C016PQ0G4HY"> @lightningjs/ui version 4 (without theming) support channel </a>
-
-- <a href="https://slack.com/app_redirect?team=T024VU91V&channel=CLGQ2MFU4" target="_blank">General Lightning support channel</a>
+<a href="https://lightning-community.slack.com/archives/C04R2HNU5V3" target="_blank">#lightning-ui-componenents-support</a>
 
 ## How Can I Contribute?
 
@@ -57,14 +53,14 @@ When you are creating a bug report please check the version of LUI that you are 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information:
 
 - Tell us the specific version of LUI you are using
-- Paste code snippets using the Slack code formatters (walls of unformatted copy and pasted text are very difficult to parse)
+- Paste code snippets using the markdown code formatters (walls of unformatted copy and pasted text are very difficult to parse)
 - Provide links to any relevant code, tickets, or GitHub issues
 - Provide screenshots/videos to illustrate the bug you are facing
 - Provide detailed reproduction steps
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for `@lightningjs/ui`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
+This section guides you through submitting an enhancement suggestion for `@lightningjs/ui-components`, including new components, completely new features, and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -80,19 +76,19 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 - **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 - **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) on Linux.
-- **Explain why this enhancement would be useful** to most `@lightningjs/ui` users.
+- **Explain why this enhancement would be useful** to most `@lightningjs/ui-components` users.
 - **Include any additional information** that might be helpful
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to `@lightningjs/ui`? You can start by looking through these `beginner` and `help-wanted` issues:
+Unsure where to begin contributing to `@lightningjs/ui-components`? You can start by looking through these `beginner` and `help-wanted` issues:
 
 - [Beginner issues][beginner] \- issues which should only require a few lines of code, and a test or two.
 - [Help wanted issues][help-wanted] \- issues which should be a bit more involved than `beginner` issues.
 
 Follow the instructions below to get started with local development:
 
-Fork and clone the project from here: https://github.com/rdkcentral/Lightning-UI-Components
+Fork and clone the project from here: https://github.com/rdkcentral/Lightning-UI-Components.
 
 In your local terminal, follow these steps:
 
@@ -149,10 +145,10 @@ If you are creating a new component, you can bootstrap the required file structu
 yarn createComponent <packageName> <componentName>
 ```
 
-- `packageName`: name of which package the component will be published to (`@lightningjs/ui` or `@lightningjs/ui-components`)
+- `packageName`: name of which package the component will be published to (`@lightningjs/ui-components` or `@lightningjs/ui-components`)
 - `componentName`: name of component to be added
 
-Example: add a new component, `MyComponent`, to the `@lightningjs/ui` package
+Example: add a new component, `MyComponent`, to the `@lightningjs/ui-components` package
 
 ```sh
 yarn createComponent @lightningjs/ui MyComponent
@@ -164,7 +160,7 @@ This will create the following files:
 /
 └── packages
     └── @lightning
-      └── ui
+      └── ui-components
         └── src
           └── components
             └── MyComponent
@@ -178,12 +174,15 @@ This will create the following files:
 
 ### Pull Requests
 
+
+NOTE: Before RDK accepts your code into the project you must sign the RDK Contributor License Agreement (CLA).
+
 The process described here has several goals:
 
-- Maintain `@lightningjs/ui`'s quality
+- Maintain `@lightningjs/ui-components`'s quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible `@lightningjs/ui`
-- Enable a sustainable system for `@lightningjs/ui` maintainers to review contributions
+- Engage the community in working toward the best possible `@lightningjs/ui-components`
+- Enable a sustainable system for `@lightningjs/ui-components` maintainers to review contributions
 
 Please follow these steps to have your contribution considered by the maintainers:
 
@@ -206,7 +205,7 @@ Per TypeScript standards all types should be in PascalCase, similar to our class
 
 ### Git Commit Messages
 
-**IMPORTANT**: `@lightningjs/ui` releases are automatically triggered on merge to the `release` branch (and possibly other release branches like `next`). The new version number is determined by [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
+**IMPORTANT**: `@lightningjs/ui-components` releases are automatically triggered on merge to the `release` branch (and possibly other release branches like `next`). The new version number is determined by [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) which are enforced through [husky](https://github.com/typicode/husky) pre-commit hooks. Read through this section carefully because it will directly impact semantic versioning.
 
 This is the message template:
 
@@ -259,7 +258,7 @@ Example: `feat(Button): add key-down handler`
 
 ### JavaScript Style Guide
 
-`@lightningjs/ui` enforces [the Prettier style guide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
+`@lightningjs/ui-components` enforces [the Prettier style guide](https://prettier.io/) through [husky](https://github.com/typicode/husky) pre-commit hooks.
 
 To run the linter manually:
 
@@ -272,7 +271,7 @@ yarn lint:fix
 
 ### Test Style Guide
 
-`@lightningjs/ui` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
+`@lightningjs/ui-components` enforces [Jest](https://jestjs.io/en/) test coverage of changes through [husky](https://github.com/typicode/husky) pre-commit hooks. 90% coverage of statements, functions and lines are required.
 
 To run tests manually:
 
