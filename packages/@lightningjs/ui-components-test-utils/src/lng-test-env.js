@@ -24,36 +24,26 @@ export default class LightningUIEnvironment extends JSDOMEnvironment {
     // Mock up apis that are not supported in jsdom
     this.global.Image = class {
       constructor() {
-        setTimeout(() => {
-          //console.log(this.src);
+        // mocking this reset function to fix the issue where tests were claiming this was not a function
+        this.removeAttribute = () => {
           if (this.src) {
-            // console.log(
-            //   typeof this.onload === 'function' && !this.src.endsWith('Error')
-            // );
-            //console.log('this.src', this.src);
+            this.src = null;
+          }
+        };
+        setTimeout(() => {
+          if (this.src) {
+            // checking for error first as that seems to be the case in WebPlatform
             if (
               typeof this.onerror === 'function' &&
-              this.src === 'brokenImage'
+              (this.src === 'brokenImage' || this.src.endsWith('Error'))
             ) {
               this.onerror();
-              // this.cancel();
             } else if (
               typeof this.onload === 'function' &&
               !this.src.endsWith('Error')
             ) {
               this.onload();
             }
-            // if (
-            //   typeof this.onload === 'function' &&
-            //   !this.src.endsWith('Error')
-            // ) {
-            //   this.onload();
-            // } else if (
-            //   typeof this.onerror === 'function' &&
-            //   (this.src.endsWith('Error') || this.src === 'brokenImage')
-            // ) {
-            //   this.onerror();
-            // }
           }
         }, 500);
       }
