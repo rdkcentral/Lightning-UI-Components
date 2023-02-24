@@ -7,7 +7,7 @@ const require = createRequire(import.meta.url);
 const colorJsonFile = require('./roles/colorRole.json');
 const typographyJsonFile = require('./roles/typographyRole.json');
 
-const base = require('@suite-themes/base-lightning-tv');
+const base = require('@lightningjs/ui-base-theme');
 const { radius, typography, color } = base;
 
 const folderPath = 'scripts/themePropertyTables';

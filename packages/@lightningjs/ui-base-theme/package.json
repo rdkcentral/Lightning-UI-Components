@@ -1,0 +1,9 @@
+{
+  "name": "@lightningjs/ui-base-theme",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "theme.js",
+  "files": [
+    "*.js"
+  ]
+}

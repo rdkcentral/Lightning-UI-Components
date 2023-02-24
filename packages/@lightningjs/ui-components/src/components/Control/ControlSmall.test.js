@@ -2,7 +2,7 @@ import ControlSmall from './ControlSmall';
 import { makeCreateComponent } from '@lightningjs/ui-test-utils';
 
 import { base } from './ControlSmall.styles.js';
-import baseTheme from '@suite-themes/base-lightning-tv';
+import baseTheme from '@lightningjs/ui-base-theme';
 
 const createControlSmall = makeCreateComponent(ControlSmall);
 

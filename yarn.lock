@@ -2569,14 +2569,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lightningjs/ui-base-theme@workspace:^, @lightningjs/ui-base-theme@workspace:packages/@lightningjs/ui-base-theme":
+  version: 0.0.0-use.local
+  resolution: "@lightningjs/ui-base-theme@workspace:packages/@lightningjs/ui-base-theme"
+  languageName: unknown
+  linkType: soft
+
 "@lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
+    "@lightningjs/ui-base-theme": "workspace:^"
     "@lightningjs/ui-test-utils": "workspace:^"
     "@mdx-js/react": ^1.6.22
-    "@suite-themes/base-lightning-tv": ^1.10.0
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
     debounce: ^1.2.1
@@ -2599,6 +2605,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-test-utils@workspace:packages/@lightningjs/ui-test-utils"
   dependencies:
+    "@lightningjs/ui-base-theme": "workspace:^"
     "@lightningjs/ui-components": "workspace:^"
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
@@ -4596,24 +4603,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: bfebcf4d56dc5fd6024eaa08fe50aecc3c348670b7c0ec6b467680d64d525421580b9c98839bcaf1e2a9e69b78478a21c9943a9a392b49a0405b4784038b2eba
-  languageName: node
-  linkType: hard
-
-"@suite-themes/base-lightning-tv@npm:^1.10.0":
-  version: 1.10.1
-  resolution: "@suite-themes/base-lightning-tv@npm:1.10.1::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Fbase-lightning-tv%2F-%2F%40suite-themes%2Fbase-lightning-tv-1.10.1.tgz"
-  dependencies:
-    "@suite-themes/utils": ^1.3.0
-  checksum: 33a011180cffc01c0f2f43e482faed2611a1c72aa55ea9b54cf470ab3bc1efd6e34010d5db43c874fa4bddc0eb6d7e2fef13c4b336ed2edf75df22f80ad76679
-  languageName: node
-  linkType: hard
-
-"@suite-themes/utils@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@suite-themes/utils@npm:1.3.0::__archiveUrl=https%3A%2F%2Fartifactory.comcast.com%3A443%2Fartifactory%2Fapi%2Fnpm%2Fxds-npm%2F%40suite-themes%2Futils%2F-%2F%40suite-themes%2Futils-1.3.0.tgz"
-  dependencies:
-    chroma-js: ^2.4.2
-  checksum: 92d4cbe12961cc0dc822f665d18e70716ddfd32e98a55097b91791dace03d9b5d4d9f62bfb8c4fd380bef8ae12bc338818d57f45404fded9f32e21875a7ea7a0
   languageName: node
   linkType: hard
 
@@ -13971,6 +13960,7 @@ __metadata:
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
     "@lightningjs/core": ^2.9.0
+    "@lightningjs/ui-base-theme": "workspace:^"
     "@lightningjs/ui-components": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
@@ -13984,7 +13974,6 @@ __metadata:
     "@storybook/manager-webpack4": ^6.5.12
     "@storybook/manager-webpack5": ^6.5.12
     "@storybook/testing-library": ^0.0.13
-    "@suite-themes/base-lightning-tv": ^1.10.0
     "@yarnpkg/pnpify": ^4.0.0-rc.21
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5

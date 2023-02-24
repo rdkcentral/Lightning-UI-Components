@@ -4,7 +4,7 @@ import {
   getHexColor,
   getValidColor
 } from '../../utils/index.js';
-import baseTheme from '@suite-themes/base-lightning-tv';
+import baseTheme from '@lightningjs/ui-base-theme';
 import logger from './logger.js';
 import events from './events.js';
 import { fontLoader, cleanupFonts } from './fonts.js';

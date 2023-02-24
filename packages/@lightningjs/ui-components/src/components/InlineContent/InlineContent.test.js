@@ -2,7 +2,7 @@ import { makeCreateComponent, nextTick } from '@lightningjs/ui-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
-import baseTheme from '@suite-themes/base-lightning-tv';
+import baseTheme from '@lightningjs/ui-base-theme';
 import { context } from '../../globals/index.js';
 import { jest } from '@jest/globals';
 

@@ -1,4 +1,4 @@
-import baseTheme from '@suite-themes/base-lightning-tv';
+import baseTheme from '@lightningjs/ui-base-theme';
 import { utils } from '@lightningjs/ui-components';
 import debounce from 'debounce';
 
@@ -9,7 +9,7 @@ export const globalApp = () =>
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.APP;
 
-  // Component Styles Panel and Theme Picker
+// Component Styles Panel and Theme Picker
 export const globalContext = () =>
   document &&
   document.querySelector('iframe') &&
@@ -61,15 +61,14 @@ export const updateGlobalTheme = (
   }
 };
 
-
 const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
-    updateGlobalTheme(
-      { color: { [name]: utils.getValidColor(value) } },
-      updateGlobals
-    );
-  }, 500);
+  updateGlobalTheme(
+    { color: { [name]: utils.getValidColor(value) } },
+    updateGlobals
+  );
+}, 500);
 
-  // Theme Panel
-  export function colorUpdate() {
-    debouncedColorUpdate(...arguments);
-  }
+// Theme Panel
+export function colorUpdate() {
+  debouncedColorUpdate(...arguments);
+}
