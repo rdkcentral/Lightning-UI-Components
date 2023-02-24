@@ -45,6 +45,11 @@ slack_params_feature: &slack_params_feature
   username: "Concourse_LUI_Sanity_VRT_Parallel_Results"
   icon_emoji: ":concourse-started:"
 
+slack_regression_params_feature: &slack_regression_params_feature
+  channel: "#bls_dry_run_results"
+  username: "Concourse_LUI_Regression_Parallel_Results"
+  icon_emoji: ":concourse:"
+
 slack_sanity_temp_params_feature: &slack_sanity_temp_params_feature
   channel: "#lui-automation-reports"
   username: "Concourse_LUI_Sanity_Temp_Results"
@@ -161,6 +166,15 @@ resources:
       interval: 2h
       days: [Monday, Tuesday, Wednesday, Thursday, Friday]
       location: America/New_York
+  
+  - name: once-every-evening
+    type: time
+    check_every: 1h
+    source:
+      start: 2:30 PM
+      stop: 3:30 PM
+      days: [Monday, Tuesday, Wednesday, Thursday, Friday]
+      location: America/New_York
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
 # Groups: https://concourse-ci.org/pipeline-groups.html
@@ -183,6 +197,7 @@ groups:
     jobs:
       - run-cypress-sanity-vrt-tests
       - run-cypress-sanity-temp-tests
+      - run-cypress-regression-vrt-tests
 
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
   # Jobs: https://concourse-ci.org/jobs.html
@@ -407,6 +422,38 @@ jobs:
                 <<: *slack_params_feature
                 text: |
                   :red_cr4: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Sanity and VRT Sanity Tests Run Job - Failed (Build #$BUILD_ID)>*
+                attachments_file: source-repo/tests-slack-notification.json
+  
+  - name: run-cypress-regression-vrt-tests
+    plan:
+      - get: once-every-evening
+        trigger: true
+      - get: source-repo-develop
+      - task: run-regression-tests
+        file: source-repo-develop/ci/tasks/run-regression-tests.yml
+        input_mapping:
+          source-repo: source-repo-develop
+        params:
+          AWS_ACCESS_KEY_ID: ((aws.access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((aws.secret-access-key))
+          S3_BUCKET: ((aws-s3-bucket-name))
+          VRT_APIKEY: ((lui-automation.vrtApiKey))
+          VRT_PROJECT: ((lui-automation.vrtProject))
+        on_success:
+          do:
+            - put: automation-slack-notification
+              params:
+                <<: *slack_regression_params_feature
+                text: |
+                  :white_check_mark: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Regression and VRT Regression Tests Run Job - Passed (Build #$BUILD_ID)>*
+                attachments_file: source-repo/tests-slack-notification.json
+        on_failure:
+          do:
+            - put: automation-slack-notification
+              params:
+                <<: *slack_regression_params_feature
+                text: |
+                  :red_cr4: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Regression and VRT Regression Tests Run Job - Failed (Build #$BUILD_ID)>*
                 attachments_file: source-repo/tests-slack-notification.json
   
   - name: run-cypress-sanity-temp-tests

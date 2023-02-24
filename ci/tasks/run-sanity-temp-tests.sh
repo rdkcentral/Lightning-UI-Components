@@ -41,9 +41,9 @@ echo "Kickstarting the Automation Execution"
 start_time=$(date +"%b %d %Y, %a %H-%M-%S %Z")
 
 echo "Execution starts : $start_time"
-yarn run cy:preSanityTestsExec
+yarn run cy:preTestsExec
 yarn run cy:launchAppAndRunSanityTempTestsParallel
-yarn run cy:postSanityTestsExec
+yarn run cy:postTestsExec
 
 FILE=cypress/reports/index.html
 JSON=cypress/reports/output.json

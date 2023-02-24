@@ -42,7 +42,7 @@ start_time=$(date +"%b %d %Y, %a %H-%M-%S %Z")
 
 echo "Execution starts : $start_time"
 yarn run cy:preTestsExec
-yarn run cy:launchAppAndRunSanityVrtTestsParallel
+yarn run cy:launchAppAndRunRegressionVrtTestsParallel
 yarn run cy:postTestsExec
 
 FILE=cypress/reports/index.html

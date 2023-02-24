@@ -31,13 +31,16 @@
     "cy:vrt": "yarn run cy:tags --env testType=vrt,TAGS=@sanity-vrt,ON_CI=true",
     "cy:sanityVrt": "yarn run cy:tags --env testType=vrt,TAGS='@sanity or @sanity-vrt and not @skip',ON_CI=true",
     "cy:launchAppAndRunSanityVrtTests": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityVrt'",
-    "cy:preSanityTestsExec": "rm -rf cypress/reports && rm -rf cypress/videos",
+    "cy:preTestsExec": "rm -rf cypress/reports && rm -rf cypress/videos",
     "cy:launchAppAndRunSanityVrtTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:parallel'",
     "cy:parallel": "cypress-parallel -s cy:sanityVrt -t 4 -d cypress/e2e/features/sanity -m false",
-    "cy:postSanityTestsExec": "bash cypress/postSanityTests.sh",
+    "cy:postTestsExec": "bash cypress/postSanityTests.sh",
     "cy:sanityTemp": "yarn run cy:tags --env testType=vrt,TAGS='@sanity_temp and not @skip',ON_CI=true",
     "cy:sanityTempParallel": "cypress-parallel -s cy:sanityTemp -t 2 -d cypress/e2e/features/sanity -m false",
     "cy:launchAppAndRunSanityTempTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityTempParallel'",
+    "cy:regression": "yarn run cy:tags --env testType=vrt,TAGS='@regression and not @skip',ON_CI=true",
+    "cy:regressionParallel": "cypress-parallel -s cy:regression -t 6 -d cypress/e2e/features -m false",
+    "cy:launchAppAndRunRegressionVrtTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:regressionParallel'",
     "report:add:video": "node cypress/support/helpers/update-report-include-video.js"
   },
   "devDependencies": {
