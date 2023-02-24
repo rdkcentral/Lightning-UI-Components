@@ -35,6 +35,7 @@ export const getStoryName = pageName => {
     ListItem: 'List-Item',
     Notification: 'Notification',
     ProgressBar: 'Progress-Bar',
+    Provider: 'Provider',
     Radio: 'Radio',
     RadioSmall: 'Radio',
     Row: 'Row',

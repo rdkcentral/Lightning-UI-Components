@@ -31,6 +31,7 @@ import Label from './metadata/label.metadata';
 import ListItem from './controls/listitem.controls';
 import Notification from './foundations/notification.foundations';
 import ProgressBar from './utilities/progressbar.utilities';
+import Provider from './utilities/provider.utilities';
 import Radio from './utilities/radio.utilities';
 import RadioSmall from './utilities/radiosmall.utilities';
 import Row from './navigation/row.navigation';
@@ -86,6 +87,7 @@ export default function getPageObject(pageName) {
     listitem: ListItem,
     notification: Notification,
     progressbar: ProgressBar,
+    provider: Provider,
     radio: Radio,
     radiosmall: RadioSmall,
     row: Row,
