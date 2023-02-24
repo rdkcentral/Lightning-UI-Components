@@ -13,7 +13,7 @@ ${urlBase}${name}/${name}.js
 ## Usage
 
 \`\`\`js
-import { ${name} } from '@lightningjs/ui';
+import { ${name} } from '@lightningjs/ui-components';
 
 class Basic extends lng.Component {
   static _template() {

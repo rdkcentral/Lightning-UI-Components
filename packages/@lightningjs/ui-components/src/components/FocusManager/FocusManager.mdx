@@ -14,7 +14,7 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 Within a parent component `_template()` function, define a child of type `FocusManager` and in `_getFocused()` return that child component
 
 ```js
-import { FocusManager } from '@lightningjs/ui';
+import { FocusManager } from '@lightningjs/ui-components';
 
 class RowExample extends lng.Component {
   static _template() {
@@ -73,7 +73,7 @@ You can create a component that extends the capabilities of `FocusManager` and r
 
 ```js
 import lng from '@lightningjs/core';
-import { FocusManager } from '@lightningjs/ui';
+import { FocusManager } from '@lightningjs/ui-components';
 
 class FancyFocus extends FocusManager {
   render() {

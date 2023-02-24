@@ -456,7 +456,7 @@ Implementation description here
 
 // example implementation
 import lng from '@lightningjs/core';
-import { MyComponent } from '@lightningjs/ui';
+import { MyComponent } from '@lightningjs/ui-components';
 
 class Example extends lng.Component {
   static _template() {
