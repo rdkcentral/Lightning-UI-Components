@@ -24,15 +24,9 @@ import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import TextBox from '../TextBox/TextBox.js';
 
-const terms = `By activating, you agree that you want to enable cloud DVR technology to
-'your Xfinity TV subscription on additional supported devices like computers and
-'tablets, as well as the TV connected to your set-top DVR via Comcast's network. If
-'subscribed to X1 DVR with cloud technology, your acceptance also confirms that when you
-'record programs on your set-top DVR you also want to save and store them automatically
-'in Comcast's network in several formats to (1) enable you to play them back (and
-'navigate within them) on additional supported devices like computers and tablets, as
-'well as the TV connected to your set-top DVR, and (2) optimize the video and audio
-'quality of your viewing experience during playback.`;
+const terms = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id aliquet risus feugiat in ante metus dictum. Pretium fusce id velit ut tortor pretium viverra suspendisse. Pharetra convallis posuere morbi leo urna. Nunc sed velit dignissim sodales. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit. Facilisis gravida neque convallis a cras semper auctor. Pellentesque pulvinar pellentesque habitant morbi tristique. Non tellus orci ac auctor augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Amet risus nullam eget felis eget nunc. Auctor urna nunc id cursus metus aliquam eleifend mi in. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Ac felis donec et odio pellentesque. Semper auctor neque vitae tempus quam pellentesque nec nam aliquam. Sit amet risus nullam eget felis eget.
+
+Mi proin sed libero enim sed faucibus. Arcu vitae elementum curabitur vitae nunc sed velit. Volutpat blandit aliquam etiam erat velit. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Tristique risus nec feugiat in. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Dolor magna eget est lorem ipsum dolor sit amet consectetur. Eget est lorem ipsum dolor sit amet consectetur. At tellus at urna condimentum mattis pellentesque id. Maecenas accumsan lacus vel facilisis. Metus dictum at tempor commodo ullamcorper a lacus. Pellentesque pulvinar pellentesque habitant morbi tristique senectus. Tempor nec feugiat nisl pretium fusce id velit ut.`;
 
 export default {
   title: `${CATEGORIES[16]}/ScrollWrapper`,
@@ -209,9 +203,7 @@ export const ObjectArray = args =>
               x: 20,
               y: 10,
               content:
-                'By activating, you agree that you want to enable cloud DVR technology to ' +
-                'your Xfinity TV subscription on additional supported devices like computers and ' +
-                "tablets, as well as the TV connected to your set-top DVR via Comcast's network.",
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id aliquet risus feugiat in ante metus dictum. Pretium fusce id velit ut tortor pretium viverra suspendisse. Pharetra convallis posuere morbi leo urna.',
               style: {
                 textStyle: {
                   fontSize: 27,
