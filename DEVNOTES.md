@@ -289,3 +289,37 @@ If the snapshots are still failing:
 
 - Try running `yarn clean` followed by `yarn install` to see if that fixes the issue
 - Try deleting the node_modules folder followed by `yarn install`
+
+## Open Source License and Copyright Headers
+
+Clone the `add-copyright` repo: https://github.com/atapas/add-copyright/ and follow its instructions. Examples are belong.
+
+Additionally, here is a write-up on the tool: https://blog.greenroots.info/add-copyright-or-license-text-to-the-source-files-recursively.
+
+
+```bash
+find "PATH TO FOLDER" -type d -name "FOLDER TO IGNORE" -prune -o -name "EXTENSION" -print0 | xargs -0 ./addcopyright.sh
+```
+
+Ignore the following folders before running the script:
+- node_modules
+- .husky
+- .vscode
+- .yarn
+- dist
+
+For example:
+```bash
+find ~/Sites/lightning-ui -type d -name "node_modules" -prune -o -type d -name ".husky" -prune -o -type d -name ".vscode" -prune -o -type d -name ".yarn" -prune -o -type d -name "dist" -prune -o -name "*.js" -print0 | xargs -0 ./addcopyright.sh
+```
+
+Use the `LICENSEHEADER.js` file for use with the following extensions:
+- .js
+- .cjs
+- .mjs
+- .ts
+
+Use the `LICENSEHEADER.html` file for use with the following extensions:
+- .md
+- .mdx
+- .html
