@@ -24,6 +24,7 @@ module.exports = {
     node: true,
     jest: true
   },
+  ignorePatterns: ["dist"],
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {

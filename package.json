@@ -10,16 +10,22 @@
   "scripts": {
     "start": "yarn workspace lightning-ui-docs start",
     "prepare": "husky install",
-    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "lint": "yarn workspaces foreach run lint",
     "lint:fix": "yarn workspaces foreach run lint:fix",
     "test": "yarn workspaces foreach -v run test",
     "test:updateSnapshot": "yarn workspaces foreach -v run test:updateSnapshot",
-    "build-packages": "yarn workspaces foreach --exclude lightning-ui-docs run build",
     "clean:dist": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp",
     "clean": "yarn clean:dist && yarn exec rm -rf node_modules && find ./packages -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "postinstall": "node ./scripts/post-install.js",
-    "createComponent": "node bin/create.js"
+    "createComponent": "node bin/create.js",
+    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && yarn release:quality && yarn release:build && yarn release:semantic-release && yarn release:build-storybook && yarn release:publish-storybook && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
+    "release:dry-run": "yarn release:quality && yarn release:build && yarn release:semantic-release-dry-run && yarn release:build-storybook",
+    "release:quality": "yarn lint && yarn test",
+    "release:build": "yarn workspaces foreach --exclude lightning-ui-docs run build",
+    "release:semantic-release": "yarn workspaces foreach run semantic-release --no-ci -e semantic-release-monorepo",
+    "release:semantic-release-dry-run": "yarn workspaces foreach run semantic-release --no-ci --dry-run -e semantic-release-monorepo",
+    "release:build-storybook": "yarn workspace lightning-ui-docs build",
+    "release:publish-storybook:": "yarn gh-pages -d ./packages/apps/lightning-ui-docs/storybook-static"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
