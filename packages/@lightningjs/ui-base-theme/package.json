@@ -1,6 +1,7 @@
 {
   "name": "@lightningjs/ui-base-theme",
   "version": "0.0.0",
+  "description": "The generic theme containing all necessary properties for the Lightning-UI shared components to map to for styling.",
   "type": "module",
   "main": "theme.js",
   "files": [
