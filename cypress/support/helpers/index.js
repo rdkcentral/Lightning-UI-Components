@@ -29,6 +29,7 @@ export const getStoryName = pageName => {
     Distractor: 'Distractor',
     Gradient: 'Gradient',
     FocusRing: 'Focus-Ring',
+    Key: 'Key',
     Keyboard: 'Keyboard',
     Knob: 'Knob',
     Label: 'Label',
