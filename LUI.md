@@ -22,7 +22,7 @@ Lightning-UI-Components (LUI) is an open source library of shareable LightningJS
 
 ## Tutorials and Demos
 
-The team presented LUI 2.0 during an RDKWebinar. Please view the videos below for more information about the library, the recent changes, a live demo, and a brief tutorial.
+The team presented LUI 2.0 during an RDK Webinar. Please view the videos below for more information about the library, the recent changes, a live demo, and a brief tutorial.
 
 ## Structure
 
