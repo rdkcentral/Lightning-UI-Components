@@ -49,7 +49,8 @@ export const getStoryName = pageName => {
     Toggle: 'Toggle',
     ToggleSmall: 'Toggle',
     Wave: 'Wave',
-    WithHandleKey: 'With-Handle-Key'
+    WithHandleKey: 'With-Handle-Key',
+    WithSelections: 'With-Selections'
   };
 
   if (pageName in names) {

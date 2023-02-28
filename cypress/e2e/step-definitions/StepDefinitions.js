@@ -15,6 +15,7 @@ import Slider from './Slider';
 import Storybook from './Storybook';
 import TabBar from './TabBar';
 import Tile from './Tile';
+import WithSelections from './WithSelections';
 
 Artwork();
 Badge();
@@ -33,3 +34,4 @@ Slider();
 Storybook();
 TabBar();
 Tile();
+WithSelections();

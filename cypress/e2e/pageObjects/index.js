@@ -52,6 +52,7 @@ import TooltipBasic from './utilities/tooltipbasic.utilities';
 import Wave from './utilities/wave.utilities';
 import WithAnnouncerBasic from './accessibility/withAnnouncerBasic.accessibility';
 import WithHandleKey from './utilities/withHandleKey.utilities';
+import WithSelections from './utilities/withSelections.utilities';
 
 export default function getPageObject(pageName) {
   const pageObjects = {
@@ -108,7 +109,8 @@ export default function getPageObject(pageName) {
     tooltip: TooltipBasic,
     wave: Wave,
     withannouncer: WithAnnouncerBasic,
-    withhandlekey: WithHandleKey
+    withhandlekey: WithHandleKey,
+    withselections: WithSelections
   };
 
   if (pageName in pageObjects) {
