@@ -51,6 +51,7 @@ import ToggleSmall from './utilities/togglesmall.utilities';
 import TooltipBasic from './utilities/tooltipbasic.utilities';
 import Wave from './utilities/wave.utilities';
 import WithAnnouncerBasic from './accessibility/withAnnouncerBasic.accessibility';
+import WithEditItems from './utilities/withedititems.utilities'
 import WithHandleKey from './utilities/withHandleKey.utilities';
 import WithSelections from './utilities/withSelections.utilities';
 
@@ -109,6 +110,7 @@ export default function getPageObject(pageName) {
     tooltip: TooltipBasic,
     wave: Wave,
     withannouncer: WithAnnouncerBasic,
+    withedititems: WithEditItems,
     withhandlekey: WithHandleKey,
     withselections: WithSelections
   };

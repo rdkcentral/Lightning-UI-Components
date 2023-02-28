@@ -49,6 +49,7 @@ export const getStoryName = pageName => {
     Toggle: 'Toggle',
     ToggleSmall: 'Toggle',
     Wave: 'Wave',
+    WithEditItems: 'With-Edit-Items',
     WithHandleKey: 'With-Handle-Key',
     WithSelections: 'With-Selections'
   };
