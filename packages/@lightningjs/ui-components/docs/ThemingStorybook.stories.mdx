@@ -22,23 +22,25 @@ import { Meta, Description } from '@storybook/addon-docs';
 <Meta title="Docs / Theming/ Use in Storybook" />
 
 # Theming and Storybook
-## Controls table
+
+## Controls Table
 Storybook controls and addons are helpful in visualizing the impact of theming on Lightning-UI components. The controls are split into two categories, **properties**, and **theme values**.
 
-### Properties versus theme values
-Controls in the properties category are values that you can change **regardless of theme**. For example, if you were to modify the `ProgressBar` component by changing the width of the bar, this change would persist regardless of the selected theme.
-Theme values are things like `ProgressBar` color or radius which change based on the theme. You have the ability to override theme values.
+### Properties versus Theme Values
+Controls in the properties category are values that you can change **regardless of theme**. For example, if you were to modify the `ProgressBar` component by changing the width of the bar, this change would persist regardless of the selected theme. Theme values are the style properties that change based on the current theme. On the ProgressBar, theme properties would be things like progressColor or radius.
 
 ### Themes
-The Storybook toolbar has an option where you can select which theme you would like to apply to your components.
-The primary default theme is the Base open-source theme. However, in Storybook we also allow you the option to create a custom theme.
+We have created a custom "Theme Dropdown" addon to the Storybook toolbar, which allows you to select which theme you would like to apply to the components. The default theme is `Base`, which bundled into the library. However, in Storybook, we also allow you to create and download a custom theme.
 
-### Global versus component
+### Global versus Component
 Choosing a theme target at a **global level** means that the theme values you have selected will be mapped to a broader set of components.
+
 Choosing a theme target at a **component level** means that every instance of a particular component type will use the new values set by the controls, but the changes will not affect other types of components referencing the same theme values.
-To learn more, [click here](../?path=/story/docs-theming-overview--page) and navigate to the 'Theming at a global versus component level' section.
+
+To learn more, check out ["Theming at a Global versus Component Level"](../?path=/story/docs-theming-overview--page#theming-at-a-global-versus-component-level).
 
 ## Downloading JSON data
-You can download your custom theme, which will include any property overrides you made in Storybook, by hitting the export/download button on the Storybook toolbar. By hitting the export button you will see JSON values relating to your theme selections. 
-If you overrode any "global" properties via the "Global Theme Values" tab, you will see that reflected in the main property objects like colors and typography. If you overrode any "component" properties via the "Component Style Theme Values" tab, you will see them in the JSON file under the `componentStyle` object.
+You can also download your custom theme, which will include any property overrides you made in Storybook, by hitting the export/download button on the Storybook toolbar. By hitting the export button you will see JSON values relating to your theme selections.
+
+If you overrode any "global" properties via the "Global Theme Values" tab, you will see that reflected in the main property objects like colors and typography. If you overrode any "component" properties via the "Component Style Theme Values" tab, you will see them in the JSON file under the `componentConfig` object.
 

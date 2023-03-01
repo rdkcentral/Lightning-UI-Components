@@ -23,9 +23,9 @@ import typographyTable from '../../../apps/lightning-ui-docs/scripts/themeProper
 
 <Meta title="Docs / Theming/ Theme Properties" />
 
-# Theming Properties
+# Theming Properties in Our Components
 
-<br /> 
+<br />
 
 ## Radius
 
@@ -44,10 +44,7 @@ Theme typography is set up to use semantically-named tokens. They are JavaScript
 When loading fonts from a theme you can specify an array containing paths to the font you would like to target. These values can be a url of a font from a CDN (Content Delivery Network), a locally hosted font, or a system font.
 When an array of font urls is provided, each url will be tested in order until one successfully loads. If none are able to be loaded, the Lightning default font will be used (Times New Roman).
 
-
 Below is an example of setting custom font families in a custom theme file.
-
-
 
 ```js
 export default {
@@ -59,20 +56,19 @@ export default {
         'https://myfontwebsite.com/myfont.woff2',
         './fonts/myfont.woff2',
       ]
-    }  
+    }
   ]
 };
 ```
 
-In this example, we provided an array of urls for the MyCustomFont font family. 
-Now any components that use MyCustomFont will try to request and display the first font url link. 
+In this example, we provided an array of urls for the MyCustomFont font family.
+Now any components that use MyCustomFont will try to request and display the first font url link.
 If that url doesn’t work then with the font fallback feature, it’s going to look into the second value in the array and request that url. If that also doesn’t work then it will move on again into the next font url provided in the array. It will continuously try to request and return a working url until it reaches the end of the array.
 If no working url is returned then Times New Roman is displayed as the font.
 
 #### Use Case: Smart TVs
 
 A product may wish to use custom brand fonts for their TV's UI. It is common to reference a CDN for assets like fonts in case the product updates its branding. However, while smart TVs are designed to be used with an internet connection, it is not a requirement for use. Just because a user doesn't connect their TV to the internet does not mean they should not still get the branded product experience in offline mode. This is where font fallbacks can be leveraged. The first font to try could be from the CDN in case any changes were made. Then if the user is offline, we can fall back to the font stored locally on the hardware.
-
 
 <br />
 

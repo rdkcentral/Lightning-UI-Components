@@ -1,0 +1,101 @@
+<!--
+  Copyright 2023 Comcast Cable Communications Management, LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+
+
+import { Meta, Description } from '@storybook/addon-docs';
+
+<Meta title="Docs / Theming / Component Config" />
+
+# Component Config
+
+The `componentConfig` object can take in key value pairs of component names to new objects. These objects contain theme values that can override both the standard component properties and the predetermined style properties of the given component type.
+
+## Style
+
+The `style` object can be used to override the predetermined style properties of the given component type.
+
+For example:
+```js
+componentConfig: {
+  ProgressBar: {
+    style: { radius: 20 }
+  }
+}
+```
+
+## Tones
+
+For a deeper dive on `tones`, see ["Tones"](../?path=/story/docs-theming-tones--page).
+
+The `tone` property expects a string which will determine the default color palette to apply to a component. It should match one of the following:
+- neutral (meant for use on dark backgrounds)
+- inverse (meant for use on light backgrounds)
+- brand (meant to call branded focus to an element)
+
+When specified, these strings will override the default tone used by the component in our library to quickly change the appearance of the component.
+
+For example:
+```js
+componentConfig: {
+  ProgressBar: {
+    tone: 'brand'
+  }
+}
+```
+
+## Modes
+
+For a deeper dive on `modes`, see ["Modes"](../?path=/story/docs-theming-modes--page).
+
+The `mode` property expects a string which will determine the default interaction state to apply to a component. By default, components are in the unfocused mode, but depending on the platform, can be switched into modes like:
+
+- unfocused (default)
+- focused (the active component being interacted with)
+- disabled (when a user should not be able to interact with a component)
+- selected (used to denote context on screen, like the currently selected tab when the content below is focused)
+- hover (potentially similar to focused, but can be styled differently)
+- pressed (can change the style when a Button is clicked down versus hovered on)
+
+For example:
+```js
+componentConfig: {
+  ProgressBar: {
+    mode: 'disabled'
+  }
+}
+```
+
+## Style Config
+
+The `styleConfig` object contains overrides for a component's `tone` and `mode` styles that will be applied when a component is switched into those tone or mode states.
+
+For example:
+```js
+componentConfig: {
+  ProgressBar: {
+    styleConfig: {
+      mode: {
+        disabled: { alpha: 0.25 }
+      },
+      tone: {
+        brand: { progressColor: '#00ff00' }
+      }
+    }
+  }
+}
+```

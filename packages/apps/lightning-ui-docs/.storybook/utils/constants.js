@@ -31,12 +31,13 @@ export const storySortOrder = [
     'Theming',
     [
       'Overview',
-      'Theme Properties',
-      'Use in Storybook',
-      'Mode',
-      'Tone',
+      'Component Config',
+      'Tones',
+      'Modes',
       'Extensions',
-      'Sub Theming',
+      'Subtheming',
+      'Use in Storybook',
+      'Theme Properties',
       '*'
     ]
   ],
