@@ -1,6 +1,7 @@
 {
   "name": "demo",
   "description": "demo",
+  "private": true,
   "scripts": {
     "start": "lng dev",
     "serve": "lng serve"
