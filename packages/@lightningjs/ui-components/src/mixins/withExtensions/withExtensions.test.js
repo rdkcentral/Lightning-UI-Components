@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withExtensions from './index.js';
 import { context } from '../../globals/index.js';
 import { jest } from '@jest/globals';

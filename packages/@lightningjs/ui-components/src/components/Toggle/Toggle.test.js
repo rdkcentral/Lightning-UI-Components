@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Toggle from './index.js';
 import { withThemeStyles } from '../../mixins';
 import { jest } from '@jest/globals';

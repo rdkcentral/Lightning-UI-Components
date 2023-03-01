@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import CheckboxSmall from './CheckboxSmall.js';
 
 const createCheckboxSmall = makeCreateComponent(CheckboxSmall);

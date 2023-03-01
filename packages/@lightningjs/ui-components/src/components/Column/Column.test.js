@@ -18,10 +18,10 @@
 
 import Column from '.';
 import Row from '../Row/index.js';
-import { TestRenderer, makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { TestRenderer, makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import lng from '@lightningjs/core';
 import { withThemeStyles } from '../../mixins';
-import { completeAnimation, nextTick } from '@lightningjs/ui-test-utils';
+import { completeAnimation, nextTick } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 
 const baseItem = {

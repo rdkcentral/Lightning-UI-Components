@@ -17,7 +17,7 @@
  */
 
 import Card from './Card';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
 const createCardComponent = makeCreateComponent(Card);
 

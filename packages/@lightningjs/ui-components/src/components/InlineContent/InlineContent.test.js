@@ -16,11 +16,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent, nextTick } from '@lightningjs/ui-test-utils';
+import {
+  makeCreateComponent,
+  nextTick
+} from '@lightningjs/ui-components-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
-import baseTheme from '@lightningjs/ui-base-theme';
+import baseTheme from '@lightningjs/ui-components-base-theme';
 import { context } from '../../globals/index.js';
 import { jest } from '@jest/globals';
 

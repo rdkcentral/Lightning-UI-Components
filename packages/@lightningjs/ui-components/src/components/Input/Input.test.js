@@ -18,7 +18,7 @@
 
 import Input from '.';
 import Icon from '../Icon';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 
 const createInput = makeCreateComponent(Input);

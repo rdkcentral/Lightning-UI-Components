@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent, fastForward } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent, fastForward } from '@lightningjs/ui-components-test-utils';
 import SliderLarge from './SliderLarge.js';
 import { jest } from '@jest/globals';
 

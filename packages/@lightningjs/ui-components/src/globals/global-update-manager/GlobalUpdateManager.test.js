@@ -18,7 +18,7 @@
 
 import context from '../context/index.js';
 import { updateManager } from './GlobalUpdateManager.js';
-import { nextTick } from '@lightningjs/ui-test-utils';
+import { nextTick } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 
 describe('GlobalUpdateManager', () => {

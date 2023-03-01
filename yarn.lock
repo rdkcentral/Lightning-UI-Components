@@ -2569,9 +2569,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lightningjs/ui-base-theme@workspace:^, @lightningjs/ui-base-theme@workspace:packages/@lightningjs/ui-base-theme":
+"@lightningjs/ui-components-base-theme@workspace:^, @lightningjs/ui-components-base-theme@workspace:packages/@lightningjs/ui-components-base-theme":
   version: 0.0.0-use.local
-  resolution: "@lightningjs/ui-base-theme@workspace:packages/@lightningjs/ui-base-theme"
+  resolution: "@lightningjs/ui-components-base-theme@workspace:packages/@lightningjs/ui-components-base-theme"
+  languageName: unknown
+  linkType: soft
+
+"@lightningjs/ui-components-test-utils@workspace:^, @lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils":
+  version: 0.0.0-use.local
+  resolution: "@lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils"
+  dependencies:
+    "@lightningjs/ui-components": "workspace:^"
+    "@lightningjs/ui-components-base-theme": "workspace:^"
+    jest: ^29.3.1
+    jest-environment-jsdom: ^29.3.1
+    jest-webgl-canvas-mock: ^0.2.3
+    semantic-release: ^19.0.5
+    semantic-release-monorepo: ^7.0.5
+  peerDependencies:
+    "@lightningjs/core": ^2.9.0
   languageName: unknown
   linkType: soft
 
@@ -2580,8 +2596,8 @@ __metadata:
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
-    "@lightningjs/ui-base-theme": "workspace:^"
-    "@lightningjs/ui-test-utils": "workspace:^"
+    "@lightningjs/ui-components-base-theme": "workspace:^"
+    "@lightningjs/ui-components-test-utils": "workspace:^"
     "@mdx-js/react": ^1.6.22
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
@@ -2594,22 +2610,6 @@ __metadata:
     lightning-ui-docs: "workspace:^"
     lint-staged: ^13.0.3
     rollup: ^3.2.5
-    semantic-release: ^19.0.5
-    semantic-release-monorepo: ^7.0.5
-  peerDependencies:
-    "@lightningjs/core": ^2.9.0
-  languageName: unknown
-  linkType: soft
-
-"@lightningjs/ui-test-utils@workspace:^, @lightningjs/ui-test-utils@workspace:packages/@lightningjs/ui-test-utils":
-  version: 0.0.0-use.local
-  resolution: "@lightningjs/ui-test-utils@workspace:packages/@lightningjs/ui-test-utils"
-  dependencies:
-    "@lightningjs/ui-base-theme": "workspace:^"
-    "@lightningjs/ui-components": "workspace:^"
-    jest: ^29.3.1
-    jest-environment-jsdom: ^29.3.1
-    jest-webgl-canvas-mock: ^0.2.3
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
@@ -3246,7 +3246,7 @@ __metadata:
 
 "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::locator=%40lightningjs%2Fmonorepo%40workspace%3A.":
   version: 9.0.1
-  resolution: "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::version=9.0.1&hash=cc445a&locator=%40lightningjs%2Fmonorepo%40workspace%3A."
+  resolution: "@semantic-release/npm@patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch::version=9.0.1&hash=4bc5b9&locator=%40lightningjs%2Fmonorepo%40workspace%3A."
   dependencies:
     "@semantic-release/error": ^3.0.0
     aggregate-error: ^3.0.0
@@ -13953,8 +13953,8 @@ __metadata:
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
     "@lightningjs/core": ^2.9.0
-    "@lightningjs/ui-base-theme": "workspace:^"
     "@lightningjs/ui-components": "workspace:^"
+    "@lightningjs/ui-components-base-theme": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
     "@storybook/addon-docs": ^6.5.12

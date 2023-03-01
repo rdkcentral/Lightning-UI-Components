@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Keyboard from './index.js';
 import KeyboardInput from './KeyboardInput.js';
 import KeyboardQwerty from './KeyboardQwerty.js';

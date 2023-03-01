@@ -18,7 +18,7 @@
 
 import withAnnouncer, { generateAbbrevConfig } from '.';
 import FocusManager from '../../components/FocusManager/index.js';
-import { TestRenderer } from '@lightningjs/ui-test-utils';
+import { TestRenderer } from '@lightningjs/ui-components-test-utils';
 import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
 

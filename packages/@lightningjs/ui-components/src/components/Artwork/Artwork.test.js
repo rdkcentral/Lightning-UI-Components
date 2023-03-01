@@ -20,7 +20,7 @@ import {
   makeCreateComponent,
   fastForward,
   pathToDataURI
-} from '@lightningjs/ui-test-utils';
+} from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 import Artwork from './index.js';
 const sampleImg = 'sampleImg';

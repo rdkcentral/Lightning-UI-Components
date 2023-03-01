@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import {
   makeCreateComponent,
   completeAnimation
-} from '@lightningjs/ui-test-utils';
+} from '@lightningjs/ui-components-test-utils';
 import ScrollWrapper from './index.js';
 import { jest } from '@jest/globals';
 

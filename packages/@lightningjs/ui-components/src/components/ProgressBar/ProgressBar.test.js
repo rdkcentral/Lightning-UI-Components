@@ -18,8 +18,8 @@
 
 import { base, tone } from './ProgressBar.styles.js';
 import { jest } from '@jest/globals';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
-import baseTheme from '@lightningjs/ui-base-theme';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+import baseTheme from '@lightningjs/ui-components-base-theme';
 import ProgressBar from './index.js';
 
 jest.mock('./ProgressBar.styles', () => {

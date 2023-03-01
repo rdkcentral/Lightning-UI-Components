@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Tile from '../Tile';
 import lightningLogo from '../../assets/images/ic_lightning_white_32.png';
 import ControlRow from '.';
