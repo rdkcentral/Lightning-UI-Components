@@ -1,0 +1,17 @@
+{
+  "appSettings": {
+    "stage": {
+      "clearColor": "0x00000000",
+      "useImageWorker": true
+    },
+    "debug": false,
+    "keys": {
+      "112": "ThemePanel"
+    }
+  },
+  "platformSettings": {
+    "path": "./static",
+    "log": true,
+    "inspector": false
+  }
+}

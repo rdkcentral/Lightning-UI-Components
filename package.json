@@ -64,6 +64,7 @@
   },
   "resolutions": {
     "@semantic-release/npm@^9.0.0": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch",
-    "@semantic-release/npm@^9.0.1": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch"
+    "@semantic-release/npm@^9.0.1": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch",
+    "@lightningjs/cli@^2.9.1": "patch:@lightningjs/cli@npm%3A2.9.1#./.yarn/patches/@lightningjs-cli-npm-2.9.1-a291b0d34d.patch"
   }
 }

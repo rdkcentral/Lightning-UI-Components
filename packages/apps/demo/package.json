@@ -1,0 +1,15 @@
+{
+  "name": "demo",
+  "description": "demo",
+  "scripts": {
+    "start": "lng dev",
+    "serve": "lng serve"
+  },
+  "dependencies": {
+    "@lightningjs/sdk": "^5.2.0",
+    "@lightningjs/ui-components": "workspace:^"
+  },
+  "devDependencies": {
+    "@lightningjs/cli": "^2.9.1"
+  }
+}

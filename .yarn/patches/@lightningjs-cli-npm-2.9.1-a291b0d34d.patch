@@ -1,0 +1,81 @@
+diff --git a/src/actions/serve.js b/src/actions/serve.js
+index 0d6a110c2984ed117e50bdce9a91c07a98f11498..3cf3806a13a3670f66103e9be18dcc6b8c2584b7 100644
+--- a/src/actions/serve.js
++++ b/src/actions/serve.js
+@@ -38,9 +38,7 @@ module.exports = () => {
+         process.env.LNG_SERVE_PROXY ? '-P' + process.env.LNG_SERVE_PROXY : false,
+       ].filter(val => val)
+ 
+-      const levelsDown = isLocallyInstalled()
+-        ? buildHelpers.findFile(process.cwd(), 'node_modules/.bin/http-server')
+-        : path.join(__dirname, '../..', 'node_modules/.bin/http-server')
++      const levelsDown = buildHelpers.findFile(process.cwd(), '../../../node_modules/.bin/http-server')
+ 
+       const subprocess = execa(levelsDown, args)
+ 
+diff --git a/src/helpers/build.js b/src/helpers/build.js
+index 58a4dbe7ada4adfe91a9d022d4911dfd3d730a36..64d99ee380c24ced192b2b92ffe678ca3a79cde9 100644
+--- a/src/helpers/build.js
++++ b/src/helpers/build.js
+@@ -55,10 +55,8 @@ const ensureFolderExists = folder => {
+ const copySupportFiles = folder => {
+   spinner.start('Copying support files to "' + folder.split('/').pop() + '"')
+ 
+-  const nodeModulesPath = hasNewSDK()
+-    ? 'node_modules/@lightningjs/sdk'
+-    : 'node_modules/wpe-lightning-sdk'
+-
++  const nodeModulesPath = require('./packagePath')
++  console.log('nodeModulesPath', nodeModulesPath)
+   const lightningSDKfolder = findFile(process.cwd(), nodeModulesPath)
+ 
+   shell.cp('-r', path.join(lightningSDKfolder, 'support/*'), folder)
+@@ -343,9 +341,7 @@ const getAppVersion = () => {
+ }
+ 
+ const getSdkVersion = () => {
+-  const packagePath = hasNewSDK()
+-    ? 'node_modules/@lightningjs/sdk'
+-    : 'node_modules/wpe-lightning-sdk'
++  const packagePath = require('./packagePath')
+   const packageJsonPath = findFile(process.cwd(), packagePath)
+   return require(path.join(packageJsonPath, 'package.json')).version
+ }
+diff --git a/src/helpers/dist.js b/src/helpers/dist.js
+index 8b90948fccc8bff05a677b6ef594d3566c4e8348..f63e80233289d6a33e364ed50be24fdab1c3c3b6 100644
+--- a/src/helpers/dist.js
++++ b/src/helpers/dist.js
+@@ -24,9 +24,7 @@ const replaceInFile = require('replace-in-file')
+ const buildHelpers = require('./build')
+ 
+ const setupDistFolder = (folder, type, metadata) => {
+-  const corePath = buildHelpers.hasNewSDK()
+-    ? 'node_modules/@lightningjs/core'
+-    : 'node_modules/wpe-lightning/'
++  const corePath = require('./packagePath')
+ 
+   const nodeModulesPath = buildHelpers.findFile(process.cwd(), corePath)
+ 
+diff --git a/src/helpers/packagePath.js b/src/helpers/packagePath.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..43bbba1efaea4f5e6e725afe9e74be07595abebb
+--- /dev/null
++++ b/src/helpers/packagePath.js
+@@ -0,0 +1,17 @@
++const path = require('path')
++
++let location;
++if (process.versions.pnp) {
++  // do something with the PnP API ...
++  console.log('USING PNP')
++  const { createRequire } = require(`module`);
++  const targetRequire = createRequire(targetModule);
++  const resolved = targetRequire.resolve(`@lightningjs/sdk`);
++  const instance = targetRequire(resolved); 
++  location = instance;
++} else {
++  // fallback
++  location = `${process.env.PROJECT_CWD}/node_modules/@lightningjs/sdk`
++}
++
++module.exports = path.relative(process.cwd(), location)
