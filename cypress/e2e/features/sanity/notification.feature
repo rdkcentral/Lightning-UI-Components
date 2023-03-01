@@ -8,11 +8,10 @@ Feature: LUI Notification component
   Scenario Outline: Verify that the Notification component is displayed (<theme> theme)
     When I navigate to 'Notification' with '<theme>' theme
     Then I verify that the 'Notification' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI Notification component
     When I navigate to 'Notification' with '<theme>' theme
     Then I verify that the 'width' of 'Notification' component is '<defaultWidth>'
     And I verify that the 'height' of 'Notification' component is '<defaultHeight>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | defaultWidth | defaultHeight |
       | Xfinity | 522.667px    | 154.5px       |
-    @sanity
     Examples:
       | theme | defaultWidth | defaultHeight |
       | Base  | 636px        | 183px         |
@@ -39,11 +37,10 @@ Feature: LUI Notification component
     And I verify that the 'Notification' 'Action Area' component does not exist in DOM
     And I set the 'actionArea' to '!@$%^&*(){}[]:;<>?,-./~' for 'Notification' component
     And I verify that 'Notification' 'Action Area' has 'text' 'Details'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Xfinity |
@@ -57,11 +54,10 @@ Feature: LUI Notification component
     And I verify that the 'Notification' 'Description' component does not exist in DOM
     And I set the 'description' to '!@$%^&*(){}[]:;<>?,-./~' for 'Notification' component
     And I verify that 'Notification' 'Description' has 'text' 'Description'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Xfinity |
@@ -71,12 +67,11 @@ Feature: LUI Notification component
     Then I verify that the 'src' attribute of 'Notification' 'Icon' contains 'notification_64'
     And I set the 'icon' to '<iconState>' for 'Notification' component
     And I verify that the 'src' attribute of 'Notification' 'Icon' contains '<iconValue>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | iconState | iconValue          |
       | Xfinity | lightning | ic_lightning_white |
       | Xfinity | none      | notification_64    |
-    @sanity
     Examples:
       | theme | iconState | iconValue          |
       | Base  | lightning | ic_lightning_white |
@@ -87,12 +82,11 @@ Feature: LUI Notification component
     Then I verify that the 'src' attribute of 'Notification' 'Icon' contains 'notification_64'
     And I set the 'logo' to '<logoState>' for 'Notification' component
     And I verify that the 'src' attribute of 'Notification' 'Icon' contains '<logoValue>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | logoState | logoValue             |
       | Xfinity | xfinity   | Xfinity-Provider-Logo |
       | Xfinity | none      | notification_64       |
-    @sanity
     Examples:
       | theme | logoState | logoValue             |
       | Base  | xfinity   | Xfinity-Provider-Logo |
@@ -111,7 +105,6 @@ Feature: LUI Notification component
       | theme   | stateValue | opacityValue |
       | Xfinity | dismiss    | 0.001        |
       | Xfinity | enter      | 1            |
-    @sanity
     Examples:
       | theme | stateValue | opacityValue |
       | Base  | dismiss    | 0.001        |
@@ -126,11 +119,10 @@ Feature: LUI Notification component
     And I verify that the 'Notification' 'Title' component does not exist in DOM
     And I set the 'title' to '!@$%^&*(){}[]:;<>?,-./~' for 'Notification' component
     And I verify that 'Notification' 'Title' has 'text' 'Banner headline'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Xfinity |

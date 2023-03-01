@@ -8,11 +8,10 @@ Feature: LUI Tooltip Basic component
   Scenario Outline: Verify that the Tooltip component is displayed (<theme> theme)
     When I navigate to 'Tooltip' 'Basic' with '<theme>' theme
     Then I verify that the 'Tooltip' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI Tooltip Basic component
     When I navigate to 'Tooltip' 'Basic' with '<theme>' theme
     Then I verify that the 'width' of 'Tooltip' component is '<width>'
     And I verify that the 'height' of 'Tooltip' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width  | height |
       | Xfinity | 99.5px | 52px   |
-    @sanity
     Examples:
       | theme | width  | height |
       | Base  | 83.5px | 58px   |
@@ -34,12 +32,11 @@ Feature: LUI Tooltip Basic component
     When I navigate to 'Tooltip' 'Basic' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Tooltip' component
     Then I verify the mode is '<modeValue>' for 'Tooltip'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
-    @sanity
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -61,7 +58,6 @@ Feature: LUI Tooltip Basic component
       | theme   | delayTime | staticTime |
       | Xfinity | 2000      | 2          |
       | Xfinity | 5000      | 5          |
-    @sanity
     Examples:
       | theme | delayTime | staticTime |
       | Base  | 2000      | 2          |
@@ -78,12 +74,11 @@ Feature: LUI Tooltip Basic component
     And I verify that the 'Tooltip' component is not displayed
     And I wait <staticTime> seconds for the page to load
     And I verify that the 'Tooltip' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | delayTime | staticTime |
       | Xfinity | 2000      | 2          |
       | Xfinity | 5000      | 5          |
-    @sanity
     Examples:
       | theme | delayTime | staticTime |
       | Base  | 2000      | 2          |
@@ -101,7 +96,6 @@ Feature: LUI Tooltip Basic component
       | Xfinity | LUI TEST             | LUI TEST      |
       | Xfinity | *^#TDGIWUT           | Tooltip       |
       | Xfinity | 893689{}[]&*^WHGD!!@ | Tooltip       |
-    @sanity
     Examples:
       | theme | exampleTitle         | expectedTitle |
       | Base  | LUI TEST             | LUI TEST      |

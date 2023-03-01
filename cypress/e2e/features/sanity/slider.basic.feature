@@ -11,14 +11,13 @@ Feature: LUI Slider Basic component
     And I verify that the 'Slider' 'Knob' component is displayed
     And I verify that the 'Slider' 'Left Arrow' component is displayed
     And I verify that the 'Slider' 'Right Arrow' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | componentName |
       | Xfinity | Progress Bar  |
       | Xfinity | Knob          |
       | Xfinity | Left Arrow    |
       | Xfinity | Right Arrow   |
-    @sanity
     Examples:
       | theme   | componentName |
       | Base    | Progress Bar  |
@@ -30,11 +29,10 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     Then I verify that the 'width' of 'Slider' 'Slider Bar' component is '<width>'
     And I verify that the 'height' of 'Slider' 'Slider Bar' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width     | height |
       | Xfinity | 169.333px | 8px    |
-    @sanity
     Examples:
       | theme   | width   | height |
       | Base    | 208px   | 10px   |
@@ -43,13 +41,12 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Slider' component
     Then I verify the mode is '<modeValue>' for 'Slider'
-    @sanity_temp
+    @sanity
     Examples:
       | theme    | modeValue |
       | Xfinity  | unfocused |
       | Xfinity  | focused   |
       | Xfinity  | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue   | 
       | Base    | unfocused   | 
@@ -60,13 +57,12 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'max' to '<maxValue>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | maxValue | progressValue |
       | Xfinity | 50       | 1.00          |
       | Xfinity | 80       | 0.625         |
       | Xfinity | 100      | 0.50          |
-     @sanity
     Examples:
       | theme | maxValue | progressValue |
       | Base  | 50       | 1.00          |
@@ -77,13 +73,12 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'min' to '<minValue>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | minValue | progressValue |
       | Xfinity | 50       | 0.5           |
       | Xfinity | 75       | 0.75          |
       | Xfinity | 90       | 0.90          |
-    @sanity
     Examples:
       | theme | minValue | progressValue |
       | Base  | 50       | 0.5           |
@@ -94,7 +89,7 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'value' to '<expected>' for 'Slider' component
     Then I verify that the 'Slider' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme    | expected | progressValue |
       | Xfinity  | 0        | 0.00          |
@@ -102,7 +97,6 @@ Feature: LUI Slider Basic component
       | Xfinity  | 50       | 0.50          |
       | Xfinity  | 75       | 0.75          |
       | Xfinity  | 100      | 1.00          |
-    @sanity_temp
     Examples:
       | theme | expected | progressValue |
       | Base  | 0        | 0.00          |
@@ -115,12 +109,11 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I set the 'vertical' to '<verticalSetting>' for 'Slider' component
     Then I verify the vertical control is '<verticalSetting>' for 'Slider'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | verticalSetting |
       | Xfinity | true            |
       | Xfinity | false           | 
-    @sanity
     Examples:
       | theme   | verticalSetting |
       | Base    | true            |
@@ -154,14 +147,13 @@ Feature: LUI Slider Basic component
     When I navigate to 'Slider' 'Basic' with '<theme>' theme
     And I press '<keyInput>' key <inputQuantity> times
     Then I verify that the 'Slider' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | keyInput |  inputQuantity  | progressValue | 
       | Xfinity | LEFT     |     5           |      0.45     |
       | Xfinity | LEFT     |     10          |      0.40     |  
       | Xfinity | RIGHT    |     10          |      0.60     | 
       | Xfinity | RIGHT    |     5           |      0.55     | 
-    @sanity
     Examples:
       | theme | keyInput |  inputQuantity  | progressValue | 
       | Base  | LEFT     |     5           |      0.45     |
@@ -174,12 +166,11 @@ Feature: LUI Slider Basic component
     And I set the 'step' to '10' for 'Slider' component
     Then I press '<keyInput>' key <inputQuantity> times
     And I verify that the 'Slider' progress is set to <progressValue>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | keyInput |  inputQuantity  | progressValue | 
       | Xfinity | LEFT     |     5           |      0        | 
       | Xfinity | RIGHT    |     10          |      1        | 
-    @sanity
     Examples:
       | theme | keyInput |  inputQuantity  | progressValue | 
       | Base  | LEFT     |     5           |      0        | 

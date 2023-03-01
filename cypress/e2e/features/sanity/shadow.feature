@@ -8,11 +8,10 @@ Feature: LUI Shadow component
   Scenario Outline: Verify that the Shadow component is displayed (<theme> theme)
     When I navigate to 'Shadow' with '<theme>' theme
     Then I verify that the 'Shadow' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -21,11 +20,10 @@ Feature: LUI Shadow component
     When I navigate to 'Shadow' with '<theme>' theme
     Then I verify that the 'width' of 'Shadow' component is '<width>'
     And I verify that the 'height' of 'Shadow' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 200px | 200px  |
-    @sanity
     Examples:
       | theme | width | height |
       | Base  | 200px | 200px  |
@@ -35,13 +33,12 @@ Feature: LUI Shadow component
     Then I verify the mode is 'focused' for 'Shadow'
     And I set the 'mode' to '<modeValue>' for 'Shadow' component
     And I verify the mode is '<modeValue>' for 'Shadow'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity_temp
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -53,13 +50,12 @@ Feature: LUI Shadow component
     Then I verify that maskShadow control is set to 'false' for 'Shadow' component
     And I set the 'maskShadow' to '<state>' for 'Shadow' component
     And I verify that maskShadow control is set to '<state>' for 'Shadow' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | state  |
       | Xfinity | true   |
   #   | Xfinity | false  |
   #   Skipped due to this ticket - https://ccp.sys.comcast.net/browse/LUI-676
-    @sanity
     Examples:
       | theme | state |
       | Base  | true  |
