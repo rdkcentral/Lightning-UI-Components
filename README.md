@@ -28,6 +28,17 @@ Three packages are currently maintained and released from this project.
 - @lightningjs/ui-test-utils
 - @lightningjs/ui-base-theme
 
+## Local Development
+
+To run the repository locally, run:
+
+```
+yarn install
+yarn start
+```
+
+This will launch Storybook at [http://localhost:8000/](http://localhost:8000/).
+
 ## Peer dependencies
 
 `@lightningjs/ui-components` has a peer dependency on `@lightningjs/core^2.x`. If you are stuck using the _old Lightning_, i.e. `wpe-lightning^1.x`, you will need to alias `@lightningjs/core` in your build process. If you are bundling your app using [Webpack](https://webpack.js.org/), you should add this to your config:

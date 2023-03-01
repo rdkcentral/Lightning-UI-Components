@@ -25,20 +25,35 @@ import { Canvas, Story } from '@storybook/addon-docs';
 
 # Theming
 
-## What is theming?
-Theming allows for adjustments in color, type, animation, and other foundational patterns to improve the overall user experience.
+Theming is a way to easily reskin or style components via a set of style properties. It allows for easy adjustments in color, type, animation, and other foundational patterns to improve the overall user experience via one central style file.
+
+Each of the components references specific style properties that map back to a global style sheet, which we call a "theme." This is a similar concept as CSS for web components.
+
+## Capabilities of Theming
+
+1. It allows for reskinning of components and entire applications for product-specific needs. For example, within the Comcast umbrella of products, there are Core brand principles we share, like our signature purple, but there are differences across our products, like an animating Focus Ring on Flex versus a static highlight state on X1.
+
+2. Additionally, this re-skinning allows for more flexibility for syndication partners. Brands that utilize the same core production code can easily swap in their font styles and brand colors.
+
+3. Products can bring their own design systems. In the first two examples, there is an expectation of shared styles. But there’s no reason that Xfinity, Sky, and Peacock products can’t share the same core Tile component and replace their entire theme with their unique design systems.
+
+4. Another feature of theming, which you will see during the demo, is something we call "subtheming." This is a way for editorial teams to highlight specific sets of data within an application without ever changing the core look and feel of a product.
+
+5. Additionally, themes can supply information to devices to change the style based on the capabilities of the hardware. For example, a device with less available memory can have certain features turned off, like fancy animations and effects.
+
+6. Theming also allows us to more easily make changes to our products that fit the accessibility needs of every customer. For example, adjusting the type-scale and dynamically adjusting content around it, or providing preset color palette themes for those with color blindness.
+
+7. And lastly, theming can even allow for user initiated personalization, by giving our users the ability to choose their preferred color scheme or font styles.
 
 ## Context
 `Context` allows you to set and update your theme from anywhere in the application. `Context` holds settings and logic that can be used across all Lightning-UI components.
 
-### Context set up
+### Setting the Global Context
 
 To start applying themes to your components you need to import both `context` and the theme you want to use in your file, if different from the Base theme. If you do not import a theme, you will default to the open-source Base theme.
 
 ``` js
-
 import { context } from @lightningjs/ui;
-
 ```
 You can configure `context` in a single call by using the function `context.config()`. `Context` is used as the global store for all Lightning-UI components and contains multiple settings. Utilizing this method allows all configurations to easily be set at one time.
 
@@ -67,13 +82,12 @@ export default {
   spacer,
   stroke,
   typography,
-  componentStyle: {},
-  componentTone: {}
+  componentConfig
 };
 
 ```
 
-### Utilizing context
+### Utilizing Context
 
 The primary `context` methods to utilize when modifying your theme are `setTheme` and `updateTheme`. These methods will allow you to set up a global theme.
 
@@ -87,13 +101,13 @@ Then, the function `context.setTheme(customTheme)` takes in the imported theme o
 If you tried to change the bar color or the progress color in the `ProgressBar` component, the method `context.setTheme(customTheme)` will overwrite those changes with values from the 'customTheme' theme.
 Setting the theme completely wipes out the modifications on components made by the previously defined theme.
 
-#### Updating the theme
+#### Updating the Theme
 The `updateTheme` method merges the component styles you have updated with the currently selected theme. For example:
 
 ```js
 context.updateTheme(
   color: {
-    fillNeutralFocus: ['#c15a5a', 1],
+    fillNeutral: ['#c15a5a', 1],
     surface: ['#680f0f', 1]
   }
 );
@@ -105,7 +119,7 @@ The above line of code could create a `ProgressBar` that looks like this:
 Here `progressColor` and `barColor` are merged in with your selected theme, in this case, 'customTheme.' This means that some of the theme properties are consistent with your custom values and some of the properties are updated with the 'customTheme' theme.
 If you updated `barColor` and `progressColor` with the method `context.updateTheme()` but did not update the radius, this would yield a theme where the colors are what you defined, but the radius is that of the 'customTheme' theme.
 
-### Utilizing context logger
+### Context Logger
 
 Logger provides a way for internal errors and warnings to be gracefully handled in Lightning-UI, gives the ability to show/hide logs in the console, and offers a way to expose logs to a callback so that the application can send them to a third party front end logging endpoint. It is included under `context` so that you can access it anywhere in the application.
 Logger functions can be used as such:
@@ -123,29 +137,28 @@ context.error('Broken!');
 context.info('Emergency');
 ```
 
-## Theming at a global versus component level
+## Theming at a Global versus Component Level
 
 If you choose to apply a theme at a **global level**, the theme values you have selected will be mapped to a broader set of components.
-For example, `fillNeutralFocus` is used by `ProgressBar` and `FocusRing`. If you wanted to change the colors of both of these components you can update the `fillNeutralFocus` value. The two components' color would now be updated to the new `fillNeutralFocus` value. This would be considered a **global level** change.
-
+For example, `fillNeutral` is used by `ProgressBar` and `Checkbox`. If you wanted to change the colors of both of these components you can update the `fillNeutral` value. The two components' color would now be updated to the new `fillNeutral` value. This would be considered a **global level** change.
 
 ``` js
 context.updateTheme({
-  color: { fillNeutralFocus: [value, 1] }
+  color: { fillNeutral: [value, 1] }
 });
 
 ```
-Alternatively, you can apply theme changes at a **component level**. In this case, every instance of a particular component type will use the new values, but the changes will not affect other types of components referencing the same theme values.
-To make custom changes on a component level, use `componentStyle`.
+Alternatively, you can apply theme changes at a **component level** via the `componentConfig`. In this case, every instance of a particular component type will use the new values, but the changes will not affect other types of components referencing the same theme values.
 
-Again, `fillNeutralFocus` is used by both `ProgressBar` and `FocusRing`. If you wanted to just change the color of just `ProgressBar`, you would use `componentStyle` to impact only the value of `progressColor`:
+The `fillNeutral` is used by both `ProgressBar` and `Checkbox`. If you wanted to only change the color of `ProgressBar`, you would use `componentConfig` to impact only the value of `progressColor`:
 
 ``` js
 context.updateTheme({
-  componentStyle: {
+  componentConfig: {
     ProgressBar: {
-      progressColor: getHexColor(#32CD32)
-      //can also be written as progressColor: ['#32CD32', 1]
+      style: {
+        progressColor: getHexColor(#32CD32) // can also be written as progressColor: ['#32CD32', 1]
+      }
     }
   }
 });
@@ -155,14 +168,25 @@ context.updateTheme({
 Additionally, while not recommended (see below), to make changes on one singular instance of a component you would have to change the theme values under each component's style file. For example, you could change a component's `ProgressBar` color by coding:
 
 ```js
-
-MyComponent.style.progressColor = 0xf000000
-
+MyComponent.style = { progressColor: 0xf000000 }
 ```
+
+or
+
+```js
+MyComponent: {
+  type: ProgressBar,
+  style: {
+    progressColor: 0xf000000
+  }
+}
+```
+
+**NOTE:** In order to change a specific component's style properties, you must use the `style` setter. This will trigger the update lifecycle for the component. Trying to directly set the nested style property (eg. `MyComponent.style.progressColor = 0xf000000`) will **NOT** work unless you directly call the component's `_update()` method after. Nested style property updates may be part of a future enhancement.
 
  **As a WARNING, it is strongly discouraged to make changes to an instance of a component**. Doing so comes with risks given that this is an anti-pattern and no other components will be changed.
 
- **We highly RECOMMEND** that if you want to make a global change to an existing theme, it is best to make a custom theme based off of one of the existing themes and then update relevant theme values. This is a great place to use componentStyle overrides and [extensions](../?path=/story/docs-theming-extensions--page).
+ **We highly RECOMMEND** that if you want to make a global change to an existing theme, it is best to make a custom theme based off of one of the existing themes and then update relevant theme values. This is a great place to use componentConfig overrides and [extensions](../?path=/story/docs-theming-extensions--page).
 
 Continuing with the `ProgressBar` example, let's summarize all the different ways you can change the `ProgressBar` color (`progressColor`) and how it will impact other components:
 

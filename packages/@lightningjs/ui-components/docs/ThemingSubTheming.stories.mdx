@@ -28,34 +28,19 @@ import MultiSubThemeProgressBars from '../src/assets/images/MultiSubThemeProgres
   }
 `}</style>
 
-<Meta title="Docs / Theming/ Sub Theming" />
+<Meta title="Docs / Theming/ Subtheming" />
 
-# Sub Theming
+# Subtheming
 
-## What is Sub Theming?
+Subtheming allows users to set unique themes on a subset of components without affecting the overarching application. It allows us to create multiple variations of an existing theme to be used across different elements and components.
 
-Sub theming is an aspect of [theming](../?path=/story/docs-theming-overview--page).
-It allows for updates/changes to an existing theme without permanently changing that theme.
-Essentially, with sub theming, we can create multiple variations of an existing theme to be used across different elements/components.
+## Use Cases
 
-## Use Case
+There are certain cases where we may need all the children of a Lightning element or component to have slightly different theme values. For example, a special browse page of 4th of July movies or perhaps a Shark Week promotion section. Distinct color palettes can be used to reflect these special occasions, but it's not always the case that we want entirely new brand (new radius, spacing, etc) values to be applied across entire pages. This is where subtheming comes in.
 
-There are certain cases where we may need all the children of a Lightning element or component to have slightly different theme values.
-For example, a special browse page of 4th of July movies or perhaps a Shark Week promotion section.
-Distinct color palettes can be used to reflect these special occasions, but it's not
-always the case that we want entirely new brand (new radius, spacing, etc) values to be applied across entire pages.
-This is where sub theming comes in.
+Subtheming allows us to target certain properties of a theme to change while still keeping the values of the other theme properties. For example, we can create a subtheme of the main theme where we change the core colors to reflect that of Shark Week with its variations of blues and add that to an element like `ProgressBar`. In this example, the `ProgressBar`'s color would reflect the new blue values from the sub-theme. However, its radius values would still reflect those of the main theme. Additionally, `ProgressBar` components used outside the context of this sub-theme will continue to use the brand colors of the main theme.
 
-Sub theming allows us to target certain properties of a theme to change while still keeping the values of the other theme properties.
-For example, we can create a sub-theme of the main theme where we change the core colors to reflect that of Shark Week with its
-variations of blues and add that to an element like `ProgressBar`.
-In this example, the `ProgressBar`'s color would reflect the new blue values from the sub-theme.
-However, its radius values would still reflect those of the main theme.
-Additionally, `ProgressBar` components used outside the context of this sub-theme will continue to use the brand colors of the main theme.
-
-Likewise, if there are multiple elements to a page, we can set a certain element to have a sub-theme (a `TabBar` with the Shark Week sub-theme)
-while the other elements (a display of `Tiles`) have the main theme.
-This allows the user to have two unique experiences living in the same visual space.
+Likewise, if there are multiple elements to a page, we can set a certain element to have a sub-theme (a `TabBar` with the Shark Week sub-theme) while the other elements (a display of `Tiles`) have the main theme. This allows the user to have two unique experiences living in the same visual space.
 
 ## Steps to Utilizing a Sub-Theme
 
@@ -69,11 +54,9 @@ Refer to [theming](../?path=/story/docs-theming-overview--page) for how to set t
 
 ### 2. Set the sub-theme
 
-To create a sub-theme, we'll need to utilize `context` and its `setSubTheme` method.
-The method takes in the sub-theme name followed by the properties and values of the sub-theme as parameters.
+To create a sub-theme, we'll need to utilize `context` and its `setSubTheme` method. The method takes in the sub-theme name followed by the properties and values of the sub-theme as parameters.
 
-For example, let's imagine we'd like some components to reflect the 4th of July holiday.
-Our `setSubTheme` method might look something like:
+For example, let's imagine we'd like some components to reflect the 4th of July holiday. Our `setSubTheme` method might look something like:
 
 ```js
 context.setSubTheme('4thOfJuly', {
@@ -82,10 +65,12 @@ context.setSubTheme('4thOfJuly', {
     coreNeutralSecondary: ['#FAF2E6', 85], // white
     coreNeutralTertiary: ['#80A1C2', 85] // blue
   },
-  componentStyle: {
+  componentConfig: {
     MetadataTile: {
-      descriptionTextStyle: {
-        textColor: ['#FAF2E6', 85]
+      style: {
+        descriptionTextStyle: {
+          textColor: ['#FAF2E6', 85]
+        }
       }
     }
   }
@@ -95,15 +80,13 @@ Here we're changing the colors of the existing theme, specifically the `coreNeut
 
 ### 3. Apply the sub-theme to the components in need
 
-After creating our sub-theme, we need to specify which components will be utilizing the sub-theme.
-Once the components have been picked out, there are two methods to applying the sub-theme.
+After creating our sub-theme, we need to specify which components will be utilizing the sub-theme. Once the components have been picked out, there are two methods to applying the sub-theme.
 
 #### Method 1: Lightning Element
 
 The first method is by utilizing the `_template` function and returning a component with the specified sub-theme.
 
-For example, let's say we have a page of movie `Tiles` and it's getting closer to the 4th of July holiday so we want to have a section displaying 4th of July movies.
-In this case, we can create a `_template` function like this:
+For example, let's say we have a page of movie `Tiles` and it's getting closer to the 4th of July holiday so we want to have a section displaying 4th of July movies. In this case, we can create a `_template` function like this:
 
 ```js
 static _template() {
@@ -131,9 +114,7 @@ static _template() {
 }
 ```
 
-Here we have two `Row` components each containing a set amount of movie `Tiles`.
-The first `Row` features the 4th of July movies so the '4thOfJuly' `subTheme` with its red, white, and blue values has been applied to it.
-On the other hand, the second `Row` will only reflect the main theme. The following should be displayed:
+Here we have two `Row` components each containing a set amount of movie `Tiles`. The first `Row` features the 4th of July movies so the '4thOfJuly' `subTheme` with its red, white, and blue values has been applied to it. On the other hand, the second `Row` will only reflect the main theme. The following should be displayed:
 
 <img src={SubThemingExample} alt="Row of Tiles with '4thOfJuly' subTheme and a Row with main theme" width="700" />
 
@@ -154,12 +135,9 @@ Assuming we are generating a `ProgressBar` component, our resulting `ProgressBar
 
 <img src={July4thProgressBar} alt="Progress Bar with the 4th of July sub-theme" width="600" />
 
-The `ProgressBar` uses both `coreNeutral` and `coreNeutralTertiary` to define its `progressColor`
-and `barColor`, respectively. Since our '4thOfJuly' sub-theme updated those values, we see the `progressColor`
-and `barColor` of the `ProgressBar` reflecting the values set in the sub-theme.
+The `ProgressBar` uses both `coreNeutral` and `coreNeutralTertiary` to define its `progressColor` and `barColor`, respectively. Since our '4thOfJuly' sub-theme updated those values, we see the `progressColor` and `barColor` of the `ProgressBar` reflecting the values set in the sub-theme.
 
-This `ProgressBar` is built off the Base open-source theme. Because the radius was never set, the `ProgressBar`
-still continues to reflect the radius value of the Base theme which is set to 0.
+This `ProgressBar` is built off the Base open-source theme. Because the radius was never set, the `ProgressBar` still continues to reflect the radius value of the Base theme which is set to 0.
 
 > **Note:** Adding the `subTheme` getter method will apply the sub-theme globally to all the listed components inside the `_template` function
 > that do not have an assigned sub-theme.
@@ -168,12 +146,9 @@ still continues to reflect the radius value of the Base theme which is set to 0.
 
 ## How Does it Work?
 
-Now that we understand how to create and use a sub-theme, let's digest how the component is able to determine how to retrieve the sub-theme.
-This all lies in the `_getSubTheme` method.
+Now that we understand how to create and use a sub-theme, let's digest how the component is able to determine how to retrieve the sub-theme. This all lies in the `_getSubTheme` method.
 
-The `_getSubTheme` method is executed on the `_setup` lifecycle event.
-In this function (displayed below), we can see that each component continuously goes through its
-parents to check if a sub-theme is applied to that component until there are no more parent components left to check.
+The `_getSubTheme` method is executed on the `_setup` lifecycle event. In this function (displayed below), we can see that each component continuously goes through its parents to check if a sub-theme is applied to that component until there are no more parent components left to check.
 
 
 ```js
@@ -186,19 +161,18 @@ _getSubTheme() {
 }
 ```
 
-As soon as a parent component detects a sub-theme, `_getSubTheme` exits the loop and returns the sub-theme.
-If the highest parent component up the chain is reached without returning/discovering a sub-theme, then the component will use the global theme.
+As soon as a parent component detects a sub-theme, `_getSubTheme` exits the loop and returns the sub-theme. If the highest parent component up the chain is reached without returning/discovering a sub-theme, then the component will use the global theme.
 
 > **Important:** If the parent theme is updated, the system will clear the cache the sub-themes depend on, regenerating the sub-theme, and ultimately updating the child elements that rely on the sub-theme.
 
-## Other Useful Methods for Sub Theming
+## Other Useful Methods for Subtheming
 
-Close to the functionality of the global theme, `context` also has `updateSubTheme` and `removeSubTheme` methods available.
-In addition, it has a `setSubThemes` method which is used to generate multiple sub-themes at once.
+Close to the functionality of the global theme, `context` also has `updateSubTheme` and `removeSubTheme` methods available. In addition, it has a `setSubThemes` method which is used to generate multiple sub-themes at once.
 
 ### updateSubTheme
 
 Similar to the Lightning `patch` object, `updateSubTheme` will only overwrite the properties specified and will not affect any other values from the existing sub-theme.
+
 For example:
 
 ```js
@@ -209,8 +183,7 @@ context.updateSubTheme('4thOfJuly', {
 })
 ```
 
-Here, we updated the `coreNeutral` value to white, which will then update the `ProgressBar`'s `progressColor`.
-This will only affect the `ProgressBar` to which we have applied the sub-theme. All other colors, like `barColor` will remain unchanged.
+Here, we updated the `coreNeutral` value to white, which will then update the `ProgressBar`'s `progressColor`. This will only affect the `ProgressBar` to which we have applied the sub-theme. All other colors, like `barColor` will remain unchanged.
 
 <img src={UpdatedJuly4thProgressBar} alt="Progress Bar with the 4th of July sub-theme" width="600" />
 
@@ -227,8 +200,7 @@ context.removeSubTheme('4thOfJuly')
 
 The `setSubThemes` method can be used to create multiple sub-themes at once by taking in a `subThemes` object. The keys of the object reflect the name of the sub-theme.
 
-The example below will create both a sub-theme reflecting the 4th of July colors as well as a sub-theme reflecting colors
-for Shark Week.
+The example below will create both a sub-theme reflecting the 4th of July colors as well as a sub-theme reflecting colors for Shark Week.
 
 ```js
 context.setSubThemes({
