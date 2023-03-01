@@ -410,11 +410,12 @@ describe('Row', () => {
 
     it('should add items on lazyUpCount', done => {
       row.lazyUpCount = 4;
+      row.lazyUpCountBuffer = 1;
       row.items = [...items, ...items];
-      expect(row.items.length).toBe(6);
+      expect(row.items.length).toBe(5);
       testRenderer.keyPress('Right');
       setTimeout(() => {
-        expect(row.items.length).toBe(7);
+        expect(row.items.length).toBe(6);
         done();
       }, 17);
     });
