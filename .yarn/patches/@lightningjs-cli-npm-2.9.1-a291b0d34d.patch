@@ -1,3 +1,9 @@
+From 7a3342f409a405d9a9fdccaa324df996e711d968 Mon Sep 17 00:00:00 2001
+From: Josh Howenstine <joshhowenstine@gmail.com>
+Date: Wed, 1 Mar 2023 08:40:01 -0800
+Subject: [PATCH] feat: add demo app
+
+---
 diff --git a/src/actions/serve.js b/src/actions/serve.js
 index 0d6a110c2984ed117e50bdce9a91c07a98f11498..3cf3806a13a3670f66103e9be18dcc6b8c2584b7 100644
 --- a/src/actions/serve.js
