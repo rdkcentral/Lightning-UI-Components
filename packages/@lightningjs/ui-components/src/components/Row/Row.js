@@ -38,11 +38,17 @@ export default class Row extends NavigationManager {
   static get properties() {
     return [
       ...super.properties,
-      'lazyScroll', // not in Column
+      'lazyScroll',
       'lazyUpCount',
+      'lazyUpCountBuffer',
       'startLazyScrollIndex',
       'stopLazyScrollIndex'
     ];
+  }
+
+  _construct() {
+    super._construct();
+    this._lazyUpCountBuffer = 2;
   }
 
   // Since this is a Row, scrolling should be done only when focused item (this.selected) is fully visible horizontally
@@ -204,8 +210,8 @@ export default class Row extends NavigationManager {
     const itemHeight = this.renderHeight;
     this.shouldSmooth = false;
 
-    if (items.length > this.lazyUpCount + 2) {
-      this._lazyItems = items.splice(this.lazyUpCount + 2);
+    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
+      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
     }
     items.forEach(item => {
       item.parentFocus = this.hasFocus();

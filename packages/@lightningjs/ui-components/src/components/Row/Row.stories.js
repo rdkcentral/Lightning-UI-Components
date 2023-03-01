@@ -436,6 +436,7 @@ export const LazyUpCount = args =>
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
+          lazyUpCountBuffer: args.lazyUpCountBuffer,
           items: createItems(Button, 12)
         }
       };
@@ -443,16 +444,25 @@ export const LazyUpCount = args =>
   };
 LazyUpCount.args = {
   ...sharedArgs,
-  lazyUpCount: 5
+  lazyUpCount: 5,
+  lazyUpCountBuffer: 2
 };
 LazyUpCount.argTypes = {
   ...sharedArgTypes,
   lazyUpCount: {
     control: 'number',
     description:
-      'Number of items to create on screen and new items will be created as user presses right on row.',
+      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-row--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
     table: {
       defaultValue: { summary: 'undefined' }
+    }
+  },
+  lazyUpCountBuffer: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-row--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 2 }
     }
   }
 };
