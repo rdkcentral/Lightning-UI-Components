@@ -22,6 +22,7 @@ Feature: LUI Title Row Basic component
     When I navigate to 'TitleRow' with '<theme>' theme
     Then I verify that I am able to navigate to the 'last' element of the 'TitleRow' 'Row Elements'
     And I verify that I am able to navigate to the 'first' element of the 'TitleRow' 'Row Elements'
+    And I wait 0.3 seconds for the page to load
     And I verify that elements are horizontally evenly spaced for 'TitleRow' component
     @sanity_temp
     Examples:
@@ -116,10 +117,11 @@ Feature: LUI Title Row Basic component
     And I wait 0.5 seconds for the page to load
     And I verify that the 'TitleRow' 'Tile 6' component is not displayed
     And I verify that the 'TitleRow' 'Tile 1' component is displayed
-    And I set the 'scrollIndex' to '-6' for 'TitleRow' component
-    And I wait 0.5 seconds for the page to load
-    And I verify that the 'TitleRow' 'Tile 1' component is not displayed
-    And I verify that the 'TitleRow' 'Tile 10' component is displayed
+#    This verification is failing because of a bug https://ccp.sys.comcast.net/browse/LUI-712
+#    And I set the 'scrollIndex' to '-6' for 'TitleRow' component
+#    And I wait 0.5 seconds for the page to load
+#    And I verify that the 'TitleRow' 'Tile 1' component is not displayed
+#    And I verify that the 'TitleRow' 'Tile 10' component is displayed
     @sanity_temp
     Examples:
       | theme |

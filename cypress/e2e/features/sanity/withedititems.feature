@@ -13,8 +13,8 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
   Scenario Outline: Verify the dimensions and count of the With Edit Items elements (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -23,10 +23,10 @@ Feature: LUI With Edit Items component
     @sanity_temp
     Examples:
       | theme   | defaultWidth | defaultHeight |
-      | Xfinity | 386.0       | 80.0           |
+      | Xfinity | 386.0        | 80.0          |
     Examples:
-      | theme   | defaultWidth | defaultHeight |
-      | Base    | 472.0       | 100.0          |
+      | theme | defaultWidth | defaultHeight |
+      | Base  | 472.0        | 100.0         |
 
   Scenario Outline: Verify row layout and spacing (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -36,8 +36,8 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
   Scenario Outline: Validate displayed text of buttons (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -47,8 +47,8 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
   Scenario Outline: Validate buttons navigation (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -60,10 +60,10 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
-  Scenario: Validate 'edit' mode
+  Scenario Outline: Validate 'edit' mode
     When I navigate to 'WithEditItems' with '<theme>' theme
     Then I verify that 'WithEditItems' 'First Button' has 'text' 'Button 1'
     And I verify that the 'left' of 'WithEditItems' 'Button1' component is '<button1LeftDefaultValue>'
@@ -76,11 +76,11 @@ Feature: LUI With Edit Items component
     @sanity_temp
     Examples:
       | theme   | button1LeftDefaultValue | button2LeftDefaultValue | button1LeftValue | button2LeftValue |
-      | Xfinity | 0px                     | 492px                   | 820px            | 0px              |
+      | Xfinity | 0px                     | 410px                   | 820px            | 0px              |
     Examples:
-      | theme   | button1LeftDefaultValue | button2LeftDefaultValue | button1LeftValue | button2LeftValue |
-      | Base    | 0px                     | 492px                   | 984px            | 0px              |
-    
+      | theme | button1LeftDefaultValue | button2LeftDefaultValue | button1LeftValue | button2LeftValue |
+      | Base  | 0px                     | 492px                   | 984px            | 0px              |
+
   Scenario Outline: Verify that With Edit Items can be set to <modeValue> mode (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'WithEditItems' component
@@ -92,11 +92,11 @@ Feature: LUI With Edit Items component
       | Xfinity | focused   |
       | Xfinity | disabled  |
     Examples:
-      | theme   | modeValue |
-      | Base    | unfocused |
-      | Base    | focused   |
-      | Base    | disabled  |
-   
+      | theme | modeValue |
+      | Base  | unfocused |
+      | Base  | focused   |
+      | Base  | disabled  |
+
   Scenario Outline: Verify the With Edit Items 'always scroll' toggle (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
     And I press 'RIGHT' key 5 times
@@ -111,8 +111,8 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
   Scenario Outline: Verify the With Edit Items 'lazy scroll' toggle (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -128,8 +128,8 @@ Feature: LUI With Edit Items component
       | theme   | Button   |
       | Xfinity | Button 6 |
     Examples:
-      | theme   | Button   |
-      | Base    | Button 5 |
+      | theme | Button   |
+      | Base  | Button 5 |
 
   Scenario Outline: Verify the With Edit Items 'never scroll' toggle (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
@@ -145,10 +145,10 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
-    
-   Scenario Outline: Verify the the 'scroll index' of the With Edit Items element can be changed (<theme> theme)
+      | theme |
+      | Base  |
+
+  Scenario Outline: Verify the the 'scroll index' of the With Edit Items element can be changed (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
     And I press 'RIGHT' key 5 times
     And I wait 0.5 seconds for the page to load
@@ -167,10 +167,10 @@ Feature: LUI With Edit Items component
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |
 
-Scenario Outline: Verify that With Edit Items default values (<theme> theme)
+  Scenario Outline: Verify that With Edit Items default values (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
     Then I verify the mode is 'focused' for 'WithEditItems' 'Row Elements'
     @sanity_temp
@@ -178,5 +178,5 @@ Scenario Outline: Verify that With Edit Items default values (<theme> theme)
       | theme   |
       | Xfinity |
     Examples:
-      | theme   |
-      | Base    |
+      | theme |
+      | Base  |

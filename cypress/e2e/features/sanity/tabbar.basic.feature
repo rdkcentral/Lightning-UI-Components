@@ -120,8 +120,8 @@ Feature: LUI TabBar Basic component
       | theme   |
       | Base    |
 
-  Scenario Outline: Verify navigating the TabBar Basic Tabs
-    When I navigate to 'TabBar' 'Basic' with 'Base' theme
+  Scenario Outline: Verify navigating the TabBar Basic Tabs (<theme> theme)
+    When I navigate to 'TabBar' 'Basic' with '<theme>' theme
     And I navigate to the 'next' tile content
     Then I verify that I am able to navigate to the 'last' element of the 'TabBar' 'Tab 1 Row Content'
     And I verify that I am able to navigate to the 'first' element of the 'TabBar' 'Tab 1 Row Content'
