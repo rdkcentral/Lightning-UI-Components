@@ -37,7 +37,7 @@ Each of the components references specific style properties that map back to a g
 
 3. Products can bring their own design systems. In the first two examples, there is an expectation of shared styles. But there’s no reason that Xfinity, Sky, and Peacock products can’t share the same core Tile component and replace their entire theme with their unique design systems.
 
-4. Another feature of theming, which you will see during the demo, is something we call Sub-Theming. This is a way for editorial teams to highlight specific sets of data within an application without ever changing the core look and feel of a product.
+4. Another feature of theming, which you will see during the demo, is something we call "subtheming." This is a way for editorial teams to highlight specific sets of data within an application without ever changing the core look and feel of a product.
 
 5. Additionally, themes can supply information to devices to change the style based on the capabilities of the hardware. For example, a device with less available memory can have certain features turned off, like fancy animations and effects.
 
@@ -182,7 +182,7 @@ MyComponent: {
 }
 ```
 
-**NOTE:** In order to change a specific component's style properties, you must use the `style` setter. This will trigger the update lifecycle for the component. Trying to diretly set the nested style property (eg. `MyComponent.style.progressColor = 0xf000000`) will **NOT** work unless you directly call the component's `_update()` method after. Nested style property updates may be part of a future enhancement.
+**NOTE:** In order to change a specific component's style properties, you must use the `style` setter. This will trigger the update lifecycle for the component. Trying to directly set the nested style property (eg. `MyComponent.style.progressColor = 0xf000000`) will **NOT** work unless you directly call the component's `_update()` method after. Nested style property updates may be part of a future enhancement.
 
  **As a WARNING, it is strongly discouraged to make changes to an instance of a component**. Doing so comes with risks given that this is an anti-pattern and no other components will be changed.
 
