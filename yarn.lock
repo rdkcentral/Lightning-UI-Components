@@ -2569,18 +2569,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lightningjs/ui-components-base-theme@workspace:^, @lightningjs/ui-components-base-theme@workspace:packages/@lightningjs/ui-components-base-theme":
-  version: 0.0.0-use.local
-  resolution: "@lightningjs/ui-components-base-theme@workspace:packages/@lightningjs/ui-components-base-theme"
-  languageName: unknown
-  linkType: soft
-
 "@lightningjs/ui-components-test-utils@workspace:^, @lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils"
   dependencies:
     "@lightningjs/ui-components": "workspace:^"
-    "@lightningjs/ui-components-base-theme": "workspace:^"
+    "@lightningjs/ui-components-theme-base": "workspace:^"
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
     jest-webgl-canvas-mock: ^0.2.3
@@ -2591,13 +2585,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@lightningjs/ui-components-theme-base@workspace:^, @lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base":
+  version: 0.0.0-use.local
+  resolution: "@lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base"
+  languageName: unknown
+  linkType: soft
+
 "@lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
-    "@lightningjs/ui-components-base-theme": "workspace:^"
     "@lightningjs/ui-components-test-utils": "workspace:^"
+    "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
@@ -13954,7 +13954,7 @@ __metadata:
     "@babel/preset-react": ^7.18.6
     "@lightningjs/core": ^2.9.0
     "@lightningjs/ui-components": "workspace:^"
-    "@lightningjs/ui-components-base-theme": "workspace:^"
+    "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
     "@storybook/addon-docs": ^6.5.12
