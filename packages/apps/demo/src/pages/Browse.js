@@ -54,7 +54,6 @@ export default class Browse extends Base {
   }
 
   _update() {
-    console.log(this._stageH)
     this._Hero.visible = !!this.theme.features?.browseHero;
     this._Results.patch({
       y: this.theme.features?.browseHero
