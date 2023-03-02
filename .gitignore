@@ -5,6 +5,7 @@
 !/.yarn/patches
 .yarn/cache
 dist/
+build/
 storybook-static/
 coverage/
 node_modules/
@@ -12,6 +13,7 @@ tmp/
 original/
 .DS_Store
 .vscode
+.tmp
 
 # publish
 *.tgz
