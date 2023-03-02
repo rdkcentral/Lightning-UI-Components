@@ -24,7 +24,8 @@ window.CONTEXT = context;
 export default data => {
   return data.map(item => {
     // Create sub theme
-    const subTheme = item.title && item.theme ? `rowSubTheme${item.title}` : undefined;
+    const subTheme =
+      item.title && item.theme ? `rowSubTheme${item.title}` : undefined;
     if (subTheme) {
       context.setSubTheme(`rowSubTheme${item.title}`, item.theme);
     }

@@ -22,7 +22,7 @@ export function heroUpdaterGenerator() {
       _resetItems() {
         setTimeout(() => {
           this.fireAncestors('$updateHero');
-        }, 1000)
+        }, 1000);
         super._resetItems();
       }
 

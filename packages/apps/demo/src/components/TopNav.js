@@ -17,7 +17,7 @@
  */
 
 import { Base, context, Row, TextBox } from '@lightningjs/ui-components';
-import { Clock } from '.'
+import { Clock } from '.';
 
 export default class TopNav extends Base {
   static get __componentName() {
@@ -26,7 +26,9 @@ export default class TopNav extends Base {
 
   static _template() {
     return {
-      w: (app.stage.w / app.stage.getRenderPrecision()) - context.theme.layout.safe * 2,
+      w:
+        app.stage.w / app.stage.getRenderPrecision() -
+        context.theme.layout.safe * 2,
       y: context.theme.layout.safe,
       x: context.theme.layout.safe,
       Logo: {
@@ -49,10 +51,10 @@ export default class TopNav extends Base {
 
   _update() {
     if (this.theme.logo) {
-      this.tag('Logo').alpha = 1
-      this.tag('Logo').src = this.theme.logo
+      this.tag('Logo').alpha = 1;
+      this.tag('Logo').src = this.theme.logo;
     } else {
-      this.tag('Logo').alpha = 0
+      this.tag('Logo').alpha = 0;
     }
     super._update();
   }

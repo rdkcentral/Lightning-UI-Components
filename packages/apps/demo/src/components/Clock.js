@@ -1,4 +1,4 @@
-import { TextBox } from "@lightningjs/ui-components"
+import { TextBox } from '@lightningjs/ui-components';
 
 export default class Clock extends TextBox {
   _construct() {
@@ -13,7 +13,7 @@ export default class Clock extends TextBox {
 
   _startTime() {
     const today = new Date();
-    let h = today.getHours();
+    const h = today.getHours();
     let m = today.getMinutes();
     let s = today.getSeconds();
     m = this._checkTime(m);

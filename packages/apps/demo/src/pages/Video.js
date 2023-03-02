@@ -30,7 +30,7 @@ export default class Video extends Lightning.Component {
   }
 
   _handleBack() {
-    Router.back()
+    Router.back();
   }
 
   _disable() {

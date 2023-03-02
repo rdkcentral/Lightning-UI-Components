@@ -25,7 +25,7 @@ export default class App extends Router.App {
     return {
       ...super._template(),
       Nav: {
-       type: TopNav
+        type: TopNav
       },
       Widgets: {
         ThemeSwitcher: {
@@ -38,11 +38,11 @@ export default class App extends Router.App {
   _construct() {
     document.body.style.backgroundColor = '#000';
   }
-  
+
   $navigationVisible(show) {
     this.tag('Nav').smooth = {
       alpha: show ? 1 : 0.001
-    }
+    };
   }
 
   _handleThemePanel(e) {

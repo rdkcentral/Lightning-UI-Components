@@ -117,8 +117,7 @@ export default class BackgroundSwitcher extends Base {
     target.smooth = { alpha: 1 };
     fadeOut.smooth = { alpha: 0.001 };
     this.tag('Metadata').childList.first.childList.first.content = this.title;
-    this.tag(
-      'Metadata'
-    ).childList.first.childList.last.content = this.description;
+    this.tag('Metadata').childList.first.childList.last.content =
+      this.description;
   }
 }

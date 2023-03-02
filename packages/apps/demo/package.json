@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "lng dev",
-    "serve": "lng serve"
+    "serve": "lng serve",
+    "lint": "eslint './src/**/*.js' && eslint . --ext .ts",
+    "lint:fix": "eslint --fix './src/**/*.js' && eslint . --fix --ext .ts"
   },
   "dependencies": {
     "@lightningjs/sdk": "^5.2.0",

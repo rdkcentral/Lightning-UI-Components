@@ -33,7 +33,7 @@ export default class Browse extends Base {
       Results: {
         subTheme: 'rowSubTheme',
         type: Column,
-        boundsMargin: [ 200, 200, 0, 0 ],
+        boundsMargin: [200, 200, 0, 0],
         style: {
           itemSpacing: 100 // Add more space between Rows of content
         },
