@@ -20,7 +20,6 @@ import { tileProgressGenerator } from '../extensions/progressTile';
 
 export default {
   name: 'Sky Lightning TV',
-  logo: './static/images/sky-logo.png',
   alpha: {
     primary: 1,
     secondary: 0.24,

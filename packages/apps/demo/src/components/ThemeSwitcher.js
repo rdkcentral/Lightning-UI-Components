@@ -18,10 +18,9 @@
 
 import { Base, context, Row, Button } from '@lightningjs/ui-components';
 import { Router } from '@lightningjs/sdk';
-import sky from '../themes/sky';
 
 const themes = {
-  sky
+  
 };
 
 export default class ThemeSwitcher extends Base {
@@ -46,7 +45,7 @@ export default class ThemeSwitcher extends Base {
         mount: 0.5,
         y: app.stage.h / app.stage.getRenderPrecision() / 2,
         x: (app.stage.w / app.stage.getRenderPrecision()) / 2,
-        items: ['Base', 'Xfinity', 'Sky', 'A11y'].map(theme => ({
+        items: ['Base'].map(theme => ({
           type: Button,
           title: theme,
           onEnter() {
