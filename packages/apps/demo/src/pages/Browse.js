@@ -33,7 +33,7 @@ export default class Browse extends Base {
       Results: {
         subTheme: 'rowSubTheme',
         type: Column,
-        boundsMargin: [200, 200, 0, 0],
+        boundsMargin: [200, 200, 0, 0], // Ensure tiles load before they show on the screen
         style: {
           itemSpacing: 100 // Add more space between Rows of content
         },
