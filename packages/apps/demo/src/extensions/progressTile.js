@@ -16,6 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * For demonstration purposes we would like all Tile components have a 
+ * random progress value. By utilizing an extension we can easily ensure 
+ * that this functionality is added to every instance of Tile across our 
+ * application without having to create a new class that extends Tile.
+ */
 export function tileProgressGenerator() {
   return function tileProgress(Base) {
     return class TileProgress extends Base {
