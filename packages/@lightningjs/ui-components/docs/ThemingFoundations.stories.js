@@ -1,22 +1,4 @@
-﻿/**
- * Copyright 2023 Comcast Cable Communications Management, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import lng from '@lightningjs/core';
+﻿import lng from '@lightningjs/core';
 import context from '../src/globals/context';
 import { Base, Column, TextBox, Tile, Button } from '../src/components';
 import tileImage from '../src/assets/images/tile-image.png';
@@ -153,7 +135,10 @@ class MiscProp extends Base {
     return {
       Text: {
         type: TextBox,
-        style: { textStyle: 'caption1' }
+        style: { textStyle: 'caption1' },
+        signals:{
+          textBoxChanged: '_update'
+        }
       }
     };
   }
@@ -184,6 +169,7 @@ class MiscProp extends Base {
         this._Text.content = `${this.propName}: ${val}`;
       }
     }
+    this.signal('miscLoaded');
   }
 
   $itemChanged() {
@@ -622,12 +608,18 @@ export const ThemingTokens = () => {
             SpacingBase: {
               type: MiscProp,
               propName: 'spacing-base',
-              propPath: ['spacer', 'md']
+              propPath: ['spacer', 'md'],
+              signals:{
+                miscLoaded: '_update'
+              }
             },
             FocusScale: {
               type: MiscProp,
               propName: 'focus-scale',
-              propPath: ['layout', 'focusScale']
+              propPath: ['layout', 'focusScale'],
+              signals:{
+                miscLoaded: '_update'
+              }
             }
           }
         }
