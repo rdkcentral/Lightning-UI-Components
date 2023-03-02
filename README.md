@@ -26,7 +26,7 @@ Three packages are currently maintained and released from this project.
 
 - @lightningjs/ui-components
 - @lightningjs/ui-components-test-utils
-- @lightningjs/ui-components-base-theme
+- @lightningjs/ui-components-theme-base
 
 ## Local Development
 

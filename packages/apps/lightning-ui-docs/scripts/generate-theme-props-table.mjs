@@ -25,7 +25,7 @@ const require = createRequire(import.meta.url);
 const colorJsonFile = require('./roles/colorRole.json');
 const typographyJsonFile = require('./roles/typographyRole.json');
 
-import base from '@lightningjs/ui-components-base-theme';
+import base from '@lightningjs/ui-components-theme-base';
 const { radius, typography, color } = base;
 
 const folderPath = 'scripts/themePropertyTables';

@@ -20,7 +20,7 @@
     "@babel/preset-env": "^7.19.3",
     "@lightningjs/core": "^2.9.0",
     "@lightningjs/ui-components": "workspace:^",
-    "@lightningjs/ui-components-base-theme": "workspace:^",
+    "@lightningjs/ui-components-theme-base": "workspace:^",
     "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-docs": "^6.5.12",
