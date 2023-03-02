@@ -13,6 +13,14 @@ class CardContentHorizontalLarge extends LUIComponent {
     return `${this.cardContentHorizontalLarge} > div[ref=Tile]`;
   }
 
+  get collapsetometadata() {
+    return 'div[type=Tile]';
+  }
+
+  get shouldcollapse() {
+    return 'div[type=MetadataCardContent]';
+  }
+  
   get badge() {
     return `${this.contentTile} > div[ref=Tile] > div[ref=Content] > div[type=Badge] > div[ref=Text]`;
   }
