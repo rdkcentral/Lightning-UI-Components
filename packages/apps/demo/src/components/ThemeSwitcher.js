@@ -19,9 +19,7 @@
 import { Base, context, Row, Button } from '@lightningjs/ui-components';
 import { Router } from '@lightningjs/sdk';
 
-const themes = {
-  
-};
+const themes = {};
 
 export default class ThemeSwitcher extends Base {
   static __componentName() {
@@ -44,7 +42,7 @@ export default class ThemeSwitcher extends Base {
         autoResizeWidth: true,
         mount: 0.5,
         y: app.stage.h / app.stage.getRenderPrecision() / 2,
-        x: (app.stage.w / app.stage.getRenderPrecision()) / 2,
+        x: app.stage.w / app.stage.getRenderPrecision() / 2,
         items: ['Base'].map(theme => ({
           type: Button,
           title: theme,
