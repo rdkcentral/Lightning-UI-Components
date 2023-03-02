@@ -168,14 +168,37 @@ describe('TextBox', () => {
       expect(textBox._Text.text.textColor).toBe(getValidColor('#000000'));
     });
 
-    // TODO: Fix reference to Base
-    // it('should get TextDefaults when switching themes', async () => {
-    //   context.setTheme(Base);
-    //   textBox.base = context.theme;
-    //   textBox.content = 'Hello Text Defaults';
-    //   await textBox.__updateSpyPromise;
-    //   expect(textBox._Text.text.maxLinesSuffix).toBe('..');
-    // });
+    it('should get TextDefaults when switching themes', async () => {
+      const testTheme = {
+        name: 'Test',
+        typography: {
+          display1: {
+            fontFace: 'TestFont1',
+            fontSize: 35,
+            fontWeight: 500,
+            letterSpacing: 1,
+            lineHeight: 100,
+            verticalAlign: 'middle'
+          },
+          body1: {
+            fontFace: 'TestFont2',
+            fontSize: 15,
+            fontWeight: 250,
+            letterSpacing: 0,
+            lineHeight: 50,
+            verticalAlign: 'middle'
+          }
+        }
+      };
+      context.setTheme(testTheme);
+      textBox.base = context.theme;
+      textBox.content = 'Hello Text Defaults';
+      await textBox.__updateSpyPromise;
+      expect(context.theme.name).toBe('Test');
+      expect(textBox.style.textStyle).toEqual({
+        ...context.theme.typography.body1
+      });
+    });
   });
 
   describe('alignment and formatting', () => {
@@ -288,6 +311,27 @@ describe('TextBox', () => {
       await textBox.__updateSpyPromise;
       expect(textBox._isInlineContent).toBe(true);
       expect(textBox._InlineContent.content).toBe(content);
+    });
+
+    it('should update width of InlineContent equal to wordWrapWidth when value is greater than 0', async () => {
+      const content = [
+        'Text',
+        {
+          icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+          title: 'Rotten Tomatoes rating'
+        },
+        { badge: 'HD', title: 'HD' },
+        { badge: 'SD', title: 'SD' }
+      ];
+      [textBox, testRenderer] = createTextBox(
+        { content },
+        { spyOnMethods: ['_update'] }
+      );
+      textBox.style.textStyle.wordWrapWidth = 100;
+      await textBox.__updateSpyPromise;
+      testRenderer.forceAllUpdates();
+      expect(textBox._InlineContent.w).toEqual(100);
+      expect(textBox._InlineContent.rtt).toEqual(true);
     });
 
     it('should announce its content', async () => {
