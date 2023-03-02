@@ -69,7 +69,15 @@ export default class ThemeSwitcher extends Base {
   }
 
   _handleThemePanel(e) {
-    Router.focusPage(); // Go back to active page
+    Router.focusPage(); // Go back to active page when F1 is pressed
+  }
+
+  _handleBack() {
+    Router.focusPage(); // Go back to active page when esc is pressed
+  }
+
+  _handleKey(e) {
+    return true; // Make sure the ThemeSwitcher does not close when you reach the end of the Row
   }
 
   _focus() {
