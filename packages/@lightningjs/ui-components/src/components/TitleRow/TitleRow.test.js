@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import TitleRow from './TitleRow';
 
 const items = Array.from({ length: 7 }).map(() => ({

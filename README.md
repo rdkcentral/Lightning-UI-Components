@@ -25,8 +25,8 @@ In order to facilitate the development process for our theming architecture we h
 Three packages are currently maintained and released from this project.
 
 - @lightningjs/ui-components
-- @lightningjs/ui-test-utils
-- @lightningjs/ui-base-theme
+- @lightningjs/ui-components-test-utils
+- @lightningjs/ui-components-base-theme
 
 ## Local Development
 

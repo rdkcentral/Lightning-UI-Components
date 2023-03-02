@@ -28,8 +28,8 @@ The team presented LUI 2.0 during an RDK Webinar. Please view the videos below f
 
 LUI is a monorepo containing the following packages:
 - @lightningjs/ui-components
-- @lightningjs/ui-test-utils
-- @lightningjs/ui-base-theme
+- @lightningjs/ui-components-test-utils
+- @lightningjs/ui-components-base-theme
 
 ### UI Components
 

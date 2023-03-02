@@ -17,7 +17,7 @@
  */
 
 import NavigationManager from '.';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
 

@@ -17,7 +17,7 @@
  */
 
 import { jest } from '@jest/globals';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withMarqueeSync from './withMarqueeSync';
 import TextBox from '../../components/TextBox';
 import Base from '../../components/Base';

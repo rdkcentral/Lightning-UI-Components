@@ -22,7 +22,7 @@ import {
   makeCreateComponent,
   mockContext,
   resetContext
-} from '@lightningjs/ui-test-utils';
+} from '@lightningjs/ui-components-test-utils';
 import context from '../../globals/context';
 import withHandleKey from './index.js';
 

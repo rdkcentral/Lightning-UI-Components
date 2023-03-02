@@ -21,7 +21,7 @@ import { jest } from '@jest/globals';
 import {
   makeCreateComponent,
   completeAnimation
-} from '@lightningjs/ui-test-utils';
+} from '@lightningjs/ui-components-test-utils';
 import { Row, Tile } from '../index.js';
 import ContentSwitcher from './ContentSwitcher.js';
 

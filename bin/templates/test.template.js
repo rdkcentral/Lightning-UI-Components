@@ -18,7 +18,7 @@
 
 module.exports = name => {
   const camelCaseName = name.charAt(0).toLowerCase() + name.slice(1);;
-  return `import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+  return `import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import ${name} from '.';
 
 const createComponent = makeCreateComponent(${name});

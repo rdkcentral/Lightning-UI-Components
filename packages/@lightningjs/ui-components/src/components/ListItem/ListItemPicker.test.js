@@ -17,7 +17,7 @@
  */
 
 import ListItemPicker from './ListItemPicker.js';
-import { makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
 const createListItemPicker = makeCreateComponent(ListItemPicker);
 

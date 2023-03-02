@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { pathToDataURI, makeCreateComponent } from '@lightningjs/ui-test-utils';
+import { pathToDataURI, makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import { Icon } from '@lightningjs/ui-components';
 import Provider from '.';
 

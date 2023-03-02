@@ -1,5 +1,5 @@
 {
-  "name": "@lightningjs/ui-test-utils",
+  "name": "@lightningjs/ui-components-test-utils",
   "version": "0.0.0",
   "description": "Helpful Jest unit test utilities for LightningJS applications utilizing the ui-components package.",
   "type": "module",
@@ -11,7 +11,7 @@
     "@lightningjs/core": "^2.9.0"
   },
   "devDependencies": {
-    "@lightningjs/ui-base-theme": "workspace:^",
+    "@lightningjs/ui-components-base-theme": "workspace:^",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "jest-webgl-canvas-mock": "^0.2.3",

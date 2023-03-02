@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@lightningjs/ui-test-utils": "workspace:^",
+    "@lightningjs/ui-components-test-utils": "workspace:^",
     "@mdx-js/react": "^1.6.22",
     "babel-jest": "^29.0.3",
     "babel-loader": "^8.2.5",
@@ -42,7 +42,7 @@
     "semantic-release-monorepo": "^7.0.5"
   },
   "dependencies": {
-    "@lightningjs/ui-base-theme": "workspace:^",
+    "@lightningjs/ui-components-base-theme": "workspace:^",
     "debounce": "^1.2.1",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3"

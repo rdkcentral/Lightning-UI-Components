@@ -1,7 +1,7 @@
 {
   "name": "@lightningjs/monorepo",
   "version": "0.0.0",
-  "description": "The Lightning-UI-Components repo utilizes yarn workspaces to combine all packages like ui-components and ui-test-utils.",
+  "description": "The Lightning-UI-Components repo utilizes yarn workspaces to combine all packages like ui-components and ui-components-test-utils.",
   "packageManager": "yarn@3.2.3",
   "private": true,
   "workspaces": [

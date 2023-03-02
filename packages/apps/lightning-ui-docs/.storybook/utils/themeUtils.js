@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import baseTheme from '@lightningjs/ui-base-theme';
+import baseTheme from '@lightningjs/ui-components-base-theme';
 import { utils } from '@lightningjs/ui-components';
 import debounce from 'debounce';
 
