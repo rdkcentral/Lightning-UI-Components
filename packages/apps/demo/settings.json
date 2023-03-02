@@ -6,7 +6,8 @@
     },
     "debug": false,
     "keys": {
-      "112": "ThemePanel"
+      "112": "ThemePanel",
+      "27": "Back"
     }
   },
   "platformSettings": {

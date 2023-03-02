@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Lightning, VideoPlayer } from '@lightningjs/sdk';
+import { Lightning, VideoPlayer, Router } from '@lightningjs/sdk';
 
 export default class Video extends Lightning.Component {
   _firstActive() {
@@ -27,6 +27,10 @@ export default class Video extends Lightning.Component {
     const videoUrl =
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
     VideoPlayer.open(videoUrl);
+  }
+
+  _handleBack() {
+    Router.back()
   }
 
   _disable() {
