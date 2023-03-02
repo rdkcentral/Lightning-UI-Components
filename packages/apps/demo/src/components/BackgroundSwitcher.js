@@ -37,7 +37,7 @@ export default class BackgroundSwitcher extends Base {
         h: context.theme.layout.screenH,
         w: context.theme.layout.screenW,
         gradient: true,
-        srcCallback({ src, w, aspectRatio }) {
+        srcCallback({ src }) {
           return `https://image.tmdb.org/t/p/w1280/${src}`;
         }
       },
@@ -47,7 +47,7 @@ export default class BackgroundSwitcher extends Base {
         h: context.theme.layout.screenH,
         w: context.theme.layout.screenW,
         gradient: true,
-        srcCallback({ src, w, aspectRatio }) {
+        srcCallback({ src }) {
           return `https://image.tmdb.org/t/p/w1280/${src}`;
         }
       },
@@ -59,7 +59,11 @@ export default class BackgroundSwitcher extends Base {
               rtt: true,
               colorRight: this.style.gradientTop,
               colorLeft: this.style.gradientColor,
-              texture: lng.Tools.getRoundRect(this.w, this.h, this.style.radius)
+              texture: window.lng.Tools.getRoundRect(
+                this.w,
+                this.h,
+                this.style.radius
+              )
             });
           }
         },

@@ -27,8 +27,8 @@ export default class ThemeSwitcher extends Base {
   }
 
   static _template() {
-    const w = app.stage.w / app.stage.getRenderPrecision();
-    const h = app.stage.h / app.stage.getRenderPrecision();
+    const w = window.app.stage.w / window.app.stage.getRenderPrecision();
+    const h = window.app.stage.h / window.app.stage.getRenderPrecision();
     return {
       alpha: 0.001,
       Background: {
@@ -68,7 +68,7 @@ export default class ThemeSwitcher extends Base {
     return this._Selector;
   }
 
-  _handleThemePanel(e) {
+  _handleThemePanel() {
     Router.focusPage(); // Go back to active page when F1 is pressed
   }
 
@@ -76,7 +76,7 @@ export default class ThemeSwitcher extends Base {
     Router.focusPage(); // Go back to active page when esc is pressed
   }
 
-  _handleKey(e) {
+  _handleKey() {
     return true; // Make sure the ThemeSwitcher does not close when you reach the end of the Row
   }
 

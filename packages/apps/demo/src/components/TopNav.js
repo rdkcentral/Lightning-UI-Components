@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Base, context, Row, TextBox } from '@lightningjs/ui-components';
+import { Base, context, Row } from '@lightningjs/ui-components';
 import { Clock } from '.';
 
 export default class TopNav extends Base {
@@ -25,10 +25,9 @@ export default class TopNav extends Base {
   }
 
   static _template() {
+    const w = window.app.stage.w / window.app.stage.getRenderPrecision();
     return {
-      w:
-        app.stage.w / app.stage.getRenderPrecision() -
-        context.theme.layout.safe * 2,
+      w: w - context.theme.layout.safe * 2,
       y: context.theme.layout.safe,
       x: context.theme.layout.safe,
       Logo: {

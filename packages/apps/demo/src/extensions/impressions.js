@@ -17,13 +17,14 @@
  */
 
 /**
- * Simple example of how you could start to build out functionality to send metric data to a third party service via the extension layer. 
+ * Simple example of how you could start to build out functionality to send metric data to a third party service via the extension layer.
  * One benefit to this approach is that it can be easily added to additional components or removed all together at the theme level.
  */
 export function impressionExtensionGenerator() {
   return function impressionExtension(Base) {
     return class WithImpression extends Base {
       _focus() {
+        /* eslint-disable-next-line no-console */
         console.log('Component has focus', this);
         super._focus();
       }

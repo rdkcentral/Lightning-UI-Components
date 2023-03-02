@@ -15,9 +15,7 @@ export default class Clock extends TextBox {
     const today = new Date();
     const h = today.getHours();
     let m = today.getMinutes();
-    let s = today.getSeconds();
     m = this._checkTime(m);
-    s = this._checkTime(s);
     this.content = h + ':' + m;
     setTimeout(this._startTime.bind(this), 1000);
   }
