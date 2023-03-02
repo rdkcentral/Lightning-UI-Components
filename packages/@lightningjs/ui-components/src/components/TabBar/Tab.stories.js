@@ -44,7 +44,7 @@ export const Tab = () =>
   };
 
 Tab.args = {
-  icon: false,
+  icon: null,
   title: 'Tab',
   mode: 'focused'
 };
@@ -55,9 +55,9 @@ Tab.argTypes = {
     summaryValue: Tab.args.mode
   }),
   icon: {
-    control: 'boolean',
-    type: 'boolean',
-    description: 'If true icon will be displayed',
+    control: 'radio',
+    options: [null, 'icon'],
+    description: 'Lightning components to be placed to the left of the text',
     table: {
       defaultValue: { summary: 'undefined' }
     }
