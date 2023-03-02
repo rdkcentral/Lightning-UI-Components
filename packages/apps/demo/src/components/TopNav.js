@@ -17,6 +17,7 @@
  */
 
 import { Base, context, Row, TextBox } from '@lightningjs/ui-components';
+import { Clock } from '.'
 
 export default class TopNav extends Base {
   static get __componentName() {
@@ -39,35 +40,7 @@ export default class TopNav extends Base {
         type: Row,
         items: [
           {
-            type: class extends TextBox {
-              _construct() {
-                super._construct();
-                this._startTime();
-              }
-
-              _update() {
-                this.style.textStyle = this.theme.typography.headline1;
-                super._update();
-              }
-
-              _startTime() {
-                const today = new Date();
-                let h = today.getHours();
-                let m = today.getMinutes();
-                let s = today.getSeconds();
-                m = this._checkTime(m);
-                s = this._checkTime(s);
-                this.content = h + ':' + m;
-                setTimeout(this._startTime.bind(this), 1000);
-              }
-
-              _checkTime(i) {
-                if (i < 10) {
-                  i = '0' + i;
-                } // add zero in front of numbers < 10
-                return i;
-              }
-            }
+            type: Clock
           }
         ]
       }
