@@ -45,10 +45,6 @@ export default class App extends Router.App {
     }
   }
 
-  _handleExit() {
-    Router.back();
-  }
-
   _handleThemePanel(e) {
     Router.focusWidget('ThemeSwitcher');
   }

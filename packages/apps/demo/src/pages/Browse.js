@@ -94,6 +94,10 @@ export default class Browse extends Base {
     this._Hero.smooth = { alpha: selectedColIndex > 0 ? 0.001 : 1 };
   }
 
+  _handleBack() {
+    return; // Make sure app does not close when escape is pressed
+  }
+
   _getFocused() {
     return this._Results;
   }

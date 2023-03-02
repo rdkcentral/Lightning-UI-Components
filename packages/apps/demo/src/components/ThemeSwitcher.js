@@ -27,22 +27,24 @@ export default class ThemeSwitcher extends Base {
   }
 
   static _template() {
+    const w = app.stage.w / app.stage.getRenderPrecision();
+    const h = app.stage.h / app.stage.getRenderPrecision();
     return {
       alpha: 0.001,
       Background: {
         rtt: true,
         rect: true,
         color: 0xfff000000,
-        w: app.stage.w / app.stage.getRenderPrecision(),
-        h: app.stage.h / app.stage.getRenderPrecision()
+        w: w,
+        h: h
       },
       Selector: {
         type: Row,
         neverScroll: true,
         autoResizeWidth: true,
         mount: 0.5,
-        y: app.stage.h / app.stage.getRenderPrecision() / 2,
-        x: app.stage.w / app.stage.getRenderPrecision() / 2,
+        y: h / 2,
+        x: w / 2,
         items: ['Base'].map(theme => ({
           type: Button,
           title: theme,
@@ -58,12 +60,12 @@ export default class ThemeSwitcher extends Base {
     };
   }
 
-  _handleKey() {
-    return true;
+  static get tags() {
+    return ['Selector'];
   }
 
   _getFocused() {
-    return this.tag('Selector');
+    return this._Selector;
   }
 
   _handleThemePanel(e) {
