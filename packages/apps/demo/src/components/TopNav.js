@@ -48,12 +48,18 @@ export default class TopNav extends Base {
     };
   }
 
+  static get tags() {
+    return ['Logo'];
+  }
+
   _update() {
     if (this.theme.logo) {
-      this.tag('Logo').alpha = 1;
-      this.tag('Logo').src = this.theme.logo;
+      this._Logo.patch({
+        alpha: 1,
+        src: this.theme.logo
+      })
     } else {
-      this.tag('Logo').alpha = 0;
+      this._Logo.alpha = 0;
     }
     super._update();
   }
