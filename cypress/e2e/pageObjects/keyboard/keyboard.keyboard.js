@@ -6,7 +6,7 @@ class Keyboard extends LUIComponent {
   }
 
   get keyboard() {
-    return 'div[type=Keyboard] > div[type=Column] > div[type=Element]';
+    return 'div[ref=Keyboard] > div[type=Column] > div[type=Element]';
   }
 
   get centerKeyboard() {

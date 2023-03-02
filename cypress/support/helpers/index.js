@@ -31,6 +31,7 @@ export const getStoryName = pageName => {
     FocusRing: 'Focus-Ring',
     Key: 'Key',
     Keyboard: 'Keyboard',
+    KeyboardNumbers: 'Keyboard-Numbers',
     Knob: 'Knob',
     Label: 'Label',
     ListItem: 'List-Item',
