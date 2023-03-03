@@ -26,6 +26,8 @@ jobs:
         with:
           node-version: 16.17.x
           cache: "yarn"
+      - name: Install Dependencies
+        run: yarn install
       - name: Build Packages
         run: yarn workspaces foreach --exclude lightning-ui-docs run build
       - name: Semantic Release

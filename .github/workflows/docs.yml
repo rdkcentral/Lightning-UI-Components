@@ -2,7 +2,7 @@ name: Release Storybook
 
 on:
   workflow_call:
-  
+
 jobs: 
   build-storybook:
     name: Build Storybook
@@ -14,9 +14,11 @@ jobs:
         with:
           node-version: 16.17.x
       - name: Build Storybook
-        run: yarn workspace lightning-ui-docs run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./packages/apps/lightning-ui-docs/storybook-static
+        run: |
+          yarn install
+          yarn workspace lightning-ui-docs run build
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GH_TOKEN }}
+      #     publish_dir: ./packages/apps/lightning-ui-docs/storybook-static

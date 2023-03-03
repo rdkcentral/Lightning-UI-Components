@@ -4,8 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  test:
-    name: Jest Tests
+  quality: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,16 +14,7 @@ jobs:
           node-version: 16.17.x
           cache: "yarn"
       - name: Run tests
-        run: yarn test
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.17.x
-          cache: "yarn"
-      - name: Run eslint
-        run: yarn lint
+        run: |
+          yarn install
+          yarn lint 
+          yarn test
