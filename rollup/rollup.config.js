@@ -25,31 +25,31 @@ import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 
 export default cliArgs => [
-  // {
-  //   input: './index.d.ts',
-  //   output: [{ file: `./dist/${cliArgs.name}.d.ts`, format: 'es' }],
-  //   plugins: [
-  //     dts({
-  //       compilerOptions: {
-  //         lib: ['ES2018', 'DOM'],
-  //         outDir: 'types',
-  //         sourceMap: true,
-  //         module: 'Node16',
-  //         target: 'ES2020',
-  //         moduleResolution: 'node',
-  //         allowJs: true,
-  //         esModuleInterop: true,
-  //         allowSyntheticDefaultImports: true,
-  //         strict: true,
-  //         noImplicitOverride: true,
-  //         resolveJsonModule: true,
-  //         declaration: true,
-  //         declarationMap: true,
-  //         emitDeclarationOnly: true
-  //       }
-  //     })
-  //   ]
-  // },
+  {
+    input: './index.d.ts',
+    output: [{ file: `./dist/${cliArgs.name}.d.ts`, format: 'es' }],
+    plugins: [
+      dts({
+        compilerOptions: {
+          lib: ['ES2018', 'DOM'],
+          outDir: 'types',
+          sourceMap: true,
+          module: 'Node16',
+          target: 'ES2020',
+          moduleResolution: 'node',
+          allowJs: true,
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          strict: true,
+          noImplicitOverride: true,
+          resolveJsonModule: true,
+          declaration: true,
+          declarationMap: true,
+          emitDeclarationOnly: true
+        }
+      })
+    ]
+  },
   {
     input: './index.js',
     output: {
