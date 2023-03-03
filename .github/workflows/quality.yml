@@ -17,7 +17,7 @@ jobs:
       - name: Run tests
         run: yarn test
   lint:
-    name: Lint Tests
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

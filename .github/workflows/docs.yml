@@ -2,6 +2,7 @@ name: Release Storybook
 
 on:
   workflow_call:
+  
 jobs: 
   build-storybook:
     name: Build Storybook
