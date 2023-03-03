@@ -2,7 +2,7 @@ name: Release Packages
 
 on:
   push:
-    branches: ["release"]
+    branches: ["chore/ci"]
 
 jobs:
   quality:
