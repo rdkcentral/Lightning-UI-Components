@@ -64,7 +64,6 @@ Tab.argTypes = {
   },
   title: {
     control: 'text',
-    type: 'string',
     description: 'Text content of tab',
     table: {
       defaultValue: { summary: 'undefined' }
