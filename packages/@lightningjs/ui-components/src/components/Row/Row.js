@@ -18,6 +18,7 @@
 
 import NavigationManager from '../NavigationManager/index.js';
 import * as styles from './Row.styles.js';
+import { getX } from '../../utils';
 
 export default class Row extends NavigationManager {
   static get __componentName() {
@@ -59,8 +60,12 @@ export default class Row extends NavigationManager {
   // At a later time, we should investigate this further.
   _isOnScreenForScrolling(child) {
     if (!child) return false;
-    let itemX = child.core.renderContext.px;
+
+    const x = getX(child);
+    if (!Number.isFinite(x)) return false;
+    const itemsTransitionX = this.getTransitionXTargetValue();
     const rowX = this.core.renderContext.px;
+    let itemX = rowX + itemsTransitionX + x;
     let xModifier;
 
     // This section here takes the difference between a possible target value
