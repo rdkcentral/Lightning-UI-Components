@@ -136,9 +136,6 @@ class MiscProp extends Base {
       Text: {
         type: TextBox,
         style: { textStyle: 'caption1' },
-        signals:{
-          textBoxChanged: '_update'
-        }
       }
     };
   }
