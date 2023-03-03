@@ -1,10 +1,17 @@
 {
   "name": "@lightningjs/ui-components-theme-base",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The generic theme containing all necessary properties for the Lightning-UI shared components to map to for styling.",
   "type": "module",
   "main": "theme.js",
   "files": [
     "*.js"
-  ]
+  ],
+  "devDependencies": {
+    "semantic-release": "^19.0.5",
+    "semantic-release-monorepo": "^7.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

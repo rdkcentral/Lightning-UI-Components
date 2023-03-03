@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "@lightningjs/ui-components": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

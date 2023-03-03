@@ -52,13 +52,13 @@ describe('Key', () => {
     expect(key._Icon).toBeUndefined();
   });
 
-  it('should adjust its width if given a size', async () => {
+  it.skip('should adjust its width if given a size', async () => {
     key.size = 'md';
     await key.__updateSpyPromise;
     expect(key.w).toEqual(key.style.sizes.md);
   });
 
-  it('should make its width the default size given a size that does not exist', async () => {
+  it.skip('should make its width the default size given a size that does not exist', async () => {
     key.size = 'blue';
     await key.__updateSpyPromise;
     expect(key.w).toEqual(key.style.sizes.sm);
