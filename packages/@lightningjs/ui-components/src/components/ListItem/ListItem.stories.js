@@ -21,7 +21,9 @@ import ListItemComponent from './ListItem';
 import mdx from './ListItem.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
-import { Checkbox, Radio, Toggle } from '@lightningjs/ui-components';
+import { default as Checkbox } from '../Checkbox';
+import { default as Radio } from '../Radio';
+import { default as Toggle } from '../Toggle';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

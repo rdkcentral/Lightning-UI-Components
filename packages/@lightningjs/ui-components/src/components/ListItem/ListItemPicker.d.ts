@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { Color, StylePartial } from '@lightningjs/ui-components';
+import { Color, StylePartial } from '../../types/lui';
 import ListItem, { ListItemStyle } from '.';
 
 export type ListItemPickerStyle = ListItemStyle & {

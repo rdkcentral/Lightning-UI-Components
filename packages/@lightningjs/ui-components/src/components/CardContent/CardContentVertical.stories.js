@@ -25,7 +25,7 @@ import {
   generateSubStory
 } from 'lightning-ui-docs/.storybook/utils';
 import CardContentVerticalComponent from './CardContentVertical';
-import { Icon } from '@lightningjs/ui-components';
+import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
