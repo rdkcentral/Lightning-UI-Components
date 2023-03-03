@@ -16,7 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent, fastForward } from '@lightningjs/ui-components-test-utils';
+import {
+  makeCreateComponent,
+  fastForward
+} from '@lightningjs/ui-components-test-utils';
 import { degreesToRadians } from '../../utils/index.js';
 import Slider from './index.js';
 import { jest } from '@jest/globals';

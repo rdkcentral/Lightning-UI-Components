@@ -16,10 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as Artwork, ArtworkStyle } from './Artwork/index.js';
-export { default as Badge, BadgeStyle } from './Badge/index.js';
-export { default as Base } from './Base/index.js';
-export { default as Button, ButtonSmall, ButtonStyle } from './Button/index.js';
+export { default as Artwork, ArtworkStyle } from './Artwork';
+export { default as Badge, BadgeStyle } from './Badge';
+export { default as Base } from './Base';
+export { default as Button, ButtonSmall, ButtonStyle } from './Button';
 export {
   default as Card,
   CardSection,
@@ -40,24 +40,17 @@ export {
   CardContentVerticalStyle,
   CardContentVerticalSmallStyle
 } from './CardContent';
-export { default as Checkbox, CheckboxStyle } from './Checkbox/index.js';
-export { default as Column, ColumnStyle } from './Column/index.js';
-export {
-  default as Control,
-  ControlSmall,
-  ControlStyle
-} from './Control/index.js';
-export { default as ControlRow, ControlRowStyle } from './ControlRow/index.js';
-export { default as FocusManager } from './FocusManager/index.js';
-export { default as Gradient, GradientStyle } from './Gradient/index.js';
-export { default as GridOverlay } from './GridOverlay/index.js';
-export { default as Icon, IconStyle } from './Icon/index.js';
-export {
-  default as InlineContent,
-  InlineContentStyle
-} from './InlineContent/index.js';
-export { default as Input, InputStyle } from './Input/index.js';
-export { default as Key, KeyStyle } from './Key/index.js';
+export { default as Checkbox, CheckboxStyle } from './Checkbox';
+export { default as Column, ColumnStyle } from './Column';
+export { default as Control, ControlSmall, ControlStyle } from './Control';
+export { default as ControlRow, ControlRowStyle } from './ControlRow';
+export { default as FocusManager } from './FocusManager';
+export { default as Gradient, GradientStyle } from './Gradient';
+export { default as GridOverlay } from './GridOverlay';
+export { default as Icon, IconStyle } from './Icon';
+export { default as InlineContent, InlineContentStyle } from './InlineContent';
+export { default as Input, InputStyle } from './Input';
+export { default as Key, KeyStyle } from './Key';
 export {
   default as Keyboard,
   KeyboardStyle,
@@ -66,49 +59,34 @@ export {
   KeyboardNumbers,
   KeyboardQwerty,
   KeyboardInput
-} from './Keyboard/index.js';
-export { default as Knob, KnobStyle } from './Knob/index.js';
-export { default as Label, LabelStyle } from './Label/index.js';
+} from './Keyboard';
+export { default as Knob, KnobStyle } from './Knob';
+export { default as Label, LabelStyle } from './Label';
 export {
   default as ListItem,
   ListItemPicker,
   ListItemSlider,
   ListItemStyle
 } from './ListItem';
-export { default as Marquee, MarqueeStyle } from './Marquee/index.js';
-export {
-  default as MetadataBase,
-  MetadataBaseStyle
-} from './MetadataBase/index.js';
-export {
-  default as MetadataCard,
-  MetadataCardStyle
-} from './MetadataCard/index.js';
+export { default as Marquee, MarqueeStyle } from './Marquee';
+export { default as MetadataBase, MetadataBaseStyle } from './MetadataBase';
+export { default as MetadataCard, MetadataCardStyle } from './MetadataCard';
 export {
   default as MetadataCardContent,
   MetadataCardContentStyle
-} from './MetadataCardContent/index.js';
-export {
-  default as MetadataTile,
-  MetadataTileStyle
-} from './MetadataTile/index.js';
-export {
-  default as ProgressBar,
-  ProgressBarStyle
-} from './ProgressBar/index.js';
+} from './MetadataCardContent';
+export { default as MetadataTile, MetadataTileStyle } from './MetadataTile';
+export { default as ProgressBar, ProgressBarStyle } from './ProgressBar';
 export { default as Provider, ProviderStyle } from './Provider';
-export { default as Radio, RadioStyle } from './Radio/index.js';
-export { default as Row, RowStyle } from './Row/index.js';
-export {
-  default as ScrollWrapper,
-  ScrollWrapperStyle
-} from './ScrollWrapper/index.js';
-export { default as Shadow, ShadowStyle } from './Shadow/index.js';
-export { default as Slider, SliderStyle } from './Slider/index.js';
-export { default as Surface, SurfaceStyle } from './Surface/index.js';
-export { default as TabBar, TabBarStyle } from './TabBar/index.js';
-export { default as TextBox, TextBoxStyle } from './TextBox/index.js';
-export { default as Tile, TileStyle } from './Tile/index.js';
-export { default as TitleRow, TitleRowStyle } from './TitleRow/index.js';
-export { default as Toggle, ToggleStyle } from './Toggle/index.js';
-export { default as Tooltip, TooltipStyle } from './Tooltip/index.js';
+export { default as Radio, RadioStyle } from './Radio';
+export { default as Row, RowStyle } from './Row';
+export { default as ScrollWrapper, ScrollWrapperStyle } from './ScrollWrapper';
+export { default as Shadow, ShadowStyle } from './Shadow';
+export { default as Slider, SliderStyle } from './Slider';
+export { default as Surface, SurfaceStyle } from './Surface';
+export { default as TabBar, TabBarStyle } from './TabBar';
+export { default as TextBox, TextBoxStyle } from './TextBox';
+export { default as Tile, TileStyle } from './Tile';
+export { default as TitleRow, TitleRowStyle } from './TitleRow';
+export { default as Toggle, ToggleStyle } from './Toggle';
+export { default as Tooltip, TooltipStyle } from './Tooltip';
