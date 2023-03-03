@@ -16,7 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { pathToDataURI, makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+import {
+  pathToDataURI,
+  makeCreateComponent
+} from '@lightningjs/ui-components-test-utils';
 import CardSection from './CardSection';
 
 const circle = pathToDataURI('./src/assets/images/circle.svg');

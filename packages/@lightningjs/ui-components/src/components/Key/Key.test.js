@@ -16,7 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { makeCreateComponent, pathToDataURI } from '@lightningjs/ui-components-test-utils';
+import {
+  makeCreateComponent,
+  pathToDataURI
+} from '@lightningjs/ui-components-test-utils';
 import Key from './index.js';
 import { jest } from '@jest/globals';
 

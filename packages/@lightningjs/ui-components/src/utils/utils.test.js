@@ -17,7 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import { makeCreateComponent, TestRenderer } from '@lightningjs/ui-components-test-utils';
+import {
+  makeCreateComponent,
+  TestRenderer
+} from '@lightningjs/ui-components-test-utils';
 import {
   rgba2argb,
   RoundRect,

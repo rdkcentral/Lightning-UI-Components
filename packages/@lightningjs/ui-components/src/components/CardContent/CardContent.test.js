@@ -16,7 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { pathToDataURI, makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+import {
+  pathToDataURI,
+  makeCreateComponent
+} from '@lightningjs/ui-components-test-utils';
 import CardContent from './CardContent';
 import { Tile } from '@lightningjs/ui-components';
 
