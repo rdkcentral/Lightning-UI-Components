@@ -1,7 +1,6 @@
 {
   "branches": [
     "release",
-    "chore/ci",
     { "name": "next", "channel": "next", "prerelease": true },
     { "name": "beta", "channel": "beta", "prerelease": true }
   ],
