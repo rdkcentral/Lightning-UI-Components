@@ -139,7 +139,6 @@ class MetadataBase extends Base {
   }
 
   _updateSubtitleLayout({ w, h }) {
-    this._SubtitleWrapper.alpha = this.style.alpha;
     this._SubtitleWrapper.w = w;
     this._SubtitleWrapper.h = h;
   }
@@ -225,6 +224,7 @@ class MetadataBase extends Base {
       this._SubtitleWrapper.shader = undefined;
     }
     this._SubtitleWrapper.visible = this.subtitle ? true : false;
+    this._SubtitleWrapper.alpha = this.subtitle ? this.style.alpha : 0;
   }
 
   _updateDescription() {

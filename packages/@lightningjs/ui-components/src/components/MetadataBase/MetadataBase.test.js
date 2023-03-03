@@ -193,33 +193,30 @@ describe('MetadataBase', () => {
   });
 
   // TODO test is timing out
-  it.skip('should signal dimension updates when the height is changed', async () => {
+  it('should signal dimension updates when the height is changed', async () => {
     [metadataBase, testRenderer] = createComponent(
       {
-        w: 400,
-        h: 0,
-        logoHeight: 0
+        title: ''
       },
       {
-        spyOnMethods: ['_titleLoaded']
+        spyOnMethods: ['_update', '_titleLoaded']
       }
     );
     jest.spyOn(metadataBase, 'signal');
-    await metadataBase.__titleLoadedSpyPromise;
 
     const initialH = metadataBase.h;
-    expect(metadataBase.signal).not.toHaveBeenCalled();
+    metadataBase.title = '';
+    await metadataBase.__updateSpyPromise;
     expect(metadataBase.h).toBe(initialH);
+    expect(metadataBase.signal).not.toHaveBeenCalled();
 
     metadataBase.title = 'text';
-
+    await metadataBase.__updateSpyPromise;
     await metadataBase.__titleLoadedSpyPromise;
-
-    const updatedH = metadataBase.h;
     expect(metadataBase.signal).toHaveBeenCalledWith(
       'updateComponentDimensions'
     );
-    expect(updatedH).toBeGreaterThan(initialH);
+    expect(metadataBase.h).toBeGreaterThan(initialH);
   });
 
   // TODO test is timing out
