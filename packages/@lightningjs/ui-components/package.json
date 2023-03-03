@@ -50,5 +50,8 @@
   "files": [
     "dist/*",
     "src/*"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

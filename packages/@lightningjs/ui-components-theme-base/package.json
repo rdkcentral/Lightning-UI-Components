@@ -6,5 +6,8 @@
   "main": "theme.js",
   "files": [
     "*.js"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,0 +1,48 @@
+name: Release Packages
+
+on:
+  push:
+    branches: ["release"]
+
+jobs:
+  sanity:
+    name: Sanity
+    uses: ./.github/workflows/sanity.yml
+  storybook:
+    name: Build & Release Docs
+    uses: ./.github/workflows/docs.yml
+    needs: release
+    secrets: inherit
+  release:
+    name: Release
+    needs: sanity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # make sure to get all history for semantic release
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.17.x
+          cache: "yarn"
+      - name: Build Packages
+        run: yarn workspaces foreach --exclude lightning-ui-docs run build
+      - name: Semantic Release
+        run: yarn workspaces foreach run semantic-release --no-ci -e semantic-release-monorepo 
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      - name: Setup git config
+        run: |
+          # setup the username and email
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Save changes
+        run: |
+          git push origin release || echo 0;
+          git push origin release --tags || echo 0;
+          git checkout develop
+          git merge release || echo 0;
+          git push origin develop || echo 0;
