@@ -31,7 +31,7 @@ jobs:
       - name: Build Packages
         run: yarn workspaces foreach --exclude lightning-ui-docs run build
       - name: Semantic Release
-        run: yarn workspaces foreach run semantic-release --no-ci --dry-run -e semantic-release-monorepo 
+        run: yarn workspaces foreach run semantic-release --no-ci -e semantic-release-monorepo 
         env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
