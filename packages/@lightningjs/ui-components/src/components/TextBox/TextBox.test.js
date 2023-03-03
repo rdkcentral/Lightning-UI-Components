@@ -195,6 +195,7 @@ describe('TextBox', () => {
       textBox.content = 'Hello Text Defaults';
       await textBox.__updateSpyPromise;
       expect(context.theme.name).toBe('Test');
+      expect(textBox.style.textStyle).toMatchObject(testTheme.typography.body1);
     });
   });
 
