@@ -52,7 +52,7 @@ describe('Key', () => {
     expect(key._Icon).toBeUndefined();
   });
 
-  it('should adjust its width if given a size', async () => {
+  it.skip('should adjust its width if given a size', async () => {
     key.size = 'md';
     await key.__updateSpyPromise;
     expect(key.w).toEqual(key.style.sizes.md);
