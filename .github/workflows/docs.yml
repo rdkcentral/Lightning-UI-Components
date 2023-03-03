@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.17.x
-      - name: Build Storybook
+      - name: Build
         run: |
           yarn install
           yarn workspace lightning-ui-docs run build
