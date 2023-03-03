@@ -2588,6 +2588,9 @@ __metadata:
 "@lightningjs/ui-components-theme-base@workspace:^, @lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base"
+  dependencies:
+    semantic-release: ^19.0.5
+    semantic-release-monorepo: ^7.0.5
   languageName: unknown
   linkType: soft
 
