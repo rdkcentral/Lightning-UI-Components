@@ -5,9 +5,9 @@ on:
     branches: ["release"]
 
 jobs:
-  sanity:
-    name: Sanity
-    uses: ./.github/workflows/sanity.yml
+  quality:
+    name: Quality
+    uses: ./.github/workflows/quality.yml
   storybook:
     name: Build & Release Docs
     uses: ./.github/workflows/docs.yml
@@ -15,7 +15,7 @@ jobs:
     secrets: inherit
   release:
     name: Release
-    needs: sanity
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

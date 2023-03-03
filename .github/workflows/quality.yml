@@ -1,4 +1,4 @@
-name: Sanity Checks
+name: Code Quality
 
 on:
   workflow_call:
@@ -17,7 +17,7 @@ jobs:
       - name: Run tests
         run: yarn test
   lint:
-    name: Code Quality
+    name: Lint Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
