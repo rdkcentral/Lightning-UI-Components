@@ -11,8 +11,6 @@
     "@semantic-release/npm",
     "@semantic-release/git",
     ["@semantic-release/github", {
-      "githubUrl": "https://github.comcast.com",
-      "githubApiPathPrefix": "/api/v3",
       "assets": [
         {"path": "dist/**/*.{js,css}", "label": "JS distribution"}
       ]
