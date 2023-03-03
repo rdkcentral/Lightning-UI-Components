@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { MetadataBase } from '@lightningjs/ui-components';
+import { default as MetadataBase } from '../MetadataBase';
 
 export default class MetadataCard extends MetadataBase {}

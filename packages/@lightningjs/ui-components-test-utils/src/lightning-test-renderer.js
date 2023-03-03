@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { updateManager, context } from '@lightningjs/ui-components';
 import jest from 'jest-mock';
-import BaseTheme from '../../ui-components-theme-base/theme';
+import BaseTheme from '@lightningjs/ui-components-theme-base';
 
 context.setTheme({
   ...BaseTheme,

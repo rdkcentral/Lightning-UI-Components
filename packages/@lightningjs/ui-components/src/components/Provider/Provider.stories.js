@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import ProviderComponent from '.';
-import { Icon } from '@lightningjs/ui-components';
+import { default as Icon } from '../Icon';
 import mdx from './Provider.mdx';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
 import { CATEGORIES } from 'lightning-ui-docs';

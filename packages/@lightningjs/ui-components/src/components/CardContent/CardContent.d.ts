@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { StylePartial } from '@lightningjs/ui-components';
+import { StylePartial } from '../../types/lui';
 import Card, { CardStyle } from '../Card';
 import { default as MetadataCardContent } from '../MetadataCardContent';
 

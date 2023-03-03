@@ -17,7 +17,7 @@
  */
 
 module.exports = name => {
-  return `import type { Base, StylePartial } from '@lightningjs/ui-components';
+  return `import type { Base, StylePartial } from '../../types/lui';
 
 export type ${name}Style = {
 

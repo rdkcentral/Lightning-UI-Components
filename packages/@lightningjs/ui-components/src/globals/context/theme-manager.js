@@ -22,7 +22,7 @@ import {
   getHexColor,
   getValidColor
 } from '../../utils/index.js';
-import baseTheme from '../../../../ui-components-theme-base/theme';
+import baseTheme from '@lightningjs/ui-components-theme-base';
 import logger from './logger.js';
 import events from './events.js';
 import { fontLoader, cleanupFonts } from './fonts.js';
