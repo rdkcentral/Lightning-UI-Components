@@ -351,7 +351,11 @@ export const CenteredInParent = () =>
               autoResizeWidth: true,
               autoResizeHeight: true,
               centerInParent: true,
-              items: createItems(Button, 1)
+              items: createItems(Button, 2)
+            },
+            {
+              ...createItems(Button, 1)[0],
+              centerInParent: true
             }
           ]
         }
