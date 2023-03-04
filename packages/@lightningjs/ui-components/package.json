@@ -1,6 +1,6 @@
 {
   "name": "@lightningjs/ui-components",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "description": "A shared library of helpful LightningJS components utilizing theme files to easily customize for any LightningJS application.",
   "sideEffects": false,
   "type": "module",
