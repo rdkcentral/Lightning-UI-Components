@@ -25,6 +25,7 @@ export const getStoryName = pageName => {
     CheckboxSmall: 'Checkbox-Small',
     Column: 'Column',
     Control: 'Control',
+    ControlRow: 'controlrow',
     ControlSmall: 'Control-Small',
     Distractor: 'Distractor',
     Gradient: 'Gradient',

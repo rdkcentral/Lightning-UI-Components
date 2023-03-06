@@ -19,6 +19,7 @@ import Checkbox from './utilities/checkbox.utilities';
 import CheckboxSmall from './utilities/checkboxsmall.utilities';
 import Column from './navigation/column.navigation';
 import Control from './controls/control.controls';
+import ControlRow from './navigation/controlrow.navigation';
 import ControlSmall from './controls/controlsmall.controls';
 import Distractor from './utilities/distractor.utilities';
 import Gradient from './foundations/gradient.foundations';
@@ -79,6 +80,7 @@ export default function getPageObject(pageName) {
     checkboxsmall: CheckboxSmall,
     column: Column,
     control: Control,
+    controlrow: ControlRow,
     controlsmall: ControlSmall,
     distractor: Distractor,
     gradient: Gradient,

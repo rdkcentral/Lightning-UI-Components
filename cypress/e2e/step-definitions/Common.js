@@ -73,7 +73,7 @@ export default function () {
    */
   Then(
     'I verify that the {string} component is not displayed',
-    (componentName) => {
+    componentName => {
       const page = componentName.toLowerCase();
       const pageObject = getPageObject(page);
       pageObject._getElementByName(componentName).should('not.be.visible');
@@ -315,6 +315,27 @@ export default function () {
         ._getElementByName(element)
         .first()
         .children()
+        .should('have.length', no_of_assets);
+    }
+  );
+
+  /**
+   @module Common
+   @function I verify that {String} on the {String} page has {int} assets
+   @description Cucumber statement to verify the number of assets per row
+   @param {Integer} no_of_assets
+   @param {String} pageName
+   @example I verify that 'Row1' on the 'Row' page has 4 assets
+   */
+  Then(
+    'I verify that {string} on the {string} page has {int} assets',
+    (element, pageName, no_of_assets) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      pageObject
+        ._getElementByName(element)
+        .should('exist')
         .should('have.length', no_of_assets);
     }
   );
@@ -1033,6 +1054,31 @@ export default function () {
         ._getElementByName(component)
         .should('have.attr', attribute)
         .should('contain', value);
+    }
+  );
+
+  /**
+   * @module Common
+   * @function I verify that the elements are {int} pixels aparts for {string} component
+   * @description Cucumbumber statement to verify that specific elements are spaced a certain amount of pixels apart 
+   * @param {Integer} expectedSpace - the expected space between buttons
+   * @param {String} pageName
+   * @example I verify that the elements are 20 pixels apart for 'ControlRow' component
+   */
+  Then(
+    'I verify that the elements are {int} pixels apart for {string} component',
+    (expectedSpace, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+
+      cy.wait(500)
+        .getSpaceBetweenTiles(pageObject.elements)
+        .then(space => {
+          expect(space).to.equal(
+            expectedSpace,
+            `Buttons are evenly spaced by ${expectedSpace} pixels`
+          );
+        });
     }
   );
 }
