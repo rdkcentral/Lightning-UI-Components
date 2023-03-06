@@ -172,14 +172,6 @@ describe('TextBox', () => {
       const testTheme = {
         name: 'Test',
         typography: {
-          display1: {
-            fontFace: 'TestFont1',
-            fontSize: 35,
-            fontWeight: 500,
-            letterSpacing: 1,
-            lineHeight: 100,
-            verticalAlign: 'middle'
-          },
           body1: {
             fontFace: 'TestFont2',
             fontSize: 15,
