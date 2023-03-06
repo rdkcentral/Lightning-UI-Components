@@ -24,3 +24,6 @@ original/
 CHANGELOG.md
 
 /packages/apps/lightning-ui-docs/scripts/themePropertyTables
+
+# Copied into folder from root directory during release
+/packages/@lightningjs/ui-components/README.md

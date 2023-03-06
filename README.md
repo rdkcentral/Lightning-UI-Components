@@ -64,7 +64,7 @@ Install from NPM:
 npm install --save @lightningjs/ui-components
 ```
 
-`@lightningjs/ui-componenents` has a peer dependency on the [Lightning package](https://www.npmjs.com/package/@lightningjs/core)
+`@lightningjs/ui-components` has a peer dependency on the [Lightning package](https://www.npmjs.com/package/@lightningjs/core)
 
 ```sh
 npm install -S @lightningjs/ui @lightningjs/core
