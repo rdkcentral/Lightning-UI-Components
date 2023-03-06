@@ -145,6 +145,32 @@ describe('MetadataBase', () => {
     expect(metadataBase._Text.x).toBe(secondLineX);
   });
 
+  it('should allow setting the logo width and logo height', async () => {
+    const logoWidth = 50;
+    const logoHeight = 50;
+    metadataBase.logoWidth = logoWidth;
+    metadataBase.logoHeight = logoHeight;
+
+    await metadataBase.__updateSpyPromise;
+
+    expect(metadataBase.logoWidth).toBe(logoWidth);
+    expect(metadataBase._Logo.w).toBe(logoWidth);
+    expect(metadataBase.logoHeight).toBe(logoHeight);
+    expect(metadataBase._Logo.h).toBe(logoHeight);
+  });
+
+  it('should disallow setting the logo width and logo height to undefined and default its value to the logoWidth and logoHeight style properties', async () => {
+    metadataBase.logoWidth = undefined;
+    metadataBase.logoHeight = undefined;
+
+    await metadataBase.__updateSpyPromise;
+
+    expect(metadataBase.logoWidth).toBe(metadataBase.style.logoWidth);
+    expect(metadataBase._Logo.w).toBe(metadataBase.style.logoWidth);
+    expect(metadataBase.logoHeight).toBe(metadataBase.style.logoHeight);
+    expect(metadataBase._Logo.h).toBe(metadataBase.style.logoHeight);
+  });
+
   describe('resetMarquee', () => {
     beforeEach(() => {
       jest.spyOn(metadataBase._Title, 'toggleMarquee');

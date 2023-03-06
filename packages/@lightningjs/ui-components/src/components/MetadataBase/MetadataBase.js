@@ -19,7 +19,7 @@
 import Base from '../Base';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
-// import { FadeShader } from '../../textures';
+import { FadeShader } from '../../shaders';
 import { withMarqueeSync } from '../../mixins';
 import * as styles from './MetadataBase.styles';
 
@@ -80,26 +80,6 @@ class MetadataBase extends Base {
       'title',
       'marquee'
     ];
-  }
-
-  _getLogoWidth() {
-    return this._logoWidth !== undefined
-      ? this._logoWidth
-      : this.style.logoWidth;
-  }
-
-  _setLogoWidth(w) {
-    return w !== undefined ? w : this.logoWidth;
-  }
-
-  _getLogoHeight() {
-    return this._logoHeight !== undefined
-      ? this._logoHeight
-      : this.style.logoHeight;
-  }
-
-  _setLogoHeight(h) {
-    return h !== undefined ? h : this.logoHeight;
   }
 
   static get tags() {
@@ -215,7 +195,7 @@ class MetadataBase extends Base {
       this._SubtitleWrapper.patch({
         w: this._textW() + this.style.fadeWidth / 2,
         shader: {
-          // type: FadeShader,
+          type: FadeShader,
           positionLeft: 0,
           positionRight: this.style.fadeWidth
         },
@@ -268,6 +248,26 @@ class MetadataBase extends Base {
     const descriptionH =
       (this.description && this._Description && this._Description.h) || 0;
     return titleH + subtitleH + descriptionH;
+  }
+
+  _getLogoWidth() {
+    return this._logoWidth !== undefined
+      ? this._logoWidth
+      : this.style.logoWidth;
+  }
+
+  _setLogoWidth(w) {
+    return w !== undefined ? w : this.logoWidth;
+  }
+
+  _getLogoHeight() {
+    return this._logoHeight !== undefined
+      ? this._logoHeight
+      : this.style.logoHeight;
+  }
+
+  _setLogoHeight(h) {
+    return h !== undefined ? h : this.logoHeight;
   }
 
   get syncArray() {
