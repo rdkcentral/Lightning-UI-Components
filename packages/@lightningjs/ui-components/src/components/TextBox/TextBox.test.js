@@ -191,7 +191,6 @@ describe('TextBox', () => {
         }
       };
       context.setTheme(testTheme);
-      textBox.base = context.theme;
       textBox.content = 'Hello Text Defaults';
       await textBox.__updateSpyPromise;
       expect(context.theme.name).toBe('Test');
