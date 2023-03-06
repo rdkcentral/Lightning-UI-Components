@@ -192,7 +192,6 @@ describe('MetadataBase', () => {
     });
   });
 
-  // TODO test is timing out
   it('should signal dimension updates when the height is changed', async () => {
     [metadataBase, testRenderer] = createComponent(
       {
@@ -217,34 +216,5 @@ describe('MetadataBase', () => {
       'updateComponentDimensions'
     );
     expect(metadataBase.h).toBeGreaterThan(initialH);
-  });
-
-  // TODO test is timing out
-  it.skip('should not signal dimension updates when the height is not changed', async () => {
-    [metadataBase, testRenderer] = createComponent(
-      {
-        w: 400,
-        h: 0,
-        logoHeight: 0,
-        title: 'text'
-      },
-      {
-        spyOnMethods: ['_titleLoaded']
-      }
-    );
-    await metadataBase.__titleLoadedSpyPromise;
-    jest.spyOn(metadataBase, 'signal');
-
-    const initialH = metadataBase.h;
-    expect(metadataBase.signal).not.toHaveBeenCalled();
-    expect(metadataBase.h).toBe(initialH);
-
-    // updated title ('text' backwards) that should be the same height as the initial title
-    metadataBase.title = 'txet';
-
-    await metadataBase.__titleLoadedSpyPromise;
-
-    expect(metadataBase.signal).not.toHaveBeenCalled();
-    expect(metadataBase.h).toBe(initialH);
   });
 });

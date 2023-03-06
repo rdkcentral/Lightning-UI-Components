@@ -87,7 +87,7 @@ exports[`MetadataBase renders 1`] = `
         },
         "SubtitleWrapper": {
           "active": false,
-          "alpha": 0,
+          "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "children": {
