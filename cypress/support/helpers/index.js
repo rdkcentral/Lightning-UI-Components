@@ -30,6 +30,7 @@ export const getStoryName = pageName => {
     Distractor: 'Distractor',
     Gradient: 'Gradient',
     FocusRing: 'Focus-Ring',
+    Input: 'input',
     Key: 'Key',
     Keyboard: 'Keyboard',
     KeyboardNumbers: 'Keyboard-Numbers',

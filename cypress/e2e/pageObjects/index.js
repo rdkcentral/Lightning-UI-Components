@@ -26,6 +26,7 @@ import Gradient from './foundations/gradient.foundations';
 import FocusManager from './navigation/focusmanager.navigation';
 import FocusRing from './foundations/focusring.foundations';
 import Icon from './elements/icon.element';
+import Input from './keyboard/input.keyboard';
 import Key from './keyboard/key.keyboard';
 import Keyboard from './keyboard/keyboard.keyboard';
 import KeyboardNumbers from './keyboard/keyboardnumbers.keyboard';
@@ -88,6 +89,7 @@ export default function getPageObject(pageName) {
     focusmanager: FocusManager,
     focusring: FocusRing,
     icon: Icon,
+    input: Input,
     key: Key,
     keyboard: Keyboard,
     keyboardnumbers: KeyboardNumbers,
