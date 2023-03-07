@@ -19,7 +19,7 @@
 import Icon from '../Icon/index.js';
 import Badge from '../Badge/index.js';
 import { parseInlineContent, flatten } from '../../utils/index.js';
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './InlineContent.styles.js';
 
 export default class InlineContent extends Base {

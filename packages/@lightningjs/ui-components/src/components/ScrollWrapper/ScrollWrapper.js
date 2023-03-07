@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './ScrollWrapper.styles.js';
 import TextBox from '../TextBox/index.js';
 import ScrollSlider from './ScrollSlider.js';

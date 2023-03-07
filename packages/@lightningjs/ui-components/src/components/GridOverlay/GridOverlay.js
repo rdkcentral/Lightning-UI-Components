@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import { context } from '../../globals';
 import Column from '../Column/index.js';
 import Row from '../Row/index.js';

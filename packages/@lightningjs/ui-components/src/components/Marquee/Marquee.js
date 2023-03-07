@@ -19,7 +19,7 @@
 import * as styles from './Marquee.styles.js';
 import { FadeShader } from '../../shaders';
 import utils from '../../utils/index.js';
-import Base from '../Base/index.js';
+import Base from '../Base';
 
 export default class Marquee extends Base {
   static _template() {

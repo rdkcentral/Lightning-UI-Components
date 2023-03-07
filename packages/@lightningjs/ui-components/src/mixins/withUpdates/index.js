@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context, updateManager } from '../../globals/index.js';
+import { context, updateManager } from '../../globals';
 import { clone } from '../../utils/index.js';
 
 function capital(str) {

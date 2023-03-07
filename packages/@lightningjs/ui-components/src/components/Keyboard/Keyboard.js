@@ -17,7 +17,7 @@
  */
 
 import { context } from '../../globals';
-import Base from '../Base/index.js';
+import Base from '../Base';
 import Key from '../Key/index.js';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';

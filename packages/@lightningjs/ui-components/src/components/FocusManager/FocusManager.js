@@ -21,7 +21,7 @@
  *
  * Container to set focus on elements with key[Up/Down] or key[Left/Right]
  */
-import Base from '../Base/index.js';
+import Base from '../Base';
 import {
   getX,
   getY,

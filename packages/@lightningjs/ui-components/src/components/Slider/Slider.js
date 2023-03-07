@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './Slider.styles.js';
 import ProgressBar from '../ProgressBar/index.js';
 import Icon from '../Icon/index.js';

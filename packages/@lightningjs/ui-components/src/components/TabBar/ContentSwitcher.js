@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import { stringifyCompare } from '../../utils/index.js';
 
 export default class ContentSwitcher extends Base {

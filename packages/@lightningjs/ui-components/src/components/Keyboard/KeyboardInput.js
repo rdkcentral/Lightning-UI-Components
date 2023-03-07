@@ -18,7 +18,7 @@
 
 import Keyboard from './index.js';
 import Input from '../Input/index.js';
-import Base from '../Base/index.js';
+import Base from '../Base';
 import Column from '../Column/index.js';
 import * as styles from './Keyboard.styles.js';
 

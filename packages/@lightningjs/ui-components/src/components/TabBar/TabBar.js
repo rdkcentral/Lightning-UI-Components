@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import Row from '../Row/index.js';
 import ContentSwitcher from './ContentSwitcher.js';
 import * as styles from './TabBar.styles.js';
