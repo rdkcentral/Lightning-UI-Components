@@ -173,20 +173,47 @@ describe('TextBox', () => {
         name: 'Test',
         typography: {
           body1: {
-            fontFace: 'TestFont2',
-            fontSize: 15,
-            fontWeight: 250,
-            letterSpacing: 0,
-            lineHeight: 50,
-            verticalAlign: 'middle'
+            fontFace: 'TestFont2'
           }
         }
+      };
+      const baseThemeValues = {
+        typography: {
+          body1: {
+            fontSize: 25,
+            fontWeight: 300,
+            lineHeight: 40,
+            verticalAlign: 'middle',
+            textBaseline: 'bottom'
+          }
+        }
+      };
+      const lightningDefaultValues = {
+        fontSize: 40,
+        fontStyle: 'normal',
+        textAlign: 'left',
+        verticalAlign: 'top',
+        wordWrap: true,
+        maxLines: 0,
+        maxLinesSuffix: '..',
+        wordWrapWidth: 0
       };
       context.setTheme(testTheme);
       textBox.content = 'Hello Text Defaults';
       await textBox.__updateSpyPromise;
       expect(context.theme.name).toBe('Test');
-      expect(textBox.style.textStyle).toMatchObject(testTheme.typography.body1);
+      expect(textBox._Text.text.fontFace).toBe(
+        testTheme.typography.body1.fontFace
+      );
+      expect(textBox._Text.text.fontSize).toBe(
+        baseThemeValues.typography.body1.fontSize
+      );
+      expect(textBox._Text.text.maxLinesSuffix).toBe(
+        lightningDefaultValues.maxLinesSuffix
+      );
+      expect(textBox._Text.text.fontStyle).toBe(
+        lightningDefaultValues.fontStyle
+      );
     });
   });
 
