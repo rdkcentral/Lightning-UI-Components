@@ -1,0 +1,139 @@
+<!--
+  Copyright 2023 Comcast Cable Communications Management, LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+
+import { Canvas, Story } from '@storybook/addon-docs';
+# withThemeStyles
+
+Use `withThemeStyles` to create composable components that can be easily themed and decoupled from functionality.
+
+The `withThemeStyles` mixin provides flexibility with _composability_: the concept of combining the properties of multiple components to create a new component. This is not intended to be a replacement for building a component API, but rather a tool for augmentation.
+
+<Canvas>
+  <Story id="utilities-withthemestyles--with-theme-styles" />
+</Canvas>
+
+## Usage
+
+Let's use an example to see how we can use `withThemeStyles`. Let's say you have an unstyled `Box` component with a defined width and height:
+
+```js
+import lng from '@lightningjs/core';
+
+class Box extends lng.Component {
+  static _template() {
+    return {
+      w: 150,
+      h: 150,
+      rect: true
+    };
+  }
+}
+```
+
+If you want to re-use this `Box` to create a _new_ component called `BlueBox`, you can do that by extending the base class.
+
+```js
+class BlueBox extends Box {
+  static _template() {
+    return {
+      ...super._template(),
+      color: 0xff0000ff
+    };
+  }
+}
+```
+
+This is fine if you want a box that is always blue, but what if you want to change the color of your component without having to extend it and override that single value? Or if you want a box that changes based on certain factors, such as its [mode](?path=/docs/docs-theming-mode--page)? Or what if you want to have multiple color palettes (in LUI, these are called [tones](?path=/docs/docs-theming-tone--page)) that you can switch between depending on if your application is in light or dark mode?
+
+By utilizing `withThemeStyles`, you can tie the color of your box to the tokens used in your theme or a single style object. This can be done in the following ways.
+
+### Defining a Style Object
+
+The first (and suggested) way of handling styles is to wrap your component in the `withThemeStyles` mixin, and then define the `__themeStyle` getter.
+
+```js
+const style = {
+  color: 0xff0000ff
+};
+
+class Box extends withThemeStyles(lng.Component) {
+  static get __componentName() {
+    return 'Box';
+  }
+
+  static get __themeStyle() {
+    return style;
+  }
+
+  static _template() {
+    return {
+      w: 150,
+      h: 150,
+      rect: true
+    };
+  }
+
+  _update() {
+    this.color = this.style.color;
+  }
+}
+```
+
+With this setup, `Box` is able to have its color tied to a style value that exists outside of the `Box` class. This enables us to change the value of color externally, without the need to change any code in the `Box` class. Thus, the class can remain focused on the functional aspects of the component, and all style-related properties can be handled elsewhere.
+
+### Passing In a Style Object
+
+The second (and less preferred option) is to wrap your component in `withThemeStyles` and to pass in your style object as the second argument.
+
+```js
+const style = {
+  color: 0xff0000ff
+};
+
+class Box extends lng.Component {
+  static get __componentName() {
+    return 'Box';
+  }
+
+  static _template() {
+    return {
+      w: 150,
+      h: 150,
+      rect: true
+    };
+  }
+
+  _update() {
+    this.color = this.style.color;
+  }
+}
+
+class NewComponent extends lng.Component {
+  _template() {
+    Box: {
+      type: withThemeStyles(Box, style);
+    }
+  }
+}
+```
+
+This method is usually more appropriate for in-line styling, rather than defining the styles of a new component. This is because you rely on the component already being set up for use with theming, and this method will only apply the given styles to that particular instance of your component. (We advise changes to be made to all instances of a component when possible to ensure proper adherence to your design system.)
+
+In both cases, you'll notice that there is a `__componentName` getter in our `Box` class. This name is what is used to reference our component for any overrides and extension assignments that might exist in our theme's `componentConfig`.
+
+For more information on all of the ways you can set up your styles to fully utilize this mixin, read through the [Theming Documentation](?path=/docs/docs-theming-overview--page).

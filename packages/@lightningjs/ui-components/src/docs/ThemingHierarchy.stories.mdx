@@ -16,12 +16,29 @@
   SPDX-License-Identifier: Apache-2.0
 -->
 
-
 import { Meta, Description } from '@storybook/addon-docs';
 import Flowchart from '../assets/images/Flowchart.png';
 
 <Meta title="Docs / Theming/ Hierarchy" />
 
 # Theming Hierarchy
-
+<br />
 <img src={Flowchart} alt="" width="600" />
+
+The above flowchart serves to demonstrate how the different theming-related concepts covered in previous documentation come together to build the final styles for each component.
+
+## Component Style File
+
+A component's style file can consist of a base style object, a [tone style object](path=/docs/docs-theming-tone--page), and a [mode style object](path=/docs/docs-theming-mode--page). These three objects are deep merged, in that order, to create a single style object that serves as the foundation for the final component style object.
+
+## Theme's _componentConfig_
+
+Themes can have a `componentConfig` object that has nested component style objects, which serve to override any styles from component style files. The objects nested within `componentConfig` must have keys matching the `__componentName` of the target components. These are deep merged with the results from each of those files.
+
+## In-line Component Style Overrides
+
+When utilizing components within your application, you can use [withThemeStyles](path=/docs/utilities-withthemestyles--with-theme-styles) to override particular style values in just that use case. Those defined styles are merged with the result of the merge that happened above.
+
+## Extensions
+
+Any extensions that target your component are then merged with the result after in-line component style overrides to create the final component style object that will be referenced by your application's components.
