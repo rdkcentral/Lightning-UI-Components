@@ -1,6 +1,6 @@
 {
   "name": "@lightningjs/ui-components-test-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helpful Jest unit test utilities for LightningJS applications utilizing the Lightning-UI-Components package.",
   "type": "module",
   "exports": "./index.js",
