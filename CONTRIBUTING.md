@@ -54,7 +54,7 @@ The following is a set of guidelines for contributing to `@lightningjs/ui-compon
 
 **Discuss on Slack**
 
-<a href="https://lightning-community.slack.com/archives/C04R2HNU5V3" target="_blank">#lightning-ui-componenents-support</a>
+<a href="https://lightning-community.slack.com/archives/C04R2HNU5V3" target="_blank">#lightning-ui-components-support</a>
 
 ## How Can I Contribute?
 

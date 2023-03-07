@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # make sure to get all history for semantic release
+          fetch-depth: 0 # Make sure to get all history for semantic release
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -30,8 +30,13 @@ jobs:
         run: yarn install
       - name: Build Packages
         run: yarn workspaces foreach --exclude lightning-ui-docs run build
+      - name: Copy README # Make sure to deploy README from the root directory along with @lightningjs/ui-components
+        run: cp ./README.md ./packages/@lightningjs/ui-components/README.md
       - name: Semantic Release
-        run: yarn workspaces foreach run semantic-release --no-ci -e semantic-release-monorepo 
+        run: |
+          yarn workspace @lightningjs/ui-components-theme-base run semantic-release --no-ci -e semantic-release-monorepo 
+          yarn workspace @lightningjs/ui-components run semantic-release --no-ci -e semantic-release-monorepo 
+          yarn workspace @lightningjs/ui-components-test-utils run semantic-release --no-ci -e semantic-release-monorepo
         env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
