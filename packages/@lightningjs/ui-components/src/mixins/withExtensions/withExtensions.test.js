@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withExtensions from './index.js';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import { jest } from '@jest/globals';
 
 const extensionMock = jest.fn();

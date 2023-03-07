@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import { flatten, getWidthByUpCount } from '../../utils/index.js';
 import { Row, Column as ColumnComponent, Tile, Button } from '../index.js';
 import mdx from './Column.mdx';

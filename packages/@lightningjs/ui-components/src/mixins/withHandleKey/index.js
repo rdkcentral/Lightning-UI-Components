@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 
 export default function withHandleKey(Base) {
   return class extends Base {

@@ -17,7 +17,7 @@
  */
 
 import Base from '../Base/index.js';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import Column from '../Column/index.js';
 import Row from '../Row/index.js';
 import TextBox from '../TextBox/index.js';

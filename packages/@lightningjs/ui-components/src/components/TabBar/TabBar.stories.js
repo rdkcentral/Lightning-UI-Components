@@ -26,7 +26,7 @@ import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row/index.js';
 import Column from '../Column/index.js';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import Tab from './Tab.js';
 import TabBarComponent from './index.js';
 import mdx from './TabBar.mdx';

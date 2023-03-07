@@ -21,7 +21,7 @@ import { getValidColor, reduceFraction } from '../../utils/index.js';
 import Base from '../Base/index.js';
 import Gradient from '../Gradient/index.js';
 import * as styles from './Artwork.styles.js';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 
 export default class Artwork extends Base {
   static get __componentName() {

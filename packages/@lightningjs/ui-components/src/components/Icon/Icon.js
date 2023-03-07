@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/index.js';
 import * as styles from './Icon.styles.js';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import { stringifyCompare, getValidColor } from '../../utils/index.js';
 
 export default class Icon extends Base {

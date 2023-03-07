@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import {
   withUpdates,
   withTags,
