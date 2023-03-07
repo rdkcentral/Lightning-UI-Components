@@ -169,22 +169,12 @@ describe('TextBox', () => {
     });
 
     it('should get TextDefaults when switching themes', async () => {
+      const baseTheme = context.theme.typography.body1;
       const testTheme = {
         name: 'Test',
         typography: {
           body1: {
             fontFace: 'TestFont2'
-          }
-        }
-      };
-      const baseThemeValues = {
-        typography: {
-          body1: {
-            fontSize: 25,
-            fontWeight: 300,
-            lineHeight: 40,
-            verticalAlign: 'middle',
-            textBaseline: 'bottom'
           }
         }
       };
@@ -205,9 +195,7 @@ describe('TextBox', () => {
       expect(textBox._Text.text.fontFace).toBe(
         testTheme.typography.body1.fontFace
       );
-      expect(textBox._Text.text.fontSize).toBe(
-        baseThemeValues.typography.body1.fontSize
-      );
+      expect(textBox._Text.text.fontSize).toBe(baseTheme.fontSize);
       expect(textBox._Text.text.maxLinesSuffix).toBe(
         lightningDefaultValues.maxLinesSuffix
       );
