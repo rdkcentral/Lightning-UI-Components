@@ -49,7 +49,7 @@ export const withLayout = () => {
 withLayout.storyName = 'withLayout';
 
 withLayout.args = {
-  ratioX: 16,
+  ratioX: -16,
   ratioY: 9,
   upCount: 3,
   circle: false
@@ -57,17 +57,17 @@ withLayout.args = {
 
 withLayout.argTypes = {
   ratioX: {
-    control: 'number',
+    control: { type: 'number', min: 0 },
     description: 'The units of x resolution relative to the screen height',
     table: { defaultValue: { summary: 0 } }
   },
   ratioY: {
-    control: 'number',
+    control: { type: 'number', min: 0 },
     description: 'The units of y resolution relative to the screen width',
     table: { defaultValue: { summary: 0 } }
   },
   upCount: {
-    control: 'number',
+    control: { type: 'number', min: 0 },
     description:
       'The number of items that should be displayed within screen bounds',
     table: { defaultValue: { summary: 0 } }

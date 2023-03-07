@@ -30,7 +30,22 @@ export default function withLayout(Base) {
       return this._itemLayout;
     }
 
-    set itemLayout(itemLayout) {
+    set itemLayout(v) {
+      const itemLayout = JSON.parse(
+        JSON.stringify(v, (k, v) => {
+          if (k !== 'circle' && v < 0) {
+            context.error(
+              `itemlayout for ${
+                this.constructor._componentName || this.constructor.name
+              } recieved an invaild value of ${v} for ${k}`
+            );
+            return;
+          } else if (k === 'circle') {
+            return Boolean(v);
+          }
+          return v;
+        })
+      );
       if (!stringifyCompare(this._itemLayout, itemLayout)) {
         if (itemLayout && !itemLayout.upCount) {
           this._originalW = this.w;
