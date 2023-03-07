@@ -169,8 +169,8 @@ describe('NavigationManager', () => {
       });
     });
 
-    describe('centering items on the cross axis', () => {
-      it('should center items that have the centerInParent property set on them', () => {
+    describe('centering items on the cross axis with centerInParent property', () => {
+      it('should center items based off the Items cross dimension size', () => {
         [navigationManager] = createNavigationManager({
           items: [
             { ...baseItem, h: 400 },
@@ -181,6 +181,22 @@ describe('NavigationManager', () => {
         expect(navigationManager.Items.children[0].y).toBe(0);
         expect(navigationManager.Items.h).toBe(400);
         expect(navigationManager.Items.children[1].y).toBe((400 - 300) / 2);
+      });
+
+      it('should center items based off the NavigationManager cross dimension size', () => {
+        const h = 500;
+        [navigationManager] = createNavigationManager({
+          h,
+          items: [
+            { ...baseItem, h: 400 },
+            { ...baseItem, h: 300, centerInParent: true }
+          ]
+        });
+
+        expect(navigationManager.Items.children[0].y).toBe(0);
+        expect(navigationManager.h).toBe(500);
+        expect(navigationManager.Items.h).toBe(400);
+        expect(navigationManager.Items.children[1].y).toBe((h - 300) / 2);
       });
     });
 

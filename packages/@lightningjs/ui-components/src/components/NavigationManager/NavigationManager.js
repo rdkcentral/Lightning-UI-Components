@@ -131,14 +131,14 @@ export default class NavigationManager extends FocusManager {
       }
 
       if (child.centerInParent) {
-        // if the child is another NavigationManager, check the height of the item container
+        // if the child is another NavigationManager, check the cross dimension size of the item container
         const childCrossDimensionSize =
           (child.Items && child.Items[crossDimension]) || child[crossDimension];
         // only center the child if it is within the bounds of this NavigationManager
         // center based off innerCrossDimension in cases where elements with
         // innerCrossDimension exist in Items (ex. Tile with metadata)
         if (
-          childCrossDimensionSize < this.Items[innerCrossDimension] ||
+          childCrossDimensionSize < this[crossDimension] ||
           !this.Items[innerCrossDimension]
         ) {
           childrenToCenter.push({ childIdx: i, childCrossDimensionSize });
@@ -159,8 +159,8 @@ export default class NavigationManager extends FocusManager {
       [lengthDimension]: nextPosition + (this._totalAddedWidth || 0)
     });
 
-    this._centerItemsInParent(childrenToCenter);
     this._autoResize();
+    this._centerItemsInParent(childrenToCenter);
     this._updateLastScrollIndex();
 
     if (itemChanged) {
@@ -170,13 +170,25 @@ export default class NavigationManager extends FocusManager {
   }
 
   _centerItemsInParent(items) {
-    const { innerCrossDimension, crossAxis } = this._directionPropNames;
+    const { crossDimension, crossAxis, innerCrossDimension } =
+      this._directionPropNames;
     if (items.length) {
+      const sizes = [
+        this.Items[crossDimension],
+        this.Items[innerCrossDimension]
+      ];
+      // If a subclass of NavigationManager only contains a row or column of items:
+      // then also consider the h or w of that component when centering items .
+      // Subclasses that add other components outside of the Items array (ex. TitleRow)
+      // likely increase the h or w of the component and centering should be with respect to only the Items element.
+      if (this.children.length === 1) {
+        sizes.push(this[crossDimension]);
+      }
+
+      const crossDimensionSize = Math.max(...sizes);
       items.forEach(({ childIdx, childCrossDimensionSize }) => {
-        if (childCrossDimensionSize < this.Items[innerCrossDimension]) {
-          this.Items.children[childIdx][crossAxis] =
-            (this.Items[innerCrossDimension] - childCrossDimensionSize) / 2;
-        }
+        this.Items.children[childIdx][crossAxis] =
+          (crossDimensionSize - childCrossDimensionSize) / 2;
       });
     }
   }
