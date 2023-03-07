@@ -19,3 +19,11 @@
 # Lightning Component Theme Base
 
 Base theme values consumed by Lightning UI Components [@lightningjs/ui-components](https://www.npmjs.com/package/@lightningjs/ui-components).
+
+## Installation
+
+Install from NPM:
+
+```bash
+npm install --save @lightningjs/ui-components-theme-base
+```

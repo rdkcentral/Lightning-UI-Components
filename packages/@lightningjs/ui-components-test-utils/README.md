@@ -19,3 +19,17 @@
 # Lightning Component Test Utils
 
 This utility has been created to assist with writing Jest tests for applications utilizing [@lightningjs/ui-components](https://www.npmjs.com/package/@lightningjs/ui-components).
+
+## Installation
+
+Install from NPM:
+
+```bash
+npm install --save @lightningjs/ui-components-test-utils
+```
+
+`@lightningjs/ui-components-test-utils` has a peer dependency on the [Lightning package](https://www.npmjs.com/package/@lightningjs/core).
+
+```sh
+npm install -S @lightningjs/ui @lightningjs/core
+```
