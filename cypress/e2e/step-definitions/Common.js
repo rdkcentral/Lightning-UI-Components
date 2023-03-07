@@ -215,6 +215,30 @@ export default function () {
 
   /**
    * @module Common
+   * @function I set the {String} to {String} and {String} for {String} component
+   * @description Cucumber statement to set 2 props and visit the url
+   * @param {String} prop 
+   * @param {String} value1
+   * @param {String} value2
+   * @param {String} pageName
+   * @example I set the 'subtitle' to '85' and '100%' for 'MetadataBase' component
+   */
+  Then(
+    'I set the {string} to {string} and {string} for {string} component',
+    (prop, value1, value2, pageName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      const props = prop.toLowerCase();
+
+      pageObject.setProps({
+        [`${props}` + '[0]']: value1,
+        [`${props}` + '[2]']: value2
+     });
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify that the {String} of {String} component is {String}
    * @description Cucumber statement to verify the property of a component
    * @example I verify that the 'height' of 'Icon' component is '85px'

@@ -32,6 +32,7 @@ import KeyboardNumbers from './keyboard/keyboardnumbers.keyboard';
 import Knob from './utilities/knob.utilities';
 import Label from './metadata/label.metadata';
 import ListItem from './controls/listitem.controls';
+import MetadataBase from './metadata/metadatabase.metadata';
 import Notification from './foundations/notification.foundations';
 import ProgressBar from './utilities/progressbar.utilities';
 import Provider from './utilities/provider.utilities';
@@ -93,6 +94,7 @@ export default function getPageObject(pageName) {
     knob: Knob,
     label: Label,
     listitem: ListItem,
+    metadatabase: MetadataBase,
     notification: Notification,
     progressbar: ProgressBar,
     provider: Provider,

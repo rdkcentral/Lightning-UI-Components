@@ -36,6 +36,7 @@ export const getStoryName = pageName => {
     Knob: 'Knob',
     Label: 'Label',
     ListItem: 'List-Item',
+    MetadataBase: 'metadata-base',
     Notification: 'Notification',
     ProgressBar: 'Progress-Bar',
     Provider: 'Provider',
