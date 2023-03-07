@@ -38,7 +38,6 @@ jobs:
           yarn workspace @lightningjs/ui-components run semantic-release --no-ci -e semantic-release-monorepo 
           yarn workspace @lightningjs/ui-components-test-utils run semantic-release --no-ci -e semantic-release-monorepo
         env:
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       - name: Setup git config
