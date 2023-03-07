@@ -59,11 +59,9 @@ export const withLightning = (
             ];
           }
           // TODO: Assess what config.optimization.minimize is doing different in production vs develop
-          // check string to see if it includes Element in the name string
           get componentTarget() {
-            return this.childList &&
-              this.childList.first &&
-              this.childList.first.constructor.name !== 'Element'
+            // using this check on type Element because production vs develop build issue
+            return this.childList.first instanceof lng.Component
               ? this.childList.first
               : this;
           }
