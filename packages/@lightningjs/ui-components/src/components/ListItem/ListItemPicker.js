@@ -61,6 +61,7 @@ export default class ListItemPicker extends ListItem {
     this._updateArrows();
     this._updateArrowsAlpha();
     this._updateAlignment();
+    this._previousMode = this.mode;
   }
 
   _updateAlignment() {
@@ -143,11 +144,13 @@ export default class ListItemPicker extends ListItem {
         }
       });
     }
-    this._Picker.patch({
+    const patchObject = {
       visible: !this._collapse,
       h: this.style.descriptionTextStyle.lineHeight,
-      w,
-      items: this.options.map(option => ({
+      w
+    };
+    if (this._optionsChanged || this._previousMode !== this.mode) {
+      patchObject.items = this.options.map(option => ({
         type: Marquee,
         h: this.style.descriptionTextStyle.lineHeight,
         w,
@@ -156,8 +159,12 @@ export default class ListItemPicker extends ListItem {
           ...this.style.descriptionTextStyle,
           text: option
         }
-      }))
-    });
+      }));
+      // We need to reset the selected index to ensure it does not get reset to zero when patching items.
+      patchObject.selectedIndex = this.selectedIndex;
+      this._optionsChanged = false;
+    }
+    this._Picker.patch(patchObject);
     this._alignPicker();
   }
 
@@ -175,15 +182,22 @@ export default class ListItemPicker extends ListItem {
     const alpha = this._isFocusedMode ? this.style.arrowAlphaValue : 0;
     if (this._RightArrow) {
       this._RightArrow.alpha =
-        this.selectedIndex === this.options.length - 1
+        this.selectedIndex === this.options.length - 1 && this._isFocusedMode
           ? this.style.arrowAlphaValueLimit
           : alpha;
     }
     if (this._LeftArrow) {
       this._LeftArrow.alpha =
-        this.selectedIndex === 0 ? this.style.arrowAlphaValueLimit : alpha;
+        this.selectedIndex === 0 && this._isFocusedMode
+          ? this.style.arrowAlphaValueLimit
+          : alpha;
     }
     this.fireAncestors('$announce', this.announce);
+  }
+
+  _setOptions(options) {
+    this._optionsChanged = options !== this._options;
+    return options;
   }
 
   get _fixedWordWrapWidth() {
