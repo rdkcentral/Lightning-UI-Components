@@ -58,23 +58,40 @@ export default {
   }
 };
 
-export const Basic = () =>
+const sharedArgActions = {
+  argActions: {
+    delayVisible: (delayVisible, component) => {
+      component.tag('Tooltip').delayVisible = delayVisible;
+    },
+    timeVisible: (timeVisible, component) => {
+      component.tag('Tooltip').timeVisible = timeVisible;
+    }
+  }
+};
+
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         Tooltip: {
           type: TooltipComponent,
-          x: 1280 / 2
+          x: 1280 / 2,
+          delayVisible: args.delayVisible,
+          timeVisible: args.timeVisible
         }
       };
     }
   };
+
+Basic.parameters = { ...sharedArgActions };
 
 export const LongTitle = Basic.bind({});
 LongTitle.args = {
   title:
     'This is a long message. Text will remain on a single line and does not have a maximum width'
 };
+
+LongTitle.parameters = { ...sharedArgActions };
 
 export const WithButton = args =>
   class WithButton extends lng.Component {
