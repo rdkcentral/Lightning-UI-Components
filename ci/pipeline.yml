@@ -13,12 +13,17 @@ pullRequestNotificationSuccess: &pullRequestNotificationSuccess
   params:
     path: source-repo-pr
     status: success
+    context: tests
+    comment_file: comment/comment
 
 pullRequestNotificationFailure: &pullRequestNotificationFailure
   put: source-repo-pr
   params:
     path: source-repo-pr
     status: failure
+    context: tests
+    comment: "Concourse build failed: https://ci-alpha.delivery.comcast.net/builds/$BUILD_ID"
+    comment_file: comment/comment
 
 pullRequestNotificationSuccess4x: &pullRequestNotificationSuccess4x
   put: source-repo-4x-pr
@@ -53,6 +58,11 @@ slack_regression_params_feature: &slack_regression_params_feature
 slack_sanity_temp_params_feature: &slack_sanity_temp_params_feature
   channel: "#lui-automation-reports"
   username: "Concourse_LUI_Sanity_Temp_Results"
+  icon_emoji: ":concourse:"
+
+slack_pr_validation: &slack_pr_validation
+  channel: "#lui-automation-reports"
+  username: "Concourse_LUI_Pull_Request_Validation_Results"
   icon_emoji: ":concourse:"
 
 # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^
@@ -210,17 +220,44 @@ jobs:
     build_logs_to_retain: 50
     serial: true
     on_success:
-      do:
-        - <<: *pullRequestNotificationSuccess
+      in_parallel:
+        steps:
+          - <<: *pullRequestNotificationSuccess
+          - put: automation-slack-notification
+            params:
+              <<: *slack_pr_validation
+              text: |
+                :white_check_mark: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Pull Request Validation Job - Passed (Build #$BUILD_ID)>*
+              attachments_file: source-repo/tests-slack-notification.json  
     on_abort:
-      do:
-        - <<: *pullRequestNotificationFailure
+      in_parallel:
+        steps:
+          - <<: *pullRequestNotificationFailure
+          - put: automation-slack-notification
+            params:
+              <<: *slack_pr_validation
+              text: |
+                :large_brown_circle: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Pull Request Validation Job - Aborted (Build #$BUILD_ID)>*
     on_failure:
-      do:
-        - <<: *pullRequestNotificationFailure
+      in_parallel:
+        steps:
+          - <<: *pullRequestNotificationFailure
+          - put: automation-slack-notification
+            params:
+              <<: *slack_pr_validation
+              text: |
+                :red_cr4: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Pull Request Validation Job - Failed (Build #$BUILD_ID)>*
+              attachments_file: source-repo/tests-slack-notification.json
     on_error:
-      do:
-        - <<: *pullRequestNotificationFailure
+      in_parallel:
+        steps:
+          - <<: *pullRequestNotificationFailure
+          - put: automation-slack-notification
+            params:
+              <<: *slack_pr_validation
+              text: |
+                :large_orange_circle: *<https://ci.comcast.net/builds/$BUILD_ID|LUI - Pull Request Validation Job - Errored out (Build #$BUILD_ID)>*
+
     plan:
       - get: source-repo-pr
         trigger: true
@@ -238,9 +275,15 @@ jobs:
           source-repo: source-repo-pr
       - in_parallel:
           - task: test-monorepo
-            file: source-repo-pr/ci/tasks/unit-test.yml
+            file: source-repo-pr/ci/tasks/run-tests.yml
             input_mapping:
               source-repo: source-repo-ready
+            params:
+              AWS_ACCESS_KEY_ID: ((aws.access-key-id))
+              AWS_SECRET_ACCESS_KEY: ((aws.secret-access-key))
+              S3_BUCKET: ((aws-s3-bucket-name))
+              VRT_APIKEY: ((lui-automation.vrtApiKey))
+              VRT_PROJECT: ((lui-automation.vrtProject))
           - task: code-quality-monorepo
             file: source-repo-pr/ci/tasks/lint.yml
             input_mapping:

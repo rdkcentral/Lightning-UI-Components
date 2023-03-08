@@ -2,6 +2,9 @@
 platform: linux
 inputs:
   - name: source-repo
+outputs:
+  - name: source-repo
+  - name: comment
 image_resource:
   type: docker-image
   source:
