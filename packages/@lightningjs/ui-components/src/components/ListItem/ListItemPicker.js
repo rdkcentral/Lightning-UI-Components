@@ -62,6 +62,7 @@ export default class ListItemPicker extends ListItem {
     this._updateArrowsAlpha();
     this._updateAlignment();
     this._previousMode = this.mode;
+    this._previousTone = this.tone;
   }
 
   _updateAlignment() {
@@ -149,7 +150,11 @@ export default class ListItemPicker extends ListItem {
       h: this.style.descriptionTextStyle.lineHeight,
       w
     };
-    if (this._optionsChanged || this._previousMode !== this.mode) {
+    if (
+      this._optionsChanged ||
+      this._previousMode !== this.mode ||
+      this._previousTone !== this.tone
+    ) {
       patchObject.items = this.options.map(option => ({
         type: Marquee,
         h: this.style.descriptionTextStyle.lineHeight,
