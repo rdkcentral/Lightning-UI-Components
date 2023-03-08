@@ -17,7 +17,7 @@
  */
 
 import * as styles from './Marquee.styles.js';
-import { FadeShader } from '../../shaders/index.js';
+import { FadeShader } from '../../shaders';
 import utils from '../../utils/index.js';
 import Base from '../Base/index.js';
 
