@@ -105,7 +105,6 @@ describe('InlineContent', () => {
 
   it('updates to test theme text', async () => {
     context.setTheme(testTheme);
-    inlineContent.base = context.theme;
     inlineContent.content = 'This should be in testTheme font.';
     await inlineContent.__updateSpyPromise;
     expect(context.theme.name).toBe('Test');
