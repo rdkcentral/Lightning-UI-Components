@@ -23,7 +23,7 @@ module.exports = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'html'],
+  coverageReporters: ['html', 'text-summary'],
   coverageThreshold: {
     global: {
       statements: 85,
@@ -34,7 +34,9 @@ module.exports = {
   maxWorkers: '4',
   moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx', 'mjs'],
   roots: ['<rootDir>/src'],
-  setupFilesAfterEnv: ['<rootDir>/../ui-components-test-utils/src/jest.env.setup.js'],
+  setupFilesAfterEnv: [
+    '<rootDir>/../ui-components-test-utils/src/jest.env.setup.js'
+  ],
   testEnvironment: '<rootDir>/../ui-components-test-utils/src/lng-test-env',
   testEnvironmentOptions: { url: 'http://localhost', resources: 'usable' },
   transform: {},
