@@ -61,8 +61,6 @@ export default class ListItemPicker extends ListItem {
     this._updateArrows();
     this._updateArrowsAlpha();
     this._updateAlignment();
-    this._previousMode = this.mode;
-    this._previousTone = this.tone;
   }
 
   _updateAlignment() {
@@ -145,17 +143,11 @@ export default class ListItemPicker extends ListItem {
         }
       });
     }
-    const patchObject = {
+    this._Picker.patch({
       visible: !this._collapse,
       h: this.style.descriptionTextStyle.lineHeight,
-      w
-    };
-    if (
-      this._optionsChanged ||
-      this._previousMode !== this.mode ||
-      this._previousTone !== this.tone
-    ) {
-      patchObject.items = this.options.map(option => ({
+      w,
+      items: this.options.map(option => ({
         type: Marquee,
         h: this.style.descriptionTextStyle.lineHeight,
         w,
@@ -164,12 +156,10 @@ export default class ListItemPicker extends ListItem {
           ...this.style.descriptionTextStyle,
           text: option
         }
-      }));
+      })),
       // We need to reset the selected index to ensure it does not get reset to zero when patching items.
-      patchObject.selectedIndex = this.selectedIndex;
-      this._optionsChanged = false;
-    }
-    this._Picker.patch(patchObject);
+      selectedIndex: this.selectedIndex
+    });
     this._alignPicker();
   }
 
@@ -198,11 +188,6 @@ export default class ListItemPicker extends ListItem {
           : alpha;
     }
     this.fireAncestors('$announce', this.announce);
-  }
-
-  _setOptions(options) {
-    this._optionsChanged = options !== this._options;
-    return options;
   }
 
   get _fixedWordWrapWidth() {
