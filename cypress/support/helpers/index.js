@@ -33,6 +33,7 @@ export const getStoryName = pageName => {
     Input: 'input',
     Key: 'Key',
     Keyboard: 'Keyboard',
+    KeyboardFullscreen: 'Keyboard-Fullscreen',
     KeyboardNumbers: 'Keyboard-Numbers',
     Knob: 'Knob',
     Label: 'Label',

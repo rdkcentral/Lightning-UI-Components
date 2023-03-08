@@ -321,7 +321,6 @@ export default function () {
   });
 
   /**
-
    @module Common
    @function I verify there are {Integer} assets per {String} on the {String} page
    @description Cucumber statement to verify the number of assets per row
@@ -337,7 +336,6 @@ export default function () {
 
       pageObject
         ._getElementByName(element)
-        .first()
         .children()
         .should('have.length', no_of_assets);
     }

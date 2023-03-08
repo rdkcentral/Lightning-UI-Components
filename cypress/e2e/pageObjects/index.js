@@ -29,6 +29,7 @@ import Icon from './elements/icon.element';
 import Input from './keyboard/input.keyboard';
 import Key from './keyboard/key.keyboard';
 import Keyboard from './keyboard/keyboard.keyboard';
+import KeyboardFullscreen from './keyboard/keyboardfullscreen.keyboard';
 import KeyboardNumbers from './keyboard/keyboardnumbers.keyboard';
 import Knob from './utilities/knob.utilities';
 import Label from './metadata/label.metadata';
@@ -92,6 +93,7 @@ export default function getPageObject(pageName) {
     input: Input,
     key: Key,
     keyboard: Keyboard,
+    keyboardfullscreen: KeyboardFullscreen,
     keyboardnumbers: KeyboardNumbers,
     knob: Knob,
     label: Label,
