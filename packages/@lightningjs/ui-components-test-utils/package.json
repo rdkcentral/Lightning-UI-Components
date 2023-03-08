@@ -2,6 +2,10 @@
   "name": "@lightningjs/ui-components-test-utils",
   "version": "1.0.1",
   "description": "Helpful Jest unit test utilities for LightningJS applications utilizing the Lightning-UI-Components package.",
+  "repository": {
+    "url": "https://github.com/rdkcentral/Lightning-UI-Components",
+    "directory": "packages/@lightningjs/ui-components-test-utils"
+  },
   "type": "module",
   "exports": "./index.js",
   "files": [
