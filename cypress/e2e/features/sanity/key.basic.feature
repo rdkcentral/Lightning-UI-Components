@@ -8,7 +8,7 @@ Feature: LUI Key Basic component
   Scenario Outline: Verify that the Key Basic component is displayed (<theme> theme)
     When I navigate to 'Key' 'Basic' with '<theme>' theme
     Then I verify that the 'Key' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
@@ -21,7 +21,7 @@ Feature: LUI Key Basic component
     Then I verify the mode is 'focused' for 'Key'
     And  I set the 'mode' to '<modeValue>' for 'Key' component
     And I verify the mode is '<modeValue>' for 'Key'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
@@ -40,7 +40,7 @@ Feature: LUI Key Basic component
     And I set the 'size' to '<size>' for 'Key' component
     And I verify that the 'height' of 'Key' component is '<keyHeight>px'
     And I verify that the 'width' of 'Key' component is '<keyWidth>px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | size | keyHeight | defaultHeight | keyWidth | defaultWidth |
       | Xfinity | sm   | 72        | 72            | 56       | 56           |
@@ -59,7 +59,7 @@ Feature: LUI Key Basic component
     Then I verify that 'Key' 'title' has 'text' 'A'
     And I set the 'title' to '<exampleTitle>' for 'Key' component
     And I verify that 'Key' 'title' has 'text' '<expectedTitle>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | exampleTitle | expectedTitle |
       | Xfinity | C            | C             |

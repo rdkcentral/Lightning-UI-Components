@@ -126,7 +126,7 @@ Feature: LUI Slider Basic component
     And I set the 'value' to '<valueTotal>' for 'Slider' component
     And I set the '<controlName>' to '<controlValue>' for 'Slider' component
     And I verify that the 'Slider' progress is set to <progress>
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | controlName | controlValue | valueTotal | progress |
       | Xfinity | value       | 1            | 1          | 0.01     |
@@ -134,7 +134,6 @@ Feature: LUI Slider Basic component
       | Xfinity | value       | 100          | 100        | 1        |
       | Xfinity | max         | 80           | 100        | 1        |
       | Xfinity | max         | 80           | 50         | 0.625    |
-    @sanity
     Examples:
       | theme   | controlName | controlValue | valueTotal | progress |
       | Base    | value       | 1            | 1          | 0.01     |

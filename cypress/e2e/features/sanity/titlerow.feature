@@ -9,11 +9,10 @@ Feature: LUI Title Row Basic component
     When I navigate to 'TitleRow' with '<theme>' theme
     Then I verify that the 'TitleRow' component is displayed
     And I verify there are 12 assets per row on the 'TitleRow' page
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -24,11 +23,10 @@ Feature: LUI Title Row Basic component
     And I verify that I am able to navigate to the 'first' element of the 'TitleRow' 'Row Elements'
     And I wait 0.3 seconds for the page to load
     And I verify that elements are horizontally evenly spaced for 'TitleRow' component
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme |
       | Base  |
@@ -38,13 +36,12 @@ Feature: LUI Title Row Basic component
     And I set the 'mode' to '<modeValue>' for 'TitleRow' component
     Then I verify the mode is '<modeValue>' for 'TitleRow' 'Row Elements'
     Examples:
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme | modeValue |
       | Base  | unfocused |
@@ -65,8 +62,8 @@ Feature: LUI Title Row Basic component
     And I verify that the 'TitleRow' 'Tile 10' component is not displayed
     @sanity_temp
     Examples:
-      | theme |
-      | Base  |
+      | theme     |
+      | Xfinity   |
     @sanity
     Examples:
       | theme |
@@ -83,8 +80,8 @@ Feature: LUI Title Row Basic component
     And I verify that the 'TitleRow' 'Tile 7' component is not displayed
     @sanity_temp
     Examples:
-      | theme |
-      | Base  |
+      | theme     |
+      | Xfinity   |
     @sanity
     Examples:
       | theme |
@@ -101,8 +98,8 @@ Feature: LUI Title Row Basic component
     And I verify that the 'TitleRow' 'Tile 6' component is not displayed
     @sanity_temp
     Examples:
-      | theme |
-      | Base  |
+      | theme     |
+      | Xfinity   |
     @sanity
     Examples:
       | theme |
@@ -124,8 +121,8 @@ Feature: LUI Title Row Basic component
 #    And I verify that the 'TitleRow' 'Tile 10' component is displayed
     @sanity_temp
     Examples:
-      | theme |
-      | Base  |
+      | theme     |
+      | Xfinity   |
     @sanity
     Examples:
       | theme |
@@ -143,8 +140,8 @@ Feature: LUI Title Row Basic component
 #   And I verify that 'TitleRow' 'Title' has 'text' '!@$%^&*(){}[]:;<>?,-./~'
     @sanity_temp
     Examples:
-      | theme |
-      | Base  |
+      | theme     |
+      | Xfinity   |
     @sanity
     Examples:
       | theme |

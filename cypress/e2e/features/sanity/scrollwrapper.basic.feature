@@ -8,11 +8,10 @@ Feature: LUI ScrollWrapper Basic component
   Scenario Outline: Verify that ScrollWrapper basic is displayed (<theme> theme)
     When I navigate to 'scrollwrapper' 'basic' with '<theme>' theme
     Then I verify that the 'scrollwrapper' 'basic' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI ScrollWrapper Basic component
     When I navigate to 'scrollwrapper' 'basic' with '<theme>' theme
     Then I verify that the 'width' of 'scrollwrapper' 'basic' component is '796px'
     And I verify that the 'height' of 'scrollwrapper' 'basic' component is '448px'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -34,12 +32,11 @@ Feature: LUI ScrollWrapper Basic component
     When I navigate to 'scrollwrapper' 'basic' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'scrollwrapper' component
     Then I verify the mode is '<modeValue>' for 'scrollwrapper' 'showScrollBar'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -55,12 +52,11 @@ Feature: LUI ScrollWrapper Basic component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     And I wait for autoScroll to scroll with <scrollsteps>, <autoScrollSpeed> and <autoScrollDelay>
     And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '<width>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration | width |
       | Xfinity | 10          | 200             | 2000            | 0.1            | 368px |
       | Xfinity | 20          | 100             | 1000            | 5              | 368px |
-    @sanity
     Examples:
       |  theme  | scrollsteps | autoScrollSpeed | autoScrollDelay | scrollDuration | width |
       |  Base   | 10          | 200             | 2000            | 0.1            | 348px |
@@ -81,11 +77,10 @@ Feature: LUI ScrollWrapper Basic component
     And I set the 'scrollStep' to '30' for 'scrollwrapper' component
     And I press 'DOWN' key
     And I verify that the 'width' of 'scrollwrapper' 'scrollprogressbar' component is '<widthChanged>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width     | widthChanged |
       | Xfinity | 15.3333px | 46px         |
-    @sanity
     Examples:
       | theme   | width     | widthChanged |
       | Base    | 49.7143px | 116px        |
@@ -96,11 +91,10 @@ Feature: LUI ScrollWrapper Basic component
     Then I verify that the 'scrollwrapper' 'showScrollBar' component is displayed
     And I set the 'showScrollBar' to 'false' for 'scrollwrapper' component
     And I verify that the 'scrollwrapper' 'showScrollBar' component is not displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -110,12 +104,11 @@ Feature: LUI ScrollWrapper Basic component
     And I set the 'scrollDuration' to '<scrollDuration>' for 'scrollwrapper' component
     And I set the 'autoScroll' to 'true' for 'scrollwrapper' component
     Then I verify that it takes <timeTaken> seconds for the ScrollWrapper 'Basic' to finish scrolling for '<theme>' theme
-    @sanity_temp
+    @sanity
     Examples: 
       | theme   | scrollDuration  | timeTaken |
       | Xfinity | 0.1             | 6.8       |
       | Xfinity | 5               | 12        |
-    @sanity
     Examples: 
       | theme   | scrollDuration  | timeTaken |
       | Base    | 0.1             | 4         |

@@ -8,11 +8,10 @@ Feature: LUI Toggle component
   Scenario Outline: Verify that Toggle is displayed (<theme> theme)
     When I navigate to 'Toggle' with '<theme>' theme
     Then I verify that the 'Toggle' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |
@@ -21,11 +20,10 @@ Feature: LUI Toggle component
     When I navigate to 'Toggle' with '<theme>' theme
     Then I verify that the 'width' of 'Toggle' component is '<defaultWidth>'
     And I verify that the 'height' of 'Toggle' component is '<defaultHeight>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | defaultWidth | defaultHeight |
       | Xfinity | 64px         | 32px          |
-    @sanity
     Examples:
       | theme   | defaultWidth | defaultHeight |
       | Base    | 80px         | 40px          |
@@ -34,13 +32,12 @@ Feature: LUI Toggle component
     When I navigate to 'Toggle' with '<theme>' theme
     And I set the 'mode' to '<modeValue>' for 'Toggle' component
     Then I verify the mode is '<modeValue>' for 'Toggle'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | modeValue |
       | Xfinity | unfocused |
       | Xfinity | focused   |
       | Xfinity | disabled  |
-    @sanity
     Examples:
       | theme   | modeValue |
       | Base    | unfocused |
@@ -51,12 +48,11 @@ Feature: LUI Toggle component
     When I navigate to 'Toggle' with '<theme>' theme
     And I set the 'checked' to '<checkedState>' for 'Toggle' component
     Then I verify that the 'left' of 'Toggle' 'Knob' component is '<leftWidth>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | checkedState | leftWidth |
       | Xfinity | true         | 36px      |
       | Xfinity | false        | 4px       |
-    @sanity
     Examples:
       | theme   | checkedState | leftWidth |
       | Base    | true         | 44px      |
@@ -65,11 +61,10 @@ Feature: LUI Toggle component
   Scenario Outline: Verify that Toggle default values (<theme> theme)
     When I navigate to 'Toggle' with '<theme>' theme
     Then I verify the mode is 'focused' for 'Toggle'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
-    @sanity
     Examples:
       | theme   |
       | Base    |

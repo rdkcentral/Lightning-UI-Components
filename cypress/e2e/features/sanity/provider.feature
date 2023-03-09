@@ -8,7 +8,7 @@ Feature: LUI Provider component
   Scenario Outline: Verify that the Provider component is displayed (<theme> theme)
     When I navigate to 'Provider' with '<theme>' theme
     Then I verify that the 'Provider' component is displayed
-    @sanity_temp
+    @sanity
     Examples:
       | theme   |
       | Xfinity |
@@ -20,7 +20,7 @@ Feature: LUI Provider component
     When I navigate to 'Provider' with '<theme>' theme
     Then I verify that the 'width' of 'Provider' 'Marquee' component is '<width>'
     And I verify that the 'height' of 'Provider' 'Marquee' component is '<height>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | width | height |
       | Xfinity | 216px | 48px   |
@@ -33,7 +33,7 @@ Feature: LUI Provider component
     Then I verify there are 4 assets per 'row' on the 'Provider' page
     And I set the 'visibleCount' to '<count>' for 'Provider' component
     And I verify there are <expectedCount> assets per 'row' on the 'Provider' page
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | count | expectedCount |
       | Xfinity | 5     | 6             |
@@ -84,7 +84,7 @@ Feature: LUI Provider component
     Then I verify that 'Provider' 'Text' has 'text' '+7'
     And I set the 'visibleCount' to '<count>' for 'Provider' component
     And I verify that 'Provider' 'Text' has 'text' '<expectedCount>'
-    @sanity_temp
+    @sanity
     Examples:
       | theme   | count | expectedCount |
       | Xfinity | 5     | +5            |
