@@ -17,7 +17,7 @@
  */
 
 import NavigationManager from '../NavigationManager';
-import { getY, getW } from '../../utils';
+import { getY } from '../../utils';
 import * as styles from './Column.styles.js';
 
 export default class Column extends NavigationManager {
@@ -155,25 +155,6 @@ export default class Column extends NavigationManager {
 
   get _itemsY() {
     return getY(this.Items);
-  }
-
-  appendItems(items = []) {
-    const itemWidth = this.renderWidth;
-    this.shouldSmooth = false;
-
-    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
-      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
-    }
-
-    items.forEach(item => {
-      item.parentFocus = this.hasFocus();
-      item = this.Items.childList.a(item);
-      item.w = getW(item) || itemWidth;
-      item = this._withAfterUpdate(item);
-    });
-    this.stage.update();
-    this.queueRequestUpdate();
-    this._refocus();
   }
 
   $removeItem(item) {

@@ -53,13 +53,16 @@ export default class NavigationManager extends FocusManager {
       'neverScroll',
       'scrollIndex',
       'autoResizeWidth',
-      'autoResizeHeight'
+      'autoResizeHeight',
+      'lazyUpCount',
+      'lazyUpCountBuffer'
     ];
   }
 
   _construct() {
     super._construct();
     this.shouldSmooth = false;
+    this._lazyUpCountBuffer = 2;
   }
 
   _init() {
@@ -291,6 +294,37 @@ export default class NavigationManager extends FocusManager {
 
   $itemChanged() {
     this.queueRequestUpdate();
+  }
+
+  appendItems(items = []) {
+    const { crossDimension } = this._directionPropNames;
+    const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
+    this.shouldSmooth = false;
+
+    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
+      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
+    }
+    const a = {
+      crossDimension,
+      'item[crossDimension]': [],
+      itemCrossSize: [],
+      result: []
+    };
+    items.forEach(item => {
+      item.parentFocus = this.hasFocus();
+      item = this.Items.childList.a(item);
+      a.itemCrossSize.push(item[crossDimension]);
+      item[crossDimension] = item[crossDimension] || itemCrossSize;
+
+      a['item[crossDimension]'].push(item[crossDimension]);
+      a.result.push(item[crossDimension]);
+
+      item = this._withAfterUpdate(item);
+    });
+
+    this.stage.update();
+    this.queueRequestUpdate();
+    this._refocus();
   }
 
   updatePositionOnAxis(item, position) {
