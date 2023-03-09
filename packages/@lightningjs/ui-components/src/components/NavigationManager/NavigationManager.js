@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -304,21 +304,10 @@ export default class NavigationManager extends FocusManager {
     if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
       this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
     }
-    const a = {
-      crossDimension,
-      'item[crossDimension]': [],
-      itemCrossSize: [],
-      result: []
-    };
     items.forEach(item => {
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
-      a.itemCrossSize.push(item[crossDimension]);
       item[crossDimension] = item[crossDimension] || itemCrossSize;
-
-      a['item[crossDimension]'].push(item[crossDimension]);
-      a.result.push(item[crossDimension]);
-
       item = this._withAfterUpdate(item);
     });
 
