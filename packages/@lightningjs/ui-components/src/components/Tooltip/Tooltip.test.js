@@ -20,7 +20,7 @@ import {
   makeCreateComponent,
   completeAnimation
 } from '@lightningjs/ui-components-test-utils';
-import Tooltip from './index.js';
+import Tooltip from '.';
 import { jest } from '@jest/globals';
 
 const createTooltip = makeCreateComponent(Tooltip, {}, { focused: false });

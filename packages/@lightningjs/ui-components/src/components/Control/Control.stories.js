@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as ControlComponent } from './index.js';
+import { default as ControlComponent } from '.';
 import mdx from './Control.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';

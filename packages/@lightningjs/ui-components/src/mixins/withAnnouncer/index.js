@@ -18,7 +18,7 @@
 
 import Speech from './Speech.js';
 import { translateAbbrev } from './abbreviations.js';
-import { debounce } from '../../utils/index.js';
+import { debounce } from '../../utils';
 
 export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations.js';
 

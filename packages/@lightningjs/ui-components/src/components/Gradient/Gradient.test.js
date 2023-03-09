@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Gradient from './index.js';
+import Gradient from '.';
 
 const createComponent = makeCreateComponent(Gradient);
 

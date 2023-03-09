@@ -17,7 +17,7 @@
  */
 
 import Base from '../Base';
-import { stringifyCompare } from '../../utils/index.js';
+import { stringifyCompare } from '../../utils';
 
 export default class ContentSwitcher extends Base {
   static get __componentName() {

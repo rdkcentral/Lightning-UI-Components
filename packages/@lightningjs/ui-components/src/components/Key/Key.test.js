@@ -20,7 +20,7 @@ import {
   makeCreateComponent,
   pathToDataURI
 } from '@lightningjs/ui-components-test-utils';
-import Key from './index.js';
+import Key from '.';
 import { jest } from '@jest/globals';
 
 const createKey = makeCreateComponent(Key);

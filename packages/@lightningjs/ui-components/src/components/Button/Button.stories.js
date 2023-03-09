@@ -17,8 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as ButtonComponent } from './index.js';
-import { Icon, Checkbox } from '../index.js';
+import { default as ButtonComponent } from '.';
+import Icon from '../Icon';
+import Checkbox from '../Checkbox';
 import mdx from './Button.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';

@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Surface from './index.js';
+import Surface from '.';
 
 const createSurface = makeCreateComponent(Surface);
 

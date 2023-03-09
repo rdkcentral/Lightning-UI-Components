@@ -28,7 +28,7 @@ import {
   isComponentOnScreen,
   delayForAnimation,
   getShortestDistance
-} from '../../utils/index.js';
+} from '../../utils';
 
 export default class FocusManager extends Base {
   static get __componentName() {

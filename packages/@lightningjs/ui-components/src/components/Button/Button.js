@@ -16,11 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { measureTextWidth } from '../../utils/index.js';
+import { measureTextWidth } from '../../utils';
 import * as styles from './Button.styles.js';
-import Row from '../Row/index.js';
-import Surface from '../Surface/index.js';
-import TextBox from '../TextBox/index.js'; // There seams to be some issue with the circular dependency here
+import Row from '../Row';
+import Surface from '../Surface';
+import TextBox from '../TextBox'; // There seams to be some issue with the circular dependency here
 
 /**
  * Button Component

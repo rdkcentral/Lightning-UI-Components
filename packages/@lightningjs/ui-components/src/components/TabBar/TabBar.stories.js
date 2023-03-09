@@ -17,18 +17,18 @@
  */
 
 import lng from '@lightningjs/core';
-import Tile from '../Tile/index.js';
+import Tile from '../Tile';
 import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import viewAllIcon from '../../assets/images/view_all.png';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
-import Row from '../Row/index.js';
-import Column from '../Column/index.js';
+import Row from '../Row';
+import Column from '../Column';
 import { context } from '../../globals';
 import Tab from './Tab.js';
-import TabBarComponent from './index.js';
+import TabBarComponent from '.';
 import mdx from './TabBar.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

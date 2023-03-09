@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import mdx from './withUpdates.mdx';
-import withUpdatesMixin from './index.js';
+import withUpdatesMixin from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

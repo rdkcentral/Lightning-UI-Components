@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Icon from './index.js';
+import Icon from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Icon.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';

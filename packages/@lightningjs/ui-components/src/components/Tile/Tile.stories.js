@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import mdx from './Tile.mdx';
-import { default as TileComponent } from './index.js';
+import { default as TileComponent } from '.';
 import {
   createModeControl,
   generateSubStory

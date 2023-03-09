@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import withLayout from './index.js';
+import withLayout from '.';
 import Tile from '../../components/Tile';
 import context from '../../globals/context';
 

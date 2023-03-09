@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
-import withSelections from './index.js';
+import withSelections from '.';
 
 const duplicate = (object, quantity) =>
   Array.apply(null, { length: quantity }).map(() => Object.assign({}, object));

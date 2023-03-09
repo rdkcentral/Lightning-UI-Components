@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import ShadowComponent from './index.js';
+import { default as ShadowComponent } from '.';
 import mdx from './Shadow.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';

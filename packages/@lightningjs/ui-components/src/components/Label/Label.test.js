@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Label from './index.js';
+import Label from '.';
 
 const createComponent = makeCreateComponent(Label);
 

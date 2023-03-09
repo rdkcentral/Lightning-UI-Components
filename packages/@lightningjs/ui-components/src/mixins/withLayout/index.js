@@ -17,7 +17,7 @@
  */
 
 import { context } from '../../globals';
-import { stringifyCompare, getDimensions } from '../../utils/index.js';
+import { stringifyCompare, getDimensions } from '../../utils';
 
 export default function withLayout(Base) {
   return class extends Base {

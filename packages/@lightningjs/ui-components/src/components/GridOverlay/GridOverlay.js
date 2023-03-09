@@ -18,10 +18,10 @@
 
 import Base from '../Base';
 import { context } from '../../globals';
-import Column from '../Column/index.js';
-import Row from '../Row/index.js';
-import TextBox from '../TextBox/index.js';
-import { getWidthByColumnSpan } from '../../utils/index.js';
+import Column from '../Column';
+import Row from '../Row';
+import TextBox from '../TextBox';
+import { getWidthByColumnSpan } from '../../utils';
 import * as styles from './GridOverlay.styles';
 
 class Spacer extends Base {

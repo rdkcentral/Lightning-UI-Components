@@ -17,7 +17,7 @@
  */
 
 import { context, updateManager } from '../../globals';
-import { getValFromObjPath, clone, getHexColor } from '../../utils/index.js';
+import { getValFromObjPath, clone, getHexColor } from '../../utils';
 
 /** Will replace withStyles */
 export default function withThemeStyles(Base, mixinStyle) {

@@ -17,10 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import TextBox from './index.js';
+import TextBox from '.';
 import mdx from './TextBox.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
-import { getHexColor } from '../../utils/index.js';
+import { getHexColor } from '../../utils';
 import inlineContentStory from '../InlineContent/InlineContent.stories';
 import { CATEGORIES } from 'lightning-ui-docs';
 

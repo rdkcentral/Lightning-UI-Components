@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import NavigationManager from '../NavigationManager/index.js';
+import NavigationManager from '../NavigationManager';
 import * as styles from './Row.styles.js';
 import { getX } from '../../utils';
 

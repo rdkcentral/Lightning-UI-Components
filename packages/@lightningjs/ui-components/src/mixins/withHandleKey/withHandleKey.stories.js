@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { Tile, Row } from '../../components/index.js';
+import { Tile, Row } from '../../components';
 import { context } from '../../globals';
 import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';

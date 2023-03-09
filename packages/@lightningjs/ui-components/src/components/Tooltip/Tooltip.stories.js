@@ -17,10 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import Button from '../Button/index.js';
+import Button from '../Button';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import mdx from './Tooltip.mdx';
-import TooltipComponent from './index.js';
+import { default as TooltipComponent } from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

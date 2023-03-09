@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
-import { getHexColor } from '../../utils/index.js';
+import { getHexColor } from '../../utils';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 
 import { default as MetadataTileComponent } from '.';

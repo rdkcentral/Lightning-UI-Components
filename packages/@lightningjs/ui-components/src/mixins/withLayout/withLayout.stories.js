@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import mdx from './withLayout.mdx';
-import { Tile } from '../../components/index.js';
+import { Tile } from '../../components';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

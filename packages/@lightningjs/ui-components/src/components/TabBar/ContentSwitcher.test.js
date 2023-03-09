@@ -22,7 +22,8 @@ import {
   makeCreateComponent,
   completeAnimation
 } from '@lightningjs/ui-components-test-utils';
-import { Row, Tile } from '../index.js';
+import { Row } from '../Row';
+import { Tile } from '../Tile';
 import ContentSwitcher from './ContentSwitcher.js';
 
 const createComponent = makeCreateComponent(ContentSwitcher);

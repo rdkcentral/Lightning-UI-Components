@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import context from '../context/index.js';
+import context from '../context';
 import { updateManager } from './GlobalUpdateManager.js';
 import { nextTick } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';

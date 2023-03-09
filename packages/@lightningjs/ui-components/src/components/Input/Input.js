@@ -17,8 +17,8 @@
  */
 
 import * as styles from './Input.styles.js';
-import Button from '../Button/index.js';
-import TextBox from '../TextBox/index.js';
+import Button from '../Button';
+import TextBox from '../TextBox';
 
 export default class Input extends Button {
   static get __componentName() {

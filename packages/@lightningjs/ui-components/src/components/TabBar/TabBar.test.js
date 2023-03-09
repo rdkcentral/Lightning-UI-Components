@@ -18,9 +18,10 @@
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
-import { Row, Tile } from '../index.js';
+import { Row } from '../Row';
+import { Tile } from '../Tile';
 import { jest } from '@jest/globals';
-import TabBar from './TabBar';
+import TabBar from '.';
 import Tab from './Tab';
 
 const tileComp = {

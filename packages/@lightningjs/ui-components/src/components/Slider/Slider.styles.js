@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getWidthByColumnSpan } from '../../utils/index.js';
+import { getWidthByColumnSpan } from '../../utils';
 
 export const base = theme => {
   const size = theme.spacer.lg;

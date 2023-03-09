@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
-import withTags from './index.js';
+import withTags from '.';
 
 describe('withTags', () => {
   let withTagsComponent;

@@ -22,7 +22,7 @@ import {
   pathToDataURI
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
-import Artwork from './index.js';
+import Artwork from '.';
 const sampleImg = 'sampleImg';
 const fallbackSrc = 'fallbackSrc';
 

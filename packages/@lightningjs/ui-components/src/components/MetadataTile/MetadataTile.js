@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import MetadataBase from '../MetadataBase/index.js';
+import MetadataBase from '../MetadataBase';
 import * as styles from './MetadataTile.styles.js';
 
 export default class MetadataTile extends MetadataBase {

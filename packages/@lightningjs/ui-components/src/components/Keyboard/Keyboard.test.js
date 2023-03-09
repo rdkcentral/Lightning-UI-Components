@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Keyboard from './index.js';
+import Keyboard from '.';
 import KeyboardInput from './KeyboardInput.js';
 import KeyboardQwerty from './KeyboardQwerty.js';
 import KeyboardNumbers from './KeyboardNumbers.js';

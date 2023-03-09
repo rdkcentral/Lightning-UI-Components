@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import NavigationManager from '../NavigationManager/index.js';
-import { getY, getW } from '../../utils/index.js';
+import NavigationManager from '../NavigationManager';
+import { getY, getW } from '../../utils';
 import * as styles from './Column.styles.js';
 
 export default class Column extends NavigationManager {

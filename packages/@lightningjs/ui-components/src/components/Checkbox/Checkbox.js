@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import Base from '../Base';
 import * as styles from './Checkbox.styles.js';
 

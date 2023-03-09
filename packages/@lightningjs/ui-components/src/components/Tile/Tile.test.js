@@ -20,8 +20,8 @@ import {
   makeCreateComponent,
   fastForward
 } from '@lightningjs/ui-components-test-utils';
-import Tile from './index.js';
-import Artwork from '../Artwork/index.js';
+import Tile from '.';
+import Artwork from '../Artwork';
 import { jest } from '@jest/globals';
 
 const sampleImage = 'sampleImage';

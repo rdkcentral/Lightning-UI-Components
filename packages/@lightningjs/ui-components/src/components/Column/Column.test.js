@@ -17,7 +17,7 @@
  */
 
 import Column from '.';
-import Row from '../Row/index.js';
+import Row from '../Row';
 import {
   TestRenderer,
   makeCreateComponent

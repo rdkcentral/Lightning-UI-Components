@@ -16,9 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Surface from '../Surface/index.js';
-import Icon from '../Icon/index.js';
-import TextBox from '../TextBox/index.js';
+import Surface from '../Surface';
+import Icon from '../Icon';
+import TextBox from '../TextBox';
 import * as styles from './Tab.styles.js';
 
 export default class Tab extends Surface {

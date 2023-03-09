@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Knob from './index.js';
+import Knob from '.';
 
 const createComponent = makeCreateComponent(Knob);
 

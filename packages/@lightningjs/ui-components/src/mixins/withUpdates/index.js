@@ -17,7 +17,7 @@
  */
 
 import { context, updateManager } from '../../globals';
-import { clone } from '../../utils/index.js';
+import { clone } from '../../utils';
 
 function capital(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);

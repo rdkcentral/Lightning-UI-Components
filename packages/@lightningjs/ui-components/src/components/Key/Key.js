@@ -16,9 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Button from '../Button/index.js';
+import Button from '../Button';
 import * as styles from './Key.styles.js';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 
 const isUpperCase = string => /^[A-Z]$/.test(string);
 const isAlphaChar = string => /^[A-Za-z]$/.test(string);

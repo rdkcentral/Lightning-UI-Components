@@ -17,9 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import { getValidColor, reduceFraction } from '../../utils/index.js';
+import { getValidColor, reduceFraction } from '../../utils';
 import Base from '../Base';
-import Gradient from '../Gradient/index.js';
+import Gradient from '../Gradient';
 import * as styles from './Artwork.styles.js';
 import { context } from '../../globals';
 

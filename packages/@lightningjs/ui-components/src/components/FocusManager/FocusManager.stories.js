@@ -17,9 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import FocusManager from './index.js';
+import FocusManager from '.';
 import mdx from './FocusManager.mdx';
-import { withSelections } from '../../mixins/index.js';
+import { withSelections } from '../../mixins';
 import { CATEGORIES } from 'lightning-ui-docs';
 import Button from '../Button';
 

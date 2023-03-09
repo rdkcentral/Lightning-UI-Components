@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { ControlSmall as ControlSmallComponent } from './index.js';
+import { ControlSmall as ControlSmallComponent } from '.';
 import mdx from './Control.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';

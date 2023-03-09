@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 
 import MarqueeComponent from '.';
-import InlineContent from '../InlineContent/index.js';
+import InlineContent from '../InlineContent';
 import mdx from './Marquee.mdx';
 import { context } from '../../globals';
 import { CATEGORIES } from 'lightning-ui-docs';
