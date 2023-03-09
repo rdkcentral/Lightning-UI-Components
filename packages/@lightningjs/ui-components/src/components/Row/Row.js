@@ -211,10 +211,29 @@ export default class Row extends NavigationManager {
     return this._isComponentHorizontallyVisible(child);
   }
 
+  _appendLazyItem(itemArr) {
+    let item = itemArr[0];
+    const itemHeight = this.renderHeight;
+    this.shouldSmooth = false;
+
+    item.parentFocus = this.hasFocus();
+    item = this.Items.childList.a(item);
+    item.h = item.h || itemHeight;
+    item = this._withAfterUpdate(item);
+
+    this.stage.update();
+    this.queueRequestUpdate();
+    this._refocus();
+  }
+
   appendItems(items = []) {
     const itemHeight = this.renderHeight;
     this.shouldSmooth = false;
 
+    if (this._lazyItems) {
+      this._lazyItems = [...this._lazyItems, ...items];
+      return;
+    }
     if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
       this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
     }
