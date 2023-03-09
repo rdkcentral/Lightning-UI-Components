@@ -596,7 +596,7 @@ LazyUpCount.argTypes = {
   lazyUpCount: {
     control: 'number',
     description:
-      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-column--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
     table: {
       defaultValue: { summary: 'undefined' }
     }
@@ -604,7 +604,7 @@ LazyUpCount.argTypes = {
   lazyUpCountBuffer: {
     control: 'number',
     description:
-      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-column--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
     table: {
       defaultValue: { summary: 2 }
     }
