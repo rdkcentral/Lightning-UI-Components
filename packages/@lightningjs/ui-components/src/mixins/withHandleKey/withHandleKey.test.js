@@ -23,7 +23,7 @@ import {
   mockContext,
   resetContext
 } from '@lightningjs/ui-components-test-utils';
-import context from '../../globals';
+import { context } from '../../globals';
 import withHandleKey from '.';
 
 describe('withHandleKey', () => {
