@@ -37,7 +37,12 @@ export default class Column extends NavigationManager {
   }
 
   static get properties() {
-    return [...super.properties, 'lazyUpCount'];
+    return [...super.properties, 'lazyUpCount', 'lazyUpCountBuffer'];
+  }
+
+  _construct() {
+    super._construct();
+    this._lazyUpCountBuffer = 2;
   }
 
   _shouldScroll() {
@@ -156,10 +161,8 @@ export default class Column extends NavigationManager {
     const itemWidth = this.renderWidth;
     this.shouldSmooth = false;
 
-    if (items.length > this.lazyUpCount + 2) {
-      // +2 is a buffer added for fast scrolling
-      // TODO: add bufferCount as a property
-      this._lazyItems = items.splice(this.lazyUpCount + 2);
+    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
+      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
     }
 
     items.forEach(item => {

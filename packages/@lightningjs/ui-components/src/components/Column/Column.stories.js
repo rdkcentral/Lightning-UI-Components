@@ -570,6 +570,7 @@ export const LazyUpCount = args =>
 LazyUpCount.args = {
   scrollIndex: 0,
   lazyUpCount: 5,
+  lazyUpCountBuffer: 2,
   itemTransition: 0.4,
   alwaysScroll: false,
   scroll: 1
@@ -593,10 +594,20 @@ LazyUpCount.argTypes = {
     table: { defaultValue: { summary: 0 } }
   },
   lazyUpCount: {
-    control: { type: 'number', min: 0 },
+    control: 'number',
     description:
-      'Number of items to create on screen and new items will be created as user presses down on column.',
-    table: { defaultValue: { summary: 'undefined' } }
+      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-column--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  lazyUpCountBuffer: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](/?path=/docs/navigation-column--lazy-up-count#api) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 2 }
+    }
   },
   alwaysScroll: {
     control: { type: 'boolean' },
