@@ -116,6 +116,10 @@ export default class FocusManager extends Base {
     });
   }
 
+  _appendLazyItem(item) {
+    this.appendItems(item);
+  }
+
   appendItems(items = []) {
     this.Items.childList.a(items);
     this._refocus();
@@ -259,7 +263,7 @@ export default class FocusManager extends Base {
     this.shouldSmooth = true;
     if (this._lazyItems && this._lazyItems.length) {
       delayForAnimation(() => {
-        this.appendItems(this._lazyItems.splice(0, 1));
+        this._appendLazyItem(this._lazyItems.splice(0, 1));
       });
     }
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
