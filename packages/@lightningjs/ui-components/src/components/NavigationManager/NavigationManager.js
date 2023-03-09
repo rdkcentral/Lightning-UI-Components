@@ -318,7 +318,7 @@ export default class NavigationManager extends FocusManager {
     this.shouldSmooth = false;
 
     if (this._lazyItems) {
-      this._lazyItems = [...this._lazyItems, ...items];
+      this._lazyItems.push(...items);
       return;
     }
 
