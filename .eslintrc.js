@@ -24,7 +24,14 @@ module.exports = {
     node: true,
     jest: true
   },
-  ignorePatterns: ['dist'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    'coverage',
+    'build',
+    'storybook-static',
+    '**/*.json'
+  ],
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {

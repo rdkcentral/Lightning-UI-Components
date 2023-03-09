@@ -19,5 +19,5 @@
 import '@lightningjs/core/devtools/lightning-inspect';
 
 export default () => {
-  console.log('attach inspector');
+  console.log('attach inspector'); // eslint-disable-line no-console, no-restricted-syntax
 };

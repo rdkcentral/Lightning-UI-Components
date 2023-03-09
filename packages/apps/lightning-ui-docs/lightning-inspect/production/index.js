@@ -17,5 +17,5 @@
  */
 
 export default () => {
-  console.log('production mode')
-}
+  console.log('production mode'); // eslint-disable-line no-console, no-restricted-syntax
+};
