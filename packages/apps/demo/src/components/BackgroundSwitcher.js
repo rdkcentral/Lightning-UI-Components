@@ -109,7 +109,7 @@ export default class BackgroundSwitcher extends Base {
   }
 
   static get tags() {
-    return ['Metadata']
+    return ['Metadata'];
   }
 
   _construct() {
@@ -125,7 +125,6 @@ export default class BackgroundSwitcher extends Base {
     target.smooth = { alpha: 1 };
     fadeOut.smooth = { alpha: 0.001 };
     this._Metadata.childList.first.childList.first.content = this.title;
-    this._Metadata.childList.first.childList.last.content =
-      this.description;
+    this._Metadata.childList.first.childList.last.content = this.description;
   }
 }

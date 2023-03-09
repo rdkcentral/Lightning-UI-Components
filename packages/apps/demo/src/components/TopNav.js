@@ -57,7 +57,7 @@ export default class TopNav extends Base {
       this._Logo.patch({
         alpha: 1,
         src: this.theme.logo
-      })
+      });
     } else {
       this._Logo.alpha = 0;
     }

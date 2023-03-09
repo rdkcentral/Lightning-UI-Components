@@ -24,8 +24,7 @@ export function impressionExtensionGenerator() {
   return function impressionExtension(Base) {
     return class WithImpression extends Base {
       _focus() {
-        /* eslint-disable-next-line no-console */
-        console.log('Component has focus', this);
+        console.log('Component has focus', this); // eslint-disable-line
         super._focus();
       }
     };
