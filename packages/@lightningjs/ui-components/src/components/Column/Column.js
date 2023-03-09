@@ -36,10 +36,6 @@ export default class Column extends NavigationManager {
     };
   }
 
-  static get properties() {
-    return [...super.properties];
-  }
-
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
