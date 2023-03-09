@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -292,9 +292,8 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
-  _appendLazyItem(itemArr) {
+  _appendItem(item) {
     const { crossDimension } = this._directionPropNames;
-    let item = itemArr[0];
     const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
     this.shouldSmooth = false;
 
@@ -302,7 +301,10 @@ export default class NavigationManager extends FocusManager {
     item = this.Items.childList.a(item);
     item[crossDimension] = item[crossDimension] || itemCrossSize;
     item = this._withAfterUpdate(item);
+  }
 
+  _appendLazyItem(itemArr) {
+    this._appendItem(itemArr[0]);
     this.stage.update();
     this.queueRequestUpdate();
     this._refocus();
@@ -313,8 +315,6 @@ export default class NavigationManager extends FocusManager {
   }
 
   appendItems(items = []) {
-    const { crossDimension } = this._directionPropNames;
-    const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
     this.shouldSmooth = false;
 
     if (this._lazyItems) {
@@ -325,12 +325,7 @@ export default class NavigationManager extends FocusManager {
     if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
       this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
     }
-    items.forEach(item => {
-      item.parentFocus = this.hasFocus();
-      item = this.Items.childList.a(item);
-      item[crossDimension] = item[crossDimension] || itemCrossSize;
-      item = this._withAfterUpdate(item);
-    });
+    items.forEach(item => this._appendItem(item));
 
     this.stage.update();
     this.queueRequestUpdate();
