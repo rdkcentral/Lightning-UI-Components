@@ -108,6 +108,10 @@ export default class BackgroundSwitcher extends Base {
     return ['title', 'description', 'src'];
   }
 
+  static get tags() {
+    return ['Metadata']
+  }
+
   _construct() {
     super._construct && super._construct();
     this._activeBackground = 0;
@@ -120,8 +124,8 @@ export default class BackgroundSwitcher extends Base {
     this._activeBackground = +!this._activeBackground;
     target.smooth = { alpha: 1 };
     fadeOut.smooth = { alpha: 0.001 };
-    this.tag('Metadata').childList.first.childList.first.content = this.title;
-    this.tag('Metadata').childList.first.childList.last.content =
+    this._Metadata.childList.first.childList.first.content = this.title;
+    this._Metadata.childList.first.childList.last.content =
       this.description;
   }
 }
