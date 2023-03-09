@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -292,6 +292,22 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
+  _appendLazyItem(itemArr) {
+    const { crossDimension } = this._directionPropNames;
+    let item = itemArr[0];
+    const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
+    this.shouldSmooth = false;
+
+    item.parentFocus = this.hasFocus();
+    item = this.Items.childList.a(item);
+    item[crossDimension] = item[crossDimension] || itemCrossSize;
+    item = this._withAfterUpdate(item);
+
+    this.stage.update();
+    this.queueRequestUpdate();
+    this._refocus();
+  }
+
   $itemChanged() {
     this.queueRequestUpdate();
   }
@@ -300,6 +316,11 @@ export default class NavigationManager extends FocusManager {
     const { crossDimension } = this._directionPropNames;
     const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
     this.shouldSmooth = false;
+
+    if (this._lazyItems) {
+      this._lazyItems = [...this._lazyItems, ...items];
+      return;
+    }
 
     if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
       this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
