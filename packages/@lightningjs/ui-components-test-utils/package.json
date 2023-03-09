@@ -9,7 +9,8 @@
   "type": "module",
   "exports": "./index.js",
   "files": [
-    "src/*"
+    "index.js",
+    "src/**"
   ],
   "peerDependencies": {
     "@lightningjs/core": "^2.9.0"

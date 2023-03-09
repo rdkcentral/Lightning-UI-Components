@@ -53,8 +53,8 @@
   },
   "files": [
     "index.js",
-    "dist/*",
-    "src/*"
+    "src/**",
+    "dist/**"
   ],
   "publishConfig": {
     "access": "public"
