@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +26,7 @@ const directionPropNames = {
     crossAxis: 'y',
     lengthDimension: 'w',
     crossDimension: 'h',
+    innerLengthDimension: 'innerW',
     innerCrossDimension: 'innerH'
   },
   column: {
@@ -33,6 +34,7 @@ const directionPropNames = {
     crossAxis: 'x',
     lengthDimension: 'h',
     crossDimension: 'w',
+    innerLengthDimension: 'innerH',
     innerCrossDimension: 'innerW'
   }
 };
@@ -329,6 +331,39 @@ export default class NavigationManager extends FocusManager {
 
     this.stage.update();
     this.queueRequestUpdate();
+    this._refocus();
+  }
+
+  appendItemsAt(items = [], idx) {
+    const { crossDimension, lengthDimension, innerLengthDimension } =
+      this._directionPropNames;
+    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
+    this.shouldSmooth = false;
+    this._lastAppendedIdx = addIndex;
+    this._totalAddedLength = 0;
+
+    items.forEach((item, itemIdx) => {
+      this.Items.childList.addAt(
+        {
+          ...this._withAfterUpdate(item),
+          parentFocus: this.hasFocus(),
+          [crossDimension]: item[crossDimension] || this.Items[crossDimension]
+        },
+        addIndex + itemIdx
+      );
+      const itemLength =
+        item[lengthDimension] || item[innerLengthDimension] || 0;
+      const extraItemSpacing = item.extraItemSpacing || 0;
+      this._totalAddedLength +=
+        itemLength + this.style.itemSpacing + extraItemSpacing;
+    });
+
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedPastAdded = true;
+      this._selectedIndex += items.length;
+    }
+
+    this.requestUpdate();
     this._refocus();
   }
 

@@ -204,36 +204,10 @@ export default class Row extends NavigationManager {
     return this._isComponentHorizontallyVisible(child);
   }
 
-  appendItemsAt(items = [], idx) {
-    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
-    this.shouldSmooth = false;
-    this._lastAppendedIdx = addIndex;
-    this._totalAddedWidth = 0;
-
-    items.forEach((item, itemIdx) => {
-      this.Items.childList.addAt(
-        {
-          ...this._withAfterUpdate(item),
-          parentFocus: this.hasFocus(),
-          h: item.h || this.Items.h
-        },
-        addIndex + itemIdx
-      );
-      const itemW = item.w || item.innerW || 0;
-      const extraItemSpacing = item.extraItemSpacing || 0;
-      this._totalAddedWidth +=
-        itemW + this.style.itemSpacing + extraItemSpacing;
-    });
-
-    if (this.selectedIndex >= this._lastAppendedIdx) {
-      this._selectedPastAdded = true;
-      this._selectedIndex += items.length;
-    }
-
-    this.requestUpdate();
-    this._refocus();
-  }
-
   // can be overridden
   onScreenEffect() {}
+
+  get _totalAddedWidth() {
+    return this._totalAddedLength;
+  }
 }
