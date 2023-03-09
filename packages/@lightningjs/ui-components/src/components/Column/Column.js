@@ -37,12 +37,7 @@ export default class Column extends NavigationManager {
   }
 
   static get properties() {
-    return [...super.properties, 'lazyUpCount', 'lazyUpCountBuffer'];
-  }
-
-  _construct() {
-    super._construct();
-    this._lazyUpCountBuffer = 2;
+    return [...super.properties];
   }
 
   _shouldScroll() {
