@@ -46,9 +46,7 @@
   },
   "dependencies": {
     "@lightningjs/ui-components-theme-base": "workspace:^",
-    "debounce": "^1.2.1",
-    "husky": "^8.0.2",
-    "lint-staged": "^13.0.3"
+    "debounce": "^1.2.1"
   },
   "files": [
     "index.js",
