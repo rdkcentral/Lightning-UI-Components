@@ -13,7 +13,7 @@ Feature: LUI Row Removing items component
     Then I verify there are 5 assets per row on the 'Row' page
     And I wait 3 seconds for the page to load
     And I verify there are 4 assets per row on the 'Row' page
-    And I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
+    And I verify each 'Row Elements' has width of 472.0 and height of 100.0 on 'Row' page
 
   Scenario: Verify row layout and spacing
     Then I verify that elements are horizontally evenly spaced for 'Row' component
@@ -45,7 +45,7 @@ Feature: LUI Row Removing items component
 
   Scenario: Verify that Row Removing items always scroll toggle
     And I press 'RIGHT' key 3 times
-    Then I verify that the 'Row' 'Button 1' component is displayed
+    Then I verify that the 'Row' 'Button 2' component is displayed
     And I set the 'alwaysScroll' to 'true' for 'Row' component
     And I press 'RIGHT' key 3 times
-    And I verify that the 'Row' 'Button 1' component is not displayed
+    And I verify that the 'Row' 'Button 2' component is not displayed

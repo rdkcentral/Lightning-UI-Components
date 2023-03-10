@@ -67,17 +67,18 @@ Feature: LUI CardAbout component
       | Base    | iconLeft  | 
       | Base    | iconRight | 
 
-  # Unable to test using '%' i.e. '99%' in the exampleText variable due to LUI-638 https://ccp.sys.comcast.net/browse/LUI-638
+  # TODO - add negative use cases for validating the minimum and maximum values, 
+  # and that only numbers can be entered. Reference: LUI-638 https://ccp.sys.comcast.net/browse/LUI-638
   Scenario Outline: Verify that CardAbout textLeft and textRight can be set (<theme> theme)
     When I navigate to 'CardAbout' with '<theme>' theme
     Then I verify that the 'CardAbout' component is displayed
-    And I verify that 'CardAbout' '<textPosition>' has 'text' '<defaultText>'
+    And I verify that 'CardAbout' '<textPosition>' has 'text' '<defaultText>%'
     And I set the '<textPosition>' to '<exampleText>' for 'CardAbout' component
     And I verify that the 'CardAbout' component is displayed
-    And I verify that 'CardAbout' '<textPosition>' has 'text' '<exampleText>'
+    And I verify that 'CardAbout' '<textPosition>' has 'text' '<exampleText>%'
     Examples:
       | theme   | textPosition  | defaultText | exampleText | 
-      | Xfinity | textLeft      |     00%     |      99     |
-      | Xfinity | textRight     |     00%     |      99     | 
-      | Base    | textLeft      |     00%     |      99     |
-      | Base    | textRight     |     00%     |      99     |
+      | Xfinity | textLeft      |     0       |      99     |
+      | Xfinity | textRight     |     0       |      99     | 
+      | Base    | textLeft      |     0       |      99     |
+      | Base    | textRight     |     0       |      99     |

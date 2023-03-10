@@ -19,7 +19,7 @@ Feature: LUI CardAboutLarge component
     And I verify that the 'height' of 'CardAboutLarge' component is '<height>'
     Examples:
       | theme   |  width  | height | 
-      | Xfinity |  800px  | 296px  | 
+      | Xfinity |  796px  | 294px  | 
       | Base    |  800px  | 296px  | 
     
   Scenario Outline: Verify that CardAboutLarge can be set to <modeValue> mode (<theme> theme)

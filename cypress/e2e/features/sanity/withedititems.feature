@@ -97,22 +97,21 @@ Feature: LUI With Edit Items component
       | Base  | focused   |
       | Base  | disabled  |
 
-  Scenario Outline: Verify the With Edit Items 'always scroll' toggle (<theme> theme)
+  Scenario Outline: Verify the With Edit Items 'always scroll' toggle control (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme
+    And I set the 'alwaysScroll' to '<alwaysScrollValue>' for 'WithEditItems' component
+    And I wait 1 seconds for the page to load
     And I press 'RIGHT' key 5 times
-    And I wait 0.5 seconds for the page to load
-    Then I verify that the 'WithEditItems' 'Button 4' component is not displayed
-    And I set the 'alwaysScroll' to 'true' for 'WithEditItems' component
-    And I press 'RIGHT' key 5 times
-    And I wait 0.5 seconds for the page to load
-    And I verify that the 'WithEditItems' 'Button 5' component is displayed
+    Then I verify that the 'left' of 'WithEditItems' component is '<leftPosition>px'
     @sanity_temp
     Examples:
-      | theme   |
-      | Xfinity |
+      | theme   | alwaysScrollValue  | leftPosition  |
+      | Xfinity | false              | -1640         |
+      | Xfinity | true               | -2050         |
     Examples:
-      | theme |
-      | Base  |
+      | theme   | alwaysScrollValue  | leftPosition  |
+      | Base    | false              | -2460         |
+      | Base    | true               | -2460         |
 
   Scenario Outline: Verify the With Edit Items 'lazy scroll' toggle (<theme> theme)
     When I navigate to 'WithEditItems' with '<theme>' theme

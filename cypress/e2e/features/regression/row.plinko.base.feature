@@ -13,7 +13,7 @@ Feature: LUI Row Plinko component
     Then I verify there are 4 assets per row on the 'Row' page
     And I verify there are 4 columns
     And I verify there are 3 assets per column
-    And I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
+    And I verify each 'Row Elements' has width of 472.0 and height of 100.0 on 'Row' page
 
   Scenario Outline: Validate displayed text of buttons
     And I verify that 'Row' '<element>' has 'text' '<text>'

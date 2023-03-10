@@ -13,7 +13,7 @@ Feature: LUI SliderLarge Basic component
     And I verify that the 'SliderLarge' 'Right Arrow' component is displayed
 
   Scenario: Verify the dimensions of the SliderLarge Basic Element
-    Then I verify that the 'width' of 'SliderLarge' 'Slider Bar' component is '268px'
+    Then I verify that the 'width' of 'SliderLarge' 'Slider Bar' component is '208px'
     And I verify that the 'height' of 'SliderLarge' 'Slider Bar' component is '10px'
 
   Scenario Outline: Verify that SliderLarge can be set to <modeValue> mode

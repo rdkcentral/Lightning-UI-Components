@@ -10,7 +10,7 @@ Feature: Icon PNG Element Validation
     Then I verify that the 'Icon' component is displayed
 
   Scenario: Verify that the dimensions of the Icon PNG Element can be changed
-    When I set the 'height' to '85' for 'Icon' component
+    When I set the 'h' to '85' for 'Icon' component
     Then I verify that the 'height' of 'Icon' component is '85px'
-    And I set the 'width' to '70' for 'Icon' component
+    And I set the 'w' to '70' for 'Icon' component
     And I verify that the 'width' of 'Icon' component is '70px'

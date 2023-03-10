@@ -116,6 +116,23 @@ export default function () {
 
   /**
    * @module Common
+   * @function I verify that the {String} {String} component exists in DOM
+   * @description Cucumber statement to verify that the component exists in DOM
+   * @param {String} pageName
+   * @param {String} componentName
+   * @example I verify that the 'Row' 'Button3' component exists in DOM
+   */
+  Then(
+    'I verify that the {string} {string} component exists in DOM',
+    (pageName, componentName) => {
+      const page = pageName.toLowerCase();
+      const pageObject = getPageObject(page);
+      pageObject._getElementByName(componentName).should('exist');
+    }
+  );
+
+  /**
+   * @module Common
    * @function I verify that the {String} {String} component does not exist in DOM
    * @description Cucumber statement to verify that the component does not exist in DOM
    * @param {String} pageName
@@ -511,18 +528,18 @@ export default function () {
       const page = pageName.toLowerCase();
       const pageObject = getPageObject(page);
 
-      pageObject._getElementByName(component).each(() => {
-        if (page === 'column' || component.includes('column')) {
-          cy.action('DOWN');
-        } else {
-          cy.action('RIGHT');
-        }
-      });
       pageObject
         ._getElementByName(component)
+        .each(() => {
+          if (page === 'column' || component.includes('column')) {
+            cy.action('DOWN');
+          } else {
+            cy.action('RIGHT');
+          }
+        })
         .getAttributes('texture-text')
-        .each(elements => {
-          expect(elements).contains(expectedText);
+        .each(displayedText => {
+          expect(displayedText).contains(expectedText);
         });
     }
   );

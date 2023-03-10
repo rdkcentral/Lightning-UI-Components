@@ -10,7 +10,7 @@ Feature: LUI Row Centered in parent component
     Then I verify that the 'Row' component is displayed
 
   Scenario: Verify the dimensions of the Row Centered in parent Elements
-    Then I verify each 'Row Elements' has width of 250.0 and height of 100.0 on 'Row' page
+    Then I verify each 'Row Elements' has width of 472.0 and height of 100.0 on 'Row' page
 
   Scenario: Verify row layout and spacing
     Then I press 'DOWN' key

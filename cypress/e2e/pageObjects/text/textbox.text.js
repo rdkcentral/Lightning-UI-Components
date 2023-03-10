@@ -16,6 +16,10 @@ class TextBox extends LUIComponent {
   get withInlineContentString() {
     return `${this.basic} > div[type=InlineContent]`;
   }
+
+  get marquee() {
+    return 'div[type=Marquee]';
+  }
 }
 
 module.exports = new TextBox();

@@ -34,38 +34,38 @@ Feature: LUI Row Lazy Scroll Indexes component
       | disabled  |
 
   Scenario: Verify the Row Lazy Scroll Indexes always scroll toggle
-    And I press 'RIGHT' key 11 times
-    Then I verify that the 'Row' 'Button 10' component is displayed
+    Then I press 'RIGHT' key 11 times
+    And I verify that the 'left' of 'Row' component is '-4264px'
     And I set the 'alwaysScroll' to 'true' for 'Row' component
     And I press 'RIGHT' key 11 times
-    And I wait 1 seconds for the page to load
-    And I verify that the 'Row' 'Button 10' component is not displayed
-
+    And I verify that the 'left' of 'Row' component is '-4264px'
+    And I set the 'lazyScroll' to 'false' for 'Row' component
+    And I press 'RIGHT' key 11 times
+    And I verify that the 'left' of 'Row' component is '-5412px'
+    
   Scenario: Verify the Lazy Scroll Indexes lazyScroll toggle
-    And I press 'RIGHT' key 4 times
-    And I wait 1 seconds for the page to load
-    Then I verify that the 'Row' 'Button 7' component is displayed
-    And I set the 'lazyScroll' to 'true' for 'Row' component
-    And I press 'RIGHT' key 4 times
+    Then I press 'RIGHT' key 4 times
     And I wait 1 seconds for the page to load
     And I verify that the 'Row' 'Button 7' component is not displayed
-
+    And I set the 'lazyScroll' to 'false' for 'Row' component
+    And I press 'RIGHT' key 4 times
+    And I wait 1 seconds for the page to load
+    And I verify that the 'Row' 'Button 7' component is displayed
+    
   Scenario: Verify the Row Lazy Scroll Indexes never scroll toggle
-    And I press 'RIGHT' key 5 times
-    Then I verify that the 'Row' 'Button 5' component is displayed
+    Then I press 'RIGHT' key 5 times
+    And I verify that the 'Row' 'Button 7' component is displayed
     And I set the 'neverScroll' to 'true' for 'Row' component
+    And I wait 1 seconds for the page to load
     And I press 'RIGHT' key 5 times
-    And I wait 1 seconds for the page to load
-    And I verify that the 'Row' 'Button 5' component is not displayed
-
+    And I verify that the 'Row' 'Button 7' component is not displayed
+    
   Scenario: Verify the scroll index of the Row Lazy Scroll Indexes element can be changed
-    And I press 'RIGHT' key 8 times
-    And I wait 1 seconds for the page to load
-    Then I verify that the 'Row' 'Button 12' component is displayed
-    And I set the 'scrollIndex' to '5' for 'Row' component
-    And I press 'RIGHT' key 8 times
-    And I wait 1 seconds for the page to load
-    And I verify that the 'Row' 'Button 12' component is not displayed
+    Then I press 'RIGHT' key 2 times
+    And I verify that the 'left' of 'Row' component is '-492px'
+    And I set the 'scrollIndex' to '2' for 'Row' component
+    And I press 'RIGHT' key 2 times
+    And I verify that the 'left' of 'Row' component is '0px'
 
   Scenario: Verify that the Start and Stop Lazy Scroll Index of the Row Lazy Scroll Indexes elements can be changed
     Then I verify that 'Row' 'button2label' has 'text' 'Button 2 (start lazy scroll) '

@@ -63,4 +63,4 @@ Feature: LUI ScrollWrapper TextArray component
     Examples: 
     | scrollDuration  | timeTaken  |
     | 0.1             | 10         |
-    | 5               | 15         |
+    | 5               | 17         |
