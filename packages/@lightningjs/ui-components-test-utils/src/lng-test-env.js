@@ -17,10 +17,19 @@
  */
 
 import { TestEnvironment as JSDOMEnvironment } from 'jest-environment-jsdom';
+import jest from 'jest-mock';
 
 export default class LightningUIEnvironment extends JSDOMEnvironment {
   async setup() {
     super.setup();
+    // remove unnecessary console.error messages from image retrieval errors/broken images
+    if (process.env.CI) {
+      this.global.console = {
+        ...this.global.console,
+        error: jest.fn()
+      };
+    }
+
     // Mock up apis that are not supported in jsdom
     this.global.Image = class {
       constructor() {
