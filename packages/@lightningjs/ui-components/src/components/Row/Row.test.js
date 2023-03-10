@@ -432,32 +432,32 @@ describe('Row', () => {
     });
 
     // TODO: Fix - released to get h
-    // it('should pass on screen items to onScreenEffect', done => {
-    //   row.w = 200;
-    //   const onScreenEffect = jest.fn();
-    //   row.onScreenEffect = onScreenEffect;
-    //   testRenderer.keyPress('Right');
-    //   testRenderer.update();
+    it('should pass on screen items to onScreenEffect', done => {
+      row.w = 200;
+      const onScreenEffect = jest.fn();
+      row.onScreenEffect = onScreenEffect;
+      testRenderer.keyPress('Right');
+      testRenderer.update();
 
-    //   row._whenEnabled.then(() => {
-    //     expect(onScreenEffect).toBeCalled();
-    //     const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
-    //       row.items.indexOf(item)
-    //     );
-    //     const expected = row.items
-    //       .filter(item => {
-    //         const x1 = item.x;
-    //         const x2 = item.x + item.w;
-    //         return (
-    //           x2 + row.Items.transition('x').targetValue > 0 &&
-    //           x1 + row.Items.transition('x').targetValue < row.w
-    //         );
-    //       })
-    //       .map(item => row.items.indexOf(item));
-    //     expect(onScreenItems).toEqual(expected);
-    //     done();
-    //   });
-    // });
+      row._whenEnabled.then(() => {
+        expect(onScreenEffect).toBeCalled();
+        const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
+          row.items.indexOf(item)
+        );
+        const expected = row.items
+          .filter(item => {
+            const x1 = item.x;
+            const x2 = item.x + item.w;
+            return (
+              x2 + row.Items.transition('x').targetValue > 0 &&
+              x1 + row.Items.transition('x').targetValue < row.w
+            );
+          })
+          .map(item => row.items.indexOf(item));
+        expect(onScreenItems).toEqual(expected);
+        done();
+      });
+    });
 
     describe('with scrollMount=0.5', () => {
       beforeEach(() => {
