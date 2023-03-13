@@ -22,7 +22,7 @@ import { flatten, getWidthByUpCount } from '../../utils';
 import Row from '../Row';
 import Tile from '../Tile';
 import Button from '../Button';
-import { Column as ColumnComponent } from '.';
+import { default as ColumnComponent } from '.';
 import mdx from './Column.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

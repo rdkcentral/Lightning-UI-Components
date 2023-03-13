@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import { Button, Row } from '../../components';
-import withSelectionsMixin from './index.js';
+import withSelectionsMixin from '.';
 import mdx from './withSelections.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

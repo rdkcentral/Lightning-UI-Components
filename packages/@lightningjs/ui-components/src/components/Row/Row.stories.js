@@ -18,7 +18,8 @@
 
 import lng from '@lightningjs/core';
 import { getWidthByUpCount } from '../../utils';
-import { Row as RowComponent, Column } from '..';
+import { default as RowComponent } from '.';
+import Column from '../Column';
 import mdx from './Row.mdx';
 import { context } from '../../globals';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
