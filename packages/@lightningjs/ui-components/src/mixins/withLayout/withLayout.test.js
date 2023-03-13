@@ -94,16 +94,17 @@ describe('withLayout', () => {
   });
 
   it('should throw an error if a negative value is used', () => {
-    const errorLog = jest.spyOn(global.console, 'error');
+    const errorLog = new Error('Error');
     tileWithLayout.itemLayout = { ratioX, ratioY, h, upCount };
     testRenderer.update();
     tileWithLayout.itemLayout.ratioX = -20;
-
-    expect(errorLog).toHaveBeenCalled();
+    const spy = jest.spyOn(context, 'error');
+    expect(spy).toHaveBeenCalled();
     // expect(logSpy).toHaveBeenCalledWith(
     //   'itemLayout for Tile recieved an invaild value of -16 for ratioX'
     // );
     expect(tileWithLayout.itemLayout.ratioX).toBe(16);
     //logSpy.console.error.mockRestore(); // restores original console log function
+    jest.clearAllMocks();
   });
 });

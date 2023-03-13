@@ -49,7 +49,7 @@ export const withLayout = () => {
 withLayout.storyName = 'withLayout';
 
 withLayout.args = {
-  ratioX: -16,
+  ratioX: 16,
   ratioY: 9,
   upCount: 3,
   circle: false
