@@ -20,7 +20,7 @@ import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withLayout from '.';
 import Tile from '../../components/Tile';
 import context from '../../globals/context';
-
+import { jest } from '@jest/globals';
 const createTileWithLayout = props =>
   makeCreateComponent(withLayout(Tile))(props);
 
@@ -84,12 +84,26 @@ describe('withLayout', () => {
     );
   });
 
-  it('should set width from height and default ratio', async () => {
+  it('should set width from height and default ratio', () => {
     tileWithLayout.itemLayout = { h };
     testRenderer.update();
     expect(tileWithLayout.w).toBeDefined();
     expect(tileWithLayout.w).toBe(
       (h * context.theme.layout.screenW) / context.theme.layout.screenH
     );
+  });
+
+  it('should throw an error if a negative value is used', () => {
+    const errorLog = jest.spyOn(global.console, 'error');
+    tileWithLayout.itemLayout = { ratioX, ratioY, h, upCount };
+    testRenderer.update();
+    tileWithLayout.itemLayout.ratioX = -20;
+
+    expect(errorLog).toHaveBeenCalled();
+    // expect(logSpy).toHaveBeenCalledWith(
+    //   'itemLayout for Tile recieved an invaild value of -16 for ratioX'
+    // );
+    expect(tileWithLayout.itemLayout.ratioX).toBe(16);
+    //logSpy.console.error.mockRestore(); // restores original console log function
   });
 });
