@@ -10,6 +10,27 @@ if (process.argv.length === 5) {
   testType = process.argv[4].split(':')[1];
 }
 
+const padZeroes = num => {
+  return num.toString().padStart(2, '0');
+};
+
+const formatDuration = duration => {
+  const totalMinutes = Math.floor(duration / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const mins = totalMinutes % 60;
+  const sec = duration % 60;
+
+  if (hours > 0) {
+    return `${hours}h ${padZeroes(mins)}m ${padZeroes(sec)}s`;
+  } else {
+    if (mins > 0) {
+      return `${padZeroes(mins)}m ${padZeroes(sec)}s`;
+    } else {
+      return `${padZeroes(sec)}s`;
+    }
+  }
+};
+
 const slackBlocks = (timestamp, branch, duration, result) => {
   timestamp = timestamp.replaceAll('-', ':');
 
@@ -40,7 +61,9 @@ const slackBlocks = (timestamp, branch, duration, result) => {
             {
               // total tests and duration
               type: 'mrkdwn',
-              text: `*Total Tests Executed:*\n${result.totalScenariosExecuted}\n*Duration:*\n${duration}s`
+              text: `*Total Tests Executed:*\n${
+                result.totalScenariosExecuted
+              }\n*Duration:*\n${formatDuration(duration)}`
             },
             {
               // summary
