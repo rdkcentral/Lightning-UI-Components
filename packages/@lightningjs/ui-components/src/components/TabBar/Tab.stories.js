@@ -17,11 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import { createModeControl } from '../../../docs/utils';
+import { createModeControl } from '../../docs/utils';
 import lngIcon from '../../assets/images/ic_lightning_white_32.png';
 import { default as TabComponent } from './Tab';
 import mdx from './Tab.mdx';
-import { CATEGORIES } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[16]}/Tab`,

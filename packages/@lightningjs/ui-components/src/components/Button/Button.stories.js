@@ -22,9 +22,9 @@ import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 import mdx from './Button.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
-import { createModeControl } from '../../../docs/utils';
-import { CATEGORIES } from '../../../docs/constants';
-import { controlDescriptions } from '../../../docs/constants';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
+import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[2]}/Button`,

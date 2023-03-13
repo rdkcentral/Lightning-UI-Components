@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import { createModeControl } from '../../../docs/utils';
-import { CATEGORIES } from '../../../docs/constants';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import mdx from './Keyboard.mdx';
 import utils from '../../utils';

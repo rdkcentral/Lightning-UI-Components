@@ -19,8 +19,8 @@
 import lng from '@lightningjs/core';
 import { default as SurfaceComponent } from '.';
 import mdx from './Surface.mdx';
-import { createModeControl } from '../../../docs/utils';
-import { CATEGORIES } from '../../../docs/constants';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[4]}/Surface`,

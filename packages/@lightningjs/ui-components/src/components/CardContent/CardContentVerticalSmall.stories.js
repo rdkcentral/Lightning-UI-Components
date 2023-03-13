@@ -20,11 +20,11 @@ import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { createModeControl, generateSubStory } from '../../../docs/utils';
+import { createModeControl, generateSubStory } from '../../docs/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from '../../../docs/constants';
-import { controlDescriptions } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
+import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentVerticalSmall`,

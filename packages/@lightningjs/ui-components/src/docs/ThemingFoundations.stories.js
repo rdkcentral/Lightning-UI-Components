@@ -17,9 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import context from '../src/globals/context';
-import { Base, Column, TextBox, Tile, Button } from '../src/components';
-import tileImage from '../src/assets/images/tile-image.png';
+import context from '../globals/context';
+import { Base, Column, TextBox, Tile, Button } from '../components';
+import tileImage from '../assets/images/tile-image.png';
 
 export default {
   title: 'Collections/Theming Tokens'
@@ -199,7 +199,8 @@ export const ThemingTokens = () => {
       return {
         DummyElement: {
           type: Explanation,
-          announce: 'Displays theming tokens and their values, which update on a theme change'
+          announce:
+            'Displays theming tokens and their values, which update on a theme change'
         },
         Typography: {
           type: Column,
@@ -358,7 +359,7 @@ export const ThemingTokens = () => {
             ShadowBrandFocusSoftSwatch: {
               type: ColorInfo,
               colorName: 'shadow-brand-focus-soft'
-            },
+            }
           }
         },
         Colors2: {
@@ -617,7 +618,7 @@ export const ThemingTokens = () => {
             Misc: {
               type: TextBox,
               content: 'Misc',
-              style: { textStyle: 'callout1' },
+              style: { textStyle: 'callout1' }
             },
             SpacingBase: {
               type: MiscProp,

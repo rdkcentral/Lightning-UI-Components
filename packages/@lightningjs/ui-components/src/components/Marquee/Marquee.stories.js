@@ -22,7 +22,7 @@ import MarqueeComponent from '.';
 import InlineContent from '../InlineContent';
 import mdx from './Marquee.mdx';
 import { context } from '../../globals';
-import { CATEGORIES } from '../../../docs/utils';
+import { CATEGORIES } from '../../docs/utils';
 
 export default {
   title: `${CATEGORIES[256]}/Marquee`,

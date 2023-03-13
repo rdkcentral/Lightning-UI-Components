@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
 import { withSelections } from '../../mixins';
-import { CATEGORIES } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {

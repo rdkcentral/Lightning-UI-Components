@@ -20,13 +20,13 @@ import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
 import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import { createModeControl, generateSubStory } from '../../../docs/utils';
+import { createModeControl, generateSubStory } from '../../docs/utils';
 import { default as CardContentHorizontalComponent } from './CardContentHorizontal';
 import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from '../../../docs/constants';
-import { controlDescriptions } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
+import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentHorizontal`,

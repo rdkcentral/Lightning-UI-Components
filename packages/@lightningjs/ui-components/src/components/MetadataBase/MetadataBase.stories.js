@@ -20,10 +20,10 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
-import { createModeControl } from '../../../docs/utils';
+import { createModeControl } from '../../docs/utils';
 import { default as MetadataBaseComponent } from '.';
 import mdx from './MetadataBase.mdx';
-import { CATEGORIES } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[32]}/MetadataBase`,

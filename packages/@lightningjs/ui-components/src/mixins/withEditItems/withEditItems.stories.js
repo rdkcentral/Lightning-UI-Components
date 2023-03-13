@@ -21,7 +21,7 @@ import lng from '@lightningjs/core';
 import { Button, TextBox, Row } from '../../components';
 import mdx from './withEditItems.mdx';
 import { default as withEditItemsMixin } from '.';
-import { CATEGORIES } from '../../../docs/constants';
+import { CATEGORIES } from '../../docs/constants';
 /**
  * Shared Args and Arg Types from Row
  */
