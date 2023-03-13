@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import { Row as RowBasic } from '../Row/Row.stories.js';
-import { Tile } from '../Tile';
+import Tile from '../Tile';
 import mdx from './TitleRow.mdx';
 import { default as TitleRowComponent } from '.';
 import { CATEGORIES } from 'lightning-ui-docs';

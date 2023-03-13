@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import { default as InputComponent } from '.';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Input.mdx';
