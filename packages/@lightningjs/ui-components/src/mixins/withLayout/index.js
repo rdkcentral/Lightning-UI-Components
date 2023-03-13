@@ -84,7 +84,6 @@ export default function withLayout(Base) {
     }
 
     _updateItemLayout() {
-      console.log('updatItemLayout');
       if (!this._allowUpdate()) return;
       const { w, h } = getDimensions(this.theme, this._itemLayout);
       if (h || w) {
