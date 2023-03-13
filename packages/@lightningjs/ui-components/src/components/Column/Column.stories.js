@@ -24,7 +24,7 @@ import Tile from '../Tile';
 import Button from '../Button';
 import { default as ColumnComponent } from '.';
 import mdx from './Column.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[64]}/Column`,

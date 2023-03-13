@@ -20,7 +20,7 @@ import withMarqueeSync from './withMarqueeSync';
 import Base from '../../components/Base';
 import mdx from './withMarqueeSync.mdx';
 import TextBox from '../../components/TextBox';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/withMarqueeSync`,

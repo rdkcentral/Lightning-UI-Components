@@ -23,11 +23,11 @@ import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/Met
 import {
   createModeControl,
   generateSubStory
-} from 'lightning-ui-docs/.storybook/utils';
+} from '../../../docs/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from 'lightning-ui-docs';
-import { controlDescriptions } from '../../../../../apps/lightning-ui-docs/.storybook/utils/constants';
+import { CATEGORIES } from '../../../docs/constants';
+import { controlDescriptions } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentVerticalSmall`,

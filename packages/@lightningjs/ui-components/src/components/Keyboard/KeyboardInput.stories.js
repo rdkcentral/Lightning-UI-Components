@@ -20,9 +20,9 @@ import lng from '@lightningjs/core';
 import {
   createModeControl,
   generateSubStory
-} from 'lightning-ui-docs/.storybook/utils';
+} from '../../../docs/utils';
 import mdx from './Keyboard.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
 import Icon from '../Icon';

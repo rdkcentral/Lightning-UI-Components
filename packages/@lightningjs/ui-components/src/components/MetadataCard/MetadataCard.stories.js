@@ -20,10 +20,10 @@ import lng from '@lightningjs/core';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 import utils from '../../utils';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../../docs/utils';
 import { default as MetadataCardComponent } from '.';
 import mdx from './MetadataCard.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[32]}/MetadataCard`,

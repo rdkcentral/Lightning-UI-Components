@@ -21,7 +21,7 @@ import { Tile, Row } from '../../components';
 import { context } from '../../globals';
 import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 context.config({
   // Inspect console to see - should only be called when pressing enter on first tile.

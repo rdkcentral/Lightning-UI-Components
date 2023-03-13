@@ -54,7 +54,8 @@
   "files": [
     "index.js",
     "src/**",
-    "dist/**"
+    "dist/**",
+    "docs/**"
   ],
   "publishConfig": {
     "access": "public"

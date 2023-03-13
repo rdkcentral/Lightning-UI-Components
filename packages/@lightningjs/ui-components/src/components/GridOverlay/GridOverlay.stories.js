@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { context } from '../../globals';
 import { default as GridOverlayComponent } from '.';
 import mdx from './GridOverlay.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[4]}/GridOverlay`,

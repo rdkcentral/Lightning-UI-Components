@@ -22,7 +22,7 @@ import mdx from './TextBox.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
 import inlineContentStory from '../InlineContent/InlineContent.stories';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[256]}/TextBox`,

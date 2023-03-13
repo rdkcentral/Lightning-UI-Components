@@ -18,8 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Radio from './RadioSmall.js';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../../docs/utils';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/RadioSmall`

@@ -19,12 +19,12 @@
 import lng from '@lightningjs/core';
 import { default as InputComponent } from '.';
 import Icon from '../Icon';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../../docs/utils';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Input.mdx';
 import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[8]}/Input`,

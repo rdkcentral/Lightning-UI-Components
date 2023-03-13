@@ -23,13 +23,13 @@ import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/Met
 import {
   createModeControl,
   generateSubStory
-} from 'lightning-ui-docs/.storybook/utils';
+} from '../../../docs/utils';
 import { default as CardContentHorizontalComponent } from './CardContentHorizontal';
 import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from 'lightning-ui-docs';
-import { controlDescriptions } from '../../../../../apps/lightning-ui-docs/.storybook/utils/constants';
+import { CATEGORIES } from '../../../docs/constants';
+import { controlDescriptions } from '../../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentHorizontal`,

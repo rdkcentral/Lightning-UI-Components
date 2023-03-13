@@ -25,7 +25,7 @@ module.exports = {
    'storybook-addon-turbo-build' // Speed up final build
   ],
   stories: [
-    // '../../../@lightningjs/ui/src/**/*.stories.@(js|jsx|ts|tsx)',
+    '../src/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
