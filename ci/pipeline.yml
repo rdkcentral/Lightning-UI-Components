@@ -13,7 +13,6 @@ pullRequestNotificationSuccess: &pullRequestNotificationSuccess
   params:
     path: source-repo-pr
     status: success
-    context: tests
     comment_file: comment/comment
 
 pullRequestNotificationFailure: &pullRequestNotificationFailure
@@ -21,7 +20,6 @@ pullRequestNotificationFailure: &pullRequestNotificationFailure
   params:
     path: source-repo-pr
     status: failure
-    context: tests
     comment: "Concourse build failed: https://ci-alpha.delivery.comcast.net/builds/$BUILD_ID"
     comment_file: comment/comment
 
