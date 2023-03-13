@@ -25,6 +25,9 @@ const mockItemsValid = type => {
     return {
       type,
       src: jurassic,
+      metadata: {
+        title: `Item ${index + 1}`
+      },
       title: `Item ${index + 1}`
     };
   });
@@ -187,13 +190,12 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('StandardLayout');
   });
 
-  it.skip('should display items in the proper order for standard layout', async done => {
+  it('should display items in the proper order for standard layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'standard',
       items: mockItemsValid(Tile),
       menuCard
     });
-
     testRenderer.getInstance()._Layout._Row.appendItemsPromise = new Promise(
       resolve =>
         (testRenderer.getInstance()._Layout._Row.appendItemsPromiseResolver =
@@ -209,21 +211,20 @@ describe('BoardRow', () => {
       });
     await testRenderer.getInstance()._Layout._Row.appendItemsPromise;
     const whenColumnEnabled =
-      testRenderer.getInstance()._Layout._Row.selected._whenEnabled;
+      testRenderer.getInstance()._Layout._Row.selected.whenEnabled;
     await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 1');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 4');
     testRenderer.keyPress('Up');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
-    done();
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 3');
   });
 
   it('should show hero layout', () => {
@@ -233,7 +234,7 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('HeroLayout');
   });
 
-  it.skip('should display items in the proper order for hero layout', async done => {
+  it('should display items in the proper order for hero layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'hero',
       items: mockItemsValid(Tile),
@@ -258,17 +259,16 @@ describe('BoardRow', () => {
     await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 2');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
-    done();
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 4');
   });
 
   it('should show poster layout', () => {
@@ -278,7 +278,7 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('PosterLayout');
   });
 
-  it.skip('should display items in the proper order for poster layout', async done => {
+  it('should display items in the proper order for poster layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'poster',
       items: mockItemsValid(Tile),
@@ -303,17 +303,16 @@ describe('BoardRow', () => {
     await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
-    done();
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 4');
   });
 
   it('should show card layout', () => {
@@ -323,7 +322,7 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('CardLayout');
   });
 
-  it.skip('should display items in the proper order for card layout', async done => {
+  it('should display items in the proper order for card layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'card',
       items: mockItemsValid(CardContentVertical),
@@ -358,7 +357,6 @@ describe('BoardRow', () => {
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
     expect(testRenderer.getFocused().title).toBe('Item 4');
-    done();
   });
 
   it('should show square layout', () => {
@@ -368,7 +366,7 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('SquareLayout');
   });
 
-  it.skip('should display items in the proper order for square layout', async done => {
+  it('should display items in the proper order for square layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'square',
       items: mockItemsValid(Tile),
@@ -393,17 +391,16 @@ describe('BoardRow', () => {
     await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 1');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 3');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
-    done();
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 4');
   });
 
   it('should show squareSmall layout', () => {
@@ -413,7 +410,7 @@ describe('BoardRow', () => {
     expect(boardRow._Layout._layoutType.name).toBe('SquareSmallLayout');
   });
 
-  it.skip('should display items in the proper order for squareSmall layout', async done => {
+  it('should display items in the proper order for squareSmall layout', async () => {
     [boardRow, testRenderer] = createComponent({
       layout: 'squareSmall',
       items: mockItemsValid(Tile),
@@ -438,17 +435,16 @@ describe('BoardRow', () => {
     await boardRow._whenEnabled;
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 1');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 1');
     testRenderer.keyPress('Down');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 2');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 2');
     testRenderer.keyPress('Right');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 4');
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 4');
     testRenderer.keyPress('Up');
     await whenColumnEnabled;
-    expect(testRenderer.getFocused().firstLine).toBe('Item 3');
-    done();
+    expect(testRenderer.getFocused().metadata.title).toBe('Item 3');
   });
 
   it('should fallback to the standard layout if none specified', () => {
