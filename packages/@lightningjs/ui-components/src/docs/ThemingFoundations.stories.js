@@ -184,6 +184,7 @@ class MiscProp extends Base {
         this._Text.content = `${this.propName}: ${val}`;
       }
     }
+    this.signal('miscLoaded');
   }
 
   $itemChanged() {
@@ -623,12 +624,18 @@ export const ThemingTokens = () => {
             SpacingBase: {
               type: MiscProp,
               propName: 'spacing-base',
-              propPath: ['spacer', 'md']
+              propPath: ['spacer', 'md'],
+              signals:{
+                miscLoaded: '_update'
+              }
             },
             FocusScale: {
               type: MiscProp,
               propName: 'focus-scale',
-              propPath: ['layout', 'focusScale']
+              propPath: ['layout', 'focusScale'],
+              signals:{
+                miscLoaded: '_update'
+              }
             }
           }
         }
