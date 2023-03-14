@@ -19,12 +19,9 @@
 import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
 import mdx from './ListItemSlider.mdx';
-import {
-  createModeControl,
-  generateSubStory
-} from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[2]}/ListItemSlider`,

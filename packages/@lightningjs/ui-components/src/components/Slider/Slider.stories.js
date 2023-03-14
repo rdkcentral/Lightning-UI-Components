@@ -17,11 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
 import mdx from './Slider.mdx';
 import Slider from '.';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {

@@ -21,7 +21,7 @@
 import theme from './theme';
 import { withLightning } from './addons/decorators/withLightning';
 import { registerEventListeners } from './utils/registerEvents';
-import { storySortOrder } from './utils/constants';
+import { storySortOrder } from '@lightningjs/ui-components/src/docs/constants';
 
 // loads window event listeners
 registerEventListeners();

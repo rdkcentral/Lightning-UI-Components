@@ -20,8 +20,8 @@ import lng from '@lightningjs/core';
 import { default as ScrollWrapperComponent } from '.';
 import Tile from '../Tile';
 import mdx from './ScrollWrapper.mdx';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 import TextBox from '../TextBox/TextBox.js';
 
 const terms = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id aliquet risus feugiat in ante metus dictum. Pretium fusce id velit ut tortor pretium viverra suspendisse. Pharetra convallis posuere morbi leo urna. Nunc sed velit dignissim sodales. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit. Facilisis gravida neque convallis a cras semper auctor. Pellentesque pulvinar pellentesque habitant morbi tristique. Non tellus orci ac auctor augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Amet risus nullam eget felis eget nunc. Auctor urna nunc id cursus metus aliquam eleifend mi in. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Ac felis donec et odio pellentesque. Semper auctor neque vitae tempus quam pellentesque nec nam aliquam. Sit amet risus nullam eget felis eget.

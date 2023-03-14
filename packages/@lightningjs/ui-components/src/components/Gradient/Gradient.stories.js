@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { default as GradientComponent } from '.';
 import mdx from './Gradient.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[4]}/Gradient`,

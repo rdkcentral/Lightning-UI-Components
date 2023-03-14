@@ -22,7 +22,7 @@ import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
 import Icon from '../Icon';
 import viewAllIcon from '../../assets/images/view_all.png';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../docs/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row';
 import Column from '../Column';
@@ -30,7 +30,7 @@ import { context } from '../../globals';
 import Tab from './Tab.js';
 import TabBarComponent from '.';
 import mdx from './TabBar.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[16]}/TabBar`,

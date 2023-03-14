@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CATEGORIES } from '../..';
+export const CATEGORIES = {
+  0: 'Accessibility',
+  2: 'Controls',
+  4: 'Foundations',
+  8: 'Keyboard',
+  16: 'Layout',
+  32: 'Metadata',
+  64: 'Navigation',
+  128: 'Tiles & Cards',
+  256: 'Text',
+  512: 'Utilities',
+  1024: 'Docs',
+  2048: 'Collections'
+};
 
 /** Storybook config constants should go in this file */
 

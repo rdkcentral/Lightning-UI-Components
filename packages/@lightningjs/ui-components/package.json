@@ -14,7 +14,7 @@
       "require": "./dist/lightning-ui-components.min.cjs",
       "types": "./dist/lightning-ui-components.d.ts"
     },
-    "./src": "./index.js"
+    "./src/": "./src/"
   },
   "main": "./dist/lightning-ui-components.min.mjs",
   "types": "./dist/lightning-ui-components.d.ts",

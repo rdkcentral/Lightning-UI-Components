@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 
 import { default as LabelComponent } from '.';
 import mdx from './Label.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[32]}/Label`,

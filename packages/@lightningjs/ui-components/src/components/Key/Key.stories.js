@@ -20,8 +20,8 @@ import lng from '@lightningjs/core';
 import { default as KeyComponent } from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import mdx from './Key.mdx';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[8]}/Key`,

@@ -44,10 +44,7 @@
 | controls-delete/argTypes |                         |                                                              |
 |                          |        index.js         |                                                              |
 | utils                    |                         |                                                              |
-|                          |      constants.js       | constants used for Storybook general configuration           |
-|                          |      docsUtils.js       | utility functions for documentation                          |
 |                          |       helpers.js        | helper functions for Storybook config                        |
-|                          |        index.js         |                                                              |
 |                          |    registerEvent.js     | event listeners for Storybook config                         |
 |                          |      themeUtils.js      | utility functions for Lightning Theming to work in Storybook |
 | /                        |                         |                                                              |

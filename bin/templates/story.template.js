@@ -22,7 +22,7 @@ module.exports = (name) => {
 
 import ${name} from '.';
 import mdx from './${name}.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../../docs/constants';
 
 export default {
   // TODO: replace categoryIndex with key for which category this component's story should be nested in. See CATEGORIES object in packages/apps/lightning-ui-docs/index.js

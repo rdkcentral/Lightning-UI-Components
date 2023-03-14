@@ -22,8 +22,8 @@ import { default as RowComponent } from '.';
 import Column from '../Column';
 import mdx from './Row.mdx';
 import { context } from '../../globals';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {

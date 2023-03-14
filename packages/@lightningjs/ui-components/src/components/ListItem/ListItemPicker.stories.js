@@ -19,8 +19,8 @@
 import lng from '@lightningjs/core';
 import { default as ListItemPickerComponent } from './ListItemPicker';
 import mdx from './ListItemPicker.mdx';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { createModeControl } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[2]}/ListItemPicker`,

@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import mdx from './withTags.mdx';
 import withTagsMixin from '.';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/withTags`,

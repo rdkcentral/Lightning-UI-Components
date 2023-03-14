@@ -21,7 +21,7 @@ import ProviderComponent from '.';
 import { default as Icon } from '../Icon';
 import mdx from './Provider.mdx';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/Provider`,

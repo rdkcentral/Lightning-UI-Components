@@ -21,12 +21,9 @@ import tileImage from '../../assets/images/tile-image.png';
 import CardContentComponent from '.';
 import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
-import {
-  createModeControl,
-  generateSubStory
-} from 'lightning-ui-docs/.storybook/utils';
-import { CATEGORIES } from 'lightning-ui-docs';
-import { controlDescriptions } from '../../../../../apps/lightning-ui-docs/.storybook/utils/constants';
+import { createModeControl, generateSubStory } from '../../docs/utils';
+import { CATEGORIES } from '../../docs/constants';
+import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContent`,

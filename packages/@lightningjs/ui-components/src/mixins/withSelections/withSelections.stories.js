@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { Button, Row } from '../../components';
 import withSelectionsMixin from '.';
 import mdx from './withSelections.mdx';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/withSelections`,

@@ -18,10 +18,10 @@
 
 import lng from '@lightningjs/core';
 import Button from '../Button';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../docs/utils';
 import mdx from './Tooltip.mdx';
 import { default as TooltipComponent } from '.';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/Tooltip`,

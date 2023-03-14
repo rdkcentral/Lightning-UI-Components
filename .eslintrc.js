@@ -24,7 +24,7 @@ module.exports = {
     node: true,
     jest: true
   },
-  ignorePatterns: ["dist"],
+  ignorePatterns: ['dist'],
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
@@ -78,7 +78,11 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    jsx: true,
+    ecmaFeatures: { // Fix to allow react components with jsx
+      jsx: true
+    }
   },
   overrides: [
     {

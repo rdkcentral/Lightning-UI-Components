@@ -19,9 +19,9 @@
 import lng from '@lightningjs/core';
 import Slider from './SliderLarge.js';
 import mdx from './Slider.mdx';
-import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
+import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
-import { CATEGORIES } from 'lightning-ui-docs';
+import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[512]}/SliderLarge`,
