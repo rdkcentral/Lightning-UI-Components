@@ -26,6 +26,7 @@ const createTileWithLayout = props =>
 
 describe('withLayout', () => {
   let tileWithLayout, testRenderer;
+
   const w = 320;
   const h = 180;
   const ratioY = 9;
@@ -39,6 +40,7 @@ describe('withLayout', () => {
   afterEach(() => {
     tileWithLayout = null;
     testRenderer = null;
+    jest.restoreAllMocks();
   });
 
   it('renders', () => {
@@ -94,11 +96,16 @@ describe('withLayout', () => {
   });
 
   it('should throw an error if a negative value is used', () => {
-    jest.spyOn(context, 'error');
+    const errLog = jest.spyOn(context, 'error');
     tileWithLayout.itemLayout = { ratioX: -20, ratioY, h, upCount };
     testRenderer.update();
-    expect(context.error).toHaveBeenCalled();
-    expect(context.error).toHaveBeenCalledWith(
+    // console.log('tileWithLayout constructor: ', tileWithLayout.constructor);
+    // console.log.console.log(
+    //   'tileWithLayout constructor name:',
+    //   tileWithLayout.constructor.name
+    // );
+    expect(errLog).toHaveBeenCalled();
+    expect(errLog).toHaveBeenCalledWith(
       'itemLayout for Tile recieved an invaild value of -20 for ratioX'
     );
   });

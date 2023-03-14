@@ -31,13 +31,13 @@ export default function withLayout(Base) {
     }
 
     set itemLayout(v) {
+      const componentName =
+        this.constructor._componentName || this.constructor.name;
       const itemLayout = JSON.parse(
         JSON.stringify(v, (k, v) => {
           if (k !== 'circle' && v < 0) {
             context.error(
-              `itemlayout for ${
-                this.constructor._componentName || this.constructor.name
-              } recieved an invaild value of ${v} for ${k}`
+              `itemlayout for ${componentName} recieved an invaild value of ${v} for ${k}`
             );
             return;
           } else if (k === 'circle') {
