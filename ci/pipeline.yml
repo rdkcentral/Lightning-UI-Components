@@ -205,6 +205,8 @@ groups:
     jobs:
       - run-cypress-sanity-vrt-tests
       - run-cypress-sanity-temp-tests
+  - name: cypress-regression-tests
+    jobs:
       - run-cypress-regression-vrt-tests
 
   # ^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^V^

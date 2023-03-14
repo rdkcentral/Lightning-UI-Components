@@ -39,7 +39,7 @@
     "cy:sanityTempParallel": "cypress-parallel -s cy:sanityTemp -t 2 -d cypress/e2e/features/sanity -m false",
     "cy:launchAppAndRunSanityTempTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:sanityTempParallel'",
     "cy:regression": "yarn run cy:tags --env testType=vrt,TAGS='@regression and not @skip',ON_CI=true",
-    "cy:regressionParallel": "cypress-parallel -s cy:regression -t 6 -d cypress/e2e/features -m false",
+    "cy:regressionParallel": "cypress-parallel -s cy:regression -t 7 -d cypress/e2e/features -m false",
     "cy:launchAppAndRunRegressionVrtTestsParallel": "start-server-and-test 'yarn start' http://localhost:8000 'yarn run cy:regressionParallel'",
     "report:add:video": "node cypress/support/helpers/update-report-include-video.js"
   },
