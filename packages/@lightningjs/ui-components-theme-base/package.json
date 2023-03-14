@@ -6,6 +6,7 @@
     "url": "https://github.com/rdkcentral/Lightning-UI-Components",
     "directory": "packages/@lightningjs/ui-components-theme-base"
   },
+  "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
   "type": "module",
   "main": "theme.js",
   "files": [
