@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getHexColor } from '../../utils/index.js';
+import { getHexColor } from '../../utils';
 import { jest } from '@jest/globals';
 import themeManager from './theme-manager';
 import logger from './logger';

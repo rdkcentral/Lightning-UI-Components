@@ -16,12 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './Slider.styles.js';
-import ProgressBar from '../ProgressBar/index.js';
-import Icon from '../Icon/index.js';
-import Knob from '../Knob/index.js';
-import { degreesToRadians } from '../../utils/index.js';
+import ProgressBar from '../ProgressBar';
+import Icon from '../Icon';
+import Knob from '../Knob';
+import { degreesToRadians } from '../../utils';
 
 export default class Slider extends Base {
   static get __componentName() {

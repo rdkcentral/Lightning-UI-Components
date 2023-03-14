@@ -17,10 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import { getWidthByUpCount } from '../../utils/index.js';
-import { Row as RowComponent, Column } from '../index.js';
+import { getWidthByUpCount } from '../../utils';
+import { default as RowComponent } from '.';
+import Column from '../Column';
 import mdx from './Row.mdx';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 import Button from '../Button';

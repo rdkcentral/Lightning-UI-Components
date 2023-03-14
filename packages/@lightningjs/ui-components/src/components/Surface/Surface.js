@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './Surface.styles.js';
 import lng from '@lightningjs/core';
 

@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import {
   withUpdates,
   withTags,
@@ -25,8 +25,8 @@ import {
   withLayout,
   withThemeStyles,
   withExtensions
-} from '../../mixins/index.js';
-import { isComponentOnScreen } from '../../utils/index.js';
+} from '../../mixins';
+import { isComponentOnScreen } from '../../utils';
 
 class Base extends lng.Component {
   _construct() {

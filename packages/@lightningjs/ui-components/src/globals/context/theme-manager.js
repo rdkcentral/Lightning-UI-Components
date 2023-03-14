@@ -21,7 +21,7 @@ import {
   getValFromObjPath,
   getHexColor,
   getValidColor
-} from '../../utils/index.js';
+} from '../../utils';
 import baseTheme from '@lightningjs/ui-components-theme-base';
 import logger from './logger.js';
 import events from './events.js';

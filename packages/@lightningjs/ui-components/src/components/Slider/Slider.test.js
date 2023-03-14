@@ -20,8 +20,8 @@ import {
   makeCreateComponent,
   fastForward
 } from '@lightningjs/ui-components-test-utils';
-import { degreesToRadians } from '../../utils/index.js';
-import Slider from './index.js';
+import { degreesToRadians } from '../../utils';
+import Slider from '.';
 import { jest } from '@jest/globals';
 
 const createSlider = makeCreateComponent(Slider);

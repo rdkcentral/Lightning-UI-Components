@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import context from '../context/index.js';
+import context from '../context';
 
 class GlobalUpdateManager {
   constructor() {

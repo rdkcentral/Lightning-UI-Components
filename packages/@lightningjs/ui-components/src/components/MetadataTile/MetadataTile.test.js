@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import MetadataTile from './index.js';
+import MetadataTile from '.';
 
 const createComponent = makeCreateComponent(MetadataTile, {
   w: 400,

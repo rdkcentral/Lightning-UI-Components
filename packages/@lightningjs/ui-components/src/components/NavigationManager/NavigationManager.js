@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import FocusManager from '../FocusManager/index.js';
-import { getX, getY, getH, getW, max } from '../../utils/index.js';
+import FocusManager from '../FocusManager';
+import { getX, getY, getH, getW, max } from '../../utils';
 import * as styles from './NavigationManager.styles';
 
 const directionPropNames = {

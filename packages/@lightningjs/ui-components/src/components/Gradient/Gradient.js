@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base/index.js';
+import Base from '../Base';
 import * as styles from './Gradient.styles.js';
 
 export default class Gradient extends Base {

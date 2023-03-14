@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import withAnnouncer, { defaultAbbrevConfig } from './index.js';
-import { Column, Row, Button } from '../../components/index.js';
+import withAnnouncer, { defaultAbbrevConfig } from '.';
+import { Column, Row, Button } from '../../components';
 import mdx from './withAnnouncer.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

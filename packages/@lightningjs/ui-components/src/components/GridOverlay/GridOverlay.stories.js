@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
-import { default as GridOverlayComponent } from './index.js';
+import { context } from '../../globals';
+import { default as GridOverlayComponent } from '.';
 import mdx from './GridOverlay.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

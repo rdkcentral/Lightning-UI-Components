@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as GradientComponent } from './index.js';
+import { default as GradientComponent } from '.';
 import mdx from './Gradient.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

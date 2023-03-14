@@ -16,10 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Keyboard from './index.js';
-import Input from '../Input/index.js';
-import Base from '../Base/index.js';
-import Column from '../Column/index.js';
+import Keyboard from './Keyboard';
+import Input from '../Input';
+import Base from '../Base';
+import Column from '../Column';
 import * as styles from './Keyboard.styles.js';
 
 export default class KeyboardInput extends Base {

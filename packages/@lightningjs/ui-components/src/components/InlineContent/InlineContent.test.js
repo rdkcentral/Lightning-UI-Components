@@ -24,7 +24,7 @@ import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
 import baseTheme from '@lightningjs/ui-components-theme-base';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 import { jest } from '@jest/globals';
 
 const testTheme = {

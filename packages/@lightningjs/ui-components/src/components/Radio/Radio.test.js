@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Radio from './index.js';
+import Radio from '.';
 import { jest } from '@jest/globals';
 
 const createRadio = makeCreateComponent(Radio);

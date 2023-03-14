@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getWidthByUpCount } from '../../utils/index.js';
+import { getWidthByUpCount } from '../../utils';
 
 export const base = theme => ({
   cursorStyle: {

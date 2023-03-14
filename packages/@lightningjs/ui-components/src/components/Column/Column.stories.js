@@ -17,9 +17,12 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
-import { flatten, getWidthByUpCount } from '../../utils/index.js';
-import { Row, Column as ColumnComponent, Tile, Button } from '../index.js';
+import { context } from '../../globals';
+import { flatten, getWidthByUpCount } from '../../utils';
+import Row from '../Row';
+import Tile from '../Tile';
+import Button from '../Button';
+import { default as ColumnComponent } from '.';
 import mdx from './Column.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

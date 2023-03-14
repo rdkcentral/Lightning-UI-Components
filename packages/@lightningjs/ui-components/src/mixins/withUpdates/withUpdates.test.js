@@ -22,8 +22,8 @@ import {
   nextTick
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
-import withUpdates from './index.js';
-import { context } from '../../globals/index.js';
+import withUpdates from '.';
+import { context } from '../../globals';
 const updateMock = jest.fn();
 
 describe('withUpdates', () => {

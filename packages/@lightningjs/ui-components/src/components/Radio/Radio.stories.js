@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as RadioComponent } from './index.js';
+import { default as RadioComponent } from '.';
 import mdx from './Radio.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';

@@ -17,7 +17,7 @@
  */
 
 import ButtonSmall from '../Button/ButtonSmall.js';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import * as styles from './Control.styles.js';
 
 export default class Control extends ButtonSmall {

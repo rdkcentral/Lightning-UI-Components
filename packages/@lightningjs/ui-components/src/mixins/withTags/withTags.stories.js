@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import mdx from './withTags.mdx';
-import withTagsMixin from './index.js';
+import withTagsMixin from '.';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

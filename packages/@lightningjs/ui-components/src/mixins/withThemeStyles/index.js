@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context, updateManager } from '../../globals/index.js';
-import { getValFromObjPath, clone, getHexColor } from '../../utils/index.js';
+import { context, updateManager } from '../../globals';
+import { getValFromObjPath, clone, getHexColor } from '../../utils';
 
 /** Will replace withStyles */
 export default function withThemeStyles(Base, mixinStyle) {

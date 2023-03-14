@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Slider from '../Slider/index.js';
+import Slider from '../Slider';
 import * as styles from './ScrollSlider.styles.js';
 
 export default class ScrollSlider extends Slider {

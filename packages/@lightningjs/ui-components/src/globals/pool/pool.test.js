@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Pool from './index.js';
+import Pool from '.';
 import { jest } from '@jest/globals';
 
 let counter = 0;

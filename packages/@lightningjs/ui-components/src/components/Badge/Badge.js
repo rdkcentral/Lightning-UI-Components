@@ -16,9 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base/index.js';
-import Icon from '../Icon/index.js';
-import { getHexColor } from '../../utils/index.js';
+import Base from '../Base';
+import Icon from '../Icon';
+import { getHexColor } from '../../utils';
 import * as styles from './Badge.styles.js';
 import lng from '@lightningjs/core';
 

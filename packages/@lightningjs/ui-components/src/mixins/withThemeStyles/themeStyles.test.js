@@ -18,9 +18,9 @@
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
-import withThemeStyles from './index.js';
+import withThemeStyles from '.';
 import lng from '@lightningjs/core';
-import { context } from '../../globals/index.js';
+import { context } from '../../globals';
 
 const styles = {
   base: {

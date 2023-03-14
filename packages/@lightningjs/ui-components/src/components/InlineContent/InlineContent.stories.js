@@ -17,11 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-
-import InlineContentComponent from './InlineContent.js';
+import { default as InlineContentComponent } from '.';
 import mdx from './InlineContent.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
-import { getHexColor } from '../../utils/index.js';
+import { getHexColor } from '../../utils';
 import { CATEGORIES } from 'lightning-ui-docs';
 
 export default {

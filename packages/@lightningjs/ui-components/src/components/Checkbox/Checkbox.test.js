@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Checkbox from './index.js';
+import Checkbox from '.';
 import { jest } from '@jest/globals';
 
 const createCheckbox = makeCreateComponent(Checkbox);

@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as SurfaceComponent } from './index.js';
+import { default as SurfaceComponent } from '.';
 import mdx from './Surface.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';

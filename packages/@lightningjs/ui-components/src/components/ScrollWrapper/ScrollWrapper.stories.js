@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import ScrollWrapperComponent from './index.js';
-import Tile from '../Tile/index.js';
+import { default as ScrollWrapperComponent } from '.';
+import Tile from '../Tile';
 import mdx from './ScrollWrapper.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';

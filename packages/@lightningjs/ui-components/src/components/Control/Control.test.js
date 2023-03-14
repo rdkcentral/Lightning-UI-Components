@@ -17,7 +17,7 @@
  */
 
 import Control from './Control.js';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import {
   makeCreateComponent,
   pathToDataURI

@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as CheckboxComponent } from './index.js';
+import { default as CheckboxComponent } from '.';
 import mdx from './Checkbox.mdx';
 import { createModeControl } from 'lightning-ui-docs/.storybook/utils';
 import { CATEGORIES } from 'lightning-ui-docs';

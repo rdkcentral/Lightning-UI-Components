@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as ArtworkComponent } from './index.js';
+import { default as ArtworkComponent } from '.';
 import mdx from './Artwork.mdx';
 import { CATEGORIES } from 'lightning-ui-docs';
 

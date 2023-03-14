@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Marquee from './index.js';
+import Marquee from '.';
 import { jest } from '@jest/globals';
 
 const createMarquee = makeCreateComponent(Marquee, {

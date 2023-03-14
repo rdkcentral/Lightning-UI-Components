@@ -16,9 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as utils } from './src/utils/index.js';
-export * from './src/components/index.js';
-export * from './src/globals/index.js';
-export * from './src/mixins/index.js';
-export * from './src/shaders/index.js';
-export * from './src/textures/index.js';
+export { default as utils } from './src/utils';
+export * from './src/components';
+export * from './src/globals';
+export * from './src/mixins';
+export * from './src/shaders';
+export * from './src/textures';

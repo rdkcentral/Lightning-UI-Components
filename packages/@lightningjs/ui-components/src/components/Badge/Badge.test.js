@@ -20,8 +20,8 @@ import {
   makeCreateComponent,
   pathToDataURI
 } from '@lightningjs/ui-components-test-utils';
-import Badge from './index.js';
-import { getHexColor } from '../../utils/index.js';
+import Badge from '.';
+import { getHexColor } from '../../utils';
 
 const createBadge = makeCreateComponent(Badge);
 

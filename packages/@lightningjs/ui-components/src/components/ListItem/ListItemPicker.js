@@ -19,7 +19,7 @@
 import ListItem from './ListItem';
 import * as styles from './ListItemPicker.styles.js';
 import Marquee from '../Marquee';
-import Icon from '../Icon/index.js';
+import Icon from '../Icon';
 import Row from '../Row';
 
 export default class ListItemPicker extends ListItem {

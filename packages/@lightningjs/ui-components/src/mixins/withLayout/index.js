@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context } from '../../globals/index.js';
-import { stringifyCompare, getDimensions } from '../../utils/index.js';
+import { context } from '../../globals';
+import { stringifyCompare, getDimensions } from '../../utils';
 
 export default function withLayout(Base) {
   return class extends Base {

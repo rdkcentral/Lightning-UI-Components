@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import Shadow from './index.js';
+import Shadow from '.';
 
 const createComponent = makeCreateComponent(Shadow);
 
