@@ -19,10 +19,7 @@
 import lng from '@lightningjs/core';
 import mdx from './Tile.mdx';
 import { default as TileComponent } from '.';
-import {
-  createModeControl,
-  generateSubStory
-} from '../../docs/utils';
+import { createModeControl, generateSubStory } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 import { Artwork as ArtworkStory } from '../Artwork/Artwork.stories.js';
 import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories.js';
