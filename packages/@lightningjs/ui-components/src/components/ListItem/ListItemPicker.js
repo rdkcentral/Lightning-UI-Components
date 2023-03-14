@@ -156,7 +156,9 @@ export default class ListItemPicker extends ListItem {
           ...this.style.descriptionTextStyle,
           text: option
         }
-      }))
+      })),
+      // We need to reset the selected index to ensure it does not get reset to zero when patching items.
+      selectedIndex: this.selectedIndex
     });
     this._alignPicker();
   }
@@ -175,13 +177,15 @@ export default class ListItemPicker extends ListItem {
     const alpha = this._isFocusedMode ? this.style.arrowAlphaValue : 0;
     if (this._RightArrow) {
       this._RightArrow.alpha =
-        this.selectedIndex === this.options.length - 1
+        this.selectedIndex === this.options.length - 1 && this._isFocusedMode
           ? this.style.arrowAlphaValueLimit
           : alpha;
     }
     if (this._LeftArrow) {
       this._LeftArrow.alpha =
-        this.selectedIndex === 0 ? this.style.arrowAlphaValueLimit : alpha;
+        this.selectedIndex === 0 && this._isFocusedMode
+          ? this.style.arrowAlphaValueLimit
+          : alpha;
     }
     this.fireAncestors('$announce', this.announce);
   }

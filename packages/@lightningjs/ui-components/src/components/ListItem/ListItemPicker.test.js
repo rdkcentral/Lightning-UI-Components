@@ -116,7 +116,12 @@ describe('ListItemPicker', () => {
     );
   });
 
-  it('should update the value of alpha in focused mode', () => {
+  it('should update the value of alpha in each mode', () => {
+    listItemPicker.mode = 'unfocused';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._LeftArrow.alpha).toEqual(0);
+    expect(listItemPicker._RightArrow.alpha).toEqual(0);
+
     listItemPicker.mode = 'focused';
     testRenderer.forceAllUpdates();
     expect(listItemPicker._LeftArrow.alpha).toEqual(
@@ -125,6 +130,11 @@ describe('ListItemPicker', () => {
     expect(listItemPicker._RightArrow.alpha).toEqual(
       listItemPicker.style.arrowAlphaValue
     );
+
+    listItemPicker.mode = 'disabled';
+    testRenderer.forceAllUpdates();
+    expect(listItemPicker._LeftArrow.alpha).toEqual(0);
+    expect(listItemPicker._RightArrow.alpha).toEqual(0);
   });
 
   it('should collapse description in unfocused mode when shouldCollapse flag is true', () => {
