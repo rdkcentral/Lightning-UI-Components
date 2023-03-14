@@ -1,6 +1,6 @@
 {
   "name": "@lightningjs/ui-components",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A shared library of helpful LightningJS components utilizing theme files to easily customize for any LightningJS application.",
   "repository": {
     "url": "https://github.com/rdkcentral/Lightning-UI-Components",
