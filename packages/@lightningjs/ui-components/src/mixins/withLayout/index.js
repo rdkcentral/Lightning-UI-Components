@@ -37,7 +37,7 @@ export default function withLayout(Base) {
         JSON.stringify(v, (k, v) => {
           if (k !== 'circle' && v < 0) {
             context.error(
-              `itemlayout for ${componentName} recieved an invaild value of ${v} for ${k}`
+              `itemLayout for ${componentName} received an invalid value of ${v} for ${k}`
             );
             return;
           } else if (k === 'circle') {

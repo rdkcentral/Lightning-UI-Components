@@ -21,8 +21,15 @@ import withLayout from '.';
 import Tile from '../../components/Tile';
 import context from '../../globals/context';
 import { jest } from '@jest/globals';
+
 const createTileWithLayout = props =>
-  makeCreateComponent(withLayout(Tile))(props);
+  makeCreateComponent(
+    class TileExtended extends withLayout(Tile) {
+      static get _componentName() {
+        return 'TileExtended';
+      }
+    }
+  )(props);
 
 describe('withLayout', () => {
   let tileWithLayout, testRenderer;
@@ -95,18 +102,33 @@ describe('withLayout', () => {
     );
   });
 
-  it('should throw an error if a negative value is used', () => {
+  it('should throw a context error if a invalid value is used for ratioX', () => {
     const errLog = jest.spyOn(context, 'error');
     tileWithLayout.itemLayout = { ratioX: -20, ratioY, h, upCount };
     testRenderer.update();
-    // console.log('tileWithLayout constructor: ', tileWithLayout.constructor);
-    // console.log.console.log(
-    //   'tileWithLayout constructor name:',
-    //   tileWithLayout.constructor.name
-    // );
     expect(errLog).toHaveBeenCalled();
     expect(errLog).toHaveBeenCalledWith(
-      'itemLayout for Tile recieved an invaild value of -20 for ratioX'
+      'itemLayout for TileExtended received an invalid value of -20 for ratioX'
+    );
+  });
+
+  it('should throw a context error if a invalid value is used for ratioY', () => {
+    const errLog = jest.spyOn(context, 'error');
+    tileWithLayout.itemLayout = { ratioX, ratioY: -8, h, upCount };
+    testRenderer.update();
+    expect(errLog).toHaveBeenCalled();
+    expect(errLog).toHaveBeenCalledWith(
+      'itemLayout for TileExtended received an invalid value of -8 for ratioY'
+    );
+  });
+
+  it('should throw a context error if an invalid value is used for upCount', () => {
+    const errLog = jest.spyOn(context, 'error');
+    tileWithLayout.itemLayout = { ratioX, ratioY, h, upCount: -2 };
+    testRenderer.update();
+    expect(errLog).toHaveBeenCalled();
+    expect(errLog).toHaveBeenCalledWith(
+      'itemLayout for TileExtended received an invalid value of -2 for upCount'
     );
   });
 });
