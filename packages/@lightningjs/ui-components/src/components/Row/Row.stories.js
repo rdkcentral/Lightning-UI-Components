@@ -374,13 +374,15 @@ LazyScrollIndexes.parameters = {
     'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
 };
 
-export const AddingItems = () =>
+export const AddingItems = args =>
   class AddingItems extends lng.Component {
     static _template() {
       return {
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
+          lazyUpCount: args.lazyUpCount,
+          lazyUpCountBuffer: args.lazyUpCountBuffer,
           items: createItems(Button, 12)
         }
       };
@@ -432,10 +434,28 @@ export const AddingItems = () =>
     }
   };
 AddingItems.args = {
-  ...sharedArgs
+  ...sharedArgs,
+  lazyUpCount: undefined,
+  lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {
-  ...sharedArgTypes
+  ...sharedArgTypes,
+  lazyUpCount: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  lazyUpCountBuffer: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 2 }
+    }
+  }
 };
 AddingItems.parameters = {
   storyDetails:
