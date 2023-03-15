@@ -408,6 +408,10 @@ export default class NavigationManager extends FocusManager {
       : this.style.neverScroll;
   }
 
+  _setScrollIndex(index) {
+    return index >= 0 ? index : 0;
+  }
+
   _getScrollIndex() {
     return this._scrollIndex !== undefined
       ? this._scrollIndex
