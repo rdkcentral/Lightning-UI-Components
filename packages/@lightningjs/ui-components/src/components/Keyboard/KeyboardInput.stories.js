@@ -100,7 +100,6 @@ const sharedInputArgTypes = {
 
 InputWithQwerty.args = {
   centerKeyboard: false,
-  centerKeys: false,
   prefix: null,
   suffix: null,
   mode: 'focused'
@@ -162,7 +161,6 @@ export const InputWithEmail = () =>
 
 InputWithEmail.args = {
   centerKeyboard: false,
-  centerKeys: false,
   prefix: null,
   suffix: null,
   mode: 'focused'

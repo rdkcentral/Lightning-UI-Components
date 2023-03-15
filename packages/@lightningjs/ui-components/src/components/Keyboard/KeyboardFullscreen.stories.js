@@ -62,4 +62,13 @@ KeyboardFullscreen.args = {
   mode: 'focused'
 };
 KeyboardFullscreen.parameters = {};
-KeyboardFullscreen.argTypes = Keyboard.sharedArgTypes;
+KeyboardFullscreen.argTypes = {
+  ...Keyboard.sharedArgTypes,
+  centerKeys: {
+    description: "Center the keys within it's set width of keyboard",
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
+  }
+};

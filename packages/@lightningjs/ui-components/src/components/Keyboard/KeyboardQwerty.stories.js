@@ -50,7 +50,6 @@ KeyboardQwerty.storyName = 'KeyboardQwerty';
 
 KeyboardQwerty.args = {
   centerKeyboard: false,
-  centerKeys: false,
   mode: 'focused'
 };
 
