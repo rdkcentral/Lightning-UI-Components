@@ -235,6 +235,13 @@ describe('NavigationManager', () => {
       });
     });
 
+    describe('updating the index to scroll from (scrollIndex)', () => {
+      it('should not allow negative numbers', () => {
+        navigationManager.scrollIndex = -10;
+        expect(navigationManager.scrollIndex).toBe(0);
+      });
+    });
+
     describe('updating the index at which scrolling should stop (lastScrollIndex)', () => {
       it('should set the index to that of the last item when alwaysScroll is enabled', () => {
         [navigationManager] = createNavigationManager({
