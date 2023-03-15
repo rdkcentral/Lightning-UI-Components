@@ -305,8 +305,8 @@ export default class NavigationManager extends FocusManager {
     item = this._withAfterUpdate(item);
   }
 
-  _appendLazyItem(itemArr) {
-    this._appendItem(itemArr[0]);
+  _appendLazyItem(item) {
+    this._appendItem(item);
     this.stage.update();
     this.queueRequestUpdate();
     this._refocus();
