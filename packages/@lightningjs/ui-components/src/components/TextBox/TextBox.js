@@ -79,9 +79,7 @@ export default class TextBox extends Base {
       this.w = width;
       // Position updates can produce flash of poorly positioned content, hide the element until measurements are made.
       if (this.alpha < 1) {
-        this.patch({
-          alpha: 1
-        });
+        this.alpha = 1;
       }
 
       this._notifyAncestors();
@@ -145,8 +143,8 @@ export default class TextBox extends Base {
       return acc;
     }, {});
 
-    if (this.style.textStyle.wordWrapWidth > 0) {
-      inlineContentPatch.w = this.style.textStyle.wordWrapWidth;
+    if (this._textStyleSet.wordWrapWidth) {
+      inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
       inlineContentPatch.rtt = true;
     }
 
@@ -216,7 +214,7 @@ export default class TextBox extends Base {
     if (this.marquee) {
       this._resetMarqueePromise();
       const marqueePatch = {
-        w: this.style.textStyle.wordWrapWidth || this.w,
+        w: this._textStyleSet.wordWrapWidth || this.w,
         h: this.h,
         y: this.style.offsetY,
         x: this.style.offsetX,
@@ -232,12 +230,12 @@ export default class TextBox extends Base {
       if (this._isInlineContent) {
         this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
         marqueePatch.contentTexture = contentTag.getTexture();
-        marqueePatch.w = this.style.textStyle.wordWrapWidth || this.w;
+        marqueePatch.w = this._textStyleSet.wordWrapWidth || this.w;
       } else {
         marqueePatch.title = {
           text: contentTag.text.text,
           ...this._textStyleSet,
-          wordWrapWidth: 0,
+          wordWrapWidth: 0, // ensures that the text will marquee and not wrap
           maxLines: 1
         };
       }
@@ -275,6 +273,15 @@ export default class TextBox extends Base {
         fontStyle[key] = this[`_${prop}`];
       }
     });
+
+    if (
+      this.w &&
+      !this._isInlineContent &&
+      !this.style.textStyle.wordWrapWidth
+    ) {
+      fontStyle.wordWrapWidth = this.w;
+    }
+
     return fontStyle;
   }
 
