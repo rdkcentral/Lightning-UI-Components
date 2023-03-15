@@ -57,6 +57,13 @@ KeyboardNumbers.args = {
 
 KeyboardNumbers.argTypes = {
   ...Keyboard.sharedArgTypes,
+  centerKeys: {
+    description: "Center the keys within it's set width of keyboard",
+    control: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
+  },
   defaultFormat: {
     description: 'Select the format of dialpad',
     control: 'radio',

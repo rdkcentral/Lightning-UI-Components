@@ -104,7 +104,11 @@ Keyboard.sharedArgTypes = {
     table: {
       defaultValue: { summary: false }
     }
-  },
+  }
+};
+
+Keyboard.argTypes = {
+  ...Keyboard.sharedArgTypes,
   centerKeys: {
     description: "Center the keys within it's set width of keyboard",
     control: 'boolean',
@@ -113,6 +117,4 @@ Keyboard.sharedArgTypes = {
     }
   }
 };
-
-Keyboard.argTypes = Keyboard.sharedArgTypes;
 Keyboard.parameters = {};
