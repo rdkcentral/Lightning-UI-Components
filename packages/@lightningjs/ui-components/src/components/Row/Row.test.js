@@ -431,7 +431,6 @@ describe('Row', () => {
       done();
     });
 
-    // TODO: Fix - released to get h
     it('should pass on screen items to onScreenEffect', done => {
       row.w = 200;
       const onScreenEffect = jest.fn();
