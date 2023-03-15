@@ -335,6 +335,12 @@ export default class NavigationManager extends FocusManager {
   }
 
   appendItemsAt(items = [], idx) {
+    if (this._lazyItems && idx > this.items.length - 1) {
+      const addAtIdx = idx - this.items.length;
+      this._lazyItems.splice(addAtIdx, 0, ...items);
+      return;
+    }
+
     const { crossDimension, lengthDimension, innerLengthDimension } =
       this._directionPropNames;
     const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
