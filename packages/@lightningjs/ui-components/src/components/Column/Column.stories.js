@@ -629,6 +629,8 @@ export const AddingItems = args =>
           type: ColumnComponent,
           h: 500,
           scrollIndex: args.scrollIndex,
+          lazyUpCount: args.lazyUpCount,
+          lazyUpCountBuffer: args.lazyUpCountBuffer,
           items: createItems(Button, 20, false, true)
         }
       };
@@ -676,7 +678,9 @@ export const AddingItems = args =>
     }
   };
 AddingItems.args = {
-  scrollIndex: 0
+  scrollIndex: 0,
+  lazyUpCount: undefined,
+  lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {
   scrollIndex: {
@@ -684,6 +688,22 @@ AddingItems.argTypes = {
     description:
       'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
     table: { defaultValue: { summary: 0 } }
+  },
+  lazyUpCount: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  lazyUpCountBuffer: {
+    control: 'number',
+    description:
+      'Used to calculate the number of items to display on the first render, see [Docs](?path=/docs/navigation-navigationmanager--row#properties) for more details. <br/> **NOTE: changing this value requires refreshing the story to see its effect.**',
+    table: {
+      defaultValue: { summary: 2 }
+    }
   }
 };
 AddingItems.parameters = {
