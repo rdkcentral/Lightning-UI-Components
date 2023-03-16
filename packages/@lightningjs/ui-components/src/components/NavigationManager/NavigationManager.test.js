@@ -52,7 +52,7 @@ describe('NavigationManager', () => {
       expect(navigationManager.Items.children[0].w).toBe(w);
     });
 
-    it('should set the length dimension property to that of closest parent with that propety defined', () => {
+    it('should set the length dimension property to that of closest parent with that property defined', () => {
       const w = 500;
       class CompWithWidth extends lng.Component {
         static _template() {
