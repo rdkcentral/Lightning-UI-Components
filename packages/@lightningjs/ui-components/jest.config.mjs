@@ -29,7 +29,6 @@ export default {
     '!**/coverage/**',
     '!**/docs/**',
     '!<rootDir>/**/*.{stories,test,xtest,styles}.js',
-    '!<rootDir>/**/{Item,Styles}/*.js', // exclude temporary components
     '!<rootDir>/test/**'
   ],
 
