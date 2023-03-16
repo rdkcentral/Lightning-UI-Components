@@ -328,25 +328,25 @@ describe('Row', () => {
 
     it('should maintain the x position of the current selected item relative to the row by shifting the row', async () => {
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
+      const expectedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
       await row.__updateLayoutSpyPromise;
 
-      expect(row.Items.x).toBe(exepctedX);
+      expect(row.Items.x).toBe(expectedX);
     });
 
     it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
       row.lazyScroll = true;
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
+      const expectedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
       await row.__updateLayoutSpyPromise;
 
-      expect(row.Items.x).toBe(exepctedX);
+      expect(row.Items.x).toBe(expectedX);
     });
 
     it('should persist which item is selected', async () => {
