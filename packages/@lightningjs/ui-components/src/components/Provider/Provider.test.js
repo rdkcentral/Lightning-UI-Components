@@ -20,7 +20,7 @@ import {
   pathToDataURI,
   makeCreateComponent
 } from '@lightningjs/ui-components-test-utils';
-import { Icon } from '@lightningjs/ui-components';
+import Icon from '../Icon';
 import Provider from '.';
 
 const iconSquare = pathToDataURI(
@@ -90,6 +90,14 @@ describe('Provider', () => {
     });
     expect(provider._Row.items[3]).not.toBeInstanceOf(Icon);
     expect(provider._Row.items[3].tag('Text').content).toBe('+17');
+  });
+
+  it('disables radius when flag is enabled', () => {
+    [provider, testRenderer] = createComponent({
+      providers: Array(20).fill(iconSquare)
+    });
+    provider.disableRadius = true;
+    expect(provider._Row.items[2].radius).toEqual(0);
   });
 
   it('displays the correct counter with custom counterText', () => {
