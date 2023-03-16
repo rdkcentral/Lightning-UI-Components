@@ -45,7 +45,8 @@ export const Basic = () =>
       return {
         TextBox: {
           type: TextBox,
-          style: { textStyle: { wordWrapWidth: 600, maxLines: 3 } }
+          w: 600,
+          style: { textStyle: { maxLines: 3 } }
         }
       };
     }

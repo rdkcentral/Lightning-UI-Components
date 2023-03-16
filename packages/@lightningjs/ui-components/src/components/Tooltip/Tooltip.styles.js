@@ -25,7 +25,8 @@ export const base = theme => ({
   radius: theme.radius.md,
   textStyle: {
     ...theme.typography.caption1,
-    textColor: theme.color.textInverse
+    textColor: theme.color.textInverse,
+    wordWrap: false
   },
   transition: theme.animation.utility // TODO: should delay and duration be xfast?
 });
