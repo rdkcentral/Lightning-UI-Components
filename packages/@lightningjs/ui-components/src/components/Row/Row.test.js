@@ -328,25 +328,25 @@ describe('Row', () => {
 
     it('should maintain the x position of the current selected item relative to the row by shifting the row', async () => {
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
+      const expectedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
       await row.__updateLayoutSpyPromise;
 
-      expect(row.Items.x).toBe(exepctedX);
+      expect(row.Items.x).toBe(expectedX);
     });
 
     it('should maintain the x position of the current selected item relative to the row by shifting the row with lazy scroll enabled', async () => {
       row.lazyScroll = true;
       const initialX = row.Items.x;
-      const exepctedX = row.Items.x - item.w - row.style.itemSpacing;
+      const expectedX = row.Items.x - item.w - row.style.itemSpacing;
       expect(row.Items.x).toBe(initialX);
 
       row.appendItemsAt([item], 1);
       await row.__updateLayoutSpyPromise;
 
-      expect(row.Items.x).toBe(exepctedX);
+      expect(row.Items.x).toBe(expectedX);
     });
 
     it('should persist which item is selected', async () => {
@@ -431,33 +431,32 @@ describe('Row', () => {
       done();
     });
 
-    // TODO: Fix - released to get h
-    // it('should pass on screen items to onScreenEffect', done => {
-    //   row.w = 200;
-    //   const onScreenEffect = jest.fn();
-    //   row.onScreenEffect = onScreenEffect;
-    //   testRenderer.keyPress('Right');
-    //   testRenderer.update();
+    it('should pass on screen items to onScreenEffect', done => {
+      row.w = 200;
+      const onScreenEffect = jest.fn();
+      row.onScreenEffect = onScreenEffect;
+      testRenderer.keyPress('Right');
+      testRenderer.update();
 
-    //   row._whenEnabled.then(() => {
-    //     expect(onScreenEffect).toBeCalled();
-    //     const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
-    //       row.items.indexOf(item)
-    //     );
-    //     const expected = row.items
-    //       .filter(item => {
-    //         const x1 = item.x;
-    //         const x2 = item.x + item.w;
-    //         return (
-    //           x2 + row.Items.transition('x').targetValue > 0 &&
-    //           x1 + row.Items.transition('x').targetValue < row.w
-    //         );
-    //       })
-    //       .map(item => row.items.indexOf(item));
-    //     expect(onScreenItems).toEqual(expected);
-    //     done();
-    //   });
-    // });
+      row._whenEnabled.then(() => {
+        expect(onScreenEffect).toBeCalled();
+        const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
+          row.items.indexOf(item)
+        );
+        const expected = row.items
+          .filter(item => {
+            const x1 = item.x;
+            const x2 = item.x + item.w;
+            return (
+              x2 + row.Items.transition('x').targetValue > 0 &&
+              x1 + row.Items.transition('x').targetValue < row.w
+            );
+          })
+          .map(item => row.items.indexOf(item));
+        expect(onScreenItems).toEqual(expected);
+        done();
+      });
+    });
 
     describe('with scrollMount=0.5', () => {
       beforeEach(() => {

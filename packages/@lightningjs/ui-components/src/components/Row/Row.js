@@ -70,7 +70,7 @@ export default class Row extends NavigationManager {
 
     // This section here takes the difference between a possible target value
     // and subtracts it from the current child x. That value then is subtracted from the initial
-    // itemX valu calculated on the cor rendercontext px value to more accurately
+    // itemX value calculated on the core renderContext px value to more accurately
     // calculate the item's location on screen when it's own x value will be updating.
     if (child.transition('x')) {
       xModifier = child.x - child.transition('x').targetValue;
