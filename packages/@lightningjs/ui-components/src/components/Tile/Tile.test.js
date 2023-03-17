@@ -299,8 +299,7 @@ describe('Tile', () => {
     tile.itemLayout = { circle: true };
     await tile.__updateBadgeSpyPromise;
     expect(tile._Badge).toBeUndefined();
-
-    tile.itemLayout = {};
+    tile.itemLayout = undefined;
     tile.badge = {
       title: 'changed'
     };
@@ -336,7 +335,7 @@ describe('Tile', () => {
     tile.itemLayout = { circle: true };
     await tile.__updateTagSpyPromise;
     expect(tile._Tag).toBeUndefined();
-    tile.itemLayout = {};
+    tile.itemLayout = undefined;
     tile.label = {
       title: 'changed'
     };
@@ -389,7 +388,7 @@ describe('Tile', () => {
     await tile.__updateCheckboxSpyPromise;
     expect(tile._Checkbox).toBeUndefined();
 
-    tile.itemLayout = {};
+    tile.itemLayout = undefined;
     tile.requestUpdate(true);
     await tile.__updateCheckboxSpyPromise;
     expect(tile._Checkbox).not.toBeUndefined();
@@ -421,7 +420,7 @@ describe('Tile', () => {
     fastForward([tile._ProgressBar]);
     testRenderer.update(); // Force redraw
     expect(tile._ProgressBar).toBeUndefined();
-    tile.itemLayout = {};
+    tile.itemLayout = undefined;
     tile.shouldSmooth = false;
     tile.progressBar = {
       progress: 0.4
