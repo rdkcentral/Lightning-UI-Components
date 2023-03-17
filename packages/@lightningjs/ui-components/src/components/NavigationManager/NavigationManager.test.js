@@ -253,7 +253,20 @@ describe('NavigationManager', () => {
       });
 
       // TODO: see note for if (this._lastScrollIndex > this.items.length) conditional
-      xit('should prevent setting an index greater than that of the last item', () => {});
+      it('should prevent setting an index greater than that of the last item', async () => {
+        [navigationManager] = createNavigationManager(
+          {
+            alwaysScroll: true,
+            items: [baseItem, baseItem, baseItem]
+          },
+          { spyOnMethods: ['_updateLayout'] }
+        );
+        await navigationManager.__updateLayoutSpyPromise;
+        expect(navigationManager._lastScrollIndex).toBe(2);
+        navigationManager._lastScrollIndex = 5;
+        await navigationManager.__updateLayoutSpyPromise;
+        expect(navigationManager._lastScrollIndex).toBe(2);
+      });
     });
 
     describe('emitting an $itemChanged signal to all ancestors', () => {
