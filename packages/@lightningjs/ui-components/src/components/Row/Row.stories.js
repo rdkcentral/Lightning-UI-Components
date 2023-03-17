@@ -52,24 +52,28 @@ const sharedArgTypes = {
     control: { type: 'number', min: 0 },
     description:
       'Item index at which scrolling begins, provided the sum of item widths is greater than the width of the Row',
+    remount: true,
     table: { defaultValue: { summary: 0 } }
   },
   alwaysScroll: {
     control: 'boolean',
     description:
       'Determines whether the row will stop scrolling as it nears the right to prevent white space',
+    remount: true,
     table: { defaultValue: { summary: false } }
   },
   neverScroll: {
     control: 'boolean',
     description:
       'If true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic',
+    remount: true,
     table: { defaultValue: { summary: false } }
   },
   lazyScroll: {
     control: 'boolean',
     description:
       'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+    remount: true,
     table: { defaultValue: { summary: false } }
   }
 };

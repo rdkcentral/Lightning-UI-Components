@@ -20,15 +20,33 @@ import { GridOverlay, context, utils } from '@lightningjs/ui-components';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;
+let remountProps = {};
 
 /** creates a global decorator that creates a single instance of the Lightning app */
 
 export const withLightning = (
   StoryComponent,
-  { id, args, parameters, globals }
+  { id, args, argTypes, parameters, globals }
 ) => {
-  const triggerUpdate = previousID !== id;
+  let triggerUpdate = previousID !== id;
   previousID = id;
+
+  if (triggerUpdate) {
+    remountProps = {};
+    Object.keys(argTypes).forEach(key => {
+      if (argTypes[key].remount) {
+        remountProps[key] = args[key];
+      }
+    });
+  }
+
+  Object.keys(remountProps).forEach(key => {
+    if (remountProps[key] !== args[key]) {
+      triggerUpdate = true;
+      remountProps[key] = args[key];
+    }
+  });
+
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
