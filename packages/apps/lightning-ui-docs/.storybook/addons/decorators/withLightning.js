@@ -34,8 +34,15 @@ function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   let triggerUpdate = storyChanged;
   previousID = id;
 
-  if (parameters.remountAll) {
-    triggerUpdate = true;
+  if (parameters.remountAll && !Object.keys(remountProps).length) {
+    Object.keys(args).forEach(key => {
+      if (key === 'mode') {
+        return;
+      }
+      if (argTypes[key].remount) {
+        remountProps[key] = args[key];
+      }
+    });
   } else if (storyChanged) {
     remountProps = {};
     Object.keys(argTypes).forEach(key => {
