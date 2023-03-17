@@ -22,6 +22,13 @@ import { createApp, clearInspector } from '../../../index';
 let previousID = null;
 let remountProps = {};
 
+/* 
+  returns boolean of if the story component should remount
+    returns true if any of the following are true
+    - if the selected story changed
+    - parameters.remountAll is true on the story
+    - an arg changes an its associated argType has a remount property set to true
+*/
 function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   const storyChanged = previousID !== id;
   let triggerUpdate = storyChanged;
@@ -44,7 +51,7 @@ function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
       remountProps[key] = args[key];
     }
   });
-  console.log(triggerUpdate);
+
   return triggerUpdate;
 }
 
