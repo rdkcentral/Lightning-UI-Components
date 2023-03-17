@@ -36,14 +36,25 @@ import { TextBox } from '@lightningjs/ui-components';
 TextBox: {
   type: TextBox,
   content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  style: 'headline1',
   w: 600,
+  style: {
+    textStyle: 'headline1'
+  }
 }
 ```
 
 <Canvas>
   <Story id="text-textbox--basic" />
 </Canvas>
+
+
+> **Note on width:**
+>
+> To assign a width to the `TextBox` component, either a `w` value or `wordWrapWidth` (nested within `textStyle` and the `style` prop) value may be provided.
+> - If `wordWrapWidth` is defined, then the component will apply that property and the width should reflect the value accordingly.
+> - If only a `w` value is provided and no `wordWrapWidth` is defined, the `TextBox` component will automatically apply a `wordWrapWidth` of the defined `w` value to the component.
+> - If neither `w` or `wordWrapWidth` is defined, the component will automatically set the width to be the width of the component.
+
 
 ### Properties
 
