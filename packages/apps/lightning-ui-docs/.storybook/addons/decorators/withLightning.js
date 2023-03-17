@@ -22,12 +22,7 @@ import { createApp, clearInspector } from '../../../index';
 let previousID = null;
 let remountProps = {};
 
-/** creates a global decorator that creates a single instance of the Lightning app */
-
-export const withLightning = (
-  StoryComponent,
-  { id, args, argTypes, parameters, globals }
-) => {
+function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   const storyChanged = previousID !== id;
   let triggerUpdate = storyChanged;
   previousID = id;
@@ -49,7 +44,16 @@ export const withLightning = (
       remountProps[key] = args[key];
     }
   });
+  console.log(triggerUpdate);
+  return triggerUpdate;
+}
 
+/** creates a global decorator that creates a single instance of the Lightning app */
+
+export const withLightning = (
+  StoryComponent,
+  { id, args, argTypes, parameters, globals }
+) => {
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
@@ -60,7 +64,7 @@ export const withLightning = (
     : app.stage.setClearColor(utils.getValidColor('#cccccc'));
 
   // // If an update is required patch in the new child element
-  if (triggerUpdate) {
+  if (shouldTriggerUpdate({ id, args, argTypes, parameters })) {
     app.childList.clear();
     app.childList.a({
       StoryComponent: {
