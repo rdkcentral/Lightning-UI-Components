@@ -28,10 +28,13 @@ export const withLightning = (
   StoryComponent,
   { id, args, argTypes, parameters, globals }
 ) => {
-  let triggerUpdate = previousID !== id;
+  const storyChanged = previousID !== id;
+  let triggerUpdate = storyChanged;
   previousID = id;
 
-  if (triggerUpdate) {
+  if (parameters.remountAll) {
+    triggerUpdate = true;
+  } else if (storyChanged) {
     remountProps = {};
     Object.keys(argTypes).forEach(key => {
       if (argTypes[key].remount) {

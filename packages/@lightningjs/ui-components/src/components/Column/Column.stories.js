@@ -31,7 +31,8 @@ export default {
   parameters: {
     docs: {
       page: mdx
-    }
+    },
+    remountAll: true
   }
 };
 
