@@ -53,6 +53,8 @@ exports[`Tooltip renders 1`] = `
                 "textColor": 4279769113,
                 "type": "TextTexture",
                 "verticalAlign": "middle",
+                "wordWrap": false,
+                "wordWrapWidth": 7,
               },
               "visible": true,
               "w": 0,
