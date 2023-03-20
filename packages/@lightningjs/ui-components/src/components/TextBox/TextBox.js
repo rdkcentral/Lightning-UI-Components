@@ -121,18 +121,17 @@ export default class TextBox extends Base {
       // as a parent component may need to control that (i.e. Control Button)
 
       // guard to make sure _notifyAncestors is not called numerous times for components like Input
+      this._updateMarquee();
       if (this._Text || this._InlineContent) {
         this.w = this.h = 0;
         this._notifyAncestors(); // need to alert parents that the width and height are now 0
         // makes sure that elements are removed
         this.patch({ Text: undefined, InlineContent: undefined });
       }
-
       return;
     }
 
     this._isInlineContent ? this._updateInlineContent() : this._updateText();
-
     this._updateMarquee();
   }
 
