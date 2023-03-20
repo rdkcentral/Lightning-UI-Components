@@ -103,6 +103,7 @@ export const Basic = () =>
           type: Column,
           w: 1920 - 160, // x offset from preview.js * 2,
           h: 400,
+          plinko: true,
           style: {
             itemSpacing: 20
           },
@@ -163,6 +164,7 @@ export const WithDefaultAbbreviations = () => {
           type: Column,
           w: 900,
           h: 400,
+          plinko: true,
           style: {
             itemSpacing: 20
           },
