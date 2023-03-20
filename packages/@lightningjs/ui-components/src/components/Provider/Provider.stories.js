@@ -21,6 +21,7 @@ import ProviderComponent from '.';
 import { default as Icon } from '../Icon';
 import mdx from './Provider.mdx';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
+import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
@@ -68,8 +69,8 @@ export const Provider = () =>
         Provider: {
           type: ProviderComponent,
           providers: Array(10).fill({
-            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
-            announce: 'Tomato'
+            icon: xfinity,
+            announce: 'xfinity'
           }),
           visibleCount: 3
         }
@@ -88,8 +89,8 @@ export const WithCustomIconSize = () =>
           type: ProviderComponent,
           providers: [
             {
-              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
-              announce: 'tomato'
+              icon: xfinity,
+              announce: 'xfinity'
             },
             {
               type: Icon,
@@ -100,8 +101,8 @@ export const WithCustomIconSize = () =>
               announce: 'XFinity Logo Wide'
             },
             ...Array.apply(null, { length: 8 }).map(() => ({
-              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
-              announce: 'tomato'
+              icon: xfinity,
+              announce: 'xfinity'
             }))
           ],
           visibleCount: 3
