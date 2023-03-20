@@ -30,7 +30,26 @@ export default function withLayout(Base) {
       return this._itemLayout;
     }
 
-    set itemLayout(itemLayout) {
+    set itemLayout(v) {
+      const componentName =
+        this.constructor._componentName || this.constructor.name;
+      let itemLayout;
+      if (v) {
+        itemLayout = JSON.parse(
+          JSON.stringify(v, (k, v) => {
+            if (k !== 'circle' && v < 0) {
+              context.error(
+                `itemLayout for ${componentName} received an invalid value of ${v} for ${k}`
+              );
+              return;
+            } else if (k === 'circle') {
+              return Boolean(v);
+            }
+            return v;
+          })
+        );
+      }
+
       if (!stringifyCompare(this._itemLayout, itemLayout)) {
         if (itemLayout && !itemLayout.upCount) {
           this._originalW = this.w;
