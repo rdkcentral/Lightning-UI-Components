@@ -132,7 +132,6 @@ export default class TextBox extends Base {
     }
 
     this._isInlineContent ? this._updateInlineContent() : this._updateText();
-    this._updateMarquee();
   }
 
   _updateInlineContent() {
