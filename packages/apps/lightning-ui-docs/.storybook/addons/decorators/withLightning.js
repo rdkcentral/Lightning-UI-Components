@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,24 +34,28 @@ function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   let triggerUpdate = storyChanged;
   previousID = id;
 
-  if (parameters.remountAll && !Object.keys(remountProps).length) {
-    Object.keys(args).forEach(key => {
-      if (key === 'mode') {
-        return;
-      }
-      if (argTypes[key].remount) {
-        remountProps[key] = args[key];
-      }
-    });
-  } else if (storyChanged) {
+  // create remountProps object to track which props should trigger remounting
+  if (storyChanged) {
     remountProps = {};
-    Object.keys(argTypes).forEach(key => {
-      if (argTypes[key].remount) {
+    if (parameters.remountAll) {
+      // track all props except mode for triggering remount
+      Object.keys(args).forEach(key => {
+        if (key === 'mode') {
+          return;
+        }
         remountProps[key] = args[key];
-      }
-    });
+      });
+    } else {
+      // track only props with truthy remount property on their associated argType
+      Object.keys(argTypes).forEach(key => {
+        if (argTypes[key].remount) {
+          remountProps[key] = args[key];
+        }
+      });
+    }
   }
 
+  // evaluate if any props tracked in remountProps changed and should trigger a remount
   Object.keys(remountProps).forEach(key => {
     if (remountProps[key] !== args[key]) {
       triggerUpdate = true;
