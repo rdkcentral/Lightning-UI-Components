@@ -267,3 +267,70 @@ CustomTabs.args = {
   alphaSelectedTab: false
 };
 CustomTabs.argTypes = {};
+
+export const MultipleRows = () =>
+  class MultipleRows extends lng.Component {
+    static _template() {
+      return {
+        TabBar: {
+          type: TabBarComponent,
+          w: 1920 - 160,
+          tabs: [
+            {
+              type: Tab,
+              title: 'No Content Tab'
+            },
+            {
+              type: Tab,
+              title: 'Tab 1',
+              tabContent: {
+                type: Column,
+                h: 400, // random for testing
+                y: 40, // random for testing
+                // clipping: true, this should be set but where?
+                items: [
+                  {
+                    type: Row,
+                    items: tilesA,
+                    autoResizeHeight: true,
+                    lazyScroll: true
+                  },
+                  {
+                    type: Row,
+                    items: tilesA,
+                    autoResizeHeight: true,
+                    lazyScroll: true
+                  },
+                  {
+                    type: Row,
+                    items: tilesA,
+                    autoResizeHeight: true,
+                    lazyScroll: true
+                  }
+                ]
+              }
+            },
+            {
+              type: Tab,
+              title: 'Tab 2',
+              tabContent: col1
+            },
+            {
+              type: Tab,
+              title: 'Tab 3',
+              tabContent: rowFunction
+            },
+            {
+              type: Tab,
+              title: 'Tab 4',
+              tabContent: colPromise
+            }
+          ]
+        }
+      };
+    }
+  };
+
+MultipleRows.args = {};
+
+MultipleRows.argTypes = {};
