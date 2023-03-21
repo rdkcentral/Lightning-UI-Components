@@ -320,6 +320,10 @@ SkipFocus.argTypes = {
     table: { defaultValue: { summary: false } }
   }
 };
+SkipFocus.parameters = {
+  storyDetails:
+    'The first item in the Row has a truthy skipFocus property so is not focusable.'
+};
 
 export const LazyScrollIndexes = ({
   startLazyScrollIndex,
@@ -363,6 +367,10 @@ LazyScrollIndexes.argTypes = {
       'Index of item in items, and items preceding, at which lazy scrolling should occur',
     table: { defaultValue: { summary: 0 } }
   }
+};
+LazyScrollIndexes.parameters = {
+  storyDetails:
+    'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
 };
 
 export const AddingItems = () =>
