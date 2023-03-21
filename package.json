@@ -12,8 +12,8 @@
   "scripts": {
     "start": "yarn workspace lightning-ui-docs start",
     "prepare": "husky install",
-    "lint": "yarn workspaces foreach run lint",
-    "lint:fix": "yarn workspaces foreach run lint:fix",
+    "lint": "yarn eslint . --ext .js,.ts",
+    "lint:fix": "yarn eslint . --ext .js,.ts --fix",
     "test": "yarn workspaces foreach -v run test",
     "test:updateSnapshot": "yarn workspaces foreach -v run test:updateSnapshot",
     "clean:dist": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp",

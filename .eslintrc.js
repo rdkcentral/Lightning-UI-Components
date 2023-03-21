@@ -24,7 +24,14 @@ module.exports = {
     node: true,
     jest: true
   },
-  ignorePatterns: ['dist'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    'coverage',
+    'build',
+    'storybook-static',
+    '**/*.json'
+  ],
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
@@ -80,7 +87,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     jsx: true,
-    ecmaFeatures: { // Fix to allow react components with jsx
+    ecmaFeatures: {
+      // Fix to allow react components with jsx
       jsx: true
     }
   },

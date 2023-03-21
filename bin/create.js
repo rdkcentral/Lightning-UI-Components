@@ -16,8 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#!/bin/node
-/* global process */
 /* eslint-disable no-console */
 
 const fs = require('fs-extra');
