@@ -61,7 +61,7 @@ class Example extends lng.Component {
 
 ### Setting/Inserting values
 
-The `Input` component keeps track of it's current `value` and cursor `position`. You can manage the value state in a few ways. Let's work off of the above example. We see the cursor blinking which is the `placeholder` value when listening mode is true and component in focused mode.
+The `Input` component keeps track of it's current `value` and cursor `position`. You can manage the value state in a few ways. Let's work off of the above example. We see the cursor blinking which is the `placeholder` value when listening mode is true and component in focused and unfocused mode.
 
 ```js
 this.tag('Input').value = 'Hello';
@@ -100,6 +100,18 @@ this.tag('Input').position = 1;
 this.tag('Input').backspace();
 this.tag('Input').value; //=> 'oo'
 this.tag('Input').position; //=> 0
+```
+
+### listening
+
+When listening property is true, it enables cursor to blink which then allow user to enter text.
+
+```js
+this.tag('Input').listening = true;
+When listening is true, the cursor blinks and allows user to enter text.
+
+this.tag('Input').listening = false;
+When listening is false, the cursor will not be visible and does not allow user to enter text.
 ```
 
 ### Cursor position
