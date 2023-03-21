@@ -87,7 +87,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     jsx: true,
-    ecmaFeatures: { // Fix to allow react components with jsx
+    ecmaFeatures: {
+      // Fix to allow react components with jsx
       jsx: true
     }
   },
