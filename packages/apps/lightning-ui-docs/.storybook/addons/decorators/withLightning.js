@@ -16,7 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { GridOverlay, context, utils } from '@lightningjs/ui-components';
+import {
+  GridOverlay,
+  context,
+  utils,
+  TextBox
+} from '@lightningjs/ui-components';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;
@@ -165,6 +170,29 @@ export const withLightning = (
     showGutters: globals['GridOverlay-toggle-showGutters'] === 'true',
     showText: globals['GridOverlay-toggle-showText'] === 'true'
   });
+
+  // add optional story description to the canvas
+  if (parameters.storyDetails) {
+    if (!app.tag('StoryDetails')) {
+      const StoryDetails = {
+        StoryDetails: {
+          type: TextBox,
+          content: parameters.storyDetails,
+          style: {
+            textStyle: {
+              wordWrapWidth:
+                context.theme.layout.screenW - context.theme.spacer.sm * 2
+            }
+          },
+          x: context.theme.spacer.sm,
+          y: context.theme.spacer.sm
+        }
+      };
+      app.childList.a(StoryDetails);
+    }
+
+    app.tag('StoryDetails').patch({ content: parameters.storyDetails });
+  }
 
   const LightningUIComponent = app.tag('StoryComponent').childList.first;
 
