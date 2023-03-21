@@ -1,0 +1,60 @@
+import { Meta, Description } from '@storybook/addon-docs';
+import StorybookStructure from '../../../../../STORYBOOK.md';
+
+<Meta title="Docs / Storybook" />
+
+<Description>{StorybookStructure}</Description>
+
+### useArgs
+
+There may be cases throughout our Stories where we want one control to affect the value of another control, or a user interaction with the component to update the value of a control.
+
+This can be achieved through Storybook's `useArgs` hook and `updateArgs` method. For more information, check out the documentation [here](https://storybook.js.org/docs/vue/addons/addons-api#useargs).
+
+`useArgs` is a hook that is a part of the Storybook API that allows **args** to be read or updated.
+
+Specifically, `useArgs` has a method called `updateArgs` that can be used to update an arg when it changes value.
+
+Below is an example of how to use `updateArgs` along with the value property:
+
+```js
+import { useArgs } from '@storybook/client-api';
+
+const [{ value }, updateArgs] = useArgs();
+
+// update arg control when value changes
+onChange(value) {
+  updateArgs({ value });
+}
+```
+
+For example, in our [Slider component](../?path=/story/utilities-slider--basic), when in the `focused` mode, if a user hits left or right on their keyboard, the value of the Slider changes accordingly. However, the Storybook control for the current `value` never updates. This puts the component and the control out of sync. The next time the user updates a control, the value will be re-applied, wiping out whatever was set via the keyboard interaction.
+
+To keep the Slider control in sync, we used the `updateArgs` method. In Slider.js, the component emits a signal called "onChange" whenever its value is updated:
+
+```js
+this.signal('onChange', this.value, this);
+```
+
+In Slider.stories.js, our component intercepts the signal:
+
+```js
+Slider: {
+  type: Slider,
+  value: value,
+  signals: {
+    onChange: true
+  }
+}
+```
+
+That signal gets mapped to a new method local to our story that then calls the `updateArgs` method
+
+```js
+onChange(value) {
+  updateArgs({ value });
+}
+```
+
+This `updateArgs` method is what then updates the value control in Storybook to match the value of the component (the one set by the user when hitting left and right).
+
