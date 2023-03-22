@@ -367,6 +367,11 @@ export const CenteredInParent = () =>
     }
   };
 
+CenteredInParent.parameters = {
+  storyDetails:
+    'Each Row in the Column has centerInParent set to true on it so is horizontally centered in the Column it is an item of.'
+};
+
 class ColumnHeader extends lng.Component {
   static _template() {
     return {
@@ -590,7 +595,7 @@ LazyUpCount.argTypes = {
   lazyUpCount: {
     control: { type: 'number', min: 0 },
     description:
-      'Number of items to create on screen and new items will be created as user presses right on row.',
+      'Number of items to create on screen and new items will be created as user presses down on column.',
     table: { defaultValue: { summary: 'undefined' } }
   },
   alwaysScroll: {
@@ -599,6 +604,10 @@ LazyUpCount.argTypes = {
       'Determines whether the column will stop scrolling as it nears the bottom to prevent white space',
     table: { defaultValue: { summary: false } }
   }
+};
+LazyUpCount.parameters = {
+  storyDetails:
+    'There are 20 items initially passed to this Column. Then number of items that are initially rendered equals the sum of the lazyUpCount and 2. Each time the next item is selected, an additional item is added to the end of the Column until all 20 items have been rendered.'
 };
 
 export const AddingItems = args =>
@@ -652,7 +661,7 @@ export const AddingItems = args =>
             title: 'New Button 5'
           }
         ]);
-      }, 3750);
+      }, 4000);
     }
   };
 AddingItems.args = {
@@ -665,6 +674,10 @@ AddingItems.argTypes = {
       'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
     table: { defaultValue: { summary: 0 } }
   }
+};
+AddingItems.parameters = {
+  storyDetails:
+    '3 seconds after rendering, 3 new buttons are added at index 3 of the Column via Column.appendItemsAt. 4 seconds after rendering, 3 additional buttons are added at start of the Column via Column.prependItems.'
 };
 
 export const RemovingItems = args =>
@@ -698,4 +711,8 @@ RemovingItems.argTypes = {
       'Item index at which scrolling begins, provided the sum of item heights is greater than the height of the Column',
     table: { defaultValue: { summary: 0 } }
   }
+};
+RemovingItems.parameters = {
+  storyDetails:
+    '3 seconds after rendering, the button at index 1 in the Column is removed via Column.removeItemAt.'
 };
