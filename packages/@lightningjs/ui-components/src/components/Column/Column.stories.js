@@ -606,7 +606,7 @@ LazyUpCount.argTypes = {
 };
 LazyUpCount.parameters = {
   storyDetails:
-    'There are 20 items initially passed to this Column. Then number of items that are initially rendered equals the sum of the lazyUpCount and 2. Each time the next item is selected, an additional item is added to the end of the Column until all 20 items have been rendered.'
+    'There are 20 items passed to this Column. The number of items that are initially rendered equals the sum of the lazyUpCount property and 2. Each time the next item is selected, an additional item is added to the end of the Column until all 20 items have been rendered.'
 };
 
 export const AddingItems = args =>
