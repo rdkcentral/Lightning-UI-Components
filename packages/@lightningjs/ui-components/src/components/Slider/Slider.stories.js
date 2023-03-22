@@ -122,3 +122,8 @@ SignalHandling.args = {
 };
 
 SignalHandling.argTypes = createModeControl({ summaryValue: 'focused' });
+
+SignalHandling.parameters = {
+  storyDetails:
+    'When the onChange signal is emitted from the Slider the number in the TextBox is updated with the Slider value.'
+};
