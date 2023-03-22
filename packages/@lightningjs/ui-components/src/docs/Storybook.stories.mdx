@@ -28,7 +28,7 @@ onChange(value) {
 }
 ```
 
-For example, in our [Slider component](../?path=/story/utilities-slider--basic), when in the `focused` mode, if a user hits left or right on their keyboard, the value of the Slider changes accordingly. However, the Storybook control for the current `value` never updates. This puts the component and the control out of sync. The next time the user updates a control, the value will be re-applied, wiping out whatever was set via the keyboard interaction.
+For example, in our [Slider component](../?path=/story/utilities-slider--basic), when in the `focused` mode, if a user hits left or right on their keyboard, the value of the Slider changes accordingly. However, the Storybook control for the current `value` never updates. This puts the component and the control out of sync. The next time the user updates a control, the value will be reapplied, wiping out whatever was set via the keyboard interaction.
 
 To keep the Slider control in sync, we used the `updateArgs` method. In Slider.js, the component emits a signal called "onChange" whenever its value is updated:
 
