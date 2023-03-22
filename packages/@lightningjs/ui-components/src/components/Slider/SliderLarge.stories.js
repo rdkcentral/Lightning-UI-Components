@@ -54,12 +54,6 @@ export const Basic = () => {
   };
 };
 
-
-
-
-
-
-
 Basic.args = {
   min: 0,
   max: 100,
