@@ -151,10 +151,16 @@ export const withLightning = (
   // // forces position update on theme change instead of just when triggerUpdate is true
   context.on('themeUpdate', () => {
     app.tag('StoryComponent') &&
-      app.tag('StoryComponent').patch({
-        x: context.theme.layout.marginX,
-        y: context.theme.layout.marginY
-      });
+      app.tag('StoryComponent').patch(
+        parameters.storyDetails
+          ? {
+              x: context.theme.layout.marginX
+            }
+          : {
+              x: context.theme.layout.marginX,
+              y: context.theme.layout.marginY
+            }
+      );
   });
   if (!app.tag('GridOverlay')) {
     app.childList.a({ GridOverlay: { type: GridOverlay, zIndex: 100 } });
@@ -185,7 +191,13 @@ export const withLightning = (
             }
           },
           x: context.theme.spacer.sm,
-          y: context.theme.spacer.sm
+          y: context.theme.spacer.sm,
+          onAfterUpdate: ({ y, h }) => {
+            if (h > context.theme.layout.marginY) {
+              console.log(y + h + context.theme.spacer.xl);
+              app.tag('StoryComponent').y = y + h + context.theme.spacer.xl;
+            }
+          }
         }
       };
       app.childList.a(StoryDetails);
