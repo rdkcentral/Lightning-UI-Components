@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,58 @@ import { GridOverlay, context, utils } from '@lightningjs/ui-components';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;
+let remountProps = {};
+
+/* 
+  returns boolean of if the story component should remount
+    returns true if any of the following are true
+    - if the selected story changed
+    - parameters.remountAll is true on the story
+    - an arg changes an its associated argType has a remount property set to true
+*/
+function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
+  const storyChanged = previousID !== id;
+  let triggerUpdate = storyChanged;
+  previousID = id;
+
+  // create remountProps object to track which props should trigger remounting
+  if (storyChanged) {
+    remountProps = {};
+    if (parameters.remountAll) {
+      // track all props except mode for triggering remount
+      Object.keys(args).forEach(key => {
+        if (key === 'mode') {
+          return;
+        }
+        remountProps[key] = args[key];
+      });
+    } else {
+      // track only props with truthy remount property on their associated argType
+      Object.keys(argTypes).forEach(key => {
+        if (argTypes[key].remount) {
+          remountProps[key] = args[key];
+        }
+      });
+    }
+  }
+
+  // evaluate if any props tracked in remountProps changed and should trigger a remount
+  Object.keys(remountProps).forEach(key => {
+    if (remountProps[key] !== args[key]) {
+      triggerUpdate = true;
+      remountProps[key] = args[key];
+    }
+  });
+
+  return triggerUpdate;
+}
 
 /** creates a global decorator that creates a single instance of the Lightning app */
 
 export const withLightning = (
   StoryComponent,
-  { id, args, parameters, globals }
+  { id, args, argTypes, parameters, globals }
 ) => {
-  const triggerUpdate = previousID !== id;
-  previousID = id;
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
@@ -39,7 +82,7 @@ export const withLightning = (
     : app.stage.setClearColor(utils.getValidColor('#cccccc'));
 
   // // If an update is required patch in the new child element
-  if (triggerUpdate) {
+  if (shouldTriggerUpdate({ id, args, argTypes, parameters })) {
     app.childList.clear();
     app.childList.a({
       StoryComponent: {

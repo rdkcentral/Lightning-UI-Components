@@ -23,6 +23,16 @@ import mdx from './TitleRow.mdx';
 import { default as TitleRowComponent } from '.';
 import { CATEGORIES } from '../../docs/constants';
 
+// add remount to all Row argTypes individually since Row uses remountAll
+// TitleRow title prop can be updated without requiring a remount
+const rowArgTypes = Object.keys(RowBasic.argTypes).reduce((acc, key) => {
+  acc[key] = {
+    ...RowBasic.argTypes[key],
+    remount: key !== 'mode'
+  };
+  return acc;
+}, {});
+
 export default {
   title: `${CATEGORIES[64]}/TitleRow`,
   parameters: {
@@ -42,7 +52,7 @@ export default {
         defaultValue: { summary: 'undefined' }
       }
     },
-    ...RowBasic.argTypes
+    ...rowArgTypes
   }
 };
 

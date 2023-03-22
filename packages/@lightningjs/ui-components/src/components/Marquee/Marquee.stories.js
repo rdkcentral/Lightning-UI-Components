@@ -68,6 +68,7 @@ Marquee.argTypes = {
   autoStart: {
     control: 'boolean',
     description: 'Start scrolling on initiation',
+    remount: true,
     table: { defaultValue: { summary: false } }
   },
   color: {
@@ -79,11 +80,13 @@ Marquee.argTypes = {
   repeat: {
     control: { type: 'number', min: -1 },
     description: 'Number of times to repeat scrolling',
+    remount: true,
     table: { defaultValue: { summary: -1 } }
   },
   delay: {
     control: { type: 'number', min: 1.5 },
     description: 'Delay before scrolling starts',
+    remount: true,
     table: { defaultValue: { summary: 1.5 } }
   },
   centerAlign: {

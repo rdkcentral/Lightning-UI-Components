@@ -47,13 +47,8 @@ export default {
       control: 'number',
       description:
         'Number of content items prior to last content items where a "loadMoreItems" signal is emitted. Go to the "Actions" pannel to see when signal is fired.',
+      remount: true,
       table: { defaultValue: { summary: 0 } }
-    },
-    lazyScroll: {
-      control: 'boolean',
-      description:
-        'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
-      table: { defaultValue: { summary: true } }
     }
   }
 };
