@@ -37,8 +37,8 @@ Themes can have a `componentConfig` object that has nested component style objec
 
 ## In-line Component Style Overrides
 
-When utilizing components within your application, you can use [withThemeStyles](path=/docs/utilities-withthemestyles--with-theme-styles) to override particular style values in just that use case. Those defined styles are merged with the result of the merge that happened above.
+When utilizing components within your application, you can use [withThemeStyles](path=/docs/utilities-withthemestyles--with-theme-styles) to override particular style values in just that use case. Those custom styles are deep-merged with the resulting object from the previous steps.
 
 ## Extensions
 
-Any extensions that target your component are then merged with the result after in-line component style overrides to create the final component style object that will be referenced by your application's components.
+Any extensions that target a component will be applied after the in-line component style overrides. This creates the final style object which will be referenced by the component via `this.style`.

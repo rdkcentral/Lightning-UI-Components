@@ -30,7 +30,7 @@ The `withThemeStyles` mixin provides flexibility with _composability_: the conce
 
 ## Usage
 
-Let's use an example to see how we can use `withThemeStyles`. Let's say you have an unstyled `Box` component with a defined width and height:
+Here is an example of applying `withThemeStyles`. Start with an un-styled `Box` component containing a defined width and height.
 
 ```js
 import lng from '@lightningjs/core';
@@ -46,7 +46,7 @@ class Box extends lng.Component {
 }
 ```
 
-If you want to re-use this `Box` to create a _new_ component called `BlueBox`, you can do that by extending the base class.
+In order to re-use this `Box` to create a new component called `BlueBox`, we can extend the base class.
 
 ```js
 class BlueBox extends Box {
@@ -61,11 +61,13 @@ class BlueBox extends Box {
 
 This is fine if you want a box that is always blue, but what if you want to change the color of your component without having to extend it and override that single value? Or if you want a box that changes based on certain factors, such as its [mode](?path=/docs/docs-theming-mode--page)? Or what if you want to have multiple color palettes (in LUI, these are called [tones](?path=/docs/docs-theming-tone--page)) that you can switch between depending on if your application is in light or dark mode?
 
-By utilizing `withThemeStyles`, you can tie the color of your box to the tokens used in your theme or a single style object. This can be done in the following ways.
+By utilizing `withThemeStyles`, you can tie the color of your box to the tokens used in your theme or a single style object. The preferred way of accomplishing this is by extending the `Base` component, which utilizes `withThemeStyles` and saves you from additional setup.
+
+If you are not extending the `Base` component, you can style your component in the following ways.
 
 ### Defining a Style Object
 
-The first (and suggested) way of handling styles is to wrap your component in the `withThemeStyles` mixin, and then define the `__themeStyle` getter.
+The first way of handling styles is to wrap your component in the `withThemeStyles` mixin, and then define the `__themeStyle` getter.
 
 ```js
 const style = {
@@ -95,11 +97,15 @@ class Box extends withThemeStyles(lng.Component) {
 }
 ```
 
-With this setup, `Box` is able to have its color tied to a style value that exists outside of the `Box` class. This enables us to change the value of color externally, without the need to change any code in the `Box` class. Thus, the class can remain focused on the functional aspects of the component, and all style-related properties can be handled elsewhere.
+With this setup, the `Box` component's `color` property is mapped to a style value external to the `Box` class. This enables us to change the value of color externally, without the need to change any code in the `Box` class. Thus, the class can remain focused on the functional aspects of the component, and all style-related properties can be handled elsewhere.
+
+It is worth noting that this method ensures all instances of your component are styled the same. If you need to style individual instances differently, another method is recommended.
 
 ### Passing In a Style Object
 
-The second (and less preferred option) is to wrap your component in `withThemeStyles` and to pass in your style object as the second argument.
+The second option is to wrap your component in `withThemeStyles` and to pass in your style object as the second argument.
+
+This method is usually more appropriate for in-line styling, rather than defining the styles of a new component. This is because you rely on the component already being set up for use with theming, and this method will only apply the given styles to that particular instance of your component. (We advise changes to be made to all instances of a component when possible to ensure proper adherence to your design system.)
 
 ```js
 const style = {
@@ -132,8 +138,6 @@ class NewComponent extends lng.Component {
   }
 }
 ```
-
-This method is usually more appropriate for in-line styling, rather than defining the styles of a new component. This is because you rely on the component already being set up for use with theming, and this method will only apply the given styles to that particular instance of your component. (We advise changes to be made to all instances of a component when possible to ensure proper adherence to your design system.)
 
 In both cases, you'll notice that there is a `__componentName` getter in our `Box` class. This name is what is used to reference our component for any overrides and extension assignments that might exist in our theme's `componentConfig`.
 
