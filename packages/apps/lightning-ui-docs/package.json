@@ -42,7 +42,7 @@
     "react-dom": "^18.2.0",
     "storybook": "^6.5.12",
     "storybook-addon-turbo-build": "^1.1.0",
-    "webpack": "^5.74.0"
+    "webpack": "^5.76.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.18.6"
