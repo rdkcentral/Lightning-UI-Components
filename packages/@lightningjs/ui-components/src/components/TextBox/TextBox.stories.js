@@ -45,6 +45,7 @@ export const Basic = () =>
       return {
         TextBox: {
           type: TextBox,
+          fixed: true,
           w: 600,
           style: { textStyle: { maxLines: 3 } }
         }

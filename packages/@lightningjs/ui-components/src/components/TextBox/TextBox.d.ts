@@ -30,6 +30,7 @@ export type TextBoxStyle = {
 
 export default class TextBox extends Base {
   content?: string | TextContent[];
+  fixed?: boolean;
   marquee?: boolean;
   get marqueeOverrideLoopX(): number;
   set marqueeOverrideLoopX(v: number);

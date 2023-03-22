@@ -61,7 +61,7 @@ export default class TextBox extends Base {
   }
 
   static get properties() {
-    return ['content', 'marquee', ...InlineContent.properties];
+    return ['content', 'fixed', 'marquee', ...InlineContent.properties];
   }
 
   _setDimensions(w, h) {
@@ -76,7 +76,10 @@ export default class TextBox extends Base {
 
     if (width && height && sizeChanged) {
       this.h = height;
-      this.w = width;
+      if (!this.fixed) {
+        this.w = width;
+      }
+
       // Position updates can produce flash of poorly positioned content, hide the element until measurements are made.
       if (this.alpha < 1) {
         this.alpha = 1;
@@ -277,7 +280,8 @@ export default class TextBox extends Base {
     if (
       this.w &&
       !this._isInlineContent &&
-      !this.style.textStyle.wordWrapWidth
+      !this.style.textStyle.wordWrapWidth &&
+      this.fixed
     ) {
       fontStyle.wordWrapWidth = this.w;
     }
