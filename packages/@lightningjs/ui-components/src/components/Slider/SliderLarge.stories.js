@@ -22,6 +22,7 @@ import mdx from './Slider.mdx';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
 import { CATEGORIES } from '../../docs/constants';
+import { useArgs } from '@storybook/client-api';
 
 export default {
   title: `${CATEGORIES[512]}/SliderLarge`,
@@ -32,16 +33,32 @@ export default {
   }
 };
 
-export const Basic = () =>
-  class Basic extends lng.Component {
+export const Basic = () => {
+  const [{ value }, updateArgs] = useArgs();
+  return class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
-          type: Slider
+          type: Slider,
+          value: value,
+          signals: {
+            onChange: true
+          }
         }
       };
     }
+    // update arg control when value changes
+    onChange(value) {
+      updateArgs({ value });
+    }
   };
+};
+
+
+
+
+
+
 
 Basic.args = {
   min: 0,
