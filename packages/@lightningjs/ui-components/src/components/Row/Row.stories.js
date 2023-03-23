@@ -239,6 +239,10 @@ export const CenteredInParent = () =>
       };
     }
   };
+CenteredInParent.parameters = {
+  storyDetails:
+    'This Row has 2 Columns as items. The second Column with 1 Button as an item has the centerInParent property enabled so it is vertically centered in the Row.'
+};
 
 export const Plinko = () => {
   return class Plinko extends lng.Component {
@@ -365,6 +369,10 @@ LazyScrollIndexes.argTypes = {
     table: { defaultValue: { summary: 0 } }
   }
 };
+LazyScrollIndexes.parameters = {
+  storyDetails:
+    'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
+};
 
 export const AddingItems = () =>
   class AddingItems extends lng.Component {
@@ -420,7 +428,7 @@ export const AddingItems = () =>
             w: 150
           }
         ]);
-      }, 3750);
+      }, 4000);
     }
   };
 AddingItems.args = {
@@ -428,6 +436,10 @@ AddingItems.args = {
 };
 AddingItems.argTypes = {
   ...sharedArgTypes
+};
+AddingItems.parameters = {
+  storyDetails:
+    '3 seconds after rendering, 3 new buttons are added at index 3 of the Row via Row.appendItemsAt. 4 seconds after rendering, 3 additional buttons are added at start of the Row via Row.prependItems. '
 };
 
 export const LazyUpCount = args =>
@@ -468,6 +480,10 @@ LazyUpCount.argTypes = {
     }
   }
 };
+LazyUpCount.parameters = {
+  storyDetails:
+    'There are 12 items passed to this Row. The number of items that are initially rendered equals the sum of the lazyUpCount and the lazyUpCountBuffer properties. Each time the next item is selected, an additional item is added to the end of the Row until all 12 items have been rendered.'
+};
 
 export const RemovingItems = () =>
   class RemovingItems extends lng.Component {
@@ -493,4 +509,8 @@ RemovingItems.args = {
 };
 RemovingItems.argTypes = {
   ...sharedArgTypes
+};
+RemovingItems.parameters = {
+  storyDetails:
+    '3 seconds after rendering, the button at index 1 in the Row is removed via Row.removeItemAt.'
 };

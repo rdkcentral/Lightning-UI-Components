@@ -139,6 +139,10 @@ export const LazyLoading = () =>
   };
 
 LazyLoading.args = { lazyLoadBuffer: 1 };
+LazyLoading.parameters = {
+  storyDetails:
+    'The loadMoreItems signal is emitted each time a contentItem is selected at and after the index defined by the lazyLoadBuffer property. This story adds a method that is invoked when that signal is emitted and adds 3 additional contentItems to the ControlRow via ControlRow.addContentItems. That method will append items twice, then will do nothing when it is invoked from the signal.'
+};
 
 export const AddingAndRemoving = () =>
   class AddingAndRemoving extends lng.Component {

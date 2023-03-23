@@ -134,6 +134,9 @@ export const Basic = args =>
 
 Basic.args = sharedArgs;
 Basic.argTypes = sharedArgTypes;
+Basic.parameters = {
+  storyDetails: 'The ScrollWrapper content property is set as a string.'
+};
 
 export const TextArray = args =>
   class TextArray extends lng.Component {
@@ -174,6 +177,10 @@ export const TextArray = args =>
 
 TextArray.args = sharedArgs;
 TextArray.argTypes = sharedArgTypes;
+TextArray.parameters = {
+  storyDetails:
+    'The ScrollWrapper content property is set as an array of text objects. See the InlineContent documentation for more details on these types of objects.'
+};
 
 export const ObjectArray = args =>
   class ObjectArray extends lng.Component {
@@ -234,3 +241,7 @@ export const ObjectArray = args =>
 
 ObjectArray.args = sharedArgs;
 ObjectArray.argTypes = sharedArgTypes;
+ObjectArray.parameters = {
+  storyDetails:
+    'The ScrollWrapper content property is set as an array of Lightning elements.'
+};
