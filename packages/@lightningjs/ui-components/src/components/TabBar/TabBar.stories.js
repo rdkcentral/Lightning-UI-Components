@@ -325,24 +325,20 @@ export const MultipleRows = () =>
         TabBar: {
           type: TabBarComponent,
           w: 1920 - 160,
-          h: 200,
           tabs: [
             {
               type: Tab,
-              zIndex: 10,
               title: 'No Content Tab'
             },
             {
               type: Tab,
               title: 'Tab 1',
-              zIndex: 10,
               tabContent: {
                 type: ColumnContainer
               }
             },
             {
               type: Tab,
-              zIndex: 10,
               title: 'Tab 2',
               tabContent: col1
             }
