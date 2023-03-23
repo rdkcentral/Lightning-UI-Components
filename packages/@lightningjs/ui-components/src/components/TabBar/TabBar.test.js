@@ -70,7 +70,34 @@ describe('TabBar', () => {
     testRenderer = null;
   });
 
-  it('renders', () => {
+  it('renders', async () => {
+    const box = {
+      rect: true,
+      w: 410,
+      h: 230
+    };
+    const simpleTabs = [
+      {
+        type: Tab,
+        title: 'Tab 1'
+      },
+      {
+        type: Tab,
+        title: 'Tab 2',
+        tabContent: {
+          type: Row,
+          items: [box, box]
+        }
+      }
+    ];
+
+    [tabBar, testRenderer] = createComponent(
+      { tabs: simpleTabs },
+      { spyOnMethods: ['_update'] }
+    );
+
+    await tabBar.__updateSpyPromise;
+
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
