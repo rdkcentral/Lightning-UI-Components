@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import Base from '../Base';
 import Tile from '../Tile';
 import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
@@ -268,6 +269,55 @@ CustomTabs.args = {
 };
 CustomTabs.argTypes = {};
 
+class ColumnContainer extends Base {
+  static get __componentName() {
+    return 'ColumnContainer';
+  }
+  static get tags() {
+    return [
+      'ClippingOffsetContainer',
+      { name: 'Column', path: 'ClippingOffsetContainer.Column' }
+    ];
+  }
+  static _template() {
+    return {
+      ClippingOffsetContainer: {
+        w: 1920 - 160,
+        h: 500,
+        clipping: true,
+        Column: {
+          type: Column,
+          items: [
+            {
+              type: Row,
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+              items: tilesA,
+              autoResizeHeight: true
+            }
+          ]
+        }
+      }
+    };
+  }
+  _getFocused() {
+    return this._Column;
+  }
+}
+
 export const MultipleRows = () =>
   class MultipleRows extends lng.Component {
     static _template() {
@@ -275,55 +325,26 @@ export const MultipleRows = () =>
         TabBar: {
           type: TabBarComponent,
           w: 1920 - 160,
+          h: 200,
           tabs: [
             {
               type: Tab,
+              zIndex: 10,
               title: 'No Content Tab'
             },
             {
               type: Tab,
               title: 'Tab 1',
+              zIndex: 10,
               tabContent: {
-                type: Column,
-                h: 400, // random for testing
-                y: 40, // random for testing
-                // clipping: true, this should be set but where?
-                items: [
-                  {
-                    type: Row,
-                    items: tilesA,
-                    autoResizeHeight: true,
-                    lazyScroll: true
-                  },
-                  {
-                    type: Row,
-                    items: tilesA,
-                    autoResizeHeight: true,
-                    lazyScroll: true
-                  },
-                  {
-                    type: Row,
-                    items: tilesA,
-                    autoResizeHeight: true,
-                    lazyScroll: true
-                  }
-                ]
+                type: ColumnContainer
               }
             },
             {
               type: Tab,
+              zIndex: 10,
               title: 'Tab 2',
               tabContent: col1
-            },
-            {
-              type: Tab,
-              title: 'Tab 3',
-              tabContent: rowFunction
-            },
-            {
-              type: Tab,
-              title: 'Tab 4',
-              tabContent: colPromise
             }
           ]
         }
