@@ -26,6 +26,7 @@ const directionPropNames = {
     crossAxis: 'y',
     lengthDimension: 'w',
     crossDimension: 'h',
+    innerLengthDimension: 'innerW',
     innerCrossDimension: 'innerH'
   },
   column: {
@@ -33,6 +34,7 @@ const directionPropNames = {
     crossAxis: 'x',
     lengthDimension: 'h',
     crossDimension: 'w',
+    innerLengthDimension: 'innerH',
     innerCrossDimension: 'innerW'
   }
 };
@@ -53,13 +55,16 @@ export default class NavigationManager extends FocusManager {
       'neverScroll',
       'scrollIndex',
       'autoResizeWidth',
-      'autoResizeHeight'
+      'autoResizeHeight',
+      'lazyUpCount',
+      'lazyUpCountBuffer'
     ];
   }
 
   _construct() {
     super._construct();
     this.shouldSmooth = false;
+    this._lazyUpCountBuffer = 2;
   }
 
   _init() {
@@ -289,8 +294,83 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
+  _appendItem(item) {
+    const { crossDimension } = this._directionPropNames;
+    const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
+    this.shouldSmooth = false;
+
+    item.parentFocus = this.hasFocus();
+    item = this.Items.childList.a(item);
+    item[crossDimension] = item[crossDimension] || itemCrossSize;
+    item = this._withAfterUpdate(item);
+  }
+
+  _appendLazyItem(item) {
+    this._appendItem(item);
+    this.stage.update();
+    this.queueRequestUpdate();
+    this._refocus();
+  }
+
   $itemChanged() {
     this.queueRequestUpdate();
+  }
+
+  appendItems(items = []) {
+    this.shouldSmooth = false;
+
+    if (this._lazyItems) {
+      this._lazyItems.push(...items);
+      return;
+    }
+
+    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
+      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
+    }
+    items.forEach(item => this._appendItem(item));
+
+    this.stage.update();
+    this.queueRequestUpdate();
+    this._refocus();
+  }
+
+  appendItemsAt(items = [], idx) {
+    if (this._lazyItems && idx > this.items.length - 1) {
+      const addAtIdx = idx - this.items.length;
+      this._lazyItems.splice(addAtIdx, 0, ...items);
+      return;
+    }
+
+    const { crossDimension, lengthDimension, innerLengthDimension } =
+      this._directionPropNames;
+    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
+    this.shouldSmooth = false;
+    this._lastAppendedIdx = addIndex;
+    this._totalAddedLength = 0;
+
+    items.forEach((item, itemIdx) => {
+      this.Items.childList.addAt(
+        {
+          ...this._withAfterUpdate(item),
+          parentFocus: this.hasFocus(),
+          [crossDimension]: item[crossDimension] || this.Items[crossDimension]
+        },
+        addIndex + itemIdx
+      );
+      const itemLength =
+        item[lengthDimension] || item[innerLengthDimension] || 0;
+      const extraItemSpacing = item.extraItemSpacing || 0;
+      this._totalAddedLength +=
+        itemLength + this.style.itemSpacing + extraItemSpacing;
+    });
+
+    if (this.selectedIndex >= this._lastAppendedIdx) {
+      this._selectedPastAdded = true;
+      this._selectedIndex += items.length;
+    }
+
+    this.requestUpdate();
+    this._refocus();
   }
 
   updatePositionOnAxis(item, position) {

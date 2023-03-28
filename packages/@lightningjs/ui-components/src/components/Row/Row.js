@@ -40,16 +40,9 @@ export default class Row extends NavigationManager {
     return [
       ...super.properties,
       'lazyScroll',
-      'lazyUpCount',
-      'lazyUpCountBuffer',
       'startLazyScrollIndex',
       'stopLazyScrollIndex'
     ];
-  }
-
-  _construct() {
-    super._construct();
-    this._lazyUpCountBuffer = 2;
   }
 
   // Since this is a Row, scrolling should be done only when focused item (this.selected) is fully visible horizontally
@@ -211,54 +204,10 @@ export default class Row extends NavigationManager {
     return this._isComponentHorizontallyVisible(child);
   }
 
-  appendItems(items = []) {
-    const itemHeight = this.renderHeight;
-    this.shouldSmooth = false;
-
-    if (items.length > this.lazyUpCount + this.lazyUpCountBuffer) {
-      this._lazyItems = items.splice(this.lazyUpCount + this.lazyUpCountBuffer);
-    }
-    items.forEach(item => {
-      item.parentFocus = this.hasFocus();
-      item = this.Items.childList.a(item);
-      item.h = item.h || itemHeight;
-      item = this._withAfterUpdate(item);
-    });
-    this.stage.update();
-    this.queueRequestUpdate();
-    this._refocus();
-  }
-
-  appendItemsAt(items = [], idx) {
-    const addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
-    this.shouldSmooth = false;
-    this._lastAppendedIdx = addIndex;
-    this._totalAddedWidth = 0;
-
-    items.forEach((item, itemIdx) => {
-      this.Items.childList.addAt(
-        {
-          ...this._withAfterUpdate(item),
-          parentFocus: this.hasFocus(),
-          h: item.h || this.Items.h
-        },
-        addIndex + itemIdx
-      );
-      const itemW = item.w || item.innerW || 0;
-      const extraItemSpacing = item.extraItemSpacing || 0;
-      this._totalAddedWidth +=
-        itemW + this.style.itemSpacing + extraItemSpacing;
-    });
-
-    if (this.selectedIndex >= this._lastAppendedIdx) {
-      this._selectedPastAdded = true;
-      this._selectedIndex += items.length;
-    }
-
-    this.requestUpdate();
-    this._refocus();
-  }
-
   // can be overridden
   onScreenEffect() {}
+
+  get _totalAddedWidth() {
+    return this._totalAddedLength;
+  }
 }
