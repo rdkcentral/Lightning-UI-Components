@@ -206,20 +206,15 @@ export default class Input extends Button {
       if (this.cursorBlink && !this.cursorBlink.isPlaying()) {
         this.cursorBlink.start();
       }
-      this._Cursor.smooth = {
-        alpha: 0,
-        color: this.style.cursorStyle.textColor
-      };
     } else {
-      this._Cursor.smooth = {
-        alpha: this.listening ? 1 : 0,
-        color: this.style.cursorStyle.textColor
-      };
       if (this.cursorBlink)
         this.isCursorActive
           ? this.cursorBlink.start()
           : this.cursorBlink.stop();
     }
+    this._Cursor.smooth = {
+      color: this.style.cursorStyle.textColor
+    };
   }
 
   _updateCursorBlink() {

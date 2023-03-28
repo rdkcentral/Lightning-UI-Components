@@ -102,7 +102,7 @@ const sharedArgTypes = {
     control: 'boolean',
     description: 'When true the content will be masked to the user',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: false }
     }
   },
   mask: {
@@ -117,7 +117,7 @@ const sharedArgTypes = {
     description:
       'When true cursor will be visible only in focused and unfocused mode and can edit the canvas',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: false }
     }
   },
   prefix: {
