@@ -219,23 +219,57 @@ export default class LinearGradient extends lng.Texture {
     const d = this._degrees;
     const p = points(d, w, h);
     const { x0, y0, x1, y1 } = p;
-
     const steps = this._steps;
+    const strokeWidth = this.strokeWidth;
+    // if there is a stroke radius, make sure it is in a 4-element array, otherwise, set to 0
+    const strokeRadius = this.strokeRadius
+      ? Array.isArray(this.strokeRadius) && this.strokeRadius.length === 4
+        ? this.strokeRadius
+        : Array(4).fill(this.strokeRadius)
+      : Array(4).fill(0);
 
     return function (cb) {
       const canvas = this.stage.platform.getDrawingCanvas();
 
-      canvas.width = w;
-      canvas.height = h;
-      var context = canvas.getContext('2d');
+      canvas.width = w + strokeWidth + 2;
+      canvas.height = h + strokeWidth + 2;
+      var ctx = canvas.getContext('2d');
 
-      var gradient = context.createLinearGradient(x0, y0, x1, y1);
+      var gradient = ctx.createLinearGradient(x0, y0, x1, y1);
 
       steps.forEach(step => {
         gradient.addColorStop(step.percent, step.color);
       });
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, w, h);
+
+      if (strokeWidth) {
+        const x = 0.5 * strokeWidth + 1,
+          y = 0.5 * strokeWidth + 1;
+
+        ctx.beginPath();
+        ctx.moveTo(x + strokeRadius[0], y);
+        ctx.lineTo(x + w - strokeRadius[1], y);
+        ctx.arcTo(x + w, y, x + w, y + strokeRadius[1], strokeRadius[1]);
+        ctx.lineTo(x + w, y + h - strokeRadius[2]);
+        ctx.arcTo(
+          x + w,
+          y + h,
+          x + w - strokeRadius[2],
+          y + h,
+          strokeRadius[2]
+        );
+        ctx.lineTo(x + strokeRadius[3], y + h);
+        ctx.arcTo(x, y + h, x, y + h - strokeRadius[3], strokeRadius[3]);
+        ctx.lineTo(x, y + strokeRadius[0]);
+        ctx.arcTo(x, y, x + strokeRadius[0], y, strokeRadius[0]);
+        ctx.closePath();
+
+        ctx.lineWidth = strokeWidth;
+        ctx.strokeStyle = gradient;
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, w, h);
+      }
 
       cb(null, { source: canvas, w, h });
     };
