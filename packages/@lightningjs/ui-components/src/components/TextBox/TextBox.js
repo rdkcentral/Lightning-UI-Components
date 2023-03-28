@@ -125,14 +125,13 @@ export default class TextBox extends Base {
         this.w = this.h = 0;
         this._notifyAncestors(); // need to alert parents that the width and height are now 0
         // makes sure that elements are removed
+        this._updateMarquee();
         this.patch({ Text: undefined, InlineContent: undefined });
       }
 
       return;
     }
-
     this._isInlineContent ? this._updateInlineContent() : this._updateText();
-
     this._updateMarquee();
   }
 

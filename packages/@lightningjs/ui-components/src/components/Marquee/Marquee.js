@@ -267,7 +267,7 @@ export default class Marquee extends Base {
   }
 
   get textContent() {
-    return this.title && this.title.text ? this.title.text : this.title;
+    return this.title?.text ?? this.title ?? '';
   }
 
   get _loopWidth() {
