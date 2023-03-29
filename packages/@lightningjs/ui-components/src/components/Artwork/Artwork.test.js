@@ -417,14 +417,14 @@ describe('Artwork', () => {
         src: sampleImg
       },
       {
-        // spyOnMethods: ['_resolveLoading', '_updateBlur']
-        spyOnMethods: ['_updateBlur']
+        spyOnMethods: ['_resolveLoading', '_updateBlur', '_update']
       }
     );
     await artwork.__resolveLoadingSpyPromise;
     expect(artwork._Blur).toBeUndefined();
 
     artwork.blur = true;
+    await artwork.__updateSpyPromise;
     await artwork.__updateBlurSpyPromise;
     expect(artwork._Blur).not.toBeUndefined();
     expect(artwork._Blur.constructor.name).toBe('FastBlurComponent');
@@ -502,12 +502,12 @@ describe('Artwork', () => {
         src: sampleImg
       },
       {
-        // spyOnMethods: ['_resolveLoading', '_updateCenterImage']
         spyOnMethods: ['_updateCenterImage']
       }
     );
     await artwork._processedImageSrc;
-    await artwork.__resolveLoadingSpyPromise;
+    await artwork._componentSrc.complete;
+
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._updateCenterImage).toHaveBeenCalled();
   });
@@ -559,7 +559,6 @@ describe('Artwork', () => {
       artwork._Image.texture.source.h = 200;
       _updateForegroundImage();
     });
-    await artwork._processedImageSrc;
     await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateFormatContainSpyPromise;
     expect(1).toBe(1);
@@ -568,9 +567,8 @@ describe('Artwork', () => {
 
     artwork.w = 100;
     artwork.h = 200;
-    //await artwork._processedImageSrc;
-    //await artwork.__resolveLoadingSpyPromise;
-    await artwork.__updateImageSpyPromise;
+    await artwork.__updateSpyPromise;
+    await artwork.__resolveLoadingSpyPromise;
     expect(artwork._CenterImage.w).toBe(100);
     expect(artwork._CenterImage.h).toBe(100 * (200 / 100));
   });
@@ -607,6 +605,8 @@ describe('Artwork', () => {
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
 
+    jest.spyOn(artwork, 'signal');
+
     await artwork._processedImageSrc;
     await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateFormatContainSpyPromise;
@@ -615,10 +615,10 @@ describe('Artwork', () => {
 
     artwork.src = 'brokenImage';
     await artwork.__rejectLoadingSpyPromise;
-    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
 
-    //await artwork.__resolveLoadingSpyPromise;
+    expect(artwork._resolveLoading).toHaveBeenCalled();
+    expect(artwork.signal).toHaveBeenCalledWith('imageLoaded');
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -630,6 +630,8 @@ describe('Artwork', () => {
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
 
+    jest.spyOn(artwork, 'signal');
+
     await artwork._processedImageSrc;
     await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateFormatSquareCircleSpyPromise;
@@ -638,10 +640,10 @@ describe('Artwork', () => {
 
     artwork.src = 'brokenImage';
     await artwork.__rejectLoadingSpyPromise;
-    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
 
-    //await artwork.__resolveLoadingSpyPromise;
+    expect(artwork._resolveLoading).toHaveBeenCalled();
+    expect(artwork.signal).toHaveBeenCalledWith('imageLoaded');
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -653,6 +655,8 @@ describe('Artwork', () => {
     artwork.h = 200;
     artwork.fallbackSrc = 'fallbackSrcImage';
 
+    jest.spyOn(artwork, 'signal');
+
     await artwork.__resolveLoadingSpyPromise;
     await artwork.__updateFormatSquareCircleSpyPromise;
     expect(artwork._src).toBe(sampleImg);
@@ -660,10 +664,10 @@ describe('Artwork', () => {
 
     artwork.src = 'brokenImage';
     await artwork.__rejectLoadingSpyPromise;
-    // await artwork.__updateSpyPromise;
     expect(artwork.src).toBe('fallbackSrcImage');
 
-    //await artwork.__resolveLoadingSpyPromise;
+    expect(artwork._resolveLoading).toHaveBeenCalled();
+    expect(artwork.signal).toHaveBeenCalledWith('imageLoaded');
     await artwork.__updateCenterImageSpyPromise;
     expect(artwork._CenterImage).toBeUndefined();
   });
@@ -750,15 +754,12 @@ describe('Artwork', () => {
       {
         spyOnMethods: [
           '_handleImageLoadError',
-          // '_rejectLoading',
           '_resolveLoading',
           '_showComponent'
         ]
       }
     );
     await artwork.__handleImageLoadErrorSpyPromise;
-    //await artwork.__rejectLoadingSpyPromise;
-
     await artwork.__resolveLoadingSpyPromise;
     await artwork.__showComponentSpyPromise;
     expect(artwork._Image.texture.src).toBe(fallbackSrc);
