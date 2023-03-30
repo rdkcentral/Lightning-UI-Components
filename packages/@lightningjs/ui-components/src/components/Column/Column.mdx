@@ -18,15 +18,9 @@
 
 import { Canvas, Story } from '@storybook/addon-docs';
 
-import {
-  DocsLink,
-  GenericType,
-  ObjectFormat
-} from '../../docs/utils';
-
 # Column
 
-Focus management and smooth scrolling for a vertically-oriented list of items.
+Focus management and smooth scrolling for a list of vertically-oriented items.
 
 ## Source
 
@@ -57,7 +51,7 @@ class BasicExample extends lng.Component {
 }
 ```
 
-The `Column` component extends [FocusManager][fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
+The `Column` component extends FocusManager, so you need to make sure that `_getFocused` returns the `Column` component.
 
 ### Column items with changing height
 
@@ -107,47 +101,35 @@ class ExpandableHeightItems extends lng.Component {
   <Story id="navigation-column--column" />
 </Canvas>
 
-export const ProviderType = () => (
-  <GenericType type="Promise">
-    <ObjectFormat
-      object={{
-        items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>,
-        'appendItems?': 'boolean',
-        'getMoreItems?': '()=>Promise'
-      }}
-    />
-  </GenericType>
-);
-
 ## API
 
 ### Properties
 
-| name          | type                                                    | required | default   | description                                                                                                                                  |
-| ------------- | ------------------------------------------------------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []        | components to list in the column                                                                                                             |
-| onScreenItems | array                                                   | true     | []        | contains a list of items that are currently on screen (within the bounds of the container)                                                   |
-| plinko        | boolean                                                 | false    | false     | When `true`, will try to determine the nearest horizontal index of the next focused item's children. Useful if `Column` has `Row`s as items. |
-| selected      | <DocsLink id="lng.Component" />                         | true     | undefined | component that is currently in focus                                                                                                         |
-| selectedIndex | number                                                  | false    | 0         | index of currently selected item                                                                                                             |
+| name          | type                                                    | required | default   | description                                                                                                                                      |
+| ------------- | ------------------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | undefined | Array of components to be listed in the column.                                                                                                  |
+| onScreenItems | array                                                   | true     | undefined | List of items that are currently on screen within the bounds of the container.                                                                   |
+| plinko        | boolean                                                 | false    | false     | When `true`, the component will determine the nearest horizontal index of the next focused item's children. Useful if Column has Rows as items.. |
+| selected      | <DocsLink id="lng.Component" />                         | true     | undefined | component that is currently in focus                                                                                                             |
+| selectedIndex | number                                                  | false    | 0         | index of currently selected item                                                                                                                 |
 
 ### Style Properties
 
-| name           | type                             | description                                 |
-| -------------- | -------------------------------- | ------------------------------------------- |
-| itemSpacing    | number                           | [See Properties section above](#properties) |
-| scrollIndex    | number                           | [See Properties section above](#properties) |
-| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render      |
+| name           | type                             | description                            |
+| -------------- | -------------------------------- | -------------------------------------- |
+| itemSpacing    | number                           | spacing between items                  |
+| scrollIndex    | number                           | index of currently selected item       |
+| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render |
 
 ### Child Item Properties
 
 The `Column` component will utilize the following properties on each individual element in its `items` array:
 
-| name             | type    | required | default | description                                                                                                  |
-| ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will horizontally center the child        |
-| extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                                     |
-| skipPlinko       | boolean | false    | false   | if set to true, plinko will use the previous item to determine the horizontal index of the next focused item |
+| name             | type    | required | default | description                                                                                             |
+| ---------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| centerInParent   | boolean | false    | false   | When true, it places the child component in center of the parent                                        |
+| extraItemSpacing | number  | false    | 0       | Additional space to be added between items                                                              |
+| skipPlinko       | boolean | false    | false   | When true, plinko will use the previous item to determine the horizontal index of the next focused item |
 
 ### Methods
 
@@ -157,10 +139,10 @@ A callback that can be overridden to do something with the items that are curren
 
 ##### Arguments
 
-| name     | type   | required | default   | description                 |
-| -------- | ------ | -------- | --------- | --------------------------- |
-| index    | number | true     | undefined | index of child to scroll to |
-| duration | number | false    | 40        | timeout value in ms         |
+| name     | type   | required | default   | description                               |
+| -------- | ------ | -------- | --------- | ----------------------------------------- |
+| index    | number | true     | undefined | Index of the child component to scroll to |
+| duration | number | false    | 40        | Timeout value in milliseconds             |
 
 #### appendItems(items: lng.Component[]): void
 
@@ -178,22 +160,16 @@ Adds items to the start of the child list
 
 Removes an item (by index) from the row
 
-##### Arguments
-
-| name  | type                                                    | required | default | description             |
-| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
-
 #### render(selected: lng.Component, previous: lng.Component): void
 
 Called when item focus changes. Render is responsible for the scroll behavior
 
 ##### Arguments
 
-| name     | type                                                    | required | default | description                                            |
-| -------- | ------------------------------------------------------- | -------- | ------- | ------------------------------------------------------ |
-| selected | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | item to select. Required if this.plinko=true           |
-| previous | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | previously selected item. Required if this.plinko=true |
+| name     | type                                                    | required | default | description                                                            |
+| -------- | ------------------------------------------------------- | -------- | ------- | ---------------------------------------------------------------------- |
+| selected | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | The items to be selected. Required only if this.plinko is true.        |
+| previous | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | The previously selected item(s). Required only if this.plinko is true. |
 
 ### Events
 
