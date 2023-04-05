@@ -328,6 +328,7 @@ describe('Column', () => {
         expect(column.selectedIndex).toBe(selectedIndex);
       });
 
+      // TODO: may be a timing issue, try awaiting something
       xit('shifts selected index if necessary', () => {
         expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300, 400]);
         const item = column.items[1];
@@ -351,7 +352,8 @@ describe('Column', () => {
       });
     });
 
-    xdescribe('$columnChanged', () => {
+    // TODO: this now calls queueRequestUpdate, spy on that instead
+    fdescribe('$columnChanged', () => {
       it('updates column', () => {
         const spy = jest.spyOn(column, '_update');
         column.$columnChanged();
@@ -443,6 +445,7 @@ describe('Column', () => {
         expect(item.y).toBe(0);
       });
 
+      // TODO: await events to be more reliable
       // This appears to be a flaky test
       it.skip('should add items on lazyUpCount', () => {
         column.lazyUpCount = 4;
@@ -494,6 +497,7 @@ describe('Column', () => {
           testRenderer.update();
         });
 
+        // TODO: vague description, define items in test so more clear their size/spacing
         xit('should render correctly', () => {
           expect(column.items[0].y).toBe(0);
           expect(column.items[1].y).toBe(100);
@@ -506,7 +510,8 @@ describe('Column', () => {
           expect(item.y).toBe(0);
         });
 
-        xit('should scroll down', async () => {
+        // TODO: jest timeout, try awaiting something else
+        it('should scroll down', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -520,6 +525,8 @@ describe('Column', () => {
           expect(column._Items.y).toBe(0);
         });
 
+        // TODO: jest timeout, try awaiting something else
+        // TODO: unclear description
         xit('should keep a full screen of items', async () => {
           const item = column.items[1];
           testRenderer.keyPress('Down');
@@ -530,6 +537,7 @@ describe('Column', () => {
           expect(column._Items.y + column.h).toBeGreaterThan(item.y);
         });
 
+        // TODO: jest timeout, try awaiting something else
         xit('should keep a full screen of items when at bottom', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -551,6 +559,7 @@ describe('Column', () => {
           column.scrollIndex = 4;
         });
 
+        // TODO: vague description, define items in test so more clear their size/spacing
         xit('should render correctly', () => {
           expect(column.items[0].y).toBe(0);
           expect(column.items[1].y).toBe(100);
@@ -563,6 +572,7 @@ describe('Column', () => {
           expect(column._Items.y).toBe(0);
         });
 
+        // TODO: jest timeout, try awaiting something else
         xit('should scroll down', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
