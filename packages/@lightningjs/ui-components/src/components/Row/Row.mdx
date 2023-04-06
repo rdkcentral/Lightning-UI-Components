@@ -17,15 +17,12 @@
 -->
 
 import { Canvas, Story } from '@storybook/addon-docs';
-import {
-  DocsLink,
-  GenericType,
-  ObjectFormat
-} from '../../docs/utils';
+import { DocsLink } from '../../docs/utils';
+import Row from '.';
 
 # Row
 
-Focus management and smooth scrolling for a horizontally-oriented list of items.
+Focus management and smooth scrolling for a list of horizontally-oriented items.
 
 ## Source
 
@@ -58,7 +55,9 @@ class Basic extends lng.Component {
 
 ### Scrolling
 
-By default, `Row` will scroll horizontally to capture items out of view (or just outside of the `Row` width).
+By default, `Row` will scroll horizontally to see any items that are not visible within the width of the Row((or just outside of the `Row` width)
+
+The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
 
 ## API
 
@@ -66,31 +65,31 @@ By default, `Row` will scroll horizontally to capture items out of view (or just
 
 | name                 | type                                                    | required | default   | description                                                                                                                                                                          |
 | -------------------- | ------------------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| items                | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []        | components to list in the row                                                                                                                                                        |
+| items                | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | undefined | components to be listed in the row.                                                                                                                                                  |
 | lazyScroll           | boolean                                                 | false    | false     | will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false                                                                                   |
-| selected             | <DocsLink id="lng.Component" />                         | true     | -         | selected item                                                                                                                                                                        |
-| selectedIndex        | number                                                  | false    | 0         | index of selected item                                                                                                                                                               |
+| selected             | <DocsLink id="lng.Component" />                         | true     | undefined | component that is currently in focus                                                                                                                                                 |
+| selectedIndex        | number                                                  | false    | 0         | index of currently selected item                                                                                                                                                     |
 | startLazyScrollIndex | number                                                  | false    | undefined | when `lazyScroll` is `true`, index of item in `items`, and items thereafter, at which lazy scrolling should occur at (alwasy scroll functionality will take place before this index) |
 | stopLazyScrollIndex  | number                                                  | false    | undefined | when `lazyScroll` is `true`, index of item in `items`, and items preceding, at which lazy scrolling should occur (alwasy scroll functionality will take place after this index)      |
 
 ### Style Properties
 
-| name           | type                             | description                                 |
-| -------------- | -------------------------------- | ------------------------------------------- |
-| alwaysScroll   | boolean                          | [See Properties section above](#properties) |
-| neverScroll    | boolean                          | [See Properties section above](#properties) |
-| scrollIndex    | number                           | [See Properties section above](#properties) |
-| itemSpacing    | number                           | [See Properties section above](#properties) |
-| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render      |
+| name           | type                             | description                                                                                                                         |
+| -------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| alwaysScroll   | boolean                          | when true, the row will stop scrolling as it nears the right edge to prevent white space                                            |
+| neverScroll    | boolean                          | when true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic', |
+| scrollIndex    | number                           | index of currently selected item                                                                                                    |
+| itemSpacing    | number                           | spacing between items                                                                                                               |
+| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render                                                                                              |
 
 ### Child Item Properties
 
 The `Row` component will utilize the following properties on each individual element in its `items` array:
 
-| name             | type    | required | default | description                                                                                         |
-| ---------------- | ------- | -------- | ------- | --------------------------------------------------------------------------------------------------- |
-| centerInParent   | boolean | false    | false   | if set to true on an individual element in the `items` array, this will vertically center the child |
-| extraItemSpacing | number  | false    | 0       | spacing in px following the item in addition to the `itemsSpacing` value                            |
+| name             | type    | required | default | description                                                      |
+| ---------------- | ------- | -------- | ------- | ---------------------------------------------------------------- |
+| centerInParent   | boolean | false    | false   | when true, it places the child component in center of the parent |
+| extraItemSpacing | number  | false    | 0       | additional space to be added between items                       |
 
 ### Methods
 
