@@ -316,6 +316,14 @@ class ColumnContainer extends Base {
   _getFocused() {
     return this._Column;
   }
+
+  _update() {
+    //super.update();
+    this._updateTilePadding();
+  }
+  _updateTilePadding() {
+    console.log(this);
+  }
 }
 
 export const MultipleRows = () =>
