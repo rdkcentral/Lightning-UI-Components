@@ -92,10 +92,9 @@ export default class ScrollWrapper extends Base {
 
   _afterTextBoxUpdate(textBox) {
     // NOTE: this does get called every time ScrollWrapper updates (ex. on each scroll change)
-    if (this._prevW !== textBox.w) {
-      this._prevW = textBox.w;
-      // ScrollContainer uses flexbox, ensure a full stage layout so finalH is accurate
-      this.stage.update();
+    if (this._prevW !== textBox.finalW || this._prevH !== textBox.finalH) {
+      this._prevW = textBox.finalW;
+      this._prevH = textBox.finalH;
       this._updateScrollWrapperLayout();
       this._updateAlpha();
     }
