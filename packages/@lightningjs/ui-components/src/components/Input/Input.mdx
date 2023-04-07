@@ -61,19 +61,22 @@ class Example extends lng.Component {
 
 ### Setting/Inserting values
 
-The `Input` component tracks its current value and cursor position, and provides different ways to manage the value state. When the listening mode is enabled, the cursor blinks as a `placeholder`, whether the component is in focused or unfocused mode.
+The `Input` component provides different ways to manage the input text and cursor position. When the `listening` property is enabled, the cursor blinks as a placeholder, whether the component is in focused or unfocused mode.
+
+The text displayed in the `Input` can can be directly set via the `value` property. The following example will display the input with the text "Hello".
+Setting the `value` on the `Input` directly like this will remove any existing text in the input and set the cursor `position` in the Input to `0` (before the 'H' in 'Hello').
+The cursor position can be manually updated by setting the `position` property. Setting `value` and `position` like this will update the `Input` regardless of whether or not `listening` is enabled.
 
 ```js
+// dislay Hello in the input
 this.tag('Input').value = 'Hello';
-```
 
-Now we will see "Hello" in the input, but the cursor will be at the beginning of the text. We can set the position:
-
-```js
+// update the cursor position in the input from index 0 (before the H in Hellow) to index 5 (after the o in Hello)
 this.tag('Input').position = 5;
 ```
 
-If we want to set the value _and_ change the position, we can use the `insert()` method.
+To set the `value` _and_ update the `position` to after the last character in the added text, use the `insert()` method.
+The `Input` must be in focused or unfocused mode and the `listening` property enabled to use `insert()`.
 
 ```js
 this.tag('Input').insert('Hello');
@@ -85,13 +88,15 @@ this.tag('Input').position = 5;
 
 ### Deletion
 
-To clear the current value, use `clear()`. This also repositions the cursor.
+To clear the current value use `clear()`. This also repositions the cursor to index `0`.
+The `Input` must be in focused or unfocused mode and the `listening` property enabled to use `clear()`.
 
 ```js
 this.tag('Input').clear();
 ```
 
-Use the `backspace()` method to handle insert deletions. This will remove the character at the current cursor `position - 1` and moves the cursor back. To illustrate this behavior, let's look at a simple example:
+To handle insert deletions use the `backspace()` method. This will remove the character at the current cursor `position - 1` and moves the cursor back.
+The `Input` must be in focused or unfocused mode and the `listening` property enabled to use `backspace()`.
 
 ```js
 this.tag('Input').value = 'foo';
