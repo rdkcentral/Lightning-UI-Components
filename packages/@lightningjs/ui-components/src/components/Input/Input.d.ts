@@ -39,6 +39,7 @@ export default class Input extends Button {
   mask?: string;
   password?: boolean;
   position?: number;
+  get isCursorActive(): boolean;
   get style(): InputStyle;
   set style(v: StylePartial<InputStyle>);
 
@@ -47,4 +48,11 @@ export default class Input extends Button {
   get _HelpText(): lng.Component;
   get _Cursor(): lng.Component;
   get _HiddenContent(): lng.Component;
+
+  // public methods
+  clear: () => void;
+  insert: (content: string) => void;
+  backspace: () => void;
+  moveLeft: () => void;
+  moveRight: () => void;
 }
