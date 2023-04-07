@@ -285,8 +285,12 @@ class ColumnContainer extends Base {
         w: 1920 - 160,
         h: 500,
         clipping: true,
+        y: context.theme.layout.gutterY.sm * -1,
+        x: context.theme.layout.marginX * -1,
         Column: {
           type: Column,
+          y: context.theme.layout.gutterY.sm,
+          x: context.theme.layout.marginX,
           items: [
             {
               type: Row,
@@ -315,14 +319,6 @@ class ColumnContainer extends Base {
   }
   _getFocused() {
     return this._Column;
-  }
-
-  _update() {
-    //super.update();
-    this._updateTilePadding();
-  }
-  _updateTilePadding() {
-    console.log(this);
   }
 }
 
