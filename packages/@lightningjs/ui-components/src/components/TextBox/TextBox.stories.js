@@ -87,7 +87,7 @@ Basic.argTypes = {
   w: {
     control: 'number',
     description:
-      'When the `fixed` property is `true`, this will set the width of the component',
+      'When the `fixed` property is `true`, this will set the width of the component (but only if `wordWrapWidth` is not defined otherwise the width will reflect the `wordWrapWidth` value)',
     table: {
       defaultValue: { summary: 0 }
     }
