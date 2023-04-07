@@ -55,7 +55,9 @@ export const Basic = () =>
 
 Basic.args = {
   content: lorum,
-  marquee: false
+  marquee: false,
+  fixed: true,
+  w: 600
 };
 
 Basic.argTypes = {
@@ -72,6 +74,22 @@ Basic.argTypes = {
       "Scrolls text when a single line of text is longer than the textbox's width",
     table: {
       defaultValue: { summary: false }
+    }
+  },
+  fixed: {
+    control: 'boolean',
+    description:
+      'Flag that when set to `true`, allows the width of the component to be set with `w`',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  w: {
+    control: 'number',
+    description:
+      'When the `fixed` property is `true`, this will set the width of the component',
+    table: {
+      defaultValue: { summary: 0 }
     }
   }
 };
