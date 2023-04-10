@@ -283,14 +283,14 @@ class ColumnContainer extends Base {
     return {
       ClippingOffsetContainer: {
         w: 1920 - 160,
-        h: 500,
+        h: 600,
         clipping: true,
-        y: context.theme.layout.gutterY.sm * -1,
-        x: context.theme.layout.marginX * -1,
+        y: context.theme.layout.gutterY.xs * -1,
+        x: 40 * -1,
         Column: {
           type: Column,
-          y: context.theme.layout.gutterY.sm,
-          x: context.theme.layout.marginX,
+          y: 30,
+          x: 40,
           items: [
             {
               type: Row,
@@ -299,20 +299,39 @@ class ColumnContainer extends Base {
             },
             {
               type: Row,
+
               items: tilesA,
               autoResizeHeight: true
             },
             {
               type: Row,
+
               items: tilesA,
               autoResizeHeight: true
             },
             {
               type: Row,
+
               items: tilesA,
               autoResizeHeight: true
             }
-          ]
+          ],
+          onScreenEffect: function (onScreenItems) {
+            if (!(this instanceof Column)) return;
+            if (this.items && this.items.length) {
+              this.items.forEach((item, idx) => {
+                if (!(this instanceof Column)) return;
+                if (
+                  onScreenItems.includes(item) &&
+                  this.selectedIndex === this.items.length - 1
+                ) {
+                  item.alpha = 1; // so last row and second last row still show
+                } else if (idx < this.selectedIndex) {
+                  item.alpha = 0.5;
+                }
+              });
+            }
+          }
         }
       }
     };
@@ -336,7 +355,7 @@ export const MultipleRows = () =>
             },
             {
               type: Tab,
-              title: 'Tab 1',
+              title: 'Multiple Rows',
               tabContent: {
                 type: ColumnContainer
               }
@@ -353,5 +372,8 @@ export const MultipleRows = () =>
   };
 
 MultipleRows.args = {};
-
+MultipleRows.parameters = {
+  storyDetails:
+    'This is an example of adding multiple rows in the tab content column. A ColumnContainer was created to allow for clipping needed for scrolling'
+};
 MultipleRows.argTypes = {};
