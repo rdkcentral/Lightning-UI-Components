@@ -19,18 +19,41 @@
 import lng from '@lightningjs/core';
 import { SpeechType } from '../../mixins/withAnnouncer';
 
-export default class Base extends lng.Component {
-  skipPlinko: boolean;
-  centerInParent: boolean;
-  _announce: SpeechType;
-  _whenEnabled: Promise<void>;
-  _getFocusScale(): number;
-  _getUnfocusScale(): number;
-  _update(): void;
-  _focus(): void;
-  _unfocus(): void;
-  _smooth?: boolean;
+declare namespace Base {
+  export interface TemplateSpec extends lng.Component.TemplateSpec {}
 
-  set announce(announce: SpeechType);
-  get announce(): SpeechType;
+  export interface EventMap extends lng.Component.EventMap {}
+
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    skipPlinko: boolean;
+    centerInParent: boolean;
+    loaded?: Promise<void>;
+    _smooth?: boolean;
+    _announce: SpeechType;
+    _whenEnabled: Promise<void>;
+
+    isFullyOnScreen(): boolean;
+    getFocusScale(): unknown;
+    getUnfocusScale(): number;
+    _focus(): void;
+    _unfocus(): void;
+    _update(): void;
+
+    get _isDisabledMode(): boolean;
+    get _isUnfocusedMode(): boolean;
+    get _isFocusedMode(): boolean;
+
+    get shouldSmooth(): boolean;
+    set shouldSmooth(v: boolean);
+
+    set announce(announce: SpeechType);
+    get announce(): SpeechType;
+  }
 }
+
+declare class Base<
+  TemplateSpec extends Base.TemplateSpec = Base.TemplateSpec,
+  TypeConfig extends Base.TypeConfig = Base.TypeConfig
+> extends lng.Component<TemplateSpec, TypeConfig> {}
+
+export default Base;
