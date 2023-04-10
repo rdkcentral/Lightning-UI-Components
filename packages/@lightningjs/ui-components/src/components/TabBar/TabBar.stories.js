@@ -289,7 +289,6 @@ class ColumnContainer extends Base {
         x: 40 * -1,
         Column: {
           type: Column,
-          y: 30,
           x: 40,
           items: [
             {
@@ -315,23 +314,7 @@ class ColumnContainer extends Base {
               items: tilesA,
               autoResizeHeight: true
             }
-          ],
-          onScreenEffect: function (onScreenItems) {
-            if (!(this instanceof Column)) return;
-            if (this.items && this.items.length) {
-              this.items.forEach((item, idx) => {
-                if (!(this instanceof Column)) return;
-                if (
-                  onScreenItems.includes(item) &&
-                  this.selectedIndex === this.items.length - 1
-                ) {
-                  item.alpha = 1; // so last row and second last row still show
-                } else if (idx < this.selectedIndex) {
-                  item.alpha = 0.5;
-                }
-              });
-            }
-          }
+          ]
         }
       }
     };
