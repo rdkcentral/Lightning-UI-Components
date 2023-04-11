@@ -84,7 +84,7 @@ export { default as ScrollWrapper, ScrollWrapperStyle } from './ScrollWrapper';
 export { default as Shadow, ShadowStyle } from './Shadow';
 export { default as Slider, SliderStyle } from './Slider';
 export { default as Surface, SurfaceStyle } from './Surface';
-export { default as TabBar, TabBarStyle } from './TabBar';
+export { default as TabBar, TabBarStyle, Tab, TabStyle } from './TabBar';
 export { default as TextBox, TextBoxStyle } from './TextBox';
 export { default as Tile, TileStyle } from './Tile';
 export { default as TitleRow, TitleRowStyle } from './TitleRow';
