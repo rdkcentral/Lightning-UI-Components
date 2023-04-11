@@ -561,6 +561,7 @@ export const LazyUpCount = args =>
           h: 500,
           scrollIndex: args.scrollIndex,
           lazyUpCount: args.lazyUpCount,
+          lazyUpCountBuffer: args.lazyUpCountBuffer,
           items: createItems(Button, 20),
           alwaysScroll: args.alwaysScroll
         }
