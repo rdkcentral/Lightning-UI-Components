@@ -63,7 +63,7 @@ class Example extends lng.Component {
 
 The `Input` component provides different ways to manage the input text and cursor position. When the `listening` property is enabled, the cursor blinks as a placeholder, whether the component is in focused or unfocused mode.
 
-The text displayed in the `Input` can can be directly set via the `value` property. The following example will display the input with the text "Hello".
+The text displayed in the `Input` can be directly set via the `value` property. The following example will display the input with the text "Hello".
 Setting the `value` on the `Input` directly like this will remove any existing text in the input and set the cursor `position` in the Input to `0` (before the 'H' in 'Hello').
 The cursor position can be manually updated by setting the `position` property. Setting `value` and `position` like this will update the `Input` regardless of whether or not `listening` is enabled.
 
@@ -95,7 +95,7 @@ The `Input` must be in focused or unfocused mode and the `listening` property en
 this.tag('Input').clear();
 ```
 
-To handle insert deletions use the `backspace()` method. This will remove the character at the current cursor `position - 1` and moves the cursor back.
+To remove the character 1 position before the cursor position, use `backspace()`. This will remove that character and move the cursor back one position.
 The `Input` must be in focused or unfocused mode and the `listening` property enabled to use `backspace()`.
 
 ```js
