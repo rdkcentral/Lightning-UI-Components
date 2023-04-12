@@ -64,6 +64,36 @@ class Example extends lng.Component {
   <Story id="navigation-controlrow--basic" />
 </Canvas>
 
+### lazyLoading
+
+The `ControlRow` component can be configured for lazy loading content items by utilizing the `lazyLoadBuffer` property and `'loadMoreItems'` signal. When a positive number is assigned to `ControlRow.lazyLoadBuffer`, the `ControlRow` will emit a signal, `'loadMoreItems'`. The `lazyLoadBuffer` property defines how many items before the last `contentItems` is the index at which `'loadMoreItems'` will be emitted. The `ControlRow` does not include further side effects to this signal being emitted, but allows parent components to listen for that signal and add further functionality to the component (ex. fetching more content items and appending them to the ControlRow via the `ControlRow.addContentItems` method). If the number of content items in the `ControlRow` is updated (adding or removing content items), the new length of content items will be used to calculate at which index the next `'loadMoreItems'` signal is emitted.
+
+```js
+class LazyLoad extends lng.Component {
+  static _template() {
+    return {
+      LazyLoad: {
+        type: ControlRow,
+        leftControls: [leftControlA, leftControlB],
+        contentItems: [contentItemA, contentItemB, contentItemC],
+        rightControls: [rightControlA, rightControlB],
+        // The loadMoreItems signal will be emitted when the content item 1 before the last content item is focused.
+        lazyLoadBuffer: 1,
+        // When ControlRow emits the loadMoreItems signal, call this._loadMore().
+        signals: {
+          loadMoreItems: '_loadMore'
+        }
+      }
+    };
+  }
+
+  _loadMore() {
+    // fetch more items from an API
+    // append those items to the ControlRow via this.tag('ControlRow').addContentItems(itemsToAdd)
+  }
+}
+```
+
 ## API
 
 ### Properties
@@ -83,7 +113,7 @@ so allows setting all properties that are available on `TitleRow`.
 
 #### loadMoreItems
 
-By default fires a signal, `'loadMoreItems'`, when an item is selected after an index determined by lazyLoadBuffer property
+By default fires a signal, `'loadMoreItems'`, when an item is selected after an index determined by the `lazyLoadBuffer` property
 
 #### addContentItems(items: Component[])
 
@@ -120,3 +150,9 @@ Adds controls at a specified index of the right controls
 #### removeRightControlAt(index: number)
 
 Removes a right control at the specified index
+
+## Signals
+
+## loadMoreItems
+
+Emitted when an item is selected after an index determined by the `lazyLoadBuffer` property.

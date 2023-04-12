@@ -36,20 +36,12 @@ export default {
   },
   args: {
     ...TitleRowStory.args,
-    lazyLoadBuffer: 0,
     lazyScroll: true,
     mode: 'focused'
   },
   argTypes: {
     ...TitleRowStory.argTypes,
-    ...createModeControl({ summaryValue: 'focused' }),
-    lazyLoadBuffer: {
-      control: 'number',
-      description:
-        'Number of content items prior to last content items where a "loadMoreItems" signal is emitted. Go to the "Actions" pannel to see when signal is fired.',
-      remount: true,
-      table: { defaultValue: { summary: 0 } }
-    }
+    ...createModeControl({ summaryValue: 'focused' })
   }
 };
 
@@ -139,9 +131,18 @@ export const LazyLoading = () =>
   };
 
 LazyLoading.args = { lazyLoadBuffer: 1 };
+LazyLoading.argTypes = {
+  lazyLoadBuffer: {
+    control: 'number',
+    description:
+      'The number of items before the last content item at which a signal, "loadMoreItems", is emitted.',
+    remount: true,
+    table: { defaultValue: { summary: 0 } }
+  }
+};
 LazyLoading.parameters = {
   storyDetails:
-    'The loadMoreItems signal is emitted each time a contentItem is selected at and after the index defined by the lazyLoadBuffer property. This story adds a method that is invoked when that signal is emitted and adds 3 additional contentItems to the ControlRow via ControlRow.addContentItems. That method will append items twice, then will do nothing when it is invoked from the signal.'
+    'The loadMoreItems signal is emitted each time a contentItem is selected at and after the index defined by the lazyLoadBuffer property. This story adds a method that is invoked when that signal is emitted and adds 3 additional contentItems to the ControlRow via ControlRow.addContentItems. That method will append items in response to the signal two times, then will do nothing in response to further invocations from the signal.'
 };
 
 export const AddingAndRemoving = () =>
