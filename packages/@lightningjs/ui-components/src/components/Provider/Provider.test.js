@@ -108,6 +108,13 @@ describe('Provider', () => {
     expect(provider._Row.items[3].tag('Text').content).toBe('...');
   });
 
+it('enforces a minimum and a maximum visible count',() =>{
+  provider.visibleCount=-5
+  expect(provider.visibleCount).toBe(1)
+  provider.visibleCount=20
+  expect(provider.visibleCount).toBe(provider.providers.length)
+})
+
   it('scales a non-square icon to the correct dimensions', () => {
     [provider, testRenderer] = createComponent({
       providers: [
