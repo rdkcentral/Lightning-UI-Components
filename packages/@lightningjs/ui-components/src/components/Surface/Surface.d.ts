@@ -17,10 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base';
+import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-type TransitionObject = {
+export type TransitionObject = {
   delay: number;
   duration: number;
   timingFunction: string;
@@ -33,12 +33,25 @@ export type SurfaceStyle = {
   scale: number;
 };
 
-export default class Surface extends Base {
-  get innerH(): number;
-  get innerW(): number;
-  get style(): SurfaceStyle;
-  set style(v: StylePartial<SurfaceStyle>);
+declare namespace Surface {
+  export interface TemplateSpec extends Base.TemplateSpec {}
 
-  // tags
-  get _Background(): lng.Component;
+  export interface EventMap extends Base.EventMap {}
+
+  export interface TypeConfig extends Base.TypeConfig {
+    get innerH(): number;
+    get innerW(): number;
+    get style(): SurfaceStyle;
+    set style(v: StylePartial<SurfaceStyle>);
+
+    // tags
+    get _Background(): typeof lng.Component; // TODO should this be typeof?
+  }
 }
+
+declare class Surface<
+  TemplateSpec extends Surface.TemplateSpec = Surface.TemplateSpec,
+  TypeConfig extends Surface.TypeConfig = Surface.TypeConfig
+> extends Base<Base.TemplateSpec, Base.TypeConfig> {}
+
+export default Surface;
