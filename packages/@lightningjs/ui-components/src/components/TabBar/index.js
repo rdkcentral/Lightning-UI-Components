@@ -16,4 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './TabBar.js';
+import TabBar from './TabBar';
+import Tab from './Tab';
+
+export { TabBar as default, Tab };
