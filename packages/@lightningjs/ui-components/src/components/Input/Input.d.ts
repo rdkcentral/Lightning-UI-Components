@@ -39,9 +39,8 @@ export default class Input extends Button {
   mask?: string;
   password?: boolean;
   position?: number;
+  value?: string;
   get isCursorActive(): boolean;
-  set value(value: string);
-  get value(): string;
   get style(): InputStyle;
   set style(v: StylePartial<InputStyle>);
 
