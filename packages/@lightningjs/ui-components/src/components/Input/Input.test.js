@@ -236,6 +236,22 @@ describe('Input', () => {
     expect(input._HiddenContent.alpha).toBe(0.001);
   });
 
+  it('should overwrite existing text when usign the value setter', () => {
+    expect(input.value).toBe('');
+    expect(input.position).toBe(0);
+
+    input.listening = true;
+    input.insert('foo');
+
+    expect(input.value).toBe('foo');
+    expect(input.position).toBe(3);
+
+    input.value = 'bar';
+
+    expect(input.value).toBe('bar');
+    expect(input.position).toBe(0);
+  });
+
   describe('when the input value width exceeds the input container width', () => {
     it('should keep the cursor and entered text in view', async () => {
       [input, testRenderer] = createInput(

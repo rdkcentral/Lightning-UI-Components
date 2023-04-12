@@ -264,6 +264,16 @@ export default class Input extends Button {
     return this._fixedWordWrapWidth;
   }
 
+  set value(value) {
+    this.title = this.actualTitle = value;
+    this.position = 0;
+    this._updatePassword();
+  }
+
+  get value() {
+    return this.actualTitle;
+  }
+
   clear() {
     if (this.isCursorActive) {
       this.title = this.actualTitle = '';
