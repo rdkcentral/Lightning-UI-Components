@@ -20,7 +20,6 @@ import Base from '../Base';
 import Row from '../Row';
 import ContentSwitcher from './ContentSwitcher.js';
 import * as styles from './TabBar.styles.js';
-export { default as Tab } from './Tab';
 
 export default class TabBar extends Base {
   static _template() {
