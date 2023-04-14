@@ -69,7 +69,7 @@ Marquee.argTypes = {
     control: 'boolean',
     description: 'Start scrolling on initiation',
     remount: true,
-    table: { defaultValue: { summary: false } }
+    table: { defaultValue: { summary: true } }
   },
   color: {
     name: 'color',
