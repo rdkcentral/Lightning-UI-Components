@@ -34,24 +34,23 @@ export type SurfaceStyle = {
 };
 
 declare namespace Surface {
-  export interface TemplateSpec extends Base.TemplateSpec {}
-
-  export interface EventMap extends Base.EventMap {}
-
-  export interface TypeConfig extends Base.TypeConfig {
-    get innerH(): number;
-    get innerW(): number;
-    get style(): SurfaceStyle;
-    set style(v: StylePartial<SurfaceStyle>);
-
-    // tags
-    get _Background(): typeof lng.Component; // TODO should this be typeof?
+  export interface TemplateSpec extends lng.Component.TemplateSpec {
+    Background: typeof lng.Component;
   }
 }
 
 declare class Surface<
-  TemplateSpec extends Surface.TemplateSpec = Surface.TemplateSpec,
-  TypeConfig extends Surface.TypeConfig = Surface.TypeConfig
-> extends Base<Base.TemplateSpec, Base.TypeConfig> {}
+  TemplateSpec extends Surface.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  get innerH(): number;
+  get innerW(): number;
+
+  get style(): SurfaceStyle;
+  set style(v: StylePartial<SurfaceStyle>);
+
+  // tags
+  get _Background(): typeof lng.Component; // TODO should this be typeof?
+}
 
 export default Surface;
