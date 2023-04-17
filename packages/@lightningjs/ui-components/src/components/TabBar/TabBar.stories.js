@@ -289,6 +289,7 @@ class ColumnContainer extends Base {
         x: 40 * -1,
         Column: {
           type: Column,
+          y: context.theme.layout.gutterY.xs,
           x: 40,
           items: [
             {
