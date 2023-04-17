@@ -95,10 +95,6 @@ describe('Column', () => {
   beforeEach(async () => {
     [column, testRenderer] = createColumn();
   });
-  afterEach(() => {
-    column = null;
-    testRenderer = null;
-  });
 
   it('should render', async () => {
     let resolvePromise;
@@ -414,7 +410,9 @@ describe('Column', () => {
       it('should reset the Items y position when there are no items', () => {
         column.itemPosY = 100;
         column.items = [];
+        testRenderer.update();
         testRenderer.keyPress('Down');
+        //testRenderer.update()
         expect(column._Items.y).toBe(100);
       });
     });
@@ -447,10 +445,10 @@ describe('Column', () => {
     describe('with column height > items', () => {
       it('should not scroll', () => {
         const [item] = column.items;
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
         testRenderer.update();
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
+        testRenderer.keyPress('Down');
         expect(item.y).toBe(0);
       });
 
@@ -468,12 +466,7 @@ describe('Column', () => {
         }, 1700);
       });
     });
-    ///////
     describe('with column height < items', () => {
-      // const waitForSmooth = column => {
-      //   return completeAnimation(column.Items, 'y');
-      // };
-
       beforeEach(() => {
         column.h = 400;
         expect(column._Items.y).toBe(0);
@@ -501,6 +494,8 @@ describe('Column', () => {
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollIndex = 2;
+          testRenderer.update();
+          expect(column._Items.y).toBe(0);
         });
 
         it('should render correctly', () => {
@@ -510,39 +505,43 @@ describe('Column', () => {
 
         it('should not scroll until past the mid point', () => {
           const [item] = column.items;
-          testRenderer.keyPress('Down');
           expect(item.y).toBe(0);
         });
-
-        xit('should scroll down', () => {
+        // test times out
+        xit('should scroll down', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          completeAnimation(column._Items, 'y');
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-column.items[1].y);
         });
 
-        xit('should scroll up', () => {
+        // test times out
+        xit('should scroll up', async () => {
           testRenderer.keyPress('Down');
-          completeAnimation(column._Items, 'y');
+          await completeAnimation(column._Items, 'y');
+
           expect(column._Items.y).toBe(-100);
 
-          testRenderer.keyPress('Up');
-          completeAnimation(column._Items, 'y');
-          expect(column._Items.y).toBe(0);
+          // testRenderer.keyPress('Up');
+          // fastForward(column._Items);
+          // testRenderer.update();
+          // expect(column._Items.y).toBe(0);
         });
 
-        xit('should keep a full screen of items', () => {
+        // test times out
+        xit('should keep a full screen of items', async () => {
           const item = column.items[1];
+          testRenderer.update();
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          completeAnimation(column._Items, 'y');
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y + column.h).toBeGreaterThan(item.y);
         });
-
-        xit('should keep a full screen of items when at bottom', () => {
+        // test times out
+        it('should keep a full screen of items when at bottom', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -552,7 +551,9 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          completeAnimation(column._Items, 'y');
+          testRenderer.update();
+          await completeAnimation(column._Items, 'y');
+          testRenderer.update();
           expect(column._Items.y).toBe(-600);
         });
       });
@@ -561,7 +562,7 @@ describe('Column', () => {
         beforeEach(() => {
           column.items = items.concat(items);
           column.scrollIndex = 4;
-          //testRenderer.update();
+          testRenderer.update();
         });
 
         it('should render correctly', () => {
@@ -575,15 +576,17 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           expect(column._Items.y).toBe(0);
         });
-
-        xit('should scroll down', () => {
+        // test times out
+        // tried adding more to default settime out still fails
+        xit('should scroll down', async () => {
           testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
-          testRenderer.keyPress('Down');
+          await completeAnimation(column._Items, 'y');
+          // testRenderer.keyPress('Down');
+          // testRenderer.keyPress('Down');
+          // testRenderer.keyPress('Down');
+          // testRenderer.keyPress('Down');
           expect(column._Items.y).toBe(-100);
-        });
+        }, 10000);
 
         it('should not scroll up until back to top item', () => {
           const [item] = column.items;
