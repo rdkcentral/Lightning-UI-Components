@@ -41,7 +41,7 @@ export default {
     mode: 'focused'
   },
   argTypes: {
-    ...createModeControl({ options: ['focused'] }),
+    ...createModeControl({ summaryValue: 'focused' }),
     alphaSelectedTab: {
       control: 'boolean',
       description:
