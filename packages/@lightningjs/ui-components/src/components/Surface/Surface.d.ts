@@ -35,7 +35,7 @@ export type SurfaceStyle = {
 
 declare namespace Surface {
   export interface TemplateSpec extends lng.Component.TemplateSpec {
-    Background: typeof lng.Component;
+    Background: typeof lng.Component<lng.Component.TemplateSpecLoose>; // TemplateSpecLoose allows us to patch in any arbitrary lng.Component
   }
 }
 
@@ -50,7 +50,7 @@ declare class Surface<
   set style(v: StylePartial<SurfaceStyle>);
 
   // tags
-  get _Background(): typeof lng.Component; // TODO should this be typeof?
+  get _Background(): lng.Component;
 }
 
 export default Surface;
