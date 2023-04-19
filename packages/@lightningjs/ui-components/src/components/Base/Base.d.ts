@@ -31,7 +31,7 @@ declare class Base<
   _whenEnabled: Promise<void>;
 
   isFullyOnScreen(): boolean;
-  getFocusScale(): unknown;
+  getFocusScale(): number;
   getUnfocusScale(): number;
   _focus(): void;
   _unfocus(): void;
