@@ -19,8 +19,7 @@
 import lng from '@lightningjs/core';
 import type { Color, StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
-// text in Button is all using our own version of TextBox
-import type { TextBoxStyle } from '../TextBox';
+import type { TextBoxStyle } from '../TextBox'; // text in Button is all using our own version of TextBox
 
 export type ButtonStyle = SurfaceStyle & {
   justify: 'center' | 'left' | 'right';
@@ -32,14 +31,52 @@ export type ButtonStyle = SurfaceStyle & {
   contentColor: Color;
 };
 
-export default class Button extends Surface {
+declare namespace Button {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
+    /**
+     * when true, `w` overrides dynamically calculated width
+     */
+    fixed?: boolean;
+    justify?: 'center' | 'left' | 'right';
+    prefix?:
+      | typeof lng.Component<lng.Component.TemplateSpecLoose>
+      | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
+
+    /**
+     * text contents of the Button
+     */
+    title?: string;
+    suffix?:
+      | typeof lng.Component<lng.Component.TemplateSpecLoose>
+      | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
+  }
+}
+
+declare class Button<
+  TemplateSpec extends Button.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
+  /**
+   * when true, `w` overrides dynamically calculated width
+   */
   fixed?: boolean;
   justify?: 'center' | 'left' | 'right';
-  prefix?: lng.Component | Array<lng.Component>;
-  suffix?: lng.Component | Array<lng.Component>;
+  prefix?:
+    | lng.Component<lng.Component.TemplateSpecLoose>
+    | Array<lng.Component<lng.Component.TemplateSpecLoose>>;
+
+  /**
+   * text contents of the Button
+   */
   title?: string;
+
   get style(): ButtonStyle;
   set style(v: StylePartial<ButtonStyle>);
+
+  suffix?:
+    | lng.Component<lng.Component.TemplateSpecLoose>
+    | Array<lng.Component<lng.Component.TemplateSpecLoose>>;
 
   // tags
   get _TextWrapper(): lng.Component;
@@ -47,3 +84,5 @@ export default class Button extends Surface {
   get _Prefix(): lng.Component;
   get _Suffix(): lng.Component;
 }
+
+export default Button;
