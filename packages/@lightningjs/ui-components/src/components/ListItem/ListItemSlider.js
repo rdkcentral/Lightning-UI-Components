@@ -128,9 +128,7 @@ export default class ListItemSlider extends ListItem {
   }
 
   get _fixedWordWrapWidth() {
-    const titleWrapWidth =
-      this.w - this._paddingLeft - this._paddingRight - this._paddingX;
-    return titleWrapWidth;
+    return this.w - this._paddingLeft - this._paddingRight;
   }
 
   _onSliderChanged(value, Slider) {

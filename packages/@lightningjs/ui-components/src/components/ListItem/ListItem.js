@@ -82,7 +82,13 @@ export default class ListItem extends Button {
     this._TextWrapper.patch({
       Title: {
         content: this.title,
-        style: { textStyle: this.style.titleTextStyle }
+        style: {
+          textStyle: {
+            ...this.style.titleTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._fixedWordWrapWidth
+          }
+        }
       }
     });
   }
@@ -91,7 +97,13 @@ export default class ListItem extends Button {
     if (this._hasDescription) {
       let descriptionPatch = {
         content: this.description,
-        style: { textStyle: this.style.descriptionTextStyle },
+        style: {
+          textStyle: {
+            ...this.style.descriptionTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._fixedWordWrapWidth
+          }
+        },
         visible: !this._collapse
       };
       if (!this._Description) {
@@ -106,21 +118,6 @@ export default class ListItem extends Button {
       this._TextWrapper.patch({ Description: descriptionPatch });
     } else {
       this._TextWrapper.patch({ Description: undefined });
-    }
-  }
-
-  _updateTruncation() {
-    super._updateTruncation();
-    if (this._Description) {
-      this._Description.patch({
-        style: {
-          textStyle: {
-            ...this.style.descriptionTextStyle,
-            wordWrap: true,
-            wordWrapWidth: this._fixedWordWrapWidth
-          }
-        }
-      });
     }
   }
 
@@ -142,6 +139,20 @@ export default class ListItem extends Button {
       icon,
       style: { color: undefined, ...this.style.logoStyle }
     };
+  }
+
+  get _fixedWordWrapWidth() {
+    let fixedWordWrapWidth = this.w - this._paddingLeft - this._paddingRight;
+
+    if (this._hasPrefixLogo) {
+      fixedWordWrapWidth -= 2 * this.style.paddingX;
+    }
+
+    if (this._hasSuffixLogo) {
+      fixedWordWrapWidth -= 4 * this.style.paddingX;
+    }
+
+    return fixedWordWrapWidth;
   }
 
   get _hasPrefixLogo() {
