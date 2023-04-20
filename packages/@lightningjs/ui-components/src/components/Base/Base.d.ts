@@ -19,10 +19,22 @@
 import lng from '@lightningjs/core';
 import { SpeechType } from '../../mixins/withAnnouncer';
 
+declare namespace Base {
+  export interface TemplateSpec extends lng.Component.TemplateSpec {
+    skipPlinko: boolean;
+    centerInParent: boolean;
+    loaded?: Promise<void>;
+    _smooth?: boolean;
+    _announce: SpeechType;
+    _whenEnabled: Promise<void>;
+  }
+}
+
 declare class Base<
-  TemplateSpec extends lng.Component.TemplateSpec,
+  TemplateSpec extends Base.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig
 > extends lng.Component<TemplateSpec, TypeConfig> {
+  // redeclare properties in class declaration
   skipPlinko: boolean;
   centerInParent: boolean;
   loaded?: Promise<void>;
@@ -30,6 +42,7 @@ declare class Base<
   _announce: SpeechType;
   _whenEnabled: Promise<void>;
 
+  // methods/accessors should only be included in the class declaration
   isFullyOnScreen(): boolean;
   getFocusScale(): number;
   getUnfocusScale(): number;
