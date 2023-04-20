@@ -171,7 +171,7 @@ export default class Row extends NavigationManager {
     return itemsContainerX;
   }
 
-  render(next, prev) {
+  _render(next, prev) {
     if (this.plinko && prev && prev.selected) {
       next.selectedIndex = this._getIndexOfItemNear(next, prev);
     }
@@ -195,7 +195,7 @@ export default class Row extends NavigationManager {
   }
 
   _performRender() {
-    this.render(this.selected, this.prevSelected);
+    this._render(this.selected, this.prevSelected);
   }
 
   _isOnScreen(child) {

@@ -46,7 +46,7 @@ export default class Column extends NavigationManager {
     return shouldScroll;
   }
 
-  render(next, prev) {
+  _render(next, prev) {
     this._prevLastScrollIndex = this._lastScrollIndex;
 
     if (
@@ -100,7 +100,7 @@ export default class Column extends NavigationManager {
   }
 
   _performRender() {
-    this.render(this.selected, this.prevSelected);
+    this._render(this.selected, this.prevSelected);
   }
 
   checkSkipPlinko(prev, next) {
