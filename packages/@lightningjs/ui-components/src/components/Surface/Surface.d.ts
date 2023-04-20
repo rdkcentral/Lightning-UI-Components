@@ -34,7 +34,8 @@ export type SurfaceStyle = {
 };
 
 declare namespace Surface {
-  export interface TemplateSpec extends lng.Component.TemplateSpec {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    // TODO we may actually not want to include this here
     Background: typeof lng.Component<lng.Component.TemplateSpecLoose>; // TemplateSpecLoose allows us to patch in any arbitrary lng.Component
   }
 }
