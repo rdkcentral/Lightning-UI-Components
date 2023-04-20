@@ -35,21 +35,34 @@ declare namespace Button {
   export interface TemplateSpec extends Surface.TemplateSpec {
     Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
     /**
+     * forces Button to have a statically set width
      * when true, `w` overrides dynamically calculated width
      */
     fixed?: boolean;
+
+    /**
+     * alignment of the button's content
+     */
     justify?: 'center' | 'left' | 'right';
+
+    /**
+     * Lightning components to be placed to the left of the title
+     */
     prefix?:
       | typeof lng.Component<lng.Component.TemplateSpecLoose>
       | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
     /**
-     * text contents of the Button
+     * Lightning components to be placed to the right of the title
      */
-    title?: string;
     suffix?:
       | typeof lng.Component<lng.Component.TemplateSpecLoose>
       | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
+
+    /**
+     * Button text
+     */
+    title?: string;
   }
 }
 
@@ -57,32 +70,29 @@ declare class Button<
   TemplateSpec extends Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig
 > extends Surface<TemplateSpec, TypeConfig> {
-  /**
-   * when true, `w` overrides dynamically calculated width
-   */
   fixed?: boolean;
-  justify?: 'center' | 'left' | 'right';
-  prefix?:
-    | lng.Component<lng.Component.TemplateSpecLoose>
-    | Array<lng.Component<lng.Component.TemplateSpecLoose>>;
 
-  /**
-   * text contents of the Button
-   */
-  title?: string;
+  justify?: 'center' | 'left' | 'right';
+
+  prefix?:
+    | typeof lng.Component<lng.Component.TemplateSpecLoose>
+    | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
+
+  suffix?:
+    | typeof lng.Component<lng.Component.TemplateSpecLoose>
+    | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
   get style(): ButtonStyle;
   set style(v: StylePartial<ButtonStyle>);
 
-  suffix?:
-    | lng.Component<lng.Component.TemplateSpecLoose>
-    | Array<lng.Component<lng.Component.TemplateSpecLoose>>;
+  title?: string;
 
   // tags
-  get _TextWrapper(): lng.Component;
-  get _Title(): lng.Component;
+  // TODO do we need these?
   get _Prefix(): lng.Component;
   get _Suffix(): lng.Component;
+  get _TextWrapper(): lng.Component;
+  get _Title(): lng.Component;
 }
 
 export default Button;
