@@ -81,7 +81,7 @@ Basic.argTypes = {
     description:
       'Flag that when set to `true`, allows the width of the component to be set with `w`',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: false }
     }
   },
   w: {
