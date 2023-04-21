@@ -36,8 +36,11 @@ import { TextBox } from '@lightningjs/ui-components';
 TextBox: {
   type: TextBox,
   content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  style: 'headline1',
+  fixed: true,
   w: 600,
+  style: {
+    textStyle: 'headline1'
+  }
 }
 ```
 
@@ -45,12 +48,22 @@ TextBox: {
   <Story id="text-textbox--basic" />
 </Canvas>
 
+> **Note on width:**
+>
+> To assign a width to the `TextBox` component, either a `w` value or `wordWrapWidth` (nested within `textStyle` and the `style` prop) value may be provided.
+>
+> - If `wordWrapWidth` is defined, then the component will apply that property and the width should reflect the value accordingly.
+> - If only a `w` value is provided and no `wordWrapWidth` is defined, the `TextBox` component will automatically apply a `wordWrapWidth` of the defined `w` value to the component.
+>   **Important:** the `fixed` property must be set to `true` in this case.
+> - If neither `w` or `wordWrapWidth` is defined, the component will automatically set the width to be the width of the component.
+
 ### Properties
 
-| name    | type    | required | default   | description                     |
-| ------- | ------- | -------- | --------- | ------------------------------- |
-| content | string  | true     | undefined | Text to be displayed in element |
-| marquee | boolean | false    | false     | Allows text to be scrollable    |
+| name    | type    | required | default   | description                                                |
+| ------- | ------- | -------- | --------- | ---------------------------------------------------------- |
+| content | string  | true     | undefined | Text to be displayed in element                            |
+| fixed   | boolean | false    | false     | If `true`, allows the width of the text to be set with `w` |
+| marquee | boolean | false    | false     | Allows text to be scrollable                               |
 
 TextBox also supports rendering as an InlineContent component. See [InlineContent documentation](/docs/text-inlinecontent--basic) for table of supported properties.
 

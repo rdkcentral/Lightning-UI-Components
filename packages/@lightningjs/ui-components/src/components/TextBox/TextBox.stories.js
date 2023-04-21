@@ -45,7 +45,9 @@ export const Basic = () =>
       return {
         TextBox: {
           type: TextBox,
-          style: { textStyle: { wordWrapWidth: 600, maxLines: 3 } }
+          fixed: true,
+          w: 600,
+          style: { textStyle: { maxLines: 3 } }
         }
       };
     }
@@ -53,7 +55,9 @@ export const Basic = () =>
 
 Basic.args = {
   content: lorum,
-  marquee: false
+  marquee: false,
+  fixed: true,
+  w: 600
 };
 
 Basic.argTypes = {
@@ -70,6 +74,22 @@ Basic.argTypes = {
       "Scrolls text when a single line of text is longer than the textbox's width",
     table: {
       defaultValue: { summary: false }
+    }
+  },
+  fixed: {
+    control: 'boolean',
+    description:
+      'Flag that when set to `true`, allows the width of the component to be set with `w`',
+    table: {
+      defaultValue: { summary: false }
+    }
+  },
+  w: {
+    control: 'number',
+    description:
+      'When the `fixed` property is `true`, this will set the width of the component (but only if `wordWrapWidth` is not defined otherwise the width will reflect the `wordWrapWidth` value)',
+    table: {
+      defaultValue: { summary: 0 }
     }
   }
 };
