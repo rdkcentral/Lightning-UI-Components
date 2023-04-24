@@ -32,17 +32,17 @@ export const base = theme => ({
     maxLines: 1,
     textColor: theme.color.textNeutral
   },
-  contentColor: theme.color.fillNeutral
+  iconColor: theme.color.fillNeutral
 });
 
 export const mode = theme => ({
   focused: {
     textStyle: { textColor: theme.color.textInverse },
-    contentColor: theme.color.fillInverse
+    iconColor: theme.color.fillInverse
   },
   disabled: {
     textStyle: { textColor: theme.color.textNeutralDisabled },
-    contentColor: theme.color.fillNeutralDisabled
+    iconColor: theme.color.fillNeutralDisabled
   }
 });
 
@@ -52,14 +52,14 @@ export const tone = theme => ({
     mode: {
       focused: {
         textStyle: { textColor: theme.color.textNeutral },
-        contentColor: theme.color.fillNeutral
+        iconColor: theme.color.fillNeutral
       }
     }
   },
   brand: {
     mode: {
       focused: {
-        contentColor: theme.color.fillNeutral
+        iconColor: theme.color.fillNeutral
       }
     }
   }

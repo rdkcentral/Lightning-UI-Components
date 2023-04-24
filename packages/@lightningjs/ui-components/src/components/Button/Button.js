@@ -239,7 +239,7 @@ export default class Button extends Surface {
       ...this._buttonProps,
       ...item,
       style: {
-        color: this.style.contentColor,
+        color: this.style.iconColor,
         ...item.style
       }
     }));
