@@ -87,7 +87,7 @@ export default class Tab extends Surface {
         w: this.style.iconSize,
         h: this.style.iconSize,
         y: this._Content.h / 2,
-        color: this.style.iconColor
+        color: this.style.contentColor
       };
       if (!this.title) {
         iconPatch.mountX = 0.5;

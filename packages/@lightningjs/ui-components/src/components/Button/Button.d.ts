@@ -29,7 +29,7 @@ export type ButtonStyle = SurfaceStyle & {
   paddingXNoTitle: number;
   titlePadding: number;
   textStyle: TextBoxStyle;
-  iconColor: Color;
+  contentColor: Color;
 };
 
 export default class Button extends Surface {

@@ -28,23 +28,23 @@ export const base = theme => ({
     textColor: theme.color.textNeutral
   },
   backgroundColor: theme.color.fillTransparent,
-  iconColor: theme.color.fillNeutral
+  contentColor: theme.color.fillNeutral
 });
 
 export const mode = theme => ({
   focused: {
     backgroundColor: theme.color.interactiveNeutralFocus,
-    iconColor: theme.color.fillInverse,
+    contentColor: theme.color.fillInverse,
     textStyle: { textColor: theme.color.textInverse }
   },
   selected: {
     backgroundColor: theme.color.interactiveNeutralFocusSoft,
-    iconColor: theme.color.fillNeutral,
+    contentColor: theme.color.fillNeutral,
     textStyle: { textColor: theme.color.textNeutral }
   },
   disabled: {
     backgroundColor: theme.color.fillTransparent,
-    iconColor: theme.color.fillNeutralDisabled,
+    contentColor: theme.color.fillNeutralDisabled,
     textStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
@@ -54,7 +54,7 @@ export const tone = theme => ({
   inverse: {
     mode: {
       focused: {
-        iconColor: theme.color.fillNeutral,
+        contentColor: theme.color.fillNeutral,
         textStyle: { textColor: theme.color.textNeutral }
       }
     }
@@ -62,7 +62,7 @@ export const tone = theme => ({
   brand: {
     mode: {
       focused: {
-        iconColor: theme.color.fillNeutral,
+        contentColor: theme.color.fillNeutral,
         textStyle: { textColor: theme.color.textNeutral }
       }
     }

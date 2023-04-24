@@ -24,7 +24,7 @@ import { TextBoxStyle } from '../TextBox';
 
 export type TabStyle = SurfaceStyle & {
   backgroundColor: Color;
-  iconColor: Color;
+  contentColor: Color;
   iconMarginRight: number;
   iconSize: number;
   noTitlePaddingX: number;
