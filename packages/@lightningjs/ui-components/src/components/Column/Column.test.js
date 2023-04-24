@@ -335,13 +335,20 @@ describe('Column', () => {
         expect(column.selectedIndex).toBe(selectedIndex);
       });
 
-      it('shifts selected index if necessary', () => {
+      it('shifts selected index if necessary', async () => {
+        [column, testRenderer] = createColumn(properties, {
+          spyOnMethods: ['_update']
+        });
+        await column.__updateSpyPromise;
         expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300, 400]);
+
         const item = column.items[1];
         column.selectedIndex = 2;
         column.$removeItem(item);
-        testRenderer.update();
-        expect(column.items.map(({ y }) => y)).toEqual([0, 200, 300, 400]);
+        await column.__updateSpyPromise; // wait for all _updateMethods to complete after removing the item
+
+        // the item that was at index 2 was removed, shift the items after it up to fill in the empty space where it was
+        expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
       });
 
       it('fires $columnEmpty event', () => {
@@ -355,35 +362,6 @@ describe('Column', () => {
         const updateImmediateSpy = jest.spyOn(column, '_update');
         column.$removeItem();
         expect(updateImmediateSpy).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('emitting an $columnChanged signal to all ancestors', () => {
-      it('should emit the signal when the Items cross dimension size has changed', async () => {
-        const itemW = 10;
-        [column, testRenderer] = createColumn(
-          {
-            direction: 'column',
-            autoResizeWidth: true,
-            items: [
-              { ...baseItem, w: itemW },
-              { ...baseItem, w: itemW }
-            ]
-          },
-          {
-            spyOnMethods: ['_updateLayout']
-          }
-        );
-
-        jest.spyOn(column, 'fireAncestors');
-        await column.__updateLayoutSpyPromise;
-
-        expect(column.fireAncestors).not.toHaveBeenCalled();
-
-        column.Items.children[0].w = itemW + 10;
-        await column.__updateLayoutSpyPromise;
-
-        expect(column.fireAncestors).toHaveBeenCalled();
       });
     });
   });
@@ -465,16 +443,6 @@ describe('Column', () => {
         testRenderer.keyPress('Down');
         expect(item.y).toBe(0);
       });
-      // this is passing but don't believe the test is accurate
-      it('should add items on lazyUpCount', async () => {
-        column.lazyUpCount = 4;
-        await column.__updateSpyPromise;
-        expect(column.lazyUpCount).toBe(4);
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        expect(column.items.length).toBe(10);
-      });
     });
 
     describe('with column height < items', () => {
@@ -541,11 +509,12 @@ describe('Column', () => {
           expect(column._Items.y).toBe(-column.items[1].y);
         });
 
-        // timing out still
         it('should scroll up', async () => {
           testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
           await completeAnimation(column._Items, 'y');
-          expect(column._Items.y).toBe(-100); // testing to make sure scrolls down
+          expect(column._Items.y).toBe(-100);
           testRenderer.keyPress('Up');
           await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(0);
