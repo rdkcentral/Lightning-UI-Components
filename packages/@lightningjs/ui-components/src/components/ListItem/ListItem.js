@@ -81,8 +81,7 @@ export default class ListItem extends Button {
   _updateTitle() {
     this._TextWrapper.patch({
       Title: {
-        content: this.title,
-        style: { textStyle: this.style.titleTextStyle }
+        content: this.title
       }
     });
   }
@@ -91,7 +90,13 @@ export default class ListItem extends Button {
     if (this._hasDescription) {
       let descriptionPatch = {
         content: this.description,
-        style: { textStyle: this.style.descriptionTextStyle },
+        style: {
+          textStyle: {
+            ...this.style.descriptionTextStyle,
+            wordWrap: true,
+            wordWrapWidth: this._fixedWordWrapWidth
+          }
+        },
         visible: !this._collapse
       };
       if (!this._Description) {
@@ -110,12 +115,11 @@ export default class ListItem extends Button {
   }
 
   _updateTruncation() {
-    super._updateTruncation();
-    if (this._Description) {
-      this._Description.patch({
+    if (this._Title) {
+      this._Title.patch({
         style: {
           textStyle: {
-            ...this.style.descriptionTextStyle,
+            ...this.style.textStyle,
             wordWrap: true,
             wordWrapWidth: this._fixedWordWrapWidth
           }
