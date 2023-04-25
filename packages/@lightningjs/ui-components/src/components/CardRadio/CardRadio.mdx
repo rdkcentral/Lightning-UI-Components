@@ -1,0 +1,68 @@
+
+import { Canvas, Story } from '@storybook/addon-docs';
+import CardRadio from '.';
+
+# CardRadio
+
+## Source
+
+https://github.com/rdkcentral/Lightning-UI-Components/packages/@lightningjs/ui-components/src/components/CardRadio/CardRadio.js
+
+## Usage
+
+```js
+import { CardRadio } from '@lightningjs/ui-components';
+
+class Basic extends lng.Component {
+  static _template() {
+    return {
+      CardRadio: {
+        type: CardRadio,
+        title: 'CardRadio Title',
+        subtitile: 'CardRadio subtitle',
+        content: 'CardRadio content',
+        disclaimer: 'CardRadio disclaimer'
+      }
+    };
+  }
+};
+```
+
+<Canvas>
+  <Story id="@lightningjs/ui-components-cardradio--basic" />
+</Canvas>
+
+`CardRadio` will always toggle on <kbd>Enter</kbd>. This can not be overriden.
+
+To get the current checked state, use the `isChecked()` method.
+
+```js
+if (CardRadio.isChecked()) {
+  // do something
+}
+```
+
+## API
+
+### Properties
+
+
+| name           | type                                         | readonly | description                                                                      |
+| -------------- | -------------------------------------------- | -------- | -------------------------------------------------------------------------------- |
+| title          | string                                       | false    | the 1st line, main item info goes here, maxLines=2                                           |
+| subtitle       | string                                       | false    | the 2nd line, item metadata info goes here, maxLines=0(default), this line won't be shown if the property was set to falsy value |
+| content        | string                                       | false    | the 3rd line, the details of item, maxLines=6, this line won't be shown if the property was set to falsy value |
+| disclaimer     | string                                       | false    | the 4th line, the disclaimer of item, maxLines=2, this line won't be shown if the property was set to falsy value |
+| checked        | boolean                                      | false    | sets initial `checked` value of Radio. Use `toggle()` to change value after init |
+
+
+### Methods
+
+#### isChecked():boolean
+
+returns the checked value (boolean) for the Radio
+
+#### toggle():boolean
+
+Toggles the `checked` state and returns the new state.
+
