@@ -69,6 +69,7 @@ export default class ListItem extends Button {
 
   _onTextBoxChanged() {
     this._updateTitle();
+    this._updateTruncation();
   }
 
   _update() {
