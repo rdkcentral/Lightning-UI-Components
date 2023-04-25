@@ -113,7 +113,7 @@ Keyboard.argTypes = {
     description: "Center the keys within it's set width of keyboard",
     control: 'boolean',
     table: {
-      defaultValue: { summary: true }
+      defaultValue: { summary: false }
     }
   }
 };
