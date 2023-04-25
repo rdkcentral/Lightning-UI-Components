@@ -69,6 +69,7 @@ export default class ListItem extends Button {
 
   _onTextBoxChanged() {
     this._updateTitle();
+    this._updateTruncation();
   }
 
   _update() {
@@ -81,7 +82,8 @@ export default class ListItem extends Button {
   _updateTitle() {
     this._TextWrapper.patch({
       Title: {
-        content: this.title
+        content: this.title,
+        style: { textStyle: this.style.titleTextStyle }
       }
     });
   }
@@ -90,13 +92,7 @@ export default class ListItem extends Button {
     if (this._hasDescription) {
       let descriptionPatch = {
         content: this.description,
-        style: {
-          textStyle: {
-            ...this.style.descriptionTextStyle,
-            wordWrap: true,
-            wordWrapWidth: this._fixedWordWrapWidth
-          }
-        },
+        style: { textStyle: this.style.descriptionTextStyle },
         visible: !this._collapse
       };
       if (!this._Description) {
@@ -115,11 +111,12 @@ export default class ListItem extends Button {
   }
 
   _updateTruncation() {
-    if (this._Title) {
-      this._Title.patch({
+    super._updateTruncation();
+    if (this._Description) {
+      this._Description.patch({
         style: {
           textStyle: {
-            ...this.style.textStyle,
+            ...this.style.descriptionTextStyle,
             wordWrap: true,
             wordWrapWidth: this._fixedWordWrapWidth
           }
