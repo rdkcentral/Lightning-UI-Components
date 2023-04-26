@@ -621,7 +621,6 @@ describe('Column', () => {
         const [column, testRenderer] = createStyledColumn();
         column.selectedIndex = 0;
         column.scrollTo(3);
-        // TODO: find way to remove await
         await nextTick(2);
         testRenderer.forceAllUpdates();
         expect(column.selectedIndex).toEqual(3);
