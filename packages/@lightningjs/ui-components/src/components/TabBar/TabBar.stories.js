@@ -332,6 +332,7 @@ export const MultipleRows = () =>
         TabBar: {
           type: TabBarComponent,
           w: context.theme.layout.marginX * 2,
+          autoResizeWidth: true,
           tabs: [
             {
               type: Tab,
