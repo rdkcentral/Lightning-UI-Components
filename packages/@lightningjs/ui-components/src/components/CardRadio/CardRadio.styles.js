@@ -1,69 +1,36 @@
-
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import utils from '../../utils';
 
 export const base = theme => ({
-  w: 710,
-  h: 487,
-  paddingLeft: theme.spacer.xl,
-  paddingRight: theme.spacer.xl,
-  title: {
-    ...theme.typography.headline1,
-    y: 384 - 360,
-    h: 96,
-    text: undefined,
-    verticalAlign: 'top',
-    maxLines: 2,
-    textColor: theme.palette.text.light.primary // Not sure the path for theme primary color
+  subtitleTextStyle: {
+    ...theme.typography.body3,
+    textColor: theme.color.textNeutralSecondary,
+    wordWrap: true
   },
-  subtitle: {
-    ...theme.typography.body2, // Need to verify body2 is supported
-    y: 480 - 360,
-    h: 36,
-    text: undefined,
-    verticalAlign: 'top',
-    lineHeight: 36,
-    textColor: theme.palette.text.light.secondary
-  },
-  content: {
-    ...theme.typography.body3, // Need to verify body3 is supported
-    y: 532 - 360,
-    h: 203,
-    verticalAlign: 'top',
-    maxLines: 6,
-    textColor: theme.palette.text.light.tertiary
-  },
-  disclaimer: {
-    ...theme.typography.body3, // Need to verify body3 is supported
-    y: 759 - 360,
-    h: 64,
-    verticalAlign: 'top',
-    maxLines: 2,
-    textColor: theme.palette.text.light.tertiary
-  },
-  radio: {
-    w: 32,
-    h: 32,
-    y: 24
-  },
+  iconWidth: theme.spacer.xxl,
+  iconHeight: theme.spacer.xxl,
+  h: theme.spacer.xxl * 10,
+  w: utils.getWidthByColumnSpan(theme, 3)
 });
-  
+
 export const mode = theme => ({
-  focused: {
-    title: {
-      textColor: theme.palette.text.dark.primary // Not sure the path for palette theme primary color
-    },
-    subtitle: {
-      textColor: theme.palette.text.dark.primary // Not sure the path for palette theme primary color
-    },
-    content: {
-      textColor: theme.palette.text.dark.tertiary // Not sure the path for palette theme primary color
-    },
-    disclaimer: {
-      textColor: theme.palette.text.dark.tertiary // Not sure the path for palette theme primary color
-    },
-    radio: {
-      w: 24,
-      h: 24
-    }
-  },
+  disabled: {
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
+  }
 });
-  

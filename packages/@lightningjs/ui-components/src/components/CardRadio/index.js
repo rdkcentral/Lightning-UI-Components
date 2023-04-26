@@ -1,1 +1,1 @@
-export { default } from './CardRadio';
+export { default as default } from './CardRadio';

@@ -1,9 +1,26 @@
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import CardTitle from '../Card/CardTitle';
 import TextBox from '../TextBox';
-
+import Icon from '../Icon';
 import * as styles from './CardRadio.styles.js';
 
-// Is this the correct extension?
 export default class CardRadio extends CardTitle {
   static get __componentName() {
     return 'CardRadio';
@@ -13,164 +30,74 @@ export default class CardRadio extends CardTitle {
     return styles;
   }
 
-  static get properties() {
-    return [...super.properties, 'content', 'disclaimer'];
+  static get tags() {
+    return [...super.tags, 'Subtitle', 'Icon'];
   }
 
-  static get tags() {
+  static get properties() {
     return [
-      ...super.tags,
-      { name: 'Content', path: 'Left.Content' },
-      { name: 'Disclaimer', path: 'Left.Disclaimer' }
+      ...super.properties,
+      'subtitle',
+      {
+        name: 'Icon',
+        path: 'Content.Icon'
+      }
     ];
+  }
+
+  static _template() {
+    return {
+      ...super._template(),
+      Subtitle: {
+        type: TextBox,
+        signals: {
+          textBoxChanged: '_updateSubtitlePosition'
+        }
+      }
+    };
   }
 
   _update() {
     super._update();
-
-    this._updateLayout();
-    this._updateRadio();
-    this._updateContent();
-    this._updateDisclaimer();
-  }
-
-  _updateLayout() {
-    this.w = this.styles.w;
-    this.h = this.styles.h;
-
-    this._Left.patch({
-      flex: undefined,
-      flexItem: { alignSelf: 'stretch' }
-    });
-  }
-
-  get _textWidth() {
-    return (
-      this.w -
-      this.styles.paddingLeft -
-      32 -
-      this._Right.renderWidth -
-      this.styles.paddingRight
-    );
-  }
-
-  _updateTitle() {
-    if (!this._title) {
-      this._Left.patch({ Title: undefined });
-      return;
-    }
-
-    this._Left.patch({
-      w: this._textWidth,
-      Title: {
-        ...this.styles.title,
-        type: TextBox,
-        w: this._textWidth,
-        content: this._title,
-        wordWrapWidth: this._textWidth,
-        textColor: this.hasFocus()
-          ? this.styles.mode.focused.title.textColor
-          : this.styles.title.textColor
-      }
-    });
+    this._updateSubtitle();
+    this._updateIcon();
   }
 
   _updateSubtitle() {
-    if (!this.subtitle) {
-      this._Left.patch({ Subtitle: undefined });
-      this._Left.smooth = { y: 0 };
-      return;
-    }
-
-    if (!this._Subtitle) {
-      this._Left.patch({
-        Subtitle: { type: TextBox }
-      });
-    }
-
-    this._Left.patch({
-      w: this._textWidth,
-      Subtitle: {
-        ...this.styles.subtitle,
-        content: this._subtitle,
-        wordWrapWidth: this._textWidth,
-        textColor: this.hasFocus()
-          ? this.styles.mode.focused.subtitle.textColor
-          : this.styles.subtitle.textColor
+    this._Subtitle.patch({
+      content: this.subtitle,
+      style: {
+        textStyle: {
+          ...this.style.subtitleTextStyle
+        }
       }
     });
   }
 
-  _updateContent() {
-    if (!this.content) {
-      this._Left.patch({ Content: undefined });
-      this._Left.smooth = { y: 0 };
-      return;
+  _updateIcon() {
+    const iconObject = {
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
+      icon: this.logo,
+      x: this.w - this.style.iconWidth - this.style.paddingHorizontal,
+      y:
+        (this._Title.style.textStyle.lineHeight - this.style.iconHeight) / 2 +
+        this.style.paddingVertical
+    };
+    if (!this._Icon) {
+      iconObject.type = Icon;
     }
-
-    if (!this._Content) {
-      this._Left.patch({
-        Content: { type: TextBox }
-      });
-    }
-
-    this._Left.patch({
-      w: this._textWidth,
-      Content: {
-        ...this.styles.content,
-        content: this._content,
-        wordWrapWidth: this._textWidth,
-        textColor: this.hasFocus()
-          ? this.styles.mode.focused.content.textColor
-          : this.styles.content.textColor
-      }
-    });
+    this.patch({ Icon: iconObject });
   }
 
-  _updateDisclaimer() {
-    if (!this.disclaimer) {
-      this._Left.patch({ Disclaimer: undefined });
-      this._Left.smooth = { y: 0 };
-      return;
-    }
-
-    if (!this._Disclaimer) {
-      this._Left.patch({
-        Disclaimer: { type: TextBox }
-      });
-    }
-
-    this._Left.patch({
-      w: this._textWidth,
-      Disclaimer: {
-        ...this.styles.disclaimer,
-        content: this._disclaimer,
-        wordWrapWidth: this._textWidth,
-        textColor: this.hasFocus()
-          ? this.styles.mode.focused.disclaimer.textColor
-          : this.styles.disclaimer.textColor
-      }
-    });
+  _updateSubtitlePosition() {
+    this._Subtitle.x = this.style.paddingHorizontal;
+    this._Subtitle.y = this.style.paddingVertical + this._Title.h;
   }
 
-  _updateRadio() {
-    this._Right.patch({
-      h: h => h,
-      Radio: {
-        type: Radio,
-        w: this.hasFocus() ? this.styles.mode.focused.radio.w : this.styles.radio.w,
-        h: this.hasFocus() ? this.styles.mode.focused.radio.h : this.styles.radio.h,
-        y: this.styles.radio.y,
-        flexItem: false
-      }
-    });
-  }
-
-  get announce() {
-    if (this._announce) {
-      return this._announce;
-    }
-
-    return [this.title, this.subtitle, this.content, this.disclaimer];
+  _updateDescriptionPosition() {
+    this._Description.x = this.style.paddingHorizontal;
+    this._Description.y =
+      this.style.paddingVertical + this._Title.h + this._Subtitle.h + 24;
   }
 }

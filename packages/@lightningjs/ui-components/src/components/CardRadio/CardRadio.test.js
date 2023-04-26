@@ -20,4 +20,10 @@ describe('CardRadio', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
+
+  it('should update Details', () => {
+    cardRadio.subtitle = 'subtitle';
+    testRenderer.forceAllUpdates();
+    expect(cardRadio._Subtitle.content).toEqual('Details');
+  });
 });
