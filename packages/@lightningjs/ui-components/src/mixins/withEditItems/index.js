@@ -86,7 +86,7 @@ export default function (Base) {
         ) {
           if (this.selected) {
             this._selectedIndex = index;
-            this.render(this.selected, this.prevSelected);
+            this._render(this.selected, this.prevSelected);
             this.signal('selectedChange', this.selected, this.prevSelected);
           }
           // Don't call refocus until after a new render in case of a situation like Plinko nav
