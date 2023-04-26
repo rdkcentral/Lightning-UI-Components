@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import Base from '../Base';
 import Tile from '../Tile';
 import Button from '../Button';
 import ButtonSmall from '../Button/ButtonSmall.js';
@@ -267,3 +268,96 @@ CustomTabs.args = {
   alphaSelectedTab: false
 };
 CustomTabs.argTypes = {};
+
+class ColumnContainer extends Base {
+  static get __componentName() {
+    return 'ColumnContainer';
+  }
+  static get tags() {
+    return [
+      'ClippingOffsetContainer',
+      { name: 'Column', path: 'ClippingOffsetContainer.Column' }
+    ];
+  }
+  static _template() {
+    return {
+      ClippingOffsetContainer: {
+        w: 1920 - 160,
+        h: 600,
+        clipping: true,
+        y: context.theme.layout.gutterY.xs * -1,
+        x: 40 * -1,
+        Column: {
+          type: Column,
+          y: context.theme.layout.gutterY.xs,
+          x: 40,
+          items: [
+            {
+              type: Row,
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+
+              items: tilesA,
+              autoResizeHeight: true
+            },
+            {
+              type: Row,
+
+              items: tilesA,
+              autoResizeHeight: true
+            }
+          ]
+        }
+      }
+    };
+  }
+  _getFocused() {
+    return this._Column;
+  }
+}
+
+export const MultipleRows = () =>
+  class MultipleRows extends lng.Component {
+    static _template() {
+      return {
+        TabBar: {
+          type: TabBarComponent,
+          autoResizeWidth: true,
+          tabs: [
+            {
+              type: Tab,
+              title: 'No Content Tab'
+            },
+            {
+              type: Tab,
+              title: 'Multiple Rows',
+              tabContent: {
+                type: ColumnContainer
+              }
+            },
+            {
+              type: Tab,
+              title: 'Tab 2',
+              tabContent: col1
+            }
+          ]
+        }
+      };
+    }
+  };
+
+MultipleRows.args = {};
+MultipleRows.parameters = {
+  storyDetails:
+    'This is an example of adding multiple rows in the tab content column. A ColumnContainer was created to allow for clipping needed for scrolling'
+};
+MultipleRows.argTypes = {};
