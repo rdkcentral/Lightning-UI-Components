@@ -191,12 +191,13 @@ export default class ListItemPicker extends ListItem {
   }
 
   get _fixedWordWrapWidth() {
-    const titleWrapWidth =
+    const wordWrapWidthFocused =
       this.w -
       this._paddingX -
       this.style.arrowWidth * 2 -
       2 * this.style.titlePadding;
-    return titleWrapWidth;
+    const wordWrapWidth = this.w - this._paddingLeft - this._paddingRight;
+    return this._isFocusedMode ? wordWrapWidthFocused : wordWrapWidth;
   }
 
   get _collapse() {

@@ -260,7 +260,7 @@ exports[`ListItemPicker renders 1`] = `
                     "textColor": 4294506490,
                     "type": "TextTexture",
                     "verticalAlign": "middle",
-                    "wordWrapWidth": 292,
+                    "wordWrapWidth": 412,
                   },
                   "visible": true,
                   "w": 0,
