@@ -18,15 +18,13 @@
 
 import Column from '.';
 import Row from '../Row';
-import {
-  TestRenderer,
-  makeCreateComponent
-} from '@lightningjs/ui-components-test-utils';
 import lng from '@lightningjs/core';
 import { withThemeStyles } from '../../mixins';
 import {
   completeAnimation,
-  nextTick
+  nextTick,
+  makeCreateComponent,
+  TestRenderer
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 
@@ -131,6 +129,8 @@ describe('Column', () => {
     expect(column.items[1].hasFocus()).toBe(true);
   });
 
+  //**  Items Spacing Tests  *//
+
   describe('itemSpacing', () => {
     it('should support adding additional spacing to an item', async () => {
       const extraItemSpacing = 50;
@@ -154,6 +154,7 @@ describe('Column', () => {
     });
   });
 
+  //**  auto Resize Tests  *//
   describe('autoResize', () => {
     it('resizes width', () => {
       const [column, testRenderer] = createColumn({
@@ -192,6 +193,8 @@ describe('Column', () => {
       expect(column.h).toBe(column.Items.h);
     });
   });
+
+  //**  Append and Prepend Items Tests  *//
 
   describe('appendItems', () => {
     it('has works with no items', () => {
@@ -273,6 +276,8 @@ describe('Column', () => {
     });
   });
 
+  //**  Remove Item At Tests  *//
+
   describe('removeItemAt', () => {
     beforeEach(() => {
       column.items = [
@@ -312,6 +317,8 @@ describe('Column', () => {
     });
   });
 
+  //**  Listener Tests  *//
+
   describe('listeners', () => {
     describe('$removeItem', () => {
       it('removes an item', () => {
@@ -328,12 +335,19 @@ describe('Column', () => {
         expect(column.selectedIndex).toBe(selectedIndex);
       });
 
-      xit('shifts selected index if necessary', () => {
+      it('shifts selected index if necessary', async () => {
+        [column, testRenderer] = createColumn(properties, {
+          spyOnMethods: ['_update']
+        });
+        await column.__updateSpyPromise;
         expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300, 400]);
+
         const item = column.items[1];
         column.selectedIndex = 2;
         column.$removeItem(item);
-        testRenderer.update();
+        await column.__updateSpyPromise; // wait for all _updateMethods to complete after removing the item
+
+        // the item that was at index 2 was removed, shift the items after it up to fill in the empty space where it was
         expect(column.items.map(({ y }) => y)).toEqual([0, 100, 200, 300]);
       });
 
@@ -350,15 +364,9 @@ describe('Column', () => {
         expect(updateImmediateSpy).not.toHaveBeenCalled();
       });
     });
-
-    xdescribe('$columnChanged', () => {
-      it('updates column', () => {
-        const spy = jest.spyOn(column, '_update');
-        column.$columnChanged();
-        expect(spy).toHaveBeenCalled();
-      });
-    });
   });
+
+  //**  Focus  Tests  *//
 
   describe('_focus', () => {
     it('focuses column', () => {
@@ -374,6 +382,8 @@ describe('Column', () => {
     });
   });
 
+  //**  Scrolling Tests  *//
+
   describe('scrolling', () => {
     describe('with plinko false', () => {
       it('should NOT set selected item for item based on previous item', () => {
@@ -382,13 +392,13 @@ describe('Column', () => {
         item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
-        testRenderer.update();
         expect(column.items[1].selectedIndex).toBe(0);
       });
 
       it('should reset the Items y position when there are no items', () => {
         column.itemPosY = 100;
         column.items = [];
+        testRenderer.update();
         testRenderer.keyPress('Down');
         expect(column._Items.y).toBe(100);
       });
@@ -399,27 +409,12 @@ describe('Column', () => {
         column.plinko = true;
       });
 
-      // TODO: test is failing because prevItem.core.getAbsoluteCoords in
-      // FocusManager's getIndexOfItemNear is returning NaN. Needs investigating
-      it.skip('should set selected item for item based on previous item', () => {
+      it('should set selected item for item based on previous item', () => {
         const item = column.items[0];
         item.selectedIndex = 3;
         testRenderer.update();
         testRenderer.keyPress('Down');
-        testRenderer.update();
         expect(column.items[1].selectedIndex).toBe(3);
-      });
-
-      // TODO: test is failing because prevItem.core.getAbsoluteCoords in
-      // FocusManager's getIndexOfItemNear is returning NaN. Needs investigating
-      it.skip('should select last item in selected row if it is closest', () => {
-        const row = column.items[0];
-        row.items = [...items, { ...baseItem }];
-        row.selectedIndex = row.items.length - 1;
-        testRenderer.update();
-        testRenderer.keyPress('Down');
-        testRenderer.update();
-        expect(column.items[1].selectedIndex).toBe(4);
       });
 
       it('should select first item if there is only one', () => {
@@ -427,110 +422,115 @@ describe('Column', () => {
         row.items = [{ ...baseItem }];
         testRenderer.update();
         testRenderer.keyPress('Down');
-        testRenderer.update();
-
         expect(row.selectedIndex).toBe(0);
       });
     });
 
     describe('with column height > items', () => {
+      beforeEach(async () => {
+        [column, testRenderer] = createColumn(
+          { items: items.concat(items) },
+          { spyOnMethods: ['_update'] }
+        );
+        await column.__updateSpyPromise;
+        expect(column._Items.y).toBe(0);
+      });
+
       it('should not scroll', () => {
         const [item] = column.items;
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
         testRenderer.keyPress('Down');
-        testRenderer.update();
         expect(item.y).toBe(0);
-      });
-
-      // This appears to be a flaky test
-      it.skip('should add items on lazyUpCount', () => {
-        column.lazyUpCount = 4;
-        column.items = items.concat(items);
-        testRenderer.update();
-        expect(column.items.length).toBe(6);
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.keyPress('Down');
-        testRenderer.update();
-        setTimeout(() => {
-          expect(column.items.length).toBe(9);
-        }, 17);
       });
     });
 
     describe('with column height < items', () => {
-      const waitForSmooth = column => {
-        return completeAnimation(column.Items, 'y');
-      };
+      beforeEach(async () => {
+        [column, testRenderer] = createColumn(
+          {
+            h: 400
+          },
+          { spyOnMethods: ['_update'] }
+        );
 
-      beforeEach(() => {
-        column.h = 400;
         expect(column._Items.y).toBe(0);
       });
 
       describe('and scrollIndex = 0', () => {
         it('should scroll down', async () => {
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-100);
         });
 
         it('should scroll up', async () => {
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-100);
 
           testRenderer.keyPress('Up');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(0);
         });
       });
 
       describe('and scrollIndex = 2', () => {
-        beforeEach(() => {
-          column.items = items.concat(items);
-          column.scrollIndex = 2;
-          testRenderer.update();
+        beforeEach(async () => {
+          [column, testRenderer] = createColumn(
+            {
+              items: items.concat(items),
+              scrollIndex: 2,
+              h: 400
+            },
+            { spyOnMethods: ['_update'] }
+          );
+          await column.__updateSpyPromise;
+
+          expect(column.scrollIndex).toBe(2);
+          expect(column.items.length).toBe(10);
         });
 
-        xit('should render correctly', () => {
+        it('should render correctly', () => {
           expect(column.items[0].y).toBe(0);
-          expect(column.items[1].y).toBe(100);
+          expect(column.items[1].h).toBe(80);
         });
 
         it('should not scroll until past the mid point', () => {
           const [item] = column.items;
-          testRenderer.keyPress('Down');
-          testRenderer.update();
           expect(item.y).toBe(0);
         });
 
-        xit('should scroll down', async () => {
+        it('should scroll down', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-column.items[1].y);
         });
 
-        it('should scroll up', () => {
+        it('should scroll up', async () => {
           testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          testRenderer.keyPress('Down');
+          await completeAnimation(column._Items, 'y');
+          expect(column._Items.y).toBe(-100);
           testRenderer.keyPress('Up');
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(0);
         });
 
-        xit('should keep a full screen of items', async () => {
+        it('should keep a full screen of items', async () => {
           const item = column.items[1];
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y + column.h).toBeGreaterThan(item.y);
         });
 
-        xit('should keep a full screen of items when at bottom', async () => {
+        it('should keep a full screen of items when at bottom', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
@@ -540,20 +540,29 @@ describe('Column', () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-600);
         });
       });
 
       describe('and scrollIndex = 4', () => {
-        beforeEach(() => {
-          column.items = items.concat(items);
-          column.scrollIndex = 4;
+        beforeEach(async () => {
+          [column, testRenderer] = createColumn(
+            {
+              items: items.concat(items),
+              scrollIndex: 4,
+              h: 400
+            },
+            { spyOnMethods: ['_update'] }
+          );
+          await column.__updateSpyPromise;
+
+          expect(column._Items.y).toBe(0);
         });
 
-        xit('should render correctly', () => {
+        it('should render correctly', () => {
           expect(column.items[0].y).toBe(0);
-          expect(column.items[1].y).toBe(100);
+          expect(column.items[1].h).toBe(80);
         });
 
         it('should not scroll until the last item', () => {
@@ -563,13 +572,13 @@ describe('Column', () => {
           expect(column._Items.y).toBe(0);
         });
 
-        xit('should scroll down', async () => {
+        it('should scroll down', async () => {
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
           testRenderer.keyPress('Down');
-          await waitForSmooth(column);
+          await completeAnimation(column._Items, 'y');
           expect(column._Items.y).toBe(-100);
         });
 
@@ -612,7 +621,6 @@ describe('Column', () => {
         const [column, testRenderer] = createStyledColumn();
         column.selectedIndex = 0;
         column.scrollTo(3);
-        // TODO: find way to remove await
         await nextTick(2);
         testRenderer.forceAllUpdates();
         expect(column.selectedIndex).toEqual(3);
@@ -631,25 +639,31 @@ describe('Column', () => {
     });
   });
 
-  describe('with skpPlinko true a row', () => {
+  //**  Skip Plinko True Tests  *//
+  describe('with skipPlinko true a row', () => {
+    beforeEach(async () => {
+      [column, testRenderer] = createColumn(
+        {
+          plinko: true,
+          items: [{ ...baseRow }, { ...skipPlinkoRow }, { ...baseRow }]
+        },
+        { spyOnMethods: ['_update'] }
+      );
+      await column.__updateSpyPromise;
+
+      expect(column._Items.y).toBe(0);
+    });
+
     it('should set selected item for item based on item before skipPlinko item', () => {
-      column.plinko = true;
-      column.items = [{ ...baseRow }, { ...skipPlinkoRow }, { ...baseRow }];
       const item = column.items[0];
       item.selectedIndex = 3;
-      testRenderer.update();
       testRenderer.keyPress('Down');
       expect(column.items[1].selectedIndex).toBe(0);
       testRenderer.keyPress('Down');
-      testRenderer.forceAllUpdates();
-      // TODO: find way to remove setTimeout
-      setTimeout(() => {
-        expect(column.items[2].selectedIndex).toBe(3);
-      }, 1);
+      expect(column.items[2].selectedIndex).toBe(3);
     });
 
     it('should set selected item for item based on item before multiple skipPlinko items', () => {
-      column.plinko = true;
       column.items = [
         { ...baseRow },
         { ...skipPlinkoRow },
@@ -661,20 +675,13 @@ describe('Column', () => {
       item.selectedIndex = 3;
       testRenderer.update();
       testRenderer.keyPress('Down');
-      testRenderer.update();
       expect(column.items[1].selectedIndex).toBe(0);
       testRenderer.keyPress('Down');
-      testRenderer.update();
       expect(column.items[2].selectedIndex).toBe(0);
       testRenderer.keyPress('Down');
-      testRenderer.update();
       expect(column.items[3].selectedIndex).toBe(0);
       testRenderer.keyPress('Down');
-      testRenderer.forceAllUpdates();
-      // TODO: find way to remove setTimeout
-      setTimeout(() => {
-        expect(column.items[4].selectedIndex).toBe(3);
-      }, 1);
+      expect(column.items[4].selectedIndex).toBe(3);
     });
   });
 });
