@@ -58,7 +58,7 @@ Toggle.argTypes = {
     control: 'boolean',
     description: 'The state of the toggle being checked',
     table: {
-      defaultValue: { summary: true }
+      defaultValue: { summary: false }
     }
   }
 };
