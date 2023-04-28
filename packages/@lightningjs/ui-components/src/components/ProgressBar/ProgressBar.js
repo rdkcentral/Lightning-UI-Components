@@ -50,6 +50,7 @@ export default class ProgressBar extends Base {
   }
 
   _update() {
+    // if (!this.style) return
     this._updateTextures();
     this._updateProgress();
     if (this._progressChanged) {

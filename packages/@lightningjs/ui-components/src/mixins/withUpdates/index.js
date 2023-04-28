@@ -103,6 +103,7 @@ export default function withUpdates(Base) {
      * @param {boolean} force If set, bypasses the '_readyForUpdates' check
      */
     requestUpdate(force = false) {
+      if (this._styleManager && !this.style) return; // Style is not ready yet
       if (this._readyForUpdates || force) {
         const result = this._update();
         if (typeof result === 'object' && result !== null && result.catch) {
