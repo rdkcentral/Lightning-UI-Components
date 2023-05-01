@@ -32,7 +32,7 @@ export default class Tooltip extends Base {
 
   static _template() {
     return {
-      alpha: 0,
+      alpha: 0.001,
       scale: 0.5,
       mountX: 0.5,
       x: w => w / 2,
@@ -57,6 +57,12 @@ export default class Tooltip extends Base {
 
   _update() {
     this._updateText();
+    this._clearTimers();
+    if (this._isFocusedMode) {
+      this.transitionIn();
+    } else {
+      this._transitionOut();
+    }
   }
 
   _updateText() {
@@ -114,7 +120,7 @@ export default class Tooltip extends Base {
     clearTimeout(this._showTimer);
   }
 
-  _transitionIn() {
+  transitionIn() {
     const smooth = {
       smooth: {
         alpha: [1, this.style.transition],
@@ -145,16 +151,6 @@ export default class Tooltip extends Base {
         scale: [0.5, this.style.transition]
       }
     });
-  }
-
-  _focus() {
-    this._clearTimers();
-    this._transitionIn();
-  }
-
-  _unfocus() {
-    this._clearTimers();
-    this._transitionOut();
   }
 
   set announce(announce) {

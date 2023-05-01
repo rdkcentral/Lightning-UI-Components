@@ -76,6 +76,9 @@ export default function withLayout(Base) {
         ratioY = '',
         upCount = ''
       } = this._itemLayout || {};
+      if (!this.style) {
+        return false;
+      }
       // Store a string representation of all values from previous update to compare and decide if layout should change
       const layoutString =
         Object.values(context.theme.layout).join('') +

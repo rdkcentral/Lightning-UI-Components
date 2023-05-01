@@ -67,7 +67,7 @@ export const generateStyle = async (component, componentStyleSource) => {
     mode = 'unfocused',
     tone = 'neutral',
     componentConfig = {},
-    componentLevelStyleSource = {}
+    _componentLevelStyleSource: componentLevelStyleSource = {}
   } = component;
   const modeStyle = componentStyleSource?.mode?.[mode];
   const toneStyle = componentStyleSource?.tone?.[tone];

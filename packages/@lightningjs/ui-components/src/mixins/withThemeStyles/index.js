@@ -1,5 +1,6 @@
 import StyleManager from './StyleManager';
 import { updateManager } from '../../globals';
+import { context } from '../../globals';
 
 /**
  * A higher-order function that returns a class with theme styles.
@@ -23,7 +24,10 @@ export default function withThemeStyles(Base, mixinStyle) {
       this._styleManager = new StyleManager({ component: this });
 
       // Every time the style updates this will fire
-      this._styleManager.on('styleUpdate', this.queueThemeUpdate.bind(this));
+      this._styleManager.on('styleUpdate', () => {
+        this._style = this._styleManager.style;
+        this.queueThemeUpdate();
+      });
 
       // What to do with mixin style? Placing reference here to make linter happy
       mixinStyle;
@@ -39,8 +43,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @returns {void}
      */
     _updateThemeComponent() {
-      this._style = this._styleManager.style;
-      if (!this.style) return;
+      if (!this.style) return; // If the style is not yet defined
       this.queueRequestUpdate
         ? this.queueRequestUpdate()
         : this._update && this._update();
@@ -55,33 +58,78 @@ export default function withThemeStyles(Base, mixinStyle) {
       updateManager.addUpdateTheme(this);
     }
 
+    _focus() {
+      if (!this._isDisabledMode) this.mode = 'focused';
+      super._focus();
+    }
+
+    _unfocus() {
+      if (this._isFocusedMode) this.mode = 'unfocused';
+      super._unfocus();
+    }
+
+    /**
+     * Reference to the global theme
+     * @return {object}
+     */
+    get theme() {
+      const subTheme =
+        this._targetSubTheme && context.getSubTheme(this._targetSubTheme);
+
+      if (subTheme) {
+        return subTheme;
+      }
+      return context.theme;
+    }
+
+    // Allow component level styles to be set
+    set style(v) {
+      this._componentLevelStyleSource = v;
+      this._styleManager.update();
+    }
+
     get style() {
       return this._style;
+    }
+
+    /**
+     * The Mode controls what property in the mode export of the style file is selected when generating the final _componentStyle object during the update lifecycle
+     * @return {string}
+     */
+    get mode() {
+      return this._mode || this._componentConfig?.mode || 'unfocused';
+    }
+
+    set mode(v) {
+      if (this._mode === v) return;
+      this._mode = v;
+      this._styleManager.clearStyleCache();
+      this._styleManager.update();
     }
 
     /**
      * Allow for w to be overwritten by user if also in component's style file
      */
     get w() {
-      return (this._wSetByUser && this._w) || this.style.w || 0;
+      return (this._wSetByUser && this._w) || this.style?.w || 0;
     }
 
     set w(v) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true; // Flag to track if width has been set by the user. If so, it will no longer be tethered to the component's w value if exists
-      this.queueThemeUpdate();
+      this._styleManager.update();
     }
 
     get h() {
-      return (this._hSetByUser && this._h) || this.style.h || 0; // Add getH to allow override
+      return (this._hSetByUser && this._h) || this.style?.h || 0; // Add getH to allow override
     }
 
     set h(v) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true; // Flag to track if height has been set by the user. If so, it will no longer be tethered to the component's h value if exists
-      this.queueThemeUpdate();
+      this._styleManager.update();
     }
   };
 }

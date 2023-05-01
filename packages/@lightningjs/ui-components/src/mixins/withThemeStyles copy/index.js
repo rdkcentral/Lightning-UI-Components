@@ -497,7 +497,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {string}
      */
     get mode() {
-      return this._mode || this._componentConfig.mode;
+      return this._mode || this._componentConfig.mode || 'unfocused';
     }
 
     set mode(v) {
