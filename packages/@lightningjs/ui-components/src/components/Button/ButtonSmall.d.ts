@@ -16,6 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Button from './Button';
 
-export default class ButtonSmall extends Button {}
+export default class ButtonSmall<
+  TemplateSpec extends Button.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig
+> extends Button<TemplateSpec, TypeConfig> {}

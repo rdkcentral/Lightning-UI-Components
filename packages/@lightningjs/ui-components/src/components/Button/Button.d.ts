@@ -46,14 +46,14 @@ declare namespace Button {
     justify?: 'center' | 'left' | 'right';
 
     /**
-     * Lightning components to be placed to the left of the title
+     * Lightning component(s) to be placed to the left of the title
      */
     prefix?:
       | typeof lng.Component<lng.Component.TemplateSpecLoose>
       | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
     /**
-     * Lightning components to be placed to the right of the title
+     * Lightning component(s )to be placed to the right of the title
      */
     suffix?:
       | typeof lng.Component<lng.Component.TemplateSpecLoose>
@@ -70,14 +70,27 @@ declare class Button<
   TemplateSpec extends Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig
 > extends Surface<TemplateSpec, TypeConfig> {
+  /**
+   * forces Button to have a statically set width
+   * when true, `w` overrides dynamically calculated width
+   */
   fixed?: boolean;
 
+  /**
+   * alignment of the button's content
+   */
   justify?: 'center' | 'left' | 'right';
 
+  /**
+   * Lightning component(s) to be placed to the left of the title
+   */
   prefix?:
     | typeof lng.Component<lng.Component.TemplateSpecLoose>
     | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
+  /**
+   * Lightning component(s )to be placed to the right of the title
+   */
   suffix?:
     | typeof lng.Component<lng.Component.TemplateSpecLoose>
     | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
@@ -85,10 +98,12 @@ declare class Button<
   get style(): ButtonStyle;
   set style(v: StylePartial<ButtonStyle>);
 
+  /**
+   * Button text
+   */
   title?: string;
 
   // tags
-  // TODO do we need these?
   get _Prefix(): lng.Component;
   get _Suffix(): lng.Component;
   get _TextWrapper(): lng.Component;
