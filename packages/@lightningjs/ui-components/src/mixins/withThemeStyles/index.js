@@ -26,6 +26,27 @@ export default function withThemeStyles(Base, mixinStyle) {
       // Every time the style updates this will fire
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
+        let dimensionUpdateRequired = false;
+
+        // Fixes mount issues if height is controlled by a component's style alone setters for w/h will set the wSetByUser and hSetByUser flag to block this functionality and allow customization
+        if (
+          (dimensionUpdateRequired =
+            !this._wSetByUser && this._style.w && this._w !== this._style.w)
+        ) {
+          this._w = this._style.w;
+        }
+
+        if (
+          (dimensionUpdateRequired =
+            !this._hSetByUser && this._style.h && this._h !== this._style.h)
+        ) {
+          this._h = this._style.h;
+        }
+
+        if (dimensionUpdateRequired) {
+          this._updateDimensions(); // Notify lng that the dimensions have changed
+        }
+
         this.queueThemeUpdate();
       });
 

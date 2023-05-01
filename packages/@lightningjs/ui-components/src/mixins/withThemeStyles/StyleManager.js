@@ -92,6 +92,7 @@ export default class StyleManager extends lng.EventEmitter {
         this._addCache('style', style); // Save result to the cache
       }
       this._style = style;
+
       this.emit('styleUpdate', this.style);
     } catch (error) {
       //console.log('STYLE MANAGER ERROR', error);
