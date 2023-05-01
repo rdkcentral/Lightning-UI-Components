@@ -44,7 +44,14 @@ declare class Surface<
   TemplateSpec extends Surface.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * alias for this.h
+   */
   get innerH(): number;
+
+  /**
+   * alias for this.w
+   */
   get innerW(): number;
 
   get style(): SurfaceStyle;
