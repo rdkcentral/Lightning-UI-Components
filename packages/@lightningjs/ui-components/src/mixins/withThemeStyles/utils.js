@@ -3,105 +3,102 @@ import context from '../../globals/context';
 
 export const generateComponentStyleSource = async component => {
   const styleChain = await getStyleChain.call(component);
+  let finalStyle = {};
 
   // Process all styles in styleChain
-  let v = {};
   styleChain.forEach(({ style }) => {
+    // If the object does not appear to be from an es6 import, merge it as a base style
     if (
-      // If the object does not appear to be from an es6 import merge is as a base style
       typeof style === 'object' &&
       !style.base &&
       !style.mode &&
       !style.tone &&
       !style.default
     ) {
-      clone(v, { base: style });
+      clone(finalStyle, { base: style });
     } else {
-      /**
-       * Merge order
-       *
-       * 1. Base
-       * 2. Mode
-       * 3. Tone
-       */
+      // Merge styles in the following order: Base, Mode, Tone
       const { base, mode, tone } = style;
 
       if (base && typeof base === 'function') {
-        v = clone(v, {
+        finalStyle = clone(finalStyle, {
           base: base(context.theme) || {}
         });
       } else if (base && typeof base === 'object') {
-        v = clone(v, {
-          base
-        });
+        finalStyle = clone(finalStyle, { base });
       }
 
       if (mode && typeof mode === 'function') {
-        v = clone(v, {
+        finalStyle = clone(finalStyle, {
           mode: mode(context.theme) || {}
         });
       } else if (mode && typeof mode === 'object') {
-        v = clone(v, {
-          mode
-        });
+        finalStyle = clone(finalStyle, { mode });
       }
 
       if (tone && typeof tone === 'function') {
-        v = clone(v, {
+        finalStyle = clone(finalStyle, {
           tone: tone(context.theme) || {}
         });
       } else if (tone && typeof tone === 'object') {
-        v = clone(v, {
-          tone
-        });
+        finalStyle = clone(finalStyle, { tone });
       }
 
       //TODO: Add styleConfig overrides
+      if (component._componentConfig?.styleConfig?.mode) {
+        finalStyle = clone(finalStyle, {
+          mode: component._componentConfig?.styleConfig?.mode
+        });
+      }
     }
   });
-  return v;
+  return finalStyle;
 };
 
 export const generateStyle = async (component, componentStyleSource) => {
   const {
     mode = 'unfocused',
     tone = 'neutral',
-    componentConfig = {},
+    _componentConfig: componentConfig = {},
     _componentLevelStyleSource: componentLevelStyleSource = {}
   } = component;
+
   const modeStyle = componentStyleSource?.mode?.[mode];
   const toneStyle = componentStyleSource?.tone?.[tone];
 
-  let v = componentStyleSource.base || {};
-  // Mode style
+  let finalStyle = componentStyleSource.base || {};
+
+  // Add mode style
   if (modeStyle) {
-    v = clone(v, modeStyle);
-  }
-  // Tone style
-  if (toneStyle) {
-    v = clone(v, toneStyle);
+    finalStyle = clone(finalStyle, modeStyle);
   }
 
-  // Theme Level style example: this.theme.componentStyle.foo = 'bar'
+  // Add tone style
+  if (toneStyle) {
+    finalStyle = clone(finalStyle, toneStyle);
+  }
+
+  // Add theme level style
   if (
     typeof componentConfig?.style === 'object' &&
     Object.keys(componentConfig.style).length
   ) {
-    v = clone(v, componentConfig?.style);
+    finalStyle = clone(finalStyle, componentConfig?.style);
   }
 
-  // Component Level style example: MyComponent.style.foo = 'bar'
+  // Add component level style
   if (
     typeof componentLevelStyleSource === 'object' &&
     Object.keys(componentLevelStyleSource).length
   ) {
-    v = clone(v, componentLevelStyleSource);
+    finalStyle = clone(finalStyle, componentLevelStyleSource);
   }
 
-  // Support theme strings example: theme.radius.md
-  const processedStyle = JSON.stringify(v, (key, value) => {
+  // Process style object
+  const processedStyle = JSON.stringify(finalStyle, (_, value) => {
     if ('string' === typeof value && value.startsWith('theme.')) {
-      return getValFromObjPath(this, value); // If no theme value exists the property will be removed from the object
+      // Support theme strings example: theme.radius.md
+      return getValFromObjPath(this, value); // If no theme value exists, the property will be removed from the object
     } else if (Array.isArray(value) && 2 === value.length) {
       // Process value as a color ['#663399', 1]
       return getHexColor(value[0], value[1]);
@@ -122,7 +119,7 @@ export async function getStyleChain() {
   do {
     proto = !proto ? this : Object.getPrototypeOf(proto);
     if (proto && proto.constructor) {
-      // Check if style was passed in as param in.map(style => {to mixin withThemeStyles(MyComponent, {foo: 'bar'})
+      // Check if style was passed in as param in .map(style => {to mixin withThemeStyles(MyComponent, {foo: 'bar'})
       if (
         proto.constructor.__mixinStyle &&
         !styleSet.has(proto.constructor.__mixinStyle)
@@ -153,6 +150,7 @@ export async function getStyleChain() {
     }
   } while (proto);
 
+  // Return an array of style objects
   return Array.from(styleSet)
     .map(style => {
       return {

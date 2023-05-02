@@ -1,6 +1,7 @@
 import { generateComponentStyleSource, generateStyle } from './utils.js';
 import lng from '@lightningjs/core';
 import { debounce } from '../../utils/index.js';
+import { context } from '../../globals';
 
 export default class StyleManager extends lng.EventEmitter {
   constructor({ component }) {
@@ -38,13 +39,12 @@ export default class StyleManager extends lng.EventEmitter {
 
   _generateCacheKey(name) {
     const { tone, mode } = this.component;
-
     const cacheKey = [
       name,
       this.component.constructor.__componentName,
       tone,
       mode
-    ].join('_'); // TODO: Add all other things that could make a component different and not share styles from other instances
+    ].join('_');
     return cacheKey;
   }
 
@@ -72,35 +72,31 @@ export default class StyleManager extends lng.EventEmitter {
     return window.LUI_STYLE_CACHE.get(key);
   }
 
-  clearSource() {
-    delete this._componentStyleSource;
-  }
-
   async _update() {
     try {
       let styleSource = this._getCache('styleSource')?.payload;
-
       if (!styleSource) {
         // Usually this should only be generated once
         styleSource = await generateComponentStyleSource(this.component);
         this._addCache('styleSource', styleSource);
         this._removeCache('style');
       }
+
       let style = this._getCache('style')?.payload;
       if (!style) {
         style = await generateStyle(this.component, styleSource);
         this._addCache('style', style); // Save result to the cache
       }
-      this._style = style;
 
+      this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {
-      //console.log('STYLE MANAGER ERROR', error);
+      context.error('styleManager: ', error.message);
     }
   }
 
   set style(v) {
-    //console.log('cannot update style externally');
+    context.log('styleManager: Cannot mutate style directly');
   }
 
   get style() {

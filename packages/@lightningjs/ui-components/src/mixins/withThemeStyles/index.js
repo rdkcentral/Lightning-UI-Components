@@ -1,7 +1,7 @@
 import StyleManager from './StyleManager';
 import { updateManager } from '../../globals';
 import { context } from '../../globals';
-
+import { clone } from '../../utils';
 /**
  * A higher-order function that returns a class with theme styles.
  * @param {Function} Base - The base class to extend.
@@ -22,6 +22,14 @@ export default function withThemeStyles(Base, mixinStyle) {
        * @private
        */
       this._styleManager = new StyleManager({ component: this });
+
+      // Set up theme events
+
+      context.on('themeUpdate', () => {
+        // This is firing alot of times
+        this._styleManager.clearSourceCache();
+        this._styleManager.update();
+      });
 
       // Every time the style updates this will fire
       this._styleManager.on('styleUpdate', () => {
@@ -114,6 +122,47 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     /**
+     * Climb the prototype chain to establish what component's extension rules this component should also inherit
+     * @returns {set} // set of strings
+     */
+    get _prototypeChain() {
+      if (this.__prototypeChain) return this.__prototypeChain;
+      const prototypeChain = new Set();
+      let proto = this;
+      do {
+        proto = Object.getPrototypeOf(proto);
+        if (null !== proto && typeof proto === 'object') {
+          try {
+            if (proto.constructor.__componentName)
+              prototypeChain.add(proto.constructor.__componentName);
+          } catch (error) {
+            //console.log(error);
+            // Catch error when __componentName is not set in Base component
+          }
+        }
+      } while (proto);
+      this.__prototypeChain = prototypeChain; // Cache the value
+      return prototypeChain;
+    }
+
+    /*
+     *
+     * Theme configuration for overrides and defaults
+     */
+    get _componentConfig() {
+      // TODO: Add caching optimization
+      if (!this._prototypeChain)
+        return (
+          this.theme?.componentConfig?.[this.constructor.__componentName] || {}
+        );
+      return Array.from(this._prototypeChain)
+        .reverse()
+        .reduce((acc, curr) => {
+          return clone(acc, this.theme?.componentConfig?.[curr] || {});
+        }, {});
+    }
+
+    /**
      * The Mode controls what property in the mode export of the style file is selected when generating the final _componentStyle object during the update lifecycle
      * @return {string}
      */
@@ -124,6 +173,24 @@ export default function withThemeStyles(Base, mixinStyle) {
     set mode(v) {
       if (this._mode === v) return;
       this._mode = v;
+      this._styleManager.clearStyleCache();
+      this._styleManager.update();
+    }
+
+    /**
+     * Tone controls what property in the tone export of the style file is selected when generating the final _componentStyle object
+     * @return {string}
+     */
+    get tone() {
+      return this._tone || this._componentConfig.tone || 'neutral';
+      // return tone && Object.keys(this._componentStyleSource.tone).includes(tone) // TODO: check this
+      //   ? tone
+      //   : 'neutral';
+    }
+
+    set tone(value) {
+      if (value === this._tone) return;
+      this._tone = value;
       this._styleManager.clearStyleCache();
       this._styleManager.update();
     }

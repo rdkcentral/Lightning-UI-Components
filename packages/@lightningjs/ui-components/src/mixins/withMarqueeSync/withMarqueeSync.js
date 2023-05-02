@@ -83,7 +83,7 @@ export default function withMarqueeSync(Base) {
     }
 
     get _shouldSync() {
-      if (this.style.marqueeSync === false) {
+      if (this.style?.marqueeSync === false) {
         // only fail this case if explicitly false
         return false;
       }

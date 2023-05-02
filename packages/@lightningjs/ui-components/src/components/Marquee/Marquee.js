@@ -235,7 +235,7 @@ export default class Marquee extends Base {
   get _shouldClip() {
     // using fadeW / 4 so that if something like the last character is slightly
     // faded out but still visible, we don't unnecessarily scroll
-    return this._textRenderedW > this.w - this.style.fadeW / 4;
+    return this._textRenderedW > this.w - this.style?.fadeW / 4;
   }
 
   _shouldCenter() {
