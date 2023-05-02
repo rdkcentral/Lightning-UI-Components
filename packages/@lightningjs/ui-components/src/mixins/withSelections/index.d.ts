@@ -48,7 +48,7 @@ export interface WithSelectionsConstructor {
   new (...args: any[]): WithSelections;
 }
 
-export default function withExtensions<BaseType extends typeof lng.Component>(
+export default function withSelections<BaseType extends typeof lng.Component>(
   base: BaseType,
   options: WithSelectionsOptions
 ): BaseType & WithSelectionsConstructor;
