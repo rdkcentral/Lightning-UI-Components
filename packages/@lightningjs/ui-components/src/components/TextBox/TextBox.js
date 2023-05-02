@@ -261,13 +261,13 @@ export default class TextBox extends Base {
 
   get _textStyleSet() {
     const fontStyle = {
-      ...(this.style.typography[this.style.defaultTextStyle] ||
-        this.style.typography.body1),
+      ...(this.theme.typography[this.style.defaultTextStyle] ||
+        this.theme.typography.body1),
       ...(null !== this.style.textStyle &&
       'object' === typeof this.style.textStyle &&
       Object.keys(this.style.textStyle)
         ? this.style.textStyle
-        : this.style.typography[this.style.textStyle])
+        : this.theme.typography[this.style.textStyle])
     };
 
     this.constructor.properties.forEach(prop => {

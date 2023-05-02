@@ -148,10 +148,10 @@ describe('TextBox', () => {
       textBox.style.textStyle = null;
       testRenderer.forceAllUpdates();
       expect(textBox._Text.text.fontSize).toBe(
-        textBox.style.typography[textBox.style.defaultTextStyle].fontSize
+        textBox.theme.typography[textBox.style.defaultTextStyle].fontSize
       );
       expect(textBox._Text.text.fontWeight).toBe(
-        textBox.style.typography[textBox.style.defaultTextStyle].fontWeight
+        textBox.theme.typography[textBox.style.defaultTextStyle].fontWeight
       );
     });
 
