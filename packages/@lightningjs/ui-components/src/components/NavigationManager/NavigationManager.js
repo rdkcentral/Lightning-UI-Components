@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -273,12 +273,24 @@ export default class NavigationManager extends FocusManager {
   _withAfterUpdate(component) {
     component.onAfterUpdate = function (element) {
       let hasChanged = false;
-      const watchProps = ['w', 'h', 'x', 'y', 'innerW', 'innerH'];
+      const watchProps = [
+        this._directionPropNames.crossAxis,
+        'w',
+        'h',
+        'innerW',
+        'innerH'
+      ];
 
       watchProps.forEach(prop => {
+        if (element.transition(prop) && element.transition(prop).isRunning()) {
+          return;
+        }
+
         const prevValueKey = `_navItemPrev${prop}`;
-        if (!hasChanged && element[prop] !== element[prevValueKey]) {
-          element[prevValueKey] = element[prop];
+        const nextValue = element[prop];
+
+        if (nextValue !== element[prevValueKey]) {
+          element[prevValueKey] = nextValue;
           hasChanged = true;
         }
       });
