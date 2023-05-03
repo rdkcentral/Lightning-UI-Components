@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from '@lightningjs/core';
-import Button from './Button';
-
-export default class ButtonSmall<
-  TemplateSpec extends Button.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig
-> extends Button<TemplateSpec, TypeConfig> {}
+export { default as default } from './Base';

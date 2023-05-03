@@ -17,10 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base';
+import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-type TransitionObject = {
+export type TransitionObject = {
   delay: number;
   duration: number;
   timingFunction: string;
@@ -33,12 +33,32 @@ export type SurfaceStyle = {
   scale: number;
 };
 
-export default class Surface extends Base {
+declare namespace Surface {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    // TODO we may actually not want to include this here
+    Background: typeof lng.Component<lng.Component.TemplateSpecLoose>; // TemplateSpecLoose allows us to patch in any arbitrary lng.Component
+  }
+}
+
+declare class Surface<
+  TemplateSpec extends Surface.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * alias for this.h
+   */
   get innerH(): number;
+
+  /**
+   * alias for this.w
+   */
   get innerW(): number;
+
   get style(): SurfaceStyle;
   set style(v: StylePartial<SurfaceStyle>);
 
   // tags
   get _Background(): lng.Component;
 }
+
+export default Surface;
