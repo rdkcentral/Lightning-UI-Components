@@ -351,7 +351,8 @@ export default class ScrollWrapper extends Base {
       max: sliderMax,
       step: sliderStep,
       onUp: this._scrollUp.bind(this),
-      onDown: this._scrollDown.bind(this)
+      onDown: this._scrollDown.bind(this),
+      disableAnnouncer: true
     });
   }
 
