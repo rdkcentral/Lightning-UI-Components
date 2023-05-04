@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
+ *b
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -415,5 +415,15 @@ describe('NavigationManager', () => {
 
       expect(navigationManager.selectedIndex).toBe(0);
     });
+  });
+
+  it('should favor alwaysScroll over neverScroll for scroll behavior', () => {
+    [navigationManager] = createNavigationManager({
+      alwaysScroll: true,
+      neverScroll: true
+    });
+
+    expect(navigationManager.alwaysScroll).toBe(true);
+    expect(navigationManager.neverScroll).toBe(false);
   });
 });
