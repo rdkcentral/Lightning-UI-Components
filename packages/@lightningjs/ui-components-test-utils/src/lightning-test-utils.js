@@ -151,7 +151,6 @@ export function completeAnimation(element, transitionProperties = []) {
   const props = Array.isArray(transitionProperties)
     ? transitionProperties
     : [transitionProperties];
-
   const transitions = props.map(prop => {
     return new Promise(resolve => {
       element._getTransition(prop).once('finish', () => {

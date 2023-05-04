@@ -46,7 +46,7 @@ export default class Column extends NavigationManager {
     return shouldScroll;
   }
 
-  render(next, prev) {
+  _render(next, prev) {
     this._prevLastScrollIndex = this._lastScrollIndex;
 
     if (
@@ -60,8 +60,47 @@ export default class Column extends NavigationManager {
     } else if (next && !next.selectedIndex) {
       next.selectedIndex = 0;
     }
+    if (!this.Items.children.length) {
+      this.applySmooth(this.Items, { y: this.itemPosY });
+      if (!this.shouldSmooth) {
+        this._updateTransitionTarget(this.Items, 'y', this.itemPosY);
+      }
+    } else if (this._shouldScroll()) {
+      let scrollItem =
+        this.selectedIndex > this._lastScrollIndex
+          ? this.Items.children[this._lastScrollIndex - this.scrollIndex]
+          : this.selected;
+      if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
+        scrollItem = this.Items.children[0];
+      }
+      const scrollOffset = (this.Items.children[this.scrollIndex] || { y: 0 })
+        .y;
+      const smoothObj = [
+        -(scrollItem || this.Items.childList.first).transition('y')
+          .targetValue + (scrollItem === this.selected ? scrollOffset : 0),
+        this.style.itemTransition
+      ];
+      const scrollTarget =
+        -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
+      this.applySmooth(
+        this.Items,
+        {
+          y: scrollTarget
+        },
+        {
+          y: smoothObj
+        }
+      );
+      if (!this.shouldSmooth) {
+        this._updateTransitionTarget(this.Items, 'y', scrollTarget);
+      }
+    }
 
-    this._performRender();
+    this.onScreenEffect(this.onScreenItems);
+  }
+
+  _performRender() {
+    this._render(this.selected, this.prevSelected);
   }
 
   checkSkipPlinko(prev, next) {
@@ -102,46 +141,6 @@ export default class Column extends NavigationManager {
       : prevIndex + direction; // +/- 1, item index before prev
 
     return this.items[prevPlinkoIndex];
-  }
-
-  _performRender() {
-    if (!this.Items.children.length) {
-      this.applySmooth(this.Items, { y: this.itemPosY });
-      if (!this.shouldSmooth) {
-        this._updateTransitionTarget(this.Items, 'y', this.itemPosY);
-      }
-    } else if (this._shouldScroll()) {
-      let scrollItem =
-        this.selectedIndex > this._lastScrollIndex
-          ? this.Items.children[this._lastScrollIndex - this.scrollIndex]
-          : this.selected;
-      if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
-        scrollItem = this.Items.children[0];
-      }
-      const scrollOffset = (this.Items.children[this.scrollIndex] || { y: 0 })
-        .y;
-      const smoothObj = [
-        -(scrollItem || this.Items.childList.first).transition('y')
-          .targetValue + (scrollItem === this.selected ? scrollOffset : 0),
-        this.style.itemTransition
-      ];
-      const scrollTarget =
-        -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
-      this.applySmooth(
-        this.Items,
-        {
-          y: scrollTarget
-        },
-        {
-          y: smoothObj
-        }
-      );
-      if (!this.shouldSmooth) {
-        this._updateTransitionTarget(this.Items, 'y', scrollTarget);
-      }
-    }
-
-    this.onScreenEffect(this.onScreenItems);
   }
 
   get _itemsY() {

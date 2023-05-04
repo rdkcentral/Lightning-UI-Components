@@ -203,12 +203,12 @@ export default class FocusManager extends Base {
   }
 
   _selectedChange(selected, prevSelected) {
-    this.render(selected, prevSelected);
+    this._render(selected, prevSelected);
     this.signal('selectedChange', selected, prevSelected);
   }
 
   // Override
-  render() {}
+  _render() {}
 
   _firstFocusableIndex() {
     if (!this.items.length) return 0;
