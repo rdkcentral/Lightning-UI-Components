@@ -604,4 +604,27 @@ describe('Row', () => {
       });
     });
   });
+  it('should determine scroll behavior folowing this precedence from highest to lowest: alwaysScroll > lazyScroll > neverScroll', () => {
+    [row] = createRow({
+      alwaysScroll: true,
+      lazyScroll: true,
+      neverScroll: true
+    });
+
+    expect(row.alwaysScroll).toBe(true);
+    expect(row.lazyScroll).toBe(false);
+    expect(row.neverScroll).toBe(false);
+
+    row.alwaysScroll = false;
+
+    expect(row.alwaysScroll).toBe(false);
+    expect(row.lazyScroll).toBe(true);
+    expect(row.neverScroll).toBe(false);
+
+    row.lazyScroll = false;
+
+    expect(row.alwaysScroll).toBe(false);
+    expect(row.lazyScroll).toBe(false);
+    expect(row.neverScroll).toBe(true);
+  });
 });
