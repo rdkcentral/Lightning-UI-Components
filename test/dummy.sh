@@ -1,3 +1,1 @@
-echo "Hello World !"
-echo "Test"
-echo "Test2"
+echo "Dummy file"
