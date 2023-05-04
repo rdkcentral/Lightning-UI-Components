@@ -3,7 +3,6 @@ import CardRadio from '.';
 
 const createComponent = makeCreateComponent(CardRadio);
 
-// Requires additional test cases.
 describe('CardRadio', () => {
   let cardRadio, testRenderer;
 
@@ -21,7 +20,25 @@ describe('CardRadio', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update Details', () => {
+  it('should update subtitle', () => {
+    cardRadio.subtitle = 'subtitle';
+    testRenderer.forceAllUpdates();
+    expect(cardRadio._Subtitle.content).toEqual('Details');
+  });
+
+  it('should update subtitle', () => {
+    cardRadio.subtitle = 'subtitle';
+    testRenderer.forceAllUpdates();
+    expect(cardRadio._Subtitle.content).toEqual('Details');
+  });
+
+  it('should update icon', () => {
+    cardRadio.icon = 'subtitle';
+    testRenderer.forceAllUpdates();
+    expect(cardRadio._Subtitle.content).toEqual('Details');
+  });
+
+  it('should update subtitle', () => {
     cardRadio.subtitle = 'subtitle';
     testRenderer.forceAllUpdates();
     expect(cardRadio._Subtitle.content).toEqual('Details');

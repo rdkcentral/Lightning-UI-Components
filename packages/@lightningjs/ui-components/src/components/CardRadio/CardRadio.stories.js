@@ -23,11 +23,6 @@ import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
-const description =
-  "Get Hulu and stream the TV you love, anytime, on your favorite devices. We're talking new TV, classic TV, laugh-your-face-off TV, cry-your-eyes-out TV, and every other kind of TV.  Plus, get Hulu Originals –- shows you can't watch anywhere else -- and movies, docs, kids shows, and more. It's all on Hulu, and it's all waiting for you";
-
-const Details =
-  'This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer';
 export default {
   title: `${CATEGORIES[128]}/CardRadio`,
   tag: 'Card',
@@ -37,6 +32,12 @@ export default {
     }
   }
 };
+
+const description =
+  "Get Hulu and stream the TV you love, anytime, on your favorite devices. We're talking new TV, classic TV, laugh-your-face-off TV, cry-your-eyes-out TV, and every other kind of TV.  Plus, get Hulu Originals –- shows you can't watch anywhere else -- and movies, docs, kids shows, and more. It's all on Hulu, and it's all waiting for you";
+
+const Details =
+  'This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer. This is a sample disclaimer';
 
 export const CardRadio = () =>
   class CardRadio extends lng.Component {
@@ -98,3 +99,5 @@ CardRadio.argTypes = {
     }
   }
 };
+
+CardRadio.storyName = 'CardRadio';

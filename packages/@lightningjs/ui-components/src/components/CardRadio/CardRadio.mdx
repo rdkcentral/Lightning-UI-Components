@@ -1,14 +1,18 @@
-
 import { Canvas, Story } from '@storybook/addon-docs';
 import CardRadio from '.';
 
 # CardRadio
+
+This component is a variant of the `Card` component that includes multiple lines of text and radio functionality.
 
 ## Source
 
 https://github.com/rdkcentral/Lightning-UI-Components/packages/@lightningjs/ui-components/src/components/CardRadio/CardRadio.js
 
 ## Usage
+
+`CardRadio` can display a title, subtitle, description and details
+`CardRadio` extends [CardTitle](?path=/docs/tiles-cards-cardtitle--card-title)
 
 ```js
 import { CardRadio } from '@lightningjs/ui-components';
@@ -20,41 +24,36 @@ class Basic extends lng.Component {
         type: CardRadio,
         title: 'CardRadio Title',
         subtitile: 'CardRadio subtitle',
-        content: 'CardRadio content',
-        disclaimer: 'CardRadio disclaimer'
+        description: 'CardRadio description',
+        details: 'CardRadio disclaimer'
       }
     };
   }
-};
+}
 ```
 
 <Canvas>
-  <Story id="@lightningjs/ui-components-cardradio--basic" />
+  <Story id="tiles-cards-cardradio--card-radio" />
 </Canvas>
-
-`CardRadio` will always toggle on <kbd>Enter</kbd>. This can not be overriden.
-
-To get the current checked state, use the `isChecked()` method.
-
-```js
-if (CardRadio.isChecked()) {
-  // do something
-}
-```
 
 ## API
 
 ### Properties
 
+| name        | type    | readonly | description                                                                      |
+| ----------- | ------- | -------- | -------------------------------------------------------------------------------- |
+| title       | string  | false    | The text to be displayed in the title section of the card.                       |
+| subtitle    | string  | false    | The text to be displayed in the subtitle section of the card.                    |
+| description | string  | false    | The text to be displayed in the description section of the card.                 |
+| details     | string  | false    | The text to be displayed in the details section of the card.                     |
+| checked     | boolean | false    | sets initial `checked` value of Radio. Use `toggle()` to change value after init |
 
-| name           | type                                         | readonly | description                                                                      |
-| -------------- | -------------------------------------------- | -------- | -------------------------------------------------------------------------------- |
-| title          | string                                       | false    | the 1st line, main item info goes here, maxLines=2                                           |
-| subtitle       | string                                       | false    | the 2nd line, item metadata info goes here, maxLines=0(default), this line won't be shown if the property was set to falsy value |
-| content        | string                                       | false    | the 3rd line, the details of item, maxLines=6, this line won't be shown if the property was set to falsy value |
-| disclaimer     | string                                       | false    | the 4th line, the disclaimer of item, maxLines=2, this line won't be shown if the property was set to falsy value |
-| checked        | boolean                                      | false    | sets initial `checked` value of Radio. Use `toggle()` to change value after init |
+### Style Properties
 
+| name                 | type            | description                             |
+| -------------------- | --------------- | --------------------------------------- |
+| descriptionTextStyle | string \|object | styles applied to the description text. |
+| subtitleTextStyle    | string \|object | styles applied to the subtitle text.    |
 
 ### Methods
 
@@ -65,4 +64,3 @@ returns the checked value (boolean) for the Radio
 #### toggle():boolean
 
 Toggles the `checked` state and returns the new state.
-

@@ -18,8 +18,15 @@
 import utils from '../../utils';
 
 export const base = theme => ({
+  descriptionTextStyle: {
+    ...theme.typography.body2,
+    textColor: theme.color.textNeutralSecondary,
+    wordWrap: true,
+    maxLines: 5
+  },
   subtitleTextStyle: {
     ...theme.typography.body3,
+    maxLines: 1,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true
   },

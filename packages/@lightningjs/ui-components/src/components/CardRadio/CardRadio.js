@@ -68,14 +68,15 @@ export default class CardRadio extends CardTitle {
       content: this.subtitle,
       style: {
         textStyle: {
-          ...this.style.subtitleTextStyle
+          ...this.style.subtitleTextStyle,
+          wordWrapWidth: this._calculateTextWidth()
         }
       }
     });
   }
 
   _updateIcon() {
-    const iconObject = {
+    const iconPatch = {
       w: this.style.iconWidth,
       h: this.style.iconHeight,
       icon: this.logo,
@@ -85,9 +86,9 @@ export default class CardRadio extends CardTitle {
         this.style.paddingVertical
     };
     if (!this._Icon) {
-      iconObject.type = Icon;
+      iconPatch.type = Icon;
     }
-    this.patch({ Icon: iconObject });
+    this.patch({ Icon: iconPatch });
   }
 
   _updateSubtitlePosition() {
@@ -98,6 +99,9 @@ export default class CardRadio extends CardTitle {
   _updateDescriptionPosition() {
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y =
-      this.style.paddingVertical + this._Title.h + this._Subtitle.h + 24;
+      this.style.paddingVertical +
+      this._Title.h +
+      this._Subtitle.h +
+      this.style.paddingVertical;
   }
 }
