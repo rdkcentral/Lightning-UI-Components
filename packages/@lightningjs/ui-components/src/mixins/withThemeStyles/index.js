@@ -113,9 +113,6 @@ export default function withThemeStyles(Base, mixinStyle) {
      * Allows themes to override component values
      */
     get _styleOverrides() {
-      // if (this.constructor.name === 'Card') {
-      //   console.log(clone(this.styleConfig || {}, this._componentConfig?.styleConfig))
-      // }
       return clone(this.styleConfig || {}, this._componentConfig?.styleConfig);
     }
 
