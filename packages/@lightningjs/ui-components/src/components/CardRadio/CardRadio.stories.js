@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import { default as CardRadioComponent } from './CardRadio.js';
 import mdx from './CardRadio.mdx';
-import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.png';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
@@ -56,7 +55,6 @@ CardRadio.args = {
   description: description,
   details: Details,
   subtitle: '$6.99 per month plus taxes & fees',
-  logo: sectionIcon,
   mode: 'focused'
 };
 
@@ -72,14 +70,6 @@ CardRadio.argTypes = {
   description: {
     control: 'text',
     description: 'Description text',
-    table: {
-      defaultValue: { summary: 'undefined' }
-    }
-  },
-  logo: {
-    control: 'select',
-    options: [sectionIcon, 'null'],
-    description: 'Icon source',
     table: {
       defaultValue: { summary: 'undefined' }
     }

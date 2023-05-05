@@ -24,6 +24,7 @@ export const base = theme => ({
     wordWrap: true,
     maxLines: 5
   },
+  disabledAlpha: theme.alpha.inactive,
   subtitleTextStyle: {
     ...theme.typography.body3,
     maxLines: 1,

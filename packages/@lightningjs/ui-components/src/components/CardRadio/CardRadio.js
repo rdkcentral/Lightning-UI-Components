@@ -18,8 +18,8 @@
 
 import CardTitle from '../Card/CardTitle';
 import TextBox from '../TextBox';
-import Icon from '../Icon';
 import * as styles from './CardRadio.styles.js';
+import Radio from '../Radio';
 
 export default class CardRadio extends CardTitle {
   static get __componentName() {
@@ -30,19 +30,12 @@ export default class CardRadio extends CardTitle {
     return styles;
   }
 
-  static get tags() {
-    return [...super.tags, 'Subtitle', 'Icon'];
+  static get properties() {
+    return [...super.properties, 'subtitle'];
   }
 
-  static get properties() {
-    return [
-      ...super.properties,
-      'subtitle',
-      {
-        name: 'Icon',
-        path: 'Content.Icon'
-      }
-    ];
+  static get tags() {
+    return [...super.tags, 'Subtitle'];
   }
 
   static _template() {
@@ -60,7 +53,7 @@ export default class CardRadio extends CardTitle {
   _update() {
     super._update();
     this._updateSubtitle();
-    this._updateIcon();
+    this._updateRadio();
   }
 
   _updateSubtitle() {
@@ -75,20 +68,23 @@ export default class CardRadio extends CardTitle {
     });
   }
 
-  _updateIcon() {
-    const iconPatch = {
+  _updateRadio() {
+    const RadioPatch = {
       w: this.style.iconWidth,
       h: this.style.iconHeight,
-      icon: this.logo,
       x: this.w - this.style.iconWidth - this.style.paddingHorizontal,
       y:
         (this._Title.style.textStyle.lineHeight - this.style.iconHeight) / 2 +
-        this.style.paddingVertical
+        this.style.paddingVertical,
+      checked: true,
+      style: {
+        alpha: this._isDisabled ? this.style.disabledAlpha : 1
+      }
     };
-    if (!this._Icon) {
-      iconPatch.type = Icon;
+    if (!this._Radio) {
+      RadioPatch.type = Radio;
     }
-    this.patch({ Icon: iconPatch });
+    this.patch({ Radio: RadioPatch });
   }
 
   _updateSubtitlePosition() {
