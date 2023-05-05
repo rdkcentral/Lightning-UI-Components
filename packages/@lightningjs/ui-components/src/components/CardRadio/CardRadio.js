@@ -99,9 +99,6 @@ export default class CardRadio extends CardTitle {
   _updateDescriptionPosition() {
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y =
-      this.style.paddingVertical +
-      this._Title.h +
-      this._Subtitle.h +
-      this.style.paddingVertical;
+      2 * this.style.paddingVertical + this._Title.h + this._Subtitle.h;
   }
 }
