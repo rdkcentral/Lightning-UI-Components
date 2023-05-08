@@ -39,7 +39,25 @@ export const ProgressBar = () =>
     static _template() {
       return {
         ProgressBar: {
-          type: ProgressBarComponent
+          type: ProgressBarComponent,
+          tone: 'brand',
+          mode: 'focused',
+          style: {
+            styleConfig: {
+              tone: {
+                brand: {
+                  mode: {
+                    unfocused: {
+                      progressColor: 'theme.color.green'
+                    },
+                    focused: {
+                      progressColor: 'theme.color.red'
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       };
     }

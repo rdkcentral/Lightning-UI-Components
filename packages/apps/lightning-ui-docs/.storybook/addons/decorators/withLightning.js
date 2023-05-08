@@ -101,7 +101,7 @@ export const withLightning = (
               },
               class ModeFocusState extends this {
                 _getFocused() {
-                  return this.componentTarget; // Text Element
+                  return this; // Text Element
                 }
               }
             ];
