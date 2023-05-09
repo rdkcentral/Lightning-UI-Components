@@ -37,7 +37,7 @@ export default class ProgressBar extends Base {
   }
 
   static get properties() {
-    return ['progress', 'disableAnnouncer'];
+    return ['progress'];
   }
 
   static get tags() {
@@ -47,13 +47,12 @@ export default class ProgressBar extends Base {
   _construct() {
     super._construct && super._construct();
     this._progress = 0;
-    this.disableAnnouncer = false;
   }
 
   _update() {
     this._updateTextures();
     this._updateProgress();
-    if (this._progressChanged && !this.disableAnnouncer) {
+    if (this._progressChanged) {
       this.fireAncestors('$announce', this.announce);
       this._progressChanged = false;
     }

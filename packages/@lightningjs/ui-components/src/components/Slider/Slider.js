@@ -64,7 +64,7 @@ export default class Slider extends Base {
   }
 
   static get properties() {
-    return ['max', 'min', 'step', 'value', 'vertical', 'disableAnnouncer'];
+    return ['max', 'min', 'step', 'value', 'vertical'];
   }
 
   static get tags() {
@@ -100,7 +100,6 @@ export default class Slider extends Base {
     this._step = 1;
     this._value = 0;
     this._vertical = false;
-    this.disableAnnouncer = false;
   }
 
   _update() {
@@ -110,7 +109,7 @@ export default class Slider extends Base {
     this._updateArrowAlpha();
     this._updateArrows();
     this.signal('onChange', this.value, this);
-    if (this._valueChanged && !this.disableAnnouncer) {
+    if (this._valueChanged) {
       this.fireAncestors('$announce', this.announce);
       this._valueChanged = false;
     }
@@ -156,7 +155,6 @@ export default class Slider extends Base {
         SliderBar: {
           y: this.style.containerHeight / 2,
           w: this._calculatedSliderWidth,
-          disableAnnouncer: this.disableAnnouncer,
           style: {
             duration: 0,
             ...this.style.progressBar
