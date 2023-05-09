@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const urlBase = 'https://github.com/rdkcentral/Lightning-UI-Components/packages/@lightningjs/ui-components/src/components/';
+const urlBase = 'https://github.com/rdkcentral/Lightning-UI-Components/tree/develop/packages/%40lightningjs/ui-components/src/components/';
 
 module.exports = (name, dir) => `
 import { Canvas, Story } from '@storybook/addon-docs';
