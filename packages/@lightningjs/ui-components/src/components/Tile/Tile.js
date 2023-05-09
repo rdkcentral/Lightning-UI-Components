@@ -81,8 +81,6 @@ export default class Tile extends Surface {
     ];
   }
 
-  //#region accessors
-
   /**
    * When metadata is displayed below the Tile we need a way to tell the containing columns that it exists
    * in order for it to layout properly. This approach will not however show up in the DOM inspector
@@ -103,8 +101,6 @@ export default class Tile extends Surface {
     );
   }
 
-  //#endregion accessors
-
   _update() {
     super._update();
     this._updateTileColor();
@@ -117,7 +113,7 @@ export default class Tile extends Surface {
     this._updateMetadata();
   }
 
-  /* ------------------------------ Tile ------------------------------ */
+  /* ------------------------------ General Tile Layout ------------------------------ */
 
   set h(v) {
     super.h = v;
@@ -223,6 +219,52 @@ export default class Tile extends Surface {
       ...this._metadataTransitions // Badge and Label should animate in with the same values
     });
   }
+
+  /* ------------------------------ Label  ------------------------------ */
+  _updateLabel() {
+    // Remove Label if no longer required
+    if (!this.label?.title || this._isCircleLayout) {
+      if (this._Label) {
+        this._Content.patch({
+          Label: undefined
+        });
+      }
+      return;
+    }
+
+    const labelPatch = {
+      ...this.label,
+      x: this._w - this.style.paddingX,
+      y: this.style.paddingY,
+      alpha: !this._persistentMetadata ? 0.001 : 1
+    };
+
+    if (!this._Label) {
+      this._Content.patch({
+        Label: {
+          type: Label,
+          mountX: 1,
+          ...labelPatch,
+          signals: {
+            loadedLabel: '_updateLabel'
+          }
+        }
+      });
+      return;
+    }
+
+    this.applySmooth(this._Label, labelPatch, {
+      ...labelPatch,
+      x: [
+        labelPatch.x,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ],
+      ...this._metadataTransitions // Badge and Label should animate in with the same values
+    });
+  }
+
   /* ------------------------------ Checkbox ------------------------------ */
   _updateCheckbox() {
     // Remove Checkbox if no longer required
@@ -382,7 +424,6 @@ export default class Tile extends Surface {
       ],
       alpha: [
         this._shouldShowMetadata ? 1 : 0.001,
-
         this._shouldShowMetadata
           ? this.style.animationEntrance
           : this.style.animationExit
@@ -403,7 +444,7 @@ export default class Tile extends Surface {
       : this._h + this.style.paddingY;
   }
 
-  //patch is called updateMetadata and animateMetadata
+  // patch is called updateMetadata and animateMetadata
   get _metadataPatch() {
     return {
       alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
@@ -422,14 +463,13 @@ export default class Tile extends Surface {
   }
 
   _updateMetadata() {
-    console.log('hit updateMetadata');
-    // if (
-    //   !this._hasMetadata ||
-    //   (this._isCircleLayout && this._metadataLocation === 'inset')
-    // ) {
-    //   this._cleanupMetadata();
-    //   return;
-    // }
+    if (
+      !this._hasMetadata ||
+      (this._isCircleLayout && this._metadataLocation === 'inset')
+    ) {
+      this._cleanupMetadata();
+      return;
+    }
 
     if (!this._persistentMetadata && !this._isFocusedMode) {
       this._animateMetadata();
@@ -444,11 +484,11 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
-          ...this._metadataPatch,
+          ...this._metadataPatch
           // Patch in as if it was already in unfocused stage so it will animate up the first time
-          y: !(this._isInsetMetadata && this._isFocusedMode)
-            ? this._metadataY
-            : this._h + this.style.paddingY
+          // y: !(this._isInsetMetadata && this._isFocusedMode)
+          //   ? this._metadataY
+          //   : this._h + this.style.paddingY
         }
       });
 
@@ -474,18 +514,17 @@ export default class Tile extends Surface {
     }
   }
 
-  // _cleanupMetadata() {
-  //   if (
-  //     this._persistentMetadata ||
-  //     this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
-  //     !this._Metadata
-  //   ) {
-  //     return;
-  //   }
-  //   this._Content.patch({
-  //     Metadata: undefined
-  //   });
-  // }
+  // used to remove metatdata when circle layout is used with inset
+  _cleanupMetadata() {
+    if (
+      this._persistentMetadata ||
+      this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
+      !this._Metadata
+    ) {
+      console.log('hits if statement');
+      return;
+    }
+  }
 
   _metadataLoaded() {
     this._animateMetadata();
@@ -517,50 +556,6 @@ export default class Tile extends Surface {
         return acc;
       }, {})
     );
-  }
-
-  _updateLabel() {
-    // Remove Label if no longer required
-    if (!this.label?.title || this._isCircleLayout) {
-      if (this._Label) {
-        this._Content.patch({
-          Label: undefined
-        });
-      }
-      return;
-    }
-
-    const labelPatch = {
-      ...this.label,
-      x: this._w - this.style.paddingX,
-      y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1
-    };
-
-    if (!this._Label) {
-      this._Content.patch({
-        Label: {
-          type: Label,
-          mountX: 1,
-          ...labelPatch,
-          signals: {
-            loadedLabel: '_updateLabel'
-          }
-        }
-      });
-      return;
-    }
-
-    this.applySmooth(this._Label, labelPatch, {
-      ...labelPatch,
-      x: [
-        labelPatch.x,
-        this._shouldShowMetadata
-          ? this.style.animationEntrance
-          : this.style.animationExit
-      ],
-      ...this._metadataTransitions // Badge and Label should animate in with the same values
-    });
   }
 
   // _inactive() {
