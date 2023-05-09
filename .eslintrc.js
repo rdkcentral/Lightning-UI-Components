@@ -35,7 +35,16 @@ module.exports = {
   plugins: ['jest', 'prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
   rules: {
+    eqeqeq: ['error', 'always'],
     'import/no-useless-path-segments': 'error', // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
+    'id-blacklist': [
+      2,
+      '_updateDimensions',
+      '_updateTextureCoords',
+      '_updateCollision',
+      '_updateAttachedFlag',
+      '_updateEnabledFlag'
+    ],
     'no-console': 'off',
     'no-restricted-syntax': [
       'error',
@@ -45,8 +54,15 @@ module.exports = {
         message: 'Unexpected property on console object was called'
       }
     ],
-    quotes: [2, 'single', 'avoid-escape'],
     'no-extra-boolean-cast': 'off',
+    'no-prototype-builtins': [0],
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: false
+      }
+    ],
     'prettier/prettier': [
       'error',
       {
@@ -57,6 +73,7 @@ module.exports = {
         tabWidth: 2
       }
     ],
+    quotes: [2, 'single', 'avoid-escape'],
     'space-before-function-paren': [
       0,
       {
@@ -64,23 +81,7 @@ module.exports = {
         named: 'never',
         asyncArrow: 'always'
       }
-    ],
-    'prefer-const': [
-      'error',
-      {
-        destructuring: 'any',
-        ignoreReadBeforeAssign: false
-      }
-    ],
-    'id-blacklist': [
-      2,
-      '_updateDimensions',
-      '_updateTextureCoords',
-      '_updateCollision',
-      '_updateAttachedFlag',
-      '_updateEnabledFlag'
-    ],
-    'no-prototype-builtins': [0]
+    ]
   },
   parserOptions: {
     parser: 'babel-eslint',
