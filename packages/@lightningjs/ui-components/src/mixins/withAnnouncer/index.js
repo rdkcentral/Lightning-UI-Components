@@ -186,6 +186,9 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
     }
 
     $announce(toAnnounce, { append = false, notification = false } = {}) {
+      if (!toAnnounce) {
+        return;
+      }
       if (this.announcerEnabled) {
         this._debounceAnnounceFocusChanges.flush();
         if (
