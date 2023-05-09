@@ -27,4 +27,8 @@ export default class ScrollSlider extends Slider {
   static get __themeStyle() {
     return styles;
   }
+
+  _init() {
+    this.announce = '';
+  }
 }
