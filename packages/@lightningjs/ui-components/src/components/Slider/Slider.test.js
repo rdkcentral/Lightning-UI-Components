@@ -44,26 +44,6 @@ describe('Slider', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('sets the announce string to slider value', () => {
-    slider.value = 50;
-    testRenderer.forceAllUpdates();
-    expect(slider.announce).toBe('50');
-  });
-
-  it('overrides the announce string', () => {
-    const overrideString = 'Custom announce string';
-    slider.announce = overrideString;
-    testRenderer.forceAllUpdates();
-    expect(slider.announce).toBe(overrideString);
-  });
-
-  it('reannounces on progress change', () => {
-    slider.fireAncestors = jest.fn();
-    slider.value = 75;
-    testRenderer.forceAllUpdates();
-    expect(slider.fireAncestors).toHaveBeenCalledWith('$announce', '75');
-  });
-
   it('sets properties', () => {
     [slider, testRenderer] = createSlider({
       min: 1,
@@ -454,6 +434,42 @@ describe('Slider', () => {
 
     it('should rotate the default slider by 90 degrees', () => {
       expect(slider.rotation).toBe(degreesToRadians(90));
+    });
+  });
+
+  describe('announce', () => {
+    it('should return the value of the slider as a string when announce is undefined', () => {
+      slider.announce = undefined;
+      slider.value = 50;
+
+      expect(slider.announce).toBe('50');
+    });
+
+    it('should return the value of the slider as a string when announce is null', () => {
+      slider.announce = null;
+      slider.value = 75;
+
+      expect(slider.announce).toBe('75');
+    });
+
+    it('sets the announce string to slider value', () => {
+      slider.value = 50;
+      testRenderer.forceAllUpdates();
+      expect(slider.announce).toBe('50');
+    });
+
+    it('overrides the announce string', () => {
+      const overrideString = 'Custom announce string';
+      slider.announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(slider.announce).toBe(overrideString);
+    });
+
+    it('reannounces on progress change', () => {
+      slider.fireAncestors = jest.fn();
+      slider.value = 75;
+      testRenderer.forceAllUpdates();
+      expect(slider.fireAncestors).toHaveBeenCalledWith('$announce', '75');
     });
   });
 });

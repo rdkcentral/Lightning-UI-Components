@@ -324,7 +324,8 @@ export default class Slider extends Base {
   }
 
   get announce() {
-    if (this._announce !== undefined && this._announce !== null) {
+    //use loose equality here because we want to check for both null and undefined values
+    if (this._announce != undefined) {
       return this._announce;
     }
     return this.value !== undefined && this.value.toString();

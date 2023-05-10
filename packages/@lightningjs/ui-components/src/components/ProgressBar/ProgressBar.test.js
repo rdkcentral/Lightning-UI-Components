@@ -65,26 +65,6 @@ describe('ProgressBar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('sets the announce string to the progress percentage', () => {
-    progressBar.progress = 0.5;
-    testRenderer.forceAllUpdates();
-    expect(progressBar.announce).toBe('50%');
-  });
-
-  it('overrides the announce string', () => {
-    const overrideString = 'Custom announce string';
-    progressBar.announce = overrideString;
-    testRenderer.forceAllUpdates();
-    expect(progressBar.announce).toBe(overrideString);
-  });
-
-  it('reannounces on progress change', () => {
-    progressBar.fireAncestors = jest.fn();
-    progressBar.progress = 0.2;
-    testRenderer.forceAllUpdates();
-    expect(progressBar.fireAncestors).toHaveBeenCalledWith('$announce', '20%');
-  });
-
   it('has a base theme', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(
@@ -213,5 +193,54 @@ describe('ProgressBar', () => {
     const progressColor = 4289216576;
     [progressBar] = createProgressBar({ progressColor });
     expect(progressBar.progressColor).toBe(progressColor);
+  });
+
+  describe('announce', () => {
+    it('should return any defined value set to the announce property', () => {
+      progressBar.announce = 'test';
+      expect(progressBar.announce).toBe('test');
+      progressBar.announce = '';
+      expect(progressBar.announce).toBe('');
+    });
+
+    it('should return the progress as a percentage when the announce property is undefined', () => {
+      progressBar.announce = undefined;
+      progressBar.progress = 0.5;
+      expect(progressBar.announce).toBe('50%');
+    });
+
+    it('should return the progress as a percentage when the announce property is null', () => {
+      progressBar.announce = null;
+      progressBar.progress = 0.5;
+
+      expect(progressBar.announce).toBe('50%');
+    });
+
+    it('should convert percentages greater than 100% to 100%', () => {
+      progressBar.progress = 5;
+      expect(progressBar.announce).toBe('100%');
+    });
+
+    it('should convert negative percentages to 0%', () => {
+      progressBar.progress = -5;
+      expect(progressBar.announce).toBe('0%');
+    });
+
+    it('overrides the announce string', () => {
+      const overrideString = 'Custom announce string';
+      progressBar.announce = overrideString;
+      testRenderer.forceAllUpdates();
+      expect(progressBar.announce).toBe(overrideString);
+    });
+
+    it('reannounces on progress change', () => {
+      progressBar.fireAncestors = jest.fn();
+      progressBar.progress = 0.2;
+      testRenderer.forceAllUpdates();
+      expect(progressBar.fireAncestors).toHaveBeenCalledWith(
+        '$announce',
+        '20%'
+      );
+    });
   });
 });
