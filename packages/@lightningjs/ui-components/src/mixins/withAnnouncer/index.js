@@ -186,7 +186,7 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
     }
 
     $announce(toAnnounce, { append = false, notification = false } = {}) {
-      if (!toAnnounce) {
+      if (!toAnnounce || !toAnnounce.trim().length) {
         return;
       }
       if (this.announcerEnabled) {
