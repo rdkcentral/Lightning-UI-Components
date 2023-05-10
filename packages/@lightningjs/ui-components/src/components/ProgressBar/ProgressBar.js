@@ -100,8 +100,7 @@ export default class ProgressBar extends Base {
   }
 
   get announce() {
-    //use loose equality here because we want to check for both null and undefined values
-    if (this._announce != undefined) {
+    if (this._announce !== undefined && this._announce !== null) {
       return this._announce;
     }
 
