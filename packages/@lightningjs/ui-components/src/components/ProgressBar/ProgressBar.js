@@ -100,7 +100,7 @@ export default class ProgressBar extends Base {
   }
 
   get announce() {
-    if (this._announce != undefined) {
+    if (this._announce !== undefined && this._announce !== null) {
       return this._announce;
     }
 

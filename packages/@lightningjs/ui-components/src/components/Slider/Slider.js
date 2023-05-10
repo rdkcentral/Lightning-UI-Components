@@ -324,7 +324,7 @@ export default class Slider extends Base {
   }
 
   get announce() {
-    if (this._announce != undefined) {
+    if (this._announce !== undefined && this._announce !== null) {
       return this._announce;
     }
     return this.value !== undefined && this.value.toString();
