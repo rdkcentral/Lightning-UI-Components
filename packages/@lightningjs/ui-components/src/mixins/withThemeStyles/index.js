@@ -102,9 +102,6 @@ export default function withThemeStyles(Base, mixinStyle) {
         .reduce((acc, curr) => {
           return clone(acc, this.theme?.componentConfig?.[curr] || {});
         }, {});
-      // if (this.constructor.name === 'Card') {
-      //   console.log(result, this.theme.componentConfig);
-      // }
       return result;
     }
 
