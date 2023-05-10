@@ -409,6 +409,8 @@ export default class Tile extends Surface {
   //   };
   // }
 
+  //can the above transition be combined with this one?
+
   get _metadataTransitions() {
     // top - this.style.paddingY : 0
     // bottom - this._metadataY : this._h + this.style.paddingY
@@ -521,7 +523,6 @@ export default class Tile extends Surface {
       this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
       !this._Metadata
     ) {
-      console.log('hits if statement');
       return;
     }
   }
