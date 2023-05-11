@@ -9,14 +9,14 @@ permissions:
 
 jobs:
   quality:
+  - uses: actions/checkout@v2
+    name: Quality
     uses: ./.github/workflows/quality.yml
 
   check-pr-title:
     name: Check PR title
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Check PR title format
         run: |
           title=$(jq --raw-output .pull_request.title $GITHUB_EVENT_PATH)
