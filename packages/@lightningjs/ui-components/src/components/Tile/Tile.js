@@ -185,21 +185,14 @@ export default class Tile extends Surface {
 
   /* ------------------------------ Badge ------------------------------ */
   _updateBadge() {
-    // Remove Badge if no longer required
-    if (!this.badge?.title || this._isCircleLayout) {
-      if (this._Badge) {
-        this._Content.patch({
-          Badge: undefined
-        });
-      }
-      return;
-    }
-
     const badgePatch = {
       ...this.badge,
       x: this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1
+      alpha:
+        !this._persistentMetadata || !this.badge?.title || this._isCircleLayout
+          ? 0.001
+          : 1
     };
     if (!this._Badge) {
       this._Content.patch({
@@ -216,27 +209,20 @@ export default class Tile extends Surface {
 
     this.applySmooth(this._Badge, badgePatch, {
       ...badgePatch,
-      ...this._metadataTransitions // Badge and Label should animate in with the same values
+      ...this._badgeLabelTransitions // Badge and Label should animate in with the same values
     });
   }
 
   /* ------------------------------ Label  ------------------------------ */
   _updateLabel() {
-    // Remove Label if no longer required
-    if (!this.label?.title || this._isCircleLayout) {
-      if (this._Label) {
-        this._Content.patch({
-          Label: undefined
-        });
-      }
-      return;
-    }
-
     const labelPatch = {
       ...this.label,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1
+      alpha:
+        !this._persistentMetadata || this._isCircleLayout || !this.label.title
+          ? 0.001
+          : 1
     };
 
     if (!this._Label) {
@@ -261,8 +247,27 @@ export default class Tile extends Surface {
           ? this.style.animationEntrance
           : this.style.animationExit
       ],
-      ...this._metadataTransitions // Badge and Label should animate in with the same values
+      ...this._badgeLabelTransitions
     });
+  }
+  /* ------------------------------ Badge & Label ------------------------------ */
+
+  // Badge and Label should animate in with the same values
+  get _badgeLabelTransitions() {
+    return {
+      y: [
+        this._shouldShowMetadata ? this.style.paddingY : 0,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ],
+      alpha: [
+        this._shouldShowMetadata && !this._isCircleLayout ? 1 : 0.001,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ]
+    };
   }
 
   /* ------------------------------ Checkbox ------------------------------ */
@@ -382,6 +387,7 @@ export default class Tile extends Surface {
     this._updateMetadata();
   }
   /* ------------------------------ Metadata  ------------------------------ */
+  // this doesn't take into account circle layout for label or badge
 
   get _shouldShowMetadata() {
     return this._persistentMetadata || this._isFocusedMode;
@@ -391,30 +397,9 @@ export default class Tile extends Surface {
     return this._metadataLocation === 'inset';
   }
 
-  // transitions for badge & label
-  // get _topMetadataTransitions() {
-  //   return {
-  //     y: [
-  //       this._shouldShowMetadata ? this.style.paddingY : 0,
-  //       this._shouldShowMetadata
-  //         ? this.style.animationEntrance
-  //         : this.style.animationExit
-  //     ],
-  //     alpha: [
-  //       this._shouldShowMetadata ? 1 : 0.001,
-  //       this._shouldShowMetadata
-  //         ? this.style.animationEntrance
-  //         : this.style.animationExit
-  //     ]
-  //   };
-  // }
-
-  //can the above transition be combined with this one?
+  // transition for metadata
 
   get _metadataTransitions() {
-    // top - this.style.paddingY : 0
-    // bottom - this._metadataY : this._h + this.style.paddingY
-
     return {
       y: [
         this._shouldShowMetadata || this._isInsetMetadata
@@ -469,7 +454,6 @@ export default class Tile extends Surface {
       !this._hasMetadata ||
       (this._isCircleLayout && this._metadataLocation === 'inset')
     ) {
-      this._cleanupMetadata();
       return;
     }
 
@@ -478,6 +462,7 @@ export default class Tile extends Surface {
       return;
     }
 
+    // hit this if statement on initial load only
     if (!this._Metadata) {
       // Patch in Metadata for the first time
       this._Content.patch({
@@ -486,11 +471,11 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
-          ...this._metadataPatch
+          ...this._metadataPatch,
           // Patch in as if it was already in unfocused stage so it will animate up the first time
-          // y: !(this._isInsetMetadata && this._isFocusedMode)
-          //   ? this._metadataY
-          //   : this._h + this.style.paddingY
+          y: !(this._isInsetMetadata && this._isFocusedMode)
+            ? this._metadataY
+            : this._h + this.style.paddingY
         }
       });
 
@@ -516,17 +501,7 @@ export default class Tile extends Surface {
     }
   }
 
-  // used to remove metatdata when circle layout is used with inset
-  _cleanupMetadata() {
-    if (
-      this._persistentMetadata ||
-      this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
-      !this._Metadata
-    ) {
-      return;
-    }
-  }
-
+  // signal in updateMetadata
   _metadataLoaded() {
     this._animateMetadata();
     if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
@@ -553,17 +528,10 @@ export default class Tile extends Surface {
             ? this.style.animationEntrance
             : this.style.animationExit
         ];
-
         return acc;
       }, {})
     );
   }
-
-  // _inactive() {
-  //   super._inactive();
-  //   // Cleanup components and elements that may not be used again
-  //   this._cleanupMetadata();
-  // }
 
   _resetMarqueeAnimation() {
     const alphaTransition = this._Metadata._getTransition('alpha');
