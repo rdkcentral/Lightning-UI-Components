@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -223,7 +223,7 @@ export default class InlineContent extends Base {
   }
 
   _setContent(content) {
-    if (content !== this._content) {
+    if (!stringifyCompare(content, this._content)) {
       this._content = content;
       let parsedContent = this._content;
       if (content && !Array.isArray(content)) {
