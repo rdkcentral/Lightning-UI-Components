@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -304,7 +304,7 @@ describe('InlineContent', () => {
       },
       { spyOnMethods: ['_update'] }
     );
-    await inlineContent.__updatePromiseSpy;
+    await inlineContent.__updateSpyPromise;
     testRenderer.update();
 
     expect(inlineContent.flex.wrap).toBe(true);
@@ -320,7 +320,7 @@ describe('InlineContent', () => {
       },
       { spyOnMethods: ['_update'] }
     );
-    await inlineContent.__updatePromiseSpy;
+    await inlineContent.__updateSpyPromise;
     testRenderer.update();
     const newline = inlineContent.childList.getAt(1);
     expect(newline.w).toBe(width);
@@ -339,7 +339,7 @@ describe('InlineContent', () => {
       },
       { spyOnMethods: ['_update'] }
     );
-    await inlineContent.__updatePromiseSpy;
+    await inlineContent.__updateSpyPromise;
 
     testRenderer.update();
     expect(inlineContent.childList.getAt(0).text.textColor).toBe(color);
@@ -351,7 +351,7 @@ describe('InlineContent', () => {
       { spyOnMethods: ['_notifyAncestors'] }
     );
 
-    await inlineContent.__notifyAncestorsPromiseSpy;
+    await inlineContent.__notifyAncestorsSpyPromise;
 
     jest.spyOn(inlineContent, 'fireAncestors');
     jest.spyOn(inlineContent, 'signal');
@@ -360,7 +360,7 @@ describe('InlineContent', () => {
     testRenderer.update();
 
     await nextTick(20);
-    await inlineContent.__notifyAncestorsPromiseSpy;
+    await inlineContent.__notifyAncestorsSpyPromise;
 
     expect(inlineContent.finalW).toBeGreaterThan(0);
     expect(inlineContent.multiLineHeight).toBeGreaterThan(0);
