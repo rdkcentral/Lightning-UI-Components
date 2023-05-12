@@ -155,6 +155,20 @@ export default class Provider extends Base {
     this.signal('providerChanged');
   }
 
+  _setVisibleCount(visibleCount) {
+    if (visibleCount < 1) {
+      console.warn(
+        'Minimum visible count should be greater than or equal to 1'
+      );
+    }
+    if (visibleCount > this.providers.length) {
+      console.warn(
+        'Maximum visible count must be less than or equal to the number of providers'
+      );
+    }
+    return Math.min(Math.max(1, visibleCount), this.providers.length);
+  }
+
   get w() {
     return this._Row.w;
   }

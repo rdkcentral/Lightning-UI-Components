@@ -84,6 +84,13 @@ describe('Provider', () => {
     expect(provider._Row.items[3]).not.toBeInstanceOf(Icon);
   });
 
+  it('enforces a minimum and a maximum visible count', () => {
+    provider.visibleCount = -5;
+    expect(provider.visibleCount).toBe(1);
+    provider.visibleCount = 20;
+    expect(provider.visibleCount).toBe(provider.providers.length);
+  });
+
   it('displays the correct counter', () => {
     [provider, testRenderer] = createComponent({
       providers: Array(20).fill(iconSquare)
