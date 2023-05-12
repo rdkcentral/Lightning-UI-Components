@@ -59,8 +59,7 @@ export default class InlineContent extends Base {
         flex: {
           direction: 'row',
           wrap: !!this.contentWrap,
-          justifyContent:
-            this.justify != undefined ? this.justify : this.style.justify
+          justifyContent: this.justify || this.style.justify || 'center'
         }
       });
 
@@ -127,7 +126,7 @@ export default class InlineContent extends Base {
           this.flex._layout._lineLayouter._lines
         ) {
           this.multiLineHeight =
-            this.style.textStyle.lineHeight *
+            (this.style?.textStyle?.lineHeight || 0) *
             this.flex._layout._lineLayouter._lines.length;
           this.h = this.multiLineHeight;
           this._notifyAncestors();
@@ -142,15 +141,15 @@ export default class InlineContent extends Base {
 
   _createIcon(base, iconProps) {
     const y =
-      (this.textHeight > this.style.textStyle.lineHeight
+      (this.textHeight > (this.style?.textStyle?.lineHeight || 0)
         ? this.textHeight
-        : this.style.textStyle.lineHeight) - this.style.iconH;
+        : this.style?.textStyle?.lineHeight || 0) - (this.style.iconH || 0);
     return {
       ...base,
       type: Icon,
       y: y,
-      w: this.style.iconW,
-      h: this.style.iconH,
+      w: this.style.iconW || 0,
+      h: this.style.iconH || 0,
       signals: {
         itemChanged: '_updateIconPosition'
       },
@@ -166,10 +165,10 @@ export default class InlineContent extends Base {
 
     return {
       ...base,
-      y: this.textY !== undefined ? this.textY : this.style.textY,
+      y: this.textY !== undefined ? this.textY : this.style.textY || 0,
       h: this.textHeight,
       text: {
-        ...this.style.textStyle,
+        ...(this.style?.textStyle || {}),
         ...textOverrideStyles,
         text: text.text || text
       }
@@ -190,12 +189,12 @@ export default class InlineContent extends Base {
   }
 
   _updateIconPosition(icon) {
-    icon.y = this.style.textStyle.lineHeight - icon.h;
+    icon.y = (this.style?.textStyle?.lineHeight || 0) - icon.h;
   }
 
   _loadedBadge(badge) {
     if (this.badgeY === undefined) {
-      badge.y = this.style.textStyle.lineHeight - badge.h;
+      badge.y = (this.style?.textStyle?.lineHeight || 0) - badge.h;
     }
   }
 
@@ -266,7 +265,9 @@ export default class InlineContent extends Base {
   }
 
   get textHeight() {
-    return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
+    return (
+      this.style?.textStyle?.lineHeight || this.style?.textStyle?.fontSize || 0
+    );
   }
 
   get _marginBottom() {

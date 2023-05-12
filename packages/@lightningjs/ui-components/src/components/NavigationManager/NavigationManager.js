@@ -132,7 +132,7 @@ export default class NavigationManager extends FocusManager {
 
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
-        nextPosition += this.style.itemSpacing + extraItemSpacing;
+        nextPosition += this.style?.itemSpacing + extraItemSpacing;
       }
 
       if (child.centerInParent) {
@@ -361,7 +361,7 @@ export default class NavigationManager extends FocusManager {
         item[lengthDimension] || item[innerLengthDimension] || 0;
       const extraItemSpacing = item.extraItemSpacing || 0;
       this._totalAddedLength +=
-        itemLength + this.style.itemSpacing + extraItemSpacing;
+        itemLength + this.style?.itemSpacing + extraItemSpacing;
     });
 
     if (this.selectedIndex >= this._lastAppendedIdx) {
@@ -378,7 +378,7 @@ export default class NavigationManager extends FocusManager {
     this.applySmooth(
       item,
       { [axis]: position },
-      { [axis]: [position, this.style.itemTransition] }
+      { [axis]: [position, this.style?.itemTransition] }
     );
 
     if (!this.shouldSmooth) {
@@ -386,7 +386,7 @@ export default class NavigationManager extends FocusManager {
     }
   }
 
-  scrollTo(index, duration = this.style.itemTransition.duration * 100) {
+  scrollTo(index, duration = this.style?.itemTransition.duration * 100) {
     if (index == undefined) {
       return;
     }
@@ -479,13 +479,13 @@ export default class NavigationManager extends FocusManager {
   _getAlwaysScroll() {
     return this._alwaysScroll !== undefined
       ? this._alwaysScroll
-      : this.style.alwaysScroll;
+      : this.style?.alwaysScroll;
   }
 
   _getNeverScroll() {
     return this._neverScroll !== undefined
       ? this._neverScroll
-      : this.style.neverScroll;
+      : this.style?.neverScroll;
   }
 
   _setScrollIndex(index) {
@@ -495,6 +495,6 @@ export default class NavigationManager extends FocusManager {
   _getScrollIndex() {
     return this._scrollIndex !== undefined
       ? this._scrollIndex
-      : this.style.scrollIndex;
+      : this.style?.scrollIndex;
   }
 }

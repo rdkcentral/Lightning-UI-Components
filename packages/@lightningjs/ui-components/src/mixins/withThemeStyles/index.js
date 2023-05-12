@@ -16,6 +16,12 @@ export default function withThemeStyles(Base, mixinStyle) {
       super(...arguments);
       this._hSetByUser = false;
       this._wSetByUser = false;
+      this._style = null;
+      this._styleManager = new StyleManager({ component: this });
+      this._styleManager.on('styleUpdate', () => {
+        this._style = this._styleManager.style;
+        this.queueThemeUpdate();
+      });
     }
 
     /**
@@ -108,13 +114,7 @@ export default function withThemeStyles(Base, mixinStyle) {
     _setup() {
       super._setup && super._setup();
       this._targetSubTheme = getSubTheme(this);
-
-      this._styleManager = new StyleManager({ component: this });
-
-      this._styleManager.on('styleUpdate', () => {
-        this._style = this._styleManager.style;
-        this.queueThemeUpdate();
-      });
+      // TODO: Add subtheme support
     }
 
     /**

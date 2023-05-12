@@ -29,7 +29,7 @@ export default function withExtensions(Base) {
       return Base.name;
     }
 
-    // static get __componentName() { // This will break getPrototypeChain
+    // static get __componentName() {
     //   if (super.__componentName) return super.__componentName;
     //   throw new Error(
     //     `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
@@ -41,29 +41,28 @@ export default function withExtensions(Base) {
       return true;
     }
 
-    // This will need to be handled like it is in withThemeStyles
-    // /**
-    //  * Climb the prototype chain to establish what component's extension rules this component should also inherit
-    //  * @returns {set} // set of strings
-    //  */
-    // get _prototypeChain() {
-    //   if (this.__prototypeChain) return this.__prototypeChain;
-    //   const prototypeChain = new Set();
-    //   let proto = this;
-    //   do {
-    //     proto = Object.getPrototypeOf(proto);
-    //     if (null !== proto && typeof proto === 'object') {
-    //       try {
-    //         if (proto.constructor.__componentName)
-    //           prototypeChain.add(proto.constructor.__componentName);
-    //       } catch (error) {
-    //         // Catch error when __componentName is not set in Base component
-    //       }
-    //     }
-    //   } while (proto);
-    //   this.__prototypeChain = prototypeChain;
-    //   return prototypeChain;
-    // }
+    /**
+     * Climb the prototype chain to establish what component's extension rules this component should also inherit
+     * @returns {set} // set of strings
+     */
+    get _prototypeChain() {
+      if (this.__prototypeChain) return this.__prototypeChain;
+      const prototypeChain = new Set();
+      let proto = this;
+      do {
+        proto = Object.getPrototypeOf(proto);
+        if (null !== proto && typeof proto === 'object') {
+          try {
+            if (proto.constructor.__componentName)
+              prototypeChain.add(proto.constructor.__componentName);
+          } catch (error) {
+            // Catch error when __componentName is not set in Base component
+          }
+        }
+      } while (proto);
+      this.__prototypeChain = prototypeChain;
+      return prototypeChain;
+    }
 
     /**
      * Get all valid extensions from the current theme

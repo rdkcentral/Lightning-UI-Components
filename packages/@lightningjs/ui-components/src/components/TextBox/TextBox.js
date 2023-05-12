@@ -145,7 +145,7 @@ export default class TextBox extends Base {
       return acc;
     }, {});
 
-    if (this.style.textStyle.wordWrapWidth > 0) {
+    if ((this.style?.textStyle?.wordWrapWidth || 0) > 0) {
       inlineContentPatch.w = this.style.textStyle.wordWrapWidth;
       inlineContentPatch.rtt = true;
     }
@@ -174,8 +174,8 @@ export default class TextBox extends Base {
 
     if (this._Text) {
       this._Text.patch({
-        y: this.style.offsetY,
-        x: this.style.offsetX,
+        y: this.style?.offsetY || 0,
+        x: this.style?.offsetX || 0,
         text: {
           ...lightningTextDefaults, // order matters this should always be first
           ...fontStyle
@@ -216,10 +216,10 @@ export default class TextBox extends Base {
     if (this.marquee) {
       this._resetMarqueePromise();
       const marqueePatch = {
-        w: this.style.textStyle.wordWrapWidth || this.w,
+        w: this.style?.textStyle?.wordWrapWidth || this.w,
         h: this.h,
-        y: this.style.offsetY,
-        x: this.style.offsetX,
+        y: this.style?.offsetY || 0,
+        x: this.style?.offsetX || 0,
         signals: {
           marqueeContentLoaded: '_loadedMarqueeContent'
         }
@@ -232,7 +232,7 @@ export default class TextBox extends Base {
       if (this._isInlineContent) {
         this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
         marqueePatch.contentTexture = contentTag.getTexture();
-        marqueePatch.w = this.style.textStyle.wordWrapWidth || this.w;
+        marqueePatch.w = this.style?.textStyle.wordWrapWidth || this.w;
       } else {
         marqueePatch.title = {
           text: contentTag.text.text,
@@ -260,13 +260,13 @@ export default class TextBox extends Base {
 
   get _textStyleSet() {
     const fontStyle = {
-      ...(this.style.typography[this.style.defaultTextStyle] ||
-        this.style.typography.body1),
+      ...(this.style?.typography?.[this.style.defaultTextStyle] ||
+        this.style?.typography?.body1),
       ...(null !== this.style.textStyle &&
       'object' === typeof this.style.textStyle &&
       Object.keys(this.style.textStyle)
         ? this.style.textStyle
-        : this.style.typography[this.style.textStyle])
+        : this.style?.typography?.[this.style.textStyle])
     };
 
     this.constructor.properties.forEach(prop => {
