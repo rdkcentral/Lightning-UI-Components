@@ -483,6 +483,9 @@ export default class NavigationManager extends FocusManager {
   }
 
   _getNeverScroll() {
+    if (this.alwaysScroll) {
+      return false;
+    }
     return this._neverScroll !== undefined
       ? this._neverScroll
       : this.style.neverScroll;
