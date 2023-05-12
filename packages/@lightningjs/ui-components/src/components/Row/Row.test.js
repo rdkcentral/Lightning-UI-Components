@@ -616,12 +616,16 @@ describe('Row', () => {
     expect(row.neverScroll).toBe(false);
 
     row.alwaysScroll = false;
+    row.lazyScroll = true;
+    row.neverScroll = true;
 
     expect(row.alwaysScroll).toBe(false);
     expect(row.lazyScroll).toBe(true);
     expect(row.neverScroll).toBe(false);
 
+    row.alwaysScroll = false;
     row.lazyScroll = false;
+    row.neverScroll = true;
 
     expect(row.alwaysScroll).toBe(false);
     expect(row.lazyScroll).toBe(false);
