@@ -416,4 +416,14 @@ describe('NavigationManager', () => {
       expect(navigationManager.selectedIndex).toBe(0);
     });
   });
+
+  it('should favor alwaysScroll over neverScroll for scroll behavior', () => {
+    [navigationManager] = createNavigationManager({
+      alwaysScroll: true,
+      neverScroll: true
+    });
+
+    expect(navigationManager.alwaysScroll).toBe(true);
+    expect(navigationManager.neverScroll).toBe(false);
+  });
 });

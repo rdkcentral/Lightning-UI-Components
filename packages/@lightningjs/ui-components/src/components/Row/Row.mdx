@@ -58,6 +58,8 @@ class Basic extends lng.Component {
 By default, `Row` will scroll horizontally to see any items that are not visible within the width of the Row((or just outside of the `Row` width)
 
 The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
+Scroll behavior is determined based on what is passed to the `alwaysScroll`, `lazyScroll`, and `neverScroll` properties.
+If multiple of these properties are enabled, the order of precedence from highest to lowest is: `alwaysScroll`, `lazyScroll`, `neverScroll`.
 
 ## API
 
