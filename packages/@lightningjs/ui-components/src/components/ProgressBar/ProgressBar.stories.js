@@ -36,30 +36,46 @@ export default {
 
 export const ProgressBar = () =>
   class ProgressBar extends lng.Component {
+    _init() {
+      setTimeout(() => {
+        this.childList.removeAt(1)
+        setTimeout(() => {
+          this.childList.removeAt(0)
+        }, 5000)   
+      }, 10000)   
+    }
     static _template() {
       return {
         ProgressBar: {
           type: ProgressBarComponent,
           tone: 'brand',
-          mode: 'focused',
-          style: {
-            styleConfig: {
-              tone: {
-                brand: {
-                  mode: {
-                    unfocused: {
-                      progressColor: 'theme.color.green'
-                    },
-                    focused: {
-                      progressColor: 'theme.color.red'
-                    }
-                  }
-                }
-              }
-            }
-          }
+          mode: 'focused'
+          // style: {
+          //   styleConfig: {
+          //     tone: {
+          //       brand: {
+          //         mode: {
+          //           unfocused: {
+          //             progressColor: 'theme.color.green'
+          //           },
+          //           focused: {
+          //             progressColor: 'theme.color.red'
+          //           }
+          //         }
+          //       }
+          //     }
+          //   }
+          // }
+        },
+        ProgressBar2: {
+          type: ProgressBarComponent,
+        
+          w: 600,
+          y: 100,
+          progress: .5,
+          mode: 'focused'
         }
-      };
+      }
     }
   };
 ProgressBar.storyName = 'ProgressBar';

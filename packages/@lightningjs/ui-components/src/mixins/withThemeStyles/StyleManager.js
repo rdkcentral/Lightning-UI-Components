@@ -39,6 +39,7 @@ export default class StyleManager extends lng.EventEmitter {
    * Destroy the Style Manager instance and remove the themeUpdate event listener.
    */
   destroy() {
+    this._cleanupCache();
     context.off('themeUpdate', this._boundThemeUpdate);
   }
 
@@ -71,12 +72,9 @@ export default class StyleManager extends lng.EventEmitter {
    * @returns {string} - The generated cache key.
    */
   _generateCacheKey(name) {
-    const { tone, mode } = this.component;
     const cacheKey = [
       name,
       this.component.constructor.__componentName,
-      tone,
-      mode
     ].join('_');
     return cacheKey;
   }
@@ -87,11 +85,31 @@ export default class StyleManager extends lng.EventEmitter {
    * @param {object} payload - The payload of the cache.
    */
   _addCache(name, payload) {
+    if (!this._canCache) return;
+    
     const key = this._generateCacheKey(name);
     const existing = window.LUI_STYLE_CACHE.get(key);
+
     window.LUI_STYLE_CACHE.set(key, {
       ids: [...new Set([...(existing?.ids || []), this.component.__id])], // Add current id and remove duplicates
       payload
+    });
+  }
+
+  /**
+   * Called when component is destroyed
+   */
+  _cleanupCache() {
+    window.LUI_STYLE_CACHE.forEach(({ ids, payload }, name) => {
+      const removeIndex = ids && ids.length && ids.indexOf(this.component.__id);
+      if (removeIndex > -1 && ids.length > 1) {
+        window.LUI_STYLE_CACHE.set(name, {
+          ids: ids.slice(0, removeIndex).concat(ids.slice(removeIndex + 1)),
+          payload
+        });
+      } else if (removeIndex > -1) {
+        window.LUI_STYLE_CACHE.delete(name);
+      }
     });
   }
 
@@ -110,7 +128,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @returns {object|boolean} - The cache or false if the component has inline styles.
    */
   _getCache(name) {
-    if (Object.keys(this.component._componentLevelStyleSource || {}).length) {
+    if (!this._canCache) {
       // Components with inline styles cannot maintain a style cache
       return false;
     }
@@ -150,9 +168,9 @@ export default class StyleManager extends lng.EventEmitter {
       this._addCache('styleSource', styleSource);
 
       const style =
-        this._getCache('style')?.payload ||
+        this._getCache(`style_${mode}_${tone}`)?.payload ||
         (await generateStyle(this.component, styleSource));
-      this._addCache('style', style);
+      this._addCache(`style_${mode}_${tone}`, style);
 
       this._style = style;
       this.emit('styleUpdate', this.style);
@@ -171,5 +189,12 @@ export default class StyleManager extends lng.EventEmitter {
 
   get style() {
     return this._style;
+  }
+
+  /**
+   * Simple check to see if this component can leverage caching. Components using .style cannot use the cache at this time
+   */
+  get _canCache() {
+    return !Object.keys(this.component._componentLevelStyleSource || {}).length;
   }
 }
