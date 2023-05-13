@@ -12,9 +12,9 @@ export default class StyleManager extends lng.EventEmitter {
   constructor({ component }) {
     super(...arguments);
 
-    this._previousTone = null;
-    this._previousMode = null;
-    this._previousComponentLevelStyle = null;
+    this._previousTone;
+    this._previousMode;
+    this._previousComponentLevelStyle;
 
     // Bind the _onThemeUpdate method to the current instance of the StyleManager class.
     this._boundThemeUpdate = this._onThemeUpdate.bind(this);
@@ -48,7 +48,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
-    this.clearSourceCache();
+    window.LUI_STYLE_CACHE && window.LUI_STYLE_CACHE.clear();
     this.update();
   }
 
@@ -63,7 +63,8 @@ export default class StyleManager extends lng.EventEmitter {
    * Clears the style cache.
    */
   clearStyleCache() {
-    this._removeCache('style');
+    const { mode, tone } = this.component;
+    this._removeCache(`style_${mode}_${tone}`);
   }
 
   /**
@@ -75,7 +76,10 @@ export default class StyleManager extends lng.EventEmitter {
     const cacheKey = [
       name,
       this.component.constructor.__componentName,
-    ].join('_');
+      this._hasComponentStyle ? this.component.__id : null
+    ]
+      .filter(Boolean)
+      .join('_');
     return cacheKey;
   }
 
@@ -85,8 +89,6 @@ export default class StyleManager extends lng.EventEmitter {
    * @param {object} payload - The payload of the cache.
    */
   _addCache(name, payload) {
-    if (!this._canCache) return;
-    
     const key = this._generateCacheKey(name);
     const existing = window.LUI_STYLE_CACHE.get(key);
 
@@ -128,11 +130,6 @@ export default class StyleManager extends lng.EventEmitter {
    * @returns {object|boolean} - The cache or false if the component has inline styles.
    */
   _getCache(name) {
-    if (!this._canCache) {
-      // Components with inline styles cannot maintain a style cache
-      return false;
-    }
-
     const key = this._generateCacheKey(name);
     return window.LUI_STYLE_CACHE.get(key);
   }
@@ -146,14 +143,18 @@ export default class StyleManager extends lng.EventEmitter {
   async _update() {
     const { mode, tone, _componentLevelStyle: style } = this.component;
 
-    if (
-      this._previousComponentLevelStyle === undefined ||
-      this._previousComponentLevelStyle !== style
-    ) {
+    if (this._previousComponentLevelStyle === undefined) {
       this.clearSourceCache();
     }
 
     if (this._previousMode !== mode || this._previousTone !== tone) {
+      this.clearStyleCache();
+    }
+
+    if (
+      JSON.stringify(this._previousComponentLevelStyle) !==
+      JSON.stringify(style)
+    ) {
       this.clearStyleCache();
     }
 
@@ -194,7 +195,7 @@ export default class StyleManager extends lng.EventEmitter {
   /**
    * Simple check to see if this component can leverage caching. Components using .style cannot use the cache at this time
    */
-  get _canCache() {
-    return !Object.keys(this.component._componentLevelStyleSource || {}).length;
+  get _hasComponentStyle() {
+    return Object.keys(this.component._componentLevelStyle || {}).length;
   }
 }

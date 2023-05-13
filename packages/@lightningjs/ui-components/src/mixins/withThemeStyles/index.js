@@ -141,7 +141,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @param {any} v - The styles to set
      */
     set style(v) {
-      this._componentLevelStyleSource = v;
+      this._componentLevelStyle = v;
       this._styleManager && this._styleManager.update();
     }
 

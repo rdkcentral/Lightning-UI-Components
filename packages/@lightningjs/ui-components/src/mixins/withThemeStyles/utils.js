@@ -133,16 +133,16 @@ export const generateComponentStyleSource = async component => {
       }
 
       // If set at component level style.styleConfig.mode
-      if (component._componentLevelStyleSource?.styleConfig?.mode) {
+      if (component._componentLevelStyle?.styleConfig?.mode) {
         finalStyle = clone(finalStyle, {
-          mode: component._componentLevelStyleSource.styleConfig.mode
+          mode: component._componentLevelStyle.styleConfig.mode
         });
       }
 
       // If set at component level style.styleConfig.tone
-      if (component._componentLevelStyleSource?.styleConfig?.tone) {
+      if (component._componentLevelStyle?.styleConfig?.tone) {
         finalStyle = clone(finalStyle, {
-          tone: component._componentLevelStyleSource.styleConfig.tone
+          tone: component._componentLevelStyle.styleConfig.tone
         });
       }
     }
@@ -162,7 +162,7 @@ export const generateStyle = async (component, componentStyleSource) => {
     mode = 'unfocused',
     tone = 'neutral',
     _componentConfig: componentConfig = {},
-    _componentLevelStyleSource: componentLevelStyleSource = {}
+    _componentLevelStyle: componentLevelStyle = {}
   } = component;
 
   const modeStyle = componentStyleSource?.mode?.[mode];
@@ -209,10 +209,10 @@ export const generateStyle = async (component, componentStyleSource) => {
 
   // Add component level style
   if (
-    typeof componentLevelStyleSource === 'object' &&
-    Object.keys(componentLevelStyleSource).length
+    typeof componentLevelStyle === 'object' &&
+    Object.keys(componentLevelStyle).length
   ) {
-    finalStyle = clone(finalStyle, componentLevelStyleSource);
+    finalStyle = clone(finalStyle, componentLevelStyle);
   }
 
   // Process style object
