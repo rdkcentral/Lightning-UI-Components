@@ -67,13 +67,6 @@ CardContentHorizontal.args = {
 };
 CardContentHorizontal.argTypes = {
   ...createModeControl({ summaryValue: 'focused' }),
-  shouldCollapse: {
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse,
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
   collapseToMetadata: {
     control: 'boolean',
     description: controlDescriptions.collapseToMetadata,

@@ -70,13 +70,6 @@ CardContentHorizontalLarge.args = {
 };
 CardContentHorizontalLarge.argTypes = {
   ...createModeControl({ summaryValue: CardContentHorizontalLarge.args.mode }),
-  shouldCollapse: {
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse,
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
   collapseToMetadata: {
     control: 'boolean',
     description: controlDescriptions.collapseToMetadata,
