@@ -271,6 +271,8 @@ export default class NavigationManager extends FocusManager {
   }
 
   _withAfterUpdate(component) {
+    const initialOnAfterUpdate = component.__core?._onAfterUpdate;
+
     component.onAfterUpdate = function (element) {
       let hasChanged = false;
       const watchProps = [
@@ -297,6 +299,11 @@ export default class NavigationManager extends FocusManager {
 
       if (hasChanged) {
         this.queueRequestUpdate();
+      }
+
+      // if a component already has an onAfterUpdate function, preserve that behavior
+      if (initialOnAfterUpdate) {
+        initialOnAfterUpdate(element);
       }
     }.bind(this);
 
