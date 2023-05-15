@@ -210,4 +210,22 @@ export default class Row extends NavigationManager {
   get _totalAddedWidth() {
     return this._totalAddedLength;
   }
+
+  _getLazyScroll() {
+    if (this.alwaysScroll) {
+      return false;
+    }
+    return this._lazyScroll !== undefined
+      ? this._lazyScroll
+      : this.style.lazyScroll;
+  }
+
+  _getNeverScroll() {
+    if (this.alwaysScroll || this.lazyScroll) {
+      return false;
+    }
+    return this._neverScroll !== undefined
+      ? this._neverScroll
+      : this.style.neverScroll;
+  }
 }
