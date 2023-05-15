@@ -46,6 +46,8 @@ class CustomRow extends NavigationManager {}
 ### Scrolling
 
 The `scrollIndex` property determines the index at which scrolling should begin. By default, that index is 0.
+Scroll behavior is determined based on what is passed to the `alwaysScroll` and `neverScroll` properties.
+If both of those properties are enabled, `alwaysScroll` will take precedence over `neverScroll`.
 
 ### directionProps
 
