@@ -56,7 +56,7 @@ exports[`TabBar renders 1`] = `
               "attached": true,
               "boundsMargin": null,
               "children": {
-                "Element-60": {
+                "Element-66": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -91,7 +91,7 @@ exports[`TabBar renders 1`] = `
                   "y": 0,
                   "zIndex": 0,
                 },
-                "Element-61": {
+                "Element-67": {
                   "active": false,
                   "alpha": 1,
                   "attached": true,
@@ -237,7 +237,7 @@ exports[`TabBar renders 1`] = `
           "attached": true,
           "boundsMargin": null,
           "children": {
-            "Element-49": {
+            "Element-55": {
               "active": false,
               "alpha": 1,
               "attached": true,
@@ -434,7 +434,7 @@ exports[`TabBar renders 1`] = `
               "y": 0,
               "zIndex": 0,
             },
-            "Element-53": {
+            "Element-59": {
               "active": false,
               "alpha": 1,
               "attached": true,

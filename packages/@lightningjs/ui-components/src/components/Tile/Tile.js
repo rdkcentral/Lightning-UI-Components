@@ -216,6 +216,14 @@ export default class Tile extends Surface {
 
   /* ------------------------------ Label  ------------------------------ */
   _updateLabel() {
+    if (!this.label?.title || this._isCircleLayout) {
+      if (this._Label) {
+        this._Content.patch({
+          Label: undefined
+        });
+      }
+      return;
+    }
     const labelPatch = {
       ...this.label,
       x: this._w - this.style.paddingX,
