@@ -116,7 +116,6 @@ export default function withThemeStyles(Base, mixinStyle) {
     /**
      * Must check for subThemes on _setup lifecycle event to allow the component to traverse the tree to find child theme properties
      */
-
     _setup() {
       super._setup && super._setup();
       this._targetSubTheme = this._getSubTheme();
@@ -125,6 +124,14 @@ export default function withThemeStyles(Base, mixinStyle) {
         this._generateComponentStyleSource();
         this.queueThemeUpdate.call(this);
       }
+    }
+
+    /**
+     * Detach the event listeners to prevent memory leaks.
+     */
+    _detach() {
+      super._detach();
+      this._clearThemeStyleListeners();
     }
 
     /**
@@ -275,6 +282,16 @@ export default function withThemeStyles(Base, mixinStyle) {
       }
     }
 
+    _clearThemeStyleListeners() {
+      context.off('themeUpdate', this._updateThemeBound);
+      if (this._targetSubTheme) {
+        context.off(
+          `themeUpdate${this._targetSubTheme}`,
+          this._updateThemeBound
+        );
+      }
+    }
+
     _updateTheme() {
       this._clearComponentStyleCache();
       this._generateComponentStyleSource();
@@ -283,20 +300,6 @@ export default function withThemeStyles(Base, mixinStyle) {
 
     _clearComponentStyleCache() {
       this._componentStyleCache = {};
-    }
-
-    _clearListeners() {
-      context.off('themeUpdate', this._updateTheme);
-      if (this._targetSubTheme) {
-        context.off('themeUpdate', this._updateTheme);
-      }
-    }
-
-    /**
-     * Detach the event listeners attached to prevent memory leaks.
-     */
-    _detach() {
-      this._clearListeners();
     }
 
     /**
