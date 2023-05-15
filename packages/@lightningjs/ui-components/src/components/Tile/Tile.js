@@ -135,6 +135,7 @@ export default class Tile extends Surface {
       (this._isInsetMetadata &&
         this._hasMetadata &&
         this._shouldShowMetadata) ||
+        this._shouldShowBadgeLabel ||
         (this.progressBar && this.progressBar.progress > 0)
     );
   }
@@ -243,7 +244,7 @@ export default class Tile extends Surface {
       ...labelPatch,
       x: [
         labelPatch.x,
-        this._shouldShowMetadata
+        this._shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
       ],
@@ -253,17 +254,20 @@ export default class Tile extends Surface {
   /* ------------------------------ Badge & Label ------------------------------ */
 
   // Badge and Label should animate in with the same values
+  get _shouldShowBadgeLabel() {
+    return this._persistentMetadata || this._isFocusedMode;
+  }
   get _badgeLabelTransitions() {
     return {
       y: [
-        this._shouldShowMetadata ? this.style.paddingY : 0,
-        this._shouldShowMetadata
+        this._shouldShowBadgeLabel ? this.style.paddingY : 0,
+        this.__shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
       ],
       alpha: [
-        this._shouldShowMetadata && !this._isCircleLayout ? 1 : 0.001,
-        this._shouldShowMetadata
+        this._shouldShowBadgeLabel && !this._isCircleLayout ? 1 : 0.001,
+        this._shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
       ]
@@ -335,7 +339,7 @@ export default class Tile extends Surface {
       }
       return;
     }
-
+    // --------------------------------------//
     if (this.progressBar.progress > 0) {
       const progressPatch = {
         ...this.progressBar,
@@ -387,7 +391,6 @@ export default class Tile extends Surface {
     this._updateMetadata();
   }
   /* ------------------------------ Metadata  ------------------------------ */
-  // this doesn't take into account circle layout for label or badge
 
   get _shouldShowMetadata() {
     return this._persistentMetadata || this._isFocusedMode;
@@ -396,9 +399,7 @@ export default class Tile extends Surface {
   get _isInsetMetadata() {
     return this._metadataLocation === 'inset';
   }
-
-  // transition for metadata
-
+  // called in animateMetadata
   get _metadataTransitions() {
     return {
       y: [
@@ -418,20 +419,18 @@ export default class Tile extends Surface {
     };
   }
 
-  // called in metadataPatch, updateProgressBar, updateMetadata, gradient
   get _hasMetadata() {
     return MetadataTile.properties.some(
       prop => this.metadata && this.metadata[prop]
     );
   }
-  // get the y position for bottom metadata
+
   get _metadataY() {
     return this._isInsetMetadata
       ? this._h - this.style.paddingY - this._progressBarHeight
       : this._h + this.style.paddingY;
   }
 
-  // patch is called updateMetadata and animateMetadata
   get _metadataPatch() {
     return {
       alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
@@ -440,11 +439,9 @@ export default class Tile extends Surface {
       marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      y:
-        this._persistentMetadata ||
-        (this._isInsetMetadata && this._isFocusedMode)
-          ? this._metadataY
-          : this._h + this.style.paddingY,
+      y: !(this._isInsetMetadata && this._isFocusedMode)
+        ? this._metadataY
+        : this._h + this.style.paddingY,
       ...(this.metadata || {})
     };
   }
@@ -462,7 +459,6 @@ export default class Tile extends Surface {
       return;
     }
 
-    // hit this if statement on initial load only
     if (!this._Metadata) {
       // Patch in Metadata for the first time
       this._Content.patch({
@@ -471,11 +467,7 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
-          ...this._metadataPatch,
-          // Patch in as if it was already in unfocused stage so it will animate up the first time
-          y: !(this._isInsetMetadata && this._isFocusedMode)
-            ? this._metadataY
-            : this._h + this.style.paddingY
+          ...this._metadataPatch
         }
       });
 
@@ -487,7 +479,6 @@ export default class Tile extends Surface {
     this._animateMetadata();
   }
 
-  // called in metadataLoaded, updateMetadata
   _animateMetadata() {
     if (!this._Metadata) return;
     this.applySmooth(
