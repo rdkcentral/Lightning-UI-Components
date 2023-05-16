@@ -113,7 +113,7 @@ export default class Tile extends Surface {
     this._updateMetadata();
   }
 
-  /* ------------------------------ General Tile Layout ------------------------------ */
+  /* ------------------------------ Tile ------------------------------ */
 
   set h(v) {
     super.h = v;
@@ -153,7 +153,32 @@ export default class Tile extends Surface {
     this._Tile.alpha = this.style.alpha;
   }
 
+  _updateContent() {
+    const itemContainerPatch = {
+      h: this._h,
+      w: this._w,
+      x: this._w / 2,
+      y: this._h / 2
+    };
+
+    // Make sure container animates with same values as badge, label, and metadata
+    this.applySmooth(
+      this._Content,
+      itemContainerPatch,
+      Object.keys(itemContainerPatch).reduce((acc, prop) => {
+        acc[prop] = [
+          itemContainerPatch[prop],
+          this._isFocusedMode
+            ? this.style.animationEntrance
+            : this.style.animationExit
+        ];
+        return acc;
+      }, {})
+    );
+  }
+
   /* ------------------------------ Artwork ------------------------------ */
+
   _updateArtwork() {
     // ensure a nested artwork src takes precedence over the class's src setter,
     // but that if src is undefined in both the setter and artwork object,
@@ -183,6 +208,7 @@ export default class Tile extends Surface {
   }
 
   /* ------------------------------ Badge ------------------------------ */
+
   _updateBadge() {
     // Remove Badge if no longer required
     if (!this.badge?.title || this._isCircleLayout) {
@@ -197,11 +223,8 @@ export default class Tile extends Surface {
     const badgePatch = {
       ...this.badge,
       x: this.style.paddingX,
-      y: this.style.paddingY
-      // alpha:
-      //   !this._persistentMetadata || !this.badge?.title || this._isCircleLayout
-      //     ? 0.001
-      //     : 1
+      y: this.style.paddingY,
+      alpha: !this._persistentMetadata ? 0.001 : 1
     };
 
     if (!this._Badge) {
@@ -224,6 +247,7 @@ export default class Tile extends Surface {
   }
 
   /* ------------------------------ Label  ------------------------------ */
+
   _updateLabel() {
     if (!this.label?.title || this._isCircleLayout) {
       if (this._Label) {
@@ -237,10 +261,7 @@ export default class Tile extends Surface {
       ...this.label,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha:
-        !this._persistentMetadata || this._isCircleLayout || !this.label.title
-          ? 0.001
-          : 1
+      alpha: !this._persistentMetadata ? 0.001 : 1
     };
 
     if (!this._Label) {
@@ -292,6 +313,7 @@ export default class Tile extends Surface {
   }
 
   /* ------------------------------ Checkbox ------------------------------ */
+
   _updateCheckbox() {
     // Remove Checkbox if no longer required
     if (
@@ -417,7 +439,7 @@ export default class Tile extends Surface {
   get _isInsetMetadata() {
     return this._metadataLocation === 'inset';
   }
-  // called in animateMetadata
+
   get _metadataTransitions() {
     return {
       y: [
@@ -510,37 +532,12 @@ export default class Tile extends Surface {
     }
   }
 
-  // signal in updateMetadata
   _metadataLoaded() {
     this._animateMetadata();
     if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
   }
 
-  /* ------------------------------ ?????  ------------------------------ */
-
-  _updateContent() {
-    const itemContainerPatch = {
-      h: this._h,
-      w: this._w,
-      x: this._w / 2,
-      y: this._h / 2
-    };
-
-    // Make sure container animates with same values as badge, label, and metadata
-    this.applySmooth(
-      this._Content,
-      itemContainerPatch,
-      Object.keys(itemContainerPatch).reduce((acc, prop) => {
-        acc[prop] = [
-          itemContainerPatch[prop],
-          this._isFocusedMode // this is attaching transitions to props in itemContainerPatch
-            ? this.style.animationEntrance
-            : this.style.animationExit
-        ];
-        return acc;
-      }, {})
-    );
-  }
+  /* ------------------------------ Marquee  ------------------------------ */
 
   _resetMarqueeAnimation() {
     const alphaTransition = this._Metadata._getTransition('alpha');
