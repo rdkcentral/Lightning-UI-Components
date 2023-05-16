@@ -42,7 +42,8 @@ export default class Slider extends Base {
           SliderBar: {
             type: ProgressBar,
             progress: 0.5,
-            mountY: 0.5
+            mountY: 0.5,
+            announce: ''
           },
           Circle: {
             type: Knob,
@@ -323,9 +324,10 @@ export default class Slider extends Base {
   }
 
   get announce() {
-    return (
-      this._announce || (this.value !== undefined && this.value.toString())
-    );
+    if (this._announce !== undefined && this._announce !== null) {
+      return this._announce;
+    }
+    return this.value.toString();
   }
 
   static _states() {

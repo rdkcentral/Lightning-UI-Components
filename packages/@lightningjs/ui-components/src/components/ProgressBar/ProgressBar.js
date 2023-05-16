@@ -100,7 +100,7 @@ export default class ProgressBar extends Base {
   }
 
   get announce() {
-    if (this._announce) {
+    if (this._announce !== undefined && this._announce !== null) {
       return this._announce;
     }
 
@@ -110,6 +110,6 @@ export default class ProgressBar extends Base {
     } else if (progress < 0) {
       progress = 0;
     }
-    return `${progress * 100}%`;
+    return `${Math.round(progress * 100)}%`;
   }
 }
