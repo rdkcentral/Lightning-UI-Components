@@ -64,21 +64,45 @@ export default function withThemeStyles(Base, mixinStyle) {
       });
     }
 
+    /**
+     * Climb the prototype chain to establish what component's extension rules this component should also inherit
+     * @returns {set} // set of strings
+     */
+    get _prototypeChain() {
+      if (this.__prototypeChain) return this.__prototypeChain;
+      const prototypeChain = new Set();
+      let proto = this;
+      do {
+        proto = Object.getPrototypeOf(proto);
+        if (null !== proto && typeof proto === 'object') {
+          try {
+            if (proto.constructor.__componentName)
+              prototypeChain.add(proto.constructor.__componentName);
+          } catch (error) {
+            // Catch error when __componentName is not set in Base component
+          }
+        }
+      } while (proto);
+      this.__prototypeChain = prototypeChain; // Cache the value
+      return prototypeChain;
+    }
+
     /*
      *
      * Theme configuration for overrides and defaults
      */
     get _componentConfig() {
       // TODO: Add caching optimization
-      if (!this.__prototypeChain)
+      if (!this._prototypeChain)
         return (
           this.theme?.componentConfig?.[this.constructor.__componentName] || {}
         );
-      return Array.from(this.__prototypeChain)
+      const result = Array.from(this._prototypeChain)
         .reverse()
         .reduce((acc, curr) => {
           return clone(acc, this.theme?.componentConfig?.[curr] || {});
         }, {});
+      return result;
     }
 
     /**
@@ -329,9 +353,32 @@ export default function withThemeStyles(Base, mixinStyle) {
             });
           }
         }
-
-        v = clone(v, this._styleOverrides);
       });
+
+      /**
+       *
+       * Theme styleConfig overrides
+       *
+       */
+      if (this._styleOverrides) {
+        for (const prop in this._styleOverrides) {
+          if (prop === 'mode' && v.mode) {
+            v = clone(v, { mode: this._styleOverrides.mode });
+          }
+          if (prop === 'mode' && v.tone) {
+            const toneOverrides = Object.keys(v.tone).reduce((acc, curr) => {
+              acc[curr] = clone(v.tone[curr], {
+                mode: this._styleOverrides.mode
+              });
+              return acc;
+            }, {});
+            v = clone(v, { tone: toneOverrides });
+          }
+          if (prop === 'tone') {
+            v = clone(v, { tone: this._styleOverrides.tone });
+          }
+        }
+      }
 
       this._componentStyleSource = v;
 
