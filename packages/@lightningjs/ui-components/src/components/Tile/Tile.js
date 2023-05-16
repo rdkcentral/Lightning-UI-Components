@@ -184,15 +184,26 @@ export default class Tile extends Surface {
 
   /* ------------------------------ Badge ------------------------------ */
   _updateBadge() {
+    // Remove Badge if no longer required
+    if (!this.badge?.title || this._isCircleLayout) {
+      if (this._Badge) {
+        this._Content.patch({
+          Badge: undefined
+        });
+      }
+      return;
+    }
+
     const badgePatch = {
       ...this.badge,
       x: this.style.paddingX,
-      y: this.style.paddingY,
-      alpha:
-        !this._persistentMetadata || !this.badge?.title || this._isCircleLayout
-          ? 0.001
-          : 1
+      y: this.style.paddingY
+      // alpha:
+      //   !this._persistentMetadata || !this.badge?.title || this._isCircleLayout
+      //     ? 0.001
+      //     : 1
     };
+
     if (!this._Badge) {
       this._Content.patch({
         Badge: {
@@ -345,7 +356,7 @@ export default class Tile extends Surface {
       }
       return;
     }
-    // --------------------------------------//
+
     if (this.progressBar.progress > 0) {
       const progressPatch = {
         ...this.progressBar,
@@ -396,6 +407,7 @@ export default class Tile extends Surface {
     this._Content.patch({ ProgressBar: undefined });
     this._updateMetadata();
   }
+
   /* ------------------------------ Metadata  ------------------------------ */
 
   get _shouldShowMetadata() {
