@@ -48,7 +48,9 @@ export const CardContentVerticalSmall = args =>
   };
 
 CardContentVerticalSmall.storyName = 'CardContentVerticalSmall';
-const cardContentArgs = CardContent.args;
+
+//Creating a shallow copy of CardContent.args object and removing metadata details property from cardContentArgs
+const cardContentArgs = { ...CardContent.args };
 delete cardContentArgs.metadata_details;
 
 CardContentVerticalSmall.args = {
@@ -56,7 +58,8 @@ CardContentVerticalSmall.args = {
   ...CardContent.args
 };
 
-const cardContentArgsTypes = CardContent.argTypes;
+//Creating a shallow copy of CardContent.argTypes object and removing metadata details property from cardContentArgsTypes
+const cardContentArgsTypes = { ...CardContent.argTypes };
 delete cardContentArgsTypes.metadata_details;
 
 CardContentVerticalSmall.argTypes = {
