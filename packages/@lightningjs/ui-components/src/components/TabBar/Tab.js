@@ -134,24 +134,20 @@ export default class Tab extends Surface {
   }
 
   _updateContent() {
-    const iconWidth = this._iconW || 0;
-    const titleWidth = this.title
-      ? this.style.iconMarginRight + this._textW
-      : 0;
     this._Content.patch({
-      w: iconWidth + titleWidth,
+      w:
+        this._iconW +
+        (this.title ? this.style.iconMarginRight : 0) +
+        this._textW,
       h: Math.max(this._iconH, this._Text.h)
     });
   }
 
   _updateTabSize() {
-    const contentWidth = this._iconW + this.style.iconMarginRight + this._textW;
-    const contentHeight = Math.max(this._iconH, this._Text.h);
-
     if (this.title || this.icon) {
       this.patch({
-        w: this._paddingX * 2 + contentWidth,
-        h: this.style.paddingY * 2 + contentHeight
+        w: this._paddingX * 2 + this._Content.w,
+        h: this.style.paddingY * 2 + this._Content.h
       });
     } else {
       this.patch({ w: 0, h: 0 });
