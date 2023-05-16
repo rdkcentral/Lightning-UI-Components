@@ -55,7 +55,7 @@ delete cardContentArgs.metadata_details;
 
 CardContentVerticalSmall.args = {
   mode: 'focused',
-  ...CardContent.args
+  ...cardContentArgs
 };
 
 //Creating a shallow copy of CardContent.argTypes object and removing metadata details property from cardContentArgsTypes
@@ -64,7 +64,7 @@ delete cardContentArgsTypes.metadata_details;
 
 CardContentVerticalSmall.argTypes = {
   ...createModeControl({ summaryValue: CardContentVerticalSmall.args.mode }),
-  ...CardContent.argTypes
+  ...cardContentArgsTypes
 };
 
 CardContentVerticalSmall.parameters = {
