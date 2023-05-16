@@ -132,11 +132,9 @@ export default class Tile extends Surface {
   get _gradient() {
     if (this._isCircleLayout) return false;
     return Boolean(
-      (this._isInsetMetadata &&
+      this._isInsetMetadata &&
         this._hasMetadata &&
-        this._shouldShowMetadata) ||
-        this._shouldShowBadgeLabel ||
-        (this.progressBar && this.progressBar.progress > 0)
+        (this._shouldShowMetadata || this._shouldShowBadgeLabel)
     );
   }
 

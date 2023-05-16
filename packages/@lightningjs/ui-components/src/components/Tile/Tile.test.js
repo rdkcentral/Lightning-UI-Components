@@ -43,9 +43,7 @@ describe('Tile', () => {
           '_updateContent',
           '_updateMetadata',
           '_updateProgressBar',
-          '_updateLabel',
-          '_cleanupMetadata',
-          '_inactive'
+          '_updateLabel'
         ]
       }
     );
@@ -176,7 +174,7 @@ describe('Tile', () => {
       progress: 0.5
     };
     await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
+    expect(tile._gradient).toBe(false);
     tile.progressBar = {
       progress: 0
     };
@@ -184,6 +182,7 @@ describe('Tile', () => {
 
     testRenderer.unfocus();
     await tile.__updateSpyPromise;
+
     expect(tile._gradient).toBe(false);
     testRenderer.focus();
     await tile.__updateSpyPromise;
@@ -212,7 +211,7 @@ describe('Tile', () => {
     expect(tile._gradient).toBe(false);
     tile.persistentMetadata = true;
     await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(false);
+    expect(tile._gradient).toBe(true);
     tile.progressBar = {
       progress: 0.5
     };
@@ -298,7 +297,7 @@ describe('Tile', () => {
 
     tile.itemLayout = { circle: true };
     await tile.__updateBadgeSpyPromise;
-    expect(tile._Badge).toBeUndefined();
+    expect(tile._Badge.alpha).toBe(0.001);
     tile.itemLayout = undefined;
     tile.badge = {
       title: 'changed'
@@ -323,7 +322,7 @@ describe('Tile', () => {
     tile.itemLayout = { circle: true };
     tile.metadata = { badge: 'test' };
     await tile.__updateBadgeSpyPromise;
-    expect(tile._Badge).toBeUndefined();
+    expect(tile._Badge.alpha).toBe(0.001);
   });
 
   it('should add label if required and remove element when no longer needed', async () => {
