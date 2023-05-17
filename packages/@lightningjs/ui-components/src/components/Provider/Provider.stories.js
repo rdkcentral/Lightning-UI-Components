@@ -35,12 +35,14 @@ export default {
 
 const sharedArgs = {
   counterText: null,
-  disableRadius: false
+  disableRadius: false,
+  visibleCount: 3
 };
 const sharedArgTypes = {
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
-    description: 'number of visible providers',
+    description:
+      'number of visible providers(between 1(min) and total number of providers(max))',
     table: {
       defaultValue: { summary: 'undefined' }
     }
@@ -71,8 +73,7 @@ export const Provider = () =>
           providers: Array(10).fill({
             icon: xfinity,
             announce: 'xfinity'
-          }),
-          visibleCount: 3
+          })
         }
       };
     }
