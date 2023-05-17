@@ -2,7 +2,7 @@ name: Release Packages
 
 on:
   push:
-    branches: ["release"]
+    branches: ['release']
 
 jobs:
   quality:
@@ -25,11 +25,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.17.x
-          cache: "yarn"
+          cache: 'yarn'
       - name: Install Dependencies
         run: yarn install
       - name: Build Packages
-        run: yarn workspaces foreach --exclude lightning-ui-docs run build
+        run: yarn build
       - name: Copy README # Make sure to deploy README from the root directory along with @lightningjs/ui-components
         run: cp ./README.md ./packages/@lightningjs/ui-components/README.md
       - name: Semantic Release
