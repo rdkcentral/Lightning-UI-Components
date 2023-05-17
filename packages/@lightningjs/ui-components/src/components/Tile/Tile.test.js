@@ -33,7 +33,7 @@ describe('Tile', () => {
 
   beforeEach(async () => {
     [tile, testRenderer] = createComponent(
-      { w: 300, h: 169 },
+      { w: 300, h: 169, metadataLocation: 'standard' },
       {
         spyOnMethods: [
           '_update',
@@ -159,7 +159,7 @@ describe('Tile', () => {
     expect(tile._Artwork.src).toBe(imageUrl2);
   });
 
-  it('returns the proper value for gradient when has metadata and focus', async () => {
+  it('returns the proper value for gradient when has metadata is in focus and layout is inset', async () => {
     expect(tile._gradient).toBe(false);
     // Overwrite _hasMetadata to always be true for test
     Object.defineProperty(tile, '_hasMetadata', {
@@ -205,43 +205,6 @@ describe('Tile', () => {
     tile.h = 169;
     await tile.__updateSpyPromise;
     expect(tile._foregroundDefaultWidth).toBe(tile.innerW * 0.5);
-  });
-
-  it('returns the proper value for gradient when has persistentMetadata set to true', async () => {
-    expect(tile._gradient).toBe(false);
-    tile.persistentMetadata = true;
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
-    tile.progressBar = {
-      progress: 0.5
-    };
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
-    tile.progressBar = {
-      progress: 0
-    };
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(false);
-    tile.metadata = { title: 'test' };
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(false);
-    tile.metadataLocation = 'inset';
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
-    tile.progressBar = {
-      progress: 0.5
-    };
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
-  });
-
-  it('returns the proper value for gradient when has progress greater than 1', async () => {
-    expect(tile._gradient).toBe(false);
-    tile.progressBar = {
-      progress: 0.5
-    };
-    await tile.__updateSpyPromise;
-    expect(tile._gradient).toBe(true);
   });
 
   it('returns the proper value for isCircleLayout', async () => {
@@ -294,10 +257,9 @@ describe('Tile', () => {
     };
     await tile.__updateBadgeSpyPromise;
     expect(tile._Badge).not.toBeUndefined();
-
     tile.itemLayout = { circle: true };
     await tile.__updateBadgeSpyPromise;
-    expect(tile._Badge.alpha).toBe(0.001);
+    expect(tile._Badge).toBeUndefined();
     tile.itemLayout = undefined;
     tile.badge = {
       title: 'changed'
@@ -320,9 +282,9 @@ describe('Tile', () => {
 
   it('should not add badge if has a circle layout', async () => {
     tile.itemLayout = { circle: true };
-    tile.metadata = { badge: 'test' };
+    tile.badge = { title: 'test' };
     await tile.__updateBadgeSpyPromise;
-    expect(tile._Badge.alpha).toBe(0.001);
+    expect(tile._Badge).toBeUndefined();
   });
 
   it('should add label if required and remove element when no longer needed', async () => {

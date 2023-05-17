@@ -132,9 +132,7 @@ export default class Tile extends Surface {
   get _gradient() {
     if (this._isCircleLayout) return false;
     return Boolean(
-      this._isInsetMetadata &&
-        this._hasMetadata &&
-        (this._shouldShowMetadata || this._shouldShowBadgeLabel)
+      this._isInsetMetadata && this._hasMetadata && this._shouldShowMetadata
     );
   }
 
@@ -289,6 +287,7 @@ export default class Tile extends Surface {
       ...this._badgeLabelTransitions
     });
   }
+
   /* ------------------------------ Badge & Label ------------------------------ */
 
   // Badge and Label should animate in with the same values
@@ -401,8 +400,8 @@ export default class Tile extends Surface {
         if (this.shouldSmooth) {
           this._ProgressBar.smooth = {
             alpha: [
-              1,
-              { delay: this.style.animationEntrance.duration } // Wait for metadata to animate in
+              1
+              //{ delay: this.style.animationEntrance.duration } // Wait for metadata to animate in
             ]
           };
         }
