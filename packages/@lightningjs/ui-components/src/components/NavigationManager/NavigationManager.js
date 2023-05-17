@@ -348,9 +348,7 @@ export default class NavigationManager extends FocusManager {
     }
     items.forEach(item => this._appendItem(item));
 
-    this.stage.update();
     this.queueRequestUpdate();
-    this._refocus();
   }
 
   appendItemsAt(items = [], idx) {
