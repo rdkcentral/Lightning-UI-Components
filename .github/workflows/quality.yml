@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  quality:
+  lint-unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 16.17.x
           cache: 'yarn'
-      - name: Run tests
+      - name: Test build
         run: |
           yarn install
           yarn build
