@@ -9,18 +9,20 @@ permissions:
 
 jobs:
   quality:
-  - uses: actions/checkout@v2
-    name: Quality
-    uses: ./.github/workflows/quality.yml
+   runs-on: ubuntu-latest
+   steps:
+      - uses: actions/checkout@v3
+      - name: Quality
+        uses: ./.github/workflows/quality.yml
 
   check-pr-title:
     name: Check PR title
     steps:
-      - uses: actions/checkout@v2
-      - name: Check PR title format
-        run: |
-          title=$(jq --raw-output .pull_request.title $GITHUB_EVENT_PATH)
-          if [ $(echo $title | grep -Eoc '^(feat|fix|chore|docs|test|build)(\([a-z,A-Z]+\))?: .{1,100}+$') -eq 0 ]; then # https://regex101.com/r/swQ454/1
+       - uses: actions/checkout@v3
+       - name: Check PR title format
+         run: |
+           title=$(jq --raw-output .pull_request.title $GITHUB_EVENT_PATH)
+           if [ $(echo $title | grep -Eoc '^(feat|fix|chore|docs|test|build)(\([a-z,A-Z]+\))?: .{1,100}+$') -eq 0 ]; then # https://regex101.com/r/swQ454/1
               echo "PR title does not comply with conventional commits"
               echo "PR title does not comply with conventional commits: $(cat pull-request-title/title)" > comment/comment
               exit 1
