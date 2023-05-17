@@ -292,7 +292,9 @@ export default class Tile extends Surface {
 
   // Badge and Label should animate in with the same values
   get _shouldShowBadgeLabel() {
-    return this._persistentMetadata || this._isFocusedMode;
+    return (
+      this._persistentMetadata || (this._isFocusedMode && !this._isCircleLayout)
+    );
   }
   get _badgeLabelTransitions() {
     return {
@@ -303,7 +305,7 @@ export default class Tile extends Surface {
           : this.style.animationExit
       ],
       alpha: [
-        this._shouldShowBadgeLabel && !this._isCircleLayout ? 1 : 0.001,
+        this._shouldShowBadgeLabel ? 1 : 0.001,
         this._shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
@@ -400,8 +402,8 @@ export default class Tile extends Surface {
         if (this.shouldSmooth) {
           this._ProgressBar.smooth = {
             alpha: [
-              1
-              //{ delay: this.style.animationEntrance.duration } // Wait for metadata to animate in
+              1,
+              { delay: this.style.animationEntrance.duration } // Wait for metadata to animate in
             ]
           };
         }
@@ -431,8 +433,13 @@ export default class Tile extends Surface {
 
   /* ------------------------------ Metadata  ------------------------------ */
 
+  // all the logic on whether the metaData should show
   get _shouldShowMetadata() {
-    return this._persistentMetadata || this._isFocusedMode;
+    return (
+      (this._persistentMetadata && !this._isInsetMetadata) ||
+      (this._isFocusedMode && !this._isInsetMetadata) ||
+      (this._isFocusedMode && this._isInsetMetadata && !this._isCircleLayout)
+    );
   }
 
   get _isInsetMetadata() {
@@ -442,7 +449,7 @@ export default class Tile extends Surface {
   get _metadataTransitions() {
     return {
       y: [
-        this._shouldShowMetadata || this._isInsetMetadata
+        this._shouldShowMetadata
           ? this._metadataY
           : this._h + this.style.paddingY,
         this._shouldShowMetadata
@@ -472,7 +479,7 @@ export default class Tile extends Surface {
 
   get _metadataPatch() {
     return {
-      alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
+      alpha: this._hasMetadata ? 1 : 0.001,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
       marquee: this._isFocusedMode,
@@ -512,9 +519,9 @@ export default class Tile extends Surface {
 
       return;
     }
-
+    // if none of the above apply patch in metadataPatch
     this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
-
+    // then call animateMetadata
     this._animateMetadata();
   }
 
