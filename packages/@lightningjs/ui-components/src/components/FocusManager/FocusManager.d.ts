@@ -92,26 +92,26 @@ declare class FocusManager<
 
   /**
    * adds the provided Rows to the end of the FocusManager children
-   * @param items array of Rows or Row-type patch objects
+   * @param items array of Components or Component patch objects
    */
   appendItems(items: FocusItemsType): void;
 
   /**
    * adds the provided Rows to the end of the FocusManager children at the provided index
-   * @param items array of Rows or Row-type patch objects
-   * @param idx index to insert rows at
+   * @param items array of Components or Component patch objects
+   * @param idx index to insert `items` at
    */
   appendItemsAt(items: FocusItemsType, idx: number): void;
 
   /**
    * adds the provided Rows to the beginning of the FocusManager children
-   * @param items array of Rows or Row-type patch objects
+   * @param items array of Components or Component patch objects
    */
   prependItems(items: FocusItemsType): void;
 
   /**
    * removes Item from FocusManager children at the given index
-   * @param index index of row to remove
+   * @param index index of item to remove
    */
   removeItemAt(idx: number): void;
 
