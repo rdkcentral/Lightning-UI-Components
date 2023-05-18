@@ -39,7 +39,7 @@ yarn start
 
 This will launch Storybook at [http://localhost:8000/](http://localhost:8000/).
 
-## Peer dependencies
+## Peer Dependencies
 
 `@lightningjs/ui-components` has a peer dependency on `@lightningjs/core^2.x`. If you are stuck using the _old Lightning_, i.e. `wpe-lightning^1.x`, you will need to alias `@lightningjs/core` in your build process. If you are bundling your app using [Webpack](https://webpack.js.org/), you should add this to your config:
 
