@@ -65,7 +65,11 @@ describe('Artwork', () => {
     testRenderer = null;
   });
 
-  it('renders', () => {
+  it('renders', async () => {
+    artwork.src = 'sampleImg_100x100'; // dimensions added to force mock Image constructor to set the width and height off a src string
+    await artwork._processedImageSrc;
+    await artwork.__resolveLoadingSpyPromise;
+
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
   });
