@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 
 export const base = theme => ({
   expandedW: utils.getWidthByUpCount(theme, 4),

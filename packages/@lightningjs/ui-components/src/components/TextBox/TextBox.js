@@ -22,7 +22,7 @@ import Base from '../Base';
 import InlineContent from '../InlineContent';
 import Marquee from '../Marquee';
 import { context } from '../../globals';
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 
 /**
  *

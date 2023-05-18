@@ -17,7 +17,7 @@
  */
 
 import Card from '../Card/Card';
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 import Tile from '../Tile';
 import MetadataCardContent from '../MetadataCardContent';
 import * as styles from './CardContent.styles';

@@ -21,7 +21,7 @@ import { createModeControl, generateSubStory } from '../../docs/utils';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 import Icon from '../Icon';
 import { default as KeyboardInputComponent } from './KeyboardInput';
 import { default as KeyboardQwertyComponent } from './KeyboardQwerty';

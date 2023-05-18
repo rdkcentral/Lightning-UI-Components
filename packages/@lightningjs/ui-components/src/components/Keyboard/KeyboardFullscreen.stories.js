@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import mdx from './Keyboard.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
 import { Keyboard } from './Keyboard.stories';
 

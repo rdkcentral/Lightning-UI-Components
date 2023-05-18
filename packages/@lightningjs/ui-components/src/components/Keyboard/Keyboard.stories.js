@@ -21,7 +21,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import mdx from './Keyboard.mdx';
-import utils from '../../utils';
+import utils from '../../utils/index.js';
 import { default as KeyboardComponent } from './Keyboard';
 
 export default {
