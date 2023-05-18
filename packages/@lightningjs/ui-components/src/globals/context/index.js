@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { capitalizeFirstLetter } from '../../utils';
+import { capitalizeFirstLetter } from '../../utils/index.js'; // Keep .js so it can be consumed by node
 import logger from './logger.js';
 import metrics from './metrics.js';
 import events from './events.js';

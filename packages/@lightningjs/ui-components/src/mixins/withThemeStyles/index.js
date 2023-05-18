@@ -4,6 +4,29 @@ import { context } from '../../globals';
 import { getComponentConfig, getSubTheme } from './utils';
 
 /**
+ * Generates an object that matches the structure of the given JSON schema with default values.
+ * @param {object} schema - The JSON schema.
+ * @returns {object} The object that matches the schema structure with default values.
+ */
+function generateDefaultObjectFromSchema(schema) {
+  const defaultObject = {};
+
+  for (const property in schema.properties) {
+    if (schema.properties.hasOwnProperty(property)) {
+      const propertySchema = schema.properties[property];
+      if (propertySchema.hasOwnProperty('default')) {
+        defaultObject[property] = propertySchema.default;
+      } else if (propertySchema.type === 'object') {
+        defaultObject[property] =
+          generateDefaultObjectFromSchema(propertySchema);
+      }
+    }
+  }
+
+  return defaultObject;
+}
+
+/**
  * A higher-order function that returns a class with theme styles.
  * @param {Function} Base - The base class to extend.
  * @param {Object} mixinStyle - The mixin style to add to the component.
@@ -16,7 +39,9 @@ export default function withThemeStyles(Base, mixinStyle) {
       super(...arguments);
       this._hSetByUser = false;
       this._wSetByUser = false;
-      this._style = null;
+      this._style = this.constructor.__themeStyle?.schema
+        ? generateDefaultObjectFromSchema(this.constructor.__themeStyle.schema)
+        : {};
       this._styleManager = new StyleManager({ component: this });
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;

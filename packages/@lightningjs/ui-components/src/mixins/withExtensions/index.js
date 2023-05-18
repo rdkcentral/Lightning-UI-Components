@@ -136,15 +136,23 @@ export default function withExtensions(Base) {
       this._appliedExtensionLength = 0; // After the extensions are applied we store the length of all to determine later on if they have been applied before
       this._extendedList = {};
       this._extensionInstance = {}; // This will hold the extension instance once created
-      context.on('themeUpdate', () => {
-        this._currentComponentExtensionLength =
-          this._calculateComponentExtensionLength();
-        this._createExtension.call(this);
-      });
+      this._setupExtensionBound = this._setupExtension.bind(this);
+      context.on('themeUpdate', this._setupExtensionBound);
       this._currentComponentExtensionLength =
         this._calculateComponentExtensionLength();
       this._createExtension();
       super._construct();
+    }
+
+    _detach() {
+      super._detach();
+      context.off('themeUpdate', this._setupExtensionBound);
+    }
+
+    _setupExtension() {
+      this._currentComponentExtensionLength =
+        this._calculateComponentExtensionLength();
+      this._createExtension.call(this);
     }
 
     _resetComponent() {
