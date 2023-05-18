@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Make sure to get all history for semantic release
+          persist-credentials: false
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -34,11 +35,11 @@ jobs:
         run: cp ./README.md ./packages/@lightningjs/ui-components/README.md
       - name: Semantic Release
         run: |
-          yarn workspace @lightningjs/ui-components-theme-base run semantic-release --no-ci -e semantic-release-monorepo 
-          yarn workspace @lightningjs/ui-components run semantic-release --no-ci -e semantic-release-monorepo 
+          yarn workspace @lightningjs/ui-components-theme-base run semantic-release --no-ci -e semantic-release-monorepo
+          yarn workspace @lightningjs/ui-components run semantic-release --no-ci -e semantic-release-monorepo
           yarn workspace @lightningjs/ui-components-test-utils run semantic-release --no-ci -e semantic-release-monorepo
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       - name: Setup git config
