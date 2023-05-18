@@ -279,9 +279,7 @@ export default class Button extends Surface {
   }
 
   get _hasPrefix() {
-    return this._Prefix && Array.isArray(this.prefix)
-      ? this.prefix.length
-      : this.prefix;
+    return !!(this.prefix && Object.keys(this.prefix).length);
   }
 
   get _prefixW() {
@@ -318,9 +316,7 @@ export default class Button extends Surface {
   }
 
   get _hasSuffix() {
-    return this._Suffix && Array.isArray(this.suffix)
-      ? this.suffix.length
-      : this.suffix;
+    return !!(this.suffix && Object.keys(this.suffix).length);
   }
 
   get _suffixW() {
