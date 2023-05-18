@@ -159,19 +159,16 @@ export default class Provider extends Base {
     const min = 1;
     const max = this.providers.length;
     const visibleCount = Math.min(Math.max(min, this._visibleCount), max);
-
     if (this._visibleCount < min) {
       console.warn(
         `Warning: The specified visible count (${this._visibleCount}) is less than the minimum value (${min}). Setting it to ${min}.`
       );
     }
-
     if (this._visibleCount > max) {
       console.warn(
         `Warning: The specified visible count (${this._visibleCount}) is greater than the maximum value (${max}). Setting it to ${max}.`
       );
     }
-
     return visibleCount;
   }
 
