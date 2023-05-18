@@ -38,3 +38,68 @@ export const base = theme => {
     titlePadding: theme.spacer.md
   };
 };
+
+export const defaultStyle = {
+  h: 80,
+  iconStyle: {},
+  logoStyle: {
+    radius: 0,
+    w: 70,
+    h: 60
+  },
+  minWidth: 90,
+  paddingX: 20,
+  paddingXNoTitle: 10,
+  prefixH: 60,
+  prefixPadding: 10,
+  radius: 0,
+  titlePadding: 10
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    iconStyle: {
+      type: 'object',
+      properties: {}
+    },
+    logoStyle: {
+      type: 'object',
+      properties: {
+        radius: {
+          type: 'number'
+        },
+        w: {
+          type: 'number'
+        },
+        h: {
+          type: 'number'
+        }
+      }
+    },
+    minWidth: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingXNoTitle: {
+      type: 'number'
+    },
+    prefixH: {
+      type: 'number'
+    },
+    prefixPadding: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    titlePadding: {
+      type: 'number'
+    }
+  }
+};

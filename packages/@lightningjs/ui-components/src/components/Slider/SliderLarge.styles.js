@@ -24,3 +24,24 @@ export const base = theme => {
     radius: size / 2
   };
 };
+
+export const defaultStyle = {
+  w: 40,
+  h: 40,
+  radius: 20
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    }
+  }
+};

@@ -34,3 +34,90 @@ export const base = theme => {
     iconH: textStyle.lineHeight
   };
 };
+
+export const defaultStyle = {
+  h: 90,
+  minWidth: 70,
+  paddingX: 10,
+  textStyle: {
+    fontSize: 30,
+    fontWeight: 500,
+    lineHeight: 40,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  sizes: {
+    sm: 70,
+    md: 150,
+    lg: 230,
+    xl: 470,
+    xxl: 950
+  },
+  iconW: 40,
+  iconH: 40
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    minWidth: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    sizes: {
+      type: 'object',
+      properties: {
+        sm: {
+          type: 'number'
+        },
+        md: {
+          type: 'number'
+        },
+        lg: {
+          type: 'number'
+        },
+        xl: {
+          type: 'number'
+        },
+        xxl: {
+          type: 'number'
+        }
+      }
+    },
+    iconW: {
+      type: 'number'
+    },
+    iconH: {
+      type: 'number'
+    }
+  }
+};

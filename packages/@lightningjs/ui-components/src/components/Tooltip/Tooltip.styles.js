@@ -44,3 +44,94 @@ export const tone = theme => ({
     textStyle: { textColor: theme.color.textNeutral }
   }
 });
+
+export const defaultStyle = {
+  marginBottom: 50,
+  paddingX: 20,
+  paddingY: 10,
+  pointerW: 30,
+  pointerH: 14,
+  radius: 0,
+  textStyle: {
+    fontSize: 15,
+    fontWeight: 500,
+    lineHeight: 24,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4279769113
+  },
+  transition: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  backgroundColor: 4294506490
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    marginBottom: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingY: {
+      type: 'number'
+    },
+    pointerW: {
+      type: 'number'
+    },
+    pointerH: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    transition: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    backgroundColor: {
+      type: 'number'
+    }
+  }
+};

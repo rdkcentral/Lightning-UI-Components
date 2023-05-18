@@ -51,3 +51,46 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  w: 20,
+  h: 20,
+  radius: 10,
+  circleColor: 4294967295,
+  mode: {
+    disabled: {
+      circleColor: 2163800058
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    circleColor: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        disabled: {
+          type: 'object',
+          properties: {
+            circleColor: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

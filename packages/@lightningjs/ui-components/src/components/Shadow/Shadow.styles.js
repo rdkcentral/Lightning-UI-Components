@@ -52,3 +52,67 @@ export const tone = theme => ({
     color: theme.color.shadowBrandFocus
   }
 });
+
+export const defaultStyle = {
+  alpha: 0.7,
+  animation: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  blur: 40,
+  color: 3003121664,
+  offsetX: 0,
+  offsetY: 40,
+  radius: 0,
+  spread: -10,
+  maxOffsetY: 40,
+  maxOffsetX: 0
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    alpha: {
+      type: 'number'
+    },
+    animation: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    blur: {
+      type: 'number'
+    },
+    color: {
+      type: 'number'
+    },
+    offsetX: {
+      type: 'number'
+    },
+    offsetY: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    spread: {
+      type: 'number'
+    },
+    maxOffsetY: {
+      type: 'number'
+    },
+    maxOffsetX: {
+      type: 'number'
+    }
+  }
+};

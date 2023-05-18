@@ -21,3 +21,16 @@ export const tone = theme => ({
   inverse: { color: theme.color.fillInverse },
   brand: { color: theme.color.fillBrand }
 });
+
+export const defaultStyle = {
+  color: 4294506490
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    color: {
+      type: 'number'
+    }
+  }
+};

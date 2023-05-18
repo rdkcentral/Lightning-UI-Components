@@ -64,3 +64,53 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  showArrows: true,
+  showKnob: false,
+  mode: {
+    focused: {
+      arrowColor: 4279769113,
+      progressBar: {
+        barColor: 437786649,
+        progressColor: 4279769113
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    showArrows: {
+      type: 'boolean'
+    },
+    showKnob: {
+      type: 'boolean'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            arrowColor: {
+              type: 'number'
+            },
+            progressBar: {
+              type: 'object',
+              properties: {
+                barColor: {
+                  type: 'number'
+                },
+                progressColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

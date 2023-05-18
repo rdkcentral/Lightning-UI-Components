@@ -64,3 +64,91 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  h: 100,
+  w: 0,
+  justify: 'center',
+  minWidth: 472,
+  paddingX: 50,
+  paddingXNoTitle: 30,
+  titlePadding: 10,
+  itemSpacing: 10,
+  textStyle: {
+    fontSize: 25,
+    fontWeight: 500,
+    letterSpacing: -0.2,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 4279769113
+  },
+  contentColor: 4279769113
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    w: {
+      type: 'number'
+    },
+    justify: {
+      type: 'string'
+    },
+    minWidth: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingXNoTitle: {
+      type: 'number'
+    },
+    titlePadding: {
+      type: 'number'
+    },
+    itemSpacing: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        letterSpacing: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    contentColor: {
+      type: 'number'
+    }
+  }
+};

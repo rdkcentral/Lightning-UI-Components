@@ -48,3 +48,56 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  arrowAlphaValue: 1,
+  arrowAlphaValueLimit: 0.7,
+  arrowWidth: 40,
+  arrowHeight: 40,
+  iconLeftSrc:
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAGKADAAQAAAABAAAAGAAAAADiNXWtAAAAi0lEQVRIDWNgGAWjIfD//38JID5Fk5AAGqwKxPeA+D/VLQCaaQLEr0CGgwBVLQCa5wbEn0EGwwDVLAAaGA3Ev2AGw2iqWAA0rBiI/8EMRaYptgBoWDeygehsci1gIlcjWfqArqZdEMFcBLSEdpGMZAntkimSJbTLaEiW0K6oQLKEdoUdzJJRemiHAAD4n+yzPWCs7QAAAABJRU5ErkJggg==',
+  iconRightSrc:
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAGKADAAQAAAABAAAAGAAAAADiNXWtAAAAg0lEQVRIDWNgGAWjIYArBP7//38KiCVwyVMsDjQcBO4BsSrFhmEzAGw8hHgFpEywqaFIDMkCEPMzELtRZCC6ZjQLQNxfQByNro5sPhYLQEL/gLiYbEORNeKwACbcDVPLBGMMOhrmVDSapkFE00imaTKlaUajaVFB28Ju0CXrUQfhDAEAEgHss6NhpLQAAAAASUVORK5CYII=',
+  mode: {
+    focused: {
+      arrowColor: 4279769113
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    arrowAlphaValue: {
+      type: 'number'
+    },
+    arrowAlphaValueLimit: {
+      type: 'number'
+    },
+    arrowWidth: {
+      type: 'number'
+    },
+    arrowHeight: {
+      type: 'number'
+    },
+    iconLeftSrc: {
+      type: 'string'
+    },
+    iconRightSrc: {
+      type: 'string'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            arrowColor: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

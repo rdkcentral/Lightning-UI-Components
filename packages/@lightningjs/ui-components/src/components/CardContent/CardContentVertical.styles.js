@@ -27,3 +27,38 @@ export const base = theme => ({
     theme.spacer.xxs,
   metadata: { descriptionTextStyle: { maxLines: 3 } }
 });
+
+export const defaultStyle = {
+  expandedW: 390,
+  expandedH: 591,
+  metadata: {
+    descriptionTextStyle: {
+      maxLines: 3
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    expandedW: {
+      type: 'number'
+    },
+    expandedH: {
+      type: 'number'
+    },
+    metadata: {
+      type: 'object',
+      properties: {
+        descriptionTextStyle: {
+          type: 'object',
+          properties: {
+            maxLines: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

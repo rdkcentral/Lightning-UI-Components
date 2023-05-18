@@ -28,3 +28,36 @@ export const base = theme => {
     strokeWidth
   };
 };
+
+export const defaultStyle = {
+  w: 26,
+  h: 26,
+  checkW: 10,
+  checkH: 12,
+  radius: 13,
+  strokeWidth: 2
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    checkW: {
+      type: 'number'
+    },
+    checkH: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    strokeWidth: {
+      type: 'number'
+    }
+  }
+};

@@ -79,3 +79,196 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  descriptionTextStyle: {
+    fontSize: 22,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 3019438074
+  },
+  fadeWidth: 80,
+  logoWidth: 32,
+  logoHeight: 32,
+  logoPadding: 20,
+  subtitleTextStyle: {
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  },
+  titleTextStyle: {
+    fontSize: 35,
+    fontWeight: 500,
+    lineHeight: 48,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 4294506490
+  },
+  marqueeSync: true,
+  alpha: 0.5,
+  mode: {
+    disabled: {
+      titleTextStyle: {
+        textColor: 2163800058
+      },
+      subtitleTextStyle: {
+        textColor: 2163800058
+      },
+      descriptionTextStyle: {
+        textColor: 2163800058
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    descriptionTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    fadeWidth: {
+      type: 'number'
+    },
+    logoWidth: {
+      type: 'number'
+    },
+    logoHeight: {
+      type: 'number'
+    },
+    logoPadding: {
+      type: 'number'
+    },
+    subtitleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    titleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    marqueeSync: {
+      type: 'boolean'
+    },
+    alpha: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        disabled: {
+          type: 'object',
+          properties: {
+            titleTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            },
+            subtitleTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            },
+            descriptionTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

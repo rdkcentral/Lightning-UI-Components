@@ -29,3 +29,71 @@ export const base = theme => ({
   maxLines: 1,
   justify: 'center'
 });
+
+export const defaultStyle = {
+  textY: 0,
+  iconW: 44,
+  iconH: 44,
+  contentSpacing: 10,
+  marginBottom: -4,
+  textStyle: {
+    fontSize: 25,
+    fontWeight: 300,
+    lineHeight: 40,
+    verticalAlign: 'bottom',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  maxLines: 1,
+  justify: 'center'
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    textY: {
+      type: 'number'
+    },
+    iconW: {
+      type: 'number'
+    },
+    iconH: {
+      type: 'number'
+    },
+    contentSpacing: {
+      type: 'number'
+    },
+    marginBottom: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    maxLines: {
+      type: 'number'
+    },
+    justify: {
+      type: 'string'
+    }
+  }
+};

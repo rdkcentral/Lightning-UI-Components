@@ -21,3 +21,24 @@ export const base = theme => ({
   iconHeight: theme.spacer.xxl,
   h: theme.spacer.md * 20
 });
+
+export const defaultStyle = {
+  iconWidth: 40,
+  iconHeight: 40,
+  h: 200
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    iconWidth: {
+      type: 'number'
+    },
+    iconHeight: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    }
+  }
+};

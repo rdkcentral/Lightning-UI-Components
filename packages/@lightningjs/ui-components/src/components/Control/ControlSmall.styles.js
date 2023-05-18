@@ -38,3 +38,78 @@ export const base = theme => {
     minWidth: theme.spacer.md * 8
   };
 };
+
+export const defaultStyle = {
+  h: 70,
+  logoStyle: {
+    radius: 0,
+    h: 50,
+    w: 60
+  },
+  prefixH: 50,
+  radius: 0,
+  textStyle: {
+    fontSize: 20,
+    fontWeight: 500,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  minWidth: 80
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    logoStyle: {
+      type: 'object',
+      properties: {
+        radius: {
+          type: 'number'
+        },
+        h: {
+          type: 'number'
+        },
+        w: {
+          type: 'number'
+        }
+      }
+    },
+    prefixH: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    minWidth: {
+      type: 'number'
+    }
+  }
+};

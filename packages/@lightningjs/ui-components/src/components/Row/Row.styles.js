@@ -26,3 +26,47 @@ export const base = theme => ({
     duration: theme.animation.duration.fast
   }
 });
+
+export const defaultStyle = {
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  itemTransition: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    itemSpacing: {
+      type: 'number'
+    },
+    scrollIndex: {
+      type: 'number'
+    },
+    alwaysScroll: {
+      type: 'boolean'
+    },
+    neverScroll: {
+      type: 'boolean'
+    },
+    itemTransition: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

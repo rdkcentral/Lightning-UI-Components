@@ -26,3 +26,63 @@ export const base = theme => ({
   suffixH: theme.spacer.xl,
   textStyle: theme.typography.button2
 });
+
+export const defaultStyle = {
+  h: 80,
+  minWidth: 144,
+  paddingX: 40,
+  prefixH: 30,
+  suffixH: 30,
+  textStyle: {
+    fontSize: 20,
+    fontWeight: 500,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    minWidth: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    prefixH: {
+      type: 'number'
+    },
+    suffixH: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    }
+  }
+};

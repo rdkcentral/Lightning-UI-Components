@@ -43,3 +43,214 @@ export const base = theme => ({
     foreground: 6
   }
 });
+
+export const defaultStyle = {
+  animationBlurEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationBlurExit: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationComponentEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationGradientEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationGradientExit: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationImageScaleEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationImageScaleExit: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  blur: 4,
+  centerImageRadius: 0,
+  fillColor: 4279769113,
+  gradientColor: 4279769113,
+  imageScalePivotX: 0.5,
+  imageScalePivotY: 0.5,
+  padding: 10,
+  radius: 0,
+  zIndexSet: {
+    image: 1,
+    blur: 2,
+    centerImage: 3,
+    fill: 4,
+    gradient: 5,
+    foreground: 6
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    animationBlurEntrance: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationBlurExit: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationComponentEntrance: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationGradientEntrance: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationGradientExit: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationImageScaleEntrance: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationImageScaleExit: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    blur: {
+      type: 'number'
+    },
+    centerImageRadius: {
+      type: 'number'
+    },
+    fallbackSrc: {
+      type: 'null'
+    },
+    fillColor: {
+      type: 'number'
+    },
+    gradientColor: {
+      type: 'number'
+    },
+    imageScale: {
+      type: 'null'
+    },
+    imageScalePivotX: {
+      type: 'number'
+    },
+    imageScalePivotY: {
+      type: 'number'
+    },
+    padding: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    zIndexSet: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'number'
+        },
+        blur: {
+          type: 'number'
+        },
+        centerImage: {
+          type: 'number'
+        },
+        fill: {
+          type: 'number'
+        },
+        gradient: {
+          type: 'number'
+        },
+        foreground: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

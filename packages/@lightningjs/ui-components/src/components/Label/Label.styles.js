@@ -43,3 +43,81 @@ export const tone = theme => ({
     backgroundColor: theme.color.fillBrand
   }
 });
+
+export const defaultStyle = {
+  radius: [0, 0, 0, 0],
+  paddingX: 20,
+  paddingY: 10,
+  offsetY: 2,
+  textStyle: {
+    fontSize: 15,
+    fontWeight: 500,
+    lineHeight: 24,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4279769113
+  },
+  backgroundColor: 4294506490
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    radius: {
+      type: 'array',
+      items: [
+        {
+          type: 'number'
+        },
+        {
+          type: 'number'
+        },
+        {
+          type: 'number'
+        },
+        {
+          type: 'number'
+        }
+      ]
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingY: {
+      type: 'number'
+    },
+    offsetY: {
+      type: 'number'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    backgroundColor: {
+      type: 'number'
+    }
+  }
+};

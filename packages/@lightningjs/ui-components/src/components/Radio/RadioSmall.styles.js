@@ -26,3 +26,32 @@ export const base = theme => {
     radius: size / 2
   };
 };
+
+export const defaultStyle = {
+  w: 30,
+  h: 30,
+  knobHeight: 15,
+  knobWidth: 15,
+  radius: 15
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    knobHeight: {
+      type: 'number'
+    },
+    knobWidth: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    }
+  }
+};

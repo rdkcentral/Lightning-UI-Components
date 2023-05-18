@@ -65,3 +65,173 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  alpha: 1,
+  descriptionTextStyle: {
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 3004700697
+  },
+  h: 120,
+  logoStyle: {
+    w: 80,
+    h: 80,
+    radius: 0
+  },
+  paddingX: 30,
+  prefixH: 80,
+  suffixH: 80,
+  titlePadding: 20,
+  titleTextStyle: {
+    fontSize: 25,
+    fontWeight: 500,
+    lineHeight: 36,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 4279769113
+  },
+  w: 472,
+  mode: {
+    focused: {
+      descriptionTextStyle: {
+        textColor: 4294506490
+      },
+      titleTextStyle: {
+        textColor: 4294506490
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    alpha: {
+      type: 'number'
+    },
+    descriptionTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    h: {
+      type: 'number'
+    },
+    logoStyle: {
+      type: 'object',
+      properties: {
+        w: {
+          type: 'number'
+        },
+        h: {
+          type: 'number'
+        },
+        radius: {
+          type: 'number'
+        }
+      }
+    },
+    paddingX: {
+      type: 'number'
+    },
+    prefixH: {
+      type: 'number'
+    },
+    suffixH: {
+      type: 'number'
+    },
+    titlePadding: {
+      type: 'number'
+    },
+    titleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    w: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            descriptionTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            },
+            titleTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

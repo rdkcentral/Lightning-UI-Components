@@ -51,3 +51,98 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  detailsTextStyle: {
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  },
+  descriptionTextStyle: {
+    maxLines: 3
+  },
+  provider: {
+    fadeWidth: 100,
+    itemSize: 60
+  },
+  mode: {
+    disabled: {
+      detailsTextStyle: {
+        textColor: 2163800058
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    detailsTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    descriptionTextStyle: {
+      type: 'object',
+      properties: {
+        maxLines: {
+          type: 'number'
+        }
+      }
+    },
+    provider: {
+      type: 'object',
+      properties: {
+        fadeWidth: {
+          type: 'number'
+        },
+        itemSize: {
+          type: 'number'
+        }
+      }
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        disabled: {
+          type: 'object',
+          properties: {
+            detailsTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

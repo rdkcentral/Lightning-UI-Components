@@ -40,3 +40,43 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  backgroundColor: 4294967295,
+  radius: 0,
+  animation: {},
+  mode: {
+    focused: {
+      backgroundColor: 4282926923
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    backgroundColor: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    animation: {
+      type: 'object',
+      properties: {}
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            backgroundColor: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

@@ -79,3 +79,106 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  h: 40,
+  knobWidth: 30,
+  knobHeight: 30,
+  knobRadius: 0,
+  knobPadding: 2,
+  knobX: 4,
+  knobXChecked: 44,
+  strokeRadius: 0,
+  strokeWeight: 2,
+  w: 80,
+  strokeColor: 4279769113,
+  backgroundColor: 2163800058,
+  backgroundColorChecked: 4294506490,
+  knobColor: 4279769113,
+  knobColorChecked: 4279769113,
+  mode: {
+    disabled: {
+      strokeColor: 2149062681,
+      backgroundColor: 2163800058,
+      backgroundColorChecked: 2163800058,
+      knobColor: 2149062681,
+      knobColorChecked: 2149062681
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    knobWidth: {
+      type: 'number'
+    },
+    knobHeight: {
+      type: 'number'
+    },
+    knobRadius: {
+      type: 'number'
+    },
+    knobPadding: {
+      type: 'number'
+    },
+    knobX: {
+      type: 'number'
+    },
+    knobXChecked: {
+      type: 'number'
+    },
+    strokeRadius: {
+      type: 'number'
+    },
+    strokeWeight: {
+      type: 'number'
+    },
+    w: {
+      type: 'number'
+    },
+    strokeColor: {
+      type: 'number'
+    },
+    backgroundColor: {
+      type: 'number'
+    },
+    backgroundColorChecked: {
+      type: 'number'
+    },
+    knobColor: {
+      type: 'number'
+    },
+    knobColorChecked: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        disabled: {
+          type: 'object',
+          properties: {
+            strokeColor: {
+              type: 'number'
+            },
+            backgroundColor: {
+              type: 'number'
+            },
+            backgroundColorChecked: {
+              type: 'number'
+            },
+            knobColor: {
+              type: 'number'
+            },
+            knobColorChecked: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

@@ -27,3 +27,74 @@ export const base = theme => ({
   contentMarginLeft: theme.spacer.xl,
   sliderMarginLeft: theme.spacer.lg + theme.spacer.xxs
 });
+
+export const defaultStyle = {
+  textStyle: {
+    fontSize: 22,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  fadeHeight: 100,
+  scroll: {
+    timingFunction: 'linear',
+    duration: 0.1
+  },
+  contentMarginTop: 10,
+  contentMarginLeft: 30,
+  sliderMarginLeft: 22
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    fadeHeight: {
+      type: 'number'
+    },
+    scroll: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    contentMarginTop: {
+      type: 'number'
+    },
+    contentMarginLeft: {
+      type: 'number'
+    },
+    sliderMarginLeft: {
+      type: 'number'
+    }
+  }
+};

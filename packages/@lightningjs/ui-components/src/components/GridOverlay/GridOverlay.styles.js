@@ -26,3 +26,82 @@ export const base = theme => ({
     textColor: theme.color.textNeutral
   }
 });
+
+export const defaultStyle = {
+  propertyTextStyle: {
+    fontSize: 35,
+    fontWeight: 500,
+    lineHeight: 48,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  },
+  valueTextStyle: {
+    fontSize: 25,
+    fontWeight: 300,
+    lineHeight: 40,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    propertyTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    valueTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

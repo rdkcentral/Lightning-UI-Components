@@ -26,3 +26,24 @@ export const tone = theme => ({
   inverse: { gradientColor: theme.color.fillNeutral },
   brand: { gradientColor: theme.color.fillBrand }
 });
+
+export const defaultStyle = {
+  gradientTop: 16777215,
+  radius: 0,
+  gradientColor: 4279769113
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    gradientTop: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    gradientColor: {
+      type: 'number'
+    }
+  }
+};

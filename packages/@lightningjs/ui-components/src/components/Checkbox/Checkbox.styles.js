@@ -55,3 +55,61 @@ export const tone = theme => ({
 export const mode = theme => ({
   disabled: { alpha: theme.alpha.inactive }
 });
+
+export const defaultStyle = {
+  alpha: 0.5,
+  w: 36,
+  h: 36,
+  checkW: 20,
+  checkH: 14,
+  checkSrc:
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAOCAYAAAAi2ky3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACtSURBVHgBvdPdDcIgEAfwoy8Nb45QN3AGF2s36Ahu4gpuIDoBfSgfpdoTlCbEWEMh6T8hFzjyg5AAkBHOcQe5UWqspRx435sDpMYj6IYQwwVSEiJ2MKVUBWuzLSLl2HL+uxmNCGFO8yaL7RHxve6qRZoAuS4hxac8735elWVx7jrtMKL1o0Gcat9jhExHSukN/kUIFZ7MpDRtzE1isDRkAUtDvrA8ZI597FUf8gWH9P0b4gko9wAAAABJRU5ErkJggg==',
+  radius: 18,
+  strokeWidth: 2,
+  strokeColor: 4279769113,
+  checkColor: 4279769113,
+  backgroundColor: 2163800058,
+  backgroundColorChecked: 4294506490
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    alpha: {
+      type: 'number'
+    },
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    checkW: {
+      type: 'number'
+    },
+    checkH: {
+      type: 'number'
+    },
+    checkSrc: {
+      type: 'string'
+    },
+    radius: {
+      type: 'number'
+    },
+    strokeWidth: {
+      type: 'number'
+    },
+    strokeColor: {
+      type: 'number'
+    },
+    checkColor: {
+      type: 'number'
+    },
+    backgroundColor: {
+      type: 'number'
+    },
+    backgroundColorChecked: {
+      type: 'number'
+    }
+  }
+};

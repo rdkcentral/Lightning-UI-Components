@@ -37,3 +37,98 @@ export const mode = theme => ({
     detailsTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
+
+export const defaultStyle = {
+  descriptionTextStyle: {
+    fontSize: 22,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 2163800058,
+    wordWrap: true,
+    maxLines: 3
+  },
+  detailsTextStyle: {
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 2163800058,
+    wordWrap: true,
+    maxLines: 1
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    descriptionTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        },
+        wordWrap: {
+          type: 'boolean'
+        },
+        maxLines: {
+          type: 'number'
+        }
+      }
+    },
+    detailsTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        },
+        wordWrap: {
+          type: 'boolean'
+        },
+        maxLines: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

@@ -61,3 +61,93 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  paddingHorizontal: 30,
+  paddingVertical: 30,
+  radius: 0,
+  titleTextStyle: {
+    fontSize: 35,
+    fontWeight: 500,
+    lineHeight: 48,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    wordWrap: true,
+    maxLines: 2,
+    textColor: 2163800058
+  },
+  w: 253.33333333333334,
+  backgroundColor: 2149062681,
+  mode: {
+    focused: {
+      backgroundColor: 452984831
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    paddingHorizontal: {
+      type: 'number'
+    },
+    paddingVertical: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    titleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        wordWrap: {
+          type: 'boolean'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    w: {
+      type: 'number'
+    },
+    backgroundColor: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            backgroundColor: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

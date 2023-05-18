@@ -25,3 +25,39 @@ export const base = theme => {
     inputStyle: { radius: theme.radius.md }
   };
 };
+
+export const defaultStyle = {
+  keySpacing: 10,
+  screenW: 1920,
+  marginX: 150,
+  inputSpacing: 110,
+  inputStyle: {
+    radius: 0
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    keySpacing: {
+      type: 'number'
+    },
+    screenW: {
+      type: 'number'
+    },
+    marginX: {
+      type: 'number'
+    },
+    inputSpacing: {
+      type: 'number'
+    },
+    inputStyle: {
+      type: 'object',
+      properties: {
+        radius: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

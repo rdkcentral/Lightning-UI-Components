@@ -20,3 +20,20 @@ export const base = theme => ({
   tabSpacing: theme.spacer.lg,
   tabsMarginBottom: theme.spacer.xxl
 });
+
+export const defaultStyle = {
+  tabSpacing: 20,
+  tabsMarginBottom: 40
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    tabSpacing: {
+      type: 'number'
+    },
+    tabsMarginBottom: {
+      type: 'number'
+    }
+  }
+};

@@ -43,3 +43,63 @@ export const tone = theme => ({
     counterBackgroundColor: theme.color.fillInverseSecondary
   }
 });
+
+export const defaultStyle = {
+  counterTextStyle: {
+    fontSize: 25,
+    fontWeight: 500,
+    lineHeight: 36,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  itemSize: 40,
+  itemSpacing: 10,
+  radius: 0,
+  alpha: 0.5,
+  counterBackgroundColor: 3004700697
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    counterTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    itemSize: {
+      type: 'number'
+    },
+    itemSpacing: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    alpha: {
+      type: 'number'
+    },
+    counterBackgroundColor: {
+      type: 'number'
+    }
+  }
+};

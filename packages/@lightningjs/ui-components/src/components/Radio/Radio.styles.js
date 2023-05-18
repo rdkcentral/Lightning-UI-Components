@@ -53,3 +53,56 @@ export const tone = theme => ({
 export const mode = theme => ({
   disabled: { alpha: theme.alpha.inactive }
 });
+
+export const defaultStyle = {
+  alpha: 0.5,
+  w: 40,
+  h: 40,
+  knobHeight: 20,
+  knobWidth: 20,
+  radius: 20,
+  strokeWidth: 2,
+  backgroundColor: 2163800058,
+  backgroundColorChecked: 4294506490,
+  knobColor: 4279769113,
+  strokeColor: 4279769113
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    alpha: {
+      type: 'number'
+    },
+    w: {
+      type: 'number'
+    },
+    h: {
+      type: 'number'
+    },
+    knobHeight: {
+      type: 'number'
+    },
+    knobWidth: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    strokeWidth: {
+      type: 'number'
+    },
+    backgroundColor: {
+      type: 'number'
+    },
+    backgroundColorChecked: {
+      type: 'number'
+    },
+    knobColor: {
+      type: 'number'
+    },
+    strokeColor: {
+      type: 'number'
+    }
+  }
+};

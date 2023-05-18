@@ -27,3 +27,48 @@ export const base = theme => ({
   knobXChecked: theme.spacer.xl + theme.spacer.xs,
   w: theme.spacer.md * 6
 });
+
+export const defaultStyle = {
+  h: 30,
+  strokeRadius: 0,
+  strokeWeight: 2,
+  knobWidth: 20,
+  knobHeight: 20,
+  knobRadius: 0,
+  knobPadding: 4,
+  knobXChecked: 34,
+  w: 60
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    h: {
+      type: 'number'
+    },
+    strokeRadius: {
+      type: 'number'
+    },
+    strokeWeight: {
+      type: 'number'
+    },
+    knobWidth: {
+      type: 'number'
+    },
+    knobHeight: {
+      type: 'number'
+    },
+    knobRadius: {
+      type: 'number'
+    },
+    knobPadding: {
+      type: 'number'
+    },
+    knobXChecked: {
+      type: 'number'
+    },
+    w: {
+      type: 'number'
+    }
+  }
+};

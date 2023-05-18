@@ -23,3 +23,47 @@ export const base = theme => ({
   neverScroll: false,
   scrollIndex: 0
 });
+
+export const defaultStyle = {
+  alwaysScroll: false,
+  itemSpacing: 20,
+  itemTransition: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  neverScroll: false,
+  scrollIndex: 0
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    alwaysScroll: {
+      type: 'boolean'
+    },
+    itemSpacing: {
+      type: 'number'
+    },
+    itemTransition: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    neverScroll: {
+      type: 'boolean'
+    },
+    scrollIndex: {
+      type: 'number'
+    }
+  }
+};

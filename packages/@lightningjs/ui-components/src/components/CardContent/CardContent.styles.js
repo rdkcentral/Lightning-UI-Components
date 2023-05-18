@@ -30,3 +30,61 @@ export const base = theme => ({
   },
   metadata: { descriptionTextStyle: { maxLines: 2 } }
 });
+
+export const defaultStyle = {
+  paddingVertical: 15,
+  radius: 0,
+  expandedW: 800,
+  expandedH: 219,
+  imageSize: {
+    w: 390,
+    h: 219
+  },
+  metadata: {
+    descriptionTextStyle: {
+      maxLines: 2
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    paddingVertical: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    expandedW: {
+      type: 'number'
+    },
+    expandedH: {
+      type: 'number'
+    },
+    imageSize: {
+      type: 'object',
+      properties: {
+        w: {
+          type: 'number'
+        },
+        h: {
+          type: 'number'
+        }
+      }
+    },
+    metadata: {
+      type: 'object',
+      properties: {
+        descriptionTextStyle: {
+          type: 'object',
+          properties: {
+            maxLines: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

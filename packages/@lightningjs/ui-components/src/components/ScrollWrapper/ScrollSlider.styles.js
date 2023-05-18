@@ -25,3 +25,49 @@ export const base = theme => {
     circleAnimation: scroll
   };
 };
+
+export const defaultStyle = {
+  progressBar: {
+    animation: {
+      timingFunction: 'linear',
+      duration: 0.1
+    }
+  },
+  circleAnimation: {
+    timingFunction: 'linear',
+    duration: 0.1
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    progressBar: {
+      type: 'object',
+      properties: {
+        animation: {
+          type: 'object',
+          properties: {
+            timingFunction: {
+              type: 'string'
+            },
+            duration: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    },
+    circleAnimation: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    }
+  }
+};

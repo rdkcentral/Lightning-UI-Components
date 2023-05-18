@@ -55,3 +55,88 @@ export const mode = theme => ({
     alpha: theme.alpha.inactive
   }
 });
+
+export const defaultStyle = {
+  animationEntrance: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  animationExit: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  },
+  paddingX: 30,
+  paddingY: 20,
+  paddingYProgress: 24,
+  radius: 0,
+  alpha: 0.5,
+  mode: {
+    focused: {
+      backgroundColor: 452984831
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    animationEntrance: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    animationExit: {
+      type: 'object',
+      properties: {
+        timingFunction: {
+          type: 'string'
+        },
+        delay: {
+          type: 'number'
+        },
+        duration: {
+          type: 'number'
+        }
+      }
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingY: {
+      type: 'number'
+    },
+    paddingYProgress: {
+      type: 'number'
+    },
+    radius: {
+      type: 'number'
+    },
+    alpha: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            backgroundColor: {
+              type: 'number'
+            }
+          }
+        }
+      }
+    }
+  }
+};

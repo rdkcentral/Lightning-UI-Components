@@ -19,3 +19,16 @@
 export const base = theme => ({
   extraItemSpacing: theme.spacer.lg
 });
+
+export const defaultStyle = {
+  extraItemSpacing: 20
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    extraItemSpacing: {
+      type: 'number'
+    }
+  }
+};

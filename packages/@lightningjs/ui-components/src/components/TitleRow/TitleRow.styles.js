@@ -27,3 +27,59 @@ export const base = theme => ({
   },
   rowMarginTop: theme.layout.gutterY.xs
 });
+
+export const defaultStyle = {
+  w: 1620,
+  titleMarginLeft: 20,
+  titleTextStyle: {
+    fontSize: 35,
+    fontWeight: 500,
+    lineHeight: 48,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  },
+  rowMarginTop: 20
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    w: {
+      type: 'number'
+    },
+    titleMarginLeft: {
+      type: 'number'
+    },
+    titleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    rowMarginTop: {
+      type: 'number'
+    }
+  }
+};

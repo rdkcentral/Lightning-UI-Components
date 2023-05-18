@@ -59,3 +59,125 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  titleTextStyle: {
+    fontSize: 25,
+    fontWeight: 500,
+    lineHeight: 36,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  },
+  descriptionTextStyle: {
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: 32,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    textColor: 4294506490
+  },
+  subtitleTextStyle: {
+    textColor: 3019438074
+  },
+  mode: {
+    disabled: {
+      subtitleTextStyle: {
+        textColor: 2163800058
+      },
+      descriptionTextStyle: {
+        textColor: 2163800058
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    titleTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    },
+    descriptionTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    subtitleTextStyle: {
+      type: 'object',
+      properties: {
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        disabled: {
+          type: 'object',
+          properties: {
+            subtitleTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            },
+            descriptionTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

@@ -62,3 +62,161 @@ export const tone = theme => ({
     }
   }
 });
+
+export const defaultStyle = {
+  cursorStyle: {
+    textColor: 4279769113,
+    blink: true,
+    w: 4,
+    h: 40
+  },
+  eyebrowTextStyle: {
+    fontSize: 15,
+    fontWeight: 500,
+    lineHeight: 24,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 4294506490
+  },
+  helpTextStyle: {
+    fontSize: 15,
+    fontWeight: 500,
+    lineHeight: 24,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial',
+    maxLines: 1,
+    textColor: 3019438074
+  },
+  minWidth: 390,
+  paddingX: 30,
+  paddingY: 30,
+  mode: {
+    focused: {
+      eyebrowTextStyle: {
+        textColor: 4294506490
+      },
+      helpTextStyle: {
+        textColor: 4294506490
+      }
+    }
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    cursorStyle: {
+      type: 'object',
+      properties: {
+        textColor: {
+          type: 'number'
+        },
+        blink: {
+          type: 'boolean'
+        },
+        w: {
+          type: 'number'
+        },
+        h: {
+          type: 'number'
+        }
+      }
+    },
+    eyebrowTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    helpTextStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        },
+        maxLines: {
+          type: 'number'
+        },
+        textColor: {
+          type: 'number'
+        }
+      }
+    },
+    minWidth: {
+      type: 'number'
+    },
+    paddingX: {
+      type: 'number'
+    },
+    paddingY: {
+      type: 'number'
+    },
+    mode: {
+      type: 'object',
+      properties: {
+        focused: {
+          type: 'object',
+          properties: {
+            eyebrowTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            },
+            helpTextStyle: {
+              type: 'object',
+              properties: {
+                textColor: {
+                  type: 'number'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

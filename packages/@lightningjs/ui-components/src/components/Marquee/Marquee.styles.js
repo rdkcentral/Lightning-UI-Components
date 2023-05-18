@@ -22,3 +22,55 @@ export const base = theme => ({
   shouldSmooth: false,
   textStyle: theme.typography.body1
 });
+
+export const defaultStyle = {
+  fadeW: 80,
+  offset: 40,
+  shouldSmooth: false,
+  textStyle: {
+    fontSize: 25,
+    fontWeight: 300,
+    lineHeight: 40,
+    verticalAlign: 'middle',
+    textBaseline: 'bottom',
+    fontFace: 'Arial'
+  }
+};
+
+export const schema = {
+  type: 'object',
+  properties: {
+    fadeW: {
+      type: 'number'
+    },
+    offset: {
+      type: 'number'
+    },
+    shouldSmooth: {
+      type: 'boolean'
+    },
+    textStyle: {
+      type: 'object',
+      properties: {
+        fontSize: {
+          type: 'number'
+        },
+        fontWeight: {
+          type: 'number'
+        },
+        lineHeight: {
+          type: 'number'
+        },
+        verticalAlign: {
+          type: 'string'
+        },
+        textBaseline: {
+          type: 'string'
+        },
+        fontFace: {
+          type: 'string'
+        }
+      }
+    }
+  }
+};
