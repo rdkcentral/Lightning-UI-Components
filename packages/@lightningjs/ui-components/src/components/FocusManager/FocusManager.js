@@ -40,7 +40,7 @@ export default class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction', 'wrapSelected', 'centerInParent'];
+    return ['direction', 'wrapSelected'];
   }
 
   _construct() {
