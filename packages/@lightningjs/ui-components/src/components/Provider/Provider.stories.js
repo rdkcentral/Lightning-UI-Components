@@ -41,8 +41,7 @@ const sharedArgs = {
 const sharedArgTypes = {
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
-    description:
-      'number of visible providers(between 1(min) and total number of providers(max))',
+    description: 'Number of visible providers',
     table: {
       defaultValue: { summary: 'undefined' }
     }
