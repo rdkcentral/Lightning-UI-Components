@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getWidthByUpCount } from '../../utils';
+import { getWidthByUpCount } from '../../utils/index.js';
 
 export const base = theme => ({
   w: getWidthByUpCount(theme, 1),
