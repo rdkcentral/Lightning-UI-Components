@@ -18,17 +18,19 @@ async function writeToFile(filePath, content) {
 }
 
 /**
- * Removes double quotes from a JSON string.
+ * Removes double quotes from a JSON key and replaces double quotes with single quotes
  * @param {string} jsonString - The JSON string.
  * @returns {string} The JSON string without double quotes.
  * @throws {Error} If the input is not a string.
  */
-function removeDoubleQuotesFromJSONString(jsonString) {
+function formatJSON(jsonString) {
   if (typeof jsonString !== 'string') {
     throw new Error('Input must be a string');
   }
 
-  const result = jsonString.replace(/"([^"]+)":/g, '$1:');
+  const result = jsonString
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/"([^"]+)"/g, "'$1'");
   return result;
 }
 
@@ -104,10 +106,8 @@ async function processStyleFile(filePath, theme) {
     }
 
     // Generate JSON schema representation
-    const defaultObject = removeDoubleQuotesFromJSONString(
-      JSON.stringify(mergedObject, null, 2)
-    );
-    const jsonSchema = removeDoubleQuotesFromJSONString(
+    const defaultObject = formatJSON(JSON.stringify(mergedObject, null, 2));
+    const jsonSchema = formatJSON(
       JSON.stringify(objectToJsonSchema(mergedObject), null, 2)
     );
 
