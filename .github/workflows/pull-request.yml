@@ -9,11 +9,7 @@ permissions:
 
 jobs:
   quality:
-   runs-on: ubuntu-latest
-   steps:
-      - uses: actions/checkout@v3
-      - name: Quality
-        uses: ./.github/workflows/quality.yml
+    uses: ./.github/workflows/quality.yml
 
   check-pr-title:
     name: Check PR title
