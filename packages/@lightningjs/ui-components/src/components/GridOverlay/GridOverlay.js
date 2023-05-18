@@ -21,7 +21,7 @@ import { context } from '../../globals';
 import Column from '../Column';
 import Row from '../Row';
 import TextBox from '../TextBox';
-import { getWidthByColumnSpan } from '../../utils';
+import { getWidthByColumnSpan } from '../../utils/index.js';
 import * as styles from './GridOverlay.styles';
 
 class Spacer extends Base {
