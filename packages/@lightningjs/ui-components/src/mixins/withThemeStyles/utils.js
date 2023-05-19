@@ -89,7 +89,7 @@ export const generateComponentStyleSource = async component => {
       !style.tone &&
       !style.default
     ) {
-      clone(finalStyle, { base: style });
+      finalStyle = clone(finalStyle, { base: style });
     } else {
       // Merge styles in the following order: Base, Mode, Tone
       const { base, mode, tone } = style;
@@ -254,6 +254,7 @@ export async function getStyleChain() {
           styleSet.add(proto.constructor.__mixinStyle);
         }
       }
+
       // Check if has __themeStyle set
       if (
         proto.constructor.__themeStyle &&
@@ -270,7 +271,6 @@ export async function getStyleChain() {
       }
     }
   } while (proto);
-
   // Return an array of style objects
   return Array.from(styleSet)
     .map(style => {

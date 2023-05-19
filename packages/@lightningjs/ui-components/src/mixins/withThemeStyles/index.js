@@ -4,49 +4,27 @@ import { context } from '../../globals';
 import { getComponentConfig, getSubTheme } from './utils';
 
 /**
- * Generates an object that matches the structure of the given JSON schema with default values.
- * @param {object} schema - The JSON schema.
- * @returns {object} The object that matches the schema structure with default values.
- */
-function generateDefaultObjectFromSchema(schema) {
-  const defaultObject = {};
-
-  for (const property in schema.properties) {
-    if (schema.properties.hasOwnProperty(property)) {
-      const propertySchema = schema.properties[property];
-      if (propertySchema.hasOwnProperty('default')) {
-        defaultObject[property] = propertySchema.default;
-      } else if (propertySchema.type === 'object') {
-        defaultObject[property] =
-          generateDefaultObjectFromSchema(propertySchema);
-      }
-    }
-  }
-
-  return defaultObject;
-}
-
-/**
  * A higher-order function that returns a class with theme styles.
  * @param {Function} Base - The base class to extend.
  * @param {Object} mixinStyle - The mixin style to add to the component.
  * @returns {Function} A class that extends the base class with theme styles.
  */
-export default function withThemeStyles(Base, mixinStyle) {
-  mixinStyle; // Make linter happy. Need to add this functionality
+export default function withThemeStyles(Base, mixinStyle = {}) {
   return class extends Base {
     constructor() {
       super(...arguments);
       this._hSetByUser = false;
       this._wSetByUser = false;
-      this._style = this.constructor.__themeStyle?.schema
-        ? generateDefaultObjectFromSchema(this.constructor.__themeStyle.schema)
-        : {};
+      this._style = this.constructor.__themeStyle?.defaultStyle;
       this._styleManager = new StyleManager({ component: this });
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
         this.queueThemeUpdate();
       });
+    }
+
+    static get __mixinStyle() {
+      return mixinStyle;
     }
 
     /**

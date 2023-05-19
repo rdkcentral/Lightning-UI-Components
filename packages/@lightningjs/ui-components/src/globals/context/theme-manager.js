@@ -42,56 +42,49 @@ const base64Cache = [];
 
 const isSubTheme = themeName => 'subTheme' === themeName.slice(0, 8);
 
-// function getMimeTypeFromDataUri(dataUri) {
-//   const matches = dataUri.match(/^data:(.*?);base64,/);
-//   if (matches && matches.length === 2) {
-//     return matches[1];
-//   }
-//   return null;
-// }
+function getMimeTypeFromDataUri(dataUri) {
+  const matches = dataUri.match(/^data:(.*?);base64,/);
+  if (matches && matches.length === 2) {
+    return matches[1];
+  }
+  return null;
+}
 
-// function checkBase64EncodedImage(str) {
-//   const regex = /^data:image\/(jpeg|jpg|png|gif);base64,/;
-//   const isImage = regex.test(str);
-//   const mimeType = isImage ? getMimeTypeFromDataUri(str.match(regex)[0]) : null;
+function checkBase64EncodedImage(str) {
+  const regex = /^data:image\/(jpeg|jpg|png|gif);base64,/;
+  const isImage = regex.test(str);
+  const mimeType = isImage ? getMimeTypeFromDataUri(str.match(regex)[0]) : null;
 
-//   return {
-//     isImage,
-//     mimeType
-//   };
-// }
+  return {
+    isImage,
+    mimeType
+  };
+}
 
-// // function base64ToBlobURL(base64String, mimeType) {
-// //   const byteCharacters = atob(base64String);
-// //   const byteArrays = [];
-// //   try {
-// //     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-// //       const slice = byteCharacters.slice(offset, offset + 512);
-// //       const byteNumbers = new Array(slice.length);
-// //       for (let i = 0; i < slice.length; i++) {
-// //         byteNumbers[i] = slice.charCodeAt(i);
-// //       }
-// //       const byteArray = new Uint8Array(byteNumbers);
-// //       byteArrays.push(byteArray);
-// //     }
+function base64ToBlobURL(base64String, mimeType) {
+  const byteCharacters = atob(
+    base64String.substring(base64String.indexOf(',') + 1)
+  );
+  const byteArrays = [];
+  try {
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
 
-// //     const blob = new Blob(byteArrays, { type: mimeType });
-// //     const blobURL = URL.createObjectURL(blob);
+    const blob = new Blob(byteArrays, { type: mimeType });
+    const blobURL = URL.createObjectURL(blob);
 
-// //     return blobURL;
-// //   } catch (error) {
-// //     alert('error');
-// //   }
-// // }
-
-// // Example usage
-// // const base64String = "iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAA..."; // Base64-encoded image string
-// // const mimeType = "image/png"; // Mime type of the image
-// // const blobURL = base64ToBlobURL(base64String, mimeType);
-
-// // Use the blobURL as the src of an image element
-// // const img = document.createElement("img");
-// // img.src = blobURL;
+    return blobURL;
+  } catch (error) {
+    logger.info('Unable to convert base64 image to url');
+  }
+}
 
 class ThemeManager {
   constructor() {
@@ -347,17 +340,17 @@ class ThemeManager {
         value = replacement;
       }
       // Base64 encoded values can cause memory leaks convert to an image
-      // const { isImage, mimeType } = checkBase64EncodedImage(value);
-      // if (isImage) {
-      //   // base64Cache
-      //   try {
-      //     const blobURL = base64ToBlobURL(removeMimeTypeFromBase64(value), mimeType);
-      //     base64Cache.push(blobURL);
-      //     return blobURL;
-      //   } catch (error) {
-      //     return value;
-      //   }
-      // }
+      const { isImage, mimeType } = checkBase64EncodedImage(value);
+      if (isImage) {
+        // base64Cache
+        try {
+          const blobURL = base64ToBlobURL(value, mimeType);
+          base64Cache.push(blobURL);
+          return blobURL;
+        } catch (error) {
+          return value;
+        }
+      }
 
       if (
         Array.isArray(value) &&

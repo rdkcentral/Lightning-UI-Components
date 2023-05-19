@@ -196,6 +196,9 @@ export default class StyleManager extends lng.EventEmitter {
    * Simple check to see if this component can leverage caching. Components using .style cannot use the cache at this time
    */
   get _hasComponentStyle() {
-    return Object.keys(this.component._componentLevelStyle || {}).length;
+    return (
+      this.component.constructor.__mixinStyle ||
+      Object.keys(this.component._componentLevelStyle || {}).length
+    );
   }
 }

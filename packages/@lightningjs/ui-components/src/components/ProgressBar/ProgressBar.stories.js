@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 import { default as ProgressBarComponent } from '.';
 import mdx from './ProgressBar.mdx';
 import { CATEGORIES } from '../../docs/constants';
+import withThemeStyles from '../../mixins/withThemeStyles';
 
 export default {
   title: `${CATEGORIES[512]}/ProgressBar`,
@@ -34,71 +35,77 @@ export default {
   }
 };
 
-function changeColor(value) {
-  if (value >= 0 && value <= 1) {
-    var red, green, blue;
+// function changeColor(value) {
+//   if (value >= 0 && value <= 1) {
+//     var red, green, blue;
 
-    if (value < 0.5) {
-      red = Math.round(value * 2 * 255);
-      green = 255;
-    } else {
-      red = 255;
-      green = Math.round((1 - value) * 2 * 255);
-    }
+//     if (value < 0.5) {
+//       red = Math.round(value * 2 * 255);
+//       green = 255;
+//     } else {
+//       red = 255;
+//       green = Math.round((1 - value) * 2 * 255);
+//     }
 
-    blue = 0;
+//     blue = 0;
 
-    var color = rgbToHex(red, green, blue);
-    return color;
-  } else {
-    throw new Error('Value must be between 0 and 1');
-  }
-}
+//     var color = rgbToHex(red, green, blue);
+//     return color;
+//   } else {
+//     throw new Error('Value must be between 0 and 1');
+//   }
+// }
 
-function rgbToHex(r, g, b) {
-  var redHex = r.toString(16).padStart(2, '0');
-  var greenHex = g.toString(16).padStart(2, '0');
-  var blueHex = b.toString(16).padStart(2, '0');
+// function rgbToHex(r, g, b) {
+//   var redHex = r.toString(16).padStart(2, '0');
+//   var greenHex = g.toString(16).padStart(2, '0');
+//   var blueHex = b.toString(16).padStart(2, '0');
 
-  return '#' + redHex + greenHex + blueHex;
-}
+//   return '#' + redHex + greenHex + blueHex;
+// }
 
 export const ProgressBar = () =>
   class ProgressBar extends lng.Component {
-    _init() {
-      setInterval(() => {
-        const progress = Math.random();
-        this.childList.last.patch({
-          progress,
-          style: {
-            progressColor: [changeColor(progress), 100]
-          }
-        });
-        const progress2 = Math.random();
-        this.childList.first.patch({
-          progress: progress2,
-          style: {
-            progressColor: [changeColor(progress2), 100]
-          }
-        });
-      }, 1e3);
-    }
+    // _init() {
+    //   setInterval(() => {
+    //     const progress = Math.random();
+    //     this.childList.last.patch({
+    //       progress,
+    //       style: {
+    //         progressColor: [changeColor(progress), 100]
+    //       }
+    //     });
+    //     const progress2 = Math.random();
+    //     this.childList.first.patch({
+    //       progress: progress2,
+    //       style: {
+    //         progressColor: [changeColor(progress2), 100]
+    //       }
+    //     });
+    //   }, 1e3);
+    // }
     static _template() {
       return {
         ProgressBar: {
-          type: ProgressBarComponent,
-          tone: 'brand',
-          mode: 'focused'
+          type: withThemeStyles(ProgressBarComponent, {
+            tone: {
+              neutral: {
+                progressColor: 'theme.color.red'
+              }
+            }
+          })
+          // tone: 'brand',
+          // mode: 'focused'
         },
         ProgressBar2: {
           type: ProgressBarComponent,
           w: 600,
           y: 100,
-          progress: 0.5,
-          mode: 'focused',
-          style: {
-            progressColor: 'theme.color.red'
-          }
+          progress: 0.5
+          // mode: 'focused',
+          // style: {
+          //   progressColor: 'theme.color.red'
+          // }
         }
       };
     }
