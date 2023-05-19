@@ -26,7 +26,6 @@ import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from '../../docs/constants';
-import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentVertical`,
@@ -67,13 +66,6 @@ CardContentVertical.args = {
 };
 CardContentVertical.argTypes = {
   ...createModeControl({ summaryValue: 'focused' }),
-  shouldCollapse: {
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse,
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
   ...CardContent.argTypes
 };
 

@@ -24,7 +24,6 @@ import { createModeControl, generateSubStory } from '../../docs/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from '../../docs/constants';
-import { controlDescriptions } from '../../docs/constants';
 
 export default {
   title: `${CATEGORIES[128]}/CardContentVerticalSmall`,
@@ -50,21 +49,24 @@ export const CardContentVerticalSmall = args =>
 
 CardContentVerticalSmall.storyName = 'CardContentVerticalSmall';
 
+//Creating a shallow copy of CardContent.args object and removing metadata details property from cardContentArgs
+const cardContentArgs = { ...CardContent.args };
+delete cardContentArgs.metadata_details;
+
 CardContentVerticalSmall.args = {
   mode: 'focused',
-  ...CardContent.args
+  ...cardContentArgs
 };
+
+//Creating a shallow copy of CardContent.argTypes object and removing metadata details property from cardContentArgsTypes
+const cardContentArgsTypes = { ...CardContent.argTypes };
+delete cardContentArgsTypes.metadata_details;
+
 CardContentVerticalSmall.argTypes = {
   ...createModeControl({ summaryValue: CardContentVerticalSmall.args.mode }),
-  shouldCollapse: {
-    control: 'boolean',
-    description: controlDescriptions.shouldCollapse,
-    table: {
-      defaultValue: { summary: false }
-    }
-  },
-  ...CardContent.argTypes
+  ...cardContentArgsTypes
 };
+
 CardContentVerticalSmall.parameters = {
   argActions: CardContent.tileProps.argActions('CardContentVerticalSmall')
 };
