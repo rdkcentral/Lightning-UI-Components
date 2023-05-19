@@ -743,6 +743,51 @@ export function createConditionalZContext(component, zOffset) {
   }
 }
 
+/**
+ * Runs a side effect function when any values of specified properties on a component change.
+ * @param {Object} options - defines the `component`, `watchProps`, and `sideEffect` options
+ * @param {lng.Component} options.component - Lightning component on which property changes will watched
+ * @param {String[]} options.watchProps - properties that when their value changes a side effect function is invoked
+ * @param {Function} options.sideEffect - function to be invoked when a watched property's value changes
+ * @returns {lng.Component}
+ */
+export function watchForUpdates({
+  component = lng.Component,
+  watchProps = [],
+  sideEffect = () => {}
+}) {
+  const initialOnAfterUpdate = component.__core?._onAfterUpdate;
+
+  component.onAfterUpdate = function (element) {
+    let hasChanged = false;
+
+    watchProps.forEach(prop => {
+      if (element.transition(prop) && element.transition(prop).isRunning()) {
+        return;
+      }
+
+      const prevValueKey = `__watchPrev${prop}`;
+      const nextValue = element[prop];
+
+      if (nextValue !== element[prevValueKey]) {
+        element[prevValueKey] = nextValue;
+        hasChanged = true;
+      }
+    });
+
+    if (hasChanged) {
+      sideEffect();
+    }
+
+    // if a component already has an onAfterUpdate function, preserve that behavior
+    if (initialOnAfterUpdate) {
+      initialOnAfterUpdate(element);
+    }
+  }.bind(this);
+
+  return component;
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -768,7 +813,8 @@ const utils = {
   getWidthByUpCount,
   getDimensions,
   getWidthByColumnSpan,
-  createConditionalZContext
+  createConditionalZContext,
+  watchForUpdates
 };
 
 export default utils;
