@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,6 +76,7 @@ export {
   MetadataCardContentStyle
 } from './MetadataCardContent';
 export { default as MetadataTile, MetadataTileStyle } from './MetadataTile';
+export { default as NavigationManager } from './NavigationManager';
 export { default as ProgressBar, ProgressBarStyle } from './ProgressBar';
 export { default as Provider, ProviderStyle } from './Provider';
 export { default as Radio, RadioStyle } from './Radio';
