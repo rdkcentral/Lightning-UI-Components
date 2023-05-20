@@ -49,8 +49,8 @@ declare namespace FocusManager {
 }
 
 declare class FocusManager<
-  TemplateSpec extends FocusManager.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig
+  TemplateSpec extends FocusManager.TemplateSpec = FocusManager.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   // Properties
 
