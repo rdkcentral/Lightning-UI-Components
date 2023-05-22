@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,9 +46,9 @@ export {
   default as Keyboard,
   KeyboardEmail,
   KeyboardFullscreen,
-  KeyboardInput,
   KeyboardNumbers,
-  KeyboardQwerty
+  KeyboardQwerty,
+  KeyboardInput
 } from './Keyboard';
 export { default as Knob } from './Knob/Knob.js';
 export { default as Label } from './Label/Label.js';
@@ -73,7 +73,7 @@ export { default as Shadow } from './Shadow/Shadow.js';
 export { default as Slider } from './Slider/Slider.js';
 export { default as SliderLarge } from './Slider/SliderLarge.js';
 export { default as Surface } from './Surface/Surface.js';
-export { Tab, default as TabBar } from './TabBar';
+export { default as TabBar, Tab } from './TabBar';
 export { default as TextBox } from './TextBox/TextBox.js';
 export { default as Tile } from './Tile/Tile.js';
 export { default as TitleRow } from './TitleRow/TitleRow.js';
