@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,22 +23,22 @@ export { default as Button, ButtonSmall, ButtonStyle } from './Button';
 export {
   default as Card,
   CardSection,
-  CardSectionStyle,
-  CardStyle,
   CardTitle,
+  CardStyle,
+  CardSectionStyle,
   CardTitleStyle
 } from './Card';
 export {
   default as CardContent,
   CardContentHorizontal,
   CardContentHorizontalLarge,
-  CardContentHorizontalLargeStyle,
-  CardContentHorizontalStyle,
-  CardContentStyle,
   CardContentVertical,
   CardContentVerticalSmall,
-  CardContentVerticalSmallStyle,
-  CardContentVerticalStyle
+  CardContentStyle,
+  CardContentHorizontalStyle,
+  CardContentHorizontalLargeStyle,
+  CardContentVerticalStyle,
+  CardContentVerticalSmallStyle
 } from './CardContent';
 export { default as Checkbox, CheckboxStyle } from './Checkbox';
 export { default as Column, ColumnStyle } from './Column';
@@ -53,12 +53,12 @@ export { default as Input, InputStyle } from './Input';
 export { default as Key, KeyStyle } from './Key';
 export {
   default as Keyboard,
+  KeyboardStyle,
   KeyboardEmail,
   KeyboardFullscreen,
-  KeyboardInput,
   KeyboardNumbers,
   KeyboardQwerty,
-  KeyboardStyle
+  KeyboardInput
 } from './Keyboard';
 export { default as Knob, KnobStyle } from './Knob';
 export { default as Label, LabelStyle } from './Label';
@@ -85,7 +85,7 @@ export { default as ScrollWrapper, ScrollWrapperStyle } from './ScrollWrapper';
 export { default as Shadow, ShadowStyle } from './Shadow';
 export { default as Slider, SliderStyle } from './Slider';
 export { default as Surface, SurfaceStyle } from './Surface';
-export { Tab, default as TabBar, TabBarStyle, TabStyle } from './TabBar';
+export { default as TabBar, TabBarStyle, Tab, TabStyle } from './TabBar';
 export { default as TextBox, TextBoxStyle } from './TextBox';
 export { default as Tile, TileStyle } from './Tile';
 export { default as TitleRow, TitleRowStyle } from './TitleRow';
