@@ -28,6 +28,7 @@ export const base = theme => ({
   rowMarginTop: theme.layout.gutterY.xs
 });
 
+// TODO: Need to fix this
 export const defaultStyle = {
   w: 1620,
   titleMarginLeft: 20,
@@ -40,7 +41,16 @@ export const defaultStyle = {
     fontFace: 'Arial',
     textColor: 4294506490
   },
-  rowMarginTop: 20
+  rowMarginTop: 20,
+  itemSpacing: 20,
+  scrollIndex: 0,
+  alwaysScroll: false,
+  neverScroll: false,
+  itemTransition: {
+    timingFunction: 'cubic-bezier(0, 0, 1, 1)',
+    delay: 0,
+    duration: 0.25
+  }
 };
 
 export const schema = {

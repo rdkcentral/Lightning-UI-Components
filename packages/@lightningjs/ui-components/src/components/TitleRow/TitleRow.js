@@ -56,6 +56,7 @@ export default class TitleRow extends Row {
   }
 
   _update() {
+    // debugger
     super._update();
     this._updateTitle();
     this._updateRow();

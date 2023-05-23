@@ -1,7 +1,7 @@
 import { generateComponentStyleSource, generateStyle } from './utils.js';
 import lng from '@lightningjs/core';
 import { debounce } from '../../utils/index.js';
-import { context } from '../../globals';
+import { context } from '../../globals/index.js';
 
 export default class StyleManager extends lng.EventEmitter {
   /**
@@ -11,7 +11,7 @@ export default class StyleManager extends lng.EventEmitter {
    */
   constructor({ component }) {
     super(...arguments);
-
+    this.resolving = false;
     this._previousTone;
     this._previousMode;
     this._previousComponentLevelStyle;
@@ -32,7 +32,8 @@ export default class StyleManager extends lng.EventEmitter {
     this.update = debounce(() => {
       this._update();
     }, 0);
-    this._update();
+
+    this.update();
   }
 
   /**
@@ -48,8 +49,9 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
-    window.LUI_STYLE_CACHE && window.LUI_STYLE_CACHE.clear();
-    this.update();
+    // Why does this run so much
+    // window.LUI_STYLE_CACHE && window.LUI_STYLE_CACHE.clear();
+    // this.update();
   }
 
   /**
@@ -91,7 +93,6 @@ export default class StyleManager extends lng.EventEmitter {
   _addCache(name, payload) {
     const key = this._generateCacheKey(name);
     const existing = window.LUI_STYLE_CACHE.get(key);
-
     window.LUI_STYLE_CACHE.set(key, {
       ids: [...new Set([...(existing?.ids || []), this.component.__id])], // Add current id and remove duplicates
       payload
@@ -141,11 +142,16 @@ export default class StyleManager extends lng.EventEmitter {
    * @returns {Promise<void>}
    */
   async _update() {
+    if (this.resolving) {
+      // Might not need this
+      return;
+    }
+    this.resolving = true;
     const { mode, tone, _componentLevelStyle: style } = this.component;
 
-    if (this._previousComponentLevelStyle === undefined) {
-      this.clearSourceCache();
-    }
+    // if (this._previousComponentLevelStyle === undefined) {
+    //   this.clearSourceCache(); // Why was this
+    // }
 
     if (this._previousMode !== mode || this._previousTone !== tone) {
       this.clearStyleCache();
@@ -166,6 +172,7 @@ export default class StyleManager extends lng.EventEmitter {
       const styleSource =
         this._getCache('styleSource')?.payload ||
         (await generateComponentStyleSource(this.component));
+
       this._addCache('styleSource', styleSource);
 
       const style =
@@ -177,6 +184,8 @@ export default class StyleManager extends lng.EventEmitter {
       this.emit('styleUpdate', this.style);
     } catch (error) {
       context.error('styleManager: ', error.message);
+    } finally {
+      this.resolving = false;
     }
   }
 
@@ -197,8 +206,10 @@ export default class StyleManager extends lng.EventEmitter {
    */
   get _hasComponentStyle() {
     return (
-      this.component.constructor.__mixinStyle ||
-      Object.keys(this.component._componentLevelStyle || {}).length
+      Boolean(
+        Object.keys(this.component.constructor.__mixinStyle || {}).length
+      ) ||
+      Boolean(Object.keys(this.component._componentLevelStyle || {}).length)
     );
   }
 }

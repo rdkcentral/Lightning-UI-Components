@@ -76,7 +76,7 @@ export const getPrototypeChain = obj => {
  */
 export const generateComponentStyleSource = async component => {
   lngComponentCheck(component);
-  const styleChain = await getStyleChain.call(component);
+  const styleChain = await getStyleChain(component);
   let finalStyle = {};
 
   // Process all styles in styleChain
@@ -147,6 +147,7 @@ export const generateComponentStyleSource = async component => {
       }
     }
   });
+
   return finalStyle;
 };
 
@@ -234,22 +235,22 @@ export const generateStyle = async (component, componentStyleSource) => {
  * Traverse up the prototype chain to create an array of all the styles that are present in the Components ancestors
  * @return {Promise<{ style: object | function }[]>} - An array of style objects containing either an object of styles or a function to return an object of styles.
  */
-export async function getStyleChain() {
+export async function getStyleChain(componentObj) {
   const styleSet = new Set();
-  let proto;
+  let proto = componentObj;
   do {
-    proto = !proto ? this : Object.getPrototypeOf(proto);
+    proto = Object.getPrototypeOf(proto);
     if (proto && proto.constructor) {
       // Check if style was passed in as param in .map(style => {to mixin withThemeStyles(MyComponent, {foo: 'bar'})
       if (
         proto.constructor.__mixinStyle &&
-        !styleSet.has(proto.constructor.__mixinStyle)
+        !styleSet.has({ ...proto.constructor.__mixinStyle })
       ) {
         if (
           typeof proto.constructor.__mixinStyle === 'object' &&
           Object.keys(proto.constructor.__mixinStyle).length
         ) {
-          styleSet.add(proto.constructor.__mixinStyle);
+          styleSet.add({ ...proto.constructor.__mixinStyle });
         } else if (typeof proto.constructor.__mixinStyle === 'function') {
           styleSet.add(proto.constructor.__mixinStyle);
         }
@@ -258,13 +259,13 @@ export async function getStyleChain() {
       // Check if has __themeStyle set
       if (
         proto.constructor.__themeStyle &&
-        !styleSet.has(proto.constructor.__themeStyle)
+        !styleSet.has({ ...proto.constructor.__themeStyle })
       ) {
         if (
           typeof proto.constructor.__themeStyle === 'object' &&
           Object.keys(proto.constructor.__themeStyle).length
         ) {
-          styleSet.add(proto.constructor.__themeStyle);
+          styleSet.add({ ...proto.constructor.__themeStyle });
         } else if (typeof proto.constructor.__themeStyle === 'function') {
           styleSet.add(proto.constructor.__themeStyle);
         }
@@ -272,6 +273,7 @@ export async function getStyleChain() {
     }
   } while (proto);
   // Return an array of style objects
+
   return Array.from(styleSet)
     .map(style => {
       return {

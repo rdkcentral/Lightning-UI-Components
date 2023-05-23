@@ -11,8 +11,20 @@ import { getComponentConfig, getSubTheme } from './utils';
  */
 export default function withThemeStyles(Base, mixinStyle = {}) {
   return class extends Base {
-    constructor() {
-      super(...arguments);
+    // constructor() {
+    //   super(...arguments);
+    //   this._hSetByUser = false;
+    //   this._wSetByUser = false;
+    //   this._style = this.constructor.__themeStyle?.defaultStyle;
+    //   this._styleManager = new StyleManager({ component: this });
+    //   this._styleManager.on('styleUpdate', () => {
+    //     this._style = this._styleManager.style;
+    //     this.queueThemeUpdate();
+    //   });
+    // }
+
+    _firstEnable() {
+      super._firstEnable();
       this._hSetByUser = false;
       this._wSetByUser = false;
       this._style = this.constructor.__themeStyle?.defaultStyle;
