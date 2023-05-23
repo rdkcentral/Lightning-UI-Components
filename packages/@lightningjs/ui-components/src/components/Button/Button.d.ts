@@ -67,8 +67,8 @@ declare namespace Button {
 }
 
 declare class Button<
-  TemplateSpec extends Button.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig
+  TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Surface<TemplateSpec, TypeConfig> {
   /**
    * forces Button to have a statically set width

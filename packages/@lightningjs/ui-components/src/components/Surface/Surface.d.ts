@@ -41,8 +41,8 @@ declare namespace Surface {
 }
 
 declare class Surface<
-  TemplateSpec extends Surface.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig
+  TemplateSpec extends Surface.TemplateSpec = Surface.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   /**
    * alias for this.h
