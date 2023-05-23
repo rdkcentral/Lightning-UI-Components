@@ -59,6 +59,7 @@ describe('Provider', () => {
     provider.providers = [{ icon: 'test.png', announce }];
     testRenderer.forceAllUpdates();
     expect(provider.announce).toEqual(['test']);
+    provider.visibleCount = 5;
     provider.providers = Array(10).fill({
       icon: 'test.png',
       announce: 'test'
@@ -82,6 +83,13 @@ describe('Provider', () => {
     expect(provider._Row.items[1]).toBeInstanceOf(Icon);
     expect(provider._Row.items[2]).toBeInstanceOf(Icon);
     expect(provider._Row.items[3]).not.toBeInstanceOf(Icon);
+  });
+
+  it('enforces a minimum and a maximum visible count', () => {
+    provider.visibleCount = -5;
+    expect(provider.visibleCount).toBe(1);
+    provider.visibleCount = 20;
+    expect(provider.visibleCount).toBe(provider.providers.length);
   });
 
   it('displays the correct counter', () => {
