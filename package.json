@@ -13,6 +13,7 @@
     "start": "yarn workspace lightning-ui-docs start",
     "build": "yarn workspaces foreach --exclude lightning-ui-docs run build",
     "prepare": "husky install",
+    "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "lint": "yarn eslint . --ext .js,.ts",
     "lint:fix": "yarn eslint . --ext .js,.ts --fix",
     "test": "yarn workspaces foreach -v run test",
