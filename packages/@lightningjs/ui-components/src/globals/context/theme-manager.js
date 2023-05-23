@@ -274,7 +274,7 @@ class ThemeManager {
   _clearCache() {
     // Clean up any base64 image that were converted to blobs using createObjectURL
     base64Cache.filter(image => {
-      URL.revokeObjectURL(image);
+      if (window.URL && typeof window.URL.revokeObjectURL === 'function') URL.revokeObjectURL(image);
       return false;
     });
 
@@ -368,7 +368,7 @@ class ThemeManager {
       }
       // Base64 encoded values can cause memory leaks convert to an image
       const { isImage, mimeType } = checkBase64EncodedImage(value);
-      if (isImage) {
+      if (window.URL && typeof window.URL.createObjectURL === 'function' && isImage) {
         // base64Cache
         try {
           const blobURL = base64ToBlobURL(value, mimeType);

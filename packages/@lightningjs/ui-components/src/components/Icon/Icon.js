@@ -93,9 +93,10 @@ export default class Icon extends Base {
   }
 }
 
-const [isSvgTag, isSvgURI] = [
+const [isSvgTag, isSvgURI, isImageURI] = [
   /^<svg.*<\/svg>$/,
-  /\.svg$/
+  /\.svg$/,
+  /\.(a?png|bmp|gif|ico|cur|jpe?g|pjp(eg)?|jfif|tiff?|webp)$/
 ].map(regex => RegExp.prototype.test.bind(regex));
 
 function getIconTemplate(icon, w, h) {
@@ -111,7 +112,11 @@ function getIconTemplate(icon, w, h) {
     case isSvgURI(icon):
       template.texture = lng.Tools.getSvgTexture(icon, w, h);
       break;
+    case isImageURI(icon):
+      template.src = icon;
+      break
     default:
+      // Cover case where image is a blob url. See theme-manager.js
       template.texture = {
         type: lng.textures.ImageTexture,
         hasAlpha: true,
