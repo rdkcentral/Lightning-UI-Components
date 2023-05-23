@@ -93,15 +93,13 @@ export default class Icon extends Base {
   }
 }
 
-const [isSvgTag, isSvgURI, isImageURI] = [
+const [isSvgTag, isSvgURI] = [
   /^<svg.*<\/svg>$/,
-  /\.svg$/,
-  /\.(a?png|bmp|gif|ico|cur|jpe?g|pjp(eg)?|jfif|tiff?|webp)$/
+  /\.svg$/
 ].map(regex => RegExp.prototype.test.bind(regex));
 
 function getIconTemplate(icon, w, h) {
   const template = { w, h };
-
   switch (true) {
     case isSvgTag(icon):
       template.texture = lng.Tools.getSvgTexture(
@@ -113,11 +111,12 @@ function getIconTemplate(icon, w, h) {
     case isSvgURI(icon):
       template.texture = lng.Tools.getSvgTexture(icon, w, h);
       break;
-    case isImageURI(icon):
-      template.src = icon;
-      break;
     default:
-      template.src = icon;
+      template.texture = {
+        type: lng.textures.ImageTexture,
+        hasAlpha: true,
+        src: icon
+      }
       break;
   }
   return template;
