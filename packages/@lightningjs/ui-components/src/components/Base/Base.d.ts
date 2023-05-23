@@ -44,8 +44,8 @@ declare namespace Base {
 }
 
 declare class Base<
-  TemplateSpec extends Base.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig
+  TemplateSpec extends Base.TemplateSpec = Base.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends lng.Component<TemplateSpec, TypeConfig> {
   /**
    * string to be read by `withAnnouncer`
