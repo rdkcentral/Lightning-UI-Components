@@ -114,14 +114,14 @@ function getIconTemplate(icon, w, h) {
       break;
     case isImageURI(icon):
       template.src = icon;
-      break
+      break;
     default:
       // Cover case where image is a blob url. See theme-manager.js
       template.texture = {
         type: lng.textures.ImageTexture,
         hasAlpha: true,
         src: icon
-      }
+      };
       break;
   }
   return template;
