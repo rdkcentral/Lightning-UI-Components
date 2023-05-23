@@ -54,6 +54,8 @@ export default class CardRadio extends CardTitle {
     super._update();
     this._updateSubtitle();
     this._updateRadio();
+    this._updateDescriptionPosition();
+    this._updateSubtitlePosition();
   }
 
   _updateSubtitle() {
@@ -75,16 +77,14 @@ export default class CardRadio extends CardTitle {
       x: this.w - this.style.iconWidth - this.style.paddingHorizontal,
       y:
         (this._Title.style.textStyle.lineHeight - this.style.iconHeight) / 2 +
-        this.style.paddingVertical,
-      checked: true,
-      style: {
-        alpha: this._isDisabled ? this.style.disabledAlpha : 1
-      }
+        this.style.paddingVertical +
+        this.style.paddingVertical / 4,
+      checked: true
     };
     if (!this._Radio) {
       RadioPatch.type = Radio;
     }
-    this.patch({ Radio: RadioPatch });
+    this.patch({ Radio: RadioPatch, alpha: this.style.alpha });
   }
 
   _updateSubtitlePosition() {
@@ -96,5 +96,20 @@ export default class CardRadio extends CardTitle {
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y =
       2 * this.style.paddingVertical + this._Title.h + this._Subtitle.h;
+  }
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Title && this._Title.announce,
+        this._Subtitle && this._Subtitle.announce,
+        this._Description && this._Description.announce,
+        this._Details && this._Details.announce
+      ]
+    );
   }
 }

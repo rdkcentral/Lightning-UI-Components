@@ -3,8 +3,6 @@ import CardRadio from '.';
 
 const createComponent = makeCreateComponent(CardRadio);
 
-const iconPath = '../../assets/images/ic_lightning_white_32.png';
-
 describe('CardRadio', () => {
   let cardRadio, testRenderer;
 
@@ -22,7 +20,7 @@ describe('CardRadio', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should update description maxlines', () => {
+  it('should update description position', () => {
     testRenderer.forceAllUpdates();
     expect(cardRadio._Description.y).toEqual(
       2 * cardRadio.style.paddingVertical +
@@ -40,9 +38,11 @@ describe('CardRadio', () => {
     );
   });
 
-  it('should update icon', () => {
-    cardRadio.icon = iconPath;
+  it('should update subtitle position', () => {
     testRenderer.forceAllUpdates();
-    expect(cardRadio._Icon).toBeDefined();
+    expect(cardRadio._Subtitle.x).toEqual(cardRadio.style.paddingVertical);
+    expect(cardRadio._Subtitle.y).toEqual(
+      cardRadio.style.paddingVertical + cardRadio._Title.h
+    );
   });
 });

@@ -18,27 +18,28 @@
 import utils from '../../utils';
 
 export const base = theme => ({
+  alpha: theme.alpha.primary,
   descriptionTextStyle: {
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
-    maxLines: 5
+    maxLines: 3
   },
-  disabledAlpha: theme.alpha.inactive,
+  iconWidth: theme.spacer.xxl,
+  iconHeight: theme.spacer.xxl,
+  h: theme.spacer.xxl * 10,
   subtitleTextStyle: {
     ...theme.typography.body3,
     maxLines: 1,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true
   },
-  iconWidth: theme.spacer.xxl,
-  iconHeight: theme.spacer.xxl,
-  h: theme.spacer.xxl * 10,
   w: utils.getWidthByColumnSpan(theme, 3)
 });
 
 export const mode = theme => ({
   disabled: {
+    alpha: theme.alpha.inactive,
     descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
