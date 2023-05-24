@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,9 +18,13 @@
 
 import Icon from '../Icon';
 import Badge from '../Badge';
-import { parseInlineContent, flatten } from '../../utils';
+import { parseInlineContent, flatten, stringifyCompare } from '../../utils';
 import Base from '../Base';
 import * as styles from './InlineContent.styles.js';
+
+const isText = item => typeof item === 'string' || !!item.text;
+const isIcon = item => !!item.icon;
+const isBadge = item => !!item.badge;
 
 export default class InlineContent extends Base {
   static get properties() {
@@ -79,14 +83,14 @@ export default class InlineContent extends Base {
         };
 
         // text not separated by icons/badges are grouped together
-        if (typeof item === 'string' || item.text) {
+        if (isText(item)) {
           if (typeof this._parsedContent[index + 1] === 'string') {
             base.flexItem.marginRight = 0;
           }
           this.childList.a(this._createText(base, item));
-        } else if (item.icon) {
+        } else if (isIcon(item)) {
           this.childList.a(this._createIcon(base, item));
-        } else if (item.badge) {
+        } else if (isBadge(item)) {
           this.childList.a(this._createBadge(base, item.badge));
         } else if (item.newline && this.contentWrap) {
           this.childList.a({ h: 0, w: this.w });
@@ -130,6 +134,9 @@ export default class InlineContent extends Base {
             this.style.textStyle.lineHeight *
             this.flex._layout._lineLayouter._lines.length;
           this.h = this.multiLineHeight;
+
+          this._renderMaxLines();
+
           this._notifyAncestors();
         } else {
           this._contentLoaded();
@@ -138,6 +145,70 @@ export default class InlineContent extends Base {
     } else {
       this._notifyAncestors();
     }
+  }
+
+  _renderMaxLines() {
+    const childrenDimensions = this._calcChildrenDimensions();
+    const newLine = { h: 0, w: this.w };
+
+    this.childList.clear();
+    childrenDimensions.forEach((child, i) => {
+      const nextChild = childrenDimensions[i + 1];
+
+      if (child.line <= this.maxLines) {
+        this.childList.add(child.component);
+      }
+      if (
+        this.contentWrap &&
+        nextChild &&
+        nextChild.line <= this.maxLines &&
+        nextChild.line > child.line
+      ) {
+        this.childList.a(newLine);
+      }
+    });
+  _calcChildrenDimensions() {
+    let contentEndX = 0;
+    let line = 1;
+
+    return this.children.reduce((acc, child) => {
+      const component = child;
+      let type, content, w;
+
+      if (isText(child)) {
+        type = 'text';
+        content = child.text.text;
+        w = child.texture.getRenderWidth();
+      } else if (isIcon(child)) {
+        type = 'icon';
+        content = 'ICON';
+        w = child.texture.getRenderWidth();
+      } else if (child.constructor.__componentName === 'Badge') {
+        type = 'badge';
+        content = 'BADGE';
+        w = child.w;
+      }
+
+      contentEndX += w;
+      contentEndX += child.flexItem.marginRight;
+
+      if (contentEndX > this.w) {
+        line++;
+        contentEndX = w;
+      }
+
+      const data = {
+        type,
+        component,
+        content,
+        w,
+        contentEndX,
+        line
+      };
+
+      acc.push(data);
+      return acc;
+    }, []);
   }
 
   _createIcon(base, iconProps) {
@@ -267,6 +338,10 @@ export default class InlineContent extends Base {
 
   get textHeight() {
     return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
+  }
+
+  get maxLines() {
+    return this.style.textStyle.maxLines;
   }
 
   get _marginBottom() {
