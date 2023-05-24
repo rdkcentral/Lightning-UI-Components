@@ -21,12 +21,12 @@ import {
   getValFromObjPath,
   getHexColor,
   getValidColor
-} from '../../utils';
+} from '../../utils/index.js';
 import baseTheme from '@lightningjs/ui-components-theme-base';
 import logger from './logger.js';
 import events from './events.js';
 import { fontLoader, cleanupFonts } from './fonts.js';
-import { THEME_KEY_REPLACER } from './constants';
+import { THEME_KEY_REPLACER } from './constants.js';
 
 const merge = {
   all: objArray => {
@@ -37,7 +37,79 @@ const merge = {
     return result;
   }
 };
+
+const base64Cache = [];
+
 const isSubTheme = themeName => 'subTheme' === themeName.slice(0, 8);
+
+/**
+ * Extracts the MIME type from a Data URI.
+ *
+ * @param {string} dataUri - The Data URI string.
+ * @returns {string|null} The extracted MIME type, or null if not found.
+ */
+function getMimeTypeFromDataUri(dataUri) {
+  const matches = dataUri.match(/^data:(.*?);base64,/);
+  if (matches && matches.length === 2) {
+    return matches[1];
+  }
+  return null;
+}
+
+/**
+ * Checks if a string represents a Base64-encoded image and extracts the MIME type.
+ *
+ * @param {string} str - The string to check.
+ * @returns {{ isImage: boolean, mimeType: string|null }} An object indicating whether the string is an image and the extracted MIME type.
+ */
+function checkBase64EncodedImage(str) {
+  const regex = /^data:image\/(jpeg|jpg|png|gif);base64,/;
+  const isImage = regex.test(str);
+  const mimeType = isImage ? getMimeTypeFromDataUri(str.match(regex)[0]) : null;
+
+  return {
+    isImage,
+    mimeType
+  };
+}
+
+/**
+ * Converts a Base64-encoded image to a Blob URL.
+ * Note: Make sure to handle potential memory leaks caused by the browser's image caching.
+ *
+ * @param {string} base64String - The Base64-encoded image string.
+ * @param {string} mimeType - The MIME type of the image.
+ * @returns {string|null} The Blob URL representing the converted image, or null if conversion fails.
+ */
+function base64ToBlobURL(base64String, mimeType) {
+  const byteCharacters = atob(
+    base64String.substring(base64String.indexOf(',') + 1)
+  );
+  const byteArrays = [];
+
+  try {
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: mimeType });
+    const blobURL = URL.createObjectURL(blob);
+
+    return blobURL;
+  } catch (error) {
+    logger.info('Unable to convert base64 image to URL');
+    return null;
+  }
+}
+
 class ThemeManager {
   constructor() {
     this._cache = new Map();
@@ -52,7 +124,7 @@ class ThemeManager {
     }
   }
 
-  // Handle separate instances of context accross the application and keep them in sync
+  // Handle separate instances of context across the application and keep them in sync
   _setCache(key, payload) {
     if (typeof window === 'undefined') return;
     window.LUI.themeManagerInstances.forEach(({ themeManager }) => {
@@ -200,6 +272,13 @@ class ThemeManager {
   }
 
   _clearCache() {
+    // Clean up any base64 image that were converted to blobs using createObjectURL
+    base64Cache.filter(image => {
+      if (window.URL && typeof window.URL.revokeObjectURL === 'function')
+        URL.revokeObjectURL(image);
+      return false;
+    });
+
     this._cache.forEach((value, key) => {
       if ('string' !== typeof key || !isSubTheme(key)) {
         this._deleteCache(key);
@@ -288,6 +367,23 @@ class ThemeManager {
 
         value = replacement;
       }
+      // Base64 encoded values can cause memory leaks convert to an image
+      const { isImage, mimeType } = checkBase64EncodedImage(value);
+      if (
+        window.URL &&
+        typeof window.URL.createObjectURL === 'function' &&
+        isImage
+      ) {
+        // base64Cache
+        try {
+          const blobURL = base64ToBlobURL(value, mimeType);
+          base64Cache.push(blobURL);
+          return blobURL;
+        } catch (error) {
+          return value;
+        }
+      }
+
       if (
         Array.isArray(value) &&
         2 === value.length &&
