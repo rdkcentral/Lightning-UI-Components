@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  backgroundColor: theme.color.fillInverseSecondary,
+  backgroundColor: theme.color.fillNeutralTertiary,
   radius: theme.radius.md,
   animation: {}
 });
@@ -27,7 +27,7 @@ export const mode = theme => ({
     backgroundColor: theme.color.interactiveNeutralFocus
   },
   disabled: {
-    backgroundColor: theme.color.fillInverseDisabled
+    backgroundColor: theme.color.fillNeutralDisabled
   }
 });
 
