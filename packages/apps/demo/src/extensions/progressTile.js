@@ -22,6 +22,7 @@
  * that this functionality is added to every instance of Tile across our
  * application without having to create a new class that extends Tile.
  */
+
 export function tileProgressGenerator() {
   return function tileProgress(Base) {
     return class TileProgress extends Base {
