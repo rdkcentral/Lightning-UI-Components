@@ -270,9 +270,9 @@ export default class NavigationManager extends FocusManager {
     this.transitionDone();
   }
 
-  _withAfterUpdate(component) {
+  _withAfterUpdate(element) {
     return watchForUpdates({
-      component,
+      element,
       watchProps: [
         this._directionPropNames.crossAxis,
         'w',

@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import logger from '../globals/context/logger';
 
 /**
  *
@@ -744,21 +745,27 @@ export function createConditionalZContext(component, zOffset) {
 }
 
 /**
- * Runs a side effect function when any values of specified properties on a component change.
- * @param {Object} options - defines the `component`, `watchProps`, and `sideEffect` options
- * @param {lng.Component} options.component - Lightning component on which property changes will watched
+ * Runs a side effect function when any values of specified properties on an element change.
+ * @param {Object} options - defines the `element`, `watchProps`, and `sideEffect` options
+ * @param {lng.Element} options.element - Lightning element on which property changes will watched
  * @param {String[]} options.watchProps - properties that when their value changes a side effect function is invoked
  * @param {Function} options.sideEffect - function to be invoked when a watched property's value changes
- * @returns {lng.Component}
+ * @returns {lng.Element}
  */
 export function watchForUpdates({
-  component = lng.Component,
+  element,
   watchProps = [],
   sideEffect = () => {}
 }) {
-  const initialOnAfterUpdate = component.__core?._onAfterUpdate;
+  if (!element?.isElement) {
+    logger.error(
+      `watchForUpdates: Expected a Lightning Element passed to element parameter, received ${typeof element}`
+    );
+  }
 
-  component.onAfterUpdate = function (element) {
+  const initialOnAfterUpdate = element.__core?._onAfterUpdate;
+
+  element.onAfterUpdate = function (element) {
     let hasChanged = false;
 
     watchProps.forEach(prop => {
@@ -779,13 +786,13 @@ export function watchForUpdates({
       sideEffect();
     }
 
-    // if a component already has an onAfterUpdate function, preserve that behavior
+    // if an element already has an onAfterUpdate function, preserve that behavior
     if (initialOnAfterUpdate) {
       initialOnAfterUpdate(element);
     }
   }.bind(this);
 
-  return component;
+  return element;
 }
 
 const utils = {
