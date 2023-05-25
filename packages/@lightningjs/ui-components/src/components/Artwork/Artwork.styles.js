@@ -17,7 +17,6 @@
  */
 
 export const base = theme => ({
-  alpha: theme.alpha.secondary,
   animationBlurEntrance: theme.animation.utilityEntrance,
   animationBlurExit: theme.animation.utilityExit,
   animationComponentEntrance: theme.animation.utilityEntrance,
