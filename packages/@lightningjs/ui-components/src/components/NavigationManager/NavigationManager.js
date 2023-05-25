@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@
  */
 
 import FocusManager from '../FocusManager';
-import { getX, getY, getH, getW, max } from '../../utils';
+import { getX, getY, getH, getW, max, watchForUpdates } from '../../utils';
 import * as styles from './NavigationManager.styles';
 
 const directionPropNames = {
@@ -270,25 +270,18 @@ export default class NavigationManager extends FocusManager {
     this.transitionDone();
   }
 
-  _withAfterUpdate(component) {
-    component.onAfterUpdate = function (element) {
-      let hasChanged = false;
-      const watchProps = ['w', 'h', 'x', 'y', 'innerW', 'innerH'];
-
-      watchProps.forEach(prop => {
-        const prevValueKey = `_navItemPrev${prop}`;
-        if (!hasChanged && element[prop] !== element[prevValueKey]) {
-          element[prevValueKey] = element[prop];
-          hasChanged = true;
-        }
-      });
-
-      if (hasChanged) {
-        this.queueRequestUpdate();
-      }
-    }.bind(this);
-
-    return component;
+  _withAfterUpdate(element) {
+    return watchForUpdates({
+      element,
+      watchProps: [
+        this._directionPropNames.crossAxis,
+        'w',
+        'h',
+        'innerW',
+        'innerH'
+      ],
+      sideEffect: this.queueRequestUpdate.bind(this)
+    });
   }
 
   // can be overwritten
@@ -329,7 +322,6 @@ export default class NavigationManager extends FocusManager {
     }
     items.forEach(item => this._appendItem(item));
 
-    this.stage.update();
     this.queueRequestUpdate();
     this._refocus();
   }
