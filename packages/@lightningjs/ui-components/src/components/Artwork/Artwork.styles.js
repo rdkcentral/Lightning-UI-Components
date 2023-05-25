@@ -27,7 +27,7 @@ export const base = theme => ({
   blur: 4,
   centerImageRadius: theme.radius.md,
   fallbackSrc: undefined,
-  fillColor: theme.color.material,
+  fillColor: theme.color.overlay,
   gradientColor: theme.color.material,
   imageScale: undefined,
   imageScalePivotX: 0.5,
