@@ -152,11 +152,20 @@ export default class InlineContent extends Base {
     const newLine = { h: 0, w: this.w };
 
     this.childList.clear();
-    childrenDimensions.forEach((child, i) => {
-      const nextChild = childrenDimensions[i + 1];
+    childrenDimensions.forEach((child, index) => {
+      const nextChild = childrenDimensions[index + 1];
 
       if (child.line <= this.maxLines) {
-        this.childList.add(child.component);
+        // TODO: this kinda works but replaces the last word instead of appending to it
+        let toAdd = child.component;
+        if (isLast) {
+          const suffix = this._createText(
+            { flexItem: this.contentProperties },
+            this.maxLinesSuffix
+          );
+          toAdd = isLast ? suffix : child.component;
+        }
+        this.childList.add(toAdd);
       }
       if (
         this.contentWrap &&
@@ -342,6 +351,10 @@ export default class InlineContent extends Base {
 
   get maxLines() {
     return this.style.textStyle.maxLines;
+  }
+
+  get maxLinesSuffix() {
+    return this.style.textStyle.maxLinesSuffix || '';
   }
 
   get _marginBottom() {
