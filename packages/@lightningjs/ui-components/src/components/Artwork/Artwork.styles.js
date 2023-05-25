@@ -17,6 +17,7 @@
  */
 
 export const base = theme => ({
+  alpha: theme.alpha.secondary,
   animationBlurEntrance: theme.animation.utilityEntrance,
   animationBlurExit: theme.animation.utilityExit,
   animationComponentEntrance: theme.animation.utilityEntrance,
@@ -27,7 +28,7 @@ export const base = theme => ({
   blur: 4,
   centerImageRadius: theme.radius.md,
   fallbackSrc: undefined,
-  fillColor: theme.color.material,
+  fillColor: theme.color.overlay,
   gradientColor: theme.color.material,
   imageScale: undefined,
   imageScalePivotX: 0.5,

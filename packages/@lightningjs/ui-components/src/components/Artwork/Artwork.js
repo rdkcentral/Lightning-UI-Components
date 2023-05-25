@@ -607,7 +607,7 @@ export default class Artwork extends Base {
           h: this.h,
           color: this.style.fillColor,
           zIndex: 5,
-          alpha: 0.7
+          alpha: this.style.alpha
         }
       });
     }

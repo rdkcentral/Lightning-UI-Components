@@ -23,6 +23,7 @@ import type { Color, StylePartial } from '../../types/lui';
 type AspectRatio = '16x9' | '3x4' | '4x3' | '2x1' | '1x1';
 
 export type ArtworkStyle = {
+  alpha: number;
   animationBlurEntrance: lng.types.TransitionSettings.Literal;
   animationBlurExit: lng.types.TransitionSettings.Literal;
   animationComponentEntrance: lng.types.TransitionSettings.Literal;
