@@ -2592,7 +2592,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils"
   dependencies:
-    "@lightningjs/ui-components": "workspace:^"
+    "@lightningjs/ui-components": 2.2.4
     "@lightningjs/ui-components-theme-base": "workspace:^"
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
@@ -2604,7 +2604,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lightningjs/ui-components-theme-base@workspace:^, @lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base":
+"@lightningjs/ui-components-theme-base@^1.0.1, @lightningjs/ui-components-theme-base@workspace:^, @lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components-theme-base@workspace:packages/@lightningjs/ui-components-theme-base"
   dependencies:
@@ -2612,6 +2612,18 @@ __metadata:
     semantic-release-monorepo: ^7.0.5
   languageName: unknown
   linkType: soft
+
+"@lightningjs/ui-components@npm:2.2.4":
+  version: 2.2.4
+  resolution: "@lightningjs/ui-components@npm:2.2.4"
+  dependencies:
+    "@lightningjs/ui-components-theme-base": ^1.0.1
+    debounce: ^1.2.1
+  peerDependencies:
+    "@lightningjs/core": ^2.9.0
+  checksum: bf627cb18a00322728be6a2ad75104b62319c357fe2292e4408e39f25bee31d5c16aa70a89fe70e12cd11245493f6ccff277859dbacbad815dcd3cd73f80ec5b
+  languageName: node
+  linkType: hard
 
 "@lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
   version: 0.0.0-use.local
