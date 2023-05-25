@@ -17,7 +17,7 @@
  */
 
 import FocusManager from '../FocusManager';
-import { getX, getY, getH, getW, max } from '../../utils';
+import { getX, getY, getH, getW, max, watchForUpdates } from '../../utils';
 import * as styles from './NavigationManager.styles';
 
 const directionPropNames = {
@@ -270,44 +270,18 @@ export default class NavigationManager extends FocusManager {
     this.transitionDone();
   }
 
-  _withAfterUpdate(component) {
-    const initialOnAfterUpdate = component.__core?._onAfterUpdate;
-
-    component.onAfterUpdate = function (element) {
-      let hasChanged = false;
-      const watchProps = [
+  _withAfterUpdate(element) {
+    return watchForUpdates({
+      element,
+      watchProps: [
         this._directionPropNames.crossAxis,
         'w',
         'h',
         'innerW',
         'innerH'
-      ];
-
-      watchProps.forEach(prop => {
-        if (element.transition(prop) && element.transition(prop).isRunning()) {
-          return;
-        }
-
-        const prevValueKey = `_navItemPrev${prop}`;
-        const nextValue = element[prop];
-
-        if (nextValue !== element[prevValueKey]) {
-          element[prevValueKey] = nextValue;
-          hasChanged = true;
-        }
-      });
-
-      if (hasChanged) {
-        this.queueRequestUpdate();
-      }
-
-      // if a component already has an onAfterUpdate function, preserve that behavior
-      if (initialOnAfterUpdate) {
-        initialOnAfterUpdate(element);
-      }
-    }.bind(this);
-
-    return component;
+      ],
+      sideEffect: this.queueRequestUpdate.bind(this)
+    });
   }
 
   // can be overwritten

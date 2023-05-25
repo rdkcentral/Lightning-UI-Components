@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import logger from '../globals/context/logger';
 
 /**
  *
@@ -743,6 +744,57 @@ export function createConditionalZContext(component, zOffset) {
   }
 }
 
+/**
+ * Runs a side effect function when any values of specified properties on an element change.
+ * @param {Object} options - defines the `element`, `watchProps`, and `sideEffect` options
+ * @param {lng.Element} options.element - Lightning element on which property changes will watched
+ * @param {String[]} options.watchProps - properties that when their value changes a side effect function is invoked
+ * @param {Function} options.sideEffect - function to be invoked when a watched property's value changes
+ * @returns {lng.Element}
+ */
+export function watchForUpdates({
+  element,
+  watchProps = [],
+  sideEffect = () => {}
+}) {
+  if (!element?.isElement) {
+    logger.error(
+      `watchForUpdates: Expected a Lightning Element passed to element parameter, received ${typeof element}`
+    );
+  }
+
+  const initialOnAfterUpdate = element.__core?._onAfterUpdate;
+
+  element.onAfterUpdate = function (element) {
+    let hasChanged = false;
+
+    watchProps.forEach(prop => {
+      if (element.transition(prop) && element.transition(prop).isRunning()) {
+        return;
+      }
+
+      const prevValueKey = `__watchPrev${prop}`;
+      const nextValue = element[prop];
+
+      if (nextValue !== element[prevValueKey]) {
+        element[prevValueKey] = nextValue;
+        hasChanged = true;
+      }
+    });
+
+    if (hasChanged) {
+      sideEffect();
+    }
+
+    // if an element already has an onAfterUpdate function, preserve that behavior
+    if (initialOnAfterUpdate) {
+      initialOnAfterUpdate(element);
+    }
+  }.bind(this);
+
+  return element;
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -768,7 +820,8 @@ const utils = {
   getWidthByUpCount,
   getDimensions,
   getWidthByColumnSpan,
-  createConditionalZContext
+  createConditionalZContext,
+  watchForUpdates
 };
 
 export default utils;
