@@ -33,7 +33,6 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    backgroundColor: theme.color.fillInverseDisabled,
     titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
