@@ -2592,7 +2592,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components-test-utils@workspace:packages/@lightningjs/ui-components-test-utils"
   dependencies:
-    "@lightningjs/ui-components": "workspace:^"
+    "@lightningjs/ui-components": 2.2.4
     "@lightningjs/ui-components-theme-base": "workspace:^"
     jest: ^29.3.1
     jest-environment-jsdom: ^29.3.1
@@ -2613,7 +2613,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
+"@lightningjs/ui-components@2.2.4, @lightningjs/ui-components@workspace:^, @lightningjs/ui-components@workspace:packages/@lightningjs/ui-components":
   version: 0.0.0-use.local
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
