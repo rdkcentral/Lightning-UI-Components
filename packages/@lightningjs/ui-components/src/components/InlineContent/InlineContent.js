@@ -145,33 +145,37 @@ export default class InlineContent extends Base {
 
   _renderMaxLines() {
     const childrenDimensions = this._calcChildrenDimensions();
-    const newLine = { h: 0, w: this.w };
 
     this.childList.clear();
     childrenDimensions.forEach((child, index) => {
       const nextChild = childrenDimensions[index + 1];
+      const isLast =
+        !nextChild ||
+        (child.line === this.maxLines && nextChild.line > this.maxLines);
 
       if (child.line <= this.maxLines) {
-        // TODO: this kinda works but replaces the last word instead of appending to it
-        let toAdd = child.component;
         if (isLast) {
-          const suffix = this._createText(
-            { flexItem: this.contentProperties },
-            this.maxLinesSuffix
-          );
-          toAdd = isLast ? suffix : child.component;
+          this._addSuffix(child);
+        } else {
+          this.childList.add(child.component);
         }
-        this.childList.add(toAdd);
-      }
-      if (
-        this.contentWrap &&
-        nextChild &&
-        nextChild.line <= this.maxLines &&
-        nextChild.line > child.line
-      ) {
-        this.childList.a(newLine);
       }
     });
+
+  _addSuffix({ component }) {
+    const negatedRightMargin = component.flexItem.marginRight * -1;
+    const suffix = this._createText(
+      {
+        flexItem: {
+          ...this.contentProperties,
+          marginLeft: negatedRightMargin
+        }
+      },
+      this.maxLinesSuffix
+    );
+    this.childList.add(suffix);
+  }
+
   _calcChildrenDimensions() {
     let contentEndX = 0;
     let line = 1;
