@@ -168,17 +168,25 @@ export default class InlineContent extends Base {
     this.alpha = 1;
   }
 
-  _addSuffix({ component }) {
+  _addSuffix({ type, component, content }) {
     const negatedRightMargin = component.flexItem.marginRight * -1;
-    const suffix = this._createText(
-      {
-        flexItem: {
-          ...this.contentProperties,
-          marginLeft: negatedRightMargin
-        }
-      },
-      this.maxLinesSuffix
-    );
+    let suffix;
+    if (type === 'text') {
+      suffix = this._createText(
+        { flexItem: this.contentProperties },
+        `${content.trim()}${this.maxLinesSuffix}`
+      );
+    } else {
+      suffix = this._createText(
+        {
+          flexItem: {
+            ...this.contentProperties,
+            marginLeft: negatedRightMargin
+          }
+        },
+        this.maxLinesSuffix
+      );
+    }
     this.childList.add(suffix);
   }
 
