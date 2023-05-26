@@ -30,7 +30,7 @@ const extractWidthHeight = src => {
 
 export default class LightningUIEnvironment extends JSDOMEnvironment {
   async setup() {
-    super.setup();
+    await super.setup();
     // remove unnecessary console.error messages from image retrieval errors/broken images
     if (process.env.CI) {
       this.global.console = {

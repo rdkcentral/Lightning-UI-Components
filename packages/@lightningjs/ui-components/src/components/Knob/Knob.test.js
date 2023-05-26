@@ -39,10 +39,10 @@ describe('Knob', () => {
   });
 
   it('has the correct width', () => {
-    expect(knob.w).toEqual(knob._componentStyle.w);
+    expect(knob.w).toEqual(knob.style.w);
   });
 
   it('has the correct height', () => {
-    expect(knob.h).toEqual(knob._componentStyle.h);
+    expect(knob.h).toEqual(knob.style.h);
   });
 });

@@ -48,10 +48,10 @@ export const Tile = () =>
             ratioX: 16,
             ratioY: 9,
             upCount: 3
-          },
-          artwork: {
-            src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg'
           }
+          // artwork: {
+          //   src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg'
+          // }
         }
       };
     }
