@@ -135,7 +135,9 @@ export default class InlineContent extends Base {
             this.flex._layout._lineLayouter._lines.length;
           this.h = this.multiLineHeight;
 
-          this._renderMaxLines();
+          if (this.contentWrap && this.maxLines) {
+            this._renderMaxLines();
+          }
 
           this._notifyAncestors();
         } else {
