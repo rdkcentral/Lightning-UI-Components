@@ -47,10 +47,6 @@ export default class InlineContent extends Base {
     return styles;
   }
 
-  _construct() {
-    super._construct();
-  }
-
   _update() {
     this._updateContent();
     this._waitForComponentLoad();
