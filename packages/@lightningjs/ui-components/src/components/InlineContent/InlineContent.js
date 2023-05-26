@@ -18,7 +18,7 @@
 
 import Icon from '../Icon';
 import Badge from '../Badge';
-import { parseInlineContent, flatten, stringifyCompare } from '../../utils';
+import { parseInlineContent, flatten } from '../../utils';
 import Base from '../Base';
 import * as styles from './InlineContent.styles.js';
 
