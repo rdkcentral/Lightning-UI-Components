@@ -178,3 +178,47 @@ export const WithParsing = args =>
       };
     }
   };
+
+export const WithTruncation = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        TextBox: {
+          type: InlineContentComponent,
+          w: 500,
+          style: {
+            textStyle: {
+              maxLines: 2,
+              maxLinesSuffix: '...'
+            }
+          },
+          content: [
+            'Text',
+            {
+              icon: lightningbolt,
+              title: 'Green Lightning Bolt',
+              style: { color: getHexColor('00ff00') }
+            },
+            'Wrapping Text',
+            {
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+              title: 'Rotten Tomatoes rating'
+            },
+            'and more text',
+            {
+              text: 'with some red ',
+              style: { textColor: getHexColor('FF6194') }
+            },
+            'for fun',
+            { badge: 'HD', title: 'HD' },
+            { badge: 'SD', title: 'SD' },
+            ', and this should truncate before going on to a third line.'
+          ],
+          contentWrap: true
+        }
+      };
+    }
+  };
+WithTruncation.args = {
+  contentWrap: true
+};
