@@ -224,8 +224,6 @@ export default class InlineContent extends Base {
         type,
         component,
         content,
-        w,
-        contentEndX,
         line
       };
 
