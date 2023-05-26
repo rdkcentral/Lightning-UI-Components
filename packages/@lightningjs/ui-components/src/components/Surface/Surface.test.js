@@ -46,25 +46,19 @@ describe('Surface', () => {
     surface.disabled = false;
     surface._focus();
     testRenderer.forceAllUpdates();
-    expect(surface._stateColor).toEqual(
-      surface._componentStyle.backgroundColorFocused
-    );
+    expect(surface._stateColor).toEqual(surface.style.backgroundColorFocused);
   });
 
   it('should update stateColor ', () => {
     surface.disabled = false;
     surface._unfocus();
     testRenderer.unfocus();
-    expect(surface._stateColor).toEqual(
-      surface._componentStyle.backgroundColorUnfocused
-    );
+    expect(surface._stateColor).toEqual(surface.style.backgroundColorUnfocused);
   });
 
   it('should update stateColor ', () => {
     surface.disabled = true;
     testRenderer.forceAllUpdates();
-    expect(surface._stateColor).toEqual(
-      surface._componentStyle.backgroundColorDisabled
-    );
+    expect(surface._stateColor).toEqual(surface.style.backgroundColorDisabled);
   });
 });

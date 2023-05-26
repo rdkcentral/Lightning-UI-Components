@@ -29,6 +29,10 @@ import {
 import { isComponentOnScreen } from '../../utils';
 
 class Base extends lng.Component {
+  static get __componentName() {
+    return 'Base';
+  }
+
   _construct() {
     this.constructor.__componentName; // Check that __componentName is set
     this.skipPlinko = false;

@@ -488,7 +488,7 @@ export default class Artwork extends Base {
       (this._CenterImage && this._CenterImage.mode !== this.format) ||
       this.src === this.fallbackSrc
     ) {
-      // Make sure previous mode is propertly cleaned up
+      // Make sure previous mode is properly cleaned up
       this.patch({
         CenterImage: undefined
       });

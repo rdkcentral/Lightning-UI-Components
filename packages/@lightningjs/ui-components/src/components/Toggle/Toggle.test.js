@@ -96,13 +96,12 @@ describe('Toggle', () => {
 
     it('calculates unchecked position if not specified', async () => {
       const uncheckedPosition =
-        styledToggle._componentStyle.strokeWeight +
-        styledToggle._componentStyle.knobPadding;
+        styledToggle.style.strokeWeight + styledToggle.style.knobPadding;
       const checkedPosition =
-        styledToggle._componentStyle.w -
-        styledToggle._componentStyle.strokeWeight -
-        styledToggle._componentStyle.knobPadding -
-        styledToggle._componentStyle.knobWidth;
+        styledToggle.style.w -
+        styledToggle.style.strokeWeight -
+        styledToggle.style.knobPadding -
+        styledToggle.style.knobWidth;
 
       expect(styledToggle.checked).toBe(false);
       expect(styledToggle._Knob.x).toBe(uncheckedPosition);

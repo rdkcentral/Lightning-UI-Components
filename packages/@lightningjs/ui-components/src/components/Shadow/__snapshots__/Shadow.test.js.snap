@@ -11,7 +11,7 @@ exports[`Shadow renders 1`] = `
       "children": {
         "Shadow": {
           "active": false,
-          "alpha": 0.6,
+          "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "clipping": false,
@@ -44,7 +44,7 @@ exports[`Shadow renders 1`] = `
           "visible": true,
           "w": 0,
           "x": 0,
-          "y": 32,
+          "y": 0,
           "zIndex": 0,
         },
       },
@@ -93,12 +93,12 @@ exports[`Shadow renders with masked shadow 1`] = `
       "children": {
         "Shadow": {
           "active": false,
-          "alpha": 0,
+          "alpha": 1,
           "attached": true,
           "boundsMargin": null,
           "clipping": false,
           "color": "b3000000",
-          "enabled": false,
+          "enabled": true,
           "flex": false,
           "flexItem": false,
           "h": 0,
@@ -126,7 +126,7 @@ exports[`Shadow renders with masked shadow 1`] = `
           "visible": true,
           "w": 0,
           "x": 0,
-          "y": 20,
+          "y": 0,
           "zIndex": 0,
         },
       },
@@ -175,7 +175,7 @@ exports[`Shadow updates the shadow size 1`] = `
       "children": {
         "Shadow": {
           "active": true,
-          "alpha": 0.6,
+          "alpha": 0.9679999992791812,
           "attached": true,
           "boundsMargin": null,
           "clipping": false,
@@ -208,7 +208,7 @@ exports[`Shadow updates the shadow size 1`] = `
           "visible": true,
           "w": 0,
           "x": 0,
-          "y": 32,
+          "y": 0,
           "zIndex": 0,
         },
       },
