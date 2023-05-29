@@ -44,7 +44,7 @@ export default class CardRadio extends CardTitle {
       Subtitle: {
         type: TextBox,
         signals: {
-          textBoxChanged: '_updateSubtitlePosition'
+          textBoxChanged: '_update'
         }
       }
     };

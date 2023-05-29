@@ -23,14 +23,14 @@ export const base = theme => ({
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
-    maxLines: 3
+    maxLines: 4
   },
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
-  h: theme.spacer.xxl * 10,
+  h: theme.spacer.xxxl * 19,
   subtitleTextStyle: {
     ...theme.typography.body3,
-    maxLines: 1,
+    maxLines: 2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true
   },
@@ -40,6 +40,7 @@ export const base = theme => ({
 export const mode = theme => ({
   disabled: {
     alpha: theme.alpha.inactive,
-    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
+    subtitleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
