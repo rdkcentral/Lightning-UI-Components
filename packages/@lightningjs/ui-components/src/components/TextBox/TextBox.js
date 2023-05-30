@@ -155,6 +155,7 @@ export default class TextBox extends Base {
       alpha: 1,
       InlineContent: {
         type: InlineContent,
+        w: this.w,
         ...inlineContentPatch,
         signals: {
           loadedInlineContent: '_setDimensions'
