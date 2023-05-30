@@ -43,8 +43,7 @@ export const CardRadio = () =>
     static _template() {
       return {
         Card: {
-          type: CardRadioComponent,
-          h: 386
+          type: CardRadioComponent
         }
       };
     }

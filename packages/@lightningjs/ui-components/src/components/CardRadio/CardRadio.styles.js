@@ -23,23 +23,24 @@ export const base = theme => ({
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
-    maxLines: 3
+    maxLines: 8
   },
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
-  h: theme.spacer.xxxl * 19,
+  h: theme.spacer.xxxl * 15,
   subtitleTextStyle: {
     ...theme.typography.body3,
-    maxLines: 1,
-    textColor: theme.color.textNeutralSecondary,
+    maxLines: 2,
+    textColor: theme.color.textNeutral,
     wordWrap: true
   },
-  w: utils.getWidthByColumnSpan(theme, 3) //update value according to mocks
+  w: utils.getWidthByColumnSpan(theme, 4)
 });
 
 export const mode = theme => ({
   disabled: {
     alpha: theme.alpha.inactive,
-    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled }
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
+    subtitleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });
