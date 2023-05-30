@@ -22,6 +22,51 @@ import * as styles from './Icon.styles.js';
 import { context } from '../../globals';
 import { stringifyCompare, getValidColor } from '../../utils';
 
+function imageLoader({ src }, cb) {
+  let image = new Image();
+
+  // On the PS4 platform setting the `crossOrigin` attribute on
+  // images can cause CORS failures.
+  if (!(src.substr(0, 5) == 'data:') && !lng.Utils.isPS4) {
+    image.crossOrigin = 'Anonymous';
+  }
+  image.onerror = function (err) {
+    // Ignore error message when cancelled.
+    if (image.src) {
+      return cb('Image load error');
+    }
+  };
+  image.onload = function () {
+    cb(null, {
+      source: image,
+      renderInfo: { src: src, compressed: false },
+      hasAlpha: true
+    });
+  };
+
+  image.src = src;
+
+  return function () {
+    // Cancel Callback
+    image.onerror = null;
+    image.onload = null;
+    image.removeAttribute('src');
+  };
+}
+
+/**
+ * Blob images have been implemented in icons as it has been observed that base64 encoded strings used in themes can lead to excessive memory consumption.
+ * If Lightning is using image workers the blob image is not accessible. This will disable the feature only for blob images.
+ */
+class BlobImageTexture extends lng.textures.ImageTexture {
+  _getSourceLoader() {
+    let src = this._src;
+    return cb => {
+      return imageLoader({ src }, cb);
+    };
+  }
+}
+
 export default class Icon extends Base {
   static get __componentName() {
     return 'Icon';
@@ -114,8 +159,7 @@ function getIconTemplate(icon, w, h) {
       break;
     case isBlobURI(icon):
       template.texture = {
-        type: lng.textures.ImageTexture,
-        hasAlpha: true,
+        type: BlobImageTexture,
         src: icon
       };
       break;
