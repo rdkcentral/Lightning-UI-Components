@@ -27,14 +27,14 @@ export const base = theme => ({
   },
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
-  h: theme.spacer.xxl * 10,
+  h: theme.spacer.xxxl * 19,
   subtitleTextStyle: {
     ...theme.typography.body3,
     maxLines: 1,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true
   },
-  w: utils.getWidthByColumnSpan(theme, 3)
+  w: utils.getWidthByColumnSpan(theme, 3) //update value according to mocks
 });
 
 export const mode = theme => ({

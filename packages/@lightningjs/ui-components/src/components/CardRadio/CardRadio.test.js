@@ -45,4 +45,10 @@ describe('CardRadio', () => {
       cardRadio.style.paddingVertical + cardRadio._Title.h
     );
   });
+
+  it('should render radio', () => {
+    testRenderer.forceAllUpdates();
+    expect(cardRadio._Radio).toBeDefined();
+    expect(cardRadio._Radio.alpha).toEqual(cardRadio.style.alpha);
+  });
 });
