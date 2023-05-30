@@ -38,8 +38,7 @@ export const Card = args =>
       return {
         Card: {
           title: args.title,
-          type: CardComponent,
-          h: 386
+          type: CardComponent
         }
       };
     }
