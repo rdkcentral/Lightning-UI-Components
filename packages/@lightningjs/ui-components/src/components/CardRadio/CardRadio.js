@@ -35,7 +35,7 @@ export default class CardRadio extends CardTitle {
   }
 
   static get tags() {
-    return [...super.tags, 'Subtitle'];
+    return [...super.tags, 'Subtitle', 'Radio'];
   }
 
   static _template() {
@@ -56,6 +56,15 @@ export default class CardRadio extends CardTitle {
     this._updateRadio();
     this._updateDescriptionPosition();
     this._updateSubtitlePosition();
+  }
+
+  _updateTitle() {
+    super._updateTitle();
+    this._Title.patch({
+      signals: {
+        textBoxChanged: '_update'
+      }
+    });
   }
 
   _updateSubtitle() {

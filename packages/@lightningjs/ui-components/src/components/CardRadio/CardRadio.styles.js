@@ -23,7 +23,7 @@ export const base = theme => ({
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
     wordWrap: true,
-    maxLines: 4
+    maxLines: 3
   },
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
