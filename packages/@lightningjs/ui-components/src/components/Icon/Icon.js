@@ -23,14 +23,14 @@ import { context } from '../../globals';
 import { stringifyCompare, getValidColor } from '../../utils';
 
 function imageLoader({ src }, cb) {
-  let image = new Image();
+  const image = new Image();
 
   // On the PS4 platform setting the `crossOrigin` attribute on
   // images can cause CORS failures.
   if (!(src.substr(0, 5) == 'data:') && !lng.Utils.isPS4) {
     image.crossOrigin = 'Anonymous';
   }
-  image.onerror = function (err) {
+  image.onerror = function () {
     // Ignore error message when cancelled.
     if (image.src) {
       return cb('Image load error');
@@ -60,7 +60,7 @@ function imageLoader({ src }, cb) {
  */
 class BlobImageTexture extends lng.textures.ImageTexture {
   _getSourceLoader() {
-    let src = this._src;
+    const src = this._src;
     return cb => {
       return imageLoader({ src }, cb);
     };
