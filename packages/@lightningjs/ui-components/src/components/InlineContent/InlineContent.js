@@ -35,7 +35,9 @@ export default class InlineContent extends Base {
       'badgeProperties',
       'justify',
       'contentWrap',
-      'customStyleMappings'
+      'customStyleMappings',
+      'maxLines',
+      'maxLinesSuffix'
     ];
   }
 
@@ -363,13 +365,17 @@ export default class InlineContent extends Base {
     return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
   }
 
-  get maxLines() {
-    return this.style.textStyle.maxLines;
+  getMaxLinesSuffix() {
+    return typeof this._maxLinesSuffix === 'string' ? this._maxLinesSuffix : '';
   }
 
-  get maxLinesSuffix() {
-    return this.style.textStyle.maxLinesSuffix || '';
-  }
+  // get maxLines() {
+  //   return this.style.textStyle.maxLines;
+  // }
+
+  // get maxLinesSuffix() {
+  //   return this.style.textStyle.maxLinesSuffix || '';
+  // }
 
   get _marginBottom() {
     if (this.contentProperties.marginBottom !== undefined) {

@@ -183,15 +183,11 @@ export const WithTruncation = () =>
   class Basic extends lng.Component {
     static _template() {
       return {
-        TextBox: {
+        InlineContent: {
           type: InlineContentComponent,
           w: 500,
-          style: {
-            textStyle: {
-              maxLines: 2,
-              maxLinesSuffix: '...'
-            }
-          },
+          maxLines: 2,
+          maxLinesSuffix: '...',
           content: [
             'Text',
             {
