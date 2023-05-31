@@ -323,6 +323,26 @@ export default class InlineContent extends Base {
       .filter(Boolean);
   }
 
+  // This is needed to support maxLines and truncation.
+  // To determine which content can be rendered before maxLines, the width
+  // of each component is evaluated against the width of the InlineContent component.
+  // By splitting text into words, smaller width text components will be created,
+  // which allows rendering more words before exceeding the width of InlineConent.
+  _splitLongText(parsedContent) {
+    return flatten(
+      (parsedContent || []).map(item => {
+        if (isText(item)) {
+          const text = typeof item === 'string' ? item : item.text;
+          const words = text.split(' ');
+          return words.map(
+            (word, i) => `${word}${i === words.length ? '' : ' '}`
+          );
+        }
+        return item;
+      })
+    );
+  }
+
   _setContent(content) {
     if (content !== this._content) {
       this._content = content;
@@ -331,6 +351,9 @@ export default class InlineContent extends Base {
         parsedContent = parseInlineContent(content);
       }
 
+      if (this.contentWrap && this.maxLines) {
+        parsedContent = this._splitLongText(parsedContent);
+      }
       this._parsedContent = this._formatSpaces(parsedContent);
     }
     return content;
