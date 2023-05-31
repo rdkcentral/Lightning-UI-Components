@@ -134,13 +134,6 @@ declare class NavigationManager<
   lazyUpCountBuffer?: number;
 
   // Accessors
-  // TODO: ask if necessary --> these are private accessors so do they need to be included?
-  get _directionPropNames(): DirectionProps;
-  get _canScrollBack(): boolean;
-  get _canScrollNext(): boolean;
-  get _isColumn(): boolean;
-  get _isRow(): boolean;
-
   get style(): NavigationManagerStyles;
   set style(v: StylePartial<NavigationManagerStyles>);
 
