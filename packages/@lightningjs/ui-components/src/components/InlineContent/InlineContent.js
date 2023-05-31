@@ -49,6 +49,11 @@ export default class InlineContent extends Base {
     return styles;
   }
 
+  _construct() {
+    super._construct();
+    this._maxLinesSuffix = '';
+  }
+
   _update() {
     this._updateContent();
     this._waitForComponentLoad();
@@ -364,18 +369,6 @@ export default class InlineContent extends Base {
   get textHeight() {
     return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
   }
-
-  getMaxLinesSuffix() {
-    return typeof this._maxLinesSuffix === 'string' ? this._maxLinesSuffix : '';
-  }
-
-  // get maxLines() {
-  //   return this.style.textStyle.maxLines;
-  // }
-
-  // get maxLinesSuffix() {
-  //   return this.style.textStyle.maxLinesSuffix || '';
-  // }
 
   get _marginBottom() {
     if (this.contentProperties.marginBottom !== undefined) {
