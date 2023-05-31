@@ -81,12 +81,39 @@ export default class Tile extends Surface {
     ];
   }
 
-  //#region accessors
-
   /**
    * When metadata is displayed below the Tile we need a way to tell the containing columns that it exists
    * in order for it to layout properly. This approach will not however show up in the DOM inspector
    */
+
+  set announce(announce) {
+    super.announce = announce;
+  }
+
+  get announce() {
+    return (
+      this._announce || [
+        this._Metadata && this._Metadata.announce,
+        this._Badge && this._Badge.announce,
+        this._Label && this._Label.announce,
+        this._ProgressBar && this._ProgressBar.announce
+      ]
+    );
+  }
+
+  _update() {
+    super._update();
+    this._updateTileColor();
+    this._updateContent();
+    this._updateArtwork();
+    this._updateBadge();
+    this._updateLabel();
+    this._updateCheckbox();
+    this._updateProgressBar();
+    this._updateMetadata();
+  }
+
+  /* ------------------------------ Tile ------------------------------ */
 
   set h(v) {
     super.h = v;
@@ -105,16 +132,7 @@ export default class Tile extends Surface {
   get _gradient() {
     if (this._isCircleLayout) return false;
     return Boolean(
-      (this._isInsetMetadata &&
-        this._hasMetadata &&
-        this._shouldShowMetadata) ||
-        (this.progressBar && this.progressBar.progress > 0)
-    );
-  }
-
-  get _hasMetadata() {
-    return MetadataTile.properties.some(
-      prop => this.metadata && this.metadata[prop]
+      this._isInsetMetadata && this._hasMetadata && this._shouldShowMetadata
     );
   }
 
@@ -122,84 +140,11 @@ export default class Tile extends Surface {
     return Boolean(this._itemLayout && this._itemLayout.circle);
   }
 
-  get _progressBarHeight() {
-    return (
-      (this._ProgressBar &&
-        this._ProgressBar._getTransition('h')._targetValue +
-          this.style.paddingY) ||
-      0
-    );
-  }
-
   get _foregroundDefaultWidth() {
     return parseFloat(this._w / this._h).toFixed(2) ===
       parseFloat(16 / 9).toFixed(2)
       ? this.innerW * 0.5
       : this.innerW * 0.75;
-  }
-
-  get _shouldShowMetadata() {
-    return this._persistentMetadata || this._isFocusedMode;
-  }
-
-  get _topMetadataTransitions() {
-    return {
-      y: [
-        this._shouldShowMetadata ? this.style.paddingY : 0,
-        this._shouldShowMetadata
-          ? this.style.animationEntrance
-          : this.style.animationExit
-      ],
-      alpha: [
-        this._shouldShowMetadata ? 1 : 0.001,
-        this._shouldShowMetadata
-          ? this.style.animationEntrance
-          : this.style.animationExit
-      ]
-    };
-  }
-
-  get _metadataY() {
-    return this._isInsetMetadata
-      ? this._h - this.style.paddingY - this._progressBarHeight
-      : this._h + this.style.paddingY;
-  }
-
-  get _metadataTransitions() {
-    return {
-      y: [
-        this._persistentMetadata ||
-        (this._isInsetMetadata && this._isFocusedMode)
-          ? this._metadataY
-          : this._h + this.style.paddingY,
-        this._shouldShowMetadata
-          ? this.style.animationEntrance
-          : this.style.animationExit
-      ],
-      alpha: [
-        this._shouldShowMetadata ? 1 : 0.001,
-        this._isFocusedMode
-          ? this.style.animationEntrance
-          : this.style.animationExit
-      ]
-    };
-  }
-  //#endregion accessors
-
-  get _isInsetMetadata() {
-    return this._metadataLocation === 'inset';
-  }
-
-  _update() {
-    super._update();
-    this._updateTileColor();
-    this._updateContent();
-    this._updateArtwork();
-    this._updateBadge();
-    this._updateLabel();
-    this._updateCheckbox();
-    this._updateProgressBar();
-    this._updateMetadata();
   }
 
   _updateTileColor() {
@@ -230,6 +175,8 @@ export default class Tile extends Surface {
     );
   }
 
+  /* ------------------------------ Artwork ------------------------------ */
+
   _updateArtwork() {
     // ensure a nested artwork src takes precedence over the class's src setter,
     // but that if src is undefined in both the setter and artwork object,
@@ -250,9 +197,15 @@ export default class Tile extends Surface {
     });
   }
 
+  _getSrc() {
+    return (this.artwork && this.artwork.src) || this._src;
+  }
+
   _imageLoaded() {
     this._Background.alpha = 0; // Since the image is loaded the surface does not need to be shown
   }
+
+  /* ------------------------------ Badge ------------------------------ */
 
   _updateBadge() {
     // Remove Badge if no longer required
@@ -271,6 +224,7 @@ export default class Tile extends Surface {
       y: this.style.paddingY,
       alpha: !this._persistentMetadata ? 0.001 : 1
     };
+
     if (!this._Badge) {
       this._Content.patch({
         Badge: {
@@ -286,12 +240,13 @@ export default class Tile extends Surface {
 
     this.applySmooth(this._Badge, badgePatch, {
       ...badgePatch,
-      ...this._topMetadataTransitions // Badge and Label should animate in with the same values
+      ...this._badgeLabelTransitions // Badge and Label should animate in with the same values
     });
   }
 
+  /* ------------------------------ Label  ------------------------------ */
+
   _updateLabel() {
-    // Remove Label if no longer required
     if (!this.label?.title || this._isCircleLayout) {
       if (this._Label) {
         this._Content.patch({
@@ -300,7 +255,6 @@ export default class Tile extends Surface {
       }
       return;
     }
-
     const labelPatch = {
       ...this.label,
       x: this._w - this.style.paddingX,
@@ -326,13 +280,40 @@ export default class Tile extends Surface {
       ...labelPatch,
       x: [
         labelPatch.x,
-        this._shouldShowMetadata
+        this._shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
       ],
-      ...this._topMetadataTransitions // Badge and Label should animate in with the same values
+      ...this._badgeLabelTransitions
     });
   }
+
+  /* ------------------------------ Badge & Label ------------------------------ */
+
+  // Badge and Label should animate in with the same values
+  get _shouldShowBadgeLabel() {
+    return (
+      this._persistentMetadata || (this._isFocusedMode && !this._isCircleLayout)
+    );
+  }
+  get _badgeLabelTransitions() {
+    return {
+      y: [
+        this._shouldShowBadgeLabel ? this.style.paddingY : 0,
+        this.__shouldShowBadgeLabel
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ],
+      alpha: [
+        this._shouldShowBadgeLabel ? 1 : 0.001,
+        this._shouldShowBadgeLabel
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ]
+    };
+  }
+
+  /* ------------------------------ Checkbox ------------------------------ */
 
   _updateCheckbox() {
     // Remove Checkbox if no longer required
@@ -367,12 +348,16 @@ export default class Tile extends Surface {
 
     this.applySmooth(this._Checkbox, checkboxPatch);
   }
+  /* ------------------------------ Progress Bar ------------------------------ */
 
-  _removeProgressBar() {
-    this._Content.patch({ ProgressBar: undefined });
-    this._updateMetadata();
+  get _progressBarHeight() {
+    return (
+      (this._ProgressBar &&
+        this._ProgressBar._getTransition('h')._targetValue +
+          this.style.paddingY) ||
+      0
+    );
   }
-
   _updateProgressBar() {
     // Remove ProgressBar if no longer required
     if (
@@ -441,26 +426,68 @@ export default class Tile extends Surface {
       );
     }
   }
+  _removeProgressBar() {
+    this._Content.patch({ ProgressBar: undefined });
+    this._updateMetadata();
+  }
 
-  _inactive() {
-    super._inactive();
-    // Cleanup components and elements that may not be used again
-    this._cleanupMetadata();
+  /* ------------------------------ Metadata  ------------------------------ */
+
+  // all the logic on whether the metaData should show
+  get _shouldShowMetadata() {
+    return (
+      (this._persistentMetadata && !this._isInsetMetadata) ||
+      (this._isFocusedMode && !this._isInsetMetadata) ||
+      (this._isFocusedMode && this._isInsetMetadata && !this._isCircleLayout)
+    );
+  }
+
+  get _isInsetMetadata() {
+    return this._metadataLocation === 'inset';
+  }
+
+  get _metadataTransitions() {
+    return {
+      y: [
+        this._shouldShowMetadata
+          ? this._metadataY
+          : this._h + this.style.paddingY,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ],
+      alpha: [
+        this._shouldShowMetadata ? 1 : 0.001,
+        this._shouldShowMetadata
+          ? this.style.animationEntrance
+          : this.style.animationExit
+      ]
+    };
+  }
+
+  get _hasMetadata() {
+    return MetadataTile.properties.some(
+      prop => this.metadata && this.metadata[prop]
+    );
+  }
+
+  get _metadataY() {
+    return this._isInsetMetadata
+      ? this._h - this.style.paddingY - this._progressBarHeight
+      : this._h + this.style.paddingY;
   }
 
   get _metadataPatch() {
     return {
-      alpha: this._hasMetadata && this._shouldShowMetadata ? 1 : 0.001,
+      alpha: this._hasMetadata ? 1 : 0.001,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
       marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      y:
-        this._persistentMetadata ||
-        (this._isInsetMetadata && this._isFocusedMode)
-          ? this._metadataY
-          : this._h + this.style.paddingY,
+      y: !(this._isInsetMetadata && this._isFocusedMode)
+        ? this._metadataY
+        : this._h + this.style.paddingY,
       ...(this.metadata || {})
     };
   }
@@ -470,7 +497,6 @@ export default class Tile extends Surface {
       !this._hasMetadata ||
       (this._isCircleLayout && this._metadataLocation === 'inset')
     ) {
-      this._cleanupMetadata();
       return;
     }
 
@@ -487,19 +513,15 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
-          ...this._metadataPatch,
-          // Patch in as if it was already in unfocused stage so it will animate up the first time
-          y: !(this._isInsetMetadata && this._isFocusedMode)
-            ? this._metadataY
-            : this._h + this.style.paddingY
+          ...this._metadataPatch
         }
       });
 
       return;
     }
-
+    // if none of the above apply patch in metadataPatch
     this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
-
+    // then call animateMetadata
     this._animateMetadata();
   }
 
@@ -516,18 +538,12 @@ export default class Tile extends Surface {
     }
   }
 
-  _cleanupMetadata() {
-    if (
-      this._persistentMetadata ||
-      this.metadataLocation !== 'inset' || // Do not remove the metadata element when not focused when not inset
-      !this._Metadata
-    ) {
-      return;
-    }
-    this._Content.patch({
-      Metadata: undefined
-    });
+  _metadataLoaded() {
+    this._animateMetadata();
+    if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
   }
+
+  /* ------------------------------ Marquee  ------------------------------ */
 
   _resetMarqueeAnimation() {
     const alphaTransition = this._Metadata._getTransition('alpha');
@@ -540,29 +556,5 @@ export default class Tile extends Surface {
     } else {
       this._Metadata.resetMarquee();
     }
-  }
-
-  _metadataLoaded() {
-    this._animateMetadata();
-    if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
-  }
-
-  _getSrc() {
-    return (this.artwork && this.artwork.src) || this._src;
-  }
-
-  set announce(announce) {
-    super.announce = announce;
-  }
-
-  get announce() {
-    return (
-      this._announce || [
-        this._Metadata && this._Metadata.announce,
-        this._Badge && this._Badge.announce,
-        this._Label && this._Label.announce,
-        this._ProgressBar && this._ProgressBar.announce
-      ]
-    );
   }
 }
