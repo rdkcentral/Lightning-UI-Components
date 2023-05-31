@@ -20,13 +20,13 @@ import lng from '@lightningjs/core';
 import type { StylePartial } from '../../types/lui';
 import FocusManager from '../FocusManager';
 
-type TransitionObject = {
+export type TransitionObject = {
   delay: number;
   duration: number;
   timingFunction: string;
 };
 
-type DirectionProps = {
+export type DirectionProps = {
   axis: string;
   crossAxis: string;
   lengthDimension: string;
@@ -42,21 +42,44 @@ export type NavigationManagerStyles = {
   scrollIndex: number;
 };
 
-export default class NavigationManager extends FocusManager {
+declare namespace NavigationManager {
+  export interface TemplateSpec extends FocusManager.TemplateSpec {
+    alwaysScroll?: boolean;
+    neverScroll?: boolean;
+    scrollIndex?: number;
+    autoResizeWidth?: boolean;
+    autoResizeHeight?: boolean;
+    lazyUpCount?: number;
+    lazyUpCountBuffer?: number;
+  }
+}
+
+declare class NavigationManager<
+  TemplateSpec extends NavigationManager.TemplateSpec = NavigationManager.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends FocusManager<TemplateSpec, TypeConfig> {
+  // Properties
   alwaysScroll?: boolean;
   neverScroll?: boolean;
   scrollIndex?: number;
   autoResizeWidth?: boolean;
   autoResizeHeight?: boolean;
+  lazyUpCount?: number;
+  lazyUpCountBuffer?: number;
+
+  // Accessors
+  // TODO: ask if necessary --> these are private accessors so do they need to be included?
+  get _directionPropNames(): DirectionProps;
+  get _canScrollBack(): boolean;
+  get _canScrollNext(): boolean;
+  get _isColumn(): boolean;
+  get _isRow(): boolean;
 
   get style(): NavigationManagerStyles;
   set style(v: StylePartial<NavigationManagerStyles>);
 
-  protected _initComponentSize(): void;
-  protected _updateLayout(): void;
-
+  // Methods
   $itemChanged(): void;
-
   updatePositionOnAxis(item: lng.Component, position: number): void;
   scrollTo(index: number, duration: number): void;
   transitionDone(): void;
@@ -64,13 +87,6 @@ export default class NavigationManager extends FocusManager {
   shouldScrollRight(): boolean;
   shouldScrollUp(): boolean;
   shouldScrollDown(): boolean;
-
-  get _directionPropNames(): DirectionProps;
-  get _canScrollBack(): boolean;
-  get _canScrollNext(): boolean;
-  get _isColumn(): boolean;
-  get _isRow(): boolean;
-  protected _getAlwaysScroll: boolean;
-  protected _getNeverScroll: boolean;
-  protected _getScrollIndex: number;
 }
+
+export default NavigationManager;
