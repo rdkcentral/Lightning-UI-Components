@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -149,6 +149,12 @@ export default class TextBox extends Base {
     if (this._textStyleSet.wordWrapWidth) {
       inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
       inlineContentPatch.rtt = true;
+    }
+    if (this._textStyleSet.maxLines) {
+      inlineContentPatch.maxLines = this._textStyleSet.maxLines;
+    }
+    if (this._textStyleSet.maxLinesSuffix) {
+      inlineContentPatch.maxLinesSuffix = this._textStyleSet.maxLinesSuffix;
     }
 
     this.patch({
