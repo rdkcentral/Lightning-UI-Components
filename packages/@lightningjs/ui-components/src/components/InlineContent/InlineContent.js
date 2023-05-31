@@ -62,8 +62,8 @@ export default class InlineContent extends Base {
   _updateContent() {
     this.childList.clear();
 
-    // if wrapping, hide content until it has rerendered with maxLines and truncation
-    this.alpha = this.contentWrap ? 0.001 : 1;
+    // if wrapping with max lines, hide content until it has rerendered with maxLines and truncation calculated
+    this.alpha = this.contentWrap && this.maxLines ? 0.001 : 1;
 
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
