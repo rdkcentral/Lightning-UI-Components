@@ -34,7 +34,7 @@ export type DirectionProps = {
   innerCrossDimension: string;
 };
 
-export type NavigationManagerStyles = {
+export type NavigationManagerStyle = {
   alwaysScroll: boolean;
   itemSpacing: number;
   itemTransition: TransitionObject;
@@ -134,8 +134,8 @@ declare class NavigationManager<
   lazyUpCountBuffer?: number;
 
   // Accessors
-  get style(): NavigationManagerStyles;
-  set style(v: StylePartial<NavigationManagerStyles>);
+  get style(): NavigationManagerStyle;
+  set style(v: StylePartial<NavigationManagerStyle>);
 
   // Methods
   /**
