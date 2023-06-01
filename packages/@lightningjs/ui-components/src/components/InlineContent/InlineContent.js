@@ -214,11 +214,9 @@ export default class InlineContent extends Base {
         w = child.texture.getRenderWidth();
       } else if (isIcon(child)) {
         type = 'icon';
-        content = 'ICON'; // TODO: remove
         w = child.w;
       } else if (child.constructor.__componentName === 'Badge') {
         type = 'badge';
-        content = 'BADGE'; // TODO: remove
         w = child.w;
       }
 
