@@ -162,8 +162,10 @@ export const WithInlineContentTruncation = () =>
           type: TextBox,
           w: 500,
           style: {
-            maxLines: 2,
-            maxLinesSuffix: '...'
+            textStyle: {
+              maxLines: 2,
+              maxLinesSuffix: '...'
+            }
           },
           content: [
             'Text',
