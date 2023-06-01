@@ -51,7 +51,8 @@ export default class InlineContent extends Base {
 
   _construct() {
     super._construct();
-    this._maxLinesSuffix = '';
+    // use the same default value as Lightning's Text Texture default
+    this._maxLinesSuffix = '..';
   }
 
   _update() {
