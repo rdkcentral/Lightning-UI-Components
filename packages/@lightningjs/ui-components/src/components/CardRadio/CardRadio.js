@@ -80,12 +80,13 @@ export default class CardRadio extends CardTitle {
   }
 
   _updateRadio() {
+    const { iconWidth, iconHeight } = this.style;
     const RadioPatch = {
-      w: this.style.iconWidth,
-      h: this.style.iconHeight,
-      x: this.w - this.style.iconWidth - this.style.paddingHorizontal,
+      w: iconWidth,
+      h: iconHeight,
+      x: this.w - iconWidth - this.style.paddingHorizontal,
       y:
-        (this._Title.style.textStyle.lineHeight - this.style.iconHeight) / 2 +
+        (this._Title.style.textStyle.lineHeight - iconHeight) / 2 +
         this.style.paddingVertical +
         this.style.paddingVertical / 4,
       checked: true
