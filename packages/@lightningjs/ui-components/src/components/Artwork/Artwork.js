@@ -22,6 +22,7 @@ import Base from '../Base';
 import Gradient from '../Gradient';
 import * as styles from './Artwork.styles.js';
 import { context } from '../../globals';
+import CustomImageTexture from '../../textures/CustomImageTexture';
 
 export default class Artwork extends Base {
   static get __componentName() {
@@ -585,8 +586,10 @@ export default class Artwork extends Base {
           : 1, // Prevent image from flashing on first load if mode requires a center image or blur is true
       h: this.h,
       texture: {
-        type: lng.textures.ImageTexture,
+        type: CustomImageTexture,
         src,
+        w: this.w,
+        h: this.h,
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,

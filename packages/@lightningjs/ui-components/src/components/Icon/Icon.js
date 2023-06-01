@@ -21,51 +21,7 @@ import Base from '../Base';
 import * as styles from './Icon.styles.js';
 import { context } from '../../globals';
 import { stringifyCompare, getValidColor } from '../../utils';
-
-function imageLoader({ src }, cb) {
-  const image = new Image();
-
-  // On the PS4 platform setting the `crossOrigin` attribute on
-  // images can cause CORS failures.
-  if (!(src.substr(0, 5) == 'data:') && !lng.Utils.isPS4) {
-    image.crossOrigin = 'Anonymous';
-  }
-  image.onerror = function () {
-    // Ignore error message when cancelled.
-    if (image.src) {
-      return cb('Image load error');
-    }
-  };
-  image.onload = function () {
-    cb(null, {
-      source: image,
-      renderInfo: { src: src, compressed: false },
-      hasAlpha: true
-    });
-  };
-
-  image.src = src;
-
-  return function () {
-    // Cancel Callback
-    image.onerror = null;
-    image.onload = null;
-    image.removeAttribute('src');
-  };
-}
-
-/**
- * Blob images have been implemented in icons as it has been observed that base64 encoded strings used in themes can lead to excessive memory consumption.
- * If Lightning is using image workers the blob image is not accessible. This will disable the feature only for blob images.
- */
-class BlobImageTexture extends lng.textures.ImageTexture {
-  _getSourceLoader() {
-    const src = this._src;
-    return cb => {
-      return imageLoader({ src }, cb);
-    };
-  }
-}
+import CustomImageTexture from '../../textures/CustomImageTexture';
 
 export default class Icon extends Base {
   static get __componentName() {
@@ -138,33 +94,13 @@ export default class Icon extends Base {
   }
 }
 
-const [isSvgTag, isSvgURI, isBlobURI] = [
-  /^<svg.*<\/svg>$/,
-  /\.svg$/,
-  /^blob:/
-].map(regex => RegExp.prototype.test.bind(regex));
-
 function getIconTemplate(icon, w, h) {
   const template = { w, h };
-  switch (true) {
-    case isSvgTag(icon):
-      template.texture = lng.Tools.getSvgTexture(
-        `data:image/svg+xml,${encodeURIComponent(icon)}`,
-        w,
-        h
-      );
-      break;
-    case isSvgURI(icon):
-      template.texture = lng.Tools.getSvgTexture(icon, w, h);
-      break;
-    case isBlobURI(icon):
-      template.texture = {
-        type: BlobImageTexture,
-        src: icon
-      };
-      break;
-    default:
-      template.src = icon;
-  }
+  template.texture = {
+    type: CustomImageTexture,
+    w,
+    h,
+    src: icon
+  };
   return template;
 }
