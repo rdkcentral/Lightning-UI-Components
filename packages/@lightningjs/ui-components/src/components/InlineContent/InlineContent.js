@@ -63,7 +63,7 @@ export default class InlineContent extends Base {
     this.childList.clear();
 
     // if wrapping with max lines, hide content until it has rerendered with maxLines and truncation calculated
-    this.alpha = this.contentWrap && this.maxLines ? 0.001 : 1;
+    this.alpha = this._shouldTruncate ? 0.001 : 1;
 
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
@@ -142,7 +142,7 @@ export default class InlineContent extends Base {
             this.flex._layout._lineLayouter._lines.length;
           this.h = this.multiLineHeight;
 
-          if (this.contentWrap && this.maxLines) {
+          if (this._shouldTruncate) {
             this._renderMaxLines();
           }
 
@@ -401,6 +401,10 @@ export default class InlineContent extends Base {
       return this.style.marginBottom;
     }
     return 0;
+  }
+
+  get _shouldTruncate() {
+    return this.contentWrap && this.maxLines;
   }
 
   set announce(announce) {
