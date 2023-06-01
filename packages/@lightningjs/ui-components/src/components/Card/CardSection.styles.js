@@ -19,8 +19,8 @@
 import utils from '../../utils';
 
 export const base = theme => ({
+  h: theme.spacer.xxl * 5,
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
-  h: theme.spacer.md * 20,
-  w: utils.getWidthByUpCount(theme, 4)
+  w: utils.getWidthByColumnSpan(theme, 3)
 });

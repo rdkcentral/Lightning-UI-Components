@@ -67,11 +67,12 @@ describe('CardSection', () => {
     expect(cardSection.icon).toEqual(circle);
     expect(cardSection._Icon.x).toEqual(
       cardSection.w -
-        cardSection.iconWidth -
+        cardSection.style.iconWidth -
         cardSection.style.paddingHorizontal
     );
     expect(cardSection._Icon.y).toEqual(
-      (cardSection._Title.style.textStyle.lineHeight - cardSection.iconWidth) /
+      (cardSection._Title.style.textStyle.lineHeight -
+        cardSection.style.iconWidth) /
         2 +
         cardSection.style.paddingVertical
     );
