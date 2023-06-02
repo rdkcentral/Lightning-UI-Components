@@ -88,9 +88,8 @@ declare namespace NavigationManager {
 }
 
 declare class NavigationManager<
-  TemplateSpec extends NavigationManager.TemplateSpec = NavigationManager.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
-> extends FocusManager<TemplateSpec, TypeConfig> {
+  TemplateSpec extends NavigationManager.TemplateSpec = NavigationManager.TemplateSpec
+> extends FocusManager<TemplateSpec> {
   // Properties
   /**
    * Determines whether the component will stop scrolling as it nears the end to prevent white space.
