@@ -168,7 +168,7 @@ export default class InlineContent extends Base {
         (child.line === this.maxLines && nextChild.line > this.maxLines);
 
       if (child.line <= this.maxLines) {
-        if (isLast) {
+        if (isLast && index !== childrenDimensions.length - 1) {
           this._addSuffix(child);
         } else {
           this.childList.add(child.component);
