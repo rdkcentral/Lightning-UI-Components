@@ -374,4 +374,26 @@ describe('InlineContent', () => {
       inlineContent.multiLineHeight
     );
   });
+
+  it('should truncate content that exceeds the defined max lines', async () => {
+    const maxLinesSuffix = '...';
+    [inlineContent, testRenderer] = createInlineContent(
+      {
+        w: 500,
+        maxLines: 2,
+        maxLinesSuffix: '...',
+        contentWrap: true,
+        content: Array.from({ length: 20 }).fill({
+          text: 'this text is long and when repeated should exceed the max lines'
+        })
+      },
+      { spyOnMethods: ['_renderMaxLines'] }
+    );
+
+    await inlineContent.__renderMaxLinesSpyPromise;
+
+    const lastWordDisplayed = inlineContent.childList.last.text.text;
+    expect(inlineContent.alpha).toBe(1);
+    expect(lastWordDisplayed).toEqual(expect.stringContaining(maxLinesSuffix));
+  });
 });
