@@ -309,14 +309,23 @@ export default class InlineContent extends Base {
    * @return { array }
    */
   _formatSpaces(parsedContent) {
+    const whitespace = /(\s+)/;
     return flatten(
-      (parsedContent || []).map(item => {
+      (parsedContent || []).reduce((acc, item) => {
+        let parsed = item;
         if (isText(item)) {
-          const text = typeof item === 'string' ? item : item.text;
-          return text.split(/(\s+)/);
+          if (typeof item === 'object') {
+            const formattedWords = item.text
+              .split(whitespace)
+              .map(word => ({ ...item, text: word.trim() }));
+            acc.push(...formattedWords);
+            return acc;
+          }
+          parsed = item.split(whitespace);
         }
-        return item;
-      })
+        acc.push(parsed);
+        return acc;
+      }, [])
     )
       .map((item, index, arr) => {
         if (item === ' ') return false;
