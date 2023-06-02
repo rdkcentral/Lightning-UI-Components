@@ -16,7 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { measureTextWidth } from '../../utils';
 import * as styles from './Button.styles.js';
 import Row from '../Row';
 import Surface from '../Surface';
@@ -302,11 +301,7 @@ export default class Button extends Surface {
       this._Title._Text &&
       this._Title.visible
     ) {
-      if (this.fixed) {
-        return this._Title.w;
-      } else {
-        return measureTextWidth(this._Title._Text.text);
-      }
+      return this._Title.w;
     }
     return 0;
   }
