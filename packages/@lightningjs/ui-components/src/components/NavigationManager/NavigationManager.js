@@ -38,7 +38,8 @@ const directionPropNames = {
     innerCrossDimension: 'innerW'
   }
 };
-
+// REMOVE: before submitting PR
+let updateLayoutCalls = 0; // eslint-disable-line no-use-before-define
 export default class NavigationManager extends FocusManager {
   static get __componentName() {
     return 'NavigationManager';
@@ -109,6 +110,12 @@ export default class NavigationManager extends FocusManager {
   _updateLayout() {
     const { lengthDimension, crossDimension, crossAxis, innerCrossDimension } =
       this._directionPropNames;
+    updateLayoutCalls++;
+    console.log('%c--- Nav Manager updateLayout', 'color: #bada55');
+    console.log(
+      `%c_updateLayout has been called ${updateLayoutCalls} times`,
+      'color: #bada55'
+    );
     let nextPosition = 0;
     let maxCrossDimensionSize = 0;
     let maxInnerCrossDimensionSize = 0;
@@ -128,12 +135,20 @@ export default class NavigationManager extends FocusManager {
 
       this.updatePositionOnAxis(child, nextPosition);
 
+      console.log(
+        `%c child parent ref: ${this.Items.children}`,
+        'color: #bada55'
+      );
       nextPosition += child[lengthDimension];
-
+      console.log(this.Items.children.length);
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
         nextPosition += this.style.itemSpacing + extraItemSpacing;
       }
+      console.log(
+        `%c nextPosition after if loop: ${nextPosition}`,
+        'color: #bada55'
+      );
 
       if (child.centerInParent) {
         // if the child is another NavigationManager, check the cross dimension size of the item container
@@ -161,17 +176,22 @@ export default class NavigationManager extends FocusManager {
       [crossDimension]: maxCrossDimensionSize,
       [innerCrossDimension]:
         maxInnerCrossDimensionSize || maxCrossDimensionSize,
-      [lengthDimension]: nextPosition + (this._totalAddedWidth || 0)
+      [lengthDimension]: nextPosition + (this._totalAddedWidth || 0) // adding nextPosition as the lengthDimension??
     });
-
+    console.log(
+      `%c Items lengthDimension after patch:
+    ${this.Items[lengthDimension]}`,
+      'color: #bada55'
+    );
     this._autoResize();
     this._centerItemsInParent(childrenToCenter);
     this._updateLastScrollIndex();
-
+    console.log('itemChanged', itemChanged);
     if (itemChanged) {
       this._performRender();
       this.fireAncestors('$itemChanged');
     }
+    console.log('%c----- End of updateLayout ', 'color: #bada55');
   }
 
   _centerItemsInParent(items) {
@@ -364,8 +384,11 @@ export default class NavigationManager extends FocusManager {
     this.requestUpdate();
     this._refocus();
   }
-
+  // called in updateLayout & _render of Row
   updatePositionOnAxis(item, position) {
+    console.log('%c--- updatePostionOnAxis Nav Manager', 'color: #ff4567');
+    console.log(`%c position: ${position}`, 'color: #ff4567 ');
+
     const { axis } = this._directionPropNames;
     this.applySmooth(
       item,
@@ -376,6 +399,7 @@ export default class NavigationManager extends FocusManager {
     if (!this.shouldSmooth) {
       this._updateTransitionTarget(item, axis, position);
     }
+    console.log('%c ----- End of updatePositionOnAxis', 'color: #ff4567');
   }
 
   scrollTo(index, duration = this.style.itemTransition.duration * 100) {

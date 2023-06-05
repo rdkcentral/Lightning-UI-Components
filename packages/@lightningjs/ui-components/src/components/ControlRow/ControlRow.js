@@ -266,7 +266,6 @@ export default class ControlRow extends TitleRow {
       ...itemProps,
       centerInParent: true
     }));
-
     return newContentItems;
   }
 

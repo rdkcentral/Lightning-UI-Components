@@ -220,7 +220,6 @@ export default class FocusManager extends Base {
         return acc;
       }, [])
       .shift();
-
     return firstItem.originalIdx;
   }
 
@@ -346,15 +345,30 @@ export default class FocusManager extends Base {
     return this;
   }
 
+  //called in updatePositionOnAxis in Navigation Manager
   _updateTransitionTarget(element, property, newValue) {
+    console.log(
+      '%c--- _updateTransitionTarget in Focus Manager',
+      'color: #3aed2d'
+    );
     if (
       element &&
       element.transition(property) &&
       !element.transition(property).isRunning() &&
       element.transition(property).targetValue !== newValue
     ) {
+      console.log(
+        `%c targetValue: ${element.transition(property).targetValue}`,
+        'color: #3aed2d'
+      );
+      console.log(
+        `%c newValue passed to updateTargetValue: ${newValue}`,
+        'color: #3aed2d'
+      );
+
       element.transition(property).updateTargetValue(newValue);
     }
+    console.log('%c----- end of _updateTransitionTarget', 'color: #3aed2d ');
   }
 
   /**
@@ -399,7 +413,6 @@ export default class FocusManager extends Base {
     // get the value of where child will end up
     const x = getX(child);
     if (!Number.isFinite(x)) return false;
-
     // to calculate the target absolute X position of the item, we need to use
     // 1) the entire component's absolute position,
     // 2) the target animation value of the items container, and
