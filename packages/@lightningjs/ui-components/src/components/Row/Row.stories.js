@@ -374,6 +374,26 @@ LazyScrollIndexes.parameters = {
     'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
 };
 
+const actionTypes = {
+  append: 'append',
+  appendAt: 'appendAt',
+  prepend: 'prepend',
+  removeAt: 'removeAt'
+};
+
+class EditButton extends Button {
+  onEnter() {
+    const signalName = actionTypes[this.action] || 'append';
+    this.signal(signalName);
+  }
+  set action(action) {
+    this._action = action;
+  }
+  get action() {
+    return this._action;
+  }
+}
+
 export const AddingItems = args =>
   class AddingItems extends lng.Component {
     static _template() {
@@ -383,54 +403,63 @@ export const AddingItems = args =>
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
           lazyUpCountBuffer: args.lazyUpCountBuffer,
-          items: createItems(Button, 12)
+          signals: {
+            append: 'appendButton',
+            appendAt: 'appendButtonAt',
+            prepend: 'prependButton'
+          },
+          items: [
+            {
+              type: EditButton,
+              title: 'Prepend 1 Button (prependItems)',
+              action: 'prepend',
+              passSignals: { prepend: true }
+            },
+            {
+              type: EditButton,
+              title: 'Append 1 Button at index 1 (appendItemsAt)',
+              action: 'appendAt',
+              passSignals: { appendAt: true }
+            },
+            {
+              type: EditButton,
+              title: 'Append 1 Button to the Row (appendItems)',
+              action: 'append',
+              passSignals: { append: true }
+            }
+          ]
         }
       };
     }
 
-    _init() {
-      super._init();
-      setTimeout(() => {
-        this.tag('Row').appendItemsAt(
-          [
-            {
-              type: Button,
-              title: 'New Button 0',
-              w: 150
-            },
-            {
-              type: Button,
-              title: 'New Button 1',
-              w: 150
-            },
-            {
-              type: Button,
-              title: 'New Button 2',
-              w: 150
-            }
-          ],
-          3
-        );
-      }, 3000);
-      setTimeout(() => {
-        this.tag('Row').prependItems([
+    prependButton() {
+      this.tag('Row').prependItems([
+        {
+          type: Button,
+          title: 'Prepended Button'
+        }
+      ]);
+    }
+
+    appendButtonAt() {
+      this.tag('Row').appendItemsAt(
+        [
           {
             type: Button,
-            title: 'New Button 3',
-            w: 150
-          },
-          {
-            type: Button,
-            title: 'New Button 4',
-            w: 150
-          },
-          {
-            type: Button,
-            title: 'New Button 5',
-            w: 150
+            title: 'Appended Button at index 1'
           }
-        ]);
-      }, 4000);
+        ],
+        1
+      );
+    }
+
+    appendButton() {
+      this.tag('Row').appendItems([
+        {
+          type: Button,
+          title: 'Appended Button'
+        }
+      ]);
     }
   };
 AddingItems.args = {
@@ -459,7 +488,7 @@ AddingItems.argTypes = {
 };
 AddingItems.parameters = {
   storyDetails:
-    '3 seconds after rendering, 3 new buttons are added at index 3 of the Row via Row.appendItemsAt. 4 seconds after rendering, 3 additional buttons are added at start of the Row via Row.prependItems. '
+    'The 3 buttons initially rendered in this story are configured to invoke 1 of the 3 methods available to add items to a Row (the name of the method used is in parenthesis on the button). Press enter on any of those 3 buttons to invoke that method and add a button to the Row.'
 };
 
 export const LazyUpCount = args =>
@@ -512,16 +541,24 @@ export const RemovingItems = () =>
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
-          items: createItems(Button, 5)
+          signals: {
+            removeAt: 'removeButton'
+          },
+          items: [
+            ...createItems(Button, 2),
+            {
+              type: EditButton,
+              title: 'Press Enter on this button to remove it (removeItemAt)',
+              action: 'removeAt',
+              passSignals: { removeAt: true }
+            }
+          ]
         }
       };
     }
 
-    _init() {
-      super._init();
-      setTimeout(() => {
-        this.tag('Row').removeItemAt(1);
-      }, 3000);
+    removeButton() {
+      this.tag('Row').removeItemAt(2);
     }
   };
 RemovingItems.args = {
@@ -532,5 +569,5 @@ RemovingItems.argTypes = {
 };
 RemovingItems.parameters = {
   storyDetails:
-    '3 seconds after rendering, the button at index 1 in the Row is removed via Row.removeItemAt.'
+    'The third button in this row is configured to invoke removeItemAt to remove that button. Focus on that button and press Enter to invoke that method and remove the button from the row.'
 };
