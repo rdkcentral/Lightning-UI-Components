@@ -18,13 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base/Base';
-import type { Color, StylePartial } from '../../types/lui';
-
-export type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
+import type { Color, StylePartial, TransitionObject } from '../../types/lui';
 
 export type SurfaceStyle = {
   animation: TransitionObject;

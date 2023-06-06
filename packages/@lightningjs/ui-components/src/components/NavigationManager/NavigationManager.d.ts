@@ -17,14 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import type { StylePartial } from '../../types/lui';
+import type { StylePartial, TransitionObject } from '../../types/lui';
 import FocusManager from '../FocusManager';
-
-export type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
 
 export type DirectionProps = {
   axis: string;

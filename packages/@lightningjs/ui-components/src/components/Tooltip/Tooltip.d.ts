@@ -18,14 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import type { Color, StylePartial, TransitionObject } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
-
-type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
 
 export type TooltipStyle = {
   backgroundColor: Color;
