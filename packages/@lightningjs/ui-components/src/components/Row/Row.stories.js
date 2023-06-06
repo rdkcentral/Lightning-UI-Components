@@ -374,23 +374,15 @@ LazyScrollIndexes.parameters = {
     'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
 };
 
-const actionTypes = {
-  append: 'append',
-  appendAt: 'appendAt',
-  prepend: 'prepend',
-  removeAt: 'removeAt'
-};
-
-class EditButton extends Button {
+class SignalButton extends Button {
   onEnter() {
-    const signalName = actionTypes[this.action] || 'append';
-    this.signal(signalName);
+    this.signal(this.signalName);
   }
-  set action(action) {
-    this._action = action;
+  set signalName(signalName) {
+    this._signalName = signalName;
   }
-  get action() {
-    return this._action;
+  get signalName() {
+    return this._signalName;
   }
 }
 
@@ -410,21 +402,21 @@ export const AddingItems = args =>
           },
           items: [
             {
-              type: EditButton,
+              type: SignalButton,
               title: 'Prepend 1 Button (prependItems)',
-              action: 'prepend',
+              signalName: 'prepend',
               passSignals: { prepend: true }
             },
             {
-              type: EditButton,
+              type: SignalButton,
               title: 'Append 1 Button at index 1 (appendItemsAt)',
-              action: 'appendAt',
+              signalName: 'appendAt',
               passSignals: { appendAt: true }
             },
             {
-              type: EditButton,
+              type: SignalButton,
               title: 'Append 1 Button to the Row (appendItems)',
-              action: 'append',
+              signalName: 'append',
               passSignals: { append: true }
             }
           ]
