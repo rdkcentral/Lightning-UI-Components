@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@ import mdx from './Row.mdx';
 import { context } from '../../globals';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
+import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';
 
 export default {
@@ -373,18 +374,6 @@ LazyScrollIndexes.parameters = {
   storyDetails:
     'Items before the item at startLazyScrollIndex and after the item at stopLazyScrollIndex will use alwaysScroll. Items at and between startLazyScrollIndex and stopLazyScrollIndex will use lazyScroll.'
 };
-
-class SignalButton extends Button {
-  onEnter() {
-    this.signal(this.signalName);
-  }
-  set signalName(signalName) {
-    this._signalName = signalName;
-  }
-  get signalName() {
-    return this._signalName;
-  }
-}
 
 export const AddingItems = args =>
   class AddingItems extends lng.Component {
