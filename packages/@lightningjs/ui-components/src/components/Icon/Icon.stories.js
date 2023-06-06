@@ -69,7 +69,7 @@ const sharedArgTypes = {
   objectFit: {
     control: { type: 'boolean' },
     description:
-      'If w, h are not provided lets image patch without w, h to take its origin w, h',
+      'If set to true, the image will be patched without explicit width and height, using its original width and height',
     table: {
       defaultValue: { summary: false }
     }
