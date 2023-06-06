@@ -29,6 +29,7 @@ declare namespace FocusManager {
      * the navigation direction
      */
     direction?: NavigationDirectionType;
+
     /**
      * child element or elements of the FocusManager
      */
@@ -36,6 +37,7 @@ declare namespace FocusManager {
       | lng.Component.NewPatchTemplate<lng.Component.Constructor>
       | typeof lng.Component
     >;
+
     /**
      * index of currently selected item
      */
@@ -45,6 +47,16 @@ declare namespace FocusManager {
      * enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa
      */
     wrapSelected?: boolean;
+
+    /**
+     * x (horizontal) position value of the Row/Column (items array)
+     */
+    itemPosX?: number;
+
+    /**
+     * y (vertical) position value of the Row/Column (items array)
+     */
+    itemPosY?: number;
   }
 }
 
@@ -74,6 +86,16 @@ declare class FocusManager<
    */
   wrapSelected: boolean;
 
+  /**
+   * x (horizontal) position value of the Row/Column (items array)
+   */
+  itemPosX?: number;
+
+  /**
+   * y (vertical) position value of the Row/Column (items array)
+   */
+  itemPosY?: number;
+
   // Accessors
 
   get Items(): lng.Element;
@@ -82,6 +104,11 @@ declare class FocusManager<
    * returns the currently selected component
    */
   get selected(): lng.Component;
+
+  /**
+   * returns a list of items that are currently fully and partially on screen
+   */
+  get onScreenItems(): Array<lng.Component>;
 
   /**
    * returns an array containing the children of the FocusManager that are fully within the visible bounds of the FocusManager
