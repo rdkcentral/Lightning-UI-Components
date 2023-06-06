@@ -350,14 +350,16 @@ export default class Tile extends Surface {
   }
   /* ------------------------------ Progress Bar ------------------------------ */
 
-  get _progressBarHeight() {
+  get _progressBarY() {
     return (
       (this._ProgressBar &&
-        this._ProgressBar._getTransition('h')._targetValue +
-          this.style.paddingY) ||
-      0
+      this._ProgressBar._getTransition('alpha')._targetValue !== 0
+        ? this._ProgressBar._getTransition('y')._targetValue ||
+          this._ProgressBar.y
+        : 0) || 0
     );
   }
+
   _updateProgressBar() {
     // Remove ProgressBar if no longer required
     if (
@@ -473,7 +475,9 @@ export default class Tile extends Surface {
 
   get _metadataY() {
     return this._isInsetMetadata
-      ? this._h - this.style.paddingY - this._progressBarHeight
+      ? this._progressBarY
+        ? this._progressBarY - this.style.paddingYBetweenContent
+        : this._h - this.style.paddingY
       : this._h + this.style.paddingY;
   }
 
@@ -493,10 +497,7 @@ export default class Tile extends Surface {
   }
 
   _updateMetadata() {
-    if (
-      !this._hasMetadata ||
-      (this._isCircleLayout && this._metadataLocation === 'inset')
-    ) {
+    if (!this._hasMetadata || (this._isCircleLayout && this._isInsetMetadata)) {
       return;
     }
 

@@ -21,7 +21,8 @@ export const base = theme => ({
   animationExit: theme.animation.standardExit,
   paddingX: theme.spacer.xl,
   paddingY: theme.spacer.lg,
-  paddingYProgress: theme.spacer.lg + theme.spacer.xs,
+  paddingYProgress: theme.spacer.xl,
+  paddingYBetweenContent: theme.spacer.md,
   radius: theme.radius.md,
   alpha: 1
 });
