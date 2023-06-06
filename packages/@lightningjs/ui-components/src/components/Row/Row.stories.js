@@ -528,9 +528,9 @@ export const RemovingItems = () =>
           items: [
             ...createItems(Button, 2),
             {
-              type: EditButton,
+              type: SignalButton,
               title: 'Press Enter on this button to remove it (removeItemAt)',
-              action: 'removeAt',
+              signalName: 'removeAt',
               passSignals: { removeAt: true }
             }
           ]
