@@ -25,6 +25,7 @@ import Button from '../Button';
 import { default as ColumnComponent } from '.';
 import mdx from './Column.mdx';
 import { CATEGORIES } from '../../docs/constants';
+import { SignalButton } from '../../docs/story-components';
 
 export default {
   title: `${CATEGORIES[64]}/Column`,
@@ -632,50 +633,63 @@ export const AddingItems = args =>
           scrollIndex: args.scrollIndex,
           lazyUpCount: args.lazyUpCount,
           lazyUpCountBuffer: args.lazyUpCountBuffer,
-          items: createItems(Button, 20, false, true)
+          signals: {
+            append: 'appendButton',
+            appendAt: 'appendButtonAt',
+            prepend: 'prependButton'
+          },
+          items: [
+            {
+              type: SignalButton,
+              title: 'Prepend 1 Button (prependItems)',
+              signalName: 'prepend',
+              passSignals: { prepend: true }
+            },
+            {
+              type: SignalButton,
+              title: 'Append 1 Button at index 1 (appendItemsAt)',
+              signalName: 'appendAt',
+              passSignals: { appendAt: true }
+            },
+            {
+              type: SignalButton,
+              title: 'Append 1 Button to the Row (appendItems)',
+              signalName: 'append',
+              passSignals: { append: true }
+            }
+          ]
         }
       };
     }
 
-    _init() {
-      super._init();
+    prependButton() {
+      this.tag('Column').prependItems([
+        {
+          type: Button,
+          title: 'Prepended Button'
+        }
+      ]);
+    }
 
-      setTimeout(() => {
-        this.tag('Column').appendItemsAt(
-          [
-            {
-              type: Button,
-              title: 'New Button 0'
-            },
-            {
-              type: Button,
-              title: 'New Button 1'
-            },
-            {
-              type: Button,
-              title: 'New Button 2'
-            }
-          ],
-          3
-        );
-      }, 3000);
-
-      setTimeout(() => {
-        this.tag('Column').prependItems([
+    appendButtonAt() {
+      this.tag('Column').appendItemsAt(
+        [
           {
             type: Button,
-            title: 'New Button 3'
-          },
-          {
-            type: Button,
-            title: 'New Button 4'
-          },
-          {
-            type: Button,
-            title: 'New Button 5'
+            title: 'Appended Button at index 1'
           }
-        ]);
-      }, 4000);
+        ],
+        1
+      );
+    }
+
+    appendButton() {
+      this.tag('Column').appendItems([
+        {
+          type: Button,
+          title: 'Appended Button'
+        }
+      ]);
     }
   };
 AddingItems.args = {
@@ -709,7 +723,7 @@ AddingItems.argTypes = {
 };
 AddingItems.parameters = {
   storyDetails:
-    '3 seconds after rendering, 3 new buttons are added at index 3 of the Column via Column.appendItemsAt. 4 seconds after rendering, 3 additional buttons are added at start of the Column via Column.prependItems.'
+    'The 3 buttons initially rendered in this story are configured to invoke 1 of the 3 methods available to add items to a Column (the name of the method used is in parenthesis on the button). Press enter on any of those 3 buttons to invoke that method and add a button to the Column.'
 };
 
 export const RemovingItems = args =>
@@ -720,17 +734,24 @@ export const RemovingItems = args =>
           type: ColumnComponent,
           h: 500,
           scrollIndex: args.scrollIndex,
-          items: createItems(Button, 20, false, true)
+          signals: {
+            removeAt: 'removeButton'
+          },
+          items: [
+            ...createItems(Button, 2),
+            {
+              type: SignalButton,
+              title: 'Press Enter on this button to remove it (removeItemAt)',
+              signalName: 'removeAt',
+              passSignals: { removeAt: true }
+            }
+          ]
         }
       };
     }
 
-    _init() {
-      super._init();
-      this.tag('Column').items[1].title = 'To Be Removed';
-      setTimeout(() => {
-        this.tag('Column').removeItemAt(1);
-      }, 3000);
+    removeButton() {
+      this.tag('Column').removeItemAt(2);
     }
   };
 RemovingItems.args = {
@@ -746,5 +767,5 @@ RemovingItems.argTypes = {
 };
 RemovingItems.parameters = {
   storyDetails:
-    '3 seconds after rendering, the button at index 1 in the Column is removed via Column.removeItemAt.'
+    'The third button in this column is configured to invoke removeItemAt to remove that button. Focus on that button and press Enter to invoke that method and remove the button from the column.'
 };
