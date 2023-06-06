@@ -140,7 +140,7 @@ export default class NavigationManager extends FocusManager {
         'color: #bada55'
       );
       nextPosition += child[lengthDimension];
-      console.log(this.Items.children.length);
+      console.log('Items.children.length', this.Items.children.length);
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
         nextPosition += this.style.itemSpacing + extraItemSpacing;
