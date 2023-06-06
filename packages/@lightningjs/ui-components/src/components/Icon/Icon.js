@@ -32,7 +32,7 @@ export default class Icon extends Base {
   }
 
   static get properties() {
-    return ['icon', 'fixed'];
+    return ['icon', 'fixed', 'objectFit'];
   }
 
   _init() {
@@ -70,6 +70,10 @@ export default class Icon extends Base {
     ) {
       this.prevTemplateParams = { icon, w, h };
       const template = getIconTemplate(icon, w, h);
+      if (this.objectFit) {
+        if (!template.w) delete template.w;
+        if (!template.h) delete template.h;
+      }
       this.patch(template);
       // only update color if color style is defined in theme
       if (!template.texture && this.style.color) {

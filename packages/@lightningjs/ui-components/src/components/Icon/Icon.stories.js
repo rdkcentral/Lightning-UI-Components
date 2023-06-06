@@ -43,7 +43,8 @@ export default {
 
 const sharedArgs = {
   w: 50,
-  h: 50
+  h: 50,
+  objectFit: false
 };
 
 const sharedArgTypes = {
@@ -64,6 +65,14 @@ const sharedArgTypes = {
     table: {
       defaultValue: { summary: 0 }
     }
+  },
+  objectFit: {
+    control: { type: 'boolean' },
+    description:
+      'If w, h are not provided lets image patch without w, h to take its origin w, h',
+    table: {
+      defaultValue: { summary: false }
+    }
   }
 };
 
@@ -74,6 +83,7 @@ export const PNG = () =>
         Icon: {
           type: Icon,
           icon: lightning,
+          objectFit: false,
           announce: 'Lightning bolt'
         }
       };
@@ -90,6 +100,7 @@ export const SVG = () =>
       return {
         Icon: {
           type: Icon,
+          objectFit: false,
           icon: '<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>',
           announce: 'Red circle'
         }

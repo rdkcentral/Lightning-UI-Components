@@ -227,12 +227,16 @@ class MetadataBase extends Base {
     this.logoPosition = this.logoPosition || 'right';
     this._Logo.patch({
       type: Icon,
-      w: this.logoWidth,
-      h: this.logoHeight,
       icon: this.logo,
+      objectFit: true,
       alpha: this.style.alpha
     });
-
+    if (this._Logo && this.logoWidth) {
+      this._Logo.w = this.logoWidth;
+    }
+    if (this._Logo && this.logoHeight) {
+      this._Logo.h = this.logoHeight;
+    }
     this._Logo.x = this.logoPosition === 'left' ? 0 : this.w - this._Logo.w;
     this._Logo.y = (this.h - this.logoHeight) / 2;
   }
@@ -251,9 +255,7 @@ class MetadataBase extends Base {
   }
 
   _getLogoWidth() {
-    return this._logoWidth !== undefined
-      ? this._logoWidth
-      : this.style.logoWidth;
+    return this._logoWidth ?? (this._Logo ? this._Logo.w : undefined);
   }
 
   _setLogoWidth(w) {
@@ -261,9 +263,7 @@ class MetadataBase extends Base {
   }
 
   _getLogoHeight() {
-    return this._logoHeight !== undefined
-      ? this._logoHeight
-      : this.style.logoHeight;
+    return this._logoHeight ?? (this._Logo ? this._Logo.h : undefined);
   }
 
   _setLogoHeight(h) {
