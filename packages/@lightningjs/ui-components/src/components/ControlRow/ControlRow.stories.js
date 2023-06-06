@@ -45,7 +45,7 @@ export default {
   }
 };
 
-const createItems = (length, src) => {
+const createItems = (length, src, props = {}) => {
   return Array.from({ length }).map((_, index) => ({
     type: Tile,
     artwork: {
@@ -57,16 +57,18 @@ const createItems = (length, src) => {
       upCount: 4
     },
     announce: 'Tile',
-    announceContext: `${index + 1} of ${length}`
+    announceContext: `${index + 1} of ${length}`,
+    ...props
   }));
 };
-const createControls = (length, icon = lightningIcon) => {
+const createControls = (length, icon = lightningIcon, props = {}) => {
   return Array.from({ length }).map(() => ({
     type: ControlSmall,
     icon,
     fixed: true,
     h: 64,
-    w: 64
+    w: 64,
+    ...props
   }));
 };
 
@@ -145,46 +147,110 @@ LazyLoading.parameters = {
     'The loadMoreItems signal is emitted each time a contentItem is selected at and after the index defined by the lazyLoadBuffer property. This story adds a method that is invoked when that signal is emitted and adds 3 additional contentItems to the ControlRow via ControlRow.addContentItems. That method will append items in response to the signal two times, then will do nothing in response to further invocations from the signal.'
 };
 
+const createSignal = signalName => ({
+  onEnter: function () {
+    this.signal(signalName);
+  },
+  passSignals: { [signalName]: true }
+});
+
+const parksUrl =
+  'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg';
+
 export const AddingAndRemoving = () =>
   class AddingAndRemoving extends lng.Component {
     static _template() {
       return {
         ControlRow: {
           type: ControlRowComponent,
-          leftControls: createControls(1),
-          contentItems: createItems(2),
-          rightControls: createControls(1)
+          signals: {
+            addLeftControl: true,
+            removeLeftControl: true,
+            addContentItem: true,
+            removeContentItem: true,
+            addRightControl: true,
+            removeRightControl: true
+          },
+          leftControls: createControls(
+            1,
+            lightningIcon,
+            createSignal('addLeftControl')
+          ),
+          contentItems: createItems(
+            3,
+            undefined,
+            createSignal('addContentItem')
+          ),
+          rightControls: createControls(
+            1,
+            lightningIcon,
+            createSignal('addRightControl')
+          )
         }
       };
     }
 
-    _construct() {
-      super._construct();
-      setTimeout(() => {
-        this._ControlRow.addLeftControlsAt(createControls(1, playIcon), 0);
-      }, 1500);
-      setTimeout(() => {
-        this._ControlRow.addContentItemsAt(
-          createItems(
-            2,
-            'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
-          ),
-          1
-        );
-      }, 3000);
-      setTimeout(() => {
-        this._ControlRow.addRightControls(createControls(3, playIcon));
-      }, 4500);
-      setTimeout(() => {
-        this._ControlRow.removeRightControlAt(0);
-      }, 6000);
+    addLeftControl() {
+      this._ControlRow.addLeftControlsAt(
+        createControls(1, playIcon, createSignal('removeLeftControl')),
+        0
+      );
     }
 
-    _getFocused() {
-      return this.tag('ControlRow');
+    removeLeftControl() {
+      this._ControlRow.removeLeftControlAt(this._ControlRow.selectedIndex);
+    }
+
+    addContentItem() {
+      this._ControlRow.addContentItemsAt(
+        createItems(1, parksUrl, createSignal('removeContentItem')),
+        this.contentItemIndex + 1
+      );
+    }
+
+    removeContentItem() {
+      this._ControlRow.removeContentItemAt(this.contentItemIndex);
+    }
+
+    addRightControl() {
+      this._ControlRow.addRightControls(
+        createControls(1, playIcon, createSignal('removeRightControl'))
+      );
+    }
+
+    removeRightControl() {
+      this._ControlRow.removeRightControlAt(this.rightControlIndex);
     }
 
     get _ControlRow() {
       return this.tag('ControlRow');
     }
+
+    get contentItemIndex() {
+      return (
+        this._ControlRow.selectedIndex - this._ControlRow.leftControls.length
+      );
+    }
+
+    get rightControlIndex() {
+      return (
+        this._ControlRow.selectedIndex -
+        this._ControlRow.leftControls.length -
+        this._ControlRow.contentItems.length
+      );
+    }
+
+    _getFocused() {
+      return this._ControlRow;
+    }
   };
+
+AddingAndRemoving.parameters = {
+  storyDetails: `
+  Press the Enter key while focused on any controls or items in the ControlRow for the following effects:
+      - left controls: prepend a new control with a play icon to the left controls
+      - content items: append a tile with a background after the selected index
+      - right controls: append a new control with a play icon to the right controls
+  Press the Enter key while focused on any of the added controls or content items to remove that control or content item.  
+  `
+};
