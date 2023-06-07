@@ -20,8 +20,23 @@ import NavigationManager from '../NavigationManager';
 
 declare namespace Row {
   export interface TemplateSpec extends NavigationManager.TemplateSpec {
+    /**
+     * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+     */
     lazyScroll?: boolean;
+
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place before this index)
+     */
     startLazyScrollIndex?: number;
+
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place after this index)
+     */
     stopLazyScrollIndex?: number;
   }
 }
@@ -30,10 +45,29 @@ declare class Row<
   TemplateSpec extends Row.TemplateSpec = Row.TemplateSpec
 > extends NavigationManager<TemplateSpec> {
   // Properties
+  /**
+   * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+   */
   lazyScroll?: boolean;
+
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place before this index)
+   */
   startLazyScrollIndex?: number;
+
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place after this index)
+   */
   stopLazyScrollIndex?: number;
 
   // Methods
+  /**
+   * A callback that can be overridden to do something with the items that are currently on screen.
+   * This will be called on every new render.
+   */
   onScreenEffect(): void;
 }
