@@ -157,19 +157,15 @@ export default class Row extends NavigationManager {
     }
     let itemsContainerX;
     let itemIndex = this.selectedIndex - this.scrollIndex;
-    // remove this after testing refactor
-    // itemIndex = itemIndex < 0 ? 0 : itemIndex;
-    // if (itemIndex === this._firstFocusableIndex()) {
-    //   itemIndex = 0;
-    // }
-    // refactor of the above
     if (itemIndex < 0 || itemIndex === this._firstFocusableIndex()) {
       itemIndex = 0;
     }
-
+    console.log('%c--- _getScrollX Row ', 'color: #9003fc');
+    console.log(
+      `%c selectedIndex: ${this.selectedIndex}, scrollIndex: ${this.scrollIndex} , itemIndex: ${itemIndex}`,
+      'color: #9003fc'
+    );
     if (this.Items.children[itemIndex]) {
-      console.log('%c--- _getScrollX Row ', 'color: #9003fc');
-
       // TODO: fix this logic to not return -0
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue
@@ -200,7 +196,10 @@ export default class Row extends NavigationManager {
           : this._getScrollX();
     }
 
-    console.log(`%c itemsContainerX: ${itemsContainerX}`, 'color: #7288f7 ');
+    console.log(
+      `%c _render itemsContainerX: ${itemsContainerX}`,
+      'color: #7288f7 '
+    );
 
     if (itemsContainerX !== undefined) {
       console.log(

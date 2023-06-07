@@ -54,6 +54,8 @@ export default class ControlRow extends TitleRow {
     this._lazyLoadBuffer = 0;
   }
 
+  // only happens on initial load
+  // updates controls and content items - maybe should be renamed?
   _updateContent() {
     const itemsToAppend = [];
     if (this.leftControls.length) {
@@ -69,7 +71,7 @@ export default class ControlRow extends TitleRow {
       this.patch({
         alpha: 1,
         items: itemsToAppend,
-        selectedIndex: this.leftControls.length,
+        selectedIndex: this.leftControls.length, // if commented out works as expected
         startLazyScrollIndex: this.leftControls.length,
         stopLazyScrollIndex:
           this.leftControls.length + this.contentItems.length - 1
@@ -120,6 +122,7 @@ export default class ControlRow extends TitleRow {
     this._getMoreItems();
   }
 
+  // used to append items in controls and content
   _appendItemsAt(items, appendIndex, removeSpacingIndex) {
     const itemsCopy = [...items];
 
@@ -133,55 +136,48 @@ export default class ControlRow extends TitleRow {
     this.appendItemsAt(itemsCopy, appendIndex);
   }
 
-  addContentItems(items) {
-    const itemsToAdd = this._createContentItems(items);
-    const addIndex = this._lastItemIndex + 1;
-    this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
-    this._lastItemIndex += itemsToAdd.length;
-
-    if (this._contentItems) {
-      this._contentItems = [...this.contentItems, ...itemsToAdd];
-    }
-
-    this.patch({
-      stopLazyScrollIndex: addIndex + itemsToAdd.length - 1
-    });
+  _createControls(controls) {
+    return controls.map(controlProps => ({
+      backgroundType: 'fill',
+      centerInParent: true,
+      ...controlProps
+    }));
   }
 
-  addContentItemsAt(items, itemIndex) {
-    const itemsToAdd = this._createContentItems(items);
-    const addIndex = this._lastLeftControlIndex + 1 + itemIndex;
-    if (addIndex === this._lastItemIndex + 1) {
-      this.addContentItems(itemsToAdd);
-    } else {
-      this._appendItemsAt(itemsToAdd, addIndex);
-
-      if (this._contentItems) {
-        this._contentItems.splice(addIndex, 0, ...itemsToAdd);
-        this._lastItemIndex = this.contentItems.length - 1;
-      }
-
-      this.patch({
-        stopLazyScrollIndex: this._lastItemIndex + itemsToAdd.length
-      });
-    }
+  _createContentItems(contentItems) {
+    const newContentItems = contentItems.map(itemProps => ({
+      ...itemProps,
+      centerInParent: true
+    }));
+    return newContentItems;
   }
 
-  removeContentItemAt(index) {
-    const removeIndex = this._lastLeftControlIndex + 1 + index;
-    this.removeItemAt(removeIndex);
-    this._lastItemIndex--;
-
-    if (this._contentItems) {
-      this._contentItems.splice(index, 1);
-    }
-
-    this.patch({
-      stopLazyScrollIndex:
-        this.leftControls.length + this.contentItems.length - 1
-    });
+  /* ------------------------------ Get & Set Left Controls ------------------------------ */
+  set leftControls(leftControls) {
+    this._setLeftControls(leftControls);
   }
 
+  get leftControls() {
+    return this._getLeftControls();
+  }
+
+  _setLeftControls(leftControls) {
+    this._leftControls = this._createControls(leftControls);
+    this._lastLeftControlIndex = leftControls.length - 1;
+    this._updateContent();
+  }
+
+  _getLeftControls() {
+    return this._leftControls;
+  }
+  _getLeftControlItems() {
+    if (this.leftControls.length) {
+      return this.items.slice(0, this._lastLeftControlIndex + 1);
+    }
+    return [];
+  }
+
+  /* ------------------------------ Add & Remove Left Controls ------------------------------ */
   addLeftControls(controls) {
     const itemsToAdd = this._createControls(controls);
     const addIndex = this._lastLeftControlIndex + 1;
@@ -231,6 +227,36 @@ export default class ControlRow extends TitleRow {
       this.leftControls.length + this.contentItems.length - 1;
   }
 
+  /* ------------------------------ Get & Set Right Controls ------------------------------ */
+
+  set rightControls(rightControls) {
+    this._setRightControls(rightControls);
+  }
+
+  get rightControls() {
+    return this._getRightControls();
+  }
+
+  _setRightControls(rightControls) {
+    this._rightControls = this._createControls(rightControls);
+    this._updateContent();
+  }
+
+  _getRightControls() {
+    return this._rightControls;
+  }
+  _getRightControlItems() {
+    if (this.rightControls.length) {
+      const leftSiblingIndex =
+        this._lastItemIndex || this._lastLeftControlIndex;
+      return leftSiblingIndex
+        ? this.items.slice(leftSiblingIndex + 1)
+        : this.items;
+    }
+    return [];
+  }
+
+  /* ------------------------------ Add & Remove Right Controls ------------------------------ */
   addRightControls(controls) {
     this._rightControls.push(...controls);
     this._appendItemsAt(this._createControls(controls), this.items.length);
@@ -252,57 +278,24 @@ export default class ControlRow extends TitleRow {
       this._rightControls.splice(index, 1);
     }
   }
-
-  _createControls(controls) {
-    return controls.map(controlProps => ({
-      backgroundType: 'fill',
-      centerInParent: true,
-      ...controlProps
-    }));
-  }
-
-  _createContentItems(contentItems) {
-    const newContentItems = contentItems.map(itemProps => ({
-      ...itemProps,
-      centerInParent: true
-    }));
-    return newContentItems;
-  }
-
-  _setLeftControls(leftControls) {
-    this._leftControls = this._createControls(leftControls);
-    this._lastLeftControlIndex = leftControls.length - 1;
-    this._updateContent();
-  }
-
-  _getLeftControls() {
-    return this._leftControls;
-  }
-
-  _setRightControls(rightControls) {
-    this._rightControls = this._createControls(rightControls);
-    this._updateContent();
-  }
-
-  _getRightControls() {
-    return this._rightControls;
-  }
+  /* ------------------------------ Get & Set Content Items ------------------------------ */
 
   _getContentItems() {
     return this._contentItems;
+  }
+
+  set contentItems(items) {
+    this._setContentItems(items);
+  }
+
+  get contentItems() {
+    return this._getContentItems();
   }
 
   _setContentItems(items) {
     this._contentItems = this._createContentItems(items);
     this._lastItemIndex = this._lastLeftControlIndex + items.length;
     this._updateContent();
-  }
-
-  _getLeftControlItems() {
-    if (this.leftControls.length) {
-      return this.items.slice(0, this._lastLeftControlIndex + 1);
-    }
-    return [];
   }
 
   _getContentItemItems() {
@@ -315,41 +308,57 @@ export default class ControlRow extends TitleRow {
     return [];
   }
 
-  _getRightControlItems() {
-    if (this.rightControls.length) {
-      const leftSiblingIndex =
-        this._lastItemIndex || this._lastLeftControlIndex;
-      return leftSiblingIndex
-        ? this.items.slice(leftSiblingIndex + 1)
-        : this.items;
+  /* ------------------------------ Add & Remove Content items ------------------------------ */
+  addContentItems(items) {
+    const itemsToAdd = this._createContentItems(items);
+    const addIndex = this._lastItemIndex + 1;
+    this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
+    this._lastItemIndex += itemsToAdd.length;
+
+    if (this._contentItems) {
+      this._contentItems = [...this.contentItems, ...itemsToAdd];
     }
-    return [];
+
+    this.patch({
+      stopLazyScrollIndex: addIndex + itemsToAdd.length - 1
+    });
   }
 
-  set leftControls(leftControls) {
-    this._setLeftControls(leftControls);
+  addContentItemsAt(items, itemIndex) {
+    const itemsToAdd = this._createContentItems(items);
+    const addIndex = this._lastLeftControlIndex + 1 + itemIndex;
+    if (addIndex === this._lastItemIndex + 1) {
+      this.addContentItems(itemsToAdd);
+    } else {
+      this._appendItemsAt(itemsToAdd, addIndex);
+
+      if (this._contentItems) {
+        this._contentItems.splice(addIndex, 0, ...itemsToAdd);
+        this._lastItemIndex = this.contentItems.length - 1;
+      }
+
+      this.patch({
+        stopLazyScrollIndex: this._lastItemIndex + itemsToAdd.length
+      });
+    }
   }
 
-  get leftControls() {
-    return this._getLeftControls();
+  removeContentItemAt(index) {
+    const removeIndex = this._lastLeftControlIndex + 1 + index;
+    this.removeItemAt(removeIndex);
+    this._lastItemIndex--;
+
+    if (this._contentItems) {
+      this._contentItems.splice(index, 1);
+    }
+
+    this.patch({
+      stopLazyScrollIndex:
+        this.leftControls.length + this.contentItems.length - 1
+    });
   }
 
-  set rightControls(rightControls) {
-    this._setRightControls(rightControls);
-  }
-
-  get rightControls() {
-    return this._getRightControls();
-  }
-
-  set contentItems(items) {
-    this._setContentItems(items);
-  }
-
-  get contentItems() {
-    return this._getContentItems();
-  }
-
+  /* ------------------------------ Lazy Load Buffer ------------------------------ */
   set lazyLoadBuffer(lazyLoadBuffer) {
     this._lazyLoadBuffer = lazyLoadBuffer;
     this._getMoreItems();

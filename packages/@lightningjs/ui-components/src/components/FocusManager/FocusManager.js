@@ -220,6 +220,7 @@ export default class FocusManager extends Base {
         return acc;
       }, [])
       .shift();
+
     return firstItem.originalIdx;
   }
 

@@ -134,11 +134,6 @@ export default class NavigationManager extends FocusManager {
       );
 
       this.updatePositionOnAxis(child, nextPosition);
-
-      console.log(
-        `%c child parent ref: ${this.Items.children}`,
-        'color: #bada55'
-      );
       nextPosition += child[lengthDimension];
       console.log('Items.children.length', this.Items.children.length);
       if (i < this.Items.children.length - 1) {
