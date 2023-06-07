@@ -17,30 +17,23 @@
  */
 
 import NavigationManager from '../NavigationManager';
-import type { StylePartial } from '../../types/lui';
 
-type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
+declare namespace Row {
+  export interface TemplateSpec extends NavigationManager.TemplateSpec {
+    lazyScroll?: boolean;
+    startLazyScrollIndex?: number;
+    stopLazyScrollIndex?: number;
+  }
+}
 
-export type RowStyle = {
-  itemSpacing: number;
-  scrollIndex: number;
-  alwaysScroll: boolean;
-  neverScroll: boolean;
-  itemTransition: TransitionObject;
-};
-
-export default class Row extends NavigationManager {
+declare class Row<
+  TemplateSpec extends Row.TemplateSpec = Row.TemplateSpec
+> extends NavigationManager<TemplateSpec> {
+  // Properties
   lazyScroll?: boolean;
-  itemPosX?: number;
-  itemPosY?: number;
   startLazyScrollIndex?: number;
   stopLazyScrollIndex?: number;
-  get style(): RowStyle;
-  set style(v: StylePartial<RowStyle>);
 
+  // Methods
   onScreenEffect(): void;
 }
