@@ -81,7 +81,7 @@ export default class CardRadio extends CardTitle {
 
   _updateRadio() {
     const { iconWidth, iconHeight } = this.style;
-    const RadioPatch = {
+    const radioPatch = {
       w: iconWidth,
       h: iconHeight,
       x: this.w - iconWidth - this.style.paddingHorizontal,
@@ -92,9 +92,9 @@ export default class CardRadio extends CardTitle {
       checked: true
     };
     if (!this._Radio) {
-      RadioPatch.type = Radio;
+      radioPatch.type = Radio;
     }
-    this.patch({ Radio: RadioPatch, alpha: this.style.alpha });
+    this.patch({ Radio: radioPatch, alpha: this.style.alpha });
   }
 
   _updateSubtitlePosition() {
