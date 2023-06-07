@@ -45,7 +45,7 @@ export const Tab = () =>
 
 Tab.args = {
   icon: null,
-  title: 'Tab23',
+  title: 'Tab',
   mode: 'focused'
 };
 
