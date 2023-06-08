@@ -22,6 +22,12 @@ import type { NavigationManagerStyles } from '../NavigationManager/NavigationMan
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
+// Why does `TitleRow` extend `Row` but use style props from `NavigationManager`?
+/**
+ * `Row` style props are the same as `NavigationManager` style props.
+ * We are not re-mapping properties and defining a `RowStyle` in `Row` since `Row` inherits all of `NavigationManager` style props.
+ * Hence `TitleRowStyle` uses `NavigationManagerStyle` rather than the previous `RowStyle`
+ */
 export type TitleRowStyle = NavigationManagerStyles & {
   w: number;
   titleMarginLeft: number;
