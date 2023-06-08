@@ -212,6 +212,7 @@ export default class FocusManager extends Base {
 
   _firstFocusableIndex() {
     if (!this.items.length) return 0;
+
     const firstItem = this.items
       .reduce((acc, item, idx) => {
         if (!item.skipFocus) {
@@ -347,29 +348,16 @@ export default class FocusManager extends Base {
   }
 
   //called in updatePositionOnAxis in Navigation Manager
+  // item, axis, position
   _updateTransitionTarget(element, property, newValue) {
-    console.log(
-      '%c--- _updateTransitionTarget in Focus Manager',
-      'color: #3aed2d'
-    );
     if (
       element &&
       element.transition(property) &&
       !element.transition(property).isRunning() &&
       element.transition(property).targetValue !== newValue
     ) {
-      console.log(
-        `%c targetValue: ${element.transition(property).targetValue}`,
-        'color: #3aed2d'
-      );
-      console.log(
-        `%c newValue passed to updateTargetValue: ${newValue}`,
-        'color: #3aed2d'
-      );
-
       element.transition(property).updateTargetValue(newValue);
     }
-    console.log('%c----- end of _updateTransitionTarget', 'color: #3aed2d ');
   }
 
   /**

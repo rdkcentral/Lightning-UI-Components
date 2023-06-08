@@ -160,19 +160,21 @@ export default class Row extends NavigationManager {
     if (itemIndex < 0 || itemIndex === this._firstFocusableIndex()) {
       itemIndex = 0;
     }
-    console.log('%c--- _getScrollX Row ', 'color: #9003fc');
+    console.log('%c--- _getScrollX Row ', 'color: #8A2BE2');
+    console.log(this._firstFocusableIndex());
     console.log(
       `%c selectedIndex: ${this.selectedIndex}, scrollIndex: ${this.scrollIndex} , itemIndex: ${itemIndex}`,
-      'color: #9003fc'
+      'color: #8A2BE2'
     );
+    console.log(this.Items.children[itemIndex]);
     if (this.Items.children[itemIndex]) {
       // TODO: fix this logic to not return -0
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue
         : -this.Items.children[itemIndex].x;
     }
-    console.log(`%c itemsContainerX: ${itemsContainerX}`, 'color: #9003fc');
-    console.log('%c----- end of _getScrollX', 'color: #9003fc');
+    console.log(`%c itemsContainerX: ${itemsContainerX}`, 'color: #8A2BE2');
+    console.log('%c----- end of _getScrollX', 'color: #8A2BE2');
     return itemsContainerX;
   }
 
@@ -183,8 +185,7 @@ export default class Row extends NavigationManager {
 
     this._prevLastScrollIndex = this._lastScrollIndex;
 
-    console.log('%c--- _render Row', 'color: #7288f7');
-    console.log(`%c itemPosX: ${this._getScrollX()}`, 'color: #7288f7 ');
+    console.log('%c--- _render Row', 'color: #FF5E00');
 
     let itemsContainerX;
     if (!this.Items.children.length) {
@@ -198,19 +199,19 @@ export default class Row extends NavigationManager {
 
     console.log(
       `%c _render itemsContainerX: ${itemsContainerX}`,
-      'color: #7288f7 '
+      'color: #FF5E00 '
     );
 
     if (itemsContainerX !== undefined) {
       console.log(
         '%c itemsContainterX === undefined calls updatePostionOnAxis',
-        'color: #0abef5'
+        'color: #0FF0FC'
       );
 
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
-    console.log('%c ***** ', 'color: #0abef5');
-    console.log('%c -----End of _render Row', 'color: #7288f7');
+    console.log('%c ***** ', 'color: #0FF0FC');
+    console.log('%c -----End of _render Row', 'color: #FF5E00');
     this.onScreenEffect(this.onScreenItems);
   }
 

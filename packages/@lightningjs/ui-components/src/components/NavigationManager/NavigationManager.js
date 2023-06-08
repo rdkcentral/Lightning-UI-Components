@@ -38,8 +38,6 @@ const directionPropNames = {
     innerCrossDimension: 'innerW'
   }
 };
-// REMOVE: before submitting PR
-let updateLayoutCalls = 0; // eslint-disable-line no-use-before-define
 export default class NavigationManager extends FocusManager {
   static get __componentName() {
     return 'NavigationManager';
@@ -107,20 +105,22 @@ export default class NavigationManager extends FocusManager {
     this._updateLayout();
   }
 
+  // only called in update
+  // ends at line 192
+  // could this be refactored?
   _updateLayout() {
     const { lengthDimension, crossDimension, crossAxis, innerCrossDimension } =
       this._directionPropNames;
-    updateLayoutCalls++;
-    console.log('%c--- Nav Manager updateLayout', 'color: #bada55');
-    console.log(
-      `%c_updateLayout has been called ${updateLayoutCalls} times`,
-      'color: #bada55'
-    );
+
+    console.log('%c--- _updateLayout Nav Manager', 'color: #bada55');
+
     let nextPosition = 0;
     let maxCrossDimensionSize = 0;
     let maxInnerCrossDimensionSize = 0;
     const childrenToCenter = [];
 
+    // loops through each this.Items.children
+    console.log('Items.children.length', this.Items.children.length);
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
@@ -134,16 +134,12 @@ export default class NavigationManager extends FocusManager {
       );
 
       this.updatePositionOnAxis(child, nextPosition);
+
       nextPosition += child[lengthDimension];
-      console.log('Items.children.length', this.Items.children.length);
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
         nextPosition += this.style.itemSpacing + extraItemSpacing;
       }
-      console.log(
-        `%c nextPosition after if loop: ${nextPosition}`,
-        'color: #bada55'
-      );
 
       if (child.centerInParent) {
         // if the child is another NavigationManager, check the cross dimension size of the item container
@@ -173,15 +169,14 @@ export default class NavigationManager extends FocusManager {
         maxInnerCrossDimensionSize || maxCrossDimensionSize,
       [lengthDimension]: nextPosition + (this._totalAddedWidth || 0) // adding nextPosition as the lengthDimension??
     });
-    console.log(
-      `%c Items lengthDimension after patch:
-    ${this.Items[lengthDimension]}`,
-      'color: #bada55'
-    );
+
     this._autoResize();
     this._centerItemsInParent(childrenToCenter);
     this._updateLastScrollIndex();
-    console.log('itemChanged', itemChanged);
+    console.log(
+      `%c itemChanged is true, calls _performRender ${itemChanged}`,
+      'color:#bada55 '
+    );
     if (itemChanged) {
       this._performRender();
       this.fireAncestors('$itemChanged');
@@ -380,9 +375,15 @@ export default class NavigationManager extends FocusManager {
     this._refocus();
   }
   // called in updateLayout & _render of Row
+  // updateLayout - child, nextPosition
+  // render - this.Items, itemsContainerX
   updatePositionOnAxis(item, position) {
-    console.log('%c--- updatePostionOnAxis Nav Manager', 'color: #ff4567');
-    console.log(`%c position: ${position}`, 'color: #ff4567 ');
+    console.log('%c--- updatePostionOnAxis Nav Manager', 'color: #ff3131');
+
+    console.log(
+      `%c position passed to updateTransitionTarget: ${position}`,
+      'color: #ff3131 '
+    );
 
     const { axis } = this._directionPropNames;
     this.applySmooth(
@@ -390,11 +391,11 @@ export default class NavigationManager extends FocusManager {
       { [axis]: position },
       { [axis]: [position, this.style.itemTransition] }
     );
-
+    // REMOVE BEFORE PR: always hits this on ControlRow
     if (!this.shouldSmooth) {
       this._updateTransitionTarget(item, axis, position);
     }
-    console.log('%c ----- End of updatePositionOnAxis', 'color: #ff4567');
+    console.log('%c ----- End of updatePositionOnAxis', 'color: #ff3131');
   }
 
   scrollTo(index, duration = this.style.itemTransition.duration * 100) {

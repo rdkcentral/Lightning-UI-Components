@@ -54,9 +54,11 @@ export default class ControlRow extends TitleRow {
     this._lazyLoadBuffer = 0;
   }
 
-  // only happens on initial load
+  // happens on initial load - twice
+  // gets called again after first _render call in Row
   // updates controls and content items - maybe should be renamed?
   _updateContent() {
+    console.log('%c ----- _updateContent ControlRow', 'color: #EB00A1 ');
     const itemsToAppend = [];
     if (this.leftControls.length) {
       itemsToAppend.push(...this._withExtraSpacing(this.leftControls, true));
@@ -100,8 +102,9 @@ export default class ControlRow extends TitleRow {
     }
     return itemsCopy;
   }
-
+  // called in _selectedChange & lazyLoadBuffer
   _getMoreItems() {
+    console.log('_getMoreItems');
     if (this.lazyLoadBuffer) {
       const loadMoreIndex = this.contentItems.length - 1 - this.lazyLoadBuffer;
       if (
