@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +29,11 @@ context.setTheme({
 const stage = {
   w: 1920,
   h: 1080,
-  clearColor: 0x00000000,
-  canvas2d: false,
+  precision: 2 / 3,
+  fontSharp: {
+    precision: 2 / 3,
+    fontSize: 12
+  },
   useImageWorker: false
 };
 const pressEvent = {

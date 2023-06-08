@@ -94,6 +94,7 @@ exports[`Key should render 1`] = `
                     "letterSpacing": -0.2,
                     "lineHeight": 40,
                     "maxLines": 1,
+                    "precision": 0.6666666666666666,
                     "text": "a",
                     "textBaseline": "bottom",
                     "textColor": 4294506490,

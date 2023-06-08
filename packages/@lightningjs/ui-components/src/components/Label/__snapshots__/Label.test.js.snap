@@ -74,6 +74,7 @@ exports[`Label renders 1`] = `
         "fontFace": "Arial",
         "fontSize": 15,
         "lineHeight": 24,
+        "precision": 0.6666666666666666,
         "text": "undefined",
         "textBaseline": "bottom",
         "textColor": 4279769113,

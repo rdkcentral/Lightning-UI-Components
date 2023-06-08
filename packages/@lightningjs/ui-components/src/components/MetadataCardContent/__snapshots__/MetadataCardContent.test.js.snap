@@ -290,6 +290,7 @@ exports[`MetadataCardContent renders 1`] = `
                                 "fontFace": "Arial",
                                 "fontSize": 25,
                                 "lineHeight": 36,
+                                "precision": 0.6666666666666666,
                                 "text": "+7",
                                 "textBaseline": "bottom",
                                 "type": "TextTexture",
