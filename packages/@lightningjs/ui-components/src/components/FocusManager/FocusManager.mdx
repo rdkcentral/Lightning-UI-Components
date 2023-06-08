@@ -21,7 +21,7 @@ import { DocsLink } from '../../docs/utils';
 
 # FocusManager
 
-In Lightning, focus must be explicitly set on an element and managed manually. `FocusManager` is a utility component that simplifies focus for elements in a list.
+In Lightning, setting focus on elements and managing it manually is required. `FocusManager` is a component that simplifies focus for elements within a list.
 
 ## Source
 
@@ -29,7 +29,7 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 
 ## Usage
 
-Within a parent component `_template()` function, define a child of type `FocusManager` and in `_getFocused()` return that child component
+To use the FocusManager component, define it within the `_template()` function of your parent component and return it from the `_getFocused()` function.
 
 ```js
 import { FocusManager } from '@lightningjs/ui-components';
@@ -71,7 +71,7 @@ Set the `direction` property to `row` for left/right or `column` for up/down key
   <Story id="navigation-focusmanager--columns" />
 </Canvas>
 
-Enable the `wrapSelected` property to allow cycling focus between the first and last items.
+To enable cycling focus between the first and last items, set the `wrapSelected` property to true.
 
 ```js
 {
@@ -87,7 +87,7 @@ Enable the `wrapSelected` property to allow cycling focus between the first and 
 
 ## Extending FocusManager
 
-You can create a component that extends the capabilities of `FocusManager` and responds to changes in focus. Just create a `render()` instance method.
+You can create a component that extends `FocusManager` to add custom focus behavior. Just create a `render()` method that responds to changes in focus.
 
 ```js
 import lng from '@lightningjs/core';
@@ -95,7 +95,7 @@ import { FocusManager } from '@lightningjs/ui-components';
 
 class FancyFocus extends FocusManager {
   render() {
-    // do something with selected item
+    // customize selected item appearance
     this.selected.patch({
       texture: lng.Tools.getRoundRect(
         150,
@@ -119,14 +119,10 @@ class FancyFocus extends FocusManager {
 
 ### Properties
 
-| name          | type                                                    | readonly | description                                                                                                                  |
-| ------------- | ------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| direction     | 'column'\|'row'                                         | false    | determines whether focus handling responds to left/right or up/down key                                                      |
-| selected      | <DocsLink id="lng.Component" />                         | true     | current item in focus                                                                                                        |
-| selectedIndex | number                                                  | false    | index of current item in focus                                                                                               |
-| loading       | boolean                                                 | true     | False if an item is in focus, true otherwise                                                                                 |
-| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | alias for `children`                                                                                                         |
-| wrapSelected  | boolean                                                 | false    | enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa |
+| name         | type            | default | description                                                        |
+| ------------ | --------------- | ------- | ------------------------------------------------------------------ |
+| direction    | 'column'\|'row' | false   | Determines the key handling for focus ('left/right' or 'up/down'). |
+| wrapSelected | boolean         | false   | Enables wrapping behavior for focus navigation.                    |
 
 ### Methods
 
@@ -136,13 +132,30 @@ Appends items to child list and updates focus
 
 ##### Arguments
 
-| name  | type                                                    | required | default | description     |
-| ----- | ------------------------------------------------------- | -------- | ------- | --------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | items to append |
+| name  | type                                                    | required | default | description                   |
+| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | The list of items to append   |
+| idx   | number                                                  | true     | []      | The index to insert the items |
+
+#### prependItems
+
+Prepends items to the child list and updates the focus
+
+| name  | type                                                    | required | default | description                 |
+| ----- | ------------------------------------------------------- | -------- | ------- | --------------------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | The list of items to append |
+
+#### removeItemAt
+
+Removes an item at a specific index from the child list and updates the focus
 
 #### render
 
 A no-op function that is called when `selectedIndex` is set. Can be overridden by classes that extend `FocusManager` for custom render behavior.
+
+#### selected
+
+Returns the currently focused item
 
 #### selectPrevious
 
@@ -151,3 +164,7 @@ Selects previous item. If this.wrapSelected=true, will select the last element i
 #### selectNext
 
 Selects next item. If this.wrapSelected=true, will select the first element in the list if focus is currently on the last item.
+
+#### selectedIndex
+
+Returns the index of the currently focused item.
