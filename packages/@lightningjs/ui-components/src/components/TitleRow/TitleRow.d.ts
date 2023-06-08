@@ -18,11 +18,11 @@
 
 import lng from '@lightningjs/core';
 import type Row from '../Row';
-import type { RowStyle } from '../Row';
+import type { NavigationManagerStyles } from '../NavigationManager/NavigationManager';
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
-export type TitleRowStyle = RowStyle & {
+export type TitleRowStyle = NavigationManagerStyles & {
   w: number;
   titleMarginLeft: number;
   titleTextStyle: TextBoxStyle;

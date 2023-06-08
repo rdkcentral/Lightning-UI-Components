@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Row, { RowStyle } from './Row';
+import Row from './Row';
 
-export { Row as default, RowStyle };
+export { Row as default };
