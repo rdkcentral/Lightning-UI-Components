@@ -122,16 +122,19 @@ declare class NavigationManager<
   autoResizeHeight?: boolean;
 
   /**
-   * If set, this is used to calculate the initial number of items to display on the first render (`lazyUpCount` + `lazyLoadUpCountBuffer`).
+   * Note: `lazyUpCount` and `lazyUpCountBuffer` work hand in hand.
+   * If defined, `lazyUpCount` enables "lazy loading" of items where only an initial number of items are displayed when the Row/Column first renders until further navigation.
+   * The initial number of items is calculated by `lazyUpCount` + `lazyLoadUpCountBuffer`.
    * The remaining items are stored as lazy items.
-   * Each time the user navigates further, the next lazy item will be added.
+   * Each time `selectNext` is invoked (moving right in Row or down in a Column), an item (that was not initially displayed) will be added to the end until all lazy items are loaded.
    */
   lazyUpCount?: number;
 
   /**
-   * If `lazyUpCount` is set, this is used to calculate the initial number of items to display on the first render (`lazyUpCount` + `lazyLoadUpCountBuffer`).
-   * The remaining items are stored as lazy items.
-   * Each time the user navigates further, the next lazy item will be added.
+   * By default `lazyUpCountBuffer` is 2.
+   * Changing this value updates the initial number of items to display on first render of Row/Column.
+   * Note: this behavior will only occur if `lazyUpCount` is defined.
+   * ex: only providing `lazyUpCountBuffer: 1` will display all items since `lazyUpCount` is not set so the “lazy loading” behavior is not enabled.
    */
   lazyUpCountBuffer?: number;
 
