@@ -155,20 +155,21 @@ export default class Row extends NavigationManager {
     if (this._selectedPastAdded) {
       return this._getPrependedOffset();
     }
-    let itemsContainerX;
+
+    let itemsContainerX; // x value for item
+    // itemIndex prev index that should be used for value in itemsContainerX
     let itemIndex = this.selectedIndex - this.scrollIndex;
+
     if (itemIndex < 0 || itemIndex === this._firstFocusableIndex()) {
       itemIndex = 0;
     }
     console.log('%c--- _getScrollX Row ', 'color: #8A2BE2');
-    console.log(this._firstFocusableIndex());
     console.log(
       `%c selectedIndex: ${this.selectedIndex}, scrollIndex: ${this.scrollIndex} , itemIndex: ${itemIndex}`,
       'color: #8A2BE2'
     );
     console.log(this.Items.children[itemIndex]);
     if (this.Items.children[itemIndex]) {
-      // TODO: fix this logic to not return -0
       itemsContainerX = this.Items.children[itemIndex].transition('x')
         ? -this.Items.children[itemIndex].transition('x').targetValue
         : -this.Items.children[itemIndex].x;
@@ -184,8 +185,6 @@ export default class Row extends NavigationManager {
     }
 
     this._prevLastScrollIndex = this._lastScrollIndex;
-
-    console.log('%c--- _render Row', 'color: #FF5E00');
 
     let itemsContainerX;
     if (!this.Items.children.length) {
@@ -210,8 +209,6 @@ export default class Row extends NavigationManager {
 
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
-    console.log('%c ***** ', 'color: #0FF0FC');
-    console.log('%c -----End of _render Row', 'color: #FF5E00');
     this.onScreenEffect(this.onScreenItems);
   }
 

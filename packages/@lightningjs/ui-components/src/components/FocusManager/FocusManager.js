@@ -479,6 +479,7 @@ export default class FocusManager extends Base {
     return this.Items.transition('y').targetValue;
   }
 
+  // lightning state determines which key handlers are used
   static _states() {
     return [
       class None extends this {},

@@ -49,13 +49,14 @@ export default class ControlRow extends TitleRow {
     this._leftControls = [];
     this._contentItems = [];
     this._rightControls = [];
-    this._lastLeftControlIndex = -1;
-    this._lastItemIndex = -1;
+    this._lastLeftControlIndex = -1; // why is this getting set to -1
+    this._lastItemIndex = -1; // why is this getting set to -1
     this._lazyLoadBuffer = 0;
   }
 
-  // happens on initial load - twice
+  // REMOVE BEFORE PR: happens on initial load - twice
   // gets called again after first _render call in Row
+  // called in set leftControls, contentItems and rightControls
   // updates controls and content items - maybe should be renamed?
   _updateContent() {
     console.log('%c ----- _updateContent ControlRow', 'color: #EB00A1 ');
@@ -73,7 +74,7 @@ export default class ControlRow extends TitleRow {
       this.patch({
         alpha: 1,
         items: itemsToAppend,
-        selectedIndex: this.leftControls.length, // if commented out works as expected
+        selectedIndex: this.leftControls.length,
         startLazyScrollIndex: this.leftControls.length,
         stopLazyScrollIndex:
           this.leftControls.length + this.contentItems.length - 1
@@ -102,9 +103,8 @@ export default class ControlRow extends TitleRow {
     }
     return itemsCopy;
   }
-  // called in _selectedChange & lazyLoadBuffer
+
   _getMoreItems() {
-    console.log('_getMoreItems');
     if (this.lazyLoadBuffer) {
       const loadMoreIndex = this.contentItems.length - 1 - this.lazyLoadBuffer;
       if (

@@ -105,22 +105,18 @@ export default class NavigationManager extends FocusManager {
     this._updateLayout();
   }
 
-  // only called in update
+  // REMOVE BEFORE PR:only called in update
   // ends at line 192
   // could this be refactored?
   _updateLayout() {
     const { lengthDimension, crossDimension, crossAxis, innerCrossDimension } =
       this._directionPropNames;
 
-    console.log('%c--- _updateLayout Nav Manager', 'color: #bada55');
-
     let nextPosition = 0;
     let maxCrossDimensionSize = 0;
     let maxInnerCrossDimensionSize = 0;
     const childrenToCenter = [];
 
-    // loops through each this.Items.children
-    console.log('Items.children.length', this.Items.children.length);
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
@@ -167,7 +163,7 @@ export default class NavigationManager extends FocusManager {
       [crossDimension]: maxCrossDimensionSize,
       [innerCrossDimension]:
         maxInnerCrossDimensionSize || maxCrossDimensionSize,
-      [lengthDimension]: nextPosition + (this._totalAddedWidth || 0) // adding nextPosition as the lengthDimension??
+      [lengthDimension]: nextPosition + (this._totalAddedWidth || 0)
     });
 
     this._autoResize();
@@ -181,7 +177,6 @@ export default class NavigationManager extends FocusManager {
       this._performRender();
       this.fireAncestors('$itemChanged');
     }
-    console.log('%c----- End of updateLayout ', 'color: #bada55');
   }
 
   _centerItemsInParent(items) {
@@ -374,12 +369,10 @@ export default class NavigationManager extends FocusManager {
     this.requestUpdate();
     this._refocus();
   }
-  // called in updateLayout & _render of Row
+  // REMOVE BEFORE PR: called in updateLayout & _render of Row
   // updateLayout - child, nextPosition
   // render - this.Items, itemsContainerX
   updatePositionOnAxis(item, position) {
-    console.log('%c--- updatePostionOnAxis Nav Manager', 'color: #ff3131');
-
     console.log(
       `%c position passed to updateTransitionTarget: ${position}`,
       'color: #ff3131 '
@@ -395,7 +388,6 @@ export default class NavigationManager extends FocusManager {
     if (!this.shouldSmooth) {
       this._updateTransitionTarget(item, axis, position);
     }
-    console.log('%c ----- End of updatePositionOnAxis', 'color: #ff3131');
   }
 
   scrollTo(index, duration = this.style.itemTransition.duration * 100) {
@@ -504,7 +496,7 @@ export default class NavigationManager extends FocusManager {
   }
 
   _setScrollIndex(index) {
-    return index >= 0 ? index : 0;
+    return index >= 1 ? index : 0;
   }
 
   _getScrollIndex() {
