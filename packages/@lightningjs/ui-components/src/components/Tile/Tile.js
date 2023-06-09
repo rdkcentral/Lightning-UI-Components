@@ -351,6 +351,12 @@ export default class Tile extends Surface {
   /* ------------------------------ Progress Bar ------------------------------ */
 
   get _progressBarY() {
+    // this accessor gets used to determine where to position the metadata, so
+    // if there is a ProgressBar that is not being alpha-ed out
+    // (because of the progress being set to 0),
+    // use the y position of the ProgressBar
+    // if the ProgressBar is currently animating into place, use the future value
+    // otherwise, return 0
     return (
       (this._ProgressBar &&
       this._ProgressBar._getTransition('alpha')._targetValue !== 0
