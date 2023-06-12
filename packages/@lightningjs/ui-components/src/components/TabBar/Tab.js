@@ -81,31 +81,38 @@ export default class Tab extends Surface {
   }
 
   _updateIcon() {
-    if (this.icon) {
-      const iconPatch = {
-        src: this.icon,
-        w: this.style.iconSize,
-        h: this.style.iconSize,
-        y: this._Content.h / 2,
-        color: this.style.contentColor
-      };
-      if (!this.title) {
-        iconPatch.mountX = 0.5;
-        iconPatch.x = this._Content.w / 2;
-      }
-      if (this._Icon) {
-        this._Icon.patch(iconPatch);
-      } else {
-        this._Content.patch({
-          Icon: {
-            type: Icon,
-            mountY: 0.5,
-            ...iconPatch
-          }
-        });
-      }
-    } else {
+    if (!this.icon) {
       this._Content.patch({ Icon: undefined });
+      return;
+    }
+    const iconPatch = {
+      icon: this.icon,
+      w: this.style.iconSize,
+      h: this.style.iconSize,
+      y: this._Content.h / 2,
+      style: {
+        color: this.style.contentColor
+      }
+    };
+
+    if (this.title) {
+      iconPatch.x = 0;
+      iconPatch.mountX = 0;
+    } else {
+      iconPatch.x = this._Content.w / 2;
+      iconPatch.mountX = 0.5;
+    }
+
+    if (this._Icon) {
+      this._Icon.patch(iconPatch);
+    } else {
+      this._Content.patch({
+        Icon: {
+          type: Icon,
+          mountY: 0.5,
+          ...iconPatch
+        }
+      });
     }
   }
 
@@ -116,12 +123,13 @@ export default class Tab extends Surface {
       y: this._Content.h / 2
     };
     if (this.icon) {
-      textPatch.mountX = 0;
       textPatch.x = this._iconW + this.style.iconMarginRight;
+      textPatch.mountX = 0;
     } else {
-      textPatch.mountX = 0.5;
       textPatch.x = this._Content.w / 2;
+      textPatch.mountX = 0.5;
     }
+
     this._Text.patch(textPatch);
   }
 
