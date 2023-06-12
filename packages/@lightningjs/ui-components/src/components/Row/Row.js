@@ -175,7 +175,7 @@ export default class Row extends NavigationManager {
         : -this.Items.children[itemIndex].x;
     }
     console.log(`%c itemsContainerX: ${itemsContainerX}`, 'color: #8A2BE2');
-    console.log('%c----- end of _getScrollX', 'color: #8A2BE2');
+
     return itemsContainerX;
   }
 
@@ -202,11 +202,6 @@ export default class Row extends NavigationManager {
     );
 
     if (itemsContainerX !== undefined) {
-      console.log(
-        '%c itemsContainterX === undefined calls updatePostionOnAxis',
-        'color: #0FF0FC'
-      );
-
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
     this.onScreenEffect(this.onScreenItems);

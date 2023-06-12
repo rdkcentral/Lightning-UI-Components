@@ -54,12 +54,15 @@ export default class ControlRow extends TitleRow {
     this._lazyLoadBuffer = 0;
   }
 
-  // REMOVE BEFORE PR: happens on initial load - twice
-  // gets called again after first _render call in Row
+  // REMOVE BEFORE PR: happens on initial load - twice leftcontrols and content items
+  // gets called again after first _render call in Row right controls
   // called in set leftControls, contentItems and rightControls
   // updates controls and content items - maybe should be renamed?
-  _updateContent() {
-    console.log('%c ----- _updateContent ControlRow', 'color: #EB00A1 ');
+  _updateControlRowContent() {
+    console.log(
+      '%c ----- _updateControlRowContent ControlRow',
+      'color: #EB00A1 '
+    );
     const itemsToAppend = [];
     if (this.leftControls.length) {
       itemsToAppend.push(...this._withExtraSpacing(this.leftControls, true));
@@ -167,7 +170,7 @@ export default class ControlRow extends TitleRow {
   _setLeftControls(leftControls) {
     this._leftControls = this._createControls(leftControls);
     this._lastLeftControlIndex = leftControls.length - 1;
-    this._updateContent();
+    this._updateControlRowContent();
   }
 
   _getLeftControls() {
@@ -242,7 +245,7 @@ export default class ControlRow extends TitleRow {
 
   _setRightControls(rightControls) {
     this._rightControls = this._createControls(rightControls);
-    this._updateContent();
+    this._updateControlRowContent();
   }
 
   _getRightControls() {
@@ -298,7 +301,7 @@ export default class ControlRow extends TitleRow {
   _setContentItems(items) {
     this._contentItems = this._createContentItems(items);
     this._lastItemIndex = this._lastLeftControlIndex + items.length;
-    this._updateContent();
+    this._updateControlRowContent();
   }
 
   _getContentItemItems() {
