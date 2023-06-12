@@ -71,3 +71,5 @@ declare class Row<
    */
   onScreenEffect(): void;
 }
+
+export default Row;
