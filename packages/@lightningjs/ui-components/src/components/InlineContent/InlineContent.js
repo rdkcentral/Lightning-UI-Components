@@ -111,7 +111,15 @@ export default class InlineContent extends Base {
     if (this.children.length) {
       Promise.all(
         this.children.map(
-          child => new Promise(resolve => child.on('txLoaded', resolve))
+          child =>
+            new Promise(resolve => {
+              // resolve immediately for new line elements since they do not render a texture
+              if (child.h === 0 && child.w === this.w) {
+                resolve();
+              } else {
+                child.on('txLoaded', resolve);
+              }
+            })
         )
       ).finally(() => this._contentLoaded());
     } else {
