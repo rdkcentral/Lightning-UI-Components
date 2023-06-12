@@ -16,8 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import utils from '../../utils';
+
 export const base = theme => ({
+  h: theme.spacer.xxl * 5,
   iconWidth: theme.spacer.xxl,
   iconHeight: theme.spacer.xxl,
-  h: theme.spacer.md * 20
+  w: utils.getWidthByColumnSpan(theme, 3)
 });

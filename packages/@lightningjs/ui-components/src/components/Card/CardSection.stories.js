@@ -38,10 +38,7 @@ export const CardSection = () =>
     static _template() {
       return {
         Card: {
-          type: CardSectionComponent,
-          iconHeight: 33,
-          iconWidth: 33,
-          w: 386
+          type: CardSectionComponent
         }
       };
     }

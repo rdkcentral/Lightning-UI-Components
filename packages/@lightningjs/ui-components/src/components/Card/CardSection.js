@@ -43,13 +43,14 @@ export default class CardSection extends Card {
   }
 
   _updateIcon() {
+    const { iconWidth, iconHeight } = this.style;
     const iconObject = {
-      w: this.iconWidth || this.style.iconWidth,
-      h: this.iconHeight || this.style.iconHeight,
+      w: iconWidth,
+      h: iconHeight,
       icon: this.iconSrc,
-      x: this.w - this.iconWidth - this.style.paddingHorizontal,
+      x: this.w - iconWidth - this.style.paddingHorizontal,
       y:
-        (this._Title.style.textStyle.lineHeight - this.iconHeight) / 2 +
+        (this._Title.style.textStyle.lineHeight - iconHeight) / 2 +
         this.style.paddingVertical
     };
     if (!this._Icon) {
@@ -57,7 +58,6 @@ export default class CardSection extends Card {
     }
     this.patch({ Icon: iconObject });
   }
-
   _calculateTextWidth() {
     const textWidth = this.w - this.style.paddingHorizontal * 2;
     return this.iconSrc ? textWidth - this.iconWidth : textWidth;

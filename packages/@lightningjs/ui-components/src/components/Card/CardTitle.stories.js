@@ -37,8 +37,7 @@ export const CardTitle = () =>
     static _template() {
       return {
         Card: {
-          type: CardTitleComponent,
-          h: 386
+          type: CardTitleComponent
         }
       };
     }

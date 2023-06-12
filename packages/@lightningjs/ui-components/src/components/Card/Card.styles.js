@@ -19,6 +19,7 @@
 import utils from '../../utils';
 
 export const base = theme => ({
+  h: theme.spacer.xxl * 12,
   paddingHorizontal: theme.spacer.xl,
   paddingVertical: theme.spacer.xl,
   radius: theme.radius.md,
