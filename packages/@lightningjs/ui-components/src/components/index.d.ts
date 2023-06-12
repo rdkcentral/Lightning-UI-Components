@@ -80,7 +80,7 @@ export { default as NavigationManager } from './NavigationManager';
 export { default as ProgressBar, ProgressBarStyle } from './ProgressBar';
 export { default as Provider, ProviderStyle } from './Provider';
 export { default as Radio, RadioStyle } from './Radio';
-export { default as Row, RowStyle } from './Row';
+export { default as Row } from './Row';
 export { default as ScrollWrapper, ScrollWrapperStyle } from './ScrollWrapper';
 export { default as Shadow, ShadowStyle } from './Shadow';
 export { default as Slider, SliderStyle } from './Slider';
