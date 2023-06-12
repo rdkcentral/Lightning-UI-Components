@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import CardTitle from '../Card/CardTitle';
+import CardTitle from './CardTitle';
 import TextBox from '../TextBox';
 import * as styles from './CardRadio.styles.js';
 import Radio from '../Radio';

@@ -18,7 +18,7 @@
 
 import type { StylePartial } from '../../types/lui';
 import { TextBoxStyle } from '../TextBox';
-import CardTitle, { CardTitleStyle } from '../Card/CardTitle';
+import CardTitle, { CardTitleStyle } from './CardTitle';
 
 export type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
