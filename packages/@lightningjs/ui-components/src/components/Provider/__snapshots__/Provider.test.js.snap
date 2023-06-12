@@ -215,6 +215,7 @@ exports[`Provider renders 1`] = `
                         "fontFace": "Arial",
                         "fontSize": 25,
                         "lineHeight": 36,
+                        "precision": 0.6666666666666666,
                         "text": "+1",
                         "textBaseline": "bottom",
                         "type": "TextTexture",

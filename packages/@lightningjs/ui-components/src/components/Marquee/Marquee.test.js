@@ -179,19 +179,21 @@ describe('Marquee', () => {
     });
   });
 
-  describe('should position contentBox', () => {
-    it('updates the texture', done => {
-      [marquee, testRenderer] = createMarquee({
-        w: 300,
-        h: 300,
-        centerAlign: true
-      });
-      marquee._componentStyle.shouldSmooth = true;
-      marquee._positionTexture();
-      setTimeout(() => {
-        expect(marquee._ContentBox.x).toBe(124.5);
-        done();
-      }, 50);
+  describe('positioning the ContentBox element', () => {
+    it('should center align the ContentBox', async () => {
+      [marquee, testRenderer] = createMarquee(
+        {
+          w: 300,
+          h: 300,
+          centerAlign: true
+        },
+        { spyOnMethods: ['_positionTexture'] }
+      );
+      await marquee.__positionTextureSpyPromise;
+
+      // this is the equation used to calculate x in Marqee._positionTexture when centering ContentBox
+      const centeredX = (marquee.w - marquee._textRenderedW) / 2;
+      expect(marquee._ContentBox.x).toBe(centeredX);
     });
   });
 

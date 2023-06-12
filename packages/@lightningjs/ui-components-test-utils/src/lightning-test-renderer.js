@@ -27,10 +27,13 @@ context.setTheme({
 });
 
 const stage = {
-  w: 1920,
-  h: 1080,
-  clearColor: 0x00000000,
-  canvas2d: false,
+  w: 1280,
+  h: 720,
+  precision: 2 / 3,
+  fontSharp: {
+    precision: 2 / 3,
+    fontSize: 12
+  },
   useImageWorker: false
 };
 const pressEvent = {
@@ -82,7 +85,8 @@ function create(Component, options = {}) {
   const defaultOpts = {
     focused: true,
     applicationW: 1920,
-    applicationH: 1080
+    applicationH: 1080,
+    stage
   };
   const opts = {
     ...defaultOpts,
