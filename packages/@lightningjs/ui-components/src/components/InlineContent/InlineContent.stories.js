@@ -63,6 +63,23 @@ export default {
       table: {
         defaultValue: { summary: 'center' }
       }
+    },
+    maxLines: {
+      control: 'number',
+      description: 'maximum number of lines to render before truncation',
+      type: 'number',
+      table: {
+        defaultValue: { summary: undefined }
+      }
+    },
+    maxLinesSuffix: {
+      control: 'text',
+      description:
+        'suffix appended to last line of content if it will exceed the maxLines',
+      type: 'string',
+      table: {
+        defaultValue: { summary: '..' }
+      }
     }
   },
   parameters: {
@@ -186,8 +203,6 @@ export const WithTruncation = () =>
         InlineContent: {
           type: InlineContentComponent,
           w: 500,
-          maxLines: 2,
-          maxLinesSuffix: '...',
           content: [
             'Text',
             {
@@ -216,5 +231,7 @@ export const WithTruncation = () =>
     }
   };
 WithTruncation.args = {
-  contentWrap: true
+  contentWrap: true,
+  maxLines: 2,
+  maxLinesSuffix: '...'
 };
