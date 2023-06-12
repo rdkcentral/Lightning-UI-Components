@@ -408,6 +408,18 @@ describe('Tile', () => {
     expect(tile._ProgressBar).toBeUndefined();
   });
 
+  it('should adjust y position of metadata if inset and there is a progressbar', () => {
+    tile.patch({
+      progressBar: { progress: 0.5 },
+      metadataLocation: 'inset',
+      metadata: { title: 'test ' }
+    });
+    testRenderer.forceAllUpdates();
+    expect(tile._metadataY).toBe(
+      tile._ProgressBar.y - tile.style.paddingYBetweenContent
+    );
+  });
+
   it('should not patch progressBar if is in circle layout mode', async () => {
     tile.patch({
       progressBar: {
