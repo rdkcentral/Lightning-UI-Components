@@ -216,7 +216,7 @@ export default class InlineContent extends Base {
       contentEndX += w;
       contentEndX += child.flexItem.marginRight;
 
-      if (contentEndX > this.w) {
+      if (Math.ceil(contentEndX) >= this.w) {
         line++;
         contentEndX = w;
       }
