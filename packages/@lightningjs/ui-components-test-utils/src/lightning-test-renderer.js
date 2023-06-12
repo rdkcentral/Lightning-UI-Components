@@ -27,8 +27,8 @@ context.setTheme({
 });
 
 const stage = {
-  w: 1920,
-  h: 1080,
+  w: 1280,
+  h: 720,
   precision: 2 / 3,
   fontSharp: {
     precision: 2 / 3,
