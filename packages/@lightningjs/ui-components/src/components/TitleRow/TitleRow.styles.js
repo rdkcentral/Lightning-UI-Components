@@ -27,3 +27,15 @@ export const base = theme => ({
   },
   rowMarginTop: theme.layout.gutterY.xs
 });
+
+export const tone = theme => ({
+  neutral: {
+    titleTextStyle: { textColor: theme.color.textNeutral }
+  },
+  inverse: {
+    titleTextStyle: { textColor: theme.color.textInverse }
+  },
+  brand: {
+    titleTextStyle: { textColor: theme.color.textNeutral }
+  }
+});
