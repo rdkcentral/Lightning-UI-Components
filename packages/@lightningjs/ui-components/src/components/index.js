@@ -21,7 +21,7 @@ export { default as Badge } from './Badge/Badge.js';
 export { default as Base } from './Base/Base.js';
 export { default as Button } from './Button/Button.js';
 export { default as ButtonSmall } from './Button/ButtonSmall.js';
-export { default as Card, CardSection, CardTitle } from './Card';
+export { default as Card, CardRadio, CardSection, CardTitle } from './Card';
 export {
   default as CardContent,
   CardContentHorizontal,

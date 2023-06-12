@@ -17,7 +17,8 @@
  */
 
 import Card from './Card';
+import CardRadio from './CardRadio';
 import CardSection from './CardSection';
 import CardTitle from './CardTitle';
 
-export { Card as default, CardSection, CardTitle };
+export { Card as default, CardRadio, CardSection, CardTitle };

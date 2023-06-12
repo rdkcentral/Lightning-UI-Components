@@ -17,12 +17,15 @@
  */
 
 import Card, { CardStyle } from './Card';
+import CardRadio, { CardRadioStyle } from './CardRadio';
 import CardSection, { CardSectionStyle } from './CardSection';
 import CardTitle, { CardTitleStyle } from './CardTitle';
 
 export {
   Card as default,
   CardStyle,
+  CardRadio,
+  CardRadioStyle,
   CardSection,
   CardSectionStyle,
   CardTitle,

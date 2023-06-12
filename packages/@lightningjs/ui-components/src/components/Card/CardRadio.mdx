@@ -58,16 +58,16 @@ class Basic extends lng.Component {
 
 ### Properties
 
-| name     | type   | readonly | description                                                   |
-| -------- | ------ | -------- | ------------------------------------------------------------- |
-| subtitle | string | false    | The text to be displayed in the subtitle section of the card. |
+| name     | type   | required | default   | description                                                                                             |
+| -------- | ------ | -------- | --------- | ------------------------------------------------------------------------------------------------------- |
+| radio    | object | false    | undefined | Object containing all properties supported in the [Radio component](?path=/docs/utilities-radio--radio) |
+| subtitle | string | false    | undefined | The text to be displayed in the subtitle section of the card.                                           |
 
 ### Style Properties
 
-| name                 | type             | description                                      |
-| -------------------- | ---------------- | ------------------------------------------------ |
-| alpha                | number           | transparency applied to text and radio component |
-| descriptionTextStyle | string \| object | styles applied to the description text.          |
-| iconHeight           | number           | height of icon                                   |
-| iconWidth            | number           | width of icon                                    |
-| subtitleTextStyle    | string \| object | styles applied to the subtitle text.             |
+| name                 | type             | description                             |
+| -------------------- | ---------------- | --------------------------------------- |
+| descriptionTextStyle | string \| object | styles applied to the description text. |
+| iconHeight           | number           | height of icon                          |
+| iconWidth            | number           | width of icon                           |
+| subtitleTextStyle    | string \| object | styles applied to the subtitle text.    |

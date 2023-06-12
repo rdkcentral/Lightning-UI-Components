@@ -18,7 +18,6 @@
 import utils from '../../utils';
 
 export const base = theme => ({
-  alpha: theme.alpha.primary,
   descriptionTextStyle: {
     ...theme.typography.body2,
     textColor: theme.color.textNeutralSecondary,
@@ -39,7 +38,6 @@ export const base = theme => ({
 
 export const mode = theme => ({
   disabled: {
-    alpha: theme.alpha.inactive,
     descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
     subtitleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }

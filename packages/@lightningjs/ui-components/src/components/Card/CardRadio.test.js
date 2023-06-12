@@ -1,5 +1,5 @@
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import CardRadio from '.';
+import CardRadio from './CardRadio';
 
 const createComponent = makeCreateComponent(CardRadio);
 
@@ -49,6 +49,5 @@ describe('CardRadio', () => {
   it('should render radio', () => {
     testRenderer.forceAllUpdates();
     expect(cardRadio._Radio).toBeDefined();
-    expect(cardRadio._Radio.alpha).toEqual(cardRadio.style.alpha);
   });
 });

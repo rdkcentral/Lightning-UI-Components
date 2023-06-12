@@ -22,9 +22,11 @@ export { default as Base } from './Base';
 export { default as Button, ButtonSmall, ButtonStyle } from './Button';
 export {
   default as Card,
+  CardRadio,
   CardSection,
   CardTitle,
   CardStyle,
+  CardRadioStyle,
   CardSectionStyle,
   CardTitleStyle
 } from './Card';

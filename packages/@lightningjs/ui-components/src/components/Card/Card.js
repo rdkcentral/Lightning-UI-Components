@@ -43,7 +43,7 @@ export default class Card extends Surface {
       Title: {
         type: TextBox,
         signals: {
-          textBoxChanged: 'queueRequestUpdate'
+          textBoxChanged: '_update'
         }
       }
     };

@@ -31,11 +31,11 @@ export default class CardRadio extends CardTitle {
   }
 
   static get properties() {
-    return [...super.properties, 'subtitle'];
+    return [...super.properties, 'radio', 'subtitle'];
   }
 
   static get tags() {
-    return [...super.tags, 'Subtitle', 'Radio'];
+    return [...super.tags, 'Radio', 'Subtitle'];
   }
 
   static _template() {
@@ -58,15 +58,6 @@ export default class CardRadio extends CardTitle {
     this._updateSubtitlePosition();
   }
 
-  _updateTitle() {
-    super._updateTitle();
-    this._Title.patch({
-      signals: {
-        textBoxChanged: '_update'
-      }
-    });
-  }
-
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,
@@ -82,19 +73,21 @@ export default class CardRadio extends CardTitle {
   _updateRadio() {
     const { iconWidth, iconHeight } = this.style;
     const radioPatch = {
+      ...this.radio,
+      mode: this.mode,
       w: iconWidth,
       h: iconHeight,
       x: this.w - iconWidth - this.style.paddingHorizontal,
       y:
         (this._Title.style.textStyle.lineHeight - iconHeight) / 2 +
         this.style.paddingVertical +
-        this.style.paddingVertical / 4,
-      checked: true
+        this.style.paddingVertical / 4
     };
+
     if (!this._Radio) {
       radioPatch.type = Radio;
     }
-    this.patch({ Radio: radioPatch, alpha: this.style.alpha });
+    this.patch({ Radio: radioPatch });
   }
 
   _updateSubtitlePosition() {

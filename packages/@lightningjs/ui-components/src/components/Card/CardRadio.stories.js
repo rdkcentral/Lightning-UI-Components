@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import { default as CardRadioComponent } from './CardRadio.js';
 import mdx from './CardRadio.mdx';
-import { createModeControl } from '../../docs/utils';
+import { Radio as RadioStory } from '../Radio/Radio.stories.js';
+import { createModeControl, generateSubStory } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
@@ -43,11 +44,16 @@ export const CardRadio = () =>
     static _template() {
       return {
         Card: {
-          type: CardRadioComponent
+          type: CardRadioComponent,
+          radio: {
+            checked: true
+          }
         }
       };
     }
   };
+
+CardRadio.storyName = 'CardRadio';
 
 CardRadio.args = {
   title: 'Hulu (ad-supported)',
@@ -89,4 +95,10 @@ CardRadio.argTypes = {
   }
 };
 
-CardRadio.storyName = 'CardRadio';
+generateSubStory({
+  componentName: 'CardRadio',
+  baseStory: CardRadio,
+  subStory: RadioStory,
+  targetProperty: 'radio',
+  include: ['checked']
+});

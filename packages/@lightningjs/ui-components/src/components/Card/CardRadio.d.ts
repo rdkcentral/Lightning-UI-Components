@@ -21,13 +21,13 @@ import { TextBoxStyle } from '../TextBox';
 import CardTitle, { CardTitleStyle } from '../Card/CardTitle';
 
 export type CardRadioStyle = CardTitleStyle & {
-  alpha: number;
   descriptionTextStyle: TextBoxStyle;
   iconHeight: number;
   iconWidth: number;
   subtitleTextStyle: TextBoxStyle;
 };
 export default class CardRadio extends CardTitle {
+  radio?: Record<string, unknown>;
   subtitle?: string;
   get style(): CardRadioStyle;
   set style(v: StylePartial<CardRadioStyle>);
