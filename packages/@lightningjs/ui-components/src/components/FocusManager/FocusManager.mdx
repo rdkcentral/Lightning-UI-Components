@@ -119,12 +119,12 @@ class FancyFocus extends FocusManager {
 
 ### Properties
 
-| name          | type            | default   | description                                                    |
-| ------------- | --------------- | --------- | -------------------------------------------------------------- |
-| direction     | 'column'\|'row' | undefined | The navigation direction for focus ('left/right' or 'up/down') |
-| selectedIndex | number          | undefined | The index of the currently selected item.                      |
-| Items         | FocusItemsType  | undefined | Child element or elements of the FocusManager.                 |
-| wrapSelected  | boolean         | false     | Enables wrapping behavior for focus navigation.                |
+| name          | type                                                    | default   | description                                                    |
+| ------------- | ------------------------------------------------------- | --------- | -------------------------------------------------------------- |
+| direction     | 'column'\|'row'                                         | undefined | The navigation direction for focus ('left/right' or 'up/down') |
+| selectedIndex | number                                                  | undefined | The index of the currently selected item.                      |
+| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | undefined | Child element or elements of the FocusManager.                 |
+| wrapSelected  | boolean                                                 | false     | Enables wrapping behavior for focus navigation.                |
 
 ### Methods
 
@@ -138,10 +138,10 @@ This method is similar to appendItems, but it allows appending items at a specif
 
 ##### Arguments
 
-| name  | type                                                    | required | default | description                   |
-| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | The list of items to append   |
-| idx   | number                                                  | true     | []      | The index to insert the items |
+| name  | type                                                    | required | default   | description                   |
+| ----- | ------------------------------------------------------- | -------- | --------- | ----------------------------- |
+| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []        | The list of items to append   |
+| idx   | number                                                  | true     | undefined | The index to insert the items |
 
 #### prependItems(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>): void
 
@@ -155,15 +155,15 @@ This method prepends items to the beginning of the FocusManager's children.
 
 Removes an item at a specific index from the FocusManager's children.
 
-#### TransitionXTargetValue(): string
+#### getTransitionXTargetValue(): string
 
 Returns the transition value for the x coordinate of the FocusManager's items.
 
-#### TransitionYTargetValue(): string
+#### getTransitionYTargetValue(): string
 
 Returns the transition value for the y coordinate of the FocusManager's items.
 
-#### render(): void
+#### \_render(): void
 
 A no-op function that is called when `selectedIndex` is set. Can be overridden by classes that extend `FocusManager` for custom render behavior.
 

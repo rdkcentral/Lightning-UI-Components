@@ -128,7 +128,7 @@ declare class FocusManager<
   /**
    * A no-op function that is called when `selectedIndex` is set. Can be overridden by classes that extend `FocusManager` for custom render behavior.
    */
-  render(): void;
+  _render(): void;
 
   /**
    * Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
