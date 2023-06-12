@@ -61,7 +61,7 @@ CardRadio.args = {
 };
 
 CardRadio.argTypes = {
-  ...createModeControl({ summaryValue: 'focused' }),
+  ...createModeControl({ summaryValue: CardRadio.args.mode }),
   title: {
     control: 'text',
     description: 'Title text',
