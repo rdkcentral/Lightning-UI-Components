@@ -119,16 +119,22 @@ class FancyFocus extends FocusManager {
 
 ### Properties
 
-| name         | type            | default | description                                                        |
-| ------------ | --------------- | ------- | ------------------------------------------------------------------ |
-| direction    | 'column'\|'row' | false   | Determines the key handling for focus ('left/right' or 'up/down'). |
-| wrapSelected | boolean         | false   | Enables wrapping behavior for focus navigation.                    |
+| name          | type            | default   | description                                                    |
+| ------------- | --------------- | --------- | -------------------------------------------------------------- |
+| direction     | 'column'\|'row' | undefined | The navigation direction for focus ('left/right' or 'up/down') |
+| selectedIndex | number          | undefined | The index of the currently selected item.                      |
+| Items         | FocusItemsType  | undefined | Child element or elements of the FocusManager.                 |
+| wrapSelected  | boolean         | false     | Enables wrapping behavior for focus navigation.                |
 
 ### Methods
 
-#### appendItems(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>, idx: number): void
+#### appendItems(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>): void
 
-Appends items to child list and updates focus
+This method appends the provided rows to the end of the FocusManager's children
+
+#### appendItemsAt(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>, idx: number): void
+
+This method is similar to appendItems, but it allows appending items at a specific index in the list of child items.
 
 ##### Arguments
 
@@ -139,7 +145,7 @@ Appends items to child list and updates focus
 
 #### prependItems(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>): void
 
-Prepends items to the child list and updates the focus
+This method prepends items to the beginning of the FocusManager's children.
 
 | name  | type                                                    | required | default | description                 |
 | ----- | ------------------------------------------------------- | -------- | ------- | --------------------------- |
@@ -147,24 +153,24 @@ Prepends items to the child list and updates the focus
 
 #### removeItemAt(index: number): void
 
-Removes an item at a specific index from the child list and updates the focus
+Removes an item at a specific index from the FocusManager's children.
+
+#### TransitionXTargetValue(): string
+
+Returns the transition value for the x coordinate of the FocusManager's items.
+
+#### TransitionYTargetValue(): string
+
+Returns the transition value for the y coordinate of the FocusManager's items.
 
 #### render(): void
 
 A no-op function that is called when `selectedIndex` is set. Can be overridden by classes that extend `FocusManager` for custom render behavior.
 
-#### selected():<DocsLink id="lng.Component">lng.Component</DocsLink>
-
-Returns the currently focused item
-
 #### selectPrevious(): void
 
-Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
+Selects the previous item in the FocusManager's children. If wrapSelected is true, it selects the last item if the focus is currently on the first item.
 
 #### selectNext(): void
 
-Selects next item. If this.wrapSelected=true, will select the first element in the list if focus is currently on the last item.
-
-#### selectedIndex(): number
-
-Returns the index of the currently focused item.
+Selects the next item in the FocusManager's children. If wrapSelected is true, it selects the first item if the focus is currently on the last item.
