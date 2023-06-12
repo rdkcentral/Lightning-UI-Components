@@ -43,11 +43,8 @@ export const CardRadio = () =>
   class CardRadio extends lng.Component {
     static _template() {
       return {
-        Card: {
-          type: CardRadioComponent,
-          radio: {
-            checked: true
-          }
+        CardRadio: {
+          type: CardRadioComponent
         }
       };
     }
