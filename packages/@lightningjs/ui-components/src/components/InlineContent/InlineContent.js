@@ -193,6 +193,13 @@ export default class InlineContent extends Base {
     return this.children.reduce((acc, child) => {
       const component = child;
       let type, content, w;
+      const isNewLineElement = child.w == this.w && child.h === 0;
+
+      if (isNewLineElement) {
+        line++;
+        contentEndX = w;
+        return acc;
+      }
 
       if (isText(child)) {
         type = 'text';
