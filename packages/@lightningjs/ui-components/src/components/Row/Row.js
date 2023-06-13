@@ -158,21 +158,22 @@ export default class Row extends NavigationManager {
 
     let itemsContainerX; // x value for item
     // itemIndex prev index that should be used for value in itemsContainerX
-    let itemIndex = this.selectedIndex - this.scrollIndex;
-
-    if (itemIndex < 0 || itemIndex === this._firstFocusableIndex()) {
-      itemIndex = 0;
+    //this.itemIndex = this.selectedIndex - this.scrollIndex;
+    console.log(this.itemIndex);
+    if (this.itemIndex < 0 || this.itemIndex === this._firstFocusableIndex()) {
+      this.itemIndex = 0;
     }
-    console.log('%c--- _getScrollX Row ', 'color: #8A2BE2');
+
     console.log(
-      `%c selectedIndex: ${this.selectedIndex}, scrollIndex: ${this.scrollIndex} , itemIndex: ${itemIndex}`,
+      `%c selectedIndex: ${this.selectedIndex}, scrollIndex: ${this.scrollIndex} , this.itemIndex: ${this.itemIndex}`,
       'color: #8A2BE2'
     );
-    console.log(this.Items.children[itemIndex]);
-    if (this.Items.children[itemIndex]) {
-      itemsContainerX = this.Items.children[itemIndex].transition('x')
-        ? -this.Items.children[itemIndex].transition('x').targetValue
-        : -this.Items.children[itemIndex].x;
+    console.log(this.Items.children.length);
+    console.log(this.Items.children[0].constructor);
+    if (this.Items.children[this.itemIndex]) {
+      itemsContainerX = this.Items.children[this.itemIndex].transition('x')
+        ? -this.Items.children[this.itemIndex].transition('x').targetValue
+        : -this.Items.children[this.itemIndex].x;
     }
     console.log(`%c itemsContainerX: ${itemsContainerX}`, 'color: #8A2BE2');
 
@@ -185,7 +186,7 @@ export default class Row extends NavigationManager {
     }
 
     this._prevLastScrollIndex = this._lastScrollIndex;
-
+    console.log(this._lastScrollIndex);
     let itemsContainerX;
     if (!this.Items.children.length) {
       itemsContainerX = this.itemPosX;
@@ -219,6 +220,15 @@ export default class Row extends NavigationManager {
 
   // can be overridden
   onScreenEffect() {}
+
+  get itemIndex() {
+    return this.selectedIndex - this.scrollIndex;
+  }
+
+  // set the itemIndex from Control Row?
+  set itemIndex(idx) {
+    //console.log(this.itemIndex);
+  }
 
   get _totalAddedWidth() {
     return this._totalAddedLength;

@@ -106,8 +106,6 @@ export default class NavigationManager extends FocusManager {
   }
 
   // REMOVE BEFORE PR:only called in update
-  // ends at line 192
-  // could this be refactored?
   _updateLayout() {
     const { lengthDimension, crossDimension, crossAxis, innerCrossDimension } =
       this._directionPropNames;
@@ -128,9 +126,7 @@ export default class NavigationManager extends FocusManager {
         maxInnerCrossDimensionSize,
         child[innerCrossDimension] || 0
       );
-
       this.updatePositionOnAxis(child, nextPosition);
-
       nextPosition += child[lengthDimension];
       if (i < this.Items.children.length - 1) {
         const extraItemSpacing = child.extraItemSpacing || 0;
@@ -169,10 +165,6 @@ export default class NavigationManager extends FocusManager {
     this._autoResize();
     this._centerItemsInParent(childrenToCenter);
     this._updateLastScrollIndex();
-    console.log(
-      `%c itemChanged is true, calls _performRender ${itemChanged}`,
-      'color:#bada55 '
-    );
     if (itemChanged) {
       this._performRender();
       this.fireAncestors('$itemChanged');

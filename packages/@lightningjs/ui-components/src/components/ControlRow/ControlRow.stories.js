@@ -88,6 +88,30 @@ export const Basic = () =>
     }
   };
 
+export const AlwaysScrolling = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        ControlRow: {
+          type: ControlRowComponent,
+          leftControls: createControls(3),
+          contentItems: createItems(5),
+          rightControls: createControls(3)
+        }
+      };
+    }
+
+    _getFocused() {
+      return this.tag('ControlRow');
+    }
+  };
+
+AlwaysScrolling.args = {
+  alwaysScroll: true,
+  lazyScroll: false,
+  scrollIndex: 2
+};
+
 export const LazyLoading = () =>
   class LazyLoading extends lng.Component {
     static _template() {
