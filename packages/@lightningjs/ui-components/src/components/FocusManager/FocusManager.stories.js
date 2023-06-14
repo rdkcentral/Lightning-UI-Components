@@ -32,66 +32,6 @@ export default {
   }
 };
 
-export const Rows = () =>
-  class RowExample extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: withSelections(FocusManager),
-          direction: 'row',
-          items: [
-            { type: ButtonFixedWidth, title: 'Left' },
-            { type: ButtonFixedWidth, title: 'Center', x: 250 },
-            { type: ButtonFixedWidth, title: 'Right', x: 500 }
-          ]
-        }
-      };
-    }
-  };
-
-export const WrapSelected = () =>
-  class WrapSelectedExample extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          y: 50,
-          type: FocusManager,
-          direction: 'row',
-          wrapSelected: true, // allows cycling through items
-          items: [
-            { type: ButtonFixedWidth, title: 'Left' },
-            { type: ButtonFixedWidth, title: 'Center', x: 250 },
-            { type: ButtonFixedWidth, title: 'Right', x: 500 }
-          ]
-        },
-        Text: {
-          y: 0,
-          text: {
-            fontSize: 20,
-            text: 'Key in one direction a bunch of times'
-          }
-        }
-      };
-    }
-  };
-
-export const Columns = () =>
-  class ColumnExample extends lng.Component {
-    static _template() {
-      return {
-        Column: {
-          type: FocusManager,
-          direction: 'column',
-          items: [
-            { type: ButtonFixedWidth, title: 'Top' },
-            { type: ButtonFixedWidth, title: 'Middle', y: 150 },
-            { type: ButtonFixedWidth, title: 'Bottom', y: 300 }
-          ]
-        }
-      };
-    }
-  };
-
 export const ColumnWithRows = () =>
   class ColumnWithRowsExample extends lng.Component {
     static _template() {
@@ -135,3 +75,26 @@ class ButtonFixedWidth extends Button {
     super._init();
   }
 }
+
+ColumnWithRows.args = {
+  direction: 'row',
+  wrapSelected: false
+};
+
+ColumnWithRows.argTypes = {
+  direction: {
+    control: 'radio',
+    options: ['row', 'column'],
+    description: 'The navigation direction for focus (left/right or up/down)',
+    table: {
+      defaultValue: { summary: 'row' }
+    }
+  },
+  wrapSelected: {
+    control: 'boolean',
+    description: 'Enables wrapping behavior for focus navigation',
+    table: {
+      defaultValue: { summary: false }
+    }
+  }
+};
