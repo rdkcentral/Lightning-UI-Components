@@ -19,6 +19,7 @@
 export const base = theme => ({
   animationEntrance: theme.animation.standardEntrance,
   animationExit: theme.animation.standardExit,
+  metadataLocation: 'standard',
   paddingX: theme.spacer.xl,
   paddingY: theme.spacer.lg,
   paddingYProgress: theme.spacer.xl,
