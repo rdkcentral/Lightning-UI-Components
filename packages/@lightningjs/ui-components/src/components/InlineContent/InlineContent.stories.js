@@ -63,6 +63,23 @@ export default {
       table: {
         defaultValue: { summary: 'center' }
       }
+    },
+    maxLines: {
+      control: 'number',
+      description: 'maximum number of lines to render before truncation',
+      type: 'number',
+      table: {
+        defaultValue: { summary: undefined }
+      }
+    },
+    maxLinesSuffix: {
+      control: 'text',
+      description:
+        'suffix appended to last line of content if it will exceed the maxLines',
+      type: 'string',
+      table: {
+        defaultValue: { summary: '..' }
+      }
     }
   },
   parameters: {
@@ -178,3 +195,43 @@ export const WithParsing = args =>
       };
     }
   };
+
+export const WithTruncation = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        InlineContent: {
+          type: InlineContentComponent,
+          w: 500,
+          content: [
+            'Text',
+            {
+              icon: lightningbolt,
+              title: 'Green Lightning Bolt',
+              style: { color: getHexColor('00ff00') }
+            },
+            'Wrapping Text',
+            {
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+              title: 'Rotten Tomatoes rating'
+            },
+            'and more text',
+            {
+              text: 'with some red ',
+              style: { textColor: getHexColor('FF6194') }
+            },
+            'for fun',
+            { badge: 'HD', title: 'HD' },
+            { badge: 'SD', title: 'SD' },
+            ', and this should truncate before going on to a third line.'
+          ],
+          contentWrap: true
+        }
+      };
+    }
+  };
+WithTruncation.args = {
+  contentWrap: true,
+  maxLines: 2,
+  maxLinesSuffix: '...'
+};

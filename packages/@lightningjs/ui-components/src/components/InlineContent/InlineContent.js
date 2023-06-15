@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,10 @@ import { parseInlineContent, flatten } from '../../utils';
 import Base from '../Base';
 import * as styles from './InlineContent.styles.js';
 
+const isText = item => typeof item === 'string' || !!item.text;
+const isIcon = item => !!item.icon;
+const isBadge = item => !!item.badge;
+
 export default class InlineContent extends Base {
   static get properties() {
     return [
@@ -31,7 +35,9 @@ export default class InlineContent extends Base {
       'badgeProperties',
       'justify',
       'contentWrap',
-      'customStyleMappings'
+      'customStyleMappings',
+      'maxLines',
+      'maxLinesSuffix'
     ];
   }
 
@@ -45,6 +51,8 @@ export default class InlineContent extends Base {
 
   _construct() {
     super._construct();
+    // use the same default value as Lightning's Text Texture default
+    this._maxLinesSuffix = '..';
   }
 
   _update() {
@@ -54,6 +62,10 @@ export default class InlineContent extends Base {
 
   _updateContent() {
     this.childList.clear();
+
+    // if wrapping with max lines, hide content until it has rerendered with maxLines and truncation calculated
+    this.alpha = this._shouldTruncate ? 0.001 : 1;
+
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
         flex: {
@@ -79,14 +91,14 @@ export default class InlineContent extends Base {
         };
 
         // text not separated by icons/badges are grouped together
-        if (typeof item === 'string' || item.text) {
+        if (isText(item)) {
           if (typeof this._parsedContent[index + 1] === 'string') {
             base.flexItem.marginRight = 0;
           }
           this.childList.a(this._createText(base, item));
-        } else if (item.icon) {
+        } else if (isIcon(item)) {
           this.childList.a(this._createIcon(base, item));
-        } else if (item.badge) {
+        } else if (isBadge(item)) {
           this.childList.a(this._createBadge(base, item.badge));
         } else if (item.newline && this.contentWrap) {
           this.childList.a({ h: 0, w: this.w });
@@ -99,7 +111,15 @@ export default class InlineContent extends Base {
     if (this.children.length) {
       Promise.all(
         this.children.map(
-          child => new Promise(resolve => child.on('txLoaded', resolve))
+          child =>
+            new Promise(resolve => {
+              // resolve immediately for new line elements since they do not render a texture
+              if (child.h === 0 && child.w === this.w) {
+                resolve();
+              } else {
+                child.on('txLoaded', resolve);
+              }
+            })
         )
       ).finally(() => this._contentLoaded());
     } else {
@@ -130,6 +150,11 @@ export default class InlineContent extends Base {
             this.style.textStyle.lineHeight *
             this.flex._layout._lineLayouter._lines.length;
           this.h = this.multiLineHeight;
+
+          if (this._shouldTruncate) {
+            this._renderMaxLines();
+          }
+
           this._notifyAncestors();
         } else {
           this._contentLoaded();
@@ -138,6 +163,96 @@ export default class InlineContent extends Base {
     } else {
       this._notifyAncestors();
     }
+  }
+
+  _renderMaxLines() {
+    const childrenDimensions = this._calcChildrenDimensions();
+
+    this.childList.clear();
+    childrenDimensions.forEach((child, index) => {
+      const nextChild = childrenDimensions[index + 1];
+      const isLast =
+        !nextChild ||
+        (child.line === this.maxLines && nextChild.line > this.maxLines);
+
+      if (child.line <= this.maxLines) {
+        if (isLast && index !== childrenDimensions.length - 1) {
+          this._addSuffix(child);
+        } else {
+          this.childList.add(child.component);
+        }
+      }
+    });
+    this.alpha = 1;
+  }
+
+  _calcChildrenDimensions() {
+    let contentEndX = 0;
+    let line = 1;
+
+    return this.children.reduce((acc, child) => {
+      const component = child;
+      let type, content, w;
+      const isNewLineElement = child.w == this.w && child.h === 0;
+
+      if (isNewLineElement) {
+        line++;
+        contentEndX = w;
+        return acc;
+      }
+
+      if (isText(child)) {
+        type = 'text';
+        content = child.text.text;
+        w = child.texture.getRenderWidth();
+      } else if (isIcon(child)) {
+        type = 'icon';
+        w = child.w;
+      } else if (child.constructor.__componentName === 'Badge') {
+        type = 'badge';
+        w = child.w;
+      }
+
+      contentEndX += w;
+      contentEndX += child.flexItem.marginRight;
+
+      if (Math.ceil(contentEndX) >= this.w) {
+        line++;
+        contentEndX = w;
+      }
+
+      const data = {
+        type,
+        component,
+        content,
+        line
+      };
+
+      acc.push(data);
+      return acc;
+    }, []);
+  }
+
+  _addSuffix({ type, component, content }) {
+    const negatedRightMargin = component.flexItem.marginRight * -1;
+    let suffix;
+    if (type === 'text') {
+      suffix = this._createText(
+        { flexItem: this.contentProperties },
+        `${content.trim()}${this.maxLinesSuffix}`
+      );
+    } else {
+      suffix = this._createText(
+        {
+          flexItem: {
+            ...this.contentProperties,
+            marginLeft: negatedRightMargin
+          }
+        },
+        this.maxLinesSuffix
+      );
+    }
+    this.childList.add(suffix);
   }
 
   _createIcon(base, iconProps) {
@@ -209,10 +324,23 @@ export default class InlineContent extends Base {
    * @return { array }
    */
   _formatSpaces(parsedContent) {
+    const whitespace = /(\s+)/;
     return flatten(
-      (parsedContent || []).map(item =>
-        typeof item === 'string' ? item.split(/(\s+)/) : item
-      )
+      (parsedContent || []).reduce((acc, item) => {
+        let parsed = item;
+        if (isText(item)) {
+          if (typeof item === 'object') {
+            const formattedWords = item.text
+              .split(whitespace)
+              .map(word => ({ ...item, text: word.trim() }));
+            acc.push(...formattedWords);
+            return acc;
+          }
+          parsed = item.split(whitespace);
+        }
+        acc.push(parsed);
+        return acc;
+      }, [])
     )
       .map((item, index, arr) => {
         if (item === ' ') return false;
@@ -277,6 +405,10 @@ export default class InlineContent extends Base {
       return this.style.marginBottom;
     }
     return 0;
+  }
+
+  get _shouldTruncate() {
+    return this.contentWrap && this.maxLines;
   }
 
   set announce(announce) {
