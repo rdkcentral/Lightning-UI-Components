@@ -78,7 +78,7 @@ Tile.argTypes = {
     description:
       'Controls where metadata is positioned in relationship to the Tile',
     table: {
-      defaultValue: { summary: 'bottom' }
+      defaultValue: { summary: 'standard' }
     }
   }
 };

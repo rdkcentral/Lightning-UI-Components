@@ -24,6 +24,7 @@ import Surface, { SurfaceStyle } from '../Surface';
 export type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
   animationExit: Record<string, unknown>;
+  metadataLocation: 'standard' | 'inset';
   paddingX: number | string;
   paddingY: number | string;
   paddingYProgress: number | string;
