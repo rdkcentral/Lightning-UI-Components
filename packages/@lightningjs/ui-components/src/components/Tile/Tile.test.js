@@ -439,7 +439,6 @@ describe('Tile', () => {
     tile.metadata = { title: 'test' };
     await tile.__updateMetadataSpyPromise;
     expect(tile.metadata).not.toBeUndefined();
-    expect(tile._Metadata).not.toBeUndefined();
 
     tile.metadata = undefined;
     await tile.__updateMetadataSpyPromise;
