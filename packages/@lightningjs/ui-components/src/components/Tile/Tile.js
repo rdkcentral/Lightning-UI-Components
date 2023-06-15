@@ -224,7 +224,7 @@ export default class Tile extends Surface {
       mode: this.mode,
       x: this.style.paddingX,
       y: this.style.paddingY,
-      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
+      alpha: this.persistentMetadata ? 1 : 0.001
     };
 
     if (!this._Badge) {
@@ -263,7 +263,7 @@ export default class Tile extends Surface {
       mode: this.mode,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
+      alpha: this.persistentMetadata ? 1 : 0.001
     };
 
     if (!this._Label) {
@@ -505,7 +505,6 @@ export default class Tile extends Surface {
 
   get _metadataPatch() {
     return {
-      mode: this.mode,
       alpha: this._metadataAlpha,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
@@ -533,12 +532,7 @@ export default class Tile extends Surface {
   }
 
   _updateMetadata() {
-    if (!this._hasMetadata) {
-      this._Content.patch({ Metadata: undefined });
-      return;
-    }
-
-    if (!this._Metadata && this._hasMetadata) {
+    if (!this._Metadata) {
       // Patch in Metadata for the first time
       this._Content.patch({
         Metadata: {
@@ -577,7 +571,7 @@ export default class Tile extends Surface {
   _metadataLoaded() {
     this._animateMetadata();
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
-    if (!this._isInsetMetadata) {
+    if (this.metadataLocation !== 'inset') {
       this.fireAncestors('$itemChanged');
     }
   }
