@@ -524,7 +524,12 @@ export default class Tile extends Surface {
   }
 
   _updateMetadata() {
-    if (!this._Metadata) {
+    if (!this._hasMetadata) {
+      this._Content.patch({ Metadata: undefined });
+      return;
+    }
+
+    if (!this._Metadata && this._hasMetadata) {
       // Patch in Metadata for the first time
       this._Content.patch({
         Metadata: {
