@@ -24,6 +24,13 @@ import logger from '../globals/context/logger';
  * Layout Utils
  *
  */
+ 
+/**
+ * Copyright (c) 2009-2012 Jeremy Ashkenas, DocumentCloud
+ * Licensed under the MIT License
+ * Copyright (c) 2012-2018 The Debounce Contributors. See CONTRIBUTORS
+ * Licensed under the MIT License
+ */
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
