@@ -28,7 +28,8 @@ export const CATEGORIES = {
   256: 'Text',
   512: 'Utilities',
   1024: 'Docs',
-  2048: 'Collections'
+  2048: 'Collections',
+  4096: 'Unit Testing'
 };
 
 /** Storybook config constants should go in this file */
@@ -64,7 +65,8 @@ export const storySortOrder = [
   CATEGORIES[8],
   CATEGORIES[256],
   CATEGORIES[32],
-  CATEGORIES[128]
+  CATEGORIES[128],
+  CATEGORIES[4096]
 ];
 
 export const controlDescriptions = {
