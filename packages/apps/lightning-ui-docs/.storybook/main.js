@@ -22,12 +22,13 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-storysource',
     './addons/register',
-   'storybook-addon-turbo-build' // Speed up final build
+    'storybook-addon-turbo-build' // Speed up final build
   ],
   stories: [
     '../src/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'], // TODO: How to handle images between projects
   core: {
