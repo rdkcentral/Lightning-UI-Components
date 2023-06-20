@@ -91,7 +91,8 @@ ColumnWithRows.argTypes = {
   },
   wrapSelected: {
     control: 'boolean',
-    description: 'Enables wrapping behavior for focus navigation',
+    description:
+      'When set to true, the focus will loop back to the beginning of the list after reaching the last item, and vice versa. This enables continuous navigation through the list without dead ends. If wrapSelected is set to false (the default value), the focus will stop at the first or last item, depending on the navigation direction',
     table: {
       defaultValue: { summary: false }
     }
