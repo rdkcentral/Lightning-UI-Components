@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import inspectInit from '@lightning-inspect';
+import 'lightningInspect';
 import {
   withAnnouncer,
   Speech,
@@ -102,7 +102,7 @@ export const createApp = parameters => {
   document.body.appendChild(window.APP.stage.getCanvas());
   return window.APP;
 };
-inspectInit();
+
 export const clearInspector = () => {
   // Clear any lightning inspector info
   if (document.querySelectorAll('[type=StoryApp]').length > 1) {
