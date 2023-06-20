@@ -66,7 +66,14 @@ export const storySortOrder = [
   CATEGORIES[256],
   CATEGORIES[32],
   CATEGORIES[128],
-  CATEGORIES[4096]
+  CATEGORIES[4096],
+  [
+    'Unit Testing Overview',
+    'Test Renderer',
+    ['Overview', '*'],
+    'Test Utils',
+    ['Overview', 'makeCreateComponent', '*']
+  ]
 ];
 
 export const controlDescriptions = {
