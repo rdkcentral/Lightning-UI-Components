@@ -17,7 +17,6 @@
  */
 
 const path = require('path');
-const webpack = require('webpack')
 
 module.exports = async ({ config, mode }) => {
   config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
@@ -26,15 +25,5 @@ module.exports = async ({ config, mode }) => {
       __dirname,
       '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
     );
-  
-    // Disable the inspector when deployed to production
-    if (mode === 'PRODUCTION') {
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'window.attachInspector':
-            'const currentUrl = window.location.href; const url = new URL(currentUrl); const searchParams = new URLSearchParams(url.search); if (!searchParams.has("debug")) { window.mutationCounter = "disabled" }; window.attachInspector'
-        })
-      );
-    }
   return config;
 };
