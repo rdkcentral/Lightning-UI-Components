@@ -127,3 +127,42 @@ it('should allow focusing on the component', () => {
   expect(example.hasFocus()).toBe(true);
 });
 ```
+
+### withMethodSpies
+
+A utility which enables running component methods asynchronously.
+
+The `options` argument passed to the `createComponent` function accepts a field called `withMethodSpies`.
+The value for `withMethodSpies` can be an array of method names to generate promises from. When one of those methods is invoked in the component it's associated promise will resolve, then the actual method will be invoked. The promises generated from the passed in methods are given the name `_${methodName}SpyPromise`.
+
+<br />
+
+##### Example: Spying on component methods and awaiting their execution before making assertions on their side effects
+
+```js
+/*
+ * Consider a component (ExampleComponent), with 2 methods (methodA and _methodB) that can be called subsequently and
+ * make different changes to the component.
+ */
+const createExample = makeCreateComponent(ExampleComponent);
+
+it('should make various changes to the component when methodA and _methodB are invoked', async () => {
+  // spy on Example.methodA and Example._methodB
+  const [example, testRenderer] = createExample(
+    {},
+    { spyOnMethods: ['methodA', '_methodB'] }
+  );
+
+  // assertions that are valid before methodA and _methodB are invoked
+
+  await example._methodASpyPromise;
+
+  // assertions that are valid after methodA is invoked but before _methodB is invoked
+
+  await example.__methodBSpyPromise;
+
+  // assertions that are valid after both methodA and _methodB are invoked
+});
+```
+
+**Note: `withMethodSpies` can only be set in in the `options` object of `createComponent`. It can not be assigned to the `defaultOptions` object in `makeCreateComponent`**
