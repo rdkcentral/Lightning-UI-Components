@@ -22,7 +22,7 @@
 
 # Base Component
 
-This component acts as the foundation for all the Lightning components which injects the core functionality with various mixins/utility functions like `withUpdates` and for injecting theme styling it uses `withThemeStyles` mixin.
+This component acts as the foundation for all the Lightning components. It provides core functionality by incorporating various mixins and utility functions.
 
 ## Source
 
@@ -37,11 +37,34 @@ import { Base } from '@lightningjs/ui-components';
 
 class MynewComponent extends Base {}
 ```
+### Mixins
+
+The Base component incorporates the following mixins:
+
+`withUpdates`: This mixin enables automatic updates for the component.
+
+`withTags`: By using this mixin, the component can be tagged, making it easier to identify and manipulate within the code.
+
+`withHandleKey`: This mixin adds keyboard event handling functionality to the component. It allows the component to respond to user input from the keyboard.
+
+`withLayout`: This mixin provides layout-related functionality, such as centering the component within its parent.
+
+`withThemeStyles`: When this mixin is used, the component can be styled with theme-specific styles. 
+
+`withExtensions`: This mixin allows for extending the component with additional functionality. It provides the ability to customize and add new features to the component easily.
+
+To use the Base component with all the mixins, you can utilize the withMixins higher-order function:
+
+```js
+import { Base, withMixins } from '@lightningjs/ui-components';
+
+class MyComponent extends withMixins(Base) {}
+```
 
 ### Properties
 
-| name           | type    | required | default | description                                                         |
-| -------------- | ------- | -------- | ------- | ------------------------------------------------------------------- |
+| name           | type    | required | default | description                                                          |
+| -------------- | ------- | -------- | ------- | -------------------------------------------------------------------  |
 | centerInParent | boolean | false    | false   | if set to true it places the child component in center of the parent |
 
 ### Methods
