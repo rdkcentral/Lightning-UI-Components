@@ -31,7 +31,7 @@ Returns a function, referred to as a "`createComponent` function" which is used 
 | argument       | type          | default                                  | description                                                                                                                |
 | -------------- | ------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | component      | lng.Component | the component to generate an instance of | component to render an instance of                                                                                         |
-| defaultConfig  | object        | {}                                       | propertites that should be applied to the component by default                                                             |
+| defaultConfig  | object        | {}                                       | properties that should be applied to the component by default                                                              |
 | defaultOptions | object        | {}                                       | default options used when creating the component instance (these options are passed to the `TestRenderer.create` function) |
 
 ## `createComponent`
@@ -45,7 +45,7 @@ Returns an array of 2 elements:
 
 | argument | type   | default | description                                                                                                                                                                |
 | -------- | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| config   | object | {}      | propertites that should be applied to the component. This object is spread over the `defaultConfig` object.                                                                |
+| config   | object | {}      | properties that should be applied to the component. This object is spread over the `defaultConfig` object.                                                                 |
 | options  | object | {}      | options used when creating the component instance (these options are passed to the `TestRenderer.create` function). This object is spread over the `defaultOptions` object |
 
 ## withMethodSpies
