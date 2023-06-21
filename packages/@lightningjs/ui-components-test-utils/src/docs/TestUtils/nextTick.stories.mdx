@@ -21,3 +21,13 @@ import { Meta } from '@storybook/addon-docs';
 <Meta title="Unit Testing / Test Utils / nextTick" />
 
 # nextTick
+
+Creates a Promise that resolves after a defined amount of time. If no amount of time is specified, the Promise will resolve immediately.
+
+## Arguments
+
+`nextTick(wait = 0)`
+
+| argument | type   | default | description                                                           |
+| -------- | ------ | ------- | --------------------------------------------------------------------- |
+| wait     | number | 0       | amount of time (in milliseconds) before the returned Promise resolves |
