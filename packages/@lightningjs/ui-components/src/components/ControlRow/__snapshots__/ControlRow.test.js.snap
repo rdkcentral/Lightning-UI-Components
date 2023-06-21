@@ -650,6 +650,7 @@ exports[`ControlRow renders 1`] = `
           "texture": {
             "fontFace": "Arial",
             "fontSize": 35,
+            "fontStyle": "500",
             "lineHeight": 48,
             "precision": 0.6666666666666666,
             "text": "Title",

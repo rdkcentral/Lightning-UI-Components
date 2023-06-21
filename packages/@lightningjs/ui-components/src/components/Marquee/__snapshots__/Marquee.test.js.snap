@@ -47,6 +47,7 @@ exports[`Marquee #color updates the text color 1`] = `
               "texture": {
                 "fontFace": "Arial",
                 "fontSize": 25,
+                "fontStyle": "300",
                 "lineHeight": 50,
                 "maxLines": 1,
                 "precision": 0.6666666666666666,
@@ -209,6 +210,7 @@ exports[`Marquee renders 1`] = `
               "texture": {
                 "fontFace": "Arial",
                 "fontSize": 25,
+                "fontStyle": "300",
                 "lineHeight": 50,
                 "maxLines": 1,
                 "precision": 0.6666666666666666,

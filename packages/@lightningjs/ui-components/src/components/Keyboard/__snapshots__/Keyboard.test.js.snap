@@ -121,6 +121,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -359,6 +360,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -597,6 +599,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -835,6 +838,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -1073,6 +1077,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -1311,6 +1316,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -1549,6 +1555,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -1787,6 +1794,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -2025,6 +2033,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -2263,6 +2272,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -2501,6 +2511,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -2813,6 +2824,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -3051,6 +3063,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -3289,6 +3302,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -3601,6 +3615,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -3839,6 +3854,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -4077,6 +4093,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -4315,6 +4332,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -4553,6 +4571,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -4791,6 +4810,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -5029,6 +5049,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -5267,6 +5288,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -5505,6 +5527,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -5743,6 +5766,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -5981,6 +6005,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -6293,6 +6318,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -6531,6 +6557,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -6769,6 +6796,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -7007,6 +7035,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -7245,6 +7274,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -7483,6 +7513,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -7721,6 +7752,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -7959,6 +7991,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -8197,6 +8230,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -8698,6 +8732,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -9010,6 +9045,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -9248,6 +9284,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -9486,6 +9523,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -9724,6 +9762,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -9962,6 +10001,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -10200,6 +10240,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -10438,6 +10479,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -10676,6 +10718,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -10914,6 +10957,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -11152,6 +11196,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -11390,6 +11435,7 @@ exports[`Keyboard renders 1`] = `
                                       "texture": {
                                         "fontFace": "Arial",
                                         "fontSize": 30,
+                                        "fontStyle": "500",
                                         "letterSpacing": -0.2,
                                         "lineHeight": 40,
                                         "maxLines": 1,
@@ -12106,6 +12152,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -12344,6 +12391,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -12582,6 +12630,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -12820,6 +12869,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -13058,6 +13108,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -13296,6 +13347,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -13534,6 +13586,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -13772,6 +13825,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -14010,6 +14064,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -14248,6 +14303,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -14823,6 +14879,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -15061,6 +15118,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -15299,6 +15357,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -15537,6 +15596,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -15775,6 +15835,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -16013,6 +16074,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -16251,6 +16313,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -16489,6 +16552,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -16727,6 +16791,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -16965,6 +17030,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -17203,6 +17269,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -17515,6 +17582,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -17753,6 +17821,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -17991,6 +18060,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -18229,6 +18299,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -18467,6 +18538,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -18705,6 +18777,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -18943,6 +19016,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -19181,6 +19255,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -19419,6 +19494,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -19657,6 +19733,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -19895,6 +19972,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -20207,6 +20285,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -20445,6 +20524,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -20683,6 +20763,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -20921,6 +21002,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -21159,6 +21241,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -21397,6 +21480,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -21635,6 +21719,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -21873,6 +21958,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -22111,6 +22197,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -22349,6 +22436,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -22587,6 +22675,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -22899,6 +22988,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -23137,6 +23227,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
@@ -23375,6 +23466,7 @@ exports[`KeyboardInput renders 1`] = `
                                                   "texture": {
                                                     "fontFace": "Arial",
                                                     "fontSize": 30,
+                                                    "fontStyle": "500",
                                                     "letterSpacing": -0.2,
                                                     "lineHeight": 40,
                                                     "maxLines": 1,
