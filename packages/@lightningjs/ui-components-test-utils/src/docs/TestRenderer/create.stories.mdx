@@ -115,3 +115,8 @@ it('should match the snapshot for the component', () => {
   expect(renderTree).toMatchSnapshot();
 });
 ```
+
+### update
+
+Invokes the `stage.drawFrame()` on the Lightning Application the test component is rendered in. This can be useful in cases where a value is transitioning and the render tree needs to be updated with a newer value.
+See the documentation for the [fastForward](/story/unit-testing-test-utils-fastforward--page) test util for an example utilizing this.
