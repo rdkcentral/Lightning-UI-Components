@@ -1,0 +1,64 @@
+<!--
+  Copyright 2023 Comcast Cable Communications Management, LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Unit Testing / Test Renderer / create" />
+
+# create
+
+Generate a `testRenderer` object with built in utilities for unit testing Lightning Components.
+
+`TestRenderer.create` generates a `testRenderer` object. The `testRenderer` includes various functions to assist with unit testing Lightning components. Those functions and their usages are documented below.
+
+`TestRenderer.create` serves a similar purpose (and actually uses `TestRenderer.create` to create its returned function) as the [`makeCreateComponent` function](/story/unit-testing-test-utils-makecreatecomponent--page) that is also available from the `@lightning/ui-components-test-utils` package. It is generally encouraged to make calls to `makeCreateComponent` instead of directly calling `TestRenderer.create`, as the former allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object.
+
+## Arguments
+
+`create(Component, options = {})`
+
+| argument  | type                | default | description                                                                                            |
+| --------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| Component | Lightning.Component | -       | component for which to create a test renderer object for                                               |
+| options   | object              | {}      | configuration object for the Lightning Application created in test renderer, see further details below |
+
+### options
+
+The `options` argument is passed to a Lightning Application in `create` and accepts all Application configuration options (see [Lightning's documentation](https://lightningjs.io/docs/#/lightning-core-reference/RuntimeConfig/index?id=application-configuration-options) for further details). Below are all the properties that `create` has default values for.
+
+| argument     | type                   | default   | description                                                                                 |
+| ------------ | ---------------------- | --------- | ------------------------------------------------------------------------------------------- |
+| focused      | boolean                | true      | determines whether or not the test component is rendered with focus                         |
+| applicationW | number                 | 1920      | width of the Lightning Application that the test component is rendered within               |
+| applicationH | number                 | 1080      | height of the Lightning Application that the test component is rendered within              |
+| stage        | Lightning stage object | see below | stage object passed to the Lightning Application that the test component is rendered within |
+
+**Default `stage` object:**
+
+```js
+const stage = {
+  w: 1280,
+  h: 720,
+  precision: 2 / 3,
+  fontSharp: {
+    precision: 2 / 3,
+    fontSize: 12
+  },
+  useImageWorker: false
+};
+```
