@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
-import { withSelections } from '../../mixins';
 import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
@@ -31,66 +30,6 @@ export default {
     }
   }
 };
-
-export const Rows = () =>
-  class RowExample extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          type: withSelections(FocusManager),
-          direction: 'row',
-          items: [
-            { type: ButtonFixedWidth, title: 'Left' },
-            { type: ButtonFixedWidth, title: 'Center', x: 250 },
-            { type: ButtonFixedWidth, title: 'Right', x: 500 }
-          ]
-        }
-      };
-    }
-  };
-
-export const WrapSelected = () =>
-  class WrapSelectedExample extends lng.Component {
-    static _template() {
-      return {
-        Row: {
-          y: 50,
-          type: FocusManager,
-          direction: 'row',
-          wrapSelected: true, // allows cycling through items
-          items: [
-            { type: ButtonFixedWidth, title: 'Left' },
-            { type: ButtonFixedWidth, title: 'Center', x: 250 },
-            { type: ButtonFixedWidth, title: 'Right', x: 500 }
-          ]
-        },
-        Text: {
-          y: 0,
-          text: {
-            fontSize: 20,
-            text: 'Key in one direction a bunch of times'
-          }
-        }
-      };
-    }
-  };
-
-export const Columns = () =>
-  class ColumnExample extends lng.Component {
-    static _template() {
-      return {
-        Column: {
-          type: FocusManager,
-          direction: 'column',
-          items: [
-            { type: ButtonFixedWidth, title: 'Top' },
-            { type: ButtonFixedWidth, title: 'Middle', y: 150 },
-            { type: ButtonFixedWidth, title: 'Bottom', y: 300 }
-          ]
-        }
-      };
-    }
-  };
 
 export const ColumnWithRows = () =>
   class ColumnWithRowsExample extends lng.Component {
@@ -135,3 +74,27 @@ class ButtonFixedWidth extends Button {
     super._init();
   }
 }
+
+ColumnWithRows.args = {
+  direction: 'row',
+  wrapSelected: false
+};
+
+ColumnWithRows.argTypes = {
+  direction: {
+    control: 'radio',
+    options: ['row', 'column'],
+    description: 'The navigation direction for focus (left/right or up/down)',
+    table: {
+      defaultValue: { summary: 'row' }
+    }
+  },
+  wrapSelected: {
+    control: 'boolean',
+    description:
+      'When set to true, the focus will loop back to the beginning of the list after reaching the last item, and vice versa. This enables continuous navigation through the list without dead ends. If wrapSelected is set to false (the default value), the focus will stop at the first or last item, depending on the navigation direction',
+    table: {
+      defaultValue: { summary: false }
+    }
+  }
+};
