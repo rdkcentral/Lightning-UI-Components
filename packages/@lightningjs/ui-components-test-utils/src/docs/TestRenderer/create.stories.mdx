@@ -63,6 +63,22 @@ const stage = {
 };
 ```
 
+##### Example: Creating a testRenderer to test a component
+
+```js
+import lng from '@lightningjs/core';
+import { create } from '@lightningjs/ui-components-test-utils';
+
+it('should render the component with text', () => {
+  const testRenderer = TestRenderer.create({
+    Component: { type: TestComp }
+  });
+  const testCompInstance = testRenderer.getInstance();
+
+  expect(testCompInstance.tag('TextElement').text.text).toBe('foo');
+});
+```
+
 ## testRenderer functions
 
 For all examples the following simple Lightning Component, and [Jest beforeEach function](https://jestjs.io/docs/api#beforeeachfn-timeout), will be referenced.
@@ -120,3 +136,115 @@ it('should match the snapshot for the component', () => {
 
 Invokes the `stage.drawFrame()` on the Lightning Application the test component is rendered in. This can be useful in cases where a value is transitioning and the render tree needs to be updated with a newer value.
 See the documentation for the [fastForward](/story/unit-testing-test-utils-fastforward--page) test util for an example utilizing this.
+
+### forceAllUpdates
+
+Forces all debounced updates to run immediately. All components from the `@lightningjs-ui-components` package (and any subclasses of them) debounce calls to `_update`. While this improves performance by reducing updates to the components, it can pose timing challenges in unit tests when writing assertions after all expected updates have completed. `forceAllUpdates` will force any queued updates to run immediately.
+
+```js
+// TODO: example
+```
+
+### focus
+
+Invokes the `_focus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
+
+```js
+// TODO: example
+```
+
+### unfocus
+
+Invokes the `_focus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
+
+```js
+// TODO: example
+```
+
+### getContext
+
+Returns the `context` class.
+TODO: need more details
+
+```js
+// TODO: example
+```
+
+### getInstance
+
+Returns an instance of the component being tested.
+
+```js
+// TODO: example
+```
+
+### getFocused
+
+Returns the component which is currently focused in the test. [See Lightning's documentation for more details on focus in Lightning applications](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=focus).
+
+```js
+// TODO: example
+```
+
+### getApp
+
+Returns the Lightning Application in which the test component is rendered.
+TODO: Are there any examples of where this is used?
+
+```js
+// TODO: example
+```
+
+### keyPress
+
+`keyPress(key)`
+
+#### Arguments
+
+| name | type           | default | description               |
+| ---- | -------------- | ------- | ------------------------- |
+| key  | string\|object | -       | name of key to be pressed |
+
+- the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
+- if an object is passed to the key argument, it must at least contain a `key` field of which key should be pressed
+
+```js
+// TODO: example
+```
+
+### keyRelease
+
+`keyRelease(key)`
+
+#### Arguments
+
+| name | type           | default | description               |
+| ---- | -------------- | ------- | ------------------------- |
+| key  | string\|object | -       | name of key to be pressed |
+
+- the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
+- if an object is passed to the key argument, it must at least contain a `key` field of which key should be released
+
+```js
+// TODO: example
+```
+
+### destroy
+
+Calls `destroy` method on the Lightning Application in which the test component is rendered.
+
+// TODO: is this used anywhere???
+
+```js
+// TODO: example
+```
+
+### focusPath
+
+Return an array of the Lightning Application's `focusPath`, where each item in the array is the `ref` of that component.
+
+// TODO: is this used anywhere???
+
+```js
+// TODO: example
+```
