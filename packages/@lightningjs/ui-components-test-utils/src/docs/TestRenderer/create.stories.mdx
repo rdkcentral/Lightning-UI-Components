@@ -62,3 +62,44 @@ const stage = {
   useImageWorker: false
 };
 ```
+
+## testRenderer functions
+
+For all examples the following simple Lightning Component, and [Jest beforeEach function](https://jestjs.io/docs/api#beforeeachfn-timeout), will be referenced.
+
+```js
+// TestComp.js
+import lng from '@lightningjs/core';
+
+class TestComp extends lng.Component {
+  static _template() {
+    return {
+      TextElement: {
+        text: { text: 'foo' }
+      }
+    };
+  }
+}
+
+// TestComp.test.js
+import TestComp from './TestComp';
+import { TestRenderer } from '@lightningjs/ui-components-test-utils';
+
+let testRenderer, testCompInstance;
+beforeEach(() => {
+  testRenderer = TestRenderer.create({ Component: { type: TestComp } });
+  testCompInstance = testRenderer.getInstance();
+});
+```
+
+Alternatively, `makeCreateComponent` can be used, and is the recommended method:
+
+```js
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+
+const createTestComp = makeCreateComponent(TestComp);
+let testCompInstance, testRenderer;
+beforeEach(() => {
+  [testCompInstance, testRenderer] = createTestComp();
+});
+```
