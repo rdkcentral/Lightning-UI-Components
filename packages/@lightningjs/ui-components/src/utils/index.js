@@ -24,7 +24,7 @@ import logger from '../globals/context/logger';
  * Layout Utils
  *
  */
- 
+
 /**
  * Copyright (c) 2009-2012 Jeremy Ashkenas, DocumentCloud
  * Licensed under the MIT License
