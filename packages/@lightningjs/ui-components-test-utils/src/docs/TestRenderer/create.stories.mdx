@@ -229,15 +229,17 @@ TODO: need more details
 Returns an instance of the component being tested.
 
 ```js
-// TODO: example
-```
+import lng from '@lightningjs/core';
+import { create } from '@lightningjs/ui-components-test-utils';
 
-### getFocused
+it('should render the component with text', () => {
+  const testRenderer = TestRenderer.create({
+    Component: { type: TestComp }
+  });
+  const testCompInstance = testRenderer.getInstance();
 
-Returns the component which is currently focused in the test. [See Lightning's documentation for more details on focus in Lightning applications](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=focus).
-
-```js
-// TODO: example
+  expect(testCompInstance.tag('TextElement').text.text).toBe('foo');
+});
 ```
 
 ### getApp
