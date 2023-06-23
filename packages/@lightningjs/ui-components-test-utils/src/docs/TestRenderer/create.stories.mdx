@@ -142,7 +142,20 @@ See the documentation for the [fastForward](/story/unit-testing-test-utils-fastf
 Forces all debounced updates to run immediately. All components from the `@lightningjs-ui-components` package (and any subclasses of them) debounce calls to `_update`. While this improves performance by reducing updates to the components, it can pose timing challenges in unit tests when writing assertions after all expected updates have completed. `forceAllUpdates` will force any queued updates to run immediately.
 
 ```js
-// TODO: example
+import { Card } from '@lightningjs/ui-components';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+
+const createCardComponent = makeCreateComponent(Card);
+
+it('sets the announce string to the card title', () => {
+  [card, testRenderer] = createCardComponent();
+
+  const title = 'Title';
+  card.title = title;
+  testRenderer.forceAllUpdates();
+
+  expect(card.announce).toBe(title);
+});
 ```
 
 ### focus
