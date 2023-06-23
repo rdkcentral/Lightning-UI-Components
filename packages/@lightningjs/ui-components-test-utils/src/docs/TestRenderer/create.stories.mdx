@@ -162,16 +162,57 @@ it('sets the announce string to the card title', () => {
 
 Invokes the `_focus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
 
-```js
-// TODO: example
-```
-
 ### unfocus
 
 Invokes the `_focus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
 
+### getFocused
+
+Returns the component which is currently focused in the test. [See Lightning's documentation for more details on focus in Lightning applications](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=focus).
+
+#### Unit testing focus
+
 ```js
-// TODO: example
+class FocusExample extends lng.Component {
+  static _template() {
+    return {
+      FocusText: {
+        text: { text: 'unfocused' }
+      }
+    };
+  }
+
+  _focus() {
+    this.tag('FocusText').text.text = 'focused';
+  }
+
+  _unfocus() {
+    this.tag('FocusText').text.text = 'unfocused';
+  }
+}
+
+const createFocusExample = makeCreateComponent(
+  FocusExample,
+  {},
+  { focused: false }
+);
+
+it('should update the text when focused or unfocused', () => {
+  const [focusExampleInstance, testRenderer] = createFocusExample();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('unfocused');
+  expect(testRenderer.getFocused()).not.toBe(focusExampleInstance);
+
+  testRenderer.focus();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('focused');
+  expect(testRenderer.getFocused()).toBe(focusExampleInstance);
+
+  testRenderer.unfocus();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('unfocused');
+  expect(testRenderer.getFocused()).not.toBe(focusExampleInstance);
+});
 ```
 
 ### getContext
