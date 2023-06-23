@@ -43,13 +43,22 @@ DESCRIPTION
 
 ```js
 import lng from '@lightningjs/core';
-import { toJSON } from '@lightningjs/ui-components-test-utils';
+import { TestRenderer } from '@lightningjs/ui-components-test-utils';
 
-class Example extends lng.Component {
+class TestComp extends lng.Component {
   static _template() {
-    return {};
+    return {
+      TextElement: {
+        text: { text: 'foo' }
+      }
+    };
   }
 }
 
-// SNAPSHOT TEST USING TOJSON
+it('should match the snapshot for the component', () => {
+  const testRenderer = TestRenderer.create({ Component: { type: TestComp } });
+  const testCompInstance = testRenderer.getInstance();
+  const tree = TestRenderer.toJSON(testCompInstance, { children: 1 });
+  expect(tree).toMatchSnapshot();
+});
 ```
