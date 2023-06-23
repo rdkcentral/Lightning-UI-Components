@@ -20,10 +20,10 @@ const path = require('path');
 
 module.exports = async ({ config, mode }) => {
   config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
-    // Shorter alias for inspector
-    config.resolve.alias['lightningInspect'] = path.resolve(
-      __dirname,
-      '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
-    );
+  // Shorter alias for inspector
+  config.resolve.alias['lightningInspect'] = path.resolve(
+    __dirname,
+    '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
+  );
   return config;
 };
