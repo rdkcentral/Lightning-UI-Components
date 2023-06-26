@@ -244,10 +244,23 @@ it('should render the component with text', () => {
 ### getApp
 
 Returns the Lightning Application in which the test component is rendered.
-TODO: Are there any examples of where this is used?
 
 ```js
-// TODO: example
+it('should render the component using the defined application dimensions', () => {
+  const applicationW = 1280;
+  const applicationH = 720;
+  const createComponent = makeCreateComponent(
+    TestComp,
+    {},
+    { applicationW, applicationH }
+  );
+  const [exampleInstance, testRenderer] = createComponent();
+
+  expect(testRenderer.getApp()).toMatchObject({
+    w: applicationW,
+    h: applicationH
+  });
+});
 ```
 
 ### keyPress
