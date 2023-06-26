@@ -123,6 +123,7 @@ beforeEach(() => {
 ### toJSON
 
 `(children = 1) => toJSON(app.childList.first, { children })`
+
 Invokes the `toJSON` TestRenderer function, defaulting the number of levels deep into the component's to generate JSON for to 1. This is generally used for generating JSON for [snapshot testing with Jest](https://jestjs.io/docs/snapshot-testing).
 
 ```js
