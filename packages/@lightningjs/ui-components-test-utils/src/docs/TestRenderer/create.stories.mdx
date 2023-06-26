@@ -171,7 +171,7 @@ Invokes the `_focus` method on the component being tested. [See Lightning's docu
 
 Returns the component which is currently focused in the test. [See Lightning's documentation for more details on focus in Lightning applications](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=focus).
 
-#### Unit testing focus
+#### Example: Unit testing focus
 
 ```js
 class FocusExample extends lng.Component {
@@ -269,10 +269,6 @@ it('should render the component using the defined application dimensions', () =>
 - the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
 - if an object is passed to the key argument, it must at least contain a `key` field of which key should be pressed
 
-```js
-// TODO: example
-```
-
 ### keyRelease
 
 `keyRelease(key)`
@@ -286,8 +282,47 @@ it('should render the component using the defined application dimensions', () =>
 - the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
 - if an object is passed to the key argument, it must at least contain a `key` field of which key should be released
 
+#### Example: Unit Testing Key Handling
+
 ```js
-// TODO: example
+class KeyPressExample extends lng.Component {
+  static _template() {
+    return {
+      EnterPressTracker: {
+        text: { text: 0 }
+      },
+      EnterReleaseTracker: {
+        text: { text: 0 }
+      }
+    };
+  }
+
+  _handleEnter() {
+    this.tag('EnterPressTracker').text.text++;
+  }
+
+  _handleEnterRelease() {
+    this.tag('EnterReleaseTracker').text.text++;
+  }
+}
+
+it('should display the number of times enter has been pressed and released', () => {
+  const createComponent = makeCreateComponent(KeyPressExample);
+  const [keyPressComponent, testRenderer] = createComponent();
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('0');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('0');
+
+  testRenderer.keyPress('Enter');
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('1');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('0');
+
+  testRenderer.keyRelease('Enter');
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('1');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('1');
+});
 ```
 
 ### destroy
