@@ -25,7 +25,6 @@ import { Meta } from '@storybook/addon-docs';
 Force all running Lightning Transitions on one or more Lightning Elements to finish and update the transitioning property to its target value immediately.
 
 This function is similar to [completeAnimation](/story/unit-testing-test-utils-completeanimation--page) in that it allows testing transitioning properties. Unlike `completeAnimation`, `fastForward` is not asynchronous, and does result in all running transitions to complete. If a test requires awaiting specific properties to finish transitioning, `completeAnimation` is the recommended utility function. The `fastForward` function forces transitions to finish, but does not wait for the template to update before proceeding through the test function. To ensure the template has updated following a call to `fastForward`, invoke [`testRenderer.update()`](/story/unit-testing-test-renderer-overview--page).
-// TODO: add link directly to testRenderer.update() docs once those are written
 
 ## Arguments
 
