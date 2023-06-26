@@ -140,28 +140,76 @@ The value for `withMethodSpies` can be an array of method names to generate prom
 ##### Example: Spying on component methods and awaiting their execution before making assertions on their side effects
 
 ```js
-/*
- * Consider a component (ExampleComponent), with 2 methods (methodA and _methodB) that can be called subsequently and
- * make different changes to the component.
- */
-const createExample = makeCreateComponent(ExampleComponent);
+class MethodSpiesExample extends Base {
+  static get __componentName() {
+    return 'MethodSpiesExample';
+  }
 
-it('should make various changes to the component when methodA and _methodB are invoked', async () => {
-  // spy on Example.methodA and Example._methodB
-  const [example, testRenderer] = createExample(
+  static _template() {
+    return {
+      Title: {
+        type: TextBox
+      },
+      Subtitle: {
+        type: TextBox,
+        y: 100
+      }
+    };
+  }
+
+  static get tags() {
+    return ['Title', 'Subtitle'];
+  }
+
+  static get properties() {
+    return ['title', 'subtitle'];
+  }
+
+  _construct() {
+    super._construct();
+    this._title = 'title';
+    this._subtitle = 'subtitle';
+  }
+
+  _update() {
+    this._updateTitle();
+    this._updateSubtitle();
+  }
+
+  _updateTitle() {
+    this._Title.content = this.title;
+  }
+  _updateSubtitle() {
+    this._Subtitle.content = this.subtitle;
+  }
+}
+
+const createComponent = makeCreateComponent(MethodSpies);
+
+it('should update the title and subtitle', async () => {
+  const [methodSpiesComponent, testRenderer] = createComponent(
     {},
-    { spyOnMethods: ['methodA', '_methodB'] }
+    { spyOnMethods: ['_update'] }
   );
 
-  // assertions that are valid before methodA and _methodB are invoked
+  // wait for _update to be called on the initial render before proceeding
+  await methodSpiesComponent.__updateSpyPromise;
 
-  await example._methodASpyPromise;
+  expect(methodSpiesComponent._Title.content).toBe('title');
+  expect(methodSpiesComponent._Subtitle.content).toBe('subtitle');
 
-  // assertions that are valid after methodA is invoked but before _methodB is invoked
+  const newTitle = 'new title';
+  const newSubtitle = 'new subtitle';
+  methodSpiesComponent.patch({
+    title: newTitle,
+    subtitle: newSubtitle
+  });
 
-  await example.__methodBSpyPromise;
+  // wait for _update to be called in response to values in the properties array changing
+  await methodSpiesComponent.__updateSpyPromise;
 
-  // assertions that are valid after both methodA and _methodB are invoked
+  expect(methodSpiesComponent._Title.content).toBe(newTitle);
+  expect(methodSpiesComponent._Subtitle.content).toBe(newSubtitle);
 });
 ```
 
