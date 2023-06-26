@@ -26,7 +26,7 @@ Generate a `testRenderer` object with built in utilities for unit testing Lightn
 
 `TestRenderer.create` generates a `testRenderer` object. The `testRenderer` includes various functions to assist with unit testing Lightning components. Those functions and their usages are documented below.
 
-`TestRenderer.create` serves a similar purpose (and actually uses `TestRenderer.create` to create its returned function) as the [`makeCreateComponent` function](/story/unit-testing-test-utils-makecreatecomponent--page) that is also available from the `@lightning/ui-components-test-utils` package. It is generally encouraged to make calls to `makeCreateComponent` instead of directly calling `TestRenderer.create`, as the former allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object.
+Rather than use `TestRenderer.create` directly, it is recommended to instead generate a `createComponent` function using the [makeCreateComponent](/story/unit-testing-test-utils-makecreatecomponent--page) function that is also available from the `@lightning/ui-components-test-utils` package. `makeCreateComponent` allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object, either returned from `TestRenderer.create` or the second element in the array returned by `makeCreateComponent`.
 
 ## Arguments
 
@@ -81,7 +81,7 @@ it('should render the component with text', () => {
 
 ## testRenderer functions
 
-For all examples the following simple Lightning Component, and [Jest beforeEach function](https://jestjs.io/docs/api#beforeeachfn-timeout), will be referenced.
+For any examples on this page that do not define a new component, the following simple Lightning Component, and [Jest beforeEach function](https://jestjs.io/docs/api#beforeeachfn-timeout), will be referenced.
 
 ```js
 // TestComp.js
@@ -218,7 +218,7 @@ it('should update the text when focused or unfocused', () => {
 
 ### getInstance
 
-Returns an instance of the component being tested.
+Returns an instance of the component being tested. If using a `createComponent` function generated from [makeCreateComponent](http://localhost:8000/?path=/story/unit-testing-test-utils-makecreatecomponent--page), `testRenderer.getInstance()` is the first value in the returned array (the second value is the `testRenderer` object).
 
 ```js
 import lng from '@lightningjs/core';
