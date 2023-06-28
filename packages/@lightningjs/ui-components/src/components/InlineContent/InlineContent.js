@@ -62,10 +62,12 @@ export default class InlineContent extends Base {
 
   _updateContent() {
     this.childList.clear();
+
     // if wrapping with max lines, hide content until it has rerendered with maxLines and truncation calculated
     if (this._shouldTruncate) {
       this.alpha = 0.001;
     }
+
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
         flex: {
