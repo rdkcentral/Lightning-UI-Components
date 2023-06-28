@@ -29,7 +29,7 @@ import { context } from '../../globals';
 import { jest } from '@jest/globals';
 const lightningIcon = pathToDataURI(
   'src/assets/images/ic_lightning_white_32.png'
-);;
+);
 
 const testTheme = {
   name: 'Test',
