@@ -127,8 +127,9 @@ exports[`Badge renders icon and text side by side 1`] = `
         "Icon",
       ],
       "texture": {
+        "h": 24,
         "src": "data:image/jpg;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwIiB3aWR0aD0iMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJyZWQiIC8+PC9zdmc+",
-        "type": "ImageTexture",
+        "type": "CustomImageTexture",
       },
       "type": "Icon",
       "visible": true,
@@ -224,8 +225,9 @@ exports[`Badge renders icon only 1`] = `
         "Icon",
       ],
       "texture": {
+        "h": 24,
         "src": "data:image/jpg;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwIiB3aWR0aD0iMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJyZWQiIC8+PC9zdmc+",
-        "type": "ImageTexture",
+        "type": "CustomImageTexture",
       },
       "type": "Icon",
       "visible": true,

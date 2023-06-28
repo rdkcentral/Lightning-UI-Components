@@ -83,7 +83,7 @@ exports[`withLayout renders 1`] = `
                 "Image",
               ],
               "texture": {
-                "type": "ImageTexture",
+                "type": "CustomImageTexture",
               },
               "visible": true,
               "w": 0,

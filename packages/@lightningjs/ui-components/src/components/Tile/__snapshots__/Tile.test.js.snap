@@ -83,7 +83,9 @@ exports[`Tile renders 1`] = `
                 "Image",
               ],
               "texture": {
-                "type": "ImageTexture",
+                "h": 169,
+                "type": "CustomImageTexture",
+                "w": 300,
               },
               "visible": true,
               "w": 300,

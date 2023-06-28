@@ -79,8 +79,10 @@ exports[`Tab renders 1`] = `
             "Icon",
           ],
           "texture": {
+            "h": 50,
             "src": "../../assets/images/ic_lightning_white_32.png",
-            "type": "ImageTexture",
+            "type": "CustomImageTexture",
+            "w": 50,
           },
           "type": "Icon",
           "visible": true,
