@@ -22,7 +22,7 @@ import type {
   testRenderer
 } from './lightning-test-renderer.d.ts';
 
-export function nextTick(wait?: number): Promise<undefined>;
+export function nextTick(wait?: number): Promise<void>;
 
 export function fastForward(elements: lng.Element[]): void;
 
@@ -48,7 +48,7 @@ export function makeCreateComponent(
 export function completeAnimation(
   element: lng.Element,
   transitionProperties?: string | string[]
-): Promise<undefined>;
+): Promise<void>;
 
 import { Mock } from 'jest-mock';
 
