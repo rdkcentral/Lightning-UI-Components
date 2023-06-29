@@ -23,7 +23,11 @@ import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[4]}/withThemeStyles`,
+=======
+  title: 'Utilities/withThemeStyles',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

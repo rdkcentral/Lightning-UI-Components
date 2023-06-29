@@ -19,10 +19,9 @@
 import lng from '@lightningjs/core';
 import Radio from './RadioSmall.js';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/RadioSmall`
+  title: 'Utilities/RadioSmall'
 };
 
 export const RadioSmall = () =>

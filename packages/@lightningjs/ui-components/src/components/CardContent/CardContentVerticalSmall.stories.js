@@ -23,10 +23,9 @@ import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/Met
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/CardContentVerticalSmall`,
+  title: 'Tiles & Cards/CardContentVerticalSmall',
   parameters: {
     docs: {
       page: mdx

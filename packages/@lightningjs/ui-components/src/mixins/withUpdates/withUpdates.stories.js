@@ -22,7 +22,11 @@ import withUpdatesMixin from '.';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[4]}/withUpdates`,
+=======
+  title: 'Utilities/withUpdates',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

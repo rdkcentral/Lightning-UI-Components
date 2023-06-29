@@ -25,7 +25,11 @@ import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/SliderLarge`,
+=======
+  title: 'Utilities/SliderLarge',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

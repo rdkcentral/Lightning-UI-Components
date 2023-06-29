@@ -23,12 +23,11 @@ import Column from '../Column';
 import mdx from './Row.mdx';
 import { context } from '../../globals';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';
 
 export default {
-  title: `${CATEGORIES[8]}/Row`,
+  title: 'Navigation/Row',
   parameters: {
     docs: {
       page: mdx

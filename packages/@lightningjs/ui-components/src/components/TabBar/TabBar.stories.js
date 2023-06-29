@@ -34,7 +34,11 @@ import mdx from './TabBar.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/TabBar`,
+=======
+  title: 'Layout/TabBar',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   args: {
     collapse: false,
     alphaSelectedTab: false,

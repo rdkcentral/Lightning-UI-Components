@@ -25,11 +25,10 @@ import { default as CardContentHorizontalComponent } from './CardContentHorizont
 import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/CardContentHorizontal`,
+  title: 'Tiles & Cards/CardContentHorizontal',
   parameters: {
     docs: {
       page: mdx

@@ -127,7 +127,7 @@ class Radius extends Base {
   _update() {
     if (this.radiusName) {
       const radius = context.theme.radius[this.radiusName];
-      this._Text.content = `${this.radiusName}: ${radius}px`;
+      this._Text.content = `${this.radiusName}: ${radius}`;
       this._Corner.patch({
         texture: lng.Tools.getRoundRect(
           this._Corner.w,

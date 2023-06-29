@@ -21,10 +21,9 @@ import { default as InlineContentComponent } from '.';
 import mdx from './InlineContent.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/InlineContent`,
+  title: 'Text/InlineContent',
   args: {
     contentWrap: false,
     justify: 'center',

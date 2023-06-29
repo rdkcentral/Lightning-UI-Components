@@ -25,7 +25,7 @@ import { default as KeyboardQwertyComponent } from './KeyboardQwerty';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardQwerty`,
+  title: 'Keyboard/KeyboardQwerty',
   parameters: {
     docs: {
       page: mdx

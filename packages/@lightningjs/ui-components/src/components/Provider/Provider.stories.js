@@ -22,10 +22,9 @@ import { default as Icon } from '../Icon';
 import mdx from './Provider.mdx';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Provider`,
+  title: 'Utilities/Provider',
   parameters: {
     docs: {
       page: mdx

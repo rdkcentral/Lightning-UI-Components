@@ -20,10 +20,9 @@ import lng from '@lightningjs/core';
 import { context } from '../../globals';
 import { default as GridOverlayComponent } from '.';
 import mdx from './GridOverlay.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/GridOverlay`,
+  title: 'Foundations/GridOverlay',
   parameters: {
     docs: {
       page: mdx

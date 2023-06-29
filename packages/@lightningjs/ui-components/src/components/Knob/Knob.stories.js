@@ -21,10 +21,9 @@ import lng from '@lightningjs/core';
 import { default as KnobComponent } from '.';
 import mdx from './Knob.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Knob`,
+  title: 'Utilities/Knob',
   parameters: {
     docs: {
       page: mdx

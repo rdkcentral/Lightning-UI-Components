@@ -21,10 +21,9 @@ import Badge from '.';
 import mdx from './Badge.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Badge`,
+  title: 'Metadata/Badge',
   parameters: {
     docs: {
       page: mdx

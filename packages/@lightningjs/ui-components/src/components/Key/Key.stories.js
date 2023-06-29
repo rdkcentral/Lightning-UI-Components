@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Key`,
+  title: 'Keyboard/Key',
   parameters: {
     docs: {
       page: mdx
