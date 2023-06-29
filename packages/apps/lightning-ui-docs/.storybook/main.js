@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,8 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-storysource',
     './addons/register',
-    'storybook-addon-turbo-build' // Speed up final build
+    'storybook-addon-turbo-build', // Speed up final build
+    '@storybook/addon-mdx-gfm'
   ],
   stories: [
     '../src/*.stories.@(js|jsx|ts|tsx|mdx)',
@@ -31,8 +32,16 @@ module.exports = {
     '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
-  staticDirs: ['../../../@lightningjs/ui-components/src/assets'], // TODO: How to handle images between projects
+  staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
+  // TODO: How to handle images between projects
   core: {
     disableTelemetry: true
+  },
+  framework: {
+    name: '@storybook/html-webpack5',
+    options: {}
+  },
+  docs: {
+    autodocs: true
   }
 };
