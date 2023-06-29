@@ -67,7 +67,6 @@ export default class InlineContent extends Base {
     if (this._shouldTruncate) {
       this.alpha = 0.001;
     }
-
     if (this._parsedContent && this._parsedContent.length) {
       this.patch({
         flex: {
