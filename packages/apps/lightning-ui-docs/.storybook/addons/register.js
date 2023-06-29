@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import { addons, types } from '@storybook/addons';
+import { addons, types } from '@storybook/manager-api';
 import * as ids from './constants';
 import { Announce, StageColor, ThemeDownload, ThemePicker } from './toolbars';
 import { ComponentStylesPanel, GridOverlayPanel, ThemePanel } from './panels';
