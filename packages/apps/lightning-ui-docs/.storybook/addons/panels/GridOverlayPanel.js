@@ -18,7 +18,7 @@
 
 import React from 'react';
 import { GRIDOVERLAY_ID } from '../constants';
-import { BooleanControl, RangeControl } from '@storybook/components';
+import { BooleanControl, RangeControl } from '@storybook/blocks';
 import { useGlobals } from '@storybook/api';
 import { Table, TableRow } from '../components';
 
@@ -39,7 +39,7 @@ function Controls() {
 
   let rows = [];
   const alpha = 'alpha';
-  const alphaProp = gridName+alpha;
+  const alphaProp = gridName + alpha;
   if (globalProps[alphaProp]) {
     rows.push(
       <TableRow
@@ -59,23 +59,25 @@ function Controls() {
       />
     );
   }
-  rows.push(...propList.map(prop => {
-    const propName = prop.replace(prefix, '');
-    return (
-      <TableRow
-        key={prop}
-        label={propName}
-        control={
-          <BooleanControl
-            key={prop}
-            name={propName}
-            value={globalProps[prop] === 'true'}
-            onChange={val => updateGlobals({ [prop]: val.toString() })}
-          />
-        }
-      />
-    );
-  }));
+  rows.push(
+    ...propList.map(prop => {
+      const propName = prop.replace(prefix, '');
+      return (
+        <TableRow
+          key={prop}
+          label={propName}
+          control={
+            <BooleanControl
+              key={prop}
+              name={propName}
+              value={globalProps[prop] === 'true'}
+              onChange={val => updateGlobals({ [prop]: val.toString() })}
+            />
+          }
+        />
+      );
+    })
+  );
   return <>{rows}</>;
 }
 
