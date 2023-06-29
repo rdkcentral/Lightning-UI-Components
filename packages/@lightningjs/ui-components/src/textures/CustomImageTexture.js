@@ -185,7 +185,7 @@ export default class CustomImageTexture extends lng.Texture {
    * @returns {boolean} True if valid, otherwise false.
    */
   _getIsValid() {
-    return !!this._src && this._w && this._h;
+    return !!this._src;
   }
 
   /**

@@ -295,7 +295,7 @@ export default class Artwork extends Base {
       y: this.h / 2,
       zIndex: this.core.findZContext().zIndex + this.style.zIndexSet.foreground,
       texture: {
-        type: lng.textures.ImageTexture,
+        type: CustomImageTexture,
         src: this._foregroundSrc,
         hasAlpha: true
       }
@@ -477,7 +477,7 @@ export default class Artwork extends Base {
             type: 'cover',
             w: imageW
           },
-          type: lng.textures.ImageTexture
+          type: CustomImageTexture
         }
       }
     });
@@ -523,7 +523,7 @@ export default class Artwork extends Base {
               type: 'cover',
               w: imageSize
             },
-            type: lng.textures.ImageTexture
+            type: CustomImageTexture
           }
         }
       }
@@ -588,8 +588,6 @@ export default class Artwork extends Base {
       texture: {
         type: CustomImageTexture,
         src,
-        w: this.w,
-        h: this.h,
         resizeMode: { type: 'cover', w: this.w, h: this.h }
       },
       w: this.w,
