@@ -18,8 +18,51 @@
 
 import lng from '@lightningjs/core';
 
-export type JSONTreeProperties = any; // TODO
-export type JSONTree = Record<string, JSONTreeProperties>;
+export interface JSONTree {
+  alpha: lng.Component['alpha'];
+  active: lng.Component['active'];
+  attached: lng.Component['attached'];
+  boundsMargin: lng.Component['attached'];
+  color: lng.Component['color'];
+  clipping: lng.Component['clipping'];
+  enabled: lng.Component['enabled'];
+  h: lng.Component['h'];
+  isComponent: boolean;
+  mount: lng.Component['mount'];
+  mountY: lng.Component['mountY'];
+  mountX: lng.Component['mountX'];
+  pivot: lng.Component['pivot'];
+  pivotX: lng.Component['pivotX'];
+  pivotY: lng.Component['pivotY'];
+  ref: lng.Component['ref'];
+  renderOfScreen?: unknown;
+  renderToTexture: lng.Component['renderToTexture'];
+  scale: lng.Component['scale'];
+  scaleX: lng.Component['scaleX'];
+  scaleY: lng.Component['scaleY'];
+  state: lng.Component['state'];
+  tag: lng.Component['tag'];
+  visible: lng.Component['visible'];
+  w: lng.Component['w'];
+  x: lng.Component['x'];
+  y: lng.Component['y'];
+  zIndex: lng.Component['zIndex'];
+  /**
+   * @remarks
+   * This does not return the flex object property on the Lightning Element.
+   * It returns a boolean of whether or not that property exists on the Element.
+   */
+  flex: boolean; // returns
+  /**
+   * @remarks
+   * This does not return the flexItem object property on the Lightning Element.
+   * It returns a boolean of whether or not that property exists on the Element.
+   */
+  flexItem: boolean;
+  hasFocus?: boolean;
+  hasFinalFocus?: boolean;
+  [key: string]: any;
+}
 
 export type testRenderer = {
   toJSON: (children?: number) => JSONTree;
@@ -28,10 +71,7 @@ export type testRenderer = {
   focus: () => void;
   unfocus: () => void;
   getContext: () => any; // TODO: Context does not have a TS def
-
-  // TODO: I don't think this is correct, lng.Element.ElementChildList is readonly so can't access from lng
   getInstance: () => lng.Element;
-
   getFocused: () => lng.Component<
     lng.Component.TemplateSpecLoose,
     lng.Component.TypeConfig
@@ -49,19 +89,12 @@ export type createOptions = {
   [key: string]: any;
 };
 
-declare function create(
+export declare function create(
   Component: lng.Component,
   options?: createOptions
 ): testRenderer;
 
-export type toJSON = (
+export declare function toJSON(
   element: lng.Element,
   options?: { children: number }
-) => JSONTree;
-
-declare namespace _default {
-  export { create };
-  export { toJSON };
-}
-
-export default _default;
+): JSONTree;
