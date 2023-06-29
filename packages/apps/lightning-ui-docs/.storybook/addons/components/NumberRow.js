@@ -17,7 +17,7 @@
  */
 
 import React, { useState } from 'react';
-import { NumberControl } from '@storybook/components';
+import { NumberControl } from '@storybook/blocks';
 import TableRow from './TableRow';
 
 export default function NumberRow({ label, defaultValue, scope, onChange }) {
