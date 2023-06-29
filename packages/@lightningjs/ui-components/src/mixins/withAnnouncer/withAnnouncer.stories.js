@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row, Button } from '../../components';
-import mdx from './withAnnouncer.mdx';
+import { mdx } from './withAnnouncer.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {

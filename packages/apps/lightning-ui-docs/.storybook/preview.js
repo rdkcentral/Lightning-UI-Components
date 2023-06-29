@@ -52,8 +52,8 @@ const preview = {
        * @see https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
        */
       storySort: {
-        method: 'alphabetical',
-        order: storySortOrder
+        method: 'alphabetical'
+        //order: storySortOrder
       }
     }
   },
