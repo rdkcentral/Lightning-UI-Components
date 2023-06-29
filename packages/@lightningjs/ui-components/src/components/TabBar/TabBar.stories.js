@@ -34,7 +34,7 @@ import mdx from './TabBar.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[16]}/TabBar`,
+  title: 'Layout/TabBar',
   args: {
     collapse: false,
     alphaSelectedTab: false,

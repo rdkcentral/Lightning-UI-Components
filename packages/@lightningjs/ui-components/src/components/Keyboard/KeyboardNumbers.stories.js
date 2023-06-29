@@ -25,7 +25,7 @@ import { default as KeyboardNumbersComponent } from './KeyboardNumbers';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardNumbers`,
+  title: 'Keyboard/KeyboardNumbers',
   parameters: {
     docs: {
       page: mdx

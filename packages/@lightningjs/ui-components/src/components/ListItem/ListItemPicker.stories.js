@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[2]}/ListItemPicker`,
+  title: 'Controls/ListItemPicker',
   parameters: {
     docs: {
       page: mdx

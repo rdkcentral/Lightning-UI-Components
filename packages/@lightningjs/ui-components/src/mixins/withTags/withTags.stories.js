@@ -22,7 +22,7 @@ import withTagsMixin from '.';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/withTags`,
+  title: 'Utilities/withTags',
   parameters: {
     docs: {
       page: mdx

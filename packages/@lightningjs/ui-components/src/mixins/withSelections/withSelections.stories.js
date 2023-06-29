@@ -23,7 +23,7 @@ import mdx from './withSelections.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/withSelections`,
+  title: 'Utilities/withSelections',
   parameters: {
     docs: {
       page: mdx

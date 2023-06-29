@@ -29,7 +29,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[128]}/CardContentHorizontal`,
+  title: 'Tiles & Cards/CardContentHorizontal',
   parameters: {
     docs: {
       page: mdx

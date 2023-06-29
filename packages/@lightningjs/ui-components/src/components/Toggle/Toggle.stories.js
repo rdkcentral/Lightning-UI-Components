@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/Toggle`,
+  title: 'Utilities/Toggle',
   parameters: {
     docs: {
       page: mdx

@@ -34,7 +34,7 @@ const rowArgTypes = Object.keys(RowBasic.argTypes).reduce((acc, key) => {
 }, {});
 
 export default {
-  title: `${CATEGORIES[64]}/TitleRow`,
+  title: 'Navigation/TitleRow',
   parameters: {
     docs: {
       page: mdx

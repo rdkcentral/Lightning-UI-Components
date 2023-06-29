@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/Shadow`,
+  title: 'Foundations/Shadow',
   parameters: {
     docs: {
       page: mdx

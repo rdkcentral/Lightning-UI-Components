@@ -24,7 +24,7 @@ import { Basic as SliderStory } from '../Slider/Slider.stories';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[2]}/ListItemSlider`,
+  title: 'Controls/ListItemSlider',
   parameters: {
     docs: {
       page: mdx

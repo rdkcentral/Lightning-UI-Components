@@ -32,7 +32,7 @@ context.config({
 });
 
 export default {
-  title: `${CATEGORIES[512]}/withHandleKey`,
+  title: 'Utilities/withHandleKey',
   parameters: {
     docs: {
       page: mdx

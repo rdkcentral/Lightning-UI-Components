@@ -28,7 +28,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: `${CATEGORIES[64]}/ControlRow`,
+  title: 'Navigation/ControlRow',
   parameters: {
     docs: {
       page: mdx

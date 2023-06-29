@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/ToggleSmall`,
+  title: 'Utilities/ToggleSmall',
   parameters: {
     docs: {
       page: mdx

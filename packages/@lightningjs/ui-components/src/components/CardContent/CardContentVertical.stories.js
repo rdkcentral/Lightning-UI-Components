@@ -28,7 +28,7 @@ import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[128]}/CardContentVertical`,
+  title: 'Tiles & Cards/CardContentVertical',
   parameters: {
     docs: {
       page: mdx

@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/Knob`,
+  title: 'Utilities/Knob',
   parameters: {
     docs: {
       page: mdx

@@ -48,7 +48,7 @@ function createRow(props = {}) {
 }
 
 export default {
-  title: `${CATEGORIES[64]}/NavigationManager`,
+  title: 'Navigation/NavigationManager',
   parameters: {
     docs: {
       page: mdx

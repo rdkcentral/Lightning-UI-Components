@@ -23,7 +23,7 @@ import TextBox from '../../components/TextBox';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/withMarqueeSync`,
+  title: 'Utilities/withMarqueeSync',
   parameters: {
     docs: {
       page: mdx

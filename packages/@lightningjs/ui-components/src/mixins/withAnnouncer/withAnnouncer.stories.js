@@ -23,7 +23,7 @@ import mdx from './withAnnouncer.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[0]}/withAnnouncer`,
+  title: 'Accessibility/withAnnouncer',
   component: withAnnouncer,
   parameters: {
     docs: {

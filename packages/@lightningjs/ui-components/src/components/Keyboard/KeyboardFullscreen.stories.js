@@ -25,7 +25,7 @@ import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardFullscreen`,
+  title: 'Keyboard/KeyboardFullscreen',
   parameters: {
     docs: {
       page: mdx

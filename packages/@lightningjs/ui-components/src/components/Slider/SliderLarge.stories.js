@@ -25,7 +25,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: `${CATEGORIES[512]}/SliderLarge`,
+  title: 'Utilities/SliderLarge',
   parameters: {
     docs: {
       page: mdx

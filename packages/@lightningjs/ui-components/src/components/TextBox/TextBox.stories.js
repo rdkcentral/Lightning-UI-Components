@@ -25,7 +25,7 @@ import inlineContentStory from '../InlineContent/InlineContent.stories';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[256]}/TextBox`,
+  title: 'Text/TextBox',
   parameters: {
     docs: {
       page: mdx

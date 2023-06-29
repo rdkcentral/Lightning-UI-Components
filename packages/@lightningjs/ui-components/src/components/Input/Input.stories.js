@@ -27,7 +27,7 @@ import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Input`,
+  title: 'Keyboard/Input',
   parameters: {
     docs: {
       page: mdx

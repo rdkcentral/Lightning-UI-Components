@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/Radio`,
+  title: 'Utilities/Radio',
   parameters: {
     docs: {
       page: mdx

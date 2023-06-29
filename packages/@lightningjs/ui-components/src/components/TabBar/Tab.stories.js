@@ -24,7 +24,7 @@ import mdx from './Tab.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[16]}/Tab`,
+  title: 'Layout/Tab',
   parameters: {
     docs: {
       page: mdx

@@ -26,7 +26,7 @@ import mdx from './MetadataTile.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/MetadataTile`,
+  title: 'Metadata/MetadataTile',
   parameters: {
     docs: {
       page: mdx

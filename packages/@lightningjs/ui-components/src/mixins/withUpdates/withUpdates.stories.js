@@ -22,7 +22,7 @@ import withUpdatesMixin from '.';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/withUpdates`,
+  title: 'Utilities/withUpdates',
   parameters: {
     docs: {
       page: mdx

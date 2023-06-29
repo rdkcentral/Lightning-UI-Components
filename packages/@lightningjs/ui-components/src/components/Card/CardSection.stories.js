@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[128]}/CardSection`,
+  title: 'Tiles & Cards/CardSection',
   tag: 'Card',
   parameters: {
     docs: {

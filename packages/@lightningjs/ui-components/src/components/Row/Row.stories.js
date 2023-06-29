@@ -28,7 +28,7 @@ import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';
 
 export default {
-  title: `${CATEGORIES[64]}/Row`,
+  title: 'Navigation/Row',
   parameters: {
     docs: {
       page: mdx

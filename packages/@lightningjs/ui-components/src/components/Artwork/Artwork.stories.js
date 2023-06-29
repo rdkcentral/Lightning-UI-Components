@@ -22,7 +22,7 @@ import mdx from './Artwork.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/Artwork`,
+  title: 'Foundations/Artwork',
   parameters: {
     docs: {
       page: mdx

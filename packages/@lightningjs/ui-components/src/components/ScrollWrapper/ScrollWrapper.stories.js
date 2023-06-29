@@ -29,7 +29,7 @@ const terms = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
 Mi proin sed libero enim sed faucibus. Arcu vitae elementum curabitur vitae nunc sed velit. Volutpat blandit aliquam etiam erat velit. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Tristique risus nec feugiat in. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Dolor magna eget est lorem ipsum dolor sit amet consectetur. Eget est lorem ipsum dolor sit amet consectetur. At tellus at urna condimentum mattis pellentesque id. Maecenas accumsan lacus vel facilisis. Metus dictum at tempor commodo ullamcorper a lacus. Pellentesque pulvinar pellentesque habitant morbi tristique senectus. Tempor nec feugiat nisl pretium fusce id velit ut.`;
 
 export default {
-  title: `${CATEGORIES[16]}/ScrollWrapper`,
+  title: 'Layout/ScrollWrapper',
   parameters: {
     docs: {
       page: mdx

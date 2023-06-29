@@ -27,7 +27,7 @@ import { default as Toggle } from '../Toggle';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[2]}/ListItem`,
+  title: 'Controls/ListItem',
   parameters: {
     docs: {
       page: mdx

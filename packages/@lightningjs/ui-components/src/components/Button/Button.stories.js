@@ -27,7 +27,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[2]}/Button`,
+  title: 'Controls/Button',
   parameters: {
     docs: {
       page: mdx
