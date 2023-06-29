@@ -43,6 +43,9 @@ const config = {
   },
   docs: {
     autodocs: true
+  },
+  features: {
+    legacyMdx1: true // 👈 Enables MDX v1 support
   }
 };
 
