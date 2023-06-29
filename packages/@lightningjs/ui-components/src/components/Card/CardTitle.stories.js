@@ -20,10 +20,9 @@ import lng from '@lightningjs/core';
 import { default as CardTitleComponent } from './CardTitle.js';
 import mdx from './CardTitle.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/CardTitle`,
+  title: 'Tiles & Cards/CardTitle',
   tag: 'Card',
 
   parameters: {

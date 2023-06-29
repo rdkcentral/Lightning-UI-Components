@@ -27,7 +27,11 @@ import { CATEGORIES } from '../../docs/constants';
  */
 import * as RowProps from '../../components/Row/Row.stories.js';
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[4]}/withEditItems`,
+=======
+  title: 'Utilities/withEditItems',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

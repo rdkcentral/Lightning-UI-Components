@@ -24,11 +24,10 @@ import playIcon from '../../assets/images/ic_play_white_32.png';
 import { default as TitleRowStory } from '../TitleRow/TitleRow.stories';
 import ControlRowComponent from '.';
 import mdx from './ControlRow.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: `${CATEGORIES[8]}/ControlRow`,
+  title: 'Navigation/ControlRow',
   parameters: {
     docs: {
       page: mdx

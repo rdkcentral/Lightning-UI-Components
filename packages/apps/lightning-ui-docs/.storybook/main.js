@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = {
+const config = {
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-essentials',
@@ -26,11 +26,11 @@ module.exports = {
     '@storybook/addon-mdx-gfm'
   ],
   stories: [
-    '../src/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
-    '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)'
+    '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx)'
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
   // TODO: How to handle images between projects
@@ -45,3 +45,5 @@ module.exports = {
     autodocs: true
   }
 };
+
+export default config;

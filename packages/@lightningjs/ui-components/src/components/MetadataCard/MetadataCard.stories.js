@@ -23,10 +23,9 @@ import utils from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataCardComponent } from '.';
 import mdx from './MetadataCard.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/MetadataCard`,
+  title: 'Metadata/MetadataCard',
   parameters: {
     docs: {
       page: mdx

@@ -25,7 +25,7 @@ import utils from '../../utils';
 import { default as KeyboardComponent } from './Keyboard';
 
 export default {
-  title: `${CATEGORIES[8]}/Keyboard`,
+  title: 'Keyboard/Keyboard',
   parameters: {
     docs: {
       page: mdx

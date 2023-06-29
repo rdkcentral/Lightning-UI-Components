@@ -31,7 +31,11 @@ import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/Tile`,
+=======
+  title: 'Tiles & Cards/Tile',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

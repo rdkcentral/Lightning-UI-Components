@@ -32,7 +32,11 @@ context.config({
 });
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[4]}/withHandleKey`,
+=======
+  title: 'Utilities/withHandleKey',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

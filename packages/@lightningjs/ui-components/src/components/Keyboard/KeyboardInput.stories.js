@@ -33,7 +33,7 @@ import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardInput`,
+  title: 'Keyboard/KeyboardInput',
   parameters: {
     docs: {
       page: mdx

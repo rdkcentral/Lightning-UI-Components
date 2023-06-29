@@ -34,7 +34,11 @@ const rowArgTypes = Object.keys(RowBasic.argTypes).reduce((acc, key) => {
 }, {});
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/TitleRow`,
+=======
+  title: 'Navigation/TitleRow',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

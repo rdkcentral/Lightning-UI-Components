@@ -21,10 +21,9 @@ import { default as MetadataCardContentComponent } from '.';
 import mdx from './MetadataCardContent.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/MetadataCardContent`,
+  title: 'Metadata/MetadataCardContent',
   parameters: {
     docs: {
       page: mdx

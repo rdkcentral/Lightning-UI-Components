@@ -24,7 +24,11 @@ import { default as TooltipComponent } from '.';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/Tooltip`,
+=======
+  title: 'Utilities/Tooltip',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   args: {
     title: 'Tooltip',
     delayVisible: 0,

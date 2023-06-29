@@ -23,10 +23,9 @@ import { getHexColor } from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataTileComponent } from '.';
 import mdx from './MetadataTile.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/MetadataTile`,
+  title: 'Metadata/MetadataTile',
   parameters: {
     docs: {
       page: mdx

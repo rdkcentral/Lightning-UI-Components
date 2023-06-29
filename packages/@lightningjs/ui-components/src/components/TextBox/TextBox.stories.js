@@ -25,7 +25,11 @@ import inlineContentStory from '../InlineContent/InlineContent.stories';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[8]}/TextBox`,
+=======
+  title: 'Text/TextBox',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

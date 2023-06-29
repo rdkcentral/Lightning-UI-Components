@@ -22,7 +22,11 @@ import { Tile } from '../../components';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
+<<<<<<< HEAD
   title: `${CATEGORIES[4]}/withLayout`,
+=======
+  title: 'Utilities/withLayout',
+>>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
     docs: {
       page: mdx

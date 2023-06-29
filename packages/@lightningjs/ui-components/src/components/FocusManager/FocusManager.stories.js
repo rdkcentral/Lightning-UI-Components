@@ -19,11 +19,10 @@
 import lng from '@lightningjs/core';
 import FocusManager from '.';
 import mdx from './FocusManager.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {
-  title: `${CATEGORIES[8]}/FocusManager`,
+  title: 'Navigation/FocusManager',
   parameters: {
     docs: {
       page: mdx

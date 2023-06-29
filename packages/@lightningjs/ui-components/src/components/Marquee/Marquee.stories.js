@@ -22,10 +22,9 @@ import MarqueeComponent from '.';
 import InlineContent from '../InlineContent';
 import mdx from './Marquee.mdx';
 import { context } from '../../globals';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Marquee`,
+  title: 'Text/Marquee',
   parameters: {
     docs: {
       page: mdx

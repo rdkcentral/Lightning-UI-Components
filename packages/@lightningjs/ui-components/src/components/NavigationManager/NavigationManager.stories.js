@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import NavigationManager from '.';
 import mdx from './NavigationManager.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 class ButtonFixedWidth extends Button {
@@ -48,7 +47,7 @@ function createRow(props = {}) {
 }
 
 export default {
-  title: `${CATEGORIES[8]}/NavigationManager`,
+  title: 'Navigation/NavigationManager',
   parameters: {
     docs: {
       page: mdx
