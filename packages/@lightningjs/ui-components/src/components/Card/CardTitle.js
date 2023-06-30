@@ -43,7 +43,7 @@ export default class CardTitle extends Card {
       Description: {
         type: TextBox,
         signals: {
-          textBoxChanged: '_updateDescriptionPosition'
+          textBoxChanged: '_updatePositions'
         }
       },
       Details: {
@@ -56,8 +56,13 @@ export default class CardTitle extends Card {
   _update() {
     super._update();
     this._updateDescription();
-    this._updateDescriptionPosition();
     this._updateDetails();
+    this._updatePositions();
+  }
+
+  _updatePositions() {
+    super._updatePositions();
+    this._updateDescriptionPosition();
     this._updateDetailsPosition();
   }
 
@@ -74,6 +79,7 @@ export default class CardTitle extends Card {
   }
 
   _updateDescriptionPosition() {
+    console.log('UPDATE', this._Title.h);
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y = this.style.paddingVertical + this._Title.h;
   }

@@ -44,7 +44,7 @@ export default class CardRadio extends CardTitle {
       Subtitle: {
         type: TextBox,
         signals: {
-          textBoxChanged: 'queueRequestUpdate'
+          textBoxChanged: '_updatePositions'
         }
       }
     };
@@ -52,9 +52,13 @@ export default class CardRadio extends CardTitle {
 
   _update() {
     super._update();
-    this._updateSubtitle();
     this._updateRadio();
-    this._updateDescriptionPosition();
+    this._updateSubtitle();
+    this._updatePositions();
+  }
+
+  _updatePositions() {
+    super._updatePositions();
     this._updateSubtitlePosition();
   }
 
@@ -93,7 +97,7 @@ export default class CardRadio extends CardTitle {
   _updateDescriptionPosition() {
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y =
-      2 * this.style.paddingVertical + this._Title.h + this._Subtitle.h;
+      this.style.paddingVertical * 2 + this._Title.h + this._Subtitle.h;
   }
 
   set announce(announce) {

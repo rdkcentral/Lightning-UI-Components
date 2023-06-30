@@ -43,7 +43,7 @@ export default class Card extends Surface {
       Title: {
         type: TextBox,
         signals: {
-          textBoxChanged: '_update'
+          textBoxChanged: '_updatePositions'
         }
       }
     };
@@ -52,6 +52,10 @@ export default class Card extends Surface {
   _update() {
     super._update();
     this._updateTitle();
+    this._updatePositions();
+  }
+
+  _updatePositions() {
     this._updateTitlePosition();
   }
 

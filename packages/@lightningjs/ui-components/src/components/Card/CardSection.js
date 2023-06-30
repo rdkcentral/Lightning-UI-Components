@@ -58,6 +58,7 @@ export default class CardSection extends Card {
     }
     this.patch({ Icon: iconObject });
   }
+
   _calculateTextWidth() {
     const textWidth = this.w - this.style.paddingHorizontal * 2;
     return this.iconSrc ? textWidth - this.iconWidth : textWidth;
