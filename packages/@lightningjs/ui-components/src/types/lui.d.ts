@@ -34,11 +34,3 @@ export type StylePartial<T> = {
     : // If it is NOT an object, then just spit back the original value type.
       T[P];
 };
-
-// TODO: flag for discussion
-// more specific naming of this object
-export type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};

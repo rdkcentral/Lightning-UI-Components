@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial, TransitionObject } from '../../types/lui';
+import type { Color, StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
 export type TooltipStyle = {
@@ -30,7 +30,7 @@ export type TooltipStyle = {
   pointerH: number;
   radius: lng.Tools.CornerRadius;
   textStyle: TextBoxStyle;
-  transition: TransitionObject;
+  transition: lng.types.TransitionSettings;
 };
 
 export default class Tooltip extends Base {
