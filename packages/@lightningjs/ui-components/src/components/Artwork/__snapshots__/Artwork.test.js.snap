@@ -33,7 +33,7 @@ exports[`Artwork renders 1`] = `
         "Image",
       ],
       "texture": {
-        "src": "sampleImg",
+        "src": "sampleImg_100x100",
         "type": "ImageTexture",
       },
       "visible": true,
