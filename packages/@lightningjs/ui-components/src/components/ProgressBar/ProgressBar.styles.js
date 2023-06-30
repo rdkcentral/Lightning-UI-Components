@@ -32,7 +32,7 @@ export const tone = theme => ({
     progressColor: theme.color.fillInverse
   },
   brand: {
-    barColor: theme.color.fillBrandTertiary,
+    barColor: theme.color.fillNeutralTertiary,
     progressColor: theme.color.fillBrand
   }
 });
