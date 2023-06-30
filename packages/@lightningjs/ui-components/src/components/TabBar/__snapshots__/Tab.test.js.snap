@@ -127,6 +127,7 @@ exports[`Tab renders 1`] = `
               "texture": {
                 "fontFace": "Arial",
                 "fontSize": 25,
+                "fontStyle": "500",
                 "lineHeight": 36,
                 "precision": 0.6666666666666666,
                 "text": "Tab",

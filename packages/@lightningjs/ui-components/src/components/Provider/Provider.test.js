@@ -105,6 +105,7 @@ describe('Provider', () => {
       providers: Array(20).fill(iconSquare)
     });
     provider.disableRadius = true;
+    testRenderer.forceAllUpdates();
     expect(provider._Row.items[2].radius).toEqual(0);
   });
 

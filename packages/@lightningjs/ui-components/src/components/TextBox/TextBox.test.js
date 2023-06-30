@@ -180,7 +180,6 @@ describe('TextBox', () => {
       };
       const lightningDefaultValues = {
         fontSize: 40,
-        fontStyle: 'normal',
         textAlign: 'left',
         verticalAlign: 'top',
         wordWrap: true,
@@ -198,9 +197,6 @@ describe('TextBox', () => {
       expect(textBox._Text.text.fontSize).toBe(baseTheme.fontSize);
       expect(textBox._Text.text.maxLinesSuffix).toBe(
         lightningDefaultValues.maxLinesSuffix
-      );
-      expect(textBox._Text.text.fontStyle).toBe(
-        lightningDefaultValues.fontStyle
       );
     });
   });

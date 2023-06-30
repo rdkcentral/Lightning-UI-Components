@@ -75,7 +75,7 @@ describe('ControlSmall', () => {
 
   it('renders the correct logo radius', async () => {
     expect(controlSmall.style.logoStyle.radius).toBe(
-      Math.max(controlSmall.style.radius - controlSmall.theme.spacer.xl / 2, 0)
+      Math.max(controlSmall.style.radius - controlSmall.style.paddingX / 2, 0)
     );
   });
 });

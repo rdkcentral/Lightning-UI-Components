@@ -103,6 +103,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,
@@ -341,6 +342,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,
@@ -579,6 +581,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,
@@ -817,6 +820,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,
@@ -1055,6 +1059,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,
@@ -1293,6 +1298,7 @@ exports[`withEditItems renders 1`] = `
                           "texture": {
                             "fontFace": "Arial",
                             "fontSize": 25,
+                            "fontStyle": "500",
                             "letterSpacing": -0.2,
                             "lineHeight": 32,
                             "maxLines": 1,

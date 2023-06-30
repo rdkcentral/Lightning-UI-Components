@@ -134,6 +134,10 @@ export default {
     textInverseSecondary: ['#181819', 0.7],
     textInverseTertiary: ['#181819', 0.1],
     textInverseDisabled: ['#181819', 0.5],
+    textBrand: ['#93a9fd', 1],
+    textBrandSecondary: ['#93a9fd', 0.7],
+    textBrandTertiary: ['#93a9fd', 0.1],
+    textBrandDisabled: ['#93a9fd', 0.5],
     textPositive: ['#2Ecc71', 1],
     textNegative: ['#e74c3c', 1],
     textInfo: ['#93a9fd', 1],
@@ -208,7 +212,7 @@ export default {
     gutterY: { xs: 20, sm: 40, md: 60, lg: 80, xl: 100 },
     focusScale: 1.2
   },
-  radius: { none: 0, xs: 0, sm: 0, md: 0, lg: 0, xl: 0 },
+  radius: { none: 0, xs: 2, sm: 4, md: 8, lg: 16, xl: 24 },
   spacer: { xxs: 2, xs: 4, sm: 8, md: 10, lg: 20, xl: 30, xxl: 40, xxxl: 50 },
   stroke: { sm: 2, md: 4, lg: 6, xl: 8 },
   typography: {
@@ -216,7 +220,7 @@ export default {
       fontFamily: 'Arial',
       fontSize: 75,
       lineHeight: 85,
-      fontWeight: 500,
+      fontStyle: '500',
       verticalAlign: 'middle',
       textBaseline: 'bottom'
     },
@@ -224,14 +228,14 @@ export default {
       fontFamily: 'Arial',
       fontSize: 50,
       lineHeight: 60,
-      fontWeight: 500,
+      fontStyle: '500',
       verticalAlign: 'middle',
       textBaseline: 'bottom'
     },
     headline1: {
       fontFamily: 'Arial',
       fontSize: 35,
-      fontWeight: 500,
+      fontStyle: '500',
       lineHeight: 48,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -239,7 +243,7 @@ export default {
     headline2: {
       fontFamily: 'Arial',
       fontSize: 30,
-      fontWeight: 500,
+      fontStyle: '500',
       lineHeight: 40,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -247,7 +251,7 @@ export default {
     headline3: {
       fontFamily: 'Arial',
       fontSize: 25,
-      fontWeight: 500,
+      fontStyle: '500',
       lineHeight: 36,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -255,7 +259,7 @@ export default {
     body1: {
       fontFamily: 'Arial',
       fontSize: 25,
-      fontWeight: 300,
+      fontStyle: '300',
       lineHeight: 40,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -263,7 +267,7 @@ export default {
     body2: {
       fontFamily: 'Arial',
       fontSize: 22,
-      fontWeight: 300,
+      fontStyle: '300',
       lineHeight: 32,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -271,7 +275,7 @@ export default {
     body3: {
       fontFamily: 'Arial',
       fontSize: 20,
-      fontWeight: 300,
+      fontStyle: '300',
       lineHeight: 32,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -279,7 +283,7 @@ export default {
     button1: {
       fontFamily: 'Arial',
       fontSize: 25,
-      fontWeight: 500,
+      fontStyle: '500',
       letterSpacing: -0.2,
       lineHeight: 32,
       verticalAlign: 'middle',
@@ -288,7 +292,7 @@ export default {
     button2: {
       fontFamily: 'Arial',
       fontSize: 20,
-      fontWeight: 500,
+      fontStyle: '500',
       lineHeight: 32,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -296,7 +300,7 @@ export default {
     callout1: {
       fontFamily: 'Arial',
       fontSize: 20,
-      fontWeight: 500,
+      fontStyle: '500',
       letterSpacing: 1,
       lineHeight: 32,
       verticalAlign: 'middle',
@@ -305,7 +309,7 @@ export default {
     caption1: {
       fontFamily: 'Arial',
       fontSize: 15,
-      fontWeight: 500,
+      fontStyle: '500',
       lineHeight: 24,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
