@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import type Row from '../Row';
-import type { NavigationManagerStyles } from '../NavigationManager/NavigationManager';
+import type { NavigationManagerStyle } from '../NavigationManager/NavigationManager';
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
@@ -28,7 +28,7 @@ import type { TextBoxStyle } from '../TextBox';
  * We are not re-mapping properties and defining a `RowStyle` in `Row` since `Row` inherits all of `NavigationManager` style props.
  * Hence `TitleRowStyle` uses `NavigationManagerStyle` rather than the previous `RowStyle`
  */
-export type TitleRowStyle = NavigationManagerStyles & {
+export type TitleRowStyle = NavigationManagerStyle & {
   w: number;
   titleMarginLeft: number;
   titleTextStyle: TextBoxStyle;
