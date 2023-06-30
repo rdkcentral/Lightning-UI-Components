@@ -24,9 +24,11 @@ import Surface, { SurfaceStyle } from '../Surface';
 export type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
   animationExit: Record<string, unknown>;
-  paddingX: number | string;
-  paddingY: number | string;
-  paddingYProgress: number | string;
+  metadataLocation: 'standard' | 'inset';
+  paddingX: number;
+  paddingY: number;
+  paddingYProgress: number;
+  paddingYBetweenContent: number;
   radius: lng.Tools.CornerRadius | string;
 };
 

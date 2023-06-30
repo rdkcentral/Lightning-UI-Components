@@ -502,6 +502,17 @@ export default class Tile extends Surface {
     };
   }
 
+  _getMetadataLocation() {
+    return this.style.metadataLocation ?? this._metadataLocation;
+  }
+
+  _setMetadataLocation(newMetadataLocation) {
+    if (newMetadataLocation) {
+      this.style.metadataLocation = newMetadataLocation;
+    }
+    return newMetadataLocation;
+  }
+
   _updateMetadata() {
     if (!this._hasMetadata || (this._isCircleLayout && this._isInsetMetadata)) {
       return;
