@@ -22,8 +22,6 @@ import CardTitle, { CardTitleStyle } from './CardTitle';
 
 export type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
-  iconHeight: number;
-  iconWidth: number;
   subtitleTextStyle: TextBoxStyle;
 };
 export default class CardRadio extends CardTitle {

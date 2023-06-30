@@ -44,7 +44,7 @@ export default class CardRadio extends CardTitle {
       Subtitle: {
         type: TextBox,
         signals: {
-          textBoxChanged: '_update'
+          textBoxChanged: 'queueRequestUpdate'
         }
       }
     };
@@ -71,17 +71,12 @@ export default class CardRadio extends CardTitle {
   }
 
   _updateRadio() {
-    const { iconWidth, iconHeight } = this.style;
     const radioPatch = {
       ...this.radio,
       mode: this.mode,
-      w: iconWidth,
-      h: iconHeight,
-      x: this.w - iconWidth - this.style.paddingHorizontal,
-      y:
-        (this._Title.style.textStyle.lineHeight - iconHeight) / 2 +
-        this.style.paddingVertical +
-        this.style.paddingVertical / 4
+      mountX: 1,
+      x: this.w - this.style.paddingHorizontal,
+      y: this.style.paddingVertical
     };
 
     if (!this._Radio) {

@@ -24,8 +24,6 @@ export const base = theme => ({
     wordWrap: true,
     maxLines: 8
   },
-  iconWidth: theme.spacer.xxl,
-  iconHeight: theme.spacer.xxl,
   h: theme.spacer.xxxl * 15,
   subtitleTextStyle: {
     ...theme.typography.body3,
