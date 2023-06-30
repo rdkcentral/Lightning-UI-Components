@@ -26,6 +26,13 @@ import logger from '../globals/context/logger';
  */
 
 /**
+ * Copyright (c) 2009-2012 Jeremy Ashkenas, DocumentCloud
+ * Licensed under the MIT License
+ * Copyright (c) 2012-2018 The Debounce Contributors. See CONTRIBUTORS
+ * Licensed under the MIT License
+ */
+
+/**
  * Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
  * N milliseconds. If `immediate` is passed, trigger the function on the
