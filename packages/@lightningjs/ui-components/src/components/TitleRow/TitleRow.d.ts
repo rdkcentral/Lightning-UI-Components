@@ -18,11 +18,17 @@
 
 import lng from '@lightningjs/core';
 import type Row from '../Row';
-import type { RowStyle } from '../Row';
+import type { NavigationManagerStyle } from '../NavigationManager/NavigationManager';
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
-export type TitleRowStyle = RowStyle & {
+// Why does `TitleRow` extend `Row` but use style props from `NavigationManager`?
+/**
+ * `Row` style props are the same as `NavigationManager` style props.
+ * We are not re-mapping properties and defining a `RowStyle` in `Row` since `Row` inherits all of `NavigationManager` style props.
+ * Hence `TitleRowStyle` uses `NavigationManagerStyle` rather than the previous `RowStyle`
+ */
+export type TitleRowStyle = NavigationManagerStyle & {
   w: number;
   titleMarginLeft: number;
   titleTextStyle: TextBoxStyle;

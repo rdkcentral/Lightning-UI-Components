@@ -17,30 +17,59 @@
  */
 
 import NavigationManager from '../NavigationManager';
-import type { StylePartial } from '../../types/lui';
 
-type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
+declare namespace Row {
+  export interface TemplateSpec extends NavigationManager.TemplateSpec {
+    /**
+     * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+     */
+    lazyScroll?: boolean;
 
-export type RowStyle = {
-  itemSpacing: number;
-  scrollIndex: number;
-  alwaysScroll: boolean;
-  neverScroll: boolean;
-  itemTransition: TransitionObject;
-};
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place before this index)
+     */
+    startLazyScrollIndex?: number;
 
-export default class Row extends NavigationManager {
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place after this index)
+     */
+    stopLazyScrollIndex?: number;
+  }
+}
+
+declare class Row<
+  TemplateSpec extends Row.TemplateSpec = Row.TemplateSpec
+> extends NavigationManager<TemplateSpec> {
+  // Properties
+  /**
+   * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+   */
   lazyScroll?: boolean;
-  itemPosX?: number;
-  itemPosY?: number;
-  startLazyScrollIndex?: number;
-  stopLazyScrollIndex?: number;
-  get style(): RowStyle;
-  set style(v: StylePartial<RowStyle>);
 
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place before this index)
+   */
+  startLazyScrollIndex?: number;
+
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place after this index)
+   */
+  stopLazyScrollIndex?: number;
+
+  // Methods
+  /**
+   * A callback that can be overridden to do something with the items that are currently on screen.
+   * This will be called on every new render.
+   */
   onScreenEffect(): void;
 }
+
+export default Row;
