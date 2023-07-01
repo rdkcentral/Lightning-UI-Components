@@ -19,10 +19,9 @@
 import lng from '@lightningjs/core';
 import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
-import type TransitionSettings from '@lightningjs/core/dist/src/animation/TransitionSettings.d.mts';
 
 export type SurfaceStyle = {
-  animation: TransitionSettings;
+  animation: lng.types.TransitionSettings;
   backgroundColor: Color;
   radius: lng.Tools.CornerRadius;
   scale: number;

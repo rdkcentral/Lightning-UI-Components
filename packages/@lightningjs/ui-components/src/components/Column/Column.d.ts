@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import NavigationManager from '../NavigationManager';
 
 declare namespace Column {
-  // errored until NavigationManager TS updates are merged
   export interface TemplateSpec extends NavigationManager.TemplateSpec {
     /**
      * When navigation between multiple Columns,
@@ -48,16 +47,12 @@ declare class Column<
    */
   checkSkipPlinko(prev: lng.Component, next: lng.Component): lng.Component;
 
-  // TODO: flag for discussion
-  // in the docs, there is a parameter for this function but in Column.js the function has no params
   /**
    * A callback that can be overridden to do something with the items that are currently on screen.
    * This will be called on every new render.
    */
   onScreenEffect(): void;
 
-  // TODO: flag for conversation/discussion
-  // should we include these methods?
   /**
    * Removes the passed in item from the items array and updates the selectedIndex, if necessary
    * @param item component to be removed
