@@ -111,7 +111,17 @@ export default class ListItem extends Button {
   }
 
   _updateTruncation() {
-    super._updateTruncation();
+    if (this._Title) {
+      this._Title.patch({
+        style: {
+          textStyle: {
+            ...this.style.titleTextStyle,
+            wordWrap: this.fixed,
+            wordWrapWidth: this.fixed ? this._fixedWordWrapWidth : 0
+          }
+        }
+      });
+    }
     if (this._Description) {
       this._Description.patch({
         style: {
