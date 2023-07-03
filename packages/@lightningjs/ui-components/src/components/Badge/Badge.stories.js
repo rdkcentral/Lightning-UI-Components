@@ -18,17 +18,11 @@
 
 import lng from '@lightningjs/core';
 import Badge from '.';
-import mdx from './Badge.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 
 export default {
-  title: 'Metadata/Badge',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Metadata/Badge'
 };
 
 export const Text = args =>

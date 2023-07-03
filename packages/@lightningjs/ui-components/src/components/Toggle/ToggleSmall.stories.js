@@ -19,21 +19,10 @@
 import lng from '@lightningjs/core';
 
 import { ToggleSmall as ToggleSmallComponent } from '.';
-import mdx from './Toggle.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[8]}/ToggleSmall`,
-=======
-  title: 'Utilities/ToggleSmall',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/ToggleSmall'
 };
 
 export const ToggleSmall = () =>

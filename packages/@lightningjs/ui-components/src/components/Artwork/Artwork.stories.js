@@ -18,15 +18,9 @@
 
 import lng from '@lightningjs/core';
 import { default as ArtworkComponent } from '.';
-import mdx from './Artwork.mdx';
 
 export default {
-  title: 'Foundations/Artwork',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Foundations/Artwork'
 };
 
 export const Artwork = () =>

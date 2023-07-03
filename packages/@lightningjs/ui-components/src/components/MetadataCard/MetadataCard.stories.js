@@ -22,15 +22,9 @@ import circle from '../../assets/images/circle.svg';
 import utils from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataCardComponent } from '.';
-import mdx from './MetadataCard.mdx';
 
 export default {
-  title: 'Metadata/MetadataCard',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Metadata/MetadataCard'
 };
 
 export const MetadataCard = () =>

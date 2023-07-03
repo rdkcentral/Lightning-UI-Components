@@ -17,9 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { Button, TextBox, Row } from '../../components';
-import mdx from './withEditItems.mdx';
 import { default as withEditItemsMixin } from '.';
 import { CATEGORIES } from '../../docs/constants';
 /**
@@ -33,9 +31,6 @@ export default {
   title: 'Utilities/withEditItems',
 >>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };

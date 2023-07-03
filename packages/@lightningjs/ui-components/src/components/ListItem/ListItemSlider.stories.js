@@ -18,17 +18,11 @@
 
 import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
-import mdx from './ListItemSlider.mdx';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
 
 export default {
-  title: 'Controls/ListItemSlider',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Controls/ListItemSlider'
 };
 
 export const ListItemSlider = () =>

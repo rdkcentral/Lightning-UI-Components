@@ -18,19 +18,13 @@
 
 import lng from '@lightningjs/core';
 import { ControlSmall as ControlSmallComponent } from '.';
-import mdx from './Control.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Controls/ControlSmall',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Controls/ControlSmall'
 };
 
 export const ControlSmall = () =>

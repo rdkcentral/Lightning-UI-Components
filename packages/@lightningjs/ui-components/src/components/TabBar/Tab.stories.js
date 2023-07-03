@@ -20,20 +20,9 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import lngIcon from '../../assets/images/ic_lightning_white_32.png';
 import { default as TabComponent } from './Tab';
-import mdx from './Tab.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[8]}/Tab`,
-=======
-  title: 'Layout/Tab',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Layout/Tab'
 };
 
 export const Tab = () =>

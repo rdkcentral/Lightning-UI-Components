@@ -19,17 +19,11 @@
 import lng from '@lightningjs/core';
 import ProviderComponent from '.';
 import { default as Icon } from '../Icon';
-import mdx from './Provider.mdx';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 
 export default {
-  title: 'Utilities/Provider',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/Provider'
 };
 
 const sharedArgs = {

@@ -19,22 +19,11 @@
 import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
-import mdx from './Slider.mdx';
 import Slider from '.';
-import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[8]}/Slider`,
-=======
-  title: 'Utilities/Slider',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/Slider'
 };
 
 export const Basic = () => {

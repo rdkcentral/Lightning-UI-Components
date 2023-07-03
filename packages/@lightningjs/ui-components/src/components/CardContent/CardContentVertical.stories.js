@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
-import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import CardContentVerticalComponent from './CardContentVertical';
@@ -27,12 +26,7 @@ import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
 
 export default {
-  title: 'Tiles & Cards/CardContentVertical',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Tiles & Cards/CardContentVertical'
 };
 
 export const CardContentVertical = args =>

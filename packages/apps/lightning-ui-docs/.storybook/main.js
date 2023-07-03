@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 const config = {
   addons: [
     '@storybook/addon-docs',
@@ -26,7 +25,9 @@ const config = {
     '@storybook/addon-mdx-gfm'
   ],
   stories: [
+    '../src/*.mdx',
     '../src/*.stories.@(js|jsx|ts|tsx)',
+    '../../../@lightningjs/ui-components/src/**/.mdx',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',

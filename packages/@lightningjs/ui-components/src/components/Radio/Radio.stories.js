@@ -18,16 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as RadioComponent } from '.';
-import mdx from './Radio.mdx';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/Radio',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/Radio'
 };
 
 export const Radio = () =>

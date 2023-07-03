@@ -17,22 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './withThemeStyles.mdx';
 import withThemeStylesMixin from './index.js';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[4]}/withThemeStyles`,
-=======
-  title: 'Utilities/withThemeStyles',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withThemeStyles'
 };
 
 export const withThemeStyles = () => {

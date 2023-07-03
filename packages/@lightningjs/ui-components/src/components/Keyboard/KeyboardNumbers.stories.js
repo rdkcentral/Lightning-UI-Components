@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './Keyboard.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
@@ -25,12 +24,7 @@ import { default as KeyboardNumbersComponent } from './KeyboardNumbers';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Keyboard/KeyboardNumbers',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Keyboard/KeyboardNumbers'
 };
 
 export const KeyboardNumbers = () =>

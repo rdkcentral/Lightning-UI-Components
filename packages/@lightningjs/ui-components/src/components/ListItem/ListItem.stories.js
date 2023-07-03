@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import ListItemComponent from './ListItem';
-import mdx from './ListItem.mdx';
 import { createModeControl } from '../../docs/utils';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { default as Checkbox } from '../Checkbox';
@@ -26,12 +25,7 @@ import { default as Radio } from '../Radio';
 import { default as Toggle } from '../Toggle';
 
 export default {
-  title: 'Controls/ListItem',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Controls/ListItem'
 };
 
 export const ListItem = () =>

@@ -16,8 +16,7 @@
   SPDX-License-Identifier: Apache-2.0
 -->
 
-
-import { Meta, Description } from '@storybook/addon-docs';
+import { Meta, Description } from '@storybook/blocks';
 
 <Meta title="Docs / Theming / Component Config" />
 
@@ -30,10 +29,13 @@ The `componentConfig` object can take in key value pairs of component names to n
 The `style` object can be used to override the predetermined style properties of the given component type.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    style: { radius: 20 }
+    style: {
+      radius: 20;
+    }
   }
 }
 ```
@@ -43,6 +45,7 @@ componentConfig: {
 For a deeper dive on `tones`, see ["Tones"](../?path=/docs/docs-theming-tones--page).
 
 The `tone` property expects a string which will determine the default color palette to apply to a component. Unless you have created a custom tone, this string should match one of the following:
+
 - neutral (meant for use on dark backgrounds)
 - inverse (meant for use on light backgrounds)
 - brand (meant to call branded focus to an element)
@@ -50,10 +53,11 @@ The `tone` property expects a string which will determine the default color pale
 When specified, these strings will override the default tone used by the component in our library to quickly change the appearance of the component.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    tone: 'brand'
+    tone: 'brand';
   }
 }
 ```
@@ -72,10 +76,11 @@ The `mode` property expects a string which will determine the default interactio
 - pressed (can change the style when a Button is clicked down versus hovered on)
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    mode: 'disabled'
+    mode: 'disabled';
   }
 }
 ```
@@ -85,6 +90,7 @@ componentConfig: {
 The `styleConfig` object contains overrides for a component's `tone` and `mode` styles that will be applied when a component is switched into those tone or mode states.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
