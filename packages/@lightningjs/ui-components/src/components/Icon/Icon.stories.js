@@ -19,14 +19,10 @@
 import lng from '@lightningjs/core';
 import Icon from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
-import mdx from './Icon.mdx';
 
 export default {
   title: 'Foundations/Icon',
   parameters: {
-    docs: {
-      page: mdx
-    },
     argActions: {
       w: (w, component) => {
         component.tag('Icon').w = w;

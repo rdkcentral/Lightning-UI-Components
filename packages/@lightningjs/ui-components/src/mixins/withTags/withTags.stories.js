@@ -17,21 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './withTags.mdx';
 import withTagsMixin from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[4]}/withTags`,
-=======
-  title: 'Utilities/withTags',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withTags'
 };
 
 export const withTags = () =>

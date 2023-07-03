@@ -19,17 +19,11 @@
 import lng from '@lightningjs/core';
 import { default as KeyComponent } from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
-import mdx from './Key.mdx';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Keyboard/Key',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Keyboard/Key'
 };
 
 export const Basic = () =>

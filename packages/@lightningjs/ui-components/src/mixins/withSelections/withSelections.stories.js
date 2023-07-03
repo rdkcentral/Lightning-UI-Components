@@ -19,20 +19,9 @@
 import lng from '@lightningjs/core';
 import { Button, Row } from '../../components';
 import withSelectionsMixin from '.';
-import mdx from './withSelections.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[4]}/withSelections`,
-=======
-  title: 'Utilities/withSelections',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withSelections'
 };
 
 export const withSelections = () => {

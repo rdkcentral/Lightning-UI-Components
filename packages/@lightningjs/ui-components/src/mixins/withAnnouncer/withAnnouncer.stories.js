@@ -19,21 +19,10 @@
 import lng from '@lightningjs/core';
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row, Button } from '../../components';
-import { mdx } from './withAnnouncer.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-<<<<<<< HEAD
-  title: `${CATEGORIES[4]}/withAnnouncer`,
-=======
   title: 'Accessibility/withAnnouncer',
->>>>>>> f169f6a0 (feature(Storybook): changes tile to use string)
-  component: withAnnouncer,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  component: withAnnouncer
 };
 
 const rows = [

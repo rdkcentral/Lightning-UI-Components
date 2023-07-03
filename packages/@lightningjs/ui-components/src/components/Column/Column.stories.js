@@ -23,15 +23,11 @@ import Row from '../Row';
 import Tile from '../Tile';
 import Button from '../Button';
 import { default as ColumnComponent } from '.';
-import mdx from './Column.mdx';
 import { SignalButton } from '../../docs/story-components';
 
 export default {
   title: 'Navigation/Column',
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };

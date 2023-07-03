@@ -18,15 +18,11 @@
 
 import lng from '@lightningjs/core';
 import { default as ProgressBarComponent } from '.';
-import mdx from './ProgressBar.mdx';
 
 export default {
   title: 'Utilities/ProgressBar',
   parameters: {
     tag: 'ProgressBar',
-    docs: {
-      page: mdx
-    },
     actions: {
       handles: ['mouseover', 'click .btn']
     }

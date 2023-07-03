@@ -18,15 +18,9 @@
 
 import lng from '@lightningjs/core';
 import { default as GradientComponent } from '.';
-import mdx from './Gradient.mdx';
 
 export default {
-  title: 'Foundations/Gradient',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Foundations/Gradient'
 };
 
 export const Gradient = () =>

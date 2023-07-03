@@ -17,17 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { default as LabelComponent } from '.';
-import mdx from './Label.mdx';
 
 export default {
-  title: 'Metadata/Label',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Metadata/Label'
 };
 
 export const Label = () =>

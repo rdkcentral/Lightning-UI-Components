@@ -19,17 +19,11 @@
 import lng from '@lightningjs/core';
 import { default as CardSectionComponent } from './CardSection.js';
 import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.png';
-import mdx from './CardSection.mdx';
 import { createModeControl } from '../../docs/utils';
 
 export default {
   title: 'Tiles & Cards/CardSection',
-  tag: 'Card',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  tag: 'Card'
 };
 
 export const CardSection = () =>
