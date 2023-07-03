@@ -20,17 +20,11 @@ import lng from '@lightningjs/core';
 
 import MarqueeComponent from '.';
 import InlineContent from '../InlineContent';
-import mdx from './Marquee.mdx';
 import { context } from '../../globals';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Text/Marquee',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Text/Marquee'
 };
 
 export const Marquee = args =>

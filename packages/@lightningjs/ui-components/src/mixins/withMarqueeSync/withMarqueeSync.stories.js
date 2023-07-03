@@ -18,17 +18,11 @@
 
 import withMarqueeSync from './withMarqueeSync';
 import Base from '../../components/Base';
-import mdx from './withMarqueeSync.mdx';
 import TextBox from '../../components/TextBox';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Utilities/withMarqueeSync',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withMarqueeSync'
 };
 
 export const Basic = () => {

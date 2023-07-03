@@ -18,17 +18,11 @@
 
 import lng from '@lightningjs/core';
 import FocusManager from '.';
-import mdx from './FocusManager.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {
-  title: 'Navigation/FocusManager',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Navigation/FocusManager'
 };
 
 export const ColumnWithRows = () =>

@@ -18,16 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as ArtworkComponent } from '.';
-import mdx from './Artwork.mdx';
-import { CATEGORIES } from '../../docs/constants';
+//import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Foundations/Artwork',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Foundations/Artwork'
 };
 
 export const Artwork = () =>

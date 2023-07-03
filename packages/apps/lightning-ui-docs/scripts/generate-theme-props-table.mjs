@@ -30,7 +30,7 @@ const { radius, typography, color } = base;
 
 const folderPath = 'scripts/themePropertyTables';
 
-createDocumentation(); //This call starts the scripts to create the documentation
+//createDocumentation(); //This call starts the scripts to create the documentation
 /**
  * Creates documentation for the color, typography, and radius that our components (both elements and patterns) use.
  * hypothetically if you replace the parameters with other values like (stroke, 'tmp?themePropertyTables/strokeTable.md, stroke) you would get all the stroke values and which components are using what stroke value.

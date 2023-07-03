@@ -16,7 +16,7 @@
   SPDX-License-Identifier: Apache-2.0
 -->
 
-import { Meta, Description } from '@storybook/addon-docs';
+import { Meta, Description } from '@storybook/blocks';
 import radiusTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/radius.md';
 import colorTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/color.md';
 import typographyTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/typography.md';
@@ -52,10 +52,7 @@ export default {
   font: [
     {
       family: 'MyCustomFont',
-      src: [
-        'https://myfontwebsite.com/myfont.woff2',
-        './fonts/myfont.woff2',
-      ]
+      src: ['https://myfontwebsite.com/myfont.woff2', './fonts/myfont.woff2']
     }
   ]
 };
@@ -84,10 +81,9 @@ Theme colors are set up using semantically-named tokens, which are then used wit
 These tokens are set up to take an array of two values: the first is the six character hex code for the color; the second is the alpha value, ranging from 0 to 100. For example:
 
 ```js
-
 fillNeutral = ['#ffffff', 95];
 ```
+
 <Description>{colorTable}</Description>
 
 <br />
-

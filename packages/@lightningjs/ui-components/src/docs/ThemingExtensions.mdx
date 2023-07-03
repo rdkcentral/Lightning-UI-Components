@@ -16,7 +16,7 @@
   SPDX-License-Identifier: Apache-2.0
 -->
 
-import { Meta, Description } from '@storybook/addon-docs';
+import { Meta, Description } from '@storybook/blocks';
 
 import ExtensionProgressBar from '../assets/images/ExtensionProgressBar.png';
 
@@ -47,7 +47,7 @@ The `withExtensions` mixin, specifically, contains functions that allow for the 
 The example below shows how the `withExtensions` mixin is used on the `ProgressBar` component.
 
 ```js
-export default withExtensions(ProgressBar)
+export default withExtensions(ProgressBar);
 ```
 
 > To reiterate, extensions are a way to modify any component at runtime using ES6 class inheritance patterns and apply that change easily across your entire application.
@@ -86,6 +86,7 @@ Now that we have the extension defined, we can apply the extension to components
 Let's say we have a theme called 'customTheme' and we want to apply our newly created extension, `textAdditionExtension`, to the `ProgressBar` component. Our theme file where we define all our theme properties might look something like:
 
 ##### ./customTheme/index.js
+
 ```js
 import textAdditionExtension from '../../extensions/textAddition.extension';
 
@@ -122,7 +123,11 @@ context.updateTheme({ extensions: textAdditionExtension });
 
 After doing all three steps, for our example, we should see a `ProgressBar` with text below it saying 'Extension Applied!' as displayed below:
 
-<img src={ExtensionProgressBar} alt="Progress Bar with 'Extension Applied!' text below" width="600" />
+<img
+  src={ExtensionProgressBar}
+  alt="Progress Bar with 'Extension Applied!' text below"
+  width="600"
+/>
 
 ## Use Cases Outside of UI Enhancements
 
@@ -172,7 +177,7 @@ _extensionCleanup() {
 Extensions are applied top to bottom. That is, the first extension in the extensions array will be added first, then the second one, and so on.
 
 ```js
-import { focusRingExtension }  from '../../extensions/FocusRing.extension';
+import { focusRingExtension } from '../../extensions/FocusRing.extension';
 import textAdditionExtension from '../../extensions/textAddition.extension';
 
 export default [

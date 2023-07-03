@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './Tile.mdx';
 import { default as TileComponent } from '.';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
@@ -30,12 +29,7 @@ import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stor
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 
 export default {
-  title: 'Tiles & Cards/Tile',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Tiles & Cards/Tile'
 };
 
 export const Tile = () =>

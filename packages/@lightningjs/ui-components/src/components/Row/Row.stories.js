@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { getWidthByUpCount } from '../../utils';
 import { default as RowComponent } from '.';
 import Column from '../Column';
-import mdx from './Row.mdx';
 import { context } from '../../globals';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
@@ -30,9 +29,6 @@ import Button from '../Button';
 export default {
   title: 'Navigation/Row',
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };

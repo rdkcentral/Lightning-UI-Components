@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import { Tile, Row } from '../../components';
 import { context } from '../../globals';
-import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';
 import { CATEGORIES } from '../../docs/constants';
 
@@ -32,12 +31,7 @@ context.config({
 });
 
 export default {
-  title: 'Utilities/withHandleKey',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withHandleKey'
 };
 
 export const withHandleKey = args => {

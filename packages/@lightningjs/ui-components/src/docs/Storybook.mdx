@@ -1,9 +1,9 @@
-import { Meta, Description } from '@storybook/addon-docs';
-import StorybookStructure from '../../../../../STORYBOOK.md';
+import { Meta, Markdown, Description } from '@storybook/blocks';
+import StorybookStructure from '../../../../../STORYBOOK.md?raw';
 
 <Meta title="Docs / Storybook" />
 
-<Description>{StorybookStructure}</Description>
+<Markdown>{StorybookStructure}</Markdown>
 
 ### useArgs
 
@@ -57,4 +57,3 @@ onChange(value) {
 ```
 
 This `updateArgs` method is what then updates the value control in Storybook to match the value of the component (the one set by the user when hitting left and right).
-

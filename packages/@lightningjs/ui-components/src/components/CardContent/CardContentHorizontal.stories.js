@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
-import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { default as CardContentHorizontalComponent } from './CardContentHorizontal';
@@ -29,12 +28,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Tiles & Cards/CardContentHorizontal',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Tiles & Cards/CardContentHorizontal'
 };
 
 export const CardContentHorizontal = () =>

@@ -18,17 +18,11 @@
 
 import lng from '@lightningjs/core';
 import { default as CheckboxComponent } from '.';
-import mdx from './Checkbox.mdx';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Utilities/Checkbox',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/Checkbox'
 };
 
 export const Checkbox = () =>

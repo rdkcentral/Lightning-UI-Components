@@ -18,17 +18,12 @@
 
 import lng from '@lightningjs/core';
 import { default as ShadowComponent } from '.';
-import mdx from './Shadow.mdx';
+
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Foundations/Shadow',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Foundations/Shadow'
 };
 
 export const Shadow = () =>

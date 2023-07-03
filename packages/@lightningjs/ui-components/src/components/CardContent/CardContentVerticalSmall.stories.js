@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import tileImage from '../../assets/images/tile-image.png';
-import mdx from './CardContent.mdx';
 import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/MetadataCardContent.stories';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
@@ -26,12 +25,7 @@ import { CardContent } from './CardContent.stories';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Tiles & Cards/CardContentVerticalSmall',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Tiles & Cards/CardContentVerticalSmall'
 };
 
 export const CardContentVerticalSmall = args =>

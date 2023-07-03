@@ -20,17 +20,10 @@ import lng from '@lightningjs/core';
 import { CATEGORIES } from '../../docs/constants';
 import { createModeControl } from '../../docs/utils';
 import { default as CardComponent } from './Card.js';
-import mdx from './Card.mdx';
 
 export default {
   title: 'Tiles & Cards/Card',
-  tag: 'Card',
-
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  tag: 'Card'
 };
 export const Card = args =>
   class Card extends lng.Component {

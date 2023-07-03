@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './Keyboard.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
@@ -25,12 +24,7 @@ import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Keyboard/KeyboardFullscreen',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Keyboard/KeyboardFullscreen'
 };
 
 export const KeyboardFullscreen = () =>

@@ -22,16 +22,10 @@ import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataTileComponent } from '.';
-import mdx from './MetadataTile.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Metadata/MetadataTile',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Metadata/MetadataTile'
 };
 
 export const MetadataTile = args =>

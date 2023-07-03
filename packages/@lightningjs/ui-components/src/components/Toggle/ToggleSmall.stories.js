@@ -19,17 +19,11 @@
 import lng from '@lightningjs/core';
 
 import { ToggleSmall as ToggleSmallComponent } from '.';
-import mdx from './Toggle.mdx';
 import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: 'Utilities/ToggleSmall',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/ToggleSmall'
 };
 
 export const ToggleSmall = () =>

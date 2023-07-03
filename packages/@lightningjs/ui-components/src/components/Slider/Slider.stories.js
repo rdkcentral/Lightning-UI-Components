@@ -19,18 +19,12 @@
 import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
-import mdx from './Slider.mdx';
 import Slider from '.';
 import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: 'Utilities/Slider',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/Slider'
 };
 
 export const Basic = () => {
