@@ -222,7 +222,7 @@ export default class Tile extends Surface {
       ...this.badge,
       x: this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1
+      alpha: this.persistentMetadata ? 1 : 0.001
     };
 
     if (!this._Badge) {
@@ -259,7 +259,7 @@ export default class Tile extends Surface {
       ...this.label,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha: !this._persistentMetadata ? 0.001 : 1
+      alpha: this.persistentMetadata ? 1 : 0.001
     };
 
     if (!this._Label) {
@@ -293,14 +293,15 @@ export default class Tile extends Surface {
   // Badge and Label should animate in with the same values
   get _shouldShowBadgeLabel() {
     return (
-      this._persistentMetadata || (this._isFocusedMode && !this._isCircleLayout)
+      this.persistentMetadata || (this._isFocusedMode && !this._isCircleLayout)
     );
   }
+
   get _badgeLabelTransitions() {
     return {
       y: [
         this._shouldShowBadgeLabel ? this.style.paddingY : 0,
-        this.__shouldShowBadgeLabel
+        this._shouldShowBadgeLabel
           ? this.style.animationEntrance
           : this.style.animationExit
       ],
@@ -444,9 +445,12 @@ export default class Tile extends Surface {
   // all the logic on whether the metaData should show
   get _shouldShowMetadata() {
     return (
-      (this._persistentMetadata && !this._isInsetMetadata) ||
-      (this._isFocusedMode && !this._isInsetMetadata) ||
-      (this._isFocusedMode && this._isInsetMetadata && !this._isCircleLayout)
+      this._hasMetadata &&
+      ((this.persistentMetadata && !this._isInsetMetadata) ||
+        (this._isFocusedMode && !this._isInsetMetadata) ||
+        ((this.persistentMetadata || this._isFocusedMode) &&
+          this._isInsetMetadata &&
+          !this._isCircleLayout))
     );
   }
 
@@ -465,7 +469,7 @@ export default class Tile extends Surface {
           : this.style.animationExit
       ],
       alpha: [
-        this._shouldShowMetadata ? 1 : 0.001,
+        this._metadataAlpha,
         this._shouldShowMetadata
           ? this.style.animationEntrance
           : this.style.animationExit
@@ -487,17 +491,23 @@ export default class Tile extends Surface {
       : this._h + this.style.paddingY;
   }
 
+  get _metadataAlpha() {
+    return this._shouldShowMetadata ? 1 : 0.001;
+  }
+
   get _metadataPatch() {
     return {
-      alpha: this._hasMetadata ? 1 : 0.001,
+      alpha: this._metadataAlpha,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
       marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      y: !(this._isInsetMetadata && this._isFocusedMode)
-        ? this._metadataY
-        : this._h + this.style.paddingY,
+      y:
+        this.persistentMetadata ||
+        !(this._isInsetMetadata && this._isFocusedMode)
+          ? this._metadataY
+          : this._h + this.style.paddingY,
       ...(this.metadata || {})
     };
   }
@@ -514,16 +524,12 @@ export default class Tile extends Surface {
   }
 
   _updateMetadata() {
-    if (!this._hasMetadata || (this._isCircleLayout && this._isInsetMetadata)) {
+    if (!this._hasMetadata) {
+      this._Content.patch({ Metadata: undefined });
       return;
     }
 
-    if (!this._persistentMetadata && !this._isFocusedMode) {
-      this._animateMetadata();
-      return;
-    }
-
-    if (!this._Metadata) {
+    if (!this._Metadata && this._hasMetadata) {
       // Patch in Metadata for the first time
       this._Content.patch({
         Metadata: {
@@ -544,7 +550,10 @@ export default class Tile extends Surface {
   }
 
   _animateMetadata() {
-    if (!this._Metadata) return;
+    if (!this._Metadata) {
+      return;
+    }
+
     this.applySmooth(
       this._Metadata,
       this._metadataPatch,
@@ -558,7 +567,10 @@ export default class Tile extends Surface {
 
   _metadataLoaded() {
     this._animateMetadata();
-    if (this.metadataLocation !== 'inset') this.fireAncestors('$itemChanged'); // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
+    // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
+    if (this.metadataLocation !== 'inset') {
+      this.fireAncestors('$itemChanged');
+    }
   }
 
   /* ------------------------------ Marquee  ------------------------------ */

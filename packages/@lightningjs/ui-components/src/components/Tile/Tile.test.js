@@ -433,19 +433,17 @@ describe('Tile', () => {
     expect(tile._ProgressBar).toBeUndefined();
   });
 
-  it('should update metadata and remove if no longer needed if metadataLocation is inset', async () => {
+  it('should update metadata and remove if no longer needed', async () => {
     expect(tile.metadata).toBeUndefined();
+
     tile.metadata = { title: 'test' };
-    tile.metadataLocation = 'inset';
     await tile.__updateMetadataSpyPromise;
     expect(tile.metadata).not.toBeUndefined();
+    expect(tile._Metadata).not.toBeUndefined();
+
     tile.metadata = undefined;
     await tile.__updateMetadataSpyPromise;
     expect(tile._Metadata).toBeUndefined();
-    tile.shouldSmooth = false;
-    tile.metadata = { title: 'test2' };
-    await tile.__updateMetadataSpyPromise;
-    expect(tile.metadata).not.toBeUndefined();
   });
 
   it('should reset the marquee animation when unfocused', async () => {
