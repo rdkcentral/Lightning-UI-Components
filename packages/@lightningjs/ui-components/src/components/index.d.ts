@@ -41,7 +41,7 @@ export {
   CardContentVerticalSmallStyle
 } from './CardContent';
 export { default as Checkbox, CheckboxStyle } from './Checkbox';
-export { default as Column, ColumnStyle } from './Column';
+export { default as Column } from './Column';
 export { default as Control, ControlSmall, ControlStyle } from './Control';
 export { default as ControlRow, ControlRowStyle } from './ControlRow';
 export { default as FocusManager } from './FocusManager';

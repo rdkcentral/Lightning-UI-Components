@@ -63,6 +63,8 @@ declare class Base<
    */
   loaded?: Promise<void>;
 
+  // TODO: flag for discussion
+  // internal stuff can be omitted --> `shouldSmooth` is internal?
   shouldSmooth?: boolean;
 
   /**
@@ -100,6 +102,7 @@ declare class Base<
    */
   isFullyOnScreen(): boolean;
 
+  // TODO: for future reference these accessors should technically be public
   /**
    * check if the component is disabled
    */

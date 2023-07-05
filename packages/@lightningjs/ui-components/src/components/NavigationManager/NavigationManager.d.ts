@@ -20,12 +20,6 @@ import lng from '@lightningjs/core';
 import type { StylePartial } from '../../types/lui';
 import FocusManager from '../FocusManager';
 
-export type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
-
 export type DirectionProps = {
   axis: string;
   crossAxis: string;
@@ -37,7 +31,7 @@ export type DirectionProps = {
 export type NavigationManagerStyle = {
   alwaysScroll: boolean;
   itemSpacing: number;
-  itemTransition: TransitionObject;
+  itemTransition: lng.types.TransitionSettings;
   neverScroll: boolean;
   scrollIndex: number;
 };

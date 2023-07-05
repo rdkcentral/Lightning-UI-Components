@@ -20,14 +20,8 @@ import lng from '@lightningjs/core';
 import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
-
 export type SurfaceStyle = {
-  animation: TransitionObject;
+  animation: lng.types.TransitionSettings;
   backgroundColor: Color;
   radius: lng.Tools.CornerRadius;
   scale: number;

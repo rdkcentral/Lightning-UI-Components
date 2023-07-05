@@ -140,16 +140,9 @@ The `Column` component will utilize the following properties on each individual 
 
 ### Methods
 
-#### onScreenEffect(onScreenItems: lng.Component[]): void
+#### onScreenEffect(): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
-
-##### Arguments
-
-| name     | type   | required | default   | description                               |
-| -------- | ------ | -------- | --------- | ----------------------------------------- |
-| index    | number | true     | undefined | index of the child component to scroll to |
-| duration | number | false    | 40        | timeout value in milliseconds             |
 
 #### appendItems(items: lng.Component[]): void
 

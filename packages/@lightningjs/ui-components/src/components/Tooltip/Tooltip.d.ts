@@ -21,12 +21,6 @@ import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
-type TransitionObject = {
-  delay: number;
-  duration: number;
-  timingFunction: string;
-};
-
 export type TooltipStyle = {
   backgroundColor: Color;
   marginBottom: number;
@@ -36,7 +30,7 @@ export type TooltipStyle = {
   pointerH: number;
   radius: lng.Tools.CornerRadius;
   textStyle: TextBoxStyle;
-  transition: TransitionObject;
+  transition: lng.types.TransitionSettings;
 };
 
 export default class Tooltip extends Base {
