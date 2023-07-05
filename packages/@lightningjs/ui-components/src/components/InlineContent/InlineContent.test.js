@@ -18,7 +18,8 @@
 
 import {
   makeCreateComponent,
-  nextTick
+  nextTick,
+  pathToDataURI
 } from '@lightningjs/ui-components-test-utils';
 import InlineContent from '.';
 import { getHexColor } from '../../utils';
@@ -26,6 +27,9 @@ import { base } from './InlineContent.styles';
 import baseTheme from '@lightningjs/ui-components-theme-base';
 import { context } from '../../globals';
 import { jest } from '@jest/globals';
+const lightningIcon = pathToDataURI(
+  'src/assets/images/ic_lightning_white_32.png'
+);
 
 const testTheme = {
   name: 'Test',
@@ -238,12 +242,12 @@ describe('InlineContent', () => {
   it('should render icons', () => {
     const content = [
       {
-        icon: 'https://i.dlpng.com/static/png/425748_preview.png',
-        title: 'avatar'
+        icon: lightningIcon,
+        title: 'Lightning'
       }
     ];
     [inlineContent, testRenderer] = createInlineContent({ content });
-    expect(inlineContent.childList.getAt(0).src).toBe(content[0].icon);
+    expect(inlineContent.childList.getAt(0).texture.src).toBe(content[0].icon);
   });
 
   it('should not render content that is not a string, icon, or badge', () => {

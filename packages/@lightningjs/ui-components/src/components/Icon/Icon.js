@@ -21,6 +21,7 @@ import Base from '../Base';
 import * as styles from './Icon.styles.js';
 import { context } from '../../globals';
 import { stringifyCompare, getValidColor } from '../../utils';
+import CustomImageTexture from '../../textures/CustomImageTexture';
 
 export default class Icon extends Base {
   static get __componentName() {
@@ -93,34 +94,13 @@ export default class Icon extends Base {
   }
 }
 
-const [isSvgTag, isSvgURI, isBlobURI] = [
-  /^<svg.*<\/svg>$/,
-  /\.svg$/,
-  /^blob:/
-].map(regex => RegExp.prototype.test.bind(regex));
-
 function getIconTemplate(icon, w, h) {
   const template = { w, h };
-  switch (true) {
-    case isSvgTag(icon):
-      template.texture = lng.Tools.getSvgTexture(
-        `data:image/svg+xml,${encodeURIComponent(icon)}`,
-        w,
-        h
-      );
-      break;
-    case isSvgURI(icon):
-      template.texture = lng.Tools.getSvgTexture(icon, w, h);
-      break;
-    case isBlobURI(icon):
-      template.texture = {
-        type: lng.textures.ImageTexture,
-        hasAlpha: true,
-        src: icon
-      };
-      break;
-    default:
-      template.src = icon;
-  }
+  template.texture = {
+    type: CustomImageTexture,
+    w,
+    h,
+    src: icon
+  };
   return template;
 }
