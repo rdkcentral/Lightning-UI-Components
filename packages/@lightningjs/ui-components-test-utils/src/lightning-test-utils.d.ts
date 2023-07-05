@@ -26,11 +26,11 @@ export function nextTick(wait?: number): Promise<void>;
 
 export function fastForward(elements: lng.Element[]): void;
 
-type makeCreateComponentConfig = Record<string, any>;
+type makeCreateComponentConfig = Record<string, unknown>;
 interface makeCreateComponentDefaultOptions {
   applicationW?: number;
   applicationH?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 interface makeCreateComponentOptions extends makeCreateComponentDefaultOptions {
   spyOnMethods?: string[];
@@ -52,10 +52,13 @@ export function completeAnimation(
 
 import { Mock } from 'jest-mock';
 
+// TODO: no TS def for Context available
+type context = Record<string, unknown>;
+
 export function mockContext(
-  context: any, // TODO: no TS def for Context available
-  mockKeyMetricsHandler?: jest.Mock<any>
-): any;
+  context: context,
+  mockKeyMetricsHandler: jest.Mock | ((...args: unknown[]) => unknown)
+): context;
 
 export function resetContext(): void;
 
