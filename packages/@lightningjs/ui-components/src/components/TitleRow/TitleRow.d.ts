@@ -35,11 +35,30 @@ export type TitleRowStyle = NavigationManagerStyle & {
   rowMarginTop: number;
 };
 
-export default class TitleRow extends Row {
+declare namespace TitleRow {
+  export interface TemplateSpec extends Row.TemplateSpec {
+    /**
+     * Title text to be displayed above the `Row` items
+     */
+    title?: string;
+  }
+}
+
+declare class TitleRow<
+  TemplateSpec extends TitleRow.TemplateSpec = TitleRow.TemplateSpec
+> extends Row<TemplateSpec> {
+  // Properties
+  /**
+   * Title text to be displayed above the `Row` items
+   */
   title?: string;
+
+  // Accessors
   get style(): TitleRowStyle;
   set style(v: StylePartial<TitleRowStyle>);
 
-  // tags
+  // Tags
   get _Title(): lng.Component;
 }
+
+export default TitleRow;
