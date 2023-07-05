@@ -193,7 +193,7 @@ export default class Button extends Surface {
 
     // reference transition targets to ensure we aren't checking against intermittent values
     if (this._Content.transition('w').targetValue !== this._contentW) {
-      contentDimensionsPatch.w = this._contentW;
+      this._Content.w = this._contentW;
     }
 
     if (this._Content.y !== y) {
