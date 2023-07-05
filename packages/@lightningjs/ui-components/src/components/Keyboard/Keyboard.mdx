@@ -1,4 +1,4 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 
 # Keyboard
 
@@ -26,10 +26,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="keyboard-keyboard--keyboard" />
-</Canvas>
 
 To create your own formats, you can pass an object of arrays to represent each format.
 The array can be flat or two dimensional. If the keyboard is passed other params like `columnCount` or `rowCount`, both will auto layout the keyboard.
@@ -99,24 +95,24 @@ All of the following examples will yield the same result.
 
 ### Methods
 
-#### getSelectedKey(): { row:number, column:number }
+#### `getSelectedKey(): { row:number, column:number }`
 
 Returns an object containing the currently selected row and column of the currently focused keyboard.
 
-#### selectKeyOn(keyboard, { row:number, column:number })
+#### `selectKeyOn(keyboard, { row:number, column:number })`
 
 Takes in a keyboard format and a specified row and column and changes focus on the keyboard to that key.
 
 ### Events
 
-#### $onSoftKey: { key:string, toggle:boolean }
+#### `$onSoftKey: { key:string, toggle:boolean }`
 
 Fired when a key is Entered
 
-#### $keyboardFocused: bool
+#### `$keyboardFocused: bool`
 
 Fired when keyboard is focused or unfocused. Can be listened to by an input to know if the input should be listening for softkey events
 
-### $toggleKeyboard: { key:string }
+### `$toggleKeyboard: { key:string }`
 
 Fired when defaultFormat is toggled between Dialpad and Dialpad extended
