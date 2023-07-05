@@ -47,7 +47,7 @@ jobs:
       - name: Setup git config
         run: |
           # setup the username and email
-          git config user.name "GitHub Actions Bot"
+          git config user.name "svc-lightning-ui-components"
           git config user.email "<>"
       - name: Save changes
         run: |
