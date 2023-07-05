@@ -79,7 +79,6 @@ export default class CardTitle extends Card {
   }
 
   _updateDescriptionPosition() {
-    console.log('UPDATE', this._Title.h);
     this._Description.x = this.style.paddingHorizontal;
     this._Description.y = this.style.paddingVertical + this._Title.h;
   }
