@@ -61,8 +61,11 @@ export interface JSONTree {
   flexItem: boolean;
   hasFocus?: boolean;
   hasFinalFocus?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
+
+// TODO: no TS def for Context available
+type context = Record<string, unknown>;
 
 export type testRenderer = {
   toJSON: (children?: number) => JSONTree;
@@ -70,7 +73,7 @@ export type testRenderer = {
   forceAllUpdates: () => void;
   focus: () => void;
   unfocus: () => void;
-  getContext: () => any; // TODO: Context does not have a TS def
+  getContext: () => context;
   getInstance: () => lng.Element;
   getFocused: () => lng.Component<
     lng.Component.TemplateSpecLoose,
@@ -86,7 +89,7 @@ export type testRenderer = {
 export type createOptions = {
   applicationW: number;
   applicationH: number;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export declare function create(
