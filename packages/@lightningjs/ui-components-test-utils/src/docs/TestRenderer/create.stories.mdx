@@ -1,0 +1,326 @@
+<!--
+  Copyright 2023 Comcast Cable Communications Management, LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Docs / Unit Testing / Test Renderer / create" />
+
+# create
+
+Generate a `testRenderer` object with built in utilities for unit testing Lightning Components.
+
+`TestRenderer.create` generates a `testRenderer` object. The `testRenderer` includes various functions to assist with unit testing Lightning components. Those functions and their usages are documented below.
+
+Rather than use `TestRenderer.create` directly, it is recommended to instead generate a `createComponent` function using the [makeCreateComponent](/story/unit-testing-test-utils-makecreatecomponent--page) function that is also available from the `@lightning/ui-components-test-utils` package. `makeCreateComponent` allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object, either returned from `TestRenderer.create` or the second element in the array returned by `makeCreateComponent`.
+
+## Arguments
+
+`create(Component, options = {})`
+
+| argument  | type                | default | description                                                                                            |
+| --------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| Component | Lightning.Component | -       | component for which to create a test renderer object for                                               |
+| options   | object              | {}      | configuration object for the Lightning Application created in test renderer, see further details below |
+
+### options
+
+The `options` argument is passed to a Lightning Application in `create` and accepts all Application configuration options (see [Lightning's documentation](https://lightningjs.io/docs/#/lightning-core-reference/RuntimeConfig/index?id=application-configuration-options) for further details). Below are all the properties that `create` has default values for.
+
+| argument     | type                   | default   | description                                                                                 |
+| ------------ | ---------------------- | --------- | ------------------------------------------------------------------------------------------- |
+| focused      | boolean                | true      | determines whether or not the test component is rendered with focus                         |
+| applicationW | number                 | 1920      | width of the Lightning Application that the test component is rendered within               |
+| applicationH | number                 | 1080      | height of the Lightning Application that the test component is rendered within              |
+| stage        | Lightning stage object | see below | stage object passed to the Lightning Application that the test component is rendered within |
+
+**Default `stage` object:**
+
+```js
+const stage = {
+  w: 1280,
+  h: 720,
+  precision: 2 / 3,
+  fontSharp: {
+    precision: 2 / 3,
+    fontSize: 12
+  },
+  useImageWorker: false
+};
+```
+
+##### Example: Creating a testRenderer to test a component
+
+```js
+import lng from '@lightningjs/core';
+import { create } from '@lightningjs/ui-components-test-utils';
+
+it('should render the component with text', () => {
+  const testRenderer = TestRenderer.create({
+    Component: { type: TestComp }
+  });
+  const testCompInstance = testRenderer.getInstance();
+
+  expect(testCompInstance.tag('TextElement').text.text).toBe('foo');
+});
+```
+
+## testRenderer functions
+
+For any examples on this page that do not define a new component, the following simple Lightning Component, and [Jest beforeEach function](https://jestjs.io/docs/api#beforeeachfn-timeout), will be referenced.
+
+```js
+// TestComp.js
+import lng from '@lightningjs/core';
+
+class TestComp extends lng.Component {
+  static _template() {
+    return {
+      TextElement: {
+        text: { text: 'foo' }
+      }
+    };
+  }
+}
+
+// TestComp.test.js
+import TestComp from './TestComp';
+import { TestRenderer } from '@lightningjs/ui-components-test-utils';
+
+let testRenderer, testCompInstance;
+beforeEach(() => {
+  testRenderer = TestRenderer.create({ Component: { type: TestComp } });
+  testCompInstance = testRenderer.getInstance();
+});
+```
+
+Alternatively, `makeCreateComponent` can be used, and is the recommended method:
+
+```js
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+
+const createTestComp = makeCreateComponent(TestComp);
+let testCompInstance, testRenderer;
+beforeEach(() => {
+  [testCompInstance, testRenderer] = createTestComp();
+});
+```
+
+### toJSON
+
+`(children = 1) => toJSON(app.childList.first, { children })`
+
+Invokes the `toJSON` TestRenderer function, defaulting the number of levels deep into the component's to generate JSON for to 1. This is generally used for generating JSON for [snapshot testing with Jest](https://jestjs.io/docs/snapshot-testing).
+
+```js
+it('should match the snapshot for the component', () => {
+  const renderTree = testRenderer.toJSON();
+  expect(renderTree).toMatchSnapshot();
+});
+```
+
+### update
+
+Invokes the `stage.drawFrame()` on the Lightning Application the test component is rendered in. This can be useful in cases where a value is transitioning and the render tree needs to be updated with a newer value.
+See the documentation for the [fastForward](/story/unit-testing-test-utils-fastforward--page) test util for an example utilizing this.
+
+### forceAllUpdates
+
+Forces all debounced updates to run immediately. All components from the `@lightningjs-ui-components` package (and any subclasses of them) debounce calls to `_update`. While this improves performance by reducing updates to the components, it can pose timing challenges in unit tests when writing assertions after all expected updates have completed. `forceAllUpdates` will force any queued updates to run immediately.
+
+```js
+import { Card } from '@lightningjs/ui-components';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+
+const createCardComponent = makeCreateComponent(Card);
+
+it('sets the announce string to the card title', () => {
+  [card, testRenderer] = createCardComponent();
+
+  const title = 'Title';
+  card.title = title;
+  testRenderer.forceAllUpdates();
+
+  expect(card.announce).toBe(title);
+});
+```
+
+### focus
+
+Invokes the `_focus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
+
+### unfocus
+
+Invokes the `_unfocus` method on the component being tested. [See Lightning's documentation for more details on the `_focus` and `_unfocus` methods](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=using-the-focus-and-unfocus-methods).
+
+### getFocused
+
+Returns the component which is currently focused in the test. [See Lightning's documentation for more details on focus in Lightning applications](https://lightningjs.io/docs/#/lightning-core-reference/HandlingInput/RemoteControl/Focus?id=focus).
+
+#### Example: Unit testing focus
+
+```js
+class FocusExample extends lng.Component {
+  static _template() {
+    return {
+      FocusText: {
+        text: { text: 'unfocused' }
+      }
+    };
+  }
+
+  _focus() {
+    this.tag('FocusText').text.text = 'focused';
+  }
+
+  _unfocus() {
+    this.tag('FocusText').text.text = 'unfocused';
+  }
+}
+
+const createFocusExample = makeCreateComponent(
+  FocusExample,
+  {},
+  { focused: false }
+);
+
+it('should update the text when focused or unfocused', () => {
+  const [focusExampleInstance, testRenderer] = createFocusExample();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('unfocused');
+  expect(testRenderer.getFocused()).not.toBe(focusExampleInstance);
+
+  testRenderer.focus();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('focused');
+  expect(testRenderer.getFocused()).toBe(focusExampleInstance);
+
+  testRenderer.unfocus();
+
+  expect(focusExampleInstance.tag('FocusText').text.text).toBe('unfocused');
+  expect(testRenderer.getFocused()).not.toBe(focusExampleInstance);
+});
+```
+
+### getInstance
+
+Returns an instance of the component being tested. If using a `createComponent` function generated from [makeCreateComponent](http://localhost:8000/?path=/story/unit-testing-test-utils-makecreatecomponent--page), `testRenderer.getInstance()` is the first value in the returned array (the second value is the `testRenderer` object).
+
+```js
+import lng from '@lightningjs/core';
+import { create } from '@lightningjs/ui-components-test-utils';
+
+it('should render the component with text', () => {
+  const testRenderer = TestRenderer.create({
+    Component: { type: TestComp }
+  });
+  const testCompInstance = testRenderer.getInstance();
+
+  expect(testCompInstance.tag('TextElement').text.text).toBe('foo');
+});
+```
+
+### getApp
+
+Returns the Lightning Application in which the test component is rendered.
+
+```js
+it('should render the component using the defined application dimensions', () => {
+  const applicationW = 1280;
+  const applicationH = 720;
+  const createComponent = makeCreateComponent(
+    TestComp,
+    {},
+    { applicationW, applicationH }
+  );
+  const [exampleInstance, testRenderer] = createComponent();
+
+  expect(testRenderer.getApp()).toMatchObject({
+    w: applicationW,
+    h: applicationH
+  });
+});
+```
+
+### keyPress
+
+`keyPress(key)`
+
+#### Arguments
+
+| name | type           | default | description               |
+| ---- | -------------- | ------- | ------------------------- |
+| key  | string\|object | -       | name of key to be pressed |
+
+- the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
+- if an object is passed to the key argument, it must at least contain a `key` field of which key should be pressed
+
+### keyRelease
+
+`keyRelease(key)`
+
+#### Arguments
+
+| name | type           | default | description               |
+| ---- | -------------- | ------- | ------------------------- |
+| key  | string\|object | -       | name of key to be pressed |
+
+- the `key` string is expected to be capitalized (ex. `testRenderer.keyPress('Enter')`)
+- if an object is passed to the key argument, it must at least contain a `key` field of which key should be released
+
+#### Example: Unit Testing Key Handling
+
+```js
+class KeyPressExample extends lng.Component {
+  static _template() {
+    return {
+      EnterPressTracker: {
+        text: { text: 0 }
+      },
+      EnterReleaseTracker: {
+        text: { text: 0 }
+      }
+    };
+  }
+
+  _handleEnter() {
+    this.tag('EnterPressTracker').text.text++;
+  }
+
+  _handleEnterRelease() {
+    this.tag('EnterReleaseTracker').text.text++;
+  }
+}
+
+it('should display the number of times enter has been pressed and released', () => {
+  const createComponent = makeCreateComponent(KeyPressExample);
+  const [keyPressComponent, testRenderer] = createComponent();
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('0');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('0');
+
+  testRenderer.keyPress('Enter');
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('1');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('0');
+
+  testRenderer.keyRelease('Enter');
+
+  expect(keyPressComponent.tag('EnterPressTracker').text.text).toBe('1');
+  expect(keyPressComponent.tag('EnterReleaseTracker').text.text).toBe('1');
+});
+```

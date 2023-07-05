@@ -28,7 +28,7 @@ export const CATEGORIES = {
   256: 'Text',
   512: 'Utilities',
   1024: 'Docs',
-  2048: 'Collections'
+  2048: 'Collections',
 };
 
 /** Storybook config constants should go in this file */
@@ -52,6 +52,13 @@ export const storySortOrder = [
       'Use in Storybook',
       'Theme Properties',
       '*'
+    ],
+    'Unit Testing',
+    [
+      'Overview',
+      'Test Renderer',
+      'Test Utils',
+      ['makeCreateComponent', '*']
     ]
   ],
   CATEGORIES[2048],
@@ -64,7 +71,7 @@ export const storySortOrder = [
   CATEGORIES[8],
   CATEGORIES[256],
   CATEGORIES[32],
-  CATEGORIES[128]
+  CATEGORIES[128],
 ];
 
 export const controlDescriptions = {
