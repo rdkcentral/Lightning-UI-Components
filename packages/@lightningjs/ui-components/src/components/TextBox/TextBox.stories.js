@@ -137,6 +137,7 @@ export const WithInlineContentString = () =>
       return {
         TextBox: {
           type: TextBox,
+          x: 400,
           w: 400,
           content:
             'This is an example of using custom markup {ICON:settings|https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png} with a linebreak{NEWLINE}{BADGE:HD} that includes all available types like {TEXT:styled text|italic}.',
