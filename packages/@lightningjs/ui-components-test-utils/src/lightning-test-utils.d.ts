@@ -50,8 +50,6 @@ export function completeAnimation(
   transitionProperties?: string | string[]
 ): Promise<void>;
 
-import { Mock } from 'jest-mock';
-
 // TODO: no TS def for Context available
 type context = Record<string, unknown>;
 
