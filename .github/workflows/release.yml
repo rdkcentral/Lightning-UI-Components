@@ -30,6 +30,7 @@ jobs:
       - name: Merge to develop
         run: |
           git fetch
+          git checkout release
           git checkout develop
           git merge --allow-unrelated-histories --strategy-option=theirs release
           git push origin develop -f
