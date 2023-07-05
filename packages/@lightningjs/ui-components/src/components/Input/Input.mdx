@@ -1,4 +1,4 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Input from './Input.js';
 
 # Input
@@ -36,10 +36,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-input--input" />
-</Canvas>
 
 ### Setting/Inserting values
 
@@ -115,7 +111,7 @@ this.tag('Input')._handleLeft();
 this.tag('Input').position; //=> 0
 ```
 
-The cursor position stays within the bounds of the current `value`, so it is always >= 0 and <= `value.length`
+The cursor position stays within the bounds of the current `value`, so it is always \>= 0 and \<= `value.length`
 
 ### Password
 

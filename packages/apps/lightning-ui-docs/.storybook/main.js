@@ -15,9 +15,21 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
+import remarkGfm from 'remark-gfm';
+
 const config = {
   addons: [
-    '@storybook/addon-docs',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm]
+          }
+        }
+      }
+    },
     '@storybook/addon-essentials',
     '@storybook/addon-storysource',
     './addons/register',
@@ -27,11 +39,12 @@ const config = {
   stories: [
     '../src/*.mdx',
     '../src/*.stories.@(js|jsx|ts|tsx)',
-    '../../../@lightningjs/ui-components/src/**/.mdx',
+    '../../../@lightningjs/ui-components/src/**/*.mdx',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx)'
+    '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx)',
+    '../../../@lightningjs/ui-components/src/docs/*.mdx'
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
   // TODO: How to handle images between projects
@@ -44,9 +57,6 @@ const config = {
   },
   docs: {
     autodocs: true
-  },
-  features: {
-    legacyMdx1: true // 👈 Enables MDX v1 support
   }
 };
 
