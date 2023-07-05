@@ -13,6 +13,28 @@ jobs:
     uses: ./.github/workflows/docs.yml
     needs: release
     secrets: inherit
+  sync:
+    name: Sync Develop
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: rdkcentral/Lightning-UI-Components
+          fetch-depth: 0
+      - name: Set Git config
+        run: |
+          git config --local user.name "svc-lightning-ui-components" # Need to set the user.name, token is carried over from previous step (PAT USERNAME)
+      - name: Merge to develop
+        run: |
+          git fetch
+          git checkout release
+          git checkout develop
+          git merge --allow-unrelated-histories --strategy-option=theirs release
+          git push origin develop -f
+
   release:
     name: Release
     needs: quality
@@ -44,13 +66,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      - name: Setup git config
-        run: |
-          # setup the username and email
-          git config user.name "svc-lightning-ui-components"
-          git config user.email "<>"
-      - name: Save changes
-        run: |
-          git checkout develop
-          git pull origin release
-          git push origin develop
