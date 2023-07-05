@@ -18,8 +18,7 @@
 
 import {
   makeCreateComponent,
-  fastForward,
-  pathToDataURI
+  fastForward
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 import Artwork from '.';
