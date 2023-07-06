@@ -21,7 +21,6 @@ import type {
   default as TestRenderer,
   testRenderer
 } from './lightning-test-renderer.d.ts';
-import { Base } from '@lightningjs/ui-components';
 
 /**
  * nextTick
@@ -36,24 +35,43 @@ export function fastForward(elements: lng.Element[]): void;
 /**
  * makeCreateComponent
  */
+interface MakeCreateComponentDefaultOptions
+  extends Partial<lng.Application.Options> {
+  focused?: boolean;
   applicationW?: number;
   applicationH?: number;
-  [key: string]: unknown;
+  stage?: Partial<lng.Application.Options['stage']>; // TODO: test if this is the correct type
 }
-interface makeCreateComponentOptions extends makeCreateComponentDefaultOptions {
+
+interface MakeCreateComponentOptions extends MakeCreateComponentDefaultOptions {
   spyOnMethods?: string[];
 }
 
-// TODO: the component instance needs to optionally add __${methodName}PromiseSpy
-type createComponent = (
-  config?: makeCreateComponentConfig,
-  options?: makeCreateComponentOptions
-) => [lng.Element, testRenderer];
+type SpyOnMethodPromises<T extends string[]> = {
+  [K in T[number] as `_${K}SpyPromise`]: Promise<void>;
+};
+type SpyOnMethodResolvers<T extends string[]> = {
+  [K in T[number] as `_${K}SpyResolve`]: () => void;
+};
+
+type TestRendererComponentInstance<T extends string[]> = {
+  [key: string]: unknown;
+} & lng.Component &
+  SpyOnMethodPromises<T> &
+  SpyOnMethodResolvers<T>;
+
+export type createComponent = (
+  config: lng.Element.PatchTemplate,
+  options?: MakeCreateComponentOptions
+) => [
+  TestRendererComponentInstance<NonNullable<(typeof options)['spyOnMethods']>>,
+  testRenderer
+];
 
 export function makeCreateComponent(
   type: lng.Component.Constructor,
-  defaultConfig?: makeCreateComponentConfig,
-  defaultOptions?: makeCreateComponentDefaultOptions
+  defaultConfig?: lng.Element.PatchTemplate,
+  defaultOptions?: MakeCreateComponentDefaultOptions
 ): createComponent;
 
 /**
