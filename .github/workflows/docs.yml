@@ -13,6 +13,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.17.x
+      - name: Pull latest changes
+        run: git pull origin ${{ github.ref }}
       - name: Build
         run: |
           yarn install
