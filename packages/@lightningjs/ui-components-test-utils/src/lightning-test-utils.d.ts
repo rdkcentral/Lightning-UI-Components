@@ -21,6 +21,7 @@ import type {
   default as TestRenderer,
   testRenderer
 } from './lightning-test-renderer.d.ts';
+import { Base } from '@lightningjs/ui-components';
 
 export function nextTick(wait?: number): Promise<void>;
 
@@ -35,12 +36,15 @@ interface makeCreateComponentDefaultOptions {
 interface makeCreateComponentOptions extends makeCreateComponentDefaultOptions {
   spyOnMethods?: string[];
 }
+
+// TODO: the component instance needs to optionally add __${methodName}PromiseSpy
 type createComponent = (
-  config: makeCreateComponentConfig,
-  options: makeCreateComponentOptions
+  config?: makeCreateComponentConfig,
+  options?: makeCreateComponentOptions
 ) => [lng.Element, testRenderer];
+
 export function makeCreateComponent(
-  type: lng.Component,
+  type: Base.TemplateSpec, // TODO: this throws TS error when used
   defaultConfig?: makeCreateComponentConfig,
   defaultOptions?: makeCreateComponentDefaultOptions
 ): createComponent;
