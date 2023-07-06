@@ -43,9 +43,11 @@ const preview = {
       sort: 'requiredFirst'
     },
     docs: {
-      inlineStories: false, // sets docs to use iframes
-      theme, // Storybook global theme object
-      iframeHeight: 300 // sets height for examples in docs
+      story: {
+        //inlineStories: false, // sets docs to use iframes
+        theme: theme // Storybook global theme object
+        // iframeHeight: 300 // sets height for examples in docs
+      }
     },
     options: {
       /** Sort method that accepts a function or configuration object
