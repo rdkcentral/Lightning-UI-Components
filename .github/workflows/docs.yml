@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Make sure to get the latest version of the repo including commits that may have been added during the release steps
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16.17.x
-      - name: Pull latest changes
-        run: git pull origin ${{ github.ref }}
       - name: Build
         run: |
           yarn install
