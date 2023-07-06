@@ -23,12 +23,19 @@ import type {
 } from './lightning-test-renderer.d.ts';
 import { Base } from '@lightningjs/ui-components';
 
+/**
+ * nextTick
+ */
 export function nextTick(wait?: number): Promise<void>;
 
+/**
+ * fastForward
+ */
 export function fastForward(elements: lng.Element[]): void;
 
-type makeCreateComponentConfig = Record<string, unknown>;
-interface makeCreateComponentDefaultOptions {
+/**
+ * makeCreateComponent
+ */
   applicationW?: number;
   applicationH?: number;
   [key: string]: unknown;
@@ -49,11 +56,17 @@ export function makeCreateComponent(
   defaultOptions?: makeCreateComponentDefaultOptions
 ): createComponent;
 
+/**
+ * completeAnimation
+ */
 export function completeAnimation(
   element: lng.Element,
   transitionProperties?: string | string[]
 ): Promise<void>;
 
+/**
+ * mockContext
+ */
 // TODO: no TS def for Context available
 type context = Record<string, unknown>;
 
@@ -62,8 +75,14 @@ export function mockContext(
   mockKeyMetricsHandler: jest.Mock | ((...args: unknown[]) => unknown)
 ): context;
 
+/**
+ * resetContext
+ */
 export function resetContext(): void;
 
+/**
+ * exports
+ */
 export { TestRenderer };
 
 declare namespace _default {
