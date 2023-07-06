@@ -44,7 +44,7 @@ type createComponent = (
 ) => [lng.Element, testRenderer];
 
 export function makeCreateComponent(
-  type: Base.TemplateSpec, // TODO: this throws TS error when used
+  type: lng.Component.Constructor,
   defaultConfig?: makeCreateComponentConfig,
   defaultOptions?: makeCreateComponentDefaultOptions
 ): createComponent;
