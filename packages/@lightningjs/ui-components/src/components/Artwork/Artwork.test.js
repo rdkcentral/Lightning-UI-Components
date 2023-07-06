@@ -18,8 +18,7 @@
 
 import {
   makeCreateComponent,
-  fastForward,
-  pathToDataURI
+  fastForward
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 import Artwork from '.';
@@ -716,14 +715,11 @@ describe('Artwork', () => {
     expect(artwork._Gradient).not.toBeUndefined();
   });
 
-  // TODO: Need to figure out why this test fails. Something with Jest and image loading. Right now, received is undefined.
-  it.skip('should update the Image element with the value of src, and remove the texture if no longer required', async () => {
+  it('should update the Image element with the value of src, and remove the texture if no longer required', async () => {
     expect(artwork._Image.texture).not.toBeNull();
-    artwork.src = undefined;
+    artwork.src = './src/assets/images/circle.svg';
     await artwork.__updateImageSpyPromise;
-    expect(artwork._Image.texture.src).toBe(
-      pathToDataURI('./src/assets/images/default_background.png')
-    );
+    expect(artwork._Image.texture.src).toBe('./src/assets/images/circle.svg');
     expect(artwork._Image).not.toBeUndefined();
   });
 
