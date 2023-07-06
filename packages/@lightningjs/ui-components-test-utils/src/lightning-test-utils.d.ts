@@ -35,44 +35,49 @@ export function fastForward(elements: lng.Element[]): void;
 /**
  * makeCreateComponent
  */
-interface MakeCreateComponentDefaultOptions
-  extends Partial<lng.Application.Options> {
-  focused?: boolean;
-  applicationW?: number;
-  applicationH?: number;
-  stage?: Partial<lng.Application.Options['stage']>; // TODO: test if this is the correct type
+declare namespace makeCreateComponent {
+  export type Config = lng.Element.PatchTemplate;
+  export interface DefaultOptions extends Partial<lng.Application.Options> {
+    focused?: boolean;
+    applicationW?: number;
+    applicationH?: number;
+    stage?: Partial<lng.Application.Options['stage']>;
+  }
+
+  export namespace createComponent {
+    interface Options extends DefaultOptions {
+      spyOnMethods?: string[];
+    }
+
+    type SpyOnMethodsPromises<T extends string[]> = {
+      [K in T[number] as `_${K}SpyPromise`]: Promise<void>;
+    };
+
+    type SpyOnMethodsResolvers<T extends string[]> = {
+      [K in T[number] as `_${K}SpyResolve`]: () => void;
+    };
+
+    type ComponentInstance<T extends string[]> = {
+      [key: string]: unknown;
+    } & lng.Component &
+      SpyOnMethodsPromises<T> &
+      SpyOnMethodsResolvers<T>;
+
+    export type CreateComponent = (
+      config: Config,
+      options?: Options
+    ) => [
+      ComponentInstance<NonNullable<(typeof options)['spyOnMethods']>>,
+      testRenderer
+    ];
+  }
 }
-
-interface MakeCreateComponentOptions extends MakeCreateComponentDefaultOptions {
-  spyOnMethods?: string[];
-}
-
-type SpyOnMethodPromises<T extends string[]> = {
-  [K in T[number] as `_${K}SpyPromise`]: Promise<void>;
-};
-type SpyOnMethodResolvers<T extends string[]> = {
-  [K in T[number] as `_${K}SpyResolve`]: () => void;
-};
-
-type TestRendererComponentInstance<T extends string[]> = {
-  [key: string]: unknown;
-} & lng.Component &
-  SpyOnMethodPromises<T> &
-  SpyOnMethodResolvers<T>;
-
-export type createComponent = (
-  config: lng.Element.PatchTemplate,
-  options?: MakeCreateComponentOptions
-) => [
-  TestRendererComponentInstance<NonNullable<(typeof options)['spyOnMethods']>>,
-  testRenderer
-];
 
 export function makeCreateComponent(
   type: lng.Component.Constructor,
-  defaultConfig?: lng.Element.PatchTemplate,
-  defaultOptions?: MakeCreateComponentDefaultOptions
-): createComponent;
+  defaultConfig?: makeCreateComponent.Config,
+  defaultOptions?: makeCreateComponent.DefaultOptions
+): makeCreateComponent.createComponent.CreateComponent;
 
 /**
  * completeAnimation
