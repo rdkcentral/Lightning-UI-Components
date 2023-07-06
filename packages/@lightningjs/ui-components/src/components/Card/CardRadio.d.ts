@@ -16,9 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import type { StylePartial } from '../../types/lui';
 import { TextBoxStyle } from '../TextBox';
 import CardTitle, { CardTitleStyle } from './CardTitle';
+import type { TextContent } from '../InlineContent/InlineContent';
 
 export type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
@@ -26,7 +28,10 @@ export type CardRadioStyle = CardTitleStyle & {
 };
 export default class CardRadio extends CardTitle {
   radio?: Record<string, unknown>;
-  subtitle?: string;
+  subtitle?: string | TextContent[];
   get style(): CardRadioStyle;
   set style(v: StylePartial<CardRadioStyle>);
+
+  //tags
+  get _Subtitle(): lng.Component;
 }
