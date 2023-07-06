@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,28 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import utils from '../../utils';
 
-import Card from './Card';
-import CardRadio from './CardRadio';
-import CardSection from './CardSection';
-import CardTitle from './CardTitle';
+export const base = theme => ({
+  descriptionTextStyle: {
+    ...theme.typography.body2,
+    textColor: theme.color.textNeutralSecondary,
+    wordWrap: true,
+    maxLines: 8
+  },
+  h: theme.spacer.xxxl * 15,
+  subtitleTextStyle: {
+    ...theme.typography.body3,
+    maxLines: 2,
+    textColor: theme.color.textNeutral,
+    wordWrap: true
+  },
+  w: utils.getWidthByColumnSpan(theme, 4)
+});
 
-export { Card as default, CardRadio, CardSection, CardTitle };
+export const mode = theme => ({
+  disabled: {
+    descriptionTextStyle: { textColor: theme.color.textNeutralDisabled },
+    subtitleTextStyle: { textColor: theme.color.textNeutralDisabled }
+  }
+});

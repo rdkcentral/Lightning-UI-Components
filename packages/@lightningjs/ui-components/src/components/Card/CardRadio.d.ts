@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Card from './Card';
-import CardRadio from './CardRadio';
-import CardSection from './CardSection';
-import CardTitle from './CardTitle';
+import lng from '@lightningjs/core';
+import type { StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
+import CardTitle, { CardTitleStyle } from './CardTitle';
+import type { TextContent } from '../InlineContent/InlineContent';
 
-export { Card as default, CardRadio, CardSection, CardTitle };
+export type CardRadioStyle = CardTitleStyle & {
+  descriptionTextStyle: TextBoxStyle;
+  subtitleTextStyle: TextBoxStyle;
+};
+export default class CardRadio extends CardTitle {
+  radio?: Record<string, unknown>;
+  subtitle?: string | TextContent[];
+  get style(): CardRadioStyle;
+  set style(v: StylePartial<CardRadioStyle>);
+
+  //tags
+  get _Subtitle(): lng.Component;
+}
