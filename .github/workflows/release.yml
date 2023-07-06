@@ -29,10 +29,9 @@ jobs:
           git config --local user.name "svc-lightning-ui-components" # Need to set the user.name, token is carried over from previous step (PAT USERNAME)
       - name: Merge to develop
         run: |
-          git fetch origin
           git checkout develop
-          git merge --allow-unrelated-histories --strategy-option=theirs origin/release
-          git push origin develop -f
+          git pull origin release
+          git push origin develop
 
   release:
     name: Release
