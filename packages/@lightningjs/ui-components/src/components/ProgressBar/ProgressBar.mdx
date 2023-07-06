@@ -1,6 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-// uncomment the line below and edit the path to point to your component
-// import * as stories from './ProgressBar.stories';
+﻿import { Meta } from '@storybook/blocks';
+import * as ProgressBarStories from './ProgressBar.stories';
+
+<Meta of={ProgressBarStories} />
 
 # ProgressBar
 
@@ -29,10 +30,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-progressbar--progress-bar" />
-</Canvas>
 
 The default progress bar width is 410.
 

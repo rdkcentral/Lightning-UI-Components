@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import ListItemSlider from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as ListItemSliderStories from './ListItemSlider.stories';
+
+<Meta of={ListItemSliderStories} />
 
 # ListItemSlider
 
@@ -28,10 +30,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-listitemslider--list-item-slider" />
-</Canvas>
 
 ## API
 

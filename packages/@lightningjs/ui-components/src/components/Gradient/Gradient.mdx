@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Gradient from '.';
+import * as GradientStories from './Gradient.stories';
+
+<Meta of={GradientStories} />
 
 # Gradient
 
@@ -28,10 +31,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-gradient--gradient" />
-</Canvas>
 
 ## API
 

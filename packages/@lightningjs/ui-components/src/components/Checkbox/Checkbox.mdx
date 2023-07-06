@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Checkbox from '.';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
 
 # Checkbox
 
@@ -26,10 +29,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-checkbox--checkbox" />
-</Canvas>
 
 ## API
 

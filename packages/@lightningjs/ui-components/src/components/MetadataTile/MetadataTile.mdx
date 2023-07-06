@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import MetadataTile from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as MetadataTileStories from './MetadataTile.stories.js';
+
+<Meta of={MetadataTileStories} />
 
 # MetadataTile
 
@@ -47,10 +49,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-metadatatile--metadata-tile" />
-</Canvas>
 
 ## API
 

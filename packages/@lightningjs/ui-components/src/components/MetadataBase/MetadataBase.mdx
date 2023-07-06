@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import MetadataBase from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as MetadataBaseStories from './MetadataBase.stories.js';
+
+<Meta of={MetadataBaseStories} />
 
 # MetadataBase
 
@@ -48,10 +50,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-metadatabase--metadata-base" />
-</Canvas>
 
 ## API
 

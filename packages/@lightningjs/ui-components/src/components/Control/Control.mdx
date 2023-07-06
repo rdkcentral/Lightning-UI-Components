@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Control from '.';
+import * as ControlStories from './Control.stories';
+
+<Meta of={ControlStories} />
 
 # Control
 
@@ -28,10 +31,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-control--control" />
-</Canvas>
 
 All `Control` components support two types of prefixes (Lightning components placed to the left of the title text): an icon or a logo (image/png/jpg).
 

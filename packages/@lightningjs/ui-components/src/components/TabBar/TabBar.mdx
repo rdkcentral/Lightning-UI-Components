@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import { Tab } from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as TabBarStories from './TabBar.stories';
+
+<Meta of={TabBarStories} />
 
 # TabBar
 
@@ -72,10 +74,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-tabbar--basic" />
-</Canvas>
 
 ### Properties
 

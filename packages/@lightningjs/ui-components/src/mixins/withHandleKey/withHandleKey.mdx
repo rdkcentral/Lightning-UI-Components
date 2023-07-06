@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as withHandleKeyStories from './withHandleKey.stories';
+
+<Meta of={withHandleKeyStories} />
 
 # withHandleKey
 
@@ -41,10 +44,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-withhandlekey--with-handle-key" />
-</Canvas>
 
 Take a look at the preview above. Tile component is using the withHandleKey mixin.
 If you press enter on the first tile, you should see it print a metrics payload in the console (inspector view)

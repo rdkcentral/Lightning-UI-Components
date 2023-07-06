@@ -21,8 +21,8 @@ import { createModeControl } from '../../docs/utils';
 import { default as CardComponent } from './Card.js';
 
 export default {
-  title: 'Tiles & Cards/Card',
-  tag: 'Card'
+  title: 'Tiles & Cards/Card'
+  //tag: 'Card'
 };
 export const Card = args =>
   class Card extends lng.Component {

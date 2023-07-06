@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
 
 # Slider
 
@@ -25,10 +28,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-slider--basic" />
-</Canvas>
 
 The `Slider` can be initialized with a `min`, `max` and current `value`. The `min` and `max` properties determine the bounds of the `Slider`. The `value` prop should be greater than or equal to `min` and less than or equal to `max`.
 

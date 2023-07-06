@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as withMarqueeSyncStories from './withMarqueeSync.stories';
+
+<Meta of={withMarqueeSyncStories} />
 
 # withMarqueeSync
 
@@ -38,10 +41,6 @@ class Basic extends withMarqueeSync(Base) {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-withmarqueesync--basic" />
-</Canvas>
 
 ### Properties
 

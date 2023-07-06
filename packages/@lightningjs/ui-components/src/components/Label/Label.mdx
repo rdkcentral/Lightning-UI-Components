@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Label from '.';
+import * as LabelStories from './Label.stories';
+
+<Meta of={LabelStories} />
 
 # Label
 
@@ -31,10 +34,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-label--label" />
-</Canvas>
 
 ## API
 

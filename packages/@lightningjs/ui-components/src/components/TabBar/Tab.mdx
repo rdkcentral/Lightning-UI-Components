@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import { Tab } from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as TabStories from './Tab.stories';
+
+<Meta of={TabStories} />
 
 # Tab
 
@@ -30,10 +32,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-tab--tab" />
-</Canvas>
 
 ### Properties
 

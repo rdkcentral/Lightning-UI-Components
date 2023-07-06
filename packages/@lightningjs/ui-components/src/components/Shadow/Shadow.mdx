@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import Shadow from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as ShadowStories from './Shadow.stories';
+
+<Meta of={ShadowStories} />
 
 # Shadow
 
@@ -30,10 +32,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-shadow--shadow" />
-</Canvas>
 
 ## API
 
