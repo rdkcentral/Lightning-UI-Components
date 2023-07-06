@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Knob from '.';
+import * as KnobStories from './Knob.stories';
+
+<Meta of={KnobStories} />
 
 # Knob
 
@@ -24,10 +27,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-knob--knob" />
-</Canvas>
 
 ## API
 

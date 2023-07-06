@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import ControlRow from '.';
+import * as ControlRowStories from './ControlRow.stories';
+
+<Meta of={ControlRowStories} />
 
 # ControlRow
 
@@ -41,10 +44,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="navigation-controlrow--basic" />
-</Canvas>
 
 ### lazyLoading
 

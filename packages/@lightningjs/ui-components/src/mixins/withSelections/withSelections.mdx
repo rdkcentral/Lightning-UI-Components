@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as withSelectionsStories from './withSelections.stories';
+
+<Meta of={withSelectionsStories} />
 
 # withSelections
 
@@ -39,10 +42,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-withselections--with-selections" />
-</Canvas>
 
 Take a look at the preview above. The row of modified [Buttons](?path=/docs/controls-button--button) has navigation managed by the [Row](?path=/docs/navigation-row--row) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/controls-button--button). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
 

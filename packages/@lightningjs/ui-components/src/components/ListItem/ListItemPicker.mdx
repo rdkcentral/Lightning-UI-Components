@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import ListItemPicker from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as ListItemPickerStories from './ListItemPicker.stories';
+
+<Meta of={ListItemPickerStories} />
 
 # ListItemPicker
 
@@ -28,10 +30,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="controls-listitempicker--list-item-picker" />
-</Canvas>
 
 ## API
 

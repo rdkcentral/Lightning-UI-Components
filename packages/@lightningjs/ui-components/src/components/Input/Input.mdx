@@ -1,5 +1,8 @@
 ﻿import { Meta } from '@storybook/blocks';
 import Input from './Input.js';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} />
 
 # Input
 
@@ -37,12 +40,12 @@ class Example extends lng.Component {
 }
 ```
 
-### Setting/Inserting values
+### Setting \& Inserting values
 
 The `Input` component provides different ways to manage the input text and cursor position. When the `listening` property is enabled, the cursor blinks as a placeholder, whether the component is in focused or unfocused mode.
 
 The text displayed in the `Input` can be directly set via the `value` property. The following example will display the input with the text "Hello".
-Setting the `value` on the `Input` directly like this will remove any existing text in the input and set the cursor `position` in the Input to `0` (before the 'H' in 'Hello').
+Setting the `value` on the `Input` directly like this will remove any existing text in the input and set the cursor `position` in the Input to `0` \( before the 'H' in 'Hello'\).
 The cursor position can be manually updated by setting the `position` property. Setting `value` and `position` like this will update the `Input` regardless of whether or not `listening` is enabled.
 
 ```js
@@ -111,7 +114,7 @@ this.tag('Input')._handleLeft();
 this.tag('Input').position; //=> 0
 ```
 
-The cursor position stays within the bounds of the current `value`, so it is always \>= 0 and \<= `value.length`
+The cursor position stays within the bounds of the current `value`, so it is always \>\= 0 and \<\= `value.length`
 
 ### Password
 
@@ -119,13 +122,13 @@ Inputs commonly mask the value of passwords and other secure values. To enable i
 
 ```js
 this.tag('Input').password = true;
-The character used to mask input can be changed as well.
+//The character used to mask input can be changed as well.
 
 this.tag('Input').mask = '•';
-To reveal the input, simply set password back to false.
+//To reveal the input, simply set password back to false.
 
 this.tag('Input').password = false;
-When password is true, the Announcer will say "Input hidden" when the Input is focused.
+//When password is true, the Announcer will say "Input hidden" when the Input is focused.
 ```
 
 ## API
@@ -140,7 +143,7 @@ When password is true, the Announcer will say "Input hidden" when the Input is f
 | helpText    | string  | false    | undefined | HelpText of input container                                                                                                                                    |
 | listening   | boolean | false    | undefined | when true, input will accept changes from clear, insert, and backspace methods. When false, effects of those methods will be ignored and not affect the input. |
 | mask        | string  | false    | undefined | character to use as a mask when password is true                                                                                                               |
-| password    | boolean | false    | undefined | determines whether input should be masked                                                                                                                      |
+| password    | boolean | false    | undefined | determines whether input should b be masked                                                                                                                    |
 | position    | number  | false    | undefined | index of current cursor position                                                                                                                               |
 
 ### Style Properties

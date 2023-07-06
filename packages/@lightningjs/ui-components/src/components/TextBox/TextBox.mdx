@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as TextBoxStories from './TextBox.stories';
+
+<Meta of={TextBoxStories} />
 
 # TextBox
 
@@ -26,10 +29,6 @@ TextBox: {
   }
 }
 ```
-
-<Canvas>
-  <Story id="text-textbox--basic" />
-</Canvas>
 
 > **Note on width:**
 >

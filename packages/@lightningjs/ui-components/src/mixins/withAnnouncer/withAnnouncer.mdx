@@ -1,4 +1,7 @@
 ﻿import { Meta } from '@storybook/blocks';
+import * as withAnnouncerStories from './withAnnouncer.stories';
+
+<Meta of={withAnnouncerStories} />
 
 # withAnnouncer
 
@@ -20,9 +23,11 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 Extend your application with `withAnnouncer` before boot:
 
 ```js
-import { withAnnouncer } from '@lightningjs/ui-components'
-const Base = withAnnouncer(lng.Application, window.Speech, { language: 'en-US'} )
-export default class App extends Base {
+import { withAnnouncer } from '@lightningjs/ui-components';
+const Base = withAnnouncer(lng.Application, window.Speech, {
+  language: 'en-US'
+});
+export default class App extends Base {}
 ```
 
 Set `announcerEnabled` to true in your app and optionally `debug` to true to see console tables of the output as shown below.
@@ -50,7 +55,7 @@ The `withAnnouncer` will travel through the `_focusPath` looking for `component.
 
 All of the properties may return values compatible with the following recursive type definition:
 
-```
+```js
 SpeechType = string | Array<SpeechType> | Promise<SpeechType> | () => SpeechType
 ```
 
@@ -128,10 +133,6 @@ const CustomComp = withAnnouncer(lng.Component, customSpeechImpl, {
   abbreviationsConfig: customAbbrevConfig
 });
 ```
-
-<Canvas>
-  <Story id="accessibility-withannouncer--basic" />
-</Canvas>
 
 ## API
 

@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import TitleRow from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as TitleRowStories from './TitleRow.stories';
+
+<Meta of={TitleRowStories} />
 
 # TitleRow
 
@@ -32,10 +34,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="navigation-titlerow--title-row" />
-</Canvas>
 
 ## API
 

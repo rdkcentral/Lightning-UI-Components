@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import ScrollWrapper from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as ScrollWrapperStories from './ScrollWrapper.stories';
+
+<Meta of={ScrollWrapperStories} />
 
 # ScrollWrapper
 
@@ -29,10 +31,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="layout-scrollwrapper--basic" />
-</Canvas>
 
 Alternatively, an array of components and `style` keys may be provided as `content`.
 Styles provided here will override those set by the theme for it's section of text:

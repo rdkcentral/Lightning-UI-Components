@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import MetadataCard from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as MetadataCardStories from './MetadataCard.stories.js';
+
+<Meta of={MetadataCardStories} />
 
 # MetadataCard
 
@@ -33,10 +35,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="metadata-metadatacard--metadata-card" />
-</Canvas>
 
 ## API
 

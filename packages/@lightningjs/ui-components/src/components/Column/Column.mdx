@@ -1,6 +1,9 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import { DocsLink } from '../../docs/utils';
 import Column from '.';
+import * as ColumnStories from './Column.stories';
+
+<Meta of={ColumnStories} />
 
 # Column
 
@@ -80,10 +83,6 @@ class ExpandableHeightItems extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="navigation-column--column" />
-</Canvas>
 
 ### Scrolling
 

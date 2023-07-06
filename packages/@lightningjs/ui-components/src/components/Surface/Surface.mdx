@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import Surface from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as SurfaceStories from './Surface.stories';
+
+<Meta of={SurfaceStories} />
 
 # Surface
 
@@ -24,10 +26,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="foundations-surface--surface" />
-</Canvas>
 
 ## API
 

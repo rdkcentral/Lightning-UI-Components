@@ -1,5 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import Card from './Card';
+import * as CardStories from './Card.stories';
+
+<Meta of={CardStories} />
 
 # Card
 
@@ -27,10 +30,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="tiles-cards-card--card" />
-</Canvas>
 
 ## API
 

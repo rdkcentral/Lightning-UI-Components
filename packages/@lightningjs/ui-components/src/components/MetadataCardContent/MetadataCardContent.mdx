@@ -1,7 +1,10 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import MetadataCardContent from '.';
 import Provider from '../Provider';
 import xfinityProviderLogo from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+import * as MetadataCardContentStories from './MetadataCardContent.stories.js';
+
+<Meta of={MetadataCardContentStories} />
 
 # MetadataCardContent
 
@@ -35,10 +38,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="metadata-metadatacardcontent--metadata-card-content" />
-</Canvas>
 
 ## API
 

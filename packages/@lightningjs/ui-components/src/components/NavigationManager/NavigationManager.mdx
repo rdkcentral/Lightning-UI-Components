@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import NavigationManager from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as NavigationManagerStories from './NavigationManager.stories';
+
+<Meta of={NavigationManagerStories} />
 
 # NavigationManager
 
@@ -20,10 +22,6 @@ import { NavigationManager } from '@lightningjs/ui-components';
 
 class CustomRow extends NavigationManager {}
 ```
-
-<Canvas>
-  <Story id="navigation-navigationmanager--row" />
-</Canvas>
 
 ### Scrolling
 

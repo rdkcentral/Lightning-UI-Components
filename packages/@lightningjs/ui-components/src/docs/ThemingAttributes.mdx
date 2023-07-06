@@ -1,25 +1,21 @@
-﻿import { Meta, Description } from '@storybook/blocks';
-import radiusTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/radius.md';
-import colorTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/color.md';
-import typographyTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/typography.md';
+﻿import { Meta, Markdown } from '@storybook/blocks';
+import radiusTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/radius.md?raw';
+import colorTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/color.md?raw';
+import typographyTable from '../../../../apps/lightning-ui-docs/scripts/themePropertyTables/typography.md?raw';
 
-<Meta title="Docs / Theming/ Theme Properties" />
+<Meta title="Documentation / Theming/ Theme Properties" />
 
 # Theming Properties in Our Components
 
-<br />
-
 ## Radius
 
-<Description>{radiusTable}</Description>
-
-<br />
+<Markdown>{radiusTable}</Markdown>
 
 ## Typography
 
 Theme typography is set up to use semantically-named tokens. They are JavaScript objects, with keys for different font attributes and positioning.
 
-<Description>{typographyTable}</Description>
+<Markdown>{typographyTable}</Markdown>
 
 ### Font Fallback
 
@@ -66,6 +62,6 @@ These tokens are set up to take an array of two values: the first is the six cha
 fillNeutral = ['#ffffff', 95];
 ```
 
-<Description>{colorTable}</Description>
+<Markdown>{colorTable}</Markdown>
 
 <br />

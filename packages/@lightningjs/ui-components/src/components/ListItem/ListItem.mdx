@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import ListItem from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as ListItemStories from './ListItem.stories';
+
+<Meta of={ListItemStories} />
 
 # ListItem
 
@@ -29,10 +31,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="controls-listitem--list-item" />
-</Canvas>
 
 ## API
 

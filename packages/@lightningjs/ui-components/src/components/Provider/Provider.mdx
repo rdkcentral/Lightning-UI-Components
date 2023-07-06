@@ -1,6 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import Provider from '.';
+﻿import { Meta } from '@storybook/blocks';
 import xfinityProviderLogo from '../../assets/images/Xfinity-Provider-Logo-Square.png';
+import * as ProviderStories from './Provider.stories.js';
+
+<Meta of={ProviderStories} />
 
 # Provider
 
@@ -42,10 +44,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-provider--provider" />
-</Canvas>
 
 ## API
 

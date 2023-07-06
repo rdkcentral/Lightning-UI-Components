@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import Tile from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as TileStories from './Tile.stories';
+
+<Meta of={TileStories} />
 
 # Tile
 
@@ -26,10 +28,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="tiles-cards-tile--tile" />
-</Canvas>
 
 ### Metadata
 

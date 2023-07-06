@@ -1,5 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
-import Radio from '.';
+﻿import { Meta } from '@storybook/blocks';
+import * as RadioStories from './Radio.stories';
+
+<Meta of={RadioStories} />
 
 # Radio
 
@@ -26,10 +28,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="utilities-radio--radio" />
-</Canvas>
 
 ## API
 

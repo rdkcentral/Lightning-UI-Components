@@ -1,6 +1,8 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
 import { DocsLink } from '../../docs/utils';
-import Row from '.';
+import * as RowStories from './Row.stories';
+
+<Meta of={RowStories} />
 
 # Row
 
@@ -30,10 +32,6 @@ class Basic extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="navigation-row--row" />
-</Canvas>
 
 ### Scrolling
 

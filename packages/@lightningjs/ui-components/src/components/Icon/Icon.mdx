@@ -1,4 +1,7 @@
-﻿import { Canvas, Story } from '@storybook/blocks';
+﻿import { Meta } from '@storybook/blocks';
+import * as IconStories from './Icon.stories';
+
+<Meta of={IconStories} />
 
 # Icon
 
@@ -30,18 +33,6 @@ class Example extends lng.Component {
 ```
 
 A valid `icon` value can be any path to any [common image type](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types) or an inline SVG.
-
-With an image path:
-
-<Canvas>
-  <Story id="foundations-icon--png" />
-</Canvas>
-
-With an inline svg:
-
-<Canvas>
-  <Story id="foundations-icon--svg" />
-</Canvas>
 
 ## API
 
