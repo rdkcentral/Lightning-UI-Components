@@ -17,10 +17,10 @@
  */
 import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
-import type {
+import {
   default as TestRenderer,
   testRenderer
-} from './lightning-test-renderer.d.ts';
+} from './lightning-test-renderer';
 
 /**
  * nextTick
@@ -91,7 +91,7 @@ export function completeAnimation(
  * mockContext
  */
 // TODO: no TS def for Context available
-type context = Record<string, unknown>;
+export type context = Record<string, unknown>;
 
 export function mockContext(
   context: context,
