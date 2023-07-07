@@ -17,7 +17,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/manager-api';
 import { OptionsControl, ColorControl } from '@storybook/blocks';
 import { Table, TableRow, NumberRow } from '../components';
 import { utils } from '@lightningjs/ui-components';

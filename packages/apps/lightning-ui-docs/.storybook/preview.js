@@ -82,6 +82,12 @@ const preview = {
     },
     'GridOverlay-toggle-showText': {
       defaultValue: 'false'
+    },
+    announce: {
+      defaultValue: 'false'
+    },
+    stageColor: {
+      defaultValue: '#21232A'
     }
   },
   decorators: [withLightning]
