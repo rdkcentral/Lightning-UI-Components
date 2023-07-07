@@ -63,17 +63,20 @@ declare class Base<
    */
   loaded?: Promise<void>;
 
-  // TODO: flag for discussion
-  // internal stuff can be omitted --> `shouldSmooth` is internal?
-  shouldSmooth?: boolean;
-
   /**
    * when true, plinko will use the previous item to determine the horizontal index of the next focused item
    */
   skipPlinko: boolean;
 
   /**
+   * used by `applySmooth` to track if a component should have values transitioned in, or patched without an animation
+   */
+  get shouldSmooth(): boolean;
+
+  /**
    * conditionally transitions in values based on the state of `shouldSmooth`
+   * if `true`, values will be applied using the [lng.Element.smooth](@link https://github.com/rdkcentral/Lightning/blob/8378d0e69752f476abedecc85568a27dbb63cbb0/src/tree/Element.d.mts#L1823C4-L1823C4)
+   * if `false`, values will be applied using [lng.Element.patch](@link https://github.com/rdkcentral/Lightning/blob/8378d0e69752f476abedecc85568a27dbb63cbb0/src/tree/Element.d.mts#L1746)
    */
   // TODO took a stab at these types, could probably make this type-safe
   applySmooth(
