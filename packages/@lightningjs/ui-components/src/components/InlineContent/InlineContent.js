@@ -85,17 +85,12 @@ export default class InlineContent extends Base {
             // apply contentProperties object props first if those are defined
             // otherwise will use the style props
             marginBottom: isLast ? 0 : this._marginBottom,
-            marginRight: isLast
-              ? 0
-              : this.contentProperties.marginRight || this.style.contentSpacing
+            marginRight: isLast ? 0 : this.style.contentSpacing
           }
         };
 
         // text not separated by icons/badges are grouped together
         if (isText(item)) {
-          if (typeof this._parsedContent[index + 1] === 'string') {
-            base.flexItem.marginRight = 0;
-          }
           this.childList.a(this._createText(base, item));
         } else if (isIcon(item)) {
           this.childList.a(this._createIcon(base, item));
