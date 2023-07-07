@@ -148,11 +148,15 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     get _modeStyle() {
-      return this._componentStyleSource?.mode?.[this.mode] || {};
+      return this.replaceAliasValues(
+        this._componentStyleSource?.mode?.[this.mode] || {}
+      );
     }
 
     get _toneStyle() {
-      return this._componentStyleSource?.tone?.[this.tone] || {};
+      return this.replaceAliasValues(
+        this._componentStyleSource?.tone?.[this.tone] || {}
+      );
     }
 
     /**
@@ -160,7 +164,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {object}
      */
     get _themeLevelStyle() {
-      return this._componentConfig?.style || {};
+      return this.replaceAliasValues(this._componentConfig?.style || {});
     }
 
     /**
@@ -168,7 +172,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {object}
      */
     get _componentLevelStyle() {
-      return this._componentLevelStyleSource || {};
+      return this.replaceAliasValues(this._componentLevelStyleSource || {});
     }
 
     /**
@@ -454,6 +458,35 @@ export default function withThemeStyles(Base, mixinStyle) {
       this._componentLevelStyleSource = value;
       this._clearComponentStyleCache();
       this.queueThemeUpdate();
+    }
+
+    replaceAliasValues(value) {
+      const styleObj = clone(value, {});
+      const aliasProps = [
+        { prev: 'height', curr: 'h', skipWarn: true },
+        { prev: 'width', curr: 'w', skipWarn: true },
+        ...(this.constructor.aliasStyles || [])
+      ];
+      aliasProps.forEach(alias => {
+        if (
+          alias &&
+          typeof alias.prev === 'string' &&
+          typeof alias.curr === 'string' &&
+          styleObj[alias.prev]
+        ) {
+          !alias.skipWarn &&
+            console.warn(
+              `The style property "${alias.prev}" is deprecated. Please use "${alias.curr}" instead.`
+            );
+          Object.defineProperty(
+            styleObj,
+            alias.curr,
+            Object.getOwnPropertyDescriptor(styleObj, alias.prev)
+          );
+          delete styleObj[alias.prev];
+        }
+      });
+      return styleObj;
     }
 
     /**

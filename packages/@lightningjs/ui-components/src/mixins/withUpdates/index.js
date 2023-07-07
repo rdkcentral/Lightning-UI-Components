@@ -86,9 +86,18 @@ export default function withUpdates(Base) {
         // the props in the properties array (and use the getters/setters defined above)
         const aliasProps = this.constructor.aliasProperties || [];
         aliasProps.forEach(alias => {
-          const descriptor = getAliasPropertyDescriptor(alias.prev, alias.curr);
-          if (descriptor !== undefined) {
-            Object.defineProperty(prototype, alias.prev, descriptor);
+          if (
+            alias &&
+            typeof alias.prev === 'string' &&
+            typeof alias.curr === 'string'
+          ) {
+            const descriptor = getAliasPropertyDescriptor(
+              alias.prev,
+              alias.curr
+            );
+            if (descriptor !== undefined) {
+              Object.defineProperty(prototype, alias.prev, descriptor);
+            }
           }
         });
 
