@@ -17,7 +17,7 @@
  */
 
 import { TestEnvironment as JSDOMEnvironment } from 'jest-environment-jsdom';
-import jest from 'jest-mock';
+import { jest } from '@jest/globals';
 
 // Helper function to extract the width and height dimensions from a src string
 const extractWidthHeight = src => {
