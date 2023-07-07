@@ -120,7 +120,7 @@ export default class Tile extends Surface {
   }
 
   get h() {
-    return this.metadataLocation !== 'inset'
+    return !this._isInsetMetadata
       ? super.h + ((this._Metadata && this._Metadata.h) || 0)
       : super.h;
   }
@@ -455,7 +455,7 @@ export default class Tile extends Surface {
   }
 
   get _isInsetMetadata() {
-    return this._metadataLocation === 'inset';
+    return this.metadataLocation === 'inset';
   }
 
   get _metadataTransitions() {
@@ -516,11 +516,11 @@ export default class Tile extends Surface {
     return this.style.metadataLocation ?? this._metadataLocation;
   }
 
-  _setMetadataLocation(newMetadataLocation) {
-    if (newMetadataLocation) {
-      this.style.metadataLocation = newMetadataLocation;
+  _setMetadataLocation(metadataLocation) {
+    if (metadataLocation) {
+      this.style = { metadataLocation };
     }
-    return newMetadataLocation;
+    return metadataLocation;
   }
 
   _updateMetadata() {
@@ -568,7 +568,7 @@ export default class Tile extends Surface {
   _metadataLoaded() {
     this._animateMetadata();
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
-    if (this.metadataLocation !== 'inset') {
+    if (!this._isInsetMetadata) {
       this.fireAncestors('$itemChanged');
     }
   }
