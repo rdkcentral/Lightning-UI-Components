@@ -17,7 +17,6 @@
  */
 
 import { TestEnvironment as JSDOMEnvironment } from 'jest-environment-jsdom';
-import jest from 'jest-mock';
 
 // Helper function to extract the width and height dimensions from a src string
 const extractWidthHeight = src => {
@@ -36,7 +35,7 @@ export default class LightningUIEnvironment extends JSDOMEnvironment {
     if (process.env.CI) {
       this.global.console = {
         ...this.global.console,
-        error: jest.fn()
+        error: () => {}
       };
     }
 
