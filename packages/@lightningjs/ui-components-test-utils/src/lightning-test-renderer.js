@@ -212,15 +212,21 @@ function getProperties(element) {
     const getBoolean = /^!{2}/;
     const isFunction = /\(\)$/;
 
+    // output a different value of certain properties in the list array if matched
     if (getBoolean.test(key)) {
+      // contains !! --> output value as boolean of if is truthy/falsey
       key = key.substring(2, key.length);
       props[key] = !!element[key];
     } else if (isFunction.test(key)) {
+      // contains ()
+      // if that function exists on the element, invoke it and output the return value
+      // else omit that key from the output
       key = key.substring(0, key.length - 2);
       if (typeof element[key] === 'function') {
         props[key] = element[key]();
       }
     } else {
+      // doesn't match either Regex --> output the actual value of that property on the element
       props[key] = element[key];
     }
   }
