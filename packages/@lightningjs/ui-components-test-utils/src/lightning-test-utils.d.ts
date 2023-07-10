@@ -23,18 +23,18 @@ import {
 } from './lightning-test-renderer';
 
 /**
- * nextTick
+ * Creates a Promise that resolves after a defined amount of time. If no amount of time is specified, the Promise will resolve immediately.
+ * @param {number} [wait=0] Number of milliseconds before the returned Promise is resolved.
+ * @returns {Promise} Promise that is resolved after the wait time has elapsed.
  */
 export function nextTick(wait?: number): Promise<void>;
 
 /**
- * fastForward
+ * Force all running Lightning Transitions on one or more Lightning Elements to finish and update the transitioning property to its target value immediately.
+ * @param {lng.Element|lng.Element[]} elements Element(s) with transitioning property values.
  */
-export function fastForward(elements: lng.Element[]): void;
+export function fastForward(elements: lng.Element | lng.Element[]): void;
 
-/**
- * makeCreateComponent
- */
 declare namespace makeCreateComponent {
   export type Config = lng.Element.PatchTemplate;
   export interface DefaultOptions extends Partial<lng.Application.Options> {
@@ -73,6 +73,13 @@ declare namespace makeCreateComponent {
   }
 }
 
+/**
+ * Returns a function, referred to as a createComponent function, which is used to generate an instance of a component to run unit test cases against.
+ * @param {lng.Component} type Component to generate an instance of. {@link lng.Component.Constructor}
+ * @param {object} [defaultConfig={}] Properties that should be applied to the component by default. {@link makeCreateComponent.Config}
+ * @param {object} [defaultOptions={}] Default options used when creating the component instance (these options are passed to the TestRenderer.create function) {@link makeCreateComponent.DefaultOptions}
+ * @returns {object} A createComponent function.
+ */
 export function makeCreateComponent(
   type: lng.Component.Constructor,
   defaultConfig?: makeCreateComponent.Config,
@@ -80,7 +87,10 @@ export function makeCreateComponent(
 ): makeCreateComponent.createComponent.CreateComponent;
 
 /**
- * completeAnimation
+ * Returns a Promise that resolves once all animating properties have updated to their target value(s).
+ * @param {Lightning.Element} element Element with properties that transition value changes {@link lng.Element}
+ * @param {string | string[]} [transitionProperties=[]] Property name(s) that transition value changes on component.
+ * @returns {Promise} Promise that resolves once all animating properties have updated to their target value(s).
  */
 export function completeAnimation(
   element: lng.Element,
