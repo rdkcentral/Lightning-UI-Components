@@ -36,16 +36,10 @@ export default class MetadataCardContent extends MetadataBase {
       Text: {
         flex: { direction: 'column', justifyContent: 'flex-start' },
         Title: {
-          type: TextBox,
-          signals: {
-            textBoxChanged: '_resolveTitle'
-          }
+          type: TextBox
         },
         Description: {
-          type: TextBox,
-          signals: {
-            textBoxChanged: '_resolveDescription'
-          }
+          type: TextBox
         }
       },
       DetailsWrapper: {
@@ -126,12 +120,7 @@ export default class MetadataCardContent extends MetadataBase {
     this._updateLines();
     this._updateProvider();
     await Promise.all(
-      [
-        this._titlePromise,
-        this._descriptionPromise,
-        this._detailsPromise,
-        this._providerPromise
-      ].filter(Boolean)
+      [this._detailsPromise, this._providerPromise].filter(Boolean)
     );
     this._updatePositions();
   }
