@@ -8,11 +8,16 @@
   },
   "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
   "type": "module",
-  "exports": "./index.js",
-  "files": [
-    "index.js",
-    "src/**"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/lightning-ui-components-test-utils.min.mjs",
+      "require": "./dist/lightning-ui-components-test-utils.min.cjs",
+      "types": "./dist/lightning-ui-components-test-utils.d.ts"
+    },
+    "./src/": "./src/"
+  },
+  "main": "./dist/lightning-ui-components-test-utils.min.mjs",
+  "types": "./dist/lightning-ui-components-test-utils.d.ts",
   "peerDependencies": {
     "@lightningjs/core": "^2.9.0"
   },
