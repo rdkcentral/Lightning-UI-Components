@@ -148,13 +148,13 @@ export default function withThemeStyles(Base, mixinStyle) {
     }
 
     get _modeStyle() {
-      return this.replaceAliasValues(
+      return this._replaceAliasValues(
         this._componentStyleSource?.mode?.[this.mode] || {}
       );
     }
 
     get _toneStyle() {
-      return this.replaceAliasValues(
+      return this._replaceAliasValues(
         this._componentStyleSource?.tone?.[this.tone] || {}
       );
     }
@@ -164,7 +164,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {object}
      */
     get _themeLevelStyle() {
-      return this.replaceAliasValues(this._componentConfig?.style || {});
+      return this._replaceAliasValues(this._componentConfig?.style || {});
     }
 
     /**
@@ -172,7 +172,7 @@ export default function withThemeStyles(Base, mixinStyle) {
      * @return {object}
      */
     get _componentLevelStyle() {
-      return this.replaceAliasValues(this._componentLevelStyleSource || {});
+      return this._replaceAliasValues(this._componentLevelStyleSource || {});
     }
 
     /**
@@ -460,7 +460,7 @@ export default function withThemeStyles(Base, mixinStyle) {
       this.queueThemeUpdate();
     }
 
-    replaceAliasValues(value) {
+    _replaceAliasValues(value) {
       const styleObj = clone(value, {});
       const aliasProps = [
         { prev: 'height', curr: 'h', skipWarn: true },
