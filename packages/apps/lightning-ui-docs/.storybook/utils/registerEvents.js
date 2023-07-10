@@ -25,7 +25,6 @@ import { context } from '@lightningjs/ui-components';
 export const themeSelectFromMessageEvent = event => {
   themeSelect(event.data.theme);
 };
-
 // called in ThemePicker
 export const themeSelect = theme => {
   if (!theme) return;

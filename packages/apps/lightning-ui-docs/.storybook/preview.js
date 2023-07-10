@@ -25,7 +25,6 @@ import { storySortOrder } from '@lightningjs/ui-components/src/docs/constants';
 
 // loads window event listeners
 registerEventListeners();
-console.log(storySortOrder);
 /**
  * custom global props that can be accessed in decorators and add-ons
  * globalTypes can only be set in preview.js
@@ -45,11 +44,6 @@ const preview = {
       hideNoControlsWarning: true,
       expanded: true,
       sort: 'requiredFirst'
-    },
-    docs: {
-      story: {
-        theme: theme // Storybook global theme object
-      }
     },
     options: {
       /** Sort method that accepts a function or configuration object

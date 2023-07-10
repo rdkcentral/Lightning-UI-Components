@@ -27,6 +27,7 @@ export default () => {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const [tooltipLinks, updateTooltipLinks] = useState([]);
   const [firstLoad, updateFirstLoad] = useState(true);
+  console.log('LUITHEME', LUITheme);
   useEffect(() => {
     if (!LUITheme) return; // LUITheme is not set until the iframe has first been loaded in preview.js
     if (firstLoad && 'custom' === LUITheme) {
