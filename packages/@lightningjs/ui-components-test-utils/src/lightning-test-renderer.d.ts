@@ -92,12 +92,25 @@ export type createOptions = {
   [key: string]: unknown;
 };
 
+/**
+ * Generates a testRenderer object with built in utilities for unit testing Lightning Components.
+ * @param {Lightning.Component} Component Component for which to create a test renderer object for. {@link lng.Component}
+ * @param {object} options Configuration object for the Lightning Application created in test renderer, see further details below. {@link createOptions}
+ * @returns {object} A testRenderer object. {@link testRenderer}
+ */
 export declare function create(
   Component: lng.Component,
   options?: createOptions
 ): testRenderer;
 
+export type toJSONOptions = { children: number };
+
+/**
+ * Converts Lightning components to JSON to be used in Jest Snapshot Tests.
+ * @param {Lightning.Element} element Element to create JSON from. {@link lng.Element}
+ * @param {object} options Options to specifify depth of render tree to create JSON from. {@link toJSONOptions}
+ */
 export declare function toJSON(
   element: lng.Element,
-  options?: { children: number }
+  options?: toJSONOptions
 ): JSONTree;
