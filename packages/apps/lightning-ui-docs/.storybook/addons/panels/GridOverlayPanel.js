@@ -19,7 +19,7 @@
 import React from 'react';
 import { GRIDOVERLAY_ID } from '../constants';
 import { BooleanControl, RangeControl } from '@storybook/blocks';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/manager-api';
 import { Table, TableRow } from '../components';
 
 function Controls() {
