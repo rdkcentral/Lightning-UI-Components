@@ -50,7 +50,7 @@ function getPropertyDescriptor(name, key) {
 }
 
 function getAliasPropertyDescriptor(prev, curr) {
-  const deprecationWarning = `The property "${prev}" is deprecated. Please use "${curr}" instead.`;
+  const deprecationWarning = `The property "${prev}" is deprecated and may be removed in a future release. Please use "${curr}" instead.`;
   return {
     get() {
       console.warn(deprecationWarning);

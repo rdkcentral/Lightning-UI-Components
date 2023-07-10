@@ -476,7 +476,7 @@ export default function withThemeStyles(Base, mixinStyle) {
         ) {
           !alias.skipWarn &&
             console.warn(
-              `The style property "${alias.prev}" is deprecated. Please use "${alias.curr}" instead.`
+              `The style property "${alias.prev}" is deprecated and may be removed in a future release. Please use "${alias.curr}" instead.`
             );
           Object.defineProperty(
             styleObj,
