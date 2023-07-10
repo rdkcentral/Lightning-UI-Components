@@ -26,7 +26,7 @@ Generate a `testRenderer` object with built in utilities for unit testing Lightn
 
 `TestRenderer.create` generates a `testRenderer` object. The `testRenderer` includes various functions to assist with unit testing Lightning components. Those functions and their usages are documented below.
 
-Rather than use `TestRenderer.create` directly, it is recommended to instead generate a `createComponent` function using the [makeCreateComponent](/story/unit-testing-test-utils-makecreatecomponent--page) function that is also available from the `@lightning/ui-components-test-utils` package. `makeCreateComponent` allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object, either returned from `TestRenderer.create` or the second element in the array returned by `makeCreateComponent`.
+Rather than use `TestRenderer.create` directly, it is recommended to instead generate a `createComponent` function using the [makeCreateComponent](/story/docs-unit-testing-test-utils-makecreatecomponent--page) function that is also available from the `@lightning/ui-components-test-utils` package. `makeCreateComponent` allows for more reusability by returning a function that takes into account default options and configuration, as well as additional utilities (such as spyOnMethods). The documentation on this page will outline all the utilities that are available with a `testRenderer` object, either returned from `TestRenderer.create` or the second element in the array returned by `makeCreateComponent`.
 
 ## Arguments
 
@@ -136,7 +136,7 @@ it('should match the snapshot for the component', () => {
 ### update
 
 Invokes the `stage.drawFrame()` on the Lightning Application the test component is rendered in. This can be useful in cases where a value is transitioning and the render tree needs to be updated with a newer value.
-See the documentation for the [fastForward](/story/unit-testing-test-utils-fastforward--page) test util for an example utilizing this.
+See the documentation for the [fastForward](/story/docs-unit-testing-test-utils-fastforward--page) test util for an example utilizing this.
 
 ### forceAllUpdates
 
@@ -218,7 +218,7 @@ it('should update the text when focused or unfocused', () => {
 
 ### getInstance
 
-Returns an instance of the component being tested. If using a `createComponent` function generated from [makeCreateComponent](http://localhost:8000/?path=/story/unit-testing-test-utils-makecreatecomponent--page), `testRenderer.getInstance()` is the first value in the returned array (the second value is the `testRenderer` object).
+Returns an instance of the component being tested. If using a `createComponent` function generated from [makeCreateComponent](/story/docs-unit-testing-test-utils-makecreatecomponent--page), `testRenderer.getInstance()` is the first value in the returned array (the second value is the `testRenderer` object).
 
 ```js
 import lng from '@lightningjs/core';
