@@ -17,7 +17,7 @@
  */
 
 import React, { useCallback } from 'react';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
 import { ANNOUNCE_ID } from '../constants';
 

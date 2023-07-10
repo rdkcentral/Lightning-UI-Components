@@ -111,11 +111,11 @@ export const clearInspector = () => {
   }
 
   // Move lightning inspector out of the foreground
-  if (window.top.location.search.indexOf('path=/docs/') > -1) {
-    document.body.classList.remove('canvas');
-    const div = document.querySelector('[type=StoryApp]');
-    div && (div.parentNode.style.zIndex = -1);
-  } else {
-    document.body.classList.add('canvas');
-  }
+  // if (window.top.location.search.indexOf('path=/docs/') > -1) {
+  //   document.body.classList.remove('canvas');
+  //   const div = document.querySelector('[type=StoryApp]');
+  //   div && (div.parentNode.style.zIndex = -1);
+  // } else {
+  //   document.body.classList.add('canvas');
+  // }
 };

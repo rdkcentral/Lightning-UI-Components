@@ -19,7 +19,7 @@
 import { setGlobalTheme } from '../../utils/themeUtils';
 import { TabButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import { THEMEPICKER_ID, THEMES } from '../constants';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/manager-api';
 import React, { useState, useEffect } from 'react';
 import { utils } from '@lightningjs/ui-components';
 

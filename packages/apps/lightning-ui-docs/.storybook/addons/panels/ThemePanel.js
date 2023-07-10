@@ -20,7 +20,7 @@ import React from 'react';
 import lng from '@lightningjs/core';
 import { ColorControl, NumberControl } from '@storybook/blocks';
 import { utils } from '@lightningjs/ui-components';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/manager-api';
 import {
   colorUpdate,
   getPanelsTheme,

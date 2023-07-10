@@ -17,7 +17,7 @@
  */
 
 import React, { useCallback } from 'react';
-import { useGlobals } from '@storybook/api';
+import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
 import { STAGECOLOR_ID } from '../constants';
 
