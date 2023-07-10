@@ -20,16 +20,7 @@ import remarkGfm from 'remark-gfm';
 
 const config = {
   addons: [
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm]
-          }
-        }
-      }
-    },
+    '@storybook/addon-docs',
     '@storybook/addon-essentials',
     '@storybook/addon-storysource',
     './addons/register',
@@ -56,7 +47,7 @@ const config = {
     options: {}
   },
   docs: {
-    autodocs: true
+    autodocs: 'tag'
   }
 };
 

@@ -1,4 +1,5 @@
 ﻿import { Meta } from '@storybook/blocks';
+import { DocsLink } from '../../docs/utils';
 import * as ScrollWrapperStories from './ScrollWrapper.stories';
 
 <Meta of={ScrollWrapperStories} />
@@ -62,10 +63,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="layout-scrollwrapper--object-array" />
-</Canvas>
 
 The `h` and `w` properties will determine the viewable box for `ScrollWrapper`.
 When focused, `ScrollWrapper` will display a scroll bar to the right of the content

@@ -24,7 +24,8 @@ import { default as KeyboardEmailComponent } from './KeyboardEmail';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Keyboard/KeyboardEmail'
+  title: 'Keyboard/KeyboardEmail',
+  docs: { autodocs: false }
 };
 
 export const KeyboardEmail = () =>
