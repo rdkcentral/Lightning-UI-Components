@@ -13,6 +13,9 @@
     "index.js",
     "src/**"
   ],
+  "scripts": {
+    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components"
+  },
   "peerDependencies": {
     "@lightningjs/core": "^2.9.0"
   },
