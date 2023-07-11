@@ -182,6 +182,7 @@ export default class Tile extends Surface {
     // but that if src is undefined in both the setter and artwork object,
     // we don't incorrectly pass "src: undefined" to the Artwork component)
     this._Artwork.patch({
+      mode: this.mode,
       h: this._h,
       w: this._w,
       x: this._w / 2,
@@ -220,6 +221,7 @@ export default class Tile extends Surface {
 
     const badgePatch = {
       ...this.badge,
+      mode: this.mode,
       x: this.style.paddingX,
       y: this.style.paddingY,
       alpha: this.persistentMetadata ? 1 : 0.001
@@ -257,6 +259,7 @@ export default class Tile extends Surface {
     }
     const labelPatch = {
       ...this.label,
+      mode: this.mode,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
       alpha: this.persistentMetadata ? 1 : 0.001
@@ -332,6 +335,7 @@ export default class Tile extends Surface {
 
     const checkboxPatch = {
       ...this.checkbox,
+      mode: this.mode,
       x: this._w - this.style.paddingX,
       y: this._h - this.style.paddingY
     };
@@ -392,6 +396,7 @@ export default class Tile extends Surface {
     if (this.progressBar.progress > 0) {
       const progressPatch = {
         ...this.progressBar,
+        mode: this.mode,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
         y: this._h - this.style.paddingYProgress
@@ -497,6 +502,7 @@ export default class Tile extends Surface {
 
   get _metadataPatch() {
     return {
+      mode: this.mode,
       alpha: this._metadataAlpha,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
