@@ -15,14 +15,15 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
+// for add-on config
 export const ADDON_ID = 'lui-addons';
+
+// specfic add-ons
 export const DOWNLOAD_ID = `${ADDON_ID}/downloadbutton`;
 export const ANNOUNCE_ID = `${ADDON_ID}/announcetoggle`;
 export const GRIDOVERLAY_ID = `${ADDON_ID}/gridoverlaypanel`;
 export const THEMEPANEL_ID = `${ADDON_ID}/themepanel`;
 export const COMPONENTSTYLES_ID = `${ADDON_ID}/componentstylespanel`;
+export const STAGECOLOR_ID = `${ADDON_ID}/stagecolortoggle`;
 export const THEMEPICKER_ID = `${ADDON_ID}/themepicker`;
 export const THEMES = {};
-
-export const STAGECOLOR_ID = `${ADDON_ID}/stagecolortoggle`;
