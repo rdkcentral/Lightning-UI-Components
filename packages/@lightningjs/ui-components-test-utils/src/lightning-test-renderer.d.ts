@@ -114,3 +114,10 @@ export declare function toJSON(
   element: lng.Element,
   options?: toJSONOptions
 ): JSONTree;
+
+declare namespace _default {
+  export { create };
+  export { toJSON };
+}
+
+export default _default;
