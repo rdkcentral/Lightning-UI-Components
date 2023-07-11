@@ -16,9 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { memo, useCallback, useEffect } from 'react';
-import { useGlobals, useStorybookApi } from '@storybook/manager-api';
-import { ADDON_ID, DOWNLOAD_ID } from '../constants';
+import React from 'react';
+import { DOWNLOAD_ID } from '../constants';
 import { Icons, IconButton } from '@storybook/components';
 import { convertNumToHexAlphaArray } from '../../utils/helpers';
 import { utils } from '@lightningjs/ui-components';

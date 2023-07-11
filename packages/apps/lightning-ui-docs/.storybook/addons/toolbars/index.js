@@ -19,4 +19,4 @@
 export { Announce } from './Announce';
 export { StageColor } from './StageColor';
 export { default as ThemeDownload } from './ThemeDownload';
-// export { ThemePicker } from './ThemePicker';
+export { default as ThemePicker } from './ThemePicker';

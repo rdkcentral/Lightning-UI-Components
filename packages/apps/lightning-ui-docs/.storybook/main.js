@@ -21,10 +21,17 @@ import remarkGfm from 'remark-gfm';
 const config = {
   addons: [
     '@storybook/addon-docs',
-    '@storybook/addon-essentials',
     '@storybook/addon-storysource',
-    'storybook-addon-turbo-build', // Speed up final build
-    '@storybook/addon-mdx-gfm'
+    '@storybook/addon-mdx-gfm',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false, // disable the backgrounds addon
+        outline: false, // disable outline addon
+        measure: false, // disable measure addon
+        viewport: false // disable viewport addon
+      }
+    }
   ],
   stories: [
     '../src/*.mdx',
