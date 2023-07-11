@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as Announce } from './Announce';
-export { default as StageColor } from './StageColor';
-export { default as ThemeDownload } from './ThemeDownload';
-export { default as ThemePicker } from './ThemePicker';
+export { Announce } from './Announce';
+export { StageColor } from './StageColor';
+// export { ThemeDownload } from './ThemeDownload';
+// export { ThemePicker } from './ThemePicker';
