@@ -16,30 +16,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from 'react';
-import { useGlobals } from '@storybook/manager-api';
+import React, { memo, useCallback, useEffect } from 'react';
+import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
-import { ANNOUNCE_ID } from '../constants';
+import { ADDON_ID, ANNOUNCE_ID } from '../constants';
 
-export default () => {
+export const Announce = memo(function MyAddonSelector() {
   const [{ announce }, updateGlobals] = useGlobals();
+  const api = useStorybookApi();
+  const isActive = [true, 'true'].includes(announce);
+  const toggleAnnounce = useCallback(() => {
+    updateGlobals({
+      announce: !isActive
+    });
+  }, [isActive]);
 
-  const toggleMyTool = useCallback(
-    () =>
-      updateGlobals({
-        announce: !announce
-      }),
-    [announce]
-  );
+  useEffect(() => {
+    api.setAddonShortcut(ADDON_ID, {
+      label: 'Announce Toggle [0]',
+      actionName: 'Announce',
+      action: toggleAnnounce
+    });
+  }, [toggleAnnounce, api]);
 
   return (
     <IconButton
       key={ANNOUNCE_ID}
       active={announce}
       title="Toggle a11y announcing (voice guidance) of components"
-      onClick={toggleMyTool}
+      onClick={toggleAnnounce}
     >
       <Icons icon="speaker" />
     </IconButton>
   );
-};
+});
