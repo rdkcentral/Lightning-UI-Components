@@ -32,8 +32,8 @@ export const StageColor = memo(function MyAddonSelector() {
   }, [isActive]);
   useEffect(() => {
     api.setAddonShortcut(ADDON_ID, {
-      label: 'Stage Color Toggle [0]',
-      defaultShortcut: ['O'],
+      label: 'Stage Color Toggle [1]',
+      defaultShortcut: ['1'],
       actionName: 'stage color',
       showInMenu: false,
       action: toggleStage
