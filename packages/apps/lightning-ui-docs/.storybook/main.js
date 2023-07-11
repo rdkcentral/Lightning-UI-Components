@@ -24,9 +24,7 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-storysource',
     'storybook-addon-turbo-build', // Speed up final build
-    '@storybook/addon-mdx-gfm',
-    'announce',
-    'stageColor'
+    '@storybook/addon-mdx-gfm'
   ],
   stories: [
     '../src/*.mdx',
