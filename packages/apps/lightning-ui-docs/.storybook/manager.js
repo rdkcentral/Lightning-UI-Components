@@ -30,11 +30,12 @@ import {
   GridOverlayPanel,
   ThemePanel
 } from './addons/panels';
+
 addons.setConfig({
   theme,
   enableShortcuts: false
 });
-console.log(ids);
+
 addons.register(ids.ADDON_ID, () => {
   // Announce toggle
   addons.add(ids.ANNOUNCE_ID, {
@@ -65,26 +66,26 @@ addons.register(ids.ADDON_ID, () => {
     render: StageColor
   });
   //   // Grid Overlay Panel
-  //   addons.add(ids.GRIDOVERLAY_ID, {
-  //     type: types.PANEL,
-  //     title: 'Grid Layout Overlay',
-  //     match: ({ viewMode }) => viewMode === 'story',
-  //     render: params => GridOverlayPanel(params)
-  //   });
+  addons.add(ids.GRIDOVERLAY_ID, {
+    type: types.PANEL,
+    title: 'Grid Layout Overlay',
+    match: ({ viewMode }) => viewMode === 'story',
+    render: params => GridOverlayPanel(params)
+  });
 
   //   // Component Style Panel
-  //   addons.add(ids.COMPONENTSTYLES_ID, {
-  //     type: types.PANEL,
-  //     title: 'Component Style Theme Values',
-  //     match: ({ viewMode }) => viewMode === 'story',
-  //     render: params => ComponentStylesPanel(params, api)
-  //   });
+  addons.add(ids.COMPONENTSTYLES_ID, {
+    type: types.PANEL,
+    title: 'Component Style Theme Values',
+    match: ({ viewMode }) => viewMode === 'story',
+    render: ComponentStylesPanel
+  });
 
   //   // Global Theme Panel
-  //   addons.add(ids.THEMEPANEL_ID, {
-  //     type: types.PANEL,
-  //     title: 'Global Theme Values',
-  //     match: ({ viewMode }) => viewMode === 'story',
-  //     render: ({ key, active }) => <ThemePanel key={key} active={active} />
-  //   });
+  addons.add(ids.THEMEPANEL_ID, {
+    type: types.PANEL,
+    title: 'Global Theme Values',
+    match: ({ viewMode }) => viewMode === 'story',
+    render: ThemePanel
+  });
 });
