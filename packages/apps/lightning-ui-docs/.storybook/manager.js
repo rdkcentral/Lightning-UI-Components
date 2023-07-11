@@ -51,12 +51,12 @@ addons.register(ids.ADDON_ID, () => {
   //     render: ThemePicker
   //   });
   //   // Theme Download tool
-  //   addons.add(ids.DOWNLOAD_ID, {
-  //     type: types.TOOL,
-  //     title: 'Download Button',
-  //     match: ({ viewMode }) => viewMode === 'story',
-  //     render: ThemeDownload
-  //   });
+  addons.add(ids.DOWNLOAD_ID, {
+    type: types.TOOL,
+    title: 'Download Button',
+    match: ({ viewMode }) => viewMode === 'story',
+    render: ThemeDownload
+  });
   //   // Stage Color Toggle
   addons.add(ids.STAGECOLOR_ID, {
     type: types.TOOL,

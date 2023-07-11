@@ -18,5 +18,5 @@
 
 export { Announce } from './Announce';
 export { StageColor } from './StageColor';
-// export { ThemeDownload } from './ThemeDownload';
+export { default as ThemeDownload } from './ThemeDownload';
 // export { ThemePicker } from './ThemePicker';
