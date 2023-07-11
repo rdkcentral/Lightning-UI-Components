@@ -36,6 +36,7 @@ const preview = {
     layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     backgrounds: {
+      default: 'dark',
       grid: {
         disable: true
       }

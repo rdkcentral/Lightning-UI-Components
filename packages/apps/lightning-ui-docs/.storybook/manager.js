@@ -44,12 +44,12 @@ addons.register(ids.ADDON_ID, () => {
     render: Announce
   });
   //   // Theme Picker
-  //   addons.add(ids.THEMEPICKER_ID, {
-  //     type: types.TOOL,
-  //     title: 'Theme',
-  //     match: ({ viewMode }) => viewMode === 'story',
-  //     render: ThemePicker
-  //   });
+  addons.add(ids.THEMEPICKER_ID, {
+    type: types.TOOL,
+    title: 'Theme',
+    match: ({ viewMode }) => viewMode === 'story',
+    render: ThemePicker
+  });
   //   // Theme Download tool
   addons.add(ids.DOWNLOAD_ID, {
     type: types.TOOL,
