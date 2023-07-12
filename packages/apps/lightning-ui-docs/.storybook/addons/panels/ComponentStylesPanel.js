@@ -76,7 +76,6 @@ let version;
 let component;
 export default params => {
   const APP = globalApp();
-  console.log('APP', APP);
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const [tone, updateToneState] = useState();
   const [styleRows, updateStyleRows] = useState([]);
