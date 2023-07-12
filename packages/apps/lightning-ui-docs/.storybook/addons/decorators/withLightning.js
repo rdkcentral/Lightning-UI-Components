@@ -237,5 +237,6 @@ export const withLightning = (
     }
     return app.getCanvas();
   }
+  console.log('app', app);
   return app.stage.getCanvas();
 };
