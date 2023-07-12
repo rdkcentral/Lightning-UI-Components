@@ -49,6 +49,20 @@ function getPropertyDescriptor(name, key) {
   };
 }
 
+function getAliasPropertyDescriptor(prev, curr) {
+  const deprecationWarning = `The property "${prev}" is deprecated and will be removed in a future release. Please use "${curr}" instead.`;
+  return {
+    get() {
+      console.warn(deprecationWarning);
+      return this[curr];
+    },
+    set(value) {
+      console.warn(deprecationWarning);
+      this[curr] = value;
+    }
+  };
+}
+
 export default function withUpdates(Base) {
   return class extends Base {
     static get name() {
@@ -58,6 +72,7 @@ export default function withUpdates(Base) {
     _construct() {
       const prototype = Object.getPrototypeOf(this);
       if (!prototype._withUpdatesInitialized) {
+        // create custom accessors and mutators for the props in the properties array
         const props = this.constructor.properties || [];
         props.forEach(name => {
           const key = '_' + name;
@@ -66,6 +81,26 @@ export default function withUpdates(Base) {
             Object.defineProperty(prototype, name, descriptor);
           }
         });
+
+        // create custom accessors and mutators that map the props in the alias array to
+        // the props in the properties array (and use the getters/setters defined above)
+        const aliasProps = this.constructor.aliasProperties || [];
+        aliasProps.forEach(alias => {
+          if (
+            alias &&
+            typeof alias.prev === 'string' &&
+            typeof alias.curr === 'string'
+          ) {
+            const descriptor = getAliasPropertyDescriptor(
+              alias.prev,
+              alias.curr
+            );
+            if (descriptor !== undefined) {
+              Object.defineProperty(prototype, alias.prev, descriptor);
+            }
+          }
+        });
+
         prototype._withUpdatesInitialized = true;
       }
 
