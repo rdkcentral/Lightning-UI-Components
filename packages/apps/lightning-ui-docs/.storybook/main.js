@@ -20,7 +20,6 @@ import remarkGfm from 'remark-gfm';
 
 const config = {
   addons: [
-    '@storybook/addon-docs',
     '@storybook/addon-storysource',
     '@storybook/addon-mdx-gfm',
     {
@@ -35,7 +34,6 @@ const config = {
   ],
   stories: [
     '../src/*.mdx',
-    '../src/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components/src/**/*.mdx',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
     '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',

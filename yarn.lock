@@ -5355,7 +5355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:7.0.26, @storybook/addon-docs@npm:^7.0.24":
+"@storybook/addon-docs@npm:7.0.26":
   version: 7.0.26
   resolution: "@storybook/addon-docs@npm:7.0.26"
   dependencies:
@@ -15651,7 +15651,6 @@ __metadata:
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^7.0.24
-    "@storybook/addon-docs": ^7.0.24
     "@storybook/addon-essentials": ^7.0.24
     "@storybook/addon-interactions": ^7.0.24
     "@storybook/addon-links": ^7.0.24
