@@ -24,6 +24,7 @@ import { ADDON_ID, ANNOUNCE_ID } from '../constants';
 export const Announce = memo(function MyAddonSelector() {
   const [{ announce }, updateGlobals] = useGlobals();
   const api = useStorybookApi();
+  console.log('announce', announce);
   const isActive = [true, 'true'].includes(announce);
   const toggleAnnounce = useCallback(() => {
     updateGlobals({

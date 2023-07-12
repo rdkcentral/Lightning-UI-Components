@@ -24,16 +24,15 @@ import { ADDON_ID, STAGECOLOR_ID } from '../constants';
 export const StageColor = memo(function MyAddonSelector() {
   const [{ stageColor }, updateGlobals] = useGlobals();
   const api = useStorybookApi();
-  const isActive = [true, 'true'].includes(stageColor);
+  const isActiveStage = [true, 'true'].includes(stageColor);
   const toggleStage = useCallback(() => {
     updateGlobals({
-      stageColor: !isActive
+      stageColor: !isActiveStage
     });
-  }, [isActive]);
+  }, [isActiveStage]);
   useEffect(() => {
     api.setAddonShortcut(ADDON_ID, {
-      label: 'Stage Color Toggle [1]',
-      defaultShortcut: ['1'],
+      label: 'Stage Color Toggle',
       actionName: 'stage color',
       showInMenu: false,
       action: toggleStage
@@ -43,7 +42,7 @@ export const StageColor = memo(function MyAddonSelector() {
   return (
     <IconButton
       key={STAGECOLOR_ID}
-      active={isActive}
+      active={isActiveStage}
       title="Switch stage color"
       onClick={toggleStage}
     >
