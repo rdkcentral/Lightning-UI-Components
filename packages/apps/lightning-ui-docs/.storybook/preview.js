@@ -35,12 +35,6 @@ const preview = {
     defaultValue: 'dark',
     layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
-    backgrounds: {
-      default: 'dark',
-      grid: {
-        disable: true
-      }
-    },
     controls: {
       hideNoControlsWarning: true,
       expanded: true,
