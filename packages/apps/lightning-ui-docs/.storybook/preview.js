@@ -50,6 +50,10 @@ const preview = {
       }
     }
   },
+  globals: {
+    announce: false, // for addons to load need globals
+    stageColor: false
+  },
   globalTypes: {
     LUITheme: {
       name: 'Theme',
@@ -78,7 +82,7 @@ const preview = {
       defaultValue: 'false'
     },
     stageColor: {
-      defaultValue: '#21232A'
+      defaultValue: 'false'
     }
   },
   decorators: [withLightning]
