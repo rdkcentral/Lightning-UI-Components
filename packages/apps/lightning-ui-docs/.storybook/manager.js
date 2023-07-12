@@ -36,6 +36,7 @@ addons.setConfig({
   enableShortcuts: false
 });
 
+// register addons
 addons.register(ids.ADDON_ID, () => {
   // Announce toggle
   addons.add(ids.ANNOUNCE_ID, {
