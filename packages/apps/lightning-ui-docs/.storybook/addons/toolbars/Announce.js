@@ -42,7 +42,7 @@ export const Announce = memo(function MyAddonSelector() {
   return (
     <IconButton
       key={ANNOUNCE_ID}
-      active={announce}
+      active={isActive}
       title="Toggle a11y announcing (voice guidance) of components"
       onClick={toggleAnnounce}
     >
