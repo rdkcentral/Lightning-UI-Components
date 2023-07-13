@@ -59,7 +59,7 @@ export default class Label extends Base {
   }
 
   _updateText() {
-    if (this._Text && typeof this.title === 'string') {
+    if (this._Text) {
       this._Text.patch({
         text: {
           ...this.style.textStyle,
