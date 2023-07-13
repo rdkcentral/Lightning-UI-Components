@@ -223,7 +223,8 @@ export default class Tile extends Surface {
       ...this.badge,
       mode: this.mode,
       x: this.style.paddingX,
-      y: this.style.paddingY
+      y: this.style.paddingY,
+      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
     };
 
     if (!this._Badge) {
@@ -261,7 +262,8 @@ export default class Tile extends Surface {
       ...this.label,
       mode: this.mode,
       x: this._w - this.style.paddingX,
-      y: this.style.paddingY
+      y: this.style.paddingY,
+      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
     };
 
     if (!this._Label) {
