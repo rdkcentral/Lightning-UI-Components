@@ -17,7 +17,7 @@
  */
 
 import { readFileSync } from 'fs';
-import { jest } from '@jest/globals';
+import sinon from 'sinon';
 import { context } from '@lightningjs/ui-components';
 import TestRenderer from './lightning-test-renderer.js';
 
@@ -50,7 +50,7 @@ export function nextTick(wait = 0) {
  * @return {lng.Component} a child class of Component with added mock function
  * methods that can be awaited in test cases.
  */
-function withMethodSpies(Component, methods) {
+function withMethodSpies(Component, methods, jest) {
   return class SpyClass extends Component {
     static get name() {
       return Component.name;
@@ -81,13 +81,24 @@ function withMethodSpies(Component, methods) {
 
         // Create mock function which calls the class method and resolves a
         // Promise that can be awaited in test cases
-        jest
-          .spyOn(SpyClass.prototype, method)
-          .mockImplementation(async function (...args) {
-            await spyMethod.call(this, ...args);
-            this[spyResolver]();
-            resetSpyPromise(spyPromise, spyResolver);
-          });
+
+        if (jest) {
+          jest
+            .spyOn(SpyClass.prototype, method)
+            .mockImplementation(async function (...args) {
+              await spyMethod.call(this, ...args);
+              this[spyResolver]();
+              resetSpyPromise(spyPromise, spyResolver);
+            });
+        } else {
+          sinon
+            .stub(SpyClass.prototype, method)
+            .callsFake(async function (...args) {
+              await spyMethod.call(this, ...args);
+              this[spyResolver]();
+              resetSpyPromise(spyPromise, spyResolver);
+            });
+        }
       });
     }
   };
@@ -118,14 +129,16 @@ export function pathToDataURI(path) {
 export function makeCreateComponent(
   type,
   defaultConfig = {},
-  defaultOptions = {}
+  defaultOptions = {},
+  defaultGlobals = {}
 ) {
-  return (config = {}, options = {}) => {
+  return (config = {}, options = {}, instanceGlobals = {}) => {
+    const globals = { ...defaultGlobals, ...instanceGlobals };
     const testRenderer = TestRenderer.create(
       {
         Component: {
           type: options.spyOnMethods
-            ? withMethodSpies(type, options.spyOnMethods)
+            ? withMethodSpies(type, options.spyOnMethods, globals.jest)
             : type,
           ...defaultConfig,
           ...config
@@ -168,12 +181,11 @@ export function completeAnimation(element, transitionProperties = []) {
  * @param mockKeyMetricsHandler a user provided mock handler
  * @return {{keyMetricsCallback: jest.Mock}}
  */
-const mockContext = (context, mockKeyMetricsHandler = jest.fn()) => {
+// const mockContext = (context, mockKeyMetricsHandler = jest.fn()) => {
+const mockContext = (context, mockKeyMetricsHandler = sinon.spy()) => {
   context.config({
     keyMetricsCallback: mockKeyMetricsHandler
   });
-
-  jest.spyOn(context, 'keyMetricsCallback');
 
   return context;
 };

@@ -27,7 +27,7 @@ it('should run', () => {
   expect(true).toBe(true);
 });
 
-const createTextBox = makeCreateComponent(TextBox);
+const createTextBox = makeCreateComponent(TextBox, {}, {}, { jest });
 
 describe('TextBox', () => {
   let textBox, testRenderer;

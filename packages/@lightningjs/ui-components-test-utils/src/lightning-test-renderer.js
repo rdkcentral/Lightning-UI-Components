@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import { updateManager, context } from '@lightningjs/ui-components';
-import { jest } from '@jest/globals';
+import sinon from 'sinon';
 import BaseTheme from '@lightningjs/ui-components-theme-base';
 
 context.setTheme({
@@ -37,7 +37,7 @@ const stage = {
   useImageWorker: false
 };
 const pressEvent = {
-  preventDefault: jest.fn()
+  preventDefault: sinon.fake()
 };
 
 function keyPress(elm, key) {

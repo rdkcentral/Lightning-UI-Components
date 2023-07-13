@@ -35,7 +35,8 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx', 'mjs'],
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: [
-    '<rootDir>/../ui-components-test-utils/src/jest.env.setup.js'
+    '<rootDir>/../ui-components-test-utils/src/jest.env.setup.js',
+    '<rootDir>/../../../node_modules/jest-sinon/dist/jest-sinon.cjs'
   ],
   testEnvironment: '<rootDir>/../ui-components-test-utils/src/lng-test-env',
   testEnvironmentOptions: { url: 'http://localhost', resources: 'usable' },

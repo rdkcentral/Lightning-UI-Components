@@ -25,7 +25,7 @@ import Artwork from '.';
 const sampleImg = 'sampleImg';
 const fallbackSrc = 'fallbackSrc';
 
-const createComponent = makeCreateComponent(Artwork);
+const createComponent = makeCreateComponent(Artwork, {}, {}, { jest });
 
 describe('Artwork', () => {
   // eslint-disable-next-line no-unused-vars
@@ -54,7 +54,8 @@ describe('Artwork', () => {
           '_resolveLoading',
           '_rejectLoading'
         ]
-      }
+      },
+      { jest }
     );
     await artwork.__resolveLoadingSpyPromise;
   });

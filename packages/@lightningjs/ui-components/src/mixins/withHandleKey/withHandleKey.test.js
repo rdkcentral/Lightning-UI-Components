@@ -65,6 +65,7 @@ describe('withHandleKey', () => {
   });
 
   it('calls keyMeyricsCallback with metricsPayload on key press down', () => {
+    jest.spyOn(mockedContext, 'keyMetricsCallback');
     handleKeyComponent.onDown = jest.fn();
     handleKeyComponent.metricsPayload = { id: 123, saved: true };
     testRenderer.keyPress('Down');

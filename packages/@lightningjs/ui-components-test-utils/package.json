@@ -23,9 +23,11 @@
     "@lightningjs/ui-components-theme-base": "workspace:^",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
+    "jest-sinon": "^1.1.0",
     "jest-webgl-canvas-mock": "^0.2.3",
     "semantic-release": "^19.0.5",
-    "semantic-release-monorepo": "^7.0.5"
+    "semantic-release-monorepo": "^7.0.5",
+    "sinon": "^15.2.0"
   },
   "dependencies": {
     "@lightningjs/ui-components": "workspace:^"
