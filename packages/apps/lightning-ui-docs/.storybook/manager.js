@@ -32,7 +32,7 @@ import {
 } from './addons/panels';
 
 addons.setConfig({
-  theme,
+  theme: theme, // setting Storybook theme
   enableShortcuts: false
 });
 

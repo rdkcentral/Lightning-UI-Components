@@ -169,7 +169,7 @@ describe('Tooltip', () => {
     it('should give the tooltip a margin bottom', () => {
       expect(tooltip.y).toBeLessThan(0);
     });
-
+    // test is failing because width is staying the same
     it('should grow in width for longer text', () => {
       const initialW = tooltip._Background.w;
       tooltip.title = 'Longer Tooltip';
