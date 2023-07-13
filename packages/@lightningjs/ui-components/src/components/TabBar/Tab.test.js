@@ -52,6 +52,7 @@ describe('Tab', () => {
     const title = 'Tab 1';
     tab.title = title;
     testRenderer.forceAllUpdates();
+    expect(tab.title).toBe(title);
     expect(tab.announce).toBe(title);
   });
 
