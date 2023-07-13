@@ -29,6 +29,7 @@ export default {
 };
 
 export const MetadataTile = args =>
+  /* testing description */
   class MetadataTile extends lng.Component {
     static _template() {
       return {
