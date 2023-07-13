@@ -27,6 +27,7 @@ export const themeSelectFromMessageEvent = event => {
 };
 // called in ThemePicker
 export const themeSelect = theme => {
+  console.log('themeSelect', theme);
   if (!theme) return;
   let targetTheme;
   switch (theme) {

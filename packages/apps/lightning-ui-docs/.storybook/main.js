@@ -16,8 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import remarkGfm from 'remark-gfm';
-
 const config = {
   addons: [
     '@storybook/addon-storysource',
@@ -25,7 +23,6 @@ const config = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false, // disable the backgrounds addon
         outline: false, // disable outline addon
         measure: false, // disable measure addon
         viewport: false // disable viewport addon
@@ -43,6 +40,7 @@ const config = {
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
   // TODO: How to handle images between projects
+  // could use something like '../public' or '../static'
   core: {
     disableTelemetry: true
   },
@@ -51,7 +49,7 @@ const config = {
     options: {}
   },
   docs: {
-    autodocs: 'tag'
+    autodocs: 'tag' // to opt in per story if we implement autodocs
   }
 };
 

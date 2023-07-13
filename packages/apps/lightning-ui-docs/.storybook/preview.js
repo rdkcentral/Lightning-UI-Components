@@ -40,6 +40,7 @@ const preview = {
       expanded: true,
       sort: 'requiredFirst'
     },
+    backgrounds: { default: 'dark' },
     options: {
       /** Sort method that accepts a function or configuration object
        * @see https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
@@ -50,15 +51,11 @@ const preview = {
       }
     }
   },
-  globals: {
-    announce: false, // for addons to load need globals
-    stageColor: false
-  },
   globalTypes: {
     LUITheme: {
       name: 'Theme',
       description: 'Theme select',
-      defaultValue: 'xfinity'
+      defaultValue: 'base'
     },
     'GridOverlay-alpha': {
       defaultValue: '0'
@@ -79,10 +76,10 @@ const preview = {
       defaultValue: 'false'
     },
     announce: {
-      defaultValue: 'false'
+      defaultValue: false
     },
     stageColor: {
-      defaultValue: 'false'
+      defaultValue: false
     }
   },
   decorators: [withLightning]
