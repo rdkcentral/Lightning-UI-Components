@@ -22,7 +22,6 @@ import TableRow from './TableRow';
 
 export default function NumberRow({ label, defaultValue, scope, onChange }) {
   const [value, setValue] = useState(defaultValue);
-
   return (
     <TableRow
       label={label}
