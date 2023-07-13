@@ -16,7 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const urlBase = 'https://github.com/rdkcentral/Lightning-UI-Components/tree/develop/packages/%40lightningjs/ui-components/src/components/';
+const urlBase =
+  'https://github.com/rdkcentral/Lightning-UI-Components/tree/develop/packages/%40lightningjs/ui-components/src/components/';
 
 module.exports = (name, dir) => `<!--
   Copyright 2023 Comcast Cable Communications Management, LLC
@@ -36,10 +37,13 @@ module.exports = (name, dir) => `<!--
   SPDX-License-Identifier: Apache-2.0
 -->
 
-import { Canvas, Story } from '@storybook/addon-docs';
+import { Meta, Title } from '@storybook/blocks';
 import ${name} from '.';
+import * ${name}Stories from './${name}.stories';
 
-# ${name}
+<Meta of={${name}Stories} />
+
+<Title />
 
 ## Source
 
@@ -60,10 +64,6 @@ class Basic extends lng.Component {
   }
 };
 \`\`\`
-
-<Canvas>
-  <Story id="${dir}-${name.toLowerCase()}--basic" />
-</Canvas>
 
 ## API
 
