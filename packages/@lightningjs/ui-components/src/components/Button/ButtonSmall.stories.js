@@ -22,7 +22,7 @@ import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
+
 import { controlDescriptions } from '../../docs/constants';
 
 export default {

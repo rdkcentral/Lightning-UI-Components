@@ -17,10 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { default as KnobComponent } from '.';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/Knob'

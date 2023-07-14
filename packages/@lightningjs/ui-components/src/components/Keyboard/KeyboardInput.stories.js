@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import { createModeControl, generateSubStory } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
 import Icon from '../Icon';

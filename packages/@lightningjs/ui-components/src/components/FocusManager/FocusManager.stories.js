@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import FocusManager from '.';
-import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {

@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import Radio from './RadioSmall.js';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/RadioSmall'

@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { default as MetadataCardContentComponent } from '.';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Metadata/MetadataCardContent'

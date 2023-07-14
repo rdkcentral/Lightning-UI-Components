@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import Button from '../Button';
 import { createModeControl } from '../../docs/utils';
 import { default as TooltipComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/Tooltip',

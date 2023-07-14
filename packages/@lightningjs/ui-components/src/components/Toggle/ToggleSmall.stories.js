@@ -17,10 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { ToggleSmall as ToggleSmallComponent } from '.';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/ToggleSmall'

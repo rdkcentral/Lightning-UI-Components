@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Controls/ListItemSlider'

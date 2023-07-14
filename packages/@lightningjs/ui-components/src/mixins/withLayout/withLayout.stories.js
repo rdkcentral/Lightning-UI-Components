@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import { Tile } from '../../components';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/withLayout'

@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import Icon from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Foundations/Icon',

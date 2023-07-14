@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import NavigationManager from '.';
-import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 class ButtonFixedWidth extends Button {

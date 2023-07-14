@@ -23,7 +23,6 @@ import { createModeControl } from '../../docs/utils';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Keyboard/Input'

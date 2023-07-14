@@ -21,7 +21,6 @@ import { ControlSmall as ControlSmallComponent } from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {

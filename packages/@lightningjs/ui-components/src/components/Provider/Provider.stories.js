@@ -21,7 +21,6 @@ import ProviderComponent from '.';
 import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/Provider'

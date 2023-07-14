@@ -17,9 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { default as LabelComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Metadata/Label'

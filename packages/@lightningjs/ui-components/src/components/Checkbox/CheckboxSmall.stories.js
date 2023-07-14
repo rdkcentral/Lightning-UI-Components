@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import { default as CheckboxSmallComponent } from './CheckboxSmall.js';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/CheckboxSmall'

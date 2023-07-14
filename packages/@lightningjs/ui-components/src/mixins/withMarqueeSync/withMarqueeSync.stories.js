@@ -19,7 +19,6 @@
 import withMarqueeSync from './withMarqueeSync';
 import Base from '../../components/Base';
 import TextBox from '../../components/TextBox';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/withMarqueeSync'

@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { Row as RowBasic } from '../Row/Row.stories.js';
 import Tile from '../Tile';
 import { default as TitleRowComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 // add remount to all Row argTypes individually since Row uses remountAll
 // TitleRow title prop can be updated without requiring a remount

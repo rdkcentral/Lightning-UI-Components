@@ -23,7 +23,6 @@ import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { default as Checkbox } from '../Checkbox';
 import { default as Radio } from '../Radio';
 import { default as Toggle } from '../Toggle';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Controls/ListItem'

@@ -23,7 +23,7 @@ import Row from '../Row';
 import Tile from '../Tile';
 import Button from '../Button';
 import { default as ColumnComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
+
 import { SignalButton } from '../../docs/story-components';
 
 export default {

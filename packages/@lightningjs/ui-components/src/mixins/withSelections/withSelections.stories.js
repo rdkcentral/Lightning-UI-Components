@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import { Button, Row } from '../../components';
 import withSelectionsMixin from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Utilities/withSelections'

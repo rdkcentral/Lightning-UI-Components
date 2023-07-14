@@ -22,7 +22,6 @@ import circle from '../../assets/images/circle.svg';
 import utils from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataCardComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Metadata/MetadataCard'

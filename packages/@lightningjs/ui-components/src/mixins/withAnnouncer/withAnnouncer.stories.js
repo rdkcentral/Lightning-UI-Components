@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row, Button } from '../../components';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Accessibility/withAnnouncer',

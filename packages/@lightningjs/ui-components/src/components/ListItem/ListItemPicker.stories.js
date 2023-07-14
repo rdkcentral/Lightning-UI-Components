@@ -19,7 +19,6 @@
 import lng from '@lightningjs/core';
 import { default as ListItemPickerComponent } from './ListItemPicker';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Controls/ListItemPicker'

@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import lngIcon from '../../assets/images/ic_lightning_white_32.png';
 import { default as TabComponent } from './Tab';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Layout/Tab'

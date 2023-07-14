@@ -24,7 +24,6 @@ import CardContentVerticalComponent from './CardContentVertical';
 import { default as Icon } from '../Icon';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
   title: 'Tiles & Cards/CardContentVertical'
