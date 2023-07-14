@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { Button, TextBox, Row } from '../../components';
 import { default as withEditItemsMixin } from '.';
-import { CATEGORIES } from '../../docs/constants';
+
 /**
  * Shared Args and Arg Types from Row
  */

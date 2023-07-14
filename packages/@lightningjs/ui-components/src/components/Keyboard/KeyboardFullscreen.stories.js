@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
 import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
