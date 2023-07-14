@@ -122,11 +122,11 @@ If both of those properties are enabled, `alwaysScroll` will take precedence ove
 
 ### Style Properties
 
-| name           | type                             | description                            |
-| -------------- | -------------------------------- | -------------------------------------- |
-| itemSpacing    | number                           | spacing between items                  |
-| scrollIndex    | number                           | index of currently selected item       |
-| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render |
+The Column component shares few same style properties as the one's listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--navigationmanager)
+
+scrollIndex: number
+itemSpacing: number
+itemTransition: <DocsLink id="lng.Transition" />
 
 ### Child Item Properties
 
@@ -143,10 +143,6 @@ The `Column` component will utilize the following properties on each individual 
 #### onScreenEffect(): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
-
-#### appendItems(items: lng.Component[]): void
-
-Adds items to the end of the child list
 
 #### appendItemsAt(items: lng.Component[], index: number): void
 
