@@ -30,7 +30,6 @@ import Column from '../Column';
 import { context } from '../../globals';
 import Tab from './Tab.js';
 import TabBarComponent from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
 <<<<<<< HEAD

@@ -81,6 +81,8 @@ export const withLightning = (
   clearInspector();
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
+  console.log(parameters);
+  console.log(globals);
   // toggle stage color
   !globals.stageColor
     ? app.stage.setClearColor(utils.getValidColor('#21232A'))

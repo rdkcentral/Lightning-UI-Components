@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { default as KnobComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 

@@ -17,7 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-
 import MarqueeComponent from '.';
 import InlineContent from '../InlineContent';
 import { context } from '../../globals';

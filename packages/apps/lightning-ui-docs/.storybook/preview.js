@@ -32,7 +32,6 @@ registerEventListeners();
  */
 const preview = {
   parameters: {
-    defaultValue: 'dark',
     layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -40,14 +39,45 @@ const preview = {
       expanded: true,
       sort: 'requiredFirst'
     },
-    backgrounds: { default: 'dark' },
     options: {
-      /** Sort method that accepts a function or configuration object
-       * @see https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-       */
+      /**  v7 storySort must be self-contained function & no reference to outside variables
+     https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#v7-style-story-sort
+      */
       storySort: {
-        method: 'alphabetical'
-        //order: storySortOrder
+        method: 'alphabetical',
+        order: [
+          'Documentation',
+          [
+            'Introduction',
+            'Read Me',
+            'Base',
+            'Contributing',
+            'Lightning Resources',
+            'Theming',
+            [
+              'Overview',
+              'Component Config',
+              'Tones',
+              'Modes',
+              'Extensions',
+              'Subtheming',
+              'Use in Storybook',
+              'Theme Properties',
+              '*'
+            ]
+          ],
+          'Collections',
+          'Accessibility',
+          'Foundations',
+          'Utilities',
+          'Navigation',
+          'Layout',
+          'Controls',
+          'Keyboard',
+          'Text',
+          'Metadata',
+          'Tiles & Cards'
+        ]
       }
     }
   },
