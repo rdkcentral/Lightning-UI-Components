@@ -55,7 +55,6 @@ export default () => {
         })
     );
   }, [LUITheme]);
-  console.log('theme', LUITheme);
   return (
     <div>
       <WithTooltip

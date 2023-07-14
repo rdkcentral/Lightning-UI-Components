@@ -16,64 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const CATEGORIES = {
-  0: 'Accessibility',
-  2: 'Controls',
-  4: 'Foundations',
-  8: 'Keyboard',
-  16: 'Layout',
-  32: 'Metadata',
-  64: 'Navigation',
-  128: 'Tiles & Cards',
-  256: 'Text',
-  512: 'Utilities',
-  1024: 'Docs',
-  2048: 'Collections',
-};
-
-/** Storybook config constants should go in this file */
-
-export const storySortOrder = [
-  CATEGORIES[1024],
-  [
-    'Introduction',
-    'Read Me',
-    'Base',
-    'Contributing',
-    'Lightning Resources',
-    'Theming',
-    [
-      'Overview',
-      'Component Config',
-      'Tones',
-      'Modes',
-      'Extensions',
-      'Subtheming',
-      'Use in Storybook',
-      'Theme Properties',
-      '*'
-    ],
-    'Unit Testing',
-    [
-      'Overview',
-      'Test Renderer',
-      'Test Utils',
-      ['makeCreateComponent', '*']
-    ]
-  ],
-  CATEGORIES[2048],
-  CATEGORIES[0],
-  CATEGORIES[4],
-  CATEGORIES[512],
-  CATEGORIES[64],
-  CATEGORIES[16],
-  CATEGORIES[2],
-  CATEGORIES[8],
-  CATEGORIES[256],
-  CATEGORIES[32],
-  CATEGORIES[128],
-];
-
 export const controlDescriptions = {
   collapseToMetadata:
     'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the image to metadata (when focused, it will always be expanded)',

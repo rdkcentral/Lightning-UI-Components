@@ -25,6 +25,5 @@ module.exports = async ({ config, mode }) => {
     __dirname,
     '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
   );
-  console.log(config);
   return config;
 };
