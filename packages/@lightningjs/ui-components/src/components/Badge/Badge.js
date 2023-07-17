@@ -24,16 +24,8 @@ import lng from '@lightningjs/core';
 
 export default class Badge extends Base {
   static _template() {
-    const center = {
-      mount: 0.5,
-      x: w => w / 2,
-      y: h => h / 2
-    };
     return {
-      rect: true,
-      shader: {
-        type: lng.shaders.RoundedRectangle
-      },
+      Background: {},
       Text: {
         mountY: 0.5,
         text: {}
@@ -44,8 +36,7 @@ export default class Badge extends Base {
         signals: {
           itemChanged: '_updateLayout'
         }
-      },
-      Stroke: center
+      }
     };
   }
 
@@ -62,7 +53,7 @@ export default class Badge extends Base {
   }
 
   static get tags() {
-    return ['Text', 'Icon', 'Stroke'];
+    return ['Text', 'Icon', 'Background'];
   }
 
   _init() {
@@ -72,7 +63,6 @@ export default class Badge extends Base {
 
   _update() {
     this._updateText();
-    this._updateStroke();
     this._updateIcon();
     this._updateLayout();
   }
@@ -84,17 +74,26 @@ export default class Badge extends Base {
   }
 
   _updateBackground() {
-    this.patch({
-      h:
-        Math.max(this._Text.renderHeight, this._Icon.h) +
-        this.style.paddingY * 2,
-      color: this.style.backgroundColor,
-      shader: { radius: this.style.radius }
+    this.h =
+      Math.max(this._Text.renderHeight, this._Icon.h) + this.style.paddingY * 2;
+    this._Background.patch({
+      texture: lng.Tools.getRoundRect(
+        // Compensating for the extra two pixels getRoundRect adds.
+        this.w,
+        this.h,
+        this.style.radius,
+        this.style.strokeWidth,
+        this.style.strokeColor,
+        false,
+        this.style.backgroundColor
+      )
     });
+    this.signal('loadedLabel', this);
   }
 
   _updateText() {
     if (this._Text) {
+      console.log(this.style.textStyle, 'text');
       this._Text.patch({
         text: {
           ...this.style.textStyle,
@@ -102,19 +101,6 @@ export default class Badge extends Base {
         }
       });
     }
-  }
-
-  _updateStroke() {
-    this._Stroke.patch({
-      texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
-        this.style.radius,
-        this.style.strokeWidth,
-        this.style.strokeColor,
-        false
-      )
-    });
   }
 
   _updateIcon() {

@@ -27,7 +27,8 @@ export const base = theme => {
       ...theme.typography.caption1,
       textAlign: 'center'
     },
-    strokeWidth: theme.stroke.sm
+    strokeWidth: theme.stroke.sm,
+    strokeColor: theme.color.strokeNeutral
   };
 };
 
@@ -42,12 +43,12 @@ export const tone = theme => ({
     backgroundColor: theme.color.fillNeutralSecondary,
     iconColor: theme.color.textInverse,
     textStyle: { textColor: theme.color.textInverse },
-    strokeColor: theme.color.strokeNeutral
+    strokeColor: theme.color.strokeInverse
   },
   brand: {
     backgroundColor: theme.color.fillBrand,
     iconColor: theme.color.textNeutral,
     textStyle: { textColor: theme.color.textNeutral },
-    strokeColor: theme.color.strokeNeutral
+    strokeColor: theme.color.strokeInverse
   }
 });
