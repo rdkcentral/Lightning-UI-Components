@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+const path = require('path');
 
 const config = {
   addons: [
@@ -41,7 +42,7 @@ const config = {
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
   // TODO: How to handle images between projects
-  // could use something like '../public' or '../static'
+  // could use something like '../public' or '../static' in the root
   core: {
     disableTelemetry: true
   },
@@ -51,6 +52,15 @@ const config = {
   },
   docs: {
     autodocs: 'tag' // to opt in per story if we implement autodocs
+  },
+  async webpackFinal(config) {
+    config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
+    // Shorter alias for inspector
+    config.resolve.alias['lightningInspect'] = path.resolve(
+      __dirname,
+      '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
+    );
+    return config;
   }
 };
 
