@@ -22,6 +22,7 @@ import theme from './theme';
 import { withLightning } from './addons/decorators/withLightning';
 import { registerEventListeners } from './utils/registerEvents';
 import { storySortOrder } from '@lightningjs/ui-components/src/docs/constants';
+import { themes } from '@storybook/theming';
 
 // loads window event listeners
 registerEventListeners();
@@ -38,6 +39,9 @@ const preview = {
       hideNoControlsWarning: true,
       expanded: true,
       sort: 'requiredFirst'
+    },
+    docs: {
+      theme: themes.dark
     },
     options: {
       /**  v7 storySort must be self-contained function & no reference to outside variables
