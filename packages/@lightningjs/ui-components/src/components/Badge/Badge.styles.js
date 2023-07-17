@@ -16,30 +16,38 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const base = theme => ({
-  contentSpacing: theme.spacer.sm,
-  paddingX: theme.spacer.md,
-  paddingY: theme.spacer.xs,
-  offsetY: theme.spacer.xxs,
-  radius: theme.radius.sm,
-  textAlign: 'center',
-  textStyle: theme.typography.caption1
-});
+export const base = theme => {
+  return {
+    contentSpacing: theme.spacer.sm,
+    paddingX: theme.spacer.md,
+    paddingY: theme.spacer.xs,
+    offsetY: theme.spacer.xxs,
+    radius: theme.radius.sm,
+    textStyle: {
+      ...theme.typography.caption1,
+      textAlign: 'center'
+    },
+    strokeWidth: theme.stroke.sm
+  };
+};
 
 export const tone = theme => ({
   neutral: {
     backgroundColor: theme.color.fillInverseSecondary,
-    iconColor: theme.color.fillNeutral,
-    textStyle: { textColor: theme.color.textNeutral }
+    iconColor: theme.color.textNeutral,
+    textStyle: { textColor: theme.color.textNeutral },
+    strokeColor: theme.color.strokeNeutral
   },
   inverse: {
     backgroundColor: theme.color.fillNeutralSecondary,
-    iconColor: theme.color.fillInverse,
-    textStyle: { textColor: theme.color.textInverse }
+    iconColor: theme.color.textInverse,
+    textStyle: { textColor: theme.color.textInverse },
+    strokeColor: theme.color.strokeNeutral
   },
   brand: {
     backgroundColor: theme.color.fillBrand,
-    iconColor: theme.color.fillNeutral,
-    textStyle: { textColor: theme.color.textNeutral }
+    iconColor: theme.color.textNeutral,
+    textStyle: { textColor: theme.color.textNeutral },
+    strokeColor: theme.color.strokeNeutral
   }
 });

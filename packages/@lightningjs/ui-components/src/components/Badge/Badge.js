@@ -24,6 +24,11 @@ import lng from '@lightningjs/core';
 
 export default class Badge extends Base {
   static _template() {
+    const center = {
+      mount: 0.5,
+      x: w => w / 2,
+      y: h => h / 2
+    };
     return {
       rect: true,
       shader: {
@@ -39,7 +44,8 @@ export default class Badge extends Base {
         signals: {
           itemChanged: '_updateLayout'
         }
-      }
+      },
+      Stroke: center
     };
   }
 
@@ -56,7 +62,7 @@ export default class Badge extends Base {
   }
 
   static get tags() {
-    return ['Text', 'Icon'];
+    return ['Text', 'Icon', 'Stroke'];
   }
 
   _init() {
@@ -66,6 +72,7 @@ export default class Badge extends Base {
 
   _update() {
     this._updateText();
+    this._updateStroke();
     this._updateIcon();
     this._updateLayout();
   }
@@ -90,12 +97,24 @@ export default class Badge extends Base {
     if (this._Text) {
       this._Text.patch({
         text: {
-          textAlign: this.style.textAlign,
           ...this.style.textStyle,
           text: this.title || ''
         }
       });
     }
+  }
+
+  _updateStroke() {
+    this._Stroke.patch({
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        this.h,
+        this.style.radius,
+        this.style.strokeWidth,
+        this.style.strokeColor,
+        false
+      )
+    });
   }
 
   _updateIcon() {
