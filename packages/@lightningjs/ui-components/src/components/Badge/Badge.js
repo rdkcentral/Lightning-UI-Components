@@ -36,6 +36,11 @@ export default class Badge extends Base {
         signals: {
           itemChanged: '_updateLayout'
         }
+      },
+      Stroke: {
+        shader: {
+          type: lng.shaders.RoundedRectangle
+        }
       }
     };
   }
@@ -53,7 +58,7 @@ export default class Badge extends Base {
   }
 
   static get tags() {
-    return ['Text', 'Icon', 'Background'];
+    return ['Background', 'Text', 'Icon', 'Stroke'];
   }
 
   _init() {
@@ -65,35 +70,51 @@ export default class Badge extends Base {
     this._updateText();
     this._updateIcon();
     this._updateLayout();
+    this._updateVisibility();
+  }
+
+  _updateVisibility() {
+    if (!this.title && !this.icon) {
+      this.alpha = 0.001;
+    } else {
+      this.alpha = 1;
+    }
   }
 
   _updateLayout() {
     this._updateWidth();
     this._updateBackground();
+    this._updateStroke();
     this._updatePositions();
   }
 
   _updateBackground() {
     this.h =
       Math.max(this._Text.renderHeight, this._Icon.h) + this.style.paddingY * 2;
-    this._Background.patch({
-      texture: lng.Tools.getRoundRect(
-        // Compensating for the extra two pixels getRoundRect adds.
-        this.w,
-        this.h,
-        this.style.radius,
-        this.style.strokeWidth,
-        this.style.strokeColor,
-        false,
-        this.style.backgroundColor
-      )
+    this.patch({
+      Background: {
+        color: this.style.backgroundColor
+      }
     });
-    this.signal('loadedLabel', this);
+  }
+
+  _updateStroke() {
+    this.patch({
+      Stroke: {
+        texture: lng.Tools.getRoundRect(
+          this.w,
+          this.h,
+          this.style.radius,
+          this.style.strokeWidth,
+          this.style.strokeColor,
+          false
+        )
+      }
+    });
   }
 
   _updateText() {
     if (this._Text) {
-      console.log(this.style.textStyle, 'text');
       this._Text.patch({
         text: {
           ...this.style.textStyle,

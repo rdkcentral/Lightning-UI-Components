@@ -27,8 +27,7 @@ export const base = theme => {
       ...theme.typography.caption1,
       textAlign: 'center'
     },
-    strokeWidth: theme.stroke.sm,
-    strokeColor: theme.color.strokeNeutral
+    strokeWidth: theme.stroke.sm
   };
 };
 

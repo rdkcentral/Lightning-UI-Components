@@ -33,7 +33,7 @@ The basic component just requires a title:
 
 ```js
 import { Badge } from '@lightningjs/ui-components';
-import circle from 'src/assets/images/circle.svg';
+import circle from '../../assets/images/circle.svg';
 
 class Example extends lng.Component {
   static _template() {
@@ -78,7 +78,7 @@ A title and an icon can also be used together:
 
 ```js
 import { Badge } from '@lightningjs/ui-components';
-import lightning from 'src/assets/images/lightning.png';
+import lightning from '../../assets/images/ic_lightning_white_32.png';
 
 class Example extends lng.Component {
   static _template() {
@@ -101,12 +101,13 @@ class Example extends lng.Component {
 
 ### Properties
 
-| name      | type   | required | default   | description                                                    |
-| --------- | ------ | -------- | --------- | -------------------------------------------------------------- |
-| title     | string | false    | undefined | text to render                                                 |
-| icon      | string | false    | undefined | path to image or inline SVG XML                                |
-| iconWidth | string | false    | undefined | width of icon (required for SVG icons)                         |
-| iconAlign | string | false    | undefined | side of the text where icon will appear on (`left` or `right`) |
+| name       | type   | required | default   | description                                                    |
+| ---------- | ------ | -------- | --------- | -------------------------------------------------------------- |
+| icon       | string | false    | undefined | path to image or inline SVG XML                                |
+| iconWidth  | number | false    | undefined | width of icon (required for SVG icons)                         |
+| iconHeight | number | false    | undefined | height of icon (required for SVG icons)                        |
+| iconAlign  | string | false    | undefined | side of the text where icon will appear on (`left` or `right`) |
+| title      | string | false    | undefined | text to render                                                 |
 
 ### Style Properties
 
