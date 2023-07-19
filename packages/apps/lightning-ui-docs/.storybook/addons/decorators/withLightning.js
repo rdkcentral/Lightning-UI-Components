@@ -81,8 +81,6 @@ export const withLightning = (
   clearInspector();
   app.announcerEnabled = globals.announce;
   app.debug = globals.announce;
-  console.log(parameters);
-  console.log(globals);
   // toggle stage color
   !globals.stageColor
     ? app.stage.setClearColor(utils.getValidColor('#21232A'))
@@ -196,7 +194,6 @@ export const withLightning = (
           y: context.theme.spacer.sm,
           onAfterUpdate: ({ y, h }) => {
             if (h > context.theme.layout.marginY) {
-              console.log(y + h + context.theme.spacer.xl);
               app.tag('StoryComponent').y = y + h + context.theme.spacer.xl;
             }
           }
