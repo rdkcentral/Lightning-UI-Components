@@ -76,13 +76,7 @@ If multiple of these properties are enabled, the order of precedence from highes
 
 ### Style Properties
 
-| name           | type                             | description                                                                                                                         |
-| -------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| alwaysScroll   | boolean                          | when true, the row will stop scrolling as it nears the right edge to prevent white space                                            |
-| neverScroll    | boolean                          | when true, the row will never scroll, unless alwaysScroll is set to true, and if false, the row will apply normal scrolling logic', |
-| scrollIndex    | number                           | index of currently selected item                                                                                                    |
-| itemSpacing    | number                           | spacing between items                                                                                                               |
-| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render                                                                                              |
+The Row component shares the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--row)
 
 ### Child Item Properties
 
@@ -95,32 +89,9 @@ The `Row` component will utilize the following properties on each individual ele
 
 ### Methods
 
+The Row component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/navigation-navigationmanager--row) and [FocusManager](/docs/navigation-focusmanager--column-with-rows) documentation.
+
 #### onScreenEffect(onScreenItems: lng.Component[]): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
 
-#### appendItems(items: lng.Component[]): void
-
-Adds items to the end of the child list
-
-#### appendItemsAt(items: lng.Component[], index: number): void
-
-Adds items at a specified index of the child list
-
-#### prependItems(items: lng.Component[]): void
-
-Adds items to the start of the child list
-
-#### removeItemAt(index: number): void
-
-Removes an item (by index) from the row
-
-##### Arguments
-
-| name  | type                                                    | required | default | description             |
-| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
-
-#### render(): void
-
-Called when item focus changes. Render is responsible for the scroll behavior

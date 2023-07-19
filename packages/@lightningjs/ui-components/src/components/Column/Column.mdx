@@ -122,11 +122,11 @@ If both of those properties are enabled, `alwaysScroll` will take precedence ove
 
 ### Style Properties
 
-| name           | type                             | description                            |
-| -------------- | -------------------------------- | -------------------------------------- |
-| itemSpacing    | number                           | spacing between items                  |
-| scrollIndex    | number                           | index of currently selected item       |
-| itemTransition | <DocsLink id="lng.Transition" /> | transition to apply to items on render |
+The Column component shares a few of the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--row)
+
+scrollIndex: number
+itemSpacing: number
+itemTransition: <DocsLink id="lng.Transition" />
 
 ### Child Item Properties
 
@@ -140,42 +140,11 @@ The `Column` component will utilize the following properties on each individual 
 
 ### Methods
 
+The Column component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/navigation-navigationmanager--row) and [FocusManager](/docs/navigation-focusmanager--column-with-rows) documentation.
+
 #### onScreenEffect(): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
-
-#### appendItems(items: lng.Component[]): void
-
-Adds items to the end of the child list
-
-#### appendItemsAt(items: lng.Component[], index: number): void
-
-Adds items at a specified index of the child list
-
-#### prependItems(items: lng.Component[]): void
-
-Adds items to the start of the child list
-
-#### removeItemAt(index: number): void
-
-Removes an item (by index) from the row
-
-##### Arguments
-
-| name  | type                                                    | required | default | description             |
-| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
-
-#### render(selected: lng.Component, previous: lng.Component): void
-
-Called when item focus changes. Render is responsible for the scroll behavior
-
-##### Arguments
-
-| name     | type                                                    | required | default | description                                                          |
-| -------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------------------------- |
-| selected | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | The items to be selected. Required only if this.plinko is true.      |
-| previous | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | -       | The previously selected items. Required only if this.plinko is true. |
 
 ### Events
 
