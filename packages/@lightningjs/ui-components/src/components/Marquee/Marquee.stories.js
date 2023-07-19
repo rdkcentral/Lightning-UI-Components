@@ -25,7 +25,7 @@ import { context } from '../../globals';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[256]}/Marquee`,
+  title: `${CATEGORIES[8]}/Marquee`,
   parameters: {
     docs: {
       page: mdx

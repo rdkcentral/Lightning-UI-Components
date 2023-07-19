@@ -24,7 +24,7 @@ import circle from '../../assets/images/circle.svg';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/Badge`,
+  title: `${CATEGORIES[8]}/Badge`,
   parameters: {
     docs: {
       page: mdx

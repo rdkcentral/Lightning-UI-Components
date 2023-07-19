@@ -28,7 +28,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: `${CATEGORIES[64]}/ControlRow`,
+  title: `${CATEGORIES[8]}/ControlRow`,
   parameters: {
     docs: {
       page: mdx
@@ -251,6 +251,6 @@ AddingAndRemoving.parameters = {
       - left controls: prepend a new control with a play icon to the left controls
       - content items: append a tile with a background after the selected index
       - right controls: append a new control with a play icon to the right controls
-  Press the Enter key while focused on any of the added controls or content items to remove that control or content item.  
+  Press the Enter key while focused on any of the added controls or content items to remove that control or content item.
   `
 };

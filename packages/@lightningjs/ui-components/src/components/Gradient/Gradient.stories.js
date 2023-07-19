@@ -22,7 +22,7 @@ import mdx from './Gradient.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/Gradient`,
+  title: `${CATEGORIES[8]}/Gradient`,
   parameters: {
     docs: {
       page: mdx

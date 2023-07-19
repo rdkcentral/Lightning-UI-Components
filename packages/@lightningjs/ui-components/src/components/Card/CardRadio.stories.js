@@ -24,7 +24,7 @@ import { createModeControl, generateSubStory } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[128]}/CardRadio`,
+  title: `${CATEGORIES[8]}/CardRadio`,
   tag: 'Card',
   parameters: {
     docs: {

@@ -21,8 +21,8 @@ import NavigationManager from '.';
 
 # NavigationManager
 
-NavigationManager is a subclass of [FocusManager](?path=/docs/navigation-focusmanager--rows),
-and parent class of [Row](?path=/docs/navigation-row--row) and [Column](?path=/docs/navigation-column--column).
+NavigationManager is a subclass of [FocusManager](?path=/docs/components-focusmanager--rows),
+and parent class of [Row](?path=/docs/components-row--row) and [Column](?path=/docs/components-column--column).
 It contains shared properties and methods primarily concerned with scrolling and layout.
 
 ## Source
@@ -40,7 +40,7 @@ class CustomRow extends NavigationManager {}
 ```
 
 <Canvas>
-  <Story id="navigation-navigationmanager--row" />
+  <Story id="components-navigationmanager--row" />
 </Canvas>
 
 ### Scrolling
@@ -52,7 +52,7 @@ If both of those properties are enabled, `alwaysScroll` will take precedence ove
 ### directionProps
 
 NavigationManager uses a constant, `directionPropNames`, to map property names from the
-`direction` propety set in [FocusManager](?path=/docs/elements-focusmanager--row). The properties it maps to are as follows:
+`direction` propety set in [FocusManager](?path=/docs/components-focusmanager--row). The properties it maps to are as follows:
 
 ```js
 const directionPropNames = {

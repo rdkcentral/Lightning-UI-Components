@@ -17,24 +17,18 @@
  */
 
 export const CATEGORIES = {
-  0: 'Accessibility',
-  2: 'Controls',
-  4: 'Foundations',
-  8: 'Keyboard',
-  16: 'Layout',
-  32: 'Metadata',
-  64: 'Navigation',
-  128: 'Tiles & Cards',
-  256: 'Text',
-  512: 'Utilities',
-  1024: 'Docs',
-  2048: 'Collections',
+  0: 'Docs',
+  2: 'Collections',
+  4: 'Utilities',
+  8: 'Components',
+  16: 'Patterns',
+  32: 'Templates'
 };
 
 /** Storybook config constants should go in this file */
 
 export const storySortOrder = [
-  CATEGORIES[1024],
+  CATEGORIES[0],
   [
     'Introduction',
     'Read Me',
@@ -61,17 +55,11 @@ export const storySortOrder = [
       ['makeCreateComponent', '*']
     ]
   ],
-  CATEGORIES[2048],
-  CATEGORIES[0],
-  CATEGORIES[4],
-  CATEGORIES[512],
-  CATEGORIES[64],
-  CATEGORIES[16],
   CATEGORIES[2],
+  CATEGORIES[4],
   CATEGORIES[8],
-  CATEGORIES[256],
-  CATEGORIES[32],
-  CATEGORIES[128],
+  CATEGORIES[16],
+  CATEGORIES[32]
 ];
 
 export const controlDescriptions = {

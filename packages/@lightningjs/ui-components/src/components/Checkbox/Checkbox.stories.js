@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/Checkbox`,
+  title: `${CATEGORIES[8]}/Checkbox`,
   parameters: {
     docs: {
       page: mdx

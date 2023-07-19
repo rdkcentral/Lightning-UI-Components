@@ -53,7 +53,7 @@ class BasicExample extends lng.Component {
 }
 ```
 
-The `Column` component extends `FocusManager`[fm-docs], so you need to make sure that `_getFocused` returns the `Column` component.
+The `Column` component extends [FocusManager](?path=/docs/components-focusmanager--column-with-rows), so you need to make sure that `_getFocused` returns the `Column` component.
 
 ### Column items with changing height
 
@@ -100,7 +100,7 @@ class ExpandableHeightItems extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="navigation-column--column" />
+  <Story id="components-column--column" />
 </Canvas>
 
 ### Scrolling
@@ -122,7 +122,7 @@ If both of those properties are enabled, `alwaysScroll` will take precedence ove
 
 ### Style Properties
 
-The Column component shares a few of the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--row)
+The Column component shares a few of the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/components-navigationmanager--row)
 
 scrollIndex: number
 itemSpacing: number
@@ -140,7 +140,7 @@ The `Column` component will utilize the following properties on each individual 
 
 ### Methods
 
-The Column component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/navigation-navigationmanager--row) and [FocusManager](/docs/navigation-focusmanager--column-with-rows) documentation.
+The Column component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/components-navigationmanager--row) and [FocusManager](/docs/components-focusmanager--column-with-rows) documentation.
 
 #### onScreenEffect(): void
 
@@ -151,6 +151,3 @@ A callback that can be overridden to do something with the items that are curren
 #### $columnEmpty(): void
 
 Fires when all of the items have been removed from a `Column`
-
-[fm-docs]: ?path=/docs/focusmanager--rows
-[fm-api]: ?path=/docs/focusmanager--rows#api

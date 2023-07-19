@@ -26,7 +26,7 @@ import mdx from './MetadataCard.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/MetadataCard`,
+  title: `${CATEGORIES[8]}/MetadataCard`,
   parameters: {
     docs: {
       page: mdx

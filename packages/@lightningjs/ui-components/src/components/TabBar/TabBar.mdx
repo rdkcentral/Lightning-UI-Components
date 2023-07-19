@@ -30,7 +30,7 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 ## Usage
 
 `TabBar` renders a row of tabs and displays the contents for each tab when it is selected. The recommended component
-to render for each tab is the [Tab](/docs/elements-tab--basic) component, however custom implementations of tab components is also supported.
+to render for each tab is the [Tab](/docs/components-tab--basic) component, however custom implementations of tab components is also supported.
 The component rendered as content for each tab is set via a `tabContent` property on each tab.
 
 ```js
@@ -92,7 +92,7 @@ class Example extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="layout-tabbar--basic" />
+  <Story id="components-tabbar--basic" />
 </Canvas>
 
 ### Properties
@@ -105,7 +105,7 @@ class Example extends lng.Component {
 | tabs             | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | true     | -       | The content displayed when a tab is selected is configured via a tabContent property on each tab in the tabs array. If tabContent is undefined on a tab, nothing will be displayed when that tab is selected. TabContent accepts a component, a function which returns a component, or a promise that resolves to a component |
 | wrapSelected     | boolean                                                 | false    | false   | enables wrapping behavior, so `selectNext` selects the first item if the current item is the last on the list and vice versa                                                                                                                                                                                                  |
 
-\* `TabBar` also accepts all properties supported by the [Row](/docs/layout-row--basic) component. These properties will be applied to the Row which renders the Tabs
+\* `TabBar` also accepts all properties supported by the [Row](/docs/components-row--basic) component. These properties will be applied to the Row which renders the Tabs
 
 ### Style Properties
 

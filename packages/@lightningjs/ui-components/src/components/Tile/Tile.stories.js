@@ -30,7 +30,7 @@ import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stor
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 
 export default {
-  title: `${CATEGORIES[128]}/Tile`,
+  title: `${CATEGORIES[8]}/Tile`,
   parameters: {
     docs: {
       page: mdx

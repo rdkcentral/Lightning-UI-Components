@@ -22,7 +22,7 @@ import { Tile } from '../../components';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/withLayout`,
+  title: `${CATEGORIES[4]}/withLayout`,
   parameters: {
     docs: {
       page: mdx

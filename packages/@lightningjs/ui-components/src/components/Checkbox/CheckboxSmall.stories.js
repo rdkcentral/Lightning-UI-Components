@@ -23,7 +23,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/CheckboxSmall`,
+  title: `${CATEGORIES[8]}/CheckboxSmall`,
   parameters: {
     docs: {
       page: mdx

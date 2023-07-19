@@ -23,7 +23,7 @@ import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
 
 export default {
-  title: `${CATEGORIES[64]}/FocusManager`,
+  title: `${CATEGORIES[8]}/FocusManager`,
   parameters: {
     docs: {
       page: mdx
