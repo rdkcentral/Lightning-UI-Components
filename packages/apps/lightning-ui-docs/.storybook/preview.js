@@ -18,10 +18,8 @@
 
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
-import theme from './theme';
 import { withLightning } from './addons/decorators/withLightning';
 import { registerEventListeners } from './utils/registerEvents';
-import { storySortOrder } from '@lightningjs/ui-components/src/docs/constants';
 import { themes } from '@storybook/theming';
 
 // loads window event listeners
