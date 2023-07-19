@@ -224,7 +224,7 @@ export default class Tile extends Surface {
       mode: this.mode,
       x: this.style.paddingX,
       y: this.style.paddingY,
-      alpha: this.persistentMetadata ? 1 : 0.001
+      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
     };
 
     if (!this._Badge) {
@@ -238,8 +238,9 @@ export default class Tile extends Surface {
         }
       });
       return;
+    } else {
+      this._Badge.patch(badgePatch);
     }
-
     this.applySmooth(this._Badge, badgePatch, {
       ...badgePatch,
       ...this._badgeLabelTransitions // Badge and Label should animate in with the same values
@@ -262,7 +263,7 @@ export default class Tile extends Surface {
       mode: this.mode,
       x: this._w - this.style.paddingX,
       y: this.style.paddingY,
-      alpha: this.persistentMetadata ? 1 : 0.001
+      alpha: this._shouldShowBadgeLabel ? 1 : 0.001
     };
 
     if (!this._Label) {
@@ -277,6 +278,8 @@ export default class Tile extends Surface {
         }
       });
       return;
+    } else {
+      this._Label.patch(labelPatch);
     }
 
     this.applySmooth(this._Label, labelPatch, {
