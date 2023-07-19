@@ -169,7 +169,7 @@ yarn createComponent <packageName> <componentName>
 Example: add a new component, `MyComponent`, to the `@lightningjs/ui-components` package
 
 ```sh
-yarn createComponent @lightningjs/ui MyComponent
+yarn createComponent @lightningjs/ui-components MyComponent
 ```
 
 This will create the following files:
@@ -191,7 +191,6 @@ This will create the following files:
 ```
 
 ### Pull Requests
-
 
 NOTE: Before RDK accepts your code into the project you must sign the RDK Contributor License Agreement (CLA).
 
