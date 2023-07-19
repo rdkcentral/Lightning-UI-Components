@@ -76,7 +76,7 @@ If multiple of these properties are enabled, the order of precedence from highes
 
 ### Style Properties
 
-The Row component shares the same style properties as the one's listed in NavigationManager.. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--navigationmanager)
+The Row component shares the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--navigationmanager)
 
 ### Child Item Properties
 
@@ -89,32 +89,9 @@ The `Row` component will utilize the following properties on each individual ele
 
 ### Methods
 
+The Column component inherits few methods from its parent component, NavigationManager, which in turn extends the focusManager component. These shared methods are already documented in the focusManager component. For a detailed description of these methods, please refer to the methods section in the [FocusManager component](?path=/docs/navigation-focusmanager--focusmanager)
+
 #### onScreenEffect(onScreenItems: lng.Component[]): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
 
-#### appendItems(items: lng.Component[]): void
-
-Adds items to the end of the child list
-
-#### appendItemsAt(items: lng.Component[], index: number): void
-
-Adds items at a specified index of the child list
-
-#### prependItems(items: lng.Component[]): void
-
-Adds items to the start of the child list
-
-#### removeItemAt(index: number): void
-
-Removes an item (by index) from the row
-
-##### Arguments
-
-| name  | type                                                    | required | default | description             |
-| ----- | ------------------------------------------------------- | -------- | ------- | ----------------------- |
-| items | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | false    | []      | list of items to append |
-
-#### render(): void
-
-Called when item focus changes. Render is responsible for the scroll behavior
