@@ -8,7 +8,14 @@
   },
   "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
   "type": "module",
-  "exports": "./index.js",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    }
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "files": [
     "index.js",
     "src/**"
