@@ -1,0 +1,18 @@
+feature(Storybook): updates CardRadio with v7 config
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 25422f20
+# Last commands done (34 commands done):
+#    pick 27a279da feature(Storybook): removes old console logs
+#    pick 7a847f2d feature(Storybook): updates CardRadio with v7 config
+# Next commands to do (2 remaining commands):
+#    pick 6aa6f647 feature(Storybook): updates new test docs to v7 changes
+#    pick dd8f65a1 feature(Storybook): adds Figma addon for design panel
+# You are currently rebasing branch 'feature/Storybook-upgrade-v7' on '25422f20'.
+#
+# Changes to be committed:
+#	modified:   packages/@lightningjs/ui-components/src/components/Card/CardRadio.mdx
+#	modified:   packages/@lightningjs/ui-components/src/components/Card/CardRadio.stories.js
+#

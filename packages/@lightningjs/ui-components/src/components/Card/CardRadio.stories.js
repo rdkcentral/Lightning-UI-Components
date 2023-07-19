@@ -18,19 +18,12 @@
 
 import lng from '@lightningjs/core';
 import { default as CardRadioComponent } from './CardRadio.js';
-import mdx from './CardRadio.mdx';
 import { Radio as RadioStory } from '../Radio/Radio.stories.js';
 import { createModeControl, generateSubStory } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/CardRadio`,
-  tag: 'Card',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Tiles & Cards/CardRadio',
+  tag: 'Card'
 };
 
 const description =
