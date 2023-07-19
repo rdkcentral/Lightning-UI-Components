@@ -35,10 +35,8 @@ const config = {
     '../src/*.mdx',
     '../../../@lightningjs/ui-components/src/**/*.mdx',
     '../../../@lightningjs/ui-components/src/**/*.stories.@(js|jsx|ts|tsx)',
-    '../../../@lightningjs/ui-components-test-utils/src/docs/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../@lightningjs/ui-components/src/docs/*.stories.@(js|jsx|ts|tsx)',
-    '../../../@lightningjs/ui-components/src/docs/*.mdx'
+    '../../../@lightningjs/ui-components-test-utils/src/docs/*.mdx',
+    '../../../@lightningjs/ui-components-test-utils/src/docs/**/*.mdx'
   ],
   staticDirs: ['../../../@lightningjs/ui-components/src/assets'],
   // TODO: How to handle images between projects
