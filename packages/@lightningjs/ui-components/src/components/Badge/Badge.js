@@ -58,7 +58,7 @@ export default class Badge extends Base {
   }
 
   static get tags() {
-    return ['Background', 'Text', 'Icon', 'Stroke'];
+    return ['Background', 'Text', 'Icon'];
   }
 
   _init() {
@@ -143,10 +143,10 @@ export default class Badge extends Base {
 
     this.w = this.title
       ? this._Text.renderWidth +
-        this.style.paddingX * 2 +
+        this.style.offsetX * 2 +
         (this._Icon.finalW || 0) +
         contentSpacing
-      : this.style.paddingX * 2 + (this._Icon.finalW || 0);
+      : this.style.offsetX * 2 + (this._Icon.finalW || 0);
   }
 
   _updatePositions() {

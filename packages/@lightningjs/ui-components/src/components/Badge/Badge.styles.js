@@ -19,15 +19,16 @@
 export const base = theme => {
   return {
     contentSpacing: theme.spacer.sm,
-    paddingX: theme.spacer.md,
-    paddingY: theme.spacer.xs,
+    offsetX: theme.spacer.md,
     offsetY: theme.spacer.xxs,
+    paddingX: theme.spacer.md + theme.spacer.xxs,
+    paddingY: theme.spacer.xs,
     radius: theme.radius.sm,
+    strokeWidth: theme.stroke.sm,
     textStyle: {
       ...theme.typography.caption1,
       textAlign: 'center'
-    },
-    strokeWidth: theme.stroke.sm
+    }
   };
 };
 
