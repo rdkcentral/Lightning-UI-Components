@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,13 +55,31 @@ export default cliArgs => [
     output: {
       sourcemap: true,
       file: cliArgs.name
-        ? `./dist/${cliArgs.name}.min.js`
-        : './dist/bundle.min.js',
+        ? `./dist/${cliArgs.name}.min.mjs`
+        : './dist/bundle.min.mjs',
       format: 'esm'
     },
     treeshake: {
       preset: 'smallest',
       moduleSideEffects: false // Important to make sure final bundle only includes necessary imports from os lightning/ui
+    },
+    plugins: [
+      resolve({ exportConditions: ['node'] }),
+      peerDepsExternal(),
+      image(),
+      json(),
+      babel({ babelHelpers: 'bundled', exclude: ['node_modules/**'] }),
+      terser({ keep_classnames: true, keep_fnames: true })
+    ]
+  },
+  {
+    input: './index.js',
+    output: {
+      sourcemap: true,
+      file: cliArgs.name
+        ? `./dist/${cliArgs.name}.min.cjs`
+        : './dist/bundle.min.cjs',
+      format: 'cjs'
     },
     plugins: [
       resolve({ exportConditions: ['node'] }),

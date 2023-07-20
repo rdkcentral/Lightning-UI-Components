@@ -9,16 +9,15 @@
   "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
   "sideEffects": false,
   "type": "module",
-  "main": "./index.js",
   "exports": {
     ".": {
-      "red": "./dist/lightning-ui-components.min.mjs",
-      "yellow": "./dist/lightning-ui-components.min.cjs",
-      "blue": "./dist/lightning-ui-components.d.ts",
-      "default": "./index.js"
+      "import": "./dist/lightning-ui-components.min.mjs",
+      "require": "./dist/lightning-ui-components.min.cjs",
+      "types": "./dist/lightning-ui-components.d.ts"
     },
     "./src/": "./src/"
   },
+  "main": "./dist/lightning-ui-components.min.mjs",
   "types": "./dist/lightning-ui-components.d.ts",
   "scripts": {
     "start": "yarn run generateStorybookData && storybook dev -p 8000",
