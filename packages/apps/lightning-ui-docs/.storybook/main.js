@@ -59,6 +59,7 @@ const config = {
       __dirname,
       '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
     );
+    console.dir(config.resolve, { depth: null });
     return config;
   }
 };
