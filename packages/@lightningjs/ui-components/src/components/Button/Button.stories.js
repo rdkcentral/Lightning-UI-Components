@@ -134,4 +134,11 @@ const sharedArgActions = {
   }
 };
 
-Button.parameters = { argActions: sharedArgActions };
+// using a generic sample Figma button link to show how it works
+Button.parameters = {
+  argActions: sharedArgActions,
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QmKhJubhcEdcBVZkKj9zJA/Generic-styleguide-%2B-UI-kit-(Community)?type=design&node-id=1020-542&mode=design&t=7L7L8u1twq2tJQ7Z-4'
+  }
+};

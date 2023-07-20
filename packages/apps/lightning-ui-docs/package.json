@@ -18,6 +18,7 @@
     "@lightningjs/ui-components-theme-base": "workspace:^",
     "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^7.0.24",
+    "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.24",
     "@storybook/addon-interactions": "^7.0.24",
     "@storybook/addon-links": "^7.0.24",
