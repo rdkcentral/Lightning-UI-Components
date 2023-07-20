@@ -29,7 +29,8 @@ const config = {
         measure: false, // disable measure addon
         viewport: false // disable viewport addon
       }
-    }
+    },
+    '@storybook/addon-designs'
   ],
   stories: [
     '../src/*.mdx',
