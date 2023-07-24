@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from '../Button';
 import { TextBoxStyle } from '../TextBox';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {
   radius: lng.Tools.CornerRadius;
@@ -27,7 +27,7 @@ type LogoStyleObject = {
   w: number;
 };
 
-export type ListItemStyle = ButtonStyle & {
+type ListItemStyle = ButtonStyle & {
   alpha: number;
   descriptionTextStyle: TextBoxStyle;
   h: number;
@@ -39,14 +39,61 @@ export type ListItemStyle = ButtonStyle & {
   titleTextStyle: TextBoxStyle;
 };
 
-export default class ListItem extends Button {
+declare namespace ListItem {
+  export interface TemplateSpec extends Button.TemplateSpec {
+    /**
+     * description text
+     */
+    description?: string;
+
+    /**
+     * Logo to be placed to the left of the title and description
+     */
+    prefixLogo?: string;
+
+    /**
+     * flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode
+     */
+    shouldCollapse?: boolean;
+
+    /**
+     * Logo to be placed to the right of the title and description
+     */
+    suffixLogo?: string;
+
+    style?: StylePartial<ListItemStyle>;
+  }
+}
+
+declare class ListItem<
+  TemplateSpec extends ListItem.TemplateSpec = ListItem.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Button<TemplateSpec, TypeConfig> {
+  /**
+   * description text
+   */
   description?: string;
+
+  /**
+   * Logo to be placed to the left of the title and description
+   */
   prefixLogo?: string;
+
+  /**
+   * flag that if `true`, hides the title when `ListItem` is in unfocused or disabled mode
+   */
   shouldCollapse?: boolean;
+
+  /**
+   * Logo to be placed to the right of the title and description
+   */
   suffixLogo?: string;
+
   get style(): ListItemStyle;
   set style(v: StylePartial<ListItemStyle>);
 
   // tags
   get _Description(): lng.Component;
 }
+
+export { ListItem as default, ListItemStyle, LogoStyleObject };
