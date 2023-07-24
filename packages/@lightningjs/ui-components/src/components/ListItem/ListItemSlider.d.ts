@@ -18,16 +18,43 @@
 
 import lng from '@lightningjs/core';
 import { TextBoxStyle } from '../TextBox';
-import type { StylePartial } from '../../types/lui';
-import ListItem, { ListItemStyle } from '.';
+import { StylePartial } from '../../types/lui';
+import ListItem, { ListItemStyle } from './ListItem';
 
-export type ListItemSliderStyle = ListItemStyle & {
+type ListItemSliderStyle = ListItemStyle & {
   paddingY: number;
   valueTextStyle: TextBoxStyle;
 };
-export default class ListItemSlider extends ListItem {
+
+declare namespace ListItemSlider {
+  export interface TemplateSpec extends ListItem.TemplateSpec {
+    /**
+     * object containing all properties supported in the [Slider component](?path=/docs/elements-slider--basic)
+     */
+    slider?: Record<string, unknown>;
+
+    /**
+     * current value of slider
+     */
+    value?: string;
+
+    style?: StylePartial<ListItemSliderStyle>;
+  }
+}
+declare class ListItemSlider<
+  TemplateSpec extends ListItemSlider.TemplateSpec = ListItemSlider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends ListItem<TemplateSpec, TypeConfig> {
+  /**
+   * object containing all properties supported in the [Slider component](?path=/docs/elements-slider--basic)
+   */
   slider?: Record<string, unknown>;
+
+  /**
+   * current value of slider
+   */
   value?: string;
+
   get style(): ListItemSliderStyle;
   set style(v: StylePartial<ListItemSliderStyle>);
 
@@ -35,3 +62,5 @@ export default class ListItemSlider extends ListItem {
   get _Slider(): lng.Component;
   get _Value(): lng.Component;
 }
+
+export { ListItemSlider as default, ListItemSliderStyle };
