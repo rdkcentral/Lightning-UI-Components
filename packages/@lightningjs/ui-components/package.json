@@ -9,22 +9,14 @@
   "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
   "sideEffects": false,
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/lightning-ui-components.min.mjs",
-      "require": "./dist/lightning-ui-components.min.cjs",
-      "types": "./dist/lightning-ui-components.d.ts",
-      "default": "./index.js"
-    },
-    "./src/": "./src/"
-  },
-  "types": "./dist/lightning-ui-components.d.ts",
   "scripts": {
-    "start": "yarn run generateStorybookData && storybook dev -p 8000",
+    "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
     "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
     "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors",
+    "prepack": "packageName=$npm_package_name yarn workspace @lightningjs/monorepo node scripts/prepack.js",
+    "postpack": "packageName=$npm_package_name yarn workspace @lightningjs/monorepo node scripts/postpack.js"
   },
   "peerDependencies": {
     "@lightningjs/core": "^2.9.0"
