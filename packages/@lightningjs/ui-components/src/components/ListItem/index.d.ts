@@ -16,8 +16,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import ListItem, { ListItemStyle } from './ListItem';
-import ListItemSlider from './ListItemSlider';
-import ListItemPicker from './ListItemPicker';
+import ListItem, { ListItemStyle, LogoStyleObject } from './ListItem';
+import ListItemPicker, { ListItemPickerStyle } from './ListItemPicker';
+import ListItemSlider, { ListItemSliderStyle } from './ListItemSlider';
 
-export { ListItem as default, ListItemSlider, ListItemPicker, ListItemStyle };
+export {
+  ListItem as default,
+  ListItemStyle,
+  LogoStyleObject,
+  ListItemSlider,
+  ListItemSliderStyle,
+  ListItemPicker,
+  ListItemPickerStyle
+};
