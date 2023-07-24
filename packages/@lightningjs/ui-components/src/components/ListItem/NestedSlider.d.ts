@@ -23,7 +23,7 @@ import type { StylePartial } from '../../types/lui';
 export type NestedSliderStyle = SliderStyle & {
   innerCircleSize: number;
 };
-
+// TODO update when Slider is updated
 export default class NestedSlider extends Slider {
   get style(): NestedSliderStyle;
   set style(v: StylePartial<NestedSliderStyle>);
