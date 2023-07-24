@@ -79,6 +79,7 @@ const createNewPackageJson = originalPackageJson => {
     peerDependencies: originalPackageJson.peerDependencies,
     publishConfig: originalPackageJson.publishConfig,
     repository: originalPackageJson.repository,
+    scripts: originalPackageJson.scripts,
     exports: {
       '.': {
         import: `./dist/${packageNameWithoutSpecialChars}.min.mjs`,

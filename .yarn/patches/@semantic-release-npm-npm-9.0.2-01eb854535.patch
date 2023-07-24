@@ -1,0 +1,58 @@
+diff --git a/lib/prepare.js b/lib/prepare.js
+index d232eb2134ab2f1f8081d3b72305caa20bf41513..5a87a7a1c73c848f00f7ee92b59ee4475f561187 100644
+--- a/lib/prepare.js
++++ b/lib/prepare.js
+@@ -8,8 +8,8 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
+   logger.log('Write version %s to package.json in %s', version, basePath);
+ 
+   const versionResult = execa(
+-    'npm',
+-    ['version', version, '--userconfig', npmrc, '--no-git-tag-version', '--allow-same-version'],
++    'yarn',
++    ['version', version],
+     {
+       cwd: basePath,
+       env,
+@@ -21,20 +21,12 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
+ 
+   await versionResult;
+ 
+-  if (tarballDir) {
+-    logger.log('Creating npm package version %s', version);
+-    const packResult = execa('npm', ['pack', basePath, '--userconfig', npmrc], {cwd, env, preferLocal: true});
+-    packResult.stdout.pipe(stdout, {end: false});
+-    packResult.stderr.pipe(stderr, {end: false});
++  // Always create a tarball to publish from. This way we can manipulate the tarball with postpack if needed
++  const packResult = execa('yarn', ['pack', basePath], {cwd, env, preferLocal: true});
++  packResult.stdout.pipe(stdout, {end: false});
++  packResult.stderr.pipe(stderr, {end: false});
+ 
+-    const tarball = (await packResult).stdout.split('\n').pop();
+-    const tarballSource = path.resolve(cwd, tarball);
+-    const tarballDestination = path.resolve(cwd, tarballDir.trim(), tarball);
+-
+-    // Only move the tarball if we need to
+-    // Fixes: https://github.com/semantic-release/npm/issues/169
+-    if (tarballSource !== tarballDestination) {
+-      await move(tarballSource, tarballDestination);
+-    }
+-  }
++  const tarball = (await packResult).stdout.split('\n').pop();
++  const tarballSource = path.resolve(cwd, tarball);
++  const tarballDestination = path.resolve(cwd, tarballDir.trim(), tarball);
+ };
+diff --git a/lib/publish.js b/lib/publish.js
+index ff3af00789942572806e52627b5e22c8ac25d1b1..028a0cc68c237fa1c2f6fbca6d69f097c67a8290 100644
+--- a/lib/publish.js
++++ b/lib/publish.js
+@@ -21,8 +21,8 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
+ 
+     logger.log(`Publishing version ${version} to npm registry on dist-tag ${distTag}`);
+     const result = execa(
+-      'npm',
+-      ['publish', basePath, '--userconfig', npmrc, '--tag', distTag, '--registry', registry],
++      'yarn',
++      ['workspace', pkg.name, 'npm', 'publish', '--tag', distTag],
+       {cwd, env, preferLocal: true}
+     );
+     result.stdout.pipe(stdout, {end: false});
