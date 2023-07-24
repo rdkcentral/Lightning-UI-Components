@@ -3399,7 +3399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-actions@npm:7.1.0, @storybook/addon-actions@npm:^7.0.24":
+"@storybook/addon-actions@npm:7.1.0, @storybook/addon-actions@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-actions@npm:7.1.0"
   dependencies:
@@ -3537,7 +3537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:^7.0.24":
+"@storybook/addon-essentials@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-essentials@npm:7.1.0"
   dependencies:
@@ -3573,7 +3573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-interactions@npm:^7.0.24":
+"@storybook/addon-interactions@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-interactions@npm:7.1.0"
   dependencies:
@@ -3602,7 +3602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^7.0.24":
+"@storybook/addon-links@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-links@npm:7.1.0"
   dependencies:
@@ -3628,7 +3628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-mdx-gfm@npm:^7.0.24":
+"@storybook/addon-mdx-gfm@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-mdx-gfm@npm:7.1.0"
   dependencies:
@@ -3687,7 +3687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-storysource@npm:^7.0.24":
+"@storybook/addon-storysource@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/addon-storysource@npm:7.1.0"
   dependencies:
@@ -3792,7 +3792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/blocks@npm:7.1.0, @storybook/blocks@npm:^7.0.27":
+"@storybook/blocks@npm:7.1.0, @storybook/blocks@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/blocks@npm:7.1.0"
   dependencies:
@@ -4219,7 +4219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/html-webpack5@npm:^7.0.24":
+"@storybook/html-webpack5@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/html-webpack5@npm:7.1.0"
   dependencies:
@@ -4237,7 +4237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/html@npm:7.1.0, @storybook/html@npm:^7.0.24":
+"@storybook/html@npm:7.1.0, @storybook/html@npm:^7.1.0":
   version: 7.1.0
   resolution: "@storybook/html@npm:7.1.0"
   dependencies:
@@ -12501,16 +12501,16 @@ __metadata:
     "@lightningjs/ui-components": "workspace:^"
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
-    "@storybook/addon-actions": ^7.0.24
+    "@storybook/addon-actions": ^7.1.0
     "@storybook/addon-designs": ^7.0.1
-    "@storybook/addon-essentials": ^7.0.24
-    "@storybook/addon-interactions": ^7.0.24
-    "@storybook/addon-links": ^7.0.24
-    "@storybook/addon-mdx-gfm": ^7.0.24
-    "@storybook/addon-storysource": ^7.0.24
-    "@storybook/blocks": ^7.0.27
-    "@storybook/html": ^7.0.24
-    "@storybook/html-webpack5": ^7.0.24
+    "@storybook/addon-essentials": ^7.1.0
+    "@storybook/addon-interactions": ^7.1.0
+    "@storybook/addon-links": ^7.1.0
+    "@storybook/addon-mdx-gfm": ^7.1.0
+    "@storybook/addon-storysource": ^7.1.0
+    "@storybook/blocks": ^7.1.0
+    "@storybook/html": ^7.1.0
+    "@storybook/html-webpack5": ^7.1.0
     "@storybook/mdx1-csf": ^1.0.0
     "@storybook/testing-library": ^0.2.0
     "@yarnpkg/pnpify": ^4.0.0-rc.21
@@ -12521,7 +12521,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     remark-gfm: ^3.0.1
-    storybook: ^7.0.24
+    storybook: ^7.1.0
   languageName: unknown
   linkType: soft
 
@@ -17565,7 +17565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:^7.0.24":
+"storybook@npm:^7.1.0":
   version: 7.1.0
   resolution: "storybook@npm:7.1.0"
   dependencies:
