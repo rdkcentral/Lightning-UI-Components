@@ -188,8 +188,7 @@ class MetadataBase extends Base {
   _updateSubtitle() {
     this._Subtitle.patch({
       content: this.subtitle,
-      style: { textStyle: this.style.subtitleTextStyle },
-      justify: 'flex-start'
+      style: { textStyle: this.style.subtitleTextStyle }
     });
     if (this._Subtitle.finalW > this._textW()) {
       this._SubtitleWrapper.patch({
