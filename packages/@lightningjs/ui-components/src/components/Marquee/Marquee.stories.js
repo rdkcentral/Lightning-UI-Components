@@ -120,7 +120,6 @@ export const CenteredText = () =>
           type: InlineContent,
           x: 200,
           alpha: 0.001,
-          justify: 'flex-start',
           content: [
             'Centered',
             {

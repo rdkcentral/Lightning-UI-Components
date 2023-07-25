@@ -802,6 +802,30 @@ export function watchForUpdates({
   return element;
 }
 
+/**
+ * Given a Lightning text alignment option (left, right, center),
+ * return the Lightning flexbox equivalent.
+ *
+ * @param {string} align
+ * @returns {string}
+ */
+export function convertTextAlignToFlexJustify(align) {
+  switch (align) {
+    case 'left':
+      return 'flex-start';
+    case 'center':
+      return 'center';
+    case 'right':
+      return 'flex-end';
+    default:
+      // if there is no alignment passed in, the Lightning Text default is "left"
+      console.warn(
+        `Expected "textAlign" values are "left," "center," and "right," but instead, ${align} was received and will fall back to "left."`
+      );
+      return 'flex-start';
+  }
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -828,7 +852,8 @@ const utils = {
   getDimensions,
   getWidthByColumnSpan,
   createConditionalZContext,
-  watchForUpdates
+  watchForUpdates,
+  convertTextAlignToFlexJustify
 };
 
 export default utils;

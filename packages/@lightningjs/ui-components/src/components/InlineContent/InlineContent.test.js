@@ -156,7 +156,7 @@ describe('InlineContent', () => {
   });
 
   it('should update flexbox justification', () => {
-    const justify = 'flex-start';
+    const justify = 'flex-end';
     inlineContent.justify = justify;
     expect(inlineContent.justify).toBe(justify);
   });

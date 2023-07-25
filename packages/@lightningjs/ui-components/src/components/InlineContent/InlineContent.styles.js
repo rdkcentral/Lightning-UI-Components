@@ -27,5 +27,5 @@ export const base = theme => ({
     verticalAlign: 'bottom'
   },
   maxLines: 1,
-  justify: 'center'
+  justify: 'flex-start'
 });

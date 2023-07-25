@@ -156,6 +156,11 @@ export default class TextBox extends Base {
     if (this._textStyleSet.maxLinesSuffix) {
       inlineContentPatch.maxLinesSuffix = this._textStyleSet.maxLinesSuffix;
     }
+    if (this._textStyleSet.textAlign) {
+      inlineContentPatch.justify = utils.convertTextAlignToFlexJustify(
+        this._textStyleSet.textAlign
+      );
+    }
 
     this.patch({
       alpha: 1,
