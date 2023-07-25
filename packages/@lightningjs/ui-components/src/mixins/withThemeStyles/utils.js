@@ -235,11 +235,7 @@ export const generateComponentStyleSource = component => {
       }
 
       // Mode Tone
-      const [styleModeTone, styleModeToneDelete] = styleFormatter(
-        finalStyle,
-        'mode',
-        'tone'
-      );
+      const [styleModeTone] = styleFormatter(finalStyle, 'mode', 'tone');
 
       if (styleModeTone) {
         finalStyle = clone(finalStyle, { tone: styleModeTone });
@@ -276,11 +272,7 @@ export const generateComponentStyleSource = component => {
           mode: componentConfigStyle.mode
         });
 
-        const [styleModeTone, styleModeToneDelete] = styleFormatter(
-          finalStyle,
-          'mode',
-          'tone'
-        );
+        const [styleModeTone] = styleFormatter(finalStyle, 'mode', 'tone');
         if (styleModeTone) {
           finalStyle = clone(finalStyle, { tone: styleModeTone });
         }
@@ -328,11 +320,7 @@ export const generateComponentStyleSource = component => {
         finalStyle = clone(finalStyle, {
           mode: component._componentLevelStyle.mode
         });
-        const [styleModeTone, styleModeToneDelete] = styleFormatter(
-          finalStyle,
-          'mode',
-          'tone'
-        );
+        const [styleModeTone] = styleFormatter(finalStyle, 'mode', 'tone');
 
         if (styleModeTone) {
           finalStyle = clone(finalStyle, { tone: styleModeTone });
