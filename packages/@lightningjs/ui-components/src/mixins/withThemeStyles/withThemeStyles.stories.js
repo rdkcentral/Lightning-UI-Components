@@ -23,7 +23,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 
 export default {
-  title: `${CATEGORIES[512]}/withThemeStyles`,
+  title: `${CATEGORIES[4]}/withThemeStyles`,
   parameters: {
     docs: {
       page: mdx

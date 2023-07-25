@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/MetadataCardContent`,
+  title: `${CATEGORIES[8]}/MetadataCardContent`,
   parameters: {
     docs: {
       page: mdx

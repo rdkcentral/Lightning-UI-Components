@@ -23,7 +23,7 @@ import mdx from './Label.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/Label`,
+  title: `${CATEGORIES[8]}/Label`,
   parameters: {
     docs: {
       page: mdx

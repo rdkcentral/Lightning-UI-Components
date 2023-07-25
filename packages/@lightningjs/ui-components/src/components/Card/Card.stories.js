@@ -23,7 +23,7 @@ import { default as CardComponent } from './Card.js';
 import mdx from './Card.mdx';
 
 export default {
-  title: `${CATEGORIES[128]}/Card`,
+  title: `${CATEGORIES[8]}/Card`,
   tag: 'Card',
 
   parameters: {

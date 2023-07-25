@@ -26,7 +26,7 @@ import mdx from './MetadataBase.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[32]}/MetadataBase`,
+  title: `${CATEGORIES[8]}/MetadataBase`,
   parameters: {
     docs: {
       page: mdx

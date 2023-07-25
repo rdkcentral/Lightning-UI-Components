@@ -23,7 +23,7 @@ import xfinityProviderLogo from '../../assets/images/Xfinity-Provider-Logo-Squar
 
 # MetadataCardContent
 
-A component to format metadata on CardContent. Contains a [Provider](?path=/docs/elements-provider--basic) to format [Icon(s)](?path=/docs/foundations-icon--png).
+A component to format metadata on CardContent. Contains a [Provider](?path=/docs/components-provider--basic) to format [Icon(s)](?path=/docs/components-icon--png).
 
 ## Source
 
@@ -55,25 +55,25 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="metadata-metadatacardcontent--metadata-card-content" />
+  <Story id="components-metadatacardcontent--metadata-card-content" />
 </Canvas>
 
 ## API
 
 ### Properties
 
-| name        | type                                            | required | default   | description                                                                          |
-| ----------- | ----------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------ |
-| title       | string                                          | false    | undefined | title text                                                                           |
-| description | string                                          | false    | undefined | description text directly below title                                                |
-| details     | string                                          | false    | undefined | details text at bottom left of component                                             |
-| provider    | [Provider](?path=/docs/utilities-provider--provider) | false    | undefined | an object of [Provider](?path=/docs/utilities-provider--provider) properties to patch in |
+| name        | type                                                  | required | default   | description                                                                               |
+| ----------- | ----------------------------------------------------- | -------- | --------- | ----------------------------------------------------------------------------------------- |
+| title       | string                                                | false    | undefined | title text                                                                                |
+| description | string                                                | false    | undefined | description text directly below title                                                     |
+| details     | string                                                | false    | undefined | details text at bottom left of component                                                  |
+| provider    | [Provider](?path=/docs/components-provider--provider) | false    | undefined | an object of [Provider](?path=/docs/components-provider--provider) properties to patch in |
 
 ### Style Properties
 
-| name             | type             | description                                                                            |
-| ---------------- | ---------------- | -------------------------------------------------------------------------------------- |
-| detailsTextStyle | string \| object | text style for details                                                                 |
-| providerStyle    | object           | style properties to pass along to the [Provider](?path=/docs/elements-provider--basic) |
+| name             | type             | description                                                                              |
+| ---------------- | ---------------- | ---------------------------------------------------------------------------------------- |
+| detailsTextStyle | string \| object | text style for details                                                                   |
+| providerStyle    | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--basic) |
 
 ### Methods

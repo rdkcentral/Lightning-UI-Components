@@ -23,7 +23,7 @@ import mdx from './Icon.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/Icon`,
+  title: `${CATEGORIES[8]}/Icon`,
   parameters: {
     docs: {
       page: mdx

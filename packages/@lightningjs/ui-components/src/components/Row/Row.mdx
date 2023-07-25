@@ -50,7 +50,7 @@ class Basic extends lng.Component {
 ```
 
 <Canvas>
-  <Story id="navigation-row--row" />
+  <Story id="components-row--row" />
 </Canvas>
 
 ### Scrolling
@@ -76,7 +76,7 @@ If multiple of these properties are enabled, the order of precedence from highes
 
 ### Style Properties
 
-The Row component shares the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/navigation-navigationmanager--row)
+The Row component shares the same style properties as the ones listed in NavigationManager. For a detailed description, please refer to style properties section in the [NavigationManager component](?path=/docs/components-navigationmanager--row)
 
 ### Child Item Properties
 
@@ -89,9 +89,8 @@ The `Row` component will utilize the following properties on each individual ele
 
 ### Methods
 
-The Row component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/navigation-navigationmanager--row) and [FocusManager](/docs/navigation-focusmanager--column-with-rows) documentation.
+The Row component is a subclass of NavigationManager and FocusManager, so inherits all methods from those parent components. These shared methods are already documented in the NavigationManager and FocusManager documentation. For detailed descriptions of these methods, please refer to the methods section in the [NavigationManager](/?path=/docs/components-navigationmanager--row) and [FocusManager](/docs/components-focusmanager--column-with-rows) documentation.
 
 #### onScreenEffect(onScreenItems: lng.Component[]): void
 
 A callback that can be overridden to do something with the items that are currently on screen. This will be called on every new render.
-

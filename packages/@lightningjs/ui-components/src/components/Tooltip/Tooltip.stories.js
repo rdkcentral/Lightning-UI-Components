@@ -24,7 +24,7 @@ import { default as TooltipComponent } from '.';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/Tooltip`,
+  title: `${CATEGORIES[8]}/Tooltip`,
   args: {
     title: 'Tooltip',
     delayVisible: 0,

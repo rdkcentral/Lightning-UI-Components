@@ -23,7 +23,7 @@ import mdx from './GridOverlay.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/GridOverlay`,
+  title: `${CATEGORIES[8]}/GridOverlay`,
   parameters: {
     docs: {
       page: mdx

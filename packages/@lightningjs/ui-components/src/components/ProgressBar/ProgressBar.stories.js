@@ -22,7 +22,7 @@ import mdx from './ProgressBar.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[512]}/ProgressBar`,
+  title: `${CATEGORIES[8]}/ProgressBar`,
   parameters: {
     tag: 'ProgressBar',
     docs: {

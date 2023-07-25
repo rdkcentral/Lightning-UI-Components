@@ -24,7 +24,7 @@ import { getHexColor } from '../../utils';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[256]}/InlineContent`,
+  title: `${CATEGORIES[8]}/InlineContent`,
   args: {
     contentWrap: false,
     justify: 'center',

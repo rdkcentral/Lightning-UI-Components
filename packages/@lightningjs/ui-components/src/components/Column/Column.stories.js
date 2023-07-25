@@ -28,7 +28,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { SignalButton } from '../../docs/story-components';
 
 export default {
-  title: `${CATEGORIES[64]}/Column`,
+  title: `${CATEGORIES[8]}/Column`,
   parameters: {
     docs: {
       page: mdx

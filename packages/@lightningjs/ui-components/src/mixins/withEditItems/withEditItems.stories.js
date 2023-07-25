@@ -27,7 +27,7 @@ import { CATEGORIES } from '../../docs/constants';
  */
 import * as RowProps from '../../components/Row/Row.stories.js';
 export default {
-  title: `${CATEGORIES[512]}/withEditItems`,
+  title: `${CATEGORIES[4]}/withEditItems`,
   parameters: {
     docs: {
       page: mdx

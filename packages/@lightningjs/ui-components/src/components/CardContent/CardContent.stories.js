@@ -26,7 +26,7 @@ import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[128]}/CardContent`,
+  title: `${CATEGORIES[8]}/CardContent`,
   parameters: {
     docs: {
       page: mdx
