@@ -35,7 +35,6 @@ export const base = theme => {
     w: size,
     h: size,
     radius: size / 2,
-    sliderHeight: theme.spacer.md,
     showArrows: true,
     showKnob: true,
     circleAnimation: {}
