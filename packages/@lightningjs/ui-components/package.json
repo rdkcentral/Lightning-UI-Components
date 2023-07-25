@@ -2,39 +2,6 @@
   "name": "@lightningjs/ui-components",
   "version": "2.6.0",
   "description": "A shared library of helpful LightningJS components utilizing theme files to easily customize for any LightningJS application.",
-  "repository": {
-    "url": "https://github.com/rdkcentral/Lightning-UI-Components",
-    "directory": "packages/@lightningjs/ui-components"
-  },
-  "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
-  "sideEffects": false,
-  "type": "module",
-  "scripts": {
-    "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
-    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
-    "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors",
-    "postpack": "packageName=$npm_package_name yarn workspace @lightningjs/monorepo node scripts/postpack.js"
-  },
-  "peerDependencies": {
-    "@lightningjs/core": "^2.9.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@lightningjs/ui-components-test-utils": "workspace:^",
-    "@mdx-js/react": "^1.6.22",
-    "babel-jest": "^29.0.3",
-    "babel-loader": "^8.2.5",
-    "enhanced-resolve": "^5.10.0",
-    "jest": "^29.3.1",
-    "jest-environment-jsdom": "^29.3.1",
-    "jest-webgl-canvas-mock": "^0.2.3",
-    "lightning-ui-docs": "workspace:^",
-    "rollup": "^3.2.5",
-    "semantic-release": "^19.0.5",
-    "semantic-release-monorepo": "^7.0.5"
-  },
   "dependencies": {
     "@lightningjs/ui-components-theme-base": "workspace:^",
     "debounce": "^1.2.1"
@@ -44,7 +11,35 @@
     "src/**",
     "dist/**"
   ],
+  "homepage": "https://rdkcentral.github.io/Lightning-UI-Components/",
+  "sideEffects": false,
+  "type": "module",
+  "peerDependencies": {
+    "@lightningjs/core": "^2.9.0"
+  },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "repository": {
+    "url": "https://github.com/rdkcentral/Lightning-UI-Components",
+    "directory": "packages/@lightningjs/ui-components"
+  },
+  "scripts": {
+    "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
+    "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
+    "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/lightningjs-ui-components.min.mjs",
+      "require": "./dist/lightningjs-ui-components.min.cjs",
+      "types": "./dist/lightningjs-ui-components.d.ts",
+      "default": "./index.js"
+    },
+    "./src/": "./src/"
+  },
+  "main": "./dist/lightningjs-ui-components.min.mjs",
+  "types": "./dist/lightningjs-ui-components.d.ts"
 }
