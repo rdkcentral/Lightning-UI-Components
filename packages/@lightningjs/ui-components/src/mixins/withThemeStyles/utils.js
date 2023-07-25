@@ -101,34 +101,6 @@ export const getPrototypeChain = obj => {
 };
 
 /**
- * Deletes a nested property from an object based on the provided property path.
- *
- * @param {object} obj - The object from which to delete the nested property.
- * @param {string} propertyPath - The property path specifying the nested property to delete.
- */
-export function deleteNestedProperty(obj, propertyPath) {
-  const properties = propertyPath.split('.');
-  const lastProperty = properties.pop();
-
-  let currentObj = obj;
-  for (const property of properties) {
-    if (
-      currentObj.hasOwnProperty(property) &&
-      typeof currentObj[property] === 'object'
-    ) {
-      currentObj = currentObj[property];
-    } else {
-      // Property path is not valid
-      return;
-    }
-  }
-
-  if (currentObj.hasOwnProperty(lastProperty)) {
-    delete currentObj[lastProperty];
-  }
-}
-
-/**
  * Recursively removes empty objects from the provided object.
  *
  * @param {object} obj - The object from which to remove empty objects.
@@ -249,14 +221,9 @@ export const generateComponentStyleSource = component => {
       }
 
       // Tone Mode
-      const [styleToneMode, styleToneModeDelete] = styleFormatter(
-        finalStyle,
-        'tone',
-        'mode'
-      );
+      const [styleToneMode] = styleFormatter(finalStyle, 'tone', 'mode');
       if (styleToneMode) {
         finalStyle = clone(finalStyle, { mode: styleToneMode });
-        deleteNestedProperty(finalStyle, styleToneModeDelete);
       }
 
       if (mode && typeof mode === 'function') {
@@ -276,7 +243,6 @@ export const generateComponentStyleSource = component => {
 
       if (styleModeTone) {
         finalStyle = clone(finalStyle, { tone: styleModeTone });
-        deleteNestedProperty(finalStyle, styleModeToneDelete);
       }
 
       // Deprecated styleConfig
@@ -299,14 +265,9 @@ export const generateComponentStyleSource = component => {
           tone: componentConfigStyle.tone
         });
 
-        const [styleToneMode, styleToneModeDelete] = styleFormatter(
-          finalStyle,
-          'tone',
-          'mode'
-        );
+        const [styleToneMode] = styleFormatter(finalStyle, 'tone', 'mode');
         if (styleToneMode) {
           finalStyle = clone(finalStyle, { mode: styleToneMode });
-          deleteNestedProperty(finalStyle, styleToneModeDelete);
         }
       }
 
@@ -322,7 +283,6 @@ export const generateComponentStyleSource = component => {
         );
         if (styleModeTone) {
           finalStyle = clone(finalStyle, { tone: styleModeTone });
-          deleteNestedProperty(finalStyle, styleModeToneDelete);
         }
       }
 
@@ -358,14 +318,9 @@ export const generateComponentStyleSource = component => {
         finalStyle = clone(finalStyle, {
           tone: component._componentLevelStyle.tone
         });
-        const [styleToneMode, styleToneModeDelete] = styleFormatter(
-          finalStyle,
-          'tone',
-          'mode'
-        );
+        const [styleToneMode] = styleFormatter(finalStyle, 'tone', 'mode');
         if (styleToneMode) {
           finalStyle = clone(finalStyle, { mode: styleToneMode });
-          deleteNestedProperty(finalStyle, styleToneModeDelete);
         }
       }
 
@@ -378,9 +333,9 @@ export const generateComponentStyleSource = component => {
           'mode',
           'tone'
         );
+
         if (styleModeTone) {
           finalStyle = clone(finalStyle, { tone: styleModeTone });
-          deleteNestedProperty(finalStyle, styleModeToneDelete);
         }
       }
 
@@ -411,7 +366,6 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
-
   return removeEmptyObjects(JSON.parse(processedStyle));
 };
 
@@ -424,7 +378,6 @@ export const generateComponentStyleSource = component => {
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-
   const modeStyle = componentStyleSource?.mode?.[mode];
   const toneStyle = componentStyleSource?.tone?.[tone];
 

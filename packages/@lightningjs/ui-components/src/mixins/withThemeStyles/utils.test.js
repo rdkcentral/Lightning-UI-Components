@@ -6,7 +6,6 @@ import {
   getSubTheme,
   getComponentConfig,
   getPrototypeChain,
-  deleteNestedProperty,
   generateComponentStyleSource,
   generateStyle,
   getStyleChain,
@@ -114,21 +113,6 @@ describe('Test Suite for Custom Utils', () => {
     it('should return an empty array if the object is not a plain object', () => {
       const nonObject = 123; // Not an object
       expect(getPrototypeChain(nonObject)).toEqual([]);
-    });
-  });
-
-  describe('deleteNestedProperty', () => {
-    // Test cases for deleteNestedProperty function
-    it('should delete the nested property from the object based on the provided property path', () => {
-      const obj = { a: { b: { c: 'value' } } };
-      deleteNestedProperty(obj, 'a.b.c');
-      expect(obj).toEqual({ a: { b: {} } });
-    });
-
-    it('should not modify the object if the property path is not valid', () => {
-      const obj = { a: { b: { c: 'value' } } };
-      deleteNestedProperty(obj, 'a.x.y.z');
-      expect(obj).toEqual({ a: { b: { c: 'value' } } });
     });
   });
 
