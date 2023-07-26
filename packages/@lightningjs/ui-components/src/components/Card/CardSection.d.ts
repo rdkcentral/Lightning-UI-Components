@@ -19,10 +19,12 @@
 import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
 import type { StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
 
 export type CardSectionStyle = CardStyle & {
   iconHeight: number;
   iconWidth: number;
+  titleTextStyle: TextBoxStyle;
 };
 
 export default class CardSection extends Card {

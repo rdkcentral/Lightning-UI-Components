@@ -20,6 +20,7 @@ import type lng from '@lightningjs/core';
 import Surface, { SurfaceStyle } from '../Surface';
 import { TextBoxStyle } from '../TextBox';
 import type { Color, StylePartial } from '../../types/lui';
+import type { TextContent } from '../InlineContent/InlineContent';
 
 export type CardStyle = SurfaceStyle & {
   backgroundColor: Color;
@@ -30,7 +31,7 @@ export type CardStyle = SurfaceStyle & {
 };
 
 export default class Card extends Surface {
-  title?: string;
+  title?: string | TextContent[];
   get style(): CardStyle;
   set style(v: StylePartial<CardStyle>);
 

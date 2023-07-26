@@ -19,14 +19,17 @@
 import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
 import { TextBoxStyle } from '../TextBox';
+import type { TextContent } from '../InlineContent/InlineContent';
 import type { StylePartial } from '../../types/lui';
 
 export type CardTitleStyle = CardStyle & {
-  descriptionTextStyle: TextBoxStyle;
+  descriptionTextProperties: TextBoxStyle;
+  detailsTextProperties: TextBoxStyle;
 };
 
 export default class CardTitle extends Card {
-  description?: string;
+  description?: string | TextContent[];
+  details?: string | TextContent[];
   get style(): CardTitleStyle;
   set style(v: StylePartial<CardTitleStyle>);
 
