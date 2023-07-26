@@ -22,9 +22,7 @@ import { TextBoxStyle } from '../TextBox';
 import type { Color, StylePartial } from '../../types/lui';
 
 export type CardStyle = SurfaceStyle & {
-  backgroundColorDisabled: Color;
-  backgroundColorFocused: Color;
-  backgroundColorUnfocused: Color;
+  backgroundColor: Color;
   paddingHorizontal: number;
   paddingVertical: number;
   radius: lng.Tools.CornerRadius;
