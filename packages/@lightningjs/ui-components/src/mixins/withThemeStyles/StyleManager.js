@@ -34,7 +34,6 @@ export default class StyleManager extends lng.EventEmitter {
    */
   constructor({ component = {} } = {}) {
     super(...arguments);
-    this.resolving = false;
     this._previousTone;
     this._previousMode;
     this._previousComponentLevelStyle;
@@ -52,7 +51,7 @@ export default class StyleManager extends lng.EventEmitter {
     // Initial Update
     this._update();
 
-    if (process?.env?.NODE_ENV === 'test') {
+    if (typeof process === 'object' && process?.env?.NODE_ENV === 'test') {
       this.update = this._update; // Avoid race conditions in tests
     } else {
       // Debounce the update method so that it's called only once during rapid style changes.

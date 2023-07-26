@@ -142,18 +142,10 @@ describe('TextBox', () => {
       );
     });
 
-    // TODO: Check with team to see if defaultTextStyle should still be suppported
-    it.skip('should set text styles to the defaultTextStyle if textStyle is not provided', async () => {
-      textBox.content = 'Hello world';
-      textBox.style.defaultTextStyle = 'headline1';
-      textBox.style.textStyle = null;
+    it('should set textColor to the default white if no textColor is provided', () => {
+      textBox.content = 'Hello World!';
       testRenderer.forceAllUpdates();
-      expect(textBox._Text.text.fontSize).toBe(
-        textBox.theme.typography[textBox.style.defaultTextStyle].fontSize
-      );
-      expect(textBox._Text.text.fontWeight).toBe(
-        textBox.theme.typography[textBox.style.defaultTextStyle].fontWeight
-      );
+      expect(textBox._Text.text.textColor).toBe(getValidColor('#FFFFFF'));
     });
 
     it('should set textColor to the provided textColor value if defined', () => {
