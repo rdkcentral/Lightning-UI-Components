@@ -19,7 +19,7 @@
 import utils from '../../utils';
 
 export const base = theme => ({
-  alpha: 1,
+  alpha: theme.alpha.primary,
   descriptionTextStyle: {
     ...theme.typography.body3,
     maxLines: 1,
