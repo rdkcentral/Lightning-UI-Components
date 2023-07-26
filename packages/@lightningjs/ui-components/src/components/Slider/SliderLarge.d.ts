@@ -15,7 +15,10 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import lng from '@lightningjs/core';
+import Slider from './Slider';
 
-import Slider from '.';
-
-export default class SliderLarge extends Slider {}
+export default class SliderLarge<
+  TemplateSpec extends Slider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig
+> extends Slider<TemplateSpec, TypeConfig> {}
