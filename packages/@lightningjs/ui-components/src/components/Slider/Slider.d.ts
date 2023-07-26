@@ -18,10 +18,35 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
-import type { ProgressBarStyle } from '../ProgressBar';
+import { Color, StylePartial } from '../../types/lui';
+import { ProgressBarStyle } from '../ProgressBar';
 
-export type SliderStyle = {
+declare namespace Slider {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Upper bound of value
+     */
+    max?: number;
+    /**
+     * Lower bound of value
+     */
+    min?: number;
+    /**
+     * +/- value on change
+     */
+    step?: number;
+    /**
+     * current value
+     */
+    value?: number;
+    /**
+     * If true, the slider is displayed vertically
+     */
+    vertical?: boolean;
+  }
+}
+
+type SliderStyle = {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowColor: Color;
@@ -43,12 +68,33 @@ export type SliderStyle = {
   };
 };
 
-export default class Slider extends Base {
+declare class Slider<
+  TemplateSpec extends Slider.TemplateSpec = Slider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  //
+  /**
+   * Upper bound of value
+   */
   max?: number;
+  /**
+   * Lower bound of value
+   */
   min?: number;
+  /**
+   * +/- value on change
+   */
   step?: number;
+  /**
+   * current value
+   */
   value?: number;
+  /**
+   * If true, the slider is displayed vertically
+   */
   vertical?: boolean;
+
+  // Accessors
   get style(): SliderStyle;
   set style(v: StylePartial<SliderStyle>);
 
@@ -60,3 +106,5 @@ export default class Slider extends Base {
   get _LeftArrow(): lng.Component;
   get _RightArrow(): lng.Component;
 }
+
+export { Slider as default, SliderStyle };
