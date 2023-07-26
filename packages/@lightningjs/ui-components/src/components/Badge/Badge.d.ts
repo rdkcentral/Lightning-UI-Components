@@ -101,6 +101,7 @@ declare class Badge<
   set style(v: StylePartial<BadgeStyle>);
 
   // tags
+  get _Background(): lng.Component;
   get _Text(): lng.Component;
   get _Icon(): lng.Component;
 }
