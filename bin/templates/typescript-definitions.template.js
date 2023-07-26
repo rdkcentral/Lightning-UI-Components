@@ -37,9 +37,9 @@ module.exports = name => {
 
 import lng from '@lightningjs/core';
 import Base from '../Base/Base'; // TODO: remove this comment or replace import with appropriate parent component import
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
-export type ${name}Style = {};
+type ${name}Style = {};
 
 declare namespace ${name} {
   export interface TemplateSpec extends Base.TemplateSpec {
@@ -62,5 +62,5 @@ declare class ${name}<
   // Tags
 }
 
-export default ${name};
+export { ${name} as default, ${name}Style };
 `}
