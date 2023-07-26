@@ -19,8 +19,7 @@
 export const base = theme => {
   return {
     contentSpacing: theme.spacer.sm,
-    offsetX: theme.spacer.md,
-    offsetY: theme.spacer.xxs,
+    offsetY: 1,
     paddingX: theme.spacer.md + theme.spacer.xxs,
     paddingY: theme.spacer.xs,
     radius: theme.radius.sm,
