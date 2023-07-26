@@ -88,11 +88,7 @@ describe('Badge', () => {
     await badge.__updateBackgroundSpyPromise;
     testRenderer.forceAllUpdates();
     expect(badge.title).toBe(title);
-    expect(badge.w).toBe(
-      badge._Text.renderWidth +
-        badge.style.offsetX * 2 +
-        (badge._Icon.finalW || 0)
-    );
+    expect(badge.w).toBe(badge._Text.renderWidth + badge.style.paddingX * 2);
 
     const title2 = 'longer title';
     badge.title = title2;
@@ -102,11 +98,7 @@ describe('Badge', () => {
     }, 500);
     await badge.__updateBackgroundSpyPromise;
     expect(badge.title).toBe(title2);
-    expect(badge.w).toBe(
-      badge._Text.renderWidth +
-        badge.style.offsetX * 2 +
-        (badge._Icon.finalW || 0)
-    );
+    expect(badge.w).toBe(badge._Text.renderWidth + badge.style.paddingX * 2);
     expect(badge.h).toBe(
       Math.max(badge._Text.renderHeight, badge._Icon.h) +
         badge.style.paddingY * 2
@@ -145,8 +137,7 @@ describe('Badge', () => {
     await badge.__updateBackgroundSpyPromise;
     badge._Text.text = textProperties;
     expect(badge._Text.x).toBe(0);
-    expect(badge._Text.y).toBe(badge.h / 2 + 2);
-    // This should work once bug in TextBox is fixed to patch textStyle
+    expect(badge._Text.y).toBe(badge.h / 2 + badge.style.offsetY);
     expect(badge._Text.text.textAlign).toBe(textProperties.textAlign);
     expect(badge._Text.text.color).toBe(color);
   });
