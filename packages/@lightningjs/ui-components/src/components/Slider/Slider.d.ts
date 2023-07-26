@@ -21,7 +21,7 @@ import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { ProgressBarStyle } from '../ProgressBar';
 
-export type SliderStyle = {
+type SliderStyle = {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowColor: Color;
@@ -112,4 +112,4 @@ declare class Slider<
   get _RightArrow(): lng.Component;
 }
 
-export default Slider;
+export { Slider as default, SliderStyle };
