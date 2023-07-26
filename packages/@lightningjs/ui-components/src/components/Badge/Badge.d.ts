@@ -20,7 +20,7 @@ import type lng from '@lightningjs/core';
 import type Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 
-export type BadgeStyle = {
+type BadgeStyle = {
   backgroundColor: Color;
   contentSpacing: number;
   iconColor: Color;
@@ -33,12 +33,70 @@ export type BadgeStyle = {
   textStyle: lng.textures.TextTexture.Settings;
 };
 
-export default class Badge extends Base {
-  title?: string;
+declare namespace Badge {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * path to image or inline SVG XML
+     */
+    icon?: string;
+
+    /**
+     * width of icon
+     */
+    iconWidth?: number;
+
+    /**
+     * height of icon
+     */
+    iconHeight?: number;
+
+    /**
+     * side of the text where icon will appear on (`left` or `right`)
+     */
+    iconAlign?: 'left' | 'right';
+
+    /**
+     * Badge text
+     */
+    title?: string;
+  }
+}
+
+declare class Badge<
+  TemplateSpec extends Badge.TemplateSpec = Badge.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * path to image or inline SVG XML
+   */
   icon?: string;
-  iconAlign?: string;
-  iconHeight?: number;
+
+  /**
+   * width of icon
+   */
   iconWidth?: number;
+
+  /**
+   * height of icon
+   */
+  iconHeight?: number;
+
+  /**
+   * side of the text where icon will appear on (`left` or `right`)
+   */
+  iconAlign?: 'left' | 'right';
+
+  /**
+   * Badge text
+   */
+  title?: string;
+
+  // Events
+  /**
+   * This event is triggered when the Badge component has completed loading its content, and the background has been adjusted to fit the size of the text input.
+   */
+  $loadedBadge(): void;
+
   get style(): BadgeStyle;
   set style(v: StylePartial<BadgeStyle>);
 
@@ -46,3 +104,5 @@ export default class Badge extends Base {
   get _Text(): lng.Component;
   get _Icon(): lng.Component;
 }
+
+export { Badge as default, BadgeStyle };
