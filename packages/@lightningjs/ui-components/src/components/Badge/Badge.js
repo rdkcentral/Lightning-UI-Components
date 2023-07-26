@@ -25,13 +25,8 @@ import lng from '@lightningjs/core';
 export default class Badge extends Base {
   static _template() {
     return {
-      rect: true,
-      shader: {
-        type: lng.shaders.RoundedRectangle
-      },
       Text: {
-        mountY: 0.5,
-        text: {}
+        mountY: 0.5
       },
       Icon: {
         type: Icon,
@@ -56,7 +51,7 @@ export default class Badge extends Base {
   }
 
   static get tags() {
-    return ['Text', 'Icon'];
+    return ['Background', 'Text', 'Icon'];
   }
 
   _init() {
@@ -68,21 +63,35 @@ export default class Badge extends Base {
     this._updateText();
     this._updateIcon();
     this._updateLayout();
+    this._updateVisibility();
+  }
+
+  _updateVisibility() {
+    this.alpha = this.title || this.icon ? 1 : 0;
   }
 
   _updateLayout() {
     this._updateWidth();
     this._updateBackground();
     this._updatePositions();
+    this.signal('loadedBadge', this);
   }
 
   _updateBackground() {
+    const height =
+      Math.max(this._Text.renderHeight, this._Icon.h) + this.style.paddingY * 2;
+
     this.patch({
-      h:
-        Math.max(this._Text.renderHeight, this._Icon.h) +
-        this.style.paddingY * 2,
-      color: this.style.backgroundColor,
-      shader: { radius: this.style.radius }
+      h: height,
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        height,
+        this.style.radius,
+        this.style.strokeWidth,
+        this.style.strokeColor,
+        true,
+        this.style.backgroundColor
+      )
     });
   }
 
@@ -90,7 +99,6 @@ export default class Badge extends Base {
     if (this._Text) {
       this._Text.patch({
         text: {
-          textAlign: this.style.textAlign,
           ...this.style.textStyle,
           text: this.title || ''
         }
@@ -110,27 +118,30 @@ export default class Badge extends Base {
   }
 
   _updateWidth() {
-    let contentSpacing = 0;
-    if (this.icon && this.title) {
-      contentSpacing = this.style.contentSpacing;
+    let width = 0;
+    if (this.title && this.icon) {
+      width =
+        this._Text.renderWidth +
+        this._Icon.finalW +
+        this.style.contentSpacing +
+        this.style.paddingX * 2;
+    } else if (this.title) {
+      width = this._Text.renderWidth + this.style.paddingX * 2;
+    } else if (this.icon) {
+      width = this._Icon.finalW + this.style.paddingX * 2;
     }
 
-    this.w = this.title
-      ? this._Text.renderWidth +
-        this.style.paddingX * 2 +
-        (this._Icon.finalW || 0) +
-        contentSpacing
-      : this.style.paddingX * 2 + (this._Icon.finalW || 0);
+    this.w = width;
   }
 
   _updatePositions() {
     this._Icon.y = this.h / 2;
 
-    if (this.iconAlign === 'left' && this.title) {
+    if (this.iconAlign === 'left' && this.title && this.icon) {
       this._Icon.x = this.style.paddingX;
       this._Text.x =
         this._Icon.x + this._Icon.finalW + this.style.contentSpacing;
-    } else if (this.iconAlign === 'right' && this.title) {
+    } else if (this.iconAlign === 'right' && this.title && this.icon) {
       this._Text.x = this.style.paddingX;
       this._Icon.x =
         this._Text.x + this._Text.renderWidth + this.style.contentSpacing;
@@ -140,7 +151,6 @@ export default class Badge extends Base {
     }
 
     this._Text.y = this._h / 2 + this.style.offsetY;
-    this.signal('loadedBadge', this);
   }
 
   _getIconHeight() {
@@ -157,6 +167,6 @@ export default class Badge extends Base {
   }
 
   get announce() {
-    return this._announce || (this._Text && this._Text.text.text);
+    return this._announce || this.title;
   }
 }

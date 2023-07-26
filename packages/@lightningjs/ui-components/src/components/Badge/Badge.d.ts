@@ -27,6 +27,8 @@ export type BadgeStyle = {
   paddingX: number;
   paddingY: number;
   radius: lng.Tools.CornerRadius;
+  strokeColor: Color;
+  strokeWidth: number;
   textAlign: string;
   textStyle: lng.textures.TextTexture.Settings;
 };

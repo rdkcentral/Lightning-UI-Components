@@ -33,7 +33,7 @@ The basic component just requires a title:
 
 ```js
 import { Badge } from '@lightningjs/ui-components';
-import circle from 'src/assets/images/circle.svg';
+import circle from '../../assets/images/circle.svg';
 
 class Example extends lng.Component {
   static _template() {
@@ -78,7 +78,7 @@ A title and an icon can also be used together:
 
 ```js
 import { Badge } from '@lightningjs/ui-components';
-import lightning from 'src/assets/images/lightning.png';
+import lightning from '../../assets/images/ic_lightning_white_32.png';
 
 class Example extends lng.Component {
   static _template() {
@@ -101,30 +101,31 @@ class Example extends lng.Component {
 
 ### Properties
 
-| name      | type   | required | default   | description                                                          |
-| --------- | ------ | -------- | --------- | -------------------------------------------------------------------- |
-| title     | string | false    | undefined | text to render                                                       |
-| icon      | string | false    | undefined | path to image or inline SVG XML                                      |
-| padding   | number | false    | undefined | padding to add on the left and right between the text and background |
-| iconWidth | string | false    | undefined | icon width (required for SVG icons)                                  |
-| iconAlign | string | false    | undefined | side of the text the icon will appear on (`left` or `right`)         |
+| name       | type   | required | default   | description                                                    |
+| ---------- | ------ | -------- | --------- | -------------------------------------------------------------- |
+| icon       | string | false    | undefined | path to image or inline SVG XML                                |
+| iconWidth  | number | false    | undefined | width of icon (required for SVG icons)                         |
+| iconHeight | number | false    | undefined | height of icon (required for SVG icons)                        |
+| iconAlign  | string | false    | undefined | side of the text where icon will appear on (`left` or `right`) |
+| title      | string | false    | undefined | text to render                                                 |
 
 ### Style Properties
 
 | name            | type             | description                                                          |
-| --------------- | ---------------- | -------------------------------------------------------------------- | --------- | ----------------------------------------------------------------- |
+| --------------- | ---------------- | -------------------------------------------------------------------- |
 | backgroundColor | string           | background style properties such as shader and color                 |
 | contentSpacing  | number           | padding to add between the icon and the text                         |
-| iconColor       | string           | false                                                                | undefined | color to be applied to the icon (only works with pure white PNGs) |
+| iconColor       | string           | color to be applied to the icon (only works with pure white PNGs)    |
+| offsetY         | number           | offset used to vertically center the text within the container       |
 | paddingX        | number           | padding to add on the left and right between the text and background |
 | paddingY        | number           | padding to add on the top and bottom between the text and background |
-| offsetY         | number           | Used to ensure text is positioned correctly                          |
 | radius          | number \| array  | shape of component                                                   |
-| textAlign       | string           | side of the component the text will appear on (`left` or `right`)    |
+| strokeColor     | string           | color of the Badge border                                            |
+| strokeWidth     | number           | width of the Badge border                                            |
 | textStyle       | string \| object | text style to apply to the title                                     |
 
 ### Events
 
 #### $loadedBadge():void
 
-Fires when the contents of the badge have finished loading and the background has been appropriately sized based on the text input.
+This event is fired when the contents of the badge have finished loading and the background has been appropriately sized based on the text input.
