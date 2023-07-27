@@ -118,7 +118,9 @@ describe('SliderLarge', () => {
       disabled: false
     });
     testRenderer.forceAllUpdates();
-    expect(sliderLarge._LeftArrow.alpha).toEqual(0.5);
+    expect(sliderLarge._LeftArrow.alpha).toEqual(
+      sliderLarge.style.arrowAlphaValueLimit
+    );
   });
 
   it('Alpha value of arrow when mode is set to disabled', () => {
