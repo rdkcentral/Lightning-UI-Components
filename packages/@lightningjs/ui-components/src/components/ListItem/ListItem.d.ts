@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from '../Button';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {
@@ -92,7 +92,7 @@ declare class ListItem<
   set style(v: StylePartial<ListItemStyle>);
 
   // tags
-  get _Description(): lng.Component;
+  get _Description(): TextBox;
 }
 
 export { ListItem as default, ListItemStyle, LogoStyleObject };

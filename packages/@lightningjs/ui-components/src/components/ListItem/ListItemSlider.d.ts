@@ -17,9 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import ListItem, { ListItemStyle } from './ListItem';
+import NestedSlider from './NestedSlider';
 
 type ListItemSliderStyle = ListItemStyle & {
   paddingY: number;
@@ -59,8 +60,8 @@ declare class ListItemSlider<
   set style(v: StylePartial<ListItemSliderStyle>);
 
   // tags
-  get _Slider(): lng.Component;
-  get _Value(): lng.Component;
+  get _Slider(): NestedSlider;
+  get _Value(): TextBox;
 }
 
 export { ListItemSlider as default, ListItemSliderStyle };

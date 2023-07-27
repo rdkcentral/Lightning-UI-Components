@@ -18,7 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
+import Icon from '../Icon';
 import ListItem, { ListItemStyle } from './ListItem';
+import Marquee from '../Marquee';
+import Row from '../Row';
 
 type ListItemPickerStyle = ListItemStyle & {
   arrowAlphaValue: number;
@@ -61,17 +64,17 @@ declare class ListItemPicker<
   selectedIndex?: number;
 
   /**
-   * returns the item from the `options` array at the current `selectedIndex`
+   * returns the component instance of the currently selected option in `ListItemPicker._Picker.items`
    */
-  get selectedOption(): string; // TODO is this correct?
+  get selectedOption(): Marquee;
 
   get style(): ListItemPickerStyle;
   set style(v: StylePartial<ListItemPickerStyle>);
 
   // tags
-  get _LeftArrow(): lng.Component;
-  get _RightArrow(): lng.Component;
-  get _Picker(): lng.Component;
+  get _LeftArrow(): Icon;
+  get _RightArrow(): Icon;
+  get _Picker(): Row;
 }
 
 export { ListItemPicker as default, ListItemPickerStyle };

@@ -18,11 +18,11 @@
 
 import lng from '@lightningjs/core';
 import Slider, { SliderStyle } from '../Slider';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
-// TODO make sure this is right
 export type NestedSliderStyle = SliderStyle & {
-  innerCircleSize: number;
+  showArrows: boolean;
+  showKnob: boolean;
 };
 
 export default class NestedSlider<
