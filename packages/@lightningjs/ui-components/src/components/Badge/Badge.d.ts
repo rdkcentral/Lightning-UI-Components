@@ -16,9 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type lng from '@lightningjs/core';
-import type Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import lng from '@lightningjs/core';
+import Base from '../Base';
+import { Color, StylePartial } from '../../types/lui';
 
 type BadgeStyle = {
   backgroundColor: Color;
@@ -60,6 +60,16 @@ declare namespace Badge {
      */
     title?: string;
   }
+
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted when the Badge component finishes loading its content and adjusts the background to fit the text input size.
+   */
+  export type SignalMap = {
+    loadedBadge(): void;
+  };
 }
 
 declare class Badge<
@@ -90,12 +100,6 @@ declare class Badge<
    * Badge text
    */
   title?: string;
-
-  // Events
-  /**
-   * This event is triggered when the Badge component has completed loading its content, and the background has been adjusted to fit the size of the text input.
-   */
-  $loadedBadge(): void;
 
   get style(): BadgeStyle;
   set style(v: StylePartial<BadgeStyle>);
