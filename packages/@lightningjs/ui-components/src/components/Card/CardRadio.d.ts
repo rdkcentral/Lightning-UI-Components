@@ -17,15 +17,22 @@
  */
 
 import lng from '@lightningjs/core';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 import { TextBoxStyle } from '../TextBox';
 import CardTitle, { CardTitleStyle } from './CardTitle';
-import type { TextContent } from '../InlineContent/InlineContent';
+import { TextContent } from '../InlineContent/InlineContent';
 
-export type CardRadioStyle = CardTitleStyle & {
+type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
   subtitleTextStyle: TextBoxStyle;
 };
+
+declare namespace CardRadio {
+  export interface TemplateSpec extends CardTitle {
+    radio?: Record<string, unknown>;
+    subtitle?: string | TextContent[];
+  }
+}
 export default class CardRadio extends CardTitle {
   radio?: Record<string, unknown>;
   subtitle?: string | TextContent[];

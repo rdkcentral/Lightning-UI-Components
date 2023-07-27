@@ -43,7 +43,8 @@ declare namespace CardSection {
      */
     iconWidth?: number;
   }
- declare class CardSection<TemplateSpec extends CardSection.TemplateSpec = CardSection.TemplateSpec, TypeConfig extends lng.Compoonent.TypeConfig = lng.Component.TypeConfig> extends Card<TemplateSpec>{
+
+declare class CardSection<TemplateSpec extends CardSection.TemplateSpec = CardSection.TemplateSpec, TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig> extends Card<TemplateSpec, TypeConfig>{
 
   // Properties
   /**

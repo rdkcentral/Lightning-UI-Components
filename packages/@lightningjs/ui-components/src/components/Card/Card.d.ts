@@ -48,7 +48,10 @@ declare namespace Card {
   }
 }
 
-declare class Card extends Surface {
+declare class Card<
+  TemplateSpec extends Card.TemplateSpec = Card.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
   /**
    * headline of the content
    */
