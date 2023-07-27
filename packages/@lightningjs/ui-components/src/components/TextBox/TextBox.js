@@ -66,7 +66,7 @@ export default class TextBox extends Base {
       'fixed',
       'marquee',
       ...InlineContent.properties,
-      'marqueProps'
+      'marqueeProps'
     ];
   }
 
@@ -234,7 +234,7 @@ export default class TextBox extends Base {
         h: this.h,
         y: this.style.offsetY,
         x: this.style.offsetX,
-        ...this._marqueProps,
+        ...this.marqueeProps,
         signals: {
           marqueeContentLoaded: '_loadedMarqueeContent'
         }
@@ -273,8 +273,12 @@ export default class TextBox extends Base {
     }
   }
 
-  get _marqueeProps() {
-    return this.marquePorps ?? {};
+  get marqueeProps() {
+    return this._marqueeProps ?? {};
+  }
+
+  set marqueeProps(props) {
+    this._marqueeProps = props;
   }
 
   get _textStyleSet() {
