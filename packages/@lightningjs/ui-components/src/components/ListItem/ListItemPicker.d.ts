@@ -18,9 +18,12 @@
 
 import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
-import ListItem, { ListItemStyle } from '.';
+import Icon from '../Icon';
+import ListItem, { ListItemStyle } from './ListItem';
+import Marquee from '../Marquee';
+import Row from '../Row';
 
-export type ListItemPickerStyle = ListItemStyle & {
+type ListItemPickerStyle = ListItemStyle & {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowWidth: number;
@@ -30,15 +33,48 @@ export type ListItemPickerStyle = ListItemStyle & {
   iconRightSrc: string;
 };
 
-export default class ListItemPicker extends ListItem {
-  options?: Record<string, unknown>;
+declare namespace ListItemPicker {
+  export interface TemplateSpec extends ListItem.TemplateSpec {
+    /**
+     * list of selectable options
+     */
+    options?: string[];
+
+    /**
+     * index of current selected option
+     */
+    selectedIndex?: number;
+
+    style?: StylePartial<ListItemStyle>;
+  }
+}
+
+declare class ListItemPicker<
+  TemplateSpec extends ListItemPicker.TemplateSpec = ListItemPicker.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends ListItem<TemplateSpec, TypeConfig> {
+  /**
+   * list of selectable options
+   */
+  options?: string[];
+
+  /**
+   * index of current selected option
+   */
   selectedIndex?: number;
-  get selectedOption(): Record<string, unknown>; // TODO is this correct?
+
+  /**
+   * returns the component instance of the currently selected option in `ListItemPicker._Picker.items`
+   */
+  get selectedOption(): Marquee;
+
   get style(): ListItemPickerStyle;
   set style(v: StylePartial<ListItemPickerStyle>);
 
   // tags
-  get _LeftArrow(): lng.Component;
-  get _RightArrow(): lng.Component;
-  get _Picker(): lng.Component;
+  get _LeftArrow(): Icon;
+  get _RightArrow(): Icon;
+  get _Picker(): Row;
 }
+
+export { ListItemPicker as default, ListItemPickerStyle };

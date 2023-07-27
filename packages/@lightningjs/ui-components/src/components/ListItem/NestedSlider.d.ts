@@ -16,15 +16,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Slider, { SliderStyle } from '../Slider';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
-// TODO make sure this is right
 export type NestedSliderStyle = SliderStyle & {
-  innerCircleSize: number;
+  showArrows: boolean;
+  showKnob: boolean;
 };
 
-export default class NestedSlider extends Slider {
+export default class NestedSlider<
+  TemplateSpec extends Slider.TemplateSpec = Slider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Slider<TemplateSpec, TypeConfig> {
   get style(): NestedSliderStyle;
   set style(v: StylePartial<NestedSliderStyle>);
 }
