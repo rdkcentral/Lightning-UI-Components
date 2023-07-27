@@ -24,6 +24,12 @@ import type { TextContent } from '../InlineContent/InlineContent';
 
 export type CardStyle = SurfaceStyle & {
   backgroundColor: Color;
+import { Color, StylePartial } from '../../types/lui';
+
+type CardStyle = SurfaceStyle & {
+  backgroundColorDisabled: Color;
+  backgroundColorFocused: Color;
+  backgroundColorUnfocused: Color;
   paddingHorizontal: number;
   paddingVertical: number;
   radius: lng.Tools.CornerRadius;
@@ -32,9 +38,27 @@ export type CardStyle = SurfaceStyle & {
 
 export default class Card extends Surface {
   title?: string | TextContent[];
+declare namespace Card {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
+    /**
+     * headline of the content
+     */
+    title?: string;
+  }
+}
+
+declare class Card extends Surface {
+  /**
+   * headline of the content
+   */
+  title?: string;
+
   get style(): CardStyle;
   set style(v: StylePartial<CardStyle>);
 
   // tags
   get _Title(): lng.Component;
 }
+
+export { Card as default, CardStyle };
