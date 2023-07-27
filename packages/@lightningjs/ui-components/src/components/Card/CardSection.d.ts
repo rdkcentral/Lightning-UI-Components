@@ -20,20 +20,50 @@ import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
 import type { StylePartial } from '../../types/lui';
 import { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
 
-export type CardSectionStyle = CardStyle & {
+type CardSectionStyle = CardStyle & {
   iconHeight: number;
   iconWidth: number;
   titleTextStyle: TextBoxStyle;
 };
 
-export default class CardSection extends Card {
+declare namespace CardSection {
+  export interface TemplateSpec extends Card.TemplateSpec {
+    /**
+     * height of the icon on the right
+     */
+    iconHeight?: number;
+    /**
+     * icon source
+     */
+    iconSrc?: number;
+    /**
+     * width of the icon on the right
+     */
+    iconWidth?: number;
+  }
+ declare class CardSection<TemplateSpec extends CardSection.TemplateSpec = CardSection.TemplateSpec, TypeConfig extends lng.Compoonent.TypeConfig = lng.Component.TypeConfig> extends Card<TemplateSpec>{
+
+  // Properties
+  /**
+     * height of the icon on the right
+     */
   iconHeight?: number;
+  /**
+     * icon source
+     */
   iconSrc?: number;
+   /**
+     * width of the icon on the right
+     */
   iconWidth?: number;
+
   get style(): CardSectionStyle;
   set style(v: StylePartial<CardSectionStyle>);
 
   // tags
   get _Icon(): lng.Component;
-}
+ }
+ 
+export {CardSection as default, CardSectionStyle};
