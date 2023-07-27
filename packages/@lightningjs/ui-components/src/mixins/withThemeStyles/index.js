@@ -39,7 +39,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._hSetByUser = false;
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
-      this._styleManager.on('styleUpdate', () => {
+      this._styleManager.on('styleUpdate', () => { // TODO: Add off on destroy
         this._style = this._styleManager.style;
         this.queueThemeUpdate();
       });
@@ -206,6 +206,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @param {any} v - Special configuration rules to override styles
      */
     set styleConfig(v) {
+      // TODO: Add deprecation message
       this._styleConfig = v;
       this._styleManager && this._styleManager.update();
     }

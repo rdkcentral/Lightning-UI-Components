@@ -55,9 +55,9 @@ export default class StyleManager extends lng.EventEmitter {
       this.update = this._update; // Avoid race conditions in tests
     } else {
       // Debounce the update method so that it's called only once during rapid style changes.
-      this.update = debounce(() => {
+      this.update = debounce(() => { // TODO: Change to updateDebounced or something for more clarity
         this._update();
-      }, 0);
+      }, 1);
     }
   }
 
@@ -179,6 +179,7 @@ export default class StyleManager extends lng.EventEmitter {
     const { mode, tone, _componentLevelStyle: componentStyle } = this.component;
 
     // Check to see if mode or tone has been updated since the last update
+    if (this.component.constructor.name === 'Button') console.log('DEBUG:', mode)
 
     if (
       (typeof componentStyle?.mode === 'function'
