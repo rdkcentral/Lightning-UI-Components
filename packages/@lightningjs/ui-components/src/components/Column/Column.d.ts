@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import FocusManager from '../FocusManager/FocusManager';
 import NavigationManager from '../NavigationManager';
 
 declare namespace Column {
@@ -30,8 +31,9 @@ declare namespace Column {
 }
 
 declare class Column<
-  TemplateSpec extends Column.TemplateSpec = Column.TemplateSpec
-> extends NavigationManager<TemplateSpec> {
+  TemplateSpec extends Column.TemplateSpec = Column.TemplateSpec,
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
+> extends NavigationManager<TemplateSpec, TypeConfig> {
   // Properties
   /**
    * When navigation between multiple Columns,
