@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Slider from '.';
+import Slider from './Slider';
 import * as styles from './SliderLarge.styles.js';
 
 export default class SliderLarge extends Slider {

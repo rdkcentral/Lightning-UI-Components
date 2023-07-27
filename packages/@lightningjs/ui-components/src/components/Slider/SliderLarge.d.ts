@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Slider from '.';
+import Slider from './Slider';
 
 declare class SliderLarge<
   TemplateSpec extends Slider.TemplateSpec = Slider.TemplateSpec,
