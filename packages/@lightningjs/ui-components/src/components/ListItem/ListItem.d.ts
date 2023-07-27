@@ -30,7 +30,6 @@ type LogoStyleObject = {
 type ListItemStyle = ButtonStyle & {
   alpha: number;
   descriptionTextStyle: TextBoxStyle;
-  h: number;
   logoStyle: LogoStyleObject;
   paddingX: number;
   prefixH: number;
