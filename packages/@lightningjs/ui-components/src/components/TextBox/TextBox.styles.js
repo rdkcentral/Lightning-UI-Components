@@ -31,5 +31,5 @@ export const tone = theme => ({
   },
   brand: {
     textStyle: { textColor: theme.color.fillBrand }
-  },
-  });
+  }
+});
