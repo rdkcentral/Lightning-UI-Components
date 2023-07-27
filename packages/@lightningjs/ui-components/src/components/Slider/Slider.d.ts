@@ -17,11 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base';
+import Base from '../Base/Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { ProgressBarStyle } from '../ProgressBar';
 
-export type SliderStyle = {
+type SliderStyle = {
   arrowAlphaValue: number;
   arrowAlphaValueLimit: number;
   arrowColor: Color;
@@ -35,7 +35,6 @@ export type SliderStyle = {
   progressBarStyle: ProgressBarStyle;
   showArrows: boolean;
   showKnob: boolean;
-  sliderHeight: number;
   circleAnimation: {
     timingFunction: string;
     duration: number;
@@ -43,12 +42,64 @@ export type SliderStyle = {
   };
 };
 
-export default class Slider extends Base {
+declare namespace Slider {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * upper bound of `value`
+     */
+    max?: number;
+
+    /**
+     *  lower bound of `value`
+     */
+    min?: number;
+
+    /**
+     * The increment or decrement step for changing the value of the slider.
+     */
+    step?: number;
+
+    /**
+     * current value of the slider.
+     */
+    value?: number;
+
+    /**
+     * If set to true, the slider will be displayed vertically otherwise, it will be displayed horizontally.
+     */
+    vertical?: boolean;
+  }
+}
+
+declare class Slider<
+  TemplateSpec extends Slider.TemplateSpec = Slider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * upper bound of `value`
+   */
   max?: number;
+
+  /**
+   *  lower bound of `value`
+   */
   min?: number;
+
+  /**
+   * The increment or decrement step for changing the value of the slider.
+   */
   step?: number;
+
+  /**
+   * current value of the slider.
+   */
   value?: number;
+
+  /**
+   * If set to true, the slider will be displayed vertically otherwise, it will be displayed horizontally.
+   */
   vertical?: boolean;
+
   get style(): SliderStyle;
   set style(v: StylePartial<SliderStyle>);
 
@@ -60,3 +111,5 @@ export default class Slider extends Base {
   get _LeftArrow(): lng.Component;
   get _RightArrow(): lng.Component;
 }
+
+export { Slider as default, SliderStyle };

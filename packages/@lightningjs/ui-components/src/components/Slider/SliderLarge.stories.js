@@ -59,6 +59,7 @@ Basic.args = {
   max: 100,
   value: 50,
   step: 1,
+  vertical: false,
   mode: 'focused'
 };
 
@@ -83,6 +84,11 @@ Basic.argTypes = {
     control: 'number',
     description: '+/- value on change',
     table: { defaultValue: { summary: 1 } }
+  },
+  vertical: {
+    control: 'boolean',
+    description: 'If true, the slider is displayed vertically',
+    table: { defaultValue: { summary: false } }
   }
 };
 
