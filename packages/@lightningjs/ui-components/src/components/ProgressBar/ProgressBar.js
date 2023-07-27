@@ -84,7 +84,7 @@ export default class ProgressBar extends Base {
   _updateProgress() {
     const p = this.w * this._progress;
     const w = p <= 0 ? 0 : Math.min(p, this.w);
-    this._Progress.smooth = {
+    this._Progress.texture.smooth = {
       w: [w, this.style.animation],
       alpha: Number(w > 0)
     };
