@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type lng from '@lightningjs/core';
-import type Base from '../Base';
+import lng from '@lightningjs/core';
+import Base from '../Base';
 import { Color, StylePartial } from '../../types/lui';
 
 type AspectRatio = '16x9' | '3x4' | '4x3' | '2x1' | '1x1';
@@ -107,11 +107,20 @@ declare namespace Artwork {
      */
     srcCallbackAspectRatios?: AspectRatio[];
   }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted on initial loading of image
+   */
+  export type SignalMap = {
+    resolveLoading(): void;
+  };
 }
 
 declare class Artwork<
   TemplateSpec extends Artwork.TemplateSpec = Artwork.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+  TypeConfig extends Artwork.TypeConfig = Artwork.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   // Properties
   /**
@@ -160,7 +169,6 @@ declare class Artwork<
   srcCallback?: (obj: {
     closestAspectRatio: string;
     aspectRatio: string;
-    c;
     src: string;
     w: number;
     h: number;
