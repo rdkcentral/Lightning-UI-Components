@@ -22,16 +22,14 @@ export const base = theme => ({
   textStyle: theme.typography.body1
 });
 
-
 export const tone = theme => ({
   neutral: {
-    textStyle: {textColor: theme.color.fillNeutral}
+    textStyle: { textColor: theme.color.fillNeutral }
   },
   inverse: {
-    textStyle: {textColor: theme.color.fillInverse}
+    textStyle: { textColor: theme.color.fillInverse }
   },
   brand: {
-    textStyle: {textColor: theme.color.fillBrand}
-  },
-
+    textStyle: { textColor: theme.color.fillBrand }
+  }
 });
