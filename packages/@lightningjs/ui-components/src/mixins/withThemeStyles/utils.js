@@ -188,7 +188,6 @@ export const generateComponentStyleSource = component => {
   const styleChain = getStyleChain(component);
 
   let finalStyle = {};
-
   // Process all styles in styleChain
   styleChain.forEach(({ style }) => {
     // If the object does not appear to be from an es6 import, merge it as a base style
@@ -223,7 +222,7 @@ export const generateComponentStyleSource = component => {
       // Tone Mode
       const [styleToneMode] = styleFormatter(finalStyle, 'tone', 'mode');
       if (styleToneMode) {
-        finalStyle = clone(finalStyle, { mode: styleToneMode });
+        // finalStyle = clone(finalStyle, { mode: styleToneMode }); // This is currently not working properly
       }
 
       if (mode && typeof mode === 'function') {
@@ -238,7 +237,7 @@ export const generateComponentStyleSource = component => {
       const [styleModeTone] = styleFormatter(finalStyle, 'mode', 'tone');
 
       if (styleModeTone) {
-        finalStyle = clone(finalStyle, { tone: styleModeTone });
+        finalStyle = clone(finalStyle, { tone: styleModeTone }); // This is currently not working properly
       }
 
       // Deprecated styleConfig
@@ -354,6 +353,7 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
+
   return removeEmptyObjects(JSON.parse(processedStyle));
 };
 
@@ -368,7 +368,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   const { mode = 'unfocused', tone = 'neutral' } = component;
   const modeStyle = componentStyleSource?.mode?.[mode];
   const toneStyle = componentStyleSource?.tone?.[tone];
-
+ 
   // Start with base styles
   let finalStyle = componentStyleSource.base || {};
 
@@ -445,7 +445,7 @@ export const getStyleChain = componentObj => {
  * @param {Array<Object>} [aliasStyles=[]] - Optional array of alias styles to apply.
  * @returns {Object} The style object with alias values replaced.
  */
-export const replaceAliasValues = (value, aliasStyles = []) => {
+export const replaceAliasValues = (value, aliasStyles = []) => { // TODO: Replace with regex replace for performance
   const styleObj = clone(value, {});
   const aliasProps = [
     { prev: 'height', curr: 'h', skipWarn: true },
