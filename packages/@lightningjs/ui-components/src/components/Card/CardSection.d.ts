@@ -67,4 +67,4 @@ declare class CardSection<TemplateSpec extends CardSection.TemplateSpec = CardSe
   get _Icon(): lng.Component;
  }
  
-export {CardSection as default, CardSectionStyle};
+export {CardSection as default, CardSectionStyle}

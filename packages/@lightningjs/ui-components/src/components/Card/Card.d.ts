@@ -40,7 +40,6 @@ export default class Card extends Surface {
   title?: string | TextContent[];
 declare namespace Card {
   export interface TemplateSpec extends Surface.TemplateSpec {
-    Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
     /**
      * headline of the content
      */

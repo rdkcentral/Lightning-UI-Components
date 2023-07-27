@@ -54,11 +54,11 @@ declare class CardTitle<
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Card<TemplateSpec, TypeConfig> {
   /**
-   * description???
+   * text to be displayed in the description section
    */
   description?: string;
   /**
-   * details??
+   * text to be displayed in the details section
    */
   details?: string;
 

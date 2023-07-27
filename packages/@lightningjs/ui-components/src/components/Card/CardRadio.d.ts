@@ -29,16 +29,34 @@ type CardRadioStyle = CardTitleStyle & {
 
 declare namespace CardRadio {
   export interface TemplateSpec extends CardTitle {
+    /**
+     * Object containing all properties supported in the Radio Component
+     */
     radio?: Record<string, unknown>;
+    /**
+     * text to be displayed in the subtitle section of the card
+     */
     subtitle?: string | TextContent[];
   }
 }
-export default class CardRadio extends CardTitle {
+declare class CardRadio<
+  TemplateSpec extends CardTitle.TemplateSpec = CardTitle.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends CardTitle<TemplateSpec, TypeConfig> {
+  /**
+   * Object containing all properties supported in the Radio Component
+   */
   radio?: Record<string, unknown>;
+  /**
+   * text to be displayed in the subtitle section of the card
+   */
   subtitle?: string | TextContent[];
+
   get style(): CardRadioStyle;
   set style(v: StylePartial<CardRadioStyle>);
 
   //tags
   get _Subtitle(): lng.Component;
 }
+
+export { CardRadio as default, CardRadioStyle };
