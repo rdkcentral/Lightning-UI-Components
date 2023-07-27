@@ -64,25 +64,10 @@ export default class Icon extends Base {
       this.texture = null;
       return;
     }
-    const { icon, w, h } = this;
-    if (
-      !this.prevTemplateParams ||
-      !stringifyCompare({ icon, w, h }, this.prevTemplateParams)
-    ) {
-      this.prevTemplateParams = { icon, w, h };
-      const template = getIconTemplate(icon, w, h);
-      this.patch(template);
-      // only update color if color style is defined in theme
-      if (!template.texture && this.style.color) {
-        this.smooth = {
-          color: getValidColor(this.style.color)
-        };
-      }
-    } else if (this.style.color) {
-      this.color = getValidColor(this.style.color);
-    }
 
-    // setting the radius on the Icon component
+    const template = this._getIconTemplate();
+    this.patch(template);
+
     if (this.radius || this.style.radius) {
       this.shader = {
         radius: this.radius || this.style.radius,
@@ -92,15 +77,17 @@ export default class Icon extends Base {
       this.shader = undefined;
     }
   }
-}
 
-function getIconTemplate(icon, w, h) {
-  const template = { w, h };
-  template.texture = {
-    type: CustomImageTexture,
-    w,
-    h,
-    src: icon
-  };
-  return template;
+  _getIconTemplate() {
+    const { icon, w, h } = this;
+    const template = { w, h };
+    template.texture = {
+      type: CustomImageTexture,
+      w,
+      h,
+      src: icon
+    };
+    template.color = getValidColor(this.color || this.style.color);
+    return template;
+  }
 }
