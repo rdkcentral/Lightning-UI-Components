@@ -30,6 +30,38 @@ export type CardTitleStyle = CardStyle & {
 export default class CardTitle extends Card {
   description?: string | TextContent[];
   details?: string | TextContent[];
+import { StylePartial } from '../../types/lui';
+
+type CardTitleStyle = CardStyle & {
+  descriptionTextStyle: TextBoxStyle;
+};
+
+declare namespace CardTitle {
+  export interface TemplateSpec extends Card.TemplateSpec {
+    /**
+     * description???
+     */
+    description?: string;
+    /**
+     * details??
+     */
+    details?: string;
+  }
+}
+
+declare class CardTitle<
+  TemplateSpec extends CardTitle.TemplateSpec = CardTitle.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Card<TemplateSpec, TypeConfig> {
+  /**
+   * description???
+   */
+  description?: string;
+  /**
+   * details??
+   */
+  details?: string;
+
   get style(): CardTitleStyle;
   set style(v: StylePartial<CardTitleStyle>);
 
@@ -37,3 +69,5 @@ export default class CardTitle extends Card {
   get _Description(): lng.Component;
   get _Details(): lng.Component;
 }
+
+export { CardTitle as default, CardTitleStyle };
