@@ -87,7 +87,7 @@ declare namespace Artwork {
     /**
      * Selection of image display modes
      */
-    mode?: 'default' | 'circle' | 'square' | 'contain';
+    format?: 'default' | 'circle' | 'square' | 'contain';
     /**
      * Which image will be displayed
      */
@@ -149,7 +149,7 @@ declare class Artwork<
   /**
    * Selection of image display modes
    */
-  mode?: 'default' | 'circle' | 'square' | 'contain';
+  format?: 'default' | 'circle' | 'square' | 'contain';
   /**
    * Which image will be displayed
    */
@@ -169,7 +169,6 @@ declare class Artwork<
   /**
    * srcCallback will receive an aspectRatio parameter when called, this array is used to find the closest value for your use case
    */
-
   srcCallbackAspectRatios?: AspectRatio[];
 
   get style(): ArtworkStyle;
