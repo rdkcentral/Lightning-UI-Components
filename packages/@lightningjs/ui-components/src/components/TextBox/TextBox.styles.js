@@ -21,3 +21,17 @@ export const base = theme => ({
   offsetX: 0,
   textStyle: theme.typography.body1
 });
+
+
+export const tone = theme => ({
+  neutral: {
+    textStyle: {textColor: theme.color.fillNeutral}
+  },
+  inverse: {
+    textStyle: {textColor: theme.color.fillInverse}
+  },
+  brand: {
+    textStyle: {textColor: theme.color.fillBrand}
+  },
+
+});
