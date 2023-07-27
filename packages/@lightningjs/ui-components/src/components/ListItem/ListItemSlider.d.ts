@@ -36,7 +36,7 @@ declare namespace ListItemSlider {
     /**
      * current value of slider
      */
-    value?: string;
+    value?: number;
 
     style?: StylePartial<ListItemSliderStyle>;
   }
@@ -53,7 +53,7 @@ declare class ListItemSlider<
   /**
    * current value of slider
    */
-  value?: string;
+  value?: number;
 
   get style(): ListItemSliderStyle;
   set style(v: StylePartial<ListItemSliderStyle>);
