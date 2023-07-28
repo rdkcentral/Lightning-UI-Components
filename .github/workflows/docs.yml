@@ -14,9 +14,7 @@ jobs:
         with:
           node-version: 16.17.x
       - name: Build
-        run: |
-          yarn install
-          yarn workspace lightning-ui-docs run build
+        run: yarn workspace lightning-ui-docs run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

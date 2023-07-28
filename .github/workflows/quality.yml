@@ -15,7 +15,6 @@ jobs:
           cache: 'yarn'
       - name: Run tests
         run: |
-          yarn install
           yarn lint 
           yarn test
   smoke-test:
@@ -29,5 +28,4 @@ jobs:
           cache: 'yarn'
       - name: Test build
         run: |
-          yarn install
           yarn build

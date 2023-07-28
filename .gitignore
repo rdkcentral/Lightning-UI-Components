@@ -1,9 +1,12 @@
+# Yarn with zero install
 /.yarn/*
 !/.yarn/releases
 !/.yarn/plugins
 !/.yarn/sdks
 !/.yarn/patches
-.yarn/cache
+!/.yarn/cache
+!/.yarn/unplugged
+
 dist/
 storybook-static/
 coverage/
