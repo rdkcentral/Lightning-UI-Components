@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@lightningjs/ui-components-theme-base": "workspace:^",
+    "@mdx-js/react": "1.6.22",
+    "@storybook/addon-docs": "6.5.14",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "jest-webgl-canvas-mock": "^0.2.3",

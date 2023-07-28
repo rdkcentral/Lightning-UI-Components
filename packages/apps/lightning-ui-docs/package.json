@@ -44,6 +44,7 @@
     "storybook-addon-turbo-build": "^1.1.0"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.18.6"
+    "@babel/preset-react": "^7.18.6",
+    "debounce": "^1.2.1"
   }
 }

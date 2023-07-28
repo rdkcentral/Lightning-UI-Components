@@ -17,13 +17,24 @@
  */
 
 const path = require('path');
+const { resolveToUnqualified } = require('pnpapi');
+const packageName = '@lightningjs/core';
+const fileName = 'devtools/lightning-inspect';
+let resolvedFilePath
+try {
+  // Resolve the file path using the PnP API
+  resolvedFilePath = resolveToUnqualified(
+    `${packageName}/${fileName}`,
+    __dirname
+  );
+  console.log('Resolved File Path!:', resolvedFilePath);
+} catch (error) {
+  console.error('Error!:', error.message);
+}
 
 module.exports = async ({ config, mode }) => {
   config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
-    // Shorter alias for inspector
-    config.resolve.alias['lightningInspect'] = path.resolve(
-      __dirname,
-      '../../../../node_modules/@lightningjs/core/devtools/lightning-inspect'
-    );
+  // Shorter alias for inspector
+  config.resolve.alias['lightningInspect'] = resolvedFilePath;
   return config;
 };
