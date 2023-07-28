@@ -18,10 +18,12 @@
 
 import lng from '@lightningjs/core';
 import { MetadataBaseStyle } from '../MetadataBase';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
+import lightning from '@lightningjs/core/src/lightning.d.mts';
+import { Artwork } from '..';
 
-export type TileStyle = SurfaceStyle & {
+type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
   animationExit: Record<string, unknown>;
   metadataLocation: 'standard' | 'inset';
@@ -36,20 +38,90 @@ export type TileStyle = SurfaceStyle & {
 // TODO: Replace this with an official version from Lightning when one exists
 // type PatchTemplate<T extends lng.Element.Constructor> =
 //   lng.Element.PatchTemplate<lng.Element.ExtractTemplateSpec<InstanceType<T>>>;
-
-export default class Tile extends Surface {
-  // TODO: Replace value with PatchTemplate<typeof Artwork> when the Component template specs are created
-  artwork?: Record<string, unknown>;
+declare namespace Tile {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
+    /**
+     * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
+     */
+    artwork: lightning.Element.PatchTemplate<Artwork.TemplateSpec>;
+    /**
+     * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
+     */
+    badge?: Record<string, unknown>;
+    /**
+     * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
+     */
+    checkbox?: Record<string, unknown>;
+    /**
+     * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
+     */
+    label?: Record<string, unknown>;
+    /**
+     * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
+     */
+    metadataLocation?: string;
+    /**
+     * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
+     */
+    metadata?: MetadataBaseStyle;
+    /**
+     * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
+     */
+    persistentMetadata?: boolean;
+    /**
+     * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
+     */
+    progressBar?: Record<string, unknown>;
+  }
+}
+declare class Tile<
+  TemplateSpec extends Tile.TemplateSpec = Tile.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
+  // Properties
+  /**
+   * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
+   */
+  artwork: lightning.Element.PatchTemplate<Artwork.TemplateSpec>;
+  /**
+   * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
+   */
   badge?: Record<string, unknown>;
+  /**
+   * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
+   */
   checkbox?: Record<string, unknown>;
+  /**
+   * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
+   */
   label?: Record<string, unknown>;
+  /**
+   * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
+   */
   metadataLocation?: string;
+  /**
+   * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
+   */
   metadata?: MetadataBaseStyle;
+  /**
+   * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
+   */
   persistentMetadata?: boolean;
+  /**
+   * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
+   */
   progressBar?: Record<string, unknown>;
+
   get innerH(): number;
   get style(): TileStyle;
   set style(v: StylePartial<TileStyle>);
+
+  // Signals
+  // _imageLoaded
+  // _updateBadge
+  // _updateLabel
+  // _metadataLoaded
 
   // tags
   get _Artwork(): lng.Component;
@@ -61,3 +133,5 @@ export default class Tile extends Surface {
   get _ProgressBar(): lng.Component;
   get _Label(): lng.Component;
 }
+
+export { Tile as default, TileStyle };
