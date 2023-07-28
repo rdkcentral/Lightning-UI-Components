@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { MetadataBaseStyle } from '../MetadataBase';
 import { StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
-import lightning from '@lightningjs/core/src/lightning.d.mts';
 import { Artwork } from '..';
 
 type TileStyle = SurfaceStyle & {
@@ -44,7 +43,7 @@ declare namespace Tile {
     /**
      * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
      */
-    artwork: lightning.Element.PatchTemplate<Artwork.TemplateSpec>;
+    artwork: lng.Element.PatchTemplate<Artwork.TemplateSpec>;
     /**
      * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
      */
