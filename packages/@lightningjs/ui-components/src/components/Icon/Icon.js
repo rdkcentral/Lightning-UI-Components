@@ -33,7 +33,7 @@ export default class Icon extends Base {
   }
 
   static get properties() {
-    return ['icon', 'fixed'];
+    return ['icon', 'fixed', 'color'];
   }
 
   _init() {
@@ -64,30 +64,44 @@ export default class Icon extends Base {
       this.texture = null;
       return;
     }
-
-    const template = this._getIconTemplate();
-    this.patch(template);
-
-    if (this.radius || this.style.radius) {
-      this.shader = {
-        radius: this.radius || this.style.radius,
-        type: lng.shaders.RoundedRectangle
-      };
-    } else {
-      this.shader = undefined;
-    }
+    this.patch(this._iconPatch);
   }
 
-  _getIconTemplate() {
-    const { icon, w, h } = this;
-    const template = { w, h };
-    template.texture = {
-      type: CustomImageTexture,
-      w,
-      h,
-      src: icon
+  get _iconPatch() {
+    const [isSvgTag, isSvgURI] = [/^<svg.*<\/svg>$/, /\.svg$/].map(regex =>
+      RegExp.prototype.test.bind(regex)
+    );
+    let texture;
+    if (isSvgTag(this.icon)) {
+      texture = lng.Tools.getSvgTexture(
+        `data:image/svg+xml,${encodeURIComponent(this.icon)}`,
+        this.w,
+        this.h
+      );
+    } else if (isSvgURI(this.icon)) {
+      texture = lng.Tools.getSvgTexture(this.icon, this.w, this.h);
+    } else {
+      texture = {
+        type: CustomImageTexture,
+        w: this.w,
+        h: this.h,
+        src: this.icon
+      };
+    }
+    const color = getValidColor(this.color || this.style.color);
+    const shader = (this.radius || this.style.radius) ? {
+      radius: this.radius || this.style.radius, 
+      type: lng.shaders.RoundedRectangle 
+    } : undefined
+    return {
+      texture,
+      shader,
+      w: this.w,
+      h: this.h,
+      colorUl: color,
+      colorUr: color,
+      colorBl: color,
+      colorBr: color,
     };
-    template.color = getValidColor(this.color || this.style.color);
-    return template;
   }
 }
