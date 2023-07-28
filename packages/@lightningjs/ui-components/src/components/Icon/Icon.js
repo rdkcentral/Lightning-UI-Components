@@ -101,7 +101,7 @@ export default class Icon extends Base {
    * @private
    * @param {Error} error - The error object containing information about the loading error.
    */
-  _handleTxtError(error) {
+  _handleTxtError() {
     context.error(`Unable to load icon ${this._icon}`);
     this._icon = null;
     this.texture = null;
