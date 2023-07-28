@@ -18,15 +18,19 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type GradientStyle = {
-  gradientTop: string;
+type GradientStyle = {
   gradientColor: Color;
+  gradientTop: string;
   radius: lng.Tools.CornerRadius;
 };
 
-export default class Gradient extends Base {
+declare class Gradient<
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<{}, TypeConfig> {
   get style(): GradientStyle;
   set style(v: StylePartial<GradientStyle>);
 }
+
+export { Gradient as default, GradientStyle };
