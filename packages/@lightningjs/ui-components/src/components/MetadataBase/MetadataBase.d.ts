@@ -16,11 +16,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox/TextBox';
+import Icon from '../Icon';
 
-export type MetadataBaseStyle = {
+type MetadataBaseStyle = {
   descriptionTextStyle: TextBoxStyle;
   fadeWidth: number;
   logoWidth: number;
@@ -30,15 +33,107 @@ export type MetadataBaseStyle = {
   titleTextStyle: TextBoxStyle;
 };
 
-export default class MetadataBase extends Base {
-  title?: string;
-  subtitle?: string;
+declare namespace MetadataBase {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * third line or description of the content
+     */
+    description?: string;
+    /**
+     * logo to display at bottom of component
+     */
+    logo?: string;
+    /**
+     * height of logo
+     */
+    logoHeight?: number;
+    /**
+     * width of logo
+     */
+    logoWidth?: number;
+    /**
+     * which side to place logo (`right` or `left`)
+     */
+    logoPosition?: string;
+    /**
+     * title of logo to use for announcer
+     */
+    logoTitle?: string;
+    /**
+     * TODO: confirm type and get a description
+     */
+    marquee?: boolean;
+    /**
+     * relevant content data in the middle
+     */
+    subtitle?: string;
+    /**
+     * first line or headline of the content
+     */
+    title?: string;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emits when an update to the height of logo and/or text happens
+   */
+  export type SignalMap = {
+    updateMetadataHeight(): void;
+  };
+}
+
+declare class MetadataBase<
+  TemplateSpec extends MetadataBase.TemplateSpec = MetadataBase.TemplateSpec,
+  TypeConfig extends MetadataBase.TypeConfig = MetadataBase.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  // Properties
+  /**
+   * third line or description of the content
+   */
   description?: string;
+  /**
+   * logo to display at bottom of component
+   */
   logo?: string;
-  logoWidth?: number;
+  /**
+   * height of logo
+   */
   logoHeight?: number;
-  logoTitle?: string;
+  /**
+   * width of logo
+   */
+  logoWidth?: number;
+  /**
+   * which side to place logo (`right` or `left`)
+   */
   logoPosition?: string;
+  /**
+   * title of logo to use for announcer
+   */
+  logoTitle?: string;
+  /**
+   * TODO: confirm type and get a description
+   */
+  marquee?: boolean;
+  /**
+   * relevant content data in the middle
+   */
+  subtitle?: string;
+  /**
+   * first line or headline of the content
+   */
+  title?: string;
+
   get style(): MetadataBaseStyle;
   set style(v: StylePartial<MetadataBaseStyle>);
+
+  // Tags
+  get _Title(): TextBox;
+  get _SubtitleWrapper(): TextBox;
+  get _Subtitle(): TextBox;
+  get _Description(): TextBox;
+  get _Logo(): Icon;
 }
+
+export { MetadataBase as default, MetadataBaseStyle };
