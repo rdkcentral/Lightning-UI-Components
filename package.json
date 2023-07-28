@@ -26,6 +26,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@lightningjs/ui-components-theme-base": "workspace:^",
     "@rollup/plugin-babel": "^6.0.2",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-json": "^5.0.1",

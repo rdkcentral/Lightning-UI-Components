@@ -16,25 +16,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const path = require('path');
 const { resolveToUnqualified } = require('pnpapi');
-const packageName = '@lightningjs/core';
-const fileName = 'devtools/lightning-inspect';
-let resolvedFilePath
-try {
-  // Resolve the file path using the PnP API
-  resolvedFilePath = resolveToUnqualified(
-    `${packageName}/${fileName}`,
-    __dirname
-  );
-  console.log('Resolved File Path!:', resolvedFilePath);
-} catch (error) {
-  console.error('Error!:', error.message);
+
+async function resolveDevToolsFilePath() {
+  try {
+    const lngDevTools = await resolveToUnqualified('@lightningjs/core/devtools/lightning-inspect', __dirname);
+    console.log('Resolved DevTools File Path:', lngDevTools);
+    return lngDevTools;
+  } catch (error) {
+    console.error('Error:', error.message);
+    return null;
+  }
 }
 
-module.exports = async ({ config, mode }) => {
-  config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
-  // Shorter alias for inspector
-  config.resolve.alias['lightningInspect'] = resolvedFilePath;
+module.exports = async ({ config }) => {
+  // Disable minification as it seems to break FocusManager navigation
+  config.optimization.minimize = false;
+
+  // Shorter alias for the inspector module
+  config.resolve.alias['lightningInspect'] = await resolveDevToolsFilePath();
+
   return config;
 };

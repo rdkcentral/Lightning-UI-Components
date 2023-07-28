@@ -6,8 +6,8 @@
     "start": "yarn run generateStorybookData && start-storybook --no-manager-cache -p 8000",
     "build": "yarn run generateStorybookData && build-storybook",
     "storybook": "start-storybook -p 6006",
-    "generateStorybookData": "node ./scripts/generate-theme-props-table.mjs",
-    "styleDocs": "node bin/translationScript.js"
+    "generateStorybookData": "yarn node ./scripts/generate-theme-props-table.mjs",
+    "styleDocs": "yarn node bin/translationScript.js"
   },
   "exports": {
     ".": {
