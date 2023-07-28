@@ -45,6 +45,10 @@ export default class Icon extends Base {
     this.on('txError', this._handleTxtError.bind(this));
   }
 
+  _getColor() {
+    return this._color || this.style.color;
+  }
+
   _notify() {
     this.w = this.finalW;
     this.h = this.finalH;
@@ -89,10 +93,13 @@ export default class Icon extends Base {
       };
     }
     const color = getValidColor(this.color || this.style.color);
-    const shader = (this.radius || this.style.radius) ? {
-      radius: this.radius || this.style.radius, 
-      type: lng.shaders.RoundedRectangle 
-    } : undefined
+    const shader =
+      this.radius || this.style.radius
+        ? {
+            radius: this.radius || this.style.radius,
+            type: lng.shaders.RoundedRectangle
+          }
+        : undefined;
     return {
       texture,
       shader,
@@ -101,7 +108,7 @@ export default class Icon extends Base {
       colorUl: color,
       colorUr: color,
       colorBl: color,
-      colorBr: color,
+      colorBr: color
     };
   }
 }
