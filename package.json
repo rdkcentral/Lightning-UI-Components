@@ -66,5 +66,8 @@
   "resolutions": {
     "@semantic-release/npm@^9.0.0": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch",
     "@semantic-release/npm@^9.0.1": "patch:@semantic-release/npm@npm%3A9.0.1#./.yarn/patches/@semantic-release-npm-npm-9.0.1-ed6d302b00.patch"
+  },
+  "dependencies": {
+    "jest": "^29.6.2"
   }
 }

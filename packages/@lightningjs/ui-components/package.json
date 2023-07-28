@@ -22,9 +22,9 @@
   "scripts": {
     "start": "yarn run generateStorybookData && yarn start-storybook --no-manager-cache -p 8000",
     "build": "rm -rf ./dist && rollup --config ../../../rollup/rollup.config.js --name lightning-ui-components",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --colors",
-    "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --coverage --colors --runInBand",
+    "test:updateSnapshot": "NODE_OPTIONS=--experimental-vm-modules jest --updateSnapshot --colors --runInBand",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors --runInBand"
   },
   "peerDependencies": {
     "@lightningjs/core": "^2.9.0"
