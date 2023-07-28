@@ -17,8 +17,8 @@
  */
 
 import type lng from '@lightningjs/core';
-import { ButtonSmall, ButtonStyle } from '../Button';
-import type { StylePartial } from '../../types/lui';
+import ButtonSmall, { ButtonSmallStyle } from '../Button/ButtonSmall';
+import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {
   radius: lng.Tools.CornerRadius;
@@ -26,17 +26,54 @@ type LogoStyleObject = {
   w: number;
 };
 
-export type ControlStyle = ButtonStyle & {
-  h: number;
+export type ControlStyle = ButtonSmallStyle & {
   iconStyle: Record<string, unknown>;
   logoStyle: LogoStyleObject;
   radius: lng.Tools.CornerRadius;
 };
 
-export default class Control extends ButtonSmall {
+declare namespace Control {
+  export interface TemplateSpec extends ButtonSmall.TemplateSpec {
+    /**
+     *  URL for the icon asset
+     */
+    icon?: string;
+
+    /**
+     *  URL for the icon asset
+     */
+    logo?: string;
+
+    /**
+     * flag that if `true`, hides the title when `Control` is in unfocused or disabled mode
+     */
+    shouldCollapse?: boolean;
+
+    style?: StylePartial<ControlStyle>;
+  }
+}
+
+declare class Control<
+  TemplateSpec extends Control.TemplateSpec = Control.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends ButtonSmall<TemplateSpec, TypeConfig> {
+  /**
+   *  URL for the icon asset
+   */
   icon?: string;
+
+  /**
+   *  URL for the icon asset
+   */
   logo?: string;
+
+  /**
+   * flag that if `true`, hides the title when `Control` is in unfocused or disabled mode
+   */
   shouldCollapse?: boolean;
+
   get style(): ControlStyle;
   set style(v: StylePartial<ControlStyle>);
 }
+
+export { Control as default, ControlStyle, LogoStyleObject };
