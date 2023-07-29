@@ -178,30 +178,30 @@ export default class StyleManager extends lng.EventEmitter {
 
     const { mode, tone, _componentLevelStyle: componentStyle } = this.component;
 
-    // Check to see if mode or tone has been updated since the last update
-    if (this.component.constructor.name === 'Button') console.log('DEBUG:', mode)
+    // // Check to see if mode or tone has been updated since the last update
+    // if (this.component.constructor.name === 'Button') console.log('DEBUG:', mode)
 
-    if (
-      (typeof componentStyle?.mode === 'function'
-        ? componentStyle.mode.toString()
-        : undefined) !==
-        (typeof this._previousComponentLevelStyle?.mode === 'function'
-          ? this._previousComponentLevelStyle.mode.toString()
-          : undefined) ||
-      (typeof componentStyle?.tone === 'function'
-        ? componentStyle.tone.toString()
-        : undefined) !==
-        (typeof this._previousComponentLevelStyle?.tone === 'function'
-          ? this._previousComponentLevelStyle.tone.toString()
-          : undefined) ||
-      (componentStyle?.mode || {}) !==
-        (this._previousComponentLevelStyle?.mode || {}) ||
-      (componentStyle?.tone || {}) !==
-        (this._previousComponentLevelStyle?.tone || {})
-    ) {
-      this.clearSourceCache();
-      this.clearStyleCache();
-    }
+    // if (
+    //   (typeof componentStyle?.mode === 'function'
+    //     ? componentStyle.mode.toString()
+    //     : undefined) !==
+    //     (typeof this._previousComponentLevelStyle?.mode === 'function'
+    //       ? this._previousComponentLevelStyle.mode.toString()
+    //       : undefined) ||
+    //   (typeof componentStyle?.tone === 'function'
+    //     ? componentStyle.tone.toString()
+    //     : undefined) !==
+    //     (typeof this._previousComponentLevelStyle?.tone === 'function'
+    //       ? this._previousComponentLevelStyle.tone.toString()
+    //       : undefined) ||
+    //   (componentStyle?.mode || {}) !==
+    //     (this._previousComponentLevelStyle?.mode || {}) ||
+    //   (componentStyle?.tone || {}) !==
+    //     (this._previousComponentLevelStyle?.tone || {})
+    // ) {
+    //   this.clearSourceCache();
+    //   this.clearStyleCache();
+    // }
 
     if (
       this._previousMode !== mode ||
@@ -209,7 +209,7 @@ export default class StyleManager extends lng.EventEmitter {
       JSON.stringify(this._previousComponentLevelStyle) !==
         JSON.stringify(componentStyle)
     ) {
-      this.clearStyleCache();
+      this.clearStyleCache(); // TODO: Do we even need a style cache anymore? I dont suspect we do
     }
 
     this._previousTone = tone;
