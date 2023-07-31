@@ -36,13 +36,3 @@ export const tone = theme => ({
     progressColor: theme.color.fillBrand
   }
 });
-
-export const mode = theme => ({
-  focused: {
-    tone: {
-      inverse: {
-        progressColor: theme.color.red
-      }
-    }
-  }
-})

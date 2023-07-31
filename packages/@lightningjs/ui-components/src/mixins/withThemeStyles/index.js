@@ -176,8 +176,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      */
     set style(v) {
       if (Object.prototype.toString.call(v) !== '[object Object]') return; // TODO: Add better logging
-
       this._componentLevelStyle = v;
+      this._styleManager.clearStyleCache();
       this._styleManager && this._styleManager.update();
     }
 
@@ -242,6 +242,9 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set mode(v) {
       if (this._mode === v) return;
       this._mode = v;
+      if (this.constructor.name === 'TextBox' && this.content === '2') console.log('set mode', v)
+      this._styleManager.clearSourceCache();
+      this._styleManager.clearStyleCache();
       this._styleManager && this._styleManager.update();
     }
 
@@ -260,6 +263,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set tone(value) {
       if (value === this._tone) return;
       this._tone = value;
+      this._styleManager.clearSourceCache();
+      //this._styleManager.clearStyleCache();
       this._styleManager && this._styleManager.update();
     }
 

@@ -55,7 +55,8 @@ export default class StyleManager extends lng.EventEmitter {
       this.update = this._update; // Avoid race conditions in tests
     } else {
       // Debounce the update method so that it's called only once during rapid style changes.
-      this.update = debounce(() => { // TODO: Change to updateDebounced or something for more clarity
+      this.update = debounce(() => {
+        // TODO: Change to updateDebounced or something for more clarity
         this._update();
       }, 1);
     }
@@ -89,15 +90,19 @@ export default class StyleManager extends lng.EventEmitter {
    * Clears the source cache.
    */
   clearSourceCache() {
-    this._removeCache('styleSource');
+    if (!this.component) return;
+    const sourceKey = this._generateCacheKey('styleSource');
+    this._removeCache(sourceKey);
   }
 
   /**
    * Clears the style cache.
    */
   clearStyleCache() {
-    const { mode, tone } = this.component;
-    this._removeCache(`style_${mode}_${tone}`);
+    if (!this.component) return;
+    const { tone, mode } = this.component;
+    const styleKey = this._generateCacheKey(`style_${mode}_${tone}`);
+    window.LUI_STYLE_CACHE.delete(styleKey);
   }
 
   /**
@@ -178,48 +183,12 @@ export default class StyleManager extends lng.EventEmitter {
 
     const { mode, tone, _componentLevelStyle: componentStyle } = this.component;
 
-    // // Check to see if mode or tone has been updated since the last update
-    // if (this.component.constructor.name === 'Button') console.log('DEBUG:', mode)
-
-    // if (
-    //   (typeof componentStyle?.mode === 'function'
-    //     ? componentStyle.mode.toString()
-    //     : undefined) !==
-    //     (typeof this._previousComponentLevelStyle?.mode === 'function'
-    //       ? this._previousComponentLevelStyle.mode.toString()
-    //       : undefined) ||
-    //   (typeof componentStyle?.tone === 'function'
-    //     ? componentStyle.tone.toString()
-    //     : undefined) !==
-    //     (typeof this._previousComponentLevelStyle?.tone === 'function'
-    //       ? this._previousComponentLevelStyle.tone.toString()
-    //       : undefined) ||
-    //   (componentStyle?.mode || {}) !==
-    //     (this._previousComponentLevelStyle?.mode || {}) ||
-    //   (componentStyle?.tone || {}) !==
-    //     (this._previousComponentLevelStyle?.tone || {})
-    // ) {
-    //   this.clearSourceCache();
-    //   this.clearStyleCache();
-    // }
-
-    if (
-      this._previousMode !== mode ||
-      this._previousTone !== tone ||
-      JSON.stringify(this._previousComponentLevelStyle) !==
-        JSON.stringify(componentStyle)
-    ) {
-      this.clearStyleCache(); // TODO: Do we even need a style cache anymore? I dont suspect we do
-    }
-
-    this._previousTone = tone;
-    this._previousMode = mode;
-    this._previousComponentLevelStyle = componentStyle;
-
     try {
       // Attempt to fetch style source from cache
-      let styleSource = this._getCache('styleSource')?.payload;
-
+      let styleSource =
+        this.component.constructor.name === 'TextBox'
+          ? undefined
+          : this._getCache('styleSource')?.payload;
       if (!styleSource) {
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
         styleSource = generateComponentStyleSource(this.component);
@@ -227,15 +196,12 @@ export default class StyleManager extends lng.EventEmitter {
       }
 
       // Attempt to fetch style from cache
+
       let style = this._getCache(`style_${mode}_${tone}`)?.payload;
 
       if (!style) {
         // Style does not exist so will also need to be generated
         const finalStyle = generateStyle(this.component, styleSource);
-        const mergedStyle = clone(
-          this._previousComponentLevelStyle || {},
-          finalStyle
-        );
         const formatters = new Set();
 
         // Adding a key-value pair to the 'formatters' Set.
@@ -254,12 +220,12 @@ export default class StyleManager extends lng.EventEmitter {
         // The final transformed style is assigned to 'this._style'
         const processedStyle = formattersArray.reduce(
           (obj, [func, args]) => func(obj, ...args),
-          mergedStyle
+          finalStyle
         );
 
         style = processedStyle;
 
-        this._addCache(`style_${mode}_${tone}`, mergedStyle);
+        this._addCache(`style_${mode}_${tone}`, finalStyle);
       }
 
       this._style = style;
