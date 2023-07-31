@@ -60,7 +60,7 @@ declare namespace MetadataBase {
      */
     logoTitle?: string;
     /**
-     * TODO: confirm type and get a description
+     * sets the marquee for Title and Description to the same value so they sync
      */
     marquee?: boolean;
     /**
