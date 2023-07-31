@@ -50,7 +50,6 @@ export default class ProgressBar extends Base {
   }
 
   _update() {
-
     this._updateTextures();
     this._updateProgress();
     if (this._progressChanged) {
@@ -58,10 +57,8 @@ export default class ProgressBar extends Base {
       this._progressChanged = false;
     }
   }
-  
 
   _updateTextures() {
-
     const p = this.w * this._progress;
     const w = p <= 0 ? 0 : Math.min(p, this.w);
 
