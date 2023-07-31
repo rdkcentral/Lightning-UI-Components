@@ -25,10 +25,13 @@ type GradientStyle = {
   gradientTop: string;
   radius: lng.Tools.CornerRadius;
 };
-
+declare namespace Gradient {
+  export type TemplateSpec = Base.TemplateSpec;
+}
 declare class Gradient<
+  TemplateSpec extends Gradient.TemplateSpec = Gradient.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
-> extends Base<{}, TypeConfig> {
+> extends Base<TemplateSpec, TypeConfig> {
   get style(): GradientStyle;
   set style(v: StylePartial<GradientStyle>);
 }
