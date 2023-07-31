@@ -120,8 +120,11 @@ export const getPrototypeChain = obj => {
  */
 function removeEmptyObjects(obj) {
   for (const key in obj) {
-
-    if (obj.hasOwnProperty(key) && typeof obj[key] === 'object' && obj[key] !== null) {
+    if (
+      obj.hasOwnProperty(key) &&
+      typeof obj[key] === 'object' &&
+      obj[key] !== null
+    ) {
       removeEmptyObjects(obj[key]);
 
       if (Object.keys(obj[key]).length === 0) {
@@ -269,7 +272,7 @@ export const generateComponentStyleSource = component => {
     finalStyle = clone(finalStyle, component._componentLevelStyle.styleConfig);
   }
 
-  const componentStyle = component._componentLevelStyle 
+  const componentStyle = component._componentLevelStyle;
   // Theme level component config for base
   if (componentStyle?.base) {
     finalStyle = clone(finalStyle, {
@@ -298,11 +301,8 @@ export const generateComponentStyleSource = component => {
     overwrite = {}
   } = finalStyle;
 
-
   // By default every component has an unfocused mode
-  const solution = {
-
-  };
+  const solution = {};
   const tone = { ...{ neutral: {} }, ...toneOriginal };
   for (const modeItem in { ...{ unfocused: {} }, ...mode }) {
     for (const toneItem in { ...{ neutral: {} }, ...tone }) {
@@ -318,7 +318,7 @@ export const generateComponentStyleSource = component => {
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
-      
+
       solution[modeItem + '_' + toneItem] = payload;
       solution['overwrite'] = overwrite;
       // TODO: Need to hookup component config overwrite
@@ -337,7 +337,7 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
-
+  
   return removeEmptyObjects(JSON.parse(processedStyle)) || {};
 };
 
@@ -350,14 +350,16 @@ export const generateComponentStyleSource = component => {
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-  const style = componentStyleSource[`${mode}_${tone}`] ||
-  componentStyleSource[`unfocused_${tone}`] ||
-  componentStyleSource[`unfocused_neutral`] || {}  
-  const componentStyle = component._componentLevelStyle 
+  const style =
+    componentStyleSource[`${mode}_${tone}`] ||
+    componentStyleSource[`unfocused_${tone}`] ||
+    componentStyleSource[`unfocused_neutral`] ||
+    {};
+  const componentStyle = component._componentLevelStyle;
   if (componentStyle) {
     return clone(style, componentStyle); // TODO: Need to check for edge cases. Need to run through parser method
   }
-  return style
+  return style;
 };
 
 /**
