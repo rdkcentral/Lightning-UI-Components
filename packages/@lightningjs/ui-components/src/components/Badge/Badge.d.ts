@@ -74,7 +74,7 @@ declare namespace Badge {
 
 declare class Badge<
   TemplateSpec extends Badge.TemplateSpec = Badge.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+  TypeConfig extends Badge.TypeConfig = Badge.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   /**
    * path to image or inline SVG XML
