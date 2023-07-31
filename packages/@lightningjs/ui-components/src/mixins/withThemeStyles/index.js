@@ -39,7 +39,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._hSetByUser = false;
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
-      this._styleManager.on('styleUpdate', () => { // TODO: Add off on destroy
+      this._styleManager.on('styleUpdate', () => {
+        // TODO: Add off on destroy
         this._style = this._styleManager.style;
         this.queueThemeUpdate();
       });
@@ -242,8 +243,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set mode(v) {
       if (this._mode === v) return;
       this._mode = v;
-      if (this.constructor.name === 'TextBox' && this.content === '2') console.log('set mode', v)
-      this._styleManager.clearSourceCache();
+      if (this.constructor.name === 'TextBox' && this.content === '2')
+        this._styleManager.clearSourceCache();
       this._styleManager.clearStyleCache();
       this._styleManager && this._styleManager.update();
     }

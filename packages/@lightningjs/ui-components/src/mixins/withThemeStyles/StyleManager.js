@@ -24,7 +24,6 @@ import {
 import lng from '@lightningjs/core';
 import { debounce } from '../../utils/index.js';
 import { context } from '../../globals/index.js';
-import { clone } from '../../utils/index.js';
 
 export default class StyleManager extends lng.EventEmitter {
   /**
@@ -181,7 +180,7 @@ export default class StyleManager extends lng.EventEmitter {
   async _update() {
     if (!this.component) return;
 
-    const { mode, tone, _componentLevelStyle: componentStyle } = this.component;
+    const { mode, tone } = this.component;
 
     try {
       // Attempt to fetch style source from cache
