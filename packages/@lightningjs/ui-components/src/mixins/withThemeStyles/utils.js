@@ -319,11 +319,10 @@ export const generateComponentStyleSource = component => {
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
 
-      solution[modeItem + '_' + toneItem] = payload;
-      solution['overwrite'] = overwrite;
-      // TODO: Need to hookup component config overwrite
+      solution[modeItem + '_' + toneItem] = clone(payload, overwrite);
     }
   }
+  
 
   // Process style object
   const processedStyle = JSON.stringify(solution, (_, value) => {
