@@ -73,10 +73,9 @@ export const KeyIcon = () =>
   class KeyIcon extends lng.Component {
     static _template() {
       return {
-       
         Key: {
           type: KeyComponent,
-          icon: lightning,
+          icon: lightning
         },
         Key2: {
           type: KeyComponent,

@@ -322,7 +322,6 @@ export const generateComponentStyleSource = component => {
       solution[modeItem + '_' + toneItem] = clone(payload, overwrite);
     }
   }
-  
 
   // Process style object
   const processedStyle = JSON.stringify(solution, (_, value) => {
@@ -336,7 +335,7 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
-  
+
   return removeEmptyObjects(JSON.parse(processedStyle)) || {};
 };
 
@@ -352,7 +351,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   const style =
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||
-    componentStyleSource[`unfocused_neutral`] ||
+    componentStyleSource['unfocused_neutral'] ||
     {};
   const componentStyle = component._componentLevelStyle;
   if (componentStyle) {
