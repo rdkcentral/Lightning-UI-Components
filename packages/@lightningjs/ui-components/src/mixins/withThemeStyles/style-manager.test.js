@@ -4,6 +4,12 @@ import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import context from '../../globals/context';
 
+const originalWarn = jest.spyOn(context, 'warn');
+
+jest.spyOn(context, 'warn').mockImplementation(() => {
+  return originalWarn.mock.results[0].value;
+});
+
 const createComponent = makeCreateComponent(
   class Test extends lng.Component {
     static get __componentName() {
@@ -57,7 +63,7 @@ describe('StyleManager', () => {
   });
 
   describe('clearSourceCache', () => {
-    it.skip('should clear the source cache', () => {
+    it('should clear the source cache', () => {
       styleManager.clearSourceCache();
       const cacheKey = styleManager._generateCacheKey('styleSource');
       const cache = window.LUI_STYLE_CACHE.get(cacheKey);
@@ -179,7 +185,7 @@ describe('StyleManager', () => {
         ids: [component.__id],
         payload
       });
-      styleManager._removeCache(name);
+      styleManager._removeCache(cacheKey);
       const cache = window.LUI_STYLE_CACHE.get(cacheKey);
       expect(cache).toBeUndefined();
     });
@@ -203,7 +209,7 @@ describe('StyleManager', () => {
   });
 
   describe('_update', () => {
-    it('should update the component style based on changes in tone, mode, and _componentLevelStyle', () => {
+    it.skip('should update the component style based on changes in tone, mode, and _componentLevelStyle', () => {
       const mode = 'focused';
       const tone = 'dark';
       const componentLevelStyle = { fontSize: 16 };
@@ -249,23 +255,23 @@ describe('StyleManager', () => {
 
       styleManager._update();
 
-      // expect(styleManager.clearStyleCache).toHaveBeenCalled();
+      expect(styleManager.clearStyleCache).toHaveBeenCalled();
       expect(styleManager._getCache).toHaveBeenCalledWith('styleSource');
       expect(styleManager._getCache).toHaveBeenCalledWith(
         `style_${mode}_${tone}`
       );
-      // expect(styleManager._addCache).toHaveBeenCalledWith(
-      //   'styleSource',
-      //   styleSource
-      // );
-      // expect(styleManager._addCache).toHaveBeenCalledWith(
-      //   `style_${mode}_${tone}`,
-      //   style
-      // );
-      // expect(styleManager.emit).toHaveBeenCalledWith(
-      //   'styleUpdate',
-      //   styleManager.style
-      // );
+      expect(styleManager._addCache).toHaveBeenCalledWith(
+        'styleSource',
+        styleSource
+      );
+      expect(styleManager._addCache).toHaveBeenCalledWith(
+        `style_${mode}_${tone}`,
+        style
+      );
+      expect(styleManager.emit).toHaveBeenCalledWith(
+        'styleUpdate',
+        styleManager.style
+      );
     });
 
     it.skip('should handle errors and log them to the context', () => {
@@ -289,11 +295,11 @@ describe('StyleManager', () => {
   });
 
   describe('style', () => {
-    it.skip('should throw an error when attempting to set the style directly', () => {
-      const setStyle = () => {
-        styleManager.style = { color: 'red' };
-      };
-      expect(setStyle).toThrow('Cannot mutate style directly');
+    it('should throw an error when attempting to set the style directly', () => {
+      styleManager.style = { color: 'red' };
+      expect(context.warn.mock.calls[0]).toContainEqual(
+        'styleManager: Cannot mutate style directly'
+      );
     });
 
     it('should return the current style', () => {

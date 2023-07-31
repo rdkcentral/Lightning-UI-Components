@@ -58,7 +58,7 @@ afterEach(async () => {
 
 const childComponentInstance = new Child();
 
-describe.skip('Test Suite for Custom Utils', () => {
+describe('Test Suite for Custom Utils', () => {
   describe('getSubTheme', () => {
     // Test cases for getSubTheme function
     it('should return the subTheme property value of the first parent object with subTheme', () => {
@@ -121,7 +121,7 @@ describe.skip('Test Suite for Custom Utils', () => {
     it('should generate the source style object for a given component', () => {
       const styleSource = generateComponentStyleSource(childComponentInstance);
       expect(styleSource).toEqual({
-        base: { spacing: 3 }
+        unfocused_neutral: { spacing: 3 }
       });
     });
 
@@ -135,9 +135,7 @@ describe.skip('Test Suite for Custom Utils', () => {
     // Test cases for generateStyle function
     it('should generate the final style object for a component', () => {
       const componentStyleSource = {
-        mode: { focused: { fontSize: 16 } },
-        tone: { dark: { backgroundColor: 'black' } },
-        base: { fontSize: 14, backgroundColor: 'green' }
+        unfocused_neutral: { fontSize: 14, backgroundColor: 'green' }
       };
       const style = generateStyle(childComponentInstance, componentStyleSource);
       expect(style).toEqual({
