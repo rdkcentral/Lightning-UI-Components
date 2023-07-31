@@ -26,7 +26,7 @@ type LogoStyleObject = {
   w: number;
 };
 
-export type ControlStyle = ButtonSmallStyle & {
+type ControlStyle = ButtonSmallStyle & {
   iconStyle: Record<string, unknown>;
   logoStyle: LogoStyleObject;
   radius: lng.Tools.CornerRadius;
