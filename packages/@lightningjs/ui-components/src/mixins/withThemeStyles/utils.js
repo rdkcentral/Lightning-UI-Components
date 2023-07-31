@@ -120,7 +120,8 @@ export const getPrototypeChain = obj => {
  */
 function removeEmptyObjects(obj) {
   for (const key in obj) {
-    if (obj.hasOwnProperty(key) && typeof obj[key] === 'object') {
+
+    if (obj.hasOwnProperty(key) && typeof obj[key] === 'object' && obj[key] !== null) {
       removeEmptyObjects(obj[key]);
 
       if (Object.keys(obj[key]).length === 0) {
@@ -220,77 +221,91 @@ export const generateComponentStyleSource = component => {
       finalStyle = clone(finalStyle, { base: executeWithContext(base) });
       finalStyle = clone(finalStyle, { tone: executeWithContext(tone) });
       finalStyle = clone(finalStyle, { mode: executeWithContext(mode) });
-
-      /** Theme Level: ComponentConfig */
-
-      // Deprecated styleConfig
-      if (component._componentConfig?.styleConfig) {
-        finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
-      }
-
-      const componentConfigStyle = component._componentConfig?.style;
-
-      // Theme level component config for base
-      if (componentConfigStyle?.base) {
-        finalStyle = clone(finalStyle, {
-          base: componentConfigStyle.base
-        });
-      }
-
-      if (componentConfigStyle?.tone) {
-        finalStyle = clone(finalStyle, {
-          tone: componentConfigStyle.tone
-        });
-      }
-
-      if (componentConfigStyle?.mode) {
-        finalStyle = clone(finalStyle, {
-          mode: componentConfigStyle.mode
-        });
-      }
-
-      /** Component Level */
-
-      // Deprecated styleConfig
-      if (component._componentLevelStyle?.styleConfig) {
-        finalStyle = clone(
-          finalStyle,
-          component._componentLevelStyle.styleConfig
-        );
-      }
-
-      const componentStyle = component._componentLevelStyle?.style;
-
-      // Theme level component config for base
-      if (componentStyle?.base) {
-        finalStyle = clone(finalStyle, {
-          base: componentStyle.base
-        });
-      }
-
-      if (componentStyle?.tone) {
-        finalStyle = clone(finalStyle, {
-          tone: componentStyle.tone
-        });
-      }
-
-      if (componentStyle?.mode) {
-        finalStyle = clone(finalStyle, {
-          mode: componentStyle.mode
-        });
-      }
     }
   });
 
+  /** Theme Level: ComponentConfig */
+
+  // Deprecated styleConfig
+  if (component._componentConfig?.styleConfig) {
+    finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
+  }
+
+  const componentConfigStyle = component._componentConfig?.style;
+
+  // Theme level component config for base
+  if (componentConfigStyle?.base) {
+    finalStyle = clone(finalStyle, {
+      base: componentConfigStyle.base
+    });
+  }
+
+  if (componentConfigStyle?.tone) {
+    finalStyle = clone(finalStyle, {
+      tone: componentConfigStyle.tone
+    });
+  }
+
+  if (componentConfigStyle?.mode) {
+    finalStyle = clone(finalStyle, {
+      mode: componentConfigStyle.mode
+    });
+  }
+
+  if (componentConfigStyle) {
+    finalStyle = clone(finalStyle, {
+      mode: componentConfigStyle.mode
+    });
+  }
+
+  if (componentConfigStyle) {
+    finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in root level of style
+  }
+
+  /** Component Level */
+
+  // Deprecated styleConfig
+  if (component._componentLevelStyle?.styleConfig) {
+    finalStyle = clone(finalStyle, component._componentLevelStyle.styleConfig);
+  }
+
+  const componentStyle = component._componentLevelStyle 
+  // Theme level component config for base
+  if (componentStyle?.base) {
+    finalStyle = clone(finalStyle, {
+      base: componentStyle.base
+    });
+  }
+
+  if (componentStyle?.tone) {
+    finalStyle = clone(finalStyle, {
+      tone: componentStyle.tone
+    });
+  }
+
+  if (componentStyle?.mode) {
+    finalStyle = clone(finalStyle, {
+      mode: componentStyle.mode
+    });
+  }
+
   // Create all possible settings
 
-  const { base = {}, mode = {}, tone: toneOriginal = {} } = finalStyle;
+  const {
+    base = {},
+    mode = {},
+    tone: toneOriginal = {},
+    overwrite = {}
+  } = finalStyle;
+
 
   // By default every component has an unfocused mode
-  const solution = {};
+  const solution = {
+
+  };
   const tone = { ...{ neutral: {} }, ...toneOriginal };
   for (const modeItem in { ...{ unfocused: {} }, ...mode }) {
-    for (const toneItem in tone) {
+    for (const toneItem in { ...{ neutral: {} }, ...tone }) {
       /**
        * Merge order
        * 1. base -> tone
@@ -303,10 +318,13 @@ export const generateComponentStyleSource = component => {
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
+      
       solution[modeItem + '_' + toneItem] = payload;
-      // TODO: NEED TO REMOVE the props mode/tone etc
+      solution['overwrite'] = overwrite;
+      // TODO: Need to hookup component config overwrite
     }
   }
+
   // Process style object
   const processedStyle = JSON.stringify(solution, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
@@ -319,8 +337,8 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
-  
-  return removeEmptyObjects(JSON.parse(processedStyle));
+
+  return removeEmptyObjects(JSON.parse(processedStyle)) || {};
 };
 
 /**
@@ -332,12 +350,14 @@ export const generateComponentStyleSource = component => {
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-  if (component.constructor.name === 'Tile') console.log(componentStyleSource[`${mode}_${tone}`] ||
-  componentStyleSource[`unfocused_neutral`])
-  return (
-    componentStyleSource[`${mode}_${tone}`] ||
-    componentStyleSource[`unfocused_neutral`]
-  ); // TODO: Need to check for edge cases
+  const style = componentStyleSource[`${mode}_${tone}`] ||
+  componentStyleSource[`unfocused_${tone}`] ||
+  componentStyleSource[`unfocused_neutral`] || {}  
+  const componentStyle = component._componentLevelStyle 
+  if (componentStyle) {
+    return clone(style, componentStyle); // TODO: Need to check for edge cases. Need to run through parser method
+  }
+  return style
 };
 
 /**
