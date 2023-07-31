@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import FocusManager from '../FocusManager';
 import NavigationManager from '../NavigationManager';
 
 declare namespace Row {
@@ -42,8 +43,9 @@ declare namespace Row {
 }
 
 declare class Row<
-  TemplateSpec extends Row.TemplateSpec = Row.TemplateSpec
-> extends NavigationManager<TemplateSpec> {
+  TemplateSpec extends Row.TemplateSpec = Row.TemplateSpec,
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
+> extends NavigationManager<TemplateSpec, TypeConfig> {
   // Properties
   /**
    * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.

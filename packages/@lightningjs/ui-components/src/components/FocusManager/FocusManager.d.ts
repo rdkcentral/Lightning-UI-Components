@@ -20,9 +20,11 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 
 export type NavigationDirectionType = 'none' | 'column' | 'row';
+
 export type FocusItemsType = Array<
   lng.Component.NewPatchTemplate<lng.Component.Constructor> | lng.Component
 >;
+
 declare namespace FocusManager {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
@@ -40,6 +42,7 @@ declare namespace FocusManager {
 
     /**
      * index of currently selected item
+     * updating value emits the `selectedChange` signal
      */
     selectedIndex?: number;
 
@@ -58,11 +61,23 @@ declare namespace FocusManager {
      */
     itemPosY?: number;
   }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+
+  export type SignalMap = {
+    /**
+     * emitted whenever the currently selected item changes
+     * @param selected the currently selected component
+     * @param prevSelected the previous selected component
+     */
+    selectedChange(selected: lng.Component, prevSelected: lng.Component): void;
+  };
 }
 
 declare class FocusManager<
   TemplateSpec extends FocusManager.TemplateSpec = FocusManager.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   // Properties
 
@@ -78,6 +93,7 @@ declare class FocusManager<
 
   /**
    * index of currently selected item
+   * updating value emits the `selectedChange` signal
    */
   selectedIndex: number;
 
@@ -158,14 +174,16 @@ declare class FocusManager<
   _render(): void;
 
   /**
-   * Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
-   */
-  selectPrevious(): void;
-
-  /**
    * Selects next item. If this.wrapSelected=true, will select the first element in the list if focus is currently on the last item.
+   * emits the `selectedChange` signal
    */
   selectNext(): void;
+
+  /**
+   * Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
+   * emits the `selectedChange` signal
+   */
+  selectPrevious(): void;
 
   // tags
   get _Items(): lng.Component;
