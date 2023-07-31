@@ -138,7 +138,6 @@ export default class InlineContent extends Base {
     // TODO: FIX --figure out an alternative to using setTimeout
     // perhaps have to wait until Lightning Flexboxes can emit a signal (like textures) when they've finished loading
     if (this.children.length) {
-      this.stage.update();
       setTimeout(() => {
         this.multiLineHeight = this.finalH;
         if (
