@@ -157,8 +157,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @param {string} name - The name of the cache.
    */
   _removeCache(name) {
-    const key = this._generateCacheKey(name);
-    window.LUI_STYLE_CACHE.delete(key);
+    window.LUI_STYLE_CACHE.delete(name);
   }
 
   /**
