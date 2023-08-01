@@ -362,6 +362,25 @@ export const generateStyle = (component, componentStyleSource = {}) => {
 };
 
 /**
+ * Generates a name by concatenating the names of constructors in the prototype chain.
+ * @param {object} obj - The object for which to generate the name.
+ * @returns {string} - The generated name.
+ */
+function generateNameFromPrototypeChain(obj) {
+  // Base case: If the object has no prototype or its prototype is null, return its own constructor name (if available).
+  if (!Object.getPrototypeOf(obj)) {
+    return obj.constructor?.name || '';
+  }
+
+  // Recursive step: Get the constructor name of the current object and concatenate it with the name generated from the prototype.
+  const currentName = obj.constructor?.name || '';
+  const parentName = generateNameFromPrototypeChain(Object.getPrototypeOf(obj));
+
+  // Concatenate the names in reverse order (from the top of the prototype chain to the bottom).
+  return parentName ? `${parentName}.${currentName}` : currentName;
+}
+
+/**
  * Creates a cache object to store the results of getStyleChainMemoized function calls.
  * @type {Object}
  */
@@ -377,8 +396,9 @@ export const getStyleChainMemoized = componentObj => {
    * Create a cache key based on the stringified component object.
    * @type {string}
    */
-  const cacheKey = JSON.stringify(componentObj);
-
+  
+  const cacheKey = generateNameFromPrototypeChain(componentObj);
+  console.log(cacheKey)
   // Check if the result is already in the cache
   if (styleChainCache[cacheKey]) {
     return styleChainCache[cacheKey];
