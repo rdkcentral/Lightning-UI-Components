@@ -18,28 +18,81 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
-import type { TextContent } from '../InlineContent/InlineContent';
+import { StylePartial } from '../../types/lui';
+import { TextContent } from '../InlineContent/InlineContent';
 
-export type TextBoxStyle = {
+type TextBoxStyle = {
   offsetY: number;
   offsetX: number;
   textStyle: lng.textures.TextTexture.Settings | string;
   typography: Record<string, lng.textures.TextTexture.Settings>;
 };
 
-export default class TextBox extends Base {
+declare namespace TextBox {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Text to be displayed in element
+     */
+    content?: string | TextContent[];
+    /**
+     * If true, allows the width of the text to be set with `w`
+     */
+    fixed?: boolean;
+    /**
+     * If true, allows text to be scrollable
+     */
+    marquee?: boolean;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+
+  export type SignalMap = {
+    // signals: _setDimensions
+    _updateInlineContent();
+    // signals: _loadedMarqueeContent
+    _updateMarquee();
+
+    // signal: willMarquee
+    _loadedMarqueeContent();
+
+    // signal: textBoxChanged
+    _notifyAncestors(w = this.w, h = this.h);
+  };
+}
+declare class TextBox<
+  TemplateSpec extends TextBox.TemplateSpec = TextBox.TemplateSpec,
+  TypeConfig extends TextBox.TypeConfig = TextBox.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  // Properties
+  /**
+   * Text to be displayed in element
+   */
   content?: string | TextContent[];
+  /**
+   * If true, allows the width of the text to be set with `w`
+   */
   fixed?: boolean;
+  /**
+   * If true, allows text to be scrollable
+   */
   marquee?: boolean;
   hideOnLoad?: boolean;
+
+  // Accessors
+
   get marqueeOverrideLoopX(): number;
   set marqueeOverrideLoopX(v: number);
+
   get style(): TextBoxStyle;
   set style(v: StylePartial<TextBoxStyle>);
+  // Methods
+  toggleMarquee();
 
   // tags
   get _InlineContent(): lng.Component;
   get _Marquee(): lng.Component;
   get _Text(): lng.Component;
 }
+
+export { TextBox as default, TextBoxStyle };
