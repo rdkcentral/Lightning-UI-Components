@@ -18,19 +18,32 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type ProgressBarStyle = {
-  animationCurve: string;
-  animationDelay: number;
-  animationDuration: number;
+type ProgressBarStyle = {
+  animation: object;
   barColor: Color;
   progressColor: Color;
   radius: lng.Tools.CornerRadius;
 };
 
-export default class ProgressBar extends Base {
-  progress: string;
+declare namespace ProgressBar {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Percentage of current progress in a decimal format from 0 to 1
+     */
+    progress?: number;
+  }
+}
+
+declare class ProgressBar<
+  TemplateSpec extends ProgressBar.TemplateSpec = ProgressBar.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * Percentage of current progress in a decimal format from 0 to 1
+   */
+  progress?: number;
   get style(): ProgressBarStyle;
   set style(v: StylePartial<ProgressBarStyle>);
 
@@ -38,3 +51,5 @@ export default class ProgressBar extends Base {
   get _Bar(): lng.Component;
   get _Progress(): lng.Component;
 }
+
+export { ProgressBar as default, ProgressBarStyle };
