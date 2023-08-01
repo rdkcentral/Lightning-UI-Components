@@ -18,9 +18,8 @@
 
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import CardTitle, { CardTitleStyle } from './CardTitle';
-import { TextContent } from '../InlineContent/InlineContent';
 
 type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
@@ -36,7 +35,7 @@ declare namespace CardRadio {
     /**
      * text to be displayed in the subtitle section of the card
      */
-    subtitle?: string | TextContent[];
+    subtitle?: string | TextBox[];
   }
 }
 declare class CardRadio<
@@ -45,12 +44,13 @@ declare class CardRadio<
 > extends CardTitle<TemplateSpec, TypeConfig> {
   /**
    * Object containing all properties supported in the Radio Component
+   * TODO: See if the types can be updated when Radio has been updated
    */
   radio?: Record<string, unknown>;
   /**
    * text to be displayed in the subtitle section of the card
    */
-  subtitle?: string | TextContent[];
+  subtitle?: string | TextBox[];
 
   get style(): CardRadioStyle;
   set style(v: StylePartial<CardRadioStyle>);

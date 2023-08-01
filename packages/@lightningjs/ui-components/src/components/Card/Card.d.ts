@@ -18,9 +18,8 @@
 
 import type lng from '@lightningjs/core';
 import Surface, { SurfaceStyle } from '../Surface';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import { Color, StylePartial } from '../../types/lui';
-import type { TextContent } from '../InlineContent/InlineContent';
 
 type CardStyle = SurfaceStyle & {
   backgroundColor: Color;
@@ -34,7 +33,7 @@ declare namespace Card {
     /**
      * headline of the content
      */
-    title?: string | TextContent[];
+    title?: string | TextBox[];
   }
 }
 
@@ -45,7 +44,7 @@ declare class Card<
   /**
    * headline of the content
    */
-  title?: string | TextContent[];
+  title?: string | TextBox[];
 
   get style(): CardStyle;
   set style(v: StylePartial<CardStyle>);

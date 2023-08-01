@@ -36,7 +36,7 @@ declare namespace CardSection {
     /**
      * icon source
      */
-    iconSrc?: number;
+    iconSrc?: string;
     /**
      * width of the icon on the right
      */
@@ -56,7 +56,7 @@ declare class CardSection<
   /**
    * icon source
    */
-  iconSrc?: number;
+  iconSrc?: string;
   /**
    * width of the icon on the right
    */
