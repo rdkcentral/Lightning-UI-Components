@@ -149,7 +149,7 @@ describe('Badge', () => {
     const icon2 = circleIcon;
     badge.icon = icon2;
     expect(badge.icon).toBe(icon2);
-    expect(badge._Icon.color).toBe(badge._Text.color);
+    expect(badge._Icon.color).toBe(badge.style.iconColor);
   });
 
   it('should position the text and icon based on the iconAlign property (right)', async () => {

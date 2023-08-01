@@ -20,87 +20,156 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './Icon.styles.js';
 import { context } from '../../globals';
-import { stringifyCompare, getValidColor } from '../../utils';
+import { getValidColor } from '../../utils';
 import CustomImageTexture from '../../textures/CustomImageTexture';
 
+/**
+ * Icon component that displays different types of icons, supporting SVGs and images.
+ * @extends Base
+ */
 export default class Icon extends Base {
+  /**
+   * Returns the name of the component for theming support.
+   * @returns {string} The name of the component.
+   */
   static get __componentName() {
     return 'Icon';
   }
 
+  /**
+   * Returns the theme styles for the Icon component.
+   * @returns {Object} The theme styles object.
+   */
   static get __themeStyle() {
     return styles;
   }
 
+  /**
+   * Returns the list of properties that can be set on the Icon component. Used by withUpdates
+   * @returns {Array} An array of property names.
+   */
   static get properties() {
-    return ['icon', 'fixed'];
+    return ['icon', 'fixed', 'color'];
   }
 
   _init() {
+    /**
+     * Event listener for the 'txLoaded' event to handle icon texture loading.
+     *
+     * @listens 'txLoaded'
+     */
     this.on('txLoaded', () => {
       if (!this.fixed) {
-        this._notify.bind(this)();
+        this._notify.bind(this)(); // Notify parent component of the item change if not fixed.
       }
     });
+
+    /**
+     * Event listener for the 'txError' event to handle icon texture loading errors.
+     *
+     * @listens 'txError'
+     * @param {Error} error - The error object containing information about the loading error.
+     */
     this.on('txError', this._handleTxtError.bind(this));
   }
 
+  /**
+   * Returns the color to be used for the icon.
+   *
+   * @private
+   * @returns {string} The color value.
+   */
+  _getColor() {
+    return this._color || this.style.color;
+  }
+
+  /**
+   * Notifies the parent and ancestors of item changes in the Icon component.
+   *
+   * @private
+   */
   _notify() {
     this.w = this.finalW;
     this.h = this.finalH;
-    this.signal('itemChanged', this);
-    this.fireAncestors('$itemChanged');
+    this.signal('itemChanged', this); // Emit 'itemChanged' signal to notify parent.
+    this.fireAncestors('$itemChanged'); // Emit '$itemChanged' signal to notify ancestors.
   }
 
-  // eslint-disable-next-line no-unused-vars
-  _handleTxtError(error) {
+  /**
+   * Handles the error when loading the icon texture.
+   *
+   * @private
+   * @param {Error} error - The error object containing information about the loading error.
+   */
+  _handleTxtError() {
     context.error(`Unable to load icon ${this._icon}`);
     this._icon = null;
     this.texture = null;
   }
 
+  /**
+   * Updates the Icon component based on the provided icon.
+   *
+   * @private
+   */
   _update() {
     if (!this._icon) {
-      this.texture = null;
+      this.texture = null; // If there's no icon, clear the texture.
       return;
     }
-    const { icon, w, h } = this;
-    if (
-      !this.prevTemplateParams ||
-      !stringifyCompare({ icon, w, h }, this.prevTemplateParams)
-    ) {
-      this.prevTemplateParams = { icon, w, h };
-      const template = getIconTemplate(icon, w, h);
-      this.patch(template);
-      // only update color if color style is defined in theme
-      if (!template.texture && this.style.color) {
-        this.smooth = {
-          color: getValidColor(this.style.color)
-        };
-      }
-    } else if (this.style.color) {
-      this.color = getValidColor(this.style.color);
-    }
-
-    // setting the radius on the Icon component
-    if (this.radius || this.style.radius) {
-      this.shader = {
-        radius: this.radius || this.style.radius,
-        type: lng.shaders.RoundedRectangle
-      };
-    } else {
-      this.shader = undefined;
-    }
+    this.patch(this._iconPatch); // Apply the icon patch.
   }
-}
 
-function getIconTemplate(icon, w, h) {
-  const template = { w, h };
-  template.texture = {
-    type: CustomImageTexture,
-    w,
-    h,
-    src: icon
-  };
-  return template;
+  /**
+   * Generates the patch based on the icon type (SVG, image, etc.) and other properties.
+   *
+   * @private
+   * @returns {Object} The patch object to update the Icon component.
+   */
+  get _iconPatch() {
+    const [isSvgTag, isSvgURI] = [/^<svg.*<\/svg>$/, /\.svg$/].map(regex =>
+      RegExp.prototype.test.bind(regex)
+    );
+    let texture;
+    const svgTag = isSvgTag(this.icon);
+    const svgURI = isSvgURI(this.icon);
+    if (svgTag) {
+      texture = lng.Tools.getSvgTexture(
+        `data:image/svg+xml,${encodeURIComponent(this.icon)}`,
+        this.w,
+        this.h
+      );
+    } else if (svgURI) {
+      texture = lng.Tools.getSvgTexture(this.icon, this.w, this.h);
+    } else {
+      texture = {
+        type: CustomImageTexture,
+        w: this.w,
+        h: this.h,
+        src: this.icon
+      };
+    }
+    const supportsColor = !Boolean(svgTag || svgURI);
+    const color = getValidColor(this._color || this.style.color);
+
+    if (!supportsColor && color) {
+      context.warn('icon does not allow colors to be applied to an SVG');
+    }
+    const shader =
+      this.radius || this.style.radius
+        ? {
+            radius: this.radius || this.style.radius,
+            type: lng.shaders.RoundedRectangle
+          }
+        : undefined;
+    return {
+      texture,
+      shader,
+      w: this.w,
+      h: this.h,
+      ...(supportsColor && color
+        ? { colorUl: color, colorUr: color, colorBl: color, colorBr: color }
+        : {})
+    };
+  }
 }

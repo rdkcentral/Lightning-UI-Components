@@ -15,7 +15,7 @@ exports[`Checkbox renders 1`] = `
           "attached": true,
           "boundsMargin": null,
           "clipping": false,
-          "color": 4294967295,
+          "color": 4279769113,
           "enabled": false,
           "flex": false,
           "flexItem": false,
