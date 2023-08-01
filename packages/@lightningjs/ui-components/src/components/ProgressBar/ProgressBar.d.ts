@@ -30,7 +30,7 @@ type ProgressBarStyle = {
 declare namespace ProgressBar {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
-     * percentage of the current progress from 0 to 1
+     * Percentage of current progress in a decimal format from 0 to 1
      */
     progress?: number;
   }
@@ -41,7 +41,7 @@ declare class ProgressBar<
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   /**
-   * percentage of the current progress from 0 to 1
+   * Percentage of current progress in a decimal format from 0 to 1
    */
   progress?: number;
   get style(): ProgressBarStyle;
