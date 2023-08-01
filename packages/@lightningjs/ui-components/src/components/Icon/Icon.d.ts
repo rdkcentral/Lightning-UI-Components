@@ -16,16 +16,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type IconStyle = {
+type IconStyle = {
   color: Color;
 };
 
-export default class Icon extends Base {
-  icon: string;
+declare namespace Icon {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
+     */
+    fixed?: boolean;
+
+    /**
+     * path to image or inline SVG XML
+     */
+    icon?: string;
+  }
+}
+
+declare class Icon<
+  TemplateSpec extends Icon.TemplateSpec = Icon.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
+   */
   fixed?: boolean;
+
+  /**
+   * path to image or inline SVG XML
+   */
+  icon?: string;
+
   get style(): IconStyle;
   set style(v: StylePartial<IconStyle>);
 }
+
+export { Icon as default, IconStyle };
