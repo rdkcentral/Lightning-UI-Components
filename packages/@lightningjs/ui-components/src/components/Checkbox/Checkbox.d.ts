@@ -18,9 +18,10 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import Icon from '../Icon';
+import { Color, StylePartial } from '../../types/lui';
 
-export type CheckboxStyle = {
+type CheckboxStyle = {
   alpha: number;
   backgroundColor: Color;
   backgroundColorChecked: Color;
@@ -33,14 +34,39 @@ export type CheckboxStyle = {
   strokeWidth: number;
 };
 
-export default class Checkbox extends Base {
+declare namespace Checkbox {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Indicates whether the checkbox is checked or unchecked.
+     * Setting this to `true` will check the checkbox, and setting it to `false` will uncheck it.
+     */
+    checked?: boolean;
+  }
+}
+
+declare class Checkbox<
+  TemplateSpec extends Checkbox.TemplateSpec = Checkbox.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * Indicates whether the checkbox is checked or unchecked.
+   * Setting this to `true` will check the checkbox, and setting it to `false` will uncheck it.
+   */
   checked?: boolean;
-  toggle(): Checkbox;
+
+  // Method
+  /**
+   * Toggles the checkbox state and updates the UI.
+   */
+  toggle(): void;
+
   get style(): CheckboxStyle;
   set style(v: StylePartial<CheckboxStyle>);
 
   // tags
-  get _Check(): lng.Component;
+  get _Check(): Icon;
   get _Body(): lng.Component;
   get _Stroke(): lng.Component;
 }
+
+export { Checkbox as default, CheckboxStyle };
