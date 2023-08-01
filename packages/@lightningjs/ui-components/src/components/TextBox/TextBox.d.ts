@@ -87,6 +87,9 @@ declare class TextBox<
   get style(): TextBoxStyle;
   set style(v: StylePartial<TextBoxStyle>);
   // Methods
+  /**
+   *
+   */
   toggleMarquee();
 
   // tags
