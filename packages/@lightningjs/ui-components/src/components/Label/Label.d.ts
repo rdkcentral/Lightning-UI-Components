@@ -38,13 +38,17 @@ declare namespace Label {
   export interface TypeConfig extends lng.Component.TypeConfig {
     SignalMapType: SignalMap;
   }
+  /**
+   * emitted when an update to the Background has been patched
+   */
   export type SignalMap = {
     updateBackground(): void;
   };
 }
 declare class Label<
-  TemplateSpec extends Label.TemplateSpec = Label.TemplateSpec
-> extends Base<TemplateSpec> {
+  TemplateSpec extends Label.TemplateSpec = Label.TemplateSpec,
+  TypeConfig extends Label.TypeConfig = Label.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
   /**
    * text to display in label
    */
