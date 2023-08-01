@@ -3,6 +3,7 @@ import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import context from '../../globals/context';
+import cache from './cache'
 
 const originalWarn = jest.spyOn(context, 'warn');
 
@@ -23,7 +24,8 @@ describe('StyleManager', () => {
   let styleManager;
 
   beforeEach(() => {
-    window.LUI_STYLE_CACHE = undefined;
+    console.log('CACHE', cache)
+    cache.clear()
     component = createComponent()[0];
     styleManager = new StyleManager({ component });
   });
@@ -66,8 +68,8 @@ describe('StyleManager', () => {
     it('should clear the source cache', () => {
       styleManager.clearSourceCache();
       const cacheKey = styleManager._generateCacheKey('styleSource');
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toBeUndefined();
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toBeUndefined();
     });
   });
 
@@ -76,8 +78,8 @@ describe('StyleManager', () => {
       styleManager.clearStyleCache();
       const { mode, tone } = styleManager.component;
       const cacheKey = styleManager._generateCacheKey(`style_${mode}_${tone}`);
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toBeUndefined();
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toBeUndefined();
     });
   });
 
@@ -104,8 +106,8 @@ describe('StyleManager', () => {
       const payload = { color: 'red' };
       styleManager._addCache(name, payload);
       const cacheKey = styleManager._generateCacheKey(name);
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toEqual({
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toEqual({
         ids: [component.__id],
         payload
       });
@@ -116,15 +118,15 @@ describe('StyleManager', () => {
       const existingPayload = { color: 'red' };
       const existingIds = ['123'];
       const expectedIds = [...existingIds, component.__id];
-      window.LUI_STYLE_CACHE.set(styleManager._generateCacheKey(name), {
+      cache.set(styleManager._generateCacheKey(name), {
         ids: existingIds,
         payload: existingPayload
       });
       const newPayload = { fontSize: 16 };
       styleManager._addCache(name, newPayload);
       const cacheKey = styleManager._generateCacheKey(name);
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toEqual({
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toEqual({
         ids: expectedIds,
         payload: newPayload
       });
@@ -138,19 +140,19 @@ describe('StyleManager', () => {
       const existingIds = ['123', component.__id, '456'];
       const expectedIds = ['123', '456'];
       const payload = { color: 'red' };
-      window.LUI_STYLE_CACHE.set(styleManager._generateCacheKey(name1), {
+      cache.set(styleManager._generateCacheKey(name1), {
         ids: existingIds,
         payload
       });
-      window.LUI_STYLE_CACHE.set(styleManager._generateCacheKey(name2), {
+      cache.set(styleManager._generateCacheKey(name2), {
         ids: existingIds,
         payload
       });
       styleManager._cleanupCache();
       const cacheKey1 = styleManager._generateCacheKey(name1);
-      const cache1 = window.LUI_STYLE_CACHE.get(cacheKey1);
+      const cache1 = cache.get(cacheKey1);
       const cacheKey2 = styleManager._generateCacheKey(name2);
-      const cache2 = window.LUI_STYLE_CACHE.get(cacheKey2);
+      const cache2 = cache.get(cacheKey2);
       expect(cache1).toEqual({
         ids: expectedIds,
         payload
@@ -165,14 +167,14 @@ describe('StyleManager', () => {
       const name = 'styleSource';
       const existingIds = [component.__id];
       const payload = { color: 'red' };
-      window.LUI_STYLE_CACHE.set(styleManager._generateCacheKey(name), {
+      cache.set(styleManager._generateCacheKey(name), {
         ids: existingIds,
         payload
       });
       styleManager._cleanupCache();
       const cacheKey = styleManager._generateCacheKey(name);
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toBeUndefined();
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toBeUndefined();
     });
   });
 
@@ -181,13 +183,13 @@ describe('StyleManager', () => {
       const name = 'styleSource';
       const payload = { color: 'red' };
       const cacheKey = styleManager._generateCacheKey(name);
-      window.LUI_STYLE_CACHE.set(cacheKey, {
+      cache.set(cacheKey, {
         ids: [component.__id],
         payload
       });
       styleManager._removeCache(cacheKey);
-      const cache = window.LUI_STYLE_CACHE.get(cacheKey);
-      expect(cache).toBeUndefined();
+      const themeCache = cache.get(cacheKey);
+      expect(themeCache).toBeUndefined();
     });
   });
 
@@ -196,12 +198,12 @@ describe('StyleManager', () => {
       const name = 'styleSource';
       const payload = { color: 'red' };
       const cacheKey = styleManager._generateCacheKey(name);
-      window.LUI_STYLE_CACHE.set(cacheKey, {
+      cache.set(cacheKey, {
         ids: [component.__id],
         payload
       });
-      const cache = styleManager._getCache(name);
-      expect(cache).toEqual({
+      const themeCache = styleManager._getCache(name);
+      expect(themeCache).toEqual({
         ids: [component.__id],
         payload
       });

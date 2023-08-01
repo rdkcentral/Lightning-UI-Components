@@ -198,132 +198,131 @@ export function styleFormatter(obj, target, search) {
  * @param {object} component - The component for which to generate the style source
  * @returns {object} - The source style object for the component
  */
-export const generateComponentStyleSource = component => {
-  if (!isPlainObject(component)) return {};
+export const generateComponentStyleSource = (component) => {
+  // Initialize the finalStyle object to an empty object
+  let finalStyle = {};
 
+  // Check if the provided component is a plain object
+  if (!isPlainObject(component)) {
+    return {};
+  }
+
+  // Get the styleChain for the component
   const styleChain = getStyleChain(component);
 
-  let finalStyle = {};
   // Process all styles in styleChain
   styleChain.forEach(({ style }) => {
-    // If the object does not appear to be from an es6 import, merge it as a base style
+    // Check if the style object does not have specific keys (base, mode, tone, default)
     if (
-      // If passed into the mixin as an object
       typeof style === 'object' &&
       !style.base &&
       !style.mode &&
       !style.tone &&
       !style.default
     ) {
+      // Merge the style as a base style
       finalStyle = clone(finalStyle, { base: style });
     } else {
       const { base, mode, tone } = style;
 
-      // 1. Merge all the styles in order
-      /** Base Level: Component Style File */
+      // Apply the style at different levels (Base Level: Component Style File)
       finalStyle = clone(finalStyle, { base: executeWithContext(base) });
       finalStyle = clone(finalStyle, { tone: executeWithContext(tone) });
       finalStyle = clone(finalStyle, { mode: executeWithContext(mode) });
     }
   });
 
-  /** Theme Level: ComponentConfig */
+  // Apply Theme Level styles from ComponentConfig
+  if (component._componentConfig) {
+    if (component._componentConfig.styleConfig) {
+      finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
+    }
 
-  // Deprecated styleConfig
-  if (component._componentConfig?.styleConfig) {
-    finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
+    const componentConfigStyle = component._componentConfig.style;
+
+    if (componentConfigStyle?.base) {
+      finalStyle = clone(finalStyle, {
+        base: componentConfigStyle.base,
+      });
+    }
+
+    if (componentConfigStyle?.tone) {
+      finalStyle = clone(finalStyle, {
+        tone: componentConfigStyle.tone,
+      });
+    }
+
+    if (componentConfigStyle?.mode) {
+      finalStyle = clone(finalStyle, {
+        mode: componentConfigStyle.mode,
+      });
+    }
+
+    if (componentConfigStyle?.mode) {
+      finalStyle = clone(finalStyle, {
+        mode: componentConfigStyle.mode,
+      });
+    }
+
+    if (componentConfigStyle) {
+      finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in the root level of style
+    }
   }
 
-  const componentConfigStyle = component._componentConfig?.style;
+  // Apply Component Level styles
+  if (component._componentLevelStyle) {
+    if (component._componentLevelStyle.styleConfig) {
+      finalStyle = clone(
+        finalStyle,
+        component._componentLevelStyle.styleConfig
+      );
+    }
 
-  // Theme level component config for base
-  if (componentConfigStyle?.base) {
-    finalStyle = clone(finalStyle, {
-      base: componentConfigStyle.base
-    });
+    const componentStyle = component._componentLevelStyle;
+
+    if (componentStyle?.base) {
+      finalStyle = clone(finalStyle, {
+        base: componentStyle.base,
+      });
+    }
+
+    if (componentStyle?.tone) {
+      finalStyle = clone(finalStyle, {
+        tone: componentStyle.tone,
+      });
+    }
+
+    if (componentStyle?.mode) {
+      finalStyle = clone(finalStyle, {
+        mode: componentStyle.mode,
+      });
+    }
   }
 
-  if (componentConfigStyle?.tone) {
-    finalStyle = clone(finalStyle, {
-      tone: componentConfigStyle.tone
-    });
-  }
-
-  if (componentConfigStyle?.mode) {
-    finalStyle = clone(finalStyle, {
-      mode: componentConfigStyle.mode
-    });
-  }
-
-  if (componentConfigStyle) {
-    finalStyle = clone(finalStyle, {
-      mode: componentConfigStyle.mode
-    });
-  }
-
-  if (componentConfigStyle) {
-    finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in root level of style
-  }
-
-  /** Component Level */
-
-  // Deprecated styleConfig
-  if (component._componentLevelStyle?.styleConfig) {
-    finalStyle = clone(finalStyle, component._componentLevelStyle.styleConfig);
-  }
-
-  const componentStyle = component._componentLevelStyle;
-  // Theme level component config for base
-  if (componentStyle?.base) {
-    finalStyle = clone(finalStyle, {
-      base: componentStyle.base
-    });
-  }
-
-  if (componentStyle?.tone) {
-    finalStyle = clone(finalStyle, {
-      tone: componentStyle.tone
-    });
-  }
-
-  if (componentStyle?.mode) {
-    finalStyle = clone(finalStyle, {
-      mode: componentStyle.mode
-    });
-  }
-
-  // Create all possible settings
-
+  // Destructure the finalStyle object
   const {
     base = {},
     mode = {},
     tone: toneOriginal = {},
-    overwrite = {}
+    overwrite = {},
   } = finalStyle;
 
-  // By default every component has an unfocused mode
+  // Create the solution object to store the processed styles
   const solution = {};
   const tone = { ...{ neutral: {} }, ...toneOriginal };
+
+  // Iterate through modes and tones to generate styles
   for (const modeItem in { ...{ unfocused: {} }, ...mode }) {
     for (const toneItem in { ...{ neutral: {} }, ...tone }) {
-      /**
-       * Merge order
-       * 1. base -> tone
-       * 2. tone
-       * 3. tone/mode
-       * 4. mode
-       * 5. mode/tone
-       */
       let payload = clone(base, tone[toneItem]);
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
-
       solution[modeItem + '_' + toneItem] = clone(payload, overwrite);
     }
   }
 
-  // Process style object
+  // Process style object and remove unnecessary properties
   const processedStyle = JSON.stringify(solution, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
     if ('string' === typeof value && value.startsWith('theme.')) {
@@ -336,8 +335,10 @@ export const generateComponentStyleSource = component => {
     return value;
   });
 
+  // Return the final processed style object
   return removeEmptyObjects(JSON.parse(processedStyle)) || {};
 };
+
 
 /**
  * Generates the final style object for a component using its style source.

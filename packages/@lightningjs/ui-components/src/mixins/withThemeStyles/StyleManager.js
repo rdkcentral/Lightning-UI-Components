@@ -21,9 +21,10 @@ import {
   generateStyle,
   replaceAliasValues
 } from './utils.js';
-import lng from '@lightningjs/core';
-import { debounce } from '../../utils/index.js';
 import { context } from '../../globals/index.js';
+import { debounce } from '../../utils/index.js';
+import cache from './cache.js'
+import lng from '@lightningjs/core';
 
 export default class StyleManager extends lng.EventEmitter {
   /**
@@ -33,21 +34,13 @@ export default class StyleManager extends lng.EventEmitter {
    */
   constructor({ component = {} } = {}) {
     super(...arguments);
-    this._previousTone;
-    this._previousMode;
-    this._previousComponentLevelStyle;
     // Bind the _onThemeUpdate method to the current instance of the StyleManager class.
     this._boundThemeUpdate = this._onThemeUpdate.bind(this);
     context.on('themeUpdate', this._boundThemeUpdate);
 
-    // Create a global cache for styles.
-    if (!window.LUI_STYLE_CACHE) {
-      window.LUI_STYLE_CACHE = new Map();
-    }
-
     this.component = component;
-    this._style = {};
-    // Initial Update
+    this._style = {}; // This will be the source of truth for the style manager
+    // Initial update is not debounced
     this._update();
 
     if (typeof process === 'object' && process?.env?.NODE_ENV === 'test') {
@@ -55,9 +48,8 @@ export default class StyleManager extends lng.EventEmitter {
     } else {
       // Debounce the update method so that it's called only once during rapid style changes.
       this.update = debounce(() => {
-        // TODO: Change to updateDebounced or something for more clarity
         this._update();
-      }, 1);
+      }, 0);
     }
   }
 
@@ -81,7 +73,7 @@ export default class StyleManager extends lng.EventEmitter {
    */
   _onThemeUpdate() {
     // Why does this run so much
-    window.LUI_STYLE_CACHE && window.LUI_STYLE_CACHE.clear();
+    cache.clear();
     this.update();
   }
 
@@ -101,7 +93,7 @@ export default class StyleManager extends lng.EventEmitter {
     if (!this.component) return;
     const { tone, mode } = this.component;
     const styleKey = this._generateCacheKey(`style_${mode}_${tone}`);
-    window.LUI_STYLE_CACHE.delete(styleKey);
+    cache.delete(styleKey);
   }
 
   /**
@@ -127,8 +119,8 @@ export default class StyleManager extends lng.EventEmitter {
    */
   _addCache(name, payload) {
     const key = this._generateCacheKey(name);
-    const existing = window.LUI_STYLE_CACHE.get(key);
-    window.LUI_STYLE_CACHE.set(key, {
+    const existing = cache.get(key);
+    cache.set(key, {
       ids: [...new Set([...(existing?.ids || []), this.component.__id])], // Add current id and remove duplicates
       payload
     });
@@ -139,15 +131,15 @@ export default class StyleManager extends lng.EventEmitter {
    */
   _cleanupCache() {
     if (!this.component) return;
-    window.LUI_STYLE_CACHE.forEach(({ ids, payload }, name) => {
+    cache.forEach(({ ids, payload }, name) => {
       const removeIndex = ids && ids.length && ids.indexOf(this.component.__id);
       if (removeIndex > -1 && ids.length > 1) {
-        window.LUI_STYLE_CACHE.set(name, {
+        cache.set(name, {
           ids: ids.slice(0, removeIndex).concat(ids.slice(removeIndex + 1)),
           payload
         });
       } else if (removeIndex > -1) {
-        window.LUI_STYLE_CACHE.delete(name);
+        cache.delete(name);
       }
     });
   }
@@ -157,7 +149,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @param {string} name - The name of the cache.
    */
   _removeCache(name) {
-    window.LUI_STYLE_CACHE.delete(name);
+    cache.delete(name);
   }
 
   /**
@@ -167,7 +159,7 @@ export default class StyleManager extends lng.EventEmitter {
    */
   _getCache(name) {
     const key = this._generateCacheKey(name);
-    return window.LUI_STYLE_CACHE.get(key);
+    return cache.get(key);
   }
 
   /**
@@ -183,10 +175,7 @@ export default class StyleManager extends lng.EventEmitter {
 
     try {
       // Attempt to fetch style source from cache
-      let styleSource =
-        this.component.constructor.name === 'TextBox'
-          ? undefined
-          : this._getCache('styleSource')?.payload;
+      let styleSource = this._getCache('styleSource')?.payload;
       if (!styleSource) {
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
         styleSource = generateComponentStyleSource(this.component);
@@ -194,7 +183,6 @@ export default class StyleManager extends lng.EventEmitter {
       }
 
       // Attempt to fetch style from cache
-
       let style = this._getCache(`style_${mode}_${tone}`)?.payload;
 
       if (!style) {
@@ -236,7 +224,6 @@ export default class StyleManager extends lng.EventEmitter {
   /**
    * Accessors
    */
-
   set style(v) {
     context.warn('styleManager: Cannot mutate style directly');
   }
