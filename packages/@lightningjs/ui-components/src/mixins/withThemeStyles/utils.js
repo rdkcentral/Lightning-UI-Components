@@ -208,7 +208,7 @@ export const generateComponentStyleSource = (component) => {
   }
 
   // Get the styleChain for the component
-  const styleChain = getStyleChain(component);
+  const styleChain = getStyleChainMemoized(component);
 
   // Process all styles in styleChain
   styleChain.forEach(({ style }) => {
@@ -359,6 +359,42 @@ export const generateStyle = (component, componentStyleSource = {}) => {
     return clone(style, componentStyle); // TODO: Need to check for edge cases. Need to run through parser method
   }
   return style;
+};
+
+/**
+ * Creates a cache object to store the results of getStyleChainMemoized function calls.
+ * @type {Object}
+ */
+const styleChainCache = {};
+
+/**
+ * Memoized version of getStyleChain function. Retrieves the style chain for a component by traversing its prototype chain.
+ * @param {object} componentObj - The component object to get the style chain from.
+ * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
+ */
+export const getStyleChainMemoized = componentObj => {
+  /**
+   * Create a cache key based on the stringified component object.
+   * @type {string}
+   */
+  const cacheKey = JSON.stringify(componentObj);
+
+  // Check if the result is already in the cache
+  if (styleChainCache[cacheKey]) {
+    return styleChainCache[cacheKey];
+  }
+
+  /**
+   * Compute the style chain using the getStyleChain function.
+   * @type {{ style: (object | function) }[]}
+   */
+  const styleChain = getStyleChain(componentObj);
+
+  // Cache the result for future use
+  styleChainCache[cacheKey] = styleChain;
+
+  // Return the style chain
+  return styleChain;
 };
 
 /**
