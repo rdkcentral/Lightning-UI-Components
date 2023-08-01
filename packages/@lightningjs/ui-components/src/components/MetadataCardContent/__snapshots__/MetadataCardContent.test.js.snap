@@ -294,6 +294,7 @@ exports[`MetadataCardContent renders 1`] = `
                                 "precision": 0.6666666666666666,
                                 "text": "+7",
                                 "textBaseline": "bottom",
+                                "textColor": 4294506490,
                                 "type": "TextTexture",
                                 "verticalAlign": "middle",
                               },

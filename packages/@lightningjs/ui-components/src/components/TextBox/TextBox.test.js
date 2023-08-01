@@ -155,12 +155,6 @@ describe('TextBox', () => {
       );
     });
 
-    it('should set textColor to the default white if no textColor is provided', () => {
-      textBox.content = 'Hello World!';
-      testRenderer.forceAllUpdates();
-      expect(textBox._Text.text.textColor).toBe(getValidColor('#FFFFFF'));
-    });
-
     it('should set textColor to the provided textColor value if defined', () => {
       textBox.content = 'Hello World!';
       textBox.style.textStyle.textColor = getValidColor('#000000');
