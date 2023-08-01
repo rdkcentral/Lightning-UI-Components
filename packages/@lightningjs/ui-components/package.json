@@ -27,7 +27,7 @@
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --no-coverage --watch --colors"
   },
   "peerDependencies": {
-    "@lightningjs/core": "^2.9.0"
+    "@lightningjs/core": "^2.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
