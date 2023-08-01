@@ -19,8 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
-import TextBox from '../TextBox/TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import Icon from '../Icon';
 
 type MetadataBaseStyle = {
