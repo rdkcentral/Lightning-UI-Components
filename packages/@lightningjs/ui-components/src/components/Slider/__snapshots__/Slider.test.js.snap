@@ -202,7 +202,7 @@ exports[`Slider renders 1`] = `
         },
         "LeftArrow": {
           "active": true,
-          "alpha": 0.5,
+          "alpha": 0.7,
           "attached": true,
           "boundsMargin": null,
           "clipping": false,

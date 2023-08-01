@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  alpha: 0,
+  alpha: theme.alpha.none,
   animation: theme.animation.standardEntrance,
   blur: theme.spacer.xxl,
   color: theme.color.shadowNeutralFocus,

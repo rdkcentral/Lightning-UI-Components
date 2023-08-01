@@ -280,7 +280,7 @@ exports[`ScrollWrapper gracefully fails if no content is provided 1`] = `
             },
             "LeftArrow": {
               "active": false,
-              "alpha": 0.5,
+              "alpha": 0.7,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
@@ -1101,7 +1101,7 @@ exports[`ScrollWrapper renders a content array 1`] = `
             },
             "LeftArrow": {
               "active": false,
-              "alpha": 0.5,
+              "alpha": 0.7,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,
@@ -1627,7 +1627,7 @@ exports[`ScrollWrapper renders a content string 1`] = `
             },
             "LeftArrow": {
               "active": false,
-              "alpha": 0.5,
+              "alpha": 0.7,
               "attached": true,
               "boundsMargin": null,
               "clipping": false,

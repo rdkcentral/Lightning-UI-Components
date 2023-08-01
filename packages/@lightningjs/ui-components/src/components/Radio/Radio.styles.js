@@ -19,7 +19,7 @@
 export const base = theme => {
   const size = theme.spacer.xxl;
   return {
-    alpha: 1,
+    alpha: theme.alpha.primary,
     w: size,
     h: size,
     knobHeight: size / 2,

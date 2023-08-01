@@ -25,7 +25,7 @@ export const base = theme => ({
   paddingYProgress: theme.spacer.xl,
   paddingYBetweenContent: theme.spacer.md,
   radius: theme.radius.md,
-  alpha: 1
+  alpha: theme.alpha.primary
 });
 
 export const tone = theme => ({

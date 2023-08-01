@@ -135,7 +135,7 @@ describe('Slider', () => {
       value: 1
     });
     testRenderer.forceAllUpdates();
-    expect(slider._LeftArrow.alpha).toEqual(0.5);
+    expect(slider._LeftArrow.alpha).toEqual(slider.style.arrowAlphaValueLimit);
   });
 
   it('Alpha value of arrow when mode is set to disabled', () => {

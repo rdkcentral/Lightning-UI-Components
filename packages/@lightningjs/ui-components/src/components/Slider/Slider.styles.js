@@ -21,8 +21,8 @@ import { getWidthByColumnSpan } from '../../utils';
 export const base = theme => {
   const size = theme.spacer.lg;
   return {
-    arrowAlphaValue: 1,
-    arrowAlphaValueLimit: 0.5,
+    arrowAlphaValue: theme.alpha.primary,
+    arrowAlphaValueLimit: theme.alpha.secondary,
     arrowHeight: theme.spacer.xxl,
     arrowSpacing: theme.spacer.md,
     arrowWidth: theme.spacer.xxl,

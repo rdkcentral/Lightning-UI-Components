@@ -22,7 +22,7 @@ export function base(theme) {
     itemSize: theme.layout.gutterX.sm,
     itemSpacing: theme.spacer.md,
     radius: theme.radius.sm,
-    alpha: 1
+    alpha: theme.alpha.primary
   };
 }
 
