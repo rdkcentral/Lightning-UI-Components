@@ -18,6 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
+import Icon from '../Icon';
 import { Color, StylePartial } from '../../types/lui';
 
 type CheckboxStyle = {
@@ -63,7 +64,7 @@ declare class Checkbox<
   set style(v: StylePartial<CheckboxStyle>);
 
   // tags
-  get _Check(): lng.Component;
+  get _Check(): Icon;
   get _Body(): lng.Component;
   get _Stroke(): lng.Component;
 }
