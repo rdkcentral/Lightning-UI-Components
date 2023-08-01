@@ -18,9 +18,9 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type LabelStyle = {
+type LabelStyle = {
   backgroundColor: Color;
   paddingX: number;
   paddingY: number;
@@ -28,7 +28,30 @@ export type LabelStyle = {
   textStyle: lng.textures.TextTexture.Settings;
 };
 
-export default class Label extends Base {
+declare namespace Label {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * text to display in label
+     */
+    title: string;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted when an update to the Background has been patched
+   */
+  export type SignalMap = {
+    updateBackground(): void;
+  };
+}
+declare class Label<
+  TemplateSpec extends Label.TemplateSpec = Label.TemplateSpec,
+  TypeConfig extends Label.TypeConfig = Label.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * text to display in label
+   */
   title: string;
   get style(): LabelStyle;
   set style(v: StylePartial<LabelStyle>);
@@ -37,3 +60,5 @@ export default class Label extends Base {
   get _Background(): lng.Component;
   get _Text(): lng.Component;
 }
+
+export { Label as default, LabelStyle };
