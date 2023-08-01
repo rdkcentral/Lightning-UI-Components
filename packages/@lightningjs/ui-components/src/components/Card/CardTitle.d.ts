@@ -56,8 +56,8 @@ declare class CardTitle<
   set style(v: StylePartial<CardTitleStyle>);
 
   // tags
-  get _Description(): lng.Component;
-  get _Details(): lng.Component;
+  get _Description(): TextBox;
+  get _Details(): TextBox;
 }
 
 export { CardTitle as default, CardTitleStyle };

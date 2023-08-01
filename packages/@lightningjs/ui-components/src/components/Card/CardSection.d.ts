@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
 import { StylePartial } from '../../types/lui';
+import Icon from '../Icon';
 import { TextBoxStyle } from '../TextBox';
 
 type CardSectionStyle = CardStyle & {
@@ -66,7 +67,7 @@ declare class CardSection<
   set style(v: StylePartial<CardSectionStyle>);
 
   // tags
-  get _Icon(): lng.Component;
+  get _Icon(): Icon;
 }
 
 export { CardSection as default, CardSectionStyle };

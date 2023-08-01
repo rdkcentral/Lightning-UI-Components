@@ -50,7 +50,7 @@ declare class Card<
   set style(v: StylePartial<CardStyle>);
 
   // tags
-  get _Title(): lng.Component;
+  get _Title(): TextBox;
 }
 
 export { Card as default, CardStyle };

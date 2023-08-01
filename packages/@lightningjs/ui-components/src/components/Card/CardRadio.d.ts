@@ -30,6 +30,7 @@ declare namespace CardRadio {
   export interface TemplateSpec extends CardTitle {
     /**
      * Object containing all properties supported in the Radio Component
+     * TODO: See if the types can be updated when Radio has been updated
      */
     radio?: Record<string, unknown>;
     /**
@@ -44,7 +45,6 @@ declare class CardRadio<
 > extends CardTitle<TemplateSpec, TypeConfig> {
   /**
    * Object containing all properties supported in the Radio Component
-   * TODO: See if the types can be updated when Radio has been updated
    */
   radio?: Record<string, unknown>;
   /**
@@ -56,7 +56,7 @@ declare class CardRadio<
   set style(v: StylePartial<CardRadioStyle>);
 
   //tags
-  get _Subtitle(): lng.Component;
+  get _Subtitle(): TextBox;
 }
 
 export { CardRadio as default, CardRadioStyle };
