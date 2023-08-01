@@ -16,11 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type lng from '@lightningjs/core';
-import type Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import lng from '@lightningjs/core';
+import Base from '../Base';
+import { Color, StylePartial } from '../../types/lui';
 
-export type BadgeStyle = {
+type BadgeStyle = {
   backgroundColor: Color;
   contentSpacing: number;
   iconColor: Color;
@@ -33,16 +33,81 @@ export type BadgeStyle = {
   textStyle: lng.textures.TextTexture.Settings;
 };
 
-export default class Badge extends Base {
-  title?: string;
+declare namespace Badge {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * path to image or inline SVG XML
+     */
+    icon?: string;
+
+    /**
+     * width of icon
+     */
+    iconWidth?: number;
+
+    /**
+     * height of icon
+     */
+    iconHeight?: number;
+
+    /**
+     * side of the text where icon will appear on (`left` or `right`)
+     */
+    iconAlign?: 'left' | 'right';
+
+    /**
+     * Badge text
+     */
+    title?: string;
+  }
+
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted when the Badge component finishes loading its content and adjusts the background to fit the text input size.
+   */
+  export type SignalMap = {
+    loadedBadge(): void;
+  };
+}
+
+declare class Badge<
+  TemplateSpec extends Badge.TemplateSpec = Badge.TemplateSpec,
+  TypeConfig extends Badge.TypeConfig = Badge.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * path to image or inline SVG XML
+   */
   icon?: string;
-  iconAlign?: string;
-  iconHeight?: number;
+
+  /**
+   * width of icon
+   */
   iconWidth?: number;
+
+  /**
+   * height of icon
+   */
+  iconHeight?: number;
+
+  /**
+   * side of the text where icon will appear on (`left` or `right`)
+   */
+  iconAlign?: 'left' | 'right';
+
+  /**
+   * Badge text
+   */
+  title?: string;
+
   get style(): BadgeStyle;
   set style(v: StylePartial<BadgeStyle>);
 
   // tags
+  get _Background(): lng.Component;
   get _Text(): lng.Component;
   get _Icon(): lng.Component;
 }
+
+export { Badge as default, BadgeStyle };

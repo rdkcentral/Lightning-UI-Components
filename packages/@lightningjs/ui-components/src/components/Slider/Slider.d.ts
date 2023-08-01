@@ -17,9 +17,9 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base/Base';
-import type { Color, StylePartial } from '../../types/lui';
-import type { ProgressBarStyle } from '../ProgressBar';
+import Base from '../Base';
+import { Color, StylePartial } from '../../types/lui';
+import { ProgressBarStyle } from '../ProgressBar';
 
 type SliderStyle = {
   arrowAlphaValue: number;
