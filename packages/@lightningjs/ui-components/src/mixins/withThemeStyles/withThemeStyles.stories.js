@@ -36,7 +36,7 @@ export const withThemeStyles = () => {
     color: context.theme.color.fillNeutral
   };
 
-  class Box extends withThemeStylesMixin(lng.Component) {
+  class Box extends lng.Component {
     static get __componentName() {
       return 'Box';
     }
@@ -64,7 +64,7 @@ export const withThemeStyles = () => {
     static _template() {
       return {
         Box: {
-          type: Box
+          type: withThemeStylesMixin(Box)
         }
       };
     }
