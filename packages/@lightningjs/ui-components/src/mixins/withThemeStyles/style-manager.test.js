@@ -3,7 +3,7 @@ import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import context from '../../globals/context';
-import cache from './cache'
+import cache from './cache';
 
 const originalWarn = jest.spyOn(context, 'warn');
 
@@ -24,8 +24,7 @@ describe('StyleManager', () => {
   let styleManager;
 
   beforeEach(() => {
-    console.log('CACHE', cache)
-    cache.clear()
+    cache.clear();
     component = createComponent()[0];
     styleManager = new StyleManager({ component });
   });

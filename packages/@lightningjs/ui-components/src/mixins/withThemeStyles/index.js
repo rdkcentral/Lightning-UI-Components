@@ -30,7 +30,6 @@ import { getComponentConfig, getSubTheme } from './utils';
 export default function withThemeStyles(Base, mixinStyle = {}) {
   return class extends Base {
     _construct() {
-     
       if (this._withThemeStylesSetupComplete) {
         // Make sure this runs ony once if being used on a component that extends another component that is utilizing withThemeStyles
         super._construct();

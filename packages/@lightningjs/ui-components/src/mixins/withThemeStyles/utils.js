@@ -28,7 +28,7 @@ Given a character, return its ASCII value multiplied by its position.
  */
 export const getCharacterValue = (char, index) => {
   return char.charCodeAt(0) * (index + 1);
-}
+};
 
 /**
 Given an object, return a sum of the ASCII values of all characters in its
@@ -37,14 +37,14 @@ JSON stringified representation, each multiplied by its position.
 @param {object} obj - The object to process.
 @returns {number} - The sum of ASCII values, each multiplied by its position.
 */
-export const getCharacterSum = (obj) => {
-  let str = JSON.stringify(obj);
+export const getCharacterSum = obj => {
+  const str = JSON.stringify(obj);
   let sum = 0;
   for (let i = 0; i < str.length; i++) {
-      sum += getCharacterValue(str[i], i);
+    sum += getCharacterValue(str[i], i);
   }
   return sum;
-}
+};
 
 /**
 Given an object, return a "hash" of the object, which is a combination of
@@ -54,10 +54,10 @@ values of all characters in that string, each multiplied by its position.
 @param {object} obj - The object to process.
 @returns {string} - The hash of the object.
 */
-export const getHash = (obj) => {
-  let str = JSON.stringify(obj);
+export const getHash = obj => {
+  const str = JSON.stringify(obj);
   return str.length + '-' + getCharacterSum(obj);
-}
+};
 
 export function executeWithContext(objOrFunction) {
   if (typeof objOrFunction === 'function') {
@@ -238,7 +238,7 @@ export function styleFormatter(obj, target, search) {
  * @param {object} component - The component for which to generate the style source
  * @returns {object} - The source style object for the component
  */
-export const generateComponentStyleSource = (component) => {
+export const generateComponentStyleSource = component => {
   // Initialize the finalStyle object to an empty object
   let finalStyle = {};
 
@@ -282,25 +282,25 @@ export const generateComponentStyleSource = (component) => {
 
     if (componentConfigStyle?.base) {
       finalStyle = clone(finalStyle, {
-        base: componentConfigStyle.base,
+        base: componentConfigStyle.base
       });
     }
 
     if (componentConfigStyle?.tone) {
       finalStyle = clone(finalStyle, {
-        tone: componentConfigStyle.tone,
+        tone: componentConfigStyle.tone
       });
     }
 
     if (componentConfigStyle?.mode) {
       finalStyle = clone(finalStyle, {
-        mode: componentConfigStyle.mode,
+        mode: componentConfigStyle.mode
       });
     }
 
     if (componentConfigStyle?.mode) {
       finalStyle = clone(finalStyle, {
-        mode: componentConfigStyle.mode,
+        mode: componentConfigStyle.mode
       });
     }
 
@@ -322,19 +322,19 @@ export const generateComponentStyleSource = (component) => {
 
     if (componentStyle?.base) {
       finalStyle = clone(finalStyle, {
-        base: componentStyle.base,
+        base: componentStyle.base
       });
     }
 
     if (componentStyle?.tone) {
       finalStyle = clone(finalStyle, {
-        tone: componentStyle.tone,
+        tone: componentStyle.tone
       });
     }
 
     if (componentStyle?.mode) {
       finalStyle = clone(finalStyle, {
-        mode: componentStyle.mode,
+        mode: componentStyle.mode
       });
     }
   }
@@ -344,7 +344,7 @@ export const generateComponentStyleSource = (component) => {
     base = {},
     mode = {},
     tone: toneOriginal = {},
-    overwrite = {},
+    overwrite = {}
   } = finalStyle;
 
   // Create the solution object to store the processed styles
@@ -378,7 +378,6 @@ export const generateComponentStyleSource = (component) => {
   // Return the final processed style object
   return removeEmptyObjects(JSON.parse(processedStyle)) || {};
 };
-
 
 /**
  * Generates the final style object for a component using its style source.
@@ -436,7 +435,7 @@ export const getStyleChainMemoized = componentObj => {
    * Create a cache key based on the stringified component object.
    * @type {string}
    */
-  
+
   const cacheKey = generateNameFromPrototypeChain(componentObj);
   // Check if the result is already in the cache
   if (styleChainCache[cacheKey]) {
