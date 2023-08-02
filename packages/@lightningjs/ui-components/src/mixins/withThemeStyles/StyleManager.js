@@ -19,10 +19,11 @@
 import {
   generateComponentStyleSource,
   generateStyle,
-  replaceAliasValues
+  replaceAliasValues,
+  getHash
 } from './utils.js';
 import { context } from '../../globals/index.js';
-import { debounce } from '../../utils/index.js';
+import { debounce, clone } from '../../utils/index.js';
 import cache from './cache.js'
 import lng from '@lightningjs/core';
 
@@ -105,7 +106,7 @@ export default class StyleManager extends lng.EventEmitter {
     const cacheKey = [
       name,
       this.component.constructor.__componentName,
-      this._hasComponentStyle ? this.component.__id : null
+      this._customStyleHash
     ]
       .filter(Boolean)
       .join('_');
@@ -235,12 +236,16 @@ export default class StyleManager extends lng.EventEmitter {
   /**
    * Simple check to see if this component can leverage caching. Components using .style cannot use the cache at this time
    */
-  get _hasComponentStyle() {
-    return (
+  get _customStyleHash() {
+    const hasCustomStyle = (
       Boolean(
         Object.keys(this.component.constructor.__mixinStyle || {}).length
       ) ||
       Boolean(Object.keys(this.component._componentLevelStyle || {}).length)
     );
+
+    if (hasCustomStyle) {
+      return getHash(clone((this.component.constructor.__mixinStyle || {}), (this.component._componentLevelStyle || {})))
+    }
   }
 }
