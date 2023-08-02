@@ -59,8 +59,8 @@ export default class ProgressBar extends Base {
   }
 
   _updateTextures() {
-    const p = this.w * this._progress;
-    const w = p <= 0 ? 0 : Math.min(p, this.w);
+
+    const w = this._getProgressWidth();
 
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
@@ -85,8 +85,9 @@ export default class ProgressBar extends Base {
   }
 
   _updateProgress() {
-    const p = this.w * this._progress;
-    const w = p <= 0 ? 0 : Math.min(p, this.w);
+    
+    const w = this._getProgressWidth();
+
     this._Progress.smooth = {
       w: [w, this.style.animation],
       alpha: Number(w > 0)
@@ -114,5 +115,11 @@ export default class ProgressBar extends Base {
       progress = 0;
     }
     return `${Math.round(progress * 100)}%`;
+  }
+
+  _getProgressWidth() {
+    const p = this.w * this._progress;
+    const w = p <= 0 ? 0 : Math.min(p, this.w);
+    return w;
   }
 }

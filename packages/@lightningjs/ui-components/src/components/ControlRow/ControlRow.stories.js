@@ -234,8 +234,7 @@ export const AddingAndRemoving = () =>
 
     get rightControlIndex() {
       return (
-        this._ControlRow.selectedIndex -
-        this._ControlRow.leftControls.length -
+        this._ControlRow.leftControls.length +
         this._ControlRow.contentItems.length
       );
     }
