@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Badge from '../Badge';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
 type JustifyContent =
   | 'flex-start'
@@ -66,7 +66,7 @@ type FlexItem = {
   marginBottom?: number;
 };
 
-export type InlineContentStyle = {
+type InlineContentStyle = {
   textY: number;
   /** @deprecated */
   iconW: number;
@@ -81,14 +81,99 @@ export type InlineContentStyle = {
   justify: JustifyContent;
 };
 
-export default class InlineContent extends Base {
+declare namespace InlineContent {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * list of data to render inline
+     * TODO: Feel like there should be more to this
+     */
+    content?: TextContent[];
+    /**
+     * object setting flexItem props on all content items
+     */
+    contentProperties?: FlexItem;
+    /**
+     * y value of all badges
+     */
+    badgeY?: number;
+    /**
+     * styling to update the Badge component
+     */
+    badgeProperties?: Partial<Badge>;
+    /**
+     * alignment of first line flexbox content
+     */
+    justify?: JustifyContent;
+    /**
+     * determines whether the containing flexbox should wrap the content onto the next line
+     */
+    contentWrap?: boolean;
+    /**
+     * set of nested objects containing [Lightning Text](https://rdkcentral.github.io/Lightning/docs/textures/text) properties which can be referenced in the [Content Element Properties](#content-element-properties) to apply styling to individual text elements
+     */
+    customStyleMappings?: Record<string, unknown>;
+    /**
+     * maximum number of lines to render before truncation
+     */
+    maxLines?: number;
+    /**
+     * suffix appended to last line of content if it will exceed the `maxLines`
+     */
+    maxLinesSuffix?: string;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  export type SignalMap = {
+    // signals: _createIcon & _createBadge
+  };
+
+  // events: $loadedInlineContent(): void;
+}
+declare class InlineContent<
+  TemplateSpec extends InlineContent.TemplateSpec = InlineContent.TemplateSpec,
+  TypeConfig extends InlineContent.TypeConfig = InlineContent.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * list of data to render inline
+   * TODO: Feel like there should be more to this
+   */
   content?: TextContent[];
+  /**
+   * object setting flexItem props on all content items
+   */
   contentProperties?: FlexItem;
+  /**
+   * y value of all badges
+   */
   badgeY?: number;
+  /**
+   * styling to update the Badge component
+   */
   badgeProperties?: Partial<Badge>;
+  /**
+   * alignment of first line flexbox content
+   */
   justify?: JustifyContent;
+  /**
+   * determines whether the containing flexbox should wrap the content onto the next line
+   */
   contentWrap?: boolean;
+  /**
+   * set of nested objects containing [Lightning Text](https://rdkcentral.github.io/Lightning/docs/textures/text) properties which can be referenced in the [Content Element Properties](#content-element-properties) to apply styling to individual text elements
+   */
   customStyleMappings?: Record<string, unknown>;
+  /**
+   * maximum number of lines to render before truncation
+   */
+  maxLines?: number;
+  /**
+   * suffix appended to last line of content if it will exceed the `maxLines`
+   */
+  maxLinesSuffix?: string;
+
   get style(): InlineContentStyle;
   set style(v: StylePartial<InlineContentStyle>);
 }
+
+export { InlineContent as default, InlineContentStyle };

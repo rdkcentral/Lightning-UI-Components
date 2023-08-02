@@ -21,6 +21,7 @@ import Base from '../Base';
 import { StylePartial } from '../../types/lui';
 import TextContent from '../InlineContent';
 import Marquee from '../Marquee';
+import InlineContent from '../InlineContent';
 
 type TextBoxStyle = {
   offsetY: number;
@@ -34,7 +35,7 @@ declare namespace TextBox {
     /**
      * Text to be displayed in element
      */
-    content?: string | TextContent[]; // should this just be InlineContent?
+    content?: string | TextContent[]; // is a type from InlineContent?
     /**
      * If true, allows the width of the text to be set with `w`
      */
@@ -65,8 +66,9 @@ declare class TextBox<
 
   /**
    * Text to be displayed in element
+   * Takes in a string or an Array from InlineContent
    */
-  content?: string | TextContent[];
+  content?: string | TextContent[]; // array from InlineContent
   /**
    * If true, allows the width of the text to be set with `w`
    */
@@ -92,7 +94,7 @@ declare class TextBox<
   toggleMarquee(): void;
 
   // tags
-  get _InlineContent(): TextContent;
+  get _InlineContent(): InlineContent; // this should be the component and not the type, correct?
   get _Marquee(): Marquee;
   get _Text(): TextBox;
 }
