@@ -19,6 +19,46 @@
 import { clone, getValFromObjPath, getHexColor } from '../../utils';
 import context from '../../globals/context';
 
+/**
+Given a character, return its ASCII value multiplied by its position.
+ *
+@param {char} char - The character to process.
+@param {number} index - The position of the character in the string.
+@returns {number} - The ASCII value of the character multiplied by its position.
+ */
+export const getCharacterValue = (char, index) => {
+  return char.charCodeAt(0) * (index + 1);
+}
+
+/**
+Given an object, return a sum of the ASCII values of all characters in its
+JSON stringified representation, each multiplied by its position.
+*
+@param {object} obj - The object to process.
+@returns {number} - The sum of ASCII values, each multiplied by its position.
+*/
+export const getCharacterSum = (obj) => {
+  let str = JSON.stringify(obj);
+  let sum = 0;
+  for (let i = 0; i < str.length; i++) {
+      sum += getCharacterValue(str[i], i);
+  }
+  return sum;
+}
+
+/**
+Given an object, return a "hash" of the object, which is a combination of
+the length of its JSON stringified representation and the sum of the ASCII
+values of all characters in that string, each multiplied by its position.
+*
+@param {object} obj - The object to process.
+@returns {string} - The hash of the object.
+*/
+export const getHash = (obj) => {
+  let str = JSON.stringify(obj);
+  return str.length + '-' + getCharacterSum(obj);
+}
+
 export function executeWithContext(objOrFunction) {
   if (typeof objOrFunction === 'function') {
     // If the input is a function, execute it with the context.theme as a parameter
