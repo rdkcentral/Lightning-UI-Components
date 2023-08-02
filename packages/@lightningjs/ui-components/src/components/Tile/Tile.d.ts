@@ -19,8 +19,17 @@
 import lng from '@lightningjs/core';
 import { MetadataBaseStyle } from '../MetadataBase';
 import { StylePartial } from '../../types/lui';
-import Surface, { SurfaceStyle } from '../Surface';
-import { Artwork } from '..';
+import { SurfaceStyle } from '../Surface';
+import {
+  Artwork,
+  TextBox,
+  ProgressBar,
+  MetadataBase,
+  Badge,
+  Checkbox,
+  Label,
+  Surface
+} from '..';
 
 type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
@@ -32,11 +41,6 @@ type TileStyle = SurfaceStyle & {
   paddingYBetweenContent: number;
   radius: lng.Tools.CornerRadius | string;
 };
-
-// Utility type to get a PatchTemplate by Component constructor.
-// TODO: Replace this with an official version from Lightning when one exists
-// type PatchTemplate<T extends lng.Element.Constructor> =
-//   lng.Element.PatchTemplate<lng.Element.ExtractTemplateSpec<InstanceType<T>>>;
 declare namespace Tile {
   export interface TemplateSpec extends Surface.TemplateSpec {
     Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
@@ -73,6 +77,17 @@ declare namespace Tile {
      */
     progressBar?: Record<string, unknown>;
   }
+
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  export type SignalMap = {
+    // Signals
+    // _imageLoaded
+    // _updateBadge
+    // _updateLabel
+    // _metadataLoaded
+  };
 }
 declare class Tile<
   TemplateSpec extends Tile.TemplateSpec = Tile.TemplateSpec,
@@ -82,7 +97,7 @@ declare class Tile<
   /**
    * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
    */
-  artwork: lightning.Element.PatchTemplate<Artwork.TemplateSpec>;
+  artwork: lng.Element.PatchTemplate<Artwork.TemplateSpec>;
   /**
    * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
    */
@@ -116,21 +131,15 @@ declare class Tile<
   get style(): TileStyle;
   set style(v: StylePartial<TileStyle>);
 
-  // Signals
-  // _imageLoaded
-  // _updateBadge
-  // _updateLabel
-  // _metadataLoaded
-
   // tags
-  get _Artwork(): lng.Component;
-  get _Content(): lng.Component;
-  get _Tile(): lng.Component;
-  get _Badge(): lng.Component;
-  get _Checkbox(): lng.Component;
-  get _Metadata(): lng.Component;
-  get _ProgressBar(): lng.Component;
-  get _Label(): lng.Component;
+  get _Artwork(): Artwork;
+  get _Content(): TextBox;
+  get _Tile(): TextBox;
+  get _Badge(): Badge;
+  get _Checkbox(): Checkbox;
+  get _Metadata(): MetadataBase;
+  get _ProgressBar(): ProgressBar;
+  get _Label(): Label;
 }
 
 export { Tile as default, TileStyle };
