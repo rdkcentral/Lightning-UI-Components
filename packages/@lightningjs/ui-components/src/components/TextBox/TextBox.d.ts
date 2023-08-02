@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
-import { TextContent } from '../InlineContent/InlineContent';
+import TextContent from '../InlineContent';
+import Marquee from '../Marquee';
 
 type TextBoxStyle = {
   offsetY: number;
@@ -33,7 +34,7 @@ declare namespace TextBox {
     /**
      * Text to be displayed in element
      */
-    content?: string | TextContent[];
+    content?: string | TextContent[]; // should this just be InlineContent?
     /**
      * If true, allows the width of the text to be set with `w`
      */
@@ -48,16 +49,12 @@ declare namespace TextBox {
   }
 
   export type SignalMap = {
-    // signals: _setDimensions
-    _updateInlineContent();
-    // signals: _loadedMarqueeContent
-    _updateMarquee();
-
-    // signal: willMarquee
-    _loadedMarqueeContent();
+    /** emits when marquee content has been patched on update
+     */
+    _loadedMarqueeContent(): void;
 
     // signal: textBoxChanged
-    _notifyAncestors(w = this.w, h = this.h);
+    //_notifyAncestors(w = this.w, h = this.h);
   };
 }
 declare class TextBox<
@@ -65,6 +62,7 @@ declare class TextBox<
   TypeConfig extends TextBox.TypeConfig = TextBox.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   // Properties
+
   /**
    * Text to be displayed in element
    */
@@ -86,16 +84,17 @@ declare class TextBox<
 
   get style(): TextBoxStyle;
   set style(v: StylePartial<TextBoxStyle>);
+
   // Methods
   /**
-   *
+   * A method that calls the _toggleMarquee method to toggle Marquee for text to scroll or not scroll
    */
-  toggleMarquee();
+  toggleMarquee(): void;
 
   // tags
-  get _InlineContent(): lng.Component;
-  get _Marquee(): lng.Component;
-  get _Text(): lng.Component;
+  get _InlineContent(): TextContent;
+  get _Marquee(): Marquee;
+  get _Text(): TextBox;
 }
 
 export { TextBox as default, TextBoxStyle };
