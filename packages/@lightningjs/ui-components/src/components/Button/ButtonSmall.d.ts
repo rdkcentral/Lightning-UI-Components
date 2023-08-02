@@ -19,19 +19,16 @@
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from './Button';
 import { StylePartial } from '../../types/lui';
-import type { TextBoxStyle } from '../TextBox';
 
 type ButtonSmallStyle = ButtonStyle & {
-  minWidth: number;
-  paddingX: number;
   prefixH: number;
   suffixH: number;
-  textStyle: TextBoxStyle;
 };
 
 declare namespace ButtonSmall {
   export type TemplateSpec = Button.TemplateSpec;
 }
+
 declare class ButtonSmall<
   TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
