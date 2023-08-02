@@ -59,7 +59,6 @@ export default class ProgressBar extends Base {
   }
 
   _updateTextures() {
-
     const w = this._getProgressWidth();
 
     this._Bar.texture = lng.Tools.getRoundRect(
@@ -85,7 +84,6 @@ export default class ProgressBar extends Base {
   }
 
   _updateProgress() {
-    
     const w = this._getProgressWidth();
 
     this._Progress.smooth = {
