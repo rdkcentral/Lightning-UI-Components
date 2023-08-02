@@ -87,7 +87,6 @@ export default class ProgressBar extends Base {
     const w = this._getProgressWidth();
 
     this._Progress.smooth = {
-      w: [w, this.style.animation],
       alpha: Number(w > 0)
     };
   }
