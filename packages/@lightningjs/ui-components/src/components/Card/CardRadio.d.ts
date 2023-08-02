@@ -27,7 +27,7 @@ type CardRadioStyle = CardTitleStyle & {
 };
 
 declare namespace CardRadio {
-  export interface TemplateSpec extends CardTitle {
+  export interface TemplateSpec extends CardTitle.TemplateSpec {
     /**
      * Object containing all properties supported in the Radio Component
      * TODO: See if the types can be updated when Radio has been updated
@@ -40,7 +40,7 @@ declare namespace CardRadio {
   }
 }
 declare class CardRadio<
-  TemplateSpec extends CardTitle.TemplateSpec = CardTitle.TemplateSpec,
+  TemplateSpec extends CardRadio.TemplateSpec = CardRadio.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends CardTitle<TemplateSpec, TypeConfig> {
   /**
