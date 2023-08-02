@@ -18,22 +18,46 @@
 
 import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
-import { TextBoxStyle } from '../TextBox';
-import type { TextContent } from '../InlineContent/InlineContent';
-import type { StylePartial } from '../../types/lui';
+import TextBox, { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
 
-export type CardTitleStyle = CardStyle & {
-  descriptionTextProperties: TextBoxStyle;
+type CardTitleStyle = CardStyle & {
+  descriptionTextStyle: TextBoxStyle;
   detailsTextProperties: TextBoxStyle;
 };
 
-export default class CardTitle extends Card {
-  description?: string | TextContent[];
-  details?: string | TextContent[];
+declare namespace CardTitle {
+  export interface TemplateSpec extends Card.TemplateSpec {
+    /**
+     * text to be displayed in the description section
+     */
+    description?: string | TextBox[];
+    /**
+     * text to be displayed in the details section
+     */
+    details?: string | TextBox[];
+  }
+}
+
+declare class CardTitle<
+  TemplateSpec extends CardTitle.TemplateSpec = CardTitle.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Card<TemplateSpec, TypeConfig> {
+  /**
+   * text to be displayed in the description section
+   */
+  description?: string | TextBox[];
+  /**
+   * text to be displayed in the details section
+   */
+  details?: string | TextBox[];
+
   get style(): CardTitleStyle;
   set style(v: StylePartial<CardTitleStyle>);
 
   // tags
-  get _Description(): lng.Component;
-  get _Details(): lng.Component;
+  get _Description(): TextBox;
+  get _Details(): TextBox;
 }
+
+export { CardTitle as default, CardTitleStyle };

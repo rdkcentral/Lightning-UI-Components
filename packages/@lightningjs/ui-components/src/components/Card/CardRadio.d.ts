@@ -17,21 +17,46 @@
  */
 
 import lng from '@lightningjs/core';
-import type { StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import CardTitle, { CardTitleStyle } from './CardTitle';
-import type { TextContent } from '../InlineContent/InlineContent';
 
-export type CardRadioStyle = CardTitleStyle & {
+type CardRadioStyle = CardTitleStyle & {
   descriptionTextStyle: TextBoxStyle;
   subtitleTextStyle: TextBoxStyle;
 };
-export default class CardRadio extends CardTitle {
+
+declare namespace CardRadio {
+  export interface TemplateSpec extends CardTitle.TemplateSpec {
+    /**
+     * Object containing all properties supported in the Radio Component
+     * TODO: See if the types can be updated when Radio has been updated
+     */
+    radio?: Record<string, unknown>;
+    /**
+     * text to be displayed in the subtitle section of the card
+     */
+    subtitle?: string | TextBox[];
+  }
+}
+declare class CardRadio<
+  TemplateSpec extends CardRadio.TemplateSpec = CardRadio.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends CardTitle<TemplateSpec, TypeConfig> {
+  /**
+   * Object containing all properties supported in the Radio Component
+   */
   radio?: Record<string, unknown>;
-  subtitle?: string | TextContent[];
+  /**
+   * text to be displayed in the subtitle section of the card
+   */
+  subtitle?: string | TextBox[];
+
   get style(): CardRadioStyle;
   set style(v: StylePartial<CardRadioStyle>);
 
   //tags
-  get _Subtitle(): lng.Component;
+  get _Subtitle(): TextBox;
 }
+
+export { CardRadio as default, CardRadioStyle };

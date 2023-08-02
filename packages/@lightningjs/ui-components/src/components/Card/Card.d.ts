@@ -18,23 +18,39 @@
 
 import type lng from '@lightningjs/core';
 import Surface, { SurfaceStyle } from '../Surface';
-import { TextBoxStyle } from '../TextBox';
-import type { Color, StylePartial } from '../../types/lui';
-import type { TextContent } from '../InlineContent/InlineContent';
+import TextBox, { TextBoxStyle } from '../TextBox';
+import { Color, StylePartial } from '../../types/lui';
 
-export type CardStyle = SurfaceStyle & {
+type CardStyle = SurfaceStyle & {
   backgroundColor: Color;
   paddingHorizontal: number;
   paddingVertical: number;
   radius: lng.Tools.CornerRadius;
   titleTextStyle: TextBoxStyle;
 };
+declare namespace Card {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    /**
+     * headline of the content
+     */
+    title?: string | TextBox[];
+  }
+}
 
-export default class Card extends Surface {
-  title?: string | TextContent[];
+declare class Card<
+  TemplateSpec extends Card.TemplateSpec = Card.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
+  /**
+   * headline of the content
+   */
+  title?: string | TextBox[];
+
   get style(): CardStyle;
   set style(v: StylePartial<CardStyle>);
 
   // tags
-  get _Title(): lng.Component;
+  get _Title(): TextBox;
 }
+
+export { Card as default, CardStyle };
