@@ -17,27 +17,80 @@
  */
 
 import lng from '@lightningjs/core';
-import { StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 import Card, { CardStyle } from '../Card';
-import { default as MetadataCardContent } from '../MetadataCardContent';
+import { TextBoxStyle } from '../TextBox';
 
 type ImageSize = {
   w: number;
   h: number;
 };
 
-export type CardContentStyle = CardStyle & {
+type CardContentStyle = CardStyle & {
+  backgroundColor: Color;
   expandedW: number;
   expandedH: number;
   imageSize: ImageSize;
+  metadata: TextBoxStyle;
 };
 
-export default class CardContent extends Card {
+declare namespace CardContent {
+  export interface TemplateSpec extends Card.TemplateSpec {
+    /**
+     * when collapseToMetadata is true and shouldCollapse is enabled, the image collapses to show the metadata
+     */
+    collapseToMetadata?: boolean;
+    /**
+     * object containing all properties supported in the MetadataCardContent component
+     */
+    metadata?: object;
+    /**
+     * specifies whether the card layout should be oriented horizontally or vertically
+     */
+    orientation?: ['horizontal', 'vertical'];
+    /**
+     * will collapse the Card when the Card is not focused
+     */
+    shouldCollapse?: boolean;
+    /**
+     *  path to artwork image
+     */
+    src: string;
+    /**
+     * object containing all properties supported in the Tile component
+     */
+    tile?: object;
+  }
+}
+declare class CardContent<
+  TemplateSpec extends CardContent.TemplateSpec = CardContent.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Card<TemplateSpec, TypeConfig> {
+  /**
+   * when collapseToMetadata is true and shouldCollapse is enabled, the image collapses to show the metadata
+   */
   collapseToMetadata?: boolean;
-  metadata: MetadataCardContent;
-  orientation?: string;
+  /**
+   * object containing all properties supported in the MetadataCardContent component
+   */
+  metadata?: object;
+  /**
+   * specifies whether the card layout should be oriented horizontally or vertically
+   */
+  orientation?: ['horizontal', 'vertical'];
+  /**
+   * will collapse the Card when the Card is not focused
+   */
   shouldCollapse?: boolean;
+  /**
+   *  path to artwork image
+   */
   src: string;
+  /**
+   * Object containing all properties supported in the Tile component
+   */
+  tile?: object;
+
   get style(): CardContentStyle;
   set style(v: StylePartial<CardContentStyle>);
 
@@ -45,3 +98,5 @@ export default class CardContent extends Card {
   get _Metadata(): lng.Component;
   get _Tile(): lng.Component;
 }
+
+export { CardContent as default, CardContentStyle };

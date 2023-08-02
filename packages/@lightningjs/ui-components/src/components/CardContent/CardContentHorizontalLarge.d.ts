@@ -16,10 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import CardContentHorizontal, {
-  CardContentHorizontalStyle
-} from './CardContentHorizontal';
+import lng from '@lightningjs/core';
+import CardContentHorizontal from './CardContentHorizontal';
 
-export type CardContentHorizontalLargeStyle = CardContentHorizontalStyle;
+declare class CardContentHorizontalLarge<
+  TemplateSpec extends CardContentHorizontal.TemplateSpec = CardContentHorizontal.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends CardContentHorizontal<TemplateSpec, TypeConfig> {}
 
-export default class CardContentHorizontalLarge extends CardContentHorizontal {}
+export default CardContentHorizontalLarge;
