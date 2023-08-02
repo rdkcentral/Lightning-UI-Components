@@ -31,3 +31,25 @@ The `@lightningjs/ui-components-test-utils` package provides 2 artifacts to assi
   - [completeAnimation](/story/docs-unit-testing-test-utils-completeanimation--page): Returns a Promise that resolves once all animating properties have updated to their target value(s).
   - [fastForward](/story/docs-unit-testing-test-utils-fastforward--page): Force all running Lightning Transitions on one or more Lightning Elements to finish and update the transitioning property to its target value immediately.
   - [nextTick](/story/docs-unit-testing-test-utils-nexttick--page): Creates a Promise that resolves after a defined amount of time. If no amount of time is specified, the Promise will resolve immediately.
+
+
+## Getting Started
+All artifacts within `@lightningjs/ui-components-test-utils` are currently only available using ES Module syntax. This differs from the CommonJS syntax Jest is written in.
+Due to this, the `@lightningjs/ui-components-test-utils` must be converted to CommonJS via the Jest config setting [transformIgnorePatterns](https://jestjs.io/docs/configuration#transformignorepatterns-arraystring).
+
+By default, the Jest jsdom environment does not provide mocks for canvas and WebGL. A recommended solution for this is to add [jest-webgl-canvas-mock](https://www.npmjs.com/package/jest-webgl-canvas-mock) to the [setupFiles](https://jestjs.io/docs/configuration#setupfiles-array) option in your Jest config. 
+
+```js
+// jest.config.js
+
+const config = {
+  // ...other Jest config properties
+  setupFiles: ["jest-webgl-canvas-mock"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(@lightningjs/ui-components-test-utils)/)",
+  ]
+  // ...other Jest config properties
+}
+
+export default config
+```
