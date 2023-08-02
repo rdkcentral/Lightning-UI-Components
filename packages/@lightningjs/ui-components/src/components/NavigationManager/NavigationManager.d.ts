@@ -82,6 +82,10 @@ declare namespace NavigationManager {
      */
     lazyUpCountBuffer?: number;
   }
+
+  export interface FireAncestorsMap {
+    $itemChanged(): void;
+  }
 }
 
 declare class NavigationManager<

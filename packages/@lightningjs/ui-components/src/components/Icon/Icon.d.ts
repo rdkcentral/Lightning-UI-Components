@@ -50,6 +50,10 @@ declare namespace Icon {
   export type SignalMap = {
     itemChanged(icon: Icon): void;
   };
+
+  export interface FireAncestorsMap {
+    $itemChanged(): void;
+  }
 }
 
 declare class Icon<

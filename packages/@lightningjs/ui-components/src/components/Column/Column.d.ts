@@ -28,6 +28,10 @@ declare namespace Column {
      */
     plinko?: boolean;
   }
+
+  export interface FireAncestorsMap {
+    $columnEmpty(): void;
+  }
 }
 
 declare class Column<
