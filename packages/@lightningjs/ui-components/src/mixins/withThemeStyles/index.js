@@ -40,7 +40,6 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
       this._styleManager.on('styleUpdate', () => {
-        // TODO: Add off on destroy
         this._style = this._styleManager.style;
         this.queueThemeUpdate();
       });
@@ -56,7 +55,10 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     _setup() {
       super._setup && super._setup();
       this._targetSubTheme = getSubTheme(this);
-      // TODO: Add subtheme support
+      if (this._targetSubTheme) {
+        this._styleManager.clearStyleCache();
+        this._styleManager?.updateDebounced();
+      }
     }
 
     /**
@@ -176,10 +178,13 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @param {any} v - The styles to set, mode, and tone are not allowed
      */
     set style(v) {
-      if (Object.prototype.toString.call(v) !== '[object Object]') return; // TODO: Add better logging
+      if (Object.prototype.toString.call(v) !== '[object Object]') {
+        context.error('style must be an object');
+        return;
+      }
       this._componentLevelStyle = v;
       this._styleManager.clearStyleCache();
-      this._styleManager && this._styleManager.update();
+      this._styleManager?.updateDebounced();
     }
 
     /**
@@ -207,9 +212,11 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @param {any} v - Special configuration rules to override styles
      */
     set styleConfig(v) {
-      // TODO: Add deprecation message
+      context.info(
+        'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
+      );
       this._styleConfig = v;
-      this._styleManager && this._styleManager.update();
+      this._styleManager?.updateDebounced();
     }
 
     /**
@@ -243,10 +250,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set mode(v) {
       if (this._mode === v) return;
       this._mode = v;
-      if (this.constructor.name === 'TextBox' && this.content === '2')
-        this._styleManager.clearSourceCache();
-      this._styleManager.clearStyleCache();
-      this._styleManager && this._styleManager.update();
+      this._styleManager?.updateDebounced();
     }
 
     /**
@@ -264,9 +268,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set tone(value) {
       if (value === this._tone) return;
       this._tone = value;
-      this._styleManager.clearSourceCache();
-      //this._styleManager.clearStyleCache();
-      this._styleManager && this._styleManager.update();
+      this._styleManager?.updateDebounced();
     }
 
     /**
@@ -285,7 +287,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true;
-      this._styleManager?.update();
+      this._styleManager?.updateDebounced();
     }
 
     /**
@@ -304,7 +306,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true;
-      this._styleManager?.update();
+      this._styleManager?.updateDebounced();
     }
   };
 }

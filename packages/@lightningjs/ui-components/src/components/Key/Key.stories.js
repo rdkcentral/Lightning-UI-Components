@@ -32,42 +32,42 @@ export default {
   }
 };
 
-// export const Basic = () =>
-//   class Basic extends lng.Component {
-//     static _template() {
-//       return {
-//         Key: {
-//           type: KeyComponent
-//         }
-//       };
-//     }
-//   };
+export const Basic = () =>
+  class Basic extends lng.Component {
+    static _template() {
+      return {
+        Key: {
+          type: KeyComponent
+        }
+      };
+    }
+  };
 
-// Basic.parameters = {};
-// Basic.args = {
-//   title: 'A',
-//   size: 'sm',
-//   mode: 'focused'
-// };
+Basic.parameters = {};
+Basic.args = {
+  title: 'A',
+  size: 'sm',
+  mode: 'focused'
+};
 
-// Basic.argTypes = {
-//   ...createModeControl({ summaryValue: 'focused' }),
-//   size: {
-//     control: 'select',
-//     options: ['sm', 'md', 'lg', 'xl'],
-//     description: 'Width of the Key',
-//     table: {
-//       defaultValue: { summary: 'sm' }
-//     }
-//   },
-//   title: {
-//     control: 'text',
-//     description: 'Key character',
-//     table: {
-//       defaultValue: { summary: 'undefined' }
-//     }
-//   }
-// };
+Basic.argTypes = {
+  ...createModeControl({ summaryValue: 'focused' }),
+  size: {
+    control: 'select',
+    options: ['sm', 'md', 'lg', 'xl'],
+    description: 'Width of the Key',
+    table: {
+      defaultValue: { summary: 'sm' }
+    }
+  },
+  title: {
+    control: 'text',
+    description: 'Key character',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  }
+};
 
 export const KeyIcon = () =>
   class KeyIcon extends lng.Component {
@@ -76,19 +76,6 @@ export const KeyIcon = () =>
         Key: {
           type: KeyComponent,
           icon: lightning
-        },
-        Key2: {
-          type: KeyComponent,
-          x: 100,
-          y: 100,
-          icon: lightning
-        },
-        Key3: {
-          type: KeyComponent,
-          x: 200,
-          y: 200,
-          icon: lightning,
-          mode: 'disabled'
         }
       };
     }

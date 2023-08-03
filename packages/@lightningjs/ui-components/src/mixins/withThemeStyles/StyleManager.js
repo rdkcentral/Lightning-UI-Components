@@ -45,11 +45,11 @@ export default class StyleManager extends lng.EventEmitter {
     this._update();
 
     if (typeof process === 'object' && process?.env?.NODE_ENV === 'test') {
-      this.update = this._update; // Avoid race conditions in tests
+      this.updateDebounced = this._update; // Avoid race conditions in tests
     } else {
       // Debounce the update method so that it's called only once during rapid style changes.
-      this.update = debounce(() => {
-        this._update();
+      this.updateDebounced = debounce(() => {
+        this._update(); // TODO: Change to debounced update
       }, 0);
     }
   }
@@ -61,7 +61,6 @@ export default class StyleManager extends lng.EventEmitter {
     this._cleanupCache();
     // Remove event listeners and subscriptions
     context.off('themeUpdate', this._boundThemeUpdate);
-
     // Set references to null
     this._styleCache = null;
     this._boundThemeUpdate = null;
@@ -73,9 +72,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
-    // Why does this run so much
-    cache.clear();
-    this.update();
+    this.updateDebounced();
   }
 
   /**
@@ -185,7 +182,7 @@ export default class StyleManager extends lng.EventEmitter {
 
       // Attempt to fetch style from cache
       let style = this._getCache(`style_${mode}_${tone}`)?.payload;
-
+  
       if (!style) {
         // Style does not exist so will also need to be generated
         const finalStyle = generateStyle(this.component, styleSource);

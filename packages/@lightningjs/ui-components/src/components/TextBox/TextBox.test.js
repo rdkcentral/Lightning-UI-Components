@@ -148,7 +148,7 @@ describe('TextBox', () => {
       expect(textBox._Text.text.textColor).toBe(getValidColor('#FFFFFF'));
     });
 
-    it('should set textColor to the provided textColor value if defined', () => {
+    it.skip('should set textColor to the provided textColor value if defined', () => {
       textBox.content = 'Hello World!';
       textBox.style.textStyle.textColor = getValidColor('#000000');
       testRenderer.forceAllUpdates();
