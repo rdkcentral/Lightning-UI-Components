@@ -21,7 +21,7 @@ import Base from '../Base';
 import type { Color, StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
 
-export type TooltipStyle = {
+type TooltipStyle = {
   backgroundColor: Color;
   marginBottom: number;
   paddingX: number;
@@ -33,10 +33,44 @@ export type TooltipStyle = {
   transition: lng.types.TransitionSettings;
 };
 
-export default class Tooltip extends Base {
+declare namespace Tooltip {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Text of tooltip content
+     */
+    title?: string;
+
+    /**
+     * The amount of time, in milliseconds, before the tooltip is displayed after being focused
+     */
+    delayVisible?: number;
+
+    /**
+     * The amount of time, in milliseconds, the tooltip is displayed before transitioning out of the display
+     */
+    timeVisible?: number;
+  }
+}
+
+declare class Tooltip<
+  TemplateSpec extends Tooltip.TemplateSpec = Tooltip.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * text of tooltip
+   */
   title?: string;
+
+  /**
+   * the amount of time, in milliseconds, before the tooltip is displayed after being focused
+   */
   delayVisible?: number;
+
+  /**
+   * the amount of time, in milliseconds, the tooltip is displayed before transitioning out of the display
+   */
   timeVisible?: number;
+
   get style(): TooltipStyle;
   set style(v: StylePartial<TooltipStyle>);
 
@@ -44,3 +78,5 @@ export default class Tooltip extends Base {
   get _Background(): lng.Component;
   get _Text(): lng.Component;
 }
+
+export default Tooltip;
