@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { Color, StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 
 type TooltipStyle = {
   backgroundColor: Color;
@@ -76,7 +76,7 @@ declare class Tooltip<
 
   // tags
   get _Background(): lng.Component;
-  get _Text(): lng.Component;
+  get _Text(): TextBox;
 }
 
 export { Tooltip as default, TooltipStyle };
