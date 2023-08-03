@@ -45,7 +45,7 @@ export default class Keyboard extends Base {
   }
 
   _init() {
-    this._setShouldUpdateThemeBound = this._setShouldUpdateTheme.bind(this)
+    this._setShouldUpdateThemeBound = this._setShouldUpdateTheme.bind(this);
     context.on('themeUpdate', this._setShouldUpdateThemeBound);
     super._init();
   }

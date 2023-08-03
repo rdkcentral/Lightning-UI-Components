@@ -240,7 +240,7 @@ export function styleFormatter(obj, target, search) {
 export const generateComponentStyleSource = component => {
   // Initialize the finalStyle object to an empty object
   let finalStyle = {};
-  let theme = component.theme;
+  const theme = component.theme;
   // Check if the provided component is a plain object
   if (!isPlainObject(component)) {
     return {};
