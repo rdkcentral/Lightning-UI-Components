@@ -59,10 +59,10 @@ export const getHash = obj => {
   return str.length + '-' + getCharacterSum(obj);
 };
 
-export function executeWithContext(objOrFunction) {
+export function executeWithContext(objOrFunction, theme) {
   if (typeof objOrFunction === 'function') {
     // If the input is a function, execute it with the context.theme as a parameter
-    return objOrFunction(context.theme);
+    return objOrFunction(theme);
   } else if (typeof objOrFunction === 'object') {
     // If the input is an object, you can perform other operations here if needed.
     // For now, let's just return the input object.
@@ -110,11 +110,10 @@ export const getSubTheme = obj => {
  */
 export const getComponentConfig = obj => {
   if (!isPlainObject(obj)) return {};
+
   const prototypeChain = getPrototypeChain(obj);
   if (!prototypeChain) {
-    return (
-      context.theme?.componentConfig?.[obj.constructor.__componentName] || {}
-    );
+    return obj?.theme?.componentConfig?.[obj.constructor.__componentName] || {};
   }
 
   return Array.from(prototypeChain)
@@ -241,7 +240,7 @@ export function styleFormatter(obj, target, search) {
 export const generateComponentStyleSource = component => {
   // Initialize the finalStyle object to an empty object
   let finalStyle = {};
-
+  let theme = component.theme;
   // Check if the provided component is a plain object
   if (!isPlainObject(component)) {
     return {};
@@ -266,15 +265,18 @@ export const generateComponentStyleSource = component => {
       const { base, mode, tone } = style;
 
       // Apply the style at different levels (Base Level: Component Style File)
-      finalStyle = clone(finalStyle, { base: executeWithContext(base) });
-      finalStyle = clone(finalStyle, { tone: executeWithContext(tone) });
-      finalStyle = clone(finalStyle, { mode: executeWithContext(mode) });
+      finalStyle = clone(finalStyle, { base: executeWithContext(base, theme) });
+      finalStyle = clone(finalStyle, { tone: executeWithContext(tone, theme) });
+      finalStyle = clone(finalStyle, { mode: executeWithContext(mode, theme) });
     }
   });
 
   // Apply Theme Level styles from ComponentConfig
   if (component._componentConfig) {
     if (component._componentConfig.styleConfig) {
+      context.info(
+        'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
+      );
       finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
     }
 
@@ -284,6 +286,10 @@ export const generateComponentStyleSource = component => {
       finalStyle = clone(finalStyle, {
         base: componentConfigStyle.base
       });
+    }
+
+    if (componentConfigStyle) {
+      finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in the root level of style
     }
 
     if (componentConfigStyle?.tone) {
@@ -296,16 +302,6 @@ export const generateComponentStyleSource = component => {
       finalStyle = clone(finalStyle, {
         mode: componentConfigStyle.mode
       });
-    }
-
-    if (componentConfigStyle?.mode) {
-      finalStyle = clone(finalStyle, {
-        mode: componentConfigStyle.mode
-      });
-    }
-
-    if (componentConfigStyle) {
-      finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in the root level of style
     }
   }
 
@@ -355,15 +351,29 @@ export const generateComponentStyleSource = component => {
   for (const modeItem in { ...{ unfocused: {} }, ...mode }) {
     for (const toneItem in { ...{ neutral: {} }, ...tone }) {
       let payload = clone(base, tone[toneItem]);
+      payload = clone(payload, overwrite);
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
       payload = clone(payload, mode[modeItem]);
-      payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
-      solution[modeItem + '_' + toneItem] = clone(payload, overwrite);
+      solution[modeItem + '_' + toneItem] = clone(
+        payload,
+        mode[modeItem]?.tone?.[toneItem] || {}
+      );
     }
   }
 
+  // Return the final processed style object
+  return removeEmptyObjects(colorParser(component, solution)) || {};
+};
+
+/**
+ * Parse and process a style object to replace theme strings and process color arrays.
+ * @param {string} component - Lightning Component
+ * @param {Object} styleObj - The input style object to be processed.
+ * @returns {Object} The processed style object with theme strings replaced and color arrays processed.
+ */
+export const colorParser = (component, styleObj) => {
   // Process style object and remove unnecessary properties
-  const processedStyle = JSON.stringify(solution, (_, value) => {
+  const processedStyle = JSON.stringify(styleObj, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
     if ('string' === typeof value && value.startsWith('theme.')) {
       // Support theme strings example: theme.radius.md
@@ -374,9 +384,7 @@ export const generateComponentStyleSource = component => {
     }
     return value;
   });
-
-  // Return the final processed style object
-  return removeEmptyObjects(JSON.parse(processedStyle)) || {};
+  return JSON.parse(processedStyle || {});
 };
 
 /**
@@ -395,7 +403,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
     {};
   const componentStyle = component._componentLevelStyle;
   if (componentStyle) {
-    return clone(style, componentStyle); // TODO: Need to check for edge cases. Need to run through parser method
+    return clone(style, colorParser(component, componentStyle));
   }
   return style;
 };
@@ -516,7 +524,6 @@ export const getStyleChain = componentObj => {
  * @returns {Object} The style object with alias values replaced.
  */
 export const replaceAliasValues = (value, aliasStyles = []) => {
-  // TODO: Replace with regex replace for performance
   const styleObj = clone(value, {});
   const aliasProps = [
     { prev: 'height', curr: 'h', skipWarn: true },
