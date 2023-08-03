@@ -73,11 +73,16 @@ export default class Row extends NavigationManager {
   }
 
   _shouldScroll() {
+    const prevIndex = this.Items.childList.getIndex(this.prevSelected);
+      
     if (
-      this.lazyScroll &&
-      (this.selectedIndex <= this.startLazyScrollIndex ||
-        this.selectedIndex >= this.stopLazyScrollIndex)
-    ) {
+        this.lazyScroll &&
+        ( (this.selectedIndex < this.startLazyScrollIndex || this.selectedIndex > this.stopLazyScrollIndex || 
+          (prevIndex < this.startLazyScrollIndex && this.selectedIndex === this.startLazyScrollIndex) ||
+            (prevIndex > this.stopLazyScrollIndex && this.selectedIndex === this.stopLazyScrollIndex)))
+      ) {
+        // if lazy scroll is true and we are navigating to to the left of start index, the right of stop index, 
+        // from the left to the start, or from the right to the start 
       return true;
     }
 
