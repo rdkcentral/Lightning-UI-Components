@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from '../Button';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
 
 type InputStyle = ButtonStyle & {
@@ -149,8 +149,8 @@ declare class Input<
   set style(v: StylePartial<InputStyle>);
 
   // tags
-  get _Eyebrow(): lng.Component;
-  get _HelpText(): lng.Component;
+  get _Eyebrow(): TextBox;
+  get _HelpText(): TextBox;
   get _Cursor(): lng.Component;
   get _HiddenContent(): lng.Component;
 }
