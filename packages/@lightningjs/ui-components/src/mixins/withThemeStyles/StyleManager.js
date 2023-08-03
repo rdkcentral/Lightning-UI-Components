@@ -182,7 +182,7 @@ export default class StyleManager extends lng.EventEmitter {
 
       // Attempt to fetch style from cache
       let style = this._getCache(`style_${mode}_${tone}`)?.payload;
-  
+
       if (!style) {
         // Style does not exist so will also need to be generated
         const finalStyle = generateStyle(this.component, styleSource);
