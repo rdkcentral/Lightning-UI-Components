@@ -21,7 +21,7 @@ import Button, { ButtonStyle } from '../Button';
 import { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
 
-export type InputStyle = ButtonStyle & {
+type InputStyle = ButtonStyle & {
   cursorStyle: object;
   eyebrowTextStyle: TextBoxStyle;
   helpTextStyle: TextBoxStyle;
@@ -30,17 +30,121 @@ export type InputStyle = ButtonStyle & {
   paddingY: number;
 };
 
-export default class Input extends Button {
+declare namespace Input {
+  export interface TemplateSpec extends Button.TemplateSpec {
+    /**
+     * actualTitle is a proxy element for title which is used to store actual value typed when password is enabled
+     */
+    actualTitle?: string;
+
+    /**
+     * cursor indicates the current insertion or deletion position within the title
+     */
+    cursor: string;
+
+    /**
+     * eyebrow of input container.
+     */
+    eyebrow?: string;
+
+    /**
+     * help text for the input container.
+     */
+    helpText?: string;
+
+    /**
+     * when true, the listening property enables the input to accept changes from methods like clear, insert, and backspace. When false, these methods have no effect on the input
+     */
+    listening?: boolean;
+
+    /**
+     *  specifies the character used as a mask when the password is set to true.
+     */
+    mask?: string;
+
+    /**
+     * determines whether input should be masked
+     */
+    password?: boolean;
+
+    /**
+     * index of the current cursor positions
+     */
+    position?: number;
+  }
+}
+
+declare class Input<
+  TemplateSpec extends Input.TemplateSpec = Input.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Button<TemplateSpec, TypeConfig> {
+  /**
+   * actualTitle is a proxy element for title which is used to store actual value typed when password is enabled
+   */
   actualTitle?: string;
+
+  /**
+   * cursor indicates the current insertion or deletion position within the title
+   */
   cursor: string;
+
+  /**
+   * eyebrow of input container.
+   */
   eyebrow?: string;
+
+  /**
+   * help text for the input container.
+   */
   helpText?: string;
-  listening: boolean;
+
+  /**
+   * when true, the listening property enables the input to accept changes from methods like clear, insert, and backspace. When false, these methods have no effect on the input
+   */
+  listening?: boolean;
+
+  /**
+   *  specifies the character used as a mask when the password is set to true.
+   */
   mask?: string;
+
+  /**
+   * determines whether input should be masked
+   */
   password?: boolean;
+
+  /**
+   * index of the current cursor positions
+   */
   position?: number;
-  value?: string;
-  get isCursorActive(): boolean;
+
+  // methods
+
+  /**
+   * clears the content of the input container
+   */
+  clear: () => void;
+
+  /**
+   * inserts the content at the current cursor position within the input container
+   */
+  insert: (content: string) => void;
+
+  /**
+   * Removes the character before the current cursor position
+   */
+  backspace: () => void;
+
+  /**
+   *  moves the cursor one position to the left
+   */
+  moveLeft: () => void;
+
+  /**
+   * moves the cursor one position to the right
+   */
+  moveRight: () => void;
+
   get style(): InputStyle;
   set style(v: StylePartial<InputStyle>);
 
@@ -49,11 +153,6 @@ export default class Input extends Button {
   get _HelpText(): lng.Component;
   get _Cursor(): lng.Component;
   get _HiddenContent(): lng.Component;
-
-  // public methods
-  clear: () => void;
-  insert: (content: string) => void;
-  backspace: () => void;
-  moveLeft: () => void;
-  moveRight: () => void;
 }
+
+export { Input as default, InputStyle };
