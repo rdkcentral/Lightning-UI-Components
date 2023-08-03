@@ -34,8 +34,9 @@ declare namespace TextBox {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
      * Text to be displayed in element
+     * This could be a string or content InlineContent, a string or an array from InlineContent
      */
-    content?: string | TextContent[]; // is a type from InlineContent?
+    content?: string | TextContent[];
     /**
      * If true, allows the width of the text to be set with `w`
      */
@@ -53,9 +54,6 @@ declare namespace TextBox {
     /** emits when marquee content has been patched on update
      */
     _loadedMarqueeContent(): void;
-
-    // signal: textBoxChanged
-    //_notifyAncestors(w = this.w, h = this.h);
   };
 }
 declare class TextBox<
@@ -68,7 +66,7 @@ declare class TextBox<
    * Text to be displayed in element
    * Takes in a string or an Array from InlineContent
    */
-  content?: string | TextContent[]; // array from InlineContent
+  content?: string | TextContent[];
   /**
    * If true, allows the width of the text to be set with `w`
    */
@@ -81,7 +79,17 @@ declare class TextBox<
 
   // Accessors
 
+  /**
+   * returns a string from content
+   */
+  get title(): string;
+  /**
+   * returns a number used to alter the length of the marquee loop
+   */
   get marqueeOverrideLoopX(): number;
+  /**
+   * sets the number used to determine the length of the marquee loop
+   */
   set marqueeOverrideLoopX(v: number);
 
   get style(): TextBoxStyle;
@@ -89,12 +97,12 @@ declare class TextBox<
 
   // Methods
   /**
-   * A method that calls the _toggleMarquee method to toggle Marquee for text to scroll or not scroll
+   * A method that calls the private _toggleMarquee method to toggle text to scroll or not scroll
    */
   toggleMarquee(): void;
 
   // tags
-  get _InlineContent(): InlineContent; // this should be the component and not the type, correct?
+  get _InlineContent(): InlineContent;
   get _Marquee(): Marquee;
   get _Text(): TextBox;
 }

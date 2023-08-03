@@ -84,8 +84,7 @@ type InlineContentStyle = {
 declare namespace InlineContent {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
-     * list of data to render inline
-     * TODO: Feel like there should be more to this
+     * an array of  data to render inline
      */
     content?: TextContent[];
     /**
@@ -125,7 +124,9 @@ declare namespace InlineContent {
     SignalMapType: SignalMap;
   }
   export type SignalMap = {
-    // signals: _createIcon & _createBadge
+    // signals: _createIcon  & _createBadge
+
+    _createIcon(base, iconProps);
   };
 
   // events: $loadedInlineContent(): void;
@@ -171,6 +172,12 @@ declare class InlineContent<
    * suffix appended to last line of content if it will exceed the `maxLines`
    */
   maxLinesSuffix?: string;
+
+  // accessor
+  /**
+   * method that returns the height the text
+   */
+  get textHeight(): number;
 
   get style(): InlineContentStyle;
   set style(v: StylePartial<InlineContentStyle>);
