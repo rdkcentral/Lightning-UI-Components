@@ -21,7 +21,7 @@ import type { Color, StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
 import type { TextBoxStyle } from '../TextBox'; // text in Button is all using our own version of TextBox
 
-type ButtonStyle = SurfaceStyle & {
+export type ButtonStyle = SurfaceStyle & {
   justify: 'center' | 'left' | 'right';
   minWidth: number;
   paddingX: number;
@@ -95,13 +95,13 @@ declare class Button<
     | typeof lng.Component<lng.Component.TemplateSpecLoose>
     | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
+  get style(): ButtonStyle;
+  set style(v: StylePartial<ButtonStyle>);
+
   /**
    * Button text
    */
   title?: string;
-
-  get style(): ButtonStyle;
-  set style(v: StylePartial<ButtonStyle>);
 
   // tags
   get _Prefix(): lng.Component;
@@ -110,4 +110,4 @@ declare class Button<
   get _Title(): lng.Component;
 }
 
-export { Button as default, ButtonStyle };
+export default Button;
