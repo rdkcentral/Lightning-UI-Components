@@ -16,6 +16,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Toggle from './Toggle';
 
-export default class ToggleSmall extends Toggle {}
+declare class ToggleSmall <
+    TemplateSpec extends Toggle.TemplateSpec=Toggle.TemplateSpec,
+    TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Toggle<TemplateSpec,TypeConfig> {}
+
+export default ToggleSmall;
+
+
