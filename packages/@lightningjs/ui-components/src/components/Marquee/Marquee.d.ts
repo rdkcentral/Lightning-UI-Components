@@ -119,31 +119,21 @@ declare class Marquee<
   // Methods:
 
   /**
-   * Start scrolling the content.
+   * Start scrolling the content
    */
   startScrolling(): void;
 
   /**
-   * Stop scrolling the content.
+   * Stop scrolling the content
    */
   stopScrolling(): void;
 
   // Accessors
 
   /**
-   * Get the current title's text content.
+   * Get the current title's text content
    */
   get textContent(): string;
-
-  /**
-   * Get the total width of the marquee loop.
-   */
-  get _loopWidth(): number;
-
-  /**
-   * Get the rendered width of the text content.
-   */
-  get _textRenderedW(): number;
 
   get style(): MarqueeStyle;
   set style(v: StylePartial<MarqueeStyle>);
