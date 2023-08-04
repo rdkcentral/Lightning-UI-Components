@@ -52,9 +52,16 @@ declare namespace GridOverlay {
      * when set to true, it displays the textbox containing the exact numbers associated with the screen, margin, safe, and gutter sizes.
      */
     showText?: boolean;
-
-    style?: StylePartial<GridOverlayStyle>;
   }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * This signal indicates that the spacer's appearance and layout have been adjusted based on its properties
+   */
+  export type SignalMap = {
+    spacerLoaded(): void;
+  };
 }
 declare class GridOverlay<
   TemplateSpec extends GridOverlay.TemplateSpec = GridOverlay.TemplateSpec,
@@ -89,6 +96,10 @@ declare class GridOverlay<
   set style(v: StylePartial<GridOverlayStyle>);
 
   // tags
+  get _Line(): lng.Component;
+  get _TickLeft(): lng.Component;
+  get _TickRight(): lng.Component;
+
   get _Columns(): lng.Component;
 
   get _Gutters(): lng.Component;
