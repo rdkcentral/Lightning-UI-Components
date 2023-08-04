@@ -27,6 +27,10 @@ type IconStyle = {
 declare namespace Icon {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
+     * path to image or inline SVG XML
+     */
+    color: number; //TODO: return type of color is string or number and is it optional
+    /**
      * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
      */
     fixed?: boolean;
@@ -36,12 +40,27 @@ declare namespace Icon {
      */
     icon?: string;
   }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+
+  /**
+   * emitted when an item in the Icon component changes.
+   */
+  export type SignalMap = {
+    itemChanged(icon: Icon): void;
+  };
 }
 
 declare class Icon<
   TemplateSpec extends Icon.TemplateSpec = Icon.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * path to image or inline SVG XML
+   */
+  color: number;
+
   /**
    * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
    */
