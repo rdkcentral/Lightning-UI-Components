@@ -55,6 +55,7 @@ export default class Keyboard extends Base {
   }
 
   _detach() {
+    super._detach();
     context.off('themeUpdate', this._setShouldUpdateThemeBound);
   }
 
