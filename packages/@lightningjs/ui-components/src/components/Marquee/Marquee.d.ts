@@ -19,11 +19,13 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { Color, StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
 
 type MarqueeStyle = {
   fadeW: number;
   offset: number;
   shouldSmooth: boolean;
+  textStyle: TextBoxStyle;
 };
 
 declare namespace Marquee {
@@ -46,7 +48,7 @@ declare namespace Marquee {
     /**
      * Color of the text
      */
-    color: Color;
+    color: Color; //TODO: is this correct return type?
 
     /**
      * Delay in milliseconds before scrolling starts
@@ -67,9 +69,16 @@ declare namespace Marquee {
      * Text content for the marquee title
      */
     title?: string;
-
-    style?: StylePartial<MarqueeStyle>;
   }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted during the initial loading process of content or images in the component
+   */
+  export type SignalMap = {
+    marqueeContentLoaded(): void;
+  };
 }
 
 declare class Marquee<
