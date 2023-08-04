@@ -19,11 +19,9 @@
 import lng from '@lightningjs/core';
 import Toggle from './Toggle';
 
-declare class ToggleSmall <
-    TemplateSpec extends Toggle.TemplateSpec=Toggle.TemplateSpec,
-    TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
-> extends Toggle<TemplateSpec,TypeConfig> {}
+declare class ToggleSmall<
+  TemplateSpec extends Toggle.TemplateSpec = Toggle.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Toggle<TemplateSpec, TypeConfig> {}
 
 export default ToggleSmall;
-
-
