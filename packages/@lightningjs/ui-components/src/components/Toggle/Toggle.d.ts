@@ -79,4 +79,4 @@ declare class Toggle<
   get _Stroke(): lng.Component;
 }
 
-export default Toggle;
+export { Toggle as default, ToggleStyle };
