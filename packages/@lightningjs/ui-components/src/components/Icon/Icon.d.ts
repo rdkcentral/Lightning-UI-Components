@@ -27,7 +27,7 @@ type IconStyle = {
 declare namespace Icon {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
-     * path to image or inline SVG XML
+     * icon color (can only be applied on png icons)
      */
     color: number; //TODO: return type of color is string or number and is it optional
     /**
@@ -57,7 +57,7 @@ declare class Icon<
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   /**
-   * path to image or inline SVG XML
+   * icon color (can only be applied on png icons)
    */
   color: number;
 
