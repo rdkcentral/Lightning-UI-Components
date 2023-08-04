@@ -18,8 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import TextBox from '../TextBox';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
 type MarqueeStyle = {
   fadeW: number;
@@ -116,6 +115,35 @@ declare class Marquee<
    * Text content for the marquee title
    */
   title?: string;
+
+  // Methods:
+
+  /**
+   * Start scrolling the content.
+   */
+  startScrolling(): void;
+
+  /**
+   * Stop scrolling the content.
+   */
+  stopScrolling(): void;
+
+  // Accessors
+
+  /**
+   * Get the current title's text content.
+   */
+  get textContent(): string;
+
+  /**
+   * Get the total width of the marquee loop.
+   */
+  get _loopWidth(): number;
+
+  /**
+   * Get the rendered width of the text content.
+   */
+  get _textRenderedW(): number;
 
   get style(): MarqueeStyle;
   set style(v: StylePartial<MarqueeStyle>);
