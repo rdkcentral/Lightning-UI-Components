@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
 import Card, { CardStyle } from '../Card';
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
+import MetadataBase from '../MetadataBase';
 
 type ImageSize = {
   w: number;
@@ -95,8 +96,8 @@ declare class CardContent<
   set style(v: StylePartial<CardContentStyle>);
 
   // tags
-  get _Metadata(): lng.Component;
-  get _Tile(): lng.Component;
+  get _Metadata(): MetadataBase;
+  get _Tile(): TextBox;
 }
 
-export { CardContent as default, CardContentStyle };
+export { CardContent as default, CardContentStyle, ImageSize };
