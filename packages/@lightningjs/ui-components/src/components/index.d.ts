@@ -36,11 +36,7 @@ export {
   CardContentHorizontalLarge,
   CardContentVertical,
   CardContentVerticalSmall,
-  CardContentStyle,
-  CardContentHorizontalStyle,
-  CardContentHorizontalLargeStyle,
-  CardContentVerticalStyle,
-  CardContentVerticalSmallStyle
+  CardContentStyle
 } from './CardContent';
 export { default as Checkbox, CheckboxStyle } from './Checkbox';
 export { default as Column } from './Column';
