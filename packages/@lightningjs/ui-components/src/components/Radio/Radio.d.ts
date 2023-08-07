@@ -32,10 +32,8 @@ type RadioStyle = {
   strokeWidth: number;
 };
 
-
 declare namespace Radio {
   export interface TemplateSpec extends Base.TemplateSpec {
-
     /**
      * status of the radio button
      */
@@ -45,9 +43,8 @@ declare namespace Radio {
 
 declare class Radio<
   TemplateSpec extends Radio.TemplateSpec = Radio.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig>
-  extends Base<TemplateSpec,TypeConfig> {
-
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
   /**
    * status of the radio button
    */
@@ -63,12 +60,12 @@ declare class Radio<
    */
   get _Knob(): lng.Component;
 
-   /**
+  /**
    * returns the body of the radio
    */
   get _Body(): lng.Component;
 
-   /**
+  /**
    * returns the stroke
    */
   get _Stroke(): lng.Component;
