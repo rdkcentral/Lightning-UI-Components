@@ -112,6 +112,7 @@ export default function withUpdates(Base) {
     }
 
     queueRequestUpdate() {
+      if (!this._isAttached()) return;
       updateManager.addRequestUpdate(this);
     }
 
