@@ -18,9 +18,9 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type ToggleStyle = {
+type ToggleStyle = {
   backgroundColor: Color;
   backgroundColorChecked: Color;
   knobWidth: number;
@@ -36,14 +36,47 @@ export type ToggleStyle = {
   strokeWeight: number;
 };
 
-export default class Toggle extends Base {
+declare namespace Toggle {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * status of the toggle
+     */
+    checked?: boolean;
+  }
+}
+
+declare class Toggle<
+  TemplateSpec extends Toggle.TemplateSpec = Toggle.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * status of the toggle
+   */
   checked?: boolean;
+
+  // Method
+
   toggle(): this; // TODO is this valid?
+
   get style(): ToggleStyle;
   set style(v: StylePartial<ToggleStyle>);
 
   // tags
+
+  /**
+   * returns the container containing the stroke and knob
+   */
   get _Container(): lng.Component;
+
+  /**
+   * returns the toggle knob
+   */
   get _Knob(): lng.Component;
+
+  /**
+   * returns the stroke
+   */
   get _Stroke(): lng.Component;
 }
+
+export { Toggle as default, ToggleStyle };
