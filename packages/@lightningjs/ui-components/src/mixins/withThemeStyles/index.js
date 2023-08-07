@@ -20,6 +20,7 @@ import StyleManager from './StyleManager';
 import { updateManager } from '../../globals';
 import { context } from '../../globals';
 import { getComponentConfig, getSubTheme } from './utils';
+import { capitalizeFirstLetter } from '../../utils';
 
 /**
  * A higher-order function that returns a class with theme styles.
@@ -248,8 +249,10 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @param {string} v - The mode value to set
      */
     set mode(v) {
-      if (this._mode === v) return;
+      if (typeof v !== 'string' || this._mode === v) return;
       this._mode = v;
+      const event = this[`on${capitalizeFirstLetter(v)}`];
+      if (event && typeof event === 'function') event();
       this._styleManager?.updateDebounced();
     }
 
@@ -265,9 +268,9 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * Set the tone property
      * @param {string} value - The tone value to set
      */
-    set tone(value) {
-      if (value === this._tone) return;
-      this._tone = value;
+    set tone(v) {
+      if (typeof v !== 'string' || this._tone === v) return;
+      this._tone = v;
       this._styleManager?.updateDebounced();
     }
 
