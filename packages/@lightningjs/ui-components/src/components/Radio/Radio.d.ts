@@ -50,7 +50,7 @@ declare class Radio<
    */
   checked?: boolean;
 
-    // Method
+  // Method
   /**
    * Toggles the radio state and updates the UI.
    */
