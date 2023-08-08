@@ -743,7 +743,7 @@ ${o.map(a=>`
  * @name buildToken
  * @function
  * @param {GitUrl} obj The parsed Git url object.
- * @return {String} token prefix
+ * @return {string} token prefix
  */
 /*!
  * fill-range <https://github.com/jonschlinkert/fill-range>

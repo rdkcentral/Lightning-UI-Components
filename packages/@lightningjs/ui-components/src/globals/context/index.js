@@ -46,7 +46,7 @@ class Context {
     );
   }
   /**
-   * @type {Object}
+   * @type {object}
    */
   get keyMetricsCallback() {
     return metrics.keyMetricsCallback;
@@ -60,7 +60,7 @@ class Context {
     );
   }
   /**
-   * @type {Boolean}
+   * @type {boolean}
    */
   get debug() {
     return logger.debug;
@@ -121,28 +121,28 @@ class Context {
   }
   /**
    * @property {Object|array}
-   * @return {Object}
+   * @return {object}
    */
   setTheme(value) {
     return themeManager.setTheme(value);
   }
   /**
    * @property {Object|array}}
-   * @return {Object}
+   * @return {object}
    */
   updateTheme(value) {
     return themeManager.updateTheme(value);
   }
   /**
    * @property {string}
-   * @return {Object}
+   * @return {object}
    */
   getSubTheme(subThemeName) {
     return themeManager.getSubTheme(subThemeName);
   }
   /**
    * Expects an object where properties are child theme names. Values will be merged with the global themeManager.
-   * @property {Object}
+   * @property {object}
    */
   setSubThemes(subThemesObj) {
     if ('object' !== typeof subThemesObj) {
@@ -155,14 +155,14 @@ class Context {
   }
   /**
    * @property {string}
-   * @return {Object}
+   * @return {object}
    */
   setSubTheme(subThemeName, value) {
     return themeManager.setSubTheme(subThemeName, value);
   }
   /**
    * @property {string}
-   * @return {Object}
+   * @return {object}
    */
   updateSubTheme(subThemeName, value) {
     return themeManager.updateSubTheme(subThemeName, value);
@@ -190,7 +190,7 @@ class Context {
   }
   /**
    * @property {function}
-   * @return {Object}
+   * @return {object}
    */
   config(config = {}) {
     const configKeys = Object.keys(config);

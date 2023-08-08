@@ -183,8 +183,8 @@ export const Item = ({ children }) => children;
 /**
  * Creates formatted object for markdown prop tables
  * see Column and Row stories
- * @param {Object} props
- * @param {Object} props.type - TS-style generic/utility type
+ * @param {object} props
+ * @param {object} props.type - TS-style generic/utility type
  */
 export const ObjectFormat = ({ object }) => {
   return [
@@ -207,9 +207,9 @@ export const ObjectFormat = ({ object }) => {
 /**
  * Formats TS-style generic types
  * See Columns and Row stories
- * @param {Object} props
- * @param {Object} props.children - component children
- * @param {String} props.type - Name of generic type
+ * @param {object} props
+ * @param {object} props.children - component children
+ * @param {string} props.type - Name of generic type
  */
 export const GenericType = ({ children, type }) => {
   return [type, '<', children, '>'].map((x, i) => <Item key={i}>{x}</Item>);
