@@ -62,7 +62,7 @@ Marquee.args = {
 Marquee.argTypes = {
   title: {
     control: 'text',
-    description: 'An object matching Lightning text object',
+    description: 'Text content of the marquee title',
     table: { defaultValue: { summary: 'undefined' } }
   },
   autoStart: {
@@ -85,7 +85,7 @@ Marquee.argTypes = {
   },
   delay: {
     control: { type: 'number', min: 1.5 },
-    description: 'Delay before scrolling starts',
+    description: 'Delay in milliseconds before scrolling starts',
     remount: true,
     table: { defaultValue: { summary: 1.5 } }
   },

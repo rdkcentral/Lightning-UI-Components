@@ -18,21 +18,132 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
 
-export type MarqueeStyle = {
+type MarqueeStyle = {
   fadeW: number;
   offset: number;
   shouldSmooth: boolean;
+  textStyle: TextBoxStyle;
 };
 
-export default class Marquee extends Base {
-  autostart?: boolean;
+declare namespace Marquee {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * Automatically start scrolling the content on initiation
+     */
+    autoStart?: boolean;
+
+    /**
+     * It will center the entire texture if the width of the content is less than the container
+     */
+    centerAlign?: boolean;
+
+    /**
+     * Texture object for the marquee content
+     */
+    contentTexture?: object;
+
+    /**
+     * Color of the text
+     */
+    color: Color; //TODO: is this correct return type?
+
+    /**
+     * Delay in milliseconds before scrolling starts
+     */
+    delay?: number;
+
+    /**
+     * Overrides the length of the marquee loop. Used by withMarqueeSync to synchronize multiple marquee components
+     */
+    overrideLoopX?: number;
+
+    /**
+     * Number of times to repeat scrolling
+     */
+    repeat?: number;
+
+    /**
+     * Text content for the marquee title
+     */
+    title?: string;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted during the initial loading process of content or images in the component
+   */
+  export type SignalMap = {
+    marqueeContentLoaded(): void;
+  };
+}
+
+declare class Marquee<
+  TemplateSpec extends Marquee.TemplateSpec = Marquee.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * Automatically start scrolling the content on initiation
+   */
+  autoStart?: boolean;
+
+  /**
+   * It will center the entire texture if the width of the content is less than the container
+   */
   centerAlign?: boolean;
-  contentTexture?: lng.Texture;
+
+  /**
+   * Texture object for the marquee content
+   */
+  contentTexture?: object;
+
+  /**
+   * Color of the text
+   */
+  color: Color;
+
+  /**
+   * Delay in milliseconds before scrolling starts
+   */
   delay?: number;
+
+  /**
+   * Overrides the length of the marquee loop. Used by withMarqueeSync to synchronize multiple marquee components
+   */
+  overrideLoopX?: number;
+
+  /**
+   * Number of times to repeat scrolling
+   */
   repeat?: number;
+
+  /**
+   * Text content for the marquee title
+   */
   title?: string;
+
+  // Methods:
+
+  /**
+   * Start scrolling the content
+   */
+  startScrolling(): void;
+
+  /**
+   * Stop scrolling the content
+   */
+  stopScrolling(): void;
+
+  // Accessors
+
+  /**
+   * Get the current title's text content
+   */
+  get textContent(): string;
+
   get style(): MarqueeStyle;
   set style(v: StylePartial<MarqueeStyle>);
 
@@ -42,3 +153,5 @@ export default class Marquee extends Base {
   get _Content(): lng.Component;
   get _ContentLoopTexture(): lng.Component;
 }
+
+export { Marquee as default, MarqueeStyle };
