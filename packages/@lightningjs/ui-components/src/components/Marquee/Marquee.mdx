@@ -70,15 +70,16 @@ class Example extends lng.Component {
 | delay          | number  | false    | 1.5                      | Delay before scrolling starts                                                                             |
 | overrideLoopX  | number  | false    | undefined                | alters the length of the marquee loop. Used by withMarqueeSync to synchronize multiple marquee components |
 | repeat         | number  | false    | -1                       | Number of times to repeat scrolling                                                                       |
-| title          | string  | false    | undefined                | An object matching Lightning text object                                                                  |
+| title          | string  | false    | undefined                | Text content for the marquee title                                                                        |
 
 ### Style Properties
 
-| name         | type    | description                                                                              |
-| ------------ | ------- | ---------------------------------------------------------------------------------------- |
-| fadeW        | number  | Starting point of where fadeShader is applied                                            |
-| offset       | number  | Helps decide whether content should be clipped and where it should be positioned         |
-| shouldSmooth | boolean | Determines whether things like centering should happen immediately or animate into place |
+| name         | type             | description                                                                              |
+| ------------ | ---------------- | ---------------------------------------------------------------------------------------- |
+| fadeW        | number           | Starting point of where fadeShader is applied                                            |
+| offset       | number           | Helps decide whether content should be clipped and where it should be positioned         |
+| shouldSmooth | boolean          | Determines whether things like centering should happen immediately or animate into place |
+| textStyle    | string \| object | text style to apply to the title                                                         |
 
 ### Methods
 
