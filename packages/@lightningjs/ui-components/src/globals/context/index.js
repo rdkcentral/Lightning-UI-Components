@@ -120,14 +120,14 @@ class Context {
     logger.error(args);
   }
   /**
-   * @property {Object|array}
+   * @property {object|array}
    * @return {object}
    */
   setTheme(value) {
     return themeManager.setTheme(value);
   }
   /**
-   * @property {Object|array}}
+   * @property {object|array}}
    * @return {object}
    */
   updateTheme(value) {

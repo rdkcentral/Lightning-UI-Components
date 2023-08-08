@@ -24,9 +24,9 @@ import { capitalizeFirstLetter } from '../../utils';
 
 /**
  * A higher-order function that returns a class with theme styles.
- * @param {Function} Base - The base class to extend.
+ * @param {function} Base - The base class to extend.
  * @param {object} mixinStyle - The mixin style to add to the component.
- * @returns {Function} A class that extends the base class with theme styles.
+ * @returns {function} A class that extends the base class with theme styles.
  */
 export default function withThemeStyles(Base, mixinStyle = {}) {
   return class extends Base {

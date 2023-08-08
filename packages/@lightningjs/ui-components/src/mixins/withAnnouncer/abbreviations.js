@@ -44,16 +44,16 @@ function getNumberOfCaptureGroups(regExp) {
 
 /**
  * @typedef {object} AbbreviationConfig
- * @property {RegExp} abbreviationsPattern - combined RegExp pattern of all abbreviations separated into capture groups
+ * @property {object} abbreviationsPattern - combined RegExp pattern of all abbreviations separated into capture groups
  * @property {object} stringPatternMap - object to look up replacers values based on string matches (uses matched string to look up)
  * @property {object} regExpPatternMap - object to look up replacers values based on RegExp matches (uses index of matched capture group to look up)
  */
 
 /**
- * Generates abbreviation config object to be passed to withAnnouncer for abbrevation translation
- * @param {Object[]} abbreviations - array of custom abbreviation objects to generate config off of
- * @param {String|RegExp} abbreviations[].pattern - pattern to match abbreviation
- * @param {String|Function} abbreviations[].replacer - string or RegEx replacer function to replace matched abbreviation with
+ * Generates abbreviation config object to be passed to withAnnouncer for abbreviation translation
+ * @param {object[]} abbreviations - array of custom abbreviation objects to generate config off of
+ * @param {string|object} abbreviations[].pattern - pattern to match abbreviation
+ * @param {string|function} abbreviations[].replacer - string or RegEx replacer function to replace matched abbreviation with
  * @param {boolean} extendDefault - if true, extend the default abbreviations config with custom abbreviations
  * @returns {AbbreviationConfig} - configuration that may be passed to withAnnouncer as abbreviations in options parameter
  */
@@ -101,7 +101,7 @@ export function generateAbbrevConfig(
 /**
  * Translates abbreviations in a string into their associated words
  * @param {string} phrase - phrase to be translated
- * @param {AbbreviationConfig} - abbreviationsPattern, stringPatternMap and regExpPatternMap
+ * @param {object} - abbreviationsPattern, stringPatternMap and regExpPatternMap
  * @returns {string} - phrase where abbreviations have been replaced with words
  */
 export const translateAbbrev = (phrase, translationConfig) => {
