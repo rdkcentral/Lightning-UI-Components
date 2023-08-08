@@ -63,7 +63,7 @@ declare class Key<
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Button<TemplateSpec, TypeConfig> {
   /**
-   * description text
+   * url for icon
    */
   icon?: string;
 
@@ -73,7 +73,7 @@ declare class Key<
   onEnter?: (key: string, toggle: boolean) => void;
 
   /**
-   * Logo to be placed to the left of the title and description
+   * width of the Key
    */
   size?: string;
 
