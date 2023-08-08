@@ -17,6 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
+import type { context } from './lightning-test-utils';
 
 export interface JSONTree {
   alpha: lng.Component['alpha'];
@@ -64,9 +65,6 @@ export interface JSONTree {
   [key: string]: unknown;
 }
 
-// TODO: no TS def for Context available
-type context = Record<string, unknown>;
-
 export type testRenderer = {
   toJSON: (children?: number) => JSONTree;
   update: () => void;
@@ -99,7 +97,7 @@ export type createOptions = {
  * @returns {object} A testRenderer object. {@link testRenderer}
  */
 export declare function create(
-  Component: lng.Component,
+  Component: lng.Element.PatchTemplate,
   options?: createOptions
 ): testRenderer;
 

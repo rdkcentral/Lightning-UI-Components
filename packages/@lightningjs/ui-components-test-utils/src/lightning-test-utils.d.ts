@@ -64,7 +64,7 @@ declare namespace makeCreateComponent {
       SpyOnMethodsResolvers<T>;
 
     export type CreateComponent = (
-      config: Config,
+      config?: Config,
       options?: Options
     ) => [
       ComponentInstance<NonNullable<(typeof options)['spyOnMethods']>>,
