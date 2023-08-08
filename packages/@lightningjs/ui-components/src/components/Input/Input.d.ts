@@ -123,27 +123,27 @@ declare class Input<
   /**
    * clears the content of the input container
    */
-  clear: () => void;
+  clear(): void;
 
   /**
    * inserts the content at the current cursor position within the input container
    */
-  insert: (content: string) => void;
+  insert(content: string): void;
 
   /**
    * Removes the character before the current cursor position
    */
-  backspace: () => void;
+  backspace(): void;
 
   /**
    *  moves the cursor one position to the left
    */
-  moveLeft: () => void;
+  moveLeft(): void;
 
   /**
    * moves the cursor one position to the right
    */
-  moveRight: () => void;
+  moveRight(): void;
 
   get style(): InputStyle;
   set style(v: StylePartial<InputStyle>);
