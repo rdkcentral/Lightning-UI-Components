@@ -53,33 +53,12 @@ declare namespace Key {
     size?: string;
 
     /**
-     * used to toggle `$toggleKeyboard`
+     * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
      */
     toggle?: boolean;
 
     style?: StylePartial<KeyStyle>;
   }
-  export interface TypeConfig extends lng.Component.TypeConfig {
-    SignalMapType: SignalMap;
-  }
-  /**
-   * Signal map interface for Key component
-   */
-  export type SignalMap = {
-    /**
-     * This signal is fired when the enter key is pressed while the Key component is focused.
-     * @param key The key value that triggered the event.
-     * @param toggle The toggle value of the `Key` component.
-     */
-    onSoftKey(key: string, toggle: boolean): void;
-
-    /**
-     *  This signal is fired when the enter key is pressed while the Key component is focused, and its toggle property is set to true
-     * @param key The key value that triggered the event.
-     * @param toggle The toggle value of the `Key` component.
-     */
-    toggleKeyboard(key: string, toggle: boolean): void;
-  };
 }
 declare class Key<
   TemplateSpec extends Key.TemplateSpec = Key.TemplateSpec,
@@ -101,7 +80,7 @@ declare class Key<
   size?: string;
 
   /**
-   * used to toggle `$toggleKeyboard`
+   * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
    */
   toggle?: boolean;
 
