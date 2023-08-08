@@ -23,7 +23,7 @@ function checkFileType(str) {
 
 /**
  * Creates an SVG canvas.
- * @param {Function} cb - The callback function.
+ * @param {function} cb - The callback function.
  * @param {object} stage - The stage object.
  * @param {string} url - The URL of the SVG.
  * @param {number} w - The width of the canvas.
@@ -58,8 +58,8 @@ function createSvg(cb, stage, url, w, h) {
  * Loads an image from the given source.
  * @param {object} params - The parameters object.
  * @param {string} params.src - The source URL of the image.
- * @param {Function} cb - The callback function.
- * @returns {Function} A cancel callback function.
+ * @param {function} cb - The callback function.
+ * @returns {function} A cancel callback function.
  */
 function imageLoader({ src }, cb) {
   const image = new Image();
@@ -198,7 +198,7 @@ export default class CustomImageTexture extends lng.Texture {
 
   /**
    * Gets the source loader function for the image texture.
-   * @returns {Function} The source loader function.
+   * @returns {function} The source loader function.
    */
   _getSourceLoader() {
     const w = this._w;

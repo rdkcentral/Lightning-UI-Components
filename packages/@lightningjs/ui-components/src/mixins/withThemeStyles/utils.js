@@ -126,7 +126,7 @@ export const getComponentConfig = obj => {
 /**
  * Returns an array of the names of all components in the prototype chain of the given object.
  * @param {object} obj - The object to get the prototype chain from.
- * @returns {String[]} - An array of component names.
+ * @returns {string[]} - An array of component names.
  */
 export const getPrototypeChain = obj => {
   if (!isPlainObject(obj)) return [];
