@@ -29,7 +29,7 @@ declare namespace Icon {
     /**
      * icon color (can only be applied on png icons)
      */
-    color: number; //TODO: return type of color is string or number and is it optional
+    color: Color;
     /**
      * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
      */
@@ -59,7 +59,7 @@ declare class Icon<
   /**
    * icon color (can only be applied on png icons)
    */
-  color: number;
+  color: Color;
 
   /**
    * when `true`, icon width and height will not dynamically resize to the final texture's `finalW` and `finalH` properties
