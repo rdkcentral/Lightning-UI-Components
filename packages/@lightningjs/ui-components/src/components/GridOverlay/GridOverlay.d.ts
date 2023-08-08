@@ -18,24 +18,88 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
+import { TextBoxStyle } from '../TextBox';
 
-export type GridOverlayStyle = {
+type GridOverlayStyle = {
   propertyTextStyle: TextBoxStyle;
   valueTextStyle: TextBoxStyle;
 };
 
-export default class GridOverlay extends Base {
+declare namespace GridOverlay {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * when set to true, it displays the column span rectangles.
+     */
+    showColumns?: boolean;
+
+    /**
+     * when set to true, it displays the rulers for spacing between columns.
+     */
+    showGutters?: boolean;
+
+    /**
+     * when set to true, it displays the X and Y margin rulers.
+     */
+    showMargins?: boolean;
+
+    /**
+     * when set to true, it displays the X and Y "safe" zone rulers. This represents the area where content should not be rendered to avoid screen clipping on a device.
+     */
+    showSafe?: boolean;
+
+    /**
+     * when set to true, it displays the textbox containing the exact numbers associated with the screen, margin, safe, and gutter sizes.
+     */
+    showText?: boolean;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * This signal indicates that the spacer's appearance and layout have been adjusted based on its properties
+   */
+  export type SignalMap = {
+    spacerLoaded(): void;
+  };
+}
+declare class GridOverlay<
+  TemplateSpec extends GridOverlay.TemplateSpec = GridOverlay.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * when set to true, it displays the column span rectangles.
+   */
   showColumns?: boolean;
+
+  /**
+   * when set to true, it displays the rulers for spacing between columns.
+   */
   showGutters?: boolean;
+
+  /**
+   * when set to true, it displays the X and Y margin rulers.
+   */
   showMargins?: boolean;
+
+  /**
+   * when set to true, it displays the X and Y "safe" zone rulers. This represents the area where content should not be rendered to avoid screen clipping on a device.
+   */
   showSafe?: boolean;
+
+  /**
+   * when set to true, it displays the textbox containing the exact numbers associated with the screen, margin, safe, and gutter sizes.
+   */
   showText?: boolean;
+
   get style(): GridOverlayStyle;
   set style(v: StylePartial<GridOverlayStyle>);
 
   // tags
+  get _Line(): lng.Component;
+  get _TickLeft(): lng.Component;
+  get _TickRight(): lng.Component;
+
   get _Columns(): lng.Component;
 
   get _Gutters(): lng.Component;
@@ -65,3 +129,5 @@ export default class GridOverlay extends Base {
   get _TextScreenH(): lng.Component;
   get _TextScreenW(): lng.Component;
 }
+
+export { GridOverlay as default, GridOverlayStyle };
