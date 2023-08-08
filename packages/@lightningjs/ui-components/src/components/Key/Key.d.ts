@@ -56,8 +56,6 @@ declare namespace Key {
      * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
      */
     toggle?: boolean;
-
-    style?: StylePartial<KeyStyle>;
   }
 }
 declare class Key<
