@@ -50,6 +50,12 @@ declare class Radio<
    */
   checked?: boolean;
 
+    // Method
+  /**
+   * Toggles the radio state and updates the UI.
+   */
+  toggle(): void;
+
   get style(): RadioStyle;
   set style(v: StylePartial<RadioStyle>);
 
