@@ -38,7 +38,7 @@ export default class Icon extends Base {
 
   /**
    * Returns the theme styles for the Icon component.
-   * @returns {Object} The theme styles object.
+   * @returns {object} The theme styles object.
    */
   static get __themeStyle() {
     return styles;
@@ -124,7 +124,7 @@ export default class Icon extends Base {
    * Generates the patch based on the icon type (SVG, image, etc.) and other properties.
    *
    * @private
-   * @returns {Object} The patch object to update the Icon component.
+   * @returns {object} The patch object to update the Icon component.
    */
   get _iconPatch() {
     const [isSvgTag, isSvgURI] = [/^<svg.*<\/svg>$/, /\.svg$/].map(regex =>

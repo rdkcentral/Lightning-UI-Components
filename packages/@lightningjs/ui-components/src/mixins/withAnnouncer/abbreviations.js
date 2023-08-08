@@ -43,10 +43,10 @@ function getNumberOfCaptureGroups(regExp) {
 }
 
 /**
- * @typedef {Object} AbbreviationConfig
+ * @typedef {object} AbbreviationConfig
  * @property {RegExp} abbreviationsPattern - combined RegExp pattern of all abbreviations separated into capture groups
- * @property {Object} stringPatternMap - object to look up replacers values based on string matches (uses matched string to look up)
- * @property {Object} regExpPatternMap - object to look up replacers values based on RegExp matches (uses index of matched capture group to look up)
+ * @property {object} stringPatternMap - object to look up replacers values based on string matches (uses matched string to look up)
+ * @property {object} regExpPatternMap - object to look up replacers values based on RegExp matches (uses index of matched capture group to look up)
  */
 
 /**
@@ -100,9 +100,9 @@ export function generateAbbrevConfig(
 
 /**
  * Translates abbreviations in a string into their associated words
- * @param {String} phrase - phrase to be translated
+ * @param {string} phrase - phrase to be translated
  * @param {AbbreviationConfig} - abbreviationsPattern, stringPatternMap and regExpPatternMap
- * @returns {String} - phrase where abbreviations have been replaced with words
+ * @returns {string} - phrase where abbreviations have been replaced with words
  */
 export const translateAbbrev = (phrase, translationConfig) => {
   const { abbreviationsPattern, stringPatternMap, regExpPatternMap } =

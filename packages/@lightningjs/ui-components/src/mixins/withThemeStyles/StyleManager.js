@@ -30,16 +30,13 @@ import lng from '@lightningjs/core';
 export default class StyleManager extends lng.EventEmitter {
   /**
    * Create a Style Manager instance.
-   * @param {Object} options - The options object.
-   * @param {Object} options.component - The LightningJS component instance.
+   * @param {object} options - The options object.
+   * @param {object} options.component - The LightningJS component instance.
    */
   constructor({ component = {} } = {}) {
     super(...arguments);
-    // Bind the _onThemeUpdate method to the current instance of the StyleManager class.
-    this._boundThemeUpdate = this._onThemeUpdate.bind(this);
-    context.on('themeUpdate', this._boundThemeUpdate);
-
     this.component = component;
+    this.setupListeners();
     this._style = {}; // This will be the source of truth for the style manager
     // Initial update is not debounced
     this._update();
@@ -54,13 +51,40 @@ export default class StyleManager extends lng.EventEmitter {
     }
   }
 
+  setupListeners() {
+    // Bind the _onThemeUpdate method to the current instance of the StyleManager class.
+    this._boundThemeUpdate = this._onThemeUpdate.bind(this);
+    this._hasSubTheme = Boolean(this.component._targetSubTheme);
+    if (!this.component._targetSubTheme) {
+      context.on('themeUpdate', this._boundThemeUpdate);
+    } else {
+      context.on(
+        `themeUpdate${this.component._targetSubTheme}`,
+        this._boundThemeUpdate
+      );
+    }
+  }
+
+  clearListeners() {
+    // Bind the _onThemeUpdate method to the current instance of the StyleManager class.
+    if (!this._boundThemeUpdate) return;
+    if (!this.component._targetSubTheme) {
+      context.off('themeUpdate', this._boundThemeUpdate);
+    } else {
+      context.off(
+        `themeUpdate${this.component._targetSubTheme}`,
+        this._boundThemeUpdate
+      );
+    }
+  }
+
   /**
    * Destroy the Style Manager instance and remove the themeUpdate event listener.
    */
   destroy() {
     this._cleanupCache();
     // Remove event listeners and subscriptions
-    context.off('themeUpdate', this._boundThemeUpdate);
+    this.clearListeners();
     // Set references to null
     this._styleCache = null;
     this._boundThemeUpdate = null;
@@ -72,6 +96,8 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
+    this.clearSourceCache();
+    this.clearStyleCache();
     this.updateDebounced();
   }
 
@@ -211,7 +237,6 @@ export default class StyleManager extends lng.EventEmitter {
 
         this._addCache(`style_${mode}_${tone}`, finalStyle);
       }
-
       this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {

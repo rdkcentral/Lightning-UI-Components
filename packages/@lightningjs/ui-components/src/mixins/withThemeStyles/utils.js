@@ -22,7 +22,7 @@ import context from '../../globals/context';
 /**
 Given a character, return its ASCII value multiplied by its position.
  *
-@param {char} char - The character to process.
+@param {string} char - The character to process.
 @param {number} index - The position of the character in the string.
 @returns {number} - The ASCII value of the character multiplied by its position.
  */
@@ -92,7 +92,7 @@ function isPlainObject(value) {
  * Returns the subTheme property of the first parent object that has one, or undefined if none exist.
  *
  * @param {object} obj - The object to search for a subTheme property.
- * @returns {(string | undefined)} - The value of the subTheme property, or undefined if none exists.
+ * @returns {(String | Undefined)} - The value of the subTheme property, or undefined if none exists.
  */
 export const getSubTheme = obj => {
   let parent = obj.p;
@@ -126,7 +126,7 @@ export const getComponentConfig = obj => {
 /**
  * Returns an array of the names of all components in the prototype chain of the given object.
  * @param {object} obj - The object to get the prototype chain from.
- * @returns {string[]} - An array of component names.
+ * @returns {String[]} - An array of component names.
  */
 export const getPrototypeChain = obj => {
   if (!isPlainObject(obj)) return [];
@@ -263,7 +263,6 @@ export const generateComponentStyleSource = component => {
       finalStyle = clone(finalStyle, { base: style });
     } else {
       const { base, mode, tone } = style;
-
       // Apply the style at different levels (Base Level: Component Style File)
       finalStyle = clone(finalStyle, { base: executeWithContext(base, theme) });
       finalStyle = clone(finalStyle, { tone: executeWithContext(tone, theme) });
@@ -368,8 +367,8 @@ export const generateComponentStyleSource = component => {
 /**
  * Parse and process a style object to replace theme strings and process color arrays.
  * @param {string} component - Lightning Component
- * @param {Object} styleObj - The input style object to be processed.
- * @returns {Object} The processed style object with theme strings replaced and color arrays processed.
+ * @param {object} styleObj - The input style object to be processed.
+ * @returns {object} The processed style object with theme strings replaced and color arrays processed.
  */
 export const colorParser = (component, styleObj) => {
   // Process style object and remove unnecessary properties
@@ -429,7 +428,7 @@ function generateNameFromPrototypeChain(obj) {
 
 /**
  * Creates a cache object to store the results of getStyleChainMemoized function calls.
- * @type {Object}
+ * @type {object}
  */
 const styleChainCache = {};
 
@@ -519,9 +518,9 @@ export const getStyleChain = componentObj => {
 
 /**
  * Replaces alias values in the provided style object with their corresponding aliases.
- * @param {Object} value - The style object to process.
+ * @param {object} value - The style object to process.
  * @param {Array<Object>} [aliasStyles=[]] - Optional array of alias styles to apply.
- * @returns {Object} The style object with alias values replaced.
+ * @returns {object} The style object with alias values replaced.
  */
 export const replaceAliasValues = (value, aliasStyles = []) => {
   const styleObj = clone(value, {});

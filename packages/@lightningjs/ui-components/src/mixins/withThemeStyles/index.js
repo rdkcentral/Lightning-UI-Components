@@ -25,7 +25,7 @@ import { capitalizeFirstLetter } from '../../utils';
 /**
  * A higher-order function that returns a class with theme styles.
  * @param {Function} Base - The base class to extend.
- * @param {Object} mixinStyle - The mixin style to add to the component.
+ * @param {object} mixinStyle - The mixin style to add to the component.
  * @returns {Function} A class that extends the base class with theme styles.
  */
 export default function withThemeStyles(Base, mixinStyle = {}) {
@@ -57,8 +57,9 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       super._setup && super._setup();
       this._targetSubTheme = getSubTheme(this);
       if (this._targetSubTheme) {
-        this._styleManager.clearStyleCache();
-        this._styleManager?.updateDebounced();
+        this._styleManager.clearListeners();
+        this._styleManager.setupListeners();
+        this._styleManager.updateDebounced();
       }
     }
 
@@ -177,7 +178,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
 
     /**
      * Set component level styles
-     * @param {any} v - The styles to set, mode, and tone are not allowed
+     * @param {object} v - The styles to set, mode, and tone are not allowed
      */
     set style(v) {
       if (Object.prototype.toString.call(v) !== '[object Object]') {
@@ -186,17 +187,21 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       }
       this._componentLevelStyle = v;
       this._styleManager.clearStyleCache();
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
 
     /**
      * Get component level styles
-     * @return {any}
+     * @return {object}
      */
     get style() {
       return this._style;
     }
 
+    /**
+     * Get component level styles
+     * @return {object}
+     */
     get _componentStyle() {
       /** No longer supported */
       context.info(
@@ -205,25 +210,21 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       return this._style;
     }
 
-    set _componentStyle(v) {
-      /** No longer supported */
-    }
-
     /**
      * Set component styleConfig
-     * @param {any} v - Special configuration rules to override styles
+     * @param {object} v - Special configuration rules to override styles
      */
     set styleConfig(v) {
       context.info(
         'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
       );
       this._styleConfig = v;
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
 
     /**
      * Get component styleConfig
-     * @return {any}
+     * @return {object}
      */
     get styleConfig() {
       return this._styleConfig;
@@ -254,7 +255,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._mode = v;
       const event = this[`on${capitalizeFirstLetter(v)}`];
       if (event && typeof event === 'function') event();
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
 
     /**
@@ -272,7 +273,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set tone(v) {
       if (typeof v !== 'string' || this._tone === v) return;
       this._tone = v;
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
 
     /**
@@ -291,7 +292,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true;
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
 
     /**
@@ -310,7 +311,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true;
-      this._styleManager?.updateDebounced();
+      this._styleManager.updateDebounced();
     }
   };
 }
