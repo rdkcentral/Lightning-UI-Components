@@ -16,8 +16,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from '../Button';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
 type SizeObject = {
   sm: number;
@@ -27,17 +28,62 @@ type SizeObject = {
   xxl: number;
 };
 
-export type KeyStyle = ButtonStyle & {
+type KeyStyle = ButtonStyle & {
   h: number;
   sizes: SizeObject;
   iconW: number;
   iconH: number;
 };
 
-export default class Key extends Button {
+declare namespace Key {
+  export interface TemplateSpec extends Button.TemplateSpec {
+    /**
+     * url for icon
+     */
+    icon?: string;
+
+    /**
+     * it allows custom handling of the "Enter" key press behavior in the Key component, overriding the default $onSoftKey and $toggleKeyboard events.
+     */
+    onEnter?: (key: string, toggle: boolean) => void;
+
+    /**
+     * width of the Key
+     */
+    size?: string;
+
+    /**
+     * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
+     */
+    toggle?: boolean;
+  }
+}
+declare class Key<
+  TemplateSpec extends Key.TemplateSpec = Key.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Button<TemplateSpec, TypeConfig> {
+  /**
+   * url for icon
+   */
   icon?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  toggle: string;
+
+  /**
+   * it allows custom handling of the "Enter" key press behavior in the Key component, overriding the default $onSoftKey and $toggleKeyboard events.
+   */
+  onEnter?: (key: string, toggle: boolean) => void;
+
+  /**
+   * width of the Key
+   */
+  size?: string;
+
+  /**
+   * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
+   */
+  toggle?: boolean;
+
   get style(): KeyStyle;
   set style(v: StylePartial<KeyStyle>);
 }
+
+export { Key as default, KeyStyle, SizeObject };
