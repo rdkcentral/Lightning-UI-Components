@@ -43,7 +43,6 @@ type TileStyle = SurfaceStyle & {
 };
 declare namespace Tile {
   export interface TemplateSpec extends Surface.TemplateSpec {
-    Content: typeof lng.Component<lng.Component.TemplateSpecLoose>;
     /**
      * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
      */
@@ -51,15 +50,20 @@ declare namespace Tile {
     /**
      * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
      */
-    badge?: Record<string, unknown>;
+    badge?: lng.Element.PatchTemplate<Badge.TemplateSpec>;
+
     /**
      * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
      */
-    checkbox?: Record<string, unknown>;
+    checkbox?: lng.Element.PatchTemplate<Checkbox.TemplateSpec>;
+    /**
+     * If true, changes format of itemLayout to circle
+     */
+    circle?: boolean;
     /**
      * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
      */
-    label?: Record<string, unknown>;
+    label?: lng.Element.PatchTemplate<Label.TemplateSpec>;
     /**
      * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
      */
@@ -67,7 +71,7 @@ declare namespace Tile {
     /**
      * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
      */
-    metadata?: MetadataBaseStyle;
+    metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
     /**
      * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
      */
@@ -75,19 +79,8 @@ declare namespace Tile {
     /**
      * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
      */
-    progressBar?: Record<string, unknown>;
+    progressBar?: lng.Element.PatchTemplate<ProgressBar.TemplateSpec>;
   }
-
-  export interface TypeConfig extends lng.Component.TypeConfig {
-    SignalMapType: SignalMap;
-  }
-  export type SignalMap = {
-    // Signals
-    // _imageLoaded
-    // _updateBadge
-    // _updateLabel
-    // _metadataLoaded
-  };
 }
 declare class Tile<
   TemplateSpec extends Tile.TemplateSpec = Tile.TemplateSpec,
@@ -101,15 +94,20 @@ declare class Tile<
   /**
    * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
    */
-  badge?: Record<string, unknown>;
+  badge?: lng.Element.PatchTemplate<Badge.TemplateSpec>;
+
   /**
    * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
    */
-  checkbox?: Record<string, unknown>;
+  checkbox?: lng.Element.PatchTemplate<Checkbox.TemplateSpec>;
+  /**
+   * If true, changes format of itemLayout to circle
+   */
+  circle?: boolean;
   /**
    * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
    */
-  label?: Record<string, unknown>;
+  label?: lng.Element.PatchTemplate<Label.TemplateSpec>;
   /**
    * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
    */
@@ -117,7 +115,7 @@ declare class Tile<
   /**
    * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
    */
-  metadata?: MetadataBaseStyle;
+  metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
   /**
    * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
    */
@@ -125,7 +123,7 @@ declare class Tile<
   /**
    * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
    */
-  progressBar?: Record<string, unknown>;
+  progressBar?: lng.Element.PatchTemplate<ProgressBar.TemplateSpec>;
 
   get innerH(): number;
   get style(): TileStyle;
