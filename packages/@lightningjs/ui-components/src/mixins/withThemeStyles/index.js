@@ -59,7 +59,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._targetSubTheme) {
         this._styleManager.clearListeners();
         this._styleManager.setupListeners();
-        this._styleManager.updateDebounced();
+        this._styleManager.update();
       }
     }
 
@@ -199,7 +199,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       }
       this._componentLevelStyle = v;
       this._styleManager.clearStyleCache();
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
 
     /**
@@ -231,7 +231,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
       );
       this._styleConfig = v;
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
 
     /**
@@ -267,7 +267,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._mode = v;
       const event = this[`on${capitalizeFirstLetter(v)}`];
       if (event && typeof event === 'function') event();
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
 
     /**
@@ -285,7 +285,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     set tone(v) {
       if (typeof v !== 'string' || this._tone === v) return;
       this._tone = v;
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
 
     /**
@@ -304,7 +304,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true;
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
 
     /**
@@ -323,7 +323,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true;
-      this._styleManager.updateDebounced();
+      this._styleManager.update();
     }
   };
 }

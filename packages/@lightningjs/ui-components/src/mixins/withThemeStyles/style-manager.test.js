@@ -57,7 +57,7 @@ describe('StyleManager', () => {
 
   describe('_onThemeUpdate', () => {
     it('should update the style when the theme is updated', () => {
-      const updateSpy = jest.spyOn(styleManager, 'updateDebounced');
+      const updateSpy = jest.spyOn(styleManager, 'update');
       styleManager._onThemeUpdate();
       expect(updateSpy).toHaveBeenCalled();
     });

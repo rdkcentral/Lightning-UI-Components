@@ -23,7 +23,7 @@ import {
   getHash
 } from './utils.js';
 import { context } from '../../globals/index.js';
-import { debounce, clone } from '../../utils/index.js';
+import { clone } from '../../utils/index.js';
 import cache from './cache.js';
 import lng from '@lightningjs/core';
 
@@ -43,16 +43,7 @@ export default class StyleManager extends lng.EventEmitter {
     this.setupListeners();
     this._style = {}; // This will be the source of truth for the style manager
     // Initial update is not debounced
-    this._update();
-
-    if (typeof process === 'object' && process?.env?.NODE_ENV === 'test') {
-      this.updateDebounced = this._update; // Avoid race conditions in tests
-    } else {
-      // Debounce the update method so that it's called only once during rapid style changes.
-      this.updateDebounced = debounce(() => {
-        this._update(); // TODO: Change to debounced update
-      }, 0);
-    }
+    this.update();
   }
 
   setupListeners() {
@@ -103,7 +94,7 @@ export default class StyleManager extends lng.EventEmitter {
   _onThemeUpdate() {
     this.clearSourceCache();
     this.clearStyleCache();
-    this.updateDebounced();
+    this.update();
   }
 
   /**
@@ -197,7 +188,7 @@ export default class StyleManager extends lng.EventEmitter {
    * Generates the component's style source and style objects, saves them to the cache, and emits a `styleUpdate` event with the updated style.
    * @returns {Promise<void>}
    */
-  async _update() {
+  update() {
     if (!this.component) return;
 
     const { mode, tone } = this.component;
