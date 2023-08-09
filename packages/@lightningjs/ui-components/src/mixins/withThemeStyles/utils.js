@@ -437,6 +437,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
 
   const { mode = 'unfocused', tone = 'neutral' } = component;
+
   const style =
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||

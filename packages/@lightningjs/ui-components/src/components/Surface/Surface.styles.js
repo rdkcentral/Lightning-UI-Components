@@ -27,7 +27,7 @@ export const mode = theme => ({
     backgroundColor: theme.color.interactiveNeutralFocus,
     tone: {
       inverse: {
-        backgroundColor: theme.color.red
+        backgroundColor: theme.color.interactiveInverseFocus
       }
     }
   },
