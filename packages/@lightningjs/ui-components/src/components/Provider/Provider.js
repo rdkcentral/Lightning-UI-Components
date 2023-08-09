@@ -67,12 +67,17 @@ export default class Provider extends Base {
     const providerList = [];
     this.providers.slice(0, this.visibleCount).forEach(provider => {
       // Create a starting point for each provider icon.
+
       let patch = {
         centerInParent: true,
         radius: this.disableRadius ? 0 : this.style.radius,
         alpha: this.style.alpha,
-        style: provider.style
       };
+
+      if (provider.style) {
+        patch.style = provider.style
+      }
+
       if (
         // If the provider is a pre-configured Icon, allow it to override the default behavior.
         provider.type === Icon &&
