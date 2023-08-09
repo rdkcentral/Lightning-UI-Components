@@ -65,7 +65,7 @@ declare namespace Tile {
     /**
      * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
      */
-    metadataLocation?: string;
+    metadataLocation?: 'standard' | 'inset';
     /**
      * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
      */
@@ -109,7 +109,7 @@ declare class Tile<
   /**
    * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
    */
-  metadataLocation?: string;
+  metadataLocation?: 'standard' | 'inset';
   /**
    * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
    */
