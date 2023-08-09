@@ -233,6 +233,47 @@ export function styleFormatter(obj, target, search) {
 }
 
 /**
+ * Finds unique property names nested under a specified sub-property within an object.
+ * @param {object} obj - The object to search.
+ * @param {string} subPropertyName - The sub-property name to search for.
+ * @returns {string[]} - An array of unique property names found.
+ */
+const findPropertiesBySubProperty = (obj, subPropertyName) => {
+  // Initialize a Set to store unique property names
+  const result = new Set();
+
+  /**
+   * Recursively traverses the object and extracts property names under the specified sub-property.
+   * @param {object} obj - The object to traverse.
+   */
+  function traverse(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof obj[key] === 'object') {
+          // If the current key matches the specified sub-property
+          if (key === subPropertyName) {
+            // Loop through the sub-object's keys and add them to the result set
+            for (const subKey in obj[key]) {
+              if (obj[key].hasOwnProperty(subKey)) {
+                result.add(subKey);
+              }
+            }
+          }
+          // Continue recursive traversal
+          traverse(obj[key]);
+        }
+      }
+    }
+  }
+
+  // Start traversing the object
+  traverse(obj);
+
+  // Convert the Set to an array and return
+  return Array.from(result);
+}
+
+/**
  * Generates the source style object for a given component by merging base, mode, and tone styles from the component's style chain
  * @param {object} component - The component for which to generate the style source
  * @returns {object} - The source style object for the component
@@ -338,17 +379,22 @@ export const generateComponentStyleSource = component => {
   const {
     base = {},
     mode = {},
-    tone: toneOriginal = {},
+    tone = {},
     overwrite = {}
   } = finalStyle;
 
   // Create the solution object to store the processed styles
   const solution = {};
-  const tone = { ...{ neutral: {} }, ...toneOriginal };
+  const toneProperties = findPropertiesBySubProperty(mode, 'tone');
+  const modeProperties = findPropertiesBySubProperty(tone, 'mode');
 
   // Iterate through modes and tones to generate styles
-  for (const modeItem in { ...{ unfocused: {} }, ...mode }) {
-    for (const toneItem in { ...{ neutral: {} }, ...tone }) {
+  for (const modeItem of [
+    ...new Set(['unfocused', ...Object.keys(mode), ...modeProperties])
+  ]) {
+    for (const toneItem of [
+      ...new Set(['neutral', ...Object.keys(tone), ...toneProperties])
+    ]) {
       let payload = clone(base, tone[toneItem]);
       payload = clone(payload, overwrite);
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
@@ -359,7 +405,7 @@ export const generateComponentStyleSource = component => {
       );
     }
   }
-
+  
   // Return the final processed style object
   return removeEmptyObjects(colorParser(component, solution)) || {};
 };
@@ -394,12 +440,14 @@ export const colorParser = (component, styleObj) => {
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
+
   const { mode = 'unfocused', tone = 'neutral' } = component;
   const style =
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||
     componentStyleSource['unfocused_neutral'] ||
     {};
+
   const componentStyle = component._componentLevelStyle;
   if (componentStyle) {
     return clone(style, colorParser(component, componentStyle));
