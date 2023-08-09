@@ -755,7 +755,7 @@ export function createConditionalZContext(component, zOffset) {
  * Runs a side effect function when any values of specified properties on an element change.
  * @param {object} options - defines the `element`, `watchProps`, and `sideEffect` options
  * @param {lng.Element} options.element - Lightning element on which property changes will watched
- * @param {string[]} options.watchProps - properties that when their value changes a side effect function is invoked
+ * @param {String[]} options.watchProps - properties that when their value changes a side effect function is invoked
  * @param {function} options.sideEffect - function to be invoked when a watched property's value changes
  * @returns {lng.Element}
  */

@@ -16,7 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { babel } from '@rollup/plugin-babel';
+import { getBabelOutputPlugin } from '@rollup/plugin-babel';
+
 import dts from 'rollup-plugin-dts';
 import image from '@rollup/plugin-image';
 import json from '@rollup/plugin-json';
@@ -64,11 +65,14 @@ export default cliArgs => [
       moduleSideEffects: false // Important to make sure final bundle only includes necessary imports from os lightning/ui
     },
     plugins: [
+   
       resolve({ exportConditions: ['node'] }),
       peerDepsExternal(),
       image(),
       json(),
-      babel({ babelHelpers: 'bundled', exclude: ['node_modules/**'] }),
+      getBabelOutputPlugin({
+        presets: ['@babel/preset-env']
+      }),
       terser({ keep_classnames: true, keep_fnames: true })
     ]
   },
@@ -86,7 +90,9 @@ export default cliArgs => [
       peerDepsExternal(),
       image(),
       json(),
-      babel({ babelHelpers: 'bundled', exclude: ['node_modules/**'] }),
+      getBabelOutputPlugin({
+        presets: ['@babel/preset-env']
+      }),
       terser({ keep_classnames: true, keep_fnames: true })
     ]
   }
