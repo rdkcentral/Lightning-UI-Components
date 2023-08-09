@@ -271,7 +271,7 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
 
   // Convert the Set to an array and return
   return Array.from(result);
-}
+};
 
 /**
  * Generates the source style object for a given component by merging base, mode, and tone styles from the component's style chain
@@ -376,12 +376,7 @@ export const generateComponentStyleSource = component => {
   }
 
   // Destructure the finalStyle object
-  const {
-    base = {},
-    mode = {},
-    tone = {},
-    overwrite = {}
-  } = finalStyle;
+  const { base = {}, mode = {}, tone = {}, overwrite = {} } = finalStyle;
 
   // Create the solution object to store the processed styles
   const solution = {};
@@ -405,7 +400,7 @@ export const generateComponentStyleSource = component => {
       );
     }
   }
-  
+
   // Return the final processed style object
   return removeEmptyObjects(colorParser(component, solution)) || {};
 };

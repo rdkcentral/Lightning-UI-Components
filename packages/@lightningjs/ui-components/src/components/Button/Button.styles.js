@@ -54,4 +54,3 @@ export const mode = theme => ({
     contentColor: theme.color.fillNeutralDisabled
   }
 });
-
