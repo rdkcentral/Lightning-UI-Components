@@ -31,8 +31,8 @@ import Label from '../Label';
 import Surface from '../Surface';
 
 type TileStyle = SurfaceStyle & {
-  animationEntrance: Record<string, unknown>;
-  animationExit: Record<string, unknown>;
+  animationEntrance: lng.types.TransitionSettings.Literal;
+  animationExit: lng.types.TransitionSettings.Literal;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;
