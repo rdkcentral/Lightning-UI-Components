@@ -18,6 +18,7 @@
 
 import type lng from '@lightningjs/core';
 import ButtonSmall, { ButtonSmallStyle } from '../Button/ButtonSmall';
+import Button from '../Button';
 import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {
@@ -33,7 +34,8 @@ type ControlStyle = ButtonSmallStyle & {
 };
 
 declare namespace Control {
-  export interface TemplateSpec extends ButtonSmall.TemplateSpec {
+  // TODO: need to replace Button with ButtonSmall here , but throws error. Is this correct now?
+  export interface TemplateSpec extends Button.TemplateSpec {
     /**
      *  URL for the icon asset
      */

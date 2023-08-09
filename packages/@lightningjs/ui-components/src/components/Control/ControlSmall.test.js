@@ -53,6 +53,7 @@ describe('ControlSmall', () => {
         logoStyle: expect.any(Object),
         prefixH: expect.any(Number),
         radius: expect.any(Number),
+        textStyle: expect.any(Object),
         minWidth: expect.any(Number)
       })
     );
