@@ -133,7 +133,6 @@ declare class InlineContent<
 > extends Base<TemplateSpec, TypeConfig> {
   /**
    * list of data to render inline
-   * TODO: Feel like there should be more to this
    */
   content?: TextContent[];
   /**

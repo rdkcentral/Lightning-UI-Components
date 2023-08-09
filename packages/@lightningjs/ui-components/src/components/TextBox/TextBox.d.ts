@@ -51,9 +51,14 @@ declare namespace TextBox {
   }
 
   export type SignalMap = {
-    /** emits when marquee content has been patched on update
+    /**
+     * emits when w and/or height has changed
      */
-    _loadedMarqueeContent(): void;
+    textBoxChanged(): void;
+    /**
+     * emits when Marquee content has been loaded
+     */
+    willMarque(): void;
   };
 }
 declare class TextBox<
