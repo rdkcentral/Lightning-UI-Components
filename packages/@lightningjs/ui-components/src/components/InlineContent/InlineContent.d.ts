@@ -124,12 +124,8 @@ declare namespace InlineContent {
     SignalMapType: SignalMap;
   }
   export type SignalMap = {
-    // signals: _createIcon  & _createBadge
-
-    _createIcon(base, iconProps);
+    loadedInlineContent(): void;
   };
-
-  // events: $loadedInlineContent(): void;
 }
 declare class InlineContent<
   TemplateSpec extends InlineContent.TemplateSpec = InlineContent.TemplateSpec,
