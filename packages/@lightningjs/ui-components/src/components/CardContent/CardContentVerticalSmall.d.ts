@@ -17,10 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
+import CardContent from './CardContent';
 import CardContentVertical from './CardContentVertical';
 
 declare class CardContentVerticalSmall<
-  TemplateSpec extends CardContentVertical.TemplateSpec = CardContentVertical.TemplateSpec,
+  TemplateSpec extends CardContent.TemplateSpec = CardContent.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends CardContentVertical<TemplateSpec, TypeConfig> {}
 

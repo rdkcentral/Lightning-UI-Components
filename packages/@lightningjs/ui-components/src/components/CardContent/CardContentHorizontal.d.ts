@@ -19,9 +19,6 @@
 import lng from '@lightningjs/core';
 import CardContent from './CardContent';
 
-declare namespace CardContentHorizontal {
-  export type TemplateSpec = CardContent.TemplateSpec;
-}
 declare class CardContentHorizontal<
   TemplateSpec extends CardContent.TemplateSpec = CardContent.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
