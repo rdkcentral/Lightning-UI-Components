@@ -25,10 +25,6 @@ type ButtonSmallStyle = ButtonStyle & {
   suffixH: number;
 };
 
-declare namespace ButtonSmall {
-  export type TemplateSpec = Button.TemplateSpec;
-}
-
 declare class ButtonSmall<
   TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig

@@ -48,8 +48,6 @@ declare namespace Control {
      * flag that if `true`, hides the title when `Control` is in unfocused or disabled mode
      */
     shouldCollapse?: boolean;
-
-    style?: StylePartial<ControlStyle>;
   }
 }
 
