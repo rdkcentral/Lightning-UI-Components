@@ -35,6 +35,10 @@ export default class StyleManager extends lng.EventEmitter {
    */
   constructor({ component = {} } = {}) {
     super(...arguments);
+    this.init(component);
+  }
+  init(component) {
+    this.isActive = true;
     this.component = component;
     this.setupListeners();
     this._style = {}; // This will be the source of truth for the style manager
@@ -82,6 +86,7 @@ export default class StyleManager extends lng.EventEmitter {
    * Destroy the Style Manager instance and remove the themeUpdate event listener.
    */
   destroy() {
+    this.isActive = false;
     this._cleanupCache();
     // Remove event listeners and subscriptions
     this.clearListeners();

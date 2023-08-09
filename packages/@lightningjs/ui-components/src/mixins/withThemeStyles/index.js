@@ -64,6 +64,18 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     }
 
     /**
+     * On component attach, ensures the StyleManager has been reinitialized if it was previously destroyed in detach.
+     * @private
+     * @returns {void}
+     */
+    _attach() {
+      super._attach();
+      if (!this._styleManager.isActive) {
+        this._styleManager.init(this);
+      }
+    }
+
+    /**
      * Detaches the component and destroys the style manager.
      * @private
      * @returns {void}
