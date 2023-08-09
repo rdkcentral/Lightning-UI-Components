@@ -65,7 +65,6 @@ export default cliArgs => [
       moduleSideEffects: false // Important to make sure final bundle only includes necessary imports from os lightning/ui
     },
     plugins: [
-   
       resolve({ exportConditions: ['node'] }),
       peerDepsExternal(),
       image(),

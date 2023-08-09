@@ -102,7 +102,6 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @returns {void}
      */
     _focus() {
-      console.log('>>>>>')
       if (!this._isDisabledMode) this.mode = 'focused';
       super._focus();
     }
