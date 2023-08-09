@@ -20,16 +20,14 @@ import lng from '@lightningjs/core';
 import { MetadataBaseStyle } from '../MetadataBase';
 import { StylePartial } from '../../types/lui';
 import { SurfaceStyle } from '../Surface';
-import {
-  Artwork,
-  TextBox,
-  ProgressBar,
-  MetadataBase,
-  Badge,
-  Checkbox,
-  Label,
-  Surface
-} from '..';
+import Artwork from '../Artwork';
+import TextBox from '../TextBox';
+import ProgressBar from '../ProgressBar';
+import MetadataBase from '../MetadataBase';
+import Badge from '../Badge';
+import Checkbox from '../Checkbox';
+import Label from '../Label';
+import Surface from '../Surface';
 
 type TileStyle = SurfaceStyle & {
   animationEntrance: Record<string, unknown>;
