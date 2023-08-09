@@ -16,6 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Radio from './Radio';
 
-export default class RadioSmall extends Radio {}
+declare class RadioSmall<
+  TemplateSpec extends Radio.TemplateSpec = Radio.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Radio<TemplateSpec, TypeConfig> {}
+
+export default RadioSmall;

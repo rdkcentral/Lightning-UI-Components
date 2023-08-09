@@ -18,9 +18,9 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type RadioStyle = {
+type RadioStyle = {
   alpha: number;
   backgroundColor: Color;
   backgroundColorChecked: Color;
@@ -32,13 +32,49 @@ export type RadioStyle = {
   strokeWidth: number;
 };
 
-export default class Radio extends Base {
+declare namespace Radio {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * status of the radio button
+     */
+    checked?: boolean;
+  }
+}
+
+declare class Radio<
+  TemplateSpec extends Radio.TemplateSpec = Radio.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * status of the radio button
+   */
   checked?: boolean;
+
+  // Method
+  /**
+   * Toggles the radio state and updates the UI.
+   */
+  toggle(): void;
+
   get style(): RadioStyle;
   set style(v: StylePartial<RadioStyle>);
 
   // tags
+
+  /**
+   * returns the radio knob
+   */
   get _Knob(): lng.Component;
+
+  /**
+   * returns the body of the radio
+   */
   get _Body(): lng.Component;
+
+  /**
+   * returns the stroke
+   */
   get _Stroke(): lng.Component;
 }
+
+export { Radio as default, RadioStyle };
