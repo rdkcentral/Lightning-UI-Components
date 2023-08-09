@@ -165,8 +165,6 @@ export default class Icon extends Base {
     return {
       texture,
       shader,
-      w: this.w,
-      h: this.h,
       ...(supportsColor && color
         ? { colorUl: color, colorUr: color, colorBl: color, colorBr: color }
         : {})
