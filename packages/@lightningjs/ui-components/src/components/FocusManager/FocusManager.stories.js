@@ -21,6 +21,7 @@ import FocusManager from '.';
 import mdx from './FocusManager.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
+import { useArgs } from '@storybook/client-api';
 
 export default {
   title: `${CATEGORIES[8]}/FocusManager`,
@@ -31,37 +32,38 @@ export default {
   }
 };
 
-export const ColumnWithRows = () =>
-  class ColumnWithRowsExample extends lng.Component {
+export const Basic = () => {
+  const [args, updateArgs, resetArgs] = useArgs();
+  console.log(args,   )
+  return class Basic extends lng.Component {
     static _template() {
       return {
-        Column: Column({
-          items: [Row(), Row({ y: 150 }), Row({ y: 300 })]
-        })
+        FocusManager: {
+          type: FocusManager,
+          direction: 'row',
+          items: []
+        },
+
+        itemsCol: [
+          { type: ButtonFixedWidth, title: 'Top'},
+          { type: ButtonFixedWidth, title: 'Center', y: 250 },
+          { type: ButtonFixedWidth, title: 'Bottom', y: 500 }
+        ],
+
+        itemsRow: [
+          { type: ButtonFixedWidth, title: 'Left', x: 0, y: 250},
+          { type: ButtonFixedWidth, title: 'Center', x: 250, y: 250 },
+          { type: ButtonFixedWidth, title: 'Right', x: 500, y: 250 }
+        ]
+
+       
+
       };
     }
-  };
 
-function Row({ y = 0 } = {}) {
-  return {
-    type: FocusManager,
-    direction: 'row',
-    y,
-    items: [
-      { type: ButtonFixedWidth, title: 'Left' },
-      { type: ButtonFixedWidth, title: 'Center', x: 250 },
-      { type: ButtonFixedWidth, title: 'Right', x: 500 }
-    ]
-  };
-}
+  }
+};
 
-function Column({ items }) {
-  return {
-    type: FocusManager,
-    direction: 'column',
-    items
-  };
-}
 
 class ButtonFixedWidth extends Button {
   static get __componentName() {
@@ -75,12 +77,12 @@ class ButtonFixedWidth extends Button {
   }
 }
 
-ColumnWithRows.args = {
+Basic.args = {
   direction: 'row',
   wrapSelected: false
 };
 
-ColumnWithRows.argTypes = {
+Basic.argTypes = {
   direction: {
     control: 'radio',
     options: ['row', 'column'],
@@ -97,4 +99,18 @@ ColumnWithRows.argTypes = {
       defaultValue: { summary: false }
     }
   }
+};
+
+Basic.parameters = { argActions: {
+  
+  direction: (direction, component) => {
+
+    component.tag('FocusManager').items = direction === "row"
+    ?component.itemsRow
+    :component.itemsCol
+
+    component.tag('FocusManager').direction = direction
+
+ }
+} 
 };
