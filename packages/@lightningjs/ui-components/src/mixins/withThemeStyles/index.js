@@ -61,6 +61,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._targetSubTheme) {
         this._styleManager.clearListeners();
         this._styleManager.setupListeners();
+        this._styleManager.clearStyleCache();
+        this._styleManager.clearSourceCache();
         this._styleManager.update();
       }
     }
