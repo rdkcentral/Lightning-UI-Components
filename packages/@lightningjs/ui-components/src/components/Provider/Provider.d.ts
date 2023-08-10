@@ -16,27 +16,87 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type lng from '@lightningjs/core';
+import lng from '@lightningjs/core';
 import Base from '../Base';
 import { TextBoxStyle } from '../TextBox';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type ProviderStyle = {
+type ProviderStyle = {
+  alpha: number;
   counterBackgroundColor: Color;
   counterTextStyle: TextBoxStyle;
   itemSize: number;
   itemSpacing: number;
   radius: lng.Tools.CornerRadius;
 };
+declare namespace Provider {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * If true, disables the radius style property for Icon providers
+     */
+    disableRadius: boolean;
+    /**
+     * text to override counter's default '+Number' functionality
+     */
+    counterText?: string;
 
-export default class Provider extends Base {
-  disableRadius?: boolean;
+    /**
+     *  list of provider images
+     */
+    providers?: Array<string>;
+
+    /**
+     * the number of providers that will be hidden by the counter
+     */
+    providersHidden: number;
+    /**
+     * the number of providers to show before adding a counter
+     */
+    visibleCount?: number;
+  }
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+  /**
+   * emitted when an item in the Provider component changes, indicating a change in the displayed providers
+   */
+  export type SignalMap = {
+    providerChanged(): void;
+  };
+}
+
+declare class Provider<
+  TemplateSpec extends Provider.TemplateSpec = Provider.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   *  If true, disables the radius style property for Icon providers
+   */
+  disableRadius: boolean;
+  /**
+   * Text to override counter's default '+Number' functionality
+   */
   counterText?: string;
-  providers: Array<Record<string, unknown>>;
-  visibleCount: number;
+
+  /**
+   *  An array of provider images or icons to be displayed in the row
+   */
+  providers?: Array<string>;
+
+  /**
+   * The number of providers that will be hidden by the counter
+   */
+  providersHidden: number;
+  /**
+   * The number of providers to show before adding a counter
+   */
+  visibleCount?: number;
+
   get style(): ProviderStyle;
   set style(v: StylePartial<ProviderStyle>);
 
   // tags
   get _Row(): lng.Component;
 }
+
+export { Provider as default, ProviderStyle };
