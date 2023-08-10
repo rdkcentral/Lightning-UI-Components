@@ -435,6 +435,7 @@ export const colorParser = (component, styleObj) => {
  * @returns {object} - The generated style object.
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
+  
   if (!isPlainObject(component)) return {};
 
   const { mode = 'unfocused', tone = 'neutral' } = component;
