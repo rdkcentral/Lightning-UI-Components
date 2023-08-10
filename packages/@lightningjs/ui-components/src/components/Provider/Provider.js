@@ -71,11 +71,11 @@ export default class Provider extends Base {
       let patch = {
         centerInParent: true,
         radius: this.disableRadius ? 0 : this.style.radius,
-        alpha: this.style.alpha,
+        alpha: this.style.alpha
       };
 
       if (provider.style) {
-        patch.style = provider.style
+        patch.style = provider.style;
       }
 
       if (
