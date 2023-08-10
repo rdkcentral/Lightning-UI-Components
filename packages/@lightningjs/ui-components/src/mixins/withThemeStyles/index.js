@@ -37,14 +37,16 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         return;
       }
       super._construct();
+
       this._hSetByUser = false;
+      this._wSetByUser = false;
+
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
         this.queueThemeUpdate();
       });
-      this._wSetByUser = false;
       this._withThemeStylesSetupComplete = true;
     }
 
@@ -116,18 +118,14 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
     _checkDimensionUpdates() {
       let dimensionUpdateRequired = false;
 
-      if (
-        (dimensionUpdateRequired =
-          !this._wSetByUser && this.style.w && this._w !== this.style.w)
-      ) {
+      if (!this._wSetByUser && this.style.w && this._w !== this.style.w) {
         this._w = this.style.w;
+        dimensionUpdateRequired = true;
       }
 
-      if (
-        (dimensionUpdateRequired =
-          !this._hSetByUser && this.style.h && this._h !== this.style.h)
-      ) {
+      if (!this._hSetByUser && this.style.h && this._h !== this.style.h) {
         this._h = this.style.h;
+        dimensionUpdateRequired = true;
       }
 
       if (dimensionUpdateRequired) {
