@@ -43,6 +43,7 @@ declare namespace CardContent {
     collapseToMetadata?: boolean;
     /**
      * object containing all properties supported in the MetadataCardContent component
+     * TODO: This should be updated to a MetadataCardContent patch object once its d.ts has been updated
      */
     metadata?: object;
     /**
@@ -59,6 +60,7 @@ declare namespace CardContent {
     src: string;
     /**
      * object containing all properties supported in the Tile component
+     * TODO: This should be updated to a Tile patch object once its d.ts has been updated
      */
     tile?: object;
   }
@@ -73,6 +75,7 @@ declare class CardContent<
   collapseToMetadata?: boolean;
   /**
    * object containing all properties supported in the MetadataCardContent component
+   TODO: This should be updated to a MetadataCardContent patch object once its d.ts has been updated
    */
   metadata?: object;
   /**
@@ -88,7 +91,8 @@ declare class CardContent<
    */
   src: string;
   /**
-   * Object containing all properties supported in the Tile component
+   * object containing all properties supported in the Tile component
+   TODO: This should be updated to a Tile patch object once its d.ts has been updated
    */
   tile?: object;
 
