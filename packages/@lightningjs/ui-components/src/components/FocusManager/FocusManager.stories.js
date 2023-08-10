@@ -31,8 +31,8 @@ export default {
   }
 };
 
-export const Basic = () => {
-  return class Basic extends lng.Component {
+export const Basic = () =>
+  class Basic extends lng.Component {
     static _template() {
       return {
         FocusManager: {
@@ -55,7 +55,6 @@ export const Basic = () => {
       };
     }
   };
-};
 
 class ButtonFixedWidth extends Button {
   static get __componentName() {
