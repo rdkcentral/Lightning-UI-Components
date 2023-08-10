@@ -25,8 +25,8 @@ export const base = theme => {
     h: theme.spacer.md * 8,
     iconStyle: {
       radius: radius,
-      w: theme.spacer.xxl,
-      h: theme.spacer.xxl
+      w: theme.spacer.xxxl,
+      h: theme.spacer.xxxl
     },
     logoStyle: {
       radius: logoRadius,
