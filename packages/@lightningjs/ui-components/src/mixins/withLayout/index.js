@@ -101,15 +101,13 @@ export default function withLayout(Base) {
             ? calculatedHeight
             : calculatedWidth; // Width must be set first in order for Cards to be displayed properly
         this.h = calculatedHeight;
-        if (this._itemLayout && this._itemLayout.circle && this.style) {
-          if (-1 < this.style?.radius) {
-            this._circleSet = true;
-            this._originalRadius = this.style.radius;
-            this.style = {
-              ...this.style,
-              radius: calculatedHeight / 2
-            };
-          }
+        if (this._itemLayout && this._itemLayout.circle && this.style.radius) {
+          this._circleSet = true;
+          this._originalRadius = this.style.radius;
+          this.style = {
+            ...this.style,
+            radius: calculatedHeight / 2
+          };
         } else if (this._circleSet) {
           // Restore to it's original state
           this.style = {

@@ -71,12 +71,9 @@ export default class Provider extends Base {
       let patch = {
         centerInParent: true,
         radius: this.disableRadius ? 0 : this.style.radius,
-        alpha: this.style.alpha
+        alpha: this.style.alpha,
+        style: provider.style || {}
       };
-
-      if (provider.style) {
-        patch.style = provider.style;
-      }
 
       if (
         // If the provider is a pre-configured Icon, allow it to override the default behavior.
