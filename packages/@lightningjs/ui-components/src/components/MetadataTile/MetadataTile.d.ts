@@ -18,4 +18,9 @@
 
 import MetadataBase from '../MetadataBase';
 
-export default class MetadataTile extends MetadataBase {}
+declare class MetadataTile<
+  TemplateSpec extends MetadataBase.TemplateSpec = MetadataBase.TemplateSpec,
+  TypeConfig extends MetadataBase.TypeConfig = MetadataBase.TypeConfig
+> extends MetadataBase<TemplateSpec, TypeConfig> {}
+
+export default MetadataTile;
