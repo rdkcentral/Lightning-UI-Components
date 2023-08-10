@@ -95,6 +95,7 @@ function isPlainObject(value) {
  * @returns {(String | Undefined)} - The value of the subTheme property, or undefined if none exists.
  */
 export const getSubTheme = obj => {
+  if (obj.subTheme) return obj.subTheme;
   let parent = obj.p;
   while (parent && !parent.subTheme) {
     parent = parent.parent;
@@ -119,7 +120,7 @@ export const getComponentConfig = obj => {
   return Array.from(prototypeChain)
     .reverse()
     .reduce((acc, curr) => {
-      return clone(acc, context.theme?.componentConfig?.[curr] || {});
+      return clone(acc, obj.theme?.componentConfig?.[curr] || {});
     }, {});
 };
 
