@@ -34,7 +34,6 @@ type ControlStyle = ButtonSmallStyle & {
 };
 
 declare namespace Control {
-  // TODO: need to replace Button with ButtonSmall here , but throws error. Is this correct now?
   export interface TemplateSpec extends Button.TemplateSpec {
     /**
      *  URL for the icon asset
@@ -42,7 +41,7 @@ declare namespace Control {
     icon?: string;
 
     /**
-     *  URL for the icon asset
+     *  URL for the image asset
      */
     logo?: string;
 
@@ -63,7 +62,7 @@ declare class Control<
   icon?: string;
 
   /**
-   *  URL for the icon asset
+   *  URL for the image asset
    */
   logo?: string;
 
