@@ -52,7 +52,7 @@ class Child extends Parent {
   }
 
   get theme() {
-    return context.theme
+    return context.theme;
   }
 }
 
