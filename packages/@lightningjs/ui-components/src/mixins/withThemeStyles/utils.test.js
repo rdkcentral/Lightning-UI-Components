@@ -50,6 +50,10 @@ class Child extends Parent {
       }
     };
   }
+
+  get theme() {
+    return context.theme
+  }
 }
 
 afterEach(async () => {

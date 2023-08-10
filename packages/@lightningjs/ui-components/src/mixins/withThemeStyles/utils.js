@@ -120,7 +120,7 @@ export const getComponentConfig = obj => {
   return Array.from(prototypeChain)
     .reverse()
     .reduce((acc, curr) => {
-      return clone(acc, obj.theme?.componentConfig?.[curr] || {});
+      return clone(acc, obj?.theme?.componentConfig?.[curr] || {});
     }, {});
 };
 
