@@ -17,7 +17,7 @@
  */
 
 import type lng from '@lightningjs/core';
-import ButtonSmall, { ButtonSmallStyle } from '../Button/ButtonSmall';
+import { ButtonSmallStyle } from '../Button/ButtonSmall';
 import Button from '../Button';
 import { StylePartial } from '../../types/lui';
 
@@ -55,7 +55,7 @@ declare namespace Control {
 declare class Control<
   TemplateSpec extends Control.TemplateSpec = Control.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
-> extends ButtonSmall<TemplateSpec, TypeConfig> {
+> extends Button<TemplateSpec, TypeConfig> {
   /**
    *  URL for the icon asset
    */
