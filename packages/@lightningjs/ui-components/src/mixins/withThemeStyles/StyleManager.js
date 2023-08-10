@@ -37,6 +37,7 @@ export default class StyleManager extends lng.EventEmitter {
     super(...arguments);
     this.init(component);
   }
+
   init(component) {
     this.isActive = true;
     this.component = component;
@@ -195,7 +196,8 @@ export default class StyleManager extends lng.EventEmitter {
 
     try {
       // Attempt to fetch style source from cache
-      let styleSource;
+      let styleSource = this._getCache('styleSource')?.payload;
+
       if (!styleSource) {
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
         styleSource = generateComponentStyleSource(this.component);
@@ -203,7 +205,7 @@ export default class StyleManager extends lng.EventEmitter {
       }
 
       // Attempt to fetch style from cache
-      let style;
+      let style = this._getCache(`style_${mode}_${tone}`)?.payload;
 
       if (!style) {
         // Style does not exist so will also need to be generated
