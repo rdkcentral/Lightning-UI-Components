@@ -21,7 +21,6 @@ import FocusManager from '.';
 import mdx from './FocusManager.mdx';
 import { CATEGORIES } from '../../docs/constants';
 import Button from '../Button';
-import { useArgs } from '@storybook/client-api';
 
 export default {
   title: `${CATEGORIES[8]}/FocusManager`,
@@ -33,8 +32,6 @@ export default {
 };
 
 export const Basic = () => {
-  const [args, updateArgs, resetArgs] = useArgs();
-  console.log(args,   )
   return class Basic extends lng.Component {
     static _template() {
       return {
@@ -45,25 +42,20 @@ export const Basic = () => {
         },
 
         itemsCol: [
-          { type: ButtonFixedWidth, title: 'Top'},
+          { type: ButtonFixedWidth, title: 'Top' },
           { type: ButtonFixedWidth, title: 'Center', y: 250 },
           { type: ButtonFixedWidth, title: 'Bottom', y: 500 }
         ],
 
         itemsRow: [
-          { type: ButtonFixedWidth, title: 'Left', x: 0, y: 250},
+          { type: ButtonFixedWidth, title: 'Left', x: 0, y: 250 },
           { type: ButtonFixedWidth, title: 'Center', x: 250, y: 250 },
           { type: ButtonFixedWidth, title: 'Right', x: 500, y: 250 }
         ]
-
-       
-
       };
     }
-
-  }
+  };
 };
-
 
 class ButtonFixedWidth extends Button {
   static get __componentName() {
@@ -101,16 +93,13 @@ Basic.argTypes = {
   }
 };
 
-Basic.parameters = { argActions: {
-  
-  direction: (direction, component) => {
+Basic.parameters = {
+  argActions: {
+    direction: (direction, component) => {
+      component.tag('FocusManager').items =
+        direction === 'row' ? component.itemsRow : component.itemsCol;
 
-    component.tag('FocusManager').items = direction === "row"
-    ?component.itemsRow
-    :component.itemsCol
-
-    component.tag('FocusManager').direction = direction
-
- }
-} 
+      component.tag('FocusManager').direction = direction;
+    }
+  }
 };
