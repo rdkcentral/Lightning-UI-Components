@@ -29,12 +29,14 @@ type ProviderStyle = {
   itemSpacing: number;
   radius: lng.Tools.CornerRadius;
 };
+
 declare namespace Provider {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
      * If true, disables the radius style property for Icon providers
      */
     disableRadius: boolean;
+
     /**
      * text to override counter's default '+Number' functionality
      */
@@ -45,10 +47,6 @@ declare namespace Provider {
      */
     providers?: Array<string>;
 
-    /**
-     * the number of providers that will be hidden by the counter
-     */
-    providersHidden: number;
     /**
      * the number of providers to show before adding a counter
      */
@@ -73,6 +71,7 @@ declare class Provider<
    *  If true, disables the radius style property for Icon providers
    */
   disableRadius: boolean;
+
   /**
    * Text to override counter's default '+Number' functionality
    */
@@ -84,13 +83,16 @@ declare class Provider<
   providers?: Array<string>;
 
   /**
-   * The number of providers that will be hidden by the counter
-   */
-  providersHidden: number;
-  /**
    * The number of providers to show before adding a counter
    */
   visibleCount?: number;
+
+  // Accessors
+
+  /**
+   *  Get the number of hidden providers
+   */
+  get providersHidden(): number;
 
   get style(): ProviderStyle;
   set style(v: StylePartial<ProviderStyle>);
