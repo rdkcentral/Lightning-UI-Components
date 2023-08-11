@@ -123,7 +123,7 @@ describe('ProgressBar', () => {
       }
     };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyle.animation.duration).toBe(duration);
+    expect(progressBar.style.animation.duration).toBe(duration);
     progressBar.progress = 1;
     await progressBar.__updateSpyPromise;
     expect(progressBar._Progress.transition('w').settings.duration).toBe(
@@ -141,7 +141,7 @@ describe('ProgressBar', () => {
       }
     };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyle.animation.timingFunction).toBe(curve);
+    expect(progressBar.style.animation.timingFunction).toBe(curve);
     expect(progressBar._Progress.transition('w').settings.timingFunction).toBe(
       curve
     );
@@ -157,7 +157,7 @@ describe('ProgressBar', () => {
       }
     };
     await progressBar.__updateSpyPromise;
-    expect(progressBar._componentStyle.animation.delay).toBe(delay);
+    expect(progressBar.style.animation.delay).toBe(delay);
     expect(progressBar._Progress.transition('w').settings.delay).toBe(delay);
   });
 

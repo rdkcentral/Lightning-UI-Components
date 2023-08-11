@@ -214,7 +214,7 @@ describe('AppAnnouncer', () => {
     // translateAbbrev.mockImplementation(phrase => phrase);
     testRenderer = TestRenderer.create(Component);
     announcer = testRenderer.getInstance();
-    setTimeout(() => done(), 1);
+    setTimeout(() => done(), 500);
   });
 
   describe('on App load', () => {

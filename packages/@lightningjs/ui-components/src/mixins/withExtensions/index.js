@@ -30,10 +30,12 @@ export default function withExtensions(Base) {
     }
 
     static get __componentName() {
-      if (super.__componentName) return super.__componentName;
-      throw new Error(
-        `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
-      );
+      if (!super.__componentName) {
+        throw new Error(
+          `A valid static __componentName property is required for theming to work properly. Please add this to the ${this.constructor.name} class.`
+        );
+      }
+      return super.__componentName;
     }
 
     static get _withExtensionsApplied() {
@@ -136,28 +138,23 @@ export default function withExtensions(Base) {
       this._appliedExtensionLength = 0; // After the extensions are applied we store the length of all to determine later on if they have been applied before
       this._extendedList = {};
       this._extensionInstance = {}; // This will hold the extension instance once created
-      this._updateExtensionBound = this._updateExtension.bind(this);
-      context.on('themeUpdate', this._updateExtensionBound);
-      this._updateExtension();
-      super._construct();
-    }
-
-    /**
-     * Detach the event listeners to prevent memory leaks.
-     */
-    _detach() {
-      super._detach();
-      this._clearExtensionListeners();
-    }
-
-    _clearExtensionListeners() {
-      context.off('themeUpdate', this._updateExtensionBound);
-    }
-
-    _updateExtension() {
+      this._setupExtensionBound = this._setupExtension.bind(this);
+      context.on('themeUpdate', this._setupExtensionBound);
       this._currentComponentExtensionLength =
         this._calculateComponentExtensionLength();
       this._createExtension();
+      super._construct();
+    }
+
+    _detach() {
+      super._detach();
+      context.off('themeUpdate', this._setupExtensionBound);
+    }
+
+    _setupExtension() {
+      this._currentComponentExtensionLength =
+        this._calculateComponentExtensionLength();
+      this._createExtension.call(this);
     }
 
     _resetComponent() {

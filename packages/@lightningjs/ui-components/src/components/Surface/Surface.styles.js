@@ -24,19 +24,14 @@ export const base = theme => ({
 
 export const mode = theme => ({
   focused: {
-    backgroundColor: theme.color.interactiveNeutralFocus
-  },
-  disabled: {
-    backgroundColor: theme.color.fillNeutralDisabled
-  }
-});
-
-export const tone = theme => ({
-  inverse: {
-    mode: {
-      focused: {
+    backgroundColor: theme.color.interactiveNeutralFocus,
+    tone: {
+      inverse: {
         backgroundColor: theme.color.interactiveInverseFocus
       }
     }
+  },
+  disabled: {
+    backgroundColor: theme.color.fillNeutralDisabled
   }
 });

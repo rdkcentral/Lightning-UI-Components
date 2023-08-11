@@ -273,8 +273,7 @@ export default class TextBox extends Base {
 
   get _textStyleSet() {
     const fontStyle = {
-      ...(this.theme.typography[this.style.defaultTextStyle] ||
-        this.theme.typography.body1),
+      ...this.theme.typography.body1,
       ...(null !== this.style.textStyle &&
       'object' === typeof this.style.textStyle &&
       Object.keys(this.style.textStyle)

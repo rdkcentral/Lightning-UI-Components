@@ -38,29 +38,19 @@ export const base = theme => ({
 export const mode = theme => ({
   focused: {
     textStyle: { textColor: theme.color.textInverse },
-    contentColor: theme.color.fillInverse
+    contentColor: theme.color.fillInverse,
+    tone: {
+      inverse: {
+        textStyle: { textColor: theme.color.textNeutral },
+        contentColor: theme.color.fillNeutral
+      },
+      brand: {
+        contentColor: theme.color.fillNeutral
+      }
+    }
   },
   disabled: {
     textStyle: { textColor: theme.color.textNeutralDisabled },
     contentColor: theme.color.fillNeutralDisabled
-  }
-});
-
-export const tone = theme => ({
-  neutral: {},
-  inverse: {
-    mode: {
-      focused: {
-        textStyle: { textColor: theme.color.textNeutral },
-        contentColor: theme.color.fillNeutral
-      }
-    }
-  },
-  brand: {
-    mode: {
-      focused: {
-        contentColor: theme.color.fillNeutral
-      }
-    }
   }
 });

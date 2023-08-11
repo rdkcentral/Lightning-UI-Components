@@ -35,20 +35,8 @@ export default class Shadow extends Base {
     return ['Frame', { name: 'Shadow', path: 'Frame.Shadow' }];
   }
 
-  get mode() {
-    return super.mode;
-  }
-  set mode(v) {
-    const shouldUpdateStyle = v !== this.mode;
-    super.mode = v;
-    if (shouldUpdateStyle) {
-      this._updateFocusStyle();
-    }
-  }
-
   _updateFocusStyle() {
     if (!this._Shadow) return;
-
     // TODO: think about how does the user know which styles are handled in the focus transition.
     this.applySmooth(
       this._Shadow,
@@ -105,8 +93,9 @@ export default class Shadow extends Base {
 
     // Set to should smooth after initial shadow patch has been created
     if (this.shouldSmooth === undefined) {
-      this._updateFocusStyle();
       this.shouldSmooth = true;
     }
+
+    this._updateFocusStyle();
   }
 }

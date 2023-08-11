@@ -23,8 +23,8 @@ function checkFileType(str) {
 
 /**
  * Creates an SVG canvas.
- * @param {Function} cb - The callback function.
- * @param {Object} stage - The stage object.
+ * @param {function} cb - The callback function.
+ * @param {object} stage - The stage object.
  * @param {string} url - The URL of the SVG.
  * @param {number} w - The width of the canvas.
  * @param {number} h - The height of the canvas.
@@ -56,10 +56,10 @@ function createSvg(cb, stage, url, w, h) {
 
 /**
  * Loads an image from the given source.
- * @param {Object} params - The parameters object.
+ * @param {object} params - The parameters object.
  * @param {string} params.src - The source URL of the image.
- * @param {Function} cb - The callback function.
- * @returns {Function} A cancel callback function.
+ * @param {function} cb - The callback function.
+ * @returns {function} A cancel callback function.
  */
 function imageLoader({ src }, cb) {
   const image = new Image();
@@ -99,7 +99,7 @@ function imageLoader({ src }, cb) {
 export default class CustomImageTexture extends lng.Texture {
   /**
    * Creates a new ImageTexture instance.
-   * @param {Object} stage - The stage object.
+   * @param {object} stage - The stage object.
    */
   constructor(stage) {
     super(stage);
@@ -198,7 +198,7 @@ export default class CustomImageTexture extends lng.Texture {
 
   /**
    * Gets the source loader function for the image texture.
-   * @returns {Function} The source loader function.
+   * @returns {function} The source loader function.
    */
   _getSourceLoader() {
     const w = this._w;
@@ -241,7 +241,7 @@ export default class CustomImageTexture extends lng.Texture {
 
   /**
    * Gets the non-default properties of the image texture.
-   * @returns {Object} The non-default properties.
+   * @returns {object} The non-default properties.
    */
   getNonDefaults() {
     const obj = super.getNonDefaults();
