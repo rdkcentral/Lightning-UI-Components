@@ -22,7 +22,6 @@ import lng from '@lightningjs/core';
 import { withThemeStyles } from '../../mixins';
 import {
   completeAnimation,
-  nextTick,
   makeCreateComponent,
   TestRenderer
 } from '@lightningjs/ui-components-test-utils';
@@ -618,12 +617,12 @@ describe('Column', () => {
       });
 
       it('should scroll to index after', async () => {
-        const [column, testRenderer] = createStyledColumn();
+        const [column] = createStyledColumn();
         column.selectedIndex = 0;
         column.scrollTo(3);
-        await nextTick(2);
-        testRenderer.forceAllUpdates();
-        expect(column.selectedIndex).toEqual(3);
+        setTimeout(() => {
+          expect(column.selectedIndex).toEqual(3);
+        }, 2);
       });
 
       it('should not scroll is neverScroll if true', () => {

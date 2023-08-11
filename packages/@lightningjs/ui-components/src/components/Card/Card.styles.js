@@ -33,31 +33,20 @@ export const base = theme => ({
 });
 
 export const mode = theme => ({
-  disabled: {
-    titleTextStyle: { textColor: theme.color.textNeutralDisabled }
-  }
-});
-
-export const tone = theme => ({
-  neutral: {
-    mode: {
-      focused: {
+  focused: {
+    tone: {
+      neutral: {
         backgroundColor: theme.color.interactiveNeutralFocusSoft
-      }
-    }
-  },
-  inverse: {
-    mode: {
-      focused: {
+      },
+      inverse: {
         backgroundColor: theme.color.interactiveInverseFocusSoft
-      }
-    }
-  },
-  brand: {
-    mode: {
-      focused: {
+      },
+      brand: {
         backgroundColor: theme.color.interactiveBrandFocusSoft
       }
     }
+  },
+  disabled: {
+    titleTextStyle: { textColor: theme.color.textNeutralDisabled }
   }
 });

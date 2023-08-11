@@ -41,9 +41,9 @@ import logger from '../globals/context/logger';
  *
  * @source underscore.js
  * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
+ * @param {function} function to wrap
+ * @param {number} timeout in ms (`100`)
+ * @param {boolean} whether to execute at the beginning (`false`)
  * @api public
  */
 export function debounce(func, wait, immediate) {
@@ -405,7 +405,7 @@ export function reduceFraction(string) {
 
 /**
  * Gets the value at `path` of `object`.
- * @param {Object} object
+ * @param {object} object
  * @param {string|Array} path
  * @return {*} value if exists else undefined
  */
@@ -494,8 +494,8 @@ export const RoundRect = {
 /**
  * Merges two objects together and returns the duplicate.
  *
- * @param {Object} target - object to be cloned
- * @param {Object} [object] - secondary object to merge into clone
+ * @param {object} target - object to be cloned
+ * @param {object} [object] - secondary object to merge into clone
  */
 export function clone(target, object) {
   // Make sure getters and setters are applied correctly
@@ -538,7 +538,7 @@ function getMergeValue(key, target, object) {
 
 /**
  * Returns the rendered width of a given text texture
- * @param {Object} text - text texture properties
+ * @param {object} text - text texture properties
  * @param {string} text.text - text value
  * @param {string} text.fontStyle - css font-style property
  * @param {(string|number)} text.fontWeight - css font-weight property
@@ -753,10 +753,10 @@ export function createConditionalZContext(component, zOffset) {
 
 /**
  * Runs a side effect function when any values of specified properties on an element change.
- * @param {Object} options - defines the `element`, `watchProps`, and `sideEffect` options
+ * @param {object} options - defines the `element`, `watchProps`, and `sideEffect` options
  * @param {lng.Element} options.element - Lightning element on which property changes will watched
  * @param {String[]} options.watchProps - properties that when their value changes a side effect function is invoked
- * @param {Function} options.sideEffect - function to be invoked when a watched property's value changes
+ * @param {function} options.sideEffect - function to be invoked when a watched property's value changes
  * @returns {lng.Element}
  */
 export function watchForUpdates({

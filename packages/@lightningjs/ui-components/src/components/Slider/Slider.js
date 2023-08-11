@@ -212,8 +212,10 @@ export default class Slider extends Base {
         y: this._SliderBar.y + 1,
         alpha: this._isFocusedMode && this.style.showKnob ? 1 : 0
       });
-
-      if (Object.keys(this.style.circleAnimation).length) {
+      if (
+        this.style.circleAnimation &&
+        Object.keys(this.style.circleAnimation).length
+      ) {
         this._Circle.smooth = {
           x: [xCirclePosition, this.style.circleAnimation]
         };
