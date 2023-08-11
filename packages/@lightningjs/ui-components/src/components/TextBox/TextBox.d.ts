@@ -19,9 +19,18 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
-import TextContent from '../InlineContent';
 import Marquee from '../Marquee';
 import InlineContent from '../InlineContent';
+
+// TODO: Properly export TextContent from root level of ui-components so we don't have to grab it from InlineContent
+type ContentBase = {
+  title?: string;
+  announce?: string;
+  style?: string | Record<string, unknown>;
+};
+export type TextContent =
+  | string
+  | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
 
 type TextBoxStyle = {
   offsetY: number;
