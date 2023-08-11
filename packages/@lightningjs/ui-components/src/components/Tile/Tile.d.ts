@@ -17,8 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { MetadataBaseStyle } from '../MetadataBase';
 import { StylePartial } from '../../types/lui';
 import { SurfaceStyle } from '../Surface';
 import Artwork from '../Artwork';
