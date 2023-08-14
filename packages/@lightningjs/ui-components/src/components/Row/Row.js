@@ -74,15 +74,18 @@ export default class Row extends NavigationManager {
 
   _shouldScroll() {
     const prevIndex = this.Items.childList.getIndex(this.prevSelected);
-      
+
     if (
-        this.lazyScroll &&
-        ( (this.selectedIndex < this.startLazyScrollIndex || this.selectedIndex > this.stopLazyScrollIndex || 
-          (prevIndex < this.startLazyScrollIndex && this.selectedIndex === this.startLazyScrollIndex) ||
-            (prevIndex > this.stopLazyScrollIndex && this.selectedIndex === this.stopLazyScrollIndex)))
-      ) {
-        // if lazy scroll is true and we are navigating to to the left of start index, the right of stop index, 
-        // from the left to the start, or from the right to the start 
+      this.lazyScroll &&
+      (this.selectedIndex < this.startLazyScrollIndex ||
+        this.selectedIndex > this.stopLazyScrollIndex ||
+        (prevIndex < this.startLazyScrollIndex &&
+          this.selectedIndex === this.startLazyScrollIndex) ||
+        (prevIndex > this.stopLazyScrollIndex &&
+          this.selectedIndex === this.stopLazyScrollIndex))
+    ) {
+      // if lazy scroll is true and we are navigating to to the left of start index, the right of stop index,
+      // from the left to the start, or from the right to the start
       return true;
     }
 
@@ -144,10 +147,18 @@ export default class Row extends NavigationManager {
         // No matches found in childList, start set x to 0
         return;
       }*/
-      debugger
-      if (prevIndex && prevIndex > this.selectedIndex && this._currentItemsContainerX) {
+
+      if (
+        prevIndex &&
+        prevIndex > this.selectedIndex &&
+        this._currentItemsContainerX
+      ) {
         itemsContainerX = this._currentItemsContainerX + this.selected.w;
-      } else if ( prevIndex && prevIndex < this.selectedIndex && this._currentItemsContainerX) {
+      } else if (
+        prevIndex &&
+        prevIndex < this.selectedIndex &&
+        this._currentItemsContainerX
+      ) {
         itemsContainerX = this._currentItemsContainerX - this.selected.w;
       }
 
