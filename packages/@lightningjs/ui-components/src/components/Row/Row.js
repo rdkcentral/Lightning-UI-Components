@@ -147,16 +147,22 @@ export default class Row extends NavigationManager {
         this._currentItemsContainerX
       ) {
         //navigating left
-        itemsContainerX = this._currentItemsContainerX + this.selected.w + this.style.itemSpacing +
-        (this.selected.extraItemSpacing || 0);;
+        itemsContainerX =
+          this._currentItemsContainerX +
+          this.selected.w +
+          this.style.itemSpacing +
+          (this.selected.extraItemSpacing || 0);
       } else if (
         prevIndex &&
         prevIndex < this.selectedIndex &&
         this._currentItemsContainerX
       ) {
         //navigating right
-        itemsContainerX = this._currentItemsContainerX - this.selected.w + this.style.itemSpacing +
-        (this.selected.extraItemSpacing || 0);
+        itemsContainerX =
+          this._currentItemsContainerX -
+          this.selected.w +
+          this.style.itemSpacing +
+          (this.selected.extraItemSpacing || 0);
       }
 
       return itemsContainerX;
