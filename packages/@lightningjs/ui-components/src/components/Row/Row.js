@@ -137,17 +137,18 @@ export default class Row extends NavigationManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
-      const selectedX = this.selected.transition('x')
+      /** const selectedX = this.selected.transition('x')
         ? this.selected.transition('x').targetValue
         : this.selected.x;
       if (prevIndex === -1) {
         // No matches found in childList, start set x to 0
         return;
-      }
-      if (prevIndex > this.selectedIndex) {
-        itemsContainerX = -selectedX;
-      } else if (prevIndex < this.selectedIndex) {
-        itemsContainerX = this.w - selectedX - this.selected.w;
+      }*/
+      debugger
+      if (prevIndex && prevIndex > this.selectedIndex && this._currentItemsContainerX) {
+        itemsContainerX = this._currentItemsContainerX + this.selected.w;
+      } else if ( prevIndex && prevIndex < this.selectedIndex && this._currentItemsContainerX) {
+        itemsContainerX = this._currentItemsContainerX - this.selected.w;
       }
 
       return itemsContainerX;
@@ -193,6 +194,7 @@ export default class Row extends NavigationManager {
           : this._getScrollX();
     }
     if (itemsContainerX !== undefined) {
+      this._currentItemsContainerX = itemsContainerX;
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
 
