@@ -140,26 +140,23 @@ export default class Row extends NavigationManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
-      /** const selectedX = this.selected.transition('x')
-        ? this.selected.transition('x').targetValue
-        : this.selected.x;
-      if (prevIndex === -1) {
-        // No matches found in childList, start set x to 0
-        return;
-      }*/
 
       if (
         prevIndex &&
         prevIndex > this.selectedIndex &&
         this._currentItemsContainerX
       ) {
-        itemsContainerX = this._currentItemsContainerX + this.selected.w;
+        //navigating left
+        itemsContainerX = this._currentItemsContainerX + this.selected.w + this.style.itemSpacing +
+        (this.selected.extraItemSpacing || 0);;
       } else if (
         prevIndex &&
         prevIndex < this.selectedIndex &&
         this._currentItemsContainerX
       ) {
-        itemsContainerX = this._currentItemsContainerX - this.selected.w;
+        //navigating right
+        itemsContainerX = this._currentItemsContainerX - this.selected.w + this.style.itemSpacing +
+        (this.selected.extraItemSpacing || 0);
       }
 
       return itemsContainerX;
