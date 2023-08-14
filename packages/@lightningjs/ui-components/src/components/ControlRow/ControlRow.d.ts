@@ -40,7 +40,7 @@ export interface TypeConfig extends lng.Component.TypeConfig {
   SignalMapType: SignalMap;
 }
 /**
- * This signal is emitted when an item is selected after an index determined by the lazyLoadBuffer property.
+ * The signal is emitted when an item is selected after an index determined by the lazyLoadBuffer property.
  */
 export type SignalMap = {
   loadMoreItems(): void;
@@ -55,7 +55,11 @@ declare class ControlRow<
    */
   extraItemSpacing?: number;
 
+  get style(): ControlRowStyle;
+  set style(v: StylePartial<ControlRowStyle>);
+
   // Methods
+
   /**
    * Adds items to the end of the row.
    * @param items An array of ControlRowItem to be added.
@@ -70,29 +74,16 @@ declare class ControlRow<
   addContentItemsAt(items: ControlRowItem[], index: number): void;
 
   /**
-   * Removes an item at the specified index.
-   * @param index The index of the item to be removed.
-   */
-  removeContentItemsAt(index: number): void;
-
-  /**
    * Adds controls to the end of the left controls.
    * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
    */
-  addLeftControls(
-    controls: ControlRowItem[] | ComponentPatchObj<ControlSmall>[]
-  ): void;
-
+  addLeftControls(controls: ControlRowItem[]): void;
   /**
    * Adds controls at a specified index of the left controls.
    * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
    * @param index The index where the controls should be added.
    */
-  addLeftControlsAt(
-    controls: ControlRowItem[] | ComponentPatchObj<ControlSmall>[],
-    index: number
-  ): void;
-
+  addLeftControlsAt(controls: ControlRowItem[], index: number): void;
   /**
    * Removes a left control at the specified index.
    * @param index The index of the left control to be removed.
@@ -103,28 +94,19 @@ declare class ControlRow<
    * Adds controls to the end of the right controls.
    * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
    */
-  addRightControls(
-    controls: ControlRowItem[] | ComponentPatchObj<ControlSmall>[]
-  ): void;
+  addRightControls(controls: ControlRowItem[]): void;
 
   /**
    * Adds controls at a specified index of the right controls.
    * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
    * @param index The index where the controls should be added.
    */
-  addRightControlsAt(
-    controls: ControlRowItem[] | ComponentPatchObj<ControlSmall>[],
-    index: number
-  ): void;
-
+  addRightControlsAt(controls: ControlRowItem[], index: number): void;
   /**
    * Removes a right control at the specified index.
    * @param index The index of the right control to be removed.
    */
   removeRightControlAt(index: number): void;
-
-  get style(): ControlRowStyle;
-  set style(v: StylePartial<ControlRowStyle>);
 }
 
 export { ControlRow as default, ControlRowStyle };
