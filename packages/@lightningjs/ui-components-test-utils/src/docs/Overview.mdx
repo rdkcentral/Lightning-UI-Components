@@ -32,3 +32,18 @@ The `@lightningjs/ui-components-test-utils` package provides 2 artifacts to assi
 - [completeAnimation](/story/docs-unit-testing-test-utils-completeanimation--page): Returns a Promise that resolves once all animating properties have updated to their target value(s).
 - [fastForward](/story/docs-unit-testing-test-utils-fastforward--page): Force all running Lightning Transitions on one or more Lightning Elements to finish and update the transitioning property to its target value immediately.
 - [nextTick](/story/docs-unit-testing-test-utils-nexttick--page): Creates a Promise that resolves after a defined amount of time. If no amount of time is specified, the Promise will resolve immediately.
+
+```js
+// jest.config.js
+
+const config = {
+  // ...other Jest config properties
+  setupFiles: ['jest-webgl-canvas-mock'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@lightningjs/ui-components-test-utils)/)'
+  ]
+  // ...other Jest config properties
+};
+
+export default config;
+```
