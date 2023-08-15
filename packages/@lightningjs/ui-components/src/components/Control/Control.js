@@ -166,7 +166,7 @@ export default class Control extends ButtonSmall {
       });
       // if logo is set to undefined but an icon is provided, display the icon
     } else if (this.icon) {
-      this._updatePrefixObj(this.icon);
+      this._updatePrefixObj(this.icon, { style: this.style.iconStyle });
     } else {
       this._prefix = logo;
     }
