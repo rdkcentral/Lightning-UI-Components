@@ -16,6 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import Control from './Control';
 
-export default class ControlSmall extends Control {}
+declare class ControlSmall<
+  TemplateSpec extends Control.TemplateSpec = Control.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Control<TemplateSpec, TypeConfig> {}
+
+export default ControlSmall;

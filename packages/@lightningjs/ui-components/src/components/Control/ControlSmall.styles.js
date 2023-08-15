@@ -34,7 +34,7 @@ export const base = theme => {
     },
     prefixH: theme.spacer.md * 5,
     radius,
-    textStyle: theme.typography.button2,
-    minWidth: theme.spacer.md * 8
+    minWidth: theme.spacer.md * 8,
+    textStyle: theme.typography.button2
   };
 };
