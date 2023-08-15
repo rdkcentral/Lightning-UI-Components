@@ -18,11 +18,11 @@
 
 export function base(theme) {
   return {
+    alpha: theme.alpha.primary,
     counterTextStyle: theme.typography.headline3,
     itemSize: theme.layout.gutterX.sm,
     itemSpacing: theme.spacer.md,
-    radius: theme.radius.sm,
-    alpha: theme.alpha.primary
+    radius: theme.radius.sm
   };
 }
 
