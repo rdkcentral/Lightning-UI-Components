@@ -23,7 +23,7 @@ import { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Keyboard/KeyboardFullscreen'
+  title: 'Components/KeyboardFullscreen'
 };
 
 export const KeyboardFullscreen = () =>

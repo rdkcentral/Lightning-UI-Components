@@ -22,7 +22,7 @@ import lngIcon from '../../assets/images/ic_lightning_white_32.png';
 import { default as TabComponent } from './Tab';
 
 export default {
-  title: 'Layout/Tab'
+  title: 'Components/Tab'
 };
 
 export const Tab = () =>

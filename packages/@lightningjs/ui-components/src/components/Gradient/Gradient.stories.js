@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { default as GradientComponent } from '.';
 
 export default {
-  title: 'Foundations/Gradient'
+  title: 'Components/Gradient'
 };
 
 export const Gradient = () =>

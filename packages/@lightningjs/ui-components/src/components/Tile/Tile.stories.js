@@ -29,7 +29,7 @@ import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 
 export default {
-  title: 'Tiles & Cards/Tile'
+  title: 'Components/Tile'
 };
 
 export const Tile = () =>

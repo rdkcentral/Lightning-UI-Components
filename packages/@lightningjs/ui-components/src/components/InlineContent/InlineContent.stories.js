@@ -22,7 +22,7 @@ import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
 
 export default {
-  title: 'Text/InlineContent',
+  title: 'Components/InlineContent',
   args: {
     contentWrap: false,
     justify: 'center',

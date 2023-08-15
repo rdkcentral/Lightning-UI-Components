@@ -22,7 +22,7 @@ import InlineContent from '../InlineContent';
 import { context } from '../../globals';
 
 export default {
-  title: 'Text/Marquee'
+  title: 'Components/Marquee'
 };
 
 export const Marquee = args =>

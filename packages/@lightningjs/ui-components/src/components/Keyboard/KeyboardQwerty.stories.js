@@ -23,7 +23,7 @@ import { default as KeyboardQwertyComponent } from './KeyboardQwerty';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Keyboard/KeyboardQwerty'
+  title: 'Components/KeyboardQwerty'
 };
 
 export const KeyboardQwerty = () =>

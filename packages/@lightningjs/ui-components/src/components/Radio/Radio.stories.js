@@ -21,7 +21,7 @@ import { default as RadioComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/Radio'
+  title: 'Components/Radio'
 };
 
 export const Radio = () =>

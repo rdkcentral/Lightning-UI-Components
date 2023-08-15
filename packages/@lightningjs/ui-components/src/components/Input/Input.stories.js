@@ -25,7 +25,7 @@ import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 
 export default {
-  title: 'Keyboard/Input'
+  title: 'Components/Input'
 };
 
 function getComponentArray(comps) {

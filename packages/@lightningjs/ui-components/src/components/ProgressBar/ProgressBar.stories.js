@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { default as ProgressBarComponent } from '.';
 
 export default {
-  title: 'Utilities/ProgressBar',
+  title: 'Components/ProgressBar',
   parameters: {
     tag: 'ProgressBar',
     actions: {

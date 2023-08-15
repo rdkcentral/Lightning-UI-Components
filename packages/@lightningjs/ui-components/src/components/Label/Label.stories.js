@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { default as LabelComponent } from '.';
 
 export default {
-  title: 'Metadata/Label'
+  title: 'Components/Label'
 };
 
 export const Label = () =>

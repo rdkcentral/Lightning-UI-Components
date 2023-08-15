@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { default as ArtworkComponent } from '.';
 
 export default {
-  title: 'Foundations/Artwork'
+  title: 'Components/Artwork'
 };
 
 export const Artwork = () =>

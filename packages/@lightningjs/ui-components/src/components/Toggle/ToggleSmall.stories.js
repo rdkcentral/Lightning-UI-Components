@@ -21,7 +21,7 @@ import { ToggleSmall as ToggleSmallComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/ToggleSmall'
+  title: 'Components/ToggleSmall'
 };
 
 export const ToggleSmall = () =>

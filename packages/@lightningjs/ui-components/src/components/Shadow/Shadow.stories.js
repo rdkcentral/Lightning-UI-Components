@@ -21,7 +21,7 @@ import { default as ShadowComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Foundations/Shadow'
+  title: 'Components/Shadow'
 };
 
 export const Shadow = () =>

@@ -23,7 +23,7 @@ import xfinityLogo from '../../assets/images/XfinityLogo16x9.png';
 import xfinity from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 
 export default {
-  title: 'Utilities/Provider'
+  title: 'Components/Provider'
 };
 
 const sharedArgs = {

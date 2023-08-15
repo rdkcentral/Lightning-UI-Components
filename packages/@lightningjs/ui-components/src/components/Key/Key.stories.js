@@ -22,7 +22,7 @@ import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Keyboard/Key'
+  title: 'Components/Key'
 };
 
 export const Basic = () =>

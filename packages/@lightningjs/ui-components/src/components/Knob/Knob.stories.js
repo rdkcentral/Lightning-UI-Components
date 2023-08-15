@@ -21,7 +21,7 @@ import { default as KnobComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/Knob'
+  title: 'Components/Knob'
 };
 
 export const Knob = () =>

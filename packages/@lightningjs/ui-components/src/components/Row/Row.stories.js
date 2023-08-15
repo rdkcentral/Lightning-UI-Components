@@ -26,7 +26,7 @@ import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';
 
 export default {
-  title: 'Navigation/Row',
+  title: 'Components/Row',
   parameters: {
     remountAll: true
   }

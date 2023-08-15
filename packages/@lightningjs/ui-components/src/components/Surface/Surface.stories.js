@@ -21,7 +21,7 @@ import { default as SurfaceComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Foundations/Surface'
+  title: 'Components/Surface'
 };
 
 export const Surface = () =>
