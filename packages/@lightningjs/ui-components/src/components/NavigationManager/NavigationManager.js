@@ -288,13 +288,18 @@ export default class NavigationManager extends FocusManager {
   _performRender() {}
 
   _appendItem(item) {
-    const { crossDimension } = this._directionPropNames;
-    const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
     this.shouldSmooth = false;
-
     item.parentFocus = this.hasFocus();
     item = this.Items.childList.a(item);
-    item[crossDimension] = item[crossDimension] || itemCrossSize;
+
+    const { crossDimension } = this._directionPropNames;
+    // do not set a h/w if the item already has one defined
+    // as this will trigger withThemeStyles's dimension "setByUser" flag
+    if (!item[crossDimension]) {
+      const itemCrossSize = this._isRow ? this.renderHeight : this.renderWidth;
+      item[crossDimension] = item[crossDimension] || itemCrossSize;
+    }
+
     item = this._withAfterUpdate(item);
   }
 
@@ -340,14 +345,17 @@ export default class NavigationManager extends FocusManager {
     this._totalAddedLength = 0;
 
     items.forEach((item, itemIdx) => {
-      this.Items.childList.addAt(
-        {
-          ...this._withAfterUpdate(item),
-          parentFocus: this.hasFocus(),
-          [crossDimension]: item[crossDimension] || this.Items[crossDimension]
-        },
-        addIndex + itemIdx
-      );
+      const newItem = {
+        ...this._withAfterUpdate(item),
+        parentFocus: this.hasFocus()
+      };
+      // do not set a h/w if the item already has one defined
+      // as this will trigger withThemeStyles's dimension "setByUser" flag
+      if (!item[crossDimension]) {
+        newItem[crossDimension] =
+          item[crossDimension] || this.Items[crossDimension];
+      }
+      this.Items.childList.addAt(newItem, addIndex + itemIdx);
       const itemLength =
         item[lengthDimension] || item[innerLengthDimension] || 0;
       const extraItemSpacing = item.extraItemSpacing || 0;
