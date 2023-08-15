@@ -100,6 +100,7 @@ exports[`ListItem renders 1`] = `
                     "textColor": 3019438074,
                     "type": "TextTexture",
                     "verticalAlign": "middle",
+                    "wordWrapWidth": 412,
                   },
                   "visible": true,
                   "w": 0,
