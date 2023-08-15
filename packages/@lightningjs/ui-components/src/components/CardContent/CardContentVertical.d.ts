@@ -16,8 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import CardContent, { CardContentStyle } from './CardContent';
+import lng from '@lightningjs/core';
+import CardContent from './CardContent';
 
-export type CardContentVerticalStyle = CardContentStyle;
+declare class CardContentVertical<
+  TemplateSpec extends CardContent.TemplateSpec = CardContent.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends CardContent<TemplateSpec, TypeConfig> {}
 
-export default class CardContentVertical extends CardContent {}
+export default CardContentVertical;

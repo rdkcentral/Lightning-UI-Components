@@ -16,10 +16,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import CardContentVertical, {
-  CardContentVerticalStyle
-} from './CardContentVertical';
+import lng from '@lightningjs/core';
+import CardContent from './CardContent';
+import CardContentVertical from './CardContentVertical';
 
-export type CardContentVerticalSmallStyle = CardContentVerticalStyle;
+declare class CardContentVerticalSmall<
+  TemplateSpec extends CardContent.TemplateSpec = CardContent.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends CardContentVertical<TemplateSpec, TypeConfig> {}
 
-export default class CardContentVerticalSmall extends CardContentVertical {}
+export default CardContentVerticalSmall;
