@@ -67,7 +67,6 @@ export default class Toggle extends Base {
     this._updateContainer();
     this._updateStroke();
     this._updateKnob();
-    this._updateTotalHeight();
     if (this._checkedChanged) {
       this.fireAncestors('$announce', this.announce);
       this._checkedChanged = false;
@@ -129,10 +128,6 @@ export default class Toggle extends Base {
         false
       )
     });
-  }
-  _updateTotalHeight() {
-    this.h = this._Container.h;
-    this.fireAncestors('$itemChanged');
   }
 
   _updateStroke() {
