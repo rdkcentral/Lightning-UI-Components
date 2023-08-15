@@ -21,7 +21,7 @@ import { context } from '../../globals';
 import { default as GridOverlayComponent } from '.';
 
 export default {
-  title: 'Foundations/GridOverlay'
+  title: 'Components/GridOverlay'
 };
 
 export const GridOverlay = args =>

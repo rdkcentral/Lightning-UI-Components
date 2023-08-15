@@ -48,7 +48,7 @@ const preview = {
       storySort: {
         method: 'alphabetical',
         order: [
-          'Documentation',
+          'Docs',
           [
             'Introduction',
             'Read Me',
@@ -66,19 +66,20 @@ const preview = {
               'Use in Storybook',
               'Theme Properties',
               '*'
+            ],
+            'Unit Testing',
+            [
+              'Overview',
+              'Test Renderer',
+              'Test Utils',
+              ['makeCreateComponent', '*']
             ]
           ],
           'Collections',
-          'Accessibility',
-          'Foundations',
           'Utilities',
-          'Navigation',
-          'Layout',
-          'Controls',
-          'Keyboard',
-          'Text',
-          'Metadata',
-          'Tiles & Cards'
+          'Components',
+          'Patterns',
+          'Templates'
         ]
       }
     }

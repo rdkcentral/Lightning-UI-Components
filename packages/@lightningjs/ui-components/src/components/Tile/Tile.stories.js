@@ -28,7 +28,7 @@ import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stor
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
 
 export default {
-  title: 'Tiles & Cards/Tile'
+  title: 'Components/Tile'
 };
 
 export const Tile = () =>

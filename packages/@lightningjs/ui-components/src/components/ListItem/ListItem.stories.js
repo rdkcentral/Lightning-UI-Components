@@ -25,7 +25,7 @@ import { default as Radio } from '../Radio';
 import { default as Toggle } from '../Toggle';
 
 export default {
-  title: 'Controls/ListItem'
+  title: 'Components/ListItem'
 };
 
 export const ListItem = () =>

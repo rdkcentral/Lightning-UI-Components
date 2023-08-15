@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { default as MetadataBaseComponent } from '.';
 
 export default {
-  title: 'Metadata/MetadataBase'
+  title: 'Components/MetadataBase'
 };
 
 export const MetadataBase = () =>

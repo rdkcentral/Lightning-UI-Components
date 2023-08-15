@@ -21,7 +21,7 @@ import { default as CardTitleComponent } from './CardTitle.js';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Tiles & Cards/CardTitle',
+  title: 'Components/CardTitle',
   tag: 'Card'
 };
 export const CardTitle = () =>

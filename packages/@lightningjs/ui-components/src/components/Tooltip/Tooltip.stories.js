@@ -22,7 +22,7 @@ import { createModeControl } from '../../docs/utils';
 import { default as TooltipComponent } from '.';
 
 export default {
-  title: 'Utilities/Tooltip',
+  title: 'Components/Tooltip',
   args: {
     title: 'Tooltip',
     delayVisible: 0,

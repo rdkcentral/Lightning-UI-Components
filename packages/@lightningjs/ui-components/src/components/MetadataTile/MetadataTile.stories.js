@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { default as MetadataTileComponent } from '.';
 
 export default {
-  title: 'Metadata/MetadataTile'
+  title: 'Components/MetadataTile'
 };
 
 export const MetadataTile = args =>

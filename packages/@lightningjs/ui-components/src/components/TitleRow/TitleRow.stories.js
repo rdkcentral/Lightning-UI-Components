@@ -32,7 +32,7 @@ const rowArgTypes = Object.keys(RowBasic.argTypes).reduce((acc, key) => {
 }, {});
 
 export default {
-  title: 'Navigation/TitleRow',
+  title: 'Components/TitleRow',
 
   args: {
     title: 'Row Title',

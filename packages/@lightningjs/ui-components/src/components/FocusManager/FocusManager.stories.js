@@ -21,7 +21,7 @@ import FocusManager from '.';
 import Button from '../Button';
 
 export default {
-  title: 'Navigation/FocusManager'
+  title: 'Components/FocusManager'
 };
 
 export const ColumnWithRows = () =>

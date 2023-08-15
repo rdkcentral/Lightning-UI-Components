@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { default as MetadataCardComponent } from '.';
 
 export default {
-  title: 'Metadata/MetadataCard'
+  title: 'Components/MetadataCard'
 };
 
 export const MetadataCard = () =>

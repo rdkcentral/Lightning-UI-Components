@@ -46,7 +46,7 @@ function createRow(props = {}) {
 }
 
 export default {
-  title: 'Navigation/NavigationManager'
+  title: 'Components/NavigationManager'
 };
 
 export const Row = () =>

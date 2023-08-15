@@ -21,7 +21,7 @@ import { default as ToggleComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/Toggle'
+  title: 'Components/Toggle'
 };
 
 export const Toggle = () =>

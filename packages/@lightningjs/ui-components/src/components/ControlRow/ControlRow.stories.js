@@ -26,7 +26,7 @@ import ControlRowComponent from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Navigation/ControlRow',
+  title: 'Components/ControlRow',
   args: {
     ...TitleRowStory.args,
     lazyScroll: true,

@@ -23,7 +23,7 @@ import { getHexColor } from '../../utils';
 import inlineContentStory from '../InlineContent/InlineContent.stories';
 
 export default {
-  title: 'Text/TextBox'
+  title: 'Components/TextBox'
 };
 
 const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =

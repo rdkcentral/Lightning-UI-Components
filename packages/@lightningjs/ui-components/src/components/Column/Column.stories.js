@@ -26,7 +26,7 @@ import { default as ColumnComponent } from '.';
 import { SignalButton } from '../../docs/story-components';
 
 export default {
-  title: 'Navigation/Column',
+  title: 'Components/Column',
   parameters: {
     remountAll: true
   }

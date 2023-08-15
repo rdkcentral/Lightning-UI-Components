@@ -21,7 +21,7 @@ import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row, Button } from '../../components';
 
 export default {
-  title: 'Accessibility/withAnnouncer',
+  title: 'Utilities/withAnnouncer',
   component: withAnnouncer
 };
 

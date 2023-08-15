@@ -21,7 +21,7 @@ import Radio from './RadioSmall.js';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Utilities/RadioSmall'
+  title: 'Components/RadioSmall'
 };
 
 export const RadioSmall = () =>

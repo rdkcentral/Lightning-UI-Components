@@ -24,7 +24,7 @@ import { createModeControl } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Controls/ControlSmall'
+  title: 'Components/ControlSmall'
 };
 
 export const ControlSmall = () =>

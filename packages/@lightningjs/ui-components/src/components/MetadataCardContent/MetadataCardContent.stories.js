@@ -22,7 +22,7 @@ import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Metadata/MetadataCardContent'
+  title: 'Components/MetadataCardContent'
 };
 
 export const MetadataCardContent = () =>

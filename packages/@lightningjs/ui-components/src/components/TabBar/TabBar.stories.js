@@ -32,7 +32,7 @@ import Tab from './Tab.js';
 import TabBarComponent from '.';
 
 export default {
-  title: 'Layout/TabBar',
+  title: 'Components/TabBar',
   args: {
     collapse: false,
     alphaSelectedTab: false,

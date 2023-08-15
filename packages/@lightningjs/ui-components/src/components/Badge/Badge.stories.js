@@ -22,7 +22,7 @@ import lightning from '../../assets/images/ic_lightning_white_32.png';
 import circle from '../../assets/images/circle.svg';
 
 export default {
-  title: 'Metadata/Badge'
+  title: 'Components/Badge'
 };
 
 export const Text = args =>

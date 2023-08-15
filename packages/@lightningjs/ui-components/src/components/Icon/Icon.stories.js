@@ -21,7 +21,7 @@ import Icon from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
-  title: 'Foundations/Icon',
+  title: 'Components/Icon',
   parameters: {
     argActions: {
       w: (w, component) => {

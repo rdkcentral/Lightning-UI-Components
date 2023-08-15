@@ -23,7 +23,7 @@ import utils from '../../utils';
 import { default as KeyboardComponent } from './Keyboard';
 
 export default {
-  title: 'Keyboard/Keyboard'
+  title: 'Components/Keyboard'
 };
 
 export const Keyboard = () =>
