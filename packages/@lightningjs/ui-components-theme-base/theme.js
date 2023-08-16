@@ -209,7 +209,7 @@ export default {
     marginY: 150,
     safe: 50,
     gutterX: 20,
-    gutterY: 80,
+    gutterY: 20,
     focusScale: 1.2
   },
   radius: { none: 0, xs: 2, sm: 4, md: 8, lg: 16, xl: 24 },
