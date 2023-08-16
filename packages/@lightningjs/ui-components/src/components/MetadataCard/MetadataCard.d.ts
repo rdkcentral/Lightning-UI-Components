@@ -16,6 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { default as MetadataBase } from '../MetadataBase';
+import MetadataBase from '../MetadataBase';
 
-export default class MetadataCard extends MetadataBase {}
+declare class MetadataCard<
+  TemplateSpec extends MetadataBase.TemplateSpec = MetadataBase.TemplateSpec,
+  TypeConfig extends MetadataBase.TypeConfig = MetadataBase.TypeConfig
+> extends MetadataBase<TemplateSpec, TypeConfig> {}
+
+export default MetadataCard;
