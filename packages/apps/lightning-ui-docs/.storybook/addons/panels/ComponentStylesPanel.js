@@ -31,6 +31,7 @@ import {
   updateGlobalTheme
 } from '../../utils/themeUtils';
 
+//NOTE: returns string for the control type to use
 function getControlType(value) {
   try {
     if (utils.getValidColor(value)) {
@@ -43,6 +44,7 @@ function getControlType(value) {
   }
 }
 
+//NOTE: called in debouncedUpdateComponentValue(),
 const updateComponentValue = (
   componentName,
   styleProp,
@@ -61,6 +63,7 @@ const updateComponentValue = (
   );
 };
 
+//NOTE: delays processing for # microseconds
 const debouncedUpdateComponentValue = debounce(function (
   componentName,
   prop,
@@ -71,8 +74,8 @@ const debouncedUpdateComponentValue = debounce(function (
 },
 500);
 
-let storybookInit;
-let version;
+let storybookInit; // NOTE: boolean
+let version; // NOTE: date used for deciding updates?
 let component;
 export default params => {
   const APP = globalApp();
@@ -103,7 +106,6 @@ export default params => {
   }, [tone]);
 
   function updatePanel() {
-    console.log('updatePanel');
     updateTone();
     setFields();
   }

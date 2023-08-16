@@ -79,7 +79,7 @@ addons.register(ids.ADDON_ID, () => {
     type: types.PANEL,
     title: 'Component Style Theme Values',
     match: ({ viewMode }) => viewMode === 'story',
-    render: ComponentStylesPanel
+    render: (params, api) => ComponentStylesPanel(params, api)
   });
 
   //   // Global Theme Panel

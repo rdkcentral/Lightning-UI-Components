@@ -42,7 +42,7 @@ const preview = {
       theme: themes.dark
     },
     options: {
-      /**  v7 storySort must be self-contained function & no reference to outside variables
+      /** NOTE:  v7 storySort must be self-contained function & no reference to outside variables
      https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#v7-style-story-sort
       */
       storySort: {
