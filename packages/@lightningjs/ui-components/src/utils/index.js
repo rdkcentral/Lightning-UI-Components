@@ -185,7 +185,7 @@ export function getWidthByUpCount(theme, upCount = 1) {
   const screenW = theme.layout.screenW;
   const columnCount = theme.layout.columnCount;
   const marginX = theme.layout.marginX;
-  const gutterX = theme.layout.gutterX.xs;
+  const gutterX = theme.layout.gutterX;
 
   if (upCount < 1 || upCount > columnCount) {
     console.error(
@@ -212,7 +212,7 @@ export function getWidthByUpCount(theme, upCount = 1) {
  */
 export function getWidthByColumnSpan(theme, columnSpan) {
   const columnCount = theme.layout.columnCount;
-  const gutterX = theme.layout.gutterX.xs;
+  const gutterX = theme.layout.gutterX;
 
   return (
     getWidthByUpCount(theme, columnCount) * columnSpan +
@@ -229,7 +229,7 @@ export function getWidthByColumnSpan(theme, columnSpan) {
 export function getColumnX(theme, column = 1) {
   const columnCount = theme.layout.columnCount;
   const marginX = theme.layout.marginX;
-  const gutterX = theme.layout.gutterX.xs;
+  const gutterX = theme.layout.gutterX;
 
   return marginX + (getWidthByUpCount(theme, columnCount) + gutterX) * column;
 }

@@ -285,11 +285,11 @@ class ColumnContainer extends Base {
         w: 1920 - 160,
         h: 600,
         clipping: true,
-        y: context.theme.layout.gutterY.xs * -1,
+        y: context.theme.layout.gutterY * -1,
         x: 40 * -1,
         Column: {
           type: Column,
-          y: context.theme.layout.gutterY.xs,
+          y: context.theme.layout.gutterY,
           x: 40,
           items: [
             {

@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  itemSpacing: theme.layout.gutterX.xs,
+  itemSpacing: theme.layout.gutterX,
   scrollIndex: 0,
   alwaysScroll: false,
   neverScroll: false,
