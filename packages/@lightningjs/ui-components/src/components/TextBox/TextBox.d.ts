@@ -28,7 +28,7 @@ type ContentBase = {
   announce?: string;
   style?: string | Record<string, unknown>;
 };
-export type TextContent =
+type TextContent =
   | string
   | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
 
@@ -121,4 +121,4 @@ declare class TextBox<
   get _Text(): TextBox;
 }
 
-export { TextBox as default, TextBoxStyle };
+export { TextBox as default, TextBoxStyle, TextContent };
