@@ -18,7 +18,6 @@
 
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
-import { SurfaceStyle } from '../Surface';
 import Artwork from '../Artwork';
 import TextBox from '../TextBox';
 import ProgressBar from '../ProgressBar';
@@ -26,7 +25,7 @@ import MetadataBase from '../MetadataBase';
 import Badge from '../Badge';
 import Checkbox from '../Checkbox';
 import Label from '../Label';
-import Surface from '../Surface';
+import Surface, { SurfaceStyle } from '../Surface';
 
 type TileStyle = SurfaceStyle & {
   animationEntrance: lng.types.TransitionSettings.Literal;
