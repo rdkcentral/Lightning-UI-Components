@@ -141,4 +141,21 @@ class NewComponent extends lng.Component {
 
 In both cases, you'll notice that there is a `__componentName` getter in our `Box` class. This name is what is used to reference our component for any overrides and extension assignments that might exist in our theme's `componentConfig`.
 
+### Mode Changes
+
+Instead of extending a component to access the focus or unfocus methods of a component, or to add any custom functionality for a specific mode, you can tap into "on" methods for mode changes. Similarly to the `on[KeyName]` methods exposed via the [withHandleKey](?path=/docs/utilities-withhandlekey--with-handle-key) mixin, all mode changes are linked to `on[ModeName]` methods, which are triggered when the `mode` of the component is set to a new value.
+
+For example, if a component has an `unfocused`, `focused`, and `disabled` mode, the `onUnfocused`, `onFocused`, and `onDisabled` methods will be called on change to the associated mode. Any custom modes beyond these three will also be added to the method list. When using a component, all of those methods can be accessed and set like other component properties, like this:
+
+```js
+class NewComponent extends lng.Component {
+  _template() {
+    Box: {
+      type: withThemeStyles(Box, style),
+      onFocused: () => { console.log('mode changed to focused!'); }
+    }
+  }
+}
+```
+
 For more information on all of the ways you can set up your styles to fully utilize this mixin, read through the [Theming Documentation](?path=/docs/docs-theming-overview--page).
