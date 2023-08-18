@@ -74,7 +74,10 @@ export {
   MetadataCardContentStyle
 } from './MetadataCardContent';
 export { default as MetadataTile, MetadataTileStyle } from './MetadataTile';
-export { default as NavigationManager } from './NavigationManager';
+export {
+  default as NavigationManager,
+  NavigationManagerStyle
+} from './NavigationManager';
 export { default as ProgressBar, ProgressBarStyle } from './ProgressBar';
 export { default as Provider, ProviderStyle } from './Provider';
 export { default as Radio, RadioStyle } from './Radio';
