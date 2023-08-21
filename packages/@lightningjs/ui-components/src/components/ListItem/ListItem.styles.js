@@ -25,10 +25,10 @@ export const base = theme => ({
     maxLines: 1,
     textColor: theme.color.textNeutralSecondary
   },
-  h: theme.spacer.xxl * 3,
+  height: theme.spacer.xxl * 3,
   logoStyle: {
-    w: theme.spacer.xxl * 2,
-    h: theme.spacer.xxl * 2,
+    width: theme.spacer.xxl * 2,
+    height: theme.spacer.xxl * 2,
     radius: theme.radius.sm
   },
   paddingX: theme.spacer.xl,
@@ -40,7 +40,7 @@ export const base = theme => ({
     maxLines: 1,
     textColor: theme.color.textNeutral
   },
-  w: utils.getWidthByColumnSpan(theme, 3)
+  width: utils.getWidthByColumnSpan(theme, 3)
 });
 
 export const mode = theme => ({

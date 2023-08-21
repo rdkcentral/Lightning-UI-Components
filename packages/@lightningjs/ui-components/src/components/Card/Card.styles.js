@@ -19,7 +19,7 @@
 import utils from '../../utils';
 
 export const base = theme => ({
-  h: theme.spacer.xxl * 12,
+  height: theme.spacer.xxl * 12,
   paddingHorizontal: theme.spacer.xl,
   paddingVertical: theme.spacer.xl,
   radius: theme.radius.md,
@@ -29,7 +29,7 @@ export const base = theme => ({
     maxLines: 2,
     textColor: theme.color.textNeutral
   },
-  w: utils.getWidthByUpCount(theme, 6)
+  width: utils.getWidthByUpCount(theme, 6)
 });
 
 export const mode = theme => ({

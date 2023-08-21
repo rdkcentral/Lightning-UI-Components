@@ -23,8 +23,8 @@ export const base = theme => ({
   expandedH: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 })
     .h,
   imageSize: {
-    w: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).w,
-    h: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).h
+    width: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).w,
+    height: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).h
   },
   metadata: { descriptionTextStyle: { maxLines: 2 } },
   paddingVertical: theme.spacer.md * 1.5

@@ -20,8 +20,8 @@ export const base = theme => {
   const size = theme.spacer.xxl;
   return {
     alpha: theme.alpha.primary,
-    w: size,
-    h: size,
+    width: size,
+    height: size,
     knobHeight: size / 2,
     knobWidth: size / 2,
     radius: size / 2,

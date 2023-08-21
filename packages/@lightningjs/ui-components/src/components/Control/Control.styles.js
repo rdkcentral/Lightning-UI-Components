@@ -22,16 +22,16 @@ export const base = theme => {
   const logoRadius = Math.max(radius - paddingX / 2, 0);
 
   return {
-    h: theme.spacer.md * 8,
+    height: theme.spacer.md * 8,
     iconStyle: {
       radius: radius,
-      w: theme.spacer.xxxl,
-      h: theme.spacer.xxxl
+      width: theme.spacer.xxxl,
+      height: theme.spacer.xxxl
     },
     logoStyle: {
       radius: logoRadius,
-      w: theme.spacer.md * 7,
-      h: theme.spacer.md * 6
+      width: theme.spacer.md * 7,
+      height: theme.spacer.md * 6
     },
     minWidth: theme.spacer.md * 9,
     paddingX,
