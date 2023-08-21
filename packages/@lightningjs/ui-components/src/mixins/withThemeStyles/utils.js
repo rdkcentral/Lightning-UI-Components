@@ -568,30 +568,24 @@ export const getStyleChain = componentObj => {
  * @returns {object} The style object with alias values replaced.
  */
 export const replaceAliasValues = (value, aliasStyles = []) => {
-  const styleObj = clone(value, {});
+  let str = JSON.stringify(value);
   const aliasProps = [
     { prev: 'height', curr: 'h', skipWarn: true },
     { prev: 'width', curr: 'w', skipWarn: true },
-    ...aliasStyles
+    ...(aliasStyles || [])
   ];
   aliasProps.forEach(alias => {
     if (
       alias &&
       typeof alias.prev === 'string' &&
-      typeof alias.curr === 'string' &&
-      styleObj[alias.prev]
+      typeof alias.curr === 'string'
     ) {
       !alias.skipWarn &&
         console.warn(
           `The style property "${alias.prev}" is deprecated and will be removed in a future release. Please use "${alias.curr}" instead.`
         );
-      Object.defineProperty(
-        styleObj,
-        alias.curr,
-        Object.getOwnPropertyDescriptor(styleObj, alias.prev)
-      );
-      delete styleObj[alias.prev];
+      str = str.replaceAll(`"${alias.prev}":`, `"${alias.curr}":`);
     }
   });
-  return styleObj;
+  return JSON.parse(str);
 };
