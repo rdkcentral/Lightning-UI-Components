@@ -55,14 +55,14 @@ export default class Tile extends Surface {
   static get properties() {
     return [
       'artwork',
-      'circle',
       'badge',
       'checkbox',
+      'circle',
+      'label',
       'metadata',
       'metadataLocation',
       'persistentMetadata',
       'progressBar',
-      'label',
       'src'
     ];
   }
