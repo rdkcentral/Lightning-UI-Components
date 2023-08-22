@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import NavigationManager from './NavigationManager';
+import NavigationManager, { NavigationManagerStyle } from './NavigationManager';
 
-export { NavigationManager as default };
+export { NavigationManager as default, NavigationManagerStyle };

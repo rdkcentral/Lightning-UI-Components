@@ -17,13 +17,19 @@
  */
 
 import lng from '@lightningjs/core';
-import { MetadataBaseStyle } from '../MetadataBase';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
+import Artwork from '../Artwork';
+import TextBox from '../TextBox';
+import ProgressBar from '../ProgressBar';
+import MetadataBase from '../MetadataBase';
+import Badge from '../Badge';
+import Checkbox from '../Checkbox';
+import Label from '../Label';
 import Surface, { SurfaceStyle } from '../Surface';
 
-export type TileStyle = SurfaceStyle & {
-  animationEntrance: Record<string, unknown>;
-  animationExit: Record<string, unknown>;
+type TileStyle = SurfaceStyle & {
+  animationEntrance: lng.types.TransitionSettings.Literal;
+  animationExit: lng.types.TransitionSettings.Literal;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;
@@ -31,33 +37,103 @@ export type TileStyle = SurfaceStyle & {
   paddingYBetweenContent: number;
   radius: lng.Tools.CornerRadius | string;
 };
+declare namespace Tile {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    /**
+     * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
+     */
+    artwork: lng.Element.PatchTemplate<Artwork.TemplateSpec>;
+    /**
+     * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
+     */
+    badge?: lng.Element.PatchTemplate<Badge.TemplateSpec>;
 
-// Utility type to get a PatchTemplate by Component constructor.
-// TODO: Replace this with an official version from Lightning when one exists
-// type PatchTemplate<T extends lng.Element.Constructor> =
-//   lng.Element.PatchTemplate<lng.Element.ExtractTemplateSpec<InstanceType<T>>>;
+    /**
+     * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
+     */
+    checkbox?: lng.Element.PatchTemplate<Checkbox.TemplateSpec>;
+    /**
+     * If true, changes format of itemLayout to circle
+     */
+    circle?: boolean;
+    /**
+     * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
+     */
+    label?: lng.Element.PatchTemplate<Label.TemplateSpec>;
+    /**
+     * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
+     */
+    metadataLocation?: 'standard' | 'inset';
+    /**
+     * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
+     */
+    metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
+    /**
+     * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
+     */
+    persistentMetadata?: boolean;
+    /**
+     * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
+     */
+    progressBar?: lng.Element.PatchTemplate<ProgressBar.TemplateSpec>;
+  }
+}
+declare class Tile<
+  TemplateSpec extends Tile.TemplateSpec = Tile.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
+  // Properties
+  /**
+   * Object containing all properties supported in the [Artwork component](?path=/docs/components-artwork--artwork)
+   */
+  artwork: lng.Element.PatchTemplate<Artwork.TemplateSpec>;
+  /**
+   * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
+   */
+  badge?: lng.Element.PatchTemplate<Badge.TemplateSpec>;
 
-export default class Tile extends Surface {
-  // TODO: Replace value with PatchTemplate<typeof Artwork> when the Component template specs are created
-  artwork?: Record<string, unknown>;
-  badge?: Record<string, unknown>;
-  checkbox?: Record<string, unknown>;
-  label?: Record<string, unknown>;
-  metadataLocation?: string;
-  metadata?: MetadataBaseStyle;
+  /**
+   * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
+   */
+  checkbox?: lng.Element.PatchTemplate<Checkbox.TemplateSpec>;
+  /**
+   * If true, changes format of itemLayout to circle
+   */
+  circle?: boolean;
+  /**
+   * Object containing all properties supported in the [Label component](?path=/docs/components-label--label)
+   */
+  label?: lng.Element.PatchTemplate<Label.TemplateSpec>;
+  /**
+   * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
+   */
+  metadataLocation?: 'standard' | 'inset';
+  /**
+   * Object containing all properties supported in the [MetadataTile component](?path=/docs/components-metadatatile--metadata-tile)<br /> Can use a different Metadata component by passing in a 'type' and then that component's properties
+   */
+  metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
+  /**
+   * Metadata will be shown at all times if set to true, otherwise it will only show when the Tile has focusMetadata will be shown at all times if set to true, otherwise it will only show when the Tile has focus
+   */
   persistentMetadata?: boolean;
-  progressBar?: Record<string, unknown>;
+  /**
+   * Object containing all properties supported in the [ProgressBar component](?path=/docs/components-progressbar--progress-bar)
+   */
+  progressBar?: lng.Element.PatchTemplate<ProgressBar.TemplateSpec>;
+
   get innerH(): number;
   get style(): TileStyle;
   set style(v: StylePartial<TileStyle>);
 
   // tags
-  get _Artwork(): lng.Component;
-  get _Content(): lng.Component;
-  get _Tile(): lng.Component;
-  get _Badge(): lng.Component;
-  get _Checkbox(): lng.Component;
-  get _Metadata(): lng.Component;
-  get _ProgressBar(): lng.Component;
-  get _Label(): lng.Component;
+  get _Artwork(): Artwork;
+  get _Content(): TextBox;
+  get _Tile(): TextBox;
+  get _Badge(): Badge;
+  get _Checkbox(): Checkbox;
+  get _Metadata(): MetadataBase;
+  get _ProgressBar(): ProgressBar;
+  get _Label(): Label;
 }
+
+export { Tile as default, TileStyle };
