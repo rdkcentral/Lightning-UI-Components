@@ -43,6 +43,11 @@ export default class Column extends NavigationManager {
       shouldScroll =
         lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
     }
+
+    if (this.selectedIndex < this.scrollIndex) {
+      shouldScroll = false;
+    }
+
     return shouldScroll;
   }
 
