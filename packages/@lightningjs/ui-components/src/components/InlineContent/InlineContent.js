@@ -197,7 +197,7 @@ export default class InlineContent extends Base {
 
       if (isNewLineElement) {
         line++;
-        contentEndX = w;
+        contentEndX = 0;
         return acc;
       }
 
