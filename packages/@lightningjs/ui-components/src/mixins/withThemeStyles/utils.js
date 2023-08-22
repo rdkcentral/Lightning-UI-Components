@@ -330,7 +330,11 @@ export const generateComponentStyleSource = component => {
     }
 
     if (componentConfigStyle) {
-      finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in the root level of style
+      const overwrite = JSON.parse(JSON.stringify(componentConfigStyle));
+      delete overwrite.base;
+      delete overwrite.tone;
+      delete overwrite.mode;
+      finalStyle = clone(finalStyle, { overwrite }); // Anything in the root level of style
     }
 
     if (componentConfigStyle?.tone) {
@@ -356,6 +360,16 @@ export const generateComponentStyleSource = component => {
     }
 
     const componentStyle = component._componentLevelStyle;
+
+    if (componentStyle) {
+      const overwrite = JSON.parse(JSON.stringify(componentStyle));
+      delete overwrite.base;
+      delete overwrite.tone;
+      delete overwrite.mode;
+      finalStyle = clone(finalStyle, {
+        overwrite
+      });
+    }
 
     if (componentStyle?.base) {
       finalStyle = clone(finalStyle, {
@@ -403,6 +417,7 @@ export const generateComponentStyleSource = component => {
   }
 
   // Return the final processed style object
+
   return formatStyleObj(
     removeEmptyObjects(colorParser(component, solution)) || {},
     component.constructor.aliasStyles
@@ -439,7 +454,7 @@ export const colorParser = (component, styleObj) => {
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
-
+  // if (component.constructor.name === 'Button') debugger
   const { mode = 'unfocused', tone = 'neutral' } = component;
 
   const style =
