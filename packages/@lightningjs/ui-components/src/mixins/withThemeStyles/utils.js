@@ -403,7 +403,10 @@ export const generateComponentStyleSource = component => {
   }
 
   // Return the final processed style object
-  return removeEmptyObjects(colorParser(component, solution)) || {};
+  return formatStyleObj(
+    removeEmptyObjects(colorParser(component, solution)) || {},
+    component.constructor.aliasStyles
+  );
 };
 
 /**
@@ -449,7 +452,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   if (componentStyle) {
     return clone(style, colorParser(component, componentStyle));
   }
-  return style;
+  return formatStyleObj(style, component.constructor.aliasStyles);
 };
 
 /**
@@ -559,6 +562,33 @@ export const getStyleChain = componentObj => {
       style
     }))
     .reverse();
+};
+
+/**
+ * Formats a style object by applying a series of formatter functions.
+ *
+ * @param {object} originalObj - The original style object to be formatted.
+ * @param {array} [aliasStyles=[]] - An array of alias styles to be used during formatting.
+ * @returns {object} The formatted style object after applying all formatter functions.
+ */
+export const formatStyleObj = (originalObj, aliasStyles = []) => {
+  const formatters = new Set();
+
+  // Adding a key-value pair to the 'formatters' Set.
+  // This pattern is used so more formatters can be easily added if required at a later time
+  formatters.add([replaceAliasValues, [aliasStyles]]);
+
+  // Generating an array from the 'formatters' Set
+  const formattersArray = Array.from(formatters);
+
+  // Using reduce to apply functions from 'formattersArray' to 'finalStyle'
+  // Each function takes 'obj' (initially 'finalStyle') as input and applies transformations
+  // The result of the previous function is passed as input to the next function
+  // The final transformed style is assigned to 'this._style'
+  return formattersArray.reduce(
+    (obj, [func, args]) => func(obj, ...args),
+    originalObj
+  );
 };
 
 /**
