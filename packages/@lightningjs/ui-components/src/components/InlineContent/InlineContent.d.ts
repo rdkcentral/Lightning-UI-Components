@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 import Badge from '../Badge';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
+import TextContent from '../TextBox/TextBox';
 
 type JustifyContent =
   | 'flex-start'
@@ -28,16 +29,6 @@ type JustifyContent =
   | 'space-between'
   | 'space-around'
   | 'space-evenly';
-
-type ContentBase = {
-  title?: string;
-  announce?: string;
-  style?: string | Record<string, unknown>;
-};
-
-export type TextContent =
-  | string
-  | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
 
 type FlexItem = {
   grow?: number;

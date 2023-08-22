@@ -28,6 +28,7 @@ type ContentBase = {
   announce?: string;
   style?: string | Record<string, unknown>;
 };
+
 type TextContent =
   | string
   | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
