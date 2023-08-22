@@ -1,0 +1,14 @@
+# TypeScript and @lightningjs/ui-components
+
+As of version 5.0, @lightningjs/ui-components ships with class definitions for all components. These definitions provide types for all public methods and properties. We're currently working to add support for `SignalMaps` as well as both app and component-level `FireAncestors` definitions. Leveraging these types should be as simple as installing the @lightningjs/ui-components package in any TypeScript project and developing as usual.
+
+The only special setup required at this time is for app-level augmentations, specifically for `FireAncestors`. To configure this there are two paths forward:
+
+1. apply full the @lightningjs/ui-components augmentation following the instructions found here: https://lightningjs.io/docs/#/lightning-core-reference/TypeScript/Augmentation?id=lightningcomponentfireancestorsmap. Ensure the `FireAncestorMaps` in the above example extends @lightningjs/ui-component's types.augmentations.FireAncestorsMap.
+
+2. add the FireAncestorMaps of each component you use to a custom augmentation. Follow the above instructions, however instead of extending the library's FireAncestorsMap, import the components your application uses into the augment and add them to the interface.
+
+
+We are constantly iterating on these to provide more clear and accurate definitions, so keep up with us in the @lightningjs discord server. 
+
+For more information on TypeScript in the @lightningjs ecosystem read https://lightningjs.io/docs/#/lightning-core-reference/TypeScript/index?id=typescript
