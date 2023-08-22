@@ -49,7 +49,7 @@ describe('ControlSmall', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
-        h: expect.any(Number),
+        height: expect.any(Number),
         logoStyle: expect.any(Object),
         prefixH: expect.any(Number),
         radius: expect.any(Number),
