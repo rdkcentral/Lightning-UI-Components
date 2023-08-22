@@ -30,6 +30,9 @@ declare namespace Column {
   }
 
   export interface FireAncestorsMap {
+    /**
+     * fires at the end of the $removeItem method if no children remain
+     */
     $columnEmpty(): void;
   }
 }

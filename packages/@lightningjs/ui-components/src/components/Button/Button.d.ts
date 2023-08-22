@@ -53,7 +53,7 @@ declare namespace Button {
       | Array<typeof lng.Component<lng.Component.TemplateSpecLoose>>;
 
     /**
-     * Lightning component(s )to be placed to the right of the title
+     * Lightning component(s) to be placed to the right of the title
      */
     suffix?:
       | typeof lng.Component<lng.Component.TemplateSpecLoose>
@@ -63,6 +63,13 @@ declare namespace Button {
      * Button text
      */
     title?: string;
+  }
+
+  export interface FireAncestorsMap {
+    /**
+     * Fires when the Button's dimensions change
+     */
+    $itemChanged(): void;
   }
 }
 
