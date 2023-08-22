@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tile renders 1`] = `
+exports[`Tile basic renders 1`] = `
 {
   "Component": {
     "Background": {
