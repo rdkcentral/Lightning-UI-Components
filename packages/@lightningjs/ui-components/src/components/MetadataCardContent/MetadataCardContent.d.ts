@@ -19,26 +19,70 @@
 import lng from '@lightningjs/core';
 import MetadataBase, { MetadataBaseStyle } from '../MetadataBase';
 import Provider, { ProviderStyle } from '../Provider';
-import { TextBoxStyle } from '../TextBox';
-import type { StylePartial } from '../../types/lui';
+import TextBox, { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
 
-export type MetadataCardContentStyle = MetadataBaseStyle & {
+type MetadataCardContentStyle = MetadataBaseStyle & {
   detailsTextStyle: TextBoxStyle;
-  providerStyle: ProviderStyle;
+  descriptionTextStyle: TextBoxStyle;
+  fadeWidth: number;
+  provider: ProviderStyle;
 };
 
-export default class MetadataCardContent extends MetadataBase {
+declare namespace MetadataCardContent {
+  export interface TemplateSpec extends MetadataBase.TemplateSpec {
+    /**
+     * text of title content
+     */
+    title?: string;
+    /**
+     * description text below title
+     */
+    description?: string;
+    /**
+     * details text at bottom left of component
+     */
+    details?: string;
+    /**
+     * Object containing all properties supported in the Provider component
+     */
+    Provider?: lng.Element.PatchTemplate<Provider.TemplateSpec>;
+  }
+}
+
+declare class MetadataCardContent<
+  TemplateSpec extends MetadataBase.TemplateSpec = MetadataBase.TemplateSpec,
+  TypeConfig extends MetadataBase.TypeConfig = MetadataBase.TypeConfig
+> extends MetadataBase<TemplateSpec, TypeConfig> {
+  /**
+   * text of title content
+   */
+  title?: string;
+  /**
+   * description text below title
+   */
+  description?: string;
+  /**
+   * details text at bottom left of component
+   */
   details?: string;
-  provider?: Provider;
+  /**
+   * Object containing all properties supported in the Provider component
+   */
+  Provider?: lng.Element.PatchTemplate<Provider.TemplateSpec>;
+
   get style(): MetadataCardContentStyle;
   set style(v: StylePartial<MetadataCardContentStyle>);
 
-  // tags
-  get _Text(): lng.Component;
-  get _Title(): lng.Component;
-  get _Description(): lng.Component;
-  get _DetailsWrapper(): lng.Component;
-  get _DetailsFader(): lng.Component;
-  get _Details(): lng.Component;
+  // Tags
+
+  get _Text(): TextBox;
+  get _Title(): TextBox;
+  get _Description(): TextBox;
+  get _DetailsWrapper(): TextBox;
+  get _DetailsFader(): TextBox;
+  get _Details(): TextBox;
   get _Provider(): lng.Component;
 }
+
+export { MetadataCardContent as default, MetadataCardContentStyle };
