@@ -277,10 +277,6 @@ export default class TextBox extends Base {
     return this._marqueeProps ?? {};
   }
 
-  _setMarqueeProps(props) {
-    this._marqueeProps = props;
-  }
-
   get _textStyleSet() {
     const fontStyle = {
       ...this.theme.typography.body1,
