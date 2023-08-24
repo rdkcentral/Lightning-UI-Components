@@ -69,7 +69,7 @@ describe('ProgressBar', () => {
     expect(typeof base).toBe('function');
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
-        h: expect.any(Number),
+        height: expect.any(Number),
         radius: expect.any(Number),
         animation: expect.any(Object)
       })

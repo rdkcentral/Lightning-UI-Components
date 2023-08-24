@@ -330,7 +330,11 @@ export const generateComponentStyleSource = component => {
     }
 
     if (componentConfigStyle) {
-      finalStyle = clone(finalStyle, { overwrite: componentConfigStyle }); // Anything in the root level of style
+      const overwrite = JSON.parse(JSON.stringify(componentConfigStyle));
+      delete overwrite.base;
+      delete overwrite.tone;
+      delete overwrite.mode;
+      finalStyle = clone(finalStyle, { overwrite }); // Anything in the root level of style
     }
 
     if (componentConfigStyle?.tone) {
@@ -356,6 +360,16 @@ export const generateComponentStyleSource = component => {
     }
 
     const componentStyle = component._componentLevelStyle;
+
+    if (componentStyle) {
+      const overwrite = JSON.parse(JSON.stringify(componentStyle));
+      delete overwrite.base;
+      delete overwrite.tone;
+      delete overwrite.mode;
+      finalStyle = clone(finalStyle, {
+        overwrite
+      });
+    }
 
     if (componentStyle?.base) {
       finalStyle = clone(finalStyle, {
@@ -403,7 +417,11 @@ export const generateComponentStyleSource = component => {
   }
 
   // Return the final processed style object
-  return removeEmptyObjects(colorParser(component, solution)) || {};
+
+  return formatStyleObj(
+    removeEmptyObjects(colorParser(component, solution)) || {},
+    component.constructor.aliasStyles
+  );
 };
 
 /**
@@ -436,7 +454,7 @@ export const colorParser = (component, styleObj) => {
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
-
+  // if (component.constructor.name === 'Button') debugger
   const { mode = 'unfocused', tone = 'neutral' } = component;
 
   const style =
@@ -449,7 +467,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   if (componentStyle) {
     return clone(style, colorParser(component, componentStyle));
   }
-  return style;
+  return formatStyleObj(style, component.constructor.aliasStyles);
 };
 
 /**
@@ -562,36 +580,57 @@ export const getStyleChain = componentObj => {
 };
 
 /**
+ * Formats a style object by applying a series of formatter functions.
+ *
+ * @param {object} originalObj - The original style object to be formatted.
+ * @param {array} [aliasStyles=[]] - An array of alias styles to be used during formatting.
+ * @returns {object} The formatted style object after applying all formatter functions.
+ */
+export const formatStyleObj = (originalObj, aliasStyles = []) => {
+  const formatters = new Set();
+
+  // Adding a key-value pair to the 'formatters' Set.
+  // This pattern is used so more formatters can be easily added if required at a later time
+  formatters.add([replaceAliasValues, [aliasStyles]]);
+
+  // Generating an array from the 'formatters' Set
+  const formattersArray = Array.from(formatters);
+
+  // Using reduce to apply functions from 'formattersArray' to 'finalStyle'
+  // Each function takes 'obj' (initially 'finalStyle') as input and applies transformations
+  // The result of the previous function is passed as input to the next function
+  // The final transformed style is assigned to 'this._style'
+  return formattersArray.reduce(
+    (obj, [func, args]) => func(obj, ...args),
+    originalObj
+  );
+};
+
+/**
  * Replaces alias values in the provided style object with their corresponding aliases.
  * @param {object} value - The style object to process.
  * @param {Array<Object>} [aliasStyles=[]] - Optional array of alias styles to apply.
  * @returns {object} The style object with alias values replaced.
  */
 export const replaceAliasValues = (value, aliasStyles = []) => {
-  const styleObj = clone(value, {});
+  let str = JSON.stringify(value);
   const aliasProps = [
     { prev: 'height', curr: 'h', skipWarn: true },
     { prev: 'width', curr: 'w', skipWarn: true },
-    ...aliasStyles
+    ...(aliasStyles || [])
   ];
   aliasProps.forEach(alias => {
     if (
       alias &&
       typeof alias.prev === 'string' &&
-      typeof alias.curr === 'string' &&
-      styleObj[alias.prev]
+      typeof alias.curr === 'string'
     ) {
       !alias.skipWarn &&
         console.warn(
           `The style property "${alias.prev}" is deprecated and will be removed in a future release. Please use "${alias.curr}" instead.`
         );
-      Object.defineProperty(
-        styleObj,
-        alias.curr,
-        Object.getOwnPropertyDescriptor(styleObj, alias.prev)
-      );
-      delete styleObj[alias.prev];
+      str = str.replaceAll(`"${alias.prev}":`, `"${alias.curr}":`);
     }
   });
-  return styleObj;
+  return JSON.parse(str);
 };

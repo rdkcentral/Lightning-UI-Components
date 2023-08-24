@@ -19,8 +19,8 @@
 export const base = theme => {
   const size = theme.spacer.lg;
   return {
-    w: size,
-    h: size,
+    width: size,
+    height: size,
     radius: size / 2
   };
 };

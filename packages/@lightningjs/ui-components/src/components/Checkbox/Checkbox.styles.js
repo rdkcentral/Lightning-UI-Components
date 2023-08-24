@@ -21,8 +21,8 @@ export const base = theme => {
   const size = theme.spacer.xxl - strokeWidth * 2;
   return {
     alpha: theme.alpha.primary,
-    w: size,
-    h: size,
+    width: size,
+    height: size,
     checkW: theme.spacer.lg,
     checkH: theme.spacer.md + theme.spacer.xs,
     checkSrc: theme.asset.check,
