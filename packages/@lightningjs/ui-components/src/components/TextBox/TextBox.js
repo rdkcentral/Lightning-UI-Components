@@ -61,7 +61,13 @@ export default class TextBox extends Base {
   }
 
   static get properties() {
-    return ['content', 'fixed', 'marquee', ...InlineContent.properties];
+    return [
+      ...InlineContent.properties,
+      'content',
+      'fixed',
+      'marquee',
+      'marqueeProps'
+    ];
   }
 
   _setDimensions(w, h) {
@@ -156,11 +162,6 @@ export default class TextBox extends Base {
     if (this._textStyleSet.maxLinesSuffix) {
       inlineContentPatch.maxLinesSuffix = this._textStyleSet.maxLinesSuffix;
     }
-    if (this._textStyleSet.textAlign) {
-      inlineContentPatch.justify = utils.convertTextAlignToFlexJustify(
-        this._textStyleSet.textAlign
-      );
-    }
 
     this.patch({
       alpha: 1,
@@ -229,6 +230,7 @@ export default class TextBox extends Base {
     if (this.marquee) {
       this._resetMarqueePromise();
       const marqueePatch = {
+        ...this.marqueeProps,
         w: this._textStyleSet.wordWrapWidth || this.w,
         h: this.h,
         y: this.style.offsetY,
@@ -269,6 +271,10 @@ export default class TextBox extends Base {
         this._toggleMarquee(contentTag);
       }
     }
+  }
+
+  _getMarqueeProps() {
+    return this._marqueeProps ?? {};
   }
 
   get _textStyleSet() {
