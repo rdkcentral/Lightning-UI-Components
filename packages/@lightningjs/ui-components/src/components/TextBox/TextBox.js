@@ -66,7 +66,9 @@ export default class TextBox extends Base {
       'content',
       'fixed',
       'marquee',
-      'marqueeProps'
+      'marqueeProps',
+      // 'displayOnLoad'
+      'hideOnLoad'
     ];
   }
 
@@ -87,7 +89,7 @@ export default class TextBox extends Base {
       }
 
       // Position updates can produce flash of poorly positioned content, hide the element until measurements are made.
-      if (this.alpha < 1) {
+      if (!this.hideOnLoad && this.alpha < 1) {
         this.alpha = 1;
       }
 
