@@ -20,12 +20,12 @@ import { getWidthByUpCount } from '../../utils';
 
 export const base = theme => ({
   w: getWidthByUpCount(theme, 1),
-  titleMarginLeft: theme.layout.gutterX.xs,
+  titleMarginLeft: theme.layout.gutterX,
   titleTextStyle: {
     ...theme.typography.headline1,
     textColor: theme.color.textNeutral
   },
-  rowMarginTop: theme.layout.gutterY.xs
+  rowMarginTop: theme.spacer.lg
 });
 
 export const tone = theme => ({

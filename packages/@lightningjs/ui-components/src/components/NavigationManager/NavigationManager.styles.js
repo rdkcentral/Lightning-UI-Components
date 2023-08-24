@@ -18,7 +18,7 @@
 
 export const base = theme => ({
   alwaysScroll: false,
-  itemSpacing: theme.layout.gutterX.xs,
+  itemSpacing: theme.layout.gutterX,
   itemTransition: theme.animation.utility,
   neverScroll: false,
   scrollIndex: 0

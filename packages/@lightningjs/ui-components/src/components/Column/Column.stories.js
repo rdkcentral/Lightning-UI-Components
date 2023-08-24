@@ -39,7 +39,7 @@ export default {
 
 const columnHeight =
   context.theme.layout.screenH -
-  2 * (context.theme.layout.marginY + context.theme.layout.gutterY.sm);
+  2 * (context.theme.layout.marginY + context.theme.layout.gutterY);
 
 // creates an array of buttons to be used in Stories
 const createItems = (buttonType, length, isVariedHeight, isDynamicWidth) => {
@@ -67,8 +67,7 @@ export const Column = args =>
           type: ColumnComponent,
           h:
             context.theme.layout.screenH -
-            2 *
-              (context.theme.layout.marginY + context.theme.layout.gutterY.sm),
+            2 * (context.theme.layout.marginY + context.theme.layout.gutterY),
           scrollIndex: args.scrollIndex,
           items: createItems(Button, 20)
         }

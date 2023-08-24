@@ -208,13 +208,23 @@ export default {
     marginX: 150,
     marginY: 150,
     safe: 50,
-    gutterX: { xs: 20, sm: 40, md: 60, lg: 80, xl: 100 },
-    gutterY: { xs: 20, sm: 40, md: 60, lg: 80, xl: 100 },
+    gutterX: 20,
+    gutterY: 20,
     focusScale: 1.2
   },
   radius: { none: 0, xs: 2, sm: 4, md: 8, lg: 16, xl: 24 },
-  spacer: { xxs: 2, xs: 4, sm: 8, md: 10, lg: 20, xl: 30, xxl: 40, xxxl: 50 },
-  stroke: { sm: 2, md: 4, lg: 6, xl: 8 },
+  spacer: {
+    none: 0,
+    xxs: 2,
+    xs: 4,
+    sm: 8,
+    md: 10,
+    lg: 20,
+    xl: 30,
+    xxl: 40,
+    xxxl: 50
+  },
+  stroke: { none: 0, sm: 2, md: 4, lg: 6, xl: 8 },
   typography: {
     display1: {
       fontFamily: 'Arial',
@@ -312,6 +322,14 @@ export default {
       fontStyle: '500',
       lineHeight: 24,
       verticalAlign: 'middle',
+      textBaseline: 'bottom'
+    },
+    tag1: {
+      fontFamily: 'Arial',
+      fontSize: 20,
+      fontStyle: '500',
+      letterSpacing: 0,
+      lineHeight: 24,
       textBaseline: 'bottom'
     }
   }

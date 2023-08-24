@@ -72,7 +72,7 @@ exports[`Badge renders 1`] = `
       ],
       "texture": {
         "fontFace": "Arial",
-        "fontSize": 15,
+        "fontSize": 20,
         "fontStyle": "500",
         "lineHeight": 24,
         "precision": 0.6666666666666666,
@@ -80,7 +80,6 @@ exports[`Badge renders 1`] = `
         "textBaseline": "bottom",
         "textColor": 4294506490,
         "type": "TextTexture",
-        "verticalAlign": "middle",
       },
       "visible": true,
       "w": 0,
