@@ -42,10 +42,10 @@ describe('CardContentVertical', () => {
     cardContentVertical.shouldCollapse = true;
     testRenderer.forceAllUpdates();
     const w =
-      cardContentVertical.style.expandedW -
+      cardContentVertical.style.expandedWidth -
       2 * cardContentVertical.style.paddingHorizontal;
     const h =
-      cardContentVertical.style.expandedH -
+      cardContentVertical.style.expandedHeight -
       2 * cardContentVertical.style.paddingVertical -
       cardContentVertical.style.imageSize.h;
     expect(cardContentVertical._Metadata.w).toBe(w);
@@ -58,7 +58,7 @@ describe('CardContentVertical', () => {
     cardContentVertical.shouldCollapse = false;
     cardContentVertical.collapseToMetadata = false;
     testRenderer.forceAllUpdates();
-    expect(cardContentVertical.h).toBe(cardContentVertical.style.expandedH);
+    expect(cardContentVertical.h).toBe(cardContentVertical.style.expandedHeight);
 
     cardContentVertical.shouldCollapse = true;
     cardContentVertical.collapseToMetadata = false;
@@ -68,7 +68,7 @@ describe('CardContentVertical', () => {
     cardContentVertical.collapseToMetadata = true;
     testRenderer.forceAllUpdates();
     expect(cardContentVertical.h).toBe(
-      cardContentVertical.style.expandedH -
+      cardContentVertical.style.expandedHeight -
         cardContentVertical.style.imageSize.h
     );
   });
