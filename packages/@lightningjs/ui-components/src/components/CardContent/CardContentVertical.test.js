@@ -58,7 +58,9 @@ describe('CardContentVertical', () => {
     cardContentVertical.shouldCollapse = false;
     cardContentVertical.collapseToMetadata = false;
     testRenderer.forceAllUpdates();
-    expect(cardContentVertical.h).toBe(cardContentVertical.style.expandedHeight);
+    expect(cardContentVertical.h).toBe(
+      cardContentVertical.style.expandedHeight
+    );
 
     cardContentVertical.shouldCollapse = true;
     cardContentVertical.collapseToMetadata = false;
