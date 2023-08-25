@@ -32,8 +32,6 @@ export const base = theme => ({
     radius: theme.radius.sm
   },
   paddingX: theme.spacer.xl,
-  prefixH: theme.spacer.xxxl + theme.spacer.xl,
-  suffixH: theme.spacer.xxxl + theme.spacer.xl,
   titlePadding: theme.spacer.lg,
   titleTextStyle: {
     ...theme.typography.headline3,

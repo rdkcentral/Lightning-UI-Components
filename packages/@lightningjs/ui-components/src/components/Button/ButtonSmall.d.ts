@@ -20,10 +20,7 @@ import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from './Button';
 import { StylePartial } from '../../types/lui';
 
-type ButtonSmallStyle = ButtonStyle & {
-  prefixH: number;
-  suffixH: number;
-};
+type ButtonSmallStyle = ButtonStyle;
 
 declare class ButtonSmall<
   TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
