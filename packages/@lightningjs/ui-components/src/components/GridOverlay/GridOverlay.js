@@ -181,6 +181,7 @@ export default class GridOverlay extends Base {
           ColumnCount: textRow,
           MarginX: textRow,
           MarginY: textRow,
+          GutterX: textRow,
           GutterY: textRow,
           Safe: textRow
         }
@@ -222,6 +223,7 @@ export default class GridOverlay extends Base {
       { name: 'TextColumnCount', path: 'TextPanel.Items.ColumnCount' },
       { name: 'TextMarginX', path: 'TextPanel.Items.MarginX' },
       { name: 'TextMarginY', path: 'TextPanel.Items.MarginY' },
+      { name: 'TextGutterX', path: 'TextPanel.Items.GutterX' },
       { name: 'TextGutterY', path: 'TextPanel.Items.GutterY' },
       { name: 'TextSafe', path: 'TextPanel.Items.Safe' }
     ];
@@ -274,8 +276,8 @@ export default class GridOverlay extends Base {
     this._marginX = marginX;
     this._marginY = marginY;
     this._safe = safe;
-    this._gutterX = gutterX.xs;
-    this._gutterY = gutterY.xs;
+    this._gutterX = gutterX;
+    this._gutterY = gutterY;
 
     this._columnColor = color.interactiveNeutralFocusSoft;
     this._marginColor = color.green;
@@ -400,8 +402,13 @@ export default class GridOverlay extends Base {
     this._updatePropertyTextStyle(this._TextMarginY, this._marginColor);
     this._updateValueTextStyle(this._TextMarginY);
 
+    this._TextGutterX.Items.tag(prop).content = 'Gutter-X';
+    this._TextGutterX.Items.tag(val).content = `${this._gutterX}px`;
+    this._updatePropertyTextStyle(this._TextGutterX, this._gutterColor);
+    this._updateValueTextStyle(this._TextGutterX);
+
     this._TextGutterY.Items.tag(prop).content = 'Gutter-Y';
-    this._TextGutterY.Items.tag(val).content = `XSmall, ${this._gutterY}px`;
+    this._TextGutterY.Items.tag(val).content = `${this._gutterY}px`;
     this._updatePropertyTextStyle(this._TextGutterY, this._gutterColor);
     this._updateValueTextStyle(this._TextGutterY);
 

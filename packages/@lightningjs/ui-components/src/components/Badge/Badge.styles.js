@@ -25,7 +25,7 @@ export const base = theme => {
     radius: theme.radius.sm,
     strokeWidth: theme.stroke.sm,
     textStyle: {
-      ...theme.typography.caption1,
+      ...theme.typography.tag1,
       textAlign: 'center'
     }
   };

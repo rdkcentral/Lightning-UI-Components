@@ -19,7 +19,6 @@
 import {
   generateComponentStyleSource,
   generateStyle,
-  replaceAliasValues,
   getHash
 } from './utils.js';
 import { context } from '../../globals/index.js';
@@ -209,31 +208,9 @@ export default class StyleManager extends lng.EventEmitter {
 
       if (!style) {
         // Style does not exist so will also need to be generated
-        const finalStyle = generateStyle(this.component, styleSource);
-        const formatters = new Set();
+        style = generateStyle(this.component, styleSource);
 
-        // Adding a key-value pair to the 'formatters' Set.
-        // This pattern is used so more formatters can be easily added if required at a later time
-        formatters.add([
-          replaceAliasValues,
-          [this.component.constructor.aliasStyles]
-        ]);
-
-        // Generating an array from the 'formatters' Set
-        const formattersArray = Array.from(formatters);
-
-        // Using reduce to apply functions from 'formattersArray' to 'finalStyle'
-        // Each function takes 'obj' (initially 'finalStyle') as input and applies transformations
-        // The result of the previous function is passed as input to the next function
-        // The final transformed style is assigned to 'this._style'
-        const processedStyle = formattersArray.reduce(
-          (obj, [func, args]) => func(obj, ...args),
-          finalStyle
-        );
-
-        style = processedStyle;
-
-        this._addCache(`style_${mode}_${tone}`, finalStyle);
+        this._addCache(`style_${mode}_${tone}`, style);
       }
       this._style = style;
       this.emit('styleUpdate', this.style);

@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  itemSpacing: theme.layout.gutterY.xs,
+  itemSpacing: theme.layout.gutterY,
   scrollIndex: 0,
   itemTransition: {
     ...theme.animation.standardEntrance,

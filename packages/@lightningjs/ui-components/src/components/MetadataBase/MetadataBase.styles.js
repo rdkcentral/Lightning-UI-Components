@@ -18,7 +18,7 @@
 
 export const base = theme => ({
   descriptionTextStyle: { ...theme.typography.body2, maxLines: 1 },
-  fadeWidth: theme.layout.gutterX.lg,
+  fadeWidth: 100,
   logoWidth: theme.typography.body3.lineHeight,
   logoHeight: theme.typography.body3.lineHeight,
   logoPadding: theme.spacer.lg,

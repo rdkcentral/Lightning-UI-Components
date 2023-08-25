@@ -22,8 +22,8 @@ export const base = theme => ({
   cursorStyle: {
     textColor: theme.color.textNeutral,
     blink: true,
-    w: theme.spacer.xs,
-    h: theme.spacer.xxl
+    width: theme.spacer.xs,
+    height: theme.spacer.xxl
   },
   eyebrowTextStyle: {
     ...theme.typography.caption1,

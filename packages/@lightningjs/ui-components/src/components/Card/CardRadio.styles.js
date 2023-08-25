@@ -24,14 +24,14 @@ export const base = theme => ({
     wordWrap: true,
     maxLines: 8
   },
-  h: theme.spacer.xxxl * 15,
+  height: theme.spacer.xxxl * 15,
   subtitleTextStyle: {
     ...theme.typography.body3,
     maxLines: 2,
     textColor: theme.color.textNeutral,
     wordWrap: true
   },
-  w: utils.getWidthByColumnSpan(theme, 4)
+  width: utils.getWidthByColumnSpan(theme, 4)
 });
 
 export const mode = theme => ({

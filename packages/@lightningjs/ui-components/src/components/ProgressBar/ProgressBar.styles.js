@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  h: theme.spacer.md,
+  height: theme.spacer.md,
   animation: theme.animation.utility,
   radius: theme.radius.xs
 });

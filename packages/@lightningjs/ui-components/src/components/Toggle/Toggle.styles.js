@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  h: theme.spacer.xxl,
+  height: theme.spacer.xxl,
   knobWidth: theme.spacer.xl,
   knobHeight: theme.spacer.xl,
   knobRadius: theme.radius.sm + theme.radius.xs,
@@ -26,7 +26,7 @@ export const base = theme => ({
   knobXChecked: theme.spacer.xxl + theme.spacer.xs,
   strokeRadius: theme.radius.md,
   strokeWeight: theme.stroke.sm,
-  w: theme.spacer.xxl * 2
+  width: theme.spacer.xxl * 2
 });
 
 export const tone = theme => ({

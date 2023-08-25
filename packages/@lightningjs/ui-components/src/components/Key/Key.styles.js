@@ -19,7 +19,7 @@
 export const base = theme => {
   const textStyle = theme.typography.headline2;
   return {
-    h: theme.spacer.md * 9,
+    height: theme.spacer.md * 9,
     minWidth: theme.spacer.md * 7,
     paddingX: theme.spacer.md,
     textStyle,
