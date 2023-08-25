@@ -30,7 +30,7 @@ export const base = theme => {
       xl: theme.spacer.md * 47,
       xxl: theme.spacer.md * 95
     },
-    iconW: textStyle.lineHeight,
-    iconH: textStyle.lineHeight
+    iconWidth: textStyle.lineHeight,
+    iconHeight: textStyle.lineHeight
   };
 };
