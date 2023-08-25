@@ -22,7 +22,9 @@ import { Color, StylePartial } from '../../types/lui';
 import { TextBoxStyle } from '../TextBox';
 
 type MarqueeStyle = {
+  /** @deprecated */
   fadeW: number;
+  fadeWidth: number;
   offset: number;
   shouldSmooth: boolean;
   textStyle: TextBoxStyle;
