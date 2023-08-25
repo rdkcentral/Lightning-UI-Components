@@ -82,9 +82,9 @@ describe('Artwork', () => {
     expect(artwork.constructor.properties).toMatchObject([
       'blur',
       'fallbackSrc',
-      'foregroundH',
+      'foregroundHeight',
       'foregroundSrc',
-      'foregroundW',
+      'foregroundWidth',
       'gradient',
       'format',
       'src',
@@ -378,22 +378,22 @@ describe('Artwork', () => {
     expect(artwork._ForegroundImage).toBeUndefined();
   });
 
-  it('will update the foregroundImage w/h if foregroundW & foregroundH is set on the component', async () => {
+  it('will update the foregroundImage w/h if foregroundWidth & foregroundHeight is set on the component', async () => {
     await artwork._processedImageSrc;
     artwork.patch({
-      foregroundH: 100,
+      foregroundHeight: 100,
       foregroundSrc: sampleImg,
-      foregroundW: 200
+      foregroundWidth: 200
     });
     await artwork.__updateSpyPromise;
     expect(artwork._ForegroundImage.w).toBe(200);
     expect(artwork._ForegroundImage.h).toBe(100);
   });
 
-  it('will update the foregroundImage with the correct aspect ratio if only foregroundW or foregroundH is set', async () => {
+  it('will update the foregroundImage with the correct aspect ratio if only foregroundWidth or foregroundHeight is set', async () => {
     artwork.patch({
       foregroundSrc: sampleImg,
-      foregroundW: 200
+      foregroundWidth: 200
     });
     await artwork.__updateSpyPromise;
     // Mock how the image would come back
@@ -404,8 +404,8 @@ describe('Artwork', () => {
     expect(artwork._ForegroundImage.h).toBe(100);
 
     artwork.patch({
-      foregroundW: undefined,
-      foregroundH: 100
+      foregroundWidth: undefined,
+      foregroundHeight: 100
     });
     artwork._ForegroundImage.emit('txLoaded');
     expect(artwork._ForegroundImage.w).toBe(200);

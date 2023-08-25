@@ -37,9 +37,9 @@ export default class Artwork extends Base {
     return [
       'blur',
       'fallbackSrc',
-      'foregroundH',
+      'foregroundHeight',
       'foregroundSrc',
-      'foregroundW',
+      'foregroundWidth',
       'gradient',
       'format',
       'src',
@@ -59,6 +59,13 @@ export default class Artwork extends Base {
       'Gradient',
       'Image',
       'Item'
+    ];
+  }
+
+  static get aliasProperties() {
+    return [
+      { prev: 'foregroundH', curr: 'foregroundHeight' },
+      { prev: 'foregroundW', curr: 'foregroundWidth' }
     ];
   }
 
@@ -301,15 +308,15 @@ export default class Artwork extends Base {
       }
     };
 
-    if (this.foregroundW && this.foregroundH) {
+    if (this.foregroundWidth && this.foregroundHeight) {
       // The image size is already known so we can just patch it
-      foregroundImagePatch.h = this.foregroundH;
-      foregroundImagePatch.w = this.foregroundW;
+      foregroundImagePatch.h = this.foregroundHeight;
+      foregroundImagePatch.w = this.foregroundWidth;
 
       this.patch({
         ForegroundImage: foregroundImagePatch
       });
-    } else if (this.foregroundW || this.foregroundH) {
+    } else if (this.foregroundWidth || this.foregroundHeight) {
       // Load the image to get the aspect ratio before showing
       this.patch({
         ForegroundImage: { ...foregroundImagePatch, alpha: 0.001 }
@@ -320,12 +327,12 @@ export default class Artwork extends Base {
         const imageH = this._ForegroundImage.texture.getRenderHeight();
         this._ForegroundImage.patch({
           alpha: 1,
-          w: this.foregroundH
-            ? this.foregroundH * (imageW / imageH)
-            : this.foregroundW,
-          h: this.foregroundW
-            ? this.foregroundW * (imageH / imageW)
-            : this.foregroundH
+          w: this.foregroundHeight
+            ? this.foregroundHeight * (imageW / imageH)
+            : this.foregroundWidth,
+          h: this.foregroundWidth
+            ? this.foregroundWidth * (imageH / imageW)
+            : this.foregroundHeight
         });
       });
     }
