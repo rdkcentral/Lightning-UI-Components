@@ -107,7 +107,7 @@ class MyComponent extends lng.Component {
   _getFocused() {
     return this.tag('FocusManager');
   }
-};
+}
 ```
 
 ## Questions???
