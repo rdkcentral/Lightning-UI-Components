@@ -122,7 +122,6 @@ export default class Row extends NavigationManager {
       this.selectedIndex >= this.stopLazyScrollIndex &&
       this.selectedIndex < prevIndex
     ) {
-
       const currItemsX = this.Items.x;
 
       return (
