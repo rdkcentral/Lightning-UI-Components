@@ -13108,7 +13108,6 @@ __metadata:
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
     "@lightningjs/core": ^2.11.0
-    "@lightningjs/ui-components": "workspace:^"
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^7.0.24
