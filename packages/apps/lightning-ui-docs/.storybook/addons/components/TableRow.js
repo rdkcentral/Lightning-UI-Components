@@ -19,7 +19,6 @@
 import React from 'react';
 
 export default function TableRow({ label, control }) {
-  console.log('control', label, control);
   return (
     <tr>
       <td>{label}</td>

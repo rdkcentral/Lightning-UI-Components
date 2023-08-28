@@ -63,7 +63,6 @@ const updateComponentValue = (
   );
 };
 
-console.log('options control', OptionsControl);
 //NOTE: delays processing for # microseconds
 const debouncedUpdateComponentValue = debounce(function (
   componentName,
@@ -87,7 +86,6 @@ export default params => {
   if (APP && !storybookInit) {
     APP.on('storyChanged', () => {
       component = APP._getFocused().childList.first;
-      console.log('component', component);
       if (component) updatePanel();
     });
     storybookInit = true;
@@ -96,8 +94,6 @@ export default params => {
   useEffect(() => {
     // If the tone selector has been changed update the theme to reflect the change in the UI
     const context = globalContext();
-    console.log('context', context);
-    console.log('tone', [tone]);
     if (context) {
       context.updateTheme({
         componentConfig: {
@@ -110,7 +106,6 @@ export default params => {
   }, [tone]);
 
   function updatePanel() {
-    console.log('updatePanel');
     updateTone();
     setFields();
   }
@@ -213,7 +208,6 @@ export default params => {
                           value={tone}
                           options={['neutral', 'inverse', 'brand']}
                           onChange={val => {
-                            console.log(val);
                             updateToneState(val);
                           }}
                         />
