@@ -74,7 +74,6 @@ export default class Row extends NavigationManager {
 
   _shouldScroll() {
     const prevIndex = this.Items.childList.getIndex(this.prevSelected);
-
     if (
       this.lazyScroll &&
       (this.selectedIndex < this.startLazyScrollIndex ||
@@ -84,8 +83,6 @@ export default class Row extends NavigationManager {
         (prevIndex > this.stopLazyScrollIndex &&
           this.selectedIndex === this.stopLazyScrollIndex))
     ) {
-      // if lazy scroll is true and we are navigating to to the left of start index, the right of stop index,
-      // from the left to the start, or from the right to the start
       return true;
     }
 
@@ -125,10 +122,8 @@ export default class Row extends NavigationManager {
       this.selectedIndex >= this.stopLazyScrollIndex &&
       this.selectedIndex < prevIndex
     ) {
-      // if navigating left on items after stop lazy scroll index, only shift by size of prev item
-      const currItemsX = this.Items.transition('x')
-        ? this.Items.transition('x').targetValue
-        : this.Items.x;
+
+      const currItemsX = this.Items.x;
 
       return (
         currItemsX +
@@ -141,28 +136,16 @@ export default class Row extends NavigationManager {
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
 
-      if (
-        prevIndex &&
-        prevIndex > this.selectedIndex &&
-        this._currentItemsContainerX
-      ) {
-        //navigating left
-        itemsContainerX =
-          this._currentItemsContainerX +
-          this.selected.w +
-          this.style.itemSpacing +
-          (this.selected.extraItemSpacing || 0);
-      } else if (
-        prevIndex &&
-        prevIndex < this.selectedIndex &&
-        this._currentItemsContainerX
-      ) {
-        //navigating right
-        itemsContainerX =
-          this._currentItemsContainerX -
-          this.selected.w +
-          this.style.itemSpacing +
-          (this.selected.extraItemSpacing || 0);
+      const selectedX = this.selected.x;
+
+      if (prevIndex === -1) {
+        // No matches found in childList, start set x to 0
+        return;
+      }
+      if (prevIndex > this.selectedIndex) {
+        itemsContainerX = -selectedX;
+      } else if (prevIndex < this.selectedIndex) {
+        itemsContainerX = this.w - selectedX - this.selected.w;
       }
 
       return itemsContainerX;
@@ -208,7 +191,6 @@ export default class Row extends NavigationManager {
           : this._getScrollX();
     }
     if (itemsContainerX !== undefined) {
-      this._currentItemsContainerX = itemsContainerX;
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
 
