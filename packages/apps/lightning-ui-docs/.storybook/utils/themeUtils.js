@@ -17,7 +17,7 @@
  */
 
 import baseTheme from '@lightningjs/ui-components-theme-base';
-import { utils } from '@lightningjs/ui-components';
+import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
 // Component Styles Panel
