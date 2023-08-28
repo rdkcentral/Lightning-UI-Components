@@ -122,10 +122,7 @@ export default class Row extends NavigationManager {
       this.selectedIndex >= this.stopLazyScrollIndex &&
       this.selectedIndex < prevIndex
     ) {
-      // if navigating left on items after stop lazy scroll index, only shift by size of prev item
-      // const currItemsX = this.Items.transition('x')
-      //   ? this.Items.transition('x').targetValue
-      //   : this.Items.x;
+
       const currItemsX = this.Items.x;
 
       return (
@@ -138,10 +135,9 @@ export default class Row extends NavigationManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
+
       const selectedX = this.selected.x;
-      // const selectedX = this.selected.transition('x')
-      //   ? this.selected.transition('x').targetValue
-      //   : this.selected.x;
+
       if (prevIndex === -1) {
         // No matches found in childList, start set x to 0
         return;
