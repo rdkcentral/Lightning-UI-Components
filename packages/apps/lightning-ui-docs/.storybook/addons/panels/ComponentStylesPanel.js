@@ -21,7 +21,7 @@ import { useGlobals } from '@storybook/manager-api';
 import { AddonPanel } from '@storybook/components';
 import { OptionsControl, ColorControl } from '@storybook/blocks';
 import { Table, TableRow, NumberRow } from '../components';
-import { utils } from '@lightningjs/ui-components';
+import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
 import {
