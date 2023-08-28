@@ -92,8 +92,9 @@ declare namespace ScrollWrapper {
 }
 
 declare class ScrollWrapper<
-  TemplateSpec extends ScrollWrapper.TemplateSpec = ScrollWrapper.TemplateSpec
-> extends Base<TemplateSpec> {
+  TemplateSpec extends ScrollWrapper.TemplateSpec = ScrollWrapper.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
   /**
    * whether or not to auto scroll the content
    */
