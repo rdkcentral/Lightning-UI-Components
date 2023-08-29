@@ -74,8 +74,8 @@ const debouncedUpdateComponentValue = debounce(function (
 },
 500);
 
-let storybookInit; // NOTE: boolean
-let version; // NOTE: date used for deciding updates?
+let storybookInit;
+let version;
 let component;
 export default params => {
   const APP = globalApp();
@@ -205,8 +205,8 @@ export default params => {
                           name="tones"
                           key={`Tones-${version}`}
                           type="inline-radio"
-                          value={tone}
-                          options={['neutral', 'inverse', 'brand']}
+                          value="neutral"
+                          argType={{ options: ['neutral', 'inverse', 'brand'] }}
                           onChange={val => {
                             updateToneState(val);
                           }}
