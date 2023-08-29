@@ -19,7 +19,6 @@ const path = require('path');
 
 const config = {
   addons: [
-    '@storybook/addon-storysource',
     '@storybook/addon-mdx-gfm',
     {
       name: '@storybook/addon-essentials',
@@ -30,7 +29,8 @@ const config = {
         viewport: false // disable viewport addon
       }
     },
-    '@storybook/addon-designs'
+    '@storybook/addon-designs',
+    '@storybook/addon-storysource'
   ],
   stories: [
     '../src/*.mdx',
