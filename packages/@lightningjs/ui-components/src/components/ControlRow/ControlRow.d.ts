@@ -20,10 +20,6 @@ import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
 import TitleRow, { TitleRowStyle } from '../TitleRow';
 
-type ControlRowItem = {
-  extraItemSpacing?: number;
-};
-
 type ControlRowStyle = TitleRowStyle & {
   extraItemSpacing: number;
 };
@@ -61,29 +57,36 @@ declare class ControlRow<
   // Methods
 
   /**
-   * Adds items to the end of the row.
-   * @param items An array of ControlRowItem to be added.
+   * Method to handle loading more items.
    */
-  addContentItems(items: ControlRowItem[]): void;
+  loadMoreItems(): void;
+
+  /**
+   * Adds items to the end of the row.
+   * @param items An array of items to be added.
+   */
+  addContentItems(items: unknown[]): void;
 
   /**
    * Adds items at a specified index of the row.
-   * @param items An array of ControlRowItem to be added.
+   * @param items An array of items to be added.
    * @param index The index where the items should be added.
    */
-  addContentItemsAt(items: ControlRowItem[], index: number): void;
+  addContentItemsAt(items: unknown[], index: number): void;
 
   /**
    * Adds controls to the end of the left controls.
-   * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
+   * @param controls An array of controls to be added.
    */
-  addLeftControls(controls: ControlRowItem[]): void;
+  addLeftControls(controls: unknown[]): void;
+
   /**
    * Adds controls at a specified index of the left controls.
-   * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
+   * @param controls An array of controls to be added.
    * @param index The index where the controls should be added.
    */
-  addLeftControlsAt(controls: ControlRowItem[], index: number): void;
+  addLeftControlsAt(controls: unknown[], index: number): void;
+
   /**
    * Removes a left control at the specified index.
    * @param index The index of the left control to be removed.
@@ -92,16 +95,17 @@ declare class ControlRow<
 
   /**
    * Adds controls to the end of the right controls.
-   * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
+   * @param controls An array of controls to be added.
    */
-  addRightControls(controls: ControlRowItem[]): void;
+  addRightControls(controls: unknown[]): void;
 
   /**
    * Adds controls at a specified index of the right controls.
-   * @param controls An array of ControlRowItem or ComponentPatchObj<ControlSmall> to be added as controls.
+   * @param controls An array of controls to be added.
    * @param index The index where the controls should be added.
    */
-  addRightControlsAt(controls: ControlRowItem[], index: number): void;
+  addRightControlsAt(controls: unknown[], index: number): void;
+
   /**
    * Removes a right control at the specified index.
    * @param index The index of the right control to be removed.
