@@ -22,11 +22,10 @@ import { StylePartial } from '../../types/lui';
 import Marquee from '../Marquee';
 import InlineContent from '../InlineContent';
 
-// TODO: Properly export TextContent from root level of ui-components so we don't have to grab it from InlineContent
 type ContentBase = {
   title?: string;
   announce?: string;
-  style?: string | Record<string, unknown>;
+  style?: lng.textures.TextTexture.Settings | string;
 };
 
 type TextContent =

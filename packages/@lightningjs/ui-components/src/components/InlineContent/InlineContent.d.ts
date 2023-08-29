@@ -101,7 +101,7 @@ declare namespace InlineContent {
     /**
      * set of nested objects containing [Lightning Text](https://rdkcentral.github.io/Lightning/docs/textures/text) properties which can be referenced in the [Content Element Properties](#content-element-properties) to apply styling to individual text elements
      */
-    customStyleMappings?: Record<string, unknown>;
+    customStyleMappings?: Record<string, lng.textures.TextTexture.Settings>;
     /**
      * maximum number of lines to render before truncation
      */
