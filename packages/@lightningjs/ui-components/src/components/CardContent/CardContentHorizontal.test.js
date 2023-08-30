@@ -42,11 +42,11 @@ describe('CardContentHorizontal', () => {
     cardContentHorizontal.shouldCollapse = false;
     testRenderer.forceAllUpdates();
     const w =
-      cardContentHorizontal.style.expandedW -
+      cardContentHorizontal.style.expandedWidth -
       2 * cardContentHorizontal.style.paddingHorizontal -
       cardContentHorizontal.style.imageSize.w;
     const h =
-      cardContentHorizontal.style.expandedH -
+      cardContentHorizontal.style.expandedHeight -
       2 * cardContentHorizontal.style.paddingVertical;
     expect(cardContentHorizontal._Metadata.w).toBe(w);
     expect(cardContentHorizontal._Metadata.h).toBe(h);
@@ -58,7 +58,9 @@ describe('CardContentHorizontal', () => {
     cardContentHorizontal.shouldCollapse = false;
     cardContentHorizontal.collapseToMetadata = false;
     testRenderer.forceAllUpdates();
-    expect(cardContentHorizontal.w).toBe(cardContentHorizontal.style.expandedW);
+    expect(cardContentHorizontal.w).toBe(
+      cardContentHorizontal.style.expandedWidth
+    );
 
     cardContentHorizontal.shouldCollapse = true;
     cardContentHorizontal.collapseToMetadata = false;
@@ -70,7 +72,7 @@ describe('CardContentHorizontal', () => {
     cardContentHorizontal.collapseToMetadata = true;
     testRenderer.forceAllUpdates();
     expect(cardContentHorizontal.w).toBe(
-      cardContentHorizontal.style.expandedW -
+      cardContentHorizontal.style.expandedWidth -
         cardContentHorizontal.style.imageSize.w
     );
   });

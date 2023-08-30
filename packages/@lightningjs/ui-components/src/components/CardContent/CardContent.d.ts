@@ -29,8 +29,12 @@ type ImageSize = {
 
 type CardContentStyle = CardStyle & {
   backgroundColor: Color;
+  /** @deprecated */
   expandedW: number;
+  expandedWidth: number;
+  /** @deprecated */
   expandedH: number;
+  expandedHeight: number;
   imageSize: ImageSize;
   metadata: TextBoxStyle;
 };
