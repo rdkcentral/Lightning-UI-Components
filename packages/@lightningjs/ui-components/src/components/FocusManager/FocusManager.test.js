@@ -230,6 +230,18 @@ describe('FocusManager', () => {
       const focusManager = testRenderer.getInstance();
       expect(focusManager.selectedIndex).toBe(1);
     });
+
+    it('should accept a custom onUp', () => {
+      focusManager.onUp = jest.fn();
+      testRenderer.keyPress('Up');
+      expect(focusManager.onUp).toHaveBeenCalled();
+    });
+
+    it('should accept a custom onDown', () => {
+      focusManager.onDown = jest.fn();
+      testRenderer.keyPress('Down');
+      expect(focusManager.onDown).toHaveBeenCalled();
+    });
   });
 
   describe('direction row', () => {
@@ -251,6 +263,18 @@ describe('FocusManager', () => {
       testRenderer.keyPress('Right');
       testRenderer.keyPress('Left');
       expect(focusManager.selectedIndex).toBe(1);
+    });
+
+    it('should accept a custom onLeft', () => {
+      focusManager.onLeft = jest.fn();
+      testRenderer.keyPress('Left');
+      expect(focusManager.onLeft).toHaveBeenCalled();
+    });
+
+    it('should accept a custom onRight', () => {
+      focusManager.onRight = jest.fn();
+      testRenderer.keyPress('Right');
+      expect(focusManager.onRight).toHaveBeenCalled();
     });
   });
 

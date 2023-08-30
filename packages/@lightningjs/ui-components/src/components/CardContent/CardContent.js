@@ -54,6 +54,13 @@ export default class CardContent extends Card {
     return [...super.tags, 'Metadata', 'Tile'];
   }
 
+  static get aliasStyles() {
+    return [
+      { prev: 'expandedW', curr: 'expandedWidth' },
+      { prev: 'expandedH', curr: 'expandedHeight' }
+    ];
+  }
+
   _update() {
     this._updateSize();
     this._updateTile();
@@ -68,9 +75,9 @@ export default class CardContent extends Card {
 
   _updateTile() {
     let w = this.style.imageSize.w;
-    let h = this.style.expandedH;
+    let h = this.style.expandedHeight;
     if (this._orientation !== 'horizontal') {
-      w = this.style.expandedW;
+      w = this.style.expandedWidth;
       h = this.style.imageSize.h;
     }
 
@@ -108,8 +115,8 @@ export default class CardContent extends Card {
   }
 
   _updateSize() {
-    let w = this.style.expandedW;
-    let h = this.style.expandedH;
+    let w = this.style.expandedWidth;
+    let h = this.style.expandedHeight;
     if (this._collapse) {
       if (this._orientation === 'horizontal') {
         w = this._collapseW;
@@ -150,12 +157,13 @@ export default class CardContent extends Card {
     const paddingHorizontal = this.style.paddingHorizontal * 2;
     const paddingVertical = this.style.paddingVertical * 2;
 
-    let w = this.style.expandedW - this.style.imageSize.w - paddingHorizontal;
-    let h = this.style.expandedH - paddingVertical;
+    let w =
+      this.style.expandedWidth - this.style.imageSize.w - paddingHorizontal;
+    let h = this.style.expandedHeight - paddingVertical;
 
     if (this.orientation !== 'horizontal') {
-      w = this.style.expandedW - paddingHorizontal;
-      h = this.style.expandedH - this.style.imageSize.h - paddingVertical;
+      w = this.style.expandedWidth - paddingHorizontal;
+      h = this.style.expandedHeight - this.style.imageSize.h - paddingVertical;
     }
     return { w, h };
   }
@@ -189,13 +197,13 @@ export default class CardContent extends Card {
 
   get _collapseW() {
     return this.collapseToMetadata
-      ? this.style.expandedW - this.style.imageSize.w
+      ? this.style.expandedWidth - this.style.imageSize.w
       : this.style.imageSize.w;
   }
 
   get _collapseH() {
     return this.collapseToMetadata
-      ? this.style.expandedH - this.style.imageSize.h
+      ? this.style.expandedHeight - this.style.imageSize.h
       : this.style.imageSize.h;
   }
 

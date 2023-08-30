@@ -19,8 +19,8 @@
 import utils from '../../utils';
 
 export const base = theme => ({
-  expandedW: utils.getWidthByUpCount(theme, 4),
-  expandedH:
+  expandedWidth: utils.getWidthByUpCount(theme, 4),
+  expandedHeight:
     utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).h +
     theme.spacer.xxxl * 7 +
     theme.spacer.lg +

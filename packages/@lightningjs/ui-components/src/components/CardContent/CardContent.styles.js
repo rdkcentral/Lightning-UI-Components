@@ -19,9 +19,12 @@
 import utils from '../../utils';
 
 export const base = theme => ({
-  expandedW: utils.getWidthByUpCount(theme, 2),
-  expandedH: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 })
-    .h,
+  expandedWidth: utils.getWidthByUpCount(theme, 2),
+  expandedHeight: utils.getDimensions(theme, {
+    ratioX: 16,
+    ratioY: 9,
+    upCount: 4
+  }).h,
   imageSize: {
     width: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).w,
     height: utils.getDimensions(theme, { ratioX: 16, ratioY: 9, upCount: 4 }).h

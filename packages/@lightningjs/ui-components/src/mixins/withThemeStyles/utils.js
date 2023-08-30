@@ -626,6 +626,7 @@ export const replaceAliasValues = (value, aliasStyles = []) => {
       typeof alias.curr === 'string'
     ) {
       !alias.skipWarn &&
+        str.search(`"${alias.prev}":`) >= 0 &&
         console.warn(
           `The style property "${alias.prev}" is deprecated and will be removed in a future release. Please use "${alias.curr}" instead.`
         );
