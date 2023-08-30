@@ -18,7 +18,7 @@
 
 import Icon from '../Icon';
 import Badge from '../Badge';
-import { parseInlineContent, flatten } from '../../utils';
+import { parseInlineContent, flatten, measureTextWidth } from '../../utils';
 import Base from '../Base';
 import * as styles from './InlineContent.styles.js';
 
@@ -169,15 +169,42 @@ export default class InlineContent extends Base {
     const childrenDimensions = this._calcChildrenDimensions();
 
     this.childList.clear();
+    let renderedLastElement = false;
     childrenDimensions.forEach((child, index) => {
+      if (renderedLastElement) {
+        return;
+      }
+
       const nextChild = childrenDimensions[index + 1];
+
+      if (!nextChild) {
+        this.childList.add(child.component);
+        return;
+      }
+
+      const isOnLastLine = child.line === this.maxLines;
+
+      const isLastBeforeMaxLines =
+        isOnLastLine && nextChild.line > this.maxLines;
+
+      const canRenderLastWithSuffix =
+        isLastBeforeMaxLines && child.hasSpaceForSuffix;
+
+      const isLastWithSpaceForSuffix =
+        isOnLastLine && child.hasSpaceForSuffix && !nextChild.hasSpaceForSuffix;
+
+      /**
+       * This is the last element to render, with a suffix, if the element is:
+       * - the last element to render (and has not reached the maxLines yet)
+       * - the last element that fits within maxLines, including with the width of the maxLinesSuffix appended to it
+       */
       const isLast =
-        !nextChild ||
-        (child.line === this.maxLines && nextChild.line > this.maxLines);
+        !nextChild || canRenderLastWithSuffix || isLastWithSpaceForSuffix;
 
       if (child.line <= this.maxLines) {
         if (isLast && index !== childrenDimensions.length - 1) {
-          this._addSuffix(child);
+          this.childList.add(this._addSuffix(child));
+          renderedLastElement = true;
         } else {
           this.childList.add(child.component);
         }
@@ -187,6 +214,10 @@ export default class InlineContent extends Base {
   }
 
   _calcChildrenDimensions() {
+    const suffixW = measureTextWidth({
+      ...this.style.textStyle,
+      text: this.maxLinesSuffix
+    });
     let contentEndX = 0;
     let line = 1;
 
@@ -198,6 +229,15 @@ export default class InlineContent extends Base {
       if (isNewLineElement) {
         line++;
         contentEndX = 0;
+        const data = {
+          type: 'linebreak',
+          component,
+          content,
+          line,
+          hasSpaceForSuffix: true
+        };
+
+        acc.push(data);
         return acc;
       }
 
@@ -221,11 +261,14 @@ export default class InlineContent extends Base {
         contentEndX = w;
       }
 
+      const hasSpaceForSuffix = Math.ceil(contentEndX) + suffixW <= this.w;
+
       const data = {
         type,
         component,
         content,
-        line
+        line,
+        hasSpaceForSuffix
       };
 
       acc.push(data);
@@ -242,6 +285,7 @@ export default class InlineContent extends Base {
         `${content.trim()}${this.maxLinesSuffix}`
       );
     } else {
+      this.childList.add(component);
       suffix = this._createText(
         {
           flexItem: {
@@ -252,7 +296,7 @@ export default class InlineContent extends Base {
         this.maxLinesSuffix
       );
     }
-    this.childList.add(suffix);
+    return suffix;
   }
 
   _createIcon(base, iconProps) {
