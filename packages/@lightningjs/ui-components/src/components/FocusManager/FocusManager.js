@@ -482,21 +482,29 @@ export default class FocusManager extends Base {
       class None extends this {},
       class Row extends this {
         _handleLeft() {
-          return this.selectPrevious();
+          return typeof this.onLeft === 'function'
+            ? this.onLeft(this)
+            : this.selectPrevious();
         }
 
         _handleRight() {
-          return this.selectNext();
+          return typeof this.onRight === 'function'
+            ? this.onRight(this)
+            : this.selectNext();
         }
       },
 
       class Column extends this {
         _handleUp() {
-          return this.selectPrevious();
+          return typeof this.onUp === 'function'
+            ? this.onUp(this)
+            : this.selectPrevious();
         }
 
         _handleDown() {
-          return this.selectNext();
+          return typeof this.onDown === 'function'
+            ? this.onDown(this)
+            : this.selectNext();
         }
       }
     ];
