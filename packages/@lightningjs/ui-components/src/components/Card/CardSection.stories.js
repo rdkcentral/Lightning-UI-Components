@@ -22,8 +22,7 @@ import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Components/CardSection',
-  tag: 'Card'
+  title: 'Components/CardSection'
 };
 
 export const CardSection = () =>
