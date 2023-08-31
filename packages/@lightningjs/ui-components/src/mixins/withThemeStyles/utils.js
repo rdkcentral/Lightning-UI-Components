@@ -405,14 +405,12 @@ export const generateComponentStyleSource = component => {
     for (const toneItem of [
       ...new Set(['neutral', ...Object.keys(tone), ...toneProperties])
     ]) {
-      let payload = clone(base, tone[toneItem]);
-      payload = clone(payload, overwrite);
-      payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
+      let payload = clone(base, overwrite);
+      payload = clone(payload, tone[toneItem]);
       payload = clone(payload, mode[modeItem]);
-      solution[modeItem + '_' + toneItem] = clone(
-        payload,
-        mode[modeItem]?.tone?.[toneItem] || {}
-      );
+      payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
+      payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
+      solution[modeItem + '_' + toneItem] = payload;
     }
   }
 
