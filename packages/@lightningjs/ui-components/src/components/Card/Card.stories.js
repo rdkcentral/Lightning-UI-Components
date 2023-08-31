@@ -22,7 +22,6 @@ import { default as CardComponent } from './Card.js';
 
 export default {
   title: 'Components/Card'
-  //tag: 'Card' //TODO: follow up on whether this is needed
 };
 export const Card = args =>
   class Card extends lng.Component {
