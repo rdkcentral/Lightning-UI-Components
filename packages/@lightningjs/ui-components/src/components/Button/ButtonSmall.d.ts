@@ -18,16 +18,10 @@
 
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from './Button';
-import { StylePartial } from '../../types/lui';
-
-type ButtonSmallStyle = ButtonStyle;
 
 declare class ButtonSmall<
   TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
-> extends Button<TemplateSpec, TypeConfig> {
-  get style(): ButtonSmallStyle;
-  set style(v: StylePartial<ButtonSmallStyle>);
-}
+> extends Button<TemplateSpec, TypeConfig> {}
 
-export { ButtonSmall as default, ButtonSmallStyle };
+export { ButtonSmall as default, ButtonStyle };
