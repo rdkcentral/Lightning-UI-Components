@@ -133,6 +133,7 @@ export default class Icon extends Base {
     let texture;
     const svgTag = isSvgTag(this.icon);
     const svgURI = isSvgURI(this.icon);
+
     if (svgTag) {
       texture = lng.Tools.getSvgTexture(
         `data:image/svg+xml,${encodeURIComponent(this.icon)}`,
@@ -149,12 +150,8 @@ export default class Icon extends Base {
         src: this.icon
       };
     }
-    const supportsColor = !Boolean(svgTag || svgURI);
-    const color = getValidColor(this._color || this.style.color);
 
-    if (!supportsColor && color) {
-      context.warn('icon does not allow colors to be applied to an SVG');
-    }
+    const color = getValidColor(this._color || this.style.color);
     const shader =
       this.radius || this.style.radius
         ? {
@@ -162,10 +159,11 @@ export default class Icon extends Base {
             type: lng.shaders.RoundedRectangle
           }
         : undefined;
+
     return {
       texture,
       shader,
-      ...(supportsColor && color
+      ...(color
         ? { colorUl: color, colorUr: color, colorBl: color, colorBr: color }
         : {})
     };
