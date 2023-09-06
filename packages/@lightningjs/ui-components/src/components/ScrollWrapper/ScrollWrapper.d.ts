@@ -17,11 +17,12 @@
  */
 
 import lng from '@lightningjs/core';
+import ScrollSlider from './ScrollSlider';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyle } from '../TextBox';
+import { TextBoxStyle } from '../TextBox';
+import { StylePartial } from '../../types/lui';
 
-export type ScrollWrapperStyle = {
+type ScrollWrapperStyle = {
   textStyle: TextBoxStyle;
   scrollBarW: number;
   scrollBarH: number;
@@ -35,23 +36,129 @@ export type ScrollWrapperStyle = {
   sliderMarginLeft: number;
 };
 
-export default class ScrollWrapper extends Base {
+declare namespace ScrollWrapper {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * whether or not to auto scroll the content
+     */
+    autoScroll?: boolean;
+
+    /**
+     * delay, in ms, before auto scroll starts
+     */
+    autoScrollDelay?: number;
+
+    /**
+     * time delay, in ms, before each scroll step
+     */
+    autoScrollSpeed?: number;
+
+    /**
+     * Content is items that are viewable in the container. It can be an
+     * array of strings or an array of lightning elements that can be patched in
+     */
+    content?: string | (string | lng.Component)[];
+
+    /**
+     * fade out content at the bottom of the ScrollWrapper
+     */
+    fadeContent?: boolean;
+
+    /**
+     * determines the direction items are placed in flexContainer
+     */
+    flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+
+    /**
+     * animation duration for the scroll
+     */
+    scrollDuration?: number;
+
+    /**
+     * how many pixels to scroll by on every up/down keypress
+     */
+    scrollStep?: number;
+
+    /**
+     * determines if items should wrap around ScrollContainer
+     */
+    shouldWrap?: boolean;
+
+    /**
+     * show the scroll bar when focused
+     */
+    showScrollBar?: boolean;
+  }
+}
+
+declare class ScrollWrapper<
+  TemplateSpec extends ScrollWrapper.TemplateSpec = ScrollWrapper.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * whether or not to auto scroll the content
+   */
   autoScroll?: boolean;
+
+  /**
+   * delay, in ms, before auto scroll starts
+   */
   autoScrollDelay?: number;
+
+  /**
+   * time delay, in ms, before each scroll step
+   */
   autoScrollSpeed?: number;
+
+  /**
+   * Content is items that are viewable in the container. It can be an
+   * array of strings or an array of lightning elements that can be patched in
+   */
   content?: string | (string | lng.Component)[];
+
+  /**
+   * fade out content at the bottom of the ScrollWrapper
+   */
   fadeContent?: boolean;
-  scrollDuration?: number;
-  scrollStep?: number;
-  showScrollBar?: boolean;
-  shouldWrap?: boolean;
+
+  /**
+   * determines the direction items are placed in flexContainer
+   */
   flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+
+  /**
+   * animation duration for the scroll
+   */
+  scrollDuration?: number;
+
+  /**
+   * how many pixels to scroll by on every up/down keypress
+   */
+  scrollStep?: number;
+
+  /**
+   * determines if items should wrap around ScrollContainer
+   */
+  shouldWrap?: boolean;
+
+  /**
+   * show the scroll bar when focused
+   */
+  showScrollBar?: boolean;
+
+  /**
+   * Resets the `y` value of both the content and the scroll bar
+   */
+  resetScroll(): void;
+
   get style(): ScrollWrapperStyle;
   set style(v: StylePartial<ScrollWrapperStyle>);
 
   // tags
   get _FadeContainer(): lng.Component;
-  get _Slider(): lng.Component;
+  get _Slider(): ScrollSlider;
   get _ScrollContainer(): lng.Component;
   get _ScrollableText(): lng.Component;
 }
+
+export { ScrollWrapper as default, ScrollWrapperStyle };
