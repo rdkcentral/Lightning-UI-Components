@@ -67,7 +67,6 @@ export default class TextBox extends Base {
       'fixed',
       'marquee',
       'marqueeProps',
-      // 'displayOnLoad'
       'hideOnLoad'
     ];
   }
