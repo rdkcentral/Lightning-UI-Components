@@ -1,3 +1,4 @@
+import { dirname, join } from 'path';
 /**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
@@ -19,7 +20,7 @@ const path = require('path');
 
 const config = {
   addons: [
-    '@storybook/addon-mdx-gfm',
+    getAbsolutePath('@storybook/addon-mdx-gfm'),
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -29,8 +30,8 @@ const config = {
         viewport: false // disable viewport addon
       }
     },
-    '@storybook/addon-designs',
-    '@storybook/addon-storysource'
+    getAbsolutePath('@storybook/addon-designs'),
+    getAbsolutePath('@storybook/addon-storysource')
   ],
   stories: [
     '../src/*.mdx',
@@ -46,7 +47,7 @@ const config = {
     disableTelemetry: true
   },
   framework: {
-    name: '@storybook/html-webpack5',
+    name: getAbsolutePath('@storybook/html-webpack5'),
     options: {}
   },
   docs: {
@@ -64,3 +65,7 @@ const config = {
 };
 
 export default config;
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
