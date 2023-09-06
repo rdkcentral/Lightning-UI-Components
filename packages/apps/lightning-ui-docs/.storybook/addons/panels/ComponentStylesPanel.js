@@ -205,7 +205,7 @@ export default params => {
                           name="tones"
                           key={`Tones-${version}`}
                           type="inline-radio"
-                          value="neutral"
+                          value={tone}
                           argType={{ options: ['neutral', 'inverse', 'brand'] }}
                           onChange={val => {
                             updateToneState(val);
