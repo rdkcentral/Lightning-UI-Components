@@ -134,7 +134,6 @@ const sharedArgActions = {
   }
 };
 
-// using a generic sample Figma button link to show how it works
 Button.parameters = {
   argActions: sharedArgActions
 };
