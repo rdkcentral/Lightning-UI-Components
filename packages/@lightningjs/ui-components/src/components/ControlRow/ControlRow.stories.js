@@ -177,7 +177,7 @@ export const AddingAndRemoving = () =>
             createSignal('addLeftControl')
           ),
           contentItems: createItems(
-            3,
+            5,
             undefined,
             createSignal('addContentItem')
           ),

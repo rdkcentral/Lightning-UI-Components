@@ -144,7 +144,8 @@ export default class ControlRow extends TitleRow {
     }
 
     this.patch({
-      stopLazyScrollIndex: addIndex + itemsToAdd.length - 1
+      stopLazyScrollIndex:
+        this.leftControls.length + this.contentItems.length - 1
     });
   }
 
@@ -162,7 +163,8 @@ export default class ControlRow extends TitleRow {
       }
 
       this.patch({
-        stopLazyScrollIndex: this._lastItemIndex + itemsToAdd.length
+        stopLazyScrollIndex:
+          this.leftControls.length + this.contentItems.length - 1
       });
     }
   }
@@ -177,6 +179,7 @@ export default class ControlRow extends TitleRow {
     }
 
     this.patch({
+      startLazyScrollIndex: this.leftControls.length,
       stopLazyScrollIndex:
         this.leftControls.length + this.contentItems.length - 1
     });
@@ -194,7 +197,9 @@ export default class ControlRow extends TitleRow {
     }
 
     this.patch({
-      startLazyScrollIndex: addIndex + itemsToAdd.length
+      startLazyScrollIndex: this.leftControls.length,
+      stopLazyScrollIndex:
+        this.leftControls.length + this.contentItems.length - 1
     });
   }
 
@@ -211,9 +216,9 @@ export default class ControlRow extends TitleRow {
       }
 
       this.patch({
-        startLazyScrollIndex: this._lastLeftControlIndex
-          ? this._lastLeftControlIndex + 1
-          : controls.length
+        startLazyScrollIndex: this.leftControls.length,
+        stopLazyScrollIndex:
+          this.leftControls.length + this.contentItems.length - 1
       });
     }
   }
@@ -227,8 +232,11 @@ export default class ControlRow extends TitleRow {
       this._leftControls.splice(index, 1);
     }
 
-    this.stopLazyScrollIndex =
-      this.leftControls.length + this.contentItems.length - 1;
+    this.patch({
+      startLazyScrollIndex: this.leftControls.length,
+      stopLazyScrollIndex:
+        this.leftControls.length + this.contentItems.length - 1
+    });
   }
 
   addRightControls(controls) {
