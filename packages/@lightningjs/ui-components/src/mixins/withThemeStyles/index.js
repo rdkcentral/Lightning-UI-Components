@@ -266,7 +266,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (typeof v !== 'string' || this._mode === v) return;
       this._mode = v;
       const event = this[`on${capitalizeFirstLetter(v)}`];
-      if (event && typeof event === 'function') event();
+      if (event && typeof event === 'function') event.call(this);
       this._styleManager.update();
     }
 

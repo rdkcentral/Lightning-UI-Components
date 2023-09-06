@@ -65,17 +65,27 @@ declare namespace Artwork {
      */
     fallbackSrc?: string;
     /**
+     * @deprecated
      * Height value for the foregroundSrc if defined
      */
     foregroundH?: number;
+    /**
+     * Height value for the foregroundSrc if defined
+     */
+    foregroundHeight?: number;
     /**
      * Sets the fallback image that will be shown in if the src request fails
      */
     foregroundSrc?: string;
     /**
+     * @deprecated
      * Width value for the foregroundSrc if defined
      */
     foregroundW?: number;
+    /**
+     * Width value for the foregroundSrc if defined
+     */
+    foregroundWidth?: number;
     /**
      * When true, a gradient will be added over all other elements
      */
@@ -138,7 +148,7 @@ declare class Artwork<
   /**
    * Height value for the foregroundSrc if defined
    */
-  foregroundH?: number;
+  foregroundHeight?: number;
   /**
    * Image location for item that should be placed on top of the artwork above all other layers
    */
@@ -146,7 +156,7 @@ declare class Artwork<
   /**
    * Width value for the foregroundSrc if defined
    */
-  foregroundW?: number;
+  foregroundWidth?: number;
   /**
    * When true, a gradient will be added over all other elements
    */
