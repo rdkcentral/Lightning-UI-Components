@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,9 @@ export default {
   args: {
     contentWrap: false,
     justify: 'center',
-    contentProperties: { marginBottom: -4 }
+    contentProperties: { marginBottom: -4 },
+    maxLines: 0,
+    maxLinesSuffix: '..'
   },
   argTypes: {
     contentProperties: {
@@ -69,7 +71,7 @@ export default {
       description: 'maximum number of lines to render before truncation',
       type: 'number',
       table: {
-        defaultValue: { summary: undefined }
+        defaultValue: { summary: 'undefined' }
       }
     },
     maxLinesSuffix: {
