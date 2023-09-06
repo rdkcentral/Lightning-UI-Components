@@ -17,7 +17,7 @@
  */
 
 export const base = theme => ({
-  fadeW: 100,
+  fadeWidth: 100,
   offset: theme.spacer.xxl,
   shouldSmooth: false,
   textStyle: theme.typography.body1
