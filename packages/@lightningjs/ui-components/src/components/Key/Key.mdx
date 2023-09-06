@@ -68,14 +68,14 @@ class Basic extends lng.Component {
 
 ### Events
 
-#### $onSoftKey({ key: string, toggle: boolean })
+#### `$onSoftKey({ key: string, toggle: boolean })`
 
 Fired when the enter key is pressed while focused on a `Key` component. An event will be emitted
 via Lightning's `fireAncestors` with an object of the `Key`'s `title` and `toggle` property values.
 If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
 `$onSoftKey` event will not be emitted.
 
-#### $toggleKeyboard({ key: string, toggle: boolean })
+#### `$toggleKeyboard({ key: string, toggle: boolean })`
 
 Fired when the enter key is pressed while focused on a `Key` component with its `toggle` property
 set to `true`. If a funciton is passed to the `Key`'s `onEnter` property, that function will be invoked and the
