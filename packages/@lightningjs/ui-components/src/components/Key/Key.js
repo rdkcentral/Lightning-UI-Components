@@ -74,6 +74,13 @@ export default class Key extends Button {
     return [...super.properties, 'icon', 'size', 'toggle'];
   }
 
+  static get aliasStyles() {
+    return [
+      { prev: 'iconH', curr: 'iconHeight' },
+      { prev: 'iconW', curr: 'iconWidth' }
+    ];
+  }
+
   _construct() {
     super._construct();
     this._size = 'sm';
@@ -96,8 +103,8 @@ export default class Key extends Button {
     this._prefix = {
       type: Icon,
       icon,
-      w: this.style.iconW,
-      h: this.style.iconH,
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
       ...props
     };
   }

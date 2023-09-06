@@ -31,8 +31,12 @@ type SizeObject = {
 type KeyStyle = ButtonStyle & {
   h: number;
   sizes: SizeObject;
+  /** @deprecated */
   iconW: number;
+  iconWidth: number;
+  /** @deprecated */
   iconH: number;
+  iconHeight: number;
 };
 
 declare namespace Key {
