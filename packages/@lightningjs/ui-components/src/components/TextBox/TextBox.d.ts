@@ -32,6 +32,7 @@ export default class TextBox extends Base {
   content?: string | TextContent[];
   fixed?: boolean;
   marquee?: boolean;
+  hideOnLoad?: boolean;
   get marqueeOverrideLoopX(): number;
   set marqueeOverrideLoopX(v: number);
   get style(): TextBoxStyle;

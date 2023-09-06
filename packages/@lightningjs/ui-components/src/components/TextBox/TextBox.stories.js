@@ -57,6 +57,7 @@ Basic.args = {
   content: lorum,
   marquee: false,
   fixed: true,
+  hideOnLoad: false,
   w: 600
 };
 
@@ -80,6 +81,15 @@ Basic.argTypes = {
     control: 'boolean',
     description:
       'Flag that when set to `true`, allows the width of the component to be set with `w`',
+    table: {
+      defaultValue: { summary: false }
+    }
+  },
+  hideOnLoad: {
+    control: 'boolean',
+    remount: true,
+    description:
+      'If `true`, the component will not render as visible following the text texture loading. This allows manually controlling the alpha of the component. The component will not render as visible if this is set to true.',
     table: {
       defaultValue: { summary: false }
     }

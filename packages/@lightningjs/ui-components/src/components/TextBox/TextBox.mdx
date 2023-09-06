@@ -60,11 +60,12 @@ TextBox: {
 
 ### Properties
 
-| name    | type    | required | default   | description                                                |
-| ------- | ------- | -------- | --------- | ---------------------------------------------------------- |
-| content | string  | true     | undefined | Text to be displayed in element                            |
-| fixed   | boolean | false    | false     | If `true`, allows the width of the text to be set with `w` |
-| marquee | boolean | false    | false     | Allows text to be scrollable                               |
+| name       | type    | required | default   | description                                                                                                                                          |
+| ---------- | ------- | -------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| content    | string  | true     | undefined | Text to be displayed in element                                                                                                                      |
+| hideOnLoad | boolean | false    | undefined | If `true`, the component will not render as visible following the text texture loading. This allows manually controlling the alpha of the component. |
+| fixed      | boolean | false    | false     | If `true`, allows the width of the text to be set with `w`                                                                                           |
+| marquee    | boolean | false    | false     | Allows text to be scrollable                                                                                                                         |
 
 TextBox also supports rendering as an InlineContent component. See [InlineContent documentation](/docs/components-inlinecontent--basic) for table of supported properties.
 
