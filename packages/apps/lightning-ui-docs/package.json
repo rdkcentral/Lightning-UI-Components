@@ -27,7 +27,6 @@
     "@storybook/blocks": "^7.4.0",
     "@storybook/html": "^7.4.0",
     "@storybook/html-webpack5": "^7.4.0",
-    "@storybook/mdx1-csf": "^1.0.0",
     "@storybook/testing-library": "^0.2.0",
     "@yarnpkg/pnpify": "^4.0.0-rc.21",
     "babel-jest": "^29.0.3",

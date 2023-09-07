@@ -15,11 +15,11 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import remarkGfm from 'remark-gfm'; // needed for Tables, Links, etc in MDX
 const path = require('path');
 
 const config = {
   addons: [
-    '@storybook/addon-mdx-gfm',
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -27,6 +27,16 @@ const config = {
         outline: false, // disable outline addon
         measure: false, // disable measure addon
         viewport: false // disable viewport addon
+      }
+    },
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm]
+          }
+        }
       }
     },
     '@storybook/addon-designs',
