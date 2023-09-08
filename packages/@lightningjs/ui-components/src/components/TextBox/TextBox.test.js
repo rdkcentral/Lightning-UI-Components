@@ -106,6 +106,34 @@ describe('TextBox', () => {
       textBox.smooth = { w: 100 };
       expect(warnMock.mock.calls.length).toBe(1);
     });
+
+    it('should default displaying text after the texture has loaded', async () => {
+      [textBox, testRenderer] = createTextBox(
+        {},
+        { spyOnMethods: ['_setDimensions'] }
+      );
+
+      expect(textBox.alpha).toBe(0.001);
+
+      textBox.content = 'text';
+      await textBox.__setDimensionsSpyPromise;
+
+      expect(textBox.alpha).toBe(1);
+    });
+
+    it('should allow not displaying text after the texture has loaded', async () => {
+      [textBox, testRenderer] = createTextBox(
+        { hideOnLoad: true },
+        { spyOnMethods: ['_setDimensions'] }
+      );
+
+      expect(textBox.alpha).toBe(0.001);
+
+      textBox.content = 'text';
+      await textBox.__setDimensionsSpyPromise;
+
+      expect(textBox.alpha).toBe(0.001);
+    });
   });
 
   describe('styling', () => {

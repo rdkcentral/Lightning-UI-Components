@@ -23,8 +23,8 @@ export const base = theme => {
     alpha: theme.alpha.primary,
     width: size,
     height: size,
-    checkW: theme.spacer.lg,
-    checkH: theme.spacer.md + theme.spacer.xs,
+    checkWidth: theme.spacer.lg,
+    checkHeight: theme.spacer.md + theme.spacer.xs,
     checkSrc: theme.asset.check,
     radius: size / 2,
     strokeWidth

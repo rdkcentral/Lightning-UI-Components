@@ -73,10 +73,15 @@ export default class Row extends NavigationManager {
   }
 
   _shouldScroll() {
+    const prevIndex = this.Items.childList.getIndex(this.prevSelected);
     if (
       this.lazyScroll &&
-      (this.selectedIndex <= this.startLazyScrollIndex ||
-        this.selectedIndex >= this.stopLazyScrollIndex)
+      (this.selectedIndex < this.startLazyScrollIndex ||
+        this.selectedIndex > this.stopLazyScrollIndex ||
+        (prevIndex < this.startLazyScrollIndex &&
+          this.selectedIndex === this.startLazyScrollIndex) ||
+        (prevIndex > this.stopLazyScrollIndex &&
+          this.selectedIndex === this.stopLazyScrollIndex))
     ) {
       return true;
     }
@@ -117,10 +122,7 @@ export default class Row extends NavigationManager {
       this.selectedIndex >= this.stopLazyScrollIndex &&
       this.selectedIndex < prevIndex
     ) {
-      // if navigating left on items after stop lazy scroll index, only shift by size of prev item
-      const currItemsX = this.Items.transition('x')
-        ? this.Items.transition('x').targetValue
-        : this.Items.x;
+      const currItemsX = this.Items.x;
 
       return (
         currItemsX +
@@ -132,9 +134,9 @@ export default class Row extends NavigationManager {
       // otherwise, no start/stop indexes, perform normal lazy scroll
       let itemsContainerX;
       const prevIndex = this.Items.childList.getIndex(prev);
-      const selectedX = this.selected.transition('x')
-        ? this.selected.transition('x').targetValue
-        : this.selected.x;
+
+      const selectedX = this.selected.x;
+
       if (prevIndex === -1) {
         // No matches found in childList, start set x to 0
         return;

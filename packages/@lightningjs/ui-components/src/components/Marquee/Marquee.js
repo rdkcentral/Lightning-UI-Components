@@ -73,6 +73,10 @@ export default class Marquee extends Base {
     ];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'fadeW', curr: 'fadeWidth' }];
+  }
+
   _construct() {
     super._construct();
     this._scrolling = false;
@@ -154,11 +158,11 @@ export default class Marquee extends Base {
 
   _updateShader() {
     this._ContentClipper.patch({
-      w: this.w > 0 ? this.w + this.style.fadeW / 2 : 0,
+      w: this.w > 0 ? this.w + this.style.fadeWidth / 2 : 0,
       shader: {
         type: FadeShader,
         positionLeft: 0,
-        positionRight: this.style.fadeW
+        positionRight: this.style.fadeWidth
       },
       rtt: true
     });
@@ -186,8 +190,8 @@ export default class Marquee extends Base {
           v: {
             sm: 0,
             0: { v: 0 },
-            0.1: { v: this.style.fadeW },
-            0.4: { v: this.style.fadeW },
+            0.1: { v: this.style.fadeWidth },
+            0.4: { v: this.style.fadeWidth },
             0.5: { v: 0 }
           }
         }
@@ -233,9 +237,9 @@ export default class Marquee extends Base {
   }
 
   get _shouldClip() {
-    // using fadeW / 4 so that if something like the last character is slightly
+    // using fadeWidth / 4 so that if something like the last character is slightly
     // faded out but still visible, we don't unnecessarily scroll
-    return this._textRenderedW > this.w - this.style.fadeW / 4;
+    return this._textRenderedW > this.w - this.style.fadeWidth / 4;
   }
 
   _shouldCenter() {
