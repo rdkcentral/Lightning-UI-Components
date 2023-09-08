@@ -31,7 +31,6 @@ registerEventListeners();
  */
 const preview = {
   parameters: {
-    layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       hideNoControlsWarning: true,
