@@ -36,7 +36,6 @@ type TextBoxStyle = {
   offsetY: number;
   offsetX: number;
   textStyle: lng.textures.TextTexture.Settings | string;
-  typography: Record<string, lng.textures.TextTexture.Settings>;
 };
 
 declare namespace TextBox {
@@ -74,6 +73,7 @@ declare class TextBox<
   TemplateSpec extends TextBox.TemplateSpec = TextBox.TemplateSpec,
   TypeConfig extends TextBox.TypeConfig = TextBox.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
+  
   // Properties
 
   /**
@@ -89,6 +89,9 @@ declare class TextBox<
    * If true, allows text to be scrollable
    */
   marquee?: boolean;
+  /**
+   * If `true`, the component will not render as visible following the text texture loading. This allows manually controlling the alpha of the component.
+   */
   hideOnLoad?: boolean;
 
   // Accessors
