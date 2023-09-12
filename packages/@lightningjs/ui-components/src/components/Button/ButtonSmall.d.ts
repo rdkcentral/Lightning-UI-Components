@@ -17,11 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import Button, { ButtonStyle } from './Button';
+import Button from './Button';
 
 declare class ButtonSmall<
   TemplateSpec extends Button.TemplateSpec = Button.TemplateSpec,
   TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
 > extends Button<TemplateSpec, TypeConfig> {}
 
-export { ButtonSmall as default, ButtonStyle };
+export default ButtonSmall;
