@@ -96,8 +96,8 @@ describe('InlineContent', () => {
     expect(base(baseTheme)).toEqual(
       expect.objectContaining({
         textY: expect.any(Number),
-        iconW: expect.any(Number),
-        iconH: expect.any(Number),
+        iconWidth: expect.any(Number),
+        iconHeight: expect.any(Number),
         contentSpacing: expect.any(Number),
         marginBottom: expect.any(Number),
         textStyle: expect.any(Object),
@@ -172,11 +172,11 @@ describe('InlineContent', () => {
         }
       ],
       iconY: 10,
-      iconW: iconSize,
-      iconH: iconSize
+      iconWidth: iconSize,
+      iconHeight: iconSize
     });
-    expect(inlineContent.iconW).toBe(iconSize);
-    expect(inlineContent.iconH).toBe(iconSize);
+    expect(inlineContent.iconWidth).toBe(iconSize);
+    expect(inlineContent.iconHeight).toBe(iconSize);
   });
 
   it('should update content spacing', () => {

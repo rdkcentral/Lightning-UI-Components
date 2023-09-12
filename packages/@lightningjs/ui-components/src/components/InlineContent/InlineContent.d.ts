@@ -68,8 +68,12 @@ type FlexItem = {
 
 export type InlineContentStyle = {
   textY: number;
+  /** @deprecated */
   iconW: number;
+  iconWidth: number;
+  /** @deprecated */
   iconH: number;
+  iconHeight: number;
   contentSpacing: number;
   marginBottom: number;
   textStyle: lng.textures.TextTexture.Settings;

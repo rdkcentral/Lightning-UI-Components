@@ -49,6 +49,13 @@ export default class InlineContent extends Base {
     return styles;
   }
 
+  static get aliasStyles() {
+    return [
+      { prev: 'iconH', curr: 'iconHeight' },
+      { prev: 'iconW', curr: 'iconWidth' }
+    ];
+  }
+
   _construct() {
     super._construct();
     // use the same default value as Lightning's Text Texture default
@@ -303,13 +310,13 @@ export default class InlineContent extends Base {
     const y =
       (this.textHeight > this.style.textStyle.lineHeight
         ? this.textHeight
-        : this.style.textStyle.lineHeight) - this.style.iconH;
+        : this.style.textStyle.lineHeight) - this.style.iconHeight;
     return {
       ...base,
       type: Icon,
       y: y,
-      w: this.style.iconW,
-      h: this.style.iconH,
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
       signals: {
         itemChanged: '_updateIconPosition'
       },
