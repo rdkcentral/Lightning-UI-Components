@@ -20,6 +20,10 @@ import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
 import TitleRow, { TitleRowStyle } from '../TitleRow';
 
+type ControlRowItem = Array<
+  lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
+>;
+
 type ControlRowStyle = TitleRowStyle & {
   extraItemSpacing: number;
 };
@@ -65,27 +69,27 @@ declare class ControlRow<
    * Adds items to the end of the row.
    * @param items An array of items to be added.
    */
-  addContentItems(items: unknown[]): void;
+  addContentItems(items: ControlRowItem[]): void;
 
   /**
    * Adds items at a specified index of the row.
    * @param items An array of items to be added.
    * @param index The index where the items should be added.
    */
-  addContentItemsAt(items: unknown[], index: number): void;
+  addContentItemsAt(items: ControlRowItem[], index: number): void;
 
   /**
    * Adds controls to the end of the left controls.
    * @param controls An array of controls to be added.
    */
-  addLeftControls(controls: unknown[]): void;
+  addLeftControls(items: ControlRowItem[]): void;
 
   /**
    * Adds controls at a specified index of the left controls.
    * @param controls An array of controls to be added.
    * @param index The index where the controls should be added.
    */
-  addLeftControlsAt(controls: unknown[], index: number): void;
+  addLeftControlsAt(items: ControlRowItem[], index: number): void;
 
   /**
    * Removes a left control at the specified index.
@@ -97,14 +101,14 @@ declare class ControlRow<
    * Adds controls to the end of the right controls.
    * @param controls An array of controls to be added.
    */
-  addRightControls(controls: unknown[]): void;
+  addRightControls(items: ControlRowItem[]): void;
 
   /**
    * Adds controls at a specified index of the right controls.
    * @param controls An array of controls to be added.
    * @param index The index where the controls should be added.
    */
-  addRightControlsAt(controls: unknown[], index: number): void;
+  addRightControlsAt(items: ControlRowItem[], index: number): void;
 
   /**
    * Removes a right control at the specified index.
@@ -113,4 +117,4 @@ declare class ControlRow<
   removeRightControlAt(index: number): void;
 }
 
-export { ControlRow as default, ControlRowStyle };
+export { ControlRow as default, ControlRowStyle, ControlRowItem };

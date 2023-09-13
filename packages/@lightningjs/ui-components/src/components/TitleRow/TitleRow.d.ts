@@ -28,7 +28,8 @@ import type { TextBoxStyle } from '../TextBox';
  * We are not re-mapping properties and defining a `RowStyle` in `Row` since `Row` inherits all of `NavigationManager` style props.
  * Hence `TitleRowStyle` uses `NavigationManagerStyle` rather than the previous `RowStyle`
  */
-export type TitleRowStyle = NavigationManagerStyle & {
+
+type TitleRowStyle = NavigationManagerStyle & {
   w: number;
   titleMarginLeft: number;
   titleTextStyle: TextBoxStyle;
@@ -45,8 +46,9 @@ declare namespace TitleRow {
 }
 
 declare class TitleRow<
-  TemplateSpec extends TitleRow.TemplateSpec = TitleRow.TemplateSpec
-> extends Row<TemplateSpec> {
+  TemplateSpec extends TitleRow.TemplateSpec = TitleRow.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Row<TemplateSpec, TypeConfig> {
   // Properties
   /**
    * Title text to be displayed above the `Row` items
@@ -60,5 +62,4 @@ declare class TitleRow<
   // Tags
   get _Title(): lng.Component;
 }
-
-export default TitleRow;
+export { TitleRow as default, TitleRowStyle };
