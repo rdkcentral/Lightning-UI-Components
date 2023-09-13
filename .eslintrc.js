@@ -35,9 +35,9 @@ module.exports = {
   plugins: ['jest', 'prettier'],
   extends: [
     'eslint:recommended',
-    'plugin:mdx/recommended',
     'plugin:prettier/recommended',
-    'prettier'
+    'prettier',
+    'plugin:mdx/recommended'
   ],
   rules: {
     'import/no-useless-path-segments': 'error', // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
@@ -121,7 +121,7 @@ module.exports = {
     },
     {
       files: '*.mdx',
-      parser: 'eslint-mdx', // enable `eslint-mdx` manually if it does not work
+      parser: 'eslint-mdx',
       extends: 'plugin:mdx/recommended'
     }
   ]

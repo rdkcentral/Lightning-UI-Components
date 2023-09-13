@@ -34,7 +34,7 @@ const config = {
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
-            remarkPlugins: [remarkGfm]
+            remarkPlugins: [remarkGfm] //  needed for MDX to use Github Flavored Markdown
           }
         }
       }
