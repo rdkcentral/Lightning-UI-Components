@@ -18,6 +18,7 @@
 
 import lng from '@lightningjs/core';
 import type Row from '../Row';
+import FocusManager from '../FocusManager';
 import type { NavigationManagerStyle } from '../NavigationManager/NavigationManager';
 import type { StylePartial } from '../../types/lui';
 import type { TextBoxStyle } from '../TextBox';
@@ -47,7 +48,7 @@ declare namespace TitleRow {
 
 declare class TitleRow<
   TemplateSpec extends TitleRow.TemplateSpec = TitleRow.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
 > extends Row<TemplateSpec, TypeConfig> {
   // Properties
   /**
