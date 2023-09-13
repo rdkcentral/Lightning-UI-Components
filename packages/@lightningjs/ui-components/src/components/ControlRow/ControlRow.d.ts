@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
 import TitleRow, { TitleRowStyle } from '../TitleRow';
-import FocusManager from '../FocusManager/FocusManager';
+import FocusManager from '../FocusManager';
 
 type ControlRowItem = Array<
   lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
