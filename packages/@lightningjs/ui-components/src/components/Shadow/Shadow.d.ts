@@ -18,10 +18,11 @@
 
 import type lng from '@lightningjs/core';
 import Base from '../Base';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 
-export type ShadowStyle = {
+type ShadowStyle = {
   alpha: number;
+  animation: lng.types.TransitionSettings.Literal;
   blur: number;
   color: Color;
   offsetX: number;
@@ -32,8 +33,24 @@ export type ShadowStyle = {
   maxOffsetY: number;
 };
 
-export default class Shadow extends Base {
+declare namespace Shadow {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * if true, uses holepunch shader to mask out base component shape
+     */
+    maskShadow?: boolean;
+  }
+}
+
+declare class Shadow<
+  TemplateSpec extends Shadow.TemplateSpec = Shadow.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * if true, uses holepunch shader to mask out base component shape
+   */
   maskShadow?: boolean;
+
   get style(): ShadowStyle;
   set style(v: StylePartial<ShadowStyle>);
 
@@ -41,3 +58,5 @@ export default class Shadow extends Base {
   get _Frame(): lng.Component;
   get _Shadow(): lng.Component;
 }
+
+export { Shadow as default, ShadowStyle };
