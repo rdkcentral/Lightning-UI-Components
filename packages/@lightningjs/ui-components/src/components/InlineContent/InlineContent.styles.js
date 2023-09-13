@@ -18,8 +18,8 @@
 
 export const base = theme => ({
   textY: 0,
-  iconW: theme.spacer.xxl + theme.spacer.xs,
-  iconH: theme.spacer.xxl + theme.spacer.xs,
+  iconWidth: theme.spacer.xxl + theme.spacer.xs,
+  iconHeight: theme.spacer.xxl + theme.spacer.xs,
   contentSpacing: theme.spacer.md,
   marginBottom: theme.typography.body1.lineHeight / -10,
   textStyle: {
