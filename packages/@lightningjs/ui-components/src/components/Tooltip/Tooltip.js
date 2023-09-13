@@ -55,6 +55,13 @@ export default class Tooltip extends Base {
     return ['Background', { name: 'Text', path: 'Background.Text' }];
   }
 
+  static get aliasStyles() {
+    return [
+      { prev: 'pointerH', curr: 'pointerHeight' },
+      { prev: 'pointerW', curr: 'pointerWidth' }
+    ];
+  }
+
   _update() {
     this._updateText();
   }
@@ -75,7 +82,7 @@ export default class Tooltip extends Base {
 
   _updateBackground() {
     const backgroundH =
-      this._Text.finalH + this.style.paddingY * 2 + this.style.pointerH;
+      this._Text.finalH + this.style.paddingY * 2 + this.style.pointerHeight;
     const backgroundW = this._Text.finalW + this.style.paddingX * 2;
 
     this.patch({
@@ -91,8 +98,8 @@ export default class Tooltip extends Base {
           w: backgroundW,
           h: backgroundH,
           radius: this.style.radius,
-          pointerW: this.style.pointerW,
-          pointerH: this.style.pointerH,
+          pointerWidth: this.style.pointerWidth,
+          pointerHeight: this.style.pointerHeight,
           color: this.style.backgroundColor
         }
       }
@@ -104,7 +111,7 @@ export default class Tooltip extends Base {
       this._Text.patch({
         mount: 0.5,
         x: this._Background.w / 2,
-        y: (this._Background.h - this.style.pointerH) / 2
+        y: (this._Background.h - this.style.pointerHeight) / 2
       });
     }
   }

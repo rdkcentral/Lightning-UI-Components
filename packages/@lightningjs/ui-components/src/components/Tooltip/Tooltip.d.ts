@@ -26,8 +26,12 @@ type TooltipStyle = {
   marginBottom: number;
   paddingX: number;
   paddingY: number;
+  /** @deprecated */
   pointerW: number;
+  pointerWidth: number;
+  /** @deprecated */
   pointerH: number;
+  pointerHeight: number;
   radius: lng.Tools.CornerRadius;
   textStyle: TextBoxStyle;
   transition: lng.types.TransitionSettings;
