@@ -44,15 +44,6 @@ export const KeyboardFullscreen = () =>
         w: utils.getWidthByUpCount(context.theme, 1)
       };
     }
-
-    _init() {
-      this.tag('Keyboard')._whenEnabled.then(() => {
-        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {
-          row: 1,
-          column: 0
-        });
-      });
-    }
   };
 
 KeyboardFullscreen.storyName = 'KeyboardFullscreen';
