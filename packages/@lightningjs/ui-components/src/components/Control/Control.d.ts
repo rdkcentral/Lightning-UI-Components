@@ -17,8 +17,7 @@
  */
 
 import type lng from '@lightningjs/core';
-import { ButtonSmallStyle } from '../Button/ButtonSmall';
-import Button from '../Button';
+import Button, { ButtonStyle } from '../Button';
 import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {
@@ -27,7 +26,7 @@ type LogoStyleObject = {
   w: number;
 };
 
-type ControlStyle = ButtonSmallStyle & {
+type ControlStyle = ButtonStyle & {
   iconStyle: Record<string, unknown>;
   logoStyle: LogoStyleObject;
   radius: lng.Tools.CornerRadius;
