@@ -52,6 +52,8 @@ export { default as Key, KeyStyle } from './Key';
 export {
   default as Keyboard,
   KeyboardStyle,
+  KeyboardFormat,
+  KeyboardSelectedKeyPosition,
   KeyboardEmail,
   KeyboardFullscreen,
   KeyboardNumbers,

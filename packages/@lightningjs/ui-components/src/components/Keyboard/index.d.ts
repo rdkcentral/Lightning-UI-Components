@@ -16,7 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Keyboard, { KeyboardStyle } from './Keyboard';
+import Keyboard, {
+  KeyboardStyle,
+  KeyboardFormat,
+  KeyboardSelectedKeyPosition
+} from './Keyboard';
 import KeyboardEmail from './KeyboardEmail';
 import KeyboardFullscreen from './KeyboardFullscreen';
 import KeyboardNumbers from './KeyboardNumbers';
@@ -26,6 +30,8 @@ import KeyboardInput from './KeyboardInput';
 export {
   Keyboard as default,
   KeyboardStyle,
+  KeyboardFormat,
+  KeyboardSelectedKeyPosition,
   KeyboardEmail,
   KeyboardFullscreen,
   KeyboardNumbers,
