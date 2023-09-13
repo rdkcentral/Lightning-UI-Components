@@ -73,7 +73,6 @@ declare class TextBox<
   TemplateSpec extends TextBox.TemplateSpec = TextBox.TemplateSpec,
   TypeConfig extends TextBox.TypeConfig = TextBox.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
-  
   // Properties
 
   /**
