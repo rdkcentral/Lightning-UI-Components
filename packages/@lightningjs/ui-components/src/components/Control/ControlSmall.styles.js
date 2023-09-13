@@ -32,7 +32,6 @@ export const base = theme => {
       height: theme.spacer.md * 5,
       width: theme.spacer.md * 6
     },
-    prefixH: theme.spacer.md * 5,
     radius,
     minWidth: theme.spacer.md * 8,
     textStyle: theme.typography.button2

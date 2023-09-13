@@ -36,7 +36,6 @@ export const base = theme => {
     minWidth: theme.spacer.md * 9,
     paddingX,
     paddingXNoTitle: theme.spacer.md,
-    prefixH: theme.spacer.md * 6,
     prefixPadding: theme.spacer.md,
     radius,
     titlePadding: theme.spacer.md

@@ -32,7 +32,6 @@ type ListItemStyle = ButtonStyle & {
   descriptionTextStyle: TextBoxStyle;
   logoStyle: LogoStyleObject;
   paddingX: number;
-  prefixH: number;
   suffixH: number;
   titlePadding: number;
   titleTextStyle: TextBoxStyle;

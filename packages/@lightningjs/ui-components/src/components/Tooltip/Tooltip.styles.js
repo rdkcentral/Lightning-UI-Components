@@ -20,8 +20,8 @@ export const base = theme => ({
   marginBottom: theme.spacer.xxxl,
   paddingX: theme.spacer.lg,
   paddingY: theme.spacer.md,
-  pointerW: theme.spacer.xl,
-  pointerH: theme.spacer.md + theme.spacer.xs,
+  pointerWidth: theme.spacer.xl,
+  pointerHeight: theme.spacer.md + theme.spacer.xs,
   radius: theme.radius.md,
   textStyle: {
     ...theme.typography.caption1,
