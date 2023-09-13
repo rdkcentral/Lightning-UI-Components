@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
 import TitleRow, { TitleRowStyle } from '../TitleRow';
+import FocusManager from '../FocusManager/FocusManager';
 
 type ControlRowItem = Array<
   lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
@@ -48,7 +49,7 @@ export type SignalMap = {
 
 declare class ControlRow<
   TemplateSpec extends ControlRow.TemplateSpec = ControlRow.TemplateSpec,
-  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
 > extends TitleRow<TemplateSpec, TypeConfig> {
   /**
    * additional space to be added between controls and content items
