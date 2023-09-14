@@ -16,34 +16,106 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type lng from '@lightningjs/core';
-import type { StylePartial } from '../../types/lui';
+import lng from '@lightningjs/core';
+import { StylePartial } from '../../types/lui';
 import TitleRow, { TitleRowStyle } from '../TitleRow';
-
-export type ControlRowStyle = TitleRowStyle & {
-  extraItemSpacing: number;
-};
+import FocusManager from '../FocusManager';
 
 type ControlRowItem = Array<
   lng.Component.NewPatchTemplate<typeof lng.Component> | lng.Component
 >;
 
-export default class ControlRow extends TitleRow {
-  leftControls?: ControlRowItem;
-  contentItems?: ControlRowItem;
-  rightControls?: ControlRowItem;
+type ControlRowStyle = TitleRowStyle & {
+  extraItemSpacing: number;
+};
+
+declare namespace ControlRow {
+  export interface TemplateSpec extends TitleRow.TemplateSpec {
+    /**
+     * additional space to be added between controls and content items
+     */
+    extraItemSpacing?: number;
+  }
+}
+export interface TypeConfig extends lng.Component.TypeConfig {
+  SignalMapType: SignalMap;
+}
+/**
+ * The signal is emitted when an item is selected after an index determined by the lazyLoadBuffer property.
+ */
+export type SignalMap = {
+  loadMoreItems(): void;
+};
+
+declare class ControlRow<
+  TemplateSpec extends ControlRow.TemplateSpec = ControlRow.TemplateSpec,
+  TypeConfig extends FocusManager.TypeConfig = FocusManager.TypeConfig
+> extends TitleRow<TemplateSpec, TypeConfig> {
+  /**
+   * additional space to be added between controls and content items
+   */
   extraItemSpacing?: number;
+
   get style(): ControlRowStyle;
   set style(v: StylePartial<ControlRowStyle>);
 
+  // Methods
+
+  /**
+   * Method to handle loading more items.
+   */
   loadMoreItems(): void;
-  addContentItems(items: ControlRowItem[]);
-  addContentItemsAt(items: ControlRowItem[], index: number);
-  removeContentItemsAt(index: number);
-  addLeftControls(items: ControlRowItem[]);
-  addLeftControlsAt(items: ControlRowItem[], index: number);
-  removeLeftControlsAt(index: number);
-  addRightControls(items: ControlRowItem[]);
-  addRightControlsAt(items: ControlRowItem[], index: number);
-  removeRightControlsAt(index: number);
+
+  /**
+   * Adds items to the end of the row.
+   * @param items An array of items to be added.
+   */
+  addContentItems(items: ControlRowItem[]): void;
+
+  /**
+   * Adds items at a specified index of the row.
+   * @param items An array of items to be added.
+   * @param index The index where the items should be added.
+   */
+  addContentItemsAt(items: ControlRowItem[], index: number): void;
+
+  /**
+   * Adds controls to the end of the left controls.
+   * @param controls An array of controls to be added.
+   */
+  addLeftControls(items: ControlRowItem[]): void;
+
+  /**
+   * Adds controls at a specified index of the left controls.
+   * @param controls An array of controls to be added.
+   * @param index The index where the controls should be added.
+   */
+  addLeftControlsAt(items: ControlRowItem[], index: number): void;
+
+  /**
+   * Removes a left control at the specified index.
+   * @param index The index of the left control to be removed.
+   */
+  removeLeftControlAt(index: number): void;
+
+  /**
+   * Adds controls to the end of the right controls.
+   * @param controls An array of controls to be added.
+   */
+  addRightControls(items: ControlRowItem[]): void;
+
+  /**
+   * Adds controls at a specified index of the right controls.
+   * @param controls An array of controls to be added.
+   * @param index The index where the controls should be added.
+   */
+  addRightControlsAt(items: ControlRowItem[], index: number): void;
+
+  /**
+   * Removes a right control at the specified index.
+   * @param index The index of the right control to be removed.
+   */
+  removeRightControlAt(index: number): void;
 }
+
+export { ControlRow as default, ControlRowStyle, ControlRowItem };
