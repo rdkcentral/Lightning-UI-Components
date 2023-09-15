@@ -198,11 +198,6 @@ export default {
           }
         }
       }
-    },
-    Badge: {
-      style: {
-        offsetY: 4
-      }
     }
   },
   font: [],
