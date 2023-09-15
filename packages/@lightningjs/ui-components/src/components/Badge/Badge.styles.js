@@ -19,7 +19,7 @@
 export const base = theme => {
   return {
     contentSpacing: theme.spacer.sm,
-    offsetY: 1,
+    // offsetY: 1, //TODO needto confirm before if I can remove offSet from Badge Styles
     paddingX: theme.spacer.md + theme.spacer.xxs,
     paddingY: theme.spacer.xs,
     radius: theme.radius.sm,
