@@ -38,23 +38,25 @@ By default each component will attempt to find a `focused` mode when thte compon
 
 You can set any component's default mode by specifying it in the `componentConfig` property of your theme. For a deeper dive on `tones`, see ["Component Config"](../?path=/docs/docs-theming-component-config--page).
 
-```js
+{/* prettier-ignore */}
+```js 
 componentConfig: {
   Tile: {
-    mode: 'focused';
+    mode: 'focused'
   }
 }
 ```
 
 You can also adjust the functionality of a mode by overriding it in your theme using the `styleConfig` property nested inside `componentConfig`.
 
+{/* prettier-ignore */}
 ```js
 componentConfig: {
   Tile: {
     styleConfig: {
       mode: {
         focused: {
-          radius: 100;
+          radius: 100
         }
       }
     }
@@ -68,10 +70,11 @@ Modes can be set on individual components as well.
 
 In the example below this instance of a Tile would be shown in it's focused state
 
+{/* prettier-ignore */}
 ```js
 ModeTest: {
   type: Tile,
-  mode: 'focused',
+  mode: 'focused'
   ...
 }
 ```
