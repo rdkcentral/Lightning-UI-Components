@@ -60,6 +60,7 @@ export default () => {
       <WithTooltip
         placement="bottom"
         trigger="click"
+        closeOnOutsideClick
         tooltip={<TooltipLinkList links={tooltipLinks} />}
       >
         <TabButton key={THEMEPICKER_ID} title="Theme">
