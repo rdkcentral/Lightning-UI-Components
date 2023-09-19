@@ -444,6 +444,12 @@ export default class InlineContent extends Base {
     return this._customStyleMappings || {};
   }
 
+  _setMaxLines(maxLines) {
+    // only accept positive numbers
+    // round down any decimals to whole numbers
+    return maxLines >= 1 ? Math.floor(maxLines) : 0;
+  }
+
   get textHeight() {
     return this.style.textStyle.lineHeight || this.style.textStyle.fontSize;
   }
