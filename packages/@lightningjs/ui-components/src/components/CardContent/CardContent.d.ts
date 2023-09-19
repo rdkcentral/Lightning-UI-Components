@@ -21,6 +21,7 @@ import { Color, StylePartial } from '../../types/lui';
 import Card, { CardStyle } from '../Card';
 import TextBox, { TextBoxStyle } from '../TextBox';
 import MetadataBase from '../MetadataBase';
+import Tile from '../Tile';
 
 type ImageSize = {
   w: number;
@@ -47,9 +48,8 @@ declare namespace CardContent {
     collapseToMetadata?: boolean;
     /**
      * object containing all properties supported in the MetadataCardContent component
-     * TODO: This should be updated to a MetadataCardContent patch object once its d.ts has been updated
      */
-    metadata?: object;
+    metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
     /**
      * specifies whether the card layout should be oriented horizontally or vertically
      */
@@ -64,9 +64,8 @@ declare namespace CardContent {
     src: string;
     /**
      * object containing all properties supported in the Tile component
-     * TODO: This should be updated to a Tile patch object once its d.ts has been updated
      */
-    tile?: object;
+    tile?: lng.Element.PatchTemplate<Tile.TemplateSpec>;
   }
 }
 declare class CardContent<
@@ -79,9 +78,8 @@ declare class CardContent<
   collapseToMetadata?: boolean;
   /**
    * object containing all properties supported in the MetadataCardContent component
-   TODO: This should be updated to a MetadataCardContent patch object once its d.ts has been updated
    */
-  metadata?: object;
+  metadata?: lng.Element.PatchTemplate<MetadataBase.TemplateSpec>;
   /**
    * specifies whether the card layout should be oriented horizontally or vertically
    */
@@ -96,9 +94,8 @@ declare class CardContent<
   src: string;
   /**
    * object containing all properties supported in the Tile component
-   TODO: This should be updated to a Tile patch object once its d.ts has been updated
    */
-  tile?: object;
+  tile?: lng.Element.PatchTemplate<Tile.TemplateSpec>;
 
   get style(): CardContentStyle;
   set style(v: StylePartial<CardContentStyle>);
