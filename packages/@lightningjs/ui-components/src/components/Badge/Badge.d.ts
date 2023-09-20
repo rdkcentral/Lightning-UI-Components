@@ -24,12 +24,12 @@ type BadgeStyle = {
   backgroundColor: Color;
   contentSpacing: number;
   iconColor: Color;
+  offsetY: number;
   paddingX: number;
   paddingY: number;
   radius: lng.Tools.CornerRadius;
   strokeColor: Color;
   strokeWidth: number;
-  textAlign: string;
   textStyle: lng.textures.TextTexture.Settings;
 };
 
