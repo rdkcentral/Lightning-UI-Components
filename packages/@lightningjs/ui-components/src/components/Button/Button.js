@@ -114,10 +114,36 @@ export default class Button extends Surface {
         };
       }
       this._Content.patch({ Prefix: prefixPatch });
-      this._Prefix.items = this._addButtonProps(this.prefix);
+
+      /**
+       * Repatching all items re-renders all the components in the Prefix Row.
+       * This can cause items to shift while their layout in the Row is re-calculated if
+       * any of the items do not have width or height on their initial render (ex. an Icon
+       * does not have width and height until after its texture loads).
+       * If the contents of the Prefix are the same components and this update was triggered
+       * from something else (ex. a change in mode), only update the styles applied to the
+       * items in the Prefix (ex. updating the color to the value appropriate to the new mode).
+       */
+      const prefixString = JSON.stringify(this.prefix);
+      if (prefixString !== this._prevPrefix) {
+        this._prevPrefix = prefixString;
+        this._Prefix.items = this._addButtonProps(this.prefix);
+      } else {
+        this._updatePrefixStyles();
+      }
     } else {
       this._Content.patch({ Prefix: undefined });
     }
+  }
+
+  _updatePrefixStyles() {
+    this._Prefix.Items.children.forEach((item, idx) => {
+      item.color = this.prefix[idx].color;
+      item.style = {
+        ...item.style,
+        color: this.style.contentColor
+      };
+    });
   }
 
   _updateTitle() {
