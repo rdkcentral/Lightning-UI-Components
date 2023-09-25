@@ -128,6 +128,21 @@ describe('TabBar', () => {
     expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
+  it('should update the TabBar height if the Tabs height changes', async () => {
+    [tabBar, testRenderer] = createComponent(
+      { tabs },
+      { focused: true, spyOnMethods: ['$itemChanged'] }
+    );
+    await tabBar.__updateSpyPromise;
+    const initialHeight = tabBar.h;
+
+    // this triggers the Tabs Row to fire an $itemChanged signal
+    tabBar.tabs = [{ rect: true, h: initialHeight + 20, w: 200 }];
+    await tabBar._$itemChangedSpyPromise;
+
+    expect(tabBar.h).toBeGreaterThan(initialHeight);
+  });
+
   it('should not repeatedly select the tabs when already selected', async () => {
     await tabBar.__updateSpyPromise;
     jest.spyOn(tabBar, '_updateTabs');
