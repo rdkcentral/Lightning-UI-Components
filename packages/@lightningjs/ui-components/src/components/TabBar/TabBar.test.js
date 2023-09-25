@@ -128,7 +128,7 @@ describe('TabBar', () => {
     expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
-  it('should not repeatedly selecte the tabs when already selected', async () => {
+  it('should not repeatedly select the tabs when already selected', async () => {
     await tabBar.__updateSpyPromise;
     jest.spyOn(tabBar, '_updateTabs');
     expect(tabBar._updateTabs).not.toHaveBeenCalled();
