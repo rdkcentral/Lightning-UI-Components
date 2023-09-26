@@ -26,11 +26,11 @@ export const base = theme => ({
   paddingYBetweenContent: theme.spacer.md,
   radius: theme.radius.md,
   alpha: theme.alpha.primary,
-  iconWidth: 96,
-  iconHeight: 48,
-  iconX: 30,
-  iconYInset: 140,
-  iconYStandard: 200
+  iconWidth: theme.spacer.lg * 5,
+  iconHeight: theme.spacer.xxl + theme.spacer.md,
+  iconX: theme.spacer.xl,
+  iconYInset: theme.spacer.lg * 7,
+  iconYStandard: theme.spacer.xxl * 5
 });
 
 export const tone = theme => ({

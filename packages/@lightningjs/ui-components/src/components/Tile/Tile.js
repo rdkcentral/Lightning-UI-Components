@@ -63,14 +63,12 @@ export default class Tile extends Surface {
       'checkbox',
       'circle',
       'label',
+      'iconSrc',
       'metadata',
       'metadataLocation',
       'persistentMetadata',
       'progressBar',
-      'src',
-      'iconWidth',
-      'iconHeight',
-      'iconSrc'
+      'src'
     ];
   }
 
@@ -81,8 +79,8 @@ export default class Tile extends Surface {
       'Content',
       'Tile',
       { name: 'Badge', path: 'Content.Badge' },
-      { name: 'Icon', path: 'Content.Icon' },
       { name: 'Checkbox', path: 'Content.Checkbox' },
+      { name: 'Icon', path: 'Content.Icon' },
       { name: 'Metadata', path: 'Content.Metadata' },
       { name: 'ProgressBar', path: 'Content.ProgressBar' },
       { name: 'Label', path: 'Content.Label' }
@@ -184,11 +182,12 @@ export default class Tile extends Surface {
     );
   }
 
+  /* ------------------------------ Icon ------------------------------ */
+
   _updateIcon() {
-    const { iconWidth, iconHeight } = this.style;
     const iconObject = {
-      w: iconWidth,
-      h: iconHeight,
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
       icon: this.iconSrc,
       alpha: this._isFocusedMode ? 1 : 0.01,
       x: this.style.iconX,
@@ -587,7 +586,7 @@ export default class Tile extends Surface {
   }
 
   _animateMetadata() {
-    if (!this._Metadata && !this._Icon) {
+    if (!this._Metadata) {
       return;
     }
 

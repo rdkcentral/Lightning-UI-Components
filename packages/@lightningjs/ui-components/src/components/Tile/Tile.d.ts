@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
 import Artwork from '../Artwork';
+import Icon from '../Icon';
 import TextBox from '../TextBox';
 import ProgressBar from '../ProgressBar';
 import MetadataBase from '../MetadataBase';
@@ -30,6 +31,11 @@ import Surface, { SurfaceStyle } from '../Surface';
 type TileStyle = SurfaceStyle & {
   animationEntrance: lng.types.TransitionSettings.Literal;
   animationExit: lng.types.TransitionSettings.Literal;
+  iconWidth: number;
+  iconHeight: number;
+  iconX: number;
+  iconYInset: number;
+  iconYStandard: number;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;
@@ -61,6 +67,10 @@ declare namespace Tile {
      */
     label?: lng.Element.PatchTemplate<Label.TemplateSpec>;
     /**
+     * icon source
+     */
+    iconSrc?: string;
+    /**
      * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
      */
     metadataLocation?: 'standard' | 'inset';
@@ -91,7 +101,6 @@ declare class Tile<
    * Object containing all properties supported in the [Badge component](?path=/docs/components-badge--text)
    */
   badge?: lng.Element.PatchTemplate<Badge.TemplateSpec>;
-
   /**
    * Object containing all properties supported in the [Checkbox component](?path=/docs/components-checkbox--checkbox)
    */
@@ -131,6 +140,7 @@ declare class Tile<
   get _Tile(): TextBox;
   get _Badge(): Badge;
   get _Checkbox(): Checkbox;
+  get _Icon(): Icon;
   get _Metadata(): MetadataBase;
   get _ProgressBar(): ProgressBar;
   get _Label(): Label;
