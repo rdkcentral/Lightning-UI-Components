@@ -59,10 +59,9 @@ export const Tile = () =>
   };
 
 Tile.args = {
-  iconSrc: xfinityLogo,
   metadataLocation: 'standard',
+  iconSrc: xfinityLogo,
   persistentMetadata: false,
-  // providerLogo: lightning,
   mode: 'focused'
 };
 
