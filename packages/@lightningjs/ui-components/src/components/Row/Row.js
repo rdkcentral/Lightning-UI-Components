@@ -122,6 +122,7 @@ export default class Row extends NavigationManager {
       this.selectedIndex >= this.stopLazyScrollIndex &&
       this.selectedIndex < prevIndex
     ) {
+      // if navigating left on items after stop lazy scroll index
       const currItemsX = this.Items.x;
 
       return (
@@ -129,6 +130,16 @@ export default class Row extends NavigationManager {
         (this.prevSelected.w +
           this.style.itemSpacing +
           (this.selected.extraItemSpacing || 0))
+      );
+    } else if (prev && this.selectedIndex > this.stopLazyScrollIndex) {
+      // if navigating right on items after stop lazy scroll index
+      const prevX = prev.x;
+
+      return (
+        -prevX +
+        this.prevSelected.w +
+        this.style.itemSpacing +
+        (this.selected.extraItemSpacing || 0)
       );
     } else if (prev) {
       // otherwise, no start/stop indexes, perform normal lazy scroll
@@ -189,6 +200,7 @@ export default class Row extends NavigationManager {
           ? this._getLazyScrollX(prev)
           : this._getScrollX();
     }
+
     if (itemsContainerX !== undefined) {
       this.updatePositionOnAxis(this.Items, itemsContainerX);
     }
