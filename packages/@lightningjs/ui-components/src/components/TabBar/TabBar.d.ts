@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import type { StylePartial } from '../../types/lui';
 
-export type TabBarStyle = {
+type TabBarStyle = {
   tabsMarginBottom: number;
   tabSpacing: number;
 };
@@ -29,12 +29,66 @@ type ResolvedTab =
   | lng.Component.NewPatchTemplate<typeof lng.Component>
   | lng.Component;
 
-export default class TabBar extends Base {
+declare namespace TabBar {
+  export interface TemplateSpec extends Base.TemplateSpec {
+    /**
+     * when true, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content
+     */
+    alphaSelectedTab?: boolean;
+
+    /**
+     * when true, the height of the TabBar will only reflect the height of the Tabs when unfocused or no tab content is available
+     */
+    collapse?: boolean;
+
+    /**
+     * when true, the selected tab index will be reset when the TabBar component is unfocused
+     */
+    reset?: boolean;
+
+    /**
+     * the content displayed when a tab is selected via tabConent property on each tab
+     */
+    tabs?: Array<ResolvedTab | Promise<ResolvedTab> | (() => ResolvedTab)>;
+
+    /**
+     * enables wrapping behavior
+     */
+    wrapSelected?: boolean;
+  }
+}
+
+declare class TabBar<
+  TemplateSpec extends TabBar.TemplateSpec = TabBar.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Base<TemplateSpec, TypeConfig> {
+  /**
+   * when true, a lower alpha will be applied to unselected tabs when focus is delegated to the tab content
+   */
   alphaSelectedTab?: boolean;
+
+  /**
+   * when true, the height of the TabBar will only reflect the height of the Tabs when unfocused or no tab content is available
+   */
   collapse?: boolean;
+
+  /**
+   * when true, the selected tab index will be reset when the TabBar component is unfocused
+   */
   reset?: boolean;
+
+  /**
+   * the content displayed when a tab is selected via tabConent property on each tab
+   */
   tabs?: Array<ResolvedTab | Promise<ResolvedTab> | (() => ResolvedTab)>;
+
+  /**
+   * enables wrapping behavior
+   */
   wrapSelected?: boolean;
+
   get style(): TabBarStyle;
   set style(v: StylePartial<TabBarStyle>);
 }
+
+export { TabBar as default, TabBarStyle };
