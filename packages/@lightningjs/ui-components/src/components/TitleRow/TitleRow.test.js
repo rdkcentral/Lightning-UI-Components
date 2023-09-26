@@ -111,4 +111,37 @@ describe('TitleRow', () => {
       );
     });
   });
+
+  it('should by default resize the TitleRow to the total height of its contents', async () => {
+    [titleRow, testRenderer] = createComponent(
+      {
+        title: 'Title',
+        items
+      },
+      { spyOnMethods: ['_update', '_autoResize'] }
+    );
+
+    await titleRow._updateSpyPromise;
+    await titleRow.__autoResizeSpyPromise;
+
+    expect(titleRow.h).toBe(titleRow.Items.y + titleRow.Items.h);
+  });
+
+  it('should allow setting the height manually', async () => {
+    const h = 100;
+    [titleRow, testRenderer] = createComponent(
+      {
+        title: 'Title',
+        items,
+        autoResizeHeight: false,
+        h
+      },
+      { spyOnMethods: ['_update', '_autoResize'] }
+    );
+
+    await titleRow._updateSpyPromise;
+    await titleRow.__autoResizeSpyPromise;
+
+    expect(titleRow.h).toBe(h);
+  });
 });
