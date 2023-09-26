@@ -190,10 +190,12 @@ export default class Tile extends Surface {
       w: iconWidth,
       h: iconHeight,
       icon: this.iconSrc,
-      alpha:
-        this._isFocusedMode && this._metadataLocation == 'inset' ? 1 : 0.01,
-      x: 30,
-      y: 150
+      alpha: this._isFocusedMode ? 1 : 0.01,
+      x: this.style.iconX,
+      y:
+        this.metadataLocation === 'inset'
+          ? this.style.iconYInset
+          : this.style.iconYStandard
     };
     if (!this._Icon) {
       iconObject.type = Icon;
@@ -585,7 +587,7 @@ export default class Tile extends Surface {
   }
 
   _animateMetadata() {
-    if (!this._Metadata) {
+    if (!this._Metadata && !this._Icon) {
       return;
     }
 

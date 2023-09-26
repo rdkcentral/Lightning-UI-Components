@@ -27,7 +27,10 @@ export const base = theme => ({
   radius: theme.radius.md,
   alpha: theme.alpha.primary,
   iconWidth: 96,
-  iconHeight: 48
+  iconHeight: 48,
+  iconX: 30,
+  iconYInset: 140,
+  iconYStandard: 200
 });
 
 export const tone = theme => ({
