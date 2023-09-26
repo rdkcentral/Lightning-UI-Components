@@ -24,6 +24,7 @@ import MetadataTile from '../MetadataTile';
 import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
 import Surface from '../Surface';
+import Icon from '../Icon';
 
 export default class Tile extends Surface {
   static get __componentName() {
@@ -47,6 +48,9 @@ export default class Tile extends Surface {
         },
         Content: {
           mount: 0.5
+        },
+        ProviderLogo: {
+          type: Icon
         }
       }
     };
@@ -63,7 +67,10 @@ export default class Tile extends Surface {
       'metadataLocation',
       'persistentMetadata',
       'progressBar',
-      'src'
+      'src',
+      'iconWidth',
+      'iconHeight',
+      'iconSrc'
     ];
   }
 
@@ -74,6 +81,7 @@ export default class Tile extends Surface {
       'Content',
       'Tile',
       { name: 'Badge', path: 'Content.Badge' },
+      { name: 'Icon', path: 'Content.Icon' },
       { name: 'Checkbox', path: 'Content.Checkbox' },
       { name: 'Metadata', path: 'Content.Metadata' },
       { name: 'ProgressBar', path: 'Content.ProgressBar' },
@@ -110,6 +118,7 @@ export default class Tile extends Surface {
     this._updateLabel();
     this._updateCheckbox();
     this._updateProgressBar();
+    this._updateIcon();
     this._updateMetadata();
   }
 
@@ -173,6 +182,23 @@ export default class Tile extends Surface {
         return acc;
       }, {})
     );
+  }
+
+  _updateIcon() {
+    const { iconWidth, iconHeight } = this.style;
+    const iconObject = {
+      w: iconWidth,
+      h: iconHeight,
+      icon: this.iconSrc,
+      alpha:
+        this._isFocusedMode && this._metadataLocation == 'inset' ? 1 : 0.01,
+      x: 30,
+      y: 150
+    };
+    if (!this._Icon) {
+      iconObject.type = Icon;
+    }
+    this.patch({ Icon: iconObject });
   }
 
   /* ------------------------------ Artwork ------------------------------ */
