@@ -33,8 +33,6 @@ type TileStyle = SurfaceStyle & {
   animationExit: lng.types.TransitionSettings.Literal;
   iconWidth: number;
   iconHeight: number;
-  iconX: number;
-  iconYStandard: number;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;

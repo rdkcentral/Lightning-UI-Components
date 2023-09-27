@@ -186,12 +186,10 @@ export default class Tile extends Surface {
       w: this.style.iconWidth,
       h: this.style.iconHeight,
       icon: this.iconSrc,
-      x: this.style.iconX,
-      mountY: this._isInsetMetadata ? 1 : 0,
-      y: this._isInsetMetadata
-        ? this._metadataY - (this._Metadata ? this._Metadata.h : 0)
-        : this.style.iconYStandard,
-      alpha: this.style.alpha
+      alpha: this.style.alpha,
+      mountY: 1,
+      x: this.style.paddingX,
+      y: this._calculateIconYPosition()
     };
 
     if (this.iconSrc && (this.persistentMetadata || this._isFocusedMode)) {
@@ -201,6 +199,16 @@ export default class Tile extends Surface {
       this.patch({ Icon: iconObject });
     } else {
       this.patch({ Icon: undefined });
+    }
+  }
+
+  _calculateIconYPosition() {
+    if (this._isInsetMetadata) {
+      return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
+    } else {
+      return this._progressBarY
+        ? this._progressBarY - this.style.paddingYBetweenContent
+        : this._h + this.style.paddingY;
     }
   }
   /* ------------------------------ Artwork ------------------------------ */

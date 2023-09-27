@@ -17,6 +17,7 @@
  */
 
 import {
+  pathToDataURI,
   makeCreateComponent,
   fastForward
 } from '@lightningjs/ui-components-test-utils';
@@ -402,6 +403,14 @@ describe('Tile', () => {
       };
       await tile.__updateCheckboxSpyPromise;
       expect(tile._Checkbox).toBeUndefined();
+    });
+  });
+
+  describe('icon', () => {
+    const icon = pathToDataURI('src/assets/images/ic_lightning_white_32.png');
+    it('should patch in an icon if provided', () => {
+      tile.iconSrc = icon;
+      expect(tile._Icon).toBeUndefined();
     });
   });
 
