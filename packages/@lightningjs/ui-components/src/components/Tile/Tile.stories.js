@@ -28,6 +28,7 @@ import { withLayout as ItemLayoutStory } from '../../mixins/withLayout/withLayou
 import { Label as LabelStory } from '../Label/Label.stories.js';
 import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stories';
 import { Text as BadgeStory } from '../Badge/Badge.stories.js';
+import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 
 export default {
   title: `${CATEGORIES[8]}/Tile`,
@@ -59,6 +60,7 @@ export const Tile = () =>
 
 Tile.args = {
   metadataLocation: 'standard',
+  iconSrc: xfinityLogo,
   persistentMetadata: false,
   mode: 'focused'
 };
@@ -79,6 +81,14 @@ Tile.argTypes = {
       'Controls where metadata is positioned in relationship to the Tile',
     table: {
       defaultValue: { summary: 'standard' }
+    }
+  },
+  iconSrc: {
+    control: 'select',
+    options: [xfinityLogo, 'null'],
+    description: 'Icon source',
+    table: {
+      defaultValue: { summary: 'undefined' }
     }
   }
 };
