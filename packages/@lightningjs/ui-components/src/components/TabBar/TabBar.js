@@ -142,6 +142,12 @@ export default class TabBar extends Base {
     });
   }
 
+  $itemChanged() {
+    // triggered when the Tabs Row resizes
+    // update the height of TabBar using the latest h value from Tabs
+    this._updateTabBarHeight();
+  }
+
   _updateTabBarHeight() {
     let h;
     if (this.collapse) {
