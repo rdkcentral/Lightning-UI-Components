@@ -38,8 +38,7 @@ export default class TitleRow extends Row {
           textBoxChanged: '_titleLoaded'
         }
       },
-      ...super._template(),
-      autoResizeHeight: false
+      ...super._template()
     };
   }
 
@@ -55,10 +54,20 @@ export default class TitleRow extends Row {
     this._updateRow();
   }
 
+  _construct() {
+    super._construct();
+    this._autoResizeHeight = true;
+  }
+
   _update() {
     super._update();
     this._updateTitle();
     this._updateRow();
+  }
+
+  _autoResize() {
+    this.w = this.w || this.style.w;
+    this.h = this.autoResizeHeight ? this.Items.y + this.Items.h : this.h;
   }
 
   _updateTitle() {
@@ -79,10 +88,6 @@ export default class TitleRow extends Row {
   _updateRow() {
     this.Items.patch({
       y: this._Title.finalH + this.style.rowMarginTop
-    });
-    this.patch({
-      w: this.w || this.style.w,
-      h: this.Items.y + this.Items.h
     });
   }
 
