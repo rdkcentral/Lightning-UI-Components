@@ -48,9 +48,6 @@ export default class Tile extends Surface {
         },
         Content: {
           mount: 0.5
-        },
-        ProviderLogo: {
-          type: Icon
         }
       }
     };
@@ -189,19 +186,23 @@ export default class Tile extends Surface {
       w: this.style.iconWidth,
       h: this.style.iconHeight,
       icon: this.iconSrc,
-      alpha: this._isFocusedMode ? 1 : 0.01,
       x: this.style.iconX,
-      y:
-        this.metadataLocation === 'inset'
-          ? this.style.iconYInset
-          : this.style.iconYStandard
+      mountY: this._isInsetMetadata ? 1 : 0,
+      y: this._isInsetMetadata
+        ? this._metadataY - (this._Metadata ? this._Metadata.h : 0)
+        : this.style.iconYStandard,
+      alpha: this.style.alpha
     };
-    if (!this._Icon) {
-      iconObject.type = Icon;
-    }
-    this.patch({ Icon: iconObject });
-  }
 
+    if (this.iconSrc && (this.persistentMetadata || this._isFocusedMode)) {
+      if (!this._Icon) {
+        iconObject.type = Icon;
+      }
+      this.patch({ Icon: iconObject });
+    } else {
+      this.patch({ Icon: undefined });
+    }
+  }
   /* ------------------------------ Artwork ------------------------------ */
 
   _updateArtwork() {

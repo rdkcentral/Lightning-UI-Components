@@ -34,7 +34,6 @@ type TileStyle = SurfaceStyle & {
   iconWidth: number;
   iconHeight: number;
   iconX: number;
-  iconYInset: number;
   iconYStandard: number;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;

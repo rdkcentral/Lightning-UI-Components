@@ -29,7 +29,6 @@ export const base = theme => ({
   iconWidth: theme.spacer.lg * 5,
   iconHeight: theme.spacer.xxl + theme.spacer.md,
   iconX: theme.spacer.xl,
-  iconYInset: theme.spacer.lg * 7,
   iconYStandard: theme.spacer.xxl * 5
 });
 
