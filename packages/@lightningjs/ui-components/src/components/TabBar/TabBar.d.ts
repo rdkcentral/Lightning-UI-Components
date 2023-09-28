@@ -89,6 +89,10 @@ declare class TabBar<
 
   get style(): TabBarStyle;
   set style(v: StylePartial<TabBarStyle>);
+
+  // tags
+  get _Tabs(): lng.Component;
+  get _TabContent(): lng.Component;
 }
 
 export { TabBar as default, TabBarStyle };
