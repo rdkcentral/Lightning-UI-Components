@@ -24,6 +24,7 @@ import MetadataTile from '../MetadataTile';
 import ProgressBar from '../ProgressBar';
 import * as styles from './Tile.styles';
 import Surface from '../Surface';
+import Icon from '../Icon';
 
 export default class Tile extends Surface {
   static get __componentName() {
@@ -59,6 +60,7 @@ export default class Tile extends Surface {
       'checkbox',
       'circle',
       'label',
+      'iconSrc',
       'metadata',
       'metadataLocation',
       'persistentMetadata',
@@ -75,6 +77,7 @@ export default class Tile extends Surface {
       'Tile',
       { name: 'Badge', path: 'Content.Badge' },
       { name: 'Checkbox', path: 'Content.Checkbox' },
+      { name: 'Icon', path: 'Content.Icon' },
       { name: 'Metadata', path: 'Content.Metadata' },
       { name: 'ProgressBar', path: 'Content.ProgressBar' },
       { name: 'Label', path: 'Content.Label' }
@@ -110,6 +113,7 @@ export default class Tile extends Surface {
     this._updateLabel();
     this._updateCheckbox();
     this._updateProgressBar();
+    this._updateIcon();
     this._updateMetadata();
   }
 
@@ -175,6 +179,38 @@ export default class Tile extends Surface {
     );
   }
 
+  /* ------------------------------ Icon ------------------------------ */
+
+  _updateIcon() {
+    const iconObject = {
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
+      icon: this.iconSrc,
+      alpha: this.style.alpha,
+      mountY: 1,
+      x: this.style.paddingX,
+      y: this._calculateIconYPosition()
+    };
+
+    if (this.iconSrc && (this.persistentMetadata || this._isFocusedMode)) {
+      if (!this._Icon) {
+        iconObject.type = Icon;
+      }
+      this.patch({ Icon: iconObject });
+    } else {
+      this.patch({ Icon: undefined });
+    }
+  }
+
+  _calculateIconYPosition() {
+    if (this._isInsetMetadata) {
+      return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
+    } else {
+      return this._progressBarY
+        ? this._progressBarY - this.style.paddingYBetweenContent
+        : this._h + this.style.paddingY;
+    }
+  }
   /* ------------------------------ Artwork ------------------------------ */
 
   _updateArtwork() {
