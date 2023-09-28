@@ -452,7 +452,6 @@ export const colorParser = (component, styleObj) => {
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
-  // if (component.constructor.name === 'Button') debugger
   const { mode = 'unfocused', tone = 'neutral' } = component;
 
   const style =
