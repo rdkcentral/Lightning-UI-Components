@@ -36,6 +36,7 @@ type TileStyle = SurfaceStyle & {
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;
+  paddingYIcon: number;
   paddingYProgress: number;
   paddingYBetweenContent: number;
   radius: lng.Tools.CornerRadius | string;

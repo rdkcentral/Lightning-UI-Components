@@ -24,6 +24,7 @@ export const base = theme => ({
   metadataLocation: 'standard',
   paddingX: theme.spacer.xl,
   paddingY: theme.spacer.lg,
+  paddingYIcon: theme.spacer.xs,
   paddingYProgress: theme.spacer.xl,
   paddingYBetweenContent: theme.spacer.md,
   radius: theme.radius.md,

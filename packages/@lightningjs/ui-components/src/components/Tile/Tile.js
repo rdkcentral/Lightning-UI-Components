@@ -204,11 +204,16 @@ export default class Tile extends Surface {
 
   _calculateIconYPosition() {
     if (this._isInsetMetadata) {
-      return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
+      return (
+        this._metadataY -
+        (this._Metadata ? this._Metadata.h + this.style.paddingYIcon : 0)
+      );
     } else {
       return this._progressBarY
-        ? this._progressBarY - this.style.paddingYBetweenContent
-        : this._h + this.style.paddingY;
+        ? this._progressBarY -
+            this.style.paddingYBetweenContent -
+            this.style.paddingYIcon
+        : this._h - this.style.paddingY;
     }
   }
   /* ------------------------------ Artwork ------------------------------ */
