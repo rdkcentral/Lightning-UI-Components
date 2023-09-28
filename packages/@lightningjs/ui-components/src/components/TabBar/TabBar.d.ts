@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import type { StylePartial } from '../../types/lui';
+import { StylePartial } from '../../types/lui';
 
 type TabBarStyle = {
   tabsMarginBottom: number;
