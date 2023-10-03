@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
+import { NavigationDirectionType } from '../FocusManager/FocusManager';
 
 type TabBarStyle = {
   tabsMarginBottom: number;
@@ -51,10 +52,80 @@ declare namespace TabBar {
      */
     tabs?: Array<ResolvedTab | Promise<ResolvedTab> | (() => ResolvedTab)>;
 
+    //Following properties come from spreading of Row
+
+    /**
+     * the navigation direction
+     */
+    direction?: NavigationDirectionType;
+
     /**
      * enables wrapping behavior
      */
     wrapSelected?: boolean;
+
+    /**
+     * Determines whether the component will stop scrolling as it nears the end to prevent white space.
+     * If true, the component will scroll infinitely.
+     */
+    alwaysScroll?: boolean;
+
+    /**
+     * If true, the component will never scroll, unless `alwaysScroll` is set to true.
+     * If false, the component will apply normal scrolling logic.
+     */
+    neverScroll?: boolean;
+
+    /**
+     * Item index at which scrolling begins, provided the sum of item widths is greater than the width of the Row component.
+     */
+    scrollIndex?: number;
+
+    /**
+     * Automatically sets the width of the row to be the same as the Items container inside (this will prevent scrolling).
+     */
+    autoResizeWidth?: boolean;
+
+    /**
+     * Automatically sets the height of the row to be the same as the Items container inside.
+     */
+    autoResizeHeight?: boolean;
+
+    /**
+     * Note: `lazyUpCount` and `lazyUpCountBuffer` work hand in hand.
+     * If defined, `lazyUpCount` enables "lazy loading" of items where only an initial number of items are displayed when the Row/Column first renders until further navigation.
+     * The initial number of items is calculated by `lazyUpCount` + `lazyLoadUpCountBuffer`.
+     * The remaining items are stored as lazy items.
+     * Each time `selectNext` is invoked (moving right in Row or down in a Column), an item (that was not initially displayed) will be added to the end until all lazy items are loaded.
+     */
+    lazyUpCount?: number;
+
+    /**
+     * By default `lazyUpCountBuffer` is 2.
+     * Changing this value updates the initial number of items to display on first render of Row/Column.
+     * Note: this behavior will only occur if `lazyUpCount` is defined.
+     * ex: only providing `lazyUpCountBuffer: 1` will display all items since `lazyUpCount` is not set so the “lazy loading” behavior is not enabled.
+     */
+    lazyUpCountBuffer?: number;
+
+    /**
+     * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+     */
+    lazyScroll?: boolean;
+
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place before this index)
+     */
+    startLazyScrollIndex?: number;
+
+    /**
+     * When `lazyScroll` is `true`,
+     * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+     * (alwaysScroll functionality will take place after this index)
+     */
+    stopLazyScrollIndex?: number;
   }
 }
 
@@ -82,10 +153,80 @@ declare class TabBar<
    */
   tabs?: Array<ResolvedTab | Promise<ResolvedTab> | (() => ResolvedTab)>;
 
+  //Following properties come from spreading of Row
+
+  /**
+   * the navigation direction
+   */
+  direction?: NavigationDirectionType;
+
   /**
    * enables wrapping behavior
    */
   wrapSelected?: boolean;
+
+  /**
+   * Determines whether the component will stop scrolling as it nears the end to prevent white space.
+   * If true, the component will scroll infinitely.
+   */
+  alwaysScroll?: boolean;
+
+  /**
+   * If true, the component will never scroll, unless `alwaysScroll` is set to true.
+   * If false, the component will apply normal scrolling logic.
+   */
+  neverScroll?: boolean;
+
+  /**
+   * Item index at which scrolling begins, provided the sum of item widths is greater than the width of the Row component.
+   */
+  scrollIndex?: number;
+
+  /**
+   * Automatically sets the width of the row to be the same as the Items container inside (this will prevent scrolling).
+   */
+  autoResizeWidth?: boolean;
+
+  /**
+   * Automatically sets the height of the row to be the same as the Items container inside.
+   */
+  autoResizeHeight?: boolean;
+
+  /**
+   * Note: `lazyUpCount` and `lazyUpCountBuffer` work hand in hand.
+   * If defined, `lazyUpCount` enables "lazy loading" of items where only an initial number of items are displayed when the Row/Column first renders until further navigation.
+   * The initial number of items is calculated by `lazyUpCount` + `lazyLoadUpCountBuffer`.
+   * The remaining items are stored as lazy items.
+   * Each time `selectNext` is invoked (moving right in Row or down in a Column), an item (that was not initially displayed) will be added to the end until all lazy items are loaded.
+   */
+  lazyUpCount?: number;
+
+  /**
+   * By default `lazyUpCountBuffer` is 2.
+   * Changing this value updates the initial number of items to display on first render of Row/Column.
+   * Note: this behavior will only occur if `lazyUpCount` is defined.
+   * ex: only providing `lazyUpCountBuffer: 1` will display all items since `lazyUpCount` is not set so the “lazy loading” behavior is not enabled.
+   */
+  lazyUpCountBuffer?: number;
+
+  /**
+   * If true, will only scroll the row if the item is off screen and `alwaysScroll` and `neverScroll` are both false.
+   */
+  lazyScroll?: boolean;
+
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items thereafter, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place before this index)
+   */
+  startLazyScrollIndex?: number;
+
+  /**
+   * When `lazyScroll` is `true`,
+   * this is the index of item in `items`, and items preceding, at which lazy scrolling should occur
+   * (alwaysScroll functionality will take place after this index)
+   */
+  stopLazyScrollIndex?: number;
 
   get style(): TabBarStyle;
   set style(v: StylePartial<TabBarStyle>);

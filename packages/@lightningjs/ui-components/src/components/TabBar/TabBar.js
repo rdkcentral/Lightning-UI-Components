@@ -49,14 +49,7 @@ export default class TabBar extends Base {
   }
 
   static get properties() {
-    return [
-      'alphaSelectedTab',
-      'collapse',
-      'reset',
-      'tabs',
-      'wrapSelected',
-      ...Row.properties
-    ];
+    return ['alphaSelectedTab', 'collapse', 'reset', 'tabs', ...Row.properties];
   }
 
   static get tags() {
