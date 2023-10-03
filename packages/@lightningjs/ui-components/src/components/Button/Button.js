@@ -138,7 +138,9 @@ export default class Button extends Surface {
 
   _updatePrefixStyles() {
     this._Prefix.Items.children.forEach((item, idx) => {
-      item.color = this.prefix[idx].color;
+      item.color = Array.isArray(this.prefix)
+        ? this.prefix[idx].color
+        : this.prefix.color;
       item.style = {
         ...item.style,
         color: this.style.contentColor
