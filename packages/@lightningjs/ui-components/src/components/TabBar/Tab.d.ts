@@ -17,12 +17,13 @@
  */
 
 import lng from '@lightningjs/core';
-import type { Color, StylePartial } from '../../types/lui';
+import { Color, StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
 // text should be using our own version of TextBox
-import { TextBoxStyle } from '../TextBox';
+import TextBox, { TextBoxStyle } from '../TextBox';
+import Icon from '../Icon';
 
-export type TabStyle = SurfaceStyle & {
+type TabStyle = SurfaceStyle & {
   backgroundColor: Color;
   contentColor: Color;
   iconMarginRight: number;
@@ -34,9 +35,34 @@ export type TabStyle = SurfaceStyle & {
   textStyle: TextBoxStyle;
 };
 
-export default class Tab extends Surface {
+declare namespace Tab {
+  export interface TemplateSpec extends Surface.TemplateSpec {
+    /**
+     * path to icon to prepend tab title with
+     */
+    icon?: string;
+
+    /**
+     * text to display on tab
+     */
+    title?: string;
+  }
+}
+
+declare class Tab<
+  TemplateSpec extends Tab.TemplateSpec = Tab.TemplateSpec,
+  TypeConfig extends lng.Component.TypeConfig = lng.Component.TypeConfig
+> extends Surface<TemplateSpec, TypeConfig> {
+  /**
+   * path to icon to prepend tab title with
+   */
   icon?: string;
+
+  /**
+   * text to display on tab
+   */
   title?: string;
+
   get _textW(): number;
   get _iconW(): number;
   get _iconH(): number;
@@ -46,6 +72,8 @@ export default class Tab extends Surface {
 
   // tags
   get _Content(): lng.Component;
-  get _Icon(): lng.Component;
-  get _Text(): lng.Component;
+  get _Icon(): Icon;
+  get _Text(): TextBox;
 }
+
+export { Tab as default, TabStyle };
