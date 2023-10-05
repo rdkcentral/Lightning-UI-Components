@@ -23,8 +23,7 @@ import { default as KeyboardEmailComponent } from './KeyboardEmail';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Components/KeyboardEmail',
-  docs: { autodocs: false }
+  title: 'Components/KeyboardEmail'
 };
 
 export const KeyboardEmail = () =>

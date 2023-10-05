@@ -60,7 +60,7 @@ const config = {
     options: {}
   },
   docs: {
-    autodocs: 'tag' // to opt in per story if we implement autodocs
+    autodocs: false
   },
   async webpackFinal(config) {
     config.optimization.minimize = false; // Minification seams to to break FocusManager navigation

@@ -688,7 +688,7 @@ export const AddingItems = args =>
   };
 AddingItems.args = {
   scrollIndex: 0,
-  lazyUpCount: undefined,
+  //lazyUpCount: undefined, assigning a value of undefined to args breaks the component
   lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {
