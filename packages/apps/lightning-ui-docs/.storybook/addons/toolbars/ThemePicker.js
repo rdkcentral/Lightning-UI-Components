@@ -19,7 +19,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobals } from '@storybook/manager-api';
 import { TabButton, TooltipLinkList, WithTooltip } from '@storybook/components';
-import { THEMEPICKER_ID, THEMES } from '../constants';
+import { THEMEPICKER_ID } from '../constants';
 import { setGlobalTheme } from '../../utils/themeUtils';
 import { utils } from '@lightningjs/ui-components/src';
 
@@ -40,7 +40,7 @@ export default () => {
 
     updateFirstLoad(false); // Makes sure the block above only runs once
     updateTooltipLinks(
-      ['base', ...Object.keys(THEMES), 'custom'] // create dropdown list of themes
+      ['base']
         .filter(theme => ('custom' === LUITheme ? theme : 'custom' !== theme))
         .map((theme, idx) => {
           const active = theme.toLowerCase() === LUITheme;

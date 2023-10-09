@@ -26,4 +26,3 @@ export const THEMEPANEL_ID = `${ADDON_ID}/themepanel`;
 export const COMPONENTSTYLES_ID = `${ADDON_ID}/componentstylespanel`;
 export const STAGECOLOR_ID = `${ADDON_ID}/stagecolortoggle`;
 export const THEMEPICKER_ID = `${ADDON_ID}/themepicker`;
-export const THEMES = {};
