@@ -39,6 +39,10 @@ declare namespace MetadataBase {
      */
     description?: string;
     /**
+     * relevant content data in the middle
+     */
+    details?: string;
+    /**
      * logo to display at bottom of component
      */
     logo?: string;
@@ -63,9 +67,10 @@ declare namespace MetadataBase {
      */
     marquee?: boolean;
     /**
+     * @deprecated
      * relevant content data in the middle
      */
-    details?: string;
+    subtitle?: string;
     /**
      * first line or headline of the content
      */
@@ -92,6 +97,10 @@ declare class MetadataBase<
    */
   description?: string;
   /**
+   * relevant content data in the middle
+   */
+  details?: string;
+  /**
    * logo to display at bottom of component
    */
   logo?: string;
@@ -116,9 +125,10 @@ declare class MetadataBase<
    */
   marquee?: boolean;
   /**
+   * @deprecated
    * relevant content data in the middle
    */
-  details?: string;
+  subtitle?: string;
   /**
    * first line or headline of the content
    */
