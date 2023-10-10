@@ -28,7 +28,7 @@ type MetadataBaseStyle = {
   logoWidth: number;
   logoHeight: number;
   logoPadding: number;
-  subtitleTextStyle: TextBoxStyle;
+  detailsTextStyle: TextBoxStyle;
   titleTextStyle: TextBoxStyle;
 };
 
@@ -65,7 +65,7 @@ declare namespace MetadataBase {
     /**
      * relevant content data in the middle
      */
-    subtitle?: string;
+    details?: string;
     /**
      * first line or headline of the content
      */
@@ -118,7 +118,7 @@ declare class MetadataBase<
   /**
    * relevant content data in the middle
    */
-  subtitle?: string;
+  details?: string;
   /**
    * first line or headline of the content
    */
@@ -129,8 +129,8 @@ declare class MetadataBase<
 
   // Tags
   get _Title(): TextBox;
-  get _SubtitleWrapper(): TextBox;
-  get _Subtitle(): TextBox;
+  get _DetailsWrapper(): TextBox;
+  get _Details(): TextBox;
   get _Description(): TextBox;
   get _Logo(): Icon;
 }

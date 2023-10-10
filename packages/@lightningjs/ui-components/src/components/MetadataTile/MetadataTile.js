@@ -28,24 +28,24 @@ export default class MetadataTile extends MetadataBase {
     return styles;
   }
 
-  _updateSubtitle() {
+  _updateDetails() {
     if (this.description) {
-      this._Subtitle.patch({ content: '' });
-      this._Subtitle.alpha = 0;
-      this._Subtitle.visible = false;
+      this._Details.patch({ content: '' });
+      this._Details.alpha = 0;
+      this._Details.visible = false;
     } else {
-      this._Subtitle.alpha = 1;
-      this._Subtitle.visible = true;
-      super._updateSubtitle();
+      this._Details.alpha = 1;
+      this._Details.visible = true;
+      super._updateDetails();
     }
   }
 
-  _updateSubtitleLayout({ h }) {
-    if (this.subtitle && !this.description) {
-      this._SubtitleWrapper.h = h;
-      this._SubtitleWrapper.alpha = this.style.alpha;
+  _updateDetailsLayout({ h }) {
+    if (this._Details && !this.description) {
+      this._DetailsWrapper.h = h;
+      this._DetailsWrapper.alpha = this.style.alpha;
     } else {
-      this._SubtitleWrapper.h = 0;
+      this._DetailsWrapper.h = 0;
     }
   }
 
@@ -57,7 +57,7 @@ export default class MetadataTile extends MetadataBase {
     return (
       this._announce || [
         this._Title && this._Title.announce,
-        (this._Subtitle && this._Subtitle.announce) ||
+        (this._Details && this._Details.announce) ||
           (this._Description && this._Description.announce),
         this.logoTitle
       ]
@@ -66,14 +66,14 @@ export default class MetadataTile extends MetadataBase {
 
   _textH() {
     const titleH = (this.title && this._Title && this._Title.h) || 0;
-    const subtitleH =
-      (this.subtitle &&
-        this._Subtitle &&
-        this._Subtitle.visible &&
-        this._SubtitleWrapper.h) ||
+    const detailsH =
+      (this.details &&
+        this._Details &&
+        this._Details.visible &&
+        this._DetailsWrapper.h) ||
       0;
     const descriptionH =
       (this.description && this._Description && this._Description.h) || 0;
-    return titleH + subtitleH + descriptionH;
+    return titleH + detailsH + descriptionH;
   }
 }
