@@ -327,11 +327,15 @@ export default class FocusManager extends Base {
    * Element/Pattern Components (Tile, Badge, etc.) would extend "BaseComponent" that does have focus/unfocus overrides
    */
   _focus() {
+    super._focus();
     this.items.forEach(item => (item.parentFocus = true));
   }
   _unfocus() {
+    super._unfocus();
     this.items.forEach(item => (item.parentFocus = false));
   }
+
+  _updateShouldSmooth() {}
 
   _getFocused() {
     const { selected } = this;
