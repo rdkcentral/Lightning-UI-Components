@@ -49,7 +49,7 @@ MetadataCard.storyName = 'MetadataCard';
 MetadataCard.args = {
   w: 400,
   title: 'Title',
-  subtitle: [
+  details: [
     '94%',
     {
       icon: lightningbolt,
@@ -85,9 +85,9 @@ MetadataCard.argTypes = {
       defaultValue: { summary: 'undefined' }
     }
   },
-  subtitle: {
+  details: {
     control: 'text',
-    description: 'Subtitle content',
+    description: 'Details content',
     table: {
       defaultValue: {
         summary: 'undefined'

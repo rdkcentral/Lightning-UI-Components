@@ -29,7 +29,7 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 
 ## Usage
 
-MetadataTile can be used with title (text), subtitle (inline content) or description (text), and/or a logo.
+MetadataTile can be used with title (text), details (inline content) or description (text), and/or a logo.
 
 ```js
 import { MetadataTile } from '@lightningjs/ui-components';
@@ -44,7 +44,7 @@ class Example extends lng.Component {
         w: 400,
         h: 300,
         title: 'Title',
-        subtitle: [
+        details: [
           '94%',
           {
             icon: lightningbolt,
@@ -76,13 +76,13 @@ class Example extends lng.Component {
 
 | name         | type           | required             | default   | description                                                             |
 | ------------ | -------------- | -------------------- | --------- | ----------------------------------------------------------------------- |
-| description  | string         | false                | undefined | description text to place under title (hides subtitle)                  |
+| description  | string         | false                | undefined | description text to place under title (hides details)                   |
+| details      | inline content | false                | undefined | relevant content data in the middle (hidden if description is provided) |
 | logo         | string         | false                | undefined | logo to display at bottom of component                                  |
 | logoHeight   | number         | true (if using logo) | undefined | height of logo                                                          |
 | logoPosition | string         | false                | 'right'   | which side to place logo (`right` or `left`)                            |
 | logoTitle    | string         | true (if using logo) | undefined | title of logo to use for announcer                                      |
 | logoWidth    | number         | true (if using logo) | undefined | width of logo                                                           |
-| subtitle     | inline content | false                | undefined | relevant content data in the middle (hidden if description is provided) |
 | title        | string         | false                | undefined | first line or headline of the content                                   |
 
 ### Style Properties
@@ -94,5 +94,5 @@ class Example extends lng.Component {
 | logoHeight           | number           | height for logo                                                 |
 | logoPadding          | number           | spacing between logo and secondLine                             |
 | logoWidth            | number           | width for logo                                                  |
-| subtitleTextStyle    | string \| object | text style for subtitle                                         |
+| detailsTextStyle     | string \| object | text style for details                                          |
 | titleTextStyle       | string \| object | text style for title                                            |

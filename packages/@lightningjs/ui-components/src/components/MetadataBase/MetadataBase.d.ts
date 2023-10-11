@@ -28,7 +28,7 @@ type MetadataBaseStyle = {
   logoWidth: number;
   logoHeight: number;
   logoPadding: number;
-  subtitleTextStyle: TextBoxStyle;
+  detailsTextStyle: TextBoxStyle;
   titleTextStyle: TextBoxStyle;
 };
 
@@ -38,6 +38,10 @@ declare namespace MetadataBase {
      * third line or description of the content
      */
     description?: string;
+    /**
+     * relevant content data in the middle
+     */
+    details?: string;
     /**
      * logo to display at bottom of component
      */
@@ -63,6 +67,7 @@ declare namespace MetadataBase {
      */
     marquee?: boolean;
     /**
+     * @deprecated
      * relevant content data in the middle
      */
     subtitle?: string;
@@ -92,6 +97,10 @@ declare class MetadataBase<
    */
   description?: string;
   /**
+   * relevant content data in the middle
+   */
+  details?: string;
+  /**
    * logo to display at bottom of component
    */
   logo?: string;
@@ -116,6 +125,7 @@ declare class MetadataBase<
    */
   marquee?: boolean;
   /**
+   * @deprecated
    * relevant content data in the middle
    */
   subtitle?: string;
@@ -129,8 +139,8 @@ declare class MetadataBase<
 
   // Tags
   get _Title(): TextBox;
-  get _SubtitleWrapper(): TextBox;
-  get _Subtitle(): TextBox;
+  get _DetailsWrapper(): TextBox;
+  get _Details(): TextBox;
   get _Description(): TextBox;
   get _Logo(): Icon;
 }

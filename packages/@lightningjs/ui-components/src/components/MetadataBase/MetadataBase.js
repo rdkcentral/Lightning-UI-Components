@@ -42,11 +42,11 @@ class MetadataBase extends Base {
             textBoxChanged: '_titleLoaded'
           }
         },
-        SubtitleWrapper: {
-          Subtitle: {
+        DetailsWrapper: {
+          Details: {
             type: TextBox,
             signals: {
-              textBoxChanged: '_subtitleLoaded'
+              textBoxChanged: '_detailsLoaded'
             }
           }
         },
@@ -76,7 +76,7 @@ class MetadataBase extends Base {
       'logoPosition',
       'logoTitle',
       'logoWidth',
-      'subtitle',
+      'details',
       'title',
       'marquee'
     ];
@@ -90,12 +90,12 @@ class MetadataBase extends Base {
         path: 'Text.Title'
       },
       {
-        name: 'SubtitleWrapper',
-        path: 'Text.SubtitleWrapper'
+        name: 'DetailsWrapper',
+        path: 'Text.DetailsWrapper'
       },
       {
-        name: 'Subtitle',
-        path: 'Text.SubtitleWrapper.Subtitle'
+        name: 'Details',
+        path: 'Text.DetailsWrapper.Details'
       },
       {
         name: 'Description',
@@ -105,12 +105,20 @@ class MetadataBase extends Base {
     ];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'subtitleTextStyle', curr: 'detailsTextStyle' }];
+  }
+
+  static get aliasProperties() {
+    return [{ prev: 'subtitle', curr: 'details' }];
+  }
+
   _titleLoaded() {
     this._updateLayout();
   }
 
-  _subtitleLoaded({ w, h }) {
-    this._updateSubtitleLayout({ w, h });
+  _detailsLoaded({ w, h }) {
+    this._updateDetailsLayout({ w, h });
     this._updateLayout();
   }
 
@@ -118,10 +126,10 @@ class MetadataBase extends Base {
     this._updateLayout();
   }
 
-  _updateSubtitleLayout({ w, h }) {
-    this._SubtitleWrapper.alpha = this.style.alpha;
-    this._SubtitleWrapper.w = w;
-    this._SubtitleWrapper.h = h;
+  _updateDetailsLayout({ w, h }) {
+    this._DetailsWrapper.alpha = this.style.alpha;
+    this._DetailsWrapper.w = w;
+    this._DetailsWrapper.h = h;
   }
 
   _update() {
@@ -132,7 +140,7 @@ class MetadataBase extends Base {
   _updateLines() {
     this._Text.w = this._textW();
     this._updateTitle();
-    this._updateSubtitle();
+    this._updateDetails();
     this._updateDescription();
   }
 
@@ -185,13 +193,13 @@ class MetadataBase extends Base {
     }
   }
 
-  _updateSubtitle() {
-    this._Subtitle.patch({
-      content: this.subtitle,
-      style: { textStyle: this.style.subtitleTextStyle }
+  _updateDetails() {
+    this._Details.patch({
+      content: this.details,
+      style: { textStyle: this.style.detailsTextStyle }
     });
-    if (this._Subtitle.finalW > this._textW()) {
-      this._SubtitleWrapper.patch({
+    if (this._Details.finalW > this._textW()) {
+      this._Details.patch({
         w: this._textW() + this.style.fadeWidth / 2,
         shader: {
           type: FadeShader,
@@ -201,10 +209,10 @@ class MetadataBase extends Base {
         rtt: true
       });
     } else {
-      this._SubtitleWrapper.shader = undefined;
+      this._DetailsWrapper.shader = undefined;
     }
-    this._SubtitleWrapper.visible = this.subtitle ? true : false;
-    this._SubtitleWrapper.alpha = this.style.alpha;
+    this._DetailsWrapper.visible = this.details ? true : false;
+    this._DetailsWrapper.alpha = this.style.alpha;
   }
 
   _updateDescription() {
@@ -242,11 +250,11 @@ class MetadataBase extends Base {
 
   _textH() {
     const titleH = (this.title && this._Title && this._Title.h) || 0;
-    const subtitleH =
-      (this.subtitle && this._SubtitleWrapper && this._SubtitleWrapper.h) || 0;
+    const detailsH =
+      (this.details && this._DetailsWrapper && this._DetailsWrapper.h) || 0;
     const descriptionH =
       (this.description && this._Description && this._Description.h) || 0;
-    return titleH + subtitleH + descriptionH;
+    return titleH + detailsH + descriptionH;
   }
 
   _getLogoWidth() {
@@ -273,7 +281,7 @@ class MetadataBase extends Base {
     return [
       ...(this.title ? [this._Title] : []),
       ...(this.description ? [this._Description] : []),
-      ...(this.subtitle ? [this._Subtitle] : [])
+      ...(this.details ? [this._Details] : [])
     ];
   }
 
@@ -285,7 +293,7 @@ class MetadataBase extends Base {
     return (
       this._announce || [
         this._Title && this._Title.announce,
-        this._Subtitle && this._Subtitle.announce,
+        this._Details && this._Details.announce,
         this._Description && this._Description.announce,
         this.logoTitle
       ]
