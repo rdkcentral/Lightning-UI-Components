@@ -208,7 +208,7 @@ export default class Tile extends Surface {
     } else {
       return this._progressBarY
         ? this._progressBarY - this.style.paddingYBetweenContent
-        : this._h + this.style.paddingY;
+        : this._h - this.style.paddingY;
     }
   }
   /* ------------------------------ Artwork ------------------------------ */
@@ -612,6 +612,7 @@ export default class Tile extends Surface {
 
   _metadataLoaded() {
     this._animateMetadata();
+    this._updateIcon();
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
     if (!this._isInsetMetadata) {
       this.fireAncestors('$itemChanged');
