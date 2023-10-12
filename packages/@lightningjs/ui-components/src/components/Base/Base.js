@@ -54,13 +54,11 @@ class Base extends lng.Component {
   _update() {}
 
   _focus() {
-    super._focus();
     this._updateShouldSmooth();
     this.queueRequestUpdate();
   }
 
   _unfocus() {
-    super._unfocus();
     this.queueRequestUpdate();
   }
 
