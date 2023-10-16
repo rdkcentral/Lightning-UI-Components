@@ -34,7 +34,16 @@ export const themeSelect = theme => {
     // Insert other themes to swap to here
     // Can also utilize the "extensions" array above to add to the theme
     default:
-      targetTheme = {};
+      targetTheme = {
+        componentConfig: {
+          ProgressBar: {
+            style: {
+              progressColor: ['#ff0000', 100],
+              
+            }
+          }
+        },
+      };
       break;
   }
   return context.setTheme(targetTheme);

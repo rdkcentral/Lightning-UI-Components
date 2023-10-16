@@ -59,16 +59,21 @@ export const getHash = obj => {
   return str.length + '-' + getCharacterSum(obj);
 };
 
-export function executeWithContext(objOrFunction, theme) {
+export function executeWithContextRecursive(objOrFunction, theme) {
   if (typeof objOrFunction === 'function') {
     // If the input is a function, execute it with the context.theme as a parameter
     return objOrFunction(theme);
   } else if (typeof objOrFunction === 'object') {
-    // If the input is an object, you can perform other operations here if needed.
-    // For now, let's just return the input object.
-    return objOrFunction;
+    // If the input is an object, iterate through its properties and apply the function recursively.
+    let result = {};
+    for (const key in objOrFunction) {
+      if (objOrFunction.hasOwnProperty(key)) {
+        result[key] = executeWithContextRecursive(objOrFunction[key], theme);
+      }
+    }
+    return result;
   } else {
-    return {};
+    return objOrFunction; // Return the value as is if it's neither a function nor an object.
   }
 }
 /**
@@ -274,125 +279,13 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
   return Array.from(result);
 };
 
-/**
- * Generates the source style object for a given component by merging base, mode, and tone styles from the component's style chain
- * @param {object} component - The component for which to generate the style source
- * @returns {object} - The source style object for the component
- */
-export const generateComponentStyleSource = component => {
-  // Initialize the finalStyle object to an empty object
-  let finalStyle = {};
-  const theme = component.theme;
-  // Check if the provided component is a plain object
-  if (!isPlainObject(component)) {
-    return {};
-  }
-
-  // Get the styleChain for the component
-  const styleChain = getStyleChainMemoized(component);
-
-  // Process all styles in styleChain
-  styleChain.forEach(({ style }) => {
-    // Check if the style object does not have specific keys (base, mode, tone, default)
-    if (
-      typeof style === 'object' &&
-      !style.base &&
-      !style.mode &&
-      !style.tone &&
-      !style.default
-    ) {
-      // Merge the style as a base style
-      finalStyle = clone(finalStyle, { base: style });
-    } else {
-      const { base, mode, tone } = style;
-      // Apply the style at different levels (Base Level: Component Style File)
-      finalStyle = clone(finalStyle, { base: executeWithContext(base, theme) });
-      finalStyle = clone(finalStyle, { tone: executeWithContext(tone, theme) });
-      finalStyle = clone(finalStyle, { mode: executeWithContext(mode, theme) });
-    }
-  });
-
-  // Apply Theme Level styles from ComponentConfig
-  if (component._componentConfig) {
-    if (component._componentConfig.styleConfig) {
-      context.info(
-        'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
-      );
-      finalStyle = clone(finalStyle, component._componentConfig.styleConfig);
-    }
-
-    const componentConfigStyle = component._componentConfig.style;
-
-    if (componentConfigStyle?.base) {
-      finalStyle = clone(finalStyle, {
-        base: componentConfigStyle.base
-      });
-    }
-
-    if (componentConfigStyle) {
-      const overwrite = JSON.parse(JSON.stringify(componentConfigStyle));
-      delete overwrite.base;
-      delete overwrite.tone;
-      delete overwrite.mode;
-      finalStyle = clone(finalStyle, { overwrite }); // Anything in the root level of style
-    }
-
-    if (componentConfigStyle?.tone) {
-      finalStyle = clone(finalStyle, {
-        tone: componentConfigStyle.tone
-      });
-    }
-
-    if (componentConfigStyle?.mode) {
-      finalStyle = clone(finalStyle, {
-        mode: componentConfigStyle.mode
-      });
-    }
-  }
-
-  // Apply Component Level styles
-  if (component._componentLevelStyle) {
-    if (component._componentLevelStyle.styleConfig) {
-      finalStyle = clone(
-        finalStyle,
-        component._componentLevelStyle.styleConfig
-      );
-    }
-
-    const componentStyle = component._componentLevelStyle;
-
-    if (componentStyle) {
-      const overwrite = JSON.parse(JSON.stringify(componentStyle));
-      delete overwrite.base;
-      delete overwrite.tone;
-      delete overwrite.mode;
-      finalStyle = clone(finalStyle, {
-        overwrite
-      });
-    }
-
-    if (componentStyle?.base) {
-      finalStyle = clone(finalStyle, {
-        base: componentStyle.base
-      });
-    }
-
-    if (componentStyle?.tone) {
-      finalStyle = clone(finalStyle, {
-        tone: componentStyle.tone
-      });
-    }
-
-    if (componentStyle?.mode) {
-      finalStyle = clone(finalStyle, {
-        mode: componentStyle.mode
-      });
-    }
-  }
-
-  // Destructure the finalStyle object
-  const { base = {}, mode = {}, tone = {}, overwrite = {} } = finalStyle;
-
+// TODO: Need to add overwrite functionality
+export const generateSolution = ({
+  base = {},
+  tone = {},
+  mode = {},
+  overwrite = {}
+}) => {
   // Create the solution object to store the processed styles
   const solution = {};
   const toneProperties = findPropertiesBySubProperty(mode, 'tone');
@@ -400,12 +293,24 @@ export const generateComponentStyleSource = component => {
 
   // Iterate through modes and tones to generate styles
   for (const modeItem of [
-    ...new Set(['unfocused', ...Object.keys(mode), ...modeProperties])
+    ...new Set([
+      'unfocused',
+      'focused',
+      'disabled',
+      ...Object.keys(mode),
+      ...modeProperties
+    ])
   ]) {
     for (const toneItem of [
-      ...new Set(['neutral', ...Object.keys(tone), ...toneProperties])
+      ...new Set([
+        'neutral',
+        'inverse',
+        'brand',
+        ...Object.keys(tone),
+        ...toneProperties
+      ])
     ]) {
-      let payload = clone(base, overwrite);
+      let payload = clone(overwrite, base);
       payload = clone(payload, tone[toneItem]);
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
@@ -413,13 +318,81 @@ export const generateComponentStyleSource = component => {
       solution[modeItem + '_' + toneItem] = payload;
     }
   }
+  return solution;
+};
+/**
+ * Generates the source style object for a given component by merging base, mode, and tone styles from the component's style chain
+ * @param {object} component - The component for which to generate the style source
+ * @returns {object} - The source style object for the component
+ */
+export const generateComponentStyleSource = component => {
+  const styleChain = getStyleChainMemoized(component);
+  const componentDefault = styleChain.map(({ style }) => {
+    if (
+      typeof style === 'object' &&
+      !style.base &&
+      !style.mode &&
+      !style.tone &&
+      !style.default
+    ) {
+      return { base: style };
+    } else {
+      const { base = {}, mode = {}, tone = {} } = style;
+      return {
+        base,
+        mode,
+        tone
+      };
+    }
+  });
 
-  // Return the final processed style object
+  // TODO: Add styleConfig alias
+  let componentConfigOverwrite;
+  if (component._componentConfig?.style) {
+    const overwrite = JSON.parse(
+      JSON.stringify(component._componentConfig?.style)
+    );
+    delete overwrite.base;
+    delete overwrite.tone;
+    delete overwrite.mode;
+    componentConfigOverwrite = overwrite; // Anything in the root level of style
+  }
 
-  return formatStyleObj(
+  const componentConfig = {
+    base: component._componentConfig?.style?.base || {},
+    mode: component._componentConfig?.style?.mode || {},
+    tone: component._componentConfig?.style?.tone || {},
+    overwrite: componentConfigOverwrite || {}
+  };
+
+  let localOverwrite;
+  if (component._componentLevelStyle) {
+    const overwrite = JSON.parse(
+      JSON.stringify(component._componentLevelStyle)
+    );
+    delete overwrite.base;
+    delete overwrite.tone;
+    delete overwrite.mode;
+    localOverwrite = overwrite; // Anything in the root level of style
+  }
+
+  const local = {
+    base: component._componentLevelStyle?.base || {},
+    mode: component._componentLevelStyle?.mode || {},
+    tone: component._componentLevelStyle?.tone || {}
+  };
+
+  const solution = [...componentDefault, componentConfig, local].reduce((acc, style) => {
+    const parsed = executeWithContextRecursive(style, component.theme);
+    return clone(acc, generateSolution(parsed));
+  }, {});
+
+  const final = formatStyleObj(
     removeEmptyObjects(colorParser(component, solution)) || {},
     component.constructor.aliasStyles
   );
+
+  return final;
 };
 
 /**
