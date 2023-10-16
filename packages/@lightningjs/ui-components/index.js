@@ -15,9 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import 'core-js/features/string/replace-all';
-
-// Rest of your code
+import 'core-js/features/string/replace-all'; // Support replace-all on older browsers
 
 export { default as utils } from './src/utils';
 export * from './src/components';
