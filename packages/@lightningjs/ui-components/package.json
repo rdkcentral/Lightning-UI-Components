@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@lightningjs/ui-components-theme-base": "workspace:^",
+    "core-js": "^3.33.0",
     "debounce": "^1.2.1"
   },
   "files": [

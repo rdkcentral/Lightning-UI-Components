@@ -70,7 +70,18 @@ export default cliArgs => [
       image(),
       json(),
       getBabelOutputPlugin({
-        presets: ['@babel/preset-env']
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              useBuiltIns: "usage",
+              corejs: {
+                version: 3,
+                proposals: true
+              }
+            }
+          ]
+        ]
       }),
       terser({ keep_classnames: true, keep_fnames: true })
     ]
