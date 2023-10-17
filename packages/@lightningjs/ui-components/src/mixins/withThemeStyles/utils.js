@@ -17,7 +17,7 @@
  */
 
 import { clone, getValFromObjPath, getHexColor } from '../../utils';
-import context from '../../globals/context';
+import log from '../../globals/context/logger';
 
 /**
 Given a character, return its ASCII value multiplied by its position.
@@ -279,12 +279,12 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
   return Array.from(result);
 };
 
-// TODO: Need to add overwrite functionality
+// TODO: Need to add defaultStyle functionality
 export const generateSolution = ({
   base = {},
   tone = {},
   mode = {},
-  overwrite = {}
+  defaultStyle = {}
 }) => {
   // Create the solution object to store the processed styles
   const solution = {};
@@ -310,7 +310,7 @@ export const generateSolution = ({
         ...toneProperties
       ])
     ]) {
-      let payload = clone(overwrite, base);
+      let payload = clone(defaultStyle, base);
       payload = clone(payload, tone[toneItem]);
       payload = clone(payload, mode[modeItem]);
       payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
@@ -327,6 +327,10 @@ export const generateSolution = ({
  */
 export const generateComponentStyleSource = component => {
   const styleChain = getStyleChainMemoized(component);
+
+  /**
+   * Component default styles
+   */
   const componentDefault = styleChain.map(({ style }) => {
     if (
       typeof style === 'object' &&
@@ -346,46 +350,72 @@ export const generateComponentStyleSource = component => {
     }
   });
 
-  // TODO: Add styleConfig alias
-  let componentConfigOverwrite;
-  if (component._componentConfig?.style) {
-    const overwrite = JSON.parse(
-      JSON.stringify(component._componentConfig?.style)
+  /**
+   * ComponentConfig settings
+   * StyleConfig is deprecated but we will still support it for now
+   */
+  const componentConfigOrigin =
+    component._componentConfig?.style ||
+    (component._componentConfig?.styleConfig &&
+      clone(
+        component._componentConfig?.style || {},
+        component._componentConfig.styleConfig || {}
+      ));
+
+  if (!(component._componentConfig || {}).hasOwnProperty('styleConfig')) {
+    log.warn(
+      `[Deprecation Warning]: "styleConfig" in ${component.constructor.__componentName} will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
     );
-    delete overwrite.base;
-    delete overwrite.tone;
-    delete overwrite.mode;
-    componentConfigOverwrite = overwrite; // Anything in the root level of style
+  }
+
+  /**
+   * DefaultStyle will apply to the next level in the hierarchy
+   */
+  let componentConfigDefaultStyle;
+  if (componentConfigOrigin) {
+    const defaultStyle = JSON.parse(JSON.stringify(componentConfigOrigin));
+    delete defaultStyle.base;
+    delete defaultStyle.tone;
+    delete defaultStyle.mode;
+    componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
   }
 
   const componentConfig = {
-    base: component._componentConfig?.style?.base || {},
-    mode: component._componentConfig?.style?.mode || {},
-    tone: component._componentConfig?.style?.tone || {},
-    overwrite: componentConfigOverwrite || {}
+    defaultStyle: componentConfigDefaultStyle || {},
+    base: componentConfigOrigin?.base || {},
+    mode: componentConfigOrigin?.mode || {},
+    tone: componentConfigOrigin?.tone || {}
   };
 
-  let localOverwrite;
+  /**
+   * Local / Instance level styles
+   * DefaultStyle will apply to the next level in the hierarchy
+   */
+  let localDefaultStyle;
   if (component._componentLevelStyle) {
-    const overwrite = JSON.parse(
+    const defaultStyle = JSON.parse(
       JSON.stringify(component._componentLevelStyle)
     );
-    delete overwrite.base;
-    delete overwrite.tone;
-    delete overwrite.mode;
-    localOverwrite = overwrite; // Anything in the root level of style
+    delete defaultStyle.base;
+    delete defaultStyle.tone;
+    delete defaultStyle.mode;
+    localDefaultStyle = defaultStyle; // Anything in the root level of style
   }
 
   const local = {
+    defaultStyle: localDefaultStyle || {},
     base: component._componentLevelStyle?.base || {},
     mode: component._componentLevelStyle?.mode || {},
     tone: component._componentLevelStyle?.tone || {}
   };
 
-  const solution = [...componentDefault, componentConfig, local].reduce((acc, style) => {
-    const parsed = executeWithContextRecursive(style, component.theme);
-    return clone(acc, generateSolution(parsed));
-  }, {});
+  const solution = [...componentDefault, componentConfig, local].reduce(
+    (acc, style) => {
+      const parsed = executeWithContextRecursive(style, component.theme);
+      return clone(acc, generateSolution(parsed));
+    },
+    {}
+  );
 
   const final = formatStyleObj(
     removeEmptyObjects(colorParser(component, solution)) || {},
