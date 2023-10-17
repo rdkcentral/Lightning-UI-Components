@@ -627,7 +627,10 @@ export const replaceAliasValues = (value, aliasStyles = []) => {
         console.warn(
           `The style property "${alias.prev}" is deprecated and will be removed in a future release. Please use "${alias.curr}" instead.`
         );
-        str = str.replace(new RegExp(`"${alias.prev}":`, 'gi'), `"${alias.curr}":`);
+      str = str.replace(
+        new RegExp(`"${alias.prev}":`, 'gi'),
+        `"${alias.curr}":`
+      );
     }
   });
   return JSON.parse(str);
