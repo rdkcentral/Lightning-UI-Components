@@ -65,7 +65,7 @@ export function executeWithContextRecursive(objOrFunction, theme) {
     return objOrFunction(theme);
   } else if (typeof objOrFunction === 'object') {
     // If the input is an object, iterate through its properties and apply the function recursively.
-    let result = {};
+    const result = {};
     for (const key in objOrFunction) {
       if (objOrFunction.hasOwnProperty(key)) {
         result[key] = executeWithContextRecursive(objOrFunction[key], theme);
