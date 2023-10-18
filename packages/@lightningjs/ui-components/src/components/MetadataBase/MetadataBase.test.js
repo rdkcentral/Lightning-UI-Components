@@ -49,14 +49,14 @@ describe('MetadataBase', () => {
 
   it('sets the announce string to the appropriate text content status', () => {
     const title = 'Title';
-    const subtitle = 'Subtitle';
+    const details = 'Details';
     const description = 'Description';
     const logoTitle = 'Logo Title';
-    metadataBase.patch({ title, subtitle, description, logoTitle });
+    metadataBase.patch({ title, details, description, logoTitle });
     testRenderer.forceAllUpdates();
     expect(metadataBase.announce).toEqual([
       title,
-      subtitle,
+      details,
       description,
       logoTitle
     ]);
@@ -77,19 +77,19 @@ describe('MetadataBase', () => {
     expect(metadataBase._Title.content).toBe(title);
   });
 
-  it('updates the subtitle', async () => {
-    const subtitle = 'subtitle text';
-    expect(metadataBase.subtitle).toBe(undefined);
-    expect(metadataBase._SubtitleWrapper.h).toBe(0);
+  it('updates the details', async () => {
+    const details = 'details text';
+    expect(metadataBase.details).toBe(undefined);
+    expect(metadataBase._DetailsWrapper.h).toBe(0);
 
-    metadataBase.subtitle = subtitle;
+    metadataBase.details = details;
     await metadataBase.__updateSpyPromise;
     testRenderer.update();
 
-    expect(metadataBase._Subtitle.content).toBe(subtitle);
-    expect(metadataBase._Subtitle.h).toBeGreaterThan(0);
-    expect(metadataBase._SubtitleWrapper).toMatchObject({
-      h: metadataBase._Subtitle.h,
+    expect(metadataBase._Details.content).toBe(details);
+    expect(metadataBase._Details.h).toBeGreaterThan(0);
+    expect(metadataBase._DetailsWrapper).toMatchObject({
+      h: metadataBase._Details.h,
       alpha: 1
     });
   });
@@ -118,7 +118,7 @@ describe('MetadataBase', () => {
     [metadataBase, testRenderer] = createComponent(
       {},
       {
-        spyOnMethods: ['_update', '_subtitleLoaded']
+        spyOnMethods: ['_update', '_detailsLoaded']
       }
     );
 
@@ -128,10 +128,10 @@ describe('MetadataBase', () => {
     await metadataBase.__updateSpyPromise;
     expect(metadataBase.logo).toBe(logoPath);
 
-    const subtitle = 'secondLine text';
-    metadataBase.subtitle = subtitle;
+    const details = 'secondLine text';
+    metadataBase.details = details;
     await metadataBase.__updateSpyPromise;
-    await metadataBase.__subtitleLoadedSpyPromise;
+    await metadataBase.__detailsLoadedSpyPromise;
 
     const logoX = metadataBase.w - metadataBase.logoWidth;
     expect(metadataBase._Logo.x).toBe(logoX);

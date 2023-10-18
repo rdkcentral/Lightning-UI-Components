@@ -23,11 +23,11 @@ export const base = theme => ({
 
 export const tone = theme => ({
   neutral: {
-    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
+    detailsTextStyle: { textColor: theme.color.textNeutralSecondary },
     descriptionTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled },
         descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }
@@ -35,11 +35,11 @@ export const tone = theme => ({
     }
   },
   inverse: {
-    subtitleTextStyle: { textColor: theme.color.textInverseSecondary },
+    detailsTextStyle: { textColor: theme.color.textInverseSecondary },
     descriptionTextStyle: { textColor: theme.color.textInverse },
     mode: {
       disabled: {
-        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled },
         descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }
@@ -47,11 +47,11 @@ export const tone = theme => ({
     }
   },
   brand: {
-    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
+    detailsTextStyle: { textColor: theme.color.textNeutralSecondary },
     descriptionTextStyle: { textColor: theme.color.textNeutral },
     mode: {
       disabled: {
-        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        detailsTextStyle: { textColor: theme.color.textNeutralDisabled },
         descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
         }

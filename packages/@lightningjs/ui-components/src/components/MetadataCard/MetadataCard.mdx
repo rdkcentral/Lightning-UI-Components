@@ -41,7 +41,7 @@ class Basic extends lng.Component {
         type: MetadataCard,
         w: args.w,
         title: args.title,
-        subtitle: args.subtitle,
+        details: args.details,
         description: args.description,
         logo: args.logo !== 'none' ? circle : null,
         logoTitle: args.logo !== 'none' ? args.logoTitle : null,
@@ -63,12 +63,12 @@ class Basic extends lng.Component {
 | name         | type           | required             | default   | description                                  |
 | ------------ | -------------- | -------------------- | --------- | -------------------------------------------- |
 | description  | string         | false                | undefined | third line or description of the content     |
+| details      | inline content | false                | undefined | relevant content data in the middle          |
 | logo         | string         | false                | undefined | logo to display at bottom of component       |
 | logoHeight   | number         | true (if using logo) | undefined | height of logo                               |
 | logoPosition | string         | false                | 'right'   | which side to place logo (`right` or `left`) |
 | logoTitle    | string         | true (if using logo) | undefined | title of logo to use for announcer           |
 | logoWidth    | number         | true (if using logo) | undefined | width of logo                                |
-| subtitle     | inline content | false                | undefined | relevant content data in the middle          |
 | title        | string         | false                | undefined | first line or headline of the content        |
 
 ### Style Properties
@@ -80,5 +80,5 @@ class Basic extends lng.Component {
 | logoHeight           | number           | height for logo                                                 |
 | logoPadding          | number           | spacing between logo and secondLine                             |
 | logoWidth            | number           | width for logo                                                  |
-| subtitleTextStyle    | string \| object | text style for subtitle                                         |
+| detailsTextStyle     | string \| object | text style for details                                          |
 | titleTextStyle       | string \| object | text style for title                                            |

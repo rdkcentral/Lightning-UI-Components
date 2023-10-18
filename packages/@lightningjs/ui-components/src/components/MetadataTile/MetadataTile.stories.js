@@ -42,7 +42,7 @@ export const MetadataTile = args =>
           type: MetadataTileComponent,
           w: args.w,
           title: args.title,
-          subtitle: args.subtitle,
+          details: args.details,
           description: args.description,
           logo: args.logo !== 'none' ? circle : null,
           logoTitle: args.logo !== 'none' ? args.logoTitle : null,
@@ -61,7 +61,7 @@ MetadataTile.storyName = 'MetadataTile';
 MetadataTile.args = {
   w: 400,
   title: 'Title',
-  subtitle: [
+  details: [
     '94%',
     {
       icon: lightningbolt,
@@ -97,7 +97,7 @@ MetadataTile.argTypes = {
       defaultValue: { summary: 'undefined' }
     }
   },
-  subtitle: {
+  details: {
     control: 'object',
     table: {
       defaultValue: { summary: 'undefined' }

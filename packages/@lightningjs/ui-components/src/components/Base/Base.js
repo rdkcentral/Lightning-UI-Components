@@ -54,12 +54,16 @@ class Base extends lng.Component {
   _update() {}
 
   _focus() {
-    if (this.shouldSmooth === undefined) this.shouldSmooth = true;
+    this._updateShouldSmooth();
     this.queueRequestUpdate();
   }
 
   _unfocus() {
     this.queueRequestUpdate();
+  }
+
+  _updateShouldSmooth() {
+    if (this.shouldSmooth === undefined) this.shouldSmooth = true;
   }
 
   /**

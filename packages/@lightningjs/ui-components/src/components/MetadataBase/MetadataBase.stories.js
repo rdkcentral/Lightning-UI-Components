@@ -50,7 +50,7 @@ MetadataBase.storyName = 'MetadataBase';
 MetadataBase.args = {
   w: 400,
   title: 'Title',
-  subtitle: [
+  details: [
     '94%',
     {
       icon: lightningbolt,
@@ -86,9 +86,9 @@ MetadataBase.argTypes = {
       defaultValue: { summary: 'undefined' }
     }
   },
-  subtitle: {
+  details: {
     control: 'object',
-    description: 'subtitle content',
+    description: 'details content',
     table: {
       defaultValue: { summary: 'undefined' }
     }
