@@ -66,7 +66,7 @@ declare namespace Tile {
     /**
      * icon source
      */
-    iconSrc?: string;
+    logo?: string;
     /**
      * Controls where there metadata is displayed in relation to the Tile. Available values are 'standard' and 'inset'
      */
