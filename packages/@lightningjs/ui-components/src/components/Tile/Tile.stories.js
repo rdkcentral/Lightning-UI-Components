@@ -60,7 +60,7 @@ export const Tile = () =>
 
 Tile.args = {
   metadataLocation: 'standard',
-  iconSrc: xfinityLogo,
+  logo: xfinityLogo,
   persistentMetadata: false,
   mode: 'focused'
 };
@@ -83,7 +83,7 @@ Tile.argTypes = {
       defaultValue: { summary: 'standard' }
     }
   },
-  iconSrc: {
+  logo: {
     control: 'select',
     options: [xfinityLogo, 'null'],
     description: 'Icon source',

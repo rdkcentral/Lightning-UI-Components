@@ -406,10 +406,10 @@ describe('Tile', () => {
     });
   });
 
-  describe('icon', () => {
-    const icon = pathToDataURI('src/assets/images/ic_lightning_white_32.png');
-    it('should patch in an icon if provided', () => {
-      tile.iconSrc = icon;
+  describe('logo', () => {
+    const logo = pathToDataURI('src/assets/images/ic_lightning_white_32.png');
+    it('should patch in a logo if provided', () => {
+      tile.logo = logo;
       expect(tile._Icon).toBeUndefined();
     });
   });
