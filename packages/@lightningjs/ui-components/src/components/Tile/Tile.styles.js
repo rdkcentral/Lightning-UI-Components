@@ -19,8 +19,8 @@
 export const base = theme => ({
   animationEntrance: theme.animation.standardEntrance,
   animationExit: theme.animation.standardExit,
-  iconWidth: theme.spacer.lg * 5,
-  iconHeight: theme.spacer.xxl + theme.spacer.md,
+  logoWidth: theme.spacer.lg * 5,
+  logoHeight: theme.spacer.xxl + theme.spacer.md,
   metadataLocation: 'standard',
   paddingX: theme.spacer.xl,
   paddingY: theme.spacer.lg,

@@ -60,13 +60,24 @@ export default class Tile extends Surface {
       'checkbox',
       'circle',
       'label',
-      'iconSrc',
+      'logo',
       'metadata',
       'metadataLocation',
       'persistentMetadata',
       'progressBar',
       'src'
     ];
+  }
+
+  static get aliasStyles() {
+    return [
+      { prev: 'iconHeight', curr: 'logoHeight' },
+      { prev: 'iconWidth', curr: 'logoWidth' }
+    ];
+  }
+
+  static get aliasProperties() {
+    return [{ prev: 'iconSrc', curr: 'logo' }];
   }
 
   static get tags() {
@@ -77,7 +88,7 @@ export default class Tile extends Surface {
       'Tile',
       { name: 'Badge', path: 'Content.Badge' },
       { name: 'Checkbox', path: 'Content.Checkbox' },
-      { name: 'Icon', path: 'Content.Icon' },
+      { name: 'Logo', path: 'Content.Logo' },
       { name: 'Metadata', path: 'Content.Metadata' },
       { name: 'ProgressBar', path: 'Content.ProgressBar' },
       { name: 'Label', path: 'Content.Label' }
@@ -113,7 +124,7 @@ export default class Tile extends Surface {
     this._updateLabel();
     this._updateCheckbox();
     this._updateProgressBar();
-    this._updateIcon();
+    this._updateLogo();
     this._updateMetadata();
   }
 
@@ -179,30 +190,30 @@ export default class Tile extends Surface {
     );
   }
 
-  /* ------------------------------ Icon ------------------------------ */
+  /* ------------------------------ Logo ------------------------------ */
 
-  _updateIcon() {
-    const iconObject = {
-      w: this.style.iconWidth,
-      h: this.style.iconHeight,
-      icon: this.iconSrc,
+  _updateLogo() {
+    const logoObject = {
+      w: this.style.logoWidth,
+      h: this.style.logoHeight,
+      icon: this.logo,
       alpha: this.style.alpha,
       mountY: 1,
       x: this.style.paddingX,
-      y: this._calculateIconYPosition()
+      y: this._calculateLogoYPosition()
     };
 
-    if (this.iconSrc && (this.persistentMetadata || this._isFocusedMode)) {
-      if (!this._Icon) {
-        iconObject.type = Icon;
+    if (this.logo && (this.persistentMetadata || this._isFocusedMode)) {
+      if (!this._Logo) {
+        logoObject.type = Icon;
       }
-      this.patch({ Icon: iconObject });
+      this.patch({ Icon: logoObject });
     } else {
       this.patch({ Icon: undefined });
     }
   }
 
-  _calculateIconYPosition() {
+  _calculateLogoYPosition() {
     if (this._isInsetMetadata) {
       return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
     } else {
@@ -612,7 +623,7 @@ export default class Tile extends Surface {
 
   _metadataLoaded() {
     this._animateMetadata();
-    this._updateIcon();
+    this._updateLogo();
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
     if (!this._isInsetMetadata) {
       this.fireAncestors('$itemChanged');
