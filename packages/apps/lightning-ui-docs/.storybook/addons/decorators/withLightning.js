@@ -21,7 +21,7 @@ import {
   context,
   utils,
   TextBox
-} from '@lightningjs/ui-components/src';
+} from '@lightningjs/ui-components';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;

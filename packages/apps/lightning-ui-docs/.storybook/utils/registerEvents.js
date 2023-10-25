@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context } from '@lightningjs/ui-components/src';
+import { context } from '@lightningjs/ui-components';
 
 // creates an array of extensions
 // added to the theme by setTheme in themeSelect

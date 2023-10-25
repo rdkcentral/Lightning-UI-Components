@@ -20,7 +20,7 @@ import React from 'react';
 import { DOWNLOAD_ID } from '../constants';
 import { Icons, IconButton } from '@storybook/components';
 import { convertNumToHexAlphaArray } from '../../utils/helpers';
-import { utils } from '@lightningjs/ui-components/src';
+import { utils } from '@lightningjs/ui-components';
 
 export default () => {
   const download = () => {

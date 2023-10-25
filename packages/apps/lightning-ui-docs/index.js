@@ -23,7 +23,7 @@ import {
   Speech,
   pool,
   context
-} from '@lightningjs/ui-components/src';
+} from '@lightningjs/ui-components';
 import {
   themeSelect,
   themeSelectFromMessageEvent
