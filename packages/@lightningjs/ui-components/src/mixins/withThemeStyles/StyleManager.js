@@ -18,6 +18,7 @@
 
 import {
   generateComponentStyleSource,
+  getStyleChainMemoized,
   generateStyle,
   getHash
 } from './utils.js';
@@ -198,8 +199,18 @@ export default class StyleManager extends lng.EventEmitter {
       let styleSource = this._getCache('styleSource')?.payload;
 
       if (!styleSource) {
+        // TODO: Change from componentLevelStyle to inlineStyle
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
-        styleSource = generateComponentStyleSource(this.component);
+
+        styleSource = generateComponentStyleSource({
+          alias: this.component.constructor.aliasStyles,
+          componentConfig: this.component._componentConfig,
+          inlineStyle: this._componentLevelStyle,
+          name:
+            this.component.constructor.__componentName || this.component.constructor.name,
+          styleChain: getStyleChainMemoized(this.component),
+          theme: this.component.theme
+        });
         this._addCache('styleSource', styleSource);
       }
 
@@ -215,6 +226,7 @@ export default class StyleManager extends lng.EventEmitter {
       this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {
+      debugger
       context.error('styleManager: ', error.message);
     }
   }

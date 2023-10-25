@@ -325,8 +325,37 @@ export const generateSolution = ({
  * @param {object} component - The component for which to generate the style source
  * @returns {object} - The source style object for the component
  */
-export const generateComponentStyleSource = component => {
-  const styleChain = getStyleChainMemoized(component);
+export const generateComponentStyleSource = ({
+  theme = {},
+  componentConfig = {},
+  styleChain = [],
+  inlineStyle = {},
+  alias = [],
+  componentName = 'Component'
+}) => {
+  if (typeof theme !== 'object') {
+    throw new Error('Expected theme to be an object');
+  }
+
+  if (typeof componentConfig !== 'object') {
+    throw new Error('Expected componentConfig to be an object');
+  }
+
+  if (!Array.isArray(styleChain)) {
+    throw new Error('Expected styleChain to be an array');
+  }
+
+  if (typeof inlineStyle !== 'object') {
+    throw new Error('Expected inlineStyle to be an object');
+  }
+
+  if (!Array.isArray(alias)) {
+    throw new Error('Expected alias to be an array');
+  }
+
+  if (typeof componentName !== 'string') {
+    throw new Error('Expected componentName to be a string');
+  }
 
   /**
    * Component default styles
@@ -355,16 +384,13 @@ export const generateComponentStyleSource = component => {
    * StyleConfig is deprecated but we will still support it for now
    */
   const componentConfigOrigin =
-    component._componentConfig?.style ||
-    (component._componentConfig?.styleConfig &&
-      clone(
-        component._componentConfig?.style || {},
-        component._componentConfig.styleConfig || {}
-      ));
+    componentConfig?.style ||
+    (componentConfig?.styleConfig &&
+      clone(componentConfig?.style || {}, componentConfig.styleConfig || {}));
 
-  if (!(component._componentConfig || {}).hasOwnProperty('styleConfig')) {
+  if (!(componentConfig || {}).hasOwnProperty('styleConfig')) {
     log.warn(
-      `[Deprecation Warning]: "styleConfig" in ${component.constructor.__componentName} will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
+      `[Deprecation Warning]: "styleConfig" in ${componentName} will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
     );
   }
 
@@ -380,7 +406,7 @@ export const generateComponentStyleSource = component => {
     componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
   }
 
-  const componentConfig = {
+  const componentConfigSanitized = {
     defaultStyle: componentConfigDefaultStyle || {},
     base: componentConfigOrigin?.base || {},
     mode: componentConfigOrigin?.mode || {},
@@ -392,10 +418,8 @@ export const generateComponentStyleSource = component => {
    * DefaultStyle will apply to the next level in the hierarchy
    */
   let localDefaultStyle;
-  if (component._componentLevelStyle) {
-    const defaultStyle = JSON.parse(
-      JSON.stringify(component._componentLevelStyle)
-    );
+  if (inlineStyle) {
+    const defaultStyle = JSON.parse(JSON.stringify(inlineStyle));
     delete defaultStyle.base;
     delete defaultStyle.tone;
     delete defaultStyle.mode;
@@ -404,22 +428,23 @@ export const generateComponentStyleSource = component => {
 
   const local = {
     defaultStyle: localDefaultStyle || {},
-    base: component._componentLevelStyle?.base || {},
-    mode: component._componentLevelStyle?.mode || {},
-    tone: component._componentLevelStyle?.tone || {}
+    base: inlineStyle?.base || {},
+    mode: inlineStyle?.mode || {},
+    tone: inlineStyle?.tone || {}
   };
 
-  const solution = [...componentDefault, componentConfig, local].reduce(
-    (acc, style) => {
-      const parsed = executeWithContextRecursive(style, component.theme);
-      return clone(acc, generateSolution(parsed));
-    },
-    {}
-  );
+  const solution = [
+    ...componentDefault,
+    componentConfigSanitized,
+    local
+  ].reduce((acc, style) => {
+    const parsed = executeWithContextRecursive(style, theme);
+    return clone(acc, generateSolution(parsed));
+  }, {});
 
   const final = formatStyleObj(
-    removeEmptyObjects(colorParser(component, solution)) || {},
-    component.constructor.aliasStyles
+    removeEmptyObjects(colorParser({ theme }, solution)) || {},
+    alias
   );
 
   return final;
@@ -427,17 +452,17 @@ export const generateComponentStyleSource = component => {
 
 /**
  * Parse and process a style object to replace theme strings and process color arrays.
- * @param {string} component - Lightning Component
+ * @param {string} targetObject - In most cases this will be a theme object
  * @param {object} styleObj - The input style object to be processed.
  * @returns {object} The processed style object with theme strings replaced and color arrays processed.
  */
-export const colorParser = (component, styleObj) => {
+export const colorParser = (targetObject, styleObj) => {
   // Process style object and remove unnecessary properties
   const processedStyle = JSON.stringify(styleObj, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
     if ('string' === typeof value && value.startsWith('theme.')) {
       // Support theme strings example: theme.radius.md
-      return getValFromObjPath(component, value); // If no theme value exists, the property will be removed from the object
+      return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed from the object
     } else if (Array.isArray(value) && value.length === 2) {
       // Process value as a color ['#663399', 1]
       return getHexColor(value[0], value[1]);
