@@ -16,7 +16,6 @@ jest.mock('./utils', () => ({
 }));
 
 describe('generateComponentStyleSource', () => {
-
   // Resetting all mocks after each test
   afterEach(() => {
     jest.clearAllMocks();
@@ -52,28 +51,154 @@ describe('generateComponentStyleSource', () => {
     }).toThrow('Expected alias to be an array');
   });
 
-  it('throws an error if componentName is not a string', () => {
-    expect(() => {
-      generateComponentStyleSource({ componentName: {} });
-    }).toThrow('Expected componentName to be a string');
+  it('will provide correct source for a component with no styles', () => {
+    const source = generateComponentStyleSource();
+    expect(source).toStrictEqual({});
   });
 
-  // More tests for functionality and edge cases can go here...
-  // For example:
+  it('will provide correct source for a component with componentDefaults for base', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            base: {
+              color: 'primary'
+            }
+          }
+        }
+      ]
+    });
 
-  // it('logs a deprecation warning if styleConfig is present in componentConfig', () => {
-  //   generateComponentStyleSource({
-  //     componentConfig: {
-  //       styleConfig: {}
-  //     },
-  //     componentName: 'TestComponent'
-  //   });
-  //   expect(log.warn).toHaveBeenCalledWith(
-  //     '[Deprecation Warning]: "styleConfig" in TestComponent will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.'
-  //   );
-  // });
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
 
-  // ...and so on.
+  it('should have all objects in source be pointers to the same object in memory', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            base: {
+              color: 'primary'
+            }
+          }
+        }
+      ]
+    });
+   
+    const objects = Object.values(source);
+    const firstObject = objects[0];
 
+    for (let i = 1; i < objects.length; i++) {
+      expect(objects[i]).toBe(firstObject);
+    }
+  });
+
+  it('will provide correct source for a component with componentDefaults for tone', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            tone: {
+              neutral: {
+                color: 'primary'
+              }
+            }
+          }
+        }
+      ]
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      disabled_neutral: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentDefaults for mode', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            mode: {
+              unfocused: {
+                color: 'primary'
+              }
+            }
+          }
+        }
+      ]
+    });
+    // TODO: Feels like this should be normalized
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentConfig', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentConfig with tone', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          }, 
+          tone: {
+            neutral: {
+              color: 'secondary'
+            }
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'secondary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'secondary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'secondary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  
 });
-

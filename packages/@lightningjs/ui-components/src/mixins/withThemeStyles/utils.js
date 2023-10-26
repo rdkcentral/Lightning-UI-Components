@@ -279,45 +279,107 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
   return Array.from(result);
 };
 
+  // This map will store hashes of objects to detect duplicates.
+const seenObjects = new Map();
+
+function createSharedReferences(obj) {
+
+  // Generates a hash for an object. 
+  // Sorting keys ensures consistent hash regardless of property order.
+  function hash(object) {
+      return JSON.stringify(object, Object.keys(object).sort());
+  }
+
+  function process(currentObj) {
+      for (const key in currentObj) {
+          if (currentObj.hasOwnProperty(key)) {
+              const value = currentObj[key];
+              if (typeof value === 'object' && value !== null) { // Ensure it's an object
+                  const valueHash = hash(value);
+                  if (seenObjects.has(valueHash)) {
+                      // If we've seen this object before, replace the current reference
+                      // with the original reference.
+                      currentObj[key] = seenObjects.get(valueHash);
+                  } else {
+                      seenObjects.set(valueHash, value);
+                      process(value); // Recursively process this object
+                  }
+              }
+          }
+      }
+  }
+
+  process(obj);
+
+  return obj;
+}
+
+
 // TODO: Need to add defaultStyle functionality
+
+/**
+ * Returns a unique set of properties by merging default properties and provided ones.
+ *
+ * @param {string[]} defaultProps - List of default properties.
+ * @param {Object} additionalProps - Additional properties provided by the user.
+ * @param {string[]} subProps - Sub-properties extracted from a different source.
+ * @returns {string[]} - An array of unique properties.
+ */
+function getUniqueProperties(defaultProps, additionalProps, subProps) {
+  return [...new Set([...defaultProps, ...Object.keys(additionalProps), ...subProps])];
+}
+
+/**
+ * Generate the payload by cloning and merging multiple objects.
+ *
+ * @param {Object} base - The base object to start with.
+ * @param {Object} defaultStyle - Default styles provided by the user.
+ * @param {string} toneItem - The current tone being processed.
+ * @param {string} modeItem - The current mode being processed.
+ * @param {Object} tone - Tone configurations.
+ * @param {Object} mode - Mode configurations.
+ * @returns {Object} - The merged payload.
+ */
+function generatePayload(base, defaultStyle, toneItem, modeItem, tone, mode) {
+  let payload = clone(defaultStyle, base);
+  payload = clone(payload, tone[toneItem]);
+  payload = clone(payload, mode[modeItem]);
+  payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
+  payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
+  return payload;
+}
+
+/**
+ * Generates a solution based on the provided configurations.
+ *
+ * @param {Object} options - The configuration options for generating the solution.
+ * @param {Object} [options.base={}] - Base object.
+ * @param {Object} [options.tone={}] - Tone configurations.
+ * @param {Object} [options.mode={}] - Mode configurations.
+ * @param {Object} [options.defaultStyle={}] - Default styles provided by the user.
+ * @returns {Object} - The generated solution with shared references and merged identical properties.
+ */
 export const generateSolution = ({
   base = {},
   tone = {},
   mode = {},
   defaultStyle = {}
 }) => {
-  // Create the solution object to store the processed styles
   const solution = {};
+  
   const toneProperties = findPropertiesBySubProperty(mode, 'tone');
   const modeProperties = findPropertiesBySubProperty(tone, 'mode');
 
-  // Iterate through modes and tones to generate styles
-  for (const modeItem of [
-    ...new Set([
-      'unfocused',
-      'focused',
-      'disabled',
-      ...Object.keys(mode),
-      ...modeProperties
-    ])
-  ]) {
-    for (const toneItem of [
-      ...new Set([
-        'neutral',
-        'inverse',
-        'brand',
-        ...Object.keys(tone),
-        ...toneProperties
-      ])
-    ]) {
-      let payload = clone(defaultStyle, base);
-      payload = clone(payload, tone[toneItem]);
-      payload = clone(payload, mode[modeItem]);
-      payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
-      payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
-      solution[modeItem + '_' + toneItem] = payload;
+  const uniqueModes = getUniqueProperties(['unfocused', 'focused', 'disabled'], mode, modeProperties);
+  const uniqueTones = getUniqueProperties(['neutral', 'inverse', 'brand'], tone, toneProperties);
+
+  for (const modeItem of uniqueModes) {
+    for (const toneItem of uniqueTones) {
+      const payload = generatePayload(base, defaultStyle, toneItem, modeItem, tone, mode);
+      solution[`${modeItem}_${toneItem}`] = payload;
     }
   }
+
   return solution;
 };
 /**
@@ -330,9 +392,8 @@ export const generateComponentStyleSource = ({
   componentConfig = {},
   styleChain = [],
   inlineStyle = {},
-  alias = [],
-  componentName = 'Component'
-}) => {
+  alias = []
+} = {}) => {
   if (typeof theme !== 'object') {
     throw new Error('Expected theme to be an object');
   }
@@ -351,10 +412,6 @@ export const generateComponentStyleSource = ({
 
   if (!Array.isArray(alias)) {
     throw new Error('Expected alias to be an array');
-  }
-
-  if (typeof componentName !== 'string') {
-    throw new Error('Expected componentName to be a string');
   }
 
   /**
@@ -390,7 +447,7 @@ export const generateComponentStyleSource = ({
 
   if (!(componentConfig || {}).hasOwnProperty('styleConfig')) {
     log.warn(
-      `[Deprecation Warning]: "styleConfig" in ${componentName} will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
+      `[Deprecation Warning]: "styleConfig" will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
     );
   }
 
@@ -447,7 +504,7 @@ export const generateComponentStyleSource = ({
     alias
   );
 
-  return final;
+  return createSharedReferences(final);
 };
 
 /**
