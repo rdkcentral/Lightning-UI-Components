@@ -279,41 +279,41 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
   return Array.from(result);
 };
 
-  // This map will store hashes of objects to detect duplicates.
-const seenObjects = new Map();
+// This map will store hashes of objects to detect duplicates.
 
 function createSharedReferences(obj) {
+  const seenObjects = new Map();
 
-  // Generates a hash for an object. 
+  // Generates a hash for an object.
   // Sorting keys ensures consistent hash regardless of property order.
   function hash(object) {
-      return JSON.stringify(object, Object.keys(object).sort());
+    return JSON.stringify(object, Object.keys(object).sort());
   }
 
   function process(currentObj) {
-      for (const key in currentObj) {
-          if (currentObj.hasOwnProperty(key)) {
-              const value = currentObj[key];
-              if (typeof value === 'object' && value !== null) { // Ensure it's an object
-                  const valueHash = hash(value);
-                  if (seenObjects.has(valueHash)) {
-                      // If we've seen this object before, replace the current reference
-                      // with the original reference.
-                      currentObj[key] = seenObjects.get(valueHash);
-                  } else {
-                      seenObjects.set(valueHash, value);
-                      process(value); // Recursively process this object
-                  }
-              }
+    for (const key in currentObj) {
+      if (currentObj.hasOwnProperty(key)) {
+        const value = currentObj[key];
+        if (typeof value === 'object' && value !== null) {
+          // Ensure it's an object
+          const valueHash = hash(value);
+          if (seenObjects.has(valueHash)) {
+            // If we've seen this object before, replace the current reference
+            // with the original reference.
+            currentObj[key] = seenObjects.get(valueHash);
+          } else {
+            seenObjects.set(valueHash, value);
+            process(value); // Recursively process this object
           }
+        }
       }
+    }
   }
 
   process(obj);
 
   return obj;
 }
-
 
 // TODO: Need to add defaultStyle functionality
 
@@ -326,7 +326,9 @@ function createSharedReferences(obj) {
  * @returns {string[]} - An array of unique properties.
  */
 function getUniqueProperties(defaultProps, additionalProps, subProps) {
-  return [...new Set([...defaultProps, ...Object.keys(additionalProps), ...subProps])];
+  return [
+    ...new Set([...defaultProps, ...Object.keys(additionalProps), ...subProps])
+  ];
 }
 
 /**
@@ -366,22 +368,82 @@ export const generateSolution = ({
   defaultStyle = {}
 }) => {
   const solution = {};
-  
+
   const toneProperties = findPropertiesBySubProperty(mode, 'tone');
   const modeProperties = findPropertiesBySubProperty(tone, 'mode');
 
-  const uniqueModes = getUniqueProperties(['unfocused', 'focused', 'disabled'], mode, modeProperties);
-  const uniqueTones = getUniqueProperties(['neutral', 'inverse', 'brand'], tone, toneProperties);
+  const uniqueModes = getUniqueProperties(
+    ['unfocused', 'focused', 'disabled'],
+    mode,
+    modeProperties
+  );
+  const uniqueTones = getUniqueProperties(
+    ['neutral', 'inverse', 'brand'],
+    tone,
+    toneProperties
+  );
 
   for (const modeItem of uniqueModes) {
     for (const toneItem of uniqueTones) {
-      const payload = generatePayload(base, defaultStyle, toneItem, modeItem, tone, mode);
+      const payload = generatePayload(
+        base,
+        defaultStyle,
+        toneItem,
+        modeItem,
+        tone,
+        mode
+      );
       solution[`${modeItem}_${toneItem}`] = payload;
     }
   }
 
   return solution;
 };
+
+const DEFAULT_KEYS = [
+  'unfocused_neutral',
+  'unfocused_inverse',
+  'unfocused_brand',
+  'focused_neutral',
+  'focused_inverse',
+  'focused_brand',
+  'disabled_neutral',
+  'disabled_inverse',
+  'disabled_brand'
+];
+
+const FALLBACK_ORDER = [
+  'unfocused_neutral',
+  'unfocused_inverse',
+  'unfocused_brand',
+  'focused_neutral',
+  'focused_inverse',
+  'focused_brand',
+  'disabled_neutral',
+  'disabled_inverse',
+  'disabled_brand'
+];
+
+function enforceContract(inputObj) {
+  const result = {};
+
+  for (const key of DEFAULT_KEYS) {
+    if (!inputObj.hasOwnProperty(key)) {
+      // Find the first fallback property that exists in inputObj
+      const fallbackKey = FALLBACK_ORDER.find(fallback =>
+        inputObj.hasOwnProperty(fallback)
+      );
+      if (fallbackKey) {
+        result[key] = inputObj[fallbackKey];
+      }
+    } else {
+      result[key] = inputObj[key];
+    }
+  }
+
+  return result;
+}
+
 /**
  * Generates the source style object for a given component by merging base, mode, and tone styles from the component's style chain
  * @param {object} component - The component for which to generate the style source
@@ -504,7 +566,8 @@ export const generateComponentStyleSource = ({
     alias
   );
 
-  return createSharedReferences(final);
+  const cleanObj = createSharedReferences(final);
+  return enforceContract(cleanObj);
 };
 
 /**

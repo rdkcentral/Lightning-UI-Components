@@ -94,7 +94,7 @@ describe('generateComponentStyleSource', () => {
         }
       ]
     });
-   
+
     const objects = Object.values(source);
     const firstObject = objects[0];
 
@@ -117,11 +117,16 @@ describe('generateComponentStyleSource', () => {
         }
       ]
     });
-
     expect(source).toStrictEqual({
       unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
       focused_neutral: { color: 'primary' },
-      disabled_neutral: { color: 'primary' }
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
     });
   });
 
@@ -139,11 +144,16 @@ describe('generateComponentStyleSource', () => {
         }
       ]
     });
-    // TODO: Feels like this should be normalized
     expect(source).toStrictEqual({
       unfocused_neutral: { color: 'primary' },
       unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' }
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
     });
   });
 
@@ -177,7 +187,7 @@ describe('generateComponentStyleSource', () => {
         style: {
           base: {
             color: 'primary'
-          }, 
+          },
           tone: {
             neutral: {
               color: 'secondary'
@@ -200,5 +210,193 @@ describe('generateComponentStyleSource', () => {
     });
   });
 
-  
+  it('will provide correct source for a component with componentConfig with mode', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          },
+          mode: {
+            unfocused: {
+              color: 'secondary'
+            }
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'secondary' },
+      unfocused_inverse: { color: 'secondary' },
+      unfocused_brand: { color: 'secondary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentConfig with mode', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          },
+          mode: {
+            unfocused: {
+              color: 'secondary'
+            }
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'secondary' },
+      unfocused_inverse: { color: 'secondary' },
+      unfocused_brand: { color: 'secondary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentConfig with tone/mode', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          },
+          tone: {
+            neutral: {
+              mode: {
+                unfocused: {
+                  color: 'secondary'
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'secondary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with componentConfig with mode/tone', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        style: {
+          base: {
+            color: 'primary'
+          },
+          mode: {
+            unfocused: {
+              tone: {
+                neutral: {
+                  color: 'secondary'
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'secondary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with inlineStyle', () => {
+    const source = generateComponentStyleSource({
+      inlineStyle: {
+        color: 'primary'
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with inlineStyle base', () => {
+    const source = generateComponentStyleSource({
+      inlineStyle: {
+        base: {
+          color: 'primary'
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will provide correct source for a component with inlineStyle tone', () => {
+    const source = generateComponentStyleSource({
+      inlineStyle: {
+        tone: {
+          neutral: {
+            color: 'primary'
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary' },
+      unfocused_inverse: { color: 'primary' },
+      unfocused_brand: { color: 'primary' },
+      focused_neutral: { color: 'primary' },
+      focused_inverse: { color: 'primary' },
+      focused_brand: { color: 'primary' },
+      disabled_neutral: { color: 'primary' },
+      disabled_inverse: { color: 'primary' },
+      disabled_brand: { color: 'primary' }
+    });
+  });
 });
