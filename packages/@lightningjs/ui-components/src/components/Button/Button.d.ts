@@ -26,6 +26,7 @@ type ButtonStyle = SurfaceStyle & {
   minWidth: number;
   paddingX: number;
   paddingXNoTitle: number;
+  paddingY: number;
   /** @deprecated */
   titlePadding: number;
   contentSpacing: number;
