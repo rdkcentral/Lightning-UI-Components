@@ -31,6 +31,31 @@ export const getCharacterValue = (char, index) => {
 };
 
 /**
+ * Recursively sorts an object by its keys. If an object has nested objects as values,
+ * it will sort those nested objects as well.
+ *
+ * @param {Object} obj - The object to be sorted.
+ * @returns {Object} A new object that is a sorted version of the input object.
+ */
+export const sortObject = obj => {
+  const sortedObj = {};
+  Object.keys(obj)
+    .sort()
+    .forEach(key => {
+      if (
+        typeof obj[key] === 'object' &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        sortedObj[key] = sortObject(obj[key]); // Recursive call for nested objects
+      } else {
+        sortedObj[key] = obj[key];
+      }
+    });
+  return sortedObj;
+};
+
+/**
 Given an object, return a sum of the ASCII values of all characters in its
 JSON stringified representation, each multiplied by its position.
 *
@@ -38,7 +63,8 @@ JSON stringified representation, each multiplied by its position.
 @returns {number} - The sum of ASCII values, each multiplied by its position.
 */
 export const getCharacterSum = obj => {
-  const str = JSON.stringify(obj);
+  const sortedObj = sortObject(obj);
+  const str = JSON.stringify(sortedObj).replace(/[{}:",\s]/g, ''); // Remove brackets, colons, and whitespace
   let sum = 0;
   for (let i = 0; i < str.length; i++) {
     sum += getCharacterValue(str[i], i);
@@ -59,12 +85,22 @@ export const getHash = obj => {
   return str.length + '-' + getCharacterSum(obj);
 };
 
+/**
+ * Recursively executes functions within an object or array structure, passing them a given context.
+ * @param {Function|Object|Array} objOrFunction - The object, array, or function to process.
+ * @param {*} theme - The context to pass to any encountered functions.
+ * @returns {*} The processed structure with functions executed.
+ */
 export function executeWithContextRecursive(objOrFunction, theme) {
   if (typeof objOrFunction === 'function') {
-    // If the input is a function, execute it with the context.theme as a parameter
-    return objOrFunction(theme);
-  } else if (typeof objOrFunction === 'object') {
-    // If the input is an object, iterate through its properties and apply the function recursively.
+    // If the input is a function, execute it with the theme as a parameter
+    const result = objOrFunction(theme);
+    return executeWithContextRecursive(result, theme);
+  } else if (Array.isArray(objOrFunction)) {
+    // If the input is an array, iterate through its elements and apply the function recursively.
+    return objOrFunction.map(item => executeWithContextRecursive(item, theme));
+  } else if (typeof objOrFunction === 'object' && objOrFunction !== null) {
+    // If the input is an object (and not null), iterate through its properties and apply the function recursively.
     const result = {};
     for (const key in objOrFunction) {
       if (objOrFunction.hasOwnProperty(key)) {
@@ -73,23 +109,26 @@ export function executeWithContextRecursive(objOrFunction, theme) {
     }
     return result;
   } else {
-    return objOrFunction; // Return the value as is if it's neither a function nor an object.
+    // Return the value as is if it's neither a function, an object, nor an array.
+    return objOrFunction;
   }
 }
+
 /**
  * Checks if a value is a plain object.
  *
  * @param {*} value - The value to check.
  * @returns {boolean} - True if the value is a plain object, false otherwise.
  */
-function isPlainObject(value) {
+export function isPlainObject(value) {
   return (
     typeof value === 'object' &&
     value !== null &&
     !Array.isArray(value) &&
     !(value instanceof Date) &&
     !(value instanceof RegExp) &&
-    !(value instanceof Function)
+    !(value instanceof Function) &&
+    !(value instanceof Error)
   );
 }
 
@@ -100,12 +139,10 @@ function isPlainObject(value) {
  * @returns {(String | Undefined)} - The value of the subTheme property, or undefined if none exists.
  */
 export const getSubTheme = obj => {
-  if (obj.subTheme) return obj.subTheme;
-  let parent = obj.p;
-  while (parent && !parent.subTheme) {
-    parent = parent.parent;
+  while (obj && (!obj.subTheme || typeof obj.subTheme !== 'string')) {
+    obj = obj.p;
   }
-  return parent && parent.subTheme;
+  return obj ? obj.subTheme : undefined;
 };
 
 /**
@@ -118,7 +155,8 @@ export const getComponentConfig = obj => {
   if (!isPlainObject(obj)) return {};
 
   const prototypeChain = getPrototypeChain(obj);
-  if (!prototypeChain) {
+
+  if (!prototypeChain.length) {
     return obj?.theme?.componentConfig?.[obj.constructor.__componentName] || {};
   }
 
@@ -139,12 +177,15 @@ export const getPrototypeChain = obj => {
   const prototypeChain = new Set();
   let proto = obj;
 
+  if (obj.constructor && obj.constructor.__componentName) {
+    prototypeChain.add(obj.constructor.__componentName);
+  }
+
   /**
    * Traverse the prototype chain and add component names to the set
    */
   do {
     proto = Object.getPrototypeOf(proto);
-
     if (proto !== null && typeof proto === 'object') {
       // Add only components that support theming
       if (proto.constructor.__componentName) {
@@ -163,7 +204,7 @@ export const getPrototypeChain = obj => {
  * @param {object} obj - The object from which to remove empty objects.
  * @returns {object} - The object with empty objects removed.
  */
-function removeEmptyObjects(obj) {
+export function removeEmptyObjects(obj) {
   for (const key in obj) {
     if (
       obj.hasOwnProperty(key) &&
@@ -178,64 +219,7 @@ function removeEmptyObjects(obj) {
     }
   }
 
-  if (Object.keys(obj).length === 0) {
-    return; // Exit if the current object is empty
-  }
-  return obj;
-}
-
-export function styleFormatter(obj, target, search) {
-  // Check if obj is an object and not null
-  if (obj === null || typeof obj !== 'object') {
-    return [];
-  }
-
-  // Check if target is a string
-  if (typeof target !== 'string') {
-    return [];
-  }
-
-  // Check if search is a string
-  if (typeof search !== 'string') {
-    return [];
-  }
-
-  // Attempt to find the property of 'target' in obj
-  if (obj.hasOwnProperty(target)) {
-    const targetObj = obj[target];
-
-    // Check if targetObj is an object, not null, and has keys
-    if (
-      targetObj !== null &&
-      typeof targetObj === 'object' &&
-      Object.keys(targetObj).length > 0
-    ) {
-      // Check each value in targetObj
-      for (const key in targetObj) {
-        if (targetObj.hasOwnProperty(key)) {
-          const value = targetObj[key];
-
-          // Check if the value is an object that has a key of search
-          if (
-            typeof value === 'object' &&
-            value !== null &&
-            value.hasOwnProperty(search)
-          ) {
-            const nestedObj = value[search];
-
-            // Check if the nestedObj is an object that also has keys
-            if (
-              typeof nestedObj === 'object' &&
-              Object.keys(nestedObj).length > 0
-            ) {
-              return [nestedObj, `${target}.${key}.${search}`];
-            }
-          }
-        }
-      }
-    }
-  }
-  return [];
+  return obj; // Always return obj, even if it's empty
 }
 
 /**
@@ -244,7 +228,7 @@ export function styleFormatter(obj, target, search) {
  * @param {string} subPropertyName - The sub-property name to search for.
  * @returns {string[]} - An array of unique property names found.
  */
-const findPropertiesBySubProperty = (obj, subPropertyName) => {
+export const findPropertiesBySubProperty = (obj, subPropertyName) => {
   // Initialize a Set to store unique property names
   const result = new Set();
 
@@ -253,11 +237,13 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
    * @param {object} obj - The object to traverse.
    */
   function traverse(obj) {
+    
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         if (typeof obj[key] === 'object') {
           // If the current key matches the specified sub-property
           if (key === subPropertyName) {
+            console.log('>>>', key)
             // Loop through the sub-object's keys and add them to the result set
             for (const subKey in obj[key]) {
               if (obj[key].hasOwnProperty(subKey)) {
@@ -267,11 +253,17 @@ const findPropertiesBySubProperty = (obj, subPropertyName) => {
           }
           // Continue recursive traversal
           traverse(obj[key]);
+        } else {
+          // If the current key matches the specified sub-property
+          if (key === subPropertyName) {
+            // Add the value to the result set
+            result.add(obj[key]);
+          }
         }
       }
     }
   }
-
+  
   // Start traversing the object
   traverse(obj);
 
@@ -342,7 +334,14 @@ function getUniqueProperties(defaultProps, additionalProps, subProps) {
  * @param {Object} mode - Mode configurations.
  * @returns {Object} - The merged payload.
  */
-function generatePayload(base, defaultStyle, toneItem, modeItem, tone, mode) {
+export function generatePayload(
+  base,
+  defaultStyle,
+  toneItem,
+  modeItem,
+  tone,
+  mode
+) {
   let payload = clone(defaultStyle, base);
   payload = clone(payload, tone[toneItem]);
   payload = clone(payload, mode[modeItem]);
@@ -424,7 +423,7 @@ const FALLBACK_ORDER = [
   'disabled_brand'
 ];
 
-function enforceContract(inputObj) {
+export function enforceContract(inputObj) {
   const result = {};
 
   for (const key of DEFAULT_KEYS) {
@@ -567,6 +566,7 @@ export const generateComponentStyleSource = ({
   );
 
   const cleanObj = createSharedReferences(final);
+
   return enforceContract(cleanObj);
 };
 
@@ -620,7 +620,7 @@ export const generateStyle = (component, componentStyleSource = {}) => {
  * @param {object} obj - The object for which to generate the name.
  * @returns {string} - The generated name.
  */
-function generateNameFromPrototypeChain(obj) {
+export function generateNameFromPrototypeChain(obj) {
   // Base case: If the object has no prototype or its prototype is null, return its own constructor name (if available).
   if (!Object.getPrototypeOf(obj)) {
     return obj.constructor?.name || '';
@@ -758,6 +758,14 @@ export const formatStyleObj = (originalObj, aliasStyles = []) => {
  * @returns {object} The style object with alias values replaced.
  */
 export const replaceAliasValues = (value, aliasStyles = []) => {
+  if (typeof value !== 'object' || value === null) {
+    throw new Error('Value must be an object');
+  }
+
+  if (!Array.isArray(aliasStyles)) {
+    throw new Error('Alias styles must be an array');
+  }
+
   let str = JSON.stringify(value);
   const aliasProps = [
     { prev: 'height', curr: 'h', skipWarn: true },
