@@ -260,6 +260,11 @@ export default class Button extends Surface {
     if (newWidth !== this.w) {
       this.w = newWidth;
     }
+
+    this.h =
+      this.style.height ||
+      this.style.textStyle.lineHeight + this.style.paddingY * 2;
+
     // TODO breaks row resizing if this is wrapped in the above conditional
     this.fireAncestors('$itemChanged');
   }
