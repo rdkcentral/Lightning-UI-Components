@@ -57,6 +57,10 @@ export default class ListItemSlider extends ListItem {
     return [...super.properties, 'slider', 'value'];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'titlePadding', curr: 'contentSpacing' }];
+  }
+
   static get tags() {
     return [
       ...super.tags,

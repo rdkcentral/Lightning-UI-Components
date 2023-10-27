@@ -32,7 +32,7 @@ export const base = theme => ({
     radius: theme.radius.sm
   },
   paddingX: theme.spacer.xl,
-  titlePadding: theme.spacer.lg,
+  contentSpacing: theme.spacer.lg,
   titleTextStyle: {
     ...theme.typography.headline3,
     maxLines: 1,

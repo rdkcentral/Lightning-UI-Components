@@ -265,7 +265,7 @@ describe('Control', () => {
             (control._paddingLeft +
               control._paddingRight +
               control._Prefix.w +
-              control.style.titlePadding)
+              control.style.contentSpacing)
         );
         expect(control._Title.mountX).toEqual(1);
       });
@@ -327,7 +327,7 @@ describe('Control', () => {
           (control.w -
             (control._paddingLeft +
               control._Prefix.w +
-              control.style.titlePadding) -
+              control.style.contentSpacing) -
             control._paddingRight) /
             2
         );
