@@ -22,5 +22,7 @@ export const base = theme => ({
   height: theme.spacer.md * 8,
   minWidth: getWidthByColumnSpan(theme, 1),
   paddingX: theme.spacer.xxl,
+  paddingXNoTitle: theme.spacer.lg,
+  paddingY: theme.spacer.lg,
   textStyle: theme.typography.button2
 });

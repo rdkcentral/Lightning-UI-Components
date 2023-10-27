@@ -25,6 +25,8 @@ export const base = theme => ({
   minWidth: getWidthByColumnSpan(theme, 3),
   paddingX: theme.spacer.xxxl,
   paddingXNoTitle: theme.spacer.xl,
+  paddingY: theme.spacer.xl,
+  radius: theme.radius.sm,
   contentSpacing: theme.spacer.md,
   itemSpacing: theme.spacer.md,
   textStyle: {
