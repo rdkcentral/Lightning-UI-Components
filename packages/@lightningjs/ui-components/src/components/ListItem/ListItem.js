@@ -60,6 +60,10 @@ export default class ListItem extends Button {
     ];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'titlePadding', curr: 'contentSpacing' }];
+  }
+
   static get tags() {
     return [
       ...super.tags,

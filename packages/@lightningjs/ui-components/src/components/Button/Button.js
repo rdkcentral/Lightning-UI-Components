@@ -39,6 +39,10 @@ export default class Button extends Surface {
     return ['fixed', 'justify', 'prefix', 'suffix', 'title'];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'titlePadding', curr: 'contentSpacing' }];
+  }
+
   static get tags() {
     return [
       ...super.tags,
@@ -335,7 +339,7 @@ export default class Button extends Surface {
   }
 
   get _titleX() {
-    return this._hasPrefix ? this._prefixW + this.style.titlePadding : 0;
+    return this._hasPrefix ? this._prefixW + this.style.contentSpacing : 0;
   }
 
   get _hasSuffix() {
@@ -348,7 +352,7 @@ export default class Button extends Surface {
 
   get _suffixX() {
     if (this._hasTitle) {
-      return this._titleW + this._TextWrapper.x + this.style.titlePadding;
+      return this._titleW + this._TextWrapper.x + this.style.contentSpacing;
     } else if (this._hasPrefix) {
       return this._prefixW + this.style.itemSpacing;
     }
@@ -378,10 +382,10 @@ export default class Button extends Surface {
   get _totalTitlePaddingX() {
     let totalTitlePadding = 0;
     if (this._hasPrefix) {
-      totalTitlePadding += this.style.titlePadding;
+      totalTitlePadding += this.style.contentSpacing;
     }
     if (this._hasSuffix) {
-      totalTitlePadding += this.style.titlePadding;
+      totalTitlePadding += this.style.contentSpacing;
     }
     return totalTitlePadding;
   }
