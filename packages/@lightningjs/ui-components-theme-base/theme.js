@@ -175,18 +175,27 @@ export default {
     strokeNegative: ['#e74c3c', 1],
     strokeInfo: ['#93a9fd', 1],
     strokeCaution: ['#dc7633', 1],
+    interactiveNeutral: ['#ffffff', 0.1],
     interactiveNeutralFocus: ['#ffffff', 1],
     interactiveNeutralFocusSoft: ['#ffffff', 0.1],
+    interactiveInverse: ['#48474b', undefined],
     interactiveInverseFocus: ['#48474b', 1],
     interactiveInverseFocusSoft: ['#48474b', 0.1],
+    interactiveBrand: ['#becffe', 0.1],
     interactiveBrandFocus: ['#becffe', 1],
     interactiveBrandFocusSoft: ['#becffe', 0.1],
+    shadowNeutral: ['#000000', 0.7],
     shadowNeutralFocus: ['#000000', 0.7],
     shadowNeutralFocusSoft: ['#000000', 0.7],
+    shadowNeutralText: ['#000000', 1],
+    shadowInverse: ['#000000', 0.7],
     shadowInverseFocus: ['#000000', 0.7],
     shadowInverseFocusSoft: ['#000000', 0.7],
+    shadowInverseText: ['#000000', 1],
+    shadowBrand: ['#000000', 0.7],
     shadowBrandFocus: ['#000000', 0.7],
-    shadowBrandFocusSoft: ['#000000', 0.7]
+    shadowBrandFocusSoft: ['#000000', 0.7],
+    shadowBrandText: ['#000000', 1]
   },
   componentConfig: {
     Keyboard: {
@@ -202,15 +211,15 @@ export default {
   },
   font: [],
   layout: {
-    screenW: 1920,
-    screenH: 1080,
     columnCount: 10,
+    focusScale: 1.2,
+    gutterX: 20,
+    gutterY: 20,
     marginX: 150,
     marginY: 150,
     safe: 50,
-    gutterX: 20,
-    gutterY: 20,
-    focusScale: 1.2
+    screenW: 1920,
+    screenH: 1080
   },
   radius: { none: 0, xs: 2, sm: 4, md: 8, lg: 16, xl: 24 },
   spacer: {
@@ -294,7 +303,6 @@ export default {
       fontFamily: 'Arial',
       fontSize: 25,
       fontStyle: '500',
-      letterSpacing: -0.2,
       lineHeight: 32,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -311,7 +319,6 @@ export default {
       fontFamily: 'Arial',
       fontSize: 20,
       fontStyle: '500',
-      letterSpacing: 1,
       lineHeight: 32,
       verticalAlign: 'middle',
       textBaseline: 'bottom'
@@ -328,8 +335,16 @@ export default {
       fontFamily: 'Arial',
       fontSize: 20,
       fontStyle: '500',
-      letterSpacing: 0,
       lineHeight: 24,
+      verticalAlign: 'middle',
+      textBaseline: 'bottom'
+    },
+    footnote1: {
+      fontFamily: 'Arial',
+      fontSize: 22,
+      fontStyle: '300',
+      lineHeight: 30,
+      verticalAlign: 'middle',
       textBaseline: 'bottom'
     }
   }
