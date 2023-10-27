@@ -19,7 +19,6 @@
 import { getWidthByColumnSpan } from '../../utils';
 
 export const base = theme => ({
-  height: theme.spacer.md * 10,
   width: 0,
   justify: 'center',
   minWidth: getWidthByColumnSpan(theme, 3),
