@@ -24,6 +24,12 @@ import { default as Checkbox } from '../Checkbox';
 import { default as Radio } from '../Radio';
 import { default as Toggle } from '../Toggle';
 
+/**
+ * 'ListItem' extends 'Button', and therefore utilizes much of the same functionality and
+ * properties. It can display an 'Icon' or 'Checkbox' before the text, a title and/or description
+ * in the center of the content, and an 'Icon' or 'Checkbox' in the Suffix after the text.
+ */
+
 export default {
   title: 'Components/ListItem'
 };
