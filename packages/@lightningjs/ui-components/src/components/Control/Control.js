@@ -33,6 +33,10 @@ export default class Control extends ButtonSmall {
     return [...super.properties, 'icon', 'logo', 'shouldCollapse'];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'titlePadding', curr: 'contentSpacing' }];
+  }
+
   _update() {
     // ordering this way to make sure that this._Title is defined so the title visibility can be set properly when _updateCollapseStatus is called
     this._updatePrefixStyle();
@@ -91,7 +95,7 @@ export default class Control extends ButtonSmall {
               (this._paddingLeft +
                 this._paddingRight +
                 this._Prefix.w +
-                this.style.titlePadding);
+                this.style.contentSpacing);
 
             this._patchTitle(leftOverSpace, 1);
           }
@@ -114,7 +118,7 @@ export default class Control extends ButtonSmall {
               (this.w -
                 (this._paddingLeft +
                   this._Prefix.w +
-                  this.style.titlePadding +
+                  this.style.contentSpacing +
                   this._paddingRight)) /
               2;
             this._patchTitle(middle, 0.5);

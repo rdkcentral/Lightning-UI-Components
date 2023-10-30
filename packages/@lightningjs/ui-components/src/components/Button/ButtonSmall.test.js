@@ -46,8 +46,16 @@ describe('ButtonSmall', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders the correct height', () => {
-    expect(buttonSmall.h).toBe(buttonSmall.style.h);
+  it('renders the correct height from styles', () => {
+    expect(buttonSmall.h).toBe(
+      buttonSmall.style.textStyle.lineHeight + buttonSmall.style.paddingY * 2
+    );
+  });
+
+  it('renders the correct height if assigned a height', () => {
+    const height = 50;
+    buttonSmall.h = height;
+    expect(buttonSmall.h).toBe(height);
   });
 
   it('renders the correct width', () => {
