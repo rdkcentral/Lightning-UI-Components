@@ -293,8 +293,8 @@ class Bubble extends lng.Texture {
     this._w = 0;
     this._h = 0;
     this._radius = 0;
-    this._pointerW = 0;
-    this._pointerH = 0;
+    this._pointerWidth = 0;
+    this._pointerHeight = 0;
     this._strokeWidth = 0;
     this._color = 'white';
   }
@@ -330,22 +330,22 @@ class Bubble extends lng.Texture {
     return this._radius;
   }
 
-  set pointerW(pointerW) {
-    this._pointerW = pointerW;
+  set pointerWidth(pointerWidth) {
+    this._pointerWidth = pointerWidth;
     this._changed();
   }
 
-  get pointerW() {
-    return this._pointerW;
+  get pointerWidth() {
+    return this._pointerWidth;
   }
 
-  set pointerH(pointerH) {
-    this._pointerH = pointerH;
+  set pointerHeight(pointerHeight) {
+    this._pointerHeight = pointerHeight;
     this._changed();
   }
 
-  get pointerH() {
-    return this._pointerH;
+  get pointerHeight() {
+    return this._pointerHeight;
   }
 
   set strokeWidth(strokeWidth) {
@@ -371,8 +371,8 @@ class Bubble extends lng.Texture {
     w = 0,
     h = 0,
     radius = 0,
-    pointerW = 0,
-    pointerH = 0,
+    pointerWidth = 0,
+    pointerHeight = 0,
     strokeWidth = 1,
     color = 'white'
   }) {
@@ -394,7 +394,7 @@ class Bubble extends lng.Texture {
     const rightX = leftX + w;
     const topY = initialCoord;
     const bottomY = topY + h;
-    const bottomBubbleY = bottomY - pointerH;
+    const bottomBubbleY = bottomY - pointerHeight;
     const isRadiusAnArray = Array.isArray(radius);
     // start: top left
     ctx.beginPath();
@@ -423,11 +423,11 @@ class Bubble extends lng.Texture {
     );
 
     // bottom side, right of point
-    ctx.lineTo(w / 2 + pointerW / 2, bottomBubbleY);
+    ctx.lineTo(w / 2 + pointerWidth / 2, bottomBubbleY);
 
     // point
-    ctx.arcTo(w / 2, bottomY, w / 2 - pointerW / 2, bottomBubbleY, 2);
-    ctx.lineTo(w / 2 - pointerW / 2, bottomBubbleY);
+    ctx.arcTo(w / 2, bottomY, w / 2 - pointerWidth / 2, bottomBubbleY, 2);
+    ctx.lineTo(w / 2 - pointerWidth / 2, bottomBubbleY);
 
     // bottom side, left of point
     ctx.lineTo(leftX + (isRadiusAnArray ? radius[3] : radius), bottomBubbleY);
@@ -461,8 +461,8 @@ class Bubble extends lng.Texture {
   }
 
   _getLookupId() {
-    const { w, h, radius, pointerW, pointerH, color } = this;
-    return `__bubble_${w}x${h}_radius-${radius}_pointer-${pointerW}x${pointerH}_fill-${color}`;
+    const { w, h, radius, pointerWidth, pointerHeight, color } = this;
+    return `__bubble_${w}x${h}_radius-${radius}_pointer-${pointerWidth}x${pointerHeight}_fill-${color}`;
   }
 
   _getSourceLoader() {

@@ -80,6 +80,7 @@ exports[`Badge renders 1`] = `
         "textBaseline": "bottom",
         "textColor": 4294506490,
         "type": "TextTexture",
+        "verticalAlign": "middle",
       },
       "visible": true,
       "w": 0,
