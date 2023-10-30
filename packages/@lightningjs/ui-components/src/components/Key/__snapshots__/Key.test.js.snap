@@ -92,7 +92,6 @@ exports[`Key should render 1`] = `
                     "fontFace": "Arial",
                     "fontSize": 30,
                     "fontStyle": "500",
-                    "letterSpacing": -0.2,
                     "lineHeight": 40,
                     "maxLines": 1,
                     "precision": 0.6666666666666666,
