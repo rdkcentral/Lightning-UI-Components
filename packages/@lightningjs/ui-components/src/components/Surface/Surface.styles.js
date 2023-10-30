@@ -17,9 +17,15 @@
  */
 
 export const base = theme => ({
-  backgroundColor: theme.color.fillNeutralTertiary,
+  backgroundColor: theme.color.interactiveNeutral,
   radius: theme.radius.md,
   animation: {}
+});
+
+export const tone = theme => ({
+  inverse: {
+    backgroundColor: theme.color.interactiveInverse
+  }
 });
 
 export const mode = theme => ({
