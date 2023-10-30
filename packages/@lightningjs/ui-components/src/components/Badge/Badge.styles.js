@@ -18,9 +18,9 @@
 
 export const base = theme => {
   return {
-    contentSpacing: theme.spacer.sm,
-    offsetY: theme.spacer.xs,
-    paddingX: theme.spacer.md + theme.spacer.xxs,
+    contentSpacing: theme.spacer.xs,
+    offsetY: 1,
+    paddingX: theme.spacer.md,
     paddingY: theme.spacer.xs,
     radius: theme.radius.sm,
     strokeWidth: theme.stroke.sm,
@@ -36,18 +36,18 @@ export const tone = theme => ({
     backgroundColor: theme.color.fillInverseSecondary,
     iconColor: theme.color.textNeutral,
     textStyle: { textColor: theme.color.textNeutral },
-    strokeColor: theme.color.strokeNeutral
+    strokeColor: theme.color.strokeNeutralSecondary
   },
   inverse: {
     backgroundColor: theme.color.fillNeutralSecondary,
     iconColor: theme.color.textInverse,
     textStyle: { textColor: theme.color.textInverse },
-    strokeColor: theme.color.strokeInverse
+    strokeColor: theme.color.strokeInverseSecondary
   },
   brand: {
     backgroundColor: theme.color.fillBrand,
     iconColor: theme.color.textNeutral,
     textStyle: { textColor: theme.color.textNeutral },
-    strokeColor: theme.color.strokeInverse
+    strokeColor: theme.color.strokeInverseSecondary
   }
 });
