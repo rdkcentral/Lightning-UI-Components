@@ -19,13 +19,14 @@
 import { getWidthByColumnSpan } from '../../utils';
 
 export const base = theme => ({
-  height: theme.spacer.md * 10,
   width: 0,
   justify: 'center',
   minWidth: getWidthByColumnSpan(theme, 3),
   paddingX: theme.spacer.xxxl,
   paddingXNoTitle: theme.spacer.xl,
-  titlePadding: theme.spacer.md,
+  paddingY: theme.spacer.xl,
+  radius: theme.radius.sm,
+  contentSpacing: theme.spacer.md,
   itemSpacing: theme.spacer.md,
   textStyle: {
     ...theme.typography.button1,

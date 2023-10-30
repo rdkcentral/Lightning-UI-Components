@@ -44,6 +44,10 @@ export default class ListItemPicker extends ListItem {
     ];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'titlePadding', curr: 'contentSpacing' }];
+  }
+
   _onTextBoxChanged() {
     super._onTextBoxChanged();
     this._alignPicker();
@@ -195,7 +199,7 @@ export default class ListItemPicker extends ListItem {
       this.w -
       this._paddingX -
       this.style.arrowWidth * 2 -
-      2 * this.style.titlePadding;
+      2 * this.style.contentSpacing;
     const wordWrapWidth = this.w - this._paddingLeft - this._paddingRight;
     return this._isFocusedMode ? wordWrapWidthFocused : wordWrapWidth;
   }

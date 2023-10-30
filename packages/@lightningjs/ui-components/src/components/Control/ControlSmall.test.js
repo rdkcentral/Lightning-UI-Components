@@ -58,8 +58,16 @@ describe('ControlSmall', () => {
     );
   });
 
-  it('renders the correct height', async () => {
-    expect(controlSmall.h).toBe(controlSmall.style.h);
+  it('renders the correct height from styles', () => {
+    expect(controlSmall.h).toBe(
+      controlSmall.style.textStyle.lineHeight + controlSmall.style.paddingY * 2
+    );
+  });
+
+  it('renders the correct height if assigned a height', () => {
+    const height = 50;
+    controlSmall.h = height;
+    expect(controlSmall.h).toBe(height);
   });
 
   it('renders the correct radius', async () => {

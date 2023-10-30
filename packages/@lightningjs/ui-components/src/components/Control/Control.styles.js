@@ -38,6 +38,6 @@ export const base = theme => {
     paddingXNoTitle: theme.spacer.md,
     prefixPadding: theme.spacer.md,
     radius,
-    titlePadding: theme.spacer.md
+    contentSpacing: theme.spacer.md
   };
 };
