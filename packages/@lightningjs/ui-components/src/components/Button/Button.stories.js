@@ -25,7 +25,7 @@ import { createModeControl } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Components/Button',
+  title: 'Components/Button/Button',
   args: {
     title: 'Button',
     fixed: false,

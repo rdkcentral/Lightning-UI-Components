@@ -21,7 +21,7 @@ import { default as CheckboxComponent } from '.';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Components/Checkbox'
+  title: 'Components/Checkboxes/Checkbox'
 };
 
 export const Checkbox = () =>

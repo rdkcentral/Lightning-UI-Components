@@ -22,7 +22,7 @@ import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
 
 export default {
-  title: 'Components/ListItemSlider'
+  title: 'Components/ListItem/ListItemSlider'
 };
 
 export const ListItemSlider = () =>

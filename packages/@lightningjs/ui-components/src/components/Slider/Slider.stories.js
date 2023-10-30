@@ -23,7 +23,7 @@ import Slider from '.';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: 'Components/Slider'
+  title: 'Components/Slider/Slider'
 };
 
 export const Basic = () => {

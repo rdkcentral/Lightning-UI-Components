@@ -24,7 +24,7 @@ import CardContentVerticalSmallComponent from './CardContentVerticalSmall';
 import { CardContent } from './CardContent.stories';
 
 export default {
-  title: 'Components/CardContentVerticalSmall'
+  title: 'Components/CardContent/CardContentVerticalSmall'
 };
 
 export const CardContentVerticalSmall = args =>

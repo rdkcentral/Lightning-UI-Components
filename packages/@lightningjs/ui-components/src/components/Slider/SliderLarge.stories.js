@@ -23,7 +23,7 @@ import TextBox from '../TextBox';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: 'Components/SliderLarge'
+  title: 'Components/Slider/SliderLarge'
 };
 
 export const Basic = () => {

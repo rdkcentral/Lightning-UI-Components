@@ -32,9 +32,9 @@ registerEventListeners();
 const preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
-     backgrounds: {
-    disable: true
-  },
+    backgrounds: {
+      disable: true
+    },
     controls: {
       hideNoControlsWarning: true,
       expanded: true,

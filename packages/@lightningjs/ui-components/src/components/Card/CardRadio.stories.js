@@ -22,7 +22,7 @@ import { Radio as RadioStory } from '../Radio/Radio.stories.js';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 
 export default {
-  title: 'Components/CardRadio'
+  title: 'Components/Card/CardRadio'
 };
 
 const description =

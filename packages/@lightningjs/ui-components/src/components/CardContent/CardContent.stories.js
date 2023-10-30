@@ -24,7 +24,7 @@ import { createModeControl, generateSubStory } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Components/CardContent'
+  title: 'Components/CardContent/CardContent'
 };
 
 export const CardContent = args =>

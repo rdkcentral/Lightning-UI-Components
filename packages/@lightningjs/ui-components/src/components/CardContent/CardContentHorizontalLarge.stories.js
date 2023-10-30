@@ -27,7 +27,7 @@ import { CardContent } from './CardContent.stories';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Components/CardContentHorizontalLarge'
+  title: 'Components/CardContent/CardContentHorizontalLarge'
 };
 
 export const CardContentHorizontalLarge = args =>

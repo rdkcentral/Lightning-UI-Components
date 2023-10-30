@@ -26,7 +26,7 @@ import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 import { CardContent } from './CardContent.stories';
 
 export default {
-  title: 'Components/CardContentVertical'
+  title: 'Components/CardContent/CardContentVertical'
 };
 
 export const CardContentVertical = args =>

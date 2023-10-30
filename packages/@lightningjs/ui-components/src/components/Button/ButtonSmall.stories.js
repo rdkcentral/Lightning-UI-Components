@@ -25,7 +25,7 @@ import { createModeControl } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Components/ButtonSmall'
+  title: 'Components/Button/ButtonSmall'
 };
 
 function getCommponentArray(comps) {

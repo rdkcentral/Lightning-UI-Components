@@ -21,7 +21,7 @@ import { default as CheckboxSmallComponent } from './CheckboxSmall.js';
 import { createModeControl } from '../../docs/utils';
 
 export default {
-  title: 'Components/CheckboxSmall'
+  title: 'Components/Checkboxes/CheckboxSmall'
 };
 
 export const CheckboxSmall = () => {
