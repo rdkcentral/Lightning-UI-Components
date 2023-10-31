@@ -599,7 +599,7 @@ export const generateComponentStyleSource = ({
   );
 
   const cleanObj = createSharedReferences(final);
-  
+
   return enforceContract(cleanObj);
 };
 
@@ -643,10 +643,9 @@ export const colorParser = (targetObject, styleObj) => {
  * @returns {object} - The generated style object.
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
- 
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-  
+
   const style =
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||
@@ -747,15 +746,19 @@ export function removeDuplicateObjects(arr) {
 
     if (keysA.length !== keysB.length) return false;
 
-    for (let key of keysA) {
-      if (!Object.prototype.hasOwnProperty.call(b, key) || !deepEquals(a[key], b[key])) return false;
+    for (const key of keysA) {
+      if (
+        !Object.prototype.hasOwnProperty.call(b, key) ||
+        !deepEquals(a[key], b[key])
+      )
+        return false;
     }
 
     return true;
-  }
+  };
 
   return arr.filter((item, index, self) => {
-    return index === self.findIndex((t) => deepEquals(item, t));
+    return index === self.findIndex(t => deepEquals(item, t));
   });
 }
 
@@ -796,7 +799,7 @@ export const getStyleChain = componentObj => {
 
   // Convert the values of the Map (unique styles) back to an array
   const uniqueStyles = Array.from(styleMap.values());
-  
+
   // Return an array of unique style objects with a "style" property
   return removeDuplicateObjects(uniqueStyles)
     .map(style => style)
