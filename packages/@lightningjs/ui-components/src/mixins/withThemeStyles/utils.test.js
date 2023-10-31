@@ -11,6 +11,7 @@ import {
   getPrototypeChain,
   getUniqueProperties,
   removeEmptyObjects,
+  removeDuplicateObjects,
   findPropertiesBySubProperty,
   // generateSolution, // TODO: Need a test for this
   enforceContract,
@@ -23,6 +24,7 @@ import {
   replaceAliasValues,
   colorParser
 } from './utils';
+import log from '../../globals/context/logger';
 
 import { jest } from '@jest/globals';
 
@@ -1313,13 +1315,13 @@ describe('generateStyle', () => {
   });
 });
 class Parent {
-  static __componentName() {
+  static get __componentName() {
     return 'ParentComponent';
   }
 }
 
 class Child extends Parent {
-  static __componentName() {
+  static get __componentName() {
     return 'ChildComponent';
   }
 }
@@ -1350,7 +1352,7 @@ describe('generateNameFromPrototypeChain', () => {
 
   it('should handle an object with repeated __componentName', () => {
     class RepeatedComponent {
-      static __componentName() {
+      static get __componentName() {
         return 'RepeatedComponent';
       }
     }
@@ -1418,6 +1420,31 @@ describe('getStyleChainMemoized', () => {
   });
 });
 
+describe('removeDuplicateObjects', () => {
+  test('should remove duplicates from array', () => {
+    const input = [
+      { style: { color: 'red' } },
+      { style: { fontSize: 16 } },
+      { style: { color: 'red' } }
+    ];
+
+    const expected = [{ style: { color: 'red' } }, { style: { fontSize: 16 } }];
+
+    const result = removeDuplicateObjects(input);
+    expect(result).toEqual(expected);
+  });
+
+  test('should throw an error if input is not an array', () => {
+    expect(() => {
+      removeDuplicateObjects('not an array');
+    }).toThrow('Input should be an array');
+  });
+
+  test('should return an empty array if input is empty', () => {
+    expect(removeDuplicateObjects([])).toEqual([]);
+  });
+});
+
 class ComponentA {
   static get __themeStyle() {
     return { color: 'red' };
@@ -1437,8 +1464,8 @@ describe('getStyleChain', () => {
     const componentC = new ComponentC();
     const styleChain = getStyleChain(componentC);
     expect(styleChain).toHaveLength(2); // Two styles in the chain
-    expect(styleChain[0]).toEqual({ style: { color: 'red' } });
-    expect(styleChain[1]).toEqual({ style: { fontSize: 16 } });
+    expect(styleChain[0]).toEqual({ style: { fontSize: 16 } });
+    expect(styleChain[1]).toEqual({ style: { color: 'red' } });
   });
 
   it('should handle components with no styles in the chain', () => {
@@ -1572,9 +1599,7 @@ describe('replaceAliasValues', () => {
 
     const aliasStyles = [{ prev: 'testW', curr: 'testWidth', skipWarn: false }];
 
-    const consoleWarnSpy = jest
-      .spyOn(console, 'warn')
-      .mockImplementation(() => {});
+    const consoleWarnSpy = jest.spyOn(log, 'warn').mockImplementation(() => {});
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 

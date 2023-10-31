@@ -717,6 +717,28 @@ export const getStyleChainMemoized = componentObj => {
 };
 
 /**
+ * Removes duplicate objects from an array based on their content.
+ * @param {Array<Object>} arr - The array of objects to be deduplicated.
+ * @returns {Array<Object>} An array of objects without duplicates.
+ * @throws {Error} Throws an error if the input is not an array.
+ */
+export function removeDuplicateObjects(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error('Input should be an array');
+  }
+
+  const seen = new Set();
+  return arr.filter(item => {
+    const itemString = JSON.stringify(item);
+    if (!seen.has(itemString)) {
+      seen.add(itemString);
+      return true;
+    }
+    return false;
+  });
+}
+
+/**
  * Traverse up the prototype chain to create an array of all the styles that are present in the Components ancestors
  * @param {object} componentObj - The component object to get the style chain from.
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
@@ -724,9 +746,11 @@ export const getStyleChainMemoized = componentObj => {
 export const getStyleChain = componentObj => {
   const styleMap = new Map(); // Use a Map to store styles as JSON strings
   let proto = componentObj;
-
+  let firstRun = true;
   do {
-    const parent = Object.getPrototypeOf(proto);
+    // TODO: Rewrite these tests and check logic
+    const parent = firstRun ? proto : Object.getPrototypeOf(proto); // The first time the loop runs it should get the style from the current component
+    firstRun = false;
     proto = parent !== Object.prototype ? parent : null;
 
     if (proto && proto.constructor) {
@@ -734,26 +758,8 @@ export const getStyleChain = componentObj => {
       const themeStyle = proto.constructor.__themeStyle;
 
       if (themeStyle) {
-        if (typeof themeStyle === 'function') {
-          if (!styleMap.has(themeStyle)) {
-            styleMap.set(themeStyle, { style: themeStyle });
-          }
-        } else if (
-          typeof themeStyle === 'object' &&
-          themeStyle !== null &&
-          Object.keys(themeStyle).length > 0
-        ) {
-          // Clone the themeStyle object and sort its keys
-          const sortedThemeStyle = sortObject(themeStyle);
-
-          // Convert the sorted style object to a JSON string
-          const themeStyleString = JSON.stringify(sortedThemeStyle);
-
-          // Check if the style object has already been added to the Map
-          if (!styleMap.has(themeStyleString)) {
-            // Add the JSON string as the key to the Map, with a "style" property
-            styleMap.set(themeStyleString, { style: sortedThemeStyle });
-          }
+        if (!styleMap.has(themeStyle)) {
+          styleMap.set(themeStyle, { style: themeStyle });
         }
       }
 
@@ -761,26 +767,8 @@ export const getStyleChain = componentObj => {
       const mixinStyle = proto.constructor.__mixinStyle;
 
       if (mixinStyle) {
-        if (typeof mixinStyle === 'function') {
-          if (!styleMap.has(mixinStyle)) {
-            styleMap.set(mixinStyle, { style: mixinStyle });
-          }
-        } else if (
-          typeof mixinStyle === 'object' &&
-          mixinStyle !== null &&
-          Object.keys(mixinStyle).length > 0
-        ) {
-          // Clone the mixinStyle object and sort its keys
-          const sortedMixinStyle = sortObject(mixinStyle);
-
-          // Convert the sorted style object to a JSON string
-          const mixinStyleString = JSON.stringify(sortedMixinStyle);
-
-          // Check if the style object has already been added to the Map
-          if (!styleMap.has(mixinStyleString)) {
-            // Add the JSON string as the key to the Map, with a "style" property
-            styleMap.set(mixinStyleString, { style: sortedMixinStyle });
-          }
+        if (!styleMap.has(mixinStyle)) {
+          styleMap.set(mixinStyle, { style: mixinStyle });
         }
       }
     }
@@ -790,7 +778,9 @@ export const getStyleChain = componentObj => {
   const uniqueStyles = Array.from(styleMap.values());
 
   // Return an array of unique style objects with a "style" property
-  return uniqueStyles.map(style => style);
+  return removeDuplicateObjects(uniqueStyles)
+    .map(style => style)
+    .reverse();
 };
 
 /**
@@ -854,7 +844,7 @@ export const replaceAliasValues = (value, aliasStyles = []) => {
     ) {
       !alias.skipWarn &&
         str.search(`"${alias.prev}":`) >= 0 &&
-        console.warn(
+        log.warn(
           `The style property "${alias.prev}" is deprecated and will be removed in a future release. Please use "${alias.curr}" instead.`
         );
       str = str.replace(
