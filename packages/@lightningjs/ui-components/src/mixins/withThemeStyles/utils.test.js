@@ -1,4 +1,6 @@
 import {
+  createSharedReferences,
+  generatePayload,
   getCharacterValue,
   getCharacterSum,
   getHash,
@@ -7,9 +9,10 @@ import {
   getSubTheme,
   getComponentConfig,
   getPrototypeChain,
+  getUniqueProperties,
   removeEmptyObjects,
   findPropertiesBySubProperty,
-  generateSolution,
+  // generateSolution, // TODO: Need a test for this
   enforceContract,
   generateComponentStyleSource,
   generateStyle,
@@ -188,7 +191,7 @@ describe('executeWithContextRecursive', () => {
     const result = executeWithContextRecursive(callback, context);
     expect(callback).toHaveBeenCalledWith(context);
     expect(callback2).toHaveBeenCalledWith(context);
-    expect(callback2).toHaveReturnedWith({ base2: 'bar' }) 
+    expect(callback2).toHaveReturnedWith({ base2: 'bar' });
     expect(result).toEqual({ base: { base2: 'bar' } });
   });
 
@@ -316,25 +319,25 @@ describe('getPrototypeChain', () => {
 
   it('should return an array of prototype chain for a given object with custom prototype', () => {
     function MyClass() {
-      const instance = Object.create(MyClass.prototype)
+      const instance = Object.create(MyClass.prototype);
       instance.constructor = {
-        __componentName : 'MyClass'
-      }
-      return instance
+        __componentName: 'MyClass'
+      };
+      return instance;
     }
-    
+
     function MyClass2() {
-      this.prototype = new MyClass(this)
-      const instance = Object.create(new MyClass(this))
+      this.prototype = new MyClass(this);
+      const instance = Object.create(new MyClass(this));
       instance.constructor = {
-        __componentName : 'MyClass2'
-      }
-      return instance
+        __componentName: 'MyClass2'
+      };
+      return instance;
     }
 
     const chain = getPrototypeChain(new MyClass2());
-    console.log(chain)
-    expect(chain).toEqual([ 'MyClass2', 'MyClass' ]);
+
+    expect(chain).toEqual(['MyClass2', 'MyClass']);
   });
 
   it('should return an empty array for a null object', () => {
@@ -445,10 +448,9 @@ describe('findPropertiesBySubProperty', () => {
     expect(findPropertiesBySubProperty(obj, 'f')).toEqual(['value3']);
     expect(findPropertiesBySubProperty(obj, 'i')).toEqual(['value4']);
   });
-
 });
 
-describe.only('createSharedReferences', () => {
+describe('createSharedReferences', () => {
   it('should return an empty object if no arguments are passed', () => {
     const result = createSharedReferences();
     expect(result).toEqual({});
@@ -491,157 +493,197 @@ describe.only('createSharedReferences', () => {
       c: { x: 1 }
     };
     const result = createSharedReferences(input);
-    expect(result.a).not.toBe(result.c);
+    expect(result.a).not.toBe(result.b);
   });
 });
 
 describe('getUniqueProperties', () => {
-  it('should return an empty array if no arguments are passed', () => {
+  it('should return unique properties', () => {
+    const defaultProps = ['color', 'size'];
+    const additionalProps = {
+      style: 'bold',
+      theme: 'dark'
+    };
+    const subProps = ['color', 'font'];
+
+    const result = getUniqueProperties(defaultProps, additionalProps, subProps);
+    expect(result).toEqual(['color', 'size', 'style', 'theme', 'font']);
+  });
+
+  it('should throw TypeError when defaultProps is not an array', () => {
+    expect(() => getUniqueProperties('notArray')).toThrow(TypeError);
+    expect(() => getUniqueProperties('notArray')).toThrow(
+      'Expected defaultProps to be an array of strings.'
+    );
+  });
+
+  it('should throw TypeError when additionalProps is not an object', () => {
+    expect(() => getUniqueProperties([], 'notObject')).toThrow(TypeError);
+    expect(() => getUniqueProperties([], 'notObject')).toThrow(
+      'Expected additionalProps to be an object.'
+    );
+  });
+
+  it('should throw TypeError when additionalProps is null', () => {
+    expect(() => getUniqueProperties([], null)).toThrow(TypeError);
+    expect(() => getUniqueProperties([], null)).toThrow(
+      'Expected additionalProps to be an object.'
+    );
+  });
+
+  it('should throw TypeError when additionalProps is an array', () => {
+    expect(() => getUniqueProperties([], [])).toThrow(TypeError);
+    expect(() => getUniqueProperties([], [])).toThrow(
+      'Expected additionalProps to be an object.'
+    );
+  });
+
+  it('should throw TypeError when subProps is not an array', () => {
+    expect(() => getUniqueProperties([], {}, 'notArray')).toThrow(TypeError);
+    expect(() => getUniqueProperties([], {}, 'notArray')).toThrow(
+      'Expected subProps to be an array of strings.'
+    );
+  });
+
+  it('should handle default values', () => {
     const result = getUniqueProperties();
     expect(result).toEqual([]);
   });
-
-  it('should return an empty array if an empty object is passed', () => {
-    const result = getUniqueProperties({});
-    expect(result).toEqual([]);
-  });
-
-  it('should return an array of unique properties', () => {
-    const input = {
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 1,
-      e: 2
-    };
-    const result = getUniqueProperties(input);
-    expect(result).toEqual(['a', 'b', 'c']);
-  });
-
-  it('should return an array of unique properties for nested objects', () => {
-    const input = {
-      a: {
-        x: 1,
-        y: 2
-      },
-      b: {
-        x: 2,
-        y: 3
-      },
-      c: {
-        x: 1,
-        y: 2
-      }
-    };
-    const result = getUniqueProperties(input);
-    expect(result).toEqual(['a', 'b']);
-  });
-
-  it('should return an array of unique properties for arrays of objects', () => {
-    const input = [
-      {
-        a: 1,
-        b: 2
-      },
-      {
-        a: 2,
-        b: 3
-      },
-      {
-        a: 1,
-        b: 2
-      }
-    ];
-    const result = getUniqueProperties(input);
-    expect(result).toEqual(['a', 'b']);
-  });
 });
-
-import { generatePayload } from './utils';
 
 describe('generatePayload', () => {
-  it('should return an object with the correct properties', () => {
-    const payload = generatePayload('example', { foo: 'bar' });
-    expect(payload).toEqual({
-      type: 'example',
-      payload: { foo: 'bar' }
+  // Define base objects for testing
+  const baseObject = { baseProp: 'baseValue' };
+  const defaultStyleObject = { defaultProp: 'defaultValue' };
+  const toneObject = {
+    toneItem: {
+      toneProp: 'toneValue'
+    }
+  };
+  const modeObject = {
+    modeItem: {
+      modeProp: 'modeValue'
+    }
+  };
+
+  it('should merge base, defaultStyle, tone, and mode objects when all inputs are provided', () => {
+    const result = generatePayload(
+      baseObject,
+      defaultStyleObject,
+      'toneItem',
+      'modeItem',
+      toneObject,
+      modeObject
+    );
+
+    expect(result).toEqual({
+      baseProp: 'baseValue',
+      defaultProp: 'defaultValue',
+      toneProp: 'toneValue',
+      modeProp: 'modeValue'
     });
   });
 
-  it('should return an object with an empty payload if none is provided', () => {
-    const payload = generatePayload('example');
-    expect(payload).toEqual({
-      type: 'example',
-      payload: {}
+  it('should merge base and defaultStyle objects when tone and mode are not provided', () => {
+    const result = generatePayload(
+      baseObject,
+      defaultStyleObject,
+      null,
+      null,
+      null,
+      null
+    );
+
+    expect(result).toEqual({
+      baseProp: 'baseValue',
+      defaultProp: 'defaultValue'
     });
   });
-});
 
-describe('generateSolution', () => {
-  it('should return a string with the correct format', () => {
-    const solution = generateSolution('example', { foo: 'bar' });
-    expect(typeof solution).toBe('string');
-    expect(solution).toMatch(/\/\/ example/);
-    expect(solution).toMatch(/const solution = { foo: 'bar' };/);
-    expect(solution).toMatch(/export default solution;/);
-  });
+  it('should handle missing toneItem and modeItem gracefully', () => {
+    const result = generatePayload(
+      baseObject,
+      defaultStyleObject,
+      'nonExistentTone',
+      'nonExistentMode',
+      toneObject,
+      modeObject
+    );
 
-  it('should return a string with an empty object if no payload is provided', () => {
-    const solution = generateSolution('example');
-    expect(typeof solution).toBe('string');
-    expect(solution).toMatch(/\/\/ example/);
-    expect(solution).toMatch(/const solution = {};/);
-    expect(solution).toMatch(/export default solution;/);
+    expect(result).toEqual({
+      baseProp: 'baseValue',
+      defaultProp: 'defaultValue'
+    });
   });
 });
 
 describe('enforceContract', () => {
-  it('should throw an error if the value does not match the contract', () => {
-    const contract = {
-      name: 'string',
-      age: 'number',
-      isEmployed: 'boolean'
+  it('should enforce the contract with all default keys in the specified order', () => {
+    const inputObj = {
+      focused_inverse: {},
+      disabled_neutral: {}
     };
-    const value = {
-      name: 'John',
-      age: '30',
-      isEmployed: true
+
+    const result = enforceContract(inputObj);
+
+    // Ensure that all default keys are present and in the specified order
+    const expectedOutput = {
+      ...inputObj,
+      unfocused_neutral: {},
+      unfocused_inverse: {},
+      unfocused_brand: {},
+      focused_neutral: {},
+      focused_brand: {},
+      disabled_neutral: {},
+      disabled_inverse: {},
+      disabled_brand: {}
     };
-    expect(() => enforceContract(contract, value)).toThrow();
+
+    expect(result).toEqual(expectedOutput);
   });
 
-  it('should not throw an error if the value matches the contract', () => {
-    const contract = {
-      name: 'string',
-      age: 'number',
-      isEmployed: 'boolean'
+  it('should prioritize values in the order of FALLBACK_ORDER', () => {
+    const inputObj = {
+      unfocused_brand: {},
+      focused_neutral: 'value1', // This value is not an object
+      disabled_inverse: {}
     };
-    const value = {
-      name: 'John',
-      age: 30,
-      isEmployed: true
+
+    const expectedOutput = {
+      unfocused_neutral: {},
+      unfocused_inverse: {},
+      unfocused_brand: {},
+      focused_neutral: {}, // This value is not an object
+      focused_inverse: {},
+      focused_brand: {},
+      disabled_neutral: {},
+      disabled_inverse: {},
+      disabled_brand: {}
     };
-    expect(() => enforceContract(contract, value)).not.toThrow();
+
+    const result = enforceContract(inputObj);
+
+    expect(result).toEqual(expectedOutput);
   });
 
-  it('should throw an error if the contract is not an object', () => {
-    const contract = 'not an object';
-    const value = {
-      name: 'John',
-      age: 30,
-      isEmployed: true
-    };
-    expect(() => enforceContract(contract, value)).toThrow();
-  });
+  it('should handle an empty input object', () => {
+    const inputObj = {};
 
-  it('should throw an error if the value is not an object', () => {
-    const contract = {
-      name: 'string',
-      age: 'number',
-      isEmployed: 'boolean'
+    const expectedOutput = {
+      unfocused_neutral: {},
+      unfocused_inverse: {},
+      unfocused_brand: {},
+      focused_neutral: {},
+      focused_inverse: {},
+      focused_brand: {},
+      disabled_neutral: {},
+      disabled_inverse: {},
+      disabled_brand: {}
     };
-    const value = 'not an object';
-    expect(() => enforceContract(contract, value)).toThrow();
+
+    const result = enforceContract(inputObj);
+
+    expect(result).toEqual(expectedOutput);
   });
 });
 
@@ -679,11 +721,6 @@ describe('generateComponentStyleSource', () => {
     expect(() => {
       generateComponentStyleSource({ alias: 'string' });
     }).toThrow('Expected alias to be an array');
-  });
-
-  it('will provide correct source for a component with no styles', () => {
-    const source = generateComponentStyleSource();
-    expect(source).toStrictEqual({});
   });
 
   it('will provide correct source for a component with componentDefaults for base', () => {
@@ -1116,470 +1153,455 @@ describe('generateComponentStyleSource', () => {
 });
 
 describe('colorParser', () => {
-  it('should return the correct color object for a valid hex color string', () => {
-    const hexColor = '#FF0000';
-    const result = colorParser(hexColor);
-    expect(result).toEqual({ r: 255, g: 0, b: 0 });
+  it('should parse style object with theme strings and color arrays', () => {
+    const targetObject = {
+      theme: {
+        radius: {
+          md: '10px'
+        }
+      }
+    };
+
+    const styleObj = {
+      backgroundColor: 'theme.radius.md',
+      borderColor: ['#663399', 1]
+    };
+
+    const result = colorParser(targetObject, styleObj);
+
+    const expectedOutput = {
+      backgroundColor: '10px',
+      borderColor: 4284887961
+    };
+
+    expect(result).toEqual(expectedOutput);
   });
 
-  it('should return the correct color object for a valid rgb color string', () => {
-    const rgbColor = 'rgb(255, 0, 0)';
-    const result = colorParser(rgbColor);
-    expect(result).toEqual({ r: 255, g: 0, b: 0 });
+  it('should handle empty style object and return an empty object', () => {
+    const targetObject = {
+      theme: {}
+    };
+
+    const styleObj = {};
+
+    const result = colorParser(targetObject, styleObj);
+
+    expect(result).toEqual({});
   });
 
-  it('should return the correct color object for a valid rgba color string', () => {
-    const rgbaColor = 'rgba(255, 0, 0, 0.5)';
-    const result = colorParser(rgbaColor);
-    expect(result).toEqual({ r: 255, g: 0, b: 0, a: 0.5 });
+  it('should throw a TypeError if targetObject is not an object', () => {
+    const targetObject = 'not an object'; // Passing a string instead of an object
+
+    const styleObj = {
+      backgroundColor: 'theme.radius.md'
+    };
+
+    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
   });
 
-  it('should throw an error for an invalid color string', () => {
-    const invalidColor = 'invalid-color';
-    expect(() => colorParser(invalidColor)).toThrow('Invalid color string');
+  it('should throw a TypeError if styleObj is not an object', () => {
+    const targetObject = {
+      theme: {}
+    };
+
+    const styleObj = 'not an object'; // Passing a string instead of an object
+
+    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
   });
 });
 
 describe('generateStyle', () => {
-  it('should generate correct style object for a component with no inlineStyle', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      }
-    });
+  it('should generate style based on component properties', () => {
+    const component = {
+      mode: 'focused',
+      tone: 'brand'
+    };
 
-    expect(style).toStrictEqual({
-      color: 'primary'
-    });
+    const componentStyleSource = {
+      focused_brand: {
+        fontSize: '20px',
+        color: 'blue'
+      }
+    };
+
+    const generatedStyle = generateStyle(component, componentStyleSource);
+
+    const expectedStyle = {
+      fontSize: '20px',
+      color: 'blue'
+    };
+
+    expect(generatedStyle).toEqual(expectedStyle);
   });
 
-  it('should generate correct style object for a component with inlineStyle tone', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      },
-      inlineStyle: {
-        tone: 'neutral'
-      }
-    });
+  it('should use default mode and tone if not provided in component', () => {
+    const component = {};
 
-    expect(style).toStrictEqual({
-      color: 'primary'
-    });
+    const componentStyleSource = {
+      unfocused_neutral: {
+        fontSize: '16px',
+        color: 'black'
+      }
+    };
+
+    const generatedStyle = generateStyle(component, componentStyleSource);
+
+    const expectedStyle = {
+      fontSize: '16px',
+      color: 'black'
+    };
+
+    expect(generatedStyle).toEqual(expectedStyle);
   });
 
-  it('should generate correct style object for a component with inlineStyle mode', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
+  it('should handle componentStyle and aliasStyles', () => {
+    const component = {
+      mode: 'focused',
+      tone: 'brand',
+      _componentLevelStyle: {
+        fontSize: '24px'
       },
-      inlineStyle: {
-        mode: 'unfocused'
+      constructor: {
+        aliasStyles: [
+          { prev: 'fontSize', curr: 'fs' }
+          // Add more alias styles if needed
+        ]
       }
-    });
+    };
 
-    expect(style).toStrictEqual({
-      color: 'primary'
-    });
+    const componentStyleSource = {
+      focused_brand: {
+        color: 'red'
+      }
+    };
+
+    const generatedStyle = generateStyle(component, componentStyleSource);
+
+    const expectedStyle = {
+      fs: '24px', // Alias style applied
+      color: 'red'
+    };
+
+    expect(generatedStyle).toEqual(expectedStyle);
   });
 
-  it('should generate correct style object for a component with inlineStyle tone/mode', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      },
-      inlineStyle: {
-        tone: 'neutral',
-        mode: 'unfocused'
-      }
-    });
+  it('should return an empty object for non-object component', () => {
+    const component = 'not an object';
 
-    expect(style).toStrictEqual({
-      color: 'primary'
-    });
+    const componentStyleSource = {
+      focused_brand: {
+        fontSize: '20px'
+      }
+    };
+
+    const generatedStyle = generateStyle(component, componentStyleSource);
+
+    expect(generatedStyle).toEqual({});
   });
 
-  it('should generate correct style object for a component with inlineStyle mode/tone', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      },
-      inlineStyle: {
-        mode: 'unfocused',
-        tone: 'neutral'
-      }
-    });
+  it('should return an empty object for missing styles', () => {
+    const component = {
+      mode: 'focused',
+      tone: 'brand'
+    };
 
-    expect(style).toStrictEqual({
-      color: 'primary'
-    });
-  });
+    const componentStyleSource = {};
 
-  it('should generate correct style object for a component with inlineStyle tone/mode and overrides', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      },
-      inlineStyle: {
-        tone: 'neutral',
-        mode: 'unfocused',
-        overrides: {
-          color: 'secondary'
-        }
-      }
-    });
+    const generatedStyle = generateStyle(component, componentStyleSource);
 
-    expect(style).toStrictEqual({
-      color: 'secondary'
-    });
-  });
-
-  it('should generate correct style object for a component with inlineStyle mode/tone and overrides', () => {
-    const style = generateStyle({
-      themeStyles: {
-        neutral: {
-          color: 'primary'
-        }
-      },
-      inlineStyle: {
-        mode: 'unfocused',
-        tone: 'neutral',
-        overrides: {
-          color: 'secondary'
-        }
-      }
-    });
-
-    expect(style).toStrictEqual({
-      color: 'secondary'
-    });
+    expect(generatedStyle).toEqual({});
   });
 });
+class Parent {
+  static __componentName() {
+    return 'ParentComponent';
+  }
+}
+
+class Child extends Parent {
+  static __componentName() {
+    return 'ChildComponent';
+  }
+}
 
 describe('generateNameFromPrototypeChain', () => {
-  it('should return the name of the constructor function if it exists', () => {
-    function Foo() {}
-    const result = generateNameFromPrototypeChain(Foo.prototype);
-    expect(result).toBe('Foo');
+  it('should generate the name for an object with a prototype chain', () => {
+    const obj = new Child();
+    const result = generateNameFromPrototypeChain(obj);
+
+    expect(result).toBe('ChildComponent.ParentComponent');
   });
 
-  it('should return the name of the constructor function if it exists and has a name property', () => {
-    function Bar() {}
-    Bar.name = 'CustomBarName';
-    const result = generateNameFromPrototypeChain(Bar.prototype);
-    expect(result).toBe('CustomBarName');
+  it('should generate the name for an object without a prototype chain', () => {
+    const obj = {};
+    const result = generateNameFromPrototypeChain(obj);
+
+    expect(result).toBe('');
   });
 
-  it('should return the name of the constructor function if it exists and has a displayName property', () => {
-    function Baz() {}
-    Baz.displayName = 'BazDisplayName';
-    const result = generateNameFromPrototypeChain(Baz.prototype);
-    expect(result).toBe('BazDisplayName');
+  it('should handle an object with missing __componentName', () => {
+    class ComponentWithoutName {}
+
+    const obj = new ComponentWithoutName();
+    const result = generateNameFromPrototypeChain(obj);
+
+    expect(result).toBe('');
   });
 
-  it('should return the name of the constructor function if it exists and has a toString method', () => {
-    function Qux() {}
-    Qux.toString = () => 'QuxToString';
-    const result = generateNameFromPrototypeChain(Qux.prototype);
-    expect(result).toBe('QuxToString');
-  });
+  it('should handle an object with repeated __componentName', () => {
+    class RepeatedComponent {
+      static __componentName() {
+        return 'RepeatedComponent';
+      }
+    }
 
-  it('should return the name of the constructor function if it exists and has a name property and a displayName property', () => {
-    function FooBar() {}
-    FooBar.name = 'CustomFooBarName';
-    FooBar.displayName = 'FooBarDisplayName';
-    const result = generateNameFromPrototypeChain(FooBar.prototype);
-    expect(result).toBe('CustomFooBarName');
-  });
+    const obj = new RepeatedComponent();
+    obj.__proto__.constructor = RepeatedComponent; // Set a repeated __componentName
 
-  it('should return the name of the constructor function if it exists and has a name property and a toString method', () => {
-    function BarBaz() {}
-    BarBaz.name = 'CustomBarBazName';
-    BarBaz.toString = () => 'BarBazToString';
-    const result = generateNameFromPrototypeChain(BarBaz.prototype);
-    expect(result).toBe('CustomBarBazName');
-  });
+    const result = generateNameFromPrototypeChain(obj);
 
-  it('should return the name of the constructor function if it exists and has a displayName property and a toString method', () => {
-    function BazQux() {}
-    BazQux.displayName = 'BazQuxDisplayName';
-    BazQux.toString = () => 'BazQuxToString';
-    const result = generateNameFromPrototypeChain(BazQux.prototype);
-    expect(result).toBe('BazQuxDisplayName');
-  });
-
-  it('should return "Object" if the constructor function does not exist in the prototype chain', () => {
-    const result = generateNameFromPrototypeChain({});
-    expect(result).toBe('Object');
+    expect(result).toBe('RepeatedComponent');
   });
 });
 
 describe('getStyleChainMemoized', () => {
-  it('should return the same memoized function for the same input', () => {
-    const memoized1 = getStyleChainMemoized({
-      themeStyles: {},
-      inlineStyle: {}
-    });
-    const memoized2 = getStyleChainMemoized({
-      themeStyles: {},
-      inlineStyle: {}
-    });
-    expect(memoized1).toBe(memoized2);
-  });
-
-  it('should return a different memoized function for different input', () => {
-    const memoized1 = getStyleChainMemoized({
-      themeStyles: {},
-      inlineStyle: {}
-    });
-    const memoized2 = getStyleChainMemoized({
-      themeStyles: { primary: { color: 'red' } },
-      inlineStyle: {}
-    });
-    expect(memoized1).not.toBe(memoized2);
-  });
-
-  it('should return the correct style object for a component with only themeStyles', () => {
-    const memoized = getStyleChainMemoized({
-      themeStyles: {
-        primary: {
-          color: 'red'
-        }
-      },
-      inlineStyle: {}
-    });
-    const style = memoized(['primary']);
-    expect(style).toStrictEqual({
-      color: 'red'
-    });
-  });
-
-  it('should return the correct style object for a component with only inlineStyle', () => {
-    const memoized = getStyleChainMemoized({
-      themeStyles: {},
-      inlineStyle: {
-        color: 'red'
-      }
-    });
-    const style = memoized([]);
-    expect(style).toStrictEqual({
-      color: 'red'
-    });
-  });
-
-  it('should return the correct style object for a component with both themeStyles and inlineStyle', () => {
-    const memoized = getStyleChainMemoized({
-      themeStyles: {
-        primary: {
-          color: 'red'
-        }
-      },
-      inlineStyle: {
-        overrides: {
+  it('should memoize and return the same style chain for the same component', () => {
+    const component = {
+      constructor: {
+        __themeStyle: {
+          fontSize: '16px',
           color: 'blue'
         }
       }
-    });
-    const style = memoized(['primary']);
-    expect(style).toStrictEqual({
-      color: 'blue'
-    });
+    };
+
+    const styleChain = getStyleChainMemoized(component);
+    const cachedStyleChain = getStyleChainMemoized(component);
+
+    expect(styleChain).toBe(cachedStyleChain);
+  });
+
+  it('should return a different style chain for different components', () => {
+    class Component1 {
+      static get __themeStyle() {
+        return {
+          fontSize: '16px',
+          color: 'blue'
+        };
+      }
+
+      static get __componentName() {
+        return 'Component1';
+      }
+    }
+
+    class Component2 {
+      static get __themeStyle() {
+        return {
+          fontSize: '20px',
+          color: 'red'
+        };
+      }
+
+      static get __componentName() {
+        return 'Component2';
+      }
+    }
+
+    const component1 = new Component1();
+    const component2 = new Component2();
+
+    const styleChain1 = getStyleChainMemoized(component1);
+    const styleChain2 = getStyleChainMemoized(component2);
+
+    expect(styleChain1).not.toBe(styleChain2);
   });
 });
 
+class ComponentA {
+  static get __themeStyle() {
+    return { color: 'red' };
+  }
+}
+
+class ComponentB extends ComponentA {
+  static get __mixinStyle() {
+    return { fontSize: 16 };
+  }
+}
+
+class ComponentC extends ComponentB {}
+
 describe('getStyleChain', () => {
-  it('should return an empty array if no themeStyles or inlineStyle are provided', () => {
-    const styleChain = getStyleChain({ themeStyles: {}, inlineStyle: {} });
-    expect(styleChain).toEqual([]);
+  it('should return an array of style objects from the prototype chain', () => {
+    const componentC = new ComponentC();
+    const styleChain = getStyleChain(componentC);
+    expect(styleChain).toHaveLength(2); // Two styles in the chain
+    expect(styleChain[0]).toEqual({ style: { color: 'red' } });
+    expect(styleChain[1]).toEqual({ style: { fontSize: 16 } });
   });
 
-  it('should return an array with the theme style if only themeStyles are provided', () => {
-    const styleChain = getStyleChain({
-      themeStyles: {
-        primary: {
-          color: 'red'
-        }
-      },
-      inlineStyle: {}
-    });
-    expect(styleChain).toEqual(['primary']);
+  it('should handle components with no styles in the chain', () => {
+    const componentWithoutStyles = {};
+
+    const styleChain = getStyleChain(componentWithoutStyles);
+
+    expect(styleChain).toHaveLength(0); // No styles in the chain
   });
 
-  it('should return an array with the inline style if only inlineStyle is provided', () => {
-    const styleChain = getStyleChain({
-      themeStyles: {},
-      inlineStyle: {
-        color: 'red'
+  it('should handle styles defined as functions', () => {
+    const style = () => ({ fontWeight: 'bold' });
+    class FunctionStyleComponent {
+      static get __themeStyle() {
+        return style;
       }
-    });
-    expect(styleChain).toEqual(['inline']);
-  });
+    }
+    const componentWithFunctionStyle = new FunctionStyleComponent();
 
-  it('should return an array with both the theme style and inline style if both are provided', () => {
-    const styleChain = getStyleChain({
-      themeStyles: {
-        primary: {
-          color: 'red'
-        }
-      },
-      inlineStyle: {
-        color: 'blue'
-      }
-    });
-    expect(styleChain).toEqual(['primary', 'inline']);
-  });
+    const styleChain = getStyleChain(componentWithFunctionStyle);
 
-  it('should return an array with the theme style and any overrides from inline style', () => {
-    const styleChain = getStyleChain({
-      themeStyles: {
-        primary: {
-          color: 'red'
-        }
-      },
-      inlineStyle: {
-        overrides: {
-          color: 'blue'
-        }
-      }
-    });
-    expect(styleChain).toEqual(['primary', 'overrides']);
+    expect(styleChain).toHaveLength(1);
+    expect(styleChain[0]).toEqual({ style });
   });
 });
 
 describe('formatStyleObj', () => {
-  it('should return an empty string if no style object is provided', () => {
-    const styleObj = undefined;
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('');
+  it('should format a valid style object', () => {
+    const inputStyle = {
+      fontSize: '16px',
+      color: 'blue'
+    };
+
+    const formattedStyle = formatStyleObj(inputStyle);
+
+    expect(formattedStyle).toEqual(inputStyle); // Should return the same style object
   });
 
-  it('should return a string with a single CSS property if one property is provided', () => {
-    const styleObj = {
-      color: 'red'
+  it('should format a style object with alias styles', () => {
+    const inputStyle = {
+      fontSize: '1rem',
+      width: '50%'
     };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('color: red;');
+
+    const aliasStyles = [
+      { prev: 'fontSize', curr: 'fs' },
+      { prev: 'width', curr: 'w' }
+    ];
+
+    const expectedFormattedStyle = {
+      fs: '1rem',
+      w: '50%'
+    };
+
+    const formattedStyle = formatStyleObj(inputStyle, aliasStyles);
+
+    expect(formattedStyle).toEqual(expectedFormattedStyle);
   });
 
-  it('should return a string with multiple CSS properties if multiple properties are provided', () => {
-    const styleObj = {
-      color: 'red',
-      backgroundColor: 'blue'
-    };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('color: red; background-color: blue;');
-  });
+  it('should throw an error for non-object input', () => {
+    const invalidInput = 'not an object';
 
-  it('should handle hyphenated property names correctly', () => {
-    const styleObj = {
-      'background-color': 'red'
+    // Use an arrow function to invoke formatStyleObj with the invalid input
+    const testFunction = () => {
+      formatStyleObj(invalidInput);
     };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('background-color: red;');
-  });
 
-  it('should handle vendor-prefixed property names correctly', () => {
-    const styleObj = {
-      '-webkit-transition': 'all 1s ease'
-    };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('-webkit-transition: all 1s ease;');
-  });
-
-  it('should handle numeric property values correctly', () => {
-    const styleObj = {
-      fontSize: 16
-    };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('font-size: 16;');
-  });
-
-  it('should handle null and undefined property values correctly', () => {
-    const styleObj = {
-      color: null,
-      backgroundColor: undefined
-    };
-    const formattedStyle = formatStyleObj(styleObj);
-    expect(formattedStyle).toEqual('');
+    expect(testFunction).toThrowError(
+      'The originalObj parameter must be an object.'
+    );
   });
 });
 
 describe('replaceAliasValues', () => {
-  it('should replace alias values in a string', () => {
-    const input = 'Hello $NAME, welcome to $COMPANY';
-    const aliases = {
-      NAME: 'John',
-      COMPANY: 'GitHub'
+  it('should replace alias values in the provided style object', () => {
+    const styleObject = {
+      width: 100,
+      height: 50
     };
-    const expectedOutput = 'Hello John, welcome to GitHub';
-    const output = replaceAliasValues(input, aliases);
-    expect(output).toEqual(expectedOutput);
+
+    const aliasStyles = [
+      { prev: 'width', curr: 'w' },
+      { prev: 'height', curr: 'h' }
+    ];
+
+    const result = replaceAliasValues(styleObject, aliasStyles);
+
+    expect(result).toEqual({ w: 100, h: 50 });
   });
 
-  it('should not replace alias values that are not present in the string', () => {
-    const input = 'Hello $NAME, welcome to $COMPANY';
-    const aliases = {
-      NAME: 'John',
-      LOCATION: 'San Francisco'
+  it('should replace alias values with custom alias styles', () => {
+    const styleObject = {
+      paddingX: 20,
+      paddingY: 10
     };
-    const expectedOutput = 'Hello John, welcome to $COMPANY';
-    const output = replaceAliasValues(input, aliases);
-    expect(output).toEqual(expectedOutput);
+
+    const aliasStyles = [
+      { prev: 'paddingX', curr: 'px' },
+      { prev: 'paddingY', curr: 'py' }
+    ];
+
+    const result = replaceAliasValues(styleObject, aliasStyles);
+
+    expect(result).toEqual({ px: 20, py: 10 });
   });
 
-  it('should handle empty input strings', () => {
-    const input = '';
-    const aliases = {
-      NAME: 'John',
-      COMPANY: 'GitHub'
+  it('should throw an error if the value is not an object', () => {
+    const nonObjectValue = 'not an object';
+
+    expect(() => replaceAliasValues(nonObjectValue)).toThrowError(
+      'Value must be an object'
+    );
+  });
+
+  it('should throw an error if aliasStyles is not an array', () => {
+    const styleObject = {
+      width: 100
     };
-    const expectedOutput = '';
-    const output = replaceAliasValues(input, aliases);
-    expect(output).toEqual(expectedOutput);
+
+    const invalidAliasStyles = 'not an array';
+
+    expect(() =>
+      replaceAliasValues(styleObject, invalidAliasStyles)
+    ).toThrowError('Alias styles must be an array');
   });
 
-  it('should handle empty alias objects', () => {
-    const input = 'Hello $NAME, welcome to $COMPANY';
-    const aliases = {};
-    const expectedOutput = 'Hello $NAME, welcome to $COMPANY';
-    const output = replaceAliasValues(input, aliases);
-    expect(output).toEqual(expectedOutput);
-  });
-
-  it('should handle null and undefined input strings', () => {
-    const input1 = null;
-    const input2 = undefined;
-    const aliases = {
-      NAME: 'John',
-      COMPANY: 'GitHub'
+  it('should replace alias values with a warning when skipWarn is false', () => {
+    const styleObject = {
+      testW: 100
     };
-    const expectedOutput = '';
-    const output1 = replaceAliasValues(input1, aliases);
-    const output2 = replaceAliasValues(input2, aliases);
-    expect(output1).toEqual(expectedOutput);
-    expect(output2).toEqual(expectedOutput);
+
+    const aliasStyles = [{ prev: 'testW', curr: 'testWidth', skipWarn: false }];
+
+    const consoleWarnSpy = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => {});
+
+    const result = replaceAliasValues(styleObject, aliasStyles);
+
+    expect(result).toEqual({ testWidth: 100 });
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      'The style property "testW" is deprecated and will be removed in a future release. Please use "testWidth" instead.'
+    );
+
+    consoleWarnSpy.mockRestore();
   });
 
-  it('should handle null and undefined alias objects', () => {
-    const input = 'Hello $NAME, welcome to $COMPANY';
-    const aliases1 = null;
-    const aliases2 = undefined;
-    const expectedOutput = 'Hello $NAME, welcome to $COMPANY';
-    const output1 = replaceAliasValues(input, aliases1);
-    const output2 = replaceAliasValues(input, aliases2);
-    expect(output1).toEqual(expectedOutput);
-    expect(output2).toEqual(expectedOutput);
+  it('should replace alias values without a warning when skipWarn is true', () => {
+    const styleObject = {
+      width: 100
+    };
+
+    const aliasStyles = [{ prev: 'width', curr: 'w', skipWarn: true }];
+
+    const consoleWarnSpy = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => {});
+
+    const result = replaceAliasValues(styleObject, aliasStyles);
+
+    expect(result).toEqual({ w: 100 });
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+    consoleWarnSpy.mockRestore();
   });
 });

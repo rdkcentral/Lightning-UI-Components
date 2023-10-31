@@ -207,7 +207,8 @@ export default class StyleManager extends lng.EventEmitter {
           componentConfig: this.component._componentConfig,
           inlineStyle: this._componentLevelStyle,
           name:
-            this.component.constructor.__componentName || this.component.constructor.name,
+            this.component.constructor.__componentName ||
+            this.component.constructor.name,
           styleChain: getStyleChainMemoized(this.component),
           theme: this.component.theme
         });
@@ -226,7 +227,6 @@ export default class StyleManager extends lng.EventEmitter {
       this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {
-      debugger
       context.error('styleManager: ', error.message);
     }
   }

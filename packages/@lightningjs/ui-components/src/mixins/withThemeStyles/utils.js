@@ -237,13 +237,11 @@ export const findPropertiesBySubProperty = (obj, subPropertyName) => {
    * @param {object} obj - The object to traverse.
    */
   function traverse(obj) {
-    
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         if (typeof obj[key] === 'object') {
           // If the current key matches the specified sub-property
           if (key === subPropertyName) {
-            console.log('>>>', key)
             // Loop through the sub-object's keys and add them to the result set
             for (const subKey in obj[key]) {
               if (obj[key].hasOwnProperty(subKey)) {
@@ -263,7 +261,7 @@ export const findPropertiesBySubProperty = (obj, subPropertyName) => {
       }
     }
   }
-  
+
   // Start traversing the object
   traverse(obj);
 
@@ -273,7 +271,7 @@ export const findPropertiesBySubProperty = (obj, subPropertyName) => {
 
 // This map will store hashes of objects to detect duplicates.
 
-function createSharedReferences(obj) {
+export function createSharedReferences(obj = {}) {
   const seenObjects = new Map();
 
   // Generates a hash for an object.
@@ -310,14 +308,34 @@ function createSharedReferences(obj) {
 // TODO: Need to add defaultStyle functionality
 
 /**
- * Returns a unique set of properties by merging default properties and provided ones.
+ * Combines the provided properties and returns a list of unique properties.
  *
- * @param {string[]} defaultProps - List of default properties.
- * @param {Object} additionalProps - Additional properties provided by the user.
- * @param {string[]} subProps - Sub-properties extracted from a different source.
- * @returns {string[]} - An array of unique properties.
+ * @param {string[]} defaultProps - Default property names.
+ * @param {Object} additionalProps - Object whose keys are additional property names.
+ * @param {string[]} subProps - Sub property names.
+ * @returns {string[]} - Array of unique property names.
  */
-function getUniqueProperties(defaultProps, additionalProps, subProps) {
+export function getUniqueProperties(
+  defaultProps = [],
+  additionalProps = {},
+  subProps = []
+) {
+  if (!Array.isArray(defaultProps)) {
+    throw new TypeError('Expected defaultProps to be an array of strings.');
+  }
+
+  if (
+    typeof additionalProps !== 'object' ||
+    additionalProps === null ||
+    Array.isArray(additionalProps)
+  ) {
+    throw new TypeError('Expected additionalProps to be an object.');
+  }
+
+  if (!Array.isArray(subProps)) {
+    throw new TypeError('Expected subProps to be an array of strings.');
+  }
+
   return [
     ...new Set([...defaultProps, ...Object.keys(additionalProps), ...subProps])
   ];
@@ -343,10 +361,10 @@ export function generatePayload(
   mode
 ) {
   let payload = clone(defaultStyle, base);
-  payload = clone(payload, tone[toneItem]);
-  payload = clone(payload, mode[modeItem]);
-  payload = clone(payload, tone[toneItem]?.mode?.[modeItem] || {});
-  payload = clone(payload, mode[modeItem]?.tone?.[toneItem] || {});
+  payload = clone(payload, tone?.[toneItem]);
+  payload = clone(payload, mode?.[modeItem]);
+  payload = clone(payload, tone?.[toneItem]?.mode?.[modeItem] || {});
+  payload = clone(payload, mode?.[modeItem]?.tone?.[toneItem] || {});
   return payload;
 }
 
@@ -423,6 +441,13 @@ const FALLBACK_ORDER = [
   'disabled_brand'
 ];
 
+/**
+ * Enforce a contract on an input object by ensuring that it contains a set of specified keys
+ * and, if not, substituting them with values from fallback keys in a predefined order.
+ *
+ * @param {Object} inputObj - The input object to enforce the contract on.
+ * @returns {Object} - An object that adheres to the contract, with missing keys replaced by fallback values.
+ */
 export function enforceContract(inputObj) {
   const result = {};
 
@@ -433,13 +458,20 @@ export function enforceContract(inputObj) {
         inputObj.hasOwnProperty(fallback)
       );
       if (fallbackKey) {
-        result[key] = inputObj[fallbackKey];
+        const fallback = inputObj[fallbackKey];
+        result[key] = typeof fallback !== 'object' ? {} : fallback;
+      } else {
+        result[key] = {};
       }
     } else {
-      result[key] = inputObj[key];
+      if (typeof inputObj[key] !== 'object') {
+        // If the value is not an object, replace it with an empty object
+        result[key] = {};
+      } else {
+        result[key] = inputObj[key];
+      }
     }
   }
-
   return result;
 }
 
@@ -508,7 +540,7 @@ export const generateComponentStyleSource = ({
 
   if (!(componentConfig || {}).hasOwnProperty('styleConfig')) {
     log.warn(
-      `[Deprecation Warning]: "styleConfig" will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.`
+      '[Deprecation Warning]: "styleConfig" will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.'
     );
   }
 
@@ -572,11 +604,21 @@ export const generateComponentStyleSource = ({
 
 /**
  * Parse and process a style object to replace theme strings and process color arrays.
- * @param {string} targetObject - In most cases this will be a theme object
+ * @param {object} targetObject - In most cases, this will be a theme object.
  * @param {object} styleObj - The input style object to be processed.
  * @returns {object} The processed style object with theme strings replaced and color arrays processed.
  */
 export const colorParser = (targetObject, styleObj) => {
+  // Check if targetObject is an object
+  if (typeof targetObject !== 'object' || targetObject === null) {
+    throw new TypeError('targetObject must be an object.');
+  }
+
+  // Check if styleObj is an object
+  if (typeof styleObj !== 'object' || styleObj === null) {
+    throw new TypeError('styleObj must be an object.');
+  }
+
   // Process style object and remove unnecessary properties
   const processedStyle = JSON.stringify(styleObj, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
@@ -589,6 +631,7 @@ export const colorParser = (targetObject, styleObj) => {
     }
     return value;
   });
+
   return JSON.parse(processedStyle || {});
 };
 
@@ -610,8 +653,12 @@ export const generateStyle = (component, componentStyleSource = {}) => {
 
   const componentStyle = component._componentLevelStyle;
   if (componentStyle) {
-    return clone(style, colorParser(component, componentStyle));
+    return formatStyleObj(
+      clone(style, colorParser(component, componentStyle)),
+      component.constructor.aliasStyles
+    );
   }
+
   return formatStyleObj(style, component.constructor.aliasStyles);
 };
 
@@ -620,20 +667,18 @@ export const generateStyle = (component, componentStyleSource = {}) => {
  * @param {object} obj - The object for which to generate the name.
  * @returns {string} - The generated name.
  */
-export function generateNameFromPrototypeChain(obj) {
-  // Base case: If the object has no prototype or its prototype is null, return its own constructor name (if available).
-  if (!Object.getPrototypeOf(obj)) {
-    return obj.constructor?.name || '';
-  }
-
-  // Recursive step: Get the constructor name of the current object and concatenate it with the name generated from the prototype.
-  const currentName = obj.constructor?.name || '';
-  const parentName = generateNameFromPrototypeChain(Object.getPrototypeOf(obj));
-
-  // Concatenate the names in reverse order (from the top of the prototype chain to the bottom).
-  return parentName ? `${parentName}.${currentName}` : currentName;
+export function generateNameFromPrototypeChain(obj, name = '') {
+  if (!obj) return name;
+  const proto = Object.getPrototypeOf(obj);
+  if (!proto || !proto.constructor) return name;
+  const componentName = `${name ? name + '.' : ''}${
+    proto?.constructor?.__componentName || ''
+  }`
+    .replace(/\.*$/, '')
+    .trim();
+  const result = generateNameFromPrototypeChain(proto, componentName);
+  return result;
 }
-
 /**
  * Creates a cache object to store the results of getStyleChainMemoized function calls.
  * @type {object}
@@ -652,6 +697,7 @@ export const getStyleChainMemoized = componentObj => {
    */
 
   const cacheKey = generateNameFromPrototypeChain(componentObj);
+
   // Check if the result is already in the cache
   if (styleChainCache[cacheKey]) {
     return styleChainCache[cacheKey];
@@ -676,52 +722,75 @@ export const getStyleChainMemoized = componentObj => {
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
  */
 export const getStyleChain = componentObj => {
-  const styleSet = new Set();
+  const styleMap = new Map(); // Use a Map to store styles as JSON strings
   let proto = componentObj;
 
   do {
-    proto = Object.getPrototypeOf(proto);
+    const parent = Object.getPrototypeOf(proto);
+    proto = parent !== Object.prototype ? parent : null;
 
     if (proto && proto.constructor) {
-      // Check if style was passed in as param in .map(style => {to mixin withThemeStyles(MyComponent, {foo: 'bar'})
+      // Access the __themeStyle property from the current prototype's constructor
+      const themeStyle = proto.constructor.__themeStyle;
 
-      if (
-        proto.constructor.__mixinStyle &&
-        !styleSet.has(proto.constructor.__mixinStyle)
-      ) {
-        if (
-          typeof proto.constructor.__mixinStyle === 'object' &&
-          Object.keys(proto.constructor.__mixinStyle).length
+      if (themeStyle) {
+        if (typeof themeStyle === 'function') {
+          if (!styleMap.has(themeStyle)) {
+            styleMap.set(themeStyle, { style: themeStyle });
+          }
+        } else if (
+          typeof themeStyle === 'object' &&
+          themeStyle !== null &&
+          Object.keys(themeStyle).length > 0
         ) {
-          styleSet.add(proto.constructor.__mixinStyle);
-        } else if (typeof proto.constructor.__mixinStyle === 'function') {
-          styleSet.add(proto.constructor.__mixinStyle);
+          // Clone the themeStyle object and sort its keys
+          const sortedThemeStyle = sortObject(themeStyle);
+
+          // Convert the sorted style object to a JSON string
+          const themeStyleString = JSON.stringify(sortedThemeStyle);
+
+          // Check if the style object has already been added to the Map
+          if (!styleMap.has(themeStyleString)) {
+            // Add the JSON string as the key to the Map, with a "style" property
+            styleMap.set(themeStyleString, { style: sortedThemeStyle });
+          }
         }
       }
 
-      // Check if has __themeStyle set
-      if (
-        proto.constructor.__themeStyle &&
-        !styleSet.has(proto.constructor.__themeStyle)
-      ) {
-        if (
-          typeof proto.constructor.__themeStyle === 'object' &&
-          Object.keys(proto.constructor.__themeStyle).length
+      // Access the __mixinStyle property from the current prototype's constructor
+      const mixinStyle = proto.constructor.__mixinStyle;
+
+      if (mixinStyle) {
+        if (typeof mixinStyle === 'function') {
+          if (!styleMap.has(mixinStyle)) {
+            styleMap.set(mixinStyle, { style: mixinStyle });
+          }
+        } else if (
+          typeof mixinStyle === 'object' &&
+          mixinStyle !== null &&
+          Object.keys(mixinStyle).length > 0
         ) {
-          styleSet.add(proto.constructor.__themeStyle);
-        } else if (typeof proto.constructor.__themeStyle === 'function') {
-          styleSet.add(proto.constructor.__themeStyle);
+          // Clone the mixinStyle object and sort its keys
+          const sortedMixinStyle = sortObject(mixinStyle);
+
+          // Convert the sorted style object to a JSON string
+          const mixinStyleString = JSON.stringify(sortedMixinStyle);
+
+          // Check if the style object has already been added to the Map
+          if (!styleMap.has(mixinStyleString)) {
+            // Add the JSON string as the key to the Map, with a "style" property
+            styleMap.set(mixinStyleString, { style: sortedMixinStyle });
+          }
         }
       }
     }
   } while (proto);
 
-  // Return an array of style objects
-  return Array.from(styleSet)
-    .map(style => ({
-      style
-    }))
-    .reverse();
+  // Convert the values of the Map (unique styles) back to an array
+  const uniqueStyles = Array.from(styleMap.values());
+
+  // Return an array of unique style objects with a "style" property
+  return uniqueStyles.map(style => style);
 };
 
 /**
@@ -732,6 +801,10 @@ export const getStyleChain = componentObj => {
  * @returns {object} The formatted style object after applying all formatter functions.
  */
 export const formatStyleObj = (originalObj, aliasStyles = []) => {
+  if (typeof originalObj !== 'object' || originalObj === null) {
+    throw new Error('The originalObj parameter must be an object.');
+  }
+
   const formatters = new Set();
 
   // Adding a key-value pair to the 'formatters' Set.
@@ -772,6 +845,7 @@ export const replaceAliasValues = (value, aliasStyles = []) => {
     { prev: 'width', curr: 'w', skipWarn: true },
     ...(aliasStyles || [])
   ];
+
   aliasProps.forEach(alias => {
     if (
       alias &&
