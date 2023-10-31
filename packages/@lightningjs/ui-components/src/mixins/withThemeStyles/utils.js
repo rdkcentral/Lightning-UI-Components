@@ -510,6 +510,7 @@ export const generateComponentStyleSource = ({
   /**
    * Component default styles
    */
+
   const componentDefault = styleChain.map(({ style }) => {
     if (
       typeof style === 'object' &&
@@ -598,7 +599,7 @@ export const generateComponentStyleSource = ({
   );
 
   const cleanObj = createSharedReferences(final);
-
+  
   return enforceContract(cleanObj);
 };
 
@@ -642,9 +643,10 @@ export const colorParser = (targetObject, styleObj) => {
  * @returns {object} - The generated style object.
  */
 export const generateStyle = (component, componentStyleSource = {}) => {
+ 
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-
+  
   const style =
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||
@@ -727,14 +729,33 @@ export function removeDuplicateObjects(arr) {
     throw new Error('Input should be an array');
   }
 
-  const seen = new Set();
-  return arr.filter(item => {
-    const itemString = JSON.stringify(item);
-    if (!seen.has(itemString)) {
-      seen.add(itemString);
-      return true;
+  const deepEquals = (a, b) => {
+    const typeA = typeof a;
+    const typeB = typeof b;
+
+    if (typeA !== typeB) return false;
+
+    if (typeA !== 'object' || a === null || b === null) {
+      if (typeA === 'function') {
+        return a.toString() === b.toString();
+      }
+      return a === b;
     }
-    return false;
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) return false;
+
+    for (let key of keysA) {
+      if (!Object.prototype.hasOwnProperty.call(b, key) || !deepEquals(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  return arr.filter((item, index, self) => {
+    return index === self.findIndex((t) => deepEquals(item, t));
   });
 }
 
@@ -748,7 +769,6 @@ export const getStyleChain = componentObj => {
   let proto = componentObj;
   let firstRun = true;
   do {
-    // TODO: Rewrite these tests and check logic
     const parent = firstRun ? proto : Object.getPrototypeOf(proto); // The first time the loop runs it should get the style from the current component
     firstRun = false;
     proto = parent !== Object.prototype ? parent : null;
@@ -776,7 +796,7 @@ export const getStyleChain = componentObj => {
 
   // Convert the values of the Map (unique styles) back to an array
   const uniqueStyles = Array.from(styleMap.values());
-
+  
   // Return an array of unique style objects with a "style" property
   return removeDuplicateObjects(uniqueStyles)
     .map(style => style)
