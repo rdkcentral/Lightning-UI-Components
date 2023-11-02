@@ -440,7 +440,6 @@ export const AddingItems = args =>
   };
 AddingItems.args = {
   ...sharedArgs,
-  //lazyUpCount: undefined,
   lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {
