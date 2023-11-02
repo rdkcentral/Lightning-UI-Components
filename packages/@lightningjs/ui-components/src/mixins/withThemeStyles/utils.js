@@ -199,20 +199,18 @@ export const getPrototypeChain = obj => {
 };
 
 /**
- * Recursively removes empty objects from the provided object.
+ * Recursively removes properties from an object that are themselves empty objects.
+ * Does not remove arrays, non-plain objects, or non-empty objects.
  *
- * @param {object} obj - The object from which to remove empty objects.
- * @returns {object} - The object with empty objects removed.
+ * @param {Object} obj - The object to clean of empty objects.
+ * @returns {Object} The cleaned object.
  */
 export function removeEmptyObjects(obj) {
   for (const key in obj) {
-    if (
-      obj.hasOwnProperty(key) &&
-      typeof obj[key] === 'object' &&
-      obj[key] !== null
-    ) {
-      removeEmptyObjects(obj[key]);
+    if (obj.hasOwnProperty(key) && isPlainObject(obj[key])) {
+      removeEmptyObjects(obj[key]); // Recurse into the object
 
+      // After recursion, if the object is empty, delete it from the parent
       if (Object.keys(obj[key]).length === 0) {
         delete obj[key];
       }
@@ -565,6 +563,24 @@ export const generateComponentStyleSource = ({
   };
 
   /**
+   * Filters the componentConfig object to retain only those properties
+   * whose keys start with an uppercase letter. It assumes that keys
+   * starting with uppercase letters indicate sub-components.
+   *
+   * @param {Object} componentConfig - The configuration object for components.
+   * @returns {Object} An object containing only the sub-components from the input.
+   */
+  const props = Object.entries(componentConfig || {}).reduce(
+    (acc, [key, value]) => {
+      if (!['tone', 'mode', 'style', 'styleConfig'].includes(key)) {
+        acc[key] = value;
+      }
+      return acc;
+    },
+    {}
+  );
+
+  /**
    * Local / Instance level styles
    * DefaultStyle will apply to the next level in the hierarchy
    */
@@ -597,6 +613,13 @@ export const generateComponentStyleSource = ({
     removeEmptyObjects(colorParser({ theme }, solution)) || {},
     alias
   );
+
+  // Pass properties to final object
+  if (Object.keys(props).length) {
+    Object.keys(final).forEach(key => {
+      final[key].props = props;
+    });
+  }
 
   const cleanObj = createSharedReferences(final);
 

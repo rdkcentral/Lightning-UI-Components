@@ -44,7 +44,7 @@ jest.mock('./utils', () => ({
   }
 }));
 
-jest.mock('../../utils', () => ({
+jest.mock('./utils', () => ({
   clone: jest.fn(),
   getValFromObjPath: jest.fn(),
   getHexColor: jest.fn()
