@@ -41,8 +41,12 @@ function getPropertyDescriptor(name, key) {
           value = changeHandler.call(this, value);
         }
         const newValue = key === 'style' ? clone(this[key], value) : value;
-        
-        if (typeof this[key] === 'object' && this[key] !== null && this[key].style) {
+
+        if (
+          typeof this[key] === 'object' &&
+          this[key] !== null &&
+          this[key].style
+        ) {
           const style = clone(this[key].style, value.style || {});
           newValue.style = style;
         }

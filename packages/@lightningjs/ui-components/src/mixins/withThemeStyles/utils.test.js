@@ -28,7 +28,6 @@ import log from '../../globals/context/logger';
 
 import { jest } from '@jest/globals';
 
-// Mock other function calls
 jest.mock('./utils', () => ({
   ...jest.requireActual('./utils'),
   executeWithContextRecursive: jest.fn(),
@@ -38,16 +37,7 @@ jest.mock('./utils', () => ({
   getValFromObjPath: jest.fn(),
   removeEmptyObjects: jest.fn(),
   getHexColor: jest.fn(),
-  colorParser: jest.fn(),
-  log: {
-    warn: jest.fn()
-  }
-}));
-
-jest.mock('./utils', () => ({
-  clone: jest.fn(),
-  getValFromObjPath: jest.fn(),
-  getHexColor: jest.fn()
+  colorParser: jest.fn()
 }));
 
 jest.mock('../../globals/context/logger', () => ({
@@ -1147,10 +1137,116 @@ describe('generateComponentStyleSource', () => {
       disabled_inverse: { color: 'primary' },
       disabled_brand: { color: 'primary' }
     });
+  });
 
-    /**
-     * TODO: Add more tests for the following: deep merge, alias, etc.
-     */
+  it('will provide props that are available in the componentConfig', () => {
+    const source = generateComponentStyleSource({
+      componentConfig: {
+        prop1: 'string1',
+        prop2: 'string2',
+        prop3: {
+          prop4: 'string4'
+        },
+        style: {
+          base: {
+            color: 'primary'
+          }
+        }
+      }
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      unfocused_inverse: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      unfocused_brand: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      focused_neutral: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      focused_inverse: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      focused_brand: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      disabled_neutral: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      disabled_inverse: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      },
+      disabled_brand: {
+        color: 'primary',
+        props: {
+          prop1: 'string1',
+          prop2: 'string2',
+          prop3: {
+            prop4: 'string4'
+          }
+        }
+      }
+    });
   });
 });
 
@@ -1159,7 +1255,7 @@ describe('colorParser', () => {
     const targetObject = {
       theme: {
         radius: {
-          md: '10px'
+          md: '10'
         }
       }
     };
@@ -1172,7 +1268,7 @@ describe('colorParser', () => {
     const result = colorParser(targetObject, styleObj);
 
     const expectedOutput = {
-      backgroundColor: '10px',
+      backgroundColor: '10',
       borderColor: 4284887961
     };
 
@@ -1221,7 +1317,7 @@ describe('generateStyle', () => {
 
     const componentStyleSource = {
       focused_brand: {
-        fontSize: '20px',
+        fontSize: '20',
         color: 'blue'
       }
     };
@@ -1229,7 +1325,7 @@ describe('generateStyle', () => {
     const generatedStyle = generateStyle(component, componentStyleSource);
 
     const expectedStyle = {
-      fontSize: '20px',
+      fontSize: '20',
       color: 'blue'
     };
 
@@ -1241,7 +1337,7 @@ describe('generateStyle', () => {
 
     const componentStyleSource = {
       unfocused_neutral: {
-        fontSize: '16px',
+        fontSize: '16',
         color: 'black'
       }
     };
@@ -1249,7 +1345,7 @@ describe('generateStyle', () => {
     const generatedStyle = generateStyle(component, componentStyleSource);
 
     const expectedStyle = {
-      fontSize: '16px',
+      fontSize: '16',
       color: 'black'
     };
 
@@ -1261,12 +1357,11 @@ describe('generateStyle', () => {
       mode: 'focused',
       tone: 'brand',
       _componentLevelStyle: {
-        fontSize: '24px'
+        fontSize: '24'
       },
       constructor: {
         aliasStyles: [
-          { prev: 'fontSize', curr: 'fs' }
-          // Add more alias styles if needed
+          { prev: 'fontSize', curr: 'fs' } // Alias style
         ]
       }
     };
@@ -1280,7 +1375,7 @@ describe('generateStyle', () => {
     const generatedStyle = generateStyle(component, componentStyleSource);
 
     const expectedStyle = {
-      fs: '24px', // Alias style applied
+      fs: '24', // Alias style applied
       color: 'red'
     };
 
@@ -1292,7 +1387,7 @@ describe('generateStyle', () => {
 
     const componentStyleSource = {
       focused_brand: {
-        fontSize: '20px'
+        fontSize: '20'
       }
     };
 
@@ -1371,7 +1466,7 @@ describe('getStyleChainMemoized', () => {
     const component = {
       constructor: {
         __themeStyle: {
-          fontSize: '16px',
+          fontSize: '16',
           color: 'blue'
         }
       }
@@ -1387,7 +1482,7 @@ describe('getStyleChainMemoized', () => {
     class Component1 {
       static get __themeStyle() {
         return {
-          fontSize: '16px',
+          fontSize: '16',
           color: 'blue'
         };
       }
@@ -1400,7 +1495,7 @@ describe('getStyleChainMemoized', () => {
     class Component2 {
       static get __themeStyle() {
         return {
-          fontSize: '20px',
+          fontSize: '20',
           color: 'red'
         };
       }
@@ -1495,7 +1590,7 @@ describe('getStyleChain', () => {
 describe('formatStyleObj', () => {
   it('should format a valid style object', () => {
     const inputStyle = {
-      fontSize: '16px',
+      fontSize: '16',
       color: 'blue'
     };
 
@@ -1558,18 +1653,18 @@ describe('replaceAliasValues', () => {
 
   it('should replace alias values with custom alias styles', () => {
     const styleObject = {
-      paddingX: 20,
-      paddingY: 10
+      maxW: 20,
+      maxH: 10
     };
 
     const aliasStyles = [
-      { prev: 'paddingX', curr: 'px' },
-      { prev: 'paddingY', curr: 'py' }
+      { prev: 'maxW', curr: 'maxWidth' },
+      { prev: 'maxH', curr: 'maxHeight' }
     ];
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 
-    expect(result).toEqual({ px: 20, py: 10 });
+    expect(result).toEqual({ maxWidth: 20, maxHeight: 10 });
   });
 
   it('should throw an error if the value is not an object', () => {

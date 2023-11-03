@@ -19,6 +19,7 @@
 import { clone, getValFromObjPath, getHexColor } from '../../utils';
 import log from '../../globals/context/logger';
 
+const CORE_STYLE_PROPS = ['base', 'tone', 'mode', 'style', 'styleConfig'];
 /**
 Given a character, return its ASCII value multiplied by its position.
  *
@@ -563,16 +564,15 @@ export const generateComponentStyleSource = ({
   };
 
   /**
-   * Filters the componentConfig object to retain only those properties
-   * whose keys start with an uppercase letter. It assumes that keys
-   * starting with uppercase letters indicate sub-components.
+   * Filters the componentConfig object to retain only those properties that are not core style properties.
    *
    * @param {Object} componentConfig - The configuration object for components.
-   * @returns {Object} An object containing only the sub-components from the input.
+   * @returns {Object} An object containing only properties to be applied to the component.
    */
+
   const props = Object.entries(componentConfig || {}).reduce(
     (acc, [key, value]) => {
-      if (!['tone', 'mode', 'style', 'styleConfig'].includes(key)) {
+      if (!CORE_STYLE_PROPS.includes(key)) {
         acc[key] = value;
       }
       return acc;
@@ -616,9 +616,15 @@ export const generateComponentStyleSource = ({
 
   // Pass properties to final object
   if (Object.keys(props).length) {
-    Object.keys(final).forEach(key => {
-      final[key].props = props;
-    });
+    if (Object.keys(final).length) {
+      Object.keys(final).forEach(key => {
+        final[key].props = props;
+      });
+    } else {
+      final['unfocused_neutral'] = {
+        props
+      };
+    }
   }
 
   const cleanObj = createSharedReferences(final);

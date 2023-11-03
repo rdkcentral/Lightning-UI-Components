@@ -72,20 +72,20 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
 
     _updatePropDefaults() {
       // Add support for properties passed through the theme
-      const subComponentOverrides = this.style?.props || {};
+      const componentConfigProps = this._styleManager.props || {};
       if (
-        Object.keys(subComponentOverrides).length &&
+        Object.keys(componentConfigProps).length &&
         this.constructor.properties &&
         this.constructor.properties.length
       ) {
-        Object.keys(this.style.props).forEach(key => {
+        Object.keys(componentConfigProps).forEach(key => {
           if (this.constructor.properties.includes(key)) {
             this[`_${key}`] =
               typeof this[`_${key}`] === 'object' &&
               this[`_${key}`] !== null &&
               !Array.isArray(this[`_${key}`])
-                ? utils.clone(this[`_${key}`] || {}, this.style.props[key])
-                : this.style.props[key];
+                ? utils.clone(this[`_${key}`] || {}, componentConfigProps[key])
+                : componentConfigProps[key];
           }
         });
       }
